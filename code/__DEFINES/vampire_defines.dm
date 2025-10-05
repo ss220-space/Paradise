@@ -6,7 +6,7 @@
 #define SUBCLASS_ANCIENT /datum/vampire_subclass/ancient
 
 /// Base time for bestia sucking cycle, improves with trophies
-#define BESTIA_SUCK_RATE 3 SECONDS
+#define BESTIA_SUCK_RATE (3 SECONDS)
 
 /// The amount of blood a vampire can drain from a person.
 #define BLOOD_DRAIN_LIMIT 100

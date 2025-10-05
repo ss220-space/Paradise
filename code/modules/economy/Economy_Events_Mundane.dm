@@ -133,7 +133,7 @@
 	newMsg.author = EDITOR_GIB
 	//newMsg.is_admin_message = 1
 	var/datum/trade_destination/affected_dest = pick(GLOB.weighted_mundaneevent_locations)
-	newMsg.body = pick(file2list("config/news/trivial.txt"))
+	newMsg.body = pick(world.file2list("strings/news/trivial.txt"))
 	newMsg.body = replacetext(newMsg.body, "{{AFFECTED}}", affected_dest.name)
 
 	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_GIB)?.add_message(newMsg)

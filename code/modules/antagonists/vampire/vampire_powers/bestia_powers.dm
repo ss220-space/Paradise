@@ -5,30 +5,30 @@
 \*======================================================================================================================================*/
 
 /// Max general organs vampire can get
-#define MAX_TROPHIES_PER_TYPE_GENERAL	10
+#define MAX_TROPHIES_PER_TYPE_GENERAL 10
 /// Max critical organs (lungs and heart) vampire can get
-#define MAX_TROPHIES_PER_TYPE_CRITICAL	6
+#define MAX_TROPHIES_PER_TYPE_CRITICAL 6
 
 /// Percent cap for different damage modifiers.
-#define TROPHIES_CAP_PROT_BRUTE			40
-#define TROPHIES_CAP_PROT_BURN			40
-#define TROPHIES_CAP_PROT_OXY			40
-#define TROPHIES_CAP_PROT_TOX			40
-#define TROPHIES_CAP_PROT_BRAIN			40
-#define TROPHIES_CAP_PROT_CLONE			40
-#define TROPHIES_CAP_PROT_STAMINA		40
+#define TROPHIES_CAP_PROT_BRUTE 40
+#define TROPHIES_CAP_PROT_BURN 40
+#define TROPHIES_CAP_PROT_OXY 40
+#define TROPHIES_CAP_PROT_TOX 40
+#define TROPHIES_CAP_PROT_BRAIN 40
+#define TROPHIES_CAP_PROT_CLONE 40
+#define TROPHIES_CAP_PROT_STAMINA 40
 
 /// Max blood cost reduce for spell.
-#define TROPHIES_CAP_BLOOD_REDUCE		20
+#define TROPHIES_CAP_BLOOD_REDUCE 20
 
 /// Amount of trophies required for certain passives.
-#define TROPHIES_EYES_FLASH				2
-#define TROPHIES_EYES_WELDING			4
-#define TROPHIES_EYES_XRAY				8
-#define TROPHIES_EARS_BANG_PROT			4
+#define TROPHIES_EYES_FLASH 2
+#define TROPHIES_EYES_WELDING 4
+#define TROPHIES_EYES_XRAY 8
+#define TROPHIES_EARS_BANG_PROT 4
 
 /// Suck rate increase per trophy.
-#define TROPHIES_SUCK_BONUS		0.2 SECONDS
+#define TROPHIES_SUCK_BONUS (0.2 SECONDS)
 
 
 /*======================================================================================================================================*\

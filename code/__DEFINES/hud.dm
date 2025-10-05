@@ -66,13 +66,13 @@
 
 //data HUD (medhud, sechud) defines
 //Don't forget to update human/New() if you change these!
-#define DATA_HUD_SECURITY_BASIC		1
-#define DATA_HUD_SECURITY_ADVANCED	2
-#define DATA_HUD_MEDICAL_BASIC		3
-#define DATA_HUD_MEDICAL_ADVANCED	4
-#define DATA_HUD_DIAGNOSTIC			5
-#define DATA_HUD_DIAGNOSTIC_ADVANCED	6
-#define DATA_HUD_HYDROPONIC			7
+#define DATA_HUD_SECURITY_BASIC 1
+#define DATA_HUD_SECURITY_ADVANCED 2
+#define DATA_HUD_MEDICAL_BASIC 3
+#define DATA_HUD_MEDICAL_ADVANCED 4
+#define DATA_HUD_DIAGNOSTIC 5
+#define DATA_HUD_DIAGNOSTIC_ADVANCED 6
+#define DATA_HUD_HYDROPONIC 7
 //antag HUD defines
 #define ANTAG_HUD_CULT 8
 #define ANTAG_HUD_CLOCK 9
@@ -86,9 +86,9 @@
 #define ANTAG_HUD_VAMPIRE 17
 #define ANTAG_HUD_ABDUCTOR 18
 #define DATA_HUD_ABDUCTOR 19
-#define ANTAG_HUD_DEVIL			20
-#define ANTAG_HUD_SINTOUCHED	21
-#define ANTAG_HUD_SOULLESS		22
+#define ANTAG_HUD_DEVIL 20
+#define ANTAG_HUD_SINTOUCHED 21
+#define ANTAG_HUD_SOULLESS 22
 #define ANTAG_HUD_EVENTMISC 23
 #define ANTAG_HUD_BLOB 24
 #define TAIPAN_HUD 25
@@ -107,7 +107,7 @@
 #define NOTIFY_FOLLOW "orbit"
 
 // Icon_state for MEDICAL_HUD
-#define STATUS_HUD_DEAD	"huddead"
+#define STATUS_HUD_DEAD "huddead"
 #define STATUS_HUD_DNR "huddeaddnr"
 #define STATUS_HUD_FLATLINE "hudflatline"
 #define STATUS_HUD_XENO "hudxeno"
@@ -122,13 +122,13 @@
 
 // The kind of things granted by HUD items in game, that do not manifest as
 // on-screen icons, but rather go to examine text.
-#define EXAMINE_HUD_NONE					0		//"none"
-#define EXAMINE_HUD_SECURITY_READ			(1<<0)	//"security_read"
-#define EXAMINE_HUD_SECURITY_WRITE			(1<<1)	//"security_write"
-#define EXAMINE_HUD_MEDICAL					(1<<2)	//"medical"
-#define EXAMINE_HUD_SKILLS					(1<<3)	//"skills"
-#define EXAMINE_HUD_BOTANY					(1<<4)	//"botany"
-#define EXAMINE_HUD_SCIENCE					(1<<5)  //"science"
+#define EXAMINE_HUD_NONE 0 //"none"
+#define EXAMINE_HUD_SECURITY_READ (1<<0) //"security_read"
+#define EXAMINE_HUD_SECURITY_WRITE (1<<1) //"security_write"
+#define EXAMINE_HUD_MEDICAL (1<<2) //"medical"
+#define EXAMINE_HUD_SKILLS (1<<3) //"skills"
+#define EXAMINE_HUD_BOTANY (1<<4) //"botany"
+#define EXAMINE_HUD_SCIENCE (1<<5) //"science"
 
 
 // Consider these images/atoms as part of the UI/HUD (apart of the appearance_flags)

@@ -1723,6 +1723,7 @@
 #include "code\modules\admin\topic.dm"
 #include "code\modules\admin\watchlist.dm"
 #include "code\modules\admin\db_ban\functions.dm"
+#include "code\modules\admin\permissionverbs\new_permissions_edit.dm"
 #include "code\modules\admin\permissionverbs\permissionedit.dm"
 #include "code\modules\admin\polls\player_poll.dm"
 #include "code\modules\admin\polls\poll_db.dm"

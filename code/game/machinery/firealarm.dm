@@ -4,9 +4,9 @@ FIRE ALARM
 
 GLOBAL_LIST_EMPTY(firealarms)
 
-#define FIRE_ALARM_FRAME	0
-#define FIRE_ALARM_UNWIRED	1
-#define FIRE_ALARM_READY	2
+#define FIRE_ALARM_FRAME 0
+#define FIRE_ALARM_UNWIRED 1
+#define FIRE_ALARM_READY 2
 
 /obj/machinery/firealarm
 	name = "fire alarm"

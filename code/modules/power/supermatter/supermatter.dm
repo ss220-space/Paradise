@@ -108,7 +108,7 @@
 	//Having the SM run at a different rate then atmospherics causes odd behavior.
 	SSair.atmos_machinery += src
 	radio = new(src)
-	radio.set_listening(FALSE)
+	radio.become_speaker_only(PUB_FREQ)
 	radio.follow_target = src
 	investigate_log("has been created.", INVESTIGATE_ENGINE)
 	supermatter_explosive_effects = new()
@@ -172,7 +172,7 @@
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Дестабилизация: [stability]%", name, null)
+				radio.autosay("[emergency_alert] Дестабилизация: [stability]%", name, HEADSET_FREQ_NAME)
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINE)
@@ -180,11 +180,11 @@
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Дестабилизация: [stability]%", name)
+				radio.autosay("[warning_alert] Дестабилизация: [stability]%", name, HEADSET_FREQ_NAME)
 				lastwarning = world.timeofday - 150
 
 			else                                                 // Phew, we're safe
-				radio.autosay("[safe_alert]", name)
+				radio.autosay("[safe_alert]", name, HEADSET_FREQ_NAME)
 				emergency_lighting(0)
 				lastwarning = world.timeofday
 
