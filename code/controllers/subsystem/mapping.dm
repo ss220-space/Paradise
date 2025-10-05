@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(mapping)
 	if(map_datum) // Dont do this again if we are recovering
 		return
 	if(fexists("data/next_map.txt"))
-		var/list/lines = file2list("data/next_map.txt")
+		var/list/lines = world.file2list("data/next_map.txt")
 		// Check its valid
 		try
 			map_datum = text2path(lines[1])

@@ -126,7 +126,7 @@
 	elevating_to_announcement_text = "Центральным командованием был установлен код Эпсилон. Все контракты считаются расторгнутыми."
 
 /datum/security_level/epsilon/pre_change()
-	sound_to_playing_players_on_station_level(sound = sound('sound/effects/powerloss.ogg'))
+	sound_to_playing_players_on_station_level(sound_to_use = sound('sound/effects/powerloss.ogg'))
 
 /**
  * MARK: DELTA

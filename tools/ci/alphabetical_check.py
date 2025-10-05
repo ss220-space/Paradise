@@ -1,142 +1,144 @@
 import os
 import sys
 from collections import namedtuple
+from pathlib import Path
 
 Failure = namedtuple("Failure", ["filename", "lineno", "message"])
 
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
 BLUE = "\033[0;34m"
-NC = "\033[0m" # No Color
+NC = "\033[0m"
 
 START_MARKER = "// START OF ALPHABETICAL SORTING"
 END_MARKER = "// END OF ALPHABETICAL SORTING"
 
-# List of files that should contain sort markers
 REQUIRED_FILES = [
-    "code/modules/mob/transform_procs.dm",
     "code/modules/unit_tests/_unit_tests.dm",
+    "code/_globalvars/lists/names.dm",
 ]
 
-def print_error(message: str, filename: str = None, line_number: int = None):
+def find_txt_files(directory):
+    """Find all .txt files in directory and subdirectories using pathlib."""
+    if not os.path.exists(directory):
+        return []
+    return [str(p) for p in Path(directory).rglob("*.txt")]
+
+def print_error(message, filename=None, line_number=None):
+    """Print error with GitHub Actions formatting support."""
     if os.getenv("GITHUB_ACTIONS") == "true":
-        if filename and line_number:
-            print(f"::error file={filename},line={line_number},title=Alphabetical Sort Check::{message}")
-        elif filename:
-            print(f"::error file={filename},title=Alphabetical Sort Check::{message}")
-        else:
-            print(f"::error title=Alphabetical Sort Check::{message}")
+        location = f"file={filename},line={line_number}" if filename and line_number else f"file={filename}" if filename else ""
+        print(f"::error {location},title=Alphabetical Sort Check::{message}")
     else:
-        if filename and line_number:
-            print(f"{filename}:{line_number}: {RED}{message}{NC}")
-        elif filename:
-            print(f"{filename}: {RED}{message}{NC}")
-        else:
-            print(f"{RED}{message}{NC}")
+        location = f"{filename}:{line_number}:" if filename and line_number else f"{filename}:" if filename else ""
+        print(f"{location} {RED}{message}{NC}")
 
-def check_markers_presence(filename: str) -> list[Failure]:
-    """Checks for the presence of START and END markers in a file."""
-    failures = []
-
+def get_file_content_lines(filename):
+    """Read file and return lines with error handling."""
     if not os.path.isfile(filename):
-        return [Failure(filename, 0, f"File not found: {filename}")]
+        return None, [Failure(filename, 0, f"File not found: {filename}")]
 
-    with open(filename, 'r', encoding='utf-8') as file:
-        content = file.read()
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            return file.readlines(), []
+    except Exception as e:
+        return None, [Failure(filename, 0, f"Error reading file: {e}")]
 
-    has_start = START_MARKER in content
-    has_end = END_MARKER in content
-
-    if not has_start:
-        failures.append(Failure(filename, 0, f"Missing required marker: {START_MARKER}"))
-    if not has_end:
-        failures.append(Failure(filename, 0, f"Missing required marker: {END_MARKER}"))
-
-    return failures
-
-def check_alphabetical_sort(filename: str) -> list[Failure]:
-    """Checks the alphabetical sorting of the file between the START and END markers."""
-    failures = []
-
-    if not os.path.isfile(filename):
-        return [Failure(filename, 0, f"File not found: {filename}")]
-
-    with open(filename, 'r', encoding='utf-8') as file:
-        lines = file.readlines()
-
+def extract_marker_block(lines):
+    """Extract lines between START and END markers."""
     inside_block = False
     block_lines = []
     block_line_numbers = []
+    failures = []
 
-    # Collect lines between markers
     for i, line in enumerate(lines, 1):
         stripped_line = line.strip()
 
         if START_MARKER in stripped_line:
             if inside_block:
-                failures.append(Failure(filename, i, "Found nested start marker"))
+                failures.append(Failure(None, i, "Found nested start marker"))
             inside_block = True
             continue
 
         if END_MARKER in stripped_line:
             if not inside_block:
-                failures.append(Failure(filename, i, "Found end marker without start marker"))
+                failures.append(Failure(None, i, "Found end marker without start marker"))
             else:
                 inside_block = False
             continue
 
-        if inside_block:
-            # Ignore empty lines and comments inside the block
-            if stripped_line and not stripped_line.startswith("//"):
-                block_lines.append(stripped_line)
-                block_line_numbers.append(i)
+        if inside_block and stripped_line and not stripped_line.startswith("//"):
+            block_lines.append(stripped_line)
+            block_line_numbers.append(i)
 
-    # If we are still inside the block at the end of the file, it is an error
     if inside_block:
-        failures.append(Failure(filename, len(lines), "Unclosed alphabetical sorting block - missing end marker"))
+        failures.append(Failure(None, len(lines), "Unclosed alphabetical sorting block"))
 
-    # Check the sorting of the collected lines
-    if block_lines and not failures:
-        sorted_lines = sorted(block_lines, key=str.lower)
+    return block_lines, block_line_numbers, failures
 
-        if block_lines != sorted_lines:
-            # Find the first line that breaks the order
-            for j in range(min(len(block_lines), len(sorted_lines))):
-                if block_lines[j].lower() != sorted_lines[j].lower():
-                    failures.append(Failure(
-                        filename,
-                        block_line_numbers[j],
-                        f"Alphabetical ordering violation: '{block_lines[j]}' should come after '{sorted_lines[j-1] if j > 0 else '...'}'"
-                    ))
-                    break
-            else:
-                # If all lines up to the min length are the same, but the lengths are different
-                if len(block_lines) > len(sorted_lines):
-                    failures.append(Failure(
-                        filename,
-                        block_line_numbers[len(sorted_lines)],
-                        "Alphabetical ordering violation: extra line at the end of block"
-                    ))
+def extract_all_content(lines):
+    """Extract all non-empty, non-comment lines."""
+    content_lines = []
+    content_line_numbers = []
+
+    for i, line in enumerate(lines, 1):
+        stripped_line = line.strip()
+        if stripped_line and not stripped_line.startswith(("//", "#")):
+            content_lines.append(stripped_line)
+            content_line_numbers.append(i)
+
+    return content_lines, content_line_numbers
+
+def check_sorting(block_lines, line_numbers, filename):
+    """Check if lines are alphabetically sorted."""
+    if not block_lines:
+        return []
+
+    sorted_lines = sorted(block_lines, key=str.lower)
+    if block_lines == sorted_lines:
+        return []
+
+    # Find first mismatch
+    for i, (current, expected) in enumerate(zip(block_lines, sorted_lines)):
+        if current.lower() != expected.lower():
+            prev_line = sorted_lines[i-1] if i > 0 else '...'
+            return [Failure(
+                filename,
+                line_numbers[i],
+                f"Alphabetical ordering violation: '{current}' should come after '{prev_line}'"
+            )]
+
+    return [Failure(filename, line_numbers[len(sorted_lines)], "Extra line at end of block")]
+
+def check_file_alphabetical(filename, use_markers=True):
+    """Check alphabetical sorting of file content."""
+    lines, failures = get_file_content_lines(filename)
+    if failures:
+        return failures
+
+    if use_markers:
+        block_lines, line_numbers, marker_failures = extract_marker_block(lines)
+        failures.extend(f for f in marker_failures if f.filename is not None)
+        # Update filename for marker failures
+        marker_failures = [Failure(filename, f.lineno, f.message) for f in marker_failures if f.filename is None]
+        failures.extend(marker_failures)
+    else:
+        block_lines, line_numbers = extract_all_content(lines)
+
+    if not failures:
+        failures.extend(check_sorting(block_lines, line_numbers, filename))
 
     return failures
 
 def main():
-    # First, we check the required files for markers
-    marker_failures = []
-    for required_file in REQUIRED_FILES:
-        marker_failures.extend(check_markers_presence(required_file))
+    strings_dir = "strings/"
+    strings_txt_files = find_txt_files(strings_dir)
 
-    if marker_failures:
-        for failure in marker_failures:
-            print_error(failure.message, failure.filename, failure.lineno)
+    if not strings_txt_files:
+        print(f"{BLUE}Note: No .txt files found in '{strings_dir}'{NC}")
 
-        print_error("Some required files are missing alphabetical sorting markers!")
-        sys.exit(1)
-
-    if len(sys.argv) > 1:
-        files_to_check = sys.argv[1:]
-    else:
-        files_to_check = REQUIRED_FILES
+    # Determine files to check
+    files_to_check = sys.argv[1:] if len(sys.argv) > 1 else REQUIRED_FILES + strings_txt_files
 
     all_failures = []
     checked_files = []
@@ -147,21 +149,31 @@ def main():
             continue
 
         checked_files.append(file_to_check)
-        sort_failures = check_alphabetical_sort(file_to_check)
-        all_failures.extend(sort_failures)
 
+        # Use markerless check for .txt files in strings directory
+        use_markers = file_to_check not in strings_txt_files
+        failures = check_file_alphabetical(file_to_check, use_markers)
+        all_failures.extend(failures)
+
+    # Report results
     if all_failures:
         for failure in all_failures:
             print_error(failure.message, failure.filename, failure.lineno)
 
         print_error(f"Found {len(all_failures)} alphabetical sorting violation(s)!")
-        print_error("Please ensure all lines between // START OF ALPHABETICAL SORTING and // END OF ALPHABETICAL SORTING are properly sorted!")
+
+        if any(f.filename in strings_txt_files for f in all_failures):
+            print_error("Please ensure all .txt files in strings/ directory are properly sorted!")
+        if any(f.filename not in strings_txt_files for f in all_failures):
+            print_error("Please ensure all lines between sort markers are properly sorted!")
+
         sys.exit(1)
     else:
-        print(f"{GREEN}All alphabetical sorting blocks are properly sorted in {len(checked_files)} file(s)!{NC}")
-        print(f"{BLUE}Checked files:{NC}")
-        for checked_file in checked_files:
-            print(f"    - {checked_file}")
+        print(f"{GREEN}All files are properly sorted!{NC}")
+        print(f"{BLUE}Checked {len(checked_files)} files.{NC}")
+        #for checked_file in checked_files:
+        #    check_type = "full file" if checked_file in strings_txt_files else "marker-based"
+        #    print(f"  - {checked_file} ({check_type} check)")
 
 if __name__ == "__main__":
     main()

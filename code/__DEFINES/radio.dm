@@ -110,6 +110,7 @@
 
 #define SPEC_FREQ_NAME "Cпециальный"
 #define DEPARTMENT_FREQ_NAME "Отдел"
+#define HEADSET_FREQ_NAME "Наушник"
 
 
 ///give this to can_receive to specify that there is no restriction on what z level this signal is sent to

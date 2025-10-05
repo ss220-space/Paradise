@@ -91,8 +91,8 @@ SUBSYSTEM_DEF(ticker)
 	if(!login_music)
 		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
 
-	randomtips = file2list("strings/tips.txt")
-	memetips = file2list("strings/sillytips.txt")
+	randomtips = world.file2list("strings/tips.txt")
+	memetips = world.file2list("strings/sillytips.txt")
 	return SS_INIT_SUCCESS
 
 
