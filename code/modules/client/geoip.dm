@@ -1,3 +1,6 @@
+GLOBAL_LIST_INIT(isp_blacklist, world.file2list("config/isp/isp_blacklist.txt"))
+GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
+
 /datum/geoip_data
 	var/holder = null
 	var/status = null

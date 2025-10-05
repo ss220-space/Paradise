@@ -270,10 +270,7 @@
 	if(isnymph(passed_mob) && !jobban_isbanned(src, ROLE_NYMPH))
 		return TRUE
 
-	// Sort in alphabetical order, please!
-	// Use the website if you can't do it yourself. https://spiskin.ru/scripts/sort_alphabet
 	var/static/list/safe_respawn_typecache_whitelist = typecacheof(list(
-		// START OF ALPHABETICAL SORTING
 		/mob/living/carbon/human/lesser/monkey/punpun,
 		/mob/living/simple_animal/butterfly,
 		/mob/living/simple_animal/chick,
@@ -299,7 +296,6 @@
 		/mob/living/simple_animal/pig,
 		/mob/living/simple_animal/possum,
 		/mob/living/simple_animal/turkey,
-		// END OF ALPHABETICAL SORTING
 	))
 
 	// Blacklist typecache.

@@ -2,7 +2,6 @@
  * Holds procs designed to change one type of value, into another.
  * Contains:
  *			file2list
- *			file2list
  *			angle2dir
  *			angle2text
  *			worldtime2text
@@ -41,23 +40,6 @@
 	for(var/x in splittext(text, delimiter))
 		num_list += text2num(x)
 	return num_list
-
-/// Splits the text of a file at seperator and returns them in a list.
-/proc/file2list(filename, seperator="\n", trim = TRUE)
-	if(trim)
-		return splittext(trim(return_file_text(filename)),seperator)
-	return splittext(return_file_text(filename),seperator)
-
-
-/// Turns a direction into text
-/proc/num2dir(direction)
-	switch(direction)
-		if(1.0) return NORTH
-		if(2.0) return SOUTH
-		if(4.0) return EAST
-		if(8.0) return WEST
-		else
-			log_runtime(EXCEPTION("UNKNOWN DIRECTION: [direction]"))
 
 /proc/dir2text(direction)
 	switch(direction)
@@ -235,6 +217,28 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
 	if(rights & R_SKINS)		. += "[seperator]+SKINS"
+	return .
+
+/proc/rights2text_tgui(rights)
+	. = list()
+	if(rights & R_BUILDMODE)	. += R_BUILDMODE_NAME
+	if(rights & R_ADMIN)		. += R_ADMIN_NAME
+	if(rights & R_BAN)			. += R_BAN_NAME
+	if(rights & R_EVENT)		. += R_EVENT_NAME
+	if(rights & R_SERVER)		. += R_SERVER_NAME
+	if(rights & R_DEBUG)		. += R_DEBUG_NAME
+	if(rights & R_POSSESS)		. += R_POSSESS_NAME
+	if(rights & R_PERMISSIONS)	. += R_PERMISSIONS_NAME
+	if(rights & R_STEALTH)		. += R_STEALTH_NAME
+	if(rights & R_REJUVINATE)	. += R_REJUVINATE_NAME
+	if(rights & R_VAREDIT)		. += R_VAREDIT_NAME
+	if(rights & R_SOUNDS)		. += R_SOUNDS_NAME
+	if(rights & R_SPAWN)		. += R_SPAWN_NAME
+	if(rights & R_PROCCALL)		. += R_PROCCALL_NAME
+	if(rights & R_MOD)			. += R_MOD_NAME
+	if(rights & R_MENTOR)		. += R_MENTOR_NAME
+	if(rights & R_VIEWRUNTIMES)	. += R_VIEWRUNTIMES_NAME
+	if(rights & R_SKINS)		. += R_SKINS_NAME
 	return .
 
 /proc/ui_style2icon(ui_style)
