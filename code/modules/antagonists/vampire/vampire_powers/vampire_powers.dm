@@ -387,11 +387,6 @@
 
 /obj/effect/proc_holder/spell/vampire/raise_free_vampire/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/victim = targets[1]
-
-	if(!can_raise_vampire(user, victim))
-		revert_cast(user)
-		return
-
 	to_chat(user, span_warning("Вы направляете поток блюспейс энергии в тело [victim], запуская необратимый процесс мутации!"))
 	playsound(user, 'sound/magic/wandodeath.ogg', 70, TRUE)
 	user.Beam(victim, "sendbeam", 'icons/effects/effects.dmi', time = 3 SECONDS, maxdistance = 7, beam_type = /obj/effect/ebeam)
@@ -404,7 +399,7 @@
 	victim.mind.make_free_vampire()
 
 
-/obj/effect/proc_holder/spell/vampire/raise_free_vampire/proc/can_raise_vampire(mob/living/carbon/human/user, mob/living/carbon/human/victim)
+/obj/effect/proc_holder/spell/vampire/raise_free_vampire/valid_target(mob/living/carbon/human/victim, mob/living/carbon/human/user)
 	if(!istype(victim))
 		user.balloon_alert(user, "цель не гуманоид!")
 		return FALSE
