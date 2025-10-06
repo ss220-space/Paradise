@@ -12523,6 +12523,7 @@
 	dir = 4;
 	name = "EVA Equipment"
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -106080,15 +106081,6 @@
 /turf/space,
 /area/space)
 "txa" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -121966,6 +121958,9 @@
 /obj/machinery/door/window/southright{
 	dir = 4;
 	name = "EVA Equipment"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

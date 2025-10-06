@@ -20026,13 +20026,6 @@
 	icon_state = "caution"
 	},
 /area/atmos/control)
-"cRP" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/storage/eva)
 "cRQ" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -93812,6 +93805,9 @@
 /obj/machinery/door/window/southright{
 	dir = 4;
 	name = "EVA Equipment"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -260529,7 +260525,7 @@ bkc
 bkc
 gJw
 gJw
-cRP
+dzA
 nPe
 kJD
 piG
