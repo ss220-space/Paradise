@@ -82,9 +82,9 @@ SUBSYSTEM_DEF(custom_item)
 
 /datum/custom_item_datum/proc/validate_icon(icon/new_icon, mob/user)
 	var/check_list = icon_states(new_icon)
-	if(!icon_states.len || icon_states.len > 1)
+	if(!length(check_list) || length(check_list) > 1)
 		return FALSE
-	if(icon_states[1] != user.ckey)
+	if(ckey(check_list[1]) != ckey(user.ckey))
 		return FALSE
 	if((new_icon.Width() != 32) || (new_icon.Height() != 32))
 		return FALSE
@@ -92,7 +92,7 @@ SUBSYSTEM_DEF(custom_item)
 	return TRUE
 
 /datum/custom_item_datum/proc/get_custom_dmi(mob/user, datum/custom_holder/holder)
-	var/list/choosen_sprite_types = necessary_icon_states.Copy()
+	var/list/choosen_sprite_types = necessary_sprite_types.Copy()
 	var/optional_num = LAZYLEN(optional_sprite_types)
 	if(optional_num)
 		if(optional_num == optional_min_num)
@@ -110,14 +110,14 @@ SUBSYSTEM_DEF(custom_item)
 			to_chat(user, "Bad sprite file: [sprite]")
 			return FALSE
 
-		var/icon/new_icon = new(sprite)
+		var/icon/new_icon = icon(sprite)
 
-		if(!validate_icon(new_icon))
+		if(!validate_icon(new_icon, user))
 			to_chat(user, "Bad sprite file: [sprite]")
 			qdel(new_icon)
 			return FALSE
 
-		holder.icons[sprite_type] = new_icon
+		LAZYADDASSOC(holder.icons, sprite_type, new_icon)
 
 	return TRUE
 
@@ -128,17 +128,24 @@ SUBSYSTEM_DEF(custom_item)
 	item_name = new_name
 	item_icon = new_icon
 
+/datum/custom_item_datum/plushie
+	name = "plushie"
+	necessary_sprite_types = list("base", "inhand_l", "inhand_r")
+	base_item = /obj/item/toy/plushie/custom
+
 /datum/custom_holder
 	var/name
 	var/desc
+	var/ckey
 	var/custom_type
 	var/list/icons
 
-/datum/custom_item_datum/plushie
-	name = "plushie"
-	possible_icon_states = list("plushie")
-	necessary_icon_states = list("plushie")
-	base_item = /obj/item/toy/plushie/custom
+/datum/custom_holder/New(name, desc, ckey, custom_type)
+	. = ..()
+	src.name = name
+	src.desc = desc
+	src.ckey = ckey
+	src.custom_type = custom_type
 
 /obj/item/toy/plushie/custom
 	name = "custom"

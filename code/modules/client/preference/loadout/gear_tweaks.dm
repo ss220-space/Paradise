@@ -179,22 +179,19 @@
 GLOBAL_LIST_EMPTY(temp_custom_holders)
 
 /datum/gear_tweak/custom/get_metadata(mob/user, metadata)
-	var/datum/custom_holder/holder = new
-
 	var/custom_type = tgui_input_list(user, "Выберите тип кастома.", "Кастом", GLOB.custom_item_datums)
 	if(!custom_type)
 		return
-	holder.type = custom_type
 
 	var/custom_name = tgui_input_text(user, "Выберите название предмета.", "Название", max_length = 32)
 	if(!custom_name)
 		return
-	holder.name = custom_name
 
 	var/custom_desc = tgui_input_text(user, "Напишите описание предмета.", "Описание", max_length = 64)
 	if(!custom_desc)
 		return
-	holder.desc = custom_desc
+
+	var/datum/custom_holder/holder = new(custom_name, custom_desc, user.ckey, custom_type)
 
 	var/datum/custom_item_datum/custom = GLOB.custom_item_datums[custom_type]
 	custom.get_custom_dmi(user, holder)

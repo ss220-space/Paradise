@@ -9,7 +9,6 @@
 // END_FILE_DIR
 // BEGIN_PREFERENCES
 #define DEBUG
-#define MULTIINSTANCE
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "__odlint.dm"
@@ -1706,6 +1705,7 @@
 #include "code\modules\admin\create_mob.dm"
 #include "code\modules\admin\create_object.dm"
 #include "code\modules\admin\create_turf.dm"
+#include "code\modules\admin\custom_allow.dm"
 #include "code\modules\admin\holder2.dm"
 #include "code\modules\admin\ipintel.dm"
 #include "code\modules\admin\IsBanned.dm"

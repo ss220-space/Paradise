@@ -19,6 +19,10 @@
 	var/atom/movable/screen/map_view/ui_view
 	/// Atom ref witch we use to show image to user
 	var/atom/movable/manequien
+	///
+	var/datum/custom_holder/choosen_holder
+	///
+	var/choosen_icon
 
 /datum/custom_allower/New()
 	. = ..()
@@ -28,24 +32,38 @@
 /datum/custom_allower/ui_data(mob/user)
 	var/list/data = list()
 	data["ckeys"] = GLOB.temp_custom_holders
-	ui_view.appearance = appearance
+	if(manequien)
+		ui_view.appearance = manequien.appearance
 	data["custom_view"] = ui_view.assigned_map
-	var/datum/custom_holder/holder = GLOB.temp_custom_holders?[choosen_ckey]
-	data["name"] = holder ? holder.name : ""
-	data["desc"] = holder ? holder.desc : ""
+	data["sprite_types"] = choosen_holder ? choosen_holder.icons : list()
+	data["name"] = choosen_holder ? choosen_holder.name : ""
+	data["desc"] = choosen_holder ? choosen_holder.desc : ""
+	return data
 
 /datum/custom_allower/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(!check_rights(NONE))
 		return
+	switch(action)
+		if("select_user")
+			var/choosen_ckey = params["ckey"]
+			if(!LAZYIN(GLOB.temp_custom_holders, choosen_ckey))
+				return
+			choosen_holder = GLOB.temp_custom_holders[choosen_ckey]
+			choosen_icon = choosen_holder.icons[1]
+			make_manequien()
+		if("select_icon")
+			var/choosen_icon = params["icon_name"]
+			choosen_icon = choosen_holder.icons[choosen_icon]
+			make_manequien()
 
 /datum/custom_allower/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 
 	if(!ui)
 		ui = new(user, src, "CustomAllower", title)
-		ui.set_autoupdate(FALSE)
+		ui.set_autoupdate(TRUE)
 		ui_view.display_to(user, ui.window)
 		ui.open()
 
@@ -58,3 +76,28 @@
 
 /datum/custom_allower/ui_state(mob/user)
 	return GLOB.admin_state
+
+/datum/custom_allower/proc/make_manequien()
+	if(!choosen_holder || !choosen_icon)
+		return
+	qdel(manequien)
+	switch(choosen_icon)
+		if("base")
+			ui_view	.icon = choosen_holder.icons[choosen_icon]
+			ui_view	.icon_state = choosen_holder.ckey
+			manequien = null
+		if("inhand_l")
+			var/mob/living/carbon/human/human_to_show = new(usr.loc)
+			var/obj/item/thing = new
+			thing.lefthand_file = choosen_holder.icons[choosen_icon]
+			thing.item_state = choosen_holder.ckey
+			human_to_show.put_in_l_hand(thing, TRUE, TRUE, TRUE)
+			manequien = human_to_show
+		if("inhand_r")
+			var/mob/living/carbon/human/human_to_show = new(usr.loc)
+			var/obj/item/thing = new
+			thing.lefthand_file = choosen_holder.icons[choosen_icon]
+			thing.item_state = choosen_holder.ckey
+			human_to_show.put_in_r_hand(thing, TRUE, TRUE, TRUE)
+			manequien = human_to_show
+
