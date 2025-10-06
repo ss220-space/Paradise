@@ -270,8 +270,8 @@
 	if(isnymph(passed_mob) && !jobban_isbanned(src, ROLE_NYMPH))
 		return TRUE
 
-	// Whitelist typecache. Alphabetical order please!
 	var/static/list/safe_respawn_typecache_whitelist = typecacheof(list(
+		/mob/living/carbon/human/lesser/monkey/punpun,
 		/mob/living/simple_animal/butterfly,
 		/mob/living/simple_animal/chick,
 		/mob/living/simple_animal/chicken,
@@ -282,8 +282,8 @@
 		/mob/living/simple_animal/goose,
 		/mob/living/simple_animal/hostile/gorilla/cargo_domestic,
 		/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge,
-		/mob/living/simple_animal/mouse/wooly,
 		/mob/living/simple_animal/mouse/rat,
+		/mob/living/simple_animal/mouse/wooly,
 		/mob/living/simple_animal/parrot,
 		/mob/living/simple_animal/pet/cat,
 		/mob/living/simple_animal/pet/dog/corgi,
@@ -296,7 +296,6 @@
 		/mob/living/simple_animal/pig,
 		/mob/living/simple_animal/possum,
 		/mob/living/simple_animal/turkey,
-		/mob/living/carbon/human/lesser/monkey/punpun,
 	))
 
 	// Blacklist typecache.

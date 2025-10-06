@@ -8,14 +8,11 @@
 	desc = "Отвратительная пульсирующая масса плоти."
 	speak_emote = list("булькает", "клокочет")
 	emote_hear = list("булькает", "клокочет")
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
 	speed = 1.5
-	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
@@ -25,7 +22,6 @@
 
 	maxHealth = 150
 	health = 150
-	environment_smash = 1
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -77,10 +73,11 @@
 
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
-		GLOB.major_announcement.announce("Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
-										ANNOUNCE_BIOHAZARD_RU,
-										'sound/AI/commandreport.ogg',
-										new_sound2 = 'sound/effects/siren-spooky.ogg'
+		GLOB.major_announcement.announce(
+			message = "Зафиксированы множественные биоугрозы 6-го уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
+			new_title = ANNOUNCE_BIOHAZARD_RU,
+			new_sound = 'sound/AI/commandreport.ogg',
+			new_sound2 = 'sound/effects/siren-spooky.ogg'
 		)
 		GLOB.morphs_announced = TRUE
 		SSshuttle.emergency.cancel()

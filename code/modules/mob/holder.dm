@@ -75,11 +75,6 @@
 				return
 		M.status_flags &= ~PASSEMOTES
 
-
-//Mob procs and vars for scooping up
-/mob/living
-	var/holder_type = null
-
 /mob/living/simple_animal/MouseDrop(atom/over_object)
 	var/mob/living/carbon/human_to_ask = over_object
 
@@ -102,9 +97,9 @@
 				if(Adjacent(human_to_ask))
 					pick_up_mob(human_to_ask)
 				else
-					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+					to_chat(src, span_warning("You need to stay in reaching distance to be picked up."))
 			if("No")
-				to_chat(src, "<span class='warning'>[human_to_ask] decided not to pick you up.</span>")
+				to_chat(src, span_warning("[human_to_ask] decided not to pick you up."))
 	else
 		return ..()
 
@@ -124,7 +119,7 @@
 		H.desc = desc
 	H.attack_hand(grabber)
 	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
-	to_chat(src, "<span class='notice'>[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас.</span>")
+	to_chat(src, span_notice("[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	switch(mob_size)
@@ -154,7 +149,6 @@
 	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4"
 
 /obj/item/holder/drone/emagged
-	name = "maintenance drone"
 	icon_state = "drone-emagged"
 	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4;syndicate=3"
 
@@ -423,7 +417,6 @@
 /obj/item/holder/possum/poppy
 	name = "poppy"
 	desc = "It's a possum Poppy. Ewwww..."
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "possum_poppy"
 
 /obj/item/holder/frog

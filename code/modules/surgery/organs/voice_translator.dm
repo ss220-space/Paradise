@@ -1,8 +1,8 @@
-#define DEFAULT_CHIP_SLOTS	1
-#define UPGRADE_SLOTS_GREY	2
+#define DEFAULT_CHIP_SLOTS 1
+#define UPGRADE_SLOTS_GREY 2
 
 
-	// TRANSLATORS //
+// TRANSLATORS //
 
 // Translators also fulfil the role of ‘vocal cords’ when there is a TRAIT_NO_VOCAL_CORDS in species inherent traits.
 // With translator any mob can speak even muted, unless being emped.
@@ -341,7 +341,6 @@
 
 /datum/action/item_action/organ_action/translator_select_language
 	name = "Выбрать используемый язык"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "select_language"
 
 
@@ -354,7 +353,6 @@
 
 /datum/action/item_action/organ_action/wingdings_decoder
 	name = "Переключить дешифратор Вингдингс"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "wingdings_off"
 	use_itemicon = FALSE
 

@@ -5,7 +5,6 @@
 	desc = "Sturdy wooden tribune. When you look at it, you want to start making a speech."
 	flags = ON_BORDER
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 	resistance_flags = FLAMMABLE
 	pass_flags_self = PASSGLASS
@@ -32,7 +31,7 @@
 /obj/structure/tribune/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct [src]."))
 		return
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
@@ -99,6 +98,5 @@
 
 /obj/structure/tribune/centcom
 	name = "CentCom tribune"
-	icon = 'icons/obj/tribune.dmi'
 	icon_state = "nt_tribune_cc"
 	desc = "A richly decorated tribune. Just looking at her makes your heart skip a beat."

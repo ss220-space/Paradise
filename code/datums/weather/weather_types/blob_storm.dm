@@ -20,7 +20,6 @@
 
 	area_type = /area
 	protected_areas = list(/area/space, /area/crew_quarters/sleep)
-	target_trait = STATION_LEVEL
 
 	immunity_type = TRAIT_BLOBSTORM_IMMUNE
 
@@ -42,9 +41,10 @@
 
 	..()
 	status_alarm(TRUE)
-	GLOB.major_announcement.announce("Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 

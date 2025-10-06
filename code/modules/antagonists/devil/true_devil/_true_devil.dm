@@ -10,15 +10,11 @@
 	gender = NEUTER
 	health = 400
 	maxHealth = 400
-	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
 	ventcrawler_trait = NONE
-	density = TRUE
-	pass_flags = NONE
 	sight = SEE_TURFS|SEE_OBJS
 	status_flags = CANPUSH
 	mob_size = MOB_SIZE_LARGE
 	pixel_y_lying_offset = -20
-	var/mob/living/oldform
 	var/datum/antagonist/devil/devilinfo
 	var/ascended = FALSE
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]

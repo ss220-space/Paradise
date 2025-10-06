@@ -4,10 +4,6 @@ VOX HEIST ROUNDTYPE
 GLOBAL_LIST_EMPTY(raider_spawn)
 GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
 
-/datum/game_mode
-	var/list/datum/mind/raiders = list()  //Antags.
-	var/list/raid_objectives = list()     //Raid objectives
-
 /datum/game_mode/heist
 	name = "heist"
 	config_tag = "heist"
@@ -291,7 +287,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)
 	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round
-		to_chat(user, "<span class='warning'>\The [src] does not appear to have a connection.</span>")
+		to_chat(user, span_warning("\The [src] does not appear to have a connection."))
 		return 0
 
 	if(alert(user, "Warning: This will end the round. Are you sure you wish to end the round?", "Vox End", "Yes", "No") == "No")

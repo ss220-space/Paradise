@@ -265,6 +265,8 @@
 	/// Contains info for all age related preferences.
 	var/list/age_sheet
 
+	/// List of all possible blood overlays for current race blood_mask. Init automaticly, don't force any value
+	var/static/list/blood_overlays
 
 /datum/species/New()
 	unarmed = new unarmed_type()
@@ -1244,3 +1246,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	var/age_limits = get_age_limits(src, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 	return 1 + 0.5 * (age_limits[SPECIES_AGE_MIN] + 10 - H.age) / age_limits[SPECIES_AGE_MAX] + (0.01 * rand(-tolerance, tolerance))
+
+/datum/species/proc/get_blood_overlays()
+	if(isnull(blood_overlays))
+		blood_overlays = icon_states(blood_mask)
+
+	return blood_overlays

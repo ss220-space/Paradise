@@ -12,7 +12,6 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = TRUE
-	use_power = NO_POWER_USE
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -449,7 +448,7 @@
 	if(is_station_level(src.z))
 		if(prob(1)) //explosion
 			for(var/mob/M in viewers(src))
-				M.show_message("<span class='warning'>The [src.name] is making strange noises!</span>", 3, "<span class='warning'>You hear sizzling electronics.</span>", 2)
+				M.show_message(span_warning("The [src.name] is making strange noises!"), 3, span_warning("You hear sizzling electronics."), 2)
 			sleep(10*pick(4,5,6,7,10,14))
 			var/datum/effect_system/fluid_spread/smoke/smoke = new
 			smoke.set_up(amount = 3, location = src.loc)
@@ -508,7 +507,6 @@
 	..()
 
 /obj/machinery/power/smes/vintage
-	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Old but not useless."
 	icon_state = "oldsmes"
 	capacity = 2500000

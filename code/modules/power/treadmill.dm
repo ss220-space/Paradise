@@ -1,5 +1,5 @@
-#define BASE_MOVE_DELAY	8
-#define MAX_SPEED		2
+#define BASE_MOVE_DELAY 8
+#define MAX_SPEED 2
 
 /obj/machinery/power/treadmill
 	icon = 'icons/obj/machines/recycling.dmi'
@@ -7,15 +7,14 @@
 	name = "treadmill"
 	desc = "A power-generating treadmill."
 	layer = 2.2
-	use_power = NO_POWER_USE
 
 	var/speed = 0
-	var/friction = 0.15		// lose this much speed every ptick
-	var/inertia = 0.25		// multiplier to mob speed, when increasing treadmill speed
-	var/throw_dist = 2		// distance to throw the person, worst case
-	var/power_gen = 4000	// amount of power output at max speed
+	var/friction = 0.15 // lose this much speed every ptick
+	var/inertia = 0.25 // multiplier to mob speed, when increasing treadmill speed
+	var/throw_dist = 2 // distance to throw the person, worst case
+	var/power_gen = 4000 // amount of power output at max speed
 	var/list/mobs_running[0]
-	var/id = null			// for linking to monitor
+	var/id = null // for linking to monitor
 
 
 /obj/machinery/power/treadmill/Initialize(mapload)
@@ -136,9 +135,7 @@
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
 	anchored = TRUE
-	density = FALSE
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 
 	var/on = 0					// if we should be metering or not

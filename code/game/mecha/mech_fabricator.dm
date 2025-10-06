@@ -11,14 +11,12 @@
 /obj/machinery/mecha_part_fabricator
 	name = "exosuit fabricator"
 	desc = "Крупное устройство, предназначенное для печати крупных роботизированных деталей. \n Сейчас в нём ничего не печатается."
-	gender = MALE
 	icon = 'icons/obj/machines/robotics.dmi'
 	icon_state = "fabricator"
 	var/icon_open = "fabricator_unscrewed"
 	var/icon_closed = "fabricator"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
 	// Settings
@@ -290,10 +288,10 @@
  */
 /obj/machinery/mecha_part_fabricator/proc/can_insert_materials(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>[src] cannot be loaded with new materials while opened!</span>")
+		to_chat(user, span_warning("[src] cannot be loaded with new materials while opened!"))
 		return FALSE
 	if(being_built)
-		to_chat(user, "<span class='warning'>[src] is currently building a part! Please wait until completion.</span>")
+		to_chat(user, span_warning("[src] is currently building a part! Please wait until completion."))
 		return FALSE
 	return TRUE
 
@@ -325,7 +323,7 @@
 	if(..())
 		return
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	ui_interact(user)

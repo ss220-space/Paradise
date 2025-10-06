@@ -3,17 +3,15 @@
 
 /obj/machinery/recharger
 	name = "recharger"
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "recharger0"
 	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 200
 	pass_flags = PASSTABLE
 	/// Allowed item to recharge
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton/security, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton/security, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/stock_parts/cell/specter)
 	/// Rechargin multiplier
 	var/recharge_coeff = 1
 	/// The item that is being charged
@@ -213,6 +211,9 @@
 		var/obj/item/bodyanalyzer/B = I
 		return B.cell
 
+	if(is_spectercell(I))
+		return I
+
 	return null
 
 /obj/machinery/recharger/proc/check_cell_needs_recharging(obj/item/stock_parts/cell/C)
@@ -252,7 +253,7 @@
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
 			. += span_notice("The status display reads:")
 			if(using_power)
-				. += span_notice("- Recharging <b>[((C.chargerate * recharge_coeff)/C.maxcharge)*100]%</b> cell charge per cycle.")
+				. += span_notice("- Recharging <b>[round(((C.chargerate * recharge_coeff)/C.maxcharge)*100)]%</b> cell charge per cycle.")
 			if(charging)
 				. += span_notice("- \The [charging]'s cell is at <b>[C.percent()]%</b>.")
 

@@ -15,9 +15,7 @@
 ****************************************************/
 /obj/item/organ/external
 	name = "external"
-	min_broken_damage = 30
 	max_damage = 0
-	dir = SOUTH
 	blocks_emissive = FALSE
 	/// External body part zone
 	var/limb_zone
@@ -216,6 +214,12 @@
 
 	. = ..()
 
+	// Grab all the internal giblets.
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		var/atom/movable/thing = organ.remove(organ_owner, special)
+		if(!QDELETED(thing))
+			thing.forceMove(src)
+
 	// Attached organs also fly off.
 	if(!ignore_children)
 		for(var/obj/item/organ/external/childpart as anything in children)
@@ -223,12 +227,6 @@
 			if(!QDELETED(thing))
 				thing.forceMove(src)
 		organ_owner.updatehealth("limb remove")
-
-	// Grab all the internal giblets too.
-	for(var/obj/item/organ/internal/organ as anything in internal_organs)
-		var/atom/movable/thing = organ.remove(organ_owner, special)
-		if(!QDELETED(thing))
-			thing.forceMove(src)
 
 	release_restraints(organ_owner)
 	organ_owner.bodyparts -= src

@@ -10,7 +10,6 @@
 /obj/item/a_gift
 	name = "gift"
 	desc = "PRESENTS!!!! eek!"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "gift1"
 	item_state = "gift1"
 	resistance_flags = FLAMMABLE
@@ -118,7 +117,6 @@
 /obj/item/stack/wrapping_paper
 	name = "wrapping paper"
 	desc = "You can use this to wrap items in."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "wrap_paper"
 	singular_name = "wrapping paper"
 	item_flags = NOBLUDGEON
@@ -127,4 +125,4 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")
+	to_chat(user, span_notice("You need to use it on a package that has already been wrapped!"))

@@ -34,7 +34,7 @@
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
 	item_state = "vulpkanin_eyes"
-	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will recieve when they get the disability.
+	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will receive when they get the disability.
 	replace_colours = PROTANOPIA_COLOR_REPLACE
 	see_in_dark = 8
 
@@ -51,7 +51,6 @@
 		PREPOSITIONAL = "глазах вульпина"
 	)
 	colourmatrix = MATRIX_VULP_CBLIND
-	see_in_dark = 8
 	replace_colours = PROTANOPIA_COLOR_REPLACE
 
 /obj/item/organ/internal/ears/vulpkanin
@@ -95,10 +94,8 @@
 		PREPOSITIONAL = "мозге вульпканина"
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	icon_state = "brain2"
 	item_state = "vulpkanin_brain"
 	mmi_icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/vulpkanin
 	species_type = /datum/species/vulpkanin
@@ -144,4 +141,3 @@
 	)
 	icon_name = "vulptail_s"
 	max_damage = 25
-	min_broken_damage = 15

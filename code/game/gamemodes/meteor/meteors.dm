@@ -118,7 +118,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	density = TRUE
-	anchored = TRUE
 	pass_flags = PASSTABLE
 
 	///The resilience of our meteor
@@ -279,7 +278,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 		var/dist = get_dist(mob.loc, loc)
 		if(prob(shake_chance))
 			shake_camera(mob, dist > 20 ? 3 : 5, dist > 20 ? 1 : 3)
-		mob.playsound_local(loc, null, 50, TRUE, random_frequency, 10, sound = meteor_sound)
+		mob.playsound_local(loc, null, 50, TRUE, random_frequency, 10, sound_to_use = meteor_sound)
 
 
 /**
@@ -510,7 +509,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	desc = "Dust in space."
 	icon_state = "space_dust"
 	heavy = TRUE
-	hitpwr = EXPLODE_HEAVY
 	hits = 2
 	meteordrop = null
 	threat = 5

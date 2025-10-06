@@ -193,7 +193,6 @@
 
 /obj/item/paintkit/firefighter_aluminizer
 	name = "APLU \"Aluminizer\" customisation kit"
-	icon_state = "paintkit"
 	desc = "A kit containing all the needed tools and parts to paint a Firefighter white"
 
 	new_name = "Aluminizer"

@@ -129,7 +129,6 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_range = 1.5
-	light_power = 1
 	light_color = LIGHT_COLOR_DIM_YELLOW
 
 
@@ -308,7 +307,7 @@
 	new_look.Blend(head_organ.hair_colour, ICON_ADD)
 	new_look.Blend(icon('icons/mob/clothing/head.dmi', inner_state), ICON_OVERLAY)
 	onmob_sheets[ITEM_SLOT_HEAD_STRING] = new_look
-	user.update_inv_head()
+	user.update_worn_head()
 
 
 /obj/item/clothing/head/cardborg

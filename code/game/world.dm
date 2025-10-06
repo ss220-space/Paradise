@@ -13,7 +13,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	prof_init()
 #endif
 
+#ifndef OPENDREAM
 	dmjit_hook_main_init()
+#endif
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
@@ -185,7 +187,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		..(0)
 
 /world/proc/load_mode()
-	var/list/Lines = file2list("data/mode.txt")
+	var/list/Lines = world.file2list("data/mode.txt")
 	if(Lines.len)
 		if(Lines[1])
 			GLOB.master_mode = Lines[1]

@@ -6,12 +6,11 @@
 	cooldown_min = 3 SECONDS //30 deciseconds reduction per rank
 	clothes_req = FALSE
 	human_req = FALSE
-	stat_allowed = CONSCIOUS
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
 	invocation_type = "shout"
 
-	selection_activated_message = "<span class='notice'>You start to quietly neigh an incantation. Click on or near a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You stop neighing to yourself.</span>"
+	selection_activated_message = span_notice("You start to quietly neigh an incantation. Click on or near a target to cast the spell.")
+	selection_deactivated_message = span_notice("You stop neighing to yourself.")
 
 	action_icon_state = "barn"
 	sound = 'sound/magic/HorseHead_curse.ogg'

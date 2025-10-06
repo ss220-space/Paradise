@@ -226,7 +226,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon_state = "goliath_hide"
 	singular_name = "hide plate"
 	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	var/static/list/override_unplatable_armor_typecache = typecacheof(list(
 			/obj/item/clothing/suit/hooded/explorer/mining,
@@ -278,8 +277,8 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 				if(ishuman(C.loc))
 					var/mob/living/carbon/human/H = C.loc
-					H.update_inv_head()
-					H.update_inv_wear_suit()
+					H.update_worn_head()
+					H.update_worn_oversuit()
 
 			to_chat(user, span_notice("Вы укрепляете [target.declent_ru(ACCUSATIVE)], повышая его устойчивость к ближним атакам."))
 			use(1)
@@ -309,7 +308,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon_state = "armour_plate"
 	singular_name = "armour plate"
 	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/armour_plate/afterattack(atom/target, mob/user, proximity_flag, params)
@@ -326,7 +324,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>Вы больше не можете найти куда [name] пристраивается!</span>")
+			to_chat(user, span_warning("Вы больше не можете найти куда [name] пристраивается!"))
 
 /obj/item/stack/sheet/cartilage_plate
 	name = "thick cartilage plate"
@@ -340,7 +338,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	item_state = "thick_cartilage_plate"
 	singular_name = "cartilage plate"
 	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/cartilage_plate/get_ru_names()
@@ -360,7 +357,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon_state = "dragon_hide"
 	singular_name = "drake plate"
 	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/animalhide/ashdrake/get_ru_names()

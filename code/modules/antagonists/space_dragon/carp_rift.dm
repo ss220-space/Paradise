@@ -18,13 +18,11 @@
 	name = "carp rift"
 	desc = "Разлом, позвляющий космическим карпам перемещаться на огромные расстояния."
 	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
-	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	light_color = LIGHT_COLOR_PURPLE
 	light_range = 8
 	anchored = TRUE
-	density = FALSE
 	plane = OBJ_LAYER
 	/// The amount of time the rift has charged for.
 	var/time_charged = 0
@@ -150,9 +148,10 @@
 	if(time_charged >= max_charge)
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
-		GLOB.major_announcement.announce("Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
-										ANNOUNCE_WILDNATURE_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.major_announcement.announce(
+			message = "Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
+			new_title = ANNOUNCE_WILDNATURE_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 		max_integrity = INFINITY
 		update_integrity(INFINITY)
@@ -177,9 +176,10 @@
 		charge_state = CHARGE_FINALWARNING
 		var/area/A = get_area(src)
 
-		GLOB.major_announcement.announce("Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
-										ANNOUNCE_WILDNATURE_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.major_announcement.announce(
+			message = "Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
+			new_title = ANNOUNCE_WILDNATURE_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 
 

@@ -281,7 +281,6 @@
 	return TRUE
 
 /obj/effect/proc_holder/horror
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
@@ -373,13 +372,11 @@
 /obj/item/melee/blood_magic
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	/// Does it have a source, AKA bloody empowerment.
@@ -599,7 +596,6 @@
 /obj/item/restraints/handcuffs/energy/cult //For the shackling spell
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
-	trashtype = /obj/item/restraints/handcuffs/energy/used
 	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user, slot, silent = FALSE)
@@ -826,8 +822,10 @@
 						uses += 50
 						user.Beam(H, icon_state = "drainbeam", time = 10)
 						playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50)
-						H.visible_message(span_danger("[user] has drained some of [H]'s blood!"),
-											span_userdanger("[user] has drained some of your blood!"))
+						H.visible_message(
+							span_danger("[user] has drained some of [H]'s blood!"),
+							span_userdanger("[user] has drained some of your blood!")
+						)
 						to_chat(user, span_cultitalic("Your blood rite gains 50 charges from draining [H]'s blood."))
 						new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					else
@@ -844,13 +842,17 @@
 			if(missing)
 				if(uses > missing)
 					M.adjustHealth(-missing)
-					M.visible_message(span_warning("[M] is fully healed by [user]'s blood magic!"),
-										span_cultitalic("You are fully healed by [user]'s blood magic!"))
+					M.visible_message(
+						span_warning("[M] is fully healed by [user]'s blood magic!"),
+						span_cultitalic("You are fully healed by [user]'s blood magic!")
+					)
 					uses -= missing
 				else
 					M.adjustHealth(-uses)
-					M.visible_message(span_warning("[M] is partially healed by [user]'s blood magic!"),
-										span_cultitalic("You are partially healed by [user]'s blood magic."))
+					M.visible_message(
+						span_warning("[M] is partially healed by [user]'s blood magic!"),
+						span_cultitalic("You are partially healed by [user]'s blood magic.")
+					)
 					uses = 0
 				playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25)
 				user.Beam(M, icon_state = "sendbeam", time = 10)

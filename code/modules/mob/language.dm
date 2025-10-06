@@ -708,7 +708,6 @@
 /datum/language/abductor/golem
 	name = LANGUAGE_HIVE_GOLEM
 	desc = "Големы могут общаться с себе подобными при помощи псионической связи."
-	follow = TRUE
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE
@@ -755,19 +754,19 @@
 
 	add_say_logs(speaker, message, language = "ROBOT")
 
-	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)]:</i><span class='robot'>\"[message]\"</span></span></span>"
+	var/message_start = "<i><span class='game say'>[name], [span_name("[speaker.name]")]"
+	var/message_body = "<span class='message'>[speaker.say_quote(message)]:</i>[span_robot("\"[message]\"")]</span></span>"
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
+			var/message_start_dead = "<i><span class='game say'>[name], [span_name("[speaker.name] ([ghost_follow_link(speaker, ghost=M)])")]"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
 		if(drone_only && !(isdrone(S)||iscogscarab(S)))
 			continue
 		else if(isAI(S))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
+			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'>[span_name("[speaker.name]")]</a>"
 		else if(!S.binarycheck())
 			continue
 
@@ -779,7 +778,7 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message("<i><span class='game say'><span class='name'>синтезированный голос</span> <span class='message'>сообщает: \"бип бип бип\"</span></span></i>",2)
+		M.show_message(span_gamesay("<i>[span_name("синтезированный голос")] [span_message("сообщает: \"бип бип бип\"")]</i>"),2)
 
 /datum/language/binary/drone
 	name = LANGUAGE_DRONE_BINARY
@@ -787,11 +786,8 @@
 	speech_verbs = list("переда%(ёт,ют)%")
 	ask_verbs = list("переда%(ёт,ют)%")
 	exclaim_verbs = list("переда%(ёт,ют)%")
-	colour = "say_quote"
 	key = "d"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
 	drone_only = TRUE
-	follow = TRUE
 
 /datum/language/drone
 	name = LANGUAGE_DRONE

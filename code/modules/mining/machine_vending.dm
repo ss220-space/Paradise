@@ -337,7 +337,6 @@
 /obj/item/mining_voucher
 	name = "mining voucher"
 	desc = "Жетон для получения снаряжения. Используйте на раздатчике шахтёрского снаряжения."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "mining_voucher"
 	w_class = WEIGHT_CLASS_TINY
 

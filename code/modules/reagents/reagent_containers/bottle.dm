@@ -5,12 +5,9 @@
 	name = "bottle"
 	desc = "Небольшая стеклянная бутылочка."
 	gender = FEMALE
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle"
 	item_state = "bottle"
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30)
-	container_type = OPENCONTAINER
 	volume = 30
 
 /obj/item/reagent_containers/glass/bottle/get_ru_names()
@@ -352,7 +349,6 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent
 	name = "Reagent Bottle"
-	desc = "Небольшая стеклянная бутылочка."
 	icon_state = "reagent_bottle"
 	volume = 50
 

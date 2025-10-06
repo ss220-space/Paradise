@@ -17,7 +17,6 @@
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	ranged = TRUE
-	obj_damage = 30
 	var/mech_damage = 50
 	vision_range = 6
 	aggro_vision_range = 18
@@ -28,7 +27,6 @@
 	has_laser_resist = FALSE
 	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
-	response_help = "гладит"
 	AI_delay_max = 0 SECONDS
 	var/scale_with_time = TRUE
 	var/reviver = null
@@ -166,7 +164,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	name = "Элитная атака"
 	icon_icon = 'icons/mob/actions/actions_elites.dmi'
 	button_icon_state = ""
-	background_icon_state = "bg_default"
 	///The displayed message into chat when this attack is selected
 	var/chosen_message
 	///The internal attack ID for the elite's OpenFire() proc to use
@@ -221,7 +218,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 	light_range = 3
 	anchored = TRUE
-	density = FALSE
 	var/activity = TUMOR_INACTIVE
 	var/boosted = FALSE
 	var/times_won = 0
@@ -525,9 +521,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.revive()
 		user.visible_message(span_notice("[user] пронза[pluralize_ru(user.gender,"ет","ют")] [E.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)], воскрешая его."))
 		SEND_SOUND(E, sound('sound/magic/cult_spell.ogg'))
-		to_chat(user, "<span class='notice'>Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам.</span>")
-		to_chat(E, "<span class='userdanger'>Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск.</span>")
-		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")
+		to_chat(user, span_notice("Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам."))
+		to_chat(E, span_userdanger("Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск."))
+		to_chat(E, span_bigbold("Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!"))
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
 			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG)
@@ -549,7 +545,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	base_icon_state = "hierophant_wall_temp"
 	duration = 50
 	layer = BELOW_MOB_LAYER
-	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_INTENSE_RED
@@ -569,11 +564,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
-	queue_smooth_neighbors(src)
-	queue_smooth(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /obj/effect/temp_visual/elite_tumor_wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 

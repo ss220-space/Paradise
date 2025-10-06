@@ -63,7 +63,7 @@
 	switch(severity)
 		if(1)
 			if(user && ishuman(user) && (user.wear_suit == src))
-				to_chat(user, "<span class='userdanger'>Elecrtromagnetic pulse detected, shutting down systems to preserve integrity...</span>")
+				to_chat(user, span_userdanger("Elecrtromagnetic pulse detected, shutting down systems to preserve integrity..."))
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/proc/chronowalk(mob/living/carbon/human/user)
@@ -180,10 +180,7 @@
 
 /obj/effect/chronos_cam
 	name = "Chronosuit View"
-	density = FALSE
-	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
-	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 

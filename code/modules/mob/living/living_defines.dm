@@ -60,6 +60,9 @@
 	/// The last direction we moved in a vent. Used to make holding two directions feel nice
 	var/last_vent_dir = NONE
 
+	/// Should only exist if you're in a pipe
+	var/datum/cell_tracker/pipetracker
+
 	/// Used to prevent spam with smoke reagent reaction on mob.
 	var/smoke_delay = 0
 
@@ -173,3 +176,20 @@
 
 	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
 	var/xenobiology_spawned = FALSE
+
+	var/datum/language/default_language
+
+	var/last_taste_time
+	var/last_taste_text
+
+	/// Used for preventing attacks on admin-frozen mobs.
+	var/frozen = null
+	/// Used for keeping track of previous sleeping value with admin freeze.
+	var/admin_prev_sleeping = 0
+
+	var/holder_type = null
+
+	var/image/halimage
+	var/image/halbody
+	var/obj/halitem
+	var/hal_screwyhud = SCREWYHUD_NONE

@@ -4,13 +4,11 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
 	item_state = "signmaker"
-	force = 0
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	origin_tech = "magnets=1;programming=3"
 	item_flags = NOBLUDGEON
+	toolbox_radial_menu_compatibility = TRUE
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.
@@ -71,7 +69,6 @@
 	name = "Janitorial Holosign projector"
 	desc = "Удобный голографический проектор, отображающий знак уборщика."
 	belt_icon = "sign_projector"
-	holosign_type = /obj/structure/holosign/wetsign
 	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/get_ru_names()
@@ -152,7 +149,6 @@
 	icon_state = "signmaker_engi"
 	item_state = "signmaker_engi"
 	holosign_type = /obj/structure/holosign/barrier/atmos
-	creation_time = 0
 	max_signs = 3
 
 /obj/item/holosign_creator/atmos/get_ru_names()

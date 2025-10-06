@@ -37,8 +37,9 @@
 
 /datum/event/prison_break/announce(false_alarm)
 	if(length(areas) || false_alarm)
-		GLOB.minor_announcement.announce("[pick("Вирус `Gr3y.T1d3`", "Вредоносный троян")] обнаружен в подсистеме [(eventDept == "Security")? "заключения" : "безопасности"] на [station_name()]. Немедленно обеспечьте безопасность всех затронутых отсеков. Рекомендуется участие ИИ станции.",
-										"Авария в системе безопасности."
+		GLOB.minor_announcement.announce(
+			message = "[pick("Вирус `Gr3y.T1d3`", "Вредоносный троян")] обнаружен в подсистеме [(eventDept == "Security")? "заключения" : "безопасности"] на [station_name()]. Немедленно обеспечьте безопасность всех затронутых отсеков. Рекомендуется участие ИИ станции.",
+			new_title = "Авария в системе безопасности."
 		)
 
 /datum/event/prison_break/start()
@@ -52,7 +53,7 @@
 		for(var/obj/machinery/message_server/MS in SSmachines.get_by_type(/obj/machinery/message_server))
 			MS.send_rc_message("Engineering", my_department, rc_message, "", "", 2)
 		for(var/mob/living/silicon/ai/A in GLOB.player_list)
-			to_chat(A, "<span class='danger'>Malicious program detected in the [english_list(areaName)] lighting and airlock control systems by [my_department].</span>")
+			to_chat(A, span_danger("Malicious program detected in the [english_list(areaName)] lighting and airlock control systems by [my_department]."))
 
 	else
 		log_runtime("Could not initate grey-tide. Unable to find suitable containment area.", src)

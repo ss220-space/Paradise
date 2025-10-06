@@ -33,6 +33,7 @@ fast_paradise.dme
 #ignore any files in config/, except those in subdirectories.
 /config/*
 !config/**/*/
+!config/emojis.txt
 
 # ignore cfg, an internal BYOND folder
 /cfg/*
@@ -91,5 +92,10 @@ __pycache__/
 # Rust output.
 /rust/target/*
 
-# From /tools/define_sanity/check.py - potential output file that we load onto the user's machine that we don't want to have committed.
-define_sanity_output.txt
+# Tools some of us like to keep in the repo
+OpenDream
+paradise.json
+
+# dmdoc and output
+dmdoc.exe
+dmdoc/

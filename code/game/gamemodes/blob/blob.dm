@@ -1,28 +1,3 @@
-/datum/game_mode
-	/// List of of blobs, their offsprings and blobburnouts spawned by them
-	var/list/blobs = list("infected"=list(), "offsprings"=list(), "minions"=list())
-	/// Count of blob tiles to blob win
-	var/blob_win_count = BLOB_BASE_TARGET_POINT
-	/// Number of resource produced by the core
-	var/blob_point_rate = 3
-	/// Number of bursted blob infected
-	var/bursted_blobs_count = 0
-	/// Total blob submode stage
-	var/blob_stage = BLOB_STAGE_NONE
-	/// The need to delay the end of the game when the blob wins
-	var/delay_blob_end = FALSE
-	/// Disables automatic GAMMA code
-	var/off_auto_gamma = FALSE
-	/// Disables automatic nuke codes
-	var/off_auto_nuke_codes = FALSE
-	/// Is all blobs have infinity points
-	var/is_blob_infinity_points = FALSE
-	/// Is all blobs have infinity points
-	var/list/legit_blobs = list()
-	/// Total blobs objective
-	var/datum/objective/blob_critical_mass/blob_objective
-
-
 /datum/game_mode/blob
 	name = "blob"
 	config_tag = "blob"
@@ -208,9 +183,10 @@
 
 	if(blob_stage == BLOB_STAGE_FIRST && legit_blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_SECOND
-		GLOB.major_announcement.announce("Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
-										ANNOUNCE_BIOHAZARD_RU,
-										'sound/AI/outbreak5.ogg'
+		GLOB.major_announcement.announce(
+			message = "Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
+			new_title = ANNOUNCE_BIOHAZARD_RU,
+			new_sound = 'sound/AI/outbreak5.ogg'
 		)
 		if(!off_auto_gamma)
 			addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)

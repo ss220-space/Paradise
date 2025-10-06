@@ -4,14 +4,12 @@
 	desc = "Образец плазменного магмита, кристаллизовавшийся в глубинах планеты. Кажется, он теряет силу по мере удаления от поверхности планеты!"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Magmite ore"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/magmite_parts
 	name = "plasma magmite upgrade parts"
 	desc = "Выкованные на легендарной Мировой Кузне, эти детали можно использовать для улучшения различных видов шахтёрского оборудования."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "upgrade_parts"
-	w_class = WEIGHT_CLASS_NORMAL
 	var/inert = FALSE
 
 /obj/item/magmite_parts/Initialize(mapload)

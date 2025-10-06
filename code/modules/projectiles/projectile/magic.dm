@@ -184,7 +184,6 @@
 		INSTRUMENTAL = "зарядом создания дверей",
 		PREPOSITIONAL = "заряде создания дверей"
 	)
-	icon_state = "energy"
 	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
@@ -414,7 +413,7 @@
 				if(prisoner.mind)
 					prisoner.mind.transfer_to(statue)
 					var/list/messages = list()
-					messages.Add("<span class='userdanger'>You have been transformed into an animated statue.</span>")
+					messages.Add(span_userdanger("You have been transformed into an animated statue."))
 					messages.Add("You cannot move when monitored, but are nearly invincible and deadly when unobserved! Hunt down those who shackle you.")
 					messages.Add("Do not harm [firer.real_name], your creator.")
 					to_chat(statue, chat_box_red(messages.Join("<br>")))
@@ -445,7 +444,6 @@
 	icon_state = "lavastaff"
 	damage = 15
 	damage_type = BURN
-	flag = "magic"
 	dismemberment = 50
 	dismember_head = TRUE
 	nodamage = FALSE
@@ -501,6 +499,5 @@
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 0
-	flag = "magic"
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	forced_accuracy = TRUE

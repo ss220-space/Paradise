@@ -98,7 +98,6 @@ effective or pretty fucking useless.
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=400)
 	origin_tech = "magnets=3;biotech=5;syndicate=1"
 	var/intensity = 5 // how much damage the radiation does
@@ -428,7 +427,6 @@ effective or pretty fucking useless.
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
-	icon_state = "paper"
 	info = {"<b>Instructions on your new prototype syndicate teleporter</b><br>
 	<br>
 	This teleporter will teleport the user 4-8 meters in the direction they are facing. Unlike the cult veil shifter, you can not drag people with you.<br>
@@ -466,8 +464,8 @@ effective or pretty fucking useless.
 	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
 
 
-#define ION_CALLER_AI_TARGETING		"AI targeting"
-#define ION_CALLER_COMMS_TARGETING	"Telecomms targeting"
+#define ION_CALLER_AI_TARGETING "AI targeting"
+#define ION_CALLER_COMMS_TARGETING "Telecomms targeting"
 
 /obj/item/ion_caller
 	name = "low-orbit ion cannon remote"

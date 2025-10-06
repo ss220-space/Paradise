@@ -17,7 +17,7 @@
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)
-		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
+		stack_trace("Spawner placed in nullspace!")
 		return
 	randspawn(T)
 	return INITIALIZE_HINT_QDEL
@@ -25,6 +25,7 @@
 /obj/effect/spawner/random_spawners/proc/randspawn(turf/T)
 	var/thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /datum/nothing))
+		qdel(src)
 		return
 	else if(ispath(thing_to_place, /turf))
 		T.ChangeTurf(thing_to_place)
@@ -186,8 +187,6 @@
 // z6 DEPOT SPAWNERS
 
 /obj/effect/spawner/random_spawners/syndicate
-	icon = 'icons/effects/mapping_helpers.dmi'
-	icon_state = "standart"
 
 // Turrets
 

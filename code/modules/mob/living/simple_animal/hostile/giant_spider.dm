@@ -86,7 +86,6 @@
 	maxHealth = 120
 	health = 120
 	melee_damage_lower = 10
-	melee_damage_upper = 20
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/Initialize(mapload)
@@ -190,7 +189,7 @@
 
 	if(busy != SPINNING_WEB)
 		busy = SPINNING_WEB
-		src.visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance.</span>")
+		src.visible_message(span_notice("\the [src] begins to secrete a sticky substance."))
 		stop_automated_movement = 1
 		spawn(40)
 			if(busy == SPINNING_WEB && src.loc == T)
@@ -230,7 +229,7 @@
 
 	if(cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
-		src.visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance around \the [cocoon_target].</span>")
+		src.visible_message(span_notice("\the [src] begins to secrete a sticky substance around \the [cocoon_target]."))
 		stop_automated_movement = 1
 		SSmove_manager.stop_looping(src)
 		spawn(50)
@@ -260,7 +259,7 @@
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
 						fed++
-						visible_message("<span class='danger'>\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out.</span>")
+						visible_message(span_danger("\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out."))
 
 						break
 					if(large_cocoon)
@@ -276,12 +275,12 @@
 
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
-		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
+		to_chat(src, span_notice("There is already a cluster of eggs here!"))
 	else if(!fed)
-		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
+		to_chat(src, span_warning("You are too hungry to do this!"))
 	else if(busy != LAYING_EGGS)
 		busy = LAYING_EGGS
-		src.visible_message("<span class='notice'>\the [src] begins to lay a cluster of eggs.</span>")
+		src.visible_message(span_notice("\the [src] begins to lay a cluster of eggs."))
 		stop_automated_movement = 1
 		spawn(50)
 			if(busy == LAYING_EGGS)

@@ -61,12 +61,9 @@ SUBSYSTEM_DEF(addition_goals)
 /// Fire
 /datum/controller/subsystem/addition_goals/fire(resumed = FALSE)
 	//TODO need?
-
-
-
+	return
 
 // MARK:	Goals logic
-
 /// Check available refresh
 /datum/controller/subsystem/addition_goals/proc/is_refresh_available()
 	var/current_time = world.time
@@ -77,7 +74,7 @@ SUBSYSTEM_DEF(addition_goals)
 	if(!force && !is_refresh_available())
 		return FALSE
 	available_goals_refresh_time = world.time
-	for(var/goal as anything in available_goals) // delete old available goals
+	for(var/goal in available_goals) // delete old available goals
 		qdel(goal)
 		available_goals -= goal
 	for(var/i = 0; i < AVAILABLE_GOALS_COUNT; i++) // create new goals as available
@@ -245,7 +242,6 @@ GLOBAL_LIST_INIT(addition_goal_spawn_human_types, list(
 
 /obj/effect/mob_spawn/human/addition_goal
 	roundstart = FALSE
-	instant = FALSE
 	random = TRUE
 	uses = -1
 

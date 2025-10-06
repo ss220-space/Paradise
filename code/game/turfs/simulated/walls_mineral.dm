@@ -111,7 +111,7 @@
 		return .
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-	investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+	investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 	ignite(I.get_heat())
 
 
@@ -123,7 +123,7 @@
 							span_danger("[src] disintegrates into a cloud of plasma!"),\
 							span_italics("You hear a 'whoompf' and a roar."))
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 
 /turf/simulated/wall/mineral/plasma/proc/PlasmaBurn(temperature)
 	new girder_type(src)
@@ -190,8 +190,6 @@
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
 	girder_type = /obj/structure/barricade/wooden
 	hardness = 50
-	canSmoothWith = SMOOTH_GROUP_WOOD_WALLS
-	smoothing_groups = SMOOTH_GROUP_WOOD_WALLS
 
 /turf/simulated/wall/mineral/iron
 	name = "rough metal wall"
@@ -286,7 +284,6 @@
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "smooth"
 	base_icon_state = "survival_pod_walls"
-	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	canSmoothWith = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS + SMOOTH_GROUP_WINDOW_FULLTILE + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_AIRLOCK
 	smoothing_groups = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS
 
@@ -294,7 +291,6 @@
 	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/titanium/survival/pod
-	canSmoothWith = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS + SMOOTH_GROUP_WINDOW_FULLTILE + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_AIRLOCK
 
 //undeconstructable type for derelict
 //these walls are undeconstructable/unthermitable

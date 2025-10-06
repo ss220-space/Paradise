@@ -83,8 +83,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	countdown = new(src)
 
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
-	Radio.config(list(MED_FREQ_NAME = 0))
+	Radio.become_speaker_only(MED_FREQ)
 	Radio.follow_target = src
 
 	component_parts = list()
@@ -148,7 +147,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/item/disk/data
 	name = "Cloning Data Disk"
 	desc = "Дискета, предназначенная для хранения данных ДНК-кода гуманоида."
-	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/datum/dna2/record/buf = null
 	var/read_only = FALSE //Well,it's still a floppy disk
 
@@ -247,7 +245,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/announce_radio_message(message)
 	if(radio_announce)
-		Radio.autosay(message, name, MED_FREQ_NAME)
+		Radio.autosay(message, name, HEADSET_FREQ_NAME)
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, TRUE)
@@ -595,7 +593,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	occupant.forceMove(T)
 	occupant.update_body()
 	occupant.check_genes() //Waiting until they're out before possible notransform.
-	occupant.special_post_clone_handling()
+	occupant.special_post_clone_handling(TRUE)
 	occupant = null
 	update_icon()
 

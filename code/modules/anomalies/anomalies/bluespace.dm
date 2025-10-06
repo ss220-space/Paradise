@@ -64,7 +64,6 @@
 
 /obj/effect/anomaly/bluespace/tier1
 	name = "малая блюспейс аномалия"
-	icon_state = "bluespace1"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	tier = 1

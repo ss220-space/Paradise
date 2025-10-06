@@ -2,7 +2,6 @@
 
 /obj/machinery/computer/syndicate_depot
 	name = "depot computer"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
 	light_color = LIGHT_COLOR_ELECTRIC_CYAN
@@ -362,7 +361,7 @@
 	user.faction += "syndicate"
 	depotarea.alert_log += "[user.name] signed in as a visitor."
 	depotarea.list_add(user, depotarea.peaceful_list)
-	to_chat(user, {"<br><span class='userdanger'>Welcome, Agent.</span>
+	to_chat(user, {"<br>[span_userdanger("Welcome, Agent.")]
 		<span class='warning'>You are now signed-in as a depot visitor.
 		Any other agents with you MUST sign in themselves.
 		You may explore all rooms here, except for bolted ones.

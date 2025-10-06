@@ -1,7 +1,7 @@
-#define PULL_STAMINADAM_WALK	4
-#define PULL_STAMINADAM_RUN		6
-#define PUSH_STAMINADAM_WALK	3
-#define PUSH_STAMINADAM_RUN		4
+#define PULL_STAMINADAM_WALK 4
+#define PULL_STAMINADAM_RUN 6
+#define PUSH_STAMINADAM_WALK 3
+#define PUSH_STAMINADAM_RUN 4
 
 
 /mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
@@ -121,7 +121,7 @@
 			S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
 			if(S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(shoes, dir, T)
-			update_inv_shoes()
+			update_worn_shoes()
 	else if(hasfeet)
 		if(bloody_feet && bloody_feet[blood_state])
 			for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
@@ -130,7 +130,7 @@
 			bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
 			if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(src, dir, T)
-			update_inv_shoes()
+			update_worn_shoes()
 	//End bloody footprints
 
 

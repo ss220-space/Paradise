@@ -5,8 +5,8 @@
 
 	var/m
 
-	var/list/randomtips = file2list("strings/tips.txt")
-	var/list/memetips = file2list("strings/sillytips.txt")
+	var/list/randomtips = world.file2list("strings/tips.txt")
+	var/list/memetips = world.file2list("strings/sillytips.txt")
 	if(randomtips.len && prob(95))
 		m = pick(randomtips)
 	else if(memetips.len)

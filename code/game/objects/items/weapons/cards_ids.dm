@@ -37,10 +37,6 @@
 
 /obj/item/card/data/clown
 	name = "coordinates to clown planet"
-	icon_state = "data"
-	item_state = "card-id"
-	layer = 3
-	level = 2
 	desc = "This card contains coordinates to the fabled Clown Planet. Handle with care."
 	function = "teleporter"
 	data = "Clown Land"
@@ -112,8 +108,6 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
-	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 	/// For redeeming at mining equipment lockers
 	var/mining_points = 0
 	/// Total mining points for the Shift.
@@ -178,17 +172,17 @@
 	if(in_range(user, src))
 		show(usr)
 	else
-		. += "<span class='warning'>It is too far away.</span>"
+		. += span_warning("It is too far away.")
 	if(guest_pass)
-		. += "<span class='notice'>There is a guest pass attached to this ID card</span>"
+		. += span_notice("There is a guest pass attached to this ID card")
 		if(world.time < guest_pass.expiration_time)
-			. += "<span class='notice'>It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
+			. += span_notice("It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].")
 		else
-			. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
-		. += "<span class='notice'>It grants access to following areas:</span>"
+			. += span_warning("It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].")
+		. += span_notice("It grants access to following areas:")
 		for(var/A in guest_pass.temp_access)
-			. += "<span class='notice'>[get_access_desc(A)].</span>"
-		. += "<span class='notice'>Issuing reason: [guest_pass.reason].</span>"
+			. += span_notice("[get_access_desc(A)].")
+		. += span_notice("Issuing reason: [guest_pass.reason].")
 
 /obj/item/card/id/proc/show(mob/user as mob)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -339,11 +333,11 @@
 		return
 
 	if(guest_pass)
-		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
+		to_chat(usr, span_notice("You remove the guest pass from this ID."))
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID.</span>")
+		to_chat(usr, span_warning("There is no guest pass attached to this ID."))
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -381,13 +375,11 @@
 	..()
 
 /obj/item/card/id/silver
-	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
 	icon_state = "silver"
 	item_state = "silver-id"
 
 /obj/item/card/id/gold
-	name = "identification card"
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
 	item_state = "gold-id"
@@ -466,7 +458,6 @@
 
 
 /obj/item/card/id/syndicate/vox
-	name = "agent card"
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
 
 // Added all syndicate 'Taipan' access to the admin officer
@@ -563,7 +554,7 @@
 		var/obj/item/card/id/I = O.GetID()
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
-				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
+				to_chat(usr, span_notice("The card's microscanners activate as you pass it over \the [I], copying its access."))
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -590,30 +581,30 @@
 				registered_user = null
 		if("save_slot")
 			save_slot(params["slot"])
-			to_chat(registered_user, "<span class='notice'>You have successfully saved the card data to slot [params["slot"]].</span>")
+			to_chat(registered_user, span_notice("You have successfully saved the card data to slot [params["slot"]]."))
 		if("load_slot")
 			load_slot(params["slot"])
 			UpdateName()
 			registered_user.update_hud_set()
-			to_chat(registered_user, "<span class='notice'>You have successfully loaded the card data from slot [params["slot"]].</span>")
+			to_chat(registered_user, span_notice("You have successfully loaded the card data from slot [params["slot"]]."))
 		if("clear_slot")
 			clear_slot(params["slot"])
-			to_chat(registered_user, "<span class='notice'>You have successfully cleared slot [params["slot"]].</span>")
+			to_chat(registered_user, span_notice("You have successfully cleared slot [params["slot"]]."))
 		if("clear_access")
 			var/response = tgui_alert(registered_user, "Are you sure you want to reset access saved on the card?", "Reset Access", list("No", "Yes"))
 			if(response == "Yes")
 				access = initial_access.Copy() // Initial() doesn't work on lists
-				to_chat(registered_user, "<span class='notice'>Card access reset.</span>")
+				to_chat(registered_user, span_notice("Card access reset."))
 		if("change_ai_tracking")
 			untrackable = !untrackable
-			to_chat(registered_user, "<span class='notice'>This ID card is now [untrackable ? "untrackable" : "trackable"] by the AI's.</span>")
+			to_chat(registered_user, span_notice("This ID card is now [untrackable ? "untrackable" : "trackable"] by the AI's."))
 		if("change_name")
 			var/new_name = reject_bad_name(tgui_input_text(registered_user, "What name would you like to use on this card?", "Agent Card name", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
 			if(!Adjacent(registered_user) || isnull(new_name))
 				return
 			registered_name = new_name
 			UpdateName()
-			to_chat(registered_user, "<span class='notice'>Name changed to [new_name].</span>")
+			to_chat(registered_user, span_notice("Name changed to [new_name]."))
 		if("change_photo")
 			if(!Adjacent(registered_user))
 				return
@@ -647,17 +638,17 @@
 					desc = "An ID straight from Central Command."
 				else
 					desc = "A card used to provide ID and determine access across the station."
-			to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
+			to_chat(usr, span_notice("Appearance changed to [choice]."))
 		if("change_appearance_new")
 			var/choice = params["new_appearance"]
 			icon_state = choice
-			to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
+			to_chat(usr, span_notice("Appearance changed to [choice]."))
 		if("change_sex")
 			var/new_sex = tgui_input_text(registered_user,"What sex would you like to put on this card?", "Agent Card Sex", ishuman(registered_user) ? capitalize(registered_user.gender) : "Male")
 			if(!Adjacent(registered_user) || isnull(new_sex))
 				return
 			sex = new_sex
-			to_chat(registered_user, "<span class='notice'>Sex changed to [new_sex].</span>")
+			to_chat(registered_user, span_notice("Sex changed to [new_sex]."))
 		if("change_age")
 			var/default = "21"
 			if(ishuman(registered_user))
@@ -667,7 +658,7 @@
 			if(!Adjacent(registered_user) || isnull(new_age))
 				return
 			age = new_age
-			to_chat(registered_user, "<span class='notice'>Age changed to [new_age].</span>")
+			to_chat(registered_user, span_notice("Age changed to [new_age]."))
 		if("change_occupation")
 			var/list/departments =list(
 				"Civilian",
@@ -727,7 +718,7 @@
 				return
 			assignment = new_job
 			rank = new_rank
-			to_chat(registered_user, "<span class='notice'>Occupation changed to [new_job].</span>")
+			to_chat(registered_user, span_notice("Occupation changed to [new_job]."))
 			UpdateName()
 			registered_user.update_hud_set()
 		if("change_money_account")
@@ -736,7 +727,7 @@
 				return
 			associated_account_number = new_account
 			registered_user.med_hud_insurance_set_overlay()
-			to_chat(registered_user, "<span class='notice'>Linked money account changed to [new_account].</span>")
+			to_chat(registered_user, span_notice("Linked money account changed to [new_account]."))
 		if("change_blood_type")
 			var/default = "\[UNSET\]"
 			if(ishuman(registered_user))
@@ -748,7 +739,7 @@
 			if(!Adjacent(registered_user) || !new_blood_type)
 				return
 			blood_type = new_blood_type
-			to_chat(registered_user, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
+			to_chat(registered_user, span_notice("Blood type changed to [new_blood_type]."))
 		if("change_dna_hash")
 			var/default = "\[UNSET\]"
 			if(ishuman(registered_user))
@@ -760,7 +751,7 @@
 			if(!Adjacent(registered_user) || !new_dna_hash)
 				return
 			dna_hash = new_dna_hash
-			to_chat(registered_user, "<span class='notice'>DNA hash changed to [new_dna_hash].</span>")
+			to_chat(registered_user, span_notice("DNA hash changed to [new_dna_hash]."))
 		if("change_fingerprints")
 			var/default = "\[UNSET\]"
 			if(ishuman(registered_user))
@@ -772,7 +763,7 @@
 			if(!Adjacent(registered_user) || !new_fingerprint_hash)
 				return
 			fingerprint_hash = new_fingerprint_hash
-			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
+			to_chat(registered_user, span_notice("Fingerprint hash changed to [new_fingerprint_hash]."))
 	RebuildHTML()
 
 /obj/item/card/id/syndicate/ui_data(mob/user)
@@ -1135,8 +1126,6 @@
 /obj/item/card/id/punpun
 	name = "Pun Pun ID"
 	registered_name = "Пун Пун"
-	icon_state = "id"
-	item_state = "card-id"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/mining_medic
@@ -1149,8 +1138,6 @@
 /obj/item/card/id/library_owl
 	name = "Slavka ID"
 	registered_name = "Сыч Вячеслав"
-	icon_state = "id"
-	item_state = "card-id"
 	access = list(ACCESS_LIBRARY)
 
 /obj/item/card/id/rainbow
@@ -1196,8 +1183,6 @@
 
 /obj/item/card/id/ert/registration
 	name = "EDDITABLE ERT ID"
-	icon_state = "ERT_empty"
-	item_state = "ert-id"
 	var/membership
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_SALVAGE_CAPTAIN)
 
@@ -1229,7 +1214,7 @@
 		RebuildHTML()
 		UpdateName()
 		registered = TRUE
-		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
+		to_chat(user, span_notice("The ID is now registered as yours."))
 	else
 		..()
 
@@ -1248,7 +1233,7 @@
 		UpdateName()
 		desc = "A card used to claim mining points and buy gear."
 		registered = TRUE
-		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
+		to_chat(user, span_notice("The ID is now registered as yours."))
 	else
 		..()
 

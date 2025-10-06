@@ -16,10 +16,8 @@
 	icon_state = "pen"
 	item_state = "pen"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
@@ -51,7 +49,6 @@
 
 /obj/item/pen/invisible
 	desc = "It's an invisble pen marker."
-	icon_state = "pen"
 	colour = "white"
 
 /obj/item/pen/multi
@@ -200,7 +197,6 @@
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
 	light_range = 2
-	light_power = 1
 	light_color = COLOR_SOFT_RED
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
@@ -316,7 +312,6 @@
 /obj/item/pen/survival
 	name = "survival pen"
 	desc = "The latest in portable survival technology, this pen was designed as a miniature diamond pickaxe."
-	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "digging_pen"
 	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
 	colour = COLOR_BLUE

@@ -1,28 +1,28 @@
 // Request Console Department Types
-#define RC_ASSIST 1		// Request Assistance
-#define RC_SUPPLY 2		// Request Supplies
-#define RC_INFO   4		// Relay Info
+#define RC_ASSIST 1 // Request Assistance
+#define RC_SUPPLY 2 // Request Supplies
+#define RC_INFO 4 // Relay Info
 
 // Request Console Screens
-#define RCS_MAINMENU 0	// Main menu
-#define RCS_RQSUPPLY 1	// Request supplies
-#define RCS_RQASSIST 2	// Request assistance
-#define RCS_SENDINFO 3	// Relay information
-#define RCS_SENTPASS 4	// Message sent successfully
-#define RCS_SENTFAIL 5	// Message sent unsuccessfully
-#define RCS_VIEWMSGS 6	// View messages
-#define RCS_MESSAUTH 7	// Authentication before sending
-#define RCS_ANNOUNCE 8	// Send announcement
-#define RCS_SHIPPING 9	// Print Shipping Labels/Packages
+#define RCS_MAINMENU 0 // Main menu
+#define RCS_RQSUPPLY 1 // Request supplies
+#define RCS_RQASSIST 2 // Request assistance
+#define RCS_SENDINFO 3 // Relay information
+#define RCS_SENTPASS 4 // Message sent successfully
+#define RCS_SENTFAIL 5 // Message sent unsuccessfully
+#define RCS_VIEWMSGS 6 // View messages
+#define RCS_MESSAUTH 7 // Authentication before sending
+#define RCS_ANNOUNCE 8 // Send announcement
+#define RCS_SHIPPING 9 // Print Shipping Labels/Packages
 #define RCS_SHIP_LOG 10	// View Shipping Label Log
 
 // Radio list
-#define ENGI_ROLES	list(RC_ATMOSPHERICS, RC_MECHANIC, RC_ENGINEERING, RC_CHIEF_ENGINEER_DESK, RC_TECH_STORAGE, RC_TELECOMS_ADMIN)
-#define SEC_ROLES	list(RC_WARDEN, RC_SECURITY, RC_DETECTIVE, RC_LABOR_CAMP, RC_BRIG_MEDBAY, RC_HEAD_OF_SECURITY_DESK)
-#define MISC_ROLES	list(RC_BAR, RC_CHAPEL, RC_KITCHEN, RC_HYDROPONICS, RC_JANITORIAL)
-#define MED_ROLES	list(RC_VIROLOGY, RC_MEDBAY, RC_MORGUE, RC_CHEMISTRY, RC_CHIEF_MEDICAL_OFFICER_DESK)
-#define COM_ROLES	list(RC_BLUESHIELD, RC_NT_REPRESENTATIVE, RC_HEAD_OF_PERSONNEL_DESK, RC_CAPTAIN_DESK, RC_BRIDGE)
-#define SCI_ROLES	list(RC_ROBOTICS, RC_SCIENCE, RC_RESEARCH, RC_GENETICS, RC_XENOBIOLOGY, RC_RESEARCH_DIRECTOR_DESK)
+#define ENGI_ROLES list(RC_ATMOSPHERICS, RC_MECHANIC, RC_ENGINEERING, RC_CHIEF_ENGINEER_DESK, RC_TECH_STORAGE, RC_TELECOMS_ADMIN)
+#define SEC_ROLES list(RC_WARDEN, RC_SECURITY, RC_DETECTIVE, RC_LABOR_CAMP, RC_BRIG_MEDBAY, RC_HEAD_OF_SECURITY_DESK)
+#define MISC_ROLES list(RC_BAR, RC_CHAPEL, RC_KITCHEN, RC_HYDROPONICS, RC_JANITORIAL)
+#define MED_ROLES list(RC_VIROLOGY, RC_MEDBAY, RC_MORGUE, RC_CHEMISTRY, RC_CHIEF_MEDICAL_OFFICER_DESK)
+#define COM_ROLES list(RC_BLUESHIELD, RC_NT_REPRESENTATIVE, RC_HEAD_OF_PERSONNEL_DESK, RC_CAPTAIN_DESK, RC_BRIDGE)
+#define SCI_ROLES list(RC_ROBOTICS, RC_SCIENCE, RC_RESEARCH, RC_GENETICS, RC_XENOBIOLOGY, RC_RESEARCH_DIRECTOR_DESK)
 
 // Request Console Departments
 

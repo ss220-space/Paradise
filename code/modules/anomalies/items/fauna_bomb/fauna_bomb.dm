@@ -1,5 +1,5 @@
-#define	MAX_CREATED_MOBS	12
-#define	MAX_REMEMBERED_MOBS	12
+#define	MAX_CREATED_MOBS 12
+#define	MAX_REMEMBERED_MOBS 12
 
 /obj/item/fauna_bomb
 	name = "fauna bomb"

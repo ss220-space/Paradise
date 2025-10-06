@@ -125,7 +125,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	throwforce = 10.0
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
-	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
 
@@ -441,7 +440,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	singular_name = "cardboard sheet"
 	icon_state = "sheet-card"
 	item_state = "sheet-card"
-	origin_tech = "materials=1"
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
@@ -587,12 +585,8 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
-	icon = 'icons/obj/items.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
-	max_amount = 50
-	throw_speed = 1
-	throw_range = 3
 	merge_type = /obj/item/stack/sheet/brass
 
 /obj/item/stack/sheet/brass/narsie_act()
@@ -629,7 +623,6 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	materials = list()
 	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/brass
-	cost = 1
 	energy_type = /datum/robot_energy_storage/brass
 
 
@@ -639,12 +632,8 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
-	icon = 'icons/obj/items.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
-	max_amount = 50
-	throw_speed = 1
-	throw_range = 3
 	merge_type = /obj/item/stack/sheet/brass_fake
 
 /obj/item/stack/sheet/brass_fake/narsie_act()
@@ -679,10 +668,6 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	singular_name = "bone"
 	desc = "Кто-то выпил их молоко."
 	force = 7
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 1
-	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
 /obj/item/stack/sheet/bone/get_ru_names()
@@ -705,8 +690,6 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "razor_sharp_teeth"
 	singular_name = "razor sharp tooth"
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 1
 	throw_range = 7
 	throwforce = 15
 	origin_tech = "materials=4;biotech=5"
@@ -834,7 +817,6 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 	singular_name = "cut bamboo"
 	icon_state = "sheet-bamboo"
 	//item_state = "sheet-bamboo"
-	icon = 'icons/obj/items.dmi'
 	sheettype = "bamboo"
 	force = 10
 	throwforce = 10
@@ -860,14 +842,8 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 	desc = "A stack of cheese that seems sturdier than regular cheese."
 	icon_state = "sheet-cheese"
 	//item_state = "sheet-cheese"
-	icon = 'icons/obj/items.dmi'
 	singular_name = "reinforced cheese block"
 	sheettype = "cheese"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 1
-	throw_range = 3
 	max_amount = 15
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cheese
@@ -893,7 +869,6 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	icon_state = "sheet-gingerbread"
 	//item_state = "sheet-gingerbread"
 	singular_name = "gingerbread block"
-	icon = 'icons/obj/items.dmi'
 	sheettype = "gingerbread"
 	force = 1
 	throwforce = 2

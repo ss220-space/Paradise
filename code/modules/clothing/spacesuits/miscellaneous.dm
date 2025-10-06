@@ -5,7 +5,6 @@
 	item_state = "capspacehelmet"
 	desc = "A special helmet designed for only the most fashionable of military figureheads."
 	flags_inv = HIDENAME
-	permeability_coefficient = 0.01
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 40, BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -36,7 +35,6 @@
 	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
-	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = ACID_PROOF
 	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list(MELEE = 40, BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
@@ -141,7 +139,6 @@
 	flags_inv = NONE
 	slowdown = 0
 	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
-	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = null
 
@@ -314,7 +311,6 @@
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
 	icon_state = "spacenew"
-	item_state = "s_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -333,7 +329,6 @@
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
 	icon_state = "spacenew"
-	item_state = "s_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	flash_protect = FLASH_PROTECTION_NONE
@@ -403,7 +398,6 @@
 /obj/item/clothing/suit/space/eva/pirate
 	name = "pirate EVA suit"
 	icon_state = "pirate_armor"
-	item_state = "s_suit"
 	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
 	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	sprite_sheets = list(
@@ -421,7 +415,6 @@
 /obj/item/clothing/head/helmet/space/eva/pirate
 	name = "pirate EVA helmet"
 	icon_state = "pirate_armor"
-	item_state = "s_helmet"
 	desc = "A lightweight pirate-themed space helmet with white skull on it designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
 	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	flash_protect = FLASH_PROTECTION_WELDER

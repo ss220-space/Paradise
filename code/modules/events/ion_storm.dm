@@ -23,18 +23,20 @@
 
 /datum/event/ion_storm/announce(false_alarm)
 	if(announceEvent == ION_SYNDICATE)
-		GLOB.minor_announcement.announce("Неестественная ионная активность была замечена на станции. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок. Дополнительная информация была загружена и распечатана на всех консолях связи.",
-										ANNOUNCE_ANOMALY_RU,
-										'sound/AI/ions.ogg'
+		GLOB.minor_announcement.announce(
+			message = "Неестественная ионная активность была замечена на станции. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок. Дополнительная информация была загружена и распечатана на всех консолях связи.",
+			new_title = ANNOUNCE_ANOMALY_RU,
+			new_sound = 'sound/AI/ions.ogg'
 		)
 		var/message = "Malicious Interference with standard AI-Subsystems detected. Investigation recommended.<br><br>"
 		message += (location_name ? "Signal traced to <b>[location_name]</b>.<br>" : "Signal untracable.<br>")
 		print_command_report(message, "Classified [command_name()] Update", FALSE)
 
 	else if(false_alarm || announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
-		GLOB.minor_announcement.announce("Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.",
-										ANNOUNCE_ANOMALY_RU,
-										'sound/AI/ions.ogg'
+		GLOB.minor_announcement.announce(
+			message = "Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.",
+			new_title = ANNOUNCE_ANOMALY_RU,
+			new_sound = 'sound/AI/ions.ogg'
 		)
 
 

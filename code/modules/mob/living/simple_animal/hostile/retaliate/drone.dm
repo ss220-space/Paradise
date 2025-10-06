@@ -18,8 +18,6 @@
 	response_harm = "hits the"
 	speak = list("ALERT.", "Hostile-ile-ile entities dee-twhoooo-wected.", "Threat parameterszzzz- szzet.", "Bring sub-sub-sub-systems uuuup to combat alert alpha-a-a.")
 	emote_see = list("beeps menacingly.", "whirrs threateningly.", "scans for targets.")
-	a_intent = INTENT_HARM
-	stop_automated_movement_when_pulled = FALSE
 	health = 200
 	maxHealth = 200
 	speed = 8
@@ -99,11 +97,11 @@
 		do_sparks(3, TRUE, src)
 		passive_mode = !passive_mode
 		if(passive_mode)
-			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
+			visible_message(span_notice("[src] retracts several targetting vanes."))
 			if(target)
 				lose_target()
 		else
-			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
+			visible_message(span_warning("[src] suddenly lights up, and additional targetting vanes slide into place."))
 		update_icons()
 
 /mob/living/simple_animal/hostile/malf_drone/emp_act(severity)
@@ -207,7 +205,6 @@
 	desc = "An automated combat drone armed with state of the art weaponry and shielding."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "drone3"
-	density = TRUE
 	health = 200
 	maxHealth = 200
 	speed = 8
@@ -216,11 +213,9 @@
 	bot_purpose = "devastion"
 	bot_core_type = /obj/machinery/bot_core/syndicate
 	window_name = "Standart Robot Control v1.6"
-	path_image_color = "#FF0000"
 	declare_arrests = FALSE
 	idcheck = TRUE
 	arrest_type = TRUE
-	auto_patrol = FALSE
 	projectile = /obj/projectile/beam/immolator/weak
 
 /mob/living/simple_animal/bot/ed209/combat_drone/Initialize(mapload)

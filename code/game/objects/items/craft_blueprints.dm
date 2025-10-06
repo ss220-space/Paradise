@@ -8,7 +8,6 @@
 	icon = 'icons/obj/craft_blueprints.dmi'
 	icon_state = "blueprint"
 	var/place_icon = "put_blueprint"
-	w_class = WEIGHT_CLASS_NORMAL
 
 	/// Placing state
 	var/placed_on_table = FALSE
@@ -64,7 +63,7 @@
 	. = ..()
 	if(length(tools))
 		var/required_tools_text = "Требуемые инструменты: "
-		for(var/tool as anything in tools)
+		for(var/tool in tools)
 			required_tools_text += "[tool] "
 		. += span_notice(required_tools_text)
 	if(!length(components))

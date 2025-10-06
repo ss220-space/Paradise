@@ -29,7 +29,6 @@
 		var/mark = ""
 		icon = 'icons/misc/mark.dmi'
 		icon_state = "blank"
-		anchored = TRUE
 		layer = 99
 		plane = HUD_PLANE
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -50,12 +49,10 @@
 	name = "begin"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "begin"
-	anchored = TRUE
 
 /obj/effect/projection
 	name = "Projection"
 	desc = "This looks like a projection of something."
-	anchored = TRUE
 
 
 /obj/effect/shut_controller
@@ -133,10 +130,8 @@
 		return INITIALIZE_HINT_QDEL
 
 /obj/effect/frosty_breath //used only for unathi firebreath, so... yeah..
-	icon = 'icons/effects/effects.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_MOB_LAYER
-	anchored = TRUE
 
 /obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
 	. = ..()

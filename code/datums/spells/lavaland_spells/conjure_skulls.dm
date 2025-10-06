@@ -4,8 +4,6 @@
 
 	school = "lavaland"
 	base_cooldown = 15 SECONDS
-	clothes_req = TRUE
-	human_req = TRUE
 	invocation = "TRAKI SUMON!"
 	invocation_type = "shout"
 	action_icon_state = "sumon_skulls"

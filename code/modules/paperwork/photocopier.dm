@@ -9,10 +9,8 @@
 	icon_state = "bigscanner"
 	anchored = TRUE
 	density = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
-	power_channel = EQUIP
 	max_integrity = 300
 	integrity_failure = 100
 	atom_say_verb = "пищит"
@@ -239,7 +237,7 @@
 				copymob.emote("scream")
 		else
 			copymob.apply_damage(30, BURN)
-		to_chat(copymob, span_notice("<span class='notice'>Что-то жаренным запахло...</span>"))
+		to_chat(copymob, span_notice(span_notice("Что-то жаренным запахло...")))
 	if(ishuman(copymob)) //Suit checks are in check_mob
 		var/mob/living/carbon/human/H = copymob
 		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)

@@ -399,7 +399,6 @@ SUBSYSTEM_DEF(air)
 /obj/effect/overlay/turf
 	icon = 'icons/effects/tile_effects.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE  // should only appear in vis_contents, but to be safe
 	layer = FLY_LAYER
 	plane = ABOVE_GAME_PLANE
 	appearance_flags = TILE_BOUND | RESET_TRANSFORM | RESET_COLOR
@@ -425,7 +424,7 @@ SUBSYSTEM_DEF(air)
 	// Can't properly test lavaland due to Init order issues and EVERYTHING being surrounded by rocks, as such we just ignore any turfs on that level
 	var/list/active_turfs_we_care_about = list()
 	var/z_level_to_exclude = 0
-	if(!CONFIG_GET(flag/disable_lavaland))
+	if(!CONFIG_GET(flag/disable_lavaland) && !(SSmapping.map_datum.disables & DISABLE_LAVALAND))
 		z_level_to_exclude = level_name_to_num(MINING)
 	for(var/turf/T in active_turfs)
 		if(T.z != z_level_to_exclude)

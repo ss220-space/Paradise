@@ -84,9 +84,8 @@
 	else
 		icon_state = "alien[caste]_s"
 
-	update_inv_r_hand()
-	update_inv_l_hand()
-	update_inv_pockets()
+	update_held_items()
+	update_pockets()
 	update_fire()
 
 	if(blocks_emissive)

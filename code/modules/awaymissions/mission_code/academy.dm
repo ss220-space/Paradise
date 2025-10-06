@@ -2,8 +2,6 @@
 
 /area/awaymission/academy
 	name = "Academy Asteroids"
-	icon_state = "away"
-	report_alerts = FALSE
 	no_teleportlocs = TRUE
 	tele_proof = TRUE
 	requires_power = FALSE

@@ -5,15 +5,15 @@
 
 */
 
-#define VIRUS_SYMPTOM_LIMIT	6
-#define VIRUS_MAX_SYMPTOM_LEVEL	6
+#define VIRUS_SYMPTOM_LIMIT 6
+#define VIRUS_MAX_SYMPTOM_LEVEL 6
 
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
-									"sodiumchloride", "sugar", "orangejuice",
-									"spaceacillin", "salglu_solution", "ethanol",
-									"teporone", "diphenhydramine", "lipolicide",
-									"silver", "gold"
+	"sodiumchloride", "sugar", "orangejuice",
+	"spaceacillin", "salglu_solution", "ethanol",
+	"teporone", "diphenhydramine", "lipolicide",
+	"silver", "gold"
 ))
 
 GLOBAL_LIST_EMPTY(archive_diseases)
@@ -26,11 +26,9 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 /datum/disease/virus/advance
 
-	name = UNKNOWN_STATUS_RUS // We will always let our Virologist name our disease.
 	desc = "Спроектированная болезнь, может содержать сразу несколько симптомов."
 	form = "Продвинутая болезнь" // Will let med-scanners know that this disease was engineered.
 	agent = "Продвинутые микробы"
-	max_stages = 5
 
 	// NEW VARS
 

@@ -4,10 +4,7 @@
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "r_wall-0"
 	base_icon_state = "r_wall"
-	opacity = TRUE
-	density = TRUE
 	explosion_block = 2
-	explosion_vertical_block = 1
 	damage_cap = 600
 	max_temperature = 6000
 	hardness = 10
@@ -15,9 +12,6 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
-	smooth = SMOOTH_BITMASK
-	smoothing_groups = SMOOTH_GROUP_WALLS
-	canSmoothWith = SMOOTH_GROUP_WALLS
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
@@ -83,7 +77,7 @@
 			return .
 		d_state = RWALL_INTACT
 		update_icon()
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		to_chat(user, span_notice("You repair the last of the damage."))
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -101,7 +95,7 @@
 		to_chat(user, span_notice("You add an additional layer of coating to the wall."))
 		ChangeTurf(/turf/simulated/wall/r_wall/coated)
 		update_icon()
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		can_be_reinforced = FALSE
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
@@ -273,7 +267,7 @@
 		clear_smooth_overlays()
 	else
 		smooth = SMOOTH_BITMASK
-		queue_smooth(src)
+		QUEUE_SMOOTH(src)
 
 
 /turf/simulated/wall/r_wall/devastate_wall()
