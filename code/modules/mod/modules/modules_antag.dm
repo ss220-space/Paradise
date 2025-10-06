@@ -1,12 +1,12 @@
 //Antag modules for MODsuits
 
-///Armor Booster - Grants your suit more armor and speed in exchange for EVA protection. Also acts as a welding screen.
+// MARK: Armor booster
+// This one currently is not in use, all of its armor bonuses were directly added to suits
+/// Armor Booster - Grants your suit more armor and speed in exchange for EVA protection. Also acts as a welding screen.
 /obj/item/mod/module/armor_booster
 	name = "MOD armor booster module"
-	desc = "Серия модифицированных выдвижных бронепластин, по сути позволяющих костюму функционировать как силовая броня. \
-		Предлагает пользователю превосходную защиту от всех распространённых видов огнестрельного оружия, а также от колюще-режущих \
-		воздействий в ближнем бою. Впрочем, это имеет свою цену: компоновка дополнительного бронепокрытия исключает возможность \
-		изолирования носителя от воздействия вакуума. Таким образом, вся эта броня гарантирует вам невозможность безопасного выхода в открытый космос."
+	desc = "Модуль выдвижных бронепластин для МЭК, предоставляющий отличную защиту от распространённых видов огнестрельного \
+		и колюще-режущего оружия. В активированном состоянии лишает костюм защиты от космоса."
 	icon_state = "armor_booster"
 	module_type = MODULE_TOGGLE
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
@@ -29,12 +29,12 @@
 
 /obj/item/mod/module/armor_booster/get_ru_names()
 	return list(
-		NOMINATIVE = "боевой модуль МЭК",
-		GENITIVE = "боевого модуля МЭК",
-		DATIVE = "боевому модулю МЭК",
-		ACCUSATIVE = "боевой модуль МЭК",
-		INSTRUMENTAL = "боевым модулем МЭК",
-		PREPOSITIONAL = "боевом модуле МЭК",
+		NOMINATIVE = "модуль бронепластин",
+		GENITIVE = "модуля бронепластин",
+		DATIVE = "модулю бронепластин",
+		ACCUSATIVE = "модуль бронепластин",
+		INSTRUMENTAL = "модулем бронепластин",
+		PREPOSITIONAL = "модуле бронепластин",
 	)
 
 /obj/item/mod/module/armor_booster/Initialize(mapload)
@@ -146,14 +146,13 @@
 /obj/item/mod/module/insignia/chaplain
 	color = "#f0a00c"
 
-///Anti Slip - Prevents you from slipping on water.
+// MARK: Anti-slip
+// Currently not used anywhere, /obj/item/mod/module/magboot plays its role instead
+/// Anti Slip - Prevents you from slipping on water.
 /obj/item/mod/module/noslip
 	name = "MOD anti slip module"
-	desc = "Этот модуль — модифицированный вариант стандартных магнитных ботинок, использующий пьезоэлектрические кристаллы \
-		в конструкции. Две расположенные на подошвах пластины автоматически выдвигаются и примагничиваются \
-		по мере того, как пользователь двигается. Их притяжение слишком слабо, чтобы можно было ходить по стенам или потолку, \
-		но достаточно сильно, чтобы можно было игнорировать таблички \"Мокрый пол!\". Хонк Ко. неоднократно выступали с заявлениями \
-		о незаконности существования этих модулей."
+	desc = "Модифицированный вариант стандартных магнитных ботинок для МЭК. Их притяжение слишком слабо, чтобы можно было ходить \
+		по стенам или потолку, но достаточно сильно, чтобы можно было игнорировать таблички \"Мокрый пол!\""
 	icon_state = "noslip"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
@@ -163,12 +162,12 @@
 
 /obj/item/mod/module/noslip/get_ru_names()
 	return list(
-		NOMINATIVE = "защита от поскальзывания МЭК",
-		GENITIVE = "защиты от поскальзывания МЭК",
-		DATIVE = "защите от поскальзывания МЭК",
-		ACCUSATIVE = "защиту от поскальзывания МЭК",
-		INSTRUMENTAL = "защитой от поскальзывания МЭК",
-		PREPOSITIONAL = "защите от поскальзывания МЭК",
+		NOMINATIVE = "модуль антискольжения",
+		GENITIVE = "модуля антискольжения",
+		DATIVE = "модулю антискольжения",
+		ACCUSATIVE = "модуль антискольжения",
+		INSTRUMENTAL = "модулем антискольжения",
+		PREPOSITIONAL = "модуле антискольжения",
 	)
 
 /obj/item/mod/module/noslip/on_part_activation()
@@ -178,10 +177,12 @@
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 
 /obj/item/mod/module/noslip/advanced/on_part_activation()
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 
 /obj/item/mod/module/noslip/advanced/on_part_deactivation(deleting = FALSE)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 
 //Bite of 87 Springlock - Equips faster, disguised as DNA lock, can block retracting for 10 seconds.
 /obj/item/mod/module/springlock/bite_of_87

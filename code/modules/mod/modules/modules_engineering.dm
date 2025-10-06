@@ -63,13 +63,13 @@
 /obj/item/mod/module/t_ray/on_active_process()
 	t_ray_scan(mod.wearer, 0.8 SECONDS, range)
 
-///Magnetic Stability - Gives the user a slowdown but makes them negate gravity and be immune to slips.
+// MARK: Magboots
+/// Magnetic Stability - Gives the user a slowdown but makes them negate gravity and be immune to slips.
 /obj/item/mod/module/magboot
 	name = "MOD magnetic stability module"
-	desc = "These are powerful electromagnets fitted into the suit's boots, allowing users both \
-		excellent traction no matter the condition indoors, and to essentially hitch a ride on the exterior of a hull. \
-		However, these basic models do not feature computerized systems to automatically toggle them on and off, \
-		so numerous users report a certain stickiness to their steps."
+	desc = "Модуль для МЭК, являющийся встраиваемым аналогом магнитных ботинок. В активированном состоянии позволяет не \
+		поскальзываться на мокром полу, льду или кожурке банана. Дополнительно предоставляет сцепление \
+		с поверхностью в среде без гравитации."
 	icon_state = "magnet"
 	module_type = MODULE_TOGGLE
 	complexity = 2
@@ -81,51 +81,112 @@
 
 /obj/item/mod/module/magboot/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль магнитных усилителей МЭК",
-		GENITIVE = "модуля магнитных усилителей МЭК",
-		DATIVE = "модулю магнитных усилителей МЭК",
-		ACCUSATIVE = "модуль магнитных усилителей МЭК",
-		INSTRUMENTAL = "модулем магнитных усилителей МЭК",
-		PREPOSITIONAL = "модуле магнитных усилителей МЭК",
+		NOMINATIVE = "модуль магбутсов",
+		GENITIVE = "модуля магбутсов",
+		DATIVE = "модулю магбутсов",
+		ACCUSATIVE = "модуль магбутсов",
+		INSTRUMENTAL = "модулем магбутсов",
+		PREPOSITIONAL = "модуле магбутсов",
 	)
 
 /obj/item/mod/module/magboot/on_activation()
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 	mod.slowdown += slowdown_active
 	mod.update_equipped_item()
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 
 /obj/item/mod/module/magboot/on_deactivation(display_message = TRUE, deleting = FALSE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 	mod.slowdown -= slowdown_active
 	mod.update_equipped_item()
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 
+// MARK: Atmos magboots
+/obj/item/mod/module/magboot/atmos
+	name = "MOD atmos magnetic stability module"
+	desc = "Аналог обычного модуля магнитных ботинок, с той лишь разницей, что сцепление было дополнительно усилено, \
+		предоставляя пользователю возможность без вреда для здоровья откручивать трубы под давлением в сотни мегапаскалей."
+
+/obj/item/mod/module/magboot/atmos/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль атмосферных магбутсов",
+		GENITIVE = "модуля атмосферных магбутсов",
+		DATIVE = "модулю атмосферных магбутсов",
+		ACCUSATIVE = "модуль атмосферных магбутсов",
+		INSTRUMENTAL = "модулем атмосферных магбутсов",
+		PREPOSITIONAL = "модуле атмосферных магбутсов",
+	)
+
+/obj/item/mod/module/magboot/atmos/on_activation()
+	. = ..()
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
+
+/obj/item/mod/module/magboot/atmos/on_deactivation(display_message = TRUE, deleting = FALSE)
+	. = ..()
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
+
+// MARK: Adv. magboots
 /obj/item/mod/module/magboot/advanced
 	name = "MOD advanced magnetic stability module"
+	desc = "Продвинутый вариант модуля магнитных ботинок. Кроме всех преимуществ обычной версии, ещё и не замедляет пользователя \
+		В активированном состоянии."
 	removable = FALSE
 	complexity = 0
 	slowdown_active = 0
 
 /obj/item/mod/module/magboot/advanced/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль продвинутых магнитных усилителей МЭК",
-		GENITIVE = "модуля продвинутых магнитных усилителей МЭК",
-		DATIVE = "модулю продвинутых магнитных усилителей МЭК",
-		ACCUSATIVE = "модуль продвинутых магнитных усилителей МЭК",
-		INSTRUMENTAL = "модулем продвинутых магнитных усилителей МЭК",
-		PREPOSITIONAL = "модуле продвинутых магнитных усилителей МЭК",
+		NOMINATIVE = "модуль продвинутых магбутсов",
+		GENITIVE = "модуля продвинутых магбутсов",
+		DATIVE = "модулю продвинутых магбутсов",
+		ACCUSATIVE = "модуль продвинутых магбутсов",
+		INSTRUMENTAL = "модулем продвинутых магбутсов",
+		PREPOSITIONAL = "модуле продвинутых магбутсов",
 	)
 
 /obj/item/mod/module/magboot/advanced/on_activation()
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 
 /obj/item/mod/module/magboot/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 
 ///Radiation Protection - Gives the user rad info in the ui, currently
+// MARK: Elite magboots
+/obj/item/mod/module/magboot/advanced/elite
+	name = "MOD elite magnetic stability module"
+	desc = "Совершенный в технологическом смысле модуль магнитных ботинок, в активированном состоянии абсолютно защищающий от любых \
+		скользких поверхностей. Не замедляет пользователя."
+
+/obj/item/mod/module/magboot/advanced/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль элитных магбутсов",
+		GENITIVE = "модуля элитных магбутсов",
+		DATIVE = "модулю элитных магбутсов",
+		ACCUSATIVE = "модуль элитных магбутсов",
+		INSTRUMENTAL = "модулем элитных магбутсов",
+		PREPOSITIONAL = "модуле элитных магбутсов",
+	)
+
+/obj/item/mod/module/magboot/advanced/elite/on_activation()
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
+
+/obj/item/mod/module/magboot/advanced/elite/on_deactivation(display_message = TRUE, deleting = FALSE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
+
 /obj/item/mod/module/rad_protection
 	name = "MOD radiation detector module"
 	desc = "A protoype module that improves the sensors on the modsuit to detect radiation on the user. \

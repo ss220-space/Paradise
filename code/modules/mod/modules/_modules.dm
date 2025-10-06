@@ -62,7 +62,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/modules_vox.dmi'
 	)
 
-/obj/item/mod/module/get_ru_names() //i have to look on fucking fnaf wiki to find out how to translate this shit
+/obj/item/mod/module/get_ru_names()
 	return list(
 		NOMINATIVE = "модуль МЭК",
 		GENITIVE = "модуля МЭК",
@@ -127,7 +127,7 @@
 /obj/item/mod/module/proc/on_select(mob/activator)
 	if(((!mod.active || mod.activating) && !(allow_flags & MODULE_ALLOW_INACTIVE)) || module_type == MODULE_PASSIVE)
 		if(mod.wearer)
-			balloon_alert(mod.wearer, "модуль не активен!")
+			balloon_alert(mod.wearer, "модуль неактивен!")
 		return
 	if(module_type != MODULE_USABLE)
 		if(active)
@@ -151,7 +151,7 @@
 		for(var/slot in required_slots)
 			var/list/slot_list = parse_slot_flags(slot)
 			slot_strings += (length(slot_list) == 1 ? "" : "один из ") + russian_list(slot_list, and_text = " или ")
-		to_chat(activator, span_warning("Для модуля необходимо, что данные модули были развернуты: [russian_list(slot_strings)]"))
+		to_chat(activator, span_warning("Для работы модуля необходимо, чтобы данные модули были развернуты: [russian_list(slot_strings)]"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 
@@ -182,7 +182,7 @@
 	//Used in time travel module, if we port it
 	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
 		//specifically a to_chat because the user is phased out.
-		to_chat(activator, span_warning("Вы не можете использовать данный модуль сейчас."))
+		to_chat(activator, span_warning("Сейчас вы не можете использовать данный модуль."))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
@@ -252,7 +252,7 @@
 		return FALSE
 	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
 		//specifically a to_chat because the user is phased out.
-		to_chat(activator, span_warning("You cannot activate this right now."))
+		to_chat(activator, span_warning("Сейчас вы не можете использовать данный модуль."))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
@@ -276,6 +276,7 @@
 /// Called when an activated module without a device is active and the user alt/middle-clicks
 /obj/item/mod/module/proc/on_special_click(mob/source, atom/target)
 	SIGNAL_HANDLER
+
 	on_select_use(target)
 	return COMSIG_MOB_CANCEL_CLICKON
 
@@ -528,16 +529,16 @@
 	if(!length(accepted_anomalies))
 		return
 	if(core)
-		. += "К модулю прикреплено [core.declent_ru(NOMINATIVE)]. [core_removable ? "Используйте <b>отвёртку</b>, чтобы открепить ядро." : "Из-за дизайна модуля, ядро не возможно достать."]"
+		. += "К модулю прикрепл[genderize_ru(core.gender, "ён", "ена", "ено", "ены")] [core.declent_ru(NOMINATIVE)]. [core_removable ? "Используйте <b>отвёртку</b>, чтобы открепить ядро." : "Из-за дизайна модуля, ядро невозможно достать."]"
 	else
 		var/list/core_list = list()
 		for(var/path in accepted_anomalies)
 			var/atom/core_dummy = new path
 			core_list += core_dummy.declent_ru(NOMINATIVE)
 			qdel(core_dummy)
-		. +="Для работы модуля требуется [russian_list(core_list, and_text = " или ")]"
+		. += "Для работы модуля требуется [russian_list(core_list, and_text = " или ")]"
 		if(!core_removable)
-			. += span_notice("Из-за дизайна модуля, ядро не возможно достать.")
+			. += span_notice("Из-за дизайна модуля, ядро невозможно достать.")
 
 /obj/item/mod/module/anomaly_locked/on_select()
 	if(!core)

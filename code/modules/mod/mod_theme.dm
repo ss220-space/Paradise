@@ -420,7 +420,7 @@
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	siemens_coefficient = 0
 	slowdown_deployed = 0.45
-	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced)
+	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced/elite)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/rcd,
@@ -1426,7 +1426,6 @@
 	siemens_coefficient = 0
 	slowdown_deployed = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
 	ui_theme = "syndicate"
-	inbuilt_modules = list(/obj/item/mod/module/armor_booster)
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
@@ -1506,13 +1505,13 @@
 
 
 /datum/armor/mod_theme_syndicate
-	melee = 20
-	bullet = 25
-	laser = 25
-	energy = 15
-	bomb = 35
+	melee = 45
+	bullet = 50
+	laser = 40
+	energy = 30
+	bomb = 50
 	bio = 100
-	rad = 50
+	rad = 100
 	fire = 50
 	acid = 100
 
@@ -1534,7 +1533,6 @@
 	siemens_coefficient = 0
 	slowdown_deployed = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
 	ui_theme = "syndicate"
-	inbuilt_modules = list(/obj/item/mod/module/armor_booster)
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
@@ -1582,11 +1580,11 @@
 
 
 /datum/armor/mod_theme_elite
-	melee = 50
-	bullet = 45
-	laser = 40
-	energy = 20
-	bomb = 60
+	melee = 70
+	bullet = 70
+	laser = 50
+	energy = 35
+	bomb = 75
 	bio = 100
 	rad = 100
 	fire = 100

@@ -68,11 +68,11 @@
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/t_ray,
-		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/magboot/atmos,
 		/obj/item/mod/module/firefighting_tank,
 	)
 	default_pins = list(
-		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/magboot/atmos,
 	)
 
 
@@ -88,7 +88,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 	)
 
 /obj/item/mod/control/pre_equipped/loader
@@ -250,10 +250,9 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/noslip,
+		/obj/item/mod/module/magboot/advanced,
 	)
 	default_pins = list(
-		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack,
 	)
 
@@ -270,11 +269,10 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/noslip/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/flashlight,
 	)
 	default_pins = list(
-		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
@@ -292,10 +290,9 @@
 		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/noslip/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 	)
 	default_pins = list(
-		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
@@ -309,10 +306,9 @@
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/noslip/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 	)
 	default_pins = list(
-		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
@@ -414,11 +410,11 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/status_readout,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 	)
 
 /obj/item/mod/control/pre_equipped/apocryphal/officer
@@ -428,12 +424,12 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/status_readout,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/power_kick,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/power_kick, //If you are not drop kicking a xenomorph, what are you doing as an DS commander?
 	)
 
@@ -447,11 +443,11 @@
 		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 	)
 	default_pins = list(
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 	)
 
 /obj/item/mod/control/pre_equipped/debug
@@ -463,10 +459,9 @@
 		/obj/item/mod/module/bikehorn,
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/injector,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/stealth/ninja,
-		/obj/item/mod/module/noslip/advanced,
 		/obj/item/mod/module/flamethrower,
 		/obj/item/mod/module/medbeam,
 		/obj/item/mod/module/jump_jet,
@@ -485,13 +480,13 @@
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/stealth/ninja,
 	)
 	default_pins = list(
 		/obj/item/mod/module/stealth/ninja,
-		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
