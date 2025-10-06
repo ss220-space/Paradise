@@ -131,7 +131,7 @@
 /obj/structure/grille/attack_alien(mob/living/carbon/alien/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
+	user.visible_message(span_warning("[user] mangles [src]."))
 	if(!shock(user, 70))
 		take_damage(user.obj_damage, BRUTE, MELEE, 1, armour_penetration = user.armour_penetration)
 
@@ -213,24 +213,24 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	set_anchored(!anchored)
-	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
-							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
+	user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
+							span_notice("You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor."))
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
 	var/dir_to_set = NORTH
 	if(!istype(S) || !user)
 		return
 	if(broken)
-		to_chat(user, "<span class='warning'>You must repair or replace [src] first!</span>")
+		to_chat(user, span_warning("You must repair or replace [src] first!"))
 		return
 	if(S.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need at least one sheet of glass for that!</span>")
+		to_chat(user, span_warning("You need at least one sheet of glass for that!"))
 		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
+		to_chat(user, span_warning("[src] needs to be fastened to the floor first!"))
 		return
 	if(!getRelativeDirection(src, user) && (user.loc != loc))	//essentially a cardinal direction adjacent or sharing same loc check
-		to_chat(user, "<span class='warning'>You can't reach.</span>")
+		to_chat(user, span_warning("You can't reach."))
 		return
 	if(loc == user.loc)
 		dir_to_set = user.dir
@@ -247,15 +247,15 @@
 				dir_to_set = EAST
 	for(var/obj/structure/window/WINDOW in loc)
 		if(WINDOW.dir == dir_to_set)
-			to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
+			to_chat(user, span_notice("There is already a window facing this way there."))
 			return
-	to_chat(user, "<span class='notice'>You start placing the window...</span>")
+	to_chat(user, span_notice("You start placing the window..."))
 	if(do_after(user, 2 SECONDS, src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc)
 			if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
-				to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
+				to_chat(user, span_notice("There is already a window facing this way there."))
 				return
 		var/obj/structure/window/W = new S.created_window(get_turf(src))
 		S.use(1)
@@ -263,7 +263,7 @@
 		W.ini_dir = dir_to_set
 		W.set_anchored(FALSE)
 		W.state = WINDOW_OUT_OF_FRAME
-		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
+		to_chat(user, span_notice("You place the [W] on [src]."))
 		W.update_nearby_icons()
 
 

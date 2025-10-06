@@ -34,4 +34,4 @@
 			S.throw_speed = 1
 			S.sharp = FALSE
 		else
-			to_chat(H, "<span class='warning'>Shrapnel bounces off your armor!</span>")
+			to_chat(H, span_warning("Shrapnel bounces off your armor!"))

@@ -91,7 +91,7 @@
 	tag = "90Curve"
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/engine/cult,
 /area/template_noop)
 "cm" = (
@@ -180,7 +180,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "ea" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -348,7 +348,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stamp/granted{
 	pixel_x = 3;
 	pixel_y = -4
@@ -363,7 +363,7 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "ir" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -900,7 +900,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "tw" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "tB" = (
@@ -1034,7 +1034,7 @@
 	},
 /area/template_noop)
 "wd" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"

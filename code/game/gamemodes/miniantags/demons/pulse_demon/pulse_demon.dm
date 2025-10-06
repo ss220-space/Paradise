@@ -614,7 +614,7 @@
 	else if(istype(loc, /obj/machinery/hologram/holopad))
 		var/obj/machinery/hologram/holopad/H = loc
 		name = "[H]"
-		for(var/mob/M in get_mobs_in_view(7, H))
+		for(var/mob/M in get_hearers_in_view(7, H))
 			M.hear_say(message_pieces, verb, FALSE, src)
 		name = real_name
 		return TRUE
@@ -624,7 +624,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
-	for(var/mob/mob in get_mobs_in_view(7, src))
+	for(var/mob/mob in get_hearers_in_view(7, src))
 		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
 		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))

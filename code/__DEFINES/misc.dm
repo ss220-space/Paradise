@@ -2,12 +2,12 @@
 #define CANDLE_LUM 3 //For how bright candles are
 
 //Security levels
-#define SEC_LEVEL_GREEN	0
-#define SEC_LEVEL_BLUE	1
-#define SEC_LEVEL_RED	2
-#define SEC_LEVEL_GAMMA	3
-#define SEC_LEVEL_EPSILON	4
-#define SEC_LEVEL_DELTA	5
+#define SEC_LEVEL_GREEN 0
+#define SEC_LEVEL_BLUE 1
+#define SEC_LEVEL_RED 2
+#define SEC_LEVEL_GAMMA 3
+#define SEC_LEVEL_EPSILON 4
+#define SEC_LEVEL_DELTA 5
 
 //Sibyl System limit level
 #define SIBYL_NONLETHAL 1
@@ -21,20 +21,20 @@
 #define DOOR_CRUSH_DAMAGE 10
 
 ////////////GERMS AND INFECTIONS////////////
-#define GERM_LEVEL_AMBIENT		110		//maximum germ level you can reach by standing still
-#define GERM_LEVEL_MOVE_CAP		200		//maximum germ level you can reach by running around
+#define GERM_LEVEL_AMBIENT 110 //maximum germ level you can reach by standing still
+#define GERM_LEVEL_MOVE_CAP 200 //maximum germ level you can reach by running around
 
-#define INFECTION_LEVEL_ONE		100
-#define INFECTION_LEVEL_TWO		500
-#define INFECTION_LEVEL_THREE	1000
+#define INFECTION_LEVEL_ONE 100
+#define INFECTION_LEVEL_TWO 500
+#define INFECTION_LEVEL_THREE 1000
 
 // Damage above this value must be repaired with surgery.
 #define ROBOLIMB_SELF_REPAIR_CAP 60
 
 //metal, glass, rod stacks
-#define MAX_STACK_AMOUNT_METAL	50
-#define MAX_STACK_AMOUNT_GLASS	50
-#define MAX_STACK_AMOUNT_RODS	60
+#define MAX_STACK_AMOUNT_METAL 50
+#define MAX_STACK_AMOUNT_GLASS 50
+#define MAX_STACK_AMOUNT_RODS 60
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
@@ -48,34 +48,34 @@
 #define EVENT_LEVEL_MAJOR 3
 #define EVENT_LEVEL_NONE 4
 
-#define JANUARY		1
-#define FEBRUARY	2
-#define MARCH		3
-#define APRIL		4
-#define MAY			5
-#define JUNE		6
-#define JULY		7
-#define AUGUST		8
-#define SEPTEMBER	9
-#define OCTOBER		10
-#define NOVEMBER	11
-#define DECEMBER	12
+#define JANUARY 1
+#define FEBRUARY 2
+#define MARCH 3
+#define APRIL 4
+#define MAY 5
+#define JUNE 6
+#define JULY 7
+#define AUGUST 8
+#define SEPTEMBER 9
+#define OCTOBER 10
+#define NOVEMBER 11
+#define DECEMBER 12
 
 //Select holiday names -- If you test for a holiday in the code, make the holiday's name a define and test for that instead
-#define NEW_YEAR				"New Year"
-#define VALENTINES				"Valentine's Day"
-#define APRIL_FOOLS				"April Fool's Day"
-#define EASTER					"Easter"
-#define HALLOWEEN				"Halloween"
-#define CHRISTMAS				"Christmas"
-#define FRIDAY_13TH				"Friday the 13th"
+#define NEW_YEAR "New Year"
+#define VALENTINES "Valentine's Day"
+#define APRIL_FOOLS "April Fool's Day"
+#define EASTER "Easter"
+#define HALLOWEEN "Halloween"
+#define CHRISTMAS "Christmas"
+#define FRIDAY_13TH "Friday the 13th"
 
 #define RESIZE_DEFAULT_SIZE 1
 
 //transfer_ai() defines. Main proc in ai_core.dm
-#define AI_TRANS_TO_CARD	1 //Downloading AI to InteliCard.
-#define AI_TRANS_FROM_CARD	2 //Uploading AI from InteliCard
-#define AI_MECH_HACK		3 //Malfunctioning AI hijacking mecha
+#define AI_TRANS_TO_CARD 1 //Downloading AI to InteliCard.
+#define AI_TRANS_FROM_CARD 2 //Uploading AI from InteliCard
+#define AI_MECH_HACK 3 //Malfunctioning AI hijacking mecha
 
 //singularity defines
 #define STAGE_ONE 1
@@ -95,10 +95,10 @@
 //Turf locational stuff
 #define get_turf(A) (get_step(A, 0))
 #define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
-#define NORTH_OF_TURF(T)	locate(T.x, T.y + 1, T.z)
-#define EAST_OF_TURF(T)		locate(T.x + 1, T.y, T.z)
-#define SOUTH_OF_TURF(T)	locate(T.x, T.y - 1, T.z)
-#define WEST_OF_TURF(T)		locate(T.x - 1, T.y, T.z)
+#define NORTH_OF_TURF(T) locate(T.x, T.y + 1, T.z)
+#define EAST_OF_TURF(T) locate(T.x + 1, T.y, T.z)
+#define SOUTH_OF_TURF(T) locate(T.x, T.y - 1, T.z)
+#define WEST_OF_TURF(T) locate(T.x - 1, T.y, T.z)
 
 #define ATOM_COORDS(A) list(A.x, A.y, A.z)
 
@@ -106,81 +106,81 @@
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
 //check_target_facings() return defines
-#define FACING_FAILED											0
-#define FACING_SAME_DIR											1
-#define FACING_EACHOTHER										2
-#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR	3 //Do I win the most informative but also most stupid define award?
+#define FACING_FAILED 0
+#define FACING_SAME_DIR 1
+#define FACING_EACHOTHER 2
+#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR 3 //Do I win the most informative but also most stupid define award?
 
-#define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
+#define MIDNIGHT_ROLLOVER 864000 //number of deciseconds in a day
 
-#define MANIFEST_ERROR_NAME		1
-#define MANIFEST_ERROR_COUNT	2
-#define MANIFEST_ERROR_ITEM		4
+#define MANIFEST_ERROR_NAME 1
+#define MANIFEST_ERROR_COUNT 2
+#define MANIFEST_ERROR_ITEM 4
 
 // Metal foam states
 // teehee no one will find these here
-#define MFOAM_ALUMINUM	1
-#define MFOAM_IRON		2
+#define MFOAM_ALUMINUM 1
+#define MFOAM_IRON 2
 
-//Carbon Overlays Indexes/////////
-#define MUTANTRACE_LAYER		45
-#define WING_UNDERLIMBS_LAYER	44
-#define TAIL_UNDERLIMBS_LAYER	43	//Tail split-rendering.
-#define LIMBS_LAYER				42
-#define INTORGAN_LAYER			41
-#define MARKINGS_LAYER			40
-#define UNDERWEAR_LAYER			39
-#define MUTATIONS_LAYER			38
-#define H_DAMAGE_LAYER			37
-#define UNIFORM_LAYER			36
-#define SHOES_LAYER				35
-#define OVER_SHOES_LAYER		34
-#define ID_LAYER				33
-#define GLOVES_LAYER			32
-#define EARS_LAYER				31
-#define SUIT_LAYER				30
-#define BELT_LAYER				29	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				28
-#define SUIT_STORE_LAYER		27
-#define BACK_LAYER				26
-#define HEAD_ACCESSORY_LAYER	25
-#define FHAIR_LAYER				24
-#define GLASSES_LAYER			23
-#define HAIR_LAYER				22	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		21	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		20	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		19	//Select-layer rendering.
-#define WING_LAYER				18
-#define TAIL_LAYER				17	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			16
-#define OVER_MASK_LAYER			15	//Select-layer rendering.
-#define HEAD_LAYER				14
-#define OVER_HEAD_LAYER			13
-#define MUTANT_EARS_LAYER		12
-#define COLLAR_LAYER			11
-#define HANDCUFF_LAYER			10
-#define LEGCUFF_LAYER			9
-#define HANDS_LAYER 			8
-#define TARGETED_LAYER			7	//BS12: Layer for the target overlay from weapon targeting system
-#define HALO_LAYER				6	//blood cult ascended halo, because there's currently no better solution for adding/removing
-#define FIRE_LAYER				5	//If you're on fire
-#define MISC_LAYER				4
-#define SLEEP_LAYER				3
-#define FROZEN_LAYER			2
-#define SSD_LAYER				1
-#define TOTAL_LAYERS			47
+//Carbon Overlays Indexes
+#define MUTANTRACE_LAYER 45
+#define WING_UNDERLIMBS_LAYER 44
+#define TAIL_UNDERLIMBS_LAYER 43 //Tail split-rendering.
+#define LIMBS_LAYER 42
+#define INTORGAN_LAYER 41
+#define MARKINGS_LAYER 40
+#define UNDERWEAR_LAYER 39
+#define MUTATIONS_LAYER 38
+#define H_DAMAGE_LAYER 37
+#define UNIFORM_LAYER 36
+#define SHOES_LAYER 35
+#define OVER_SHOES_LAYER 34
+#define ID_LAYER 33
+#define GLOVES_LAYER 32
+#define EARS_LAYER 31
+#define SUIT_LAYER 30
+#define BELT_LAYER 29 //Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER 28
+#define SUIT_STORE_LAYER 27
+#define BACK_LAYER 26
+#define HEAD_ACCESSORY_LAYER 25
+#define FHAIR_LAYER 24
+#define GLASSES_LAYER 23
+#define HAIR_LAYER 22 //TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER 21 //Select-layer rendering.
+#define FHAIR_OVER_LAYER 20 //Select-layer rendering.
+#define GLASSES_OVER_LAYER 19 //Select-layer rendering.
+#define WING_LAYER 18
+#define TAIL_LAYER 17 //bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER 16
+#define OVER_MASK_LAYER 15 //Select-layer rendering.
+#define HEAD_LAYER 14
+#define OVER_HEAD_LAYER 13
+#define MUTANT_EARS_LAYER 12
+#define COLLAR_LAYER 11
+#define HANDCUFF_LAYER 10
+#define LEGCUFF_LAYER 9
+#define HANDS_LAYER 8
+#define TARGETED_LAYER 7 //BS12: Layer for the target overlay from weapon targeting system
+#define HALO_LAYER 6 //blood cult ascended halo, because there's currently no better solution for adding/removing
+#define FIRE_LAYER 5 //If you're on fire
+#define MISC_LAYER 4
+#define SLEEP_LAYER 3
+#define FROZEN_LAYER 2
+#define SSD_LAYER 1
+#define TOTAL_LAYERS 47
 
-///Access Region Codes///
-#define REGION_ALL			0
-#define REGION_GENERAL		1
-#define REGION_SECURITY		2
-#define REGION_MEDBAY		3
-#define REGION_RESEARCH		4
-#define REGION_ENGINEERING	5
-#define REGION_SUPPLY		6
-#define REGION_COMMAND		7
-#define REGION_CENTCOMM		8
-#define REGION_TAIPAN		9
+//Access Region Codes
+#define REGION_ALL 0
+#define REGION_GENERAL 1
+#define REGION_SECURITY 2
+#define REGION_MEDBAY 3
+#define REGION_RESEARCH 4
+#define REGION_ENGINEERING 5
+#define REGION_SUPPLY 6
+#define REGION_COMMAND 7
+#define REGION_CENTCOMM 8
+#define REGION_TAIPAN 9
 
 //Just space
 #define SPACE_ICON_STATE "[((x + y) ^ ~(x * y) + z) % 25]"
@@ -214,67 +214,63 @@
 	The color on the left is the one used as the actual color of the wire, but it doesn't look good when written.
 	So, we need to replace the name to something that looks better.
 */
-#define LIST_COLOR_RENAME				\
-	list(								\
-		"rebeccapurple" = "dark purple",\
-		"darkslategrey" = "dark grey",	\
-		"darkolivegreen"= "dark green",	\
-		"darkslateblue" = "dark blue",	\
-		"darkkhaki"	= "khaki",		\
-		"darkseagreen"	= "light green",\
-		"midnightblue"	= "blue",		\
-		"lightgrey"	= "light grey",	\
-		"darkgrey"		= "dark grey",	\
-		"steelblue"	= "blue",		\
-		"goldenrod"		= "gold"		\
-	)
+#define LIST_COLOR_RENAME list( \
+	"rebeccapurple" = "dark purple", \
+	"darkslategrey" = "dark grey", \
+	"darkolivegreen" = "dark green", \
+	"darkslateblue" = "dark blue", \
+	"darkkhaki" = "khaki", \
+	"darkseagreen" = "light green", \
+	"midnightblue" = "blue", \
+	"lightgrey" = "light grey", \
+	"darkgrey" = "dark grey", \
+	"steelblue" = "blue", \
+	"goldenrod" = "gold" \
+)
 
 /// Pure Black and white colorblindness. Every species except Vulpkanins and Tajarans will have this.
-#define GREYSCALE_COLOR_REPLACE		\
-	list(							\
-		"red"		= "grey",		\
-		"blue"		= "grey",		\
-		"green"		= "grey",		\
-		"orange"	= "light grey",	\
-		"yellow"	= "light grey",	\
-		"brown"		= "grey",		\
-		"gold"		= "light grey",	\
-		"cyan"		= "silver",		\
-		"magenta"	= "grey",		\
-		"purple"	= "grey",		\
-		"pink"		= "light grey"	\
-	)
+#define GREYSCALE_COLOR_REPLACE list( \
+	"red" = "grey", \
+	"blue" = "grey", \
+	"green" = "grey", \
+	"orange" = "light grey", \
+	"yellow" = "light grey", \
+	"brown" = "grey", \
+	"gold" = "light grey", \
+	"cyan" = "silver", \
+	"magenta" = "grey", \
+	"purple" = "grey", \
+	"pink" = "light grey" \
+)
 
 /// Red colorblindness. Vulpkanins/Wolpins have this.
-#define PROTANOPIA_COLOR_REPLACE		\
-	list(								\
-		"red"		= "darkolivegreen",	\
-		"green"		= "darkslategrey",	\
-		"orange"	= "goldenrod",		\
-		"yellow"	= "goldenrod",		\
-		"brown"		= "darkolivegreen",	\
-		"gold"		= "goldenrod",		\
-		"cyan"		= "steelblue",		\
-		"magenta"	= "blue",			\
-		"purple"	= "darkslategrey",	\
-		"pink"		= "beige"			\
-	)
+#define PROTANOPIA_COLOR_REPLACE list( \
+	"red" = "darkolivegreen", \
+	"green" = "darkslategrey", \
+	"orange" = "goldenrod", \
+	"yellow" = "goldenrod", \
+	"brown" = "darkolivegreen", \
+	"gold" = "goldenrod", \
+	"cyan" = "steelblue", \
+	"magenta" = "blue", \
+	"purple" = "darkslategrey", \
+	"pink" = "beige" \
+)
 
 /// Yellow-Blue colorblindness. Tajarans/Farwas have this.
-#define TRITANOPIA_COLOR_REPLACE		\
-	list(								\
-		"red"		= "rebeccapurple",	\
-		"blue"		= "darkslateblue",	\
-		"green"		= "darkolivegreen",	\
-		"orange"	= "darkkhaki",		\
-		"yellow"	= "darkkhaki",		\
-		"brown"		= "rebeccapurple",	\
-		"gold"		= "darkkhaki",		\
-		"cyan"		= "darkseagreen",	\
-		"magenta"	= "darkslateblue",	\
-		"purple"	= "darkslateblue",	\
-		"pink"		= "lightgrey"		\
-	)
+#define TRITANOPIA_COLOR_REPLACE list( \
+	"red" = "rebeccapurple", \
+	"blue" = "darkslateblue", \
+	"green" = "darkolivegreen", \
+	"orange" = "darkkhaki", \
+	"yellow" = "darkkhaki", \
+	"brown" = "rebeccapurple", \
+	"gold" = "darkkhaki", \
+	"cyan" = "darkseagreen", \
+	"magenta" = "darkslateblue", \
+	"purple" = "darkslateblue", \
+	"pink" = "lightgrey" \
+)
 
 //Gun trigger guards
 #define TRIGGER_GUARD_ALLOW_ALL -1
@@ -335,17 +331,17 @@
 #define ARBITRARY_VIEWRANGE_NOHUD 2
 
 //Bloody shoes/footprints
-#define MAX_SHOE_BLOODINESS			100
-#define BLOODY_FOOTPRINT_BASE_ALPHA	150
-#define BLOOD_GAIN_PER_STEP			100
-#define BLOOD_LOSS_PER_STEP			5
-#define BLOOD_LOSS_IN_SPREAD		20
-#define BLOOD_AMOUNT_PER_DECAL		20
+#define MAX_SHOE_BLOODINESS 100
+#define BLOODY_FOOTPRINT_BASE_ALPHA 150
+#define BLOOD_GAIN_PER_STEP 100
+#define BLOOD_LOSS_PER_STEP 5
+#define BLOOD_LOSS_IN_SPREAD 20
+#define BLOOD_AMOUNT_PER_DECAL 20
 
 //Bloody shoe blood states
-#define BLOOD_STATE_HUMAN			"blood"
-#define BLOOD_STATE_XENO			"xeno"
-#define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
+#define BLOOD_STATE_HUMAN "blood"
+#define BLOOD_STATE_XENO "xeno"
+#define BLOOD_STATE_NOT_BLOODY "no blood whatsoever"
 
 //for obj explosion block calculation
 #define EXPLOSION_BLOCK_PROC -1
@@ -356,7 +352,7 @@
 // Vending machine stuff
 #define CAT_NORMAL 1
 #define CAT_HIDDEN 2
-#define CAT_COIN   4
+#define CAT_COIN 4
 
 // Jobs
 // used for alternate_option
@@ -375,20 +371,20 @@
 
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined
-#define CLEAN_WEAK			2
-#define CLEAN_MEDIUM		3 // Acceptable tools
-#define CLEAN_STRONG		4 // Industrial strength
-#define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud
-#define CLEAN_GOD			6 // Cleans things spotless down to the atomic structure
+#define CLEAN_WEAK 2
+#define CLEAN_MEDIUM 3 // Acceptable tools
+#define CLEAN_STRONG 4 // Industrial strength
+#define CLEAN_IMPRESSIVE 5 // Cleaning strong enough your granny would be proud
+#define CLEAN_GOD 6 // Cleans things spotless down to the atomic structure
 
 //Ghost orbit types:
-#define GHOST_ORBIT_CIRCLE		"circle"
-#define GHOST_ORBIT_TRIANGLE	"triangle"
-#define GHOST_ORBIT_HEXAGON		"hexagon"
-#define GHOST_ORBIT_SQUARE		"square"
-#define GHOST_ORBIT_PENTAGON	"pentagon"
+#define GHOST_ORBIT_CIRCLE "circle"
+#define GHOST_ORBIT_TRIANGLE "triangle"
+#define GHOST_ORBIT_HEXAGON "hexagon"
+#define GHOST_ORBIT_SQUARE "square"
+#define GHOST_ORBIT_PENTAGON "pentagon"
 
-//Explosive wall groups
+///Explosive wall groups
 #define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
 
 //Fullscreen overlay resolution in tiles.
@@ -406,14 +402,14 @@
 #define DICE_BASICALLY_RIGGED 2
 #define DICE_TOTALLY_RIGGED 3
 
-// Water temperature
+/// Water temperature
 #define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
 
 // Parallax
-#define PARALLAX_DELAY_DEFAULT	world.tick_lag
-#define PARALLAX_DELAY_MED		1
-#define PARALLAX_DELAY_LOW		2
-#define PARALLAX_LOOP_TIME		25
+#define PARALLAX_DELAY_DEFAULT world.tick_lag
+#define PARALLAX_DELAY_MED 1
+#define PARALLAX_DELAY_LOW 2
+#define PARALLAX_LOOP_TIME 25
 
 // Engine types
 #define ENGTYPE_SING "Сингулярность"
@@ -426,15 +422,15 @@
 #define SYMPTOM_ACTIVATION_PROB 3
 
 // Atmos stuff that fucking terrifies me
-#define LINDA_SPAWN_HEAT		(1<<0)
-#define LINDA_SPAWN_20C			(1<<1)
-#define LINDA_SPAWN_TOXINS		(1<<2)
-#define LINDA_SPAWN_OXYGEN		(1<<3)
-#define LINDA_SPAWN_CO2			(1<<4)
-#define LINDA_SPAWN_NITROGEN	(1<<5)
-#define LINDA_SPAWN_N2O			(1<<6)
-#define LINDA_SPAWN_AGENT_B		(1<<7)
-#define LINDA_SPAWN_AIR			(1<<8)
+#define LINDA_SPAWN_HEAT (1<<0)
+#define LINDA_SPAWN_20C (1<<1)
+#define LINDA_SPAWN_TOXINS (1<<2)
+#define LINDA_SPAWN_OXYGEN (1<<3)
+#define LINDA_SPAWN_CO2 (1<<4)
+#define LINDA_SPAWN_NITROGEN (1<<5)
+#define LINDA_SPAWN_N2O (1<<6)
+#define LINDA_SPAWN_AGENT_B (1<<7)
+#define LINDA_SPAWN_AIR (1<<8)
 
 /// Send to the primary Discord webhook
 #define DISCORD_WEBHOOK_PRIMARY "PRIMARY"
@@ -461,26 +457,26 @@
 /// Disposal: How frequently disposals can make sounds, to prevent huge sound stacking
 #define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
-/// Mech Subtypes
-#define MECH_TYPE_NONE			(1<<0)
-#define MECH_TYPE_RIPLEY		(1<<1)
-#define MECH_TYPE_CLARKE		(1<<2)
-#define MECH_TYPE_ODYSSEUS		(1<<3)
-#define MECH_TYPE_GYGAX			(1<<4)
-#define MECH_TYPE_DURAND		(1<<5)
-#define MECH_TYPE_PHAZON		(1<<6)
-#define MECH_TYPE_HONKER		(1<<7)
-#define MECH_TYPE_RETICENCE		(1<<8)
-#define MECH_TYPE_LOCKER		(1<<9)
-#define MECH_TYPE_MARAUDER		(1<<10)
-#define MECH_TYPE_SIDEWINTER	(1<<11)
-#define MECH_TYPE_OLD_DURAND	(1<<12)
-#define MECH_TYPE_DARK_GYGAX	(1<<13)
+// Mech Subtypes
+#define MECH_TYPE_NONE (1<<0)
+#define MECH_TYPE_RIPLEY (1<<1)
+#define MECH_TYPE_CLARKE (1<<2)
+#define MECH_TYPE_ODYSSEUS (1<<3)
+#define MECH_TYPE_GYGAX (1<<4)
+#define MECH_TYPE_DURAND (1<<5)
+#define MECH_TYPE_PHAZON (1<<6)
+#define MECH_TYPE_HONKER (1<<7)
+#define MECH_TYPE_RETICENCE (1<<8)
+#define MECH_TYPE_LOCKER (1<<9)
+#define MECH_TYPE_MARAUDER (1<<10)
+#define MECH_TYPE_SIDEWINTER (1<<11)
+#define MECH_TYPE_OLD_DURAND (1<<12)
+#define MECH_TYPE_DARK_GYGAX (1<<13)
 
 /// Lavaland types
-#define LAVALAND_TYPE_LAVA	(1<<0)
-#define	LAVALAND_TYPE_PLASMA	(1<<1)
-#define	LAVALAND_TYPE_CHASM	(1<<2)
+#define LAVALAND_TYPE_LAVA (1<<0)
+#define	LAVALAND_TYPE_PLASMA (1<<1)
+#define	LAVALAND_TYPE_CHASM (1<<2)
 
 // Deadchat control defines
 

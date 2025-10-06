@@ -6,7 +6,10 @@
 	screen_overlay = "plasmavendor_screen"
 	broken_overlay = "plasmavendor_broken"
 	vend_reply = "Не забыв+айте о безоп+асности при см+ене снаряж+ения!"
-	products = list(/obj/item/storage/lockbox/plasma/captain = 1,
+	refill_canister = /obj/item/vending_refill/plasma
+
+	products = list(
+		/obj/item/storage/lockbox/plasma/captain = 1,
 		/obj/item/storage/lockbox/plasma/hos = 1,
 		/obj/item/storage/lockbox/plasma/qm = 1,
 		/obj/item/storage/lockbox/plasma/cmo = 1,
@@ -39,10 +42,8 @@
 		/obj/item/storage/lockbox/plasma/atmos = 1,
 		/obj/item/storage/lockbox/plasma/mime = 5,
 		/obj/item/storage/lockbox/plasma/clown = 5,
-		/obj/item/storage/lockbox/plasma/blueshield = 1
+		/obj/item/storage/lockbox/plasma/blueshield = 1,
 	)
-
-	refill_canister = /obj/item/vending_refill/plasma
 
 /obj/machinery/vending/plasmamate/get_ru_names()
 	return list(

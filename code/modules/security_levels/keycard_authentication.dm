@@ -24,7 +24,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
-	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
+	to_chat(user, span_warning("The station AI is not to interact with these devices."))
 	return
 
 
@@ -110,10 +110,10 @@
 	if(..())
 		return
 	if(busy)
-		to_chat(usr, "<span class='warning'>This device is busy.</span>")
+		to_chat(usr, span_warning("This device is busy."))
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	. = TRUE
@@ -125,7 +125,7 @@
 		if("triggerevent")
 			event = params["triggerevent"]
 			if(SSsecurity_level.get_current_level_as_number() > SEC_LEVEL_RED && event == "Red Alert") //if gamma, epsilon or delta
-				to_chat(usr, "<span class='warning'>CentCom security measures prevent you from changing the alert level.</span>")
+				to_chat(usr, span_warning("CentCom security measures prevent you from changing the alert level."))
 				return
 			swiping = TRUE
 
@@ -192,7 +192,7 @@
 				atom_say("Все Отряды Быстрого Реагирования распределены и не могут быть вызваны в данный момент.")
 				return
 			atom_say("Запрос ОБР отправлен!")
-			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name, name, follow_target_override = src)
+			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name, HEADSET_FREQ_NAME, follow_target_override = src)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 

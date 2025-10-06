@@ -183,9 +183,10 @@
 
 	if(blob_stage == BLOB_STAGE_FIRST && legit_blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_SECOND
-		GLOB.major_announcement.announce("Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
-										ANNOUNCE_BIOHAZARD_RU,
-										'sound/AI/outbreak5.ogg'
+		GLOB.major_announcement.announce(
+			message = "Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
+			new_title = ANNOUNCE_BIOHAZARD_RU,
+			new_sound = 'sound/AI/outbreak5.ogg'
 		)
 		if(!off_auto_gamma)
 			addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)

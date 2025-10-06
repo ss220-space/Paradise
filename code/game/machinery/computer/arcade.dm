@@ -267,9 +267,7 @@
 		enemy_mp = 20
 		gameover = 0
 		blocked = 0
-
 		emagged = 1
-
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
 
@@ -277,19 +275,19 @@
 
 // *** THE ORION TRAIL ** //
 
-#define ORION_TRAIL_WINTURN		9
+#define ORION_TRAIL_WINTURN 9
 
 //Orion Trail Events
-#define ORION_TRAIL_RAIDERS		"Рейдеры"
-#define ORION_TRAIL_FLUX		"Межзвездный поток"
-#define ORION_TRAIL_ILLNESS		"Болезнь"
-#define ORION_TRAIL_BREAKDOWN	"Авария"
-#define ORION_TRAIL_LING		"Генокрады?"
+#define ORION_TRAIL_RAIDERS "Рейдеры"
+#define ORION_TRAIL_FLUX "Межзвездный поток"
+#define ORION_TRAIL_ILLNESS "Болезнь"
+#define ORION_TRAIL_BREAKDOWN "Авария"
+#define ORION_TRAIL_LING "Генокрады?"
 #define ORION_TRAIL_LING_ATTACK "Засада генокрадов"
-#define ORION_TRAIL_MALFUNCTION	"Неисправность"
-#define ORION_TRAIL_COLLISION	"Столкновение"
-#define ORION_TRAIL_SPACEPORT	"Космопорт"
-#define ORION_TRAIL_BLACKHOLE	"Черная Дыра"
+#define ORION_TRAIL_MALFUNCTION "Неисправность"
+#define ORION_TRAIL_COLLISION "Столкновение"
+#define ORION_TRAIL_SPACEPORT "Космопорт"
+#define ORION_TRAIL_BLACKHOLE "Черная Дыра"
 
 
 /obj/machinery/computer/arcade/orion_trail

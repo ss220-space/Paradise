@@ -88,7 +88,7 @@
 
 /mob/living/simple_animal/hulk/Life()
 	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(src, "<span class='warning'>You don't want to harm other living beings, your angry is loss! You unmutate!</span>")
+		to_chat(src, span_warning("You don't want to harm other living beings, your angry is loss! You unmutate!"))
 		unmutate()
 		return
 
@@ -162,21 +162,21 @@
 	if(mind && original_body)
 		mind.transfer_to(original_body)
 	original_body.force_gene_block(GLOB.hulkblock, FALSE)
-	to_chat(original_body, "<span class='danger'>You suddenly feel very weak.</span>")
+	to_chat(original_body, span_danger("You suddenly feel very weak."))
 	qdel(src)
 
 /mob/living/proc/hulk_scream(obj/target, chance)
 	if(prob(chance))
-		visible_message("<span class='userdanger'>[src] has punched \the [target]!</span>",\
-		"<span class='userdanger'>You punch the [target]!</span>",\
-		"<span class='userdanger'>You feel some weird vibration!</span>")
+		visible_message(span_userdanger("[src] has punched \the [target]!"),\
+		span_userdanger("You punch the [target]!"),\
+		span_userdanger("You feel some weird vibration!"))
 		playsound(target, 'sound/effects/hulk_hit_airlock.ogg', CHANNEL_BUZZ, 75)
 		return 0
 	else
 		say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
-		visible_message("<span class='userdanger'>[src] has destroyed some mechanic in the [target]!</span>",\
-		"<span class='userdanger'>You destroy some mechanic in the [target] door, which holds it in place!</span>",\
-		"<span class='userdanger'>You feel some weird vibration!</span>")
+		visible_message(span_userdanger("[src] has destroyed some mechanic in the [target]!"),\
+		span_userdanger("You destroy some mechanic in the [target] door, which holds it in place!"),\
+		span_userdanger("You feel some weird vibration!"))
 		playsound(target, pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg'), CHANNEL_BUZZ)
 		return 1
 
@@ -196,7 +196,7 @@
 				F.deconstruct(src);
 				return
 	if(D.density)
-		to_chat(src, "<span class='userdanger'>You force your fingers between the doors and begin to pry them open...</span>")
+		to_chat(src, span_userdanger("You force your fingers between the doors and begin to pry them open..."))
 		playsound(D, 'sound/machines/airlock_force_open.ogg', CHANNEL_BUZZ, 30, null, -4)
 		D.open(1)
 

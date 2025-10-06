@@ -24,7 +24,7 @@
 	module = new /obj/item/robot_module/ninja(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/ninja(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	//languages
 	module.add_languages(src)
 	//subsystems

@@ -109,10 +109,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!awaygate)
 		awaygate = locate(/obj/machinery/gateway/centeraway) in SSmachines.get_by_type(/obj/machinery/gateway)
 		if(!awaygate)
-			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
+			to_chat(user, span_notice("Error: No destination found."))
 			return
 	if(world.time < wait)
-		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>")
+		to_chat(user, span_notice("Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes."))
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -219,7 +219,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!stationgate)
 		stationgate = locate(/obj/machinery/gateway/centerstation) in SSmachines.get_by_type(/obj/machinery/gateway)
 		if(!stationgate)
-			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
+			to_chat(user, span_notice("Error: No destination found."))
 			return
 	if(!calibrated && calibrating_on_activating)
 		calibrated = TRUE
@@ -279,7 +279,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centeraway/proc/exilecheck(mob/living/carbon/user)
 	for(var/obj/item/implant/exile/imp in user)//Checking that there is an exile implant in the contents
 		if(imp.imp_in == user)//Checking that it's actually implanted vs just in their pocket
-			to_chat(user, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
+			to_chat(user, span_notice("The station gate has detected your exile implant and is blocking your entry."))
 			return TRUE
 	return FALSE
 

@@ -21,8 +21,8 @@
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 	D.visible_message(
-		"<span class='danger'>[A] electrocuted [D]!</span>", \
-		"<span class='userdanger'>[A] elecrtrocuted you!</span>"
+		span_danger("[A] electrocuted [D]!"), \
+		span_userdanger("[A] elecrtrocuted you!")
 	)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	return TRUE
@@ -35,8 +35,8 @@
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/contractorbatonhit.ogg', 50, TRUE, -1)
 	D.visible_message(
-		"<span class='danger'>[A] tapped [D]!</span>", \
-		"<span class='userdanger'>[A] tapped you!</span>"
+		span_danger("[A] tapped [D]!"), \
+		span_userdanger("[A] tapped you!")
 	)
 	return TRUE
 
@@ -63,7 +63,7 @@
 /obj/item/ipc_combat_upgrade/attack_self(mob/user)
 	if(!ismachineperson(user) || is_used)
 		return
-	to_chat(user, "<span class='notice'>Installation sequence initialized. It will take some time...</span>")
+	to_chat(user, span_notice("Installation sequence initialized. It will take some time..."))
 	if(do_after(user, 10 SECONDS, user))
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/synthojitsu/F = new/datum/martial_art/synthojitsu(null)

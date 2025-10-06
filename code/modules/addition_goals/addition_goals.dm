@@ -74,7 +74,7 @@ SUBSYSTEM_DEF(addition_goals)
 	if(!force && !is_refresh_available())
 		return FALSE
 	available_goals_refresh_time = world.time
-	for(var/goal as anything in available_goals) // delete old available goals
+	for(var/goal in available_goals) // delete old available goals
 		qdel(goal)
 		available_goals -= goal
 	for(var/i = 0; i < AVAILABLE_GOALS_COUNT; i++) // create new goals as available

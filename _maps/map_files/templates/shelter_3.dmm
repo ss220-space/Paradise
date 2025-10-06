@@ -213,10 +213,6 @@
 /obj/item/toy/figure/bartender,
 /turf/simulated/floor/pod,
 /area/survivalpod)
-"S" = (
-/obj/structure/window/shuttle/survival_pod,
-/turf/simulated/floor/pod,
-/area/survivalpod)
 "T" = (
 /obj/structure/sign/mining/survival{
 	dir = 8
@@ -248,7 +244,7 @@ c
 T
 G
 T
-S
+G
 T
 G
 T

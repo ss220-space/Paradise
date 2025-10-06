@@ -149,7 +149,7 @@
 	if(trash)
 		generate_trash(T)
 
-	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
+	visible_message(span_warning("[src] has been squashed."),span_italics("You hear a smack."))
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target, thrower)
@@ -187,7 +187,7 @@
 	if(trash)
 		var/obj/item/T = generate_trash()
 		user.put_in_hands(T)
-		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
+		to_chat(user, span_notice("You open [src]\'s shell, revealing \a [T]."))
 	qdel(src)
 
 // Diona Nymphs can eat these as well as weeds to gain nutrition.
