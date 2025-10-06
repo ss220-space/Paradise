@@ -142,8 +142,6 @@
 	icon_state = "corpsoft"
 	item_color = "corp"
 	item_state = "corpsoft"
-	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
-	strip_delay = 60
 	dog_fashion = null
 
 /obj/item/clothing/head/soft/solgov

@@ -152,7 +152,7 @@
 
 /obj/item/clothing/shoes/jackboots/high
 	name = "high jackboots"
-	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
+	desc = "Защитные высокие берцы для боевых сценариев или боевых ситуаций."
 	icon_state = "highjacks"
 	item_state = "highjacks"
 
