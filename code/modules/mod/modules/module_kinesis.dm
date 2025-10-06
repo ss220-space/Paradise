@@ -1,9 +1,8 @@
 ///Kinesis - Gives you the ability to move and launch objects.
 /obj/item/mod/module/anomaly_locked/kinesis
 	name = "MOD kinesis module"
-	desc = "Модульное устройство, подключаемое к предплечью костюма. Восстановленная технология, \
-		до этого считавшаяся утерянной. Данное устройство генерирует локальное поле анти-гравитации, \
-		что позволяет пользователю перемещать объекты в пространстве, будь то небольшой титановый стержень \
+	desc = "Модуль для МЭК, подключаемый к предплечью костюма. Генерирует локальное поле анти-гравитации, \
+		что позволяет пользователю с лёгкостью перемещать объекты в пространстве, будь то небольшой титановый стержень \
 		или тяжёлая промышленная техника."
 	icon_state = "kinesis"
 	module_type = MODULE_ACTIVE
@@ -44,12 +43,12 @@
 
 /obj/item/mod/module/anomaly_locked/kinesis/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль МЭК \"Кинезис\"",
-		GENITIVE = "модуля МЭК \"Кинезис\"",
-		DATIVE = "модулю МЭК \"Кинезис\"",
-		ACCUSATIVE = "модуль МЭК \"Кинезис\"",
-		INSTRUMENTAL = "модулем МЭК \"Кинезис\"",
-		PREPOSITIONAL = "модуле МЭК \"Кинезис\"",
+		NOMINATIVE = "модуль \"Кинезис\"",
+		GENITIVE = "модуля \"Кинезис\"",
+		DATIVE = "модулю \"Кинезис\"",
+		ACCUSATIVE = "модуль \"Кинезис\"",
+		INSTRUMENTAL = "модулем \"Кинезис\"",
+		PREPOSITIONAL = "модуле \"Кинезис\"",
 	)
 
 /obj/item/mod/module/anomaly_locked/kinesis/Initialize(mapload)

@@ -96,13 +96,12 @@
 	overlay_state_active = "[initial(overlay_state_active)]-[mod.skin]"
 	return ..()
 
-///Insignia - Gives you a skin specific stripe
+// MARK: Insignia
+/// Insignia - Gives you a skin specific stripe
 /obj/item/mod/module/insignia
 	name = "MOD insignia module"
-	desc = "Несмотря на существование системы опознавания \"свой-чужой\", радиокоммуникации и современных методов \
-		дедуктивного анализа, включающих использование собственных глаз, разноцветная покраска остаётся популярным способным \
-		для различных фракций в галактике отличать друг друга. Этот модуль представляет собой набор маленьких движущихся \
-		распылителей для нанесения и снятия краски по заданным цветовым шаблонам."
+	desc = "Модуль для МЭК, представлящий собой набор маленьких движущихся распылителей для нанесения и снятия краски на МЭК \
+		по заданным цветовым шаблонам."
 	icon_state = "insignia"
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/insignia)
@@ -111,12 +110,12 @@
 
 /obj/item/mod/module/insignia/get_ru_names()
 	return list(
-		NOMINATIVE = "опознавательные знаки МЭК",
-		GENITIVE = "опознавательных знаков МЭК",
-		DATIVE = "опознавательным знакам МЭК",
-		ACCUSATIVE = "опознавательные знаки МЭК",
-		INSTRUMENTAL = "опознавательными знакиами МЭК",
-		PREPOSITIONAL = "опознавательных знаках МЭК",
+		NOMINATIVE = "модуль покраски",
+		GENITIVE = "модуля покраски",
+		DATIVE = "модулю покраски",
+		ACCUSATIVE = "модуль покраски",
+		INSTRUMENTAL = "модулем покраски",
+		PREPOSITIONAL = "модуле покраски",
 	)
 
 /obj/item/mod/module/insignia/generate_worn_overlay(obj/item/source, mutable_appearance/standing)
@@ -126,25 +125,25 @@
 		appearance.color = color
 
 /obj/item/mod/module/insignia/commander
-	color = "#4980a5"
+	color = COLOR_COMMAND_BLUE
 
 /obj/item/mod/module/insignia/security
-	color = "#b30d1e"
+	color = COLOR_SECURITY_RED
 
 /obj/item/mod/module/insignia/engineer
-	color = "#e9c80e"
+	color = COLOR_ENGINEERING_ORANGE
 
 /obj/item/mod/module/insignia/medic
-	color = "#ebebf5"
+	color = COLOR_MEDICAL_BLUE
 
 /obj/item/mod/module/insignia/janitor
-	color = "#7925c7"
+	color = COLOR_STRONG_VIOLET
 
 /obj/item/mod/module/insignia/clown
-	color = "#ff1fc7"
+	color = COLOR_LIGHT_PINK
 
 /obj/item/mod/module/insignia/chaplain
-	color = "#f0a00c"
+	color = COLOR_ALMOST_BLACK
 
 // MARK: Anti-slip
 // Currently not used anywhere, /obj/item/mod/module/magboot plays its role instead
@@ -208,10 +207,12 @@
 	complexity = initial(fake.complexity) //This is 1 less complex than a holster, but that is fine tbh, paying tc for it.
 	use_energy_cost = initial(fake.use_energy_cost)
 
-///Power kick - Lets the user launch themselves at someone to kick them.
+// MARK: Power kick
+/// Power kick - Lets the user launch themselves at someone to kick them.
 /obj/item/mod/module/power_kick
 	name = "MOD power kick module"
-	desc = "Этот модуль использует миомеры высокой мощности для генерации невероятного количества энергии, преобразуемой в кинетическую энергию пинка."
+	desc = "Модуль для МЭК, использующий миомеры высокой мощности для генерации невероятного количества энергии, \
+		преобразуемой в кинетическую энергию пинка."
 	icon_state = "power_kick"
 	module_type = MODULE_ACTIVE
 	removable = FALSE
@@ -226,12 +227,12 @@
 
 /obj/item/mod/module/power_kick/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль МЭК \"Силовой пинок\"",
-		GENITIVE = "модуля МЭК \"Силовой пинок\"",
-		DATIVE = "модулю МЭК \"Силовой пинок\"",
-		ACCUSATIVE = "модуль МЭК \"Силовой пинок\"",
-		INSTRUMENTAL = "модулем МЭК \"Силовой пинок\"",
-		PREPOSITIONAL = "модуле МЭК \"Силовой пинок\"",
+		NOMINATIVE = "модуль \"Силовой пинок\"",
+		GENITIVE = "модуля \"Силовой пинок\"",
+		DATIVE = "модулю \"Силовой пинок\"",
+		ACCUSATIVE = "модуль \"Силовой пинок\"",
+		INSTRUMENTAL = "модулем \"Силовой пинок\"",
+		PREPOSITIONAL = "модуле \"Силовой пинок\"",
 	)
 
 /obj/item/mod/module/power_kick/on_select_use(atom/target)
@@ -240,7 +241,7 @@
 		return
 	if(mod.wearer.buckled)
 		return
-	mod.wearer.visible_message(span_warning("[mod.wearer] готовится кого-нибудь пнуть!"))
+	mod.wearer.visible_message(span_warning("[mod.wearer] готов[pluralize_ru(mod.wearer.gender, "ится", "ятся")] кого-нибудь пнуть!"))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	animate(mod.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, SpinAnimation), 3, 2), 0.3 SECONDS)
@@ -274,15 +275,19 @@
 		living_target.apply_damage(damage, BRUTE, mod.wearer.zone_selected)
 		add_attack_logs(mod.wearer, target, "[target] was charged by [mod.wearer]'s [src]", ATKLOG_ALMOSTALL)
 		living_target.Weaken(knockdown_time)
-		mod.wearer.visible_message(span_danger("[mod.wearer] врезается в [target.declent_ru(ACCUSATIVE)]"), span_userdanger("Вы врезаетесь в [target.declent_ru(ACCUSATIVE)]!"))
+		mod.wearer.visible_message(
+			span_danger("[mod.wearer] вреза[pluralize_ru(mod.wearer.gender, "ется", "ются")] в [target.declent_ru(ACCUSATIVE)]"),
+			span_userdanger("Вы врезаетесь в [target.declent_ru(ACCUSATIVE)]!")
+		)
 	else
 		return
 	mod.wearer.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 
-///Plate Compression - Compresses the suit to normal size
+// MARK: Plate compression
+/// Plate Compression - Compresses the suit to normal size
 /obj/item/mod/module/plate_compression
 	name = "MOD plate compression module"
-	desc = "Модуль, позволяющий крайне плотно подогнать друг к другу детали костюма, делая его невероятно компактным. \
+	desc = "Модуль для МЭК, позволяющий крайне плотно подогнать друг к другу детали костюма, делая его невероятно компактным. \
 		Оказываемое в процессе давление делает несовместимыми с костюмом большинство стандартных модулей хранилища."
 	icon_state = "plate_compression"
 	complexity = 2
@@ -295,12 +300,12 @@
 
 /obj/item/mod/module/plate_compression/get_ru_names()
 	return list(
-		NOMINATIVE = "уплотняющий модуль МЭК",
-		GENITIVE = "уплотняющего модуля МЭК",
-		DATIVE = "уплотняющему модулю МЭК",
-		ACCUSATIVE = "уплотняющий модуль МЭК",
-		INSTRUMENTAL = "уплотняющим модулем МЭК",
-		PREPOSITIONAL = "уплотняющем модуле МЭК",
+		NOMINATIVE = "уплотняющий модуль",
+		GENITIVE = "уплотняющего модуля",
+		DATIVE = "уплотняющему модулю",
+		ACCUSATIVE = "уплотняющий модуль",
+		INSTRUMENTAL = "уплотняющим модулем",
+		PREPOSITIONAL = "уплотняющем модуле",
 	)
 
 /obj/item/mod/module/plate_compression/on_install()
@@ -317,15 +322,14 @@
 	mod.forceMove(drop_location())
 
 
-//Ninja modules for MODsuits
-
-///Cloaking - Lowers the user's visibility, can be interrupted by being touched or attacked.
+// Ninja modules for MODsuits
+// MARK: Stealth
+/// Cloaking - Lowers the user's visibility, can be interrupted by being touched or attacked.
 /obj/item/mod/module/stealth
 	name = "MOD prototype cloaking module"
-	desc = "Модуль, полностью изменяющий устройство костюма. Представляет собой комбинацию \
+	desc = "Модуль для МЭК, полностью изменяющий устройство костюма. Представляет собой комбинацию \
 		технологий визуального стелса, использующих преломление света у поверхности костюма, и адаптивных наноматериалов, \
-		позволяющих костюму мимикрировать под окружающую среду на основе показателей внешних сенсоров. \
-		По какой-то причине эта технология встречается крайне редко."
+		позволяющих костюму мимикрировать под окружающую среду на основе показателей внешних сенсоров."
 	icon_state = "cloak"
 	module_type = MODULE_TOGGLE
 	complexity = 4
@@ -342,12 +346,12 @@
 
 /obj/item/mod/module/stealth/get_ru_names()
 	return list(
-		NOMINATIVE = "маскирующий модуль МЭК",
-		GENITIVE = "маскирующего модуля МЭК",
-		DATIVE = "маскирующему модулю МЭК",
-		ACCUSATIVE = "маскирующий модуль МЭК",
-		INSTRUMENTAL = "маскирующим модулем МЭК",
-		PREPOSITIONAL = "маскирующем модуле МЭК",
+		NOMINATIVE = "маскирующий модуль",
+		GENITIVE = "маскирующего модуля",
+		DATIVE = "маскирующему модулю",
+		ACCUSATIVE = "маскирующий модуль",
+		INSTRUMENTAL = "маскирующим модулем",
+		PREPOSITIONAL = "маскирующем модуле",
 	)
 
 /obj/item/mod/module/stealth/on_activation()
@@ -367,6 +371,7 @@
 
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
 	SIGNAL_HANDLER
+
 	balloon_alert(mod.wearer, "маскировка снята!")
 	do_sparks(2, TRUE, src)
 	drain_power(use_energy_cost)
@@ -382,16 +387,16 @@
 
 /obj/item/mod/module/stealth/proc/on_bullet_act(datum/source, obj/item/projectile)
 	SIGNAL_HANDLER
+
 	unstealth(source)
 
-//Advanced Cloaking - Doesn't turf off on bump, less power drain, more stealthy.
+// MARK: Advanced stealth
+/// Advanced Cloaking - Doesn't turn off on bump, less power drain, more stealthy.
 /obj/item/mod/module/stealth/ninja
 	name = "MOD advanced cloaking module"
-	desc = "Этот модуль — вершина стелс-технологий, стоящий на голову выше всех предыдущих версии. \
+	desc = "Модуль для МЭК, стоящий на голову выше всех предыдущих версий. \
 		Преломляющее поле было усовершенствовано, приобретя гораздо более высокую скорость и точность реагирования, \
-		поддерживая при этом маскировку даже в случае столкновения носителя с твёрдыми объектами. \
-		Энергоэффективнось также многократно возросла, делая этот модуль идеальным выбором для ситуаций, когда нужно \
-		в течение нескольки часов неподвижно стоять в радиусе поражения автоматических турелей."
+		поддерживая при этом маскировку даже в случае столкновения носителя с твёрдыми объектами."
 	icon_state = "cloak_ninja"
 	bumpoff = FALSE
 	cooldown_time = 5 SECONDS
@@ -402,23 +407,20 @@
 
 /obj/item/mod/module/stealth/ninja/get_ru_names()
 	return list(
-		NOMINATIVE = "продвинутый маскирующий модуль МЭК",
-		GENITIVE = "продвинутого маскирующего модуля МЭК",
-		DATIVE = "продвинутому маскирующему модулю МЭК",
-		ACCUSATIVE = "продвинутый маскирующий модуль МЭК",
-		INSTRUMENTAL = "продвинутым маскирующим модулем МЭК",
-		PREPOSITIONAL = "продвинутом маскирующем модуле МЭК",
+		NOMINATIVE = "продвинутый маскирующий модуль",
+		GENITIVE = "продвинутого маскирующего модуля",
+		DATIVE = "продвинутому маскирующему модулю",
+		ACCUSATIVE = "продвинутый маскирующий модуль",
+		INSTRUMENTAL = "продвинутым маскирующим модулем",
+		PREPOSITIONAL = "продвинутом маскирующем модуле",
 	)
 
-///Status Readout - Puts a lot of information including health, nutrition, fingerprints, temperature to the suit TGUI.
+// MARK: Status readout
+/// Status Readout - Puts a lot of information including health, nutrition, fingerprints, temperature to the suit TGUI.
 /obj/item/mod/module/status_readout
 	name = "MOD status readout module"
-	desc = "Широко распространённая в прошлом технология, ныне же отправленная на свалку истории... \
-		где была тут же \"подобрана\" цепкими лапками Клана Паука и затем усовершенствована под собственные нужды. \
-		Этот модуль подключается к позвоночному столбу костюма, напрямую считывая и отображая всевозможные биометрические \
-		данные носителя; уровень утомления, насыщения, физическая форма, здоровье и даже настроение. \
-		Поговаривают, что к незаслуженно забытой технологии вновь начали присматриваться как Синдикат, так и Нанотрейзен, встраивая \
-		её в свои самые последние разработки."
+	desc = "Модуль для МЭК, подключающийся к позвоночному столбу костюма, напрямую считывая и отображая всевозможные \
+		биометрические данные носителя: уровень утомления, насыщения, физическая форма, здоровье и даже настроение."
 	icon_state = "status"
 	complexity = 1
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 0.1
@@ -435,12 +437,12 @@
 
 /obj/item/mod/module/status_readout/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль считывания данных МЭК",
-		GENITIVE = "модуля считывания данных МЭК",
-		DATIVE = "модулю считывания данных МЭК",
-		ACCUSATIVE = "модуль считывания данных МЭК",
-		INSTRUMENTAL = "модулем считывания данных МЭК",
-		PREPOSITIONAL = "модуле считывания данных МЭК",
+		NOMINATIVE = "модуль оценки состояния",
+		GENITIVE = "модуля оценки состояния",
+		DATIVE = "модулюоценки состояния",
+		ACCUSATIVE = "модуль оценки состояния",
+		INSTRUMENTAL = "модулем оценки состояния",
+		PREPOSITIONAL = "модуле оценки состояния",
 	)
 
 /obj/item/mod/module/status_readout/add_ui_data()
@@ -488,13 +490,13 @@
 		if("display_dna")
 			display_dna = text2num(value)
 
-///Camera Module - Puts a camera in the modsuit that the ERT commander can see
+// MARK: Camera module
+/// Camera Module - Puts a camera in the modsuit that the ERT commander can see
 /obj/item/mod/module/ert_camera
 	name = "MOD camera module"
-	desc = "Модуль, представляющий собой комбинацию записывающей камеры и транслирующего устройства. В прямом эфире отправляет всё, \
+	desc = "Модуль для МЭК, представляющий собой комбинацию записывающей камеры и транслирующего устройства. В прямом эфире отправляет всё, \
 	что видит носитель, на чёрный ящик станции и центрального командования. Используется подразделениями ОБР для координации \
-	действий через командный центр, для последующего разбора полевых операций, и для записи смешнейших провалов лучших бойцов Нанотрейзен. \
-	Модуль также послужил прототипом для схожих устройств в известном мультфильме \"Отряд смерти\"."
+	действий через командный центр, для последующего разбора полевых операций, и для записи смешнейших провалов лучших бойцов Нанотрейзен."
 	icon_state = "eradicationlock" //looks like a bluespace transmitter or something, probably could use an actual camera look.
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/ert_camera)
@@ -502,12 +504,12 @@
 
 /obj/item/mod/module/ert_camera/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль камеры МЭК",
-		GENITIVE = "модуля камеры МЭК",
-		DATIVE = "модулю камеры МЭК",
-		ACCUSATIVE = "модуль камеры МЭК",
-		INSTRUMENTAL = "модулем камеры МЭК",
-		PREPOSITIONAL = "модуле камеры МЭК",
+		NOMINATIVE = "модуль камеры",
+		GENITIVE = "модуля камеры",
+		DATIVE = "модулю камеры",
+		ACCUSATIVE = "модуль камеры",
+		INSTRUMENTAL = "модулем камеры",
+		PREPOSITIONAL = "модуле камеры",
 	)
 
 /obj/item/mod/module/ert_camera/on_part_activation()
@@ -529,10 +531,11 @@
 /obj/item/mod/module/ert_camera/on_part_deactivation(deleting = FALSE)
 	QDEL_NULL(camera)
 
-///Chameleon - lets the suit disguise as any item that would fit on that slot.
+// MARK: Chameleon
+/// Chameleon - lets the suit disguise as any item that would fit on that slot.
 /obj/item/mod/module/chameleon
 	name = "MOD chameleon module"
-	desc = "Модуль с технологией \"хамелеон\", позволяющий замаскировать костюм под другой объект."
+	desc = "Модуль для МЭК, предоставляющий технологию \"хамелеон\", позволяющую замаскировать костюм под другой объект."
 	icon_state = "chameleon"
 	module_type = MODULE_USABLE
 	complexity = 2
@@ -543,12 +546,12 @@
 
 /obj/item/mod/module/chameleon/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль-хамелеон МЭК",
-		GENITIVE = "модуля-хамелеона МЭК",
-		DATIVE = "модулю-хамелеону МЭК",
-		ACCUSATIVE = "модуль-хамелеон МЭК",
-		INSTRUMENTAL = "модулем-хамелеоном МЭК",
-		PREPOSITIONAL = "модуле-хамелеоне МЭК",
+		NOMINATIVE = "модуль-хамелеон",
+		GENITIVE = "модуля-хамелеона",
+		DATIVE = "модулю-хамелеону",
+		ACCUSATIVE = "модуль-хамелеон",
+		INSTRUMENTAL = "модулем-хамелеоном",
+		PREPOSITIONAL = "модуле-хамелеоне",
 	)
 
 /obj/item/mod/module/chameleon/on_install()
@@ -557,7 +560,6 @@
 	mod.chameleon_action.chameleon_type = /obj/item/storage/backpack
 	mod.chameleon_action.chameleon_name = "Backpack"
 	mod.chameleon_action.initialize_disguises()
-
 
 /obj/item/mod/module/chameleon/on_uninstall(deleting = FALSE)
 	. = ..()
@@ -588,13 +590,13 @@
 	mod.wearer.update_clothing()
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 
-///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
+// MARK: Energy shield
+/// Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
 /obj/item/mod/module/energy_shield
 	name = "MOD energy shield module"
-	desc = "Модуль персонального защитного силового поля, обычно встречающийся в военных разработках. \
-		По сути представляет собой уменьшенную версию отражателей, устанавливаемых на космические корабли, \
-		что можно легко заметить по его энергозатратности. Впрочем, благодаря этому модуль способен отразить практически любую атаку. \
-		К счастью или нет, но из-за малого количества зарядов носитель всё ещё может внезапно оказаться смертен."
+	desc = "Модуль персонального защитного силового поля для МЭК, являющийся уменьшенной версией отражателей, устанавливаемых на \
+		космические корабли, что можно легко заметить по его энергозатратности. Впрочем, благодаря этому модуль способен отразить \
+		практически любую атаку. К счастью или нет, но из-за малого количества зарядов носитель всё ещё может внезапно оказаться смертен."
 	icon_state = "energy_shield"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
@@ -622,12 +624,12 @@
 
 /obj/item/mod/module/energy_shield/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль энергетического щита МЭК",
-		GENITIVE = "модуля энергетического щита МЭК",
-		DATIVE = "модулю энергетического щита МЭК",
-		ACCUSATIVE = "модуль энергетического щита МЭК",
-		INSTRUMENTAL = "модулем энергетического щита МЭК",
-		PREPOSITIONAL = "модуле энергетического щита МЭК",
+		NOMINATIVE = "модуль энергетического щита",
+		GENITIVE = "модуля энергетического щита",
+		DATIVE = "модулю энергетического щита",
+		ACCUSATIVE = "модуль энергетического щита",
+		INSTRUMENTAL = "модулем энергетического щита",
+		PREPOSITIONAL = "модуле энергетического щита",
 	)
 
 /obj/item/mod/module/energy_shield/Initialize(mapload)
@@ -663,13 +665,11 @@
 /obj/item/mod/module/energy_shield/gamma
 	shield_icon = "shield-old"
 
+// MARK: Tesla-wall
 /obj/item/mod/module/anomaly_locked/teslawall
 	name = "MOD arc-shield module" // temp
-	desc = "Экспериментальный модуль, требующий для своей работы ядро энергетической аномалии. \
-		Крохотная сеть проводящих элементов модуля, располагающихся под обшивкой костюма, позволяет генерировать наведённое силовое поле \
-		высокой интенсивности. К сожалению, труднодоступность ядер для массового производства и тот факт, что реактор силового \
-		поля на основе энергии аномальной природы более нестабилен, привели к тому, что эти модули уступают в популярности \
-		более распространённым модулям щитов."
+	desc = "Экспериментальный модуль для МЭК, требующий для своей работы ядро энергетической аномалии, которое позволяет генерировать \
+		наведённое силовое поле высокой интенсивности. По своей функциональности схож с модулем энергетического щита."
 	icon_state = "tesla"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
@@ -702,12 +702,12 @@
 
 /obj/item/mod/module/anomaly_locked/teslawall/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль аномальной защиты МЭК",
-		GENITIVE = "модуля аномальной защиты МЭК",
-		DATIVE = "модулю аномальной защиты МЭК",
-		ACCUSATIVE = "модуль аномальной защиты МЭК",
-		INSTRUMENTAL = "модулем аномальной защиты МЭК",
-		PREPOSITIONAL = "модуле аномальной защиты МЭК",
+		NOMINATIVE = "модуль аномальной защиты",
+		GENITIVE = "модуля аномальной защиты",
+		DATIVE = "модулю аномальной защиты",
+		ACCUSATIVE = "модуль аномальной защиты",
+		INSTRUMENTAL = "модулем аномальной защиты",
+		PREPOSITIONAL = "модуле аномальной защиты",
 	)
 
 /obj/item/mod/module/anomaly_locked/teslawall/Initialize(mapload)
@@ -765,11 +765,12 @@
 	prebuilt = TRUE
 	removable = FALSE // No switching it into another suit / no free anomaly core
 
-///Flamethrower - Launches fire across the area.
+// MARK: Flamethrower
+/// Flamethrower - Launches fire across the area.
 /obj/item/mod/module/flamethrower
 	name = "MOD flamethrower module"
-	desc = "Изготовленный на заказ модуль ручного огнемёта. Поддерживает достаточную температуру, чтобы прожечь вам путь через любые \
-	препятствия, будь то деревянные баррикады или опостылевший агент внутренних дел. Гори, гори ясно!"
+	desc = "Модуль ручного огнемёта для МЭК. Поддерживает достаточную температуру, чтобы прожечь вам путь \
+		через любые препятствия, будь то деревянные баррикады или опостылевший агент внутренних дел."
 	icon_state = "flamethrower"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -782,12 +783,12 @@
 
 /obj/item/mod/module/flamethrower/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль огнемёта МЭК",
-		GENITIVE = "модуля огнемёта МЭК",
-		DATIVE = "модулю огнемёта МЭК",
-		ACCUSATIVE = "модуль огнемёта МЭК",
-		INSTRUMENTAL = "модулем огнемёта МЭК",
-		PREPOSITIONAL = "модуле огнемёта МЭК",
+		NOMINATIVE = "модуль огнемёта",
+		GENITIVE = "модуля огнемёта",
+		DATIVE = "модулю огнемёта",
+		ACCUSATIVE = "модуль огнемёта",
+		INSTRUMENTAL = "модулем огнемёта",
+		PREPOSITIONAL = "модуле огнемёта",
 	)
 
 /obj/item/mod/module/flamethrower/on_select_use(atom/target)
@@ -803,10 +804,11 @@
 	INVOKE_ASYNC(flame, TYPE_PROC_REF(/obj/projectile, fire))
 	drain_power(use_energy_cost)
 
-///Medbeam - Medbeam but built into a modsuit
+// MARK: Medbeam
+/// Medbeam - Medbeam but built into a modsuit
 /obj/item/mod/module/medbeam
 	name = "MOD medical beamgun module"
-	desc = "Модуль медицинской лучевой пушки, встроенный в рукав костюма. Позволяет исцелять союзников без риска \
+	desc = "Модуль медицинской лучевой пушки для МЭК, встроенный в рукав костюма. Позволяет исцелять союзников без риска \
 		выронить столь ценную экипировку. Впрочем, её всё ещё можно потерять вместе с рукой."
 	icon_state = "chronogun"
 	module_type = MODULE_ACTIVE
@@ -820,12 +822,12 @@
 
 /obj/item/mod/module/medbeam/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль мед-пушки МЭК",
-		GENITIVE = "модуля мед-пушки МЭК",
-		DATIVE = "модулю мед-пушки МЭК",
-		ACCUSATIVE = "модуль мед-пушки МЭК",
-		INSTRUMENTAL = "модулем мед-пушки МЭК",
-		PREPOSITIONAL = "модуле мед-пушки МЭК",
+		NOMINATIVE = "модуль мед-пушки",
+		GENITIVE = "модуля мед-пушки",
+		DATIVE = "модулю мед-пушки",
+		ACCUSATIVE = "модуль мед-пушки",
+		INSTRUMENTAL = "модулем мед-пушки",
+		PREPOSITIONAL = "модуле мед-пушки",
 	)
 
 /obj/item/gun/medbeam/mod

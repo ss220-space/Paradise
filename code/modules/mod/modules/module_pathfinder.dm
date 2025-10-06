@@ -1,12 +1,9 @@
 ///Pathfinder - Can fly the suit from a long distance to an implant installed in someone.
 /obj/item/mod/module/pathfinder
 	name = "MOD pathfinder module"
-	desc = "Данный модуль, разработанный корпорацией \"Решения Пайзо\", состоит из двух компонентов. \
-		Первый компонент, устанавливаемый в модульный костюм, представляет из себя множество \
-		двигателей и подруливателей вместе с матрицей отслеживания. Всё это позволяет костюму \
-		самостоятельно перемещаться в пространстве навстречу второму компоненту - био-чипу \
-		\"Первопроходец\". Био-чип, вживляемый в тело, позволяет пользователю вызвать свой \
-		модульный костюм в любое время. Био-чип встроен в модуль, и перед использованием его нужно извлечь."
+	desc = "Модуль для МЭК, состоящий из двух компонентов — набора ионных двигателей с матрицей отслеживания, \
+		устанавливаемых в костюм, и био-чипа \"Первопроходец\". Био-чип, вживляемый в тело, позволяет пользователю вызвать к себе \
+		модульный костюм. Био-чип встроен в модуль, и перед использованием его нужно извлечь."
 	icon_state = "pathfinder"
 	complexity = 2
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 200
@@ -16,13 +13,14 @@
 
 /obj/item/mod/module/pathfinder/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль МЭК \"Первопроходец\"",
-		GENITIVE = "модуля МЭК \"Первопроходец\"",
-		DATIVE = "модулю МЭК \"Первопроходец\"",
-		ACCUSATIVE = "модуль МЭК \"Первопроходец\"",
-		INSTRUMENTAL = "модулем МЭК \"Первопроходец\"",
-		PREPOSITIONAL = "модуле МЭК \"Первопроходец\"",
+		NOMINATIVE = "модуль \"Первопроходец\"",
+		GENITIVE = "модуля \"Первопроходец\"",
+		DATIVE = "модулю \"Первопроходец\"",
+		ACCUSATIVE = "модуль \"Первопроходец\"",
+		INSTRUMENTAL = "модулем \"Первопроходец\"",
+		PREPOSITIONAL = "модуле \"Первопроходец\"",
 	)
+
 /obj/item/mod/module/pathfinder/Initialize(mapload)
 	. = ..()
 	implant = new(src)
@@ -49,7 +47,10 @@
 	if(target == user)
 		balloon_alert(user, "био-чип установлен")
 	else
-		target.visible_message(span_notice("[user] устанавливает био-чип в [target]."), span_notice("[user] устанавливает вам [implant.declent_ru(ACCUSATIVE)]."))
+		target.visible_message(
+			span_notice("[user] устанавливает био-чип в [target]."),
+			span_notice("[user] устанавливает вам [implant.declent_ru(ACCUSATIVE)].")
+		)
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 	icon_state = "pathfinder_empty"
 	implant = null
