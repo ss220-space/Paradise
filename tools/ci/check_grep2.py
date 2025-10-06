@@ -5,12 +5,13 @@ import sys
 import time
 from collections import namedtuple
 from concurrent.futures import ProcessPoolExecutor
+
 Failure = namedtuple("Failure", ["filename", "lineno", "message"])
 
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
 BLUE = "\033[0;34m"
-NC = "\033[0m"  # No Color
+NC = "\033[0m" # No Color
 
 def print_error(message: str, filename: str, line_number: int):
     if os.getenv("GITHUB_ACTIONS") == "true": # We're on github, output in a special format.
@@ -25,20 +26,31 @@ def check_515_proc_syntax(idx, line):
         return [(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")]
 
 
-CHECK_SPACE_INDENTATION_RE = re.compile(r"^ {2,}[^\*]")
+CHECK_SPACE_INDENTATION_RE = re.compile(r"^( {2})|(^ [^ *])|(^ {4,})")
 def check_space_indentation(idx, line):
     """
-    Check specifically for space-significant indentation. Excludes dmdoc
-    block comment lines so long as there is an asterisk immediately after the
-    leading spaces.
+    Matches:
+    - Exactly 2 spaces at line start (even followed by *)
+    - 1 space + any character except space/asterisk
+    - 4 or more spaces at line start
 
-    >>> bool(check_space_indentation(["  foo"]))
+    >>> bool(check_space_indentation(0, "  foo"))
+    True
+    >>> bool(check_space_indentation(0, "  * foo"))  # 2 spaces + asterisk
+    True
+    >>> bool(check_space_indentation(0, " x"))       # 1 space + letter
+    True
+    >>> bool(check_space_indentation(0, "    foo"))  # 4+ spaces
     True
 
-    >>> bool(check_space_indentation(["\\tfoo"]))
+    >>> bool(check_space_indentation(0, "\\tfoo"))    # tabs are fine
     False
-    >>> bool(check_space_indentation(["  * foo"]))
+    >>> bool(check_space_indentation(0, " * foo"))   # 1 space + asterisk
     False
+    >>> bool(check_space_indentation(0, "   foo"))   # 3 spaces (not matched)
+    False
+    >>> bool(check_space_indentation(0, "  "))       # 2 spaces only
+    True
     """
     if CHECK_SPACE_INDENTATION_RE.match(line):
         return [(idx + 1, "Space indentation detected, please use tab indentation.")]
@@ -248,6 +260,87 @@ def check_fast_load_define(idx, line):
     if FAST_LOAD_DEFINE.match(line):
         return [(idx + 1, "Commiting uncommented FAST_LOAD define!")]
 
+# Check for forceMove with two arguments
+FORCE_MOVE_TWO_ARGS = re.compile(r'forceMove\(\s*(\w+\(\)|\w+)\s*,\s*(\w+\(\)|\w+)\s*\)')
+def check_force_move_syntax(idx, line):
+    if FORCE_MOVE_TWO_ARGS.search(line):
+        return [(idx + 1, "forceMove() call with two arguments - this is not how forceMove() is invoked! It's x.forceMove(y), not forceMove(x, y).")]
+
+# Check for can_perform_action with improper arguments
+CAN_PERFORM_ACTION_IMPROPER = re.compile(r'can_perform_action\(\s*\)')
+def check_can_perform_action(idx, line):
+    if CAN_PERFORM_ACTION_IMPROPER.search(line):
+        return [(idx + 1, "Found a can_perform_action() proc with improper arguments.")]
+
+# Check for 'as anything' in typeless loops
+AS_ANYTHING_TYPELESS = re.compile(r'var/[^/]+ as anything')
+def check_as_anything_typeless(idx, line):
+    if AS_ANYTHING_TYPELESS.search(line):
+        return [(idx + 1, "'as anything' used in a typeless for loop. This doesn't do anything and should be removed.")]
+
+# Check for 'as anything' on internal functions
+AS_ANYTHING_INTERNAL = re.compile(r'var\/(turf|mob|obj|atom\/movable).+ as anything in o?(view|range|hearers)\(')
+def check_as_anything_internal(idx, line):
+    if AS_ANYTHING_INTERNAL.search(line):
+        return [(idx + 1, "'as anything' typed for loop over an internal function. These functions have some internal optimization that relies on the loop not having 'as anything' in it.")]
+
+IE_TYPO_RE = re.compile(r'eciev', re.IGNORECASE)
+def check_ie_typo(idx, line):
+    if IE_TYPO_RE.search(line):
+        return [(idx + 1, "Common I-before-E typo detected in code (found 'eciev', did you mean 'receive'?).")]
+
+DEFINE_FORMAT_RE = re.compile(r'^\s*#define\s+(\S+)\s+(\S.*)$')
+DEFINE_SPACING_RE = re.compile(r'^\s*#define\s+\S+\s{2,}\S')
+def check_define_formatting(idx, line):
+    """
+    Valid: #define NAME value (exactly one space between name and value)
+
+    Invalid: #define NAME    value (multiple spaces/tabs for alignment)
+    """
+    # Check for multiple spaces between name and value
+    if not DEFINE_SPACING_RE.match(line):
+        return []
+
+    # Extract parts for error message
+    match = DEFINE_FORMAT_RE.match(line.strip())
+    if not match:
+        return []
+
+    name, value = match.groups()
+    bad_example = line.strip()
+    good_example = f"#define {name} {value}"
+
+    return [(idx + 1, f"Invalid #define spacing. Use exactly one space between macro name and value.\nFound: {bad_example}\nExpected: {good_example}")]
+
+# Check UpdatePaths files
+def check_updatepaths_validity():
+    failures = []
+    updatepaths_dir = "tools/UpdatePaths/Scripts/"
+
+    # Check if the directory exists
+    if not os.path.exists(updatepaths_dir):
+        return failures
+
+    # Get all files in the directory
+    try:
+        files = [f for f in os.listdir(updatepaths_dir) if os.path.isfile(os.path.join(updatepaths_dir, f))]
+    except OSError:
+        return failures
+
+    # Check each file
+    for filename in files:
+        filepath = os.path.join(updatepaths_dir, filename)
+
+        # Check if file has .txt extension
+        if not filename.endswith('.txt'):
+            failures.append(Failure(filepath, 0, "Found an UpdatePaths File that doesn't end in .txt! Please add the proper file extension!"))
+
+        # Check if file starts with number prefix
+        if not re.match(r'^\d+_', filename):
+            failures.append(Failure(filepath, 0, "Detected an UpdatePaths File that doesn't start with the PR number! Please add the proper number prefix!"))
+
+    return failures
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -270,6 +363,12 @@ CODE_CHECKS = [
     check_trait_sources,
     check_static_list_path,
     check_timer_flags,
+    check_force_move_syntax,
+    check_can_perform_action,
+    check_as_anything_typeless,
+    check_as_anything_internal,
+    check_ie_typo,
+    check_define_formatting,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
@@ -311,6 +410,9 @@ if __name__ == "__main__":
     with ProcessPoolExecutor() as executor:
         for failures in executor.map(lint_file, dm_files):
             all_failures += failures
+
+    # Add UpdatePaths validity checks
+    all_failures += check_updatepaths_validity()
 
     if all_failures:
         exit_code = 1

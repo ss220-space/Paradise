@@ -99,7 +99,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 
 /obj/item/toy/tribble/attack_self(mob/user) //hug that tribble (and play a sound if we add one)
 	..()
-	to_chat(user, "<span class='notice'>You nuzzle the tribble and it trills softly.</span>")
+	to_chat(user, span_notice("You nuzzle the tribble and it trills softly."))
 
 /obj/item/toy/tribble/dropped(mob/user, slot, silent = FALSE) //now you can't item form them to get rid of them all so easily
 	new /mob/living/simple_animal/tribble(user.loc)
@@ -109,7 +109,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 		T.icon_dead = "[src.icon_state]_dead"
 		T.gestation = src.gestation
 
-	to_chat(user, "<span class='notice'>The tribble gets up and wanders around.</span>")
+	to_chat(user, span_notice("The tribble gets up and wanders around."))
 	. = ..()
 
 

@@ -273,9 +273,10 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, span_notice("Запрос отправлен."))
 				add_game_logs("has requested the nuclear codes from Centcomm: [input]", usr)
-				GLOB.major_announcement.announce("Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.",
-												ANNOUNCE_NUCLEARCODES_RU,
-												'sound/AI/nuke_codes.ogg'
+				GLOB.major_announcement.announce(
+					message = "Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.",
+					new_title = ANNOUNCE_NUCLEARCODES_RU,
+					new_sound = 'sound/AI/nuke_codes.ogg'
 				)
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
@@ -386,14 +387,14 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				return
 			if(!params["classified"])
 				GLOB.major_announcement.announce(
-					params["text"],\
-					new_title = ANNOUNCE_CCMSG_RU,\
-					new_subtitle = params["subtitle"],\
-					new_sound = 'sound/AI/commandreport.ogg'
+					message = params["text"],
+					new_title = ANNOUNCE_CCMSG_RU,
+					new_sound = 'sound/AI/commandreport.ogg',
+					new_subtitle = params["subtitle"]
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else
-				GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.")
+				GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.", HEADSET_FREQ_NAME)
 				print_command_report(params["text"], "Секретно: [params["subtitle"]]")
 
 			log_and_message_admins("has created a communications report: [params["text"]]")
@@ -438,9 +439,10 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка биоугрозы, добавлен новый нулевой закон'[law]'")
 			to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.minor_announcement.announce("Отчёт был загружен и распечатан на всех консолях связи.",
-									ANNOUNCE_SECRETMSG_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.minor_announcement.announce(
+		message = "Отчёт был загружен и распечатан на всех консолях связи.",
+		new_title = ANNOUNCE_SECRETMSG_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 /obj/machinery/computer/communications/emag_act(user as mob)
@@ -610,8 +612,8 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального командования."))
 		return FALSE
 
-	if(world.time < 30 MINUTES) // 30 minute grace period to let the game get going
-		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите ещё [round((30 MINUTES-world.time)/600)] минут, прежде чем повторить попытку.")
+	if(world.time - SSticker.time_game_started < SSshuttle.emergency_refill_time) // 30 minute grace period to let the game get going
+		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите ещё [round((SSshuttle.emergency_refill_time - (world.time - SSticker.time_game_started)) / 600)] минут, прежде чем повторить попытку.")
 		return FALSE
 
 	return TRUE

@@ -18,8 +18,8 @@
 	else
 		announcement = "Неизвестные биологические объекты были зафиксированы вблизи станции [station_name()], будьте наготове."
 	GLOB.minor_announcement.announce(
-		announcement,
-		ANNOUNCE_UNID_LIFEFORMS_RU
+		message = announcement,
+		new_title = ANNOUNCE_UNID_LIFEFORMS_RU
 	)
 
 /datum/event/carp_migration/start()

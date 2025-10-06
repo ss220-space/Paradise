@@ -440,17 +440,18 @@
 	#endif
 
 	if(movingmob)
-		movingmob.client_mobs_in_contents -= mob
-		UNSETEMPTY(movingmob.client_mobs_in_contents)
+		LAZYREMOVE(movingmob.client_mobs_in_contents, mob)
+		movingmob = null
 
 
 	SSambience.remove_ambience_client(src)
+	SSmouse_entered.hovers -= src
 	SSping.currentrun -= src
-	QDEL_LIST(parallax_layers_cached)
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
+	QDEL_LIST(parallax_layers_cached)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()
@@ -629,7 +630,7 @@
 
 	qdel(query_cid)
 
-	var/admin_rank = "Игрок"
+	var/admin_rank = PLAYER_RANK
 	if(holder)
 		admin_rank = holder.rank
 	// Admins don't get slammed by this, I guess

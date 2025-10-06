@@ -141,7 +141,7 @@
 		var/update = NONE
 		if(M.getFireLoss() < 25 && M.getBruteLoss() < 25 && M.health != 100)
 			update |= M.heal_overall_damage(4, 4, updating_health = FALSE)
-			to_chat(M, "<span class='notice'>Освежающая вода закрывает ваши мелкие раны!</span>")
+			to_chat(M, span_notice("Освежающая вода закрывает ваши мелкие раны!"))
 		update |= M.heal_damage_type(5, OXY, updating_health = FALSE)
 		if(update)
 			M.updatehealth()

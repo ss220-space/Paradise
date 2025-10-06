@@ -192,7 +192,7 @@
 		return
 
 	var/list/portal_turfs = list()
-	for(var/turf/turf as anything in circleviewturfs(our_turf, 3))
+	for(var/turf/turf as anything in circle_view_turfs(our_turf, 3))
 		if(!turf.density)
 			portal_turfs += turf
 	playsound(our_turf, 'sound/magic/lightningbolt.ogg', 100, TRUE)

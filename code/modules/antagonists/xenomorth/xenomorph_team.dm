@@ -103,25 +103,28 @@
 	return FALSE
 
 /datum/team/xenomorph/proc/announce()
-	GLOB.major_announcement.announce("Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg',
-									new_sound2 = 'sound/AI/outbreak_xeno.ogg'
+	GLOB.major_announcement.announce(
+		message = "Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg',
+		new_sound2 = 'sound/AI/outbreak_xeno.ogg'
 	)
 	SSticker?.mode?.special_directive()
 	SSshuttle?.emergency.cancel()
 	SSshuttle?.add_hostile_environment(current_queen.current)
 
 /datum/team/xenomorph/proc/evolve_announce(area/loc)
-	GLOB.major_announcement.announce("Зафиксировано изменение организации улья, указывающее на начало трансформации в Императрицу Ксеноморфов. Обнаружено значительное скопление биоугрозы в [loc.name]. Уничтожьте организм до окончания трансформации любой ценой.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg'
+	GLOB.major_announcement.announce(
+		message = "Зафиксировано изменение организации улья, указывающее на начало трансформации в Императрицу Ксеноморфов. Обнаружено значительное скопление биоугрозы в [loc.name]. Уничтожьте организм до окончания трансформации любой ценой.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg'
 	)
 
 /datum/team/xenomorph/proc/win_announce()
-	GLOB.major_announcement.announce("Подтверждено наличие Императрицы Ксеноморфов на борту [station_name()]. Обнаружено загрязнение систем жизнеобеспечения. Станция переклассифицирована в гнездо биоугрозы 4-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
-									"Отчёт об объекте [station_name()].",
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Подтверждено наличие Императрицы Ксеноморфов на борту [station_name()]. Обнаружено загрязнение систем жизнеобеспечения. Станция переклассифицирована в гнездо биоугрозы 4-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
+		new_title = "Отчёт об объекте [station_name()].",
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 

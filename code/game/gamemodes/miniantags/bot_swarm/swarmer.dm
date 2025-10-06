@@ -45,9 +45,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	user.visible_message(span_warning("[usr.name] deactivates [src]."),
+	user.visible_message(
+		span_warning("[usr.name] deactivates [src]."),
 		span_notice("After some fiddling, you find a way to disable [src]'s power source."),
-		span_italics("You hear clicking."))
+		span_italics("You hear clicking.")
+	)
 	new /obj/item/deactivated_swarmer(get_turf(src))
 	qdel(src)
 
@@ -129,7 +131,7 @@
 	..()
 	add_language(LANGUAGE_HIVE_SWARMER, 1)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+		diag_hud.add_atom_to_hud(src)
 	updatename()
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 

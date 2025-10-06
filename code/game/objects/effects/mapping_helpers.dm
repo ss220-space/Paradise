@@ -1,10 +1,11 @@
-/obj/effect/baseturf_helper //Set the baseturfs of every turf in the /area/ it is placed.
+/// Set the baseturfs of every turf in the /area/ it is placed.
+/obj/effect/baseturf_helper
 	name = "baseturf editor"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = "standart"
-	var/baseturf
-
 	layer = POINT_LAYER
+
+	var/baseturf
 
 /obj/effect/baseturf_helper/Initialize(mapload)
 	. = ..()
@@ -148,3 +149,29 @@
 	var/msg = "HEY, LISTEN!!! Merge Conflict Marker detected at [AREACOORD(src)]! Please manually address all potential merge conflicts!!!"
 	warning(msg)
 	to_chat(world, span_boldannounceooc("[msg]"))
+
+// MARK: DAMAGE TURFS
+/obj/effect/mapping_helpers/turfs
+
+/obj/effect/mapping_helpers/turfs/Initialize(mapload)
+	. = ..()
+	var/turf/selected_turf = get_turf(src)
+	if(!istype(selected_turf))
+		return
+	payload(selected_turf)
+
+/obj/effect/mapping_helpers/turfs/proc/payload(turf/simulated/selected_turf)
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("root turf mapping_helper payload called")
+
+/obj/effect/mapping_helpers/turfs/damage
+	icon_state = "damaged"
+
+/obj/effect/mapping_helpers/turfs/damage/payload(turf/simulated/selected_turf)
+	selected_turf.break_tile()
+
+/obj/effect/mapping_helpers/turfs/burn
+	icon_state = "burned"
+
+/obj/effect/mapping_helpers/turfs/burn/payload(turf/simulated/selected_turf)
+	selected_turf.burn_tile()

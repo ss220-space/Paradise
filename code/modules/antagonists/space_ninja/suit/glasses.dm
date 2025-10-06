@@ -1,6 +1,6 @@
-#define NINJA_NIGHTVISION		"nightvision"
-#define NINJA_THERMALS			"thermals"
-#define NINJA_FLASHPROTECTION	"flashprotection"
+#define NINJA_NIGHTVISION "nightvision"
+#define NINJA_THERMALS "thermals"
+#define NINJA_FLASHPROTECTION "flashprotection"
 
 /obj/item/clothing/glasses/ninja
 	name = "ninja visor"

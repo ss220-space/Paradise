@@ -118,10 +118,10 @@
 		to_chat(user, "You must hold [src] in your hand to do this.")
 		return
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		to_chat(user, span_notice("You switch off the waddle dampeners!"))
 		enabled_waddle = TRUE
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		to_chat(user, span_notice("You switch on the waddle dampeners!"))
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/nodrop
@@ -231,7 +231,7 @@
 	if(can_use(user))
 		var/obj/item/kitchen/knife/combat/survival/O = locate() in src
 		if(O)
-			to_chat(user, "<span class='notice'>Вы извлекли нож из ботинка.</span>")
+			to_chat(user, span_notice("Вы извлекли нож из ботинка."))
 			O.forceMove_turf()
 			if(istype(loc, /mob))
 				var/mob/M = loc
@@ -239,9 +239,9 @@
 					M.put_in_hands(O, ignore_anim = FALSE)
 					return
 		else
-			to_chat(user, "<span class='warning'>Крепление пустое.</span>")
+			to_chat(user, span_warning("Крепление пустое."))
 	else
-		to_chat(user, "<span class='notice'>Сейчас вы не в состоянии сделать это.</span>")
+		to_chat(user, span_notice("Сейчас вы не в состоянии сделать это."))
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"

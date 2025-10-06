@@ -57,7 +57,7 @@
 
 /datum/component/deadchat_control/Destroy(force, silent)
 	var/atom/atom_parent = parent
-	var/message = "<span class='deadsay italics bold'>[capitalize(atom_parent.declent_ru(NOMINATIVE))] теперь не контролируется призраками.</span>"
+	var/message = span_deadsay(span_bolditalics("[capitalize(atom_parent.declent_ru(NOMINATIVE))] теперь не контролируется призраками."))
 	for(var/mob/dead/observer/M in orbiters)
 		to_chat(M, message)
 	on_removal?.Invoke()
@@ -106,11 +106,11 @@
 		inputs[result].Invoke()
 		if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
 			var/input_cooldown_s = input_cooldown * 0.1
-			var/message = "<span class='deadsay italics bold'>[capitalize(atom_parent.declent_ru(NOMINATIVE))] выполнил команду [result]!<br>Новое голосование начато. Оно закончится через [input_cooldown_s] секунд[declension_ru(input_cooldown_s,"у", "ы", "")].</span>"
+			var/message = span_deadsay(span_bolditalics("[capitalize(atom_parent.declent_ru(NOMINATIVE))] выполнил команду [result]!<br>Новое голосование начато. Оно закончится через [input_cooldown_s] секунд[declension_ru(input_cooldown_s,"у", "ы", "")]."))
 			for(var/mob/dead/observer/M in orbiters)
 				to_chat(M, message)
 	else if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
-		var/message = "<span class='deadsay italics bold'>В этом цикле не было голосов.</span>"
+		var/message = span_deadsay(span_bolditalics("В этом цикле не было голосов."))
 		for(var/mob/dead/observer/M in orbiters)
 			to_chat(M, message)
 
@@ -206,7 +206,7 @@
 		return
 
 	if(!(user in orbiters))
-		examine_list += "<span class='deadsay bold'>Прыгнете на [genderize_ru(object.gender, "него", "неё", "него", "них")]] и осмотрите снова, чтобы увидеть список доступных команд.</span>"
+		examine_list += span_deadsay(span_bold("Прыгнете на [genderize_ru(object.gender, "него", "неё", "него", "них")]] и осмотрите снова, чтобы увидеть список доступных команд."))
 		return
 
 	var/input_cooldown_s = input_cooldown * 0.1

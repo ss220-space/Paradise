@@ -1,0 +1,47 @@
+/obj/effect/landmark/tiles/damageturf : /obj/effect/mapping_helpers/turfs/damage
+/obj/effect/landmark/tiles/burnturf : /obj/effect/mapping_helpers/turfs/burn
+
+/obj/effect/landmark/event/blobstart : /obj/effect/landmark/spawner/blob
+/obj/effect/landmark/event/lightsout : /obj/effect/landmark/lightsout
+/obj/effect/landmark/event/carpspawn : /obj/effect/landmark/spawner/carp
+/obj/effect/landmark/event/xeno_spawn : /obj/effect/landmark/spawner/xeno
+/obj/effect/landmark/event/tripai : /obj/effect/landmark/spawner/tripai
+/obj/effect/landmark/event/revenantspawn : /obj/effect/landmark/spawner/revenant
+
+/obj/effect/landmark/join_late_gateway : /obj/effect/landmark/spawner/late/gateway
+/obj/effect/landmark/join_late_cyborg : /obj/effect/landmark/spawner/late/cyborg
+/obj/effect/landmark/join_late_cryo : /obj/effect/landmark/spawner/late/cryo
+/obj/effect/landmark/join_late : /obj/effect/landmark/spawner/late/crew
+/obj/effect/landmark/join_late_prisoner : /obj/effect/landmark/spawner/late/prisoner
+
+/obj/effect/landmark/team1 : /obj/effect/landmark/spawner/team1
+/obj/effect/landmark/team2 : /obj/effect/landmark/spawner/team2
+/obj/effect/landmark/team3 : /obj/effect/landmark/spawner/team3
+/obj/effect/landmark/captain : /obj/effect/landmark/spawner/captain
+/obj/effect/landmark/death_squard : /obj/effect/landmark/spawner/death_squard
+/obj/effect/landmark/honk_squad : /obj/effect/landmark/spawner/honk_squad
+/obj/effect/landmark/ninja_teleport : /obj/effect/landmark/spawner/ninja_teleport
+/obj/effect/landmark/airdrop : /obj/effect/landmark/spawner/airdrop
+/obj/effect/landmark/armory : /obj/effect/landmark/spawner/armory
+
+/obj/effect/landmark/tdome/tdome1 : /obj/effect/landmark/spawner/tdome1
+/obj/effect/landmark/tdome/tdome2 : /obj/effect/landmark/spawner/tdome2
+/obj/effect/landmark/holocarp_spawn : /obj/effect/landmark/spawner/holocarp
+/obj/effect/landmark/tdome/tdome_observer : /obj/effect/landmark/spawner/tdomeobserve
+/obj/effect/landmark/ert_director : /obj/effect/landmark/spawner/ertdirector
+/obj/effect/landmark/voxstart : /obj/effect/landmark/spawner/raider_spawn
+/obj/effect/landmark/syndicate_officer : /obj/effect/landmark/spawner/syndicateofficer
+/obj/effect/landmark/response_team : /obj/effect/landmark/spawner/ert
+/obj/effect/landmark/traderstart_sol : /obj/effect/landmark/spawner/soltrader
+/obj/effect/landmark/aroomwarp : /obj/effect/landmark/spawner/aroomwarp
+/obj/effect/landmark/commando_manual : /obj/effect/landmark/spawner/commando_manual
+/obj/effect/landmark/prisonwarp : /obj/effect/landmark/spawner/prisonwarp
+/obj/effect/landmark/prisonsecuritywarp : /obj/effect/landmark/spawner/prisonsecuritywarp
+/obj/effect/landmark/ninjastart : /obj/effect/landmark/spawner/ninjastart
+/obj/effect/landmark/teleport_scroll : /obj/effect/landmark/spawner/teleport_scroll
+/obj/effect/landmark/syndieprisonwarp : /obj/effect/landmark/spawner/syndieprisonwarp
+/obj/effect/landmark/wizard : /obj/effect/landmark/spawner/wizard
+
+/obj/effect/landmark/tdome/tdomeadmin : /obj/effect/landmark/spawner/tdomeadmin
+/obj/effect/landmark/syndicate_spawn : /obj/effect/landmark/spawner/syndie
+/obj/effect/landmark/nuclear_bomb : /obj/effect/landmark/spawner/nuclear_bomb

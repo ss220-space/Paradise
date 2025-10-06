@@ -118,7 +118,7 @@
 		if(do_after(usr, 1 SECONDS, src, DA_IGNORE_LYING) && usr.mind == target \
 		&& usr.mind.hasSoul && usr.mind.soulOwner != owner && attempt_signature(usr, TRUE))
 			usr.visible_message(
-				span_danger("[usr.declent_ru(NOMINATIVE)] разреза[pluralize_ru(usr.gender, "ет", "ют")] запястье [declent_ru(INSTRUMENTAL)] и выводит[pluralize_ru(usr.gender, "ит", "ят")] своё имя кровью."),
+				span_danger("[usr.declent_ru(NOMINATIVE)] разреза[pluralize_ru(usr.gender, "ет", "ют")] запястье [declent_ru(INSTRUMENTAL)] и вывод[pluralize_ru(usr.gender, "ит", "ят")] своё имя кровью."),
 				span_danger("Вы разрезаете запястье и выводите своё имя кровью."),
 			)
 			balloon_alert(owner.current, "контракт подписан!")

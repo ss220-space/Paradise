@@ -210,7 +210,7 @@
 	. = TRUE
 
 	if((scanning_status != SCAN_OFF) && cable_powered)
-		to_chat(user, "<span class='warning'>Панель заблокирована протоколом безопасности. Выключите сканер.</span>")
+		to_chat(user, span_warning("Панель заблокирована протоколом безопасности. Выключите сканер."))
 		return
 
 	// It's a large machine, add a delay

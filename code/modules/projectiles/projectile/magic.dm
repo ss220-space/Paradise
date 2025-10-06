@@ -413,7 +413,7 @@
 				if(prisoner.mind)
 					prisoner.mind.transfer_to(statue)
 					var/list/messages = list()
-					messages.Add("<span class='userdanger'>You have been transformed into an animated statue.</span>")
+					messages.Add(span_userdanger("You have been transformed into an animated statue."))
 					messages.Add("You cannot move when monitored, but are nearly invincible and deadly when unobserved! Hunt down those who shackle you.")
 					messages.Add("Do not harm [firer.real_name], your creator.")
 					to_chat(statue, chat_box_red(messages.Join("<br>")))

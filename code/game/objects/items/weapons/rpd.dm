@@ -2,8 +2,8 @@
 	Rapid Pipe Dispenser
 */
 
-#define RPD_COOLDOWN_TIME		4 //How long should we have to wait between dispensing pipes?
-#define RPD_WALLBUILD_TIME		40 //How long should drilling into a wall take?
+#define RPD_COOLDOWN_TIME 4 //How long should we have to wait between dispensing pipes?
+#define RPD_WALLBUILD_TIME 40 //How long should drilling into a wall take?
 #define RPD_MENU_ROTATE "Rotate pipes" //Stuff for radial menu
 #define RPD_MENU_FLIP "Flip pipes" //Stuff for radial menu
 #define RPD_MENU_DELETE "Delete pipes" //Stuff for radial menu
@@ -25,6 +25,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "engineering=4;materials=2"
+	toolbox_radial_menu_compatibility = TRUE
 	var/datum/effect_system/spark_spread/spark_system
 	var/lastused
 	var/iconrotation = 0 //Used to orient icons and pipes
@@ -113,7 +114,7 @@
 			P.dir = turn(iconrotation, -45)
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
-	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	to_chat(user, span_notice("[src] rapidly dispenses [P]!"))
 	activate_rpd(TRUE)
 	if(auto_wrench)
 		P.wrench_act(user, integrated_wrench)
@@ -160,10 +161,10 @@
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
 		activate_rpd()
 	else
-		to_chat(user, "<span class='notice'>There were no loose pipes on [T].</span>")
+		to_chat(user, span_notice("There were no loose pipes on [T]."))
 
 /obj/item/rpd/proc/delete_single_pipe(mob/user, obj/P) //Delete a single pipe
-	to_chat(user, "<span class='notice'>[src] sucks up [P].</span>")
+	to_chat(user, span_notice("[src] sucks up [P]."))
 	QDEL_NULL(P)
 	activate_rpd()
 
@@ -241,7 +242,7 @@
 
 /obj/item/rpd/proc/radial_menu(mob/user)
 	if(!check_menu(user))
-		to_chat(user, "<span class='notice'>You can't do that right now!</span>")
+		to_chat(user, span_notice("You can't do that right now!"))
 		return
 	var/list/choices = list(
 		RPD_MENU_ROTATE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_rotate"),
@@ -265,11 +266,11 @@
 				mode = RPD_DELETE_MODE
 			if(RPD_MENU_WRENCH)
 				auto_wrench = !auto_wrench
-				to_chat(user, "<span class='notice'>You [auto_wrench ? "enable" : "disable"] auto-wrenching new-placed pipes.</span>")
+				to_chat(user, span_notice("You [auto_wrench ? "enable" : "disable"] auto-wrenching new-placed pipes."))
 				return
 			else
 				return //Either nothing was selected, or an invalid mode was selected
-		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
+		to_chat(user, span_notice("You set [src]'s mode."))
 
 /obj/item/rpd/afterattack(atom/target, mob/user, proximity, params)
 	..()
@@ -298,7 +299,7 @@
 
 	for(var/obj/O in T)
 		if(O.rpd_blocksusage() == TRUE)
-			to_chat(user, "<span class='warning'>[O] blocks the [src]!</span>")
+			to_chat(user, span_warning("[O] blocks the [src]!"))
 			return
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.

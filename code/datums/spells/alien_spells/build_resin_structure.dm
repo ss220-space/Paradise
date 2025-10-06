@@ -1,8 +1,8 @@
-/// Defines include required plasma in brackets
-#define ALIEN_RESIN_WALL		"Resin Wall (60)"
-#define ALIEN_RESIN_DOOR		"Resin Door (50)"
-#define ALIEN_RESIN_MEMBRANE	"Resin Membrane (40)"
-#define ALIEN_RESIN_NEST		"Resin Nest (30)"
+// Defines include required plasma in brackets
+#define ALIEN_RESIN_WALL "Resin Wall (60)"
+#define ALIEN_RESIN_DOOR "Resin Door (50)"
+#define ALIEN_RESIN_MEMBRANE "Resin Membrane (40)"
+#define ALIEN_RESIN_NEST "Resin Nest (30)"
 
 
 /obj/effect/proc_holder/spell/alien_spell/build_resin

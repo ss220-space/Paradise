@@ -662,7 +662,7 @@
 	current_initialisation_text = "[prev_has ? "Разблокировка" : "Блокировка"]: [ninja_clothing.name]... Успех"
 	playsound(ninja_clothing.loc, 'sound/items/piston.ogg', 10, TRUE)
 	sleep(10)
-//	to_chat(ninja_clothing.loc, "<span class='notice'>Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"].</span>")
+//	to_chat(ninja_clothing.loc, span_notice("Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"]."))
 
 //Необходимо дабы костюм "Защищал" от ЕМП взрывов(особенно от своих же) протезы/импланты игрока
 /proc/toggle_emp_proof(list/bodyparts, toggle_to)

@@ -1,5 +1,5 @@
-#define BASE_MOVE_DELAY	8
-#define MAX_SPEED		2
+#define BASE_MOVE_DELAY 8
+#define MAX_SPEED 2
 
 /obj/machinery/power/treadmill
 	icon = 'icons/obj/machines/recycling.dmi'
@@ -9,12 +9,12 @@
 	layer = 2.2
 
 	var/speed = 0
-	var/friction = 0.15		// lose this much speed every ptick
-	var/inertia = 0.25		// multiplier to mob speed, when increasing treadmill speed
-	var/throw_dist = 2		// distance to throw the person, worst case
-	var/power_gen = 4000	// amount of power output at max speed
+	var/friction = 0.15 // lose this much speed every ptick
+	var/inertia = 0.25 // multiplier to mob speed, when increasing treadmill speed
+	var/throw_dist = 2 // distance to throw the person, worst case
+	var/power_gen = 4000 // amount of power output at max speed
 	var/list/mobs_running[0]
-	var/id = null			// for linking to monitor
+	var/id = null // for linking to monitor
 
 
 /obj/machinery/power/treadmill/Initialize(mapload)

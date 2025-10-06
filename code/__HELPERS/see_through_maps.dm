@@ -1,15 +1,15 @@
 // For these defines, check also above for their actual shapes in-game and maybe get a better idea
 
 /// Default shape. It's one tile above the atom
-#define SEE_THROUGH_MAP_DEFAULT 			"default"
+#define SEE_THROUGH_MAP_DEFAULT "default"
 /// A 3x3 area 2 tiles above the atom (trees love to be this shape)
-#define SEE_THROUGH_MAP_THREE_X_THREE 		"3x3"
+#define SEE_THROUGH_MAP_THREE_X_THREE "3x3"
 /// 2 tiles above the atom
-#define SEE_THROUGH_MAP_DEFAULT_TWO_TALL 	"default_two_tall"
+#define SEE_THROUGH_MAP_DEFAULT_TWO_TALL "default_two_tall"
 /// two rows of three tiles above the atom (small but thick trees love these)
-#define SEE_THROUGH_MAP_THREE_X_TWO 		"3x2"
+#define SEE_THROUGH_MAP_THREE_X_TWO "3x2"
 /// Seethrough component for the ratvar wreck, in shape of the ratvar wreck
-#define SEE_THROUGH_MAP_RATVAR_WRECK 		"ratvar"
+#define SEE_THROUGH_MAP_RATVAR_WRECK "ratvar"
 
 /** global statics for the see_through_component coordinate maps
 * For ease of use, include a comment in the shape of the coordinate map, where O is nothing, X is a hidden tile and A is the object

@@ -22,7 +22,7 @@
 	throw_speed = 3
 
 /obj/item/fish_net/suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
-	to_chat(viewers(user), "<span class='warning'>[user] places the [src.name] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), span_warning("[user] places the [src.name] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
 /obj/item/fishfood
@@ -45,7 +45,7 @@
 	attack_verb = list("отдраил", "шлифанул", "поцарапал")
 
 /obj/item/tank_brush/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='warning'>[user] is vigorously scrubbing [user.p_them()]self raw with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), span_warning("[user] is vigorously scrubbing [user.p_them()]self raw with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/storage/bag/fish

@@ -8,6 +8,7 @@
 	throw_speed = 3
 	origin_tech = "magnets=1;programming=3"
 	item_flags = NOBLUDGEON
+	toolbox_radial_menu_compatibility = TRUE
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.

@@ -378,5 +378,5 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	//update our hub status
 	world.update_status()
 
-	message_admins("<span class='notice'>ADMIN: Event: [key_name_admin(src)] force-set Holiday to \"[H]\"</span>")
+	message_admins(span_notice("ADMIN: Event: [key_name_admin(src)] force-set Holiday to \"[H]\""))
 	log_admin("[key_name(src)] force-set Holiday to \"[H]\"")
