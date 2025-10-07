@@ -1,14 +1,12 @@
 //Maint modules for MODsuits
 
-///Springlock Mechanism - allows your modsuit to activate faster, but reagents are very dangerous.
+// MARK: Springlock
+/// Springlock Mechanism - allows your modsuit to activate faster, but reagents are very dangerous.
 /obj/item/mod/module/springlock
 	name = "MOD springlock module"
-	desc = "Модуль, располагающийся по всей площади МЭКа под его внешней оболочкой. \
-		Очень компактный в сжатом виде, при активации этот механический каркас экзоскелета раздвигается в стороны, \
-		облегчая облачение пользователя в костюм и ускоряя процесс. Однако из-за критического конструктивного недостатка \
-		в современных моделях от него пришлось отказаться: при воздействии влаги \
-		пружинный механизм имел тенденцию \"защёлкиваться\" в исходное положение. Можете себе представить, каково это — внезапно \
-		почувствовать, как металлический экзоскелет врезается в плоть, сжимаясь вокруг всего вашего тела?"
+	desc = "Модуль для МЭК, представляющий собой пружинный экзоскелет, располагающийся по всей площади костюма под его внешней \
+		оболочкой. При активации раскрывается, значительно ускоряя процесс облачения пользователя в костюм, однако имеет критический \
+		недостаток: при воздействии влаги пружинный механизм имеет тенденцию \"защёлкиваться\" в исходное положение."
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	incompatible_modules = list(/obj/item/mod/module/springlock)
@@ -25,12 +23,12 @@
 
 /obj/item/mod/module/holster/get_ru_names() //i have to look on fucking fnaf wiki to find out how to translate this shit
 	return list(
-		NOMINATIVE = "пружинный модуль МЭК",
-		GENITIVE = "пружинного модуля МЭК",
-		DATIVE = "пружинному модулю МЭК",
-		ACCUSATIVE = "пружинный модуль МЭК",
-		INSTRUMENTAL = "пружинным модулем МЭК",
-		PREPOSITIONAL = "пружинном модуле МЭК",
+		NOMINATIVE = "пружинный модуль",
+		GENITIVE = "пружинного модуля",
+		DATIVE = "пружинному модулю",
+		ACCUSATIVE = "пружинный модуль",
+		INSTRUMENTAL = "пружинным модулем",
+		PREPOSITIONAL = "пружинном модуле",
 	)
 
 /obj/item/mod/module/springlock/on_install()
@@ -42,7 +40,6 @@
 	mod.activation_step_time *= activation_step_time_booster
 
 /obj/item/mod/module/springlock/on_part_activation()
-
 	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_wearer_exposed), override = TRUE)
 	if(dont_let_you_come_back)
 		RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_spring_block))
@@ -63,9 +60,10 @@
 	dont_let_you_come_back = TRUE
 
 
-///Signal fired when wearer is exposed to reagents
+/// Signal fired when wearer is exposed to reagents
 /obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, volume_modifier, show_message)
 	SIGNAL_HANDLER
+
 	if(!COOLDOWN_FINISHED(src, springlock_cooldown))
 		return
 	COOLDOWN_START(src, springlock_cooldown, 5 MINUTES)
@@ -76,34 +74,38 @@
 	addtimer(CALLBACK(src, PROC_REF(snap_shut)), rand(3 SECONDS, 5 SECONDS))
 	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_spring_block))
 
-///Signal fired when wearer attempts to activate/deactivate suits
+/// Signal fired when wearer attempts to activate/deactivate suits
 /obj/item/mod/module/springlock/proc/on_activate_spring_block(datum/source, user)
 	SIGNAL_HANDLER
 
 	to_chat(mod.wearer, span_userdanger("Кажется пружинные замки не работают?..."))
 	return MOD_CANCEL_ACTIVATE
 
-///Removes the retraction blocker from the springlock so long as they are not about to be killed
+/// Removes the retraction blocker from the springlock so long as they are not about to be killed
 /obj/item/mod/module/springlock/proc/remove_retraction_block()
 	if(!incoming_jumpscare)
 		UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 
-///Delayed death proc of the suit after the wearer is exposed to reagents
+/// Delayed death proc of the suit after the wearer is exposed to reagents
 /obj/item/mod/module/springlock/proc/snap_shut()
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 	if(!mod.wearer) //while there is a guaranteed user when on_wearer_exposed() fires, that isn't the same case for this proc
 		return
-	mod.wearer.visible_message(span_danger("Пружинные замки в костюме [mod.wearer] слетают и впиваются в пользователя, разрывая его изнутри!"), span_biggerdanger("<b>*ХРЯСЬ*</b>"))
+	mod.wearer.visible_message(
+		span_danger("Пружинные замки в костюме [mod.wearer] слетают и впиваются в пользователя, разрывая его изнутри!"),
+		span_biggerdanger("<b>*ХРЯСЬ*</b>")
+	)
 	mod.wearer.emote("scream")
 	playsound(mod.wearer, 'sound/effects/snap.ogg', 75, TRUE, frequency = 0.5)
 	playsound(mod.wearer, 'sound/effects/splat.ogg', 50, TRUE, frequency = 0.5)
 	mod.wearer.adjustBruteLoss(1987) //boggers, bogchamp, etc //why not just poggers, also this caps at 595 damage but comedy
 	incoming_jumpscare = FALSE
 
-///Balloon Blower - Blows a balloon.
+// MARK: Balloon blower
+/// Balloon Blower - Blows a balloon.
 /obj/item/mod/module/balloon
 	name = "MOD balloon blower module"
-	desc = "Странный модуль, изобретённый множество лет назад какими-то находчивыми мимами. Всего лишь надувает шарики."
+	desc = "Странный модуль для МЭК, изобретённый множество лет назад какими-то находчивыми мимами. Всего лишь надувает шарики."
 	icon_state = "bloon"
 	module_type = MODULE_USABLE
 	complexity = 1
@@ -114,12 +116,12 @@
 
 /obj/item/mod/module/balloon/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль надувания шариков МЭК",
-		GENITIVE = "модуля надувания шариков МЭК",
-		DATIVE = "модулю надувания шариков МЭК",
-		ACCUSATIVE = "модуль надувания шариков МЭК",
-		INSTRUMENTAL = "модулем надувания шариков МЭК",
-		PREPOSITIONAL = "модуле надувания шариков МЭК",
+		NOMINATIVE = "модуль надувания шариков",
+		GENITIVE = "модуля надувания шариков",
+		DATIVE = "модулю надувания шариков",
+		ACCUSATIVE = "модуль надувания шариков",
+		INSTRUMENTAL = "модулем надувания шариков",
+		PREPOSITIONAL = "модуле надувания шариков",
 	)
 
 /obj/item/mod/module/balloon/on_use()
@@ -131,11 +133,11 @@
 	mod.wearer.put_in_hands(balloon)
 	drain_power(use_energy_cost)
 
-
-///Stamper - Extends a stamp that can switch between accept/deny modes.
+// MARK: Stamper
+/// Stamper - Extends a stamp that can switch between accept/deny modes.
 /obj/item/mod/module/stamp
 	name = "MOD stamper module"
-	desc = "Устанавливаемый в запястье костюма модуль, функционирующий как электронная печать \
+	desc = "Модуль для МЭК, устанавливаемый в запястье костюма и выполняющий функцию электронной печати \
 		с возможностью переключения между режимами \"отказано\" и \"одобрено\"."
 	icon_state = "stamp"
 	module_type = MODULE_ACTIVE
@@ -148,12 +150,12 @@
 
 /obj/item/mod/module/stamp/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль печати МЭК",
-		GENITIVE = "модуля печати МЭК",
-		DATIVE = "модулю печати МЭК",
-		ACCUSATIVE = "модуль печати МЭК",
-		INSTRUMENTAL = "модулем печати МЭК",
-		PREPOSITIONAL = "модуле печати МЭК",
+		NOMINATIVE = "модуль печати",
+		GENITIVE = "модуля печати",
+		DATIVE = "модулю печати",
+		ACCUSATIVE = "модуль печати",
+		INSTRUMENTAL = "модулем печати",
+		PREPOSITIONAL = "модуле печати",
 	)
 
 /obj/item/stamp/mod
@@ -162,12 +164,12 @@
 
 /obj/item/stamp/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "электро-печать МЭК",
-		GENITIVE = "электро-печати МЭК",
-		DATIVE = "электро-печати МЭК",
-		ACCUSATIVE = "электро-печать МЭК",
-		INSTRUMENTAL = "электро-печатью МЭК",
-		PREPOSITIONAL = "электро-печати МЭК",
+		NOMINATIVE = "электропечать МЭК",
+		GENITIVE = "электропечати МЭК",
+		DATIVE = "электропечати МЭК",
+		ACCUSATIVE = "электропечать МЭК",
+		INSTRUMENTAL = "электропечатью МЭК",
+		PREPOSITIONAL = "электропечати МЭК",
 	)
 
 /obj/item/stamp/mod/Initialize(mapload)
@@ -184,11 +186,12 @@
 	else
 		icon_state = "stamp-ok"
 
-///Paper Dispenser - Dispenses (sometimes burning) paper sheets.
+// MARK: Paper dispenser
+/// Paper Dispenser - Dispenses (sometimes burning) paper sheets.
 /obj/item/mod/module/paper_dispenser
 	name = "MOD paper dispenser module"
-	desc = "A simple module designed by the bureaucrats of Torch Bay. \
-		It dispenses 'warm, clean, and crisp sheets of paper' onto a nearby table. Usually."
+	desc = "Модуль для МЭК, предназначенный для бюрократов. Печатает тёплые, белоснежные, хрустящие листы бумаги идеального состояния. \
+		По крайней мере, в большинстве случаев."
 	icon_state = "paper_maker"
 	module_type = MODULE_USABLE
 	complexity = 1
@@ -204,11 +207,11 @@
 		return FALSE
 
 	var/obj/item/paper/crisp_paper = new(get_turf(src))
-	crisp_paper.desc = "It's crisp and warm to the touch. Must be fresh."
+	crisp_paper.desc = "Хрустящий и тёплый на ощупь лист бумаги. Должно быть его напечатали недавно."
 
 	var/obj/structure/table/nearby_table = locate() in range(1, mod.wearer)
 	playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE)
-	balloon_alert(mod.wearer, "dispensed paper[nearby_table ? " onto table":""]")
+	balloon_alert(mod.wearer, "бумага напечатана [nearby_table ? "на стол" : ""]")
 
 	mod.wearer.put_in_hands(crisp_paper)
 	if(nearby_table)
@@ -218,8 +221,9 @@
 	if(prob(min(num_sheets_dispensed * 2, 30)))
 		if(crisp_paper in list(mod.wearer.get_active_hand(), mod.wearer.get_inactive_hand()))
 			mod.wearer.drop_item_ground(crisp_paper, force = TRUE)
-		crisp_paper.balloon_alert(mod.wearer, UNLINT("PC LOAD LETTER!"))
-		crisp_paper.visible_message(span_warning("[crisp_paper] bursts into flames, it's too crisp!"))
+		// originally here was "PC LOAD LETTER!", actual HP printer error message that became some kind of western "meme" after film "Office Space", do with that information whatever you want
+		crisp_paper.balloon_alert(mod.wearer, UNLINT("ОШИБКА: НЕТ БУМАГИ!"))
+		crisp_paper.visible_message(span_warning("[capitalize(crisp_paper)] сгорает в ярком пламени!"))
 		crisp_paper.fire_act(1000, 100)
 
 	drain_power(use_energy_cost)

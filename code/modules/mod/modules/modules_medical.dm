@@ -3,12 +3,12 @@
 #define HEALTH_SCAN "Health"
 #define CHEM_SCAN "Chemical"
 
-///Health Analyzer - Gives the user a ranged health analyzer and their health status in the panel.
+// MARK: Health analyzer
+/// Health Analyzer - Gives the user a ranged health analyzer and their health status in the panel.
 /obj/item/mod/module/health_analyzer
 	name = "MOD health analyzer module"
-	desc = "A module installed into the glove of the suit. This is a high-tech biological scanning suite, \
-		allowing the user indepth information on the vitals and injuries of others even at a distance, \
-		all with the flick of the wrist. Data is displayed in a convenient package, but it's up to you to do something with it."
+	desc = "Модуль для МЭК, встраиваемый в перчатку костюма. Позволяет лёгким движени руки получать детальную информацию \
+		о состоянии здоровья людей даже на расстоянии."
 	icon_state = "health"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -22,6 +22,16 @@
 
 	/// List of all scanning modes.
 	var/static/list/modes = list(HEALTH_SCAN, CHEM_SCAN)
+
+/obj/item/mod/module/health_analyzer/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль анализатора здоровья",
+		GENITIVE = "модуля анализатора здоровья",
+		DATIVE = "модулю анализатора здоровья",
+		ACCUSATIVE = "модуль анализатора здоровья",
+		INSTRUMENTAL = "модулем анализатора здоровья",
+		PREPOSITIONAL = "модуле анализатора здоровья",
+	)
 
 /obj/item/mod/module/health_analyzer/add_ui_data()
 	. = ..()
@@ -49,7 +59,7 @@
 
 /obj/item/mod/module/health_analyzer/get_configuration()
 	. = ..()
-	.["mode"] = add_ui_configuration("Scan Mode", "list", mode, modes)
+	.["mode"] = add_ui_configuration("Режим сканирования", "list", mode, modes)
 
 /obj/item/mod/module/health_analyzer/configure_edit(key, value)
 	switch(key)
@@ -59,17 +69,28 @@
 #undef HEALTH_SCAN
 #undef CHEM_SCAN
 
-///Quick Carry - Lets the user carry bodies quicker.
+// MARK: Quick carry
+/// Quick Carry - Lets the user carry bodies quicker.
 /obj/item/mod/module/quick_carry
 	name = "MOD quick carry module"
-	desc = "A suite of advanced servos, redirecting power from the suit's arms to help carry the wounded; \
-		or simply for fun. However, Nanotrasen has locked the module's ability to assist in hand-to-hand combat."
+	desc = "Модуль для МЭК, являющийся набором продвинутых сервоприводов, устанавливаемых в руки костюма. Позволяют с лёгкостью \
+		переносить тела, если вы оказываете помощь пострадавшим, или просто веселья ради."
 	icon_state = "carry"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/quick_carry) //TODO MODSUIT: add /obj/item/mod/module/constructor
 	required_slots = list(ITEM_SLOT_GLOVES)
 	var/quick_carry_trait = TRAIT_QUICK_CARRY
+
+/obj/item/mod/module/quick_carry/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль сильного хвата",
+		GENITIVE = "модуля сильного хвата",
+		DATIVE = "модулю сильного хвата",
+		ACCUSATIVE = "модуль сильного хвата",
+		INSTRUMENTAL = "модулем сильного хвата",
+		PREPOSITIONAL = "модуле сильного хвата",
+	)
 
 /obj/item/mod/module/quick_carry/on_part_activation()
 	. = ..()
@@ -85,12 +106,22 @@
 	complexity = 0
 	quick_carry_trait = TRAIT_QUICKER_CARRY
 
-///Injector - Gives the suit an extendable large-capacity piercing syringe.
+/obj/item/mod/module/quick_carry/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль улучшенного хвата",
+		GENITIVE = "модуля улучшенного хвата",
+		DATIVE = "модулю улучшенного хвата",
+		ACCUSATIVE = "модуль улучшенного хвата",
+		INSTRUMENTAL = "модулем улучшенного хвата",
+		PREPOSITIONAL = "модуле улучшенного хвата",
+	)
+
+// MARK: Injector
+/// Injector - Gives the suit an extendable large-capacity piercing syringe.
 /obj/item/mod/module/injector
 	name = "MOD injector module"
-	desc = "A module installed into the wrist of the suit, this functions as a high-capacity syringe, \
-		with a tip fine enough to locate the emergency injection ports on any suit of armor, \
-		penetrating it with ease. Even yours."
+	desc = "Модуль для МЭК, представляющий собой высокоёмкий выдвижной шприц-инжектор, устанавливаемый в запястье костюма. \
+		Умный наконечник позволяет с лёгкостью обнаружить специальные места для инъекций на любом МЭК, проникая через всю броню."
 	icon_state = "injector"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -101,18 +132,18 @@
 
 /obj/item/mod/module/injector/get_ru_names()
 	return list(
-		NOMINATIVE = "инжекторный модуль МЭК",
-		GENITIVE = "инжекторного модуля МЭК",
-		DATIVE = "инжекторному модулю МЭК",
-		ACCUSATIVE = "инжекторный модуль МЭК",
-		INSTRUMENTAL = "инжекторным модулем МЭК",
-		PREPOSITIONAL = "инжекторном модуле МЭК",
+		NOMINATIVE = "модуль инъектора",
+		GENITIVE = "модуля инъектора",
+		DATIVE = "модулю инъектора",
+		ACCUSATIVE = "модуль инъектора",
+		INSTRUMENTAL = "модулем инъектора",
+		PREPOSITIONAL = "модуле инъектора",
 	)
 
 /obj/item/reagent_containers/syringe/mod
 	name = "MOD injector syringe"
-	desc = "A high-capacity syringe, with a tip fine enough to locate \
-		the emergency injection ports on any suit of armor, penetrating it with ease. Even yours."
+	desc = "Высокоёмкий выдвижной шприц-инжектор. Умный наконечник позволяет с лёгкостью обнаружить специальные места для инъекций \
+		на любом МЭК, проникая через всю броню."
 	amount_per_transfer_from_this = 30
 	possible_transfer_amounts = list(5, 10, 15, 20, 30)
 	volume = 30

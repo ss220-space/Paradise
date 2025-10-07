@@ -1,11 +1,11 @@
-//Engineering modules for MODsuits
+// Engineering modules for MODsuits
 
-///Welding Protection - Makes the helmet protect from flashes and welding.
+// MARK: Welding shield
+/// Welding Protection - Makes the helmet protect from flashes and welding.
 /obj/item/mod/module/welding
 	name = "MOD welding protection module"
-	desc = "A module installed into the visor of the suit, this projects a \
-		polarized, holographic overlay in front of the user's eyes. It's rated high enough for \
-		immunity against extremities such as spot and arc welding, solar eclipses, and handheld flashlights."
+	desc = "Модуль для МЭК, устанавливаемый в визор. Высоко ценится за защиту от экстремально ярких источников освещения, позволяя \
+		без опасений смотреть на точечную и дуговую сварку, солнечные затмения, а также карманные фонарики."
 	icon_state = "welding"
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/welding, /obj/item/mod/module/armor_booster)
@@ -13,20 +13,19 @@
 
 /obj/item/mod/module/welding/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль защиты от сварки МЭК",
-		GENITIVE = "модуля защиты от сварки МЭК",
-		DATIVE = "модулю защиты от сварки МЭК",
-		ACCUSATIVE = "модуль защиты от сварки МЭК",
-		INSTRUMENTAL = "модулем защиты от сварки МЭК",
-		PREPOSITIONAL = "модуле защиты от сварки МЭК",
+		NOMINATIVE = "модуль защиты от сварки",
+		GENITIVE = "модуля защиты от сварки",
+		DATIVE = "модулю защиты от сварки",
+		ACCUSATIVE = "модуль защиты от сварки",
+		INSTRUMENTAL = "модулем защиты от сварки",
+		PREPOSITIONAL = "модуле защиты от сварки",
 	)
 
 /obj/item/mod/module/welding/on_part_activation()
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
-		//this is a screen that displays an image, so flash sensitives can use this to protect against flashes.
+		// this is a screen that displays an image, so flash sensitives can use this to protect against flashes.
 		head_cover.flash_protect = FLASH_PROTECTION_WELDER
-
 
 /obj/item/mod/module/welding/on_part_deactivation(deleting = FALSE)
 	if(deleting)
@@ -35,12 +34,12 @@
 	if(istype(head_cover))
 		head_cover.flash_protect = initial(head_cover.flash_protect)
 
-///T-Ray Scan - Scans the terrain for undertile objects.
+// MARK: T-ray scanner
+/// T-Ray Scan - Scans the terrain for undertile objects.
 /obj/item/mod/module/t_ray
 	name = "MOD t-ray scan module"
-	desc = "A module installed into the visor of the suit, allowing the user to use a pulse of terahertz radiation \
-		to essentially echolocate things beneath the floor, mostly cables and pipes. \
-		A staple of atmospherics work, and counter-smuggling work."
+	desc = "Модуль для МЭК, устанавливаемый в визор. Использует терагерцевое излучение для эхолокации технических объектов, \
+		скрытых под полом — мусорных и атмосферных труб, кабелей, терминалов ЛКП и контрабандных сумок."
 	icon_state = "tray"
 	module_type = MODULE_TOGGLE
 	complexity = 1
@@ -52,24 +51,24 @@
 
 /obj/item/mod/module/t_ray/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль терагерцового сканирования МЭК",
-		GENITIVE = "модуля терагерцового сканирования МЭК",
-		DATIVE = "модулю терагерцового сканирования МЭК",
-		ACCUSATIVE = "модуль терагерцового сканирования МЭК",
-		INSTRUMENTAL = "модулем терагерцового сканирования МЭК",
-		PREPOSITIONAL = "модуле терагерцового сканирования МЭК",
+		NOMINATIVE = "модуль ТГц сканирования",
+		GENITIVE = "модуля ТГц сканирования",
+		DATIVE = "модулю ТГц сканирования",
+		ACCUSATIVE = "модуль ТГц сканирования",
+		INSTRUMENTAL = "модулем ТГц сканирования",
+		PREPOSITIONAL = "модуле ТГц сканирования",
 	)
 
 /obj/item/mod/module/t_ray/on_active_process()
 	t_ray_scan(mod.wearer, 0.8 SECONDS, range)
 
-///Magnetic Stability - Gives the user a slowdown but makes them negate gravity and be immune to slips.
+// MARK: Magboots
+/// Magnetic Stability - Gives the user a slowdown but makes them negate gravity and be immune to slips.
 /obj/item/mod/module/magboot
 	name = "MOD magnetic stability module"
-	desc = "These are powerful electromagnets fitted into the suit's boots, allowing users both \
-		excellent traction no matter the condition indoors, and to essentially hitch a ride on the exterior of a hull. \
-		However, these basic models do not feature computerized systems to automatically toggle them on and off, \
-		so numerous users report a certain stickiness to their steps."
+	desc = "Модуль для МЭК, являющийся встраиваемым аналогом магнитных ботинок. В активированном состоянии позволяет не \
+		поскальзываться на мокром полу, льду или кожурке банана. Дополнительно предоставляет сцепление \
+		с поверхностью в среде без гравитации."
 	icon_state = "magnet"
 	module_type = MODULE_TOGGLE
 	complexity = 2
@@ -81,55 +80,118 @@
 
 /obj/item/mod/module/magboot/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль магнитных усилителей МЭК",
-		GENITIVE = "модуля магнитных усилителей МЭК",
-		DATIVE = "модулю магнитных усилителей МЭК",
-		ACCUSATIVE = "модуль магнитных усилителей МЭК",
-		INSTRUMENTAL = "модулем магнитных усилителей МЭК",
-		PREPOSITIONAL = "модуле магнитных усилителей МЭК",
+		NOMINATIVE = "модуль магбутсов",
+		GENITIVE = "модуля магбутсов",
+		DATIVE = "модулю магбутсов",
+		ACCUSATIVE = "модуль магбутсов",
+		INSTRUMENTAL = "модулем магбутсов",
+		PREPOSITIONAL = "модуле магбутсов",
 	)
 
 /obj/item/mod/module/magboot/on_activation()
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 	mod.slowdown += slowdown_active
 	mod.update_equipped_item()
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 
 /obj/item/mod/module/magboot/on_deactivation(display_message = TRUE, deleting = FALSE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 	mod.slowdown -= slowdown_active
 	mod.update_equipped_item()
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 
+// MARK: Atmos magboots
+/obj/item/mod/module/magboot/atmos
+	name = "MOD atmos magnetic stability module"
+	desc = "Аналог обычного модуля магнитных ботинок, с той лишь разницей, что сцепление было дополнительно усилено, \
+		предоставляя пользователю возможность без вреда для здоровья откручивать трубы под давлением в сотни мегапаскалей."
+
+/obj/item/mod/module/magboot/atmos/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль атмосферных магбутсов",
+		GENITIVE = "модуля атмосферных магбутсов",
+		DATIVE = "модулю атмосферных магбутсов",
+		ACCUSATIVE = "модуль атмосферных магбутсов",
+		INSTRUMENTAL = "модулем атмосферных магбутсов",
+		PREPOSITIONAL = "модуле атмосферных магбутсов",
+	)
+
+/obj/item/mod/module/magboot/atmos/on_activation()
+	. = ..()
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
+
+/obj/item/mod/module/magboot/atmos/on_deactivation(display_message = TRUE, deleting = FALSE)
+	. = ..()
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
+
+// MARK: Adv. magboots
 /obj/item/mod/module/magboot/advanced
 	name = "MOD advanced magnetic stability module"
+	desc = "Продвинутый вариант модуля магнитных ботинок. Кроме всех преимуществ обычной версии, ещё и не замедляет пользователя \
+		В активированном состоянии."
 	removable = FALSE
 	complexity = 0
 	slowdown_active = 0
 
 /obj/item/mod/module/magboot/advanced/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль продвинутых магнитных усилителей МЭК",
-		GENITIVE = "модуля продвинутых магнитных усилителей МЭК",
-		DATIVE = "модулю продвинутых магнитных усилителей МЭК",
-		ACCUSATIVE = "модуль продвинутых магнитных усилителей МЭК",
-		INSTRUMENTAL = "модулем продвинутых магнитных усилителей МЭК",
-		PREPOSITIONAL = "модуле продвинутых магнитных усилителей МЭК",
+		NOMINATIVE = "модуль продвинутых магбутсов",
+		GENITIVE = "модуля продвинутых магбутсов",
+		DATIVE = "модулю продвинутых магбутсов",
+		ACCUSATIVE = "модуль продвинутых магбутсов",
+		INSTRUMENTAL = "модулем продвинутых магбутсов",
+		PREPOSITIONAL = "модуле продвинутых магбутсов",
 	)
 
 /obj/item/mod/module/magboot/advanced/on_activation()
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 
 /obj/item/mod/module/magboot/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 
-///Radiation Protection - Gives the user rad info in the ui, currently
+// MARK: Elite magboots
+/obj/item/mod/module/magboot/advanced/elite
+	name = "MOD elite magnetic stability module"
+	desc = "Совершенный в технологическом смысле модуль магнитных ботинок, в активированном состоянии абсолютно защищающий от любых \
+		скользких поверхностей. Не замедляет пользователя."
+
+/obj/item/mod/module/magboot/advanced/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль элитных магбутсов",
+		GENITIVE = "модуля элитных магбутсов",
+		DATIVE = "модулю элитных магбутсов",
+		ACCUSATIVE = "модуль элитных магбутсов",
+		INSTRUMENTAL = "модулем элитных магбутсов",
+		PREPOSITIONAL = "модуле элитных магбутсов",
+	)
+
+/obj/item/mod/module/magboot/advanced/elite/on_activation()
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
+
+/obj/item/mod/module/magboot/advanced/elite/on_deactivation(display_message = TRUE, deleting = FALSE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
+
+// MARK: Rad. detector
+/// Radiation detector (should be Radiation Protection one day...) - Gives the user rad info in the ui, currently (absolutely useless)
 /obj/item/mod/module/rad_protection
 	name = "MOD radiation detector module"
-	desc = "A protoype module that improves the sensors on the modsuit to detect radiation on the user. \
-	Currently due to time restraints and a lack of lead on lavaland, it does not have a built in geiger counter or radiation protection."
+	desc = "Модуль для МЭК, сенсоры которого обладают возможностью обнаруживать и измерять радиационное заражение пользователя. \
+		Из-за бюрократических проволочек при проектировке и нехватки свинца на Лазисе, модуль не имеет встроенного счётчика Гейгера \
+		и не предоставляет никакой защиты от радиации."
 	icon_state = "radshield"
 	complexity = 0 //I'm setting this to zero for now due to it not currently increasing radiaiton armor. If we add giger counter / additional rad protecion to this, it should be 2. We denied radiation potions before, so this should NOT give full rad immunity on a engi modsuit
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1 //Lowered from 0.3 due to no protection.
@@ -138,12 +200,12 @@
 
 /obj/item/mod/module/rad_protection/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль радиационного сканирования МЭК",
-		GENITIVE = "модуля радиационного сканирования МЭК",
-		DATIVE = "модулю радиационного сканирования МЭК",
-		ACCUSATIVE = "модуль радиационного сканирования МЭК",
-		INSTRUMENTAL = "модулем радиационного сканирования МЭК",
-		PREPOSITIONAL = "модуле радиационного сканирования МЭК",
+		NOMINATIVE = "модуль радиационного сканирования",
+		GENITIVE = "модуля радиационного сканирования",
+		DATIVE = "модулю радиационного сканирования",
+		ACCUSATIVE = "модуль радиационного сканирования",
+		INSTRUMENTAL = "модулем радиационного сканирования",
+		PREPOSITIONAL = "модуле радиационного сканирования",
 	)
 
 /obj/item/mod/module/rad_protection/add_ui_data()
@@ -152,12 +214,12 @@
 	.["health_max"] = mod.wearer?.getMaxHealth() || 0
 	.["loss_tox"] = mod.wearer?.getToxLoss() || 0
 
-///Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.
+// MARK: Grappling hook
+/// Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.
 /obj/item/mod/module/tether
 	name = "MOD emergency tether module"
-	desc = "A custom-built grappling-hook powered by a winch capable of hauling the user. \
-		While some older models of cargo-oriented grapples have capacities of a few tons, \
-		these are only capable of working in zero-gravity environments, a blessing to some Engineers."
+	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Позволяет выстрелить крюк-кошкой на лебёдке с встроенным мотором. \
+		К сожалению, из-за слабой конструкции модуль получится использовать только в среде без гравитации."
 	icon_state = "tether"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -167,12 +229,12 @@
 
 /obj/item/mod/module/tether/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль аварийного троса МЭК",
-		GENITIVE = "модуля аварийного троса МЭК",
-		DATIVE = "модулю аварийного троса МЭК",
-		ACCUSATIVE = "модуль аварийного троса МЭК",
-		INSTRUMENTAL = "модулем аварийного троса МЭК",
-		PREPOSITIONAL = "модуле аварийного троса МЭК",
+		NOMINATIVE = "модуль крюк-кошки",
+		GENITIVE = "модуля крюк-кошки",
+		DATIVE = "модулю крюк-кошки",
+		ACCUSATIVE = "модуль крюк-кошки",
+		INSTRUMENTAL = "модулем крюк-кошки",
+		PREPOSITIONAL = "модуле крюк-кошки",
 	)
 
 /obj/item/mod/module/tether/on_use()
@@ -220,11 +282,13 @@
 	QDEL_NULL(chain)
 	return ..()
 
+// MARK: Atmos watertank
 /// Atmos water tank module
-
 /obj/item/mod/module/firefighting_tank
 	name = "MOD firefighting tank"
-	desc = "A refrigerated and pressurized module tank with an extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
+	desc = "Модуль для МЭК, предоставляющий в пользование носителю огнетушитель с баком охлаждённой сжатой воды. Предназначен \
+		для тушения пожаров. Переключается между простым огнетушителем, распылителем металлической пены и режимом \"нанофрост\", \
+		в котором огнетушитель стреляет снарядами, превращающими горящую в атмосфере плазму в азот."
 	icon_state = "firefighting_tank"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -233,12 +297,12 @@
 
 /obj/item/mod/module/firefighting_tank/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль пожаротушения МЭК",
-		GENITIVE = "модуля пожаротушения МЭК",
-		DATIVE = "модулю пожаротушения МЭК",
-		ACCUSATIVE = "модуль пожаротушения МЭК",
-		INSTRUMENTAL = "модулем пожаротушения МЭК",
-		PREPOSITIONAL = "модуле пожаротушения МЭК",
+		NOMINATIVE = "модуль пожаротушения",
+		GENITIVE = "модуля пожаротушения",
+		DATIVE = "модулю пожаротушения",
+		ACCUSATIVE = "модуль пожаротушения",
+		INSTRUMENTAL = "модулем пожаротушения",
+		PREPOSITIONAL = "модуле пожаротушения",
 	)
 
 #define EXTINGUISHER 0
@@ -247,7 +311,7 @@
 
 /obj/item/extinguisher/mini/mod
 	name = "modsuit extinguisher nozzle"
-	desc = "A heavy duty nozzle attached to a modsuit's internal tank."
+	desc = "Сверхмощная распыляющая насадка, подсоединённая к внутреннему хранилищу МЭК."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "atmos_nozzle_1"
 	item_state = "nozzleatmos"
@@ -278,13 +342,13 @@
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
-			balloon_alert(user, "выбрано распыление нанофроста") //может как-то лучше назвать?
+			balloon_alert(user, "режим \"нанофрост\"") //может как-то лучше назвать? // i gotchu bro
 		if(NANOFROST)
 			nozzle_mode = METAL_FOAM
-			balloon_alert(user, "выбран металлическая пена")
+			balloon_alert(user, "металлическая пена")
 		if(METAL_FOAM)
 			nozzle_mode = EXTINGUISHER
-			balloon_alert(user, "выбран огнетушитель")
+			balloon_alert(user, "огнетушитель")
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/extinguisher/mini/mod/update_icon_state()
@@ -302,7 +366,7 @@
 		if(EXTINGUISHER)
 			. += span_notice("Сейчас выбран режим огнетушителя.")
 		if(NANOFROST)
-			. += span_notice("Сейчас выбран режим распыления нанофроста.")
+			. += span_notice("Сейчас выбран режим \"нанофрост\".")
 		if(METAL_FOAM)
 			. += span_notice("Сейчас выбран режим распыления металлической пены.")
 
@@ -316,7 +380,7 @@
 
 		if(NANOFROST)
 			if(reagents.total_volume < 100)
-				balloon_alert(user, "не хватает воды в баке!")
+				balloon_alert(user, "в баке мало воды!")
 				return
 			if(!COOLDOWN_FINISHED(src, nanofrost_cooldown))
 				balloon_alert(user, "на перезарядке!")
@@ -335,11 +399,11 @@
 			if(!is_adjacent|| !isturf(target))
 				return
 			if(metal_synthesis_charge <= 0)
-				balloon_alert(user, "всё ещё процессе синтеза!")
-				to_chat(user, span_warning("Metal foam mix is still being synthesized."))
+				balloon_alert(user, "в процессе синтеза!")
+				to_chat(user, span_warning("Металлическая пена всё ещё синтезируется."))
 				return
 			if(reagents.total_volume < 10)
-				balloon_alert(user, "не хватает воды в баке!")
+				balloon_alert(user, "в баке мало воды!")
 				return
 			var/datum/effect_system/fluid_spread/foam/metal/F = new()
 			F.set_up(amount = 0, location = get_turf(target))
@@ -355,10 +419,11 @@
 #undef NANOFROST
 #undef METAL_FOAM
 
-///Mister - Sprays water over an area.
+// MARK: Mister
+/// Mister - Sprays water over an area.
 /obj/item/mod/module/mister
 	name = "MOD water mister module"
-	desc = "A module containing a mister, able to spray it over areas."
+	desc = "Модуль распылителя для МЭК, дающий пользователю возможность пшикать водой. Крайне полезно."
 	icon_state = "mister"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -370,16 +435,36 @@
 	/// Volume of our reagent holder.
 	var/volume = 500
 
+/obj/item/mod/module/mister/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль распылителя",
+		GENITIVE = "модуля распылителя",
+		DATIVE = "модулю распылителя",
+		ACCUSATIVE = "модуль распылителя",
+		INSTRUMENTAL = "модулем распылителя",
+		PREPOSITIONAL = "модуле распылителя",
+	)
+
 /obj/item/mod/module/mister/Initialize(mapload)
 	create_reagents(volume, OPENCONTAINER)
 	return ..()
 
-///Resin Mister - Sprays resin over an area.
+/// Resin Mister - Sprays resin over an area.
 /obj/item/mod/module/mister/atmos
 	name = "MOD resin mister module"
-	desc = "An atmospheric resin mister, able to fix up areas quickly."
+	desc = "Модуль атмосферного распылителя для МЭК. Содержит быстротвердеющие полимеры, позволяя оперативно заделывать бреши в обшивке."
 	device = /obj/item/extinguisher/mini/nozzle/mod
 	volume = 250
+
+/obj/item/mod/module/mister/atmos/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль атмосферного распылителя",
+		GENITIVE = "модуля атмосферного распылителя",
+		DATIVE = "модулю атмосферного распылителя",
+		ACCUSATIVE = "модуль атмосферного распылителя",
+		INSTRUMENTAL = "модулем атмосферного распылителя",
+		PREPOSITIONAL = "модуле атмосферного распылителя",
+	)
 
 /obj/item/mod/module/mister/atmos/Initialize(mapload)
 	. = ..()
@@ -387,4 +472,4 @@
 
 /obj/item/extinguisher/mini/nozzle/mod
 	name = "MOD atmospheric mister"
-	desc = "An atmospheric resin mister with three modes, mounted as a module."
+	desc = "Распылитель быстротвердеющих полимеров с тремя режимами работы."

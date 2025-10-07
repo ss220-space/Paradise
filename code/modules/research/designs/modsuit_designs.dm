@@ -203,6 +203,13 @@
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	build_path = /obj/item/mod/module/magboot
 
+/datum/design/module/mod_adv_magboot
+	name = "Advanced Magnetic Stabilizator Module"
+	id = "mod_adv_magboot"
+	req_tech = list("materials" = 7, "magnets" = 7, "engineering" = 7)
+	materials = list(MAT_METAL = 15000, MAT_SILVER = 5500, MAT_GOLD = 6500, MAT_TITANIUM = 6500)
+	build_path = /obj/item/mod/module/magboot/advanced
+
 /datum/design/module/mod_rad_protection
 	name = "Radiation Protection Module"
 	id = "mod_rad_protection"

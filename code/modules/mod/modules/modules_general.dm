@@ -1,10 +1,11 @@
 //General modules for MODsuits
 
-///Storage - Adds a storage component to the suit.
+// MARK: Storage
+/// Storage - Adds a storage component to the suit.
 /obj/item/mod/module/storage
 	name = "MOD storage module"
-	desc = "What amounts to a series of integrated storage compartments and specialized pockets installed across \
-		the surface of the suit, useful for storing various bits, and or bobs."
+	desc = "Модуль для МЭК, являющийся набором интегрированных по всему костюму отсеков разного размера для хранения \
+		полезных вещей и разных безделушек."
 	icon_state = "storage"
 	complexity = 3
 	incompatible_modules = list(/obj/item/mod/module/storage, /obj/item/mod/module/plate_compression)
@@ -19,12 +20,12 @@
 
 /obj/item/mod/module/storage/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль вместимости МЭК",
-		GENITIVE = "модуля вместимости МЭК",
-		DATIVE = "модулю вместимости МЭК",
-		ACCUSATIVE = "модуль вместимости МЭК",
-		INSTRUMENTAL = "модулем вместимости МЭК",
-		PREPOSITIONAL = "модуле вместимости МЭК",
+		NOMINATIVE = "модуль вместимости",
+		GENITIVE = "модуля вместимости",
+		DATIVE = "модулю вместимости",
+		ACCUSATIVE = "модуль вместимости",
+		INSTRUMENTAL = "модулем вместимости",
+		PREPOSITIONAL = "модуле вместимости",
 	)
 
 /obj/item/mod/module/storage/serialize()
@@ -50,7 +51,6 @@
 /obj/item/mod/module/storage/Destroy()
 	QDEL_NULL(bag)
 	return ..()
-
 
 /obj/item/mod/module/storage/on_install()
 	. = ..()
@@ -78,30 +78,30 @@
 	. = ..()
 	bag.forceMove(src)
 
+// MARK: Large storage
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
-	desc = "Reverse engineered by Cybersun Industries from Donk Corporation designs, this system of hidden compartments \
-		is entirely within the suit, distributing items and weight evenly to ensure a comfortable experience for the user; \
-		whether smuggling, or simply hauling."
+	desc = "Модуль для МЭК, являющийся усовершенствованной версией интегрированных отсеков для хранения. Улучшенное распределение веса \
+		позволило увеличить вместимость хранения без ущерба для подвижности."
 	icon_state = "storage_large"
 	max_combined_w_class = 21
 	max_items = 14
 
 /obj/item/mod/module/storage/large_capacity/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль повышенной вместимости МЭК",
-		GENITIVE = "модуля повышенной вместимости МЭК",
-		DATIVE = "модулю повышенной вместимости МЭК",
-		ACCUSATIVE = "модуль повышенной вместимости МЭК",
-		INSTRUMENTAL = "модулем повышенной вместимости МЭК",
-		PREPOSITIONAL = "модуле повышенной вместимости МЭК",
+		NOMINATIVE = "модуль повышенной вместимости",
+		GENITIVE = "модуля повышенной вместимости",
+		DATIVE = "модулю повышенной вместимости",
+		ACCUSATIVE = "модуль повышенной вместимости",
+		INSTRUMENTAL = "модулем повышенной вместимости",
+		PREPOSITIONAL = "модуле повышенной вместимости",
 	)
 
+// MARK: Syndie storage
 /obj/item/mod/module/storage/syndicate
 	name = "MOD syndicate storage module"
-	desc = "A storage system using nanotechnology developed by Donk Corporation, these compartments use \
-		esoteric technology to compress the physical matter of items put inside of them, \
-		essentially shrinking items for much easier and more portable storage."
+	desc = "Модуль для МЭК, являющийся усовершенствованной версией продвинутого хранилища. Использование технологии сжатия материи \
+		ещё больше увеличило возможности костюма по хранению предметов."
 	icon_state = "storage_syndi"
 	max_combined_w_class = 30
 	max_items = 21
@@ -109,19 +109,19 @@
 
 /obj/item/mod/module/storage/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль вместимости синдиката МЭК",
-		GENITIVE = "модуля вместимости синдиката МЭК",
-		DATIVE = "модулю вместимости синдиката МЭК",
-		ACCUSATIVE = "модуль вместимости синдиката МЭК",
-		INSTRUMENTAL = "модулем вместимости синдиката МЭК",
-		PREPOSITIONAL = "модуле вместимости синдиката МЭК",
+		NOMINATIVE = "модуль вместимости синдиката",
+		GENITIVE = "модуля вместимости синдиката",
+		DATIVE = "модулю вместимости синдиката",
+		ACCUSATIVE = "модуль вместимости синдиката",
+		INSTRUMENTAL = "модулем вместимости синдиката",
+		PREPOSITIONAL = "модуле вместимости синдиката",
 	)
 
+// MARK: Belt storage
 /obj/item/mod/module/storage/belt
 	name = "MOD case storage module"
-	desc = "Some concessions had to be made when creating a compressed modular suit core. \
-	As a result, Roseus Galactic equipped their suit with a slimline storage case. \
-	If you find this equipped to a standard modular suit, then someone has almost certainly shortchanged you on a proper storage module."
+	desc = "Модуль для МЭК, предоставляющий по сравнению с аналогами уменьшенную вместимость предметов. Если вы обнаружили, что \
+		в вашем обычном МЭК установлено нечто подобное, вас определённо обсчитали на цену нормального модуля хранилища."
 	icon_state = "storage_case"
 	complexity = 0
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -131,18 +131,19 @@
 
 /obj/item/mod/module/storage/belt/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль пониженной вместимости МЭК",
-		GENITIVE = "модуля пониженной вместимости МЭК",
-		DATIVE = "модулю пониженной вместимости МЭК",
-		ACCUSATIVE = "модуль пониженной вместимости МЭК",
-		INSTRUMENTAL = "модулем пониженной вместимости МЭК",
-		PREPOSITIONAL = "модуле пониженной вместимости МЭК",
+		NOMINATIVE = "модуль пониженной вместимости",
+		GENITIVE = "модуля пониженной вместимости",
+		DATIVE = "модулю пониженной вместимости",
+		ACCUSATIVE = "модуль пониженной вместимости",
+		INSTRUMENTAL = "модулем пониженной вместимости",
+		PREPOSITIONAL = "модуле пониженной вместимости",
 	)
 
+// MARK: BS storage
 /obj/item/mod/module/storage/bluespace
 	name = "MOD bluespace storage module"
-	desc = "A storage system developed by Nanotrasen, these compartments employ \
-		miniaturized bluespace pockets for the ultimate in storage technology; regardless of the weight of objects put inside."
+	desc = "Модуль для МЭК, эксклюзив Нанотрейзен. Использует блюспейс технологии для внутренней компоновки отсеков модуля, \
+		предоставляя лучшие возможности для хранения."
 	icon_state = "storage_bluespace"
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 60
@@ -150,12 +151,12 @@
 
 /obj/item/mod/module/storage/bluespace/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль блюспейс-хранилища МЭК",
-		GENITIVE = "модуля блюспейс-хранилища МЭК",
-		DATIVE = "модулю блюспейс-хранилища МЭК",
-		ACCUSATIVE = "модуль блюспейс-хранилища МЭК",
-		INSTRUMENTAL = "модулем блюспейс-хранилища МЭК",
-		PREPOSITIONAL = "модуле блюспейс-хранилища МЭК",
+		NOMINATIVE = "модуль блюспейс-хранилища",
+		GENITIVE = "модуля блюспейс-хранилища",
+		DATIVE = "модулю блюспейс-хранилища",
+		ACCUSATIVE = "модуль блюспейс-хранилища",
+		INSTRUMENTAL = "модулем блюспейс-хранилища",
+		PREPOSITIONAL = "модуле блюспейс-хранилища",
 	)
 
 //Internal
@@ -182,13 +183,11 @@
 			continue
 		hide_from(M)
 
-
-///Ion Jetpack - Lets the user fly freely through space using battery charge.
+// MARK: Ion Jetpack
+/// Ion Jetpack - Lets the user fly freely through space using battery charge.
 /obj/item/mod/module/jetpack
 	name = "MOD ion jetpack module"
-	desc = "A series of electric thrusters installed across the suit, this is a module highly anticipated by trainee Engineers. \
-		Rather than using gasses for combustion thrust, these jets are capable of accelerating ions using \
-		charge from the suit's charge. Some say this isn't Cybersun Industries's first foray into jet-enabled suits."
+	desc = "Модуль для МЭК, представляющий собой набор распределённых по всему костюму ионных двигателей, которые питаются от заряда костюма."
 	icon_state = "jetpack"
 	module_type = MODULE_TOGGLE
 	complexity = 3
@@ -207,12 +206,12 @@
 
 /obj/item/mod/module/jetpack/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ионного джетпака МЭК",
-		GENITIVE = "модуля ионного джетпака МЭК",
-		DATIVE = "модулю ионного джетпака МЭК",
-		ACCUSATIVE = "модуль ионного джетпака МЭК",
-		INSTRUMENTAL = "модулем ионного джетпака МЭК",
-		PREPOSITIONAL = "модуле ионного джетпака МЭК",
+		NOMINATIVE = "модуль ионного джетпака",
+		GENITIVE = "модуля ионного джетпака",
+		DATIVE = "модулю ионного джетпака",
+		ACCUSATIVE = "модуль ионного джетпака",
+		INSTRUMENTAL = "модулем ионного джетпака",
+		PREPOSITIONAL = "модуле ионного джетпака",
 	)
 
 /obj/item/mod/module/jetpack/Initialize(mapload)
@@ -270,10 +269,11 @@
 /obj/item/mod/module/jetpack/on_deactivation(display_message, deleting)
 	mod.jetpack_active = FALSE
 
+// MARK: Adv. ion jetpack
 /obj/item/mod/module/jetpack/advanced
 	name = "MOD advanced ion jetpack module"
-	desc = "An improvement on the previous model of electric thrusters. This one achieves better efficency through \
-		mounting of more jets and a red paint applied on it."
+	desc = "Модуль для МЭК, усовершенствованная версия стандартной модели ионного джетпака. Улучшение показателей было достигнуто \
+		за счёт добавления ещё большего числа двигателей и нанесения красной краски."
 	icon_state = "jetpack_advanced"
 	overlay_state_inactive = "module_jetpackadv"
 	overlay_state_active = "module_jetpackadv_on"
@@ -283,20 +283,20 @@
 
 /obj/item/mod/module/jetpack/advanced/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль продвинутого ионного джетпака МЭК",
-		GENITIVE = "модуля продвинутого ионного джетпака МЭК",
-		DATIVE = "модулю продвинутого ионного джетпака МЭК",
-		ACCUSATIVE = "модуль продвинутого ионного джетпака МЭК",
-		INSTRUMENTAL = "модулем продвинутого ионного джетпака МЭК",
-		PREPOSITIONAL = "модуле продвинутого ионного джетпака МЭК",
+		NOMINATIVE = "модуль продвинутого джетпака",
+		GENITIVE = "модуля продвинутого джетпака",
+		DATIVE = "модулю продвинутого джетпака",
+		ACCUSATIVE = "модуль продвинутого джетпака",
+		INSTRUMENTAL = "модулем продвинутого джетпака",
+		PREPOSITIONAL = "модуле продвинутого джетпака",
 	)
 
-///EMP Shield - Protects the suit from EMPs.
+// MARK: EMP shield
+/// EMP Shield - Protects the suit from EMPs.
 /obj/item/mod/module/emp_shield
 	name = "MOD EMP shield module"
-	desc = "A field inhibitor installed into the suit, protecting it against feedback such as \
-		electromagnetic pulses that would otherwise damage the electronic systems of the suit or it's modules. \
-		However, it will take from the suit's power to do so."
+	desc = "Модуль для МЭК, являющийся подавителем электромагнитных полей. Будучи установленным в костюм, защищает его модули и \
+		электронику от воздействия ЭМИ, постоянно потребляя заряд костюма."
 	icon_state = "empshield"
 	origin_tech = "materials=6;bluespace=5;syndicate=2"
 	complexity = 1
@@ -306,12 +306,12 @@
 
 /obj/item/mod/module/emp_shield/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль защиты от ЭМИ МЭК",
-		GENITIVE = "модуля защиты от ЭМИ МЭК",
-		DATIVE = "модулю защиты от ЭМИ МЭК",
-		ACCUSATIVE = "модуль защиты от ЭМИ МЭК",
-		INSTRUMENTAL = "модулем защиты от ЭМИ МЭК",
-		PREPOSITIONAL = "модуле защиты от ЭМИ МЭК",
+		NOMINATIVE = "модуль защиты от ЭМИ",
+		GENITIVE = "модуля защиты от ЭМИ",
+		DATIVE = "модулю защиты от ЭМИ",
+		ACCUSATIVE = "модуль защиты от ЭМИ",
+		INSTRUMENTAL = "модулем защиты от ЭМИ",
+		PREPOSITIONAL = "модуле защиты от ЭМИ",
 	)
 
 /obj/item/mod/module/emp_shield/on_install()
@@ -322,12 +322,12 @@
 	. = ..()
 	mod.emp_proof = FALSE
 
-///Flashlight - Gives the suit a customizable flashlight.
+// MARK: Flashlight
+/// Flashlight - Gives the suit a customizable flashlight.
 /obj/item/mod/module/flashlight
 	name = "MOD flashlight module"
-	desc = "A simple pair of configurable flashlights installed on the left and right sides of the helmet, \
-		useful for providing light in a variety of ranges and colors. \
-		Some survivalists prefer the color green for their illumination, for reasons unknown."
+	desc = "Модуль для МЭК. Обычная пара фонариков, установленных по бокам шлема. Обладают возможностью настройки цвета. \
+		Полезно для освещения пространства в настраиваемом радиусе."
 	icon_state = "flashlight"
 	module_type = MODULE_TOGGLE
 	complexity = 1
@@ -349,12 +349,12 @@
 
 /obj/item/mod/module/flashlight/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль фонарика МЭК",
-		GENITIVE = "модуля фонарика МЭК",
-		DATIVE = "модулю фонарика МЭК",
-		ACCUSATIVE = "модуль фонарика МЭК",
-		INSTRUMENTAL = "модулем фонарика МЭК",
-		PREPOSITIONAL = "модуле фонарика МЭК",
+		NOMINATIVE = "модуль фонарика",
+		GENITIVE = "модуля фонарика",
+		DATIVE = "модулю фонарика",
+		ACCUSATIVE = "модуль фонарика",
+		INSTRUMENTAL = "модулем фонарика",
+		PREPOSITIONAL = "модуле фонарика",
 	)
 
 /obj/item/mod/module/flashlight/on_activation()
@@ -382,35 +382,45 @@
 			if(!value)
 				return
 			if(is_color_dark(value, 50))
-				balloon_alert(mod.wearer, "too dark!")
+				to_chat(mod.wearer, span_warning("Нельзя выбрать слишком тёмный цвет!"))
 				return
 			set_light_color(value)
 			update_clothing_slots()
 		if("light_range")
 			set_light_range(clamp(value, min_range, max_range))
 
-///Like the flashlight module, except the light color is stuck to black and cannot be changed.
+// MARK: Dark flashlight
+/// Like the flashlight module, except the light color is stuck to black and cannot be changed.
 /obj/item/mod/module/flashlight/darkness
 	name = "MOD flashdark module"
-	desc = "A quirky pair of configurable flashdarks installed on the sides of the helmet, \
-		useful for providing darkness at a configurable range."
+	desc = "Модуль для МЭК. Пара настраиваемых темнариков, установленных по бокам шлема. Полезно для затемнения пространства в настраиваемом радиусе."
 	light_color = COLOR_BLACK
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 	min_range = 1
 	max_range = 3
 
+/obj/item/mod/module/flashlight/darkness/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль темнарика",
+		GENITIVE = "модуля темнарика",
+		DATIVE = "модулю темнарика",
+		ACCUSATIVE = "модуль темнарика",
+		INSTRUMENTAL = "модулем темнарика",
+		PREPOSITIONAL = "модуле темнарика",
+	)
+
 /obj/item/mod/module/flashlight/darkness/get_configuration()
 	. = ..()
 	. -= "light_color"
 
-///Dispenser - Dispenses an item after a time passes.
+// MARK: Dispenser
+/// Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
 	name = "MOD burger dispenser module"
-	desc = "A rare piece of technology reverse-engineered from a prototype found in a Donk Corporation vessel. \
-		This can draw incredible amounts of power from the suit's charge to create edible organic matter in the \
-		palm of the wearer's glove; however, research seemed to have entirely stopped at cheeseburgers. \
-		Notably, all attempts to get it to dispense Earl Grey tea have failed."
+	desc = "Модуль для МЭК. Чрезвычайно редкая технология, потенциально дающая возможность производить любую съедобную органическую \
+		материю, потребляя для этого огромное количество энергии из костюма. По какой-то причине исследования возможностей производства \
+		остановились на создании чизбургеров."
 	icon_state = "dispenser"
 	module_type = MODULE_USABLE
 	complexity = 3
@@ -425,12 +435,12 @@
 
 /obj/item/mod/module/dispenser/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль раздатчика бургеров МЭК",
-		GENITIVE = "модуля раздатчика бургеров МЭК",
-		DATIVE = "модулю раздатчика бургеров МЭК",
-		ACCUSATIVE = "модуль раздатчика бургеров МЭК",
-		INSTRUMENTAL = "модулем раздатчика бургеров МЭК",
-		PREPOSITIONAL = "модуле раздатчика бургеров МЭК",
+		NOMINATIVE = "модуль раздатчика бургеров",
+		GENITIVE = "модуля раздатчика бургеров",
+		DATIVE = "модулю раздатчика бургеров",
+		ACCUSATIVE = "модуль раздатчика бургеров",
+		INSTRUMENTAL = "модулем раздатчика бургеров",
+		PREPOSITIONAL = "модуле раздатчика бургеров",
 	)
 
 /obj/item/mod/module/dispenser/on_use()
@@ -442,12 +452,12 @@
 	drain_power(use_energy_cost)
 	return dispensed
 
-///Thermal Regulator - Regulates the wearer's core temperature.
+// MARK: Thermal Regulator
+/// Thermal Regulator - Regulates the wearer's core temperature.
 /obj/item/mod/module/thermal_regulator
 	name = "MOD thermal regulator module"
-	desc = "Advanced climate control, using an inner body glove interwoven with thousands of tiny, \
-		flexible cooling lines. This circulates coolant at various user-controlled temperatures, \
-		ensuring they're comfortable; even if they're some that like it hot."
+	desc = "Модуль для МЭК, обеспечивающий продвинутый климат-контроль костюма с помощью сети из тысяч нанотрубок, \
+		по которым циркулирует охлаждающая жидкость с возможностью настройки её температуры."
 	icon_state = "regulator"
 	module_type = MODULE_TOGGLE
 	complexity = 1
@@ -464,12 +474,12 @@
 
 /obj/item/mod/module/thermal_regulator/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль температурного регулятора МЭК",
-		GENITIVE = "модуля температурного регулятора МЭК",
-		DATIVE = "модулю температурного регулятора МЭК",
-		ACCUSATIVE = "модуль температурного регулятора МЭК",
-		INSTRUMENTAL = "модулем температурного регулятора МЭК",
-		PREPOSITIONAL = "модуле ртемпературного регулятора МЭК",
+		NOMINATIVE = "модуль регуляции температуры",
+		GENITIVE = "модуля регуляции температуры",
+		DATIVE = "модулю регуляции температуры",
+		ACCUSATIVE = "модуль регуляции температуры",
+		INSTRUMENTAL = "модулем регуляции температуры",
+		PREPOSITIONAL = "модуле регуляции температуры",
 	)
 
 /obj/item/mod/module/thermal_regulator/get_configuration()
@@ -487,11 +497,11 @@
 	else if(mod.wearer.bodytemperature < temperature_setting)
 		mod.wearer.bodytemperature = min(temperature_setting, mod.wearer.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 
+// MARK: DNA lock
 /obj/item/mod/module/dna_lock
 	name = "MOD DNA lock module"
-	desc = "A module which engages with the various locks and seals tied to the suit's systems, \
-		enabling it to only be worn by someone corresponding with the user's exact DNA profile; \
-		however, this incredibly sensitive module is shorted out by EMPs. Luckily, stable mutagen has been outlawed."
+	desc = "Модуль для МЭК, тесно взаимодействующий с электроникой и уплотнителями костюма, позволяя убедиться, что МЭК может быть \
+		использован только владельцем, сохранившим в костюме свой ДНК профиль. Уязвим к воздействию ЭМИ и стабильному мутагену."
 	icon_state = "dnalock"
 	origin_tech = "materials=6;bluespace=5;syndicate=1"
 	module_type = MODULE_USABLE
@@ -504,12 +514,12 @@
 
 /obj/item/mod/module/dna_lock/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ДНК-блокировки МЭК",
-		GENITIVE = "модуля ДНК-блокировки МЭК",
-		DATIVE = "модулю ДНК-блокировки МЭК",
-		ACCUSATIVE = "модуль ДНК-блокировки МЭК",
-		INSTRUMENTAL = "модулем ДНК-блокировки МЭК",
-		PREPOSITIONAL = "модуле ДНК-блокировки МЭК",
+		NOMINATIVE = "модуль ДНК-блокировки",
+		GENITIVE = "модуля ДНК-блокировки",
+		DATIVE = "модулю ДНК-блокировки",
+		ACCUSATIVE = "модуль ДНК-блокировки",
+		INSTRUMENTAL = "модулем ДНК-блокировки",
+		PREPOSITIONAL = "модуле ДНК-блокировки",
 	)
 
 /obj/item/mod/module/dna_lock/on_install()
@@ -573,9 +583,10 @@
 		atom_say("ОШИБКА: ДНК пользователя не совпадает с ДНК владельца.")
 		return MOD_CANCEL_REMOVAL
 
+// MARK: EMP-proof DNA
 /obj/item/mod/module/dna_lock/emp_shield
 	name = "MOD DN-MP shield lock"
-	desc = "This syndicate module is a combination EMP shield and DNA lock. Provides the best of both worlds, with the weakness of niether."
+	desc = "Модуль для МЭК, сочетающий в себе функции модуля ДНК-блокировки и защиты от ЭМИ."
 	icon_state = "dnalock"
 	origin_tech = "materials=6;bluespace=5;syndicate=3"
 	complexity = 3
@@ -583,12 +594,12 @@
 
 /obj/item/mod/module/dna_lock/emp_shield/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ДНК-блокировки и защиты от ЭМИ МЭК",
-		GENITIVE = "модуля ДНК-блокировки и защиты от ЭМИ МЭК",
-		DATIVE = "модулю ДНК-блокировки и защиты от ЭМИ МЭК",
-		ACCUSATIVE = "модуль ДНК-блокировки и защиты от ЭМИ МЭК",
-		INSTRUMENTAL = "модулем ДНК-блокировки и защиты от ЭМИ МЭК",
-		PREPOSITIONAL = "модуле ДНК-блокировки и защиты от ЭМИ МЭК",
+		NOMINATIVE = "модуль ДНК-блокировки и защиты от ЭМИ",
+		GENITIVE = "модуля ДНК-блокировки и защиты от ЭМИ",
+		DATIVE = "модулю ДНК-блокировки и защиты от ЭМИ",
+		ACCUSATIVE = "модуль ДНК-блокировки и защиты от ЭМИ",
+		INSTRUMENTAL = "модулем ДНК-блокировки и защиты от ЭМИ",
+		PREPOSITIONAL = "модуле ДНК-блокировки и защиты от ЭМИ",
 	)
 
 /obj/item/mod/module/dna_lock/emp_shield/on_install()
@@ -599,14 +610,13 @@
 	. = ..()
 	mod.emp_proof = FALSE
 
-///Plasma Stabilizer - Prevents plasmamen from igniting in the suit
+// MARK: Plasma stabilizer
+/// Plasma Stabilizer - Prevents plasmamen from igniting in the suit
 /obj/item/mod/module/plasma_stabilizer
 	name = "MOD plasma stabilizer module"
-	desc = "This system essentially forms an atmosphere of its own, within the suit, \
-		efficiently and quickly preventing oxygen from causing the user's head to burst into flame. \
-		This allows plasmamen to safely remove their helmet, allowing for easier \
-		equipping of any MODsuit-related equipment, or otherwise. \
-		The purple glass of the visor seems to be constructed for nostalgic purposes."
+	desc = "Модуль для МЭК, предназначенный для плазмаменов. Формирует внутри костюма собственную атмосферу, предотвращающую \
+		спонтанное самовозгорание головы пользователя при воздействии кислорода. Фиолетовое стекло визора было сделано исключительно \
+		ради ностальгии."
 	icon_state = "plasma_stabilizer"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
@@ -616,12 +626,12 @@
 
 /obj/item/mod/module/plasma_stabilizer/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль стабилизации плазмы МЭК",
-		GENITIVE = "модуля стабилизации плазмы МЭК",
-		DATIVE = "модулю стабилизации плазмы МЭК",
-		ACCUSATIVE = "модуль стабилизации плазмы МЭК",
-		INSTRUMENTAL = "модулем стабилизации плазмы МЭК",
-		PREPOSITIONAL = "модуле стабилизации плазмы МЭК",
+		NOMINATIVE = "модуль стабилизации плазмы",
+		GENITIVE = "модуля стабилизации плазмы",
+		DATIVE = "модулю стабилизации плазмы",
+		ACCUSATIVE = "модуль стабилизации плазмы",
+		INSTRUMENTAL = "модулем стабилизации плазмы",
+		PREPOSITIONAL = "модуле стабилизации плазмы",
 	)
 
 /obj/item/mod/module/plasma_stabilizer/on_equip()
@@ -633,11 +643,12 @@
 /// Cooldown to use if we didn't actually launch a jump jet
 #define FAILED_ACTIVATION_COOLDOWN 3 SECONDS
 
-///Jump Jet - Briefly removes the effect of gravity and pushes you up one z-level if possible.
+// MARK: Jump jet
+/// Jump Jet - Briefly removes the effect of gravity and pushes you up one z-level if possible.
 /obj/item/mod/module/jump_jet
 	name = "MOD ionic jump jet module"
-	desc = "A specialised ionic thruster which provides a short but powerful boost capable of pushing against gravity, \
-		after which time it needs to recharge."
+	desc = "Модуль для МЭК, представляющий собой миниатюрные ионные двигатели, способные кратковременно поднять пользователя в воздух. \
+		Автоматическая посадка в стандартную комплектацию не входит."
 	icon_state = "jump_jet"
 	module_type = MODULE_USABLE
 	complexity = 3
@@ -646,35 +657,45 @@
 	incompatible_modules = list(/obj/item/mod/module/jump_jet)
 	required_slots = list(ITEM_SLOT_BACK)
 
+/obj/item/mod/module/jump_jet/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль ионных двигателей",
+		GENITIVE = "модуля ионных двигателей",
+		DATIVE = "модулю ионных двигателей",
+		ACCUSATIVE = "модуль ионных двигателей",
+		INSTRUMENTAL = "модулем ионных двигателей",
+		PREPOSITIONAL = "модуле ионных двигателей",
+	)
+
 /obj/item/mod/module/jump_jet/on_use()
 	if(DOING_INTERACTION(mod.wearer, mod.wearer))
-		balloon_alert(mod.wearer, "busy!")
+		balloon_alert(mod.wearer, "невозможно!")
 		return
-	balloon_alert(mod.wearer, "launching...")
+	balloon_alert(mod.wearer, "запуск...")
 	mod.wearer.Shake(duration = 1 SECONDS)
-	if (!do_after(mod.wearer, 1 SECONDS, target = mod.wearer))
+	if(!do_after(mod.wearer, 1 SECONDS, target = mod.wearer))
 		start_cooldown(FAILED_ACTIVATION_COOLDOWN) // Don't go on full cooldown if we failed to launch
 		return FALSE
 	playsound(mod.wearer, 'sound/vehicles/rocketlaunch.ogg', 100, TRUE)
 	mod.wearer.apply_status_effect(/datum/status_effect/jump_jet)
 	var/turf/launch_from = get_turf(mod.wearer)
-	if (mod.wearer.zMove(UP, z_move_flags = ZMOVE_CHECK_PULLS))
-		launch_from.visible_message(span_warning("[mod.wearer] rockets into the air!"))
+	if(mod.wearer.zMove(UP, z_move_flags = ZMOVE_CHECK_PULLS))
+		launch_from.visible_message(span_warning("[mod.wearer] поднима[pluralize_ru(mod.wearer.gender, "ется", "ются")] в воздух!"))
 	new /obj/effect/temp_visual/jet_plume(launch_from)
 
 	var/obj/item/mod/module/jetpack/linked_jetpack = locate() in mod.modules
-	if (!isnull(linked_jetpack) && !linked_jetpack.active)
+	if(!isnull(linked_jetpack) && !linked_jetpack.active)
 		linked_jetpack.on_activation()
 	return TRUE
 
 #undef FAILED_ACTIVATION_COOLDOWN
 
-///Eating Apparatus - Lets the user eat/drink with the suit on.
+// MARK: Apparatus
+/// Eating Apparatus - Lets the user eat/drink with the suit on.
 /obj/item/mod/module/mouthhole
 	name = "MOD eating apparatus module"
-	desc = "A favorite by Miners, this modification to the helmet utilizes a nanotechnology barrier infront of the mouth \
-		to allow eating and drinking while retaining protection and atmosphere. However, it won't free you from masks, \
-		lets pepper spray pass through and it will do nothing to improve the taste of a goliath steak."
+	desc = "Модуль для МЭК, просто обожаемый шахтёрами. Создаёт перед ртом пользователя нанотехнологический барьер, позволяющий есть и пить, \
+		не нарушая при этом герметизацию костюма. Не избавляет пользователя от необходимости носить маску и пропускает перцовый газ."
 	icon_state = "apparatus"
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/mouthhole)
@@ -683,6 +704,16 @@
 	var/former_helmet_flags = NONE
 	/// Former flags of the mask.
 	var/former_mask_flags = NONE
+
+/obj/item/mod/module/mouthhole/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль пищеприёмника",
+		GENITIVE = "модуля пищеприёмника",
+		DATIVE = "модулю пищеприёмника",
+		ACCUSATIVE = "модуль пищеприёмника",
+		INSTRUMENTAL = "модулем пищеприёмника",
+		PREPOSITIONAL = "модуле пищеприёмника",
+	)
 
 /obj/item/mod/module/mouthhole/on_install()
 	. = ..()
@@ -715,18 +746,27 @@
 	if(istype(mask))
 		mask.flags_cover |= former_mask_flags
 
-///Longfall - Nullifies fall damage, removing charge instead.
+// MARK: Longfall
+/// Longfall - Nullifies fall damage, removing charge instead.
 /obj/item/mod/module/longfall
 	name = "MOD longfall module"
-	desc = "Useful for protecting both the suit and the wearer, \
-		utilizing commonplace systems to convert the possible damage from a fall into kinetic charge, \
-		as well as internal gyroscopes to ensure the user's safe falling. \
-		Useful for mining, monorail tracks, or even skydiving!"
+	desc = "Модуль для МЭК, использующий сочетание амортизаторов и гироскопов с микрокомпьютером для обеспечения безопасного падения \
+		костюму и его пользователю."
 	icon_state = "longfall"
 	complexity = 1
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/longfall)
 	required_slots = list(ITEM_SLOT_FEET)
+
+/obj/item/mod/module/longfall/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль амортизации",
+		GENITIVE = "модуля амортизации",
+		DATIVE = "модулю амортизации",
+		ACCUSATIVE = "модуль амортизации",
+		INSTRUMENTAL = "модулем амортизации",
+		PREPOSITIONAL = "модуле амортизации",
+	)
 
 /obj/item/mod/module/longfall/on_part_activation()
 	..()
@@ -738,6 +778,7 @@
 
 /obj/item/mod/module/longfall/proc/z_impact_react(datum/source, levels, turf/fell_on)
 	SIGNAL_HANDLER
+
 	if(!drain_power(use_energy_cost * levels))
 		return NONE
 	new /obj/effect/temp_visual/mook_dust(fell_on)
@@ -750,20 +791,31 @@
 		mod.wearer.Stun(clamp(3 SECONDS * levels, 0, 10 SECONDS))
 
 	mod.wearer.visible_message(
-		span_notice("[mod.wearer] lands on [fell_on] safely[extreme_fall ? ", but barely manages to stay on [p_their()] feet." : ", and quite stylishly on [p_their()] feet" ]."),
-		span_notice("[src] protects you from the damage!"),
+		span_notice("[mod.wearer] без ущерба приземля[pluralize_ru(mod.wearer.gender, "ется", "ются")] на [fell_on.declent_ru(ACCUSATIVE)] [extreme_fall ? ", едва устояв на ногах" : ", даже не шелохнувшись"]."),
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] защищает вас от повреждений при падении!"),
 	)
 	return ZIMPACT_CANCEL_DAMAGE|ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 
-///A module that recharges the suit by an itsy tiny bit whenever the user takes a step. Originally called "magneto module" but the videogame reference sounds cooler.
+// MARK: Joint torsion
+/// A module that recharges the suit by an itsy tiny bit whenever the user takes a step. Originally called "magneto module" but the videogame reference sounds cooler.
 /obj/item/mod/module/joint_torsion
 	name = "MOD joint torsion ratchet module"
-	desc = "A compact, weak AC generator that charges the suit's internal cell through the power of deambulation. It doesn't work in zero G."
+	desc = "Модуль для МЭК, генерирующий при ходьбе слабый переменный ток, заряжающий батарею костюма. По очевидным причинам не работает в невесомости."
 	icon_state = "joint_torsion"
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/joint_torsion)
 	required_slots = list(ITEM_SLOT_FEET)
 	var/power_per_step = DEFAULT_CHARGE_DRAIN * 0.3
+
+/obj/item/mod/module/joint_torsion/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль кинетической зарядки",
+		GENITIVE = "модуля кинетической зарядки",
+		DATIVE = "модулю кинетической зарядки",
+		ACCUSATIVE = "модуль кинетической зарядки",
+		INSTRUMENTAL = "модулем кинетической зарядки",
+		PREPOSITIONAL = "модуле кинетической зарядки",
+	)
 
 /obj/item/mod/module/joint_torsion/on_part_activation()
 	..()
@@ -779,28 +831,42 @@
 
 /obj/item/mod/module/joint_torsion/proc/on_movetype_flag_enabled(datum/source, flag, old_state)
 	SIGNAL_HANDLER
+
 	if(!(old_state & (FLOATING|FLYING)) && flag & (FLOATING|FLYING))
 		UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
 
 /obj/item/mod/module/joint_torsion/proc/on_movetype_flag_disabled(datum/source, flag, old_state)
 	SIGNAL_HANDLER
+
 	if(old_state & (FLOATING|FLYING) && !(mod.wearer.movement_type & (FLOATING|FLYING)))
 		RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 
 /obj/item/mod/module/joint_torsion/proc/on_moved(mob/living/carbon/human/wearer, atom/old_loc, movement_dir, forced)
 	SIGNAL_HANDLER
+
 	//Shouldn't work if the wearer isn't really walking/running around.
 	if(forced || wearer.throwing || wearer.body_position == LYING_DOWN || wearer.buckled || CHECK_MOVE_LOOP_FLAGS(wearer, MOVEMENT_LOOP_OUTSIDE_CONTROL))
 		return
 	mod.core.add_charge(power_per_step)
 
+// MARK: Shock absorber
 /obj/item/mod/module/shock_absorber
 	name = "MOD shock absorption module"
-	desc = "A module that makes the user resistant to the knockdown inflicted by Stun Batons."
+	desc = "Модуль для МЭК, делающий пользователя невосприимчивым к воздействию оглушающих дубинок."
 	icon_state = "no_baton"
 	complexity = 1
 	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/shock_absorber)
+
+/obj/item/mod/module/shock_absorber/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль кинетической зарядки",
+		GENITIVE = "модуля кинетической зарядки",
+		DATIVE = "модулю кинетической зарядки",
+		ACCUSATIVE = "модуль кинетической зарядки",
+		INSTRUMENTAL = "модулем кинетической зарядки",
+		PREPOSITIONAL = "модуле кинетической зарядки",
+	)
 
 /obj/item/mod/module/shock_absorber/on_part_activation()
 	. = ..()
@@ -814,16 +880,28 @@
 
 /obj/item/mod/module/shock_absorber/proc/mob_batoned(datum/source)
 	SIGNAL_HANDLER
+
 	drain_power(use_energy_cost)
 	do_sparks(5, TRUE, mod.wearer.loc)
 
+// MARK: Hearing protection
 /obj/item/mod/module/hearing_protection
 	name = "MOD hearing protection module"
-	desc = "A module that protects the users ears from loud sounds"
+	desc = "Модуль для МЭК, защищающий уши пользователя от воздействия громких звуков."
 	complexity = 0
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/hearing_protection)
 	required_slots = list(ITEM_SLOT_HEAD)
+
+/obj/item/mod/module/hearing_protection/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль акустической защиты",
+		GENITIVE = "модуля акустической защиты",
+		DATIVE = "модулю акустической защиты",
+		ACCUSATIVE = "модуль акустической защиты",
+		INSTRUMENTAL = "модулем акустической защиты",
+		PREPOSITIONAL = "модуле акустической защиты",
+	)
 
 /obj/item/mod/module/hearing_protection/on_part_activation()
 	..()
