@@ -9,10 +9,10 @@
 	var/list/fail_reasons
 	var/failure_count = 0
 
-/datum/map_per_tile_test/proc/CheckTile(turf/T)
-	Fail("CheckTile() called parent or not implemented")
+/datum/map_per_tile_test/proc/CheckTile(turf/checked_turf)
+	TEST_FAIL("CheckTile() called parent or not implemented")
 
-/datum/map_per_tile_test/proc/Fail(turf/T, reason)
+/datum/map_per_tile_test/proc/Fail(turf/checked_turf, reason)
 	succeeded = FALSE
-	LAZYADD(fail_reasons, "[T.x],[T.y],[T.z]: [reason]")
+	LAZYADD(fail_reasons, "[checked_turf.x],[checked_turf.y],[checked_turf.z]: [reason]")
 	failure_count++

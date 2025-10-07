@@ -48,19 +48,10 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
  * Usage:
  *
  * - Override /Run() to run your test code
- * - Call Fail() to fail the test (You should specify a reason)
+ * - Call TEST_FAIL() to fail the test (You should specify a reason)
  * - You may use /New() and /Destroy() for setup/teardown respectively
  * - You can use the run_loc_bottom_left and run_loc_top_right to get turfs for testing
  */
-/**
- * Usage:
- *
- * - Override /Run() to run your test code
- * - Call Fail() to fail the test (You should specify a reason)
- * - You may use /New() and /Destroy() for setup/teardown respectively
- * - You can use the run_loc_bottom_left and run_loc_top_right to get turfs for testing
- *
-**/
 /datum/game_test
 	//Bit of metadata for the future maybe
 	var/list/procs_tested
@@ -82,7 +73,7 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 	return ..()
 
 /datum/game_test/proc/Run()
-	Fail("Run() called parent or not implemented")
+	TEST_FAIL("Run() called parent or not implemented")
 
 /datum/game_test/proc/Fail(reason = "No reason", file = "OUTDATED_TEST", line = 1)
 	succeeded = FALSE
@@ -138,11 +129,11 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 /datum/game_test/room_test/proc/load_testing_area()
 	var/list/testing_levels = levels_by_trait(GAME_TEST_LEVEL)
 	if(!length(testing_levels))
-		Fail("Could not find appropriate z-level for spawning test areas")
+		TEST_FAIL("Could not find appropriate z-level for spawning test areas")
 	var/testing_z_level = pick(testing_levels)
 	var/datum/map_template/generic_test_area = GLOB.map_templates[testing_area_name]
 	if(!generic_test_area.load(locate(TRANSITIONEDGE + 1, TRANSITIONEDGE + 1, testing_z_level)))
-		Fail("Could not place generic testing area on z-level [testing_z_level]")
+		TEST_FAIL("Could not place generic testing area on z-level [testing_z_level]")
 
 /datum/game_test/room_test/proc/get_test_turfs()
 	var/list/result = list()
@@ -153,12 +144,12 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 			top_right = landmark
 
 	if(!(bottom_left && top_right))
-		Fail("could not find test area landmarks")
+		TEST_FAIL("could not find test area landmarks")
 
 	for(var/turf/turf in block(bottom_left.loc, top_right.loc))
 		result |= turf
 
 	if(!length(result))
-		Fail("could not find any test turfs")
+		TEST_FAIL("could not find any test turfs")
 
 	return result

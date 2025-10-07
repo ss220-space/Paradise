@@ -15,7 +15,7 @@ END_MARKER = "// END OF ALPHABETICAL SORTING"
 
 REQUIRED_FILES = [
     'code/tests/game_tests.dm',
-    "code/_globalvars/lists/names.dm",
+    'code/_globalvars/lists/names.dm',
 ]
 
 def find_txt_files(directory):
