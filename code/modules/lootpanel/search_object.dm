@@ -42,7 +42,7 @@
 		return
 
 	// Condition 3: Using opendream
-#if defined(UNIT_TESTS)
+#if defined(OPENDREAM) || defined(UNIT_TESTS)
 	return
 #endif
 

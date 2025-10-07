@@ -2,7 +2,7 @@
 /datum/lootpanel/proc/open(turf/tile)
 	source_turf = tile
 
-#if !defined(UNIT_TESTS)
+#if !defined(GAME_TESTS)
 	if(!notified)
 		var/build = owner.byond_build
 		var/version = owner.byond_version
