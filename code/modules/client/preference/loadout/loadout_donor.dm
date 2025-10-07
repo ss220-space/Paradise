@@ -286,7 +286,6 @@
 	index_name = "strip, Frog"
 	display_name = "Нашивка \"Лягушка\""
 	path = /obj/item/clothing/accessory/head_strip/frog
-	donator_tier = 2
 
 /datum/gear/donor/heartglasses
 	index_name = "heart-shaped glasses, color"
