@@ -76,7 +76,7 @@
 	if(.)
 		return
 	if(malfunctioning && prob(MOD_MALFUNCTION_PROB))
-		balloon_alert(ui.user, "button malfunctions!")
+		balloon_alert(ui.user, "сбой управления!")
 		return
 	switch(action)
 		if("lock")

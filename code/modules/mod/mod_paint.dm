@@ -1,6 +1,6 @@
 /obj/item/mod/skin_applier
 	name = "MOD skin applier"
-	desc = "Этот одноразовый комплект для покраски позволяет перекрасить модульный экзо-костюм. Этот комплект можно применить только к гражданским костюмам."
+	desc = "Этот одноразовый комплект для покраски позволяет изменить цвет модульного экзокостюма. Этот комплект можно применить только к гражданским костюмам."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "skinapplier"
 	var/skin = "civilian"
@@ -22,7 +22,7 @@
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom
 	if(mod.active || mod.activating)
-		balloon_alert(user, "сначала выключите костюм!")
+		balloon_alert(user, "выключите костюм!")
 		return ATTACK_CHAIN_BLOCKED
 	if(!istype(mod.theme, compatible_theme))
 		balloon_alert(user, "несовместимый тип костюма!")
@@ -39,10 +39,12 @@
 /obj/item/mod/skin_applier/asteroid
 	skin = "asteroid"
 	compatible_theme = /datum/mod_theme/mining
-	desc = "Этот одноразовый комплект для покраски позволяет перекрасить модульный костюм. Этот тип подходит исключительно для шахтерских костюмов и делает их пригодными для космоса."
+	desc = "Этот одноразовый комплект для покраски позволяет изменить цвет модульного костюма. Этот тип подходит исключительно для шахтёрских \
+		костюмов и делает их пригодными для космоса."
 	make_spaceproof = TRUE
 
 /obj/item/mod/skin_applier/corpsman
 	skin = "corpsman"
 	compatible_theme = /datum/mod_theme/medical
-	desc = "Этот одноразовый комплект для покраски позволяет перекрасить модульный костюм. Этот тип подходит исключительно для медицинских костюмов."
+	desc = "Этот одноразовый комплект для покраски позволяет изменить цвет модульного костюма. Этот тип подходит исключительно для \
+		медицинских костюмов."

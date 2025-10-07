@@ -6,7 +6,7 @@
 
 /obj/item/mod/control
 	name = "MOD control unit"
-	desc = "Устройство управления модульным экзо-костюмом - высокотехнологичной бронёй, используемой для защиты пользователя от опасной внешней среды."
+	desc = "Устройство управления модульным экзокостюмом - высокотехнологичной бронёй, используемой для защиты пользователя от опасной внешней среды."
 	icon_state = "standard-control"
 	item_state = "mod_control"
 	base_icon_state = "control"
@@ -142,9 +142,9 @@
 		. += "Вы можете установить блокировку по доступу с помощью вашей <b>личной карты</b>."
 		. += "Вы можете получить доступ к проводам с помощью любого подходящего для этого <b>инструмента</b>."
 		if(core)
-			. += "Вы можете удалить [core.declent_ru(NOMINATIVE)] с помощью <b>гаечного ключа</b>."
+			. += "Вы можете удалить [core.declent_ru(ACCUSATIVE)] с помощью <b>гаечного ключа</b>."
 		else
-			. += "Ядро отсутствует. Вы можете установить новое <b>ядро модульного экзо-костюма</b>."
+			. += "Ядро отсутствует. Вы можете установить новое <b>ядро модульного экзокостюма</b>."
 
 /obj/item/mod/control/get_description_info()
 	if(extended_desc)
@@ -203,7 +203,7 @@
 		if(istype(over_object, /atom/movable/screen/inventory/hand))
 			for(var/obj/item/part as anything in get_parts())
 				if(part.loc != src)
-					balloon_alert(wearer, "сначала втяните части костюма!")
+					balloon_alert(wearer, "втяните части костюма!")
 					playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 					return
 			if(!carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
@@ -239,14 +239,14 @@
 	if(..())
 		return TRUE
 	if(active || activating || locate(/mob/living/silicon/ai) in src)
-		balloon_alert(user, "сначала выключите костюм!")
+		balloon_alert(user, "выключите костюм!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	balloon_alert(user, "[open ? "закрываем" : "открываем"] крышку...")
 	screwdriver.play_tool_sound(src, 100)
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
-			balloon_alert(user, "сначала выключите костюм!")
+			balloon_alert(user, "выключите костюм!")
 		screwdriver.play_tool_sound(src, 100)
 		balloon_alert(user, "крышка [open ? "закрыта" : "открыта"]")
 		open = !open
@@ -255,7 +255,7 @@
 /obj/item/mod/control/crowbar_act(mob/living/user, obj/item/crowbar)
 	. = ..()
 	if(!open)
-		balloon_alert(user, "сначала откройте крышку!")
+		balloon_alert(user, "откройте крышку!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(!allowed(user))
@@ -275,7 +275,7 @@
 			removable_modules[capitalize(module.declent_ru(NOMINATIVE))] = module
 		if(!length(removable_modules))
 			return
-		var/choosen_module = tgui_input_list(user, "Какой модуль вы хотите вытащить?", "Удаление модулей", removable_modules)
+		var/choosen_module = tgui_input_list(user, "Какой модуль вы хотите извлечь?", "Удаление модулей", removable_modules)
 		var/obj/item/mod/module/module_to_remove = removable_modules?[choosen_module]
 		if(!module_to_remove || !module_to_remove.mod)
 			return FALSE
@@ -291,7 +291,7 @@
 /obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(istype(attacking_item, /obj/item/mod/module))
 		if(!open)
-			balloon_alert(user, "сначала откройте крышку!")
+			balloon_alert(user, "откройте крышку!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		install(attacking_item, user)
@@ -299,7 +299,7 @@
 		return ATTACK_CHAIN_PROCEED
 	else if(istype(attacking_item, /obj/item/mod/core))
 		if(!open)
-			balloon_alert(user, "сначала откройте крышку!")
+			balloon_alert(user, "откройте крышку!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(core)
@@ -383,13 +383,13 @@
 
 /obj/item/mod/control/emag_act(mob/user)
 	locked = !locked
-	balloon_alert(user, "требование к доступу [locked ? "восстановлено" : "снято"]")
+	balloon_alert(user, "требование доступа [locked ? "восстановлено" : "снято"]")
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()
 	if(!active || !wearer)
 		return
-	to_chat(wearer, span_warning("был зафиксирован [severity > 1 ? "слабый" : "мощный"] всплеск ЭМИ!"))
+	to_chat(wearer, span_warning("Зафиксирован [severity > 1 ? "слабый" : "мощный"] всплеск ЭМИ!"))
 	if(emp_proof)
 		return
 	selected_module?.on_deactivation(display_message = TRUE)
@@ -447,7 +447,7 @@
 
 /obj/item/mod/control/proc/get_part_datum_from_slot(slot)
 	RETURN_TYPE(/datum/mod_part)
-	for (var/part_key in mod_parts)
+	for(var/part_key in mod_parts)
 		if (text2num(part_key) & slot)
 			return mod_parts[part_key]
 
@@ -570,19 +570,19 @@
 	for(var/obj/item/mod/module/old_module as anything in modules)
 		if(is_type_in_list(new_module, old_module.incompatible_modules) || is_type_in_list(old_module, new_module.incompatible_modules))
 			if(user)
-				to_chat(user, span_warning("[new_module.declent_ru(NOMINATIVE)] несовместим с [old_module.declent_ru(INSTRUMENTAL)]!"))
+				to_chat(user, span_warning("[capitalize(new_module.declent_ru(NOMINATIVE))] несовместим с [old_module.declent_ru(INSTRUMENTAL)]!"))
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 	var/complexity_with_module = complexity
 	complexity_with_module += new_module.complexity
 	if(complexity_with_module > complexity_max)
 		if(user)
-			to_chat(user, span_warning("[new_module.declent_ru(NOMINATIVE)] превышает максимальную комплексность костюма!"))
+			to_chat(user, span_warning("[capitalize(new_module.declent_ru(NOMINATIVE))] превышает максимальную комплексность костюма!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(!new_module.has_required_parts(mod_parts))
 		if(user)
-			balloon_alert(user, "не достает необходимых частей!")
+			balloon_alert(user, "некуда устанавливать!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(!new_module.can_install(src))
@@ -591,7 +591,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(user && !user.drop_from_active_hand())
-		to_chat(user, span_warning("[new_module.declent_ru(NOMINATIVE)] застрял у вас в руке!"))
+		to_chat(user, span_warning("[capitalize(new_module.declent_ru(NOMINATIVE))] застрял у вас в руке!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	new_module.forceMove(src)
@@ -627,7 +627,7 @@
 
 /obj/item/mod/control/proc/update_access(mob/user, obj/item/card/id/card)
 	if(!allowed(user))
-		balloon_alert(user, "недостаточный уровень доступа!")
+		balloon_alert(user, "нет доступа!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	req_access = card.access.Copy()
@@ -658,7 +658,7 @@
 	return core?.get_chargebar_color() || "transparent"
 
 /obj/item/mod/control/proc/get_chargebar_string()
-	return core?.get_chargebar_string() || "Ядро не обнаружен"
+	return core?.get_chargebar_string() || "Ядро не обнаружено"
 
 /**
  * Updates the wearer's hud according to the current state of the MODsuit
@@ -733,7 +733,7 @@
 	var/atom/visible_atom = wearer || src
 	if(wearer)
 		clean_up()
-	visible_atom.visible_message(span_bolddanger("[declent_ru(NOMINATIVE)] разваливается на глазах!"))
+	visible_atom.visible_message(span_bolddanger("[capitalize(declent_ru(NOMINATIVE))] разваливается на глазах!"))
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module)
 	// if(ai_assistant)

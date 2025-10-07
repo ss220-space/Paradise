@@ -84,12 +84,11 @@
 /obj/item/mod/core/infinite/get_chargebar_string()
 	return "Infinite"
 
-
 /obj/item/mod/core/standard
 	name = "MOD standard core"
 	desc = "В наиболее плодородных участках планеты Спраут растут редкие кристаллы, известные как \"Сердцесвет.\" \
 		Эти редкие, крайне ценные пьезоэлектрические кристаллы, будучи по своей природе органическими, являются самым мощным проводником в галактике. \n\
-		И сейчас этот кристалл, внешне похожий на человечское сердце, будет использован для питания модульного экзо-костюма. "
+		И сейчас этот кристалл, внешне похожий на человеческое сердце, будет использован для питания модульного экзокостюма. "
 	icon_state = "mod-core-standard"
 	/// Installed cell.
 	var/obj/item/stock_parts/cell/cell
@@ -103,7 +102,6 @@
 		INSTRUMENTAL = "стандартным ядром МЭК",
 		PREPOSITIONAL = "стандартном ядре МЭК"
 	)
-
 
 /obj/item/mod/core/standard/Destroy()
 	if(cell)
@@ -245,7 +243,7 @@
 /obj/item/mod/core/standard/on_attackby(obj/item/attacking_item, mob/user, params)
 	if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!mod.open)
-			balloon_alert(user, "сначала откройте крышку!")
+			balloon_alert(user, "откройте крышку!")
 			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return NONE
 		if(cell)

@@ -347,11 +347,11 @@
 #define TRAIT_BALD "bald"
 
 #define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
-#define TRAIT_XRAY_VISION		"xray_vision"
-#define TRAIT_THERMAL_VISION	"thermal_vision"
-#define TRAIT_MESON_VISION		"meson_vision"
-#define TRAIT_FLASH_PROTECTION	"flash_protection"
-#define TRAIT_NIGHT_VISION		"night_vision"
+#define TRAIT_XRAY_VISION "xray_vision"
+#define TRAIT_THERMAL_VISION "thermal_vision"
+#define TRAIT_MESON_VISION "meson_vision"
+#define TRAIT_FLASH_PROTECTION "flash_protection"
+#define TRAIT_NIGHT_VISION "night_vision"
 
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"

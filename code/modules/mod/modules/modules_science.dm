@@ -1,11 +1,10 @@
 //Science modules for MODsuits
-
-///Reagent Scanner - Lets the user scan reagents.
+// MARK: Reagent scanner
+/// Reagent Scanner - Lets the user scan reagents.
 /obj/item/mod/module/reagent_scanner
 	name = "MOD reagent scanner module"
-	desc = "A module based off research-oriented Nanotrasen HUDs, this is capable of scanning the contents of \
-		containers and projecting the information in an easy-to-read format on the wearer's display. \
-		It cannot detect flavors, so that's up to you."
+	desc = "Модуль для МЭК, встраиваемый в визор костюма. Собирает и выводит на дисплей пользователя информацию о содержимом \
+		различных ёмкостей. К счастью или нет, не может распознавать ароматы."
 	icon_state = "scanner"
 	module_type = MODULE_TOGGLE
 	complexity = 1
@@ -16,12 +15,12 @@
 
 /obj/item/mod/module/reagent_scanner/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль сканера реагентов МЭК",
-		GENITIVE = "модуля сканера реагентов МЭК",
-		DATIVE = "модулю сканера реагентов МЭК",
-		ACCUSATIVE = "модуль сканера реагентов МЭК",
-		INSTRUMENTAL = "модулем сканера реагентов МЭК",
-		PREPOSITIONAL = "модуле сканера реагентов МЭК",
+		NOMINATIVE = "модуль сканера реагентов",
+		GENITIVE = "модуля сканера реагентов",
+		DATIVE = "модулю сканера реагентов",
+		ACCUSATIVE = "модуль сканера реагентов",
+		INSTRUMENTAL = "модулем сканера реагентов",
+		PREPOSITIONAL = "модуле сканера реагентов",
 	)
 
 /obj/item/mod/module/reagent_scanner/on_activation()
@@ -43,18 +42,20 @@
 
 /obj/item/mod/module/reagent_scanner/advanced
 	name = "MOD advanced reagent scanner module"
+	desc = "Модуль для МЭК, встраиваемый в визор костюма. Улучшенная версия обычного сканера реагентов, собирающая информацию \
+		о мощности ближайших взрывов и выводящая их на визор пользователя. Всё ещё не может распознавать ароматы."
 	complexity = 0
 	removable = FALSE
 	var/explosion_detection_dist = 21
 
 /obj/item/mod/module/reagent_scanner/advanced/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль продвинутого сканера реагентов МЭК",
-		GENITIVE = "модуля продвинутого сканера реагентов МЭК",
-		DATIVE = "модулю продвинутого сканера реагентов МЭК",
-		ACCUSATIVE = "модуль продвинутого сканера реагентов МЭК",
-		INSTRUMENTAL = "модулем продвинутого сканера реагентов МЭК",
-		PREPOSITIONAL = "модуле продвинутого сканера реагентов МЭК",
+		NOMINATIVE = "модуль продвинутого сканера реагентов",
+		GENITIVE = "модуля продвинутого сканера реагентов",
+		DATIVE = "модулю продвинутого сканера реагентов",
+		ACCUSATIVE = "модуль продвинутого сканера реагентов К",
+		INSTRUMENTAL = "модулем продвинутого сканера реагентов",
+		PREPOSITIONAL = "модуле продвинутого сканера реагентов",
 	)
 
 /obj/item/mod/module/reagent_scanner/advanced/on_activation()
@@ -77,12 +78,14 @@
 		distance = dy
 	if(distance > explosion_detection_dist)
 		return
-	to_chat(mod.wearer, span_notice("Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]"))
+	to_chat(mod.wearer, span_notice("Зафиксирован взрыв! Радиус эпицентра: [devastation_range], Радиус серьёзных повреждений: [heavy_impact_range], Радиус ударной волны: [light_impact_range]"))
 
-///Teleporter - Lets the user teleport to a nearby location.
+// MARK: Teleporter
+/// Teleporter - Lets the user teleport to a nearby location.
 /obj/item/mod/module/anomaly_locked/teleporter
 	name = "MOD teleporter module"
-	desc = "A module that uses a bluespace core to let the user transport their particles elsewhere."
+	desc = "Модуль для МЭК, использующий ядро блюспейс аномалии для того, чтобы пользователь мог комфортно умереть и воссоздать своего \
+		клона в новом месте. Технологии телепортации великолепны!"
 	icon_state = "teleporter"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -95,12 +98,12 @@
 
 /obj/item/mod/module/anomaly_locked/teleporter/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль телепортера МЭК",
-		GENITIVE = "модуля телепортера МЭК",
-		DATIVE = "модулю телепортера МЭК",
-		ACCUSATIVE = "модуль телепортера МЭК",
-		INSTRUMENTAL = "модулем телепортера МЭК",
-		PREPOSITIONAL = "модуле телепортера МЭК",
+		NOMINATIVE = "модуль телепортера",
+		GENITIVE = "модуля телепортера",
+		DATIVE = "модулю телепортера",
+		ACCUSATIVE = "модуль телепортера",
+		INSTRUMENTAL = "модулем телепортера",
+		PREPOSITIONAL = "модуле телепортера",
 	)
 
 /obj/item/mod/module/anomaly_locked/teleporter/on_select_use(atom/target)
@@ -126,10 +129,11 @@
 /obj/item/mod/module/anomaly_locked/teleporter/prebuilt
 	prebuilt = TRUE
 
-///Anti-Gravity - Makes the user weightless.
+// MARK: Anti-gravity
+/// Anti-Gravity - Makes the user weightless.
 /obj/item/mod/module/anomaly_locked/antigrav
 	name = "MOD anti-gravity module"
-	desc = "A module that uses a gravitational core to make the user completely weightless."
+	desc = "Модуль для МЭК, использующий ядро гравитационной аномалии, чтобы сделать пользователя невесомым."
 	icon_state = "antigrav"
 	module_type = MODULE_TOGGLE
 	complexity = 2
@@ -137,6 +141,16 @@
 	incompatible_modules = list( /obj/item/mod/module/anomaly_locked/antigrav) //TODO: add /obj/item/mod/module/atrocinator
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/gravitational)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+
+/obj/item/mod/module/anomaly_locked/antigrav/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль антигравитации",
+		GENITIVE = "модуля антигравитации",
+		DATIVE = "модулю антигравитации",
+		ACCUSATIVE = "модуль антигравитации",
+		INSTRUMENTAL = "модулем антигравитации",
+		PREPOSITIONAL = "модуле антигравитации",
+	)
 
 /obj/item/mod/module/anomaly_locked/antigrav/on_activation()
 	if(mod.wearer.get_gravity())

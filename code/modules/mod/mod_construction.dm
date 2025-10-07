@@ -1,11 +1,11 @@
 /obj/item/mod/construction
-	desc = "Деталь модульного экзо-костюма, используемая при его строительстве. Вы можете установить это в оболочку МЭК."
+	desc = "Деталь модульного экзокостюма, используемая при его строительстве. Вы можете установить это в оболочку МЭК."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "rack_parts"
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"
-	desc = "Универсальный каркас шлема, используемый в создании модульных экзо-костюмов. Бесполезен вне оболочки."
+	desc = "Универсальный каркас шлема, используемый в создании модульных экзокостюмов. Бесполезен вне оболочки."
 	icon_state = "helmet"
 
 /obj/item/mod/construction/helmet/get_ru_names()
@@ -20,7 +20,7 @@
 
 /obj/item/mod/construction/chestplate
 	name = "MOD chestplate"
-	desc = "Тяжелая металлическая бронепластина, используемая в создании модульных экзо-костюмов. Бесполезна вне оболочки."
+	desc = "Тяжелая металлическая бронепластина, используемая в создании модульных экзокостюмов. Бесполезна вне оболочки."
 	icon_state = "chestplate"
 
 /obj/item/mod/construction/chestplate/get_ru_names()
@@ -35,7 +35,7 @@
 
 /obj/item/mod/construction/gauntlets
 	name = "MOD gauntlets"
-	desc = "Пара уродливых электрических перчаток, используемых в создании модульных экзо-костюмов. Бесполезны вне оболочки."
+	desc = "Пара уродливых электрических перчаток, используемых в создании модульных экзокостюмов. Бесполезны вне оболочки."
 	icon_state = "gauntlets"
 
 /obj/item/mod/construction/gauntlets/get_ru_names()
@@ -50,7 +50,7 @@
 
 /obj/item/mod/construction/boots
 	name = "MOD boots"
-	desc = "Пара электрических сапог, используемых в создании модульных экзо-костюмов. Бесполезны вне оболочки."
+	desc = "Пара электрических сапог, используемых в создании модульных экзокостюмов. Бесполезны вне оболочки."
 	icon_state = "boots"
 
 /obj/item/mod/construction/boots/get_ru_names()
@@ -65,7 +65,7 @@
 
 /obj/item/mod/construction/broken_core
 	name = "broken MOD core"
-	desc = "Внутренний источник питания для модульного экзо-костюма. Конкретно этот экземпляр уже ничего не запитает."
+	desc = "Внутренний источник питания для модульного экзокостюма. Конкретно этот экземпляр уже ничего не запитает."
 	icon_state = "mod-core"
 
 /obj/item/mod/construction/broken_core/get_ru_names()
@@ -93,7 +93,7 @@
 
 /obj/item/mod/construction/plating
 	name = "MOD external plating"
-	desc = "Внешняя обшивка, используемая для строительства блока управления модульного экзо-костюма. "
+	desc = "Внешняя обшивка, используемая для создания блока управления модульного экзокостюма."
 	icon_state = "standard-plating"
 	var/datum/mod_theme/theme = /datum/mod_theme/civilian
 
@@ -169,7 +169,7 @@
 
 /obj/item/mod/construction/shell
 	name = "MOD shell"
-	desc = "Явно незавершённое стройство с десятками проводов и коннекторов, используемое для хранения, развертывания и использования модульных экзо-костюмов."
+	desc = "Явно незавершённое устройство с десятками проводов и коннекторов, используемое для хранения, развёртывания и использования модульных экзокостюмов."
 	icon_state = "mod-construction_start"
 	var/obj/item/core
 	var/obj/item/helmet
@@ -220,7 +220,7 @@
 			if(!istype(part, /obj/item/mod/core))
 				return
 			if(!user.drop_from_active_hand())
-				balloon_alert(user, "невозможно выпустить из руки!")
+				balloon_alert(user, "невозможно!")
 				return
 			playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 			balloon_alert(user, "установлено")
@@ -242,7 +242,7 @@
 		if(SCREWED_CORE_STEP)
 			if(istype(part, /obj/item/mod/construction/helmet)) //Construct
 				if(!user.drop_from_active_hand())
-					balloon_alert(user, "невозможно выпустить из руки!")
+					balloon_alert(user, "невозможно!")
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				balloon_alert(user, "шлем установлен")
@@ -257,7 +257,7 @@
 		if(HELMET_STEP)
 			if(istype(part, /obj/item/mod/construction/chestplate)) //Construct
 				if(!user.drop_from_active_hand())
-					balloon_alert(user, "невозможно выпустить из руки!")
+					balloon_alert(user, "невозможно!")
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				balloon_alert(user, "грудная пластина установлена")
@@ -274,7 +274,7 @@
 		if(CHESTPLATE_STEP)
 			if(istype(part, /obj/item/mod/construction/gauntlets)) //Construct
 				if(!user.drop_from_active_hand())
-					balloon_alert(user, "невозможно выпустить из руки!")
+					balloon_alert(user, "невозможно!")
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				balloon_alert(user, "запчасти для рук установлены")

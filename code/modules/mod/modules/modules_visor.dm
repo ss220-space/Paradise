@@ -1,9 +1,9 @@
 //Visor modules for MODsuits
 
-///Base Visor - Adds a specific HUD and traits to you.
+/// Base Visor - Adds a specific HUD and traits to you.
 /obj/item/mod/module/visor
 	name = "MOD visor module"
-	desc = "A heads-up display installed into the visor of the suit. They say these also let you see behind you."
+	desc = "Модуль ИЛС для МЭК, устанавливаемый в визор костюма. Говорят, он позволяет видеть вокруг на триста шестьдесят градусов."
 	module_type = MODULE_TOGGLE
 	complexity = 1
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
@@ -16,12 +16,12 @@
 
 /obj/item/mod/module/visor/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ИЛС МЭК",
-		GENITIVE = "модуля ИЛС МЭК",
-		DATIVE = "модулю ИЛС МЭК",
-		ACCUSATIVE = "модуль ИЛС МЭК",
-		INSTRUMENTAL = "модулем ИЛС МЭК",
-		PREPOSITIONAL = "модуле ИЛС МЭК",
+		NOMINATIVE = "модуль ИЛС",
+		GENITIVE = "модуля ИЛС",
+		DATIVE = "модулю ИЛС",
+		ACCUSATIVE = "модуль ИЛС",
+		INSTRUMENTAL = "модулем ИЛС",
+		PREPOSITIONAL = "модуле ИЛС",
 	)
 
 /obj/item/mod/module/visor/on_activation()
@@ -40,118 +40,120 @@
 		REMOVE_TRAIT(mod.wearer, visor_trait, MODSUIT_TRAIT)
 	mod.wearer.update_sight()
 
-//Medical Visor - Gives you a medical HUD.
+// MARK: Medical visor
+/// Medical Visor - Gives you a medical HUD.
 /obj/item/mod/module/visor/medhud
 	name = "MOD medical visor module"
-	desc = "A heads-up display installed into the visor of the suit. This cross-references suit sensor data with a modern \
-		biological scanning suite, allowing the user to visualize the current health of organic lifeforms, as well as \
-		access data such as patient files in a convenient readout. They say these also let you see behind you."
+	desc = "Модуль медицинского ИЛС для МЭК, устанавливаемый в визор костюма. Сканирует данные органических форм жизни в поле зрения \
+		и выводит эту информацию на дисплей пользователя. Также даёт доступ к быстрому просмотру медицинских записей экипажа."
 	icon_state = "medhud_visor"
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/mod/module/visor/medhud/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль медицинского ИЛС МЭК",
-		GENITIVE = "модуля медицинского ИЛС МЭК",
-		DATIVE = "модулю медицинского ИЛС МЭК",
-		ACCUSATIVE = "модуль медицинского ИЛС МЭК",
-		INSTRUMENTAL = "модулем медицинского ИЛС МЭК",
-		PREPOSITIONAL = "модуле медицинского ИЛС МЭК",
+		NOMINATIVE = "модуль медицинского ИЛС",
+		GENITIVE = "модуля медицинского ИЛС",
+		DATIVE = "модулю медицинского ИЛС",
+		ACCUSATIVE = "модуль медицинского ИЛС",
+		INSTRUMENTAL = "модулем медицинского ИЛС",
+		PREPOSITIONAL = "модуле медицинского ИЛС",
 	)
 
-//Diagnostic Visor - Gives you a diagnostic HUD.
+// MARK: Diagnostic visor
+/// Diagnostic Visor - Gives you a diagnostic HUD.
 /obj/item/mod/module/visor/diaghud
 	name = "MOD diagnostic visor module"
-	desc = "A heads-up display installed into the visor of the suit. This uses a series of advanced sensors to access data \
-		from advanced machinery, exosuits, and other devices, allowing the user to visualize current power levels \
-		and integrity of such. They say these also let you see behind you."
+	desc = "Модуль диагностического ИЛС для МЭК, использующий набор мощных сенсоров для получения данных о продвинутой \
+		машинерии, экзоскелетах и других устройствах. Выводит на дисплей пользователя информацию об их заряде и прочности."
 	icon_state = "diaghud_visor"
 	hud_type = DATA_HUD_DIAGNOSTIC_ADVANCED
 
 /obj/item/mod/module/visor/diaghud/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль диагностического ИЛС МЭК",
-		GENITIVE = "модуля диагностического ИЛС МЭК",
-		DATIVE = "модулю диагностического ИЛС МЭК",
-		ACCUSATIVE = "модуль диагностического ИЛС МЭК",
-		INSTRUMENTAL = "модулем диагностического ИЛС МЭК",
-		PREPOSITIONAL = "модуле диагностического ИЛС МЭК",
+		NOMINATIVE = "модуль диагностического ИЛС",
+		GENITIVE = "модуля диагностического ИЛС",
+		DATIVE = "модулю диагностического ИЛС",
+		ACCUSATIVE = "модуль диагностического ИЛС",
+		INSTRUMENTAL = "модулем диагностического ИЛС",
+		PREPOSITIONAL = "модуле диагностического ИЛС",
 	)
 
-//Security Visor - Gives you a security HUD.
+// MARK: Security visor
+/// Security Visor - Gives you a security HUD.
 /obj/item/mod/module/visor/sechud
 	name = "MOD security visor module"
-	desc = "A heads-up display installed into the visor of the suit. This module is a heavily-retrofitted targeting system, \
-		plugged into various criminal databases to be able to view arrest records, command simple security-oriented robots, \
-		and generally know who to shoot. They say these also let you see behind you."
+	desc = "Модуль охранного ИЛС для МЭК с усовершенствованной системой распознавания целей. Подключается к всевозможным \
+		криминальным базам данных, позволяя просматривать охранные записи экипажа, отдавать визуальные команды примитивным охранным \
+		роботам, да и просто знать, в кого нужно стрелять."
 	icon_state = "sechud_visor"
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 
 /obj/item/mod/module/visor/sechud/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ИЛС службы безопасности МЭК",
-		GENITIVE = "модуля ИЛС  службы безопасностиМЭК",
-		DATIVE = "модулю ИЛС  службы безопасностиМЭК",
-		ACCUSATIVE = "модуль ИЛС  службы безопасностиМЭК",
-		INSTRUMENTAL = "модулем ИЛС  службы безопасностиМЭК",
-		PREPOSITIONAL = "модуле ИЛС  службы безопасностиМЭК",
+		NOMINATIVE = "модуль охранного ИЛС",
+		GENITIVE = "модуля охранного ИЛС",
+		DATIVE = "модулю охранного ИЛС",
+		ACCUSATIVE = "модуль охранного ИЛС",
+		INSTRUMENTAL = "модулем охранного ИЛС",
+		PREPOSITIONAL = "модуле охранного ИЛС",
 	)
 
-//Meson Visor - Gives you meson vision.
+// MARK: Meson visor
+/// Meson Visor - Gives you meson vision.
 /obj/item/mod/module/visor/meson
 	name = "MOD meson visor module"
-	desc = "A heads-up display installed into the visor of the suit. This module is based off well-loved meson scanner \
-		technology, used by construction workers and miners across the galaxy to see basic structural and terrain layouts \
-		through walls, regardless of lighting conditions. They say these also let you see behind you."
+	desc = "Модуль мезонного ИЛС для МЭК, устанавливаемый в визор костюма. Принцип работы основан на технологии мезонного сканера, \
+		полюбившегося строителям и шахтёрам по всей галактике. Позволяет видеть структуру и внутренние слои ландшафта через стены, \
+		вне зависимости от уровня освещения."
 	icon_state = "meson_visor"
 	visor_trait = TRAIT_MESON_VISION
 
 /obj/item/mod/module/visor/meson/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль мезонного зрения МЭК",
-		GENITIVE = "модуля мезонного зрения МЭК",
-		DATIVE = "модулю мезонного зрения МЭК",
-		ACCUSATIVE = "модуль мезонного зрения МЭК",
-		INSTRUMENTAL = "модулем мезонного зрения МЭК",
-		PREPOSITIONAL = "модуле мезонного зрения МЭК",
+		NOMINATIVE = "модуль мезонного ИЛС",
+		GENITIVE = "модуля мезонного ИЛС",
+		DATIVE = "модулю мезонного ИЛС",
+		ACCUSATIVE = "модуль мезонного ИЛС",
+		INSTRUMENTAL = "модулем мезонного ИЛС",
+		PREPOSITIONAL = "модуле мезонного ИЛС",
 	)
 
-//Thermal Visor - Gives you thermal vision.
+// MARK: Thermal visor
+/// Thermal Visor - Gives you thermal vision.
 /obj/item/mod/module/visor/thermal
 	name = "MOD thermal visor module"
-	desc = "A heads-up display installed into the visor of the suit. This uses a small IR scanner to detect and identify \
-		the thermal radiation output of objects near the user. While it can detect the heat output of even something as \
-		small as a rodent, it still produces irritating red overlay. They say these also let you see behind you."
+	desc = "Модуль термального ИЛС для МЭК, устанавливаемый в визор костюма. Использует крохотный инфракрасный сканер для обнаружения \
+		и распознавания теплового излучения объектов в поле зрения пользователя."
 	icon_state = "thermal_visor"
 	origin_tech = "combat=6;engineering=6;syndicate=2"
 	visor_trait = TRAIT_THERMAL_VISION
 
 /obj/item/mod/module/visor/thermal/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль термального зрения МЭК",
-		GENITIVE = "модуля термального зрения МЭК",
-		DATIVE = "модулю термального зрения МЭК",
-		ACCUSATIVE = "модуль термального зрения МЭК",
-		INSTRUMENTAL = "модулем термального зрения МЭК",
-		PREPOSITIONAL = "модуле термального зрения МЭК",
+		NOMINATIVE = "модуль термального ИЛС",
+		GENITIVE = "модуля термального ИЛС",
+		DATIVE = "модулю термального ИЛС",
+		ACCUSATIVE = "модуль термального ИЛС",
+		INSTRUMENTAL = "модулем термального ИЛС",
+		PREPOSITIONAL = "модуле термального ИЛС",
 	)
 
-//Night Visor - Gives you night vision.
+// MARK: Night vision
+/// Night Visor - Gives you night vision.
 /obj/item/mod/module/visor/night
 	name = "MOD night visor module"
-	desc = "A heads-up display installed into the visor of the suit. Typical for both civilian and military applications, \
-		this allows the user to perceive their surroundings while in complete darkness, enhancing the view by tenfold; \
-		yet brightening everything into a spooky green glow. They say these also let you see behind you."
+	desc = "Модуль ночного видения для МЭК, устанавливаемый в визор костюма. Позволяет пользователю разборчиво видеть окружение даже \
+		в абсолютной темноте."
 	icon_state = "night_visor"
 	origin_tech = "combat=5;engineering=5;syndicate=1"
 	visor_trait = TRAIT_NIGHT_VISION
 
 /obj/item/mod/module/visor/night/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ночного зрения МЭК",
-		GENITIVE = "модуля ночного зрения МЭК",
-		DATIVE = "модулю ночного зрения МЭК",
-		ACCUSATIVE = "модуль ночного зрения МЭК",
-		INSTRUMENTAL = "модулем ночного зрения МЭК",
-		PREPOSITIONAL = "модуле ночного зрения МЭК",
+		NOMINATIVE = "модуль ночного видения",
+		GENITIVE = "модуля ночного видения",
+		DATIVE = "модулю ночного видения",
+		ACCUSATIVE = "модуль ночного видения",
+		INSTRUMENTAL = "модулем ночного видения",
+		PREPOSITIONAL = "модуле ночного видения",
 	)

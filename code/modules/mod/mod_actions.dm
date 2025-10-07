@@ -23,7 +23,7 @@
 
 /datum/action/item_action/mod/deploy
 	name = "Развернуть модульный костюм"
-	desc = "ЛКМ - развернуть или свернуть все компоненты модульного костюма. СКМ - развернуть/свернуть определенный компонент. "
+	desc = "ЛКМ - развернуть или свернуть все компоненты модульного костюма. СКМ - развернуть/свернуть определённый компонент. "
 	button_icon_state = "deploy"
 
 /datum/action/item_action/mod/deploy/Trigger(left_click, attack_self)

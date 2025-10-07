@@ -1,11 +1,11 @@
 //Supply modules for MODsuits
 
-///Internal GPS - Extends a GPS you can use.
+// MARK: GPS
+/// Internal GPS - Extends a GPS you can use.
 /obj/item/mod/module/gps
 	name = "MOD internal GPS module"
-	desc = "This module uses common Nanotrasen technology to calculate the user's position anywhere in space, \
-		down to the exact coordinates. This information is fed to a central database viewable from the device itself, \
-		though using it to help people is up to you."
+	desc = "Модуль для МЭК, использующий стандартную технологию Нанотрейзен для вычисления местоположения пользователя вплоть до \
+		точных координат. Отображает и сигналы других подобных устройств."
 	icon_state = "gps"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -16,20 +16,20 @@
 
 /obj/item/mod/module/gps/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ГПС МЭК",
-		GENITIVE = "модуля ГПС МЭК",
-		DATIVE = "модулю ГПС МЭК",
-		ACCUSATIVE = "модуль ГПС МЭК",
-		INSTRUMENTAL = "модулем ГПС МЭК",
-		PREPOSITIONAL = "модуле ГПС МЭК",
+		NOMINATIVE = "модуль ГПС",
+		GENITIVE = "модуля ГПС",
+		DATIVE = "модулю ГПС",
+		ACCUSATIVE = "модуль ГПС",
+		INSTRUMENTAL = "модулем ГПС",
+		PREPOSITIONAL = "модуле ГПС",
 	)
 
-///Hydraulic Clamp - Lets you pick up and drop crates.
+// MARK: Hydraulic clamp
+/// Hydraulic Clamp - Lets you pick up and drop crates.
 /obj/item/mod/module/clamp
 	name = "MOD hydraulic clamp module"
-	desc = "A series of actuators installed into both arms of the suit, boasting a lifting capacity of almost a ton. \
-		However, this design has been locked by Nanotrasen to be primarily utilized for lifting various crates. \
-		A lot of people would say that loading cargo is a dull job, but you could not disagree more."
+	desc = "Модуль для МЭК. Набор сервоприводов с клешнёй, устанавливаемой в руки костюма. Увеличивают грузоподъёмность пользователя \
+		практически до тонны. Люди говорят, что таскать ящики – скучная работа, но теперь вы не сможете с ними согласиться."
 	icon_state = "clamp"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -48,12 +48,12 @@
 
 /obj/item/mod/module/clamp/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль гидравлической клешни МЭК",
-		GENITIVE = "модуля гидравлической клешни МЭК",
-		DATIVE = "модулю гидравлической клешни МЭК",
-		ACCUSATIVE = "модуль гидравлической клешни МЭК",
-		INSTRUMENTAL = "модулем гидравлической клешни МЭК",
-		PREPOSITIONAL = "модуле гидравлической клешни МЭК",
+		NOMINATIVE = "модуль гидравлической клешни",
+		GENITIVE = "модуля гидравлической клешни",
+		DATIVE = "модулю гидравлической клешни",
+		ACCUSATIVE = "модуль гидравлической клешни",
+		INSTRUMENTAL = "модулем гидравлической клешни",
+		PREPOSITIONAL = "модуле гидравлической клешни",
 	)
 
 /obj/item/mod/module/clamp/on_select_use(atom/target)
@@ -125,19 +125,20 @@
 
 /obj/item/mod/module/clamp/loader/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль грузовой гидравлической клешни МЭК",
-		GENITIVE = "модуля грузовой гидравлической клешни МЭК",
-		DATIVE = "модулю грузовой гидравлической клешни МЭК",
-		ACCUSATIVE = "модуль грузовой гидравлической клешни МЭК",
-		INSTRUMENTAL = "модулем грузовой гидравлической клешни МЭК",
-		PREPOSITIONAL = "модуле грузовой гидравлической клешни МЭК",
+		NOMINATIVE = "модуль грузовой клешни",
+		GENITIVE = "модуля грузовой клешни",
+		DATIVE = "модулю грузовой клешни",
+		ACCUSATIVE = "модуль грузовой клешни",
+		INSTRUMENTAL = "модулем грузовой клешни",
+		PREPOSITIONAL = "модуле грузовой клешни",
 	)
 
-///Drill - Lets you dig through rock and basalt.
+// MARK: Drill
+/// Drill - Lets you dig through rock and basalt.
 /obj/item/mod/module/drill
 	name = "MOD drill module"
-	desc = "An integrated drill, typically extending over the user's hand. While useful for drilling through rock, \
-		your drill is surely the one that both pierces and creates the heavens."
+	desc = "Модуль для МЭК, представляющий собой интегрированную в предплечье костюма дрель. Пронзит не только каменную породу Лазиса, \
+		но и небеса!"
 	icon_state = "drill"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -149,12 +150,12 @@
 
 /obj/item/mod/module/drill/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль дрели МЭК",
-		GENITIVE = "модуля дрели МЭК",
-		DATIVE = "модулю дрели МЭК",
-		ACCUSATIVE = "модуль дрели МЭК",
-		INSTRUMENTAL = "модулем дрели МЭК",
-		PREPOSITIONAL = "модуле дрели МЭК",
+		NOMINATIVE = "модуль дрели",
+		GENITIVE = "модуля дрели",
+		DATIVE = "модулю дрели",
+		ACCUSATIVE = "модуль дрели",
+		INSTRUMENTAL = "модулем дрели",
+		PREPOSITIONAL = "модуле дрели",
 	)
 
 /obj/item/mod/module/drill/on_activation()
@@ -176,18 +177,20 @@
 
 /obj/item/mod/module/drill/proc/bump_mine(mob/living/carbon/human/bumper, atom/bumped_into, proximity)
 	SIGNAL_HANDLER
+
 	if(!ismineralturf(bumped_into) || !drain_power(use_energy_cost))
 		return
 	var/turf/simulated/mineral/mineral_turf = bumped_into
 	mineral_turf.gets_drilled(mod.wearer)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-///Ore Bag - Lets you pick up ores and drop them from the suit.
+// MARK: Ore bag
+/// Ore Bag - Lets you pick up ores and drop them from the suit.
 /obj/item/mod/module/orebag
 	name = "MOD ore bag module"
-	desc = "An integrated ore storage system installed into the suit, \
-		this utilizes precise electromagnets and storage compartments to automatically collect and deposit ore. \
-		It's recommended by Cybersun Industries to actually deposit that ore at local refineries."
+	desc = "Модуль для МЭК, являющийся специализированной для хранения руды вариацией стандартного модуля хранилища. \
+		Оснащён системой электромагнитов, автоматически собирающих руду за вас. К сожалению, они не смогут отнести руду на переработку \
+		вместо вас."
 	icon_state = "ore"
 	module_type = MODULE_USABLE
 	complexity = 1
@@ -199,12 +202,12 @@
 
 /obj/item/mod/module/orebag/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль рудного хранилища МЭК",
-		GENITIVE = "модуля рудного хранилища МЭК",
-		DATIVE = "модулю рудного хранилища МЭК",
-		ACCUSATIVE = "модуль рудного хранилища МЭК",
-		INSTRUMENTAL = "модулем рудного хранилища МЭК",
-		PREPOSITIONAL = "модуле рудного хранилища МЭК",
+		NOMINATIVE = "модуль хранилища руды",
+		GENITIVE = "модуля хранилища руды",
+		DATIVE = "модулю хранилища руды",
+		ACCUSATIVE = "модуль хранилища руды",
+		INSTRUMENTAL = "модулем хранилища руды",
+		PREPOSITIONAL = "модуле хранилища руды",
 	)
 
 /obj/item/mod/module/orebag/on_equip()
@@ -229,9 +232,10 @@
 		ore.forceMove(drop_location())
 	drain_power(use_energy_cost)
 
+// MARK: Hydraulic arms
 /obj/item/mod/module/hydraulic
 	name = "MOD loader hydraulic arms module"
-	desc = "A pair of powerful hydraulic arms installed in a MODsuit."
+	desc = "Модуль для МЭК. Пара усиленных гидравликой и сервоприводами грузовых рук для облегчения транспортировки тяжёлых ящиков."
 	icon_state = "launch_loader"
 	module_type = MODULE_ACTIVE
 	removable = FALSE
@@ -249,12 +253,12 @@
 
 /obj/item/mod/module/hydraulic/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль грузовых гидравлических рук МЭК",
-		GENITIVE = "модуля грузовых гидравлических рук МЭК",
-		DATIVE = "модулю грузовых гидравлических рук МЭК",
-		ACCUSATIVE = "модуль грузовых гидравлических рук МЭК",
-		INSTRUMENTAL = "модулем грузовых гидравлических рук МЭК",
-		PREPOSITIONAL = "модуле грузовых гидравлических рук МЭК",
+		NOMINATIVE = "модуль гидравлических рук",
+		GENITIVE = "модуля гидравлических рук",
+		DATIVE = "модулю гидравлических рук",
+		ACCUSATIVE = "модуль гидравлических рук",
+		INSTRUMENTAL = "модулем гидравлических рук",
+		PREPOSITIONAL = "модуле гидравлических рук",
 	)
 
 /obj/item/mod/module/hydraulic/Initialize(mapload)
@@ -293,9 +297,11 @@
 	user.transform = user.transform.Turn(user.transform, angle)
 	user.cut_overlay(charge_up_overlay)
 
+// MARK: Magnet
 /obj/item/mod/module/magnet
 	name = "MOD loader hydraulic magnet module"
-	desc = "A powerful hydraulic electromagnet able to launch crates and lockers towards the user, and keep them attached."
+	desc = "Модуль для МЭК, представляющий собой мощный гидравлический электромагнит, способный притягивать \
+		шкафчики и ящики к пользователю и удерживать их."
 	icon_state = "magnet_loader"
 	module_type = MODULE_ACTIVE
 	removable = FALSE
@@ -308,12 +314,12 @@
 
 /obj/item/mod/module/magnet/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль грузового гидравлического магнита МЭК",
-		GENITIVE = "модуля грузового гидравлического магнита МЭК",
-		DATIVE = "модулю грузового гидравлического магнита МЭК",
-		ACCUSATIVE = "модуль грузового гидравлического магнита МЭК",
-		INSTRUMENTAL = "модулем грузового гидравлического магнита МЭК",
-		PREPOSITIONAL = "модуле грузового гидравлического магнита МЭК",
+		NOMINATIVE = "модуль грузового магнита",
+		GENITIVE = "модуля грузового магнита",
+		DATIVE = "модулю грузового магнита",
+		ACCUSATIVE = "модуль грузового магнита",
+		INSTRUMENTAL = "модулем грузового магнита",
+		PREPOSITIONAL = "модуле грузового магнита",
 	)
 
 /obj/item/mod/module/magnet/on_select_use(atom/target)
@@ -347,10 +353,11 @@
 		return
 	mod.wearer.start_pulling(locker)
 
+// MARK: Ash accretion
 /obj/item/mod/module/ash_accretion
 	name = "MOD ash accretion module"
-	desc = "A module that collects ash from the terrain, covering the suit in a protective layer, this layer is \
-		lost when moving across standard terrain."
+	desc = "Модуль для МЭК, собирающий пепел с земли и распределяющий его по поверхности костюма, создавая дополнительный защитный слой. \
+		К сожалению, защита будет развеиваться при движении по поверхности без пепла."
 	icon_state = "ash_accretion"
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/ash_accretion)
@@ -374,12 +381,12 @@
 
 /obj/item/mod/module/ash_accretion/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль пепельного аттрактора МЭК",
-		GENITIVE = "модуля пепельного аттрактора МЭК",
-		DATIVE = "модулю пепельного аттрактора МЭК",
-		ACCUSATIVE = "модуль пепельного аттрактора МЭК",
-		INSTRUMENTAL = "модулем пепельного аттрактора МЭК",
-		PREPOSITIONAL = "модуле пепельного аттрактора МЭК",
+		NOMINATIVE = "модуль пепельного аттрактора",
+		GENITIVE = "модуля пепельного аттрактора",
+		DATIVE = "модулю пепельного аттрактора",
+		ACCUSATIVE = "модуль пепельного аттрактора",
+		INSTRUMENTAL = "модулем пепельного аттрактора",
+		PREPOSITIONAL = "модуле пепельного аттрактора",
 	)
 
 /obj/item/mod/module/ash_accretion/Initialize(mapload)
@@ -438,7 +445,7 @@
 		traveled_tiles++
 		var/speed_up = FALSE
 		if(traveled_tiles >= max_traveled_tiles)
-			balloon_alert(mod.wearer, "вы полностью покрыты пеплом")
+			balloon_alert(mod.wearer, "полное покрытие пеплом")
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
 			animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
 			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
@@ -470,11 +477,11 @@
 	icon = 'icons/effects/weather_effects.dmi'
 	duration = 3.2 SECONDS
 
-
+// MARK: Sphere transform
 /obj/item/mod/module/sphere_transform
 	name = "MOD sphere transform module"
-	desc = "A module able to move the suit's parts around, turning it and the user into a sphere. \
-		The sphere can move quickly, and launch mining bombs to decimate terrain."
+	desc = "Модуль для МЭК, превращающий весь костюм и пользователя внутри него в подвижную и крайне быструю сферу. \
+		В этой форме костюм может запускать шахтёрские бомбы для быстрой расчистки местности."
 	icon_state = "sphere"
 	module_type = MODULE_ACTIVE
 	removable = FALSE
@@ -495,12 +502,12 @@
 
 /obj/item/mod/module/sphere_transform/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль превращения в сферу МЭК",
-		GENITIVE = "модуля превращения в сферу МЭК",
-		DATIVE = "модулю превращения в сферу МЭК",
-		ACCUSATIVE = "модуль превращения в сферу МЭК",
-		INSTRUMENTAL = "модулем превращения в сферу МЭК",
-		PREPOSITIONAL = "модуле превращения в сферу МЭК",
+		NOMINATIVE = "модуль превращения в сферу",
+		GENITIVE = "модуля превращения в сферу",
+		DATIVE = "модулю превращения в сферу",
+		ACCUSATIVE = "модуль превращения в сферу",
+		INSTRUMENTAL = "модулем превращения в сферу",
+		PREPOSITIONAL = "модуле превращения в сферу",
 	)
 
 /obj/item/mod/module/sphere_transform/on_activation()
@@ -557,9 +564,10 @@
 		return
 	on_deactivation()
 
+// MARK: Mining bomb
 /obj/projectile/bullet/reusable/mining_bomb
 	name = "mining bomb"
-	desc = "A bomb. Why are you staring at this?"
+	desc = "Это бомба. Может не стоит её так долго разглядывать?"
 	icon_state = "mine_bomb"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	damage = 0
@@ -582,7 +590,7 @@
 
 /obj/structure/mining_bomb
 	name = "mining bomb"
-	desc = "A bomb. Why are you staring at this?"
+	desc = "Это бомба. Может не стоит её так долго разглядывать?"
 	icon_state = "mine_bomb"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	anchored = TRUE
@@ -626,7 +634,7 @@
 	addtimer(CALLBACK(src, PROC_REF(boom), firer), explosion_time)
 
 /obj/structure/mining_bomb/proc/boom(atom/movable/firer)
-	visible_message(span_danger("[src.declent_ru(NOMINATIVE)] взрывается!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
 	playsound(src, 'sound/magic/magic_missile.ogg', 200, vary = TRUE)
 	for(var/turf/T in circleviewturfs(src, 2))
 		if(ismineralturf(T))

@@ -1,12 +1,11 @@
 //Security modules for MODsuits
 
-///Holster - Instantly holsters any not huge gun.
+// MARK: Holster
+/// Holster - Instantly holsters any not huge gun.
 /obj/item/mod/module/holster
 	name = "MOD holster module"
-	desc = "Based off typical storage compartments, this system allows the suit to holster a \
-		standard firearm across its surface and allow for extremely quick retrieval. \
-		While some users prefer the chest, others the forearm for quick deployment, \
-		some law enforcement prefer the holster to extend from the thigh."
+	desc = "Модуль для МЭК, основанный на системе, схожей с стандартным модулем хранилища. Позволяет хранить в кобуре костюма оружие \
+		с возможностью быстро извлечь его в любой момент."
 	icon_state = "holster"
 	module_type = MODULE_USABLE
 	complexity = 2
@@ -18,12 +17,12 @@
 
 /obj/item/mod/module/holster/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль кобуры МЭК",
-		GENITIVE = "модуля кобуры МЭК",
-		DATIVE = "модулю кобуры МЭК",
-		ACCUSATIVE = "модуль кобуры МЭК",
-		INSTRUMENTAL = "модулем кобуры МЭК",
-		PREPOSITIONAL = "модуле кобуры МЭК",
+		NOMINATIVE = "модуль кобуры",
+		GENITIVE = "модуля кобуры",
+		DATIVE = "модулю кобуры",
+		ACCUSATIVE = "модуль кобуры",
+		INSTRUMENTAL = "модулем кобуры",
+		PREPOSITIONAL = "модуле кобуры",
 	)
 
 /obj/item/mod/module/holster/on_use()
@@ -36,12 +35,17 @@
 			balloon_alert(mod.wearer, "не лезет в кобуру!")
 			return
 		holstered = holding
-		mod.wearer.visible_message(span_notice("[mod.wearer] убира[pluralize_ru(mod.wearer.gender,"ет","ют")] [holding.declent_ru(ACCUSATIVE)] в кобуру."), span_notice("вы убираете [holding.declent_ru(ACCUSATIVE)] в кобуру."))
+		mod.wearer.visible_message(
+			span_notice("[mod.wearer] убира[pluralize_ru(mod.wearer.gender,"ет","ют")] [holding.declent_ru(ACCUSATIVE)] в кобуру."),
+			span_notice("вы убираете [holding.declent_ru(ACCUSATIVE)] в кобуру.")
+		)
 		mod.wearer.temporarily_remove_item_from_inventory(holding)
 		holding.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.visible_message(span_warning("[mod.wearer] вытаскива[pluralize_ru(mod.wearer.gender,"ет","ют")] [holstered.declent_ru(ACCUSATIVE)] из кобуры!"), \
-			span_warning("Вы вытаскиваете [holstered.declent_ru(ACCUSATIVE)] из кобуры!"))
+		mod.wearer.visible_message(
+			span_warning("[mod.wearer] вытаскива[pluralize_ru(mod.wearer.gender,"ет","ют")] [holstered.declent_ru(ACCUSATIVE)] из кобуры!"),
+			span_warning("Вы вытаскиваете [holstered.declent_ru(ACCUSATIVE)] из кобуры!")
+		)
 	else
 		balloon_alert(mod.wearer, "освободите руку!")
 
@@ -59,10 +63,11 @@
 	QDEL_NULL(holstered)
 	return ..()
 
-///Mirage grenade dispenser - Dispenses grenades that copy the user's appearance.
+// MARK: Mirage grenade
+/// Mirage grenade dispenser - Dispenses grenades that copy the user's appearance.
 /obj/item/mod/module/dispenser/mirage
 	name = "MOD mirage grenade dispenser module"
-	desc = "This module can create mirage grenades at the user's liking. These grenades create holographic copies of the user."
+	desc = "Модуль для МЭК, производящий мираж-гранаты. При взрыве они создают неотличимую копию пользователя в виде голограммы."
 	icon_state = "mirage_grenade"
 	cooldown_time = 20 SECONDS
 	overlay_state_inactive = "module_mirage_grenade"
@@ -74,17 +79,17 @@
 
 /obj/item/mod/module/dispenser/mirage/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль диспенсера гранат класса \"Мираж\" МЭК",
-		GENITIVE = "модуля диспенсера гранат класса \"Мираж\" МЭК",
-		DATIVE = "модулю диспенсера гранат класса \"Мираж\" МЭК",
-		ACCUSATIVE = "модуль диспенсера гранат класса \"Мираж\" МЭК",
-		INSTRUMENTAL = "модулем диспенсера гранат класса \"Мираж\" МЭК",
-		PREPOSITIONAL = "модуле диспенсера гранат класса \"Мираж\" МЭК",
+		NOMINATIVE = "модуль гранат \"Мираж\"",
+		GENITIVE = "модуля гранат \"Мираж\"",
+		DATIVE = "модулю гранат \"Мираж\"",
+		ACCUSATIVE = "модуль гранат \"Мираж\"",
+		INSTRUMENTAL = "модулем гранат \"Мираж\"",
+		PREPOSITIONAL = "модуле гранат \"Мираж\"",
 	)
 
 /obj/item/grenade/mirage
 	name = "mirage grenade"
-	desc = "A special device that, when activated, produces a holographic copy of the user."
+	desc = "Специальное устройство, напоминающее гранату. При активации создаёт голографическую копию пользователя."
 	icon_state = "mirage"
 	det_time = 3 SECONDS
 	/// Mob that threw the grenade.
@@ -92,12 +97,12 @@
 
 /obj/item/grenade/mirage/get_ru_names()
 	return list(
-		NOMINATIVE = "граната класса \"Мираж\"",
-		GENITIVE = "гранаты класса \"Мираж\"",
-		DATIVE = "гранате класса \"Мираж\"",
-		ACCUSATIVE = "гранату класса \"Мираж\"",
-		INSTRUMENTAL = "гранатой класса \"Мираж\"",
-		PREPOSITIONAL = "гранате класса \"Мираж\"",
+		NOMINATIVE = "граната \"Мираж\"",
+		GENITIVE = "гранаты \"Мираж\"",
+		DATIVE = "гранате \"Мираж\"",
+		ACCUSATIVE = "гранату \"Мираж\"",
+		INSTRUMENTAL = "гранатой \"Мираж\"",
+		PREPOSITIONAL = "гранате \"Мираж\"",
 	)
 
 /obj/item/grenade/mirage/Destroy()
@@ -123,12 +128,12 @@
 	do_sparks(rand(3, 6), FALSE, src)
 	return ..()
 
-
-///Active Sonar - Displays a hud circle on the turf of any living creatures in the given radius
+// MARK: Active sonar
+/// Active Sonar - Displays a hud circle on the turf of any living creatures in the given radius
 /obj/item/mod/module/active_sonar
 	name = "MOD active sonar"
-	desc = "Ancient tech from the 20th century, this module uses sonic waves to detect living creatures within the user's radius. \
-		Its loud ping is much harder to hide in an indoor station than in the outdoor operations it was designed for."
+	desc = "Модуль для МЭК. По сути является эволюцией древней технологии сонара из 20 века, использующей звуковые волны для обнаружения \
+		живых существ в радиусе вокруг пользователя. Аутентичный звук поставляется в комплекте."
 	icon_state = "active_sonar"
 	module_type = MODULE_USABLE
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 4
@@ -139,12 +144,12 @@
 
 /obj/item/mod/module/active_sonar/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль сонара МЭК",
-		GENITIVE = "модуля сонара МЭК",
-		DATIVE = "модулю сонара МЭК",
-		ACCUSATIVE = "модуль сонара МЭК",
-		INSTRUMENTAL = "модулем сонара МЭК",
-		PREPOSITIONAL = "модуле сонара МЭК",
+		NOMINATIVE = "модуль сонара",
+		GENITIVE = "модуля сонара",
+		DATIVE = "модулю сонара",
+		ACCUSATIVE = "модуль сонара",
+		INSTRUMENTAL = "модулем сонара",
+		PREPOSITIONAL = "модуле сонара",
 	)
 
 /obj/item/mod/module/active_sonar/on_use()
@@ -158,8 +163,7 @@
 		new /obj/effect/temp_visual/sonar_ping(mod.wearer.loc, mod.wearer, creature)
 		creatures_detected++
 	playsound(mod.wearer, 'sound/effects/ping_hit.ogg', vol = 75, vary = TRUE, extrarange = 9) // Should be audible for the radius of the sonar
-	//ксайкок перепиши эту ебалу, я в рот ебал прописывать декленты и подсчет количества найденных
-	to_chat(mod.wearer, (span_notice("You slam your fist into the ground, sending out a sonic wave that detects [creatures_detected] living beings nearby!")))
+	to_chat(mod.wearer, (span_notice("Вы бьёте кулаком в пол, запуская звуковую волну сонара, которая обнаруживает [creatures_detected] жив[declension_ru("ое", "ых", "ых")] существ[declension_ru("о", "а", "")] поблизости!")))
 
 /obj/effect/temp_visual/sonar_ping
 	duration = 3 SECONDS
@@ -199,10 +203,11 @@
 /obj/effect/temp_visual/sonar_ping/proc/remove_mind(mob/living/looker)
 	looker?.client?.images -= modsuit_image
 
-///Firewall. Deployable dropwall that lights projectiles on fire.
+// MARK: Firewall
+/// Firewall. Deployable dropwall that lights projectiles on fire.
 /obj/item/mod/module/anomaly_locked/firewall
 	name = "MOD firewall module"
-	desc = "A module that uses a pyroclastic core to make immolating dropwalls."
+	desc = "Модуль для МЭК, использующий ядро пирокластической аномалии для создания огненной стены, сжигающей проходящие сквозь неё снаряды."
 	icon_state = "firewall"
 	overlay_state_inactive = "module_mirage_grenade"
 	module_type = MODULE_ACTIVE
@@ -215,12 +220,12 @@
 
 /obj/item/mod/module/anomaly_locked/firewall/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль огненного щита МЭК",
-		GENITIVE = "модуля огненного щита МЭК",
-		DATIVE = "модулю огненного щита МЭК",
-		ACCUSATIVE = "модуль огненного щита МЭК",
-		INSTRUMENTAL = "модулем огненного щита МЭК",
-		PREPOSITIONAL = "модуле огненного щита МЭК",
+		NOMINATIVE = "модуль огненного щита",
+		GENITIVE = "модуля огненного щита",
+		DATIVE = "модулю огненного щита",
+		ACCUSATIVE = "модуль огненного щита",
+		INSTRUMENTAL = "модулем огненного щита",
+		PREPOSITIONAL = "модуле огненного щита",
 	)
 
 /obj/item/mod/module/anomaly_locked/firewall/on_use()
@@ -236,10 +241,12 @@
 	prebuilt = TRUE
 	removable = FALSE // No switching it into another suit / no free anomaly core
 
+// MARK: Vortex shotgun
 /// Vortex arm mounted shotgun. Fucks up reality in front of it, very power draining. Compeating with the vortex arm and stealth armor after all
 /obj/item/mod/module/anomaly_locked/vortex_shotgun
 	name = "MOD vortex shotgun module"
-	desc = "A module that uses a vortex core to rend the fabric of space time in front of it."
+	desc = "Модуль для МЭК, использующий ядро вихревой аномалии в конструкции дробовика, встроенного в предплечье костюма, \
+		чтобы искажать само пространство-время перед пользователем."
 	icon_state = "vortex"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -249,12 +256,12 @@
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль вихревого дробовика МЭК",
-		GENITIVE = "модуля вихревого дробовика МЭК",
-		DATIVE = "модулю вихревого дробовика МЭК",
-		ACCUSATIVE = "модуль вихревого дробовика МЭК",
-		INSTRUMENTAL = "модулем вихревого дробовика МЭК",
-		PREPOSITIONAL = "модуле вихревого дробовика МЭК",
+		NOMINATIVE = "модуль вихревого дробовика",
+		GENITIVE = "модуля вихревого дробовика",
+		DATIVE = "модулю вихревого дробовика",
+		ACCUSATIVE = "модуль вихревого дробовика",
+		INSTRUMENTAL = "модулем вихревого дробовика",
+		PREPOSITIONAL = "модуле вихревого дробовика",
 	)
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/Initialize(mapload)
@@ -263,6 +270,7 @@
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/proc/on_gun_fire()
 	SIGNAL_HANDLER
+
 	if(!drain_power(use_energy_cost)) //Drain the rest dry
 		drain_power(mod.core.check_charge())
 
@@ -270,14 +278,12 @@
 	prebuilt = TRUE
 	removable = FALSE // No switching it into another suit / no free anomaly core
 
-///Criminal Capture - Generates hardlight bags you can put people in and sinch.
+// MARK: Criminal Capture
+/// Criminal Capture - Generates hardlight bags you can put people in and sinch.
 /obj/item/mod/module/criminalcapture
 	name = "MOD criminal capture module"
-	desc = "The private security that had orders to take in people dead were quite \
-		happy with their space-proofed suit, but for those who wanted to bring back \
-		whomever their targets were still breathing needed a way to \"share\" the \
-		space-proofing. And thus: criminal capture! Creates a hardlight prisoner transport bag \
-		around the apprehended that has breathable atmospheric conditions."
+	desc = "Модуль для МЭК, позволяющий создавать непроницаемые мешки из твёрдого света для комфортной и безопасной транспортировки \
+		пока ещё живых задержанных в условиях отсутствующей атмосферы."
 	icon_state = "criminal_capture"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -293,6 +299,16 @@
 	var/bodybag_type = /obj/structure/closet/body_bag/environmental/prisoner/hardlight
 	/// Our linked bodybag.
 	var/obj/structure/closet/body_bag/linked_bodybag
+
+/obj/item/mod/module/criminalcapture/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль мешков для тел",
+		GENITIVE = "модуля мешков для тел",
+		DATIVE = "модулю мешков для тел",
+		ACCUSATIVE = "модуль мешков для тел",
+		INSTRUMENTAL = "модулем мешков для тел",
+		PREPOSITIONAL = "модуле мешков для тел",
+	)
 
 /obj/item/mod/module/criminalcapture/on_process(seconds_per_tick)
 	idle_power_cost = linked_bodybag ? (DEFAULT_CHARGE_DRAIN * 3) : 0
@@ -312,7 +328,7 @@
 	if(target == linked_bodybag)
 		playsound(src, 'sound/machines/ding.ogg', 25, TRUE)
 		if(!do_after(mod.wearer, packup_time, target = target))
-			balloon_alert(mod.wearer, "interrupted!")
+			balloon_alert(mod.wearer, "прервано!")
 		packup()
 		return
 	if(linked_bodybag)
@@ -322,7 +338,7 @@
 		return
 	playsound(src, 'sound/machines/ding.ogg', 25, TRUE)
 	if(!do_after(mod.wearer, capture_time, target = target))
-		balloon_alert(mod.wearer, "interrupted!")
+		balloon_alert(mod.wearer, "прервано!")
 		return
 	if(linked_bodybag)
 		return
@@ -357,10 +373,12 @@
 
 //Security modules for MODsuits
 
-///Magnetic Harness - Automatically puts guns in your suit storage when you drop them.
+// MARK: Magnetic Harness
+/// Magnetic Harness - Automatically puts guns in your suit storage when you drop them.
 /obj/item/mod/module/magnetic_harness
 	name = "MOD magnetic harness module"
-	desc = "Based off old TerraGov harness kits, this magnetic harness automatically attaches dropped guns back to the wearer."
+	desc = "Модуль для МЭК, основанный на старой технологии морпехов ТСФ. Умная система магнитов автоматически вернёт выпавшее \
+		из рук оружие назад пользователю." // its obviously from TGMC, but afaik we don't have TerraGov in lore, so i've changed it to TSF marines
 	icon_state = "mag_harness"
 	complexity = 2
 	use_energy_cost = DEFAULT_CHARGE_DRAIN
@@ -372,6 +390,16 @@
 	var/static/list/guns_typecache
 	/// The guns already allowed by the modsuit chestplate.
 	var/list/already_allowed_guns = list()
+
+/obj/item/mod/module/magnetic_harness/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль магнитного ремня",
+		GENITIVE = "модуля магнитного ремня",
+		DATIVE = "модулю магнитного ремня",
+		ACCUSATIVE = "модуль магнитного ремня",
+		INSTRUMENTAL = "модулем магнитного ремня",
+		PREPOSITIONAL = "модуле магнитного ремня",
+	)
 
 /obj/item/mod/module/magnetic_harness/Initialize(mapload)
 	. = ..()
@@ -416,13 +444,15 @@
 	if(!mod.wearer.equip_to_slot_if_possible(item, ITEM_SLOT_SUITSTORE, qdel_on_fail = FALSE, disable_warning = TRUE))
 		return
 	playsound(src, 'sound/items/modsuit/magnetic_harness.ogg', 50, TRUE)
-	balloon_alert(mod.wearer, "[item] reattached")
+	balloon_alert(mod.wearer, "[item.declent_ru(NOMINATIVE)] поднят[genderize_ru(item.gender, "", "а", "о", "ы")]")
 	drain_power(use_energy_cost)
 
-///Pepper Shoulders - When hit, reacts with a spray of pepper spray around the user.
+// MARK: Pepper shoulders
+/// Pepper Shoulders - When hit, reacts with a spray of pepper spray around the user.
 /obj/item/mod/module/pepper_shoulders
 	name = "MOD pepper shoulders module"
-	desc = "A module that attaches two pepper sprayers on shoulders of a MODsuit, reacting to touch with a spray around the user."
+	desc = "Модуль для МЭК, представляющий собой два перцовых распылителя, установленных в плечи костюма. Они настроены таким образом, \
+		чтобы выпускать перцовую смесь при любом ударе по пользователю."
 	icon_state = "pepper_shoulder"
 	module_type = MODULE_USABLE
 	complexity = 1
@@ -432,6 +462,16 @@
 	overlay_state_inactive = "module_pepper"
 	overlay_state_use = "module_pepper_used"
 	required_slots = list(ITEM_SLOT_CLOTH_OUTER)
+
+/obj/item/mod/module/pepper_shoulders/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль перцового газа",
+		GENITIVE = "модуля перцового газа",
+		DATIVE = "модулю перцового газа",
+		ACCUSATIVE = "модуль перцового газа",
+		INSTRUMENTAL = "модулем перцового газа",
+		PREPOSITIONAL = "модуле перцового газа",
+	)
 
 /obj/item/mod/module/pepper_shoulders/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(on_check_block))
@@ -455,13 +495,18 @@
 		return
 	if(!check_power(use_energy_cost))
 		return
-	mod.wearer.visible_message(span_warning("[src] reacts to the attack with a smoke of pepper spray!"), span_notice("Your [src] releases a cloud of pepper spray!"))
+	mod.wearer.visible_message(
+		span_warning("[declent_ru(NOMINATIVE)] реагирует на атаку и распыляет перцовый газ!"),
+		span_notice("Ваш [declent_ru(NOMINATIVE)] распыляет облако перцового газа!")
+	)
 	on_use()
 
-///Megaphone - Lets you speak loud.
+// MARK: Megaphone
+/// Megaphone - Lets you speak loud.
 /obj/item/mod/module/megaphone
 	name = "MOD megaphone module"
-	desc = "A microchip megaphone linked to a MODsuit, for very important purposes, like: loudness."
+	desc = "Модуль для МЭК, являющийся микрочипом мегафона, интегрированный в костюм. Открывает перед пользователем много новых \
+		возможностей. Например, быть ГРОМКИМ."
 	icon_state = "megaphone"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -470,12 +515,35 @@
 	removable = TRUE
 	cooldown_time = 0.05 SECONDS
 
+/obj/item/mod/module/megaphone/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль мегафона",
+		GENITIVE = "модуля мегафона",
+		DATIVE = "модулю мегафона",
+		ACCUSATIVE = "модуль мегафона",
+		INSTRUMENTAL = "модулем мегафона",
+		PREPOSITIONAL = "модуле мегафона",
+	)
+
+// MARK: Quick cuff
 /obj/item/mod/module/quick_cuff
 	name = "MOD restraint assist module"
-	desc = "Enhanced gauntlet grip pads that help with placing individuals in restraints more quickly. Doesn't look like they'll come off."
+	desc = "Модуль для МЭК, представляющий собой усовершенствованные накладки на перчатки, которые обеспечивают более надёжный захват \
+		и позволяют быстрее заковывать людей в наручники. Похоже, эти накладки невозможно снять."
 	removable = FALSE
 	complexity = 0
 	required_slots = list(ITEM_SLOT_GLOVES)
+
+// idk
+/obj/item/mod/module/quick_cuff/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль надёжного хвата",
+		GENITIVE = "модуля надёжного хвата",
+		DATIVE = "модулю надёжного хвата",
+		ACCUSATIVE = "модуль надёжного хвата",
+		INSTRUMENTAL = "модулем надёжного хвата",
+		PREPOSITIONAL = "модуле надёжного хвата",
+	)
 
 /obj/item/mod/module/quick_cuff/on_part_activation()
 	. = ..()

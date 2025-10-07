@@ -1,10 +1,11 @@
 //Service modules for MODsuits
 
-///Bike Horn - Plays a bike horn sound.
+// MARK: Bike horn
+/// Bike Horn - Plays a bike horn sound.
 /obj/item/mod/module/bikehorn
 	name = "MOD bike horn module"
-	desc = "A shoulder-mounted piece of heavy sonic artillery, this module uses the finest femto-manipulator technology to \
-		precisely deliver an almost lethal squeeze to... a bike horn, producing a significantly memorable sound."
+	desc = "Модуль для МЭК, располагающийся в плече костюма. Использует на максимум новейшую технологию фемто-манипулятора \
+		для точного безжалостного сжатия... гудка, издающего навсегда въедающийся в память звук."
 	icon_state = "bikehorn"
 	module_type = MODULE_USABLE
 	complexity = 1
@@ -14,26 +15,27 @@
 
 /obj/item/mod/module/bikehorn/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль гудка МЭК",
-		GENITIVE = "модуля гудка МЭК",
-		DATIVE = "модулю гудка МЭК",
-		ACCUSATIVE = "модуль гудка МЭК",
-		INSTRUMENTAL = "модулем гудка МЭК",
-		PREPOSITIONAL = "модуле гудка МЭК",
+		NOMINATIVE = "модуль гудка",
+		GENITIVE = "модуля гудка",
+		DATIVE = "модулю гудка",
+		ACCUSATIVE = "модуль гудка",
+		INSTRUMENTAL = "модулем гудка",
+		PREPOSITIONAL = "модуле гудка",
 	)
 
 /obj/item/mod/module/bikehorn/on_use()
 	playsound(src, 'sound/items/bikehorn.ogg', 100, FALSE)
 	drain_power(use_energy_cost)
 
+// MARK: Waddle
 //Waddle - Makes you waddle and squeak.
 /obj/item/mod/module/waddle
 	name = "MOD waddle module"
-	desc = "Some of the most primitive technology in use by Honk Co. This module works off an automatic intention system, \
-		utilizing its' sensitivity to the pilot's often-limited brainwaves to directly read their next step, \
-		affecting the boots they're installed in. Employing a twin-linked gravitonic drive to create \
-		miniaturized etheric blasts of space-time beneath the user's feet, this enables them to... \
-		to waddle around, bouncing to and fro with a pep in their step."
+	desc = "Модуль для МЭК, одна из наиболее примитивных технологий на вооружении Хонк Ко. Работает за счёт автоматической системы, \
+		чувствительной к намерениям зачастую обделённого мозговой активностью пользователя для предсказания его следующего шага, \
+		влияя на работу обуви, к которой она подключена. Это позволяет ей использовать спаренный гравитонный привод для создания \
+		миниатюрных эфирных колебаний пространства-времени под ногами пользователя, открывая ему возможность... \
+		беззаботно скакать вприпрыжку, покачиваясь взад и вперёд."
 	icon_state = "waddle"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
@@ -42,12 +44,12 @@
 
 /obj/item/mod/module/waddle/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль покачивания МЭК",
-		GENITIVE = "модуля покачивания МЭК",
-		DATIVE = "модулю покачивания МЭК",
-		ACCUSATIVE = "модуль покачивания МЭК",
-		INSTRUMENTAL = "модулем покачивания МЭК",
-		PREPOSITIONAL = "модуле покачивания МЭК",
+		NOMINATIVE = "модуль покачивания",
+		GENITIVE = "модуля покачивания",
+		DATIVE = "модулю покачивания",
+		ACCUSATIVE = "модуль покачивания",
+		INSTRUMENTAL = "модулем покачивания",
+		PREPOSITIONAL = "модуле покачивания",
 	)
 
 /obj/item/mod/module/waddle/on_part_activation()
@@ -62,10 +64,12 @@
 		qdel(shoes.GetComponent(/datum/component/squeak))
 	shoes.RemoveElement(/datum/element/waddling)
 
-//Boot heating - dries floors like galoshes/dry
+// MARK: Boot heating
+/// Boot heating - dries floors like galoshes/dry
 /obj/item/mod/module/boot_heating
 	name = "MOD boot heating module"
-	desc = "A MOD suit boot heating module. Heats the bottom of the boots to assist in drying wet floors as you clean. Only for the most well trained of janitorial staff." /// Kinda small comparied to the other descriptions, but its ERT only, so..
+	desc = "Модуль для МЭК, устанавливаемый в ботинки костюма. Нагревает подошвы, позволяя осушать мокрый пол под \
+		ногами пользователя." // Kinda small comparied to the other descriptions, but its ERT only, so.. // now they all small, are you happy??
 	icon_state = "regulator"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
@@ -73,12 +77,12 @@
 
 /obj/item/mod/module/boot_heating/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль согревающей обуви МЭК",
-		GENITIVE = "модуля согревающей обуви МЭК",
-		DATIVE = "модулю согревающей обуви МЭК",
-		ACCUSATIVE = "модуль согревающей обуви МЭК",
-		INSTRUMENTAL = "модулем согревающей обуви МЭК",
-		PREPOSITIONAL = "модуле согревающей обуви МЭК",
+		NOMINATIVE = "модуль осушающей обуви",
+		GENITIVE = "модуля осушающей обуви",
+		DATIVE = "модулю осушающей обуви",
+		ACCUSATIVE = "модуль осушающей обуви",
+		INSTRUMENTAL = "модулем осушающей обуви",
+		PREPOSITIONAL = "модуле осушающей обуви",
 	)
 
 /obj/item/mod/module/boot_heating/on_part_activation()
@@ -94,13 +98,25 @@
 	if(istype(t_loc) && t_loc.wet)
 		t_loc.MakeDry(TURF_WET_WATER)
 
-// recharging cleaner spray module
+// MARK: Cleaner spray
+/// Recharging cleaner spray module
 /obj/item/mod/module/mister/cleaner
 	name = "MOD janitorial mister module"
-	desc = "A space cleaner mister, able to clean up messes quickly. Synthesizes its own supply over time (if active)."
+	desc = "Модуль для МЭК, являющийся обычным встроенным распылителем космочиста. В активированном состоянии \
+		медленно синтезирует вещество."
 	device = /obj/item/reagent_containers/spray/mister/janitor
 	volume = 100
 	active_power_cost = DEFAULT_CHARGE_DRAIN
+
+/obj/item/mod/module/mister/cleaner/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль чистящего спрея",
+		GENITIVE = "модуля чистящего спрея",
+		DATIVE = "модулю чистящего спрея",
+		ACCUSATIVE = "модуль чистящего спрея",
+		INSTRUMENTAL = "модулем чистящего спрея",
+		PREPOSITIONAL = "модуле чистящего спрея",
+	)
 
 /obj/item/mod/module/mister/cleaner/Initialize(mapload)
 	. = ..()

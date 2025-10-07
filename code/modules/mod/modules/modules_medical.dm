@@ -163,16 +163,15 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, MODSUIT_TRAIT)
 
-///Defibrillator - Gives the suit an extendable pair of shock paddles.
+// MARK: Defibrillator
+/// Defibrillator - Gives the suit an extendable pair of shock paddles.
 /obj/item/mod/module/defibrillator
 	name = "MOD defibrillator module"
-	desc = "A module built into the gauntlets of the suit; commonly known as the 'Healing Hands' by medical professionals. \
-		The user places their palms above the patient. Onboard computers in the suit calculate the necessary voltage, \
-		and a modded targeting computer determines the best position for the user to push. \
-		Twenty five pounds of force are applied to the patient's skin. Shocks travel from the suit's gloves \
-		and counter-shock the heart, and the wearer returns to Medical a hero. Don't you even think about using it as a weapon; \
-		regulations on manufacture and software locks expressly forbid it."
+	desc = "Модуль для МЭК, встраиваемый в перчатки костюма. Представляет собой компактный дефибриллятор с умным микрокомпьютером, \
+		автоматически высчитывающим нужный вольтаж, усилие давления и точку приложения перчаток к пациенту. Встроенная система безопасности \
+		не позволит использовать этот модуль как оружие."
 	icon_state = "defibrillator"
+	item_state = null // It has an overlay as an item in hands when activated
 	module_type = MODULE_ACTIVE
 	complexity = 2
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 200 // 1000 charge. Shocking, I know.
@@ -184,12 +183,12 @@
 
 /obj/item/mod/module/defibrillator/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль-дефибриллятор МЭК",
-		GENITIVE = "модуля-дефибриллятора МЭК",
-		DATIVE = "модулю-дефибриллятору МЭК",
-		ACCUSATIVE = "модуль-дефибриллятор МЭК",
-		INSTRUMENTAL = "модулем-дефибриллятором МЭК",
-		PREPOSITIONAL = "модуле-дефибрилляторе МЭК",
+		NOMINATIVE = "модуль дефибриллятора",
+		GENITIVE = "модуля дефибриллятора",
+		DATIVE = "модулю дефибриллятора",
+		ACCUSATIVE = "модуль дефибриллятора",
+		INSTRUMENTAL = "модулем дефибриллятора",
+		PREPOSITIONAL = "модуле дефибриллятора",
 	)
 
 /obj/item/mod/module/defibrillator/Initialize(mapload)
@@ -202,7 +201,7 @@
 
 /obj/item/mod_defib
 	name = "defibrillator gauntlets"
-	desc = "A pair of paddles with flat metal surfaces that are used to deliver powerful electric shocks."
+	desc = "Пара лопаток с проводящей металлической поверхностью для передачи мощных электрических разрядов."
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibgauntlets0" //Inhands handled by the module overlays
 	force = 0
@@ -247,17 +246,11 @@
 	if(on_cooldown)
 		icon_state = "[initial(icon_state)]_cooldown"
 
+// MARK: Combat defib
 /obj/item/mod/module/defibrillator/combat
 	name = "MOD combat defibrillator module"
-	desc = "A module built into the gauntlets of the suit; commonly known as the 'Healing Hands' by medical professionals. \
-		The user places their palms above the patient. Onboard computers in the suit calculate the necessary voltage, \
-		and a modded targeting computer determines the best position for the user to push. \
-		Twenty five pounds of force are applied to the patient's skin. Shocks travel from the suit's gloves \
-		and counter-shock the heart, and the wearer returns to Medical a hero. \
-		Interdyne Pharmaceutics marketed the domestic version of the Healing Hands as foolproof and unusable as a weapon. \
-		But when it came time to provide their operatives with usable medical equipment, they didn't hesitate to remove \
-		those in-built safeties. Operatives in the field can benefit from what they dub as 'Stun Gloves', able to apply shocks \
-		straight to a victims heart to disable them, or maybe even outright stop their heart with enough power."
+	desc = "Модуль для МЭК, практически во всём являющийся копией обычного модуля встроенного дефибриллятора, за одним лишь исключением – \
+		встроенная система защиты была переписана, так что теперь его можно использовать в качестве оружия."
 	complexity = 1
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 400 // 2000 charge. Since you like causing heart attacks, don't you?
 	module_type = MODULE_ACTIVE
@@ -267,12 +260,12 @@
 
 /obj/item/mod/module/defibrillator/combat/get_ru_names()
 	return list(
-		NOMINATIVE = "боевой модуль-дефибриллятор МЭК",
-		GENITIVE = "боевого модуля-дефибриллятора МЭК",
-		DATIVE = "боевому модулю-дефибриллятору МЭК",
-		ACCUSATIVE = "боевой модуль-дефибриллятор МЭК",
-		INSTRUMENTAL = "боевым модулем-дефибриллятором МЭК",
-		PREPOSITIONAL = "боевом модуле-дефибрилляторе МЭК",
+		NOMINATIVE = "модуль боевого дефибриллятора",
+		GENITIVE = "модуля боевого дефибриллятора",
+		DATIVE = "модулю боевого дефибриллятора",
+		ACCUSATIVE = "модуль боевого дефибриллятора",
+		INSTRUMENTAL = "модулем боевого дефибриллятора",
+		PREPOSITIONAL = "модуле боевого дефибриллятора",
 	)
 
 /obj/item/mod_defib/syndicate
@@ -292,10 +285,12 @@
 		PREPOSITIONAL = "боевых рукавицах-дефибрилляторах",
 	)
 
-///Crew Monitor - Deploys or retracts a built-in handheld crew monitor
+// MARK: Crew monitor
+/// Crew Monitor - Deploys or retracts a built-in handheld crew monitor
 /obj/item/mod/module/monitor
 	name = "MOD crew monitor module"
-	desc = "A module installed into the wrist of the suit, this presents a display of crew sensor data."
+	desc = "Модуль для МЭК, устанавливаемый в запястье костюма. Предоставляет пользователю информацию о состоянии здоровья экипажа \
+		с их датчиков жизнеобеспечения."
 	icon_state = "scanner"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -306,41 +301,38 @@
 
 /obj/item/mod/module/monitor/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль монитора наблюдения за экипажем МЭК",
-		GENITIVE = "модуля монитора наблюдения за экипажем МЭК",
-		DATIVE = "модулю монитора наблюдения за экипажем МЭК",
-		ACCUSATIVE = "модуль монитора наблюдения за экипажем МЭК",
-		INSTRUMENTAL = "модулем монитора наблюдения за экипажем МЭК",
-		PREPOSITIONAL = "модуле монитора наблюдения за экипажем МЭК",
+		NOMINATIVE = "модуль монитора экипажа",
+		GENITIVE = "модуля монитора экипажа",
+		DATIVE = "модулю монитора экипажа",
+		ACCUSATIVE = "модуль монитора экипажа",
+		INSTRUMENTAL = "модулем монитора экипажа",
+		PREPOSITIONAL = "модуле монитора экипажа",
 	)
 
 /obj/item/sensor_device/mod
 	name = "MOD crew monitor"
-	desc = "A miniature machine built into a modsuit that tracks suit sensors across the station."
+	desc = "Миниатюрное устройство, установленное в МЭК и отслеживающее показатели датчиков жизнеобеспечения экипажа."
 
 /obj/item/sensor_device/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "ручной монитор экипажа МЭК",
-		GENITIVE = "ручного монитора экипажа МЭК",
-		DATIVE = "ручному монитору экипажа МЭК",
-		ACCUSATIVE = "ручной монитор экипажа МЭК",
-		INSTRUMENTAL = "ручным монитором экипажа МЭК",
-		PREPOSITIONAL = "ручном мониторе экипажа МЭК"
+		NOMINATIVE = "ручной монитор экипажа",
+		GENITIVE = "ручного монитора экипажа",
+		DATIVE = "ручному монитору экипажа",
+		ACCUSATIVE = "ручной монитор экипажа",
+		INSTRUMENTAL = "ручным монитором экипажа",
+		PREPOSITIONAL = "ручном мониторе экипажа"
 	)
-
 
 /obj/item/sensor_device/mod/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, MODSUIT_TRAIT)
 
-///Organizer - Lets you shoot organs, immediately replacing them if the target has the organ manipulation surgery.
+// MARK: Organizer
+/// Organizer - Lets you shoot organs, immediately replacing them if the target has the organ manipulation surgery.
 /obj/item/mod/module/organizer
 	name = "MOD organizer module"
-	desc = "A device recovered from a crashed Interdyne Pharmaceuticals vessel, \
-		this module has been unearthed for better or for worse. \
-		It's an arm-mounted device utilizing technology similar to modern rapid part exchange devices, \
-		capable of instantly replacing up to 5 organs at once in surgery without the need to remove them first, even from range. \
-		It's recommended by the DeForest Medical Corporation to not inform patients it has been used."
+	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Использует блюспейс технологию, схожую с таковой у блюспейс заменителя деталей, \
+		только в этом случае деталями являются органы. Позволяет моментально заменить до 5 органов цели без необходимости извлекать предыдущие."
 	icon_state = "organizer"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -353,6 +345,16 @@
 	/// A list of all our organs.
 	var/organ_list = list()
 
+/obj/item/mod/module/organizer/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль замены органов",
+		GENITIVE = "модуля замены органов",
+		DATIVE = "модулю замены органов",
+		ACCUSATIVE = "модуль замены органов",
+		INSTRUMENTAL = "модулем замены органов",
+		PREPOSITIONAL = "модуле замены органов"
+	)
+
 /obj/item/mod/module/organizer/on_select_use(atom/target)
 	. = ..()
 	if(!.)
@@ -363,11 +365,11 @@
 			return
 		var/atom/movable/organ = target
 		if(length(organ_list) >= max_organs)
-			balloon_alert(mod.wearer, "too many organs!")
+			balloon_alert(mod.wearer, "слишком много органов!")
 			return
 		organ_list += organ
 		organ.forceMove(src)
-		balloon_alert(mod.wearer, "picked up [organ]")
+		balloon_alert(mod.wearer, "взят[genderize_ru(organ.gender, "", "а", "о", "ы") [organ.declent_ru(NOMINATIVE)]]")
 		playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
 		drain_power(use_energy_cost)
 		return
@@ -398,6 +400,7 @@
 	appearance = stored_organ.appearance
 	stored_organ.forceMove(src)
 	organ = stored_organ
+	ru_names = organ.get_ru_names()
 
 /obj/projectile/organ/Destroy()
 	organ = null
@@ -433,16 +436,24 @@
 	organ.insert(target)
 	organ = null
 
-///Patrient Transport - Generates hardlight bags you can put people in.
+// MARK: Patient transport
+/// Patient Transport - Generates hardlight bags you can put people in.
 /obj/item/mod/module/criminalcapture/patienttransport
 	name = "MOD patient transport module"
-	desc = "A module built into the forearm of the suit. Countless waves of mostly-lost mining teams being sent to \
-		Indecipheries and other hazardous locations have taught the DeForest Medical Company many lessons. \
-		Physical bodybags are difficult to store, hard to deploy, and even worse to keep intact in tough scenarios. \
-		Enter the hardlight transport bag. Summonable with merely a gesture, weightless, and immunized against \
-		any extreme scenario the wearer could think of, this bag is perfectly designed for \
-		transport of any body in any environment, any time."
+	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Громоздкие, неудобные и хрупкие пластиковые мешки для тел теперь уже \
+		прошлый век, ведь этот модуль предоставляет возможность создавать мешки из твёрдого света! Комфортная транспортировка живых \
+		и не очень людей в любой ситуации, в любое время! Не является рекламой."
 	icon_state = "patient_transport"
 	bodybag_type = /obj/structure/closet/body_bag/environmental/hardlight
 	capture_time = 1.5 SECONDS
 	packup_time = 0.5 SECONDS
+
+/obj/item/mod/module/organizer/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль мешков для тел",
+		GENITIVE = "модуля мешков для тел",
+		DATIVE = "модулю мешков для тел",
+		ACCUSATIVE = "модуль мешков для тел",
+		INSTRUMENTAL = "модулем мешков для тел",
+		PREPOSITIONAL = "модуле мешков для тел"
+	)

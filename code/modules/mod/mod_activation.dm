@@ -98,7 +98,7 @@
 			return TRUE
 		else if(delayed_seal_part(part))
 			return TRUE
-		balloon_alert(user, "не удалось, свертывание!")
+		balloon_alert(user, "не удалось, свёртывание!")
 		retract(user, part, instant = TRUE)
 	else
 		if(part_datum.overslotting)

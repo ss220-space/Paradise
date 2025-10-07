@@ -1,6 +1,6 @@
 /obj/item/clothing/head/mod
 	name = "MOD helmet"
-	desc = "Стандартный Шлем для модульного экзо-костюма."
+	desc = "Стандартный шлем для модульного экзокостюма."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
@@ -49,7 +49,7 @@
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"
-	desc = "Стандартный нагрудник для модульного экзо-костюма."
+	desc = "Стандартный нагрудник для модульного экзокостюма."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-chestplate"
 	base_icon_state = "chestplate"
@@ -104,7 +104,7 @@
 
 /obj/item/clothing/gloves/mod
 	name = "MOD gauntlets"
-	desc = "Пара стандартный рукавиц для модульного экзо-костюма."
+	desc = "Пара стандартных рукавиц для модульного экзокостюма."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-gauntlets"
 	item_state = null //don't fucking ask
@@ -155,7 +155,7 @@
 
 /obj/item/clothing/shoes/mod
 	name = "MOD boots"
-	desc = "Пара стандартных ботинок для модульного экзо-костюма."
+	desc = "Пара стандартных ботинок для модульного экзокостюма."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-boots"
 	base_icon_state = "boots"
