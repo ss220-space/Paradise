@@ -615,8 +615,7 @@
 /obj/item/mod/module/plasma_stabilizer
 	name = "MOD plasma stabilizer module"
 	desc = "Модуль для МЭК, предназначенный для плазмаменов. Формирует внутри костюма собственную атмосферу, предотвращающую \
-		спонтанное самовозгорание головы пользователя при воздействии кислорода. Фиолетовое стекло визора было сделано исключительно \
-		ради ностальгии."
+		спонтанное самовозгорание головы пользователя при воздействии кислорода."
 	icon_state = "plasma_stabilizer"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
@@ -860,12 +859,12 @@
 
 /obj/item/mod/module/shock_absorber/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль кинетической зарядки",
-		GENITIVE = "модуля кинетической зарядки",
-		DATIVE = "модулю кинетической зарядки",
-		ACCUSATIVE = "модуль кинетической зарядки",
-		INSTRUMENTAL = "модулем кинетической зарядки",
-		PREPOSITIONAL = "модуле кинетической зарядки",
+		NOMINATIVE = "модуль шокопоглощения",
+		GENITIVE = "модуля шокопоглощения",
+		DATIVE = "модулю шокопоглощения",
+		ACCUSATIVE = "модуль шокопоглощения",
+		INSTRUMENTAL = "модулем шокопоглощения",
+		PREPOSITIONAL = "модуле шокопоглощения",
 	)
 
 /obj/item/mod/module/shock_absorber/on_part_activation()
