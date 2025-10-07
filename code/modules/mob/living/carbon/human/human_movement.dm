@@ -29,6 +29,10 @@
 		return TRUE
 	return ..()
 
+/mob/living/carbon/human/proc/get_strength_level()
+	var/list/strength_list = list()
+	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
+	return !strength_list.len ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
 
 /mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -51,10 +55,17 @@
 
 		// If we sooo weak to pull or push something, except items or tiny mobs, get stamina damage
 		var/weak_mob = FALSE
-		if((pulling || now_pushing) && (HAS_TRAIT(src, TRAIT_WEAK_PULLING)))
+		if((pulling || now_pushing) && (HAS_TRAIT(src, TRAIT_WEAK_PULLING) && (!no_gravity()) && (get_strength_level() != STRENGTH_LEVEL_SUPERHUMAN)))
 			weak_mob = TRUE
 
 		if(weak_mob)
+			var/list/modifiers = list(
+			STRENGTH_LEVEL_WEAK = 1,
+			STRENGTH_LEVEL_NORMAL = 0.75,
+			STRENGTH_LEVEL_STRONG = 0.5,
+			STRENGTH_LEVEL_IDEAL = 0.25,
+			)
+			var/strength_modifier = modifiers[get_strength_level()]
 			var/stamina_damage = 0
 			var/small_pulled = FALSE
 			// Handle pulling all non /obj/item stuff or tiny mobs
@@ -65,9 +76,9 @@
 
 			if(pulling && !(small_pulled || isitem(pulling)))
 				if(m_intent == MOVE_INTENT_WALK)
-					stamina_damage += PULL_STAMINADAM_WALK
+					stamina_damage += (PULL_STAMINADAM_WALK * strength_modifier)
 				else
-					stamina_damage += PULL_STAMINADAM_RUN
+					stamina_damage += (PULL_STAMINADAM_RUN * strength_modifier)
 
 				if(staminaloss > 69)
 					balloon_alert(src, "слишком тяжело тащить!")
@@ -77,9 +88,9 @@
 			if(now_pushing)
 				if(!(isliving(now_pushing) && a_intent == INTENT_HELP))
 					if(m_intent == MOVE_INTENT_WALK)
-						stamina_damage += PUSH_STAMINADAM_WALK
+						stamina_damage += (PUSH_STAMINADAM_WALK * strength_modifier)
 					else
-						stamina_damage += PUSH_STAMINADAM_RUN
+						stamina_damage += (PUSH_STAMINADAM_RUN * strength_modifier)
 
 			apply_damage(stamina_damage, STAMINA)
 		// if our speed is connected to enviroment temperature
