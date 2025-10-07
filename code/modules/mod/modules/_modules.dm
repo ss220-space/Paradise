@@ -57,8 +57,8 @@
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_modules.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/modules_taj.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/modules_unathi.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_modules.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_modules.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/modules_vox.dmi'
 	)
 
