@@ -49,21 +49,9 @@
 	index_name = "Fur Gloves"
 	path = /obj/item/clothing/gloves/furgloves
 
-/datum/gear/donor/furboots
-	index_name = "Fur Boots"
-	path = /obj/item/clothing/shoes/furboots
-
 /datum/gear/donor/noble_boot
 	index_name = "Noble Boots"
 	path = /obj/item/clothing/shoes/fluff/noble_boot
-
-/datum/gear/donor/furcape
-	index_name = "Fur Cape"
-	path = /obj/item/clothing/neck/cloak/furcape
-
-/datum/gear/donor/furcoat
-	index_name = "Fur Coat"
-	path = /obj/item/clothing/suit/furcoat
 
 /datum/gear/donor/kamina
 	index_name = "Spiky Orange-tinted Shades"
@@ -100,10 +88,6 @@
 /datum/gear/donor/mushhat
 	index_name = "Mushroom Hat"
 	path = /obj/item/clothing/head/fluff/mushhat
-
-/datum/gear/donor/furcap
-	index_name = "Fur Cap"
-	path = /obj/item/clothing/head/furcap
 
 /datum/gear/donor/mouse
 	index_name = "Mouse Headband"
