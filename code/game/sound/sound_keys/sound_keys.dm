@@ -393,3 +393,31 @@
 		'sound/goonstation/machines/ambicomp2.ogg',
 		'sound/goonstation/machines/ambicomp3.ogg'
 	)
+
+/datum/sound_effect/pick_up
+	key = SFX_PICK_UP
+	file_paths = list(
+		'sound/items/handling/pickup/generic_pickup1.ogg',
+		'sound/items/handling/pickup/generic_pickup2.ogg',
+		'sound/items/handling/pickup/generic_pickup3.ogg',
+	)
+
+/datum/sound_effect/drop
+	key = SFX_DROP
+	file_paths = list(
+		'sound/items/handling/drop/generic_drop1.ogg',
+		'sound/items/handling/drop/generic_drop2.ogg',
+		'sound/items/handling/drop/generic_drop3.ogg',
+		'sound/items/handling/drop/generic_drop4.ogg',
+		'sound/items/handling/drop/generic_drop5.ogg',
+	)
+
+/datum/sound_effect/equip
+	key = SFX_EQUIP
+	file_paths = list(
+		'sound/items/handling/equip/generic_equip1.ogg',
+		'sound/items/handling/equip/generic_equip2.ogg',
+		'sound/items/handling/equip/generic_equip3.ogg',
+		'sound/items/handling/equip/generic_equip4.ogg',
+		'sound/items/handling/equip/generic_equip5.ogg',
+	)

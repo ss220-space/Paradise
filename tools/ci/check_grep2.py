@@ -26,20 +26,31 @@ def check_515_proc_syntax(idx, line):
         return [(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")]
 
 
-CHECK_SPACE_INDENTATION_RE = re.compile(r"^ {2,}[^\*]")
+CHECK_SPACE_INDENTATION_RE = re.compile(r"^( {2})|(^ [^ *])|(^ {4,})")
 def check_space_indentation(idx, line):
     """
-    Check specifically for space-significant indentation. Excludes dmdoc
-    block comment lines so long as there is an asterisk immediately after the
-    leading spaces.
+    Matches:
+    - Exactly 2 spaces at line start (even followed by *)
+    - 1 space + any character except space/asterisk
+    - 4 or more spaces at line start
 
-    >>> bool(check_space_indentation(["  foo"]))
+    >>> bool(check_space_indentation(0, "  foo"))
+    True
+    >>> bool(check_space_indentation(0, "  * foo"))  # 2 spaces + asterisk
+    True
+    >>> bool(check_space_indentation(0, " x"))       # 1 space + letter
+    True
+    >>> bool(check_space_indentation(0, "    foo"))  # 4+ spaces
     True
 
-    >>> bool(check_space_indentation(["\\tfoo"]))
+    >>> bool(check_space_indentation(0, "\\tfoo"))    # tabs are fine
     False
-    >>> bool(check_space_indentation(["  * foo"]))
+    >>> bool(check_space_indentation(0, " * foo"))   # 1 space + asterisk
     False
+    >>> bool(check_space_indentation(0, "   foo"))   # 3 spaces (not matched)
+    False
+    >>> bool(check_space_indentation(0, "  "))       # 2 spaces only
+    True
     """
     if CHECK_SPACE_INDENTATION_RE.match(line):
         return [(idx + 1, "Space indentation detected, please use tab indentation.")]
@@ -278,6 +289,29 @@ def check_ie_typo(idx, line):
     if IE_TYPO_RE.search(line):
         return [(idx + 1, "Common I-before-E typo detected in code (found 'eciev', did you mean 'receive'?).")]
 
+DEFINE_FORMAT_RE = re.compile(r'^\s*#define\s+(\S+)\s+(\S.*)$')
+DEFINE_SPACING_RE = re.compile(r'^\s*#define\s+\S+\s{2,}\S')
+def check_define_formatting(idx, line):
+    """
+    Valid: #define NAME value (exactly one space between name and value)
+
+    Invalid: #define NAME    value (multiple spaces/tabs for alignment)
+    """
+    # Check for multiple spaces between name and value
+    if not DEFINE_SPACING_RE.match(line):
+        return []
+
+    # Extract parts for error message
+    match = DEFINE_FORMAT_RE.match(line.strip())
+    if not match:
+        return []
+
+    name, value = match.groups()
+    bad_example = line.strip()
+    good_example = f"#define {name} {value}"
+
+    return [(idx + 1, f"Invalid #define spacing. Use exactly one space between macro name and value.\nFound: {bad_example}\nExpected: {good_example}")]
+
 # Check UpdatePaths files
 def check_updatepaths_validity():
     failures = []
@@ -334,6 +368,7 @@ CODE_CHECKS = [
     check_as_anything_typeless,
     check_as_anything_internal,
     check_ie_typo,
+    check_define_formatting,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:

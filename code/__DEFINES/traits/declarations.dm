@@ -83,7 +83,7 @@
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
-#define TRAIT_FLATTENED	"flattened"
+#define TRAIT_FLATTENED "flattened"
 
 /// Not a genetic obesity but just a mob who overate
 #define	TRAIT_FAT "trait_fat"

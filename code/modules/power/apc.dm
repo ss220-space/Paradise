@@ -46,7 +46,7 @@
 /// APC power channel setting on.
 #define CHANNEL_SETTING_ON 2   //on
 /// APC user setting.
-#define CHANNEL_SETTING_AUTO_ON  3 //auto
+#define CHANNEL_SETTING_AUTO_ON 3 //auto
 
 //open states
 #define APC_CLOSED 0

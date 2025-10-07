@@ -47,25 +47,25 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "am" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "an" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "ao" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "ap" = (
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "aq" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "ar" = (
@@ -145,17 +145,17 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "aF" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "aG" = (
 /obj/effect/decal/remains/robot,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "aH" = (
 /obj/machinery/door/airlock/engineering,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "aI" = (
@@ -193,7 +193,7 @@
 /area/awaymission/syndishuttle)
 "aR" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "aS" = (
@@ -217,7 +217,7 @@
 /area/awaymission/northblock)
 "aW" = (
 /obj/structure/girder/reinforced,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/research)
 "aX" = (
@@ -237,7 +237,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "bc" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -338,7 +338,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/research)
 "bw" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/research)
 "bx" = (
@@ -575,7 +575,7 @@
 	icon_state = "intact";
 	level = 2
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "cj" = (
@@ -833,7 +833,7 @@
 /obj/machinery/portable_atmospherics/canister/toxins{
 	stat = 1
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "cS" = (
@@ -918,7 +918,7 @@
 	icon_state = "intact";
 	level = 2
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "dd" = (
@@ -1044,7 +1044,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "dt" = (
@@ -1136,7 +1136,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "dD" = (
@@ -1229,7 +1229,7 @@
 /obj/structure/chair/office/light{
 	dir = 1
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "dO" = (
@@ -1265,21 +1265,21 @@
 /obj/structure/sign/goldenplaque{
 	pixel_y = 31
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "dS" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "dT" = (
 /obj/structure/sign/atmosplaque{
 	pixel_y = 31
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "dU" = (
@@ -1398,7 +1398,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "ek" = (
@@ -1453,7 +1453,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "er" = (
@@ -1478,7 +1478,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "eu" = (
@@ -1495,7 +1495,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "ew" = (
@@ -1507,7 +1507,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "ex" = (
@@ -1523,14 +1523,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "ez" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "eA" = (
@@ -1629,7 +1629,7 @@
 /area/awaymission/syndishuttle)
 "eM" = (
 /obj/machinery/light/small,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "eN" = (
@@ -1745,14 +1745,14 @@
 	},
 /area/awaymission/syndishuttle)
 "eY" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "eZ" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/northblock)
 "fa" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "fb" = (
@@ -1919,7 +1919,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "ft" = (
@@ -1927,7 +1927,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "fu" = (
@@ -2047,7 +2047,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "fG" = (
@@ -2059,11 +2059,11 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "fH" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 1
@@ -2228,7 +2228,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/midblock)
 "gh" = (
@@ -2487,7 +2487,7 @@
 /area/awaymission/arrivalblock)
 "gU" = (
 /obj/structure/girder,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/arrivalblock)
 "gV" = (
@@ -2942,7 +2942,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "id" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 5
@@ -2969,7 +2969,7 @@
 /area/awaymission/midblock)
 "ih" = (
 /obj/structure/table/reinforced,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -3071,7 +3071,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/midblock)
 "iz" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/southblock)
 "iA" = (
@@ -3609,14 +3609,6 @@
 "ka" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel,
-/area/awaymission/southblock)
-"kb" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
 /area/awaymission/southblock)
 "kc" = (
 /obj/machinery/light/small,
@@ -6209,7 +6201,7 @@ iT
 ji
 iY
 jG
-kb
+jG
 iY
 kH
 kR

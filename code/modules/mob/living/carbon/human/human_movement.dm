@@ -1,7 +1,7 @@
-#define PULL_STAMINADAM_WALK	4
-#define PULL_STAMINADAM_RUN		6
-#define PUSH_STAMINADAM_WALK	3
-#define PUSH_STAMINADAM_RUN		4
+#define PULL_STAMINADAM_WALK 4
+#define PULL_STAMINADAM_RUN 6
+#define PUSH_STAMINADAM_WALK 3
+#define PUSH_STAMINADAM_RUN 4
 
 
 /mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)

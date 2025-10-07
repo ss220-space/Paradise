@@ -6,7 +6,7 @@
 	// Check if the CI DB config is up to date with the example dbconfig
 	// This proc is a little unclean but it works
 	var/example_db_version
-	var/list/Lines = file2list("config/example/dbconfig.txt")
+	var/list/Lines = world.file2list("config/example/dbconfig.txt")
 	for(var/t in Lines)
 		if(!t)	continue
 

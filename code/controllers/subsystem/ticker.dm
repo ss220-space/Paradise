@@ -91,8 +91,8 @@ SUBSYSTEM_DEF(ticker)
 	if(!login_music)
 		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
 
-	randomtips = file2list("strings/tips.txt")
-	memetips = file2list("strings/sillytips.txt")
+	randomtips = world.file2list("strings/tips.txt")
+	memetips = world.file2list("strings/sillytips.txt")
 	return SS_INIT_SUCCESS
 
 
@@ -314,7 +314,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate the list of empty playable AI cores in the world
 	for(var/obj/effect/landmark/S as anything in GLOB.landmarks_list)
-		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/event/tripai::name))
+		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/spawner/tripai::name))
 			continue
 		if(locate(/mob/living) in S.loc)
 			continue

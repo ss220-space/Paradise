@@ -3,7 +3,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/join_late_cyborg,
+/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "ae" = (
@@ -1276,7 +1276,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
 "HQ" = (
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "Ib" = (
@@ -1874,7 +1874,7 @@
 /area/bridge)
 "Wc" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/landmark/join_late_cyborg,
+/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "Wd" = (
