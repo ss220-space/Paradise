@@ -47,7 +47,7 @@
 /// Quickly deploys all parts (or retracts if all are on the wearer)
 /obj/item/mod/control/proc/quick_deploy(mob/user)
 	if(activating)
-		balloon_alert(user, "уже [active ? "складывается" : "развертывается"]!")
+		balloon_alert(user, "уже [active ? "складывается" : "развёртывается"]!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	var/deploy = FALSE
@@ -56,9 +56,6 @@
 			continue
 		deploy = TRUE
 		break
-	wearer.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] у [wearer] [deploy ? "выдвигает свои компоненты" : "втягивает свои компоненты обратно"]."),
-		span_notice("С механическим шипением [declent_ru(NOMINATIVE)] [deploy ? "выдвигает свои компоненты" : "втягивает свои компоненты обратно"]."),
-		"Вы слышите механическое шипение.")
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	for(var/obj/item/part as anything in get_parts())
 		if(deploy && part.loc == src)
@@ -93,11 +90,7 @@
 		ADD_TRAIT(part, TRAIT_NODROP, MODSUIT_TRAIT)
 		wearer.update_clothing(slot_flags|part.slot_flags)
 		SEND_SIGNAL(src, COMSIG_MOD_PART_DEPLOYED, user, part_datum)
-		if(user)
-			wearer.visible_message(span_notice("[capitalize(part.declent_ru(NOMINATIVE))] у [wearer] выдвигается."),
-				span_notice("С характерным механическим шипением [part.declent_ru(NOMINATIVE)] выдвигается."),
-				"Вы слышите механическое шипение.")
-			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(!active || part_datum.sealed)
 			return TRUE
 		if(instant)
@@ -146,9 +139,6 @@
 	wearer.update_clothing(slot_flags|part.slot_flags)
 	if(user)
 		return TRUE
-	wearer.visible_message(span_notice("[capitalize(part.declent_ru(NOMINATIVE))] у [wearer] втягивается обратно."),
-			span_notice("С характерным механическим шипением [part.declent_ru(NOMINATIVE)] втягивается обратно."),
-			"Вы слышите механическое шипение.")
 	if(!unsealing)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
@@ -208,7 +198,7 @@
 				seal_part(sealed_part, is_sealed = !get_part_datum(sealed_part).sealed)
 			if(original_active_status)
 				control_activation(is_on = TRUE)
-			to_chat(wearer, span_notice("Критическая ошибка развертывания. Отмена процесса."))
+			to_chat(wearer, span_notice("Критическая ошибка развёртывания. Отмена процесса."))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 		sealed_parts += part
@@ -222,11 +212,11 @@
 			activating = FALSE
 			for(var/obj/item/sealed_part as anything in sealed_parts)
 				seal_part(sealed_part, is_sealed = !get_part_datum(sealed_part).sealed)
-			to_chat(wearer, span_notice("Критическая ошибка развертывания. Отмена процесса."))
+			to_chat(wearer, span_notice("Критическая ошибка развёртывания. Отмена процесса."))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 
-	to_chat(wearer, span_notice("Система [active ? "started up. Parts sealed. Welcome" : "shut down. Parts unsealed. Goodbye"], [wearer]."))
+	to_chat(wearer, span_notice("Система [active ? "запущена. Добро пожаловать" : "отключена. До свидания"], [wearer]."))
 	//if(ai_assistant)
 	//	to_chat(ai_assistant, span_notice(span_bold("СИСТЕМЫ [active ? "АКТИВИРОВАНЫ. ДОБРО ПОЖАЛОВАТЬ" : "ДЕАКТИВИРОВАНЫ. ДО СВИДАНИЯ"]: \"[ai_assistant]\"")))
 	activating = FALSE
@@ -237,7 +227,7 @@
 	. = FALSE
 	var/datum/mod_part/part_datum = get_part_datum(part)
 	if(do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
-		to_chat(wearer, span_notice("[part.declent_ru(NOMINATIVE)] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
+		to_chat(wearer, span_notice("[capitalize(part.declent_ru(NOMINATIVE))] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(part, is_sealed = !part_datum.sealed)
 		return TRUE
