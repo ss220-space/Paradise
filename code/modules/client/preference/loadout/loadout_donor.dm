@@ -136,9 +136,27 @@
 	path = /obj/item/id_decal/emag
 	donator_tier = 3
 
+/datum/gear/donor/id_decal_federal
+	index_name = "Federal ID Decal"
+	display_name = "Наклейка на ID-карту \"Федерация ТСФ\""
+	path = /obj/item/id_decal/federal
+	donator_tier = 3
+
+/datum/gear/donor/id_decal_comrad
+	index_name = "Comrad ID Decal"
+	display_name = "Наклейка на ID-карту \"Товарищ\""
+	path = /obj/item/id_decal/comrad
+	donator_tier = 3
+
 /datum/gear/donor/id_decal_gold
 	index_name = "Gold ID Decal"
 	path = /obj/item/id_decal/gold
+	donator_tier = 4
+
+/datum/gear/donor/id_decal_syndie
+	index_name = "Syndie ID Decal"
+	display_name = "Наклейка на ID-карту \"Синдикат\""
+	path = /obj/item/id_decal/syndie
 	donator_tier = 4
 
 /datum/gear/donor/zippoengraved
@@ -239,6 +257,36 @@
 	index_name = "strip, GreyTide"
 	path = /obj/item/clothing/accessory/head_strip/greytide
 	donator_tier = 3
+
+/datum/gear/donor/strip/deathsquad
+	index_name = "strip, DeathSquad"
+	display_name = "Нашивка \"Эскадрон Смерти\""
+	path = /obj/item/clothing/accessory/head_strip/deathsquad
+	donator_tier = 3
+
+/datum/gear/donor/strip/triforce
+	index_name = "strip, Triforce"
+	display_name = "Нашивка \"Трифорс\""
+	path = /obj/item/clothing/accessory/head_strip/triforce
+	donator_tier = 4
+
+/datum/gear/donor/strip/black_cat
+	index_name = "strip, BlackCat"
+	display_name = "Нашивка \"Чёрный Кот\""
+	path = /obj/item/clothing/accessory/head_strip/black_cat
+	donator_tier = 3
+
+/datum/gear/donor/strip/fox
+	index_name = "strip, Fox"
+	display_name = "Нашивка \"Лиса\""
+	path = /obj/item/clothing/accessory/head_strip/fox
+	donator_tier = 3
+
+/datum/gear/donor/strip/frog
+	index_name = "strip, Frog"
+	display_name = "Нашивка \"Лягушка\""
+	path = /obj/item/clothing/accessory/head_strip/frog
+	donator_tier = 2
 
 /datum/gear/donor/heartglasses
 	index_name = "heart-shaped glasses, color"
