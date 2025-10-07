@@ -152,7 +152,7 @@
 
 /obj/item/clothing/shoes/jackboots/high
 	name = "high jackboots"
-	desc = "Защитные высокие берцы для боевых сценариев или боевых ситуаций."
+	desc = "Защитные высокие берцы, предназначенные для боевых действий."
 	icon_state = "highjacks"
 	item_state = "highjacks"
 
