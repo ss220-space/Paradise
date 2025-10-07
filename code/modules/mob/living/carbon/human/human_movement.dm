@@ -60,12 +60,12 @@
 
 		if(weak_mob)
 			var/list/modifiers = list(
-			STRENGTH_LEVEL_WEAK = 1,
-			STRENGTH_LEVEL_NORMAL = 0.75,
-			STRENGTH_LEVEL_STRONG = 0.5,
-			STRENGTH_LEVEL_IDEAL = 0.25,
+  			"/datum/strength_level/weak" = 1,
+  			"/datum/strength_level/normal" = 0.75,
+  			"/datum/strength_level/strong" = 0.5,
+  			"/datum/strength_level/ideal" = 0.25,
 			)
-			var/strength_modifier = modifiers[get_strength_level()]
+			var/strength_modifier = modifiers["[get_strength_level()]"]
 			var/stamina_damage = 0
 			var/small_pulled = FALSE
 			// Handle pulling all non /obj/item stuff or tiny mobs
