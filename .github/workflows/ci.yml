@@ -136,8 +136,8 @@ jobs:
           echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
           tools/ci/run_server.sh
 
-  unit_tests_and_sql:
-    name: Unit Tests + SQL Validation
+  sql_valid_and_tests:
+    name: SQL Validation + Tests
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
