@@ -1,17 +1,3 @@
-//Directions (already defined on BYOND natively, purely here for reference)
-//#define NORTH		1
-//#define SOUTH		2
-//#define EAST		4
-//#define WEST		8
-//#define NORTHEAST	5
-//#define SOUTHEAST 6
-//#define NORTHWEST 9
-//#define SOUTHWEST 10
-
-// Multi-z directions
-//#define UP 16
-//#define DOWN 32
-
 /// North direction as a string "[1]"
 #define TEXT_NORTH "[NORTH]"
 /// South direction as a string "[2]"
@@ -34,7 +20,6 @@
 ///True if the dir is east/west, false otherwise
 #define EWCOMPONENT(d) (d & (EAST|WEST))
 
-
 /// Using the ^ operator or XOR, we can compared TRUE East and West bits against our direction,
 /// since XOR will only return TRUE if one bit is False and the other is True, if East is 0, that bit will return TRUE
 /// and if West is 1, then that bit will return 0
@@ -48,21 +33,21 @@
 #define EWDIRFLIP(d) (d ^ (EAST|WEST))
 
 // Names for directions (English)
-#define DIR_NAME_ENG_NORTH		"NORTH"
-#define DIR_NAME_ENG_SOUTH		"SOUTH"
-#define DIR_NAME_ENG_EAST		"EAST"
-#define DIR_NAME_ENG_WEST		"WEST"
-#define DIR_NAME_ENG_NORTHEAST	"NORTHEAST"
-#define DIR_NAME_ENG_SOUTHEAST 	"SOUTHEAST"
-#define DIR_NAME_ENG_NORTHWEST 	"NORTHWEST"
-#define DIR_NAME_ENG_SOUTHWEST 	"SOUTHWEST"
+#define DIR_NAME_ENG_NORTH "NORTH"
+#define DIR_NAME_ENG_SOUTH "SOUTH"
+#define DIR_NAME_ENG_EAST "EAST"
+#define DIR_NAME_ENG_WEST "WEST"
+#define DIR_NAME_ENG_NORTHEAST "NORTHEAST"
+#define DIR_NAME_ENG_SOUTHEAST "SOUTHEAST"
+#define DIR_NAME_ENG_NORTHWEST "NORTHWEST"
+#define DIR_NAME_ENG_SOUTHWEST "SOUTHWEST"
 
 // Names for directions (Russian)
-#define DIR_NAME_RUS_NORTH		"СЕВЕР"
-#define DIR_NAME_RUS_SOUTH		"ЮГ"
-#define DIR_NAME_RUS_EAST		"ВОСТОК"
-#define DIR_NAME_RUS_WEST		"ЗАПАД"
-#define DIR_NAME_RUS_NORTHEAST	"СЕВЕРО-ВОСТОК"
-#define DIR_NAME_RUS_SOUTHEAST 	"ЮГО-ВОСТОК"
-#define DIR_NAME_RUS_NORTHWEST 	"СЕВЕРО-ЗАПАД"
-#define DIR_NAME_RUS_SOUTHWEST 	"ЮГО-ЗАПАД"
+#define DIR_NAME_RUS_NORTH "СЕВЕР"
+#define DIR_NAME_RUS_SOUTH "ЮГ"
+#define DIR_NAME_RUS_EAST "ВОСТОК"
+#define DIR_NAME_RUS_WEST "ЗАПАД"
+#define DIR_NAME_RUS_NORTHEAST "СЕВЕРО-ВОСТОК"
+#define DIR_NAME_RUS_SOUTHEAST "ЮГО-ВОСТОК"
+#define DIR_NAME_RUS_NORTHWEST "СЕВЕРО-ЗАПАД"
+#define DIR_NAME_RUS_SOUTHWEST "ЮГО-ЗАПАД"

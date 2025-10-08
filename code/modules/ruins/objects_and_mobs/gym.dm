@@ -1,5 +1,5 @@
-#define EXERCISES_PER_TRY			6
-#define PUNCHINGBAG_HITS_PER_TRY	10
+#define EXERCISES_PER_TRY 6
+#define PUNCHINGBAG_HITS_PER_TRY 10
 
 /obj/structure/punching_bag
 	name = "punching bag"

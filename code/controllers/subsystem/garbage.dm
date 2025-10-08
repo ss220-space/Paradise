@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(garbage)
 	var/list/reference_find_on_fail = list()
 	var/ref_search_stop = FALSE
 	#ifdef REFERENCE_TRACKING_DEBUG
-	//Should we save found refs. Used for unit testing
+	//Should we save found refs. Used for game testing
 	var/should_save_refs = FALSE
 	#endif
 	#endif

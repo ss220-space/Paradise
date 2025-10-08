@@ -343,7 +343,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
-	for(var/mob/R in receive)
+	for(var/mob/R in receive | GLOB.dead_player_list)
 
 		/* --- Loop through the receivers and categorize them --- */
 

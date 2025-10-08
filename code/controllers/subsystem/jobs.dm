@@ -641,7 +641,7 @@ SUBSYSTEM_DEF(jobs)
 	if(!CONFIG_GET(flag/load_jobs_from_txt))
 		return
 
-	var/list/jobEntries = file2list(jobsfile)
+	var/list/jobEntries = world.file2list(jobsfile)
 
 	for(var/job in jobEntries)
 		if(!job)

@@ -1376,7 +1376,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 */
 /mob/living/carbon/human/proc/eyes_shine()
 	// Has xray shining
-	if(HAS_TRAIT(src, TRAIT_XRAY))
+	if(HAS_TRAIT(src, TRAIT_XRAY) || HAS_TRAIT(src, TRAIT_HULK))
 		return TRUE
 
 	// Eyes covered by something
