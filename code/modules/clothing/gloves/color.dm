@@ -367,10 +367,10 @@
 	active = !active
 	if(active)
 		AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
-		user.balloon_alert(user, "Вы активировали дефибриллятор!")
+		user.balloon_alert(user, "вы активировали дефибриллятор!")
 	else
 		qdel(GetComponent(/datum/component/defib))
-		user.balloon_alert(user, "Вы деактивировали дефибриллятор!")
+		user.balloon_alert(user, "вы деактивировали дефибриллятор!")
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
