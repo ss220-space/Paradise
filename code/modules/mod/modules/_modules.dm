@@ -146,12 +146,12 @@
 		return
 
 	if(!has_required_parts(mod.mod_parts, need_active = TRUE) && !(allow_flags & MODULE_ALLOW_UNWORN)) // Doesn't have parts
-		balloon_alert(activator, "необходимые части неактивны!")
+		balloon_alert(activator, "части неактивны!")
 		var/list/slot_strings = list()
 		for(var/slot in required_slots)
 			var/list/slot_list = parse_slot_flags(slot)
 			slot_strings += (length(slot_list) == 1 ? "" : "один из ") + russian_list(slot_list, and_text = " или ")
-		to_chat(activator, span_warning("Для работы модуля необходимо, чтобы данные модули были развернуты: [russian_list(slot_strings)]"))
+		to_chat(activator, span_warning("Для работы модуля необходимо, чтобы были развёрнуты данные части: [russian_list(slot_strings)]"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 
@@ -192,7 +192,7 @@
 		mod.selected_module = src
 		if(device)
 			if(mod.wearer.put_in_hands(device))
-				balloon_alert(activator, "[device.declent_ru(NOMINATIVE)] развёрнут[genderize_ru(device.gender, "", "а", "о", "ы")]")
+				balloon_alert(activator, "устройство развёрнуто")
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 				RegisterSignal(mod.wearer, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dropkey))
 			else
@@ -215,7 +215,7 @@
 	if(module_type == MODULE_ACTIVE)
 		mod.selected_module = null
 		if(display_message)
-			balloon_alert(mod.wearer, device ? "[device.declent_ru(NOMINATIVE)] втянут[genderize_ru(device.gender, "", "а", "о", "ы")]" : "деактивировано")
+			balloon_alert(mod.wearer, "устройство свёрнуто")
 		if(device)
 			mod.wearer.drop_transfer_item_to_loc(device, src, TRUE)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
@@ -529,14 +529,14 @@
 	if(!length(accepted_anomalies))
 		return
 	if(core)
-		. += "К модулю прикрепл[genderize_ru(core.gender, "ён", "ена", "ено", "ены")] [core.declent_ru(NOMINATIVE)]. [core_removable ? "Используйте <b>отвёртку</b>, чтобы открепить ядро." : "Из-за дизайна модуля, ядро невозможно достать."]"
+		. += span_notice("К модулю прикрепл[genderize_ru(core.gender, "ён", "ена", "ено", "ены")] [core.declent_ru(NOMINATIVE)]. [core_removable ? "Используйте <b>отвёртку</b>, чтобы открепить ядро." : "Из-за дизайна модуля ядро невозможно достать."]")
 	else
 		var/list/core_list = list()
 		for(var/path in accepted_anomalies)
 			var/atom/core_dummy = new path
 			core_list += core_dummy.declent_ru(NOMINATIVE)
 			qdel(core_dummy)
-		. += "Для работы модуля требуется [russian_list(core_list, and_text = " или ")]"
+		. += span_notice("Для работы модуля требуется [russian_list(core_list, and_text = " или ")]")
 		if(!core_removable)
 			. += span_notice("Из-за дизайна модуля, ядро невозможно достать.")
 
@@ -562,7 +562,7 @@
 		return
 
 	if(core)
-		balloon_alert(user, "внутри уже есть ядро!")
+		balloon_alert(user, "ядро уже есть!")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!user.transfer_item_to_loc(item, src))
@@ -576,12 +576,12 @@
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(!core)
-		balloon_alert(user, "внутри нет ядра")
+		balloon_alert(user, "нет ядра!")
 		return
 	if(!core_removable)
 		balloon_alert(user, "нельзя удалить ядро")
 		return
-	balloon_alert(user, "удаление ядра")
+	balloon_alert(user, "удаление ядра...")
 	if(!do_after(user, 3 SECONDS, target = src))
 		balloon_alert(user, "прервано")
 		return

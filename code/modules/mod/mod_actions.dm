@@ -17,7 +17,7 @@
 		return FALSE
 	var/obj/item/mod/control/mod = target
 	if(mod.malfunctioning && prob(75))
-		usr.balloon_alert(usr, "сбой при активации!")
+		usr.balloon_alert(usr, "сбой активации!")
 		return FALSE
 	return TRUE
 

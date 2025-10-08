@@ -365,7 +365,7 @@
 			return
 		var/atom/movable/organ = target
 		if(length(organ_list) >= max_organs)
-			balloon_alert(mod.wearer, "слишком много органов!")
+			balloon_alert(mod.wearer, "лимит органов!")
 			return
 		organ_list += organ
 		organ.forceMove(src)

@@ -169,7 +169,7 @@
 
 /obj/item/mod/construction/shell
 	name = "MOD shell"
-	desc = "Явно незавершённое устройство с десятками проводов и коннекторов, используемое для хранения, развёртывания и использования модульных экзокостюмов."
+	desc = "Явно незавершённое устройство с десятками проводов и коннекторов, предназначенное для хранения, развёртывания и использования модульных экзокостюмов."
 	icon_state = "mod-construction_start"
 	var/obj/item/core
 	var/obj/item/helmet
@@ -236,7 +236,7 @@
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					core.forceMove(drop_location())
-					balloon_alert(user, "ядро вынуто")
+					balloon_alert(user, "ядро извлечено")
 				construction_step = START_STEP
 
 		if(SCREWED_CORE_STEP)
@@ -260,14 +260,14 @@
 					balloon_alert(user, "невозможно!")
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				balloon_alert(user, "грудная пластина установлена")
+				balloon_alert(user, "нагрудник установлен")
 				chestplate = part
 				chestplate.forceMove(src)
 				construction_step = CHESTPLATE_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					helmet.forceMove(drop_location())
-					balloon_alert(user, "шлем удалён")
+					balloon_alert(user, "шлем отсоединён")
 					helmet = null
 					construction_step = SCREWED_CORE_STEP
 
@@ -277,43 +277,43 @@
 					balloon_alert(user, "невозможно!")
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				balloon_alert(user, "запчасти для рук установлены")
+				balloon_alert(user, "перчатки закреплены")
 				gauntlets = part
 				gauntlets.forceMove(src)
 				construction_step = GAUNTLETS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					chestplate.forceMove(drop_location())
-					balloon_alert(user, "грудная пластина удалена")
+					balloon_alert(user, "нагрудник отсоединён")
 					chestplate = null
 					construction_step = HELMET_STEP
 
 		if(GAUNTLETS_STEP)
 			if(istype(part, /obj/item/mod/construction/boots)) //Construct
 				if(!user.drop_from_active_hand())
-					balloon_alert(user, "невозможно выпустить из руки!")
+					balloon_alert(user, "невозможно!")
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				balloon_alert(user, "запчасти для ног установлены")
+				balloon_alert(user, "ботинки закреплены")
 				boots = part
 				boots.forceMove(src)
 				construction_step = BOOTS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					gauntlets.forceMove(drop_location())
-					balloon_alert(user, "запчасти для рук удалены")
+					balloon_alert(user, "перчатки отсоединены")
 					gauntlets = null
 					construction_step = CHESTPLATE_STEP
 
 		if(BOOTS_STEP)
 			if(part.tool_behaviour == TOOL_WRENCH) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
-					balloon_alert(user, "все детали закреплены")
+					balloon_alert(user, "детали закреплены")
 					construction_step = WRENCHED_ASSEMBLY_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					boots.forceMove(drop_location())
-					balloon_alert(user, "запчасти для ног удалены")
+					balloon_alert(user, "ботинки отсоединены")
 					boots = null
 					construction_step = GAUNTLETS_STEP
 

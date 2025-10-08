@@ -21,7 +21,7 @@
 	if(!istype(part) || user.incapacitated())
 		return
 	if(active || activating)
-		balloon_alert(user, "сначала выключите костюм!")
+		balloon_alert(user, "выключите костюм!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	var/parts_to_check = parts - part
@@ -98,7 +98,7 @@
 			return TRUE
 		else if(delayed_seal_part(part))
 			return TRUE
-		balloon_alert(user, "не удалось, свёртывание!")
+		balloon_alert(user, "неудача, свёртывание!")
 		retract(user, part, instant = TRUE)
 	else
 		if(part_datum.overslotting)
@@ -107,7 +107,7 @@
 				wearer.drop_item_ground(overslot, force = TRUE, silent = TRUE)
 		if(!user)
 			return FALSE
-		balloon_alert(user, "снимите лишнюю одежду!")
+		balloon_alert(user, "мешает одежда!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
@@ -162,12 +162,12 @@
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(open && !force_deactivate)
-		balloon_alert(user, "закройте панель костюма!")
+		balloon_alert(user, "закройте панель!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(activating)
 		if(!force_deactivate)
-			balloon_alert(user, "костюм уже [active ? "отключается" : "включается"]")
+			balloon_alert(user, "уже [active ? "отключается" : "включается"]")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	for(var/obj/item/mod/module/module as anything in modules)

@@ -211,7 +211,7 @@
 
 	var/obj/structure/table/nearby_table = locate() in range(1, mod.wearer)
 	playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE)
-	balloon_alert(mod.wearer, "бумага напечатана [nearby_table ? "на стол" : ""]")
+	balloon_alert(mod.wearer, "бумага напечатана")
 
 	mod.wearer.put_in_hands(crisp_paper)
 	if(nearby_table)

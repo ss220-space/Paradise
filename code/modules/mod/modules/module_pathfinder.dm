@@ -42,7 +42,7 @@
 	if(!do_after(user, 1.5 SECONDS, target = target))
 		return
 	if(!implant.implant(target, user))
-		balloon_alert(user, "невозможно установить био-чип!")
+		balloon_alert(user, "невозможно!")
 		return
 	if(target == user)
 		balloon_alert(user, "био-чип установлен")

@@ -380,7 +380,7 @@
 
 		if(NANOFROST)
 			if(reagents.total_volume < 100)
-				balloon_alert(user, "в баке мало воды!")
+				balloon_alert(user, "мало воды!")
 				return
 			if(!COOLDOWN_FINISHED(src, nanofrost_cooldown))
 				balloon_alert(user, "на перезарядке!")
@@ -403,7 +403,7 @@
 				to_chat(user, span_warning("Металлическая пена всё ещё синтезируется."))
 				return
 			if(reagents.total_volume < 10)
-				balloon_alert(user, "в баке мало воды!")
+				balloon_alert(user, "мало воды!")
 				return
 			var/datum/effect_system/fluid_spread/foam/metal/F = new()
 			F.set_up(amount = 0, location = get_turf(target))

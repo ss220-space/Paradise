@@ -102,7 +102,7 @@
 
 /obj/item/mod/module/clamp/proc/check_crate_pickup(atom/movable/target)
 	if(length(stored_crates) >= max_crates)
-		balloon_alert(mod.wearer, "слишком много ящиков!")
+		balloon_alert(mod.wearer, "лимит ящиков!")
 		return FALSE
 	for(var/mob/living/mob in target.client_mobs_in_contents)
 		if(mob.mob_size < MOB_SIZE_HUMAN)

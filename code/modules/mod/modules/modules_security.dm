@@ -29,21 +29,21 @@
 	if(!holstered)
 		var/obj/item/gun/holding = mod.wearer.get_active_hand()
 		if(!holding)
-			balloon_alert(mod.wearer, "нечего положить в кобуру!")
+			balloon_alert(mod.wearer, "нечего класть!")
 			return
 		if(!istype(holding) || holding.w_class > WEIGHT_CLASS_NORMAL) //god no holstering a BSG / combat shotgun
-			balloon_alert(mod.wearer, "не лезет в кобуру!")
+			balloon_alert(mod.wearer, "не влезает!")
 			return
 		holstered = holding
 		mod.wearer.visible_message(
-			span_notice("[mod.wearer] убира[pluralize_ru(mod.wearer.gender,"ет","ют")] [holding.declent_ru(ACCUSATIVE)] в кобуру."),
+			span_notice("[mod.wearer] убира[pluralize_ru(mod.wearer.gender, "ет", "ют")] [holding.declent_ru(ACCUSATIVE)] в кобуру."),
 			span_notice("вы убираете [holding.declent_ru(ACCUSATIVE)] в кобуру.")
 		)
 		mod.wearer.temporarily_remove_item_from_inventory(holding)
 		holding.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
 		mod.wearer.visible_message(
-			span_warning("[mod.wearer] вытаскива[pluralize_ru(mod.wearer.gender,"ет","ют")] [holstered.declent_ru(ACCUSATIVE)] из кобуры!"),
+			span_warning("[mod.wearer] вытаскива[pluralize_ru(mod.wearer.gender, "ет", "ют")] [holstered.declent_ru(ACCUSATIVE)] из кобуры!"),
 			span_warning("Вы вытаскиваете [holstered.declent_ru(ACCUSATIVE)] из кобуры!")
 		)
 	else
@@ -367,7 +367,7 @@
 /obj/item/mod/module/criminalcapture/proc/delete_bag(obj/structure/closet/body_bag/bag)
 	if(mod?.wearer)
 		UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
-		balloon_alert(mod.wearer, "bag dissipated")
+		balloon_alert(mod.wearer, "мешок рассеялся")
 	bag.open()
 	qdel(bag)
 
@@ -444,7 +444,7 @@
 	if(!mod.wearer.equip_to_slot_if_possible(item, ITEM_SLOT_SUITSTORE, qdel_on_fail = FALSE, disable_warning = TRUE))
 		return
 	playsound(src, 'sound/items/modsuit/magnetic_harness.ogg', 50, TRUE)
-	balloon_alert(mod.wearer, "[item.declent_ru(NOMINATIVE)] поднят[genderize_ru(item.gender, "", "а", "о", "ы")]")
+	balloon_alert(mod.wearer, "оружие возвращено")
 	drain_power(use_energy_cost)
 
 // MARK: Pepper shoulders

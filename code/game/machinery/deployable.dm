@@ -267,6 +267,9 @@
 /obj/structure/barricade/mime/mrcd
 	stacktype = null
 
+/**
+ * MARK: Dropwall
+ */
 /obj/structure/barricade/dropwall
 	name = "dropwall"
 	desc = "Временный энергетический щит, питаемый от небольшого генератора. Уничтожение генератора приведёт к полному отключению всех привязанных к нему щитов."
@@ -320,14 +323,15 @@
 
 /obj/item/grenade/barrier/dropwall
 	name = "dropwall shield generator"
-	desc = "Генератор энергетического щита, разработанный корпорацией \"Шелгард\". Используется для создания временного укрытия, при этом позволяя вести безопасную стрельбу со стороны генератора."
+	desc = "Генератор энергетического щита, разработанный корпорацией \"Стальная Гвардия\". Используется для создания временного \
+		укрытия, при этом позволяя вести безопасную стрельбу с внутренней стороны щита."
 	ru_names = list(
-		NOMINATIVE = "генератор энергетического щита",
-		GENITIVE = "генератора энергетического щита",
-		DATIVE = "генератору энергетического щита",
-		ACCUSATIVE = "генератор энергетического щита",
-		INSTRUMENTAL = "генератором энергетического щита",
-		PREPOSITIONAL = "генераторе энергетического щита"
+		NOMINATIVE = "граната энергощита",
+		GENITIVE = "граната энергощита",
+		DATIVE = "граната энергощита",
+		ACCUSATIVE = "граната энергощита",
+		INSTRUMENTAL = "граната энергощита",
+		PREPOSITIONAL = "граната энергощита"
 	)
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	icon = 'icons/obj/dropwall.dmi'
@@ -376,14 +380,14 @@
 
 /obj/structure/dropwall_generator
 	name = "deployed dropwall shield generator"
-	desc = "Генератор энергетического щита, разработанный корпорацией \"Шелгард\". Используется для создания временного укрытия, при этом позволяя вести безопасную стрельбу со стороны генератора."
+	desc = "Генератор энергетического щита, разработанный корпорацией \"Стальная гвардия\". Используется для создания временного укрытия, при этом позволяя вести безопасную стрельбу со стороны генератора."
 	ru_names = list(
-		NOMINATIVE = "активированный генератор энергетического щита",
-		GENITIVE = "активированного генератора энергетического щита",
-		DATIVE = "активированному генератору энергетического щита",
-		ACCUSATIVE = "активированный генератор энергетического щита",
-		INSTRUMENTAL = "активированным генератором энергетического щита",
-		PREPOSITIONAL = "активированном генераторе энергетического щита"
+		NOMINATIVE = "генератор энергощита",
+		GENITIVE = "генератора энергощита",
+		DATIVE = "генератору энергощита",
+		ACCUSATIVE = "генератор энергощита",
+		INSTRUMENTAL = "генератором энергощита",
+		PREPOSITIONAL = "генераторе энергощита"
 	)
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_deployed"
@@ -428,7 +432,7 @@
 
 /obj/structure/dropwall_generator/attackby(obj/item/I, mob/living/user, params) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
 	if(protected)
-		visible_message(span_warning("Щит [declent_ru(GENITIVE)] поглощает удар!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] поглощает удар!"))
 		core_shield.take_damage(I.force, I.damtype, MELEE, TRUE)
 	else
 		return ..()
@@ -447,7 +451,7 @@
 	qdel(src)
 
 /obj/structure/dropwall_generator/proc/power_out()
-	visible_message(span_warning("[declent_ru(NOMINATIVE)] выключается из-за нехватки энергии."))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выключается из-за нехватки энергии."))
 	new /obj/item/used_dropwall(get_turf(src))
 	qdel(src)
 
@@ -465,12 +469,12 @@
 	name = "broken dropwall generator"
 	desc = "Этот генератор вышел из строя и уже ни на что не сгодится."
 	ru_names = list(
-		NOMINATIVE = "сломанный генератор энергетического щита",
-		GENITIVE = "сломанного генератора энергетического щита",
-		DATIVE = "сломанному генератору энергетического щита",
-		ACCUSATIVE = "сломанный генератор энергетического щита",
-		INSTRUMENTAL = "сломанным генератором энергетического щита",
-		PREPOSITIONAL = "сломанном генераторе энергетического щита"
+		NOMINATIVE = "сломанный генератор энергощита",
+		GENITIVE = "сломанного генератора энергощита",
+		DATIVE = "сломанному генератору энергощита",
+		ACCUSATIVE = "сломанный генератор энергощита",
+		INSTRUMENTAL = "сломанным генератором энергощита",
+		PREPOSITIONAL = "сломанном генераторе энергощита"
 	)
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead"
@@ -480,12 +484,12 @@
 /obj/item/storage/box/syndie_kit/dropwall
 	name = "dropwall generator box"
 	ru_names = list(
-		NOMINATIVE = "коробка с генераторами энергетического щита",
-		GENITIVE = "коробку с генераторами энергетического щита",
-		DATIVE = "коробке с генераторами энергетического щита",
-		ACCUSATIVE = "коробку с генераторами энергетического щита",
-		INSTRUMENTAL = "коробке с генераторами энергетического щита",
-		PREPOSITIONAL = "коробкой с генераторами энергетического щита"
+		NOMINATIVE = "коробка с генераторами энергощита",
+		GENITIVE = "коробку с генераторами энергощита",
+		DATIVE = "коробке с генераторами энергощита",
+		ACCUSATIVE = "коробку с генераторами энергощита",
+		INSTRUMENTAL = "коробке с генераторами энергощита",
+		PREPOSITIONAL = "коробкой с генераторами энергощита"
 	)
 
 /obj/item/storage/box/syndie_kit/dropwall/populate_contents()
@@ -495,24 +499,24 @@
 /obj/item/grenade/barrier/dropwall/firewall
 	name = "firewall shield generator"
 	ru_names = list(
-		NOMINATIVE = "генератор огненного щита",
-		GENITIVE = "генератора огненного щита",
-		DATIVE = "генератору огненного щита",
-		ACCUSATIVE = "генератор огненного щита",
-		INSTRUMENTAL = "генератором огненного щита",
-		PREPOSITIONAL = "генераторе огненного щита"
+		NOMINATIVE = "граната огненного щита",
+		GENITIVE = "граната огненного щита",
+		DATIVE = "граната огненного щита",
+		ACCUSATIVE = "граната огненного щита",
+		INSTRUMENTAL = "граната огненного щита",
+		PREPOSITIONAL = "граната огненного щита"
 	)
 	generator_type = /obj/structure/dropwall_generator/firewall
 
 /obj/structure/dropwall_generator/firewall
 	name = "deployed firewall shield generator"
 	ru_names = list(
-		NOMINATIVE = "активированный генератор огненного щита",
-		GENITIVE = "активированного генератора огненного щита",
-		DATIVE = "активированному генератору огненного щита",
-		ACCUSATIVE = "активированный генератор огненного щита",
-		INSTRUMENTAL = "активированным генератором огненного щита",
-		PREPOSITIONAL = "активированном генераторе огненного щита"
+		NOMINATIVE = "генератор огненного щита",
+		GENITIVE = "генератора огненного щита",
+		DATIVE = "генератору огненного щита",
+		ACCUSATIVE = "генератор огненного щита",
+		INSTRUMENTAL = "генератором огненного щита",
+		PREPOSITIONAL = "генераторе огненного щита"
 	)
 	barricade_type = /obj/structure/barricade/dropwall/firewall
 

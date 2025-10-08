@@ -129,22 +129,22 @@
 /obj/item/mod/control/examine(mob/user)
 	. = ..()
 	if(active)
-		. += "Заряд: [core ? "[get_charge_percent()]%" : "ОШИБКА: Ядро отсутствует"]."
-		. += "Выбранный модуль: [selected_module?.declent_ru(NOMINATIVE) || "Модуль не выбран"]."
+		. += "[core ? span_notice("Заряд: [get_charge_percent()]%") : span_warning("<b>ОШИБКА:</b> Ядро отсутствует")]."
+		. += span_notice("Выбранный модуль: [selected_module?.declent_ru(NOMINATIVE) || "Модуль не выбран"].")
 	if(!open && !active)
 		if(!wearer)
-			. += "Чтобы начать работу с модульным костюмом, наденьте его."
-		. += "Вы можете открыть крышку с помощью <b>отвёртки</b>."
+			. += span_notice("Чтобы начать работу с модульным костюмом, наденьте его.")
+		. += span_notice("Вы можете открыть крышку с помощью <b>отвёртки</b>.")
 	else if(open)
-		. += "Вы можете открыть крышку с помощью <b>отвёртки</b>."
-		. += "Вы можете установить дополнительные <b>модули</b> внутрь, если для них есть место."
-		. += "Вы можете удалить лишние модули с помощью <b>лома</b>."
-		. += "Вы можете установить блокировку по доступу с помощью вашей <b>личной карты</b>."
-		. += "Вы можете получить доступ к проводам с помощью любого подходящего для этого <b>инструмента</b>."
+		. += span_notice("Вы можете открыть крышку с помощью <b>отвёртки</b>.")
+		. += span_notice("Вы можете установить дополнительные <b>модули</b> внутрь, если для них есть место.")
+		. += span_notice("Вы можете удалить лишние модули с помощью <b>лома</b>.")
+		. += span_notice("Вы можете установить блокировку по доступу с помощью вашей <b>личной карты</b>.")
+		. += span_notice("Вы можете получить доступ к проводам с помощью любого подходящего для этого <b>инструмента</b>.")
 		if(core)
-			. += "Вы можете удалить [core.declent_ru(ACCUSATIVE)] с помощью <b>гаечного ключа</b>."
+			. += span_notice("Вы можете удалить [core.declent_ru(ACCUSATIVE)] с помощью <b>гаечного ключа</b>.")
 		else
-			. += "Ядро отсутствует. Вы можете установить новое <b>ядро модульного экзокостюма</b>."
+			. += span_notice("Ядро отсутствует. Вы можете установить новое <b>ядро модульного экзокостюма</b>.")
 
 /obj/item/mod/control/get_description_info()
 	if(extended_desc)
@@ -203,7 +203,7 @@
 		if(istype(over_object, /atom/movable/screen/inventory/hand))
 			for(var/obj/item/part as anything in get_parts())
 				if(part.loc != src)
-					balloon_alert(wearer, "втяните части костюма!")
+					balloon_alert(wearer, "сверните костюм!")
 					playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 					return
 			if(!carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
@@ -222,7 +222,7 @@
 		return TRUE
 	if(open)
 		if(!core)
-			balloon_alert(user, "внутри нет ядра!")
+			balloon_alert(user, "нет ядра!")
 			return TRUE
 		wrench.play_tool_sound(src, 100)
 		if(!wrench.use_tool(src, user, 3 SECONDS) || !open)
@@ -242,12 +242,12 @@
 		balloon_alert(user, "выключите костюм!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
-	balloon_alert(user, "[open ? "закрываем" : "открываем"] крышку...")
 	screwdriver.play_tool_sound(src, 100)
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
 			balloon_alert(user, "выключите костюм!")
-		screwdriver.play_tool_sound(src, 100)
+			return FALSE
+		playsound(src, 'sound/items/screwdriver2.ogg', 50, TRUE, -3)
 		balloon_alert(user, "крышка [open ? "закрыта" : "открыта"]")
 		open = !open
 	return TRUE
@@ -303,7 +303,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(core)
-			balloon_alert(user, "внутри уже есть ядро!")
+			balloon_alert(user, "ядро уже есть!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/obj/item/mod/core/attacking_core = attacking_item
@@ -322,13 +322,13 @@
 		return ATTACK_CHAIN_PROCEED
 	else if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!core)
-			balloon_alert(user, "внутри нет ядра!")
+			balloon_alert(user, "нет ядра!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
 	else if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
-			balloon_alert(user, "внутри нет ядра!")
+			balloon_alert(user, "нет ядра!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
@@ -383,7 +383,7 @@
 
 /obj/item/mod/control/emag_act(mob/user)
 	locked = !locked
-	balloon_alert(user, "требование доступа [locked ? "восстановлено" : "снято"]")
+	balloon_alert(user, "доступ [locked ? "требуется" : "не требуется"]")
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()
@@ -544,7 +544,7 @@
 	var/radial_anchor = src
 	if(istype(user.loc, /obj/effect/dummy/phased_mob))
 		radial_anchor = get_turf(user.loc) //they're phased out via some module, anchor the radial on the turf so it may still display
-	if (!isnull(anchor_override))
+	if(!isnull(anchor_override))
 		radial_anchor = anchor_override
 	var/pick = show_radial_menu(user, radial_anchor, items, require_near = isnull(anchor_override))
 	if(!pick)
@@ -582,12 +582,12 @@
 		return
 	if(!new_module.has_required_parts(mod_parts))
 		if(user)
-			balloon_alert(user, "некуда устанавливать!")
+			balloon_alert(user, "некуда установить!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(!new_module.can_install(src))
 		if(user)
-			balloon_alert(user, "не удается установить")
+			balloon_alert(user, "невозможно!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(user && !user.drop_from_active_hand())
@@ -631,7 +631,7 @@
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	req_access = card.access.Copy()
-	balloon_alert(user, "доступ обновлен!")
+	balloon_alert(user, "доступ обновлён!")
 
 /obj/item/mod/control/proc/get_charge_source()
 	return core?.charge_source()

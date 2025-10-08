@@ -215,7 +215,7 @@
 
 	if(!mod.open)
 		return
-	examine_text += cell ? "Вы можете отсоединить батарею от ядра." : "Вы можете установить новую батарею в ядро."
+	examine_text += span_notice([cell ? "Вы можете отсоединить батарею от ядра." : "Вы можете установить новую батарею в ядро."])
 
 /obj/item/mod/core/standard/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
@@ -277,7 +277,7 @@
 	mod.update_charge_alert()
 
 /obj/item/mod/core/plasma
-	name = "\improper MOD plasma core"
+	name = "MOD plasma core"
 	desc = "Попытка Нанотрейзен извлечь выгоду из своих исследований плазмы. Данный тип ядер можно подзаряжать \
 		с помощью листов плазмы, позволяя шахтёрским бригадам работать без необходимости постоянно возвращаться для дозарядки костюмов."
 	icon_state = "mod-core-plasma"

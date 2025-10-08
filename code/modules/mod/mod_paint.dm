@@ -25,14 +25,14 @@
 		balloon_alert(user, "выключите костюм!")
 		return ATTACK_CHAIN_BLOCKED
 	if(!istype(mod.theme, compatible_theme))
-		balloon_alert(user, "несовместимый тип костюма!")
+		balloon_alert(user, "несовместимый костюм!")
 		return ATTACK_CHAIN_BLOCKED
 	mod.theme.set_skin(mod, skin)
 	if(make_spaceproof)
 		mod.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 		for(var/obj/item/clothing/C in mod.get_parts())
 			C.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	balloon_alert(user, "успешно перекрашено!")
+	balloon_alert(user, "перекрашено")
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED
 
