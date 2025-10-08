@@ -131,7 +131,7 @@
 				if(prob(50)) //выбираем мужское имя или фамилию
 					golem_surname = pick(GLOB.first_names_male)
 				else
-					golem_surname = pick(GLOB.last_names)
+					golem_surname = pick(GLOB.last_names_male)
 			if(FEMALE)
 				if(prob(50)) //выбираем женское имя или фамилию
 					golem_surname = pick(GLOB.first_names_female)
