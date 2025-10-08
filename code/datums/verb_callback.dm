@@ -10,7 +10,7 @@
 	. = ..()
 
 
-#ifndef UNIT_TESTS
+#ifndef GAME_TESTS
 /datum/callback/verb_callback/Invoke(...)
 	if(isnull(user))
 		return
