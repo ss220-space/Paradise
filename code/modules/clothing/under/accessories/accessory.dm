@@ -1246,7 +1246,7 @@
 
 /obj/item/clothing/accessory/head_strip/deathsquad
 	name = "deathsquad's strip"
-	desc = "Плотно сшитая круглая нашивка из чёрного бархата с красными вставками. По центру красуется шлем бойца Эскадрона Смерти, которые являются \[NT Redacted\]."
+	desc = "Плотно сшитая круглая нашивка из чёрного бархата с красными вставками. По центру красуется шлем бойца Эскадрона Смерти, которые являются \[ОТРЕДАКТИРОВАНО\]."
 	icon_state = "deathsquadstrip"
 	item_state = "deathsquadstrip"
 	strip_bubble_icon = "deathsquad"
