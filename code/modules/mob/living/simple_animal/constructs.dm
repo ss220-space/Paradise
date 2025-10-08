@@ -117,8 +117,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
-	maxHealth = 400
-	health = 400
+	maxHealth = 300
+	health = 300
 	response_harm   = "harmlessly punches"
 	harm_intent_damage = 0
 	obj_damage = 90
@@ -132,7 +132,6 @@
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	move_resist = MOVE_FORCE_STRONG
-	move_force = MOVE_FORCE_STRONG
 	pull_force = MOVE_FORCE_STRONG
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
 	force_threshold = 11
@@ -179,8 +178,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "floating"
 	icon_living = "floating"
-	maxHealth = 150
-	health = 150
+	maxHealth = 75
+	health = 75
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "рубит"
@@ -217,8 +216,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "artificer"
 	icon_living = "artificer"
-	maxHealth = 100
-	health = 100
+	maxHealth = 50
+	health = 50
 	response_harm = "viciously beats"
 	harm_intent_damage = 5
 	obj_damage = 80
