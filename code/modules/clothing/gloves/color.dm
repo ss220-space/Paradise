@@ -332,6 +332,8 @@
 	icon_state = "inugami_gl"
 	item_state = "inugami_gl"
 	item_color = null
+	var/active = FALSE
+	actions_types = list(/datum/action/item_action/toggle_defibrillator)
 	surgery_step_time = 0.5 SECONDS
 	surgery_germ_chance = 50
 
@@ -344,10 +346,6 @@
 		INSTRUMENTAL = "медицинскими перчатками Inugami",
 		PREPOSITIONAL = "медицинских перчатках Inugami",
 	)
-
-/obj/item/clothing/gloves/color/latex/inugami/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
 
 /obj/item/clothing/gloves/color/latex/inugami/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -363,6 +361,16 @@
 /obj/item/clothing/gloves/color/latex/inugami/proc/on_surgery_step_init(user, time_pointer)
 	SIGNAL_HANDLER
 	*time_pointer = surgery_step_time
+
+/obj/item/clothing/gloves/color/latex/inugami/attack_self(mob/living/carbon/human/user)
+	. = ..()
+	active = !active
+	if(active)
+		AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
+		user.balloon_alert(user, "Вы активировали дефибриллятор!")
+	else
+		qdel(GetComponent(/datum/component/defib))
+		user.balloon_alert(user, "Вы деактивировали дефибриллятор!")
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
