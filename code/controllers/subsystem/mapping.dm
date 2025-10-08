@@ -153,9 +153,14 @@ SUBSYSTEM_DEF(mapping)
 	if(!CONFIG_GET(flag/disable_space_ruins) && !(map_datum.disables & DISABLE_SPACE_RUINS))
 		handleRuins()
 
-	// Makes a blank space level for the sake of randomness
-	GLOB.space_manager.add_new_zlevel(EMPTY_AREA, linkage = CROSSLINKED, traits = list(REACHABLE))
+	var/empty_z_traits = list(REACHABLE)
+#ifdef GAME_TESTS
+	preloadTemplates(path = "_maps/map_files/tests/")
+	empty_z_traits |= GAME_TEST_LEVEL
+#endif
 
+	// Makes a blank space level for the sake of randomness
+	GLOB.space_manager.add_new_zlevel(EMPTY_AREA, linkage = CROSSLINKED, traits = empty_z_traits)
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
