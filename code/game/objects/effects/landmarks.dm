@@ -230,7 +230,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "GREEN"
 
 /obj/effect/landmark/spawner/team1/Initialize(mapload)
-	spawner_list = GLOB.battle_teams_spawns
+	spawner_list = GLOB.battle_teams_spawns[JOB_TITLE_TEAM1]
 	return ..()
 
 /obj/effect/landmark/spawner/team2
@@ -238,7 +238,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "BLUE"
 
 /obj/effect/landmark/spawner/team2/Initialize(mapload)
-	spawner_list = GLOB.battle_teams_spawns
+	spawner_list = GLOB.battle_teams_spawns[JOB_TITLE_TEAM2]
 	return ..()
 
 /obj/effect/landmark/spawner/team3
@@ -246,7 +246,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "RED"
 
 /obj/effect/landmark/spawner/team3/Initialize(mapload)
-	spawner_list = GLOB.battle_teams_spawns
+	spawner_list = GLOB.battle_teams_spawns[JOB_TITLE_TEAM3]
 	return ..()
 
 /obj/effect/landmark/spawner/airdrop
