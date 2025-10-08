@@ -37,7 +37,7 @@
 		return TRUE
 
 	var/turf/caster_turf = get_turf(user)
-	for(var/summon_thing as anything in summon_type)
+	for(var/summon_thing in summon_type)
 		if(locate(summon_thing) in caster_turf)
 			return FALSE
 
