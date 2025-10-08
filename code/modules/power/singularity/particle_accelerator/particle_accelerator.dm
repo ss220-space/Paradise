@@ -52,12 +52,12 @@ Closed   - [reference]c
 Powered  - [reference]p[strength]
 Strength being set by the computer and a null strength (Computer is powered off or inactive) returns a 'null', counting as empty
 So, hopefully this is helpful if any more icons are to be added/changed/wondering what the hell is going on here
-
 */
-#define ACCELERATOR_UNWRENCHED	0
-#define ACCELERATOR_WRENCHED	1
-#define ACCELERATOR_WIRED		2
-#define ACCELERATOR_READY		3
+
+#define ACCELERATOR_UNWRENCHED 0
+#define ACCELERATOR_WRENCHED 1
+#define ACCELERATOR_WIRED 2
+#define ACCELERATOR_READY 3
 
 /obj/structure/particle_accelerator
 	name = "Particle Accelerator"
@@ -98,7 +98,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(user, span_notice("It is fastened to the floor!"))
 		return
 	dir = turn(dir, 270)
 
@@ -273,7 +273,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(user, span_notice("It is fastened to the floor!"))
 		return
 	dir = turn(dir, 270)
 

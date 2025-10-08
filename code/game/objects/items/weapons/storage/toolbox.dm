@@ -100,7 +100,7 @@
 
 	playsound(user, 'sound/items/handling/toolbox_open.ogg', 50)
 
-	var/obj/item/picked_item = show_radial_menu(user, src, choices, require_near = TRUE, anim_speed = 0.1)
+	var/obj/item/picked_item = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, anim_speed = 0.1)
 	if(!picked_item)
 		return
 
@@ -118,6 +118,19 @@
 
 	INVOKE_ASYNC(src, PROC_REF(use_tool_on), object, user, selected)
 	return
+
+/**
+ * Runs a series of pre-checks before opening the radial menu to the user.
+ *
+ * Arguments:
+ * * user - the mob trying to open the radial menu.
+ */
+/obj/item/storage/toolbox/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
 
 /obj/item/storage/toolbox/proc/use_tool_on(atom/object, mob/living/user, obj/item/picked_tool)
 	current_interactions += 1

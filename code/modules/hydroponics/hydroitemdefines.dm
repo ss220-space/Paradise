@@ -142,7 +142,7 @@
 	)
 
 /obj/item/hatchet/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
@@ -197,7 +197,7 @@
 	)
 
 /obj/item/scythe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
@@ -224,7 +224,7 @@
 /obj/item/scythe/tele/attack_self(mob/user)
 	extend = !extend
 	if(extend)
-		to_chat(user, "<span class='warning'>With a flick of your wrist, you extend the scythe. It's reaping time!</span>")
+		to_chat(user, span_warning("With a flick of your wrist, you extend the scythe. It's reaping time!"))
 		slot_flags = ITEM_SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
@@ -233,7 +233,7 @@
 		//Extend sound (blade unsheath)
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, TRUE)	//Sound credit to Qat of Freesound.org
 	else
-		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
+		to_chat(user, span_notice("You collapse the scythe, folding it away for easy storage."))
 		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3

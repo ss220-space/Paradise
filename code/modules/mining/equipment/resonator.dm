@@ -1,4 +1,4 @@
-#define RESONATOR_MODE_AUTO   1
+#define RESONATOR_MODE_AUTO 1
 #define RESONATOR_MODE_MANUAL 2
 #define RESONATOR_MODE_MATRIX 3
 
@@ -91,7 +91,7 @@
 		INSTRUMENTAL = "резонансным полем",
 		PREPOSITIONAL = "резонансном поле"
 	)
-	
+
 
 /obj/effect/temp_visual/resonance/Initialize(mapload, set_creator, set_resonator, mode, set_failure = 40)
 	if(mode == RESONATOR_MODE_AUTO)

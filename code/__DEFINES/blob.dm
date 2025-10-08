@@ -50,8 +50,8 @@
 #define SECOND_STAGE_WARN span_userdanger("Вы чувствуете, что вот-вот лопнете.")
 
 
-#define TOTAL_BLOB_MASS  SSticker?.mode?.legit_blobs?.len
-#define NEEDED_BLOB_MASS  SSticker?.mode?.blob_win_count
+#define TOTAL_BLOB_MASS SSticker?.mode?.legit_blobs?.len
+#define NEEDED_BLOB_MASS SSticker?.mode?.blob_win_count
 
 //Few global vars to track the blob
 GLOBAL_LIST_EMPTY(blobs)

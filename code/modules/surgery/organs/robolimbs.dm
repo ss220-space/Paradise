@@ -4,11 +4,11 @@ GLOBAL_LIST_EMPTY(selectable_robolimbs)
 GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 
 ///Model = This iconset contains ONLY a monitor and is a subtypeof a Brand
-#define MODEL        0
+#define MODEL 0
 ///Brand = This iconset contains all body parts (including a monitor) and there are other monitor Models for this type/Brand
-#define BRAND        1
-//Childless = This iconset contains all body parts (including a monitor). There are no other monitor Models for this type
-#define CHILDLESS    2
+#define BRAND 1
+///Childless = This iconset contains all body parts (including a monitor). There are no other monitor Models for this type
+#define CHILDLESS 2
 
 /datum/robolimb
 	///The name shown when selecting the limb(s) from a menu.

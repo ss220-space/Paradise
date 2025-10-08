@@ -11,8 +11,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.minor_announcement.announce("Что это за хуйня?!",
-									"Общая тревога!"
+	GLOB.minor_announcement.announce(
+		message = "Что это за хуйня?!",
+		new_title = "Общая тревога!"
 	)
 
 /datum/event/immovable_rod/start()

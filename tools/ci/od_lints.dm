@@ -31,6 +31,7 @@
 #pragma SuspiciousSwitchCase error
 #pragma PointlessPositionalArgument error
 #pragma ProcArgumentGlobal error // Ref BYOND issue https://www.byond.com/forum/post/2830750
+#pragma UnsupportedAccess disabled
 // NOTE: The next few pragmas are for OpenDream's experimental type checker
 // BEGIN TYPEMAKER
 #pragma UnsupportedTypeCheck disabled

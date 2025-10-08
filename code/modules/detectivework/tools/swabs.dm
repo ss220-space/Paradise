@@ -89,12 +89,12 @@
 		return
 
 	if(is_used())
-		to_chat(user, "<span class='warning'>This swab has already been used.</span>")
+		to_chat(user, span_warning("This swab has already been used."))
 		return
 
 	add_fingerprint(user)
 	inuse = 1
-	to_chat(user, "<span class='notice'>You begin collecting evidence.</span>")
+	to_chat(user, span_notice("You begin collecting evidence."))
 	if(do_after(user, 2 SECONDS, src))
 		var/list/choices = list()
 		if(A.blood_DNA)
@@ -104,7 +104,7 @@
 
 		var/choice
 		if(!choices.len)
-			to_chat(user, "<span class='warning'>There is no evidence on \the [A].</span>")
+			to_chat(user, span_warning("There is no evidence on \the [A]."))
 			inuse = 0
 			return
 		else if(choices.len == 1)
@@ -129,7 +129,7 @@
 		else if(choice == "Gunshot Residue")
 			var/obj/item/clothing/B = A
 			if(!istype(B) || !B.gunshot_residue)
-				to_chat(user, "<span class='warning'>There is no residue on \the [A].</span>")
+				to_chat(user, span_warning("There is no residue on \the [A]."))
 				inuse = 0
 				return
 			target_gsr = B.gunshot_residue

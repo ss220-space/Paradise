@@ -211,6 +211,9 @@
 		var/obj/item/bodyanalyzer/B = I
 		return B.cell
 
+	if(is_spectercell(I))
+		return I
+
 	return null
 
 /obj/machinery/recharger/proc/check_cell_needs_recharging(obj/item/stock_parts/cell/C)
@@ -250,7 +253,7 @@
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
 			. += span_notice("The status display reads:")
 			if(using_power)
-				. += span_notice("- Recharging <b>[((C.chargerate * recharge_coeff)/C.maxcharge)*100]%</b> cell charge per cycle.")
+				. += span_notice("- Recharging <b>[round(((C.chargerate * recharge_coeff)/C.maxcharge)*100)]%</b> cell charge per cycle.")
 			if(charging)
 				. += span_notice("- \The [charging]'s cell is at <b>[C.percent()]%</b>.")
 

@@ -9,7 +9,7 @@
 	if(!isrobot(borgo))
 		borgo = tgui_input_list(usr, "Select a borg", "Select a borg", GLOB.silicon_mob_list, null)
 	if(!isrobot(borgo))
-		to_chat(usr, "<span class='warning'>Borg is required for borgpanel</span>")
+		to_chat(usr, span_warning("Borg is required for borgpanel"))
 		return
 
 	var/datum/borgpanel/borgpanel = new(usr, borgo)

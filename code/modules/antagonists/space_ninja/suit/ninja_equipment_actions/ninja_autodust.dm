@@ -29,10 +29,10 @@
 		if(choise == "Да")
 			if(health_threshold == 0 && auto_dust)
 				health_threshold = -90
-				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")]  в режим <span class='green'>\"Обнаружение смерти\"</span>")
+				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")]  в режим [span_green("\"Обнаружение смерти\"")]")
 			else if(health_threshold == -90 && auto_dust)
 				health_threshold = 0
-				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")] в режим <span class='green'>\"Обнаружение критического состояния\"</span>")
+				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")] в режим [span_green("\"Обнаружение критического состояния\"")]")
 	else if(auto_dust)
 		auto_dust = FALSE
 		user.show_message("Вы выключили программу [span_warning("\"Автораспыления\"")]")

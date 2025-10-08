@@ -165,7 +165,7 @@
 
 #define ADMIN_OFFER_TRAIT "admin_offer"
 
-#define GRAVITATION_TRAIT	"gravitation"
+#define GRAVITATION_TRAIT "gravitation"
 
 #define FAKEFIRE_TRAIT "fakefire"
 

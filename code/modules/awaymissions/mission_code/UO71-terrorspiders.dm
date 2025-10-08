@@ -182,12 +182,12 @@
 /obj/item/gun/energy/laser/awaymission_aeg/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = FALSE)
 	if(is_away_level(new_turf?.z))
 		if(ismob(loc))
-			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
+			to_chat(loc, span_notice("Your [src] activates, starting to draw power from a nearby wireless power source."))
 		selfcharge = TRUE
 	else
 		if(selfcharge)
 			if(ismob(loc))
-				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
+				to_chat(loc, span_danger("Your [src] deactivates, as it is out of range from its power source."))
 			cell.charge = 0
 			selfcharge = FALSE
 			update_icon()

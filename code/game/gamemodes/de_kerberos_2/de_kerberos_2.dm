@@ -93,7 +93,7 @@
 /datum/game_mode/de_kerberos_2/late_join(mob/new_player/player)
 	var/min_count = INFINITY
 	var/datum/team/team = null
-	for(var/possible_team_name as anything in teams)
+	for(var/possible_team_name in teams)
 		var/datum/team/possible_team = teams[possible_team_name]
 		var/team_len = LAZYLEN(possible_team.members)
 		if(team_len >= min_count)

@@ -475,7 +475,7 @@
 				continue
 
 			rangers[mob] = TRUE
-			mob.playsound_local(get_turf(mob), null, 100, channel = CHANNEL_JUKEBOX, sound = song_played, use_reverb = FALSE)
+			mob.playsound_local(get_turf(mob), null, 100, channel = CHANNEL_JUKEBOX, sound_to_use = song_played, use_reverb = FALSE)
 
 		for(var/mob/mob as anything in rangers)
 			var/mob/living/l_mob = mob

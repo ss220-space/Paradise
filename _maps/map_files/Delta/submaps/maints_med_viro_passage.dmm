@@ -11,7 +11,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/shard,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
@@ -26,7 +26,7 @@
 "dQ" = (
 /obj/structure/grille/broken,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "ee" = (
@@ -74,7 +74,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "lh" = (
@@ -97,7 +97,7 @@
 /area/template_noop)
 "rj" = (
 /obj/structure/grille/broken,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "rG" = (
@@ -133,7 +133,7 @@
 /turf/template_noop,
 /area/template_noop)
 "yE" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "Dq" = (
@@ -196,7 +196,7 @@
 /area/template_noop)
 "Mq" = (
 /obj/structure/holosign/barrier/engineering,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -209,7 +209,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "MO" = (
@@ -221,15 +221,12 @@
 /turf/space,
 /area/template_noop)
 "Om" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "OX" = (
 /turf/space,
-/area/template_noop)
-"PP" = (
-/turf/simulated/wall/rust,
 /area/template_noop)
 "Qa" = (
 /obj/effect/decal/cleanable/dirt,
@@ -301,7 +298,7 @@ Zw
 xV
 Zw
 iT
-PP
+tV
 NX
 OX
 OX
@@ -481,7 +478,7 @@ Zw
 Zw
 Zw
 Ja
-PP
+tV
 yE
 yE
 NX
@@ -511,8 +508,8 @@ Zw
 iM
 Zw
 Rj
-PP
-PP
+tV
+tV
 oJ
 yE
 NX
@@ -561,13 +558,13 @@ Zw
 "}
 (10,1,1) = {"
 iT
-PP
+tV
 NX
 NX
 NX
 NX
 dQ
-PP
+tV
 Ku
 Zw
 Zw
@@ -771,7 +768,7 @@ Zw
 "}
 (17,1,1) = {"
 Rj
-PP
+tV
 oJ
 yE
 NX
