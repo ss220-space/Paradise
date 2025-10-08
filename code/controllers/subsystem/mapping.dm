@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(mapping)
 	if(map_datum) // Dont do this again if we are recovering
 		return
 	if(fexists("data/next_map.txt"))
-		var/list/lines = file2list("data/next_map.txt")
+		var/list/lines = world.file2list("data/next_map.txt")
 		// Check its valid
 		try
 			map_datum = text2path(lines[1])
@@ -331,11 +331,11 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/create_landmarks(turf/place)
 	var/landmarks = list(
-		/obj/effect/landmark/join_late,
-		/obj/effect/landmark/join_late_cryo,
-		/obj/effect/landmark/join_late_cyborg,
-		/obj/effect/landmark/join_late_gateway,
-		/obj/effect/landmark/join_late_prisoner,
+		/obj/effect/landmark/spawner/late/crew,
+		/obj/effect/landmark/spawner/late/cryo,
+		/obj/effect/landmark/spawner/late/cyborg,
+		/obj/effect/landmark/spawner/late/gateway,
+		/obj/effect/landmark/spawner/late/prisoner,
 		/obj/effect/landmark/observer_start
 		)
 

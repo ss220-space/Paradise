@@ -6,7 +6,7 @@
 	icon_state = "implant-toolkit"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
-	///A ref for the arm we're taking up. Mostly for the unregister signal upon removal
+	/// A ref for the arm we're taking up. Mostly for the unregister signal upon removal
 	var/obj/hand
 	/// Used to store a list of all items inside, for multi-item implants.
 	var/list/items_list = list()// I would use contents, but they shuffle on every activation/deactivation leading to interface inconsistencies.
@@ -23,6 +23,11 @@
 	update_transform()
 	slot = parent_organ_zone + "_device"
 	items_list = contents.Copy()
+
+/obj/item/organ/internal/cyberimp/arm/Destroy()
+	QDEL_NULL(active_item)
+	hand = null
+	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/proc/update_transform()
 	if(parent_organ_zone == BODY_ZONE_R_ARM)

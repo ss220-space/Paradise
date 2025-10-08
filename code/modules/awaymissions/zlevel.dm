@@ -41,8 +41,6 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	GLOB.maploader.load_map(file, z_offset = map_z_level)
 	log_world("  Away mission loaded: [map]")
 
-	for(var/obj/effect/landmark/awaystart/thing in GLOB.landmarks_list)
-		GLOB.awaydestinations.Add(thing)
 	for(var/level in map_z_levels)
 		smooth_zlevel(level)
 	log_startup_progress_global("Mapping", "Away mission loaded in [stop_watch(watch)]s.")
@@ -50,7 +48,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 
 /proc/generateMapList(filename)
 	var/list/potentialMaps = list()
-	var/list/Lines = file2list(filename)
+	var/list/Lines = world.file2list(filename)
 
 	if(!Lines.len)
 		return

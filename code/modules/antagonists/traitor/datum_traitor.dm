@@ -1,4 +1,4 @@
-#define EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED	8
+#define EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED 8
 
 // For "Actual traitors"
 /datum/antagonist/traitor

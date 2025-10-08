@@ -180,7 +180,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "bR" = (
@@ -360,7 +360,7 @@
 	},
 /area/maintenance/medroom)
 "dv" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dB" = (
@@ -1053,7 +1053,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "jh" = (
@@ -3598,7 +3598,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "Io" = (
@@ -4460,7 +4460,7 @@
 /turf/simulated/wall/rust,
 /area/maintenance/kitchen)
 "QI" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "QM" = (
@@ -4990,7 +4990,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "Wk" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -5132,7 +5132,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "XP" = (
@@ -5255,7 +5255,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/medroom)
 "YK" = (
-/obj/effect/landmark/event/blobstart,
+/obj/effect/landmark/spawner/blob,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)

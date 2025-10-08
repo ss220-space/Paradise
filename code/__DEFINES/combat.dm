@@ -1,42 +1,42 @@
 //Damage things	//TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
-#define BRUTE		"brute"
-#define BURN		"fire"
-#define TOX			"tox"
-#define OXY			"oxy"
-#define CLONE		"clone"
-#define STAMINA	"stamina"
-#define BRAIN		"brain"
+#define BRUTE "brute"
+#define BURN "fire"
+#define TOX "tox"
+#define OXY "oxy"
+#define CLONE "clone"
+#define STAMINA "stamina"
+#define BRAIN "brain"
 
 //damage flags
-#define MELEE		"melee"
-#define BULLET		"bullet"
-#define LASER		"laser"
-#define ENERGY		"energy"
-#define BOMB		"bomb"
-#define BIO		"bio"
-#define RAD		"rad"
-#define FIRE		"fire"
-#define ACID		"acid"
-#define MAGIC		"magic"
+#define MELEE "melee"
+#define BULLET "bullet"
+#define LASER "laser"
+#define ENERGY "energy"
+#define BOMB "bomb"
+#define BIO "bio"
+#define RAD "rad"
+#define FIRE "fire"
+#define ACID "acid"
+#define MAGIC "magic"
 
 /// All armors
 #define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE, RAD)
 
-#define STUN		"stun"
-#define WEAKEN		"weaken"
-#define STAMCRIT	"stamcrit"
-#define KNOCKDOWN	"knockdown"
-#define PARALYZE	"paralize"
-#define SLEEP		"sleep"
-#define IMMOBILIZE	"immobilize"
-#define IRRADIATE	"irradiate"
-#define STUTTER		"stutter"
-#define SLUR		"slur"
-#define EYE_BLUR	"eye_blur"
-#define DROWSY		"drowsy"
-#define JITTER		"jitter"
-#define CONFUSED	"confused"
+#define STUN "stun"
+#define WEAKEN "weaken"
+#define STAMCRIT "stamcrit"
+#define KNOCKDOWN "knockdown"
+#define PARALYZE "paralize"
+#define SLEEP "sleep"
+#define IMMOBILIZE "immobilize"
+#define IRRADIATE "irradiate"
+#define STUTTER "stutter"
+#define SLUR "slur"
+#define EYE_BLUR "eye_blur"
+#define DROWSY "drowsy"
+#define JITTER "jitter"
+#define CONFUSED "confused"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS (1<<0)
@@ -52,7 +52,7 @@
 #define CANSTAMCRIT (1<<2)
 #define CANKNOCKDOWN (1<<3)
 #define CANPARALYSE (1<<4)
-#define CANPUSH	 (1<<5)
+#define CANPUSH (1<<5)
 #define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define IGNORESLOWDOWN (1<<7)
 #define IGNORE_SPEED_CHANGES (1<<8)
@@ -60,7 +60,6 @@
 /// NOTE, does not mean immune to sleep. Unconscious and sleep are two different things.
 /// NOTE, does not relate to the unconscious stat either. Only the status effect.
 #define CANUNCONSCIOUS (1<<9)
-
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -90,27 +89,27 @@
 
 //Attack types for checking shields/hit reactions
 
-#define ITEM_ATTACK						(1 << 0)
-#define UNARMED_ATTACK					(1 << 1)
-#define PROJECTILE_ATTACK				(1 << 2)
-#define THROWN_PROJECTILE_ATTACK		(1 << 3)
-#define LEAP_ATTACK						(1 << 4)
-#define MELEE_ATTACKS					(ITEM_ATTACK | THROWN_PROJECTILE_ATTACK | UNARMED_ATTACK | LEAP_ATTACK)
+#define ITEM_ATTACK (1 << 0)
+#define UNARMED_ATTACK (1 << 1)
+#define PROJECTILE_ATTACK (1 << 2)
+#define THROWN_PROJECTILE_ATTACK (1 << 3)
+#define LEAP_ATTACK (1 << 4)
+#define MELEE_ATTACKS (ITEM_ATTACK | THROWN_PROJECTILE_ATTACK | UNARMED_ATTACK | LEAP_ATTACK)
 
 //attack visual effects
-#define ATTACK_EFFECT_PUNCH		"punch"
-#define ATTACK_EFFECT_KICK		"kick"
-#define ATTACK_EFFECT_SMASH		"smash"
-#define ATTACK_EFFECT_CLAW		"claw"
-#define ATTACK_EFFECT_SLASH	"slash"
-#define ATTACK_EFFECT_DISARM	"disarm"
-#define ATTACK_EFFECT_BITE		"bite"
-#define ATTACK_EFFECT_MECHFIRE	"mech_fire"
-#define ATTACK_EFFECT_MECHTOXIN	"mech_toxin"
-#define ATTACK_EFFECT_BOOP		"boop" //Honk
+#define ATTACK_EFFECT_PUNCH "punch"
+#define ATTACK_EFFECT_KICK "kick"
+#define ATTACK_EFFECT_SMASH "smash"
+#define ATTACK_EFFECT_CLAW "claw"
+#define ATTACK_EFFECT_SLASH "slash"
+#define ATTACK_EFFECT_DISARM "disarm"
+#define ATTACK_EFFECT_BITE "bite"
+#define ATTACK_EFFECT_MECHFIRE "mech_fire"
+#define ATTACK_EFFECT_MECHTOXIN "mech_toxin"
+#define ATTACK_EFFECT_BOOP "boop" //Honk
 //NOTE: INTENT_HOTKEY_* defines are not actual intents!
 //they are here to support hotkeys
-#define INTENT_HOTKEY_LEFT  "left"
+#define INTENT_HOTKEY_LEFT "left"
 #define INTENT_HOTKEY_RIGHT "right"
 
 //His Grace.
@@ -129,39 +128,38 @@
 #define HIS_GRACE_ASCENDING_REQ 20 //How many to consume before ascending
 
 //His Grace tiers
-#define HIS_GRACE_DORMANT    /datum/grace_tier/dormant
-#define HIS_GRACE_AWAKENED   /datum/grace_tier/awakened
-#define HIS_GRACE_ASCENDED   /datum/grace_tier/ascended
+#define HIS_GRACE_DORMANT /datum/grace_tier/dormant
+#define HIS_GRACE_AWAKENED /datum/grace_tier/awakened
+#define HIS_GRACE_ASCENDED /datum/grace_tier/ascended
 
 //Embedded objects
-#define EMBEDDED_PAIN_CHANCE					15	//Chance for embedded objects to cause pain (damage user)
-#define EMBEDDED_ITEM_FALLOUT					5	//Chance for embedded object to fall out (causing pain but removing the object)
-#define EMBED_CHANCE							45	//Chance for an object to embed into somebody when thrown (if it's sharp)
-#define EMBEDDED_PAIN_MULTIPLIER				2	//Coefficient of multiplication for the damage the item does while embedded (this*item.w_class)
-#define EMBEDDED_FALL_PAIN_MULTIPLIER			5	//Coefficient of multiplication for the damage the item does when it falls out (this*item.w_class)
-#define EMBEDDED_IMPACT_PAIN_MULTIPLIER			4	//Coefficient of multiplication for the damage the item does when it first embeds (this*item.w_class)
-#define EMBED_THROWSPEED_THRESHOLD				4	//The minimum value of an item's throw_speed for it to embed (Unless it has embedded_ignore_throwspeed_threshold set to 1)
-#define EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER 8	//Coefficient of multiplication for the damage the item does when removed without a surgery (this*item.w_class)
-#define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//A Time in ticks, total removal time = (this*item.w_class)
+#define EMBEDDED_PAIN_CHANCE 15 //Chance for embedded objects to cause pain (damage user)
+#define EMBEDDED_ITEM_FALLOUT 5 //Chance for embedded object to fall out (causing pain but removing the object)
+#define EMBED_CHANCE 45 //Chance for an object to embed into somebody when thrown (if it's sharp)
+#define EMBEDDED_PAIN_MULTIPLIER 2 //Coefficient of multiplication for the damage the item does while embedded (this*item.w_class)
+#define EMBEDDED_FALL_PAIN_MULTIPLIER 5 //Coefficient of multiplication for the damage the item does when it falls out (this*item.w_class)
+#define EMBEDDED_IMPACT_PAIN_MULTIPLIER 4 //Coefficient of multiplication for the damage the item does when it first embeds (this*item.w_class)
+#define EMBED_THROWSPEED_THRESHOLD 4 //The minimum value of an item's throw_speed for it to embed (Unless it has embedded_ignore_throwspeed_threshold set to 1)
+#define EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER 8 //Coefficient of multiplication for the damage the item does when removed without a surgery (this*item.w_class)
+#define EMBEDDED_UNSAFE_REMOVAL_TIME 30 //A Time in ticks, total removal time = (this*item.w_class)
 
 // Body Part Zones
-#define BODY_ZONE_HEAD		"head"
-#define BODY_ZONE_CHEST		"chest"
-#define BODY_ZONE_L_ARM		"l_arm"
-#define BODY_ZONE_R_ARM		"r_arm"
-#define BODY_ZONE_L_LEG		"l_leg"
-#define BODY_ZONE_R_LEG		"r_leg"
-#define BODY_ZONE_TAIL		"tail"
-#define BODY_ZONE_WING		"wing"
+#define BODY_ZONE_HEAD "head"
+#define BODY_ZONE_CHEST "chest"
+#define BODY_ZONE_L_ARM "l_arm"
+#define BODY_ZONE_R_ARM "r_arm"
+#define BODY_ZONE_L_LEG "l_leg"
+#define BODY_ZONE_R_LEG "r_leg"
+#define BODY_ZONE_TAIL "tail"
+#define BODY_ZONE_WING "wing"
 
-#define BODY_ZONE_PRECISE_EYES		"eyes"
-#define BODY_ZONE_PRECISE_MOUTH		"mouth"
-#define BODY_ZONE_PRECISE_GROIN		"groin"
-#define BODY_ZONE_PRECISE_L_HAND	"l_hand"
-#define BODY_ZONE_PRECISE_R_HAND	"r_hand"
-#define BODY_ZONE_PRECISE_L_FOOT	"l_foot"
-#define BODY_ZONE_PRECISE_R_FOOT	"r_foot"
-
+#define BODY_ZONE_PRECISE_EYES "eyes"
+#define BODY_ZONE_PRECISE_MOUTH "mouth"
+#define BODY_ZONE_PRECISE_GROIN "groin"
+#define BODY_ZONE_PRECISE_L_HAND "l_hand"
+#define BODY_ZONE_PRECISE_R_HAND "r_hand"
+#define BODY_ZONE_PRECISE_L_FOOT "l_foot"
+#define BODY_ZONE_PRECISE_R_FOOT "r_foot"
 
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
@@ -169,8 +167,8 @@
 #define BLEEDING_PRECISION 0.005
 
 //Gun Stuff
-#define SAWN_INTACT  0
-#define SAWN_OFF     1
+#define SAWN_INTACT 0
+#define SAWN_OFF 1
 
 #define WEAPON_DUAL_WIELD 0
 #define WEAPON_LIGHT 1
@@ -197,18 +195,16 @@
 */
 #define STATUS_EFFECT_CONSTANT * 20
 
-
 /// Projectile reflectability defines
 #define REFLECTABILITY_NEVER 0
 #define REFLECTABILITY_PHYSICAL 1
 #define REFLECTABILITY_ENERGY 2
 
-
 //Autofire component
 /// Compatible firemode is in the gun. Wait until it's held in the user hands.
 #define AUTOFIRE_STAT_IDLE (1<<0)
 /// Gun is active and in the user hands. Wait until user does a valid click.
-#define AUTOFIRE_STAT_ALERT	(1<<1)
+#define AUTOFIRE_STAT_ALERT (1<<1)
 /// Gun is shooting.
 #define AUTOFIRE_STAT_FIRING (1<<2)
 
@@ -227,9 +223,7 @@
 #define COMBO_STEPS "steps"
 #define COMBO_PROC "proc"
 
-
 // Core bitflags
-
 /// Intentionally not started with (1<<0) or 1, since 1 is equal to TRUE
 #define ATTACK_CHAIN_PROCEED (1<<2)
 /// And we want to check validity of the core bitflags, returned by the attack chain procs
