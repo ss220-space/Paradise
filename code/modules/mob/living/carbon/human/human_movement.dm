@@ -60,10 +60,10 @@
 
 		if(weak_mob)
 			var/list/modifiers = list(
-  			"/datum/strength_level/weak" = 1,
-  			"/datum/strength_level/normal" = 0.75,
-  			"/datum/strength_level/strong" = 0.5,
-  			"/datum/strength_level/ideal" = 0.25,
+			"/datum/strength_level/weak" = 1,
+			"/datum/strength_level/normal" = 0.75,
+			"/datum/strength_level/strong" = 0.5,
+			"/datum/strength_level/ideal" = 0.25,
 			)
 			var/strength_modifier = modifiers["[get_strength_level()]"]
 			var/stamina_damage = 0
