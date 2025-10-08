@@ -84,7 +84,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(clockwork_mind.current)
 
-		clockwork_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
+		if(iscarbon(clockwork_mind.current))
+			clockwork_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
 
 		add_clock_actions(clockwork_mind)
 		update_clock_icons_added(clockwork_mind)
@@ -200,7 +201,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		adjust_clockwork_power(CLOCK_POWER_CONVERT)
 
-		clock_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
+		if(iscarbon(clock_mind.current))
+			clock_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
 
 		if(power_reveal)
 			powered(clock_mind.current)
@@ -296,9 +298,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	update_clock_icons_removed(clock_mind)
 
+	clock_mind.current.RemoveElement(/datum/element/halo_attach)
+
 	if(ishuman(clocker))
 		var/mob/living/carbon/human/H = clocker
-		clock_mind.current.RemoveElement(/datum/element/halo_attach)
 		REMOVE_TRAIT(H, CLOCK_HANDS, null)
 		H.change_eye_color(H.original_eye_color, FALSE)
 		H.update_eyes()
