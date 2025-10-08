@@ -1,0 +1,29 @@
+// Include game test files in this module in this ifdef
+
+// Sort in alphabetical order, please!
+// Use the website if you can't do it yourself. https://spiskin.ru/scripts/sort_alphabet
+
+#ifdef TEST_RUNNER
+#include "_game_test.dm"
+#include "_map_per_tile_test.dm"
+#include "test_runner.dm"
+#endif
+
+#ifdef GAME_TESTS
+// START OF ALPHABETICAL SORTING
+#include "test_announcements.dm"
+#include "test_components.dm"
+#include "test_elements.dm"
+#include "test_map_templates.dm"
+#include "test_reagent_id_typos.dm"
+#include "test_spawn_humans.dm"
+#include "test_sql.dm"
+#include "test_status_effect_ids.dm"
+#include "test_subsystem_init.dm"
+#include "test_timer_sanity.dm"
+// END OF ALPHABETICAL SORTING
+#endif
+
+#ifdef MAP_TESTS
+#include "test_map_tests.dm"
+#endif

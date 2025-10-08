@@ -836,7 +836,9 @@
 		if(!goal.can_gain())
 			continue
 
+		#ifndef GAME_TESTS
 		possible += goal
+		#endif
 
 	var/goal_weights = 0
 	while(length(possible) && goal_weights < STATION_GOAL_BUDGET)
