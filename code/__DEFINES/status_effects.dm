@@ -17,6 +17,14 @@
 #define STATUS_EFFECT_NORMAL_PROCESS 1
 
 
+//several flags for the Necropolis curse status effect
+///makes the edges of the target's screen obscured
+#define CURSE_BLINDING (1<<0)
+///causes gradual damage
+#define CURSE_WASTING (1<<1)
+///hands reach out from the sides of the screen, doing damage and stunning if they hit the target
+#define CURSE_GRASPING (1<<2)
+
 ///////////
 // BUFFS //
 ///////////
@@ -212,3 +220,6 @@
 #define STATUS_EFFECT_LEANING /datum/status_effect/leaning
 
 #define STATUS_EFFECT_TEMPERATURE /datum/status_effect/transient/temperature
+
+
+#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse

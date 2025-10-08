@@ -203,6 +203,8 @@
 
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
+	if(force && target == user && user.client)
+		user.client.give_award(/datum/award/achievement/misc/selfouch, user)
 
 	if(!skip_attack_anim)
 		user.do_attack_animation(target)

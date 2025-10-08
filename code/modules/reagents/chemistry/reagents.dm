@@ -61,6 +61,9 @@
 	var/chemuse = 30
 	var/quantity = 10
 
+	var/metabolizing
+	var/list/metabolized_traits
+
 /datum/reagent/New()
 	addict_supertype = type
 
@@ -94,8 +97,6 @@
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
-	if(current_cycle == 1)
-		on_mob_start_metabolize(M)
 	current_cycle++
 	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency * M.digestion_ratio // Cache it
 
@@ -103,15 +104,18 @@
 	sate_addiction(M)
 
 	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
-	if(volume <= 0)
-		on_mob_end_metabolize(M)
 	return STATUS_UPDATE_NONE
 
-/datum/reagent/proc/on_mob_start_metabolize(mob/living/metabolizer)
-	return
+/// Called when this reagent first starts being metabolized by a liver
+/datum/reagent/proc/on_mob_metabolize(mob/living/affected_mob)
+	SHOULD_CALL_PARENT(TRUE)
+	if(metabolized_traits)
+		affected_mob.add_traits(metabolized_traits, "metabolize:[type]")
 
-/datum/reagent/proc/on_mob_end_metabolize(mob/living/metabolizer)
-	return
+/// Called when this reagent stops being metabolized by a liver
+/datum/reagent/proc/on_mob_end_metabolize(mob/living/affected_mob)
+	SHOULD_CALL_PARENT(TRUE)
+	REMOVE_TRAITS_IN(affected_mob, "metabolize:[type]")
 
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && count_by_type(M.reagents.addiction_list, addict_supertype) < 1)

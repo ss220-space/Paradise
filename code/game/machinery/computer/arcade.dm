@@ -36,6 +36,11 @@
 	return ..()
 
 /obj/machinery/computer/arcade/proc/prizevend(score)
+	if(prob(0.0001)) //1 in a million
+		new /obj/item/gun/energy/pulse/prize(src)
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выда[pluralize_ru(gender, "ёт", "ют")]... Ого, оружие! Это просто улёт!"), span_notice("Вы слышите выстрелы и звон."))
+		usr.client.give_award(/datum/award/achievement/misc/pulse, usr)
+		return
 	var/atom/movable/picked_prize = pick_n_take(prize_storage)
 
 	if(picked_prize)
@@ -326,6 +331,10 @@
 	var/spaceport_freebie = 0
 	var/last_spaceport_action = ""
 
+	var/obj/item/radio/Radio
+	var/list/gamers = list()
+	var/killed_crew = 0
+
 /obj/machinery/computer/arcade/orion_trail/get_ru_names()
 	return list(
 		NOMINATIVE = "игровой автомат The Orion Trail",
@@ -335,6 +344,11 @@
 		INSTRUMENTAL = "игровым автоматом The Orion Trail",
 		PREPOSITIONAL = "игровом автомате The Orion Trail"
 	)
+
+/obj/machinery/computer/arcade/orion_trail/Initialize()
+	. = ..()
+	Radio = new /obj/item/radio(src)
+	Radio.set_listening(FALSE)
 
 /obj/machinery/computer/arcade/orion_trail/Reset()
 	// Sets up the main trail
@@ -369,11 +383,48 @@
 	playing = 1
 	gameover = 0
 	lings_aboard = 0
+	killed_crew = 0
 
 	//spaceport junk
 	spaceport_raided = 0
 	spaceport_freebie = 0
 	last_spaceport_action = ""
+
+/obj/machinery/computer/arcade/orion_trail/proc/report_player(mob/gamer)
+	if(gamers[gamer] == -2)
+		return // enough harassing them
+
+	if(gamers[gamer] == -1)
+		say("WARNING: Continued antisocial behavior detected: Dispensing self-help literature.")
+		new /obj/item/gamer_pamphlet(get_turf(src))
+		gamers[gamer]--
+		return
+
+	if(!(gamer in gamers))
+		gamers[gamer] = 0
+
+	gamers[gamer]++ // How many times the player has 'prestiged' (massacred their crew)
+	if(gamers[gamer] <= 2 || !prob(20 * gamers[gamer]))
+		return
+
+	Radio.set_frequency(SEC_FREQ)
+	Radio.autosay("SECURITY ALERT: Crewmember [gamer] recorded displaying antisocial tendencies in [get_area(src)]. Please watch for violent behavior.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	Radio.set_frequency(MED_FREQ)
+	Radio.talk_into(src, "PSYCH ALERT: Crewmember [gamer] recorded displaying antisocial tendencies in [get_area(src)]. Please schedule psych evaluation.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+
+	gamers[gamer] = -1
+
+	gamer.client.give_award(/datum/award/achievement/misc/gamer, gamer) // PSYCH REPORT NOTE: patient kept rambling about how they did it for an "achievement", recommend continued holding for observation
+
+	if(isnull(GLOB.data_core.general))
+		return
+
+	for(var/datum/data/record/R in GLOB.data_core.general)
+		if(R.fields["name"] != gamer.name)
+			continue
+
+		R.fields["m_stat"] = "Нестабильное"
+		return
 
 /obj/machinery/computer/arcade/orion_trail/attack_hand(mob/user)
 	if(..())
@@ -610,6 +661,7 @@
 			return
 		var/sheriff = remove_crewmember() //I shot the sheriff
 		playsound(loc, 'sound/weapons/gunshots/gunshot.ogg', 100, TRUE)
+		killed_crew++
 
 		if(length(settlers) == 0 || alive == 0)
 			atom_say("Последний член команды [sheriff], застрелился, ИГРА ОКОНЧЕНА!")
@@ -618,6 +670,9 @@
 				emagged = FALSE
 			gameover = TRUE
 			event = null
+			if(killed_crew >= 4)
+				report_player(usr)
+
 		else if(emagged)
 			if(usr.name == sheriff)
 				atom_say("Экипаж корабля решил убить [usr.name]!")
@@ -625,6 +680,7 @@
 
 		if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places
 			event = null
+			killed_crew-- // the kill was valid
 
 	//Spaceport specific interactions
 	//they get a header because most of them don't reset event (because it's a shop, you leave when you want to)
@@ -635,6 +691,7 @@
 		fuel -= 10
 		food -= 10
 		event()
+		killed_crew-- // I mean not really but you know
 
 	else if(href_list["sellcrew"]) //sell a crewmember
 		var/sold = remove_crewmember()

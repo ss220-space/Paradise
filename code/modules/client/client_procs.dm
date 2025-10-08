@@ -328,6 +328,7 @@
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
 	log_client_to_db(tdata)
+	achievements = new(ckey)
 	. = ..()	//calls mob.Login()
 
 	INVOKE_ASYNC(src, PROC_REF(acquire_dpi))
@@ -431,6 +432,7 @@
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
+
 
 	GLOB.directory -= ckey
 	GLOB.clients -= src
@@ -1639,6 +1641,9 @@
 		return
 
 	src << link("https://secure.byond.com/download/")
+
+/client/proc/give_award(achievement_type, mob/user)
+	return achievements.unlock(achievement_type, user)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
