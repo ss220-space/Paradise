@@ -754,6 +754,17 @@
 	is_equipped = FALSE
 	update_icon()
 
+#define SPECTER_STUN 1
+#define SPECTER_KILL 2
+
+// Holo type bitflags
+#define SPECTER_HOLOTYPE_STOCK 1
+#define SPECTER_HOLOTYPE_GRIP 2
+// Previous two cooperated
+#define SPECTER_HOLOTYPE_ALL 3
+
+#define SPECTER_HOLOTYPE_NONE 4
+
 //Specter//
 /obj/item/gun/energy/specter
 	name = "Specter"
@@ -782,6 +793,8 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
 	)
 	ammo_x_offset = 0
+	var/specter_holo_switch = SPECTER_HOLOTYPE_NONE
+	var/specter_holo_color
 
 /obj/item/gun/energy/specter/ComponentInitialize()
 	. = ..()
@@ -796,12 +809,48 @@
 	add_skin("Tan Handle", "specter_tangrip")
 	add_skin("Red Handle", "specter_redgrip")
 
-
 /obj/item/gun/energy/specter/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][cell.charge > 0 ? "" : "-e"]"
 	else
 		icon_state = "[initial(icon_state)][cell.charge > 0 ? "" : "-e"]"
+
+/obj/item/gun/energy/specter/update_overlays()
+	. = ..()
+	switch(select)
+		if(SPECTER_STUN)
+			. += "specter_stun"
+		if(SPECTER_KILL)
+			. += "specter_kill"
+	if(!specter_holo_color || current_skin && current_skin != "specter")
+		return
+
+	if(specter_holo_switch & SPECTER_HOLOTYPE_STOCK)
+		. += mutable_appearance(icon, cell.charge > 0 ? "specter_grayscale_loaded" : "specter_grayscale_unloaded", layer=layer, color = specter_holo_color)
+	if(specter_holo_switch & SPECTER_HOLOTYPE_GRIP)
+		. += mutable_appearance(icon, "specter_grayscale_grip", layer = layer, color = specter_holo_color)
+
+/obj/item/gun/energy/specter/CtrlClick(mob/user)
+	. = ..()
+	if(current_skin && current_skin != "specter" || !user.is_in_hands(src))
+		return
+
+	var/static/list/holo_types = list("Ствол" = SPECTER_HOLOTYPE_STOCK, "Рукоять" = SPECTER_HOLOTYPE_GRIP, "Ствол и рукоять" = SPECTER_HOLOTYPE_ALL, "Нет" = SPECTER_HOLOTYPE_NONE)
+	var/holo_type = tgui_input_list(user, "Выберите тип голограммы.", "Голограмма", holo_types)
+	if(!holo_type)
+		return
+	holo_type = holo_types[holo_type]
+	var/holo_color
+	if(holo_type & SPECTER_HOLOTYPE_NONE)
+		holo_color = null
+	else
+		holo_color = tgui_input_color(user, "Выберите цвет голограммы.", "Голограмма", default = specter_holo_color)
+		if(!holo_color)
+			return
+
+	specter_holo_switch = holo_type
+	specter_holo_color = holo_color
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
 	if(!is_spectercell(item))
