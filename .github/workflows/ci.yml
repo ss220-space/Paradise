@@ -103,29 +103,46 @@ jobs:
           tools/ci/generate_maplist.sh
           tools/ci/dm.sh -Mci_map_testing paradise.dme
 
-  unit_tests_and_sql:
-    name: Unit Tests + SQL Validation
+  station_mapload_tests:
+    name: Station Tests
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype:
-          [
-            '/datum/map/cyberiad',
-            '/datum/map/delta',
-            '/datum/map/cerestation',
-            '/datum/map/celestation',
-            '/datum/map/nova',
-          ]
+        station: ['cyberiad', 'delta', 'cerestation', 'celestation', 'nova']
         byondtype: ['STABLE']
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306
-        options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
+        with:
+          release: ${{ matrix.byondtype }}
+      - name: Install RUST_G Deps
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update || true
+          sudo apt install libgcc-s1:i386
+          bash tools/ci/install_rustg.sh
+      - name: Install DMJIT
+        run: |
+          sudo apt install libncurses6:i386
+          bash tools/ci/install_dmjit.sh
+      - name: Compile & Run Unit Tests
+        run: |
+          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
+          source $HOME/BYOND/byond/bin/byondsetup
+          tools/ci/dm.sh -DMAP_TESTS -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
+          echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
+          tools/ci/run_server.sh
+
+  unit_tests_and_sql:
+    name: Unit Tests + SQL Validation
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -151,6 +168,7 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DMULTIINSTANCE -DCIBUILDING paradise.dme
-          echo '${{ matrix.maptype }}' > data/next_map.txt
+          tools/ci/dm.sh -DGAME_TESTS -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
+          echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
