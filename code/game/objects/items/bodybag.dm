@@ -152,7 +152,7 @@
 	// Make it possible to escape from bodybags in morgues and crematoriums
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/machinery/crematorium)))
 		if(!open())
-			to_chat(user, "<span class='notice'>It won't budge!</span>")
+			to_chat(user, span_notice("It won't budge!"))
 
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
 	return FALSE //Can't be weldled under any circumstances.

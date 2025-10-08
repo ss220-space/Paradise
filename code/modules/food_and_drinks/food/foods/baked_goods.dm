@@ -405,7 +405,7 @@
 /obj/item/reagent_containers/food/snacks/pie/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	new/obj/effect/decal/cleanable/pie_smudge(loc)
-	visible_message("<span class='warning'>[src] splats.</span>","<span class='warning'>You hear a splat.</span>")
+	visible_message(span_warning("[src] splats."),span_warning("You hear a splat."))
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/meatpie

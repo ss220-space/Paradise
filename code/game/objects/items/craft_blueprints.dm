@@ -63,7 +63,7 @@
 	. = ..()
 	if(length(tools))
 		var/required_tools_text = "Требуемые инструменты: "
-		for(var/tool as anything in tools)
+		for(var/tool in tools)
 			required_tools_text += "[tool] "
 		. += span_notice(required_tools_text)
 	if(!length(components))

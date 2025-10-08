@@ -42,21 +42,21 @@
 /obj/machinery/dnaforensics/attack_hand(mob/user)
 
 	if(!swab)
-		to_chat(user, "<span class='warning'>Сканер пуст!</span>")
+		to_chat(user, span_warning("Сканер пуст!"))
 		return
 	add_fingerprint(user)
 	scanning = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, "<span class='notice'>Сканер начинает с жужением анализировать содержимое пробирки \the [swab].</span>")
+	to_chat(user, span_notice("Сканер начинает с жужением анализировать содержимое пробирки \the [swab]."))
 
 	if(!do_after(user, 2.5 SECONDS, src) || !swab)
-		to_chat(user, "<span class='notice'>Вы перестали анализировать \the [swab].</span>")
+		to_chat(user, span_notice("Вы перестали анализировать \the [swab]."))
 		scanning = FALSE
 		update_icon(UPDATE_ICON_STATE)
 
 		return
 
-	to_chat(user, "<span class='notice'>Печать отчета...</span>")
+	to_chat(user, span_notice("Печать отчета..."))
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamp(/obj/item/stamp)
 	report_num++
@@ -84,9 +84,9 @@
 	if(!istype(remover) || remover.incapacitated() || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
 		return
 	if(!swab)
-		to_chat(remover, "<span class='warning'>Внутри сканера нет образца!.</span>")
+		to_chat(remover, span_warning("Внутри сканера нет образца!."))
 		return
-	to_chat(remover, "<span class='notice'>Вы вытащили \the [swab] из сканера.</span>")
+	to_chat(remover, span_notice("Вы вытащили \the [swab] из сканера."))
 	swab.forceMove_turf()
 	remover.put_in_hands(swab, ignore_anim = FALSE)
 	swab = null

@@ -234,7 +234,7 @@
 	if(!ever_opened)
 		ever_opened = TRUE
 		if(prob(10))
-			to_chat(usr, "<span class='danger'> HOW DARE YOU DISTURB THE DEAD?! </span>")
+			to_chat(usr, span_danger(" HOW DARE YOU DISTURB THE DEAD?! "))
 			new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 			new /mob/living/simple_animal/hostile/carp/lostsoul(get_turf(src))
 

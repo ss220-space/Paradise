@@ -246,7 +246,7 @@
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, span_alert("[p_their(TRUE)] outer shell is too tough."))
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
@@ -382,18 +382,18 @@
 	switch(sensor_type)
 		if("Security")
 			add_sec_hud()
-			to_chat(src, "<span class='notice'>Security records overlay enabled.</span>")
+			to_chat(src, span_notice("Security records overlay enabled."))
 		if("Medical")
 			add_med_hud()
-			to_chat(src, "<span class='notice'>Life signs monitor overlay enabled.</span>")
+			to_chat(src, span_notice("Life signs monitor overlay enabled."))
 		if("Diagnostic")
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+			to_chat(src, span_notice("Robotics diagnostic overlay enabled."))
 		if("Multisensor")
 			add_sec_hud()
 			add_med_hud()
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Multisensor overlay enabled.</span>")
+			to_chat(src, span_notice("Multisensor overlay enabled."))
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 

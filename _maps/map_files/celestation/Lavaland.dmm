@@ -7736,9 +7736,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Wb" = (
-/turf/simulated/wall/r_wall,
-/area/mine/storage)
 "Wd" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -68898,7 +68895,7 @@ zt
 aW
 aW
 Ma
-Wb
+aW
 Vn
 KG
 Vn

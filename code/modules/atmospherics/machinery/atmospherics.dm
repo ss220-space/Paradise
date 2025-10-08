@@ -236,7 +236,7 @@ Pipelines + Other Objects -> Pipe network
 		span_notice("You have unfastened [src]."),
 		span_italics("You hear ratcheting."),
 	)
-	investigate_log("was <span class='warning'>REMOVED</span> by [key_name_log(usr)]", INVESTIGATE_ATMOS)
+	investigate_log("was [span_warning("REMOVED")] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 	if(unsafe_wrenching)

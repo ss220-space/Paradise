@@ -68,10 +68,10 @@
 		if(S.damage_coeff[TOX] <= 0 && S.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
 			if(silent)
 				return FALSE
-			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
+			to_chat(src, span_warning("[pick("This subject is incompatible", \
 			"This subject does not have life energy", "This subject is empty", \
 			"I am not satisified", "I can not feed from this subject", \
-			"I do not feel nourished", "This subject is not food")]!</span>")
+			"I do not feel nourished", "This subject is not food")]!"))
 			return FALSE
 
 	if(isslime(M))
@@ -109,20 +109,20 @@
 	M.unbuckle_all_mobs(force = TRUE) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
 	if(M.buckle_mob(src, force = TRUE, check_loc = FALSE))
 		layer = M.layer + 0.01 //appear above the target mob
-		M.visible_message("<span class='danger'>[name] has latched onto [M]!</span>", \
-						"<span class='userdanger'>[name] has latched onto [M]!</span>")
+		M.visible_message(span_danger("[name] has latched onto [M]!"), \
+						span_userdanger("[name] has latched onto [M]!"))
 	else
 		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
 
 /mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE, living = 1)
 	if(buckled)
 		if(!living)
-			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
+			to_chat(src, span_warning("[pick("This subject is incompatible", \
 			"This subject does not have life energy", "This subject is empty", \
 			"I am not satisified", "I can not feed from this subject", \
-			"I do not feel nourished", "This subject is not food")]!</span>")
+			"I do not feel nourished", "This subject is not food")]!"))
 		if(!silent)
-			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
+			visible_message(span_warning("[src] has let go of [buckled]!"), \
 							"<span class='notice'><i>I stopped feeding.</i></span>")
 		layer = initial(layer)
 		buckled.unbuckle_mob(src,force=TRUE)

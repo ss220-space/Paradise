@@ -83,7 +83,7 @@
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
-#define TRAIT_FLATTENED	"flattened"
+#define TRAIT_FLATTENED "flattened"
 
 /// Not a genetic obesity but just a mob who overate
 #define	TRAIT_FAT "trait_fat"
@@ -356,6 +356,9 @@
 #define TRAIT_TASERED "tasered"
 
 #define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"
+
+/// Used to play an alarm when the gun is out of ammo
+#define TRAIT_AMMO_ALARMED "ammo_alarm"
 
 /// Ignores darkness for hearing
 #define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"

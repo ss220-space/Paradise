@@ -41,9 +41,10 @@
 
 	..()
 	status_alarm(TRUE)
-	GLOB.major_announcement.announce("Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 

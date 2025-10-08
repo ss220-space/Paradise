@@ -245,7 +245,7 @@
 
 /datum/action/changeling/sting/blind/sting_action(mob/living/user, mob/living/target)
 	add_attack_logs(user, target, "Blind sting (changeling)")
-	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
+	to_chat(target, span_danger("Your eyes burn horrifically!"))
 	if(!HAS_TRAIT_NOT_FROM(target, TRAIT_NEARSIGHTED, CHANGELING_TRAIT))
 		ADD_TRAIT(target, TRAIT_NEARSIGHTED, CHANGELING_TRAIT)
 		if(!HAS_TRAIT_NOT_FROM(target, TRAIT_NEARSIGHTED, CHANGELING_TRAIT))

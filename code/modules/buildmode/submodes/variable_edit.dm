@@ -31,7 +31,7 @@
 	var/temp_value = user.client.vv_get_value()
 	if(isnull(temp_value["class"]))
 		Reset()
-		to_chat(user, "<span class='notice'>Variable unset.</span>")
+		to_chat(user, span_notice("Variable unset."))
 		return
 	// we assign this once all user input is done, since things could get wonky otherwise
 	varholder = temp_varname

@@ -8,8 +8,10 @@
 	if(IS_HORIZONTAL(user) || IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL
 
-	target.visible_message(span_warning("[user] бросает [target] на пол!"), \
-						span_userdanger("[user] бросает вас на пол!"))
+	target.visible_message(
+		span_warning("[user] бросает [target] на пол!"),
+		span_userdanger("[user] бросает вас на пол!")
+	)
 	playsound(get_turf(user), 'sound/weapons/slam.ogg', 40, TRUE, -1)
 	target.apply_damage(25, STAMINA)
 	target.Knockdown(7 SECONDS)

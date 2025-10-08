@@ -1,9 +1,9 @@
-#define ASSEMBLY_UNBUILT		0 // Nothing done to it
-#define ASSEMBLY_WRENCHED		1 // Wrenched in place
-#define ASSEMBLY_WELDED		2 // Welded in place
-#define ASSEMBLY_WIRED		3 // Wires attached (Upgradable now)
-#define ASSEMBLY_BUILT		4 // Fully built (incl panel closed)
-#define HEY_IM_WORKING_HERE	666 //So nobody can mess with the camera while we're inputting settings
+#define ASSEMBLY_UNBUILT 0 // Nothing done to it
+#define ASSEMBLY_WRENCHED 1 // Wrenched in place
+#define ASSEMBLY_WELDED 2 // Welded in place
+#define ASSEMBLY_WIRED 3 // Wires attached (Upgradable now)
+#define ASSEMBLY_BUILT 4 // Fully built (incl panel closed)
+#define HEY_IM_WORKING_HERE 666 //So nobody can mess with the camera while we're inputting settings
 
 /obj/item/camera_assembly
 	name = "camera assembly"

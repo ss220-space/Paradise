@@ -630,7 +630,7 @@
 
 	qdel(query_cid)
 
-	var/admin_rank = "Игрок"
+	var/admin_rank = PLAYER_RANK
 	if(holder)
 		admin_rank = holder.rank
 	// Admins don't get slammed by this, I guess

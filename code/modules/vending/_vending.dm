@@ -840,7 +840,7 @@
 	if(!..())
 		return FALSE
 	if(!istype(I, /obj/item/toy))
-		to_chat(user, "<span class='warning'>[I] isn't compatible with this machine's slot.</span>")
+		to_chat(user, span_warning("[I] isn't compatible with this machine's slot."))
 		return FALSE
 	return TRUE
 */
@@ -1093,6 +1093,10 @@
 				to_chat(usr, "Товар \"[product_record.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
+			if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id)
+				balloon_alert(usr, "в доступе отказано!")
+				flick_vendor_overlay(FLICK_DENY)
+				return
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
@@ -1146,8 +1150,6 @@
 				vend_ready = TRUE
 	if(.)
 		add_fingerprint(usr)
-
-
 
 
 /obj/machinery/vending/proc/vend(datum/data/vending_product/product_record, mob/user)

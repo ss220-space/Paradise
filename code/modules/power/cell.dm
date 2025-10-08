@@ -49,8 +49,8 @@
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "Specter_accumulator"
 	gender = MALE
-	maxcharge = 8000
-	chargerate = 200
+	maxcharge = 7200
+	chargerate = 480
 
 /obj/item/stock_parts/cell/specter/get_ru_names()
 	ru_names = list(

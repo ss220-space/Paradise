@@ -49,10 +49,11 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	GLOB.major_announcement.announce(war_declaration,
-									ANNOUNCE_DECLAREWAR_RU,
-									'sound/effects/siren.ogg',
-									msg_sanitized = TRUE
+	GLOB.major_announcement.announce(
+		message = war_declaration,
+		new_title = ANNOUNCE_DECLAREWAR_RU,
+		msg_sanitized = TRUE,
+		new_sound = 'sound/effects/siren.ogg'
 	)
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 30 SECONDS)
 

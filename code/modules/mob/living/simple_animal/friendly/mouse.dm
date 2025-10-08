@@ -175,9 +175,11 @@
 		return FALSE
 
 	jetpack = item_to_add
-	user.visible_message(span_notice("[user] put something on [src]."),
+	user.visible_message(
+		span_notice("[user] put something on [src]."),
 		span_notice("You equip [src] with a cool jetpack! Sick!"),
-		span_italics("You hear the roar of a small engine."))
+		span_italics("You hear the roar of a small engine.")
+	)
 
 	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back))
 	update_icons()

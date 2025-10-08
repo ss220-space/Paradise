@@ -1,6 +1,6 @@
-#define SEC_DATA_R_LIST	1	// Record list
-#define SEC_DATA_MAINT	2	// Records maintenance
-#define SEC_DATA_RECORD	3	// Record
+#define SEC_DATA_R_LIST 1 // Record list
+#define SEC_DATA_MAINT 2 // Records maintenance
+#define SEC_DATA_RECORD 3 // Record
 
 #define SEC_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 

@@ -202,19 +202,19 @@
 		return
 	. = TRUE
 	if(!electronics)
-		to_chat(user, "<span class='warning'>[src] is missing electronics!</span>")
+		to_chat(user, span_warning("[src] is missing electronics!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
 	close_window(user, "windoor_access")
-	user.visible_message("<span class='notice'>[user] pries [src] into the frame...</span>", "<span class='notice'>You start prying [src] into the frame...</span>")
+	user.visible_message(span_notice("[user] pries [src] into the frame..."), span_notice("You start prying [src] into the frame..."))
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 		return
 	if(loc && electronics)
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
 				return
-		to_chat(user, "<span class='notice'>You finish the [(src.secure) ? "secure" : ""] windoor.</span>")
+		to_chat(user, span_notice("You finish the [(src.secure) ? "secure" : ""] windoor."))
 		var/obj/machinery/door/window/windoor
 		if(secure)
 			windoor = new /obj/machinery/door/window/brigdoor(loc, dir)
@@ -247,10 +247,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", "<span class='notice'>You begin removing the circuit board from [src]...</span>")
+	user.visible_message(span_notice("[user] begins removing the circuit board from [src]..."), span_notice("You begin removing the circuit board from [src]..."))
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != "03" || !electronics)
 		return
-	to_chat(user, "<span class='notice'>You remove [electronics].</span>")
+	to_chat(user, span_notice("You remove [electronics]."))
 	name = "[(src.secure) ? "secure" : ""] wired windoor assembly"
 	state = "02"
 	electronics.forceMove(loc)
@@ -263,10 +263,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begin cutting the wires from [src]...</span>", "<span class='notice'>You begin cutting the wires from [src]...</span>")
+	user.visible_message(span_notice("[user] begin cutting the wires from [src]..."), span_notice("You begin cutting the wires from [src]..."))
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != "02")
 		return
-	to_chat(user, "<span class='notice'>You cut [src] wires.</span>")
+	to_chat(user, span_notice("You cut [src] wires."))
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = "01"
 	name = "[(src.secure) ? "secure" : ""] anchored windoor assembly"
@@ -281,24 +281,24 @@
 	if(!anchored)	//Wrenching an unsecure assembly anchors it in place. Step 4 complete
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
-				to_chat(user, "<span class='warning'>There is already a windoor in that location!</span>")
+				to_chat(user, span_warning("There is already a windoor in that location!"))
 				return
-		user.visible_message("<span class='notice'>[user] begin tightening the bolts on [src]...</span>", "<span class='notice'>You begin tightening the bolts on [src]...</span>")
+		user.visible_message(span_notice("[user] begin tightening the bolts on [src]..."), span_notice("You begin tightening the bolts on [src]..."))
 
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || anchored || state != "01")
 			return
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
-				to_chat(user, "<span class='warning'>There is already a windoor in that location!</span>")
+				to_chat(user, span_warning("There is already a windoor in that location!"))
 				return
-		to_chat(user, "<span class='notice'>You tighten bolts on [src].</span>")
+		to_chat(user, span_notice("You tighten bolts on [src]."))
 		set_anchored(TRUE)
 		name = "[(src.secure) ? "secure" : ""]  anchored windoor assembly"
 	else	//Unwrenching an unsecure assembly un-anchors it. Step 4 undone
-		user.visible_message("<span class='notice'>[user] begin loosening the bolts on [src]...</span>", "<span class='notice'>You begin loosening the bolts on [src]...</span>")
+		user.visible_message(span_notice("[user] begin loosening the bolts on [src]..."), span_notice("You begin loosening the bolts on [src]..."))
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !anchored || state != "01")
 			return
-		to_chat(user, "<span class='notice'>You loosen bolts on [src].</span>")
+		to_chat(user, span_notice("You loosen bolts on [src]."))
 		set_anchored(FALSE)
 		name = "[(src.secure) ? "secure" : ""] windoor assembly"
 	update_icon(UPDATE_ICON_STATE)

@@ -21,7 +21,7 @@
 	if(bomb)
 		bomb.forceMove(user.loc)
 		user.put_in_hands(bomb)
-		user.visible_message("<span class='warning'>[user] detaches [bomb] from [src].</span>")
+		user.visible_message(span_warning("[user] detaches [bomb] from [src]."))
 		bomb = null
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 	return ..()
@@ -97,7 +97,7 @@
 	var/heavy = power * 0.2
 	var/medium = power * 0.5
 	var/light = power
-	user.visible_message("<span class='danger'>[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!</span>","<span class='danger'>You open [bomb] on your [name] and fire a blast wave at [target]!</span>")
+	user.visible_message(span_danger("[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!"),span_danger("You open [bomb] on your [name] and fire a blast wave at [target]!"))
 	playsound(user, SFX_EXPLOSION, 100, TRUE)
 	add_attack_logs(user, target, "Blast waved with power [heavy]/[medium]/[light].", ATKLOG_MOST)
 	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)

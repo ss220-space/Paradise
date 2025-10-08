@@ -30,7 +30,7 @@
 		return 0
 	evidence |= supplied.evidence
 	name = ("[initial(name)] (combined)")
-	to_chat(user, "<span class='notice'>You transfer the contents of \the [supplied] into \the [src].</span>")
+	to_chat(user, span_notice("You transfer the contents of \the [supplied] into \the [src]."))
 	return 1
 
 
@@ -43,7 +43,7 @@
 		else
 			evidence[print] = supplied.evidence[print]
 	name = ("[initial(name)] (combined)")
-	to_chat(user, "<span class='notice'>You overlay \the [src] and \the [supplied], combining the print records.</span>")
+	to_chat(user, span_notice("You overlay \the [src] and \the [supplied], combining the print records."))
 	return 1
 
 
@@ -78,10 +78,10 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.gloves)
-		to_chat(user, "<span class='warning'>Take \the [H.gloves] off first.</span>")
+		to_chat(user, span_warning("Take \the [H.gloves] off first."))
 		return
 
-	to_chat(user, "<span class='notice'>You firmly press your fingertips onto the card.</span>")
+	to_chat(user, span_notice("You firmly press your fingertips onto the card."))
 	var/fullprint = H.get_full_print()
 	evidence[fullprint] = fullprint
 	name = ("[initial(name)] (\the [H])")
@@ -145,7 +145,7 @@
 
 /obj/item/forensics/sample_kit/proc/take_sample(mob/user, atom/supplied)
 	var/obj/item/sample/S = new evidence_path(get_turf(user), supplied)
-	to_chat(user, "<span class='notice'>You transfer [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [S].</span>")
+	to_chat(user, span_notice("You transfer [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [S]."))
 
 /obj/item/forensics/sample_kit/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -154,7 +154,7 @@
 		take_sample(user,A)
 		. = 1
 	else
-		to_chat(user, "<span class='warning'>You are unable to locate any [evidence_type]s on \the [A].</span>")
+		to_chat(user, span_warning("You are unable to locate any [evidence_type]s on \the [A]."))
 		. = ..()
 
 

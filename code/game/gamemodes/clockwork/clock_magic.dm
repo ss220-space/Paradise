@@ -99,10 +99,10 @@
 			return
 	if(item?.enchants?.len) // it just works
 		if(item.enchant_type == CASTING_SPELL)
-			to_chat(owner, "<span class='warning'> You can't enchant [item] right now while spell is working!</span>")
+			to_chat(owner, span_warning(" You can't enchant [item] right now while spell is working!"))
 			return
 		if(item.enchant_type)
-			to_chat(owner, "<span class='clockitalic'>There is already prepared spell in [item]! If you choose another spell it will overwrite old one!</span>")
+			to_chat(owner, span_clockitalic("There is already prepared spell in [item]! If you choose another spell it will overwrite old one!"))
 		var/entered_spell_name
 		var/list/possible_enchants = list()
 		var/list/possible_enchant_icons = list()
@@ -125,9 +125,9 @@
 
 		if(!channeling)
 			channeling = TRUE
-			to_chat(owner, "<span class='clockitalic'>You start to concentrate on your power to seal the magic in [item].</span>")
+			to_chat(owner, span_clockitalic("You start to concentrate on your power to seal the magic in [item]."))
 		else
-			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
+			to_chat(owner, span_warning("You are already invoking clock magic!"))
 			return
 
 		var/clock_structure_in_range = locate(/obj/structure/clockwork/functional) in range(1, usr)
@@ -144,13 +144,13 @@
 				owner.actions += E
 				owner.update_action_buttons(TRUE)
 			item.update_icon()
-			to_chat(owner, "<span class='clock'>You sealed the power in [item], you have prepared a [spell_enchant.name] invocation!</span>")
+			to_chat(owner, span_clock("You sealed the power in [item], you have prepared a [spell_enchant.name] invocation!"))
 
 		channeling = FALSE
 	// If it's empty or not an item we can enchant. Making a spell on hand.
 	else
 		if(!iscarbon(owner)) //This is to throw away non carbon who doesn't have hands, but silicon modules.
-			to_chat(owner, "<span class='clockitalic'>You need an item that you can enchant!</span>")
+			to_chat(owner, span_clockitalic("You need an item that you can enchant!"))
 			return
 		if(midas_spell)
 			to_chat(owner, "<span class='clockitalic'>You already prepared midas touch!</b></span>")
@@ -160,15 +160,15 @@
 
 		if(!channeling)
 			channeling = TRUE
-			to_chat(owner, "<span class='clockitalic'>You start to concentrate on your power to seal the magic in your hand.</span>")
+			to_chat(owner, span_clockitalic("You start to concentrate on your power to seal the magic in your hand."))
 		else
-			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
+			to_chat(owner, span_warning("You are already invoking clock magic!"))
 			return
 
 		if(do_after(owner, 5 SECONDS, owner))
 			midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
 			midas_spell.Grant(owner, src)
-			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
+			to_chat(owner, span_clock("You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!"))
 		channeling = FALSE
 
 /datum/action/innate/clockwork/hand_spell //The next generation of talismans, handles storage/creation of blood magic
@@ -204,9 +204,9 @@
 		hand_magic = new magic_path(owner, src)
 		if(!owner.put_in_hands(hand_magic))
 			QDEL_NULL(hand_magic)
-			to_chat(owner, "<span class='warning'>You have no empty hand for invoking clockwork magic!</span>")
+			to_chat(owner, span_warning("You have no empty hand for invoking clockwork magic!"))
 			return
-		to_chat(owner, "<span class='cultitalic'>Your wounds glow as you invoke the [name].</span>")
+		to_chat(owner, span_cultitalic("Your wounds glow as you invoke the [name]."))
 	else // If the spell is active, and you clicked on the button for it
 		QDEL_NULL(hand_magic)
 
@@ -260,7 +260,7 @@
 	if(!proximity_flag)
 		return
 	if(channeling)
-		to_chat(user, "<span class='clockitalic'>You are already invoking midas touch!</span>")
+		to_chat(user, span_clockitalic("You are already invoking midas touch!"))
 		return
 	var/turf/turf_target = get_turf(target)
 
@@ -268,16 +268,16 @@
 	if(istype(target, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/candidate = target
 		if(candidate.amount < CLOCK_METAL_TO_BRASS)
-			to_chat(user, "<span class='warning'>You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!</span>")
+			to_chat(user, span_warning("You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!"))
 			return
 		var/quantity = (candidate.amount - (candidate.amount % CLOCK_METAL_TO_BRASS)) / CLOCK_METAL_TO_BRASS
 		if(candidate.use(quantity * CLOCK_METAL_TO_BRASS))
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
-			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the metal, transforming it into brass!</span>")
+			to_chat(user, span_warning("Your hand starts to shine very bright onto the metal, transforming it into brass!"))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 		else
-			to_chat(user, "<span class='warning'>You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!</span>")
+			to_chat(user, span_warning("You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!"))
 			return
 
 	//Plasteel to brass metal
@@ -287,7 +287,7 @@
 		if(candidate.use(quantity))
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
-			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
+			to_chat(user, span_warning("Your hand starts to shine very bright onto the plasteel, transforming it into brass!"))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 	else if(istype(target, /obj/item/stack/sheet/brass))
@@ -301,14 +301,14 @@
 		if(!user.put_in_hands(O))
 			O.forceMove(get_turf(src))
 		candidate.use(1)
-		to_chat(user, "<span class='warning'>With you magic hand you re-materialize brass into [O.name]!</span>")
+		to_chat(user, span_warning("With you magic hand you re-materialize brass into [O.name]!"))
 		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 	else if(istype(target, /mob/living/silicon/robot))
 		var/mob/living/silicon/robot/candidate = target
 		if(candidate.stat != DEAD || !isclocker(candidate))
 			channeling = TRUE
-			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] and rapidly turns all his metal into cogs and brass gears!</span>")
+			user.visible_message(span_warning("A [user]'s hand touches [candidate] and rapidly turns all his metal into cogs and brass gears!"))
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
 			if(do_after(user, 9 SECONDS, candidate))
@@ -323,7 +323,7 @@
 		var/mob/living/silicon/ai/candidate = target
 		if(candidate.stat != DEAD || !isclocker(candidate))
 			channeling = TRUE
-			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] as he starts to manipulate every piece of technology inside!</span>")
+			user.visible_message(span_warning("A [user]'s hand touches [candidate] as he starts to manipulate every piece of technology inside!"))
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
 			if(do_after(user, 9 SECONDS, candidate))
@@ -334,12 +334,12 @@
 				channeling = FALSE
 				return
 		else
-			to_chat(user, "<span class='warning'>Your hand finalizes [candidate] - twisting it into a marauder!</span>")
+			to_chat(user, span_warning("Your hand finalizes [candidate] - twisting it into a marauder!"))
 			new /obj/item/clockwork/marauder(get_turf(src))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			qdel(candidate)
 	else
-		to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
+		to_chat(user, span_warning("The spell will not work on [target]!"))
 		return
 	user.whisper("Rqu-en qy'qby!")
 	source.used = TRUE

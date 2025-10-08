@@ -250,16 +250,16 @@
 /obj/item/flashlight/flare/attack_self(mob/user)
 	// Usual checks
 	if(!fuel)
-		to_chat(user, "<span class='notice'>[src] is out of fuel.</span>")
+		to_chat(user, span_notice("[src] is out of fuel."))
 		return
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is already on.</span>")
+		to_chat(user, span_notice("[src] is already on."))
 		return
 
 	. = ..()
 	// All good, turn it on.
 	if(.)
-		user.visible_message("<span class='notice'>[user] activates [src].</span>", "<span class='notice'>You activate [src].</span>")
+		user.visible_message(span_notice("[user] activates [src]."), span_notice("You activate [src]."))
 		if(produce_heat)
 			force = on_damage
 			damtype = BURN
@@ -474,7 +474,7 @@
 		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
 		A.emp_act(1)
 	else
-		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+		to_chat(user, span_warning("\The [src] needs time to recharge!"))
 
 
 /obj/item/flashlight/spotlight //invisible lighting source

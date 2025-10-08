@@ -6,7 +6,7 @@
 	The system is made up of two objects. A main core and relays.
 
 	The main core is basically the same as all of the machines from the previous implementation, apart from the relay
-	The core handles recieving and sending messages, logging messages, the NTTC configuration, and serves as the linkage hub for relays
+	The core handles receiving and sending messages, logging messages, the NTTC configuration, and serves as the linkage hub for relays
 
 	Relays function much in the same way as the old ones. They just expand the reach of tcomms from one z-level to another.
 
@@ -343,7 +343,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
-	for(var/mob/R in receive)
+	for(var/mob/R in receive | GLOB.dead_player_list)
 
 		/* --- Loop through the receivers and categorize them --- */
 

@@ -109,7 +109,7 @@
 
 /obj/item/gun/pneumatic_rifle/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, span_notice("[src] is empty."))
 		return FALSE
 
 	var/obj/item/reagent_containers/syringe/S
@@ -124,7 +124,7 @@
 	user.put_in_hands(S)
 	syringes.Remove(S)
 	process_chamber()
-	to_chat(user, "<span class='notice'>You unload [S] from \the [src]!</span>")
+	to_chat(user, span_notice("You unload [S] from \the [src]!"))
 	return TRUE
 
 /obj/item/gun/pneumatic_rifle/process_chamber()

@@ -1,6 +1,6 @@
-#define NINJA_NIGHTVISION		"nightvision"
-#define NINJA_THERMALS			"thermals"
-#define NINJA_FLASHPROTECTION	"flashprotection"
+#define NINJA_NIGHTVISION "nightvision"
+#define NINJA_THERMALS "thermals"
+#define NINJA_FLASHPROTECTION "flashprotection"
 
 /datum/action/item_action/ninja_glasses_toggle
 	name = "Toggle Visor Mode"

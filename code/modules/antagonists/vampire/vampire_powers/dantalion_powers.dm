@@ -139,14 +139,14 @@
 
 	// if admins give this to a non vampire/thrall it is not my problem
 	var/is_thrall = isvampirethrall(user)
-	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : "<span class='dantalion'><font size='3'>(Мастер Вампир) [user.real_name]</font></span>"
-	var/message = is_thrall ? "<span class='dantalion'>[input]</span>" : "<span class='dantalion'><font size='3'><b>[input]</b></font></span>"
+	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : span_dantalion(span_fontsize3("(Мастер Вампир) [user.real_name]"))
+	var/message = is_thrall ? span_dantalion("[input]") : span_dantalion(span_fontsize3(span_bold("[input]")))
 
 	for(var/mob/player in targets)
-		to_chat(player, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> телепатезирует, [message]</span><i>")
+		to_chat(player, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] телепатезирует, [message]<i>"))
 
 	for(var/mob/ghost in GLOB.dead_mob_list)
-		to_chat(ghost, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> ([ghost_follow_link(user, ghost)]) телепатезирует, [message]</span><i>")
+		to_chat(ghost, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] ([ghost_follow_link(user, ghost)]) телепатезирует, [message]<i>"))
 
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")

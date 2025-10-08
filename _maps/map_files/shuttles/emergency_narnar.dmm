@@ -187,9 +187,6 @@
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
-"aD" = (
-/turf/simulated/wall/cult,
-/area/shuttle/escape)
 "aE" = (
 /obj/docking_port/mobile/emergency{
 	dwidth = 11;
@@ -290,14 +287,6 @@
 /area/shuttle/escape)
 "aT" = (
 /obj/machinery/door/airlock/cult/friendly,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
-/area/shuttle/escape)
-"aU" = (
-/obj/effect/spawner/window/reinforced{
-	color = "red"
-	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -599,7 +588,7 @@ aI
 aV
 aH
 aS
-aU
+aR
 ab
 ab
 ab
@@ -720,7 +709,7 @@ aa
 ab
 ab
 ab
-aD
+ab
 ab
 ab
 ab

@@ -30,7 +30,7 @@
 		else
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console. (Attempted range exploit)")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+			to_chat(user, span_notice("ERROR: [M] is out of [src]'s range!"))
 
 
 /obj/item/storage/part_replacer/bluespace
@@ -70,7 +70,7 @@
 		empty_mode -= 1
 		if(empty_mode < 0)
 			empty_mode = 4
-		to_chat(user, "<span class='notice'>[src.name] будет выгружать предметы рангом [empty_mode] и ниже.</span>")
+		to_chat(user, span_notice("[src.name] будет выгружать предметы рангом [empty_mode] и ниже."))
 	else
 		var/turf/T = get_turf(src)
 		hide_from(user)

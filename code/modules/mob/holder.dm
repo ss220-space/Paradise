@@ -97,9 +97,9 @@
 				if(Adjacent(human_to_ask))
 					pick_up_mob(human_to_ask)
 				else
-					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+					to_chat(src, span_warning("You need to stay in reaching distance to be picked up."))
 			if("No")
-				to_chat(src, "<span class='warning'>[human_to_ask] decided not to pick you up.</span>")
+				to_chat(src, span_warning("[human_to_ask] decided not to pick you up."))
 	else
 		return ..()
 
@@ -119,7 +119,7 @@
 		H.desc = desc
 	H.attack_hand(grabber)
 	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
-	to_chat(src, "<span class='notice'>[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас.</span>")
+	to_chat(src, span_notice("[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	switch(mob_size)

@@ -83,7 +83,7 @@
 			else
 				H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
 			if(H.stat != DEAD)
-				to_chat(H, "<span class='userdanger'>Свет жжёт вас!</span>")//Message spam to say "GET THE FUCK OUT"
+				to_chat(H, span_userdanger("Свет жжёт вас!"))//Message spam to say "GET THE FUCK OUT"
 				SEND_SOUND(H, sound('sound/weapons/sear.ogg'))
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.clear_alert("lightexposure")

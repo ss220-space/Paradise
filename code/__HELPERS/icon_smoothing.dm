@@ -24,20 +24,20 @@
 */
 
 //Redefinitions of the diagonal directions so they can be stored in one var without conflicts
-#define N_NORTH	2
-#define N_SOUTH	4
-#define N_EAST	16
-#define N_WEST	256
-#define N_NORTHEAST	32
-#define N_NORTHWEST	512
-#define N_SOUTHEAST	64
-#define N_SOUTHWEST	1024
+#define N_NORTH 2
+#define N_SOUTH 4
+#define N_EAST 16
+#define N_WEST 256
+#define N_NORTHEAST 32
+#define N_NORTHWEST 512
+#define N_SOUTHEAST 64
+#define N_SOUTHWEST 1024
 
 #define NULLTURF_BORDER 123456789
 
-#define DEFAULT_UNDERLAY_ICON			'icons/turf/floors.dmi'
-#define DEFAULT_UNDERLAY_ICON_STATE	"plating"
-#define DEFAULT_UNDERLAY_IMAGE			image(DEFAULT_UNDERLAY_ICON, DEFAULT_UNDERLAY_ICON_STATE)
+#define DEFAULT_UNDERLAY_ICON 'icons/turf/floors.dmi'
+#define DEFAULT_UNDERLAY_ICON_STATE "plating"
+#define DEFAULT_UNDERLAY_IMAGE image(DEFAULT_UNDERLAY_ICON, DEFAULT_UNDERLAY_ICON_STATE)
 
 GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 

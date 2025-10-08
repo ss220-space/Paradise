@@ -31,6 +31,7 @@
 #define span_boldannounceic(str) ("<span class='boldannounceic'>" + str + "</span>")
 #define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
 #define span_announce(str) ("<span class='announce'>" + str + "</span>")
+#define span_typing(str) ("<span class='typing'>" + str + "</span>")
 
 /**
  * MARK: GENERAL STUFF
