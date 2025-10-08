@@ -626,7 +626,7 @@
 		popup.open(FALSE)
 
 
-/mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
+/mob/mouse_drop_dragged(atom/over_object, mob/living/user, src_location, over_location, params)
 	. = ..()
 	if(!. || usr != user || usr == src || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return FALSE

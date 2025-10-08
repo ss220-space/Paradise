@@ -600,7 +600,7 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 
 
-/obj/item/storage/pill_bottle/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
+/obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(!length(contents))
 			balloon_alert(user, "пусто!")
@@ -656,7 +656,7 @@
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
 
-/obj/item/storage/pill_bottle/patch_pack/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
+/obj/item/storage/pill_bottle/patch_pack/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(!length(contents))
 			balloon_alert(user, "пусто!")

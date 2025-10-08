@@ -594,7 +594,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 
 //this is called when a ghost is drag clicked to something.
-/mob/dead/observer/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/mob/dead/observer/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!usr || !over_object)
 		return FALSE
 

@@ -23,6 +23,7 @@
 	var/mutable_appearance/keybind_maptext
 	/// if observers can trigger this action at any time
 	var/allow_observer_click = FALSE
+	locked = FALSE
 
 /atom/movable/screen/movable/action_button/Destroy()
 	if(our_hud)

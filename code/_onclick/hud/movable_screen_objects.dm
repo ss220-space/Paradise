@@ -45,7 +45,7 @@
 		offset[2] += y_off
 	return offset_to_screen_loc(offset[1], offset[2], our_client?.view)
 
-/atom/movable/screen/movable/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/atom/movable/screen/movable/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(locked) //no! I am locked! begone!
 		return
 

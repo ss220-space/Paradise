@@ -297,12 +297,11 @@
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
 
-/obj/item/deck/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/deck/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(over_object != user || user.incapacitated() || !iscarbon(user))
 		return FALSE
 

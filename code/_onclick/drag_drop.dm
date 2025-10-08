@@ -25,23 +25,11 @@ FALSE if not
 	almost anything into a trash can.
 */
 /atom/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	. = TRUE
 	if(!usr || !over_object)
 		return FALSE
-
-	var/lagging = could_be_click_lag()
-	drag_start = 0
-
-	if(!(is_screen_atom(over_object) || (loc && loc == over_object.loc)))
-		if(!Adjacent(usr) || !over_object.Adjacent(usr)) // should stop you from dragging through windows
-			if(lagging)
-				usr.ClickOn(src, params)
-			return FALSE
-
-	var/datum/callback/mousedrop = new(over_object, PROC_REF(MouseDrop_T), src, usr, params)
-	var/result = mousedrop.InvokeAsync() // if it gets TRUE in return, we think that all is fine
-	if(!result && lagging)
-		usr.ClickOn(src, params) // if not, we click object
 
 	base_mouse_drop_handler(over_object, src_location, over_location, params)
 
@@ -86,7 +74,19 @@ to inform the game this action was expected and its fine
 /atom/proc/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
 	PROTECTED_PROC(TRUE)
 
-	return
+	var/lagging = could_be_click_lag()
+	drag_start = 0
+
+	if(!(is_screen_atom(over) || (loc && loc == over.loc)))
+		if(!Adjacent(usr) || !over.Adjacent(usr)) // should stop you from dragging through windows
+			if(lagging)
+				usr.ClickOn(src, params)
+			return FALSE
+
+	var/datum/callback/mousedrop = new(over, PROC_REF(MouseDrop_T), src, usr, params)
+	var/result = mousedrop.InvokeAsync() // if it gets TRUE in return, we think that all is fine
+	if(!result && lagging)
+		usr.ClickOn(src, params) // if not, we click object
 
 /// The proc that should be overridden by subtypes to handle mouse drop. Called on the atom receiving a dragged object
 /atom/proc/mouse_drop_receive(atom/dropped, mob/user, params)
