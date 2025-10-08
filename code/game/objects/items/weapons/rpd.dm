@@ -2,8 +2,8 @@
 	Rapid Pipe Dispenser
 */
 
-#define RPD_COOLDOWN_TIME		4 //How long should we have to wait between dispensing pipes?
-#define RPD_WALLBUILD_TIME		40 //How long should drilling into a wall take?
+#define RPD_COOLDOWN_TIME 4 //How long should we have to wait between dispensing pipes?
+#define RPD_WALLBUILD_TIME 40 //How long should drilling into a wall take?
 #define RPD_MENU_ROTATE "Rotate pipes" //Stuff for radial menu
 #define RPD_MENU_FLIP "Flip pipes" //Stuff for radial menu
 #define RPD_MENU_DELETE "Delete pipes" //Stuff for radial menu

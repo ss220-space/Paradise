@@ -48,7 +48,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
-	Radio.set_listening(FALSE)
 	Radio.follow_target = src
 	. = ..()
 

@@ -167,17 +167,15 @@
 /datum/dna/gene/basic/hulk/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	mutant.AddSpell(new /obj/effect/proc_holder/spell/hulk_transform)
+	mutant.change_eye_color("red", FALSE)
 	mutant.update_body(TRUE)
 
 
 /datum/dna/gene/basic/hulk/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	mutant.RemoveSpell(/obj/effect/proc_holder/spell/hulk_transform)
+	mutant.change_eye_color(mutant.original_eye_color, FALSE)
 	mutant.update_body(TRUE)
-
-
-/datum/dna/gene/basic/hulk/OnDrawUnderlays(mob/M, g)
-	return "hulk_[g]_s"
 
 
 /datum/dna/gene/basic/xray

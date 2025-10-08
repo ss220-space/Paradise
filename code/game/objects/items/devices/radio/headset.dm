@@ -55,6 +55,8 @@
 	return list()
 
 /obj/item/radio/headset/proc/possibly_deactivate_in_loc()
+	if(!listening)
+		return
 	if(ismob(loc))
 		set_listening(should_be_listening)
 	else
@@ -144,7 +146,7 @@
 	else
 		user.balloon_alert(user, "слот для ключа пуст!")
 
-/obj/item/radio/headset/recalculate_channels(setDescription = FALSE)
+/obj/item/radio/headset/recalculate_channels(setDescription = TRUE)
 	. = ..()
 	if(!setDescription)
 		return

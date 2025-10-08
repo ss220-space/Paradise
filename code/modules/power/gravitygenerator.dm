@@ -409,7 +409,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 		if(shaked.client)
 			shake_camera(shaked, 15, 1)
-			shaked.playsound_local(our_turf, null, 100, TRUE, 0.5, sound = alert_sound)
+			shaked.playsound_local(our_turf, null, 100, TRUE, 0.5, sound_to_use = alert_sound)
 
 // TODO: Make the gravity generator cooperate with the space manager
 /obj/machinery/gravity_generator/main/proc/gravity_in_level()
