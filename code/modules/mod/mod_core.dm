@@ -215,7 +215,7 @@
 
 	if(!mod.open)
 		return
-	examine_text += span_notice([cell ? "Вы можете отсоединить батарею от ядра." : "Вы можете установить новую батарею в ядро."])
+	examine_text += span_notice(cell ? "Вы можете отсоединить батарею от ядра." : "Вы можете установить новую батарею в ядро.")
 
 /obj/item/mod/core/standard/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER

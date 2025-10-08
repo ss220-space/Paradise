@@ -307,6 +307,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/obj/item/mod/core/attacking_core = attacking_item
+		balloon_alert(user, "ядро установлено")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		user.drop_from_active_hand()
 		attacking_core.install(src)
