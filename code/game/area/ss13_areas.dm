@@ -76,6 +76,11 @@ This applies to all STANDARD station areas
 /area/space/firereset(obj/source)
 	return
 
+/area/game_test
+	name = "Game Test Area"
+	icon_state = "test_room"
+	requires_power = FALSE
+
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.
 //All shuttles show now be under shuttle since we have smooth-wall code.
