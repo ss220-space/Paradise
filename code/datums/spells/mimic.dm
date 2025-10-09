@@ -121,7 +121,7 @@
 
 /obj/effect/proc_holder/spell/mimic/proc/take_form(datum/mimic_form/form, mob/user)
 	var/old_name = "[user]"
-	user_ru_names = user.ru_names
+	user_ru_names = user.get_ru_names_cached() || user.ru_names
 	if(ishuman(user))
 		// Not fully finished yet
 		var/mob/living/carbon/human/H = user
@@ -226,11 +226,11 @@
 	examine_time = form.get_examine_time()
 	appearance = form.appearance
 	name = form.name
-	form_ru_names = form.get_ru_names() || form.ru_names
+	form_ru_names = form.get_ru_names_cached() || form.ru_names
 	// if no ru_names found, we just fill it with default name
 	if(!length(form_ru_names))
 		form_ru_names = new /list(6)
-		for(var/name in form_ru_names)
+		for(var/name in NOMINATIVE to PREPOSITIONAL)
 			form_ru_names[name] = form.declent_ru(name)
 	if(isliving(form))
 		var/mob/living/form_living = form
