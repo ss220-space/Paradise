@@ -214,9 +214,7 @@
 	},
 /area/centcom/evac)
 "aoU" = (
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
+/obj/structure/window/reinforced,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -250,8 +248,7 @@
 /area/centcom/specops)
 "aqH" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -259,8 +256,7 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -464,8 +460,7 @@
 /obj/structure/grille,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -938,13 +933,11 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -1036,7 +1029,7 @@
 	},
 /area/centcom/zone1)
 "aRV" = (
-/obj/effect/landmark/traderstart_sol,
+/obj/effect/landmark/spawner/soltrader,
 /turf/simulated/floor/holofloor{
 	icon_state = "engine";
 	name = "Holodeck Projector Floor"
@@ -1044,8 +1037,7 @@
 /area/holodeck/source_wildlife)
 "aSD" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/table/wood,
 /obj/item/circuitboard/aiupload,
@@ -1319,8 +1311,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
-	layer = 2
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -1653,8 +1644,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -2104,8 +2094,7 @@
 	req_access = null
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -2113,8 +2102,7 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/item/ammo_box/magazine/laser,
 /obj/item/ammo_box/magazine/laser,
@@ -2872,8 +2860,7 @@
 "cCm" = (
 /obj/structure/window/plasmareinforced{
 	color = "#00f700";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#00f700";
@@ -2988,7 +2975,7 @@
 /area/centcom/blops)
 "cEj" = (
 /obj/structure/table/reinforced,
-/obj/effect/landmark/commando_manual,
+/obj/effect/landmark/spawner/commando_manual,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -5000,8 +4987,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
-	layer = 2
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -5089,9 +5075,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -5207,8 +5191,7 @@
 "efz" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/item/storage/box/deathimp,
 /obj/item/storage/box/deathimp,
@@ -6146,13 +6129,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -6567,13 +6548,11 @@
 /obj/machinery/vending/dinnerware,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -6645,8 +6624,7 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -6669,13 +6647,11 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -6824,8 +6800,7 @@
 /obj/structure/kitchenspike,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -7258,9 +7233,6 @@
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
-/obj/structure/chair/sofa/right{
-	dir = 1
-	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -7598,8 +7570,7 @@
 "fHd" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/indestructible/grass,
@@ -7672,8 +7643,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/indestructible/grass,
@@ -7816,7 +7786,7 @@
 /obj/effect/turf_decal/siding{
 	color = "#444444"
 	},
-/obj/effect/landmark/ninjastart,
+/obj/effect/landmark/spawner/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "fST" = (
@@ -7921,13 +7891,11 @@
 "fXa" = (
 /obj/machinery/gibber,
 /obj/structure/window/reinforced{
-	color = "black";
-	layer = 5
+	color = "black"
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -7990,8 +7958,7 @@
 "fZP" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/structure/window/reinforced{
-	color = "black";
-	layer = 5
+	color = "black"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -8023,13 +7990,11 @@
 "gbP" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/structure/window/reinforced{
-	color = "black";
-	layer = 5
+	color = "black"
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -8307,7 +8272,7 @@
 "gmR" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/obj/effect/landmark/traderstart_sol,
+/obj/effect/landmark/spawner/soltrader,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
@@ -8334,8 +8299,7 @@
 /obj/machinery/vending/dinnerware,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -8345,8 +8309,7 @@
 /obj/machinery/kitchen_machine/candy_maker/upgraded,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -8376,8 +8339,7 @@
 /obj/machinery/icemachine,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -8388,8 +8350,7 @@
 /obj/machinery/kitchen_machine/microwave/upgraded,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -8548,10 +8509,7 @@
 /area/ninja/outpost)
 "gyc" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark{
-	name = "Syndicate-Commando";
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_commando,
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -8666,16 +8624,14 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/gun/projectile/automatic/wt550{
 	desc = "An outdated personal defense weapon utilized by law enforcement. The TX-20a Automatic Rifle fires 4.6x30mm rounds.";
@@ -8727,7 +8683,7 @@
 /area/centcom/evac)
 "gDX" = (
 /obj/structure/chair,
-/obj/effect/landmark/voxstart,
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -8756,8 +8712,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -8769,8 +8724,7 @@
 /obj/item/ammo_box/a40mm,
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -8847,14 +8801,6 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/evac)
-"gIz" = (
-/obj/structure/chair/sofa/right{
-	dir = 1
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "grimy"
-	},
-/area/centcom/zone1)
 "gIN" = (
 /obj/item/gun/syringe/syndicate,
 /obj/structure/table/wood,
@@ -8868,8 +8814,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -8887,8 +8832,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -9003,26 +8947,22 @@
 /area/centcom/evac)
 "gMh" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/grille{
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "commandcenter";
@@ -9051,8 +8991,7 @@
 /area/ninja/outpost)
 "gNc" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -9088,12 +9027,10 @@
 /area/centcom/zone1)
 "gQZ" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -9169,12 +9106,10 @@
 /area/holodeck/source_space)
 "gUw" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -9193,8 +9128,7 @@
 "gVi" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/indestructible/grass,
@@ -9204,8 +9138,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	color = "black";
-	layer = 5
+	color = "black"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -9489,9 +9422,7 @@
 /turf/space/transit/west,
 /area/space)
 "hgY" = (
-/obj/structure/window/reinforced{
-	layer = 5
-	},
+/obj/structure/window/reinforced,
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/structure/curtain/open/shower,
@@ -9519,8 +9450,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced/survival_pod{
-	dir = 1;
-	layer = 3.0
+	dir = 1
 	},
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
@@ -9533,12 +9463,9 @@
 	},
 /area/wizard_station)
 "hiy" = (
+/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	layer = 5
-	},
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -9566,8 +9493,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -9958,8 +9884,7 @@
 /area/space)
 "hxL" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -9993,26 +9918,22 @@
 /area/holodeck/source_burntest)
 "hzJ" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/grille{
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
@@ -10074,8 +9995,7 @@
 /area/event_zone)
 "hCQ" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -10100,8 +10020,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	dir = 8;
@@ -10147,8 +10066,7 @@
 "hGI" = (
 /obj/machinery/bodyscanner,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	dir = 8;
@@ -10167,8 +10085,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
-	layer = 2
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -10282,8 +10199,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -10469,7 +10385,7 @@
 /area/admin)
 "hQw" = (
 /obj/structure/table/wood,
-/obj/effect/landmark/teleport_scroll,
+/obj/effect/landmark/spawner/teleport_scroll,
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -30
 	},
@@ -10762,8 +10678,7 @@
 /obj/structure/chair/comfy/brown,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -10775,13 +10690,11 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -10829,8 +10742,7 @@
 /obj/structure/chair/sofa/left,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -10846,7 +10758,7 @@
 	},
 /area/centcom/zone3)
 "iiz" = (
-/obj/effect/landmark/syndieprisonwarp,
+/obj/effect/landmark/spawner/syndieprisonwarp,
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
 	},
@@ -10890,13 +10802,11 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -11284,8 +11194,7 @@
 /obj/item/gun/projectile/automatic/ar,
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -11294,8 +11203,7 @@
 	req_access = list(114)
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -11366,8 +11274,7 @@
 /obj/structure/table/glass,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -11477,8 +11384,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -11738,8 +11644,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -11884,9 +11789,7 @@
 	name = "Automatic Station Protection System";
 	opacity = 0
 	},
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "rcircuitanim"
 	},
@@ -12044,7 +11947,7 @@
 	color = "#363636";
 	icon_state = "diagonal_edge"
 	},
-/obj/effect/landmark/ninjastart,
+/obj/effect/landmark/spawner/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "jaa" = (
@@ -12083,26 +11986,22 @@
 /area/centcom/srtops)
 "jcl" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/grille{
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
@@ -12390,8 +12289,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -12402,8 +12300,7 @@
 /obj/item/ammo_box/magazine/m556,
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
@@ -12516,9 +12413,7 @@
 	},
 /area/centcom/jail)
 "jpc" = (
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -12550,9 +12445,7 @@
 	},
 /area/centcom/supply)
 "jqt" = (
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "rcircuitanim"
 	},
@@ -12813,9 +12706,7 @@
 	},
 /area/ninja/holding)
 "jzk" = (
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -13153,21 +13044,18 @@
 /area/centcom/zone2)
 "jMl" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/grille{
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
@@ -13491,8 +13379,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	color = "black";
-	layer = 5
+	color = "black"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -14124,12 +14011,10 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -14452,9 +14337,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/zone1)
 "kLa" = (
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	active_power_usage = 1;
 	dir = 1;
@@ -15141,9 +15024,7 @@
 	},
 /area/tdome/arena)
 "lhm" = (
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -15404,8 +15285,7 @@
 /area/chrono_ship)
 "lqD" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible{
@@ -15654,8 +15534,7 @@
 /area/centcom/jail)
 "lBX" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -15663,8 +15542,7 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -15674,43 +15552,43 @@
 	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by Nanotrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
@@ -15931,8 +15809,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/survival_pod{
-	dir = 1;
-	layer = 3.0
+	dir = 1
 	},
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
@@ -16114,8 +15991,7 @@
 /obj/structure/table/glass,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -16442,8 +16318,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -16855,7 +16730,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/voxstart,
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -17061,9 +16936,7 @@
 	},
 /area/vox_station)
 "mxk" = (
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
+/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -17359,10 +17232,7 @@
 /area/centcom/zone2)
 "mHZ" = (
 /obj/structure/chair/stool/holostool,
-/obj/effect/landmark{
-	name = "Syndicate-Infiltrator";
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -17775,8 +17645,7 @@
 /area/chrono_ship)
 "mZi" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -17784,8 +17653,7 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -18004,7 +17872,7 @@
 	},
 /area/ussp_ship)
 "nfZ" = (
-/obj/effect/landmark/tdome/tdome1,
+/obj/effect/landmark/spawner/tdome1,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome1)
 "ngp" = (
@@ -18212,9 +18080,7 @@
 	locked = 1;
 	name = "Central Command Jail"
 	},
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -18374,16 +18240,14 @@
 /area/tdome)
 "nuC" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/grille{
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
@@ -18404,7 +18268,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark/voxstart,
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -18659,7 +18523,7 @@
 /turf/simulated/floor/carpet/red,
 /area/ninja/outpost)
 "nFE" = (
-/obj/effect/landmark/tdome/tdome2,
+/obj/effect/landmark/spawner/tdome2,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome2)
 "nFJ" = (
@@ -18909,8 +18773,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -18920,8 +18783,7 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/item/grenade/frag,
 /obj/item/grenade/frag,
@@ -19966,9 +19828,7 @@
 /obj/structure/chair/comfy/red{
 	color = "#FFFFFF"
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -20030,10 +19890,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/syndicate_mothership)
-"oOe" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible,
-/area/centcom)
 "oOr" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/recharger,
@@ -20155,12 +20011,9 @@
 /area/syndicate_mothership)
 "oVl" = (
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
-/obj/structure/window/reinforced{
-	layer = 5
-	},
+/obj/structure/window/reinforced,
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/structure/curtain/open/shower,
@@ -20313,10 +20166,6 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
-"paY" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/evac)
 "pbl" = (
 /obj/item/flag/species/vox,
 /turf/simulated/floor/indestructible/vox{
@@ -20855,9 +20704,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -21065,8 +20912,7 @@
 /area/admin)
 "prr" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -21074,8 +20920,7 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -21686,7 +21531,7 @@
 	pixel_x = 11;
 	pixel_y = -9
 	},
-/obj/effect/landmark/tdome/tdome2,
+/obj/effect/landmark/spawner/tdome2,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome2)
 "pLq" = (
@@ -21901,9 +21746,7 @@
 	name = "Privacy Shutters";
 	opacity = 0
 	},
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible/plating,
 /area/centcom/zone2)
 "pRR" = (
@@ -22189,13 +22032,8 @@
 	},
 /area/centcom/bridge)
 "qcr" = (
-/obj/structure/lattice,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom)
-"qcy" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible,
-/area/centcom/evac)
 "qds" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -22646,8 +22484,7 @@
 /obj/structure/chair/sofa,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 1;
-	layer = 5
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -23211,12 +23048,10 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 8;
-	layer = 5
+	dir = 8
 	},
 /obj/structure/window/reinforced{
-	color = "black";
-	layer = 5
+	color = "black"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -23241,8 +23076,8 @@
 /area/ninja/outpost)
 "qOI" = (
 /obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/mm556x45/bleeding,
-/obj/item/ammo_box/magazine/mm556x45,
+/obj/item/ammo_box/magazine/a762x51/bleeding,
+/obj/item/ammo_box/magazine/a762x51,
 /turf/simulated/floor/indestructible{
 	dir = 8;
 	icon_state = "vault"
@@ -23296,13 +23131,12 @@
 	pixel_x = 12;
 	pixel_y = -10
 	},
-/obj/effect/landmark/tdome/tdome1,
+/obj/effect/landmark/spawner/tdome1,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome1)
 "qRG" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -23406,8 +23240,7 @@
 /area/event_zone)
 "qUE" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -23718,9 +23551,7 @@
 	name = "Central Command Jail";
 	opacity = 0
 	},
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -24069,8 +23900,7 @@
 /obj/structure/chair/comfy/brown,
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -24325,8 +24155,7 @@
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#00f700";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle/dark,
 /turf/simulated/floor/shuttle{
@@ -24819,9 +24648,7 @@
 	color = "#FFFFFF";
 	dir = 1
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -25087,21 +24914,18 @@
 /area/ussp_ship)
 "scl" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/grille{
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
@@ -25190,9 +25014,7 @@
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome2)
 "sgZ" = (
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -25299,8 +25121,7 @@
 /area/centcom/specops)
 "sjo" = (
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/table/wood,
 /obj/item/melee/baton/telescopic,
@@ -25368,26 +25189,22 @@
 /area/centcom/specops)
 "slF" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/grille{
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -25792,7 +25609,7 @@
 /area/syndicate_mothership)
 "szy" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/landmark/syndieprisonwarp,
+/obj/effect/landmark/spawner/syndieprisonwarp,
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
 	},
@@ -25815,8 +25632,7 @@
 /area/shuttle/ninja)
 "sBu" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -25824,8 +25640,7 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -25943,8 +25758,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -26168,7 +25982,7 @@
 	},
 /area/centcom/jail)
 "sMS" = (
-/obj/effect/landmark/response_team,
+/obj/effect/landmark/spawner/ert,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -27003,13 +26817,11 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -27340,12 +27152,10 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -27377,8 +27187,7 @@
 /area/vox_station)
 "tKP" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -27386,8 +27195,7 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -27396,26 +27204,26 @@
 	name = "LMG M249 SAW";
 	req_access = list(114)
 	},
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
 /obj/item/gun/projectile/automatic/l6_saw{
 	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
@@ -27499,7 +27307,7 @@
 /area/centcom/evac)
 "tMy" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/landmark/ert_director,
+/obj/effect/landmark/spawner/ertdirector,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -27732,13 +27540,11 @@
 /area/syndicate_mothership)
 "uah" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -27920,13 +27726,11 @@
 	dir = 9
 	},
 /obj/structure/window/reinforced{
-	color = "black";
-	layer = 5
+	color = "black"
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -28080,8 +27884,8 @@
 	name = "Special Ops. Monitor";
 	network = list("ERT")
 	},
-/obj/effect/landmark/commando_manual,
-/obj/effect/landmark/commando_manual,
+/obj/effect/landmark/spawner/commando_manual,
+/obj/effect/landmark/spawner/commando_manual,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -28700,7 +28504,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 32
 	},
-/obj/effect/landmark/response_team,
+/obj/effect/landmark/spawner/ert,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -29475,8 +29279,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -29498,8 +29301,7 @@
 /obj/item/ammo_box/magazine/m556,
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -29688,8 +29490,7 @@
 /area/centcom/evac)
 "vyB" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -29793,8 +29594,7 @@
 /area/vox_station)
 "vCS" = (
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/table/wood,
 /obj/item/storage/belt/utility/chief/full,
@@ -30009,7 +29809,7 @@
 	},
 /area/syndicate_mothership)
 "vHw" = (
-/obj/effect/landmark/death_squard,
+/obj/effect/landmark/spawner/death_squard,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -30063,8 +29863,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/reedbush,
@@ -30283,9 +30082,7 @@
 	locked = 1;
 	name = "Central Command Jail"
 	},
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -30503,12 +30300,10 @@
 	},
 /obj/structure/window/reinforced{
 	color = "black";
-	dir = 4;
-	layer = 5
+	dir = 4
 	},
 /obj/structure/window/reinforced{
-	color = "black";
-	layer = 5
+	color = "black"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -31097,9 +30892,7 @@
 	locked = 1;
 	name = "Central Command Jail"
 	},
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -31460,7 +31253,7 @@
 /area/space)
 "wCQ" = (
 /obj/structure/bed,
-/obj/effect/landmark/prisonwarp,
+/obj/effect/landmark/spawner/prisonwarp,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -32091,8 +31884,7 @@
 /area/syndicate_mothership)
 "wZL" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -32103,8 +31895,7 @@
 /area/centcom/jail)
 "wZM" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -32126,9 +31917,7 @@
 	},
 /area/ussp_ship)
 "xaM" = (
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -32394,12 +32183,10 @@
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -32493,8 +32280,7 @@
 /area/syndicate_mothership)
 "xps" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/indestructible{
@@ -33172,15 +32958,12 @@
 	},
 /area/centcom/supply)
 "xOV" = (
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
+/obj/structure/window/reinforced,
 /obj/machinery/vending/coffee{
 	layer = 2
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -33431,15 +33214,12 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark/syndicate_officer,
+/obj/effect/landmark/spawner/syndicateofficer,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
-"xZJ" = (
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom)
 "xZL" = (
 /obj/structure/closet,
 /obj/item/clothing/under/color/orange/prison,
@@ -33668,7 +33448,7 @@
 /obj/item/gun/projectile/automatic/l6_saw,
 /obj/item/gun/projectile/automatic/l6_saw,
 /obj/item/gun/projectile/automatic/l6_saw,
-/obj/item/ammo_box/magazine/mm556x45/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
 /obj/machinery/light/small{
 	brightness_range = 10;
 	dir = 4;
@@ -33676,17 +33456,17 @@
 	nightshift_light_range = 10;
 	throw_range = 6
 	},
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
 /turf/simulated/floor/indestructible{
 	dir = 8;
 	icon_state = "vault"
@@ -33797,13 +33577,11 @@
 /area/centcom/specops)
 "ygW" = (
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/rcd/combat,
 /obj/item/rcd/combat,
@@ -33831,13 +33609,11 @@
 /area/centcom/supply)
 "yhy" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/item/gun/projectile/automatic/ar,
 /obj/item/gun/projectile/automatic/ar,
@@ -33933,7 +33709,7 @@
 "yjb" = (
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
-/obj/effect/landmark/wizard,
+/obj/effect/landmark/spawner/wizard,
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "yje" = (
@@ -64292,16 +64068,16 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 tte
 tte
 tte
@@ -64547,9 +64323,9 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 oEi
 oRT
 pfB
@@ -64558,9 +64334,9 @@ qDg
 pfB
 oRT
 oEi
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 tte
 tte
 tte
@@ -64803,8 +64579,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 lDs
 oAF
 oEt
@@ -64817,8 +64593,8 @@ qDg
 pYy
 qdx
 lDs
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -65059,8 +64835,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 lDs
 lDs
 lDs
@@ -65075,8 +64851,8 @@ pZL
 lDs
 lDs
 lDs
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -65315,8 +65091,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 ohS
 lDs
 opJ
@@ -65333,8 +65109,8 @@ oAK
 qsJ
 lDs
 ohS
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -65572,7 +65348,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 stT
 stT
 stT
@@ -65591,7 +65367,7 @@ stT
 stT
 stT
 stT
-xZJ
+qcr
 tte
 tte
 tte
@@ -65829,7 +65605,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 nIc
 krY
 hgF
@@ -65848,7 +65624,7 @@ omh
 oIH
 qPX
 pSB
-xZJ
+qcr
 tte
 tte
 tte
@@ -66085,8 +65861,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 shN
 shN
 shN
@@ -66105,8 +65881,8 @@ shN
 shN
 shN
 shN
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -66342,7 +66118,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 stT
 stT
 stT
@@ -66363,7 +66139,7 @@ stT
 stT
 stT
 stT
-xZJ
+qcr
 tte
 tte
 tte
@@ -66588,18 +66364,18 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 tte
 tte
 tte
 tte
-xZJ
+qcr
 nIc
 nPM
 omh
@@ -66620,18 +66396,18 @@ oBA
 pSB
 oqW
 aNa
-xZJ
+qcr
 tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 tte
 tte
 tte
@@ -66844,8 +66620,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 jFy
 uiW
 pHf
@@ -66856,7 +66632,7 @@ noL
 tte
 tte
 tte
-xZJ
+qcr
 shN
 shN
 shN
@@ -66877,7 +66653,7 @@ shN
 shN
 shN
 shN
-xZJ
+qcr
 tte
 tte
 tte
@@ -66888,8 +66664,8 @@ tWj
 unC
 tWj
 uOr
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -67100,8 +66876,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 jtt
 mVv
 wwc
@@ -67113,7 +66889,7 @@ noL
 noL
 tte
 tte
-xZJ
+qcr
 qDg
 qDg
 qDg
@@ -67134,7 +66910,7 @@ qDg
 qDg
 qDg
 qDg
-xZJ
+qcr
 tte
 tte
 noL
@@ -67146,8 +66922,8 @@ vVh
 vVh
 vVh
 isY
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -67356,8 +67132,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 jhp
 nqO
 jFZ
@@ -67404,8 +67180,8 @@ pUB
 uOx
 vVh
 vMy
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -67613,7 +67389,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 iFw
 joi
 jtK
@@ -67662,7 +67438,7 @@ uQu
 vVh
 vVh
 isY
-xZJ
+qcr
 tte
 tte
 tte
@@ -67870,7 +67646,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 iGV
 wwc
 juf
@@ -67919,7 +67695,7 @@ vVh
 vVh
 vVh
 vWN
-xZJ
+qcr
 tte
 tte
 tte
@@ -68127,7 +67903,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 iIJ
 wwc
 wwc
@@ -68176,7 +67952,7 @@ vVh
 vVh
 vVh
 wcl
-xZJ
+qcr
 tte
 tte
 tte
@@ -68384,7 +68160,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 iIV
 jop
 jrZ
@@ -68433,7 +68209,7 @@ vVh
 vVh
 vVh
 oJr
-xZJ
+qcr
 tte
 tte
 tte
@@ -68641,7 +68417,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 vGv
 vGv
 juo
@@ -68690,7 +68466,7 @@ vVh
 vVh
 vVh
 isY
-xZJ
+qcr
 tte
 tte
 tte
@@ -68898,7 +68674,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 uIh
 joR
 mxE
@@ -68947,7 +68723,7 @@ uYq
 dkV
 vVh
 tWj
-xZJ
+qcr
 tte
 tte
 tte
@@ -69155,7 +68931,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 uIh
 uIh
 uIh
@@ -69204,7 +68980,7 @@ uZf
 uFa
 vVh
 oCg
-xZJ
+qcr
 tte
 tte
 tte
@@ -69412,7 +69188,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 iKj
 uIh
 uIh
@@ -69461,7 +69237,7 @@ tiP
 vVh
 vVh
 oJr
-xZJ
+qcr
 tte
 tte
 tte
@@ -70685,13 +70461,13 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 tte
 tte
 tte
@@ -70940,17 +70716,17 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 fjI
 hjl
 hjl
 hjl
 fjI
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 tte
 tte
 tte
@@ -71195,9 +70971,9 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 fjI
 uaY
 gMB
@@ -71207,8 +70983,8 @@ hjl
 rsf
 uaY
 fjI
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -71233,12 +71009,12 @@ wwc
 wwc
 wwc
 aAA
-xZJ
+qcr
 aAA
 wwc
 wwc
 aAA
-xZJ
+qcr
 aAA
 wwc
 wwc
@@ -71465,7 +71241,7 @@ uaY
 uaY
 uaY
 ezE
-xZJ
+qcr
 tte
 tte
 tte
@@ -71486,20 +71262,20 @@ wwc
 wwc
 wwc
 erl
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 plJ
 plJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 erl
 wwc
 wwc
@@ -71742,9 +71518,9 @@ wwc
 wwc
 wwc
 erl
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 bsQ
 bUG
 oWa
@@ -71755,9 +71531,9 @@ dcD
 oWa
 bUG
 bsQ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 erl
 wwc
 wwc
@@ -71957,12 +71733,12 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 noL
 tkG
 ugn
@@ -71998,10 +71774,10 @@ wwc
 wwc
 wwc
 aAA
-xZJ
-xZJ
+qcr
+qcr
 tte
-xZJ
+qcr
 bMW
 oKU
 oXT
@@ -72012,10 +71788,10 @@ dcD
 oXT
 rST
 bMW
-xZJ
+qcr
 tte
-xZJ
-xZJ
+qcr
+qcr
 aAA
 wwc
 wwc
@@ -72213,8 +71989,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 tGu
 ebh
 tGu
@@ -72254,11 +72030,11 @@ wwc
 wwc
 wwc
 wwc
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
-xZJ
+qcr
 bMW
 bXY
 oZu
@@ -72269,11 +72045,11 @@ dcD
 rfc
 bXY
 bMW
-xZJ
+qcr
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 wwc
 wwc
 wwc
@@ -72469,8 +72245,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 aVj
 bai
 bai
@@ -72511,11 +72287,11 @@ wwc
 wwc
 wwc
 erl
-xZJ
+qcr
 tte
 tte
 tte
-xZJ
+qcr
 oCr
 bMW
 bMW
@@ -72526,11 +72302,11 @@ pKK
 bMW
 bMW
 qfy
-xZJ
+qcr
 tte
 tte
 tte
-xZJ
+qcr
 erl
 wwc
 wwc
@@ -72726,7 +72502,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 aHX
 pMV
 pMV
@@ -72767,12 +72543,12 @@ wwc
 wwc
 wwc
 wwc
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
-xZJ
+qcr
 oCw
 bMW
 coa
@@ -72783,12 +72559,12 @@ pLq
 coa
 bMW
 oCw
-xZJ
+qcr
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 wwc
 wwc
 wwc
@@ -72981,9 +72757,9 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 pMV
 pMV
 pMV
@@ -73024,12 +72800,12 @@ wwc
 wwc
 wwc
 wwc
-xZJ
+qcr
 tte
 tte
 tte
 tte
-xZJ
+qcr
 oCw
 bMW
 coa
@@ -73040,12 +72816,12 @@ msd
 coa
 bMW
 oCw
-xZJ
+qcr
 tte
 tte
 tte
 tte
-xZJ
+qcr
 wwc
 wwc
 wwc
@@ -73237,10 +73013,10 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 tGu
-xZJ
+qcr
 aIN
 aWd
 pMV
@@ -73281,12 +73057,12 @@ mHq
 lLK
 lLK
 erl
-xZJ
+qcr
 tte
 tte
 tte
 tte
-xZJ
+qcr
 oCw
 bMW
 bMW
@@ -73297,12 +73073,12 @@ bMW
 bMW
 bMW
 oCw
-xZJ
+qcr
 tte
 tte
 tte
 tte
-xZJ
+qcr
 erl
 rEo
 rEo
@@ -73493,11 +73269,11 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 tGu
 pMV
-xZJ
+qcr
 pMV
 pMV
 pMV
@@ -73537,8 +73313,8 @@ wYz
 noL
 wYz
 wYz
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -73559,8 +73335,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 mWs
 mWs
 noL
@@ -73749,12 +73525,12 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 pMV
 pMV
 pMV
-xZJ
+qcr
 pMV
 pMV
 pMV
@@ -73794,7 +73570,7 @@ lUG
 nHg
 lUG
 lUG
-xZJ
+qcr
 tte
 tte
 tte
@@ -73817,7 +73593,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 rFn
 rFn
 sso
@@ -74006,12 +73782,12 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 gtq
 pMV
 nXm
 pMV
-xZJ
+qcr
 pMV
 pMV
 pMV
@@ -74051,7 +73827,7 @@ wwc
 wwc
 wwc
 wwc
-xZJ
+qcr
 tte
 tte
 tte
@@ -74059,14 +73835,14 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 peg
 bMW
 bMW
 bMW
 bMW
 aOB
-xZJ
+qcr
 tte
 tte
 tte
@@ -74074,7 +73850,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 ybJ
 ybJ
 ybJ
@@ -74263,12 +74039,12 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pMV
 pMV
 pMV
 pMV
-xZJ
+qcr
 aOd
 vTj
 pMV
@@ -74308,7 +74084,7 @@ hMK
 wwc
 rcV
 hMK
-xZJ
+qcr
 tte
 tte
 tte
@@ -74316,14 +74092,14 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pfs
 bMW
 bMW
 bMW
 bMW
 pXf
-xZJ
+qcr
 tte
 tte
 tte
@@ -74331,7 +74107,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 ybJ
 sbx
 ybJ
@@ -74520,12 +74296,12 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 gtq
 pMV
 nXm
 pMV
-xZJ
+qcr
 pMV
 pMV
 pMV
@@ -74565,7 +74341,7 @@ wwc
 rcV
 mVv
 pXI
-xZJ
+qcr
 tte
 tte
 tte
@@ -74573,14 +74349,14 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 coa
 pBW
 poE
 nnO
 pLZ
 coa
-xZJ
+qcr
 tte
 tte
 tte
@@ -74588,7 +74364,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 xmH
 ybJ
 ryN
@@ -74777,12 +74553,12 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pMV
 pMV
 pMV
 pMV
-xZJ
+qcr
 aOV
 pMV
 pMV
@@ -74822,7 +74598,7 @@ lUG
 mVv
 wwc
 pXI
-xZJ
+qcr
 tte
 tte
 tte
@@ -74830,14 +74606,14 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 tte
 tte
 tte
@@ -74845,7 +74621,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 ybJ
 rQj
 ybJ
@@ -75034,12 +74810,12 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 gtq
 pMV
 nXm
 pMV
-xZJ
+qcr
 aPa
 aPa
 bdA
@@ -75079,7 +74855,7 @@ wwc
 wwc
 wwc
 wwc
-xZJ
+qcr
 tte
 tte
 tte
@@ -75102,7 +74878,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 ybJ
 ybJ
 ybJ
@@ -75291,7 +75067,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pMV
 pMV
 pMV
@@ -75336,7 +75112,7 @@ lLK
 mHq
 lLK
 lLK
-xZJ
+qcr
 tte
 tte
 tte
@@ -75359,7 +75135,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 rFQ
 scs
 swR
@@ -75548,7 +75324,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 gtq
 pMV
 nXm
@@ -75593,7 +75369,7 @@ lSp
 noL
 lSp
 lSp
-xZJ
+qcr
 tte
 tte
 tte
@@ -75616,7 +75392,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 rJJ
 rJJ
 noL
@@ -75805,11 +75581,11 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
 noL
 noL
 noL
@@ -75850,7 +75626,7 @@ bsY
 mJm
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -75873,7 +75649,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 rKI
 rFn
 swV
@@ -76062,10 +75838,10 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 tte
-xZJ
-xZJ
+qcr
+qcr
 ppo
 nnH
 aRK
@@ -76107,7 +75883,7 @@ bsY
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -76130,7 +75906,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 xmH
 ybJ
 ybJ
@@ -76319,9 +76095,9 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 nnH
 ppo
 nnH
@@ -76364,7 +76140,7 @@ bsY
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -76387,7 +76163,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 xmH
 ybJ
 ybJ
@@ -76576,8 +76352,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 anU
 oTM
 cmK
@@ -76621,8 +76397,8 @@ rpb
 krt
 eBL
 eBL
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -76637,14 +76413,14 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 xmH
 ybJ
 ybJ
@@ -76833,7 +76609,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 ajj
 apV
 uaY
@@ -76879,7 +76655,7 @@ lXh
 pMV
 pMV
 jZk
-xZJ
+qcr
 tte
 tte
 tte
@@ -76891,17 +76667,17 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
 mfy
 wZQ
 wZQ
 wZQ
 wZQ
 mfy
-xZJ
+qcr
 xmH
 ybJ
 ybJ
@@ -77090,7 +76866,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 lTt
 uaY
 uaY
@@ -77136,8 +76912,8 @@ ajG
 pMV
 pMV
 ajG
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -77147,8 +76923,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 wjl
 wwk
 qfK
@@ -77158,7 +76934,7 @@ sFT
 wKD
 wKD
 wKD
-xZJ
+qcr
 xmH
 ybJ
 ybJ
@@ -77347,7 +77123,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 uaY
 uaY
 avw
@@ -77394,7 +77170,7 @@ pMV
 pMV
 niJ
 ajG
-xZJ
+qcr
 tte
 tte
 tte
@@ -77404,7 +77180,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pMa
 wjl
 wwk
@@ -77415,7 +77191,7 @@ sFT
 wKD
 wKD
 wKD
-xZJ
+qcr
 xmH
 ybJ
 ybJ
@@ -77604,7 +77380,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 mhI
 uaY
 avw
@@ -77651,7 +77427,7 @@ pMV
 pMV
 vKq
 lae
-xZJ
+qcr
 tte
 tte
 tte
@@ -77661,7 +77437,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pMo
 wjl
 wwk
@@ -77672,7 +77448,7 @@ sFT
 wKD
 wKD
 wKD
-xZJ
+qcr
 rMD
 ybJ
 ybJ
@@ -77861,7 +77637,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 mhI
 uaY
 uaY
@@ -77908,8 +77684,8 @@ pMV
 pMV
 vKq
 kuU
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -77918,7 +77694,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pNM
 wjl
 wjl
@@ -78118,7 +77894,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 alv
 uaY
 uaY
@@ -78166,7 +77942,7 @@ pMV
 vKq
 lXh
 rpb
-xZJ
+qcr
 tte
 tte
 tte
@@ -78175,7 +77951,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pOM
 wjl
 wjl
@@ -78375,7 +78151,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 mhI
 uaY
 uaY
@@ -78423,7 +78199,7 @@ pMV
 vKq
 vKq
 vKq
-xZJ
+qcr
 tte
 tte
 tte
@@ -78432,7 +78208,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pPX
 wjl
 wjl
@@ -78443,7 +78219,7 @@ lqD
 raL
 otf
 otf
-xZJ
+qcr
 kmt
 ybJ
 ybJ
@@ -78632,7 +78408,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 mhI
 uaY
 avw
@@ -78680,7 +78456,7 @@ pMV
 qUk
 qUk
 qUk
-xZJ
+qcr
 tte
 tte
 tte
@@ -78689,7 +78465,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pSQ
 wjl
 wjl
@@ -78889,7 +78665,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 uaY
 uaY
 avw
@@ -78937,7 +78713,7 @@ pMV
 qUk
 nCo
 nLg
-xZJ
+qcr
 tte
 tte
 tte
@@ -78946,7 +78722,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pTF
 wjl
 wjl
@@ -79146,7 +78922,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 alW
 uaY
 uaY
@@ -79194,7 +78970,7 @@ pMV
 qUk
 qUk
 qUk
-xZJ
+qcr
 tte
 tte
 tte
@@ -79203,7 +78979,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pMo
 wjl
 wwk
@@ -79214,7 +78990,7 @@ sFT
 wKD
 wKD
 wKD
-xZJ
+qcr
 rOi
 ybJ
 ybJ
@@ -79403,7 +79179,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 vGJ
 vGJ
 uaY
@@ -79451,7 +79227,7 @@ pMV
 vKq
 vKq
 vKq
-xZJ
+qcr
 tte
 tte
 tte
@@ -79460,7 +79236,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 pMa
 wjl
 wwk
@@ -79471,7 +79247,7 @@ sFT
 wKD
 wKD
 wKD
-xZJ
+qcr
 xmH
 ybJ
 ybJ
@@ -79660,8 +79436,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 aqc
 avN
 rfP
@@ -79684,11 +79460,11 @@ fvZ
 fHd
 dbl
 lmi
-gIz
+fvZ
 gVi
 dbl
 lmi
-gIz
+fvZ
 nnH
 nnH
 noL
@@ -79708,7 +79484,7 @@ pMV
 vKq
 kuU
 nLK
-xZJ
+qcr
 tte
 tte
 tte
@@ -79717,8 +79493,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 wjl
 wwk
 qfK
@@ -79728,7 +79504,7 @@ sFT
 wKD
 wKD
 wKD
-xZJ
+qcr
 xmH
 ybJ
 ybJ
@@ -79918,8 +79694,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 nnH
 ppo
 nnH
@@ -79964,8 +79740,8 @@ pMV
 pMV
 vKq
 nCV
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -79975,17 +79751,17 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
 mfy
 wZQ
 wZQ
 wZQ
 wZQ
 mfy
-xZJ
+qcr
 xmH
 ybJ
 ybJ
@@ -80176,8 +79952,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 ppo
 gsP
 aUH
@@ -80221,7 +79997,7 @@ pMV
 pMV
 vKq
 kuU
-xZJ
+qcr
 tte
 tte
 tte
@@ -80235,14 +80011,14 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 xmH
 ybJ
 ybJ
@@ -80434,8 +80210,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 noL
 noL
 noL
@@ -80478,7 +80254,7 @@ pMV
 pMV
 niJ
 nDL
-xZJ
+qcr
 tte
 tte
 tte
@@ -80498,8 +80274,8 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 xmH
 ybJ
 ybJ
@@ -80734,8 +80510,8 @@ kKH
 pMV
 pMV
 nkd
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -80755,7 +80531,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 ruT
 xmH
 ybJ
@@ -80991,7 +80767,7 @@ ajG
 pMV
 pMV
 rpb
-xZJ
+qcr
 tte
 tte
 tte
@@ -81012,7 +80788,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 rvG
 xmH
 ybJ
@@ -81247,8 +81023,8 @@ vYW
 lXh
 naR
 naR
-xZJ
-xZJ
+qcr
+qcr
 tte
 tte
 tte
@@ -81269,7 +81045,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 oeC
 xmH
 ybJ
@@ -81504,7 +81280,7 @@ bsY
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -81520,14 +81296,14 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 xmH
 ybJ
 ybJ
@@ -81761,7 +81537,7 @@ bsY
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -81776,15 +81552,15 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 qCD
 vUb
 vUb
 qCD
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
 xmH
 ybJ
 ybJ
@@ -82018,7 +81794,7 @@ bsY
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -82033,7 +81809,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 qow
 qDm
 pOT
@@ -82041,7 +81817,7 @@ pOT
 pOT
 pOT
 pOT
-xZJ
+qcr
 rMD
 ybJ
 ybJ
@@ -82275,7 +82051,7 @@ noL
 mTV
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -82290,7 +82066,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 vUb
 bwi
 xsI
@@ -82494,7 +82270,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 xDo
 xDo
 xDo
@@ -82532,7 +82308,7 @@ msj
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -82547,7 +82323,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 vUb
 bwi
 xsI
@@ -82751,7 +82527,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 bvY
 bvY
 bvY
@@ -82789,7 +82565,7 @@ muE
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -82804,7 +82580,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 nNS
 bwi
 xsI
@@ -82812,7 +82588,7 @@ qVA
 rXt
 rXt
 rXt
-xZJ
+qcr
 rPX
 ybJ
 ybJ
@@ -83008,7 +82784,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 bvY
 bvY
 bvY
@@ -83046,7 +82822,7 @@ mvA
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -83062,11 +82838,11 @@ tte
 tte
 tte
 qcr
-xZJ
-xZJ
+qcr
+qcr
 qJE
-xZJ
-xZJ
+qcr
+qcr
 noL
 noL
 noL
@@ -83265,7 +83041,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 xDo
 xDo
 xDo
@@ -83303,7 +83079,7 @@ mvV
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -83522,7 +83298,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 hhB
 oHz
 oHz
@@ -83560,7 +83336,7 @@ noL
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -83779,7 +83555,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 bwj
 vYW
 oyb
@@ -83817,7 +83593,7 @@ mvV
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -84036,7 +83812,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 xDo
 xDo
 sjC
@@ -84074,7 +83850,7 @@ mAt
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -84331,7 +84107,7 @@ mBi
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -84588,7 +84364,7 @@ lhm
 mVb
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -84845,7 +84621,7 @@ mBp
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -85102,7 +84878,7 @@ mCp
 bsY
 bsY
 bsY
-xZJ
+qcr
 tte
 tte
 tte
@@ -85580,7 +85356,7 @@ auz
 auz
 auz
 auz
-qcy
+dEy
 dEy
 dEy
 dEy
@@ -85620,7 +85396,7 @@ dEy
 dEy
 dEy
 dEy
-qcy
+dEy
 dEy
 dEy
 dEy
@@ -86402,13 +86178,13 @@ dEy
 yaN
 yaN
 dEy
-qcy
-oOe
-oOe
-oOe
-oOe
-oOe
-oOe
+dEy
+noL
+noL
+noL
+noL
+noL
+noL
 tLQ
 ybJ
 xmH
@@ -86659,13 +86435,13 @@ iOS
 ylo
 ylo
 qrd
-qcy
+dEy
 vvS
 hhr
 qLy
 qXR
 rcC
-xZJ
+qcr
 tLQ
 ybJ
 xmH
@@ -86864,7 +86640,7 @@ auz
 auz
 auz
 auz
-qcy
+dEy
 dEy
 cgH
 ehx
@@ -86916,7 +86692,7 @@ ylo
 ylo
 ylo
 udj
-qcy
+dEy
 qoQ
 qLD
 qLD
@@ -87173,7 +86949,7 @@ dEy
 dEy
 dEy
 dEy
-qcy
+dEy
 qXR
 qLD
 qLD
@@ -87430,13 +87206,13 @@ dEy
 ncZ
 nqC
 nek
-qcy
+dEy
 qpR
 qLD
 qLD
 qWZ
 reB
-xZJ
+qcr
 tLQ
 ybJ
 xmH
@@ -87687,13 +87463,13 @@ dEy
 ehx
 ehx
 bnI
-qcy
+dEy
 qXR
 qLD
 qLD
 qXR
 qXR
-xZJ
+qcr
 tLQ
 ybJ
 bmp
@@ -87892,7 +87668,7 @@ auz
 auz
 auz
 auz
-paY
+hGZ
 bRh
 ehx
 ehx
@@ -87944,13 +87720,13 @@ cah
 ehx
 cVG
 cVG
-qcy
+dEy
 xMo
 qLD
 qLD
 qXN
 rjm
-xZJ
+qcr
 tLQ
 ybJ
 rRb
@@ -88201,13 +87977,13 @@ cah
 ehx
 dAx
 cVG
-qcy
+dEy
 qqp
 qLD
 qLD
 qWZ
 reB
-xZJ
+qcr
 tLQ
 ybJ
 ybJ
@@ -88458,13 +88234,13 @@ dEy
 ehx
 ehx
 bnI
-qcy
+dEy
 qXR
 qLD
 qLD
 qXR
 qXR
-xZJ
+qcr
 roP
 ybJ
 ybJ
@@ -88715,13 +88491,13 @@ dEy
 fPy
 nvL
 nHi
-qcy
+dEy
 qqq
 qLD
 qLD
 qXN
 rjm
-xZJ
+qcr
 rpv
 ryN
 ryN
@@ -88920,7 +88696,7 @@ auz
 auz
 auz
 auz
-qcy
+dEy
 dEy
 cgH
 ehx
@@ -90033,10 +89809,10 @@ noL
 noL
 noL
 noL
-xZJ
+qcr
 wpX
 hJy
-xZJ
+qcr
 noL
 noL
 noL
@@ -90206,7 +89982,7 @@ auz
 auz
 auz
 auz
-qcy
+dEy
 dEy
 dEy
 dEy
@@ -90298,7 +90074,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 wuw
 wKn
 fAZ
@@ -90306,7 +90082,7 @@ fAZ
 fAZ
 qWt
 aZF
-xZJ
+qcr
 "}
 (220,1,1) = {"
 tte
@@ -90555,7 +90331,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 cKw
 fAZ
 fAZ
@@ -90563,7 +90339,7 @@ nim
 fAZ
 fAZ
 nSb
-xZJ
+qcr
 "}
 (221,1,1) = {"
 tte
@@ -90812,7 +90588,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 guG
 fAZ
 pdi
@@ -90820,7 +90596,7 @@ sQl
 qlG
 fAZ
 vOU
-xZJ
+qcr
 "}
 (222,1,1) = {"
 tte
@@ -91017,7 +90793,7 @@ hGZ
 hGZ
 hGZ
 dEy
-qcy
+dEy
 tte
 tte
 tte
@@ -91069,7 +90845,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 ubp
 fAZ
 pdi
@@ -91077,7 +90853,7 @@ oRN
 qlG
 fAZ
 sTP
-xZJ
+qcr
 "}
 (223,1,1) = {"
 tte
@@ -91326,7 +91102,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 ipp
 fAZ
 pdi
@@ -91334,7 +91110,7 @@ sQl
 qlG
 fAZ
 qcm
-xZJ
+qcr
 "}
 (224,1,1) = {"
 tte
@@ -91583,7 +91359,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 doe
 fAZ
 pdi
@@ -91591,7 +91367,7 @@ sQl
 qlG
 fAZ
 doe
-xZJ
+qcr
 "}
 (225,1,1) = {"
 tte
@@ -91840,7 +91616,7 @@ tte
 tte
 tte
 tte
-xZJ
+qcr
 qcm
 fAZ
 pdi
@@ -91848,7 +91624,7 @@ sQl
 qlG
 fAZ
 qcm
-xZJ
+qcr
 "}
 (226,1,1) = {"
 tte
@@ -92097,15 +91873,15 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
+qcr
+qcr
 ylm
 sQl
 eSX
 sQl
 ylm
-xZJ
-xZJ
+qcr
+qcr
 "}
 (227,1,1) = {"
 tte
@@ -92355,13 +92131,13 @@ tte
 tte
 tte
 tte
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
+qcr
 tte
 "}
 (228,1,1) = {"
@@ -92580,11 +92356,11 @@ tte
 tte
 noL
 noL
-xZJ
-xZJ
-xZJ
-xZJ
-xZJ
+qcr
+qcr
+qcr
+qcr
+qcr
 noL
 noL
 sIa
@@ -92839,7 +92615,7 @@ noL
 noL
 uiR
 tGb
-xZJ
+qcr
 uiR
 tGb
 noL
@@ -93096,7 +92872,7 @@ noL
 noL
 skq
 tTw
-xZJ
+qcr
 skq
 tTw
 noL
@@ -93353,7 +93129,7 @@ noL
 noL
 skq
 tTw
-xZJ
+qcr
 skq
 tTw
 noL
@@ -93610,7 +93386,7 @@ noL
 noL
 skq
 tTw
-xZJ
+qcr
 skq
 tTw
 noL
@@ -93867,7 +93643,7 @@ noL
 noL
 skq
 tTw
-xZJ
+qcr
 skq
 tTw
 noL
@@ -94124,7 +93900,7 @@ noL
 noL
 skq
 tTw
-xZJ
+qcr
 skq
 tTw
 noL
@@ -94381,7 +94157,7 @@ noL
 noL
 sjd
 tTw
-xZJ
+qcr
 sjd
 tTw
 noL
@@ -94638,7 +94414,7 @@ noL
 noL
 skq
 tTw
-xZJ
+qcr
 skq
 tTw
 noL
@@ -94895,7 +94671,7 @@ noL
 noL
 skq
 tTw
-xZJ
+qcr
 skq
 tTw
 noL
@@ -95152,7 +94928,7 @@ noL
 noL
 skq
 tTw
-xZJ
+qcr
 skq
 tTw
 noL
@@ -95409,7 +95185,7 @@ noL
 noL
 slB
 sNl
-xZJ
+qcr
 slB
 sNl
 noL

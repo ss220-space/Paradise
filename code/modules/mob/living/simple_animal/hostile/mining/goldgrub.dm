@@ -2,29 +2,17 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub
 	name = "goldgrub"
 	desc = "Червеобразный обжора, толстеющий от всего съеденного. Особенно любит драгоценные металлы и блестяшки — отсюда и имя."
-	ru_names = list(
-		NOMINATIVE = "златожор",
-		GENITIVE = "златожора",
-		DATIVE = "златожору",
-		ACCUSATIVE = "златожора",
-		INSTRUMENTAL = "златожором",
-		PREPOSITIONAL = "златожоре"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goldgrub"
 	icon_living = "Goldgrub"
 	icon_aggro = "Goldgrub_alert"
 	icon_dead = "Goldgrub_dead"
 	icon_gib = "syndicate_gib"
-	vision_range = 2
-	aggro_vision_range = 9
 	move_to_delay = 5
 	friendly = "безвредно перекатывается в"
 	maxHealth = 45
 	health = 45
 	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attacktext = "давит"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HELP
@@ -34,12 +22,24 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub = 1)
 	status_flags = CANPUSH
 	search_objects = 1
-	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
-						  /obj/item/stack/ore/uranium, /obj/item/stack/ore/titanium)
+	wanted_objects = list(
+		/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
+		/obj/item/stack/ore/uranium, /obj/item/stack/ore/titanium
+	)
 	jewelry_loot = /obj/item/gem/rupee
 	var/chase_time = 100
 	var/will_burrow = TRUE
 	var/max_loot = 15 // The maximum amount of ore that can be stored in this thing's gut
+
+/mob/living/simple_animal/hostile/asteroid/goldgrub/get_ru_names()
+	return list(
+		NOMINATIVE = "златожор",
+		GENITIVE = "златожора",
+		DATIVE = "златожору",
+		ACCUSATIVE = "златожора",
+		INSTRUMENTAL = "златожором",
+		PREPOSITIONAL = "златожоре"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
 	. = ..()

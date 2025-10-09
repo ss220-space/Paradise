@@ -1,5 +1,4 @@
 /mob/living/silicon
-	gender = NEUTER
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = TRUE
@@ -29,12 +28,59 @@
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
 
-
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED //There is only one kind of diag hud
 
 	var/obj/item/radio/common_radio
+
+	var/register_alarms = TRUE
+	var/datum/ui_module/atmos_control/atmos_control
+	var/datum/ui_module/crew_monitor/crew_monitor
+	var/datum/ui_module/law_manager/law_manager
+	var/datum/ui_module/power_monitor/digital/power_monitor
+	var/obj/item/areaeditor/blueprints/cyborg/blueprints
+
+	var/list/silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
+
+	var/obj/item/inventory_head
+	var/list/strippable_inventory_slots = list()
+
+	var/hat_offset_y = -3
+	var/isCentered = FALSE //центрирован ли синтетик. Если нет, то шляпа будет растянута
+
+	var/list/blacklisted_hats = list(//Запрещённые шляпы на ношение для боргов с большими головами
+		/obj/item/clothing/head/helmet,
+		/obj/item/clothing/head/welding,
+		/obj/item/clothing/head/snowman,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bomb_hood,
+		/obj/item/clothing/head/blob,
+		/obj/item/clothing/head/chicken,
+		/obj/item/clothing/head/corgi,
+		/obj/item/clothing/head/cueball,
+		/obj/item/clothing/head/hardhat/pumpkinhead,
+		/obj/item/clothing/head/radiation,
+		/obj/item/clothing/head/papersack,
+		/obj/item/clothing/head/human_head,
+		/obj/item/clothing/head/kitty,
+		/obj/item/clothing/head/hardhat/reindeer,
+		/obj/item/clothing/head/cardborg
+	)
+
+	var/hat_icon_file
+	var/hat_icon_state
+	var/hat_alpha
+	var/hat_color
+
+	var/canBeHatted = FALSE
+	var/canWearBlacklistedHats = FALSE
+
+	var/datum/ai_laws/laws = null
+	var/list/additional_law_channels = list("State" = "")
 
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
@@ -45,7 +91,7 @@
 	init_subsystems()
 
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
+	diag_hud.add_atom_to_hud(src)
 
 	diag_hud_set_status()
 	diag_hud_set_health()
@@ -78,10 +124,10 @@
 
 	return ..()
 
-/mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/proc/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	return
 
-/mob/living/silicon/proc/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/proc/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	return
 
 /mob/living/silicon/proc/queueAlarm(message, type, incoming = TRUE)
@@ -124,7 +170,7 @@
 		if(alarm_types_show["Camera"])
 			msg += "CAMERA: [alarm_types_show["Camera"]] alarms detected. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
 
@@ -150,7 +196,7 @@
 		if(alarm_types_show["Camera"])
 			msg += "CAMERA: [alarm_types_clear["Camera"]] alarms cleared. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
@@ -195,12 +241,12 @@
 	to_chat(src, span_warning("Warning: Electromagnetic pulse detected."))
 
 
-/mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
+/mob/living/silicon/proc/damage_mob(brute = 0, fire = 0, tox = 0)
 	return
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, span_alert("[p_their(TRUE)] outer shell is too tough."))
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
@@ -215,7 +261,7 @@
 			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
 
 
-/mob/living/silicon/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/bullet_act(obj/projectile/Proj)
 
 	Proj.on_hit(src,2)
 
@@ -312,22 +358,22 @@
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.remove_hud_from(src)
-	secsensor.remove_hud_from(src)
-	medsensor.remove_hud_from(src)
+		diagsensor.hide_from(src)
+	secsensor.hide_from(src)
+	medsensor.hide_from(src)
 
 
 /mob/living/silicon/proc/add_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 
 /mob/living/silicon/proc/add_med_hud()
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	medsensor.add_hud_to(src)
+	medsensor.show_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
 	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.add_hud_to(src)
+		diagsensor.show_to(src)
 
 
 /mob/living/silicon/proc/toggle_sensor_mode()
@@ -336,18 +382,18 @@
 	switch(sensor_type)
 		if("Security")
 			add_sec_hud()
-			to_chat(src, "<span class='notice'>Security records overlay enabled.</span>")
+			to_chat(src, span_notice("Security records overlay enabled."))
 		if("Medical")
 			add_med_hud()
-			to_chat(src, "<span class='notice'>Life signs monitor overlay enabled.</span>")
+			to_chat(src, span_notice("Life signs monitor overlay enabled."))
 		if("Diagnostic")
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+			to_chat(src, span_notice("Robotics diagnostic overlay enabled."))
 		if("Multisensor")
 			add_sec_hud()
 			add_med_hud()
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Multisensor overlay enabled.</span>")
+			to_chat(src, span_notice("Multisensor overlay enabled."))
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 

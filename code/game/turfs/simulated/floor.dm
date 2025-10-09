@@ -22,7 +22,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor
 	name = "floor"
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "dont_use_this_tile"
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
@@ -64,18 +63,20 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/proc/burnt_states()
 	return list("floorscorched1", "floorscorched2")
 
-/turf/simulated/floor/ex_act(severity)
+/turf/simulated/floor/ex_act(severity, target)
 	if(is_shielded())
 		return
+
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			ChangeTurf(baseturf)
-		if(2.0)
-			switch(pick(1,2;75,3))
+		if(EXPLODE_HEAVY)
+			switch(rand(1, 3))
 				if(1)
 					spawn(0)
 						ReplaceWithLattice()
-						if(prob(33)) new /obj/item/stack/sheet/metal(src)
+						if(prob(33))
+							new /obj/item/stack/sheet/metal(src)
 				if(2)
 					ChangeTurf(baseturf)
 				if(3)
@@ -83,16 +84,18 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 						break_tile_to_plating()
 					else
 						break_tile()
-					hotspot_expose(1000,CELL_VOLUME)
-					if(prob(33)) new /obj/item/stack/sheet/metal(src)
-		if(3.0)
+					hotspot_expose(1000, CELL_VOLUME)
+					if(prob(33))
+						new /obj/item/stack/sheet/metal(src)
+		if(EXPLODE_LIGHT)
 			if(prob(50))
 				break_tile()
-				hotspot_expose(1000,CELL_VOLUME)
+				hotspot_expose(1000, CELL_VOLUME)
+
 	return
 
 /turf/simulated/floor/burn_down()
-	ex_act(2)
+	ex_act(EXPLODE_HEAVY)
 
 /turf/simulated/floor/is_shielded()
 	for(var/obj/structure/A in contents)
@@ -237,7 +240,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/proc/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	if(!silent)
-		playsound(src, C.usesound, 80, 1)
+		playsound(src, C.usesound, 80, TRUE)
 	return remove_tile(user, silent)
 
 /turf/simulated/floor/proc/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)

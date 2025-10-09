@@ -50,6 +50,9 @@
 /// log game events
 /datum/config_entry/flag/log_game
 
+/// log map manipulations
+/datum/config_entry/flag/log_mapmanip
+
 /// log voting
 /datum/config_entry/flag/log_vote
 
@@ -409,7 +412,6 @@
 /datum/config_entry/string/comms_password
 
 /datum/config_entry/number/default_laws //Controls what laws the AI spawns with.
-	default = 0
 	min_val = 0
 	max_val = 4
 
@@ -482,6 +484,7 @@
 	default = list(
 		"hijacker" = 10,
 		"malfai" = 10,
+		"prisoner" = 10,
 		"ninja" = 10,
 		"thief" = 10,
 		"nothing" = 20,
@@ -665,6 +668,10 @@
 /datum/config_entry/number/respawn_delay
 	default = 20
 
+/datum/config_entry/number/respawn_delay/ValidateAndSet(str_val)
+	. = ..()
+	GLOB.respawn_delay = config_entry_value
+
 /datum/config_entry/number/respawn_delay_drone
 	default = 10
 
@@ -780,7 +787,6 @@
 	default = 0.5
 
 /datum/config_entry/number/hard_deletes_overrun_limit
-	default = 0
 	min_val = 0
 
 /datum/config_entry/number/error_cooldown // The "cooldown" time for each occurrence of a unique error
@@ -826,7 +832,6 @@
 	default = TRUE
 
 /datum/config_entry/flag/save_spritesheets
-	default = FALSE
 
 
 /datum/config_entry/string/invoke_youtubedl
@@ -843,3 +848,21 @@
  */
 /datum/config_entry/number/tgui_max_chunk_count
 	default = 128
+
+/datum/config_entry/flag/enable_redis
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/redis_connstring
+	default = "redis://127.0.0.1/"
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/flag/enable_multi_instance
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/flag/enable_instance_announce
+
+/datum/config_entry/string/instance_id
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/internal_ip
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN

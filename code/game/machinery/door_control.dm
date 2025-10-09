@@ -1,13 +1,11 @@
 /obj/machinery/door_control
 	name = "remote door-control"
 	desc = "A remote control-switch for a door."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl"
 	base_icon_state = "doorctrl"
 	power_channel = ENVIRON
 
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
@@ -160,7 +158,7 @@
 	if(!emagged)
 		emagged = TRUE
 		req_access = list()
-		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/door_control/attack_ghost(mob/user)
 	if(open)

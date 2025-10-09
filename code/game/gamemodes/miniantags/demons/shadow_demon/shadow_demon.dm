@@ -146,13 +146,18 @@
 /obj/structure/shadowcocoon/process()
 	time_since_last_hallucination++
 	for(var/atom/to_darken in range(4, src))
+		if(to_darken == src)
+			continue
+
 		if(prob(60) || !length(to_darken.light_sources))
 			continue
+
 		if(iswelder(to_darken) && length(to_darken.light_sources))
 			to_darken.visible_message(span_notice("Тени смыкаются вокруг и поглощают пламя [to_darken.declent_ru(GENITIVE)]."))
+
 		to_darken.extinguish_light(TRUE)
 	if(!silent && time_since_last_hallucination >= rand(8, 12))
-		playsound(src, pick('sound/shadowdemon/shadowhalluc1.ogg', 'sound/shadowdemon/shadowhalluc2.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/shadowdemon/shadowhalluc3.ogg', 'sound/effects/eleczap.ogg', get_sfx("bodyfall"), get_sfx("gunshot"), 'sound/weapons/egloves.ogg'), 50)
+		playsound(src, pick('sound/shadowdemon/shadowhalluc1.ogg', 'sound/shadowdemon/shadowhalluc2.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/shadowdemon/shadowhalluc3.ogg', 'sound/effects/eleczap.ogg', get_sfx(SFX_BODYFALL), get_sfx(SFX_GUNSHOT), 'sound/weapons/egloves.ogg'), 50)
 		time_since_last_hallucination = 0
 
 
@@ -203,7 +208,6 @@
 	invocation = null
 	sound = null
 	need_active_overlay = TRUE
-	human_req = FALSE
 	selection_activated_message = span_notice("Вы поднимаете руку, наполненную демонической энергией! <b>ЛКМ, чтобы применить к цели!</b>")
 	selection_deactivated_message = span_notice("Вы поглощаете энергию обратно... пока что.")
 	base_cooldown = 10 SECONDS
@@ -222,6 +226,7 @@
 	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
 	var/hit = FALSE
 
+
 /obj/projectile/magic/shadow_hand/get_ru_names()
 	return list(
 		NOMINATIVE = "теневая рука",
@@ -231,6 +236,7 @@
 		INSTRUMENTAL = "теневой рукой",
 		PREPOSITIONAL = "теневой руке"
 	)
+
 
 /obj/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
@@ -259,6 +265,7 @@
 	desc = "Оно всё ещё яростно бьётся, излучая ауру страха."
 	color = COLOR_BLACK
 
+
 /obj/item/organ/internal/heart/demon/shadow/get_ru_names()
 	return list(
 		NOMINATIVE = "сердце тьмы",
@@ -268,6 +275,7 @@
 		INSTRUMENTAL = "сердцем тьмы",
 		PREPOSITIONAL = "сердце тьмы"
 	)
+
 
 /obj/item/organ/internal/heart/demon/shadow/attack_self(mob/living/user)
 	. = ..()

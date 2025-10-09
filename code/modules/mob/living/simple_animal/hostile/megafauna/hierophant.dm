@@ -37,14 +37,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant
 	name = "hierophant"
 	desc = "Массивный металлический клуб, зависающий в воздухе будто в ожидании. Он заставит вас танцевать под свой ритм."
-	ru_names = list(
-		NOMINATIVE = "Иерофант",
-		GENITIVE = "Иерофанта",
-		DATIVE = "Иерофанту",
-		ACCUSATIVE = "Иерофанта",
-		INSTRUMENTAL = "Иерофантом",
-		PREPOSITIONAL = "Иерофанте"
-	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "качает"
@@ -72,10 +64,12 @@ Difficulty: Hard
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
 	enraged_unique_loot = /obj/item/clothing/accessory/necklace/hierophant_talisman
-	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
-							   /datum/action/innate/megafauna_attack/chaser_swarm,
-							   /datum/action/innate/megafauna_attack/cross_blasts,
-							   /datum/action/innate/megafauna_attack/blink_spam)
+	attack_action_types = list(
+		/datum/action/innate/megafauna_attack/blink,
+		/datum/action/innate/megafauna_attack/chaser_swarm,
+		/datum/action/innate/megafauna_attack/cross_blasts,
+		/datum/action/innate/megafauna_attack/blink_spam
+	)
 
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
@@ -92,6 +86,16 @@ Difficulty: Hard
 	var/list/stored_nearby = list() // stores people nearby the hierophant when it enters the death animation
 	///If the hiero has changed colour, stop the rays animation.
 	var/colour_shifting = FALSE
+
+/mob/living/simple_animal/hostile/megafauna/hierophant/get_ru_names()
+	return list(
+		NOMINATIVE = "Иерофант",
+		GENITIVE = "Иерофанта",
+		DATIVE = "Иерофанту",
+		ACCUSATIVE = "Иерофанта",
+		INSTRUMENTAL = "Иерофантом",
+		PREPOSITIONAL = "Иерофанте"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
 	. = ..()
@@ -231,7 +235,7 @@ Difficulty: Hard
 				UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE)
 			break
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(var/blink_counter, var/target_slowness, var/cross_counter)
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
 	if(((health < maxHealth * 0.5) || enraged) && blink_counter > 1)
 		visible_message(span_hierophant("\"Mx ampp rsx iwgeti.\""))
@@ -256,7 +260,7 @@ Difficulty: Hard
 	else
 		blink(target)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/cross_blast_spam(var/blink_counter, var/target_slowness, var/cross_counter)
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/cross_blast_spam(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
 	visible_message(span_hierophant("\"Piezi mx rsalivi xs vyr.\""))
 	blinking = TRUE
@@ -279,7 +283,7 @@ Difficulty: Hard
 	blinking = FALSE
 
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/chaser_swarm(var/blink_counter, var/target_slowness, var/cross_counter)
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/chaser_swarm(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
 	visible_message(span_hierophant("\"Mx gerrsx lmhi.\""))
 	blinking = TRUE
@@ -309,7 +313,7 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(src, 8)
 	blinking = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blasts(mob/victim, var/list/directions = GLOB.cardinal) //fires cross blasts with a delay
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blasts(mob/victim, list/directions = GLOB.cardinal) //fires cross blasts with a delay
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return
@@ -562,7 +566,11 @@ Difficulty: Hard
 //Hierophant overlays
 /obj/effect/temp_visual/hierophant
 	name = "vortex energy"
-	ru_names = list(
+	layer = BELOW_MOB_LAYER
+	var/mob/living/caster //who made this, anyway
+
+/obj/effect/temp_visual/hierophant/get_ru_names()
+	return list(
 		NOMINATIVE = "энергия вортекса",
 		GENITIVE = "энергии вортекса",
 		DATIVE = "энергии вортекса",
@@ -570,8 +578,6 @@ Difficulty: Hard
 		INSTRUMENTAL = "энергией вортекса",
 		PREPOSITIONAL = "энергии вортекса"
 	)
-	layer = BELOW_MOB_LAYER
-	var/mob/living/caster //who made this, anyway
 
 /obj/effect/temp_visual/hierophant/Initialize(mapload, new_caster)
 	. = ..()
@@ -592,14 +598,6 @@ Difficulty: Hard
 
 /obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
 	name = "vortex wall"
-	ru_names = list(
-		NOMINATIVE = "стена вортекса",
-		GENITIVE = "стены вортекса",
-		DATIVE = "стене вортекса",
-		ACCUSATIVE = "стену вортекса",
-		INSTRUMENTAL = "стеной вортекса",
-		PREPOSITIONAL = "стене вортекса"
-	)
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	base_icon_state = "hierophant_wall_temp"
 	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
@@ -609,13 +607,23 @@ Difficulty: Hard
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	duration = 100
 
+/obj/effect/temp_visual/hierophant/wall/get_ru_names()
+	return list(
+		NOMINATIVE = "стена вортекса",
+		GENITIVE = "стены вортекса",
+		DATIVE = "стене вортекса",
+		ACCUSATIVE = "стену вортекса",
+		INSTRUMENTAL = "стеной вортекса",
+		PREPOSITIONAL = "стене вортекса"
+	)
+
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
 	. = ..()
-	queue_smooth_neighbors(src)
-	queue_smooth(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /obj/effect/temp_visual/hierophant/wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 
@@ -723,14 +731,6 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/blast
 	icon_state = "hierophant_blast"
 	name = "vortex blast"
-	ru_names = list(
-		NOMINATIVE = "взрыв вортекса",
-		GENITIVE = "взрыва вортекса",
-		DATIVE = "взрыву вортекса",
-		ACCUSATIVE = "взрыв вортекса",
-		INSTRUMENTAL = "взрывом вортекса",
-		PREPOSITIONAL = "взрыве вортекса"
-	)
 	light_range = 2
 	light_power = 2
 	desc = "Уйдите с пути!"
@@ -741,6 +741,15 @@ Difficulty: Hard
 	var/friendly_fire_check = FALSE
 	var/bursting = FALSE //if we're bursting and need to hit anyone crossing us
 
+/obj/effect/temp_visual/hierophant/blast/get_ru_names()
+	return list(
+		NOMINATIVE = "взрыв вортекса",
+		GENITIVE = "взрыва вортекса",
+		DATIVE = "взрыву вортекса",
+		ACCUSATIVE = "взрыв вортекса",
+		INSTRUMENTAL = "взрывом вортекса",
+		PREPOSITIONAL = "взрыве вортекса"
+	)
 
 /obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire)
 	. = ..()
@@ -813,7 +822,15 @@ Difficulty: Hard
 
 /obj/effect/hierophant
 	name = "hierophant beacon"
-	ru_names = list(
+	desc = "Странный маяк, позволяющий массовую телепортацию тем, кто умеет им пользоваться."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "hierophant_tele_off"
+	light_range = 2
+	layer = LOW_OBJ_LAYER
+	var/teleporting = FALSE
+
+/obj/effect/hierophant/get_ru_names()
+	return list(
 		NOMINATIVE = "маяк иерофанта",
 		GENITIVE = "маяка иерофанта",
 		DATIVE = "маяку иерофанта",
@@ -821,14 +838,6 @@ Difficulty: Hard
 		INSTRUMENTAL = "маяком иерофанта",
 		PREPOSITIONAL = "маяке иерофанта"
 	)
-	desc = "Странный маяк, позволяющий массовую телепортацию тем, кто умеет им пользоваться."
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "hierophant_tele_off"
-	light_range = 2
-	layer = LOW_OBJ_LAYER
-	anchored = TRUE
-	var/teleporting = FALSE
-
 
 /obj/effect/hierophant/update_icon_state()
 	icon_state = "hierophant_tele_[teleporting ? "on" : "off"]"

@@ -8,6 +8,14 @@
 	if(!msg)
 		return
 
+	// Do this up here before it gets sent to everyone & emoji'd
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.asay", json_encode(data))
+
 	msg = handleDiscordEmojis(msg)
 
 	var/datum/say/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
@@ -26,7 +34,7 @@
 			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Asay")
 
 /client/proc/get_admin_say()
 	if(check_rights(R_ADMIN|R_MOD, FALSE))
@@ -50,6 +58,14 @@
 	if(!msg)
 		return
 
+	// Do this up here before it gets sent to everyone & emoji'd
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.msay", json_encode(data))
+
 	msg = handleDiscordEmojis(msg)
 
 	for(var/client/C in GLOB.admins)
@@ -63,7 +79,7 @@
 			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Msay")
 
 /client/proc/get_mentor_say()
 	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
@@ -101,7 +117,7 @@
 			to_chat(C, "<b>Mentor chat has been disabled.</b>")
 
 	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Msay")
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Msay")
 
 /client/proc/get_dev_team_say()
 	if(check_rights(R_VIEWRUNTIMES | R_ADMIN))
@@ -112,8 +128,16 @@
 	set name = "Devsay"
 	set hidden = TRUE
 
-	if(!check_rights(R_ADMIN | R_VIEWRUNTIMES)) // Catch any non-admins trying to use this proc
+	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN)) // Catch any non-admins trying to use this proc
 		return
+
+	// Do this up here before it gets sent to everyone & emoji'd
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.devsay", json_encode(data))
 
 	msg = handleDiscordEmojis(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
@@ -126,7 +150,7 @@
 	mob.create_log(OOC_LOG, "DEVSAY: [msg]")
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_ADMIN | R_VIEWRUNTIMES, FALSE, C.mob))
+		if(check_rights(R_VIEWRUNTIMES | R_ADMIN, FALSE, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
 				if(C.holder && C.holder.rights & R_ADMIN)
@@ -136,4 +160,4 @@
 			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Devsay")

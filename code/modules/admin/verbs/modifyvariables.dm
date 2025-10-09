@@ -298,7 +298,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 //FALSE = no subtypes, strict exact type pathing (or the type doesn't have subtypes)
 //TRUE = Yes subtypes
 //NULL = User cancelled at the prompt or invalid type given
-/client/proc/vv_subtype_prompt(var/type)
+/client/proc/vv_subtype_prompt(type)
 	if(!ispath(type))
 		return
 	var/list/subtypes = subtypesof(type)
@@ -422,7 +422,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 		if(variable == "(CLEAR NULLS)")
 			L = L.Copy()
-			listclearnulls(L)
+			list_clear_nulls(L)
 			if(!O.vv_edit_var(objectvar, L))
 				to_chat(src, "Your edit was rejected by the object.")
 				return
@@ -481,13 +481,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		var/dir_text = ""
 		if(dir < 0 && dir < 16)
 			if(dir & 1)
-				dir_text += "NORTH"
+				dir_text += DIR_NAME_ENG_NORTH
 			if(dir & 2)
-				dir_text += "SOUTH"
+				dir_text += DIR_NAME_ENG_SOUTH
 			if(dir & 4)
-				dir_text += "EAST"
+				dir_text += DIR_NAME_ENG_EAST
 			if(dir & 8)
-				dir_text += "WEST"
+				dir_text += DIR_NAME_ENG_WEST
 
 		if(dir_text)
 			to_chat(src, "If a direction, direction is: [dir_text]")
@@ -610,13 +610,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		var/dir_text = ""
 		if(dir < 0 && dir < 16)
 			if(dir & 1)
-				dir_text += "NORTH"
+				dir_text += DIR_NAME_ENG_NORTH
 			if(dir & 2)
-				dir_text += "SOUTH"
+				dir_text += DIR_NAME_ENG_SOUTH
 			if(dir & 4)
-				dir_text += "EAST"
+				dir_text += DIR_NAME_ENG_EAST
 			if(dir & 8)
-				dir_text += "WEST"
+				dir_text += DIR_NAME_ENG_WEST
 
 		if(dir_text)
 			to_chat(src, "If a direction, direction is: [dir_text]")

@@ -42,7 +42,7 @@
 	// Process rift objects
 	for(var/obj/effect/abstract/bluespace_rift/rift as anything in rift_objects)
 		rift.move()
-	
+
 	// Process events
 
 	// Spawn events only when they are scanning
@@ -54,8 +54,8 @@
 
 	times_rift_scanned = 0
 	events_mined = 0
-	
-	// Process events spawn 
+
+	// Process events spawn
 	events.process()
 
 /datum/bluespace_rift/proc/probe(successful = FALSE)
@@ -72,13 +72,11 @@
 
 /datum/bluespace_rift/big
 	name = "Большой Блюспейс Разлом"
-	rift_count = 1
 	rift_size = 7
 	time_per_tile = 14 SECONDS
 
 /datum/bluespace_rift/fog
 	name = "Блюспейс Туманность"
-	rift_count = 1
 	rift_size = 9
 	time_per_tile = 18 SECONDS
 
@@ -97,5 +95,4 @@
 /datum/bluespace_rift/hunter
 	name = "Разлом-Охотник"
 	effect_type = /obj/effect/abstract/bluespace_rift/hunter
-	rift_count = 1
 	rift_size = 3

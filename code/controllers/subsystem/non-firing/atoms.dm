@@ -1,8 +1,3 @@
-#define BAD_INIT_QDEL_BEFORE 1
-#define BAD_INIT_DIDNT_INIT 2
-#define BAD_INIT_SLEPT 4
-#define BAD_INIT_NO_HINT 8
-
 SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
 	init_order = INIT_ORDER_ATOMS
@@ -15,13 +10,14 @@ SUBSYSTEM_DEF(atoms)
 
 	var/list/BadInitializeCalls = list()
 
+	var/init_start_time
 
 /datum/controller/subsystem/atoms/Initialize()
+	init_start_time = world.time
 	setupgenetics()
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
 	return SS_INIT_SUCCESS
-
 
 /datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms, noisy = TRUE)
 	if(initialized == INITIALIZATION_INSSATOMS)
@@ -40,8 +36,8 @@ SUBSYSTEM_DEF(atoms)
 	var/count
 	var/list/mapload_arg = list(TRUE)
 	if(atoms)
-		count = atoms.len
-		for(var/I in 1 to atoms.len)
+		count = length(atoms)
+		for(var/I in 1 to length(atoms))
 			var/atom/A = atoms[I]
 			if(!(A.flags & INITIALIZED))
 				InitAtom(A, mapload_arg)
@@ -62,13 +58,13 @@ SUBSYSTEM_DEF(atoms)
 
 	initialized = INITIALIZATION_INNEW_REGULAR
 
-	if(late_loaders.len)
+	if(length(late_loaders))
 		watch = start_watch()
 		if(noisy)
 			log_startup_progress("Late-initializing atoms...")
 		else
 			log_debug("Late-initializing atoms...")
-		for(var/I in 1 to late_loaders.len)
+		for(var/I in 1 to length(late_loaders))
 			var/atom/A = late_loaders[I]
 			if(QDELETED(A))	// hate this, but qdel check is a must
 				continue
@@ -85,7 +81,9 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)
 	var/the_type = A.type
 	if(QDELING(A))
-		BadInitializeCalls[the_type] |= BAD_INIT_QDEL_BEFORE
+		// Check init_start_time to not worry about atoms created before the atoms SS that are cleaned up before this
+		if(A.gc_destroyed > init_start_time)
+			BadInitializeCalls[the_type] |= BAD_INIT_QDEL_BEFORE
 		return TRUE
 
 	var/start_tick = world.time
@@ -101,7 +99,7 @@ SUBSYSTEM_DEF(atoms)
 		if(INITIALIZE_HINT_NORMAL)
 			EMPTY_BLOCK_GUARD // Pass
 		if(INITIALIZE_HINT_LATELOAD)
-			if(arguments[1])	//mapload
+			if(arguments[1]) // mapload
 				late_loaders += A
 			else
 				A.LateInitialize()
@@ -111,7 +109,7 @@ SUBSYSTEM_DEF(atoms)
 		else
 			BadInitializeCalls[the_type] |= BAD_INIT_NO_HINT
 
-	if(!A)	//possible harddel
+	if(!A) //possible harddel
 		qdeleted = TRUE
 	else if(!(A.flags & INITIALIZED))
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
@@ -122,15 +120,12 @@ SUBSYSTEM_DEF(atoms)
 			/// Sends a signal that the new atom `src`, has been created at `loc`
 			SEND_SIGNAL(location, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, A, arguments[1])
 
-
 	return qdeleted || QDELING(A)
-
 
 /datum/controller/subsystem/atoms/proc/map_loader_begin()
 	old_initialized = initialized
 	initialized = INITIALIZATION_INSSATOMS
 	SSicon_smooth.add_halt_source(src)
-
 
 /datum/controller/subsystem/atoms/proc/map_loader_stop()
 	initialized = old_initialized
@@ -142,7 +137,6 @@ SUBSYSTEM_DEF(atoms)
 		InitializeAtoms()
 	old_initialized = SSatoms.old_initialized
 	BadInitializeCalls = SSatoms.BadInitializeCalls
-
 
 /client/proc/debug_atom_init()
 	set name = "Atom Init Log"
@@ -165,4 +159,3 @@ SUBSYSTEM_DEF(atoms)
 	var/datum/browser/popup = new(usr, "initdebug", "Init Debug")
 	popup.set_content(html_data.Join())
 	popup.open(FALSE)
-

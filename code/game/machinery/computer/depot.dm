@@ -1,14 +1,7 @@
-
-#define DEPOT_VISITOR_START	1
-#define DEPOT_VISITOR_END	2
-#define DEPOT_VISITOR_ADD	3
-
-
 // Generic parent depot computer type
 
 /obj/machinery/computer/syndicate_depot
 	name = "depot computer"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
 	light_color = LIGHT_COLOR_ELECTRIC_CYAN
@@ -215,7 +208,7 @@
 		return
 	if(depotarea)
 		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
-		playsound(user, sound_click, 20, 1)
+		playsound(user, sound_click, 20, TRUE)
 
 
 // Shield computer, used to manipulate base shield, and armory shield
@@ -368,7 +361,7 @@
 	user.faction += "syndicate"
 	depotarea.alert_log += "[user.name] signed in as a visitor."
 	depotarea.list_add(user, depotarea.peaceful_list)
-	to_chat(user, {"<br><span class='userdanger'>Welcome, Agent.</span>
+	to_chat(user, {"<br>[span_userdanger("Welcome, Agent.")]
 		<span class='warning'>You are now signed-in as a depot visitor.
 		Any other agents with you MUST sign in themselves.
 		You may explore all rooms here, except for bolted ones.

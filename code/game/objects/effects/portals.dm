@@ -8,7 +8,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
 	base_icon_state = "portal"
-	anchored = TRUE
 	density = TRUE // dense for receiving bumbs
 	layer = HIGH_OBJ_LAYER
 
@@ -72,7 +71,7 @@
 	target = null
 
 	if(create_sparks)
-		do_sparks(5, 0, loc)
+		do_sparks(5, FALSE, loc)
 
 	return ..()
 
@@ -201,7 +200,7 @@
 /obj/effect/portal/proc/invalid_teleport()
 	visible_message(span_warning("[src] flickers and fails due to bluespace interference!"))
 	if(create_sparks)
-		do_sparks(5, 0, loc)
+		do_sparks(5, FALSE, loc)
 	qdel(src)
 
 
@@ -253,7 +252,6 @@
 	icon_state = "portal-syndicate"
 	base_icon_state = "portal-syndicate"
 	failchance = 0
-	precision = 0
 	ignore_tele_proof_area_setting = TRUE
 
 

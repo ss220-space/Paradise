@@ -2,7 +2,6 @@
 	name = "projectile"
 	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "bullet"
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	pass_flags = PASSTABLE
@@ -218,16 +217,16 @@
 
 		else if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
-		if(L.has_limbs)
+		if(L.has_limbs && def_zone)
 			organ_hit_text = "в [GLOB.body_zone[def_zone][ACCUSATIVE]]!"
 
 		if(suppressed)
 			playsound(loc, hitsound, 5, TRUE, -1)
-			to_chat(L, span_userdanger("Вы стреляете из [declent_ru(ACCUSATIVE)] [organ_hit_text]"))
+			to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] попадает вам [organ_hit_text]"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1, -1)
+				playsound(loc, hitsound, volume, TRUE, -1)
 			var/hit_text = pick("получа[pluralize_ru(L.gender,"ет","ют")] попадание",
 								"ранен[genderize_ru(L.gender,"","а","о","ы")]",
 								"получа[pluralize_ru(L.gender,"ет","ют")] ранение",
@@ -303,7 +302,7 @@
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
-		playsound(loc, hitsound_wall, volume, 1, -1)
+		playsound(loc, hitsound_wall, volume, TRUE, -1)
 	else if(ishuman(bumped_atom))
 		var/mob/living/carbon/human/bumped_human = bumped_atom
 		var/obj/item/organ/external/organ = bumped_human.get_organ(check_zone(def_zone))

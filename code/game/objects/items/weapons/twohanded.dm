@@ -71,6 +71,7 @@
  * Parameters actually useless since you can use `src` and `usr` already.
  */
 /obj/item/twohanded/proc/wield(obj/item/source, mob/living/carbon/user)
+	return
 
 
 /**
@@ -79,6 +80,7 @@
  * Parameters actually useless since you can use `src` and `usr` already.
  */
 /obj/item/twohanded/proc/unwield(obj/item/source, mob/living/carbon/user)
+	return
 
 
 ///////////Two hand required objects///////////////
@@ -114,7 +116,6 @@
 	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
@@ -128,7 +129,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
@@ -197,7 +198,7 @@
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
@@ -238,7 +239,7 @@
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/fireaxe/energized/Destroy()
@@ -261,7 +262,7 @@
 		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[pluralize_ru(user.gender,"ет","ют")] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы со всей мощи вгоняете заряженный топор в [target.declent_ru(ACCUSATIVE)]!")
 	)
-	do_sparks(1, 1, src)
+	do_sparks(1, TRUE, src)
 	target.Weaken(6 SECONDS)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 5, 1)
@@ -292,7 +293,6 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
@@ -317,7 +317,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0, \
 		requires_wielded = TRUE, \
-		swing_sound = "double_energy_swing" \
+		swing_sound = SFX_DOUBLE_ENERGY_SWING \
 	)
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
@@ -439,7 +439,6 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
@@ -574,13 +573,10 @@
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
-	icon_state = "spearglass0"
 	name = "Grey Tide"
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
 	force_unwielded = 15
 	force_wielded = 25
-	throwforce = 20
-	throw_speed = 4
 
 /obj/item/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity, params)
 	..()
@@ -631,7 +627,6 @@
 	name = "head on a spear"
 	desc = "Какое варварство."
 	icon_state = "headspear"
-	density = FALSE
 	anchored = TRUE
 	var/obj/item/organ/external/head/mounted_head = null
 	var/obj/item/twohanded/spear/contained_spear = null
@@ -682,7 +677,6 @@
 	force_unwielded = 13
 	force_wielded = 24
 	throwforce = 13
-	throw_speed = 2
 	throw_range = 4
 	materials = list(MAT_METAL = 13000)
 	origin_tech = "materials=3;engineering=4;combat=2"
@@ -692,7 +686,6 @@
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	actions_types = list(/datum/action/item_action/startchainsaw)
-	wielded = FALSE
 	var/datum/looping_sound/chainsaw/soundloop
 
 
@@ -710,7 +703,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chainsaw_swing" \
+		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
 
@@ -774,7 +767,6 @@
 	sharp = TRUE
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
-	wielded = FALSE
 	var/datum/looping_sound/chainsaw/soundloop
 
 /obj/item/twohanded/chainsaw/get_ru_names()
@@ -801,7 +793,7 @@
 		afterswing_slowdown = 0.3, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "chainsaw_swing" \
+		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
 
@@ -880,7 +872,7 @@
 		afterswing_slowdown = 0.3, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/singularityhammer/Destroy()
@@ -951,7 +943,6 @@
 	force_unwielded = 5
 	force_wielded = 25
 	throwforce = 30
-	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
 	//var/charged = 5
 	origin_tech = "combat=4;powerstorage=7"
@@ -967,12 +958,12 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	target.Stun(4 SECONDS)
-	do_sparks(5, 1, target.loc)
+	do_sparks(5, TRUE, target.loc)
 	target.visible_message(
 		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[genderize_ru(target.gender,"", "а", "о", "ы")] разрядом [declent_ru(GENITIVE)]!"),
 		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
@@ -1028,7 +1019,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/knighthammer/Destroy()
@@ -1071,12 +1062,12 @@
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
-				Z.ex_act(2)
+				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
-				Z.ex_act(2)
+				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 
@@ -1091,7 +1082,6 @@
 	force_wielded = 15
 	attack_verb = list("атаковал", "пронзил", "проколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
@@ -1217,7 +1207,7 @@
 
 /obj/item/twohanded/sechammer
 	name = "tactical sledgehammer"
-	desc = "Тяжёлая кувалда, используемая силовыми структурами НаноТрейзен. Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
+	desc = "Тяжёлая кувалда, используемая силовыми структурами Нанотрейзен. Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
 	gender = FEMALE
 	icon_state = "sechammer0"
 	throwforce = 20
@@ -1228,7 +1218,6 @@
 	force_wielded = 35
 	armour_penetration = 40
 	attack_verb = list("атаковал", "ударил", "шибанул", "долбанул", "припечатал")
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	item_flags = SLOWS_WHILE_IN_HAND
@@ -1260,7 +1249,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/sechammer/update_icon_state()

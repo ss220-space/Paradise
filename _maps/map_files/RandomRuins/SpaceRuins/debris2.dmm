@@ -25,9 +25,7 @@
 /turf/space,
 /area/space)
 "o" = (
-/obj/machinery/door/airlock/command{
-	max_integrity = 40
-	},
+/obj/machinery/door/airlock/command,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "q" = (
@@ -61,7 +59,7 @@
 /turf/space,
 /area/space)
 "D" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "E" = (
@@ -117,7 +115,7 @@
 /turf/simulated/wall,
 /area/space)
 "U" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "X" = (

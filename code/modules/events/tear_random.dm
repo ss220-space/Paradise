@@ -10,9 +10,9 @@
 
 /datum/event/tear/random/announce()
 	GLOB.minor_announcement.announce(
-		"На борту станции зафиксирована мощный пространственно-временной разрыв. Предполагаемая локация: [impact_area.name].",
-		ANNOUNCE_ANOMALY_RU,
-		'sound/AI/anomaly.ogg'
+		message = "На борту станции зафиксирована мощный пространственно-временной разрыв. Предполагаемая локация: [impact_area.name].",
+		new_title = ANNOUNCE_ANOMALY_RU,
+		new_sound = 'sound/AI/anomaly.ogg'
 	)
 
 /datum/event/tear/random/end()

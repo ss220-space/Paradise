@@ -133,7 +133,7 @@
 	"Реакция на вызов", "Движению в локацию доставки", "Движение в домашнюю локацию", \
 	"Препятствие на маршруте", "Расчёт навигационного маршрута", "Запрос сети радиомаячков", "Точка маршрута недоступна")
 
-	var/datum/atom_hud/data/bot_path/path_hud = new /datum/atom_hud/data/bot_path()
+	var/datum/atom_hud/data/bot_path/path_hud
 	var/path_image_icon = 'icons/obj/aibots.dmi'
 	var/path_image_icon_state = "path_indicator"
 	var/path_image_color = "#FFFFFF"
@@ -150,18 +150,20 @@
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
-	canhear_range = 0
 
+/obj/item/radio/headset/bot/get_base_channels()
+	var/mob/living/simple_animal/bot/bot = loc
 
-/obj/item/radio/headset/bot/recalculateChannels()
-	var/mob/living/simple_animal/bot/B = loc
-	if(istype(B))
-		if(!B.radio_config)
-			B.radio_config = list(AI_FREQ_NAME = 1)
-			if(!(B.radio_channel in B.radio_config)) // put it first so it's the :h channel
-				B.radio_config.Insert(1, "[B.radio_channel]")
-				B.radio_config["[B.radio_channel]"] = 1
-		config(B.radio_config)
+	if(!istype(bot))
+		return
+
+	if(!bot.radio_config)
+		bot.radio_config = list(AI_FREQ_NAME = 1)
+
+	if((bot.radio_channel in bot.radio_config)) // put it first so it's the :h channel
+		return
+
+	bot.radio_config["[bot.radio_channel]"] = 1
 
 
 /mob/living/simple_animal/bot/proc/get_mode()
@@ -203,6 +205,9 @@
 	. = ..()
 
 	GLOB.bots_list += src
+	path_hud = new()
+	for(var/hud in path_hud.hud_icons) // You get to see your own path
+		set_hud_image_active(hud, exclusive_hud = path_hud)
 	icon_living = icon_state
 	icon_dead = icon_state
 	access_card = new /obj/item/card/id(src)
@@ -224,15 +229,15 @@
 
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
-		diag_hud.add_hud_to(src)
+		diag_hud.add_atom_to_hud(src)
+		diag_hud.show_to(src)
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 	// give us the hud too!
 	if(path_hud)
-		path_hud.add_to_hud(src)
-		path_hud.add_hud_to(src)
+		path_hud.add_atom_to_hud(src)
+		path_hud.show_to(src)
 
 
 
@@ -441,13 +446,13 @@
 			balloon_alert(user, "слот для ПИИ занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!card.pai || !card.pai.mind)
-			balloon_alert(user, "ПИИ не активен!")
+			balloon_alert(user, UNLINT("ПИИ не активен!"))
 			return ATTACK_CHAIN_PROCEED
 		if(key || (!allow_pai && !card.pai.syndipai))
 			balloon_alert(user, "робот не совместим с ПИИ!")
 			return ATTACK_CHAIN_PROCEED
 		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
-			balloon_alert(user, "ПИИ не совместим с роботом!")
+			balloon_alert(user, UNLINT("ПИИ не совместим с роботом!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(card, src))
 			return ..()
@@ -475,7 +480,7 @@
 		balloon_alert(user, "извлечение ПИИ")
 		if(!do_after(user, 3 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || open || !paicard)
 			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "ПИИ извлечён")
+		balloon_alert(user, UNLINT("ПИИ извлечён"))
 		visible_message(
 			span_notice("[user] вытащи[genderize_ru(user.gender, "л", "ла", "ло", "ли")] [paicard] из [declent_ru(GENITIVE)]!"),
 			span_notice("Вы вытащили [paicard] из [declent_ru(GENITIVE)]."),
@@ -524,7 +529,7 @@
 /mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		if(prob(75) && Proj.damage > 0)
-			do_sparks(5, 1, src)
+			do_sparks(5, TRUE, src)
 	return ..()
 
 
@@ -615,7 +620,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		var/atom/A = scan
 		if(!istype(A, scan_type)) //Check that the thing we found is the type we want!
 			continue //If not, keep searching!
-		if((A.UID() in ignore_list) || (A == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
+		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
 		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
@@ -917,7 +922,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 
 	if(client)
-		bot_control_message(r_command, user, signal.data["target"] ? signal.data["target"] : "Unknown")
+		bot_control_message(r_command, user, signal.data["target"] ? signal.data["target"] : UNKNOWN_STATUS_RUS)
 
 	// process control input
 	switch(r_command)
@@ -1233,7 +1238,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
 	if(data_hud)
-		data_hud.add_hud_to(src)
+		data_hud.show_to(src)
 
 	diag_hud_set_botmode()
 	show_laws()
@@ -1321,11 +1326,10 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/list/path_huds_watching_me = list(GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED])
 	if(path_hud)
 		path_huds_watching_me += path_hud
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.remove_from_hud(src)
+	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
+		hud.remove_atom_from_hud(src)
 
-	var/list/path_images = hud_list[DIAG_PATH_HUD]
+	var/list/path_images = active_hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
 	if(newpath)
 		for(var/i in 1 to newpath.len)
@@ -1363,9 +1367,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			path[T] = I
 			path_images += I
 
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.add_to_hud(src)
+	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
+		hud.add_atom_to_hud(src)
 
 
 /mob/living/simple_animal/bot/proc/increment_path()
@@ -1406,7 +1409,3 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 	set_varspeed(initial(speed))
 	balloon_alert(src, "вы замедляетесь")
-
-/obj/machinery/bot_core/syndicate
-	req_access = list(ACCESS_SYNDICATE)
-

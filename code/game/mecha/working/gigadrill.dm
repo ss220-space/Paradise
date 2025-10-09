@@ -25,7 +25,7 @@
 	turnsound = null
 //	wreckage = /obj/effect/decal/mecha_wreckage/gigadrill // no dmi :(
 
-/obj/mecha/working/gigadrill/Initialize()
+/obj/mecha/working/gigadrill/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src), FALSE)
 	pixel_x = -16
@@ -54,7 +54,7 @@
 	QDEL_NULL(soundloop)
 	return ..()
 
-/obj/mecha/working/gigadrill/moved_inside(var/mob/living/carbon/human/H as mob)
+/obj/mecha/working/gigadrill/moved_inside(mob/living/carbon/human/H as mob)
 	..()
 	soundloop.start()
 

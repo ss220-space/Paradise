@@ -11,21 +11,12 @@
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
 	name = "elite"
-	ru_names = list(
-		NOMINATIVE = "элита",
-		GENITIVE = "элиты",
-		DATIVE = "элите",
-		ACCUSATIVE = "элиту",
-		INSTRUMENTAL = "элитой",
-		PREPOSITIONAL = "элите"
-	)
 	desc = "Элитный монстр, найденный в одном из странных опухолей на Лазисе."
 	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
 	faction = list("boss")
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	ranged = TRUE
-	obj_damage = 30
 	var/mech_damage = 50
 	vision_range = 6
 	aggro_vision_range = 18
@@ -36,7 +27,6 @@
 	has_laser_resist = FALSE
 	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
-	response_help = "гладит"
 	AI_delay_max = 0 SECONDS
 	var/scale_with_time = TRUE
 	var/reviver = null
@@ -48,6 +38,16 @@
 	var/revive_cooldown = FALSE // Actually is a flag to check if is revived by a non antag
 	var/antag_revived_heal_mod = 0.33 // How much max hp loses if is revived by antag and then healed
 	var/enemies_count_scale = 1.3 // 30% stronger per enemy
+
+/mob/living/simple_animal/hostile/asteroid/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "элита",
+		GENITIVE = "элиты",
+		DATIVE = "элите",
+		ACCUSATIVE = "элиту",
+		INSTRUMENTAL = "элитой",
+		PREPOSITIONAL = "элите"
+	)
 
 //Gives player-controlled variants the ability to swap attacks
 /mob/living/simple_animal/hostile/asteroid/elite/Initialize(mapload)
@@ -122,14 +122,12 @@
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(75)
-
 		if(EXPLODE_HEAVY)
 			adjustBruteLoss(50)
-
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(25)
 
-/mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
+/mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(list/activators)
 	dif_mult = enemies_count_scale ** (length(activators)-1)
 	dif_mult_dmg = (dif_mult + 1) * 0.5
 	if(scale_with_time && world.time > STRENGTH_INCREASE_TIME)
@@ -166,7 +164,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	name = "Элитная атака"
 	icon_icon = 'icons/mob/actions/actions_elites.dmi'
 	button_icon_state = ""
-	background_icon_state = "bg_default"
 	///The displayed message into chat when this attack is selected
 	var/chosen_message
 	///The internal attack ID for the elite's OpenFire() proc to use
@@ -213,14 +210,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor
 	name = "pulsing tumor"
-	ru_names = list(
-		NOMINATIVE = "пульсирующая опухоль",
-		GENITIVE = "пульсирующей опухоли",
-		DATIVE = "пульсирующей опухоли",
-		ACCUSATIVE = "пульсирующую опухоль",
-		INSTRUMENTAL = "пульсирующей опухолью",
-		PREPOSITIONAL = "пульсирующей опухоли"
-	)
 	desc = "Странная, пульсирующая опухоль, торчащая из земли. Вы чувствуете побуждение протянуть руку и коснуться её..."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	icon = 'icons/obj/lavaland/tumor.dmi'
@@ -229,7 +218,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 	light_range = 3
 	anchored = TRUE
-	density = FALSE
 	var/activity = TUMOR_INACTIVE
 	var/boosted = FALSE
 	var/times_won = 0
@@ -246,6 +234,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	///List of invaders that have teleportes into the arena *multiple times*. They will be suffering.
 	var/list/invaders = list()
 
+/obj/structure/elite_tumor/get_ru_names()
+	return list(
+		NOMINATIVE = "пульсирующая опухоль",
+		GENITIVE = "пульсирующей опухоли",
+		DATIVE = "пульсирующей опухоли",
+		ACCUSATIVE = "пульсирующую опухоль",
+		INSTRUMENTAL = "пульсирующей опухолью",
+		PREPOSITIONAL = "пульсирующей опухоли"
+	)
+
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!ishuman(user))
@@ -260,7 +258,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			user.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда рука [user] входит в её радиус! О-ох..."), span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда ваша рука входит в её радиус! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
-				if (fighter.stat != DEAD)
+				if(fighter.stat != DEAD)
 					make_activator(fighter)
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
@@ -276,7 +274,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] начинает пульсировать! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
-				if (fighter.stat != DEAD)
+				if(fighter.stat != DEAD)
 					make_activator(fighter)
 			if(!boosted)
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 3 SECONDS)
@@ -298,7 +296,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				visible_message(span_warning("Опухоль замирает, и ничего не происходит. Возможно, стоит попробовать позже."))
 				activity = TUMOR_INACTIVE
 				for(var/mob/living/carbon/human/activator in activators)
-					if (activator.stat != DEAD)
+					if(activator.stat != DEAD)
 						clear_activator(activator)
 
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
@@ -310,7 +308,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		mychild.key = elitemind.key
 		mychild.sentience_act()
-		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] пробуждается в [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] пробуждается в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
 	update_icon(UPDATE_ICON_STATE)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
@@ -324,7 +322,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.setMaxHealth(mychild.maxHealth * 2.5)
 		mychild.setHealth(mychild.maxHealth)
 		mychild.grab_ghost()
-		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] вызван в [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] вызван в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
 /obj/structure/elite_tumor/Initialize(mapload)
@@ -492,14 +490,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/item/tumor_shard
 	name = "tumor shard"
-	ru_names = list(
-		NOMINATIVE = "осколок опухоли",
-		GENITIVE = "осколка опухоли",
-		DATIVE = "осколку опухоли",
-		ACCUSATIVE = "осколок опухоли",
-		INSTRUMENTAL = "осколком опухоли",
-		PREPOSITIONAL = "осколке опухоли"
-	)
 	desc = "Странный острый кристаллический осколок из необычной опухоли Лазиса. Если пронзить им труп элиты Лазиса, это воскресит существо - при условии, что его душа ещё не ушла. Воскрешённые элиты имеют только половину здоровья, и абсолютно лояльны к своему воскресителю."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "crevice_shard"
@@ -507,6 +497,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
+
+/obj/item/tumor_shard/get_ru_names()
+	return list(
+		NOMINATIVE = "осколок опухоли",
+		GENITIVE = "осколка опухоли",
+		DATIVE = "осколку опухоли",
+		ACCUSATIVE = "осколок опухоли",
+		INSTRUMENTAL = "осколком опухоли",
+		PREPOSITIONAL = "осколке опухоли"
+	)
 
 /obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, params)
 	. = ..()
@@ -521,9 +521,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.revive()
 		user.visible_message(span_notice("[user] пронза[pluralize_ru(user.gender,"ет","ют")] [E.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)], воскрешая его."))
 		SEND_SOUND(E, sound('sound/magic/cult_spell.ogg'))
-		to_chat(user, "<span class='notice'>Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам.</span>")
-		to_chat(E, "<span class='userdanger'>Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск.</span>")
-		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")
+		to_chat(user, span_notice("Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам."))
+		to_chat(E, span_userdanger("Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск."))
+		to_chat(E, span_bigbold("Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!"))
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
 			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG)
@@ -540,20 +540,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"
-	ru_names = list(
-		NOMINATIVE = "магическая стена",
-		GENITIVE = "магической стены",
-		DATIVE = "магической стене",
-		ACCUSATIVE = "магическую стену",
-		INSTRUMENTAL = "магической стеной",
-		PREPOSITIONAL = "магической стене"
-	)
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "wall"
 	base_icon_state = "hierophant_wall_temp"
 	duration = 50
 	layer = BELOW_MOB_LAYER
-	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_INTENSE_RED
@@ -561,13 +552,23 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	canSmoothWith = SMOOTH_GROUP_HIERO_VORTEX
 	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
 
+/obj/effect/temp_visual/elite_tumor_wall/get_ru_names()
+	return list(
+		NOMINATIVE = "магическая стена",
+		GENITIVE = "магической стены",
+		DATIVE = "магической стене",
+		ACCUSATIVE = "магическую стену",
+		INSTRUMENTAL = "магической стеной",
+		PREPOSITIONAL = "магической стене"
+	)
+
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
-	queue_smooth_neighbors(src)
-	queue_smooth(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /obj/effect/temp_visual/elite_tumor_wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 

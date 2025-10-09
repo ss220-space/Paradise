@@ -2,14 +2,6 @@
 /obj/item/grenade/plastic/miningcharge
 	name = "industrial mining charge"
 	desc = "Применяется для создания больших отверстий в породе. Эффективно только при работе с камнем!"
-	ru_names = list(
-		NOMINATIVE = "промышленный шахтёрский заряд",
-		GENITIVE = "промышленного шахтёрского заряда",
-		DATIVE = "промышленному шахтёрскому заряду",
-		ACCUSATIVE = "промышленный шахтёрский заряд",
-		INSTRUMENTAL = "промышленным шахтёрским зарядом",
-		PREPOSITIONAL = "промышленном шахтёрском заряде"
-	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining-charge-2"
 	item_state = "charge_indust"
@@ -24,6 +16,16 @@
 	var/installed = FALSE
 	var/smoke_amount = 3
 
+/obj/item/grenade/plastic/miningcharge/get_ru_names()
+	return list(
+		NOMINATIVE = "промышленный шахтёрский заряд",
+		GENITIVE = "промышленного шахтёрского заряда",
+		DATIVE = "промышленному шахтёрскому заряду",
+		ACCUSATIVE = "промышленный шахтёрский заряд",
+		INSTRUMENTAL = "промышленным шахтёрским зарядом",
+		PREPOSITIONAL = "промышленном шахтёрском заряде"
+	)
+
 /obj/item/grenade/plastic/miningcharge/examine(mob/user)
 	. = ..()
 	if(hacked)
@@ -31,7 +33,7 @@
 	if(timer_off)
 		. += span_notice("Шахтёрский заряд подключён к детонатору.")
 
-/obj/item/grenade/plastic/miningcharge/Initialize()
+/obj/item/grenade/plastic/miningcharge/Initialize(mapload)
 	. = ..()
 	image_overlay = mutable_appearance(icon, "[icon_state]_active", ON_EDGED_TURF_LAYER)
 
@@ -93,16 +95,16 @@
 	smoke.set_up(amount = smoke_amount, location = location)
 	smoke.start()
 	//location.attempt_drill(null,TRUE,3) //orange says it doesnt include the actual middle
-	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
+	for(var/turf/simulated/mineral/rock in circle_range_turfs(location, boom_sizes[3]))
 		var/distance = get_dist_euclidean(location, rock)
 		if(distance <= boom_sizes[1])
 			rock.attempt_drill(null,TRUE,3)
-		else if (distance <= boom_sizes[2])
+		else if(distance <= boom_sizes[2])
 			rock.attempt_drill(null,TRUE,2)
-		else if (distance <= boom_sizes[3])
+		else if(distance <= boom_sizes[3])
 			rock.attempt_drill(null,TRUE,1)
 
-	for(var/mob/living/carbon/C in circlerange(location,boom_sizes[3]))
+	for(var/mob/living/carbon/C in circle_range(location, boom_sizes[3]))
 		if(ishuman(C)) //working on everyone
 			var/distance = get_dist_euclidean(location, C)
 			C.flash_eyes()
@@ -126,8 +128,8 @@
 	else
 		location = get_atom_on_turf(src)
 	if(location)
-		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = src)
-		location.ex_act(2, target)
+		explosion(location, devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3], cause = src)
+		location.ex_act(EXPLODE_HEAVY, target)
 	if(istype(target, /mob))
 		var/mob/M = target
 		M.gib()
@@ -151,7 +153,13 @@
 /obj/item/grenade/plastic/miningcharge/lesser
 	name = "mining charge"
 	desc = "Заряд для шахтёрских работ. Этот кажется менее мощным, чем промышленный. Работает только на породе!"
-	ru_names = list(
+	icon_state = "mining-charge-1"
+	item_state = "charge_lesser"
+	smoke_amount = 1
+	boom_sizes = list(1,2,3)
+
+/obj/item/grenade/plastic/miningcharge/lesser/get_ru_names()
+	return list(
 		NOMINATIVE = "шахтёрский заряд",
 		GENITIVE = "шахтёрского заряда",
 		DATIVE = "шахтёрскому заряду",
@@ -159,15 +167,17 @@
 		INSTRUMENTAL = "шахтёрским зарядом",
 		PREPOSITIONAL = "шахтёрском заряде"
 	)
-	icon_state = "mining-charge-1"
-	item_state = "charge_lesser"
-	smoke_amount = 1
-	boom_sizes = list(1,2,3)
 
 /obj/item/grenade/plastic/miningcharge/mega
 	name = "experimental mining charge"
 	desc = "Заряд для шахтёрских работ. Этот кажется значительно мощнее обычного!"
-	ru_names = list(
+	icon_state = "mining-charge-3"
+	item_state = "charge_mega"
+	smoke_amount = 5
+	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
+
+/obj/item/grenade/plastic/miningcharge/mega/get_ru_names()
+	return list(
 		NOMINATIVE = "экспериментальный шахтёрский заряд",
 		GENITIVE = "экспериментального шахтёрского заряда",
 		DATIVE = "экспериментальному шахтёрскому заряду",
@@ -175,10 +185,6 @@
 		INSTRUMENTAL = "экспериментальным шахтёрским зарядом",
 		PREPOSITIONAL = "экспериментальном шахтёрском заряде"
 	)
-	icon_state = "mining-charge-3"
-	item_state = "charge_mega"
-	smoke_amount = 5
-	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
 	for(var/i in 1 to 2)
@@ -208,7 +214,7 @@
 			return
 		charge.override_safety()
 		visible_message(span_warning("Из [declent_ru(GENITIVE)] летят искры!"), span_notice("Вы перегружаете [declent_ru(ACCUSATIVE)], отключая его защиту."))
-		playsound(src, "sparks", 50, TRUE)
+		playsound(src, SFX_SPARKS, 50, TRUE)
 		charges--
 		if(charges <= 0)
 			to_chat(user , span_warning("Внутренняя батарея [declent_ru(GENITIVE)], предназначенная для перегрузки шахтёрских зарядов, разрядилась!"))
@@ -218,7 +224,14 @@
 /obj/item/detonator
 	name = "mining charge detonator"
 	desc = "Специализированное устройство для контролируемых подрывных работ с использованием шахтёрских зарядов."
-	ru_names = list(
+	w_class = WEIGHT_CLASS_SMALL
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "Detonator-0"
+	/// list of all bombs connected to a detonator for a moment
+	var/list/bombs = list()
+
+/obj/item/detonator/get_ru_names()
+	return list(
 		NOMINATIVE = "детонатор шахтёрских зарядов",
 		GENITIVE = "детонатора шахтёрских зарядов",
 		DATIVE = "детонатору шахтёрских зарядов",
@@ -226,11 +239,6 @@
 		INSTRUMENTAL = "детонатором шахтёрских зарядов",
 		PREPOSITIONAL = "детонаторе шахтёрских зарядов"
 	)
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "Detonator-0"
-	/// list of all bombs connected to a detonator for a moment
-	var/list/bombs = list()
 
 /obj/item/detonator/examine(mob/user)
 	. = ..()

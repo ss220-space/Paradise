@@ -8,7 +8,6 @@
 	var/icon_closed = null
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	var/busy = 0
 	var/hacked = 0
 	var/disabled = 0
@@ -23,10 +22,10 @@
 	var/efficiency_coeff = 1
 	var/list/categories = list()
 
-/obj/machinery/r_n_d/New()
+/obj/machinery/r_n_d/Initialize(mapload)
+	. = ..()
 	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, PROC_REF(is_insertion_ready)), CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	materials.precise_insertion = TRUE
-	..()
 	wires["Red"] = 0
 	wires["Blue"] = 0
 	wires["Green"] = 0
@@ -34,12 +33,17 @@
 	wires["Black"] = 0
 	wires["White"] = 0
 	var/list/w = list("Red","Blue","Green","Yellow","Black","White")
-	src.hack_wire = pick(w)
-	w -= src.hack_wire
-	src.shock_wire = pick(w)
-	w -= src.shock_wire
-	src.disable_wire = pick(w)
-	w -= src.disable_wire
+	hack_wire = pick_n_take(w)
+	shock_wire = pick_n_take(w)
+	disable_wire = pick_n_take(w)
+
+/obj/machinery/r_n_d/Destroy()
+	if(loaded_item)
+		loaded_item.forceMove(get_turf(src))
+		loaded_item = null
+	linked_console = null
+	materials = null
+	return ..()
 
 /obj/machinery/r_n_d/attack_hand(mob/user as mob)
 	if(..())
@@ -105,38 +109,37 @@
 //whether the machine can have an item inserted in its current state.
 /obj/machinery/r_n_d/proc/is_insertion_ready(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load [src] while it's opened!</span>")
+		to_chat(user, span_warning("You can't load [src] while it's opened!"))
 		return FALSE
 	if(disabled)
 		return FALSE
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
+		to_chat(user, span_warning("[src] must be linked to an R&D console first!"))
 		return FALSE
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
+		to_chat(user, span_warning("[src] is busy right now."))
 		return FALSE
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>[src] is broken.</span>")
+		to_chat(user, span_warning("[src] is broken."))
 		return FALSE
 	if(stat & NOPOWER)
-		to_chat(user, "<span class='warning'>[src] has no power.</span>")
+		to_chat(user, span_warning("[src] has no power."))
 		return FALSE
 	if(loaded_item)
-		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
+		to_chat(user, span_warning("[src] is already loaded."))
 		return FALSE
 	return TRUE
 
 /obj/machinery/r_n_d/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	var/stack_name
+	var/obj/item/stack/S = type_inserted
 	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
-		stack_name = "bluespace polycrystal"
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else
-		var/obj/item/stack/S = type_inserted
-		stack_name = initial(S.name)
 		use_power(min(1000, (amount_inserted / 100)))
-	flick_overlay_view(mutable_appearance(icon, "[initial(name)]_[stack_name]"), 1 SECONDS)
+	stack_name = S.protolathe_name
+	flick_overlay_view(mutable_appearance(icon, "[base_icon_state]_[stack_name]"), 1.5 SECONDS)
 
 
-/obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, var/M)
+/obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, M)
 	return 0 // number of copies of design beign_built you can make with material M

@@ -87,8 +87,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	name = "Spell"
 	desc = "A wizard spell"
 	/// What panel the proc holder needs to go on.
-	density = FALSE
-	opacity = FALSE
 	interaction_flags_click = BYPASS_ADJACENCY
 
 	/// Not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
@@ -338,12 +336,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * This proc will trigger when all necessary initialization is done. Usefull for staff like changing spell name.
  */
 /obj/effect/proc_holder/spell/proc/after_spell_init()
+	return
 
 
 /**
  * This will apply on every tick of cooldown process.
  */
 /obj/effect/proc_holder/spell/proc/on_cooldown_tick()
+	return
 
 
 /obj/effect/proc_holder/spell/Click()
@@ -500,7 +500,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(target, text("[message]"))
 
 		if(sparks_spread)
-			do_sparks(sparks_amt, 0, location)
+			do_sparks(sparks_amt, FALSE, location)
 
 		if(smoke_type)
 			var/datum/effect_system/fluid_spread/smoke/smoke
@@ -575,7 +575,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 
 /obj/effect/proc_holder/spell/aoe
-	name = "Spell"
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
 	/// How far does it effect
@@ -672,7 +671,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/summonmob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "JE VES"
 	invocation_type = "whisper"

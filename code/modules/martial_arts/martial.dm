@@ -202,6 +202,7 @@
 
 	if(change_musculs && HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
 		ADD_TRAIT(human, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
+		SEND_SIGNAL(human, COMSIG_STRENGTH_LEVEL_UP, 4)
 		human.update_body(TRUE)
 
 	for(var/datum/martial_art/art in human.mind.known_martial_arts)
@@ -336,8 +337,22 @@
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style = new
+	name = "boxing gloves"
+	desc = "Because you really needed another excuse to punch your crewmates."
+	icon_state = "boxing"
+	item_state = "boxing"
+	put_on_delay = 60
 
+	var/datum/martial_art/boxing/style
+
+/obj/item/clothing/gloves/boxing/Initialize(mapload)
+	. = ..()
+	style = new()
+
+/obj/item/clothing/gloves/boxing/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
@@ -355,7 +370,16 @@
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
-	var/datum/martial_art/wrestling/style = new
+	var/datum/martial_art/wrestling/style
+
+/obj/item/storage/belt/champion/wrestling/Initialize(mapload)
+	. = ..()
+	style = new()
+
+/obj/item/storage/belt/champion/wrestling/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
 
 /obj/item/storage/belt/champion/wrestling/true
 	name = "Пояс Истинного Чемпиона"
@@ -417,8 +441,8 @@
 
 
 /obj/item/sleeping_carp_scroll
-	name = "mysterious scroll"
-	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
+	name = "загадочный свиток"
+	desc = "Свиток исписанный загадочными символами. Похоже, в нём описаны техники какого-то боевого искусства."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
@@ -427,26 +451,21 @@
 		return
 	if(user.mind && (ischangeling(user) || isvampire(user))) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user)) //Changelings
-			to_chat(user, span_warning("We try multiple times, but we are not able to comprehend the contents of the scroll!"))
+			to_chat(user, span_warning("Мы пытаемся много раз, но всё же не способны понять содержимое свитка!"))
 			return
 		else //Vampires
-			to_chat(user, span_warning("Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!"))
+			to_chat(user, span_warning("Твоя жажда крови не даёт тебе сконцентрироваться на изучении свитка!"))
 			return
 
 	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
-		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
+		to_chat(user, span_warning("Ты уже изучил техники Спящего Карпа. Прочтение свитка ничего не даст."))
 		return
-
-	to_chat(user, span_sciradio("You have learned the ancient martial art of the Sleeping Carp! \
-					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
-					However, you are also unable to use any ranged weaponry. \
-					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab."))
 
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
-	visible_message(span_warning("[src] lights up in fire and quickly burns to ash."))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] подхватыва[pluralize_ru(gender, "ет", "ют")] огонь и быстро сгора[pluralize_ru(gender, "ет", "ют")] до тла."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
@@ -617,7 +636,6 @@
 	force_unwielded = 10
 	force_wielded = 24
 	throwforce = 20
-	throw_speed = 2
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
 	block_chance = 50

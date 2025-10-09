@@ -1,5 +1,5 @@
-#define AUTO_EJECT_DEAD		(1<<0)
-#define AUTO_EJECT_HEALTHY	(1<<1)
+#define AUTO_EJECT_DEAD (1<<0)
+#define AUTO_EJECT_HEALTHY (1<<1)
 #define OCCUPANT_PIXEL_BOUNCE_HIGH 28
 #define OCCUPANT_PIXEL_BOUNCE_LOW 22
 
@@ -9,16 +9,12 @@
 	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
 	density = TRUE
-	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
-	plane = GAME_PLANE
 	resistance_flags = null
 	interact_offline = 1
 	max_integrity = 350
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
-	on = FALSE
 	vent_movement = VENTCRAWL_CAN_SEE
-	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	flags = PREVENT_CLICK_UNDER | IGNORE_TURF_PIXEL_OFFSET
 	var/temperature_archived
 	var/mob/living/carbon/occupant
@@ -35,7 +31,6 @@
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
-	light_color = COLOR_WHITE
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
 	return list(
@@ -67,8 +62,8 @@
 		. += span_notice("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
@@ -80,8 +75,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -116,12 +111,12 @@
 	QDEL_NULL(occupant_overlay)
 	return ..()
 
-/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)
+/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
+		occupant.ex_act(severity, target)
 	if(beaker)
-		beaker.ex_act(severity)
-	..()
+		beaker.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/handle_atom_del(atom/A)
 	..()

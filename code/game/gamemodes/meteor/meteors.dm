@@ -1,5 +1,5 @@
 //Meteors probability of spawning during a given wave
-GLOBAL_LIST_INIT(meteors_normal, list(	//for normal meteor event
+GLOBAL_LIST_INIT(meteors_normal, list(//for normal meteor event
 	/obj/effect/meteor/dust = 3,
 	/obj/effect/meteor/medium = 8,
 	/obj/effect/meteor/big = 3,
@@ -7,14 +7,14 @@ GLOBAL_LIST_INIT(meteors_normal, list(	//for normal meteor event
 	/obj/effect/meteor/irradiated = 3,
 ))
 
-GLOBAL_LIST_INIT(meteors_threatening, list(	//for threatening meteor event
+GLOBAL_LIST_INIT(meteors_threatening, list(//for threatening meteor event
 	/obj/effect/meteor/medium = 4,
 	/obj/effect/meteor/big = 8,
 	/obj/effect/meteor/flaming = 3,
 	/obj/effect/meteor/irradiated = 3,
 ))
 
-GLOBAL_LIST_INIT(meteors_catastrophic, list(	//for catastrophic meteor event
+GLOBAL_LIST_INIT(meteors_catastrophic, list(//for catastrophic meteor event
 	/obj/effect/meteor/medium = 5,
 	/obj/effect/meteor/big = 75,
 	/obj/effect/meteor/flaming = 10,
@@ -118,7 +118,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	density = TRUE
-	anchored = TRUE
 	pass_flags = PASSTABLE
 
 	///The resilience of our meteor
@@ -279,7 +278,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 		var/dist = get_dist(mob.loc, loc)
 		if(prob(shake_chance))
 			shake_camera(mob, dist > 20 ? 3 : 5, dist > 20 ? 1 : 3)
-		mob.playsound_local(loc, null, 50, TRUE, random_frequency, 10, sound = meteor_sound)
+		mob.playsound_local(loc, null, 50, TRUE, random_frequency, 10, sound_to_use = meteor_sound)
 
 
 /**
@@ -359,7 +358,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 
 /obj/effect/meteor/medium/meteor_effect()
 	. = ..()
-	explosion(loc, 0, 1, 2, 3, adminlog = FALSE, cause = src)
+	explosion(loc, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 2, flash_range = 3, adminlog = FALSE, cause = src)
 
 
 //Large-sized
@@ -374,7 +373,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 
 /obj/effect/meteor/big/meteor_effect()
 	. = ..()
-	explosion(loc, 1, 2, 3, 4, adminlog = FALSE, cause = src)
+	explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, adminlog = FALSE, cause = src)
 
 
 //Flaming meteor
@@ -390,7 +389,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 
 /obj/effect/meteor/flaming/meteor_effect()
 	. = ..()
-	explosion(loc, 1, 2, 3, 4, adminlog = FALSE, flame_range = 5, cause = src)
+	explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, adminlog = FALSE, flame_range = 5, cause = src)
 
 
 //Radiation meteor
@@ -404,7 +403,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	. = ..()
-	explosion(loc, 0, 0, 4, 3, adminlog = FALSE, cause = src)
+	explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 4, flash_range = 3, adminlog = FALSE, cause = src)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
 	for(var/mob/living/L in view(5, src))
 		L.apply_effect(40, IRRADIATE)
@@ -425,14 +424,14 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 
 /obj/effect/meteor/tunguska/meteor_effect()
 	. = ..()
-	explosion(loc, 5, 10, 15, 20, adminlog = FALSE, cause = src)
+	explosion(loc, devastation_range = 5, heavy_impact_range = 10, light_impact_range = 15, flash_range = 20, adminlog = FALSE, cause = src)
 
 
 /obj/effect/meteor/tunguska/Bump(atom/bumped_atom)
 	. = ..()
 	if(. || !prob(20))
 		return .
-	explosion(loc, 2, 4, 6, 8, cause = src)
+	explosion(loc, devastation_range = 2, heavy_impact_range = 4, light_impact_range = 6, flash_range = 8, cause = src)
 
 
 //Gore
@@ -510,13 +509,12 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	desc = "Dust in space."
 	icon_state = "space_dust"
 	heavy = TRUE
-	hitpwr = EXPLODE_HEAVY
 	hits = 2
 	meteordrop = null
 	threat = 5
 
 
-/obj/effect/meteor/space_dust/ex_act(severity)
+/obj/effect/meteor/space_dust/ex_act(severity, target)
 	qdel(src)
 
 

@@ -17,7 +17,6 @@
 		/datum/surgery_step/proxy/robotics/repair_limb,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	requires_organic_bodypart = FALSE
 	possible_locs = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
@@ -108,7 +107,6 @@
 // Intermediate repair surgeries, for fixing up internal maladies mid-surgery.
 
 /datum/surgery/intermediate/robotics
-	requires_bodypart = TRUE
 	requires_organic_bodypart = FALSE
 
 /datum/surgery/intermediate/robotics/repair
@@ -150,7 +148,6 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery_step/robotics
-	can_infect = 0
 
 /datum/surgery_step/robotics/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	. = ..()
@@ -514,7 +511,7 @@
 		return SURGERY_STEP_INCOMPLETE
 
 	user.drop_from_active_hand()
-	I.insert(target)
+	I.insert(target, ORGAN_MANIPULATION_TRANSPLANTATE)
 	user.visible_message(
 		span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		span_notice("Вы устанавливаете [I.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),

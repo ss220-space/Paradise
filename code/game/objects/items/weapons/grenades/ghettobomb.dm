@@ -2,19 +2,23 @@
 
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"
-	desc = "A weak, improvised incendiary device."
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/weapons/grenade.dmi'
+	desc = "Самопальное взрывное устройство малой мощности."
+	gender = FEMALE
 	icon_state = "improvised_grenade"
-	item_state = "flashbang"
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT
-	active = 0
-	det_time = 5 SECONDS
 	display_timer = 0
 	var/list/times
+
+/obj/item/grenade/iedcasing/get_ru_names()
+	return list(
+		NOMINATIVE = "самодельная взрывчатка",
+		GENITIVE = "самодельной взрывчатки",
+		DATIVE = "самодельной взрывчатке",
+		ACCUSATIVE = "самодельную взрывчатку",
+		INSTRUMENTAL = "самодельной взрывчаткой",
+		PREPOSITIONAL = "самодельной взрывчатке"
+	)
 
 /obj/item/grenade/iedcasing/New()
 	..()
@@ -61,7 +65,7 @@
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
 	. = ..()
 	update_mob()
-	explosion(loc, -1, -1, 2, flame_range = 4, cause = src)	// small explosion, plus a very large fireball.
+	explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 4, cause = src) // small explosion, plus a very large fireball.
 	qdel(src)
 
 /obj/item/grenade/iedcasing/examine(mob/user)
@@ -73,7 +77,6 @@
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "improvised_satchel"
 	item_state = "plastic-explosive"
-	toolspeed = 1
 	det_time = 8 SECONDS
 	var/atom/target = null
 	var/image_overlay = null
@@ -198,7 +201,7 @@
 
 /obj/item/grenade/iedsatchel/prime()
 	update_mob()
-	explosion(loc, -1, -1, 2, flame_range = 4, cause = src)
+	explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 4, cause = src)
 	if(target)
 		if(istype(target, /obj/machinery/door/airlock))
 			var/obj/machinery/door/airlock/T = target

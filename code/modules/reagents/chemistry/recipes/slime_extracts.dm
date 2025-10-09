@@ -475,7 +475,7 @@
 		if(slime.docile) //Undoes docility, but doesn't make rabid.
 			slime.visible_message(span_danger("[slime] forgets its training, becoming wild once again!"))
 			slime.docile = FALSE
-			slime.update_name()
+			slime.update_appearance(UPDATE_NAME)
 			continue
 		slime.rabid = 1
 		slime.visible_message(span_danger("The [slime] is driven into a frenzy!"))
@@ -556,7 +556,7 @@
 	T.visible_message(span_danger("The slime extract begins to vibrate violently !"))
 	spawn(50)
 		if(holder && holder.my_atom)
-			explosion(get_turf(holder.my_atom), 1 ,3, 6, cause = src)
+			explosion(get_turf(holder.my_atom), devastation_range = 1, heavy_impact_range = 3, light_impact_range = 6, cause = src)
 
 /datum/chemical_reaction/slimepotionexplosion
 	name = "Slime Explosion Resistence Potion"

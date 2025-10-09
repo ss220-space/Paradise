@@ -91,8 +91,8 @@
 		visible_message(span_danger("[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on  [src], but it's disarmed!"))
 		return
 	atom_say("Наслаждайтесь пиццей!")
-	src.visible_message(span_userdanger(" [src] violently explodes!"))
-	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
+	visible_message(span_userdanger(" [src] violently explodes!"))
+	explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2) //Identical to a minibomb
 	qdel(src)
 
 

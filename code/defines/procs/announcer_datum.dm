@@ -66,6 +66,12 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 	announce_message(formatted_message, garbled_formatted_message, receivers, garbled_receivers, message_sound)
 
+	var/datum/feed_message/feed_message = new
+	feed_message.author = author ? author : "Новости станции"
+	feed_message.title = subtitle ? "[title]: [subtitle]" : "[title]"
+	feed_message.body = message
+	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_STATION_LOG)?.add_message(feed_message)
+
 	announce_sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	if(message_sound2)
 		announce_sound(message_sound2, combined_receivers[1] + combined_receivers[2])
@@ -149,7 +155,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	add_game_logs("has made \a [config.log_name]: [message_title] – [message] – [author]", usr)
 	message_admins("[key_name_admin(usr)] has made \a [config.log_name].")
 
-/proc/get_name_and_assignment_from_id(var/obj/item/card/id/id)
+/proc/get_name_and_assignment_from_id(obj/item/card/id/id)
 	// Format currently matches that of newscaster feeds: Registered Name (Assigned Rank)
 	return id.assignment ? "[id.registered_name] ([id.assignment])" : id.registered_name
 
@@ -175,7 +181,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 /datum/announcement_configuration/requests_console
 	style = "minor"
 	add_log = TRUE
-	sound = sound('sound/misc/notice2.ogg')
+	sound = sound('sound/misc/announce_dig.ogg', volume = 90)
 
 /datum/announcement_configuration/comms_console
 	default_title = ANNOUNCE_PRIORITY_RU

@@ -76,7 +76,7 @@
 /datum/security_level/red
 	name = SECURITY_CODE_RED
 	number_level = SEC_LEVEL_RED
-	elevating_to_sound = 'sound/misc/notice1.ogg'
+	elevating_to_sound = 'sound/misc/notice3.ogg'
 	ai_announcement_sound = 'sound/AI/red.ogg'
 	color = "red"
 	status_display_mode = STATUS_DISPLAY_ALERT
@@ -126,7 +126,7 @@
 	elevating_to_announcement_text = "Центральным командованием был установлен код Эпсилон. Все контракты считаются расторгнутыми."
 
 /datum/security_level/epsilon/pre_change()
-	sound_to_playing_players_on_station_level(sound = sound('sound/effects/powerloss.ogg'))
+	sound_to_playing_players_on_station_level(sound_to_use = sound('sound/effects/powerloss.ogg'))
 
 /**
  * MARK: DELTA

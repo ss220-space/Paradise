@@ -1,6 +1,6 @@
-#define AFK_WARNED			1
-#define AFK_CRYOD			2
-#define AFK_ADMINS_WARNED	3
+#define AFK_WARNED 1
+#define AFK_CRYOD 2
+#define AFK_ADMINS_WARNED 3
 
 SUBSYSTEM_DEF(afk)
 	name = "AFK Watcher"

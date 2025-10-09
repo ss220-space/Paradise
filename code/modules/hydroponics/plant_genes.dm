@@ -152,7 +152,7 @@
 
 /datum/plant_gene/reagent/proc/set_reagent(reag_id)
 	reagent_id = reag_id
-	name = "UNKNOWN"
+	name = UNKNOWN_STATUS_RUS
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
 	if(R && R.id == reagent_id)
@@ -268,7 +268,7 @@
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
 	// Generates sparks on squash.
-	// Small (potency*rate*5) chance to shock squish or slip target for (potency*rate*5) damage.
+	// Small (potency*rate*5) chance to shock squish or slip target for(potency*rate*5) damage.
 	// Multiplies max charge by (rate*1000) when used in potato power cells.
 	name = "Electrical Activity"
 	rate = 0.2
@@ -316,7 +316,7 @@
 				C.update_icon()
 				batteries_recharged = 1
 		if(batteries_recharged)
-			to_chat(target, "<span class='notice'>Your batteries are recharged!</span>")
+			to_chat(target, span_notice("Your batteries are recharged!"))
 
 
 
@@ -356,7 +356,7 @@
 	//makes plant emit slightly purple shadows
 	//adds -potency*rate light power to products
 	name = "Shadow Emission"
-	glow_color = "#AAD84B"
+	glow_color = LIGHT_COLOR_PURPLE
 
 /datum/plant_gene/trait/glow/shadow/glow_power(obj/item/seeds/S)
 	return -max(S.potency*rate, 0.1)
@@ -407,14 +407,14 @@
 	if(do_teleport(C, T, teleport_radius))
 		add_attack_logs(C, T, "tele-slipped on [G](max radius: [teleport_radius])")
 		C.investigate_log("teleported from [COORD(T)] to [COORD(C)], slipping on [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
-		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
+		to_chat(C, span_warning("You slip through spacetime!"))
 		if(prob(50))
 			do_teleport(G, T, teleport_radius)
 		else
 			new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 			qdel(G)
 	else
-		to_chat(C, "<span class='warning'>[src] sparks, and burns up!</span>")
+		to_chat(C, span_warning("[src] sparks, and burns up!"))
 		new /obj/effect/decal/cleanable/molten_object(T)
 		qdel(G)
 
@@ -466,7 +466,7 @@
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(5))
-			to_chat(user, "<span class='notice'>You add some cable to [G] and slide it inside the battery encasing.</span>")
+			to_chat(user, span_notice("You add some cable to [G] and slide it inside the battery encasing."))
 			var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
 			pocell.icon_state = G.icon_state
 			pocell.maxcharge = G.seed.potency * 4
@@ -484,7 +484,7 @@
 
 			qdel(G)
 		else
-			to_chat(user, "<span class='warning'>You need five lengths of cable to make a [G] battery!</span>")
+			to_chat(user, span_warning("You need five lengths of cable to make a [G] battery!"))
 
 
 /datum/plant_gene/trait/stinging
@@ -502,7 +502,7 @@
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, REAGENT_INGEST, fraction)
 			G.reagents.trans_to(L, injecting_amount)
-			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
+			to_chat(target, span_danger("You are pricked by [G]!"))
 			var/reglist = ""
 			for(var/datum/reagent/R in G.reagents.reagent_list)
 				reglist += "[R.name] [R.volume], "

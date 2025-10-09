@@ -1,14 +1,6 @@
 /mob/living/basic/mothroach
 	name = "mothroach"
 	desc = "Это очень милый побочный продукт скрещивания мотылей и тараканов."
-	ru_names = list(
-		NOMINATIVE = "мотылёк",
-		GENITIVE = "мотылька",
-		DATIVE = "мотыльку",
-		ACCUSATIVE = "мотылька",
-		INSTRUMENTAL = "мотыльком",
-		PREPOSITIONAL = "мотыльке"
-	)
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "mothroach"
 	icon_living = "mothroach"
@@ -16,7 +8,6 @@
 	holder_type = /obj/item/holder/mothroach
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
 	tts_seed = "Tychus"
-	density = TRUE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	gold_core_spawnable = FRIENDLY_SPAWN
 	mob_size = MOB_SIZE_SMALL
@@ -32,12 +23,20 @@
 	verb_yell = "громко пищит"
 	response_disarm_continuous = "прогоняет"
 	response_disarm_simple = "прогнали"
-	response_harm_continuous = "ударяет"
-	response_harm_simple = "ударили"
 	response_help_continuous = "гладит"
 	response_help_simple = "гладите"
 
 	ai_controller = /datum/ai_controller/basic_controller/mothroach
+
+/mob/living/basic/mothroach/get_ru_names()
+	return list(
+		NOMINATIVE = "мотылёк",
+		GENITIVE = "мотылька",
+		DATIVE = "мотыльку",
+		ACCUSATIVE = "мотылька",
+		INSTRUMENTAL = "мотыльком",
+		PREPOSITIONAL = "мотыльке"
+	)
 
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()

@@ -3,7 +3,7 @@
 	desc = "Вы используете магию крови, чтобы выковать смертоносные вампирские когти, которые высасывают кровь и наносят стремительные удары. Их нельзя использовать, если вы держите что-то, что нельзя уронить."
 	gain_desc = "Вы получили способность превращать свои руки в вампирские когти."
 	base_cooldown = 15 SECONDS
-	required_blood = 20
+	required_blood = 15
 	action_icon_state = "vampire_claws"
 
 
@@ -129,7 +129,6 @@
 	gain_desc = "Вы получили способность вызывать кровавые щупальца, чтобы замедлять людей в выбранной вами области."
 	required_blood = 10
 
-	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_tendrils"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
@@ -172,7 +171,6 @@
 /obj/effect/temp_visual/blood_tendril
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "blood_tendril"
-	duration = 1 SECONDS
 
 
 /obj/effect/temp_visual/blood_tendril/long
@@ -183,7 +181,7 @@
 	name = "Кровавый барьер"
 	desc = "Выберите две точки в пределах трёх тайлов друг от друга и создайте между ними барьер. Вы можете наложить заклинание на себя, чтобы мгновенно создать барьер на вашей текущей позиции."
 	gain_desc = "Вы получили способность вызывать кристаллическую стену крови между двумя точками, барьер легко разрушается, однако вы можете свободно проходить сквозь него. Вы можете наложить на себя заклинание, чтобы мгновенно создать барьер на вашем текущем местоположении."
-	required_blood = 20
+	required_blood = 15
 	base_cooldown = 30 SECONDS
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
@@ -279,7 +277,6 @@
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
-	opacity = FALSE
 
 /obj/structure/blood_barrier/get_ru_names()
 	return list(
@@ -356,7 +353,7 @@
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool/create_new_handler()
 	var/datum/spell_handler/vampire/H = new
-	H.required_blood = 30
+	H.required_blood = 20
 	return H
 
 
@@ -365,7 +362,6 @@
 	desc = "Выслеживайте свою добычу, здесь ей негде спрятаться... На короткое время оглушает её, если она окажется в вашем поле зрения."
 	gain_desc = "Ваши чувства обострились, теперь никто не сможет от вас спрятаться."
 	action_icon_state = "predator_sense"
-	base_cooldown = 10 SECONDS
 	create_attack_logs = FALSE
 
 
@@ -406,7 +402,7 @@
 	name = "Извержение крови"
 	desc = "Каждая лужа крови в 4 тайлах от вас извергается шипом живой крови, нанося урон всем, кто стоит на ней."
 	gain_desc = "Вы получили способность использовать лужи крови для нанесения урона тем, кто на них стоит."
-	required_blood = 50
+	required_blood = 25
 	base_cooldown = 1 MINUTES
 	action_icon_state = "blood_spikes"
 
@@ -448,7 +444,6 @@
 	name = "Кровавый обряд"
 	desc = "При переключении все вокруг начнут обильно кровоточить. Вы будете поглощать их кровь и напитываться силой."
 	gain_desc = "Вы обрели способность извлекать жизненную силу из гуманоидов и поглощать её, исцеляя себя."
-	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 
@@ -504,7 +499,7 @@
 		if(beam_number >= max_beams)
 			break
 
-	V.bloodusable = max(V.bloodusable - 10, 0)
+	V.bloodusable = max(V.bloodusable - 5, 0)
 
 	if(!V.bloodusable || owner.stat == DEAD)
 		V.remove_ability(src)

@@ -1,6 +1,4 @@
 /mob/living/simple_animal/hostile/guardian/protector
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 	tts_seed = "Cairne"
 	range = 15 //worse for it due to how it leashes
 	damage_transfer = 0.4
@@ -10,11 +8,11 @@
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый защищать вас."
 	var/toggle = FALSE
 
-/mob/living/simple_animal/hostile/guardian/protector/ex_act(severity)
-	if(severity == 1)
-		adjustBruteLoss(400) //технически, в режиме защиты вам плевать даже на гиб. Ваш хозяин получит всего 20 урона.
+/mob/living/simple_animal/hostile/guardian/protector/ex_act(severity, target)
+	if(severity >= EXPLODE_DEVASTATE)
+		adjustBruteLoss(400) //if in protector mode, will do 20 damage and not actually necessarily kill the summoner
 	else
-		..()
+		. = ..()
 	if(toggle)
 		visible_message(span_danger("Взрыв отражается от энергетического щита [src]!")) //FLEX
 
@@ -97,14 +95,11 @@
 	name = "Голографическая силовая стена"
 	desc = "Создает перед вами непробиваемый барьер, через который могут проходить вы и ваш хозяин."
 	clothes_req = FALSE
-	human_req = FALSE
 	invocation = "YOU SHALL NOT PASS!"
 	wall_type = /obj/effect/forcefield/wizard/guardian
 
 /obj/effect/forcefield/wizard/guardian
 	desc = "Непробиваемый барьер неизвестной сущности."
-	name = "FORCEWALL"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
 	lifetime = 15 SECONDS
 

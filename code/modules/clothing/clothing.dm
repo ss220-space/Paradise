@@ -1,6 +1,5 @@
 /obj/item/clothing
 	name = "clothing"
-	max_integrity = 200
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
@@ -44,6 +43,7 @@
 	var/toggle_on_message
 	var/toggle_off_message
 	var/active_sound
+	var/active_sound_volume = 100
 	var/toggle_sound
 	var/toggle_cooldown = 0
 	var/cooldown = 0
@@ -55,6 +55,8 @@
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
 	var/list/clothing_traits
+
+	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
@@ -86,7 +88,7 @@
 		if(spy_spider_attached)
 			to_chat(user, span_warning("Жучок уже установлен."))
 			return ATTACK_CHAIN_PROCEED
-		if(!spy_spider.broadcasting)
+		if(!spy_spider.get_broadcasting())
 			to_chat(user, span_warning("Жучок выключен."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(spy_spider, src))
@@ -121,7 +123,7 @@
 	if(visor_toggling(user))
 		update_equipped_item(update_speedmods = FALSE)
 		if(user)
-			to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
+			to_chat(user, span_notice("Вы [up ? "поднимаете на лоб" : "опускаете на глаза"] [declent_ru(ACCUSATIVE)]."))
 		return TRUE
 
 	return FALSE
@@ -189,8 +191,8 @@
 	for(var/trait in clothing_traits)
 		ADD_CLOTHING_TRAIT(user, src, trait)
 /**
-  * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
-  */
+ * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
+ */
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
@@ -272,7 +274,6 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
-	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
@@ -304,14 +305,14 @@
 		)
 
 /*
-SEE_SELF  // can see self, no matter what
-SEE_MOBS  // can see all mobs, no matter what
-SEE_OBJS  // can see all objs, no matter what
-SEE_TURFS // can see all turfs (and areas), no matter what
-SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
-          // in a lit area (via pixel_x,y or smooth movement), can see those pixels
-BLIND     // can't see anything
-*/
+ * SEE_SELF  // can see self, no matter what
+ * SEE_MOBS  // can see all mobs, no matter what
+ * SEE_OBJS  // can see all objs, no matter what
+ * SEE_TURFS // can see all turfs (and areas), no matter what
+ * SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
+ *           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
+ * BLIND     // can't see anything
+ */
 
 
 /obj/item/clothing/glasses/update_icon_state()
@@ -340,13 +341,12 @@ BLIND     // can't see anything
 			action_fluff = "You remove \the [src] and adjust it"
 
 	over_mask = !over_mask
-	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
+	to_chat(user, span_notice("[action_fluff] to be worn [over_mask ? "over" : "under"] a mask."))
 
 //Gloves
 /obj/item/clothing/gloves
 	name = "gloves"
 	gender = PLURAL //Carn: for grammarically correct text-parsing
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	item_state = "bgloves" //For gloves withoit their own item_state
 	belt_icon = "bgloves"
@@ -380,6 +380,7 @@ BLIND     // can't see anything
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
 
+	var/transfer_blood = 0
 
 /obj/item/clothing/gloves/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -449,6 +450,26 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/update_desc(updates = ALL)
 	. = ..()
 	desc = clipped ? "[initial(desc)] They have had the fingertips cut off of them." : initial(desc)
+
+
+/obj/item/clothing/gloves/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/mob/user = loc
+	var/is_mob = istype(user)
+
+	var/blood_overlay
+	if(!is_mob || is_mob && user.has_left_hand())
+		blood_overlay = get_blood_overlay("glove_l")
+		if(blood_overlay)
+			. += blood_overlay
+
+	if(!is_mob || is_mob && user.has_right_hand())
+		blood_overlay = get_blood_overlay("glove_r")
+		if(blood_overlay)
+			. += blood_overlay
 
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
@@ -592,8 +613,18 @@ BLIND     // can't see anything
 	set waitfor = FALSE
 
 	while(up)
-		playsound(loc, active_sound, 100, FALSE, 4)
+		playsound(loc, active_sound, active_sound_volume, FALSE, 4)
 		sleep(1.5 SECONDS)
+
+
+/obj/item/clothing/head/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/blood_overlay = get_blood_overlay("helmet")
+	if(blood_overlay)
+		. += blood_overlay
 
 
 //Mask
@@ -603,7 +634,6 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_MASK
-	strip_delay = 40
 	put_on_delay = 40
 	var/adjusted_slot_flags = NONE
 	var/adjusted_flags_inv = NONE
@@ -698,7 +728,18 @@ BLIND     // can't see anything
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
-    return
+	return
+
+
+/obj/item/clothing/mask/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands || !(body_parts_covered & HEAD))
+		return
+
+	var/blood_overlay = get_blood_overlay("mask")
+	if(blood_overlay)
+		. += blood_overlay
+
 
 //Shoes
 /obj/item/clothing/shoes
@@ -719,7 +760,6 @@ BLIND     // can't see anything
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 
 	permeability_coefficient = 0.50
-	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
@@ -817,6 +857,36 @@ BLIND     // can't see anything
 	update_equipped_item(update_speedmods = FALSE)
 
 
+/obj/item/clothing/shoes/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/mob/user = loc
+	var/is_mob = istype(user)
+
+	var/blood_overlay
+
+	// We don't want overlays to lay one on another, so we separate conditions with two and one feet
+	if(!is_mob || is_mob && user.has_both_feet())
+		blood_overlay = get_blood_overlay("shoes")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+	if(user.has_left_foot())
+		blood_overlay = get_blood_overlay("shoe_l")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+	if(user.has_right_foot())
+		blood_overlay = get_blood_overlay("shoe_r")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+
 //Suit
 /obj/item/clothing/suit
 	name = "suit"
@@ -877,12 +947,12 @@ BLIND     // can't see anything
 					for(var/obj/item/pocket_thing in thing) //Dump the pocket out onto the floor below the user.
 						user.drop_item_ground(pocket_thing, force = TRUE)
 
-			user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
+			user.visible_message(span_warning("[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!"),span_warning("You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!"))
 			user.temporarily_remove_item_from_inventory(src)
 			qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		else
-			to_chat(user, "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>")//Yep, that's all they get. Avoids having to snowflake in a cooldown.
+			to_chat(user, span_warning("You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!"))//Yep, that's all they get. Avoids having to snowflake in a cooldown.
 		return
 
 	suit_adjusted = !suit_adjusted
@@ -940,6 +1010,16 @@ BLIND     // can't see anything
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
 
+/obj/item/clothing/suit/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/blood_overlay = get_blood_overlay(blood_overlay_type)
+	if(blood_overlay)
+		. += blood_overlay
+
+
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
@@ -947,16 +1027,13 @@ BLIND     // can't see anything
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	w_class = WEIGHT_CLASS_NORMAL
 	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
-	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	flash_protect = FLASH_PROTECTION_WELDER
@@ -1155,12 +1232,22 @@ BLIND     // can't see anything
 			. += accessory.acc_overlay
 
 
+/obj/item/clothing/under/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/blood_overlay = get_blood_overlay("uniform")
+	if(blood_overlay)
+		. += blood_overlay
+
+
 /*
-  * # can_attach_accessory
-  *
-  * Arguments:
-  * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
-*/
+ * # can_attach_accessory
+ *
+ * Arguments:
+ * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+ */
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc)
 	if(!istype(checked_acc))
 		return FALSE
@@ -1266,28 +1353,20 @@ BLIND     // can't see anything
 
 	var/mob/living/carbon/human/owner = usr
 	if(owner.incapacitated() || HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
-		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
+		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
 
 	if(!can_adjust)
-		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
+		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
 
 	var/icon/our_icon = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
 	if(sprite_sheets?[owner.dna.species.name])
 		our_icon = sprite_sheets[owner.dna.species.name]
 
-	var/initial_state = replacetext(item_color, "_d", "")
-
-	if(!icon_exists(our_icon, "[initial_state]_d_s"))
-		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
+	if(!icon_exists(our_icon, "[icon_state]_d_s"))
+		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
-
-	rolled_down = findtext(item_color, "_d")
-	if(rolled_down)
-		item_color = initial_state
-	else
-		item_color = "[initial_state]_d"
 
 	rolled_down = !rolled_down
 	update_equipped_item(update_speedmods = FALSE)
@@ -1325,12 +1404,23 @@ BLIND     // can't see anything
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
+
+/obj/item/clothing/neck/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands || !(body_parts_covered & HEAD))
+		return
+
+	var/blood_overlay = get_blood_overlay("mask")
+	if(blood_overlay)
+		. += blood_overlay
+
+
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!teleportation)
 		return ..()
 	if(prob(5))
 		var/mob/living/carbon/human/H = owner
-		owner.visible_message("<span class='danger'>The teleport slime potion flings [H] clear of [attack_text]!</span>")
+		owner.visible_message(span_danger("The teleport slime potion flings [H] clear of [attack_text]!"))
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(3, H))
 			if(isspaceturf(T))
@@ -1387,3 +1477,16 @@ BLIND     // can't see anything
 		for(var/new_trait in trait_or_traits)
 			REMOVE_CLOTHING_TRAIT(wearer, src, new_trait)
 
+
+/// Returns a list of overlays with our blood, if we're bloodied
+/obj/item/clothing/proc/get_blood_overlay(blood_state)
+	if(!blood_DNA)
+		return
+
+	var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
+
+	var/mob/user = loc
+	if(istype(user) && user.dna && ("[blood_state]blood" in user.dna.species.get_blood_overlays()))
+		blood_mask = user.dna.species.blood_mask
+
+	return mutable_appearance(blood_mask, "[blood_state]blood", color = blood_color)

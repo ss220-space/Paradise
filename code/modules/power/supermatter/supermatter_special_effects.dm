@@ -135,9 +135,9 @@
 
 	for(var/mob/living/carbon/human/lesser/monke in GLOB.alive_mob_list)
 		var/turf/T = get_turf(monke)
-		if (T.z != src.z)
+		if(T.z != src.z)
 			continue
-		if (monke.health <= monke.maxHealth - 50)
+		if(monke.health <= monke.maxHealth - 50)
 			continue
 		if(!(monke in GLOB.player_list) && !monke.mind)
 			if(prob(SIMPLE_ANIMAL_MINDGIVING_CHANCE))
@@ -184,10 +184,8 @@
 	greet_sentient(animal)
 
 
-/datum/supermatter_explosive_effects/proc/greet_sentient(var/mob/M)
-	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
-							human level intelligence and the ability to speak and understand \
-							human language!</span>"))
+/datum/supermatter_explosive_effects/proc/greet_sentient(mob/M)
+	to_chat(M, chat_box_green("[span_userdanger("Hello world!")]<br>[span_warning("Due to freak radiation, you have gained human level intelligence and the ability to speak and understand human language!")]"))
 
 //All seeds in sector will become strange-like
 /datum/supermatter_explosive_effects/proc/handle_seeds_mutation()

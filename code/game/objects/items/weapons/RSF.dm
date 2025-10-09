@@ -12,7 +12,6 @@ RSF
 	var/matter = 0
 	var/mode = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
-	w_class = WEIGHT_CLASS_NORMAL
 	var/list/configured_items = list()
 
 /obj/item/rsf/New(use_rsf_list = TRUE)
@@ -101,16 +100,16 @@ RSF
 	if(isrobot(user))
 		var/mob/living/silicon/robot/engy = user
 		if(!engy.cell.use(configured_items[mode][2]))
-			to_chat(user, "<span class='warning'>Insufficient energy.</span>")
+			to_chat(user, span_warning("Insufficient energy."))
 			return
 	else
 		if(!matter)
-			to_chat(user, "<span class='warning'>Insufficient matter.</span>")
+			to_chat(user, span_warning("Insufficient matter."))
 			return
 		matter--
 		to_chat(user, "The [name_short] now holds [matter]/30 fabrication-units.")
 
 	to_chat(user, "Dispensing " + configured_items[mode][1] + "...")
-	playsound(loc, 'sound/machines/click.ogg', 10, 1)
+	playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
 	var/type_path = configured_items[mode][3]
 	new type_path(spawn_location)

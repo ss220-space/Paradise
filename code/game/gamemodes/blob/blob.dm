@@ -1,28 +1,3 @@
-/datum/game_mode
-	/// List of of blobs, their offsprings and blobburnouts spawned by them
-	var/list/blobs = list("infected"=list(), "offsprings"=list(), "minions"=list())
-	/// Count of blob tiles to blob win
-	var/blob_win_count = BLOB_BASE_TARGET_POINT
-	/// Number of resource produced by the core
-	var/blob_point_rate = 3
-	/// Number of bursted blob infected
-	var/bursted_blobs_count = 0
-	/// Total blob submode stage
-	var/blob_stage = BLOB_STAGE_NONE
-	/// The need to delay the end of the game when the blob wins
-	var/delay_blob_end = FALSE
-	/// Disables automatic GAMMA code
-	var/off_auto_gamma = FALSE
-	/// Disables automatic nuke codes
-	var/off_auto_nuke_codes = FALSE
-	/// Is all blobs have infinity points
-	var/is_blob_infinity_points = FALSE
-	/// Is all blobs have infinity points
-	var/list/legit_blobs = list()
-	/// Total blobs objective
-	var/datum/objective/blob_critical_mass/blob_objective
-
-
 /datum/game_mode/blob
 	name = "blob"
 	config_tag = "blob"
@@ -138,12 +113,12 @@
 
 /datum/game_mode/proc/report_blob_death(report_number)
 	switch(report_number)
-		if (BLOB_DEATH_REPORT_FIRST)
+		if(BLOB_DEATH_REPORT_FIRST)
 			send_intercept(BLOB_THIRD_REPORT)
-		if (BLOB_DEATH_REPORT_THIRD)
+		if(BLOB_DEATH_REPORT_THIRD)
 			if(!off_auto_gamma && SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GAMMA)
 				SSsecurity_level.set_level(SEC_LEVEL_RED)
-		if (BLOB_DEATH_REPORT_FOURTH)
+		if(BLOB_DEATH_REPORT_FOURTH)
 			blob_stage = BLOB_STAGE_ZERO
 			SSvote.start_vote(new /datum/vote/crew_transfer)
 			return
@@ -177,7 +152,7 @@
 		return FALSE
 
 	for(var/i in 1 to count)
-		if (length(candidates))
+		if(length(candidates))
 			var/obj/vent = pick(vents)
 			var/mob/living/simple_animal/mouse/blob = new(vent.loc)
 			blob.move_into_vent(vent, FALSE)
@@ -208,9 +183,10 @@
 
 	if(blob_stage == BLOB_STAGE_FIRST && legit_blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_SECOND
-		GLOB.major_announcement.announce("Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
-										ANNOUNCE_BIOHAZARD_RU,
-										'sound/AI/outbreak5.ogg'
+		GLOB.major_announcement.announce(
+			message = "Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
+			new_title = ANNOUNCE_BIOHAZARD_RU,
+			new_sound = 'sound/AI/outbreak5.ogg'
 		)
 		if(!off_auto_gamma)
 			addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)

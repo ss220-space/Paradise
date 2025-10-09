@@ -18,8 +18,6 @@
 	response_harm = "hits the"
 	speak = list("ALERT.", "Hostile-ile-ile entities dee-twhoooo-wected.", "Threat parameterszzzz- szzet.", "Bring sub-sub-sub-systems uuuup to combat alert alpha-a-a.")
 	emote_see = list("beeps menacingly.", "whirrs threateningly.", "scans for targets.")
-	a_intent = INTENT_HARM
-	stop_automated_movement_when_pulled = FALSE
 	health = 200
 	maxHealth = 200
 	speed = 8
@@ -83,7 +81,7 @@
 )
 	. = ..()
 	if(. && amount > 0)
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 		passive_mode = FALSE
 		update_icons()
 
@@ -96,21 +94,21 @@
 
 /mob/living/simple_animal/hostile/malf_drone/proc/scramble_settings()
 	if(prob(50))
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 		passive_mode = !passive_mode
 		if(passive_mode)
-			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
+			visible_message(span_notice("[src] retracts several targetting vanes."))
 			if(target)
 				lose_target()
 		else
-			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
+			visible_message(span_warning("[src] suddenly lights up, and additional targetting vanes slide into place."))
 		update_icons()
 
 /mob/living/simple_animal/hostile/malf_drone/emp_act(severity)
 	adjustHealth(100 / severity) // takes the same damage as a mining drone from emp
 
 /mob/living/simple_animal/hostile/malf_drone/drop_loot()
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 	var/turf/T = get_turf(src)
 
@@ -207,7 +205,6 @@
 	desc = "An automated combat drone armed with state of the art weaponry and shielding."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "drone3"
-	density = TRUE
 	health = 200
 	maxHealth = 200
 	speed = 8
@@ -216,11 +213,9 @@
 	bot_purpose = "devastion"
 	bot_core_type = /obj/machinery/bot_core/syndicate
 	window_name = "Standart Robot Control v1.6"
-	path_image_color = "#FF0000"
 	declare_arrests = FALSE
 	idcheck = TRUE
 	arrest_type = TRUE
-	auto_patrol = FALSE
 	projectile = /obj/projectile/beam/immolator/weak
 
 /mob/living/simple_animal/bot/ed209/combat_drone/Initialize(mapload)
@@ -299,7 +294,15 @@
 /obj/item/drone_manual
 	name = "Strange looking Manual"
 	desc = "На обложке этой книги вы можете увидеть изображение боевого дрона. Это руководство по его эксплуатации."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/library.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
+	icon_state = "drone_manual"
+	item_state = "book7"
+	
+/obj/item/drone_manual/get_ru_names()
+	return list(
 		NOMINATIVE = "странное руководство",
 		GENITIVE = "странного руководства",
 		DATIVE = "странному руководству",
@@ -307,9 +310,7 @@
 		INSTRUMENTAL = "странным руководством",
 		PREPOSITIONAL = "странном руководстве"
 	)
-	gender = MALE
-	icon_state = "drone_manual"
-
+	
 /obj/item/drone_manual/attack_self(mob/user)
 	. = ..()
 	to_chat(user, span_alert("После того как вы пробежались глазами по содержанию книги, она рассыпалась пеплом. Но, кажется, вы можете вспомнить пару методов работы, описанных там - самодельные платы и базовую модель самого дрона."))

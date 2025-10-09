@@ -134,8 +134,8 @@
 		sibyl_mod.unlock()
 		if(user)
 			user.visible_message(span_warning("От [src] летят искры!"), span_notice("Вы взломали [src], что привело к выключению болтов предохранителя."))
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 30, 1)
-		do_sparks(5, 1, src)
+		playsound(loc, 'sound/effects/sparks4.ogg', 30, TRUE)
+		do_sparks(5, TRUE, src)
 		return
 
 /obj/item/gun/energy/emp_act(severity)
@@ -251,7 +251,7 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if(!isnull(user) && (shot.select_name || shot.fluff_select_name))
-		var/static/gun_modes_ru = list( //about 2/3 of them will never be shown in game, but better save, than sorry
+		var/static/gun_modes_ru = list(//about 2/3 of them will never be shown in game, but better save, than sorry
 			"practice" = "режим практики",
 			"kill" = "летальный режим",
 			"shuriken" = "метатель сюрикенов",
@@ -331,6 +331,8 @@
 /obj/item/gun/energy/update_overlays()
 	. = ..()
 	var/overlay_name = overlay_set ? overlay_set : icon_state
+	if(!length(ammo_type))
+		return
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += "[overlay_name]_[shot.select_name]"

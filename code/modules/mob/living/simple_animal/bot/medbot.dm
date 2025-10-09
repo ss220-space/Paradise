@@ -2,20 +2,8 @@
 /mob/living/simple_animal/bot/medbot
 	name = "Medibot"
 	desc = "Маленький медицинский робот. Выглядит несколько подавленным."
-	ru_names = list(
-		NOMINATIVE = "медбот",
-		GENITIVE = "медбота",
-		DATIVE = "медботу",
-		ACCUSATIVE = "медбота",
-		INSTRUMENTAL = "медботом",
-		PREPOSITIONAL = "медботе",
-	)
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
 	density = FALSE
-	anchored = FALSE
-	health = 20
-	maxHealth = 20
 	pass_flags = PASSMOB|PASSFLAPS
 
 	radio_channel = MED_FREQ_NAME
@@ -67,6 +55,16 @@
 	var/syndicate_aligned = FALSE
 	var/drops_parts = TRUE
 
+/mob/living/simple_animal/bot/medbot/get_ru_names()
+	return list(
+		NOMINATIVE = "медбот",
+		GENITIVE = "медбота",
+		DATIVE = "медботу",
+		ACCUSATIVE = "медбота",
+		INSTRUMENTAL = "медботом",
+		PREPOSITIONAL = "медботе",
+	)
+
 /mob/living/simple_animal/bot/medbot/tox
 	skin = "tox"
 
@@ -94,7 +92,13 @@
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "Mysterious Medibot"
 	desc = "Загадочный медбот. От него веет тайнами..."
-	ru_names = list(
+	skin = "bezerk"
+	treatment_oxy = "perfluorodecalin"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
+
+/mob/living/simple_animal/bot/medbot/mysterious/get_ru_names()
+	return list(
 		NOMINATIVE = "загадочный медбот",
 		GENITIVE = "загадочного медбота",
 		DATIVE = "загадочному медботу",
@@ -102,16 +106,23 @@
 		INSTRUMENTAL = "загадочным медботом",
 		PREPOSITIONAL = "загадочном медботе",
 	)
-	skin = "bezerk"
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 
 /mob/living/simple_animal/bot/medbot/syndicate
 	name = "Suspicious Medibot"
 	desc = "Вам лучше быть застрахованным!"
-	ru_names = list(
+	skin = "bezerk"
+	faction = list("syndicate")
+	treatment_oxy = "perfluorodecalin"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
+	syndicate_aligned = TRUE
+	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
+	control_freq = BOT_FREQ + 1000 // make it not show up on lists
+	radio_channel = SYND_FREQ_NAME
+	radio_config = list(PUB_FREQ_NAME = 1, MED_FREQ_NAME = 1, SYND_FREQ_NAME = 1)
+
+/mob/living/simple_animal/bot/medbot/syndicate/get_ru_names()
+	return list(
 		NOMINATIVE = "подозрительный медбот",
 		GENITIVE = "подозрительного медбота",
 		DATIVE = "подозрительному медботу",
@@ -119,17 +130,6 @@
 		INSTRUMENTAL = "подозрительным медботом",
 		PREPOSITIONAL = "подозрительном медботе",
 	)
-	skin = "bezerk"
-	faction = list("syndicate")
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
-	syndicate_aligned = TRUE
-	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
-	control_freq = BOT_FREQ + 1000 // make it not show up on lists
-	radio_channel = SYND_FREQ_NAME
-	radio_config = list(PUB_FREQ_NAME = 1, MED_FREQ_NAME = 1, SYND_FREQ_NAME = 1)
 
 /mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload, new_skin)
 	. = ..()
@@ -169,7 +169,7 @@
 	qdel(J)
 
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+	medsensor.show_to(src)
 
 	if(new_skin)
 		skin = new_skin
@@ -375,8 +375,7 @@
 			var/list/messagevoice = list("Ты, надень свою маску!" = 'sound/voice/mradar.ogg',
 										"Что-то всегда идёт не так, но я справлюсь." = 'sound/voice/mcatch.ogg',
 										"А ведь я мог бы стать пластическим хирургом..." = 'sound/voice/msurgeon.ogg',
-										"Что это за медотсек? Все мрут, словно мухи." = 'sound/voice/mflies.ogg',
-										"Замечательно!")
+										"Что это за медотсек? Все мрут, словно мухи." = 'sound/voice/mflies.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
 			playsound(loc, messagevoice[message], 50, FALSE)
@@ -640,7 +639,7 @@
 		playsound(loc, 'sound/voice/minsult.ogg', 50, FALSE)
 
 	do_sparks(3, TRUE, src)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)

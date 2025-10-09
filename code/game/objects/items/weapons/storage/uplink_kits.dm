@@ -14,7 +14,6 @@
 
 /obj/item/storage/box/syndie_kit
 	name = "Box"
-	desc = "Это обычная коробка."
 	gender = MALE
 	icon_state = "box_of_doom"
 
@@ -33,7 +32,7 @@
 	desc = "Коробка, содержащая 2 клинка богомола."
 	max_w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/box/syndie_kit/mantisblad/get_ru_names()
+/obj/item/storage/box/syndie_kit/mantisblade/get_ru_names()
 	return list(
 		NOMINATIVE = "набор клинков богомола",
 		GENITIVE = "набора клинков богомола",
@@ -86,7 +85,7 @@
 
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 	name = "Counterfeiter Bundle"
-	desc = "A box containing all the neccessary equipment to forge stamps and insignias, making the user capable of faking any NanoTrasen documents."
+	desc = "A box containing all the neccessary equipment to forge stamps and insignias, making the user capable of faking any Nanotrasen documents."
 
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle/populate_contents()
 	new /obj/item/stamp/chameleon(src)
@@ -295,7 +294,7 @@
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(src)
 	if(prob(25))	//an omen of success to come?
 		B.deity_name = "Success"
-		B.icon_state = "greentext"
+		B.icon_state = "bible_greentext"
 		B.item_state = "greentext"
 
 
@@ -426,7 +425,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/nuke
 	name = "box"  // Stealth, because you will spawn with a box.
-	desc = "Это обычная коробка."
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/nuke/get_ru_names()
@@ -446,7 +444,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/supermatter
 	name = "box"  // Stealth, because you will spawn with a box.
-	desc = "Это обычная коробка."
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/supermatter/get_ru_names()
@@ -797,7 +794,11 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/gun_mods
 	name = "gun upgrade kit"
 	desc = "Коробка, содержащая различные модуля для улучшения оружия."
-	ru_names = list(
+	icon_state = "box_gun_mods"
+	item_state = "box_gun_mods"
+
+/obj/item/storage/box/syndie_kit/gun_mods/get_ru_names()
+	return list(
 		NOMINATIVE = "набор оружейных модулей",
 		GENITIVE = "набора оружейных модулей",
 		DATIVE = "набору оружейных модулей",
@@ -805,8 +806,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		INSTRUMENTAL = "набором оружейных модулей",
 		PREPOSITIONAL = "наборе оружейных модулей"
 	)
-	icon_state = "box_gun_mods"
-	item_state = "box_gun_mods"
 
 /obj/item/storage/box/syndie_kit/gun_mods/populate_contents()
 	new /obj/item/gun_module/muzzle/suppressor(src)
@@ -814,8 +813,20 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/gun_module/rail/scope/collimator/pistol(src)
 	new /obj/item/gun_module/rail/scope/collimator(src)
 	new /obj/item/gun_module/rail/scope/x4(src)
+	new /obj/item/gun_module/under/hand/simple(src)
 	new /obj/item/gun_module/under/hand/angle(src)
-  
+	new /obj/item/gun_module/under/laser/point(src)
+
+/obj/item/storage/box/syndie_kit/gun_mods/super/populate_contents()
+	. = ..()
+	new /obj/item/gun_module/under/flashlight/pistol(src)
+	new /obj/item/gun_module/under/flashlight/rifle(src)
+	new /obj/item/gun_module/rail/hud/medical(src)
+	new /obj/item/gun_module/rail/hud/security(src)
+	new /obj/item/gun_module/rail/scope/x16(src)
+	new /obj/item/gun_module/rail/scope/x8(src)
+	new /obj/item/gun_module/under/laser/point(src)
+
 /obj/item/storage/box/syndie_kit/compact_sniper
 	name = "compact sniper rifle kit"
 	desc = "Коробка, содержащая компактную снайперскую винтовку \"Bubz Mini\", дополнительный магазин, и коробку патронов."

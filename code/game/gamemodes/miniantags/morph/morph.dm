@@ -8,14 +8,11 @@
 	desc = "Отвратительная пульсирующая масса плоти."
 	speak_emote = list("булькает", "клокочет")
 	emote_hear = list("булькает", "клокочет")
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
 	speed = 1.5
-	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
@@ -25,7 +22,6 @@
 
 	maxHealth = 150
 	health = 150
-	environment_smash = 1
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -77,10 +73,11 @@
 
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
-		GLOB.major_announcement.announce("Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
-										ANNOUNCE_BIOHAZARD_RU,
-										'sound/AI/commandreport.ogg',
-										new_sound2 = 'sound/effects/siren-spooky.ogg'
+		GLOB.major_announcement.announce(
+			message = "Зафиксированы множественные биоугрозы 6-го уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
+			new_title = ANNOUNCE_BIOHAZARD_RU,
+			new_sound = 'sound/AI/commandreport.ogg',
+			new_sound2 = 'sound/effects/siren-spooky.ogg'
 		)
 		GLOB.morphs_announced = TRUE
 		SSshuttle.emergency.cancel()
@@ -269,7 +266,7 @@
 		to_chat(attacker, span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется немного другим, чем обычно... он кажется более... ") + span_userdanger("СЛИЗИСТЫМ?!"))
 		ambush_attack(attacker, TRUE)
 		return TRUE
-	else if (!morphed)
+	else if(!morphed)
 		to_chat(attacker, span_warning("Прикосновение к [declent_ru(DATIVE)] руками причиняет вам боль!"))
 		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		add_food(5)
@@ -278,7 +275,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/proc/restore_form()
-	if (morphed)
+	if(morphed)
 		return mimic_spell.restore_form(src);
 
 
@@ -332,6 +329,9 @@
 /mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/M)
 	restore_form()
 
+/mob/living/simple_animal/hostile/morph/water_act(volume, temperature, source, method)
+	restore_form()
+	. = ..()
 
 /mob/living/simple_animal/hostile/morph/proc/ambush_attack(mob/living/dumbass, touched)
 	ambush_prepared = FALSE
@@ -364,7 +364,7 @@
 			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
 		var/atom/movable/picked_thing = pick(things)
-		if (picked_thing)
+		if(picked_thing)
 			mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
 			prepare_ambush() // They cheat okay
 

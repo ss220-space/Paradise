@@ -78,7 +78,7 @@
 	addtimer(CALLBACK(src, PROC_REF(wet_timer_finish), HS_C), 82 SECONDS, TIMER_UNIQUE)
 
 /obj/structure/holosign/wetsign/proc/wet_timer_finish(obj/item/holosign_creator/HS_C)
-	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, 1)
+	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, TRUE)
 	qdel(src)
 
 
@@ -151,7 +151,6 @@
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
-	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 	alpha = 150
 
@@ -180,7 +179,6 @@
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
 	desc = "Хрупкое энергетическое поле, которое блокирует движение. Отлично защищает от смертоносных снарядов."
-	density = TRUE
 	max_integrity = 10
 	allow_walk = FALSE
 

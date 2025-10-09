@@ -184,11 +184,8 @@
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 
 /obj/machinery/suit_storage_unit/syndicate/comms
-	name = "syndicate suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/elite/comms
-	mask_type = /obj/item/clothing/mask/gas/syndicate
 	magboots_type = /obj/item/clothing/shoes/magboots/syndie/advance
-	storage_type = /obj/item/tank/jetpack/oxygen/harness
 	req_access = list(ACCESS_SYNDICATE_COMMS_OFFICER)
 
 /obj/machinery/suit_storage_unit/ert
@@ -226,7 +223,7 @@
 	helmet_type = /obj/item/clothing/head/radiation
 
 //copied from /obj/effect/nasavoidsuitspawner
-/obj/machinery/suit_storage_unit/telecoms/Initialize()
+/obj/machinery/suit_storage_unit/telecoms/Initialize(mapload)
 	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))
 		if("red")
 			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid
@@ -246,15 +243,11 @@
 		if("ltblue")
 			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/ltblue
 			suit_type = /obj/item/clothing/suit/space/nasavoid/ltblue
-	..()
-
-
-/obj/machinery/suit_storage_unit/New()
-	..()
-	wires = new(src)
-
-/obj/machinery/suit_storage_unit/Initialize()
 	. = ..()
+
+/obj/machinery/suit_storage_unit/Initialize(mapload)
+	. = ..()
+	wires = new(src)
 	if(suit_type)
 		suit = new suit_type(src)
 	if(helmet_type)
@@ -485,7 +478,7 @@
 		span_notice("You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)"), \
 		span_italics("You hear a thump from [src]."))
 	if(do_after(user,(breakout_time), src))
-		if(!user || user.stat != CONSCIOUS || user.loc != src )
+		if(!user || user.stat != CONSCIOUS || user.loc != src)
 			return
 		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
 			span_notice("You successfully break out of [src]!"))
@@ -757,8 +750,8 @@
 	SStgui.update_uis(src)
 	if(user)
 		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
-	do_sparks(5, 0, loc)
-	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	do_sparks(5, FALSE, loc)
+	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/suit_storage_unit/shove_impact(mob/living/target, mob/living/attacker)
 	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || target.buckled)

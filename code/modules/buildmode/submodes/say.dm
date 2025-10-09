@@ -2,10 +2,10 @@
 	key = "say"
 
 /datum/buildmode_mode/say/show_help(mob/user)
-	to_chat(user, span_notice("***********************************************************"))
-	to_chat(user, span_notice("ЛКМ       = Сказать"))
-	to_chat(user, span_notice("ПКМ       = Издать эмоцию"))
-	to_chat(user, span_notice("***********************************************************"))
+	to_chat(user, span_purple(chat_box_examine(
+		"[span_bold("Сказать")] -> ЛКМ\n\
+		[span_bold("Издать эмоцию")] -> ПКМ"))
+	)
 
 /datum/buildmode_mode/say/handle_click(mob/user, params, atom/object)
 	if(ismob(object))
@@ -14,11 +14,9 @@
 			tgui_alert(usr, "Это нельзя использовать на мобах с сикеем. Вместо этого используйте Forcesay на панели игрока.")
 			return
 
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	var/right_click = pa.Find("right")
+	var/list/modifiers = params2list(params)
 
-	if(left_click)
+	if(LAZYACCESS(modifiers, LEFT_CLICK))
 		var/say = tgui_input_text(user, "Что должен сказать объект \"[object.declent_ru(NOMINATIVE)]\"?", "Что сказать?")
 		if(isnull(say))
 			return
@@ -26,7 +24,7 @@
 		message_admins(span_notice("Build Mode: [key_name(user)] made [object] at ([object.x],[object.y],[object.z] say [say]."))
 		user.create_log(MISC_LOG, "Made [object] at ([object.x],[object.y],[object.z] say [say].")
 		object.atom_say(say)
-	else if(right_click)
+	else if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		var/emote = tgui_input_text(user, "Что должен сделать объект \"[object.declent_ru(NOMINATIVE)]\"?", "Какую эмоцию?")
 		if(isnull(emote))
 			return

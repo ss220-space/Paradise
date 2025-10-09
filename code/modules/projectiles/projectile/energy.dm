@@ -25,23 +25,22 @@
 		INSTRUMENTAL = "электродом",
 		PREPOSITIONAL = "электроде"
 	)
-	icon_state = "spark"
 	color = "#FFFF00"
 	shockbull = TRUE
 	nodamage = TRUE
-	weaken = 0.2 SECONDS
-	confused = 1.5 SECONDS
-	stamina = 15
+	confused = 2.5 SECONDS
+	stamina = 20
 	stutter = 8 SECONDS
 	jitter = 30 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
-	range = 7
+	range = 6
 	//Damage will be handled on the MOB side, to prevent window shattering.
+	var/tasered_duration = 8 SECONDS
 
-/obj/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
-		do_sparks(1, 1, src)
+		do_sparks(1, TRUE, src)
 		return
 	if(!iscarbon(target))
 		return
@@ -52,17 +51,25 @@
 		addtimer(CALLBACK(carbon, TYPE_PROC_REF(/mob/living/carbon, Jitter), jitter), 0.5 SECONDS)
 
 /obj/projectile/energy/electrode/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
-	var/weaken_effect = weaken
-	var/confused_effect = confused
-	if(HAS_TRAIT(target, TRAIT_ANTI_STUN_REAGENT))
-		weaken_effect = 0
-	else
-		confused_effect = 0
-	return target.apply_effects(blocked, stun, weaken_effect, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused_effect)
+	process_tasered_effect(target)
+	. = ..()
+
+/obj/projectile/energy/electrode/proc/process_tasered_effect(mob/living/target)
+	if(HAS_TRAIT(target, TRAIT_TASERED))
+		if(target.getStaminaLoss() >= 40)
+			target.drop_all_held_items()
+			REMOVE_TRAIT(target, TRAIT_TASERED, TASER_TRAIT)
+			return
+	// add temprolly trait
+	ADD_TRAIT(target, TRAIT_TASERED, TASER_TRAIT)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, remove_tasered_trait)), tasered_duration, flags = TIMER_UNIQUE|TIMER_OVERRIDE)
+
+/mob/living/proc/remove_tasered_trait()
+	REMOVE_TRAIT(src, TRAIT_TASERED, TASER_TRAIT)
 
 /obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
-	do_sparks(1, 1, src)
-	..()
+	do_sparks(1, TRUE, src)
+	return ..()
 
 /obj/projectile/energy/electrode/dominator
 	color = LIGHT_COLOR_LIGHT_CYAN
@@ -121,7 +128,6 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
-	nodamage = FALSE
 	weaken = 3 SECONDS
 	stutter = 2 SECONDS
 	shockbull = TRUE
@@ -211,7 +217,6 @@
 	)
 	icon_state = "plasma_light"
 	damage = 20
-	damage_type = BURN
 
 /obj/projectile/energy/charged_plasma
 	name = "charged plasma bolt"
@@ -225,7 +230,6 @@
 	)
 	icon_state = "plasma_heavy"
 	damage = 50
-	damage_type = BURN
 	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
 	reflectability = REFLECTABILITY_NEVER //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.

@@ -41,8 +41,8 @@
 	)
 
 
-/obj/machinery/sleeper/New()
-	..()
+/obj/machinery/sleeper/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -52,8 +52,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/sleeper/upgraded/New()
-	..()
+/obj/machinery/sleeper/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -396,12 +396,12 @@
 	setDir(turn(dir, -90))
 
 
-/obj/machinery/sleeper/ex_act(severity)
+/obj/machinery/sleeper/ex_act(severity, target)
 	if(filtering)
 		toggle_filter()
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/sleeper/handle_atom_del(atom/A)
 	..()
@@ -595,8 +595,8 @@
 
 	light_color = COLOR_SOFT_RED
 
-/obj/machinery/sleeper/syndie/New()
-	..()
+/obj/machinery/sleeper/syndie/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/syndicate(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

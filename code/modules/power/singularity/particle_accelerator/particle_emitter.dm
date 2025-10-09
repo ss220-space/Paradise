@@ -1,8 +1,6 @@
 /obj/structure/particle_accelerator/particle_emitter
 	name = "EM Containment Grid"
 	desc_holder = "This part launches the Alpha particles. You might not want to stand near this end."
-	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
-	icon_state = "none"
 	var/fire_delay = 50
 	var/last_shot = 0
 
@@ -19,7 +17,7 @@
 	reference = "emitter_right"
 
 
-/obj/structure/particle_accelerator/particle_emitter/proc/set_delay(var/delay)
+/obj/structure/particle_accelerator/particle_emitter/proc/set_delay(delay)
 	if(delay && delay >= 0)
 		fire_delay = delay
 		return 1

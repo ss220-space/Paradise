@@ -2,14 +2,6 @@
 /mob/living/simple_animal/pet/dog/fox
 	name = "fox"
 	desc = "Это простая рыжая лиса."
-	ru_names = list(
-		NOMINATIVE = "лиса",
-		GENITIVE = "лисы",
-		DATIVE = "лисе",
-		ACCUSATIVE = "лису",
-		INSTRUMENTAL = "лисой",
-		PREPOSITIONAL = "лисе"
-	)
 	gender = FEMALE
 	icon_state = "fox"
 	icon_living = "fox"
@@ -21,7 +13,6 @@
 	emote_see = list("трясёт головой", "дрожит")
 	tts_seed = "Jaina"
 	yelp_sound = 'sound/creatures/fox_yelp.ogg' //Used on death.
-	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
@@ -31,6 +22,16 @@
 	response_harm = "пинает"
 	holder_type = /obj/item/holder/fox
 	collar_type = "fox"
+
+/mob/living/simple_animal/pet/dog/fox/get_ru_names()
+	return list(
+		NOMINATIVE = "лиса",
+		GENITIVE = "лисы",
+		DATIVE = "лисе",
+		ACCUSATIVE = "лису",
+		INSTRUMENTAL = "лисой",
+		PREPOSITIONAL = "лисе"
+	)
 
 /mob/living/simple_animal/pet/dog/fox/update_icons()
 	if(stat == DEAD)
@@ -53,7 +54,15 @@
 /mob/living/simple_animal/pet/dog/fox/forest
 	name = "forest fox"
 	desc = "Лесная дикая лисица. Может укусить."
-	ru_names = list(
+	icon_state = "fox_forest"
+	icon_living = "fox_forest"
+	icon_dead = "fox_forest_dead"
+	icon_resting = "fox_forest_rest"
+	melee_damage_type = BRUTE
+	melee_damage_upper = 12
+
+/mob/living/simple_animal/pet/dog/fox/forest/get_ru_names()
+	return list(
 		NOMINATIVE = "дикая лиса",
 		GENITIVE = "дикой лисы",
 		DATIVE = "дикой лисе",
@@ -61,15 +70,6 @@
 		INSTRUMENTAL = "дикой лисой",
 		PREPOSITIONAL = "дикой лисе"
 	)
-	gender = FEMALE
-	icon_state = "fox_forest"
-	icon_living = "fox_forest"
-	icon_dead = "fox_forest_dead"
-	icon_resting = "fox_forest_rest"
-	melee_damage_type = BRUTE
-	melee_damage_lower = 6
-	melee_damage_upper = 12
-
 
 /mob/living/simple_animal/pet/dog/fox/forest/winter
 	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
@@ -84,7 +84,13 @@
 /mob/living/simple_animal/pet/dog/fox/Renault
 	name = "Renault"
 	desc = "Ренальд, молодой лис в самом рассвете сил. Несёт верную службу капитану."
-	ru_names = list(
+	gender = MALE
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+	tts_seed = "Barney"
+
+/mob/living/simple_animal/pet/dog/fox/Renault/get_ru_names()
+	return list(
 		NOMINATIVE = "ренальд",
 		GENITIVE = "ренальда",
 		DATIVE = "ренальду",
@@ -92,23 +98,11 @@
 		INSTRUMENTAL = "ренальдом",
 		PREPOSITIONAL = "ренальде"
 	)
-	gender = MALE
-	unique_pet = TRUE
-	gold_core_spawnable = NO_SPAWN
-	tts_seed = "Barney"
 
 //Syndi fox
 /mob/living/simple_animal/pet/dog/fox/Syndifox
 	name = "Syndifox"
 	desc = "Синдилис, очень уважаемый маскот Синдиката."
-	ru_names = list(
-		NOMINATIVE = "Синдилис",
-		GENITIVE = "Синдилиса",
-		DATIVE = "Синдилису",
-		ACCUSATIVE = "Синдилиса",
-		INSTRUMENTAL = "Синдилисом",
-		PREPOSITIONAL = "Синдилисе"
-	)
 	icon_state = "Syndifox"
 	icon_living = "Syndifox"
 	icon_dead = "Syndifox_dead"
@@ -120,6 +114,16 @@
 	tts_seed = "Barney"
 	melee_damage_lower = 10
 	melee_damage_upper = 20
+
+/mob/living/simple_animal/pet/dog/fox/Syndifox/get_ru_names()
+	return list(
+		NOMINATIVE = "Синдилис",
+		GENITIVE = "Синдилиса",
+		DATIVE = "Синдилису",
+		ACCUSATIVE = "Синдилиса",
+		INSTRUMENTAL = "Синдилисом",
+		PREPOSITIONAL = "Синдилисе"
+	)
 
 /mob/living/simple_animal/pet/dog/fox/SyndiFox/ComponentInitialize()
 	AddComponent( \
@@ -137,15 +141,6 @@
 /mob/living/simple_animal/pet/dog/fox/alisa
 	name = "Alisa"
 	desc = "Алиса, любимый питомец любого Офицера Специальных Операций."
-	ru_names = list(
-		NOMINATIVE = "Алиса",
-		GENITIVE = "Алисы",
-		DATIVE = "Алисе",
-		ACCUSATIVE = "Алису",
-		INSTRUMENTAL = "Алисой",
-		PREPOSITIONAL = "Алисе"
-	)
-	gender = FEMALE
 	icon_state = "alisa"
 	icon_living = "alisa"
 	icon_dead = "alisa_dead"
@@ -156,6 +151,16 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	melee_damage_lower = 10
 	melee_damage_upper = 20
+
+/mob/living/simple_animal/pet/dog/fox/alisa/get_ru_names()
+	return list(
+		NOMINATIVE = "Алиса",
+		GENITIVE = "Алисы",
+		DATIVE = "Алисе",
+		ACCUSATIVE = "Алису",
+		INSTRUMENTAL = "Алисой",
+		PREPOSITIONAL = "Алисе"
+	)
 
 /mob/living/simple_animal/pet/dog/fox/alisa/ComponentInitialize()
 	AddComponent( \
@@ -171,14 +176,6 @@
 /mob/living/simple_animal/pet/dog/fox/fennec
 	name = "фенек"
 	desc = "Миниатюрная лисичка с ооочень большими ушами."
-	ru_names = list(
-		NOMINATIVE = "фенек",
-		GENITIVE = "фенека",
-		DATIVE = "фенеку",
-		ACCUSATIVE = "фенека",
-		INSTRUMENTAL = "фенеком",
-		PREPOSITIONAL = "фенеке"
-	)
 	gender = MALE
 	icon_state = "fennec"
 	icon_living = "fennec"
@@ -187,3 +184,13 @@
 	nightvision = 10
 	holder_type = /obj/item/holder/fennec
 	tts_seed = "Riffleman"
+
+/mob/living/simple_animal/pet/dog/fox/fennec/get_ru_names()
+	return list(
+		NOMINATIVE = "фенек",
+		GENITIVE = "фенека",
+		DATIVE = "фенеку",
+		ACCUSATIVE = "фенека",
+		INSTRUMENTAL = "фенеком",
+		PREPOSITIONAL = "фенеке"
+	)

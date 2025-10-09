@@ -11,19 +11,15 @@
 	density = FALSE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	rotate_on_lying = FALSE
-
 	tts_seed = "Templar"
-
 	can_evolve = TRUE
 	death_message = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
 	death_sound = null
-
 	hud_type = /datum/hud/larva
-
 	role_text = "Как Грудолом, вы ещё очень слабы для того, чтобы оказывать помощь гнезду. Ваша задача: прятаться, есть и набираться сил."
 
 	var/datum/action/innate/hide/alien_larva/hide_action
-
+	var/temperature_resistance = T0C+75
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()
@@ -51,25 +47,21 @@
 	. += /obj/item/organ/internal/xenos/plasmavessel/larva
 
 
-/mob/living/carbon/alien/larva/ex_act(severity)
-	..()
+/mob/living/carbon/alien/larva/ex_act(severity, target)
+	. = ..()
 
 	var/b_loss = null
 	var/f_loss = null
+
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			gib()
 			return
-
-		if(2.0)
-
+		if(EXPLODE_HEAVY)
 			b_loss += 60
-
 			f_loss += 60
-
 			AdjustDeaf(120 SECONDS)
-
-		if(3.0)
+		if(EXPLODE_LIGHT)
 			b_loss += 30
 			if(prob(50))
 				Paralyse(2 SECONDS)
@@ -81,9 +73,6 @@
 //can't equip anything
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
 	return
-
-
-/mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
 
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field

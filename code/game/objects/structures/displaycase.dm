@@ -22,9 +22,9 @@
 	. = ..()
 	if(length(start_showpieces) && !start_showpiece_type)
 		var/list/showpiece_entry = pick(start_showpieces)
-		if (showpiece_entry && showpiece_entry["type"])
+		if(showpiece_entry && showpiece_entry["type"])
 			start_showpiece_type = showpiece_entry["type"]
-			if (showpiece_entry["trophy_message"])
+			if(showpiece_entry["trophy_message"])
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
@@ -69,7 +69,7 @@
 		set_density(FALSE)
 		broken = 1
 		new /obj/item/shard( src.loc )
-		playsound(src, "shatter", 70, TRUE)
+		playsound(src, SFX_SHATTER, 70, TRUE)
 		update_icon(UPDATE_OVERLAYS)
 		trigger_alarm()
 
@@ -190,7 +190,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return
 	else
-	    //prevents remote "kicks" with TK
+		//prevents remote "kicks" with TK
 		if(!Adjacent(user))
 			return
 		add_fingerprint(user)
@@ -200,7 +200,6 @@
 
 /obj/structure/displaycase_chassis
 	anchored = TRUE
-	density = FALSE
 	name = "display case chassis"
 	desc = "The wooden base of a display case."
 	icon = 'icons/obj/stationobjs.dmi'
@@ -276,7 +275,6 @@
 
 //The lab cage and captains display case do not spawn with electronics, which is why req_access is needed.
 /obj/structure/displaycase/captain
-	alert = TRUE
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
 	req_access = list(ACCESS_CAPTAIN)
 

@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /datum/bluespace_cannon_fire_mode/proc/create_explosion(mob/user, turf/impact_turf)
 	message_admins("[key_name_admin(user)] has launched an artillery strike with power=([power[1]],[power[2]],[power[3]]) into [ADMIN_COORDJMP(impact_turf)].")
 	log_admin("[key_name_log(user)] has launched an artillery strike with power=([power[1]],[power[2]],[power[3]]) mode into [COORD(impact_turf)].") // Line below handles logging the explosion to disk
-	explosion(impact_turf, power[1], power[2], power[3], cause = "Bluespace artillery strike")
+	explosion(impact_turf, devastation_range = power[1], heavy_impact_range = power[2], light_impact_range = power[3], cause = "Bluespace artillery strike")
 
 
 /datum/bluespace_cannon_fire_mode/power
@@ -199,7 +199,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
-	desc = "Содержимое засекречено военно-космическим командованием НаноТрейзен. Требуется соединение с другими компонентами БСА с помощью мультитула."
+	desc = "Содержимое засекречено военно-космическим командованием Нанотрейзен. Требуется соединение с другими компонентами БСА с помощью мультитула."
 	ru_names = list(
 		NOMINATIVE = "фузор блюспейс-артиллерии",
 		GENITIVE = "фузора блюспейс-артиллерии",
@@ -372,13 +372,13 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/bsa/full/proc/destroy_all_on_fire_beam(mob/user, turf/bullseye)
 	var/turf/point = get_front_turf()
 	for(var/turf/T as anything in get_line(get_step(point,dir),get_target_turf()))
-		T.ex_act(1)
+		T.ex_act(EXPLODE_DEVASTATE)
 		for(var/atom/A in T)
-			A.ex_act(1)
+			A.ex_act(EXPLODE_DEVASTATE)
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/reacting/deadly) //ZZZAP
 
 /obj/machinery/bsa/full/proc/incoming_shot_notify(turf/target)
-	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 75, 1)
+	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 75, TRUE)
 	for(var/mob/mob in range(BSA_IMPACT_NOTIFY_RADIUS, target))
 		mob.show_message( \
 			span_danger("Что-то приближается к вам сверху!"), EMOTE_VISIBLE, \
@@ -487,7 +487,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/last_camera_turf = null
 	var/image/crosshair
 
-/obj/machinery/computer/bsa_control/Initialize()
+/obj/machinery/computer/bsa_control/Initialize(mapload)
 	. = ..()
 	var/map_name = "camera_console_[src.UID()]_map"
 	// Initialize map objects
@@ -507,10 +507,9 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/computer/bsa_control/admin
 	area_aim = TRUE
 	target_all_areas = TRUE
-	camera_xray = TRUE
 	emagged = TRUE // Unlock power burst mode for admin
 
-/obj/machinery/computer/bsa_control/admin/Initialize()
+/obj/machinery/computer/bsa_control/admin/Initialize(mapload)
 	. = ..()
 	if(!cannon)
 		cannon = deploy()
@@ -626,9 +625,9 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/computer/bsa_control/proc/get_available_modes()
 	var/list/modes = list()
-	for (var/mode_id in GLOB.BSA_modes_list)
+	for(var/mode_id in GLOB.BSA_modes_list)
 		var/datum/bluespace_cannon_fire_mode/mode = GLOB.BSA_modes_list[mode_id]
-		if (mode.need_emag && !emagged)
+		if(mode.need_emag && !emagged)
 			continue
 		modes += mode.name
 	return modes
@@ -679,7 +678,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	cannon.calibrate()
 	update_active_camera_screen()
 
-/obj/machinery/computer/bsa_control/proc/switch_mode(mob/user, var/params)
+/obj/machinery/computer/bsa_control/proc/switch_mode(mob/user, params)
 	var/mode_name = params["mode"]
 	var/new_mode = GLOB.BSA_modes_list[mode_name]
 	if(!new_mode)

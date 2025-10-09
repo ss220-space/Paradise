@@ -1,8 +1,3 @@
-//Travel through pools of blood. Slaughter Demon powers for everyone!
-#define BLOODCRAWL     1
-#define BLOODCRAWL_EAT 2
-
-
 /obj/effect/proc_holder/spell/bloodcrawl
 	name = "Кровавый путь"
 	desc = "Используйте лужи крови, чтобы исчезнуть из реальности."
@@ -10,7 +5,6 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	cooldown_min = 0
 	should_recharge_after_cast = FALSE
 	overlay = null
 	action_icon_state = "bloodcrawl"
@@ -75,10 +69,7 @@
 
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
 	name = "odd blood"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	density = FALSE
-	anchored = TRUE
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -127,7 +118,6 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "blank" // Flicks are used instead
 	duration = 0.6 SECONDS
-	layer = MOB_LAYER + 0.1
 
 
 /obj/effect/temp_visual/dir_setting/bloodcrawl/Initialize(mapload, set_dir, animation_state)
@@ -157,7 +147,7 @@
 	victim.emote("scream")
 	victim.forceMove(holder)
 	enter_point.visible_message(span_warning("<b>[user] затягива[pluralize_ru(user.gender, "ет", "ют")] [victim] в [enter_point.declent_ru(ACCUSATIVE)]!</b>"))
-	if (user.type == /mob/living/simple_animal/demon/slaughter/laughter)
+	if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
 		to_chat(user, "<b>Вы хватаете [victim.declent_ru(ACCUSATIVE)] и начинаете безжалостную щекотку! Вы не можете двигаться, пока делаете это.</b>")
 		enter_point.visible_message(span_clown("<b>Из крови доносятся крики и дикий хохот...</b>"))
 	else

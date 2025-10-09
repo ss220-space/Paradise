@@ -1,15 +1,3 @@
-/// Minimal recoil
-#define GUN_RECOIL_MIN new /datum/gun_recoil/minimal()
-/// Low recoil
-#define GUN_RECOIL_LOW new /datum/gun_recoil/low()
-/// Medium recoil
-#define GUN_RECOIL_MEDIUM new /datum/gun_recoil/medium()
-/// High recoil
-#define GUN_RECOIL_HIGH new /datum/gun_recoil/high()
-/// Mega recoil
-#define GUN_RECOIL_MEGA new /datum/gun_recoil/mega()
-
-
 /datum/gun_recoil
 	/// Recoil strength in tile size (32 pixels)
 	var/strength
@@ -51,6 +39,8 @@
 		return
 	if(zoomed)
 		return // sights and recoil create visual bugs, disable recoil if we in sight mode.
+	if(HAS_TRAIT(user, TRAIT_BADASS))
+		return
 	var/shot_angle = get_angle(target, user)
 	var/rand_angle = (rand() - 0.5) * recoil.angle + shot_angle
 	recoil_camera(user, recoil.strength, recoil.in_duration, recoil.back_duration, rand_angle)

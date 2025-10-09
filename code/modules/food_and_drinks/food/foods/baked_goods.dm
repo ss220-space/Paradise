@@ -321,7 +321,6 @@
 	icon_state = "noel_s"
 	trash = /obj/item/trash/plate
 	filling_color = "#5e1706"
-	bitesize = 2
 	foodtype = SUGAR | FRUIT | GRAIN | DAIRY
 
 //////////////////////
@@ -337,6 +336,11 @@
 	list_reagents = list("nutriment" = 1, "sugar" = 1, "hot_coco" = 5 )
 	tastes = list("cookie" = 1, "crunchy chocolate" = 1)
 	foodtype = SUGAR | GRAIN
+
+
+/obj/item/reagent_containers/food/snacks/cookie/empty
+	list_reagents = list()
+
 
 /obj/item/reagent_containers/food/snacks/fortunecookie
 	name = "fortune cookie"
@@ -401,7 +405,7 @@
 /obj/item/reagent_containers/food/snacks/pie/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	new/obj/effect/decal/cleanable/pie_smudge(loc)
-	visible_message("<span class='warning'>[src] splats.</span>","<span class='warning'>You hear a splat.</span>")
+	visible_message(span_warning("[src] splats."),span_warning("You hear a splat."))
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/meatpie
@@ -751,15 +755,10 @@
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
 	name = "slimejelly donut"
-	desc = "You jelly?"
-	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 	foodtype = TOXIC
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/cherryjelly
-	name = "jelly donut"
-	desc = "You jelly?"
-	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"
 
 //////////////////////
@@ -772,14 +771,12 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "pancake"
 	filling_color = "#E7D8AB"
-	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 10)
 	foodtype = GRAIN | SUGAR
 
 /obj/item/reagent_containers/food/snacks/pancake/berry_pancake
 	name = "berry pancake"
 	desc = "A pancake loaded with berries."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "berry_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 10, "berryjuice" = 3)
 	foodtype = GRAIN | SUGAR | FRUIT
@@ -787,7 +784,6 @@
 /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
 	name = "choc-chip pancake"
 	desc = "A pancake loaded with chocolate chips."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "choc_chip_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 10, "cocoa" = 3)
 

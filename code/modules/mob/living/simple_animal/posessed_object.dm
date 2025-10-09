@@ -1,13 +1,5 @@
 /mob/living/simple_animal/possessed_object
 	name = "possessed doodad"
-	ru_names = list(
-		NOMINATIVE = "одержимая штука",
-		GENITIVE = "одержимой штуки",
-		DATIVE = "одержимой штуке",
-		ACCUSATIVE = "одержимую штуку",
-		INSTRUMENTAL = "одержимой штукой",
-		PREPOSITIONAL = "одержимой штуке"
-	)
 	var/spirit_name = "mysterious force" // What we call ourselves in attack messages.
 	health = 50
 	maxHealth = 50
@@ -15,7 +7,7 @@
 	pass_flags = PASSTABLE	// Floating past tables is pretty damn spooky.
 	status_flags = null	// No canpush to prevent grabs ...
 	density = FALSE			//  ... But a density of 0 means we won't be blocking anyone's way.
-	healable = 0			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
+	healable = FALSE			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
 	wander = 0				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
 
 	universal_speak = 1		// Tell the humans spooky things about the afterlife
@@ -30,6 +22,16 @@
 	var/escape_chance = 10
 	/// What is the actual item we are "possessing"
 	var/obj/item/possessed_item
+
+/mob/living/simple_animal/possessed_object/get_ru_names()
+	return list(
+		NOMINATIVE = "одержимая штука",
+		GENITIVE = "одержимой штуки",
+		DATIVE = "одержимой штуке",
+		ACCUSATIVE = "одержимую штуку",
+		INSTRUMENTAL = "одержимой штукой",
+		PREPOSITIONAL = "одержимой штуке"
+	)
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
@@ -79,8 +81,8 @@
 		death(gibbed = TRUE)
 		return
 
-	if( possessed_item.loc != src )
-		if ( isturf(possessed_item.loc) ) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
+	if(possessed_item.loc != src)
+		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
 			forceMove(possessed_item.loc)
 			possessed_item.forceMove(src)
 		else // If we're inside a toolbox or something, we are inside the item rather than the item inside us. This is so people can see the item in the toolbox.
@@ -107,17 +109,17 @@
 	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя – почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
 
-/mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
+/mob/living/simple_animal/possessed_object/New(atom/loc as obj)
 	..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
-		message_admins("<span class='adminnotice'>Posessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
+		message_admins(span_adminnotice("Posessed object improperly spawned, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		log_runtime(EXCEPTION("[src] spawned manually, no object to assign attributes to."), src)
 		qdel(src)
 
 	var/turf/possessed_loc = get_turf(loc)
 	if(!istype(possessed_loc)) // Will this ever happen? Who goddamn knows.
-		message_admins("<span class='adminnotice'>Posessed object could not find turf, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
+		message_admins(span_adminnotice("Posessed object could not find turf, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		log_runtime(EXCEPTION("[src] attempted to find a turf to spawn on, and could not."), src)
 		qdel(src)
 
@@ -145,7 +147,7 @@
 		. = possessed_id.access
 
 
-/mob/living/simple_animal/possessed_object/ClickOn(var/atom/A, var/params)
+/mob/living/simple_animal/possessed_object/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -160,8 +162,8 @@
 	else
 		..()
 
-	if( possessed_item.loc != src )
-		if ( isturf(possessed_item.loc) ) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
+	if(possessed_item.loc != src)
+		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
 			forceMove(possessed_item.loc)
 			possessed_item.forceMove(src)
 		else // If we're inside a toolbox or something, we are inside the item rather than the item inside us. This is so people can see the item in the toolbox.

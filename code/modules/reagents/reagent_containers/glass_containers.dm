@@ -5,7 +5,6 @@
 	name = " "
 	var/base_name = " "
 	desc = " "
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "null"
 	item_state = "null"
 	amount_per_transfer_from_this = 10
@@ -51,8 +50,7 @@
 			span_userdanger("[user] вылива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на вас!")
 		)
 		add_attack_logs(user, target, "Splashed with [name] containing [contained]")
-		reagents.reaction(target, REAGENT_TOUCH)
-		reagents.clear_reagents()
+		make_splashes(target)
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!iscarbon(target)) // Non-carbons can't process reagents
@@ -105,6 +103,7 @@
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
+		after_transfer(target)
 		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
@@ -123,8 +122,7 @@
 		if(user.a_intent == INTENT_HARM)
 			user.visible_message(span_danger("[user] облива[pluralize_ru(user, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
 								("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"))
-			reagents.reaction(target, REAGENT_TOUCH)
-			reagents.clear_reagents()
+			make_splashes(target)
 
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
@@ -139,15 +137,6 @@
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
 	desc = "Простой стеклянный стакан. На его стенках обозначены деления для измерения объёма содержимого."
-	ru_names = list(
-		NOMINATIVE = "мерный стакан",
-		GENITIVE = "мерного стакана",
-		DATIVE = "мерному стакану",
-		ACCUSATIVE = "мерный стакан",
-		INSTRUMENTAL = "мерным стаканом",
-		PREPOSITIONAL = "мерном стакане"
-	)
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
 	belt_icon = "beaker"
@@ -155,6 +144,15 @@
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = TRUE
 
+/obj/item/reagent_containers/glass/beaker/get_ru_names()
+	return list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканом",
+		PREPOSITIONAL = "мерном стакане"
+	)
 
 /obj/item/reagent_containers/glass/beaker/Initialize(mapload)
 	. = ..()
@@ -278,7 +276,14 @@
 /obj/item/reagent_containers/glass/beaker/large
 	name = "large beaker"
 	desc = "Как обычный мерный стакан, только в два раза больше объёмом."
-	ru_names = list(
+	icon_state = "beakerlarge"
+	belt_icon = "large_beaker"
+	materials = list(MAT_GLASS=2500)
+	volume = 100
+	possible_transfer_amounts = list(5,10,15,25,30,50,100)
+
+/obj/item/reagent_containers/glass/beaker/large/get_ru_names()
+	return list(
 		NOMINATIVE = "большой мерный стакан",
 		GENITIVE = "большого мерного стакана",
 		DATIVE = "большому мерному стакану",
@@ -286,18 +291,19 @@
 		INSTRUMENTAL = "большим мерным стаканом",
 		PREPOSITIONAL = "большом мерном стакане"
 	)
-	icon_state = "beakerlarge"
-	belt_icon = "large_beaker"
-	materials = list(MAT_GLASS=2500)
-	volume = 100
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15,25,30,50,100)
-	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/beaker/vial
 	name = "vial"
 	desc = "Небольшая стеклянная колбочка, часто используемая вирусологами в работе."
-	ru_names = list(
+	icon_state = "vial"
+	belt_icon = "vial"
+	materials = list(MAT_GLASS=250)
+	volume = 25
+	possible_transfer_amounts = list(5,10,15,25)
+	can_assembly = 0
+
+/obj/item/reagent_containers/glass/beaker/vial/get_ru_names()
+	return list(
 		NOMINATIVE = "пробирка",
 		GENITIVE = "пробирки",
 		DATIVE = "пробирке",
@@ -305,19 +311,18 @@
 		INSTRUMENTAL = "пробиркой",
 		PREPOSITIONAL = "пробирке"
 	)
-	icon_state = "vial"
-	belt_icon = "vial"
-	materials = list(MAT_GLASS=250)
-	volume = 25
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15,25)
-	container_type = OPENCONTAINER
-	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/drugs
 	name = "baggie"
 	desc = "Небольшой пластиковый пакет, часто используемый фармацевтическими \"предпринимателями\"."
-	ru_names = list(
+	icon_state = "baggie"
+	amount_per_transfer_from_this = 2
+	possible_transfer_amounts = null
+	volume = 10
+	can_assembly = 0
+
+/obj/item/reagent_containers/glass/beaker/drugs/get_ru_names()
+	return list(
 		NOMINATIVE = "пластиковый пакетик",
 		GENITIVE = "пластикового пакетика",
 		DATIVE = "пластиковому пакетику",
@@ -325,17 +330,19 @@
 		INSTRUMENTAL = "пластиковым пакетиком",
 		PREPOSITIONAL = "пластиковом пакетике"
 	)
-	icon_state = "baggie"
-	amount_per_transfer_from_this = 2
-	possible_transfer_amounts = null
-	volume = 10
-	container_type = OPENCONTAINER
-	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/thermite
 	name = "Thermite load"
 	desc = "Пластиковый пакетик, надпись на этикетке - \"Термит\"."
-	ru_names = list(
+	icon_state = "baggie"
+	amount_per_transfer_from_this = 25
+	possible_transfer_amounts = null
+	volume = 25
+	can_assembly = 0
+	list_reagents = list("thermite" = 25)
+
+/obj/item/reagent_containers/glass/beaker/thermite/get_ru_names()
+	return list(
 		NOMINATIVE = "пластиковый пакетик (Термит)",
 		GENITIVE = "пластикового пакетика (Термит)",
 		DATIVE = "пластиковому пакетику (Термит)",
@@ -343,18 +350,17 @@
 		INSTRUMENTAL = "пластиковым пакетиком (Термит)",
 		PREPOSITIONAL = "пластиковом пакетике (Термит)"
 	)
-	icon_state = "baggie"
-	amount_per_transfer_from_this = 25
-	possible_transfer_amounts = null
-	volume = 25
-	container_type = OPENCONTAINER
-	can_assembly = 0
-	list_reagents = list("thermite" = 25)
 
 /obj/item/reagent_containers/glass/beaker/noreact
 	name = "cryostasis beaker"
 	desc = "Криостазисная мензурка, позволяющий хранить химические вещества в таком состоянии, при котором они не вступают в реакцию друг с другом."
-	ru_names = list(
+	icon_state = "beakernoreact"
+	materials = list(MAT_METAL=3000)
+	origin_tech = "materials=2;engineering=3;plasmatech=3"
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+
+/obj/item/reagent_containers/glass/beaker/noreact/get_ru_names()
+	return list(
 		NOMINATIVE = "криостазиный мерный стакан",
 		GENITIVE = "криостазиного мерного стакана",
 		DATIVE = "криостазиному мерному стакану",
@@ -362,13 +368,6 @@
 		INSTRUMENTAL = "криостазиным мерным стаканом",
 		PREPOSITIONAL = "криостазином мерном стакане"
 	)
-	icon_state = "beakernoreact"
-	materials = list(MAT_METAL=3000)
-	volume = 50
-	amount_per_transfer_from_this = 10
-	origin_tech = "materials=2;engineering=3;plasmatech=3"
-	container_type = OPENCONTAINER
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/item/reagent_containers/glass/beaker/noreact/New()
 	..()
@@ -377,7 +376,15 @@
 /obj/item/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
 	desc = "Мензурка, работающая на экспериментальной блюспейс технологии и элементе \"Кубаний\" в сочетании с соединением \"Питий\"."
-	ru_names = list(
+	icon_state = "beakerbluespace"
+	materials = list(MAT_GLASS=3000)
+	volume = 300
+	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	origin_tech = "bluespace=5;materials=4;plasmatech=4"
+
+/obj/item/reagent_containers/glass/beaker/bluespace/get_ru_names()
+	return list(
 		NOMINATIVE = "блюспейс мерный стакан",
 		GENITIVE = "блюспейс мерного стакана",
 		DATIVE = "блюспейс мерному стакану",
@@ -385,14 +392,6 @@
 		INSTRUMENTAL = "блюспейс мерным стаканом",
 		PREPOSITIONAL = "блюспейс мерном стакане"
 	)
-	icon_state = "beakerbluespace"
-	materials = list(MAT_GLASS=3000)
-	volume = 300
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
-	container_type = OPENCONTAINER
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
-	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)
@@ -412,15 +411,6 @@
 /obj/item/reagent_containers/glass/bucket
 	name = "bucket"
 	desc = "Металлическое ведро. Можете налить туда что-то или надеть себе на голову, никто не запрещает."
-	ru_names = list(
-		NOMINATIVE = "металлическое ведро",
-		GENITIVE = "металлического ведра",
-		DATIVE = "металлическому ведру",
-		ACCUSATIVE = "металлическое ведро",
-		INSTRUMENTAL = "металлическим ведром",
-		PREPOSITIONAL = "металлическом ведре"
-	)
-	gender = NEUTER
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
 	item_state = "bucket"
@@ -433,9 +423,17 @@
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
-	container_type = OPENCONTAINER
 	var/paintable = TRUE
 
+/obj/item/reagent_containers/glass/bucket/get_ru_names()
+	return list(
+		NOMINATIVE = "металлическое ведро",
+		GENITIVE = "металлического ведра",
+		DATIVE = "металлическому ведру",
+		ACCUSATIVE = "металлическое ведро",
+		INSTRUMENTAL = "металлическим ведром",
+		PREPOSITIONAL = "металлическом ведре"
+	)
 
 /obj/item/reagent_containers/glass/bucket/Initialize(mapload)
 	. = ..()
@@ -509,14 +507,6 @@
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
 	desc = "Деревянное ведро. Можете налить туда что-то или надеть себе на голову, никто не запрещает."
-	ru_names = list(
-		NOMINATIVE = "деревянное ведро",
-		GENITIVE = "деревянного ведра",
-		DATIVE = "деревянному ведру",
-		ACCUSATIVE = "деревянное ведро",
-		INSTRUMENTAL = "деревянным ведром",
-		PREPOSITIONAL = "деревянном ведре"
-	)
 	icon_state = "woodbucket"
 	item_state = "woodbucket"
 	materials = null
@@ -524,6 +514,15 @@
 	resistance_flags = FLAMMABLE
 	paintable = FALSE
 
+/obj/item/reagent_containers/glass/bucket/wooden/get_ru_names()
+	return list(
+		NOMINATIVE = "деревянное ведро",
+		GENITIVE = "деревянного ведра",
+		DATIVE = "деревянному ведру",
+		ACCUSATIVE = "деревянное ведро",
+		INSTRUMENTAL = "деревянным ведром",
+		PREPOSITIONAL = "деревянном ведре"
+	)
 
 /obj/item/reagent_containers/glass/bucket/wooden/update_overlays()
 	. = list()
@@ -532,7 +531,15 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle
 	name = "bottle of water"
 	desc = "Бутылка воды, наполненная на старом земном заводе по разливу воды."
-	ru_names = list(
+	gender = FEMALE
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "smallbottle"
+	item_state = "bottle"
+	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
+	materials = list(MAT_GLASS = 0)
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/get_ru_names()
+	return list(
 		NOMINATIVE = "бутылка воды",
 		GENITIVE = "бутылки воды",
 		DATIVE = "бутылке воды",
@@ -540,21 +547,20 @@
 		INSTRUMENTAL = "бутылкой воды",
 		PREPOSITIONAL = "бутылке воды"
 	)
-	gender = FEMALE
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "smallbottle"
-	item_state = "bottle"
-	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
-	materials = list(MAT_GLASS = 0)
-	volume = 50
-	amount_per_transfer_from_this = 10
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/empty
 	list_reagents = list()
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/large
 	desc = "Свежая бутылка воды коммерческого размера."
-	ru_names = list(
+	icon_state = "largebottle"
+	materials = list(MAT_GLASS = 0)
+	list_reagents = list("water" = 100)
+	volume = 100
+	amount_per_transfer_from_this = 20
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/large/get_ru_names()
+	return list(
 		NOMINATIVE = "большая бутылка воды",
 		GENITIVE = "большой бутылки воды",
 		DATIVE = "большой бутылке воды",
@@ -562,11 +568,6 @@
 		INSTRUMENTAL = "большой бутылкой воды",
 		PREPOSITIONAL = "большой бутылке воды"
 	)
-	icon_state = "largebottle"
-	materials = list(MAT_GLASS = 0)
-	list_reagents = list("water" = 100)
-	volume = 100
-	amount_per_transfer_from_this = 20
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty
 	list_reagents = list()
@@ -574,14 +575,6 @@
 /obj/item/reagent_containers/glass/pet_bowl
 	name = "pet bowl"
 	desc = "Миска под еду для любимых домашних животных!"
-	ru_names = list(
-		NOMINATIVE = "миска для животных",
-		GENITIVE = "миски для животных",
-		DATIVE = "миске для животных",
-		ACCUSATIVE = "миску для животных",
-		INSTRUMENTAL = "миской для животных",
-		PREPOSITIONAL = "миске для животных"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/pet_bowl.dmi'
 	icon_state = "petbowl"
@@ -595,6 +588,15 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	color = "#0085E5"
 
+/obj/item/reagent_containers/glass/pet_bowl/get_ru_names()
+	return list(
+		NOMINATIVE = "миска для животных",
+		GENITIVE = "миски для животных",
+		DATIVE = "миске для животных",
+		ACCUSATIVE = "миску для животных",
+		INSTRUMENTAL = "миской для животных",
+		PREPOSITIONAL = "миске для животных"
+	)
 
 /obj/item/reagent_containers/glass/pet_bowl/Initialize(mapload)
 	. = ..()
@@ -652,3 +654,4 @@
 	else
 		reagents.remove_any(1)
 		playsound(pet.loc, 'sound/items/drink.ogg', rand(10, 30), TRUE)
+

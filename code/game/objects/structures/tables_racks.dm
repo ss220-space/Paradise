@@ -75,7 +75,7 @@
 	if(flipped)
 		var/type = 0
 		var/subtype = null
-		for(var/direction in list(turn(dir, 90), turn(dir, -90)) )
+		for(var/direction in list(turn(dir, 90), turn(dir, -90)))
 			var/obj/structure/table/other_table = locate(/obj/structure/table,get_step(src, direction))
 			if(other_table?.flipped)
 				type++
@@ -87,8 +87,8 @@
 
 /obj/structure/table/proc/update_smoothing()
 	if(smooth)
-		queue_smooth(src)
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 	if(flipped)
 		clear_smooth_overlays()
@@ -281,14 +281,15 @@
 		return ..()
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	var/list/click_params = params2list(params)
+	var/list/modifiers = params2list(params)
 	//Center the icon where the user clicked.
-	if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 		return .
 	//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-	I.pixel_x = clamp(text2num(click_params["icon-x"]) - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
-	I.pixel_y = clamp(text2num(click_params["icon-y"]) - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
+	I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
+	I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 	item_placed(I)
+	SEND_SIGNAL(I, COMSIG_ITEM_PLACED_ON_TABLE, user, src)
 
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
@@ -485,7 +486,6 @@
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	var/list/debris = list()
-	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_GLASS_TABLES
 	canSmoothWith = SMOOTH_GROUP_GLASS_TABLES
 	base_icon_state = "glass_table"
@@ -538,7 +538,7 @@
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
 	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] разбивается!"), span_danger("Вы слышите, как бьется стекло"))
 	var/turf/T = get_turf(src)
-	playsound(T, "shatter", 50, TRUE)
+	playsound(T, SFX_SHATTER, 50, TRUE)
 	for(var/I in debris)
 		var/atom/movable/AM = I
 		AM.forceMove(T)
@@ -565,7 +565,7 @@
 			return
 		else
 			var/turf/T = get_turf(src)
-			playsound(T, "shatter", 50, TRUE)
+			playsound(T, SFX_SHATTER, 50, TRUE)
 			for(var/X in debris)
 				var/atom/movable/AM = X
 				AM.forceMove(T)
@@ -627,7 +627,6 @@
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
 	base_icon_state = "fancy_table"
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_FANCY_WOOD_TABLES
 	smoothing_groups = SMOOTH_GROUP_FANCY_WOOD_TABLES
 
@@ -706,7 +705,6 @@
 	base_icon_state = "reinforced_table"
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
-	canSmoothWith = SMOOTH_GROUP_TABLES
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
@@ -744,7 +742,6 @@
 	framestack = /obj/item/stack/sheet/brass
 	buildstack = /obj/item/stack/sheet/brass
 	framestackamount = 1
-	buildstackamount = 1
 	canSmoothWith = SMOOTH_GROUP_BRONZE_TABLES
 	smoothing_groups = SMOOTH_GROUP_BRONZE_TABLES
 
@@ -785,7 +782,7 @@
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()
 
-/obj/structure/table/tray/Initialize()
+/obj/structure/table/tray/Initialize(mapload)
 	. = ..()
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
@@ -982,12 +979,12 @@
 		our_gun.place_on_rack()
 		our_gun.do_drop_animation(src)
 		our_gun.Move(loc)
-		var/list/click_params = params2list(params)
+		var/list/modifiers = params2list(params)
 		//Center the icon where the user clicked.
-		if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+		if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 			return TRUE
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-		our_gun.pixel_x = clamp(text2num(click_params["icon-x"]) - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
+		our_gun.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
 		our_gun.pixel_y = 0
 		return TRUE
 
@@ -1034,7 +1031,6 @@
 /obj/item/gunrack_parts
 	name = "gun rack parts"
 	desc = "Parts of a gun rack."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "gunrack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)
@@ -1080,7 +1076,6 @@
 	name = "rack parts"
 	desc = "Детали разобранного стелажа."
 	gender = MALE
-	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
 	item_state = "rack_parts"
 	flags = CONDUCT

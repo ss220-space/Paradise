@@ -1,14 +1,14 @@
 /datum/event/vent_clog
-	announceWhen	= 0
 	startWhen		= 5
 	endWhen			= 35
 	var/interval	= 2
 	var/list/vents  = list()
 
 /datum/event/vent_clog/announce()
-	GLOB.minor_announcement.announce("Зафиксирован скачок обратного давления в системе вытяжных труб. Возможен выброс содержимого.",
-									"Атмосферная тревога.",
-									'sound/AI/scrubbers.ogg'
+	GLOB.minor_announcement.announce(
+		message = "Зафиксирован скачок обратного давления в системе вытяжных труб. Возможен выброс содержимого.",
+		new_title = "Атмосферная тревога.",
+		new_sound = 'sound/AI/scrubbers.ogg'
 	)
 
 /datum/event/vent_clog/setup()

@@ -12,9 +12,13 @@
 	var/tag_shuttle_mech_sensor
 	var/tag_secure = 0
 
-/obj/machinery/embedded_controller/radio/airlock/Initialize()
+/obj/machinery/embedded_controller/radio/airlock/Initialize(mapload)
 	. = ..()
 	program = new/datum/computer/file/embedded_program/airlock(src)
+
+/obj/machinery/embedded_controller/radio/airlock/Destroy()
+	QDEL_NULL(program)
+	return ..()
 
 //Airlock controller for airlock control - most airlocks on the station use this
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller
@@ -68,7 +72,6 @@
 
 //Access controller for door control - used in virology and the like
 /obj/machinery/embedded_controller/radio/airlock/access_controller
-	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "access_control_standby"
 
 	name = "Access Controller"

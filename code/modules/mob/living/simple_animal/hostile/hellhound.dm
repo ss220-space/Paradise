@@ -3,15 +3,6 @@
 	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
 	name = "lesser hellhound"
 	desc = "Чёрное существо с демоническим обликом, горящими красными глазами и острыми клыками, словно вышедшее из преисподней. С его тела стекает лава."
-	ru_names = list(
-		NOMINATIVE = "низший адский пёс",
-		GENITIVE = "низшего адского пса",
-		DATIVE = "низшему адскому псу",
-		ACCUSATIVE = "низшего адского пса",
-		INSTRUMENTAL = "низшим адским псом",
-		PREPOSITIONAL = "низшем адском псе"
-	)
-	gender = MALE
 	icon_state = "hellhound"
 	icon_living = "hellhound"
 	icon_dead = "hellhound_dead"
@@ -20,9 +11,6 @@
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	melee_damage_lower = 10 // slightly higher than araneus
 	melee_damage_upper = 30
-	a_intent = INTENT_HARM
-	environment_smash = 1
-	speak_chance = 0
 	speed = 0
 	maxHealth = 250 // same as sgt araneus
 	health = 250
@@ -33,7 +21,6 @@
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("рычит")
 	nightvision = 9
-	universal_understand = 1
 	wander = 0
 	AI_delay_max = 0.5 SECONDS
 	var/life_regen_cycles = 0
@@ -43,6 +30,15 @@
 	var/smoke_freq = 300 // 30 seconds
 	var/datum/action/innate/demon/whisper/whisper_action
 
+/mob/living/simple_animal/hostile/hellhound/get_ru_names()
+	return list(
+		NOMINATIVE = "низший адский пёс",
+		GENITIVE = "низшего адского пса",
+		DATIVE = "низшему адскому псу",
+		ACCUSATIVE = "низшего адского пса",
+		INSTRUMENTAL = "низшим адским псом",
+		PREPOSITIONAL = "низшем адском псе"
+	)
 
 /mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()
@@ -131,7 +127,6 @@
 	smoke_freq = 200
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
-	melee_damage_upper = 30
 	environment_smash = 2
 
 /mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)
@@ -176,7 +171,14 @@
 /mob/living/simple_animal/hostile/hellhound/tear
 	name = "frenzied hellhound"
 	desc = "Чёрное существо с демоническим обликом, горящими красными глазами и острыми клыками, словно вышедшее из преисподней. С его тела стекает лава. Он далеко не обычный низший пёс."
-	ru_names = list(
+	maxHealth = 300
+	health = 300
+	melee_damage_lower = 30
+	melee_damage_upper = 50
+	faction = list("rift")
+
+/mob/living/simple_animal/hostile/hellhound/tear/get_ru_names()
+	return list(
 		NOMINATIVE = "бешеный адский пёс",
 		GENITIVE = "бешеного адского пса",
 		DATIVE = "бешеному адскому псу",
@@ -184,8 +186,3 @@
 		INSTRUMENTAL = "бешеным адским псом",
 		PREPOSITIONAL = "бешеном адском псе"
 	)
-	maxHealth = 300
-	health = 300
-	melee_damage_lower = 30
-	melee_damage_upper = 50
-	faction = list("rift")

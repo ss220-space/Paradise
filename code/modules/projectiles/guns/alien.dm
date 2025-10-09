@@ -21,7 +21,6 @@
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/projectile/bullet/spike
 	muzzle_flash_effect = null
-	e_cost = 100
 	delay = 3 //and delay has to be stored here on energy guns
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
@@ -73,7 +72,6 @@
 	icon_state = "particle"
 	damage = 60
 	damage_type = BRUTE
-	flag = "bullet"
+	flag = BULLET
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-
 	weaken = 10 SECONDS

@@ -34,8 +34,6 @@
 	icon_state = "dynamic_2"
 	layer = ABOVE_OBJ_LAYER
 
-	light_system = STATIC_LIGHT
-	light_on = TRUE
 	light_range = 3
 	light_power = 3
 	light_color = "#f88818"
@@ -258,9 +256,9 @@
 		var/angle = 180 - abs( abs( direction_angle - spread_direction_angle ) - 180 ) // the angle difference between the spread direction and initial direction
 
 		switch(angle) //this reduces power when the explosion is going around corners
-			if (45)
+			if(45)
 				spread_power *= 0.75
-			if (90 to 180) //turns out angles greater than 90 degrees almost never happen. This bit also prevents trying to spread backwards
+			if(90 to 180) //turns out angles greater than 90 degrees almost never happen. This bit also prevents trying to spread backwards
 				continue
 
 		switch(spread_direction)
@@ -269,7 +267,7 @@
 			else
 				spread_power -= 1.414 //diagonal spreading
 
-		if (spread_power < 1)
+		if(spread_power < 1)
 			continue
 
 		var/turf/picked_turf = get_step(target, spread_direction)

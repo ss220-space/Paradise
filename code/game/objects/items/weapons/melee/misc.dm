@@ -19,7 +19,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=5"
 	attack_verb = list("выпорол", "хлестнул", "стегнул", "проучил")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
@@ -30,7 +29,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 1, \
 		afterswing_slowdown = 0, \
-		swing_sound = "generic_swing_light" \
+		swing_sound = SFX_GENERIC_SWING_LIGHT \
 	)
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
@@ -64,7 +63,7 @@
 		swing_speed_mod = 1, \
 		afterswing_slowdown = -0.25, \
 		slowdown_duration = 0.5 SECONDS, \
-		swing_sound = "rapier_swing" \
+		swing_sound = SFX_RAPIER_SWING \
 	)
 
 /obj/item/melee/rapier/captain
@@ -134,7 +133,6 @@
 	item_state = "syndie_mantis"
 	force = 25
 	throwforce = 20
-	w_class = WEIGHT_CLASS_NORMAL
 	block_chance = 35
 	armour_penetration = 40
 	sharp = TRUE
@@ -153,7 +151,7 @@
 		arc_size = 180, \
 		afterswing_slowdown = -0.25, \
 		slowdown_duration = 2 SECONDS, \
-		swing_sound = "katana_swing" \
+		swing_sound = SFX_KATANA_SWING \
 	)
 
 /obj/item/melee/mantisblade/equipped(mob/user, slot, initial = FALSE)
@@ -195,7 +193,7 @@
 		return
 
 	if(prob(25))
-		do_sparks(rand(1, 6), 1, loc)
+		do_sparks(rand(1, 6), TRUE, loc)
 
 	if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
@@ -239,7 +237,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = -0.15, \
 		slowdown_duration = 1 SECONDS, \
-		swing_sound = "katana_swing" \
+		swing_sound = SFX_KATANA_SWING \
 	)
 
 /obj/item/melee/icepick
@@ -259,7 +257,6 @@
 	item_state = "candy_sword"
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("полоснул", "уколол", "ударил")
 
 /obj/item/melee/flyswatter
@@ -308,7 +305,6 @@
 /obj/item/melee/bigiron
 	name = "Big Iron"
 	desc = "It is a very old rusty and racist iron. Used to beat the living shit out of these filthy xenos."
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 8
 	throwforce = 8
 	var/bonus_damage = 10

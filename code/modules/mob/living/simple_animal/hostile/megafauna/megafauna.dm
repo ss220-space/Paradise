@@ -1,17 +1,8 @@
 /mob/living/simple_animal/hostile/megafauna
 	name = "megafauna"
 	desc = "Атакуйте слабое место для нанесения массивного урона."
-	ru_names = list(
-		NOMINATIVE = "мегафауна",
-		GENITIVE = "мегафауны",
-		DATIVE = "мегафауне",
-		ACCUSATIVE = "мегафауну",
-		INSTRUMENTAL = "мегафауной",
-		PREPOSITIONAL = "мегафауне"
-	)
 	health = 1000
 	maxHealth = 1000
-	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	obj_damage = 400
@@ -53,6 +44,16 @@
 	/// Hardmode one loot
 	var/enraged_unique_loot
 	/// Only one loot from hardmode
+
+/mob/living/simple_animal/hostile/megafauna/get_ru_names()
+	return list(
+		NOMINATIVE = "мегафауна",
+		GENITIVE = "мегафауны",
+		DATIVE = "мегафауне",
+		ACCUSATIVE = "мегафауну",
+		INSTRUMENTAL = "мегафауной",
+		PREPOSITIONAL = "мегафауне"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -149,13 +150,11 @@
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(250)
-
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(100)
-
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(50)
 
 /mob/living/simple_animal/hostile/megafauna/GiveTarget(atom/new_target)
@@ -201,7 +200,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
 	. = ..()
-	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
+	for(var/turf/simulated/floor/chasm/C in circle_range_turfs(src, 1))
 		C.set_density(FALSE) //I hate it.
 		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, set_density), TRUE), 2 SECONDS)	// Needed to make them path. I hate it.
 

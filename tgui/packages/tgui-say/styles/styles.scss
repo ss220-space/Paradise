@@ -2,7 +2,7 @@
 @use './colors.scss';
 
 .window {
-  background-color: black;
+  background-color: hsl(0, 0%, 0%);
   position: relative;
   overflow: hidden;
 }
@@ -47,7 +47,7 @@
 }
 
 .content {
-  background-color: black;
+  background-color: hsl(0, 0%, 0%);
   display: grid;
   font-family: 'Verdana';
   grid-template-columns: 3.5em 1fr;
@@ -58,7 +58,7 @@
 }
 
 .content-lightMode {
-  background-color: white;
+  background-color: hsl(0, 0%, 100%);
 }
 
 .button {

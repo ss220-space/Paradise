@@ -130,7 +130,7 @@
 		user.pixel_x = initial(user.pixel_x)
 		user.layer = MOB_LAYER // Avoids weirdness when mimicing something below the vent layer
 
-	playsound(user, "bonebreak", 75, TRUE)
+	playsound(user, SFX_BONEBREAK, 75, TRUE)
 	show_change_form_message(user, old_name, "[user]")
 	user.create_log(MISC_LOG, "Mimicked into [user]")
 
@@ -163,7 +163,7 @@
 		user.desc = initial(user.desc)
 		user.color = initial(user.color)
 
-	playsound(user, "bonebreak", 150, TRUE)
+	playsound(user, SFX_BONEBREAK, 150, TRUE)
 	if(show_message)
 		show_restore_form_message(user, old_name, "[user.declent_ru(GENITIVE)]")
 
@@ -197,7 +197,7 @@
 
 /datum/mimic_form
 	/// What the visible species of the form is (Only for human forms)?
-	var/examine_species = "Unknown"
+	var/examine_species = UNKNOWN_STATUS_RUS
 	/// What the visible gender of the form is (Only for human forms)?
 	var/examine_gender
 	/// What is the examine text paired with this form?

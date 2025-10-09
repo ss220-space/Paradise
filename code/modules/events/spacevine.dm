@@ -1,8 +1,4 @@
 #define SPACEVINE_SPAWN_THRESHOLD 5
-//Types of usual mutations
-#define	POSITIVE			1
-#define	NEGATIVE			2
-#define	MINOR_NEGATIVE		3
 
 /datum/event/spacevine
 	announceWhen = 120
@@ -55,8 +51,9 @@
 
 /datum/event/spacevine/announce(false_alarm)
 	if((false_alarm || LAZYLEN(SC?.vines)) && (LAZYLEN(GLOB.player_list) < 20))
-		GLOB.minor_announcement.announce("Биосканеры фиксируют рост космической лозы в [get_area(SC.loc)]. Избавьтесь от неё, прежде чем она нанесёт ущерб станции.",
-										ANNOUNCE_BIOHAZARD_RU
+		GLOB.minor_announcement.announce(
+			message = "Биосканеры фиксируют рост космической лозы в [get_area(SC.loc)]. Избавьтесь от неё, прежде чем она нанесёт ущерб станции.",
+			new_title = ANNOUNCE_BIOHAZARD_RU
 		)
 
 /datum/spacevine_mutation
@@ -122,19 +119,12 @@
 /datum/spacevine_mutation/proc/on_search(severity, obj/structure/spacevine/holder)
 	return
 
-
-/datum/spacevine_mutation/space_covering
-	name = "space protective"
-	hue = "#aa77aa"
-	quality = POSITIVE
-
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/vines/broken_states()
 	return list()
@@ -158,8 +148,8 @@
 /turf/simulated/floor/vines/break_tile_to_plating()
 	return
 
-/turf/simulated/floor/vines/ex_act(severity)
-	if(severity < 3)
+/turf/simulated/floor/vines/ex_act(severity, target)
+	if(severity > EXPLODE_LIGHT)
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/vines/narsie_act()
@@ -178,6 +168,9 @@
 		SV.wither()
 
 /datum/spacevine_mutation/space_covering
+	name = "space protective"
+	hue = "#aa77aa"
+	quality = POSITIVE
 	var/static/list/coverable_turfs
 
 /datum/spacevine_mutation/space_covering/New()
@@ -271,7 +264,7 @@
 	qdel(holder)
 
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/item)
-	explosion(holder.loc, 0, 0, severity, 0, 0)
+	explosion(holder.loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = severity, flash_range = 0, adminlog = FALSE)
 
 /datum/spacevine_mutation/fire_proof
 	name = "fire proof"
@@ -339,13 +332,13 @@
 	if(prob(severity) && istype(crosser) && !isvineimmune(holder))
 		var/mob/living/M = crosser
 		M.adjustBruteLoss(5)
-		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+		to_chat(M, span_alert("You cut yourself on the thorny vines."))
 
 /datum/spacevine_mutation/thorns/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
 	if(prob(severity) && istype(hitter) && !isvineimmune(holder))
 		var/mob/living/M = hitter
 		M.adjustBruteLoss(5)
-		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+		to_chat(M, span_alert("You cut yourself on the thorny vines."))
 	. =	expected_damage
 
 /datum/spacevine_mutation/woodening
@@ -445,7 +438,6 @@
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "Light1"
 	anchored = TRUE
-	density = FALSE
 	layer = SPACEVINE_LAYER
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
@@ -453,7 +445,6 @@
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
-
 
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
@@ -500,7 +491,7 @@
 	else
 		text += " normal"
 	text += " vine."
-	. += "<span class='notice'>[text]</span>"
+	. += span_notice("[text]")
 
 
 /obj/structure/spacevine/proc/wither()
@@ -751,7 +742,7 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_buckle(src, V)
 	if((V.stat != DEAD) && (V.buckled != src)) //not dead or captured
-		to_chat(V, "<span class='danger'>The vines [pick("wind", "tangle", "tighten")] around you!</span>")
+		to_chat(V, span_danger("The vines [pick("wind", "tangle", "tighten")] around you!"))
 		buckle_mob(V, 1)
 
 /obj/structure/spacevine/proc/spread()
@@ -779,7 +770,7 @@
 		if(remaining_spreads == 0 || !spread_search)
 			break
 
-/obj/structure/spacevine/ex_act(severity)
+/obj/structure/spacevine/ex_act(severity, target)
 	var/i
 	for(var/datum/spacevine_mutation/SM in mutations)
 		i += SM.on_explosion(severity, src)

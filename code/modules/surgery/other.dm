@@ -46,7 +46,6 @@
 	restricted_speciestypes = list(/datum/species/plasmaman)
 
 /datum/surgery/bleeding/special
-	name = "Восстановление повреждённых сосудов"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -137,7 +136,6 @@
 		BODY_ZONE_TAIL,
 		BODY_ZONE_WING,
 	)
-	requires_organic_bodypart = TRUE
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -157,6 +155,36 @@
 	if(!affected.is_dead())
 		return FALSE
 	return TRUE
+
+
+/datum/surgery/suture
+	name = "Зашить кровотечения"
+	steps = list(
+		/datum/surgery_step/generic/suture
+	)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL
+	)
+
+/datum/surgery/suture/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(affected.bleeding_amount > 0)
+		return TRUE
+	return FALSE
 
 
 /datum/surgery_step/fix_vein
@@ -273,8 +301,6 @@
 		/obj/item/reagent_containers/glass/bucket = 50
 	)
 
-	can_infect = FALSE
-	blood_level = SURGERY_BLOODSPREAD_NONE
 
 	time = 2.4 SECONDS
 
@@ -297,7 +323,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!(affected.is_dead()))
-		user.balloon_alert("обработка не требуется!")
+		user.balloon_alert(user, "обработка не требуется!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
@@ -369,7 +395,6 @@
 		BODY_ZONE_CHEST,
 		BODY_ZONE_PRECISE_GROIN,
 	)
-	requires_organic_bodypart = TRUE
 
 /datum/surgery/remove_thrall/synth
 	name = "Отладка теневой опухоли"

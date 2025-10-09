@@ -28,7 +28,7 @@
 	///Can you make simple jewelry with it?
 	var/simple = FALSE
 
-/obj/item/gem/Initialize()
+/obj/item/gem/Initialize(mapload)
 	. = ..()
 	shine_overlay = image(icon = 'icons/obj/lavaland/gems.dmi',icon_state = "shine")
 	add_overlay(shine_overlay)
@@ -99,7 +99,6 @@
 	name = "ruperium crystal"
 	desc = "Крайне радиоактивное кристаллическое соединение, которое можно найти во внутренностях златожора. Хоть вы и можете преобразовать кристалл в урановую руду, его истинная ценность заключается в его резонирующих свойствах."
 	light_color = "#5ECC38"
-	icon_state = "rupee"
 	materials = list(MAT_URANIUM = 60000)
 	sheet_type = /obj/item/stack/sheet/mineral/uranium{amount = 30}
 	point_value = 500
@@ -226,7 +225,7 @@
 		INSTRUMENTAL = "морозным бриллиантом",
 		PREPOSITIONAL = "морозном бриллианте"
 	)
-	
+
 
 /obj/item/gem/fdiamond/examine(mob/user)
 	. = ..()
@@ -275,7 +274,7 @@
 		ACCUSATIVE = "стабилизированный бароксильдиум",
 		INSTRUMENTAL = "стабилизированным бароксильдиумом",
 		PREPOSITIONAL = "стабилизированном бароксильдиуме"
-	) 
+	)
 
 //hierophant gem
 /obj/item/gem/purple
@@ -302,7 +301,7 @@
 		PREPOSITIONAL = "уплотненном дилитиуме"
 	)
 
-/obj/item/gem/purple/Initialize()
+/obj/item/gem/purple/Initialize(mapload)
 	. = ..()
 	internal = new /obj/item/gps/internal/purple(src)
 
@@ -481,7 +480,7 @@
 	icon_state = "ruby"
 	var/gem_list = list(/obj/item/gem/ruby, /obj/item/gem/sapphire, /obj/item/gem/emerald, /obj/item/gem/topaz)
 
-/obj/item/gem/random/Initialize(quantity)
+/obj/item/gem/random/Initialize(mapload, quantity)
 	. = ..()
 	var/q = quantity ? quantity : 1
 	for(var/i = 0, i < q, i++)
@@ -492,7 +491,6 @@
 /obj/item/gem/ruby
 	name = "ruby"
 	icon_state = "ruby"
-	point_value = 100
 	simple = TRUE
 	light_color = "#C72414"
 	sell_multiplier = 0.5
@@ -510,7 +508,6 @@
 /obj/item/gem/sapphire
 	name = "sapphire"
 	icon_state = "sapphire"
-	point_value = 100
 	simple = TRUE
 	light_color = "#1726BF"
 	sell_multiplier = 0.5
@@ -528,7 +525,6 @@
 /obj/item/gem/emerald
 	name = "emerald"
 	icon_state = "emerald"
-	point_value = 100
 	simple = TRUE
 	light_color = "#14A73C"
 	sell_multiplier = 0.5
@@ -546,7 +542,6 @@
 /obj/item/gem/topaz
 	name = "topaz"
 	icon_state = "topaz"
-	point_value = 100
 	simple = TRUE
 	light_color = "#C73914"
 	sell_multiplier = 0.5

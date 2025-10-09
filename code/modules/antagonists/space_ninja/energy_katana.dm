@@ -22,12 +22,10 @@
 	throwforce = 20
 	block_chance = 50
 	armour_penetration = 50
-	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил")
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	sharp = TRUE
-	max_integrity = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/action/innate/dash/ninja/jaunt
@@ -50,7 +48,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 1.75, \
 		afterswing_slowdown = 0, \
-		swing_sound = "blade_scifi_swing" \
+		swing_sound = SFX_BLADE_SCIFI_SWING \
 	)
 
 /obj/item/melee/energy_katana/afterattack(atom/target, mob/user, proximity, params)
@@ -66,7 +64,7 @@
 			var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			if(affecting.droplimb())
 				H.UpdateDamageIcon()
-				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, 1)
+				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, TRUE)
 				to_chat(user, span_userdanger("That was a bad idea."))
 				H.emote("scream")
 
@@ -139,7 +137,7 @@
 
 	if(doSpark)
 		spark_system.start()
-		playsound(get_turf(src), "sparks", 50, TRUE, 5)
+		playsound(get_turf(src), SFX_SPARKS, 50, TRUE, 5)
 
 	var/msg = ""
 

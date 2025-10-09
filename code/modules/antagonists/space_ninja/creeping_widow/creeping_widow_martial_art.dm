@@ -1,13 +1,11 @@
- /*
- *Contains:
+/*
+ * Contains:
  * Creeping Widow martial art datum
  * Creeping Widow MMB override datum
  * Creeping Widow injector
 */
 
-
 // Creeping Widow injector - Single use nanomachine thing that teaches people the creeping widow style.
-
 
 /obj/item/creeping_widow_injector
 	name = "strange injector"
@@ -17,15 +15,15 @@
 	attack_verb = list("ткнул", "толкнул")
 	var/used = FALSE
 
-
 /obj/item/creeping_widow_injector/update_icon_state()
 	icon_state = "injector[used ? "-used" : ""]"
 
-
 /obj/item/creeping_widow_injector/attack_self(mob/living/carbon/human/user as mob)
 	if(!used)
-		user.visible_message("<span class='warning'>You stick the [src]'s needle into your arm and press the button.", \
-			  "<span class='warning'>[user] sticks the [src]'s needle [user.p_their()] arm and presses the button.")
+		user.visible_message(
+			"<span class='warning'>You stick the [src]'s needle into your arm and press the button.", \
+			"<span class='warning'>[user] sticks the [src]'s needle [user.p_their()] arm and presses the button."
+		)
 		to_chat(user, span_notice("The nanomachines in the [src] flow through your bloodstream."))
 
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
@@ -36,7 +34,7 @@
 		desc = "A strange autoinjector made of a black metal.<br>It appears to be used up and empty."
 		return FALSE
 
-	to_chat(user, "<span class='warning'>The [src] has been used already!</span>")
+	to_chat(user, span_warning("The [src] has been used already!"))
 	return TRUE
 
 // Ninja martial art datum
@@ -44,10 +42,12 @@
 /datum/martial_art/ninja_martial_art
 	name = "Creeping Widow"
 	weight = 10
-	combos = list(	/datum/martial_combo/ninja_martial_art/energy_tornado,
-					/datum/martial_combo/ninja_martial_art/palm_strike,
-					/datum/martial_combo/ninja_martial_art/wrench_wrist,
-					/datum/martial_combo/ninja_martial_art/neck_slice)
+	combos = list(
+		/datum/martial_combo/ninja_martial_art/energy_tornado,
+		/datum/martial_combo/ninja_martial_art/palm_strike,
+		/datum/martial_combo/ninja_martial_art/wrench_wrist,
+		/datum/martial_combo/ninja_martial_art/neck_slice
+	)
 	has_explaination_verb = TRUE
 	reflection_chance = 50
 	grab_speed = 2 SECONDS
@@ -68,17 +68,17 @@
 		[span_green("To use your moves you must have focus!")] <br> Your focus passively regenerates over time.<br>\
 		To learn more about it, check the Martial Arts tab."))
 
-/datum/martial_art/ninja_martial_art/harm_act(var/mob/living/carbon/human/attacker, var/mob/living/carbon/human/defender)
+/datum/martial_art/ninja_martial_art/harm_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
 	basic_hit(attacker,defender)
 	return TRUE
 
-/datum/martial_art/ninja_martial_art/disarm_act(var/mob/living/carbon/human/attacker, var/mob/living/carbon/human/defender)
+/datum/martial_art/ninja_martial_art/disarm_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
 	basic_hit(attacker,defender)
 	return TRUE
 
-/datum/martial_art/ninja_martial_art/grab_act(var/mob/living/carbon/human/attacker, var/mob/living/carbon/human/defender)
+/datum/martial_art/ninja_martial_art/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
 	var/old_grab_state = attacker.grab_state
 	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
@@ -91,8 +91,8 @@
 			var/hold_name = "[pick(attack_names)] [pick("grip", "hold", "vise", "press")]"
 			playsound(get_turf(attacker), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 			attacker.do_attack_animation(defender, ATTACK_EFFECT_PUNCH)
-			defender.visible_message("<span class='warning'>[attacker] comes from behind, punches the [defender] in their neck and puts [defender] in a [hold_name]!</span>", \
-							"<span class='userdanger'>[attacker]\ punches you in the neck and puts you in a [hold_name]! You are unable to speak!</span>")
+			defender.visible_message(span_warning("[attacker] comes from behind, punches the [defender] in their neck and puts [defender] in a [hold_name]!"), \
+							span_userdanger("[attacker]\ punches you in the neck and puts you in a [hold_name]! You are unable to speak!"))
 			defender.AdjustSilence(40 SECONDS)
 			defender.apply_damage(20, OXY)
 			defender.apply_damage(5, BRUTE, pick(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH))

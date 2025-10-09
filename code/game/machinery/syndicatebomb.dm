@@ -1,5 +1,5 @@
 #define BUTTON_COOLDOWN 60 // cant delay the bomb forever
-#define BUTTON_DELAY	50 //five seconds
+#define BUTTON_DELAY 50 //five seconds
 
 /obj/machinery/syndicatebomb
 	icon = 'icons/obj/assemblies.dmi'
@@ -7,8 +7,6 @@
 	icon_state = "syndicate-bomb"
 	desc = "A large and menacing device. Can be bolted down with a wrench."
 
-	anchored = FALSE
-	density = FALSE
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	use_power = NO_POWER_USE
@@ -70,7 +68,7 @@
 				volume = 10
 			else
 				volume = 5
-		playsound(loc, beepsound, volume, 0)
+		playsound(loc, beepsound, volume, FALSE)
 		next_beep = world.time + 10
 
 	if(active && !defused && ((detonation_timer <= world.time) || explode_now))
@@ -84,13 +82,13 @@
 		if(payload in src)
 			payload.defuse()
 
-/obj/machinery/syndicatebomb/New()
-	wires	= new(src)
+/obj/machinery/syndicatebomb/Initialize(mapload)
+	. = ..()
+	wires = new(src)
 	if(payload)
 		payload = new payload(src)
 	update_icon(UPDATE_ICON_STATE)
 	countdown = new(src)
-	..()
 
 /obj/machinery/syndicatebomb/Destroy()
 	SStgui.close_uis(wires)
@@ -256,7 +254,7 @@
 	countdown.start()
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)
-	playsound(loc, 'sound/machines/click.ogg', 30, 1)
+	playsound(loc, 'sound/machines/click.ogg', 30, TRUE)
 
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
 	var/new_timer = tgui_input_number(user, "Please set the timer.", "Timer", "[timer_set]")
@@ -314,8 +312,8 @@
 	open_panel = TRUE
 	timer_set = 120
 
-/obj/machinery/syndicatebomb/empty/New()
-	..()
+/obj/machinery/syndicatebomb/empty/Initialize(mapload)
+	. = ..()
 	wires.cut_all()
 
 /obj/machinery/syndicatebomb/self_destruct
@@ -343,7 +341,6 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bombcore"
 	item_state = "eshield0"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "syndicate=3;combat=6"
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
@@ -353,7 +350,7 @@
 	var/range_flame = 17
 	var/admin_log = TRUE
 
-/obj/item/bombcore/ex_act(severity) //Little boom can chain a big boom
+/obj/item/bombcore/ex_act(severity, target) //Little boom can chain a big boom
 	detonate()
 
 
@@ -365,12 +362,13 @@
 	if(adminlog)
 		message_admins(adminlog)
 		add_game_logs(adminlog)
-	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, cause = fingerprintslast)
+	explosion(get_turf(src), devastation_range = range_heavy, heavy_impact_range = range_medium, light_impact_range = range_light, flame_range = range_flame, adminlog = admin_log, cause = fingerprintslast)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
 
 /obj/item/bombcore/proc/defuse()
+	return
 //Note:	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
 //			otherwise remove the core/reset the wires before the end of defuse(). It will repeatedly be called otherwise.
 
@@ -477,7 +475,7 @@
 	var/pulse_number = 1 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
 	var/adminlogged = FALSE //If it exploded once, don't do it again.
 
-/obj/item/bombcore/emp/ex_act(severity) //It's an EMP bomb, not a chemical explosive
+/obj/item/bombcore/emp/ex_act(severity, target) //It's an EMP bomb, not a chemical explosive
 	return
 
 /obj/item/bombcore/emp/burn()
@@ -556,7 +554,7 @@
 		message_admins(adminlog)
 		add_game_logs(adminlog)
 
-	playsound(loc, 'sound/effects/bamf.ogg', 75, 1, 5)
+	playsound(loc, 'sound/effects/bamf.ogg', 75, TRUE, 5)
 
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
@@ -677,7 +675,7 @@
 	return FALSE
 
 
-/obj/item/bombcore/toxins/ex_act(severity) //No chain reactions, the explosion only occurs when gas mixes
+/obj/item/bombcore/toxins/ex_act(severity, target) //No chain reactions, the explosion only occurs when gas mixes
 	return
 
 /obj/item/bombcore/toxins/burn()
@@ -708,7 +706,7 @@
 				B.detonation_timer = world.time + BUTTON_DELAY
 				detonated++
 			existant++
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
+		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 		to_chat(user, span_notice("[existant] found, [detonated] triggered."))
 		if(detonated)
 			var/turf/T = get_turf(src)

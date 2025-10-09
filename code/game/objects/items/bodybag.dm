@@ -68,7 +68,6 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	density = FALSE
-	integrity_failure = 50
 	pull_push_slowdown = 0
 	ignore_density_closed = TRUE
 	var/foldedbag_path = /obj/item/bodybag
@@ -175,6 +174,8 @@
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/machinery/crematorium)))
 		if(!open())
 			loc.balloon_alert(user, "не поддаётся!")
+			to_chat(user, span_notice("It won't budge!"))
+
 
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
 	return FALSE //Can't be weldled under any circumstances.
@@ -222,7 +223,6 @@
 	desc = "Сложенный блюспейс мешок, предназначенный для хранения и транспортировки трупов."
 	icon_state = "bluebag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/bluespace
-	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/bodybag/bluespace/get_ru_names()

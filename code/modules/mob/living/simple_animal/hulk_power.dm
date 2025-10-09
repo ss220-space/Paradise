@@ -5,7 +5,6 @@
 	desc = "Превращение в халка."
 	action_icon_state = "transformarion_hulk"
 	action_background_icon_state = "bg_hulk"
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
 
@@ -16,12 +15,12 @@
 
 /obj/effect/proc_holder/spell/hulk_transform/cast(list/targets, mob/user = usr)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(user, "<span class='warning'>Not enough angry power.")
+		to_chat(user, span_warning("Not enough angry power."))
 		return
 	if(istype(user,/mob/living/simple_animal/hulk))
-		to_chat(user, "<span class='warning'>You are already hulk.")
+		to_chat(user, span_warning("You are already hulk."))
 		return
-	to_chat(user, "<span class='bold notice'>You can feel real POWER.</span>")
+	to_chat(user, span_boldnotice("You can feel real POWER."))
 	if(istype(user.loc, /obj/machinery/dna_scannernew))
 		var/obj/machinery/dna_scannernew/DSN = loc
 		DSN.occupant = null
@@ -65,19 +64,19 @@
 /obj/effect/proc_holder/spell/hulk_dash/cast(list/targets, mob/living/user)
 	var/turf/T = get_turf(get_step(user,user.dir))
 	for(var/mob/living/M in T.contents)
-		to_chat(user, "<span class='warning'>Something right in front of you!</span>")
+		to_chat(user, span_warning("Something right in front of you!"))
 		return
 	T = get_turf(get_step(T,user.dir))
 	for(var/mob/living/M in T.contents)
-		to_chat(user, "<span class='warning'>Something right in front of you!</span>")
+		to_chat(user, span_warning("Something right in front of you!"))
 		return
 
 	var/failure = 0
 	if(ismob(user.loc) || user.incapacitated() || user.buckled)
-		to_chat(user, "<span class='warning'>You can't dash right now!</span>")
+		to_chat(user, span_warning("You can't dash right now!"))
 		return
 
-	if (istype(user.loc,/turf) && !(isspaceturf(user.loc)))
+	if(istype(user.loc,/turf) && !(isspaceturf(user.loc)))
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)
 				M.stop_pulling()
@@ -87,9 +86,11 @@
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
 			user.Weaken(4 SECONDS)
-			user.visible_message("<span class='warning'> \the [user] attempts to dash away but was interrupted!</span>",
-								"<span class='warning'>You attempt to dash but suddenly interrupted!</span>",
-								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
+			user.visible_message(
+				span_warning("[user] attempts to dash away but was interrupted!"),
+				span_warning("You attempt to dash but suddenly interrupted!"),
+				span_notice("You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.")
+			)
 			return 0
 
 		user.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
@@ -116,7 +117,7 @@
 				if(isfloorturf(T))
 					for(var/obj/structure/S in T.contents)
 						if(istype(S,/obj/structure/window))
-							S.ex_act(2)
+							S.ex_act(EXPLODE_HEAVY)
 						if(istype(S,/obj/structure/grille))
 							qdel(S)
 				if(iswallturf(T))
@@ -191,12 +192,12 @@
 		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_UNDENSE), UNIQUE_TRAIT_SOURCE(src))
 		user.layer = prevLayer
 	else
-		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")
+		to_chat(user, span_warning("You need a ground to do this!"))
 		return
 
-	if (isobj(user.loc))
+	if(isobj(user.loc))
 		var/obj/container = user.loc
-		to_chat(user, "<span class='warning'>You dash and slam your head against the inside of [container]! Ouch!</span>")
+		to_chat(user, span_warning("You dash and slam your head against the inside of [container]! Ouch!"))
 		user.Paralyse(6 SECONDS)
 		user.Weaken(10 SECONDS)
 		container.visible_message("<span class='warning'><b>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
@@ -233,14 +234,14 @@
 		return
 
 	if(ismob(user.loc) || user.incapacitated() || user.buckled)
-		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
+		to_chat(user, span_warning("You can't jump right now!"))
 		return
 	var/turf/turf_to_check = get_turf(user)
 	if(user.can_z_move(DOWN, turf_to_check))
 		to_chat(user, span_warning("You need a ground to jump from!"))
 		return
 
-	if (istype(user.loc,/turf) && !(isspaceturf(user.loc)))
+	if(istype(user.loc,/turf) && !(isspaceturf(user.loc)))
 
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)
@@ -250,9 +251,11 @@
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
 			user.Weaken(10 SECONDS)
-			user.visible_message("<span class='warning'> \the [user] attempts to leap away but is slammed back down to the ground!</span>",
-								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
-								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
+			user.visible_message(
+				span_warning("=[user] attempts to leap away but is slammed back down to the ground!"),
+				span_warning("=You attempt to leap away but are suddenly slammed back down to the ground!"),
+				span_notice("=You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.")
+			)
 			return 0
 
 		user.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
@@ -294,7 +297,7 @@
 		for(var/direction in GLOB.alldirs)
 			var/turf/turf_neighbor = get_step(user,direction)
 			for(var/mob/living/M in turf_neighbor.contents)
-				if( (M != user) && !(M.stat))
+				if((M != user) && !(M.stat))
 					if(snd)
 						snd = 0
 						playsound(M, 'sound/misc/slip.ogg', CHANNEL_BUZZ)
@@ -306,12 +309,12 @@
 		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_UNDENSE), UNIQUE_TRAIT_SOURCE(src))
 		user.layer = prevLayer
 	else
-		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")
+		to_chat(user, span_warning("You need a ground to do this!"))
 		return
 
-	if (isobj(user.loc))
+	if(isobj(user.loc))
 		var/obj/container = user.loc
-		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
+		to_chat(user, span_warning("You leap and slam your head against the inside of [container]! Ouch!"))
 		user.Paralyse(6 SECONDS)
 		user.Weaken(10 SECONDS)
 		container.visible_message("<span class='warning'><b>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
@@ -347,8 +350,8 @@
 
 
 /obj/effect/proc_holder/spell/hulk_honk/cast(list/targets, mob/user)
-	if (user.incapacitated())
-		to_chat(user, "<span class='red'>You can't right now!</span>")
+	if(user.incapacitated())
+		to_chat(user, span_red("You can't right now!"))
 		return
 	playsound(user, 'sound/items/airhorn.ogg', CHANNEL_BUZZ)
 	for(var/mob/living/carbon/M in ohearers(2))
@@ -389,7 +392,7 @@
 
 /obj/effect/proc_holder/spell/hulk_joke/cast(list/targets,mob/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't right now!</span>")
+		to_chat(user, span_warning("You can't right now!"))
 		return
 
 	var/mob/living/simple_animal/hulk/clown_hulk = user
@@ -452,7 +455,6 @@
 //Harchok
 /obj/projectile/energy/hulkspit
 	name = "spit"
-	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "neurotoxin"
 	damage = 15
 	damage_type = TOX
@@ -472,10 +474,9 @@
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"
 	selection_activated_message	= "<span class='notice'>Your prepare to spit fire! <b>Left-click to spit at a target!</b></span>"
-	selection_deactivated_message = "<span class='notice'>You swallow your spit...for now.</span>"
+	selection_deactivated_message = span_notice("You swallow your spit...for now.")
 	fireball_type = /obj/projectile/energy/hulkspit
 	base_cooldown = 25 SECONDS
-	human_req = FALSE
 	need_active_overlay = TRUE
 
 
@@ -496,7 +497,7 @@
 	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
 	action_icon_state = "lazer_hulk"
 	selection_activated_message	= "<span class='notice'>You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b></span>"
-	selection_deactivated_message = "<span class='notice'>You relax your eyes...for now.</span>"
+	selection_deactivated_message = span_notice("You relax your eyes...for now.")
 	fireball_type = /obj/projectile/beam
 	base_cooldown = 7 SECONDS
 	sound = 'sound/weapons/laser.ogg'

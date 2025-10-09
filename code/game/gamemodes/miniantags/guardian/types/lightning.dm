@@ -1,6 +1,4 @@
 /mob/living/simple_animal/hostile/guardian/beam
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 	attacktext = "бьёт током"
 	melee_damage_type = BURN
 	attack_sound = 'sound/machines/defib_zap.ogg'
@@ -82,7 +80,7 @@
 			var/turf/T = get_turf_pixel(chainpart)
 			turfs |= T
 			if(T != get_turf(B.origin) && T != get_turf(B.target))
-				for(var/turf/TU in circlerange(T, 1))
+				for(var/turf/TU in circle_range(T, 1))
 					turfs |= TU
 	for(var/turf in turfs)
 		var/turf/T = turf
@@ -101,6 +99,6 @@
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)
-    if(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE))
-        REMOVE_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
-    return ..()
+	if(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE))
+		REMOVE_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
+	return ..()

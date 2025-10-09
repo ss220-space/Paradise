@@ -156,7 +156,7 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 	var/list/our_atoms = init_list // OURS NOW!!! (Keeping this list to ourselves will prevent hijack)
 	init_list = list()
 	var/watch = start_watch()
-	listclearnulls(our_atoms)
+	list_clear_nulls(our_atoms)
 	var/list/late_maps = typecache_filter_list(our_atoms, GLOB.maploader_typecache)
 	var/list/pipes = typecache_filter_list(our_atoms, GLOB.atmos_machine_typecache)
 	var/list/cables = typecache_filter_list(our_atoms, GLOB.cable_typecache)

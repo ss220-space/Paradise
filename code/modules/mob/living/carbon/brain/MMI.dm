@@ -3,7 +3,6 @@
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3"
 	origin_tech = "biotech=2;programming=3;engineering=2"
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
@@ -139,23 +138,27 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(!radio)
-		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
+		to_chat(user, span_warning("There is no radio in [src]!"))
 		return
-	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-							 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
+	user.visible_message(
+		span_warning("[user] begins to uninstall the radio from [src]..."), \
+		span_notice("You start to uninstall the radio from [src]...")
+	)
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
-	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-						 "<span class='notice'>You uninstall the radio from [src].</span>")
+	user.visible_message(
+		span_warning("[user] uninstalls the radio from [src]."), \
+		span_notice("You uninstall the radio from [src].")
+	)
 
 
 /obj/item/mmi/attack_self(mob/user)
 	if(!brainmob)
-		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
+		to_chat(user, span_warning("You upend the MMI, but there's nothing in it."))
 	else
-		to_chat(user, "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>")
+		to_chat(user, span_notice("You unlock and upend the MMI, spilling the brain onto the floor."))
 		dropbrain(get_turf(user))
 
 
@@ -181,10 +184,10 @@
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
-/obj/item/mmi/proc/dropbrain(var/turf/dropspot)
+/obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
 		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
-		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
+		to_chat(brainmob, span_userdanger("Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!"))
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
 		held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
@@ -205,11 +208,11 @@
 /obj/item/mmi/examine(mob/user)
 	. = ..()
 	if(radio)
-		. += "<span class='notice'>A radio is installed on [src].</span>"
+		. += span_notice("A radio is installed on [src].")
 
 /obj/item/mmi/proc/install_radio()
 	radio = new(src)
-	radio.broadcasting = TRUE
+	radio.set_broadcasting(TRUE)
 	radio_action = new(radio, src)
 	if(brainmob && brainmob.loc == src)
 		radio_action.Grant(brainmob)
@@ -264,7 +267,13 @@
 /obj/item/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
-	ru_names = list(
+	gender = MALE
+	origin_tech = "biotech=4;programming=4;syndicate=2"
+	syndiemmi = 1
+	var/datum/action/innate/overdrive/overdrive = new
+
+/obj/item/mmi/syndie/get_ru_names()
+	return list(
 		NOMINATIVE = "НКИ Синдиката",
 		GENITIVE = "НКИ Синдиката",
 		DATIVE = "НКИ Синдиката",
@@ -272,10 +281,6 @@
 		INSTRUMENTAL = "НКИ Синдиката",
 		PREPOSITIONAL = "НКИ Синдиката"
 	)
-	gender = MALE
-	origin_tech = "biotech=4;programming=4;syndicate=2"
-	syndiemmi = 1
-	var/datum/action/innate/overdrive/overdrive = new
 
 /obj/item/mmi/syndie/apply_effects(mob/living/silicon/robot/borg)
 	if(!overdrive.used)
@@ -287,8 +292,8 @@
 	return TRUE
 
 /obj/item/mmi/syndie/Destroy()
-    QDEL_NULL(overdrive)
-    return ..()
+	QDEL_NULL(overdrive)
+	return ..()
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!brainmob)
@@ -305,7 +310,7 @@
 	holder.update_from_mmi()
 	if(brainmob && brainmob.mind)
 		brainmob.mind.transfer_to(target)
-	holder.insert(target)
+	holder.insert(target, ORGAN_MANIPULATION_NOEFFECT)
 	return TRUE
 
 

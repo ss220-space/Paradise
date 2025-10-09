@@ -2,8 +2,6 @@
 
 /datum/status_effect/crusher_damage //tracks the damage dealt to this mob by kinetic crushers
 	id = "crusher_damage"
-	duration = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/total_damage = 0
 
@@ -46,7 +44,6 @@
 /datum/status_effect/staring
 	id = "staring"
 	alert_type = null
-	status_type = STATUS_EFFECT_UNIQUE
 	var/mob/living/target
 	var/target_gender
 	var/target_species
@@ -114,7 +111,7 @@
 			user.visible_message(span_biggerdanger("<b>[user.name]</b> и <b>[check.name]</b> [critical_success]"))
 			ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 			ADD_TRAIT(check, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
-			explosion(get_turf(user), 5, 2, 1, 3, cause = id)
+			explosion(get_turf(user), devastation_range = 5, heavy_impact_range = 2, light_impact_range = 1, flash_range = 3, cause = id)
 			// explosions have a spawn so this makes sure that we don't get gibbed
 			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, check), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
 			add_attack_logs(user, check, "caused a wizard [id] explosion")
@@ -382,9 +379,7 @@
 
 /datum/status_effect/leaning
 	id = "leaning"
-	duration = -1
 	tick_interval = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/leaning
 
 /datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)

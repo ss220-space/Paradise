@@ -1,0 +1,71 @@
+[
+
+	{
+		//это наша первая сабмапа.
+		"type": "SubmapExtractInsert", //эта строка всегда должна быть одинаковая для всех наших карт.
+		"submap_size_x" : 11, //размер нашей карты по длине
+		"submap_size_y" : 6, //размер нашей карты по ширине
+		"submap_size_z" : 1, //размер нашей карты по высоте
+		"submaps_dmm" : "_maps/map_files/Delta/submaps/botany_room.dmm", // название файла с нашей картой. Лучше прописывайте весь путь
+		"marker_extract" : "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room",
+		"marker_insert" : "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/botany_room",
+		"submaps_can_repeat" : true //оставьте как есть.
+	},
+
+    {
+		//это вторая сабмапа.
+        "type": "SubmapExtractInsert",
+        "submap_size_x": 9,
+        "submap_size_y": 9,
+        "submap_size_z": 1,
+        "submaps_dmm": "_maps/map_files/Delta/submaps/maints_med_viro_passage.dmm",
+        "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_med_viro_passage",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/maints_med_viro_passage",
+        "submaps_can_repeat": true
+    },
+
+	{
+		"type": "SubmapExtractInsert",
+        "submap_size_x": 12,
+        "submap_size_y": 6,
+        "submap_size_z": 1,
+        "submaps_dmm": "_maps/map_files/Delta/submaps/dorm_maints_near_toilet.dmm",
+        "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/dorm_maints_near_toilet",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/dorm_maints_near_toilet",
+        "submaps_can_repeat": true
+	},
+
+	{
+		"type": "SubmapExtractInsert",
+        "submap_size_x": 15,
+        "submap_size_y": 9,
+        "submap_size_z": 1,
+        "submaps_dmm": "_maps/map_files/Delta/submaps/old_sm_room.dmm",
+        "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_sm_room",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_sm_room",
+		"submaps_can_repeat": true
+	},
+
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x" : 9,
+		"submap_size_y" : 6,
+		"submap_size_z" : 1,
+		"submaps_dmm": "_maps/map_files/Delta/submaps/clown_mime_gambit.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/clown_mime",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/clown_mime",
+        "submaps_can_repeat": true
+	},
+
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x" : 5,
+		"submap_size_y" : 6,
+		"submap_size_z" : 1,
+		"submaps_dmm": "_maps/map_files/Delta/submaps/old_dorm_room.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_doorm_room",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_doorm_room",
+        "submaps_can_repeat": true
+	}
+
+]

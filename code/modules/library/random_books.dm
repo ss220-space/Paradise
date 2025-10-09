@@ -16,7 +16,7 @@
 	var/amount = 1
 	var/category = null
 
-/obj/item/book/random/Initialize()
+/obj/item/book/random/Initialize(mapload)
 	. = ..()
 	create_random_books(amount, src.loc, TRUE, category)
 	return INITIALIZE_HINT_QDEL
@@ -28,9 +28,8 @@
 	var/category = null
 	var/book_count = 2
 	icon_state = "random_bookcase"
-	anchored = TRUE
 
-/obj/structure/bookcase/random/Initialize()
+/obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
 	if(!book_count || !isnum(book_count))
 		update_icon()

@@ -35,6 +35,11 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
+	var/list/localMotionTargets = list()
+	var/detectTime = 0
+	/// Don't forget, there's another 3 seconds in queueAlarm()
+	var/alarm_delay = 30
+
 /obj/machinery/camera/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	. = ..()
 	wires = new(src)
@@ -102,17 +107,17 @@
 
 	cancelCameraAlarm()
 
-/obj/machinery/camera/ex_act(severity)
+/obj/machinery/camera/ex_act(severity, target)
 	if(invuln)
 		return
-	..()
+	return ..()
 
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num
 	GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
-	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
+	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
 	..()
 
@@ -166,7 +171,7 @@
 		for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 			if(AI.control_disabled || (AI.stat == DEAD))
 				continue
-			if(user.name == "Unknown")
+			if(user.name == UNKNOWN_NAME_RUS)
 				to_chat(AI, "<b>[user]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
 			else
 				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
@@ -174,7 +179,7 @@
 			AI.last_paper_seen_title = itemname
 
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
-			for(var/uid_watcher as anything in console.concurrent_users)
+			for(var/uid_watcher in console.concurrent_users)
 				var/watcher = locateUID(uid_watcher)
 				to_chat(watcher, "[user] holds the [itemname] up to one of the cameras ...")
 				var/datum/browser/popup = new(watcher, itemname, itemname)
@@ -221,8 +226,10 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message(span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
-						span_warning("You unweld [src], leaving it as just a frame bolted to the wall"))
+		visible_message(
+			span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+			span_warning("You unweld [src], leaving it as just a frame bolted to the wall")
+		)
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -329,7 +336,7 @@
 	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if (!alarm_on) // you don't have to turn off alarm twice
+	if(!alarm_on) // you don't have to turn off alarm twice
 		return
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
@@ -351,7 +358,7 @@
 	if(isXRay())
 		see = range(view_range, pos)
 	else
-		see = hear(view_range, pos)
+		see = get_hear(view_range, pos)
 	if(check_lower || check_higher)
 		for(var/turf/seen in see)
 			if(check_lower)
@@ -479,13 +486,12 @@
 /obj/machinery/camera/mortar
 	alpha = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = FALSE
 	invuln = TRUE
 	network = list("mortar")
 	use_power = NO_POWER_USE
 	interact_offline = TRUE
 
-/obj/machinery/camera/mortar/Initialize()
+/obj/machinery/camera/mortar/Initialize(mapload)
 	c_tag = "Para-Cam ([x]):([y])"
 	. = ..()
 	QDEL_IN(src, 3 MINUTES)

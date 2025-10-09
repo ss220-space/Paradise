@@ -6,7 +6,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 */
 /obj/machinery/r_n_d/circuit_imprinter
 	name = "Circuit Imprinter"
-	desc = "Manufactures circuit boards for the construction of machines."
+	desc = "Машина, предназначенное для печати плат различных устройств."
 	icon_state = "circuit_imprinter"
 	base_icon_state = "circuit_imprinter"
 	container_type = OPENCONTAINER
@@ -26,8 +26,18 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	reagents = new()
 
-/obj/machinery/r_n_d/circuit_imprinter/New()
-	..()
+/obj/machinery/r_n_d/circuit_imprinter/get_ru_names()
+	return list(
+		NOMINATIVE = "принтер плат",
+		GENITIVE = "принтера плат",
+		DATIVE = "принтеру плат",
+		ACCUSATIVE = "принтер плат",
+		INSTRUMENTAL = "принтером плат",
+		PREPOSITIONAL = "принтере плат",
+	)
+
+/obj/machinery/r_n_d/circuit_imprinter/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -40,8 +50,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		base_icon_state = "syndie_circuit_imprinter"
 	reagents.my_atom = src
 
-/obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
-	..()
+/obj/machinery/r_n_d/circuit_imprinter/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -107,7 +117,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
 	if(. && linked_console)
 		linked_console.linked_imprinter = null
 		linked_console = null

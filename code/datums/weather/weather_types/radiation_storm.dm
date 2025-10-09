@@ -9,7 +9,6 @@
 	weather_message = span_userdanger("<i>You feel waves of heat wash over you! Find shelter!</i>")
 	weather_overlay = "ash_storm"
 	weather_duration_lower = 600
-	weather_duration_upper = 1500
 	weather_color = "green"
 	weather_sound = 'sound/misc/bloblarm.ogg'
 
@@ -18,8 +17,9 @@
 	var/pre_maint_all_access
 	area_type = /area
 	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle)
-	target_trait = STATION_LEVEL
+	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle,
+	/area/coldcolony/malta/maintenance, /area/coldcolony/malta/turret_protected, /area/coldcolony/malta/outer/roadblock, /area/coldcolony/malta/resid_serv/crew_quarters/sleep,
+	/area/coldcolony/malta/security/brig, /area/coldcolony/malta/security/securehallway, /area/coldcolony/malta/hallway/cargo_escape/exit)
 
 	immunity_type = TRAIT_RADSTORM_IMMUNE
 
@@ -67,13 +67,15 @@
 
 	status_alarm(FALSE)
 	if(pre_maint_all_access)
-		GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места. Доступ к дверям будет немедленно восстановлен.",
-										ANNOUNCE_ANOMALY_RU
+		GLOB.minor_announcement.announce(
+			message = "Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места. Доступ к дверям будет немедленно восстановлен.",
+			new_title = ANNOUNCE_ANOMALY_RU
 		)
 		return
 
-	GLOB.minor_announcement.announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.",
-									ANNOUNCE_ANOMALY_RU
+	GLOB.minor_announcement.announce(
+		message = "Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.",
+		new_title = ANNOUNCE_ANOMALY_RU
 	)
 	addtimer(CALLBACK(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.
 

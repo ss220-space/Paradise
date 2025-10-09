@@ -1,6 +1,6 @@
 /datum/element/devil_regeneration
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 
 	var/linked_timer
 	var/regen_cycles_count = 0
@@ -154,7 +154,7 @@
 		organ.unnecrotize()
 		organ.heal_internal_damage(regen_amount, robo_repair = organ.is_robotic())
 
-	for(var/datum/reagent/reagent as anything in human.reagents.reagent_list)
+	for(var/datum/reagent/reagent as anything in human.reagents?.reagent_list)
 		if(reagent.devil_regen_ignored)
 			continue
 		human.reagents.remove_reagent(reagent, min(reagent.volume, regen_amount))

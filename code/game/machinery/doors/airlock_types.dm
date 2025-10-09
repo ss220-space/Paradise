@@ -152,7 +152,7 @@
 	paintable = FALSE
 	var/event_step = 20
 
-/obj/machinery/door/airlock/uranium/Initialize()
+/obj/machinery/door/airlock/uranium/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/radioactivity, \
 				rad_per_cycle = 15, \
@@ -189,8 +189,7 @@
 		DA.glass = TRUE
 	if(heat_proof)
 		DA.heat_proof_finished = TRUE
-	DA.update_icon()
-	DA.update_name()
+	DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 	qdel(src)
 
 
@@ -228,11 +227,11 @@
 /obj/machinery/door/airlock/tranquillite
 	name = "tranquillite airlock"
 	icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
-	doorOpen = null // it's silent!
+/*	doorOpen = null // it's silent!
 	doorClose = null
 	doorDeni = null
 	boltUp = null
-	boltDown = null
+	boltDown = null*/
 	paintable = FALSE
 
 /obj/machinery/door/airlock/sandstone
@@ -505,7 +504,6 @@
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
 	paintable = FALSE
-	smoothing_groups = SMOOTH_GROUP_AIRLOCK
 
 /obj/machinery/door/airlock/shuttle/glass
 	opacity = FALSE
@@ -563,13 +561,13 @@
 	overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult_fake
 
-/obj/machinery/door/airlock/cult_fake/Initialize()
+/obj/machinery/door/airlock/cult_fake/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_runed_icon_file
 	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
 	update_icon()
 
-/obj/machinery/door/airlock/cult/Initialize()
+/obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_runed_icon_file
 	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
@@ -636,7 +634,7 @@
 	glass = TRUE
 	opacity = FALSE
 
-/obj/machinery/door/airlock/cult/glass/Initialize()
+/obj/machinery/door/airlock/cult/glass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -649,7 +647,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult/unruned
 	openingoverlaytype = /obj/effect/temp_visual/cult/door/unruned
 
-/obj/machinery/door/airlock/cult/unruned/Initialize()
+/obj/machinery/door/airlock/cult/unruned/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_unruned_icon_file
 	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file
@@ -662,7 +660,7 @@
 	glass = TRUE
 	opacity = FALSE
 
-/obj/machinery/door/airlock/cult/unruned/glass/Initialize()
+/obj/machinery/door/airlock/cult/unruned/glass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -693,7 +691,7 @@
 	/// Will the door let anyone through
 	var/friendly = FALSE
 
-/obj/machinery/door/airlock/clockwork/Initialize()
+/obj/machinery/door/airlock/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/door(get_turf(src))
 
@@ -791,7 +789,6 @@
 	name = "evil looking maintenance airlock"
 	icon = 'icons/obj/doors/airlocks/syndicate/maintenance.dmi'
 	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_maint
-	normal_integrity = 300
 
 /obj/machinery/door/airlock/syndicate/maintenance/glass
 	opacity = FALSE

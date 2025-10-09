@@ -100,16 +100,30 @@
 		JOB_MIN_AGE_COMMAND = 20,
 	)
 
+	autohiss_basic_map = list(
+			"z" = list("zz", "zzz", "zzzz"),
+			"v" = list("vv", "vvv", "vvvv"),
+			"з" = list("зз", "ззз", "зззз"),
+			"в" = list("вв", "ввв", "вввв")
+		)
+	autohiss_extra_map = list(
+			"s" = list("z", "zs", "zzz", "zzsz"),
+			"с" = list("з", "зс", "ззз", "ззсз")
+		)
+	autohiss_exempt = list("Хитин")
+
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
 
 /datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	add_verb(H, list(/mob/living/carbon/human/proc/emote_click,
-					/mob/living/carbon/human/proc/emote_clack,
-			  		/mob/living/carbon/human/proc/emote_wiggle,
-			  		/mob/living/carbon/human/proc/emote_wave_k))
+	add_verb(H, list(
+		/mob/living/carbon/human/proc/emote_click,
+		/mob/living/carbon/human/proc/emote_clack,
+		/mob/living/carbon/human/proc/emote_wiggle,
+		/mob/living/carbon/human/proc/emote_wave_k
+	))
 	remove_verb(H, list(
 		/mob/living/carbon/human/verb/emote_pale,
 		/mob/living/carbon/human/verb/emote_blink,
@@ -122,10 +136,11 @@
 		/mob/living/carbon/human/verb/emote_eyebrow,
 		/mob/living/carbon/human/verb/emote_frown,
 		/mob/living/carbon/human/verb/emote_sniff,
-		/mob/living/carbon/human/verb/emote_glare))
+		/mob/living/carbon/human/verb/emote_glare
+	))
 	// HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
-	kidan_hud.add_hud_to(H)
+	kidan_hud.show_to(H)
 
 	// Action for creating pheromones
 	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in H.actions
@@ -157,7 +172,7 @@
 
 	// Removing the HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
-	kidan_hud.remove_hud_from(H)
+	kidan_hud.hide_from(H)
 
 	// Removing the action for creating pheromones
 	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in H.actions
@@ -187,7 +202,7 @@
 	// Add itself to the kidan hud
 	prepare_huds()
 	for(var/datum/atom_hud/kidan_pheromones/kidan_hud in GLOB.huds)
-		kidan_hud.add_to_hud(src)
+		kidan_hud.add_atom_to_hud(src)
 	var/image/holder = hud_list[KIDAN_PHEROMONES_HUD]
 	holder.icon = icon
 	holder.icon_state = icon_state
@@ -260,7 +275,7 @@
 			// Encode the message
 			var/message_to_encode = tgui_input_text(H, "Какое сообщение вы хотите закодировать? (макс. [maximum_message_length] символов). Оставьте пустым, чтобы отменить.", "Создать феромоны")
 			if(!message_to_encode)
-				H.balloon_alert(H, "отменено.")
+				H.balloon_alert(H, "отменено")
 				return
 			if(length(message_to_encode) > maximum_message_length)
 				H.balloon_alert(H, "превышен предел символов")

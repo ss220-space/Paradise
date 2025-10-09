@@ -51,10 +51,6 @@
 	slash_strength = 25
 	stamina_damage = 20
 	self_stamina_damage = 5
-	damage_type = BURN
-	slash_sound = 'sound/weapons/blade1.ogg'
-	sound_on = 'sound/weapons/saberon.ogg'
-	sound_off = 'sound/weapons/saberoff.ogg'
 	icon_state = "tailimplant_laserred"
 	origin_tech = "materials=6;combat=5;biotech=5;powerstorage=3;syndicate=2;"
 
@@ -69,7 +65,7 @@
 
 	if(owner)
 		to_chat(owner, span_warning("Имплант лезвия отключился от воздействия ЭМИ!"))
-		do_sparks(3, 0, owner)
+		do_sparks(3, FALSE, owner)
 		owner.update_action_buttons()
 
 	implant_emp_downtime = TRUE
@@ -146,7 +142,6 @@
 
 /datum/action/innate/tail_cut
 	name = "Взмах хвостом"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "tail_cut"
 	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE
 
@@ -186,8 +181,10 @@
 				var/target_armor = C.run_armor_check(E, MELEE)
 				C.apply_damage(damage_deal, type_of_damage, E, target_armor, TRUE)
 				C.apply_damage(active_implant ? implant.stamina_damage : 0, STAMINA)
-				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
-					 span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
+				user.visible_message(
+					span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
+					span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!")
+				)
 
 				var/all_objectives = user?.mind?.get_all_objectives()
 				if(C.mind && all_objectives)
@@ -204,8 +201,10 @@
 
 		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
-			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), \
-								 span_danger("Вы теряете равновесие!"))
+			user.visible_message(
+				span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"),
+				span_danger("Вы теряете равновесие!")
+			)
 			return
 
 		if(user.getStaminaLoss() >= 60)

@@ -7,18 +7,17 @@
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	flags = CONDUCT
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
-	force = 0
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	req_access = list(ACCESS_ENGINE)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
+	toolbox_radial_menu_compatibility = TRUE
 
 	//RCD for the borgs or not?
 	// If this is a borg RCD we use power instead of matter
@@ -74,7 +73,7 @@
 	var/matter_type = /obj/item/rcd_ammo
 	var/matter_type_large = /obj/item/rcd_ammo/large
 
-/obj/item/rcd/Initialize()
+/obj/item/rcd/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
@@ -350,12 +349,12 @@
 			selected_accesses = get_all_accesses()
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/item/rcd/proc/ui_act_modal(action, list/params)
 	. = TRUE
 	switch(ui_modal_act(src, action, params))
@@ -447,7 +446,7 @@
  * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
  */
 /obj/item/rcd/proc/detonate_pulse_explode()
-	explosion(src, 0, 0, 3, 1, flame_range = 1, cause = "AI detonate RCD")
+	explosion(src, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flame_range = 1, adminlog = TRUE, cause = "AI detonate RCD")
 	qdel(src)
 
 /obj/item/rcd/preloaded
@@ -461,7 +460,7 @@
 	matter = RCD_MATTER_500
 	canRwall = TRUE
 
-/obj/item/rcd/combat/Initialize()
+/obj/item/rcd/combat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 

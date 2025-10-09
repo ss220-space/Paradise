@@ -80,7 +80,7 @@
 	force = 0
 	attack_verb = list("заджазил", "затрубил")
 
-/obj/item/instrument/trumpet/spectral/Initialize()
+/obj/item/instrument/trumpet/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -101,12 +101,10 @@
 /obj/item/instrument/saxophone/spectral
 	name = "spectral saxophone"
 	desc = "This spooky sound will be sure to leave mortals in bones."
-	icon_state = "saxophone"
-	item_state = "saxophone"
 	force = 0
 	attack_verb = list("заджазил", "засаксил")
 
-/obj/item/instrument/saxophone/spectral/Initialize()
+/obj/item/instrument/saxophone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -127,12 +125,10 @@
 /obj/item/instrument/trombone/spectral
 	name = "spectral trombone"
 	desc = "A skeleton's favorite instrument. Apply directly on the mortals."
-	icon_state = "trombone"
-	item_state = "trombone"
 	force = 0
 
 
-/obj/item/instrument/trombone/spectral/Initialize()
+/obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -178,7 +174,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
 	throw_speed = 3
-	throw_range = 7
 	hitsound = 'sound/items/bikehorn.ogg'
 	allowed_instrument_ids = "bikehorn"
 

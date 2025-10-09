@@ -3,7 +3,6 @@
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "disco0"
-	anchored = FALSE
 	atom_say_verb = "states"
 	density = TRUE
 	var/active = FALSE
@@ -410,7 +409,7 @@
 		for(var/i in 1 to speed)
 			M.setDir(pick(GLOB.cardinal))
 			M.set_resting(!M.resting, instant = TRUE)
-		 time--
+		time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
 	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
@@ -476,7 +475,7 @@
 				continue
 
 			rangers[mob] = TRUE
-			mob.playsound_local(get_turf(mob), null, 100, channel = CHANNEL_JUKEBOX, sound = song_played, use_reverb = FALSE)
+			mob.playsound_local(get_turf(mob), null, 100, channel = CHANNEL_JUKEBOX, sound_to_use = song_played, use_reverb = FALSE)
 
 		for(var/mob/mob as anything in rangers)
 			var/mob/living/l_mob = mob
@@ -491,7 +490,7 @@
 		active = FALSE
 		STOP_PROCESSING(SSobj, src)
 		dance_over()
-		playsound(src,'sound/machines/terminal_off.ogg',50,1)
+		playsound(src,'sound/machines/terminal_off.ogg',50, TRUE)
 		update_icon()
 		stop = world.time + 100
 

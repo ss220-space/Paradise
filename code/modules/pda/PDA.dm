@@ -37,7 +37,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
-	light_power = 1
 
 	//Main variables
 	var/owner = null
@@ -95,7 +94,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	var/obj/item/pda/chameleon_skin
 	/// Custom job name used in chameleon PDA.
 	var/fakejob
-	/// Custom PDA name used in update_name()
+	/// Custom PDA name used in update_appearance(UPDATE_NAME)
 	var/custom_name
 	/// Current PDA case
 	var/obj/item/pda_case/current_case
@@ -276,7 +275,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(issilicon(usr))
 		return
 
-	if( can_use(usr) )
+	if(can_use(usr))
 		if(id)
 			remove_id(usr)
 		else
@@ -542,12 +541,12 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
+		M.show_message(span_danger("Your [src] explodes!"), 1)
 
 	if(T)
 		T.hotspot_expose(700,125)
 
-		explosion(T, -1, -1, 2, 3, cause = src)
+		explosion(T, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, cause = src)
 	qdel(src)
 	return
 

@@ -11,14 +11,12 @@
 	use_to_pickup = 1
 	allow_quick_gather = 1
 	allow_quick_empty = 1
-	pickup_all_on_tile = TRUE
 	display_contents_with_number = 1
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
 	var/works_from_distance = 0
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
-	toolspeed = 1
 	usesound = 'sound/items/rped.ogg'
 
 
@@ -32,7 +30,7 @@
 		else
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console. (Attempted range exploit)")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+			to_chat(user, span_notice("ERROR: [M] is out of [src]'s range!"))
 
 
 /obj/item/storage/part_replacer/bluespace
@@ -42,7 +40,6 @@
 	item_state = "BS_RPED"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 400
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 800
 	works_from_distance = 1
 	primary_sound = 'sound/items/pshoom.ogg'
@@ -73,7 +70,7 @@
 		empty_mode -= 1
 		if(empty_mode < 0)
 			empty_mode = 4
-		to_chat(user, "<span class='notice'>[src.name] будет выгружать предметы рангом [empty_mode] и ниже.</span>")
+		to_chat(user, span_notice("[src.name] будет выгружать предметы рангом [empty_mode] и ниже."))
 	else
 		var/turf/T = get_turf(src)
 		hide_from(user)
@@ -85,13 +82,13 @@
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
 	if(alt_sound && prob(3))
-		playsound(src, alt_sound, 40, 1)
+		playsound(src, alt_sound, 40, TRUE)
 	else
-		playsound(src, primary_sound, 40, 1)
+		playsound(src, primary_sound, 40, TRUE)
 
 //Sorts stock parts inside an RPED by their rating.
 //Only use /obj/item/stock_parts/ with this sort proc!
-/proc/cmp_rped_sort(var/obj/item/stock_parts/A, var/obj/item/stock_parts/B)
+/proc/cmp_rped_sort(obj/item/stock_parts/A, obj/item/stock_parts/B)
 	return B.rating - A.rating
 
 /obj/item/stock_parts
@@ -101,7 +98,6 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/rating = 1
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
@@ -160,7 +156,6 @@
 
 /obj/item/stock_parts/scanning_module/adv
 	name = "advanced scanning module"
-	desc = "A compact, high resolution scanning module used in the construction of certain devices."
 	icon_state = "adv_scan_module"
 	origin_tech = "magnets=3"
 	rating = 2
@@ -168,7 +163,6 @@
 
 /obj/item/stock_parts/manipulator/nano
 	name = "nano-manipulator"
-	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "nano_mani"
 	origin_tech = "materials=3;programming=2"
 	rating = 2
@@ -176,7 +170,6 @@
 
 /obj/item/stock_parts/micro_laser/high
 	name = "high-power micro-laser"
-	desc = "A tiny laser used in certain devices."
 	icon_state = "high_micro_laser"
 	origin_tech = "magnets=3"
 	rating = 2
@@ -184,7 +177,6 @@
 
 /obj/item/stock_parts/matter_bin/adv
 	name = "advanced matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "advanced_matter_bin"
 	origin_tech = "materials=3"
 	rating = 2
@@ -210,7 +202,6 @@
 
 /obj/item/stock_parts/manipulator/pico
 	name = "pico-manipulator"
-	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "pico_mani"
 	origin_tech = "materials=4;programming=4;engineering=4"
 	rating = 3
@@ -219,14 +210,12 @@
 /obj/item/stock_parts/micro_laser/ultra
 	name = "ultra-high-power micro-laser"
 	icon_state = "ultra_high_micro_laser"
-	desc = "A tiny laser used in certain devices."
 	origin_tech = "magnets=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
 /obj/item/stock_parts/matter_bin/super
 	name = "super matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "super_matter_bin"
 	origin_tech = "materials=4;engineering=4"
 	rating = 3
@@ -252,7 +241,6 @@
 
 /obj/item/stock_parts/manipulator/femto
 	name = "femto-manipulator"
-	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "femto_mani"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
@@ -261,14 +249,12 @@
 /obj/item/stock_parts/micro_laser/quadultra
 	name = "quad-ultra micro-laser"
 	icon_state = "quadultra_micro_laser"
-	desc = "A tiny laser used in certain devices."
 	origin_tech = "magnets=5;materials=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
 /obj/item/stock_parts/matter_bin/bluespace
 	name = "bluespace matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "bluespace_matter_bin"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
@@ -294,7 +280,6 @@
 
 /obj/item/stock_parts/manipulator/purple
 	name = "experimental manipulator"
-	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "ps_mani"
 	origin_tech = "materials=6;programming=5;engineering=5"
 	rating = 5
@@ -303,14 +288,12 @@
 /obj/item/stock_parts/micro_laser/purple
 	name = "experimental micro-laser"
 	icon_state = "ps_micro_laser"
-	desc = "A tiny laser used in certain devices."
 	origin_tech = "magnets=6;materials=5;engineering=5"
 	rating = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
 /obj/item/stock_parts/matter_bin/purple
 	name = "experimental matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "ps_matter_bin"
 	origin_tech = "materials=6;programming=5;engineering=5"
 	rating = 5
@@ -328,5 +311,7 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "high_micro_laser"
 	desc = "A debug item for filling protolathes or furnaces with all types of resources"
-	materials = list(MAT_METAL=8000, MAT_GLASS=8000, MAT_SILVER=8000, MAT_GOLD=8000, MAT_DIAMOND=8000, MAT_URANIUM=8000,
-				 MAT_PLASMA=8000, MAT_BLUESPACE=8000, MAT_BANANIUM=8000, MAT_TRANQUILLITE=8000, MAT_TITANIUM=8000)
+	materials = list(
+		MAT_METAL=8000, MAT_GLASS=8000, MAT_SILVER=8000, MAT_GOLD=8000, MAT_DIAMOND=8000, MAT_URANIUM=8000,
+		MAT_PLASMA=8000, MAT_BLUESPACE=8000, MAT_BANANIUM=8000, MAT_TRANQUILLITE=8000, MAT_TITANIUM=8000
+	)

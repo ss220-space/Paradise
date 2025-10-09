@@ -270,8 +270,8 @@
 		if(3)
 			to_chat(src, span_warning("<font color=green> Вы чувствуете, как электрический разряд проходит сквозь ваши микросхемы и осознаёте, как сильно вам повезло, что вы вообще можете ещё чувствовать что-либо...</font>"))
 
-/mob/living/silicon/pai/ex_act(severity)
-	..()
+/mob/living/silicon/pai/ex_act(severity, target)
+	. = ..()
 
 	if(stat == DEAD)
 		return
@@ -442,7 +442,7 @@
 /mob/living/silicon/pai/verb/pAI_suicide()
 	set category = STATPANEL_PAICOMMANDS
 	set name = "Выгрузить личность"
-	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
+	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt.)"
 
 	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Выгрузка личности", list("Выгрузиться", "Нет")) == "Выгрузиться")
 		do_suicide()
@@ -596,7 +596,7 @@
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='notice'>"
+	var/msg = ""
 
 	switch(stat)
 		if(CONSCIOUS)
@@ -608,17 +608,16 @@
 			msg += span_deadsay("Оно явно не подлежит восстановлению...\n")
 
 	if(print_flavor_text())
-		msg += "[print_flavor_text()]\n"
+		msg += span_notice("[print_flavor_text()]\n")
 
 	if(pose)
-		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
+		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "It is [pose]"
-	msg += "</span>"
+		msg += span_notice("It is [pose]")
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(obj/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)
@@ -649,8 +648,7 @@
 	else
 		H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
-	grabber.update_inv_l_hand()
-	grabber.update_inv_r_hand()
+	grabber.update_held_items()
 
 	return H
 

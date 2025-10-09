@@ -1,23 +1,3 @@
-//clusterCheckFlags defines
-//All based on clusterMin and clusterMax as guides
-
-//Individual defines
-#define CLUSTER_CHECK_NONE				0  //No checks are done, cluster as much as possible
-#define CLUSTER_CHECK_DIFFERENT_TURFS	2  //Don't let turfs of DIFFERENT types cluster
-#define CLUSTER_CHECK_DIFFERENT_ATOMS	4  //Don't let atoms of DIFFERENT types cluster
-#define CLUSTER_CHECK_SAME_TURFS		8  //Don't let turfs of the SAME type cluster
-#define CLUSTER_CHECK_SAME_ATOMS		16 //Don't let atoms of the SAME type cluster
-
-//Combined defines
-#define CLUSTER_CHECK_SAMES				24 //Don't let any of the same type cluster
-#define CLUSTER_CHECK_DIFFERENTS		6  //Don't let any of different types cluster
-#define CLUSTER_CHECK_ALL_TURFS			10 //Don't let ANY turfs cluster same and different types
-#define CLUSTER_CHECK_ALL_ATOMS			20 //Don't let ANY atoms cluster same and different types
-
-//All
-#define CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
-
-
 /datum/mapGenerator
 
 	//Map information
@@ -32,7 +12,7 @@
 
 //Defines the region the map represents, sets map
 //Returns the map
-/datum/mapGenerator/proc/defineRegion(var/turf/Start, var/turf/End, var/replace = 0)
+/datum/mapGenerator/proc/defineRegion(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -45,7 +25,7 @@
 
 //Defines the region the map represents, as a CIRCLE!, sets map
 //Returns the map
-/datum/mapGenerator/proc/defineCircularRegion(var/turf/Start, var/turf/End, var/replace = 0)
+/datum/mapGenerator/proc/defineCircularRegion(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -73,7 +53,7 @@
 			theRadius = max(radius/max((2*abs(sphereMagic-i)),1),1)
 
 
-		map |= circlerange(locate(centerX,centerY,i),theRadius)
+		map |= circle_range(locate(centerX,centerY,i),theRadius)
 
 
 	return map
@@ -86,7 +66,7 @@
 
 //Checks for and Rejects bad region coordinates
 //Returns 1/0
-/datum/mapGenerator/proc/checkRegion(var/turf/Start, var/turf/End)
+/datum/mapGenerator/proc/checkRegion(turf/Start, turf/End)
 	. = 1
 
 	if(!Start || !End)
@@ -111,7 +91,7 @@
 
 
 //Requests the mapGeneratorModule(s) to (re)generate this one turf
-/datum/mapGenerator/proc/generateOneTurf(var/turf/T)
+/datum/mapGenerator/proc/generateOneTurf(turf/T)
 	if(!T)
 		return
 	syncModules()

@@ -19,20 +19,9 @@
 /obj/singularity/energy_ball
 	name = "energy ball"
 	desc = "Энергетический шар."
-	ru_names = list(
-		NOMINATIVE = "энергетический шар",
-		GENITIVE = "энергетического шара",
-		DATIVE = "энергетическому шару",
-		ACCUSATIVE = "энергетический шар",
-		INSTRUMENTAL = "энергетическим шаром",
-		PREPOSITIONAL = "энергетическом шаре"
-	)
 	icon = 'icons/obj/engines_and_power/tesla/energy_ball.dmi'
 	icon_state = "energy_ball"
-	density = TRUE
 	plane = ABOVE_LIGHTING_PLANE
-	light_range = 6
-	move_resist = INFINITY
 	pixel_x = -32
 	pixel_y = -32
 	warps_projectiles = FALSE
@@ -40,11 +29,9 @@
 
 	// Garbage due to inheritance from the singularity.
 	current_size = STAGE_TWO
-	move_self = TRUE
 	grav_pull = 0
 	dissipate = FALSE
 	dissipate_delay = 5
-	dissipate_strength = 1
 
 	var/list/orbiting_balls = list()
 	var/miniball = FALSE
@@ -52,6 +39,16 @@
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 	var/list/shocked_things = list()
+
+/obj/singularity/energy_ball/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетический шар",
+		GENITIVE = "энергетического шара",
+		DATIVE = "энергетическому шару",
+		ACCUSATIVE = "энергетический шар",
+		INSTRUMENTAL = "энергетическим шаром",
+		PREPOSITIONAL = "энергетическом шаре"
+	)
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()

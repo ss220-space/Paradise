@@ -129,7 +129,6 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_range = 1.5
-	light_power = 1
 	light_color = LIGHT_COLOR_DIM_YELLOW
 
 
@@ -308,7 +307,7 @@
 	new_look.Blend(head_organ.hair_colour, ICON_ADD)
 	new_look.Blend(icon('icons/mob/clothing/head.dmi', inner_state), ICON_OVERLAY)
 	onmob_sheets[ITEM_SLOT_HEAD_STRING] = new_look
-	user.update_inv_head()
+	user.update_worn_head()
 
 
 /obj/item/clothing/head/cardborg
@@ -388,4 +387,31 @@
 		ACCUSATIVE = "лягушачью шапку",
 		INSTRUMENTAL = "лягушачьей шапкой",
 		PREPOSITIONAL = "лягушачьей шапке"
+	)
+
+/obj/item/clothing/head/carp_hat
+	name = "carp hat"
+	desc = "Шапочка в виде устрашающего хищника космоса. Мило!"
+	icon_state = "carp_hat"
+	item_state = "carp_hat"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+	)
+	flags_inv = HIDEHEADSETS|HIDEHEADHAIR
+
+/obj/item/clothing/head/carp_hat/get_ru_names()
+	return list(
+		NOMINATIVE = "карповая шапка",
+		GENITIVE = "карповой шапки",
+		DATIVE = "карповой шапке",
+		ACCUSATIVE = "капровую шапку",
+		INSTRUMENTAL = "карповой шапкой",
+		PREPOSITIONAL = "карповой шапке"
 	)

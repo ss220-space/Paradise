@@ -51,5 +51,8 @@ SUBSYSTEM_DEF(new_player_info)
 	for(var/mob/new_player/viewer as anything in GLOB.new_player_mobs)
 		viewer << output(params, "title_browser:update_newplayer_info")
 
-
-
+#undef LOBBY_WAIT_TIME
+#undef PLAYIND_WAIT_TIME
+#undef ROUND_DELAY
+#undef ROUND_STARTED
+#undef ROUND_UNKNOWN

@@ -78,7 +78,6 @@
 	name = "roasted meat"
 	desc = "Хорошо прожаренный стейк. Отличный источник белков и жиров."
 	w_class = WEIGHT_CLASS_SMALL
-	gender = NEUTER
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "roasted_meat"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -99,12 +98,10 @@
 
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh
 	name = "synthetic meat"
-	w_class = WEIGHT_CLASS_SMALL
 	desc = "A synthetic slab of flesh."
 
 /obj/item/reagent_containers/food/snacks/meat/humanoid
 	name = "humanoid meat"
-	w_class = WEIGHT_CLASS_SMALL
 	var/subjectname = ""
 	var/subjectjob = null
 	tastes = list("salty meat" = 1)
@@ -255,7 +252,6 @@
 	name = "monkey meat"
 	tastes = list("salty meat" = 1)
 	list_reagents = list("protein" = 2)
-	filling_color = "#FF1C1C"
 
 /obj/item/reagent_containers/food/snacks/meat/humanoid/farwa
 	name = "farwa meat"
@@ -300,7 +296,6 @@
 /obj/item/reagent_containers/food/snacks/meat/bird
 	name = "bird meat"
 	desc = "Light and tasty meat"
-	icon = 'icons/obj/food/food.dmi'
 	icon_state = "birdmeat"
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
@@ -421,7 +416,6 @@
 	name = "bear meat"
 	desc = "A very manly slab of meat."
 	w_class = WEIGHT_CLASS_SMALL
-	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
 	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
@@ -474,8 +468,6 @@
 		PREPOSITIONAL = "паучьей лапке"
 	)
 
-/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg
-
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/burn()
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] приготовилась!"))
 	new /obj/item/reagent_containers/food/snacks/roasted_spiderleg(loc)
@@ -500,7 +492,6 @@
 	name = "goliath meat"
 	desc = "Кусок мяса голиафа. Сейчас не очень съедобно, но в лаве оно готовится отлично."
 	w_class = WEIGHT_CLASS_SMALL
-	gender = NEUTER
 	icon_state = "goliathmeat"
 	list_reagents = list("protein" = 3, "toxin" = 5)
 	tastes = list("жёсткого мяса" = 1)
@@ -523,10 +514,8 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub
 	name = "goldgrub meat"
 	desc = "Плотные слизистые, покрытые золотистой шкурой зелёные внутренности. Были извлечены из Златожора. Легенды гласят, что мясо ценится в традиционной медицине, однако сейчас оно крайне ядовито."
-	gender = NEUTER
 	icon_state = "Goldgrubmeat"
 	list_reagents = list("grub_juice" = 5, "toxin" = 10)
-	bitesize = 2
 	tastes = list("слизистого мяса" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/get_ru_names()
@@ -857,7 +846,6 @@
 	name = "Salami's slice"
 	desc = "A slice of salami. The best for sandwiches"
 	icon_state = "salami_s"
-	bitesize = 2
 	foodtype = MEAT
 
 //////////////////////
@@ -892,12 +880,12 @@
 		//Due to server crashing capabilities, chat feature is disabled.
 
 		//if(fingerprintslast)
-		//	to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
+		//	to_chat(get_mob_by_ckey(fingerprintslast), span_warning("Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!"))
 		//else
-		//	visible_message("<span class='notice'>[src] fails to expand!</span>")
+		//	visible_message(span_notice("[src] fails to expand!"))
 
 	if(!QDELETED(src))
-		visible_message("<span class='notice'>[src] expands!</span>")
+		visible_message(span_notice("[src] expands!"))
 		if(fingerprintslast)
 			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else
@@ -942,6 +930,8 @@
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 	foodtype = EGG
+
+	var/amount_grown = 0
 
 
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -1029,7 +1019,6 @@
 	name = "boiled egg"
 	desc = "A hard boiled egg."
 	icon_state = "egg"
-	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
 	foodtype = EGG
 
@@ -1114,7 +1103,6 @@
 	icon_state = "pelmeni"
 	filling_color = "#d9be29"
 	list_reagents = list("protein" = 2)
-	bitesize = 2
 	tastes = list("raw meat" = 1, "raw dough" = 1)
 	foodtype = MEAT | RAW | GRAIN
 
@@ -1137,13 +1125,31 @@
 	icon_state = "appendix"
 	filling_color = "#E00D34"
 	bitesize = 3
-	list_reagents = list("protein" = 4, "vitamin" = 4)
+	list_reagents = list("protein" = 4, "vitamin" = 4, "nutriment" = 5)
 	foodtype = MEAT | GROSS
+
+/obj/item/reagent_containers/food/snacks/organ/update_icon_state()
+	return
+
+/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target != user || !ishuman(target) || !user.can_unEquip(src))
+		return ..()
+
+	var/obj/item/reagent_containers/food/snacks/snack = prepare_eat()
+
+	if(!snack)
+		return ATTACK_CHAIN_PROCEED
+
+	user.temporarily_remove_item_from_inventory(src)
+	target.put_in_active_hand(snack, silent = TRUE)
+	snack.attack(target, target, params)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/reagent_containers/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future
 	name = "appendix"
-	desc = "An appendix which looks perfectly healthy."
+	desc = "Придаток слепой кишки. Является рудиментарным органом, поэтому не несёт полезной функции для организма."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "appendix"
 	filling_color = "#E00D34"
@@ -1220,21 +1226,18 @@
 /obj/item/reagent_containers/food/snacks/vulpix/cheese
 	name = "Cheese vulpixes"
 	desc = "Appetizing-looking meat balls in the dough filled with cheese.. The main thing is not to think about WHO they are made of!"
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "vulpix_cheese"
 	tastes = list("dough" = 2, "dog meat" = 3, "cheese" = 2)
 
 /obj/item/reagent_containers/food/snacks/vulpix/bacon
 	name = "Bacon and mushroom vulpixes"
 	desc = "Appetizing-looking meat balls in the dough filled with.. The main thing is not to think about WHO they are made of!"
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "vulpix_bacon"
 	tastes = list("dough" = 2, "dog meat" = 3, "bacon" = 2, "mushroom" = 2)
 
 /obj/item/reagent_containers/food/snacks/vulpix/chilli
 	name = "Chilli vulpixes"
 	desc = "Appetizing-looking meat balls in the dough.. The main thing is not to think about WHO they are made of! Makes your tongue burn."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "vulpix_chillie"
 	tastes = list("dough" = 2, "dog meat" = 3, "chillie" = 2)
 

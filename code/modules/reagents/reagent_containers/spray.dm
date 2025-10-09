@@ -17,13 +17,10 @@
 	item_flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
 	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
-	amount_per_transfer_from_this = 5
 	volume = 250
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
@@ -92,7 +89,7 @@
 	qdel(D)
 
 
-/obj/item/reagent_containers/spray/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/attack_self(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -187,7 +184,7 @@
 
 /obj/item/reagent_containers/spray/cleaner/tactical
 	name = "Tactical cleaner"
-	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами НаноТрейзен для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
+	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами Нанотрейзен для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
 	ru_names = list(
 		NOMINATIVE = "тактический распылитель",
 		GENITIVE = "тактическего распылителя",
@@ -266,7 +263,6 @@
 	belt_icon = "pepperspray"
 	volume = 40
 	spray_maxrange = 4
-	amount_per_transfer_from_this = 5
 	list_reagents = list("condensedcapsaicin" = 40)
 
 //water flower
@@ -306,7 +302,6 @@
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	spray_maxrange = 7
 	spray_currentrange = 7
@@ -315,7 +310,7 @@
 	origin_tech = "combat=3;materials=3;engineering=3"
 
 
-/obj/item/reagent_containers/spray/chemsprayer/spray(var/atom/A)
+/obj/item/reagent_containers/spray/chemsprayer/spray(atom/A)
 	var/Sprays[3]
 	for(var/i=1, i<=3, i++) // intialize sprays
 		if(reagents.total_volume < 1) break

@@ -69,10 +69,8 @@
 		PREPOSITIONAL = "мозге плазмолюда"
 	)
 	icon = 'icons/obj/species_organs/plasmaman.dmi'
-	icon_state = "brain2"
 	item_state = "plasmaman_brain"
 	mmi_icon = 'icons/obj/species_organs/plasmaman.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/kidneys/plasmaman
 	species_type = /datum/species/plasmaman
@@ -101,7 +99,6 @@
 		PREPOSITIONAL = "лёгких плазмолюда"
 	)
 	icon = 'icons/obj/species_organs/plasmaman.dmi'
-	icon_state = "lungs"
 	item_state = "plasmaman_lungs"
 	safe_oxygen_min = 0 //We don't breath this
 	safe_toxins_min = 16 //We breathe THIS!

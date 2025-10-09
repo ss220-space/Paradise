@@ -6,7 +6,6 @@
 	icon_state = "glass_empty"
 	item_state = "drinking_glass"
 	amount_per_transfer_from_this = 10
-	volume = 50
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
@@ -17,12 +16,12 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/get_ru_names()
 	return list(
-        NOMINATIVE = "стакан",
-        GENITIVE = "стакана",
-        DATIVE = "стакану",
-        ACCUSATIVE = "стакан",
-        INSTRUMENTAL = "стаканом",
-        PREPOSITIONAL = "стакане"
+		NOMINATIVE = "стакан",
+		GENITIVE = "стакана",
+		DATIVE = "стакану",
+		ACCUSATIVE = "стакан",
+		INSTRUMENTAL = "стаканом",
+		PREPOSITIONAL = "стакане"
 	)
 
 /obj/item/reagent_containers/food/drinks/set_APTFT()

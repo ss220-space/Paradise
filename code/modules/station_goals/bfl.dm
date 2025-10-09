@@ -48,6 +48,8 @@
 		return
 	SScargo_quests.remove_bfl_quests(COUNT_PLASMA_QUESTS)
 
+#undef COUNT_PLASMA_QUESTS
+
 ////////////
 //Building//
 ////////////
@@ -80,9 +82,7 @@
 	name = "BFL Emitter"
 	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
-	anchored = TRUE
 	density = TRUE
-	use_power = NO_POWER_USE
 	idle_power_usage = 100000
 	active_power_usage = 500000
 
@@ -225,8 +225,8 @@
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 //TODO: Replace this,bsa and gravgen with some big machinery datum
-/obj/machinery/power/bfl_emitter/Initialize()
-	.=..()
+/obj/machinery/power/bfl_emitter/Initialize(mapload)
+	. = ..()
 	lavaland_z_lvl = level_name_to_num(MINING)
 	pixel_x = -32
 	pixel_y = 0
@@ -520,7 +520,7 @@
 	update_icon()
 
 
-/obj/machinery/bfl_lens/Initialize()
+/obj/machinery/bfl_lens/Initialize(mapload)
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
@@ -528,7 +528,7 @@
 
 /obj/machinery/bfl_lens/Destroy()
 	visible_message(span_danger("Линза разлетается на миллионы осколков!"))
-	playsound(src, "shatter", 70, 1)
+	playsound(src, SFX_SHATTER, 70, TRUE)
 	return ..()
 
 
@@ -599,7 +599,7 @@
 /obj/singularity/bfl_red/singularity_act()
 	return 0
 
-/obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
+/obj/singularity/bfl_red/New(loc, starting_energy = 50, temp = 0)
 	starting_energy = 250
 	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)
@@ -677,5 +677,5 @@
 	if(.)
 		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE, -4)
 
-/obj/effect/bfl_laser/ex_act(severity)
+/obj/effect/bfl_laser/ex_act(severity, target)
 	return

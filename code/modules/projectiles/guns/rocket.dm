@@ -7,8 +7,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 10
-	force = 5.0
-	flags = CONDUCT
 	origin_tech = "combat=6"
 	var/missile_speed = 2
 	var/missile_range = 30
@@ -17,7 +15,7 @@
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>"
+	. += span_notice("[rockets.len] / [max_rockets] rockets.")
 
 /obj/item/gun/rocketlauncher/Destroy()
 	QDEL_LIST(rockets)
@@ -53,11 +51,11 @@
 	if(rockets.len)
 		var/obj/item/ammo_casing/rocket/I = rockets[1]
 		var/obj/item/missile/M = new /obj/item/missile(user.loc)
-		playsound(user.loc, 'sound/weapons/gunshots/1launcher.ogg', 70, 1)
+		playsound(user.loc, 'sound/weapons/gunshots/1launcher.ogg', 70, TRUE)
 		M.primed = 1
 		M.throw_at(target, missile_range, missile_speed, user, 1)
 		add_attack_logs(user, target, "fired rocket launcher [name]")
 		rockets -= I
 		qdel(I)
 	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, span_warning("[src] is empty."))

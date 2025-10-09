@@ -4,7 +4,7 @@
 	var/fast_pressure_step_in = 2
 	var/slow_pressure_step_in = 2
 
-/obj/mecha/working/Initialize()
+/obj/mecha/working/Initialize(mapload)
 	. = ..()
 	if(!ruin_mecha)
 		trackers += new /obj/item/mecha_parts/mecha_tracking(src)

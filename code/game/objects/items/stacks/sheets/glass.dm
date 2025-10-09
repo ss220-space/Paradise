@@ -5,9 +5,7 @@
  *		Glass shards - TODO: Move this into code/game/object/item/weapons
  *		Plasma Glass Sheets
  *		Reinforced Plasma Glass Sheets (AKA Holy fuck strong windows)
-
- Todo: Create a unified construct_window(sheet, user, created_window, full_window)
-
+ * Todo: Create a unified construct_window(sheet, user, created_window, full_window)
  */
 
 /*
@@ -30,11 +28,11 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 	desc = "HOLY SHEET! That is a lot of glass."
 	singular_name = "glass sheet"
 	icon_state = "sheet-glass"
+	protolathe_name = "glass"
 	item_state = "sheet-glass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
 	resistance_flags = ACID_PROOF
-	origin_tech = "materials=1"
 	created_window = /obj/structure/window/basic
 	full_window = /obj/structure/window/full/basic
 	merge_type = /obj/item/stack/sheet/glass
@@ -47,7 +45,6 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 	materials = list()
 	is_cyborg = TRUE
 	energy_type = /datum/robot_energy_storage/glass
-	cost = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/glass
 
 /obj/item/stack/sheet/glass/Initialize(mapload, new_amount, merge = TRUE)

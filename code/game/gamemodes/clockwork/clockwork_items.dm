@@ -2,9 +2,6 @@
 /obj/item/clockwork/clockslab
 	name = "clockwork slab"
 	desc = "A strange metal tablet. A clock in the center turns around and around."
-	icon = 'icons/obj/clockwork.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "clock_slab"
 	w_class = WEIGHT_CLASS_SMALL
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "blue fox plushie" = "bluefox",
@@ -112,7 +109,7 @@
 		to_chat(user, span_notice(" You start invoking teleportation..."))
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
 		if(do_after(user, 1.5 SECONDS, user) && destination)
-			do_sparks(4, 0, user)
+			do_sparks(4, FALSE, user)
 			user.forceMove(get_turf(destination))
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			add_attack_logs(user, destination, "Teleported to by [src]", ATKLOG_ALL)
@@ -380,7 +377,6 @@
 	force_wielded = 20
 	armour_penetration = 40
 	throwforce = 30
-	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
 
@@ -398,7 +394,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/clock_hammer/update_icon_state()
@@ -508,7 +504,7 @@
 		/datum/component/cleave_attack, \
 		arc_size = 180, \
 		afterswing_slowdown = 0, \
-		swing_sound = "blade_swing_light" \
+		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
 
 /obj/item/melee/clock_sword/update_overlays()
@@ -862,7 +858,7 @@
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == ABSORB_SPELL && isclocker(owner))
 		owner.visible_message(span_danger("[attack_text] is absorbed by [src] sparks!"))
-		playsound(loc, "sparks", 100, TRUE)
+		playsound(loc, SFX_SPARKS, 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		deplete_spell()
 		return TRUE
@@ -875,7 +871,7 @@
 	if(owner.wear_suit != src)
 		return FALSE
 	if(enchant_type == REFLECT_SPELL && isclocker(owner))
-		playsound(loc, "sparks", 100, TRUE)
+		playsound(loc, SFX_SPARKS, 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		if(reflect_uses <= 0)
 			reflect_uses = initial(reflect_uses)
@@ -1016,7 +1012,7 @@
 		if(isrobot(living))
 			var/mob/living/silicon/robot/robot = living
 			robot.Weaken(1 SECONDS)
-		do_sparks(5, 0, loc)
+		do_sparks(5, FALSE, loc)
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
@@ -1109,7 +1105,6 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_helmet"
 	item_state = "clockwork_helmet"
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
@@ -1124,7 +1119,6 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_helmet"
 	item_state = "clockwork_helmet"
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
@@ -1160,7 +1154,6 @@
 	var/active = FALSE //If the visor is online
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = FLASH_PROTECTION_FLASH
-	see_in_dark = 0
 	lighting_alpha = null
 
 /obj/item/clothing/glasses/clockwork/equipped(mob/living/user, slot, initial)
@@ -1196,7 +1189,7 @@
 			to_chat(user, span_notice("You toggle [src], its lens darkens once more."))
 
 	user.update_action_buttons_icon()
-	user.update_inv_glasses()
+	user.update_worn_glasses()
 	user.update_sight()
 
 /*
@@ -1210,7 +1203,7 @@
 	icon_state = "gear"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/clockwork/integration_cog/Initialize()
+/obj/item/clockwork/integration_cog/Initialize(mapload)
 	. = ..()
 	transform *= 0.5 //little cog!
 
@@ -1388,7 +1381,7 @@
 			to_chat(user,span_warning("You are too weak to crush this massive shard!"))
 			return
 		user.visible_message(span_warning("[user] crushes [src] in his hands!"), span_notice("You crush [src] in your hand!"))
-		playsound(src, "shatter", 50, TRUE)
+		playsound(src, SFX_SHATTER, 50, TRUE)
 		switch(enchant_type)
 			if(EMP_SPELL)
 				add_attack_logs(user, user, "Clock EMP with [src]")
@@ -1444,7 +1437,7 @@
 		user.Confused(20 SECONDS)
 		user.Jitter(12 SECONDS)
 
-/obj/item/clockwork/shard/proc/give_ghost(var/mob/living/carbon/human/golem)
+/obj/item/clockwork/shard/proc/give_ghost(mob/living/carbon/human/golem)
 	set waitfor = FALSE
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 10 SECONDS, source = /obj/item/clockwork/clockslab)
 	if(length(candidates))

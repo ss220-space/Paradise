@@ -2,21 +2,12 @@
 /mob/living/simple_animal/hostile/asteroid/goliath
 	name = "goliath"
 	desc = "Массивный зверь, использующий длинные щупальца для поимки добычи. Угрожать ему – плохая идея при любых обстоятельствах."
-	ru_names = list(
-		NOMINATIVE = "голиаф",
-		GENITIVE = "голиафа",
-		DATIVE = "голиафу",
-		ACCUSATIVE = "голиафа",
-		INSTRUMENTAL = "голиафом",
-		PREPOSITIONAL = "голиафе"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath"
 	icon_living = "Goliath"
 	icon_aggro = "Goliath_alert"
 	icon_dead = "Goliath_dead"
 	icon_gib = "syndicate_gib"
-	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 40
 	ranged = TRUE
 	ranged_cooldown_time = 120
@@ -35,7 +26,6 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "не наносит вреда его прочной шкуре"
 	vision_range = 5
-	aggro_vision_range = 9
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
@@ -52,8 +42,17 @@
 	bonus_tame_chance = 10
 	COOLDOWN_DECLARE(post_charge_delay)
 
+/mob/living/simple_animal/hostile/asteroid/goliath/get_ru_names()
+	return list(
+		NOMINATIVE = "голиаф",
+		GENITIVE = "голиафа",
+		DATIVE = "голиафу",
+		ACCUSATIVE = "голиафа",
+		INSTRUMENTAL = "голиафом",
+		PREPOSITIONAL = "голиафе"
+	)
 
-/mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/projectile/P)
+/mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(obj/projectile/P)
 	if(prob(reflect_chance) && !istype(P, /obj/projectile/destabilizer))
 		visible_message(span_danger("[capitalize(P.declent_ru(NOMINATIVE))] отскакивает от крепкой шкуры [declent_ru(GENITIVE)]!"), span_userdanger("[capitalize(P.declent_ru(NOMINATIVE))] отскакивает от крепой шкуры [declent_ru(GENITIVE)]!"), projectile_message = TRUE)
 		P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
@@ -139,7 +138,7 @@
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] опутывает щупальцами [target.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 	ranged_cooldown = world.time + ranged_cooldown_time
-	if((stat == DEAD))
+	if(stat == DEAD)
 		return
 	icon_state = icon_aggro
 	pre_attack = FALSE
@@ -218,8 +217,20 @@
 
 //Lavaland Goliath
 /mob/living/simple_animal/hostile/asteroid/goliath/beast
-	name = "goliath"
-	ru_names = list(
+	desc = "Громадный зверь в бронированном панцире, со щупальцами, изгибающимися у него за спиной."
+	icon_state = "goliath"
+	icon_living = "goliath"
+	icon_aggro = "goliath"
+	icon_dead = "goliath_dead"
+	pre_attack_icon = "goliath2"
+	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath= 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
+	loot = list()
+	stat_attack = UNCONSCIOUS
+	robust_searching = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/get_ru_names()
+	return list(
 		NOMINATIVE = "голиаф",
 		GENITIVE = "голиафа",
 		DATIVE = "голиафу",
@@ -227,19 +238,6 @@
 		INSTRUMENTAL = "голиафом",
 		PREPOSITIONAL = "голиафе"
 	)
-	desc = "Громадный зверь в бронированном панцире, со щупальцами, изгибающимися у него за спиной."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
-	icon_state = "goliath"
-	icon_living = "goliath"
-	icon_aggro = "goliath"
-	icon_dead = "goliath_dead"
-	throw_message = "не наносит вреда его прочной шкуре"
-	pre_attack_icon = "goliath2"
-	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath= 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
-	loot = list()
-	stat_attack = UNCONSCIOUS
-	robust_searching = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
 	. = ..()
@@ -249,14 +247,6 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
 	name = "ancient goliath"
-	ru_names = list(
-		NOMINATIVE = "древний голиаф",
-		GENITIVE = "древнего голиафа",
-		DATIVE = "древнему голиафу",
-		ACCUSATIVE = "древнего голиафа",
-		INSTRUMENTAL = "древним голиафом",
-		PREPOSITIONAL = "древнем голиафе"
-	)
 	desc = "Голиафы биологически бессмертны, и редкие особи живут веками. Этот явно древний, и его щупальца постоянно взрыхляют землю вокруг."
 	icon_state = "Goliath"
 	icon_living = "Goliath"
@@ -266,7 +256,6 @@
 	health = 400
 	speed = 4
 	pre_attack_icon = "Goliath_preattack"
-	throw_message = "не наносит вреда его прочной шкуре"
 	crusher_loot = /obj/item/crusher_trophy/eyed_tentacle
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 2, /obj/item/stack/sheet/bone = 2)
 	crusher_drop_mod = 30
@@ -276,6 +265,16 @@
 	var/tentacle_recheck_cooldown = 100
 	reflect_chance = 50
 	bonus_tame_chance = 5
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/get_ru_names()
+	return list(
+		NOMINATIVE = "древний голиаф",
+		GENITIVE = "древнего голиафа",
+		DATIVE = "древнему голиафу",
+		ACCUSATIVE = "древнего голиафа",
+		INSTRUMENTAL = "древним голиафом",
+		PREPOSITIONAL = "древнем голиафе"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Life()
 	. = ..()
@@ -301,7 +300,13 @@
 //Tentacles
 /obj/effect/temp_visual/goliath_tentacle
 	name = "goliath tentacle"
-	ru_names = list(
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "Goliath_tentacle_spawn"
+	layer = BELOW_MOB_LAYER
+	var/mob/living/spawner
+
+/obj/effect/temp_visual/goliath_tentacle/get_ru_names()
+	return list(
 		NOMINATIVE = "щупальце голиафа",
 		GENITIVE = "щупальца голиафа",
 		DATIVE = "щупальцу голиафа",
@@ -309,10 +314,6 @@
 		INSTRUMENTAL = "щупальцем голиафа",
 		PREPOSITIONAL = "щупальце голиафа"
 	)
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
-	icon_state = "Goliath_tentacle_spawn"
-	layer = BELOW_MOB_LAYER
-	var/mob/living/spawner
 
 /obj/effect/temp_visual/goliath_tentacle/Initialize(mapload, mob/living/new_spawner)
 	. = ..()

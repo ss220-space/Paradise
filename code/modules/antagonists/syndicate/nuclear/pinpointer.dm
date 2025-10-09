@@ -1,16 +1,16 @@
-#define MODE_OFF	0
-#define MODE_DISK	1
-#define MODE_NUKE	2
-#define MODE_ADV	3
-#define MODE_SHIP	4
+#define MODE_OFF 0
+#define MODE_DISK 1
+#define MODE_NUKE 2
+#define MODE_ADV 3
+#define MODE_SHIP 4
 #define MODE_OPERATIVE 5
-#define MODE_CREW	6
-#define MODE_NINJA	7
-#define MODE_THIEF	8
+#define MODE_CREW 6
+#define MODE_NINJA 7
+#define MODE_THIEF 8
 #define MODE_TENDRIL 9
-#define SETTING_DISK		0
-#define SETTING_LOCATION	1
-#define SETTING_OBJECT		2
+#define SETTING_DISK 0
+#define SETTING_LOCATION 1
+#define SETTING_OBJECT 2
 
 /obj/item/pinpointer
 	name = "pinpointer"
@@ -505,7 +505,7 @@
 		if(!is_trackable(human))
 			continue
 
-		var/human_name = "Unknown"
+		var/human_name = UNKNOWN_NAME_RUS
 		if(human.wear_id)
 			var/obj/item/card/id/card = human.wear_id.GetID()
 			if(card)
@@ -553,7 +553,6 @@
 ///thief pinpointers///
 ///////////////////////
 /obj/item/pinpointer/thief
-	name = "pinpointer"
 	desc = "Модифицированный пинпоинтер #REDACTED# предназначенный для нахождения всех ценных и интересных для #REDACTED# сигнатур, не передающий сигналы локаторами. На обратной стороне напечатан странный непонятный детский ребус."
 	modes = list(MODE_THIEF)
 	shows_nuke_timer = FALSE

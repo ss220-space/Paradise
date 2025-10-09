@@ -6,10 +6,7 @@
 	name = "oxygen generator"
 	desc = ""
 
-	dir = SOUTH
-	initialize_directions = SOUTH
 
-	on = FALSE
 
 	var/oxygen_content = 10
 

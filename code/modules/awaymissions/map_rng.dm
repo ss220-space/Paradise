@@ -2,10 +2,6 @@
 	name = "map loader"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
-	invisibility = INVISIBILITY_ABSTRACT
-	anchored = TRUE
-	density = FALSE
-	opacity = FALSE
 	var/template_name = null
 	var/datum/map_template/template = null
 	var/centered = 1
@@ -19,7 +15,7 @@
 	if(template_name)
 		template = GLOB.map_templates[template_name]
 
-/obj/effect/landmark/map_loader/Initialize()
+/obj/effect/landmark/map_loader/Initialize(mapload)
 	. = ..()
 	if(template)
 		load(template)
@@ -43,8 +39,8 @@
 /obj/effect/landmark/map_loader/random
 	var/template_list = ""
 
-/obj/effect/landmark/map_loader/random/Initialize()
-	..()
+/obj/effect/landmark/map_loader/random/Initialize(mapload)
+	. = ..()
 	if(template_list)
 		template_name = safepick(splittext(template_list, ";"))
 		template = GLOB.map_templates[template_name]

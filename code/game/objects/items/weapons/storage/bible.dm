@@ -8,7 +8,6 @@
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
 	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/book_pickup.ogg'
@@ -59,15 +58,12 @@
 	user.visible_message(span_danger("[user] перд[pluralize_ru(user.gender, "ит", "ят")] на [declent_ru(ACCUSATIVE)]!"))
 	user.visible_message(span_userdanger("Загадочная сила поражает [user]!"))
 	user.suiciding = TRUE
-	do_sparks(3, 1, user)
+	do_sparks(3, TRUE, user)
 	user.gib()
 	return TRUE // Don't run the fart emote
 
 
 /obj/item/storage/bible/booze
-	name = "bible"
-	desc = "Многократно прислоняйте к голове."
-	icon_state ="bible"
 
 /obj/item/storage/bible/booze/get_ru_names()
 	return list(
@@ -88,7 +84,7 @@
 
 
 //BS12 EDIT
- // All cult functionality moved to Null Rod
+// All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -146,7 +142,7 @@
 			span_danger("[user] ударя[pluralize_ru(user.gender, "ет", "ют")]  безжизненное тело [target] [declent_ru(INSTRUMENTAL)]."),
 			span_warning("Вы ударяете безжизненное тело [target].")
 		)
-		playsound(loc, "punch", 25, TRUE, -1)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!ishuman(target))
@@ -166,7 +162,7 @@
 				span_danger("[user] излечива[pluralize_ru(user.gender, "ет", "ют")] [target] с силой Бога \"[deity_name]\"!"),
 				span_danger("Да поможет вам Бог \"[deity_name]\", да побудит он вас к исцелению!"),
 			)
-		playsound(loc, "punch", 25, TRUE, -1)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 	else
 		if(!istype(target.head, /obj/item/clothing/head/helmet))
 			target.apply_damage(10, BRAIN)
@@ -181,7 +177,7 @@
 				span_danger("[user] огрева[pluralize_ru(user.gender, "ет", "ют")] [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 				span_danger("Вы огреваете [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 			)
-		playsound(src.loc, "punch", 25, TRUE, -1)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 
 	if(target == user)
 		god_punishment++

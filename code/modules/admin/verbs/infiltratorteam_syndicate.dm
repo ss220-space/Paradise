@@ -88,7 +88,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		if(!teamsize)
 			break
 	log_and_message_admins("has spawned a Syndicate Infiltration Team.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn SIT") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Spawn SIT")
 
 // ---------------------------------------------------------------------------------------------------------
 
@@ -131,7 +131,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	// Uplink
 	var/obj/item/implant/uplink/sit/U = new /obj/item/implant/uplink/sit(src)
 	U.implant(src)
-	if (flag_mgmt)
+	if(flag_mgmt)
 		U.hidden_uplink.uses = 2500
 	else
 		U.hidden_uplink.uses = num_tc
@@ -149,7 +149,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), ITEM_SLOT_FEET)
 
 	var/obj/item/card/id/syndicate/W = new(src)
-	if (flag_mgmt)
+	if(flag_mgmt)
 		W.icon_state = "commander"
 	else
 		W.icon_state = "id"

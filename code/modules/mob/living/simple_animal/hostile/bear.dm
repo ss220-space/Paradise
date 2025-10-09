@@ -18,7 +18,6 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
-	stop_automated_movement_when_pulled = 0
 	maxHealth = 60
 	health = 60
 	blood_volume = BLOOD_VOLUME_NORMAL
@@ -49,7 +48,7 @@
 
 /mob/living/simple_animal/hostile/bear/handle_automated_movement()
 	if(..())
-		playsound(src, src.trigger_sound, 40, 1)
+		playsound(src, src.trigger_sound, 40, TRUE)
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson

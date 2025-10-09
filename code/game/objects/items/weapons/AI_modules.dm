@@ -33,7 +33,7 @@ AI MODULES
 	laws = new/datum/ai_laws/pranksimov
 	cmagged = TRUE
 
-/obj/item/ai_module/proc/transmit_instructions(mob/living/silicon/ai/target, mob/sender, registered_name = "Unknown")
+/obj/item/ai_module/proc/transmit_instructions(mob/living/silicon/ai/target, mob/sender, registered_name = UNKNOWN_NAME_RUS)
 	log_law_changes(target, sender)
 
 	if(laws)
@@ -45,6 +45,7 @@ AI MODULES
 	target.show_laws()
 
 /obj/item/ai_module/proc/add_additional_laws(mob/living/silicon/ai/target, mob/sender, registered_name)
+	return
 
 /obj/item/ai_module/proc/log_law_changes(mob/living/silicon/ai/target, mob/sender)
 	GLOB.lawchanges.Add("[time2text(world.realtime,"hh:mm:ss")] <b>:</b> [sender.name]([sender.key]) used [name] on [target.name]([target.key])")
@@ -262,7 +263,7 @@ AI MODULES
 	..()
 	SSticker?.score?.save_silicon_laws(target, sender, "'Quarantine' module used, all inherent laws were changed", log_all_laws = TRUE)
 
-/******************** NanoTrasen ********************/
+/******************** Nanotrasen ********************/
 /obj/item/ai_module/nanotrasen // -- TLE
 	name = "'NT Default' Core AI Module"
 	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"
@@ -414,17 +415,17 @@ AI MODULES
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "AI"
 	origin_tech = "programming=6;materials=5;syndicate=6"
-	laws = list("")
+	var/ion_law = ""
 
 /obj/item/ai_module/toy_ai/transmit_instructions(mob/living/silicon/ai/target, mob/sender, registered_name)
 	//..()
 	to_chat(target, span_warning("KRZZZT"))
-	target.add_ion_law(laws[1])
-	SSticker?.score?.save_silicon_laws(target, sender, "'toy AI' module used, new ion law was added '[laws[1]]'")
-	return laws[1]
+	target.add_ion_law(ion_law)
+	SSticker?.score?.save_silicon_laws(target, sender, "'toy AI' module used, new ion law was added '[ion_law]'")
+	return ion_law
 
 /obj/item/ai_module/toy_ai/attack_self(mob/user)
-	laws[1] = generate_ion_law()
+	ion_law = generate_ion_law()
 	to_chat(user, span_notice("You press the button on [src]."))
-	playsound(user, 'sound/machines/click.ogg', 20, 1)
-	user.visible_message(span_warning("[bicon(src)] [laws[1]]"))
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
+	user.visible_message(span_warning("[bicon(src)] [ion_law]"))

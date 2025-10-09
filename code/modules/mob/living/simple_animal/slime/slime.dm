@@ -13,7 +13,6 @@
 	allows_unconscious = TRUE
 	AI_delay_max = 0.5 SECONDS
 
-	harm_intent_damage = 3
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead-nocore"
 	response_help  = "pets"
@@ -32,7 +31,7 @@
 	health = 150
 	maxHealth = 150
 
-	healable = 0
+	healable = FALSE
 	gender = NEUTER
 
 	nightvision = 8
@@ -89,13 +88,13 @@
 
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700)
-	if (!(locate(/datum/action/innate/slime/feed) in actions))
+	if(!(locate(/datum/action/innate/slime/feed) in actions))
 		var/datum/action/innate/slime/feed/F = new
 		F.Grant(src)
 	if(age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in actions))
 		var/datum/action/innate/slime/reproduce/R = new
 		R.Grant(src)
-	if (!(locate(/datum/action/innate/slime/evolve) in actions))
+	if(!(locate(/datum/action/innate/slime/evolve) in actions))
 		var/datum/action/innate/slime/evolve/E = new
 		E.Grant(src)
 
@@ -131,7 +130,7 @@
 	harm_intent_damage = age_state.damage
 	maxHealth = age_state.health
 	transform = age_state.matrix_size
-	if ((cores - age_state.cores) > 0)
+	if((cores - age_state.cores) > 0)
 		cores += age_state.cores
 	else
 		cores = age_state.cores
@@ -291,7 +290,7 @@
 	if(!Proj)
 		return
 	attacked += 10 - age_state.attacked
-	if((Proj.damage_type == BURN))
+	if(Proj.damage_type == BURN)
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
 		Proj.on_hit(src)
 	else
@@ -326,8 +325,8 @@
 			return
 		if(buckled)
 			Feedstop(silent = TRUE)
-			visible_message("<span class='danger'>[M] pulls [src] off!</span>", \
-				"<span class='danger'>You pull [src] off!</span>")
+			visible_message(span_danger("[M] pulls [src] off!"), \
+				span_danger("You pull [src] off!"))
 			return
 		attacked += 5 - age_state.attacked
 		if(nutrition >= 100) //steal some nutrition. negval handled in life()
@@ -351,26 +350,26 @@
 		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		if(buckled == M)
 			if(prob(60))
-				M.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>", \
-					"<span class='danger'>You attempt to wrestle \the [name] off!</span>")
+				M.visible_message(span_warning("[M] attempts to wrestle \the [name] off!"), \
+					span_danger("You attempt to wrestle \the [name] off!"))
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 
 			else
-				M.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off!</span>", \
-					"<span class='notice'>You manage to wrestle \the [name] off!</span>")
+				M.visible_message(span_warning("[M] manages to wrestle \the [name] off!"), \
+					span_notice("You manage to wrestle \the [name] off!"))
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 				discipline_slime(M)
 
 		else
 			if(prob(30))
-				buckled.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='warning'>[M] attempts to wrestle \the [name] off of you!</span>")
+				buckled.visible_message(span_warning("[M] attempts to wrestle \the [name] off of [buckled]!"), \
+					span_warning("[M] attempts to wrestle \the [name] off of you!"))
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 
 			else
-				buckled.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='notice'>[M] manage to wrestle \the [name] off of you!</span>")
+				buckled.visible_message(span_warning("[M] manages to wrestle \the [name] off of [buckled]!"), \
+					span_notice("[M] manage to wrestle \the [name] off of you!"))
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 				discipline_slime(M)
@@ -468,13 +467,13 @@
 	. = ..()
 	. += "<span class='notice'>This is [bicon(src)] \a <em>[src]</em>!"
 	if(stat == DEAD)
-		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
+		. += span_deadsay("It is limp and unresponsive.")
 	else
 		if(stat == UNCONSCIOUS) // Slime stasis
-			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
+			. += span_deadsay("It appears to be alive but unresponsive.")
 		if(getBruteLoss())
 			. += "<span class='warning'>"
-			if (getBruteLoss() < 40)
+			if(getBruteLoss() < 40)
 				. += "It has some punctures in its flesh!"
 			else
 				. += "<b>It has severe punctures and tears in its flesh!</b>"
@@ -488,7 +487,7 @@
 				. += "It is glowing gently with moderate levels of electrical activity."
 
 			if(6 to 9)
-				. += "<span class='warning'>It is glowing brightly with high levels of electrical activity.</span>"
+				. += span_warning("It is glowing brightly with high levels of electrical activity.")
 
 			if(10)
 				. += "<span class='warning'><b>It is radiating with massive levels of electrical activity!</b></span>"
@@ -532,16 +531,16 @@
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
 	age_state_new = new /datum/slime_age/baby
 	new_set_nutrition = 700
-	if (prob(10))
+	if(prob(10))
 		age_state_new = new /datum/slime_age/elder
 		new_set_nutrition = 2000
-	else if (prob(30))
+	else if(prob(30))
 		age_state_new = new /datum/slime_age/old
 		new_set_nutrition = 1200
-	else if (prob(50))
+	else if(prob(50))
 		age_state_new = new /datum/slime_age/adult
 		new_set_nutrition = 900
-	if (!new_colour)
+	if(!new_colour)
 		new_colour = pick(slime_colours)
 	. = ..(mapload, new_colour, age_state_new, new_set_nutrition)
 

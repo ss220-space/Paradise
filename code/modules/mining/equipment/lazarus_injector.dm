@@ -2,19 +2,10 @@
 /obj/item/lazarus_injector
 	name = "lazarus injector"
 	desc = "Шприц с коктейлем наномашин и химикатов, способный оживлять мёртвых животных, делая их дружелюбными к пользователю. К сожалению, процесс бесполезен для высших форм жизни и крайне дорог, поэтому устройства хранились на складе, пока какой-то руководитель не решил, что они станут отличной мотивацией для сотрудников."
-	ru_names = list(
-		NOMINATIVE = "инъектор Лазаря",
-		GENITIVE = "инъектора Лазаря",
-		DATIVE = "инъектору Лазаря",
-		ACCUSATIVE = "инъектор Лазаря",
-		INSTRUMENTAL = "инъектором Лазаря",
-		PREPOSITIONAL = "инъекторе Лазаря"
-	)
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
 	origin_tech = "biotech=4;magnets=6"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
@@ -22,6 +13,15 @@
 	var/malfunctioning = 0
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
+/obj/item/lazarus_injector/get_ru_names()
+	return list(
+		NOMINATIVE = "инъектор Лазаря",
+		GENITIVE = "инъектора Лазаря",
+		DATIVE = "инъектору Лазаря",
+		ACCUSATIVE = "инъектор Лазаря",
+		INSTRUMENTAL = "инъектором Лазаря",
+		PREPOSITIONAL = "инъекторе Лазаря"
+	)
 
 /obj/item/lazarus_injector/update_icon_state()
 	icon_state = "lazarus_[loaded ? "hypo" : "empty"]"
@@ -52,7 +52,7 @@
 						H.attack_same = 0
 				loaded = FALSE
 				user.visible_message(span_notice("[user] ввод[pluralize_ru(user.gender,"ит","яд")] в [M.declent_ru(ACCUSATIVE)] инъектор Лазаря, оживляя его."))
-				playsound(src,'sound/effects/refill.ogg',50,1)
+				playsound(src,'sound/effects/refill.ogg',50, TRUE)
 				update_icon(UPDATE_ICON_STATE)
 				return
 			else
@@ -85,7 +85,15 @@
 /obj/item/mobcapsule
 	name = "lazarus capsule"
 	desc = "Позволяет удобно хранить и транспортировать существ, обработанных инъектором."
-	ru_names = list(
+	icon = 'icons/obj/mobcap.dmi'
+	icon_state = "mobcap0"
+	w_class = WEIGHT_CLASS_TINY
+	var/mob/living/simple_animal/captured = null
+	var/colorindex = 0
+	var/capture_type = SENTIENCE_ORGANIC //So you can't capture boss monsters or robots with it
+
+/obj/item/mobcapsule/get_ru_names()
+	return list(
 		NOMINATIVE = "капсула Лазаря",
 		GENITIVE = "капсулы Лазаря",
 		DATIVE = "капсуле Лазаря",
@@ -93,13 +101,6 @@
 		INSTRUMENTAL = "капсулой Лазаря",
 		PREPOSITIONAL = "капсуле Лазаря"
 	)
-	icon = 'icons/obj/mobcap.dmi'
-	icon_state = "mobcap0"
-	w_class = WEIGHT_CLASS_TINY
-	throw_range = 7
-	var/mob/living/simple_animal/captured = null
-	var/colorindex = 0
-	var/capture_type = SENTIENCE_ORGANIC //So you can't capture boss monsters or robots with it
 
 /obj/item/mobcapsule/Destroy()
 	if(captured)

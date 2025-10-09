@@ -43,7 +43,7 @@
 /mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	return FALSE
 
-/mob/living/bullet_act(var/obj/projectile/P, var/def_zone)
+/mob/living/bullet_act(obj/projectile/P, def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	if(!P.nodamage)
@@ -79,7 +79,7 @@
 				span_italics("Вы слышите треск, похожий на молнию!")
 			)
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
-			explosion(loc, -1, 0, 2, 2, cause = "[name] over electrocuted by [source]")
+			explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 2, cause = "[name] over electrocuted by [source]")
 	else
 		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
@@ -299,10 +299,10 @@
 	adjust_fire_stacks(-(volume * 0.2))
 
 //This is called when the mob is thrown into a dense turf
-/mob/living/proc/turf_collision(var/turf/T, var/speed)
+/mob/living/proc/turf_collision(turf/T, speed)
 	src.take_organ_damage(speed*5)
 
-/mob/living/proc/near_wall(var/direction,var/distance=1)
+/mob/living/proc/near_wall(direction, distance=1)
 	var/turf/T = get_step(get_turf(src),direction)
 	var/turf/last_turf = src.loc
 	var/i = 1

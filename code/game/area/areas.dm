@@ -13,14 +13,16 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 
-	/// List of all turfs currently inside this area. Acts as a filtered bersion of area.contents
-	/// For faster lookup (area.contents is actually a filtered loop over world)
+	/// List of all turfs currently inside this area as nested lists indexed by zlevel.
+	/// Acts as a filtered bersion of area.contents For faster lookup
+	/// (area.contents is actually a filtered loop over world)
 	/// Semi fragile, but it prevents stupid so I think it's worth it
-	var/list/turf/contained_turfs = list()
-	/// Contained turfs is a MASSIVE list, so rather then adding/removing from it each time we have a problem turf
+	var/list/list/turf/turfs_by_zlevel = list()
+	/// turfs_by_z_level can become MASSIVE lists, so rather then adding/removing from it each time we have a problem turf
 	/// We should instead store a list of turfs to REMOVE from it, then hook into a getter for it
 	/// There is a risk of this and contained_turfs leaking, so a subsystem will run it down to 0 incrementally if it gets too large
-	var/list/turf/turfs_to_uncontain = list()
+	/// This uses the same nested list format as turfs_by_zlevel
+	var/list/list/turf/turfs_to_uncontain_by_zlevel = list()
 
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
@@ -102,10 +104,35 @@
 	/// Whether the turfs in the area should be drawn onto the "base" holomap.
 	var/holomap_should_draw = TRUE
 
+	//all air alarms in area are connected via magic
+	var/obj/machinery/alarm/master_air_alarm
+	var/list/air_vent_names = list()
+	var/list/air_scrub_names = list()
+	var/list/air_vent_info = list()
+	var/list/air_scrub_info = list()
+
+	/// Turrets use this list to see if individual power/lethal settings are allowed
+	var/list/obj/machinery/turretid/turret_controls = list()
+
+	luminosity = TRUE
+	///List of mutable appearances we underlay to show light
+	///In the form plane offset + 1 -> appearance to use
+	var/list/mutable_appearance/lighting_effects = null
+	///Whether this area has a currently active base lighting, bool
+	var/area_has_base_lighting = FALSE
+	///alpha 0-255 of lighting_effect and thus baselighting intensity
+	var/base_lighting_alpha = 0
+	///The colour of the light acting on this area
+	var/base_lighting_color = COLOR_WHITE
+	///Whether this area allows static lighting and thus loads the lighting objects
+	var/static_lighting = TRUE
+	///Whether this area is iluminated by starlight
+	var/use_starlight = FALSE
+
 /area/New(loc, ...)
 	// This interacts with the map loader, so it needs to be set immediately
 	// rather than waiting for atoms to initialize.
-	if (area_flags & UNIQUE_AREA)
+	if(area_flags & UNIQUE_AREA)
 		GLOB.areas_by_type[type] = src
 	GLOB.areas += src
 	..()
@@ -228,37 +255,106 @@
 		else if(firedoor.density)
 			INVOKE_ASYNC(firedoor, TYPE_PROC_REF(/obj/machinery/door/firedoor, open))
 
-/area/proc/get_contained_turfs()
-	if(length(turfs_to_uncontain))
+/// Returns the highest zlevel that this area contains turfs for
+/area/proc/get_highest_zlevel()
+	for(var/area_zlevel in length(turfs_by_zlevel) to 1 step -1)
+		if(length(turfs_to_uncontain_by_zlevel) >= area_zlevel)
+			if(length(turfs_by_zlevel[area_zlevel]) - length(turfs_to_uncontain_by_zlevel[area_zlevel]) > 0)
+				return area_zlevel
+		else
+			if(length(turfs_by_zlevel[area_zlevel]))
+				return area_zlevel
+	return 0
+
+/// Returns a nested list of lists with all turfs split by zlevel.
+/// only zlevels with turfs are returned. The order of the list is not guaranteed.
+/area/proc/get_zlevel_turf_lists()
+	if(length(turfs_to_uncontain_by_zlevel))
 		cannonize_contained_turfs()
-	return contained_turfs
+
+	var/list/zlevel_turf_lists = list()
+
+	for(var/list/zlevel_turfs as anything in turfs_by_zlevel)
+		if(length(zlevel_turfs))
+			zlevel_turf_lists += list(zlevel_turfs)
+	return zlevel_turf_lists
+
+/// Returns a list with all turfs in this zlevel.
+/area/proc/get_turfs_by_zlevel(zlevel)
+	if(length(turfs_to_uncontain_by_zlevel) >= zlevel && length(turfs_to_uncontain_by_zlevel[zlevel]))
+		cannonize_contained_turfs_by_zlevel(zlevel)
+
+	if(length(turfs_by_zlevel) < zlevel)
+		return list()
+
+	return turfs_by_zlevel[zlevel]
+
+/// Merges a list containing all of the turfs zlevel lists from get_zlevel_turf_lists inside one list. Use get_zlevel_turf_lists() or get_turfs_by_zlevel() unless you need all the turfs in one list to avoid generating large lists
+/area/proc/get_turfs_from_all_zlevels()
+	. = list()
+	for(var/list/zlevel_turfs as anything in get_zlevel_turf_lists())
+		. += zlevel_turfs
 
 /// Ensures that the contained_turfs list properly represents the turfs actually inside us
-/area/proc/cannonize_contained_turfs()
+/area/proc/cannonize_contained_turfs_by_zlevel(zlevel_to_clean, _autoclean = TRUE)
 	// This is massively suboptimal for LARGE removal lists
 	// Try and keep the mass removal as low as you can. We'll do this by ensuring
 	// We only actually add to contained turfs after large changes (Also the management subsystem)
 	// Do your damndest to keep turfs out of /area/space as a stepping stone
-	// That sucker gets HUGE and will make this take actual tens of seconds if you stuff turfs_to_uncontain
-	contained_turfs -= turfs_to_uncontain
-	turfs_to_uncontain = list()
+	// That sucker gets HUGE and will make this take actual seconds
+	if(zlevel_to_clean <= length(turfs_by_zlevel) && zlevel_to_clean <= length(turfs_to_uncontain_by_zlevel))
+		turfs_by_zlevel[zlevel_to_clean] -= turfs_to_uncontain_by_zlevel[zlevel_to_clean]
+
+	if(!_autoclean) // Removes empty lists from the end of this list
+		turfs_to_uncontain_by_zlevel[zlevel_to_clean] = list()
+		return
+
+	var/new_length = length(turfs_to_uncontain_by_zlevel)
+	// Walk backwards thru the list
+	for(var/i in length(turfs_to_uncontain_by_zlevel) to 0 step -1)
+		if(i && length(turfs_to_uncontain_by_zlevel[i]))
+			break // Stop the moment we find a useful list
+		new_length = i
+
+	if(new_length < length(turfs_to_uncontain_by_zlevel))
+		turfs_to_uncontain_by_zlevel.len = new_length
+
+	if(new_length >= zlevel_to_clean)
+		turfs_to_uncontain_by_zlevel[zlevel_to_clean] = list()
+
+
+/// Ensures that the contained_turfs list properly represents the turfs actually inside us
+/area/proc/cannonize_contained_turfs()
+	for(var/area_zlevel in 1 to length(turfs_to_uncontain_by_zlevel))
+		cannonize_contained_turfs_by_zlevel(area_zlevel, _autoclean = FALSE)
+
+	turfs_to_uncontain_by_zlevel = list()
 
 /// Returns TRUE if we have contained turfs, FALSE otherwise
 /area/proc/has_contained_turfs()
-	return length(contained_turfs) - length(turfs_to_uncontain) > 0
+	for(var/area_zlevel in 1 to length(turfs_by_zlevel))
+		if(length(turfs_to_uncontain_by_zlevel) >= area_zlevel)
+			if(length(turfs_by_zlevel[area_zlevel]) - length(turfs_to_uncontain_by_zlevel[area_zlevel]) > 0)
+				return TRUE
+		else
+			if(length(turfs_by_zlevel[area_zlevel]))
+				return TRUE
+	return FALSE
 
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
 	GLOB.areas -= src
+	turfs_by_zlevel = null
+	turfs_to_uncontain_by_zlevel = null
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /**
-  * Generate a power alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  */
+ * Generate a power alert for this area
+ *
+ * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+ */
 /area/proc/poweralert(state, obj/source)
 	if(state != poweralm)
 		poweralm = state
@@ -277,10 +373,10 @@
 				SSalarm.triggerAlarm("Power", src, cameras, source)
 
 /**
-  * Generate an atmospheric alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  */
+ * Generate an atmospheric alert for this area
+ *
+ * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+ */
 /area/proc/atmosalert(danger_level, obj/source)
 	if(danger_level != atmosalm)
 		if(danger_level == ATMOS_ALARM_DANGER)
@@ -306,8 +402,8 @@
 	return FALSE
 
 /**
-  * Try to close all the firedoors in the area
-  */
+ * Try to close all the firedoors in the area
+ */
 /area/proc/ModifyFiredoors(opening)
 	if(!firedoors)
 		return
@@ -338,12 +434,12 @@
 			INVOKE_ASYNC(firedoor, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/firedoor, close)))
 
 /**
-  * Generate a firealarm alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  *
-  * Also starts the area processing on SSobj
-  */
+ * Generate a firealarm alert for this area
+ *
+ * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+ *
+ * Also starts the area processing on SSobj
+ */
 /area/proc/firealert(obj/source)
 	if(always_unpowered) //no fire alarms in space/asteroid
 		return
@@ -362,13 +458,13 @@
 	START_PROCESSING(SSobj, src)
 
 /**
-  * Reset the firealarm alert for this area
-  *
-  * resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
-  * in the world
-  *
-  * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
-  */
+ * Reset the firealarm alert for this area
+ *
+ * resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
+ * in the world
+ *
+ * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
+ */
 /area/proc/firereset(obj/source)
 	if(fire)
 		unset_fire_alarm_effects()
@@ -384,17 +480,17 @@
 	STOP_PROCESSING(SSobj, src)
 
 /**
-  * If 100 ticks has elapsed, toggle all the firedoors closed again
-  */
+ * If 100 ticks has elapsed, toggle all the firedoors closed again
+ */
 /area/process()
 	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
 		ModifyFiredoors(FALSE)
 
 /**
-  * Close and lock a door passed into this proc
-  *
-  * Does this need to exist on area? probably not
-  */
+ * Close and lock a door passed into this proc
+ *
+ * Does this need to exist on area? probably not
+ */
 /area/proc/close_and_lock_door(obj/machinery/door/DOOR)
 	set waitfor = FALSE
 	DOOR.close()
@@ -402,12 +498,12 @@
 		DOOR.lock()
 
 /**
-  * Raise a burglar alert for this area
-  *
-  * Close and locks all doors in the area and alerts silicon mobs of a break in
-  *
-  * Alarm auto resets after 600 ticks
-  */
+ * Raise a burglar alert for this area
+ *
+ * Close and locks all doors in the area and alerts silicon mobs of a break in
+ *
+ * Alarm auto resets after 600 ticks
+ */
 /area/proc/burglaralert(obj/trigger)
 	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
@@ -423,10 +519,10 @@
 		addtimer(CALLBACK(SSalarm, TYPE_PROC_REF(/datum/controller/subsystem/alarm, cancelAlarm), "Burglar", src, trigger), 600)
 
 /**
-  * Trigger the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
+ * Trigger the fire alarm visual affects in an area
+ *
+ * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
+ */
 /area/proc/set_fire_alarm_effect()
 	fire = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -466,13 +562,6 @@
 /area/space/update_icon_state()
 	icon_state = null
 
-
-/*
-#define EQUIP 1
-#define LIGHT 2
-#define ENVIRON 3
-*/
-
 /area/proc/powered(chan)		// return true if the area has power to given channel
 	if(!requires_power)
 		return TRUE
@@ -491,10 +580,10 @@
 	return FALSE
 
 /**
-  * Called when the area power status changes
-  *
-  * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
-  */
+ * Called when the area power status changes
+ *
+ * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
+ */
 /area/proc/power_change()
 	for(var/obj/machinery/machine as anything in machinery_cache)	// for each machine in the area
 		machine.power_change()										// reverify power status (to update icons etc.)
@@ -559,6 +648,10 @@
 
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
 	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
+	if(!LAZYACCESS(arrived.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
+		return
+	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
 	if(ismob(arrived))
 		var/mob/arrived_mob = arrived
@@ -568,6 +661,10 @@
 /area/Exited(atom/movable/departed, area/new_area)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src, new_area)
+	if(!LAZYACCESS(departed.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
+		return
+	for(var/atom/movable/recipient as anything in departed.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_EXIT_AREA, src)
 
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)
@@ -602,15 +699,15 @@
 	var/max_y = -1
 	var/center_z = -1
 	for(var/turf/area_turf in area_turfs)
-		if (center_z == -1)
+		if(center_z == -1)
 			center_z = area_turf.z
-		if (area_turf.x < min_x)
+		if(area_turf.x < min_x)
 			min_x = area_turf.x
-		if (area_turf.y < min_y)
+		if(area_turf.y < min_y)
 			min_y = area_turf.y
-		if (area_turf.x > max_x)
+		if(area_turf.x > max_x)
 			max_x = area_turf.x
-		if (area_turf.y > max_y)
+		if(area_turf.y > max_y)
 			max_y = area_turf.y
 	var/center_x = min_x + round((max_x - min_x) / 2)
 	var/center_y = min_y + round((max_y - min_y) / 2)

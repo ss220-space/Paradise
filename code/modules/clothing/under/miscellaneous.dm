@@ -55,9 +55,7 @@
 
 /obj/item/clothing/under/rank/mailman/skirt
 	name = "mailman's jumpskirt"
-	desc = "<i>'Special delivery!'</i>"
 	icon_state = "mail_skirt"
-	item_state = "b_suit"
 	item_color = "mail_skirt"
 
 /obj/item/clothing/under/rank/vice
@@ -329,11 +327,10 @@
 	name = "executive suit"
 	desc = "A formal black suit and red tie, intended for the station's finest."
 	icon_state = "really_black_suit"
-	item_state = "bl_suit"
 	item_color = "really_black_suit"
 
 /obj/item/clothing/under/suit_jacket/female
-	name = "executive suit"
+	name = "women\'s executive suit"
 	desc = "A formal trouser suit for women, intended for the station's finest."
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
@@ -350,7 +347,6 @@
 	name = "red jumpskirt"
 	desc = "A red jumpskirt and blue tie. Somewhat formal."
 	icon_state = "red_suitf"
-	item_state = "r_suit"
 	item_color = "red_suitf"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -782,14 +778,6 @@
 	item_state = "bane"
 	item_color = "bane"
 
-/obj/item/clothing/under/vox
-	name = "Ripped Jumpsuit"
-	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
-	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
-	icon_state = "vgrey"
-	item_state = "vgrey"
-	item_color = "vgrey"
-
 /obj/item/clothing/under/psyjump
 	name = "Psychic Amp Jumpsuit"
 	desc = "A suit made of strange materials."
@@ -987,7 +975,6 @@
 	icon_state = "victorianreddress"
 	item_state = "victorianreddress"
 	item_color = "victorianreddress"
-	over_shoes = TRUE
 
 /obj/item/clothing/under/victsuit
 	name = "victorian suit"
@@ -1015,7 +1002,6 @@
 			Изготовлен из лёгкой ткани с минимальной защитой от биологических загрязнений. \
 			Застёжки на спине слабые и не застёгиваются должным образом, \
 			что делает этот халат не самым популярным выбором среди остальной униформы."
-	gender = MALE
 	icon_state = "medicalgown"
 	item_state = "medicalgown"
 	item_color = "medicalgown"
@@ -1267,7 +1253,6 @@
 	name = "satanic clothes"
 	desc = "Костюм, который обычно носят сатанисты."
 	over_shoes = TRUE
-	can_adjust = TRUE
 	icon_state = "satan"
 	item_state = "satan"
 	item_color = "satan"
@@ -1296,7 +1281,6 @@
 /obj/item/clothing/under/martialsuit/masterli
 	name = "Master Li clothes"
 	desc = "Одеяние великого воина — жаль, что это всего лишь копия. Оригинал хранится в одном из дворцов династии Чанг."
-	over_shoes = FALSE
 	can_adjust = FALSE
 	icon_state = "masterli"
 	item_state = "masterli"
@@ -1383,9 +1367,140 @@
 		PREPOSITIONAL = "случайном костюме боевых искусств"
 	)
 
-/obj/item/clothing/under/martialsuit/random/Initialize()
+/obj/item/clothing/under/martialsuit/random/Initialize(mapload)
 	. = ..()
 	var/suit = pick(subtypesof(/obj/item/clothing/under/martialsuit))
 	new suit(loc)
 	qdel(src)
 
+
+/obj/item/clothing/under/tchaikowsky
+	species_restricted = list(SPECIES_HUMAN)
+
+/obj/item/clothing/under/tchaikowsky/sechighwaist
+	name = "security high waist female uniform"
+	desc = "Женская униформа Службы Безопасности с завышенной талией."
+	icon_state = "high_waist_sec"
+	item_state = "high_waist_sec"
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+
+/obj/item/clothing/under/tchaikowsky/sechighwaist/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа с завышенной талией",
+		GENITIVE = "униформы с завышенной талией",
+		DATIVE = "униформе с завышенной талией",
+		ACCUSATIVE = "униформу с завышенной талией",
+		INSTRUMENTAL = "униформой с завышенной талией",
+		PREPOSITIONAL = "униформе с завышенной талией"
+	)
+
+/obj/item/clothing/under/tchaikowsky/dress
+	name = "formal blue dress"
+	desc = "Синее платье, которое обычно носят секретарши важных представителей корпораций."
+	icon_state = "formal_dress_blue"
+	item_state = "formal_dress_blue"
+
+/obj/item/clothing/under/tchaikowsky/dress/get_ru_names()
+	return list(
+		NOMINATIVE = "синее платье",
+		GENITIVE = "синего платья",
+		DATIVE = "синему платью",
+		ACCUSATIVE = "синее платье",
+		INSTRUMENTAL = "синим платьем",
+		PREPOSITIONAL = "синем платье"
+	)
+
+/obj/item/clothing/under/tchaikowsky/dress/black
+	name = "formal black dress"
+	desc = "Чёрное платье, которое обычно носят секретарши важных представителей корпораций."
+	icon_state = "formal_dress_black"
+	item_state = "formal_dress_black"
+
+/obj/item/clothing/under/tchaikowsky/dress/black/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрное платье",
+		GENITIVE = "чёрного платья",
+		DATIVE = "чёрному платью",
+		ACCUSATIVE = "чёрное платье",
+		INSTRUMENTAL = "чёрным платьем",
+		PREPOSITIONAL = "чёрном платье"
+	)
+
+/obj/item/clothing/under/tchaikowsky/highwaistpants
+	name = "hight waist pants"
+	desc = "Женские штаны с завышенной талией. Идут в комплекте с чёрной рубашкой!"
+	icon_state = "high_waist_pants"
+	item_state = "high_waist_pants"
+
+/obj/item/clothing/under/tchaikowsky/highwaistpants/get_ru_names()
+	return list(
+		NOMINATIVE = "штаны с завышенной талией",
+		GENITIVE = "штанов с завышенной талией",
+		DATIVE = "штанам с завышенной талией",
+		ACCUSATIVE = "штаны с завышенной талией	",
+		INSTRUMENTAL = "штанами с завышенной талией",
+		PREPOSITIONAL = "штанах с завышенной талией"
+	)
+
+/obj/item/clothing/under/tchaikowsky/evening_dress
+	name = "evening dress (black)"
+	desc = "Платье для официальных мероприятий."
+	icon_state = "evening_dress_black"
+	item_state = "evening_dress_black"
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрное платье",
+		GENITIVE = "чёрного платья",
+		DATIVE = "чёрному платью",
+		ACCUSATIVE = "чёрное платье",
+		INSTRUMENTAL = "чёрным платьем",
+		PREPOSITIONAL = "чёрном платье"
+	)
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/cyan
+	name = "evening dress (cyan)"
+	icon_state = "evening_dress_cyan"
+	item_state = "evening_dress_cyan"
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/cyan/get_ru_names()
+	return list(
+		NOMINATIVE = "сине-зелёное платье",
+		GENITIVE = "сине-зелёного платья",
+		DATIVE = "сине-зелёному платью",
+		ACCUSATIVE = "сине-зелёное платье",
+		INSTRUMENTAL = "сине-зелёным платьем",
+		PREPOSITIONAL = "сине-зелёном платье"
+	)
+
+/obj/item/clothing/under/tchaikowsky/baseball
+	name = "baseball uniform (blue)"
+	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды \"Нанотрейзен Лейкерс\"."
+	icon_state = "baseball_uniform_blue"
+	item_state = "baseball_uniform_blue"
+
+/obj/item/clothing/under/tchaikowsky/baseball/get_ru_names()
+	return list(
+		NOMINATIVE = "синяя бейсбольная униформа",
+		GENITIVE = "синей бейсбольной униформы",
+		DATIVE = "синей бейсбольной униформе",
+		ACCUSATIVE = "синюю бейсбольную униформу",
+		INSTRUMENTAL = "синей бейсбольной униформой",
+		PREPOSITIONAL = "синей бейсбольной униформе"
+	)
+
+/obj/item/clothing/under/tchaikowsky/baseball/brown
+	name = "baseball uniform (brown)"
+	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды \"Киберсан Инд\"."
+	icon_state = "baseball_uniform_brown"
+	item_state = "baseball_uniform_brown"
+
+/obj/item/clothing/under/tchaikowsky/baseball/brown/get_ru_names()
+	return list(
+		NOMINATIVE = "коричневая бейсбольная униформа",
+		GENITIVE = "коричневой бейсбольной униформы",
+		DATIVE = "коричневой бейсбольной униформе",
+		ACCUSATIVE = "коричневую бейсбольную униформу",
+		INSTRUMENTAL = "коричневой бейсбольной униформой",
+		PREPOSITIONAL = "коричневой бейсбольной униформе"
+	)

@@ -1,6 +1,5 @@
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
-	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "server"
 	base_icon_state = "server"
 	var/datum/research/files
@@ -20,8 +19,8 @@
 	var/list/logs_for_logs_clearing
 	var/static/logs_decryption_key = null
 
-/obj/machinery/r_n_d/server/New()
-	..()
+/obj/machinery/r_n_d/server/Initialize(mapload)
+	. = ..()
 	if(!logs_decryption_key)
 		logs_decryption_key = GenerateKey()
 	if(is_taipan(z))
@@ -37,8 +36,8 @@
 	RefreshParts()
 	initialize_serv() //Agouri // fuck you agouri
 
-/obj/machinery/r_n_d/server/upgraded/New()
-	..()
+/obj/machinery/r_n_d/server/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -73,7 +72,7 @@
 
 /obj/machinery/r_n_d/server/process()
 	if(prob(3) && plays_sound)
-		playsound(loc, "computer_ambience", 50, TRUE)
+		playsound(loc, SFX_COMPUTER_AMBIENCE, 50, TRUE)
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	switch(environment.temperature)
@@ -104,10 +103,10 @@
 
 /obj/machinery/r_n_d/server/emp_act(severity)
 	griefProtection()
-	..()
+	return ..()
 
 
-/obj/machinery/r_n_d/server/ex_act(severity)
+/obj/machinery/r_n_d/server/ex_act(severity, target)
 	griefProtection()
 	return ..()
 
@@ -160,7 +159,7 @@
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
 
 
 /obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
@@ -224,7 +223,7 @@
 	name = "CentComm. Central R&D Database"
 	server_id = -1
 
-/obj/machinery/r_n_d/server/centcom/Initialize()
+/obj/machinery/r_n_d/server/centcom/Initialize(mapload)
 	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
@@ -264,7 +263,7 @@
 	var/badmin = 0
 	var/syndicate = 0 //добавленный для синдибазы флаг
 
-/obj/machinery/computer/rdservercontrol/Initialize()
+/obj/machinery/computer/rdservercontrol/Initialize(mapload)
 	. = ..()
 	if(is_taipan(z))
 		syndicate = 1
@@ -277,7 +276,7 @@
 	add_fingerprint(usr)
 	usr.set_machine(src)
 	if(!src.allowed(usr) && !emagged)
-		to_chat(usr, "<span class='warning'>You do not have the required access level</span>")
+		to_chat(usr, span_warning("You do not have the required access level"))
 		return
 
 	if(href_list["main"])
@@ -450,10 +449,10 @@
 /obj/machinery/computer/rdservercontrol/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		emagged = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
+			to_chat(user, span_notice("You you disable the security protocols"))
 	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core

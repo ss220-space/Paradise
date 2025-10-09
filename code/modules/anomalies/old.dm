@@ -7,8 +7,6 @@
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
-	density = FALSE
-	anchored = TRUE
 	light_range = 3
 	var/movechance = ANOMALY_MOVECHANCE
 	var/obj/item/assembly/signaler/core/aSignal = /obj/item/assembly/signaler/core
@@ -62,16 +60,16 @@
 	for(var/obj/item/item in get_turf(src))
 		if(!item.origin_tech)
 			continue
-		if (istype(item, /obj/item/relict_production/rapid_dupe))
+		if(istype(item, /obj/item/relict_production/rapid_dupe))
 			var/amount = rand(1, 3)
-			for (var/i; i <= amount; i++)
+			for(var/i; i <= amount; i++)
 				new /obj/item/relic(get_turf(item))
 				var/datum/effect_system/fluid_spread/smoke/smoke = new
 				smoke.set_up(5, get_turf(item))
 				smoke.start()
 			qdel(item)
 			continue
-		if (prob(2))
+		if(prob(2))
 			new /obj/item/relic(get_turf(item))
 			qdel(item)
 
@@ -88,8 +86,8 @@
 /obj/effect/old_anomaly/proc/detonate()
 	return
 
-/obj/effect/old_anomaly/ex_act(severity)
-	if(severity == EXPLODE_DEVASTATE)
+/obj/effect/old_anomaly/ex_act(severity, target)
+	if(severity >= EXPLODE_DEVASTATE)
 		qdel(src)
 
 /obj/effect/old_anomaly/proc/anomalyNeutralize()
@@ -113,7 +111,6 @@
 /obj/effect/old_anomaly/gravitational
 	name = "gravitational anomaly"
 	icon_state = "shield2"
-	density = FALSE
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/core/gravitational/tier2
@@ -212,7 +209,7 @@
 
 /obj/effect/old_anomaly/energetic/detonate()
 	if(explosive)
-		explosion(src, 1, 4, 16, 18, cause = src) //Low devastation, but hits a lot of stuff.
+		explosion(src, devastation_range = 1, heavy_impact_range = 4, light_impact_range = 16, flash_range = 18, cause = src) //Low devastation, but hits a lot of stuff.
 	else
 		new /obj/effect/particle_effect/sparks(loc)
 
@@ -264,8 +261,9 @@
 			var/turf/turf_to = get_turf(chosen) // the turf of origin we're travelling TO
 
 			playsound(turf_to, 'sound/effects/phasein.ogg', 100, TRUE)
-			GLOB.minor_announcement.announce("Обнаружено перемещение крупной блюспейс-аномалии.",
-											ANNOUNCE_ANOMALY_RU
+			GLOB.minor_announcement.announce(
+				message = "Обнаружено перемещение крупной блюспейс-аномалии.",
+				new_title = ANNOUNCE_ANOMALY_RU
 			)
 
 			var/list/flashers = list()
@@ -351,7 +349,6 @@
 
 /obj/effect/old_anomaly/bhole
 	name = "vortex anomaly"
-	icon_state = "bhole3"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
 	aSignal = /obj/item/assembly/signaler/core/vortex/tier2
 

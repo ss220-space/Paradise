@@ -3,14 +3,6 @@
 /obj/item/hierophant_club
 	name = "hierophant club"
 	desc = "Странные технологии этого массивного посоха позволяют совершать почти магические действия. Раньше он бил вас, теперь вы задаёте ритм."
-	ru_names = list(
-		NOMINATIVE = "посох Иерофанта",
-		GENITIVE = "посоха Иерофанта",
-		DATIVE = "посоху Иерофанта",
-		ACCUSATIVE = "посох Иерофанта",
-		INSTRUMENTAL = "посохом Иерофанта",
-		PREPOSITIONAL = "посохе Иерофанта"
-	)
 	icon_state = "hierophant_club_ready_beacon"
 	item_state = "hierophant_club_ready_beacon"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
@@ -34,6 +26,16 @@
 	var/teleporting = FALSE //if we ARE teleporting
 	var/tele_proof_bypass = FALSE //for admins to bypass tele_proof with VV
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
+
+/obj/item/hierophant_club/get_ru_names()
+	return list(
+		NOMINATIVE = "посох Иерофанта",
+		GENITIVE = "посоха Иерофанта",
+		DATIVE = "посоху Иерофанта",
+		ACCUSATIVE = "посох Иерофанта",
+		INSTRUMENTAL = "посохом Иерофанта",
+		PREPOSITIONAL = "посохе Иерофанта"
+	)
 
 /obj/item/hierophant_club/examine(mob/user)
 	. = ..()
@@ -312,14 +314,6 @@
 /obj/item/clothing/accessory/necklace/hierophant_talisman
 	name = "Dormnant talisman of warding"
 	desc = "Защитный талисман Иерофанта. Он спасёт вас."
-	ru_names = list(
-		NOMINATIVE = "дремлющий защитный талисман",
-		GENITIVE = "дремлющего защитного талисмана",
-		DATIVE = "дремлющему защитному талисману",
-		ACCUSATIVE = "дремлющий защитный талисман",
-		INSTRUMENTAL = "дремлющим защитным талисманом",
-		PREPOSITIONAL = "дремлющем защитном талисмане"
-	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "hierophant_talisman_nonactive"
 	item_state = "hierophant_talisman_nonactive"
@@ -330,6 +324,16 @@
 	var/obj/effect/proc_holder/spell/hierophant_talisman_heal/spell_heal
 	var/obj/effect/proc_holder/spell/hierophant_talisman_teleport/spell_teleport
 	var/obj/effect/proc_holder/spell/hierophant_talisman_message/spell_message
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/get_ru_names()
+	return list(
+		NOMINATIVE = "дремлющий защитный талисман",
+		GENITIVE = "дремлющего защитного талисмана",
+		DATIVE = "дремлющему защитному талисману",
+		ACCUSATIVE = "дремлющий защитный талисман",
+		INSTRUMENTAL = "дремлющим защитным талисманом",
+		PREPOSITIONAL = "дремлющем защитном талисмане"
+	)
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attack_self(mob/living/user)
 	if(possessed)
@@ -427,7 +431,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/valid_target(mob/living/carbon/human/target, mob/living/simple_animal/shade/talisman/user)
-	if (target.ckey == user.master)
+	if(target.ckey == user.master)
 		return TRUE
 	return FALSE
 
@@ -506,7 +510,6 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	should_recharge_after_cast = TRUE
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_message"
 	action_background_icon_state = "bg_hierophant_talisman"

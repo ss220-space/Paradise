@@ -378,7 +378,6 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 			dat += "Никто не выжил!<br>"
 
 	dat += SSticker.mode.declare_job_completion()
-	dat += SSticker.mode.declare_ambition_completion()
 
 	dat += {"
 	<hr><br>
@@ -401,7 +400,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		if(PROMOTIONS_FOR_EVERYONE to AMBASSADORS_OF_DISCOVERY-1) score_rating =	"Всем — премия!"
 		if(AMBASSADORS_OF_DISCOVERY to PRIDE_OF_SCIENCE-1) score_rating =			"Пионеры новых открытий"
 		if(PRIDE_OF_SCIENCE to NANOTRASEN_FINEST-1) score_rating =					"Гордость науки во плоти"
-		if(NANOTRASEN_FINEST to INFINITY) score_rating =							"Лучшие кадры НаноТрейзен"
+		if(NANOTRASEN_FINEST to INFINITY) score_rating =							"Лучшие кадры Нанотрейзен"
 
 	dat += "<b><u>РЕЙТИНГ:</u></b> [score_rating]"
 	GLOB.scoreboard = jointext(dat, "")

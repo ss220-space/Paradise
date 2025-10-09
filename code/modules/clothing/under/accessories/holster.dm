@@ -91,11 +91,15 @@
 
 /obj/item/clothing/accessory/holster/proc/unholster_message(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
-		usr.visible_message(span_warning("[user] draws the [I], ready to shoot!"),
-							span_warning("You draw the [I], ready to shoot!"))
+		usr.visible_message(
+			span_warning("[user] draws the [I], ready to shoot!"),
+			span_warning("You draw the [I], ready to shoot!")
+		)
 	else
-		user.visible_message(span_notice("[user] draws the [I], pointing it at the ground."),
-							span_notice("You draw the [I], pointing it at the ground."))
+		user.visible_message(
+			span_notice("[user] draws the [I], pointing it at the ground."),
+			span_notice("You draw the [I], pointing it at the ground.")
+		)
 
 /obj/item/clothing/accessory/holster/attack_hand(mob/user)
 	if(has_suit)	//if we are part of a suit
@@ -163,12 +167,10 @@
 
 
 /obj/item/clothing/accessory/holster/armpit
-	name = "shoulder holster"
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	holster_allow = /obj/item/gun/projectile
 
 /obj/item/clothing/accessory/holster/waist
-	name = "shoulder holster"
 	desc = "A handgun holster. Made of expensive leather."
 
 /obj/item/clothing/accessory/holster/leg
@@ -212,11 +214,15 @@
 
 /obj/item/clothing/accessory/holster/knives/unholster_message(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message(span_warning("[user] takes the [I] out, ready to throw!"),
-			span_warning("You takes the [I] out, [holstered.len] knives left!"))
+		user.visible_message(
+			span_warning("[user] takes the [I] out, ready to throw!"),
+			span_warning("You takes the [I] out, [holstered.len] knives left!")
+		)
 	else
-		user.visible_message(span_notice("[user] takes the [I] out."),
-			span_notice("You takes the [I] out, [holstered.len] knives left"))
+		user.visible_message(
+			span_notice("[user] takes the [I] out."),
+			span_notice("You takes the [I] out, [holstered.len] knives left")
+		)
 
 /obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
 	return is_type_in_list(I, holster_allow, FALSE)

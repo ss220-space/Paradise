@@ -122,22 +122,22 @@
 			INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, close))
 
 
-/obj/machinery/computer/pod/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/pod/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	return attack_hand(user)
 
 
-/obj/machinery/computer/pod/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/pod/attack_hand(mob/user as mob)
 	if(..())
 		return
 
 	var/dat = {"<tt><b>[name]</b>(<a href='byond://?src=[UID()];rename=1'>rename</a>)"}
 	user.set_machine(src)
-	dat += "<br><a href = '?src=[UID()];sync=1'>Reset Connections</a><br>"
+	dat += "<br><a href = 'byond://?src=[UID()];sync=1'>Reset Connections</a><br>"
 	if(synced.len)
-		dat += "<br><a href = '?src=[UID()];massfire=1'><b>Fire All Connected Drivers</b></a><br>"
+		dat += "<br><a href = 'byond://?src=[UID()];massfire=1'><b>Fire All Connected Drivers</b></a><br>"
 	if(istype(src,/obj/machinery/computer/pod/deathsquad))
-		dat += "<br><a href = '?src=[UID()];dstele=1'><b>Set Teleporter Destination Z-Level</b></a><br>"
+		dat += "<br><a href = 'byond://?src=[UID()];dstele=1'><b>Set Teleporter Destination Z-Level</b></a><br>"
 	for(var/ident_tag in id_tags)
 		if(!(ident_tag in door_only_tags))
 			dat += "<br><br><b>[ident_tag]</b> <a href='byond://?src=[UID()];remove=1;driver=[ident_tag]'>remove</a>"
@@ -152,19 +152,19 @@
 			var/maxsecond = maxtimes[ident_tag] % 60
 			var/maxminute = (maxtimes[ident_tag] - maxsecond) / 60
 			dat += "<hr>\nTimer System: [d2]\nTime Left: [minute ? "[minute]:" : null][second]/[maxminute ? "[maxminute]:" : null][maxsecond] <a href='byond://?src=[UID()];tp=-30;driver=[ident_tag]'>-</a> <a href='byond://?src=[UID()];tp=-1;driver=[ident_tag]'>-</a> <a href='byond://?src=[UID()];tp=1;driver=[ident_tag]'>+</a> <a href='byond://?src=[UID()];tp=30;driver=[ident_tag]'>+</a>"
-			dat += "<br>Set timer to loop: [loopings[ident_tag] ? "<a href = '?src=[UID()];loop=0;driver=[ident_tag]'>Yes</a>" : "<a href = '?src=[UID()];loop=1;driver=[ident_tag]'>No</a>"]"
+			dat += "<br>Set timer to loop: [loopings[ident_tag] ? "<a href = 'byond://?src=[UID()];loop=0;driver=[ident_tag]'>Yes</a>" : "<a href = 'byond://?src=[UID()];loop=1;driver=[ident_tag]'>No</a>"]"
 			var/temp = ""
-			var/list/L = list( 0.25, 0.5, 1, 2, 4, 8, 16 )
+			var/list/L = list(0.25, 0.5, 1, 2, 4, 8, 16)
 			for(var/t in L)
-				if( powers[ident_tag] == t)
-					temp += "<b><a href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</a></b> "
+				if(powers[ident_tag] == t)
+					temp += "<b><a href = 'byond://?src=[UID()];power=[t];driver=[ident_tag]'>[t]</a></b> "
 				else
-					temp += "<a href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</a> "
-			dat += "<hr>\nPower Level: [temp]<br>\n<a href = '?src=[UID()];launch=1;driver=[ident_tag]'><b>Fire Drive!</b></a><br>\n<a href = '?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</a><br>"
+					temp += "<a href = 'byond://?src=[UID()];power=[t];driver=[ident_tag]'>[t]</a> "
+			dat += "<hr>\nPower Level: [temp]<br>\n<a href = 'byond://?src=[UID()];launch=1;driver=[ident_tag]'><b>Fire Drive!</b></a><br>\n<a href = 'byond://?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</a><br>"
 
 	for(var/ident_tag in door_only_tags)
 		dat += "<br><br><b>[ident_tag]</b> <a href='byond://?src=[UID()];remove=1;driver=[ident_tag]'>remove</a>"
-		dat += "<br>\n<a href = '?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</a><br>"
+		dat += "<br>\n<a href = 'byond://?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</a><br>"
 
 	dat += "<br><a href='byond://?src=[UID()];add=1'>add another id_tag</a>"
 
@@ -285,7 +285,7 @@
 	circuit = /obj/item/circuitboard/syndicatedoor
 	light_color = "#00FFFF"
 
-/obj/machinery/computer/pod/old/syndicate/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/pod/old/syndicate/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, span_warning("Access Denied"))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
@@ -330,8 +330,9 @@
 			var/obj/effect/landmark/target_landmark = pick_n_take(spawn_marauder)
 			var/obj/effect/portal/portal = new(landmark.loc, target_landmark.loc)
 			portal.invisibility = INVISIBILITY_ABSTRACT	//So it is not seen by anyone.
-			portal.failchance = 0	//So it has no fail chance when teleporting.
+			portal.failchance = 0 //So it has no fail chance when teleporting.
 			portal.can_mecha_pass = TRUE
+			spawn_marauder.Remove(portal.target)
 
 	for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
 		if(poddoor.z != src.z)

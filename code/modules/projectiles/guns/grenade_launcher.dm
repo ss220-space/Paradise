@@ -1,13 +1,11 @@
 /obj/item/gun/grenadelauncher
 	name = "grenade launcher"
 	desc = "a terrible, terrible thing. it's really awful!"
-	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "riotgun"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 10
-	force = 5
 	var/list/grenades = new/list()
 	var/max_grenades = 3
 
@@ -42,7 +40,7 @@
 	if(grenades.len)
 		fire_grenade(target,user)
 	else
-		to_chat(user, "<span class='danger'>The grenade launcher is empty.</span>")
+		to_chat(user, span_danger("The grenade launcher is empty."))
 
 /obj/item/gun/grenadelauncher/proc/fire_grenade(atom/target, mob/user)
 	user.visible_message(span_danger("[user] fired a grenade!"), \
@@ -55,6 +53,6 @@
 	add_attack_logs(user, target, "fired [F.name] from [name]")
 	F.active = 1
 	F.icon_state = initial(icon_state) + "_active"
-	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 	spawn(15)
 		F.prime()

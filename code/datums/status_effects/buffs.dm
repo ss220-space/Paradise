@@ -2,7 +2,6 @@
 
 /datum/status_effect/his_grace
 	id = "his_grace"
-	duration = -1
 	tick_interval = 0.4 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/his_grace
 	var/bloodlust = 0
@@ -24,10 +23,14 @@
 
 /datum/status_effect/his_grace/on_apply()
 	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	ADD_TRAIT(owner, TRAIT_DEFLECT_BOLAS, HIS_GRACE_TRAIT)
+	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 /datum/status_effect/his_grace/on_remove()
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	REMOVE_TRAIT(owner, TRAIT_DEFLECT_BOLAS, HIS_GRACE_TRAIT)
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/his_grace/tick(seconds_between_ticks)
 	var/mob/living/carbon/human/human = owner
@@ -209,9 +212,7 @@
 
 /datum/status_effect/banana_power
 	id = "banana_power"
-	duration = -1
 	status_type = STATUS_EFFECT_REFRESH
-	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/banana_power
 	/// Basic heal per tick.
 	var/basic_heal_amt = 10
@@ -276,8 +277,6 @@
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
 /datum/status_effect/hippocraticOath
 	id = "Hippocratic Oath"
-	status_type = STATUS_EFFECT_UNIQUE
-	duration = -1
 	tick_interval = 25
 	examine_text = span_notice("Кажется, они окружены аурой исцеления и доброжелательности.")
 	alert_type = null
@@ -309,15 +308,15 @@
 
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(owner)
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.show_to(owner)
 	return ..()
 
 /datum/status_effect/hippocraticOath/on_remove()
 	QDEL_NULL(aura_healing)
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.remove_hud_from(owner)
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.hide_from(owner)
 
 /datum/status_effect/hippocraticOath/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
@@ -415,9 +414,7 @@
 
 /datum/status_effect/fleshmend
 	id = "fleshmend"
-	duration = -1
 	status_type = STATUS_EFFECT_REFRESH
-	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
 	/// This diminishes the healing of fleshmend the higher it is.
 	var/tolerance = 1
@@ -478,8 +475,6 @@
 
 /datum/status_effect/speedlegs
 	id = "gottagofast"
-	duration = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	tick_interval = 4 SECONDS
 	alert_type = null
 	var/stacks = 0
@@ -565,9 +560,7 @@
 
 /datum/status_effect/hope
 	id = "hope"
-	duration = -1
 	tick_interval = 2 SECONDS
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/hope
 
 /atom/movable/screen/alert/status_effect/hope
@@ -617,7 +610,6 @@
 /datum/status_effect/thrall_net
 	id = "thrall_net"
 	tick_interval = 2 SECONDS
-	duration = -1
 	alert_type = null
 	var/blood_cost_per_tick = 5
 	var/list/target_UIDs = list()
@@ -711,7 +703,6 @@
 	var/datum/antagonist/vampire/V = human_owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
-		ADD_TRAIT(human_owner, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
 		human_owner.physiology.punch_damage_low += 14
 		human_owner.physiology.punch_damage_high += 14
 		human_owner.physiology.punch_stun_threshold += 10	//higher chance to stun but not 100%
@@ -732,7 +723,6 @@
 
 	if(bonus_damage_applied)
 		bonus_damage_applied = FALSE
-		REMOVE_TRAIT(human_owner, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
 		human_owner.physiology.punch_damage_low -= 14
 		human_owner.physiology.punch_damage_high -= 14
 		human_owner.physiology.punch_stun_threshold -= 10
@@ -761,9 +751,7 @@
 
 /datum/status_effect/dragon_strength //less powerfull than hope, but works the same way
 	id = "dragon strength"
-	duration = -1
 	tick_interval = 3 SECONDS
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 
 /datum/status_effect/dragon_strength/tick(seconds_between_ticks)
@@ -824,8 +812,6 @@
 
 
 /datum/status_effect/drill_payback
-	duration = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/drilled_successfully = FALSE
 	var/times_warned = 0
@@ -993,8 +979,6 @@
 /datum/status_effect/adrenaline
 	id = "adrenaline"
 	duration = 5 SECONDS
-	status_type = STATUS_EFFECT_UNIQUE
-	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/adrenaline
 
 	var/heal_amount = 15

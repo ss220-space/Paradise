@@ -12,19 +12,16 @@
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
-	light_power = 1
 	light_on = FALSE
 	var/on = FALSE
 	var/togglesound = 'sound/weapons/empty.ogg'
+	toolbox_radial_menu_compatibility = TRUE
 
 /obj/item/flashlight/dummy
 	name = "Testing flashlight"
 	light_system = MOVABLE_LIGHT
-	light_range = 4
-	light_power = 1
-	light_on = FALSE
 
-/obj/item/flashlight/Initialize()
+/obj/item/flashlight/Initialize(mapload)
 	. = ..()
 	if(icon_state == "[initial(icon_state)]-on")
 		on = TRUE
@@ -119,7 +116,6 @@
 	belt_icon = "penlight"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
-	flags = CONDUCT
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 
@@ -155,7 +151,6 @@
 	desc = "A miniature lamp, that might be used by small robots."
 	icon_state = "penlight"
 	item_state = ""
-	flags = CONDUCT
 	light_range = 2
 	w_class = WEIGHT_CLASS_TINY
 
@@ -167,7 +162,6 @@
 	item_state = "lamp"
 	light_range = 5
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT
 	materials = list()
 	on = TRUE
 
@@ -206,7 +200,7 @@
 	var/fuel_upp = 1000
 
 
-/obj/item/flashlight/flare/Initialize()
+/obj/item/flashlight/flare/Initialize(mapload)
 	fuel = rand(fuel_lower, fuel_upp)
 	. = ..()
 
@@ -256,22 +250,22 @@
 /obj/item/flashlight/flare/attack_self(mob/user)
 	// Usual checks
 	if(!fuel)
-		to_chat(user, "<span class='notice'>[src] is out of fuel.</span>")
+		to_chat(user, span_notice("[src] is out of fuel."))
 		return
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is already on.</span>")
+		to_chat(user, span_notice("[src] is already on."))
 		return
 
 	. = ..()
 	// All good, turn it on.
 	if(.)
-		user.visible_message("<span class='notice'>[user] activates [src].</span>", "<span class='notice'>You activate [src].</span>")
+		user.visible_message(span_notice("[user] activates [src]."), span_notice("You activate [src]."))
 		if(produce_heat)
 			force = on_damage
 			damtype = BURN
 		START_PROCESSING(SSobj, src)
 
-/obj/item/flashlight/flare/on/Initialize()
+/obj/item/flashlight/flare/on/Initialize(mapload)
 	. = ..()
 	turn_on()
 
@@ -284,7 +278,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	light_range = 7
 
-/obj/item/flashlight/flare/on/illumination/Initialize()
+/obj/item/flashlight/flare/on/illumination/Initialize(mapload)
 	. = ..()
 	fuel = rand(5.0 MINUTES, 6.0 MINUTES) // Approximately half the effective duration of a flare, but justified since it's invincible
 
@@ -295,7 +289,7 @@
 	..()
 	qdel(src)
 
-/obj/item/flashlight/flare/on/illumination/ex_act(severity)
+/obj/item/flashlight/flare/on/illumination/ex_act(severity, target)
 	return //Nope
 
 
@@ -317,7 +311,7 @@
 	var/chemglow_sprite_type = "green"
 
 
-/obj/item/flashlight/flare/glowstick/Initialize()
+/obj/item/flashlight/flare/glowstick/Initialize(mapload)
 	light_color = color
 	. = ..()
 
@@ -341,7 +335,6 @@
 	chemglow_sprite_type = "red"
 
 /obj/item/flashlight/flare/glowstick/green
-	name = "green glowstick"
 
 /obj/item/flashlight/flare/glowstick/blue
 	name = "blue glowstick"
@@ -376,7 +369,7 @@
 	icon_state = "random_glowstick"
 	color = null
 
-/obj/item/flashlight/flare/glowstick/random/Initialize()
+/obj/item/flashlight/flare/glowstick/random/Initialize(mapload)
 	. = ..()
 	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
 	new T(loc)
@@ -397,8 +390,6 @@
 	light_range = 6
 	icon_state = "torch"
 	item_state = "torch"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
 
@@ -416,7 +407,6 @@
 	gender = PLURAL
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "floor1" //not a slime extract sprite but... something close enough!
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
@@ -449,7 +439,7 @@
 	var/charge_tick = 0
 
 
-/obj/item/flashlight/emp/Initialize()
+/obj/item/flashlight/emp/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -484,7 +474,7 @@
 		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
 		A.emp_act(1)
 	else
-		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+		to_chat(user, span_warning("\The [src] needs time to recharge!"))
 
 
 /obj/item/flashlight/spotlight //invisible lighting source

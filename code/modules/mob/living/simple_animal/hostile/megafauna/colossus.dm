@@ -11,11 +11,11 @@ The colossus has a degree of sentience, proving this in speech during its attack
 It acts as a melee creature, chasing down and attacking its target while also using different attacks to augment its power that increase as it takes damage.
 
 The colossus' true danger lies in its ranged capabilities. It fires immensely damaging death bolts that penetrate all armor in a variety of ways:
- 1. The colossus fires death bolts in alternating patterns: the cardinal directions and the diagonal directions.
- 2. The colossus fires death bolts in a shotgun-like pattern, instantly downing anything unfortunate enough to be hit by all of them.
- 3. The colossus fires a spiral of death bolts.
+	1. The colossus fires death bolts in alternating patterns: the cardinal directions and the diagonal directions.
+	2. The colossus fires death bolts in a shotgun-like pattern, instantly downing anything unfortunate enough to be hit by all of them.
+	3. The colossus fires a spiral of death bolts.
 At 33% health, the colossus gains an additional attack:
- 4. The colossus fires two spirals of death bolts, spinning in opposite directions.
+	4. The colossus fires two spirals of death bolts, spinning in opposite directions.
 
 When a colossus dies, it leaves behind a chunk of glowing crystal known as a black box. Anything placed inside will carry over into future rounds.
 For instance, you could place a bag of holding into the black box, and then kill another colossus next round and retrieve the bag of holding from inside.
@@ -27,21 +27,12 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus
 	name = "colossus"
 	desc = "Чудовищное существо, защищённое тяжёлой бронёй."
-	ru_names = list(
-		NOMINATIVE = "Колосс",
-		GENITIVE = "Колосса",
-		DATIVE = "Колоссу",
-		ACCUSATIVE = "Колосса",
-		INSTRUMENTAL = "Колоссом",
-		PREPOSITIONAL = "Колоссе"
-	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "осуждает"
 	attack_sound = 'sound/magic/ratvar_attack.ogg'
 	icon_state = "eva"
 	icon_living = "eva"
-	icon_dead = ""
 	friendly = "пристально смотрит"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("рычит")
@@ -64,12 +55,24 @@ Difficulty: Very Hard
 	deathmessage = "распадается, оставляя после себя светящееся ядро."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
-	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
-							   /datum/action/innate/megafauna_attack/aoe_attack,
-							   /datum/action/innate/megafauna_attack/shotgun,
-							   /datum/action/innate/megafauna_attack/alternating_cardinals)
+	attack_action_types = list(
+		/datum/action/innate/megafauna_attack/spiral_attack,
+		/datum/action/innate/megafauna_attack/aoe_attack,
+		/datum/action/innate/megafauna_attack/shotgun,
+		/datum/action/innate/megafauna_attack/alternating_cardinals
+	)
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
+
+/mob/living/simple_animal/hostile/megafauna/colossus/get_ru_names()
+	return list(
+		NOMINATIVE = "Колосс",
+		GENITIVE = "Колосса",
+		DATIVE = "Колоссу",
+		ACCUSATIVE = "Колосса",
+		INSTRUMENTAL = "Колоссом",
+		PREPOSITIONAL = "Колоссе"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
 	. = ..()
@@ -323,7 +326,6 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
 	desc = "Мерцающее силовое поле, защищающее колосса."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
 	light_range = 2
@@ -348,7 +350,13 @@ Difficulty: Very Hard
 
 /obj/projectile/colossus
 	name = "смертоносный заряд"
-	ru_names = list(
+	icon_state= "chronobolt"
+	damage = 25
+	armour_penetration = 100
+	speed = 3.5
+
+/obj/projectile/colossus/get_ru_names()
+	return list(
 		NOMINATIVE = "смертоносный заряд",
 		GENITIVE = "смертоносного заряда",
 		DATIVE = "смертоносному заряду",
@@ -356,18 +364,11 @@ Difficulty: Very Hard
 		INSTRUMENTAL = "смертоносным зарядом",
 		PREPOSITIONAL = "смертоносном заряде"
 	)
-	icon_state= "chronobolt"
-	damage = 25
-	armour_penetration = 100
-	speed = 3.5
-	eyeblur = 0
-	damage_type = BRUTE
-	pass_flags = PASSTABLE
 
 /obj/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(isturf(target) || isobj(target))
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 
 #undef RANDOM_SHOTS
 #undef BLAST

@@ -26,13 +26,10 @@
 	name = "Портативный сканер блюспейс разлома"
 	icon = 'icons/obj/machines/BRS/scanner_dynamic.dmi'
 	icon_state = "scanner"
-	anchored = FALSE
-	density = FALSE
 	luminosity = 1
 	max_integrity = 300
 	integrity_failure = 50
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 4000
 	active_power_usage = 7000
 	var/switched_off_power_usage = 5
@@ -122,13 +119,7 @@
 		playsound(loc, alarm_sound, 100)
 	else
 		obj_break()
-		explosion(
-			loc,
-			light_impact_range = failure_force,
-			flash_range = 2 * failure_force,
-			flame_range =  2 * failure_force,
-			cause = "[src] was working too long within critical range of a rift."
-		)
+		explosion(loc, light_impact_range = failure_force, flash_range = (2 * failure_force), flame_range =  (2 * failure_force), cause = "[src] was working too long within critical range of a rift.")
 
 
 /obj/machinery/brs_portable_scanner/update_icon_state()

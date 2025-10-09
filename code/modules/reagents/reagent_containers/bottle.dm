@@ -5,22 +5,19 @@
 	name = "bottle"
 	desc = "Небольшая стеклянная бутылочка."
 	gender = FEMALE
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "round_bottle"
-	item_state = "round_bottle"
-	amount_per_transfer_from_this = 10
+	icon_state = "bottle"
+	item_state = "bottle"
 	possible_transfer_amounts = list(5,10,15,25,30)
-	container_type = OPENCONTAINER
 	volume = 30
 
 /obj/item/reagent_containers/glass/bottle/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка",
-        GENITIVE = "бутылки",
-        DATIVE = "бутылке",
-        ACCUSATIVE = "бутылку",
-        INSTRUMENTAL = "бутылкой",
-        PREPOSITIONAL = "бутылке"
+		NOMINATIVE = "бутылка",
+		GENITIVE = "бутылки",
+		DATIVE = "бутылке",
+		ACCUSATIVE = "бутылку",
+		INSTRUMENTAL = "бутылкой",
+		PREPOSITIONAL = "бутылке"
 	)
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
@@ -35,19 +32,23 @@
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
-			if(0 to 24)
+			if(0 to 9)
+				filling.icon_state = "[icon_state]-10"
+			if(10 to 24)
 				filling.icon_state = "[icon_state]10"
 			if(25 to 49)
 				filling.icon_state = "[icon_state]25"
 			if(50 to 74)
 				filling.icon_state = "[icon_state]50"
-			if(75 to 90)
+			if(75 to 79)
 				filling.icon_state = "[icon_state]75"
+			if(80 to 90)
+				filling.icon_state = "[icon_state]80"
 			if(91 to INFINITY)
 				filling.icon_state = "[icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		underlays += filling
+		. += filling
 
 	if(!is_open_container())
 		. += "lid_[icon_state]"
@@ -63,113 +64,108 @@
 /obj/item/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится сильный токсин."
-	icon_state = "small_bottle"
 	list_reagents = list("toxin" = 30)
 
 /obj/item/reagent_containers/glass/bottle/toxin/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Токсины)",
-        GENITIVE = "бутылки (Токсины)",
-        DATIVE = "бутылке (Токсины)",
-        ACCUSATIVE = "бутылку (Токсины)",
-        INSTRUMENTAL = "бутылкой (Токсины)",
-        PREPOSITIONAL = "бутылке (Токсины)"
+		NOMINATIVE = "бутылка (Токсины)",
+		GENITIVE = "бутылки (Токсины)",
+		DATIVE = "бутылке (Токсины)",
+		ACCUSATIVE = "бутылку (Токсины)",
+		INSTRUMENTAL = "бутылкой (Токсины)",
+		PREPOSITIONAL = "бутылке (Токсины)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/atropine
 	name = "atropine bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится атропин."
-	icon_state = "small_bottle"
 	list_reagents = list("atropine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/atropine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Атропин)",
-        GENITIVE = "бутылки (Атропин)",
-        DATIVE = "бутылке (Атропин)",
-        ACCUSATIVE = "бутылку (Атропин)",
-        INSTRUMENTAL = "бутылкой (Атропин)",
-        PREPOSITIONAL = "бутылке (Атропин)"
+		NOMINATIVE = "бутылка (Атропин)",
+		GENITIVE = "бутылки (Атропин)",
+		DATIVE = "бутылке (Атропин)",
+		ACCUSATIVE = "бутылку (Атропин)",
+		INSTRUMENTAL = "бутылкой (Атропин)",
+		PREPOSITIONAL = "бутылке (Атропин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/saline
 	name = "saline-glucose bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится физиологический раствор."
-	icon_state = "small_bottle"
 	list_reagents = list("salglu_solution" = 30)
 
 /obj/item/reagent_containers/glass/bottle/saline/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Физраствор)",
-        GENITIVE = "бутылки (Физраствор)",
-        DATIVE = "бутылке (Физраствор)",
-        ACCUSATIVE = "бутылку (Физраствор)",
-        INSTRUMENTAL = "бутылкой (Физраствор)",
-        PREPOSITIONAL = "бутылке (Физраствор)"
+		NOMINATIVE = "бутылка (Физраствор)",
+		GENITIVE = "бутылки (Физраствор)",
+		DATIVE = "бутылке (Физраствор)",
+		ACCUSATIVE = "бутылку (Физраствор)",
+		INSTRUMENTAL = "бутылкой (Физраствор)",
+		PREPOSITIONAL = "бутылке (Физраствор)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/salicylic
 	name = "salicylic acid bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится салициловая кислота."
-	icon_state = "small_bottle"
 	list_reagents = list("sal_acid" = 30)
 
 /obj/item/reagent_containers/glass/bottle/salicylic/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Салициловая кислота)",
-        GENITIVE = "бутылки (Салициловая кислота)",
-        DATIVE = "бутылке (Салициловая кислота)",
-        ACCUSATIVE = "бутылку (Салициловая кислота)",
-        INSTRUMENTAL = "бутылкой (Салициловая кислота)",
-        PREPOSITIONAL = "бутылке (Салициловая кислота)"
+		NOMINATIVE = "бутылка (Салициловая кислота)",
+		GENITIVE = "бутылки (Салициловая кислота)",
+		DATIVE = "бутылке (Салициловая кислота)",
+		ACCUSATIVE = "бутылку (Салициловая кислота)",
+		INSTRUMENTAL = "бутылкой (Салициловая кислота)",
+		PREPOSITIONAL = "бутылке (Салициловая кислота)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/cyanide
 	name = "cyanide bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится очень токсичный цианид."
-	icon_state = "small_bottle"
 	list_reagents = list("cyanide" = 30)
 
 /obj/item/reagent_containers/glass/bottle/cyanide/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Цианид)",
-        GENITIVE = "бутылки (Цианид)",
-        DATIVE = "бутылке (Цианид)",
-        ACCUSATIVE = "бутылку (Цианид)",
-        INSTRUMENTAL = "бутылкой (Цианид)",
-        PREPOSITIONAL = "бутылке (Цианид)"
+		NOMINATIVE = "бутылка (Цианид)",
+		GENITIVE = "бутылки (Цианид)",
+		DATIVE = "бутылке (Цианид)",
+		ACCUSATIVE = "бутылку (Цианид)",
+		INSTRUMENTAL = "бутылкой (Цианид)",
+		PREPOSITIONAL = "бутылке (Цианид)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/mutagen
 	name = "unstable mutagen bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится нестабильный мутаген."
-	icon_state = "bottle"
+	icon_state = "round_bottle"
 	list_reagents = list("mutagen" = 30)
 
 /obj/item/reagent_containers/glass/bottle/mutagen/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Нестабильный мутаген)",
-        GENITIVE = "бутылки (Нестабильный мутаген)",
-        DATIVE = "бутылке (Нестабильный мутаген)",
-        ACCUSATIVE = "бутылку (Нестабильный мутаген)",
-        INSTRUMENTAL = "бутылкой (Нестабильный мутаген)",
-        PREPOSITIONAL = "бутылке (Нестабильный мутаген)"
+		NOMINATIVE = "бутылка (Нестабильный мутаген)",
+		GENITIVE = "бутылки (Нестабильный мутаген)",
+		DATIVE = "бутылке (Нестабильный мутаген)",
+		ACCUSATIVE = "бутылку (Нестабильный мутаген)",
+		INSTRUMENTAL = "бутылкой (Нестабильный мутаген)",
+		PREPOSITIONAL = "бутылке (Нестабильный мутаген)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/ammonia
 	name = "ammonia bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится аммиак."
-	icon_state = "bottle"
+	icon_state = "round_bottle"
 	list_reagents = list("ammonia" = 30)
 
 /obj/item/reagent_containers/glass/bottle/ammonia/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Аммиак)",
-        GENITIVE = "бутылки (Аммиак)",
-        DATIVE = "бутылке (Аммиак)",
-        ACCUSATIVE = "бутылку (Аммиак)",
-        INSTRUMENTAL = "бутылкой (Аммиак)",
-        PREPOSITIONAL = "бутылке (Аммиак)"
+		NOMINATIVE = "бутылка (Аммиак)",
+		GENITIVE = "бутылки (Аммиак)",
+		DATIVE = "бутылке (Аммиак)",
+		ACCUSATIVE = "бутылку (Аммиак)",
+		INSTRUMENTAL = "бутылкой (Аммиак)",
+		PREPOSITIONAL = "бутылке (Аммиак)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/diethylamine
@@ -180,12 +176,12 @@
 
 /obj/item/reagent_containers/glass/bottle/diethylamine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Диэтиламин)",
-        GENITIVE = "бутылки (Диэтиламин)",
-        DATIVE = "бутылке (Диэтиламин)",
-        ACCUSATIVE = "бутылку (Диэтиламин)",
-        INSTRUMENTAL = "бутылкой (Диэтиламин)",
-        PREPOSITIONAL = "бутылке (Диэтиламин)"
+		NOMINATIVE = "бутылка (Диэтиламин)",
+		GENITIVE = "бутылки (Диэтиламин)",
+		DATIVE = "бутылке (Диэтиламин)",
+		ACCUSATIVE = "бутылку (Диэтиламин)",
+		INSTRUMENTAL = "бутылкой (Диэтиламин)",
+		PREPOSITIONAL = "бутылке (Диэтиламин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/facid
@@ -196,12 +192,12 @@
 
 /obj/item/reagent_containers/glass/bottle/facid/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Фторсерная кислота)",
-        GENITIVE = "бутылки (Фторсерная кислота)",
-        DATIVE = "бутылке (Фторсерная кислота)",
-        ACCUSATIVE = "бутылку (Фторсерная кислота)",
-        INSTRUMENTAL = "бутылкой (Фторсерная кислота)",
-        PREPOSITIONAL = "бутылке (Фторсерная кислота)"
+		NOMINATIVE = "бутылка (Фторсерная кислота)",
+		GENITIVE = "бутылки (Фторсерная кислота)",
+		DATIVE = "бутылке (Фторсерная кислота)",
+		ACCUSATIVE = "бутылку (Фторсерная кислота)",
+		INSTRUMENTAL = "бутылкой (Фторсерная кислота)",
+		PREPOSITIONAL = "бутылке (Фторсерная кислота)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/adminordrazine
@@ -213,12 +209,12 @@
 
 /obj/item/reagent_containers/glass/bottle/adminordrazine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Админордразин)",
-        GENITIVE = "бутылки (Админордразин)",
-        DATIVE = "бутылке (Админордразин)",
-        ACCUSATIVE = "бутылку (Админордразин)",
-        INSTRUMENTAL = "бутылкой (Админордразин)",
-        PREPOSITIONAL = "бутылке (Админордразин)"
+		NOMINATIVE = "бутылка (Админордразин)",
+		GENITIVE = "бутылки (Админордразин)",
+		DATIVE = "бутылке (Админордразин)",
+		ACCUSATIVE = "бутылку (Админордразин)",
+		INSTRUMENTAL = "бутылкой (Админордразин)",
+		PREPOSITIONAL = "бутылке (Админордразин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/capsaicin
@@ -229,12 +225,12 @@
 
 /obj/item/reagent_containers/glass/bottle/capsaicin/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Капсаицин)",
-        GENITIVE = "бутылки (Капсаицин)",
-        DATIVE = "бутылке (Капсаицин)",
-        ACCUSATIVE = "бутылку (Капсаицин)",
-        INSTRUMENTAL = "бутылкой (Капсаицин)",
-        PREPOSITIONAL = "бутылке (Капсаицин)"
+		NOMINATIVE = "бутылка (Капсаицин)",
+		GENITIVE = "бутылки (Капсаицин)",
+		DATIVE = "бутылке (Капсаицин)",
+		ACCUSATIVE = "бутылку (Капсаицин)",
+		INSTRUMENTAL = "бутылкой (Капсаицин)",
+		PREPOSITIONAL = "бутылке (Капсаицин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/frostoil
@@ -245,28 +241,28 @@
 
 /obj/item/reagent_containers/glass/bottle/frostoil/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Ледяное масло)",
-        GENITIVE = "бутылки (Ледяное масло)",
-        DATIVE = "бутылке (Ледяное масло)",
-        ACCUSATIVE = "бутылку (Ледяное масло)",
-        INSTRUMENTAL = "бутылкой (Ледяное масло)",
-        PREPOSITIONAL = "бутылке (Ледяное масло)"
+		NOMINATIVE = "бутылка (Ледяное масло)",
+		GENITIVE = "бутылки (Ледяное масло)",
+		DATIVE = "бутылке (Ледяное масло)",
+		ACCUSATIVE = "бутылку (Ледяное масло)",
+		INSTRUMENTAL = "бутылкой (Ледяное масло)",
+		PREPOSITIONAL = "бутылке (Ледяное масло)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/morphine
 	name = "Morphine Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится морфин."
-	icon_state = "bottle"
+	icon_state = "round_bottle"
 	list_reagents = list("morphine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/morphine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Морфин)",
-        GENITIVE = "бутылки (Морфин)",
-        DATIVE = "бутылке (Морфин)",
-        ACCUSATIVE = "бутылку (Морфин)",
-        INSTRUMENTAL = "бутылкой (Морфин)",
-        PREPOSITIONAL = "бутылке (Морфин)"
+		NOMINATIVE = "бутылка (Морфин)",
+		GENITIVE = "бутылки (Морфин)",
+		DATIVE = "бутылке (Морфин)",
+		ACCUSATIVE = "бутылку (Морфин)",
+		INSTRUMENTAL = "бутылкой (Морфин)",
+		PREPOSITIONAL = "бутылке (Морфин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/ether
@@ -277,12 +273,12 @@
 
 /obj/item/reagent_containers/glass/bottle/ether/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Эфир)",
-        GENITIVE = "бутылки (Эфир)",
-        DATIVE = "бутылке (Эфир)",
-        ACCUSATIVE = "бутылку (Эфир)",
-        INSTRUMENTAL = "бутылкой (Эфир)",
-        PREPOSITIONAL = "бутылке (Эфир)"
+		NOMINATIVE = "бутылка (Эфир)",
+		GENITIVE = "бутылки (Эфир)",
+		DATIVE = "бутылке (Эфир)",
+		ACCUSATIVE = "бутылку (Эфир)",
+		INSTRUMENTAL = "бутылкой (Эфир)",
+		PREPOSITIONAL = "бутылке (Эфир)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/charcoal
@@ -293,12 +289,12 @@
 
 /obj/item/reagent_containers/glass/bottle/charcoal/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Активированный уголь)",
-        GENITIVE = "бутылки (Активированный уголь)",
-        DATIVE = "бутылке (Активированный уголь)",
-        ACCUSATIVE = "бутылку (Активированный уголь)",
-        INSTRUMENTAL = "бутылкой (Активированный уголь)",
-        PREPOSITIONAL = "бутылке (Активированный уголь)"
+		NOMINATIVE = "бутылка (Активированный уголь)",
+		GENITIVE = "бутылки (Активированный уголь)",
+		DATIVE = "бутылке (Активированный уголь)",
+		ACCUSATIVE = "бутылку (Активированный уголь)",
+		INSTRUMENTAL = "бутылкой (Активированный уголь)",
+		PREPOSITIONAL = "бутылке (Активированный уголь)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/epinephrine
@@ -309,12 +305,12 @@
 
 /obj/item/reagent_containers/glass/bottle/epinephrine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Эпинефрин)",
-        GENITIVE = "бутылки (Эпинефрин)",
-        DATIVE = "бутылке (Эпинефрин)",
-        ACCUSATIVE = "бутылку (Эпинефрин)",
-        INSTRUMENTAL = "бутылкой (Эпинефрин)",
-        PREPOSITIONAL = "бутылке (Эпинефрин)"
+		NOMINATIVE = "бутылка (Эпинефрин)",
+		GENITIVE = "бутылки (Эпинефрин)",
+		DATIVE = "бутылке (Эпинефрин)",
+		ACCUSATIVE = "бутылку (Эпинефрин)",
+		INSTRUMENTAL = "бутылкой (Эпинефрин)",
+		PREPOSITIONAL = "бутылке (Эпинефрин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/pancuronium
@@ -325,12 +321,12 @@
 
 /obj/item/reagent_containers/glass/bottle/pancuronium/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Панкуроний)",
-        GENITIVE = "бутылки (Панкуроний)",
-        DATIVE = "бутылке (Панкуроний)",
-        ACCUSATIVE = "бутылку (Панкуроний)",
-        INSTRUMENTAL = "бутылкой (Панкуроний)",
-        PREPOSITIONAL = "бутылке (Панкуроний)"
+		NOMINATIVE = "бутылка (Панкуроний)",
+		GENITIVE = "бутылки (Панкуроний)",
+		DATIVE = "бутылке (Панкуроний)",
+		ACCUSATIVE = "бутылку (Панкуроний)",
+		INSTRUMENTAL = "бутылкой (Панкуроний)",
+		PREPOSITIONAL = "бутылке (Панкуроний)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/sulfonal
@@ -341,19 +337,18 @@
 
 /obj/item/reagent_containers/glass/bottle/sulfonal/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Сульфонал)",
-        GENITIVE = "бутылки (Сульфонал)",
-        DATIVE = "бутылке (Сульфонал)",
-        ACCUSATIVE = "бутылку (Сульфонал)",
-        INSTRUMENTAL = "бутылкой (Сульфонал)",
-        PREPOSITIONAL = "бутылке (Сульфонал)"
+		NOMINATIVE = "бутылка (Сульфонал)",
+		GENITIVE = "бутылки (Сульфонал)",
+		DATIVE = "бутылке (Сульфонал)",
+		ACCUSATIVE = "бутылку (Сульфонал)",
+		INSTRUMENTAL = "бутылкой (Сульфонал)",
+		PREPOSITIONAL = "бутылке (Сульфонал)"
 	)
 
 //Reagent bottles
 
 /obj/item/reagent_containers/glass/bottle/reagent
 	name = "Reagent Bottle"
-	desc = "Небольшая стеклянная бутылочка."
 	icon_state = "reagent_bottle"
 	volume = 50
 
@@ -366,12 +361,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/oil/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Масло)",
-        GENITIVE = "бутылки (Масло)",
-        DATIVE = "бутылке (Масло)",
-        ACCUSATIVE = "бутылку (Масло)",
-        INSTRUMENTAL = "бутылкой (Масло)",
-        PREPOSITIONAL = "бутылке (Масло)"
+		NOMINATIVE = "бутылка (Масло)",
+		GENITIVE = "бутылки (Масло)",
+		DATIVE = "бутылке (Масло)",
+		ACCUSATIVE = "бутылку (Масло)",
+		INSTRUMENTAL = "бутылкой (Масло)",
+		PREPOSITIONAL = "бутылке (Масло)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/phenol
@@ -383,12 +378,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/phenol/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Фенол)",
-        GENITIVE = "бутылки (Фенол)",
-        DATIVE = "бутылке (Фенол)",
-        ACCUSATIVE = "бутылку (Фенол)",
-        INSTRUMENTAL = "бутылкой (Фенол)",
-        PREPOSITIONAL = "бутылке (Фенол)"
+		NOMINATIVE = "бутылка (Фенол)",
+		GENITIVE = "бутылки (Фенол)",
+		DATIVE = "бутылке (Фенол)",
+		ACCUSATIVE = "бутылку (Фенол)",
+		INSTRUMENTAL = "бутылкой (Фенол)",
+		PREPOSITIONAL = "бутылке (Фенол)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/acetone
@@ -399,12 +394,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/acetone/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Ацетон)",
-        GENITIVE = "бутылки (Ацетон)",
-        DATIVE = "бутылке (Ацетон)",
-        ACCUSATIVE = "бутылку (Ацетон)",
-        INSTRUMENTAL = "бутылкой (Ацетон)",
-        PREPOSITIONAL = "бутылке (Ацетон)"
+		NOMINATIVE = "бутылка (Ацетон)",
+		GENITIVE = "бутылки (Ацетон)",
+		DATIVE = "бутылке (Ацетон)",
+		ACCUSATIVE = "бутылку (Ацетон)",
+		INSTRUMENTAL = "бутылкой (Ацетон)",
+		PREPOSITIONAL = "бутылке (Ацетон)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/ammonia
@@ -415,12 +410,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/ammonia/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Аммиак)",
-        GENITIVE = "бутылки (Аммиак)",
-        DATIVE = "бутылке (Аммиак)",
-        ACCUSATIVE = "бутылку (Аммиак)",
-        INSTRUMENTAL = "бутылкой (Аммиак)",
-        PREPOSITIONAL = "бутылке (Аммиак)"
+		NOMINATIVE = "бутылка (Аммиак)",
+		GENITIVE = "бутылки (Аммиак)",
+		DATIVE = "бутылке (Аммиак)",
+		ACCUSATIVE = "бутылку (Аммиак)",
+		INSTRUMENTAL = "бутылкой (Аммиак)",
+		PREPOSITIONAL = "бутылке (Аммиак)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/diethylamine
@@ -432,12 +427,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/diethylamine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Диэтиламин)",
-        GENITIVE = "бутылки (Диэтиламин)",
-        DATIVE = "бутылке (Диэтиламин)",
-        ACCUSATIVE = "бутылку (Диэтиламин)",
-        INSTRUMENTAL = "бутылкой (Диэтиламин)",
-        PREPOSITIONAL = "бутылке (Диэтиламин)"
+		NOMINATIVE = "бутылка (Диэтиламин)",
+		GENITIVE = "бутылки (Диэтиламин)",
+		DATIVE = "бутылке (Диэтиламин)",
+		ACCUSATIVE = "бутылку (Диэтиламин)",
+		INSTRUMENTAL = "бутылкой (Диэтиламин)",
+		PREPOSITIONAL = "бутылке (Диэтиламин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/acid
@@ -449,12 +444,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/acid/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Серная кислота)",
-        GENITIVE = "бутылки (Серная кислота)",
-        DATIVE = "бутылке (Серная кислота)",
-        ACCUSATIVE = "бутылку (Серная кислота)",
-        INSTRUMENTAL = "бутылкой (Серная кислота)",
-        PREPOSITIONAL = "бутылке (Серная кислота)"
+		NOMINATIVE = "бутылка (Серная кислота)",
+		GENITIVE = "бутылки (Серная кислота)",
+		DATIVE = "бутылке (Серная кислота)",
+		ACCUSATIVE = "бутылку (Серная кислота)",
+		INSTRUMENTAL = "бутылкой (Серная кислота)",
+		PREPOSITIONAL = "бутылке (Серная кислота)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde
@@ -464,12 +459,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Формальдегид)",
-        GENITIVE = "бутылки (Формальдегид)",
-        DATIVE = "бутылке (Формальдегид)",
-        ACCUSATIVE = "бутылку (Формальдегид)",
-        INSTRUMENTAL = "бутылкой (Формальдегид)",
-        PREPOSITIONAL = "бутылке (Формальдегид)"
+		NOMINATIVE = "бутылка (Формальдегид)",
+		GENITIVE = "бутылки (Формальдегид)",
+		DATIVE = "бутылке (Формальдегид)",
+		ACCUSATIVE = "бутылку (Формальдегид)",
+		INSTRUMENTAL = "бутылкой (Формальдегид)",
+		PREPOSITIONAL = "бутылке (Формальдегид)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/synaptizine
@@ -479,12 +474,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/synaptizine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Синаптизин)",
-        GENITIVE = "бутылки (Синаптизин)",
-        DATIVE = "бутылке (Синаптизин)",
-        ACCUSATIVE = "бутылку (Синаптизин)",
-        INSTRUMENTAL = "бутылкой (Синаптизин)",
-        PREPOSITIONAL = "бутылке (Синаптизин)"
+		NOMINATIVE = "бутылка (Синаптизин)",
+		GENITIVE = "бутылки (Синаптизин)",
+		DATIVE = "бутылке (Синаптизин)",
+		ACCUSATIVE = "бутылку (Синаптизин)",
+		INSTRUMENTAL = "бутылкой (Синаптизин)",
+		PREPOSITIONAL = "бутылке (Синаптизин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/morphine
@@ -494,12 +489,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/morphine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Морфин)",
-        GENITIVE = "бутылки (Морфин)",
-        DATIVE = "бутылке (Морфин)",
-        ACCUSATIVE = "бутылку (Морфин)",
-        INSTRUMENTAL = "бутылкой (Морфин)",
-        PREPOSITIONAL = "бутылке (Морфин)"
+		NOMINATIVE = "бутылка (Морфин)",
+		GENITIVE = "бутылки (Морфин)",
+		DATIVE = "бутылке (Морфин)",
+		ACCUSATIVE = "бутылку (Морфин)",
+		INSTRUMENTAL = "бутылкой (Морфин)",
+		PREPOSITIONAL = "бутылке (Морфин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/insulin
@@ -509,12 +504,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/insulin/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Инсулин)",
-        GENITIVE = "бутылки (Инсулин)",
-        DATIVE = "бутылке (Инсулин)",
-        ACCUSATIVE = "бутылку (Инсулин)",
-        INSTRUMENTAL = "бутылкой (Инсулин)",
-        PREPOSITIONAL = "бутылке (Инсулин)"
+		NOMINATIVE = "бутылка (Инсулин)",
+		GENITIVE = "бутылки (Инсулин)",
+		DATIVE = "бутылке (Инсулин)",
+		ACCUSATIVE = "бутылку (Инсулин)",
+		INSTRUMENTAL = "бутылкой (Инсулин)",
+		PREPOSITIONAL = "бутылке (Инсулин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium
@@ -524,12 +519,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Власорост)",
-        GENITIVE = "бутылки (Власорост)",
-        DATIVE = "бутылке (Власорост)",
-        ACCUSATIVE = "бутылку (Власорост)",
-        INSTRUMENTAL = "бутылкой (Власорост)",
-        PREPOSITIONAL = "бутылке (Власорост)"
+		NOMINATIVE = "бутылка (Власорост)",
+		GENITIVE = "бутылки (Власорост)",
+		DATIVE = "бутылке (Власорост)",
+		ACCUSATIVE = "бутылку (Власорост)",
+		INSTRUMENTAL = "бутылкой (Власорост)",
+		PREPOSITIONAL = "бутылке (Власорост)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hair_dye
@@ -539,12 +534,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/hair_dye/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Квантовая краска для волос)",
-        GENITIVE = "бутылки (Квантовая краска для волос)",
-        DATIVE = "бутылке (Квантовая краска для волос)",
-        ACCUSATIVE = "бутылку (Квантовая краска для волос)",
-        INSTRUMENTAL = "бутылкой (Квантовая краска для волос)",
-        PREPOSITIONAL = "бутылке (Квантовая краска для волос)"
+		NOMINATIVE = "бутылка (Квантовая краска для волос)",
+		GENITIVE = "бутылки (Квантовая краска для волос)",
+		DATIVE = "бутылке (Квантовая краска для волос)",
+		ACCUSATIVE = "бутылку (Квантовая краска для волос)",
+		INSTRUMENTAL = "бутылкой (Квантовая краска для волос)",
+		PREPOSITIONAL = "бутылке (Квантовая краска для волос)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/omnizine
@@ -554,12 +549,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/omnizine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Омнизин)",
-        GENITIVE = "бутылки (Омнизин)",
-        DATIVE = "бутылке (Омнизин)",
-        ACCUSATIVE = "бутылку (Омнизин)",
-        INSTRUMENTAL = "бутылкой (Омнизин)",
-        PREPOSITIONAL = "бутылке (Омнизин)"
+		NOMINATIVE = "бутылка (Омнизин)",
+		GENITIVE = "бутылки (Омнизин)",
+		DATIVE = "бутылке (Омнизин)",
+		ACCUSATIVE = "бутылку (Омнизин)",
+		INSTRUMENTAL = "бутылкой (Омнизин)",
+		PREPOSITIONAL = "бутылке (Омнизин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/strange_reagent
@@ -569,12 +564,12 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent/strange_reagent/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Странный реагент)",
-        GENITIVE = "бутылки (Странный реагент)",
-        DATIVE = "бутылке (Странный реагент)",
-        ACCUSATIVE = "бутылку (Странный реагент)",
-        INSTRUMENTAL = "бутылкой (Странный реагент)",
-        PREPOSITIONAL = "бутылке (Странный реагент)"
+		NOMINATIVE = "бутылка (Странный реагент)",
+		GENITIVE = "бутылки (Странный реагент)",
+		DATIVE = "бутылке (Странный реагент)",
+		ACCUSATIVE = "бутылку (Странный реагент)",
+		INSTRUMENTAL = "бутылкой (Странный реагент)",
+		PREPOSITIONAL = "бутылке (Странный реагент)"
 	)
 
 ////////////////////Traitor Poison Bottle//////////////////////////////
@@ -596,12 +591,12 @@
 
 /obj/item/reagent_containers/glass/bottle/plasma/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Плазменная пыль)",
-        GENITIVE = "бутылки (Плазменная пыль)",
-        DATIVE = "бутылке (Плазменная пыль)",
-        ACCUSATIVE = "бутылку (Плазменная пыль)",
-        INSTRUMENTAL = "бутылкой (Плазменная пыль)",
-        PREPOSITIONAL = "бутылке (Плазменная пыль)"
+		NOMINATIVE = "бутылка (Плазменная пыль)",
+		GENITIVE = "бутылки (Плазменная пыль)",
+		DATIVE = "бутылке (Плазменная пыль)",
+		ACCUSATIVE = "бутылку (Плазменная пыль)",
+		INSTRUMENTAL = "бутылкой (Плазменная пыль)",
+		PREPOSITIONAL = "бутылке (Плазменная пыль)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/diphenhydramine
@@ -612,12 +607,12 @@
 
 /obj/item/reagent_containers/glass/bottle/diphenhydramine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Дифенгидрамин)",
-        GENITIVE = "бутылки (Дифенгидрамин)",
-        DATIVE = "бутылке (Дифенгидрамин)",
-        ACCUSATIVE = "бутылку (Дифенгидрамин)",
-        INSTRUMENTAL = "бутылкой (Дифенгидрамин)",
-        PREPOSITIONAL = "бутылке (Дифенгидрамин)"
+		NOMINATIVE = "бутылка (Дифенгидрамин)",
+		GENITIVE = "бутылки (Дифенгидрамин)",
+		DATIVE = "бутылке (Дифенгидрамин)",
+		ACCUSATIVE = "бутылку (Дифенгидрамин)",
+		INSTRUMENTAL = "бутылкой (Дифенгидрамин)",
+		PREPOSITIONAL = "бутылке (Дифенгидрамин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/oculine
@@ -628,12 +623,12 @@
 
 /obj/item/reagent_containers/glass/bottle/oculine/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Окулин)",
-        GENITIVE = "бутылки (Окулин)",
-        DATIVE = "бутылке (Окулин)",
-        ACCUSATIVE = "бутылку (Окулин)",
-        INSTRUMENTAL = "бутылкой (Окулин)",
-        PREPOSITIONAL = "бутылке (Окулин)"
+		NOMINATIVE = "бутылка (Окулин)",
+		GENITIVE = "бутылки (Окулин)",
+		DATIVE = "бутылке (Окулин)",
+		ACCUSATIVE = "бутылку (Окулин)",
+		INSTRUMENTAL = "бутылкой (Окулин)",
+		PREPOSITIONAL = "бутылке (Окулин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/potassium_iodide
@@ -644,12 +639,12 @@
 
 /obj/item/reagent_containers/glass/bottle/potassium_iodide/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Иодид калия)",
-        GENITIVE = "бутылки (Иодид калия)",
-        DATIVE = "бутылке (Иодид калия)",
-        ACCUSATIVE = "бутылку (Иодид калия)",
-        INSTRUMENTAL = "бутылкой (Иодид калия)",
-        PREPOSITIONAL = "бутылке (Иодид калия)"
+		NOMINATIVE = "бутылка (Иодид калия)",
+		GENITIVE = "бутылки (Иодид калия)",
+		DATIVE = "бутылке (Иодид калия)",
+		ACCUSATIVE = "бутылку (Иодид калия)",
+		INSTRUMENTAL = "бутылкой (Иодид калия)",
+		PREPOSITIONAL = "бутылке (Иодид калия)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/cold
@@ -1221,12 +1216,12 @@
 
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Био-вирусный антидот)",
-        GENITIVE = "бутылки (Био-вирусный антидот)",
-        DATIVE = "бутылке (Био-вирусный антидот)",
-        ACCUSATIVE = "бутылку (Био-вирусный антидот)",
-        INSTRUMENTAL = "бутылкой (Био-вирусный антидот)",
-        PREPOSITIONAL = "бутылке (Био-вирусный антидот)"
+		NOMINATIVE = "бутылка (Био-вирусный антидот)",
+		GENITIVE = "бутылки (Био-вирусный антидот)",
+		DATIVE = "бутылке (Био-вирусный антидот)",
+		ACCUSATIVE = "бутылку (Био-вирусный антидот)",
+		INSTRUMENTAL = "бутылкой (Био-вирусный антидот)",
+		PREPOSITIONAL = "бутылке (Био-вирусный антидот)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/monkeylangue
@@ -1237,10 +1232,10 @@
 
 /obj/item/reagent_containers/glass/bottle/monkeylangue/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка (Обезьяний язык)",
-        GENITIVE = "бутылки (Обезьяний язык)",
-        DATIVE = "бутылке (Обезьяний язык)",
-        ACCUSATIVE = "бутылку (Обезьяний язык)",
-        INSTRUMENTAL = "бутылкой (Обезьяний язык)",
-        PREPOSITIONAL = "бутылке (Обезьяний язык)"
+		NOMINATIVE = "бутылка (Обезьяний язык)",
+		GENITIVE = "бутылки (Обезьяний язык)",
+		DATIVE = "бутылке (Обезьяний язык)",
+		ACCUSATIVE = "бутылку (Обезьяний язык)",
+		INSTRUMENTAL = "бутылкой (Обезьяний язык)",
+		PREPOSITIONAL = "бутылке (Обезьяний язык)"
 	)

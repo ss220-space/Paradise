@@ -1,7 +1,6 @@
 /atom/movable/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
 	var/datum/click_intercept/buildmode/bd
-	plane = HUD_PLANE_BUILDMODE
 
 /atom/movable/screen/buildmode/New(bld)
 	bd = bld
@@ -17,12 +16,12 @@
 	screen_loc = "NORTH,WEST"
 
 /atom/movable/screen/buildmode/mode/Click(location, control, params)
-	var/list/pa = params2list(params)
-
-	if(pa.Find("left"))
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, LEFT_CLICK))
 		bd.toggle_modeswitch()
-	else if(pa.Find("right"))
+	else if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		bd.mode.change_settings(usr)
+
 	update_icon()
 	return TRUE
 
@@ -87,3 +86,8 @@
 	bd.mode.exit_mode(bd) // so area_edit won't leave highlighted icons
 	bd.quit()
 	return TRUE
+
+/atom/movable/screen/buildmode/preview_item
+	name = "Selected Item"
+	icon_state = "template"
+	screen_loc = "NORTH,WEST+4"

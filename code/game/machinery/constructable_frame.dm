@@ -1,7 +1,7 @@
 // Construction | Deconstruction
-#define STATE_EMPTY			1 // Add wires | Wrench to destroy
-#define STATE_WIRED			2 // Add cicuit / Wrench to unchor/unanchor | Remove wires with wirecutters
-#define STATE_COMPONENTS	3 // Add components / Wrench to unchor/unanchor | Remove circuit/components with crowbar
+#define STATE_EMPTY 1 // Add wires | Wrench to destroy
+#define STATE_WIRED 2 // Add cicuit / Wrench to unchor/unanchor | Remove wires with wirecutters
+#define STATE_COMPONENTS 3 // Add components / Wrench to unchor/unanchor | Remove circuit/components with crowbar
 
 /obj/machinery/constructable_frame //Made into a seperate type to make future revisions easier.
 	name = "machine frame"
@@ -336,7 +336,7 @@ to destroy them and players will be able to make replacements.
 		"Suitlord 9000" =						/obj/machinery/vending/suitdispenser,
 		"Shoelord 9000" =						/obj/machinery/vending/shoedispenser,
 		"AutoDrobe" =							/obj/machinery/vending/autodrobe,
-		"ClothesMate" =							/obj/machinery/vending/clothing,
+		"ClothesMate" =							/obj/machinery/vending/clothesmate,
 		"NanoMed Plus" =						/obj/machinery/vending/medical,
 		"NanoMed" =								/obj/machinery/vending/wallmed,
 		"Vendomat" =							/obj/machinery/vending/assist,
@@ -353,14 +353,14 @@ to destroy them and players will be able to make replacements.
 		"SecTech" =								/obj/machinery/vending/security,
 		"ModTech" =								/obj/machinery/vending/gun_mods,
 		"CritterCare" =							/obj/machinery/vending/crittercare,
-		"Departament Security ClothesMate" =	/obj/machinery/vending/clothing/departament/security,
-		"Departament Medical ClothesMate" =	/obj/machinery/vending/clothing/departament/medical,
-		"Departament Engineering ClothesMate" = /obj/machinery/vending/clothing/departament/engineering,
-		"Departament Science ClothesMate" =		/obj/machinery/vending/clothing/departament/science,
-		"Departament Cargo ClothesMate" =		/obj/machinery/vending/clothing/departament/cargo,
-		"Departament Law ClothesMate" =			/obj/machinery/vending/clothing/departament/law,
-		"Service Departament ClothesMate Botanical" = /obj/machinery/vending/clothing/departament/service/botanical,
-		"Service Departament ClothesMate Chaplain"	= /obj/machinery/vending/clothing/departament/service/chaplain,
+		"Departament Security ClothesMate" =	/obj/machinery/vending/department_clothesmate/security,
+		"Departament Medical ClothesMate" =		/obj/machinery/vending/department_clothesmate/medical,
+		"Departament Engineering ClothesMate" = /obj/machinery/vending/department_clothesmate/engineering,
+		"Departament Science ClothesMate" =		/obj/machinery/vending/department_clothesmate/science,
+		"Departament Cargo ClothesMate" =		/obj/machinery/vending/department_clothesmate/cargo,
+		"Departament Law ClothesMate" =			/obj/machinery/vending/department_clothesmate/law,
+		"Service Departament ClothesMate Botanical" = /obj/machinery/vending/department_clothesmate/service/botanical,
+		"Service Departament ClothesMate Chaplain"	= /obj/machinery/vending/department_clothesmate/service/chaplain,
 		"RoboFriends" =                         /obj/machinery/vending/pai,
 		"Customat" =							/obj/machinery/customat,
 		"Автомат спортивного питания" =			/obj/machinery/vending/protein,)
@@ -400,7 +400,6 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/smes/vintage
-	board_name = "SMES"
 	build_path = /obj/machinery/power/smes/vintage
 	origin_tech = "programming=2;powerstorage=2;engineering=2"
 	req_components = list(
@@ -703,7 +702,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
 	req_access = list(ACCESS_TOX, ACCESS_CHEMISTRY, ACCESS_SYNDICATE_SCIENTIST)
-	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
+	req_components = list(/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1,
@@ -1006,7 +1005,6 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/quantumpad/syndiepad
 	board_name = "Syndicate Quantum Pad"
 	build_path = /obj/machinery/syndiepad
-	board_type = "machine"
 	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4;syndicate=6" //Технология достойная подобного уровня нелегала как по мне
 	req_components = list(
 							/obj/item/stack/telecrystal = 5,
@@ -1033,9 +1031,9 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=4;engineering=5;plasmatech=5;bluespace=6"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 5,
-							/obj/item/stock_parts/capacitor/purple = 1,
-							/obj/item/stock_parts/manipulator/purple = 1,
-							/obj/item/stock_parts/scanning_module/purple = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stack/cable_coil = 15)
 
 /obj/item/circuitboard/sleeper

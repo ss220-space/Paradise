@@ -12,7 +12,7 @@
 	for(var/i = 1 to max(2, rand(tier * 2, tier * 3)))
 		addtimer(CALLBACK(src, PROC_REF(collapse_throws), 0.2 SECONDS))
 
-	explosion(loc, max(-1, tier - 2), max(-1, tier - 1), max(-1, tier), tier + 2)
+	explosion(loc, devastation_range = max(-1, tier - 2), heavy_impact_range = max(-1, tier - 1), light_impact_range = max(-1, tier), flash_range = (tier + 2))
 	. = ..()
 
 /obj/effect/anomaly/gravitational/proc/collapse_throws()
@@ -36,7 +36,7 @@
 
 /obj/effect/anomaly/gravitational/item_touch_effect(obj/item/item)
 	. = ..()
-	if (QDELETED(item))
+	if(QDELETED(item))
 		return
 
 	var/grav_delta = -item.get_gravity()
@@ -213,7 +213,7 @@
 /obj/effect/anomaly/gravitational/process()
 	. = ..()
 	for(var/obj/O in oview(max(2, tier * 2 - 1), src))
-		if (!can_move_sth(O))
+		if(!can_move_sth(O))
 			continue
 
 		step_towards(O, src)

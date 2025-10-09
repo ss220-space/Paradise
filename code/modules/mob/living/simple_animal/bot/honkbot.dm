@@ -1,18 +1,8 @@
 /mob/living/simple_animal/bot/honkbot
 	name = "honkbot"
 	desc = "Маленький робот. У него есть гудок. Он счастлив."
-	ru_names = list(
-		NOMINATIVE = "хонкобот",
-		GENITIVE = "хонкобота",
-		DATIVE = "хонкоботу",
-		ACCUSATIVE = "хонкобота",
-		INSTRUMENTAL = "хонкоботом",
-		PREPOSITIONAL = "хонкоботе",
-	)
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -38,6 +28,15 @@
 	var/threatlevel = FALSE
 	var/arrest_type = FALSE
 
+/mob/living/simple_animal/bot/honkbot/get_ru_names()
+	return list(
+		NOMINATIVE = "хонкобот",
+		GENITIVE = "хонкобота",
+		DATIVE = "хонкоботу",
+		ACCUSATIVE = "хонкобота",
+		INSTRUMENTAL = "хонкоботом",
+		PREPOSITIONAL = "хонкоботе",
+	)
 
 /obj/machinery/bot_core/honkbot
 	req_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
@@ -171,7 +170,7 @@
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
 		if(!spam_flag)
-			playsound(src, "honkbot_e", 50, FALSE)
+			playsound(src, SFX_HONKBOT_E, 50, FALSE)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
@@ -342,12 +341,13 @@
 		return
 
 	arrived.visible_message(span_warning("[pick( \
-						  "[arrived] спотыка[pluralize_ru(arrived.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
-						  "[arrived] опрокидыва[pluralize_ru(arrived.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
-						  "[arrived] отлета[pluralize_ru(arrived.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [genderize_ru(arrived.gender, "его", "её", "его", "их")] упасть!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]"))
+		"[arrived] спотыка[pluralize_ru(arrived.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
+		"[arrived] опрокидыва[pluralize_ru(arrived.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
+		"[arrived] отлета[pluralize_ru(arrived.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
+		"[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
+		"[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [genderize_ru(arrived.gender, "его", "её", "его", "их")] упасть!", \
+		"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]")
+	)
 	arrived.Weaken(10 SECONDS)
 	if(!client)
 		INVOKE_ASYNC(src, PROC_REF(speak), "хонк!")

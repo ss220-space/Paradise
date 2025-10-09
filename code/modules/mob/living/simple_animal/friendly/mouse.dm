@@ -37,9 +37,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	mob_size = MOB_SIZE_TINY
-	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	universal_speak = FALSE
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	holder_type = /obj/item/holder/mouse
@@ -177,9 +175,11 @@
 		return FALSE
 
 	jetpack = item_to_add
-	user.visible_message(span_notice("[user] put something on [src]."),
+	user.visible_message(
+		span_notice("[user] put something on [src]."),
 		span_notice("You equip [src] with a cool jetpack! Sick!"),
-		span_italics("You hear the roar of a small engine."))
+		span_italics("You hear the roar of a small engine.")
+	)
 
 	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back))
 	update_icons()
@@ -409,8 +409,6 @@
 /mob/living/simple_animal/mouse/brown/Tom
 	name = "Tom"
 	desc = "Jerry the cat is not amused."
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -466,9 +464,6 @@
 	icon_living = "mouse_clockwork"
 	icon_dead = "mouse_clockwork_dead"
 	icon_resting = "mouse_clockwork_sleep"
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "stamps on"
 	gold_core_spawnable = NO_SPAWN
 	can_collar = FALSE
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
@@ -504,7 +499,6 @@
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"
 	real_name = "gray rat"
-	desc = "Серая крыса. Не самый яркий представитель своего вида."
 
 /mob/living/simple_animal/mouse/rat/white
 	name = "white rat"
@@ -536,13 +530,10 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 	icon_dead = "wooly_mouse_dead"
 	icon_resting = "wooly_mouse_rest"
 	gender = MALE
-	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	speak_chance = 0
 	childtype = list(/mob/living/simple_animal/mouse/wooly/baby)
 	animal_species = /mob/living/simple_animal/mouse/wooly
 	holder_type = /obj/item/holder/wooly_mouse
-	gold_core_spawnable = FRIENDLY_SPAWN
-	tts_seed = "Gyro"
 	maxHealth = 10
 	health = 10 // kokok
 
@@ -591,7 +582,6 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 	maxHealth = 3
 	var/amount_grown = 0
 	can_collar = FALSE
-	holder_type = /obj/item/holder/wooly_mouse
 
 
 /mob/living/simple_animal/mouse/wooly/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
@@ -621,7 +611,7 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 		death()
 		splat(user = arrived)
 
-
+#undef MAX_WOOLY_MOUSE
 
 #undef SNIFF
 #undef SHAKE

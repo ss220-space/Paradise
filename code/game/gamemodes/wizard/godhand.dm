@@ -5,8 +5,6 @@
 	item_state = null
 	item_flags = ABSTRACT|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 0
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	/// If defined caster will say this on afterattack
@@ -81,9 +79,9 @@
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //exploding after touching yourself would be bad
 		return
 	var/mob/M = target
-	do_sparks(4, 0, M.loc) //no idea what the 0 is
+	do_sparks(4, FALSE, M.loc) //no idea what the 0 is
 	M.gib()
-	..()
+	return ..()
 
 
 /obj/item/melee/touch_attack/fleshtostone
@@ -99,7 +97,7 @@
 	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //getting hard after touching yourself would also be bad
 		return
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't reach out!</span>")
+		to_chat(user, span_warning("You can't reach out!"))
 		return
 	var/mob/living/L = target
 	L.Stun(4 SECONDS)
@@ -120,9 +118,9 @@
 /obj/item/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //not exploding after touching yourself would be bad
 		return
-	do_sparks(4, 0, target.loc)
+	do_sparks(4, FALSE, target.loc)
 	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
-	..()
+	return ..()
 
 
 /obj/item/melee/touch_attack/cluwne
@@ -139,7 +137,7 @@
 		return
 
 	if(iswizard(target))
-		to_chat(user, "<span class='warning'>The spell has no effect on [target].</span>")
+		to_chat(user, span_warning("The spell has no effect on [target]."))
 		return
 
 	var/datum/effect_system/fluid_spread/smoke/s = new

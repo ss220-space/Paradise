@@ -2,13 +2,11 @@
 	name = "emergency floodlight"
 	icon = 'icons/obj/floodlight.dmi'
 	icon_state = "flood00"
-	anchored = FALSE
 	density = TRUE
 	max_integrity = 100
 	integrity_failure = 80
 	light_power = 20
 	light_range = 14
-	light_system = STATIC_LIGHT
 	light_on = FALSE
 	var/on = FALSE
 	var/obj/item/stock_parts/cell/high/cell = null
@@ -19,7 +17,7 @@
 /obj/machinery/floodlight/get_cell()
 	return cell
 
-/obj/machinery/floodlight/Initialize()
+/obj/machinery/floodlight/Initialize(mapload)
 	. = ..()
 	cell = new(src)
 	mapVarInit()

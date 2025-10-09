@@ -80,7 +80,7 @@
 /obj/item/pda/silicon/attack_self(mob/user as mob)
 	if((honkamt > 0) && (prob(60))) //For clown virus.
 		honkamt--
-		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
+		playsound(loc, 'sound/items/bikehorn.ogg', 30, TRUE)
 	return
 
 /obj/item/pda/silicon/ai/can_use()

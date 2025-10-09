@@ -1,4 +1,4 @@
-#define EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED	8
+#define EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED 8
 
 // For "Actual traitors"
 /datum/antagonist/traitor
@@ -7,6 +7,8 @@
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_name = "hudsyndicate"
+	var/syndicate_antag_hud_name = "hudsyndicate"
+	var/hijack_antag_hud_name = "hudhijack"
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	wiki_page_name = "Traitor"
 	russian_wiki_name = "Предатель"
@@ -22,6 +24,7 @@
 	var/datum/contractor_pending/contractor_pending
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
+	var/antag_sound = "sound/ambience/antag/tatoralert.ogg"
 
 
 /datum/antagonist/traitor/on_gain()
@@ -98,9 +101,9 @@
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
-		antag_hud_name = "hudhijack"
+		antag_hud_name = hijack_antag_hud_name
 	else
-		antag_hud_name = "hudsyndicate"
+		antag_hud_name = syndicate_antag_hud_name
 	return ..()
 
 
@@ -209,8 +212,7 @@
 		give_uplink()
 
 	announce_uplink_info()
-
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), antag_sound, 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	return messages
 
@@ -224,16 +226,16 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
-	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
+	antag_memory += "<b>Code Phrase</b>: [span_red("[phrases]")]<br>"
+	antag_memory += "<b>Code Response</b>: [span_red("[responses]")]<br>"
 
 	var/list/messages = list()
 	if(silent)
 		return messages
 
 	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<b>Code Phrase:</b> <span class='codephrases'>[phrases]</span>")
-	messages.Add("<b>Code Response:</b> <span class='coderesponses'>[responses]</span>")
+	messages.Add("<b>Code Phrase:</b> [span_codephrases("[phrases]")]")
+	messages.Add("<b>Code Response:</b> [span_coderesponses("[responses]")]")
 	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
@@ -315,8 +317,8 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var/message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
+	var/message = "<br><b>The code phrases were:</b> [span_blue(span_big(phrases))]<br>\
+					<b>The code responses were:</b> [span_redtext("[responses]")]<br>"
 
 	return message
 

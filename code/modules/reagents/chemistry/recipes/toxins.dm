@@ -130,13 +130,13 @@
 	result = "teslium"
 	required_reagents = list("plasma" = 1, "silver" = 1, "blackpowder" = 1)
 	result_amount = 3
-	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
+	mix_message = span_danger("A jet of sparks flies from the mixture as it merges into a flickering slurry.")
 	min_temp = T0C + 50
 	mix_sound = null
 
 /datum/chemical_reaction/teslium/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	do_sparks(6, 1, location)
+	do_sparks(6, TRUE, location)
 
 /datum/chemical_reaction/mutagen
 	name = "Unstable mutagen"
@@ -165,4 +165,4 @@
 	result = "rotatium"
 	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
 	result_amount = 3
-	mix_message = "<span class='danger'>After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.</span>"
+	mix_message = span_danger("After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.")

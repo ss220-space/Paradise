@@ -30,7 +30,7 @@
 		requires_wielded = FALSE,
 		no_multi_hit = FALSE,
 		datum/callback/cleave_end_callback,
-		swing_sound = "generic_swing_light", // Pass it in format 'sound/weapons/sound_name.ogg' or look into /proc/get_sfx(soundin)
+		swing_sound = SFX_GENERIC_SWING_LIGHT, // Pass it in format 'sound/weapons/sound_name.ogg' or look into /proc/get_sfx(soundin)
 		cleave_effect,
 		...
 	)
@@ -193,6 +193,10 @@
 	for(var/atom/movable/hit_atom in hit_turf)
 		if(hit_atom == user || hit_atom == target)
 			continue // why are you hitting yourself
+
+		// Adjacent doesn't count correctly for non-precise clicks, so additional check before the attack chain needed here
+		if(!hit_turf.Adjacent(user, user, hit_atom))
+			continue
 
 		if(!(SEND_SIGNAL(hit_atom, COMSIG_ATOM_CLEAVE_ATTACK, item, user) & ATOM_ALLOW_CLEAVE_ATTACK))
 			if(hit_atom.pass_flags & LETPASSTHROW)

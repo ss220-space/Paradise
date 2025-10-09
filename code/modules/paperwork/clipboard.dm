@@ -1,5 +1,5 @@
-#define PAPERWORK	1
-#define PHOTO		2
+#define PAPERWORK 1
+#define PHOTO 2
 
 /obj/item/clipboard
 	name = "clipboard"
@@ -116,7 +116,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		to_chat(user, span_notice("You have clipped [I] onto [src]."))
-		playsound(loc, "pageturn", 50, TRUE)
+		playsound(loc, SFX_PAGE_TURN, 50, TRUE)
 		if(paperwork == PAPERWORK)
 			toppaper = I
 		update_icon(UPDATE_OVERLAYS)
@@ -172,7 +172,7 @@
 		if(isPaperwork(P))
 			P.forceMove_turf()
 			usr.put_in_hands(P, ignore_anim = FALSE)
-			to_chat(usr, "<span class='notice'>You remove [P] from [src].</span>")
+			to_chat(usr, span_notice("You remove [P] from [src]."))
 			checkTopPaper() //So we don't accidentally make the top sheet not be on the clipboard
 	else if(href_list["viewOrWrite"])
 		var/obj/item/P = locate(href_list["viewOrWrite"]) in src
@@ -189,8 +189,8 @@
 		var/obj/item/P = locate(href_list["topPaper"]) in src
 		if(P == toppaper)
 			return
-		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")
-		playsound(loc, "pageturn", 50, TRUE)
+		to_chat(usr, span_notice("You flick the pages so that [P] is on top."))
+		playsound(loc, SFX_PAGE_TURN, 50, TRUE)
 		toppaper = P
 	update_icon(UPDATE_OVERLAYS)
 	showClipboard(usr)

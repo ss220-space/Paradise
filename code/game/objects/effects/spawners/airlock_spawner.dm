@@ -3,18 +3,18 @@ Spawners for mappers. Just plonk one down of the desired size and it will place 
 This spawner places pipe leading up to the interior door, you will need to finish it off yourself with a connector, canister, and pipe connecting the two. It also assumes you already put in wall and floor.
 */
 
-#define HALF_X	round((tiles_in_x_direction - 1) * 0.5) //These are required so that the airlock can be in the middle of the chamber wall
-#define HALF_Y	round((tiles_in_y_direction - 1) * 0.5)
-#define CHAMBER_LONG	1
-#define CHAMBER_SQUARE	2
-#define CHAMBER_BIGGER	3
+#define HALF_X round((tiles_in_x_direction - 1) * 0.5) //These are required so that the airlock can be in the middle of the chamber wall
+#define HALF_Y round((tiles_in_y_direction - 1) * 0.5)
+#define CHAMBER_LONG 1
+#define CHAMBER_SQUARE 2
+#define CHAMBER_BIGGER 3
 #define DOOR_NORMAL_PLACEMENT 1
 #define DOOR_FLIPPED_PLACEMENT 2
 
-#define AIRPUMP_TAG		"[id_to_link]_pump"
-#define SENSOR_TAG		"[id_to_link]_sensor"
-#define OUTER_DOOR_TAG	"[id_to_link]_outer"
-#define INNER_DOOR_TAG	"[id_to_link]_inner"
+#define AIRPUMP_TAG "[id_to_link]_pump"
+#define SENSOR_TAG "[id_to_link]_sensor"
+#define OUTER_DOOR_TAG "[id_to_link]_outer"
+#define INNER_DOOR_TAG "[id_to_link]_inner"
 
 /obj/effect/spawner/airlock
 	name = "1 by 1 airlock spawner (interior north, exterior south)"
@@ -39,8 +39,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/one_door_interior //For square airlocks, if you set this then a) only one door will spawn, and b) you can choose if the door should go opposite to how it normally goes. Please use the define
 	var/one_door_exterior //See above
 
-/obj/effect/spawner/airlock/Initialize()
-	..()
+/obj/effect/spawner/airlock/Initialize(mapload)
+	. = ..()
 	forceMove(locate(x + 1, y + 1, z)) //Needs to move because our icon_state implies we are one turf to the northeast, when we're not
 	opposite_interior_direction = turn(interior_direction, 180) //Do it this way (instead of setting it directly) to avoid code mishaps
 	interior_direction_cw = turn(interior_direction, 90)
@@ -52,10 +52,13 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	id_to_link = "[UID()]" //We want unique IDs, this will give us a unique ID
 	var/turf/turf_interior = get_airlock_location(interior_direction)
 	var/turf/turf_exterior = get_airlock_location(exterior_direction)
+
 	handle_door_creation(turf_interior, TRUE, one_door_interior)
 	handle_door_creation(turf_exterior, FALSE, one_door_exterior)
 	handle_pipes_creation(turf_interior)
+
 	handle_control_placement()
+
 	qdel(src)
 
 /obj/effect/spawner/airlock/proc/get_airlock_location(desired_direction) //Finds a turf to place an airlock and returns it, this turf will be in the middle of the relevant wall
@@ -261,7 +264,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	name = "square airlock spawner (interior east, exterior south)"
 	icon_state = "2x2_E_to_S"
 	interior_direction = EAST
-	exterior_direction = SOUTH
 
 /obj/effect/spawner/airlock/long/square/wide
 	name = "rectangular airlock spawner (interior north, exterior south)"
@@ -283,8 +285,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/long/square/three
 	name = "3 by 3 square airlock spawner (interior north, exterior south)"
 	icon_state = "3x3_N_to_S"
-	interior_direction = NORTH
-	exterior_direction = SOUTH
 	tiles_in_x_direction = 3
 	tiles_in_y_direction = 3
 

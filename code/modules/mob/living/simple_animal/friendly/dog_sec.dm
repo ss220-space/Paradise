@@ -9,13 +9,11 @@
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	health = 35
 	maxHealth = 35
-	melee_damage_type = STAMINA
 	melee_damage_lower = 8
-	melee_damage_upper = 10
-	attacktext = "кусает"
-	footstep_type = FOOTSTEP_MOB_CLAW
+	melee_damage_upper = 15
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/security = 3)
 	tts_seed = "Furion"
+	speed = -1
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"
@@ -77,16 +75,16 @@
 
 	if(inventory_head)
 		if(user)
-			to_chat(user, "<span class='warning'>You can't put more than one hat on [src]!</span>")
+			to_chat(user, span_warning("You can't put more than one hat on [src]!"))
 		return
 	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
+		user.visible_message(span_notice("[user] pets [src]."), span_notice("You rest your hand on [src]'s head for a moment."))
 		if(flags & HOLOGRAM)
 			return
 		return
 
 	if(user && !user.drop_item_ground(item_to_add))
-		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
+		to_chat(user, span_warning("\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!"))
 		return 0
 
 	var/valid = FALSE
@@ -97,17 +95,19 @@
 
 	if(valid)
 		if(health <= 0)
-			to_chat(user, "<span class='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()].</span>")
+			to_chat(user, span_notice("There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()]."))
 		else if(user)
-			user.visible_message("<span class='notice'>[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once.</span>",
-				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
-				"<span class='italics'>You hear a friendly-sounding bark.</span>")
+			user.visible_message(
+				span_notice("[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once."),
+				span_notice("You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks."),
+				span_italics("You hear a friendly-sounding bark.")
+			)
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_dog_fluff()
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
+		to_chat(user, span_warning("You set [item_to_add] on [src]'s head, but it falls off!"))
 		item_to_add.forceMove(drop_location())
 		if(prob(25))
 			step_rand(item_to_add)
@@ -150,7 +150,7 @@
 			DF.obj_color = inventory_head.color
 
 
-		if (icon_state == icon_resting)
+		if(icon_state == icon_resting)
 			head_icon = DF.get_overlay()
 			head_icon.pixel_y = -2
 		else

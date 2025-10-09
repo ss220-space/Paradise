@@ -148,16 +148,12 @@
 	var/mob/devil_mob = devil.owner.current
 	if(istype(devil_mob.loc, /obj/effect/dummy/slaughter))
 		devil_mob.forceMove(get_turf(devil_mob))
-	var/mob/living/carbon/true_devil/true_devil
 	if(isdevil(devil_mob))
 		to_chat(devil_mob, span_revenbignotice("Вы чувствуете, как ваше тело меняется."))
-		true_devil = devil_mob
 		return FALSE
-	true_devil = new (get_turf(devil_mob))
-	ADD_TRAIT(devil_mob, TRAIT_NO_BREATH, DEVIL_TRAIT)
-	devil_mob.forceMove(true_devil)
-	true_devil.oldform = devil_mob
+	var/mob/living/carbon/true_devil/true_devil = new (get_turf(devil_mob))
 	devil.owner.transfer_to(true_devil)
+	QDEL_IN(devil_mob, 1 SECONDS)
 	return TRUE
 
 /datum/devil_rank/ascend
@@ -184,17 +180,7 @@
 		true_devil.set_name()
 		return FALSE
 	true_devil = new (get_turf(devil_mob))
-	if(isdevil(devil_mob))
-		var/mob/living/carbon/true_devil/old_devil = devil_mob
-		old_devil.oldform?.forceMove(true_devil)
-		true_devil.oldform = old_devil.oldform
-		old_devil.oldform = null
-		old_devil.forceMove(true_devil)
-		QDEL_IN(old_devil, 1 SECONDS)
-	else
-		ADD_TRAIT(devil_mob, TRAIT_NO_BREATH, DEVIL_TRAIT)
-		devil_mob.forceMove(true_devil)
-		true_devil.oldform = devil_mob
 	devil.owner.transfer_to(true_devil)
+	QDEL_IN(devil_mob, 1 SECONDS)
 	return TRUE
 

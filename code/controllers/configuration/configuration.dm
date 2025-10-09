@@ -67,13 +67,13 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 
 	loaded = TRUE
 
-	if (Master)
+	if(Master)
 		Master.OnConfigLoad()
 	process_config_errors()
 
 /datum/controller/configuration/proc/load_overflow_whitelist()
 	if(fexists("[directory]/ofwhitelist.txt"))
-		var/list/Lines = file2list("[directory]/ofwhitelist.txt")
+		var/list/Lines = world.file2list("[directory]/ofwhitelist.txt")
 		for(var/t in Lines)
 			if(!t)
 				continue
@@ -181,9 +181,9 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 			continue
 
 		// Reset directive, used for setting a config value back to defaults. Useful for string list config types
-		if (entry == "$reset")
+		if(entry == "$reset")
 			var/datum/config_entry/resetee = _entries[lowertext(value)]
-			if (!value || !resetee)
+			if(!value || !resetee)
 				log_config_error("Warning: invalid $reset directive: [value]")
 				continue
 			resetee.set_default()
@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 /datum/controller/configuration/proc/load_twitch_censor_list()
 	var/list/twitch_censor_list = list()
 	if(fexists("[directory]/twitch_censor.txt"))
-		var/list/lines = file2list("[directory]/twitch_censor.txt")
+		var/list/lines = world.file2list("[directory]/twitch_censor.txt")
 		for(var/L in lines)
 			L = trim(L)
 			if(!L)

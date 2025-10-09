@@ -2,15 +2,12 @@
 	name = "генератор аномалий"
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
 			генерации аномалий."
-	gender = MALE
 	density = TRUE
-	anchored = TRUE
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	icon_state = "generator_on"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
-	max_integrity = 200
 	integrity_failure = 100
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	processing_flags = START_PROCESSING_MANUALLY
@@ -68,6 +65,7 @@
 	beacon = new(src)
 	selected_beacon = beacon
 	component_parts = list()
+	powernet = find_powernet()
 	component_parts += new /obj/item/circuitboard/anomaly_generator
 	component_parts += new /obj/item/stock_parts/matter_bin
 	component_parts += new /obj/item/stock_parts/matter_bin
@@ -76,8 +74,8 @@
 	component_parts += new /obj/item/stock_parts/capacitor
 	RefreshParts()
 
-/obj/machinery/power/anomaly_generator/upgraded/Initialize()
-	..()
+/obj/machinery/power/anomaly_generator/upgraded/Initialize(mapload)
+	. = ..()
 	LAZYCLEARLIST(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/anomaly_generator
@@ -87,10 +85,6 @@
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic
 	RefreshParts()
-
-/obj/machinery/power/anomaly_generator/Initialize(mapload)
-	. = ..()
-	powernet = find_powernet()
 
 /obj/machinery/power/anomaly_generator/Destroy()
 	qdel(beacon)
@@ -204,7 +198,7 @@
 				options["[T.loc.name]"] = possible_beacon
 
 			var/obj/item/radio/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
-			if (choice == null)
+			if(choice == null)
 				choice = beacon;
 
 			selected_beacon = choice
@@ -379,7 +373,7 @@
 
 /obj/machinery/power/anomaly_generator/upgraded/admin
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
-			генерации аномалий. В данной модели были использованы секретные разработки NanoTrasen."
+			генерации аномалий. В данной модели были использованы секретные разработки Nanotrasen."
 
 /obj/machinery/power/anomaly_generator/wrench_act(mob/living/user, obj/item/item)
 	default_unfasten_wrench(user, item)

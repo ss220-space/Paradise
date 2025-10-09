@@ -1,6 +1,5 @@
 /obj/machinery/computer/aifixer
 	name = "AI system integrity restorer"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "ai-fixer"
 	circuit = /obj/item/circuitboard/aifixer
@@ -106,7 +105,7 @@
 		. += "ai-fixer-empty"
 
 
-/obj/machinery/computer/aifixer/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)
+/obj/machinery/computer/aifixer/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
 		return
 	//Downloading AI from card to terminal.

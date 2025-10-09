@@ -1,22 +1,5 @@
 GLOBAL_LIST_EMPTY(all_cults)
 
-/datum/game_mode
-	/// A list of all minds currently in the cult
-	var/list/datum/mind/cult = list()
-	var/datum/cult_objectives/cult_objs = new
-	/// Does the cult have glowing eyes
-	var/cult_risen = FALSE
-	/// Does the cult have halos
-	var/cult_ascendant = FALSE
-	/// How many crew need to be converted to rise
-	var/rise_number
-	/// How many crew need to be converted to ascend
-	var/ascend_number
-	/// Used for the CentComm announcement at ascension
-	var/ascend_percent
-	/// The number of ghost summons available to the cult.
-	var/ghost_summons = null
-
 /proc/is_convertable_to_cult(datum/mind/mind)
 	if(!mind)
 		return FALSE
@@ -51,7 +34,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, "Nanotrasen Navy Field Officer", JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
+	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, "Nanotrasen Navy Field Officer", JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF)
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
@@ -113,14 +96,14 @@ GLOBAL_LIST_EMPTY(all_cults)
 	..()
 
 /**
-  * Decides at the start of the round how many conversions are needed to rise/ascend.
-  *
-  * The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
-  * These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.
-  *
-  * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
-  * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
-  */
+ * Decides at the start of the round how many conversions are needed to rise/ascend.
+ *
+ * The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
+ * These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.
+ *
+ * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
+ * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
+ */
 /datum/game_mode/proc/cult_threshold_check()
 	var/players = length(GLOB.player_list)
 	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
@@ -137,12 +120,12 @@ GLOBAL_LIST_EMPTY(all_cults)
 	add_game_logs("Blood Cult rise/ascend numbers: [rise_number]/[ascend_number].")
 
 /**
-  * Returns the current number of cultists and constructs.
-  *
-  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
-  *
-  * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
-  */
+ * Returns the current number of cultists and constructs.
+ *
+ * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
+ *
+ * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
+ */
 /datum/game_mode/proc/get_cultists(separate = FALSE)
 	var/cultists = 0
 	var/constructs = 0
@@ -254,9 +237,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 			to_chat(M.current, span_cultlarge("Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!"))
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
-		GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.major_announcement.announce(
+			message = "На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+			new_title = ANNOUNCE_CCPARANORMAL_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 		log_game("Blood cult reveal. Powergame allowed.")
 

@@ -1,9 +1,10 @@
+#define COLLAPSE_DURATION 7
+
 /obj/effect/sliding_puzzle
 	name = "Sliding puzzle generator"
 	icon = 'icons/obj/items.dmi' //mapping
 	icon_state = "syndballoon"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = TRUE
 	var/list/elements
 	var/floor_type = /turf/simulated/floor/vault
 	var/finished = FALSE
@@ -77,8 +78,6 @@
 			E.source = null
 		elements.Cut()
 	return ..()
-
-#define COLLAPSE_DURATION 7
 
 /obj/effect/sliding_puzzle/proc/finish()
 	finished = TRUE
@@ -197,7 +196,6 @@
 	desc = "puzzling..."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "puzzle_pillar"
-	anchored = FALSE
 	density = TRUE
 	var/id = 0
 	var/obj/effect/sliding_puzzle/source
@@ -280,7 +278,7 @@
 
 /obj/effect/sliding_puzzle/prison/Destroy()
 	if(prisoner)
-		to_chat(prisoner,"<span class='userdanger'>With the cube broken by force, you can feel your body falling apart.</span>")
+		to_chat(prisoner,span_userdanger("With the cube broken by force, you can feel your body falling apart."))
 		prisoner.death()
 		qdel(prisoner)
 	. = ..()
@@ -312,12 +310,12 @@
 	//Handcuffed or unconcious
 	if(istype(carbon_victim) && carbon_victim.handcuffed || victim.stat != CONSCIOUS)
 		if(!puzzle_imprison(target))
-			to_chat(user,"<span class='warning'>[src] does nothing.</span>")
+			to_chat(user,span_warning("[src] does nothing."))
 			return
-		to_chat(user,"<span class='warning'>You trap [victim] in the prison cube!</span>")
+		to_chat(user,span_warning("You trap [victim] in the prison cube!"))
 		qdel(src)
 	else
-		to_chat(user,"<span class='notice'>[src] only accepts restrained or unconcious prisoners.</span>")
+		to_chat(user,span_notice("[src] only accepts restrained or unconcious prisoners."))
 
 /proc/puzzle_imprison(mob/living/prisoner)
 	var/turf/T = get_turf(prisoner)
@@ -329,7 +327,7 @@
 	//First grab the prisoner and move them temporarily into the generator so they won't get thrown around.
 	ADD_TRAIT(prisoner, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(cube))
 	prisoner.forceMove(cube)
-	to_chat(prisoner,"<span class='userdanger'>You're trapped by the prison cube! You will remain trapped until someone solves it.</span>")
+	to_chat(prisoner,span_userdanger("You're trapped by the prison cube! You will remain trapped until someone solves it."))
 
 	//Clear the area from objects (and cube user)
 	var/list/things_to_throw = list()
@@ -349,3 +347,5 @@
 	var/obj/structure/puzzle_element/E = pick(cube.elements)
 	prisoner.forceMove(E)
 	return TRUE
+
+#undef COLLAPSE_DURATION

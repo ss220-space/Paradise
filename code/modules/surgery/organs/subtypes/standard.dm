@@ -1,5 +1,5 @@
 /****************************************************
-			   ORGAN DEFINES
+				ORGAN DEFINES
 ****************************************************/
 
 /obj/item/organ/external/chest
@@ -18,6 +18,7 @@
 	icon_name = "torso"
 	max_damage = 100
 	min_broken_damage = 35
+	max_bleeding_amount = 10
 	w_class = WEIGHT_CLASS_HUGE
 	limb_body_flag = UPPER_TORSO
 	vital = TRUE
@@ -49,15 +50,14 @@
 		INSTRUMENTAL = "животом",
 		PREPOSITIONAL = "животе"
 	)
-	gender = MALE
 	limb_zone = BODY_ZONE_PRECISE_GROIN
 	icon_name = "groin"
 	max_damage = 100
 	min_broken_damage = 35
+	max_bleeding_amount = 10
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	limb_body_flag = LOWER_TORSO
 	vital = TRUE
-	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "поясницу"
 	gendered_icon = TRUE
 
@@ -76,10 +76,9 @@
 	icon_name = "l_arm"
 	limb_zone = BODY_ZONE_L_ARM
 	max_damage = 50
-	min_broken_damage = 30
-	w_class = WEIGHT_CLASS_NORMAL
+	max_bleeding_amount = 5
+	bleeding_mod = 0.8
 	limb_body_flag = ARM_LEFT
-	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "левое плечо"
 	can_grasp = TRUE
 	convertable_children = list(/obj/item/organ/external/hand)
@@ -126,8 +125,8 @@
 	icon_name = "l_leg"
 	limb_zone = BODY_ZONE_L_LEG
 	max_damage = 50
-	min_broken_damage = 30
-	w_class = WEIGHT_CLASS_NORMAL
+	max_bleeding_amount = 5
+	bleeding_mod = 0.8
 	limb_body_flag = LEG_LEFT
 	icon_position = LEFT
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -222,7 +221,9 @@
 	icon_name = "l_foot"
 	limb_zone = BODY_ZONE_PRECISE_L_FOOT
 	max_damage = 30
+	max_bleeding_amount = 2.5
 	min_broken_damage = 15
+	bleeding_mod = 0.65
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = FOOT_LEFT
 	icon_position = LEFT
@@ -363,6 +364,8 @@
 	limb_zone = BODY_ZONE_PRECISE_L_HAND
 	max_damage = 30
 	min_broken_damage = 15
+	max_bleeding_amount = 2.5
+	bleeding_mod = 0.65
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = HAND_LEFT
 	parent_organ_zone = BODY_ZONE_L_ARM
@@ -467,9 +470,9 @@
 	icon_name = "head"
 	max_damage = 75
 	min_broken_damage = 35
-	w_class = WEIGHT_CLASS_NORMAL
+	max_bleeding_amount = 7.5
+	bleeding_mod = 1.1
 	limb_body_flag = HEAD
-	parent_organ_zone = BODY_ZONE_CHEST
 	gendered_icon = TRUE
 	amputation_point = "шею"
 	encased = "череп"
@@ -593,6 +596,8 @@
 	icon_name = "tail"
 	max_damage = 30
 	min_broken_damage = 15
+	max_bleeding_amount = 2.5
+	bleeding_mod = 0.65
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = TAIL
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -614,7 +619,7 @@
 		icon_name = null
 		return
 
-/obj/item/organ/external/tail/sync_colour_to_human(var/mob/living/carbon/human/H)
+/obj/item/organ/external/tail/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
 	var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[H.m_styles["tail"]]
 	if(body_accessory && (dna.species.name in body_accessory.allowed_species))
@@ -704,7 +709,6 @@
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = WING
-	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "спину"
 	var/datum/body_accessory/body_accessory
 	var/list/m_styles = list("wing" = "None")

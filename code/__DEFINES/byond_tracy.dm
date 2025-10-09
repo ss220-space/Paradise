@@ -17,14 +17,14 @@
 /* This comment bypasses grep checks */ /var/__prof
 
 /proc/__detect_prof()
-	if (world.system_type == UNIX)
-		if (fexists("./libprof.so"))
+	if(world.system_type == UNIX)
+		if(fexists("./libprof.so"))
 			// No need for LD_LIBRARY_PATH badness.
 			return __prof = "./libprof.so"
-		else if (fexists("./prof"))
+		else if(fexists("./prof"))
 			// Old dumb filename.
 			return __prof = "./prof"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/prof"))
+		else if(fexists("[world.GetConfig("env", "HOME")]/.byond/bin/prof"))
 			// Old dumb filename in `~/.byond/bin`.
 			return __prof = "prof"
 		else

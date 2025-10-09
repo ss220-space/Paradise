@@ -12,23 +12,11 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/knight
 	name = "Knight of Terror"
 	desc = "Зловещий на вид красный паук c восемью красными глазами-бусинками и ужасными, большими, заострёнными клыками! Похоже, у него порочная полоса шириной в милю."
-	ru_names = list(
-		NOMINATIVE = "Рыцарь Ужаса",
-		GENITIVE = "Рыцаря Ужаса",
-		DATIVE = "Рыцарю Ужаса",
-		ACCUSATIVE = "Рыцаря Ужаса",
-		INSTRUMENTAL = "Рыцарем Ужаса",
-		PREPOSITIONAL = "Рыцаре Ужаса",
-	)
 	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
-	icon_state = "terror_red"
-	icon_living = "terror_red"
-	icon_dead = "terror_red_dead"
 	maxHealth = 220
 	health = 220
 	damage_coeff = list(BRUTE = 0.6, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
-	melee_damage_lower = 15
 	melee_damage_upper = 15
 	obj_damage = 60
 	environment_smash = ENVIRONMENT_SMASH_WALLS
@@ -54,6 +42,16 @@
 	var/datum/action/innate/terrorspider/knight/attackm/attackmaction
 	var/datum/action/innate/terrorspider/knight/defencem/defencemaction
 
+/mob/living/simple_animal/hostile/poison/terror_spider/knight/get_ru_names()
+	return list(
+		NOMINATIVE = "Рыцарь Ужаса",
+		GENITIVE = "Рыцаря Ужаса",
+		DATIVE = "Рыцарю Ужаса",
+		ACCUSATIVE = "Рыцаря Ужаса",
+		INSTRUMENTAL = "Рыцарем Ужаса",
+		PREPOSITIONAL = "Рыцаре Ужаса",
+	)
+
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/New()
 	..()
 	attackmaction = new()
@@ -65,20 +63,20 @@
 	. = ..()
 	if(stat != DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
 		if(ckey)
-			if (current_mode)
-				if (world.time > (last_mode + mode_duration))
+			if(current_mode)
+				if(world.time > (last_mode + mode_duration))
 					activate_mode(0)
 			if(world.time > (last_attack_mode + mode_cooldown))
 				attack_mode_av = 1
 			if(world.time > (last_defence_mode + mode_cooldown))
 				defence_mode_av = 1
 
-//MODE CHANGING. Knight has 3 modes, first - default, always active. Second - attack, grants increased speed and damage, but also increases damage you recieve.
-//Third - defence, grants even slower movement speed then default, but you recieve much less damage.
+//MODE CHANGING. Knight has 3 modes, first - default, always active. Second - attack, grants increased speed and damage, but also increases damage you receive.
+//Third - defence, grants even slower movement speed then default, but you receive much less damage.
 //Both attack and defence mod lasts for 10 seconds and has a cd of 30. When you are out of non default modes your mode is set to default.
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/proc/activate_mode(n)
 	var/t = world.time
-	if	(n==0)
+	if(n==0)
 		playsound(src, 'sound/creatures/terrorspiders/keratosis_out.ogg', 150)
 		to_chat(src, span_notice("Ваше тело расслабляется!"))
 		set_varspeed(0.8)
@@ -88,7 +86,7 @@
 		regeneration = 2
 		current_mode = 0
 		return TRUE
-	if	(n==1)
+	if(n==1)
 		if(attack_mode_av)
 			last_attack_mode = t
 			last_mode = t
@@ -104,7 +102,7 @@
 			return TRUE
 		to_chat(src, span_notice("Вы пока не можете этого сделать!"))
 		return FALSE
-	if	(n==2)
+	if(n==2)
 		if(defence_mode_av)
 			last_defence_mode = t
 			last_mode = t
@@ -125,7 +123,9 @@
 	max_integrity = 30
 	name = "reinforced web"
 	desc = "Эта паутина усилена прочными нитями для дополнительной прочности."
-	ru_names = list(
+
+/obj/structure/spider/terrorweb/knight/get_ru_names()
+	return list(
 		NOMINATIVE = "укрепленная паутина",
 		GENITIVE = "укрепленной паутины",
 		DATIVE = "укрепленной паутине",

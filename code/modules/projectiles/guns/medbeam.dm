@@ -12,7 +12,6 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
-	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
 
 	var/mob/living/current_target
@@ -175,7 +174,7 @@
 				continue
 
 			if(B.owner.origin != current_beam.origin)
-				next_step.visible_message(span_boldwarning("Лучи пересекаются и ПРОИСХОДИТ ВЗРЫВ!"))
+				next_step.visible_message(span_bigbold("Лучи пересекаются и ПРОИСХОДИТ ВЗРЫВ!"))
 				explosion(B.loc, heavy_impact_range = 3, light_impact_range = 5, flash_range = 8, cause = src)
 				qdel(dummy)
 				return FALSE

@@ -4,7 +4,7 @@
 /// An element for atoms that, when dragged and dropped onto a mob, opens a strip panel.
 /datum/element/strippable
 	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH_ON_HOST_DESTROY
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 
 	/// An assoc list of keys to /datum/strippable_item
 	var/list/items
@@ -71,7 +71,7 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
-	if(HAS_TRAIT(equipping, TRAIT_NODROP) )
+	if(HAS_TRAIT(equipping, TRAIT_NODROP))
 		to_chat(user, span_warning("Вы не можете надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)] – предмет прилип к вашей руке!"))
 		return FALSE
 
@@ -95,7 +95,7 @@
 	if(!do_after(user, equipping.put_on_delay, source))
 		return FALSE
 
-	if(QDELETED(equipping) || !user.Adjacent(source) || HAS_TRAIT(equipping, TRAIT_NODROP) )
+	if(QDELETED(equipping) || !user.Adjacent(source) || HAS_TRAIT(equipping, TRAIT_NODROP))
 		return FALSE
 
 	return TRUE

@@ -1,23 +1,11 @@
-#define EMAG_TIMER 3000
 /mob/living/silicon/robot/drone
 	name = "drone"
-	ru_names = list(
-		NOMINATIVE = "дрон",
-		GENITIVE = "дрона",
-		DATIVE = "дрону",
-		ACCUSATIVE = "дрона",
-		INSTRUMENTAL = "дроном",
-		PREPOSITIONAL = "дроне"
-	)
 	real_name = "drone"
-	desc = "Крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта НаноТрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
-	icon = 'icons/mob/robots.dmi'
+	desc = "Крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта Нанотрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
 	bubble_icon = "machine"
-	universal_speak = 0
-	universal_understand = 1
 	gender = MALE
 	pass_flags = PASSTABLE
 	braintype = "Robot"
@@ -58,8 +46,27 @@
 	)
 
 	holder_type = /obj/item/holder/drone
-//	var/sprite[0]
 
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor
+	)
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
+	canWearBlacklistedHats = TRUE
+
+/mob/living/silicon/robot/drone/get_ru_names()
+	return list(
+		NOMINATIVE = "дрон",
+		GENITIVE = "дрона",
+		DATIVE = "дрону",
+		ACCUSATIVE = "дрона",
+		INSTRUMENTAL = "дроном",
+		PREPOSITIONAL = "дроне"
+	)
 
 /mob/living/silicon/robot/drone/New()
 	..()
@@ -98,7 +105,7 @@
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list(ENG_FREQ_NAME = 1)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 
 	//Grab stacks.
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
@@ -245,6 +252,7 @@
 	to_chat(user, span_warning("Дрон герметично запечатан. Вы не можете открыть корпус."))
 	return TRUE
 
+#define EMAG_TIMER 3000
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
@@ -292,6 +300,8 @@
 	laws.show_laws(src)
 	to_chat(src, span_boldwarning("ВНИМАНИЕ: [H.real_name] теперь ваш новый хозяин. Соблюдайте новые законы и команды [H.real_name]."))
 	return
+
+#undef EMAG_TIMER
 
 /mob/living/silicon/robot/drone/ratvar_act(weak)
 	if(client)
@@ -358,7 +368,7 @@
 			if(ROLE_PAI in O.client.prefs.be_special)
 				question(O.client,O)
 
-/mob/living/silicon/robot/drone/proc/question(var/client/C,var/mob/M)
+/mob/living/silicon/robot/drone/proc/question(client/C, mob/M)
 	spawn(0)
 		if(!C || !M || jobban_isbanned(M,"nonhumandept") || jobban_isbanned(M,"Drone"))	return
 		var/response = tgui_alert(C, "Кто-то пытается перезагрузить дрона обслуживания. Хотите сыграть за него?", "Перезагрузка дрона обслуживания", list("Да", "Нет"))
@@ -367,7 +377,7 @@
 		if(response == "Да")
 			transfer_personality(C)
 
-/mob/living/silicon/robot/drone/proc/transfer_personality(var/client/player)
+/mob/living/silicon/robot/drone/proc/transfer_personality(client/player)
 
 	if(!player) return
 

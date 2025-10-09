@@ -155,6 +155,7 @@
 	var/has_gender = TRUE
 	var/blacklisted = FALSE
 	var/dangerous_existence = FALSE
+	var/ignore_critical_condition = FALSE // If true, this species will not be affected by complex critical condition
 
 	/// Death vars. See [/proc/genderize_decode] for more info.
 	var/death_message = "цепене%(ет,ют)% и расслабля%(ет,ют)%ся, %(его,её,его,их)% взгляд становится пустым и безжизненным..."
@@ -264,6 +265,8 @@
 	/// Contains info for all age related preferences.
 	var/list/age_sheet
 
+	/// List of all possible blood overlays for current race blood_mask. Init automaticly, don't force any value
+	var/static/list/blood_overlays
 
 /datum/species/New()
 	unarmed = new unarmed_type()
@@ -550,10 +553,10 @@
 
 		//вносим проверку что это не диона, ведь у дионы свои атаки
 		//вносим проверку на тип атаки, иначе рвущие атаки будут рвать кулаками, а дионы хлестать кулаками.
-		switch (user.dna.species.unarmed_type)
-			if (/datum/unarmed_attack/diona) attack_species += ""
-			if (/datum/unarmed_attack/claws) attack_species += "[genderize_ru(user.gender,"","а","о","и")] когтями"
-			if (/datum/unarmed_attack) attack_species += "[genderize_ru(user.gender,"","а","о","и")] кулаком"
+		switch(user.dna.species.unarmed_type)
+			if(/datum/unarmed_attack/diona) attack_species += ""
+			if(/datum/unarmed_attack/claws) attack_species += "[genderize_ru(user.gender,"","а","о","и")] когтями"
+			if(/datum/unarmed_attack) attack_species += "[genderize_ru(user.gender,"","а","о","и")] кулаком"
 
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
@@ -648,7 +651,7 @@
 			if(istype(user.gloves, /obj/item/clothing/gloves))
 				var/obj/item/clothing/gloves/gloves = user.gloves
 				extra_knock_chance = gloves.extra_knock_chance
-		if(randn <= 10 + extra_knock_chance)
+		if(randn <= 5 + extra_knock_chance)
 			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!"))
@@ -662,7 +665,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.move_resist > user.pull_force)
 			return FALSE
-		if(!(target.status_flags & CANPUSH))
+		if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
 			return FALSE
 		if(target.anchored)
 			return FALSE
@@ -704,26 +707,30 @@
 			if(AM.shove_impact(target, user)) // check for special interactions EG. tabling someone
 				return TRUE
 
-	var/moved = target.Move(shove_to, shove_dir)
+	var/moved = TRUE
+	if(target.a_intent == INTENT_HELP || prob(25)) // Chance to move with shove
+		moved = target.Move(shove_to, shove_dir)
+
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
 	if(!moved) //they got pushed into a dense object
-		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толкает [target.declent_ru(ACCUSATIVE)]"), \
-								span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
-								"Раздаётся глухой удар.")
-		if(!HAS_TRAIT(target, TRAIT_FLOORED))
-			target.Knockdown(3 SECONDS)
-			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, SetKnockdown), 0), 3 SECONDS) // so you cannot chain stun someone
-		else if(!user.IsStunned())
-			target.Stun(0.5 SECONDS)
+		if(prob(75)) // Chance to knockdown on wall hit
+			add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
+			target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толка[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)]"), \
+									span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
+									"Раздаётся глухой удар.")
+			if(!HAS_TRAIT(target, TRAIT_FLOORED))
+				target.Knockdown(3 SECONDS)
+				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, SetKnockdown), 0), 3 SECONDS) // so you cannot chain stun someone
+			else if(!user.IsStunned())
+				target.Stun(0.5 SECONDS)
 	else
 		var/obj/item/I = target.get_active_hand()
-		if(I && prob(60))
+		if(I && prob(40)) // Chance to disarm target item
 			target.drop_from_active_hand()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
 			if(I)
-				to_chat(target, span_warning("Ваша хватка дна [I.declent_ru(NOMINATIVE)] ослабевает!"))
+				to_chat(target, span_warning("Ваша хватка на [I.declent_ru(NOMINATIVE)] ослабевает!"))
 			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 	target.stop_pulling()
 
@@ -781,7 +788,7 @@
 /datum/unarmed_attack
 	var/attack_verb = list("ударил", "вмазал", "стукнул", "вдарил", "влепил")	// Empty hand hurt intent verb.
 	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
-	var/attack_sound = "punch"
+	var/attack_sound = SFX_PUNCH
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
@@ -1222,13 +1229,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 
 /**
-  * Species-specific runechat colour handler
-  *
-  * Checks the species datum flags and returns the appropriate colour
-  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
-  * Arguments:
-  * * H - The human who this DNA belongs to
-  */
+ * Species-specific runechat colour handler
+ *
+ * Checks the species datum flags and returns the appropriate colour
+ * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+ * Arguments:
+ * * H - The human who this DNA belongs to
+ */
 /datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
 	if(bodyflags & HAS_SKIN_COLOR)
 		return H.skin_colour
@@ -1239,3 +1246,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	var/age_limits = get_age_limits(src, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 	return 1 + 0.5 * (age_limits[SPECIES_AGE_MIN] + 10 - H.age) / age_limits[SPECIES_AGE_MAX] + (0.01 * rand(-tolerance, tolerance))
+
+/datum/species/proc/get_blood_overlays()
+	if(isnull(blood_overlays))
+		blood_overlays = icon_states(blood_mask)
+
+	return blood_overlays

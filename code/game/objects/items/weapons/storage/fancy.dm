@@ -150,7 +150,7 @@
 	storage_slots = 5
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
-	use_sound = "patchpack"
+	use_sound = SFX_PATCHPACK
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
 	for(var/I = 1 to storage_slots)
@@ -177,7 +177,7 @@
 	storage_slots = 8
 	icon_type = "crayon"
 	can_hold = list(/obj/item/toy/crayon)
-	use_sound = "patchpack"
+	use_sound = SFX_PATCHPACK
 
 /obj/item/storage/fancy/crayons/populate_contents()
 	new /obj/item/toy/crayon/white(src)
@@ -352,7 +352,6 @@
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	name = "cigarette packet"
 	desc = "Малоизвестная марка сигарет."
 	icon_state = "syndiepacket"
 	item_state = "syndiepacket"
@@ -513,7 +512,7 @@
 
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"
-	desc = "Упаковка рулонной бумаги НаноТрейзен."
+	desc = "Упаковка рулонной бумаги Нанотрейзен."
 	gender = FEMALE
 	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/cigarettes.dmi'
@@ -557,7 +556,6 @@
 	icon_state = "cigarcase"
 	icon_type = "cigar"
 	item_state = "cigarcase"
-	storage_slots = 7
 	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
 
 /obj/item/storage/fancy/cigcase/get_ru_names()
@@ -599,10 +597,7 @@
 	desc = "A locked box for keeping things away from children."
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox0"
-	item_state = "syringe_kit"
-	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
-	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
 
@@ -631,18 +626,16 @@
 	name = "aquatic starter kit"
 	desc = "Коробка со всем необходимым для ухода за аквариумом и его жителями."
 	icon_state = "AquaticKit"
-	throw_speed = 2
-	throw_range = 8
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/get_ru_names()
 	return list(
-        NOMINATIVE = "набор для ухода за аквариумом",
-        GENITIVE = "набора для ухода за аквариумом",
-        DATIVE = "набору для ухода за аквариумом",
-        ACCUSATIVE = "набор для ухода за аквариумом",
-        INSTRUMENTAL = "набором для ухода за аквариумом",
-        PREPOSITIONAL = "наборе для ухода за аквариумом"
+		NOMINATIVE = "набор для ухода за аквариумом",
+		GENITIVE = "набора для ухода за аквариумом",
+		DATIVE = "набору для ухода за аквариумом",
+		ACCUSATIVE = "набор для ухода за аквариумом",
+		INSTRUMENTAL = "набором для ухода за аквариумом",
+		PREPOSITIONAL = "наборе для ухода за аквариумом"
 	)
 
 /obj/item/storage/firstaid/aquatic_kit/full/populate_contents()

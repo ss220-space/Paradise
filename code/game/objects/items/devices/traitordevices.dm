@@ -98,7 +98,6 @@ effective or pretty fucking useless.
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=400)
 	origin_tech = "magnets=3;biotech=5;syndicate=1"
 	var/intensity = 5 // how much damage the radiation does
@@ -334,9 +333,9 @@ effective or pretty fucking useless.
 		var/turf/fragging_location = destination
 		telefrag(fragging_location, user)
 		user.forceMove(destination)
-		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 	else if(EMP_D == FALSE && !(length(bagholding) && !flawless)) // This is where the fun begins
 		var/direction = get_dir(user, destination)
@@ -397,21 +396,21 @@ effective or pretty fucking useless.
 	var/turf/fragging_location = new_destination
 	telefrag(fragging_location, user)
 	user.forceMove(new_destination)
-	playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
-	playsound(new_destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(new_destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
 	user.forceMove(destination)
-	playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
-	destination.ex_act(rand(1,2))
+	destination.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
 	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)
@@ -428,7 +427,6 @@ effective or pretty fucking useless.
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
-	icon_state = "paper"
 	info = {"<b>Instructions on your new prototype syndicate teleporter</b><br>
 	<br>
 	This teleporter will teleport the user 4-8 meters in the direction they are facing. Unlike the cult veil shifter, you can not drag people with you.<br>
@@ -466,8 +464,8 @@ effective or pretty fucking useless.
 	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
 
 
-#define ION_CALLER_AI_TARGETING		"AI targeting"
-#define ION_CALLER_COMMS_TARGETING	"Telecomms targeting"
+#define ION_CALLER_AI_TARGETING "AI targeting"
+#define ION_CALLER_COMMS_TARGETING "Telecomms targeting"
 
 /obj/item/ion_caller
 	name = "low-orbit ion cannon remote"

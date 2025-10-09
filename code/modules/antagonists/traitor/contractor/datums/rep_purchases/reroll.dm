@@ -1,10 +1,9 @@
 /**
-  * # Rep Purchase - Contract Reroll
-  */
+ * # Rep Purchase - Contract Reroll
+ */
 /datum/rep_purchase/reroll
 	name = "Обновление контрактов"
 	description = "Заменяет неактивные контракты на новые, содержащие новую цель и зоны для эвакуации."
-	cost = 0
 	stock = 2
 
 /datum/rep_purchase/reroll/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)

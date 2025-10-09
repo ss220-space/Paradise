@@ -24,7 +24,7 @@
 	var/datum/objective/find_and_scan/objective
 	var/on_enter_occupant_message = "Попав в устройство вы чувствуете колющую боль в своей голове и... засыпаете..."
 
-/obj/machinery/ninja_mindscan_machine/Initialize()
+/obj/machinery/ninja_mindscan_machine/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
@@ -148,7 +148,7 @@
 	else
 		atom_say("Пациенту неизвестна требуемая клану информация! И всё же были получены ценные обрывки информации... Продолжайте поиски!")
 
-/obj/machinery/ninja_mindscan_machine/proc/take_occupant(var/mob/living/carbon/possible_occupant)
+/obj/machinery/ninja_mindscan_machine/proc/take_occupant(mob/living/carbon/possible_occupant)
 	if(occupant)
 		return
 	if(!possible_occupant)
@@ -217,7 +217,7 @@
 	data["occupant_name"] = occupant ? occupant.real_name : "none"
 	data["occupant_health"] = occupant ? occupant.health : "none"
 
-	for(var/temp_occupant as anything in objective.scanned_occupants)
+	for(var/temp_occupant in objective.scanned_occupants)
 		scanned_occupants_info += list(list("scanned_occupant" = temp_occupant))
 
 	data["scanned_occupants"] = scanned_occupants_info

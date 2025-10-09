@@ -15,9 +15,8 @@
 	outfit = /datum/outfit/job/assistant
 	insurance_type = INSURANCE_TYPE_BUDGETARY
 
-	salary = SALARY_FOR_NISHEBROD
-	min_start_money = 10
-	max_start_money = 200
+	min_start_money = 100
+	max_start_money = 300
 
 
 /datum/outfit/job/assistant
@@ -25,25 +24,20 @@
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random
-	shoes = /obj/item/clothing/shoes/black
-
 
 
 /datum/job/civilian/prisoner
 	title = JOB_TITLE_PRISONER
 	flag = JOB_FLAG_PRISONER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = ROLE_PRISONERS_MAX_COUNT
+	spawn_positions = ROLE_PRISONERS_MAX_COUNT
 	supervisors = "the warden"
 	department_head = list(JOB_TITLE_WARDEN)
-	selection_color = "#e6e6e6"
 	access = list()
 	minimal_access = list()
 	alt_titles = list("Arrestee")
 	outfit = /datum/outfit/job/assistant/prisoner
 	insurance_type = INSURANCE_TYPE_NONE
-	salary = 0
 	min_start_money = 10
 	max_start_money = 50
 
@@ -71,7 +65,7 @@
 	record.fields["last_modifier_level"] = LAW_LEVEL_MAGISTRATE
 	var/crimes = generate_prisoner_role_crimes()
 	human.mind.store_memory("Меня посадили за: [crimes]")
-	record.fields["comments"] += "Заключён в пермабриг за: [crimes]"
+	record.fields["comments"] += "Заключён[genderize_ru(human.gender, "", "а", "о", "ы")] в пермабриг за: [crimes]"
 
 /datum/job/civilian/prisoner/proc/generate_prisoner_role_crimes()
 	var/list/major_crimes = list("400", "402", "407")

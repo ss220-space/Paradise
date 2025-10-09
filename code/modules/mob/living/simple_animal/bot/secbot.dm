@@ -4,18 +4,8 @@
 /mob/living/simple_animal/bot/secbot
 	name = "Securitron"
 	desc = "Маленький охранный робот. Он выглядит абсолютно спокойным."
-	ru_names = list(
-		NOMINATIVE = "охранный робот",
-		GENITIVE = "охранного робота",
-		DATIVE = "охранному роботу",
-		ACCUSATIVE = "охранного робота",
-		INSTRUMENTAL = "охранным роботом",
-		PREPOSITIONAL = "охранном роботе",
-	)
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -60,11 +50,24 @@
 	var/prev_flashing_lights = FALSE
 	var/speak_cooldown = FALSE
 
+/mob/living/simple_animal/bot/secbot/get_ru_names()
+	return list(
+		NOMINATIVE = "охранный робот",
+		GENITIVE = "охранного робота",
+		DATIVE = "охранному роботу",
+		ACCUSATIVE = "охранного робота",
+		INSTRUMENTAL = "охранным роботом",
+		PREPOSITIONAL = "охранном роботе",
+	)
+
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "Это Офицер Бипски! Работает с помощью картофеля и рюмки виски."
-	ru_names = list(
+	auto_patrol = TRUE
+
+/mob/living/simple_animal/bot/secbot/beepsky/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Бипски",
 		GENITIVE = "Офицера Бипски",
 		DATIVE = "Офицеру Бипски",
@@ -72,10 +75,6 @@
 		INSTRUMENTAL = "Офицером Бипски",
 		PREPOSITIONAL = "Офицере Бипски",
 	)
-	idcheck = FALSE
-	weaponscheck = FALSE
-	auto_patrol = TRUE
-
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/turf/Tsec = get_turf(src)
@@ -89,7 +88,10 @@
 /mob/living/simple_animal/bot/secbot/pingsky
 	name = "Officer Pingsky"
 	desc = "Это Офицер Пингски! Переведён на охрану спутника за разжигание античеловеческих настроений."
-	ru_names = list(
+	radio_channel = AI_FREQ_NAME
+
+/mob/living/simple_animal/bot/secbot/pingsky/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Пингски",
 		GENITIVE = "Офицера Пингски",
 		DATIVE = "Офицеру Пингски",
@@ -97,13 +99,15 @@
 		INSTRUMENTAL = "Офицером Пингски",
 		PREPOSITIONAL = "Офицере Пингски",
 	)
-	radio_channel = AI_FREQ_NAME
-
 
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
 	desc = "Это Офицер Тюремски! Работает с помощью крови, пота и слёз заключённых."
-	ru_names = list(
+	weaponscheck = TRUE
+	auto_patrol = TRUE
+
+/mob/living/simple_animal/bot/secbot/ofitser/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Тюремски",
 		GENITIVE = "Офицера Тюремски",
 		DATIVE = "Офицеру Тюремски",
@@ -111,22 +115,10 @@
 		INSTRUMENTAL = "Офицером Тюремски",
 		PREPOSITIONAL = "Офицере Тюремски",
 	)
-	idcheck = FALSE
-	weaponscheck = TRUE
-	auto_patrol = TRUE
-
 
 /mob/living/simple_animal/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
 	desc = "Это Офицер Баззски! Проржавевший и разваливающийся на части, он явно не в восторге от того, что экипаж оставил его в таком состоянии."
-	ru_names = list(
-		NOMINATIVE = "Офицер Баззски",
-		GENITIVE = "Офицера Баззски",
-		DATIVE = "Офицеру Баззски",
-		ACCUSATIVE = "Офицера Баззски",
-		INSTRUMENTAL = "Офицером Баззски",
-		PREPOSITIONAL = "Офицере Баззски",
-	)
 	base_icon = "rustbot"
 	icon_state = "rustbot0"
 	declare_arrests = FALSE
@@ -134,10 +126,26 @@
 	harmbaton = TRUE
 	emagged = 2
 
+/mob/living/simple_animal/bot/secbot/buzzsky/get_ru_names()
+	return list(
+		NOMINATIVE = "Офицер Баззски",
+		GENITIVE = "Офицера Баззски",
+		DATIVE = "Офицеру Баззски",
+		ACCUSATIVE = "Офицера Баззски",
+		INSTRUMENTAL = "Офицером Баззски",
+		PREPOSITIONAL = "Офицере Баззски",
+	)
 
 /mob/living/simple_animal/bot/secbot/armsky
 	name = "Sergeant-at-Armsky"
-	ru_names = list(
+	health = 45
+	idcheck = TRUE
+	arrest_type = TRUE
+	weaponscheck = TRUE
+	auto_patrol = TRUE
+
+/mob/living/simple_animal/bot/secbot/armsky/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Арсеналски",
 		GENITIVE = "Офицера Арсеналски",
 		DATIVE = "Офицеру Арсеналски",
@@ -145,16 +153,16 @@
 		INSTRUMENTAL = "Офицером Арсеналски",
 		PREPOSITIONAL = "Офицере Арсеналски",
 	)
+
+/mob/living/simple_animal/bot/secbot/podsky
+	name = "Officer Podsky"
 	health = 45
 	idcheck = TRUE
 	arrest_type = TRUE
 	weaponscheck = TRUE
-	auto_patrol = TRUE
 
-
-/mob/living/simple_animal/bot/secbot/podsky
-	name = "Officer Podsky"
-	ru_names = list(
+/mob/living/simple_animal/bot/secbot/podsky/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Подски",
 		GENITIVE = "Офицера Подски",
 		DATIVE = "Офицеру Подски",
@@ -162,11 +170,6 @@
 		INSTRUMENTAL = "Офицером Подски",
 		PREPOSITIONAL = "Офицере Подски",
 	)
-	health = 45
-	idcheck = TRUE
-	arrest_type = TRUE
-	weaponscheck = TRUE
-
 
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
 	. = ..()
@@ -179,7 +182,7 @@
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -245,7 +248,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, span_warning("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))
@@ -460,7 +463,7 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())
+			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())
 				back_to_hunt()
 				return
 
@@ -590,12 +593,12 @@
 		return
 
 	arrived.visible_message(span_warning("[pick( \
-						  "[arrived] спотыка[pluralize_ru(arrived.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
-						  "[arrived] опрокидыва[pluralize_ru(arrived.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
-						  "[arrived] отлета[pluralize_ru(arrived.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [genderize_ru(arrived.gender, "его", "её", "его", "их")] упасть!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]"))
+						"[arrived] спотыка[pluralize_ru(arrived.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
+						"[arrived] опрокидыва[pluralize_ru(arrived.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
+						"[arrived] отлета[pluralize_ru(arrived.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
+						"[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
+						"[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [genderize_ru(arrived.gender, "его", "её", "его", "их")] упасть!", \
+						"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]"))
 	arrived.Weaken(4 SECONDS)
 
 

@@ -1,7 +1,6 @@
 /obj/machinery/computer/arcade
 	name = "random arcade"
 	desc = "Случайный аркадный автомат."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "arcade"
 	icon_keyboard = null
 	icon_screen = "invaders"
@@ -57,14 +56,12 @@
 			num_of_prizes = rand(0,2)
 	for(var/i = num_of_prizes; i > 0; i--)
 		prizevend()
-	explosion(get_turf(src), -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes)
+	explosion(get_turf(src), devastation_range = -1, heavy_impact_range = 0, light_impact_range = (1 + num_of_prizes), flame_range = (1 + num_of_prizes))
 
 
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
 	desc = "Не поддерживает пинбол."
-	icon = 'icons/obj/machines/computer.dmi'
-	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villian"
 	var/temp = "Победители не употребляют Космодурь" //Temporary message, for attack messages, etc
@@ -270,9 +267,7 @@
 		enemy_mp = 20
 		gameover = 0
 		blocked = 0
-
 		emagged = 1
-
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
 
@@ -280,25 +275,24 @@
 
 // *** THE ORION TRAIL ** //
 
-#define ORION_TRAIL_WINTURN		9
+#define ORION_TRAIL_WINTURN 9
 
 //Orion Trail Events
-#define ORION_TRAIL_RAIDERS		"Рейдеры"
-#define ORION_TRAIL_FLUX		"Межзвездный поток"
-#define ORION_TRAIL_ILLNESS		"Болезнь"
-#define ORION_TRAIL_BREAKDOWN	"Авария"
-#define ORION_TRAIL_LING		"Генокрады?"
+#define ORION_TRAIL_RAIDERS "Рейдеры"
+#define ORION_TRAIL_FLUX "Межзвездный поток"
+#define ORION_TRAIL_ILLNESS "Болезнь"
+#define ORION_TRAIL_BREAKDOWN "Авария"
+#define ORION_TRAIL_LING "Генокрады?"
 #define ORION_TRAIL_LING_ATTACK "Засада генокрадов"
-#define ORION_TRAIL_MALFUNCTION	"Неисправность"
-#define ORION_TRAIL_COLLISION	"Столкновение"
-#define ORION_TRAIL_SPACEPORT	"Космопорт"
-#define ORION_TRAIL_BLACKHOLE	"Черная Дыра"
+#define ORION_TRAIL_MALFUNCTION "Неисправность"
+#define ORION_TRAIL_COLLISION "Столкновение"
+#define ORION_TRAIL_SPACEPORT "Космопорт"
+#define ORION_TRAIL_BLACKHOLE "Черная Дыра"
 
 
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"
 	desc = "Узнайте, как наши предки добрались до Ориона, и повеселитесь в процессе!"
-	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/orion_trail
 	var/busy = 0 //prevent clickspam that allowed people to ~speedrun~ the game.
 	var/engine = 0
@@ -313,15 +307,16 @@
 	var/eventdat = null
 	var/event = null
 	var/list/settlers = list("Harry", "Larry", "Bob")
-	var/static/list/events = list(ORION_TRAIL_RAIDERS		= 3,
-						   ORION_TRAIL_FLUX			= 1,
-						   ORION_TRAIL_ILLNESS		= 3,
-						   ORION_TRAIL_BREAKDOWN	= 2,
-						   ORION_TRAIL_LING			= 3,
-						   ORION_TRAIL_MALFUNCTION	= 2,
-						   ORION_TRAIL_COLLISION	= 1,
-						   ORION_TRAIL_SPACEPORT	= 2
-						   )
+	var/static/list/events = list(
+		ORION_TRAIL_RAIDERS = 3,
+		ORION_TRAIL_FLUX = 1,
+		ORION_TRAIL_ILLNESS = 3,
+		ORION_TRAIL_BREAKDOWN = 2,
+		ORION_TRAIL_LING = 3,
+		ORION_TRAIL_MALFUNCTION = 2,
+		ORION_TRAIL_COLLISION = 1,
+		ORION_TRAIL_SPACEPORT = 2
+	)
 	var/list/stops
 	var/list/stopblurbs
 	var/lings_aboard = 0
@@ -580,7 +575,7 @@
 		event = null
 	else if(href_list["keepspeed"]) //keep speed
 		if(prob(75))
-			event = "Breakdown"
+			event = ORION_TRAIL_BREAKDOWN
 			event()
 		else
 			event = null
@@ -945,7 +940,7 @@
 
 
 //Add Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(var/specific = "")
+/obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(specific = "")
 	var/newcrew = ""
 	if(specific)
 		newcrew = specific
@@ -961,7 +956,7 @@
 
 
 //Remove Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(var/specific = "", var/dont_remove = "")
+/obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(specific = "", dont_remove = "")
 	var/list/safe2remove = settlers
 	var/removed = ""
 	if(dont_remove)
@@ -1016,7 +1011,6 @@
 	desc = "Лучшие корпоративные силы службы безопасности для всех космопортов, расположенных вдоль пути к Ориону."
 	faction = list("orion")
 	loot = list()
-	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/orion/get_ru_names()
 	return list(
@@ -1065,7 +1059,7 @@
 	to_chat(user, span_warning("Вы щелкаете выключателем на нижней стороне [declent_ru(GENITIVE)]."))
 	active = 1
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] тихо пищит и жужжит, пробуждаясь к жизни!"))
-	playsound(src.loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
+	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
 	atom_say("Это корабль ID #[rand(1,1000)] руководству порта Орион. Мы заходим на посадку, приём.")
 	sleep(20)
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает вибрировать..."))
@@ -1075,13 +1069,12 @@
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 	sleep(3.6)
 	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
-	explosion(src.loc, 1,2,4, flame_range = 3, cause = user)
+	explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 3, adminlog = TRUE, cause = user)
 	qdel(src)
 
 /obj/machinery/computer/arcade/orion_trail/pc_frame
 	name = "special purpose computer"
 	desc = "Выполнять вычисления на этом компьютере будет сложно..."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "aimainframe"
 
 /obj/machinery/computer/arcade/orion_trail/pc_frame/macintosh
@@ -1092,7 +1085,6 @@
 /obj/machinery/computer/arcade/battle/pc_frame
 	name = "special purpose computer"
 	desc = "Выполнять вычисления на этом компьютере будет сложно..."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "aimainframe"
 
 /obj/machinery/computer/arcade/battle/pc_frame/macintosh

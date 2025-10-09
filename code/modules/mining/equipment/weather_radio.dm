@@ -8,17 +8,8 @@
 	icon = 'icons/obj/miningradio.dmi'
 	icon_state = "miningradio"
 	desc = "Метеорологическое радио, предназначенное для использования в неблагоприятных условиях. Подает звуковые предупреждения о приближении шторма. Имеет доступ к каналу карго."
-	ru_names = list(
-		NOMINATIVE = "метеорологическое радио",
-		GENITIVE = "метеорологического радио",
-		DATIVE = "метеорологическому радио",
-		ACCUSATIVE = "метеорологическое радио",
-		INSTRUMENTAL = "метеорологическим радио",
-		PREPOSITIONAL = "метеорологическом радио"
-	)
 	freqlock = TRUE
 	luminosity = 1
-	light_power = 1
 	light_range = 1.6
 	/// Currently displayed warning level
 	var/warning_level = WEATHER_ALERT_CLEAR
@@ -31,6 +22,16 @@
 	/// Overlay added when you are in danger
 	var/state_danger = "direwarning"
 	light_system = MOVABLE_LIGHT
+
+/obj/item/radio/weather_monitor/get_ru_names()
+	return list(
+		NOMINATIVE = "метеорологическое радио",
+		GENITIVE = "метеорологического радио",
+		DATIVE = "метеорологическому радио",
+		ACCUSATIVE = "метеорологическое радио",
+		INSTRUMENTAL = "метеорологическим радио",
+		PREPOSITIONAL = "метеорологическом радио"
+	)
 
 /obj/item/radio/weather_monitor/Initialize(mapload)
 	. = ..()
@@ -93,7 +94,7 @@
 	for(var/datum/weather/check_weather as anything in SSweather.processing)
 		if(!check_weather.barometer_predictable || check_weather.stage == WIND_DOWN_STAGE || check_weather.stage == END_STAGE)
 			continue
-		for (var/mining_level in mining_z_levels)
+		for(var/mining_level in mining_z_levels)
 			if(mining_level in check_weather.impacted_z_levels)
 				warning_level = WEATHER_ALERT_IMMINENT_OR_ACTIVE
 				return 0

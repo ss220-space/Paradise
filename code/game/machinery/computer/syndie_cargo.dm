@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 /********************
-    SUPPLY ORDER //доработать
+	SUPPLY ORDER //доработать
  ********************/
 /datum/syndie_supply_order
 
@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
-/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/datum/syndie_data_storage/data_storage) // тут код создающий ящики
+/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, datum/syndie_data_storage/data_storage) // тут код создающий ящики
 	if(!object)
 		return
 
@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
 
-	if((errors & MANIFEST_ERROR_ITEM))
+	if(errors & MANIFEST_ERROR_ITEM)
 		//secure and large crates cannot lose items
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 
 /***************************
-    Хранилище данных.
+	Хранилище данных.
 	Консоли её находят и используют как сервер для снхронизации данных.
 	Если консоль построить в зоне без хранилища данных, консоль создаст новое хранилище данных в своей зоне при попытке синхронизации через кнопку "Link pads"
 	Такой подход позволяет игрокам построить собственное синдикарго
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			linked_pads += P
 			continue
 	pads_cooldown = round(pads_cooldown)
-	if (length(receiving_pads) && length(linked_pads))
+	if(length(receiving_pads) && length(linked_pads))
 		telepads_status = "Pads ready"
 	else
 		if(usr) //Во избежание рантаймов по to_chat при автоматической раундстарт синхронизации синдипадов
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	researchDesigns = null
 	return ..()
 /***************************
-    Консоль заказов синдикарго
+	Консоль заказов синдикарго
  **************************/
 /obj/machinery/computer/syndie_supplycomp
 	name = "Supply Pad Console"
@@ -294,9 +294,9 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		return
 
 	var/list/spawnTurfs = list()
-	var/list/recievingPads = data_storage.receiving_pads
-	for(var/j in 1 to length(recievingPads))
-		spawnTurfs += get_turf(recievingPads[j])
+	var/list/receivingPads = data_storage.receiving_pads
+	for(var/j in 1 to length(receivingPads))
+		spawnTurfs += get_turf(receivingPads[j])
 
 	for(var/datum/syndie_supply_order/SO in data_storage.shoppinglist)
 		if(!SO.object)
@@ -304,10 +304,10 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			continue
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
-		for(var/obj/machinery/syndiepad/recieving_pad as anything in recievingPads)
-			recieving_pad.use_power(10000 / recieving_pad.power_efficiency)
-			flick("[initial(recieving_pad.icon_state)]-beam", recieving_pad)
-			playsound(get_turf(recieving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
+		for(var/obj/machinery/syndiepad/receiving_pad as anything in receivingPads)
+			receiving_pad.use_power(10000 / receiving_pad.power_efficiency)
+			flick("[initial(receiving_pad.icon_state)]-beam", receiving_pad)
+			playsound(get_turf(receiving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 		if(!T)
 			data_storage.shoppinglist.Cut(1, data_storage.shoppinglist.Find(SO))
@@ -505,7 +505,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	return
 
 
-/obj/machinery/computer/syndie_supplycomp/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/syndie_supplycomp/attack_hand(mob/user as mob)
 	if(..())
 		return TRUE
 

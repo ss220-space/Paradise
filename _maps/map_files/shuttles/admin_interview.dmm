@@ -163,8 +163,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -175,7 +174,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -309,8 +307,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/window/reinforced/tinted{
 	dir = 8
@@ -354,9 +351,7 @@
 /area/shuttle/administration)
 "rp" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -396,7 +391,6 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8;
-	layer = 4.2;
 	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
@@ -480,9 +474,7 @@
 "wl" = (
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
+/obj/structure/window/reinforced,
 /obj/machinery/computer/secure_data/laptop,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -498,14 +490,6 @@
 "ye" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 1;
@@ -552,8 +536,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/royalblack,
@@ -594,12 +577,10 @@
 	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -658,19 +639,6 @@
 	color = "#444444"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
-/area/shuttle/administration)
-"FC" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "Gs" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -811,8 +779,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -822,7 +789,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -893,8 +859,7 @@
 	name = "NTV Argos shuttle navigation computer"
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -1070,8 +1035,7 @@
 /area/shuttle/administration)
 "VE" = (
 /obj/structure/window/full/reinforced{
-	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
-	layer = 5
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /obj/structure/flora/ausbushes/genericbush,
 /turf/simulated/floor/grass,
@@ -1423,7 +1387,7 @@ jH
 lX
 "}
 (12,1,1) = {"
-FC
+ye
 Xb
 Tl
 IQ
@@ -1443,7 +1407,7 @@ jH
 Ti
 "}
 (13,1,1) = {"
-FC
+ye
 bQ
 Tl
 Tl

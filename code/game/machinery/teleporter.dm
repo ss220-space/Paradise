@@ -31,7 +31,7 @@
 	circuit = /obj/item/circuitboard/teleporter/robotics
 	req_access = list(ACCESS_RD)
 
-/obj/machinery/computer/teleporter/Initialize()
+/obj/machinery/computer/teleporter/Initialize(mapload)
 	. = ..()
 	link_power_station()
 	update_icon()
@@ -328,7 +328,6 @@
 
 /obj/machinery/teleport
 	name = "teleport"
-	icon = 'icons/obj/stationobjs.dmi'
 	density = TRUE
 	anchored = TRUE
 
@@ -337,7 +336,6 @@
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
 	var/accurate = FALSE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	light_range = 2
 	light_color = "#f1f1bd"
@@ -348,27 +346,23 @@
 	var/admin_usage = FALSE // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
 
 
-/obj/machinery/teleport/hub/New()
-	..()
-	link_power_station()
+/obj/machinery/teleport/hub/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
+	link_power_station()
+	update_icon()
 
-/obj/machinery/teleport/hub/upgraded/New()
-	..()
+/obj/machinery/teleport/hub/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
-
-/obj/machinery/teleport/hub/Initialize()
-	. = ..()
-	link_power_station()
-	update_icon()
 
 /obj/machinery/teleport/hub/Destroy()
 	if(power_station)
@@ -477,7 +471,6 @@
 	desc = "A teleporter with the target pre-set on the circuit board."
 	icon_state = "tele0"
 	var/recalibrating = FALSE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 
@@ -588,7 +581,6 @@
 	desc = "The power control station for a bluespace teleporter."
 	icon_state = "controller"
 	var/engaged = FALSE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 	var/obj/machinery/computer/teleporter/teleporter_console
@@ -596,8 +588,8 @@
 	var/list/linked_stations = list()
 	var/efficiency = 0
 
-/obj/machinery/teleport/station/New()
-	..()
+/obj/machinery/teleport/station/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_station(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
@@ -605,13 +597,8 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-
-
-/obj/machinery/teleport/station/Initialize(mapload)
-	. = ..()
 	link_console_and_hub()
 	update_icon()
-
 
 /obj/machinery/teleport/station/RefreshParts()
 	var/E
@@ -751,3 +738,6 @@
 	if(!(stat & NOPOWER) && !panel_open)
 		underlays += emissive_appearance(icon, "controller_lightmask", src)
 
+#undef REGIME_TELEPORT
+#undef REGIME_GATE
+#undef REGIME_GPS

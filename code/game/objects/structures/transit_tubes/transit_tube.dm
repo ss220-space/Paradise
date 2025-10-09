@@ -35,12 +35,12 @@
 	return ..()
 
 // When destroyed by explosions, properly handle contents.
-/obj/structure/transit_tube/ex_act(severity)
+/obj/structure/transit_tube/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			for(var/atom/movable/AM in contents)
 				AM.forceMove(loc)
-				AM.ex_act(severity++)
+				AM.ex_act(severity--)
 
 			qdel(src)
 			return
@@ -48,7 +48,7 @@
 			if(prob(50))
 				for(var/atom/movable/AM in contents)
 					AM.forceMove(loc)
-					AM.ex_act(severity++)
+					AM.ex_act(severity--)
 
 				qdel(src)
 				return

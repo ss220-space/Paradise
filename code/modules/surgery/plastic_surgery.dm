@@ -8,7 +8,6 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_HEAD)
-	requires_organic_bodypart = TRUE
 
 
 /datum/surgery_step/reshape_face
@@ -79,7 +78,7 @@
 			span_notice("Вы изменяете внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
-	target.sec_hud_set_ID()
+	target.update_hud_set()
 	return SURGERY_STEP_CONTINUE
 
 

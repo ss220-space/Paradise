@@ -10,27 +10,16 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress
 	name = "Empress of Terror"
 	desc = "Нечестивое порождение пауков, кошмаров и фантастики Лавкрафта."
-	ru_names = list(
-		NOMINATIVE = "Императрица Ужаса",
-		GENITIVE = "Императрицы Ужаса",
-		DATIVE = "Императрице Ужаса",
-		ACCUSATIVE = "Императрицу Ужаса",
-		INSTRUMENTAL = "Императрицой Ужаса",
-		PREPOSITIONAL = "Императрице Ужаса",
-	)
-	ai_target_method = TS_DAMAGE_SIMPLE
 	maxHealth = 1000
 	health = 1000
 	melee_damage_lower = 30
 	melee_damage_upper = 60
-	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
 	canlay = 1000
 	spider_tier = TS_TIER_5
 	projectiletype = /obj/projectile/terrorspider/empress
 	icon = 'icons/mob/terrorspider64.dmi'
 	pixel_x = -16
-	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	mob_size = MOB_SIZE_LARGE
 	icon_state = "terror_empress"
 	icon_living = "terror_empress"
@@ -40,6 +29,16 @@
 	var/datum/action/innate/terrorspider/queen/empress/empresserase/empresserase_action
 	tts_seed = "Queen"
 	spider_intro_text = "Вы - Императрица Ужаса, вершина иерархии гнезда и одно из самых опасных существ этого мира. Управляйте, разрушайте, захватывайте. Теперь это ВАША станция."
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/get_ru_names()
+	return list(
+		NOMINATIVE = "Императрица Ужаса",
+		GENITIVE = "Императрицы Ужаса",
+		DATIVE = "Императрице Ужаса",
+		ACCUSATIVE = "Императрицу Ужаса",
+		INSTRUMENTAL = "Императрицой Ужаса",
+		PREPOSITIONAL = "Императрице Ужаса",
+	)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/New()
 	..()

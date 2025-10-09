@@ -1,6 +1,5 @@
 /obj/machinery/computer/atmoscontrol
 	name = "central atmospherics computer"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"
 	light_color = LIGHT_COLOR_CYAN
@@ -8,9 +7,13 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	var/datum/ui_module/atmos_control/atmos_control
 
-/obj/machinery/computer/atmoscontrol/Initialize()
+/obj/machinery/computer/atmoscontrol/Initialize(mapload)
 	. = ..()
 	atmos_control = new(src)
+
+/obj/machinery/computer/atmoscontrol/Destroy()
+	QDEL_NULL(atmos_control)
+	return ..()
 
 /obj/machinery/computer/atmoscontrol/laptop
 	name = "atmospherics laptop"

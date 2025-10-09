@@ -36,6 +36,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/civilian,
 		/datum/job/civilian/prisoner,
 		/datum/job/syndicateofficer,
+		/datum/job/civilian/team3,
+		/datum/job/civilian/team2,
+		/datum/job/civilian/team1,
 		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
 	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
@@ -78,11 +81,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/opened_positions = list()
 
 
-/obj/machinery/computer/card/Initialize()
+/obj/machinery/computer/card/Initialize(mapload)
 	. = ..()
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
-	Radio.config(list(COMM_FREQ_NAME = 0))
+	Radio.become_speaker_only(COMM_FREQ)
 	Radio.follow_target = src
 
 /obj/machinery/computer/card/Destroy()
@@ -92,7 +94,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/is_centcom()
 	return FALSE
 
-/obj/machinery/computer/card/proc/is_authenticated(var/mob/user)
+/obj/machinery/computer/card/proc/is_authenticated(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
 	if(scan)
@@ -310,7 +312,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 	return FALSE
 
-/obj/machinery/computer/card/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/card/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/computer/card/attack_hand(mob/user as mob)
@@ -331,6 +333,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/data = list()
 	data["law_levels"] = law_levels
 	data["possible_law_levels"] = list()
+	data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
 	var/possible_laws = data["possible_law_levels"]
 
 	for(var/level in law_levels)
@@ -402,7 +405,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(IDCOMPUTER_SCREEN_ACCESS) // ACCESS CHANGES
 			if(modify)
 				data["selectedAccess"] = modify.access
-				data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
 		if(IDCOMPUTER_SCREEN_RECORDS) // RECORDS
 			if(is_authenticated(user))
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
@@ -676,7 +678,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if(R.fields["id"] == E.fields["id"])
 							if(status_valid_for_demotion(R.fields["criminal"]))
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
-								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, COMM_FREQ_NAME)
+								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, HEADSET_FREQ_NAME)
 								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: \"[reason]\"")
 								add_game_logs("([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", usr)
 								investigate_log("[key_name_log(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", INVESTIGATE_RECORDS)
@@ -744,9 +746,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return
 		if("clear_all")
 			modify.access = list()
-			return
-		if("grant_all")
-			modify.access |= get_all_accesses()
 			return
 		if("grant_all")
 			modify.access |= get_all_accesses()

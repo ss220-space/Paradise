@@ -4,7 +4,6 @@
 	icon_state = "explosive_old"
 	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
 	implant_state = "implant-syndicate"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE // Not surviving that
 	implant_data = /datum/implant_fluff/explosive
@@ -47,7 +46,7 @@
 	if(QDELETED(imp_in))
 		return
 
-	explosion(src, heavy, medium, weak, weak, flame_range = weak, cause = src)
+	explosion(src, devastation_range = heavy, heavy_impact_range = medium, light_impact_range = weak, flame_range = weak, cause = src)
 
 	// In case something happens to the implantee between now and the self-destruct
 	var/current_location = get_turf(imp_in)
@@ -103,7 +102,6 @@
 /obj/item/implant/explosive/macro
 	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
-	icon_state = "explosive_old"
 	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
 	weak = 16
 	medium = 8

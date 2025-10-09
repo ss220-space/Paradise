@@ -1,18 +1,8 @@
 /obj/item/organ/internal/brain
 	name = "brain"
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал человеку."
-	ru_names = list(
-		NOMINATIVE = "мозг человека",
-		GENITIVE = "мозга человека",
-		DATIVE = "мозгу человека",
-		ACCUSATIVE = "мозг человека",
-		INSTRUMENTAL = "мозгом человека",
-		PREPOSITIONAL = "мозге человека"
-	)
 	icon_state = "brain2"
 	max_damage = 120
-	force = 1.0
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5
@@ -29,19 +19,31 @@
 	var/decoy_brain = FALSE
 	/// TRUE giving to a user sci hud and active research scanner
 	var/smart_mind = FALSE
+	/// The original body for this brain, if this valriable is null - brain can apply any body without desease.
+	var/original_body = null
+
+/obj/item/organ/internal/brain/get_ru_names()
+	return list(
+		NOMINATIVE = "мозг человека",
+		GENITIVE = "мозга человека",
+		DATIVE = "мозгу человека",
+		ACCUSATIVE = "мозг человека",
+		INSTRUMENTAL = "мозгом человека",
+		PREPOSITIONAL = "мозге человека"
+	)
 
 /obj/item/organ/internal/brain/Destroy()
 	QDEL_NULL(brainmob)
 	return ..()
 
-/obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
+/obj/item/organ/internal/brain/proc/transfer_identity(mob/living/carbon/H)
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
 		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
 		dna = H.dna.Clone()
 	name = "\the [dna.real_name]'s [initial(src.name)]"
 	if(ru_names)
-		for(var/i = 1; i <=6; i++)
+		for(var/i in NOMINATIVE to PREPOSITIONAL)
 			ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
 	brainmob.dna = dna.Clone() // Silly baycode, what you do
 //	brainmob.dna = H.dna.Clone() Putting in and taking out a brain doesn't make it a carbon copy of the original brain of the body you put it in
@@ -74,7 +76,7 @@
 	if(dna)
 		name = "[dna.real_name]'s [initial(name)]"
 		if(ru_names)
-			for(var/i = 1; i <=6; i++)
+			for(var/i in NOMINATIVE to PREPOSITIONAL)
 				ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
 
 	if(!owner)
@@ -127,7 +129,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.special_post_clone_handling()
+		H.special_post_clone_handling(special == ORGAN_MANIPULATION_TRANSPLANTATE)
 
 	..(target, special)
 
@@ -147,7 +149,11 @@
 /obj/item/organ/internal/brain/golem
 	name = "runic mind"
 	desc = "Туго свёрнутый свиток, испещрённый неразборчивыми рунами."
-	ru_names = list(
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "scroll"
+
+/obj/item/organ/internal/brain/golem/get_ru_names()
+	return list(
 		NOMINATIVE = "рунический разум",
 		GENITIVE = "рунического разума",
 		DATIVE = "руническому разуму",
@@ -155,8 +161,6 @@
 		INSTRUMENTAL = "руническим разумом",
 		PREPOSITIONAL = "руническом разуме"
 	)
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "scroll"
 
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
 	QDEL_NULL(brainmob)

@@ -11,7 +11,6 @@
 	icon = 'icons/obj/stationmap.dmi'
 	icon_state = "station_map"
 	layer = ABOVE_WINDOW_LAYER
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 16
 	active_power_usage = 128
 	light_color = HOLOMAP_HOLOFIER
@@ -42,7 +41,7 @@
 		PREPOSITIONAL = "голокарте станции"
 	)
 
-/obj/machinery/station_map/Initialize()
+/obj/machinery/station_map/Initialize(mapload)
 	if(!current_z_level)
 		current_z_level = loc.z
 	SSholomaps.station_holomaps += src

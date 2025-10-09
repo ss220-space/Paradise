@@ -263,12 +263,12 @@
 	// Now I love making list in list in list in list in list
 	// Two sublists were made by authors so that the names would turn out most consonant for reading (in a way that's possible for skrells)
 	var/list/ru_name_syllables = list(
-		list(	// list 1
+		list(// list 1
 			list("заоо", "зао", "зикс", "зо", "йуо", "кью", "кьюм", "кси", "ксу", "квум", "кву",	// sublist1
 				"кви", "квей", "квиш", "куу", "кюан", "киэн", "ку", "кил", "лиа", "люик", "луи",
 				"рио", "сейу", "тсой", "уль", "улур", "урр", "ур", "цу", "эль", "эо", "эу"),
 
-			list(
+			list(\
 			"аг", "вум", "вул", "вол", "гли", "зи", "заоо", "зао", "зикс", "зуо", "зук", "зуво",	// sublist2
 			"икс", "ил", "ис", "йук", "кву", "квум", "куум", "куо", "куа", "куак", "кул", "квол",
 			"кью", "кьюа", "кэ", "кин", "кии", "кс", "ки", "киу", "кос", "лоа", "лак", "лум", "лик",
@@ -278,7 +278,7 @@
 			)
 		),
 
-		list(	// list 2
+		list(// list 2
 			list("заоо", "зао", "зо", "йуо", "лиа", "луи", "рио", "сейу", "эо"),	// sublist1
 
 			list(
@@ -472,16 +472,18 @@
 	key = "#"
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
-	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
-					 "lit", "ygg", "van", "dår", "nø", "møt", "idd", "hvo", "ja", "på", "han",
-					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
-					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
-					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+	syllables = list(
+		"år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
+		"lit", "ygg", "van", "dår", "nø", "møt", "idd", "hvo", "ja", "på", "han",
+		"så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+		"må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+		"huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön"
+	)
 
 /datum/language/moth/get_random_name()
 	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
 	new_name += "[pick(list(" of"," for"," in Service of",", Servant of"," for the Good of",", Student of"," to"))]"
-	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
+	new_name += " [pick(list("Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
 /datum/language/common
@@ -516,14 +518,16 @@
 	colour = "say_quote"
 	key = "2"
 	space_chance = 100
-	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
-					 "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
-					 "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
-					 "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
-					 "consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
-					 "voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
-					 "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
-					 "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
+	syllables = list(
+		"lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
+		"sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
+		"magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
+		"exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
+		"consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
+		"voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
+		"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
+		"in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum"
+	)
 
 /datum/language/gutter
 	name = LANGUAGE_GUTTER
@@ -557,15 +561,17 @@
 	key = "?"
 	space_chance = 65
 	english_names = TRUE
-	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
-					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
-					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
-					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
-					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
-					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
-					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
-					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+	syllables = list(
+		"dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
+		"nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
+		"comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
+		"ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
+		"key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
+		"tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
+		"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
+		"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
+		"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod"
+	)
 
 /datum/language/wryn
 	name = LANGUAGE_WRYN
@@ -702,7 +708,6 @@
 /datum/language/abductor/golem
 	name = LANGUAGE_HIVE_GOLEM
 	desc = "Големы могут общаться с себе подобными при помощи псионической связи."
-	follow = TRUE
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE
@@ -749,19 +754,19 @@
 
 	add_say_logs(speaker, message, language = "ROBOT")
 
-	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)]:</i><span class='robot'>\"[message]\"</span></span></span>"
+	var/message_start = "<i><span class='game say'>[name], [span_name("[speaker.name]")]"
+	var/message_body = "<span class='message'>[speaker.say_quote(message)]:</i>[span_robot("\"[message]\"")]</span></span>"
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
+			var/message_start_dead = "<i><span class='game say'>[name], [span_name("[speaker.name] ([ghost_follow_link(speaker, ghost=M)])")]"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
 		if(drone_only && !(isdrone(S)||iscogscarab(S)))
 			continue
 		else if(isAI(S))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
+			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'>[span_name("[speaker.name]")]</a>"
 		else if(!S.binarycheck())
 			continue
 
@@ -773,7 +778,7 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message("<i><span class='game say'><span class='name'>синтезированный голос</span> <span class='message'>сообщает: \"бип бип бип\"</span></span></i>",2)
+		M.show_message(span_gamesay("<i>[span_name("синтезированный голос")] [span_message("сообщает: \"бип бип бип\"")]</i>"),2)
 
 /datum/language/binary/drone
 	name = LANGUAGE_DRONE_BINARY
@@ -781,11 +786,8 @@
 	speech_verbs = list("переда%(ёт,ют)%")
 	ask_verbs = list("переда%(ёт,ют)%")
 	exclaim_verbs = list("переда%(ёт,ют)%")
-	colour = "say_quote"
 	key = "d"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
 	drone_only = TRUE
-	follow = TRUE
 
 /datum/language/drone
 	name = LANGUAGE_DRONE

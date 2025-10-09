@@ -4,7 +4,6 @@
 	icon = "archive"
 	template = "pda_request_console"
 	category = "Request Console"
-	update = PDA_APP_UPDATE
 	var/list/department_list
 	var/list/possible_consoles = list()
 	var/list/consoles_mute = list()
@@ -35,11 +34,11 @@
 	possible_consoles -= source
 	SStgui.update_uis(pda)
 
-/datum/data/pda/app/request_console/proc/on_rc_message_recieved(obj/machinery/requests_console/source, message, isoremessage)
+/datum/data/pda/app/request_console/proc/on_rc_message_received(obj/machinery/requests_console/source, message, isoremessage)
 	SIGNAL_HANDLER
 	if(isoremessage && source.department != ore_message_reciver_dep)
 		return
-	var/rendered_message = "Recieved on [source.name] : [message]"
+	var/rendered_message = "Received on [source.name] : [message]"
 	if(!QDELETED(pda) && !consoles_mute[source])
 		notify(rendered_message)
 

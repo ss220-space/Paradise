@@ -35,7 +35,7 @@
 		if(times_fired % 4 == 0)
 			for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
 				if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
-					visible_message("<span class='danger'>[src] consumes [K] whole!</span>")
+					visible_message(span_danger("[src] consumes [K] whole!"))
 					if(health < maxHealth)
 						health += 10
 					qdel(K)
@@ -84,7 +84,7 @@
 	human_overlays = H.overlays
 	update_icons()
 	H.forceMove(src)
-	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	visible_message(span_warning("The corpse of [H.name] suddenly rises!"))
 
 /mob/living/simple_animal/hostile/headcrab/death(gibbed)
 	..()
@@ -129,7 +129,6 @@
 /mob/living/simple_animal/hostile/headcrab/fast
 	name = "fast headcrab"
 	desc = "A fast parasitic creature that would like to connect with your brain stem."
-	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "fast_headcrab"
 	icon_living = "fast_headcrab"
 	icon_dead = "fast_headcrab_dead"
@@ -149,7 +148,6 @@
 /mob/living/simple_animal/hostile/headcrab/poison
 	name = "poison headcrab"
 	desc = "A poison parasitic creature that would like to connect with your brain stem."
-	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "poison_headcrab"
 	icon_living = "poison_headcrab"
 	icon_dead = "poison_headcrab_dead"
@@ -157,7 +155,6 @@
 	maxHealth = 80
 	ranged_cooldown_time = 50
 	jumpdistance = 3
-	jumpspeed = 1
 	melee_damage_lower = 8
 	melee_damage_upper = 20
 	attack_sound = 'sound/creatures/ph_scream1.ogg'
@@ -172,4 +169,4 @@
 		var/mob/living/carbon/C = target
 		if(C.AmountEyeBlurry() < 120 SECONDS && (HAS_TRAIT(C, TRAIT_INCAPACITATED) || C.can_inject(null, FALSE, inject_target, FALSE)))
 			C.AdjustEyeBlurry(20 SECONDS)
-			visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
+			visible_message(span_danger("[src] buries its fangs deep into the [inject_target] of [target]!"))

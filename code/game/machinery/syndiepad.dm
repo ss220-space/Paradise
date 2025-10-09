@@ -4,7 +4,6 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "sqpad"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/teleport_cooldown = 250 //if 400, cd = 30 seconds due to base parts
@@ -39,8 +38,8 @@
 	target_id = "syndie_cargo_receive" //админский синдипад отправляющий посылки
 	allow_humans = TRUE
 
-/obj/machinery/syndiepad/Initialize()
-	..()
+/obj/machinery/syndiepad/Initialize(mapload)
+	. = ..()
 	GLOB.syndiepads += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad/syndiepad(null)
@@ -206,7 +205,7 @@
 	return doteleport(usr)
 
 /obj/machinery/syndiepad/proc/sparks()
-	do_sparks(5, 1, get_turf(src))
+	do_sparks(5, TRUE, get_turf(src))
 
 /obj/machinery/syndiepad/attack_ghost(mob/dead/observer/ghost)
 	if(linked_pad)

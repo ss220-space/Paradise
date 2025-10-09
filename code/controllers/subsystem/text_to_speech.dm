@@ -1,7 +1,3 @@
-#define TTS_TRAIT_PITCH_WHISPER (1<<1)
-#define TTS_TRAIT_RATE_FASTER (1<<2)
-#define TTS_TRAIT_RATE_MEDIUM (1<<3)
-
 SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
 	init_order = INIT_ORDER_DEFAULT
@@ -441,7 +437,7 @@ SUBSYSTEM_DEF(tts)
 	if(preSFX)
 		play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
 
-	output = listener.playsound_local(turf_source, output, volume, sound = output, wait = TRUE, channel = channel)
+	output = listener.playsound_local(turf_source, output, volume, sound_to_use = output, wait = TRUE, channel = channel)
 
 	if(!output || output.volume <= 0)
 		return
@@ -586,7 +582,7 @@ SUBSYSTEM_DEF(tts)
 			"сс" = "Эс Эс",
 			"тесла" = "тэсла",
 			"трейзен" = "трэйзэн",
-			"нанотрейзен" = "нанотрэйзэн",
+			UNLINT("нанотрейзен") = "нанотрэйзэн",
 			"мед" = "м ед",
 			"кз" = "Кэ Зэ",
 			"днк" = "дэ эн ка",

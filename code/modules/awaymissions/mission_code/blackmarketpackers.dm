@@ -2,8 +2,6 @@
 
 /area/awaymission/BMPship
 	name = "BMP Asteroids"
-	icon_state = "away"
-	report_alerts = FALSE
 	requires_power = FALSE
 	ambientsounds = list('sound/music/space.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambigen11.ogg', 'sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/traitor.ogg')
 
@@ -166,7 +164,7 @@
 
 //Сейф с рандомными документами
 
-/obj/structure/safe/floor/random_documents/Initialize()
+/obj/structure/safe/floor/random_documents/Initialize(mapload)
 	var/doc_spawn = pick(list(/obj/item/documents, /obj/item/documents/nanotrasen, /obj/item/documents/syndicate, /obj/item/documents/syndicate/yellow/trapped))
 	new doc_spawn(loc)
 	return ..()
@@ -215,7 +213,6 @@
 	icon_state = "eggs"
 	icon = 'icons/effects/effects.dmi'
 	max_integrity = 200
-	max_mobs = 5
 	spawn_time = 600
 	mob_types = list(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter)
 	spawn_text = "crawls out of"

@@ -10,7 +10,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
@@ -76,16 +75,17 @@
 /turf/simulated/floor/plating/asteroid/remove_plating()
 	return
 
-/turf/simulated/floor/plating/asteroid/ex_act(severity)
+/turf/simulated/floor/plating/asteroid/ex_act(severity, target)
 	if(!can_dig())
 		return
+
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(20))
 				getDug()
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			getDug()
 
 
@@ -148,7 +148,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	icon_plating = "basalt"
 	environment_type = "basalt"
 	floor_variance = 15
-	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/simulated/floor/plating/asteroid/basalt/get_ru_names()
 	return list(
@@ -231,7 +230,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
 /turf/simulated/floor/plating/asteroid/snow
-	gender = PLURAL
 	name = "snow"
 	desc = "Выглядит холодным."
 	icon = 'icons/turf/snow.dmi'
@@ -277,7 +275,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	oxygen = 22
 	nitrogen = 82
-	temperature = 180
 	planetary_atmos = FALSE
 
 /turf/simulated/floor/plating/asteroid/snow/planet

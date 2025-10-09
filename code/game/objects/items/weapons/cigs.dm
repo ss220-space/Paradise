@@ -16,7 +16,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette
 	name = "cigarette"
 	desc = "Закрученный в бумагу табак."
-	gender = FEMALE
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
@@ -180,7 +179,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			light(span_notice("Египетская сила! Неужели [user.declent_ru(DATIVE)] только что удалось зажечь свою [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)], лишь слегка приподняв бровь?"))
 		else
 			visible_message(user, span_warning("Не разобравшись, где правильная сторона посоха, [user.declent_ru(DATIVE)] не смог[genderize_ru(user.gender, "", "ла", "ло", "ли")] зажечь [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)]."))
-			explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+			explosion(user.loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 3, adminlog = FALSE, flame_range = 2)
 		wand.charges--
 		wand.update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -355,7 +354,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	qdel(src)
 
 /obj/item/clothing/mask/cigarette/dropped(mob/user, slot, initial)
-	if(istype(user.wear_mask, /obj/item/clothing/mask/cigarette) && (smoketime != 0) && (lit == TRUE))
+	if(slot == ITEM_SLOT_MASK && (smoketime != 0) && (lit == TRUE))
 		if(COOLDOWN_FINISHED(src, smoking_cooldown))
 			user.emote("smoking")
 			COOLDOWN_START(src, smoking_cooldown, 30)
@@ -395,7 +394,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "spliffon"
 	icon_off = "spliffoff"
 	type_butt = /obj/item/cigbutt/roach
-	throw_speed = 0.5
 	item_state = "spliffoff"
 
 /obj/item/clothing/mask/cigarette/rollie/get_ru_names()
@@ -436,7 +434,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
 	type_butt = /obj/item/cigbutt/cigarbutt
-	throw_speed = 0.5
 	item_state = "cigaroff"
 	smoketime = 300
 	chem_volume = 120
@@ -728,7 +725,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/holo_cigar
 	name = "Holo-Cigar"
 	desc = "Изящная электронная сигара, изготовленна в Солнечной Системе. При одном взгляде на нее чувствуешь себя крутым..."
-	gender = FEMALE
 	icon_state = "holocigaroff"
 	item_state = "holocigaroff"
 	var/enabled = FALSE

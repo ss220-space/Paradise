@@ -8,10 +8,8 @@
 /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	container_type = OPENCONTAINER
@@ -42,8 +40,8 @@
 *   Initialising
 ********************/
 
-/obj/machinery/kitchen_machine/New()
-	..()
+/obj/machinery/kitchen_machine/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	reagents.set_reacting(FALSE)
 	init_lists()
@@ -481,7 +479,7 @@
 	return 0
 
 /obj/machinery/kitchen_machine/proc/start()
-	visible_message("<span class='notice'>\The [src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
+	visible_message(span_notice("\The [src] turns on."), span_notice("You hear \a [src]."))
 	operating = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
@@ -514,7 +512,7 @@
 
 /obj/machinery/kitchen_machine/proc/muck_finish()
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
-	visible_message("<span class='alert'>\The [src] gets covered in muck!</span>")
+	visible_message(span_alert("\The [src] gets covered in muck!"))
 	if(can_be_dirty) //this vars are much more easy than copy-paste all that code to tribal oven
 		dirty = MAX_DIRT // Make it dirty so it can't be used util cleaned
 	container_type = NONE
@@ -523,8 +521,8 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
-	do_sparks(2, 1, src)
-	visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
+	do_sparks(2, TRUE, src)
+	visible_message(span_alert("The [src] breaks!")) //Let them know they're stupid
 	if(can_broke)
 		broken = BROKEN_NEEDS_SCREWDRIVER // Make it broken so it can't be used util fixed
 	container_type = NONE

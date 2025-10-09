@@ -98,25 +98,25 @@
 
 /datum/species/golem/get_random_name()
 	//определяем случайный пол для ИМЕНИ голема. Если же все шансы провалились, то берется дефолтное значение пола
-	if (prob(chance_name_male))
+	if(prob(chance_name_male))
 		gender_name = MALE
-	else if (prob(chance_name_female))
+	else if(prob(chance_name_female))
 		gender_name = FEMALE
-	else if (prob(chance_name_neuter))
+	else if(prob(chance_name_neuter))
 		gender_name = NEUTER
 
 	var/golem_surname //Имя голема
 
 	//выбираем изначально случайное големское имя аля "Андезит"
-	switch (gender_name)
-		if (MALE)
-			if (length(GLOB.golem_male)) //Бйонд имеет привычку с отваливанием файлов. Чтобы такого не допустить, мы проверяем длину файла
+	switch(gender_name)
+		if(MALE)
+			if(length(GLOB.golem_male)) //Бйонд имеет привычку с отваливанием файлов. Чтобы такого не допустить, мы проверяем длину файла
 				golem_surname = "[pick(GLOB.golem_male)]"
-		if (FEMALE)
-			if (length(GLOB.golem_female))
+		if(FEMALE)
+			if(length(GLOB.golem_female))
 				golem_surname = "[pick(GLOB.golem_female)]"
-		if (NEUTER)
-			if (length(GLOB.golem_neuter))
+		if(NEUTER)
+			if(length(GLOB.golem_neuter))
 				golem_surname = "[pick(GLOB.golem_neuter)]"
 
 
@@ -126,28 +126,28 @@
 
 	// 5% шанс выбрать человеческое имя или фамилию, ну или если голем до сих пор не имеет имени
 	if(prob(human_surname_chance) || (golem_surname == null) || golem_surname == "" || golem_surname == " ") //игра по прежнему не считает строчные пустые элементы != null элементами. Из-за чего нужна такая проверка
-		switch (gender_name)
-			if (MALE)
-				if (prob(50)) //выбираем мужское имя или фамилию
+		switch(gender_name)
+			if(MALE)
+				if(prob(50)) //выбираем мужское имя или фамилию
 					golem_surname = pick(GLOB.first_names_male)
 				else
 					golem_surname = pick(GLOB.last_names)
-			if (FEMALE)
-				if (prob(50)) //выбираем женское имя или фамилию
+			if(FEMALE)
+				if(prob(50)) //выбираем женское имя или фамилию
 					golem_surname = pick(GLOB.first_names_female)
 				else
 					golem_surname = pick(GLOB.last_names_female)
-			if (NEUTER)
+			if(NEUTER)
 				golem_surname = pick("Нечто", "Чудо") //Средний пол голема
 
 	//устанавливаем окончание прилагательных префиксов (золотой мужик теперь золотОЙ, а не золотЫЙ)
 	var/end_pr
-	switch (prefix_type)
-		if (1)
+	switch(prefix_type)
+		if(1)
 			end_pr = genderize_ru(gender_name,"ый","ая","ое","ые")
-		if (2)
+		if(2)
 			end_pr = genderize_ru(gender_name,"ой","ая","ое","ые")
-		if (3)
+		if(3)
 			end_pr = ""
 
 	//гендеризируем прилагательное-префикс и приписываем наше половое имя
@@ -252,7 +252,7 @@
 			boom_warning = FALSE
 
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
-		explosion(get_turf(H), 1, 2, 4, flame_range = 5, cause = H)
+		explosion(get_turf(H), devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 5, cause = H)
 		add_attack_logs(H, null, "exploded", ATKLOG_FEW)
 		if(H)
 			H.gib()
@@ -349,7 +349,6 @@
 		NEUTER = list("Украшение", "Кольцо")
 		)
 	chance_name_male = 70
-	chance_name_female = 60
 	chance_name_neuter = 10
 	special_name_chance = 40
 
@@ -444,7 +443,6 @@
 		NEUTER = null
 		)
 	special_name_chance = 40
-	chance_name_male = 80
 	chance_name_female = 30
 
 
@@ -504,7 +502,6 @@
 		NEUTER = list("Красное Дерево", "Редкое Дерево", "Древо")
 		)
 	human_surname_chance = 0
-	chance_name_male = 80
 	chance_name_female = 70
 	special_name_chance = 100
 
@@ -551,7 +548,6 @@
 		FEMALE = list("Яркость", "Светлость", "Яркость"),
 		NEUTER = list("Сияние", "Светило")
 		)
-	chance_name_male = 80
 	chance_name_female = 40
 	chance_name_neuter = 10
 	special_name_chance = 60
@@ -619,8 +615,8 @@
 
 /datum/species/golem/sand/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H))
-		if(P.flag == "bullet" || P.flag == "bomb")
-			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
+		if(P.flag == BULLET || P.flag == BOMB)
+			playsound(H, 'sound/effects/shovel_dig.ogg', 70, TRUE)
 			H.visible_message(span_danger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
 			span_userdanger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
 			projectile_message = TRUE)
@@ -655,7 +651,7 @@
 	special_name_chance = 50
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
-	playsound(H, "shatter", 70, 1)
+	playsound(H, SFX_SHATTER, 70, TRUE)
 	H.visible_message(span_danger("[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
@@ -767,7 +763,6 @@
 	name = "Нестабильный телепорт"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "blink"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	var/activated = FALSE // To prevent spamming
 	var/cooldown = 150
 	var/last_teleport = 0
@@ -907,7 +902,7 @@
 	..()
 
 /datum/species/golem/bananium/handle_death(gibbed, mob/living/carbon/human/H)
-	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
+	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, FALSE)
 
 /datum/unarmed_attack/golem/bananium
 	attack_verb = list("хонкнул")
@@ -957,13 +952,12 @@
 	skinned_type = /obj/item/stack/sheet/brass
 	info_text = "Будучи <span class='danger'>латунный големом</span>, вы очень хрупкие, но взамен имеете силу Ратвара."
 	special_names = list(
-        MALE = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
-        FEMALE = list("Дева"),
-        NEUTER = null
-        )
+		MALE = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
+		FEMALE = list("Дева"),
+		NEUTER = null
+	)
 	speed_mod = 0
 	chance_name_male = 70
-	chance_name_female = 60
 	chance_name_neuter = 10
 	special_name_chance = 40
 

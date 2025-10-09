@@ -1,9 +1,6 @@
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
 	desc = "Used to restart stopped hearts."
-	icon = 'icons/obj/items.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
 	belt_icon = "handheld_defibrillator"
@@ -76,7 +73,7 @@
 /obj/item/handheld_defibrillator/proc/recharge()
 	cooldown = FALSE
 	update_icon(UPDATE_ICON_STATE)
-	playsound(loc, "sound/weapons/flash.ogg", 75, 1)
+	playsound(loc, "sound/weapons/flash.ogg", 75, TRUE)
 
 /obj/item/handheld_defibrillator/syndie
 	name = "combat handheld defibrillator"

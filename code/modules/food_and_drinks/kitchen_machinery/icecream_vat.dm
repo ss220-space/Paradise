@@ -7,7 +7,6 @@
 	anchored = TRUE
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "icecream_vat"
-	use_power = IDLE_POWER_USE
 	max_integrity = 300
 	idle_power_usage = 20
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -66,8 +65,8 @@
 		return 1
 	else
 		if(reagents.total_volume < 500)
-			to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
-			playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
+			to_chat(usr, span_notice("[src] vibrates for a moment, apparently accepting the unknown liquid."))
+			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 		return 1
 
 

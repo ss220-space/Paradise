@@ -135,7 +135,6 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	human_req = FALSE
-	cooldown_min = 0
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"
@@ -280,7 +279,7 @@
 /mob/living/simple_animal/demon/slaughter/laughter/release_consumed(mob/living/M)
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
-		playsound(get_turf(src), feast_sound, 50, 1, -1)
+		playsound(get_turf(src), feast_sound, 50, TRUE, -1)
 		to_chat(M, span_clown("Вы покидаете тёплые объятия [declent_ru(GENITIVE)] и чувствуете себя готовым покорить мир."))
 	..(M)
 
@@ -324,16 +323,17 @@
 	var/targetname = "someone"
 	if(target?.current)
 		targetname = target.current.real_name
-	var/list/explanation_texts = list("Залейте кровью весь мостик.", \
-									 "Залейте кровью весь бриг.", \
-									 "Залейте кровью всю церковь.", \
-									 "Убейте или уничтожьте всех чистоботов или медботов.", \
-									 "Нанесите удар жертве и скройтесь... Заставьте их обагрить всё своей кровью.", \
-									 "Охотьтесь на тех, кто попытается охотиться на вас.", \
-									 "Охотьтесь на тех, кто в страхе убегает от вас.", \
-									 "Покажите [targetname] силу крови.", \
-									 "Сведите [targetname] с ума демоническим шепотом."
-									 )
+	var/list/explanation_texts = list(
+		"Залейте кровью весь мостик.", \
+		"Залейте кровью весь бриг.", \
+		"Залейте кровью всю церковь.", \
+		"Убейте или уничтожьте всех чистоботов или медботов.", \
+		"Нанесите удар жертве и скройтесь... Заставьте их обагрить всё своей кровью.", \
+		"Охотьтесь на тех, кто попытается охотиться на вас.", \
+		"Охотьтесь на тех, кто в страхе убегает от вас.", \
+		"Покажите [targetname] силу крови.", \
+		"Сведите [targetname] с ума демоническим шепотом."
+	)
 
 	// As this is a fluff objective, we don't need a target, so we want to null it out.
 	// We don't want the demon getting a "Time for Plan B" message if the target cryos.

@@ -22,8 +22,8 @@
 	var/on = 0
 	var/turf/recharging_turf = null
 
-/obj/machinery/mech_bay_recharge_port/New()
-	..()
+/obj/machinery/mech_bay_recharge_port/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mech_recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -38,8 +38,8 @@
 /obj/machinery/mech_bay_recharge_port/proc/update_recharge_turf()
 	recharging_turf = get_step(loc, dir)
 
-/obj/machinery/mech_bay_recharge_port/upgraded/New()
-	..()
+/obj/machinery/mech_bay_recharge_port/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mech_recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
@@ -116,9 +116,6 @@
 
 /obj/machinery/computer/mech_bay_power_console
 	name = "mech bay power control console"
-	density = TRUE
-	anchored = TRUE
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "recharge_comp"
 	light_color = LIGHT_COLOR_LAVENDER
@@ -199,7 +196,7 @@
 				)
 	return data
 
-/obj/machinery/computer/mech_bay_power_console/Initialize()
+/obj/machinery/computer/mech_bay_power_console/Initialize(mapload)
 	reconnect()
 	update_icon()
 	return ..()

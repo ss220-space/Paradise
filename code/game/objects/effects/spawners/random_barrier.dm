@@ -13,7 +13,7 @@
 
 // This needs to come before the initialization wave because
 // the thing it creates might need to be initialized too
-/obj/effect/spawner/random_barrier/Initialize()
+/obj/effect/spawner/random_barrier/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -35,7 +35,6 @@
 
 /obj/effect/spawner/random_barrier/floor_probably
 	name = "probably a floor"
-	icon_state = "floor"
 	result = list(
 	/turf/simulated/floor/plasteel = 3,
 	/turf/simulated/wall = 1)

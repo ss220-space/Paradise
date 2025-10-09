@@ -44,7 +44,6 @@
 
 /datum/action/innate/terrorspider/knight/attackm
 	name = "Ярость"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "attack"
 
 /datum/action/innate/terrorspider/knight/attackm/Activate()
@@ -53,7 +52,6 @@
 
 /datum/action/innate/terrorspider/knight/defencem
 	name = "Кератоз"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "defence"
 
 /datum/action/innate/terrorspider/knight/defencem/Activate()
@@ -93,7 +91,6 @@
 
 /datum/action/innate/terrorspider/queen/queensense
 	name = "Чувство улья"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "mindswap"
 
 /datum/action/innate/terrorspider/queen/queensense/Activate()
@@ -158,7 +155,13 @@
 /obj/structure/spider/terrorweb
 	name = "terror web"
 	desc = "Вязкая и липкая паутина."
-	ru_names = list(
+	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
+	creates_cover = TRUE
+	icon_state = "stickyweb1"
+	var/creator_ckey = null
+
+/obj/structure/spider/terrorweb/get_ru_names()
+	return list(
 		NOMINATIVE = "паутина Ужаса",
 		GENITIVE = "паутины Ужаса",
 		DATIVE = "паутине Ужаса",
@@ -166,13 +169,6 @@
 		INSTRUMENTAL = "паутиной Ужаса",
 		PREPOSITIONAL = "паутине Ужаса"
 	)
-	icon = 'icons/effects/effects.dmi'
-	anchored = TRUE // prevents people dragging it
-	density = FALSE // prevents it blocking all movement
-	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
-	creates_cover = TRUE
-	icon_state = "stickyweb1"
-	var/creator_ckey = null
 
 /obj/structure/spider/terrorweb/Initialize(mapload)
 	. = ..()
@@ -259,7 +255,7 @@
 			return
 		busy = SPINNING_COCOON
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает выделять липкое вещество вокруг [cocoon_target.declent_ru(GENITIVE)]."))
-		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, 1)
+		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, TRUE)
 		stop_automated_movement = 1
 		SSmove_manager.stop_looping(src)
 		if(do_after(src, 4 SECONDS, cocoon_target.loc))

@@ -1,18 +1,10 @@
 /*
-  Tiny babby plant critter plus procs.
+	Tiny babby plant critter plus procs.
 */
 
 //Mob defines.
 /mob/living/simple_animal/diona
 	name = "diona nymph"
-	ru_names = list(
-		NOMINATIVE = "нимфа дионы",
-		GENITIVE = "нимфы дионы",
-		DATIVE = "нимфе дионы",
-		ACCUSATIVE = "нимфу дионы",
-		INSTRUMENTAL = "нимфой дионы",
-		PREPOSITIONAL = "нимфе дионы"
-	)
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = "nymph"
 	icon_living = "nymph"
@@ -33,7 +25,6 @@
 	tts_seed = "Priest"
 
 	response_help  = "гладит"
-	response_disarm = "толкает"
 	response_harm   = "бьёт"
 
 	melee_damage_lower = 1
@@ -42,14 +33,12 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	speed = 0
-	stop_automated_movement = 0
 	turns_per_move = 4
 
 	var/list/donors = list()
 	holder_type = /obj/item/holder/diona
 	can_collar = TRUE
 
-	a_intent = INTENT_HELP
 
 	var/random_name = TRUE
 	var/gestalt_alert = "слился с гештальтом" //used in adding and clearing alert
@@ -60,6 +49,16 @@
 	var/datum/action/innate/diona/merge/merge_action = new()
 	var/datum/action/innate/diona/evolve/evolve_action = new()
 	var/datum/action/innate/diona/steal_blood/steal_blood_action = new()
+
+/mob/living/simple_animal/diona/get_ru_names()
+	return list(
+		NOMINATIVE = "нимфа дионы",
+		GENITIVE = "нимфы дионы",
+		DATIVE = "нимфе дионы",
+		ACCUSATIVE = "нимфу дионы",
+		INSTRUMENTAL = "нимфой дионы",
+		PREPOSITIONAL = "нимфе дионы"
+	)
 
 /mob/living/simple_animal/diona/ComponentInitialize()
 	AddComponent( \
@@ -275,7 +274,7 @@
 	else
 		if(do_after(src, 2 SECONDS, G, max_interact_count = 1))
 			visible_message("[capitalize(src.declent_ru(NOMINATIVE))] жадно поглощает [G.declent_ru(ACCUSATIVE)].","Вы жадно пожираете [G.declent_ru(ACCUSATIVE)].")
-			playsound(loc, 'sound/items/eatfood.ogg', 30, 0, frequency = 1.5)
+			playsound(loc, 'sound/items/eatfood.ogg', 30, FALSE, frequency = 1.5)
 			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
 				adjust_nutrition(2)
 			else

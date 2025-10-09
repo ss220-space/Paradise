@@ -5,19 +5,10 @@
 	has_gravity = STANDARD_GRAVITY
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /obj/item/survivalcapsule
 	name = "bluespace shelter capsule"
 	desc = "Аварийное убежище, хранящееся в карманной капсуле блюспейса."
-	ru_names = list(
-		NOMINATIVE = "капсула блюспейс-убежища",
-		GENITIVE = "капсулы блюспейс-убежища",
-		DATIVE = "капсуле блюспейс-убежища",
-		ACCUSATIVE = "капсулу блюспейс-убежища",
-		INSTRUMENTAL = "капсулой блюспейс-убежища",
-		PREPOSITIONAL = "капсуле блюспейс-убежища"
-	)
 	icon_state = "capsule"
 	icon = 'icons/obj/mining.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -26,6 +17,16 @@
 	var/datum/map_template/shelter/template
 	var/used = FALSE
 	var/emagged = FALSE
+
+/obj/item/survivalcapsule/get_ru_names()
+	return list(
+		NOMINATIVE = "капсула блюспейс-убежища",
+		GENITIVE = "капсулы блюспейс-убежища",
+		DATIVE = "капсуле блюспейс-убежища",
+		ACCUSATIVE = "капсулу блюспейс-убежища",
+		INSTRUMENTAL = "капсулой блюспейс-убежища",
+		PREPOSITIONAL = "капсуле блюспейс-убежища"
+	)
 
 /obj/item/survivalcapsule/emag_act(mob/user)
 	if(!emagged)
@@ -138,7 +139,11 @@
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
 	desc = "Чрезмерно дорогая люксовая капсула, хранящаяся в карманной капсуле блюспейса."
-	ru_names = list(
+	origin_tech = "engineering=3;bluespace=4"
+	template_id = "shelter_beta"
+
+/obj/item/survivalcapsule/luxury/get_ru_names()
+	return list(
 		NOMINATIVE = "капсула роскошного блюспейс-убежища",
 		GENITIVE = "капсулы роскошного блюспейс-убежища",
 		DATIVE = "капсуле роскошного блюспейс-убежища",
@@ -146,13 +151,13 @@
 		INSTRUMENTAL = "капсулой роскошного блюспейс-убежища",
 		PREPOSITIONAL = "капсуле роскошного блюспейс-убежища"
 	)
-	origin_tech = "engineering=3;bluespace=4"
-	template_id = "shelter_beta"
-
 /obj/item/survivalcapsule/luxuryelite
 	name = "luxury elite bar capsule"
 	desc = "Роскошный бар в капсуле. Бармен требуется, но не входит в комплект."
-	ru_names = list(
+	template_id = "shelter_charlie"
+
+/obj/item/survivalcapsule/luxuryelite/get_ru_names()
+	return list(
 		NOMINATIVE = "капсула элитного бара",
 		GENITIVE = "капсулы элитного бара",
 		DATIVE = "капсуле элитного бара",
@@ -160,7 +165,6 @@
 		INSTRUMENTAL = "капсулой элитного бара",
 		PREPOSITIONAL = "капсуле элитного бара"
 	)
-	template_id = "shelter_charlie"
 
 //Pod turfs and objects
 
@@ -245,18 +249,16 @@
 //Table
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "table"
 	smooth = NONE
 	can_be_flipped = FALSE
 
 //Sleeper
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "sleeper-open"
 	density = FALSE
 
-/obj/machinery/sleeper/survival_pod/New()
-	..()
+/obj/machinery/sleeper/survival_pod/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/survival(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -270,14 +272,6 @@
 /obj/machinery/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
 	desc = "Настенный диспенсер медицинского оборудования. Этот кажется чуть меньше обычного."
-	ru_names = list(
-		NOMINATIVE = "медицинский модуль аварийного убежища",
-		GENITIVE = "медицинского модуля аварийного убежища",
-		DATIVE = "медицинскому модулю аварийного убежища",
-		ACCUSATIVE = "медицинский модуль аварийного убежища",
-		INSTRUMENTAL = "медицинским модулем аварийного убежища",
-		PREPOSITIONAL = "медицинском модуле аварийного убежища"
-	)
 	req_access = list()
 
 	products = list(/obj/item/stack/medical/splint = 2,
@@ -286,6 +280,16 @@
 					/obj/item/reagent_containers/hypospray/autoinjector = 1,
 					/obj/item/healthanalyzer = 1)
 	contraband = list()
+
+/obj/machinery/vending/wallmed/survival_pod/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинский модуль аварийного убежища",
+		GENITIVE = "медицинского модуля аварийного убежища",
+		DATIVE = "медицинскому модулю аварийного убежища",
+		ACCUSATIVE = "медицинский модуль аварийного убежища",
+		INSTRUMENTAL = "медицинским модулем аварийного убежища",
+		PREPOSITIONAL = "медицинском модуле аварийного убежища"
+	)
 
 //Computer
 /obj/item/gps/computer
@@ -322,7 +326,6 @@
 //Bed
 /obj/structure/bed/pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "bed"
 
 //Survival Storage Unit
 /obj/machinery/smartfridge/survival_pod
@@ -383,7 +386,7 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/Initialize(loc)
+/obj/structure/fans/Initialize(mapload, loc)
 	. = ..()
 	air_update_turf(1)
 
@@ -417,7 +420,13 @@
 /obj/structure/fans/tiny
 	name = "tiny fan"
 	desc = "Небольшой вентилятор, создающий постоянный поток воздуха."
-	ru_names = list(
+	layer = TURF_LAYER+0.1
+	density = FALSE
+	icon_state = "fan_tiny"
+	buildstackamount = 2
+
+/obj/structure/fans/tiny/get_ru_names()
+	return list(
 		NOMINATIVE = "система контроля среды",
 		GENITIVE = "системы контроля среды",
 		DATIVE = "системе контроля среды",
@@ -425,11 +434,6 @@
 		INSTRUMENTAL = "системой контроля среды",
 		PREPOSITIONAL = "системе контроля среды"
 	)
-	layer = TURF_LAYER+0.1
-	density = FALSE
-	icon_state = "fan_tiny"
-	buildstackamount = 2
-
 /obj/structure/fans/tiny/invisible
 	name = "air flow blocker"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -437,8 +441,12 @@
 //Signs
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
-	desc = "Знак облегчения для уставших шахтеров и предупреждение для потенциальных конкурентов НаноТрейзен."
-	ru_names = list(
+	desc = "Знак облегчения для уставших шахтеров и предупреждение для потенциальных конкурентов Нанотрейзен."
+	icon = 'icons/turf/walls/survival_pod_walls.dmi'
+	icon_state = "ntpod"
+
+/obj/structure/sign/mining/get_ru_names()
+	return list(
 		NOMINATIVE = "знак шахтёрского корпуса НТ",
 		GENITIVE = "знака шахтёрского корпуса НТ",
 		DATIVE = "знаку шахтёрского корпуса НТ",
@@ -446,13 +454,14 @@
 		INSTRUMENTAL = "знаком шахтёрского корпуса НТ",
 		PREPOSITIONAL = "знаке шахтёрского корпуса НТ"
 	)
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
-	icon_state = "ntpod"
 
 /obj/structure/sign/mining/survival
 	name = "shelter sign"
 	desc = "Яркий знак, обозначающий безопасное укрытие."
-	ru_names = list(
+	icon_state = "survival"
+
+/obj/structure/sign/mining/survival/get_ru_names()
+	return list(
 		NOMINATIVE = "знак убежища",
 		GENITIVE = "знака убежища",
 		DATIVE = "знаку убежища",
@@ -460,8 +469,6 @@
 		INSTRUMENTAL = "знаком убежища",
 		PREPOSITIONAL = "знаке убежища"
 	)
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
-	icon_state = "survival"
 
 //Fluff
 /obj/structure/tubes
@@ -470,8 +477,6 @@
 	name = "tubes"
 	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = FALSE
-
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE

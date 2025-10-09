@@ -29,7 +29,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/cast(list/targets,mob/living/user = usr)
 	var/list/what_conjure_summoned = list()
-	playsound(get_turf(user), cast_sound, 50,1)
+	playsound(get_turf(user), cast_sound, 50, TRUE)
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
 			targets -= T
@@ -46,7 +46,7 @@
 				targets -= spawn_place
 			if(ispath(summoned_object_type,/turf))
 				if(istype(get_turf(user), /turf/simulated/floor/shuttle) || istype(get_turf(user), /turf/simulated/wall/shuttle))
-					to_chat(user, "<span class='warning'>You can't build things on shuttles!</span>")
+					to_chat(user, span_warning("You can't build things on shuttles!"))
 					break
 				var/turf/O = spawn_place
 				var/N = summoned_object_type

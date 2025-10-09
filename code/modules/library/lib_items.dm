@@ -190,7 +190,7 @@
 	manual_name = "Medical Manuals "
 	manual_name_ru = " с учебниками по медицине"
 
-/obj/structure/bookcase/manuals/medical/Initialize()
+/obj/structure/bookcase/manuals/medical/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -202,7 +202,7 @@
 
 
 
-/obj/structure/bookcase/manuals/engineering/Initialize()
+/obj/structure/bookcase/manuals/engineering/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/engineering_construction(src)
 	new /obj/item/book/manual/engineering_particle_accelerator(src)
@@ -219,7 +219,7 @@
 
 
 
-/obj/structure/bookcase/manuals/research_and_development/Initialize()
+/obj/structure/bookcase/manuals/research_and_development/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -240,7 +240,6 @@
 	throw_speed = 1
 	throw_range = 5
 	force = 2
-	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("ударил", "огрел")
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
@@ -429,7 +428,7 @@
 	balloon_alert(user, "режем страницы...")
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || carved)
 		return FALSE
-	balloon_alert(user, "страницы вырезаны.")
+	balloon_alert(user, "страницы вырезаны")
 	carved = TRUE
 	return TRUE
 

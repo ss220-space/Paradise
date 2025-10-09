@@ -38,7 +38,7 @@
 		afterswing_slowdown = -0.2, \
 		slowdown_duration = 2 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "knife_swing" \
+		swing_sound = SFX_KNIFE_SWING \
 	)
 
 /obj/item/twohanded/required/pyro_claws/Destroy()
@@ -47,7 +47,7 @@
 
 /obj/item/twohanded/required/pyro_claws/process()
 	if(prob(15))
-		do_sparks(rand(1,6), 1, loc)
+		do_sparks(rand(1,6), TRUE, loc)
 
 /obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -56,7 +56,7 @@
 		return
 
 	if(prob(60))
-		do_sparks(rand(1,6), 1, loc)
+		do_sparks(rand(1,6), TRUE, loc)
 
 	if(!istype(target, /obj/machinery/door/airlock))
 		return
@@ -94,7 +94,6 @@
 	name = "fusion gauntlets"
 	desc = "Перчатки разработаенные Cybersun Industries после того, как один из солдат прикрепил ядро атмосферной аномалии ​​к \
 			энергетическому мечу, и нашел результат весьма эффективными."
-	gender = PLURAL
 	item_state = "pyro"
 	item_color = "pyro"
 	icon_state = "pyro"
@@ -136,13 +135,13 @@
 
 	if(on_cooldown)
 		user.balloon_alert(user, "идет перезарядка")
-		do_sparks(rand(1,6), 1, loc)
+		do_sparks(rand(1,6), TRUE, loc)
 		return
 
 	if(used)
 		visible_message(span_warning("Энергетические когти скользят обратно в [declent_ru(ACCUSATIVE)]."))
 		user.drop_from_active_hand(force = TRUE)//dropdel stuff. only ui act, without hotkeys
-		do_sparks(rand(1,6), 1, loc)
+		do_sparks(rand(1,6), TRUE, loc)
 		on_cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(reboot)), 1 MINUTES)
 		return
@@ -165,7 +164,7 @@
 	user.put_in_hands(claws)
 	ADD_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	used = TRUE
-	do_sparks(rand(1,6), 1, loc)
+	do_sparks(rand(1,6), TRUE, loc)
 
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/item, mob/user, params)

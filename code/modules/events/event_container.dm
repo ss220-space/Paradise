@@ -14,20 +14,20 @@ GLOBAL_LIST_INIT(severity_to_string, list(
 	EVENT_LEVEL_NONE = "None",
 ))
 
-GLOBAL_LIST_INIT(string_to_severity, list(	//Config compatibility thing
+GLOBAL_LIST_INIT(string_to_severity, list(//Config compatibility thing
 	"ev_level_mundane" = EVENT_LEVEL_MUNDANE,
 	"ev_level_moderate" = EVENT_LEVEL_MODERATE,
 	"ev_level_major" = EVENT_LEVEL_MAJOR,
 	"ev_level_none" = EVENT_LEVEL_NONE
 ))
 
-GLOBAL_LIST_INIT(event_delay_lower, list(  //redacted by /datum/config_entry/keyed_list/event_delay_lower
+GLOBAL_LIST_INIT(event_delay_lower, list(//redacted by /datum/config_entry/keyed_list/event_delay_lower
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 30 MINUTES,
 	EVENT_LEVEL_MAJOR = 50 MINUTES
 ))
 
-GLOBAL_LIST_INIT(event_delay_upper, list( //redacted by /datum/config_entry/keyed_list/event_delay_upper
+GLOBAL_LIST_INIT(event_delay_upper, list(//redacted by /datum/config_entry/keyed_list/event_delay_upper
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 45 MINUTES,
 	EVENT_LEVEL_MAJOR = 70 MINUTES
@@ -216,11 +216,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Рандомысленный разрыв",	/datum/event/tear/random,				0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Отходы из вытяжек",		/datum/event/vent_clog,					250),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Червоточины",				/datum/event/wormholes,					150),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Атмосферная аномалия",		/datum/event/anomaly/anomaly_pyro,		75,		list(ASSIGNMENT_ENGINEER = 60)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Вортекс-аномалия",			/datum/event/anomaly/anomaly_vortex,	75,		list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Блюспейс-аномалия",		/datum/event/anomaly/anomaly_bluespace,	75,		list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Флюкс-аномалия",			/datum/event/anomaly/anomaly_flux,		75,		list(ASSIGNMENT_ENGINEER = 50)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Гравитационная аномалия",	/datum/event/anomaly/anomaly_grav,		200),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Аномалия",					/datum/event/anomaly,					500,	list(ASSIGNMENT_ENGINEER = 30, , ASSIGNMENT_SCIENTIST = 30)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ревенант",				/datum/event/revenant,					150),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Спавн свармеров",			/datum/event/spawn_swarmer,			0,		is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Спавн морфа",				/datum/event/spawn_morph,				40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),

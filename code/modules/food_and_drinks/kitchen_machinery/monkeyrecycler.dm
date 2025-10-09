@@ -5,10 +5,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	desc = "A machine used for recycling dead monkeys into monkey cubes."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
 	var/grinded = 0
@@ -138,12 +136,12 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		return
 	if(grinded >= required_grind)
 		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube.</span>")
+		to_chat(user, span_notice("The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube."))
 		playsound(loc, 'sound/machines/hiss.ogg', 50, TRUE)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new cube_type(loc)
-		to_chat(user, "<span class='notice'>The machine's display flashes that it has [grinded] monkey\s worth of material left.</span>")
+		to_chat(user, span_notice("The machine's display flashes that it has [grinded] monkey\s worth of material left."))
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
-		to_chat(user, "<span class='warning'>The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded].</span>")
+		to_chat(user, span_warning("The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded]."))
 	return

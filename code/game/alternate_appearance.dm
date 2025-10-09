@@ -65,18 +65,6 @@
 	remove()
 	return ..()
 
-
-
-/atom
-	// These lists are built as necessary, so atoms aren't all lugging around empty lists
-	/// The alternate appearances we own
-	var/list/alternate_appearances
-	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s
-	var/list/viewing_alternate_appearances
-
-	/// Whenever we start dragging atom, this variable will contain world.time() of the moment we started dragging atom. It is required to check how long dragNdrop was to prevent abusing the feature of laggy dragNdrop click, otherwile will be 0.
-	var/drag_start = 0
-
 /*
 	Builds an alternate_appearance datum for the supplied args, optionally displaying it straight away
 	key - the key to the assoc list of key = /datum/alternate_appearances

@@ -5,10 +5,8 @@
 	desc = "A break-operated grenade launcher."
 	name = "grenade launcher"
 	icon_state = "dshotgun-sawn"
-	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_HIGH
@@ -44,7 +42,8 @@
 	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_MINIMAL
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	fire_modes = GUN_MODE_SINGLE_ONLY
+
 
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
@@ -70,8 +69,8 @@
 	select = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_DEFAULT
-	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = null
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
 
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()
@@ -117,11 +116,11 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	can_holster = FALSE
-	flags = CONDUCT
 	show_live_rounds = FALSE
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_MEDIUM
+	can_air_shoot = FALSE
 
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
@@ -161,8 +160,7 @@
 	. = ..()
 
 
-/obj/item/gun/projectile/revolver/rocketlauncher/attack_self(mob/living/user)
-	add_fingerprint(user)
+/obj/item/gun/projectile/revolver/rocketlauncher/unload_act(mob/user)
 	var/num_unloaded = 0
 	var/atom/drop_loc = drop_location()
 	while(get_ammo(FALSE) > 0)
@@ -206,7 +204,7 @@
 	user.visible_message("<span class='warning'>[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!<span>")
 	if(can_shoot(user))
 		ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-		playsound(src, 'sound/weapons/rocketlaunch.ogg', 80, 1, 5)
+		playsound(src, 'sound/weapons/rocketlaunch.ogg', 80, TRUE, 5)
 		animate(user, pixel_z = 300, time = 3 SECONDS, easing = LINEAR_EASING)
 		sleep(7 SECONDS)
 		animate(user, pixel_z = 0, time = 0.5 SECONDS, easing = LINEAR_EASING)

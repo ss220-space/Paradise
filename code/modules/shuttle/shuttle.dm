@@ -81,13 +81,15 @@
 		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
 		)
 
-//returns turfs within our projected rectangle in no particular order
+///returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
-	var/list/L = return_coords()
-	return block(L[1], L[2], z, L[3], L[4], z)
+	var/list/coords = return_coords()
+	return block(
+		coords[1], coords[2], z,
+		coords[3], coords[4], z
+	)
 
-//returns turfs within our projected rectangle in a specific order.
-//this ensures that turfs are copied over in the same order, regardless of any rotation
+///returns turfs within our projected rectangle in a specific order.this ensures that turfs are copied over in the same order, regardless of any rotation
 /obj/docking_port/proc/return_ordered_turfs(_x, _y, _z, _dir, area/A)
 	if(!_dir)
 		_dir = dir
@@ -128,18 +130,21 @@
 				. += T
 
 #ifdef DOCKING_PORT_HIGHLIGHT
-//Debug proc used to highlight bounding area
-/obj/docking_port/proc/highlight(_color)
+
+///Debug proc used to highlight bounding area
+/obj/docking_port/proc/highlight(_color = "#f00")
+	invisibility = 0
 	SET_PLANE_IMPLICIT(src, GHOST_PLANE)
-	var/list/L = return_coords()
-	for(var/turf/T in block(L[1], L[2], z, L[3], L[4], z))
+	var/list/coords = return_coords()
+	for(var/turf/T in block(coords[1], coords[2], z, coords[3], coords[4], z))
 		T.color = _color
 		T.maptext = null
 	if(_color)
-		var/turf/T = locate(L[1], L[2], z)
+		var/turf/T = locate(coords[1], coords[2], z)
 		T.color = "#0f0"
-		T = locate(L[3], L[4], z)
+		T = locate(coords[3], coords[4], z)
 		T.color = "#00f"
+
 #endif
 
 //return first-found touching dockingport
@@ -148,7 +153,8 @@
 
 /obj/docking_port/proc/getDockedId()
 	var/obj/docking_port/P = get_docked()
-	if(P) return P.id
+	if(P)
+		return P.id
 
 /obj/docking_port/proc/register()
 	return 0
@@ -170,8 +176,8 @@
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
+		return FALSE
 
 	SSshuttle.stationary |= src
 	if(!id)
@@ -257,8 +263,8 @@
 	var/obj/docking_port/stationary/previous
 	var/obj/docking_port/stationary/transit/assigned_transit
 
-/obj/docking_port/mobile/New()
-	..()
+/obj/docking_port/mobile/Initialize(mapload)
+	. = ..()
 
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
@@ -275,22 +281,19 @@
 	highlight("#0f0")
 	#endif
 
-/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	shuttle_areas = list()
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
-	for(var/i in 1 to all_turfs.len)
+	for(var/i in 1 to length(all_turfs))
 		var/turf/curT = all_turfs[i]
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
-	. = ..()
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 
 	SSshuttle.mobile += src
 
@@ -357,6 +360,7 @@
 	else
 		var/msg = "check_dock(): shuttle [src] cannot dock at [S], error: [status]"
 		message_admins(msg)
+		stack_trace(msg)
 		return FALSE
 
 /obj/docking_port/mobile/proc/transit_failure()
@@ -505,7 +509,7 @@
 	var/rotation = 0
 	if(new_dock.dir != dir) //Even when the dirs are the same rotation is coming out as not 0 for some reason
 		rotation = dir2angle(new_dock.dir)-dir2angle(dir)
-		if ((rotation % 90) != 0)
+		if((rotation % 90) != 0)
 			rotation += (rotation % 90) //diagonal rotations not allowed, round up
 		rotation = SIMPLIFY_DEGREES(rotation)
 
@@ -551,6 +555,8 @@
 			//move mobile to new location
 			for(var/atom/movable/AM in oldT)
 				AM.onShuttleMove(oldT, newT, rotation, last_caller)
+
+			SEND_SIGNAL(oldT, COMSIG_TURF_ON_SHUTTLE_MOVE, newT)
 
 			//rotate turf
 			if(rotation)
@@ -598,7 +604,7 @@
 	dir = new_dock.dir
 
 	// Update mining and labor shuttle ash storm audio
-	if(id in list("mining", "laborcamp") && !CONFIG_GET(flag/disable_lavaland))
+	if((id in list("mining", "laborcamp")) && !CONFIG_GET(flag/disable_lavaland) && !(SSmapping.map_datum.disables & DISABLE_LAVALAND))
 		var/mining_zlevel = level_name_to_num(MINING)
 		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
 		if(W)
@@ -606,6 +612,7 @@
 			W.update_audio()
 
 	unlockPortDoors(new_dock)
+	areaInstance.parallax_movedir = preferred_direction
 	SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
@@ -623,7 +630,7 @@
 		if(S.id == roundstart_move)
 			return S
 	if(!alone_shuttle)
-		log_runtime(EXCEPTION("couldn't find roundstart dock for \"[name]\" with id: [id]"))
+		WARNING("couldn't find roundstart dock for \"[name]\" with id: [id]")
 
 /obj/docking_port/mobile/proc/dockRoundstart()
 	var/port = findRoundstartDock()
@@ -665,7 +672,7 @@
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
-	check_ripples()
+	check_effects()
 
 	if(mode == SHUTTLE_IGNITING)
 		check_transit_zone()
@@ -696,12 +703,33 @@
 	timer = 0
 	destination = null
 
-/obj/docking_port/mobile/proc/check_ripples()
+/obj/docking_port/mobile/proc/check_effects()
 	if(!ripples.len)
 		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
 			var/tl = timeLeft(1)
 			if(tl <= SHUTTLE_RIPPLE_TIME)
 				create_ripples(destination)
+	var/obj/docking_port/stationary/S0 = get_docked()
+	if(istype(S0, /obj/docking_port/stationary/transit) && timeLeft(1) <= PARALLAX_LOOP_TIME)
+		for(var/place in shuttle_areas)
+			var/area/shuttle/shuttle_area = place
+			if(shuttle_area.parallax_movedir)
+				parallax_slowdown()
+
+/obj/docking_port/mobile/proc/parallax_slowdown()
+	for(var/place in shuttle_areas)
+		var/area/shuttle/shuttle_area = place
+		shuttle_area.parallax_movedir = FALSE
+	if(assigned_transit?.assigned_area)
+		assigned_transit.assigned_area.parallax_movedir = FALSE
+	var/list/L0 = return_ordered_turfs(x, y, z, dir)
+	for(var/thing in L0)
+		var/turf/T = thing
+		if(!T || !istype(T.loc, areaInstance.type))
+			continue
+		for(var/atom/movable/movable as anything in T)
+			if(movable.client_mobs_in_contents)
+				movable.update_parallax_contents()
 
 /obj/docking_port/mobile/proc/check_transit_zone()
 	if(assigned_transit)
@@ -771,7 +799,7 @@
 
 /obj/docking_port/mobile/proc/getStatusText()
 	var/obj/docking_port/stationary/dockedAt = get_docked()
-	. = (dockedAt && dockedAt.name) ? dockedAt.name : "unknown"
+	. = (dockedAt && dockedAt.name) ? dockedAt.name : lowertext(UNKNOWN_STATUS_RUS)
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
 		var/obj/docking_port/stationary/dst
 		if(mode == SHUTTLE_RECALL)
@@ -852,7 +880,7 @@
 	var/list/data = list()
 	var/obj/docking_port/mobile/mobile_docking_port = SSshuttle.getShuttle(shuttleId)
 	var/lockdown_check = lockdown_affected && GLOB.full_lockdown
-	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : "Unknown"
+	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : lowertext(UNKNOWN_STATUS_RUS)
 	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
 	if(!mobile_docking_port)
 		data["status"] = "Missing"
@@ -899,7 +927,7 @@
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
-		to_chat(usr, "<span class='danger'>Access denied.</span>")
+		to_chat(usr, span_danger("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
@@ -922,9 +950,9 @@
 				add_fingerprint(usr)
 				return TRUE
 			if(1)
-				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+				to_chat(usr, span_warning("Invalid shuttle requested."))
 			else
-				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+				to_chat(usr, span_notice("Unable to comply."))
 	else if(action == "set_destination")
 		var/target_destination = params["destination"]
 		if(target_destination)
@@ -938,7 +966,7 @@
 		src.req_access = list()
 		emagged = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+			to_chat(user, span_notice("You fried the consoles ID checking system."))
 
 //for restricting when the computer can be used, needed for some console subtypes.
 /obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)
@@ -966,7 +994,7 @@
 		if(world.time < next_request)
 			return
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
-		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
+		to_chat(usr, span_notice("Your request has been received by Centcom."))
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<a href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
@@ -1021,13 +1049,9 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin
 	name = "Admin shuttle navigation computer"
 	desc = "Используется, чтобы указать точное местоположение для отправки админского шаттла."
-	icon_screen = "navigation"
-	icon_keyboard = "med_key"
 	shuttleId = "admin"
 	shuttlePortId = "admin_custom"
 	view_range = 14
-	x_offset = 0
-	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
 	space_turfs_only = FALSE
 	access_admin_zone = TRUE	//can we park on Admin z_lvls?
@@ -1054,7 +1078,7 @@
 
 /obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
 	if(!isgolem(user) && !isobserver(user))
-		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
+		to_chat(user, span_notice("The console is unresponsive. Seems only golems can use it."))
 		return
 	..()
 

@@ -37,7 +37,9 @@
 	if(!hidden)
 		name = initial(name)
 		return
-	name = choosable_items[hidden_type]::name
+
+	var/atom/selected_type = choosable_items[hidden_type]
+	name = initial(selected_type.name)
 
 
 /obj/structure/clockwork/functional/update_desc(updates = ALL)
@@ -57,16 +59,18 @@
 		if("broken grille")
 			desc = "A flimsy framework of metal rods. <br>[span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")]"
 		else
-			desc = choosable_items[hidden_type]::desc
-
+			var/atom/selected_type = choosable_items[hidden_type]
+			desc = initial(selected_type.desc)
 
 /obj/structure/clockwork/functional/update_icon_state()
 	if(!hidden)
 		icon = initial(icon)
 		icon_state = anchored ? "[initial(icon_state)]-off" : initial(icon_state)
 		return
-	icon = choosable_items[hidden_type]::icon
-	icon_state = choosable_items[hidden_type]::icon_state
+
+	var/atom/selected_type = choosable_items[hidden_type]
+	icon = initial(selected_type.icon)
+	icon_state = initial(selected_type.icon_state)
 
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
@@ -235,7 +239,6 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-
 /obj/structure/clockwork/functional/altar/update_icon_state()
 	if(!hidden)
 		icon = initial(icon)
@@ -244,11 +247,13 @@
 			return
 		icon_state = first_stage ? "[initial(icon_state)]-fast" : initial(icon_state)
 		return
-	icon = choosable_items[hidden_type]::icon
+
+	var/atom/selected_type = choosable_items[hidden_type]
+	icon = initial(selected_type.icon)
 	if(hidden_type == "potted plant")
-		icon_state = "plant-[rand(1,36)]"
+		icon_state = "plant-[rand(1, 36)]"
 	else
-		icon_state = choosable_items[hidden_type]::icon_state
+		icon_state = initial(selected_type.icon_state)
 
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
@@ -337,14 +342,14 @@
 	else if(first_stage)
 		stop_convert()
 
-/obj/structure/clockwork/functional/altar/proc/first_stage_check(var/mob/living/carbon/human/target)
+/obj/structure/clockwork/functional/altar/proc/first_stage_check(mob/living/carbon/human/target)
 	first_stage = TRUE
 	target.visible_message(span_warning("[src] begins to glow a piercing amber!"), span_clock("You feel something start to invade your mind..."))
 	glow = new (get_turf(src))
 	animate(glow, alpha = 255, time = 8 SECONDS)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/clockwork/functional/altar/proc/second_stage_check(var/mob/living/carbon/human/target)
+/obj/structure/clockwork/functional/altar/proc/second_stage_check(mob/living/carbon/human/target)
 	second_stage = TRUE
 	if(!is_convertable_to_clocker(target.mind) || target.stat == DEAD) // mindshield or holy or mindless monkey. or dead guy
 		target.visible_message(span_warning("[src] in glowing manner starts corrupting [target]!"), \
@@ -361,7 +366,7 @@
 		target.EyeBlind(10 SECONDS)
 		stop_convert(TRUE)
 
-/obj/structure/clockwork/functional/altar/proc/stop_convert(var/silent = FALSE)
+/obj/structure/clockwork/functional/altar/proc/stop_convert(silent = FALSE)
 	QDEL_NULL(glow)
 	first_stage = FALSE
 	second_stage = FALSE
@@ -386,9 +391,10 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
-		GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/cult_summon.ogg'
+		GLOB.major_announcement.announce(
+			message = "Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
+			new_title = ANNOUNCE_CCPARANORMAL_RU,
+			new_sound = 'sound/AI/cult_summon.ogg'
 		)
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)

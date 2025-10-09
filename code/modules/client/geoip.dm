@@ -1,3 +1,6 @@
+GLOBAL_LIST_INIT(isp_blacklist, world.file2list("config/isp/isp_blacklist.txt"))
+GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
+
 /datum/geoip_data
 	var/holder = null
 	var/status = null
@@ -53,11 +56,11 @@
 					//	return
 					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
 					to_chat(C, "<span class='danger'><BIG><b>You have been banned by SyndiCat.\nReason: [reason].</b></BIG></span>")
-					to_chat(C, "<span class='red'>This is a permanent ban.</span>")
+					to_chat(C, span_red("This is a permanent ban."))
 					if(CONFIG_GET(string/banappeals))
-						to_chat(C, "<span class='red'>To try to resolve this matter head to [CONFIG_GET(string/banappeals)]</span>")
+						to_chat(C, span_red("To try to resolve this matter head to [CONFIG_GET(string/banappeals)]"))
 					else
-						to_chat(C, "<span class='red'>No ban appeals URL has been set.</span>")
+						to_chat(C, span_red("No ban appeals URL has been set."))
 					ban_unban_log_save("SyndiCat has permabanned [C.ckey]. - Reason: [reason] - This is a permanent ban.")
 					log_admin("SyndiCat has banned [C.ckey].")
 					log_admin("Reason: [reason]")
@@ -121,13 +124,13 @@
 		return "limit reached"
 
 	var/list/vl = world.Export("http://ip-api.com/json/[addr]?fields=205599")
-	if (!("CONTENT" in vl) || vl["STATUS"] != "200 OK")
+	if(!("CONTENT" in vl) || vl["STATUS"] != "200 OK")
 		return "export fail"
 
 	var/msg = file2text(vl["CONTENT"])
 	return json_decode(msg)
 
-/proc/DB_ban_record_SyndiCat(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
+/proc/DB_ban_record_SyndiCat(bantype, mob/banned_mob, duration = -1, reason, job = "", rounds = 0, banckey = null, banip = null, bancid = null)
 	if(!SSdbcore.IsConnected())
 		return
 
@@ -172,9 +175,12 @@
 			announce_in_discord = TRUE
 			kickbannedckey = 1
 
-	if( !bantype_pass ) return
-	if( !istext(reason) ) return
-	if( !isnum(duration) ) return
+	if(!bantype_pass)
+		return
+	if(!istext(reason))
+		return
+	if(!isnum(duration))
+		return
 
 	var/ckey
 	var/computerid
@@ -236,8 +242,8 @@
 			adminwho += ", [C]"
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`)
-		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
+		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `server_id`)
+		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null, :server_id)
 	"}, list(
 		// Get ready for parameters
 		"serverip" = serverip,
@@ -253,7 +259,8 @@
 		"a_computerid" = a_computerid,
 		"a_ip" = a_ip,
 		"who" = who,
-		"adminwho" = adminwho
+		"adminwho" = adminwho,
+		"server_id" = CONFIG_GET(string/instance_id)
 	))
 	if(!query_insert.warn_execute())
 		qdel(query_insert)

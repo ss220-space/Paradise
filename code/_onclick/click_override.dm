@@ -1,18 +1,18 @@
 /*
- Click Overrides
-
- These are overrides for a living mob's middle and alt clicks.
- If the mob in question has their middleClickOverride var set to one of these datums, when they middle or alt click the onClick proc for the datum their clickOverride var is
- set equal to will be called.
- See click.dm 251 and 196.
-
- If you have any questions, contact me on the Paradise forums.
- - DaveTheHeacrab
+ * Click Overrides
+ *
+ * These are overrides for a living mob's middle and alt clicks.
+ * If the mob in question has their middleClickOverride var set to one of these datums, when they middle or alt click the onClick proc for the datum their clickOverride var is
+ * set equal to will be called.
+ * See click.dm 251 and 196.
+ *
+ * If you have any questions, contact me on the Paradise forums.
+ * - DaveTheHeacrab
  */
 
 /datum/middleClickOverride/
 
-/datum/middleClickOverride/proc/onClick(var/atom/A, var/mob/living/user)
+/datum/middleClickOverride/proc/onClick(atom/A, mob/living/user)
 	user.middleClickOverride = null
 	return 1
 	/* Note, when making a new click override it is ABSOLUTELY VITAL that you set the source's clickOverride to null at some point if you don't want them to be stuck with it forever.
@@ -27,7 +27,7 @@
 
 /obj/item/badminBook/attack_self(mob/living/user as mob)
 	if(user.middleClickOverride)
-		to_chat(user, "<span class='warning'>You try to draw power from the [src], but you cannot hold the power at this time!</span>")
+		to_chat(user, span_warning("You try to draw power from the [src], but you cannot hold the power at this time!"))
 		return
 	user.middleClickOverride = clickBehavior
 	to_chat(user, "<span class='notice'>You draw a bit of power from the [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
@@ -35,11 +35,11 @@
 /datum/middleClickOverride/badminClicker
 	var/summon_path = /obj/item/reagent_containers/food/snacks/cookie
 
-/datum/middleClickOverride/badminClicker/onClick(var/atom/A, var/mob/living/user)
+/datum/middleClickOverride/badminClicker/onClick(atom/A, mob/living/user)
 	var/atom/movable/newObject = new summon_path
 	newObject.loc = get_turf(A)
-	to_chat(user, "<span class='notice'>You release the power you had stored up, summoning \a [newObject.name]!</span>")
-	usr.loc.visible_message("<span class='notice'>[user] waves [user.p_their()] hand and summons \a [newObject.name]!</span>")
+	to_chat(user, span_notice("You release the power you had stored up, summoning \a [newObject.name]!"))
+	usr.loc.visible_message(span_notice("[user] waves [user.p_their()] hand and summons \a [newObject.name]!"))
 	..()
 
 /datum/middleClickOverride/power_gloves
@@ -53,17 +53,17 @@
 		return
 	var/obj/item/clothing/gloves/color/yellow/power/P = user.gloves
 	if(world.time < P.last_shocked + P.shock_delay)
-		to_chat(user, "<span class='warning'>The gloves are still recharging.</span>")
+		to_chat(user, span_warning("The gloves are still recharging."))
 		return
 	var/turf/T = get_turf(user)
 	var/obj/structure/cable/C = locate() in T
 	if(!P.unlimited_power)
 		if(!C || !istype(C))
-			to_chat(user, "<span class='warning'>There is no cable here to power the gloves.</span>")
+			to_chat(user, span_warning("There is no cable here to power the gloves."))
 			return
 	var/turf/target_turf = get_turf(A)
 	target_turf.hotspot_expose(2000, 400)
-	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, 1)
+	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, TRUE)
 
 	var/atom/beam_from = user
 	var/atom/target_atom = A

@@ -28,10 +28,10 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 		return
 	if(holder)
 		holder.fax_panel(usr)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Fax Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Fax Panel")
 	return
 
-/datum/admins/proc/fax_panel(var/mob/living/user)
+/datum/admins/proc/fax_panel(mob/living/user)
 	var/html = "<a align='right' href='byond://?src=[UID()];refreshfaxpanel=1'>Refresh</a>"
 	html += "<a align='right' href='byond://?src=[UID()];AdminFaxCreate=1;faxtype=Administrator'>Create Fax</a>"
 
