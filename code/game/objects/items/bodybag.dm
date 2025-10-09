@@ -102,6 +102,7 @@
 		return .
 	to_chat(user, span_notice("Вы срезаете бирку с [declent_ru(GENITIVE)]."))
 	name = initial(name)
+	ru_names = get_ru_names()
 	update_icon(UPDATE_OVERLAYS)
 
 
