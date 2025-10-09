@@ -1292,9 +1292,9 @@
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
 
-///SSalarm signals
-#define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
-#define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+// /datum/alarm_manager
+#define COMSIG_TRIGGERED_ALARM "alarmmanager_triggered"
+#define COMSIG_CANCELLED_ALARM "alarmmanager_cancelled"
 
 // /datum/objective signals
 ///from datum/objective/proc/find_target()
