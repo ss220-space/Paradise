@@ -158,6 +158,7 @@
 #define VOX_RAIDER "Vox Raider"
 #define VOX_TRADER "Vox Trader"
 
+// Battle teams de_kerberos_2
 #define JOB_TITLE_TEAM1 "Team 1"
 #define JOB_TITLE_TEAM2 "Team 2"
 #define JOB_TITLE_TEAM3 "Team 3"
