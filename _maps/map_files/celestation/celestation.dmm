@@ -80343,7 +80343,7 @@
 	},
 /area/teleporter/research)
 "ohb" = (
-/obj/item/book/random/triple,
+/obj/item/book/random,
 /turf/simulated/floor/grass,
 /area/crew_quarters/locker)
 "ohh" = (

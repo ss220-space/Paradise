@@ -13853,7 +13853,7 @@
 	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1046826506741104830/unknown.png?width=604&height=604\"></center>";
 	name = "Супъективное мнение"
 	},
-/obj/item/book/random/triple,
+/obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "gAB" = (
@@ -22196,7 +22196,7 @@
 /area/centcom/supply)
 "kHS" = (
 /obj/structure/bookcase,
-/obj/item/book/random/triple,
+/obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "kHT" = (
