@@ -611,15 +611,9 @@
 // 	no_count = FALSE //reset
 
 
-/datum/action/item_action/advanced/proc/add_percentage_overlay(progress)
-	// Make a holder for the charge text
-	// var/static/mutable_appearance/count_down_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	// count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
-	// button.add_overlay(count_down_holder)
-
-
 /datum/action/item_action/advanced/proc/add_charges_overlay()
 	// Make a holder for the charge text
+	status_text = "[charge_counter]/[charge_max]"
 	// var/static/mutable_appearance/charges_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	// charges_holder.maptext = "<div style=\"font-size:6pt;color:#ffffff;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[charge_counter]/[charge_max]</div>"
 	// button.add_overlay(charges_holder)
