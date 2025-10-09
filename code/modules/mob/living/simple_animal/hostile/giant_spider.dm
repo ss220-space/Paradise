@@ -125,7 +125,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/start_automated_movement()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	stop_automated_movement = FALSE
 
 
@@ -231,7 +231,7 @@
 		busy = SPINNING_COCOON
 		src.visible_message(span_notice("\the [src] begins to secrete a sticky substance around \the [cocoon_target]."))
 		stop_automated_movement = 1
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		spawn(50)
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && istype(cocoon_target.loc, /turf) && get_dist(src,cocoon_target) <= 1)

@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(blackbox)
 		list(
 			"playercount" = length(GLOB.clients),
 			"admincount" = length(GLOB.admins),
-			"server_id" = GLOB.configuration.system.instance_id
+			"server_id" = CONFIG_GET(string/instance_id)
 		)
 	)
 	statquery.warn_execute()

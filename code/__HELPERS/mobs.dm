@@ -361,7 +361,7 @@
 	var/atom/target_loc = target?.loc
 
 	var/drifting = FALSE
-	if(SSmove_manager.processing_on(user, SSspacedrift))
+	if(GLOB.move_manager.processing_on(user, SSspacedrift))
 		drifting = TRUE
 
 	var/holding = user.get_active_hand()
@@ -405,7 +405,7 @@
 				. = FALSE
 				break
 
-		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !SSmove_manager.processing_on(user, SSspacedrift)))
+		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !GLOB.move_manager.processing_on(user, SSspacedrift)))
 			drifting = FALSE
 			user_loc = user.loc
 
