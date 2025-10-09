@@ -693,11 +693,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	do_observe_target = mob_eye
 	ADD_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
 
-	// Отображение элементов интерфейса (vakons: нахуй надо)
-	// for(var/datum/action/act in mob_eye.actions)
-		//if(istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle) || (act in src.actions))
-			// continue
-		//client.screen |= act.button
+	// TODO: Реализовать отображение actions если надо
 
 	for(var/atom/movable/screen/alert/alert in mob_eye.alerts)
 		client.screen |= alert

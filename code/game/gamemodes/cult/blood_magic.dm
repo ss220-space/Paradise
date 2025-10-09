@@ -10,22 +10,6 @@
 		qdel(X)
 	..()
 
-// /datum/action/innate/cult/blood_magic/override_location()
-// 	button.ordered = FALSE
-// 	button.screen_loc = DEFAULT_BLOODSPELLS
-// 	button.moved = DEFAULT_BLOODSPELLS
-
-// /datum/action/innate/cult/blood_magic/proc/Positioning()
-// 	var/list/screen_loc_split = splittext(button.screen_loc, ",")
-// 	var/list/screen_loc_X = splittext(screen_loc_split[1], ":")
-// 	var/list/screen_loc_Y = splittext(screen_loc_split[2], ":")
-// 	var/pix_X = text2num(screen_loc_X[2])
-// 	for(var/datum/action/innate/cult/blood_spell/B in spells)
-// 		if(B.button.locked)
-// 			var/order = pix_X + spells.Find(B) * 31
-// 			B.button.screen_loc = "[screen_loc_X[1]]:[order],[screen_loc_Y[1]]:[screen_loc_Y[2]]"
-// 			B.button.moved = B.button.screen_loc
-
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
 	var/limit = RUNELESS_MAX_BLOODCHARGE

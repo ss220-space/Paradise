@@ -206,6 +206,10 @@
 			action.Grant(source)
 			update_button(action)
 			action.UpdateButtonIcon()
+	else
+		for(var/datum/action/action as anything in actions)
+			action.Remove(source)
+			update_button(action)
 
 	if(trigger_causes & (BIOCHIP_TRIGGER_DEATH_ONCE|BIOCHIP_TRIGGER_DEATH_ANY))
 		RegisterSignal(source, COMSIG_MOB_DEATH, PROC_REF(on_death))
