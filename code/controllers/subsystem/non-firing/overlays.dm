@@ -8,6 +8,9 @@ SUBSYSTEM_DEF(overlays)
 /datum/controller/subsystem/overlays/PreInit()
 	stats = list()
 
+/datum/controller/subsystem/overlays/Initialize()
+	return SS_INIT_SUCCESS
+
 /datum/controller/subsystem/overlays/Shutdown()
 	text2file(render_stats(stats), "[GLOB.log_directory]/overlay.log")
 

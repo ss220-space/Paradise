@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(radio)
 
 // This is a disgusting hack to stop this tripping CI when this thing needs to FUCKING DIE
 /datum/controller/subsystem/radio/Initialize()
-	return
+	return SS_INIT_SUCCESS
 
 // This is fucking disgusting and needs to die
 /datum/controller/subsystem/radio/proc/frequency_span_class(frequency)
