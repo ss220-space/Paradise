@@ -39,6 +39,7 @@
  */
 /obj/item/bodybag/proc/deploy_bodybag(mob/user, atom/location)
 	var/obj/structure/closet/body_bag/item_bag = new unfoldedbag_path(location)
+	item_bag.balloon_alert_to_viewers("мешок разложен")
 	item_bag.open(user)
 	item_bag.add_fingerprint(user)
 	item_bag.foldedbag_instance = src
@@ -100,7 +101,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	to_chat(user, span_notice("Вы срезаете бирку с [declent_ru(GENITIVE)]."))
+	balloon_alert(user, "бирка срезана")
 	name = initial(name)
 	ru_names = get_ru_names()
 	update_icon(UPDATE_OVERLAYS)
@@ -132,33 +133,27 @@
 	if(!istype(the_folder))
 		return
 	if(opened)
-		to_chat(the_folder, span_warning("Нельзя сложить [declent_ru(ACCUSATIVE)] в расстёгнутом виде."))
+		balloon_alert(the_folder, "застегните мешок!")
 		return
 	if(length(contents))
 		return
 	return TRUE
 
 /obj/structure/closet/body_bag/proc/perform_fold(mob/living/carbon/human/the_folder)
-	var/folding_bodybag = new foldedbag_path(get_turf(src))
+	var/turf/turf = get_turf(src)
+	var/obj/item/folding_bodybag = new foldedbag_path(turf)
+	turf.balloon_alert_to_viewers("мешок сложен")
 	the_folder.put_in_hands(folding_bodybag)
 
 
 /obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
-		usr.visible_message(
-			span_notice("[usr] складыва[pluralize_ru(usr.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы складываете [declent_ru(ACCUSATIVE)]."),
-		)
 		perform_fold(usr)
 		qdel(src)
 		return FALSE
 
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
 		if(attempt_fold(usr))
-			usr.visible_message(
-				span_notice("[usr] складыва[pluralize_ru(usr.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
-				span_notice("Вы складываете [declent_ru(ACCUSATIVE)]."),
-			)
 			perform_fold(usr)
 			qdel(src)
 			return FALSE
@@ -175,7 +170,6 @@
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/machinery/crematorium)))
 		if(!open())
 			loc.balloon_alert(user, "не поддаётся!")
-			to_chat(user, span_notice("It won't budge!"))
 
 
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
@@ -202,7 +196,6 @@
 /obj/structure/closet/body_bag/biohazard
 	name = "biohazard body bag"
 	desc = "Пластиковый мешок, предназначенный для хранения и транспортировки инфицированных трупов."
-	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_biohazard_closed"
 	icon_closed = "bodybag_biohazard_closed"
 	icon_opened = "bodybag_biohazard_open"
@@ -239,23 +232,24 @@
 
 /obj/item/bodybag/bluespace/examine(mob/user)
 	. = ..()
-	if(contents.len)
-		var/contents_number = contents.len
+	var/contents_number = length(contents)
+	if(contents_number)
 		. += span_notice("Вы можете разглядеть форм[declension_ru(contents_number, "у", "ы", "ы")] [contents_number] объект[declension_ru(contents_number, "а", "ов", "ов")] через ткань.")
 
 /obj/item/bodybag/bluespace/Destroy()
-	for(var/atom/movable/A in contents)
-		A.forceMove(get_turf(src))
-		if(isliving(A))
-			to_chat(A, span_notice("Вы внезапно ощущаете, как пространство вокруг вас рвётся на части! Вы свободны!"))
+	for(var/atom/movable/movable in contents)
+		movable.forceMove(get_turf(src))
+		if(isliving(movable))
+			balloon_alert(movable, "вы свободны!")
 	return ..()
 
 /obj/item/bodybag/bluespace/deploy_bodybag(mob/user, atom/location)
 	var/obj/structure/closet/body_bag/item_bag = new unfoldedbag_path(location)
+	item_bag.balloon_alert_to_viewers("мешок разложен")
 	for(var/atom/movable/inside in contents)
 		inside.forceMove(item_bag)
 		if(isliving(inside))
-			to_chat(inside, span_notice("Вы снова чувствуете свежий воздух вокруг! Вы свободны!"))
+			balloon_alert(inside, "вы свободны!")
 	item_bag.open(user)
 	item_bag.add_fingerprint(user)
 	item_bag.foldedbag_instance = src
@@ -266,12 +260,12 @@
 /obj/item/bodybag/bluespace/container_resist(mob/living/user)
 	var/breakout_time = 10 SECONDS
 	if(user.incapacitated())
-		to_chat(user, span_warning("Вы не можете выбраться, будучи связанным!"))
+		balloon_alert(user, "вы связаны!")
 		return
 	user.changeNext_move(breakout_time)
 	user.last_special = world.time + (breakout_time)
-	to_chat(user, span_notice("Вы вцепляетесь в ткань [declent_ru(GENITIVE)], пытаясь разорвать её..."))
-	to_chat(loc, span_warning("Кто-то пытается выбраться из [declent_ru(GENITIVE)]!"))
+	balloon_alert(user, "вы сопротивляетесь...")
+	visible_message(span_warning("Кто-то пытается выбраться из [declent_ru(GENITIVE)]!"))
 	if(!do_after(user, 12 SECONDS, src))
 		return
 	// you are still in the bag? time to go unless you KO'd, honey!
@@ -279,10 +273,8 @@
 	if(user.incapacitated())
 		to_chat(loc, span_warning("Давление ослабевает. Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] переста[genderize_ru(user.gender, "л", "ла", "ло", "ли")] сопротивляться..."))
 		return
-	loc.visible_message(
-		span_warning("[user] внезапно появляется перед [loc.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] вырывается из [declent_ru(GENITIVE)]!")
-	)
+	loc.visible_message(span_warning("[user] внезапно появляется перед [loc.declent_ru(INSTRUMENTAL)]!"))
+	balloon_alert(user, "вы вырываетесь!")
 	qdel(src)
 
 /obj/structure/closet/body_bag/bluespace
@@ -312,14 +304,16 @@
 		return
 
 	if(opened)
-		to_chat(the_folder, span_warning("Нельзя сложить [declent_ru(ACCUSATIVE)] в расстёгнутом виде."))
+		balloon_alert(the_folder, "застегните мешок!")
 		return
 
 	if(the_folder.in_contents_of(src))
+		balloon_alert(the_folder, "невозможно!")
 		to_chat(the_folder, span_warning("Вы не можете сложить [declent_ru(ACCUSATIVE)], находясь внутри!"))
 		return
 
 	for(var/obj/item/bodybag/bluespace/B in src)
+		balloon_alert(the_folder, "невозможно!")
 		to_chat(the_folder, span_warning("Вы не можете сложить блюспейс мешки друг в друга!") )
 		return
 
@@ -327,8 +321,9 @@
 
 
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
-	visible_message(span_notice("[the_folder] складывает [declent_ru(ACCUSATIVE)]."))
-	var/obj/item/bodybag/folding_bodybag = new foldedbag_path
+	var/turf/turf = get_turf(src)
+	var/obj/item/folding_bodybag = new foldedbag_path(turf)
+	turf.balloon_alert_to_viewers("мешок сложен")
 	var/max_weight_of_contents = initial(folding_bodybag.w_class)
 	for(var/atom/movable/content as anything in contents)
 		content.forceMove(folding_bodybag)
