@@ -6,6 +6,7 @@ GLOBAL_DATUM_INIT(alarm_manager, /datum/alarm_manager, new())
 		"Fire" = list(),
 		"Atmosphere" = list(),
 		"Power" = list(),
+		"Camera" = list(),
 		"Burglar" = list(),
 	)
 
