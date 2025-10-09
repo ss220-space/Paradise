@@ -33429,11 +33429,11 @@
 /obj/item/grenade/syndieminibomb{
 	pixel_x = 8
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_x = -5;
 	pixel_y = 12
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_x = -5;
 	pixel_y = 12
 	},
@@ -34294,13 +34294,13 @@
 /area/syndicate_mothership/cargo)
 "pUu" = (
 /obj/structure/table/wood,
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 8
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 4
 	},
-/obj/item/radio/beacon/syndicate/bomb,
+/obj/item/beacon/syndicate/bomb,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
