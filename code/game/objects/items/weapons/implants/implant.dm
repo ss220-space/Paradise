@@ -205,7 +205,6 @@
 		for(var/datum/action/action as anything in actions)
 			action.Grant(source)
 			update_button(action)
-			action.UpdateButtonIcon()
 	else
 		for(var/datum/action/action as anything in actions)
 			action.Remove(source)
@@ -268,6 +267,8 @@
 	SIGNAL_HANDLER
 	action?.name = "[initial(action.name)] [name]"
 	action?.desc = desc
+	action?.status_text = cooldown_system.cooldown_info()
+	action?.UpdateButtonIcon()
 	if(cooldown_system?.should_draw_cooldown())
 		//action.apply_unavailable_effect()
 		return COMSIG_ACTION_UPDATE_INTERRUPT

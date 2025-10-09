@@ -222,7 +222,7 @@
 
 			closed[target] = TRUE
 
-			if (!target.loc)
+			if(!target.loc)
 				continue
 
 		checking = next

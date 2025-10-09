@@ -21,6 +21,8 @@
 	var/datum/weakref/last_hovored_ref
 	/// overlay for keybind maptext
 	var/mutable_appearance/keybind_maptext
+	/// overlay for status maptext
+	var/mutable_appearance/status_maptext
 	/// if observers can trigger this action at any time
 	var/allow_observer_click = FALSE
 	locked = FALSE
@@ -175,6 +177,15 @@
 	keybind_maptext.transform = keybind_maptext.transform.Translate(-4, length(key) > 1 ? -6 : 2) //with modifiers, its placed lower so cooldown is visible
 	add_overlay(keybind_maptext)
 
+/atom/movable/screen/movable/action_button/proc/update_status_maptext(text)
+	cut_overlay(status_maptext)
+	if(!text)
+		return
+	status_maptext = new
+	status_maptext.maptext = MAPTEXT("<span style='text-align: center'>[text]</span>")
+	status_maptext.transform = status_maptext.transform.Translate(-4, length(text) > 1 ? -6 : 2) //with modifiers, its placed lower so cooldown is visible
+	add_overlay(status_maptext)
+
 /**
  * This is a silly proc used in hud code code to determine what icon and icon state we should be using
  * for hud elements (such as action buttons) that don't have their own icon and icon state set.
@@ -312,11 +323,11 @@
 
 /atom/movable/screen/button_palette/proc/disable_landing()
 	// If we have no elements in the palette, hide your ugly self please
-	if (!length(our_hud.palette_actions?.actions) && !length(our_hud.floating_actions))
+	if(!length(our_hud.palette_actions?.actions) && !length(our_hud.floating_actions))
 		invisibility = INVISIBILITY_ABSTRACT
 
 /atom/movable/screen/button_palette/proc/update_state()
-	if (length(our_hud.floating_actions))
+	if(length(our_hud.floating_actions))
 		activate_landing()
 	else
 		disable_landing()
@@ -354,7 +365,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, to_remove)
 
 /atom/movable/screen/button_palette/proc/can_use(mob/user)
-	if (isobserver(user))
+	if(isobserver(user))
 		return FALSE
 	return TRUE
 
@@ -412,7 +423,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	var/datum/hud/our_hud
 
 /atom/movable/screen/palette_scroll/proc/can_use(mob/user)
-	if (isobserver(user))
+	if(isobserver(user))
 		return FALSE
 	return TRUE
 

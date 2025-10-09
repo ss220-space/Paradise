@@ -27,10 +27,10 @@
 	var/x_coord = x_pack[1]
 	var/y_coord = y_pack[1]
 
-	if (findtext(x_coord, "CENTER"))
+	if(findtext(x_coord, "CENTER"))
 		x += view_size[1] / 2
 
-	if (findtext(y_coord, "CENTER"))
+	if(findtext(y_coord, "CENTER"))
 		y += view_size[2] / 2
 
 	x_coord = text2num(cut_relative_direction(x_coord))

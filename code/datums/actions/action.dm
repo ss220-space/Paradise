@@ -57,6 +57,8 @@
 
 	/// full key we are bound to
 	var/full_key
+	/// Button status text (special text for usages count)
+	var/status_text = null
 
 	/// Toggles whether this action is usable or not
 	var/action_disabled = FALSE
@@ -159,7 +161,7 @@
 
 	if(target == owner)
 		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(clear_ref))
-	if (owner == remove_from)
+	if(owner == remove_from)
 		owner = null
 
 /// Actually triggers the effects of the action.
@@ -188,29 +190,29 @@
 	if(action_disabled)
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
-		if (feedback)
+		if(feedback)
 			owner.balloon_alert(owner, "hands blocked!")
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
-		if (feedback)
+		if(feedback)
 			owner.balloon_alert(owner, "can't move!")
 		return FALSE
 	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT(owner, TRAIT_INCAPACITATED))
-		if (feedback)
+		if(feedback)
 			owner.balloon_alert(owner, "incapacitated!")
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && isliving(owner))
 		var/mob/living/action_owner = owner
 		if(action_owner.body_position == LYING_DOWN)
-			if (feedback)
+			if(feedback)
 				owner.balloon_alert(owner, "must stand up!")
 			return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
-		if (feedback)
+		if(feedback)
 			owner.balloon_alert(owner, "unconscious!")
 		return FALSE
 	if((check_flags & AB_CHECK_TURF) && !isturf(owner.loc))
-		if (feedback)
+		if(feedback)
 			owner.balloon_alert(owner, "not enough space!")
 		return FALSE
 	return TRUE
@@ -336,6 +338,7 @@
  */
 /datum/action/proc/update_button_status(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	current_button.update_keybind_maptext(full_key)
+	current_button.update_status_maptext(status_text)
 	if(IsAvailable())
 		current_button.color = rgb(255,255,255,255)
 	else
