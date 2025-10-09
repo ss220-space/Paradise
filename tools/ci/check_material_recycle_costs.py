@@ -36,7 +36,7 @@ if __name__ == "__main__":
         result_type = dme.types[build_path]
         material_content = result_type.var_decl("materials").const_val
         if material_content is None:
-            print(f"Material content for {build_path}: {material_content}")
+            #print(f"Material content for {build_path}: {material_content}")
             continue
         if result_type not in costs:
             costs[build_path] = ItemBOM(defaultdict(set), defaultdict(set))
