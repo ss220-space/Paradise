@@ -48,7 +48,7 @@
 
 /obj/item/bodybag/suicide_act(mob/living/user)
 	if(isfloorturf(user.loc))
-		user.visible_message(span_suicide("[user] заполза[pluralize_ru(user.gender, "ет", "ют")] в [declent_ru(NOMINATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
+		user.visible_message(span_suicide("[user] заполза[pluralize_ru(user.gender, "ет", "ют")] в [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
 		var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
 		R.add_fingerprint(user)
 		qdel(src)
@@ -132,7 +132,7 @@
 	if(!istype(the_folder))
 		return
 	if(opened)
-		to_chat(the_folder, span_warning("Вы пытаетесь сложить [declent_ru(NOMINATIVE)], но он не сгибается в расстёгнутом виде."))
+		to_chat(the_folder, span_warning("Нельзя сложить [declent_ru(ACCUSATIVE)] в расстёгнутом виде."))
 		return
 	if(length(contents))
 		return
@@ -146,8 +146,8 @@
 /obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
 		usr.visible_message(
-			span_notice("[usr] складывает [declent_ru(NOMINATIVE)]."),
-			span_notice("Вы складываете [declent_ru(NOMINATIVE)]."),
+			span_notice("[usr] складыва[pluralize_ru(usr.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы складываете [declent_ru(ACCUSATIVE)]."),
 		)
 		perform_fold(usr)
 		qdel(src)
@@ -156,8 +156,8 @@
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
 		if(attempt_fold(usr))
 			usr.visible_message(
-				span_notice("[usr] складывает [declent_ru(NOMINATIVE)]."),
-				span_notice("Вы складываете [declent_ru(NOMINATIVE)]."),
+				span_notice("[usr] складыва[pluralize_ru(usr.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы складываете [declent_ru(ACCUSATIVE)]."),
 			)
 			perform_fold(usr)
 			qdel(src)
@@ -174,7 +174,7 @@
 	// Make it possible to escape from bodybags in morgues and crematoriums
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/machinery/crematorium)))
 		if(!open())
-			to_chat(user, span_notice("Не поддаётся!"))
+			loc.balloon_alert(user, "не поддаётся!")
 
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
 	return FALSE //Can't be weldled under any circumstances.
@@ -246,7 +246,7 @@
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		if(isliving(A))
-			to_chat(A, span_notice("Вы внезапно чувствуете, как пространство вокруг вас рвётся на части! Вы свободны!"))
+			to_chat(A, span_notice("Вы внезапно ощущаете, как пространство вокруг вас рвётся на части! Вы свободны!"))
 	return ..()
 
 /obj/item/bodybag/bluespace/deploy_bodybag(mob/user, atom/location)
@@ -254,7 +254,7 @@
 	for(var/atom/movable/inside in contents)
 		inside.forceMove(item_bag)
 		if(isliving(inside))
-			to_chat(inside, span_notice("Вы внезапно ощущаете свежий воздух вокруг! Вы свободны!"))
+			to_chat(inside, span_notice("Вы снова чувствуете свежий воздух вокруг! Вы свободны!"))
 	item_bag.open(user)
 	item_bag.add_fingerprint(user)
 	item_bag.foldedbag_instance = src
@@ -278,7 +278,10 @@
 	if(user.incapacitated())
 		to_chat(loc, span_warning("Давление ослабевает. Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] переста[genderize_ru(user.gender, "л", "ла", "ло", "ли")] сопротивляться..."))
 		return
-	loc.visible_message(span_warning("[user] внезапно появляется перед [loc.declent_ru(INSTRUMENTAL)]!"), span_userdanger("[user] вырывается из [declent_ru(GENITIVE)]!"))
+	loc.visible_message(
+		span_warning("[user] внезапно появляется перед [loc.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] вырывается из [declent_ru(GENITIVE)]!")
+	)
 	qdel(src)
 
 /obj/structure/closet/body_bag/bluespace
@@ -308,11 +311,11 @@
 		return
 
 	if(opened)
-		to_chat(the_folder, span_warning("Вы пытаетесь сложить [declent_ru(NOMINATIVE)], но он не сгибается в расстёгнутом виде."))
+		to_chat(the_folder, span_warning("Нельзя сложить [declent_ru(ACCUSATIVE)] в расстёгнутом виде."))
 		return
 
 	if(the_folder.in_contents_of(src))
-		to_chat(the_folder, span_warning("Вы не можете сложить [declent_ru(NOMINATIVE)], находясь внутри него!"))
+		to_chat(the_folder, span_warning("Вы не можете сложить [declent_ru(ACCUSATIVE)], находясь внутри!"))
 		return
 
 	for(var/obj/item/bodybag/bluespace/B in src)
@@ -323,13 +326,13 @@
 
 
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
-	visible_message(span_notice("[the_folder] складывает [declent_ru(NOMINATIVE)]."))
+	visible_message(span_notice("[the_folder] складывает [declent_ru(ACCUSATIVE)]."))
 	var/obj/item/bodybag/folding_bodybag = new foldedbag_path
 	var/max_weight_of_contents = initial(folding_bodybag.w_class)
 	for(var/atom/movable/content as anything in contents)
 		content.forceMove(folding_bodybag)
 		if(isliving(content))
-			to_chat(content, span_userdanger("Внезапно вы оказываетесь сложены в крохотное сжатое пространство!"))
+			to_chat(content, span_userdanger("Внезапно вы оказываетесь сложены в крохотное блюспейс пространство!"))
 		if(HAS_TRAIT(content, TRAIT_DWARF))
 			max_weight_of_contents = max(WEIGHT_CLASS_NORMAL, max_weight_of_contents)
 			continue
