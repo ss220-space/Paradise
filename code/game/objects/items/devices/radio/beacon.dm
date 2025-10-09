@@ -32,12 +32,6 @@
 		if(user)
 			to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))
 
-/obj/item/beacon/hear_talk()
-	return
-
-/obj/item/beacon/talk_into()
-	return FALSE
-
 /// Probably a better way of doing this, I'm lazy.
 /obj/item/beacon/bacon
 
