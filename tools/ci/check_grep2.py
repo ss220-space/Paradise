@@ -25,7 +25,6 @@ def check_515_proc_syntax(idx, line):
     if CHECK_515_PROC_MARKER_RE.search(line):
         return [(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")]
 
-
 CHECK_SPACE_INDENTATION_RE = re.compile(r"^( {2})|(^ [^ *])|(^ {4,})")
 def check_space_indentation(idx, line):
     """
@@ -55,7 +54,6 @@ def check_space_indentation(idx, line):
     if CHECK_SPACE_INDENTATION_RE.match(line):
         return [(idx + 1, "Space indentation detected, please use tab indentation.")]
 
-
 CHECK_MIXED_INDENTATION_RE = re.compile(r"^(\t+ | +\t)\s*[^\s\*]")
 def check_mixed_indentation(idx, line):
     """
@@ -84,18 +82,15 @@ def check_mixed_indentation(idx, line):
     if CHECK_MIXED_INDENTATION_RE.match(line):
         return [(idx + 1, "Mixed <tab><space> indentation detected, please stick to tab indentation.")]
 
-
 GLOBAL_VARS_RE = re.compile(r"^/*var/")
 def check_global_vars(idx, line):
     if GLOBAL_VARS_RE.match(line):
         return [(idx + 1, "Unmanaged global var use detected in code, please use the helpers.")]
 
-
 TOPLEVEL_VARDECLS_RE = re.compile(r"^(/[^\*(\/\/)].*/var/(list/)?\w+)")
 def check_toplevel_vardecls(idx, line):
     if match := TOPLEVEL_VARDECLS_RE.match(line):
         return [(idx + 1, f"Top-level var {match.group(0)} found, please move to type declaration.")]
-
 
 PROC_ARGS_WITH_VAR_PREFIX_RE = re.compile(r"^/[\w/]\S+\((var/)?.*(, ?var/.*).*\)")
 def check_proc_args_with_var_prefix(idx, line):
@@ -260,25 +255,21 @@ def check_fast_load_define(idx, line):
     if FAST_LOAD_DEFINE.match(line):
         return [(idx + 1, "Commiting uncommented FAST_LOAD define!")]
 
-# Check for forceMove with two arguments
 FORCE_MOVE_TWO_ARGS = re.compile(r'forceMove\(\s*(\w+\(\)|\w+)\s*,\s*(\w+\(\)|\w+)\s*\)')
 def check_force_move_syntax(idx, line):
     if FORCE_MOVE_TWO_ARGS.search(line):
         return [(idx + 1, "forceMove() call with two arguments - this is not how forceMove() is invoked! It's x.forceMove(y), not forceMove(x, y).")]
 
-# Check for can_perform_action with improper arguments
 CAN_PERFORM_ACTION_IMPROPER = re.compile(r'can_perform_action\(\s*\)')
 def check_can_perform_action(idx, line):
     if CAN_PERFORM_ACTION_IMPROPER.search(line):
         return [(idx + 1, "Found a can_perform_action() proc with improper arguments.")]
 
-# Check for 'as anything' in typeless loops
 AS_ANYTHING_TYPELESS = re.compile(r'var/[^/]+ as anything')
 def check_as_anything_typeless(idx, line):
     if AS_ANYTHING_TYPELESS.search(line):
         return [(idx + 1, "'as anything' used in a typeless for loop. This doesn't do anything and should be removed.")]
 
-# Check for 'as anything' on internal functions
 AS_ANYTHING_INTERNAL = re.compile(r'var\/(turf|mob|obj|atom\/movable).+ as anything in o?(view|range|hearers)\(')
 def check_as_anything_internal(idx, line):
     if AS_ANYTHING_INTERNAL.search(line):
@@ -289,55 +280,41 @@ def check_ie_typo(idx, line):
     if IE_TYPO_RE.search(line):
         return [(idx + 1, "Common I-before-E typo detected in code (found 'eciev', did you mean 'receive'?).")]
 
-DEFINE_FORMAT_RE = re.compile(r'^\s*#define\s+(\S+)\s+(\S.*)$')
 DEFINE_SPACING_RE = re.compile(r'^\s*#define\s+\S+\s{2,}\S')
 def check_define_formatting(idx, line):
-    """
-    Valid: #define NAME value (exactly one space between name and value)
-
-    Invalid: #define NAME    value (multiple spaces/tabs for alignment)
-    """
-    # Check for multiple spaces between name and value
-    if not DEFINE_SPACING_RE.match(line):
-        return []
-
-    # Extract parts for error message
-    match = DEFINE_FORMAT_RE.match(line.strip())
-    if not match:
-        return []
-
-    name, value = match.groups()
-    bad_example = line.strip()
-    good_example = f"#define {name} {value}"
-
-    return [(idx + 1, f"Invalid #define spacing. Use exactly one space between macro name and value.\nFound: {bad_example}\nExpected: {good_example}")]
-
-# Check UpdatePaths files
-def check_updatepaths_validity():
     failures = []
+    if DEFINE_SPACING_RE.match(line):
+        return [(idx + 1, "Invalid #define spacing. Use exactly one space between macro name and value.")]
+    return failures
+
+DUPLICATE_SPANS_RE = re.compile(r'span_(\w+)\(\s*span_\1\(')
+def check_duplicate_spans(idx, line):
+    failures = []
+    if match := DUPLICATE_SPANS_RE.search(line):
+        name = match.group(1)
+        return [(idx + 1, f"Found nested identical span macros: 'span_{name}' inside another 'span_{name}'.")]
+    return failures
+
+def check_updatepaths_validity():
     updatepaths_dir = "tools/UpdatePaths/Scripts/"
+    if not os.path.isdir(updatepaths_dir):
+        return []
 
-    # Check if the directory exists
-    if not os.path.exists(updatepaths_dir):
-        return failures
-
-    # Get all files in the directory
+    failures = []
     try:
-        files = [f for f in os.listdir(updatepaths_dir) if os.path.isfile(os.path.join(updatepaths_dir, f))]
+        for entry in os.scandir(updatepaths_dir):
+            if not entry.is_file():
+                continue
+
+            filename = entry.name
+            path = entry.path
+            if not filename.endswith('.txt'):
+                failures.append(Failure(path, 0, "UpdatePaths file missing .txt extension."))
+            if filename and not filename[0].isdigit():
+                failures.append(Failure(path, 0, "UpdatePaths file missing PR number prefix."))
+
     except OSError:
-        return failures
-
-    # Check each file
-    for filename in files:
-        filepath = os.path.join(updatepaths_dir, filename)
-
-        # Check if file has .txt extension
-        if not filename.endswith('.txt'):
-            failures.append(Failure(filepath, 0, "Found an UpdatePaths File that doesn't end in .txt! Please add the proper file extension!"))
-
-        # Check if file starts with number prefix
-        if not re.match(r'^\d+_', filename):
-            failures.append(Failure(filepath, 0, "Detected an UpdatePaths File that doesn't start with the PR number! Please add the proper number prefix!"))
+        pass
 
     return failures
 
@@ -369,6 +346,7 @@ CODE_CHECKS = [
     check_as_anything_internal,
     check_ie_typo,
     check_define_formatting,
+    check_duplicate_spans,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
