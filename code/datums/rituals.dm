@@ -283,7 +283,7 @@
 
 	var/list/destinations = list()
 
-	for(var/obj/item/beacon/beacon in GLOB.global_radios)
+	for(var/obj/item/beacon/beacon in GLOB.beacons)
 		LAZYADD(destinations, get_turf(beacon))
 
 	human.forceMove(safepick(destinations))
