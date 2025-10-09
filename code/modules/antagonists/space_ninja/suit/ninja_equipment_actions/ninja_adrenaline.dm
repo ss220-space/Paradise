@@ -9,7 +9,6 @@
 	charge_max = 1
 	button_icon_state = "adrenal"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
-	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green_active"
 	action_initialisation_text = "Integrated Adrenaline Injector"
 

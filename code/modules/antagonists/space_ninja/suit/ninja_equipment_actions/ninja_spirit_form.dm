@@ -9,7 +9,6 @@
 	charge_max = 25 SECONDS
 	button_icon_state = "ninja_spirit_form"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
-	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Spirit Form Prototype Module"
 

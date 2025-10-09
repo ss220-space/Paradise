@@ -1,6 +1,5 @@
 //Preset for general and toggled actions
 /datum/action/innate
-	check_flags = NONE
 	/// Whether we're active or not, if we're a innate - toggle action.
 	var/active = FALSE
 	/// Whether we're a click action or not, if we're a innate - click action.

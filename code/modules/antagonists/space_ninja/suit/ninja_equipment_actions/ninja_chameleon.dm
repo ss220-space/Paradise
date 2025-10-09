@@ -9,7 +9,6 @@
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "chameleon"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
-	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Kitsune - Adaptive Chameleon Device"
 

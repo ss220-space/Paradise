@@ -5,7 +5,6 @@
 	charge_max = 3 SECONDS
 	button_icon_state = "emergency_blink"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
-	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Void-Shift - Emergency Blink System"
 

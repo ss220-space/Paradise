@@ -81,7 +81,6 @@
 	desc = "A module installed in the wrist of your hardsuit, this highly illegal module uses a hardlight hook to forcefully pull a target towards you at high speed, knocking them down and partially exhausting them."
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 6 SECONDS
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "hook"
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/toggle_hook()
@@ -195,7 +194,6 @@
 	name = "Advanced hardsuit chameleon module"
 	desc = "An advanced version of chameleon tech, allowing you to disguise your hardsuit, giving you the opportunity to walk in full view of security and personnel without any difficulties."
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "chameleon"
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/toggle_chameleon()

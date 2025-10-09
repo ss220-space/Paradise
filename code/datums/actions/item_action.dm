@@ -57,7 +57,6 @@
 
 /datum/action/item_action/print_forensic_report
 	name = "Печать отчёта"
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "scanner_print"
 
 /datum/action/item_action/clear_records

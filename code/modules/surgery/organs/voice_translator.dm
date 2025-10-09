@@ -354,7 +354,6 @@
 /datum/action/item_action/organ_action/wingdings_decoder
 	name = "Переключить дешифратор Вингдингс"
 	button_icon_state = "wingdings_off"
-	button_icon = 'icons/mob/actions/actions.dmi'
 
 
 /datum/action/item_action/organ_action/wingdings_decoder/proc/update_button_state()

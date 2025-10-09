@@ -8,7 +8,6 @@
 	charge_max = 4 SECONDS
 	button_icon_state = "emp"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
-	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Concentrated Electro-Magnetic Pulse Emitter"
 

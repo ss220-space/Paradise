@@ -473,7 +473,6 @@
 /datum/action/item_action/remove_card
 	name = "Убрать карту"
 	desc = "Убрать одну карту из руки."
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "remove_card"
 
 
@@ -496,7 +495,6 @@
 /datum/action/item_action/discard
 	name = "Сбросить"
 	desc = "Положить карту(ы) из вашей руки перед собой."
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "discard"
 
 
