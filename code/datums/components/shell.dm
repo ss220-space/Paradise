@@ -136,7 +136,7 @@
 		return
 
 	examine_text += span_notice("Установлена интегральная схема. Используйте мультитул для доступа к проводке. Используйте отвертку, чтобы снять его с [source.declent_ru(GENITIVE)].")
-	examine_text += span_notice("Крышка интегральной схемы [locked? "закрыта" : "открыта"].")
+	examine_text += span_notice("Крышка интегральной схемы [locked ? "закрыта" : "открыта"].")
 	var/obj/item/stock_parts/cell/cell = attached_circuit.cell
 	if(cell)
 		examine_text += span_notice("Заряд элемента питания: [round(cell.percent(), 1)]%.")

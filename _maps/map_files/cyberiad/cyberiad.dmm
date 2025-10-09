@@ -70396,11 +70396,19 @@
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
-/obj/item/book/manual/sop_science{
-	pixel_y = -14
+/obj/item/compact_remote{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/item/compact_remote{
+	pixel_x = 7;
+	pixel_y = 7
 	},
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
+/obj/item/book/manual/sop_science{
+	pixel_y = -14
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

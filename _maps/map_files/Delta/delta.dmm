@@ -85286,10 +85286,21 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
 	},
-/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/hello_world{
+	pixel_x = -2;
+	pixel_y = -5
+	},
 /obj/item/integrated_circuit/loaded/speech_relay{
-	pixel_y = 5;
-	pixel_x = 7
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/obj/item/compact_remote{
+	pixel_x = 7;
+	pixel_y = 0
+	},
+/obj/item/compact_remote{
+	pixel_x = -4;
+	pixel_y = 13
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"

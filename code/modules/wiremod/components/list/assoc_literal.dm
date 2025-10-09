@@ -4,7 +4,7 @@
  * Return an associative list literal.
  */
 /obj/item/circuit_component/assoc_literal
-	display_name = "Ассоциативный список - элемент"
+	display_name = "Ассоциативный список — элемент"
 	desc = "Компонент, который возвращает ассоциативный список, состоящий из входных данных."
 	category = "List"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL

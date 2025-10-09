@@ -1,5 +1,5 @@
-#define COMP_BAR_OVERLAY_VERTICAL "Vertical"
-#define COMP_BAR_OVERLAY_HORIZONTAL "Horizontal"
+#define COMP_BAR_OVERLAY_VERTICAL "Вертикальный"
+#define COMP_BAR_OVERLAY_HORIZONTAL "Горизонтальный"
 
 /**
  * # Bar Overlay Component
@@ -15,8 +15,6 @@
 	var/datum/port/input/option/bar_overlay_options
 	var/datum/port/input/bar_number
 
-	var/overlay_limit = 10
-
 /obj/item/circuit_component/object_overlay/bar/populate_ports()
 	. = ..()
 	bar_number = add_input_port("Число", PORT_TYPE_NUMBER)
@@ -29,41 +27,16 @@
 	bar_overlay_options = add_option_port("Настройка столбца", component_options_bar)
 	options_map = component_options_bar
 
-/obj/item/circuit_component/object_overlay/bar/show_to_owner(atom/target_atom, mob/living/owner)
-	if(LAZYLEN(active_overlays) >= overlay_limit)
-		return
-
+/obj/item/circuit_component/object_overlay/bar/get_cool_overlay(atom/target_atom)
 	var/current_option = bar_overlay_options.value
-
-	var/datum/atom_hud/existing_overlay = active_overlays[target_atom.UID()]
-	if(!isnull(existing_overlay))
-		qdel(existing_overlay)
-
 	var/number_clear = clamp(bar_number.value, 0, 100)
+
 	if(current_option == COMP_BAR_OVERLAY_HORIZONTAL)
 		number_clear = round(number_clear / 6.25) * 6.25
 	else if(current_option == COMP_BAR_OVERLAY_VERTICAL)
 		number_clear = round(number_clear / 10) * 10
 
-	var/image/cool_overlay = image(icon = 'icons/hud/screen_bci.dmi', loc = target_atom, icon_state = "[options_map[current_option]][number_clear]", layer = RIPPLE_LAYER)
-	SET_PLANE_EXPLICIT(cool_overlay, ABOVE_LIGHTING_PLANE, target_atom)
-
-	if(image_pixel_x.value != null)
-		cool_overlay.pixel_x = image_pixel_x.value
-
-	if(image_pixel_y.value != null)
-		cool_overlay.pixel_y = image_pixel_y.value
-
-	var/datum/atom_hud/alternate_appearance/basic/one_person/alt_appearance = target_atom.add_alt_appearance(
-		/datum/atom_hud/alternate_appearance/basic/one_person,
-		"bar_overlay_[UID()]",
-		cool_overlay,
-		null,
-		owner,
-	)
-	alt_appearance.show_to(owner)
-
-	active_overlays[target_atom.UID()] = alt_appearance
+	return image(icon = 'icons/hud/screen_bci.dmi', loc = target_atom, icon_state = "[options_map[current_option]][number_clear]", layer = RIPPLE_LAYER)
 
 #undef COMP_BAR_OVERLAY_VERTICAL
 #undef COMP_BAR_OVERLAY_HORIZONTAL

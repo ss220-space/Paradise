@@ -91149,6 +91149,8 @@
 /obj/item/multitool/circuit,
 /obj/item/multitool/circuit,
 /obj/item/multitool/circuit,
+/obj/item/compact_remote,
+/obj/item/compact_remote,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"

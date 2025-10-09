@@ -88,11 +88,11 @@
 		var/turf/location = get_turf(src)
 		var/time = time2text(world.realtime,"hh:mm:ss")
 
-		var/list/loggable_strings = list("[time] <B>:</B> The [QDELETED(parent_shell) ? "null circuit shell(?)" : parent_shell] @ location ([location.x],[location.y],[location.z]) transmitted the following signal <B>:</B> [format_frequency(current_freq)]/[signal_code] via the radio circuit component.")
+		var/list/loggable_strings = list("[time] <b>:</b> The [QDELETED(parent_shell) ? "null circuit shell(?)" : parent_shell] @ location ([location.x],[location.y],[location.z]) transmitted the following signal <b>:</b> [format_frequency(current_freq)]/[signal_code] via the radio circuit component.")
 		if(!isnull(owner_ckey))
-			loggable_strings += "<B>:</B> The person who inserted the signalling circuit component was very likely [owner_ckey]."
+			loggable_strings += "<b>:</b> The person who inserted the signalling circuit component was very likely [owner_ckey]."
 		if(!QDELETED(parent_shell))
-			loggable_strings += "<B>:</B> The last fingerprints on the containing shell was [parent_shell.fingerprintslast]."
+			loggable_strings += "<b>:</b> The last fingerprints on the containing shell was [parent_shell.fingerprintslast]."
 
 		var/loggable_string = loggable_strings.Join(" ")
 		GLOB.lastsignalers.Add(loggable_string)

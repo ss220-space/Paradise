@@ -63,7 +63,7 @@
 	name = "drone assembly"
 	icon_state = "setup_medium_med-open"
 	shell_to_spawn = /mob/living/simple_animal/circuit_drone
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_HUGE
 
 /obj/item/shell/drone/get_ru_names()
 	return list(
@@ -79,6 +79,7 @@
 	name = "server assembly"
 	icon_state = "setup_stationary-open"
 	shell_to_spawn = /obj/structure/server
+	w_class = WEIGHT_CLASS_HUGE
 	screw_delay = 10 SECONDS
 
 /obj/item/shell/server/get_ru_names()
@@ -97,7 +98,7 @@
 	icon_state = "construction"
 	shell_to_spawn = /obj/machinery/door/airlock/shell
 	screw_delay = 10 SECONDS
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_HUGE
 
 /obj/item/shell/airlock/get_ru_names()
 	return list(

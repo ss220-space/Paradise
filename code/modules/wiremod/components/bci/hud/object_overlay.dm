@@ -7,6 +7,17 @@
 
 #define OBJECT_OVERLAY_LIMIT 10
 
+#define HUD_CORNERS_BLUE "Углы (синие)"
+#define HUD_CORNERS_RED "Углы (красные)"
+#define HUD_CIRCLE_BLUE "Круг (синий)"
+#define HUD_CIRCLE_RED "Круг (красный)"
+#define HUD_SMALL_CORNERS_BLUE "Малые углы (синие)"
+#define HUD_SMALL_CORNERS_RED "Малые углы (красные)"
+#define HUD_TRIANGLE_BLUE "Треугольник (синий)"
+#define HUD_TRIANGLE_RED "Треугольник (красный)"
+#define HUD_MARK_BLUE "Метка HUD (синяя)"
+#define HUD_MARK_RED "Метка HUD (красная)"
+
 /obj/item/circuit_component/object_overlay
 	display_name = "Отображение маркировки"
 	desc = "Требуется оболочка BCI. Компонент, отображающий маркировку поверх объекта."
@@ -23,15 +34,19 @@
 	var/datum/port/input/image_pixel_y
 	var/datum/port/input/image_rotation
 
-	/// On/Off signals
+	/// On signal
 	var/datum/port/input/signal_on
+	/// Off signal
 	var/datum/port/input/signal_off
+
+	/// Off all active huds
+	var/datum/port/input/signal_off_all
 
 	/// Reference to the BCI we're implanted inside
 	var/obj/item/organ/internal/cyberimp/brain/bci/bci
 
-	/// Assoc list of REF to the target atom to the overlay alt appearance it is using
-	var/list/active_overlays = list()
+	/// Assoc list of UID to the target atom to the overlay alt appearance it is using
+	var/list/active_overlays
 
 	var/list/options_map
 
@@ -40,6 +55,8 @@
 
 	signal_on = add_input_port("Создать", PORT_TYPE_SIGNAL)
 	signal_off = add_input_port("Убрать", PORT_TYPE_SIGNAL)
+
+	signal_off_all = add_input_port("Убрать Всё", PORT_TYPE_SIGNAL)
 
 	image_pixel_x = add_input_port("X", PORT_TYPE_NUMBER)
 	image_pixel_y = add_input_port("Y", PORT_TYPE_NUMBER)
@@ -51,24 +68,27 @@
 
 /obj/item/circuit_component/object_overlay/populate_options()
 	var/static/component_options = list(
-		"Corners (Blue)" = "hud_corners",
-		"Corners (Red)" = "hud_corners_red",
-		"Circle (Blue)" = "hud_circle",
-		"Circle (Red)" = "hud_circle_red",
-		"Small Corners (Blue)" = "hud_corners_small",
-		"Small Corners (Red)" = "hud_corners_small_red",
-		"Triangle (Blue)" = "hud_triangle",
-		"Triangle (Red)" = "hud_triangle_red",
-		"HUD mark (Blue)" = "hud_mark",
-		"HUD mark (Red)" = "hud_mark_red"
+		HUD_CORNERS_BLUE = "hud_corners",
+		HUD_CORNERS_RED  = "hud_corners_red",
+		HUD_CIRCLE_BLUE  = "hud_circle",
+		HUD_CIRCLE_RED  = "hud_circle_red",
+		HUD_SMALL_CORNERS_BLUE  = "hud_corners_small",
+		HUD_SMALL_CORNERS_RED  = "hud_corners_small_red",
+		HUD_TRIANGLE_BLUE  = "hud_triangle",
+		HUD_TRIANGLE_RED  = "hud_triangle_red",
+		HUD_MARK_BLUE  = "hud_mark",
+		HUD_MARK_RED  = "hud_mark_red",
 	)
+
 	object_overlay_options = add_option_port("Object", component_options)
 	options_map = component_options
 
 /obj/item/circuit_component/object_overlay/register_shell(atom/movable/shell)
-	if(istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))
-		bci = shell
-		RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
+	if(!istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))
+		return
+
+	bci = shell
+	RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/object_overlay/unregister_shell(atom/movable/shell)
 	bci = null
@@ -84,23 +104,27 @@
 	if(!istype(owner) || !owner.client || isnull(target_atom))
 		return
 
+	if(COMPONENT_TRIGGERED_BY(signal_off_all, port))
+		QDEL_LIST_ASSOC_VAL(active_overlays)
+		return
+
 	if(COMPONENT_TRIGGERED_BY(signal_on, port))
 		show_to_owner(target_atom, owner)
 
-	var/datum/atom_hud/existing_overlay = active_overlays[target_atom.UID()]
+	var/datum/atom_hud/existing_overlay = LAZYACCESS(active_overlays, target_atom.UID())
 	if(COMPONENT_TRIGGERED_BY(signal_off, port) && !isnull(existing_overlay))
 		qdel(existing_overlay)
 		active_overlays -= target_atom.UID()
 
 /obj/item/circuit_component/object_overlay/proc/show_to_owner(atom/target_atom, mob/living/owner)
-	if(length(active_overlays) >= OBJECT_OVERLAY_LIMIT)
+	if(length(active_overlays) > OBJECT_OVERLAY_LIMIT)
 		return
 
-	var/datum/atom_hud/existing_overlay = active_overlays[target_atom.UID()]
+	var/datum/atom_hud/existing_overlay = LAZYACCESS(active_overlays, target_atom.UID())
 	if(!isnull(existing_overlay))
 		qdel(existing_overlay)
 
-	var/image/cool_overlay = image(icon = 'icons/hud/screen_bci.dmi', loc = target_atom, icon_state = options_map[object_overlay_options.value], layer = RIPPLE_LAYER)
+	var/image/cool_overlay = get_cool_overlay(target_atom)
 	SET_PLANE_EXPLICIT(cool_overlay, ABOVE_LIGHTING_PLANE, target_atom)
 
 	if(image_pixel_x.value != null)
@@ -123,11 +147,27 @@
 	)
 	alt_appearance.show_to(owner)
 
-	active_overlays[target_atom.UID()] = alt_appearance
+	LAZYADDASSOC(active_overlays, target_atom.UID(), alt_appearance)
+
+/obj/item/circuit_component/object_overlay/proc/get_cool_overlay(atom/target_atom)
+	var/current_option = object_overlay_options.value
+	return image(icon = 'icons/hud/screen_bci.dmi', loc = target_atom, icon_state = options_map[current_option], layer = RIPPLE_LAYER)
 
 /obj/item/circuit_component/object_overlay/proc/on_organ_removed(datum/source, mob/living/carbon/owner)
 	SIGNAL_HANDLER
 
 	QDEL_LIST_ASSOC_VAL(active_overlays)
 
+
 #undef OBJECT_OVERLAY_LIMIT
+
+#undef HUD_CORNERS_BLUE
+#undef HUD_CORNERS_RED
+#undef HUD_CIRCLE_BLUE
+#undef HUD_CIRCLE_RED
+#undef HUD_SMALL_CORNERS_BLUE
+#undef HUD_SMALL_CORNERS_RED
+#undef HUD_TRIANGLE_BLUE
+#undef HUD_TRIANGLE_RED
+#undef HUD_MARK_BLUE
+#undef HUD_MARK_RED

@@ -6,8 +6,8 @@
  * Allows an MMI to be inserted into a shell, allowing it to be linked up. Requires a shell.
  */
 /obj/item/circuit_component/mmi
-	display_name = "Человеко-Машинный Интерфейс"
-	desc = "Компонент, позволяющий ЧМИ входить в оболочки для отправки выходных сигналов."
+	display_name = "Нейро-Компьютерный Интерфейс"
+	desc = "Компонент, позволяющий НКИ входить в оболочки для отправки выходных сигналов."
 	category = "Action"
 	circuit_flags = CIRCUIT_FLAG_REFUSE_MODULE
 

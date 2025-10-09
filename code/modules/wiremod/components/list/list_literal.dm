@@ -4,7 +4,7 @@
  * Return a list literal.
  */
 /obj/item/circuit_component/list_literal
-	display_name = "Список - элемент"
+	display_name = "Список — элемент"
 	desc = "Компонент, который создает список на основе любых введенных вами данных."
 	category = "List"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL

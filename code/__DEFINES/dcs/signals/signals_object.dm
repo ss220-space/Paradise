@@ -78,6 +78,12 @@
 ///from /obj/machinery/door/airlock/set_bolt():
 #define COMSIG_AIRLOCK_SET_BOLT "airlock_set_bolt"
 
+// /obj/machinery/firealarm signals
+/// from /obj/machinery/firealarm/proc/alarm()
+#define COMSIG_FIREALARM_ON_TRIGGER "firealarm_trigger"
+/// from /obj/machinery/firealarm/proc/reset()
+#define COMSIG_FIREALARM_ON_RESET "firealarm_reset"
+
 // /obj/item/camera signals
 
 ///from /obj/item/camera/captureimage(): (atom/target, mob/user)

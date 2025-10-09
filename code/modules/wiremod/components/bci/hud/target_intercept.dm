@@ -47,7 +47,7 @@
 	if(TIMER_COOLDOWN_RUNNING(parent.shell, COOLDOWN_CIRCUIT_TARGET_INTERCEPT))
 		return
 
-	to_chat(owner, "<B>Left-click для активации перехватчика цели!</B>")
+	to_chat(owner, "<b>Left-click для активации перехватчика цели!</b>")
 	owner.client.click_intercept = src
 
 /obj/item/circuit_component/target_intercept/proc/on_organ_removed(datum/source, mob/living/carbon/owner)

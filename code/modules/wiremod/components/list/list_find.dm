@@ -4,7 +4,7 @@
  * Finds an element in a list and returns the index.
  */
 /obj/item/circuit_component/listin
-	display_name = "Список - поиск элемента"
+	display_name = "Список — поиск элемента"
 	desc = "Проверяет наличие элемента в списке и возвращает его индекс. В случае возникновения ошибки индексу присваивается значение 0."
 	category = "List"
 

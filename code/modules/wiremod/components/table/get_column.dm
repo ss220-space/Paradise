@@ -4,7 +4,7 @@
  * Gets the column of a table and returns it as a regular list.
  */
 /obj/item/circuit_component/get_column
-	display_name = "Таблица - получить"
+	display_name = "Таблица — получить"
 	desc = "Получает столбец таблицы и возвращает его как обычный список."
 	category = "List"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
