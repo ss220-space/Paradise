@@ -326,7 +326,7 @@
 	name = "White Sandals"
 	desc = "Medical sandals that nerds wear."
 	icon_state = "medsandal"
-	item_color = "medsandal"
+	item_state = "medsandal"
 
 /obj/item/clothing/shoes/sandal/fancy
 	name = "Fancy Sandals"

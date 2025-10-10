@@ -25,7 +25,7 @@
 	name = "brown shoes"
 	desc = "A pair of brown shoes."
 	icon_state = "brown"
-	item_color = "brown"
+	item_state = "brown"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/brown/captain
@@ -80,8 +80,8 @@
 /obj/item/clothing/shoes/white
 	name = "white shoes"
 	icon_state = "white"
+	item_state = "white"
 	permeability_coefficient = 0.01
-	item_color = "white"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/leather
