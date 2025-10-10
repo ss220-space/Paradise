@@ -34008,6 +34008,7 @@
 "pOx" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/addition_goals)
 "pOE" = (
@@ -43995,6 +43996,7 @@
 	roundstart_move = "addition_goal_dock";
 	width = 10
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/addition_goals)
 "ueC" = (
