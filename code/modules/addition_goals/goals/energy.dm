@@ -1,8 +1,8 @@
 // Energy support addition goal shuttle
 
-#define AGS_CREDITS_PER_SMES 10000
-#define AGS_CAPRGOPOINTS_PER_SMES 75
-#define AGS_FINE_CREDITS_PER_SMES 25000
+#define AGS_CREDITS_PER_SMES 15000
+#define AGS_CAPRGOPOINTS_PER_SMES 100
+#define AGS_FINE_CREDITS_PER_SMES 50000
 
 /datum/addition_goal/energy_support
 	id = "energy_support"
