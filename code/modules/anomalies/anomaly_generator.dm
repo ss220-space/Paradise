@@ -184,7 +184,7 @@
 
 		if("beakon")
 			var/list/options = list()
-			for(var/obj/item/beacon/possible_beacon in GLOB.beacons)
+			for(var/obj/item/beacon/possible_beacon as anything in GLOB.beacons)
 				var/turf/T = get_turf(possible_beacon)
 				if(!T)
 					continue

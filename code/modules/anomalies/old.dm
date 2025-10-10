@@ -247,7 +247,7 @@
 		// Calculate new position (searches through beacons in world)
 		var/obj/item/beacon/chosen
 		var/list/possible = list()
-		for(var/obj/item/beacon/W in GLOB.beacons)
+		for(var/obj/item/beacon/W as anything in GLOB.beacons)
 			if(!is_station_level(W.z))
 				continue
 			possible += W

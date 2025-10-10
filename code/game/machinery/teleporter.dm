@@ -214,7 +214,7 @@
 	var/list/areaindex = list()
 	var/turf/teleporter_turf = get_turf(src)
 	var/is_station_teleport = is_station_level(teleporter_turf.z)
-	for(var/obj/item/beacon/R in GLOB.beacons)
+	for(var/obj/item/beacon/R as anything in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
