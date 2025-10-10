@@ -1419,3 +1419,49 @@
 
 /datum/status_effect/transient/temperature/calc_decay()
 	return 0
+
+/datum/status_effect/krav_maga
+	id = "krav-maga debuff"
+	status_type = STATUS_EFFECT_UNIQUE
+
+/datum/status_effect/krav_maga/leg_sweep
+	id = "leg sweep"
+	duration = 6 SECONDS
+
+/datum/status_effect/krav_maga/leg_sweep/on_apply()
+	. = ..()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/leg_sweep)
+
+/datum/status_effect/transient/krav_maga/leg_sweep/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/leg_sweep)
+
+/datum/status_effect/krav_maga/lung_punch
+	id = "lung punch"
+	duration = 6 SECONDS
+
+/datum/status_effect/krav_maga/lung_punch/on_apply()
+	. = ..()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.physiology.stamina_mod /= 0.2
+		human_owner.stam_regen_start_modifier /= 0.5
+
+/datum/status_effect/krav_maga/lung_punch/on_remove()
+	. = ..()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.physiology.stamina_mod *= 0.2
+		human_owner.stam_regen_start_modifier *= 0.5
+
+/datum/status_effect/krav_maga/neck_chop
+	id = "neck chop"
+	duration = 6 SECONDS
+
+/datum/status_effect/krav_maga/neck_chop/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_HIGH_MISS_CHANCE, STATUS_EFFECT_TRAIT)
+
+/datum/status_effect/krav_maga/neck_chop/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_HIGH_MISS_CHANCE, STATUS_EFFECT_TRAIT)

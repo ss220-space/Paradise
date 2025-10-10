@@ -151,6 +151,8 @@
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown
 #define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
+#define STATUS_EFFECT_LEGSWEEP /datum/status_effect/krav_maga/leg_sweep
+#define STATUS_EFFECT_LUNGPUNCH /datum/status_effect/krav_maga/lung_punch
 
 // transient
 #define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion

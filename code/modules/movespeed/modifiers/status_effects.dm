@@ -20,3 +20,6 @@
 	conflicts_with = MOVE_CONFLICT_GOTTAGOFAST
 	multiplicative_slowdown = -1
 
+
+/datum/movespeed_modifier/status_effect/leg_sweep
+	multiplicative_slowdown = 0.6
