@@ -11,7 +11,8 @@
 				span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] пинком в грудь отправляет тебя в полёт!"))
 	playsound(target, 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
-	target.throw_at(throw_target, 7, 14, user)
+	target.throw_at(throw_target, 3, 14, user)
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST)
+	objective_damage(user, target, 15, BRUTE)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Crashing Waves Kick", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

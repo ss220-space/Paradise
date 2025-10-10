@@ -13,6 +13,7 @@
 	playsound(get_turf(target), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Gnashing Teeth", ATKLOG_ALL)
 	target.apply_damage(20, BRUTE, user.zone_selected, sharp = TRUE)
+	objective_damage(user, target, 20, BRUTE)
 	if(target.health >= 0)
 		user.say(pick("ХУ+АХ", "ХЬЯ!", "Ч+УУ!", "ВУ+О!", "КЬЯ!", "ХА!", "ХЬЁХ!", "УД+АР К+АРПА!", "УК+УС К+АРПА!"))
 	else
