@@ -276,6 +276,11 @@
 				replacer.play_rped_sound()
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
+			if(istype(I, /obj/item/storage/bag/construction) && length(I.contents) && get_req_components_amt())
+				var/obj/item/storage/bag/construction/bag = I
+				INVOKE_ASYNC(src, PROC_REF(apply_parts_from_construction_bag), bag, user)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+
 			if(isitem(I))
 				var/success = FALSE
 				for(var/path in req_components)
@@ -306,6 +311,23 @@
 
 				return ATTACK_CHAIN_BLOCKED_ALL
 
+/obj/machinery/constructable_frame/machine_frame/proc/apply_parts_from_construction_bag(obj/item/storage/bag/construction/bag, mob/user, count = 0)
+	var/list/part_list = list()
+	//Assemble a list of current parts, then sort them by their rating!
+	for(var/obj/item/stock_parts/part in bag)
+		part_list += part
+	for(var/path in req_components)
+		if(req_components[path] > 0 && (locate(path) in part_list))
+			if(!do_after(user, 0.7 SECONDS, src, interaction_key = bag, max_interact_count = 1))
+				return FALSE
+			var/obj/item/part = (locate(path) in part_list)
+			bag.remove_from_storage(part, src)
+			req_components[path]--
+			components += part
+			to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставлен."))
+			return apply_parts_from_construction_bag(bag, user, count + 1)
+	balloon_alert(user, "вставлено [count] деталей")
+	return TRUE
 
 #undef STATE_EMPTY
 #undef STATE_WIRED
