@@ -364,13 +364,14 @@
 
 /obj/item/clothing/gloves/color/latex/inugami/attack_self(mob/living/carbon/human/user)
 	. = ..()
-	active = !active
-	if(active)
-		AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
-		user.balloon_alert(user, "дефибриллятор активирован")
-	else
+	if(HAS_TRAIT_FROM(src, INUGAMI_TRAIT, UNIQUE_TRAIT_SOURCE(src)))
+		REMOVE_TRAIT(src, INUGAMI_TRAIT, UNIQUE_TRAIT_SOURCE(src))
 		qdel(GetComponent(/datum/component/defib))
 		user.balloon_alert(user, "дефибриллятор деактивирован")
+	else
+		ADD_TRAIT(src, INUGAMI_TRAIT, UNIQUE_TRAIT_SOURCE(src))
+		AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
+		user.balloon_alert(user, "дефибриллятор активирован")
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
