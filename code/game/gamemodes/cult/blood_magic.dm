@@ -2,6 +2,7 @@
 	name = "Prepare Blood Magic"
 	button_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
+	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
 
@@ -9,6 +10,26 @@
 	for(var/X in spells)
 		qdel(X)
 	..()
+
+/datum/action/innate/cult/blood_magic/proc/Positioning()
+	for(var/datum/hud/hud as anything in viewers)
+		var/our_view = hud.mymob?.canon_client?.view || "15x15"
+		var/atom/movable/screen/movable/action_button/button = viewers[hud]
+		var/position = screen_loc_to_offset(button.screen_loc)
+		var/list/position_list = list()
+		for(var/possible_position in 1 to MAX_BLOODCHARGE)
+			position_list += possible_position
+		for(var/datum/action/innate/cult/blood_spell/blood_spell in spells)
+			if(blood_spell.positioned)
+				position_list.Remove(blood_spell.positioned)
+				continue
+			var/atom/movable/screen/movable/action_button/moving_button = blood_spell.viewers[hud]
+			if(!moving_button)
+				continue
+			var/first_available_slot = position_list[1]
+			var/our_x = position[1] + first_available_slot * ICON_SIZE_X // Offset any new buttons into our list
+			hud.position_action(moving_button, offset_to_screen_loc(our_x, position[2], our_view))
+			blood_spell.positioned = first_available_slot
 
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
@@ -60,6 +81,7 @@
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		spells += new_spell
 		new_spell.Grant(owner, src)
+		Positioning()
 		to_chat(owner, span_cult("Your wounds glow with power, you have prepared a [new_spell.name] invocation!"))
 	channeling = FALSE
 
@@ -79,7 +101,8 @@
 	var/base_desc //To allow for updating tooltips
 	var/invocation = "Hoi there something's wrong!"
 	var/health_cost = 0
-	default_button_position = SCRN_OBJ_INSERT_FIRST
+	/// Have we already been positioned into our starting location?
+	var/positioned = FALSE
 
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
