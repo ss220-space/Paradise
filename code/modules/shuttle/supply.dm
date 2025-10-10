@@ -321,7 +321,10 @@
 	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
 	Crate.ru_names = new /list(6)
 	for(var/i = 1; i <= 6; i++)
-		Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
+		if(i < length(object.container_ru_names))
+			Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
+		else
+			Crate.ru_names[i] = Crate.name
 
 	if(object.access)
 		Crate:req_access = list(text2num(object.access))
