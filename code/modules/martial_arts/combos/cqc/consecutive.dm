@@ -1,19 +1,16 @@
 /datum/martial_combo/cqc/consecutive
-	name = "Consecutive CQC"
+	name = "Последовательные атаки"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Mainly offensive move, huge damage and decent stamina damage."
+	explaination_text = "В основе своей атакующий приём. Большой урон по стамине и небольшой урон травмами."
 
 /datum/martial_combo/cqc/consecutive/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(!target.stat)
-		target.visible_message(span_warning("[user] strikes [target]'s abdomen, neck and back consecutively"), \
-							span_userdanger("[user] strikes your abdomen, neck and back consecutively!"))
-		playsound(get_turf(target), 'sound/weapons/cqchit2.ogg', 50, TRUE, -1)
-		var/obj/item/I = target.get_active_hand()
-		if(I && target.drop_from_active_hand())
-			user.put_in_hands(I, ignore_anim = FALSE)
-		target.apply_damage(50, STAMINA)
-		target.apply_damage(25, BRUTE)
-		objective_damage(user, target, 25, BRUTE)
-		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Consecutive", ATKLOG_ALL)
-		return MARTIAL_COMBO_DONE
-	return MARTIAL_COMBO_FAIL
+	if(target.stat)
+		return MARTIAL_COMBO_FAIL
+	target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] нанос[pluralize_ru(user.gender, "ит", "ят")] последовательные удары по животу, шее и спине [target.declent_ru(ACCUSATIVE)]"), \
+						span_userdanger("[user] strikes your abdomen, neck and back consecutively!"))
+	playsound(get_turf(target), 'sound/weapons/cqchit2.ogg', 50, TRUE, -1)
+	target.apply_damage(50, STAMINA)
+	target.apply_damage(25, BRUTE)
+	objective_damage(user, target, 25, BRUTE)
+	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Consecutive", ATKLOG_ALL)
+	return MARTIAL_COMBO_DONE

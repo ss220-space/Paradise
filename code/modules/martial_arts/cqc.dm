@@ -1,5 +1,5 @@
 /datum/martial_art/cqc
-	name = "CQC"
+	name = "Техника Рукопашного Боя"
 	weight = 7
 	block_chance = 75
 	has_explaination_verb = TRUE
@@ -23,7 +23,7 @@
 														))
 
 /datum/martial_art/cqc/under_siege
-	name = "Close Quarters Cooking"
+	name = "Техника Рукопашной Готовки"
 	weight = 5
 
 /datum/martial_art/cqc/under_siege/teach(mob/living/carbon/human/H, make_temporary)
@@ -60,8 +60,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/old_grab_state = attacker.grab_state
 	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
-	if(grab_success && old_grab_state == GRAB_PASSIVE)
-		defender.grippedby(attacker)	//Instant aggressive grab
+	if(grab_success && old_grab_state == GRAB_PASSIVE && defender.getStaminaLoss() >= 50)
+		defender.grippedby(attacker)
 		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
 	return TRUE
 
@@ -69,28 +69,28 @@
 	MARTIAL_ARTS_ACT_CHECK
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
-	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
+	var/picked_hit_type = pick("бь[pluralize_ru(A.gender, "ёт", "ют")]", "руб[pluralize_ru(A.gender, "ит", "ят")]", "забива[pluralize_ru(A.gender, "ет", "ют")]")
 	var/bonus_damage = 13
-	if(D.body_position == LYING_DOWN)
+	if(IS_HORIZONTAL(D))
 		bonus_damage += 5
-		picked_hit_type = "stomps on"
+		picked_hit_type = "дав[pluralize_ru(A.gender, "ит", "ят")]"
 
 	D.apply_damage(bonus_damage, BRUTE)
 	objective_damage(A, D, bonus_damage, BRUTE)
 
-	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
+	if(picked_hit_type == "бь[pluralize_ru(A.gender, "ет", "ют")]" || picked_hit_type == "дав[pluralize_ru(A.gender, "ит", "ят")]")
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, TRUE, -1)
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 	D.visible_message(
-		span_danger("[A] [picked_hit_type] [D]!"), \
-		span_userdanger("[A] [picked_hit_type] you!")
+		span_danger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] [D.declent_ru(ACCUSATIVE)]!"), \
+		span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] тебя!")
 	)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(A.resting && !D.stat && D.body_position != LYING_DOWN)
 		D.visible_message(
-			"<span class='warning'>[A] leg sweeps [D]!", \
-			span_userdanger("[A] leg sweeps you!")
+			span_warning("[capitalize(A.declent_ru(NOMINATIVE))] дела[pluralize_ru(A.gender, "ет", "ют")] подсечку [D.declent_ru(ACCUSATIVE)]!"), \
+			span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] дела[pluralize_ru(A.gender, "ет", "ют")] подсечку тебе!")
 		)
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 		D.apply_damage(10, BRUTE)
@@ -102,9 +102,9 @@
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	if(restraining && A.pulling && A.pulling == D)
-		D.visible_message(span_danger("[A] puts [D] into a chokehold!"), \
-							span_userdanger("[A] puts you into a chokehold!"))
-		D.SetSleeping(20 SECONDS)
+		D.visible_message(span_danger("[capitalize(A.declent_ru(NOMINATIVE))] усыпля[pluralize_ru(A.gender, "ет", "ют")] [D.declent_ru(ACCUSATIVE)]!"), \
+							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] усыпляет тебя!"))
+		D.SetSleeping(5 SECONDS)
 		restraining = FALSE
 		if(A.grab_state < GRAB_NECK)
 			A.setGrabState(GRAB_NECK)
@@ -112,28 +112,11 @@
 	else
 		restraining = FALSE
 
-	var/obj/item/I = null
-
-	if(prob(50))
-		if(!D.stat || D.body_position != LYING_DOWN || !restraining)
-			I = D.get_active_hand()
-			D.visible_message(span_warning("[A] strikes [D]'s jaw with their hand!"), \
-								span_userdanger("[A] strikes your jaw, disorienting you!"))
-			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
-			if(I && D.drop_from_active_hand())
-				A.put_in_hands(I, ignore_anim = FALSE)
-			D.Jitter(4 SECONDS)
-			D.apply_damage(5, BRUTE)
-			objective_damage(A, D, 5, BRUTE)
-	else
-		D.visible_message(span_danger("[A] attempted to disarm [D]!"), span_userdanger("[A] attempted to disarm [D]!"))
-		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-
-	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/cqc/explaination_header(user)
-	to_chat(user, "<b><i>You try to remember some of the basics of CQC.</i></b>")
+	to_chat(user, "<b><i>Ты пытаешься вспомнить некоторые основы рукопашного боя.</i></b>")
 
 /datum/martial_art/cqc/explaination_footer(user)
-	to_chat(user, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
+	to_chat(user, "<b><i>В дополнение, ты можешь блокировать удары с активным режимом броска.</i></b>")

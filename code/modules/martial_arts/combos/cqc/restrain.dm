@@ -1,7 +1,7 @@
 /datum/martial_combo/cqc/restrain
-	name = "Restrain"
+	name = "Захват"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Locks opponents into a restraining position. Disarm grabbed opponents after combo to knock them out with a choke hold."
+	explaination_text = "Ты обездвиживаешь оппонента. Продолжи комбо 'обезоруживанием' чтобы усыпить противника."
 
 /datum/martial_combo/cqc/restrain/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	var/datum/martial_art/cqc/CQC = MA
@@ -10,10 +10,10 @@
 	if(CQC.restraining)
 		return MARTIAL_COMBO_FAIL
 	if(!target.stat)
-		target.visible_message(span_warning("[user] locks [target] into a restraining position!"), \
-							span_userdanger("[user] locks you into a restraining position!"))
+		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] захватыва[pluralize_ru(user.gender, "ет", "ют")] и обездвижива[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)]!"), \
+							span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] захватыва[pluralize_ru(user.gender, "ет", "ют")] и обездвижива[pluralize_ru(user.gender, "ет", "ют")] тебя!"))
 		target.apply_damage(30, STAMINA)
-		target.Stun(4 SECONDS)
+		target.Stun(2 SECONDS)
 		CQC.restraining = TRUE
 		addtimer(CALLBACK(CQC, TYPE_PROC_REF(/datum/martial_art/cqc, drop_restraining)), 50, TIMER_UNIQUE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Restrain", ATKLOG_ALL)
