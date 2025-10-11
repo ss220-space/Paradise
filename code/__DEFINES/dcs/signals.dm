@@ -1552,3 +1552,7 @@
 
 /// Called when using tool from toolbox via radial menu
 #define COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE "toolbox_radial_menu_tool_usage"
+/// From /datum/diablerie_level/proc/gain()
+#define SIGNAL_DIABLERIE_LEVEL_GAIN "diablerie_level_gain"
+/// From /datum/diablerie_level/proc/remove()
+#define SIGNAL_DIABLERIE_LEVEL_REMOVE "diablerie_level_remove"

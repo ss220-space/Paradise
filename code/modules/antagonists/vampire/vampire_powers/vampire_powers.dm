@@ -60,6 +60,12 @@
 	. = ..()
 	REMOVE_TRAIT(vampire_datum.owner.current, TRAIT_VIRUSIMMUNE, VAMPIRE_TRAIT)
 
+/datum/vampire_passive/regen_bleeding
+	gain_desc = "Теперь ваша способность «Восстановление» лечит внетренние кровотечения."
+
+/datum/vampire_passive/glare_aoe
+	gain_desc = "Теперь ваша способность «Вспышка» не зависит от направления взгляда."
+
 
 /obj/effect/proc_holder/spell/vampire
 	name = "Report Me"
@@ -107,9 +113,20 @@
 	action_icon_state = "vampire_rejuvinate"
 	base_cooldown = 20 SECONDS
 	stat_allowed = UNCONSCIOUS
-	/// Acquired at diablerie level 3, stops one random internal bleeding
-	var/diablerie_bonus = FALSE
 
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/on_spell_gain(mob/user)
+	. = ..()
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	RegisterSignal(vampire, SIGNAL_DIABLERIE_LEVEL_GAIN, PROC_REF(on_diablerie_level_gain))
+	RegisterSignal(vampire, SIGNAL_DIABLERIE_LEVEL_REMOVE, PROC_REF(on_diablerie_level_remove))
+
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/on_diablerie_level_gain(datum/source, datum/diablerie_level/level)
+	SIGNAL_HANDLER
+	level.upgrade_rejuvenate_charges(cooldown_handler)
+
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/on_diablerie_level_remove(datum/source, datum/diablerie_level/level)
+	SIGNAL_HANDLER
+	level.downgrade_rejuvenate_charges(cooldown_handler)
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/create_new_cooldown()
 	var/datum/spell_cooldown/charges/cooldown = new
@@ -117,7 +134,6 @@
 	cooldown.recharge_duration = base_cooldown
 	cooldown.charge_duration = 5 SECONDS
 	return cooldown
-
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/living/user = usr)
 	// mech supress escape
@@ -140,7 +156,8 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/carbon/human/user, rejuv_bonus)
-	if(diablerie_bonus)
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire.get_ability(/datum/vampire_passive/regen_bleeding))
 		var/list/internal_bleedings = user.check_internal_bleedings()
 		if(length(internal_bleedings))
 			var/obj/item/organ/external/bodypart = pick(internal_bleedings)
@@ -256,8 +273,20 @@
 	action_icon_state = "vampire_glare"
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
-	/// If TRUE, glare ignores deviation and always works as if we are face to face with our victim
-	var/ignore_deviation = FALSE
+
+/obj/effect/proc_holder/spell/vampire/glare/on_spell_gain(mob/user)
+	. = ..()
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	RegisterSignal(vampire, SIGNAL_DIABLERIE_LEVEL_GAIN, PROC_REF(on_diablerie_level_gain))
+	RegisterSignal(vampire, SIGNAL_DIABLERIE_LEVEL_REMOVE, PROC_REF(on_diablerie_level_remove))
+
+/obj/effect/proc_holder/spell/vampire/glare/proc/on_diablerie_level_gain(datum/source, datum/diablerie_level/level)
+	SIGNAL_HANDLER
+	level.upgrade_glare_charges(cooldown_handler)
+
+/obj/effect/proc_holder/spell/vampire/glare/proc/on_diablerie_level_remove(datum/source, datum/diablerie_level/level)
+	SIGNAL_HANDLER
+	level.downgrade_glare_charges(cooldown_handler)
 
 
 /obj/effect/proc_holder/spell/vampire/glare/create_new_targeting()
@@ -296,9 +325,10 @@
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 0.2 SECONDS)
 	user.visible_message(span_warning("Глаза [user] испускают ослепительную вспышку!"))
 
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	for(var/mob/living/target as anything in targets)
 		var/deviation
-		if(ignore_deviation)
+		if(vampire.get_ability(/datum/vampire_passive/glare_aoe))
 			deviation = DEVIATION_NONE
 
 		else if(user.body_position == LYING_DOWN)

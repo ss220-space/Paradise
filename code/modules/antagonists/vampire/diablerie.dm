@@ -181,33 +181,6 @@
 	while(level_to_force < diablerie_count)
 		decrease_diablerie_level()
 
-
-/**
- * Upgrades rejuvenate max_charges to 2 at level 1 and internal bleedings heal at level 3
- */
-/datum/diablerie/proc/upgrade_rejuvenate(upgrade_heal = FALSE)
-	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in vampire_datum.powers
-	if(upgrade_heal)
-		rejuvenate.diablerie_bonus = TRUE
-		return
-
-	var/datum/spell_cooldown/charges/charges = rejuvenate.cooldown_handler
-	charges.change_cooldowns(new_max_charges = 2)
-
-
-/**
- * Upgrades glare max_charges to 3 at level 2 and adds deviation ignore at level 4
- */
-/datum/diablerie/proc/upgrade_glare(upgrade_deviation = FALSE)
-	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in vampire_datum.powers
-	if(upgrade_deviation)
-		glare.ignore_deviation = TRUE
-		return
-
-	var/datum/spell_cooldown/charges/charges = glare.cooldown_handler
-	charges.change_cooldowns(new_max_charges = 3)
-
-
 /**
  * Handles vampire ascension announcment and changes security code to GAMMA
  */
@@ -252,14 +225,40 @@
  * Applies all special effects of the current level to vampire
  */
 /datum/diablerie_level/proc/gain(datum/diablerie/diablerie)
+	SEND_SIGNAL(diablerie.vampire_datum, SIGNAL_DIABLERIE_LEVEL_GAIN, src)
 	return
 
 /**
  * Removes all special effects of the current level from vampire
  */
 /datum/diablerie_level/proc/remove(datum/diablerie/diablerie)
+	SEND_SIGNAL(diablerie.vampire_datum, SIGNAL_DIABLERIE_LEVEL_REMOVE, src)
 	return
 
+
+/**
+ * Upgrades glare spells cooldown charges
+ */
+/datum/diablerie_level/proc/upgrade_glare_charges(datum/spell_cooldown/charges/charges)
+	return
+
+/**
+ * Upgrade rejuvenate spells cooldown charges
+ */
+/datum/diablerie_level/proc/upgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
+	return
+
+/**
+ * Downgrade glare spells cooldown charges
+ */
+/datum/diablerie_level/proc/downgrade_glare_charges(datum/spell_cooldown/charges/charges)
+	return
+
+/**
+ * Downgrade rejuvenate spells cooldown charges
+ */
+/datum/diablerie_level/proc/downgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
+	return
 
 /**
  * Upgrades rejuvenate charges to 2,
@@ -267,9 +266,8 @@
  * sucking 35 units of blood per cycle
 */
 /datum/diablerie_level/level_one/gain(datum/diablerie/diablerie)
+	. = ..()
 	var/mob/living/carbon/human/vampire = diablerie.vampire
-
-	diablerie.upgrade_rejuvenate()
 
 	diablerie.add_diablerie_aura()
 
@@ -277,16 +275,18 @@
 
 	to_chat(vampire, span_boldnotice("Сила вашего \"Восстановления\" возросла, и вы можете применять его больше раз. Кроме того, вам более не нужно дышать."))
 
+/datum/diablerie_level/level_one/upgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
+	charges.change_cooldowns(new_max_charges = (charges.max_charges + 1))
 
 /datum/diablerie_level/level_one/remove(datum/diablerie/diablerie)
-	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in diablerie.vampire_datum.powers
-	var/datum/spell_cooldown/charges/charges = rejuvenate.cooldown_handler
-	charges.change_cooldowns(new_max_charges = 1)
+	. = ..()
 
 	diablerie.remove_diablerie_aura()
 
 	REMOVE_TRAIT(diablerie.vampire, TRAIT_NO_BREATH, VAMPIRE_TRAIT)
 
+/datum/diablerie_level/level_one/downgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
+	charges.change_cooldowns(new_max_charges = (charges.max_charges - 1))
 
 /**
  * Upgrades glare charges to 3,
@@ -294,31 +294,32 @@
  * sucking 40 units of blood per cycle
  */
 /datum/diablerie_level/level_two/gain(datum/diablerie/diablerie)
+	. = ..()
 	var/mob/living/carbon/human/vampire = diablerie.vampire
-
-	diablerie.upgrade_glare()
-
 	// If the vampire doesn't cover his face, examination will reveal his dark nature
 	if(!vampire.original_eye_color)
 		vampire.original_eye_color = vampire.get_eye_color()
+
 	ADD_TRAIT(vampire, TRAIT_RED_EYES, VAMPIRE_TRAIT)
 	vampire.change_eye_color(COLOR_RED, FALSE)
 
 	to_chat(vampire, span_boldnotice("Сила вашего взгляда возросла, и вы можете больше раз применять \"Вспышку\". Ваши глаза наливаются кроваво-красным светом."))
 
+/datum/diablerie_level/level_two/upgrade_glare_charges(datum/spell_cooldown/charges/charges)
+	charges.change_cooldowns(new_max_charges = (charges.max_charges + 1))
 
 /datum/diablerie_level/level_two/remove(datum/diablerie/diablerie)
+	. = ..()
 	var/mob/living/carbon/human/vampire = diablerie.vampire
-
-	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in diablerie.vampire_datum.powers
-	var/datum/spell_cooldown/charges/charges = glare.cooldown_handler
-	charges.change_cooldowns(new_max_charges = 2)
 
 	if(!vampire.original_eye_color)
 		vampire.original_eye_color = vampire.get_eye_color()
+
 	REMOVE_TRAIT(vampire, TRAIT_RED_EYES, VAMPIRE_TRAIT)
 	vampire.change_eye_color(vampire.original_eye_color, FALSE)
 
+/datum/diablerie_level/level_two/downgrade_glare_charges(datum/spell_cooldown/charges/charges)
+	charges.change_cooldowns(new_max_charges = (charges.max_charges - 1))
 
 /**
  * Rejuvenate now heals internal bleedings,
@@ -327,7 +328,8 @@
  * sucking 45 units of blood per cycle
  */
 /datum/diablerie_level/level_three/gain(datum/diablerie/diablerie)
-	diablerie.upgrade_rejuvenate(upgrade_heal = TRUE)
+	. = ..()
+	diablerie.vampire_datum.add_ability(/datum/vampire_passive/regen_bleeding)
 
 	diablerie.remove_diablerie_aura()
 	diablerie.add_diablerie_aura(ascended = TRUE)
@@ -336,8 +338,8 @@
 
 
 /datum/diablerie_level/level_three/remove(datum/diablerie/diablerie)
-	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in diablerie.vampire_datum.powers
-	rejuvenate.diablerie_bonus = FALSE
+	. = ..()
+	diablerie.vampire_datum.remove_ability(/datum/vampire_passive/regen_bleeding)
 
 	diablerie.remove_diablerie_aura(ascended = TRUE)
 	diablerie.add_diablerie_aura()
@@ -352,10 +354,11 @@
  * sucking 50 units of blood per cycle
  */
 /datum/diablerie_level/level_four/gain(datum/diablerie/diablerie)
+	. = ..()
 	var/datum/antagonist/vampire/vampire_datum = diablerie.vampire_datum
 	var/mob/living/carbon/human/vampire = diablerie.vampire
 
-	diablerie.upgrade_glare(upgrade_deviation = TRUE)
+	vampire_datum.add_ability(/datum/vampire_passive/glare_aoe)
 
 	vampire_datum.add_ability(/obj/effect/proc_holder/spell/vampire/raise_free_vampire)
 
@@ -372,11 +375,11 @@
 
 
 /datum/diablerie_level/level_four/remove(datum/diablerie/diablerie)
+	. = ..()
 	var/datum/antagonist/vampire/vampire_datum = diablerie.vampire_datum
 	var/mob/living/carbon/human/vampire = diablerie.vampire
 
-	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in vampire_datum.powers
-	glare.ignore_deviation = FALSE
+	vampire_datum.remove_ability(/datum/vampire_passive/glare_aoe)
 
 	var/obj/effect/proc_holder/spell/vampire/raise_free_vampire/raise_free_vampire = locate() in vampire_datum.powers
 	vampire_datum.remove_ability(raise_free_vampire)
