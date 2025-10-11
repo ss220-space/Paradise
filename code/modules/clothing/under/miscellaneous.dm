@@ -67,41 +67,112 @@
 
 /obj/item/clothing/under/solgov
 	name = "Sol Federation marine uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces."
+	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерациии."
 	icon_state = "solgov"
-	item_state = "ro_suit"
+	item_state = "solgov"
 	item_color = "solgov"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	displays_id = 0
+
+/obj/item/clothing/under/solgov/forest
+	desc = "Комфортный и удобный лесной камуфляж Транс-Солнечной Федерациии."
+	icon_state = "solgov_forest"
+	item_state = "solgov_forest"
+	item_color = "solgov_forest"
+
+/obj/item/clothing/under/solgov/urban
+	desc = "Комфортный и удобный городской камуфляж Транс-Солнечной Федерациии."
+	icon_state = "solgov_urban"
+	item_state = "solgov_urban"
+	item_color = "solgov_urban"
+
+/obj/item/clothing/under/solgov/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа военно-морских сил Транс-Солнечной Федерации",
+		GENITIVE = "униформы военно-морских сил Транс-Солнечной Федерации",
+		DATIVE = "униформе военно-морских сил Транс-Солнечной Федерации",
+		ACCUSATIVE = "униформу военно-морских сил Транс-Солнечной Федерации",
+		INSTRUMENTAL = "униформой военно-морских сил Транс-Солнечной Федерации",
+		PREPOSITIONAL = "униформе военно-морских сил Транс-Солнечной Федерации"
+	)
 
 /obj/item/clothing/under/solgov/civ
 	desc = "Комфортная, воссоздающая военную униформу, одежда. Не похоже, что бы она защищала."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 
+/obj/item/clothing/under/solgov/forest/civ
+	desc = "Комфортная, воссоздающая лесной камуфляж, одежда. Не похоже, что бы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
+/obj/item/clothing/under/solgov/urban/civ
+	desc = "Комфортная, воссоздающая городской камуфляж, одежда. Не похоже, что бы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
+
 /obj/item/clothing/under/solgov/elite
 	name = "Trans-Solar Federation Specops marine uniform"
-	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
+	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерациии."
 	icon_state = "solgovelite"
 	item_color = "solgovelite"
 
+/obj/item/clothing/under/solgov/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа спецназа военно-морских сил Транс-Солнечной Федерации",
+		GENITIVE = "униформы спецназа военно-морских сил Транс-Солнечной Федерации",
+		DATIVE = "униформе спецназа военно-морских сил Транс-Солнечной Федерации",
+		ACCUSATIVE = "униформу спецназа военно-морских сил Транс-Солнечной Федерации",
+		INSTRUMENTAL = "униформой спецназа военно-морских сил Транс-Солнечной Федерации",
+		PREPOSITIONAL = "униформе спецназа военно-морских сил Транс-Солнечной Федерации"
+	)
+
 /obj/item/clothing/under/solgov/command
 	name = "Sol Federation Lieutenant's uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
+	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерациии. Имеет дополнительные погоны на плечах."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
+/obj/item/clothing/under/solgov/command/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа лейтенанта Транс-Солнечной Федерации",
+		GENITIVE = "униформы лейтенанта Транс-Солнечной Федерации",
+		DATIVE = "униформе лейтенанта Транс-Солнечной Федерации",
+		ACCUSATIVE = "униформу лейтенанта Транс-Солнечной Федерации",
+		INSTRUMENTAL = "униформой лейтенанта Транс-Солнечной Федерации",
+		PREPOSITIONAL = "униформе лейтенанта Транс-Солнечной Федерации"
+	)
+
 /obj/item/clothing/under/solgov/command/elite
 	name = "Trans-Solar Federation Specops Lieutenant's uniform"
-	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces. This one has additional insignia on its shoulders and cuffs."
+	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерациии. Имеет дополнительные погоны на плечах и манжеты на рукавах."
 	icon_state = "solgovcelite"
 	item_color = "solgovcelite"
 
+/obj/item/clothing/under/solgov/command/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа лейтенанта спецназа Транс-Солнечной Федерации",
+		GENITIVE = "униформы лейтенанта спецназа Транс-Солнечной Федерации",
+		DATIVE = "униформе лейтенанта спецназа Транс-Солнечной Федерации",
+		ACCUSATIVE = "униформу лейтенанта спецназа Транс-Солнечной Федерации",
+		INSTRUMENTAL = "униформой лейтенанта спецназа Транс-Солнечной Федерации",
+		PREPOSITIONAL = "униформе лейтенанта спецназа Транс-Солнечной Федерации"
+	)
+
 /obj/item/clothing/under/solgov/rep
 	name = "Sol Federation representative's uniform"
-	desc = "A formal uniform worn by the diplomatic representatives of the Sol Federation."
+	desc = "Официальная форма для дипломатических встреч Транс-Солнечной Федерации."
 	icon_state = "solgovr"
 	item_color = "solgovr"
+
+/obj/item/clothing/under/solgov/rep/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа представителя Транс-Солнечной Федерации",
+		GENITIVE = "униформы представителя Транс-Солнечной Федерации",
+		DATIVE = "униформе представителя Транс-Солнечной Федерации",
+		ACCUSATIVE = "униформу представителя Транс-Солнечной Федерации",
+		INSTRUMENTAL = "униформой представителя Транс-Солнечной Федерации",
+		PREPOSITIONAL = "униформе представителя Транс-Солнечной Федерации"
+	)
 
 /obj/item/clothing/under/rank/centcom_officer
 	desc = "It's a jumpsuit worn by CentComm Officers."
