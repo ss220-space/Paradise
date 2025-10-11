@@ -19053,7 +19053,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/landmark/marauder_entry,
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -33132,7 +33132,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "cqZ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -51427,7 +51427,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
 "eZD" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "eZH" = (
@@ -61805,7 +61805,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
 "jUp" = (
-/obj/item/radio/beacon/engine/tesling,
+/obj/item/beacon/engine/tesling,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "jUI" = (
@@ -62428,7 +62428,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/engineering/hardsuitstorage)
 "kix" = (
@@ -77015,7 +77015,7 @@
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "qJB" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/camera{
 	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
@@ -78814,7 +78814,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83845,7 +83845,7 @@
 	pixel_x = -27
 	},
 /obj/structure/table,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32

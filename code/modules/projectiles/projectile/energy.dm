@@ -179,7 +179,7 @@
 	var/power = 10000
 
 /obj/item/ammo_casing/energy/shock_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
-	..()
+	. = ..()
 	var/obj/projectile/energy/shock_revolver/P = BB
 	spawn(1)
 		P.chain = P.Beam(user, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1000, maxdistance = 30)
@@ -188,6 +188,10 @@
 	. = ..()
 	tesla_zap(source = src, zap_range = zap_range, power = power, cutoff = 1e3, zap_flags = zap_flags)
 	qdel(src)
+
+/obj/projectile/energy/shock_revolver/Destroy()
+	QDEL_NULL(chain)
+	return ..()
 
 /obj/projectile/energy/toxplasma
 	name = "toxin bolt"

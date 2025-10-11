@@ -1,8 +1,8 @@
-#define FRIGID		80
-#define COOL		290
-#define NORMAL		310
-#define WARM		330
-#define SCALDING	500
+#define FRIGID 80
+#define COOL 290
+#define NORMAL 310
+#define WARM 330
+#define SCALDING 500
 
 /obj/machinery/poolcontroller
 	name = "Pool Controller"

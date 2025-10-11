@@ -8,7 +8,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	var/previous_rights = 0
 
 	//load text from file
-	var/list/Lines = file2list("config/admin_ranks.txt")
+	var/list/Lines = world.file2list("config/admin_ranks.txt")
 
 	//process each line seperately
 	for(var/line in Lines)
@@ -77,7 +77,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	if(CONFIG_GET(flag/admin_legacy_system))
 
 		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
+		var/list/Lines = world.file2list("config/admins.txt")
 
 		//process each line seperately
 		for(var/line in Lines)

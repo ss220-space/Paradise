@@ -53,39 +53,39 @@
 #define RICOCHET_HARD (1<<1)
 
 //Reagent flags
-#define REAGENT_NOREACT			1
+#define REAGENT_NOREACT 1
 
 //Species clothing flags
-#define HAS_UNDERWEAR	1
-#define HAS_UNDERSHIRT	2
-#define HAS_SOCKS		4
+#define HAS_UNDERWEAR 1
+#define HAS_UNDERSHIRT 2
+#define HAS_SOCKS 4
 
 //Species Body Flags
-#define HAS_HEAD_ACCESSORY	(1<<0)
-#define HAS_TAIL			(1<<1)
-#define TAIL_OVERLAPPED		(1<<2)
-#define HAS_SKIN_TONE		(1<<3)
-#define HAS_ICON_SKIN_TONE	(1<<4)
-#define HAS_SKIN_COLOR		(1<<5)
-#define HAS_HEAD_MARKINGS	(1<<6)
-#define HAS_BODY_MARKINGS	(1<<7)
-#define HAS_TAIL_MARKINGS	(1<<8)
-#define TAIL_WAGGING   	(1<<9)
-#define NO_EYES				(1<<10)
-#define HAS_ALT_HEADS		(1<<11)
-#define HAS_WING			(1<<12)
-#define HAS_BODYACC_COLOR	(1<<13)
-#define BALD				(1<<14)
-#define ALL_RPARTS			(1<<15)
+#define HAS_HEAD_ACCESSORY (1<<0)
+#define HAS_TAIL (1<<1)
+#define TAIL_OVERLAPPED (1<<2)
+#define HAS_SKIN_TONE (1<<3)
+#define HAS_ICON_SKIN_TONE (1<<4)
+#define HAS_SKIN_COLOR (1<<5)
+#define HAS_HEAD_MARKINGS (1<<6)
+#define HAS_BODY_MARKINGS (1<<7)
+#define HAS_TAIL_MARKINGS (1<<8)
+#define TAIL_WAGGING (1<<9)
+#define NO_EYES (1<<10)
+#define HAS_ALT_HEADS (1<<11)
+#define HAS_WING (1<<12)
+#define HAS_BODYACC_COLOR (1<<13)
+#define BALD (1<<14)
+#define ALL_RPARTS (1<<15)
 
 //Pre-baked combinations of the above body flags
 #define HAS_BODY_ACCESSORY (HAS_TAIL|HAS_WING)
 #define HAS_MARKINGS (HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS)
 
 //Species Diet Flags
-#define DIET_CARN		1
-#define DIET_OMNI		2
-#define DIET_HERB		4
+#define DIET_CARN 1
+#define DIET_OMNI 2
+#define DIET_HERB 4
 
 
 //bitflags for door switches.
@@ -144,7 +144,7 @@
 /// If a turf is a reserved turf
 #define RESERVATION_TURF (1<<2)
 /// Blocks lava rivers being generated on the turf.
-#define NO_LAVA_GEN	(1<<3)
+#define NO_LAVA_GEN (1<<3)
 /// Blocks ruins spawning on the turf.
 #define NO_RUINS (1<<4)
 
@@ -165,35 +165,35 @@
 #define MORTAR_ALLOWED (1<<6)
 
 //ORGAN TYPE FLAGS
-#define AFFECT_ROBOTIC_ORGAN	1
-#define AFFECT_ORGANIC_ORGAN	2
-#define AFFECT_ALL_ORGANS		3
+#define AFFECT_ROBOTIC_ORGAN 1
+#define AFFECT_ORGANIC_ORGAN 2
+#define AFFECT_ALL_ORGANS 3
 
 //Fire and Acid stuff, for resistance_flags
-#define LAVA_PROOF		(1<<0)
-#define FIRE_PROOF		(1<<1) //100% immune to fire damage (but not necessarily to lava or heat)
-#define FLAMMABLE		(1<<2)
-#define ON_FIRE			(1<<3)
-#define UNACIDABLE		(1<<4) //acid can't even appear on it, let alone melt it.
-#define ACID_PROOF		(1<<5) //acid stuck on it doesn't melt it.
-#define INDESTRUCTIBLE	(1<<6) //doesn't take damage
-#define FREEZE_PROOF	(1<<7) //can't be frozen
-#define NO_MALF_EFFECT	(1<<8) //So malf cannot blow certain things
-#define NO_MOUSTACHING	(1<<9) //Saves from super hairgrowium shenanigans
+#define LAVA_PROOF (1<<0)
+#define FIRE_PROOF (1<<1) //100% immune to fire damage (but not necessarily to lava or heat)
+#define FLAMMABLE (1<<2)
+#define ON_FIRE (1<<3)
+#define UNACIDABLE (1<<4) //acid can't even appear on it, let alone melt it.
+#define ACID_PROOF (1<<5) //acid stuck on it doesn't melt it.
+#define INDESTRUCTIBLE (1<<6) //doesn't take damage
+#define FREEZE_PROOF (1<<7) //can't be frozen
+#define NO_MALF_EFFECT (1<<8) //So malf cannot blow certain things
+#define NO_MOUSTACHING (1<<9) //Saves from super hairgrowium shenanigans
 
-#define MEAT		(1<<0)
-#define VEGETABLES	(1<<1)
-#define RAW		(1<<2)
-#define JUNKFOOD	(1<<3)
-#define GRAIN		(1<<4)
-#define FRUIT		(1<<5)
-#define DAIRY		(1<<6)
-#define FRIED		(1<<7)
-#define ALCOHOL	(1<<8)
-#define SUGAR		(1<<9)
-#define EGG		(1<<10)
-#define GROSS		(1<<11)
-#define TOXIC		(1<<12)
+#define MEAT (1<<0)
+#define VEGETABLES (1<<1)
+#define RAW (1<<2)
+#define JUNKFOOD (1<<3)
+#define GRAIN (1<<4)
+#define FRUIT (1<<5)
+#define DAIRY (1<<6)
+#define FRIED (1<<7)
+#define ALCOHOL (1<<8)
+#define SUGAR (1<<9)
+#define EGG (1<<10)
+#define GROSS (1<<11)
+#define TOXIC (1<<12)
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
 

@@ -2,7 +2,6 @@
  * Holds procs designed to change one type of value, into another.
  * Contains:
  *			file2list
- *			file2list
  *			angle2dir
  *			angle2text
  *			worldtime2text
@@ -41,23 +40,6 @@
 	for(var/x in splittext(text, delimiter))
 		num_list += text2num(x)
 	return num_list
-
-/// Splits the text of a file at seperator and returns them in a list.
-/proc/file2list(filename, seperator="\n", trim = TRUE)
-	if(trim)
-		return splittext(trim(return_file_text(filename)),seperator)
-	return splittext(return_file_text(filename),seperator)
-
-
-/// Turns a direction into text
-/proc/num2dir(direction)
-	switch(direction)
-		if(1.0) return NORTH
-		if(2.0) return SOUTH
-		if(4.0) return EAST
-		if(8.0) return WEST
-		else
-			log_runtime(EXCEPTION("UNKNOWN DIRECTION: [direction]"))
 
 /proc/dir2text(direction)
 	switch(direction)

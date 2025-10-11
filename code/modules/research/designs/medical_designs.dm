@@ -191,7 +191,7 @@
 	id = "scalpel_laser1"
 	req_tech = list("biotech" = 2, "materials" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500)
 	build_path = /obj/item/scalpel/laser/laser1
 	category = list("Medical")
 
@@ -201,7 +201,7 @@
 	id = "scalpel_laser2"
 	req_tech = list("biotech" = 3, "materials" = 4, "magnets" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500, MAT_SILVER = 1000)
 	build_path = /obj/item/scalpel/laser/laser2
 	category = list("Medical")
 
@@ -211,7 +211,7 @@
 	id = "scalpel_laser3"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/scalpel/laser/laser3
 	category = list("Medical")
 
@@ -221,7 +221,7 @@
 	id = "scalpel_manager"
 	req_tech = list("biotech" = 4, "materials" = 8, "magnets" = 5, "programming" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
 	build_path = /obj/item/scalpel/laser/manager
 	category = list("Medical")
 
@@ -231,7 +231,7 @@
 	id = "retractor_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/retractor/laser
 	category = list("Medical")
 
@@ -241,7 +241,7 @@
 	id = "hemostat_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/hemostat/laser
 	category = list("Medical")
 
@@ -251,7 +251,7 @@
 	id = "surgicaldrill_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/surgicaldrill/laser
 	category = list("Medical")
 
@@ -261,7 +261,7 @@
 	id = "circular_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/circular_saw/laser
 	category = list("Medical")
 
@@ -293,7 +293,7 @@
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
 	build_path = /obj/item/scalpel/alien
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
+	materials = list(MAT_METAL = 4000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
 
 /datum/design/alienhemostat
@@ -303,7 +303,7 @@
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
 	build_path = /obj/item/hemostat/alien
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
 
 /datum/design/alienretractor
@@ -313,7 +313,7 @@
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
 	build_path = /obj/item/retractor/alien
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
+	materials = list(MAT_METAL = 6000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
 
 /datum/design/aliensaw
@@ -343,7 +343,7 @@
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
 	build_path = /obj/item/cautery/alien
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
+	materials = list(MAT_METAL = 2500, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
 
 /datum/design/alienbonegel

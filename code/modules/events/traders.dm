@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		)
 		return
 	var/map_trader_port = 5
-	if(station_name() == "NSS Cyberiad")
+	if(english_station_name() == "NSS Cyberiad")
 		map_trader_port = 4
 	GLOB.minor_announcement.announce(
 		message = "Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 				success_spawn = TRUE
 		if(success_spawn)
 			var/map_trader_port = 5
-			if(station_name() == "NSS Cyberiad")
+			if(english_station_name() == "NSS Cyberiad")
 				map_trader_port = 4
 			GLOB.minor_announcement.announce(
 				message = "Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",

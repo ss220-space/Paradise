@@ -741,12 +741,11 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		return
 	user.set_machine(src)
 	b_stat = !b_stat
-	if(!istype(src, /obj/item/radio/beacon))
-		if(b_stat)
-			balloon_alert(user, "модификация возможна!")
-		else
-			balloon_alert(user, "модификация невозможна!")
-		updateDialog()
+	if(b_stat)
+		balloon_alert(user, "модификация возможна!")
+	else
+		balloon_alert(user, "модификация невозможна!")
+	updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE

@@ -42,7 +42,7 @@
 /datum/anomaly_gen_datum/proc/is_possible_turf(turf/T)
 	return !is_ok_in_range(T, 2)
 
-/datum/anomaly_gen_datum/proc/generate(list/containment, obj/item/radio/beacon/beacon, range = 100, use_items = TRUE)
+/datum/anomaly_gen_datum/proc/generate(list/containment, obj/item/beacon/beacon, range = 100, use_items = TRUE)
 	var/list/used = list()
 	if(use_items)
 		used = get_used(containment)

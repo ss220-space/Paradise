@@ -1,10 +1,9 @@
-#define WORKING_CLASS	1
-#define MEDICAL_CLASS	2
-#define COMBAT_CLASS	3
-#define RANDOM_CLASS	4
+#define WORKING_CLASS 1
+#define MEDICAL_CLASS 2
+#define COMBAT_CLASS 3
+#define RANDOM_CLASS 4
 
 //robotics quests console datums
-
 /datum/roboquest
 	/// Name of our current mecha
 	var/name

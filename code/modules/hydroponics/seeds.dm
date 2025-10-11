@@ -374,7 +374,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 
 // Checks plants for broken tray icons. Use Advanced Proc Call to activate.
-// Maybe some day it would be used as unit test.
+// Maybe some day it would be used as game test.
 /proc/check_plants_growth_stages_icons()
 	var/list/states = icon_states('icons/obj/hydroponics/growing.dmi')
 	states |= icon_states('icons/obj/hydroponics/growing_fruits.dmi')

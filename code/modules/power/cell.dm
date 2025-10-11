@@ -180,7 +180,6 @@
 		explode()
 		return FALSE
 	if(charge < amount)
-		forceMove()
 		return FALSE
 	charge = (charge - amount)
 	return TRUE
