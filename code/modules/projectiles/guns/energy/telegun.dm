@@ -57,6 +57,9 @@
 	teleport_target = L[desc]
 
 /obj/item/gun/energy/telegun/newshot()
+	var/turf/teleport_turf = get_turf(teleport_target)
+	if(!is_station_level(teleport_turf.z))
+		return
 	var/obj/item/ammo_casing/energy/teleport/T = ammo_type[select]
 	T.teleport_target = teleport_target
 	..()
