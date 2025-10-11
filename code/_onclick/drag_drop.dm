@@ -87,6 +87,7 @@ to inform the game this action was expected and its fine
 	var/result = mousedrop.InvokeAsync() // if it gets TRUE in return, we think that all is fine
 	if(!result && lagging)
 		usr.ClickOn(src, params) // if not, we click object
+		return FALSE
 	return TRUE
 
 /// The proc that should be overridden by subtypes to handle mouse drop. Called on the atom receiving a dragged object
