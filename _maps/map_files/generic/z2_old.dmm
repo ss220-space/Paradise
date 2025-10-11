@@ -3625,13 +3625,13 @@
 /area/centcom/bridge)
 "daV" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 8
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 4
 	},
-/obj/item/radio/beacon/syndicate/bomb,
+/obj/item/beacon/syndicate/bomb,
 /obj/item/grenade/syndieminibomb{
 	pixel_x = 4;
 	pixel_y = 2

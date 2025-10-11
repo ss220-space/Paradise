@@ -1247,13 +1247,17 @@
  *
  * Arguments:
  * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+ * * attacher - The mob trying to attach checked_acc
  */
-/obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc)
+/obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc, mob/attacher)
 	if(!istype(checked_acc))
 		return FALSE
 
 	if(!LAZYLEN(accessories))
 		return TRUE
+
+	if(!checked_acc.uniform_check(user = attacher, uniform = src))
+		return FALSE
 
 	var/unique_slots = (checked_acc.slot & (ACCESSORY_SLOT_UTILITY|ACCESSORY_SLOT_ARMBAND))
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
@@ -1280,7 +1284,7 @@
 
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/accessory, mob/user, unequip = FALSE)
-	if(!can_attach_accessory(accessory))
+	if(!can_attach_accessory(accessory, user))
 		if(user)
 			to_chat(user, span_notice("Невозможно добавить больше аксессуаров этого типа к [declent_ru(DATIVE)]."))
 		return FALSE
@@ -1340,7 +1344,7 @@
 				. += span_notice("Датчики работают в режиме мониторинга жизненных показателей и текущего местоположения.")
 
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
-		. += accessory.attached_examine()
+		. += accessory.attached_examine(user, src)
 
 
 /obj/item/clothing/under/verb/rollsuit()

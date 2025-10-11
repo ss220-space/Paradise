@@ -1058,7 +1058,7 @@
 				return FALSE
 
 			var/obj/item/clothing/under/uniform = user.w_uniform
-			if(!uniform.can_attach_accessory(I))
+			if(!uniform.can_attach_accessory(I, user))
 				if(!disable_warning)
 					to_chat(user, span_warning("У вас уже есть аксессуар этого типа на [uniform.declent_ru(PREPOSITIONAL)]."))
 				return FALSE
