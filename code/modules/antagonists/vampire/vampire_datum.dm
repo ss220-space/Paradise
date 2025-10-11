@@ -20,6 +20,8 @@
 	var/datum/vampire_subclass/subclass
 	/// Reference to diablerie datum.
 	var/datum/diablerie/diablerie
+	/// Is this vampire datum type allowed to have diablerie
+	var/is_diablerie_allowed = TRUE
 	/// Handles the vampire cloak toggle.
 	var/iscloaking = FALSE
 	/// Handles the goon vampire cloak toggle.
@@ -719,7 +721,7 @@
  * * victim - The potential victim of diablerie
  */
 /datum/antagonist/vampire/proc/try_perform_diablerie(mob/living/carbon/human/vampire, mob/living/carbon/human/victim)
-	if(is_goon_vampire(vampire))
+	if(!is_diablerie_allowed)
 		return
 
 	if(!diablerie)

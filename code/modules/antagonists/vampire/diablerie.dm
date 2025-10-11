@@ -55,10 +55,13 @@
 /datum/diablerie/proc/add_diablerie_hud(mob/living/owner)
 	var/datum/atom_hud/diablerie_aura/aura_hud = GLOB.huds[DIABLERIE_AURA_HUD]
 	aura_hud.add_atom_to_hud(owner)
+
 	var/image/aura = owner.hud_list[DIABLERIE_AURA_HUD]
-	if(aura)
-		var/mutable_appearance/mutable = mutable_appearance(icon = 'icons/effects/vampire_effects.dmi', icon_state = "diablerie_aura", layer = vampire.layer - 0.1)
-		aura.appearance = mutable
+	if(!aura)
+		return
+
+	var/mutable_appearance/mutable = mutable_appearance(icon = 'icons/effects/vampire_effects.dmi', icon_state = "diablerie_aura", layer = vampire.layer - 0.1)
+	aura.appearance = mutable
 
 
 /**
