@@ -13853,7 +13853,7 @@
 	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1046826506741104830/unknown.png?width=604&height=604\"></center>";
 	name = "Супъективное мнение"
 	},
-/obj/item/book/random/triple,
+/obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "gAB" = (
@@ -22196,7 +22196,7 @@
 /area/centcom/supply)
 "kHS" = (
 /obj/structure/bookcase,
-/obj/item/book/random/triple,
+/obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "kHT" = (
@@ -33429,11 +33429,11 @@
 /obj/item/grenade/syndieminibomb{
 	pixel_x = 8
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_x = -5;
 	pixel_y = 12
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_x = -5;
 	pixel_y = 12
 	},
@@ -34008,6 +34008,7 @@
 "pOx" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/addition_goals)
 "pOE" = (
@@ -34294,13 +34295,13 @@
 /area/syndicate_mothership/cargo)
 "pUu" = (
 /obj/structure/table/wood,
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 8
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 4
 	},
-/obj/item/radio/beacon/syndicate/bomb,
+/obj/item/beacon/syndicate/bomb,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -43995,6 +43996,7 @@
 	roundstart_move = "addition_goal_dock";
 	width = 10
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/addition_goals)
 "ueC" = (

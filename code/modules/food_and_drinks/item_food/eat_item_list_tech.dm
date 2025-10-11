@@ -315,7 +315,7 @@
 	nutritional_value = 15, \
 	)
 
-/obj/item/radio/beacon/add_eatable_component()
+/obj/item/beacon/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -419,56 +419,56 @@
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
-	)	
+	)
 
 /obj/item/stock_parts/scanning_module/phasic/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
-	)	
+	)
 
 /obj/item/stock_parts/manipulator/pico/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
-	)	
+	)
 
 /obj/item/stock_parts/micro_laser/ultra/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
-	)	
+	)
 
 /obj/item/stock_parts/matter_bin/super/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
-	)	
+	)
 
 /obj/item/stock_parts/capacitor/quadratic/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 60, \
-	)	
+	)
 
 /obj/item/stock_parts/scanning_module/triphasic/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 60, \
-	)	
-	
+	)
+
 /obj/item/stock_parts/manipulator/femto/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 60, \
-	)	
+	)
 
 /obj/item/stock_parts/micro_laser/quadultra/add_eatable_component()
 	AddComponent( \

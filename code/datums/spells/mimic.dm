@@ -19,6 +19,8 @@
 	var/next_override_index = 1
 	/// If a message is shown when somebody examines the user from close range
 	var/perfect_disguise = FALSE
+	/// Var to store user ru_names to restore them later when they stop mimicking
+	var/user_ru_names
 
 	var/static/list/black_listed_form_types = list(
 		/atom/movable/screen,
@@ -119,11 +121,13 @@
 
 /obj/effect/proc_holder/spell/mimic/proc/take_form(datum/mimic_form/form, mob/user)
 	var/old_name = "[user]"
+	user_ru_names = user.ru_names
 	if(ishuman(user))
 		// Not fully finished yet
 		var/mob/living/carbon/human/H = user
 		H.name_override = form.name
 	else
+		user.ru_names = form.form_ru_names
 		user.appearance = form.appearance
 		user.transform = initial(user.transform)
 		user.pixel_y = initial(user.pixel_y)
@@ -162,6 +166,10 @@
 		user.name = initial(user.name)
 		user.desc = initial(user.desc)
 		user.color = initial(user.color)
+		if(length(user_ru_names))
+			user.ru_names = user_ru_names
+		else
+			user.ru_names = null
 
 	playsound(user, SFX_BONEBREAK, 150, TRUE)
 	if(show_message)
@@ -208,6 +216,8 @@
 	var/appearance
 	/// What the name of the form is?
 	var/name
+	/// What the ru names of the form is?
+	var/list/form_ru_names
 
 
 /datum/mimic_form/New(atom/movable/form, mob/user)
@@ -216,6 +226,12 @@
 	examine_time = form.get_examine_time()
 	appearance = form.appearance
 	name = form.name
+	form_ru_names = form.ru_names || form.get_ru_names_cached()
+	// if no ru_names found, we just fill it with default name
+	if(!length(form_ru_names))
+		form_ru_names = new /list(6)
+		for(var/name in NOMINATIVE to PREPOSITIONAL)
+			form_ru_names[name] = form.declent_ru(name)
 	if(isliving(form))
 		var/mob/living/form_living = form
 		examine_species = form_living.get_visible_species()

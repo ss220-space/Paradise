@@ -1,13 +1,14 @@
 {
-    "recommendations": [
-        "gbasood.byond-dm-language-support",
+	"recommendations": [
+		"gbasood.byond-dm-language-support",
 		"platymuus.dm-langclient",
-		"editorconfig.editorconfig",
+		"EditorConfig.EditorConfig",
 		"dbaeumer.vscode-eslint",
 		"anturk.dmi-editor",
 		"eamodio.gitlens",
 		"oderwat.indent-rainbow",
 		"esbenp.prettier-vscode",
-		"stylemistake.auto-comment-blocks"
-    ]
+		"kevinkyang.auto-comment-blocks",
+		"arcanis.vscode-zipfs"
+	]
 }

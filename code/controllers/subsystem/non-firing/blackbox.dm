@@ -2,13 +2,15 @@
 
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
-	flags = SS_NO_FIRE | SS_NO_INIT
-	// Even though we dont initialize, we need this init_order
 	// On Master.Shutdown(), it shuts down subsystems in the REVERSE order
 	// The database SS has INIT_ORDER_DBCORE=16, and this SS has INIT_ORDER_BLACKBOX=15
 	// So putting this ensures it shuts down in the right order
-	init_order = INIT_ORDER_BLACKBOX
 	ss_id = "blackbox"
+	init_order = INIT_ORDER_BLACKBOX
+	wait = 10 MINUTES
+	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	offline_implications = "Player count and admin count statistics will no longer be logged to the database. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// List of all recorded feedback
 	var/list/datum/feedback_variable/feedback = list()
@@ -18,6 +20,33 @@ SUBSYSTEM_DEF(blackbox)
 	var/list/research_levels = list()
 	/// Associative list of any feedback variables that have had their format changed since creation and their current version, remember to update this
 	var/list/versions = list()
+
+/datum/controller/subsystem/blackbox/Initialize()
+	if(!SSdbcore.IsConnected())
+		flags |= SS_NO_FIRE // Disable firing if SQL is disabled
+	record_feedback("amount", "dm_version", DM_VERSION)
+	record_feedback("amount", "dm_build", DM_BUILD)
+	record_feedback("amount", "byond_version", world.byond_version)
+	record_feedback("amount", "byond_build", world.byond_build)
+	record_feedback("text", "random_seed", 1, num2text(Master.random_seed, 32), 1) // a text string because json_encode turns it into lossy scientific notation
+	record_feedback("text", "rust_g_filepath", 1, "[RUST_G]", 1)
+	record_feedback("text", "rustlibs_filepath", 1, "[RUSTLIB]", 1)
+	return SS_INIT_SUCCESS
+
+/datum/controller/subsystem/blackbox/fire(resumed = 0)
+	sql_poll_players()
+
+/datum/controller/subsystem/blackbox/proc/sql_poll_players()
+	var/datum/db_query/statquery = SSdbcore.NewQuery(
+		"INSERT INTO legacy_population (playercount, admincount, time, server_id) VALUES (:playercount, :admincount, NOW(), :server_id)",
+		list(
+			"playercount" = length(GLOB.clients),
+			"admincount" = length(GLOB.admins),
+			"server_id" = CONFIG_GET(string/instance_id)
+		)
+	)
+	statquery.warn_execute()
+	qdel(statquery)
 
 /datum/controller/subsystem/blackbox/Recover()
 	feedback = SSblackbox.feedback
