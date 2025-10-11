@@ -16,6 +16,7 @@
 /datum/action/innate/admin
 	button_icon = 'icons/mob/actions/actions_admin.dmi'
 	var/rights_required = R_ADMIN
+	allow_observer_click = TRUE
 
 /datum/action/innate/admin/Trigger(mob/clicker, trigger_flags)
 	if(!..())

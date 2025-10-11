@@ -864,6 +864,7 @@
 	if(!istype(spell))
 		return
 	LAZYADD(mob_spell_list, spell)
+	spell.action.allow_observer_click = TRUE
 	spell.action.Grant(src)
 	spell.on_spell_gain(src)
 
