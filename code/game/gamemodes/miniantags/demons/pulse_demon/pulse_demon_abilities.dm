@@ -32,8 +32,8 @@
 	else
 		name = "[initial(name)][cast_cost == 0 ? "" : " ([format_si_suffix(cast_cost)]W)"]"
 		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)]W to upgrade."]"
-	// action.button.name = name
-	// action.desc = desc
+	action.name = name
+	action.desc = desc
 	action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/pulse_demon/can_cast(mob/living/simple_animal/demon/pulse_demon/user, charge_check, show_message)
