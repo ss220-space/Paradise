@@ -163,7 +163,7 @@
 				msg += "На [genderize_ru(gender, "его", "её", "его", "их")] руках [bicon(gloves)] [gloves.declent_ru(NOMINATIVE)].\n"
 		else if(blood_DNA)
 			msg += span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] руки [hand_blood_color != "#030303" ? "измазаны кровью":"измазаны маслом"]!\n")
-		else if(isclocker(src) && HAS_TRAIT(src, CLOCK_HANDS))
+		else if(isclocker(src) && HAS_TRAIT(src, TRAIT_CLOCK_HANDS))
 			msg += span_clockitalic("[genderize_ru(gender, "Его", "Её", "Его", "Их")] руки сверкают янтарём!\n")
 
 	//handcuffed?
@@ -210,7 +210,7 @@
 				msg += span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] глаза закрыты [bicon(glasses)] [glasses.declent_ru(INSTRUMENTAL)] [glasses.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
 			else
 				msg += "[genderize_ru(gender, "Его", "Её", "Его", "Их")] глаза закрыты [bicon(glasses)] [glasses.declent_ru(INSTRUMENTAL)].\n"
-		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES) && get_int_organ(/obj/item/organ/internal/eyes))
+		else if(HAS_TRAIT(src, TRAIT_RED_EYES) && get_int_organ(/obj/item/organ/internal/eyes))
 			msg += span_boldwarning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] глаза неестественно горят кроваво-красным!\n")
 
 	//left ear

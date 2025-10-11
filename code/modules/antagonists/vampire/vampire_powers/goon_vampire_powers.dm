@@ -56,6 +56,19 @@
 	var/effect_timer
 	var/counter = 0
 
+/obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate/on_spell_gain(mob/user)
+	. = ..()
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	RegisterSignal(vampire, SIGNAL_DIABLERIE_LEVEL_GAIN, PROC_REF(on_diablerie_level_gain))
+	RegisterSignal(vampire, SIGNAL_DIABLERIE_LEVEL_REMOVE, PROC_REF(on_diablerie_level_remove))
+
+/obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate/proc/on_diablerie_level_gain(datum/source, datum/diablerie_level/level)
+	SIGNAL_HANDLER
+	level.upgrade_rejuvenate_charges(cooldown_handler)
+
+/obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate/proc/on_diablerie_level_remove(datum/source, datum/diablerie_level/level)
+	SIGNAL_HANDLER
+	level.downgrade_rejuvenate_charges(cooldown_handler)
 
 /obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate/cast(list/targets, mob/living/carbon/human/user = usr)
 	// mech supress escape
@@ -75,11 +88,31 @@
 		effect_timer = addtimer(CALLBACK(src, PROC_REF(rejuvenate_effect), user), 3.5 SECONDS, TIMER_STOPPABLE|TIMER_LOOP)
 
 
+/obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate/create_new_cooldown()
+	var/datum/spell_cooldown/charges/cooldown = new
+	cooldown.max_charges = 1
+	cooldown.recharge_duration = base_cooldown
+	cooldown.charge_duration = 5 SECONDS
+	return cooldown
+
+
 /obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate/proc/rejuvenate_effect(mob/living/carbon/human/user)
 	if(QDELETED(user) || counter > 5)
 		deltimer(effect_timer)
 		effect_timer = null
 		counter = 0
+		var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+
+		if(!vampire.get_ability(/datum/vampire_passive/regen_bleeding))
+			return
+
+		var/list/internal_bleedings = user.check_internal_bleedings()
+
+		if(!length(internal_bleedings))
+			return
+
+		var/obj/item/organ/external/bodypart = pick(internal_bleedings)
+		bodypart.stop_internal_bleeding()
 		return
 
 	counter++
@@ -142,6 +175,20 @@
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
 
+/obj/effect/proc_holder/spell/vampire/goon/glare/on_spell_gain(mob/user)
+	. = ..()
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	RegisterSignal(vampire, SIGNAL_DIABLERIE_LEVEL_GAIN, PROC_REF(on_diablerie_level_gain))
+	RegisterSignal(vampire, SIGNAL_DIABLERIE_LEVEL_REMOVE, PROC_REF(on_diablerie_level_remove))
+
+/obj/effect/proc_holder/spell/vampire/goon/glare/proc/on_diablerie_level_gain(datum/source, datum/diablerie_level/level)
+	SIGNAL_HANDLER
+	level.upgrade_glare_charges(cooldown_handler)
+
+/obj/effect/proc_holder/spell/vampire/goon/glare/proc/on_diablerie_level_remove(datum/source, datum/diablerie_level/level)
+	SIGNAL_HANDLER
+	level.downgrade_glare_charges(cooldown_handler)
+
 
 /obj/effect/proc_holder/spell/vampire/goon/glare/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
@@ -149,6 +196,12 @@
 	T.allowed_type = /mob/living/carbon
 	return T
 
+/obj/effect/proc_holder/spell/vampire/goon/glare/create_new_cooldown()
+	var/datum/spell_cooldown/charges/C = new
+	C.max_charges = 1
+	C.recharge_duration = base_cooldown
+	C.charge_duration = 3 SECONDS
+	return C
 
 /obj/effect/proc_holder/spell/vampire/goon/glare/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!length(targets))

@@ -627,7 +627,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!num_hands)
 			return
 
-		var/clock_hands = HAS_TRAIT(src, CLOCK_HANDS)
+		var/clock_hands = HAS_TRAIT(src, TRAIT_CLOCK_HANDS)
 		if(!blood_DNA && !clock_hands)
 			return
 

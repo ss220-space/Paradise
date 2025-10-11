@@ -10729,6 +10729,18 @@
 	icon_state = "darkredfull"
 	},
 /area/hallway/secondary/exit)
+"aLl" = (
+/obj/structure/table,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/rcd,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellow"
+	},
+/area/engineering/engine)
 "aLp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -19049,14 +19061,6 @@
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
-"bqU" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/item/beacon,
-/obj/effect/landmark/marauder_entry,
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "bqV" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -33131,17 +33135,6 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"cqZ" = (
-/obj/item/beacon,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/atmos)
 "cra" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -36262,6 +36255,20 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/chief)
+"cCv" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/item/beacon,
+/turf/simulated/floor/plasteel,
+/area/engineering/hardsuitstorage)
 "cCy" = (
 /obj/structure/window/reinforced{
 	color = "yellow";
@@ -49339,6 +49346,14 @@
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
+"egx" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/beacon,
+/obj/effect/landmark/marauder_entry,
+/turf/simulated/floor/plasteel,
+/area/bridge)
 "egE" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -51426,10 +51441,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
-"eZD" = (
-/obj/item/beacon,
-/turf/simulated/floor/engine,
-/area/toxins/test_chamber)
 "eZH" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -55080,6 +55091,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
+"gLC" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/rcd,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "yellow"
+	},
+/area/engineering/hardsuitstorage)
 "gLH" = (
 /obj/structure/flora/junglebush/c,
 /turf/simulated/floor/grass,
@@ -56250,6 +56271,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/medbay)
+"hnS" = (
+/obj/item/beacon,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/atmos)
 "hok" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -61804,10 +61836,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
-"jUp" = (
-/obj/item/beacon/engine/tesling,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "jUI" = (
 /obj/structure/table,
 /obj/item/scalpel,
@@ -62417,20 +62445,6 @@
 	icon_state = "dark"
 	},
 /area/gateway)
-"kit" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/item/beacon,
-/turf/simulated/floor/plasteel,
-/area/engineering/hardsuitstorage)
 "kix" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -62586,6 +62600,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"kkd" = (
+/obj/item/beacon,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/camera{
+	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
+	c_tag = "Research Toxins Test Chamber West";
+	dir = 8;
+	network = list("Toxins","Research","SS13")
+	},
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/toxins/test_area)
 "kkh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -66955,6 +66980,19 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
+"mdV" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west extinguisher cabinet";
+	pixel_x = -27
+	},
+/obj/structure/table,
+/obj/item/beacon,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/teleporter)
 "mdX" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -74459,6 +74497,10 @@
 	icon_state = "white"
 	},
 /area/toxins/explab)
+"pGm" = (
+/obj/item/beacon,
+/turf/simulated/floor/engine,
+/area/toxins/test_chamber)
 "pGG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -76279,6 +76321,15 @@
 	icon_state = "purple"
 	},
 /area/atmos)
+"qrM" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/item/beacon,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/storage/eva)
 "qrO" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -77014,17 +77065,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
-"qJB" = (
-/obj/item/beacon,
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/camera{
-	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
-	c_tag = "Research Toxins Test Chamber West";
-	dir = 8;
-	network = list("Toxins","Research","SS13")
-	},
-/turf/simulated/floor/plasteel/airless/indestructible,
-/area/toxins/test_area)
 "qJD" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4
@@ -78810,15 +78850,6 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
-"rzx" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/item/beacon,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/storage/eva)
 "rzC" = (
 /obj/structure/table,
 /obj/item/healthanalyzer,
@@ -81069,15 +81100,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
-"sBj" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
-	},
-/area/engineering/hardsuitstorage)
 "sBn" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -83839,19 +83861,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"tHR" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west extinguisher cabinet";
-	pixel_x = -27
-	},
-/obj/structure/table,
-/obj/item/beacon,
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/teleporter)
 "tIA" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
@@ -85055,6 +85064,10 @@
 	icon_state = "vault"
 	},
 /area/security/nuke_storage)
+"ujO" = (
+/obj/item/beacon/engine/tesling,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "ujP" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -93421,17 +93434,6 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
-"xNJ" = (
-/obj/structure/table,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
-/area/engineering/engine)
 "xNP" = (
 /obj/machinery/newscaster{
 	pixel_y = -30
@@ -120035,7 +120037,7 @@ sHq
 rOx
 pJc
 vMi
-rzx
+qrM
 csn
 lUw
 aBk
@@ -122151,7 +122153,7 @@ cLi
 slH
 ekI
 hxO
-xNJ
+aLl
 xcT
 kRo
 tSH
@@ -122177,7 +122179,7 @@ uTI
 uTI
 lTl
 hpJ
-jUp
+ujO
 pST
 lTl
 uTI
@@ -123129,7 +123131,7 @@ cXj
 dep
 bnY
 bqO
-bqU
+egx
 bsA
 bvX
 bAC
@@ -124174,7 +124176,7 @@ pdw
 quf
 rgN
 bSi
-tHR
+mdV
 iVV
 xic
 rtB
@@ -124461,7 +124463,7 @@ idU
 ehz
 lLj
 ruQ
-kit
+cCv
 dNK
 dNK
 dNK
@@ -126258,7 +126260,7 @@ cGK
 eKr
 yga
 kRG
-sBj
+gLC
 ttH
 mkq
 cJy
@@ -126266,7 +126268,7 @@ cGK
 cMX
 nuO
 dOD
-cqZ
+hnS
 cuu
 ykA
 cEs
@@ -142708,7 +142710,7 @@ sOY
 rVr
 lVb
 meY
-eZD
+pGm
 jjo
 lPa
 xzo
@@ -154773,7 +154775,7 @@ ckb
 cst
 ckb
 ckb
-qJB
+kkd
 ckb
 ckb
 cst

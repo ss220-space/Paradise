@@ -254,7 +254,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			H.original_eye_color = H.get_eye_color()
 		H.change_eye_color(BLOODCULT_EYE, FALSE)
 		H.update_eyes()
-		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
+		ADD_TRAIT(H, TRAIT_RED_EYES, CULT_TRAIT)
 		H.update_body()
 
 /datum/game_mode/proc/ascend(cultist)
@@ -281,7 +281,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(ishuman(cultist))
 			var/mob/living/carbon/human/H = cultist
-			REMOVE_TRAIT(H, CULT_EYES, null)
+			REMOVE_TRAIT(H, TRAIT_RED_EYES, CULT_TRAIT)
 			H.change_eye_color(H.original_eye_color, FALSE)
 			H.update_eyes()
 			H.remove_overlay(HALO_LAYER)

@@ -71,6 +71,10 @@
 /datum/atom_hud/pacifism
 	hud_icons = list(PACIFISM_HUD)
 
+/datum/atom_hud/diablerie_aura
+	hud_icons = list(DIABLERIE_AURA_HUD)
+
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*

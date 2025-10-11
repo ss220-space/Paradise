@@ -39,7 +39,8 @@ GLOBAL_LIST_INIT(huds, list( \
 	ANTAG_HUD_TEAM_3 = new /datum/atom_hud/antag(),\
 	THOUGHTS_HUD = new/datum/atom_hud/thoughts(),\
 	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones(),\
-	PACIFISM_HUD = new/datum/atom_hud/pacifism()
+	PACIFISM_HUD = new/datum/atom_hud/pacifism(),\
+	DIABLERIE_AURA_HUD = new /datum/atom_hud/diablerie_aura()
 ))
 
 /datum/atom_hud

@@ -95,9 +95,12 @@
 
 /datum/component/muscles/proc/strength_level_up(user, new_level)
 	SIGNAL_HANDLER
+
+	var/mob/living/carbon/human/human = user
 	while(real_strength_level.level_num < new_level)
 		strength_points = 0
 		real_strength_level = new real_strength_level.next_level()
+	human.update_body(TRUE)
 
 
 /datum/component/muscles/proc/get_strength_list(user, list/strength_list)
