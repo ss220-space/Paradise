@@ -1767,7 +1767,7 @@
 		affected.ratvar_act(convert_mecha)
 	if(isnull(icon_state))
 		return
-  animate(src, transform = matrix() * 0.1, time = anim_time)
+	animate(src, transform = matrix() * 0.1, time = anim_time)
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/living_process(mob/living/target)
 	var/mob/living/living = target
