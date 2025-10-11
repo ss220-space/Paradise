@@ -12,9 +12,9 @@
 #define MODE_PART_UPPER 11
 #define MODE_PART_LOWER 12
 
-#define SETTING_DISK 		0
-#define SETTING_LOCATION 	1
-#define SETTING_OBJECT 		2
+#define SETTING_DISK 0
+#define SETTING_LOCATION 1
+#define SETTING_OBJECT 2
 
 /obj/item/pinpointer
 	name = "pinpointer"
