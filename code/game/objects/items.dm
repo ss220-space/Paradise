@@ -1229,6 +1229,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		qdel(enchant_action)
 	update_icon()
 
+/obj/item/proc/add_enchant()
+	return
 
 /obj/item/update_atom_colour()
 	. = ..()

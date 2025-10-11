@@ -239,7 +239,7 @@
 	},
 /area/ruin/powered/shuttle)
 "S" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	tag = "icon-dark"

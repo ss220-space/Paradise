@@ -1,8 +1,8 @@
 // Energy support addition goal shuttle
 
-#define AGS_CREDITS_PER_SMES 10000
-#define AGS_CAPRGOPOINTS_PER_SMES 75
-#define AGS_FINE_CREDITS_PER_SMES 25000
+#define AGS_CREDITS_PER_SMES 15000
+#define AGS_CAPRGOPOINTS_PER_SMES 100
+#define AGS_FINE_CREDITS_PER_SMES 50000
 
 /datum/addition_goal/energy_support
 	id = "energy_support"
@@ -46,7 +46,7 @@
 			total_capacity = smes.capacity * smes_count
 			smes_in_shuttle++
 			var/scan_progress = round(smes.charge / smes.capacity * 100, 1)
-			total_charge += scan_progress
+			total_charge += smes.charge
 			report_text += "Мобильный СКАН #[scan_number]: [scan_progress]%<br>"
 
 	if(smes_in_shuttle < smes_count)
@@ -55,8 +55,8 @@
 	report_text += "<b>Общий прогресс запроса</b>: [progress]%<br>"
 	report_text += "<b>Ваша награда</b>:<br>"
 
-	reward_credits = smes_count * AGS_CREDITS_PER_SMES * progress / 100
-	reward_cargopoints = smes_count * AGS_CAPRGOPOINTS_PER_SMES * progress / 100
+	reward_credits = round(smes_count * AGS_CREDITS_PER_SMES * progress / 100, 1)
+	reward_cargopoints = round(smes_count * AGS_CAPRGOPOINTS_PER_SMES * progress / 100, 1)
 	if(smes_in_shuttle < smes_count)
 		var/not_found_count = smes_count - smes_in_shuttle
 		reward_credits -= not_found_count * AGS_FINE_CREDITS_PER_SMES

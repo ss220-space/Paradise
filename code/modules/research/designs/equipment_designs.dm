@@ -137,7 +137,7 @@
 	id = "weldingmask"
 	req_tech = list("materials" = 2, "engineering" = 3, "toxins" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000)
 	build_path = /obj/item/clothing/mask/gas/welding
 	category = list("Equipment")
 
@@ -197,7 +197,7 @@
 	id = "hydroponic_hud"
 	req_tech = list("magnets" = 3, "biotech" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	materials = list(MAT_METAL = 50, MAT_GLASS = 250)
 	build_path = /obj/item/clothing/glasses/hud/hydroponic
 	category = list("Equipment")
 
@@ -207,7 +207,7 @@
 	id = "hydroponic_hud_night"
 	req_tech = list("biotech" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 1000, MAT_PLASMA = 200)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 250, MAT_URANIUM = 1000, MAT_PLASMA = 200)
 	build_path = /obj/item/clothing/glasses/hud/hydroponic/night
 	category = list("Equipment")
 
