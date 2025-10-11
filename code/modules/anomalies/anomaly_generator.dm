@@ -34,9 +34,9 @@
 	var/speed = 1e4
 
 	/// A beacon located inside the anomaly generator.
-	var/obj/item/radio/beacon/beacon
+	var/obj/item/beacon/beacon
 	/// The beacon selected as a place for generating anomalies.
-	var/obj/item/radio/beacon/selected_beacon
+	var/obj/item/beacon/selected_beacon
 	/// Current anomaly generator datum.
 	var/datum/anomaly_gen_datum/cur_anomaly
 
@@ -184,7 +184,7 @@
 
 		if("beakon")
 			var/list/options = list()
-			for(var/obj/item/radio/beacon/possible_beacon in GLOB.beacons)
+			for(var/obj/item/beacon/possible_beacon as anything in GLOB.beacons)
 				var/turf/T = get_turf(possible_beacon)
 				if(!T)
 					continue
@@ -197,7 +197,7 @@
 
 				options["[T.loc.name]"] = possible_beacon
 
-			var/obj/item/radio/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
+			var/obj/item/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
 			if(choice == null)
 				choice = beacon;
 

@@ -394,7 +394,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = SFX_BLUNT_SWING_HEAVY \
+		swing_sound = "blunt_swing_heavy" \
 	)
 
 /obj/item/twohanded/clock_hammer/update_icon_state()
@@ -504,7 +504,7 @@
 		/datum/component/cleave_attack, \
 		arc_size = 180, \
 		afterswing_slowdown = 0, \
-		swing_sound = SFX_BLADE_SWING_LIGHT \
+		swing_sound = "blade_swing_light" \
 	)
 
 /obj/item/melee/clock_sword/update_overlays()
@@ -669,6 +669,267 @@
 			user.emote("scream")
 			user.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 		user.drop_item_ground(src)
+
+/**
+ * MARK: Clockwork guns
+ */
+/obj/item/gun/energy/clockwork
+	name = "clockwork shotgun"
+	desc = "Дробовик из латуни с самовосполняющимися за счет энергии Ратвара патронами. От него исходит ритмичное тиканье."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "brassshotgun"
+	item_state = "brassshotgun"
+	can_holster = FALSE
+	slot_flags = ITEM_SLOT_BACK
+	weapon_weight = WEAPON_HEAVY
+	can_add_sibyl_system = FALSE
+	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
+	can_charge = FALSE
+	pb_knockback = 2
+	cell_type = /obj/item/stock_parts/cell/clock/shotgun
+	var/charge_rate = 2
+	var/charge_speed = 7 SECONDS
+	var/haveKnockback = TRUE
+	var/defaultpb_knockback = 2
+	var/def_bullet = /obj/item/ammo_casing/energy/rat/slug
+	var/emp_bullet = /obj/item/ammo_casing/energy/rat/slug/emp
+	var/heal_bullet = /obj/item/ammo_casing/energy/rat/slug/heal
+	var/stun_bullet = /obj/item/ammo_casing/energy/rat/slug/stun
+	isclockwork = TRUE
+	blocks_emissive = FALSE
+
+/obj/item/gun/energy/clockwork/get_ru_names()
+	return list(
+		NOMINATIVE = "латунный дробовик",
+		GENITIVE = "латунного дробовика",
+		DATIVE = "латунному дробовику",
+		ACCUSATIVE = "латунный дробовик",
+		INSTRUMENTAL = "латунным дробовиком",
+		PREPOSITIONAL = "латунном дробовике",
+	)
+
+/obj/item/gun/energy/clockwork/examine(mob/user)
+	. = ..()
+	if(!isclocker(user))
+		return
+	. += span_clockitalic("\n Остал[declension_ru(cell.charge, "ся", "ось", "ось")] [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
+
+/obj/item/gun/energy/clockwork/proc/charge()
+	cell.charge = min(cell.charge + charge_rate, cell.maxcharge)
+
+/obj/item/gun/energy/clockwork/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(charge)), charge_speed, TIMER_LOOP | TIMER_DELETE_ME)
+	enchants = GLOB.gun_and_heart_spells
+
+/obj/item/gun/energy/clockwork/update_overlays()
+	if(!enchant_type)
+		return ..()
+	. += "[initial(icon_state)]_overlay_[enchant_type]"
+
+
+/obj/item/gun/energy/clockwork/add_enchant()
+	switch(enchant_type)
+		if(EMP_G_SPELL)
+			ammo_type = list(emp_bullet)
+		if(HEAL_G_SPELL)
+			ammo_type = list(heal_bullet)
+		if(STUN_G_SPELL)
+			ammo_type = list(stun_bullet)
+		else
+			ammo_type = list(def_bullet)
+	update_ammo_types()
+	if(enchant_type && haveKnockback)
+		pb_knockback = 0
+	if(!enchant_type && haveKnockback)
+		pb_knockback = defaultpb_knockback
+	if(chambered)
+		QDEL_NULL(chambered)
+	newshot()
+
+
+/obj/item/gun/energy/clockwork/update_icon_state()
+	return
+
+/obj/item/gun/energy/clockwork/emp_act(severity)
+	return
+
+/obj/item/gun/energy/clockwork/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
+	if(!isclocker(user))
+		kill_shooter(user)
+		return
+	. = ..()
+	if(!enchant_type)
+		return
+	remove_enchanted_bullet()
+
+/obj/item/gun/energy/clockwork/proc/kill_shooter(mob/living/carbon/shooter)
+	var/zone = BODY_ZONE_HEAD
+	if(!shooter.get_organ(zone))
+		zone = BODY_ZONE_CHEST
+	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
+	shooter.visible_message(span_danger("[declent_ru(NOMINATIVE)] начинает ярко светиться!"))
+	if(iscultist(shooter))
+		to_chat(shooter, span_clocklarge("Получи, грязный еретик!"))
+	else
+		to_chat(shooter, span_clocklarge("Руки прочь!"))
+	shooter.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Выстрелил себе в [GLOB.body_zone[zone][ACCUSATIVE]] из [declent_ru(GENITIVE)].")
+	shooter.bleed(BLOOD_VOLUME_NORMAL)
+	shooter.death()
+
+/obj/item/gun/energy/clockwork/proc/remove_enchanted_bullet()
+	deplete_spell()
+	pb_knockback = 2
+	ammo_type = list(def_bullet)
+	update_ammo_types()
+	if(chambered)
+		QDEL_NULL(chambered)
+	newshot()
+
+/obj/item/gun/energy/clockwork/sniper
+	name = "clockwork sniper rifle"
+	desc = "Снайперская винтовка из латуни с самовосполняющимися за счет энергии Ратвара патронами. От неё исходит ритмичное тиканье."
+	icon_state = "brasssniper"
+	item_state = "brasssniper"
+	ammo_type = list(/obj/item/ammo_casing/energy/rat/snipe)
+	zoomable = TRUE
+	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
+	cell_type = /obj/item/stock_parts/cell/clock/sniper
+	charge_rate = 1
+	recoil = new /datum/gun_recoil/mega()
+	charge_speed = 10 SECONDS
+	pb_knockback = 0
+	haveKnockback = FALSE
+	fire_delay = 40
+
+	def_bullet = /obj/item/ammo_casing/energy/rat/snipe
+	emp_bullet = /obj/item/ammo_casing/energy/rat/snipe/emp
+	heal_bullet = /obj/item/ammo_casing/energy/rat/snipe/heal
+	stun_bullet =/obj/item/ammo_casing/energy/rat/snipe/stun
+
+/obj/item/gun/energy/clockwork/sniper/get_ru_names()
+	return list(
+		NOMINATIVE = "латунная снайперская винтовка",
+		GENITIVE = "латунной снайперской винтовки",
+		DATIVE = "латунной снайперской винтовке",
+		ACCUSATIVE = "латунную снайперскую винтовку",
+		INSTRUMENTAL = "латунной снайперской винтовкой",
+		PREPOSITIONAL = "латунной снайперской винтовке",
+	)
+
+/obj/item/gun/energy/gun/minigun/clockwork
+	name = "brass minigun"
+	desc = "Устройство из множества шестеренок и латунных запчастей. Выглядит устрашающе."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clockgun"
+	item_state = "clockgun"
+	burst_size = 1
+	selfcharge = FALSE
+	cell_type = /obj/item/stock_parts/cell/clock/minigun
+	isclockwork = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/light/rat)
+	recoil = new /datum/gun_recoil/high()
+	blocks_emissive = FALSE
+	COOLDOWN_DECLARE(overheated)
+	COOLDOWN_DECLARE(balloon)
+	var/datum/component/automatic_fire/autofire
+	var/overheat = FALSE
+	var/last_fire = 0
+	var/delay_no_beacon = 50
+	var/gun_charge_delay = 20
+	var/last_charge = 0
+	var/charging_amount = 25
+	var/cool_time = 15 SECONDS
+	var/default_bullet = /obj/item/ammo_casing/energy/laser/light/rat
+	var/attack_bullet = /obj/item/ammo_casing/energy/rat_sphere/attack
+	var/heal_bullet = /obj/item/ammo_casing/energy/rat_sphere/heal
+
+/obj/item/gun/energy/gun/minigun/clockwork/get_ru_names()
+	return list(
+		NOMINATIVE = "латунный миниган",
+		GENITIVE = "латунного минигана",
+		DATIVE = "латунному минигану",
+		ACCUSATIVE = "латунный миниган",
+		INSTRUMENTAL = "латунным миниганом",
+		PREPOSITIONAL = "латунном минигане",
+	)
+
+/obj/item/gun/energy/gun/minigun/clockwork/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSprocessing, src)
+	enchants = GLOB.minigun_spells
+
+/obj/item/gun/energy/gun/minigun/clockwork/process()
+	. = ..()
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	var/obj/structure/clockwork/functional/beacon/beacon_near = locate() in range(5, src.loc)
+	if(last_fire == 0)
+		return
+	if(!(world.time >= last_fire + delay_no_beacon) && isnull(beacon_near))
+		return
+	if(!(world.time >= last_charge + gun_charge_delay))
+		return
+	cell.charge = min(cell.charge + charging_amount, cell.maxcharge)
+	last_charge = world.time
+	if(COOLDOWN_FINISHED(src, overheated))
+		overheat = FALSE
+
+/obj/item/gun/energy/gun/minigun/clockwork/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		0.1 SECONDS \
+		)
+	autofire = src.GetComponent(/datum/component/automatic_fire)
+
+/obj/item/gun/energy/gun/minigun/clockwork/update_overlays()
+	. = ..()
+	if(overheat)
+		. += "[initial(icon_state)]_overheated"
+	if(enchant_type && enchant_type != CASTING_SPELL)
+		. += "[initial(icon_state)]_overlay_[enchant_type]"
+
+/obj/item/gun/energy/gun/minigun/clockwork/update_icon_state()
+	if(autofire.autofire_stat == AUTOFIRE_STAT_FIRING && !overheat)
+		icon_state = "clockgun_firing"
+	else
+		icon_state = "clockgun"
+
+/obj/item/gun/energy/gun/minigun/clockwork/pickup(mob/user)
+	if(isclocker(user))
+		return ..()
+	user.drop_item_ground(src, TRUE)
+	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
+
+/obj/item/gun/energy/gun/minigun/clockwork/add_enchant()
+	update_bullet()
+
+/obj/item/gun/energy/gun/minigun/clockwork/proc/update_bullet()
+	switch(enchant_type)
+		if(MINIGUN_ATTACK)
+			ammo_type = list(attack_bullet)
+		if(MINIGUN_HEAL)
+			ammo_type = list(heal_bullet)
+		else
+			ammo_type = list(default_bullet)
+	update_ammo_types()
+	if(chambered)
+		QDEL_NULL(chambered)
+	newshot()
+
+/obj/item/gun/energy/gun/minigun/clockwork/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if(overheat)
+		if(COOLDOWN_FINISHED(src, balloon))
+			balloon_alert(user, "миниган перегрет!")
+			COOLDOWN_START(src, balloon, 1 SECONDS)
+		return
+	if(enchant_type > 0)
+		COOLDOWN_START(src, overheated, cool_time)
+		overheat = TRUE
+		enchant_type = NO_SPELL
+	last_fire = world.time
+	. = ..()
+	update_bullet()
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
@@ -858,7 +1119,7 @@
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == ABSORB_SPELL && isclocker(owner))
 		owner.visible_message(span_danger("[attack_text] is absorbed by [src] sparks!"))
-		playsound(loc, SFX_SPARKS, 100, TRUE)
+		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		deplete_spell()
 		return TRUE
@@ -871,7 +1132,7 @@
 	if(owner.wear_suit != src)
 		return FALSE
 	if(enchant_type == REFLECT_SPELL && isclocker(owner))
-		playsound(loc, SFX_SPARKS, 100, TRUE)
+		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		if(reflect_uses <= 0)
 			reflect_uses = initial(reflect_uses)
@@ -1381,7 +1642,7 @@
 			to_chat(user,span_warning("You are too weak to crush this massive shard!"))
 			return
 		user.visible_message(span_warning("[user] crushes [src] in his hands!"), span_notice("You crush [src] in your hand!"))
-		playsound(src, SFX_SHATTER, 50, TRUE)
+		playsound(src, "shatter", 50, TRUE)
 		switch(enchant_type)
 			if(EMP_SPELL)
 				add_attack_logs(user, user, "Clock EMP with [src]")
@@ -1461,6 +1722,19 @@
 	duration = 40
 	pixel_x = -32
 	pixel_y = -32
+	var/process_on_affected = TRUE
+	var/anim_time = 2 SECONDS
+	var/sleep_time = 20
+	var/can_adv_heal = TRUE
+	var/robo_affect_heal = TRUE
+	var/radius = 4
+	var/heal = 60
+	var/is_rat_act = TRUE
+	var/heal_marauders = FALSE
+	var/do_emp = FALSE
+	var/do_stun = FALSE
+	var/sound = 'sound/magic/clockwork/reconstruct.ogg'
+	var/convert_mecha = FALSE
 
 /obj/effect/temp_visual/ratvar/reconstruct/Initialize(mapload)
 	. = ..()
@@ -1468,21 +1742,132 @@
 	reconstruct()
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/reconstruct()
-	playsound(src, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
-	animate(src, transform = matrix() * 1, time = 2 SECONDS)
-	sleep(20)
-	for(var/atom/affected in range(4, get_turf(src)))
+	if(!isnull(sound))
+		playsound(src, sound, 50, TRUE)
+	if(!isnull(icon_state))
+		animate(src, transform = matrix() * 1, time = anim_time)
+	addtimer(CALLBACK(src, PROC_REF(process_affected)), sleep_time)
+	return
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/process_affected()
+	if(!process_on_affected)
+		return
+	for(var/atom/affected in range(radius, get_turf(src)))
 		if(isliving(affected))
-			var/mob/living/living = affected
-			living.ratvar_act(TRUE)
-			if(!isclocker(living) || !ishuman(living))
-				continue
-			living.heal_overall_damage(60, 60, affect_robotic = TRUE)
-			living.reagents?.add_reagent("epinephrine", 5)
-			var/mob/living/carbon/human/H = living
-			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-				bodypart.stop_internal_bleeding()
-				bodypart.mend_fracture()
-		else
-			affected.ratvar_act()
-	animate(src, transform = matrix() * 0.1, time = 2 SECONDS)
+			living_process(affected)
+			continue
+		if(!is_rat_act)
+			continue
+		affected.ratvar_act(convert_mecha)
+	if(isnull(icon_state))
+		return
+	animate(src, transform = matrix() * 0.1, time = anim_time)
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/living_process(mob/living/target)
+	var/mob/living/living = target
+	living.ratvar_act(TRUE)
+	if(!ishuman(living))
+		return
+	if(!isclocker(living))
+		curse(living)
+		return
+	heal_clocker(living)
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/heal_clocker(mob/living/clocker)
+	if(istype(clocker, /mob/living/simple_animal/hostile/clockwork/marauder))
+		if(!heal_marauders)
+			return
+		clocker.heal_overall_damage(100)
+		return
+	clocker.heal_overall_damage(heal, heal, affect_robotic = robo_affect_heal)
+	if(!can_adv_heal)
+		return
+	clocker.reagents?.add_reagent("epinephrine", 5)
+	var/mob/living/carbon/human/H = clocker
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		bodypart.stop_internal_bleeding()
+		bodypart.mend_fracture()
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/curse(mob/living/target)
+	var/obj/item/nullrod/N = locate() in target
+	if(!isnull(N) || target.mind?.isblessed)
+		return
+	emp(target)
+	stun(target)
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/emp(mob/living/target)
+	if(!do_emp)
+		return
+	target.emp_act(EMP_HEAVY)
+	new /obj/effect/temp_visual/emp/clock(target.loc)
+
+/obj/effect/temp_visual/ratvar/reconstruct/proc/stun(mob/living/target)
+	if(!do_stun)
+		return
+	if(isrobot(target))
+		target.emp_act(EMP_HEAVY)
+		new /obj/effect/temp_visual/emp/clock(target.loc)
+		return
+	target.Weaken(8 SECONDS)
+	target.Silence(10 SECONDS)
+	target.clockslur(20 SECONDS)
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart
+	layer = ABOVE_ALL_MOB_LAYER + 0.1
+	alpha = 255
+	anim_time = 1 SECONDS
+	sleep_time = 10
+	process_on_affected = FALSE
+	duration = 11
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart/process_affected()
+	. = ..()
+	var/obj/structure/clockwork/functional/heart = locate() in loc
+	if(heart)
+		heart.alpha = 255
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse
+	icon_state = null
+	heal = 30
+	can_adv_heal = FALSE
+	radius = 3
+	sound = null
+	convert_mecha = TRUE
+	duration = 1
+	sleep_time = 1
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/reconstruct()
+	. = ..()
+	playsound(src, soundin = 'sound/magic/clockwork/heart_beat.ogg', vol = 100, vary = FALSE, extrarange = radius, pressure_affected = FALSE, falloff_distance = radius)
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New()
+	radius = GLOB.heart.pulse_range
+	sleep_time = 1 * GLOB.heart.pulse_range
+	duration = 1 * GLOB.heart.pulse_range
+	. = ..()
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/heal
+	heal = 80
+	can_adv_heal = TRUE
+	robo_affect_heal = FALSE
+	heal_marauders = TRUE
+	is_rat_act = FALSE
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/stun
+	do_stun = TRUE
+	heal = 0
+	is_rat_act = FALSE
+
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/emp
+	do_emp = TRUE
+	heal = 0
+	is_rat_act = FALSE
+
+/obj/effect/temp_visual/ratvar/reconstruct/part
+	heal = 0
+	radius = 3
+	can_adv_heal = FALSE
+
+/obj/effect/temp_visual/heart_particle
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "heartbeat particles"

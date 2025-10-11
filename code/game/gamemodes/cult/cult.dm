@@ -86,7 +86,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(cult_mind.current)
 
-		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
+		if(iscarbon(cult_mind.current))
+			cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
@@ -202,7 +203,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		obj.owner = cult_mind
 		cult_mind.objectives += obj
 
-		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
+		if(iscarbon(cult_mind.current))
+			cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
 
 		if(cult_risen)
 			rise(cult_mind.current)
