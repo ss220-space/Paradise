@@ -61,10 +61,10 @@
 	REMOVE_TRAIT(vampire_datum.owner.current, TRAIT_VIRUSIMMUNE, VAMPIRE_TRAIT)
 
 /datum/vampire_passive/regen_bleeding
-	gain_desc = "Теперь ваша способность «Восстановление» лечит внетренние кровотечения."
+	gain_desc = "Теперь ваша способность \"Восстановление\" лечит внетренние кровотечения."
 
 /datum/vampire_passive/glare_aoe
-	gain_desc = "Теперь ваша способность «Вспышка» не зависит от направления взгляда."
+	gain_desc = "Теперь ваша способность \"Вспышка\" не зависит от направления взгляда."
 
 
 /obj/effect/proc_holder/spell/vampire

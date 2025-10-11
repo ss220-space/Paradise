@@ -1692,9 +1692,6 @@
 					return
 
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
-				if(!vamp.is_diablerie_allowed)
-					to_chat(usr, span_warning("Несовместимо с данным типом вампира."))
-					return
 
 				var/new_total = tgui_input_number(usr, "Выберите новое значение:", "Изменение уровня диаблери", max_value = DIABLERIE_COUNT_MAX)
 				if(isnull(new_total))
