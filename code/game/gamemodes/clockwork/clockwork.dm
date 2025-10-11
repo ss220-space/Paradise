@@ -297,12 +297,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		var/mob/living/carbon/human/human = clocker
 		clock_mind.current.RemoveElement(/datum/element/halo_attach)
 		REMOVE_TRAIT(human, TRAIT_CLOCK_HANDS, CLOCK_TRAIT)
-    human.change_eye_color(H.original_eye_color, FALSE)
-		human.update_eyes()
 		human.update_worn_gloves()
 		human.remove_overlay(HALO_LAYER)
 		human.update_body()
-    
+
 	add_conversion_logs(clocker, "deconverted from the clockwork cult.")
 	if(show_message)
 		clocker.visible_message(span_clock("[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!"),
