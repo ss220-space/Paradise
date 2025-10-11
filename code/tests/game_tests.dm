@@ -14,6 +14,7 @@
 #include "test_announcements.dm"
 #include "test_components.dm"
 #include "test_elements.dm"
+#include "test_init_sanity.dm"
 #include "test_map_templates.dm"
 #include "test_reagent_id_typos.dm"
 #include "test_spawn_humans.dm"

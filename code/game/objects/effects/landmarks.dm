@@ -23,9 +23,6 @@
 /obj/effect/landmark/proc/set_tag()
 	tag = "landmark*[name]"
 
-/obj/effect/landmark/singularity_act()
-	return
-
 /obj/effect/landmark/ex_act()
 	return
 
@@ -48,7 +45,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/spawner
-	icon_state = "questionmark"
 	var/spawner_list
 
 /obj/effect/landmark/spawner/Initialize(mapload)
@@ -78,7 +74,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start)
 
 /obj/effect/landmark/awaystart
 	name = "awaystart"
-	icon_state = "awaystart"
 
 // Without this away missions break
 INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
@@ -90,7 +85,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 // MARK: SPAWNER
 /obj/effect/landmark/spawner/wizard
 	name = "wizard"
-	icon_state = "Wiz"
+	icon_state = "wizard"
 
 /obj/effect/landmark/spawner/wizard/Initialize(mapload)
 	spawner_list = GLOB.wizardstart
@@ -154,7 +149,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/spawner/blob
 	name = "blobstart"
-	icon_state = "Blob"
+	icon_state = "blobstart"
 
 /obj/effect/landmark/spawner/blob/Initialize(mapload)
 	spawner_list = GLOB.blobstart
@@ -162,7 +157,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/spawner/xeno
 	name = "xeno_spawn"
-	icon_state = "Xeno"
+	icon_state = "xeno_spawn"
 
 /obj/effect/landmark/spawner/xeno/Initialize(mapload)
 	spawner_list = GLOB.xeno_spawn
@@ -170,6 +165,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/spawner/ninjastart
 	name = "ninjastart"
+	icon_state = "ninjastart"
 
 /obj/effect/landmark/spawner/ninjastart/Initialize(mapload)
 	spawner_list = GLOB.ninjastart
@@ -177,6 +173,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/spawner/ninja_teleport
 	name = "ninja_teleport"
+	icon_state = "ninja_teleport"
 
 /obj/effect/landmark/spawner/ninja_teleport/Initialize(mapload)
 	spawner_list = GLOB.ninja_teleport
@@ -184,7 +181,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/spawner/carp
 	name = "carpspawn"
-	icon_state = "Carp"
+	icon_state = "carpspawn"
 
 /obj/effect/landmark/spawner/carp/Initialize(mapload)
 	spawner_list = GLOB.carplist
@@ -233,7 +230,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "GREEN"
 
 /obj/effect/landmark/spawner/team1/Initialize(mapload)
-	spawner_list = GLOB.battle_teams_spawns
+	spawner_list = GLOB.battle_teams_spawns[JOB_TITLE_TEAM1]
 	return ..()
 
 /obj/effect/landmark/spawner/team2
@@ -241,7 +238,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "BLUE"
 
 /obj/effect/landmark/spawner/team2/Initialize(mapload)
-	spawner_list = GLOB.battle_teams_spawns
+	spawner_list = GLOB.battle_teams_spawns[JOB_TITLE_TEAM2]
 	return ..()
 
 /obj/effect/landmark/spawner/team3
@@ -249,7 +246,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "RED"
 
 /obj/effect/landmark/spawner/team3/Initialize(mapload)
-	spawner_list = GLOB.battle_teams_spawns
+	spawner_list = GLOB.battle_teams_spawns[JOB_TITLE_TEAM3]
 	return ..()
 
 /obj/effect/landmark/spawner/airdrop
