@@ -98,8 +98,8 @@
 
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/med_hud_set_health()
 	return diag_hud_set_health() //we use a different hud
@@ -108,7 +108,7 @@
 	return diag_hud_set_status() //we use a different hud
 
 /mob/living/silicon/Destroy()
-	UnregisterSignal(SSalarm, list(
+	UnregisterSignal(GLOB.alarm_manager, list(
 		COMSIG_TRIGGERED_ALARM,
 		COMSIG_CANCELLED_ALARM
 	))

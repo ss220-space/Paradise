@@ -588,6 +588,7 @@
 	desc = "Стильный берет, выдаваемый главному врачу. От него исходит легкий запах антисептика."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "elo-beret"
+	item_state = "elo-beret"
 
 /obj/item/clothing/head/beret/elo/get_ru_names()
 	return list(

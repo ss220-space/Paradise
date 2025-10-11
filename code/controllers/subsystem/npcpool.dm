@@ -1,4 +1,4 @@
-#ifdef UNIT_TESTS
+#ifdef GAME_TESTS
 GLOBAL_VAR_INIT(npcpool_suspension, FALSE)
 #else
 GLOBAL_VAR_INIT(npcpool_suspension, TRUE)

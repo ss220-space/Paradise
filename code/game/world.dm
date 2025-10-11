@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
-#ifdef UNIT_TESTS
+#ifdef TEST_RUNNER
 GLOBAL_DATUM(test_runner, /datum/test_runner)
 #endif
 
@@ -52,8 +52,8 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	GLOB.revision_info.log_info()
 	load_admins(run_async=FALSE) // This better happen early on.
 
-	#ifdef UNIT_TESTS
-	log_world("Unit Tests Are Enabled!")
+	#ifdef TEST_RUNNER
+	log_world("Test runner enabled.")
 	#endif
 
 
@@ -77,7 +77,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	Master.Initialize(10, FALSE, TRUE)
 
 
-	#ifdef UNIT_TESTS
+	#ifdef TEST_RUNNER
 	GLOB.test_runner = new
 	GLOB.test_runner.Start()
 	#endif
@@ -154,8 +154,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// If we got here, we are in a "normal" reboot
 	Master.Shutdown() // Shutdown subsystems
 
-	// If we were running unit tests, finish that run
-	#ifdef UNIT_TESTS
+	// If we were running game tests, finish that run
+	#ifdef TEST_RUNNER
 	GLOB.test_runner.Finalize()
 	return
 	#endif

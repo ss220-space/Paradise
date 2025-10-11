@@ -175,6 +175,10 @@
 	sound.volume = 30
 	SEND_SOUND(user, sound)
 	for(var/mob/living/carbon/human/target as anything in targets)
+		if(!target.affects_vampire(user))
+			to_chat(user, span_warning("Вы чувствуете, что ваша способность не произвела никакого эффекта!"))
+			return
+
 		to_chat(target, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
 		SEND_SOUND(target, sound('sound/hallucinations/i_see_you1.ogg'))
 		target.apply_status_effect(STATUS_EFFECT_PACIFIED, user) // we wont to see, whom we already pacify

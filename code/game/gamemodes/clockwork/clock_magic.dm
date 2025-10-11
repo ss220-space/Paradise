@@ -1,3 +1,5 @@
+#define SPELL_HAND "Касание Мидаса"
+#define SPELL_HEART "Настроить сердцебиение"
 /datum/action/innate/clockwork/clock_magic //Clockwork magic casting.
 	name = "Prepare Clockwork Magic"
 	button_icon_state = "carve"
@@ -29,6 +31,8 @@
 /// Main proc on enchanting items/ making spell on hands
 /datum/action/innate/clockwork/clock_magic/Activate()
 	. = ..()
+	var/do_midas = FALSE
+	var/do_heart = FALSE
 	var/obj/item/item = owner.get_active_hand()
 	if(istype(item, /obj/item/gripper)) // cogs gripper
 		var/obj/item/gripper/G = item
@@ -74,8 +78,12 @@
 				possible_icons += list(I.name = item_image)
 
 		if(ishuman(owner))
-			possible_items += "Spell hand"
-			possible_icons += list("Spell hand" = image(icon = 'icons/mob/actions/actions_clockwork.dmi', icon_state = "hand"))
+			possible_items += SPELL_HAND
+			possible_icons += list(SPELL_HAND = image(icon = 'icons/mob/actions/actions_clockwork.dmi', icon_state = "hand"))
+		var/obj/structure/clockwork/functional/heart/have_heart = locate() in range(2)
+		if(have_heart && !have_heart.curse_dial)
+			possible_items += SPELL_HEART
+			possible_icons += list(SPELL_HEART = image(icon = 'icons/obj/clockwork.dmi', icon_state = "ratvarpart1"))
 		var/item_to_enchant
 		if(possible_items.len >= 2)
 			item_to_enchant = show_radial_menu(owner, owner, possible_icons, require_near = TRUE)
@@ -87,8 +95,12 @@
 			if(possible_items.len) // we had a choice but declined
 				return
 			item_to_enchant = null
-		if(item_to_enchant == "Spell hand")
+		if(item_to_enchant == SPELL_HAND)
 			item_to_enchant = null
+			do_midas = TRUE
+		if(item_to_enchant == SPELL_HEART)
+			item_to_enchant = null
+			do_heart = TRUE
 		else
 			item = possible_items[item_to_enchant]
 			if(!(item in owner.contents))
@@ -102,7 +114,12 @@
 			to_chat(owner, span_warning(" You can't enchant [item] right now while spell is working!"))
 			return
 		if(item.enchant_type)
-			to_chat(owner, span_clockitalic("There is already prepared spell in [item]! If you choose another spell it will overwrite old one!"))
+			to_chat(owner, "<span class='clockitalic'>There is already prepared spell in [item]! If you choose another spell it will overwrite old one!</span>")
+		if(istype(item, /obj/item/gun/energy/gun/minigun/clockwork))
+			var/obj/item/gun/energy/gun/minigun/clockwork/gun = item
+			if(gun.overheat)
+				to_chat(owner, span_warning("Вы не можете зачаровать [gun.declent_ru(ACCUSATIVE)] пока он перегрет!"))
+				return
 		var/entered_spell_name
 		var/list/possible_enchants = list()
 		var/list/possible_enchant_icons = list()
@@ -143,6 +160,7 @@
 				E.owner = owner
 				owner.actions += E
 				owner.update_action_buttons(TRUE)
+			item.add_enchant()
 			item.update_icon()
 			to_chat(owner, span_clock("You sealed the power in [item], you have prepared a [spell_enchant.name] invocation!"))
 
@@ -152,8 +170,8 @@
 		if(!iscarbon(owner)) //This is to throw away non carbon who doesn't have hands, but silicon modules.
 			to_chat(owner, span_clockitalic("You need an item that you can enchant!"))
 			return
-		if(midas_spell)
-			to_chat(owner, "<span class='clockitalic'>You already prepared midas touch!</b></span>")
+		if(midas_spell && do_midas)
+			to_chat(owner, span_clockitalic("You already prepared midas touch!"))
 			return
 		if(QDELETED(src) || owner.incapacitated())
 			return
@@ -164,12 +182,50 @@
 		else
 			to_chat(owner, span_warning("You are already invoking clock magic!"))
 			return
+		if(!do_midas && !do_heart)
+			if(midas_spell)
+				to_chat(owner, span_clockitalic("You already prepared midas touch!"))
+				channeling = FALSE
+				return
+			do_midas(owner)
+		if(do_midas)
+			do_midas(owner)
+		if(do_heart)
+			do_heart(owner)
 
-		if(do_after(owner, 5 SECONDS, owner))
-			midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
-			midas_spell.Grant(owner, src)
-			to_chat(owner, span_clock("You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!"))
+/datum/action/innate/clockwork/clock_magic/proc/do_midas(mob/living/owner)
+	if(!do_after(owner, 5 SECONDS, owner))
 		channeling = FALSE
+		return
+	midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
+	midas_spell.Grant(owner, src)
+	to_chat(owner, span_clock("Вы чувствуете, как энергия течет по вашей руке. Вы приготовили заклинание [midas_spell.name]!"))
+	channeling = FALSE
+
+/datum/action/innate/clockwork/clock_magic/proc/do_heart(mob/living/owner)
+	if(GLOB.heart.enchanted_before)
+		to_chat(owner, span_clockitalic("Сердце перегрелось! Ему нужно остыть, прежде чем оно снова сможет быть зачаровано."))
+		channeling = FALSE
+		return
+	var/list/possible_pulse_icons = list()
+	var/list/possible_pulses = list()
+	var/image/heart_img
+	var/datum/spell_enchant/next_pulse
+	for(var/datum/spell_enchant/ench as anything in GLOB.heart.enchants)
+		if(ench.enchantment == GLOB.heart.cur_enchant)
+			continue
+		possible_pulses[ench.name] = ench
+		heart_img = image(icon = 'icons/obj/clockwork.dmi', icon_state = "heart_icon_[ench.enchantment]")
+		possible_pulse_icons += list(ench.name = heart_img)
+	var/chosen = show_radial_menu(owner, owner, possible_pulse_icons, require_near = TRUE)
+	next_pulse = possible_pulses[chosen]
+	if(!next_pulse)
+		channeling = FALSE
+		return
+	if(do_after(owner, 5 SECONDS, owner))
+		GLOB.heart.cur_enchant = next_pulse.enchantment
+		GLOB.heart.update_icon(UPDATE_OVERLAYS)
+	channeling = FALSE
 
 /datum/action/innate/clockwork/hand_spell //The next generation of talismans, handles storage/creation of blood magic
 	name = "Clockwork Magic"
@@ -344,3 +400,6 @@
 	user.whisper("Rqu-en qy'qby!")
 	source.used = TRUE
 	qdel(src)
+
+#undef SPELL_HAND
+#undef SPELL_HEART

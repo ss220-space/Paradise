@@ -43,6 +43,7 @@
 	src.time_per_tile = time_per_tile
 
 	next_step = 0
+
 	rift_z = pick(levels_by_trait(STATION_LEVEL))
 
 	check_z()

@@ -1928,6 +1928,7 @@
 	var/datum/antagonist/vampire/vampire
 	var/mob/living/carbon/human/human_vampire
 	var/obj/effect/proc_holder/spell/vampire/metamorphosis/parent_spell
+	hud_possible = list(HEALTH_HUD, STATUS_HUD, SPECIALROLE_HUD, THOUGHT_HUD, DIABLERIE_AURA_HUD)
 
 
 /mob/living/simple_animal/hostile/vampire/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)

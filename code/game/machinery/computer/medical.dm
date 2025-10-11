@@ -445,7 +445,7 @@
 		if(prob(10/severity))
 			switch(rand(1,6))
 				if(1)
-					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
+					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
 					R.fields["sex"] = pick("Мужской", "Женский", "Небинарный", "Множественный")
 				if(3)

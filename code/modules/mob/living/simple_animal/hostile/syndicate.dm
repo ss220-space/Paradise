@@ -94,7 +94,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Initialize(mapload)
 	. = ..()
-	name = "[name] [pick(GLOB.last_names)]"
+	name = "[name] [pick(GLOB.last_names_male)]"
 	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
 

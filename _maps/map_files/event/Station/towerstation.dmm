@@ -2607,8 +2607,8 @@
 "bKs" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/item/radio/beacon,
-/obj/item/radio/beacon,
+/obj/item/beacon,
+/obj/item/beacon,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
@@ -2863,7 +2863,7 @@
 	},
 /area/maintenance/auxsolarstarboard)
 "bQr" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/bar/atrium)
 "bQI" = (
@@ -6993,7 +6993,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -7329,7 +7329,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -7856,7 +7856,7 @@
 /turf/simulated/floor/wood,
 /area/bridge)
 "fmn" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/camera{
 	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
 	c_tag = "Research Toxins Test Chamber East";
@@ -11822,7 +11822,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/wood,
 /area/library)
 "hEh" = (
@@ -11917,7 +11917,7 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "hHo" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/break_room)
 "hHC" = (
@@ -12441,7 +12441,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "hXJ" = (
@@ -13683,7 +13683,7 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "iMJ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -15910,7 +15910,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -16974,7 +16974,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/medical/research)
 "kXl" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/primary/starboard)
 "kXS" = (
@@ -18574,7 +18574,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -18664,7 +18664,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -19629,7 +19629,7 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/dorms)
 "mDm" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/medical/medbay)
 "mEs" = (
@@ -22064,7 +22064,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "ohA" = (
@@ -25550,7 +25550,7 @@
 	},
 /area/bridge)
 "quM" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/medical/research)
 "qva" = (
@@ -28530,7 +28530,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "stS" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreenfull"
@@ -33044,7 +33044,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "vlJ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/dorms)
 "vlM" = (
@@ -34638,7 +34638,7 @@
 	},
 /area/crew_quarters/dorms)
 "wkb" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/entry)
 "wkN" = (
@@ -37365,7 +37365,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard)
 "xNX" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)

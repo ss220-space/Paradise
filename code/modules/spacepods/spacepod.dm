@@ -260,12 +260,12 @@
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
-		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [src].")
+		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [declent_ru(ACCUSATIVE)].")
 		return FALSE
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
-		visible_message("[span_danger(user)] [user.attacktext] [src]!")
+		visible_message(span_danger("[user] [user.attacktext] [declent_ru(ACCUSATIVE)]!"))
 		add_attack_logs(user, src, "attacked")
 		return TRUE
 
@@ -275,8 +275,8 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		deal_damage(user.obj_damage)
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
-		to_chat(user, span_warning("Вы наносите удар по [src.declent_ru(DATIVE)]!"))
-		visible_message(span_warning("[capitalize(user)] пробивает броню [src.declent_ru(GENITIVE)]"))
+		to_chat(user, span_warning("Вы наносите удар по [declent_ru(DATIVE)]!"))
+		visible_message(span_warning("[capitalize(user)] пробива[pluralize_ru(user.gender, "ет", "ют")] броню [declent_ru(GENITIVE)]"))
 
 /obj/spacepod/attack_tk()
 	return

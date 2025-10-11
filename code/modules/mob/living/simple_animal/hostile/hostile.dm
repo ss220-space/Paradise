@@ -93,7 +93,7 @@
 /mob/living/simple_animal/hostile/Life(seconds, times_fired)
 	. = ..()
 	if(!.)	// dead
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 
 /mob/living/simple_animal/hostile/handle_automated_action()
@@ -419,12 +419,12 @@
 			if(COOLDOWN_FINISHED(src, ranged_cooldown) && !target.Adjacent(targets_from)&& target_distance <= ranged_distance) //But make sure they're not in range for a melee attack
 				OpenFire(target)
 		if(!Process_Spacemove(NONE)) //Drifting
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			return TRUE
 		if(!isnull(retreat_distance)) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
 				var/glide_flag = move_to_delay > END_GLIDE_SPEED ? MOVEMENT_LOOP_IGNORE_GLIDE : NONE
-				SSmove_manager.move_away(src, target, retreat_distance, move_to_delay, flags = glide_flag)
+				GLOB.move_manager.move_away(src, target, retreat_distance, move_to_delay, flags = glide_flag)
 			else
 				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
 		else
@@ -460,8 +460,8 @@
 		approaching_target = FALSE
 	var/glide_flag = delay > END_GLIDE_SPEED ? MOVEMENT_LOOP_IGNORE_GLIDE : NONE
 	if(use_pathfinding)
-		return SSmove_manager.move_to_pathfind(src, target, minimum_distance, delay, timeout, flags = glide_flag)
-	return SSmove_manager.move_to(src, target, minimum_distance, delay, timeout, flags = glide_flag)
+		return GLOB.move_manager.move_to_pathfind(src, target, minimum_distance, delay, timeout, flags = glide_flag)
+	return GLOB.move_manager.move_to(src, target, minimum_distance, delay, timeout, flags = glide_flag)
 
 
 /mob/living/simple_animal/hostile/adjustHealth(
@@ -517,7 +517,7 @@
 	GiveTarget(null)
 	approaching_target = FALSE
 	in_melee = FALSE
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	LoseAggro()
 
 

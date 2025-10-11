@@ -333,13 +333,13 @@
 	if(status || alarm_on || (assembly && assembly.state == 1)) // checks if camera still off OR alarms already on OR camera disasembled
 		return
 	alarm_on = TRUE
-	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
+	GLOB.alarm_manager.trigger_alarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
 	if(!alarm_on) // you don't have to turn off alarm twice
 		return
 	alarm_on = FALSE
-	SSalarm.cancelAlarm("Camera", get_area(src), src)
+	GLOB.alarm_manager.cancel_alarm("Camera", get_area(src), src)
 
 /obj/machinery/camera/proc/can_use(mob/user)
 	if(!status)
