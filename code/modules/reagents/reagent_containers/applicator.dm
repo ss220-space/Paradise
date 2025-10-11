@@ -132,7 +132,7 @@
 	var/cycle_delay = (2 - reacting_to_applied_ratio) * (1 SECONDS)
 	while(do_after(user, cycle_delay, target))
 		measured_health = target.health
-		apply_to(target, user, reacting_to_applied_ratio, FALSE, def_zone)
+		apply_to(target, user, 1, FALSE, def_zone)
 		if(measured_health == target.health)
 			balloon_alert(user, "авто-мендер выключен!")
 			break
