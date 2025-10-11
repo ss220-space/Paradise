@@ -1,19 +1,19 @@
 /obj/item/spacepod_equipment/weaponry/proc/fire_weapons()
 	if((HAS_TRAIT(usr, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && harmful)
-		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(usr, span_warning("You don't want to harm other living beings!"))
 		return
 	if(my_atom.next_firetime > world.time)
-		to_chat(usr, "<span class='warning'>Your weapons are recharging.</span>")
+		to_chat(usr, span_warning("Your weapons are recharging."))
 		return
 	my_atom.next_firetime = world.time + fire_delay
 	var/turf/firstloc
 	var/turf/secondloc
 	if(!my_atom.equipment_system || !my_atom.equipment_system.weapon_system)
-		to_chat(usr, "<span class='warning'>Missing equipment or weapons.</span>")
+		to_chat(usr, span_warning("Missing equipment or weapons."))
 		my_atom.verbs -= text2path("[type]/proc/fire_weapons")
 		return
 	if(!my_atom.battery.use(shot_cost))
-		to_chat(usr, "<span class='warning'>Insufficient charge to fire the weapons</span>")
+		to_chat(usr, span_warning("Insufficient charge to fire the weapons"))
 		return
 	var/olddir
 	for(var/i = 0; i < shots_per; i++)

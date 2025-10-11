@@ -36,9 +36,9 @@
 	. = ..()
 	switch(hole_size)
 		if(MEDIUM_HOLE)
-			. += "<span class='notice'>There is a large hole in \the [src].</span>"
+			. += span_notice("There is a large hole in \the [src].")
 		if(LARGE_HOLE)
-			. += "<span class='warning'>\The [src] has been completely cut through.</span>"
+			. += span_warning("\The [src] has been completely cut through.")
 
 /obj/structure/fence/end
 	icon_state = "end"
@@ -91,32 +91,32 @@
 	if(shock(user, 100))
 		return
 	if(invulnerable)
-		to_chat(user, "<span class='warning'>This fence is too strong to cut through!</span>")
+		to_chat(user, span_warning("This fence is too strong to cut through!"))
 		return
 	if(!cuttable)
-		user.visible_message("<span class='warning'>[user] starts dismantling [src] with [W].</span>",\
-		"<span class='warning'>You start dismantling [src] with [W].</span>")
+		user.visible_message(span_warning("[user] starts dismantling [src] with [W]."),\
+		span_warning("You start dismantling [src] with [W]."))
 		if(W.use_tool(src, user, FULL_CUT_TIME, volume = W.tool_volume))
-			user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
+			user.visible_message(span_notice("[user] completely dismantles [src]."),\
 			span_notice("You completely dismantle [src]."))
 			qdel(src)
 		return
 	var/current_stage = hole_size
-	user.visible_message("<span class='warning'>[user] starts cutting through [src] with [W].</span>",\
-	"<span class='warning'>You start cutting through [src] with [W].</span>")
+	user.visible_message(span_warning("[user] starts cutting through [src] with [W]."),\
+	span_warning("You start cutting through [src] with [W]."))
 	if(W.use_tool(src, user, CUT_TIME, volume = W.tool_volume))
 		if(current_stage == hole_size)
 			switch(hole_size)
 				if(NO_HOLE)
-					user.visible_message("<span class='notice'>[user] cuts into [src] some more.</span>",\
+					user.visible_message(span_notice("[user] cuts into [src] some more."),\
 					span_notice("You could probably fit yourself through that hole now. Although climbing through would be much faster if you made it even bigger."))
 					hole_size = MEDIUM_HOLE
 				if(MEDIUM_HOLE)
-					user.visible_message("<span class='notice'>[user] completely cuts through [src].</span>",\
+					user.visible_message(span_notice("[user] completely cuts through [src]."),\
 					span_notice("The hole in [src] is now big enough to walk through."))
 					hole_size = LARGE_HOLE
 				if(LARGE_HOLE)
-					user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
+					user.visible_message(span_notice("[user] completely dismantles [src]."),\
 					span_notice("You completely take apart [src]."))
 					qdel(src)
 					return
@@ -209,7 +209,7 @@
 
 /obj/structure/fence/door/proc/toggle(mob/user)
 	open = !open
-	visible_message("<span class='notice'>\The [user] [open ? "opens" : "closes"] \the [src].</span>")
+	visible_message(span_notice("\The [user] [open ? "opens" : "closes"] \the [src]."))
 	update_door_status()
 	playsound(src, 'sound/machines/door_open.ogg', 100, TRUE)
 

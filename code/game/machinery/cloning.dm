@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	countdown = new(src)
 
 	Radio = new /obj/item/radio(src)
-	Radio.set_listening(FALSE)
+	Radio.become_speaker_only(MED_FREQ)
 	Radio.follow_target = src
 
 	component_parts = list()
@@ -245,7 +245,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/announce_radio_message(message)
 	if(radio_announce)
-		Radio.autosay(message, name, MED_FREQ_NAME)
+		Radio.autosay(message, name, HEADSET_FREQ_NAME)
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, TRUE)

@@ -73,9 +73,9 @@
 
 	if(src.health < src.maxHealth)
 		if(src.health >= src.maxHealth/2)
-			. += "<span class='notice'>It looks slightly dented.</span>"
+			. += span_notice("It looks slightly dented.")
 		else
-			. += "<span class='warning'>It looks severely dented!</span>"
+			. += span_warning("It looks severely dented!")
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))
@@ -89,14 +89,14 @@
 				)
 			else
 				M.visible_message(
-					"<span class='danger'>[M] repairs some of its own dents.</span>", \
+					span_danger("[M] repairs some of its own dents."), \
 					"<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>"
 				)
 		else
 			if(src != M)
 				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
 			else
-				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
+				to_chat(M, span_cult("You cannot repair your own dents, as you have none!"))
 	else if(src != M)
 		return ..()
 
@@ -117,8 +117,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
-	maxHealth = 400
-	health = 400
+	maxHealth = 300
+	health = 300
 	response_harm   = "harmlessly punches"
 	harm_intent_damage = 0
 	obj_damage = 90
@@ -132,7 +132,6 @@
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	move_resist = MOVE_FORCE_STRONG
-	move_force = MOVE_FORCE_STRONG
 	pull_force = MOVE_FORCE_STRONG
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
 	force_threshold = 11
@@ -179,8 +178,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "floating"
 	icon_living = "floating"
-	maxHealth = 150
-	health = 150
+	maxHealth = 75
+	health = 75
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "рубит"
@@ -217,8 +216,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "artificer"
 	icon_living = "artificer"
-	maxHealth = 100
-	health = 100
+	maxHealth = 50
+	health = 50
 	response_harm = "viciously beats"
 	harm_intent_damage = 5
 	obj_damage = 80

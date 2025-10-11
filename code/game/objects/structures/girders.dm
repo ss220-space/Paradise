@@ -30,7 +30,7 @@
 		if(GIRDER_DISPLACED)
 			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
 		if(GIRDER_DISASSEMBLED)
-			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
+			. += span_notice("[src] is disassembled! You probably shouldn't be able to see this examine message.")
 
 /obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
 	for(var/i=0;i < metalAmount;i++)
@@ -340,10 +340,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start dislodging the girder...</span>")
+	to_chat(user, span_notice("You start dislodging the girder..."))
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_NORMAL)
 		return
-	to_chat(user, "<span class='notice'>You dislodge the girder.</span>")
+	to_chat(user, span_notice("You dislodge the girder."))
 	var/obj/structure/girder/displaced/D = new (loc)
 	transfer_fingerprints_to(D)
 	qdel(src)
@@ -365,16 +365,16 @@
 			M.add_fingerprint(user)
 			qdel(src)
 		if(GIRDER_REINF)
-			to_chat(user, "<span class='notice'>You start unsecuring support struts...</span>")
+			to_chat(user, span_notice("You start unsecuring support struts..."))
 			if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_REINF)
 				return
-			to_chat(user, "<span class='notice'>You unsecure the support struts.</span>")
+			to_chat(user, span_notice("You unsecure the support struts."))
 			state = GIRDER_REINF_STRUTS
 		if(GIRDER_REINF_STRUTS)
-			to_chat(user, "<span class='notice'>You start securing support struts...</span>")
+			to_chat(user, span_notice("You start securing support struts..."))
 			if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_REINF_STRUTS)
 				return
-			to_chat(user, "<span class='notice'>You secure the support struts.</span>")
+			to_chat(user, span_notice("You secure the support struts."))
 			state = GIRDER_REINF
 
 /obj/structure/girder/wirecutter_act(mob/user, obj/item/I)
@@ -383,10 +383,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start removing the inner grille...</span>")
+	to_chat(user, span_notice("You start removing the inner grille..."))
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_REINF_STRUTS)
 		return
-	to_chat(user, "<span class='notice'>You remove the inner grille.</span>")
+	to_chat(user, span_notice("You remove the inner grille."))
 	new /obj/item/stack/sheet/plasteel(get_turf(src))
 	var/obj/structure/girder/G = new (loc)
 	transfer_fingerprints_to(G)
@@ -408,12 +408,12 @@
 		qdel(src)
 	else
 		if(!isfloorturf(loc))
-			to_chat(user, "<span class='warning'>A floor must be present to secure the girder!</span>")
+			to_chat(user, span_warning("A floor must be present to secure the girder!"))
 			return
-		to_chat(user, "<span class='notice'>You start securing the girder...</span>")
+		to_chat(user, span_notice("You start securing the girder..."))
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_DISPLACED)
 			return
-		to_chat(user, "<span class='notice'>You secure the girder.</span>")
+		to_chat(user, span_notice("You secure the girder."))
 		var/obj/structure/girder/G = new(loc)
 		transfer_fingerprints_to(G)
 		qdel(src)

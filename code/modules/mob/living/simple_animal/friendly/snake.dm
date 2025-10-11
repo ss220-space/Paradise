@@ -187,9 +187,11 @@
 		if(health <= 0)
 			to_chat(user, span_notice("Безжизненный взгляд в глазах [real_name] никак не меняется, когда вы надеваете [item_to_add] на неё."))
 		else if(user)
-			user.visible_message(span_notice("[user] надевает [item_to_add] на центральную голову [real_name]. [src] смотрит на [user] и довольно шипит."),
+			user.visible_message(
+				span_notice("[user] надевает [item_to_add] на центральную голову [real_name]. [src] смотрит на [user] и довольно шипит."),
 				span_notice("Вы надеваете [item_to_add] на голову [real_name]. [src] озадачено смотрит на вас, пока другие головы смотрят на центральную с завистью."),
-				span_italics("Вы слышите дружелюбное шипение."))
+				span_italics("Вы слышите дружелюбное шипение.")
+			)
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_snek_fluff()
@@ -256,7 +258,7 @@
 	melee_damage_upper = 3
 	faction = list("neutral")
 	unique_pet = TRUE
-	
+
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/riraha/get_ru_names()
 	return list(

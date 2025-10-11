@@ -31,7 +31,7 @@
 		/obj/structure/spider/spiderling,
 		/obj/item/disk/nuclear,
 		/obj/machinery/nuclearbomb,
-		/obj/item/radio/beacon,
+		/obj/item/beacon,
 		/obj/machinery/the_singularitygen,
 		/obj/singularity,
 		/obj/machinery/teleport/station,
@@ -321,7 +321,10 @@
 	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
 	Crate.ru_names = new /list(6)
 	for(var/i = 1; i <= 6; i++)
-		Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
+		if(i < length(object.container_ru_names))
+			Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
+		else
+			Crate.ru_names[i] = Crate.name
 
 	if(object.access)
 		Crate:req_access = list(text2num(object.access))
@@ -602,7 +605,7 @@
 /*
 
 			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
-				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	// Unused for now (Crate limit #3056).
+				to_chat(usr, span_warning("[P.name] is out of stock, and can no longer be ordered."))	// Unused for now (Crate limit #3056).
 				return	*/
 
 
@@ -655,7 +658,7 @@
 					O = SO
 					P = O.object
 /*					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it. Unused for now (Crate limit #3056).
-						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	*/
+						to_chat(usr, span_warning("[P.name] is out of stock, and can no longer be ordered."))	*/
 					if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost

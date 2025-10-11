@@ -123,7 +123,7 @@
 	if(connected_holopad)
 		return
 
-	for(var/other_dialed_holopad as anything in dialed_holopads)
+	for(var/other_dialed_holopad in dialed_holopads)
 		if(other_dialed_holopad == answering_holopad)
 			continue
 		Disconnect(other_dialed_holopad)

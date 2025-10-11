@@ -3,12 +3,21 @@
 
 // If defined, we will NOT defer asset generation till later in the game, and will instead do it all at once, during initiialize
 //#define DO_NOT_DEFER_ASSETS
-// Uncomment the following line to compile unit tests.
-// #define UNIT_TESTS
 
+// Uncomment the following line to compile game tests on a local server. The output will be in a test_run-[DATE].log file in the ./data folder.
+//#define LOCAL_GAME_TESTS
 
-#ifdef CIBUILDING
-#define UNIT_TESTS
+#ifdef LOCAL_GAME_TESTS
+#define GAME_TESTS
+#define MAP_TESTS
+#endif
+
+#if defined(CIBUILDING) && defined(LOCAL_GAME_TESTS)
+#error CIBUILDING and LOCAL_GAME_TESTS should not be enabled at the same time!
+#endif
+
+#if defined(GAME_TESTS) || defined(MAP_TESTS)
+#define TEST_RUNNER
 #endif
 
 ///Used to find the sources of harddels, quite laggy, don't be surpised if it freezes your client for a good while

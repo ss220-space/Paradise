@@ -179,7 +179,7 @@
 			AI.last_paper_seen_title = itemname
 
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
-			for(var/uid_watcher as anything in console.concurrent_users)
+			for(var/uid_watcher in console.concurrent_users)
 				var/watcher = locateUID(uid_watcher)
 				to_chat(watcher, "[user] holds the [itemname] up to one of the cameras ...")
 				var/datum/browser/popup = new(watcher, itemname, itemname)
@@ -226,8 +226,10 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message(span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
-						span_warning("You unweld [src], leaving it as just a frame bolted to the wall"))
+		visible_message(
+			span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+			span_warning("You unweld [src], leaving it as just a frame bolted to the wall")
+		)
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)

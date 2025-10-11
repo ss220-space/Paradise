@@ -21,13 +21,13 @@
 /// Has a smooth burnt sprite, used to decide whether to apply an offset to the burnt overlay or not. For /turf/open only.
 #define SMOOTH_BURNT_TURF (1<<8)
 
-#define SMOOTH_FALSE	(1 << 9) //not smooth
+#define SMOOTH_FALSE (1 << 9) //not smooth
 
-#define SMOOTH_TRUE		(1 << 10) //smooths with exact specified types or just itself
+#define SMOOTH_TRUE (1 << 10) //smooths with exact specified types or just itself
 
-#define SMOOTH_MORE		(1 << 11) //smooths with all subtypes of specified types or just itself (this value can replace SMOOTH_TRUE)
+#define SMOOTH_MORE (1 << 11) //smooths with all subtypes of specified types or just itself (this value can replace SMOOTH_TRUE)
 
-#define SMOOTH_DIAGONAL	(1 << 12) //if atom should smooth diagonally, this should be present in 'smooth' var
+#define SMOOTH_DIAGONAL (1 << 12) //if atom should smooth diagonally, this should be present in 'smooth' var
 
 
 /// Components of a smoothing junction

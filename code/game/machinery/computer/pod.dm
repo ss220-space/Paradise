@@ -330,8 +330,9 @@
 			var/obj/effect/landmark/target_landmark = pick_n_take(spawn_marauder)
 			var/obj/effect/portal/portal = new(landmark.loc, target_landmark.loc)
 			portal.invisibility = INVISIBILITY_ABSTRACT	//So it is not seen by anyone.
-			portal.failchance = 0	//So it has no fail chance when teleporting.
+			portal.failchance = 0 //So it has no fail chance when teleporting.
 			portal.can_mecha_pass = TRUE
+			spawn_marauder.Remove(portal.target)
 
 	for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
 		if(poddoor.z != src.z)

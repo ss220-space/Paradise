@@ -126,7 +126,10 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	sound = 'sound/goonstation/misc/airraid_loop.ogg'
 
 /datum/slotmachine_prize/jackpot/apply_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user, prize_credits)
-	GLOB.minor_announcement.announce("Поздравляем [user.name] с выигрышем джекпота в [prize_credits] кредитов!", "Обладатель джекпота!")
+	GLOB.minor_announcement.announce(
+		message = "Поздравляем [user.name] с выигрышем джекпота в [prize_credits] кредитов!",
+		new_title = "Обладатель джекпота!"
+	)
 
 /datum/slotmachine_prize/jackpot/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	slotmachine.give_custom_prize(user, /obj/item/radio/uplink)

@@ -168,7 +168,7 @@
 /obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
+		to_chat(user, span_warning("[src] needs to be unsecured to disassemble it!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return

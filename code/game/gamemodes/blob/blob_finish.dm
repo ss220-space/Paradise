@@ -7,9 +7,10 @@
 	if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 		return
 	update_blob_objective()
-	GLOB.major_announcement.announce("Объект потерян. Причина: распространение биологической угрозы 5-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным из-за высокого уровня заражения. Активация протоколов изоляции.",
-									"Отчёт об объекте [station_name()].",
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Объект потерян. Причина: распространение биологической угрозы 5-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным из-за высокого уровня заражения. Активация протоколов изоляции.",
+		new_title = "Отчёт об объекте [station_name()].",
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	blob_stage = (delay_blob_end)? BLOB_STAGE_POST_END : BLOB_STAGE_END
 	if(blob_stage == BLOB_STAGE_END)

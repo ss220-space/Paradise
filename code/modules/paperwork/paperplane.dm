@@ -34,7 +34,7 @@
 
 /obj/item/paperplane/suicide_act(mob/living/user)
 	user.Stun(20 SECONDS)
-	user.visible_message("<span class='suicide'>[user] jams [name] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] jams [name] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.EyeBlurry(12 SECONDS)
 	var/obj/item/organ/internal/eyes/E = user.get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
@@ -52,7 +52,7 @@
 
 
 /obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
-	to_chat(user, "<span class='notice'>You unfold [src].</span>")
+	to_chat(user, span_notice("You unfold [src]."))
 	if(internal_paper)
 		internal_paper.forceMove(get_turf(src))
 		user.put_in_hands(internal_paper)
@@ -112,7 +112,7 @@
 			return
 		if(H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES)
 			return
-		visible_message("<span class='danger'>[src] hits [H] in the eye!</span>")
+		visible_message(span_danger("[src] hits [H] in the eye!"))
 		H.EyeBlurry(12 SECONDS)
 		H.Weaken(4 SECONDS)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -125,10 +125,10 @@
 	if(ishuman(user))
 		if(!Adjacent(user) || user.incapacitated())
 			return
-		to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
+		to_chat(user, span_notice("You fold [src] into the shape of a plane!"))
 		user.drop_item_ground(src)
 		paper = new /obj/item/paperplane(user, src)
 		user.put_in_hands(paper, ignore_anim = FALSE)
 	else
-		to_chat(user, "<span class='notice'>You lack the dexterity to fold [src].</span>")
+		to_chat(user, span_notice("You lack the dexterity to fold [src]."))
 

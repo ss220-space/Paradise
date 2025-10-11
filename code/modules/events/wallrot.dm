@@ -3,8 +3,9 @@
 	endWhen = announceWhen + 1
 
 /datum/event/wallrot/announce()
-	GLOB.minor_announcement.announce("На станции обнаружен вредоносный грибок. Возможно загрязнение некоторых структур станции.",
-									ANNOUNCE_BIOHAZARD_RU
+	GLOB.minor_announcement.announce(
+		message = "На станции обнаружен вредоносный грибок. Возможно загрязнение некоторых структур станции.",
+		new_title = ANNOUNCE_BIOHAZARD_RU
 	)
 
 /datum/event/wallrot/start()

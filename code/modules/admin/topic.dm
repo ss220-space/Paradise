@@ -273,96 +273,7 @@
 
 
 	else if(href_list["editrights"])
-		if(!check_rights(R_PERMISSIONS))
-			message_admins("[key_name_admin(usr)] attempted to edit the admin permissions without sufficient rights.")
-			log_admin("[key_name(usr)] attempted to edit the admin permissions without sufficient rights.")
-			return
-
-		var/adm_ckey
-
-		var/task = href_list["editrights"]
-		if(task == "add")
-			var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))
-			if(!new_ckey)	return
-			if(new_ckey in GLOB.admin_datums)
-				to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</span>", confidential=TRUE)
-				return
-			adm_ckey = new_ckey
-			task = "rank"
-		else if(task != "show")
-			adm_ckey = ckey(href_list["ckey"])
-			if(!adm_ckey)
-				to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный сикей</span>", confidential=TRUE)
-				return
-
-		var/datum/admins/D = GLOB.admin_datums[adm_ckey]
-
-		if(task == "remove")
-			if(tgui_alert(usr, "Вы уверены что хотите удалить [adm_ckey]?","Внимание!",list("Да", "Отмена")) == "Да")
-				if(!D)	return
-				GLOB.admin_datums -= adm_ckey
-				D.disassociate()
-
-				updateranktodb(adm_ckey, "Игрок")
-				message_admins("[key_name_admin(usr)] удалил [adm_ckey] из списка админов")
-				log_admin("[key_name(usr)] удалил [adm_ckey] из списка админов")
-				log_admin_rank_modification(adm_ckey, "Удален")
-
-		else if(task == "rank")
-			var/new_rank
-			if(length(GLOB.admin_ranks))
-				new_rank = tgui_input_list(usr, "Выберите стандартный ранг или создайте новый", "Выбор ранга", (GLOB.admin_ranks|"*Новый Ранг*"), null)
-			else
-				CRASH("GLOB.admin_ranks is empty, inform coders")
-
-			var/rights = 0
-			if(D)
-				rights = D.rights
-			switch(new_rank)
-				if(null,"") return
-				if("*Новый Ранг*")
-					new_rank = tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null, encode = FALSE)
-					if(!new_rank)
-						to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный ранг</span>", confidential=TRUE)
-						return
-					if(new_rank in GLOB.admin_ranks)
-						rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
-					else
-						GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
-				else
-					rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
-
-			if(D)
-				D.disassociate()								//remove adminverbs and unlink from client
-				D.rank = new_rank								//update the rank
-				D.rights = rights								//update the rights based on admin_ranks (default: 0)
-			else
-				D = new /datum/admins(new_rank, rights, adm_ckey)
-
-			var/client/C = GLOB.directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
-			D.associate(C)											//link up with the client and add verbs
-
-			updateranktodb(adm_ckey, new_rank)
-			message_admins("[key_name_admin(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
-			log_admin("[key_name(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
-			log_admin_rank_modification(adm_ckey, new_rank, rights)
-
-		else if(task == "permissions")
-			if(!D)
-				return
-			var/new_value = input_bitfield(usr, "rights", D.rights)
-			if(!new_value)
-				return
-			var/add_bits = new_value & ~D.rights
-			var/removed_bits = D.rights & ~new_value
-			D.rights = new_value
-			edit_admin_permissions()
-			message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
-			log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
-			log_admin_permission_modification(adm_ckey, new_value )
-
-
-		edit_admin_permissions()
+		permissions_topic(task = href_list["editrights"], ckey = href_list["ckey"])
 
 	else if(href_list["call_shuttle"])
 
@@ -402,7 +313,9 @@
 		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
-		GLOB.minor_announcement.announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")].")
+		GLOB.minor_announcement.announce(
+			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")]."
+		)
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
 		href_list["check_antagonist"] = TRUE
 
@@ -2646,8 +2559,9 @@
 			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
 			if(announce_to_crew)
-				GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
-												ANNOUNCE_ERT_UNAVAIL_RU
+				GLOB.major_announcement.announce(
+					message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
+					new_title = ANNOUNCE_ERT_UNAVAIL_RU
 				)
 				return
 
@@ -3247,7 +3161,9 @@
 					return
 				change_station_name(new_name)
 				log_and_message_admins("renamed the station to: [new_name].")
-				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce(
+					message = "Решением [command_name()] станция переименована в \"[new_name]\"."
+				)
 
 			if("set_english_station_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
@@ -3277,7 +3193,9 @@
 				var/new_name = new_station_name()
 				change_station_name(new_name)
 				log_and_message_admins("reset the station name.")
-				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce(
+					message = "Решением [command_name()] станция переименована в \"[new_name]\"."
+				)
 
 			if("gravity")
 				if(!(SSticker && SSticker.mode))
@@ -3295,7 +3213,9 @@
 
 				var/gravity_announce = tgui_input_text(usr, "Do you wish to make any global announcement?", "Announcement Text", encode = FALSE)
 				if(gravity_announce)
-					GLOB.minor_announcement.announce("[gravity_announce]")
+					GLOB.minor_announcement.announce(
+						message = "[gravity_announce]"
+					)
 
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 
@@ -3552,8 +3472,9 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				GLOB.minor_announcement.announce("Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
-												new_sound = 'sound/AI/commandreport.ogg'
+				GLOB.minor_announcement.announce(
+					message = "Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
+					new_sound = 'sound/AI/commandreport.ogg'
 				)
 			if("onlyone")
 				if(!you_realy_want_do_this())
@@ -4188,11 +4109,15 @@
 
 
 /proc/portalAnnounce(announcement, playlightning)
-	set waitfor = 0
+	set waitfor = FALSE
 	if(playlightning)
 		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
 		sleep(80)
-	GLOB.major_announcement.announce(replacetext(announcement, "%STATION%", station_name()))
+	GLOB.major_announcement.announce(
+		message = announcement,
+		new_title = "%STATION%",
+		new_subtitle = station_name()
+	)
 	if(playlightning)
 		sleep(20)
 		sound_to_playing_players('sound/magic/lightningbolt.ogg')

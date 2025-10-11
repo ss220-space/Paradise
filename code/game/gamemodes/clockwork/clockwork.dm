@@ -84,7 +84,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(clockwork_mind.current)
 
-		clockwork_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
+		if(iscarbon(clockwork_mind.current))
+			clockwork_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
 
 		add_clock_actions(clockwork_mind)
 		update_clock_icons_added(clockwork_mind)
@@ -200,7 +201,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		adjust_clockwork_power(CLOCK_POWER_CONVERT)
 
-		clock_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
+		if(iscarbon(clock_mind.current))
+			clock_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
 
 		if(power_reveal)
 			powered(clock_mind.current)
@@ -250,9 +252,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				continue
 			to_chat(M.current, span_clocklarge("Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!"))
 			addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
-		GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.major_announcement.announce(
+			message = "На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+			new_title = ANNOUNCE_CCPARANORMAL_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 		log_game("Clockwork cult reveal. Powergame allowed.")
 
@@ -295,9 +298,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	update_clock_icons_removed(clock_mind)
 
+	clock_mind.current.RemoveElement(/datum/element/halo_attach)
+
 	if(ishuman(clocker))
 		var/mob/living/carbon/human/H = clocker
-		clock_mind.current.RemoveElement(/datum/element/halo_attach)
 		REMOVE_TRAIT(H, CLOCK_HANDS, null)
 		H.change_eye_color(H.original_eye_color, FALSE)
 		H.update_eyes()

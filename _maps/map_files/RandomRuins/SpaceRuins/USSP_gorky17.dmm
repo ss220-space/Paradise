@@ -10326,9 +10326,6 @@
 	icon_state = "red"
 	},
 /area/ruin/space/USSP_gorky17/check1)
-"LB" = (
-/turf/simulated/wall/r_wall/rust,
-/area/ruin/space/USSP_gorky17/utility)
 "LC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -12425,9 +12422,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/utility)
-"ST" = (
-/turf/simulated/wall/r_wall,
-/area/ruin/space/USSP_gorky17/angar)
 "SU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -13482,23 +13476,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/bridge)
-"WW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/USSP_gorky17/medbay)
 "WY" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -33307,7 +33284,7 @@ iz
 xy
 Cp
 et
-WW
+Rm
 RB
 Pl
 TK
@@ -38968,8 +38945,8 @@ BX
 ts
 ts
 ts
-ST
-ST
+gr
+gr
 PE
 vJ
 Bz
@@ -39164,8 +39141,8 @@ mD
 wP
 hJ
 wP
-ST
-ST
+gr
+gr
 uJ
 Yv
 ba
@@ -39361,7 +39338,7 @@ fB
 fB
 yI
 wZ
-ST
+gr
 AD
 ZB
 vp
@@ -39771,7 +39748,7 @@ bW
 zf
 Al
 SL
-ST
+gr
 Oo
 JN
 is
@@ -40371,7 +40348,7 @@ fB
 fB
 yI
 Qb
-ST
+gr
 sE
 mq
 pC
@@ -40574,12 +40551,12 @@ fB
 wZ
 wZ
 mD
-ST
+gr
 hC
 us
 Ne
 hC
-ST
+gr
 Tr
 EZ
 Pv
@@ -41387,7 +41364,7 @@ JU
 eO
 sQ
 Ad
-ST
+gr
 MQ
 sQ
 eO
@@ -41584,12 +41561,12 @@ fB
 fB
 wZ
 wZ
-ST
+gr
 ut
 gt
 Is
 JX
-ST
+gr
 ut
 gt
 Is
@@ -41797,7 +41774,7 @@ Mx
 Mx
 wZ
 wZ
-LB
+fw
 Wz
 Wz
 Wz

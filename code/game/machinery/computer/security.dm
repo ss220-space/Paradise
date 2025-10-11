@@ -1,6 +1,6 @@
-#define SEC_DATA_R_LIST	1	// Record list
-#define SEC_DATA_MAINT	2	// Records maintenance
-#define SEC_DATA_RECORD	3	// Record
+#define SEC_DATA_R_LIST 1 // Record list
+#define SEC_DATA_MAINT 2 // Records maintenance
+#define SEC_DATA_RECORD 3 // Record
 
 #define SEC_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
@@ -501,7 +501,7 @@
 		if(prob(10 / severity))
 			switch(rand(1, 6))
 				if(1)
-					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
+					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)

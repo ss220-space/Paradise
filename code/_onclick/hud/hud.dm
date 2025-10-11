@@ -96,7 +96,7 @@
 	#endif
 	if(!isnull(last_byond_version) && new_byond_version != last_byond_version)
 		var/new_relay_loc = (new_byond_version > 515) ? "1,1" : "CENTER"
-		for(var/group_key as anything in master_groups)
+		for(var/group_key in master_groups)
 			var/datum/plane_master_group/group = master_groups[group_key]
 			group.relay_loc = new_relay_loc
 			group.rebuild_hud()
@@ -125,7 +125,7 @@
 	if(should_sight_scale(new_sight) == should_sight_scale(old_sight))
 		return
 
-	for(var/group_key as anything in master_groups)
+	for(var/group_key in master_groups)
 		var/datum/plane_master_group/group = master_groups[group_key]
 		group.build_planes_offset(src, current_plane_offset)
 
@@ -150,7 +150,7 @@
 	current_plane_offset = new_offset
 
 	SEND_SIGNAL(src, COMSIG_HUD_OFFSET_CHANGED, old_offset, new_offset)
-	for(var/group_key as anything in master_groups)
+	for(var/group_key in master_groups)
 		var/datum/plane_master_group/group = master_groups[group_key]
 		group.build_planes_offset(src, new_offset)
 

@@ -91,9 +91,9 @@
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)
 		else
-			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+			. += span_notice("You have to go closer if you want to read it.")
 	else
-		. += "<span class='notice'>You don't know how to read.</span>"
+		. += span_notice("You don't know how to read.")
 
 
 /obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE, window_options, special_text = null)
@@ -137,10 +137,10 @@
 
 /obj/item/paper/proc/rename(mob/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
+		to_chat(user, span_warning("You cut yourself on the paper."))
 		return
 	if(!user.is_literate())
-		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
+		to_chat(user, span_notice("You don't know how to read."))
 		return
 	var/n_name = rename_interactive(user)
 	if(isnull(n_name))
@@ -744,7 +744,7 @@
 	. = ..()
 	time = "Время: [station_time_timestamp()]"
 	if(!(GLOB.genname))
-		GLOB.genname = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+		GLOB.genname = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]"
 	header ="<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">Форма NT-CC-DRV</font></td><tr><td><font size=\"1\">[command_name()]</font></td><tr><td><font size=\"1\">[time]</font></td><tr><td></td><tr><td></td><tr><td><b>Директива Центрального командования</b></td></tr></table></td></tr></table><br><hr><br></font>"
 	footer = "<br /><br /><font face=\"Verdana\" size = \"1\"><i>Подпись&#58;</font> <font face=\"[signfont]\" size = \"1\">[GLOB.genname]</font></i><font face=\"Verdana\" size = \"1\">, в должности <i>Nanotrasen Navy Officer</i></font><hr /><p style='font-family:Verdana;'><font size = \"1\"><em>*Содержимое данного документа следует считать конфиденциальным. Если не указано иное, распространение содержащейся в данном документе информации среди третьих лиц и сторонних организаций строго запрещено. </em> <br /> <em>*Невыполнение директив, содержащихся в данном документе, считается нарушением политики корпорации и может привести к наложению различных дисциплинарных взысканий. </em> <br /> <em> *Данный документ считается действительным только при наличии подписи и печати офицера Центрального командования.</em></font></p>"
 	populatefields()
@@ -830,7 +830,7 @@
 			evilpaper_selfdestruct()
 	else
 		if(mytarget)
-			to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. The only bit you recognize is the name of [mytarget]. Perhaps [mytarget] can make sense of it?</span>")
+			to_chat(user,span_notice("This page appears to be covered in some sort of bizzare code. The only bit you recognize is the name of [mytarget]. Perhaps [mytarget] can make sense of it?"))
 		else
 			evilpaper_selfdestruct()
 
@@ -870,15 +870,15 @@
 
 	var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 	if(myeffect == "Borgification")
-		to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
+		to_chat(target,span_userdanger("You seem to comprehend the AI a little better. Why are your muscles so stiff?"))
 		var/datum/disease/virus/transformation/robot/D = new
 		D.Contract(target)
 	else if(myeffect == "Corgification")
-		to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
+		to_chat(target,span_userdanger("You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!"))
 		var/datum/disease/virus/transformation/corgi/D = new
 		D.Contract(target)
 	else if(myeffect == "Death By Fire")
-		to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+		to_chat(target,span_userdanger("You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?"))
 		var/turf/simulated/T = get_turf(target)
 		new /obj/effect/hotspot(T)
 		target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
@@ -889,16 +889,17 @@
 	else if(myeffect == "Honk Tumor")
 		if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
 			new /obj/item/organ/internal/honktumor(target)
-			to_chat(target,"<span class='userdanger'>Life seems funnier, somehow.</span>")
+			to_chat(target,span_userdanger("Life seems funnier, somehow."))
 	else if(myeffect == "Cluwne")
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
+			to_chat(H, span_userdanger("You feel surrounded by sadness. Sadness... and HONKS!"))
 			H.makeCluwne()
 	else if(myeffect == "Demote")
-		GLOB.major_announcement.announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
-										ANNOUNCE_CCDEMOTE_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.major_announcement.announce(
+			message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
+			new_title = ANNOUNCE_CCDEMOTE_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
@@ -907,9 +908,10 @@
 				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 	else if(myeffect == "Demote with Bot")
-		GLOB.major_announcement.announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
-										ANNOUNCE_CCDEMOTE_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.major_announcement.announce(
+			message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
+			new_title = ANNOUNCE_CCDEMOTE_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
@@ -936,7 +938,7 @@
 
 
 /obj/item/paper/evilfax/proc/evilpaper_selfdestruct()
-	visible_message("<span class='danger'>[src] spontaneously catches fire, and burns up!</span>")
+	visible_message(span_danger("[src] spontaneously catches fire, and burns up!"))
 	qdel(src)
 
 

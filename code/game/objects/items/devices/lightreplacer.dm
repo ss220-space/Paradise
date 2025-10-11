@@ -67,7 +67,7 @@
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[status_string()]</span>"
+	. += span_notice("[status_string()]")
 
 
 /obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)
@@ -196,7 +196,7 @@
 		AddUses(new_bulbs)
 	bulb_shards = bulb_shards % shards_required
 	if(new_bulbs != 0)
-		to_chat(user, "<span class='notice'>[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses.</span>")
+		to_chat(user, span_notice("[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses."))
 		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	return new_bulbs
 
@@ -211,7 +211,7 @@
 		if(CanUse(U))
 			if(!Use(U))
 				return
-			to_chat(U, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
+			to_chat(U, span_notice("You replace the light [target.fitting] with [src]."))
 
 			if(target.status != LIGHT_EMPTY)
 				AddShards(1, U)
@@ -238,7 +238,7 @@
 			to_chat(U, "[src]'s refill light blinks red.")
 			return
 	else
-		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
+		to_chat(U, span_warning("There is a working [target.fitting] already inserted!"))
 		return
 
 

@@ -94,7 +94,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Initialize(mapload)
 	. = ..()
-	name = "[name] [pick(GLOB.last_names)]"
+	name = "[name] [pick(GLOB.last_names_male)]"
 	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
 
@@ -153,7 +153,7 @@
 			if(istype(loc, /obj/structure/closet))
 				var/obj/structure/closet/O = loc
 				forceMove(get_turf(src))
-				visible_message("<span class='boldwarning'>[src] smashes their way out of [O]!</span>")
+				visible_message(span_boldwarning("[src] smashes their way out of [O]!"))
 				qdel(O)
 				raise_alert("[src] reported being trapped in a locker.")
 				raised_alert = FALSE

@@ -91,8 +91,8 @@ SUBSYSTEM_DEF(ticker)
 	if(!login_music)
 		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
 
-	randomtips = file2list("strings/tips.txt")
-	memetips = file2list("strings/sillytips.txt")
+	randomtips = world.file2list("strings/tips.txt")
+	memetips = world.file2list("strings/sillytips.txt")
 	return SS_INIT_SUCCESS
 
 
@@ -314,7 +314,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate the list of empty playable AI cores in the world
 	for(var/obj/effect/landmark/S as anything in GLOB.landmarks_list)
-		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/event/tripai::name))
+		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/spawner/tripai::name))
 			continue
 		if(locate(/mob/living) in S.loc)
 			continue
@@ -384,10 +384,8 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			SStitle.show_title_screen_to(N.client) // New Title Screen
 
-	#ifdef UNIT_TESTS
-	// Run map tests first in case unit tests futz with map state
-	GLOB.test_runner.RunMap()
-	GLOB.test_runner.Run()
+	#ifdef TEST_RUNNER
+	GLOB.test_runner.RunAll()
 	#endif
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
@@ -587,7 +585,7 @@ SUBSYSTEM_DEF(ticker)
 
 		for(var/datum/ai_law/law as anything in aiPlayer.laws.sorted_laws)
 			if(law == aiPlayer.laws.zeroth_law)
-				end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+				end_of_round_info += span_danger("[law.get_index()]. [law.law]")
 			else
 				end_of_round_info += "[law.get_index()]. [law.law]"
 
@@ -616,7 +614,7 @@ SUBSYSTEM_DEF(ticker)
 			robo.laws_sanity_check()
 			for(var/datum/ai_law/law as anything in robo.laws.sorted_laws)
 				if(law == robo.laws.zeroth_law)
-					end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+					end_of_round_info += span_danger("[law.get_index()]. [law.law]")
 				else
 					end_of_round_info += "[law.get_index()]. [law.law]"
 
@@ -684,16 +682,26 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = NEWS_CHANNEL_STATION
+	newChannel.channel_name = NEWS_CHANNEL_STATION_LOG
 	newChannel.author = EDITOR_STATION
+	newChannel.description = "Автоматический журнал, записывающий новости смены."
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
+	newChannel.channel_name = NEWS_CHANNEL_STATION
+	newChannel.author = EDITOR_STATION
+	newChannel.description = "Публичный канал оповещений и рабочих объявлений для всех желающих."
+	newChannel.icon = "users"
+	newChannel.is_public = TRUE
+	GLOB.news_network.channels += newChannel
+
+	newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_NYX
 	newChannel.author = EDITOR_NYX
+	newChannel.description = "Новости Нанотрейзен!"
 	newChannel.icon = "meteor"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
@@ -702,6 +710,7 @@ SUBSYSTEM_DEF(ticker)
 	newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_GIB
 	newChannel.author = EDITOR_GIB
+	newChannel.description = "ШОКИРУЮЩИЕ НОВОСТИ КАЖДЫЙ ЧАС! Вы не поверите!"
 	newChannel.icon = "star"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE

@@ -15,28 +15,28 @@
 
 /obj/item/megaphone/attack_self(mob/living/user)
 	if(check_mute(user.ckey, MUTE_IC))
-		to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
+		to_chat(src, span_warning("You cannot speak in IC (muted)."))
 		return
 	if(!ishuman(user))
-		to_chat(user, "<span class='warning'>You don't know how to use this!</span>")
+		to_chat(user, span_warning("You don't know how to use this!"))
 		return
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>You find yourself unable to speak at all.</span>")
+		to_chat(user, span_warning("You find yourself unable to speak at all."))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/abductor/H = user
 		if(isabductor(H))
-			to_chat(user, "<span class='warning'>Megaphones can't project psionic communication!</span>")
+			to_chat(user, span_warning("Megaphones can't project psionic communication!"))
 			return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H && H.mind && H.mind.miming)
-			to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")
+			to_chat(user, span_warning("Your vow of silence prevents you from speaking."))
 			return
 		if(HAS_TRAIT(H, TRAIT_COMIC) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice))
 			span = "sans"
 	if(spamcheck)
-		to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
+		to_chat(user, span_warning("\The [src] needs to recharge!"))
 		return
 
 	var/message = tgui_input_text(user, "Shout a message:", "Megaphone")
@@ -55,7 +55,7 @@
 				saymsg(user, pick(insultmsg))
 				insults--
 			else
-				to_chat(user, "<span class='warning'>*BZZZZzzzzzt*</span>")
+				to_chat(user, span_warning("*BZZZZzzzzzt*"))
 		else
 			if(span)
 				message = "<span class='[span]'>[message]</span>"
@@ -69,9 +69,9 @@
 	add_say_logs(user, message, language = "Megaphone")
 	var/message_tts = message
 	message = replace_characters(message, list("+"))
-	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
+	audible_message(span_gamesay("[span_name("[user.GetVoice()]")] [user.GetAltName()] broadcasts, [span_reallybig("\"[message]\"")]"), hearing_distance = 14)
 	for(var/obj/O in range(14, get_turf(src)))
-		O.hear_talk(user, message_to_multilingual("<span class='reallybig'>[message]</span>"))
+		O.hear_talk(user, message_to_multilingual(span_reallybig("[message]")))
 
 	for(var/mob/M in get_hearers_in_view(7, src))
 		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear() && M.stat != UNCONSCIOUS)
@@ -85,6 +85,6 @@
 /obj/item/megaphone/emag_act(mob/user)
 	if(!emagged)
 		if(user)
-			to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
+			to_chat(user, span_warning("You overload \the [src]'s voice synthesizer."))
 		emagged = 1
 		insults = rand(1, 3)//to prevent dickflooding
