@@ -136,10 +136,16 @@
 			var/mob/living/living = target
 			visible_message(span_warning("[user]'s [src] sparks for a moment with bright light!"))
 			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, _duration = 2) //No questions
+
 			if(living.null_rod_check())
 				visible_message(span_warning("[target]'s holy weapon absorbs the light!"))
 				deplete_spell()
 				return
+
+			if(ismindshielded(living))
+				target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует свет!"))
+				return
+
 			living.Knockdown(3 SECONDS)
 			living.apply_damage(55, STAMINA)
 			if(!ismindshielded(living))
