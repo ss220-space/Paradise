@@ -1791,10 +1791,10 @@
 	clocker.reagents?.add_reagent("epinephrine", 5)
 	var/mob/living/carbon/human/H = clocker
 	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-			bodypart.stop_internal_bleeding()
-			bodypart.stop_arterial_bleeding()
-			bodypart.stop_bleeding()
-			bodypart.mend_fracture()
+		bodypart.stop_internal_bleeding()
+		bodypart.stop_arterial_bleeding()
+		bodypart.stop_bleeding()
+		bodypart.mend_fracture()
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/curse(mob/living/target)
 	var/obj/item/nullrod/N = locate() in target
