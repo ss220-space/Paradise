@@ -1346,7 +1346,9 @@ use_item_state: SS1984 legacy var, used to fix fact, that item_state randomly us
 )
 
 	var/mob/living/carbon/wearer = loc
-	var/species = wearer?.dna?.species.name
+	var/species
+	if(istype(wearer))
+		species = wearer?.dna?.species.name
 
 	//Find a valid icon_state from variables+arguments
 	var/t_state = override_state || (isinhands || use_item_state) && item_state || icon_state

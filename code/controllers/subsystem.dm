@@ -113,9 +113,9 @@
 //Do not override
 ///datum/controller/subsystem/New()
 
-// Used to initialize the subsystem BEFORE the map has loaded
-// Called AFTER Recover if that is called
-// Prefer to use Initialize if possible
+/// Used to initialize the subsystem BEFORE the map has loaded
+/// Called AFTER Recover if that is called
+/// Prefer to use Initialize if possible
 /datum/controller/subsystem/proc/PreInit()
 	return
 

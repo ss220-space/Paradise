@@ -25,6 +25,12 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	/// Typecache of the things allowed in the bookcase. Populated in [/proc/generate_allowed_books()] on Initialize.
 	var/list/allowed_books
+	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
+	var/load_random_books = FALSE
+	/// The category of books to pick from when populating random books.
+	var/random_category = null
+	/// How many random books to generate.
+	var/books_to_load = 0
 
 /obj/structure/bookcase/get_ru_names()
 	return list(
@@ -42,7 +48,6 @@
 	if(mapload)
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 
-
 /obj/structure/bookcase/examine(mob/user)
 	if(length(contents) > 0)
 		desc = "Большой книжный шкаф. На его полках стоят книги."
@@ -54,7 +59,6 @@
 /obj/structure/bookcase/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
-
 /// Populates typecache with the things allowed to store
 /obj/structure/bookcase/proc/generate_allowed_books()
 	allowed_books = typecacheof(list(
@@ -63,7 +67,6 @@
 		/obj/item/storage/bible,
 		/obj/item/tome,
 	))
-
 
 /// This is called on Initialize to add contents on the tile
 /obj/structure/bookcase/proc/take_contents()
@@ -85,8 +88,6 @@
 	balloon_alert(user, "поставлено на полку")
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
-
-
 
 /obj/structure/bookcase/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -122,7 +123,6 @@
 
 	return ..()
 
-
 /obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
 		return FALSE
@@ -135,10 +135,8 @@
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
 	deconstruct(TRUE)
 
-
 /obj/structure/bookcase/wrench_act(mob/user, obj/item/I)
 	return default_unfasten_wrench(user, I, 0)
-
 
 /obj/structure/bookcase/attack_hand(mob/user)
 	if(!length(contents))
@@ -164,8 +162,7 @@
 	for(var/atom/movable/thing as anything in contents)
 		if(is_type_in_typecache(thing, allowed_books))
 			thing.forceMove(drop_loc)
-	..()
-
+	return ..()
 
 /obj/structure/bookcase/update_icon_state()
 	icon_state = "book-[min(length(contents), 5)]"
@@ -185,7 +182,6 @@
 		ru_names[INSTRUMENTAL] += manual_name_ru
 		ru_names[PREPOSITIONAL] += manual_name_ru
 
-
 /obj/structure/bookcase/manuals/medical
 	manual_name = "Medical Manuals "
 	manual_name_ru = " с учебниками по медицине"
@@ -195,12 +191,9 @@
 	new /obj/item/book/manual/medical_cloning(src)
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/structure/bookcase/manuals/engineering
 	manual_name = "Engineering Manuals "
 	manual_name_ru = " с руководствами по инженерному делу"
-
-
 
 /obj/structure/bookcase/manuals/engineering/Initialize(mapload)
 	. = ..()
@@ -212,18 +205,14 @@
 	new /obj/item/book/manual/robotics_cyborgs(src)
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/structure/bookcase/manuals/research_and_development
 	manual_name = "R&D Manuals "
 	manual_name_ru = " с учебниками по научной деятельности"
-
-
 
 /obj/structure/bookcase/manuals/research_and_development/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
 	update_icon(UPDATE_ICON_STATE)
-
 
 /*
  * Book

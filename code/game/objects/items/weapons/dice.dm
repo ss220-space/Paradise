@@ -407,7 +407,7 @@
 		if(17)
 			//Choose from 1 of 3 random syndie bundles
 			T.visible_message(span_userdanger("A suspicious radio beacon appears!"))
-			new /obj/item/radio/beacon/syndicate/bundle/magical(drop_location())
+			new /obj/item/beacon/syndicate/bundle/magical(drop_location())
 			create_smoke(2)
 		if(18)
 			//Captain ID

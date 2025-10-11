@@ -1,14 +1,15 @@
-// Unit test to check SQL version has been updated properly.,
-/datum/unit_test/sql_version/Run()
+// Game test to check SQL version has been updated properly.,
+/datum/game_test/sql_version/Run()
 	// Check if the SQL version set in the code is equal to the CI DB config
 	if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/db_version) != SQL_VERSION)
-		Fail("SQL version error: Game is running V[SQL_VERSION] but config is V[CONFIG_GET(number/db_version)]. You may need to update tools/ci/dbconfig.txt")
+		TEST_FAIL("SQL version error: Game is running V[SQL_VERSION] but config is V[CONFIG_GET(number/db_version)]. You may need to update tools/ci/dbconfig.txt")
 	// Check if the CI DB config is up to date with the example dbconfig
 	// This proc is a little unclean but it works
 	var/example_db_version
 	var/list/Lines = world.file2list("config/example/dbconfig.txt")
 	for(var/t in Lines)
-		if(!t)	continue
+		if(!t)
+			continue
 
 		t = trim(t)
 		if(length(t) == 0)
@@ -34,12 +35,12 @@
 				example_db_version = text2num(value)
 
 	if(!example_db_version)
-		Fail("SQL version error: File config/example/dbconfig.txt does not have a valid SQL version set!")
+		TEST_FAIL("SQL version error: File config/example/dbconfig.txt does not have a valid SQL version set!")
 
 	if(example_db_version != SQL_VERSION)
-		Fail("SQL version error: Game is running V[SQL_VERSION] but config/example/dbconfig.txt is V[example_db_version].")
+		TEST_FAIL("SQL version error: Game is running V[SQL_VERSION] but config/example/dbconfig.txt is V[example_db_version].")
 
 	if(SSdbcore.total_errors > 0)
-		Fail("SQL errors occured on startup. Please fix them.")
+		TEST_FAIL("SQL errors occured on startup. Please fix them.")
 
 

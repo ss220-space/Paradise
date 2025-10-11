@@ -1,22 +1,21 @@
 SUBSYSTEM_DEF(overlays)
 	name = "Overlay"
-	flags = SS_NO_FIRE|SS_NO_INIT
+	flags = SS_NO_FIRE
 	offline_implications = "Overlays may look strange. No immediate action is needed."
 	ss_id = "overlays"
 	var/list/stats
 
-
 /datum/controller/subsystem/overlays/PreInit()
 	stats = list()
 
+/datum/controller/subsystem/overlays/Initialize()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/overlays/Shutdown()
 	text2file(render_stats(stats), "[GLOB.log_directory]/overlay.log")
 
-
 /datum/controller/subsystem/overlays/Recover()
 	stats = SSoverlays.stats
-
 
 /// Converts an overlay list into text for debug printing
 /// Of note: overlays aren't actually mutable appearances, they're just appearances
@@ -32,19 +31,16 @@ SUBSYSTEM_DEF(overlays)
 		output_text += "([key]) = [unique_overlays[key]]"
 	return output_text.Join("\n")
 
-
 /proc/iconstate2appearance(icon, iconstate)
 	var/static/image/stringbro = new
 	stringbro.icon = icon
 	stringbro.icon_state = iconstate
 	return stringbro.appearance
 
-
 /proc/icon2appearance(icon)
 	var/static/image/iconbro = new
 	iconbro.icon = icon
 	return iconbro.appearance
-
 
 /atom/proc/build_appearance_list(list/build_overlays)
 	if(!islist(build_overlays))
@@ -61,14 +57,12 @@ SUBSYSTEM_DEF(overlays)
 			build_overlays[index] = icon2appearance(overlay)
 	return build_overlays
 
-
 /atom/proc/cut_overlays()
 	STAT_START_STOPWATCH
 	overlays = null
 	//POST_OVERLAY_CHANGE(src)
 	STAT_STOP_STOPWATCH
 	STAT_LOG_ENTRY(SSoverlays.stats, type)
-
 
 /atom/proc/cut_overlay(list/remove_overlays)
 	if(!overlays)
@@ -79,7 +73,6 @@ SUBSYSTEM_DEF(overlays)
 	STAT_STOP_STOPWATCH
 	STAT_LOG_ENTRY(SSoverlays.stats, type)
 
-
 /atom/proc/add_overlay(list/add_overlays)
 	if(!overlays)
 		return
@@ -89,7 +82,6 @@ SUBSYSTEM_DEF(overlays)
 	//POST_OVERLAY_CHANGE(src)
 	STAT_STOP_STOPWATCH
 	STAT_LOG_ENTRY(SSoverlays.stats, type)
-
 
 /atom/proc/copy_overlays(atom/other, cut_old = FALSE) //copys our_overlays from another atom
 	if(!other)
@@ -115,19 +107,15 @@ SUBSYSTEM_DEF(overlays)
 		STAT_STOP_STOPWATCH
 		STAT_LOG_ENTRY(SSoverlays.stats, type)
 
-
 //TODO: Better solution for these?
 /image/proc/add_overlay(x)
 	overlays |= x
 
-
 /image/proc/cut_overlay(x)
 	overlays -= x
 
-
 /image/proc/cut_overlays(x)
 	overlays.Cut()
-
 
 /image/proc/copy_overlays(atom/other, cut_old)
 	if(!other)
@@ -144,9 +132,7 @@ SUBSYSTEM_DEF(overlays)
 	else if(cut_old)
 		cut_overlays()
 
-
 // Debug procs
-
 /image
 	/// List of overlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the overlays list
@@ -155,18 +141,15 @@ SUBSYSTEM_DEF(overlays)
 	/// Drawn from the underlays list
 	var/list/realized_underlays
 
-
 /// Takes the atoms's existing overlays and underlays, and makes them mutable so they can be properly vv'd in the realized_overlays/underlays list
 /atom/proc/realize_overlays()
 	realized_overlays = realize_appearance_queue(overlays)
 	realized_underlays = realize_appearance_queue(underlays)
 
-
 /// Takes the image's existing overlays, and makes them mutable so they can be properly vv'd in the realized_overlays list
 /image/proc/realize_overlays()
 	realized_overlays = realize_appearance_queue(overlays)
 	realized_underlays = realize_appearance_queue(underlays)
-
 
 /// Takes a list of appearnces, makes them mutable so they can be properly vv'd and inspected
 /proc/realize_appearance_queue(list/appearances)
@@ -198,7 +181,6 @@ SUBSYSTEM_DEF(overlays)
 			add_index++
 			queue.Insert(add_index, child_appearance)
 	return real_appearances
-
 
 /// Takes two appearances as args, prints out, logs, and returns a text representation of their differences
 /// Including suboverlays
@@ -236,4 +218,3 @@ SUBSYSTEM_DEF(overlays)
 	message_admins(text)
 	log_world(text)
 	return diff_found
-

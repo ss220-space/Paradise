@@ -257,7 +257,7 @@
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает выделять липкое вещество вокруг [cocoon_target.declent_ru(GENITIVE)]."))
 		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, TRUE)
 		stop_automated_movement = 1
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		if(do_after(src, 4 SECONDS, cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)

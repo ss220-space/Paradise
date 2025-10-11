@@ -214,7 +214,7 @@
 	var/list/areaindex = list()
 	var/turf/teleporter_turf = get_turf(src)
 	var/is_station_teleport = is_station_level(teleporter_turf.z)
-	for(var/obj/item/radio/beacon/R in GLOB.beacons)
+	for(var/obj/item/beacon/R as anything in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
@@ -295,8 +295,8 @@
 /obj/machinery/computer/teleporter/proc/teleport_helper()
 	area_bypass = FALSE
 	for(var/item in target.contents)
-		if(istype(item, /obj/item/radio/beacon))
-			var/obj/item/radio/beacon/B = item
+		if(istype(item, /obj/item/beacon))
+			var/obj/item/beacon/B = item
 			if(B.area_bypass)
 				area_bypass = TRUE
 			cc_beacon = B.cc_beacon
