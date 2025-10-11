@@ -741,7 +741,7 @@
 
 /mob/living/simple_animal/Login()
 	..()
-	SSmove_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
+	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 	toggle_ai(AI_OFF)
 
 /mob/living/simple_animal/Logout()

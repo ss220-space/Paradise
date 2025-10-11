@@ -672,7 +672,7 @@
 		stop_supressing(holding)
 	else
 		occupant_message(span_notice("Вы начинаете удерживать [target]..."))
-		chassis.visible_message(span_warning(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target].")))
+		chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target]."))
 
 	set_supress_effect(target)
 	if(!do_after_cooldown(target))

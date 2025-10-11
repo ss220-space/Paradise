@@ -120,7 +120,7 @@
 		color = "#FFD7A7"
 	switch(new_appearance)
 		if("Assistant")
-			name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+			name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]"
 			desc = "A cardboard cutout of an assistant."
 			icon_state = "cutout_greytide"
 		if("Clown")

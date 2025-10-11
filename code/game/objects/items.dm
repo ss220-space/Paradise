@@ -43,7 +43,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// The click cooldown given after attacking. Lower numbers means faster attacks
 	var/attack_speed = CLICK_CD_MELEE
 
-	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]".
+	/// Used in attackby() to say how something was attacked "[x] [z.attack_verb][genderize_ru(x.gender, "", "а", "о", "ы")] [y.declent_ru(ACCUSATIVE)], используя [z.declent_ru(ACCUSATIVE)]".
 	var/list/attack_verb
 	/// Sound played when you hit something with the item.
 	var/hitsound
@@ -237,6 +237,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/ground_offset_x = 0
 	/// How much to offset the item randomly either way alongside Y visually
 	var/ground_offset_y = 0
+	/// Width in space oriented storages
+	var/storage_display_width = 32
 
 	var/embed_disarm = FALSE
 
@@ -1229,6 +1231,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		qdel(enchant_action)
 	update_icon()
 
+/obj/item/proc/add_enchant()
+	return
 
 /obj/item/update_atom_colour()
 	. = ..()

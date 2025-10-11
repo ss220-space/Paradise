@@ -3,33 +3,62 @@
 // note: if you add more HUDs, even for non-human atoms, make sure to use unique numbers for the defines!
 // /datum/atom_hud expects these to be unique
 // these need to be strings in order to make them associative lists
-#define HEALTH_HUD "1" // dead, alive, sick, health status
-#define STATUS_HUD "2" // a simple line rounding the mob's number health
-#define ID_HUD "3" // the job asigned to your ID
-#define WANTED_HUD "4" // wanted, released, parroled, security status
-#define IMPMINDSHIELD_HUD "5" // mindshield implant
-#define IMPCHEM_HUD "6" // chemical implant
-#define IMPTRACK_HUD "7" // tracking implant
-#define DIAG_STAT_HUD "8" // Silicon/Mech Status
-#define DIAG_HUD "9" // Silicon health bar
-#define DIAG_BATT_HUD "10"// Borg/Mech power meter
-#define DIAG_MECH_HUD "11"// Mech health bar
-#define STATUS_HUD_OOC "12"// STATUS_HUD without virus db check for someone being ill.
-#define SPECIALROLE_HUD "13" //for antag huds. these are used at the /mob level
-#define DIAG_BOT_HUD "14"// Bot HUDS
-#define PLANT_NUTRIENT_HUD "15"// Plant nutrient level
-#define PLANT_WATER_HUD "16"// Plant water level
-#define PLANT_STATUS_HUD "17"// Plant harvest/dead
-#define PLANT_HEALTH_HUD "18"// Plant health
-#define PLANT_TOXIN_HUD "19"// Toxin level
-#define PLANT_PEST_HUD "20"// Pest level
-#define PLANT_WEED_HUD "21"// Weed level
-#define DIAG_TRACK_HUD "22"// Mech tracking beacon
-#define DIAG_PATH_HUD "23"//Bot path indicators
-#define GLAND_HUD "24"//Gland indicators for abductors
-#define THOUGHT_HUD "25"//Telepathy bubbles
-#define PACIFISM_HUD "pacifism_hud" // Hud for pacifists(only for dantalion for now)
-#define KIDAN_PHEROMONES_HUD "pheromone_hud" // Kidan pheromones hud
+/// Dead, alive, sick, health status
+#define HEALTH_HUD "1"
+/// A simple line rounding the mob's number health
+#define STATUS_HUD "2"
+/// The job asigned to your ID
+#define ID_HUD "3"
+/// Wanted, released, parroled, security status
+#define WANTED_HUD "4"
+/// Mindshield implant
+#define IMPMINDSHIELD_HUD "5"
+/// Chemical implant
+#define IMPCHEM_HUD "6"
+/// Ttracking implant
+#define IMPTRACK_HUD "7"
+/// Silicon/Mech Status
+#define DIAG_STAT_HUD "8"
+/// Silicon health bar
+#define DIAG_HUD "9"
+/// Borg/Mech power meter
+#define DIAG_BATT_HUD "10"
+/// Mech health bar
+#define DIAG_MECH_HUD "11"
+/// STATUS_HUD without virus db check for someone being ill.
+#define STATUS_HUD_OOC "12"
+/// For antag huds. these are used at the /mob level
+#define SPECIALROLE_HUD "13"
+/// Bot HUDS
+#define DIAG_BOT_HUD "14"
+/// Plant nutrient level
+#define PLANT_NUTRIENT_HUD "15"
+/// Plant water level
+#define PLANT_WATER_HUD "16"
+/// Plant harvest/dead
+#define PLANT_STATUS_HUD "17"
+/// Plant health
+#define PLANT_HEALTH_HUD "18"
+/// Toxin level
+#define PLANT_TOXIN_HUD "19"
+/// Pest level
+#define PLANT_PEST_HUD "20"
+/// Weed level
+#define PLANT_WEED_HUD "21"
+/// Mech tracking beacon
+#define DIAG_TRACK_HUD "22"
+/// Bot path indicators
+#define DIAG_PATH_HUD "23"
+/// Gland indicators for abductors
+#define GLAND_HUD "24"
+/// Telepathy bubbles
+#define THOUGHT_HUD "25"
+/// Hud for pacifists (only for dantalion for now)
+#define PACIFISM_HUD "pacifism_hud"
+/// Kidan pheromones hud (lol)
+#define KIDAN_PHEROMONES_HUD "pheromone_hud"
+/// Hud for vampires only to see default diablerie aura
+#define DIABLERIE_AURA_HUD "diablerie_aura_hud"
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior

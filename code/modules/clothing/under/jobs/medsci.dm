@@ -123,7 +123,7 @@
 	name = "chemist's jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - химик. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "chemistry"
-	item_state = "w_suit"
+	item_state = "chemistry"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 65)
 
@@ -160,8 +160,7 @@
 	name = "chief medical officer's jumpsuit"
 	desc = "Этот комбинезон носят те, которые обладают достаточным опытом, чтобы дослужиться до звания главного врача. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "cmo"
-	item_state = "w_suit"
-	item_color = "cmo"
+	item_state = "cmo"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -179,7 +178,6 @@
 	name = "chief medical officer's jumpskirt"
 	desc = "Эту юбку носят те, которые обладают достаточным опытом, чтобы дослужиться до звания главного врача. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "cmof"
-	item_color = "cmof"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/chief_medical_officer/skirt/get_ru_names()
@@ -196,7 +194,7 @@
 	name = "geneticist's jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - генетик. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "genetics"
-	item_state = "w_suit"
+	item_state = "genetics"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -230,7 +228,7 @@
 	name = "virologist's jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - вирусолог. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "virology"
-	item_state = "w_suit"
+	item_state = "virology"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -265,7 +263,6 @@
 	desc = "Этот костюм обычно носит сестринский персонал в медицинском отделе."
 	icon_state = "nursesuit"
 	item_state = "nursesuit"
-	item_color = "nursesuit"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -285,7 +282,6 @@
 	gender = NEUTER
 	icon_state = "nurse"
 	item_state = "nurse"
-	item_color = "nurse"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -305,7 +301,6 @@
 	gender = FEMALE
 	icon_state = "orderly"
 	item_state = "orderly"
-	item_color = "orderly"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -323,8 +318,7 @@
 	name = "medical doctor's jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - врач. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "medical"
-	item_state = "w_suit"
-	item_color = "medical"
+	item_state = "medical"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -346,7 +340,7 @@
 	name = "intern jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - интерн. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "intern"
-	item_color = "intern"
+	item_state = "intern"
 
 /obj/item/clothing/under/rank/medical/intern/get_ru_names()
 	return list(
@@ -362,7 +356,6 @@
 	name = "intern jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - интерн. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "internf"
-	item_color = "internf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/medical/intern/skirt/get_ru_names()
@@ -379,7 +372,7 @@
 	name = "medical assistant jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - ассистирующий врач. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "med_ass"
-	item_color = "med_ass"
+	item_state = "med_ass"
 
 /obj/item/clothing/under/rank/medical/intern/assistant/get_ru_names()
 	return list(
@@ -395,7 +388,6 @@
 	name = "medical assistant jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - ассистирующий врач. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "med_ass_f"
-	item_color = "med_ass_f"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/medical/intern/assistant/skirt/get_ru_names()
@@ -412,7 +404,6 @@
 	name = "medical doctor's jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - врач. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "medicalf"
-	item_color = "medicalf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/medical/skirt/get_ru_names()
@@ -431,7 +422,6 @@
 	gender = FEMALE
 	icon_state = "scrubsblue"
 	item_state = "scrubsblue"
-	item_color = "scrubsblue"
 
 /obj/item/clothing/under/rank/medical/blue/get_ru_names()
 	return list(
@@ -449,7 +439,6 @@
 	gender = FEMALE
 	icon_state = "scrubsdarkgreen"
 	item_state = "scrubsdarkgreen"
-	item_color = "scrubsdarkgreen"
 
 /obj/item/clothing/under/rank/medical/green/get_ru_names()
 	return list(
@@ -467,7 +456,6 @@
 	gender = FEMALE
 	icon_state = "scrubsgreen"
 	item_state = "scrubsgreen"
-	item_color = "scrubsgreen"
 
 /obj/item/clothing/under/rank/medical/lightgreen/get_ru_names()
 	return list(
@@ -485,7 +473,6 @@
 	gender = FEMALE
 	icon_state = "scrubspurple"
 	item_state = "scrubspurple"
-	item_color = "scrubspurple"
 
 /obj/item/clothing/under/rank/medical/purple/get_ru_names()
 	return list(
@@ -503,7 +490,6 @@
 	gender = FEMALE
 	icon_state = "scrubsblack"
 	item_state = "scrubsblack"
-	item_color = "scrubsblack"
 
 /obj/item/clothing/under/rank/medical/mortician/get_ru_names()
 	return list(
@@ -521,7 +507,6 @@
 	desc = "Этот комбинезон обладает красным крестом на груди, обозначающим, что перед вами профессиональный парамедик. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения и радиации."
 	icon_state = "paramedic"
 	item_state = "paramedic"
-	item_color = "paramedic"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/paramedic/get_ru_names()
@@ -539,7 +524,6 @@
 	desc = "Эта юбка обладает красным крестом на груди, обозначающим, что перед вами профессиональный парамедик. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения и радиации."
 	icon_state = "paramedicf"
 	item_state = "paramedicf"
-	item_color = "paramedicf"
 
 /obj/item/clothing/under/rank/medical/paramedic/skirt/get_ru_names()
 	return list(
@@ -555,8 +539,7 @@
 	name = "psychiatrist's jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - психиатр."
 	icon_state = "psych"
-	item_state = "w_suit"
-	item_color = "psych"
+	item_state = "psych"
 
 /obj/item/clothing/under/rank/psych/get_ru_names()
 	return list(
@@ -572,7 +555,6 @@
 	name = "psychiatrist's jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - психиатр."
 	icon_state = "psychf"
-	item_color = "psychf"
 
 /obj/item/clothing/under/rank/psych/skirt/get_ru_names()
 	return list(
@@ -590,7 +572,6 @@
 	gender = FEMALE
 	icon_state = "psychturtle"
 	item_state = "psychturtle"
-	item_color = "psychturtle"
 
 /obj/item/clothing/under/rank/psych/turtleneck/get_ru_names()
 	return list(
@@ -610,7 +591,6 @@
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - генетик. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "genetics_new"
 	item_state = "w_suit"
-	item_color = "genetics_new"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -629,7 +609,6 @@
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - химик. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "chemist_new"
 	item_state = "w_suit"
-	item_color = "chemist_new"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 65)
 
@@ -648,7 +627,6 @@
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - учёный. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения и взрывов."
 	icon_state = "scientist_new"
 	item_state = "w_suit"
-	item_color = "scientist_new"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -667,7 +645,6 @@
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - вирусолог. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "virologist_new"
 	item_state = "w_suit"
-	item_color = "virologist_new"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -687,7 +664,6 @@
 	species_restricted = list("exclude", "lesser form")
 	icon_state = "mining_medic"
 	item_state = "mining_medic"
-	item_color = "mining_medic"
 
 /obj/item/clothing/under/rank/medical/mining_medic/get_ru_names()
 	return list(
@@ -705,7 +681,6 @@
 	species_restricted = list("exclude", "lesser form")
 	icon_state = "mining_medic_f"
 	item_state = "mining_medic_f"
-	item_color = "mining_medic_f"
 
 /obj/item/clothing/under/rank/medical/mining_medic/skirt/get_ru_names()
 	return list(
@@ -724,7 +699,6 @@
 	species_restricted = list("exclude", "lesser form")
 	icon_state = "scrubs_brown"
 	item_state = "scrubs_brown"
-	item_color = "scrubs_brown"
 
 /obj/item/clothing/under/rank/medical/brown/get_ru_names()
 	return list(
@@ -742,7 +716,6 @@
 	species_restricted = list("exclude", "lesser form")
 	icon_state = "mining_paramedic"
 	item_state = "mining_paramedic"
-	item_color = "mining_paramedic"
 
 /obj/item/clothing/under/rank/medical/mining_paramedic/get_ru_names()
 	return list(
@@ -760,7 +733,6 @@
 	species_restricted = list("exclude", "lesser form")
 	icon_state = "mining_paramedic_f"
 	item_state = "mining_paramedic_f"
-	item_color = "mining_paramedic_f"
 
 /obj/item/clothing/under/rank/medical/mining_paramedic/skirt/get_ru_names()
 	return list(

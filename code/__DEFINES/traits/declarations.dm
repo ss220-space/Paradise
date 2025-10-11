@@ -96,6 +96,10 @@
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
 /// Objects with this trait can cross chasm safe/
 #define TRAIT_CHASM_IGNORED "chasm_ignored"
+/// This mob has red glowing eyes with special text upon examination
+#define TRAIT_RED_EYES "red_eyes"
+/// This mob's hands will glow amber with special text upon examination
+#define TRAIT_CLOCK_HANDS "clock_hands"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.

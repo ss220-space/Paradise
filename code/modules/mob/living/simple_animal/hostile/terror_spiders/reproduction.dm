@@ -174,7 +174,7 @@
 							new_area.Entered(src)
 		else
 			frustration++
-			SSmove_manager.move_to(src, entry_vent, 1, rand(2, 4))
+			GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
 			if(frustration > 2)
 				entry_vent = null
 	else if(prob(33))
@@ -189,7 +189,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				SSmove_manager.move_to(src, entry_vent, 1, rand(2, 4))
+				GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
 				break
 
 

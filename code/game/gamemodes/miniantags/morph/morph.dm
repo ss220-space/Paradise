@@ -57,6 +57,8 @@
 	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell
 	/// The spell the morph uses to pass through airlocks
 	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
+	/// The spell the morph uses to open vent when crawling in them
+	var/obj/effect/proc_holder/spell/morph_spell/open_vent/open_vent_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
@@ -89,11 +91,24 @@
 	AddSpell(mimic_spell)
 	ambush_spell = new
 	AddSpell(ambush_spell)
-	AddSpell(new /obj/effect/proc_holder/spell/morph_spell/open_vent)
+	open_vent_spell = new
+	AddSpell(open_vent_spell)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
+
+/mob/living/simple_animal/hostile/morph/Destroy()
+	RemoveSpell(mimic_spell)
+	mimic_spell = null
+	RemoveSpell(ambush_spell)
+	ambush_spell = null
+	RemoveSpell(open_vent_spell)
+	open_vent_spell = null
+	RemoveSpell(pass_airlock_spell)
+	pass_airlock_spell = null
+	return ..()
+
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
 	AddComponent( \

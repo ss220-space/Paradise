@@ -627,7 +627,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!num_hands)
 			return
 
-		var/clock_hands = HAS_TRAIT(src, CLOCK_HANDS)
+		var/clock_hands = HAS_TRAIT(src, TRAIT_CLOCK_HANDS)
 		if(!blood_DNA && !clock_hands)
 			return
 
@@ -1346,7 +1346,9 @@ use_item_state: SS1984 legacy var, used to fix fact, that item_state randomly us
 )
 
 	var/mob/living/carbon/wearer = loc
-	var/species = wearer?.dna?.species.name
+	var/species
+	if(istype(wearer))
+		species = wearer?.dna?.species.name
 
 	//Find a valid icon_state from variables+arguments
 	var/t_state = override_state || (isinhands || use_item_state) && item_state || icon_state

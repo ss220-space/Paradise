@@ -179,6 +179,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/storage/box/fakesyndiesuit
 	cost = 90
 
+/datum/prize_item/spraytan
+	name = "Spray Tan"
+	desc = "Спрей-автозагар. Не попадите в глаза!"
+	typepath = /obj/item/reagent_containers/spray/spraytan
+	cost = 100
+
 /datum/prize_item/owl
 	name = "Owl Action Figure"
 	desc = "Помните: герои не становятся ГРИФонами!"

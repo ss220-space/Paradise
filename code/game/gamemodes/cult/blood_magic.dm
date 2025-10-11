@@ -458,28 +458,37 @@
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
+
 	if(N)
-		target.visible_message(	span_warning("[target]'s holy weapon absorbs the red light!"), \
-								span_userdanger("Your holy weapon absorbs the blinding light!"))
-	else
-		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
-		// These are in life cycles, so double the time that's stated.
-		L.Knockdown(3 SECONDS)
-		L.apply_damage(55, STAMINA)
-		if(!ismindshielded(L))
-			L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
-		L.flash_eyes(1, TRUE)
-		if(issilicon(target))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.Silence(10 SECONDS)
-			C.Stuttering(16 SECONDS)
-			C.CultSlur(20 SECONDS)
-			C.Jitter(16 SECONDS)
+		target.visible_message(span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"), \
+								span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"))
+		uses--
+		return ..()
+
+	if(ismindshielded(L))
+		target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"), \
+								span_userdanger("Ваш имплант блокирует ослепляющий свет!"))
+		return ..()
+
+	to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
+	// These are in life cycles, so double the time that's stated.
+	L.Knockdown(3 SECONDS)
+	L.apply_damage(55, STAMINA)
+	L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+	L.flash_eyes(1, TRUE)
+
+	if(issilicon(target))
+		var/mob/living/silicon/S = L
+		S.emp_act(EMP_HEAVY)
+	else if(iscarbon(target))
+		var/mob/living/carbon/C = L
+		C.Silence(10 SECONDS)
+		C.Stuttering(16 SECONDS)
+		C.CultSlur(20 SECONDS)
+		C.Jitter(16 SECONDS)
+
 	uses--
-	..()
+	return ..()
 
 
 //Teleportation

@@ -154,7 +154,7 @@
 	else if(find_phrase(full_message, list("жди", "ожидай", "ждать")))
 		if(!is_waiting)
 			is_waiting = TRUE
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			oogaooga(100)
 			if(is_bipedal)
 				if(LAZYLEN(crates_in_hand))
@@ -502,7 +502,7 @@
  */
 /mob/living/simple_animal/hostile/gorilla/proc/reset_behavior(play_emote = TRUE, end_of_excitement = FALSE)
 	check_buckled_gorilla()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	toggle_ai(AI_ON)
 	if(play_emote)
 		oogaooga(100, 200)
