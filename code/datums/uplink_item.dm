@@ -1269,8 +1269,6 @@
 	item = /obj/item/sleeping_carp_scroll
 	cost = 55
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-	refundable = TRUE
 	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/cqc
