@@ -19,21 +19,31 @@
 #define MEDAL_SELFOUCH			"Hands???"
 #define MEDAL_SANDMAN			"Mister Sandman"
 #define MEDAL_CLEANBOSS			"Cleanboss"
+#define MEDAL_RULE9				"Rule 9"
+#define MEDAL_LONGSHIFT			"longshift"
+#define MEDAL_LOOKOUTSIR		"Look Out, Sir!"
+#define MEDAL_ASCENSION			"Ascension"
+#define MEDAL_CULT_SHUTTLE_OMFG "WHAT JUST HAPPENED"
+
+//Skill medal hub IDs
+#define MEDAL_LEGENDARY_MINER		"Legendary Miner"
 
 
 //Boss medals
 
 // Medal hub IDs for boss medals (Pre-fixes)
-#define BOSS_MEDAL_ANY		  "Boss Killer"
-#define BOSS_MEDAL_MINER	  "Blood-drunk Miner Killer"
-#define BOSS_MEDAL_BUBBLEGUM  "Bubblegum Killer"
-#define BOSS_MEDAL_COLOSSUS	  "Colossus Killer"
-#define BOSS_MEDAL_DRAKE	  "Drake Killer"
-#define BOSS_MEDAL_HIEROPHANT "Hierophant Killer"
-#define BOSS_MEDAL_LEGION	  "Legion Killer"
-#define BOSS_MEDAL_TENDRIL	  "Tendril Exterminator"
-#define BOSS_MEDAL_SWARMERS   "Swarmer Beacon Killer"
-#define BOSS_MEDAL_ROBOT	  "Ancient Robot"
+#define BOSS_MEDAL_ANY		  	"Boss Killer"
+#define BOSS_MEDAL_MINER	  	"Blood-drunk Miner Killer"
+#define BOSS_MEDAL_BUBBLEGUM  	"Bubblegum Killer"
+#define BOSS_MEDAL_COLOSSUS	  	"Colossus Killer"
+#define BOSS_MEDAL_DRAKE	  	"Drake Killer"
+#define BOSS_MEDAL_HIEROPHANT 	"Hierophant Killer"
+#define BOSS_MEDAL_LEGION	  	"Legion Killer"
+#define BOSS_MEDAL_TENDRIL	  	"Tendril Exterminator"
+#define BOSS_MEDAL_SWARMERS   	"Swarmer Beacon Killer"
+#define BOSS_MEDAL_ROBOT	  	"Ancient Robot"
+#define BOSS_MEDAL_FROSTMINER	"Demonic-frost Miner Killer"
+#define BOSS_MEDAL_WENDIGO		"Wendigo Killer"
 
 #define BOSS_MEDAL_MINER_CRUSHER	  	"Blood-drunk Miner Crusher"
 #define BOSS_MEDAL_BUBBLEGUM_CRUSHER  	"Bubblegum Crusher"
@@ -43,6 +53,8 @@
 #define BOSS_MEDAL_LEGION_CRUSHER	 	"Legion Crusher"
 #define BOSS_MEDAL_SWARMERS_CRUSHER		"Swarmer Beacon Crusher"
 #define BOSS_MEDAL_ROBOT_CRUSHER		"Ancient Robot Crusher"
+#define BOSS_MEDAL_FROSTMINER_CRUSHER	"Demonic-frost Miner Crusher"
+#define BOSS_MEDAL_WENDIGO_CRUSHER		"Wendigo Crusher"
 
 // Medal hub IDs for boss-kill scores
 #define BOSS_SCORE 	         	"Bosses Killed"
@@ -55,3 +67,5 @@
 #define SWARMER_BEACON_SCORE	"Swarmer Beacs Killed"
 #define TENDRIL_CLEAR_SCORE		"Tendrils Killed"
 #define ROBOT_SCORE	 			"Ancient Robots Killed"
+#define FROST_MINER_SCORE		"DFMs Killed"
+#define WENDIGO_SCORE			"Wendigos Killed"

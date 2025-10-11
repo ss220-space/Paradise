@@ -508,3 +508,8 @@
 // redis defines
 #define SERVER_MESSAGES_REDIS_CHANNEL "byond.servermessages"
 #define REDIS_ANNOUNCER_NAME "Смотритель"
+
+#define CULT_SHUTTLE_CURSE "cult_shuttle_curse.json"
+
+/// Achievements icon set
+#define ACHIEVEMENTS_SET 'icons/ui_icons/achievements/achievements.dmi'

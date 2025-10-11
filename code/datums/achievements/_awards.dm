@@ -2,7 +2,8 @@
 	///Name of the achievement, If null it wont show up in the achievement browser. (Handy for inheritance trees)
 	var/name
 	var/desc = "You did it."
-	///Found in /datum/asset/spritesheet/simple/achievements
+
+	///The icon state for this award. The icon file is found in ui_icons/achievements.
 	var/icon = "default"
 	var/category = "Normal"
 
@@ -27,16 +28,29 @@
 /datum/award/proc/get_changed_rows(key, value)
 	if(!database_id || !key || !name)
 		return
-	return list("ckey" = "'[key]'","achievement_key" = "'[database_id]'", "value" = "'[value]'")
+	return list(
+		"ckey" = key,
+		"achievement_key" = database_id,
+		"value" = value,
+	)
 
 /datum/award/proc/get_metadata_row()
-	return list("achievement_key"  = "'[database_id]'", "achievement_version" = "'[achievement_version]'", "achievement_type" = "'award'", "achievement_name" = "'[name]'", "achievement_description" = "'[desc]'")
+	return list(
+		"achievement_key" = database_id,
+		"achievement_version" = achievement_version,
+		"achievement_type" = "award",
+		"achievement_name" = name,
+		"achievement_description" = desc,
+	)
 
 ///Get raw numerical achievement value from the database
 /datum/award/proc/get_raw_value(key)
 	set waitfor = FALSE
 
-	var/datum/db_query/Q = SSdbcore.NewQuery("SELECT value FROM [format_table_name("achievements")] WHERE ckey = '[key]' AND achievement_key = '[database_id]'")
+	var/datum/db_query/Q = SSdbcore.NewQuery(
+		"SELECT value FROM [format_table_name("achievements")] WHERE ckey = :ckey AND achievement_key = :achievement_key",
+		list("ckey" = key, "achievement_key" = database_id)
+	)
 	if(!Q.Execute(async = TRUE))
 		qdel(Q)
 		return 0
@@ -61,7 +75,7 @@
 
 /datum/award/achievement/get_metadata_row()
 	. = ..()
-	.["achievement_type"] = "'achievement'"
+	.["achievement_type"] = "achievement"
 
 /datum/award/achievement/parse_value(raw_value)
 	return raw_value > 0
@@ -86,12 +100,15 @@
 
 /datum/award/score/get_metadata_row()
 	. = ..()
-	.["achievement_type"] = "'score'"
+	.["achievement_type"] = "score"
 
 /datum/award/score/proc/LoadHighScores()
 	set waitfor = FALSE
 
-	var/datum/db_query/Q = SSdbcore.NewQuery("SELECT ckey,value FROM [format_table_name("achievements")] WHERE achievement_key = '[database_id]' ORDER BY value DESC LIMIT 50")
+	var/datum/db_query/Q = SSdbcore.NewQuery(
+		"SELECT ckey,value FROM [format_table_name("achievements")] WHERE achievement_key = :achievement_key ORDER BY value DESC LIMIT 50",
+		list("achievement_key" = database_id)
+	)
 	if(!Q.Execute(async = TRUE))
 		qdel(Q)
 		return

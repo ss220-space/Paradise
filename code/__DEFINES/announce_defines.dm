@@ -54,3 +54,5 @@
 #define ANNOUNCE_HONKANOMALY_RU "Предупреждение о Хонканомалии."
 #define ANNOUNCE_ELECTRICAL_STORM "Электрический шторм."
 #define ANNOUNCE_DEBRIS "Обломки."
+
+#define ANNOUNCE_TITLE_CCDT "Департамент транспорта Центрального Командования"

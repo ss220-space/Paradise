@@ -393,8 +393,8 @@
 		return // enough harassing them
 
 	if(gamers[gamer] == -1)
-		say("WARNING: Continued antisocial behavior detected: Dispensing self-help literature.")
-		new /obj/item/gamer_pamphlet(get_turf(src))
+		atom_say("ВНИМАНИЕ: Зафиксировано продолжающееся антисоциальное поведение. Распечатана литература по самопомощи.")
+		new /obj/item/paper/pamphlet/violent_video_games(get_turf(src))
 		gamers[gamer]--
 		return
 
@@ -406,9 +406,9 @@
 		return
 
 	Radio.set_frequency(SEC_FREQ)
-	Radio.autosay("SECURITY ALERT: Crewmember [gamer] recorded displaying antisocial tendencies in [get_area(src)]. Please watch for violent behavior.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	Radio.autosay("ОПОВЕЩЕНИЕ БЕЗОПАСНОСТИ: Член экипажа [gamer.declent_ru(NOMINATIVE)] демонстрирует признаки асоциального поведения в [get_area(src)]. Пожалуйста, будьте внимательны к проявлениям агрессивного поведения.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
 	Radio.set_frequency(MED_FREQ)
-	Radio.talk_into(src, "PSYCH ALERT: Crewmember [gamer] recorded displaying antisocial tendencies in [get_area(src)]. Please schedule psych evaluation.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	Radio.talk_into(src, "ООВЕЩЕНИЕ О ПСИХИЧЕСТКОМ РАССТРОЙСТВЕ: У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
 
 	gamers[gamer] = -1
 
@@ -417,11 +417,11 @@
 	if(isnull(GLOB.data_core.general))
 		return
 
-	for(var/datum/data/record/R in GLOB.data_core.general)
-		if(R.fields["name"] != gamer.name)
+	for(var/datum/data/record/record in GLOB.data_core.general)
+		if(record.fields["name"] != gamer.name)
 			continue
 
-		R.fields["m_stat"] = "Нестабильное"
+		record.fields["m_stat"] = "Нестабильное"
 		return
 
 /obj/machinery/computer/arcade/orion_trail/attack_hand(mob/user)

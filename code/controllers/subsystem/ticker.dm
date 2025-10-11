@@ -573,7 +573,14 @@ SUBSYSTEM_DEF(ticker)
 	end_of_round_info += "<br>[TAB]Shift Duration: <b>[SHIFT_TIME_TEXT()]</b>"
 	end_of_round_info += "<br>[TAB]Station Integrity: <b>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</b>"
 	end_of_round_info += "<br>"
+	var/speed_round = FALSE
+	if(world.time - SSticker.round_start_time <= SPEEDRUN_ROUND_TIME)
+		speed_round = TRUE
 
+	for(var/client/client as anything in GLOB.clients)
+		if(!speed_round)
+			continue
+		client.give_award(/datum/award/achievement/misc/speed_round, client.mob)
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)

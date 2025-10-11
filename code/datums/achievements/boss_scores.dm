@@ -47,3 +47,17 @@
 	name = "Ancient Robot Killed"
 	desc = "You've killed HOW many?"
 	database_id = ROBOT_SCORE
+
+//TODO Uncomment when be implemented
+
+/*
+/datum/award/score/demonic_miner_score
+	name = "Demonic-Frost Miners Killed" // REQ Demonic-Frost Miner
+	desc = "You've killed HOW many?"
+	database_id = FROST_MINER_SCORE
+
+/datum/award/score/wendigo_score
+	name = "Wendigos Killed" // REQ Wendigo
+	desc = "You've killed HOW many?"
+	database_id = WENDIGO_SCORE
+*/

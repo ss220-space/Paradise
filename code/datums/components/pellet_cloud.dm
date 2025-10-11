@@ -263,6 +263,9 @@
 
 ///All of our pellets are accounted for, time to go target by target and tell them how many things they got hit by.
 /datum/component/pellet_cloud/proc/finalize()
+	for(var/mob/living/martyr as anything in purple_hearts)
+		if(martyr.stat == DEAD && martyr.client)
+			martyr.client.give_award(/datum/award/achievement/misc/lookoutsir, martyr)
 	UnregisterSignal(parent, COMSIG_PREQDELETED)
 	if(queued_delete)
 		qdel(parent)

@@ -33,7 +33,10 @@
 /datum/achievement_data/proc/load_all_achievements()
 	set waitfor = FALSE
 	var/list/kv = list()
-	var/datum/db_query/Query = SSdbcore.NewQuery("SELECT achievement_key,value FROM [format_table_name("achievements")] WHERE ckey = '[owner_ckey]'")
+	var/datum/db_query/Query = SSdbcore.NewQuery(
+		"SELECT achievement_key,value FROM [format_table_name("achievements")] WHERE ckey = :ckey",
+		list("ckey" = owner_ckey)
+	)
 	if(!Query.Execute())
 		qdel(Query)
 		return
@@ -62,9 +65,13 @@
 
 ///Unlocks an achievement of a specific type.
 /datum/achievement_data/proc/unlock(achievement_type, mob/user)
+	if(!SSachievements.achievements_enabled)
+		return
 	var/datum/award/A = SSachievements.awards[achievement_type]
 	get_data(achievement_type) //Get the current status first if necessary
 	if(istype(A, /datum/award/achievement))
+		if(data[achievement_type]) //You already unlocked it so don't bother running the unlock proc
+			return
 		data[achievement_type] = TRUE
 		A.on_unlock(user) //Only on default achievement, as scores keep going up.
 	else if(istype(A, /datum/award/score))
@@ -76,6 +83,8 @@
 
 ///Resets an achievement to default values.
 /datum/achievement_data/proc/reset(achievement_type)
+	if(!SSachievements.achievements_enabled)
+		return
 	var/datum/award/A = SSachievements.awards[achievement_type]
 	get_data(achievement_type)
 	if(istype(A, /datum/award/achievement))
@@ -83,16 +92,18 @@
 	else if(istype(A, /datum/award/score))
 		data[achievement_type] = 0
 
-/datum/achievement_data/ui_base_html(html)
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/achievements)
-	. = replacetext(html, "<!--customheadhtml-->", assets.css_tag())
+/datum/achievement_data/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/simple/achievements),
+	)
 
-/datum/achievement_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/achievement_data/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/achievement_data/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/achievements)
-		assets.send(user)
-		ui = new(user, src, ui_key, "achievements", "Achievements Menu", 800, 1000, master_ui, state)
+		ui = new(user, src, "Achievements")
 		ui.open()
 
 /datum/achievement_data/ui_data(mob/user)

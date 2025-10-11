@@ -1,128 +1,129 @@
 import { act } from '../backend';
 import { Box, Tabs } from '../components';
 
-export const Achievement = (props) => {
-  const { name, desc, icon_class, value } = props;
-  return (
-    <tr key={name}>
-      <td style={{ 'padding': '6px' }}>
-        <Box className={icon_class} />
-      </td>
-      <td style={{ 'vertical-align': 'top' }}>
-        <h1>{name}</h1>
-        {desc}
-        <Box
-          color={value ? 'good' : 'bad'}
-          content={value ? 'Unlocked' : 'Locked'}
-        />
-      </td>
-    </tr>
-  );
-};
-
-export const Score = (props) => {
-  const { name, desc, icon_class, value } = props;
-  return (
-    <tr key={name}>
-      <td style={{ 'padding': '6px' }}>
-        <Box className={icon_class} />
-      </td>
-      <td style={{ 'vertical-align': 'top' }}>
-        <h1>{name}</h1>
-        {desc}
-        <Box
-          color={value > 0 ? 'good' : 'bad'}
-          content={value > 0 ? 'Earned ' + value + ' times' : 'Locked'}
-        />
-      </td>
-    </tr>
-  );
-};
-
 export const Achievements = (props) => {
-  const { state } = props;
-  const { config, data } = state;
-  const { ref } = config;
+  const { data } = useBackend();
+  const { categories } = data;
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const achievements = data.achievements.filter(
+    (x) => x.category === selectedCategory
+  );
   return (
-    <Tabs>
-      {data.categories.map((category) => (
-        <Tabs.Tab key={category} label={category}>
-          <Box as="Table">
-            {data.achievements
-              .filter((x) => x.category === category)
-              .map((achievement, index) => {
-                if (achievement.score) {
-                  return (
-                    <Score
-                      key={index}
-                      name={achievement.name}
-                      desc={achievement.desc}
-                      icon_class={achievement.icon_class}
-                      value={achievement.value}
-                    />
-                  );
-                } else {
-                  return (
-                    <Achievement
-                      key={index}
-                      name={achievement.name}
-                      desc={achievement.desc}
-                      icon_class={achievement.icon_class}
-                      value={achievement.value}
-                    />
-                  );
-                }
-              })}
-          </Box>
-        </Tabs.Tab>
-      ))}
-      <Tabs.Tab label={'High Scores'}>
-        <Tabs vertical>
-          {data.highscore.map((highscore) => {
-            return (
-              <Tabs.Tab key={highscore.name} label={highscore.name}>
-                <Table>
-                  <Table.Row className="candystripe">
-                    <Table.Cell color="label" textAlign="center">
-                      #
-                    </Table.Cell>
-                    <Table.Cell color="label" textAlign="center">
-                      Key
-                    </Table.Cell>
-                    <Table.Cell color="label" textAlign="center">
-                      Score
-                    </Table.Cell>
-                  </Table.Row>
-                  {Object.keys(highscore.scores).map((key, index) => {
-                    return (
-                      <Table.Row className="candystripe" key={key} m={2}>
-                        <Table.Cell color="label" textAlign="center">
-                          {index + 1}
-                        </Table.Cell>
-                        <Table.Cell
-                          color={key === data.user_ckey ? 'green' : null}
-                          textAlign="center"
-                        >
-                          {index === 0 && (
-                            <Icon name="crown" color="gold" mr={2} />
-                          )}
-                          {key}
-                          {index === 0 && (
-                            <Icon name="crown" color="gold" ml={2} />
-                          )}
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                          {highscore.scores[key]}
-                        </Table.Cell>
-                      </Table.Row>
-                    );
-                  })}
-                </Table>
-              </Tabs.Tab>
-            );
-          })}
+    <Window title="Achievements" width={540} height={680} resizable>
+      <Window.Content scrollable>
+        <Tabs>
+          {categories.map((category) => (
+            <Tabs.Tab
+              key={category}
+              selected={selectedCategory === category}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </Tabs.Tab>
+          ))}
+          <Tabs.Tab
+            selected={selectedCategory === 'High Scores'}
+            onClick={() => setSelectedCategory('High Scores')}
+          >
+            High Scores
+          </Tabs.Tab>
         </Tabs>
-      </Tabs.Tab>
-    </Tabs>
+        {(selectedCategory === 'High Scores' && <HighScoreTable />) || (
+          <AchievementTable achievements={achievements} />
+        )}
+      </Window.Content>
+    </Window>
+  );
+};
+
+const AchievementTable = (props) => {
+  const { achievements } = props;
+  return (
+    <Table>
+      {achievements.map((achievement) => (
+        <Achievement key={achievement.name} achievement={achievement} />
+      ))}
+    </Table>
+  );
+};
+
+const Achievement = (props) => {
+  const { achievement } = props;
+  const { name, desc, icon_class, value, score } = achievement;
+  return (
+    <Table.Row key={name}>
+      <Table.Cell collapsing>
+        <Box m={1} className={icon_class} />
+      </Table.Cell>
+      <Table.Cell verticalAlign="top">
+        <h1>{name}</h1>
+        {desc}
+        {(score && (
+          <Box color={value > 0 ? 'good' : 'bad'}>
+            {value > 0 ? `Earned ${value} times` : 'Locked'}
+          </Box>
+        )) || (
+          <Box color={value ? 'good' : 'bad'}>
+            {value ? 'Unlocked' : 'Locked'}
+          </Box>
+        )}
+      </Table.Cell>
+    </Table.Row>
+  );
+};
+
+const HighScoreTable = (props) => {
+  const { data } = useBackend();
+  const { highscore: highscores, user_ckey } = data;
+  const [highScoreIndex, setHighScoreIndex] = useState(0);
+  const highscore = highscores[highScoreIndex];
+  if (!highscore) {
+    return null;
+  }
+  const scores = Object.keys(highscore.scores).map((key) => ({
+    ckey: key,
+    value: highscore.scores[key],
+  }));
+  return (
+    <Flex>
+      <Flex.Item>
+        <Tabs vertical>
+          {highscores.map((highscore, i) => (
+            <Tabs.Tab
+              key={highscore.name}
+              selected={highScoreIndex === i}
+              onClick={() => setHighScoreIndex(i)}
+            >
+              {highscore.name}
+            </Tabs.Tab>
+          ))}
+        </Tabs>
+      </Flex.Item>
+      <Flex.Item grow={1} basis={0}>
+        <Table>
+          <Table.Row header>
+            <Table.Cell textAlign="center">#</Table.Cell>
+            <Table.Cell textAlign="center">Key</Table.Cell>
+            <Table.Cell textAlign="center">Score</Table.Cell>
+          </Table.Row>
+          {scores.map((score, i) => (
+            <Table.Row key={score.ckey} className="candystripe" m={2}>
+              <Table.Cell color="label" textAlign="center">
+                {i + 1}
+              </Table.Cell>
+              <Table.Cell
+                color={score.ckey === user_ckey && 'green'}
+                textAlign="center"
+              >
+                {i === 0 && <Icon name="crown" color="yellow" mr={2} />}
+                {score.ckey}
+                {i === 0 && <Icon name="crown" color="yellow" ml={2} />}
+              </Table.Cell>
+              <Table.Cell textAlign="center">{score.value}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table>
+      </Flex.Item>
+    </Flex>
   );
 };

@@ -1,5 +1,5 @@
 /datum/asset/spritesheet/simple/achievements
 	name ="achievements"
-	assets = list(
-		"default" = 'icons/ui_icons/achievements/default.png'
-	)
+
+/datum/asset/spritesheet/simple/achievements/create_spritesheets()
+	InsertAll("", ACHIEVEMENTS_SET)
