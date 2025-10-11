@@ -9,7 +9,9 @@
 	/// If set to `TRUE`, adds dense tiles to possible spawn places.
 	var/summon_ignore_density = FALSE
 	/// If set to `TRUE`, each new object is summoned on a new spawn point.
-	var/summon_ignore_prev_spawn_points = 0
+	var/summon_ignore_prev_spawn_points = FALSE
+	/// If set to 'TRUE', would not let you build more than one thing from summon_type in the same turf
+	var/one_per_turf = FALSE
 
 	/// Vars of the summoned objects will be replaced with those where they meet. Should have format of list("emagged" = 1,"name" = "Wizard's Justicebot"), for example.
 	var/list/newVars = list()
@@ -26,6 +28,20 @@
 	T.range = aoe_range
 	return T
 
+/obj/effect/proc_holder/spell/aoe/conjure/can_cast(mob/user, charge_check, show_message)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(!one_per_turf)
+		return TRUE
+
+	var/turf/caster_turf = get_turf(user)
+	for(var/summon_thing in summon_type)
+		if(locate(summon_thing) in caster_turf)
+			return FALSE
+
+	return TRUE
 
 /obj/effect/proc_holder/spell/aoe/conjure/cast(list/targets,mob/living/user = usr)
 	var/list/what_conjure_summoned = list()

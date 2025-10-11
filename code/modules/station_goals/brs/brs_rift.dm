@@ -42,7 +42,7 @@
 	// Process rift objects
 	for(var/obj/effect/abstract/bluespace_rift/rift as anything in rift_objects)
 		rift.move()
-	
+
 	// Process events
 
 	// Spawn events only when they are scanning
@@ -54,8 +54,8 @@
 
 	times_rift_scanned = 0
 	events_mined = 0
-	
-	// Process events spawn 
+
+	// Process events spawn
 	events.process()
 
 /datum/bluespace_rift/proc/probe(successful = FALSE)

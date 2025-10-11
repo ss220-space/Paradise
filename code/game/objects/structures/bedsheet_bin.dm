@@ -169,7 +169,7 @@ LINEN BINS
 	name = "medical blanket"
 	desc = "It's a sterilized* blanket commonly used in the Medbay.  *Sterilization is voided if a virologist is present onboard the station."
 	icon_state = "sheetmedical"
-	item_color = "medical"
+	item_state = "sheetmedical"
 	dream_messages = list("healing", "life", "surgery", "a doctor")
 	nightmare_messages = list("death", "no cryox", "cryo is off")
 
@@ -177,7 +177,7 @@ LINEN BINS
 	name = "chief medical officer's bedsheet"
 	desc = "It's a sterilized blanket that has a cross emblem.  There's some cat fur on it, likely from Runtime."
 	icon_state = "sheetcmo"
-	item_color = "cmo"
+	item_state = "sheetcmo"
 	dream_messages = list("authority", "a silvery ID", "healing", "life", "surgery", "a cat", "the chief medical officer")
 	nightmare_messages = list("chemists making meth", "cryo it off", "where is the defib", "no biomass")
 

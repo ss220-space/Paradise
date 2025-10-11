@@ -7506,7 +7506,7 @@
 "bhm" = (
 /obj/structure/table,
 /obj/item/hand_tele,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
@@ -31631,7 +31631,7 @@
 /area/crew_quarters/bar)
 "fkO" = (
 /obj/effect/landmark/lightsout,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -46123,7 +46123,7 @@
 	},
 /area/hallway/secondary/exit)
 "jwo" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/camera{
 	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
@@ -78559,7 +78559,7 @@
 	},
 /area/storage/primary)
 "sCV" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -89506,7 +89506,7 @@
 /turf/simulated/floor/grass,
 /area/mine/unexplored/cere/orbiting)
 "vRR" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},

@@ -156,13 +156,13 @@
 	var/turf/T = get_ranged_target_turf(chargeturf, dir, chargepast)
 	if(!T)
 		return
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	charge_turf = T
 	setDir(dir)
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(src, delay)
-	var/datum/move_loop/new_loop = SSmove_manager.home_onto(src, charge_turf, delay = GOLIATH_CHARGE_SPEED, timeout = 2 SECONDS, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	var/datum/move_loop/new_loop = GLOB.move_manager.home_onto(src, charge_turf, delay = GOLIATH_CHARGE_SPEED, timeout = 2 SECONDS, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	if(!new_loop)
 		return
 	RegisterSignal(src, COMSIG_MOVABLE_BUMP, PROC_REF(on_bump), override = TRUE)
@@ -189,7 +189,7 @@
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/end_charge()
 	UnregisterSignal(src, COMSIG_MOVABLE_BUMP)
 	charge_turf = null
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	INVOKE_ASYNC(src, PROC_REF(CheckAndAttack))
 	COOLDOWN_START(src, post_charge_delay, 2 SECONDS)
 

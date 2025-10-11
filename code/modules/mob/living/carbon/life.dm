@@ -393,10 +393,10 @@
 		var/obj/item/reagent_containers/food/pill/patch/P = patch
 
 		if(P.reagents && P.reagents.total_volume)
-			var/fractional_applied_amount = (applied_amount  / P.reagents.total_volume) * P.protection_on_apply
+			var/fractional_applied_amount = (applied_amount  / P.reagents.total_volume)
 			P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, show_message = FALSE, ignore_protection = TRUE, def_zone = P.application_zone)
 			P.needs_to_apply_reagents = FALSE
-			P.reagents.trans_to(src, applied_amount * 0.5 * P.protection_on_apply)
+			P.reagents.trans_to(src, applied_amount * 0.5)
 			P.reagents.remove_any(applied_amount * 0.5)
 		else
 			if(!P.reagents || P.reagents.total_volume <= 0)
