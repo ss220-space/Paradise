@@ -167,7 +167,8 @@
 		/obj/item/robotanalyzer,
 		/obj/item/clothing/gloves,
 		/obj/item/rcd,
-		/obj/item/rpd)
+		/obj/item/rpd
+	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -785,9 +786,9 @@
 	new /obj/item/gun/magic/wand/door(src)
 	new /obj/item/gun/magic/wand/fireball(src)
 
-	for(var/obj/item/gun/magic/wand/W in contents)
-		W.max_charges = initial(W.max_charges)
-		W.charges = W.max_charges
+	for(var/obj/item/gun/magic/wand/wand in contents)
+		wand.max_charges = initial(wand.max_charges)
+		wand.charges = wand.max_charges
 	update_icon()
 
 /obj/item/storage/belt/fannypack
@@ -920,7 +921,7 @@
 	update_appearance(UPDATE_ICON_STATE)
 
 /**
- * Bluespace belt
+ * MARK: Bluespace belt
  */
 
 /obj/item/storage/belt/bluespace
@@ -930,7 +931,7 @@
 	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = WEIGHT_CLASS_BULKY
-	max_combined_w_class = 21
+	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
 	w_class_override = list(
