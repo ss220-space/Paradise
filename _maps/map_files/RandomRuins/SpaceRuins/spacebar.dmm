@@ -249,7 +249,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/powered/space_bar)
 "bt" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "dw" = (

@@ -680,3 +680,33 @@
 	enable_message = "Теперь сообщения о боли будут выводиться на основной экран."
 	disable_message = "Теперь сообщения о боли будут писаться в чат."
 	blackbox_message = "Toggle painblurb"
+
+/datum/preference_toggle/storage/set_toggles(client/user)
+	. = ..()
+	if(!istype(user) || !user.mob || !user.mob.s_active)
+		return
+
+	var/obj/item/storage/storage = user.mob.s_active
+
+	storage.hide_from(user.mob)
+	storage.show_to(user.mob)
+
+/datum/preference_toggle/storage/storage_neutral
+	name = "Переключить тематическое/нейтральное хранилище"
+	description = "Переключает хранилище между зависимым от темы инвентаря и нейтральным."
+	preftoggle_bitflag = PREFTOGGLE_3_STORAGE_NEUTRAL
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь хранилища будут иметь нейтральную тему."
+	disable_message = "Теперь тема хранилища будет зависеть от инвентаря."
+	blackbox_message = "Toggle storage neutal"
+
+/datum/preference_toggle/storage/storage_colorfy
+	name = "Переключить покраску хранилища"
+	description = "Переключает зависимость цвета хранилища от цвета инвентаря."
+	preftoggle_bitflag = PREFTOGGLE_3_STORAGE_COLORFY
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь цвет интерфейса хранилища зависит от цвета инвентаря."
+	disable_message = "Теперь цвет интерфейса хранилища не зависит от цвета инвентаря."
+	blackbox_message = "Toggle storage colorfy"

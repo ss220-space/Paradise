@@ -158,7 +158,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
 	var/commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
-	var/commando_name = pick(GLOB.last_names)
+	var/commando_name = pick(GLOB.last_names_male)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(is_leader)
