@@ -103,8 +103,7 @@
 		return
 
 	// Charge was on cooldown and new max is lower than old. This is bad: (3/4 + recharging -> 2/2 + recharging -> 3/2)
-	if((recharge_time >= world.time) && current_charges)
-		if(old_max_charges > new_max_charges)
-			current_charges--
-			START_PROCESSING(SSfastprocess, src)
+	if(current_charges && (old_max_charges > new_max_charges))
+		current_charges--
+		START_PROCESSING(SSfastprocess, src)
 
