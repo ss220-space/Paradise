@@ -10,29 +10,37 @@ GLOBAL_DATUM_INIT(alarm_manager, /datum/alarm_manager, new())
 		"Burglar" = list(),
 	)
 
-/datum/alarm_manager/proc/trigger_alarm(class, area/A, list/O, obj/alarmsource)
-	var/list/L = alarms[class]
-	for(var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/sources = alarm[3]
-			if(!(alarmsource.UID() in sources))
-				sources += alarmsource.UID()
-			return TRUE
-	L[A.name] = list(get_area_name(A, TRUE), O, list(alarmsource.UID()))
-	SEND_SIGNAL(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, class, A, O, alarmsource)
+/datum/alarm_manager/proc/trigger_alarm(alarm_type, area/source_area, list/alarm_data, obj/alarm_source)
+	var/list/typed_alarms = alarms[alarm_type]
+	var/area_name = source_area.name
+
+	if(area_name in typed_alarms)
+		var/list/existing_alarm = typed_alarms[area_name]
+		var/list/source_UIDs = existing_alarm[3]
+		source_UIDs |= alarm_source.UID()
+		return TRUE
+
+	typed_alarms[area_name] = list(
+		get_area_name(source_area, TRUE),
+		alarm_data,
+		list(alarm_source.UID())
+	)
+	SEND_SIGNAL(src, COMSIG_TRIGGERED_ALARM, alarm_type, source_area, alarm_data, alarm_source)
 	return TRUE
 
-/datum/alarm_manager/proc/cancel_alarm(class, area/A, obj/origin)
-	var/list/L = alarms[class]
-	var/cleared = FALSE
-	for(var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/srcs  = alarm[3]
-			srcs -= origin.UID()
-			if(!length(srcs))
-				cleared = TRUE
-				L -= I
+/datum/alarm_manager/proc/cancel_alarm(alarm_type, area/source_area, obj/alarm_source)
+	var/list/typed_alarms = alarms[alarm_type]
+	var/area_name = source_area.name
 
-	SEND_SIGNAL(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, class, A, origin, cleared)
+	if(!(area_name in typed_alarms))
+		return
+
+	var/list/existing_alarm = typed_alarms[area_name]
+	var/list/source_UIDs = existing_alarm[3]
+	source_UIDs -= alarm_source.UID()
+
+	if(!length(source_UIDs))
+		typed_alarms -= area_name
+		SEND_SIGNAL(src, COMSIG_CANCELLED_ALARM, alarm_type, source_area, alarm_source, TRUE)
+	else
+		SEND_SIGNAL(src, COMSIG_CANCELLED_ALARM, alarm_type, source_area, alarm_source, FALSE)
