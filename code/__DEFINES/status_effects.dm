@@ -153,6 +153,7 @@
 #define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
 #define STATUS_EFFECT_LEGSWEEP /datum/status_effect/krav_maga/leg_sweep
 #define STATUS_EFFECT_LUNGPUNCH /datum/status_effect/krav_maga/lung_punch
+#define STATUS_EFFECT_NECKCHOP /datum/status_effect/krav_maga/neck_chop
 
 // transient
 #define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion

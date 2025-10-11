@@ -582,7 +582,7 @@
 
 		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
 		damage += attack.damage
-		if(!damage)
+		if(!damage || (HAS_TRAIT(user, TRAIT_HIGH_MISS_CHANCE) && prob(ATTACK_MISS_CHANCE)))
 			playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
 			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)], но промахива[pluralize_ru(user.gender,"ется","ются")]!"))
 			return FALSE

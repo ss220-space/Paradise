@@ -206,6 +206,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	var/distance = get_dist(starting, target)
 	if(distance < 2) //point-back shot (diagonal dist is 1.414)
 		return 100
+	if(HAS_TRAIT(firer, TRAIT_HIGH_MISS_CHANCE))
+		return 40
 	var/obj/item/gun/gun = projectile.firer_source_atom
 	var/datum/gun_accuracy/gun_accuracy = GLOB.gun_accuracy_sniper
 	if(istype(gun))

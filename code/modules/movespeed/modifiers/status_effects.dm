@@ -22,4 +22,4 @@
 
 
 /datum/movespeed_modifier/status_effect/leg_sweep
-	multiplicative_slowdown = 0.6
+	multiplicative_slowdown = 0.7

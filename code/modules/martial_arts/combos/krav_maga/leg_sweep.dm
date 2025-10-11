@@ -5,6 +5,8 @@
 /datum/martial_combo/krav_maga/leg_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.stat || IS_HORIZONTAL(target))
 		return FALSE
+	if(HAS_TRAIT(target, TRAIT_KRAVMAGA_DEBUFF))
+		return FALSE
 	target.visible_message(
 		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] бь[pluralize_ru(user.gender, "ёт", "ют")] по ноге [target.declent_ru(ACCUSATIVE)]!"), \
 		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] бь[pluralize_ru(user.gender, "ёт", "ют")] по твоей ноге!")

@@ -66,6 +66,7 @@
 /// Are we immune to wet effect
 #define TRAIT_WET_IMMUNITY "wet_immunity"
 #define TRAIT_HIGH_MISS_CHANCE "high_miss_chance"
+#define TRAIT_KRAVMAGA_DEBUFF "kravmaga_debuff"
 
 /// We place people into a fireman carry quicker than standard
 #define TRAIT_QUICK_CARRY "quick-carry"

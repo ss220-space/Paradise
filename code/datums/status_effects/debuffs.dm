@@ -1422,46 +1422,67 @@
 
 /datum/status_effect/krav_maga
 	id = "krav-maga debuff"
-	status_type = STATUS_EFFECT_UNIQUE
+	duration = 6 SECONDS
+
+/atom/movable/screen/alert/status_effect/leg_sweep
+	name = "Подсечка"
+	desc = "Ваша нога сильно болит! Вы будете замедлены на некоторое время."
+	icon_state = "legsweep"
 
 /datum/status_effect/krav_maga/leg_sweep
 	id = "leg sweep"
-	duration = 6 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/leg_sweep
 
 /datum/status_effect/krav_maga/leg_sweep/on_apply()
 	. = ..()
+	ADD_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/leg_sweep)
 
-/datum/status_effect/transient/krav_maga/leg_sweep/on_remove()
+/datum/status_effect/krav_maga/leg_sweep/on_remove()
 	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/leg_sweep)
+
+/atom/movable/screen/alert/status_effect/lung_punch
+	name = "Удар по лёгким"
+	desc = "Вам трудно дышать. Регенерация вашей стамины замедлена и вы получаете больше урона по ней."
+	icon_state = "lungpunch"
 
 /datum/status_effect/krav_maga/lung_punch
 	id = "lung punch"
-	duration = 6 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/lung_punch
 
 /datum/status_effect/krav_maga/lung_punch/on_apply()
 	. = ..()
 	if(ishuman(owner))
+		ADD_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
 		var/mob/living/carbon/human/human_owner = owner
-		human_owner.physiology.stamina_mod /= 0.2
-		human_owner.stam_regen_start_modifier /= 0.5
+		human_owner.physiology.stamina_mod *= 1.2
+		human_owner.stam_regen_start_modifier *= 1.5
 
 /datum/status_effect/krav_maga/lung_punch/on_remove()
 	. = ..()
 	if(ishuman(owner))
+		REMOVE_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
 		var/mob/living/carbon/human/human_owner = owner
-		human_owner.physiology.stamina_mod *= 0.2
-		human_owner.stam_regen_start_modifier *= 0.5
+		human_owner.physiology.stamina_mod /= 1.2
+		human_owner.stam_regen_start_modifier /= 1.5
+
+/atom/movable/screen/alert/status_effect/neck_chop
+	name = "Удар по шее"
+	desc = "Вас ослепили ударом по шее. Некоторое время ваши атаки будут иметь шанс промаха."
+	icon_state = "neckchop"
 
 /datum/status_effect/krav_maga/neck_chop
 	id = "neck chop"
-	duration = 6 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/neck_chop
 
 /datum/status_effect/krav_maga/neck_chop/on_apply()
 	. = ..()
+	ADD_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
 	ADD_TRAIT(owner, TRAIT_HIGH_MISS_CHANCE, STATUS_EFFECT_TRAIT)
 
 /datum/status_effect/krav_maga/neck_chop/on_remove()
 	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
 	REMOVE_TRAIT(owner, TRAIT_HIGH_MISS_CHANCE, STATUS_EFFECT_TRAIT)

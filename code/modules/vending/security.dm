@@ -53,6 +53,7 @@
 	)
 	prices = list(
 		/obj/item/storage/belt/security/judobelt = 499,
+		/obj/item/clothing/gloves/color/black/krav_maga/sec = 999,
 		/obj/item/storage/belt/security/webbing = 999,
 		/obj/item/storage/pouch/fast = 999,
 		/obj/item/clothing/mask/gas/sechailer/tactical = 299,

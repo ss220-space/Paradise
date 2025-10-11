@@ -264,3 +264,6 @@
 #define SAMETILE_MESSAGE_RANGE 1
 #define COMBAT_MESSAGE_RANGE 3
 #define DEFAULT_MESSAGE_RANGE 7
+
+//miss chance, used with HIGH_MISS_CHANCE trait
+#define ATTACK_MISS_CHANCE 60
