@@ -130,7 +130,7 @@ multiple modular subtrees with behaviors
 /// Runs any actions that are currently running
 /datum/ai_controller/process(delta_time)
 	if(!able_to_run())
-		SSmove_manager.stop_looping(pawn) //stop moving
+		GLOB.move_manager.stop_looping(pawn) //stop moving
 		return //this should remove them from processing in the future through event-based stuff.
 
 	if(!LAZYLEN(current_behaviors) && idle_behavior)

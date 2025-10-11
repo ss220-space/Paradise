@@ -39,6 +39,7 @@
 	RegisterSignal(parent, COMSIG_GET_BOLA_MODIFIERS, PROC_REF(get_bolas_time_modifier))
 	RegisterSignal(parent, COMSIG_GET_HUNGER_MODS, PROC_REF(get_hunger_mod))
 	RegisterSignal(parent, COMSIG_STRENGTH_LEVEL_UP, PROC_REF(strength_level_up))
+	RegisterSignal(parent, COMSIG_GET_WEAK_MOB_MODIFIERS, PROC_REF(on_get_weak_mob_modifiers))
 
 
 /datum/component/muscles/UnregisterFromParent()
@@ -58,7 +59,8 @@
 		COMSIG_GET_THROW_RANGE_DELTAS,
 		COMSIG_GET_BOLA_MODIFIERS,
 		COMSIG_GET_HUNGER_MODS,
-		COMSIG_STRENGTH_LEVEL_UP
+		COMSIG_STRENGTH_LEVEL_UP,
+		COMSIG_GET_WEAK_MOB_MODIFIERS
 	))
 
 /datum/component/muscles/proc/update_strength()
@@ -305,6 +307,12 @@
 	modifiers.Add(1 / (usable_strength_level.break_ties_speed_modifier + \
 		(next_strength_level.break_ties_speed_modifier - usable_strength_level.break_ties_speed_modifier) * strength_level_part))
 
+/datum/component/muscles/proc/on_get_weak_mob_modifiers(user, list/modifiers)
+	SIGNAL_HANDLER
+	var/strength_level_part = get_strength_level_part(user)
+	if(strength_level_part == 0)
+		modifiers.Add(usable_strength_level.weak_mob_modifier)
+		return
 
 #undef REQ_STAMINA_FOR_STRENGTH_POINT
 #undef REQ_NUTRITION_FOR_STRENGTH_POINT
@@ -325,6 +333,7 @@
 	var/hunger_modifier
 	var/strength_req_to_upgrade
 	var/strength_examine
+	var/weak_mob_modifier
 
 
 /datum/strength_level/weak
@@ -340,6 +349,7 @@
 	hunger_modifier = 0.9
 	strength_req_to_upgrade = 10
 	strength_examine = "слаб"
+	weak_mob_modifier = 1
 
 
 /datum/strength_level/normal
@@ -356,6 +366,7 @@
 	hunger_modifier = 1
 	strength_req_to_upgrade = 20
 	strength_examine = "нормальн"
+	weak_mob_modifier = 0.75
 
 
 /datum/strength_level/strong
@@ -372,6 +383,7 @@
 	hunger_modifier = 1.1
 	strength_req_to_upgrade = 30
 	strength_examine = "сильн"
+	weak_mob_modifier = 0.5
 
 
 /datum/strength_level/ideal
@@ -388,6 +400,7 @@
 	hunger_modifier = 1.2
 	strength_req_to_upgrade = 35
 	strength_examine = "очень сильн"
+	weak_mob_modifier = 0.25
 
 
 /datum/strength_level/superhuman
@@ -403,3 +416,4 @@
 	hunger_modifier = 1.3
 	strength_req_to_upgrade = -1
 	strength_examine = "необыкновенно сильн"
+	weak_mob_modifier = 0
