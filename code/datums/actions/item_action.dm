@@ -292,15 +292,24 @@
 /datum/action/item_action/hands_free/activate
 	name = "Активировать"
 
-// /datum/action/item_action/hands_free/apply_unavailable_effect()
-// 	var/obj/item/implant/implant = target
-// 	if(!istype(implant))
-// 		return ..()
-// 	// Make a holder for the charge text
-// 	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-// 	var/text = implant.cooldown_system.cooldown_info()
-// 	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
-// 	button.add_overlay(maptext_holder)
+/datum/action/item_action/hands_free/create_button()
+	var/atom/movable/screen/movable/action_button/button = ..()
+	var/obj/item/implant/implant = target
+	if(!istype(implant))
+		button.maptext = ""
+		//button.maptext_x = 2
+	return button
+
+/datum/action/item_action/hands_free/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
+	if(IsAvailable())
+		button.maptext = ""
+		return
+	var/obj/item/implant/implant = target
+	if(!istype(implant))
+		button.maptext = ""
+		return
+	var/text = implant.cooldown_system.cooldown_info()
+	button.maptext = MAPTEXT("<b>[text]</b>")
 
 /datum/action/item_action/hands_free/activate/always
 	check_flags = NONE
@@ -494,7 +503,6 @@
 	last_use_time = world.time
 	if(charge_type == ADV_ACTION_TYPE_CHARGES)
 		UpdateButtonIcon()
-		add_charges_overlay()
 	if(starts_charged)
 		charge_counter = charge_max
 	else
@@ -524,7 +532,6 @@
 		if(ADV_ACTION_TYPE_CHARGES)
 			charge_counter++
 			UpdateButtonIcon()
-			add_charges_overlay()
 
 /datum/action/item_action/advanced/proc/use_action()
 	if(!IsAvailable(feedback = TRUE))
@@ -543,7 +550,6 @@
 			charge_counter--
 			last_use_time = world.time
 			UpdateButtonIcon()
-			add_charges_overlay()
 
 /* Basic availability checks in this proc.
  * Arguments:
@@ -595,28 +601,15 @@
 				return 1
 			return 0
 
+/datum/action/item_action/advanced/create_button()
+	var/atom/movable/screen/movable/action_button/button = ..()
+	button.maptext = ""
+	return button
 
-// /datum/action/item_action/advanced/apply_unavailable_effect()
-// 	var/progress = get_availability_percentage()
-// 	if(progress == 1)
-// 		no_count = TRUE
-// 	var/mutable_appearance/unavailable_effect = mutable_appearance(coold_overlay_icon, coold_overlay_icon_state, BUTTON_LAYER_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
-// 	unavailable_effect.alpha = no_count ? 80 : 220 - 140 * progress
-// 	button.add_overlay(unavailable_effect)
-// 	if(!no_count && charge_type != ADV_ACTION_TYPE_CHARGES)
-// 		add_percentage_overlay(progress)
-// 	else if(charge_type == ADV_ACTION_TYPE_CHARGES)
-// 		add_charges_overlay()
-// 	no_count = FALSE //reset
-
-
-/datum/action/item_action/advanced/proc/add_charges_overlay()
-	// Make a holder for the charge text
-	status_text = "[charge_counter]/[charge_max]"
-	// var/static/mutable_appearance/charges_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	// charges_holder.maptext = "<div style=\"font-size:6pt;color:#ffffff;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[charge_counter]/[charge_max]</div>"
-	// button.add_overlay(charges_holder)
-
+/datum/action/item_action/advanced/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
+	if(charge_type != ADV_ACTION_TYPE_CHARGES)
+		return
+	button.maptext = MAPTEXT("<b>[charge_counter]/[charge_max]</b>")
 
 	//visuals only
 /datum/action/item_action/advanced/proc/toggle_button_on_off()
@@ -648,12 +641,6 @@
 	if(!target && !istype(target, /obj/item/clothing/suit/space/space_ninja))
 		return FALSE
 	return ..()
-
-// /datum/action/item_action/advanced/ninja/apply_unavailable_effect()
-// 	var/obj/item/clothing/suit/space/space_ninja/ninja_suit = target
-// 	if(!istype(ninja_suit))
-// 		no_count = TRUE
-// 	. = ..()
 
 /datum/action/item_action/advanced/ninja/toggle_button_on_off()
 	if(action_ready)
