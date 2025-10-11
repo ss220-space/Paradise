@@ -39,7 +39,7 @@
 	RegisterSignal(parent, COMSIG_GET_BOLA_MODIFIERS, PROC_REF(get_bolas_time_modifier))
 	RegisterSignal(parent, COMSIG_GET_HUNGER_MODS, PROC_REF(get_hunger_mod))
 	RegisterSignal(parent, COMSIG_STRENGTH_LEVEL_UP, PROC_REF(strength_level_up))
-	RegisterSignal(parent, COMSIG_GET_WEAK_MOB_MODIFIERS, PROC_REF(get_weak_mob_modifiers))
+	RegisterSignal(parent, COMSIG_GET_WEAK_MOB_MODIFIERS, PROC_REF(on_get_weak_mob_modifiers))
 
 
 /datum/component/muscles/UnregisterFromParent()
@@ -307,7 +307,7 @@
 	modifiers.Add(1 / (usable_strength_level.break_ties_speed_modifier + \
 		(next_strength_level.break_ties_speed_modifier - usable_strength_level.break_ties_speed_modifier) * strength_level_part))
 
-/datum/component/muscles/proc/get_weak_mob_modifiers(user, list/modifiers)
+/datum/component/muscles/proc/on_get_weak_mob_modifiers(user, list/modifiers)
 	SIGNAL_HANDLER
 	var/strength_level_part = get_strength_level_part(user)
 	if(strength_level_part == 0)
