@@ -52,7 +52,7 @@
 	var/G						//Generator that will be spawned
 	var/turf/T = get_turf(choice)
 
-	if(choice.enginetype.len > 1)	//If the beacon has multiple engine types
+	if(length(choice.enginetype) > 1)	//If the beacon has multiple engine types
 		var/E = tgui_input_list(user, "Вы выбрали комбинированный маяк, какой вариант вы бы предпочли?", "[declent_ru(NOMINATIVE)]", choice.enginetype)
 		if(E)
 			engtype = E

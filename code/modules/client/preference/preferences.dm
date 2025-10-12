@@ -635,7 +635,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				dat += "<b>Специальные роли для вас запрещены.</b>"
 				be_special = list()
 			else
-				var/static/last_left = round(GLOB.special_roles.len / 2)
+				var/static/last_left = round(length(GLOB.special_roles) / 2)
 				for(var/i in GLOB.special_roles)
 					if(jobban_isbanned(user, i))
 						dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЗАБАНЕНО]</b></font><br>"
@@ -2102,12 +2102,12 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 						var/const/MAX_LINE_ENTRIES = 4
-						var/prompt = "Выберите тон кожи: 1-[S.icon_skin_tones.len]\n("
-						for(var/i = 1 to S.icon_skin_tones.len)
+						var/prompt = "Выберите тон кожи: 1-[length(S.icon_skin_tones)]\n("
+						for(var/i = 1 to length(S.icon_skin_tones))
 							if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
 								prompt += "\n"
 							prompt += "[i] = [S.icon_skin_tones[i]]"
-							if(i != S.icon_skin_tones.len)
+							if(i != length(S.icon_skin_tones))
 								prompt += ", "
 						prompt += ")"
 						var/skin_c = tgui_input_number(user, prompt, "Тон кожи", s_tone, length(S.icon_skin_tones), 1)
@@ -2303,11 +2303,11 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 									var/datum/robolimb/L = new limb_type()
 									if(limb in L.parts) //Make sure that only models that provide the parts the user needs populate the list.
 										robolimb_models[L.company] = L
-										if(robolimb_models.len == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
+										if(length(robolimb_models) == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
 											subchoice = L.company //If there ends up being more than one model populating the list, subchoice will be overwritten later anyway, so this isn't a problem.
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
-								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
+								if(length(robolimb_models) > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
 									subchoice = tgui_input_list(user, "Выберите модель \"[choice]\" для части тела", "[limb_name] – выбор модели", robolimb_models)
 								if(subchoice)
 									choice = subchoice
@@ -3071,7 +3071,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		saves += text2num(query.item[1])
 
 	qdel(query)
-	if(!saves.len)
+	if(!length(saves))
 		return
 
 	load_character(parent, pick(saves))

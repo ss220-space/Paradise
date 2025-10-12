@@ -56,7 +56,7 @@
 	var/list/players_to_spawn = list()
 	players_to_spawn = pick_candidates_all_types(src, teamsize, "Вы хотите сыграть за \a [team_name]?", min_hours=minhours, role_cleanname=team_name, reason=themission)
 
-	if(!players_to_spawn.len)
+	if(!length(players_to_spawn))
 		to_chat(src, "Никто не согласился.")
 		return 0
 

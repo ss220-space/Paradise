@@ -348,7 +348,7 @@
 		if(!user.can_use_guns(src))
 			return FALSE
 
-		if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] несовместим с вашей биологией!"))
 			return FALSE
 

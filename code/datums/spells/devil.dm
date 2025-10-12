@@ -352,7 +352,7 @@
 
 	if(dancefloor_exists)
 		dancefloor_exists = FALSE
-		for(var/i in 1 to dancefloor_turfs.len)
+		for(var/i in 1 to length(dancefloor_turfs))
 			var/turf/T = dancefloor_turfs[i]
 			T.ChangeTurf(dancefloor_turfs_types[i])
 	else

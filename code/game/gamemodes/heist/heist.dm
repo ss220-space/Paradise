@@ -29,9 +29,9 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	var/raider_num = 0
 
 	//Check that we have enough vox.
-	if(candidates.len < required_enemies)
+	if(length(candidates) < required_enemies)
 		return FALSE
-	else if(candidates.len < recommended_enemies)
+	else if(length(candidates) < recommended_enemies)
 		raider_num = candidates.len
 	else
 		raider_num = recommended_enemies
@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	//Spawn the vox!
 	for(var/datum/mind/raider in raiders)
 
-		if(index > GLOB.raider_spawn.len)
+		if(index > length(GLOB.raider_spawn))
 			index = 1
 
 		raider.current.loc = GLOB.raider_spawn[index]
@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	vox.regenerate_icons()
 
 /datum/game_mode/proc/is_raider_crew_safe()
-	if(GLOB.cortical_stacks.len == 0)
+	if(length(GLOB.cortical_stacks) == 0)
 		return 0
 
 	for(var/obj/stack in GLOB.cortical_stacks)
@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /datum/game_mode/heist/declare_completion()
 	//No objectives, go straight to the feedback.
-	if(!(raid_objectives.len)) return ..()
+	if(!(length(raid_objectives))) return ..()
 
 	var/win_type = "Major"
 	var/win_group = "Crew"
@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		if(!(O.check_completion())) success--
 
 	//Set result by objectives.
-	if(success == raid_objectives.len)
+	if(success == length(raid_objectives))
 		win_type = "Major"
 		win_group = "Vox"
 	else if(success > 2)
@@ -239,7 +239,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	..()
 
 /datum/game_mode/proc/auto_declare_completion_heist()
-	if(raiders.len)
+	if(length(raiders))
 		var/check_return = 0
 		if(GAMEMODE_IS_HEIST)
 			check_return = 1

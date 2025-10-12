@@ -31,7 +31,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	// Find ghosts willing to be DS
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
 	var/list/commando_ghosts = pick_candidates_all_types(src, COMMANDOS_POSSIBLE, "Присоединиться к Отряду Смерти?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source, "Отряд Смерти", input)
-	if(!commando_ghosts.len)
+	if(!length(commando_ghosts))
 		to_chat(src, span_userdanger("Никто не вызвался присоединиться к Отряду Смерти."))
 		return
 
@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 
 		if(L.name == "Commando")
 
-			if(!commando_ghosts.len)
+			if(!length(commando_ghosts))
 				break
 
 			var/use_ds_borg = FALSE

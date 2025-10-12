@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 
 /obj/structure/spawner/lavaland/Destroy()
 	var/last_tendril = TRUE
-	if(GLOB.tendrils.len>1)
+	if(length(GLOB.tendrils)>1)
 		last_tendril = FALSE
 
 	if(last_tendril && !(flags & ADMIN_SPAWNED))

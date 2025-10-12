@@ -361,7 +361,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 		if(entry == null)
 			return null
 		matrix_list += entry
-	if(matrix_list.len < 6)
+	if(length(matrix_list) < 6)
 		return null
 	var/a = matrix_list[1]
 	var/b = matrix_list[2]

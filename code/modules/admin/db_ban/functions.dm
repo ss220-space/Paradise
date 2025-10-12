@@ -343,7 +343,7 @@
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
 				var/list/values = text2numlist(raw_values, ":")
-				if(!values?.len || values.len != 3)
+				if(!length(values) || length(values) != 3)
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
 				value = values[1] BAN_DAYS + values[2] BAN_HOURS + values[3]

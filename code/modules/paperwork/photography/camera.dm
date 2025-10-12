@@ -294,7 +294,7 @@
 
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user)
-	if(saved_pictures.len >= max_storage)
+	if(length(saved_pictures) >= max_storage)
 		to_chat(user, span_notice("Maximum photo storage capacity reached."))
 		return
 	to_chat(user, "Picture saved.")
@@ -321,7 +321,7 @@
 	saved_pictures += P
 
 /obj/item/camera/digital/CtrlClick(mob/user)
-	if(saved_pictures.len == 0)
+	if(length(saved_pictures) == 0)
 		to_chat(user, span_warning("No images saved."))
 		return
 	if(pictures_left == 0)
@@ -336,7 +336,7 @@
 		pictures_left--
 
 /obj/item/camera/digital/CtrlShiftClick(mob/user)
-	if(saved_pictures.len == 0)
+	if(length(saved_pictures) == 0)
 		to_chat(user, span_warning("No images saved"))
 		return
 	var/datum/picture/P = tgui_input_list(user, "Select image to delete", "Delete image", saved_pictures)

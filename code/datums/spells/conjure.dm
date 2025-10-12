@@ -54,7 +54,7 @@
 	var/timed_action_flags = can_use_stunned ? DEFAULT_DOAFTER_IGNORE|DA_IGNORE_INCAPACITATED : DEFAULT_DOAFTER_IGNORE
 	if(do_after(user, delay, user, timed_action_flags))
 		for(var/i=0,i<summon_amt,i++)
-			if(!targets.len)
+			if(!length(targets))
 				break
 			var/summoned_object_type = pick(summon_type)
 			var/spawn_place = pick(targets)

@@ -142,7 +142,7 @@
 	sleep(30)
 	atom_say("Сканирование разума - Задача завершена!")
 	objective.scanned_occupants.Add("[occupant.mind]")
-	if(objective.target == occupant.mind || objective.scanned_occupants.len >= objective.scans_to_win)
+	if(objective.target == occupant.mind || length(objective.scanned_occupants) >= objective.scans_to_win)
 		objective.completed = TRUE
 		atom_say("Пациенту известна ценная информация! Данные переданы клану! Отличная работа, [ninja]!")
 	else

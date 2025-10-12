@@ -518,7 +518,7 @@
 		var/mob/living/target
 		if(pilot)
 			target = pilot
-		else if(passengers.len > 0)
+		else if(length(passengers) > 0)
 			target = passengers[1]
 
 		if(istype(target))
@@ -597,14 +597,14 @@
 
 /obj/spacepod/proc/remove_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 
-	if(passengers.len > max_passengers - SPE.occupant_mod)
+	if(length(passengers) > max_passengers - SPE.occupant_mod)
 		to_chat(user, span_warning("Кто-то сидит в [SPE.declent_ru(PREPOSITIONAL)]!"))
 		return
 
 	var/sum_w_class = 0
 	for(var/obj/item/I in cargo_hold.contents)
 		sum_w_class += I.w_class
-	if(cargo_hold.contents.len > cargo_hold.storage_slots - SPE.storage_mod["slots"] || sum_w_class > cargo_hold.max_combined_w_class - SPE.storage_mod["w_class"])
+	if(length(cargo_hold.contents) > cargo_hold.storage_slots - SPE.storage_mod["slots"] || sum_w_class > cargo_hold.max_combined_w_class - SPE.storage_mod["w_class"])
 		to_chat(user, span_warning("Сначала освободите [SPE.declent_ru(ACCUSATIVE)]!"))
 		return
 
@@ -805,7 +805,7 @@
 
 /obj/spacepod/proc/moved_other_inside(mob/living/carbon/human/H as mob)
 	occupant_sanity_check()
-	if(passengers.len < max_passengers)
+	if(length(passengers) < max_passengers)
 		H.forceMove(src)
 		passengers += H
 		H.forceMove(src)
@@ -821,10 +821,10 @@
 		occupant_sanity_check()
 
 		if(dropping != user && unlocked && (dropping.stat == DEAD || dropping.incapacitated()))
-			if(passengers.len >= max_passengers && !pilot)
+			if(length(passengers) >= max_passengers && !pilot)
 				to_chat(user, span_danger("<b>Этот человек не может управлять челноком!</b>"))
 				return .
-			if(passengers.len < max_passengers)
+			if(length(passengers) < max_passengers)
 				visible_message(span_danger("[user.name] начина[pluralize_ru(user.gender,"ет","ют")] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
 				if(do_after(user, 5 SECONDS, dropping))
 					moved_other_inside(dropping)
@@ -893,7 +893,7 @@
 
 	occupant_sanity_check()
 
-	if(passengers.len <= max_passengers)
+	if(length(passengers) <= max_passengers)
 		visible_message(span_notice("[user] начинает забираться в [src.declent_ru(ACCUSATIVE)]."))
 		if(do_after(user, 4 SECONDS, src))
 			if(!pilot || pilot == null)
@@ -903,7 +903,7 @@
 				add_fingerprint(user)
 				playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 				return
-			if(passengers.len < max_passengers)
+			if(length(passengers) < max_passengers)
 				passengers += user
 				user.forceMove(src)
 				passanger_eject.Grant(user, src)
@@ -918,8 +918,8 @@
 
 /obj/spacepod/proc/occupant_sanity_check()  // going to have to adjust this later for cargo refactor
 	if(passengers)
-		if(passengers.len > max_passengers)
-			for(var/i = passengers.len; i <= max_passengers; i--)
+		if(length(passengers) > max_passengers)
+			for(var/i = length(passengers); i <= max_passengers; i--)
 				var/mob/occupant = passengers[i - 1]
 				occupant.forceMove(get_turf(src))
 				log_debug("##SPACEPOD WARNING: passengers EXCEED CAP: MAX passengers [max_passengers], passengers [english_list(passengers)], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
@@ -1055,7 +1055,7 @@
 	if(do_after(user, 4 SECONDS, src))
 		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules
 		var/list/true_contents = contents - badlist
-		if(true_contents.len > 0)
+		if(length(true_contents) > 0)
 			var/obj/I = pick(true_contents)
 			if(user.put_in_any_hand_if_possible(I))
 				src.contents -= I

@@ -376,7 +376,7 @@
 /obj/machinery/computer/arcade/orion_trail/attack_hand(mob/user)
 	if(..())
 		return
-	if(fuel <= 0 || food <=0 || settlers.len == 0)
+	if(fuel <= 0 || food <=0 || length(settlers) == 0)
 		gameover = 1
 		event = null
 	user.set_machine(src)
@@ -384,7 +384,7 @@
 	if(gameover)
 		dat = "<center><h1>Игра Окончена</h1></center>"
 		dat += "Как и многие до вас, ваша команда так и не добралась до Ориона, затерявшись в космосе... <br><b>Навсегда</b>."
-		if(settlers.len == 0)
+		if(length(settlers) == 0)
 			dat += "<br>Весь ваш экипаж погиб, и ваш корабль присоединяется к флоту кораблей-призраков, разбросанных по галактике."
 		else
 			if(food <= 0)
@@ -787,7 +787,7 @@
 
 		if(ORION_TRAIL_LING)
 			eventdat += "Странные сообщения предупреждают о том, что Генокрады проникают в экипаж во время полетов на Орион..."
-			if(settlers.len <= 2)
+			if(length(settlers) <= 2)
 				eventdat += "<br>Шансы вашей команды добраться до Ориона настолько малы, что Генокрады, скорее всего, избегали вашего корабля..."
 				eventdat += "<p align='right'><a href='byond://?src=[UID()];eventclose=1'>Продолжить</a></p>"
 				eventdat += "<p align='right'><a href='byond://?src=[UID()];close=1'>Закрыть</a></p>"
@@ -896,7 +896,7 @@
 					eventdat += "<p align='right'>Вы не можете позволить себе нанять нового члена экипажа</p>"
 
 				//Sell crew
-				if(settlers.len > 1)
+				if(length(settlers) > 1)
 					eventdat += "<p align='right'><a href='byond://?src=[UID()];sellcrew=1'>Продать члена экипажа за Топливо и Пищу (+7FU,+7FO)</a></p>"
 				else
 					eventdat += "<p align='right'>Вы не можете продать члена экипажа</p>"
@@ -964,7 +964,7 @@
 	if(specific && specific != dont_remove)
 		safe2remove = list(specific)
 	else
-		if(safe2remove.len >= 1) //need to make sure we even have anyone to remove
+		if(length(safe2remove) >= 1) //need to make sure we even have anyone to remove
 			removed = pick(safe2remove)
 
 	if(removed)

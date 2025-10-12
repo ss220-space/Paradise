@@ -60,7 +60,7 @@
 		upgrade.camera_upgrade(src)
 
 	var/list/tempnetwork = difflist(src.network, GLOB.restricted_camera_networks)
-	if(tempnetwork.len)
+	if(length(tempnetwork))
 		GLOB.cameranet.addCamera(src)
 	else
 		GLOB.cameranet.removeCamera(src)
@@ -446,7 +446,7 @@
 		return TRUE
 
 	var/list/tempnetwork = network & ai.network
-	return tempnetwork.len > 0
+	return length(tempnetwork) > 0
 
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)

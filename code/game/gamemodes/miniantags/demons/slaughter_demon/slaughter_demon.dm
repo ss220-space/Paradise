@@ -163,7 +163,7 @@
 	. = ..()
 	spawn(0.5 SECONDS)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Хотите сыграть за демона резни?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
-		if(!demon_candidates.len)
+		if(!length(demon_candidates))
 			log_game("[src] has failed to spawn, because no one enrolled.")
 			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает во вспышке красного света!"))
 			qdel(src)

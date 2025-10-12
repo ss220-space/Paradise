@@ -12,15 +12,15 @@
 	if(!holder) //don't want this without a holder
 		spawn
 			qdel(src)
-	set_desc(steps.len)
+	set_desc(length(steps))
 	return
 
 /datum/construction/proc/next_step(mob/user as mob)
 	steps.len--
-	if(!steps.len)
+	if(!length(steps))
 		spawn_result(user)
 	else
-		set_desc(steps.len)
+		set_desc(length(steps))
 	return
 
 /datum/construction/proc/action(atom/used_atom,mob/user as mob)
@@ -35,7 +35,7 @@
 	return 0
 
 /datum/construction/proc/is_right_key(atom/used_atom) // returns current step num if used_atom is of the right type.
-	var/list/L = steps[steps.len]
+	var/list/L = steps[length(steps)]
 	if(do_tool_or_atom_check(used_atom, L["key"]))
 		return steps.len
 	return 0
@@ -65,12 +65,12 @@
 	return 1
 
 /datum/construction/proc/check_all_steps(atom/used_atom,mob/user as mob) //check all steps, remove matching one.
-	for(var/i=1;i<=steps.len;i++)
+	for(var/i=1;i<=length(steps);i++)
 		var/list/L = steps[i]
 		if(do_tool_or_atom_check(used_atom, L["key"]) && custom_action(i, used_atom, user))
 			steps[i]=null;//stupid byond list from list removal...
 			list_clear_nulls(steps)
-			if(!steps.len)
+			if(!length(steps))
 				spawn_result(user)
 			return 1
 	return 0

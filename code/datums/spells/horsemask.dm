@@ -24,7 +24,7 @@
 
 
 /obj/effect/proc_holder/spell/horsemask/cast(list/targets, mob/user = usr)
-	if(!targets.len)
+	if(!length(targets))
 		user.balloon_alert(user, "рядом нет подходящих целей!")
 		return
 

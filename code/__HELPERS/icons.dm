@@ -433,7 +433,7 @@ world
 		else if(hue >= 255)  {r=mid; g=hi;  b=lo }
 		else				 {r=hi;  g=mid; b=lo }
 
-	return (HSV.len > 3) ? rgb(r,g,b,HSV[4]) : rgb(r,g,b)
+	return (length(HSV) > 3) ? rgb(r,g,b,HSV[4]) : rgb(r,g,b)
 
 /proc/RGBtoHSV(rgb)
 	if(!rgb) return "#0000000"
@@ -464,7 +464,7 @@ world
 			else {hue=1023; dir=-1; mid=g}
 		hue += dir * round((mid-lo) * 255 / (hi-lo), 1)
 
-	return hsv(hue, sat, val, (RGB.len>3 ? RGB[4] : null))
+	return hsv(hue, sat, val, (length(RGB)>3 ? RGB[4] : null))
 
 /proc/hsv(hue, sat, val, alpha)
 	if(hue < 0 || hue >= 1536) hue %= 1536
@@ -504,9 +504,9 @@ world
 	var/list/HSV2 = ReadHSV(hsv2)
 
 	// add missing alpha if needed
-	if(HSV1.len < HSV2.len) HSV1 += 255
-	else if(HSV2.len < HSV1.len) HSV2 += 255
-	var/usealpha = HSV1.len > 3
+	if(length(HSV1) < length(HSV2)) HSV1 += 255
+	else if(length(HSV2) < length(HSV1)) HSV2 += 255
+	var/usealpha = length(HSV1) > 3
 
 	// normalize hsv values in case anything is screwy
 	if(HSV1[1] > 1536) HSV1[1] %= 1536
@@ -558,9 +558,9 @@ world
 	var/list/RGB2 = ReadRGB(rgb2)
 
 	// add missing alpha if needed
-	if(RGB1.len < RGB2.len) RGB1 += 255
-	else if(RGB2.len < RGB1.len) RGB2 += 255
-	var/usealpha = RGB1.len > 3
+	if(length(RGB1) < length(RGB2)) RGB1 += 255
+	else if(length(RGB2) < length(RGB1)) RGB2 += 255
+	var/usealpha = length(RGB1) > 3
 
 	var/r = round(RGB1[1] + (RGB2[1] - RGB1[1]) * amount, 1)
 	var/g = round(RGB1[2] + (RGB2[2] - RGB1[2]) * amount, 1)
@@ -621,13 +621,13 @@ world
 	// decompress hue
 	HSV[1] += round(HSV[1] / 255)
 
-	return hsv(HSV[1], HSV[2], HSV[3], (HSV.len > 3 ? HSV[4] : null))
+	return hsv(HSV[1], HSV[2], HSV[3], (length(HSV) > 3 ? HSV[4] : null))
 
 // Convert an rgb color to grayscale
 /proc/GrayScale(rgb)
 	var/list/RGB = ReadRGB(rgb)
 	var/gray = RGB[1]*0.3 + RGB[2]*0.59 + RGB[3]*0.11
-	return (RGB.len > 3) ? rgb(gray, gray, gray, RGB[4]) : rgb(gray, gray, gray)
+	return (length(RGB) > 3) ? rgb(gray, gray, gray, RGB[4]) : rgb(gray, gray, gray)
 
 // Change grayscale color to black->tone->white range
 /proc/ColorTone(rgb, tone)
@@ -651,7 +651,7 @@ The _flatIcons list is a cache for generated icon files.
 /proc/getFlatIcon(image/appearance, defdir, deficon, defstate, defblend, start = TRUE, no_anim = TRUE)
 	// Loop through the underlays, then overlays, sorting them into the layers list
 	#define PROCESS_OVERLAYS_OR_UNDERLAYS(flat, process, base_layer) \
-		for(var/i in 1 to process.len) { \
+		for(var/i in 1 to length(process)) { \
 			var/image/current = process[i]; \
 			if(!current) { \
 				continue; \
@@ -666,7 +666,7 @@ The _flatIcons list is a cache for generated icon files.
 				} \
 				current_layer = base_layer + appearance.layer + current_layer / 1000; \
 			} \
-			for(var/index_to_compare_to in 1 to layers.len) { \
+			for(var/index_to_compare_to in 1 to length(layers)) { \
 				var/compare_to = layers[index_to_compare_to]; \
 				if(current_layer < layers[compare_to]) { \
 					layers.Insert(index_to_compare_to, current); \
@@ -722,7 +722,7 @@ The _flatIcons list is a cache for generated icon files.
 
 	var/curblend = appearance.blend_mode || defblend
 
-	if(appearance.overlays.len || appearance.underlays.len)
+	if(length(appearance.overlays) || length(appearance.underlays))
 		var/icon/flat = icon(flat_template)
 		// Layers will be a sorted list of icons/overlays, based on the order in which they are displayed
 		var/list/layers = list()
@@ -890,7 +890,7 @@ The _flatIcons list is a cache for generated icon files.
 			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient
 		if(gap < 1)
 			gap = 1
-		for(var/i = 1; gap + i <= result.len; i++)
+		for(var/i = 1; gap + i <= length(result); i++)
 			var/atom/l = result[i]		//Fucking hate
 			var/atom/r = result[gap+i]	//how lists work here
 			if(l.layer > r.layer)		//no "result[i].layer" for me

@@ -328,7 +328,7 @@
 			var/list/mobs_list = list()
 			for(var/mob/living/mob in bumped_turf)
 				mobs_list += mob
-			if(mobs_list.len)
+			if(length(mobs_list))
 				var/mob/living/picked_mob = pick(mobs_list)
 				prehit(picked_mob)
 				picked_mob.bullet_act(src, def_zone)

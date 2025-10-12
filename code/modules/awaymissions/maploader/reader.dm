@@ -309,7 +309,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	if(T)
 		// if others /turf are presents, simulates the underlays piling effect
 		index = first_turf_index + 1
-		var/mlen = members.len - 1
+		var/mlen = length(members) - 1
 		while(index <= mlen) // Last item is an /area
 			var/underlay
 			if(isturf(T)) // I blame this on the stupid clown who coded the BYOND map editor
@@ -462,7 +462,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/json_ready = 0
 
 /datum/dmm_suite/preloader/proc/setup(list/the_attributes, path)
-	if(the_attributes.len)
+	if(length(the_attributes))
 		json_ready = 0
 		if("map_json_data" in the_attributes)
 			json_ready = 1

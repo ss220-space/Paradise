@@ -374,7 +374,7 @@
 
 				discipline_slime(M)
 	else
-		if(stat == DEAD && surgeries.len)
+		if(stat == DEAD && length(surgeries))
 			if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_DISARM)
 				for(var/datum/surgery/S in surgeries)
 					if(S.next_step(M, src))

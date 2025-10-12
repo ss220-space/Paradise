@@ -33,7 +33,7 @@
 
 	T.visible_message(span_warning("Раствор образует сильный пар!"))
 
-	var/datum/reagents/reagents_list = new (amount * reagents.len)
+	var/datum/reagents/reagents_list = new (amount * length(reagents))
 	for(var/reagent in reagents)
 		reagents_list.add_reagent(reagent, amount)
 

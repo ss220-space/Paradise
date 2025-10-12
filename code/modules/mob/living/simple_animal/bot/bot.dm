@@ -638,7 +638,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 
 /mob/living/simple_animal/bot/proc/add_to_ignore(atom/subject)
-	if(ignore_list.len < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
+	if(length(ignore_list) < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
 		ignore_list += subject.UID()
 	else  //If the list is full, insert newest, delete oldest.
 		ignore_list.Cut(1, 2)
@@ -1332,7 +1332,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/list/path_images = active_hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
 	if(newpath)
-		for(var/i in 1 to newpath.len)
+		for(var/i in 1 to length(newpath))
 			var/turf/T = newpath[i]
 			var/direction = NORTH
 			if(i > 1)

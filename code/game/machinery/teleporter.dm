@@ -267,7 +267,7 @@
 	var/list/L = list()
 	var/list/areaindex = list()
 	var/list/S = power_station.linked_stations
-	if(!S.len)
+	if(!length(S))
 		return L
 	for(var/obj/machinery/teleport/station/R in S)
 		var/turf/T = get_turf(R)
@@ -664,7 +664,7 @@
 	var/obj/item/multitool/M = I
 	if(!panel_open)
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
-			if(linked_stations.len < efficiency)
+			if(length(linked_stations) < efficiency)
 				linked_stations.Add(M.buffer)
 				M.buffer = null
 				to_chat(user, span_caution("You upload the data from [M]'s buffer."))

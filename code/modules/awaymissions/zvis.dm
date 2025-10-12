@@ -51,7 +51,7 @@
 /obj/effect/portal_sensor/Initialize(mapload, owner, ...)
 	. = ..()
 	src.owner = owner
-	if(args.len >= 3)
+	if(length(args) >= 3)
 		params = args.Copy(3)
 	START_PROCESSING(SSobj, src)
 	trigger()

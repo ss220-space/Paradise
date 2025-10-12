@@ -40,7 +40,7 @@
 
 
 /datum/weather/xeno_storm/fire()
-	if(!affected_vents_list.len)
+	if(!length(affected_vents_list))
 		return
 	var/list/vents = list()
 	for(var/i = 1; i < vents_per_tick; i++)

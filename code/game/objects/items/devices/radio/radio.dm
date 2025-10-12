@@ -481,7 +481,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(!message_mode || message_mode == HEADSET_MODE)
 		return radio_connection || RADIO_CONNECTION_FAIL
 
-	if(channels && channels.len)
+	if(channels && length(channels))
 		if(message_mode == DEPARTMENT_FREQ_NAME) // Department radio shortcut
 			message_mode = channels[1]
 

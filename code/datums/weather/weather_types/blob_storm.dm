@@ -32,7 +32,7 @@
 		var/mob/camera/blob/overmind = blob.current
 		if(QDELETED(overmind) || !istype(overmind) || overmind.stat == DEAD)
 			continue
-		if(overmind.blobs_legit.len > mass)
+		if(length(overmind.blobs_legit) > mass)
 			mass = overmind.blobs_legit.len
 			color = overmind.blobstrain.color
 

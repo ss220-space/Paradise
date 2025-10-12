@@ -47,7 +47,7 @@
 			// Shuttle timer, in seconds
 			status_info["shuttle_timer"] = SSshuttle.emergency.timeLeft()
 
-		for(var/i in 1 to admins.len)
+		for(var/i in 1 to length(admins))
 			var/list/A = admins[i]
 			status_info["admin[i - 1]"] = A[1]
 			status_info["adminrank[i - 1]"] = A[2]

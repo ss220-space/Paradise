@@ -609,12 +609,12 @@
 				usr.balloon_alert(usr, "слишком далеко!")
 			return FALSE
 
-	if(contents.len >= storage_slots)
+	if(length(contents) >= storage_slots)
 		if(!stop_messages)
 			usr.balloon_alert(usr, "нет места!")
 		return FALSE //Storage item is full
 
-	if(can_hold.len)
+	if(length(can_hold))
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
 				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[pluralize_ru(gender, "ит", "ят")] для [W.declent_ru(GENITIVE)]!"))
@@ -974,7 +974,7 @@
 		// But then again a tesseract would destroy the server anyways
 		// Also I wish I could just insert a list instead of it reading it the wrong way
 		content_list.len++
-		content_list[content_list.len] = AM.serialize()
+		content_list[length(content_list)] = AM.serialize()
 	return data
 
 /obj/item/storage/deserialize(list/data)

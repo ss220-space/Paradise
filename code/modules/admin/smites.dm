@@ -224,7 +224,7 @@
 
 		possible_traitors += player.mind
 
-	if(!possible_traitors.len)
+	if(!length(possible_traitors))
 		to_chat(usr, span_warning("Не удалось найти кандидатов на предателя - охотника."), confidential = TRUE)
 		return
 

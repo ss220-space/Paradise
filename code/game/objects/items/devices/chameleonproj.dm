@@ -464,7 +464,7 @@
 		else
 			to_chat(user, span_warning("The chameleon field fizzles."))
 			do_sparks(3, FALSE, user)
-			for(i in 1 to min(7, user.filters.len)) // removing filters that are animating does nothing, we gotta stop the animations first
+			for(i in 1 to min(7, length(user.filters))) // removing filters that are animating does nothing, we gotta stop the animations first
 				f = user.filters[start + i]
 				animate(f)
 		user.filters = null

@@ -230,7 +230,7 @@
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
-		next_x = (--cur_x||GLOB.global_map.len)
+		next_x = (--cur_x||length(GLOB.global_map))
 		y_arr = GLOB.global_map[next_x]
 		target_z = y_arr[cur_y]
 /*
@@ -255,7 +255,7 @@
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
-		next_x = (++cur_x > GLOB.global_map.len ? 1 : cur_x)
+		next_x = (++cur_x > length(GLOB.global_map) ? 1 : cur_x)
 		y_arr = GLOB.global_map[next_x]
 		target_z = y_arr[cur_y]
 /*
@@ -280,7 +280,7 @@
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
 		y_arr = GLOB.global_map[cur_x]
-		next_y = (--cur_y||y_arr.len)
+		next_y = (--cur_y||length(y_arr))
 		target_z = y_arr[next_y]
 /*
 		//debug
@@ -305,7 +305,7 @@
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
 		y_arr = GLOB.global_map[cur_x]
-		next_y = (++cur_y > y_arr.len ? 1 : cur_y)
+		next_y = (++cur_y > length(y_arr) ? 1 : cur_y)
 		target_z = y_arr[next_y]
 /*
 		//debug

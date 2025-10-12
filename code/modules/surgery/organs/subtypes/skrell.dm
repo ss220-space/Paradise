@@ -60,7 +60,7 @@
 /obj/item/organ/internal/headpocket/on_life()
 	..()
 	var/obj/item/organ/external/head/head = owner.get_organ(BODY_ZONE_HEAD)
-	if(pocket.contents.len && !findtextEx(head.h_style, "Tentacles"))
+	if(length(pocket.contents) && !findtextEx(head.h_style, "Tentacles"))
 		owner.visible_message(span_warning("Что-то выпадает из [declent_ru(GENITIVE)] [owner]!"),
 								span_warning("Что-то выпадает из вашего [declent_ru(GENITIVE)]!"))
 		empty_contents()

@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
 				arguments = get_callproc_args(FALSE)
 
-			if(!arguments?.len)
+			if(!length(arguments))
 				.["value"] = new type()
 			else
 				.["value"] = new type(arglist(arguments))
@@ -257,7 +257,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый датум", list("Да", "Нет")) == "Да")
 				arguments = get_callproc_args(FALSE)
 
-			if(!arguments?.len)
+			if(!length(arguments))
 				.["value"] = new type()
 			else
 				.["value"] = new type(arglist(arguments))
@@ -278,7 +278,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
 				arguments = get_callproc_args(FALSE)
 
-			if(!arguments?.len)
+			if(!length(arguments))
 				.["value"] = new type()
 			else
 				.["value"] = new type(arglist(arguments))
@@ -302,9 +302,9 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(!ispath(type))
 		return
 	var/list/subtypes = subtypesof(type)
-	if(!subtypes || !subtypes.len)
+	if(!subtypes || !length(subtypes))
 		return FALSE
-	if(subtypes && subtypes.len)
+	if(subtypes && length(subtypes))
 		switch(tgui_alert(usr, "Strict object type detection?", "Type detection", list("Strictly this type", "This type and subtypes", "Cancel")))
 			if("Strictly this type")
 				return FALSE
@@ -394,7 +394,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		to_chat(src, "Not a List.")
 		return
 
-	if(L.len > 1000)
+	if(length(L) > 1000)
 		var/confirm = tgui_alert(src, "The list you're trying to edit is very long, continuing may crash the server.", "Warning", list("Continue", "Abort"))
 		if(confirm != "Continue")
 			return
@@ -402,7 +402,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 
 	var/list/names = list()
-	for(var/i in 1 to L.len)
+	for(var/i in 1 to length(L))
 		var/key = L[i]
 		var/value
 		if(IS_NORMAL_LIST(L) && !isnum(key))

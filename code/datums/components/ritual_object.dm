@@ -108,10 +108,10 @@
 		if(ritual.description)
 			data["description"] = ritual.description
 		var/list/params = ritual.get_ui_params()
-		if(params?.len)
+		if(length(params))
 			data["params"] = params
 		var/list/things = ritual.get_ui_things()
-		if(things?.len)
+		if(length(things))
 			data["things"] = things
 		data["ritual_available"] = COOLDOWN_FINISHED(ritual, ritual_cooldown)
 		data["time_left"] = round(COOLDOWN_TIMELEFT(ritual, ritual_cooldown) / (1 SECONDS))

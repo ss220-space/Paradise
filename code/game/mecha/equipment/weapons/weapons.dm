@@ -618,7 +618,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-		if(M.equipment.len<M.max_equip)
+		if(length(M.equipment)<M.max_equip)
 			return TRUE
 	return FALSE
 

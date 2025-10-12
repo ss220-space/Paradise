@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	GLOB.send_emergency_team = TRUE
 	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Присоединиться к Отряду Быстрого Реагирования?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
-	if(!ert_candidates.len)
+	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if(M.JoinResponseTeam())
 			GLOB.response_team_members |= M
 
-	if(!GLOB.response_team_members.len)
+	if(!length(GLOB.response_team_members))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
@@ -93,8 +93,8 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /proc/dispatch_response_team(list/response_team_members, list/ert_prefs)
 	var/spawn_index = 1
 
-	while(spawn_index <= GLOB.emergencyresponseteamspawn.len)
-		if(!ert_prefs.len)
+	while(spawn_index <= length(GLOB.emergencyresponseteamspawn))
+		if(!length(ert_prefs))
 			break
 		var/mob/user = pick(ert_prefs)
 		if(!GLOB.active_team.get_slot_list().len)

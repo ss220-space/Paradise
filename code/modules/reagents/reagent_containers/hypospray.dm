@@ -488,7 +488,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
-	if(reagents && reagents.reagent_list.len)
+	if(reagents && length(reagents.reagent_list))
 		. += span_notice("Не использовано.")
 	else
 		. += span_notice("Использовано.")

@@ -542,7 +542,7 @@
 
 /datum/move_loop/has_target/dist_bound/move_to/pathfind/get_next_step()
 	var/list/points = get_path_to(moving, target, skip_first = TRUE)
-	return (points.len)? points[1] : null
+	return (length(points))? points[1] : null
 
 /**
  * Wrapper around walk_away()
@@ -825,7 +825,7 @@
 
 /datum/move_loop/move_rand/move()
 	var/list/potential_dirs = potential_directions.Copy()
-	while(potential_dirs.len)
+	while(length(potential_dirs))
 		var/testdir = pick(potential_dirs)
 		var/turf/moving_towards = get_step(moving, testdir)
 		var/atom/old_loc = moving.loc

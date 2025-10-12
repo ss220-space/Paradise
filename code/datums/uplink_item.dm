@@ -2393,7 +2393,7 @@
 	target_uplink.used_TC = cost
 
 
-	while(remaining_TC && buyable_items.len)
+	while(remaining_TC && length(buyable_items))
 		var/datum/uplink_item/chosen_item = pick(buyable_items)
 		if(!chosen_item.surplus || prob(100 - chosen_item.surplus))
 			continue

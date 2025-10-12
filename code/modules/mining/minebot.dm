@@ -213,7 +213,7 @@
 		O.forceMove(src)
 
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
-	if(!contents.len)
+	if(!length(contents))
 		if(message)
 			to_chat(src, span_warning("Попытка выгрузки руды: хранилище пусто."))
 		return

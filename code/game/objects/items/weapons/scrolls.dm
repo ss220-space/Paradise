@@ -80,7 +80,7 @@
 			if(clear)
 				L+=T
 
-	if(!L.len)
+	if(!length(L))
 		to_chat(user, span_warning("The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."))
 		return
 
@@ -93,7 +93,7 @@
 	var/list/tempL = L
 	var/attempt = null
 	var/success = FALSE
-	while(tempL.len)
+	while(length(tempL))
 		attempt = pick(tempL)
 		user.forceMove(attempt)
 		if(get_turf(user) == attempt)

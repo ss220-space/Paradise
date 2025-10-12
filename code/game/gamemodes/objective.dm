@@ -1237,9 +1237,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 					priority_targets += possible_target
 					continue
 
-	if(priority_targets.len > 0)
+	if(length(priority_targets) > 0)
 		target = pick(priority_targets)
-	else if(possible_targets.len > 0)
+	else if(length(possible_targets) > 0)
 		target = pick(possible_targets)
 
 	if(target && target.current)

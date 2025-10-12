@@ -94,7 +94,7 @@
 /mob/living/simple_animal/hostile/headcrab/handle_automated_speech() // This way they have different screams when attacking, sometimes. Might be seen as sphagetthi code though.
 	if(speak_chance)
 		if(rand(0,200) < speak_chance)
-			if(speak && speak.len)
+			if(speak && length(speak))
 				playsound(get_turf(src), pick(speak), 200, TRUE)
 
 /mob/living/simple_animal/hostile/headcrab/Destroy()

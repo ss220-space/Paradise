@@ -46,7 +46,7 @@
 /mob/living/simple_animal/hostile/guardian/beam/proc/cleardeletedchains()
 	if(summonerchain && QDELETED(summonerchain))
 		summonerchain = null
-	if(enemychains.len)
+	if(length(enemychains))
 		for(var/chain in enemychains)
 			var/datum/cd = chain
 			if(!chain || QDELETED(cd))
@@ -59,14 +59,14 @@
 		if(!summonerchain)
 			summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/chain, layer = LYING_MOB_LAYER)
 		. += chainshock(summonerchain)
-	if(enemychains.len)
+	if(length(enemychains))
 		for(var/chain in enemychains)
 			. += chainshock(chain)
 
 /mob/living/simple_animal/hostile/guardian/beam/proc/removechains()
 	if(summonerchain)
 		QDEL_NULL(summonerchain)
-	if(enemychains.len)
+	if(length(enemychains))
 		for(var/chain in enemychains)
 			qdel(chain)
 		enemychains = list()

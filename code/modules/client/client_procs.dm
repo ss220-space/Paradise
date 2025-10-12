@@ -640,7 +640,7 @@
 
 
 	//Log all the alts
-	if(related_accounts_cid.len)
+	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] alts:[jointext(related_accounts_cid, " - ")]")
 
 

@@ -110,7 +110,7 @@
 	var/list/connected = list()
 	var/list/processing_atoms = list(src)
 
-	while(processing_atoms.len)
+	while(length(processing_atoms))
 		var/atom/a = processing_atoms[1]
 		for(var/step_dir in GLOB.cardinal)
 			var/obj/machinery/hydroponics/h = locate() in get_step(a, step_dir)

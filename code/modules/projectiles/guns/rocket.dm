@@ -15,7 +15,7 @@
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()
-	. += span_notice("[rockets.len] / [max_rockets] rockets.")
+	. += span_notice("[length(rockets)] / [max_rockets] rockets.")
 
 /obj/item/gun/rocketlauncher/Destroy()
 	QDEL_LIST(rockets)
@@ -48,7 +48,7 @@
 	return rockets.len
 
 /obj/item/gun/rocketlauncher/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
-	if(rockets.len)
+	if(length(rockets))
 		var/obj/item/ammo_casing/rocket/I = rockets[1]
 		var/obj/item/missile/M = new /obj/item/missile(user.loc)
 		playsound(user.loc, 'sound/weapons/gunshots/1launcher.ogg', 70, TRUE)

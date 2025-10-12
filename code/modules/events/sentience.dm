@@ -28,7 +28,7 @@
 			if(!(L in GLOB.player_list) && !L.mind && (L.sentience_type == sentience_type))
 				potential += L
 
-	if(!candidates.len || !potential.len) //if there are no players or simple animals to choose from, then end
+	if(!length(candidates) || !length(potential)) //if there are no players or simple animals to choose from, then end
 		return FALSE
 
 	var/sentience_report = span_bold(span_fontsize3("[command_name()] Medium-Priority Update"))

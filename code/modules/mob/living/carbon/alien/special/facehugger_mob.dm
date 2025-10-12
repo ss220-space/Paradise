@@ -270,7 +270,7 @@
 		if(!isflower(object) && !istable(object))
 			continue
 		var/list/path = get_path_to(src, object)
-		if(!path.len)
+		if(!length(path))
 			continue
 		var/dist = get_dist(object, src)
 		if(dist > max_dist)
