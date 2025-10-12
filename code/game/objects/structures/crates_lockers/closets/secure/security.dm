@@ -90,7 +90,6 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/storage/box/holobadge(src)
-	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/garmentbag/warden(src)

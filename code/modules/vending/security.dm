@@ -45,6 +45,7 @@
 		/obj/item/grenade/smokebomb = 8,
 		/obj/item/storage/belt/security/judobelt = 3,
 		/obj/item/stack/medical/bruise_pack/military = 5,
+		/obj/item/clothing/gloves/color/black/krav_maga/sec = 3,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,

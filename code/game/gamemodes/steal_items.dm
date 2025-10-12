@@ -255,12 +255,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/clothing/suit/armor/reflector
 	protected_jobs = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN)
 
-/datum/theft_objective/highrisk/krav
-	id = "krav_maga"
-	name = "the warden's krav maga martial arts gloves"
-	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
-	protected_jobs = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN)
-
 /datum/theft_objective/highrisk/supermatter_sliver
 	id = "supermatter_sliver"
 	name = "a supermatter sliver"
