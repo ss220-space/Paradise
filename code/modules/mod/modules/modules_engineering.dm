@@ -8,7 +8,7 @@
 		без опасений смотреть на точечную и дуговую сварку, солнечные затмения, а также карманные фонарики."
 	icon_state = "welding"
 	complexity = 1
-	incompatible_modules = list(/obj/item/mod/module/welding, /obj/item/mod/module/armor_booster)
+	incompatible_modules = list(/obj/item/mod/module/welding)
 	overlay_state_inactive = "module_welding"
 
 /obj/item/mod/module/welding/get_ru_names()

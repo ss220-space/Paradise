@@ -78,6 +78,9 @@
 	if(module_type != MODULE_ACTIVE || !ispath(device))
 		return
 
+	if(!length(required_slots))
+		stack_trace("[src] has no required_slots")
+
 	//TODO MODSUIT: выглядит как костыль
 	device = new device(src)
 	device.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -236,10 +239,10 @@
 
 	var/updated_slots = mod.slot_flags
 	if(mask_worn_overlay)
-		for (var/obj/item/part as anything in mod.get_parts())
+		for(var/obj/item/part as anything in mod.get_parts())
 			updated_slots |= part.slot_flags
-	else if (length(required_slots))
-		for (var/slot in required_slots)
+	else if(length(required_slots))
+		for(var/slot in required_slots)
 			updated_slots |= slot
 	mod.wearer.update_clothing(updated_slots)
 

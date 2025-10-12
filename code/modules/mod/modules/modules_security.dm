@@ -272,7 +272,7 @@
 	SIGNAL_HANDLER
 
 	if(!drain_power(use_energy_cost)) //Drain the rest dry
-		drain_power(mod.core.check_charge())
+		drain_power(mod.core.charge_amount())
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt
 	prebuilt = TRUE
