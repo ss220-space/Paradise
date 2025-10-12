@@ -825,9 +825,9 @@
 	if(ishuman(target))
 		return
 	if(isliving(target))
-		damage *= 4 //Up damage if not a human as we are not doing shenanigins
+		damage *= 6 //Up damage if not a human as we are not doing shenanigins
 		return
-	damage *= 6 //objects tend to fall apart as atoms are ripped up
+	damage *= 15 //objects tend to fall apart as atoms are ripped up
 
 /obj/projectile/energy/vortex_blast/on_hit(atom/target, blocked = 0)
 	if(blocked >= 100)

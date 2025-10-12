@@ -125,7 +125,7 @@
 	)
 
 /obj/item/mod/module/balloon/on_use()
-	if(!do_after(mod.wearer, 10 SECONDS, target = mod.wearer))
+	if(!do_after(mod.wearer, 5 SECONDS, target = mod.wearer))
 		return FALSE
 	mod.wearer.adjustOxyLoss(20)
 	playsound(src, 'sound/items/modsuit/inflate_bloon.ogg', 50, TRUE)
@@ -202,8 +202,18 @@
 	/// The total number of sheets created by this MOD. The more sheets, them more likely they set on fire.
 	var/num_sheets_dispensed = 0
 
+/obj/item/mod/module/paper_dispenser/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль выдачи бумаги",
+		GENITIVE = "модуля выдачи бумаги",
+		DATIVE = "модулю выдачи бумаги",
+		ACCUSATIVE = "модуль выдачи бумаги",
+		INSTRUMENTAL = "модулем выдачи бумаги",
+		PREPOSITIONAL = "модуле выдачи бумаги",
+	)
+
 /obj/item/mod/module/paper_dispenser/on_use()
-	if(!do_after(mod.wearer, 1 SECONDS, target = mod))
+	if(!do_after(mod.wearer, 1 SECONDS, target = mod.wearer))
 		return FALSE
 
 	var/obj/item/paper/crisp_paper = new(get_turf(src))
