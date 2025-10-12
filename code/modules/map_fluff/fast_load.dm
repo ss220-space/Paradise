@@ -13,7 +13,7 @@
 	admin_only = TRUE
 
 /datum/map/fast_load_multiz
-	name = "fast loa multizd"
+	name = "fast load multiz"
 	map_path = "_maps/map_files/debug/fast_load_multiz.dmm"
 	linkage = SELFLOOPING
 

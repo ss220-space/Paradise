@@ -5,7 +5,7 @@
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-autoimplanter"
-	item_state = "walkietalkie"//left as this so as to intentionally not have inhands
+	item_state = "autoimplanter"
 	w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/weapons/circsawhit.ogg'
 	var/obj/item/organ/internal/cyberimp/storedorgan

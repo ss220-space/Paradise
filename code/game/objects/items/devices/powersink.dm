@@ -1,6 +1,6 @@
-#define DISCONNECTED	0
-#define CLAMPED_OFF		1
-#define OPERATING		2
+#define DISCONNECTED 0
+#define CLAMPED_OFF 1
+#define OPERATING 2
 
 // Powersink - used to drain station power
 

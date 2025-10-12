@@ -1,5 +1,5 @@
-#define GREYS_ADDITIONAL_GENE_STABILITY		20
-#define GREYS_WATER_DAMAGE		0.6 // 0.6 burn per unit
+#define GREYS_ADDITIONAL_GENE_STABILITY 20
+#define GREYS_WATER_DAMAGE 0.6 // 0.6 burn per unit
 
 /datum/species/grey
 	name = SPECIES_GREY

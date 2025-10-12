@@ -91,8 +91,8 @@ SUBSYSTEM_DEF(ticker)
 	if(!login_music)
 		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
 
-	randomtips = file2list("strings/tips.txt")
-	memetips = file2list("strings/sillytips.txt")
+	randomtips = world.file2list("strings/tips.txt")
+	memetips = world.file2list("strings/sillytips.txt")
 	return SS_INIT_SUCCESS
 
 
@@ -384,10 +384,8 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			SStitle.show_title_screen_to(N.client) // New Title Screen
 
-	#ifdef UNIT_TESTS
-	// Run map tests first in case unit tests futz with map state
-	GLOB.test_runner.RunMap()
-	GLOB.test_runner.Run()
+	#ifdef TEST_RUNNER
+	GLOB.test_runner.RunAll()
 	#endif
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible

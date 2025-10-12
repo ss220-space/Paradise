@@ -1,7 +1,7 @@
 // Construction | Deconstruction
-#define STATE_EMPTY			1 // Add wires | Wrench to destroy
-#define STATE_WIRED			2 // Add cicuit / Wrench to unchor/unanchor | Remove wires with wirecutters
-#define STATE_COMPONENTS	3 // Add components / Wrench to unchor/unanchor | Remove circuit/components with crowbar
+#define STATE_EMPTY 1 // Add wires | Wrench to destroy
+#define STATE_WIRED 2 // Add cicuit / Wrench to unchor/unanchor | Remove wires with wirecutters
+#define STATE_COMPONENTS 3 // Add components / Wrench to unchor/unanchor | Remove circuit/components with crowbar
 
 /obj/machinery/constructable_frame //Made into a seperate type to make future revisions easier.
 	name = "machine frame"
@@ -1031,9 +1031,9 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=4;engineering=5;plasmatech=5;bluespace=6"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 5,
-							/obj/item/stock_parts/capacitor/purple = 1,
-							/obj/item/stock_parts/manipulator/purple = 1,
-							/obj/item/stock_parts/scanning_module/purple = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stack/cable_coil = 15)
 
 /obj/item/circuitboard/sleeper

@@ -1,5 +1,5 @@
-#define PAPERWORK	1
-#define PHOTO		2
+#define PAPERWORK 1
+#define PHOTO 2
 
 /obj/item/clipboard
 	name = "clipboard"

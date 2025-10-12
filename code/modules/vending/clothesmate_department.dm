@@ -137,6 +137,7 @@
 				/obj/item/clothing/shoes/jackboots = 10,
 				/obj/item/clothing/shoes/jackboots/jacksandals = 10,
 				/obj/item/clothing/shoes/jackboots/cross = 10,
+				/obj/item/clothing/shoes/jackboots/high = 10,
 			),
 		),
 		list(

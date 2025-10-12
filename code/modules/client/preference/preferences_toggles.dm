@@ -72,10 +72,11 @@
 	blackbox_message = "Toggle GhostSight"
 
 /datum/preference_toggle/toggle_ghost_radio
-	name = "Слышимость речи – Призрак"
+	name = "Слышимость радио – Призрак"
 	description = "Переключает слышимость радиосообщений во всём мире или только в пределах видимости."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTRADIO
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
 	enable_message = "Будучи призраком, теперь вы будете слышать радиосообщения только в пределах видимости."
 	disable_message = "Будучи призраком, теперь вы будете слышать радиосообщения во всём мире."
 	blackbox_message = "Toggle GhostRadio"
@@ -315,18 +316,6 @@
 	enable_message = "Теперь вы будете видеть уведомления в призрак-чате, если игрок в мире погибнет."
 	disable_message = "Теперь вы не будете видеть уведомления в призрак-чате, если игрок в мире погибнет."
 	blackbox_message = "Toggle Death Notifications"
-
-/*
-/datum/preference_toggle/toggle_reverb
-	name = "Ревербация звуков"
-	description = "Включает ревербацию определённых звуков."
-	preftoggle_bitflag = PREFTOGGLE_2_REVERB_DISABLE
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Теперь некоторые звуки игры будут ревербироваться."
-	disable_message = "Теперь никакие звуки игры не будут ревербироваться."
-	blackbox_message = "Toggle reverb"
-*/
 
 /datum/preference_toggle/toggle_simple_stat_panel
 	name = "Обводка предметов"
@@ -691,3 +680,33 @@
 	enable_message = "Теперь сообщения о боли будут выводиться на основной экран."
 	disable_message = "Теперь сообщения о боли будут писаться в чат."
 	blackbox_message = "Toggle painblurb"
+
+/datum/preference_toggle/storage/set_toggles(client/user)
+	. = ..()
+	if(!istype(user) || !user.mob || !user.mob.s_active)
+		return
+
+	var/obj/item/storage/storage = user.mob.s_active
+
+	storage.hide_from(user.mob)
+	storage.show_to(user.mob)
+
+/datum/preference_toggle/storage/storage_neutral
+	name = "Переключить тематическое/нейтральное хранилище"
+	description = "Переключает хранилище между зависимым от темы инвентаря и нейтральным."
+	preftoggle_bitflag = PREFTOGGLE_3_STORAGE_NEUTRAL
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь хранилища будут иметь нейтральную тему."
+	disable_message = "Теперь тема хранилища будет зависеть от инвентаря."
+	blackbox_message = "Toggle storage neutal"
+
+/datum/preference_toggle/storage/storage_colorfy
+	name = "Переключить покраску хранилища"
+	description = "Переключает зависимость цвета хранилища от цвета инвентаря."
+	preftoggle_bitflag = PREFTOGGLE_3_STORAGE_COLORFY
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь цвет интерфейса хранилища зависит от цвета инвентаря."
+	disable_message = "Теперь цвет интерфейса хранилища не зависит от цвета инвентаря."
+	blackbox_message = "Toggle storage colorfy"

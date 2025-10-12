@@ -184,6 +184,7 @@
 				L.AdjustBlood(1)
 
 
+
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
 	STOP_PROCESSING(SSobj, src)
@@ -391,29 +392,32 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
-		GLOB.major_announcement.announce(
-			message = "Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
-			new_title = ANNOUNCE_CCPARANORMAL_RU,
-			new_sound = 'sound/AI/cult_summon.ogg'
-		)
+		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар.",
+										ANNOUNCE_CCPARANORMAL_RU,
+										'sound/AI/commandreport.ogg')
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
-		begin_the_ritual()
+		begin_the_ritual(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
+/obj/structure/clockwork/functional/altar/proc/check_pos()
+	for(var/turf/check_turf in range(1, src))
+		if(iswallturf(check_turf))
+			return FALSE
+	return TRUE
 
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
 	var/datum/game_mode/gamemode = SSticker.mode
 
-	if(GLOB.ark_of_the_clockwork_justiciar)
-		to_chat(user, span_clockitalic("There is already Gateway somewhere!"))
+	if(GLOB.heart)
+		balloon_alert(user, "сердце уже призвано!")
 		return FALSE
 
-	if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
+	if(gamemode.clocker_objs.clock_status < RATVAR_NEED_HEART)
 		to_chat(user, span_clockitalic("<b>Ratvar</b> is not ready to be summoned yet!"))
 		return FALSE
-	if(gamemode.clocker_objs.clock_status == RATVAR_HAS_RISEN)
+	if(gamemode.clocker_objs.clock_status > RATVAR_NEED_HEART)
 		to_chat(user, span_clockitalic("\"My fellow. There is no need for it anymore.\""))
 		return FALSE
 
@@ -421,17 +425,22 @@
 	if(!(A in summon_areas))
 		to_chat(user, span_cultlarge("Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!"))
 		return FALSE
-	var/confirm_final = tgui_alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
-	"The power comes...", list("Let Ratvar shine ones more!", "No"))
+	if(!(check_pos()))
+		balloon_alert(user, "недостаточно места!")
+		return FALSE
+	var/confirm_final = tgui_alert(user, "Совершив это действие, вы пробудите Сердце Ратвара. Перенос его станет невозможен. Еретики узнают о ритуале и его местоположении. Вы уверены, что хотите продолжить?",
+	"Финал грядет...", list("Да воссияет же Ратвар!", "Нет"))
 	if(user)
-		if(confirm_final != "Let Ratvar shine ones more!")
+		if(confirm_final != "Да воссияет же Ратвар!")
 			to_chat(user, span_clockitalic("<b>You decide to prepare further before pincing the shard.</b>"))
 			return FALSE
 		return TRUE
 
-/obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
-	visible_message(span_danger("The [src] expands itself revealing into the great Ark!"))
-	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
+/obj/structure/clockwork/functional/altar/proc/begin_the_ritual(mob/user)
+	visible_message(span_danger("На месте [declent_ru(GENITIVE)] появляется огромное сердце!"))
+	new /obj/structure/clockwork/functional/heart(get_turf(src))
+	var/clockpointer = new /obj/item/pinpointer/clock(get_turf(user))
+	user.put_in_hands(clockpointer)
 	qdel(src)
 	return
 

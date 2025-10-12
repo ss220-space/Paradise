@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 /obj/effect/meteor/proc/chase_target(atom/chasing, delay, home)
 	if(!isatom(chasing))
 		return
-	var/datum/move_loop/new_loop = SSmove_manager.move_towards(src, chasing, delay, home, lifetime)
+	var/datum/move_loop/new_loop = GLOB.move_manager.move_towards(src, chasing, delay, home, lifetime)
 	if(!new_loop)
 		return
 
@@ -278,7 +278,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 		var/dist = get_dist(mob.loc, loc)
 		if(prob(shake_chance))
 			shake_camera(mob, dist > 20 ? 3 : 5, dist > 20 ? 1 : 3)
-		mob.playsound_local(loc, null, 50, TRUE, random_frequency, 10, sound = meteor_sound)
+		mob.playsound_local(loc, null, 50, TRUE, random_frequency, 10, sound_to_use = meteor_sound)
 
 
 /**
