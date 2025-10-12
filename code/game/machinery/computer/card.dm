@@ -249,7 +249,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return FALSE
 
 /obj/machinery/computer/card/proc/has_idchange_access()
-	return scan && scan.access && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
+	return scan?.access && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
 
 /obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = TRUE)
 	if(!scan || !scan.access)
@@ -348,10 +348,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/data = list()
 	data["mode"] = mode
 	data["modify_name"] = modify ? modify.name : FALSE
-	data["modify_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
+	data["modify_owner"] = modify?.registered_name ? modify.registered_name : "-----"
 	data["modify_rank"] = modify?.rank ? modify.rank : FALSE
 	data["modify_assignment"] = modify?.assignment ? modify.assignment : "Unassigned"
-	data["modify_lastlog"] = modify && modify.lastlog ? modify.lastlog : FALSE
+	data["modify_lastlog"] = modify?.lastlog ? modify.lastlog : FALSE
 	data["scan_name"] = scan ? scan.name : FALSE
 	data["scan_rank"] = scan ? scan.rank : FALSE
 

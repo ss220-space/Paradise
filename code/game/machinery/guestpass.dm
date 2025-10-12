@@ -96,7 +96,7 @@
 		dat += "Reason:  <a href='byond://?src=[UID()];choice=reason'>[reason]</a><br>"
 		dat += "Duration (minutes):  <a href='byond://?src=[UID()];choice=duration'>[duration] m</a><br>"
 		dat += "Access to areas:<br>"
-		if(giver && giver.access)
+		if(giver?.access)
 			for(var/A in get_changeable_accesses())
 				var/area = get_access_desc(A)
 				if(A in accesses)
@@ -139,7 +139,7 @@
 				if(A in accesses)
 					accesses.Remove(A)
 				else
-					if(giver && giver.access && (A in get_changeable_accesses()))
+					if(giver?.access && (A in get_changeable_accesses()))
 						accesses.Add(A)
 	if(href_list["action"])
 		switch(href_list["action"])
@@ -229,7 +229,7 @@
 		dat += "Reason:  <a href='byond://?src=[UID()];choice=reason'>[reason]</a><br>"
 		dat += "Duration (minutes):  <a href='byond://?src=[UID()];choice=duration'>[duration] m</a><br>"
 		dat += "Access to areas:<br>"
-		if(giver && giver.access)
+		if(giver?.access)
 			for(var/A in get_changeable_accesses())
 				var/area = get_syndicate_access_desc(A)
 				if(A in accesses)

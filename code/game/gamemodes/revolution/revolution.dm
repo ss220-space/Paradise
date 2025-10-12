@@ -38,7 +38,7 @@
 /datum/action/innate/revolution_recruitment/proc/choose_targets(mob/user = usr)
 	var/list/validtargets = list()
 	for(var/mob/living/carbon/human/M in view(user.client.view, get_turf(user)))
-		if(M && M.mind && M.stat == CONSCIOUS)
+		if(M?.mind && M.stat == CONSCIOUS)
 			if(M == user)
 				continue
 			if((M.mind.special_role == SPECIAL_ROLE_REV) || (M.mind.special_role == SPECIAL_ROLE_HEAD_REV))
@@ -50,7 +50,7 @@
 	return target
 
 /datum/action/innate/revolution_recruitment/Activate()
-	if(!(usr && usr.mind && usr.stat == CONSCIOUS))
+	if(!(usr?.mind && usr.stat == CONSCIOUS))
 		to_chat(usr, span_danger("You must be conscious."))
 		return
 	if(world.time < usr.mind.rev_cooldown)
@@ -68,7 +68,7 @@
 		return
 	var/choice = alert(recruit, "Do you want to join the revolution?", "Join the revolution", "Yes", "No")
 	if(choice == "Yes")
-		if(!(recruit && recruit.mind && recruit.stat == CONSCIOUS))
+		if(!(recruit?.mind && recruit.stat == CONSCIOUS))
 			return
 		if(usr.mind in SSticker.mode.head_revolutionaries)
 			SSticker.mode.add_revolutionary(recruit.mind)
@@ -398,9 +398,9 @@
 
 
 /proc/is_revolutionary(mob/living/user)
-	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.revolutionaries)
+	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.revolutionaries)
 
 
 /proc/is_head_revolutionary(mob/living/user)
-	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.head_revolutionaries)
+	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.head_revolutionaries)
 

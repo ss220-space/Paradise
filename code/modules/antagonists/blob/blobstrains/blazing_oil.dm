@@ -23,7 +23,7 @@
 			if(iswallturf(T) || ismineralturf(T))
 				continue
 			var/obj/structure/blob/C = locate() in T
-			if(!(C && C.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) && prob(80))
+			if(!(C?.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) && prob(80))
 				new /obj/effect/hotspot(T)
 	if(damage_flag == FIRE)
 		return FALSE

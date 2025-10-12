@@ -239,7 +239,7 @@
 	var/active_players = 0
 	for(var/i = 1; i <= length(GLOB.player_list); i++)
 		var/mob/M = GLOB.player_list[i]
-		if(M && M.client)
+		if(M?.client)
 			if(isnewplayer(M)) // exclude people in the lobby
 				continue
 			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)

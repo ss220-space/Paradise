@@ -181,7 +181,7 @@
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Ban]** [a_ckey] applied a [bantype_str] on [ckey]")
 
 	if(kickbannedckey)
-		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
+		if(banned_mob?.client && banned_mob.client.ckey == banckey)
 			qdel(banned_mob.client)
 
 	if(isjobban)

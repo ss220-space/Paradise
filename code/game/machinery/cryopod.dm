@@ -390,7 +390,7 @@
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
-		else if(control_computer && control_computer.allow_items)
+		else if(control_computer?.allow_items)
 			control_computer.freeze_item(I, preserve)
 		else
 			I.forceMove(loc)

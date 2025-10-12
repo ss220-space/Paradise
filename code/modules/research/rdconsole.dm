@@ -261,9 +261,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/update_from_disk()
 	clear_wait_message()
-	if(d_disk && d_disk.blueprint)
+	if(d_disk?.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
-	else if(t_disk && t_disk.stored)
+	else if(t_disk?.stored)
 		var/datum/tech/tech_copy = t_disk.stored.copyTech()
 		files.AddTech2Known(tech_copy)
 	SStgui.update_uis(src)
@@ -923,7 +923,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				item["name"] = D.name
 				item["id"] = D.id
 
-	else if(menu == MENU_DESTROY && linked_destroy && linked_destroy.loaded_item)
+	else if(menu == MENU_DESTROY && linked_destroy?.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
 		loaded_item_list["name"] = linked_destroy.loaded_item.name

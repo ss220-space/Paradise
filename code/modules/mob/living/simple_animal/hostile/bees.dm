@@ -112,7 +112,7 @@
 	..()
 
 	var/col = BEE_DEFAULT_COLOUR
-	if(beegent && beegent.color)
+	if(beegent?.color)
 		col = beegent.color
 
 	var/image/greyscale

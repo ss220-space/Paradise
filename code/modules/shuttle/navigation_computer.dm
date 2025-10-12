@@ -285,7 +285,7 @@
 				return SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/update_hidden_docking_ports(list/remove_images, list/add_images)
-	if(!see_hidden && current_user && current_user.client)
+	if(!see_hidden && current_user?.client)
 		current_user.client.images -= remove_images
 		current_user.client.images += add_images
 

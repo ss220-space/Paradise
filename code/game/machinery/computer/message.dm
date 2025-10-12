@@ -353,7 +353,7 @@
 				src.icon_screen = hack_icon
 				//Time it takes to bruteforce is dependant on the password length.
 				spawn(100*length(src.linkedServer.decryptkey))
-					if(src && src.linkedServer && usr)
+					if(src?.linkedServer && usr)
 						BruteForce(usr)
 		//Delete the log.
 		if(href_list["delete"])

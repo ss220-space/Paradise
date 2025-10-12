@@ -419,7 +419,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/proc/check_for_weapons(obj/item/slot_item)
-	if(slot_item && slot_item.needs_permit)
+	if(slot_item?.needs_permit)
 		return TRUE
 	return FALSE
 

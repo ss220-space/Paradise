@@ -300,7 +300,7 @@
 
 /datum/mind/proc/_memory_edit_role_enabled(role)
 	. = "|Disabled in Prefs"
-	if(current && current.client && (role in current.client.prefs.be_special))
+	if(current?.client && (role in current.client.prefs.be_special))
 		. = "|Enabled in Prefs"
 
 /datum/mind/proc/memory_edit_implant(mob/living/carbon/human/H)
@@ -1327,14 +1327,14 @@
 		switch(href_list["implant"])
 			if("ertremove")
 				for(var/obj/item/implant/mindshield/ert/I in H.contents)
-					if(I && I.implanted)
+					if(I?.implanted)
 						qdel(I)
 				to_chat(H, span_notice(span_fontsize3("<b>Your ert mindshield implant has been deactivated.</b>")))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s ert mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s ert mindshield implant")
 			if("remove")
 				for(var/obj/item/implant/mindshield/I in H.contents)
-					if(I && I.implanted)
+					if(I?.implanted)
 						qdel(I)
 				to_chat(H, span_notice(span_fontsize3("<b>Your mindshield implant has been deactivated.</b>")))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
@@ -1991,7 +1991,7 @@
 
 	else if(href_list["contractor"])
 		var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
-		var/datum/contractor_hub/H = C && C.contractor_uplink?.hub
+		var/datum/contractor_hub/H = C?.contractor_uplink?.hub
 		var/datum/antagonist/traitor/traitor = has_antag_datum(/datum/antagonist/traitor)
 		switch(href_list["contractor"])
 			if("clear")
@@ -2983,7 +2983,7 @@
 
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
-	if(old_current && old_current.actions)
+	if(old_current?.actions)
 		for(var/datum/action/A in old_current.actions)
 			if(A.check_flags & AB_TRANSFER_MIND)
 				A.Grant(new_character)

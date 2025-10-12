@@ -312,7 +312,7 @@
 	var/list/mobs_in_view = get_visible_mobs()
 
 	for(var/mob/living/M in range(14, T))
-		if(M && M.mind)
+		if(M?.mind)
 			if(M == src)
 				continue
 			var/mob_name

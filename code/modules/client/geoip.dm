@@ -273,7 +273,7 @@ GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** [a_ckey] applied a [bantype_str] on [ckey]")
 
 	if(kickbannedckey)
-		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
+		if(banned_mob?.client && banned_mob.client.ckey == banckey)
 			del(banned_mob.client)
 
 	if(isjobban)

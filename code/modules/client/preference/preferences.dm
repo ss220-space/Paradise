@@ -414,7 +414,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<a href='byond://?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
 			dat += "<a href='byond://?_src_=prefs;preference=hair;task=input'>Цвет</a> [color_square(h_colour)]"
 			var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[h_style]
-			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
+			if(temp_hair_style?.secondary_theme && !temp_hair_style.no_sec_colour)
 				dat += " <a href='byond://?_src_=prefs;preference=secondary_hair;task=input'>Цвет №2</a> [color_square(h_sec_colour)]"
 				// Hair gradient
 			dat += "<br>"
@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<a href='byond://?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
 			dat += "<a href='byond://?_src_=prefs;preference=facial;task=input'>Цвет</a> [color_square(f_colour)]"
 			var/datum/sprite_accessory/temp_facial_hair_style = GLOB.facial_hair_styles_list[f_style]
-			if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
+			if(temp_facial_hair_style?.secondary_theme && !temp_facial_hair_style.no_sec_colour)
 				dat += " <a href='byond://?_src_=prefs;preference=secondary_facial;task=input'>Цвет №2</a> [color_square(f_sec_colour)]"
 			dat += "<br>"
 
@@ -2626,7 +2626,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					*/
 
 					parallax = parallax_styles[new_parallax]
-					if(parent && parent.mob && parent.mob.hud_used)
+					if(parent?.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("multiz_detail")

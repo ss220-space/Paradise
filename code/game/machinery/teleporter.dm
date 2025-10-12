@@ -393,7 +393,7 @@
 		if(ismob(moving_atom))
 			to_chat(moving_atom, "You can't use this here.")
 		return .
-	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
+	if(power_station?.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
 		if(!teleport(moving_atom) && isliving(moving_atom)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message(span_warning("[src] emits a loud buzz, as its teleport portal flickers and fails!"))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
@@ -438,7 +438,7 @@
 /obj/machinery/teleport/hub/update_icon_state()
 	if(panel_open)
 		icon_state = "tele-o"
-	else if(power_station && power_station.engaged)
+	else if(power_station?.engaged)
 		icon_state = "tele1"
 	else
 		icon_state = "tele0"
@@ -448,7 +448,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if(power_station && power_station.engaged && !panel_open)
+	if(power_station?.engaged && !panel_open)
 		underlays += emissive_appearance(icon, "tele1_lightmask", src)
 
 
@@ -460,7 +460,7 @@
 
 
 /obj/machinery/teleport/hub/proc/update_lighting()
-	if(power_station && power_station.engaged && !panel_open)
+	if(power_station?.engaged && !panel_open)
 		set_light_on(TRUE)
 	else
 		set_light_on(FALSE)

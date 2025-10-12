@@ -537,7 +537,7 @@
 				return
 			selected_menu_key = key
 		if("toggleLock")
-			if(connected && connected.occupant)
+			if(connected?.occupant)
 				connected.locked = !(connected.locked)
 		if("pulseRadiation")
 			irradiating = radiation_duration

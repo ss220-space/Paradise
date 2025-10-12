@@ -658,7 +658,7 @@
 		return TRUE
 
 	//PUTTING INTO MECH
-	if(same_target && target.handcuffed)
+	if(same_target?.handcuffed)
 		insert_action(target)
 		return TRUE
 

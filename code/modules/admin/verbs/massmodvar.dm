@@ -7,7 +7,7 @@
 
 	if(!check_rights(R_VAREDIT))	return
 
-	if(A && A.type)
+	if(A?.type)
 		if(typesof(A.type))
 			switch(tgui_input_list(usr, "Strict object type detection?", items = list("Strictly this type","This type and subtypes", "Cancel")))
 				if("Strictly this type")

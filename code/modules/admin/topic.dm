@@ -972,7 +972,7 @@
 			to_chat(usr, span_warning("Mob has no client to kick."), confidential=TRUE)
 			return
 		if(tgui_alert(usr, "Kick [C.ckey]?",, list("Yes", "No")) == "Yes")
-			if(C && C.holder && (C.holder.rights & R_BAN))
+			if(C?.holder && (C.holder.rights & R_BAN))
 				to_chat(usr, span_warning("[key_name_admin(C)] cannot be kicked from the server."), confidential=TRUE)
 				return
 			to_chat(C, span_warning("You have been kicked from the server"), confidential=TRUE)
@@ -1190,7 +1190,7 @@
 	else if(href_list["c_mode"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
@@ -1209,7 +1209,7 @@
 	else if(href_list["f_secret"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "secret")
 			return tgui_alert(usr, "The game mode has to be secret!")
@@ -1228,7 +1228,7 @@
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		GLOB.master_mode = href_list["c_mode2"]
 		log_and_message_admins(span_notice("set the mode as [GLOB.master_mode]."))
@@ -1241,7 +1241,7 @@
 	else if(href_list["f_secret2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "secret")
 			return tgui_alert(usr, "The game mode has to be secret!")
@@ -1253,7 +1253,7 @@
 	else if(href_list["change_weights"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
 			return tgui_alert(usr, "The game mode has to be Antag Paradise!")
@@ -1290,7 +1290,7 @@
 	else if(href_list["change_weights2"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
 			return tgui_alert(usr, "The game mode has to be Antag Paradise!")
@@ -2244,7 +2244,7 @@
 		gamemode.cult_objs.obj_summon.find_summon_locations(TRUE)
 		if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
 			for(var/datum/mind/cult_mind in gamemode.cult)
-				if(cult_mind && cult_mind.current)
+				if(cult_mind?.current)
 					to_chat(cult_mind.current, span_cult("The veil has shifted! Our summoning will need to take place elsewhere."))
 					to_chat(cult_mind.current, span_cult("Current goal : [gamemode.cult_objs.obj_summon.explanation_text]"))
 
@@ -2310,7 +2310,7 @@
 		gamemode.clocker_objs.obj_summon.find_summon_locations(TRUE)
 		if(gamemode.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
 			for(var/datum/mind/clock_mind in gamemode.clockwork_cult)
-				if(clock_mind && clock_mind.current)
+				if(clock_mind?.current)
 					to_chat(clock_mind.current, span_cult("The veil has shifted! Our summoning will need to take place elsewhere."))
 					to_chat(clock_mind.current, span_cult("Current goal : [gamemode.clocker_objs.obj_summon.explanation_text]"))
 
@@ -3198,7 +3198,7 @@
 				)
 
 			if("gravity")
-				if(!(SSticker && SSticker.mode))
+				if(!(SSticker?.mode))
 					to_chat(usr, span_warning("Please wait until the game starts! Not sure how it will work otherwise."), confidential=TRUE)
 					return
 

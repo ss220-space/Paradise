@@ -236,7 +236,7 @@
 
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
-		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
+		if(M?.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, span_alien("<i>Сообщение Стража <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
 

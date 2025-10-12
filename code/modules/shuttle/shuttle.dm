@@ -799,7 +799,7 @@
 
 /obj/docking_port/mobile/proc/getStatusText()
 	var/obj/docking_port/stationary/dockedAt = get_docked()
-	. = (dockedAt && dockedAt.name) ? dockedAt.name : lowertext(UNKNOWN_STATUS_RUS)
+	. = (dockedAt?.name) ? dockedAt.name : lowertext(UNKNOWN_STATUS_RUS)
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
 		var/obj/docking_port/stationary/dst
 		if(mode == SHUTTLE_RECALL)

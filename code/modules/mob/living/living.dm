@@ -1508,7 +1508,7 @@
 
 
 /mob/living/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
-	return ..() && !(buckled && buckled.buckle_prevents_pull)
+	return ..() && !(buckled?.buckle_prevents_pull)
 
 
 /mob/living/proc/can_pull(hand_to_check, supress_message = FALSE)

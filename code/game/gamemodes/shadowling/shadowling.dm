@@ -33,15 +33,15 @@ Made by Xhuis
 */
 
 /proc/is_thrall(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadowling_thralls)
+	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
 
 /proc/is_shadow_or_thrall(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.shadowling_thralls) || (M.mind in SSticker.mode.shadows))
+	return istype(M) && M.mind && SSticker?.mode && ((M.mind in SSticker.mode.shadowling_thralls) || (M.mind in SSticker.mode.shadows))
 
 
 /proc/is_shadow(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadows)
+	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadows)
 
 
 /datum/game_mode/shadowling

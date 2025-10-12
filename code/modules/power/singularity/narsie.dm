@@ -58,7 +58,7 @@
 	if(gamemode)
 		gamemode.cult_objs.narsie_death()
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
-			if(cult_mind && cult_mind.current)
+			if(cult_mind?.current)
 				to_chat(cult_mind.current, span_cultlarge("RETRIBUTION!"))
 				to_chat(cult_mind.current, span_cult("Current goal: Slaughter the heretics!"))
 	return ..()

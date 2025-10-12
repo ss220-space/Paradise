@@ -71,7 +71,7 @@
 
 /obj/item/melee/energy_katana/pickup(mob/living/user)
 	. = ..()
-	if(user && user.client)
+	if(user?.client)
 		jaunt.Grant(user, src)
 		user.client.mouse_pointer_icon = file(jaunt.update_cursor())
 		jaunt.update_action_style(color_style)
@@ -85,7 +85,7 @@
 
 /obj/item/melee/energy_katana/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(user && user.client)
+	if(user?.client)
 		jaunt.Remove(user)
 		user.client.mouse_pointer_icon = initial(user.client.mouse_pointer_icon)
 		user.update_icons()
@@ -199,7 +199,7 @@
 
 /datum/action/innate/dash/ninja/charge()
 	. = ..()
-	if(owner && owner.client)
+	if(owner?.client)
 		owner.client.mouse_pointer_icon = file(update_cursor())
 		var/obj/item/melee/energy_katana/katana = dashing_item
 		update_action_style(katana.color_style)

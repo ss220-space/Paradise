@@ -694,7 +694,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_shock_mob(mob/living/L, siemens_coeff = 1)
 	var/dealt = 0
-	if(current_cable && current_cable.powernet && current_cable.powernet.avail)
+	if(current_cable?.powernet && current_cable.powernet.avail)
 		// returns used energy, not damage dealt, but ez conversion with /20
 		dealt = electrocute_mob(L, current_cable.powernet, src, siemens_coeff) / 20
 	else if(charge >= 1000)

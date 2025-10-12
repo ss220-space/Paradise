@@ -330,7 +330,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			is_being_smoked = TRUE
 	if(location)
 		location.hotspot_expose(700, 5)
-	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
+	if(reagents?.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
 			for(var/datum/reagent/R in reagents.reagent_list)

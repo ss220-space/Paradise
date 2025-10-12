@@ -349,7 +349,7 @@
 		if(!M.ckey)
 			continue
 		var/turf/T = get_turf(M)
-		if(T && T.loc && T.loc == src)
+		if(T?.loc && T.loc == src)
 			receivers |= M
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)

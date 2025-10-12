@@ -730,7 +730,7 @@
 		experiment(dotype,process)
 		use_power(750)
 		if(dotype != FAIL)
-			if(process && process.origin_tech)
+			if(process?.origin_tech)
 				var/list/temp_tech = ConvertReqString2List(process.origin_tech)
 				var/tech_log
 				for(var/T in temp_tech)

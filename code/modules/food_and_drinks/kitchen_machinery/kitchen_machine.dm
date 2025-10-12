@@ -542,7 +542,7 @@
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
-	if(reagents && reagents.total_volume)	//this is directly-added reagents (like water added directly into the machine)
+	if(reagents?.total_volume)	//this is directly-added reagents (like water added directly into the machine)
 		var/id = reagents.get_master_reagent_id()
 		if(id)
 			amount += reagents.get_reagent_amount(id)

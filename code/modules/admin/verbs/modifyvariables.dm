@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				VV_RESTORE_DEFAULT
 				)
 
-		if(holder && holder.marked_datum && !(VV_MARKED_DATUM in restricted_classes))
+		if(holder?.marked_datum && !(VV_MARKED_DATUM in restricted_classes))
 			classes += "[VV_MARKED_DATUM] ([holder.marked_datum.type])"
 		if(restricted_classes)
 			classes -= restricted_classes
@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			classes += extra_classes
 
 		.["class"] = tgui_input_list(src, "Какой тип данных?", "Тип переменной", classes, default_class)
-		if(holder && holder.marked_datum && .["class"] == "[VV_MARKED_DATUM] ([holder.marked_datum.type])")
+		if(holder?.marked_datum && .["class"] == "[VV_MARKED_DATUM] ([holder.marked_datum.type])")
 			.["class"] = VV_MARKED_DATUM
 
 

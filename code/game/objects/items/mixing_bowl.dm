@@ -202,7 +202,7 @@
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
-	if(reagents && reagents.total_volume)
+	if(reagents?.total_volume)
 		var/id = reagents.get_master_reagent_id()
 		if(id)
 			amount += reagents.get_reagent_amount(id)

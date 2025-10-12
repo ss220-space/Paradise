@@ -80,7 +80,7 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = FALSE)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
-	if(player && player.mind && rank)
+	if(player?.mind && rank)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return 0
@@ -313,7 +313,7 @@ SUBSYSTEM_DEF(jobs)
 	if(!CONFIG_GET(flag/allow_ai))
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 0
-	else if(SSticker && SSticker.triai) //Holder for Triumvirate is stored in the ticker, this just processes it
+	else if(SSticker?.triai) //Holder for Triumvirate is stored in the ticker, this just processes it
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 3
 
@@ -736,7 +736,7 @@ SUBSYSTEM_DEF(jobs)
 	human.mind.store_memory(remembered_info)
 
 	// If they're head, give them the account info for their department
-	if(job && job.head_position)
+	if(job?.head_position)
 		remembered_info = ""
 		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
 

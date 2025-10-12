@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(camera)
 			camera.c_tag = newname
 
-	if(mmi && mmi.brainmob)
+	if(mmi?.brainmob)
 		mmi.brainmob.name = newname
 
 	return TRUE

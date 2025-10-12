@@ -637,7 +637,7 @@ SUBSYSTEM_DEF(mapping)
 //DO NOT CALL THIS PROC DIRECTLY, CALL wipe_reservations().
 /datum/controller/subsystem/mapping/proc/do_wipe_turf_reservations()
 	UNTIL(initialized) //This proc is for AFTER init, before init turf reservations won't even exist and using this will likely break things.
-	if(SSshuttle && SSshuttle.transit_requesters)
+	if(SSshuttle?.transit_requesters)
 		SSshuttle.transit_requesters.Cut()
 	for(var/i in turf_reservations)
 		var/datum/turf_reservation/TR = i

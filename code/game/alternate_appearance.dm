@@ -57,7 +57,7 @@
 */
 /datum/alternate_appearance/proc/remove()
 	hide()
-	if(owner && owner.alternate_appearances)
+	if(owner?.alternate_appearances)
 		owner.alternate_appearances -= key
 
 

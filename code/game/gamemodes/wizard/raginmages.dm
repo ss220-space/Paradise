@@ -105,7 +105,7 @@
 			var/mob/living/carbon/brain/B = L
 			if(isitem(B.loc))
 				qdel(B.loc)
-			if(B && B.container)
+			if(B?.container)
 				qdel(B.container)
 		if(L)
 			qdel(L)

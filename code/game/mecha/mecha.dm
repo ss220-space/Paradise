@@ -1377,7 +1377,7 @@
 
 
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
-	if(H && H.client && (H in range(1)))
+	if(H?.client && (H in range(1)))
 		occupant = H
 		H.forceMove(src)
 		add_fingerprint(H)
@@ -1499,7 +1499,7 @@
 			occupant_message(span_notice("Вы перестаёте удерживать [H.holding]."))
 			H.stop_supressing(H.holding)
 
-	if(occupant && occupant.client)
+	if(occupant?.client)
 		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
 
 	if(ishuman(occupant))
@@ -1565,7 +1565,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
 
-	if(L && L.client)
+	if(L?.client)
 		ASYNC
 			L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
