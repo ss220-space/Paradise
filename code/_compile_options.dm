@@ -18,7 +18,6 @@
 
 #if defined(GAME_TESTS) || defined(MAP_TESTS)
 #define TEST_RUNNER
-#define TESTING
 #endif
 
 ///Used to find the sources of harddels, quite laggy, don't be surpised if it freezes your client for a good while
