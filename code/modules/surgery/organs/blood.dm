@@ -40,6 +40,8 @@
 #define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
 /// Oxy damage if use tourniquet on head
 #define OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD 4
+/// Oxy damage if use tourniquet on head
+#define MAX_SUPPRESS_BLEEDING_BY_HAND 15
 
 // MARK: External organ procs
 
@@ -160,9 +162,9 @@
 		bodypart_bleeding = bodypart_bleeding * BLEEDING_MODIFIER * bodypart.bleeding_mod
 		// suppress bleeding by hands
 		if(left_hand_bleed_suppress_lib == bodypart)
-			bodypart_bleeding = 0
+			bodypart_bleeding = max(0, bodypart_bleeding - MAX_SUPPRESS_BLEEDING_BY_HAND)
 		if(right_hand_bleed_suppress_lib == bodypart)
-			bodypart_bleeding = 0
+			bodypart_bleeding = max(0, bodypart_bleeding - MAX_SUPPRESS_BLEEDING_BY_HAND)
 		current_bleed += bodypart_bleeding
 		var/embedded_length = LAZYLEN(bodypart.embedded_objects)
 		if(embedded_length && bodypart.bleedsuppress > 0)
@@ -582,3 +584,4 @@
 #undef HEAVY_BLEEDING_RATE
 #undef BODYPART_INTERNAL_BLEEDING
 #undef OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD
+#undef MAX_SUPPRESS_BLEEDING_BY_HAND
