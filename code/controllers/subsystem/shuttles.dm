@@ -527,7 +527,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/unblock_recall()
 	if(admin_emergency_no_recall)
 		GLOB.major_announcement.announce(
-			"Emergency shuttle uplink services are now back online.",,
+			"Emergency shuttle uplink services are now back online.",
 			new_title = "Emergency Shuttle Uplink Alert",
 			new_subtitle = "Uplink Restored",
 			new_sound = 'sound/misc/announce_dig.ogg',
