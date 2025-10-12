@@ -32,7 +32,7 @@
 /mob/living/carbon/human/proc/get_strength_level()
 	var/list/strength_list = list()
 	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
-	return !strength_list.len ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
+	return !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
 
 /mob/living/carbon/human/proc/get_weak_mob_modifiers()
 	var/list/weak_mob_modifier = list()
