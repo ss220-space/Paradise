@@ -528,6 +528,10 @@
 	// DEAD mobs are fine to skip if they are not dense or lying
 	if(stat == DEAD && projectile.original != src)
 		return !density || body_position == LYING_DOWN
+	if(HAS_TRAIT(projectile.firer, TRAIT_HIGH_MISS_CHANCE))
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		var/miss_chance = def_zone_hit_chance * 0.4
+		return !prob(miss_chance)
 	// always hitting dense/standing mobs
 	if(density || body_position == STANDING_UP)
 		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
@@ -539,8 +543,6 @@
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
 	var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
 	var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
-	if(HAS_TRAIT(projectile.firer, TRAIT_HIGH_MISS_CHANCE))
-		total_hit_chance *= ATTACK_MISS_CHANCE / 100
 	return !prob(total_hit_chance)
 
 
