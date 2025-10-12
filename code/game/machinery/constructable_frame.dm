@@ -363,7 +363,8 @@ to destroy them and players will be able to make replacements.
 		"Service Departament ClothesMate Chaplain"	= /obj/machinery/vending/department_clothesmate/service/chaplain,
 		"RoboFriends" =                         /obj/machinery/vending/pai,
 		"Customat" =							/obj/machinery/customat,
-		"Автомат спортивного питания" =			/obj/machinery/vending/protein,)
+		"Автомат спортивного питания" =			/obj/machinery/vending/protein,
+		"Liberty" =								/obj/machinery/vending/ammo,)
 
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
