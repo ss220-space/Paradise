@@ -9,7 +9,7 @@
 	target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] нанос[pluralize_ru(user.gender, "ит", "ят")] последовательные удары по животу, шее и спине [target.declent_ru(ACCUSATIVE)]"), \
 						span_userdanger("[user] strikes your abdomen, neck and back consecutively!"))
 	playsound(get_turf(target), 'sound/weapons/cqchit2.ogg', 50, TRUE, -1)
-	target.apply_damage(50, STAMINA)
+	target.apply_damage(65, STAMINA)
 	target.apply_damage(25, BRUTE)
 	objective_damage(user, target, 25, BRUTE)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Consecutive", ATKLOG_ALL)
