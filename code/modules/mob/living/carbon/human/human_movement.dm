@@ -37,7 +37,7 @@
 /mob/living/carbon/human/proc/get_weak_mob_modifiers()
 	var/list/weak_mob_modifier = list()
 	SEND_SIGNAL(src, COMSIG_GET_WEAK_MOB_MODIFIERS, weak_mob_modifier)
-	return !weak_mob_modifier.len ? 1 : weak_mob_modifier[1]
+	return !length(weak_mob_modifier) ? 1 : weak_mob_modifier[1]
 
 /mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
