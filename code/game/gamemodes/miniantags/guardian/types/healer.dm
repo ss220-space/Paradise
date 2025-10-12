@@ -197,7 +197,7 @@
 			for(var/injure in injures)
 				if((injures[injure]).len > 0)
 					available_cures.Add(injure)
-			if(!available_cures.len)
+			if(!length(available_cures))
 				return 0
 			var/random_cure = pick(available_cures)
 			to_chat(user, "Найдена травма. Попытка исцеления..")

@@ -96,7 +96,7 @@
 	set name = "Установить ловушку"
 	set category = STATPANEL_GUARDIAN
 	set desc = "Установите невидимую ловушку, которая оповестит вас, когда по ней пройдут живые существа. Максимум 5"
-	if(snares.len <6)
+	if(length(snares) <6)
 		var/turf/snare_loc = get_turf(loc)
 		var/obj/item/effect/snare/snare = new(snare_loc, src)
 		snare.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"

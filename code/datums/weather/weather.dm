@@ -71,7 +71,7 @@
 		return TRUE	// If weather already active, don't need to mark it as invalid. More at `/datum/controller/subsystem/weather/fire()`
 	SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_TELEGRAPH(type), src)
 	generate_area_list()
-	if(!impacted_areas.len)
+	if(!length(impacted_areas))
 		return FALSE
 	stage = STARTUP_STAGE
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)

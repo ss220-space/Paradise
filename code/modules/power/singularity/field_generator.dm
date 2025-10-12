@@ -332,11 +332,11 @@ field_generator power level display
 		O.last_warning = world.time
 
 /obj/machinery/field/generator/shock_field(mob/living/user)
-	if(fields.len)
+	if(length(fields))
 		..()
 
 /obj/machinery/field/generator/bump_field(atom/movable/AM as mob|obj)
-	if(fields.len)
+	if(length(fields))
 		..()
 
 #undef FG_UNSECURED

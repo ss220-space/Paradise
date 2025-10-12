@@ -5,7 +5,7 @@
 
 /datum/event/money_lotto/start()
 	winner_sum = pick(5000, 10000, 50000, 100000, 500000, 1000000, 1500000)
-	if(GLOB.all_money_accounts.len)
+	if(length(GLOB.all_money_accounts))
 		var/datum/money_account/D = pick(GLOB.all_money_accounts)
 		winner_name = D.owner_name
 

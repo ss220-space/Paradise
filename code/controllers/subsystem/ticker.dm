@@ -159,9 +159,9 @@ SUBSYSTEM_DEF(ticker)
 						all_maps -= M
 				switch(CONFIG_GET(string/map_rotate))
 					if("rotate")
-						for(var/i in 1 to all_maps.len)
+						for(var/i in 1 to length(all_maps))
 							if(istype(SSmapping.map_datum, all_maps[i]))
-								var/target_map = all_maps[(i % all_maps.len) + 1]
+								var/target_map = all_maps[(i % length(all_maps)) + 1]
 								SSmapping.next_map = new target_map
 								break
 					if("random")
@@ -370,7 +370,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(CONFIG_GET(number/restrict_maint))
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-			if(M.req_access && M.req_access.len == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
+			if(M.req_access && length(M.req_access) == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
 				M.req_access = null
 				if(CONFIG_GET(number/restrict_maint) == 1)
 					M.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
@@ -549,9 +549,9 @@ SUBSYSTEM_DEF(ticker)
 	if(selected_tip)
 		m = selected_tip
 	else
-		if(randomtips.len && prob(95))
+		if(length(randomtips) && prob(95))
 			m = pick(randomtips)
-		else if(memetips.len)
+		else if(length(memetips))
 			m = pick(memetips)
 
 	if(m)

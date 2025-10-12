@@ -71,7 +71,7 @@ research holder datum.
 //Checks to see if tech has all the required pre-reqs.
 //Input: datum/tech; Output: 0/1 (false/true)
 /datum/research/proc/TechHasReqs(datum/tech/T)
-	if(T.req_tech.len == 0)
+	if(length(T.req_tech) == 0)
 		return TRUE
 	for(var/req in T.req_tech)
 		var/datum/tech/known = known_tech[req]
@@ -84,7 +84,7 @@ research holder datum.
 /datum/research/proc/DesignHasReqs(datum/design/D)
 	if(!islist(D.req_tech))
 		return FALSE
-	if(!D.req_tech.len)
+	if(!length(D.req_tech))
 		return TRUE
 	for(var/req in D.req_tech)
 		var/datum/tech/known = known_tech[req]

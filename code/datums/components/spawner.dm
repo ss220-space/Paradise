@@ -40,7 +40,7 @@
 	var/turf/T = get_turf(P)
 	if(GLOB.mob_suspension && T && !length(SSmobs?.clients_by_zlevel[T.z]))
 		return FALSE
-	if(spawned_mobs.len >= max_mobs)
+	if(length(spawned_mobs) >= max_mobs)
 		return FALSE
 	if(spawn_delay > world.time)
 		return FALSE

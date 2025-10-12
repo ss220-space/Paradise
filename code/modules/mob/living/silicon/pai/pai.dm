@@ -370,10 +370,10 @@
 		for(var/line in lines)
 		// split & clean up
 			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
+			for(var/i = 1 to length(Entry))
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
+			if(length(Entry) < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
 				continue
 
 			if(Entry[2] == ckey)							//They're in the list? Custom sprite time, var and icon change required
@@ -381,7 +381,7 @@
 				my_choices["Custom"] = "[ckey]-pai"
 
 	my_choices = base_possible_chassis.Copy()
-	for(var/i = 1, i<=special_possible_chassis.len, i++)
+	for(var/i = 1, i<=length(special_possible_chassis), i++)
 		if(female_chassis && (special_possible_chassis[i] == "Female" || special_possible_chassis[i] == "Red Female"))
 			my_choices += special_possible_chassis.Copy(i, i+1)
 		if((syndipai || snake_chassis) && special_possible_chassis[i] == "Snake")
@@ -413,8 +413,8 @@
 
 	var/list/sayverbs = possible_say_verbs[choice]
 	speak_statement = sayverbs[1]
-	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
-	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
+	speak_exclamation = sayverbs[(length(sayverbs)>1 ? 2 : length(sayverbs))]
+	speak_query = sayverbs[(length(sayverbs)>2 ? 3 : length(sayverbs))]
 
 	remove_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
 

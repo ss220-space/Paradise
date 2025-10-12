@@ -349,7 +349,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 
 /proc/iscultist(mob/living/user)
-	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.cult)
+	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.cult)
 
 /proc/iscultist_ascended(mob/living/user)
 	return iscultist(user) && SSticker.mode.cult_ascendant

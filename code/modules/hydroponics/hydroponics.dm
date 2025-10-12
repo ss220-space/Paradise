@@ -110,12 +110,12 @@
 	var/list/connected = list()
 	var/list/processing_atoms = list(src)
 
-	while(processing_atoms.len)
+	while(length(processing_atoms))
 		var/atom/a = processing_atoms[1]
 		for(var/step_dir in GLOB.cardinal)
 			var/obj/machinery/hydroponics/h = locate() in get_step(a, step_dir)
 			// Soil plots aren't dense
-			if(h && h.using_irrigation && h.density && !(h in connected) && !(h in processing_atoms))
+			if(h?.using_irrigation && h.density && !(h in connected) && !(h in processing_atoms))
 				processing_atoms += h
 
 		processing_atoms -= a
@@ -319,7 +319,7 @@
 	var/n = 0
 	for(var/Dir in GLOB.cardinal)
 		var/obj/machinery/hydroponics/t = locate() in get_step(src,Dir)
-		if(t && t.using_irrigation && using_irrigation)
+		if(t?.using_irrigation && using_irrigation)
 			n += Dir
 
 	icon_state = "hoses-[n]"

@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
-		if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
+		if(body_marking_style?.species_allowed && (dna.species.name in body_marking_style.species_allowed))
 			var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 			if(body_marking_style.do_colouration)
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
@@ -297,7 +297,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
-		if(head_marking_style && head_marking_style.species_allowed && (head_organ.dna.species.name in head_marking_style.species_allowed))
+		if(head_marking_style?.species_allowed && (head_organ.dna.species.name in head_marking_style.species_allowed))
 			var/icon/h_marking_s = icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
@@ -584,7 +584,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(body_marking_style.visible_over_uniform || body_marking_style.name != /datum/sprite_accessory/body_markings/none::name)
 		var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
 		if(chest_organ && m_styles["body"])
-			if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
+			if(body_marking_style?.species_allowed && (dna.species.name in body_marking_style.species_allowed))
 				var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]-withclothes")
 				if(body_marking_style.do_colouration)
 					b_marking_s.Blend(m_colours["body"], ICON_ADD)

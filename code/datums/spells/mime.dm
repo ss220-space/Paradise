@@ -15,7 +15,7 @@
 
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall/Click()
-	if(usr && usr.mind)
+	if(usr?.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
@@ -94,7 +94,7 @@
 
 
 /obj/effect/proc_holder/spell/forcewall/mime/Click()
-	if(usr && usr.mind)
+	if(usr?.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return

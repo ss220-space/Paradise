@@ -149,7 +149,7 @@
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE, def_zone)
 	var/total_applied_amount = applied_amount * multiplier
 
-	if(reagents && reagents.total_volume)
+	if(reagents?.total_volume)
 		var/fractional_applied_amount = total_applied_amount  / reagents.total_volume
 
 		reagents.reaction(M, REAGENT_TOUCH, fractional_applied_amount, show_message, TRUE, def_zone)

@@ -223,7 +223,7 @@
 		parts += span_redtext("<big>[name] - успех! Космические карпы вернули контроль над территорией расположения станции!</big>")
 	parts += printplayer(owner)
 	var/objectives_complete = TRUE
-	if(objectives.len)
+	if(length(objectives))
 		parts += printobjectives(objectives)
 		for(var/datum/objective/objective in objectives)
 			if(!objective.check_completion())
@@ -233,7 +233,7 @@
 		parts += span_greentext("<big>[name] преуспел!</big>")
 	else
 		parts += span_redtext("<big>[name] провалился!</big>")
-	if(carp.len)
+	if(length(carp))
 		parts += span_header("Помощниками [name] были:")
 		for(var/datum/mind/M in carp)
 			parts += "[printplayer(M)]"

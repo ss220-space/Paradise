@@ -457,7 +457,7 @@
 /obj/structure/clockwork/functional/cogscarab_fabricator/examine(mob/user)
 	. = ..()
 	if(!hidden && (isclocker(user) || isobserver(user)))
-		. += span_notice("There's [cog_slots - cogscarab_list.len] cogscarab ready. [timer_fabrictor ? "And it's creating another one now" : "It stopped creating."].")
+		. += span_notice("There's [cog_slots - length(cogscarab_list)] cogscarab ready. [timer_fabrictor ? "And it's creating another one now" : "It stopped creating."].")
 
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/Initialize(mapload)
@@ -527,11 +527,11 @@
 	if(!anchored)
 		to_chat(user, span_warning("It seems to be non-functional to produce a new shell!"))
 		return FALSE
-	if(cogscarab_list.len >= cog_slots)
+	if(length(cogscarab_list) >= cog_slots)
 		to_chat(user, span_notice("There's no empty shells to take!"))
 		return FALSE
 	if(alert(user, "Do you wish to become cogscarab?",,"Yes","No") == "Yes")
-		if(cogscarab_list.len >= cog_slots) //Double check. No duplications
+		if(length(cogscarab_list) >= cog_slots) //Double check. No duplications
 			to_chat(user, span_notice("There's no empty shells to take!"))
 			return FALSE
 		var/mob/living/silicon/robot/cogscarab/cog = new(loc)

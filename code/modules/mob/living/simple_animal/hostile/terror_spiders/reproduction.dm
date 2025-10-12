@@ -131,7 +131,7 @@
 				if(temp_vent.welded) // no point considering a vent we can't even use
 					continue
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
@@ -308,7 +308,7 @@
 	if(GLOB.global_degenerate && !spider_mymother.spider_awaymission && !QDELETED(src))
 		qdel(src)
 		return
-	if(grown_tick_count - amount_grown <= TERROR_VOTE_TICKS && !asigned_ghosts?.len \
+	if(grown_tick_count - amount_grown <= TERROR_VOTE_TICKS && !length(asigned_ghosts) \
 		&& !ghost_poll && !spider_mymother.spider_awaymission)
 		find_spider_owner()
 	if(amount_grown >= grown_tick_count && spider_mymother.spider_awaymission)  //x2 time for egg process, spiderlings grows instantly
@@ -324,7 +324,7 @@
 		S.spider_myqueen = spider_myqueen
 		S.spider_mymother = spider_mymother
 		S.enemies = enemies
-		if(asigned_ghosts.len)
+		if(length(asigned_ghosts))
 			S.asigned_ghost = pick_n_take(asigned_ghosts)
 		if(spider_growinstantly)
 			S.amount_grown = 250

@@ -168,7 +168,7 @@
 	if(!.)
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(affected && affected.encased) //no bones no problem.
+	if(affected?.encased) //no bones no problem.
 		return FALSE
 
 /datum/surgery/translator_manipulations

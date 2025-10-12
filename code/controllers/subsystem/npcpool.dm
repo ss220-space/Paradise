@@ -31,8 +31,8 @@ SUBSYSTEM_DEF(npcpool)
 	var/list/currentrun = src.currentrun
 	//var/suspension = GLOB.npcpool_suspension
 
-	while(currentrun.len)
-		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/mob/living/simple_animal/SA = currentrun[length(currentrun)]
 		--currentrun.len
 
 		if(QDELETED(SA)) // Some issue causes nulls to get into this list some times. This keeps it running, but the bug is still there.

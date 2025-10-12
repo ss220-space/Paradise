@@ -206,18 +206,18 @@
 
 
 /datum/team/xenomorph/declare_completion()
-	if(members.len)
+	if(length(members))
 		var/list/text = declare_results()
-		if(queens?.len)
-			text += "<br/><span style='font-size: 2;'><b>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</b></span>"
+		if(length(queens))
+			text += span_fontsize2("<br/><b>Королев[(length(queens) > 1 ? "ами были" : "ой была")]:</b>")
 			for(var/datum/mind/queen in queens)
 				text += "<br/><b>[queen.key]</b> был <b>[queen.name]</b>"
-		text += "<br/><span style='font-size: 2;'><b>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</b></span>"
+		text += span_fontsize2("<br/><b>Ксеноморф[(length(members) > 1 ? "ами были" : "ом был")]:</b>")
 		for(var/datum/mind/alien in members)
 			if(alien in facehuggers)
 				continue
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
-		text += "<br/><span style='font-size: 2;'><b>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</b></span>"
+		text += span_fontsize2("<br/><b>Лицехват[(length(members) > 1 ? "ами были" : "ом был")]:</b>")
 		for(var/datum/mind/alien in facehuggers)
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
 		return text.Join("")

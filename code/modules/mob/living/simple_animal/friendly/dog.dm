@@ -255,11 +255,11 @@
 	var/datum/component/animal_temperature/temp = GetComponent(/datum/component/animal_temperature)
 	temp?.minbodytemp = initial(temp?.minbodytemp)
 
-	if(inventory_head && inventory_head.dog_fashion)
+	if(inventory_head?.dog_fashion)
 		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
 		DF.apply(src)
 
-	if(inventory_back && inventory_back.dog_fashion)
+	if(inventory_back?.dog_fashion)
 		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
 		DF.apply(src)
 

@@ -151,7 +151,7 @@
 
 /datum/surgery_step/robotics/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	. = ..()
-	if(tool && tool.tool_behaviour)
+	if(tool?.tool_behaviour)
 		tool.play_tool_sound(user, 30)
 
 /datum/surgery_step/robotics/external

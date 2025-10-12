@@ -88,7 +88,7 @@
 			continue
 		players += player.real_name
 	var/random_player = "Капитан"
-	if(players.len)
+	if(length(players))
 		random_player = pick(players)		//Random player's name, to be used in laws.
 	var/list/laws = list("Вы обязаны всегда врать.",
 							"Вы созданы, чтобы дарить счастье.",

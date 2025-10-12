@@ -157,7 +157,7 @@
 	. += span_notice("Текущий заряд: [charge != max_charge ? charge : span_boldnotice("[charge]")]/[max_charge + used_charge]")
 	. += span_notice("Свободный заряд: [max_charge != max_charge + used_charge ? max_charge : span_boldnotice("[max_charge]")]/[max_charge + used_charge]")
 	. += span_notice("Скорость восстановления заряда: [charge_speed]")
-	. += span_notice("Проецируется существ: [created_mobs.len != MAX_CREATED_MOBS ? created_mobs.len : span_boldnotice("[created_mobs.len]")]/[MAX_CREATED_MOBS]")
+	. += span_notice("Проецируется существ: [length(created_mobs) != MAX_CREATED_MOBS ? length(created_mobs) : span_boldnotice("[length(created_mobs)]")]/[MAX_CREATED_MOBS]")
 
 /obj/item/fauna_bomb/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] направля[pluralize_ru(user.gender,"ет","ют")] проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
@@ -187,7 +187,7 @@
 	if(!proximity)
 		return ..()
 
-	if(datas.len >= MAX_REMEMBERED_MOBS)
+	if(length(datas) >= MAX_REMEMBERED_MOBS)
 		user.balloon_alert(user, "мало памяти")
 		return
 
@@ -278,7 +278,7 @@
 			ui.user.balloon_alert(ui.user, "проекция развеяна")
 
 		if("create")
-			if(created_mobs.len >= MAX_CREATED_MOBS)
+			if(length(created_mobs) >= MAX_CREATED_MOBS)
 				ui.user.balloon_alert(ui.user, "превышение нагрузки")
 				return
 

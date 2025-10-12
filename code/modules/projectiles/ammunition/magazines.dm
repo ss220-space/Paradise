@@ -380,7 +380,7 @@
 	var/ammo = ammo_count()
 	if(!ammo)
 		return FALSE
-	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber9mm))
+	if(istype(contents[length(contents)], /obj/item/ammo_casing/rubber9mm))
 		return TRUE
 	return FALSE
 

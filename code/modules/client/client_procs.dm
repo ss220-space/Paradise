@@ -640,7 +640,7 @@
 
 
 	//Log all the alts
-	if(related_accounts_cid.len)
+	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] alts:[jointext(related_accounts_cid, " - ")]")
 
 
@@ -820,7 +820,7 @@
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.", confidential=TRUE)
 		return
-	if(prefs && prefs.fuid)
+	if(prefs?.fuid)
 		if(!fromban)
 			to_chat(src, "Your forum account is already set.", confidential=TRUE)
 		return
@@ -1281,7 +1281,7 @@
 		return
 	if(prefs)
 		prefs.load_preferences(usr)
-	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
+	if(prefs?.discord_id && length(prefs.discord_id) < 32)
 		to_chat(usr, chat_box_red(span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")

@@ -709,7 +709,7 @@
 	if(visualsOnly)
 		return
 
-	H.rename_character(null, "[rank_list.len ? pick(rank_list) : "[H.gender==FEMALE ? pick(GLOB.first_names_female) : pick(GLOB.first_names_male)]"] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
+	H.rename_character(null, "[length(rank_list) ? pick(rank_list) : "[H.gender==FEMALE ? pick(GLOB.first_names_female) : pick(GLOB.first_names_male)]"] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 
 	H.add_language(LANGUAGE_NEO_RUSSIAN)
 	H.set_default_language(GLOB.all_languages[LANGUAGE_NEO_RUSSIAN])

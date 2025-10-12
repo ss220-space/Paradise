@@ -40,7 +40,7 @@
 				connectedparts += pointer
 			linked = pointer
 			pointer = null
-	if(connectedparts.len < 4)
+	if(length(connectedparts) < 4)
 		return 0
 	for(var/i = 1; i <=4; i++)
 		var/obj/item/pod_parts/pod_frame/F = connectedparts[i]

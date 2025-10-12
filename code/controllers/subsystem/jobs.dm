@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/SetupOccupations()
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
-	if(!all_jobs.len)
+	if(!length(all_jobs))
 		to_chat(world, span_warning("Ошибка выдачи профессий, датумы профессий не найдены."))
 		return
 
@@ -80,7 +80,7 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = FALSE)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
-	if(player && player.mind && rank)
+	if(player?.mind && rank)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return 0
@@ -245,7 +245,7 @@ SUBSYSTEM_DEF(jobs)
 			if(!job)
 				continue
 			var/list/candidates = FindOccupationCandidates(job, level)
-			if(!candidates.len)
+			if(!length(candidates))
 				continue
 
 			var/list/filteredCandidates = list()
@@ -256,7 +256,7 @@ SUBSYSTEM_DEF(jobs)
 					continue
 				filteredCandidates += V
 
-			if(!filteredCandidates.len)
+			if(!length(filteredCandidates))
 				continue
 
 			var/mob/new_player/candidate = pick(filteredCandidates)
@@ -273,7 +273,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!job)
 			continue
 		var/list/candidates = FindOccupationCandidates(job, level)
-		if(!candidates.len)
+		if(!length(candidates))
 			continue
 		var/mob/new_player/candidate = pick(candidates)
 		AssignRole(candidate, command_position)
@@ -313,7 +313,7 @@ SUBSYSTEM_DEF(jobs)
 	if(!CONFIG_GET(flag/allow_ai))
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 0
-	else if(SSticker && SSticker.triai) //Holder for Triumvirate is stored in the ticker, this just processes it
+	else if(SSticker?.triai) //Holder for Triumvirate is stored in the ticker, this just processes it
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 3
 
@@ -323,8 +323,8 @@ SUBSYSTEM_DEF(jobs)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
 
-	Debug("DO, Len: [unassigned.len]")
-	if(unassigned.len == 0)
+	Debug("DO, Len: [length(unassigned)]")
+	if(length(unassigned) == 0)
 		return 0
 
 	//Shuffle players and jobs
@@ -347,7 +347,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("DO, Running Civilian Check 1")
 	var/datum/job/civ = new /datum/job/civilian()
 	var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
-	Debug("AC1, Candidates: [civilian_candidates.len]")
+	Debug("AC1, Candidates: [length(civilian_candidates)]")
 	for(var/mob/new_player/player in civilian_candidates)
 		Debug("AC1 pass, Player: [player]")
 		AssignRole(player, JOB_TITLE_CIVILIAN)
@@ -635,7 +635,7 @@ SUBSYSTEM_DEF(jobs)
 		if(bad_turf)
 			continue
 		possible_turfs += TS
-	return possible_turfs.len ? pick(possible_turfs) : pick(possible_but_bad_turfs)
+	return length(possible_turfs) ? pick(possible_turfs) : pick(possible_but_bad_turfs)
 
 /datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
 	if(!CONFIG_GET(flag/load_jobs_from_txt))
@@ -730,13 +730,13 @@ SUBSYSTEM_DEF(jobs)
 	remembered_info += "<b>ПИН вашего аккаунта:</b> [M.remote_access_pin]<br>"
 	remembered_info += "<b>Баланс вашего аккаунта:</b> $[M.money]<br>"
 
-	if(M.transaction_log.len)
+	if(length(M.transaction_log))
 		var/datum/transaction/T = M.transaction_log[1]
 		remembered_info += "<b>Ваш аккаунт был создан:</b> [T.time], [T.date] на [T.source_terminal]<br>"
 	human.mind.store_memory(remembered_info)
 
 	// If they're head, give them the account info for their department
-	if(job && job.head_position)
+	if(job?.head_position)
 		remembered_info = ""
 		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
 

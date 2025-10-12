@@ -332,7 +332,7 @@ GLOBAL_PROTECT(log_end)
 				loglevel = ATKLOG_ALMOSTALL
 		else
 			var/area/A = get_area(MT)
-			if(A && A.hide_attacklogs)
+			if(A?.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob

@@ -1312,7 +1312,7 @@
 			alcohol_description = "водянистого" //How the hell did you get negative boozepwr?
 
 	var/list/fruits = list()
-	if(names_in_order.len <= 3)
+	if(length(names_in_order) <= 3)
 		fruits = names_in_order
 	else
 		for(var/i in 1 to 3)
@@ -1322,10 +1322,10 @@
 	description = "Образец [alcohol_description] вина, приготовленного из [fruit_list]."
 
 	var/flavor = ""
-	if(!primary_tastes.len)
+	if(!length(primary_tastes))
 		primary_tastes = list("[alcohol_description] алкоголя")
 	flavor += russian_list(primary_tastes)
-	if(secondary_tastes.len)
+	if(length(secondary_tastes))
 		flavor += ", с лёгким привкусом "
 		flavor += russian_list(secondary_tastes)
 	taste_description = flavor

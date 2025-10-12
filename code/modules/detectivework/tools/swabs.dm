@@ -103,11 +103,11 @@
 			choices |= "Gunshot Residue"
 
 		var/choice
-		if(!choices.len)
+		if(!length(choices))
 			to_chat(user, span_warning("There is no evidence on \the [A]."))
 			inuse = 0
 			return
-		else if(choices.len == 1)
+		else if(length(choices) == 1)
 			choice = choices[1]
 		else
 			choice = tgui_input_list(usr, "What kind of evidence are you looking for?", "Evidence Collection", choices)
@@ -120,7 +120,7 @@
 		var/target_dna
 		var/target_gsr
 		if(choice == "Blood")
-			if(!A.blood_DNA || !A.blood_DNA.len)
+			if(!A.blood_DNA || !length(A.blood_DNA))
 				inuse = 0
 				return
 			target_dna = A.blood_DNA.Copy()

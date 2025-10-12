@@ -241,7 +241,7 @@
 		return FALSE
 
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
-		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
+		if(S.contents[length(S.contents)] == I) // No point moving them at the end if they're already there!
 			return FALSE
 
 		var/list/new_contents = S.contents.Copy()

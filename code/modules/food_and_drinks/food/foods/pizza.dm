@@ -289,11 +289,11 @@
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 
-	if(boxes.len > 0)
+	if(length(boxes) > 0)
 		if(user.is_in_inactive_hand(src))
 			..()
 			return
-		var/obj/item/pizzabox/box = boxes[boxes.len]
+		var/obj/item/pizzabox/box = boxes[length(boxes)]
 		boxes -= box
 		box.forceMove_turf()
 		user.put_in_hands(box, ignore_anim = FALSE)

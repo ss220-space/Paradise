@@ -116,7 +116,7 @@
 /proc/get_candidates(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!candidates.len && afk_bracket < 6000)
+	while(!length(candidates) && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
@@ -131,7 +131,7 @@
 /proc/get_candidate_ghosts(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!candidates.len && afk_bracket < 6000)
+	while(!length(candidates) && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
@@ -237,9 +237,9 @@
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
 	var/active_players = 0
-	for(var/i = 1; i <= GLOB.player_list.len; i++)
+	for(var/i = 1; i <= length(GLOB.player_list); i++)
 		var/mob/M = GLOB.player_list[i]
-		if(M && M.client)
+		if(M?.client)
 			if(isnewplayer(M)) // exclude people in the lobby
 				continue
 			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
@@ -312,7 +312,7 @@
 /proc/pollCandidatesWithVeto(client/adminclient, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
 	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname, reason)
 	var/list/selected_ghosts = list()
-	if(!willing_ghosts.len)
+	if(!length(willing_ghosts))
 		return selected_ghosts
 
 	var/list/candidate_ghosts = willing_ghosts.Copy()
@@ -323,7 +323,7 @@
 			to_chat(adminclient, "- [G] ([G.key])");
 		else
 			candidate_ghosts -= G
-	for(var/i = max_slots, (i > 0 && candidate_ghosts.len), i--)
+	for(var/i = max_slots, (i > 0 && length(candidate_ghosts)), i--)
 		var/this_ghost = tgui_input_list(adminclient, VETO_PICK_MESSAGE(i), VETO_PICK_TITLE, candidate_ghosts)
 		if(!this_ghost)
 			continue
@@ -339,7 +339,7 @@
 		if(!G.client.is_afk())
 			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 				possible_ghosts += G
-	for(var/i=teamsize,(i>0&&possible_ghosts.len),i--) //Decrease with every member selected.
+	for(var/i=teamsize,(i>0&&length(possible_ghosts)),i--) //Decrease with every member selected.
 		var/candidate = tgui_input_list(admin_client, MANUAL_PICK_MESSAGE(i), MANUAL_PICK_TITLE, possible_ghosts) // auto-picks if only one candidate
 		if(candidate == null)
 			break;

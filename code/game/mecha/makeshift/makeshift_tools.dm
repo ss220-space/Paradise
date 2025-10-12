@@ -7,7 +7,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/drill/makeshift/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/makeshift) || istype(M, /obj/mecha/combat/lockersyndie))
-		if(M.equipment.len < M.max_equip)
+		if(length(M.equipment) < M.max_equip)
 			return TRUE
 	return FALSE
 
@@ -19,6 +19,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/makeshift/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/makeshift) || istype(M, /obj/mecha/combat/lockersyndie))
-		if(M.equipment.len < M.max_equip)
+		if(length(M.equipment) < M.max_equip)
 			return TRUE
 	return FALSE

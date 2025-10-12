@@ -152,7 +152,7 @@
 				naughty_guys |= naughty
 				RegisterSignal(naughty, COMSIG_MOB_DEATH, PROC_REF(ready_or_not))
 
-	if(naughty_guys.len > 0)
+	if(length(naughty_guys) > 0)
 		BlockBlastDoors()
 	else
 		UnlockBlastDoors()

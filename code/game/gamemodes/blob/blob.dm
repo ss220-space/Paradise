@@ -19,14 +19,14 @@
 	var/list/possible_blobs = get_players_for_role(ROLE_BLOB)
 
 	// stop setup if no possible traitors
-	if(!possible_blobs.len)
+	if(!length(possible_blobs))
 		return FALSE
 
 	cores_to_spawn = max(round(num_players() / players_per_core, 1), 1)
 
 
 	for(var/j = 0, j < cores_to_spawn, j++)
-		if(!possible_blobs.len)
+		if(!length(possible_blobs))
 			break
 
 		var/datum/mind/blob = pick(possible_blobs)
@@ -35,7 +35,7 @@
 		add_game_logs("has been selected as a Blob", blob)
 		possible_blobs -= blob
 	var/list/blob_infected = blobs["infected"]
-	if(!blob_infected?.len)
+	if(!length(blob_infected))
 		return FALSE
 	blob_win_count += BLOB_TARGET_POINT_PER_CORE * cores_to_spawn
 	..()
@@ -96,7 +96,7 @@
 
 
 /datum/game_mode/proc/blob_died()
-	if(!GLOB.blob_cores.len && blob_stage >= BLOB_STAGE_FIRST && blob_stage < BLOB_STAGE_STORM)
+	if(!length(GLOB.blob_cores) && blob_stage >= BLOB_STAGE_FIRST && blob_stage < BLOB_STAGE_STORM)
 		addtimer(CALLBACK(src, PROC_REF(report_blob_death), BLOB_DEATH_REPORT_FIRST), TIME_TO_ANNOUNCE_BLOBS_DIE)
 
 
@@ -130,7 +130,7 @@
 /datum/game_mode/proc/make_blobs(count, need_new_blob = FALSE)
 	var/list/candidates = get_blob_candidates()
 	var/mob/living/carbon/human/blob = null
-	count = min(count, candidates.len)
+	count = min(count, length(candidates))
 	for(var/i = 0, i < count, i++)
 		blob = pick(candidates)
 		var/datum_type = blob.mind.get_blob_infected_type()
@@ -171,17 +171,17 @@
 
 
 /datum/game_mode/proc/process_blob_stages()
-	if(!GLOB.blob_cores.len)
+	if(!length(GLOB.blob_cores))
 		return
 	if(blob_stage == BLOB_STAGE_NONE)
 		blob_stage = BLOB_STAGE_ZERO
-	if(blob_stage == BLOB_STAGE_ZERO && legit_blobs.len >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
+	if(blob_stage == BLOB_STAGE_ZERO && length(legit_blobs) >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_FIRST
 		send_intercept(BLOB_FIRST_REPORT)
 		SSshuttle?.emergency?.cancel()
 		SSshuttle?.add_hostile_environment(GLOB.blob_cores)
 
-	if(blob_stage == BLOB_STAGE_FIRST && legit_blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
+	if(blob_stage == BLOB_STAGE_FIRST && length(legit_blobs) >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_SECOND
 		GLOB.major_announcement.announce(
 			message = "Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
@@ -191,11 +191,11 @@
 		if(!off_auto_gamma)
 			addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)
 
-	if(blob_stage == BLOB_STAGE_SECOND && legit_blobs.len >= THIRD_STAGE_COEF * blob_win_count && (blob_win_count - legit_blobs.len) <= THIRD_STAGE_DELTA_THRESHOLD)
+	if(blob_stage == BLOB_STAGE_SECOND && length(legit_blobs) >= THIRD_STAGE_COEF * blob_win_count && (blob_win_count - length(legit_blobs)) <= THIRD_STAGE_DELTA_THRESHOLD)
 		blob_stage = BLOB_STAGE_THIRD
 		send_intercept(BLOB_SECOND_REPORT)
 
-	if(legit_blobs.len >= blob_win_count && blob_stage < BLOB_STAGE_STORM)
+	if(length(legit_blobs) >= blob_win_count && blob_stage < BLOB_STAGE_STORM)
 		if(SSweather)
 			blob_stage = BLOB_STAGE_STORM
 			SSweather.run_weather(/datum/weather/blob_storm)

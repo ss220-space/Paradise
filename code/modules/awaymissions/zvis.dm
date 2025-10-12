@@ -51,7 +51,7 @@
 /obj/effect/portal_sensor/Initialize(mapload, owner, ...)
 	. = ..()
 	src.owner = owner
-	if(args.len >= 3)
+	if(length(args) >= 3)
 		params = args.Copy(3)
 	START_PROCESSING(SSobj, src)
 	trigger()
@@ -122,7 +122,7 @@
 /turf/simulated/floor/indestructible/upperlevel/New()
 	..()
 	var/obj/effect/levelref/R = locate() in get_area(src)
-	if(R && R.other)
+	if(R?.other)
 		init(R)
 
 /turf/simulated/floor/indestructible/upperlevel/Destroy()

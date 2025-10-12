@@ -1,4 +1,3 @@
-// START OF ALPHABETICAL SORTING
 GLOBAL_LIST_INIT(adjectives, world.file2list("strings/names/adjectives.txt"))
 GLOBAL_LIST_INIT(ai_names, world.file2list("strings/names/ai.txt"))
 GLOBAL_LIST_INIT(clown_names, world.file2list("strings/names/clown.txt"))
@@ -25,7 +24,6 @@ GLOBAL_LIST_INIT(nouns, world.file2list("strings/names/nouns.txt"))
 GLOBAL_LIST_INIT(verbs, world.file2list("strings/names/verbs.txt"))
 GLOBAL_LIST_INIT(wizard_first, world.file2list("strings/names/wizardfirst.txt"))
 GLOBAL_LIST_INIT(wizard_second, world.file2list("strings/names/wizardsecond.txt"))
-// END OF ALPHABETICAL SORTING
 
 GLOBAL_LIST_EMPTY(cached_ru_names)
 

@@ -367,7 +367,7 @@
 
 	var/list/recipes_to_make = choose_recipes()
 
-	if(recipes_to_make.len == 1 && recipes_to_make[1][2] == RECIPE_FAIL)
+	if(length(recipes_to_make) == 1 && recipes_to_make[1][2] == RECIPE_FAIL)
 		//This only runs if there is a single recipe source to be made and it is a failure (the machine was loaded with only 1 mixing bowl that results in failure OR was directly loaded with ingredients that results in failure).
 		//If there are multiple sources, this bit gets skipped.
 		if(can_be_dirty)
@@ -419,7 +419,7 @@
 	var/datum/recipe/recipe_src = select_recipe(GLOB.cooking_recipes[recipe_type], src, ignored_items = list(/obj/item/mixing_bowl))	//check the machine's directly-inserted ingredients for possible recipes as well, ignoring the mixing bowls when selecting recipe
 	if(recipe_src)	//if we found a valid recipe for directly-inserted ingredients, add that to our list
 		recipes_to_make.Add(list(list(src, recipe_src)))
-	else if(!recipes_to_make.len)	//if the machine has no mixing bowls to make recipes from AND also doesn't have a valid recipe of directly-inserted ingredients, return a failure so we can make a burned mess
+	else if(!length(recipes_to_make))	//if the machine has no mixing bowls to make recipes from AND also doesn't have a valid recipe of directly-inserted ingredients, return a failure so we can make a burned mess
 		recipes_to_make.Add(list(list(src, RECIPE_FAIL)))
 	return recipes_to_make
 
@@ -428,7 +428,7 @@
 	if(!recipes_to_make)
 		return
 	var/datum/reagents/temp_reagents = new(500)
-	for(var/i=1 to recipes_to_make.len)		//cycle through each entry on the recipes_to_make list for processing
+	for(var/i=1 to length(recipes_to_make))		//cycle through each entry on the recipes_to_make list for processing
 		var/list/L = recipes_to_make[i]
 		var/obj/source = L[1]	//this is the source of the recipe entry (mixing bowl or the machine)
 		var/datum/recipe/recipe = L[2]	//this is the recipe associated with the source (a valid recipe or null)
@@ -542,7 +542,7 @@
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
-	if(reagents && reagents.total_volume)	//this is directly-added reagents (like water added directly into the machine)
+	if(reagents?.total_volume)	//this is directly-added reagents (like water added directly into the machine)
 		var/id = reagents.get_master_reagent_id()
 		if(id)
 			amount += reagents.get_reagent_amount(id)
