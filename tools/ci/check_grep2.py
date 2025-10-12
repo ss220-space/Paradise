@@ -295,13 +295,12 @@ def check_duplicate_spans(idx, line):
         return [(idx + 1, f"Found nested identical span macros: 'span_{name}' inside another 'span_{name}'.")]
     return failures
 
-HTML_TAGS_CASE_RE = re.compile(r'</?(b|i|u|br|hr|p|div|span|font|center|body|html|head|title|meta|link|script|style|img|a|table|tr|td|th|ul|ol|li|h1|h2|h3|h4|h5|h6)(?:\s+|>)', re.IGNORECASE)
+HTML_TAGS_UPPERCASE_RE = re.compile(r'</?[A-Z][A-Z0-9]*\b[^>]*/?>')
 def check_html_tags_case(idx, line):
     failures = []
-    for match in HTML_TAGS_CASE_RE.finditer(line):
-        tag = match.group(1)
-        if tag.isupper():
-            failures.append((idx + 1, f"HTML tag '<{tag}>' should be in lowercase, not uppercase."))
+    for match in HTML_TAGS_UPPERCASE_RE.finditer(line):
+        tag = match.group(0)
+        failures.append((idx + 1, f"HTML tag '{tag}' should be in lowercase: '{tag.lower()}'"))
     return failures
 
 def check_updatepaths_validity():
