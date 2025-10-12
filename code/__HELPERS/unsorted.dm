@@ -1219,7 +1219,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
-	while(orbiting && orbiting == A?.loc)
+	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
 		if(!targetloc || (!lockinorbit && loc != lastloc && loc != targetloc))
 			break

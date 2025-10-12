@@ -681,13 +681,13 @@
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
-	return FALSE
+	return
 
 /mob/living/carbon/has_brain_worms()
 	if(borer)
 		return borer
 
-	return FALSE
+	return
 
 /mob/living/carbon/proc/BorerControlling()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()

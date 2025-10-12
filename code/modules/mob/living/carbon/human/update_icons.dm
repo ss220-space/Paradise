@@ -690,9 +690,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/obj/item/clothing/glasses/real_glasses = glasses
 	var/is_real_glasses = istype(real_glasses)
 
-	if(is_real_glasses?.over_hat)
+	if(is_real_glasses && real_glasses.over_hat)
 		glasses_layer = OVER_HEAD_LAYER
-	else if(is_real_glasses?.over_mask)
+	else if(is_real_glasses && real_glasses.over_mask)
 		glasses_layer = OVER_MASK_LAYER
 	else if(hair_style?.glasses_over)
 		glasses_layer = GLASSES_OVER_LAYER

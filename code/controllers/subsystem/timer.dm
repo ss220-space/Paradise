@@ -260,7 +260,7 @@ SUBSYSTEM_DEF(timer)
 		while(bucket_node && bucket_node != bucket_head)
 
 	// Empty the list by zeroing and re-assigning the length
-	bucket_list.len = 0
+	bucket_list.Cut()
 	bucket_list.len = BUCKET_LEN
 
 	// Reset values for the subsystem to their initial values

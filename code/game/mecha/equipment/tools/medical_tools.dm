@@ -463,7 +463,7 @@
 		return
 	if(!length(processed_reagents) || reagents.total_volume >= reagents.maximum_volume || !chassis.has_charge(energy_drain))
 		occupant_message(span_alert("Синтезирование реагентов остановлено."))
-		processed_reagents.len = 0
+		processed_reagents.Cut()
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/amount = synth_speed / processed_reagents.len

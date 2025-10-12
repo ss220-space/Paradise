@@ -904,7 +904,7 @@
 //same, but returns nothing and acts on list in place (also handles associated values properly)
 /proc/uniqueList_inplace(list/L)
 	var/temp = L.Copy()
-	L.len = 0
+	L.Cut()
 	for(var/key in temp)
 		if(isnum(key))
 			L |= key
