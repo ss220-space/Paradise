@@ -11,7 +11,6 @@
 	heat_protection = HEAD
 	cold_protection = HEAD
 	sprite_sheets = list(
-		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey_helmets.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',

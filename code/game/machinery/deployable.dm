@@ -559,8 +559,8 @@
 	SIGNAL_HANDLER
 	if(!isprojectile(entered_atom))
 		return
-	//var/obj/projectile/projectile = entered_atom
-	//projectile.immolate++
+	var/obj/projectile/projectile = entered_atom
+	projectile.immolate++
 
 #undef SINGLE
 #undef VERTICAL

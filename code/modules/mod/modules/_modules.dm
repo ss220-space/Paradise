@@ -55,7 +55,6 @@
 	/// Timer for the cooldown
 	COOLDOWN_DECLARE(cooldown_timer)
 	sprite_sheets = list(
-		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_modules.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_modules.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_modules.dmi',
