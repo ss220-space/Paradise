@@ -254,8 +254,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 /datum/game_mode/proc/powered(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
 		var/mob/living/carbon/human/H = clocker
+
+		ADD_TRAIT(H, TRAIT_CLOCK_HANDS, CLOCK_TRAIT)
 		H.update_worn_gloves()
-		ADD_TRAIT(H, CLOCK_HANDS, CLOCK_TRAIT)
 
 /datum/game_mode/proc/powered_borgs(clocker)
 	if(isrobot(clocker))
@@ -293,12 +294,13 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	clock_mind.current.RemoveElement(/datum/element/halo_attach)
 
 	if(ishuman(clocker))
-		var/mob/living/carbon/human/H = clocker
-		REMOVE_TRAIT(H, CLOCK_HANDS, null)
-		H.change_eye_color(H.original_eye_color, FALSE)
-		H.update_eyes()
-		H.remove_overlay(HALO_LAYER)
-		H.update_body()
+		var/mob/living/carbon/human/human = clocker
+		clock_mind.current.RemoveElement(/datum/element/halo_attach)
+		REMOVE_TRAIT(human, TRAIT_CLOCK_HANDS, CLOCK_TRAIT)
+		human.update_worn_gloves()
+		human.remove_overlay(HALO_LAYER)
+		human.update_body()
+
 	add_conversion_logs(clocker, "deconverted from the clockwork cult.")
 	if(show_message)
 		clocker.visible_message(span_clock("[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!"),

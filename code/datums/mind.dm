@@ -413,6 +413,7 @@
 		. += " | Total blood: <a href='byond://?src=[UID()];vampire=edit_total_blood'>[vamp.bloodtotal]</a>"
 		var/has_subclass = !QDELETED(vamp.subclass)
 		. += "<br>Subclass: <a href='byond://?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
+		. += "<br>Diablerie level: <a href='byond://?src=[UID()];vampire=diablerie_level'>[vamp.diablerie ? vamp.diablerie.diablerie_count : "Нет"]</a>"
 		if(has_subclass)
 			. += " | Force full power: <a href='byond://?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
 			if(istype(vamp.subclass, /datum/vampire_subclass/bestia) || istype(vamp.subclass, /datum/vampire_subclass/ancient))
@@ -1607,8 +1608,7 @@
 
 				remove_vampire_role()
 				to_chat(current, span_fontsize3(span_red("<b>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</b>")))
-				log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
+				log_and_message_admins("has de-vampired [key_name(current)].")
 
 			if("goonvampire")
 				if(isvampire(src))
@@ -1618,8 +1618,7 @@
 				g_vamp.give_objectives = FALSE
 				add_antag_datum(g_vamp)
 				to_chat(usr, span_notice("У вампира [key] отсутствуют цели. Вы можете добавить их вручную или сгенерировать случайный набор, кнопкой <b>Randomize!</b>"))
-				log_admin("[key_name(usr)] has goon-vampired [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has goon-vampired [key_name_admin(current)]")
+				log_and_message_admins("has goon-vampired [key_name(current)].")
 
 			if("vampire")
 				if(isvampire(src))
@@ -1630,41 +1629,38 @@
 				add_antag_datum(vamp)
 				to_chat(usr, span_notice("У вампира [key] отсутствуют цели. Вы можете добавить их вручную или сгенерировать случайный набор, кнопкой <b>Randomize!</b>"))
 				to_chat(current, "<b><font color='red'>Ваши силы пробудились. Ваша жажда крови растет... Вы вампир!</font></b>")
-				log_admin("[key_name(usr)] has vampired [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
+				log_and_message_admins("has vampired [key_name(current)].")
 
 			if("edit_usable_blood")
 				if(!isvampire(src))
 					return
 
-				var/new_usable = tgui_input_number(usr, "Select a new value:", "Modify usable blood")
+				var/new_usable = tgui_input_number(usr, "Новое значение:", "Количество активной крови")
 				if(isnull(new_usable) || new_usable < 0)
 					return
 
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				vamp.bloodusable = new_usable
 				current.update_action_buttons_icon()
-				log_admin("[key_name(usr)] has set [key_name(current)]'s usable blood to [new_usable].")
-				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s usable blood to [new_usable].")
+				log_and_message_admins("has set [key_name(current)]'s usable blood to [new_usable].")
 
 			if("edit_total_blood")
 				if(!isvampire(src))
 					return
 
-				var/new_total = tgui_input_number(usr, "Select a new value:", "Modify total blood")
+				var/new_total = tgui_input_number(usr, "Новое значение:", "Общее количество крови")
 				if(isnull(new_total) || new_total < 0)
 					return
 
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				if(new_total < vamp.bloodtotal)
-					if(tgui_alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", list("Yes", "No")) == "No")
+					if(tgui_alert(usr, "Обратите внимание, уменьшение общей крови вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) != "Да")
 						return
 					vamp.remove_all_powers()
 
 				vamp.bloodtotal = new_total
 				vamp.check_vampire_upgrade()
-				log_admin("[key_name(usr)] has set [key_name(current)]'s total blood to [new_total].")
-				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s total blood to [new_total].")
+				log_and_message_admins("has set [key_name(current)]'s total blood to [new_total].")
 
 			if("change_subclass")
 				if(!isvampire(src))
@@ -1674,9 +1670,9 @@
 				for(var/subtype in subtypesof(/datum/vampire_subclass))
 					var/datum/vampire_subclass/subclass = subtype
 					subclass_selection[capitalize(initial(subclass.name))] = subtype
-				subclass_selection["Let them choose (remove current subclass)"] = NONE
+				subclass_selection["Удалить текущий подкласс"] = NONE
 
-				var/new_subclass_name = tgui_input_list(usr, "Choose a new subclass:", "Change Vampire Subclass", subclass_selection)
+				var/new_subclass_name = tgui_input_list(usr, "Выберите новый подкласс:", "Изменение текущего подкласса", subclass_selection)
 				if(!new_subclass_name)
 					return
 
@@ -1685,13 +1681,33 @@
 
 				if(subclass_type == NONE)
 					vamp.clear_subclass()
-					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
-					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
 				else
 					vamp.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
 					vamp.change_subclass(subclass_type)
-					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
-					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
+
+			if("diablerie_level")
+				if(!isvampire(src))
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+
+				var/new_total = tgui_input_number(usr, "Выберите новое значение:", "Изменение уровня диаблери", max_value = DIABLERIE_COUNT_MAX)
+				if(isnull(new_total))
+					to_chat(usr, span_warning("Неверное значение. Максимальный уровень — [DIABLERIE_COUNT_MAX], минимальный — 0."))
+					return
+
+				if(!vamp.diablerie)
+					vamp.diablerie = new(vamp)
+
+				if(new_total < vamp.diablerie.diablerie_count)
+					if(tgui_alert(usr, "Обратите внимание, понижение уровня диаблери вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) != "Да")
+						return
+
+				vamp.diablerie.force_diablerie_level(new_total)
+
+				log_and_message_admins("has set [key_name(current)]'s diablerie count to [new_total].")
 
 			if("full_power_override")
 				if(!isvampire(src))
@@ -1708,8 +1724,7 @@
 					vamp.subclass.full_power_override = TRUE
 
 				vamp.check_full_power_upgrade()
-				log_admin("[key_name(usr)] set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
-				message_admins("[key_name_admin(usr)] set [key_name_admin(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
+				log_and_message_admins("set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 
 			if("edit_hearts")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1721,8 +1736,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_HEART, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s hearts trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s hearts trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s hearts trophies by [new_total].")
 
 			if("edit_lungs")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1734,8 +1748,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_LUNGS, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s lungs trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s lungs trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s lungs trophies by [new_total].")
 
 			if("edit_livers")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1747,8 +1760,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_LIVER, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s livers trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s livers trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s livers trophies by [new_total].")
 
 			if("edit_kidneys")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1760,8 +1772,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_KIDNEYS, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s kidneys trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s kidneys trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s kidneys trophies by [new_total].")
 
 			if("edit_eyes")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1773,8 +1784,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_EYES, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s eyes trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s eyes trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s eyes trophies by [new_total].")
 
 			if("edit_ears")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1786,8 +1796,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_EARS, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s ears trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s ears trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s ears trophies by [new_total].")
 
 			if("autoobjectives")
 				if(!isvampire(src))
@@ -1796,16 +1805,14 @@
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				vamp.give_objectives()
 				to_chat(usr, span_notice("Для вампира [key] сгенерированы задания. Вы можете отредактировать и объявить их вручную."))
-				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+				log_and_message_admins("has automatically forged objectives for [key_name(current)].")
 
 	else if(href_list["vampthrall"])
 		switch(href_list["vampthrall"])
 			if("clear")
 				if(has_antag_datum(/datum/antagonist/mindslave/thrall))
 					remove_antag_datum(/datum/antagonist/mindslave/thrall)
-					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+					log_and_message_admins("has de-vampthralled [key_name(current)].")
 
 	else if(href_list["nuclear"])
 
@@ -2827,6 +2834,10 @@
 	if(!isvampire(src))
 		add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
+
+/datum/mind/proc/make_free_vampire()
+	if(!isvampire(src))
+		add_antag_datum(/datum/antagonist/vampire/free_vampire)
 
 
 /datum/mind/proc/make_Wizard()

@@ -2022,6 +2022,8 @@
 #include "code\modules\antagonists\traitor\contractor\items\contractor_uplink.dm"
 #include "code\modules\antagonists\traitor\contractor\items\extraction_items.dm"
 #include "code\modules\antagonists\vampire\devil_vampire.dm"
+#include "code\modules\antagonists\vampire\diablerie.dm"
+#include "code\modules\antagonists\vampire\free_vampire.dm"
 #include "code\modules\antagonists\vampire\goon_vampire_datum.dm"
 #include "code\modules\antagonists\vampire\new_vampire_datum.dm"
 #include "code\modules\antagonists\vampire\vampire_datum.dm"

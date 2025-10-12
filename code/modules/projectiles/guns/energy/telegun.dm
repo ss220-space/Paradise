@@ -32,9 +32,12 @@
 
 	for(var/obj/item/beacon/R as anything in GLOB.beacons)
 		var/turf/T = get_turf(R)
+		var/turf/gun_turf = get_turf(src)
 		if(!T)
 			continue
 		if(!is_teleport_allowed(T.z))
+			continue
+		if(T.z != gun_turf.z)
 			continue
 		if(R.syndicate == 1)
 			continue
@@ -46,9 +49,21 @@
 		L[tmpname] = R
 
 	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Telegun Target Interface", L)
+	var/turf/target_turf = get_turf(L[desc])
+	var/turf/gun_turf = get_turf(src)
+	if(target_turf.z != gun_turf.z)
+		to_chat(user, span_warning("Выбран недоступный маячок."))
+		return
 	teleport_target = L[desc]
 
 /obj/item/gun/energy/telegun/newshot()
+	if(!teleport_target)
+		return
+	var/turf/gun_turf = get_turf(src)
+	var/turf/teleport_turf = get_turf(teleport_target)
+	if(gun_turf.z != teleport_turf.z)
+		teleport_target = null
+		return
 	var/obj/item/ammo_casing/energy/teleport/T = ammo_type[select]
 	T.teleport_target = teleport_target
 	..()
