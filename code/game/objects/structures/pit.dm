@@ -231,7 +231,7 @@
 		nam += " " + pick(GLOB.last_names_female)
 	else
 		nam = pick(GLOB.first_names_male)
-		nam += " " + pick(GLOB.last_names)
+		nam += " " + pick(GLOB.last_names_male)
 	var/cur_year = GLOB.game_year
 	var/born = cur_year - rand(5,150)
 	var/died = max(cur_year - rand(0,70),born)

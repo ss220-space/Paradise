@@ -182,7 +182,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				SSmove_manager.move_to(src, entry_vent, 1, rand(2, 4))
+				GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
 				break
 	if(isturf(loc))
 		amount_grown += rand(0,2)
@@ -222,7 +222,7 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
-	SSmove_manager.move_to(src, pick(available_turfs), 1, rand(2, 4))
+	GLOB.move_manager.move_to(src, pick(available_turfs), 1, rand(2, 4))
 	return TRUE
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)

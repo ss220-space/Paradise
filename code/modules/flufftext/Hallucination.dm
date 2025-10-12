@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(pump)
 		borer = new(pump.loc,target)
 		for(var/i in 0 to 10)
-			SSmove_manager.move_to(borer, T, 1, rand(2, 4))
+			GLOB.move_manager.move_to(borer, T, 1, rand(2, 4))
 			if(borer.Adjacent(T))
 				to_chat(T, span_userdanger("You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing."))
 				T.Stun(8 SECONDS)

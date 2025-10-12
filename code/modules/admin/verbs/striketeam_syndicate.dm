@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
 	var/syndicate_commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
 	var/syndicate_commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
-	var/syndicate_commando_name = pick(GLOB.last_names)
+	var/syndicate_commando_name = pick(GLOB.last_names_male)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(is_leader)

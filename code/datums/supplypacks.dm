@@ -1146,15 +1146,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/security/armory/m79
-	name = "M79 Grenade Launcher Crate"
+	name = "Гранатометы М79"
 	contains = list(/obj/item/gun/projectile/bombarda/secgl/m79,
 					/obj/item/gun/projectile/bombarda/secgl/m79)
 	cost = 80
-	containername = "m79 grenade launcher crate"
+	containername = "ящик с гранатометами М79"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с гранатометами М79",
+		GENITIVE = "ящика с гранатометами М79",
+		DATIVE = "ящику с гранатометами М79",
+		ACCUSATIVE = "ящик с гранатометами М79",
+		INSTRUMENTAL = "ящиком с гранатометами М79",
+		PREPOSITIONAL = "ящике с гранатометами М79"
+	)
 	required_tech = list("combat" = 6, "materials" = 3)
 
 /datum/supply_packs/security/armory/grenades40mm_nonlethal
-	name = "40mm non-lethal grenade boxes crate"
+	name = "40-мм нелетальные гранаты"
 	contains = list(
 		/obj/item/ammo_box/secgl/solid,
 		/obj/item/ammo_box/secgl/flash,
@@ -1163,7 +1171,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/ammo_box/secgl/paint
 	)
 	cost = 50
-	containername = "40mm non-lethal grenade boxes crate"
+	containername = "ящик с 40-мм нелетальными гранатами"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с 40-мм нелетальными гранатами",
+		GENITIVE = "ящика с 40-мм нелетальными гранатами",
+		DATIVE = "ящику с 40-мм нелетальными гранатами",
+		ACCUSATIVE = "ящик с 40-мм нелетальными гранатами",
+		INSTRUMENTAL = "ящиком с 40-мм нелетальными гранатами",
+		PREPOSITIONAL = "ящике с 40-мм нелетальными гранатами"
+	)
 	required_tech = list("combat" = 5, "materials" = 3)
 
 /////// Implants & etc

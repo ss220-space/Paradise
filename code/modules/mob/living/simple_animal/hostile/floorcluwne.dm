@@ -126,9 +126,9 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
 	if(!manifested && !is_type_in_typecache(get_area(current_victim.loc), invalid_area_typecache))
-		SSmove_manager.move_to(src, target, minimum_distance, delay)
+		GLOB.move_manager.move_to(src, target, minimum_distance, delay)
 	else
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/FindTarget()

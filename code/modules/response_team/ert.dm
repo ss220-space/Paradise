@@ -359,13 +359,13 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 			hours += text2num(all_hours[exp_type]) * 2
 		hours *= rand(0.8, 1.2)
 		if((hours - hours_dif) <= MEDIUM_RANK_HOURS)
-			H.rename_character(null, "[ranks["Min"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+			H.rename_character(null, "[ranks["Min"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 		else if((hours - hours_dif) < MAX_RANK_HOURS)
-			H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+			H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 		else
-			H.rename_character(null, "[ranks["Max"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+			H.rename_character(null, "[ranks["Max"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 	else
-		H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+		H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 
 #undef MEDIUM_RANK_HOURS
 #undef MAX_RANK_HOURS

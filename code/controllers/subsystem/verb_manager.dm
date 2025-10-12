@@ -74,9 +74,9 @@ SUBSYSTEM_DEF(verb_manager)
 		stack_trace("_queue_verb() returned false because it was given a callback acting on a qdeleted object! [destroyed_string]")
 		return FALSE
 
-	//we want unit tests to be able to directly call verbs that attempt to queue, and since unit tests should test internal behavior, we want the queue
+	//we want game tests to be able to directly call verbs that attempt to queue, and since game tests should test internal behavior, we want the queue
 	//to happen as if it was actually from player input if its called on a mob.
-#ifdef UNIT_TESTS
+#ifdef GAME_TESTS
 	if(QDELETED(usr) && ismob(incoming_callback.object))
 		incoming_callback.user = WEAKREF(incoming_callback.object)
 		var/datum/callback/new_us = CALLBACK(arglist(list(GLOBAL_PROC, /proc/_queue_verb) + args.Copy()))

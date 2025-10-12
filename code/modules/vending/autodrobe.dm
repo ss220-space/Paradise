@@ -175,6 +175,7 @@
 			"icon" = "socks",
 			"products" = list(
 				/obj/item/clothing/shoes/jackboots = 10,
+				/obj/item/clothing/shoes/jackboots/high = 10,
 				/obj/item/clothing/shoes/griffin = 10,
 				/obj/item/clothing/shoes/singery = 10,
 				/obj/item/clothing/shoes/singerb = 10,
@@ -222,6 +223,7 @@
 					/obj/item/clothing/suit/storage/labcoat/mad = 100,
 					/obj/item/clothing/glasses/gglasses = 20,
 					/obj/item/clothing/shoes/jackboots = 20,
+					/obj/item/clothing/shoes/jackboots/high = 20,
 					/obj/item/clothing/under/schoolgirl = 20,
 					/obj/item/clothing/under/blackskirt = 20,
 					/obj/item/clothing/neck/cloak/toggle/owlwings = 20,

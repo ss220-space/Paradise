@@ -2819,9 +2819,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		var/firstspace = findtext(real_name, " ")
 		var/name_length = length(real_name)
 		if(!firstspace)	//we need a surname
-			real_name += " [character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+			real_name += " [character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 		else if(firstspace == name_length)
-			real_name += "[character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+			real_name += "[character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 
 
 	character.add_language(language)

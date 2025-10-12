@@ -1,3 +1,15 @@
+#define STORAGE_CAP_WIDTH 2
+#define STORED_CAP_WIDTH 4
+#define BASE_STORAGE_WIDTH 200
+#define MAX_LINE_WIDTH 292
+
+#define STORAGE_TILE_POSITION_X 4
+#define STORAGE_TILE_POSITION_Y 2
+#define STORAGE_PIXEL_POSITION_X 16
+#define STORAGE_PIXEL_POSITION_Y 16
+// 3 in an number choosen by altering diffent values, to make gaps more lovely looking
+#define STORAGE_SIZE_MULTIPLIER_Y (ICON_SIZE_Y - 3)
+
 // To clarify:
 // For use_to_pickup and allow_quick_gather functionality,
 // see item/attackby() (/game/objects/items.dm, params)
@@ -24,9 +36,9 @@
 	/// The sum of the w_classes of all the items in this storage item.
 	var/max_combined_w_class = 14
 	var/storage_slots = 7
-	/// The number of storage slots in this container.
 	var/atom/movable/screen/storage/boxes = null
-	var/atom/movable/screen/close/closer = null
+	var/list/datum/storage_box/storage_boxes
+	var/atom/movable/screen/close/closer
 	/// Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
 	var/use_to_pickup
 	/// Set this to make the storage item group contents of the same type and display them as a number.
@@ -46,6 +58,7 @@
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
 
+
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 
@@ -64,18 +77,18 @@
 
 	populate_contents()
 
-	boxes = new /atom/movable/screen/storage()
-	boxes.name = "storage"
-	boxes.master = src
-	boxes.icon_state = "block"
-	boxes.screen_loc = "7,7 to 10,8"
-	boxes.layer = HUD_LAYER
-	boxes.plane = HUD_PLANE
+	if(display_contents_with_number)
+		boxes = new /atom/movable/screen/storage()
+		boxes.name = "storage"
+		boxes.master = src
+		boxes.icon_state = "block"
+		boxes.screen_loc = "7,7 to 10,8"
+		boxes.layer = HUD_LAYER
+		boxes.plane = HUD_PLANE
+
 	closer = new /atom/movable/screen/close()
 	closer.master = src
-	closer.icon_state = "backpack_close"
-	closer.layer = ABOVE_HUD_LAYER
-	closer.plane = ABOVE_HUD_PLANE
+
 	orient2hud()
 
 /obj/item/storage/Destroy()
@@ -85,6 +98,7 @@
 	. = ..()
 	QDEL_NULL(boxes)
 	QDEL_NULL(closer)
+	QDEL_LIST_ASSOC_VAL(storage_boxes)
 	LAZYCLEARLIST(mobs_viewing)
 
 
@@ -137,7 +151,9 @@
 		if(!user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
 			return FALSE
 
-		close(user)
+		if(user.s_active == src)
+			close(user)
+
 		user.face_atom(over_object)
 		user.visible_message(
 			span_notice("[user] опустоша[pluralize_ru(user.gender, "ет", "ют")] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
@@ -184,15 +200,22 @@
 		for(var/obj/item/I in src) // For bombs with mousetraps, facehuggers etc
 			if(I.on_found(user))
 				return
-	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
-	if(user.s_active)
+
+	if(user.s_active && user.s_active != src)
 		user.s_active.hide_from(user)
-	user.client.screen -= boxes
-	user.client.screen -= closer
-	user.client.screen -= contents
-	user.client.screen += boxes
-	user.client.screen += closer
-	user.client.screen += contents
+
+	if(!display_contents_with_number && !LAZYIN(storage_boxes, user))
+		LAZYADDASSOC(storage_boxes, user, new /datum/storage_box(src))
+
+	orient2hud(user) // this only needs to happen to make .contents show properly as screen objects.
+
+	if(!display_contents_with_number)
+		user.client.screen |= storage_boxes[user].screens_list()
+	else
+		user.client.screen |= boxes
+		user.client.screen |= closer
+	user.client.screen |= contents
+
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
 
@@ -207,6 +230,10 @@
 	if(!user.client)
 		return
 	user.client.screen -= boxes
+	var/datum/storage_box/box = LAZYACCESS(storage_boxes, user)
+	if(box)
+		user.client.screen -= box.screens_list()
+		storage_boxes -= user
 	user.client.screen -= closer
 	user.client.screen -= contents
 	if(user.s_active == src)
@@ -223,7 +250,6 @@
 		return
 	for(var/mob/viewer as anything in mobs_viewing)
 		hide_from(viewer)
-
 
 /obj/item/storage/proc/update_viewers()
 	for(var/mob/M as anything in mobs_viewing)
@@ -296,6 +322,225 @@
 				cy--
 	closer.screen_loc = "[4 + cols + 1]:16,2:16"
 
+/obj/item/storage/proc/space_orient_objs(list/obj/item/display_contents)
+	var/total_width = 1
+	var/line_width
+	var/lines_num = 1
+	for(var/obj/item/stored in contents)
+		total_width += stored.storage_display_width
+		if(total_width <= MAX_LINE_WIDTH)
+			continue
+		lines_num++
+		line_width = total_width - stored.storage_display_width
+		total_width = 1 + stored.storage_display_width
+
+	if(!line_width)
+		if((total_width + 32) > MAX_LINE_WIDTH)
+			lines_num++
+			line_width = total_width
+		else
+			line_width = min(1 + storage_slots * ICON_SIZE_X, max(total_width + 32, BASE_STORAGE_WIDTH))
+
+	var/first_time = TRUE
+	for(var/mob/user as anything in storage_boxes)
+		var/ui_style
+		var/ui_color
+		if(user.client && user.client.prefs)
+			var/datum/preferences/prefs = user.client.prefs
+			ui_style = !(prefs.toggles3 & PREFTOGGLE_3_STORAGE_NEUTRAL) && prefs.UI_style
+			ui_color = (prefs.toggles3 & PREFTOGGLE_3_STORAGE_COLORFY) && prefs.UI_style_color
+		storage_boxes[user].modify(line_width, lines_num, ui_style, ui_color, first_time)
+		first_time = FALSE
+
+/datum/storage_box
+	/// Parent storage item ref
+	var/obj/item/storage/storage
+	// Borders and filling of storage
+	var/atom/movable/screen/storage/space_box/start
+	var/atom/movable/screen/storage/space_box/continued
+	var/atom/movable/screen/storage/space_box/end
+	var/atom/movable/screen/storage/space_box/top
+	var/atom/movable/screen/storage/space_box/bottom
+	/// Part of storage used for item boxes overlays
+	var/atom/movable/screen/storage/space_box/place_items
+	/// Storage closer ref
+	var/atom/movable/screen/close/closer
+
+/datum/storage_box/New(master)
+	// Making ref to parent storage
+	storage = master
+
+	// Initialize screen objects
+	start = new
+	start.icon_state = "storage_start"
+	start.master = master
+
+	end = new
+	end.icon_state = "storage_end"
+	end.master = master
+
+	continued = new
+	continued.icon_state = "storage_continue"
+	continued.master = master
+
+	top = new
+	top.icon_state = "storage_top"
+	top.master = master
+
+	bottom = new
+	bottom.icon_state = "storage_bottom"
+	bottom.master = master
+
+	closer = new
+	closer.master = master
+
+	place_items = new
+
+/datum/storage_box/proc/modify(line_width, lines_num, ui_style, ui_color, first_time)
+	place_items.overlays.Cut()
+	var/ui_icon
+	// Change icon
+	if(ui_style)
+		ui_icon = ui_style2icon(ui_style)
+		start.icon = ui_icon
+		continued.icon = ui_icon
+		end.icon = ui_icon
+		top.icon = ui_icon
+		bottom.icon = ui_icon
+		closer.icon = ui_icon
+	// Change color
+	if(ui_color)
+		start.color = ui_color
+		continued.color = ui_color
+		end.color = ui_color
+		top.color = ui_color
+		bottom.color = ui_color
+		closer.color = ui_color
+	var/y_enlarge = (ICON_SIZE_Y + (lines_num - 1) * (STORAGE_SIZE_MULTIPLIER_Y)) / ICON_SIZE_Y
+	// Both axes modify
+	var/matrix/modify_matrix = matrix()
+	modify_matrix.Scale((line_width - STORAGE_CAP_WIDTH + 1) / ICON_SIZE_X, y_enlarge)
+	continued.transform = modify_matrix
+	// Y axis modify
+	modify_matrix = matrix()
+	modify_matrix.Scale(1, y_enlarge)
+	start.transform = modify_matrix
+	end.transform = modify_matrix
+	// X axis modify
+	modify_matrix = matrix()
+	modify_matrix.Scale((line_width + 2) / ICON_SIZE_X, 1)
+	top.transform = modify_matrix
+	bottom.transform = modify_matrix
+	// Move out box to correct place after resize
+	move_storage_box(y_enlarge, line_width, lines_num)
+
+	var/startpoint
+	var/endpoint = 1
+	var/current_level = 0
+	for(var/obj/item/stored in storage.contents)
+		startpoint = endpoint + 1
+		endpoint += stored.storage_display_width
+		if(endpoint > line_width)
+			current_level++
+			startpoint = 2
+			endpoint = 1 + stored.storage_display_width
+
+		var/datum/item_storage_box/item_box = new()
+		item_box.modify(startpoint, endpoint, lines_num, current_level, ui_icon, ui_color)
+		add_item(item_box)
+
+		if(!first_time)
+			continue
+
+		stored.screen_loc = "[STORAGE_TILE_POSITION_X]:[floor((startpoint + endpoint) / 2)],[STORAGE_TILE_POSITION_Y]:[STORAGE_PIXEL_POSITION_Y + STORAGE_SIZE_MULTIPLIER_Y * (lines_num - current_level - 1)]"
+		stored.layer = ABOVE_HUD_LAYER
+		stored.mouse_opacity = MOUSE_OPACITY_OPAQUE
+		stored.maptext = ""
+		SET_PLANE_EXPLICIT(stored, ABOVE_HUD_PLANE, storage)
+
+/datum/storage_box/proc/move_storage_box(y_enlarge, line_width, lines_num)
+	//Calculate offset
+	var/y_offset = floor(16 * y_enlarge)
+	// Move modified object
+	start.screen_loc = "[STORAGE_TILE_POSITION_X]:[STORAGE_PIXEL_POSITION_X],[STORAGE_TILE_POSITION_Y]:[y_offset]"
+	place_items.screen_loc = "[STORAGE_TILE_POSITION_X]:[STORAGE_PIXEL_POSITION_X],[STORAGE_TILE_POSITION_Y]:[STORAGE_PIXEL_POSITION_Y]"
+	continued.screen_loc = "[STORAGE_TILE_POSITION_X]:[floor(line_width / 2 + STORAGE_CAP_WIDTH)],[STORAGE_TILE_POSITION_Y]:[y_offset]"
+	end.screen_loc = "[STORAGE_TILE_POSITION_X]:[STORAGE_PIXEL_POSITION_X + line_width + 1],[STORAGE_TILE_POSITION_Y]:[y_offset]"
+	top.screen_loc = "[STORAGE_TILE_POSITION_X]:[floor(line_width / 2 + STORAGE_CAP_WIDTH)],[STORAGE_TILE_POSITION_Y]:[y_offset + round((STORAGE_SIZE_MULTIPLIER_Y + 1) / 2) * (lines_num - 1)]"
+	bottom.screen_loc = "[STORAGE_TILE_POSITION_X]:[floor(line_width / 2 + STORAGE_CAP_WIDTH)],[STORAGE_TILE_POSITION_Y]:[STORAGE_PIXEL_POSITION_Y]"
+	closer.screen_loc = "[STORAGE_TILE_POSITION_X]:[line_width + STORAGE_PIXEL_POSITION_X + STORAGE_CAP_WIDTH + 1],[STORAGE_TILE_POSITION_Y]:[STORAGE_PIXEL_POSITION_Y]"
+
+/datum/storage_box/proc/screens_list()
+	return list(start, continued, end, top, bottom, place_items, closer)
+
+/datum/storage_box/proc/add_item(datum/item_storage_box/item_box)
+	place_items.add_overlay(item_box.screens_list())
+
+/datum/storage_box/Destroy(force, ...)
+	QDEL_NULL(start)
+	QDEL_NULL(continued)
+	QDEL_NULL(end)
+	QDEL_NULL(bottom)
+	QDEL_NULL(top)
+	QDEL_NULL(place_items)
+	QDEL_NULL(closer)
+	storage = null
+	return ..()
+
+/datum/item_storage_box
+	// Borders and filling of item storage box
+	var/atom/movable/screen/storage/start
+	var/atom/movable/screen/storage/continued
+	var/atom/movable/screen/storage/end
+
+/datum/item_storage_box/New()
+	. = ..()
+	start = new()
+	start.icon_state = "stored_start"
+	continued = new()
+	continued.icon_state = "stored_continue"
+	end = new()
+	end.icon_state = "stored_end"
+
+/datum/item_storage_box/proc/screens_list()
+	return list(start, continued, end)
+
+/datum/item_storage_box/proc/modify(startpoint, endpoint, lines_num, current_level, ui_icon, ui_color)
+	// Change icon
+	if(ui_icon)
+		start.icon = ui_icon
+		continued.icon = ui_icon
+		end.icon = ui_icon
+	if(ui_color)
+		start.color = ui_color
+		continued.color = ui_color
+		end.color = ui_color
+
+	// Calcylate Y offset for current level
+	var/box_offset = STORAGE_SIZE_MULTIPLIER_Y * (lines_num - current_level - 1)
+
+	// Modify start
+	var/matrix/modify_matrix = matrix(start.transform)
+	modify_matrix.Translate(startpoint, box_offset)
+	start.transform = modify_matrix
+
+	// Modify continue
+	modify_matrix = matrix(continued.transform)
+	modify_matrix.Scale((endpoint - startpoint - STORED_CAP_WIDTH * 2) / ICON_SIZE_X, 1)
+	modify_matrix.Translate(startpoint + (endpoint - startpoint) / 2 - (ICON_SIZE_X - STORAGE_PIXEL_POSITION_X), box_offset)
+	continued.transform = modify_matrix
+
+	// Modify end
+	modify_matrix = matrix(end.transform)
+	modify_matrix.Translate(endpoint - STORED_CAP_WIDTH, box_offset)
+	end.transform = modify_matrix
+
+/datum/item_storage_box/Destroy(force, ...)
+	QDEL_NULL(start)
+	QDEL_NULL(continued)
+	QDEL_NULL(end)
+	return ..()
+
 /datum/numbered_display
 	var/obj/item/sample_object
 	var/number
@@ -336,7 +581,11 @@
 	var/col_count = min(7, storage_slots) - 1
 	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents - 1) / 7) // 7 is the maximum allowed width.
-	standard_orient_objs(row_num, col_count, display_contents)
+
+	if(display_contents_with_number)
+		standard_orient_objs(row_num, col_count, display_contents)
+	else
+		space_orient_objs(display_contents)
 
 /// This proc returns TRUE if the item can be picked up and FALSE if it can't.
 /// Set the stop_messages to stop it from printing messages
@@ -776,3 +1025,14 @@
 		orient2hud(user)
 		show_to(user)
 	return TRUE
+
+#undef STORAGE_CAP_WIDTH
+#undef STORED_CAP_WIDTH
+#undef BASE_STORAGE_WIDTH
+#undef MAX_LINE_WIDTH
+
+#undef STORAGE_TILE_POSITION_X
+#undef STORAGE_TILE_POSITION_Y
+#undef STORAGE_PIXEL_POSITION_X
+#undef STORAGE_PIXEL_POSITION_Y
+#undef STORAGE_SIZE_MULTIPLIER_Y

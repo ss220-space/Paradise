@@ -5,15 +5,15 @@
 
 */
 
-#define VIRUS_SYMPTOM_LIMIT	6
-#define VIRUS_MAX_SYMPTOM_LEVEL	6
+#define VIRUS_SYMPTOM_LIMIT 6
+#define VIRUS_MAX_SYMPTOM_LEVEL 6
 
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
-									"sodiumchloride", "sugar", "orangejuice",
-									"spaceacillin", "salglu_solution", "ethanol",
-									"teporone", "diphenhydramine", "lipolicide",
-									"silver", "gold"
+	"sodiumchloride", "sugar", "orangejuice",
+	"spaceacillin", "salglu_solution", "ethanol",
+	"teporone", "diphenhydramine", "lipolicide",
+	"silver", "gold"
 ))
 
 GLOBAL_LIST_EMPTY(archive_diseases)
