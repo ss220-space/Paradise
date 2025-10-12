@@ -7,6 +7,7 @@
 	flags_cover = HEADCOVERSEYES
 	item_state = "helmetmaterials"
 	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	clothing_flags = parent_type::clothing_flags|STACKABLE_HELMET_EXEMPT
 	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT

@@ -587,6 +587,7 @@
 #include "code\datums\components\force_move.dm"
 #include "code\datums\components\fullauto.dm"
 #include "code\datums\components\ghost_direct_control.dm"
+#include "code\datums\components\hat_stabilizer.dm"
 #include "code\datums\components\hide_highest_offset.dm"
 #include "code\datums\components\hide_weather_planes.dm"
 #include "code\datums\components\holderloving.dm"

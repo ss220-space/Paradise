@@ -690,6 +690,8 @@
 #define COMSIG_MOB_TRY_SPEECH "living_vocal_speech"
 	/// Return if the mob cannot speak.
 	#define COMPONENT_CANNOT_SPEAK (1<<0)
+/// From mob/living/proc/on_fall
+#define COMSIG_LIVING_THUD "living_thud"
 
 /// from /datum/component/singularity/proc/can_move(), as well as /obj/singularity/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf

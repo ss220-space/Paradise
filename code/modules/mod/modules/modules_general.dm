@@ -915,3 +915,44 @@
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
 		head_cover.item_flags &= ~BANGPROTECT_TOTAL
+
+// MARK: Hat stabilizer
+
+///Allows displaying a hat over the MOD-helmet, à la plasmamen helmets.
+/obj/item/mod/module/hat_stabilizer
+	name = "MOD hat stabilizer module"
+	desc = "A simple set of deployable stands, directly atop one's head; \
+		these will deploy under a hat to keep it from falling off, allowing them to be worn atop the sealed helmet. \
+		You still need to take the hat off your head while the helmet deploys, though. \
+		This is a must-have for Nanotrasen Captains, enabling them to show off their authoritative hat even while in their MODsuit."
+	icon_state = "hat_holder"
+	incompatible_modules = list(/obj/item/mod/module/hat_stabilizer)
+	required_slots = list(ITEM_SLOT_HEAD)
+	/// Original cover flags for the MOD helmet, before a hat is placed
+	var/former_flags
+	var/former_visor_flags
+
+/obj/item/mod/module/hat_stabilizer/on_part_activation()
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(!istype(helmet))
+		return
+	// Override pre-existing component
+	helmet.AddComponent(/datum/component/hat_stabilizer, loose_hat = FALSE)
+
+/obj/item/mod/module/hat_stabilizer/on_part_deactivation(deleting = FALSE)
+	if(deleting)
+		return
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(!istype(helmet))
+		return
+	// Override again!
+	helmet.AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
+
+/obj/item/mod/module/hat_stabilizer/syndicate
+	name = "MOD elite hat stabilizer module"
+	desc = "A simple set of deployable stands, directly atop one's head; \
+		these will deploy under a hat to keep it from falling off, allowing them to be worn atop the sealed helmet. \
+		You still need to take the hat off your head while the helmet deploys, though. This is a must-have for \
+		Syndicate Operatives and Agents alike, enabling them to continue to style on the opposition even while in their MODsuit."
+	complexity = 0
+	removable = FALSE
