@@ -366,7 +366,7 @@
 
 	if(!do_after(user, modded_time, target, DA_IGNORE_SLOWDOWNS))
 		if(target.stat == DEAD && was_sleeping && user.client)
-			user.client.give_award(/datum/award/achievement/misc/sandman, user)
+			user.client.give_award(/datum/award/achievement/jobs/sandman, user)
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_INTERRUPTED
 
@@ -403,7 +403,7 @@
 			surgery.complete(target)
 
 	if(target.stat == DEAD && was_sleeping && user.client)
-		user.client.give_award(/datum/award/achievement/misc/sandman, user)
+		user.client.give_award(/datum/award/achievement/jobs/sandman, user)
 
 	surgery.step_in_progress = FALSE
 	if(advance)

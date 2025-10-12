@@ -364,7 +364,7 @@ SUBSYSTEM_DEF(dbcore)
 			query = querys[thing]
 		else
 			query = thing
-		UNTIL(!query.in_progress)
+		query.sync()
 		if(qdel)
 			qdel(query)
 
@@ -558,6 +558,11 @@ SUBSYSTEM_DEF(dbcore)
 	rows = null
 	item = null
 
+/// Sleeps until execution of the query has finished.
+/datum/db_query/proc/sync()
+	while(in_progress)
+		stoplag()
+
 // Verb that lets admins force reconnect the DB
 /client/proc/reestablish_db_connection()
 	set category = "Debug"
@@ -588,3 +593,4 @@ SUBSYSTEM_DEF(dbcore)
 		message_admins("Database connection failed: [SSdbcore.ErrorMsg()]")
 	else
 		message_admins("Database connection re-established")
+

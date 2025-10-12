@@ -18,7 +18,7 @@
 	desc = "You've killed HOW many?"
 	database_id = BUBBLEGUM_SCORE
 
-/datum/award/score/colussus_score
+/datum/award/score/colossus_score
 	name = "Colossus Killed"
 	desc = "You've killed HOW many?"
 	database_id = COLOSSUS_SCORE

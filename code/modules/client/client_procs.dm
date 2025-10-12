@@ -1642,8 +1642,8 @@
 
 	src << link("https://secure.byond.com/download/")
 
-/client/proc/give_award(achievement_type, mob/user)
-	return achievements.unlock(achievement_type, user)
+/client/proc/give_award(achievement_type, mob/user, value = 1)
+	return achievements.unlock(achievement_type, user, value)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

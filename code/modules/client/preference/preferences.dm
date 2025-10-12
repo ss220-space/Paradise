@@ -272,6 +272,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	/// Minigames notification about their end, start and etc.
 	var/minigames_notifications = TRUE
 
+	var/achivements_sound = CHEEVO_SOUND_PING
+
 	///TRUE when a player declines to be included for the selection process of game mode antagonists.
 	var/skip_antag = FALSE
 
@@ -610,6 +612,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<b>Mute End Of Round Sounds:</b> <a href='byond://?_src_=prefs;preference=mute_end_of_round'><b>[(sound & SOUND_MUTE_END_OF_ROUND) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Диапазон обзора:</b> <a href='byond://?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Мигающие окна:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Да" : "Нет"]</a><br>"
+			dat += "<b>Звук получения достижения:</b> <a href='byond://?_src_=prefs;preference=achievement_sound'>[achivements_sound]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки интерфейса</h2>"
@@ -2664,6 +2667,12 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					for(var/group_key in my_hud.master_groups)
 						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
 						group.build_planes_offset(my_hud, my_hud.current_plane_offset)
+
+				if("achievement_sound")
+					achivements_sound = tgui_input_list(usr, "Выберите нужный звук", "Звук получения достижения", GLOB.achievement_sounds, CHEEVO_SOUND_PING)
+					var/sound/sound_to_send = LAZYACCESS(GLOB.achievement_sounds, achivements_sound)
+					if(sound_to_send)
+						SEND_SOUND(usr, sound_to_send)
 
 				if("keybindings")
 					if(!keybindings_overrides)

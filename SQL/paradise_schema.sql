@@ -296,6 +296,7 @@ CREATE TABLE `player` (
   `toggles_3` int(11) DEFAULT NULL,
   `screentip_mode` tinyint(1) DEFAULT '8',
   `screentip_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#deefff',
+  `achivements_sound` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Success Ping',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),

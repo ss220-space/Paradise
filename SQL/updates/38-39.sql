@@ -19,3 +19,5 @@ CREATE TABLE `achievement_metadata` (
 	`achievement_description` VARCHAR(512) NULL DEFAULT NULL,
 	PRIMARY KEY (`achievement_key`)
 ) ENGINE=InnoDB;
+
+ALTER TABLE `player` ADD COLUMN `achivements_sound` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Success Ping';

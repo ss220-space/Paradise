@@ -24,6 +24,8 @@
 #define MEDAL_LOOKOUTSIR		"Look Out, Sir!"
 #define MEDAL_ASCENSION			"Ascension"
 #define MEDAL_CULT_SHUTTLE_OMFG "WHAT JUST HAPPENED"
+#define MEDAL_CLICKBAIT "Clickbait"
+#define MEDAL_HEALTHY "Heart Healthy"
 
 //Skill medal hub IDs
 #define MEDAL_LEGENDARY_MINER		"Legendary Miner"
@@ -69,3 +71,18 @@
 #define ROBOT_SCORE	 			"Ancient Robots Killed"
 #define FROST_MINER_SCORE		"DFMs Killed"
 #define WENDIGO_SCORE			"Wendigos Killed"
+
+
+/// DB ID for the amount of achievements unlocked by the player.
+#define ACHIEVEMENTS_SCORE "Achievements Score"
+
+/// preferences for the sound played when unlocking an achievement
+#define CHEEVO_SOUND_TADA "Tada Fanfare"
+#define CHEEVO_SOUND_JINGLE "Beeps Jingle"
+#define CHEEVO_SOUND_PING "Success Ping"
+#define CHEEVO_SOUND_OFF "Disabled"
+
+
+/// Value in metadata version that signifies the achievement is archived
+#define ACHIEVEMENT_ARCHIVED_VERSION 9999
+

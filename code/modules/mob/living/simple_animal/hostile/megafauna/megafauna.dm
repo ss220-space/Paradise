@@ -193,13 +193,13 @@
 	for(var/mob/living/L in view(7, src))
 		if(L.stat || !L.client)
 			continue
-		var/client/C = L.client
-		L.client.give_award(/datum/award/achievement/boss/boss_killer, L)
-		L.client.give_award(achievement_type, L)
+		var/client/mob_client = L.client
+		mob_client.give_award(/datum/award/achievement/boss/boss_killer, L)
+		mob_client.give_award(achievement_type, L)
 		if(crusher_kill && istype(L.get_active_hand(), /obj/item/twohanded/kinetic_crusher))
-			L.client.give_award(crusher_achievement_type, L)
-		L.client.give_award(/datum/award/score/boss_score, L) //Score progression for bosses killed in general
-		L.client.give_award(score_achievement_type, L) //Score progression for specific boss killed
+			mob_client.give_award(crusher_achievement_type, L)
+		mob_client.give_award(/datum/award/score/boss_score, L) //Score progression for bosses killed in general
+		mob_client.give_award(score_achievement_type, L) //Score progression for specific boss killed
 	return TRUE
 
 

@@ -393,7 +393,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	suplex_effect(human)
 
 /obj/effect/immovablerod/proc/suplex_effect(mob/living/carbon/human/human)
-	human.client.give_award(/datum/award/achievement/misc/feat_of_strength, human) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
+	human.client.give_award(/datum/award/achievement/jobs/feat_of_strength, human) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
 	human.visible_message(span_boldwarning("[capitalize(human.declent_ru(NOMINATIVE))] хвата[pluralize_ru(human.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и броса[pluralize_ru(human.gender, "ет", "ют")] на землю!"), span_warning("Вы хватаете [declent_ru(ACCUSATIVE)] и бросаете на землю!"))
 	new /obj/structure/festivus/anchored(drop_location())
 	new /obj/effect/anomaly/energetic/tier2(drop_location())

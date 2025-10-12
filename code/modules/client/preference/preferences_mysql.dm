@@ -24,7 +24,8 @@
 					ghost_darkness_level,
 					toggles_3,
 					screentip_mode,
-					screentip_color
+					screentip_color,
+					achivements_sound
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -61,6 +62,7 @@
 		toggles3 = text2num(query.item[22])
 		screentip_mode = query.item[23]
 		screentip_color = query.item[24]
+		achivements_sound = query.item[25]
 
 	qdel(query)
 
@@ -120,7 +122,8 @@
 					ghost_darkness_level=:ghost_darkness_level,
 					toggles_3=:toggles3,
 					screentip_mode=:screentip_mode,
-					screentip_color=:screentip_color
+					screentip_color=:screentip_color,
+					achivements_sound=:achivements_sound
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -144,7 +147,8 @@
 						"ckey" = C.ckey,
 						"toggles3" = num2text(toggles3, CEILING(log(10, (TOGGLES_3_TOTAL)), 1)),
 						"screentip_mode" = screentip_mode,
-						"screentip_color" = screentip_color
+						"screentip_color" = screentip_color,
+						"achivements_sound" = achivements_sound
 					)
 					)
 

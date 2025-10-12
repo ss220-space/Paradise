@@ -72,7 +72,7 @@
 		return
 
 	to_chat(M, span_hierophant("Вы побеждаете, и злобные духи исчезают, а ваши раны затягиваются."))
-	M.client.give_award(/datum/award/achievement/misc/helbitaljanken, M)
+	M.client.give_award(/datum/award/achievement/jobs/helbitaljanken, M)
 	M.revive()
 	M.reagents.del_reagent(type)
 

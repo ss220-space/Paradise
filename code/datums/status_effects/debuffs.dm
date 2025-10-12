@@ -1485,7 +1485,7 @@
 		wasting_effect.transform = owner.transform //if the owner has been stunned the overlay should inherit that position
 		wasting_effect.alpha = 255
 		animate(wasting_effect, alpha = 0, time = 32)
-		playsound(owner, 'sound/effects/curse/curse5.ogg', 20, TRUE, -1)
+		playsound(owner, 'sound/effects/curse5.ogg', 20, TRUE, -1)
 		owner.adjustFireLoss(0.75)
 
 	//TODO uncomment after heretic

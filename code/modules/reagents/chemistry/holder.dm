@@ -505,10 +505,10 @@
 			del_reagent(R.id)
 			update_total()
 
-/datum/reagents/proc/del_reagent(reagent)
+/datum/reagents/proc/del_reagent(reagent_id)
 	var/list/cached_reagents = reagent_list
 	for(var/datum/reagent/reagent as anything in cached_reagents)
-		if(reagent.id == reagent)
+		if(reagent.id == reagent_id)
 			if(isliving(my_atom))
 				if(reagent.metabolizing)
 					reagent.metabolizing = FALSE

@@ -7,5 +7,5 @@
 	name = "Legendary miner"
 	desc = "No mere rock can stop me!"
 	database_id = MEDAL_LEGENDARY_MINER
-	icon = "mining"
+	icon_state = "mining"
 */

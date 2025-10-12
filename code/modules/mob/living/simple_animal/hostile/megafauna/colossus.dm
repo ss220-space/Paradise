@@ -48,9 +48,9 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	universal_speak = TRUE
 	tts_seed = null
-	achievement_type = /datum/award/achievement/boss/colussus_kill
-	crusher_achievement_type = /datum/award/achievement/boss/colussus_crusher
-	score_achievement_type = /datum/award/score/colussus_score
+	achievement_type = /datum/award/achievement/boss/colossus_kill
+	crusher_achievement_type = /datum/award/achievement/boss/colossus_crusher
+	score_achievement_type = /datum/award/score/colossus_score
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "распадается, оставляя после себя светящееся ядро."
