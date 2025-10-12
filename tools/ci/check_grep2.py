@@ -295,6 +295,15 @@ def check_duplicate_spans(idx, line):
         return [(idx + 1, f"Found nested identical span macros: 'span_{name}' inside another 'span_{name}'.")]
     return failures
 
+HTML_TAGS_CASE_RE = re.compile(r'</?(b|i|u|br|hr|p|div|span|font|center|body|html|head|title|meta|link|script|style|img|a|table|tr|td|th|ul|ol|li|h1|h2|h3|h4|h5|h6)(?:\s+|>)', re.IGNORECASE)
+def check_html_tags_case(idx, line):
+    failures = []
+    for match in HTML_TAGS_CASE_RE.finditer(line):
+        tag = match.group(1)
+        if tag.isupper():
+            failures.append((idx + 1, f"HTML tag '<{tag}>' should be in lowercase, not uppercase."))
+    return failures
+
 def check_updatepaths_validity():
     updatepaths_dir = "tools/UpdatePaths/Scripts/"
     if not os.path.isdir(updatepaths_dir):
@@ -347,6 +356,7 @@ CODE_CHECKS = [
     check_ie_typo,
     check_define_formatting,
     check_duplicate_spans,
+    check_html_tags_case,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
