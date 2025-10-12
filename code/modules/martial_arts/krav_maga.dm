@@ -2,6 +2,7 @@
 	name = "Крав-мага"
 	has_dirslash = FALSE
 	change_musculs = FALSE
+	block_chance = 40
 	weight = 9 //Higher weight, since you can choose to put on or take off the gloves
 	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
