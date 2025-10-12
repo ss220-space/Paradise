@@ -408,7 +408,7 @@
 	Radio.set_frequency(SEC_FREQ)
 	Radio.autosay("ОПОВЕЩЕНИЕ БЕЗОПАСНОСТИ: Член экипажа [gamer.declent_ru(NOMINATIVE)] демонстрирует признаки асоциального поведения в [get_area(src)]. Пожалуйста, будьте внимательны к проявлениям агрессивного поведения.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
 	Radio.set_frequency(MED_FREQ)
-	Radio.talk_into(src, "ООВЕЩЕНИЕ О ПСИХИЧЕСТКОМ РАССТРОЙСТВЕ: У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	Radio.talk_into(src, "ОПОВЕЩЕНИЕ О ПСИХИЧЕСТКОМ РАССТРОЙСТВЕ: У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
 
 	gamers[gamer] = -1
 
