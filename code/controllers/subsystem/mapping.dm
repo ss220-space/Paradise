@@ -694,9 +694,9 @@ SUBSYSTEM_DEF(mapping)
 	generate_linkages_for_z_level(z_value)
 	// We are guarenteed that we'll always grow bottom up
 	// Suck it jannies
-	length(z_level_to_plane_offset) += 1
-	length(z_level_to_lowest_plane_offset) += 1
-	length(z_level_to_stack) += 1
+	z_level_to_plane_offset.len++
+	z_level_to_lowest_plane_offset.len++
+	z_level_to_stack.len++
 	// Bare minimum we have ourselves
 	z_level_to_stack[z_value] = list(z_value)
 	// 0's the default value, we'll update it later if required
