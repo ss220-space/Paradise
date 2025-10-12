@@ -176,6 +176,7 @@
 	complexity = 2
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 200 // 1000 charge. Shocking, I know.
 	device = /obj/item/mod_defib
+	required_slots = list(ITEM_SLOT_GLOVES)
 	overlay_state_inactive = "module_defibrillator"
 	overlay_state_active = "module_defibrillator_active"
 	incompatible_modules = list(/obj/item/mod/module/defibrillator)
@@ -204,6 +205,7 @@
 	desc = "Пара лопаток с проводящей металлической поверхностью для передачи мощных электрических разрядов."
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibgauntlets0" //Inhands handled by the module overlays
+	item_state = null
 	force = 0
 	w_class = WEIGHT_CLASS_BULKY
 	toolspeed = 1

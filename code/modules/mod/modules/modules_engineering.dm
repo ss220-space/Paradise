@@ -73,6 +73,7 @@
 	module_type = MODULE_TOGGLE
 	complexity = 2
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
+	required_slots = list(ITEM_SLOT_FEET)
 	incompatible_modules = list(/obj/item/mod/module/magboot)
 	cooldown_time = 0.5 SECONDS
 	/// Slowdown added onto the suit.
@@ -292,6 +293,7 @@
 	icon_state = "firefighting_tank"
 	module_type = MODULE_ACTIVE
 	complexity = 2
+	required_slots = list(ITEM_SLOT_GLOVES)
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	device = /obj/item/extinguisher/mini/mod
 

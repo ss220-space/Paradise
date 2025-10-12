@@ -538,6 +538,7 @@
 
 /obj/item/mod/module/dna_lock/on_use()
 	dna = mod.wearer.dna.unique_enzymes
+	balloon_alert(mod.wearer, "данные считаны!")
 	drain_power(use_energy_cost)
 
 /obj/item/mod/module/dna_lock/emp_act(severity)
