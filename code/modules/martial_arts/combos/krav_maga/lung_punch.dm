@@ -3,7 +3,7 @@
 	explaination_text = "Сильный удар по торсу оппонента, на некоторое время восстановление его выносливости будет замедлено."
 
 /datum/martial_combo/krav_maga/lung_punch/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(HAS_TRAIT(target, TRAIT_KRAVMAGA_DEBUFF))
+	if(HAS_TRAIT(target, TRAIT_KRAVMAGA_DEBUFF) || user.a_intent == INTENT_HELP)
 		return FALSE
 	target.visible_message(
 		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сильно бь[pluralize_ru(user.gender, "ёт", "ют")] [target.declent_ru(ACCUSATIVE)] по торсу!"), \

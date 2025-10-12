@@ -15,7 +15,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/old_grab_state = attacker.grab_state
 	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
-	if(grab_success && old_grab_state == GRAB_PASSIVE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE && defender.getStaminaLoss() >= 50)
 		defender.grippedby(attacker) //Instant aggressive grab
 		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
 	return TRUE

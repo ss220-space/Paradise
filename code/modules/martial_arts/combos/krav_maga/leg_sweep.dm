@@ -3,7 +3,7 @@
 	explaination_text = "Сильный удар по ноге оппонента, замедляет его на некоторое время."
 
 /datum/martial_combo/krav_maga/leg_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(target.stat || IS_HORIZONTAL(target))
+	if(target.stat || IS_HORIZONTAL(target) || user.a_intent == INTENT_HELP)
 		return FALSE
 	if(HAS_TRAIT(target, TRAIT_KRAVMAGA_DEBUFF))
 		return FALSE
