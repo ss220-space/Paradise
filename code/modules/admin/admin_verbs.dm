@@ -77,6 +77,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/openMentorTicketUI,
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets,
+	/datum/admins/proc/custom_allow_panel,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,

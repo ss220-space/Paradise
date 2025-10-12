@@ -1,4 +1,8 @@
-/datum/admins/proc/custom_allow_panel()//The new one
+/datum/admins/proc/custom_allow_panel()
+	set category = "Admin"
+	set name = "Show Custom Allow Panel"
+	set desc = ""
+
 	if(!usr.client.holder)
 		return
 	// This stops the panel from being invoked by mentors who press F7.
@@ -32,10 +36,11 @@
 /datum/custom_allower/ui_data(mob/user)
 	var/list/data = list()
 	data["ckeys"] = GLOB.temp_custom_holders
-	if(manequien)
-		ui_view.appearance = manequien.appearance
+	data["choosen_ckey"] = choosen_ckey ? choosen_ckey : ""
+	ui_view.appearance = manequien?.appearance
 	data["custom_view"] = ui_view.assigned_map
 	data["sprite_types"] = choosen_holder ? choosen_holder.icons : list()
+	data["choosen_icon"] = choosen_icon ? choosen_icon : ""
 	data["name"] = choosen_holder ? choosen_holder.name : ""
 	data["desc"] = choosen_holder ? choosen_holder.desc : ""
 	return data
@@ -47,15 +52,14 @@
 		return
 	switch(action)
 		if("select_user")
-			var/choosen_ckey = params["ckey"]
+			choosen_ckey = params["ckey"]
 			if(!LAZYIN(GLOB.temp_custom_holders, choosen_ckey))
 				return
 			choosen_holder = GLOB.temp_custom_holders[choosen_ckey]
 			choosen_icon = choosen_holder.icons[1]
 			make_manequien()
 		if("select_icon")
-			var/choosen_icon = params["icon_name"]
-			choosen_icon = choosen_holder.icons[choosen_icon]
+			choosen_icon = params["icon_name"]
 			make_manequien()
 
 /datum/custom_allower/ui_interact(mob/user, datum/tgui/ui)
@@ -64,8 +68,8 @@
 	if(!ui)
 		ui = new(user, src, "CustomAllower", title)
 		ui.set_autoupdate(TRUE)
-		ui_view.display_to(user, ui.window)
 		ui.open()
+		ui_view.display_to(user, ui.window)
 
 /datum/custom_allower/ui_close(mob/user)
 	. = ..()
@@ -83,20 +87,21 @@
 	qdel(manequien)
 	switch(choosen_icon)
 		if("base")
-			ui_view	.icon = choosen_holder.icons[choosen_icon]
-			ui_view	.icon_state = choosen_holder.ckey
-			manequien = null
+			var/obj/item/thing = new
+			thing.icon = choosen_holder.icons[choosen_icon]
+			thing.icon_state = choosen_holder.ckey
+			manequien = thing
 		if("inhand_l")
-			var/mob/living/carbon/human/human_to_show = new(usr.loc)
+			var/mob/living/carbon/human/human_to_show = new
 			var/obj/item/thing = new
 			thing.lefthand_file = choosen_holder.icons[choosen_icon]
 			thing.item_state = choosen_holder.ckey
 			human_to_show.put_in_l_hand(thing, TRUE, TRUE, TRUE)
 			manequien = human_to_show
 		if("inhand_r")
-			var/mob/living/carbon/human/human_to_show = new(usr.loc)
+			var/mob/living/carbon/human/human_to_show = new
 			var/obj/item/thing = new
-			thing.lefthand_file = choosen_holder.icons[choosen_icon]
+			thing.righthand_file = choosen_holder.icons[choosen_icon]
 			thing.item_state = choosen_holder.ckey
 			human_to_show.put_in_r_hand(thing, TRUE, TRUE, TRUE)
 			manequien = human_to_show
