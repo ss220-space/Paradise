@@ -39,7 +39,7 @@
 /// Suppressed bleeding modifier
 #define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
 /// Oxy damage if use tourniquet on head
-#define OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD 10
+#define OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD 4
 
 // MARK: External organ procs
 

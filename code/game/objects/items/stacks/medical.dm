@@ -689,11 +689,11 @@
 	origin_tech = "biotech=3"
 	w_class = WEIGHT_CLASS_TINY
 	/// Duration to apply self
-	var/self_duration = 3 SECONDS
+	var/self_duration = 5 SECONDS
 	/// Duration to apply other mobs
-	var/other_duration = 2 SECONDS
+	var/other_duration = 3 SECONDS
 	/// Removing duration
-	var/remove_duration = 2.5 SECONDS
+	var/remove_duration = 3 SECONDS
 	/// Bodypart where applyed tourniquet
 	var/obj/item/organ/external/applyed_bodypart = null
 	/// Addition bodypart where applyed tourniquet (hand for arm, foot for leg)
@@ -768,9 +768,9 @@
 			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
 			return .
 	else
-		balloon_alert(user, "применение [declent_ru(GENITIVE)]...")
+		user.balloon_alert_to_viewers("применение [declent_ru(GENITIVE)]...")
 		user.visible_message(
-			span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [human_target]."),
+			span_danger("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [human_target]."),
 			ignored_mobs = user
 		)
 		if(!do_after(user, other_duration, human_target) || applyed_bodypart)
@@ -786,7 +786,7 @@
 			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
 			return .
 		user.visible_message(
-			span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
+			span_danger("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
 			span_green("Вы применяете [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
 		)
 
@@ -798,7 +798,7 @@
 	user.drop_item_ground(src)
 	src.forceMove(affecting)
 
-	balloon_alert(user, "жгут наложен")
+	user.balloon_alert_to_viewers("жгут наложен")
 	target.UpdateDamageIcon()
 	update_icon()
 	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
@@ -849,8 +849,8 @@
 	desc = "Самодельный жгут для остановки всех видов кровотечений на конечностях. При долгом ношении конечность может отмереть. Можно наложить только на конечности."
 	icon_state = "makeshift_tourniquet"
 	item_state = "makeshift_tourniquet"
-	self_duration = 5 SECONDS
-	other_duration = 3 SECONDS
+	self_duration = 8 SECONDS
+	other_duration = 5 SECONDS
 	remove_duration = 5 SECONDS
 
 /obj/item/tourniquet/makeshift/remove_from_bodypart(mob/living/user)
@@ -872,9 +872,9 @@
 	desc = "Турникет для остановки всех видов кровотечений на конечностях. При долгом ношении конечность может отмереть. Можно наложить только на конечности."
 	icon_state = "advanced_tourniquet"
 	item_state = "advanced_tourniquet"
-	self_duration = 1 SECONDS
-	other_duration = 0.5 SECONDS
-	remove_duration = 0.5 SECONDS
+	self_duration = 3 SECONDS
+	other_duration = 2 SECONDS
+	remove_duration = 1 SECONDS
 
 /obj/item/tourniquet/advanced/get_ru_names()
 	return list(
