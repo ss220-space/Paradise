@@ -539,6 +539,8 @@
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
 	var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
 	var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
+	if(HAS_TRAIT(projectile.firer, TRAIT_HIGH_MISS_CHANCE))
+		total_hit_chance *= ATTACK_MISS_CHANCE / 100
 	return !prob(total_hit_chance)
 
 
