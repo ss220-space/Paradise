@@ -1375,7 +1375,7 @@
 		if(get_dist(T, src) >= range_low && get_dist(T, src) <= range_high)
 			targets.Add(T)
 
-	if(targets.len == 0)
+	if(length(targets) == 0)
 		return FALSE
 
 	var/turf/target = pick(targets)

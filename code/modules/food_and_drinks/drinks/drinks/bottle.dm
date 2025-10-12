@@ -125,7 +125,7 @@
 
 
 /obj/item/reagent_containers/food/drinks/bottle/proc/SplashReagents(mob/M)
-	if(reagents && reagents.total_volume)
+	if(reagents?.total_volume)
 		M.visible_message(span_danger("Содержимое [src.declent_ru(GENITIVE)] разбрызгивается по [M.declent_ru(PREPOSITIONAL)]!"))
 		reagents.reaction(M, REAGENT_TOUCH)
 		reagents.clear_reagents()

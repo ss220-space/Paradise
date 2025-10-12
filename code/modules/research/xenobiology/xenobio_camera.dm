@@ -22,7 +22,7 @@
 	if(!.)
 		return
 	var/area/new_area = get_area(.)
-	if(new_area && new_area.name != allowed_area && !(new_area && new_area.xenobiology_compatible))
+	if(new_area && new_area.name != allowed_area && !(new_area?.xenobiology_compatible))
 		return FALSE
 
 #define MAX_SLIME_IN_CONSOLE 5

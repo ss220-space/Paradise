@@ -85,14 +85,14 @@
 			possible_items += SPELL_HEART
 			possible_icons += list(SPELL_HEART = image(icon = 'icons/obj/clockwork.dmi', icon_state = "ratvarpart1"))
 		var/item_to_enchant
-		if(possible_items.len >= 2)
+		if(length(possible_items) >= 2)
 			item_to_enchant = show_radial_menu(owner, owner, possible_icons, require_near = TRUE)
-		else if(possible_items.len == 1)
+		else if(length(possible_items) == 1)
 			item_to_enchant = possible_items[1]
 		else
 			item_to_enchant = null
 		if(!item_to_enchant)
-			if(possible_items.len) // we had a choice but declined
+			if(length(possible_items)) // we had a choice but declined
 				return
 			item_to_enchant = null
 		if(item_to_enchant == SPELL_HAND)
@@ -109,7 +109,7 @@
 					return
 		if(QDELETED(src) || owner.incapacitated())
 			return
-	if(item?.enchants?.len) // it just works
+	if(length(item?.enchants)) // it just works
 		if(item.enchant_type == CASTING_SPELL)
 			to_chat(owner, span_warning(" You can't enchant [item] right now while spell is working!"))
 			return

@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	// 10% chance to choose a special name, or use one if no name has been selected yet
 	// (provided the golem has special names for this gender)
-	if(special_names && special_names.len && (prob(special_name_chance) || (golem_surname == null)))
+	if(special_names && length(special_names) && (prob(special_name_chance) || (golem_surname == null)))
 		golem_surname = pick(special_names[gender_name])
 
 	// 5% chance to choose a human first or last name, or if golem still doesn't have a name
@@ -956,7 +956,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		if(T.y>world.maxy-tele_range || T.y<tele_range)
 			continue
 		turfs += T
-	if(!turfs.len)
+	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)
 	if(!isturf(picked))
@@ -1051,7 +1051,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		if(T.y>world.maxy-tele_range || T.y<tele_range)
 			continue
 		turfs += T
-	if(!turfs.len)
+	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)
 	if(!isturf(picked))

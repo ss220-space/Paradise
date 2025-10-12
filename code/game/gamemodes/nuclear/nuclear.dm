@@ -21,7 +21,7 @@
 	if(!length(possible_syndicates))
 		return FALSE
 
-	if(possible_syndicates.len > agents_possible)
+	if(length(possible_syndicates) > agents_possible)
 		agent_number = agents_possible
 	else
 		agent_number = possible_syndicates.len
@@ -50,7 +50,7 @@
 	var/datum/team/nuclear_team/team = new /datum/team/nuclear_team
 
 	for(var/datum/mind/synd_mind as anything in syndicates)
-		if(spawnpos > GLOB.nukespawn.len)
+		if(spawnpos > length(GLOB.nukespawn))
 			spawnpos = 2
 		synd_mind.current.loc = GLOB.nukespawn[spawnpos]
 		create_syndicate(synd_mind)

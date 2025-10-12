@@ -378,7 +378,7 @@
 				var/obj/item/W = i
 				if(!(W.flags & (ADMIN_SPAWNED|HOLOGRAM)) && !(W.item_flags & ABSTRACT))
 					L += W
-		if(L.len)
+		if(length(L))
 			var/obj/item/CHOSEN = pick(L)
 			new CHOSEN.type(T)
 			qdel(CHOSEN)

@@ -59,12 +59,12 @@
 	if(!files)
 		files = new /datum/research(src)
 	var/list/temp_list
-	if(!id_with_upload.len)
+	if(!length(id_with_upload))
 		temp_list = list()
 		temp_list = splittext(id_with_upload_string, ";")
 		for(var/N in temp_list)
 			id_with_upload += text2num(N)
-	if(!id_with_download.len)
+	if(!length(id_with_download))
 		temp_list = list()
 		temp_list = splittext(id_with_download_string, ";")
 		for(var/N in temp_list)
@@ -200,7 +200,7 @@
 
 	LAZYINITLIST(usage_logs)
 	usage_logs.len++
-	usage_logs[usage_logs.len] = list(time_created, user_name, user_job, blueprint_name, used_machine)
+	usage_logs[length(usage_logs)] = list(time_created, user_name, user_job, blueprint_name, used_machine)
 
 /obj/machinery/r_n_d/server/proc/clear_logs(mob/user)
 	if(!LAZYLEN(usage_logs))
@@ -215,7 +215,7 @@
 
 	LAZYINITLIST(logs_for_logs_clearing)
 	logs_for_logs_clearing.len++
-	logs_for_logs_clearing[logs_for_logs_clearing.len] = list(time_cleared, user_name, user_job)
+	logs_for_logs_clearing[length(logs_for_logs_clearing)] = list(time_cleared, user_name, user_job)
 
 	LAZYCLEARLIST(usage_logs)
 

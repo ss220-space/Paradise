@@ -34,11 +34,11 @@
 
 		killers_accs += account
 
-	if(!killers_accs.len)
+	if(!length(killers_accs))
 		qdel(src)
 		return
 
-	var/bounty = round(reward / killers_accs.len)
+	var/bounty = round(reward / length(killers_accs))
 	for(var/datum/money_account/account as anything in killers_accs)
 		if(!account.charge(bounty, account, "Выплата вознаграждения персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Поступление зарплаты" ,"Biesel TCD Terminal #[rand(111,333)]"))
 			continue

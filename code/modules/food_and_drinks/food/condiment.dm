@@ -109,9 +109,9 @@
 		to_chat(user, span_notice("You transfer [trans] units of the condiment to [target]."))
 
 /obj/item/reagent_containers/food/condiment/on_reagent_change()
-	if(!possible_states.len)
+	if(!length(possible_states))
 		return
-	if(reagents.reagent_list.len > 0)
+	if(length(reagents.reagent_list) > 0)
 		var/main_reagent = reagents.get_master_reagent_id()
 		if(main_reagent in possible_states)
 			var/list/temp_list = possible_states[main_reagent]

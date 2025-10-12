@@ -97,7 +97,7 @@
 	if(empty_into && !istype(empty_into))
 		empty_into = null
 
-	if(empty_into && empty_into.contents.len >= empty_into.storage_slots)
+	if(empty_into && length(empty_into.contents) >= empty_into.storage_slots)
 		balloon_alert(user, "нет места!")
 		return
 
@@ -108,7 +108,7 @@
 			break
 		if(empty_into)
 			empty_into.handle_item_insertion(SP)
-			if(empty_into.contents.len >= empty_into.storage_slots)
+			if(length(empty_into.contents) >= empty_into.storage_slots)
 				break
 	if(empty_into)
 		if(paperamount)

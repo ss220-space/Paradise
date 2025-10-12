@@ -33,15 +33,15 @@ Made by Xhuis
 */
 
 /proc/is_thrall(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadowling_thralls)
+	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
 
 /proc/is_shadow_or_thrall(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.shadowling_thralls) || (M.mind in SSticker.mode.shadows))
+	return istype(M) && M.mind && SSticker?.mode && ((M.mind in SSticker.mode.shadowling_thralls) || (M.mind in SSticker.mode.shadows))
 
 
 /proc/is_shadow(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadows)
+	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadows)
 
 
 /datum/game_mode/shadowling
@@ -63,7 +63,7 @@ Made by Xhuis
 
 	var/list/datum/mind/possible_shadowlings = get_players_for_role(ROLE_SHADOWLING)
 
-	if(!possible_shadowlings.len)
+	if(!length(possible_shadowlings))
 		return 0
 
 	var/shadowlings = max(3, round(num_players()/14))
@@ -290,7 +290,7 @@ Made by Xhuis
 
 /datum/game_mode/proc/auto_declare_completion_shadowling()
 	var/list/text = list("")
-	if(shadows.len)
+	if(length(shadows))
 		text += "<br><span class='big'><b>Тенелингами были:</b></span>"
 		for(var/datum/mind/shadow in shadows)
 			text += "<br>[shadow.get_display_key()] was [shadow.name] ("
@@ -305,7 +305,7 @@ Made by Xhuis
 				text += "тело уничтожено"
 			text += ")"
 		text += "<br>"
-		if(shadowling_thralls.len)
+		if(length(shadowling_thralls))
 			text += "<br><span class='big'><b>Рабами были:</b></span>"
 			for(var/datum/mind/thrall in shadowling_thralls)
 				text += "<br>[thrall.get_display_key()] was [thrall.name] ("

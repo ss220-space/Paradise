@@ -300,7 +300,7 @@
 
 /datum/mind/proc/_memory_edit_role_enabled(role)
 	. = "|Disabled in Prefs"
-	if(current && current.client && (role in current.client.prefs.be_special))
+	if(current?.client && (role in current.client.prefs.be_special))
 		. = "|Enabled in Prefs"
 
 /datum/mind/proc/memory_edit_implant(mob/living/carbon/human/H)
@@ -666,12 +666,12 @@
 		if(robot.laws.zeroth_law)
 			. += "<br>0th law: [robot.laws.zeroth_law?.law]"
 	var/mob/living/silicon/ai/ai = current
-	if(istype(ai) && ai.connected_robots.len)
+	if(istype(ai) && length(ai.connected_robots))
 		var/n_e_robots = 0
 		for(var/mob/living/silicon/robot/R in ai.connected_robots)
 			if(R.emagged)
 				n_e_robots++
-		. += "<br>[n_e_robots] of [ai.connected_robots.len] slaved cyborgs are emagged. <a href='byond://?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
+		. += "<br>[n_e_robots] of [length(ai.connected_robots)] slaved cyborgs are emagged. <a href='byond://?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
 
 
 /datum/mind/proc/memory_edit_uplink()
@@ -1033,7 +1033,7 @@
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
-				if(possible_targets.len)
+				if(length(possible_targets))
 					var/mob/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
@@ -1327,14 +1327,14 @@
 		switch(href_list["implant"])
 			if("ertremove")
 				for(var/obj/item/implant/mindshield/ert/I in H.contents)
-					if(I && I.implanted)
+					if(I?.implanted)
 						qdel(I)
 				to_chat(H, span_notice(span_fontsize3("<b>Your ert mindshield implant has been deactivated.</b>")))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s ert mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s ert mindshield implant")
 			if("remove")
 				for(var/obj/item/implant/mindshield/I in H.contents)
-					if(I && I.implanted)
+					if(I?.implanted)
 						qdel(I)
 				to_chat(H, span_notice(span_fontsize3("<b>Your mindshield implant has been deactivated.</b>")))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
@@ -1553,7 +1553,7 @@
 					log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 				else if(src in SSticker.mode.apprentices)
-					if(SSticker.mode.wizards.len)
+					if(length(SSticker.mode.wizards))
 						var/datum/mind/wizard = pick(SSticker.mode.wizards)
 						SSticker.mode.forge_wizard_apprentice_objectives(wizard, src)
 					else
@@ -1991,7 +1991,7 @@
 
 	else if(href_list["contractor"])
 		var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
-		var/datum/contractor_hub/H = C && C.contractor_uplink?.hub
+		var/datum/contractor_hub/H = C?.contractor_uplink?.hub
 		var/datum/antagonist/traitor/traitor = has_antag_datum(/datum/antagonist/traitor)
 		switch(href_list["contractor"])
 			if("clear")
@@ -2846,7 +2846,7 @@
 		special_role = SPECIAL_ROLE_WIZARD
 		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
-		if(!GLOB.wizardstart.len)
+		if(!length(GLOB.wizardstart))
 			current.forceMove(pick(GLOB.latejoin))
 			to_chat(current, "HOT INSERTION, GO GO GO")
 		else
@@ -2983,7 +2983,7 @@
 
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
-	if(old_current && old_current.actions)
+	if(old_current?.actions)
 		for(var/datum/action/A in old_current.actions)
 			if(A.check_flags & AB_TRANSFER_MIND)
 				A.Grant(new_character)

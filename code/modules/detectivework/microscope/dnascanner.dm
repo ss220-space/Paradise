@@ -67,7 +67,7 @@
 		//dna data itself
 		var/data = "Нет доступных данных по анализу."
 		if(bloodswab.dna != null)
-			data = "Спектрометрический анализ на предоставленном образце определил наличие нитей ДНК в количестве [bloodswab.dna.len].<br><br>"
+			data = "Спектрометрический анализ на предоставленном образце определил наличие нитей ДНК в количестве [length(bloodswab.dna)].<br><br>"
 			for(var/blood in bloodswab.dna)
 				data += "<span class='notice'>Группа крови: [bloodswab.dna[blood]]<br>\nДНК: [blood]</span><br><br>"
 		else

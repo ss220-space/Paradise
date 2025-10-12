@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(EP.beacon_network in beacon_networks)
 			possible_beacons += EP
 
-	if(!possible_beacons.len)
+	if(!length(possible_beacons))
 		balloon_alert(user, "маяки не найдены!")
 		return
 

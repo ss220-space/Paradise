@@ -59,7 +59,7 @@
 
 
 /obj/item/implant/storage/proc/get_contents() //Used for swiftly returning a list of the implant's contents i.e. for checking a theft objective's completion.
-	if(storage && storage.contents)
+	if(storage?.contents)
 		return storage.contents
 
 

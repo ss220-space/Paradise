@@ -43,7 +43,7 @@
 	data = counterlist_normalise(supplied_data)
 
 /datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
-	if(!islist(newdata) || !newdata.len)
+	if(!islist(newdata) || !length(newdata))
 		return
 	var/list/taste_amounts = list()
 	var/list/other_taste_amounts = newdata.Copy()
@@ -499,7 +499,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
-		if(vamp && vamp.is_garlic_affected && !vamp.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
+		if(vamp?.is_garlic_affected && !vamp.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
 			if(prob(min(25, current_cycle)))
 				to_chat(H, span_danger("Аромат чеснока не выветривается из вашего носа! Вы едва можете думать..."))
 				H.Weaken(2 SECONDS)

@@ -83,7 +83,7 @@
 
 	var/clicked_turf = get_turf(atom)
 	var/list/turf/turfs = get_mopping_turfs(user, clicked_turf)
-	if(!turfs.len)
+	if(!length(turfs))
 		return
 
 	user.visible_message(

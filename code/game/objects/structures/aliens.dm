@@ -398,7 +398,7 @@
 
 	cut_overlays()
 
-	if(!weedImageCache || !weedImageCache.len)
+	if(!weedImageCache || !length(weedImageCache))
 		weedImageCache = list()
 		weedImageCache.len = 4
 		weedImageCache[WEED_NORTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_n", layer=2.11, pixel_y = -32)

@@ -528,7 +528,8 @@
 	//Vampire code
 	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp && !vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user)
-		if(HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD) || !target.blood_volume)
+		var/datum/antagonist/vampire/is_victim_vampire = target.mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(!is_victim_vampire && (HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD) || !target.blood_volume))
 			to_chat(user, span_warning("Отсутствует кровь!"))
 			return
 
@@ -537,7 +538,7 @@
 			return
 
 		//we're good to suck the blood, blaah
-		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire)))
+		if(is_victim_vampire)
 			to_chat(user, span_warning("Вы чувствуете, что [target.declent_ru(NOMINATIVE)] — ваш сородич."))
 
 		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
@@ -1197,7 +1198,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()
-	if(!random_species.len)
+	if(!length(random_species))
 		for(var/thing  in subtypesof(/datum/species))
 			var/datum/species/S = thing
 			if(!initial(S.dangerous_existence) && !initial(S.blacklisted))

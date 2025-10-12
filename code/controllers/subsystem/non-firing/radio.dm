@@ -125,7 +125,7 @@ SUBSYSTEM_DEF(radio)
 
 	frequency.remove_listener(device)
 	remove_radio(device, old_frequency)
-	if(frequency.devices.len != 0)
+	if(length(frequency.devices) != 0)
 		return 1
 
 	qdel(frequency)

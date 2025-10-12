@@ -181,9 +181,9 @@
 
 	SSshuttle.stationary |= src
 	if(!id)
-		id = "[SSshuttle.stationary.len]"
+		id = "[length(SSshuttle.stationary)]"
 	if(name == "dock")
-		name = "dock[SSshuttle.stationary.len]"
+		name = "dock[length(SSshuttle.stationary)]"
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -298,9 +298,9 @@
 	SSshuttle.mobile += src
 
 	if(!id)
-		id = "[SSshuttle.mobile.len]"
+		id = "[length(SSshuttle.mobile)]"
 	if(name == "shuttle")
-		name = "shuttle[SSshuttle.mobile.len]"
+		name = "shuttle[length(SSshuttle.mobile)]"
 
 	return 1
 
@@ -434,7 +434,7 @@
 	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
 
 	//remove area surrounding docking port
-	if(areaInstance.contents.len)
+	if(length(areaInstance.contents))
 		var/area/A0 = locate("[area_type]")
 		if(!A0)
 			A0 = new area_type(null)
@@ -455,7 +455,7 @@
 		ripples += new /obj/effect/temp_visual/ripple(i)
 
 /obj/docking_port/mobile/proc/remove_ripples()
-	if(ripples.len)
+	if(length(ripples))
 		for(var/i in ripples)
 			qdel(i)
 		ripples.Cut()
@@ -467,7 +467,7 @@
 
 	var/list/ripple_turfs = list()
 
-	for(var/i in 1 to old_turfs.len)
+	for(var/i in 1 to length(old_turfs))
 		var/turf/oldT = old_turfs[i]
 		if(!oldT)
 			continue
@@ -514,7 +514,7 @@
 		rotation = SIMPLIFY_DEGREES(rotation)
 
 	//remove area surrounding docking port
-	if(areaInstance.contents.len)
+	if(length(areaInstance.contents))
 		var/area/A0 = locate("[area_type]")
 		if(!A0)
 			A0 = new area_type(null)
@@ -528,7 +528,7 @@
 	shuttle_smash(old_turfs, new_turfs, new_dock.dir)
 
 	// begin transition
-	for(var/i in 1 to old_turfs.len)
+	for(var/i in 1 to length(old_turfs))
 		/* CHECKING */
 		var/turf/oldT = old_turfs[i] //old turf
 		if(!oldT)
@@ -704,7 +704,7 @@
 	destination = null
 
 /obj/docking_port/mobile/proc/check_effects()
-	if(!ripples.len)
+	if(!length(ripples))
 		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
 			var/tl = timeLeft(1)
 			if(tl <= SHUTTLE_RIPPLE_TIME)
@@ -799,7 +799,7 @@
 
 /obj/docking_port/mobile/proc/getStatusText()
 	var/obj/docking_port/stationary/dockedAt = get_docked()
-	. = (dockedAt && dockedAt.name) ? dockedAt.name : lowertext(UNKNOWN_STATUS_RUS)
+	. = (dockedAt?.name) ? dockedAt.name : lowertext(UNKNOWN_STATUS_RUS)
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
 		var/obj/docking_port/stationary/dst
 		if(mode == SHUTTLE_RECALL)
@@ -1093,11 +1093,11 @@
 /turf/proc/copyTurf(turf/T)
 	if(T.type != type)
 		var/obj/O
-		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
+		if(length(underlays))	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
 			O.underlays += T
 		T.ChangeTurf(type, keep_icon = FALSE)
-		if(underlays.len)
+		if(length(underlays))
 			T.underlays.Cut()
 			T.underlays += O.underlays
 	if(T.icon_state != icon_state)

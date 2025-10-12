@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 		T.ChangeTurf(T.baseturf)
 
 /proc/loadAwayLevel()
-	if((!GLOB.potentialRandomZlevels || !GLOB.potentialRandomZlevels.len) && !CONFIG_GET(string/override_away_mission))
+	if((!GLOB.potentialRandomZlevels || !length(GLOB.potentialRandomZlevels)) && !CONFIG_GET(string/override_away_mission))
 		log_startup_progress_global("Mapping", "No away missions found.")
 		return
 	var/watch = start_watch()
@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	var/list/potentialMaps = list()
 	var/list/Lines = world.file2list(filename)
 
-	if(!Lines.len)
+	if(!length(Lines))
 		return
 	for(var/t in Lines)
 		if(!t)

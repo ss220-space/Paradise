@@ -638,7 +638,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 
 /mob/living/simple_animal/bot/proc/add_to_ignore(atom/subject)
-	if(ignore_list.len < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
+	if(length(ignore_list) < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
 		ignore_list += subject.UID()
 	else  //If the list is full, insert newest, delete oldest.
 		ignore_list.Cut(1, 2)
@@ -1272,7 +1272,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	set category = STATPANEL_IC
 
 	to_chat(src, "<b>Набор законов:</b>")
-	if(paicard && paicard.pai && paicard.pai.master && paicard.pai.pai_law0)
+	if(paicard?.pai && paicard.pai.master && paicard.pai.pai_law0)
 		to_chat(src, span_warning("Приказы вашего мастера, [paicard.pai.master], стоят выше любых других законов. Следование этим приказам - ваша первоочередная задача."))
 		to_chat(src, "0. [paicard.pai.pai_law0]")
 	if(emagged >= 2)
@@ -1282,7 +1282,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		to_chat(src, "2. Ваше задача - [bot_purpose].")
 		to_chat(src, "3. Вы не сможете выполнять свою задачу, если будете сломаны.")
 		to_chat(src, "4. Выполняйте свою функцию в меру своих возможностей.")
-	if(paicard && paicard.pai && paicard.pai.pai_laws)
+	if(paicard?.pai && paicard.pai.pai_laws)
 		to_chat(src, "<b>Дополнительные законы(s):</b>")
 		to_chat(src, "[paicard.pai.pai_laws]")
 
@@ -1332,7 +1332,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/list/path_images = active_hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
 	if(newpath)
-		for(var/i in 1 to newpath.len)
+		for(var/i in 1 to length(newpath))
 			var/turf/T = newpath[i]
 			var/direction = NORTH
 			if(i > 1)

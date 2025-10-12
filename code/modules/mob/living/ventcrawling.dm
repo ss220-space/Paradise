@@ -169,7 +169,7 @@
 	if(isnull(client) || !HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !istype(loc, /obj/machinery/atmospherics) || !(movement_type & VENTCRAWLING))
 		for(var/current_image in pipes_shown)
 			canon_client.images -= current_image
-		pipes_shown.len = 0
+		pipes_shown.Cut()
 		pipetracker = null
 		for(var/atom/movable/screen/plane_master/lighting as anything in hud_used.get_true_plane_masters(LIGHTING_PLANE))
 			lighting.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#4d4d4d")
@@ -192,7 +192,7 @@
 	if(full_refresh)
 		for(var/current_image in pipes_shown)
 			client.images -= current_image
-		pipes_shown.len = 0
+		pipes_shown.Cut()
 		pipetracker = null
 
 	if(!pipetracker)

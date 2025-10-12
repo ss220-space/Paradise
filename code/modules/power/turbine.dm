@@ -401,7 +401,7 @@
 /obj/machinery/computer/turbine_computer/interact(mob/user)
 
 	var/dat = ""
-	if(compressor && compressor.turbine)
+	if(compressor?.turbine)
 		dat += "<br><b>Gas turbine remote control system</b><hr>"
 		if(compressor.stat || compressor.turbine.stat)
 			dat += "[compressor.stat ? "<b>Compressor is inoperable</b><br>" : "<b>Turbine is inoperable</b>"]"
@@ -429,7 +429,7 @@
 		return
 
 	else if(href_list["str"])
-		if(compressor && compressor.turbine)
+		if(compressor?.turbine)
 			compressor.starter = !compressor.starter
 	else if(href_list["close"])
 		close_window(usr, "turbinecomputer")

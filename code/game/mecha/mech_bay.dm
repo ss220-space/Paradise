@@ -54,7 +54,7 @@
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated/process()
 	if(!recharging_mecha)
 		recharging_mecha = locate(/obj/mecha) in recharging_turf
-	if(recharging_mecha && recharging_mecha.cell)
+	if(recharging_mecha?.cell)
 		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
 			recharging_mecha.give_power(delta)
@@ -102,7 +102,7 @@
 		recharging_mecha = locate(/obj/mecha) in recharging_turf
 		if(recharging_mecha)
 			recharge_console.update_icon()
-	if(recharging_mecha && recharging_mecha.cell)
+	if(recharging_mecha?.cell)
 		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
 			recharging_mecha.give_power(delta)

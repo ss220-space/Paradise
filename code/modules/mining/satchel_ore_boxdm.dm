@@ -125,7 +125,7 @@
 
 	add_fingerprint(usr)
 
-	if(contents.len < 1)
+	if(length(contents) < 1)
 		balloon_alert(usr, "груз отсутствует")
 		return
 

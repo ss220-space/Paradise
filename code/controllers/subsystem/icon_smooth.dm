@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(icon_smooth)
 			return
 
 	if(!length(smooth_queue_cache))
-		if(deferred.len)
+		if(length(deferred))
 			smooth_queue = deferred
 			deferred = smooth_queue_cache
 		else

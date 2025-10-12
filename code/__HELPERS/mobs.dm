@@ -42,7 +42,7 @@
 			continue
 		valid_picks += test
 
-	if(!valid_picks.len) valid_picks += "Nude"
+	if(!length(valid_picks)) valid_picks += "Nude"
 
 	return pick(valid_picks)
 
@@ -100,7 +100,7 @@
 			if(species in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
-	if(valid_facial_hairstyles.len)
+	if(length(valid_facial_hairstyles))
 		f_style = pick(valid_facial_hairstyles)
 
 	return f_style
@@ -115,7 +115,7 @@
 			continue
 		valid_head_accessories += head_accessory
 
-	if(valid_head_accessories.len)
+	if(length(valid_head_accessories))
 		ha_style = pick(valid_head_accessories)
 
 	return ha_style
@@ -165,7 +165,7 @@
 					continue
 		valid_markings += marking
 
-	if(valid_markings.len)
+	if(length(valid_markings))
 		m_style = pick(valid_markings)
 
 	return m_style
@@ -625,7 +625,7 @@
 	var/static/list/mob_spawn_meancritters = list() // list of possible hostile mobs
 	var/static/list/mob_spawn_nicecritters = list() // and possible friendly mobs
 
-	if(mob_spawn_meancritters.len <= 0 || mob_spawn_nicecritters.len <= 0)
+	if(length(mob_spawn_meancritters) <= 0 || length(mob_spawn_nicecritters) <= 0)
 		for(var/T in typesof(/mob/living/simple_animal))
 			var/mob/living/simple_animal/SA = T
 			switch(initial(SA.gold_core_spawnable))

@@ -74,8 +74,8 @@
 	for(var/i in hearing_mobs)
 		terminate_sound_mob(i)
 	if(clear_channels && channels_playing)
-		channels_playing.len = 0
-		channels_idle.len = 0
+		channels_playing.Cut()
+		channels_idle.Cut()
 		SSinstruments.current_instrument_channels -= using_sound_channels
 		using_sound_channels = 0
 		SSsounds.free_datum_channels(src)

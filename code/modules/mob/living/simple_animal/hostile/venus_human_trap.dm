@@ -75,7 +75,7 @@
 					step_with_glide(direction = get_dir(src, L))
 					L.Weaken(6 SECONDS) //you can't get away now~
 
-		if(grasping.len < max_grasps)
+		if(length(grasping) < max_grasps)
 			grasping:
 				for(var/mob/living/L in view(grasp_range, src))
 					if(L == src || faction_check_mob(L) || (L in grasping) || L == target)

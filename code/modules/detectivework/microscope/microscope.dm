@@ -84,7 +84,7 @@
 		report.name = ("Отчет по анализу отпечатков пальцев №[report_num]: [sample.name]")
 		report.info = "<b>Отчет об анализе отпечатков пальцев №[report_num]</b>: [sample.name]<br>"
 		var/obj/item/sample/print/card = sample
-		if(card.evidence && card.evidence.len)
+		if(card.evidence && length(card.evidence))
 			report.info += "<br>Поверхностный анализ определил следующие уникальные строки отпечатков пальцев:<br><br>"
 			for(var/prints in card.evidence)
 				report.info += span_notice("Строка отпечатков пальцев: ")
