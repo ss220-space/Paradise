@@ -48,7 +48,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(!isliving(target) || !is_monkeybasic(mod.wearer))
+	if(!isliving(target) || is_monkeybasic(mod.wearer))
 		return
 	switch(mode)
 		if(HEALTH_SCAN)
