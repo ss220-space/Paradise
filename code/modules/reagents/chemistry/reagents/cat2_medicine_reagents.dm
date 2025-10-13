@@ -12,7 +12,6 @@
 	color = "#9400D3"
 	taste_description = "холода и смерти"
 	overdose_threshold = 35
-	reagent_state = SOLID
 	var/helbent = FALSE
 	var/beginning_combo = 0
 	var/reaping = FALSE

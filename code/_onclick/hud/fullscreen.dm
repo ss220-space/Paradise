@@ -193,7 +193,6 @@
 /atom/movable/screen/fullscreen/curse
 	icon_state = "curse"
 	layer = CURSE_LAYER
-	plane = FULLSCREEN_PLANE
 
 //Provides darkness to the back of the lighting plane
 /atom/movable/screen/fullscreen/lighting_backdrop/lit
