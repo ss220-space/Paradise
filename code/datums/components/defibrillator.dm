@@ -102,6 +102,8 @@
  */
 /datum/component/defib/proc/trigger_defib(obj/item/paddles, mob/living/carbon/human/target, mob/living/user)
 	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
+	if(HAS_TRAIT(paddles, TRAIT_DEFIB_BLOCKED))  // The TRAIT is added if the built-in defibrillator in the inugami gloves is disabled
+		return
 	// This includes some do-afters, so we have to pass it off asynchronously
 	INVOKE_ASYNC(src, PROC_REF(defibrillate), user, target)
 	return COMPONENT_CANCEL_ATTACK_CHAIN

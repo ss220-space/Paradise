@@ -171,6 +171,8 @@
 			canon_client.images -= current_image
 		pipes_shown.Cut()
 		pipetracker = null
+		if(!hud_used)
+			return
 		for(var/atom/movable/screen/plane_master/lighting as anything in hud_used.get_true_plane_masters(LIGHTING_PLANE))
 			lighting.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#4d4d4d")
 		for(var/atom/movable/screen/plane_master/pipecrawl as anything in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))

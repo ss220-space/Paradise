@@ -19,6 +19,20 @@
 		if(istype(checked_atom, type))
 			. += checked_atom
 
+///Like get_all_contents_type, but uses a typecache list as argument
+/atom/proc/get_all_contents_ignoring(list/ignore_typecache)
+	if(!length(ignore_typecache))
+		return get_all_contents()
+	var/list/processing = list(src)
+	. = list()
+	var/i = 0
+	while(i < length(processing))
+		var/atom/checked_atom = processing[++i]
+		if(ignore_typecache[checked_atom.type])
+			continue
+		processing += checked_atom.contents
+		. += checked_atom
+
 
 ///Returns true if the src countain the atom target
 /atom/proc/contains(atom/target)
