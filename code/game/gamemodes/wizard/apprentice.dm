@@ -41,7 +41,7 @@
 				var/mob/C = pick(candidates)
 				new /obj/effect/particle_effect/fluid/smoke(teacher.loc)
 				var/mob/living/carbon/human/apprentice = new/mob/living/carbon/human(teacher.loc)
-				apprentice.key = C.key
+				apprentice.possess_by_player(C.key)
 				to_chat(apprentice, span_notice("You are the [teacher.real_name]'s apprentice! You are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals."))
 
 				school_href_choose(href_list, teacher, apprentice)

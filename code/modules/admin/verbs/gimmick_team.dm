@@ -80,7 +80,7 @@
 		SSticker.mode.eventmiscs += H.mind
 		SSticker.mode.update_eventmisc_icons_added(H.mind)
 		H.mind.offstation_role = TRUE
-		H.key = thisplayer.key
+		H.possess_by_player(thisplayer.key)
 		H.change_voice()
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)

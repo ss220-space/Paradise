@@ -190,16 +190,16 @@
 	if(!achievement_type || (flags & ADMIN_SPAWNED) || !SSachievements.achievements_enabled) //Don't award medals if the medal type isn't set
 		return FALSE
 
-	for(var/mob/living/L in view(7, src))
-		if(L.stat || !L.client)
+	for(var/mob/living/mob in view(7, src))
+		if(mob.stat || !mob.client)
 			continue
-		var/client/mob_client = L.client
-		mob_client.give_award(/datum/award/achievement/boss/boss_killer, L)
-		mob_client.give_award(achievement_type, L)
-		if(crusher_kill && istype(L.get_active_hand(), /obj/item/twohanded/kinetic_crusher))
-			mob_client.give_award(crusher_achievement_type, L)
-		mob_client.give_award(/datum/award/score/boss_score, L) //Score progression for bosses killed in general
-		mob_client.give_award(score_achievement_type, L) //Score progression for specific boss killed
+		var/client/mob_client = mob.client
+		mob_client.give_award(/datum/award/achievement/boss/boss_killer, mob)
+		mob_client.give_award(achievement_type, mob)
+		if(crusher_kill && istype(mob.get_active_hand(), /obj/item/twohanded/kinetic_crusher))
+			mob_client.give_award(crusher_achievement_type, mob)
+		mob_client.give_award(/datum/award/score/boss_score, mob) //Score progression for bosses killed in general
+		mob_client.give_award(score_achievement_type, mob) //Score progression for specific boss killed
 	return TRUE
 
 

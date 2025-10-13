@@ -375,7 +375,7 @@
 				if(briefing_msg)
 					new_mob.mind.store_memory(briefing_msg)
 		else
-			new_mob.key = M.key
+			new_mob.possess_by_player(M.ckey)
 
 		if(is_new_mind)
 			to_chat(new_mob, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))

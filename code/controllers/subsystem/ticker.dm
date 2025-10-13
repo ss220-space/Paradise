@@ -795,14 +795,33 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/cheevo_report()
 	var/list/parts = list()
-	if(length(GLOB.achievements_unlocked))
-		parts += "<span class='header'>Achievement Get!</span><BR>"
-		parts += "<span class='infoplain'>Total Achievements Earned: <B>[length(GLOB.achievements_unlocked)]!</B></span><BR>"
-		parts += "<ul class='playerlist'>"
-		for(var/datum/achievement_report/cheevo_report in GLOB.achievements_unlocked)
-			parts += "<BR>[cheevo_report.winner_key] was <b>[cheevo_report.winner]</b>, who earned the [span_greentext("'[cheevo_report.cheevo]'")] achievement at [cheevo_report.award_location]!<BR>"
-		parts += "</ul>"
-		return "<div class='panel greenborder'><ul>[parts.Join()]</ul></div>"
+	if(!length(GLOB.achievements_unlocked))
+		return
+	var/static/style = "<style scoped>\
+		.panel {\
+			background-color: #313131;\
+			padding: 10px;\
+			border-radius: 10px;\
+			margin-bottom: 5px;\
+		}\
+		li {\
+			margin-bottom: 0.2rem;\
+		}\
+		.greenborder {\
+			border-bottom: 2px solid #90ee90;\
+		}\
+		.header {\
+			font-size: 24px;\
+			font-weight: bold;\
+		}\
+	</style>"
+	parts += span_header("Получененные достижения!<br>")
+	parts += span_infoplain("В раунде получены следующие достижения: <b>[length(GLOB.achievements_unlocked)]!</b><br>")
+	parts += "<ul class='playerlist'>"
+	for(var/datum/achievement_report/cheevo_report in GLOB.achievements_unlocked)
+		parts += "<br>[cheevo_report.winner_key] был(а) <b>[cheevo_report.winner]</b> и заработал(а) достижение [span_greentext("'[cheevo_report.cheevo]'")] в [cheevo_report.award_location]!<br>"
+	parts += "</ul>"
+	return "<div>[style]<div class='panel greenborder'><ul>[parts.Join()]</ul></div></div>"
 
 ///A datum containing the info necessary for an achievement readout, reported and added to the global list in /datum/award/achievement/on_unlock(mob/user)
 /datum/achievement_report

@@ -62,7 +62,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		if(length(infiltrators))
 			var/mob/theguy = pick(infiltrators)
 			if(theguy.key != key)
-				new_syndicate_infiltrator.key = theguy.key
+				new_syndicate_infiltrator.possess_by_player(theguy.key)
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_action_buttons_icon()
 			infiltrators -= theguy

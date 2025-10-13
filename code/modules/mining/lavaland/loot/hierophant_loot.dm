@@ -360,7 +360,7 @@
 	if(length(candidates))
 		theghost = pick(candidates)
 		slave = new(src)
-		slave.ckey = theghost.ckey
+		slave.possess_by_player(theghost.ckey)
 		slave.master = user.ckey
 		name = "Talisman of warding"
 		ru_names = list(

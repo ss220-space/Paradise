@@ -207,7 +207,7 @@
 					if(length(candidates))
 						var/mob/C = pick(candidates)
 						if(C)
-							S.key = C.key
+							S.possess_by_player(C.key)
 							if(S.master_commander)
 								to_chat(S, span_biggerdanger("You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost."))
 							add_game_logs("was made giant spider, master: [S.master_commander ? S.master_commander : "None"]")

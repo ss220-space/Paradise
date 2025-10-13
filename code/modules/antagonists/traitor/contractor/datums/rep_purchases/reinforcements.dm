@@ -71,7 +71,7 @@
 	partner.dna.ready_dna(partner)
 
 	partner_outfit.equip(partner)
-	partner.ckey = key
+	partner.possess_by_player(key)
 	partner_mind = partner.mind
 	partner_mind.make_contractor_support()
 	to_chat(partner_mind.current, span_warning(span_fontsize4("[user.real_name] - Ваш начальник. Выполняйте любые приказы, отданные [genderize_ru(user.gender, "им", "ею", "им", "ими")]. Вы здесь только для того, чтобы помочь [genderize_ru(user.gender, "ему", "ей", "ему", "им")] с выполнением задач.")))

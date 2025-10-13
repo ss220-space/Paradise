@@ -46,7 +46,7 @@
 	if((mind && isliving(M)) && !forcekey)
 		mind.transfer_to(M)
 	else
-		M.key = key
+		M.possess_by_player(key)
 
 	SEND_SIGNAL(src, COMSIG_MOB_CHANGED_TYPE, M)
 

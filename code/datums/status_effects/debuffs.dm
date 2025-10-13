@@ -1423,13 +1423,16 @@
 /// Applies a curse with various possible effects
 /mob/living/proc/apply_necropolis_curse(set_curse)
 	var/datum/status_effect/necropolis_curse/curse = has_status_effect(/datum/status_effect/necropolis_curse)
+
 	if(!set_curse)
 		set_curse = pick(CURSE_BLINDING, CURSE_WASTING, CURSE_GRASPING)
+
 	if(QDELETED(curse))
 		apply_status_effect(/datum/status_effect/necropolis_curse, set_curse)
-	else
-		curse.apply_curse(set_curse)
-		curse.duration += 5 MINUTES //time added by additional curses
+		return curse
+
+	curse.apply_curse(set_curse)
+	curse.duration += 5 MINUTES //time added by additional curses
 	return curse
 
 /// A curse that does up to three nasty things to you
@@ -1449,13 +1452,17 @@
 
 /datum/status_effect/necropolis_curse/on_creation(mob/living/new_owner, set_curse)
 	. = ..()
-	if(.)
-		apply_curse(set_curse)
+
+	if(!.)
+		return
+
+	apply_curse(set_curse)
 
 /datum/status_effect/necropolis_curse/Destroy()
 	if(!QDELETED(wasting_effect))
 		qdel(wasting_effect)
 		wasting_effect = null
+
 	return ..()
 
 /datum/status_effect/necropolis_curse/on_remove()
@@ -1473,20 +1480,23 @@
 /datum/status_effect/necropolis_curse/proc/remove_curse(remove_curse)
 	if(remove_curse & CURSE_BLINDING)
 		owner.clear_fullscreen("curse", 50)
+
 	curse_flags &= ~remove_curse
 
 /datum/status_effect/necropolis_curse/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		return
 
-	if(curse_flags & CURSE_WASTING)
-		wasting_effect.forceMove(owner.loc)
-		wasting_effect.setDir(owner.dir)
-		wasting_effect.transform = owner.transform //if the owner has been stunned the overlay should inherit that position
-		wasting_effect.alpha = 255
-		animate(wasting_effect, alpha = 0, time = 32)
-		playsound(owner, 'sound/effects/curse5.ogg', 20, TRUE, -1)
-		owner.adjustFireLoss(0.75)
+	if(!(curse_flags & CURSE_WASTING))
+		return
+
+	wasting_effect.forceMove(owner.loc)
+	wasting_effect.setDir(owner.dir)
+	wasting_effect.transform = owner.transform //if the owner has been stunned the overlay should inherit that position
+	wasting_effect.alpha = 255
+	animate(wasting_effect, alpha = 0, time = 32)
+	playsound(owner, 'sound/effects/curse5.ogg', 20, TRUE, -1)
+	owner.adjustFireLoss(0.75)
 
 	//TODO uncomment after heretic
 	/*

@@ -1,60 +1,60 @@
 /datum/award/achievement/misc
-	category = "Misc"
+	category = ACHIEVEMENT_CATEGORY_MISC
 	icon_state = "basemisc"
 
 /datum/award/achievement/misc/meteor_examine
-	name = "Your Life Before Your Eyes"
-	desc = "Take a close look at hurtling space debris"
+	name = "Вся жизнь промелькнула перед глазами"
+	desc = "Внимательно осмотрите стремительно несущийся космический мусор."
 	database_id = MEDAL_METEOR
 	icon_state = "meteors"
 
 /datum/award/achievement/misc/pulse
-	name = "Jackpot"
-	desc = "Win a pulse rifle from an arcade machine"
+	name = "Джекпот"
+	desc = "Выиграйте пульсовую винтовку в игровом автомате."
 	database_id = MEDAL_PULSE
 	icon_state = "jackpot"
 
 /datum/award/achievement/misc/gamer
-	name = "My Watchlist Status is Not Important"
-	desc = "You may be under the impression that violent video games are a harmless pastime, but the security and medical personnel swarming your location with batons and knockout gas look like they disagree."
+	name = "Статус моего вотчлиста не важен"
+	desc = "Возможно, вам кажется, что жестокие видеоигры — это безобидное развлечение, но сотрудники службы безопасности и медики, которые окружают ваше местоположение с дубинками и усыпляющим газом, похоже, с этим не согласны."
 	database_id = MEDAL_GAMER
 
 /datum/award/achievement/misc/vendor_squish
-	name = "I Was a Teenage Anarchist"
-	desc = "You were doing a great job sticking it to the system until that vending machine decided to fight back."
+	name = "Я был подростком-анархистом"
+	desc = "Ты был так хорош в борьбе с системой, пока торговый автомат не решил дать сдачи."
 	database_id = MEDAL_VENDORSQUISH
 
 /datum/award/achievement/misc/swirlie
-	name = "A Bowl-d New World"
-	desc = "There's a lot of grisly ways to kick it on the Spinward Periphery, but drowning to death in a toilet probably wasn't what you had in mind. Probably."
+	name = "Новый мир в миске"
+	desc = "На Спинвардской Периферии есть множество жутких способов умереть, но утонуть в сортире — явно не тот, о котором ты мечтал. Наверное."
 	database_id = MEDAL_SWIRLIE
 
 /datum/award/achievement/misc/selfouch
-	name = "How Do I Switch Hands???"
-	desc = "If you saw someone casually club themselves upside the head with a toolbox anywhere in the galaxy but here, you'd probably be pretty concerned for them."
+	name = "Как мне поменять руки???"
+	desc = "Если бы вы увидели, как кто-то мимоходом заехал себе по голове инструментальным ящиком в любой другой точке галактики, вы бы, наверное, сильно за него обеспокоились."
 	database_id = MEDAL_SELFOUCH
 
 /datum/award/achievement/misc/speed_round
-	name = "Long shift"
-	desc = "Well, that didn't take long."
+	name = "Долгая смена"
+	desc = "Ну, это не зянало много времени."
 	database_id = MEDAL_LONGSHIFT
 	icon_state = "longshift"
 
 /datum/award/achievement/misc/lookoutsir
-	name = "Look Out, Sir!"
-	desc = "Either awarded for making the ultimate sacrifice for your comrades, or a really dumb attempt at grenade jumping."
+	name = "Осторожно, сэр!"
+	desc = "Либо это награда за то, что ты принёс высшую жертву ради товарищей, либо за поистине идиотскую попытку прыгнуть на гранате."
 	database_id = MEDAL_LOOKOUTSIR
 	icon_state = "martyr" // purple heart on an explosive danger warning sign (well, sort of)
 
 /datum/award/achievement/misc/ascension
-	name = "Ascension"
+	name = "Возвышение"
 	desc = "Caedite eos. Novit enim Dominus qui sunt eius."
 	database_id = MEDAL_ASCENSION
 	icon_state = "ascension"
 
 /datum/award/achievement/misc/cult_shuttle_omfg
-	name = "WHAT JUST HAPPENED"
-	desc = "As a blood cultist, be part of a team that summons 3 shuttle curses within 10 seconds. Imagine cleaning up after them, g r o s s!"
+	name = "ЧТО ТОЛЬКО ЧТО ПРОИЗОШЛО?"
+	desc = "Будучи в кровавом культе, три раза прокляните шаттл за 10 секунд. А теперь представьте, что вам придется все это убирать. Фуу!"
 	database_id = MEDAL_CULT_SHUTTLE_OMFG
 	icon_state = "cult_shuttle_omfg"
 

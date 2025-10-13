@@ -1,111 +1,111 @@
 /datum/award/achievement/boss
-	category = "Bosses"
+	category = ACHIEVEMENT_CATEGORY_BOSSES
 
 /datum/award/achievement/boss/tendril_exterminator
-	name = "Tendril Exterminator"
-	desc = "Watch your step"
+	name = "Уничтожитель Щупалец"
+	desc = "Смотрите под ноги!"
 	database_id = BOSS_MEDAL_TENDRIL
 	icon_state = "tendril"
 
 /datum/award/achievement/boss/boss_killer
-	name = "Boss Killer"
-	desc = "You've come a long ways from asking how to switch hands."
-	database_id = "Boss Killer"
+	name = "Убийца Боссов"
+	desc = "Вы прошли долгий путь с тех пор, как не знали, как менять руки."
+	database_id = BOSS_MEDAL_ANY
 	icon_state = "firstboss"
 
 /datum/award/achievement/boss/blood_miner_kill
-	name = "Blood-drunk Miner Killer"
-	desc = "I guess he couldn't handle his drink that well."
+	name = "Убийца Кровавого Шахтера"
+	desc = "Я думаю он не сможет это выпить!"
 	database_id = BOSS_MEDAL_MINER
 	icon_state = "miner"
 
 /datum/award/achievement/boss/bubblegum_kill
-	name = "Bubblegum Killer"
-	desc = "I guess he wasn't made of candy after all"
+	name = "Убийца Бубльгума"
+	desc = "Что ж, похоже, он всё-таки был не из конфет!"
 	database_id = BOSS_MEDAL_BUBBLEGUM
 	icon_state = "bbgum"
 
 /datum/award/achievement/boss/colossus_kill
-	name = "Colossus Killer"
-	desc = "The bigger they are... the better the loot"
+	name = "Убийца Колосса"
+	desc = "Чем больше враг... тем ценнее добыча!"
 	database_id = BOSS_MEDAL_COLOSSUS
 	icon_state = "colossus"
 
 /datum/award/achievement/boss/drake_kill
-	name = "Drake Killer"
-	desc = "Now I can wear Rune Platebodies!"
+	name = "Убийца Дракона"
+	desc = "Теперь я могу носить рунный латный нагрудник!"
 	database_id = BOSS_MEDAL_DRAKE
 	icon_state = "drake"
 
 /datum/award/achievement/boss/hierophant_kill
-	name = "Hierophant Killer"
-	desc = "Hierophant, but not triumphant."
+	name = "Убийца Иерофанта"
+	desc = "Иерофант, но не триумфатор!"
 	database_id = BOSS_MEDAL_HIEROPHANT
 	icon_state = "hierophant"
 
 /datum/award/achievement/boss/legion_kill
-	name = "Legion Killer"
-	desc = "We were many..now we are none."
+	name = "Убийца Легиона"
+	desc = "Нас было много… и не осталось никого!"
 	database_id = BOSS_MEDAL_LEGION
 	icon_state = "legion"
 
 /datum/award/achievement/boss/swarmer_beacon_kill
-	name = "Swarm Beacon Killer"
-	desc = "GET THEM OFF OF ME!"
+	name = "Разрушитель Маяка Свармеров"
+	desc = "УБЕРИТЕ ИХ ОТ МЕНЯ!"
 	database_id = BOSS_MEDAL_SWARMERS
 	icon_state = "swarmer"
 
 /datum/award/achievement/boss/ancient_robot_kill
-	name = "Ancient Robot"
-	desc = "Just a piece of scrap metal!"
+	name = "Убийца Древного Робота"
+	desc = "Просто кусок металлолома!"
 	database_id = BOSS_MEDAL_ROBOT
 	icon_state = "robot"
 
 /datum/award/achievement/boss/blood_miner_crusher
-	name = "Blood-drunk Miner Crusher"
-	desc = "I guess he couldn't handle his drink that well."
+	name = "Сокрушитель Кровавого Шахтера"
+	desc = "Вы победили Кровавого Шахтера с помощью крашера."
 	database_id = BOSS_MEDAL_MINER_CRUSHER
 	icon_state = "miner"
 
 /datum/award/achievement/boss/bubblegum_crusher
-	name = "Bubblegum Crusher"
-	desc = "I guess he wasn't made of candy after all"
+	name = "Сокрушитель Бубльгума"
+	desc = "Вы победили Бубльгума с помощью крашера."
 	database_id = BOSS_MEDAL_BUBBLEGUM_CRUSHER
 	icon_state = "bbgum"
 
 /datum/award/achievement/boss/colossus_crusher
-	name = "Colussus Crusher"
-	desc = "The bigger they are... the better the loot"
+	name = "Сокрушитель Колосса"
+	desc = "Вы победили Колосса с помощью крашера."
 	database_id = BOSS_MEDAL_COLOSSUS_CRUSHER
 	icon_state = "colossus"
 
 /datum/award/achievement/boss/drake_crusher
-	name = "Drake Crusher"
-	desc = "Now I can wear Rune Platebodies!"
+	name = "Сокрушитель Дракона"
+	desc = "Вы победили Дрейка с помощью крашера."
 	database_id = BOSS_MEDAL_DRAKE_CRUSHER
 	icon_state = "drake"
 
 /datum/award/achievement/boss/hierophant_crusher
-	name = "Hierophant Crusher"
-	desc = "Hierophant, but not triumphant."
+	name = "Сокрушитель Иерофанта"
+	desc = "Вы победили Иерофанта с помощью крашера."
 	database_id = BOSS_MEDAL_HIEROPHANT_CRUSHER
 	icon_state = "hierophant"
 
 /datum/award/achievement/boss/legion_crusher
-	name = "Legion Crusher"
-	desc = "We were many... now we are none."
+	name = "Сокрушитель Легиона"
+	desc = "Вы победили Легиона с помощью крашера."
 	database_id = BOSS_MEDAL_LEGION_CRUSHER
 	icon_state = "legion"
 
 /datum/award/achievement/boss/swarmer_beacon_crusher
-	name = "Swarm Beacon Crusher"
-	desc = "GET THEM OFF OF ME!"
+	name = "Сокрушитель Маяка Свармеров"
+	desc = "Вы разрушили Маяк Свармеров с помощью крашера."
 	database_id = BOSS_MEDAL_SWARMERS_CRUSHER
 	icon_state = "swarmer"
 
 /datum/award/achievement/boss/ancient_robot_crusher
-	name = "Ancient Robot"
-	desc = "Just a piece of scrap metal!"
+	name = "Сокрушитель Древнего Робота"
+	desc = "Вы победили Древнего Робота с помощью крашера."
 	database_id = BOSS_MEDAL_ROBOT_CRUSHER
 	icon_state = "robot"
 

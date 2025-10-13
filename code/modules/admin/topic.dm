@@ -1409,7 +1409,7 @@
 
 		var/mob/new_player/NP = new()
 		GLOB.non_respawnable_keys -= M.ckey
-		NP.ckey = M.ckey
+		NP.possess_by_player(M.ckey)
 		qdel(M)
 
 	else if(href_list["eraseflavortext"])

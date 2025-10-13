@@ -360,10 +360,12 @@
 		user.Knockdown(10 SECONDS)
 		to_chat(user, span_warning("A powerful force shoves you away from [src]!"))
 		return
+
 	if(totalcurses >= MAX_SHUTTLE_CURSES)
-		to_chat(user, span_warning("You try to shatter the orb, but it remains as solid as a rock!"))
-		to_chat(user, span_danger(span_big("It seems that the blood cult has exhausted its ability to curse the emergency escape shuttle. It would be unwise to create more cursed orbs or to continue to try to shatter this one.")))
+		to_chat(user, span_warning("Вы пытаетесь разбить сферу, но она остаётся твёрдой, как камень!"))
+		to_chat(user, span_danger(span_big("Похоже, что культ крови исчерпал свои силы для наложения проклятий на эвакуационный шаттл. Создавать новые проклятые сферы или продолжать пытаться разбить эту — неразумно.")))
 		return
+
 	if(locate(/obj/singularity/god/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, span_danger("Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things."))
 		return
@@ -389,15 +391,18 @@
 
 	var/surplus = timer - (SSshuttle.emergencyCallTime * set_coefficient)
 	SSshuttle.emergency.setTimer(timer)
+
 	if(surplus > 0)
 		SSshuttle.block_recall(surplus)
+
 	totalcurses++
-	to_chat(user,span_danger("You shatter the orb! A dark essence spirals into the air, then disappears."))
+	to_chat(user,span_danger("Вы разбиваете сферу! Тёмная сущность взвивается в воздух и исчезает."))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
+
 	if(!remaining_curses)
 		remaining_curses = strings(CULT_SHUTTLE_CURSE, "curse_announce")
 
-	var/curse_message = pick_n_take(remaining_curses) || "Something has gone horrendously wrong..."
+	var/curse_message = pick_n_take(remaining_curses) || "Что-то пошло ужасающе неправильно..."
 	var/curse_delay = cursetime / 600
 	curse_message += " Шаттл задерживается на [curse_delay] минут[declension_ru(curse_delay, "у", "ы", "")]."
 
@@ -406,12 +411,15 @@
 		new_title = ANNOUNCE_SYSERROR_RU,
 		new_sound = 'sound/misc/notice1.ogg'
 	)
+
 	if((MAX_SHUTTLE_CURSES - totalcurses) <= 0)
-		to_chat(user, span_danger(span_big("You sense that the emergency escape shuttle can no longer be cursed. It would be unwise to create more cursed orbs.")))
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл больше нельзя проклясть. Создавать новые проклятые сферы было бы неразумно."))
+
 	else if((MAX_SHUTTLE_CURSES - totalcurses) == 1)
-		to_chat(user, span_danger(span_big("You sense that the emergency escape shuttle can only be cursed one more time.")))
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё лишь один раз."))
+
 	else
-		to_chat(user, span_danger(span_big("You sense that the emergency escape shuttle can only be cursed [MAX_SHUTTLE_CURSES-totalcurses] more times.")))
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё только [MAX_SHUTTLE_CURSES - totalcurses] раз."))
 
 	if(totalcurses >= MAX_SHUTTLE_CURSES && (world.time < first_curse_time + SHUTTLE_CURSE_OMFG_TIMESPAN))
 		var/omfg_message = pick_list(CULT_SHUTTLE_CURSE, "omfg_announce") || "LEAVE US ALONE!"
@@ -419,6 +427,7 @@
 		for(var/mob/iter_player as anything in GLOB.player_list)
 			if(!iscultist(iter_player))
 				continue
+
 			iter_player.client?.give_award(/datum/award/achievement/misc/cult_shuttle_omfg, iter_player)
 	qdel(src)
 

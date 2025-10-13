@@ -1,7 +1,7 @@
 // TODO Uncomment with skill system
 /*
 /datum/award/achievement/skill
-	category = "Skills"
+	category = ACHIEVEMENT_CATEGORY_SKILLS
 
 /datum/award/achievement/skill/legendary_miner
 	name = "Legendary miner"

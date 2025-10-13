@@ -442,10 +442,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			return
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
-			ghost.ckey = M.ckey
+			ghost.possess_by_player(M.ckey)
 	log_and_message_admins(span_notice("assumed direct control of [M]."))
 	var/mob/adminmob = src.mob
-	M.ckey = src.ckey
+	M.possess_by_player(ckey)
 	if(isobserver(adminmob))
 		qdel(adminmob)
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")

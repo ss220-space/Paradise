@@ -1,13 +1,13 @@
 /datum/award
 	///Name of the achievement, If null it wont show up in the achievement browser. (Handy for inheritance trees)
 	var/name
-	var/desc = "You did it."
+	var/desc = "Ты сделал это."
 
 	///The dmi icon file that holds the award's icon state.
 	var/icon = ACHIEVEMENTS_SET
 	///The icon state for this award.
 	var/icon_state = "default"
-	var/category = "Normal"
+	var/category = "Ошибка"
 
 	///What ID do we use in db, limited to 32 characters
 	var/database_id
@@ -19,8 +19,10 @@
 /datum/award/proc/load(datum/achievement_data/holder)
 	if(!SSdbcore.Connect())
 		return default_value()
+
 	if(!holder.owner_ckey || !database_id || !name)
 		return default_value()
+
 	var/value = parse_value(get_raw_value(holder.owner_ckey))
 	holder.original_cached_data[type] = holder.data[type] = value
 	return value
@@ -39,6 +41,7 @@
 /datum/award/proc/get_changed_rows(datum/achievement_data/holder)
 	if(!database_id || !holder.owner_ckey || !name)
 		return
+
 	return list(
 		"ckey" = holder.owner_ckey,
 		"achievement_key" = database_id,
@@ -58,17 +61,20 @@
 /datum/award/proc/get_raw_value(key)
 	set waitfor = FALSE
 
-	var/datum/db_query/Q = SSdbcore.NewQuery(
+	var/datum/db_query/query = SSdbcore.NewQuery(
 		"SELECT value FROM [format_table_name("achievements")] WHERE ckey = :ckey AND achievement_key = :achievement_key",
 		list("ckey" = key, "achievement_key" = database_id)
 	)
-	if(!Q.Execute(async = TRUE))
-		qdel(Q)
+	if(!query.Execute(async = TRUE))
+		qdel(query)
 		return 0
+
 	var/result = 0
-	if(Q.NextRow())
-		result = text2num(Q.item[1])
-	qdel(Q)
+
+	if(query.NextRow())
+		result = text2num(query.item[1])
+
+	qdel(query)
 	return result
 
 //Should return sanitized value for achievement cache
@@ -89,7 +95,7 @@
 
 ///Achievements are one-off awards for usually doing cool things.
 /datum/award/achievement
-	desc = "Achievement for epic people"
+	desc = "Достижение для выдающихся людей"
 	icon_state = "" // This should warn contributors that do not declare an icon when contributing new achievements.
 	///How many players have earned this achievement
 	var/times_achieved = 0
@@ -106,22 +112,25 @@
 
 /datum/award/achievement/get_ui_data(list/award_data, datum/achievement_data/holder)
 	. = ..()
-	.["achieve_info"] = "Unlocked by [times_achieved] players so far"
+	.["achieve_info"] = "Получено [times_achieved] игрок[pluralize_ru(times_achieved, "ом", "ами")]"
+
 	if(!SSachievements.most_unlocked_achievement)
-		.["achieve_tooltip"] = "No achievement has been unlocked yet. Be the first today!"
+		.["achieve_tooltip"] = "Это достижение еще никто не получил. Станьте первым сегодня!"
 		return
+
 	if(SSachievements.most_unlocked_achievement == src)
-		.["achieve_tooltip"] = "This is the most unlocked achievement"
+		.["achieve_tooltip"] = "Это достижение получали чаще всего"
 		return
+
 	var/percent = FLOOR(times_achieved / SSachievements.most_unlocked_achievement.times_achieved * 100, 0.01)
-	.["achieve_tooltip"] = "[(times_achieved && !percent) ? "Less than 0.01" : percent]% compared to the achievement unlocked by the most players: \"[SSachievements.most_unlocked_achievement.name])\""
+	.["achieve_tooltip"] = "[(times_achieved && !percent) ? "Менее 0,01" : percent]% от показателя самого популярного достижения: \"[SSachievements.most_unlocked_achievement.name])\""
 
 /datum/award/achievement/parse_value(raw_value)
 	return raw_value > 0
 
 /datum/award/achievement/on_unlock(mob/user)
 	. = ..()
-	to_chat(user, "<span class='greenannounce'><B>Achievement unlocked: [name]!</B></span>")
+	to_chat(user, span_greenannounce("<b>Получено достижение: [name]!</b>"))
 
 	var/sound/sound_to_send = LAZYACCESS(GLOB.achievement_sounds, user.client.prefs.achivements_sound)
 	if(sound_to_send)
@@ -133,7 +142,7 @@
 
 	var/datum/achievement_report/new_report = new /datum/achievement_report()
 
-	new_report.winner = "[(user.real_name == user.name) ? user.real_name : "[user.real_name], as [user.name]"]"
+	new_report.winner = "[(user.real_name == user.name) ? user.real_name : "[user.real_name], как [user.name]"]"
 	new_report.cheevo = name
 	if(user.ckey)
 		new_report.winner_key = user.ckey
@@ -146,8 +155,8 @@
 
 ///Scores are for leaderboarded things, such as killcount of a specific boss
 /datum/award/score
-	desc = "you did it sooo many times."
-	category = "Scores"
+	desc = "Ты сделал это тако много раз."
+	category = ACHIEVEMENT_CATEGORY_SCORES
 
 	var/track_high_scores = TRUE
 	var/list/high_scores = list()
@@ -174,19 +183,21 @@
 /datum/award/score/proc/LoadHighScores()
 	set waitfor = FALSE
 
-	var/datum/db_query/Q = SSdbcore.NewQuery(
+	var/datum/db_query/query = SSdbcore.NewQuery(
 		"SELECT ckey,value FROM [format_table_name("achievements")] WHERE achievement_key = :achievement_key ORDER BY value DESC LIMIT 50",
 		list("achievement_key" = database_id)
 	)
-	if(!Q.Execute(async = TRUE))
-		qdel(Q)
+
+	if(!query.Execute(async = TRUE))
+		qdel(query)
 		return
-	else
-		while(Q.NextRow())
-			var/key = Q.item[1]
-			var/score = text2num(Q.item[2])
-			high_scores += list(list("ckey" = key, "value" = score))
-		qdel(Q)
+
+	while(query.NextRow())
+		var/key = query.item[1]
+		var/score = text2num(query.item[2])
+		high_scores += list(list("ckey" = key, "value" = score))
+
+	qdel(query)
 
 /datum/award/score/parse_value(raw_value)
 	return isnum(raw_value) ? raw_value : 0
@@ -194,8 +205,8 @@
 
 ///Defining this here 'cause it's the first score a player should see in the Scores category.
 /datum/award/score/achievements_score
-	name = "Achievements Unlocked"
-	desc = "Don't worry, metagaming is all that matters."
+	name = "Получено достижений"
+	desc = "Не переживай, метагейминг — это важно."
 	icon_state = "elephant" //Obey the reference
 	database_id = ACHIEVEMENTS_SCORE
 
@@ -205,12 +216,15 @@
 		"SELECT COUNT(m.achievement_key) FROM [format_table_name("achievements")] AS a JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key = m.achievement_key AND m.achievement_type = 'Achievement' WHERE a.ckey = :ckey",
 		list("ckey" = holder.owner_ckey)
 	)
+
 	if(!get_unlocked_count.Execute(async = TRUE))
 		qdel(get_unlocked_count)
 		.["value"] = 0
 		return .
+
 	if(get_unlocked_count.NextRow())
 		.["value"] = text2num(get_unlocked_count.item[1])
+
 	qdel(get_unlocked_count)
 	return .
 
@@ -218,27 +232,32 @@
 	var/datum/db_query/get_unlocked_highscore = SSdbcore.NewQuery(
 		"SELECT ckey, COUNT(ckey) AS c FROM [format_table_name("achievements")] AS a JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key = m.achievement_key AND m.achievement_type = 'Achievement' GROUP BY ckey ORDER BY c DESC LIMIT 50",
 	)
+
 	if(!get_unlocked_highscore.Execute(async = TRUE))
 		qdel(get_unlocked_highscore)
 		return
-	else
-		while(get_unlocked_highscore.NextRow())
-			var/key = get_unlocked_highscore.item[1]
-			var/score = text2num(get_unlocked_highscore.item[2])
-			high_scores += list(list("ckey" = key, "value" = score))
-		qdel(get_unlocked_highscore)
+
+	while(get_unlocked_highscore.NextRow())
+		var/key = get_unlocked_highscore.item[1]
+		var/score = text2num(get_unlocked_highscore.item[2])
+		high_scores += list(list("ckey" = key, "value" = score))
+
+	qdel(get_unlocked_highscore)
 
 /datum/award/score/achievements_score/on_achievement_data_init(datum/achievement_data/holder, database_value)
 	var/datum/db_query/get_unlocked_load = SSdbcore.NewQuery(
 		"SELECT COUNT(m.achievement_key) FROM [format_table_name("achievements")] AS a JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key = m.achievement_key AND m.achievement_type = 'Achievement' WHERE a.ckey = :ckey",
 		list("ckey" = holder.owner_ckey)
 	)
+
 	if(!get_unlocked_load.Execute(async = TRUE))
 		qdel(get_unlocked_load)
 		return
+
 	if(get_unlocked_load.NextRow())
 		holder.data[type] = text2num(get_unlocked_load.item[1]) || 0
 		holder.original_cached_data[type] = 0
+
 	qdel(get_unlocked_load)
 
 
@@ -256,8 +275,10 @@
 
 /datum/award/score/progress/New()
 	. = ..()
+
 	if(!get_table())
 		CRASH("get_table() wasn't set for [type]!")
+
 	RegisterSignal(SSachievements, COMSIG_ACHIEVEMENTS_SAVED_TO_DB, PROC_REF(insert_entries))
 
 /**
@@ -276,15 +297,20 @@
 
 /datum/award/score/progress/unlock(mob/user, datum/achievement_data/holder, value)
 	var/list/entries = holder.data[type]
+
 	if(!value)
 		CRASH("empty value used as argument to progress this score award.")
+
 	if(value in entries)
 		return
+
 	// This ensures that the original list and the new won't be the same any longer.
 	// So that it'll pass the not-equal if statement and be saved in the db.
+
 	if(entries == holder.original_cached_data[type])
 		entries = entries?.Copy() || list()
 		holder.data[type] = entries
+
 	entries |= value
 
 /datum/award/score/progress/load(datum/achievement_data/holder)
@@ -297,21 +323,28 @@
 
 /datum/award/score/progress/proc/validate_loaded_data(datum/achievement_data/holder, list/results)
 	holder.original_cached_data[type] = holder.data[type] = results
+
 	if(!length(results))
 		return results
+
 	///This list will be populated on validate_entries()
 	var/list/validated_results = list()
+
 	if(!validate_entries(results, validated_results))
 		holder.data[type] = validated_results
+
 	return validated_results
 
 ///Along with the changed rows for the main table, this also populates changed_entries with the entries list
 /datum/award/score/progress/get_changed_rows(datum/achievement_data/holder)
 	if(!database_id || !holder || !name || !get_table())
 		return
+
 	var/list/entries = holder.data[type]
+
 	for(var/entry in (entries - holder.original_cached_data[type]))
 		changed_entries += list(list("ckey" = holder.owner_ckey, "progress_entry" = entry))
+
 	return list(
 		"ckey" = holder.owner_ckey,
 		"achievement_key" = database_id,
@@ -329,11 +362,14 @@
 		"SELECT progress_entry FROM [format_table_name(get_table())] WHERE ckey = :ckey",
 		list("ckey" = key)
 	)
+
 	if(!get_entries_load.Execute())
 		qdel(get_entries_load)
 		return entries
+
 	while(get_entries_load.NextRow())
 		entries |= get_entries_load.item[1]
+
 	qdel(get_entries_load)
 	return entries
 
@@ -362,6 +398,8 @@
 ///Called once the achievements are saved in the DB, since we also have to insert the entries in the associated table.
 /datum/award/score/progress/proc/insert_entries(datum/source)
 	SIGNAL_HANDLER
+
 	if(!length(changed_entries))
 		return
+
 	INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore, MassInsert), format_table_name(get_table()), changed_entries, duplicate_key = TRUE)

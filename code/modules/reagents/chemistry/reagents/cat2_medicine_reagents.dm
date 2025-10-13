@@ -17,25 +17,25 @@
 	var/beginning_combo = 0
 	var/reaping = FALSE
 
-/datum/reagent/medicine/C2/helbital/on_mob_metabolize(mob/living/carbon/M)
-	beginning_combo = M.getToxLoss() + M.getOxyLoss() + M.getFireLoss() //This DOES mean you can cure Tox/Oxy and then do burn to maintain the brute healing that way.
+/datum/reagent/medicine/C2/helbital/on_mob_metabolize(mob/living/affected_mob)
+	beginning_combo = affected_mob.getToxLoss() + affected_mob.getOxyLoss() + affected_mob.getFireLoss() //This DOES mean you can cure Tox/Oxy and then do burn to maintain the brute healing that way.
 	return ..()
 
 /datum/reagent/medicine/C2/helbital/on_mob_life(mob/living/carbon/M)
 	. = TRUE
-	var/cccombo = M.getToxLoss() + M.getOxyLoss() + M.getFireLoss()
+	var/combo = M.getToxLoss() + M.getOxyLoss() + M.getFireLoss()
 	var/healed_this_iteration = FALSE
-	if(cccombo >= beginning_combo)
-		M.adjustBruteLoss(FLOOR(cccombo / -15, 0.1)) //every 15 damage adds 1 per tick
+	if(combo >= beginning_combo)
+		M.adjustBruteLoss(FLOOR(combo / -15, 0.1)) //every 15 damage adds 1 per tick
 		healed_this_iteration = TRUE
 	else
-		M.adjustToxLoss((beginning_combo - cccombo) * 0.1) //If you are just healing instead of converting the damage we'll KINDLY do it for you AND make it the most difficult!
+		M.adjustToxLoss((beginning_combo - combo) * 0.1) //If you are just healing instead of converting the damage we'll KINDLY do it for you AND make it the most difficult!
 
 	if(!healed_this_iteration || reaping || !prob(0.005)) //janken with the grim reaper!
 		return ..()
 
 	notify_ghosts(
-		"[M.real_name] вступил в игру «камень-ножницы-бумага» со смертью!",
+		"[M.real_name] вступил в игру \"камень-ножницы-бумага\" со смертью!",
 		source = M,
 		title = "Кто победит?",
 	)
@@ -83,8 +83,8 @@
 	..()
 	return TRUE
 
-/datum/reagent/medicine/C2/helbital/on_mob_delete(mob/living/L)
+/datum/reagent/medicine/C2/helbital/on_mob_delete(mob/living/carbon/human/user)
 	if(helbent)
-		L.remove_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE)
+		user.remove_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE)
 	..()
 

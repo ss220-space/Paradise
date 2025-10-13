@@ -5,6 +5,7 @@
 /datum/achievement_admin_panel/proc/reload_data()
 	if(!SSachievements.achievements_enabled)
 		return
+
 	orphaned_keys = SSachievements.get_orphaned_keys()
 
 /datum/achievement_admin_panel/ui_data()
@@ -30,14 +31,18 @@
 
 /datum/achievement_admin_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
+
 	if(.)
 		return
+
 	switch (action)
+
 		if("archive")
 			var/achievement_key = params["key"]
 			archive_achievement(achievement_key)
 			reload_data()
 			return TRUE
+
 		if("cleanup_orphan")
 			var/achievement_key = params["key"]
 			cleanup_outdated_achievement(achievement_key)
@@ -49,8 +54,8 @@
 	// ensure key is actually orphaned just in case
 	if(!(achievement_key in orphaned_keys))
 		return
-	log_admin("[key_name_admin(usr)] has deleted orphaned achievement metadata for key [achievement_key].")
-	message_admins("[key_name_admin(usr)] has deleted orphaned achievement metadata for key [achievement_key].")
+
+	log_and_message_admins("has deleted orphaned achievement metadata for key [achievement_key].")
 	SSdbcore.MassExecute(list(
 		SSdbcore.NewQuery("DELETE FROM [format_table_name("achievement_metadata")] WHERE achievement_key = :key", list("key" = achievement_key)),
 		SSdbcore.NewQuery("DELETE FROM [format_table_name("achievements")] WHERE achievement_key = :key", list("key" = achievement_key)),
@@ -58,10 +63,11 @@
 
 /datum/achievement_admin_panel/proc/archive_achievement(achievement_key)
 	// ensure key is actually orphaned just in case
+
 	if(!(achievement_key in orphaned_keys))
 		return
-	log_admin("[key_name_admin(usr)] has archived orphaned achievement metadata for key [achievement_key].")
-	message_admins("[key_name_admin(usr)] has archived orphaned achievement metadata for key [achievement_key].")
+
+	log_and_message_admins("has archived orphaned achievement metadata for key [achievement_key].")
 	SSdbcore.MassExecute(list(
 		SSdbcore.NewQuery("UPDATE [format_table_name("achievement_metadata")] SET achievement_version = :version WHERE achievement_key = :key", list("key" = achievement_key, "version" = ACHIEVEMENT_ARCHIVED_VERSION)),
 	), warn = TRUE, qdel = TRUE)

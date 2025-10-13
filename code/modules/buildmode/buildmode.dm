@@ -6,6 +6,9 @@
 	var/build_dir = SOUTH
 	var/datum/buildmode_mode/mode
 
+	// login callback
+	var/li_cb
+
 	// SECTION UI
 
 	// Switching management
@@ -22,18 +25,32 @@
 
 /datum/click_intercept/buildmode/New()
 	mode = new /datum/buildmode_mode/basic(src)
+	li_cb = CALLBACK(src, PROC_REF(post_login))
+	holder.persistent_client.post_login_callbacks += li_cb
 	. = ..()
 	mode.enter_mode(src)
 
 /datum/click_intercept/buildmode/Destroy()
 	close_switchstates()
 	close_preview()
+	holder.persistent_client.post_login_callbacks -= li_cb
+	li_cb = null
 	QDEL_NULL(mode)
 	QDEL_LIST(modeswitch_buttons)
 	QDEL_LIST(dirswitch_buttons)
 	modebutton = null
 	dirbutton = null
 	return ..()
+
+/datum/click_intercept/buildmode/proc/post_login()
+	// since these will get wiped upon login
+	holder.screen |= buttons
+	// re-open the according switch mode
+	switch(switch_state)
+		if(BM_SWITCHSTATE_MODE)
+			open_modeswitch()
+		if(BM_SWITCHSTATE_DIR)
+			open_dirswitch()
 
 /datum/click_intercept/buildmode/create_buttons()
 	// keep a reference so we can update it upon mode switch

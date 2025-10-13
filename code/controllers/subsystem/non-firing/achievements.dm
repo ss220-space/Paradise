@@ -59,10 +59,10 @@ SUBSYSTEM_DEF(achievements)
 				most_unlocked_achievement = instance
 	qdel(query)
 
-	for(var/i in GLOB.clients)
-		var/client/C = i
-		if(!C.achievements.initialized)
-			C.achievements.InitializeData()
+	for(var/ckey in GLOB.persistent_clients_by_ckey)
+		var/datum/persistent_client/persistent_client = GLOB.persistent_clients_by_ckey[ckey]
+		if(!persistent_client.achievements.initialized)
+			persistent_client.achievements.InitializeData()
 
 	return SS_INIT_SUCCESS
 
@@ -71,11 +71,11 @@ SUBSYSTEM_DEF(achievements)
 
 /datum/controller/subsystem/achievements/proc/save_achievements_to_db()
 	var/list/cheevos_to_save = list()
-	for(var/ckey in GLOB.directory)
-		var/client/client = GLOB.directory[ckey]
-		if(!client?.achievements)
+	for(var/ckey in GLOB.persistent_clients_by_ckey)
+		var/datum/persistent_client/persistent_client = GLOB.persistent_clients_by_ckey[ckey]
+		if(!persistent_client?.achievements)
 			continue
-		cheevos_to_save += client.achievements.get_changed_data()
+		cheevos_to_save += persistent_client.achievements.get_changed_data()
 
 	if(!length(cheevos_to_save))
 		return
@@ -88,26 +88,26 @@ SUBSYSTEM_DEF(achievements)
 /datum/controller/subsystem/achievements/proc/update_metadata()
 	var/list/current_metadata = list()
 	//select metadata here
-	var/datum/db_query/Q = SSdbcore.NewQuery("SELECT achievement_key,achievement_version FROM [format_table_name("achievement_metadata")]")
-	if(!Q.Execute(async = TRUE))
-		qdel(Q)
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT achievement_key,achievement_version FROM [format_table_name("achievement_metadata")]")
+	if(!query.Execute(async = TRUE))
+		qdel(query)
 		return
 	else
-		while(Q.NextRow())
-			current_metadata[Q.item[1]] = text2num(Q.item[2])
-		qdel(Q)
+		while(query.NextRow())
+			current_metadata[query.item[1]] = text2num(query.item[2])
+		qdel(query)
 
 	var/list/to_update = list()
-	for(var/T in awards)
-		var/datum/award/A = awards[T]
-		if(!current_metadata[A.database_id] || current_metadata[A.database_id] < A.achievement_version)
-			to_update += list(A.get_metadata_row())
+	for(var/key in awards)
+		var/datum/award/award = awards[key]
+		if(!current_metadata[award.database_id] || current_metadata[award.database_id] < award.achievement_version)
+			to_update += list(award.get_metadata_row())
 
-	if(to_update.len)
-		SSdbcore.MassInsert(format_table_name("achievement_metadata"), to_update,duplicate_key = TRUE)
+	if(length(to_update))
+		SSdbcore.MassInsert(format_table_name("achievement_metadata"), to_update, duplicate_key = TRUE)
 
 	var/list/orphaned_keys = get_orphaned_keys(FALSE)
-	if(orphaned_keys.len)
+	if(length(orphaned_keys))
 		message_admins("Achievement metadata found without matching achievement, use Achievements-Admin-Panel verb to cleanup if necessary")
 
 /// returns list of metadata keys and versions in db with no matching achievement datum, either deleted achievements, or from server with code ahead of us.
@@ -115,14 +115,14 @@ SUBSYSTEM_DEF(achievements)
 	. = list()
 	var/list/current_metadata = list()
 	// Fetch all keys from the db
-	var/datum/db_query/Q = SSdbcore.NewQuery("SELECT achievement_key,achievement_version FROM [format_table_name("achievement_metadata")]")
-	if(!Q.Execute(async = TRUE))
-		qdel(Q)
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT achievement_key,achievement_version FROM [format_table_name("achievement_metadata")]")
+	if(!query.Execute(async = TRUE))
+		qdel(query)
 		return
 	else
-		while(Q.NextRow())
-			current_metadata[Q.item[1]] = Q.item[2]
-		qdel(Q)
+		while(query.NextRow())
+			current_metadata[query.item[1]] = query.item[2]
+		qdel(query)
 
 	var/list/achievements_by_db_id = list()
 	for(var/datum/award/award as anything in subtypesof(/datum/award))

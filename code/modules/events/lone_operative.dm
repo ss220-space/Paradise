@@ -11,7 +11,7 @@
 		return FALSE
 	var/mob/living/carbon/human/operative = new (pick(GLOB.carplist))
 	var/mob/candidate = pick(candidates)
-	operative.key = candidate.key
+	operative.possess_by_player(candidate.key)
 	create_syndicate(operative.mind)
 	var/datum/antagonist/nuclear_operative/datum = operative.mind.add_antag_datum(/datum/antagonist/nuclear_operative/loneop)
 	datum.equip()

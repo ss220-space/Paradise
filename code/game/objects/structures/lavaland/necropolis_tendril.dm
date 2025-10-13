@@ -106,12 +106,12 @@ GLOBAL_LIST_EMPTY(tendrils)
 	if(!SSachievements.achievements_enabled)
 		return
 
-	for(var/mob/living/L in view(7, src))
-		if(L.stat || !L.client)
+	for(var/mob/living/mob in view(7, src))
+		if(mob.stat || !mob.client)
 			continue
 
-		L.client.give_award(/datum/award/achievement/boss/tendril_exterminator, L)
-		L.client.give_award(/datum/award/score/tendril_score, L) //Progresses score by one
+		mob.client.give_award(/datum/award/achievement/boss/tendril_exterminator, mob)
+		mob.client.give_award(/datum/award/score/tendril_score, mob) //Progresses score by one
 
 /obj/effect/light_emitter/tendril
 	light_range = 4

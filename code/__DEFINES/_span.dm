@@ -32,6 +32,7 @@
 #define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
 #define span_announce(str) ("<span class='announce'>" + str + "</span>")
 #define span_typing(str) ("<span class='typing'>" + str + "</span>")
+#define span_infoplain(str) ("<span class='infoplain'>" + str + "</span>")
 
 /**
  * MARK: GENERAL STUFF

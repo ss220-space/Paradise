@@ -329,7 +329,7 @@
 	var/spaceport_freebie = 0
 	var/last_spaceport_action = ""
 
-	var/obj/item/radio/Radio
+	var/obj/item/radio/radio
 	var/list/gamers = list()
 	var/killed_crew = 0
 
@@ -343,10 +343,14 @@
 		PREPOSITIONAL = "игровом автомате The Orion Trail"
 	)
 
-/obj/machinery/computer/arcade/orion_trail/Initialize()
+/obj/machinery/computer/arcade/orion_trail/Initialize(mapload)
 	. = ..()
-	Radio = new /obj/item/radio(src)
-	Radio.set_listening(FALSE)
+	radio = new /obj/item/radio(src)
+	radio.set_listening(FALSE)
+
+/obj/machinery/computer/arcade/orion_trail/Destroy(force)
+	QDEL_NULL(radio)
+	. = ..()
 
 /obj/machinery/computer/arcade/orion_trail/Reset()
 	// Sets up the main trail
@@ -405,10 +409,10 @@
 	if(gamers[gamer] <= 2 || !prob(20 * gamers[gamer]))
 		return
 
-	Radio.set_frequency(SEC_FREQ)
-	Radio.autosay("ОПОВЕЩЕНИЕ БЕЗОПАСНОСТИ: Член экипажа [gamer.declent_ru(NOMINATIVE)] демонстрирует признаки асоциального поведения в [get_area(src)]. Пожалуйста, будьте внимательны к проявлениям агрессивного поведения.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
-	Radio.set_frequency(MED_FREQ)
-	Radio.talk_into(src, "ОПОВЕЩЕНИЕ О ПСИХИЧЕСТКОМ РАССТРОЙСТВЕ: У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	radio.set_frequency(SEC_FREQ)
+	radio.autosay("ОПОВЕЩЕНИЕ БЕЗОПАСНОСТИ: Член экипажа [gamer.declent_ru(NOMINATIVE)] демонстрирует признаки асоциального поведения в [get_area(src)]. Пожалуйста, будьте внимательны к проявлениям агрессивного поведения.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	radio.set_frequency(MED_FREQ)
+	radio.talk_into(src, "ОПОВЕЩЕНИЕ О ПСИХИЧЕСТКОМ РАССТРОЙСТВЕ: У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
 
 	gamers[gamer] = -1
 
@@ -417,7 +421,7 @@
 	if(isnull(GLOB.data_core.general))
 		return
 
-	for(var/datum/data/record/record in GLOB.data_core.general)
+	for(var/datum/data/record/record as anything in GLOB.data_core.general)
 		if(record.fields["name"] != gamer.name)
 			continue
 
