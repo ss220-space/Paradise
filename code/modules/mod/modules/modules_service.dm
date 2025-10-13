@@ -9,6 +9,7 @@
 	icon_state = "bikehorn"
 	module_type = MODULE_USABLE
 	complexity = 1
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/bikehorn)
 	cooldown_time = 1 SECONDS
@@ -73,6 +74,7 @@
 	icon_state = "regulator"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
+	required_slots = list(ITEM_SLOT_FEET)
 	incompatible_modules = list(/obj/item/mod/module/boot_heating)
 
 /obj/item/mod/module/boot_heating/get_ru_names()

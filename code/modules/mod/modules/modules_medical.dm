@@ -126,6 +126,7 @@
 	module_type = MODULE_ACTIVE
 	complexity = 1
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
+	required_slots = list(ITEM_SLOT_GLOVES)
 	device = /obj/item/reagent_containers/syringe/mod
 	incompatible_modules = list(/obj/item/mod/module/injector)
 	cooldown_time = 0.5 SECONDS
@@ -296,6 +297,7 @@
 	icon_state = "scanner"
 	module_type = MODULE_ACTIVE
 	complexity = 1
+	required_slots = list(ITEM_SLOT_GLOVES)
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	device = /obj/item/sensor_device/mod
 	incompatible_modules = list(/obj/item/mod/module/monitor)

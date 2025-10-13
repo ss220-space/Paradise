@@ -8,6 +8,7 @@
 	complexity = 1
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/visor)
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 	cooldown_time = 0.5 SECONDS
 	/// The HUD type given by the visor.
 	var/hud_type

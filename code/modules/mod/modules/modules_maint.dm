@@ -9,6 +9,7 @@
 		недостаток: при воздействии влаги пружинный механизм имеет тенденцию \"защёлкиваться\" в исходное положение."
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	incompatible_modules = list(/obj/item/mod/module/springlock)
 	///How much faster will your suit deploy?
 	var/activation_step_time_booster = 2

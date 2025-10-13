@@ -10,6 +10,7 @@
 	module_type = MODULE_USABLE
 	complexity = 2
 	incompatible_modules = list(/obj/item/mod/module/holster)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	cooldown_time = 0.5 SECONDS
 	allow_flags = MODULE_ALLOW_INACTIVE
 	/// Gun we have holstered.
@@ -214,6 +215,7 @@
 	complexity = 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 20 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/atmospheric)
 	/// Path we dispense.
 	var/dispense_type = /obj/item/grenade/barrier/dropwall/firewall
@@ -252,6 +254,7 @@
 	complexity = 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 750
 	device = /obj/item/gun/energy/vortex_shotgun
+	required_slots = list(ITEM_SLOT_GLOVES)
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/vortex)
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/get_ru_names()
@@ -511,6 +514,7 @@
 	module_type = MODULE_ACTIVE
 	complexity = 1
 	device = /obj/item/megaphone
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	incompatible_modules = list(/obj/item/mod/module/megaphone)
 	removable = TRUE
 	cooldown_time = 0.05 SECONDS

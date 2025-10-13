@@ -11,6 +11,7 @@
 	icon_state = "insignia"
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/insignia)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	overlay_state_inactive = "module_insignia"
 	mask_worn_overlay = TRUE
 
@@ -163,6 +164,7 @@
 	/// The size we set the suit to.
 	var/new_size = WEIGHT_CLASS_NORMAL
 	/// The suit's size before the module is installed.
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	var/old_size
 	origin_tech = "materials=6;bluespace=5;syndicate=1" //Printable at illegals 2, so only one level.
 
@@ -295,7 +297,7 @@
 	incompatible_modules = list(/obj/item/mod/module/status_readout)
 	tgui_id = "status_readout"
 	origin_tech = "combat=6;biotech=6;syndicate=1"
-	required_slots = list(ITEM_SLOT_BACK)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// Does this show damage types, body temp, satiety
 	var/display_detailed_vitals = TRUE
 	/// Does this show DNA data
@@ -367,6 +369,7 @@
 	действий через командный центр, для последующего разбора полевых операций, и для записи смешнейших провалов лучших бойцов Нанотрейзен."
 	icon_state = "eradicationlock" //looks like a bluespace transmitter or something, probably could use an actual camera look.
 	complexity = 1
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	incompatible_modules = list(/obj/item/mod/module/ert_camera)
 	var/obj/machinery/camera/portable/camera
 
@@ -410,6 +413,7 @@
 	incompatible_modules = list(/obj/item/mod/module/chameleon)
 	cooldown_time = 0.5 SECONDS
 	allow_flags = list(MODULE_ALLOW_INACTIVE|MODULE_ALLOW_UNWORN)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	origin_tech = "materials=6;bluespace=5;syndicate=1"
 
 /obj/item/mod/module/chameleon/get_ru_names()
@@ -470,7 +474,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 2
 	incompatible_modules = list(/obj/item/mod/module/energy_shield)
-	required_slots = list(ITEM_SLOT_BACK)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// Max charges of the shield.
 	var/max_charges = 3
 	/// The time it takes for the first charge to recover.
@@ -544,6 +548,7 @@
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 75
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/energetic)
 	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	///Copy paste of shielded code wheeeey
 	/// Max charges of the shield.
 	var/max_charges = 80 // Less charges because not gamma / this one is real shocking
@@ -686,7 +691,7 @@
 	incompatible_modules = list(/obj/item/mod/module/medbeam)
 	removable = TRUE
 	cooldown_time = 0.05 SECONDS
-	required_slots = list(ITEM_SLOT_BACK)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/medbeam/get_ru_names()
 	return list(

@@ -168,6 +168,4 @@
 
 /obj/item/mod/module/anomaly_locked/antigrav/prebuilt
 	prebuilt = TRUE
-
-// /obj/item/mod/module/anomaly_locked/antigrav/prebuilt/locked
-// 	core_removable = FALSE
+	removable = FALSE

@@ -128,6 +128,7 @@
 	removable = FALSE
 	max_combined_w_class = 21
 	max_items = 7
+	required_slots = list(ITEM_SLOT_BELT)
 
 /obj/item/mod/module/storage/belt/get_ru_names()
 	return list(
@@ -197,7 +198,7 @@
 	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
-	required_slots = list(ITEM_SLOT_BACK)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// Do we stop the wearer from gliding in space.
 	var/stabilizers = FALSE
 	/// Callback to see if we can thrust the user.
@@ -506,6 +507,7 @@
 	origin_tech = "materials=6;bluespace=5;syndicate=1"
 	module_type = MODULE_USABLE
 	complexity = 2
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 3
 	incompatible_modules = list(/obj/item/mod/module/dna_lock, /obj/item/mod/module/emp_shield)
 	cooldown_time = 0.5 SECONDS
@@ -655,7 +657,7 @@
 	cooldown_time = 30 SECONDS
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/jump_jet)
-	required_slots = list(ITEM_SLOT_BACK)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/jump_jet/get_ru_names()
 	return list(
@@ -855,6 +857,7 @@
 	desc = "Модуль для МЭК, делающий пользователя невосприимчивым к воздействию оглушающих дубинок."
 	icon_state = "no_baton"
 	complexity = 1
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/shock_absorber)
 
@@ -922,16 +925,26 @@
 ///Allows displaying a hat over the MOD-helmet, à la plasmamen helmets.
 /obj/item/mod/module/hat_stabilizer
 	name = "MOD hat stabilizer module"
-	desc = "A simple set of deployable stands, directly atop one's head; \
-		these will deploy under a hat to keep it from falling off, allowing them to be worn atop the sealed helmet. \
-		You still need to take the hat off your head while the helmet deploys, though. \
-		This is a must-have for Nanotrasen Captains, enabling them to show off their authoritative hat even while in their MODsuit."
+	desc = "Модуль для МЭК, небольшой набор креплений на шлеме костюма, позволяющий дополнительную установку шляпы \
+		поверх шлема. Вам всё еще необходимо снять шляпу перед тем, как активировать костюм. \
+		Данный модуль обязателен к установке на все МЭК класса \"Магнат\"."
 	icon_state = "hat_holder"
 	incompatible_modules = list(/obj/item/mod/module/hat_stabilizer)
 	required_slots = list(ITEM_SLOT_HEAD)
+	complexity = 1
 	/// Original cover flags for the MOD helmet, before a hat is placed
 	var/former_flags
 	var/former_visor_flags
+
+/obj/item/mod/module/hat_stabilizer/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль стабилизатора шляп",
+		GENITIVE = "модуля стабилизатора шляп",
+		DATIVE = "модулю стабилизатора шляп",
+		ACCUSATIVE = "модуль стабилизатора шляп",
+		INSTRUMENTAL = "модулем стабилизатора шляп",
+		PREPOSITIONAL = "модуле стабилизатора шляп",
+	)
 
 /obj/item/mod/module/hat_stabilizer/on_part_activation()
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
@@ -951,9 +964,18 @@
 
 /obj/item/mod/module/hat_stabilizer/syndicate
 	name = "MOD elite hat stabilizer module"
-	desc = "A simple set of deployable stands, directly atop one's head; \
-		these will deploy under a hat to keep it from falling off, allowing them to be worn atop the sealed helmet. \
-		You still need to take the hat off your head while the helmet deploys, though. This is a must-have for \
-		Syndicate Operatives and Agents alike, enabling them to continue to style on the opposition even while in their MODsuit."
+	desc = "Модуль для МЭК, небольшой набор креплений на шлеме костюма, позволяющий дополнительную установку шляпы \
+		поверх шлема. Вам всё еще необходимо снять шляпу перед тем, как активировать костюм. \
+		Модуль по-умолчанию установлен на все МЭК Синдиката, как у оперативников, так и у простых агентов."
 	complexity = 0
 	removable = FALSE
+
+/obj/item/mod/module/hat_stabilizer/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль стабилизатора шляп синдиката",
+		GENITIVE = "модуля стабилизатора шляп синдиката",
+		DATIVE = "модулю стабилизатора шляп синдиката",
+		ACCUSATIVE = "модуль стабилизатора шляп синдиката",
+		INSTRUMENTAL = "модулем стабилизатора шляп синдиката",
+		PREPOSITIONAL = "модуле стабилизатора шляп синдиката",
+	)

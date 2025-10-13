@@ -10,6 +10,7 @@
 	module_type = MODULE_ACTIVE
 	complexity = 1
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 0.2
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	incompatible_modules = list(/obj/item/mod/module/gps)
 	cooldown_time = 0.5 SECONDS
 	device = /obj/item/gps/mod

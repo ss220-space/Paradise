@@ -8,6 +8,7 @@
 		без опасений смотреть на точечную и дуговую сварку, солнечные затмения, а также карманные фонарики."
 	icon_state = "welding"
 	complexity = 1
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 	incompatible_modules = list(/obj/item/mod/module/welding)
 	overlay_state_inactive = "module_welding"
 
@@ -46,6 +47,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	incompatible_modules = list(/obj/item/mod/module/t_ray)
 	cooldown_time = 0.5 SECONDS
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// T-ray scan range.
 	var/range = 4
 
@@ -197,6 +199,7 @@
 	complexity = 0 //I'm setting this to zero for now due to it not currently increasing radiaiton armor. If we add giger counter / additional rad protecion to this, it should be 2. We denied radiation potions before, so this should NOT give full rad immunity on a engi modsuit
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1 //Lowered from 0.3 due to no protection.
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	tgui_id = "rad_counter"
 
 /obj/item/mod/module/rad_protection/get_ru_names()
@@ -226,6 +229,7 @@
 	complexity = 1
 	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/tether)
+	required_slots = list(ITEM_SLOT_GLOVES)
 	cooldown_time = 4 SECONDS
 
 /obj/item/mod/module/tether/get_ru_names()
@@ -450,28 +454,3 @@
 /obj/item/mod/module/mister/Initialize(mapload)
 	create_reagents(volume, OPENCONTAINER)
 	return ..()
-
-/// Resin Mister - Sprays resin over an area.
-/obj/item/mod/module/mister/atmos
-	name = "MOD resin mister module"
-	desc = "Модуль атмосферного распылителя для МЭК. Содержит быстротвердеющие полимеры, позволяя оперативно заделывать бреши в обшивке."
-	device = /obj/item/extinguisher/mini/nozzle/mod
-	volume = 250
-
-/obj/item/mod/module/mister/atmos/get_ru_names()
-	return list(
-		NOMINATIVE = "модуль атмосферного распылителя",
-		GENITIVE = "модуля атмосферного распылителя",
-		DATIVE = "модулю атмосферного распылителя",
-		ACCUSATIVE = "модуль атмосферного распылителя",
-		INSTRUMENTAL = "модулем атмосферного распылителя",
-		PREPOSITIONAL = "модуле атмосферного распылителя",
-	)
-
-/obj/item/mod/module/mister/atmos/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent(/datum/reagent/water, volume)
-
-/obj/item/extinguisher/mini/nozzle/mod
-	name = "MOD atmospheric mister"
-	desc = "Распылитель быстротвердеющих полимеров с тремя режимами работы."

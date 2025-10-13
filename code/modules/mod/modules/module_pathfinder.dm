@@ -7,6 +7,7 @@
 	icon_state = "pathfinder"
 	complexity = 2
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 200
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	incompatible_modules = list(/obj/item/mod/module/pathfinder)
 	/// The pathfinding implant.
 	var/obj/item/implant/mod/implant
