@@ -68,7 +68,7 @@
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
-	A.do_attack_animation(D)
+	A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 	var/picked_hit_type = pick("бь[pluralize_ru(A.gender, "ёт", "ют")]", "руб[pluralize_ru(A.gender, "ит", "ят")]", "забива[pluralize_ru(A.gender, "ет", "ют")]")
 	var/bonus_damage = 13
 	if(IS_HORIZONTAL(D))
@@ -110,8 +110,20 @@
 			A.setGrabState(GRAB_NECK)
 		return TRUE
 	else
-		restraining = FALSE
+		drop_restraining()
 
+	if(!IS_HORIZONTAL(D) && !restraining)
+		D.visible_message(span_warning("[capitalize(A.declent_ru(NOMINATIVE))] бь[pluralize_ru(A.gender, "ёт", "ют")] [D.declent_ru(ACCUSATIVE)] прямо в челюсть!"), \
+							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] бь[pluralize_ru(A.gender, "ёт", "ют")] тебя прямо в челюсть"))
+		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
+		D.SetSlur(4 SECONDS)
+		D.apply_damage(8, STAMINA)
+	else
+		D.visible_message(span_danger("[capitalize(A.declent_ru(NOMINATIVE))] попытал[genderize_ru(A.gender, "ся", "ась", "ись")] обезоружить [D.declent_ru(ACCUSATIVE)]!"), \
+							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] попытал[genderize_ru(A.gender, "ся", "ась", "ись")] обезоружить тебя!"))
+		playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, TRUE, -1)
+
+	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	return TRUE
 

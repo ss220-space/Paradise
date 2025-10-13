@@ -16,6 +16,7 @@
 	target.throw_at(throw_target, 1, 14, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), target))
 	target.apply_damage(10, BRUTE)
 	objective_damage(user, target, 10, BRUTE)
+	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
 
