@@ -49,7 +49,7 @@
 		deflection_chance = initial(deflection_chance)
 	else if(!user.l_hand || !user.r_hand)
 		deflection_chance = 50
-	else if(user.reagents && length(user.reagents.addiction_list))
+	else if(length(user.reagents.addiction_list))
 		deflection_chance = 0
 	else
 		deflection_chance = 0
