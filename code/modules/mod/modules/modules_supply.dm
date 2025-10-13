@@ -274,8 +274,8 @@
 		return
 	var/current_time = world.time
 	var/atom/movable/plane_master_controller/pm_controller = mod.wearer.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-	for(var/key in pm_controller.controlled_planes)
-		animate(pm_controller.controlled_planes[key], launch_time, transform = matrix(1.25, MATRIX_SCALE))
+	for(var/atom/movable/screen/plane_master/pm_iterator as anything in pm_controller.get_planes())
+		animate(pm_iterator, launch_time, transform = matrix(1.25, MATRIX_SCALE))
 	mod.wearer.visible_message(span_warning("[mod.wearer] начинает громко гудеть!"))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	mod.wearer.add_overlay(charge_up_overlay)
@@ -283,8 +283,8 @@
 	if(!do_after(mod.wearer, launch_time, target = mod.wearer))
 		power = world.time - current_time
 	drain_power(use_energy_cost)
-	for(var/key in pm_controller.controlled_planes)
-		animate(pm_controller.controlled_planes[key], 0.1 SECONDS, transform = matrix(1, MATRIX_SCALE))
+	for(var/atom/movable/screen/plane_master/pm_iterator as anything in pm_controller.get_planes())
+		animate(pm_iterator, 0.1 SECONDS, transform = matrix(1, MATRIX_SCALE))
 	playsound(src, 'sound/items/modsuit/loader_launch.ogg', 75, TRUE)
 	var/angle = get_angle(mod.wearer, target)
 	mod.wearer.transform = mod.wearer.transform.Turn(mod.wearer.transform, angle)
@@ -429,7 +429,7 @@
 		if(speed_up)
 			part.slowdown += speed_added / 5
 	traveled_tiles = 0
-	mod.wearer.weather_immunities -= "ash"
+	LAZYREMOVE(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
 
 /obj/item/mod/module/ash_accretion/generate_worn_overlay(obj/item/source, mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
@@ -451,7 +451,7 @@
 			animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
 			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
 			actual_speed_added = max(0, min(mod.slowdown_deployed, speed_added / 5))
-			mod.wearer.weather_immunities |= "ash"
+			LAZYADD(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
 		for(var/obj/item/part as anything in mod.get_parts(TRUE))
 			part.armor = part.armor.attachArmor(armor_mod_1.armor)
 			if(speed_up)
@@ -471,7 +471,7 @@
 				part.slowdown += actual_speed_added
 		if(traveled_tiles <= 0)
 			balloon_alert(mod.wearer, "недостаточно пепла!")
-			mod.wearer.weather_immunities -= "ash"
+			LAZYREMOVE(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
 
 /obj/effect/temp_visual/light_ash
 	icon_state = "light_ash"

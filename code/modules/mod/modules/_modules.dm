@@ -133,14 +133,6 @@
 		if(mod.wearer)
 			balloon_alert(mod.wearer, "модуль неактивен!")
 		return
-	if(module_type != MODULE_USABLE)
-		if(active)
-			on_deactivation()
-		else
-			on_activation()
-	else
-		on_use()
-	SEND_SIGNAL(mod, COMSIG_MOD_MODULE_SELECTED, src)
 
 	if(!mod.wearer && !(allow_flags & MODULE_ALLOW_UNWORN)) //No wearer and cannot be used unworn
 		balloon_alert(activator, "модуль не экипирован!")
@@ -166,6 +158,7 @@
 			activate(activator)
 	else
 		used(activator)
+
 	SEND_SIGNAL(mod, COMSIG_MOD_MODULE_SELECTED, src)
 
 /// Apply a cooldown until this item can be used again
