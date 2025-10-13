@@ -564,6 +564,11 @@
 			if("bulb")
 				newlight = new /obj/machinery/light_construct/small(loc)
 				newlight.icon_state = "bulb-construct-stage2"
+
+			else
+				return
+
+
 		newlight.setDir(dir)
 		newlight.stage = cur_stage
 		if(!disassembled)

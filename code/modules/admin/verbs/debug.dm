@@ -178,7 +178,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 #if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
 	return FALSE
 #else
-	return usr?.client && GLOB.AdminProcCaller == usr.client.ckey
+	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
 #endif
 
 /client/proc/callproc_datum(atom/A as null|area|mob|obj|turf in view(maxview()))

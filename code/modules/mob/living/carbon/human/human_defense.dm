@@ -38,7 +38,7 @@ emp_act
 		return 2
 
 
-	if(mind?.martial_art?.reflection_chance) //Some martial arts users can even reflect projectiles!
+	if(mind?.martial_art?.can_reflect) //Some martial arts users can even reflect projectiles!
 		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
 			var/checks_passed = TRUE
 			if(istype(mind.martial_art, /datum/martial_art/ninja_martial_art))
@@ -53,7 +53,7 @@ emp_act
 				return -1
 			return FALSE
 
-	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
+	if(mind?.martial_art?.can_deflect) //Some martial arts users can deflect projectiles!
 		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
 			if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL)) //if it cannot be reflected, it hits the floor. This is the exception to the rule
