@@ -539,7 +539,7 @@
 		spell.Click()
 		return TRUE
 
-/datum/action/spell_action/AltTrigger()
+/datum/action/spell_action/AltTrigger(mob/clicker, trigger_flags)
 	if(target)
 		var/obj/effect/proc_holder/spell/spell = target
 		owner.base_click_alt(spell)

@@ -67,8 +67,11 @@
 		return
 	usr.next_click = world.time + 1
 	var/trigger_flags
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		trigger_flags |= TRIGGER_SECONDARY_ACTION
+		linked_action.AltTrigger(usr, trigger_flags = trigger_flags)
+		linked_action.UpdateButtonIcon()
+		return TRUE
 	linked_action.Trigger(usr, trigger_flags = trigger_flags)
 	linked_action.UpdateButtonIcon()
 	return TRUE
