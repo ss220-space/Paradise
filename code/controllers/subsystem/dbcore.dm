@@ -301,7 +301,7 @@ SUBSYSTEM_DEF(dbcore)
 			if(has_col)
 				query_parts += ", "
 			if(has_question_mark[column])
-				var/name = "p[arguments.len]"
+				var/name = "p[length(arguments)]"
 				query_parts += replacetext(columns[column], "?", ":[name]")
 				arguments[name] = row[column]
 			else

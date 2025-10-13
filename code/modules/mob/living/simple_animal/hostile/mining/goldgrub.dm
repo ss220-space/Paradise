@@ -51,7 +51,7 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub/GiveTarget(new_target)
 	add_target(new_target)
 	if(!QDELETED(target))
-		if(wanted_objects[target.type] && loot.len < max_loot)
+		if(wanted_objects[target.type] && length(loot) < max_loot)
 			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] смотрит на [target.declent_ru(ACCUSATIVE)] голодными глазами."))
 		else if(iscarbon(target) || issilicon(target))
 			Aggro()

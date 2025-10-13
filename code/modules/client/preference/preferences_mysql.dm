@@ -774,7 +774,7 @@
 		saves += text2num(query.item[1])
 	qdel(query)
 
-	if(!saves.len)
+	if(!length(saves))
 		load_character(C)
 		return 0
 	load_character(C,pick(saves))

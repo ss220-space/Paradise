@@ -301,9 +301,9 @@
 			gripped_item.afterattack(target, user, TRUE, params)
 
 		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
-		if(!gripped_item && contents.len)
+		if(!gripped_item && length(contents))
 			gripped_item = contents[1]
-		else if(gripped_item && !contents.len)
+		else if(gripped_item && !length(contents))
 			gripped_item = null
 
 	else if(isitem(target)) //Check that we're not pocketing a mob.

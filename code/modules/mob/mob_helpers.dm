@@ -20,13 +20,13 @@
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/implant/mindshield/L in A)
-		if(L && L.implanted)
+		if(L?.implanted)
 			return 1
 	return 0
 
 /proc/isertmindshielded(A) //Checks to see if the person contains a ert mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/implant/mindshield/ert/L in A)
-		if(L && L.implanted)
+		if(L?.implanted)
 			return 1
 	return 0
 
@@ -404,7 +404,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					a_intent = intent_numeric((intent_numeric(a_intent)+1) % 4)
 				if("left")
 					a_intent = intent_numeric((intent_numeric(a_intent)+3) % 4)
-			if(hud_used && hud_used.action_intent)
+			if(hud_used?.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
 		else if(isrobot(src) || islarva(src) || isanimal(src) || isAI(src))
@@ -415,7 +415,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					a_intent = INTENT_HARM
 				if("right","left")
 					a_intent = intent_numeric(intent_numeric(a_intent) - 3)
-			if(hud_used && hud_used.action_intent)
+			if(hud_used?.action_intent)
 				if(a_intent == INTENT_HARM)
 					hud_used.action_intent.icon_state = "harm"
 				else
@@ -457,7 +457,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 /proc/say_dead_direct(message, mob/subject = null)
 	var/name
 	var/keyname
-	if(subject && subject.client)
+	if(subject?.client)
 		var/client/C = subject.client
 		keyname = (C.holder && C.holder.fakekey) ? C.holder.fakekey : C.key
 		if(C.mob) //Most of the time this is the dead/observer mob; we can totally use him if there is no better name
@@ -836,7 +836,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		return TRUE
 	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
 	var/has_antags = FALSE
-	if(client.prefs.be_special.len > 0)
+	if(length(client.prefs.be_special) > 0)
 		has_antags = TRUE
 	if(!client.prefs.check_any_job())
 		to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")

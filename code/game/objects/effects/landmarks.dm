@@ -763,7 +763,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/ruin/Initialize(mapload, my_ruin_template)
 	. = ..()
-	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
+	name = "ruin_[length(GLOB.ruin_landmarks) + 1]"
 	ruin_template = my_ruin_template
 	GLOB.ruin_landmarks |= src
 

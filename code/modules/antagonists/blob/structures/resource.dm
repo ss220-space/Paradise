@@ -29,6 +29,6 @@
 	if(overmind)
 		overmind.add_points(point_rate)
 		balloon_alert(overmind, "+[point_rate] resource\s")
-		resource_delay = world.time + BLOB_RESOURCE_GATHER_DELAY + overmind.resource_blobs.len * BLOB_RESOURCE_GATHER_ADDED_DELAY //4 seconds plus a quarter second for each resource blob the overmind has
+		resource_delay = world.time + BLOB_RESOURCE_GATHER_DELAY + length(overmind.resource_blobs) * BLOB_RESOURCE_GATHER_ADDED_DELAY //4 seconds plus a quarter second for each resource blob the overmind has
 	else
 		resource_delay = world.time + BLOB_RESOURCE_GATHER_DELAY

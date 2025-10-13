@@ -4,6 +4,7 @@
 	name = "Спящий Карп"
 	reroute_deflection = TRUE
 	deflection_chance = 100
+	can_deflect = TRUE
 	no_guns = TRUE
 	no_guns_message = "Использование подобного оружия обесчестит клан."
 	has_explaination_verb = TRUE

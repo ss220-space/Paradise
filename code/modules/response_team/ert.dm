@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	GLOB.send_emergency_team = TRUE
 	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Присоединиться к Отряду Быстрого Реагирования?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
-	if(!ert_candidates.len)
+	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if(M.JoinResponseTeam())
 			GLOB.response_team_members |= M
 
-	if(!GLOB.response_team_members.len)
+	if(!length(GLOB.response_team_members))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
@@ -93,8 +93,8 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /proc/dispatch_response_team(list/response_team_members, list/ert_prefs)
 	var/spawn_index = 1
 
-	while(spawn_index <= GLOB.emergencyresponseteamspawn.len)
-		if(!ert_prefs.len)
+	while(spawn_index <= length(GLOB.emergencyresponseteamspawn))
+		if(!length(ert_prefs))
 			break
 		var/mob/user = pick(ert_prefs)
 		if(!GLOB.active_team.get_slot_list().len)
@@ -327,7 +327,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/rt_assignment = "Emergency Response Team Member"
 	var/rt_job = "This is a bug"
 	var/rt_mob_job = "This is a bug" // The job set on the actual mob.
-	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира - в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
+	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира — в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
 	var/hours_dif = 0 // Subtracted from the total number of hours. Needs to be done that Gamma ERT/individual roles will require more hours
 	var/exp_type = FALSE
 	var/list/ranks = list(

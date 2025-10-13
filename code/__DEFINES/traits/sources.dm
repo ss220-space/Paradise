@@ -49,6 +49,7 @@
 #define AUGMENT_TRAIT "augment"
 #define ANTIDROP_TRAIT "antidrop"
 #define HOLO_CIGAR_TRAIT "holo_cigar"
+#define INUGAMI_TRAIT "inugami_gl"
 
 #define WISHGRANTER_TRAIT "wishgranter"
 #define THUNDERDOME_TRAIT "thunderdome"

@@ -147,7 +147,7 @@
 		ritual_object.balloon_alert(invoker, "мало грешников!")
 		return FALSE
 
-	if(devil.soulsOwned.len < ASCEND_THRESHOLD)
+	if(length(devil.soulsOwned) < ASCEND_THRESHOLD)
 		ritual_object.balloon_alert(invoker, "недостаточно душ!")
 		return FALSE
 

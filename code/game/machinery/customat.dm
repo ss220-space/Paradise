@@ -631,7 +631,7 @@
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
 				paid = FALSE
 				var/left = currently_vending.price
-				for(var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
+				for(var/ind = 1; ind <= length(canister.linked_accounts); ++ind)
 					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
 					pay_now = min(pay_now, left)
 					left -= pay_now
@@ -640,7 +640,7 @@
 				var/datum/money_account/customer_account = get_card_account(usr)
 				paid = FALSE
 				var/left = currently_vending.price
-				for(var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
+				for(var/ind = 1; ind <= length(canister.linked_accounts); ++ind)
 					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
 					pay_now = min(pay_now, left)
 					left -= pay_now

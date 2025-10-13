@@ -123,7 +123,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 	var/main_spider_exist = check_main_spiders()
 
-	if(main_spider_exist && terror_infections.len > crew_count * INFECTIONS_ANNOUNCE_TRIGGER)
+	if(main_spider_exist && length(terror_infections) > crew_count * INFECTIONS_ANNOUNCE_TRIGGER)
 		result = TRUE
 
 	if(main_spider_exist && get_terror_spiders_alife_count() > crew_count * SPIDERS_ANNOUNCE_TRIGGER)
@@ -245,27 +245,27 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	var/list/terror_princesses = main_spiders[TERROR_PRINCESS]
 	var/list/terror_defilers = main_spiders[TERROR_DEFILER]
 
-	if(terror_queens.len || terror_princes.len || terror_princesses.len || terror_defilers.len)
+	if(length(terror_queens) || length(terror_princes) || length(terror_princesses) || length(terror_defilers))
 		var/list/text= declare_results()
 		text += span_fontsize2("<br/><b>Основа гнезда:</b>")
-		if(terror_queens.len)
-			text += span_fontsize1("<br/><b>Королев[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b>")
+		if(length(terror_queens))
+			text += span_fontsize1("<br/><b>Королев[(length(terror_queens)> 1 ? "ами были" : "ой был")]:</b>")
 			for(var/datum/mind/spider in terror_queens)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		if(terror_princes.len)
-			text += span_fontsize1("<br/><b>Принц[(terror_queens?.len > 1 ? "ами были" : "ем был")]:</b>")
+		if(length(terror_princes))
+			text += span_fontsize1("<br/><b>Принц[(length(terror_queens) > 1 ? "ами были" : "ем был")]:</b>")
 			for(var/datum/mind/spider in terror_princes)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		if(terror_princesses.len)
-			text += span_fontsize1("<br/><b>Принцесс[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b>")
+		if(length(terror_princesses))
+			text += span_fontsize1("<br/><b>Принцесс[(length(terror_queens) > 1 ? "ами были" : "ой был")]:</b>")
 			for(var/datum/mind/spider in terror_princesses)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		if(terror_defilers.len)
-			text += span_fontsize1("<br/><b>Осквернител[(terror_queens?.len > 1 ? "ями были" : "ем был")]:</b>")
+		if(length(terror_defilers))
+			text += span_fontsize1("<br/><b>Осквернител[(length(terror_queens) > 1 ? "ями были" : "ем был")]:</b>")
 			for(var/datum/mind/spider in terror_defilers)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		if(members.len)
-			text += span_fontsize2("<br/><b>Паук[(members?.len > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</b>")
+		if(length(members))
+			text += span_fontsize2("<br/><b>Паук[(length(members) > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</b>")
 			for(var/datum/mind/spider in members)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		return text.Join("")
@@ -276,7 +276,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	var/list/terror_princes = main_spiders[TERROR_PRINCE]
 	var/list/terror_princesses = main_spiders[TERROR_PRINCESS]
 	var/list/terror_defilers = main_spiders[TERROR_DEFILER]
-	if(terror_queens?.len || terror_princes?.len || terror_princesses?.len || terror_defilers?.len)
+	if(length(terror_queens) || length(terror_princes)|| length(terror_princesses) || length(terror_defilers))
 		if(check_rights(R_EVENT))
 			. += "<br/><a href='byond://?_src_=holder;team_command=delay_terror_end;team=[UID()]'>Отложить победу Терроров</a> Сейчас: [delay_terror_end? "ON" : "OFF"]<br>"
 		var/datum/admins/holder = usr.client.holder
@@ -292,7 +292,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		for(var/obj/structure/spider/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
 			if(!L.stillborn && is_station_level(L.z))
 				count_spiderlings += 1
-		. += "<table cellspacing='5'><tr><td>Растущие ПУ на станции: яйца - [count_eggs], спайдерлинги - [count_spiderlings], зараженные гуманоиды - [terror_infections.len]. </td></tr></table>"
+		. += "<table cellspacing='5'><tr><td>Растущие ПУ на станции: яйца - [count_eggs], спайдерлинги - [count_spiderlings], зараженные гуманоиды - [length(terror_infections)]. </td></tr></table>"
 
 /datum/team/terror_spiders/admin_topic(comand)
 	if(comand == "delay_terror_end")

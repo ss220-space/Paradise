@@ -65,7 +65,7 @@
 		if(V.spread_flags & CONTACT)
 			V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
 
-	if(body_position == LYING_DOWN && surgeries.len)
+	if(body_position == LYING_DOWN && length(surgeries))
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))

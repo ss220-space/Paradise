@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	var/list/trader_objectives = list()
 
 /datum/event/traders/setup()
-	if(GLOB.unused_trade_stations.len)
+	if(length(GLOB.unused_trade_stations))
 		station = pick_n_take(GLOB.unused_trade_stations)
 
 /datum/event/traders/fake_announce()
@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 		if(landmark.name == "traderstart_[station]")
 			spawnlocs += get_turf(landmark)
-	if(!spawnlocs.len)
+	if(!length(spawnlocs))
 		return
 
 	trader_objectives = forge_trader_objectives()
@@ -56,8 +56,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Торговца ТСФ?", ROLE_TRADER, TRUE)
 		var/index = 1
-		while(spawn_count > 0 && candidates.len > 0)
-			if(index > spawnlocs.len)
+		while(spawn_count > 0 && length(candidates) > 0)
+			if(index > length(spawnlocs))
 				index = 1
 
 			var/turf/picked_loc = spawnlocs[index]
@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
 	var/list/messages = list()
-	messages.Add(span_boldnotice("Вы - торговец!"))
+	messages.Add(span_boldnotice("Вы — торговец!"))
 	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))
 	messages.Add(span_notice("Вам предстоит торговать со станцией [station_name()]."))
 	messages.Add(M.mind.prepare_announce_objectives())

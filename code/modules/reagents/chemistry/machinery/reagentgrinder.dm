@@ -320,7 +320,7 @@
 				if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
 						dat += "<a href='byond://?src=[src.UID()];action=grind'>Измельчить</a><br>"
 						dat += "<a href='byond://?src=[src.UID()];action=juice'>Выжать</a><br><br>"
-				if(holdingitems && holdingitems.len > 0)
+				if(holdingitems && length(holdingitems) > 0)
 						dat += "<a href='byond://?src=[src.UID()];action=eject'>Вынуть содержимое камеры</a><br>"
 				if(beaker)
 						dat += "<a href='byond://?src=[src.UID()];action=detach'>Извлечь ёмкость</a><br>"
@@ -364,7 +364,7 @@
 /obj/machinery/reagentgrinder/proc/eject()
 		if(usr.stat != 0)
 				return
-		if(holdingitems && holdingitems.len == 0)
+		if(holdingitems && length(holdingitems) == 0)
 				return
 
 		for(var/obj/item/O in holdingitems)
@@ -504,7 +504,7 @@
 						if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 								break
 
-				if(O.reagents.reagent_list.len == 0)
+				if(length(O.reagents.reagent_list) == 0)
 						remove_object(O)
 
 		//Sheets

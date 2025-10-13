@@ -35,7 +35,7 @@
 	parent?.members.RemoveAll(src)
 	. = ..()
 	// if we're somehow by ourself
-	if(!QDELETED(parent) && parent?.members.len == 0)
+	if(!QDELETED(parent) && length(parent?.members) == 0)
 		qdel(parent)
 	parent = null
 

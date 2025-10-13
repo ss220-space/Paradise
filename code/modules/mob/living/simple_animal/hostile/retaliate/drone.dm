@@ -300,7 +300,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "drone_manual"
 	item_state = "book7"
-	
+
 /obj/item/drone_manual/get_ru_names()
 	return list(
 		NOMINATIVE = "странное руководство",
@@ -310,10 +310,10 @@
 		INSTRUMENTAL = "странным руководством",
 		PREPOSITIONAL = "странном руководстве"
 	)
-	
+
 /obj/item/drone_manual/attack_self(mob/user)
 	. = ..()
-	to_chat(user, span_alert("После того как вы пробежались глазами по содержанию книги, она рассыпалась пеплом. Но, кажется, вы можете вспомнить пару методов работы, описанных там - самодельные платы и базовую модель самого дрона."))
+	to_chat(user, span_alert("После того как вы пробежались глазами по содержанию книги, она рассыпалась пеплом. Но, кажется, вы можете вспомнить пару методов работы, описанных там — самодельные платы и базовую модель самого дрона."))
 	user.mind.learned_recipes += list(/datum/crafting_recipe/drone,
 		/datum/crafting_recipe/drone_circ,
 		/datum/crafting_recipe/drone_circ_adv,
@@ -323,7 +323,7 @@
 
 /obj/item/drone_modules
 	name = "Drone module"
-	desc = "Если вы это видите - сообщите в баг-репорты."
+	desc = "Если вы это видите — сообщите в баг-репорты."
 	icon_state = "drone_BCM"
 	var/explanation = "Вы не должны были этого видеть."
 
@@ -342,7 +342,7 @@
 	name = "Drone IFFM"
 	desc = "Неплохо сделанная плата."
 	icon_state = "drone_IFF"
-	explanation = "Это плата модуля Свой-Чужой для боевых дронов. Сделанная по схеме из книги, она не допускает изменений - а значит, дроны с подобным модулем всегда будут участвовать в бою на стороне Синдиката."
+	explanation = "Это плата модуля Свой-Чужой для боевых дронов. Сделанная по схеме из книги, она не допускает изменений — а значит, дроны с подобным модулем всегда будут участвовать в бою на стороне Синдиката."
 
 /obj/item/drone_modules/drone_AI
 	name = "Drone AICM"

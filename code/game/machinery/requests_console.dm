@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/rendered_message
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			rendered_message = "Высокий приоритет - От: [linkedSender] - [message]"
+			rendered_message = "Высокий приоритет — От: [linkedSender] - [message]"
 		else // Normal
 			rendered_message = "От: [linkedSender] - [message]"
 

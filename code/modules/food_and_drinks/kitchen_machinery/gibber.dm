@@ -31,7 +31,7 @@
 
 
 /obj/machinery/gibber/Destroy()
-	if(contents.len)
+	if(length(contents))
 		for(var/atom/movable/A in contents)
 			A.forceMove(get_turf(src))
 	if(occupant)
@@ -344,7 +344,7 @@
 	RefreshParts()
 
 /obj/machinery/gibber/autogibber/process()
-	if(!lturf || occupant || locked || dirty || operating || victim_targets.len)
+	if(!lturf || occupant || locked || dirty || operating || length(victim_targets))
 		return
 
 	if(acceptdir != lastacceptdir)
@@ -357,7 +357,7 @@
 	for(var/mob/living/carbon/human/H in lturf)
 		victim_targets += H
 
-	if(victim_targets.len)
+	if(length(victim_targets))
 		visible_message(span_danger("[src] states, \"Food detected!\""))
 		sleep(consumption_delay)
 		for(var/mob/living/carbon/H in victim_targets)

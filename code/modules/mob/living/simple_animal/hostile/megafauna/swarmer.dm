@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	LAZYINITLIST(GLOB.AISwarmersByType)
 	for(var/t in shuffle(swarmerTypes))
 		var/list/amount = GLOB.AISwarmersByType[t]
-		if(!amount || amount.len <  GLOB.AISwarmerCapsByType[t])
+		if(!amount || length(amount) <  GLOB.AISwarmerCapsByType[t])
 			return t
 
 
@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	. = ..()
 	if(.)
 		var/createtype = GetUncappedAISwarmerType()
-		if(createtype && world.time > swarmer_spawn_cooldown && GLOB.AISwarmers.len < (GetTotalAISwarmerCap()*0.5))
+		if(createtype && world.time > swarmer_spawn_cooldown && length(GLOB.AISwarmers) < (GetTotalAISwarmerCap()*0.5))
 			swarmer_spawn_cooldown = world.time + swarmer_spawn_cooldown_amt
 			new createtype(loc)
 
@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	. = ..()
 	if(.)
 		if(!stop_automated_movement)
-			if(GLOB.AISwarmers.len < GetTotalAISwarmerCap() && resources >= 50)
+			if(length(GLOB.AISwarmers) < GetTotalAISwarmerCap() && resources >= 50)
 				StartAction(100) //so they'll actually sit still and use the verbs
 				CreateSwarmer()
 				return

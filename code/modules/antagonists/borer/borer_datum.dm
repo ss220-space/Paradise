@@ -31,7 +31,7 @@
 
 /datum/antagonist/borer/greet()
 	var/list/messages = list()
-	messages.Add(span_notice("Вы - Мозговой Червь!"))
+	messages.Add(span_notice("Вы — Мозговой Червь!"))
 	messages.Add("Забирайтесь в голову своей жертвы, используйте скрытность, убеждение и свои способности к управлению разумом, чтобы сохранить себя, своё потомство и своего носителя в безопасности и тепле.")
 	messages.Add("Сахар сводит на нет ваши способности, избегайте его любой ценой!")
 	messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя '[get_language_prefix(LANGUAGE_HIVE_BORER)]'.")
@@ -130,7 +130,7 @@
 
 /datum/antagonist/borer/proc/process_life(mob/source, deltatime, times_fired)
 	SIGNAL_HANDLER
-	
+
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
 		focus.tick()
 
@@ -170,7 +170,7 @@
 
 	if(!parent.user.host.ckey || LAZYIN(parent.user.host.UID(), used_UIDs))
 		return FALSE
-		
+
 	parent.user.max_chems += SCALING_CHEM_GAIN
 	used_UIDs += parent.user.host.UID()
 

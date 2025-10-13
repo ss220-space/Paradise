@@ -880,7 +880,7 @@
 				notbannedlist += job
 
 		//Banning comes first
-		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
+		if(length(notbannedlist)) //at least 1 unbanned job exists in joblist so we have stuff to ban.
 			switch(tgui_alert(usr, "Temporary Ban of [M.ckey]?",, list("Yes", "No", "Cancel")))
 				if("Yes")
 					if(CONFIG_GET(flag/ban_legacy_system))
@@ -935,7 +935,7 @@
 
 		//Unbanning joblist
 		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
-		if(joblist.len) //at least 1 banned job exists in joblist so we have stuff to unban.
+		if(length(joblist)) //at least 1 banned job exists in joblist so we have stuff to unban.
 			if(!CONFIG_GET(flag/ban_legacy_system))
 				to_chat(usr, span_warning("Unfortunately, database based unbanning cannot be done through this panel"), confidential=TRUE)
 				DB_ban_panel(M.ckey)
@@ -972,7 +972,7 @@
 			to_chat(usr, span_warning("Mob has no client to kick."), confidential=TRUE)
 			return
 		if(tgui_alert(usr, "Kick [C.ckey]?",, list("Yes", "No")) == "Yes")
-			if(C && C.holder && (C.holder.rights & R_BAN))
+			if(C?.holder && (C.holder.rights & R_BAN))
 				to_chat(usr, span_warning("[key_name_admin(C)] cannot be kicked from the server."), confidential=TRUE)
 				return
 			to_chat(C, span_warning("You have been kicked from the server"), confidential=TRUE)
@@ -1190,7 +1190,7 @@
 	else if(href_list["c_mode"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
@@ -1209,7 +1209,7 @@
 	else if(href_list["f_secret"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "secret")
 			return tgui_alert(usr, "The game mode has to be secret!")
@@ -1228,7 +1228,7 @@
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		GLOB.master_mode = href_list["c_mode2"]
 		log_and_message_admins(span_notice("set the mode as [GLOB.master_mode]."))
@@ -1241,7 +1241,7 @@
 	else if(href_list["f_secret2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "secret")
 			return tgui_alert(usr, "The game mode has to be secret!")
@@ -1253,7 +1253,7 @@
 	else if(href_list["change_weights"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
 			return tgui_alert(usr, "The game mode has to be Antag Paradise!")
@@ -1290,7 +1290,7 @@
 	else if(href_list["change_weights2"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
 			return tgui_alert(usr, "The game mode has to be Antag Paradise!")
@@ -2244,7 +2244,7 @@
 		gamemode.cult_objs.obj_summon.find_summon_locations(TRUE)
 		if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
 			for(var/datum/mind/cult_mind in gamemode.cult)
-				if(cult_mind && cult_mind.current)
+				if(cult_mind?.current)
 					to_chat(cult_mind.current, span_cult("The veil has shifted! Our summoning will need to take place elsewhere."))
 					to_chat(cult_mind.current, span_cult("Current goal : [gamemode.cult_objs.obj_summon.explanation_text]"))
 
@@ -2310,7 +2310,7 @@
 		gamemode.clocker_objs.obj_summon.find_summon_locations(TRUE)
 		if(gamemode.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
 			for(var/datum/mind/clock_mind in gamemode.clockwork_cult)
-				if(clock_mind && clock_mind.current)
+				if(clock_mind?.current)
 					to_chat(clock_mind.current, span_cult("The veil has shifted! Our summoning will need to take place elsewhere."))
 					to_chat(clock_mind.current, span_cult("Current goal : [gamemode.clocker_objs.obj_summon.explanation_text]"))
 
@@ -2902,9 +2902,9 @@
 
 		var/list/offset = splittext(href_list["offset"],",")
 		var/number = dd_range(1, 100, text2num(href_list["object_count"]))
-		var/X = offset.len > 0 ? text2num(offset[1]) : 0
-		var/Y = offset.len > 1 ? text2num(offset[2]) : 0
-		var/Z = offset.len > 2 ? text2num(offset[3]) : 0
+		var/X = length(offset) > 0 ? text2num(offset[1]) : 0
+		var/Y = length(offset) > 1 ? text2num(offset[2]) : 0
+		var/Z = length(offset) > 2 ? text2num(offset[3]) : 0
 		var/tmp_dir = href_list["object_dir"]
 		var/obj_dir = tmp_dir ? text2num(tmp_dir) : 2
 		if(!obj_dir || !(obj_dir in list(1,2,4,8,5,6,9,10)))
@@ -3198,7 +3198,7 @@
 				)
 
 			if("gravity")
-				if(!(SSticker && SSticker.mode))
+				if(!(SSticker?.mode))
 					to_chat(usr, span_warning("Please wait until the game starts! Not sure how it will work otherwise."), confidential=TRUE)
 					return
 
@@ -3460,7 +3460,7 @@
 						ADD_TRAIT(hat, TRAIT_NODROP, INNATE_TRAIT)
 					var/list/honorifics = list(MALE = list("кун"), FEMALE = list("чан","тан"), NEUTER = list("сан")) //John Robust -> Robust-kun
 					var/list/names = splittext(human.real_name," ")
-					var/newname = "[names[names.len]]-[pick(honorifics[human.gender])]"
+					var/newname = "[names[length(names)]]-[pick(honorifics[human.gender])]"
 					human.name = newname
 					human.real_name = newname
 
@@ -3785,7 +3785,7 @@
 				var/dat = "<b>Admin Log<hr></b>"
 				for(var/l in GLOB.admin_log)
 					dat += "<li>[l]</li>"
-				if(!GLOB.admin_log.len)
+				if(!length(GLOB.admin_log))
 					dat += "No-one has done anything this round!"
 				var/datum/browser/popup = new(usr, "admin_log", "Admin Log")
 				popup.set_content(dat)
@@ -4039,7 +4039,7 @@
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_traitor")
 	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source, role_cleanname = "[killthem ? "murderous" : "protective"] [dresscode]")
-	if(!candidates.len)
+	if(!length(candidates))
 		to_chat(usr, span_warning("ERROR: Could not create eventmob. No valid candidates."), confidential=TRUE)
 		return
 	var/mob/C = pick(candidates)

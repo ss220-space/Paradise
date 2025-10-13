@@ -97,11 +97,24 @@ def check_alphabetical_sort_in_global_list(filename: str) -> list[Failure]:
                         lines_before_trait = list_content[:trait_start_in_list].count('\n')
                         trait_line_num = list_line_num + lines_before_trait
 
-                        failures.append(Failure(
-                            filename,
-                            trait_line_num,
-                            f"Alphabetical ordering violation in {type_path} list: '{trait_names[i]}' should come after '{sorted_trait_names[i-1] if i > 0 else '...'}'"
-                        ))
+                        # Find where this trait should be located in the sorted list
+                        correct_position = sorted_trait_names.index(trait_names[i])
+
+                        if correct_position > 0:
+                            # Should come after the previous element in sorted list
+                            expected_previous = sorted_trait_names[correct_position - 1]
+                            failures.append(Failure(
+                                filename,
+                                trait_line_num,
+                                f"Alphabetical ordering violation in {type_path} list: '{trait_names[i]}' should come after '{expected_previous}'."
+                            ))
+                        else:
+                            # Should be first in the list
+                            failures.append(Failure(
+                                filename,
+                                trait_line_num,
+                                f"Alphabetical ordering violation in {type_path} list: '{trait_names[i]}' should be first in the list."
+                            ))
                         break
 
     return failures

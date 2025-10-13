@@ -92,7 +92,7 @@
 		//Handle species-specific deaths.
 		dna.species.handle_death(gibbed, src)
 
-	if(SSticker && SSticker.mode)
+	if(SSticker?.mode)
 		SSblackbox.ReportDeath(src)
 
 

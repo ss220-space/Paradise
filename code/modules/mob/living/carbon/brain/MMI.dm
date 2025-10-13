@@ -308,7 +308,7 @@
 	forceMove(holder)
 	holder.stored_mmi = src
 	holder.update_from_mmi()
-	if(brainmob && brainmob.mind)
+	if(brainmob?.mind)
 		brainmob.mind.transfer_to(target)
 	holder.insert(target, ORGAN_MANIPULATION_NOEFFECT)
 	return TRUE

@@ -18,7 +18,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother
 	name = "goliath broodmother"
-	desc = "Пример полового диморфизма - эта самка голиафа сильно отличается от самцов своего вида. Однако она столь же опасна, если не опаснее."
+	desc = "Пример полового диморфизма — эта самка голиафа сильно отличается от самцов своего вида. Однако она столь же опасна, если не опаснее."
 	gender = FEMALE
 	icon_state = "broodmother"
 	icon_living = "broodmother"
@@ -56,7 +56,7 @@
 		INSTRUMENTAL = "маткой голиафов",
 		PREPOSITIONAL = "матке голиафов"
 	)
-	
+
 
 /datum/action/innate/elite_attack/tentacle_patch
 	name = "Поле из щупалец"
@@ -67,7 +67,7 @@
 /datum/action/innate/elite_attack/spawn_children
 	name = "Выпуск выводка"
 	button_icon_state = "spawn_children"
-	chosen_message = span_boldwarning("Вы создаёте двух детёнышей для помощи в бою. Максимум - 8.")
+	chosen_message = span_boldwarning("Вы создаёте двух детёнышей для помощи в бою. Максимум – .")
 	chosen_attack_num = SPAWN_CHILDREN
 
 /datum/action/innate/elite_attack/rage

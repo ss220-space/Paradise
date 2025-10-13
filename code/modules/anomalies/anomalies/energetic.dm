@@ -87,7 +87,7 @@
 		if(!(mach.stat & BROKEN))
 			possible_targets += mach
 
-	if(!possible_targets.len)
+	if(!length(possible_targets))
 		return
 
 	var/obj/target = pick(possible_targets)

@@ -166,7 +166,7 @@
 	if(!H)
 		return
 	var/list/valid_hairstyles = generate_valid_hairstyles()
-	if(valid_hairstyles.len)
+	if(length(valid_hairstyles))
 		H.h_style = pick(valid_hairstyles)
 	else
 		//this shouldn't happen
@@ -185,7 +185,7 @@
 	if(!H)
 		return
 	var/list/valid_facial_hairstyles = generate_valid_facial_hairstyles()
-	if(valid_facial_hairstyles.len)
+	if(length(valid_facial_hairstyles))
 		H.f_style = pick(valid_facial_hairstyles)
 	else
 		//this shouldn't happen
@@ -197,7 +197,7 @@
 
 	if(location)
 		valid_markings = generate_valid_markings(location)
-		if(valid_markings.len)
+		if(length(valid_markings))
 			m_styles[location] = pick(valid_markings)
 		else
 			//this shouldn't happen
@@ -205,7 +205,7 @@
 	else
 		for(var/m_location in list("head", "body", "tail"))
 			valid_markings = generate_valid_markings(m_location)
-			if(valid_markings.len)
+			if(length(valid_markings))
 				m_styles[m_location] = pick(valid_markings)
 			else
 				//this shouldn't happen
@@ -219,7 +219,7 @@
 	if(!H)
 		return
 	var/list/valid_head_accessories = generate_valid_head_accessories()
-	if(valid_head_accessories.len)
+	if(length(valid_head_accessories))
 		H.ha_style = pick(valid_head_accessories)
 	else
 		//this shouldn't happen
@@ -362,9 +362,9 @@
 	var/list/valid_species = new()
 	for(var/current_species_name in GLOB.all_species)
 		if(check_whitelist && !check_rights(R_ADMIN, 0, src)) //If we're using the whitelist, make sure to check it!
-			if(whitelist.len && !(current_species_name in whitelist))
+			if(length(whitelist) && !(current_species_name in whitelist))
 				continue
-			if(blacklist.len && (current_species_name in blacklist))
+			if(length(blacklist) && (current_species_name in blacklist))
 				continue
 
 		valid_species += current_species_name

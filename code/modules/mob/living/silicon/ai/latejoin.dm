@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
 	SSjobs.FreeRole(job)
 
-	if(mind.objectives.len)
+	if(length(mind.objectives))
 		mind.objectives.Cut()
 		mind.special_role = null
 
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
 // Before calling this, make sure an empty core exists, or this will no-op
 /mob/living/silicon/ai/proc/moveToEmptyCore()
-	if(!GLOB.empty_playable_ai_cores.len)
+	if(!length(GLOB.empty_playable_ai_cores))
 		log_runtime(EXCEPTION("moveToEmptyCore called without any available cores"), src)
 		return
 

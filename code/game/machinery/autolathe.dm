@@ -97,7 +97,7 @@
 /obj/machinery/autolathe/ui_static_data(mob/user)
 	var/list/data = list()
 	data["categories"] = categories
-	if(!recipiecache.len)
+	if(!length(recipiecache))
 		var/list/recipes = list()
 		for(var/v in files.known_designs)
 			var/datum/design/D = files.known_designs[v]
@@ -166,7 +166,7 @@
 			queue = list()
 		if("remove_from_queue")
 			var/index = text2num(params["remove_from_queue"])
-			if(isnum(index) && ISINRANGE(index, 1, queue.len))
+			if(isnum(index) && ISINRANGE(index, 1, length(queue)))
 				remove_from_queue(index)
 				to_chat(usr, span_notice("Removed item from queue."))
 		if("make")
@@ -200,7 +200,7 @@
 			if(!(multiplier in list(1, 10, 25, max_multiplier))) //"enough materials ?" is checked in the build proc
 				message_admins("Player [key_name_admin(usr)] attempted to pass invalid multiplier [multiplier] to an autolathe in ui_act. Possible href exploit.")
 				return
-			if((queue.len + 1) < queue_max_len)
+			if((length(queue) + 1) < queue_max_len)
 				add_to_queue(design_last_ordered, multiplier)
 			else
 				to_chat(usr, span_warning("The autolathe queue is full!"))
@@ -234,8 +234,8 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/temp_metal = materials.amount(MAT_METAL)
 	var/temp_glass = materials.amount(MAT_GLASS)
-	data["processing"] = being_built.len ? get_processing_line() : null
-	if(istype(queue) && queue.len)
+	data["processing"] = length(being_built) ? get_processing_line() : null
+	if(istype(queue) && length(queue))
 		var/list/data_queue = list()
 		for(var/list/L in queue)
 			var/datum/design/D = L[1]
@@ -403,7 +403,7 @@
 	desc = initial(desc)
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, multiplier = 1, custom_metal, custom_glass)
-	if(D.make_reagents.len)
+	if(length(D.make_reagents))
 		return 0
 
 	var/coeff = get_coeff(D)
@@ -445,7 +445,7 @@
 	return queue.len
 
 /obj/machinery/autolathe/proc/remove_from_queue(index)
-	if(!isnum(index) || !istype(queue) || (index<1 || index>queue.len))
+	if(!isnum(index) || !istype(queue) || (index<1 || index>length(queue)))
 		return 0
 	queue.Cut(index,++index)
 	return 1
@@ -455,7 +455,7 @@
 	var/multiplier = queue[1][2]
 	if(!D)
 		remove_from_queue(1)
-		if(queue.len)
+		if(length(queue))
 			return process_queue()
 		else
 			return

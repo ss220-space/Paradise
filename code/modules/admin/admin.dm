@@ -134,9 +134,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				body += "<b>Discord:</b>  <@[M.client.prefs.discord_id]>  <b>[M.client.prefs.discord_name]</b><br>"
 			else
 				body += "<b>Discord: Привязка не завершена!</b><br>"
-		if(M.client.related_accounts_cid.len)
+		if(length(M.client.related_accounts_cid))
 			body += "<b>Related accounts by CID:</b> [jointext(M.client.related_accounts_cid, " - ")]<br>"
-		if(M.client.related_accounts_ip.len)
+		if(length(M.client.related_accounts_ip))
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
 	if(M.ckey)

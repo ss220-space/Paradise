@@ -273,7 +273,7 @@
 
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
 	. = 0
-	if(chambered && chambered.BB)
+	if(chambered?.BB)
 		process_fire(user, user,0)
 		. = 1
 
@@ -391,7 +391,7 @@
 		alternate_magazine = new mag_type(src)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/unload_act(mob/user)
-	if(!chambered && magazine.contents.len)
+	if(!chambered && length(magazine.contents))
 		pump()
 	else
 		toggle_tube(user)

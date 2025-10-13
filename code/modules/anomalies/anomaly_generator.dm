@@ -101,7 +101,7 @@
 	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
 		containment_limit += matter_bin.rating
 
-	while(containment.len > containment_limit)
+	while(length(containment) > containment_limit)
 		eject(pick(containment))
 
 	creating_range = 25
@@ -165,7 +165,7 @@
 			generate()
 
 		if("eject_all")
-			while(containment.len)
+			while(length(containment))
 				eject(containment[1])
 
 		if("stop")
@@ -299,7 +299,7 @@
 	var/anomaly_datum_type = GLOB.anomaly_types["[selected_tier]"][selected_type]
 	anomaly = new anomaly_datum_type
 	var/list/possible_used = anomaly.get_used(containment)
-	if(!possible_used.len && anomaly.req_item != "-")
+	if(!length(possible_used) && anomaly.req_item != "-")
 		buzz()
 		atom_say("Недостаточно ресурсов!", FALSE)
 		return

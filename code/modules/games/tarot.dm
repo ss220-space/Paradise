@@ -36,7 +36,7 @@
 
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
 	var/list/newcards = list()
-	while(cards.len)
+	while(length(cards))
 		var/datum/playingcard/card = pick_n_take(cards)
 		card.name = replacetext(card.name," перевёрнутая", "")
 		if(prob(50))
