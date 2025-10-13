@@ -793,7 +793,7 @@
 	bayNumber = dataToLoad["bayNumber"]
 	customDropoff = dataToLoad["customDropoff"]
 	var/list/cords = dataToLoad["reverse_dropoff_coords"]
-	if(cords?.len)
+	if(length(cords))
 		var/turf/dropoff =locate(cords[1], cords[2], cords[3])
 		setDropoff(dropoff)
 	renderLighting = dataToLoad["renderLighting"]

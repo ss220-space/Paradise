@@ -340,12 +340,12 @@
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/get_ru_names()
 	return list(
-			NOMINATIVE = "капельница - Синтетическая кровь (Кислород)" ,
-			GENITIVE = "капельницы - Синтетическая кровь (Кислород)",
-			DATIVE = "капельнице - Синтетическая кровь (Кислород)",
-			ACCUSATIVE = "капельницу - Синтетическая кровь (Кислород)",
-			INSTRUMENTAL = "капельницей - Синтетическая кровь (Кислород)",
-			PREPOSITIONAL = "капельнице - Синтетическая кровь (Кислород)"
+			NOMINATIVE = "капельница — Синтетическая кровь (Кислород)" ,
+			GENITIVE = "капельницы — Синтетическая кровь (Кислород)",
+			DATIVE = "капельнице — Синтетическая кровь (Кислород)",
+			ACCUSATIVE = "капельницу — Синтетическая кровь (Кислород)",
+			INSTRUMENTAL = "капельницей — Синтетическая кровь (Кислород)",
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Кислород)"
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
@@ -360,12 +360,12 @@
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/get_ru_names()
 	return list(
-			NOMINATIVE = "капельница - Синтетическая кровь (Азот)" ,
-			GENITIVE = "капельницы - Синтетическая кровь (Азот)",
-			DATIVE = "капельнице - Синтетическая кровь (Азот)",
-			ACCUSATIVE = "капельницу - Синтетическая кровь (Азот)",
-			INSTRUMENTAL = "капельницей - Синтетическая кровь (Азот)",
-			PREPOSITIONAL = "капельнице - Синтетическая кровь (Азот)"
+			NOMINATIVE = "капельница — Синтетическая кровь (Азот)" ,
+			GENITIVE = "капельницы — Синтетическая кровь (Азот)",
+			DATIVE = "капельнице — Синтетическая кровь (Азот)",
+			ACCUSATIVE = "капельницу — Синтетическая кровь (Азот)",
+			INSTRUMENTAL = "капельницей — Синтетическая кровь (Азот)",
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Азот)"
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
@@ -380,12 +380,12 @@
 
 /obj/item/reagent_containers/iv_bag/slime/get_ru_names()
 	return list(
-		NOMINATIVE = "капельница - Слаймовое желе" ,
-		GENITIVE = "капельницы - Слаймовое желе",
-		DATIVE = "капельнице - Слаймовое желе",
-		ACCUSATIVE = "капельницу - Слаймовое желе",
-		INSTRUMENTAL = "капельницей - Слаймовое желе",
-		PREPOSITIONAL = "капельнице - Слаймовое желе"
+		NOMINATIVE = "капельница — Слаймовое желе" ,
+		GENITIVE = "капельницы — Слаймовое желе",
+		DATIVE = "капельнице — Слаймовое желе",
+		ACCUSATIVE = "капельницу — Слаймовое желе",
+		INSTRUMENTAL = "капельницей — Слаймовое желе",
+		PREPOSITIONAL = "капельнице — Слаймовое желе"
 	)
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)

@@ -492,8 +492,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	text = replacetext(text, "<span class=\"paper_field\"></span>", "`_FIELD_`")
 
 	text = replacetext(text, "<h1>", "# ")
-	text = replacetext(text, "<H2>", "## ")
-	text = replacetext(text, "<H3>", "### ")
+	text = replacetext(text, "<h2>", "## ")
+	text = replacetext(text, "<h3>", "### ")
 
 	text = replacetext(text, "<li>", "- ")
 	text = replacetext(text, "<hr>", "\n`----- Horizontal Rule -----`\n")

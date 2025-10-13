@@ -56,7 +56,7 @@
 				scramble(pick(0,1), affected_mob, rand(15, 45))
 
 /datum/disease/virus/dna_retrovirus/has_cure()
-	if(cures.len)
+	if(length(cures))
 		return ..()
 	else
 		if(affected_mob.IsSleeping())

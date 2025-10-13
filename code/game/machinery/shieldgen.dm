@@ -166,7 +166,7 @@
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
-		if(deployed_shields.len && prob(5))
+		if(length(deployed_shields) && prob(5))
 			qdel(pick(deployed_shields))
 
 	return

@@ -7,7 +7,7 @@
 
 	if(!check_rights(R_VAREDIT))	return
 
-	if(A && A.type)
+	if(A?.type)
 		if(typesof(A.type))
 			switch(tgui_input_list(usr, "Strict object type detection?", items = list("Strictly this type","This type and subtypes", "Cancel")))
 				if("Strictly this type")
@@ -107,7 +107,7 @@
 		if(VV_RESTORE_DEFAULT)
 			to_chat(src, "Finding items...")
 			var/list/items = get_all_of_type(O.type, method)
-			to_chat(src, "Changing [items.len] items...")
+			to_chat(src, "Changing [length(items)] items...")
 			for(var/thing in items)
 				if(!thing)
 					continue
@@ -122,7 +122,7 @@
 			var/list/varsvars = vv_parse_text(O, new_value)
 			var/pre_processing = new_value
 			var/unique
-			if(varsvars && varsvars.len)
+			if(varsvars && length(varsvars))
 				unique = tgui_alert(usr, "Process vars unique to each instance, or same for all?", "Variable Association", list("Unique", "Same"))
 				if(unique == "Unique")
 					unique = TRUE
@@ -133,7 +133,7 @@
 
 			to_chat(src, "Finding items...")
 			var/list/items = get_all_of_type(O.type, method)
-			to_chat(src, "Changing [items.len] items...")
+			to_chat(src, "Changing [length(items)] items...")
 			for(var/thing in items)
 				if(!thing)
 					continue
@@ -161,7 +161,7 @@
 			var/type = value["type"]
 			to_chat(src, "Finding items...")
 			var/list/items = get_all_of_type(O.type, method)
-			to_chat(src, "Changing [items.len] items...")
+			to_chat(src, "Changing [length(items)] items...")
 			for(var/thing in items)
 				if(!thing)
 					continue
@@ -179,7 +179,7 @@
 		else
 			to_chat(src, "Finding items...")
 			var/list/items = get_all_of_type(O.type, method)
-			to_chat(src, "Changing [items.len] items...")
+			to_chat(src, "Changing [length(items)] items...")
 			for(var/thing in items)
 				if(!thing)
 					continue

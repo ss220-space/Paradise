@@ -713,11 +713,11 @@
 			return FALSE
 		to_chat(user, span_notice("[book] crumbles to ashes as you acquire its knowledge."))
 		qdel(book)
-	else if(items_path.len)
+	else if(length(items_path))
 		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
 		if(response != "Yes")
 			return FALSE
-	if(items_path.len)
+	if(length(items_path))
 		var/obj/item/storage/box/wizard/B = new(src)
 		for(var/path in items_path)
 			new path(B)
@@ -938,7 +938,7 @@
 	dat += "</ul>"
 
 	var/datum/spellbook_entry/E
-	for(var/i=1,i<=entries.len,i++)
+	for(var/i=1,i<=length(entries),i++)
 		var/spell_info = ""
 		E = entries[i]
 		spell_info += E.GetInfo()
@@ -989,7 +989,7 @@
 					uses -= E.cost
 		else if(href_list["refund"])
 			E = entries[text2num(href_list["refund"])]
-			if(E && E.refundable)
+			if(E?.refundable)
 				var/result = E.Refund(H,src)
 				if(result > 0)
 					if(!isnull(E.limit))

@@ -442,7 +442,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	tcm.vname = "синтезированный голос"
 	tcm.data = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
-	if(loc && loc.z)
+	if(loc?.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 	else
 		tcm.source_level = levels_by_trait(MAIN_STATION)[1] // Assume main station level if we dont have an actual Z level available to us.
@@ -481,7 +481,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(!message_mode || message_mode == HEADSET_MODE)
 		return radio_connection || RADIO_CONNECTION_FAIL
 
-	if(channels && channels.len)
+	if(channels && length(channels))
 		if(message_mode == DEPARTMENT_FREQ_NAME) // Department radio shortcut
 			message_mode = channels[1]
 
@@ -588,7 +588,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		if(H.voice != M.real_name)
 			voicemask = TRUE
 
-	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
+	if(syndiekey?.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
 		jobname = UNKNOWN_STATUS_RUS
 		rankname = UNKNOWN_STATUS_RUS

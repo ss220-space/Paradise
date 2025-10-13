@@ -81,7 +81,7 @@
 		resurrections++
 		equip_lich(lich)
 
-		if(old_body && old_body.loc)
+		if(old_body?.loc)
 			if(iscarbon(old_body))
 				for(var/obj/item/item in old_body.contents)
 					old_body.drop_item_ground(item)

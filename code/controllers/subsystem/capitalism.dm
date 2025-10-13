@@ -90,7 +90,7 @@ SUBSYSTEM_DEF(capitalism)
 	if(!GLOB.station_account)
 		create_station_account()
 
-	if(GLOB.department_accounts.len == 0)
+	if(length(GLOB.department_accounts) == 0)
 		for(var/department in GLOB.station_departments)
 			create_department_account(department)
 

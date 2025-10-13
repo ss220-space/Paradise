@@ -37,7 +37,7 @@
 
 /mob/living/simple_animal/pet/gondola/gondolapod/examine(mob/user)
 	. = ..()
-	if(contents.len)
+	if(length(contents))
 		. += span_notice("Похоже, посылка ещё не доставлена.")
 	else
 		. += span_notice("Судя по всему, доставку уже осуществили.")

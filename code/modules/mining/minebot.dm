@@ -94,7 +94,7 @@
 		else
 			. += span_boldwarning("[genderize_ru(gender,"Он","Она","Оно","Они")] выгляд[pluralize_ru(gender,"ит","ят")] серьёзно повреждённо!")
 	. += "[span_notice("Использование сканера на [genderize_ru(gender,"нём","нем","нём","них")] заставит [genderize_ru(gender,"его","её","его","их")] выгрузить руду. <b>[max(0, LAZYLEN(contents) - 1)] ед. руды.</b>")]"
-	if(stored_gun && stored_gun.max_mod_capacity)
+	if(stored_gun?.max_mod_capacity)
 		. += "<b>[stored_gun.get_remaining_mod_capacity()]%</b> свободного места для модификации."
 		for(var/A in stored_gun.get_modkits())
 			var/obj/item/borg/upgrade/modkit/M = A
@@ -213,7 +213,7 @@
 		O.forceMove(src)
 
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
-	if(!contents.len)
+	if(!length(contents))
 		if(message)
 			to_chat(src, span_warning("Попытка выгрузки руды: хранилище пусто."))
 		return

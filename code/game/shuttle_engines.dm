@@ -15,7 +15,7 @@
 	icon = 'icons/turf/shuttle/misc.dmi'
 	density = TRUE
 	anchored = TRUE
-	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль - бред
+	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль — бред
 	var/list/obj/structure/fillers = list()		// Для коллизии более больших двигателей
 	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS
 

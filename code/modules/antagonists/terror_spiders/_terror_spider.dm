@@ -53,7 +53,7 @@
 
 /datum/antagonist/terror_spider/greet()
 	var/list/messages = list()
-	messages.Add(span_danger("<center>Вы - Паук Ужаса!</center>"))
+	messages.Add(span_danger("<center>Вы — Паук Ужаса!</center>"))
 	messages.Add("<center>Работайте сообща, помогайте своим братьям и сёстрам, саботируйте станцию, убивайте экипаж, превратите это место в своё гнездо!</center>")
 	messages.Add(span_big("<center>[spider_intro_text]</center><br>"))
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/terrorspider.ogg'))

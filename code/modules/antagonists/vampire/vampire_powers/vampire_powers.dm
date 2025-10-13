@@ -509,10 +509,10 @@
 			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)
-		if(L && L.implanted)
+		if(L?.implanted)
 			qdel(L)
 	for(var/obj/item/implant/traitor/T in H)
-		if(T && T.implanted)
+		if(T?.implanted)
 			qdel(T)
 	visible_message(span_warning("У [H] появля[pluralize_ru(H.gender, "ет", "ют")]ся жуткое красное свечение в глазах!"))
 	var/datum/objective/protect/protect_objective = new

@@ -152,7 +152,7 @@
 		return
 
 	var/list/all_the_turfs_were_gonna_lacerate = RANGE_TURFS(radius, A) - RANGE_TURFS(radius-1, A)
-	num_pellets = all_the_turfs_were_gonna_lacerate.len + pellet_delta
+	num_pellets = length(all_the_turfs_were_gonna_lacerate) + pellet_delta
 
 	for(var/T in all_the_turfs_were_gonna_lacerate)
 		INVOKE_ASYNC(src, PROC_REF(pew), T)

@@ -49,7 +49,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 			var/mob/living/carbon/human/new_honksquad = is_security_clowns ? create_honksquad_security(L, honk_leader_selected) : create_honksquad(L, honk_leader_selected)
 
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/mob = pick(candidates)
 				new_honksquad.key = mob.key
 				candidates -= new_honksquad.key

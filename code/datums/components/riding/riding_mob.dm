@@ -94,7 +94,7 @@
 		former_rider.log_message("is no longer riding [formerly_ridden].", LOG_GAME, color="pink")
 		*/
 	//remove_abilities(former_rider)
-	if(!formerly_ridden.buckled_mobs.len)
+	if(!length(formerly_ridden.buckled_mobs))
 		REMOVE_TRAIT(formerly_ridden, TRAIT_AI_PAUSED, ref(src))
 	// We gotta reset those layers at some point, don't we?
 	former_rider.layer = MOB_LAYER
@@ -248,7 +248,7 @@
 
 /datum/component/riding/creature/human/handle_vehicle_layer(dir)
 	var/atom/movable/AM = parent
-	if(!AM.buckled_mobs || !AM.buckled_mobs.len)
+	if(!AM.buckled_mobs || !length(AM.buckled_mobs))
 		AM.layer = MOB_LAYER
 		return
 

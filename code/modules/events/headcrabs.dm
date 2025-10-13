@@ -46,7 +46,7 @@
 
 	var/num = rand(2,max_number)
 
-	while(turfs.len > 0 && num > 0)
+	while(length(turfs) > 0 && num > 0)
 		var/turf/simulated/floor/T = pick(turfs)
 		turfs.Remove(T)
 		num--

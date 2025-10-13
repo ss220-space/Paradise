@@ -8,7 +8,7 @@
 */
 
 #define JOB_STYLE_1 "Имя (Должность)"
-#define JOB_STYLE_2 "Имя – Должность"
+#define JOB_STYLE_2 "Имя — Должность"
 #define JOB_STYLE_3 "\[Должность\] Имя"
 #define JOB_STYLE_4 "(Должность) Имя"
 

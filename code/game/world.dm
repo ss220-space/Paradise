@@ -48,7 +48,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
-	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
 	load_admins(run_async=FALSE) // This better happen early on.
 
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 /world/proc/load_mode()
 	var/list/Lines = world.file2list("data/mode.txt")
-	if(Lines.len)
+	if(length(Lines))
 		if(Lines[1])
 			GLOB.master_mode = Lines[1]
 			add_game_logs("Saved mode is '[GLOB.master_mode]'")

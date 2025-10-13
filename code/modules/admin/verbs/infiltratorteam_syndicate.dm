@@ -42,7 +42,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
 	infiltrators = pick_candidates_all_types(src, teamsize, "Вы хотите поиграть за Диверсанта Синдиката?", ROLE_TRAITOR, 21, 30 SECONDS, FALSE, GLOB.role_playtime_requirements[ROLE_TRAITOR], TRUE, FALSE, I, "Диверсант Синдиката", input)
 
-	if(!infiltrators.len)
+	if(!length(infiltrators))
 		to_chat(src, "Никто не захотел быть Диверсантом Синдиката.")
 		return 0
 
@@ -56,10 +56,10 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/num_spawned = 1
 	var/team_leader = null
 	for(var/obj/effect/landmark/L in sit_spawns)
-		if(!infiltrators.len && !spawn_dummies) break
+		if(!length(infiltrators) && !spawn_dummies) break
 		syndicate_leader_selected = num_spawned == 1?1:0
 		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount, 0)
-		if(infiltrators.len)
+		if(length(infiltrators))
 			var/mob/theguy = pick(infiltrators)
 			if(theguy.key != key)
 				new_syndicate_infiltrator.key = theguy.key

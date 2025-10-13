@@ -164,7 +164,7 @@
 /datum/song/proc/do_hearcheck()
 	last_hearcheck = world.time
 	var/list/old = hearing_mobs.Copy()
-	hearing_mobs.len = 0
+	hearing_mobs.Cut()
 	var/turf/source = get_turf(parent)
 	for(var/mob/M in GLOB.player_list)
 		if(M.z != source.z) // Z-level check
@@ -247,7 +247,7 @@
 	STOP_PROCESSING(SSinstruments, src)
 	SEND_SIGNAL(parent, COMSIG_SONG_END)
 	terminate_all_sounds(TRUE)
-	hearing_mobs.len = 0
+	hearing_mobs.Cut()
 	SStgui.update_uis(parent)
 	user_playing = null
 

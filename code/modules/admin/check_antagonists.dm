@@ -72,7 +72,7 @@
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
 
-		if(SSticker.mode.head_revolutionaries.len || SSticker.mode.revolutionaries.len)
+		if(length(SSticker.mode.head_revolutionaries) || length(SSticker.mode.revolutionaries))
 			dat += "<br><table cellspacing=5><tr><td><b>Revolutionaries</b></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.head_revolutionaries)
 				var/mob/M = N.current
@@ -95,10 +95,10 @@
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
 		var/list/blob_infected = SSticker?.mode?.blobs["infected"]
-		if(blob_infected && blob_infected.len)
+		if(blob_infected && length(blob_infected))
 			var/datum/game_mode/mode = SSticker.mode
 			dat += "<br><table cellspacing=5><tr><td><b>Blob</b></td><td></td><td></td></tr>"
-			dat += "<tr><td><i>Progress: [mode.legit_blobs.len]/[mode.blob_win_count]</i></td></tr>"
+			dat += "<tr><td><i>Progress: [length(mode.legit_blobs)]/[mode.blob_win_count]</i></td></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];edit_blob_win_count=1'>Edit Win Count</a><br></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];send_warning=1'>Send warning to all living blobs</a><br></td></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];burst_all_blobs=1'>Burst all blobs</a><br></td></tr>"
@@ -139,22 +139,22 @@
 
 			dat += "</table>"
 
-		if(SSticker.mode.changelings.len)
+		if(length(SSticker.mode.changelings))
 			dat += check_role_table("Changelings", SSticker.mode.changelings)
 
-		if(SSticker.mode.wizards.len)
+		if(length(SSticker.mode.wizards))
 			dat += check_role_table("Wizards", SSticker.mode.wizards)
 
-		if(SSticker.mode.apprentices.len)
+		if(length(SSticker.mode.apprentices))
 			dat += check_role_table("Apprentices", SSticker.mode.apprentices)
 
-		if(SSticker.mode.raiders.len)
+		if(length(SSticker.mode.raiders))
 			dat += check_role_table("Raiders", SSticker.mode.raiders)
 
-		if(SSticker.mode.space_ninjas.len)
+		if(length(SSticker.mode.space_ninjas))
 			dat += check_role_table("Ninjas", SSticker.mode.space_ninjas)
 
-		if(SSticker.mode.cult.len)
+		if(length(SSticker.mode.cult))
 			var/datum/game_mode/gamemode = SSticker.mode
 			var/datum/objective/current_sac_obj = gamemode.cult_objs.current_sac_objective()
 			dat += check_role_table("Cultists", SSticker.mode.cult)
@@ -213,58 +213,58 @@
 			dat += "<br><a href='byond://?src=[UID()];clock_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
 			dat += "<br><a href='byond://?src=[UID()];clock_unlockratvar=[UID()]'>Unlock Ratvar summoning</a>"
 
-		if(SSticker.mode.traitors.len)
+		if(length(SSticker.mode.traitors))
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
 
-		if(SSticker.mode.implanted.len)
+		if(length(SSticker.mode.implanted))
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
 
-		if(SSticker.mode.thieves.len)
+		if(length(SSticker.mode.thieves))
 			dat += check_role_table("Thieves", SSticker.mode.thieves)
 
-		if(SSticker.mode.shadows.len)
+		if(length(SSticker.mode.shadows))
 			dat += check_role_table("Shadowlings", SSticker.mode.shadows)
 
-		if(SSticker.mode.shadowling_thralls.len)
+		if(length(SSticker.mode.shadowling_thralls))
 			dat += check_role_table("Shadowling Thralls", SSticker.mode.shadowling_thralls)
 
-		if(SSticker.mode.abductors.len)
+		if(length(SSticker.mode.abductors))
 			dat += check_role_table("Abductors", SSticker.mode.abductors)
 
-		if(SSticker.mode.abductees.len)
+		if(length(SSticker.mode.abductees))
 			dat += check_role_table("Abductees", SSticker.mode.abductees)
 
-		if(SSticker.mode.goon_vampires.len)
+		if(length(SSticker.mode.goon_vampires))
 			dat += check_role_table("Goon Vampires", SSticker.mode.goon_vampires)
 
-		if(SSticker.mode.goon_vampire_enthralled.len)
+		if(length(SSticker.mode.goon_vampire_enthralled))
 			dat += check_role_table("Goon Vampire Thralls", SSticker.mode.goon_vampire_enthralled)
 
-		if(SSticker.mode.vampires.len)
+		if(length(SSticker.mode.vampires))
 			dat += check_role_table("Vampires", SSticker.mode.vampires)
 
-		if(SSticker.mode.vampire_enthralled.len)
+		if(length(SSticker.mode.vampire_enthralled))
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
 
 		if(length(SSticker.mode.demons))
 			dat += check_role_table("Demons", SSticker.mode.demons)
 
-		if(SSticker.mode.devils.len)
+		if(length(SSticker.mode.devils))
 			dat += check_role_table("Devils", SSticker.mode.devils)
 
-		if(SSticker.mode.superheroes.len)
+		if(length(SSticker.mode.superheroes))
 			dat += check_role_table("Superheroes", SSticker.mode.superheroes)
 
-		if(SSticker.mode.supervillains.len)
+		if(length(SSticker.mode.supervillains))
 			dat += check_role_table("Supervillains", SSticker.mode.supervillains)
 
-		if(SSticker.mode.greyshirts.len)
+		if(length(SSticker.mode.greyshirts))
 			dat += check_role_table("Greyshirts", SSticker.mode.greyshirts)
 
-		if(SSticker.mode.eventmiscs.len)
+		if(length(SSticker.mode.eventmiscs))
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
 
-		if(SSticker.mode.ert.len)
+		if(length(SSticker.mode.ert))
 			dat += check_role_table("ERT", SSticker.mode.ert)
 
 		//list active security force count, so admins know how bad things are
@@ -336,7 +336,7 @@
 			dat += check_security_line(mind.current)
 	dat += "</table>"
 
-	if(SSticker.mode.ert.len)
+	if(length(SSticker.mode.ert))
 		dat += check_role_table_sec("ERT", SSticker.mode.ert)
 
 	var/datum/browser/popup = new(usr, "secstatus", "<div align='center'>Security Status</div>", 600, 800)

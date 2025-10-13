@@ -128,11 +128,11 @@
 	emote_see = list("трясёт головой", "пытается поймать свой хвост", "дрожит")
 	desc = initial(desc)
 
-	if(inventory_head && inventory_head.muhtar_fashion)
+	if(inventory_head?.muhtar_fashion)
 		var/datum/muhtar_fashion/DF = new inventory_head.muhtar_fashion(src)
 		DF.apply(src)
 
-	if(inventory_mask && inventory_mask.muhtar_fashion)
+	if(inventory_mask?.muhtar_fashion)
 		var/datum/muhtar_fashion/DF = new inventory_mask.muhtar_fashion(src)
 		DF.apply(src)
 

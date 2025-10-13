@@ -43,7 +43,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	// Find ghosts willing to be SST
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
 	var/list/commando_ghosts = pick_candidates_all_types(src, SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду Синдиката?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, I, "Ударный Отряд Синдиката", input)
-	if(!commando_ghosts.len)
+	if(!length(commando_ghosts))
 		to_chat(src, span_userdanger("Никто не присоединился к SST."))
 		return
 
@@ -56,7 +56,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 		if(L.name == "Syndicate-Commando")
 
-			if(!commando_ghosts.len)
+			if(!length(commando_ghosts))
 				break
 
 			var/mob/ghost_mob = pick(commando_ghosts)

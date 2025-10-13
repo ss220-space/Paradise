@@ -28,7 +28,7 @@
 		. = FALSE
 	else if(istype(container, /obj/item/mmi/robotic_brain))
 		var/obj/item/mmi/robotic_brain/R = container
-		if(R && R.silenced)
+		if(R?.silenced)
 			if(warning)
 				to_chat(usr, span_warning("You cannot speak, as your internal speaker is turned off."))
 			. = FALSE

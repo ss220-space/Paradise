@@ -356,7 +356,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	. = ..()
 
 /proc/isclocker(mob/living/user)
-	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.clockwork_cult)
+	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.clockwork_cult)
 
 /proc/isclocker_ascended(mob/living/user)
 	return isclocker(user) && SSticker.mode.crew_reveal

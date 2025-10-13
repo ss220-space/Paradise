@@ -282,12 +282,12 @@ SUBSYSTEM_DEF(mapping)
 			continue
 		in_transit[T] = T.get_docked()
 	var/go_ahead = world.time + wipe_safety_delay
-	if(in_transit.len)
+	if(length(in_transit))
 		message_admins("Shuttles in transit detected. Attempting to fast travel. Timeout is [go_ahead/10] seconds.")
 	var/list/cleared = list()
 	for(var/i in in_transit)
 		INVOKE_ASYNC(src, PROC_REF(safety_clear_transit_dock), i, in_transit[i], cleared)
-	UNTIL((go_ahead < world.time) || (cleared.len == in_transit.len))
+	UNTIL((go_ahead < world.time) || (length(cleared) == length(in_transit)))
 	do_wipe_turf_reservations()
 	clearing_reserved_turfs = FALSE
 
@@ -387,11 +387,11 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.english_station_name]...")
 	var/map_z_level
-	if(map_datum.traits && map_datum.traits?.len && islist(map_datum.traits[1])) // we work with list of lists
+	if(map_datum.traits && length(map_datum.traits) && islist(map_datum.traits[1])) // we work with list of lists
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])
-		if(map_datum.traits.len > MULTIZ_WARN)
-			message_admins("Loading station with over [MULTIZ_WARN] levels(It has [map_datum.traits.len]!!). May cause some issues with space levels and/or perfomance on server.")
-		for(var/i in 2 to map_datum.traits.len)
+		if(length(map_datum.traits) > MULTIZ_WARN)
+			message_admins("Loading station with over [MULTIZ_WARN] levels(It has [length(map_datum.traits)]!!). May cause some issues with space levels and/or perfomance on server.")
+		for(var/i in 2 to length(map_datum.traits))
 			GLOB.space_manager.add_new_zlevel(MAIN_STATION + "([i])", linkage = map_datum.linkage, traits = map_datum.traits[i])
 	else
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
@@ -432,7 +432,7 @@ SUBSYSTEM_DEF(mapping)
 
 // move it to code/datums/ruins.dm and make global proc plz thx k
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
-	if(!z_levels || !z_levels.len)
+	if(!z_levels || !length(z_levels))
 		WARNING("No Z levels provided - Not generating ruins")
 		return
 
@@ -637,7 +637,7 @@ SUBSYSTEM_DEF(mapping)
 //DO NOT CALL THIS PROC DIRECTLY, CALL wipe_reservations().
 /datum/controller/subsystem/mapping/proc/do_wipe_turf_reservations()
 	UNTIL(initialized) //This proc is for AFTER init, before init turf reservations won't even exist and using this will likely break things.
-	if(SSshuttle && SSshuttle.transit_requesters)
+	if(SSshuttle?.transit_requesters)
 		SSshuttle.transit_requesters.Cut()
 	for(var/i in turf_reservations)
 		var/datum/turf_reservation/TR = i
@@ -672,7 +672,7 @@ SUBSYSTEM_DEF(mapping)
 	if(!isnum(z_level) || z_level <= 0)
 		return FALSE
 
-	if(multiz_levels.len < z_level)
+	if(length(multiz_levels) < z_level)
 		multiz_levels.len = z_level
 
 	var/z_above = check_level_trait(z_level, ZTRAIT_UP)
@@ -694,9 +694,9 @@ SUBSYSTEM_DEF(mapping)
 	generate_linkages_for_z_level(z_value)
 	// We are guarenteed that we'll always grow bottom up
 	// Suck it jannies
-	z_level_to_plane_offset.len += 1
-	z_level_to_lowest_plane_offset.len += 1
-	z_level_to_stack.len += 1
+	z_level_to_plane_offset.len++
+	z_level_to_lowest_plane_offset.len++
+	z_level_to_stack.len++
 	// Bare minimum we have ourselves
 	z_level_to_stack[z_value] = list(z_value)
 	// 0's the default value, we'll update it later if required

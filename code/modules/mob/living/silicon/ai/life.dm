@@ -19,7 +19,7 @@
 	if(machine)
 		machine.check_eye(src)
 
-	if(malfhack && malfhack.aidisabled)
+	if(malfhack?.aidisabled)
 		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
 		deltimer(malfhacking)
 		// This proc handles cleanup of screen notifications and

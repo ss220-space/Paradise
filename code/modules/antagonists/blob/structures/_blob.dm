@@ -164,7 +164,7 @@
 /obj/structure/blob/proc/expand(turf/T = null, controller = null, expand_reaction = 1)
 	if(!T)
 		var/list/dirs = (is_there_multiz())? GLOB.cardinals_multiz.Copy() : GLOB.cardinal.Copy()
-		for(var/i = 1 to dirs.len)
+		for(var/i = 1 to length(dirs))
 			var/dirn = pick(dirs)
 			dirs.Remove(dirn)
 			T = get_step_multiz(src, dirn)

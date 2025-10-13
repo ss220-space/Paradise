@@ -163,7 +163,7 @@
 			if(!AM.anchored && !isliving(AM))
 				if(prob(slopchance))
 					thrownatoms += AM
-					if(thrownatoms.len >= max_throws_count)
+					if(length(thrownatoms) >= max_throws_count)
 						break
 
 	var/atom/throwtarget

@@ -40,7 +40,7 @@
 	. = ""
 
 	if(key)
-		if(C && C.holder && C.holder.fakekey && !include_name)
+		if(C?.holder && C.holder.fakekey && !include_name)
 			if(include_link)
 				. += "<a href='byond://?priv_msg=[C.getStealthKey()];type=[type];ticket_id=[ticket_id]'>"
 			. += "Administrator"

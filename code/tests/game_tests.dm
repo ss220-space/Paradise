@@ -23,7 +23,6 @@
 #include "test_status_effect_ids.dm"
 #include "test_subsystem_init.dm"
 #include "test_timer_sanity.dm"
-// END OF ALPHABETICAL SORTING
 #endif
 
 #ifdef MAP_TESTS
