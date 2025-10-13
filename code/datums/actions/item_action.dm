@@ -355,24 +355,20 @@
 /datum/action/item_action/remove_badge
 	name = "Снять голобейдж"
 
-
+// MARK: Cleave attack
 /datum/action/item_action/toggle_cleave_attack
 	name = "Переключить режим атаки со взмахом"
 	check_flags = NONE
 	var/toggled = TRUE
 
 
-/datum/action/item_action/toggle_cleave_attack/UpdateButtonIcon()
+/datum/action/item_action/toggle_cleave_attack/is_action_active(atom/movable/screen/movable/action_button/current_button)
 	. = ..()
-	button_icon = 'icons/mob/actions/actions.dmi'
-	if(toggled)
-		button_icon = "bg_default_on"
-	else
-		button_icon = "bg_default"
+	return toggled
 
 
 /datum/action/item_action/toggle_cleave_attack/do_effect(trigger_flags)
-	if(!..())
+	if(!target)
 		return
 
 	toggled = !toggled
@@ -381,7 +377,7 @@
 	to_chat(usr, span_notice("Вы [toggled ? "включаете" : "отключаете"] атаку со взмахом."))
 
 
-// Jump boots
+// MARK: Jump boots
 /datum/action/item_action/bhop
 	name = "Активировать прыжковые ботинки"
 	desc = "Активирует систему прыжков, позволяя преодолевать препятствия шириной до 4 тайлов."

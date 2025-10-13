@@ -50,6 +50,7 @@
 
 	var/obj/item/parent_item = parent
 	toggle_action = new /datum/action/item_action/toggle_cleave_attack(parent_item)
+	parent_item.add_item_action(toggle_action)
 
 
 /datum/component/cleave_attack/InheritComponent(

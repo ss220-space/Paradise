@@ -405,7 +405,7 @@
 			return
 
 /datum/action/proc/UpdateButtonIcon()
-	var/update_flag = UPDATE_BUTTON_ICON | UPDATE_BUTTON_OVERLAY | UPDATE_BUTTON_NAME | UPDATE_BUTTON_STATUS
+	var/update_flag = UPDATE_BUTTON_ICON | UPDATE_BUTTON_BACKGROUND | UPDATE_BUTTON_OVERLAY | UPDATE_BUTTON_NAME | UPDATE_BUTTON_STATUS
 	build_all_button_icons(update_flag, TRUE)
 
 /// Updates our buttons if our target's icon was updated
