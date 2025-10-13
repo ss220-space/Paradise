@@ -585,15 +585,13 @@
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
 		if(!toggle_gunlight_action)
 			toggle_gunlight_action = new(src)
-			if(ismob(loc))
-				var/mob/user = loc
-				if(!(toggle_gunlight_action in user.actions))
-					toggle_gunlight_action.Grant(user)
+			add_item_action(toggle_gunlight_action)
 	else
 		verbs -= /obj/item/gun/proc/toggle_gunlight_verb
 
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
 		if(toggle_gunlight_action)
+			remove_item_action(toggle_gunlight_action)
 			qdel(toggle_gunlight_action)
 
 		if(.)
