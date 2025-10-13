@@ -108,7 +108,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 /datum/announcer/proc/announce_message(message, garbled_message, receivers, garbled_receivers, message_sound)
 	var/tts_seed = "Glados"
-	if(GLOB.ai_list.len)
+	if(length(GLOB.ai_list))
 		var/mob/living/silicon/ai/AI = pick(GLOB.ai_list)
 		tts_seed = AI.tts_seed
 	var/message_tts = message

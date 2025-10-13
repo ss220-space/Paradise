@@ -46,7 +46,7 @@
 	if(length(embeds))
 		json["embeds"] = list()
 		if(length(embeds) > 10)
-			embeds.Cut(11) // Cut to 10 embeds because thats the limit of the Discord API
+			embeds.len = 10 // Cut to 10 embeds because thats the limit of the Discord API
 
 		for(var/e in embeds)
 			var/datum/discord_embed/embed = e

@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window
 	name = "window"
-	desc = "Иногда окно – это просто окно."
+	desc = "Иногда окно — это просто окно."
 	icon_state = "window"
 	density = TRUE
 	pass_flags_self = PASSGLASS
@@ -776,7 +776,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	return FALSE
 
 /obj/structure/window/full/basic
-	desc = "Выглядит тонким и хрупким. Несколько ударов чем угодно – и оно разобьётся."
+	desc = "Выглядит тонким и хрупким. Несколько ударов чем угодно — и оно разобьётся."
 	icon = 'icons/obj/smooth_structures/window.dmi'
 	base_icon_state = "window"
 	max_integrity = 50

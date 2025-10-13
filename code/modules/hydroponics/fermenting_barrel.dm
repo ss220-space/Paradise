@@ -29,7 +29,7 @@
 
 /obj/structure/fermenting_barrel/examine(mob/user)
 	. = ..()
-	. += span_notice("Сейчас бочка [open ? "открыта – можно наливать жидкости." : "закрыта - можно набирать жидкость через кран."]")
+	. += span_notice("Сейчас бочка [open ? "открыта — можно наливать жидкости." : "закрыта — можно набирать жидкость через кран."]")
 
 /obj/structure/fermenting_barrel/proc/makeWine(obj/item/reagent_containers/food/snacks/grown/G)
 	if(G.reagents)

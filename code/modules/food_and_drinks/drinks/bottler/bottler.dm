@@ -34,7 +34,7 @@
 			var/datum/bottler_recipe/recipe = new type
 			if(recipe.result) // Ignore recipe subtypes that lack a result
 				available_recipes += recipe
-				for(var/i = 1, i <= recipe.ingredients.len, i++)
+				for(var/i = 1, i <= length(recipe.ingredients), i++)
 					acceptable_items |= recipe.ingredients[i]
 			else
 				qdel(recipe)
@@ -119,7 +119,7 @@
 		to_chat(user, span_warning("[src] is full, please remove or process the contents first."))
 		return
 	var/slot_inserted = 0
-	for(var/i = 1, i <= slots.len, i++)
+	for(var/i = 1, i <= length(slots), i++)
 		if(!slots[i])
 			slots[i] = O
 			slot_inserted = i
@@ -135,7 +135,7 @@
 /obj/machinery/bottler/proc/eject_items(slot)
 	var/obj/item/O = null
 	if(!slot)
-		for(var/i = 1, i <= slots.len, i++)
+		for(var/i = 1, i <= length(slots), i++)
 			if(slots[i])
 				O = slots[i]
 				O.forceMove(loc)
@@ -229,7 +229,7 @@
 /obj/machinery/bottler/proc/select_recipe()
 	for(var/datum/bottler_recipe/recipe in available_recipes)
 		var/number_matches = 0
-		for(var/i = 1, i <= slots.len, i++)
+		for(var/i = 1, i <= length(slots), i++)
 			var/obj/item/O = slots[i]
 			if(istype(O, recipe.ingredients[i]))
 				number_matches++
@@ -366,7 +366,7 @@
 		dat += "</tr>"
 
 		dat += "<tr>"
-		for(var/i = 1, i <= slots.len, i++)
+		for(var/i = 1, i <= length(slots), i++)
 			var/obj/O = slots[i]
 			if(O)
 				dat += "<td>[bicon(O)]<br>[O.name]</td>"
@@ -380,7 +380,7 @@
 		dat += "</tr>"
 
 		dat += "<tr>"
-		for(var/i = 1, i <= slots.len, i++)
+		for(var/i = 1, i <= length(slots), i++)
 			if(slots[i])
 				dat += "<td><a href='byond://?src=[UID()];eject=[i]'>Eject</a></td>"
 			else

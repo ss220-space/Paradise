@@ -68,7 +68,7 @@
 	if(brass_amount >= 1)
 		new /obj/item/stack/sheet/brass(src, brass_amount)
 
-	SStgui.close_uis()
+	SStgui.close_uis(src)
 	return ..()
 
 /obj/structure/clockwork/functional/workshop/attack_hand(mob/user)

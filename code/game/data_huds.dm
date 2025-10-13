@@ -71,6 +71,10 @@
 /datum/atom_hud/pacifism
 	hud_icons = list(PACIFISM_HUD)
 
+/datum/atom_hud/diablerie_aura
+	hud_icons = list(DIABLERIE_AURA_HUD)
+
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -233,7 +237,7 @@
 		holder.icon_state = STATUS_HUD_XENO
 	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
 		holder.icon_state = STATUS_HUD_TUMOUR
-	else if(B && B.controlling && !B.sneaking)
+	else if(B?.controlling && !B.sneaking)
 		holder.icon_state = STATUS_HUD_BRAINWORM
 	else if(is_in_crit())
 		holder.icon_state = STATUS_HUD_DEFIB

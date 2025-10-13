@@ -157,7 +157,7 @@
 		var/mob/living/carbon/human/human = M
 		if(!isshadowperson(human))
 			to_chat(M, span_danger("Ваша плоть быстро мутирует!"))
-			to_chat(M, span_danger("Теперь вы - Тень, мутант из расы обитающих во тьме гуманоидов."))
+			to_chat(M, span_danger("Теперь вы — Тень, мутант из расы обитающих во тьме гуманоидов."))
 			to_chat(M, span_danger("Ваше тело сильно реагирует на свет, однако оно натурально исцеляется при нахождении во тьме."))
 			to_chat(M, span_danger("Тем не менее, вы не изменились психически и сохранили свои прежние обязанности."))
 			human.set_species(/datum/species/shadow)
@@ -228,7 +228,7 @@
 /datum/reagent/radium
 	name = "Радий"
 	id = "radium"
-	description = "Радий - щелочноземельный металл. Он чрезвычайно радиоактивен."
+	description = "Радий — щелочноземельный металл. Он чрезвычайно радиоактивен."
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
 	taste_description = "голубизны и сожалений"
@@ -712,7 +712,7 @@
 /datum/reagent/formaldehyde
 	name = "Формальдегид"
 	id = "formaldehyde"
-	description = "Формальдегид - распространенный промышленный химикат, который используется для консервации трупов и медицинских препа. Он очень токсичен и вызывает аллергию."
+	description = "Формальдегид — распространенный промышленный химикат, который используется для консервации трупов и медицинских препа. Он очень токсичен и вызывает аллергию."
 	reagent_state = LIQUID
 	color = "#B44B00"
 	penetrates_skin = TRUE
@@ -729,7 +729,7 @@
 /datum/reagent/acetaldehyde
 	name = "Ацетальдегид"
 	id = "acetaldehyde"
-	description = "Ацетальдегид - распространенный промышленный химикат. Он является сильным раздражителем."
+	description = "Ацетальдегид — распространенный промышленный химикат. Он является сильным раздражителем."
 	reagent_state = LIQUID
 	color = "#B44B00"
 	penetrates_skin = TRUE
@@ -871,7 +871,7 @@
 /datum/reagent/initropidril
 	name = "Инитропидрил"
 	id = "initropidril"
-	description = "Сильнодействующий сердечный яд - может убить за несколько минут."
+	description = "Сильнодействующий сердечный яд — может убить за несколько минут."
 	reagent_state = LIQUID
 	color = "#7F10C0"
 	can_synth = FALSE
@@ -902,7 +902,7 @@
 /datum/reagent/pancuronium
 	name = "Панкуроний"
 	id = "pancuronium"
-	description = "Бромид панкурония - мощный релаксант скелетных мышц."
+	description = "Бромид панкурония — мощный релаксант скелетных мышц."
 	reagent_state = LIQUID
 	color = "#1E4664"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM

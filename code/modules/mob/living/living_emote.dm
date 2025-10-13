@@ -549,7 +549,7 @@
 				if("Слышимая")
 					custom_emote_type = EMOTE_AUDIBLE
 				else
-					to_chat(user, span_warning("Невозможно использовать эту эмоцию - она должна быть либо слышимой, либо видимой."))
+					to_chat(user, span_warning("Невозможно использовать эту эмоцию — она должна быть либо слышимой, либо видимой."))
 					return
 	else
 		custom_emote = params

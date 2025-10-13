@@ -113,7 +113,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 				if(T.x>world.maxx || T.x<1)	continue//Don't want them to teleport off the map.
 				if(T.y>world.maxy || T.y<1)	continue
 				destination_list += T
-			if(destination_list.len)
+			if(length(destination_list))
 				destination = pick(destination_list)
 			else	return
 
@@ -217,7 +217,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/name = "[A.real_name] ([A.modtype?.name] [A.braintype])"
 		borgs[name] = A
 
-	if(borgs.len)
+	if(length(borgs))
 		select = tgui_input_list(usr, "Unshackled borg signals detected:", "Borg selection", borgs, null)
 		return borgs[select]
 
@@ -247,7 +247,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /proc/select_active_ai(mob/user)
 	var/list/ais = active_ais()
-	if(ais.len)
+	if(length(ais))
 		if(user)	. = tgui_input_list(usr, "AI signals detected:", "AI selection", ais)
 		else		. = pick(ais)
 	return .
@@ -723,7 +723,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 
-	if(toupdate.len)
+	if(length(toupdate))
 		for(var/turf/simulated/T1 in toupdate)
 			T1.CalculateAdjacentTurfs()
 			SSair.add_to_active(T1,1)
@@ -1006,7 +1006,7 @@ Standard way to write links -Sayu
 
 	var/atom/found = null
 
-	while(processing_list.len && found==null)
+	while(length(processing_list) && found==null)
 		var/atom/A = processing_list[1]
 		if(istype(A, typepath))
 			found = A
@@ -1347,7 +1347,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			. |= T.loc
 
 /proc/is_there_multiz()
-	return SSmapping?.map_datum?.traits?.len > 1
+	return length(SSmapping?.map_datum?.traits) > 1
 
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
@@ -1386,11 +1386,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(!isnull(value) && value != "")
 		matches = filter_fancy_list(matches, value)
 
-	if(matches.len == 0)
+	if(length(matches) == 0)
 		return
 
 	var/chosen
-	if(matches.len == 1)
+	if(length(matches) == 1)
 		chosen = matches[1]
 	else
 		chosen = tgui_input_list(usr, "Select a type", "Pick Type", matches,  matches[1])

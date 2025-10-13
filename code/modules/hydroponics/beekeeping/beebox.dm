@@ -97,16 +97,16 @@
 /obj/structure/beebox/process()
 	if(queen_bee)
 		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST)
-			if(honeycombs.len < get_max_honeycomb())
+			if(length(honeycombs) < get_max_honeycomb())
 				bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
 				var/obj/item/reagent_containers/honeycomb/HC = new(src)
 				if(queen_bee.beegent)
 					HC.set_reagent(queen_bee.beegent.id)
 				honeycombs += HC
 
-		if(bees.len < get_max_bees())
+		if(length(bees) < get_max_bees())
 			var/freebee = FALSE //a freebee, geddit?, hahaha HAHAHAHA
-			if(bees.len <= 1) //there's always one set of worker bees, this isn't colony collapse disorder its 2d spessmen
+			if(length(bees) <= 1) //there's always one set of worker bees, this isn't colony collapse disorder its 2d spessmen
 				freebee = TRUE
 			if((bee_resources >= BEE_RESOURCE_NEW_BEE_COST && prob(BEE_PROB_NEW_BEE)) || freebee)
 				if(!freebee)
@@ -135,18 +135,18 @@
 		. += span_warning("There is no queen bee! There won't bee any honeycomb without a queen!")
 
 	var/half_bee = get_max_bees()*0.5
-	if(half_bee && (bees.len >= half_bee))
+	if(half_bee && (length(bees) >= half_bee))
 		. += span_notice("This place is a BUZZ with activity... there are lots of bees!")
 
 	. += span_notice("[bee_resources]/100 resource supply.")
 	. += span_notice("[bee_resources]% towards a new honeycomb.")
 	. += span_notice("[bee_resources*2]% towards a new bee.")
 
-	if(honeycombs.len)
-		var/plural = honeycombs.len > 1
-		. += span_notice("There [plural? "are" : "is"] [honeycombs.len] uncollected honeycomb[plural ? "s":""] in the apiary.")
+	if(length(honeycombs))
+		var/plural = length(honeycombs) > 1
+		. += span_notice("There [plural? "are" : "is"] [length(honeycombs)] uncollected honeycomb[plural ? "s":""] in the apiary.")
 
-	if(honeycombs.len >= get_max_honeycomb())
+	if(length(honeycombs) >= get_max_honeycomb())
 		. += span_warning("there's no room for more honeycomb!")
 
 
@@ -240,7 +240,7 @@
 				return
 			switch(option)
 				if("Remove a Honey Frame")
-					if(!honey_frames.len)
+					if(!length(honey_frames))
 						to_chat(user, span_warning("There are no honey frames to remove!"))
 						return
 
@@ -254,7 +254,7 @@
 
 						var/amtH = HF.honeycomb_capacity
 						var/fallen = 0
-						while(honeycombs.len && amtH) //let's pretend you always grab the frame with the most honeycomb on it
+						while(length(honeycombs) && amtH) //let's pretend you always grab the frame with the most honeycomb on it
 							var/obj/item/reagent_containers/honeycomb/HC = pick_n_take(honeycombs)
 							if(HC)
 								HC.add_fingerprint(user)

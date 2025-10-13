@@ -261,7 +261,7 @@ emp_act
 	return FALSE
 
 /mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/item, visible_message, self_message)
-	if(mind && mind.martial_art)
+	if(mind?.martial_art)
 		return mind.martial_art.attack_reaction(defender, attacker, item, visible_message, self_message)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc

@@ -269,7 +269,7 @@
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
-	desc = "Женственная клоунская маска для начинающих кроссдрессеров или женщин - артисток. Вы можете изменить её внешний вид в руках."
+	desc = "Женственная клоунская маска для начинающих кроссдрессеров или женщин — артисток. Вы можете изменить её внешний вид в руках."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 
@@ -904,7 +904,7 @@
 
 /obj/item/clothing/mask/gas/ghostface
 	name = "Ghostface mask"
-	desc = "Вытянутая белая маска, рот которой открыт в немом крике. Но вот в чём вопрос - ужаса, или ярости?"
+	desc = "Вытянутая белая маска, рот которой открыт в немом крике. Но вот в чём вопрос — ужаса, или ярости?"
 	icon_state = "ghostface_mask"
 	item_state = "ghostface_mask"
 	flags_inv = HIDEGLASSES

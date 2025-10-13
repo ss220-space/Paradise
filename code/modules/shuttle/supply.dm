@@ -31,7 +31,7 @@
 		/obj/structure/spider/spiderling,
 		/obj/item/disk/nuclear,
 		/obj/machinery/nuclearbomb,
-		/obj/item/radio/beacon,
+		/obj/item/beacon,
 		/obj/machinery/the_singularitygen,
 		/obj/singularity,
 		/obj/machinery/teleport/station,
@@ -87,7 +87,7 @@
 	if(!is_station_level(z))		//we only buy when we are -at- the station
 		return 1
 
-	if(!SSshuttle.shoppinglist.len)
+	if(!length(SSshuttle.shoppinglist))
 		return 2
 
 	var/list/emptyTurfs = list()
@@ -321,7 +321,10 @@
 	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
 	Crate.ru_names = new /list(6)
 	for(var/i = 1; i <= 6; i++)
-		Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
+		if(i < length(object.container_ru_names))
+			Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
+		else
+			Crate.ru_names[i] = Crate.name
 
 	if(object.access)
 		Crate:req_access = list(text2num(object.access))
@@ -333,7 +336,7 @@
 	slip.ordernumber = ordernum
 
 	var/stationName = (errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
-	var/packagesAmt = SSshuttle.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
+	var/packagesAmt = length(SSshuttle.shoppinglist) + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Манифест поставки – \"[object.name]\" для [orderedby]"
 	slip.ru_names = new /list(6)
@@ -361,7 +364,7 @@
 	if(istype(object, /datum/supply_packs/misc/randomised))
 		var/datum/supply_packs/misc/randomised/SO = object
 		contains = list()
-		if(object.contains.len)
+		if(length(object.contains))
 			for(var/j=1, j<=SO.num_contained, j++)
 				contains += pick(object.contains)
 	else
@@ -385,7 +388,7 @@
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
 		else
-			var/lostAmt = max(round(Crate.contents.len/10), 1)
+			var/lostAmt = max(round(length(Crate.contents)/10), 1)
 			//lose some of the items
 			while(--lostAmt >= 0)
 				qdel(pick(Crate.contents))
@@ -649,7 +652,7 @@
 			var/ordernum = text2num(params["ordernum"])
 			var/datum/supply_order/O
 			var/datum/supply_packs/P
-			for(var/i=1, i<=SSshuttle.requestlist.len, i++)
+			for(var/i=1, i<=length(SSshuttle.requestlist), i++)
 				var/datum/supply_order/SO = SSshuttle.requestlist[i]
 				if(SO.ordernum == ordernum)
 					O = SO
@@ -668,7 +671,7 @@
 
 		if("deny")
 			var/ordernum = text2num(params["ordernum"])
-			for(var/i=1, i<=SSshuttle.requestlist.len, i++)
+			for(var/i=1, i<=length(SSshuttle.requestlist), i++)
 				var/datum/supply_order/SO = SSshuttle.requestlist[i]
 				if(SO.ordernum == ordernum)
 					// If we are on a public console, only allow cancelling of our own orders

@@ -150,6 +150,22 @@
 	pickup_sound = 'sound/items/handling/pickup/boots_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/boots_drop.ogg'
 
+/obj/item/clothing/shoes/jackboots/high
+	name = "high jackboots"
+	desc = "Защитные высокие берцы, предназначенные для боевых действий."
+	icon_state = "highjacks"
+	item_state = "highjacks"
+
+/obj/item/clothing/shoes/jackboots/high/get_ru_names()
+	return list(
+		NOMINATIVE = "высокие берцы",
+		GENITIVE = "высоких берцов",
+		DATIVE = "высоким берцам",
+		ACCUSATIVE = "высокие берцы",
+		INSTRUMENTAL = "высокими берцами",
+		PREPOSITIONAL = "высоких берцах"
+	)
+
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/jackboots)
@@ -326,7 +342,7 @@
 	name = "White Sandals"
 	desc = "Medical sandals that nerds wear."
 	icon_state = "medsandal"
-	item_color = "medsandal"
+	item_state = "medsandal"
 
 /obj/item/clothing/shoes/sandal/fancy
 	name = "Fancy Sandals"

@@ -15,7 +15,7 @@ using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 /datum/datacore/proc/get_manifest_json()
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		return
 	var/heads[0]
 	var/pro[0]
@@ -39,50 +39,50 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 			heads[++heads.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 			depthead = 1
-			if(real_rank == JOB_TITLE_CAPTAIN && heads.len != 1)
-				heads.Swap(1,  heads.len)
+			if(real_rank == JOB_TITLE_CAPTAIN && length(heads) != 1)
+				heads.Swap(1,  length(heads))
 
 		if((real_rank == JOB_TITLE_JUDGE) || (real_rank == JOB_TITLE_LAWYER) || (real_rank == JOB_TITLE_REPRESENTATIVE))
 			pro[++pro.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
-			if((real_rank == JOB_TITLE_JUDGE) && pro.len != 1)
-				pro.Swap(1,  pro.len)
+			if((real_rank == JOB_TITLE_JUDGE) && length(pro) != 1)
+				pro.Swap(1,  length(pro))
 
 		if(real_rank in GLOB.security_positions)
 			sec[++sec.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
-			if(depthead && sec.len != 1)
-				sec.Swap(1, sec.len)
+			if(depthead && length(sec) != 1)
+				sec.Swap(1, length(sec))
 
 		if(real_rank in GLOB.engineering_positions)
 			eng[++eng.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
-			if(depthead && eng.len != 1)
-				eng.Swap(1, eng.len)
+			if(depthead && length(eng) != 1)
+				eng.Swap(1, length(eng))
 
 		if(real_rank in GLOB.medical_positions)
 			med[++med.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
-			if(depthead && med.len != 1)
-				med.Swap(1, med.len)
+			if(depthead && length(med) != 1)
+				med.Swap(1, length(med))
 
 		if(real_rank in GLOB.science_positions)
 			sci[++sci.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
-			if(depthead && sci.len != 1)
-				sci.Swap(1, sci.len)
+			if(depthead && length(sci) != 1)
+				sci.Swap(1, length(sci))
 
 		if(real_rank in GLOB.service_positions)
 			ser[++ser.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
-			if(depthead && ser.len != 1)
-				ser.Swap(1, ser.len)
+			if(depthead && length(ser) != 1)
+				ser.Swap(1, length(ser))
 
 		if(real_rank in GLOB.supply_positions)
 			sup[++sup.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
-			if(depthead && sup.len != 1)
-				sup.Swap(1, sup.len)
+			if(depthead && length(sup) != 1)
+				sup.Swap(1, length(sup))
 
 		if(real_rank in GLOB.nonhuman_positions)
 			bot[++bot.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		manifest_inject(H)
 
 /datum/datacore/proc/manifest_modify(name, rank, assignment)
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 	var/datum/data/record/foundrecord
 
@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 GLOBAL_VAR_INIT(record_id_num, 1001)
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
-	if(GLOB.PDA_Manifest.len)
+	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
@@ -278,7 +278,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	if(H.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/tail_marking = H.m_styles["tail"]
 		var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[tail_marking]
-		if(tail_marking_style && tail_marking_style.species_allowed)
+		if(tail_marking_style?.species_allowed)
 			t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 			t_marking_s.Blend(H.m_colours["tail"], ICON_ADD)
 			if(!(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/body)))
@@ -313,13 +313,13 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	//Head Accessory
 	if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[head_organ.ha_style]
-		if(head_accessory_style && head_accessory_style.species_allowed)
+		if(head_accessory_style?.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
-	if(facial_hair_style && facial_hair_style.species_allowed)
+	if(facial_hair_style?.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(istype(head_organ.dna.species, /datum/species/slime))
 			facial_s.Blend("[H.skin_colour]A0", ICON_ADD) //A0 = 160 alpha.
@@ -339,14 +339,14 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(H.dna.species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
 			var/body_marking = H.m_styles["body"]
 			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
-			if(body_marking_style && body_marking_style.species_allowed)
+			if(body_marking_style?.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 				b_marking_s.Blend(H.m_colours["body"], ICON_ADD)
 				face_s.Blend(b_marking_s, ICON_OVERLAY)
 		if(H.dna.species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = H.m_styles["head"]
 			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
-			if(head_marking_style && head_marking_style.species_allowed)
+			if(head_marking_style?.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 				h_marking_s.Blend(H.m_colours["head"], ICON_ADD)
 				face_s.Blend(h_marking_s, ICON_OVERLAY)

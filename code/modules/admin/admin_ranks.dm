@@ -16,7 +16,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		if(copytext(line,1,2) == "#")	continue
 
 		var/list/List = splittext(line,"+")
-		if(!List.len)					continue
+		if(!length(List))					continue
 
 		var/rank = trim(List[1])
 		switch(rank)
@@ -25,7 +25,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			if(DELETED_RANK)	continue				//Reserved
 
 		var/rights = 0
-		for(var/i=2, i<=List.len, i++)
+		for(var/i=2, i<=length(List), i++)
 			switch(ckey(List[i]))
 				if("@","prev")					rights |= previous_rights
 				if("buildmode","build")			rights |= R_BUILDMODE
@@ -86,7 +86,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 			//Split the line at every "-"
 			var/list/List = splittext(line, "-")
-			if(!List.len)					continue
+			if(!length(List))					continue
 
 			//ckey is before the first "-"
 			var/ckey = ckey(List[1])
@@ -94,7 +94,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 			//rank follows the first "-"
 			var/rank = ""
-			if(List.len >= 2)
+			if(length(List) >= 2)
 				rank = List[2]
 
 			//load permissions associated with this rank

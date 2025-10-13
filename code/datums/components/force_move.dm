@@ -12,7 +12,7 @@
 	var/loop_flags = MOVEMENT_LOOP_TAKE_EXISTING_LOOP
 	if(spin || no_dir_update)
 		loop_flags |= MOVEMENT_LOOP_NO_DIR_UPDATE
-	var/datum/move_loop/loop = SSmove_manager.move_towards(mob_parent, target, delay = 1, timeout = dist, flags = loop_flags)
+	var/datum/move_loop/loop = GLOB.move_manager.move_towards(mob_parent, target, delay = 1, timeout = dist, flags = loop_flags)
 	RegisterSignal(mob_parent, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, PROC_REF(stop_move))
 	RegisterSignal(mob_parent, COMSIG_ATOM_PRE_PRESSURE_PUSH, PROC_REF(stop_pressure))
 	if(spin)

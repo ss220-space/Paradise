@@ -85,7 +85,7 @@
 		return
 
 	var/list/tempnetwork = splittext(input, ",")
-	if(tempnetwork.len < 1)
+	if(length(tempnetwork) < 1)
 		state = ASSEMBLY_WIRED
 		to_chat(user, span_warning("No network found please hang up and try your call again."))
 		return

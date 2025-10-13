@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	to_chat(user, span_notice("You rotate [src]."))
 
 /obj/machinery/doppler_array/proc/print_explosive_logs(mob/user)
-	if(!logged_explosions.len)
+	if(!length(logged_explosions))
 		atom_say("No logs currently stored in internal database.")
 		return
 	if(active_timers)

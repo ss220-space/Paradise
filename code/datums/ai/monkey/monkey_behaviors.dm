@@ -137,7 +137,7 @@
 			break
 
 	if(target)
-		SSmove_manager.move_away(living_pawn, target, max_dist = MONKEY_ENEMY_VISION, delay = 5)
+		GLOB.move_manager.move_away(living_pawn, target, max_dist = MONKEY_ENEMY_VISION, delay = 5)
 	else
 		finish_action(controller, TRUE)
 
@@ -171,7 +171,7 @@
 /datum/ai_behavior/monkey_attack_mob/finish_action(datum/ai_controller/controller, succeeded)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
-	SSmove_manager.stop_looping(living_pawn)
+	GLOB.move_manager.stop_looping(living_pawn)
 	controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = null
 
 /// attack using a held weapon otherwise bite the enemy, then if we are angry there is a chance we might calm down a little

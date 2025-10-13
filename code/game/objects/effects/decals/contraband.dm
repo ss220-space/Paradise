@@ -529,7 +529,7 @@
 
 /obj/structure/sign/poster/contraband/flamethrower
 	name = "Огнемёт"
-	desc = "Теперь ты - поджигатель. Крайне опасное оружие для всех, включая самого поджигателя."
+	desc = "Теперь ты — поджигатель. Крайне опасное оружие для всех, включая самого поджигателя."
 	icon_state = "poster_flamethrower"
 
 /obj/structure/sign/poster/contraband/bigbrother
@@ -626,7 +626,7 @@
 
 /obj/structure/sign/poster/official/love_ian
 	name = "Любите Иана"
-	desc = "Иан - это любовь, Иан - это жизнь."
+	desc = "Иан — это любовь, Иан — это жизнь."
 	icon_state = "poster12_legit"
 
 /obj/structure/sign/poster/official/space_cops
@@ -691,7 +691,7 @@
 
 /obj/structure/sign/poster/official/cohiba_robusto_ad
 	name = "Реклама Коиба Робусто"
-	desc = "Коиба Робусто – стильные сигары."
+	desc = "Коиба Робусто — стильные сигары."
 	icon_state = "poster25_legit"
 
 /obj/structure/sign/poster/official/anniversary_vintage_reprint

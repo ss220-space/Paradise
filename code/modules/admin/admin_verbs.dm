@@ -681,7 +681,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
 			var/mob/dead/observer/theghost = null
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 				theghost = pick(candidates)
 				P.key = theghost.key
@@ -1126,7 +1126,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	for(var/datum/job/J in SSjobs.occupations)
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
-	if(!jobs.len)
+	if(!length(jobs))
 		to_chat(usr, "There are no fully staffed jobs.", confidential=TRUE)
 		return
 	var/job = tgui_input_list(src, "Please select job slot to free", "Free Job Slot", jobs)

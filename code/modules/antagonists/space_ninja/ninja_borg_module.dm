@@ -43,7 +43,7 @@
 	name = "robotic shuriken emitter"
 	desc = "A device sneakily hidden inside your robotic hand. Shoots 3 energy shurikens that slows and temporary blinds their targets"
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken/borg)
-	// Эти два значения не нужны боргам - они не носят ниндзя костюм
+	// Эти два значения не нужны боргам — они не носят ниндзя костюм
 	cost = null
 	my_suit = null
 

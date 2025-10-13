@@ -1,73 +1,57 @@
-/obj/item/radio/beacon
-	name = "Tracking Beacon"
+/obj/item/beacon
+	name = "tracking beacon"
 	desc = "A beacon used by a teleporter."
+	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
-	var/code = "Beacon"
 	origin_tech = "bluespace=1"
-	var/emagged = 0
-	var/syndicate = 0
+	flags = CONDUCT
+	slot_flags = ITEM_SLOT_BELT
+	throw_range = 9
+	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
+
+	var/emagged = FALSE
+	var/syndicate = FALSE
 	var/area_bypass = FALSE
-	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
+	/// Set if allowed to teleport to even if on zlevel2
+	var/cc_beacon = FALSE
 
-/obj/item/radio/beacon/Initialize(mapload)
-	..()
-	code = "[code] ([GLOB.beacons.len + 1])"
-	GLOB.beacons += src
+/obj/item/beacon/Initialize(mapload)
+	. = ..()
+	GLOB.beacons |= src
 
-/obj/item/radio/beacon/Destroy()
+/obj/item/beacon/Destroy()
 	GLOB.beacons -= src
 	return ..()
 
-/obj/item/radio/beacon/emag_act(mob/user)
+/obj/item/beacon/emag_act(mob/user)
 	if(!emagged)
-		emagged = 1
-		syndicate = 1
+		emagged = TRUE
+		syndicate = TRUE
 		if(user)
 			to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))
 
-/obj/item/radio/beacon/hear_talk()
-	return
+/// Probably a better way of doing this, I'm lazy.
+/obj/item/beacon/bacon
 
-/obj/item/radio/beacon/talk_into()
-	return FALSE
-
-/obj/item/radio/beacon/send_hear()
-	return null
-
-/obj/item/radio/beacon/verb/alter_signal(t as text)
-	set name = "Изменить сигнал маяка"
-	set category = STATPANEL_OBJECT
-	set src in usr
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	code = t
-	if(isnull(code))
-		code = initial(code)
-	src.add_fingerprint(usr)
-	return
-
-/obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
-
-/obj/item/radio/beacon/bacon/proc/digest_delay()
-	QDEL_IN(src, 600)
+/obj/item/beacon/bacon/proc/digest_delay()
+	QDEL_IN(src, 60 SECONDS)
 
 // SINGULO BEACON SPAWNER
-/obj/item/radio/beacon/syndicate
+/obj/item/beacon/syndicate
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
 	origin_tech = "bluespace=6;syndicate=5"
 	syndicate = TRUE
 	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
-/obj/item/radio/beacon/syndicate/Destroy()
+/obj/item/beacon/syndicate/Destroy()
 	if(mycomputer)
 		mycomputer.mybeacon = null
 	return ..()
 
-/obj/item/radio/beacon/syndicate/attack_self(mob/user)
+/obj/item/beacon/syndicate/attack_self(mob/user)
 	if(!user)
 		return
 	if(!isturf(user.loc))
@@ -79,12 +63,12 @@
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
-/obj/item/radio/beacon/syndicate/bomb
+/obj/item/beacon/syndicate/bomb
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
 	origin_tech = "bluespace=5;syndicate=5"
 	var/bomb = /obj/machinery/syndicatebomb
 
-/obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user)
+/obj/item/beacon/syndicate/bomb/attack_self(mob/user)
 	if(!user)
 		return
 	if(!isturf(user.loc))
@@ -96,11 +80,11 @@
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
-/obj/item/radio/beacon/syndicate/bomb/emp
+/obj/item/beacon/syndicate/bomb/emp
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance EMP explosive to your location</i>."
 	bomb = /obj/machinery/syndicatebomb/emp
 
-/obj/item/radio/beacon/syndicate/bundle
+/obj/item/beacon/syndicate/bundle
 	desc = "A label on it reads: <i>Activate to select a bundle</i>."
 	var/used = FALSE
 	var/list/selected = list()
@@ -294,19 +278,19 @@
 	)
 
 
-/obj/item/radio/beacon/syndicate/bundle/magical //for d20 dice of fate
+/obj/item/beacon/syndicate/bundle/magical //for d20 dice of fate
 	used = TRUE
 	name = "suspicious 'magical' beacon"
 	desc = "It looks battered and old, as if someone tried to crack it with brute force."
 
-/obj/item/radio/beacon/syndicate/bundle/Initialize(mapload)
+/obj/item/beacon/syndicate/bundle/Initialize(mapload)
 	. = ..()
 	unselected = bundles.Copy()
 	while(length(selected) < 3)
 		selected |= pick_n_take(unselected)
 	selected += "Random"
 
-/obj/item/radio/beacon/syndicate/bundle/attack_self(mob/user)
+/obj/item/beacon/syndicate/bundle/attack_self(mob/user)
 	if(!user)
 		return
 	used = TRUE
@@ -321,30 +305,30 @@
 	qdel(src)
 	user.put_in_hands(your_bundle)
 
-/obj/item/radio/beacon/syndicate/bundle/check_uplink_validity()
+/obj/item/beacon/syndicate/bundle/check_uplink_validity()
 	return !used
 
-/obj/item/radio/beacon/engine
+/obj/item/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
-	anchored = TRUE		//Let's not move these around. Some folk might get the idea to use these for assassinations
+	anchored = TRUE //Let's not move these around. Some folk might get the idea to use these for assassinations
 	var/list/enginetype = list()
 
-/obj/item/radio/beacon/engine/Initialize(mapload)
+/obj/item/beacon/engine/Initialize(mapload)
 	LAZYADD(GLOB.engine_beacon_list, src)
 	return ..()
 
-/obj/item/radio/beacon/engine/Destroy()
+/obj/item/beacon/engine/Destroy()
 	GLOB.engine_beacon_list -= src
 	return ..()
 
-/obj/item/radio/beacon/engine/tesling
+/obj/item/beacon/engine/tesling
 	name = "Engine Beacon for Tesla and Singularity"
 	enginetype = list(ENGTYPE_TESLA, ENGTYPE_SING)
 
-/obj/item/radio/beacon/engine/tesla
+/obj/item/beacon/engine/tesla
 	name = "Engine Beacon for Tesla"
 	enginetype = list(ENGTYPE_TESLA)
 
-/obj/item/radio/beacon/engine/sing
+/obj/item/beacon/engine/sing
 	name = "Engine Beacon for Singularity"
 	enginetype = list(ENGTYPE_SING)

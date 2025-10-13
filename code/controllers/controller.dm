@@ -4,15 +4,15 @@
 /datum/controller/proc/Initialize()
 	return
 
-//cleanup actions
+/// Cleanup actions
 /datum/controller/proc/Shutdown()
 	return
 
-//when we enter dmm_suite.load_map
+/// When we enter dmm_suite.load_map
 /datum/controller/proc/StartLoadingMap()
 	return
 
-//when we exit dmm_suite.load_map
+/// When we exit dmm_suite.load_map
 /datum/controller/proc/StopLoadingMap()
 	return
 

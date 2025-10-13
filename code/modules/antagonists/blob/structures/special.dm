@@ -64,7 +64,7 @@
 			expand_probablity = 20
 		if(distance <= expand_range)
 			var/can_expand = TRUE
-			if(blobs_to_affect.len >= 120 && !(COOLDOWN_FINISHED(B, heal_timestamp)))
+			if(length(blobs_to_affect) >= 120 && !(COOLDOWN_FINISHED(B, heal_timestamp)))
 				can_expand = FALSE
 			if(can_expand && COOLDOWN_FINISHED(B, pulse_timestamp) && prob(expand_probablity*BLOB_EXPAND_CHANCE_MULTIPLIER))
 				if(!expanded)

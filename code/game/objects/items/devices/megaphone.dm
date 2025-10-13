@@ -30,7 +30,7 @@
 			return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H && H.mind && H.mind.miming)
+		if(H?.mind && H.mind.miming)
 			to_chat(user, span_warning("Your vow of silence prevents you from speaking."))
 			return
 		if(HAS_TRAIT(H, TRAIT_COMIC) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice))

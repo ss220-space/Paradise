@@ -214,7 +214,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/assassinate/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD)
 			return TRUE
 
@@ -237,7 +237,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/mutiny/find_target(list/target_blacklist)
 	..()
-	if(target && target.current)
+	if(target?.current)
 		explanation_text = "Изгнать или убить[target.current.real_name], [target.assigned_role]."
 	else
 		explanation_text = "Свободная цель"
@@ -245,7 +245,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/mutiny/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
 			return TRUE
 
@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/maroon/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD)
 			return TRUE
 
@@ -498,7 +498,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/protect/find_target(list/target_blacklist)
 	..()
-	if(target && target.current)
+	if(target?.current)
 		explanation_text = "Защитить [target.current.real_name], [target.assigned_role]."
 	else
 		explanation_text = "Свободная цель"
@@ -700,7 +700,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	else
 		..()
 
-	if(target && target.current)
+	if(target?.current)
 		target_real_name = target.current.real_name
 		explanation_text = "Сбегите на шаттле или эвакуационном поде под личностью [target_real_name], [target.assigned_role], нося на себе [genderize_ru(target.current.gender, "его", "её", "его", "их")] ID карту."
 	else
@@ -1093,7 +1093,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/destroy/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD || is_away_level(target.current.z) || !target.current.ckey)
 			return TRUE
 		return FALSE
@@ -1237,19 +1237,19 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 					priority_targets += possible_target
 					continue
 
-	if(priority_targets.len > 0)
+	if(length(priority_targets) > 0)
 		target = pick(priority_targets)
-	else if(possible_targets.len > 0)
+	else if(length(possible_targets) > 0)
 		target = pick(possible_targets)
 
-	if(target && target.current)
+	if(target?.current)
 		explanation_text = "Ковчег нуждается в [target.current.real_name], [target.assigned_role]. Захватите [genderize_ru(target.current.gender, "его", "её", "его", "их")] живым."
 	else
 		explanation_text = "Свободная цель"
 	return target
 
 /datum/objective/heist/kidnap/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD)
 			return FALSE
 
