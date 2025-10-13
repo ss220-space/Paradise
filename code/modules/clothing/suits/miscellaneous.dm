@@ -1792,7 +1792,7 @@
 
 /obj/item/clothing/under/chad
 	name = "Chad suit"
-	desc = "Должно быть абсолютно очевидным – перед вами настоящая легенда."
+	desc = "Должно быть абсолютно очевидным — перед вами настоящая легенда."
 	over_shoes = TRUE
 	can_adjust = FALSE
 	icon_state = "chadsuit"

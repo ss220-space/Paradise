@@ -66,7 +66,7 @@
 /obj/item/clothing/suit/space/hardsuit/contractor/agent
 	name = "engineering hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
-	description_antag = "Хардсьют-хамелеон, замаскированный изначально под инженерный хардсьют. Красный - предатель!"
+	description_antag = "Хардсьют-хамелеон, замаскированный изначально под инженерный хардсьют. Красный — предатель!"
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor/agent

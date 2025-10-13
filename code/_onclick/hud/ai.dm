@@ -95,7 +95,7 @@
 		AI.subsystem_law_manager()
 
 /atom/movable/screen/ai/pda_msg_send
-	name = "КПК - Отправить сообщение"
+	name = "КПК — Отправить сообщение"
 	icon_state = "pda_send"
 
 /atom/movable/screen/ai/pda_msg_send/Click()
@@ -104,7 +104,7 @@
 		AI.aiPDA.cmd_send_pdamesg()
 
 /atom/movable/screen/ai/pda_msg_show
-	name = "КПК - Показать историю"
+	name = "КПК — Показать историю"
 	icon_state = "pda_receive"
 
 /atom/movable/screen/ai/pda_msg_show/Click()

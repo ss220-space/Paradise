@@ -1273,12 +1273,12 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 	to_chat(src, "<b>Набор законов:</b>")
 	if(paicard?.pai && paicard.pai.master && paicard.pai.pai_law0)
-		to_chat(src, span_warning("Приказы вашего мастера, [paicard.pai.master], стоят выше любых других законов. Следование этим приказам - ваша первоочередная задача."))
+		to_chat(src, span_warning("Приказы вашего мастера, [paicard.pai.master], стоят выше любых других законов. Следование этим приказам — ваша первоочередная задача."))
 		to_chat(src, "0. [paicard.pai.pai_law0]")
 	if(emagged >= 2)
 		to_chat(src, span_danger("1. #$!@#$32K#$"))
 	else
-		to_chat(src, "1. Вы - машина, созданная для служения экипажу станции и ИИ.")
+		to_chat(src, "1. Вы — машина, созданная для служения экипажу станции и ИИ.")
 		to_chat(src, "2. Ваше задача - [bot_purpose].")
 		to_chat(src, "3. Вы не сможете выполнять свою задачу, если будете сломаны.")
 		to_chat(src, "4. Выполняйте свою функцию в меру своих возможностей.")

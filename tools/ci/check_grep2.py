@@ -30,11 +30,6 @@ def check_space_indentation(idx, line):
     """
     Check specifically for space-significant indentation.
 
-    Matches:
-    - Exactly 2 spaces at line start (even followed by *)
-    - 1 space + any character except space/asterisk
-    - 4 or more spaces at line start
-
     >>> bool(check_space_indentation(["  foo"]))
     True
     >>> bool(check_space_indentation(["  * foo"])) # 2 spaces + asterisk
@@ -286,24 +281,14 @@ def check_html_tags_case(idx, line):
     if match := HTML_TAGS_UPPERCASE_RE.search(line):
         return [(idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase.")]
 
-def check_updatepaths_validity():
-    updatepaths_dir = "tools/UpdatePaths/Scripts/"
-    if not os.path.isdir(updatepaths_dir):
-        return []
-
+HYPHEN_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) - (?=[а-яё])|(?<=[а-яё]) - \d+|\d+ - (?=[а-яё]))', re.IGNORECASE)
+EN_DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) – (?=[а-яё])|(?<=[а-яё]) – \d+|\d+ – (?=[а-яё]))', re.IGNORECASE)
+def check_dash_usage(idx, line):
     failures = []
-    try:
-        for entry in os.scandir(updatepaths_dir):
-            if not entry.is_file():
-                continue
-            filename = entry.name
-            path = entry.path
-            if not filename.endswith('.txt'):
-                failures.append(Failure(path, 0, "UpdatePaths file missing .txt extension."))
-            if filename and not filename[0].isdigit():
-                failures.append(Failure(path, 0, "UpdatePaths file missing PR number prefix."))
-    except OSError:
-        pass
+    if match := HYPHEN_USAGE_RE.search(line):
+        failures.append((idx + 1, f"A hyphen with spaces was found '{match.group(0)}', which should be replaced with a dash (—)."))
+    if match := EN_DASH_USAGE_RE.search(line):
+        failures.append((idx + 1, f"A en dash with spaces was found '{match.group(0)}', which should be replaced with a dash (—)."))
     return failures
 
 CODE_CHECKS = [
@@ -336,7 +321,28 @@ CODE_CHECKS = [
     check_define_formatting,
     check_duplicate_spans,
     check_html_tags_case,
+    check_dash_usage,
 ]
+
+def check_updatepaths_validity():
+    updatepaths_dir = "tools/UpdatePaths/Scripts/"
+    if not os.path.isdir(updatepaths_dir):
+        return []
+
+    failures = []
+    try:
+        for entry in os.scandir(updatepaths_dir):
+            if not entry.is_file():
+                continue
+            filename = entry.name
+            path = entry.path
+            if not filename.endswith('.txt'):
+                failures.append(Failure(path, 0, "UpdatePaths file missing .txt extension."))
+            if filename and not filename[0].isdigit():
+                failures.append(Failure(path, 0, "UpdatePaths file missing PR number prefix."))
+    except OSError:
+        pass
+    return failures
 
 def lint_file(code_filepath: str) -> list[Failure]:
     all_failures = []

@@ -14,7 +14,7 @@
 	/// If `FALSE` ninja will get random name.
 	var/allow_rename = TRUE
 	/// Warning message when ninja tries to use ranged weapon.
-	var/no_guns_message = "Технологии моего клана - гордость и счастье нашего будущего! Я не буду пользоваться этим мусором!"
+	var/no_guns_message = "Технологии моего клана — гордость и счастье нашего будущего! Я не буду пользоваться этим мусором!"
 	/// If `FALSE` additional minor antags will not be generated. Traitors, changelings and vampires currently.
 	var/generate_antags = TRUE
 	/// To check if we already generate minor antags.

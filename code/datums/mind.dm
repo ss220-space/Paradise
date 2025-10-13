@@ -2352,7 +2352,7 @@
 			if("autoobjectives")
 				var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
 				if(!ninja_datum?.my_suit)
-					to_chat(usr,span_warning("Ниндзя - зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!"))
+					to_chat(usr,span_warning("Ниндзя — зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!"))
 					return
 				var/list/objective_types = list(NINJA_TYPE_GENERIC, NINJA_TYPE_PROTECTOR, NINJA_TYPE_HACKER, NINJA_TYPE_KILLER)
 				var/objective_type = tgui_input_list(usr, "Select type of objectives to generate", "Objective type selection", objective_types)

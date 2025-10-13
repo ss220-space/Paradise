@@ -105,7 +105,7 @@
 	explanation_text = "Древние боги голодны. Соберите культ и проведите ритуал, что бы вызвать одного из них."
 
 /datum/objective/abductee/machine
-	antag_menu_name = "Вы - робот"
+	antag_menu_name = "Вы — робот"
 	explanation_text = "На самом деле вы андройд под прикрытием. Наберитесь могущества, взаимодействуя с как можно большим количеством машин, что бы ИИ наконец-то признал вас."
 
 /datum/objective/abductee/calling

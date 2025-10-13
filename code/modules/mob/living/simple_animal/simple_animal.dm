@@ -762,7 +762,7 @@
 			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить вас [item.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_danger("Это оружие неэффективно - оно не наносит урона!"))
+		to_chat(user, span_danger("Это оружие неэффективно — оно не наносит урона!"))
 		return ATTACK_CHAIN_BLOCKED
 
 	. = ..()

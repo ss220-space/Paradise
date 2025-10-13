@@ -4,7 +4,7 @@
 
 /obj/item/reagent_containers/hypospray
 	name = "hypospray"
-	desc = "Гипоспрей - это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
+	desc = "Гипоспрей — это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "hypo"

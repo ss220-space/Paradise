@@ -172,7 +172,7 @@ Difficulty: Very Hard
 	if(!ishuman(L))
 		return
 	var/mob/living/carbon/human/H = L
-	if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
+	if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.can_deflect))
 		return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots(telegraphing = TRUE)

@@ -1,4 +1,4 @@
-//Для тестов. Ибо ждать включения костюма - достало.
+//Для тестов. Ибо ждать включения костюма — достало.
 /obj/item/clothing/suit/space/space_ninja/proc/admin_on()
 	var/mob/living/carbon/human/ninja = loc
 	affecting = ninja

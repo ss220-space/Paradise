@@ -24,7 +24,7 @@
 	spider_opens_doors = 2
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/conjure/build/terror_jelly,
 							/obj/effect/proc_holder/spell/aoe/terror_healing/greater)
-	spider_intro_text = "Будучи Матерью Ужаса, ваша задача - массовое исцеление пауков. Вы пассивно исцеляете всех пауков вокруг вас и наносите наносите урон гуманоидам. Вы также можете создавать желе, употребив которое, пауки быстро исцеляются. Ваша вторая способность действует аналогично желе, но работает по области для всех пауков в радиусе вашей видимости!"
+	spider_intro_text = "Будучи Матерью Ужаса, ваша задача — массовое исцеление пауков. Вы пассивно исцеляете всех пауков вокруг вас и наносите наносите урон гуманоидам. Вы также можете создавать желе, употребив которое, пауки быстро исцеляются. Ваша вторая способность действует аналогично желе, но работает по области для всех пауков в радиусе вашей видимости!"
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	tts_seed = "Deathwhisper"

@@ -49,6 +49,9 @@
 /datum/action/item_action/toggle_firemode
 	name = "Сменить режим огня"
 
+/datum/action/item_action/toggle_defibrillator
+	name = "Включить/выключить встроенный дефибриллятор"
+
 /datum/action/item_action/startchainsaw
 	name = "Дёрнуть стартовый шнур"
 

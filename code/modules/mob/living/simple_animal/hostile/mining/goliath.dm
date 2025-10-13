@@ -1,7 +1,7 @@
 //A slow but strong beast that tries to stun using its tentacles
 /mob/living/simple_animal/hostile/asteroid/goliath
 	name = "goliath"
-	desc = "Массивный зверь, использующий длинные щупальца для поимки добычи. Угрожать ему – плохая идея при любых обстоятельствах."
+	desc = "Массивный зверь, использующий длинные щупальца для поимки добычи. Угрожать ему — плохая идея при любых обстоятельствах."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath"
 	icon_living = "Goliath"
