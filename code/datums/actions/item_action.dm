@@ -444,11 +444,11 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	var/mob/target_mob = target
-	if(istype(target_mob))
-		if(target_mob.loc == owner)
+	var/obj/target_obj = target
+	if(istype(target_obj))
+		if(target_obj.loc == owner)
 			return TRUE
-		if(istype(target_mob.loc, /obj/item/clothing/under) && target_mob.loc.loc == owner)
+		if(istype(target_obj.loc, /obj/item/clothing/under) && target_obj.loc.loc == owner)
 			return TRUE
 	return FALSE
 
