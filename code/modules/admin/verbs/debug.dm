@@ -421,7 +421,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 			id.registered_name = H.real_name
 			id.assignment = JOB_TITLE_CAPTAIN
-			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
+			id.name = "[id.registered_name]’s ID Card ([id.assignment])"
 			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
 			H.update_worn_id()
 	else

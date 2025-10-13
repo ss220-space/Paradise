@@ -296,6 +296,12 @@ def check_playsound_improper_call(idx, line):
     if match := PLAYSOUND_IMPROPER_CALL.search(line):
         return [(idx + 1, f"Improper playsound call detected: \"{match.group(2)}\", it should be '{match.group(2)}' instead.")]
 
+APOSTROPHE_NAME = re.compile(r'name\s*=\s*"[^"]*\[[^]]*\]\'s')
+def check_apostrophe_name(idx, line):
+    if APOSTROPHE_NAME.search(line):
+        if 'UNLINT' not in line:
+            return [(idx + 1, f"Using an apostrophe in a name like \"[mob]'s brain\" may cause Byond to get confused between the two objects, such as click verbs, etc. Please use ’ (U+2019) instead.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -328,6 +334,7 @@ CODE_CHECKS = [
     check_html_tags_case,
     check_dash_usage,
     check_playsound_improper_call,
+    check_apostrophe_name,
 ]
 
 def check_updatepaths_validity():

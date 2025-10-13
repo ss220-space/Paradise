@@ -201,7 +201,7 @@
 	return
 
 /obj/item/card/id/proc/UpdateName()
-	name = "[src.registered_name]'s ID Card ([src.assignment])"
+	name = "[src.registered_name]’s ID Card ([src.assignment])"
 
 /obj/item/card/id/proc/SetOwnerInfo(mob/living/carbon/human/H)
 	if(!H || !H.dna)
@@ -269,10 +269,10 @@
 
 /obj/item/card/id/proc/update_label(newname, newjob)
 	if(newname || newjob)
-		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
+		name = "[(!newname)	? "identification card"	: "[newname]’s ID Card"][(!newjob) ? "" : " ([newjob])"]"
 		return
 
-	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+	name = "[(!registered_name)	? "identification card"	: "[registered_name]’s ID Card"][(!assignment) ? "" : " ([assignment])"]"
 
 
 /obj/item/card/id/attackby(obj/item/I, mob/user, params)

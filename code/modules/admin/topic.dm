@@ -2146,7 +2146,7 @@
 		if(LAZYLEN(found_ids))
 			for(var/obj/item/card/id/ID in found_ids)
 				if(ID.registered_name == old_name)
-					ID.name = "[new_name]'s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
+					ID.name = "[new_name]’s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
 					ID.registered_name = new_name
 					ID.RebuildHTML()
 		//rename all pdas with mob old name
