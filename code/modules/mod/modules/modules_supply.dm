@@ -80,7 +80,7 @@
 		if(target_turf.density)
 			return
 		playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
-		if(!do_after(mod.wearer, load_time, target = target, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/obj/item/mod/module/clamp, should_cancel_drop)))))
+		if(!do_after(mod.wearer, load_time, target = target, extra_checks = CALLBACK(src, TYPE_PROC_REF(/obj/item/mod/module/clamp, should_cancel_drop))))
 			return
 		if(target_turf.density)
 			return
