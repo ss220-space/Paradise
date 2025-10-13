@@ -35,7 +35,7 @@
 	if(.)
 		return
 
-	switch (action)
+	switch(action)
 
 		if("archive")
 			var/achievement_key = params["key"]
