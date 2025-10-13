@@ -347,6 +347,19 @@
 		PREPOSITIONAL = "медицинских перчатках Inugami",
 	)
 
+/obj/item/clothing/gloves/color/latex/inugami/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
+
+/obj/item/clothing/gloves/color/latex/inugami/attack_self(mob/living/carbon/human/user)
+	. = ..()
+	if(HAS_TRAIT_FROM(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT))
+		REMOVE_TRAIT(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT)
+		user.balloon_alert(user, "дефибриллятор активирован")
+	else
+		ADD_TRAIT(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT)
+		user.balloon_alert(user, "дефибриллятор деактивирован")
+
 /obj/item/clothing/gloves/color/latex/inugami/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 	if(slot == ITEM_SLOT_GLOVES)
@@ -361,17 +374,6 @@
 /obj/item/clothing/gloves/color/latex/inugami/proc/on_surgery_step_init(user, time_pointer)
 	SIGNAL_HANDLER
 	*time_pointer = surgery_step_time
-
-/obj/item/clothing/gloves/color/latex/inugami/attack_self(mob/living/carbon/human/user)
-	. = ..()
-	if(HAS_TRAIT_FROM(src, INUGAMI_TRAIT, UNIQUE_TRAIT_SOURCE(src)))
-		REMOVE_TRAIT(src, INUGAMI_TRAIT, UNIQUE_TRAIT_SOURCE(src))
-		qdel(GetComponent(/datum/component/defib))
-		user.balloon_alert(user, "дефибриллятор деактивирован")
-	else
-		ADD_TRAIT(src, INUGAMI_TRAIT, UNIQUE_TRAIT_SOURCE(src))
-		AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
-		user.balloon_alert(user, "дефибриллятор активирован")
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
