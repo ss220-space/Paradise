@@ -353,11 +353,11 @@
 
 /obj/item/clothing/gloves/color/latex/inugami/attack_self(mob/living/carbon/human/user)
 	. = ..()
-	if(HAS_TRAIT_FROM(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT))
-		REMOVE_TRAIT(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT)
+	if(HAS_TRAIT_FROM(src, TRAIT_DEFIB_BLOCKED, INUGAMI_TRAIT))
+		REMOVE_TRAIT(src, TRAIT_DEFIB_BLOCKED, INUGAMI_TRAIT)
 		user.balloon_alert(user, "дефибриллятор активирован")
 		return
-	ADD_TRAIT(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT)
+	ADD_TRAIT(src, TRAIT_DEFIB_BLOCKED, INUGAMI_TRAIT)
 	user.balloon_alert(user, "дефибриллятор деактивирован")
 
 /obj/item/clothing/gloves/color/latex/inugami/equipped(mob/living/carbon/human/user, slot, initial)

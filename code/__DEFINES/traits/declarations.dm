@@ -200,6 +200,8 @@
 #define TRAIT_NODROP "nodrop"
 /// Applied with attachment to the cyberimplant when it is inserted in mob with TRAIT_ADVANCED_CYBERIMPLANTS
 #define TRAIT_CYBERIMP_IMPROVED "cyberimp_improved"
+/// Trait to toggle Inugami Gloves built-in defibrillator mode
+#define TRAIT_DEFIB_BLOCKED "defib_blocked"
 
 #define TRAIT_SHRAPNEL "shrapnel"
 
