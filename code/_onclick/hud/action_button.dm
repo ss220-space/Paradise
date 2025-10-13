@@ -230,6 +230,11 @@
 
 	for(var/datum/action/action as anything in actions)
 		var/atom/movable/screen/movable/action_button/button = action.viewers[hud_used]
+		if(button == null)
+			action.ShowTo(action.owner)
+			button = action.viewers[hud_used]
+			if(button == null)
+				continue
 		action.build_all_button_icons(force = TRUE)
 		if(reload_screen)
 			client.screen += button
