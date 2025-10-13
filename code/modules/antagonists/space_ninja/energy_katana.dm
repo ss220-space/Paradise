@@ -210,7 +210,7 @@
 /obj/item/melee/energy_katana/borg
 	name = "robotic energy katana"
 	desc = "A katana infused with strong energy. Integrated inside a robot! Cyborg ninja's doesn't sound so funny anymore?"
-	// Борг-ниндзя - чёрно-красный. Катана тоже будет красной
+	// Борг-ниндзя — чёрно-красный. Катана тоже будет красной
 	icon_state = "energy_katana_red"
 	item_state = "energy_katana_red"
 	force = 30

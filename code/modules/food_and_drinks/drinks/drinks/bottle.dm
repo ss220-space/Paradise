@@ -578,7 +578,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/bluecuracao
 	name = "Grenadier Blue Curacao"
-	desc = "Взрыв - это искусство, но синий взрыв намного лучше."
+	desc = "Взрыв — это искусство, но синий взрыв намного лучше."
 	icon_state = "bluecuracao"
 	list_reagents = list("bluecuracao" = 100)
 

@@ -137,9 +137,9 @@
 	return messages
 
 /datum/antagonist/nuclear_operative/loneop
-	name = "Ядерный Оперативник - Одиночка"
-	antag_menu_name = "Ядерный Оперативник - Одиночка"
-	greet_name = "Ядерный Оперативник - Одиночка"
+	name = "Ядерный Оперативник — Одиночка"
+	antag_menu_name = "Ядерный Оперативник — Одиночка"
+	greet_name = "Ядерный Оперативник — Одиночка"
 	show_in_roundend = TRUE
 	show_in_orbit = TRUE
 	race_equipment = list(

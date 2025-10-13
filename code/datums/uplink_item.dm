@@ -253,7 +253,7 @@
 
 /datum/uplink_item/jobspecific/bipki
 	name = "Чемодан с бипками"
-	desc = "Хочешь знать, что там внутри? Отсосёшь - скажу."
+	desc = "Хочешь знать, что там внутри? Отсосёшь — скажу."
 	item = /obj/item/case_with_bipki
 	cost = 30
 	job = list(JOB_TITLE_CLOWN)

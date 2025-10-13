@@ -28,7 +28,7 @@
 	var/datum/action/innate/terrorspider/queen/empress/empresslings/empresslings_action
 	var/datum/action/innate/terrorspider/queen/empress/empresserase/empresserase_action
 	tts_seed = "Queen"
-	spider_intro_text = "Вы - Императрица Ужаса, вершина иерархии гнезда и одно из самых опасных существ этого мира. Управляйте, разрушайте, захватывайте. Теперь это ВАША станция."
+	spider_intro_text = "Вы — Императрица Ужаса, вершина иерархии гнезда и одно из самых опасных существ этого мира. Управляйте, разрушайте, захватывайте. Теперь это ВАША станция."
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/get_ru_names()
 	return list(

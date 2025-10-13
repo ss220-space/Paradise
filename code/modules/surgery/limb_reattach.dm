@@ -115,7 +115,7 @@
 	)
 
 /datum/surgery_step/proxy/robo_limb_attach
-	name = "установка робо-конечности – прокси"
+	name = "установка робо-конечности — прокси"
 	branches = list(
 		/datum/surgery/robo_attach,
 		/datum/surgery/reattach_synth

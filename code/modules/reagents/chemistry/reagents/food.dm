@@ -725,7 +725,7 @@
 /datum/reagent/consumable/chocolate
 	name = "Шоколад"
 	id = "chocolate"
-	description = "Шоколад - это восхитительный продукт, получаемый из семян дерева \"Theobroma cacao\"."
+	description = "Шоколад — это восхитительный продукт, получаемый из семян дерева \"Theobroma cacao\"."
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
 	color = "#2E2418"
@@ -961,7 +961,7 @@
 /datum/reagent/msg
 	name = "Глутамат натрия"
 	id = "msg"
-	description = "Глутамат натрия - это натриевая соль, известная главным образом благодаря своему использованию в качестве спорного усилителя вкуса."
+	description = "Глутамат натрия — это натриевая соль, известная главным образом благодаря своему использованию в качестве спорного усилителя вкуса."
 	reagent_state = LIQUID
 	color = "#F5F5F5"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM

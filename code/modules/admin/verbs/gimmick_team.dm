@@ -19,7 +19,7 @@
 
 	var/force_species = FALSE
 	var/selected_species = null
-	if(tgui_alert(src, "Вы хотите выбрать какую-то расу для отряда? Нет - будут обычные люди.", "Подтверждение", list("Да","Нет")) == "Да")
+	if(tgui_alert(src, "Вы хотите выбрать какую-то расу для отряда? Нет — будут обычные люди.", "Подтверждение", list("Да","Нет")) == "Да")
 		force_species = TRUE
 		selected_species = tgui_input_list(src, "Выберете расу", "Выбор расы", GLOB.all_species)
 		if(!selected_species)

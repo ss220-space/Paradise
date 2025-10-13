@@ -383,7 +383,7 @@
 
 /obj/item/storage/belt/champion/wrestling/true
 	name = "Пояс Истинного Чемпиона"
-	desc = "Вы - лучший! и Вы это знаете!"
+	desc = "Вы — лучший! и Вы это знаете!"
 
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial = FALSE)

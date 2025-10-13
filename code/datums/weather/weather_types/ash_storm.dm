@@ -6,7 +6,7 @@
 	telegraph_message = span_boldwarning("Глухой рокот нарастает вдали, превращаясь в оглушительный рёв. Горизонт застилают мрачные волны пепла. Ищите убежище!")
 	telegraph_overlay = "light_ash"
 
-	weather_message = span_userdanger("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью – прячьтесь в убежище!</i>")
+	weather_message = span_userdanger("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью — прячьтесь в убежище!</i>")
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 120 SECONDS
 	weather_overlay = "ash_storm"

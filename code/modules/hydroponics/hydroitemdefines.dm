@@ -17,7 +17,7 @@
 
 /obj/item/reagent_containers/spray/weedspray // -- Skie
 	name = "weed spray"
-	desc = "Распылитель средства от сорняков - атразина."
+	desc = "Распылитель средства от сорняков — атразина."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "weedspray"
 	item_state = "plantbgone"

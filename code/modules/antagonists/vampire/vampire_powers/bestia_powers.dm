@@ -224,11 +224,11 @@
 
 
 /datum/vampire_passive/eyes_welding_protection
-	gain_desc = "Ваши глаза напитались силой собранных трофеев - теперь они невосприимчивы к воздействию яркого света."
+	gain_desc = "Ваши глаза напитались силой собранных трофеев — теперь они невосприимчивы к воздействию яркого света."
 
 
 /datum/vampire_passive/upgraded_grab
-	gain_desc = "Ваши мышцы наполняются силой поглощённой крови - жертвам будет труднее вырваться из захвата."
+	gain_desc = "Ваши мышцы наполняются силой поглощённой крови — жертвам будет труднее вырваться из захвата."
 	/// Time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
 	var/grab_speed = 2 SECONDS
 	/// Resist chance overrides for the victim.
@@ -1112,7 +1112,7 @@
  * Transform - Bats
  */
 /obj/effect/proc_holder/spell/vampire/metamorphosis/bats
-	name = "Метаморфоза - Летучие мыши"
+	name = "Метаморфоза — Летучие мыши"
 	desc = "Превратитесь в рой злобных летучих мышей. Они умеют летать, наносят умеренный урон в ближнем бою и могут высасывать кровь при атаках."
 	gain_desc = "Вы получили возможность превращаться в рой летучих мышей. У них разные способности, в зависимости от трофеев."
 	action_icon_state = "bats_meta"
@@ -1125,7 +1125,7 @@
  * Transform - Hound
  */
 /obj/effect/proc_holder/spell/vampire/metamorphosis/hound
-	name = "Метаморфоза - Гончая"
+	name = "Метаморфоза — Гончая"
 	desc = "Превратитесь в страшную ищейку. Это проворные, яростные звери, во всем превосходящие человека."
 	gain_desc = "Вы обрели способность превращаться в кровавую гончую. Это высшая форма блюспейс-сущности, овладевшей вами."
 	action_icon_state = "blood_hound"

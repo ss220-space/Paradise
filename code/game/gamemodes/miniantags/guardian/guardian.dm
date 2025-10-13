@@ -256,7 +256,7 @@
 
 /obj/item/guardiancreator
 	name = "колода карт Таро"
-	desc = "Зачарованная колода карт, по слухам - источник невероятной силы. "
+	desc = "Зачарованная колода карт, по слухам — источник невероятной силы. "
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	var/used = FALSE

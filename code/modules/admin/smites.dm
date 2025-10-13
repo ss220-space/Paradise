@@ -225,7 +225,7 @@
 		possible_traitors += player.mind
 
 	if(!length(possible_traitors))
-		to_chat(usr, span_warning("Не удалось найти кандидатов на предателя - охотника."), confidential = TRUE)
+		to_chat(usr, span_warning("Не удалось найти кандидатов на предателя — охотника."), confidential = TRUE)
 		return
 
 	var/datum/mind/newtraitormind = pick(possible_traitors)
@@ -346,7 +346,7 @@
 
 	var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
 	"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
-	var/effect_strength = tgui_input_list(src, "Какую силу эффекта вы хотите? (задержка в секундах - урон гипоксией)", effect_variants)
+	var/effect_strength = tgui_input_list(src, "Какую силу эффекта вы хотите? (задержка в секундах — урон гипоксией)", effect_variants)
 	var/pdelay
 	var/oxy_dmg
 	if(effect_strength == "custom")
@@ -554,7 +554,7 @@
 	var/obj/machinery/new_form = new type(get_turf(target))
 	to_chat(target, span_userdanger( \
 		"Ваши конечности немеют... По телу распространяется металлический холод... Это смерть? \
-		Нет. Хуже. Это [new_form.declent_ru(NOMINATIVE)]. Похоже что ваша новая форма - наказание за [reason]." \
+		Нет. Хуже. Это [new_form.declent_ru(NOMINATIVE)]. Похоже что ваша новая форма — наказание за [reason]." \
 	))
 	target.flash_eyes(2, TRUE)
 	new_form.obj_flags |= NODECONSTRUCT
