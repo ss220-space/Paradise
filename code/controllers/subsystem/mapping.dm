@@ -253,7 +253,7 @@ SUBSYSTEM_DEF(mapping)
 					lists_to_reserve.Cut(1, index)
 				return
 			var/turf/reserving_turf = packet[packetlen]
-			reserving_turf.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
+			reserving_turf.empty(RESERVED_TURF_TYPE, null, TRUE)
 			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
 			unused_turfs["[reserving_turf.z]"] |= reserving_turf
 			var/area/old_area = reserving_turf.loc
