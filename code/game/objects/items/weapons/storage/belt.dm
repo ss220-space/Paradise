@@ -669,7 +669,7 @@
 
 /obj/item/storage/belt/lazarus
 	name = "trainer's belt"
-	desc = "Для шахтёров-мастеров – хранит капсулы Лазаря."
+	desc = "Для шахтёров-мастеров — хранит капсулы Лазаря."
 	icon_state = "lazarusbelt_0"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY

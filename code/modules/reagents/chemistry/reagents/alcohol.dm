@@ -82,7 +82,7 @@
 /datum/reagent/consumable/ethanol/specialwhiskey
 	name = "Виски Особого Смешения"
 	id = "specialwhiskey"
-	description = "Как раз в тот момент, когда вы уже думаете, что обычный станционный виски - это хорошо... Это шелковистое, янтарное великолепие приходит и всё портит."
+	description = "Как раз в тот момент, когда вы уже думаете, что обычный станционный виски — это хорошо... Это шелковистое, янтарное великолепие приходит и всё портит."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	taste_description = "отличного виски"
@@ -143,7 +143,7 @@
 /datum/reagent/consumable/ethanol/rum
 	name = "Ром"
 	id = "rum"
-	description = "Крик подобен грому – дайте людям рому!"
+	description = "Крик подобен грому — дайте людям рому!"
 	color = "#664300" // rgb: 102, 67, 0
 	overdose_threshold = 30
 	alcohol_perc = 0.4
@@ -297,7 +297,7 @@
 	alcohol_perc = 0.2
 	drink_icon = "glass_brown"
 	drink_name = "стакан мива"
-	drink_desc = "Молоко с пивом - миво. Или пиво с молоком - пивоко. Как вам будет угодно."
+	drink_desc = "Молоко с пивом — миво. Или пиво с молоком — пивоко. Как вам будет угодно."
 	taste_description = "мива"
 
 /datum/reagent/consumable/ethanol/atomicbomb
@@ -526,13 +526,13 @@
 
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Ирландские Сливки"
-	description = "Крем с добавлением виски - чего ещё ожидать от ирландцев?"
+	description = "Крем с добавлением виски — чего ещё ожидать от ирландцев?"
 	id = "irishcream"
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "irishcreamglass"
 	drink_name = "стакан Ирландских Сливок"
-	drink_desc = "Крем с добавлением виски - чего ещё ожидать от ирландцев?"
+	drink_desc = "Крем с добавлением виски — чего ещё ожидать от ирландцев?"
 	taste_description = "сливочного алкоголя"
 
 /datum/reagent/consumable/ethanol/manly_dorf
@@ -2003,12 +2003,12 @@
 /datum/reagent/consumable/ethanol/sazerac
 	name = "Сазерак"
 	id = "sazerac"
-	description = "Лучшие фармацевты - бармены."
+	description = "Лучшие фармацевты — бармены."
 	color = "#7c6232"
 	alcohol_perc = 0.4
 	drink_icon = "sazerac"
 	drink_name = "Сазерак"
-	drink_desc = "Лучшие фармацевты - бармены."
+	drink_desc = "Лучшие фармацевты — бармены."
 	taste_description = "горького виски"
 
 /datum/reagent/consumable/ethanol/monako

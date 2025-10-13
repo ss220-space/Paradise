@@ -836,7 +836,7 @@
 /mob/living/simple_animal/pet/dog/german
 	name = "german"
 	real_name = "german"
-	desc = "Немецкая овчарка с помесью двортерьера. Судя по крупу - явно не породистый."
+	desc = "Немецкая овчарка с помесью двортерьера. Судя по крупу — явно не породистый."
 	icon_state = "german"
 	icon_living = "german"
 	icon_dead = "german_dead"

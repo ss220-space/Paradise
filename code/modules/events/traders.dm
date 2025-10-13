@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
 	var/list/messages = list()
-	messages.Add(span_boldnotice("Вы - торговец!"))
+	messages.Add(span_boldnotice("Вы — торговец!"))
 	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))
 	messages.Add(span_notice("Вам предстоит торговать со станцией [station_name()]."))
 	messages.Add(M.mind.prepare_announce_objectives())

@@ -1766,7 +1766,7 @@
 
 /obj/item/toy/owl/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
-		var/message = pick("На этот раз тебе не уйти, Гриффин!", "Стой, преступник!", "Ух! Ух!", "Я – ночь!")
+		var/message = pick("На этот раз тебе не уйти, Гриффин!", "Стой, преступник!", "Ух! Ух!", "Я — ночь!")
 		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
 		playsound(user, 'sound/creatures/hoot.ogg', 25, TRUE)
 		user.visible_message(span_danger("[bicon(src)] [message]"))
@@ -2262,7 +2262,7 @@
 	name = "Internal Affairs Agent action figure"
 	desc = "The unappreciated Internal Affairs Agent, from Space Life's SS12 figurine collection."
 	icon_state = "lawyer"
-	toysay = "СРП говорит, что они виновны! Взлом – доказательство того, что они Враги Корпорации!"
+	toysay = "СРП говорит, что они виновны! Взлом — доказательство того, что они Враги Корпорации!"
 
 /obj/item/toy/figure/librarian
 	name = "Librarian action figure"
@@ -2346,7 +2346,7 @@
 	name = "Magistrate action figure"
 	desc = "The relevant magistrate, from Space Life's SS12 figurine collection."
 	icon_state = "magistrate"
-	toysay = "Казнить или не казнить - вот в чём вопрос."
+	toysay = "Казнить или не казнить — вот в чём вопрос."
 
 //////////////////////////////////////////////////////
 //				Magic 8-Ball / Conch				//

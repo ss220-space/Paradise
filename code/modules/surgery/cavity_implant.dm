@@ -119,7 +119,7 @@
 	)
 
 /datum/surgery_step/proxy/cavity_manipulation
-	name = "Полостная манипуляция – прокси"
+	name = "Полостная манипуляция — прокси"
 	branches = list(
 		/datum/surgery/intermediate/open_cavity/implant,
 		/datum/surgery/intermediate/open_cavity/extract,

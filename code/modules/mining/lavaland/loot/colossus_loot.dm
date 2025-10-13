@@ -284,7 +284,7 @@
 
 /mob/living/simple_animal/hostile/lightgeist
 	name = "lightgeist"
-	desc = "Это маленькое парящее создание – абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
+	desc = "Это маленькое парящее создание — абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
 	icon_state = "lightgeist"
 	icon_living = "lightgeist"
 	icon_dead = "butterfly_dead"

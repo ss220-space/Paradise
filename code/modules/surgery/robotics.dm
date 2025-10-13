@@ -389,7 +389,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/proxy/robotics/manipulate_organs
-	name = "манипуляция с внутренними компонентами – прокси"
+	name = "манипуляция с внутренними компонентами — прокси"
 
 	branches = list(
 		/datum/surgery/intermediate/robotics/manipulate_organs/extract,

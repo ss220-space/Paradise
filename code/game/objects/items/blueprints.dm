@@ -376,7 +376,7 @@
 //Blueprint for USSP station
 /obj/item/areaeditor/create_area_only/ussp
 	station_name_overrride = "USSP Station"
-	fluffnotice = "В случае поломки - смотри сюда"
+	fluffnotice = "В случае поломки — смотри сюда"
 
 
 #undef AREA_ERRNONE

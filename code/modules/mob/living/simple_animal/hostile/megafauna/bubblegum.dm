@@ -29,7 +29,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
-	desc = "В иерархии демонов резни, он – король."
+	desc = "В иерархии демонов резни, он — король."
 	health = 2500
 	maxHealth = 2500
 	attacktext = "кромсает"

@@ -251,7 +251,7 @@
 // Some intermediate surgeries
 /datum/surgery/intermediate/bleeding
 	// don't worry about these names, they won't appear anywhere.
-	name = "Внутреннее кровотечение – абстрактное"
+	name = "Внутреннее кровотечение — абстрактное"
 	desc = "Промежуточная операция для лечения внутреннего кровотечения, пока над пациентом проводится другая операция."
 	steps = list(/datum/surgery_step/fix_vein)
 	possible_locs = list(
@@ -284,7 +284,7 @@
 	return FALSE
 
 /datum/surgery/intermediate/mendbone
-	name = "Сращивание костей – абстрактное"
+	name = "Сращивание костей — абстрактное"
 	desc = "Промежуточная операция для восстановления повреждённых костей, пока над пациентом проводится другая операция."
 	steps = list(/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone)
 	possible_locs = list(
@@ -327,14 +327,14 @@
 /// Proxy surgery step to allow healing bleeding and mending bones.
 /// Should be added into surgeries just after the first three standard steps.
 /datum/surgery_step/proxy/open_organ
-	name = "заживление повреждённых костей или сосудов – прокси"
+	name = "заживление повреждённых костей или сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone
 	)
 
 /datum/surgery_step/proxy/open_organ/plasma
-	name = "заживление повреждённых костей (Плазмолюд) или сосудов – прокси"
+	name = "заживление повреждённых костей (Плазмолюд) или сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone/plasma
@@ -342,14 +342,14 @@
 
 /// Mend IB without healing bones
 /datum/surgery_step/proxy/ib
-	name = "заживление повреждённых сосудов – прокси"
+	name = "заживление повреждённых сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding
 	)
 
 /// The robotic equivalent
 /datum/surgery_step/proxy/robotics/repair_limb
-	name = "ремонт конечности – прокси"
+	name = "ремонт конечности — прокси"
 	branches = list(
 		/datum/surgery/intermediate/robotics/repair/burn,
 		/datum/surgery/intermediate/robotics/repair/brute

@@ -143,7 +143,7 @@ Made by Xhuis
 		messages.Add(span_shadowling("><b>Ты видишь правду. Ты понимаешь, каким дураком ты был..</b>"))
 		messages.Add(span_shadowling("<b>Тенелинги — твои хозяева.</b> Служи им превыше всего и следите за тем, чтобы они достигли своих целей."))
 		messages.Add(span_shadowling("Ты не должен причинять вред другим рабам или тенелингам. Однако ты не должен подчиняться другим рабам."))
-		messages.Add(span_shadowling("Твоё тело необратимо изменилось. Внимательный может это увидеть - ты можешь скрыть это, надев маску."))
+		messages.Add(span_shadowling("Твоё тело необратимо изменилось. Внимательный может это увидеть — ты можешь скрыть это, надев маску."))
 		messages.Add(span_shadowling("Хотя ты и не так силён, как твои хозяева, но ты обладаете некоторыми способностями."))
 		messages.Add(span_shadowling("Ты можете общаться со своими союзниками, используя Телепатическую сеть тенелингов. '[get_language_prefix(LANGUAGE_HIVE_SHADOWLING)]'."))
 		to_chat(new_thrall_mind.current, chat_box_red(messages.Join("<br>")))
@@ -269,19 +269,19 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
-		SSticker.mode_result = "Победа тенелингов - тенелинги возвысились"
+		SSticker.mode_result = "Победа тенелингов — тенелинги возвысились"
 		to_chat(world, span_fontsize3("<b>Победа тенелингов</b>"))
 		to_chat(world, "<span class='greentext'><b>Тенелинги возвысились и полностью захватили станцию!</b></span>")
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
-		SSticker.mode_result = "Тенелинги проиграли - тенелинги погибли"
+		SSticker.mode_result = "Тенелинги проиграли — тенелинги погибли"
 		to_chat(world, span_fontsize3("<b>Крупная победа экипажа</b>"))
 		to_chat(world, "<span class='redtext'><b>Тенелинги были убиты экипажем!</b></span>")
 	else if(!check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED)
-		SSticker.mode_result = "Тенелинги проиграли - экипаж сбежал"
+		SSticker.mode_result = "Тенелинги проиграли — экипаж сбежал"
 		to_chat(world, span_fontsize3("<b>Мелкая победа экипажа</b>"))
 		to_chat(world, "<span class='redtext'><b>Экипаж сбежал со станции до того, как тенелинги возвысились!</b></span>")
 	else
-		SSticker.mode_result = "Тенелинги проиграли - тенелинги не справились"
+		SSticker.mode_result = "Тенелинги проиграли — тенелинги не справились"
 		to_chat(world, span_fontsize3("<b>Крупная победа экипажа</b>"))
 		to_chat(world, "<span class='redtext'><b>Тенелинги не смогли возвыситься!</b></span>")
 	..()

@@ -9,7 +9,7 @@
 		var/datum/money_account/D = pick(GLOB.all_money_accounts)
 		winner_name = D.owner_name
 
-		D.credit(winner_sum, "Winner!", "Терминал \"Бизель\" #[rand(111,333)]", "Звёздная Лотерея Никс Дейли – Гранд Слэм")
+		D.credit(winner_sum, "Winner!", "Терминал \"Бизель\" #[rand(111,333)]", "Звёздная Лотерея Никс Дейли — Гранд Слэм")
 		deposit_success = 1
 
 /datum/event/money_lotto/announce()
@@ -17,7 +17,7 @@
 	newMsg.author = EDITOR_NYX
 	newMsg.admin_locked = TRUE
 
-	newMsg.body = "Никс Дейли поздравляет [winner_name] с выигрышем в лотерее \"Никс – Звёздный Слэм\" и получением невероятной суммы в размере [winner_sum] кредитов!"
+	newMsg.body = "Никс Дейли поздравляет [winner_name] с выигрышем в лотерее \"Никс — Звёздный Слэм\" и получением невероятной суммы в размере [winner_sum] кредитов!"
 	if(!deposit_success)
 		newMsg.body += "К сожалению, нам не удалось подтвердить предоставленные данные счёта, поэтому мы не смогли перевести деньги. Отправьте чек на сумму $500 в офис НД 'Звёздный Слэм' с обновлёнными данными, и ваш выигрыш будет переведён в течение месяца."
 

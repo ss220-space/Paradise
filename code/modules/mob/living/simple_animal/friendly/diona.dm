@@ -324,7 +324,7 @@
 		to_chat(src, span_noticealien("Вы готовы к следующей стадии роста."))
 	else if(length(donors) == awareness_donors)
 		universal_understand = 1
-		to_chat(src, span_noticealien("Ваше сознание расширяется - теперь вы понимаете окружающих."))
+		to_chat(src, span_noticealien("Ваше сознание расширяется — теперь вы понимаете окружающих."))
 	else
 		to_chat(src, span_noticealien("Кровь проникает в вас, принося воспоминания и черты личности."))
 

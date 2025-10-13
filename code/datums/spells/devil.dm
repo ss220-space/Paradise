@@ -475,7 +475,7 @@
 
 /obj/effect/proc_holder/spell/dark_conversion/proc/make_shadow(mob/living/carbon/human/human, datum/antagonist/devil/devil)
 	human.set_species(/datum/species/shadow)
-	var/text = "Вы – создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
+	var/text = "Вы — создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
 	human.store_memory(text, TRUE)
 	to_chat(human, chat_box_red(text))
 

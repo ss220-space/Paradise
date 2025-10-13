@@ -700,8 +700,8 @@
 
 /obj/item/book/manual/security_space_law/black
 	manual_title = "Space Law - Limited Edition"
-	manual_title_ru = "Космический закон - ограниченное издание"
-	desc = "Кожаный переплет и безукоризненное качество исполнения - превосходня копия ПРАВОСУДИЯ."
+	manual_title_ru = "Космический закон — ограниченное издание"
+	desc = "Кожаный переплет и безукоризненное качество исполнения — превосходня копия ПРАВОСУДИЯ."
 	icon_state = "bookSpaceLawblack"
 	item_state = "bookSpaceLawblack"
 
