@@ -4,7 +4,7 @@
 /datum/event/space_ninja/proc/get_ninja()
 	var/image/I = new('icons/mob/ninja_previews.dmi', "ninja_preview_new_hood_green")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Spider Clan Assassin'?", ROLE_NINJA, source = I)
-	if(candidates.len)
+	if(length(candidates))
 		var/mob/dead/observer/selected = pick(candidates)
 		candidates -= selected
 		var/mob/living/carbon/human/new_character = makeBody(selected)

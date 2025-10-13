@@ -27,18 +27,18 @@
  * Handle stuff to update when a mob equips/unequips a glasses.
  */
 /mob/living/carbon/human/wear_glasses_update(obj/item/clothing/glasses/our_glasses)
-	our_glasses = our_glasses || glasses
-	if(!our_glasses)
+	if(!istype(our_glasses))
+		update_worn_glasses()
 		return
-	if(istype(our_glasses))
-		if(our_glasses.tint || initial(our_glasses.tint))
-			update_tint()
-		if(our_glasses.prescription)
-			update_nearsighted_effects()
-		if(our_glasses.vision_flags || our_glasses.see_in_dark || our_glasses.invis_override || our_glasses.invis_view || !isnull(our_glasses.lighting_alpha))
-			update_sight()
-			update_client_colour()
-
+	if(our_glasses.tint || initial(our_glasses.tint))
+		update_tint()
+	if(our_glasses.prescription)
+		update_nearsighted_effects()
+	if(our_glasses.vision_flags || our_glasses.see_in_dark || our_glasses.invis_override || our_glasses.invis_view || !isnull(our_glasses.lighting_alpha))
+		update_sight()
+		update_client_colour()
+	if(our_glasses.flags_cover & GLASSESCOVERSEYES)
+		update_misc_effects()
 	update_worn_glasses()
 
 
@@ -74,6 +74,10 @@
 		(initial(mask.flags_inv) & HIDEHEADSETS) || \
 		(initial(mask.flags_inv_transparent) & HIDEHEADSETS))
 		update_worn_ears()
+
+	// Handle eyes shine
+	if(mask.flags_cover & MASKCOVERSEYES)
+		update_misc_effects()
 
 	update_hud_set()
 	update_worn_mask()
@@ -139,6 +143,10 @@
 		(initial(check_item.flags_inv) & HIDEGLASSES) || \
 		(initial(check_item.flags_inv_transparent) & HIDEGLASSES))
 		update_worn_glasses()
+
+	// Handle eyes shine
+	if(forced || check_item.flags_cover & HEADCOVERSEYES)
+		update_misc_effects()
 
 	update_hud_set()
 	update_worn_head()
@@ -398,7 +406,7 @@
 
 		if(ITEM_SLOT_ID)
 			wear_id = I
-			if(hud_list.len)
+			if(length(hud_list))
 				update_hud_set()
 			update_worn_id()
 

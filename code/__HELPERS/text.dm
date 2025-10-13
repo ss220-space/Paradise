@@ -313,7 +313,7 @@
 /proc/capitalize(t as text)
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
-//Returns a string depending on number it recieves
+///Returns a string depending on number it receives
 /proc/numeric_ending(num, more, one, three)
 	var/last_digit = num % 10
 	var/last_two_digit = num % 100
@@ -594,9 +594,9 @@
 
 	if(tag == "img")
 		var/list/img_props = splittext(arg, ";")
-		if(img_props.len == 3)
+		if(length(img_props) == 3)
 			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
-		if(img_props.len == 2)
+		if(length(img_props) == 2)
 			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
 		return "<img src='[arg]'>"
 

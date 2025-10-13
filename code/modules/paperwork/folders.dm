@@ -35,7 +35,7 @@
 
 /obj/item/folder/update_overlays()
 	. = ..()
-	if(contents.len)
+	if(length(contents))
 		. += "folder_paper"
 
 

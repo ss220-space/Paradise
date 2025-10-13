@@ -56,7 +56,7 @@
 				speed_execute()
 				return
 			if(!M.normaldoorcontrol)
-				if(link_lines.len && tgui_alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", list("Yes", "No")) == "No")
+				if(length(link_lines) && tgui_alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", list("Yes", "No")) == "No")
 					speed_execute()
 					return
 				M.normaldoorcontrol = 1
@@ -78,7 +78,7 @@
 				speed_execute()
 				return
 			if(M.normaldoorcontrol)
-				if(link_lines.len && tgui_alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", list("Yes", "No")) == "No")
+				if(length(link_lines) && tgui_alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", list("Yes", "No")) == "No")
 					speed_execute()
 					return
 				M.normaldoorcontrol = 0

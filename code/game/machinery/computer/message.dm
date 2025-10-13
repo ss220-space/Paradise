@@ -76,7 +76,7 @@
 	. = ..()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)
-		if(GLOB.message_servers && GLOB.message_servers.len > 0)
+		if(GLOB.message_servers && length(GLOB.message_servers) > 0)
 			linkedServer = GLOB.message_servers[1]
 	return
 
@@ -292,10 +292,10 @@
 			if(auth) linkedServer.active = !linkedServer.active
 		//Find a server
 		if(href_list["find"])
-			if(GLOB.message_servers && GLOB.message_servers.len > 1)
+			if(GLOB.message_servers && length(GLOB.message_servers) > 1)
 				src.linkedServer = tgui_input_list(usr, "Please select a server.", "Select a server.", GLOB.message_servers, null)
 				message = span_alert("NOTICE: Server selected.")
-			else if(GLOB.message_servers && GLOB.message_servers.len > 0)
+			else if(GLOB.message_servers && length(GLOB.message_servers) > 0)
 				linkedServer = GLOB.message_servers[1]
 				message = span_notice("NOTICE: Only Single Server Detected - Server selected.")
 			else
@@ -353,7 +353,7 @@
 				src.icon_screen = hack_icon
 				//Time it takes to bruteforce is dependant on the password length.
 				spawn(100*length(src.linkedServer.decryptkey))
-					if(src && src.linkedServer && usr)
+					if(src?.linkedServer && usr)
 						BruteForce(usr)
 		//Delete the log.
 		if(href_list["delete"])
@@ -406,7 +406,7 @@
 							if(!PM || !PM.can_receive())
 								continue
 							sendPDAs += P
-						if(GLOB.PDAs && GLOB.PDAs.len > 0)
+						if(GLOB.PDAs && length(GLOB.PDAs) > 0)
 							customrecepient = tgui_input_list(usr, "Select a PDA from the list.", items = sortAtom(sendPDAs))
 						else
 							customrecepient = null

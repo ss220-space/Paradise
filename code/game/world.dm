@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
-#ifdef UNIT_TESTS
+#ifdef TEST_RUNNER
 GLOBAL_DATUM(test_runner, /datum/test_runner)
 #endif
 
@@ -48,12 +48,12 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
-	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
 	load_admins(run_async=FALSE) // This better happen early on.
 
-	#ifdef UNIT_TESTS
-	log_world("Unit Tests Are Enabled!")
+	#ifdef TEST_RUNNER
+	log_world("Test runner enabled.")
 	#endif
 
 
@@ -77,7 +77,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	Master.Initialize(10, FALSE, TRUE)
 
 
-	#ifdef UNIT_TESTS
+	#ifdef TEST_RUNNER
 	GLOB.test_runner = new
 	GLOB.test_runner.Start()
 	#endif
@@ -154,8 +154,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// If we got here, we are in a "normal" reboot
 	Master.Shutdown() // Shutdown subsystems
 
-	// If we were running unit tests, finish that run
-	#ifdef UNIT_TESTS
+	// If we were running game tests, finish that run
+	#ifdef TEST_RUNNER
 	GLOB.test_runner.Finalize()
 	return
 	#endif
@@ -187,8 +187,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		..(0)
 
 /world/proc/load_mode()
-	var/list/Lines = file2list("data/mode.txt")
-	if(Lines.len)
+	var/list/Lines = world.file2list("data/mode.txt")
+	if(length(Lines))
 		if(Lines[1])
 			GLOB.master_mode = Lines[1]
 			add_game_logs("Saved mode is '[GLOB.master_mode]'")

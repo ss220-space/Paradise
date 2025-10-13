@@ -87,8 +87,8 @@
 
 /obj/structure/table/proc/update_smoothing()
 	if(smooth)
-		queue_smooth(src)
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 	if(flipped)
 		clear_smooth_overlays()
@@ -249,7 +249,7 @@
 		return FALSE
 	var/obj/blocking_object = density_check(user)
 	if(blocking_object)
-		to_chat(user, span_warning("Не получается - мешает [blocking_object.declent_ru(NOMINATIVE)]!"))
+		to_chat(user, span_warning("Не получается — мешает [blocking_object.declent_ru(NOMINATIVE)]!"))
 		return FALSE
 	victim.forceMove(get_turf(src))
 	victim.Weaken(4 SECONDS)

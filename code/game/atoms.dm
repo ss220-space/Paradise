@@ -36,8 +36,12 @@
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
 
-	//This atom's HUD (med/sec, etc) images. Associative list.
-	var/list/image/hud_list
+	///all of this atom's HUD (med/sec, etc) images. Associative list of the form: list(hud category = hud image or images for that category).
+	///most of the time hud category is associated with a single image, sometimes its associated with a list of images.
+	///not every hud in this list is actually used. for ones available for others to see, look at active_hud_list.
+	var/list/image/hud_list = null
+	///all of this atom's HUD images which can actually be seen by players with that hud
+	var/list/image/active_hud_list = null
 	//HUD images that this atom can provide.
 	var/list/hud_possible
 
@@ -286,6 +290,9 @@
 	if(length(light_sources))
 		light_sources.Cut()
 
+	if(smooth & SMOOTH_QUEUED)
+		SSicon_smooth.remove_from_queues(src)
+
 	return ..()
 
 
@@ -461,7 +468,7 @@
 				pass |= istype(A, type)
 			if(!pass)
 				continue
-		if(A.contents.len)
+		if(length(A.contents))
 			found += A.search_contents_for(path, filter_path)
 	return found
 
@@ -482,13 +489,13 @@
 	if(reagents)
 		if(container_type & TRANSPARENT)
 			. += span_notice("Содержимое:")
-			if(reagents.reagent_list.len)
+			if(length(reagents.reagent_list))
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
 						. += span_notice("<b>[R.name]</b> - <b>[R.volume]</b> единиц[declension_ru(R.volume, "а", "ы", "")].")
 				else //Otherwise, just show the total volume
-					if(reagents && reagents.reagent_list.len)
+					if(reagents && length(reagents.reagent_list))
 						. += span_notice("<b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
 			else
 				. += span_notice("Ничего.")
@@ -955,7 +962,7 @@
 		// Add the fingerprints
 		fingerprints[full_print] = full_print
 		fingerprints_time += "[station_time_timestamp()] — [full_print]"
-		if(fingerprints_time.len > 20)
+		if(length(fingerprints_time) > 20)
 			fingerprints_time -= fingerprints_time[1]
 
 		return TRUE
@@ -1231,7 +1238,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/cur_x = null
 	var/cur_y = null
 	var/list/y_arr = null
-	for(cur_x in 1 to GLOB.global_map.len)
+	for(cur_x in 1 to length(GLOB.global_map))
 		y_arr = GLOB.global_map[cur_x]
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)
@@ -1281,7 +1288,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/narsie_act()
 	return
 
-/atom/proc/ratvar_act()
+/atom/proc/ratvar_act(convert_mecha = FALSE)
 	return
 
 /*
@@ -1303,7 +1310,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	message = replace_characters(message, list("+"))
 
 	var/list/speech_bubble_hearers = list()
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M in get_hearers_in_view(7, src))
 		M.show_message(span_gamesay(span_name("[capitalize(declent_ru(NOMINATIVE))]") + " [pick(atom_say_verb)], \"[message]\""), 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
@@ -1494,12 +1501,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	Adds an instance of colour_type to the atom's atom_colours list
 */
 /atom/proc/add_atom_colour(coloration, colour_priority)
-	if(!atom_colours || !atom_colours.len)
+	if(!atom_colours || !length(atom_colours))
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
 	if(!coloration)
 		return
-	if(colour_priority > atom_colours.len)
+	if(colour_priority > length(atom_colours))
 		return
 	atom_colours[colour_priority] = coloration
 	update_atom_colour()
@@ -1511,7 +1518,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!atom_colours)
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	if(colour_priority > atom_colours.len)
+	if(colour_priority > length(atom_colours))
 		return
 	if(coloration && atom_colours[colour_priority] != coloration)
 		return //if we don't have the expected color (for a specific priority) to remove, do nothing
@@ -1530,7 +1537,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	for(var/C in atom_colours)
 		if(islist(C))
 			var/list/L = C
-			if(L.len)
+			if(length(L))
 				color = L
 				return
 		else if(C)
@@ -1905,19 +1912,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/MouseEntered(location, control, params)
 	SSmouse_entered.hovers[usr.client] = src
 
-	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
-	var/screentip_mode = usr.client.prefs.screentip_mode
-	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
-		active_hud.screentip_text.maptext = ""
-		return
-
-	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[src.declent_ru(NOMINATIVE)]</span>")
-
-// This is normal, I assure you. Paradise optimization.
-/atom/MouseExited(location, control, params)
-	usr.hud_used.screentip_text.maptext = ""
-
 /// Fired whenever this atom is the most recent to be hovered over in the tick.
 /// Preferred over MouseEntered if you do not need information such as the position of the mouse.
 /// Especially because this is deferred over a tick, do not trust that `client` is not null.
@@ -1931,6 +1925,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Face directions on harm intent
 	if(user.face_mouse && !user.incapacitated())
 		user.face_atom(src)
+
+	// Screentips
+	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	if(!active_hud)
+		return
+
+	var/screentip_mode = user.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+
+	// We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [user.client.prefs.screentip_color]'>[src.declent_ru(NOMINATIVE)]</span>"
 
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
@@ -1975,3 +1982,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	return
+
+/// Transforms the message emphasis mods from [/atom/proc/apply_message_emphasis] into the appropriate HTML tags. Includes escaping.
+#define ENCODE_HTML_EMPHASIS(input, char, html, varname) \
+	var/static/regex/##varname = regex("(?<!\\\\)[char](.+?)(?<!\\\\)[char]", "g");\
+	input = varname.Replace_char(input, "<[html]>$1</[html]>&#8203;") //zero-width space to force maptext to respect closing tags.
+
+/// Scans the input sentence for message emphasis modifiers, notably |italics|, +bold+, and _underline_ -mothblocks
+/atom/proc/apply_message_emphasis(input)
+	ENCODE_HTML_EMPHASIS(input, "\\|", "i", italics)
+	ENCODE_HTML_EMPHASIS(input, "\\+", "b", bold)
+	ENCODE_HTML_EMPHASIS(input, "\\_", "u", underline)
+	var/static/regex/remove_escape_backlashes = regex("\\\\(\\_|\\+|\\|)", "g") // Removes backslashes used to escape text modification.
+	input = remove_escape_backlashes.Replace_char(input, "$1")
+	return input
+
+#undef ENCODE_HTML_EMPHASIS

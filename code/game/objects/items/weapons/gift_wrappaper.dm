@@ -89,6 +89,9 @@
 		/obj/item/id_decal/prisoner,
 		/obj/item/id_decal/centcom,
 		/obj/item/id_decal/emag,
+		/obj/item/id_decal/federal,
+		/obj/item/id_decal/comrad,
+		/obj/item/id_decal/syndie,
 		/obj/item/spellbook/oneuse/fake_gib,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/flash,
@@ -125,4 +128,4 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")
+	to_chat(user, span_notice("You need to use it on a package that has already been wrapped!"))

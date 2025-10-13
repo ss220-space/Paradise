@@ -20,8 +20,8 @@
 
 	mech_type = MECH_TYPE_HONKER
 
-/obj/mecha/combat/honker/loaded/New()
-	..()
+/obj/mecha/combat/honker/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/honker
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar

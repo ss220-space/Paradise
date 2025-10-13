@@ -34,7 +34,7 @@
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+	medsensor.show_to(src)
 
 /mob/living/simple_animal/hostile/guardian/healer/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -96,8 +96,8 @@
 		if(isfloorturf(beacon_loc))
 			var/turf/simulated/floor/F = beacon_loc
 			F.icon = 'icons/turf/floors.dmi'
-			F.name = "bluespace recieving pad"
-			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
+			F.name = "bluespace receiving pad"
+			F.desc = "A receiving zone for bluespace teleportations. Building a wall over it should disable it."
 			F.icon_state = "light_on-w"
 			to_chat(src, span_danger("Маяк установлен! Вы можете телепортировать на него вещи и людей, нажав Alt+ЛКМ"))
 			if(beacon)
@@ -197,7 +197,7 @@
 			for(var/injure in injures)
 				if((injures[injure]).len > 0)
 					available_cures.Add(injure)
-			if(!available_cures.len)
+			if(!length(available_cures))
 				return 0
 			var/random_cure = pick(available_cures)
 			to_chat(user, "Найдена травма. Попытка исцеления..")

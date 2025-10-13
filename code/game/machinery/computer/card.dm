@@ -84,8 +84,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/Initialize(mapload)
 	. = ..()
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
-	Radio.config(list(COMM_FREQ_NAME = 0))
+	Radio.become_speaker_only(COMM_FREQ)
 	Radio.follow_target = src
 
 /obj/machinery/computer/card/Destroy()
@@ -205,7 +204,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(!job_in_department(job, FALSE))
 			return FALSE
-		if((job.total_positions > GLOB.player_list.len * (max_relative_positions / 100)))
+		if((job.total_positions > length(GLOB.player_list) * (max_relative_positions / 100)))
 			return FALSE
 		if(opened_positions[job.title] < 0)
 			return TRUE
@@ -242,7 +241,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(job in SSjobs.prioritized_jobs)
 			return TRUE // because this also lets us un-prioritize the job
-		if(SSjobs.prioritized_jobs.len >= 3)
+		if(length(SSjobs.prioritized_jobs) >= 3)
 			return FALSE
 		if(job.total_positions <= job.current_positions)
 			return FALSE
@@ -250,7 +249,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return FALSE
 
 /obj/machinery/computer/card/proc/has_idchange_access()
-	return scan && scan.access && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
+	return scan?.access && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
 
 /obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = TRUE)
 	if(!scan || !scan.access)
@@ -349,10 +348,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/data = list()
 	data["mode"] = mode
 	data["modify_name"] = modify ? modify.name : FALSE
-	data["modify_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
+	data["modify_owner"] = modify?.registered_name ? modify.registered_name : "-----"
 	data["modify_rank"] = modify?.rank ? modify.rank : FALSE
 	data["modify_assignment"] = modify?.assignment ? modify.assignment : "Unassigned"
-	data["modify_lastlog"] = modify && modify.lastlog ? modify.lastlog : FALSE
+	data["modify_lastlog"] = modify?.lastlog ? modify.lastlog : FALSE
 	data["scan_name"] = scan ? scan.name : FALSE
 	data["scan_rank"] = scan ? scan.rank : FALSE
 
@@ -679,7 +678,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if(R.fields["id"] == E.fields["id"])
 							if(status_valid_for_demotion(R.fields["criminal"]))
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
-								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, COMM_FREQ_NAME)
+								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, HEADSET_FREQ_NAME)
 								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: \"[reason]\"")
 								add_game_logs("([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", usr)
 								investigate_log("[key_name_log(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", INVESTIGATE_RECORDS)

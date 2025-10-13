@@ -170,10 +170,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	add_ooc_logs(src, msg, TRUE)
 
 	var/mob/source = mob.get_looc_source()
-	var/list/heard = get_mobs_in_view(7, source)
+	var/list/heard = get_hearers_in_view(7, source)
 
 	var/display_name = key
-	if(holder && holder.fakekey)
+	if(holder?.fakekey)
 		display_name = holder.fakekey
 	if(mob.stat != DEAD)
 		display_name = mob.name

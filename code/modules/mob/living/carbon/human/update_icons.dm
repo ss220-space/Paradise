@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
-		if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
+		if(body_marking_style?.species_allowed && (dna.species.name in body_marking_style.species_allowed))
 			var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 			if(body_marking_style.do_colouration)
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
@@ -297,7 +297,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
-		if(head_marking_style && head_marking_style.species_allowed && (head_organ.dna.species.name in head_marking_style.species_allowed))
+		if(head_marking_style?.species_allowed && (head_organ.dna.species.name in head_marking_style.species_allowed))
 			var/icon/h_marking_s = icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
@@ -524,6 +524,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_worn_belt()
 	update_worn_back()
 	update_worn_oversuit()
+	update_held_items()
 	update_pockets()
 	update_worn_handcuffs()
 	update_worn_legcuffs()
@@ -570,9 +571,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		override_state = "[state_type]_s"
 	)
 
-	if(w_uniform.blood_DNA)
-		uniform_overlay.overlays += mutable_appearance(dna.species.blood_mask, "uniformblood", color = w_uniform.blood_color)
-
 	for(var/obj/item/clothing/accessory/accessory as anything in w_uniform.accessories)
 		var/acc_state_type = accessory.item_state ? accessory.item_state : accessory.icon_state
 		var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha, color = accessory.color)
@@ -586,7 +584,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(body_marking_style.visible_over_uniform || body_marking_style.name != /datum/sprite_accessory/body_markings/none::name)
 		var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
 		if(chest_organ && m_styles["body"])
-			if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
+			if(body_marking_style?.species_allowed && (dna.species.name in body_marking_style.species_allowed))
 				var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]-withclothes")
 				if(body_marking_style.do_colouration)
 					b_marking_s.Blend(m_colours["body"], ICON_ADD)
@@ -601,10 +599,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ID) + 1]
 		inv.update_icon()
 	var/mutable_appearance/id_overlay = overlays_standing[ID_LAYER]
-	if(!wear_id || !w_uniform?.displays_id)
+	if(!wear_id)
 		return
 
 	update_item_on_hud(wear_id, ui_id)
+	if(!w_uniform?.displays_id)
+		return
+
 	id_overlay = wear_id.build_worn_icon(default_layer = ID_LAYER, default_icon_file = wear_id.onmob_sheets[ITEM_SLOT_ID_STRING], override_state = "id")
 	if(!id_overlay)
 		return
@@ -623,23 +624,42 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	if(isnull(gloves))
-		var/clock_hands = HAS_TRAIT(src, CLOCK_HANDS)
+		if(!num_hands)
+			return
+
+		var/clock_hands = HAS_TRAIT(src, TRAIT_CLOCK_HANDS)
 		if(!blood_DNA && !clock_hands)
 			return
+
 		// When byond gives us filters that respect dirs we can just use an alpha mask for this but until then, two icons weeeee
 		var/mutable_appearance/hands_combined = mutable_appearance(layer = -GLOVES_LAYER, appearance_flags = KEEP_TOGETHER)
 		if(clock_hands)
-			hands_combined.overlays += mutable_appearance(dna.species.blood_mask, "clockedhands", color = COLOR_LIGHT_ORANGE)
+			if(has_left_hand())
+				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_l", color = COLOR_LIGHT_ORANGE)
+				hands_combined.overlays += clock_hands_overlay
+
+			if(has_right_hand())
+				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_r", color = COLOR_LIGHT_ORANGE)
+				hands_combined.overlays += clock_hands_overlay
+
 		else if(blood_DNA)
-			hands_combined.overlays += mutable_appearance(dna.species.blood_mask, "bloodyhands", color = blood_color)
+			var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
+			if(dna && ("bloodyhands_left" in dna.species.get_blood_overlays()))
+				blood_mask = dna.species.blood_mask
+			if(has_left_hand())
+				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_left", color = hand_blood_color)
+				hands_combined.overlays += blood_hands_overlay
+
+			if(has_right_hand())
+				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_right", color = hand_blood_color)
+				hands_combined.overlays += blood_hands_overlay
+
 		overlays_standing[GLOVES_LAYER] = hands_combined
 		apply_overlay(GLOVES_LAYER)
 		return
 
 	update_item_on_hud(gloves, ui_gloves, togleable_inventory = TRUE)
 	var/mutable_appearance/gloves_overlay = gloves.build_worn_icon(default_layer = GLOVES_LAYER, default_icon_file = gloves.onmob_sheets[ITEM_SLOT_GLOVES_STRING], use_item_state = TRUE)
-	if(gloves.blood_DNA)
-		gloves_overlay.overlays += mutable_appearance(dna.species.blood_mask, "bloodyhands", color = gloves.blood_color)
 
 	overlays_standing[GLOVES_LAYER] = gloves_overlay
 	apply_overlay(GLOVES_LAYER)
@@ -733,8 +753,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	update_item_on_hud(shoes, ui_shoes, togleable_inventory = TRUE)
 	var/mutable_appearance/standing = shoes.build_worn_icon(default_layer = SHOES_LAYER, default_icon_file = shoes.onmob_sheets[ITEM_SLOT_FEET_STRING])
-	if(shoes.blood_DNA)
-		standing.overlays += mutable_appearance(dna.species.blood_mask, "shoeblood", color = shoes.blood_color)
 
 	overlays_standing[SHOES_LAYER] = standing
 	apply_overlay(SHOES_LAYER)
@@ -772,8 +790,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_item_on_hud(head, ui_head, togleable_inventory = TRUE)
 
 	var/mutable_appearance/standing = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = head.onmob_sheets[ITEM_SLOT_HEAD_STRING])
-	if(head.blood_DNA)
-		standing.overlays += mutable_appearance(dna.species.blood_mask, "helmetblood", color = head.blood_color)
 
 	overlays_standing[HEAD_LAYER] = standing
 	apply_overlay(HEAD_LAYER)
@@ -802,8 +818,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(wear_suit)
 		update_item_on_hud(wear_suit, ui_oclothing, togleable_inventory = TRUE)
 		var/mutable_appearance/standing = wear_suit.build_worn_icon(default_layer = SUIT_LAYER, default_icon_file = wear_suit.onmob_sheets[ITEM_SLOT_CLOTH_OUTER_STRING])
-		if(wear_suit.blood_DNA)
-			standing.overlays += mutable_appearance(dna.species.blood_mask, "[wear_suit.blood_overlay_type]blood", color = wear_suit.blood_color)
 		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
@@ -864,9 +878,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		override_icon_state = icon_exists(icon_file, alt_icon_state) ? alt_icon_state : null
 
 	var/mutable_appearance/standing = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING], override_state = override_icon_state)
-
-	if(wear_mask.blood_DNA && !istype(wear_mask, /obj/item/clothing/mask/cigarette))
-		standing.overlays += mutable_appearance(dna.species.blood_mask, "maskblood", color = wear_mask.blood_color)
 
 	overlays_standing[FACEMASK_LAYER] = standing
 

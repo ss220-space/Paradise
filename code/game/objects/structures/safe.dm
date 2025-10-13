@@ -486,7 +486,7 @@ GLOBAL_LIST_EMPTY(safes)
  */
 /obj/item/safe_internals
 	name = "safe internals"
-	desc = "Механизм и запирающие ригели для тумблерного сейфа \"Скарборо Армс - 2\"."
+	desc = "Механизм и запирающие ригели для тумблерного сейфа \"Скарборо Армс – \"."
 	icon_state = "safe_internals"
 
 /obj/item/safe_internals/get_ru_names()
@@ -521,7 +521,7 @@ GLOBAL_LIST_EMPTY(safes)
 	)
 
 /obj/item/paper/safe_code/Initialize(mapload)
-	..()
+	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/safe_code/LateInitialize(mapload)

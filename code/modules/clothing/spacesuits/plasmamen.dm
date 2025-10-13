@@ -110,14 +110,14 @@
 	. = ..()
 	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.add_hud_to(user)
+		H.show_to(user)
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.remove_hud_from(user)
+		H.hide_from(user)
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
@@ -723,7 +723,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/captain
 	name = "captain envirosuit helmet"
-	desc = "Шлем защитного костюма плазмолюда, имеющий множество эмблем и маркировок, демонстрирующих, что их владелец - капитан."
+	desc = "Шлем защитного костюма плазмолюда, имеющий множество эмблем и маркировок, демонстрирующих, что их владелец — капитан."
 	icon_state = "cap_envirohelm"
 	item_state = "cap_envirohelm"
 	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)

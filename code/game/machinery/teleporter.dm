@@ -214,7 +214,7 @@
 	var/list/areaindex = list()
 	var/turf/teleporter_turf = get_turf(src)
 	var/is_station_teleport = is_station_level(teleporter_turf.z)
-	for(var/obj/item/radio/beacon/R in GLOB.beacons)
+	for(var/obj/item/beacon/R as anything in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
@@ -267,7 +267,7 @@
 	var/list/L = list()
 	var/list/areaindex = list()
 	var/list/S = power_station.linked_stations
-	if(!S.len)
+	if(!length(S))
 		return L
 	for(var/obj/machinery/teleport/station/R in S)
 		var/turf/T = get_turf(R)
@@ -295,8 +295,8 @@
 /obj/machinery/computer/teleporter/proc/teleport_helper()
 	area_bypass = FALSE
 	for(var/item in target.contents)
-		if(istype(item, /obj/item/radio/beacon))
-			var/obj/item/radio/beacon/B = item
+		if(istype(item, /obj/item/beacon))
+			var/obj/item/beacon/B = item
 			if(B.area_bypass)
 				area_bypass = TRUE
 			cc_beacon = B.cc_beacon
@@ -393,7 +393,7 @@
 		if(ismob(moving_atom))
 			to_chat(moving_atom, "You can't use this here.")
 		return .
-	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
+	if(power_station?.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
 		if(!teleport(moving_atom) && isliving(moving_atom)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message(span_warning("[src] emits a loud buzz, as its teleport portal flickers and fails!"))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
@@ -438,7 +438,7 @@
 /obj/machinery/teleport/hub/update_icon_state()
 	if(panel_open)
 		icon_state = "tele-o"
-	else if(power_station && power_station.engaged)
+	else if(power_station?.engaged)
 		icon_state = "tele1"
 	else
 		icon_state = "tele0"
@@ -448,7 +448,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if(power_station && power_station.engaged && !panel_open)
+	if(power_station?.engaged && !panel_open)
 		underlays += emissive_appearance(icon, "tele1_lightmask", src)
 
 
@@ -460,7 +460,7 @@
 
 
 /obj/machinery/teleport/hub/proc/update_lighting()
-	if(power_station && power_station.engaged && !panel_open)
+	if(power_station?.engaged && !panel_open)
 		set_light_on(TRUE)
 	else
 		set_light_on(FALSE)
@@ -664,7 +664,7 @@
 	var/obj/item/multitool/M = I
 	if(!panel_open)
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
-			if(linked_stations.len < efficiency)
+			if(length(linked_stations) < efficiency)
 				linked_stations.Add(M.buffer)
 				M.buffer = null
 				to_chat(user, span_caution("You upload the data from [M]'s buffer."))

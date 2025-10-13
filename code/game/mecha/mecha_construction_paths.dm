@@ -962,28 +962,28 @@
 
 	if(istype(used_atom, /obj/effect/dummy/mecha_emote_step))
 		var/obj/effect/dummy/mecha_emote_step/E = used_atom
-		holder.visible_message("<span class='game say'><span class='name'>[holder]</span> likewise [E.emote]</span>")
+		holder.visible_message(span_gamesay("[span_name("[holder]")] likewise [E.emote]"))
 		qdel(used_atom)
 
 	//TODO: better messages.
 	switch(index)
 		if(9)
-			user.visible_message("[user] installs the central control module into the [holder].", "<span class='notice'>You install the central control module into the [holder].</span>")
+			user.visible_message("[user] installs the central control module into the [holder].", span_notice("You install the central control module into the [holder]."))
 			qdel(used_atom)
 		if(8)
-			user.visible_message("[user] installs the peripherals control module into the [holder].", "<span class='notice'>You install the peripherals control module into the [holder].</span>")
+			user.visible_message("[user] installs the peripherals control module into the [holder].", span_notice("You install the peripherals control module into the [holder]."))
 			qdel(used_atom)
 		if(7)
-			user.visible_message("[user] installs the weapon control module into the [holder].", "<span class='notice'>You install the weapon control module into the [holder].</span>")
+			user.visible_message("[user] installs the weapon control module into the [holder].", span_notice("You install the weapon control module into the [holder]."))
 			qdel(used_atom)
 		if(6)
-			user.visible_message("[user] puts beret on the [holder].", "<span class='notice'>You put beret on the [holder].</span>")
+			user.visible_message("[user] puts beret on the [holder].", span_notice("You put beret on the [holder]."))
 			qdel(used_atom)
 		if(4)
-			user.visible_message("[user] puts mime mask on the [holder].", "<span class='notice'>You put mime mask on the [holder].</span>")
+			user.visible_message("[user] puts mime mask on the [holder].", span_notice("You put mime mask on the [holder]."))
 			qdel(used_atom)
 		if(2)
-			user.visible_message("[user] puts suspenders on the [holder].", "<span class='notice'>You put suspenders on the [holder].</span>")
+			user.visible_message("[user] puts suspenders on the [holder].", span_notice("You put suspenders on the [holder]."))
 			qdel(used_atom)
 	return 1
 

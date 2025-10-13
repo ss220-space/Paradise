@@ -1,7 +1,7 @@
 /client/verb/setup_character()
 	set name = "Игровые настройки"
 	set category = STATPANEL_SPECIALVERBS
-	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения – незамедлительно."
+	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения — незамедлительно."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
 
@@ -52,7 +52,7 @@
 	our_prefs.save_preferences(user)
 
 /datum/preference_toggle/toggle_ghost_ears
-	name = "Слышимость речи – Призрак"
+	name = "Слышимость речи — Призрак"
 	description = "Переключает слышимость речи существ во всём мире или только в пределах видимости."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTEARS
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
@@ -62,7 +62,7 @@
 	blackbox_message = "Toggle GhostEars"
 
 /datum/preference_toggle/toggle_ghost_sight
-	name = "Видимость эмоций – Призрак"
+	name = "Видимость эмоций — Призрак"
 	description = "Переключает видимость эмоций существ во всём мире или только в пределах видимости."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTSIGHT
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
@@ -72,10 +72,11 @@
 	blackbox_message = "Toggle GhostSight"
 
 /datum/preference_toggle/toggle_ghost_radio
-	name = "Слышимость речи – Призрак"
+	name = "Слышимость радио — Призрак"
 	description = "Переключает слышимость радиосообщений во всём мире или только в пределах видимости."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTRADIO
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
 	enable_message = "Будучи призраком, теперь вы будете слышать радиосообщения только в пределах видимости."
 	disable_message = "Будучи призраком, теперь вы будете слышать радиосообщения во всём мире."
 	blackbox_message = "Toggle GhostRadio"
@@ -280,7 +281,7 @@
 		usr.stop_sound_channel(CHANNEL_JUKEBOX)
 
 /datum/preference_toggle/toggle_ghost_pda
-	name = "Сообщения на КПК – Призрак"
+	name = "Сообщения на КПК — Призрак"
 	description = "Переключает видимость КПК-сообщений."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTPDA
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
@@ -307,7 +308,7 @@
 	blackbox_message = "Toggle Runechat"
 
 /datum/preference_toggle/toggle_ghost_death_notifs
-	name = "Уведомление о смерти – Призрак"
+	name = "Уведомление о смерти — Призрак"
 	description = "Включает уведомления о смерти игроков."
 	preftoggle_bitflag = PREFTOGGLE_2_DEATHMESSAGE
 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
@@ -315,18 +316,6 @@
 	enable_message = "Теперь вы будете видеть уведомления в призрак-чате, если игрок в мире погибнет."
 	disable_message = "Теперь вы не будете видеть уведомления в призрак-чате, если игрок в мире погибнет."
 	blackbox_message = "Toggle Death Notifications"
-
-/*
-/datum/preference_toggle/toggle_reverb
-	name = "Ревербация звуков"
-	description = "Включает ревербацию определённых звуков."
-	preftoggle_bitflag = PREFTOGGLE_2_REVERB_DISABLE
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Теперь некоторые звуки игры будут ревербироваться."
-	disable_message = "Теперь никакие звуки игры не будут ревербироваться."
-	blackbox_message = "Toggle reverb"
-*/
 
 /datum/preference_toggle/toggle_simple_stat_panel
 	name = "Обводка предметов"
@@ -561,7 +550,7 @@
 	if(!my_hud)
 		return
 
-	for(var/group_key as anything in my_hud.master_groups)
+	for(var/group_key in my_hud.master_groups)
 		var/datum/plane_master_group/group = my_hud.master_groups[group_key]
 		group.build_planes_offset(my_hud, my_hud.current_plane_offset)
 
@@ -623,7 +612,7 @@
 
 /datum/preference_toggle/toggle_facing_to_mouse
 	name = "Следовать за курсором мыши"
-	description = "Когда включено – при выбранном намерении ВРЕД ваш персонаж будет поворачиваться в сторону курсора."
+	description = "Когда включено — при выбранном намерении ВРЕД ваш персонаж будет поворачиваться в сторону курсора."
 	preftoggle_bitflag = PREFTOGGLE_3_FACING_TO_MOUSE
 	preftoggle_toggle = PREFTOGGLE_TOGGLE3
 	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
@@ -691,3 +680,33 @@
 	enable_message = "Теперь сообщения о боли будут выводиться на основной экран."
 	disable_message = "Теперь сообщения о боли будут писаться в чат."
 	blackbox_message = "Toggle painblurb"
+
+/datum/preference_toggle/storage/set_toggles(client/user)
+	. = ..()
+	if(!istype(user) || !user.mob || !user.mob.s_active)
+		return
+
+	var/obj/item/storage/storage = user.mob.s_active
+
+	storage.hide_from(user.mob)
+	storage.show_to(user.mob)
+
+/datum/preference_toggle/storage/storage_neutral
+	name = "Переключить тематическое/нейтральное хранилище"
+	description = "Переключает хранилище между зависимым от темы инвентаря и нейтральным."
+	preftoggle_bitflag = PREFTOGGLE_3_STORAGE_NEUTRAL
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь хранилища будут иметь нейтральную тему."
+	disable_message = "Теперь тема хранилища будет зависеть от инвентаря."
+	blackbox_message = "Toggle storage neutal"
+
+/datum/preference_toggle/storage/storage_colorfy
+	name = "Переключить покраску хранилища"
+	description = "Переключает зависимость цвета хранилища от цвета инвентаря."
+	preftoggle_bitflag = PREFTOGGLE_3_STORAGE_COLORFY
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь цвет интерфейса хранилища зависит от цвета инвентаря."
+	disable_message = "Теперь цвет интерфейса хранилища не зависит от цвета инвентаря."
+	blackbox_message = "Toggle storage colorfy"

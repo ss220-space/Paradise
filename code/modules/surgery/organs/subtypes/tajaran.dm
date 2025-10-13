@@ -17,7 +17,7 @@
 /obj/item/organ/internal/eyes/tajaran
 	species_type = /datum/species/tajaran
 	name = "tajaran eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали таярану."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали таярану."
 	ru_names = list(
 		NOMINATIVE = "глаза таярана",
 		GENITIVE = "глаз таярана",
@@ -28,7 +28,7 @@
 	)
 	icon = 'icons/obj/species_organs/tajaran.dmi'
 	item_state = "tajaran_eyes"
-	colourblind_matrix = MATRIX_TAJ_CBLIND //The colour matrix parameter that the mob will recieve when they get the disability.
+	colourblind_matrix = MATRIX_TAJ_CBLIND //The colour matrix parameter that the mob will receive when they get the disability.
 	replace_colours = TRITANOPIA_COLOR_REPLACE
 	see_in_dark = 8
 
@@ -48,7 +48,7 @@
 /obj/item/organ/internal/eyes/tajaran/farwa //Being the lesser form of Tajara, Farwas have an utterly incurable version of their colourblindness.
 	species_type = /datum/species/monkey/tajaran
 	name = "farwa eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали фарве."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали фарве."
 	ru_names = list(
 		NOMINATIVE = "глаза фарвы",
 		GENITIVE = "глаз фарвы",

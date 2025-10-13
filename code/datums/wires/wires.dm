@@ -181,7 +181,7 @@
 			if(!I)
 				return
 			if(I.tool_behaviour != TOOL_WIRECUTTER && !user.can_admin_interact())
-				to_chat(user, "<span class='error'>You need wirecutters!</span>")
+				to_chat(user, span_error("You need wirecutters!"))
 				return
 
 			if(istype(I))
@@ -194,7 +194,7 @@
 			if(!I)
 				return
 			if(I.tool_behaviour != TOOL_MULTITOOL && !user.can_admin_interact())
-				to_chat(user, "<span class='error'>You need a multitool!</span>")
+				to_chat(user, span_error("You need a multitool!"))
 				return
 
 			playsound(holder, 'sound/weapons/empty.ogg', 20, TRUE)
@@ -215,14 +215,14 @@
 					return TRUE
 
 			if(!issignaler(I))
-				to_chat(user, "<span class='error'>You need a remote signaller!</span>")
+				to_chat(user, span_error("You need a remote signaller!"))
 				return
 
 			if(user.drop_from_active_hand())
 				attach_assembly(color, I)
 				return TRUE
 			else
-				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
+				to_chat(user, span_warning("[user.get_active_hand()] is stuck to your hand!"))
 
 /**
  * Proc called to determine if the user can see wire define information, such as "Contraband", "Door Bolts", etc.

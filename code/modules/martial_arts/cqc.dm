@@ -83,14 +83,14 @@
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 	D.visible_message(
-		"<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-		"<span class='userdanger'>[A] [picked_hit_type] you!</span>"
+		span_danger("[A] [picked_hit_type] [D]!"), \
+		span_userdanger("[A] [picked_hit_type] you!")
 	)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(A.resting && !D.stat && D.body_position != LYING_DOWN)
 		D.visible_message(
 			"<span class='warning'>[A] leg sweeps [D]!", \
-			"<span class='userdanger'>[A] leg sweeps you!</span>"
+			span_userdanger("[A] leg sweeps you!")
 		)
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 		D.apply_damage(10, BRUTE)
@@ -102,8 +102,8 @@
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	if(restraining && A.pulling && A.pulling == D)
-		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
-							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
+		D.visible_message(span_danger("[A] puts [D] into a chokehold!"), \
+							span_userdanger("[A] puts you into a chokehold!"))
 		D.SetSleeping(20 SECONDS)
 		restraining = FALSE
 		if(A.grab_state < GRAB_NECK)
@@ -117,8 +117,8 @@
 	if(prob(50))
 		if(!D.stat || D.body_position != LYING_DOWN || !restraining)
 			I = D.get_active_hand()
-			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
-								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
+			D.visible_message(span_warning("[A] strikes [D]'s jaw with their hand!"), \
+								span_userdanger("[A] strikes your jaw, disorienting you!"))
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 			if(I && D.drop_from_active_hand())
 				A.put_in_hands(I, ignore_anim = FALSE)
@@ -126,7 +126,7 @@
 			D.apply_damage(5, BRUTE)
 			objective_damage(A, D, 5, BRUTE)
 	else
-		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
+		D.visible_message(span_danger("[A] attempted to disarm [D]!"), span_userdanger("[A] attempted to disarm [D]!"))
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)

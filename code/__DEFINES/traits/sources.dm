@@ -24,8 +24,6 @@
 #define CHASM_TRAIT "chasm_trait"
 
 // unique trait sources
-#define CULT_EYES "cult_eyes"
-#define CLOCK_HANDS "clock_hands"
 #define PULSEDEMON_TRAIT "pulse_demon"
 #define CHANGELING_TRAIT "changeling"
 #define VAMPIRE_TRAIT "vampire"
@@ -165,7 +163,7 @@
 
 #define ADMIN_OFFER_TRAIT "admin_offer"
 
-#define GRAVITATION_TRAIT	"gravitation"
+#define GRAVITATION_TRAIT "gravitation"
 
 #define FAKEFIRE_TRAIT "fakefire"
 

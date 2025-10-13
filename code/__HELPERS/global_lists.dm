@@ -217,6 +217,9 @@
 	// Init list of all nutrition levels
 	init_datum_subtypes(/datum/nutrition_level, GLOB.nutrition_levels, null, "type")
 
+	// Init list for slime actions
+	init_datum_subtypes(/datum/slime_action, GLOB.slime_actions, null, "name")
+
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
 /proc/init_subtypes(prototype, list/L)

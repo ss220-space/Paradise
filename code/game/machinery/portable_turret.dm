@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
-	return A && A.turret_controls.len > 0
+	return A && length(A.turret_controls) > 0
 
 /obj/machinery/porta_turret/proc/access_is_configurable()
 	return targetting_is_configurable && !HasController()
@@ -633,10 +633,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!targets)
 		return FALSE
 
-	if(targets.len && last_target && (last_target in targets) && target(last_target))
+	if(length(targets) && last_target && (last_target in targets) && target(last_target))
 		return TRUE
 
-	while(targets.len)
+	while(length(targets))
 		var/mob/living/M = pick(targets)
 		targets -= M
 		if(target(M))

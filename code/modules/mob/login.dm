@@ -88,13 +88,16 @@
 
 	add_click_catcher()
 
-	if(viewing_alternate_appearances && viewing_alternate_appearances.len)
+	if(viewing_alternate_appearances && length(viewing_alternate_appearances))
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.display_to(list(src))
 
 	update_client_colour(0)
 	update_morgue()
 	client.init_verbs()
+
+	clear_important_client_contents(client)
+	enable_client_mobs_in_contents(client)
 
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)

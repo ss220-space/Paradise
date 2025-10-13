@@ -369,7 +369,7 @@
 	},
 /area/admin)
 "dS" = (
-/obj/effect/landmark/tdome/tdome1,
+/obj/effect/landmark/spawner/tdome1,
 /obj/machinery/camera{
 	c_tag = "Thunderdome Green Team";
 	network = list("Thunderdome");
@@ -781,7 +781,7 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "hs" = (
-/obj/effect/landmark/tdome/tdome2,
+/obj/effect/landmark/spawner/tdome2,
 /obj/machinery/camera{
 	c_tag = "Thunderdome Red Team";
 	network = list("Thunderdome");
@@ -1473,7 +1473,7 @@
 	},
 /area/tdome/arena)
 "ol" = (
-/obj/effect/landmark/holocarp_spawn,
+/obj/effect/landmark/spawner/holocarp,
 /turf/simulated/floor/holofloor{
 	icon_state = "engine";
 	name = "Holodeck Projector Floor"
@@ -1990,7 +1990,7 @@
 /area/admin)
 "vY" = (
 /obj/structure/chair/comfy/blue,
-/obj/effect/landmark/tdome/tdome_observer,
+/obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/carpet/black,
 /area/tdome/tdomeobserve)
 "wc" = (
@@ -2081,7 +2081,7 @@
 	},
 /area/admin)
 "wN" = (
-/obj/effect/landmark/tdome/tdomeadmin,
+/obj/effect/landmark/spawner/tdomeadmin,
 /obj/item/radio/intercom/pirate{
 	pixel_y = -25;
 	req_access = list(153)
@@ -2222,7 +2222,7 @@
 	},
 /area/tdome/arena_source)
 "yC" = (
-/obj/effect/landmark/tdome/tdome1,
+/obj/effect/landmark/spawner/tdome1,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgrey"
@@ -3921,7 +3921,7 @@
 /obj/structure/chair/comfy/blue{
 	dir = 1
 	},
-/obj/effect/landmark/tdome/tdome_observer,
+/obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/carpet/black,
 /area/tdome/tdomeobserve)
 "Us" = (
@@ -4234,7 +4234,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "XO" = (
-/obj/effect/landmark/tdome/tdome2,
+/obj/effect/landmark/spawner/tdome2,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgrey"

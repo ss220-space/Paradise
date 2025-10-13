@@ -49,6 +49,14 @@
 	index_name = "Solar Federation uniform"
 	path = /obj/item/clothing/under/solgov/civ
 
+/datum/gear/uniform/suit/federal/forest
+	index_name = "Solar Federation forest uniform"
+	path = /obj/item/clothing/under/solgov/forest/civ
+
+/datum/gear/uniform/suit/federal/urban
+	index_name = "Solar Federation urban uniform"
+	path = /obj/item/clothing/under/solgov/urban/civ
+
 /datum/gear/uniform/suit/kilt
 	index_name = "a kilt"
 	path = /obj/item/clothing/under/kilt

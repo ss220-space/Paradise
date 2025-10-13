@@ -12,7 +12,7 @@
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		return
 
-	if(can_reenter_corpse && mind && mind.current)
+	if(can_reenter_corpse && mind?.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
 			return									// seems legit.
@@ -103,7 +103,7 @@
 	var/obj/machinery/teleport/station/S = power_station
 	if(S)
 		var/obj/machinery/computer/teleporter/com = S.teleporter_console
-		if(com && com.target)
+		if(com?.target)
 			user.forceMove(get_turf(com.target))
 
 /obj/machinery/gateway/centerstation/attack_ghost(mob/user)

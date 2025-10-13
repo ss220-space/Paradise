@@ -130,7 +130,7 @@
 	if(!core)
 		return
 
-	if(syringes.len < max_syringes && prob(core.get_strength() / 5))
+	if(length(syringes) < max_syringes && prob(core.get_strength() / 5))
 		syringes.Add(new /obj/item/reagent_containers/syringe)
 		process_chamber()
 

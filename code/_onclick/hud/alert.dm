@@ -115,7 +115,6 @@
 
 /atom/movable/screen/alert/MouseExited()
 	closeToolTip(usr)
-	return ..()
 
 /atom/movable/screen/alert/proc/do_timeout(mob/M, category)
 	if(!M || !M.alerts)
@@ -765,7 +764,7 @@
 		return FALSE
 	var/icon_pref
 	if(!hud_shown)
-		for(var/i in 1 to alerts.len)
+		for(var/i in 1 to length(alerts))
 			mymob.client.screen -= alerts[alerts[i]]
 			for(var/mob/dead/observer/observe in mymob.inventory_observers)
 				if(!observe.client)
@@ -773,7 +772,7 @@
 					continue
 				observe.client.screen -= alerts[alerts[i]]
 		return TRUE
-	for(var/i in 1 to alerts.len)
+	for(var/i in 1 to length(alerts))
 		var/atom/movable/screen/alert/alert = alerts[alerts[i]]
 		if(alert.icon_state == "template")
 			if(!icon_pref)

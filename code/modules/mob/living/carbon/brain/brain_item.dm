@@ -57,7 +57,7 @@
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
-	if(brainmob && brainmob.client)//if there be a brain inside... the brain.
+	if(brainmob?.client)//if there be a brain inside... the brain.
 		. += "В нём ощущается мощная нейронная активность."
 		return
 	if(brainmob?.mind)

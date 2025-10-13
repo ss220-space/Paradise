@@ -38,7 +38,7 @@
 
 /obj/machinery/camera/proc/cancelAlarm()
 	if(detectTime == -1)
-		SSalarm.cancelAlarm("Motion", get_area(src), src)
+		GLOB.alarm_manager.cancel_alarm("Motion", get_area(src), src)
 	detectTime = 0
 	return TRUE
 
@@ -46,7 +46,7 @@
 	if(!detectTime)
 		return FALSE
 	if(status)
-		SSalarm.triggerAlarm("Motion", get_area(src), list(UID()), src)
+		GLOB.alarm_manager.trigger_alarm("Motion", get_area(src), list(UID()), src)
 		visible_message(span_warning("A red light flashes on the [src]!"))
 	detectTime = -1
 	return TRUE

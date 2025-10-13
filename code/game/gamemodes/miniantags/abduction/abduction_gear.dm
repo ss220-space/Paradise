@@ -290,11 +290,9 @@
 /obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
 	var/list/all_items = M.GetAllContents()
 
-	for(var/obj/I in all_items)
-		if(isradio(I))
-			var/obj/item/radio/R = I
-			R.listening = 0 // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
-			R.emp_act(1)
+	for(var/obj/item/radio/radio in all_items)
+		radio.set_listening(FALSE) // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
+		radio.emp_act(1)
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"
@@ -852,7 +850,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor/brute
 	name = "alien brute mender"
-	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления механических повреждений. Выполнено из прочного инопланетного материала."
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений. Выполнено из прочного инопланетного материала."
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/abductor/brute/get_ru_names()
@@ -867,7 +865,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor/burn
 	name = "alien burn mender"
-	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления термических повреждений. Выполнено из прочного инопланетного материала."
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений. Выполнено из прочного инопланетного материала."
 	base_icon = "alien_mender_burn"
 	list_reagents = list("silver_sulfadiazine" = 200)
 

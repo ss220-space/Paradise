@@ -103,7 +103,7 @@
 	jetpack_upgradable = TRUE
 
 	/// UI stuff ///
-	/// Флаги отвечающие за то - показываем мы или нет интерфейс заряда и концентрации ниндзя
+	/// Флаги отвечающие за то — показываем мы или нет интерфейс заряда и концентрации ниндзя
 	var/show_concentration_UI = TRUE
 	var/show_charge_UI = TRUE
 	/// Флаг отвечающий за то, можно ли сейчас купить ещё абилку.
@@ -181,8 +181,8 @@
 		"Успех.",
 		"Статус основных систем...	ONLINE",
 		"Статус резервных систем...	ONLINE",
-		"Текущий запас энергии: ",	//Кодом должно дописаться - сколько энергии
-		"Все системы в норме. Добро пожаловать в SpiderOS, ",//Кодом должно дописаться - имя пользователя костюма
+		"Текущий запас энергии: ",	//Кодом должно дописаться — сколько энергии
+		"Все системы в норме. Добро пожаловать в SpiderOS, ",//Кодом должно дописаться — имя пользователя костюма
 		)
 
 	// Сообщения при выключении костюма
@@ -662,7 +662,7 @@
 	current_initialisation_text = "[prev_has ? "Разблокировка" : "Блокировка"]: [ninja_clothing.name]... Успех"
 	playsound(ninja_clothing.loc, 'sound/items/piston.ogg', 10, TRUE)
 	sleep(10)
-//	to_chat(ninja_clothing.loc, "<span class='notice'>Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"].</span>")
+//	to_chat(ninja_clothing.loc, span_notice("Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"]."))
 
 //Необходимо дабы костюм "Защищал" от ЕМП взрывов(особенно от своих же) протезы/импланты игрока
 /proc/toggle_emp_proof(list/bodyparts, toggle_to)

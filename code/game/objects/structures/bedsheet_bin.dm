@@ -169,7 +169,7 @@ LINEN BINS
 	name = "medical blanket"
 	desc = "It's a sterilized* blanket commonly used in the Medbay.  *Sterilization is voided if a virologist is present onboard the station."
 	icon_state = "sheetmedical"
-	item_color = "medical"
+	item_state = "sheetmedical"
 	dream_messages = list("healing", "life", "surgery", "a doctor")
 	nightmare_messages = list("death", "no cryox", "cryo is off")
 
@@ -177,7 +177,7 @@ LINEN BINS
 	name = "chief medical officer's bedsheet"
 	desc = "It's a sterilized blanket that has a cross emblem.  There's some cat fur on it, likely from Runtime."
 	icon_state = "sheetcmo"
-	item_color = "cmo"
+	item_state = "sheetcmo"
 	dream_messages = list("authority", "a silvery ID", "healing", "life", "surgery", "a cat", "the chief medical officer")
 	nightmare_messages = list("chemists making meth", "cryo it off", "where is the defib", "no biomass")
 
@@ -270,11 +270,11 @@ LINEN BINS
 /obj/structure/bedsheetbin/examine(mob/user)
 	. = ..()
 	if(amount < 1)
-		. += "<span class='notice'>There are no bed sheets in the bin.</span>"
+		. += span_notice("There are no bed sheets in the bin.")
 	else if(amount == 1)
-		. += "<span class='notice'>There is one bed sheet in the bin.</span>"
+		. += span_notice("There is one bed sheet in the bin.")
 	else
-		. += "<span class='notice'>There are [amount] bed sheets in the bin.</span>"
+		. += span_notice("There are [amount] bed sheets in the bin.")
 
 /obj/structure/bedsheetbin/update_icon_state()
 	switch(amount)
@@ -325,8 +325,8 @@ LINEN BINS
 		amount--
 
 		var/obj/item/bedsheet/B
-		if(sheets.len > 0)
-			B = sheets[sheets.len]
+		if(length(sheets) > 0)
+			B = sheets[length(sheets)]
 			sheets.Remove(B)
 
 		else
@@ -334,11 +334,11 @@ LINEN BINS
 
 		B.forceMove_turf()
 		user.put_in_hands(B, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You take [B] out of [src].</span>")
+		to_chat(user, span_notice("You take [B] out of [src]."))
 
 		if(hidden)
 			hidden.forceMove_turf()
-			to_chat(user, "<span class='notice'>[hidden] falls out of [B]!</span>")
+			to_chat(user, span_notice("[hidden] falls out of [B]!"))
 			hidden = null
 
 
@@ -350,15 +350,15 @@ LINEN BINS
 		amount--
 
 		var/obj/item/bedsheet/B
-		if(sheets.len > 0)
-			B = sheets[sheets.len]
+		if(length(sheets) > 0)
+			B = sheets[length(sheets)]
 			sheets.Remove(B)
 
 		else
 			B = new /obj/item/bedsheet(loc)
 
 		B.loc = loc
-		to_chat(user, "<span class='notice'>You telekinetically remove [B] from [src].</span>")
+		to_chat(user, span_notice("You telekinetically remove [B] from [src]."))
 		update_icon(UPDATE_ICON_STATE)
 
 		if(hidden)

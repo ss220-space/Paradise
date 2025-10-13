@@ -440,17 +440,18 @@
 	#endif
 
 	if(movingmob)
-		movingmob.client_mobs_in_contents -= mob
-		UNSETEMPTY(movingmob.client_mobs_in_contents)
+		LAZYREMOVE(movingmob.client_mobs_in_contents, mob)
+		movingmob = null
 
 
 	SSambience.remove_ambience_client(src)
+	SSmouse_entered.hovers -= src
 	SSping.currentrun -= src
-	QDEL_LIST(parallax_layers_cached)
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
+	QDEL_LIST(parallax_layers_cached)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()
@@ -629,7 +630,7 @@
 
 	qdel(query_cid)
 
-	var/admin_rank = "Игрок"
+	var/admin_rank = PLAYER_RANK
 	if(holder)
 		admin_rank = holder.rank
 	// Admins don't get slammed by this, I guess
@@ -639,7 +640,7 @@
 
 
 	//Log all the alts
-	if(related_accounts_cid.len)
+	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] alts:[jointext(related_accounts_cid, " - ")]")
 
 
@@ -819,7 +820,7 @@
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.", confidential=TRUE)
 		return
-	if(prefs && prefs.fuid)
+	if(prefs?.fuid)
 		if(!fromban)
 			to_chat(src, "Your forum account is already set.", confidential=TRUE)
 		return
@@ -1280,7 +1281,7 @@
 		return
 	if(prefs)
 		prefs.load_preferences(usr)
-	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
+	if(prefs?.discord_id && length(prefs.discord_id) < 32)
 		to_chat(usr, chat_box_red(span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
@@ -1631,7 +1632,7 @@
 	if(byond_version >= 516)
 		return
 
-	var/choice = alert(src, "Внимание - Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
+	var/choice = alert(src, "Внимание — Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
 	ТГУИ уже не поддерживает Internet Explorer, а следовательно на 515 и ниже будет работать некорректно. \
 	Обновитесь, чтобы избежать проблем в будущем.", " Предупреждение о версии BYOND", "Обновиться сейчас", "Игнорировать")
 	if(choice != "Обновиться сейчас")

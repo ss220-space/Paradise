@@ -5,30 +5,30 @@
 \*======================================================================================================================================*/
 
 /// Max general organs vampire can get
-#define MAX_TROPHIES_PER_TYPE_GENERAL	10
+#define MAX_TROPHIES_PER_TYPE_GENERAL 10
 /// Max critical organs (lungs and heart) vampire can get
-#define MAX_TROPHIES_PER_TYPE_CRITICAL	6
+#define MAX_TROPHIES_PER_TYPE_CRITICAL 6
 
 /// Percent cap for different damage modifiers.
-#define TROPHIES_CAP_PROT_BRUTE			40
-#define TROPHIES_CAP_PROT_BURN			40
-#define TROPHIES_CAP_PROT_OXY			40
-#define TROPHIES_CAP_PROT_TOX			40
-#define TROPHIES_CAP_PROT_BRAIN			40
-#define TROPHIES_CAP_PROT_CLONE			40
-#define TROPHIES_CAP_PROT_STAMINA		40
+#define TROPHIES_CAP_PROT_BRUTE 40
+#define TROPHIES_CAP_PROT_BURN 40
+#define TROPHIES_CAP_PROT_OXY 40
+#define TROPHIES_CAP_PROT_TOX 40
+#define TROPHIES_CAP_PROT_BRAIN 40
+#define TROPHIES_CAP_PROT_CLONE 40
+#define TROPHIES_CAP_PROT_STAMINA 40
 
 /// Max blood cost reduce for spell.
-#define TROPHIES_CAP_BLOOD_REDUCE		20
+#define TROPHIES_CAP_BLOOD_REDUCE 20
 
 /// Amount of trophies required for certain passives.
-#define TROPHIES_EYES_FLASH				2
-#define TROPHIES_EYES_WELDING			4
-#define TROPHIES_EYES_XRAY				8
-#define TROPHIES_EARS_BANG_PROT			4
+#define TROPHIES_EYES_FLASH 2
+#define TROPHIES_EYES_WELDING 4
+#define TROPHIES_EYES_XRAY 8
+#define TROPHIES_EARS_BANG_PROT 4
 
 /// Suck rate increase per trophy.
-#define TROPHIES_SUCK_BONUS		0.2 SECONDS
+#define TROPHIES_SUCK_BONUS (0.2 SECONDS)
 
 
 /*======================================================================================================================================*\
@@ -224,11 +224,11 @@
 
 
 /datum/vampire_passive/eyes_welding_protection
-	gain_desc = "Ваши глаза напитались силой собранных трофеев - теперь они невосприимчивы к воздействию яркого света."
+	gain_desc = "Ваши глаза напитались силой собранных трофеев — теперь они невосприимчивы к воздействию яркого света."
 
 
 /datum/vampire_passive/upgraded_grab
-	gain_desc = "Ваши мышцы наполняются силой поглощённой крови - жертвам будет труднее вырваться из захвата."
+	gain_desc = "Ваши мышцы наполняются силой поглощённой крови — жертвам будет труднее вырваться из захвата."
 	/// Time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
 	var/grab_speed = 2 SECONDS
 	/// Resist chance overrides for the victim.
@@ -1112,7 +1112,7 @@
  * Transform - Bats
  */
 /obj/effect/proc_holder/spell/vampire/metamorphosis/bats
-	name = "Метаморфоза - Летучие мыши"
+	name = "Метаморфоза — Летучие мыши"
 	desc = "Превратитесь в рой злобных летучих мышей. Они умеют летать, наносят умеренный урон в ближнем бою и могут высасывать кровь при атаках."
 	gain_desc = "Вы получили возможность превращаться в рой летучих мышей. У них разные способности, в зависимости от трофеев."
 	action_icon_state = "bats_meta"
@@ -1125,7 +1125,7 @@
  * Transform - Hound
  */
 /obj/effect/proc_holder/spell/vampire/metamorphosis/hound
-	name = "Метаморфоза - Гончая"
+	name = "Метаморфоза — Гончая"
 	desc = "Превратитесь в страшную ищейку. Это проворные, яростные звери, во всем превосходящие человека."
 	gain_desc = "Вы обрели способность превращаться в кровавую гончую. Это высшая форма блюспейс-сущности, овладевшей вами."
 	action_icon_state = "blood_hound"
@@ -1928,6 +1928,7 @@
 	var/datum/antagonist/vampire/vampire
 	var/mob/living/carbon/human/human_vampire
 	var/obj/effect/proc_holder/spell/vampire/metamorphosis/parent_spell
+	hud_possible = list(HEALTH_HUD, STATUS_HUD, SPECIALROLE_HUD, THOUGHT_HUD, DIABLERIE_AURA_HUD)
 
 
 /mob/living/simple_animal/hostile/vampire/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)

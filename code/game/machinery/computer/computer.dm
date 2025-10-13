@@ -54,7 +54,7 @@
 	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
-		visible_message(span_danger("[src] grows dim, its screen barely readable."))
+		visible_message(span_danger("Экран [declent_ru(GENITIVE)] тускнеет, изображение становится едва видимым."))
 
 /obj/machinery/computer/MouseDrop_T(atom/dropping, mob/user, params)
 	. = ..()
@@ -175,19 +175,15 @@
 		if(circuit) //no circuit, no computer frame
 			if(stat & BROKEN)
 				if(user)
-					to_chat(user, span_notice("The broken glass falls out."))
-
+					to_chat(user, span_notice("Из рамки дисплея выпадает разбитое стекло."))
 				else
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
-
 				new /obj/item/shard(drop_location())
 				new /obj/item/shard(drop_location())
 				frame.state = 4
-
 			else
 				if(user)
-					to_chat(user, span_notice("You disconnect the monitor."))
-
+					balloon_alert(user, "монитор отключён")
 			frame.update_icon()
 
 		for(var/obj/C in src)

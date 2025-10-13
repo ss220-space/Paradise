@@ -352,7 +352,7 @@
 
 	if(dancefloor_exists)
 		dancefloor_exists = FALSE
-		for(var/i in 1 to dancefloor_turfs.len)
+		for(var/i in 1 to length(dancefloor_turfs))
 			var/turf/T = dancefloor_turfs[i]
 			T.ChangeTurf(dancefloor_turfs_types[i])
 	else
@@ -465,7 +465,7 @@
 	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
-		cooldown_handler.recharge_time = world.time + fail_cooldown
+		cooldown_handler.start_recharge(fail_cooldown)
 		return
 
 	make_shadow(human, devil)
@@ -475,7 +475,7 @@
 
 /obj/effect/proc_holder/spell/dark_conversion/proc/make_shadow(mob/living/carbon/human/human, datum/antagonist/devil/devil)
 	human.set_species(/datum/species/shadow)
-	var/text = "Вы – создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
+	var/text = "Вы — создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
 	human.store_memory(text, TRUE)
 	to_chat(human, chat_box_red(text))
 

@@ -352,13 +352,13 @@
 /obj/item/stack/proc/change_stack(mob/user, amount)
 	var/obj/item/stack/material = new type(user, amount, FALSE)
 	. = material
+	use(amount)
 	material.copy_evidences(src)
 	if(!user.put_in_hands(material, merge_stacks = FALSE))
 		material.forceMove(user.drop_location())
 	add_fingerprint(user)
 	material.add_fingerprint(user)
 	do_pickup_animation(user)
-	use(amount)
 	SStgui.update_uis(src)
 
 /**

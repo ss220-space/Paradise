@@ -458,28 +458,37 @@
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
+
 	if(N)
-		target.visible_message(	span_warning("[target]'s holy weapon absorbs the red light!"), \
-								span_userdanger("Your holy weapon absorbs the blinding light!"))
-	else
-		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
-		// These are in life cycles, so double the time that's stated.
-		L.Knockdown(3 SECONDS)
-		L.apply_damage(55, STAMINA)
-		if(!ismindshielded(L))
-			L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
-		L.flash_eyes(1, TRUE)
-		if(issilicon(target))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.Silence(10 SECONDS)
-			C.Stuttering(16 SECONDS)
-			C.CultSlur(20 SECONDS)
-			C.Jitter(16 SECONDS)
+		target.visible_message(span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"), \
+								span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"))
+		uses--
+		return ..()
+
+	if(ismindshielded(L))
+		target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"), \
+								span_userdanger("Ваш имплант блокирует ослепляющий свет!"))
+		return ..()
+
+	to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
+	// These are in life cycles, so double the time that's stated.
+	L.Knockdown(3 SECONDS)
+	L.apply_damage(55, STAMINA)
+	L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+	L.flash_eyes(1, TRUE)
+
+	if(issilicon(target))
+		var/mob/living/silicon/S = L
+		S.emp_act(EMP_HEAVY)
+	else if(iscarbon(target))
+		var/mob/living/carbon/C = L
+		C.Silence(10 SECONDS)
+		C.Stuttering(16 SECONDS)
+		C.CultSlur(20 SECONDS)
+		C.Jitter(16 SECONDS)
+
 	uses--
-	..()
+	return ..()
 
 
 //Teleportation
@@ -822,8 +831,10 @@
 						uses += 50
 						user.Beam(H, icon_state = "drainbeam", time = 10)
 						playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50)
-						H.visible_message(span_danger("[user] has drained some of [H]'s blood!"),
-											span_userdanger("[user] has drained some of your blood!"))
+						H.visible_message(
+							span_danger("[user] has drained some of [H]'s blood!"),
+							span_userdanger("[user] has drained some of your blood!")
+						)
 						to_chat(user, span_cultitalic("Your blood rite gains 50 charges from draining [H]'s blood."))
 						new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					else
@@ -840,13 +851,17 @@
 			if(missing)
 				if(uses > missing)
 					M.adjustHealth(-missing)
-					M.visible_message(span_warning("[M] is fully healed by [user]'s blood magic!"),
-										span_cultitalic("You are fully healed by [user]'s blood magic!"))
+					M.visible_message(
+						span_warning("[M] is fully healed by [user]'s blood magic!"),
+						span_cultitalic("You are fully healed by [user]'s blood magic!")
+					)
 					uses -= missing
 				else
 					M.adjustHealth(-uses)
-					M.visible_message(span_warning("[M] is partially healed by [user]'s blood magic!"),
-										span_cultitalic("You are partially healed by [user]'s blood magic."))
+					M.visible_message(
+						span_warning("[M] is partially healed by [user]'s blood magic!"),
+						span_cultitalic("You are partially healed by [user]'s blood magic.")
+					)
 					uses = 0
 				playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25)
 				user.Beam(M, icon_state = "sendbeam", time = 10)

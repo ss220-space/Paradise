@@ -253,7 +253,7 @@
 
 /datum/uplink_item/jobspecific/bipki
 	name = "Чемодан с бипками"
-	desc = "Хочешь знать, что там внутри? Отсосёшь - скажу."
+	desc = "Хочешь знать, что там внутри? Отсосёшь — скажу."
 	item = /obj/item/case_with_bipki
 	cost = 30
 	job = list(JOB_TITLE_CLOWN)
@@ -799,10 +799,10 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/smg
-	name = "Пистолет-пулемёт \"C-20r\""
+	name = "Пистолет-пулемёт \"C-20rm\""
 	desc = "Полностью заряженный пистолет-пулемёт, оснащённый магазином на 20 патронов .45 калибра. \
-			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 2 патрона. Совместим с глушителем."
-	item = /obj/item/gun/projectile/automatic/c20r
+			Имеет только автоматический режим огня. Совместим с глушителем."
+	item = /obj/item/gun/projectile/automatic/c20r/auto
 	cost = 70
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
@@ -1267,7 +1267,7 @@
 			Однако, чтобы освоить этот путь, вам придётся полностью отказаться от применения любого оружия дальнего боя. Обратите внимание, что техники этого \
 			искусства не будут эффективны, если вы зависимы от каких-либо препаратов. Недоступно для изучения генокрадам и вампирам."
 	item = /obj/item/sleeping_carp_scroll
-	cost = 80
+	cost = 55
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 	refundable = TRUE
@@ -1460,7 +1460,7 @@
 			который телепортирует бомбу к вам при активации. Бомбу можно прикрутить к полу гаечным ключом. После того как таймер будет запущен, \
 			она начнёт издавать громкий звук, который будет усиливаться по мере приближения взрыва. Если бомбу обнаружат вовремя, её можно будет обезвредить. \
 			Взрыв нанесёт серьёзный ущерб окружению."
-	item = /obj/item/radio/beacon/syndicate/bomb
+	item = /obj/item/beacon/syndicate/bomb
 	cost = 40
 	surplus = 0
 	can_discount = FALSE
@@ -1479,7 +1479,7 @@
 			который телепортирует бомбу к вам при активации. Бомбу можно прикрутить к полу гаечным ключом. После того как таймер будет запущен, \
 			она начнёт издавать громкий звук, который будет усиливаться по мере приближения взрыва. Если бомбу обнаружат вовремя, её можно будет обезвредить. \
 			На 2-3 минуты все электронные устройства в радиусе 36 тайлов будут полностью отключены."
-	item = /obj/item/radio/beacon/syndicate/bomb/emp
+	item = /obj/item/beacon/syndicate/bomb/emp
 	cost = 40
 	surplus = 0
 	can_discount = FALSE
@@ -1944,7 +1944,7 @@
 	name = "Силовой маяк"
 	desc = "Устройство, притягивающее к себе сингулярность и тесла-шар после того, как они покинут зону содержания. \
 			Чтобы его подключить, необходимо установить его на узел и закрепить с помощью отвёртки, а затем включить."
-	item = /obj/item/radio/beacon/syndicate
+	item = /obj/item/beacon/syndicate
 	cost = 30
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
@@ -2028,6 +2028,8 @@
 	desc = "Инъектор с запрещённым стимулятором. После его применения гуманоид становится невосприимчивым к оглушению и значительно повышает свои способности к восстановлению."
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 28
+	surplus = 0
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /**
@@ -2362,7 +2364,7 @@
 /datum/uplink_item/bundles_TC/badass
 	name = "Набор Синдиката"
 	desc = "Предлагает вам выбрать один из трёх наборов или получить случайный набор. Общая стоимость предметов в наборах превышает 100 телекристаллов."
-	item = /obj/item/radio/beacon/syndicate/bundle
+	item = /obj/item/beacon/syndicate/bundle
 	cost = 100
 	refundable = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -2391,7 +2393,7 @@
 	target_uplink.used_TC = cost
 
 
-	while(remaining_TC && buyable_items.len)
+	while(remaining_TC && length(buyable_items))
 		var/datum/uplink_item/chosen_item = pick(buyable_items)
 		if(!chosen_item.surplus || prob(100 - chosen_item.surplus))
 			continue
@@ -2403,10 +2405,10 @@
 		remaining_TC -= chosen_item.cost
 		itemlog += chosen_item.name // To make the name more readable for the log compared to just i.item
 
-	target_uplink.purchase_log += "<BIG>[bicon(crate)]</BIG>"
+	target_uplink.purchase_log += "<big>[bicon(crate)]</big>"
 	for(var/bought_item in bought_items)
 		var/obj/purchased = new bought_item(crate)
-		target_uplink.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
+		target_uplink.purchase_log += "<big>[bicon(purchased)]</big>"
 	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", buyer)
 
 /datum/uplink_item/bundles_TC/telecrystal

@@ -72,7 +72,7 @@
 
 /datum/objective/sintouched/pride
 	antag_menu_name = "Гордыня"
-	explanation_text = "Вы - лучшее, что есть на станции. Убедитесь, что все это знают."
+	explanation_text = "Вы — лучшее, что есть на станции. Убедитесь, что все это знают."
 
 /datum/objective/sintouched/pride/on_apply()
 	user.physiology.brute_mod *= 0.9

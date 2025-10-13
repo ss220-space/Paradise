@@ -101,12 +101,12 @@
 		if(block)
 			if(GetState() && block == GLOB.monkeyblock)
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] [span_warning("(MONKEY)")]")
 
 		else
 			if(GetState(GLOB.monkeyblock))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] [span_warning("(MONKEY)")]")
 
 	if(target != user)
 		target.visible_message(

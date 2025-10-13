@@ -160,6 +160,8 @@
 	var/datum/action/innate/mecha/mech_strafe/strafe_action = new
 	var/list/module_actions = list()
 
+	var/ratvarized = FALSE
+
 /obj/mecha/Initialize(mapload)
 	. = ..()
 	ui_view = new()
@@ -179,7 +181,7 @@
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+		diag_hud.add_atom_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
@@ -188,6 +190,7 @@
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
+	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
 
@@ -237,13 +240,13 @@
 			. += span_notice("Он тяжело повреждён.")
 		else
 			. += span_warning("Он вот-вот развалится.")
-	if(equipment && equipment.len)
+	if(equipment && length(equipment))
 		. += span_notice("Он экипирован следующими модулями:")
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
 			. += span_notice("[bicon(ME)] [ME]")
 
 /obj/mecha/hear_talk(mob/M, list/message_pieces)
-	if(M == occupant && radio.broadcasting)
+	if(M == occupant && radio.get_broadcasting())
 		radio.talk_into(M, message_pieces)
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
@@ -966,6 +969,9 @@
 			return ..()
 		user.visible_message(span_notice("[user] opens [paintkit] and spends some quality time customising [name]."))
 
+		if(ratvarized)
+			return ATTACK_CHAIN_PROCEED
+
 		var/list/icon_states = paintkit.icon_states
 		var/transformed_mech_type = "[mech_type]"
 		if(transformed_mech_type in icon_states)
@@ -1346,7 +1352,9 @@
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("You can't enter the exosuit with other creatures attached to you!"))
 		return TRUE
-
+	if(ratvarized && !isclocker(user))
+		balloon_alert(user, "запечатано!")
+		return TRUE
 	visible_message(span_notice("[user] starts to climb into [src]"))
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
 	return TRUE
@@ -1369,7 +1377,7 @@
 
 
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
-	if(H && H.client && (H in range(1)))
+	if(H?.client && (H in range(1)))
 		occupant = H
 		H.forceMove(src)
 		add_fingerprint(H)
@@ -1491,7 +1499,7 @@
 			occupant_message(span_notice("Вы перестаёте удерживать [H.holding]."))
 			H.stop_supressing(H.holding)
 
-	if(occupant && occupant.client)
+	if(occupant?.client)
 		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
 
 	if(ishuman(occupant))
@@ -1557,7 +1565,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
 
-	if(L && L.client)
+	if(L?.client)
 		ASYNC
 			L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
@@ -1840,7 +1848,6 @@
 	var/init_icon_state = initial_icon ? initial_icon : initial(icon_state)
 	icon_state = occupant ? init_icon_state : "[init_icon_state]-open"
 
-
 /obj/mecha/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 
@@ -1856,5 +1863,44 @@
 	phasing_action.button_icon_state = "mech_phasing_off"
 	phasing_action.UpdateButtonIcon()
 
+/// tries to repair any internal damage and plays fluff for it
+/obj/mecha/proc/try_repair_int_damage(mob/user, flag_to_heal)
+	balloon_alert(user, "ремонт...")
+	if(!do_after(user, 10 SECONDS, src))
+		balloon_alert(user, "не удалось")
+		return
+	clear_internal_damage(flag_to_heal)
+	balloon_alert(user, "успех")
+
+/obj/mecha/proc/clear_internal_damage(int_dam_flag)
+	if(internal_damage & int_dam_flag)
+		switch(int_dam_flag)
+			if(MECHA_INT_TEMP_CONTROL)
+				occupant_message(span_boldnotice("Системы жизнеобеспечения перезапущены."))
+			if(MECHA_INT_FIRE)
+				occupant_message(span_boldnotice("Внутренний пожар успешно потушен."))
+			if(MECHA_INT_TANK_BREACH)
+				occupant_message(span_boldnotice("Повреждения баллона устранены."))
+			if(MECHA_INT_CONTROL_LOST)
+				occupant_message(span_boldnotice("Контроллер движений восстановлен."))
+			if(MECHA_INT_SHORT_CIRCUIT)
+				occupant_message(span_boldnotice("Короткое замыкание устранено."))
+	internal_damage &= ~int_dam_flag
+	diag_hud_set_mechstat()
+/obj/mecha/ratvar_act(convert_mecha)
+	if(!convert_mecha)
+		return
+	if(ratvarized)
+		repair_damage(max_integrity / 2)
+		return
+	ratvar_convert()
+
+/obj/mecha/proc/ratvar_convert()
+	for(var/rat_mecha in GLOB.ratvar_mechas)
+		var/datum/ratvar_mecha/converter = new rat_mecha
+		if(mech_type in converter.mech_types)
+			converter.convert(src)
+			visible_message(span_clocklarge("[capitalize(declent_ru(NOMINATIVE))] начинает громко грохотать, его механизмы заменяются шестернями!"))
+		QDEL_NULL(converter)
 
 #undef OCCUPANT_LOGGING

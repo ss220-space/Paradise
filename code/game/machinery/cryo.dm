@@ -1,5 +1,5 @@
-#define AUTO_EJECT_DEAD		(1<<0)
-#define AUTO_EJECT_HEALTHY	(1<<1)
+#define AUTO_EJECT_DEAD (1<<0)
+#define AUTO_EJECT_HEALTHY (1<<1)
 #define OCCUPANT_PIXEL_BOUNCE_HIGH 28
 #define OCCUPANT_PIXEL_BOUNCE_LOW 22
 
@@ -274,7 +274,7 @@
 	data["beakerVolume"] = 0
 	if(beaker)
 		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
-		if(beaker.reagents && beaker.reagents.reagent_list.len)
+		if(beaker.reagents && length(beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 

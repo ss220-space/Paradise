@@ -255,7 +255,7 @@
 	if(falloff)
 		max_dist = min((temp - (T0C + 60)) / falloff, radius)
 	open[Ce] = 0
-	while(open.len)
+	while(length(open))
 		var/turf/T = open[1]
 		var/dist = open[T]
 		open -= T
@@ -341,6 +341,6 @@
 			if(capped)
 				chance = min(chance, 30)
 			if(prob(chance) || bypass_rng)
-				T.visible_message("<span class='warning'>[T] melts!</span>")
+				T.visible_message(span_warning("[T] melts!"))
 				T.burn_down()
 	return affected

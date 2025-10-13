@@ -23,7 +23,7 @@
 			continue
 		if(jobmask != "*")
 			var/list/allowed_jobs = splittext(jobmask,",")
-			for(var/i = 1, i <= allowed_jobs.len, i++)
+			for(var/i = 1, i <= length(allowed_jobs), i++)
 				if(istext(allowed_jobs[i]))
 					allowed_jobs[i] = trim(allowed_jobs[i])
 			var/alt_blocked = 0
@@ -52,13 +52,13 @@
 				break
 		else if(isstorage(M.back)) // Try to place it in something on the mob's back
 			var/obj/item/storage/S = M.back
-			if(S.contents.len < S.storage_slots)
+			if(length(S.contents) < S.storage_slots)
 				Item.loc = M.back
 				ok = 1
 				to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [M.back.name].</span>")
 		if(ok == 0)
 			for(var/obj/item/storage/S in M.contents) // Try to place it in any item that can store stuff, on the mob.
-				if(S.contents.len < S.storage_slots)
+				if(length(S.contents) < S.storage_slots)
 					Item.loc = S
 					ok = 1
 					to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [S.name].</span>")
@@ -78,7 +78,7 @@
 // This is hacky, but since it's difficult as fuck to make a proper parser in BYOND without killing the server, here it is. - N3X
 /proc/HackProperties(mob/living/carbon/human/M, obj/item/I, script)
 	var/list/statements = splittext(script,";")
-	if(statements.len == 0)
+	if(length(statements) == 0)
 		return
 	for(var/statement in statements)
 		var/list/assignmentChunks = splittext(statement,"=")

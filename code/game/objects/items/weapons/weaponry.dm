@@ -453,7 +453,7 @@
 	if(!(isertmindshielded(user)))
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
-		to_chat(user, span_cultlarge("\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\""))
+		to_chat(user, span_cultlarge("\"Это — оружие истинного правосудия. Тебе не дано обуздать его мощь.\""))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))

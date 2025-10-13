@@ -153,7 +153,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	while(!pickedName)
 		pickedName = pick(GLOB.ai_names)
 		for(var/mob/living/silicon/ai/A in GLOB.mob_list)
-			if(A.real_name == pickedName && possibleNames.len > 1) //fixing the theoretically possible infinite loop
+			if(A.real_name == pickedName && length(possibleNames) > 1) //fixing the theoretically possible infinite loop
 				possibleNames -= pickedName
 				pickedName = null
 
@@ -245,11 +245,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "For department channels, use the following say commands:")
 
 	var/radio_text = ""
-	for(var/i = 1 to common_radio.channels.len)
+	for(var/i = 1 to length(common_radio.channels))
 		var/channel = common_radio.channels[i]
 		var/key = get_radio_key_from_channel(channel)
 		radio_text += "[key] - [channel]"
-		if(i != common_radio.channels.len)
+		if(i != length(common_radio.channels))
 			radio_text += ", "
 
 	to_chat(src, radio_text)
@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list()
 	dat += "<a href='byond://?src=[UID()];mach_close=aialerts'>Close</a><br><br>"
-	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
@@ -296,10 +296,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 					dat += "-- [area_name] ([(dat2 != "") ? dat2 : "No Camera"])"
 				else
 					dat += "-- [area_name] (No Camera)"
-				if(sources.len > 1)
-					dat += "- [sources.len] sources"
+				if(length(sources) > 1)
+					dat += "- [length(sources)] sources"
 				dat += "</nobr><br>\n"
-		if(!L.len)
+		if(!length(L))
 			dat += "-- All Systems Nominal<br>\n"
 		dat += "<br>\n"
 
@@ -397,10 +397,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		for(var/line in lines)
 		// split & clean up
 			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
+			for(var/i = 1 to length(Entry))
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 2 || Entry[1] != "ai")			//ignore incorrectly formatted entries or entries that aren't marked for AI
+			if(length(Entry) < 2 || Entry[1] != "ai")			//ignore incorrectly formatted entries or entries that aren't marked for AI
 				continue
 
 			if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
@@ -887,9 +887,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	for(var/mob/living/simple_animal/bot/Bot in GLOB.bots_list)
 		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
-			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
+			d += "<tr><td width='30%'>[Bot.hacked ? "[span_bad("(!) ")][Bot.name]" : Bot.name] ([Bot.model])</td>"
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
-			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? "<span class='average'>[ Bot.mode_name[Bot.mode] ]</span>": "<span class='good'>Idle</span>"]" : "<span class='bad'>Inactive</span>"]</td>"
+			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? span_average("[ Bot.mode_name[Bot.mode] ]"): span_good("Idle")]" : span_bad("Inactive")]</td>"
 			d += "<td width='30%'>[bot_area.name]</td>"
 			d += "<td width='10%'><a href='byond://?src=[UID()];interface=\ref[Bot]'>Interface</a></td>"
 			d += "<td width='10%'><a href='byond://?src=[UID()];callbot=\ref[Bot]'>Call</a></td>"
@@ -930,9 +930,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return TRUE
 	if(O)
 		var/obj/machinery/camera/C = locateUID(O[1])
-		if(O.len == 1 && !QDELETED(C) && C.can_use())
+		if(length(O) == 1 && !QDELETED(C) && C.can_use())
 			queueAlarm("--- [class] alarm detected in [A.name]! (<a href='byond://?src=[UID()];switchcamera=[O[1]]'>[C.c_tag]</a>)", class)
-		else if(O && O.len)
+		else if(O && length(O))
 			var/foo = 0
 			var/dat2 = ""
 			for(var/thing in O)
@@ -998,7 +998,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			continue
 
 		var/list/tempnetwork = difflist(C.network,GLOB.restricted_camera_networks,1)
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
@@ -1075,10 +1075,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		for(var/line in lines)
 		// split & clean up
 			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
+			for(var/i = 1 to length(Entry))
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 2 || Entry[1] != "hologram")
+			if(length(Entry) < 2 || Entry[1] != "hologram")
 				continue
 
 			if(Entry[2] == ckey) //Custom holograms
@@ -1092,7 +1092,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
-			if(personnel_list.len)
+			if(length(personnel_list))
 				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
@@ -1362,7 +1362,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRadio.disabledAi = TRUE	//No talking on the built-in radio for you either!
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
-		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
+		to_chat(user, "[span_boldnotice("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
 /mob/living/silicon/ai/can_perform_action(atom/target, action_bitflags)
 	if(control_disabled)
@@ -1399,7 +1399,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
-	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
+	var/rendered = span_gamesay("<i>Relayed Speech: [span_name("[name_used]")] [message]</i>")
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 		create_chat_message(M, message_clean, list("radio"))
 	show_message(rendered, 2)

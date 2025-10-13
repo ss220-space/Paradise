@@ -25,7 +25,7 @@
 	for(var/obj/effect/proc_holder/spell/aspell as anything in user.mind.spell_list)
 		if(initial(newspell.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
 			if(aspell.spell_level >= aspell.level_max)
-				to_chat(user, "<span class='warning'>This spell cannot be improved further.</span>")
+				to_chat(user, span_warning("This spell cannot be improved further."))
 				return FALSE
 			else
 				aspell.name = initial(aspell.name)
@@ -33,25 +33,25 @@
 				aspell.cooldown_handler.recharge_duration = round(aspell.base_cooldown - aspell.spell_level * (aspell.base_cooldown - aspell.cooldown_min) / aspell.level_max)
 				switch(aspell.spell_level)
 					if(1)
-						to_chat(user, "<span class='notice'>You have improved [aspell.name] into Efficient [aspell.name].</span>")
+						to_chat(user, span_notice("You have improved [aspell.name] into Efficient [aspell.name]."))
 						aspell.name = "Efficient [aspell.name]"
 					if(2)
-						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Quickened [aspell.name].</span>")
+						to_chat(user, span_notice("You have further improved [aspell.name] into Quickened [aspell.name]."))
 						aspell.name = "Quickened [aspell.name]"
 					if(3)
-						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Free [aspell.name].</span>")
+						to_chat(user, span_notice("You have further improved [aspell.name] into Free [aspell.name]."))
 						aspell.name = "Free [aspell.name]"
 					if(4)
-						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Instant [aspell.name].</span>")
+						to_chat(user, span_notice("You have further improved [aspell.name] into Instant [aspell.name]."))
 						aspell.name = "Instant [aspell.name]"
 				if(aspell.spell_level >= aspell.level_max)
-					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
+					to_chat(user, span_notice("This spell cannot be strengthened any further."))
 				aspell.on_purchase_upgrade()
 				return TRUE
 	//No same spell found - just learn it
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	user.mind.AddSpell(newspell)
-	to_chat(user, "<span class='notice'>You have learned [newspell.name].</span>")
+	to_chat(user, span_notice("You have learned [newspell.name]."))
 	return TRUE
 
 /datum/spellbook_entry/proc/CanRefund(mob/living/carbon/human/user, obj/item/spellbook/book)
@@ -67,7 +67,7 @@
 /datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book) //return point value or -1 for failure
 	var/area/wizard_station/A = locate()
 	if(!(user in A.contents))
-		to_chat(user, "<span class='warning'>You can only refund spells at the wizard lair.</span>")
+		to_chat(user, span_warning("You can only refund spells at the wizard lair."))
 		return -1
 	if(!S) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
 		S = new spell_type()
@@ -240,13 +240,13 @@
 	category = "Defensive"
 
 /datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
-	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
+	to_chat(user, span_notice("You feel fireproof."))
 	ADD_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
 /datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
-	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
+	to_chat(user, span_warning("You no longer feel fireproof."))
 	REMOVE_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
@@ -359,7 +359,7 @@
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	new /datum/event/wizard/ghost()
 	active = TRUE
-	to_chat(user, "<span class='notice'>You have cast summon ghosts!</span>")
+	to_chat(user, span_notice("You have cast summon ghosts!"))
 	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, TRUE)
 	return TRUE
 
@@ -373,7 +373,7 @@
 	rightandwrong(SUMMON_GUNS, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
-	to_chat(user, "<span class='notice'>You have cast summon guns!</span>")
+	to_chat(user, span_notice("You have cast summon guns!"))
 	return TRUE
 
 /datum/spellbook_entry/summon/magic
@@ -386,7 +386,7 @@
 	rightandwrong(SUMMON_MAGIC, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
-	to_chat(user, "<span class='notice'>You have cast summon magic!</span>")
+	to_chat(user, span_notice("You have cast summon magic!"))
 	return TRUE
 
 //Main category - Magical Items
@@ -708,13 +708,13 @@
 		var/response = tgui_alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
 		if(response != "Yes")
 			return FALSE
-		to_chat(user, "<span class='notice'>[book] crumbles to ashes as you acquire its knowledge.</span>")
+		to_chat(user, span_notice("[book] crumbles to ashes as you acquire its knowledge."))
 		qdel(book)
-	else if(items_path.len)
+	else if(length(items_path))
 		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
 		if(response != "Yes")
 			return FALSE
-	if(items_path.len)
+	if(length(items_path))
 		var/obj/item/storage/box/wizard/B = new(src)
 		for(var/path in items_path)
 			new path(B)
@@ -899,11 +899,11 @@
 
 /obj/item/spellbook/attack_self(mob/user as mob)
 	if(!owner)
-		to_chat(user, "<span class='notice'>You bind the spellbook to yourself.</span>")
+		to_chat(user, span_notice("You bind the spellbook to yourself."))
 		owner = user
 		return
 	if(user != owner)
-		to_chat(user, "<span class='warning'>The [name] does not recognize you as it's owner and refuses to open!</span>")
+		to_chat(user, span_warning("The [name] does not recognize you as it's owner and refuses to open!"))
 		return
 	user.set_machine(src)
 	var/dat = ""
@@ -935,7 +935,7 @@
 	dat += "</ul>"
 
 	var/datum/spellbook_entry/E
-	for(var/i=1,i<=entries.len,i++)
+	for(var/i=1,i<=length(entries),i++)
 		var/spell_info = ""
 		E = entries[i]
 		spell_info += E.GetInfo()
@@ -986,7 +986,7 @@
 					uses -= E.cost
 		else if(href_list["refund"])
 			E = entries[text2num(href_list["refund"])]
-			if(E && E.refundable)
+			if(E?.refundable)
 				var/result = E.Refund(H,src)
 				if(result > 0)
 					if(!isnull(E.limit))

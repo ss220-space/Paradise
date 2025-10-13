@@ -25,7 +25,7 @@
 
 // user = who operates on target. Optional for fail_message, can be null(silent check)
 // target = the carbon we're testing for suitability
-// fail_message = message that user will recieve if the checks failed. FALSE make it quiet even with "user"
+// fail_message = message that user will receive if the checks failed. FALSE make it quiet even with "user"
 /obj/item/organ/internal/proc/can_insert(mob/living/user, mob/living/carbon/target, fail_message = "Данное существо не способно принять этот орган!")
 	if(!LAZYLEN(species_restrictions))
 		return TRUE
@@ -364,10 +364,10 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_ground(H.shoes))
-					SSmove_manager.move_away(thingy, H, 15, 2)
+					GLOB.move_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							SSmove_manager.stop_looping(thingy)
+							GLOB.move_manager.stop_looping(thingy)
 
 
 /obj/item/organ/internal/honktumor/cursed

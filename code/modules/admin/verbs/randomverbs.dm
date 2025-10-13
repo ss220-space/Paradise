@@ -376,7 +376,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(G_found.mind.assigned_role=="Alien")
 			if(tgui_alert(usr, "This character appears to have been an alien. Would you like to respawn them as such?",, list("Yes", "No")) == "Yes")
 				var/turf/T
-				if(GLOB.xeno_spawn.len)	T = pick(GLOB.xeno_spawn)
+				if(length(GLOB.xeno_spawn))	T = pick(GLOB.xeno_spawn)
 				else				T = pick(GLOB.latejoin)
 
 				var/mob/living/carbon/alien/new_xeno
@@ -524,14 +524,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(M.client.is_afk())	continue	//we are afk
 			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)	continue	//we have a live body we are tied to
 			candidates += M.ckey
-		if(candidates.len)
+		if(length(candidates))
 			ckey = tgui_input_list(usr, "Pick the player you want to respawn as a xeno.", "Suitable Candidates", candidates)
 		else
 			to_chat(usr, "<span style='color: red;'>Error: create_xeno(): no suitable candidates.</span>", confidential=TRUE)
 	if(!istext(ckey))	return 0
 
 	var/alien_caste = tgui_input_list(usr, "Please choose which caste to spawn.", "Pick a caste", list("Queen", "Hunter", "Sentinel", "Drone", "Larva"), null)
-	var/obj/effect/landmark/spawn_here = GLOB.xeno_spawn.len ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
+	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)
 		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
@@ -621,6 +621,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 	offer_control(M)
 
+#define CUSTOM_MESSAGE_TYPE "Свой тип."
 /client/proc/cmd_admin_create_centcom_report()
 	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Create Communications Report"
@@ -628,52 +629,56 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-//the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление Нанотрейзен.",
+	//the stuff on the list is |"report type" = "report title"|, if that makes any sense
+	var/list/message_type = list(
+		"Сообщение Центрального командования." = "Обновление Нанотрейзен.",
 		"Официальное сообщение Синдиката." = "Сообщение Синдиката.",
 		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
 		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",
 		"Вражеское сообщение." = "Неизвестное сообщение.",
-		"Свой тип." = "Загадочное сообщение.")
+		CUSTOM_MESSAGE_TYPE = "Загадочное сообщение."
+	)
 
-	var/list/MsgSound = list("Уведомление *бип*" = 'sound/misc/notice2.ogg',
+	var/list/message_sound = list(
+		"Уведомление *бип*" = 'sound/misc/notice2.ogg',
 		"Перехвачены вражеские сообщения" = 'sound/AI/intercept.ogg',
-		"Составлен отчёт о новой команде" = 'sound/AI/commandreport.ogg')
+		"Составлен отчёт о новой команде" = 'sound/AI/commandreport.ogg'
+	)
 
-	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", MsgType, "")
+	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", message_type, "")
 
-	if(type == "Свой тип")
+	if(type == CUSTOM_MESSAGE_TYPE)
 		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
 
-	var/subtitle = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type], encode = FALSE)
+	var/subtitle = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", message_type[type], encode = FALSE)
 	if(!subtitle)
 		return
-	var/message = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
-	if(!message)
+	var/input_message = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
+	if(!input_message)
 		return
 
-	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да","Нет", "Отмена")))
+	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да", "Нет", "Отмена")))
 		if("Да")
-			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", MsgSound)
-
+			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", message_sound)
 			GLOB.major_announcement.announce(
-				message,
+				message = input_message,
 				new_title = type,
 				new_subtitle = subtitle,
-				new_sound = MsgSound[beepsound]
+				new_sound = message_sound[beepsound]
 			)
-			print_command_report(message, subtitle)
+			print_command_report(input_message, subtitle)
 		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.")
-			print_command_report(message, "Секретно: [subtitle]")
+			GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.", HEADSET_FREQ_NAME)
+			print_command_report(input_message, "Секретно: [subtitle]")
 		else
 			return
 
-	log_admin("[key_name(src)] has created a communications report: [message]")
+	log_admin("[key_name(src)] has created a communications report: [input_message]")
 	message_admins("[key_name_admin(src)] has created a communications report")
 	BLACKBOX_LOG_ADMIN_VERB("Create Comms Report")
 
+#undef CUSTOM_MESSAGE_TYPE
 
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view(maxview()))
 	set name = "\[Admin\] Delete"
@@ -992,7 +997,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	if(SSticker && SSticker.mode)
+	if(SSticker?.mode)
 		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!", confidential=TRUE)
 		return
 

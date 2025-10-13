@@ -307,7 +307,7 @@
 		if(prob(probtocheck))
 			result = TRUE
 			return from[counter+1]
-		if(counter + 2 < from.len)
+		if(counter + 2 < length(from))
 			counter = counter + 2
 		else
 			counter = 1
@@ -594,7 +594,7 @@
 			for(var/atom/movable/AM in oview(7,src))
 				if(!AM.anchored)
 					throwAt.Add(AM)
-			for(var/counter = 1, counter < throwAt.len, ++counter)
+			for(var/counter = 1, counter < length(throwAt), ++counter)
 				var/atom/movable/cast = throwAt[counter]
 				spawn(0)
 					cast.throw_at(pick(throwAt),10,1)
@@ -730,7 +730,7 @@
 		experiment(dotype,process)
 		use_power(750)
 		if(dotype != FAIL)
-			if(process && process.origin_tech)
+			if(process?.origin_tech)
 				var/list/temp_tech = ConvertReqString2List(process.origin_tech)
 				var/tech_log
 				for(var/T in temp_tech)
@@ -881,6 +881,8 @@
 	icon_state = "shock_kit"
 	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	var/realName = "defined object"
 	var/revealed = FALSE
 	var/realProc

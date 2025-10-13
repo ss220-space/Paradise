@@ -32,7 +32,7 @@
 	desc = "Коробка, содержащая 2 клинка богомола."
 	max_w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/box/syndie_kit/mantisblad/get_ru_names()
+/obj/item/storage/box/syndie_kit/mantisblade/get_ru_names()
 	return list(
 		NOMINATIVE = "набор клинков богомола",
 		GENITIVE = "набора клинков богомола",
@@ -537,7 +537,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 <font size = "4">1. Возьмите Cyborg Analyzer, проведите им по роботу.<br>
 2. Запомните сломанные компоненты, которые вывел Cyborg Analyzer.<br>
-3. Если робот закрыт (будет визуально заметно), то попросите его открыться. Если он уничтожен - проведите ЕМАГом для открытия.<br>
+3. Если робот закрыт (будет визуально заметно), то попросите его открыться. Если он уничтожен — проведите ЕМАГом для открытия.<br>
 4. Монтировкой откройте крышку робота.<br>
 5. Руками вытащите батарейку у робота.<br>
 6. Монтировкой снимите сломанные компоненты из пункта 2.<br>

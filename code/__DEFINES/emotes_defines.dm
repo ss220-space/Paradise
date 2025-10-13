@@ -17,6 +17,18 @@
 /// This emote uses the mouth, and so should be blocked if the user is muzzled or can't breathe (for humans).
 #define EMOTE_MOUTH (1<<4)
 
+// Used in visible_message_flags, audible_message_flags and runechat_flags
+/// Automatically applies emote related spans/fonts/formatting to the message
+#define EMOTE_MESSAGE (1<<0)
+/// By default, self_message will respect the visual / audible component of the message.
+/// Meaning that if the message is visual, and sourced from a blind mob, they will not see it.
+/// This flag skips that behavior, and will always show the self message to the mob.
+#define ALWAYS_SHOW_SELF_MESSAGE (1<<1)
+/// Applies emphasis formatting to the message.
+#define WITH_EMPHASIS_MESSAGE (1<<2)
+/// Blocks chat highlighting from being applied to the message sent to the self.
+#define BLOCK_SELF_HIGHLIGHT_MESSAGE (1<<3)
+
 // User audio cooldown system.
 // This is a value stored on the user and represents their current ability to perform audio emotes.
 

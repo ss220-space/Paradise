@@ -1,8 +1,8 @@
-#define FRIGID		80
-#define COOL		290
-#define NORMAL		310
-#define WARM		330
-#define SCALDING	500
+#define FRIGID 80
+#define COOL 290
+#define NORMAL 310
+#define WARM 330
+#define SCALDING 500
 
 /obj/machinery/poolcontroller
 	name = "Pool Controller"
@@ -151,7 +151,7 @@
 
 
 /obj/machinery/poolcontroller/proc/miston() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles
-	if(linkedmist.len)
+	if(length(linkedmist))
 		return
 
 	for(var/turf/simulated/floor/beach/water/W in linkedturfs)

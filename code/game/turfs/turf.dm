@@ -77,6 +77,10 @@
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
+	
 	var/pressure_difference = 0
 	var/pressure_direction = 0
 	var/list/atmos_adjacent_turfs = list()
@@ -111,7 +115,7 @@
 
 	levelupdate()
 	if(smooth)
-		queue_smooth(src)
+		QUEUE_SMOOTH(src)
 
 	for(var/atom/movable/content as anything in src)
 		Entered(content)

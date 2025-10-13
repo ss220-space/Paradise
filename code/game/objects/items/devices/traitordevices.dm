@@ -464,8 +464,8 @@ effective or pretty fucking useless.
 	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
 
 
-#define ION_CALLER_AI_TARGETING		"AI targeting"
-#define ION_CALLER_COMMS_TARGETING	"Telecomms targeting"
+#define ION_CALLER_AI_TARGETING "AI targeting"
+#define ION_CALLER_COMMS_TARGETING "Telecomms targeting"
 
 /obj/item/ion_caller
 	name = "low-orbit ion cannon remote"
@@ -552,7 +552,7 @@ effective or pretty fucking useless.
 	if(usability_check(area_check = FALSE, satellite_check = ION_CALLER_COMMS_TARGETING, silent = TRUE))
 		choices[ION_CALLER_COMMS_TARGETING] = mutable_appearance(icon = src.icon, icon_state = "ISD_tele_prev")
 
-	if(choices.len <= 1)
+	if(length(choices) <= 1)
 		to_chat(user, span_notice("It is not ready to be used yet."))
 		return
 

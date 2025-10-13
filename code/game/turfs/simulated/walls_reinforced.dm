@@ -77,7 +77,7 @@
 			return .
 		d_state = RWALL_INTACT
 		update_icon()
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		to_chat(user, span_notice("You repair the last of the damage."))
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -95,7 +95,7 @@
 		to_chat(user, span_notice("You add an additional layer of coating to the wall."))
 		ChangeTurf(/turf/simulated/wall/r_wall/coated)
 		update_icon()
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		can_be_reinforced = FALSE
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
@@ -267,7 +267,7 @@
 		clear_smooth_overlays()
 	else
 		smooth = SMOOTH_BITMASK
-		queue_smooth(src)
+		QUEUE_SMOOTH(src)
 
 
 /turf/simulated/wall/r_wall/devastate_wall()

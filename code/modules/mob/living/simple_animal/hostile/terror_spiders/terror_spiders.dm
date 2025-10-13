@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	addtimer(CALLBACK(src, PROC_REF(CheckFaction)), 20)
 	addtimer(CALLBACK(src, PROC_REF(announcetoghosts)), 30)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	U.add_hud_to(src)
+	U.show_to(src)
 	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
@@ -356,10 +356,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat != DEAD)
-			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
+			to_chat(T, span_terrorspider("TerrorSense: [msgtext]"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
-	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)
+	if(length(faction) != 2 || (!("terrorspiders" in faction)) || master_commander != null)
 		to_chat(src, span_userdanger("Ваша связь с коллективным разумом разрывается!"))
 		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
 		gib()

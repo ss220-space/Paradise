@@ -166,7 +166,7 @@
 	if(reagents.total_volume)
 		make_dirty(5)
 	reagents.clear_reagents()
-	to_chat(usr, "<span class='notice'>You dispose of [src]'s contents.</span>")
+	to_chat(usr, span_notice("You dispose of [src]'s contents."))
 	update_dialog(usr)
 
 /obj/item/mixing_bowl/proc/update_dialog(mob/user)
@@ -202,7 +202,7 @@
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
-	if(reagents && reagents.total_volume)
+	if(reagents?.total_volume)
 		var/id = reagents.get_master_reagent_id()
 		if(id)
 			amount += reagents.get_reagent_amount(id)

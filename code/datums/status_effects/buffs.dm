@@ -308,15 +308,15 @@
 
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(owner)
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.show_to(owner)
 	return ..()
 
 /datum/status_effect/hippocraticOath/on_remove()
 	QDEL_NULL(aura_healing)
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.remove_hud_from(owner)
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.hide_from(owner)
 
 /datum/status_effect/hippocraticOath/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
@@ -590,7 +590,7 @@
 		"Не вздумайте сдаваться!",
 		"Вы видишьте как [pick("друзья", "семья", "коллеги")] [pick("болеют за вас", "поддерживают вас", "переживают за вас")].",
 		"Вы не можете сдаться, продолжайте жить!",
-		"Вы пережили и не такое – соберите свою волю в кулак!",
+		"Вы пережили и не такое — соберите свою волю в кулак!",
 		"Люди нуждаются в вас, не [pick("сдавайтесь", "останавливайтесь", "уходите", "колеблитесь", "теряйте надежду")]!",
 		"Этот человек не такой робастный, как вы!",
 		"Вы РОБАСТ, не позволяйте никому говорить обратное!",
@@ -776,7 +776,7 @@
 		"Ваши самые приятные воспоминания проносятся перед глазами.",
 		"Ты не можешь сдаться, продолжай!",
 		"Соберись, тряпка!",
-		"Ты - сильнейший охотник, ты справишься!",
+		"Ты — сильнейший охотник, ты справишься!",
 		"Не забывай, как ты получил этот амулет, охотник!",
 		"Все эти люди не такие мощные, как ты!",
 		"Ты РОБАСТ, не смей сдохнуть сейчас!",

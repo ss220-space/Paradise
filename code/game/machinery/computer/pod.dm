@@ -134,7 +134,7 @@
 	var/dat = {"<tt><b>[name]</b>(<a href='byond://?src=[UID()];rename=1'>rename</a>)"}
 	user.set_machine(src)
 	dat += "<br><a href = 'byond://?src=[UID()];sync=1'>Reset Connections</a><br>"
-	if(synced.len)
+	if(length(synced))
 		dat += "<br><a href = 'byond://?src=[UID()];massfire=1'><b>Fire All Connected Drivers</b></a><br>"
 	if(istype(src,/obj/machinery/computer/pod/deathsquad))
 		dat += "<br><a href = 'byond://?src=[UID()];dstele=1'><b>Set Teleporter Destination Z-Level</b></a><br>"
@@ -330,8 +330,9 @@
 			var/obj/effect/landmark/target_landmark = pick_n_take(spawn_marauder)
 			var/obj/effect/portal/portal = new(landmark.loc, target_landmark.loc)
 			portal.invisibility = INVISIBILITY_ABSTRACT	//So it is not seen by anyone.
-			portal.failchance = 0	//So it has no fail chance when teleporting.
+			portal.failchance = 0 //So it has no fail chance when teleporting.
 			portal.can_mecha_pass = TRUE
+			spawn_marauder.Remove(portal.target)
 
 	for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
 		if(poddoor.z != src.z)

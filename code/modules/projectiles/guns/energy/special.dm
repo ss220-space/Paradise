@@ -528,7 +528,7 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+			to_chat(user, span_caution("You double the gun's temperature cap! Targets hit by searing beams will burst into flames!"))
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/gun/energy/temperature/Topic(href, href_list)
@@ -754,6 +754,72 @@
 	is_equipped = FALSE
 	update_icon()
 
+//Specter//
+/obj/item/gun/energy/specter
+	name = "Specter"
+	desc = "Современный пистолет \"Спектр\", работающий на съёмных аккумуляторах, имеет магнитные приводы для быстрой перезарядки. Поставляется только силовым структурам Нанотрейзен."
+	ru_names = list(
+		NOMINATIVE = "Спектр",
+		GENITIVE = "Спектра",
+		DATIVE = "Спектру",
+		ACCUSATIVE = "Спектр",
+		INSTRUMENTAL = "Спектром",
+		PREPOSITIONAL = "Спектре"
+	)
+	icon_state = "specter"
+	item_state = "specter"
+	force = 10
+	origin_tech = "combat=4;materials=2"
+	cell_type = /obj/item/stock_parts/cell/specter
+	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
+	unique_reskin = TRUE
+	materials = list(MAT_METAL = 1000)
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_MIN
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
+	)
+	ammo_x_offset = 0
+
+/obj/item/gun/energy/specter/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
+
+/obj/item/gun/energy/specter/update_gun_skins()
+	add_skin("Grey slide", "specter")
+	add_skin("Red slide", "specter_red")
+	add_skin("Green slide", "specter_green")
+	add_skin("Tan slide", "specter_tan")
+	add_skin("Green Handle", "specter_greengrip")
+	add_skin("Tan Handle", "specter_tangrip")
+	add_skin("Red Handle", "specter_redgrip")
+
+
+/obj/item/gun/energy/specter/update_icon_state()
+	if(current_skin)
+		icon_state = "[current_skin][cell.charge > 0 ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][cell.charge > 0 ? "" : "-e"]"
+
+/obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
+	if(!is_spectercell(item))
+		return ..()
+	add_fingerprint(user)
+	if(!user.drop_transfer_item_to_loc(item, src))
+		balloon_alert(user, "отпустить невозможно!")
+		return ATTACK_CHAIN_PROCEED
+
+	user.put_in_hands(cell)
+	cell = item
+	cell_type = item.type
+	balloon_alert(user, "батарейка заменена")
+	update_icon(UPDATE_ICON_STATE)
+	if(cell.charge > 0)
+		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
+
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/gun/energy/emittergun
 	name = "Handicraft Emitter Rifle"
@@ -911,7 +977,7 @@
 	if(charging)
 		to_chat(user, span_warning("[src] is already charging!"))
 		return
-	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	to_chat(user, span_notice("You begin to overload [src]."))
 	charging = TRUE
 	if(do_after(user, 2 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING, max_interact_count = 1))
 		overload()
@@ -979,7 +1045,7 @@
 	do_sparks(2, TRUE, src)
 	update_icon()
 	if(prob(40))
-		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+		visible_message(span_danger("[src] vents heated plasma!"))
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
@@ -991,9 +1057,9 @@
 		if(length(mob_targets))
 			var/mob/living/target = pick(mob_targets)
 			shootAt(target)
-			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+			visible_message(span_danger("[src] discharges a plasma bolt!"))
 			return
-	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+	visible_message(span_danger("[src] discharges a plasma bolt!"))
 	var/list/turf_targets = list()
 	for(var/turf/T in orange(get_turf(src), 7))
 		turf_targets += T

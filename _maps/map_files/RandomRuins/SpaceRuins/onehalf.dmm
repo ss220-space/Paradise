@@ -140,7 +140,7 @@
 /area/ruin/onehalf/hallway)
 "ay" = (
 /obj/structure/table_frame,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "az" = (
@@ -196,7 +196,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/drone_bay)
 "aI" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "aJ" = (
@@ -322,12 +322,12 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "aU" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "aV" = (
@@ -412,7 +412,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "be" = (
@@ -433,7 +433,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "bg" = (
@@ -446,7 +446,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "bh" = (
@@ -463,7 +463,7 @@
 	tag = "icon-pipe-b (EAST)";
 	dir = 4
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bj" = (
@@ -559,14 +559,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "bw" = (
@@ -580,7 +580,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "by" = (
@@ -590,7 +590,7 @@
 /area/ruin/onehalf/drone_bay)
 "bz" = (
 /obj/structure/closet/emcloset,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "bA" = (
@@ -604,12 +604,6 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "glass airlock"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/onehalf/drone_bay)
-"bC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -653,12 +647,12 @@
 /area/ruin/onehalf/hallway)
 "bK" = (
 /obj/machinery/vending/coffee,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "bL" = (
 /obj/machinery/vending/snack,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "bN" = (
@@ -690,7 +684,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/bridge)
 "bR" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bS" = (
@@ -707,7 +701,7 @@
 "bV" = (
 /obj/structure/disposalpipe/segment,
 /obj/item/stack/rods,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bW" = (
@@ -725,12 +719,12 @@
 	dir = 1
 	},
 /obj/item/shard,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "ca" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "cb" = (
@@ -788,7 +782,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "ck" = (
@@ -796,7 +790,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cl" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cm" = (
@@ -909,7 +903,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "cA" = (
@@ -1104,13 +1098,6 @@
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/bridge)
-"df" = (
-/obj/structure/lattice,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/space,
-/area/space/nearstation)
 "dg" = (
 /obj/structure/girder/reinforced,
 /obj/item/stack/sheet/plasteel,
@@ -1137,18 +1124,6 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/bridge)
 "dl" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "onehalf bridge";
-	name = "bridge blast door"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/onehalf/bridge)
-"dm" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/structure/cable{
@@ -1569,7 +1544,7 @@ aD
 aq
 aX
 bm
-bC
+bn
 bT
 cF
 cn
@@ -1688,7 +1663,7 @@ cM
 cr
 cW
 ch
-dm
+dl
 ac
 aa
 "}
@@ -1797,7 +1772,7 @@ ai
 ai
 ai
 cZ
-df
+ai
 ai
 af
 aa

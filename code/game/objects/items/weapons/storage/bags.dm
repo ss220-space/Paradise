@@ -49,7 +49,7 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
+	user.visible_message(span_suicide("[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))
 	playsound(loc, 'sound/items/eatfood.ogg', 50, TRUE, -1)
 	return TOXLOSS
 
@@ -98,7 +98,7 @@
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	if(slot == ITEM_SLOT_HEAD && length(contents))
 		if(!disable_warning)
-			to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
+			to_chat(M, span_warning("You need to empty the bag first!"))
 		return FALSE
 	return ..()
 
@@ -176,7 +176,7 @@
 
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
-	desc = "Революционное решение – бесконечное хранилище для руды с защитой от сбоев."
+	desc = "Революционное решение — бесконечное хранилище для руды с защитой от сбоев."
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
@@ -414,7 +414,7 @@
 		current += S.amount
 	if(capacity == current)//If it's full, you're done
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>The snatcher is full.</span>")
+			to_chat(usr, span_warning("The snatcher is full."))
 		return 0
 	return 1
 
@@ -469,14 +469,17 @@
 			adjusted_contents++
 			var/datum/numbered_display/D = new/datum/numbered_display(I)
 			D.number = I.amount
-			numbered_contents.Add( D )
+			numbered_contents.Add(D)
 
 	var/row_num = 0
 	var/col_count = min(7,storage_slots) -1
 	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
-	src.standard_orient_objs(row_num, col_count, numbered_contents)
-	return
+
+	if(!display_contents_with_number)
+		space_orient_objs(numbered_contents)
+	else
+		standard_orient_objs(row_num, col_count, numbered_contents)
 
 
 // Modified quick_empty verb drops appropriate sized stacks
@@ -500,7 +503,7 @@
 	if(!istype(S)) return 0
 
 	//I would prefer to drop a new stack, but the item/attack_hand code
-	// that calls this can't recieve a different object than you clicked on.
+	// that calls this can't receive a different object than you clicked on.
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 

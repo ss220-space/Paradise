@@ -17,7 +17,7 @@
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)
-		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
+		stack_trace("Spawner placed in nullspace!")
 		return
 	randspawn(T)
 	return INITIALIZE_HINT_QDEL

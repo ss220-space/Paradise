@@ -104,14 +104,14 @@
 	saved_turf = current_turf
 	switch(mode)
 		if(BOT_IDLE)
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
 			if(frustration >= 8)
-				SSmove_manager.stop_looping(src)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 			if(target)
@@ -121,7 +121,7 @@
 						return
 				shootAt(target)
 				var/turf/olddist = get_dist(src, target)
-				SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
+				GLOB.move_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 				if((get_dist(src, target)) >= (olddist))
 					frustration++
 				else
@@ -192,7 +192,7 @@
 	if(!QDELETED(src))
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 		do_sparks(3, TRUE, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)

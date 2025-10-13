@@ -49,10 +49,11 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	GLOB.major_announcement.announce(war_declaration,
-									ANNOUNCE_DECLAREWAR_RU,
-									'sound/effects/siren.ogg',
-									msg_sanitized = TRUE
+	GLOB.major_announcement.announce(
+		message = war_declaration,
+		new_title = ANNOUNCE_DECLAREWAR_RU,
+		msg_sanitized = TRUE,
+		new_sound = 'sound/effects/siren.ogg'
 	)
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 30 SECONDS)
 
@@ -74,7 +75,7 @@
 	if(declaring_war)
 		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
 		return FALSE
-	if(GLOB.player_list.len < CHALLENGE_MIN_PLAYERS)
+	if(length(GLOB.player_list) < CHALLENGE_MIN_PLAYERS)
 		to_chat(user, "The enemy crew is too small to be worth declaring war on.")
 		return FALSE
 	if(!is_admin_level(user.z))

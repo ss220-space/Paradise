@@ -106,8 +106,8 @@ SUBSYSTEM_DEF(dbcore)
  */
 /datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
 	if(CONFIG_GET(flag/sql_enabled))
-		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
-		#ifndef UNIT_TESTS
+		// The game tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running game tests
+		#ifndef GAME_TESTS
 		if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/db_version) != SQL_VERSION)
 			CONFIG_SET(flag/sql_enabled, FALSE)
 			schema_valid = FALSE
@@ -301,7 +301,7 @@ SUBSYSTEM_DEF(dbcore)
 			if(has_col)
 				query_parts += ", "
 			if(has_question_mark[column])
-				var/name = "p[arguments.len]"
+				var/name = "p[length(arguments)]"
 				query_parts += replacetext(columns[column], "?", ":[name]")
 				arguments[name] = row[column]
 			else

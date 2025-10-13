@@ -93,7 +93,7 @@ STI KALY - blind
 		if(zone.tele_proof)
 			theareas -= zone
 
-	if(!theareas||!theareas.len)
+	if(!theareas||!length(theareas))
 		return
 
 	var/area/thearea = pick(theareas)

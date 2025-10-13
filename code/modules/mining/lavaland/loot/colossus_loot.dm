@@ -68,6 +68,7 @@
 /obj/machinery/anomalous_crystal/Initialize(mapload)
 	. = ..()
 	activation_method = pick("touch","laser","bullet","energy","bomb","mob_bump","weapon","speech")
+	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 /obj/machinery/anomalous_crystal/hear_talk(mob/speaker, list/message_pieces)
 	..()
@@ -283,7 +284,7 @@
 
 /mob/living/simple_animal/hostile/lightgeist
 	name = "lightgeist"
-	desc = "Это маленькое парящее создание – абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
+	desc = "Это маленькое парящее создание — абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
 	icon_state = "lightgeist"
 	icon_living = "lightgeist"
 	icon_dead = "butterfly_dead"
@@ -327,11 +328,11 @@
 	AddElement(/datum/element/simple_flying)
 	remove_verb(src, /mob/verb/me_verb)
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	med_hud.add_hud_to(src)
+	med_hud.show_to(src)
 
 /mob/living/simple_animal/hostile/lightgeist/Destroy()
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	med_hud.remove_hud_from(src)
+	med_hud.hide_from(src)
 	return ..()
 
 /mob/living/simple_animal/hostile/lightgeist/ComponentInitialize()
@@ -378,7 +379,7 @@
 				var/obj/item/W = i
 				if(!(W.flags & (ADMIN_SPAWNED|HOLOGRAM)) && !(W.item_flags & ABSTRACT))
 					L += W
-		if(L.len)
+		if(length(L))
 			var/obj/item/CHOSEN = pick(L)
 			new CHOSEN.type(T)
 			qdel(CHOSEN)

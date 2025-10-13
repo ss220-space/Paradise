@@ -54,8 +54,8 @@
 
 	if(name)
 		to_chat(user, "<span class='notice'>Совпадение найдено в записях станции: <b>[name]</b></span><br>\
-		<i>Отпечатки пальцев:</i><span class='notice'> [fingerprint]</span><br>\
-		<i>ДНК:</i><span class='notice'> [dna]</span>")
+		<i>Отпечатки пальцев:</i>[span_notice(" [fingerprint]")]<br>\
+		<i>ДНК:</i>[span_notice(" [dna]")]")
 	else
 		to_chat(user, span_warning("В записях станции не найдено совпадений."))
 

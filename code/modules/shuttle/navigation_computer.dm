@@ -56,12 +56,12 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user)
 	if(!shuttle_port && !SSshuttle.getShuttle(shuttleId))
-		to_chat(user,"<span class='warning'>Warning: Shuttle connection severed!</span>")
+		to_chat(user,span_warning("Warning: Shuttle connection severed!"))
 		return
 	return ..()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/GrantActions(mob/living/user)
-	if(jumpto_ports.len)
+	if(length(jumpto_ports))
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
 	/*	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
@@ -84,7 +84,7 @@
 
 	var/turf/shuttle_eye_pos = get_turf(locate("landmark*Observer-Start"))
 
-	if(jumpto_ports.len)
+	if(length(jumpto_ports))
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!S)
 				continue
@@ -143,23 +143,23 @@
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	var/landing_clear = checkLandingSpot()
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
-		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
+		to_chat(current_user, span_warning("Targeting transit location, please wait [DisplayTimeText(designate_time)]..."))
 		designating_target_loc = the_eye.loc
 		var/wait_completed = do_after(current_user, designate_time, designating_target_loc, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
 		if(!wait_completed)
-			to_chat(current_user, "<span class='warning'>Operation aborted.</span>")
+			to_chat(current_user, span_warning("Operation aborted."))
 			return
 		landing_clear = checkLandingSpot()
 
 	if(landing_clear != SHUTTLE_DOCKER_LANDING_CLEAR)
 		switch(landing_clear)
 			if(SHUTTLE_DOCKER_BLOCKED)
-				to_chat(current_user, "<span class='warning'>Invalid transit location</span>")
+				to_chat(current_user, span_warning("Invalid transit location"))
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				to_chat(current_user, "<span class='warning'>Unknown object detected in landing zone. Please designate another location.</span>")
+				to_chat(current_user, span_warning("Unknown object detected in landing zone. Please designate another location."))
 		return
 
 	if(!my_port)
@@ -196,7 +196,7 @@
 
 	if(current_user.client)
 		current_user.client.images += the_eye.placed_images
-		to_chat(current_user, "<span class='notice'>Transit location designated</span>")
+		to_chat(current_user, span_notice("Transit location designated"))
 	return
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()
@@ -208,7 +208,7 @@
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	var/list/image_cache = the_eye.placement_images
 	the_eye.setDir(turn(the_eye.dir, -90))
-	for(var/i in 1 to image_cache.len)
+	for(var/i in 1 to length(image_cache))
 		var/image/pic = image_cache[i]
 		var/list/coords = image_cache[pic]
 		var/Tmp = coords[1]
@@ -230,7 +230,7 @@
 	var/list/bounds = shuttle_port.return_coords(the_eye.x - x_offset, the_eye.y - y_offset, the_eye.dir)
 	var/list/overlappers = SSshuttle.get_dock_overlap(bounds[1], bounds[2], bounds[3], bounds[4], the_eye.z)
 	var/list/image_cache = the_eye.placement_images
-	for(var/i in 1 to image_cache.len)
+	for(var/i in 1 to length(image_cache))
 		var/image/I = image_cache[i]
 		var/list/coords = image_cache[I]
 		var/turf/T = locate(eyeturf.x + coords[1], eyeturf.y + coords[2], eyeturf.z)
@@ -270,7 +270,7 @@
 		return SHUTTLE_DOCKER_BLOCKED
 
 	// Checking for overlapping dock boundaries
-	for(var/i in 1 to overlappers.len)
+	for(var/i in 1 to length(overlappers))
 		var/obj/docking_port/port = overlappers[i]
 		if(port == my_port || locate(port) in jumpto_ports)
 			continue
@@ -285,7 +285,7 @@
 				return SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/update_hidden_docking_ports(list/remove_images, list/add_images)
-	if(!see_hidden && current_user && current_user.client)
+	if(!see_hidden && current_user?.client)
 		current_user.client.images -= remove_images
 		current_user.client.images += add_images
 

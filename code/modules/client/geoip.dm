@@ -1,3 +1,6 @@
+GLOBAL_LIST_INIT(isp_blacklist, world.file2list("config/isp/isp_blacklist.txt"))
+GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
+
 /datum/geoip_data
 	var/holder = null
 	var/status = null
@@ -48,16 +51,16 @@
 					// var/list/play_records = params2list(C.prefs.exp)
 					// var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
 					// if(livingtime > 600) // 10 hours * 60 min
-					//	to_chat(C, "<span class='danger'><BIG><b>[reason]</b></BIG></span>")
+					//	to_chat(C, span_danger(span_bigbold("[reason]")))
 					//	del(C)
 					//	return
 					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
-					to_chat(C, "<span class='danger'><BIG><b>You have been banned by SyndiCat.\nReason: [reason].</b></BIG></span>")
-					to_chat(C, "<span class='red'>This is a permanent ban.</span>")
+					to_chat(C, span_danger(span_bigbold("You have been banned by SyndiCat.\nReason: [reason].")))
+					to_chat(C, span_red("This is a permanent ban."))
 					if(CONFIG_GET(string/banappeals))
-						to_chat(C, "<span class='red'>To try to resolve this matter head to [CONFIG_GET(string/banappeals)]</span>")
+						to_chat(C, span_red("To try to resolve this matter head to [CONFIG_GET(string/banappeals)]"))
 					else
-						to_chat(C, "<span class='red'>No ban appeals URL has been set.</span>")
+						to_chat(C, span_red("No ban appeals URL has been set."))
 					ban_unban_log_save("SyndiCat has permabanned [C.ckey]. - Reason: [reason] - This is a permanent ban.")
 					log_admin("SyndiCat has banned [C.ckey].")
 					log_admin("Reason: [reason]")
@@ -270,7 +273,7 @@
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** [a_ckey] applied a [bantype_str] on [ckey]")
 
 	if(kickbannedckey)
-		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
+		if(banned_mob?.client && banned_mob.client.ckey == banckey)
 			del(banned_mob.client)
 
 	if(isjobban)

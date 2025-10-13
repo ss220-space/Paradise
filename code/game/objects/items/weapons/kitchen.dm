@@ -160,9 +160,9 @@
 
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
-						"<span class='suicide'>[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
-						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
+	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
+						span_suicide("[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
+						span_suicide("[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.")))
 	return BRUTELOSS
 
 /obj/item/kitchen/knife/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
@@ -340,7 +340,7 @@
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
 	belt_icon = "bone_dagger"
-	desc = "Острая кость – минимум для выживания."
+	desc = "Острая кость — минимум для выживания."
 	materials = list()
 	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'

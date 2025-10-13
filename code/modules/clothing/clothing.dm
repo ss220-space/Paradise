@@ -89,7 +89,7 @@
 		if(spy_spider_attached)
 			to_chat(user, span_warning("Жучок уже установлен."))
 			return ATTACK_CHAIN_PROCEED
-		if(!spy_spider.broadcasting)
+		if(!spy_spider.get_broadcasting())
 			to_chat(user, span_warning("Жучок выключен."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(spy_spider, src))
@@ -342,7 +342,7 @@
 			action_fluff = "You remove \the [src] and adjust it"
 
 	over_mask = !over_mask
-	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
+	to_chat(user, span_notice("[action_fluff] to be worn [over_mask ? "over" : "under"] a mask."))
 
 //Gloves
 /obj/item/clothing/gloves
@@ -451,6 +451,26 @@
 /obj/item/clothing/gloves/update_desc(updates = ALL)
 	. = ..()
 	desc = clipped ? "[initial(desc)] They have had the fingertips cut off of them." : initial(desc)
+
+
+/obj/item/clothing/gloves/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/mob/user = loc
+	var/is_mob = istype(user)
+
+	var/blood_overlay
+	if(!is_mob || is_mob && user.has_left_hand())
+		blood_overlay = get_blood_overlay("glove_l")
+		if(blood_overlay)
+			. += blood_overlay
+
+	if(!is_mob || is_mob && user.has_right_hand())
+		blood_overlay = get_blood_overlay("glove_r")
+		if(blood_overlay)
+			. += blood_overlay
 
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
@@ -598,6 +618,16 @@
 		sleep(1.5 SECONDS)
 
 
+/obj/item/clothing/head/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/blood_overlay = get_blood_overlay("helmet")
+	if(blood_overlay)
+		. += blood_overlay
+
+
 //Mask
 /obj/item/clothing/mask
 	name = "mask"
@@ -700,6 +730,17 @@
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
 	return
+
+
+/obj/item/clothing/mask/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands || !(body_parts_covered & HEAD))
+		return
+
+	var/blood_overlay = get_blood_overlay("mask")
+	if(blood_overlay)
+		. += blood_overlay
+
 
 //Shoes
 /obj/item/clothing/shoes
@@ -817,6 +858,36 @@
 	update_equipped_item(update_speedmods = FALSE)
 
 
+/obj/item/clothing/shoes/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/mob/user = loc
+	var/is_mob = istype(user)
+
+	var/blood_overlay
+
+	// We don't want overlays to lay one on another, so we separate conditions with two and one feet
+	if(!is_mob || is_mob && user.has_both_feet())
+		blood_overlay = get_blood_overlay("shoes")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+	if(user.has_left_foot())
+		blood_overlay = get_blood_overlay("shoe_l")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+	if(user.has_right_foot())
+		blood_overlay = get_blood_overlay("shoe_r")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+
 //Suit
 /obj/item/clothing/suit
 	name = "suit"
@@ -877,12 +948,12 @@
 					for(var/obj/item/pocket_thing in thing) //Dump the pocket out onto the floor below the user.
 						user.drop_item_ground(pocket_thing, force = TRUE)
 
-			user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
+			user.visible_message(span_warning("[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!"),span_warning("You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!"))
 			user.temporarily_remove_item_from_inventory(src)
 			qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		else
-			to_chat(user, "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>")//Yep, that's all they get. Avoids having to snowflake in a cooldown.
+			to_chat(user, span_warning("You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!"))//Yep, that's all they get. Avoids having to snowflake in a cooldown.
 		return
 
 	suit_adjusted = !suit_adjusted
@@ -940,6 +1011,16 @@
 		adjustsuit(user)
 	else
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
+
+
+/obj/item/clothing/suit/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/blood_overlay = get_blood_overlay(blood_overlay_type)
+	if(blood_overlay)
+		. += blood_overlay
 
 
 //Spacesuit
@@ -1155,18 +1236,32 @@
 			. += accessory.acc_overlay
 
 
+/obj/item/clothing/under/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/blood_overlay = get_blood_overlay("uniform")
+	if(blood_overlay)
+		. += blood_overlay
+
+
 /*
  * # can_attach_accessory
  *
  * Arguments:
  * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+ * * attacher - The mob trying to attach checked_acc
  */
-/obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc)
+/obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc, mob/attacher)
 	if(!istype(checked_acc))
 		return FALSE
 
 	if(!LAZYLEN(accessories))
 		return TRUE
+
+	if(!checked_acc.uniform_check(user = attacher, uniform = src))
+		return FALSE
 
 	var/unique_slots = (checked_acc.slot & (ACCESSORY_SLOT_UTILITY|ACCESSORY_SLOT_ARMBAND))
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
@@ -1193,7 +1288,7 @@
 
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/accessory, mob/user, unequip = FALSE)
-	if(!can_attach_accessory(accessory))
+	if(!can_attach_accessory(accessory, user))
 		if(user)
 			to_chat(user, span_notice("Невозможно добавить больше аксессуаров этого типа к [declent_ru(DATIVE)]."))
 		return FALSE
@@ -1253,7 +1348,7 @@
 				. += span_notice("Датчики работают в режиме мониторинга жизненных показателей и текущего местоположения.")
 
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
-		. += accessory.attached_examine()
+		. += accessory.attached_examine(user, src)
 
 
 /obj/item/clothing/under/verb/rollsuit()
@@ -1317,12 +1412,23 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
+
+/obj/item/clothing/neck/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands || !(body_parts_covered & HEAD))
+		return
+
+	var/blood_overlay = get_blood_overlay("mask")
+	if(blood_overlay)
+		. += blood_overlay
+
+
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!teleportation)
 		return ..()
 	if(prob(5))
 		var/mob/living/carbon/human/H = owner
-		owner.visible_message("<span class='danger'>The teleport slime potion flings [H] clear of [attack_text]!</span>")
+		owner.visible_message(span_danger("The teleport slime potion flings [H] clear of [attack_text]!"))
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(3, H))
 			if(isspaceturf(T))
@@ -1334,7 +1440,7 @@
 			if(T.y>world.maxy-3 || T.y<3)
 				continue
 			turfs += T
-		if(!turfs.len)
+		if(!length(turfs))
 			turfs += pick(/turf in orange(3, H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
@@ -1379,3 +1485,16 @@
 		for(var/new_trait in trait_or_traits)
 			REMOVE_CLOTHING_TRAIT(wearer, src, new_trait)
 
+
+/// Returns a list of overlays with our blood, if we're bloodied
+/obj/item/clothing/proc/get_blood_overlay(blood_state)
+	if(!blood_DNA)
+		return
+
+	var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
+
+	var/mob/user = loc
+	if(istype(user) && user.dna && ("[blood_state]blood" in user.dna.species.get_blood_overlays()))
+		blood_mask = user.dna.species.blood_mask
+
+	return mutable_appearance(blood_mask, "[blood_state]blood", color = blood_color)

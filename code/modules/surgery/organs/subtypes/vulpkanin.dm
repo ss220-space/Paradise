@@ -23,7 +23,7 @@
 /obj/item/organ/internal/eyes/vulpkanin
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпканину."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпканину."
 	ru_names = list(
 		NOMINATIVE = "глаза вульпканина",
 		GENITIVE = "глаз вульпканина",
@@ -34,14 +34,14 @@
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
 	item_state = "vulpkanin_eyes"
-	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will recieve when they get the disability.
+	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will receive when they get the disability.
 	replace_colours = PROTANOPIA_COLOR_REPLACE
 	see_in_dark = 8
 
 /obj/item/organ/internal/eyes/vulpkanin/wolpin //Being the lesser form of Vulpkanin, Wolpins have an utterly incurable version of their colourblindness.
 	species_type = /datum/species/monkey/vulpkanin
 	name = "wolpin eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпину."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпину."
 	ru_names = list(
 		NOMINATIVE = "глаза вульпина",
 		GENITIVE = "глаз вульпина",

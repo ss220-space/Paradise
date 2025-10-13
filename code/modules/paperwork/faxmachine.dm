@@ -380,7 +380,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return FALSE //You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)
-	playsound(loc, 'sound/machines/fax_recieve.ogg', 50, TRUE)
+	playsound(loc, 'sound/machines/fax_receive.ogg', 50, TRUE)
 
 	// give the sprite some time to flick
 	sleep(20)
@@ -433,7 +433,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	return round((sendcooldown - world.time) / 10)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(mob/sender, faxname, faxtype, obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</a>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	// (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=[UID()]'>EVILFAX</a>) effects moved to smites.
+	var/msg = "[span_boldnotice("<span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=\ref[sender][faxname == "USSP FAX" ? "USSPReply" : ""]=\ref[sender][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=\ref[sender]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")])")]: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
@@ -491,8 +492,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	text = replacetext(text, "<span class=\"paper_field\"></span>", "`_FIELD_`")
 
 	text = replacetext(text, "<h1>", "# ")
-	text = replacetext(text, "<H2>", "## ")
-	text = replacetext(text, "<H3>", "### ")
+	text = replacetext(text, "<h2>", "## ")
+	text = replacetext(text, "<h3>", "### ")
 
 	text = replacetext(text, "<li>", "- ")
 	text = replacetext(text, "<hr>", "\n`----- Horizontal Rule -----`\n")

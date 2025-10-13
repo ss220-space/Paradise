@@ -24,9 +24,10 @@
 /datum/weather/xeno_storm/telegraph()
 	. = ..()
 	status_alarm(TRUE)
-	GLOB.major_announcement.announce("Зафиксирована сигнатура Императрицы Ксеноморфов на борту станции [station_name()]. Запущено глубокое сканирование.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg'
+	GLOB.major_announcement.announce(
+		message = "Зафиксирована сигнатура Императрицы Ксеноморфов на борту станции [station_name()]. Запущено глубокое сканирование.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg'
 	)
 
 	if(!.)
@@ -39,7 +40,7 @@
 
 
 /datum/weather/xeno_storm/fire()
-	if(!affected_vents_list.len)
+	if(!length(affected_vents_list))
 		return
 	var/list/vents = list()
 	for(var/i = 1; i < vents_per_tick; i++)

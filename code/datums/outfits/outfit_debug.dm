@@ -79,7 +79,7 @@
 
 /obj/item/clothing/mask/gas/welding/advanced
 	name = "AVD-CNED welding mask"
-	desc = "Повреждение сетчатки – это не шутка."
+	desc = "Повреждение сетчатки — это не шутка."
 	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/mask/gas/welding/advanced/get_ru_names()

@@ -189,7 +189,7 @@
 	if(current_organ.burn_dam)
 		current_organ.burn_dam = clamp(current_organ.brute_dam-HEAL_PER_TIME, 0, current_organ.burn_dam)
 		return
-	if(organs_to_heal.len > 1)
+	if(length(organs_to_heal) > 1)
 		organs_to_heal = organs_to_heal.Copy(2)
 		occupant.updatehealth("heal overall damage")
 		occupant.UpdateDamageIcon()

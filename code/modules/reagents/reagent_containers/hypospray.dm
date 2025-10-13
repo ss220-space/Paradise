@@ -4,7 +4,7 @@
 
 /obj/item/reagent_containers/hypospray
 	name = "hypospray"
-	desc = "Гипоспрей - это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
+	desc = "Гипоспрей — это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "hypo"
@@ -488,7 +488,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
-	if(reagents && reagents.reagent_list.len)
+	if(reagents && length(reagents.reagent_list))
 		. += span_notice("Не использовано.")
 	else
 		. += span_notice("Использовано.")
@@ -571,6 +571,7 @@
 	name = "neuromatin autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу нейроматина. Мощный иммунодепрессант."
 	icon_state = "violetinjector"
+	volume = 15
 	amount_per_transfer_from_this = 15
 	list_reagents = list("neuromatin" = 15)
 

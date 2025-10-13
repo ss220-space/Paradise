@@ -61,7 +61,7 @@
 					M.show_message(span_warning("Вы слышите, как в животе [name] что-то урчит."), 2)
 
 			var/obj/item/I = user.get_active_hand()
-			if(I && I.force)
+			if(I?.force)
 				apply_damage(rand(round(I.force / 4), I.force), def_zone = BODY_ZONE_CHEST)
 
 				for(var/mob/M in viewers(user, null))
@@ -380,7 +380,7 @@
 			return
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-		if(!E || (E && E.weld_proof))
+		if(!E || (E?.weld_proof))
 			return
 
 		if(weakeyes)
@@ -518,10 +518,10 @@
 		if(D.wielded && D.force)
 			visible_message(span_danger("[name] impales [throwned_mob] with [D], before dropping them on the ground!"))
 			throwned_mob.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
-			throwned_mob.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
-			throwned_mob.Weaken(2 SECONDS)
-			D.melee_attack_chain(src, throwned_mob) //attack animation / jedi spin
-			throwned_mob.emote("scream")
+			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
+			C.Weaken(2 SECONDS)
+			D.melee_attack_chain(src, C) //attack animation / jedi spin
+			C.emote("scream")
 			return
 	*/
 	. = ..()

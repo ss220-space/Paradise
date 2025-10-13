@@ -158,7 +158,7 @@
 		if(held_item)
 			custom_emote(EMOTE_VISIBLE, "бросает [held_item.declent_ru(ACCUSATIVE)]!")
 			drop_held_item()
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 	return ..()
 
 
@@ -347,7 +347,7 @@
 //-----WANDERING - This is basically a 'I dont know what to do yet' state
 	else if(parrot_state == PARROT_WANDER)
 		//Stop movement, we'll set it later
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		parrot_interest = null
 
 		//Wander around aimlessly. This will help keep the loops from searches down
@@ -387,7 +387,7 @@
 
 //-----STEALING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_STEAL))
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_interest || held_item || !(parrot_interest in view(src)))
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
@@ -416,12 +416,12 @@
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
-		SSmove_manager.move_to(src, path_to_take[2], 0, parrot_speed)
+		GLOB.move_manager.move_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
 //-----RETURNING TO PERCH
 	else if(parrot_state == (PARROT_SWOOP|PARROT_RETURN))
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_perch || !isturf(parrot_perch.loc)) //Make sure the perch exists and somehow isnt inside of something else.
 			parrot_perch = null
@@ -441,19 +441,19 @@
 			parrot_state = PARROT_WANDER
 			return
 
-		SSmove_manager.move_to(src, path_to_take[2], 0, parrot_speed)
+		GLOB.move_manager.move_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
 //-----FLEEING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_FLEE))
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_interest || !isliving(parrot_interest) || !Adjacent(parrot_interest)) //Sanity
 			parrot_state = PARROT_WANDER
 			parrot_interest = null
 			return
 
-		SSmove_manager.move_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
+		GLOB.move_manager.move_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
 		parrot_been_shot--
 		return
 
@@ -499,11 +499,11 @@
 		//Otherwise, fly towards the mob!
 		else
 			// No pathfinding here because the parrot is pissed and isn't thinking rationally.
-			SSmove_manager.move_to(src, parrot_interest, 1, parrot_speed)
+			GLOB.move_manager.move_to(src, parrot_interest, 1, parrot_speed)
 		return
 //-----STATE MISHAP
 	else //This should not happen. If it does lets reset everything and try again
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		parrot_interest = null
 		parrot_perch = null
 		drop_held_item()
