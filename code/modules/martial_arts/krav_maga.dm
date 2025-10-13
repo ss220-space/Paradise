@@ -24,7 +24,7 @@
 	H.mind.martial_art.in_stance = FALSE
 
 /datum/action/neck_chop
-	name = "Удар по шее - травмирует и ослепляет оппонента, от чего он будет некоторое время промахиваться при попытке атаковать."
+	name = "Удар по шее — травмирует и ослепляет оппонента, от чего он будет некоторое время промахиваться при попытке атаковать."
 	button_icon_state = "neckchop"
 
 /datum/action/neck_chop/Trigger(left_click = TRUE)
@@ -43,7 +43,7 @@
 	H.mind.martial_art.in_stance = TRUE
 
 /datum/action/leg_sweep
-	name = "Подсечка - травмирует ногу оппонента, ненадолго замедляя его движение."
+	name = "Подсечка — травмирует ногу оппонента, ненадолго замедляя его движение."
 	button_icon_state = "legsweep"
 
 /datum/action/leg_sweep/Trigger(left_click = TRUE)
@@ -62,7 +62,7 @@
 	H.mind.martial_art.in_stance = TRUE
 
 /datum/action/lung_punch//referred to internally as 'quick choke'
-	name = "Удар по лёгким - сильный удар по торсу оппонента, на некоторое время восстановление его выносливости будет замедлено."
+	name = "Удар по лёгким — сильный удар по торсу оппонента, на некоторое время восстановление его выносливости будет замедлено."
 	button_icon_state = "lungpunch"
 
 /datum/action/lung_punch/Trigger(left_click = TRUE)
