@@ -356,9 +356,9 @@
 	if(HAS_TRAIT_FROM(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT))
 		REMOVE_TRAIT(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT)
 		user.balloon_alert(user, "дефибриллятор активирован")
-	else
-		ADD_TRAIT(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT)
-		user.balloon_alert(user, "дефибриллятор деактивирован")
+		return
+	ADD_TRAIT(src, DEFIB_BLOCKED_TRAIT, INUGAMI_TRAIT)
+	user.balloon_alert(user, "дефибриллятор деактивирован")
 
 /obj/item/clothing/gloves/color/latex/inugami/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
