@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(camera)
 			camera.c_tag = newname
 
-	if(mmi && mmi.brainmob)
+	if(mmi?.brainmob)
 		mmi.brainmob.name = newname
 
 	return TRUE
@@ -591,7 +591,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				dat += "<nobr>"
 				dat += "-- [area_name]"
 				dat += "</nobr><br>"
-		if(!L.len)
+		if(!length(L))
 			dat += "-- All Systems Nominal<br>"
 		dat += "<br>"
 
@@ -1728,7 +1728,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		choices[new_skin.name] = skin_image
 		temp_list[new_skin.name] = new_skin
 
-	if(choices.len <= 1)
+	if(length(choices) <= 1)
 		return GLOB.robot_skins["[default_skin_name]"]
 
 	choice = show_radial_menu(src, src, choices, require_near = TRUE, radius = 60)

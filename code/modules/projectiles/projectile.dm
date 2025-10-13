@@ -324,11 +324,11 @@
 			LAZYADD(permutated, bumped_atom)
 		return FALSE
 	else
-		if(bumped_atom && bumped_atom.density && !ismob(bumped_atom) && !(bumped_atom.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
+		if(bumped_atom?.density && !ismob(bumped_atom) && !(bumped_atom.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
 			var/list/mobs_list = list()
 			for(var/mob/living/mob in bumped_turf)
 				mobs_list += mob
-			if(mobs_list.len)
+			if(length(mobs_list))
 				var/mob/living/picked_mob = pick(mobs_list)
 				prehit(picked_mob)
 				picked_mob.bullet_act(src, def_zone)
@@ -407,7 +407,7 @@
 
 	if(!log_override && firer && original)
 		fire_log_text += "Projectile: <small>'[type]'</small> | Harm: [nodamage ? "<small>NO DAMAGE</small>" : "<small>[uppertext(damage_type)] = </small>[damage]"]"
-		if(reagents && reagents.reagent_list)
+		if(reagents?.reagent_list)
 			var/reagent_note
 			var/list/temp = reagents.reagent_list.Copy()
 			for(var/datum/reagent/R in temp)

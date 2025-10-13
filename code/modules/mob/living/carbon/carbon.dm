@@ -56,7 +56,7 @@
 					M.show_message(span_warning("Вы слышите, как в животе [name] что-то урчит."), 2)
 
 			var/obj/item/I = user.get_active_hand()
-			if(I && I.force)
+			if(I?.force)
 				apply_damage(rand(round(I.force / 4), I.force), def_zone = BODY_ZONE_CHEST)
 
 				for(var/mob/M in viewers(user, null))
@@ -375,7 +375,7 @@
 			return
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-		if(!E || (E && E.weld_proof))
+		if(!E || (E?.weld_proof))
 			return
 
 		if(weakeyes)
@@ -507,7 +507,7 @@
 /mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	/*
 	for(var/obj/item/twohanded/dualsaber/D in contents)
-		if(D.wielded && D.force)
+		if(D.wielded?.force)
 			visible_message(span_danger("[name] impales [C] with [D], before dropping them on the ground!"))
 			C.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
 			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!

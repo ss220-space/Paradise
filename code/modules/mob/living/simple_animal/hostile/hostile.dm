@@ -170,7 +170,7 @@
 
 
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
-	if(retaliate_only && !enemies.len)
+	if(retaliate_only && !length(enemies))
 		return list()
 	if(!search_objects)
 		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
@@ -305,10 +305,10 @@
 		if(!(T.UID() in low_priority_targets))
 			high_priority_targets.Add(T)
 
-	if(high_priority_targets.len)
+	if(length(high_priority_targets))
 		Targets = high_priority_targets
 
-	if(!Targets.len)//We didnt find nothin!
+	if(!length(Targets))//We didnt find nothin!
 		return
 
 	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
@@ -501,7 +501,7 @@
 
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
-	if(target && emote_taunt.len && prob(taunt_chance))
+	if(target && length(emote_taunt) && prob(taunt_chance))
 		INVOKE_ASYNC(src, PROC_REF(custom_emote), EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
 

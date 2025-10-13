@@ -65,7 +65,7 @@
 /datum/game_mode/space_ninja/declare_completion(ragin = FALSE)
 	if(finished && !ragin)
 		SSticker.mode_result = "ninja loss - ninja killed"
-		to_chat(world, span_warning(span_bold(span_fontsize3(" Ниндзя был[(space_ninjas.len>1)?"и":""] убит[(space_ninjas.len>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!"))))
+		to_chat(world, span_warning(span_bold(span_fontsize3(" Ниндзя был[(length(space_ninjas)>1)?"и":""] убит[(length(space_ninjas)>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!"))))
 	..()
 	return TRUE
 

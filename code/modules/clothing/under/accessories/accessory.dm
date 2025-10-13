@@ -655,7 +655,7 @@
 
 /obj/item/clothing/accessory/necklace/talisman
 	name = "bone talisman"
-	desc = "Талисман охотника – многие верят, что он дарует защиту от старых богов тем, кто его носит."
+	desc = "Талисман охотника — многие верят, что он дарует защиту от старых богов тем, кто его носит."
 	icon_state = "talisman"
 	item_state = "talisman"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)

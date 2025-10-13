@@ -63,7 +63,7 @@
 					)
 
 			if("Abort")
-				if(authorized.len)
+				if(length(authorized))
 					GLOB.minor_announcement.announce(
 						message = "Все авторизации на досрочный запуск шаттла были отозваны."
 					)
@@ -217,7 +217,7 @@
 
 	// The emergency shuttle doesn't work like others so this
 	// ripple check is slightly different
-	if(!ripples.len && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
+	if(!length(ripples) && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
 		var/destination
 		if(mode == SHUTTLE_CALL)
 			destination = SSshuttle.getDock("emergency_home")
@@ -252,7 +252,7 @@
 					)
 		if(SHUTTLE_DOCKED)
 
-			if(time_left <= 0 && SSshuttle.hostile_environment.len)
+			if(time_left <= 0 && length(SSshuttle.hostile_environment))
 				GLOB.major_announcement.announce(
 					"Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.",
 					new_title = ANNOUNCE_PRIORITY_RU
@@ -279,7 +279,7 @@
 				for(var/area/shuttle/escape/E in GLOB.areas)
 					SEND_SOUND(E, hyperspace_sound)
 
-			if(time_left <= 0 && !(SSshuttle.emergencyNoEscape || SSshuttle.hostile_environment.len))
+			if(time_left <= 0 && !(SSshuttle.emergencyNoEscape || length(SSshuttle.hostile_environment)))
 				//move each escape pod to its corresponding transit dock
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					if(is_station_level(M.z)) //Will not launch from the mine/planet

@@ -189,7 +189,7 @@
 		type = "laughter"
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
-	if(candidates.len > 0)
+	if(length(candidates) > 0)
 		var/mob/C = pick(candidates)
 		spawn_antag(C, get_turf(src.loc), initial(demon_type.name), user)
 		to_chat(user, "[shatter_msg]")
@@ -273,7 +273,7 @@
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 10 SECONDS, source = morph_type)
 
-	if(candidates.len > 0)
+	if(length(candidates) > 0)
 		var/mob/C = pick(candidates)
 		spawn_antag(C, get_turf(src.loc), initial(morph_type.name), user)
 		to_chat(user, "[shatter_msg]")

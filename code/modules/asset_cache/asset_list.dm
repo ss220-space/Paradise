@@ -215,7 +215,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		return
 
 	while(length(to_generate))
-		var/list/stored_args = to_generate[to_generate.len]
+		var/list/stored_args = to_generate[length(to_generate)]
 		to_generate.len--
 		queuedInsert(arglist(stored_args))
 		if(yield && TICK_CHECK)

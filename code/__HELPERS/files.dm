@@ -108,7 +108,7 @@
 	var/list/jobs = list(path)
 	var/list/filenames = list()
 
-	while(jobs.len)
+	while(length(jobs))
 		var/current_dir = pop(jobs)
 		var/list/new_filenames = flist(current_dir)
 

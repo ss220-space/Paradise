@@ -588,5 +588,5 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 /obj/item/pda/extinguish_light(force = FALSE)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
-	if(FL && FL.fon)
+	if(FL?.fon)
 		FL.start()

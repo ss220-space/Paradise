@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(EP.beacon_network in beacon_networks)
 			possible_beacons += EP
 
-	if(!possible_beacons.len)
+	if(!length(possible_beacons))
 		balloon_alert(user, "маяки не найдены!")
 		return
 
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		return
 	else
 		if(!safe_for_living_creatures && check_for_living_mobs(A))
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] небезопасен для живых существ – они не переживут транспортировку!"))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] небезопасен для живых существ — они не переживут транспортировку!"))
 			return
 		if(!isturf(A.loc)) // no extracting stuff inside other stuff
 			return

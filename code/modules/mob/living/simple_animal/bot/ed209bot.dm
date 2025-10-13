@@ -419,7 +419,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/proc/check_for_weapons(obj/item/slot_item)
-	if(slot_item && slot_item.needs_permit)
+	if(slot_item?.needs_permit)
 		return TRUE
 	return FALSE
 
@@ -533,7 +533,7 @@
 			if(C.stat==2)
 				continue
 			targets += C
-		if(targets.len)
+		if(length(targets))
 			if(prob(50))
 				var/mob/toshoot = pick(targets)
 				if(toshoot)
@@ -547,7 +547,7 @@
 					else
 						shootAt(toshoot)
 			else if(prob(50))
-				if(targets.len)
+				if(length(targets))
 					var/mob/toarrest = pick(targets)
 					if(toarrest)
 						target = toarrest

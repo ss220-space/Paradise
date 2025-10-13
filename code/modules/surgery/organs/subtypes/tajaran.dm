@@ -17,7 +17,7 @@
 /obj/item/organ/internal/eyes/tajaran
 	species_type = /datum/species/tajaran
 	name = "tajaran eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали таярану."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали таярану."
 	ru_names = list(
 		NOMINATIVE = "глаза таярана",
 		GENITIVE = "глаз таярана",
@@ -48,7 +48,7 @@
 /obj/item/organ/internal/eyes/tajaran/farwa //Being the lesser form of Tajara, Farwas have an utterly incurable version of their colourblindness.
 	species_type = /datum/species/monkey/tajaran
 	name = "farwa eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали фарве."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали фарве."
 	ru_names = list(
 		NOMINATIVE = "глаза фарвы",
 		GENITIVE = "глаз фарвы",

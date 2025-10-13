@@ -116,7 +116,7 @@
 					a_intent = INTENT_HELP
 				else if(a_intent == INTENT_HARM)
 					a_intent = INTENT_DISARM
-		if(hud_used && hud_used.action_intent)
+		if(hud_used?.action_intent)
 			hud_used.action_intent.icon_state = "[a_intent]"
 
 

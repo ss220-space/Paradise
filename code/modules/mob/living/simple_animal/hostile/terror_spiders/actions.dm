@@ -243,7 +243,7 @@
 			if(Adjacent(O) && !O.anchored)
 				if(!istype(O, /obj/structure/spider))
 					choices += O
-		if(choices.len)
+		if(length(choices))
 			cocoon_target = tgui_input_list(src, "Что вы хотите замотать в кокон?", "", choices)
 		else
 			to_chat(src, span_danger("Рядом нет ничего, что можно было бы завернуть в кокон."))

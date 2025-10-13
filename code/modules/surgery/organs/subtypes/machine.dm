@@ -181,7 +181,7 @@
 
 /obj/item/organ/internal/eyes/optical_sensor/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
-		to_chat(owner, span_userdanger("Ошибка #404: ОПТИЧЕСКИЙ СЕНСОР - не обнаружено."))
+		to_chat(owner, span_userdanger("Ошибка #404: ОПТИЧЕСКИЙ СЕНСОР — не обнаружено."))
 
 	. = ..()
 
@@ -241,5 +241,5 @@
 
 /obj/item/organ/internal/ears/microphone/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
-		to_chat(owner, span_userdanger("Ошибка #406: МИКРОФОН - не обнаружено."))
+		to_chat(owner, span_userdanger("Ошибка #406: МИКРОФОН — не обнаружено."))
 	. = ..()

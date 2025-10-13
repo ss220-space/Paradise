@@ -150,7 +150,7 @@
 /datum/path_map/proc/expand(new_range)
 	var/list/working_distances = distances
 	var/working_index = working_distances.len
-	var/max_dist = working_distances[working_distances.len]
+	var/max_dist = working_distances[length(working_distances)]
 	if(new_range <= max_dist)
 		return TRUE
 

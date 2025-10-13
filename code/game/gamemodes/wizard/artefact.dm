@@ -203,7 +203,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, TRUE, 10 SECONDS, source = source)
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
 				to_chat(user, span_warning("<b>The sword flashes, and you find yourself face to face with...you!</b>"))
@@ -546,7 +546,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	check_spooky()//clean out/refresh the list
 
-	if(spooky_scaries.len >= 3 && !unlimited)
+	if(length(spooky_scaries) >= 3 && !unlimited)
 		to_chat(user, span_warning("This artifact can only affect three undead at a time!"))
 		return .
 
@@ -563,7 +563,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	spooky_scaries |= target
 	to_chat(target, "[span_userdanger("You have been revived by ")]<b>[user.real_name]!</b>")
 	to_chat(target, span_userdanger("[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!"))
-	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
+	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [length(spooky_scaries)]/3 active thralls."]"
 
 
 /obj/item/necromantic_stone/proc/check_spooky()
@@ -760,7 +760,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				for(var/mob/living/L in range(1,target))
 					if(L!=target)
 						nearby_mobs |= L
-				if(nearby_mobs.len)
+				if(length(nearby_mobs))
 					var/mob/living/T = pick(nearby_mobs)
 					add_attack_logs(user, target, "force click on [T] with a voodoo doll.")
 					target.ClickOn(T)

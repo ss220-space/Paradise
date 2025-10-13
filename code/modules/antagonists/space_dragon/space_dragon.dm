@@ -244,7 +244,7 @@
 		return
 	var/temp_hsv = RGBtoHSV(chosen_color)
 	if(ReadHSV(temp_hsv)[3] < DARKNESS_THRESHOLD)
-		to_chat(src, span_danger("Этот цвет некорректен - он недостаточно светлый."))
+		to_chat(src, span_danger("Этот цвет некорректен — он недостаточно светлый."))
 		color_selection()
 		return
 	add_atom_colour(chosen_color, FIXED_COLOUR_PRIORITY)

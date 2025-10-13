@@ -70,7 +70,7 @@
 /datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
 	var/list/validtargets = list()
 	for(var/mob/living/target in (view(user.client.view, get_turf(user)) - user))
-		if(target && target.mind && target.stat != DEAD)
+		if(target?.mind && target.stat != DEAD)
 			validtargets += target
 
 	if(!length(validtargets))

@@ -19,9 +19,9 @@
 
 /datum/ai_planning_subtree/random_speech/SelectBehaviors(datum/ai_controller/controller, delta_time)
 	if(SPT_PROB(speech_chance, delta_time))
-		var/audible_emotes_length = emote_hear?.len
-		var/non_audible_emotes_length = emote_see?.len
-		var/speak_lines_length = speak?.len
+		var/audible_emotes_length = length(emote_hear)
+		var/non_audible_emotes_length = length(emote_see)
+		var/speak_lines_length = length(speak)
 
 		var/total_choices_length = audible_emotes_length + non_audible_emotes_length + speak_lines_length
 

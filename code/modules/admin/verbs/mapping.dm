@@ -154,7 +154,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 		if(istype(A,type_path))
 			var/atom/B = A
 			while(!(isturf(B.loc)))
-				if(B && B.loc)
+				if(B?.loc)
 					B = B.loc
 				else
 					break

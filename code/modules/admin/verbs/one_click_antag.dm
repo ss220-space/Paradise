@@ -70,8 +70,8 @@
 		if(CandCheck(ROLE_TRAITOR, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numTraitors = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numTraitors = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numTraitors, i++)
 			H = pick(candidates)
@@ -102,8 +102,8 @@
 		if(CandCheck(ROLE_CHANGELING, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numChangelings = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numChangelings = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numChangelings, i++)
 			H = pick(candidates)
@@ -159,8 +159,8 @@
 		if(CandCheck(ROLE_REV, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numRevs = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numRevs = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numRevs, i++)
 			H = pick(candidates)
@@ -180,7 +180,7 @@
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
 
-	if(candidates.len)
+	if(length(candidates))
 		var/mob/dead/observer/selected = pick(candidates)
 		candidates -= selected
 
@@ -264,7 +264,7 @@
 
 	candidates = SSghost_spawns.poll_candidates("Вы хотите стать ядерным оперативником?", ROLE_OPERATIVE, TRUE, 1 MINUTES, role_cleanname = "Ядерного оперативника", source = image('icons/mob/simple_human.dmi', "syndicate_space_sword"))
 
-	if(!candidates.len)
+	if(!length(candidates))
 		return FALSE
 
 	var/datum/team/nuclear_team/team = GLOB.antagonist_teams[/datum/team/nuclear_team]
@@ -276,7 +276,7 @@
 	for(var/i = 1, i <= antnum, i++)
 		var/spawnpos = i
 
-		if(spawnpos > GLOB.nukespawn.len)
+		if(spawnpos > length(GLOB.nukespawn))
 			spawnpos = 2
 
 		var/mob/mob = pick_n_take(candidates)
@@ -370,10 +370,10 @@
 	if(!length(candidates))
 		return 0
 
-	var/raider_num = min(antnum, candidates.len)
+	var/raider_num = min(antnum, length(candidates))
 	var/datum/game_mode/mode = SSticker.mode
 	//If there no vox objectives - create them
-	if(!mode.raid_objectives || !mode.raid_objectives.len)
+	if(!mode.raid_objectives || !length(mode.raid_objectives))
 		mode.raid_objectives = mode.forge_vox_objectives()
 	//Spawns vox raiders and equips them.
 	while(raider_num > 0)
@@ -393,7 +393,7 @@
 			raider.objectives = mode.raid_objectives.Copy()
 
 		var/index = raider_num
-		if(index > GLOB.raider_spawn.len)
+		if(index > length(GLOB.raider_spawn))
 			index = 1
 
 		var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(GLOB.raider_spawn[index])
@@ -430,8 +430,8 @@
 		if(CandCheck(ROLE_VAMPIRE, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numVampires = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numVampires = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
@@ -469,7 +469,7 @@
 		if(!G.key)
 			candidates.Remove(G)
 
-	if(candidates.len)
+	if(length(candidates))
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
 		var/datum/preferences/A = new()
@@ -484,7 +484,7 @@
 
 				newMember.dna.ready_dna(newMember)
 
-				while((!theghost || !theghost.client) && candidates.len)
+				while((!theghost || !theghost.client) && length(candidates))
 					theghost = pick(candidates)
 					candidates.Remove(theghost)
 
@@ -506,7 +506,7 @@
 
 				newMember.dna.ready_dna(newMember)
 
-				while((!theghost || !theghost.client) && candidates.len)
+				while((!theghost || !theghost.client) && length(candidates))
 					theghost = pick(candidates)
 					candidates.Remove(theghost)
 
@@ -540,8 +540,8 @@
 		if(CandCheck(ROLE_THIEF, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numThieves = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numThieves = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numThieves, i++)
 			H = pick(candidates)

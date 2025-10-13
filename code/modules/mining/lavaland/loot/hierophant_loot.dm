@@ -175,7 +175,7 @@
 		return
 	var/turf/beacon_turf = get_turf(beacon)
 	if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
-		to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+		to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 		return
 	if(!isturf(user.loc))
 		to_chat(user, span_warning("Здесь недостаточно места для телепортации!"))
@@ -193,7 +193,7 @@
 		var/turf/source = get_turf(user)
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+			to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -216,7 +216,7 @@
 			return
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+			to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))

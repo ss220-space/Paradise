@@ -31,7 +31,7 @@
 
 /obj/item/areaeditor/proc/interact_prints(mob/user)
 	add_fingerprint(user)
-	. = "<BODY><HTML><head><title>[src]</title></head> \
+	. = "<body><html><head><title>[src]</title></head> \
 				<h2>[isnull(station_name_overrride) ? "\"[station_name()]\"" : station_name_overrride ? "\"[station_name_overrride]\"" : null] [src.name]</h2> \
 				<small>[fluffnotice]</small><hr>"
 	switch(get_area_type())
@@ -376,7 +376,7 @@
 //Blueprint for USSP station
 /obj/item/areaeditor/create_area_only/ussp
 	station_name_overrride = "USSP Station"
-	fluffnotice = "В случае поломки - смотри сюда"
+	fluffnotice = "В случае поломки — смотри сюда"
 
 
 #undef AREA_ERRNONE

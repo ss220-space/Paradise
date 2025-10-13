@@ -21,7 +21,7 @@
 /obj/mecha/combat/sidewinder/add_cell()
 	cell = new /obj/item/stock_parts/cell/infinite/abductor(src)
 
-/obj/mecha/combat/sidewinder/Initialize(mapload) // мех для тестов всех модулей, пихаемых в конкретно боевые мехи. Если будете вводить/удалять модули - просьба трогать эту строчку.
+/obj/mecha/combat/sidewinder/Initialize(mapload) // мех для тестов всех модулей, пихаемых в конкретно боевые мехи. Если будете вводить/удалять модули — просьба трогать эту строчку.
 	. = ..()
 	//mime
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
@@ -40,7 +40,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola // учтите, сайдвиндер с йогов мех ближнего боя, если будете вводить - не забудьте отредачить.
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola // учтите, сайдвиндер с йогов мех ближнего боя, если будете вводить — не забудьте отредачить.
 	ME.attach(src)
 	//lethal
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser

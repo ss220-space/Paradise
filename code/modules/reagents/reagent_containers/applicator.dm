@@ -149,7 +149,7 @@
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE, def_zone)
 	var/total_applied_amount = applied_amount * multiplier
 
-	if(reagents && reagents.total_volume)
+	if(reagents?.total_volume)
 		var/fractional_applied_amount = total_applied_amount  / reagents.total_volume
 
 		reagents.reaction(M, REAGENT_TOUCH, fractional_applied_amount, show_message, TRUE, def_zone)
@@ -160,7 +160,7 @@
 
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
-	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления механических повреждений."
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений."
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/brute/get_ru_names()
@@ -175,7 +175,7 @@
 
 /obj/item/reagent_containers/applicator/burn
 	name = "burn auto-mender"
-	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления термических повреждений."
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений."
 	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/applicator/burn/get_ru_names()
@@ -190,7 +190,7 @@
 
 /obj/item/reagent_containers/applicator/dual
 	name = "dual auto-mender"
-	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления как механических, так и термических повреждений."
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления как механических, так и термических повреждений."
 	list_reagents = list("synthflesh" = 200)
 
 /obj/item/reagent_containers/applicator/dual/get_ru_names()

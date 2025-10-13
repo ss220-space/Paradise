@@ -104,7 +104,7 @@
 				components_of_type = existing
 			if(i_type == our_type)	//exact match, take priority
 				var/inserted = FALSE
-				for(var/index in 1 to components_of_type.len)
+				for(var/index in 1 to length(components_of_type))
 					var/datum/component/check_component = components_of_type[index]
 					if(check_component.type != our_type) //but not over other exact matches
 						components_of_type.Insert(index, i_type)
@@ -131,7 +131,7 @@
 		if(length(components_of_type))
 			var/list/subtracted = components_of_type - src
 
-			if(subtracted.len == 1) //only 1 guy left
+			if(length(subtracted) == 1) //only 1 guy left
 				parents_components[i_type] = subtracted[1] //make him special
 			else
 				parents_components[i_type] = subtracted
@@ -139,7 +139,7 @@
 		else //just us
 			parents_components -= i_type
 
-	if(!parents_components.len)
+	if(!length(parents_components))
 		parent.datum_components = null
 
 	UnregisterFromParent()

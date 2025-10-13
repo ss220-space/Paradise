@@ -284,7 +284,7 @@
 
 /mob/living/simple_animal/hostile/lightgeist
 	name = "lightgeist"
-	desc = "Это маленькое парящее создание – абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
+	desc = "Это маленькое парящее создание — абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
 	icon_state = "lightgeist"
 	icon_living = "lightgeist"
 	icon_dead = "butterfly_dead"
@@ -378,7 +378,7 @@
 				var/obj/item/W = i
 				if(!(W.flags & (ADMIN_SPAWNED|HOLOGRAM)) && !(W.item_flags & ABSTRACT))
 					L += W
-		if(L.len)
+		if(length(L))
 			var/obj/item/CHOSEN = pick(L)
 			new CHOSEN.type(T)
 			qdel(CHOSEN)

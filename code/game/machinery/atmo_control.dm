@@ -180,7 +180,7 @@
 /obj/machinery/computer/general_air_control/proc/return_text()
 	var/sensor_data
 	if(show_sensors)
-		if(sensors.len)
+		if(length(sensors))
 			for(var/id_tag in sensors)
 				var/long_name = sensors[id_tag]
 				var/list/data = sensor_information[id_tag]
