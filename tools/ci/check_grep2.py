@@ -291,6 +291,11 @@ def check_dash_usage(idx, line):
         failures.append((idx + 1, f"A en dash with spaces was found '{match.group(0)}', which should be replaced with a dash (—)."))
     return failures
 
+PLAYSOUND_IMPROPER_CALL = re.compile(r'playsound\(([^,]*), "(sound\/[^\[]+)"')
+def check_playsound_improper_call(idx, line):
+    if match := PLAYSOUND_IMPROPER_CALL.search(line):
+        return [(idx + 1, f"Improper playsound call detected: \"{match.group(2)}\", it should be '{match.group(2)}' instead.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -322,6 +327,7 @@ CODE_CHECKS = [
     check_duplicate_spans,
     check_html_tags_case,
     check_dash_usage,
+    check_playsound_improper_call,
 ]
 
 def check_updatepaths_validity():

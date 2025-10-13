@@ -186,7 +186,7 @@
 
 
 /obj/vehicle/ridden/wheelchair/proc/bell_sound()
-	playsound(src, "sound/machines/bell.ogg", 70, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, 'sound/machines/bell.ogg', 70, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/vehicle/ridden/wheelchair/proc/detonate_bomb()
 	bomb.prime()
