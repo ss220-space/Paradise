@@ -58,6 +58,7 @@
 /datum/action/innate/cult/comm/spirit
 	name = "Spiritual Communion"
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
+	allow_observer_click = TRUE
 
 /datum/action/innate/cult/comm/spirit/IsAvailable(feedback = FALSE)
 	return TRUE
@@ -80,6 +81,7 @@
 	button_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
+	allow_observer_click = TRUE
 
 /datum/action/innate/cult/check_progress/New()
 	if(SSticker.mode)
