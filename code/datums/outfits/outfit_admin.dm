@@ -368,10 +368,8 @@
 
 /datum/outfit/admin/death_commando
 	name = "NT Death Commando"
-	toggle_helmet = TRUE
 	uniform = /obj/item/clothing/under/rank/centcom_officer
-	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
-	back = /obj/item/storage/backpack/ert/security
+	back = /obj/item/mod/control/pre_equipped/apocryphal
 	belt = /obj/item/gun/projectile/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
@@ -413,6 +411,9 @@
 		apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando", "deathsquad")
 		I.photo = get_id_photo(H, custom_job = JOB_TITLE_REPRESENTATIVE) // They should go die with a good photo instead of assistants grey shorts xD
 	H.update_hud_set()
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
 
 /datum/outfit/admin/death_commando/officer
 	name = "NT Death Commando officer"
@@ -1015,15 +1016,15 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
-/datum/outfit/admin/hardsuit
-	name = "Hardsuit Generic"
-	toggle_helmet = TRUE
-	back = /obj/item/tank/jetpack/oxygen
+/datum/outfit/admin/modsuit
+	name = "Modsuit Generic"
+	back = /obj/item/mod/control/pre_equipped/standard
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
 	id = /obj/item/card/id
 
-/datum/outfit/admin/hardsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/modsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -1033,40 +1034,44 @@
 		J.turn_on()
 		J.toggle_internals(H)
 
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
+
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Hardsuit Tester")
 
-/datum/outfit/admin/hardsuit/engineer
-	name = "Engineer Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+/datum/outfit/admin/modsuit/engineer
+	name = "Engineer Modsuit"
+	back = /obj/item/mod/control/pre_equipped/engineering
 
-/datum/outfit/admin/hardsuit/ce
-	name = "CE Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/elite
+/datum/outfit/admin/modsuit/ce
+	name = "CE Modsuit"
+	back = /obj/item/mod/control/pre_equipped/advanced
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
-/datum/outfit/admin/hardsuit/mining
-	name = "Mining Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+/datum/outfit/admin/modsuit/mining
+	name = "Mining Modsuit"
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 
-/datum/outfit/admin/hardsuit/syndi
-	name = "Syndi Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+/datum/outfit/admin/modsuit/syndi
+	name = "Syndi Modsuit"
+	back = /obj/item/mod/control/pre_equipped/traitor
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
-/datum/outfit/admin/hardsuit/wizard
+/datum/outfit/admin/modsuit/wizard
 	name = "Wizard Hardsuit"
 	suit = /obj/item/clothing/suit/space/hardsuit/wizard/shielded
 	shoes = /obj/item/clothing/shoes/magboots/wizard
 
-/datum/outfit/admin/hardsuit/medical
-	name = "Medical Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/medical
+/datum/outfit/admin/modsuit/medical
+	name = "Medical Modsuit"
+	back = /obj/item/mod/control/pre_equipped/medical
 
-/datum/outfit/admin/hardsuit/atmos
-	name = "Atmos Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
+/datum/outfit/admin/modsuit/atmos
+	name = "Atmos Modsuit"
+	back = /obj/item/mod/control/pre_equipped/atmospheric
 
 
 /datum/outfit/admin/tournament
