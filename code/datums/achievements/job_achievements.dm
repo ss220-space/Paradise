@@ -1,11 +1,10 @@
 /datum/award/achievement/jobs
 	category = ACHIEVEMENT_CATEGORY_JOBS
 
-//medical
-
+// MARK: Medical
 /datum/award/achievement/jobs/sandman
 	name = "Песочный Человек"
-	desc = "С технической точки зрения, нет никакой реальной пользы в том, чтобы быть без сознания во время операции. Почему же этот доктор настаивает на использовании закиси азота (N2O)?"
+	desc = "С технической точки зрения, нет никакой реальной пользы в том, чтобы быть без сознания во время операции. Странно, как настойчиво этот врач всё равно использует N2O, а?"
 	database_id = MEDAL_SANDMAN
 	icon_state = "basemisc"
 
@@ -15,11 +14,10 @@
 	database_id = MEDAL_HELBITALJANKEN
 	icon_state = "helbital"
 
-//science
-
+// MARK: Science
 /datum/award/achievement/jobs/feat_of_strength
 	name = "Испытание Силы"
-	desc = "Если стержень несдвигаем, то это он проходит мимо вас, или вы проходите мимо него?"
+	desc = "Если стержень неподвижен, проходит ли он мимо вас или вы проходите мимо него?"
 	database_id = MEDAL_RODSUPLEX
 	icon_state = "featofstrength"
 

@@ -1,4 +1,4 @@
-// Panel for achievement management
+/// Panel for achievement management
 /datum/achievement_admin_panel
 	var/list/orphaned_keys
 
@@ -36,7 +36,6 @@
 		return
 
 	switch(action)
-
 		if("archive")
 			var/achievement_key = params["key"]
 			archive_achievement(achievement_key)
@@ -48,7 +47,6 @@
 			cleanup_outdated_achievement(achievement_key)
 			reload_data()
 			return TRUE
-
 
 /datum/achievement_admin_panel/proc/cleanup_outdated_achievement(achievement_key)
 	// ensure key is actually orphaned just in case
@@ -63,7 +61,6 @@
 
 /datum/achievement_admin_panel/proc/archive_achievement(achievement_key)
 	// ensure key is actually orphaned just in case
-
 	if(!(achievement_key in orphaned_keys))
 		return
 

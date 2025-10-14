@@ -150,8 +150,8 @@
 		.["highscores"] += list(list("name" = score.name, "scores" = score.high_scores))
 
 /client/verb/checkachievements()
-	set category = "OOC"
-	set name = "Проверить Достижения"
+	set category = STATPANEL_OOC
+	set name = "Проверить достижения"
 	set desc = "Просмотрите все свои достижения!"
 
 	persistent_client.achievements.ui_interact(usr)

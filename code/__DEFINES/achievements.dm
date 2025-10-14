@@ -1,5 +1,8 @@
 // Keep the identifiers here below 32 characters, you can put the full display name in the actual achievement datum
 
+/// Achievements icon set
+#define ACHIEVEMENTS_SET 'icons/ui_icons/achievements/achievements.dmi'
+
 #define ACHIEVEMENT_DEFAULT "default"
 #define ACHIEVEMENT_SCORE "score"
 
@@ -30,9 +33,7 @@
 //Skill medal hub IDs
 #define MEDAL_LEGENDARY_MINER "Legendary Miner"
 
-
 //Boss medals
-
 // Medal hub IDs for boss medals (Pre-fixes)
 #define BOSS_MEDAL_ANY "Boss Killer"
 #define BOSS_MEDAL_MINER "Blood-drunk Miner Killer"
@@ -86,15 +87,10 @@
 /// Value in metadata version that signifies the achievement is archived
 #define ACHIEVEMENT_ARCHIVED_VERSION 9999
 
+// Names of achievement categories.
 #define ACHIEVEMENT_CATEGORY_BOSSES "Боссы"
-
 #define ACHIEVEMENT_CATEGORY_JOBS "Работа"
-
 #define ACHIEVEMENT_CATEGORY_SKILLS "Навыки"
-
 #define ACHIEVEMENT_CATEGORY_MISC "Разное"
-
 #define ACHIEVEMENT_CATEGORY_MAFIA "Мафия"
-
 #define ACHIEVEMENT_CATEGORY_SCORES "Статистика"
-

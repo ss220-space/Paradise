@@ -49,7 +49,6 @@
 	database_id = ROBOT_SCORE
 
 //TODO Uncomment when be implemented
-
 /*
 /datum/award/score/demonic_miner_score
 	name = "Demonic-Frost Miners Killed" // REQ Demonic-Frost Miner

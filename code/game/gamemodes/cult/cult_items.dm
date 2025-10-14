@@ -340,7 +340,7 @@
 ///how many times can the shuttle be cursed?
 #define MAX_SHUTTLE_CURSES 3
 ///if the max number of shuttle curses are used within this duration, the entire cult gets an achievement
-#define SHUTTLE_CURSE_OMFG_TIMESPAN 10 SECONDS
+#define SHUTTLE_CURSE_OMFG_TIMESPAN (10 SECONDS)
 
 /obj/item/shuttle_curse
 	name = "cursed orb"
@@ -396,7 +396,7 @@
 		SSshuttle.block_recall(surplus)
 
 	totalcurses++
-	to_chat(user,span_danger("Вы разбиваете сферу! Тёмная сущность взвивается в воздух и исчезает."))
+	to_chat(user, span_danger("Вы разбиваете сферу! Тёмная сущность взвивается в воздух и исчезает."))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 
 	if(!remaining_curses)
@@ -419,10 +419,10 @@
 		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё лишь один раз."))
 
 	else
-		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё только [MAX_SHUTTLE_CURSES - totalcurses] раз."))
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё только [MAX_SHUTTLE_CURSES - totalcurses] раз[declension_ru(MAX_SHUTTLE_CURSES - totalcurses, "", "а", "")]."))
 
 	if(totalcurses >= MAX_SHUTTLE_CURSES && (world.time < first_curse_time + SHUTTLE_CURSE_OMFG_TIMESPAN))
-		var/omfg_message = pick_list(CULT_SHUTTLE_CURSE, "omfg_announce") || "LEAVE US ALONE!"
+		var/omfg_message = pick_list(CULT_SHUTTLE_CURSE, "omfg_announce") || "ОСТАВЬТЕ НАС В ПОКОЕ!"
 		addtimer(CALLBACK(src, PROC_REF(omfg_announce), omfg_message), rand(2 SECONDS, 6 SECONDS))
 		for(var/mob/iter_player as anything in GLOB.player_list)
 			if(!iscultist(iter_player))

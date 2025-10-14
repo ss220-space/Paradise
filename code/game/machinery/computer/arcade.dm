@@ -38,11 +38,14 @@
 /obj/machinery/computer/arcade/proc/prizevend(score)
 	if(prob(0.0001)) //1 in a million
 		new /obj/item/gun/energy/pulse/prize(src)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выда[pluralize_ru(gender, "ёт", "ют")]... Ого, оружие! Это просто улёт!"), span_notice("Вы слышите выстрелы и звон."))
+		visible_message(
+			span_notice("[capitalize(declent_ru(NOMINATIVE))] выда[pluralize_ru(gender, "ёт", "ют")]... Ого, оружие! Это просто улёт!"),
+			span_notice("Вы слышите выстрелы и звон.")
+		)
 		usr.client.give_award(/datum/award/achievement/misc/pulse, usr)
 		return
-	var/atom/movable/picked_prize = pick_n_take(prize_storage)
 
+	var/atom/movable/picked_prize = pick_n_take(prize_storage)
 	if(picked_prize)
 		picked_prize.forceMove(get_turf(src))
 		return
@@ -397,7 +400,7 @@
 		return // enough harassing them
 
 	if(gamers[gamer] == -1)
-		atom_say("ВНИМАНИЕ: Зафиксировано продолжающееся антисоциальное поведение. Распечатана литература по самопомощи.")
+		atom_say("Внимание! Зафиксировано продолжающееся антисоциальное поведение! Распечатана литература по самопомощи.")
 		new /obj/item/paper/pamphlet/violent_video_games(get_turf(src))
 		gamers[gamer]--
 		return
@@ -410,9 +413,9 @@
 		return
 
 	radio.set_frequency(SEC_FREQ)
-	radio.autosay("ОПОВЕЩЕНИЕ БЕЗОПАСНОСТИ: Член экипажа [gamer.declent_ru(NOMINATIVE)] демонстрирует признаки асоциального поведения в [get_area(src)]. Пожалуйста, будьте внимательны к проявлениям агрессивного поведения.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	radio.autosay("Оповещение безопасности! Член экипажа [gamer.declent_ru(NOMINATIVE)] демонстрирует признаки асоциального поведения в [get_area(src)]. Пожалуйста, будьте внимательны к проявлениям агрессивного поведения.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
 	radio.set_frequency(MED_FREQ)
-	radio.talk_into(src, "ОПОВЕЩЕНИЕ О ПСИХИЧЕСТКОМ РАССТРОЙСТВЕ: У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	radio.talk_into(src, "Оповещение о психичестком расстройстве! У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
 
 	gamers[gamer] = -1
 

@@ -352,4 +352,4 @@
 	required_reagents = list("carbon" = 1, "sugar" = 1, "fluorine" = 1)
 	result_amount = 3
 	min_temp = T0C + 250
-	mix_message = "Смесь превращается в густой желтый порошок."
+	mix_message = "Смесь превращается в густой жёлтый порошок."

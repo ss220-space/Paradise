@@ -10,7 +10,6 @@
 #endif
 
 #ifdef GAME_TESTS
-// START OF ALPHABETICAL SORTING
 #include "test_achievements.dm"
 #include "test_announcements.dm"
 #include "test_components.dm"

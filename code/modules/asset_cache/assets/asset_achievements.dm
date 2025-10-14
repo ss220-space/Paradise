@@ -11,4 +11,4 @@
 			continue
 
 		var/icon_state = initial(other_award.icon_state)
-		Insert("achievement-[icon_state]", icon, icon_state=icon_state)
+		Insert("achievement-[icon_state]", icon, icon_state = icon_state)

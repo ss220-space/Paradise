@@ -83,7 +83,6 @@ SUBSYSTEM_DEF(achievements)
 	SSdbcore.MassInsert(format_table_name("achievements"), cheevos_to_save,duplicate_key = TRUE)
 	SEND_SIGNAL(src, COMSIG_ACHIEVEMENTS_SAVED_TO_DB)
 
-
 //Update the metadata if any are behind
 /datum/controller/subsystem/achievements/proc/update_metadata()
 	var/list/current_metadata = list()
@@ -136,4 +135,3 @@ SUBSYSTEM_DEF(achievements)
 		if(!include_archived && current_metadata[key] == ACHIEVEMENT_ARCHIVED_VERSION)
 			continue
 		.[key] = current_metadata[key]
-

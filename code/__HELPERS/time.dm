@@ -131,8 +131,8 @@
 /proc/seconds_to_clock(seconds as num)
 	return "[add_zero(num2text((seconds / 60) % 60), 2)]:[add_zero(num2text(seconds % 60), 2)]"
 
-//Takes a value of time in deciseconds.
-//Returns a text value of that number in hours, minutes, or seconds.
+///Takes a value of time in deciseconds.
+///Returns a text value of that number in hours, minutes, or seconds.
 /proc/DisplayTimeText(time_value, round_seconds_to = 0.1)
 	var/second = FLOOR(time_value * 0.1, round_seconds_to)
 	if(!second)

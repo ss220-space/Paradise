@@ -1,7 +1,7 @@
 /datum/award
 	///Name of the achievement, If null it wont show up in the achievement browser. (Handy for inheritance trees)
 	var/name
-	var/desc = "Ты сделал это."
+	var/desc = "Ты сделал это!"
 
 	///The dmi icon file that holds the award's icon state.
 	var/icon = ACHIEVEMENTS_SET
@@ -27,7 +27,7 @@
 	holder.original_cached_data[type] = holder.data[type] = value
 	return value
 
-//Proc that returns a value upon db connection failure, in case we need different instances too.
+///Proc that returns a value upon db connection failure, in case we need different instances too.
 /datum/award/proc/default_value()
 	return FALSE
 
@@ -77,7 +77,7 @@
 	qdel(query)
 	return result
 
-//Should return sanitized value for achievement cache
+///Should return sanitized value for achievement cache
 /datum/award/proc/parse_value(raw_value)
 	return default_value()
 
@@ -112,14 +112,14 @@
 
 /datum/award/achievement/get_ui_data(list/award_data, datum/achievement_data/holder)
 	. = ..()
-	.["achieve_info"] = "Получено [times_achieved] игрок[pluralize_ru(times_achieved, "ом", "ами")]"
+	.["achieve_info"] = "Получи[declension_ru(times_achieved, "л", "ли", "ло")] [times_achieved] игрок[declension_ru(times_achieved, "", "а", "ов")]."
 
 	if(!SSachievements.most_unlocked_achievement)
-		.["achieve_tooltip"] = "Это достижение еще никто не получил. Станьте первым сегодня!"
+		.["achieve_tooltip"] = "Никто ещё не получил это достижение. Станьте первым за сегодня!"
 		return
 
 	if(SSachievements.most_unlocked_achievement == src)
-		.["achieve_tooltip"] = "Это достижение получали чаще всего"
+		.["achieve_tooltip"] = "Это достижение получали чаще всего."
 		return
 
 	var/percent = FLOOR(times_achieved / SSachievements.most_unlocked_achievement.times_achieved * 100, 0.01)
@@ -130,7 +130,7 @@
 
 /datum/award/achievement/on_unlock(mob/user)
 	. = ..()
-	to_chat(user, span_greenannounce("<b>Получено достижение: [name]!</b>"))
+	to_chat(user, span_greenannounce(span_bold("Получено достижение: [name]!")))
 
 	var/sound/sound_to_send = LAZYACCESS(GLOB.achievement_sounds, user.client.prefs.achivements_sound)
 	if(sound_to_send)
@@ -155,7 +155,7 @@
 
 ///Scores are for leaderboarded things, such as killcount of a specific boss
 /datum/award/score
-	desc = "Ты сделал это тако много раз."
+	desc = "Ты сделал это ооочень много раз."
 	category = ACHIEVEMENT_CATEGORY_SCORES
 
 	var/track_high_scores = TRUE
@@ -201,7 +201,6 @@
 
 /datum/award/score/parse_value(raw_value)
 	return isnum(raw_value) ? raw_value : 0
-
 
 ///Defining this here 'cause it's the first score a player should see in the Scores category.
 /datum/award/score/achievements_score
@@ -260,7 +259,6 @@
 
 	qdel(get_unlocked_load)
 
-
 /**
  * A subtype of score linked to a schema table containing objects the player has caught, made, found or otherwise achieved.
  * The value of the score should equal to the length of objects that have been achieved.
@@ -306,7 +304,6 @@
 
 	// This ensures that the original list and the new won't be the same any longer.
 	// So that it'll pass the not-equal if statement and be saved in the db.
-
 	if(entries == holder.original_cached_data[type])
 		entries = entries?.Copy() || list()
 		holder.data[type] = entries
@@ -376,7 +373,7 @@
 /datum/award/score/progress/parse_value(raw_value)
 	return islist(raw_value) ? raw_value : list()
 
-//Proc that returns a value upon db connection failure, in case we need to new instances too
+///Proc that returns a value upon db connection failure, in case we need to new instances too
 /datum/award/score/progress/default_value()
 	return list()
 

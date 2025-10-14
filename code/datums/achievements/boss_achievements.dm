@@ -110,9 +110,7 @@
 	icon_state = "robot"
 
 //TODO Uncomment when be implemented
-
 /*
-
 /datum/award/achievement/boss/demonic_miner_kill
 	name = "Demonic-Frost Miner Killer" // REQ Demonic-Frost Miner
 	desc = "Definitely harder than the Blood-Drunk Miner."

@@ -16,7 +16,7 @@
 
 /datum/award/achievement/misc/gamer
 	name = "Статус моего вотчлиста не важен"
-	desc = "Возможно, вам кажется, что жестокие видеоигры — это безобидное развлечение, но сотрудники службы безопасности и медики, которые окружают ваше местоположение с дубинками и усыпляющим газом, похоже, с этим не согласны."
+	desc = "Возможно, вам кажется, что жестокие видеоигры — это безобидное развлечение. Однако сотрудники службы безопасности и медики, которые окружают вас с дубинками и усыпляющим газом, похоже, с этим не согласны."
 	database_id = MEDAL_GAMER
 
 /datum/award/achievement/misc/vendor_squish
@@ -59,7 +59,6 @@
 	icon_state = "cult_shuttle_omfg"
 
 //TODO Uncomment when be implemented
-
 /*
 /datum/award/achievement/misc/round_and_full
 	name = "Round and Full"  // REQ clowncar
@@ -107,7 +106,6 @@
 	desc = "Where's my free smartphone?!?"
 	database_id = MEDAL_CLICKBAIT
 	icon_state = "bait"
-
 
 /datum/award/achievement/misc/healthy
 	name = "The Picture of Health" // REQ /datum/status_effect/exercised

@@ -514,9 +514,9 @@ SUBSYSTEM_DEF(shuttle)
 		CRASH("Emergency shuttle block was called, but missing a value for the lockout duration")
 	if(admin_emergency_no_recall)
 		GLOB.major_announcement.announce(
-			"Обнаружены помехи в канале связи эвакуационного шаттла. Вызов шаттла отключен до завершения перезагрузки системы. Примерное время восстановления: [DisplayTimeText(lockout_timer, round_seconds_to = 60)].",
-			new_title = "Канал связи эвакуационного шаттла",
-			new_subtitle = "Обнаружены помехи",
+			message = "Обнаружены помехи в канале связи эвакуационного шаттла. Вызов шаттла отключен до завершения перезагрузки системы. Примерное время восстановления: [DisplayTimeText(lockout_timer, round_seconds_to = 60)].",
+			new_title = "Канал связи эвакуационного шаттла.",
+			new_subtitle = "Обнаружены помехи.",
 			new_sound = 'sound/misc/announce_dig.ogg',
 		)
 		addtimer(CALLBACK(src, PROC_REF(unblock_recall)), lockout_timer)
@@ -527,9 +527,9 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/unblock_recall()
 	if(admin_emergency_no_recall)
 		GLOB.major_announcement.announce(
-			"Канал связи эвакуационного шаттла восстановлен.",
-			new_title = "Канал связи эвакуационного шаттла",
-			new_subtitle = "Связь восстановлена",
+			message = "Канал связи эвакуационного шаттла восстановлен.",
+			new_title = "Канал связи эвакуационного шаттла.",
+			new_subtitle = "Связь восстановлена.",
 			new_sound = 'sound/misc/announce_dig.ogg',
 		)
 		return
