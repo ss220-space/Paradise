@@ -83,17 +83,17 @@
 				var/turf/relative_turf
 				var/atom/user_loc = user.loc
 
-				if (user_loc)
+				if(user_loc)
 					relative_turf = get_turf(user_loc)
 
-				if (!relative_turf)
+				if(!relative_turf)
 					if(isobserver(user))
 						var/mob/dead/observer/user_observer = user
 						relative_turf = get_turf(user_observer.client?.eye) || get_turf(user_observer)
-					if (!relative_turf)
+					if(!relative_turf)
 						relative_turf = locate(1, 1, 1)
 
-				if (!relative_turf)
+				if(!relative_turf)
 					to_chat(user, span_warning("Could not determine a valid relative location."))
 					return
 

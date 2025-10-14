@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(spawnpanels_by_ckey, list())
 
 /datum/spawnpanel/ui_close(mob/user)
 	. = ..()
-	if (precise_mode && precise_mode != PRECISE_MODE_OFF)
+	if(precise_mode && precise_mode != PRECISE_MODE_OFF)
 		toggle_precise_mode(PRECISE_MODE_OFF)
 
 /datum/spawnpanel/ui_state(mob/user)
@@ -218,7 +218,7 @@ GLOBAL_LIST_INIT(spawnpanels_by_ckey, list())
 /datum/spawnpanel/proc/toggle_precise_mode(precise_type)
 	precise_mode = precise_type
 	var/client/admin_client = usr.client
-	if (!admin_client)
+	if(!admin_client)
 		return
 
 	admin_client.mouse_up_icon = null
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(spawnpanels_by_ckey, list())
 	admin_client.mouse_override_icon = null
 	admin_client.click_intercept = null
 
-	if (precise_mode != PRECISE_MODE_OFF)
+	if(precise_mode != PRECISE_MODE_OFF)
 		admin_client.mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_pickturf.dmi'
 		admin_client.mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_pickturf_down.dmi'
 		admin_client.mouse_override_icon = admin_client.mouse_up_icon
