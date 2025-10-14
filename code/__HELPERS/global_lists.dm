@@ -220,10 +220,9 @@
 	// Init list for slime actions
 	init_datum_subtypes(/datum/slime_action, GLOB.slime_actions, null, "name")
 
-	GLOB.exoframe_types += list(
-		"exoframe_reinforced" = /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced,
-		"exoframe_industrial" = /obj/item/organ/internal/cyberimp/chest/exoframe/industrial
-	)
+	var/exoframe_type = /obj/item/organ/internal/cyberimp/chest/exoframe
+	for(var/obj/item/organ/internal/cyberimp/chest/exoframe/frame in subtypesof(exoframe_type))
+		GLOB.exoframe_types[frame.id] = frame
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.

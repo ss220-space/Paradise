@@ -220,4 +220,4 @@
 		var/obj/item/organ/internal/cyberimp/chest/exoframe/exoframe = new exoframe_path
 		exoframe.insert(human)
 	
-	. = ..()
+	return ..()
