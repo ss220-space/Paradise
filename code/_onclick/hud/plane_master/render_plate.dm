@@ -12,7 +12,7 @@
 /atom/movable/render_plane_relay
 	screen_loc = "CENTER"
 	layer = -1
-	plane = 0
+	plane = DEFAULT_PLANE
 	appearance_flags = PASS_MOUSE | NO_CLIENT_COLOR | KEEP_TOGETHER
 	/// If we render into a critical plane master, or not
 	var/critical_target = FALSE

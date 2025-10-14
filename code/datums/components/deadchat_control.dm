@@ -55,7 +55,7 @@
 		// get started with anyone who's already following
 		orbit_begin(A, ghost)
 
-/datum/component/deadchat_control/Destroy(force, silent)
+/datum/component/deadchat_control/Destroy(force)
 	var/atom/atom_parent = parent
 	var/message = span_deadsay(span_bolditalics("[capitalize(atom_parent.declent_ru(NOMINATIVE))] теперь не контролируется призраками."))
 	for(var/mob/dead/observer/M in orbiters)
@@ -66,6 +66,7 @@
 	ckey_to_cooldown = null
 	if(generated_point_of_interest)
 		GLOB.poi_list -= parent
+	on_removal = null
 	return ..()
 
 /datum/component/deadchat_control/proc/deadchat_react(mob/source, message)

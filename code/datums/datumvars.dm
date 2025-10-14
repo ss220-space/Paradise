@@ -981,16 +981,12 @@
 	else if(href_list["mark_object"])
 		if(!check_rights(0))	return
 
-		var/datum/D = locateUID(href_list["mark_object"])
-		if(!istype(D))
+		var/datum/datum = locateUID(href_list["mark_object"])
+		if(!istype(datum))
 			to_chat(usr, "This can only be done to instances of type /datum", confidential=TRUE)
 			return
 
-		src.holder.marked_datum = D
-		if(holder.marked_datum)
-			vv_update_display(holder.marked_datum, "marked", "")
-		holder.marked_datum = D
-		vv_update_display(D, "marked", VV_MSG_MARKED)
+		mark_datum(datum)
 
 	else if(href_list["proc_call"])
 		if(!check_rights(R_PROCCALL))

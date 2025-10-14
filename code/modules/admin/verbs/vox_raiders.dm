@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(vox_raiders_radio_freq, PUBLIC_LOW_FREQ + rand(0, 8) * 2) //Rand
 	equip_to_slot_or_del(new /obj/item/restraints/handcuffs/cable/zipties(src), ITEM_SLOT_BACKPACK)
 
 	var/obj/item/card/id/syndicate/vox/W = new(src)
-	W.name = "[real_name]'s Legitimate Human ID Card"
+	W.name = "[real_name]’s Legitimate Human ID Card"
 	W.assignment = "Trader"
 	W.registered_name = real_name
 	W.registered_user = src
