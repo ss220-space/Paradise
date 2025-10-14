@@ -7,63 +7,44 @@
 /datum/component/aura_healing
 	/// The range of which to heal
 	var/range = 5
-
 	/// Whether or not you must be a visible object of the parent
 	var/requires_visibility = TRUE
-
 	/// Brute damage to heal over a second
 	var/brute_heal = 0
-
 	/// Burn damage to heal over a second
 	var/burn_heal = 0
-
 	/// Toxin damage to heal over a second
 	var/toxin_heal = 0
-
 	/// Suffocation damage to heal over a second
 	var/suffocation_heal = 0
-
 	/// Stamina damage to heal over a second
 	var/stamina_heal = 0
-
 	/// Amount of cloning damage to heal over a second
 	var/clone_heal = 0
-
 	/// Amount of blood to heal over a second
 	var/blood_heal = 0
-
 	/// Map of organ (such as ORGAN_SLOT_BRAIN) to damage heal over a second
 	var/list/organ_healing
-
 	/// Amount of damage to heal on simple mobs over a second
 	var/simple_heal = 0
-
 	/// Map of external organs (such as "head", "l_leg", "groin" etc.). Will mend fractures only on these organs if specified.
 	var/list/external_organ_fracture_healing
-
 	/// Chance to mend fractures
 	var/mend_fractures_chance = 0
-
 	/// Its healing robots parts as well?
 	var/robot_heal = FALSE
-
 	/// Map of external organs (such as "tail", "wing", "r_foot" etc.). Will stop internal bleedings only on these organs if specified.
 	var/list/external_organ_bleeding_healing
-
 	/// Chance to stop internal bleedings
 	var/stop_internal_bleeding_chance = 0
-
 	/// Trait to limit healing to, if set
 	var/limit_to_trait
-
 	/// The color to give the healing visual
 	var/healing_color = COLOR_GREEN
-
 	/// A list of being healed to active alerts
 	var/list/current_alerts = list()
 
 	COOLDOWN_DECLARE(last_heal_effect_time)
-
 
 /datum/component/aura_healing/Initialize(
 	range = 5,
@@ -109,7 +90,6 @@
 	src.healing_color = healing_color
 	src.robot_heal = robot_heal
 
-
 /datum/component/aura_healing/Destroy(force)
 	STOP_PROCESSING(SSaura_healing, src)
 	var/alert_category = "aura_healing_[src.UID()]"
@@ -123,14 +103,12 @@
 
 	return ..()
 
-
 /datum/component/aura_healing/process(seconds_per_tick)
 	var/should_show_effect = COOLDOWN_FINISHED(src, last_heal_effect_time)
 	if(should_show_effect)
 		COOLDOWN_START(src, last_heal_effect_time, HEAL_EFFECT_COOLDOWN)
 
 	var/list/to_heal = list()
-
 	var/alert_category = "aura_healing_[src.UID()]"
 
 	if(requires_visibility)
@@ -243,7 +221,6 @@
 	for(var/mob/living/remove_alert_from as anything in current_alerts - to_heal)
 		remove_alert_from.clear_alert(alert_category)
 		current_alerts -= remove_alert_from
-
 
 /atom/movable/screen/alert/aura_healing
 	name = "Исцеляющая аура"

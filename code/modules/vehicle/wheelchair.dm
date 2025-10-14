@@ -156,9 +156,7 @@
 /obj/vehicle/ridden/wheelchair/proc/delayed_boom()
 	bomb.prime()
 
-
 ///Buckle logic
-
 /obj/vehicle/ridden/wheelchair/post_buckle_mob(mob/living/user)
 	if(exists_bell)
 		bell_action.Grant(user)
@@ -169,9 +167,7 @@
 		bell_action.Remove(user)
 	return ..()
 
-
 ///Bell logic
-
 /obj/vehicle/ridden/wheelchair/proc/on_bell_action()
 	if(!bomb)
 		bell_sound()
@@ -184,7 +180,6 @@
 		addtimer(CALLBACK(src, PROC_REF(bell_sound)), (0.25 * i) SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(detonate_bomb)), 2 SECONDS)
 
-
 /obj/vehicle/ridden/wheelchair/proc/bell_sound()
 	playsound(src, "sound/machines/bell.ogg", 70, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
@@ -195,9 +190,7 @@
 	//Else multiple time detonation bomb, safe it
 	detonation_delay = FALSE
 
-
 ///Action
-
 /datum/action/innate/wheelchair
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	var/datum/callback/bell_action
@@ -206,9 +199,8 @@
 	. = ..()
 	bell_action = callback
 
-
 /datum/action/innate/wheelchair/Destroy()
-	QDEL_NULL(bell_action)
+	bell_action = null
 	return ..()
 
 /datum/action/innate/wheelchair/Activate()
@@ -218,4 +210,3 @@
 	icon_icon = 'icons/obj/bureaucracy.dmi'
 	button_icon_state = "desk_bell"
 	name = "Звонок"
-

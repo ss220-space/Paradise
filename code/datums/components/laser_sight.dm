@@ -8,7 +8,6 @@
 	var/sight_timer = null
 	var/atom/sight_target = null
 
-
 /datum/component/laser_sight/Initialize()
 	. = ..()
 	if(!isgun(parent))
@@ -35,7 +34,6 @@
 		deltimer(sight_timer)
 		sight_timer = null
 	return ..()
-
 
 /datum/component/laser_sight/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
