@@ -643,7 +643,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(crit_fail)
-		owner.balloon_alert(owner, "[declent_ru(NOMINATIVE)] не отвечает!")
+		owner.balloon_alert(owner, "[capitalize(declent_ru(NOMINATIVE))] не отвечает!")
 		return
 	
 	if(active)
