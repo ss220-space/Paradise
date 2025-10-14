@@ -1,4 +1,3 @@
-// START OF ALPHABETICAL SORTING
 GLOBAL_LIST_INIT(adjectives, world.file2list("strings/names/adjectives.txt"))
 GLOBAL_LIST_INIT(ai_names, world.file2list("strings/names/ai.txt"))
 GLOBAL_LIST_INIT(clown_names, world.file2list("strings/names/clown.txt"))
@@ -12,8 +11,8 @@ GLOBAL_LIST_INIT(golem_male, world.file2list("strings/names/golem_male.txt"))
 GLOBAL_LIST_INIT(golem_names, world.file2list("strings/names/golem.txt"))
 GLOBAL_LIST_INIT(golem_neuter, world.file2list("strings/names/golem_neuter.txt"))
 GLOBAL_LIST_INIT(jobs, world.file2list("strings/names/jobs.txt"))
-GLOBAL_LIST_INIT(last_names, world.file2list("strings/names/last.txt"))
 GLOBAL_LIST_INIT(last_names_female, world.file2list("strings/names/last_female.txt"))
+GLOBAL_LIST_INIT(last_names_male, world.file2list("strings/names/last_male.txt"))
 GLOBAL_LIST_INIT(locations, world.file2list("strings/names/locations.txt"))
 GLOBAL_LIST_INIT(megacarp_first_names, world.file2list("strings/names/megacarp1.txt"))
 GLOBAL_LIST_INIT(megacarp_last_names, world.file2list("strings/names/megacarp2.txt"))
@@ -25,7 +24,6 @@ GLOBAL_LIST_INIT(nouns, world.file2list("strings/names/nouns.txt"))
 GLOBAL_LIST_INIT(verbs, world.file2list("strings/names/verbs.txt"))
 GLOBAL_LIST_INIT(wizard_first, world.file2list("strings/names/wizardfirst.txt"))
 GLOBAL_LIST_INIT(wizard_second, world.file2list("strings/names/wizardsecond.txt"))
-// END OF ALPHABETICAL SORTING
 
 GLOBAL_LIST_EMPTY(cached_ru_names)
 

@@ -37,7 +37,7 @@
 	if(target == user)
 		return
 
-	if(grenades.len)
+	if(length(grenades))
 		fire_grenade(target,user)
 	else
 		to_chat(user, span_danger("The grenade launcher is empty."))

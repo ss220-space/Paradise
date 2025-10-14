@@ -357,7 +357,7 @@
 	if(istype(I, /obj/item/paicard_upgrade))
 		add_fingerprint(user)
 		var/obj/item/paicard_upgrade/new_upgrade = I
-		if(is_syndicate_type || upgrade || (pai && pai.syndipai))
+		if(is_syndicate_type || upgrade || (pai?.syndipai))
 			user.balloon_alert(user, "пИИ уже достаточно крут!")
 			return ATTACK_CHAIN_PROCEED
 

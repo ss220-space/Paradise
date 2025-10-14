@@ -24,8 +24,6 @@
 #define CHASM_TRAIT "chasm_trait"
 
 // unique trait sources
-#define CULT_EYES "cult_eyes"
-#define CLOCK_HANDS "clock_hands"
 #define PULSEDEMON_TRAIT "pulse_demon"
 #define CHANGELING_TRAIT "changeling"
 #define VAMPIRE_TRAIT "vampire"
@@ -51,6 +49,7 @@
 #define AUGMENT_TRAIT "augment"
 #define ANTIDROP_TRAIT "antidrop"
 #define HOLO_CIGAR_TRAIT "holo_cigar"
+#define INUGAMI_TRAIT "inugami_gl"
 
 #define WISHGRANTER_TRAIT "wishgranter"
 #define THUNDERDOME_TRAIT "thunderdome"

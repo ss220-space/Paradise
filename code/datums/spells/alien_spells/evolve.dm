@@ -71,7 +71,7 @@
 
 			var/turf/simulated/floor/turf = get_turf(new_xeno)
 			if(istype(turf))
-				playsound(turf, "sound/effects/clang.ogg", 50, TRUE)
+				playsound(turf, 'sound/effects/clang.ogg', 50, TRUE)
 				turf.break_tile_to_plating()
 				pipe?.deconstruct()
 		else

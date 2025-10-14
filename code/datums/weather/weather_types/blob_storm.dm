@@ -32,7 +32,7 @@
 		var/mob/camera/blob/overmind = blob.current
 		if(QDELETED(overmind) || !istype(overmind) || overmind.stat == DEAD)
 			continue
-		if(overmind.blobs_legit.len > mass)
+		if(length(overmind.blobs_legit) > mass)
 			mass = overmind.blobs_legit.len
 			color = overmind.blobstrain.color
 
@@ -93,7 +93,7 @@
 	stage = MAIN_STAGE
 	if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 		for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
-			if(bomb && bomb.timing && is_station_level(bomb.z))
+			if(bomb?.timing && is_station_level(bomb.z))
 				INVOKE_ASYNC(bomb, TYPE_PROC_REF(/obj/machinery/nuclearbomb/,explode))
 	update_areas()
 	for(var/M in GLOB.player_list)

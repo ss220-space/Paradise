@@ -364,10 +364,10 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_ground(H.shoes))
-					SSmove_manager.move_away(thingy, H, 15, 2)
+					GLOB.move_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							SSmove_manager.stop_looping(thingy)
+							GLOB.move_manager.stop_looping(thingy)
 
 
 /obj/item/organ/internal/honktumor/cursed

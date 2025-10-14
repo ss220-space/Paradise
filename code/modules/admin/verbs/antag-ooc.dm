@@ -9,7 +9,7 @@
 	if(!msg)	return
 
 	var/display_name = src.key
-	if(holder && holder.fakekey)
+	if(holder?.fakekey)
 		display_name = holder.fakekey
 
 	for(var/mob/M in GLOB.mob_list)

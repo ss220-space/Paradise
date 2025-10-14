@@ -504,7 +504,7 @@
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		get_icon()
-		name = "[dna.real_name]'s head"
+		name = "[dna.real_name]’s head"
 		if(ru_names)
 			for(var/i = 1; i <= 6; i++)
 				ru_names[i] += " [dna.real_name]"
@@ -544,7 +544,7 @@
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || istype(user, /mob/dead/observer))
-		if(!contents.len)
+		if(!length(contents))
 			. += span_notice("Выглядит пустой.")
 		else
 			. += span_notice("Выглядит относительно целой, внутри что-то есть.")

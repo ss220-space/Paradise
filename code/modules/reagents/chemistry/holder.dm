@@ -929,6 +929,23 @@
 		return TRUE
 	return FALSE
 
+/**
+ * Returns the average clothing pen of all chemicals combined in src.
+ *
+ * Can be used if you are using a certain amount of all reagents in an object.
+ * Values returned are in a range from 0 to 1.
+ */
+/datum/reagents/proc/get_average_clothing_pen()
+	var/clothing_pen = 0
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		if(!reagent.clothing_penetration)
+			continue
+
+		clothing_pen += reagent.clothing_penetration * (reagent.volume / total_volume)
+
+	return clothing_pen
+
+
 /datum/reagents/Destroy()
 	. = ..()
 	QDEL_LIST(reagent_list)

@@ -5921,7 +5921,7 @@
 	},
 /area/mine/laborcamp)
 "FQ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},

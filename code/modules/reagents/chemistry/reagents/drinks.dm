@@ -1,7 +1,7 @@
 /datum/reagent/consumable/drink/orangejuice
 	name = "Апельсиновый сок"
 	id = "orangejuice"
-	description = "И вкусно, и богато витамином С - что ещё нужно?"
+	description = "И вкусно, и богато витамином С — что ещё нужно?"
 	drink_icon = "glass_orange"
 	drink_name = "стакан апельсинового сока"
 	drink_desc = "Витамины! Круто!"
@@ -272,7 +272,7 @@
 /datum/reagent/consumable/drink/coffee
 	name = "Кофе"
 	id = "coffee"
-	description = "Кофе - это напиток, приготовленный из обжаренных семян кофейного растения, которые обычно называют какао-бобами."
+	description = "Кофе — это напиток, приготовленный из обжаренных семян кофейного растения, которые обычно называют какао-бобами."
 	color = "#482000" // rgb: 72, 32, 0
 	nutriment_factor = 0
 	adj_dizzy = -10 SECONDS

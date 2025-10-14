@@ -278,14 +278,14 @@ Difficulty: Very Hard
 	charging = TRUE
 	revving_charge = TRUE
 	DestroySurroundings()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	setDir(dir)
 	SLEEP_CHECK_DEATH(src, delay)
 	revving_charge = FALSE
 	var/movespeed = 0.8
-	SSmove_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	GLOB.move_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	SLEEP_CHECK_DEATH(src, get_dist(src, T) * movespeed)
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	charging = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/MeleeAction(patience = TRUE)
@@ -480,7 +480,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message(span_biggerdanger("[declent_ru(NOMINATIVE)] начинает перегружать своё ядро. Оно вот-вот взорвётся!"))
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	playsound(src,'sound/machines/alarm.ogg',100, FALSE,5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
@@ -732,7 +732,7 @@ Difficulty: Very Hard
 		core.fix_specific_leg(who_am_i)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed)
-	SSmove_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	GLOB.move_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living)

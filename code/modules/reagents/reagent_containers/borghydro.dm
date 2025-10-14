@@ -116,10 +116,10 @@
 		return TRUE
 
 	var/mob/living/silicon/robot/R = target_loc
-	if(R && R.cell)
+	if(R?.cell)
 		var/datum/reagents/RG = reagent_list[mode]
 		if(!refill_borghypo(RG, reagent_ids[mode], R))	//If the storage is not full recharge reagents and drain power.
-			for(var/i in 1 to reagent_list.len)    	//if active mode is full loop through the list and fill the first one that is not full
+			for(var/i in 1 to length(reagent_list))    	//if active mode is full loop through the list and fill the first one that is not full
 				RG = reagent_list[i]
 				if(refill_borghypo(RG, reagent_ids[i], R))
 					break
@@ -134,7 +134,7 @@
 	RG.my_atom = src
 	reagent_list += RG
 
-	var/datum/reagents/R = reagent_list[reagent_list.len]
+	var/datum/reagents/R = reagent_list[length(reagent_list)]
 	R.add_reagent(reagent, 30)
 
 

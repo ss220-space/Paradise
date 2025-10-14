@@ -386,17 +386,17 @@
 			clear_fullscreen("brute")
 
 /mob/living/carbon/proc/handle_patches()
-	var/multiple_patch_multiplier = processing_patches.len > 1 ? (processing_patches.len * 1.5) : 1
+	var/multiple_patch_multiplier = length(processing_patches) > 1 ? (length(processing_patches) * 1.5) : 1
 	var/applied_amount = 0.35 * multiple_patch_multiplier
 
 	for(var/patch in processing_patches)
 		var/obj/item/reagent_containers/food/pill/patch/P = patch
 
 		if(P.reagents && P.reagents.total_volume)
-			var/fractional_applied_amount = (applied_amount  / P.reagents.total_volume) * P.protection_on_apply
+			var/fractional_applied_amount = (applied_amount  / P.reagents.total_volume)
 			P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, show_message = FALSE, ignore_protection = TRUE, def_zone = P.application_zone)
 			P.needs_to_apply_reagents = FALSE
-			P.reagents.trans_to(src, applied_amount * 0.5 * P.protection_on_apply)
+			P.reagents.trans_to(src, applied_amount * 0.5)
 			P.reagents.remove_any(applied_amount * 0.5)
 		else
 			if(!P.reagents || P.reagents.total_volume <= 0)

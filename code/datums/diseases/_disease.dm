@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	for(var/C_id in cures)
 		if(!affected_mob.reagents?.has_reagent(C_id))
 			.--
-	if(. <= 0 || (needs_all_cures && . < cures.len))
+	if(. <= 0 || (needs_all_cures && . < length(cures)))
 		return 0
 
 

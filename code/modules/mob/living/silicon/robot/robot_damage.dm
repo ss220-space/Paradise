@@ -195,10 +195,10 @@
 	if(!LAZYLEN(parts))
 		return .
 
-	while(parts.len && (brute > 0 || burn > 0))
+	while(length(parts) && (brute > 0 || burn > 0))
 		var/datum/robot_component/picked = pick(parts)
-		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
-		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
+		var/brute_per_part = round(brute/length(parts), DAMAGE_PRECISION)
+		var/burn_per_part = round(burn/length(parts), DAMAGE_PRECISION)
 
 		. |= picked.heal_damage(brute_per_part, burn_per_part, updating_health = FALSE)
 
@@ -247,10 +247,10 @@
 	if(armour)
 		return armour.take_damage(brute, burn, sharp, updating_health)
 
-	while(parts.len && (brute > 0 || burn > 0))
+	while(length(parts) && (brute > 0 || burn > 0))
 		var/datum/robot_component/picked = pick(parts)
-		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
-		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
+		var/brute_per_part = round(brute/length(parts), DAMAGE_PRECISION)
+		var/burn_per_part = round(burn/length(parts), DAMAGE_PRECISION)
 
 		. |= picked.take_damage(brute_per_part, burn_per_part, sharp, updating_health = FALSE)
 

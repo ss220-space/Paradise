@@ -232,13 +232,13 @@
 	if(!panel_open)
 		to_chat(user, span_warning("Для изменения настроек [declent_ru(GENITIVE)] необходимо открыть панель!"))
 		return FALSE
-	if(!SSholomaps.valid_map_indexes.len > 1)
+	if(!length(SSholomaps.valid_map_indexes) > 1)
 		to_chat(user, span_warning("Нет других доступных карт для [declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	tool.play_tool_sound(user, 50)
 	var/current_index = SSholomaps.valid_map_indexes.Find(current_z_level)
-	if(current_index >= SSholomaps.valid_map_indexes.len)
+	if(current_index >= length(SSholomaps.valid_map_indexes))
 		current_z_level = SSholomaps.valid_map_indexes[1]
 	else
 		current_z_level = SSholomaps.valid_map_indexes[current_index + 1]

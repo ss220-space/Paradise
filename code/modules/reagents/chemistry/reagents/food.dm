@@ -43,7 +43,7 @@
 	data = counterlist_normalise(supplied_data)
 
 /datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
-	if(!islist(newdata) || !newdata.len)
+	if(!islist(newdata) || !length(newdata))
 		return
 	var/list/taste_amounts = list()
 	var/list/other_taste_amounts = newdata.Copy()
@@ -499,7 +499,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
-		if(vamp && vamp.is_garlic_affected && !vamp.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
+		if(vamp?.is_garlic_affected && !vamp.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
 			if(prob(min(25, current_cycle)))
 				to_chat(H, span_danger("Аромат чеснока не выветривается из вашего носа! Вы едва можете думать..."))
 				H.Weaken(2 SECONDS)
@@ -725,7 +725,7 @@
 /datum/reagent/consumable/chocolate
 	name = "Шоколад"
 	id = "chocolate"
-	description = "Шоколад - это восхитительный продукт, получаемый из семян дерева \"Theobroma cacao\"."
+	description = "Шоколад — это восхитительный продукт, получаемый из семян дерева \"Theobroma cacao\"."
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
 	color = "#2E2418"
@@ -961,7 +961,7 @@
 /datum/reagent/msg
 	name = "Глутамат натрия"
 	id = "msg"
-	description = "Глутамат натрия - это натриевая соль, известная главным образом благодаря своему использованию в качестве спорного усилителя вкуса."
+	description = "Глутамат натрия — это натриевая соль, известная главным образом благодаря своему использованию в качестве спорного усилителя вкуса."
 	reagent_state = LIQUID
 	color = "#F5F5F5"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM

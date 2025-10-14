@@ -38,7 +38,7 @@
 			connected_holopad.set_holocall(src)
 			connected_holopad.atom_say("[area] голопад звонит: входящий вызов от [requester]!")
 
-	if(!dialed_holopads.len)
+	if(!length(dialed_holopads))
 		calling_holopad.atom_say("Сбой соединения.")
 		qdel(src)
 		return
@@ -107,7 +107,7 @@
 	disconnected_holopad.set_holocall(src, FALSE)
 
 	dialed_holopads -= disconnected_holopad
-	if(!dialed_holopads.len)
+	if(!length(dialed_holopads))
 		if(graceful)
 			calling_holopad.atom_say("Вызов отклонён.")
 		qdel(src)

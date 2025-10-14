@@ -16,17 +16,17 @@
 
 /obj/item/sample/print/New(newloc, atom/supplied)
 	..(newloc, supplied)
-	if(evidence && evidence.len)
+	if(evidence && length(evidence))
 		icon_state = "fingerprint1"
 
 /obj/item/sample/proc/copy_evidence(atom/supplied)
-	if(supplied.time_of_touch && supplied.time_of_touch.len)
+	if(supplied.time_of_touch && length(supplied.time_of_touch))
 		evidence = supplied.time_of_touch.Copy()
 		supplied.suit_fibers.Cut()
 		supplied.time_of_touch.Cut()
 
 /obj/item/sample/proc/merge_evidence(obj/item/sample/supplied, mob/user)
-	if(!supplied.evidence || !supplied.evidence.len)
+	if(!supplied.evidence || !length(supplied.evidence))
 		return 0
 	evidence |= supplied.evidence
 	name = ("[initial(name)] (combined)")
@@ -35,7 +35,7 @@
 
 
 /obj/item/sample/print/merge_evidence(obj/item/sample/supplied, mob/user)
-	if(!supplied.evidence || !supplied.evidence.len)
+	if(!supplied.evidence || !length(supplied.evidence))
 		return 0
 	for(var/print in supplied.evidence)
 		if(evidence[print])
@@ -72,7 +72,7 @@
 	item_state = "paper"
 
 /obj/item/sample/print/attack_self(mob/user)
-	if(evidence && evidence.len)
+	if(evidence && length(evidence))
 		return
 	if(!ishuman(user))
 		return
@@ -127,7 +127,7 @@
 
 
 /obj/item/sample/print/copy_evidence(atom/supplied)
-	if(supplied.fingerprints_time && supplied.fingerprints_time.len)
+	if(supplied.fingerprints_time && length(supplied.fingerprints_time))
 		evidence = supplied.fingerprints_time.Copy()
 		supplied.fingerprints.Cut()
 		supplied.fingerprints_time.Cut()
@@ -141,11 +141,11 @@
 	var/evidence_path = /obj/item/sample/fibers
 
 /obj/item/forensics/sample_kit/proc/can_take_sample(mob/user, atom/supplied)
-	return (supplied.suit_fibers && supplied.suit_fibers.len)
+	return (supplied.suit_fibers && length(supplied.suit_fibers))
 
 /obj/item/forensics/sample_kit/proc/take_sample(mob/user, atom/supplied)
 	var/obj/item/sample/S = new evidence_path(get_turf(user), supplied)
-	to_chat(user, span_notice("You transfer [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [S]."))
+	to_chat(user, span_notice("You transfer [length(S.evidence)] [length(S.evidence) > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [S]."))
 
 /obj/item/forensics/sample_kit/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -182,4 +182,4 @@
 	evidence_path = /obj/item/sample/print
 
 /obj/item/forensics/sample_kit/powder/can_take_sample(mob/user, atom/supplied)
-	return (supplied.fingerprints && supplied.fingerprints.len)
+	return (supplied.fingerprints && length(supplied.fingerprints))

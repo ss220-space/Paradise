@@ -261,7 +261,7 @@
 	return ..()
 
 /obj/item/flash/armimplant/burn_out()
-	if(I && I.owner)
+	if(I?.owner)
 		to_chat(I.owner, span_warning("Your [name] implant overheats and deactivates!"))
 		I.Retract()
 

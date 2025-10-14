@@ -62,7 +62,7 @@
 	name = "Welding Tool"
 	id = "welding_tool"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 70, MAT_GLASS = 20)
+	materials = list(MAT_METAL = 70, MAT_GLASS = 30)
 	build_path = /obj/item/weldingtool
 	category = list("initial","Tools")
 

@@ -51,7 +51,7 @@
 						<td>[CB.title]</td>
 						<td>[CB.category]</td>
 						<td>[CB.id]</td>
-						<td><A href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a></td>
+						<td><a href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a></td>
 					</tr>"}
 
 				dat += "</table><br />[pagelist]"

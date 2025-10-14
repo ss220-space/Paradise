@@ -19,7 +19,7 @@
 
 	var/force_species = FALSE
 	var/selected_species = null
-	if(tgui_alert(src, "Вы хотите выбрать какую-то расу для отряда? Нет - будут обычные люди.", "Подтверждение", list("Да","Нет")) == "Да")
+	if(tgui_alert(src, "Вы хотите выбрать какую-то расу для отряда? Нет — будут обычные люди.", "Подтверждение", list("Да","Нет")) == "Да")
 		force_species = TRUE
 		selected_species = tgui_input_list(src, "Выберете расу", "Выбор расы", GLOB.all_species)
 		if(!selected_species)
@@ -56,7 +56,7 @@
 	var/list/players_to_spawn = list()
 	players_to_spawn = pick_candidates_all_types(src, teamsize, "Вы хотите сыграть за \a [team_name]?", min_hours=minhours, role_cleanname=team_name, reason=themission)
 
-	if(!players_to_spawn.len)
+	if(!length(players_to_spawn))
 		to_chat(src, "Никто не согласился.")
 		return 0
 

@@ -465,7 +465,7 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 		A.bottom_left_corner = se
 		New += se
 
-	if(New.len)
+	if(length(New))
 		A.add_overlay(New)
 
 

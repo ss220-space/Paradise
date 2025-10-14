@@ -322,7 +322,7 @@
 
 	switch(action)
 		if("jack")
-			if(cable && cable.machine)
+			if(cable?.machine)
 				hackmachine = cable.machine
 				if(hacking)
 					to_chat(usr, span_warning("Вы уже взламываете этот шлюз!"))

@@ -8,6 +8,10 @@
 #define MODE_NINJA 7
 #define MODE_THIEF 8
 #define MODE_TENDRIL 9
+#define MODE_DIAL 10
+#define MODE_PART_UPPER 11
+#define MODE_PART_LOWER 12
+
 #define SETTING_DISK 0
 #define SETTING_LOCATION 1
 #define SETTING_OBJECT 2
@@ -112,6 +116,12 @@
 			return "Вы включили спец-пинпоинтер."
 		if(MODE_TENDRIL)
 			return "High energy scanner active."
+		if(MODE_DIAL)
+			return "Стрелки показывают на циферблат"
+		if(MODE_PART_UPPER)
+			return "Стрелки показывают на верхнюю часть сердца"
+		if(MODE_PART_LOWER)
+			return "Стрелки показывают на нижнюю часть сердца"
 
 
 /obj/item/pinpointer/proc/scandisk()
@@ -792,6 +802,73 @@
 		. += "Number of high energy signatures remaining: [length(GLOB.tendrils)]"
 
 
+/obj/item/pinpointer/clock
+	name = "clockwork pinpointer"
+	desc = "Странные часы, чьи стрелки показывают на осколки сердца древнего божества"
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clock_pointer"
+	item_state = "clock_pointer"
+	materials = list(MAT_METAL=500)
+	modes = list(MODE_DIAL, MODE_PART_UPPER, MODE_PART_LOWER)
+	shows_nuke_timer = FALSE
+	icon_off = "clock_pointer"
+	icon_null = "clock_pointer"
+	icon_direct = "clock_pointer"
+	icon_close = "clock_pointer_active"
+	icon_medium = "clock_pointer_active"
+	icon_far = "clock_pointer_active"
+	var/obj/structure/part_dial/dial = null
+	var/obj/item/part_upper/upper = null
+	var/obj/item/part_upper/lower/lower = null
+
+/obj/item/pinpointer/clock/get_ru_names()
+	return list(
+		NOMINATIVE = "часовой целеуказатель",
+		GENITIVE = "часового целеуказателя",
+		DATIVE = "часовому целеуказателю",
+		ACCUSATIVE = "часовой целеуказатель",
+		INSTRUMENTAL = "часовым целеуказателем",
+		PREPOSITIONAL = "часовом целеуказателе",
+	)
+
+/obj/item/pinpointer/clock/process()
+	switch(mode)
+		if(MODE_DIAL)
+			if(find_dial())
+				return
+			mode = MODE_OFF
+		if(MODE_PART_UPPER)
+			if(find_upper())
+				return
+			mode = MODE_OFF
+		if(MODE_PART_LOWER)
+			if(find_lower())
+				return
+			mode = MODE_OFF
+		else
+			return
+
+/obj/item/pinpointer/clock/proc/find_dial()
+	dial = locate() in GLOB.poi_list
+	if(!dial)
+		return FALSE
+	pinpoint_at(dial)
+	return TRUE
+
+/obj/item/pinpointer/clock/proc/find_upper()
+	upper = locate() in GLOB.poi_list
+	if(!upper)
+		return FALSE
+	pinpoint_at(upper)
+	return TRUE
+
+/obj/item/pinpointer/clock/proc/find_lower()
+	lower = locate() in GLOB.poi_list
+	if(!lower)
+		return FALSE
+	pinpoint_at(lower)
+	return TRUE
+
 #undef MODE_OFF
 #undef MODE_DISK
 #undef MODE_NUKE
@@ -805,4 +882,6 @@
 #undef SETTING_DISK
 #undef SETTING_LOCATION
 #undef SETTING_OBJECT
-
+#undef MODE_DIAL
+#undef MODE_PART_UPPER
+#undef MODE_PART_LOWER

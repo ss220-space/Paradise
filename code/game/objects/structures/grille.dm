@@ -154,7 +154,7 @@
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
 	var/obj/structure/window/window = locate() in loc
-	if(window && window.fulltile && window.anchored)
+	if(window?.fulltile && window.anchored)
 		return ATTACK_CHAIN_BLOCKED_ALL// don't attack grilles through windows, that's weird and causes too many problems
 
 	if(user.a_intent == INTENT_HARM)
