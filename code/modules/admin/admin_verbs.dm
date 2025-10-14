@@ -127,6 +127,7 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/client/proc/respawn_character,
 	/client/proc/admin_deserialize,
 	/client/proc/spawn_panel,
+	/client/proc/beaker_panel,
 ))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
