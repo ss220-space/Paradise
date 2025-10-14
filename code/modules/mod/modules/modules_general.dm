@@ -255,7 +255,7 @@
 /obj/item/mod/module/jetpack/configure_edit(key, value)
 	switch(key)
 		if("stabilizers")
-			configure_jetpack(text2bool(value))
+			configure_jetpack(value)
 
 /obj/item/mod/module/jetpack/proc/allow_thrust()
 	if(!drain_power(use_energy_cost))
@@ -731,9 +731,9 @@
 /obj/item/mod/module/mouthhole/can_install(obj/item/mod/control/mod)
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
-	if(istype(helmet) && (helmet.flags_cover & HEADCOVERSMOUTH))
+	if(istype(helmet) && (helmet.flags_cover|helmet.visor_flags_cover & HEADCOVERSMOUTH))
 		return ..()
-	if(istype(mask) && (mask.flags_cover & MASKCOVERSMOUTH))
+	if(istype(mask) && (mask.flags_cover|mask.visor_flags_cover & MASKCOVERSMOUTH))
 		return ..()
 	return FALSE
 

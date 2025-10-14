@@ -74,6 +74,8 @@
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
+	/// Currently used color filter - cached because its applied to all of our overlays because BYOND is horrific
+	var/list/cached_color_filter
 
 	///Light systems, both shouldn't be active at the same time.
 	var/light_system = STATIC_LIGHT

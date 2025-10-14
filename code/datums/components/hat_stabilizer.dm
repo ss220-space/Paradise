@@ -199,8 +199,6 @@
 	else
 		movable_parent.balloon_alert_to_viewers("the hat falls to the floor!")
 
-/datum/component/hat_stabilizer/proc/on_retraction()
-
 /datum/component/hat_stabilizer/proc/remove_hat(mob/user)
 	if(QDELETED(attached_hat))
 		return

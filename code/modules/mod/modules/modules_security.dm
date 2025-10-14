@@ -69,7 +69,7 @@
 	dispense_type = /obj/item/grenade/mirage
 
 /obj/item/mod/module/dispenser/mirage/on_use()
-	var/obj/item/grenade/mirage/grenade = .
+	var/obj/item/grenade/mirage/grenade = ..()
 	grenade.attack_self(mod.wearer)
 
 /obj/item/mod/module/dispenser/mirage/get_ru_names()

@@ -61,20 +61,24 @@
 /obj/item/mod/module/springlock/bite_of_87/Initialize(mapload)
 	. = ..()
 	var/obj/item/mod/module/dna_lock/the_dna_lock_behind_the_slaughter = /obj/item/mod/module/dna_lock
-	name = initial(the_dna_lock_behind_the_slaughter.name) //TODO: внедрить рунеймы и их изменение
-	desc = initial(the_dna_lock_behind_the_slaughter.desc)
-	icon_state = initial(the_dna_lock_behind_the_slaughter.icon_state)
-	complexity = initial(the_dna_lock_behind_the_slaughter.complexity)
-	use_energy_cost = initial(the_dna_lock_behind_the_slaughter.use_energy_cost)
+	name = the_dna_lock_behind_the_slaughter.name
+	desc = the_dna_lock_behind_the_slaughter.desc
+	icon_state = the_dna_lock_behind_the_slaughter.icon_state
+	complexity = the_dna_lock_behind_the_slaughter.complexity
+	use_energy_cost = the_dna_lock_behind_the_slaughter.use_energy_cost
+	ru_names = the_dna_lock_behind_the_slaughter.get_ru_names()
+	qdel(the_dna_lock_behind_the_slaughter)
 
 /obj/item/mod/module/holster/hidden/Initialize(mapload)
 	. = ..()
-	var/obj/item/mod/module/tether/fake = /obj/item/mod/module/tether
-	name = initial(fake.name) //TODO: внедрить рунеймы и их изменение
-	desc = initial(fake.desc)
-	icon_state = initial(fake.icon_state)
-	complexity = initial(fake.complexity) //This is 1 less complex than a holster, but that is fine tbh, paying tc for it.
-	use_energy_cost = initial(fake.use_energy_cost)
+	var/obj/item/mod/module/tether/fake = new /obj/item/mod/module/tether
+	name = fake.name
+	desc = fake.desc
+	icon_state = fake.icon_state
+	complexity = fake.complexity //This is 1 less complex than a holster, but that is fine tbh, paying tc for it.
+	use_energy_cost = fake.use_energy_cost
+	ru_names = fake.get_ru_names()
+	qdel(fake)
 
 // MARK: Power kick
 /// Power kick - Lets the user launch themselves at someone to kick them.
@@ -459,7 +463,7 @@
 	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	mod.lefthand_file = initial(mod.lefthand_file)
 	mod.righthand_file = initial(mod.righthand_file)
-	mod.wearer.update_clothing()
+	update_clothing_slots()
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 
 // MARK: Energy shield
