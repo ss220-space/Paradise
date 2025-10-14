@@ -164,7 +164,7 @@
 		return
 	var/target_x = rand(-move_range, move_range)
 	var/target_y = rand(-move_range, move_range)
-	var/duration = rand(animation_speed * 0.5, animation_speed * 1.5)
+	var/duration = randfloat(animation_speed * 0.5, animation_speed * 1.5)
 	animate(point,
 		pixel_x = target_x,
 		pixel_y = target_y,

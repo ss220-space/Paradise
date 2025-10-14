@@ -302,6 +302,11 @@ def check_apostrophe_name(idx, line):
         if 'UNLINT' not in line:
             return [(idx + 1, f"Using an apostrophe in a name like \"[mob]'s brain\" may cause Byond to get confused between the two objects, such as click verbs, etc. Please use ’ (U+2019) instead.")]
 
+RAND_FLOATING_POINT_NUMBERS = re.compile(r'rand\([^)]*[0-9]\.')
+def check_rand_floating_point(idx, line):
+    if RAND_FLOATING_POINT_NUMBERS.search(line):
+        return [(idx + 1, "rand() does not support floating point numbers, use randfloat() instead.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -335,6 +340,7 @@ CODE_CHECKS = [
     check_dash_usage,
     check_playsound_improper_call,
     check_apostrophe_name,
+    check_rand_floating_point,
 ]
 
 def check_updatepaths_validity():
