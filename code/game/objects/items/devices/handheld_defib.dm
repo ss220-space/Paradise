@@ -34,7 +34,7 @@
 		. |= ATTACK_CHAIN_SUCCESS
 		user.visible_message(span_notice("[user] shocks [H] with [src]."), span_notice("You tried to shock [H] with [src]."))
 		add_attack_logs(user, H, "defibrillated with [src]")
-		playsound(get_turf(src), "sound/weapons/egloves.ogg", 75, TRUE)
+		playsound(get_turf(src), 'sound/weapons/egloves.ogg', 75, TRUE)
 		if(!blocked)
 			if(H.stat == DEAD)
 				to_chat(user, span_danger("[H] doesn't respond at all!"))
@@ -73,7 +73,7 @@
 /obj/item/handheld_defibrillator/proc/recharge()
 	cooldown = FALSE
 	update_icon(UPDATE_ICON_STATE)
-	playsound(loc, "sound/weapons/flash.ogg", 75, TRUE)
+	playsound(loc, 'sound/weapons/flash.ogg', 75, TRUE)
 
 /obj/item/handheld_defibrillator/syndie
 	name = "combat handheld defibrillator"

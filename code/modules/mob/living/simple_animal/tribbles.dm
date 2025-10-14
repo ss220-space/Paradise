@@ -33,8 +33,8 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	src.icon_living = src.icon_state
 	src.icon_dead = "[src.icon_state]_dead"
 	//random pixel offsets so they cover the floor
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 	GLOB.totaltribbles += 1
 
 

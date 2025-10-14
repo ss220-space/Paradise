@@ -301,7 +301,7 @@
 		return
 	if(user)
 		balloon_alert(user, "не удалось!")
-	playsound(loc, "sound/misc/sadtrombone.ogg", 60, TRUE)
+	playsound(loc, 'sound/misc/sadtrombone.ogg', 60, TRUE)
 
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/tool)

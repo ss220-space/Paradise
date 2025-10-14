@@ -1307,7 +1307,7 @@
 /datum/reagent/toxic_slurry/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
-		update_flags |= M.adjustToxLoss(rand(2.4), FALSE)
+		update_flags |= M.adjustToxLoss(rand(2, 4), FALSE)
 	if(prob(7))
 		to_chat(M, span_danger("Вас одолевает ужасная мигрень!"))
 		M.Stun(rand(4 SECONDS, 10 SECONDS))

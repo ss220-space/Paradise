@@ -285,11 +285,27 @@ HYPHEN_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) - (?=[а-яё])|(?<=[а-яё]) 
 EN_DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) – (?=[а-яё])|(?<=[а-яё]) – \d+|\d+ – (?=[а-яё]))', re.IGNORECASE)
 def check_dash_usage(idx, line):
     failures = []
-    if match := HYPHEN_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A hyphen with spaces was found '{match.group(0)}', which should be replaced with a dash (—)."))
-    if match := EN_DASH_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A en dash with spaces was found '{match.group(0)}', which should be replaced with a dash (—)."))
+    if HYPHEN_USAGE_RE.search(line):
+        failures.append((idx + 1, f"A hyphen was found, which should be replaced with a dash (—)."))
+    if EN_DASH_USAGE_RE.search(line):
+        failures.append((idx + 1, f"A en dash was found, which should be replaced with a dash (—)."))
     return failures
+
+PLAYSOUND_IMPROPER_CALL = re.compile(r'playsound\(([^,]*), "(sound\/[^\[]+)"')
+def check_playsound_improper_call(idx, line):
+    if match := PLAYSOUND_IMPROPER_CALL.search(line):
+        return [(idx + 1, f"Improper playsound call detected: \"{match.group(2)}\", it should be '{match.group(2)}' instead.")]
+
+APOSTROPHE_NAME = re.compile(r'name\s*=\s*"[^"]*\[[^]]*\]\'s')
+def check_apostrophe_name(idx, line):
+    if APOSTROPHE_NAME.search(line):
+        if 'UNLINT' not in line:
+            return [(idx + 1, f"Using an apostrophe in a name like \"[mob]'s brain\" may cause Byond to get confused between the two objects, such as click verbs, etc. Please use ’ (U+2019) instead.")]
+
+RAND_FLOATING_POINT_NUMBERS = re.compile(r'rand\([^)]*[0-9]\.')
+def check_rand_floating_point(idx, line):
+    if RAND_FLOATING_POINT_NUMBERS.search(line):
+        return [(idx + 1, "rand() does not support floating point numbers, use randfloat() instead.")]
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -322,6 +338,9 @@ CODE_CHECKS = [
     check_duplicate_spans,
     check_html_tags_case,
     check_dash_usage,
+    check_playsound_improper_call,
+    check_apostrophe_name,
+    check_rand_floating_point,
 ]
 
 def check_updatepaths_validity():
