@@ -278,10 +278,10 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	var/datum/ui_module/loadout/loadout
 
 	var/list/exoframe_names = list(
-		PREF_EXOFRAME_REINFORCED = "Укрепленный каркас экзоскелета",
-		PREF_EXOFRAME_INDUSTRIAL = "Промышленный каркас экзоскелета"
+		"exoframe_reinforced" = "Укрепленный каркас экзоскелета",
+		"exoframe_industrial" = "Промышленный каркас экзоскелета"
 		)
-	var/exoframe_type = PREF_EXOFRAME_REINFORCED
+	var/exoframe_type = "exoframe_reinforced"
 
 
 /datum/preferences/New(client/C)

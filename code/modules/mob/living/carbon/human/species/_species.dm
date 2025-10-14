@@ -1249,6 +1249,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/job_pre_equip(mob/living/carbon/human/human)
 	return
+
 /datum/species/proc/get_blood_overlays()
 	if(isnull(blood_overlays))
 		blood_overlays = icon_states(blood_mask)

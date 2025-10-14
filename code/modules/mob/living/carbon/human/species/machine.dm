@@ -216,7 +216,8 @@
 
 /datum/species/machine/job_pre_equip(mob/living/carbon/human/human)
 	if(human.client.prefs.exoframe_type)
-		var/obj/item/organ/internal/cyberimp/chest/exoframe/exoframe = new human.client.prefs.exoframe_type
+		var/exoframe_path = GLOB.exoframe_types[human.client.prefs.exoframe_type]
+		var/obj/item/organ/internal/cyberimp/chest/exoframe/exoframe = new exoframe_path
 		exoframe.insert(human)
 	
 	. = ..()

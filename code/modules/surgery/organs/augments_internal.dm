@@ -529,10 +529,13 @@
 /obj/item/organ/internal/cyberimp/chest/exoframe/emp_act(severity)
 	if(emp_proof || crit_fail)
 		return
+
 	if(!ishuman(owner))
 		return
+
 	if(!prob(30))
 		return
+
 	to_chat(owner, span_warning("Приводы вашего экзоскелета перестали двигаться!"))
 	crit_fail = TRUE
 	var/mob/living/carbon/human/human = owner
@@ -548,14 +551,17 @@
 	if(crit_fail && owner)
 		to_chat(owner, span_notice("Приводы вашего экзоскелета вновь активны."))
 	crit_fail = FALSE
+	
+	if(!ishuman(owner))
+		return
+		
 	var/mob/living/carbon/human/human = owner
-	if(ishuman(human))
-		human.add_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
-		human.maxHealth += given_health
-		human.health += given_health
-		human.dna.species.hazard_low_pressure = low_pressure_hazard
-		human.dna.species.warning_low_pressure = low_pressure_warning
-		human.dna.species.coldmod = coldmod
+	human.add_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
+	human.maxHealth += given_health
+	human.health += given_health
+	human.dna.species.hazard_low_pressure = low_pressure_hazard
+	human.dna.species.warning_low_pressure = low_pressure_warning
+	human.dna.species.coldmod = coldmod
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced
 	name = "Укрепленный каркас экзоскелета"
