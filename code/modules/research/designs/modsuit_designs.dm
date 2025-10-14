@@ -483,7 +483,3 @@
 	req_tech = list("materials" = 6, "powerstorage" = 5, "biotech" = 6)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_SILVER = 4000)
 	build_path = /obj/item/mod/module/magnetic_harness
-
-/datum/design/module/mod_
-	name = ""
-	id = "mod_"
