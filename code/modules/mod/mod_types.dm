@@ -85,6 +85,7 @@
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/hearing_protection,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -141,6 +142,8 @@
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
+		/obj/item/mod/module/health_analyzer,
+		/obj/item/mod/module/quick_carry,
 	)
 
 /obj/item/mod/control/pre_equipped/rescue
@@ -152,6 +155,8 @@
 		/obj/item/mod/module/injector,
 		/obj/item/mod/module/defibrillator,
 		/obj/item/mod/module/monitor,
+		/obj/item/mod/module/health_analyzer,
+		/obj/item/mod/module/quick_carry/advanced,
 	)
 	default_pins = list(
 		/obj/item/mod/module/defibrillator,
@@ -174,6 +179,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/hearing_protection,
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard_mk_one
@@ -184,6 +190,8 @@
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/holster,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/active_sonar,
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard_mk_two
@@ -195,6 +203,10 @@
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/holster,
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/longfall,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/active_sonar,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -207,6 +219,9 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/health_analyzer,
+		/obj/item/mod/module/quick_carry,
 	)
 
 /obj/item/mod/control/pre_equipped/magnate
@@ -215,6 +230,8 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/hat_stabilizer
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -228,6 +245,7 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/monitor,
+		/obj/item/mod/module/hearing_protection,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
@@ -250,6 +268,8 @@
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/hat_stabilizer/syndicate
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
@@ -269,6 +289,8 @@
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/hat_stabilizer/syndicate
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -289,6 +311,10 @@
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/longfall,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/hat_stabilizer/syndicate
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -305,6 +331,10 @@
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/longfall,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/hat_stabilizer/syndicate
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -338,6 +368,7 @@
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/ert_camera,
+		/obj/item/mod/module/hearing_protection,
 	)
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
 	var/insignia_type = /obj/item/mod/module/insignia
@@ -365,7 +396,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
-	additional_module = /obj/item/mod/module/defibrillator
+	additional_module =  list(/obj/item/mod/module/defibrillator, /obj/item/mod/module/medbeam)
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
@@ -388,9 +419,12 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/magboot/elite,
+		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/ert_camera,
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/longfall,
+		/obj/item/mod/module/hearing_protection,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
@@ -403,7 +437,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
-	additional_module = /obj/item/mod/module/defibrillator
+	additional_module =  list(/obj/item/mod/module/defibrillator, /obj/item/mod/module/medbeam)
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 	insignia_type = /obj/item/mod/module/insignia/chaplain
@@ -420,6 +454,9 @@
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/longfall,
+		/obj/item/mod/module/hearing_protection,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -435,6 +472,7 @@
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/power_kick,
+		/obj/item/mod/module/hearing_protection,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -453,6 +491,10 @@
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
 		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/longfall,
+		/obj/item/mod/module/hat_stabilizer
 	)
 	default_pins = list(
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
@@ -492,6 +534,9 @@
 		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/stealth/ninja,
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/longfall,
+		/obj/item/mod/module/hearing_protection,
 	)
 	default_pins = list(
 		/obj/item/mod/module/stealth/ninja,
@@ -508,6 +553,10 @@
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/holster,
 		/obj/item/mod/module/energy_shield/gamma,
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/longfall,
+		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/active_sonar,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,

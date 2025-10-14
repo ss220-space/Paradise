@@ -192,7 +192,7 @@
 /datum/design/module/mod_jetpack
 	name = "Ion Jetpack Module"
 	id = "mod_jetpack"
-	req_tech = list("materials" = 7, "magnets" = 7, "engineering" = 7)
+	req_tech = list("materials" = 7, "magnets" = 6, "engineering" = 6)
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000) //Jetpacks are rare, so might as well make it... sorta expencive, I guess.
 	build_path = /obj/item/mod/module/jetpack
 
@@ -231,6 +231,12 @@
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/flashlight
 
+/datum/design/module/mod_flashdark
+	name = "Flashdark Module"
+	id = "mod_flashdark"
+	req_tech = list("magnets" = 4, "engineering" = 3, "plasmatech" = 4)
+	materials = list(MAT_METAL = 400, MAT_GLASS = 5000)
+	build_path = /obj/item/mod/module/flashlight/darkness
 
 /datum/design/module/mod_tether
 	name = "Emergency Tether Module"
@@ -257,7 +263,7 @@
 /datum/design/module/mod_thermal_regulator
 	name = "Thermal Regulator Module"
 	id = "mod_thermal_regulator"
-	req_tech = list("materials" = 3, "plasmatech" = 3, "magnets" = 2)
+	req_tech = list("materials" = 7, "plasmatech" = 4, "magnets" = 6)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/thermal_regulator
 
@@ -278,7 +284,7 @@
 /datum/design/module/defibrillator
 	name = "Defibrillator Module"
 	id = "mod_defib"
-	req_tech = list("materials" = 7, "biotech" = 7, "powerstorage" = 6)
+	req_tech = list("materials" = 5, "biotech" = 6, "powerstorage" = 6)
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 	build_path = /obj/item/mod/module/defibrillator
 
@@ -362,7 +368,7 @@
 /datum/design/module/status_readout
 	name = "Status Readout Module"
 	id = "mod_status_readout"
-	req_tech = list("materials" = 5, "powerstorage" = 5, "biotech" = 6, "syndicate" = 2)
+	req_tech = list("materials" = 5, "powerstorage" = 5, "biotech" = 6)
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 	build_path = /obj/item/mod/module/status_readout
 
@@ -400,3 +406,84 @@
 	req_tech = list("combat" = 5, "engineering" = 5, "bluespace" = 7, "plasmatech" = 6)
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) //Requires Vortex anomaly core to function.
 	build_path = /obj/item/mod/module/anomaly_locked/vortex_shotgun
+
+/datum/design/module/mod_flamethrower
+	name = "Flamethrower Module"
+	id = "mod_flamethrower"
+	req_tech = list("combat" = 5, "engineering" = 5, "plasmatech" = 4)
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 4000, MAT_PLASMA = 6000)
+	build_path = /obj/item/mod/module/flamethrower
+
+/datum/design/module/mod_medbeam
+	name = "Medbeam Module"
+	id = "mod_medbeam
+	req_tech = list("materials" = 6, "powerstorage" = 7, "biotech" = 7)
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
+	build_path = /obj/item/mod/module/medbeam
+
+/datum/design/module/mod_jumpjet
+	name = "Jump jet module"
+	id = "mod_jumpjet"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "bluespace" = 5, "plasmatech" = 6)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_PLASMA = 5000)
+	build_path = /obj/item/mod/module/jump_jet
+
+/datum/design/module/mod_mouthhole
+	name = "Eating apparatus module"
+	id = "mod_mouthhole"
+	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
+	build_path = /obj/item/mod/module/mouthhole
+
+/datum/design/module/mod_longfall
+	name = "Longfall module"
+	id = "mod_longfall"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "bluespace" = 5, "plasmatech" = 6)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_PLASMA = 5000)
+	build_path = /obj/item/mod/module/longfall
+
+/datum/design/module/mod_health_analyzer
+	name = "Health analyzer module"
+	id = "mod_health_analyzer"
+	req_tech = list("materials" = 2, "powerstorage" = 2, "biotech" = 3)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
+	build_path = /obj/item/mod/module/health_analyzer
+
+/datum/design/module/mod_quick_carry
+	name = "quick carry module"
+	id = "mod_quick_carry"
+	req_tech = list("materials" = 5, "powerstorage" = 4, "biotech" = 6)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_PLASMA = 5000)
+	build_path = /obj/item/mod/module/quick_carry
+
+/datum/design/module/mod_patienttransport
+	name = "patient transport module"
+	id = "mod_patienttransport
+	req_tech = list("materials" = 5, "powerstorage" = 4, "biotech" = 6)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_PLASMA = 5000)
+	build_path = /obj/item/mod/module/criminalcapture/patienttransport
+
+/datum/design/module/mod_antigrav
+	name = "Anti-gravity module"
+	id = "mod_antigrav"
+	req_tech = list("materials" = 7, "powerstorage" = 7, "engineering" = 7) // 3 felt too low.
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
+	build_path = /obj/item/mod/module/anomaly_locked/antigrav
+
+/datum/design/module/mod_criminalcapture
+	name = "Criminal capture module"
+	id = "mod_criminalcapture"
+	req_tech = list("materials" = 3, "powerstorage" = 2, "biotech" = 3)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
+	build_path = /obj/item/mod/module/criminalcapture
+
+/datum/design/module/mod_magnetic_harness
+	name = "magnetic harness module"
+	id = "mod_magnetic_harness"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "biotech" = 6)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_SILVER = 4000)
+	build_path = /obj/item/mod/module/magnetic_harness
+
+/datum/design/module/mod_
+	name = ""
+	id = "mod_"

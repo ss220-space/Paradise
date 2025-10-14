@@ -2070,7 +2070,7 @@
 	name ="Модуль кобуры"
 	desc = "Модуль для МЭК, представляющий из себя небольшой внутренний карман, позволяющий хранить внутри оружие с возможностью извлечь его в любой момент. \
 			Оружие в комплект не идёт."
-	item = /obj/item/mod/module/holster
+	item = /obj/item/mod/module/holster/hidden
 	cost = 2
 	surplus = 10
 
@@ -2167,6 +2167,13 @@
 	item = /obj/item/mod/module/energy_shield
 	cost = 200
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/suits/shock_absorber
+	name = "Модуль поглощения шока"
+	desc = "Модуль для МЭК, использующий продвинутую технологию поглощения ударных волн для защиты пользователя от шока, вызываемого дубинками службы безопасности. \
+			Внимание: модуль не защитит пользователя от урона по стамине, однако он не даст вам потерять равновесие и упасть, выронив на пол все ваши драгоценные предметы."
+	item = /obj/item/mod/module/shock_absorber
+	cost = 15
 
 /**
  * MARK: Implants

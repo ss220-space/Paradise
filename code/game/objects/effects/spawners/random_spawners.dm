@@ -310,7 +310,7 @@
 		/obj/item/stack/sheet/mineral/plasma{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/silver{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1,
-		/obj/item/mod/module/noslip = 1,
+		/obj/item/mod/module/magboot/advanced = 1,
 		/obj/item/mod/module/visor/night = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
@@ -421,8 +421,8 @@
 	result = list(
 		/obj/item/mod/module/springlock = 2,
 		/obj/item/mod/module/balloon = 1,
-		/obj/item/mod/module/stamp = 1
-		/obj/item/mod/module/paper_dispenser = 1
+		/obj/item/mod/module/stamp = 1,
+		/obj/item/mod/module/paper_dispenser = 1,
 		/obj/item/mod/module/hat_stabilizer = 2,
 		/obj/item/mod/module/bikehorn = 1,
 		/obj/item/mod/module/dispenser = 1,

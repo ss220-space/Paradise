@@ -321,7 +321,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
 	belt = /obj/item/storage/belt/utility/chief/full
-	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/engineer
+	back = /obj/item/mod/control/pre_equipped/responsory/engineer
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner/extended_range

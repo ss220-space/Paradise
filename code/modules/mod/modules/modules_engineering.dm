@@ -136,7 +136,6 @@
 	name = "MOD advanced magnetic stability module"
 	desc = "Продвинутый вариант модуля магнитных ботинок. Кроме всех преимуществ обычной версии, ещё и не замедляет пользователя \
 		В активированном состоянии."
-	removable = FALSE
 	complexity = 0
 	slowdown_active = 0
 
@@ -167,6 +166,7 @@
 	name = "MOD elite magnetic stability module"
 	desc = "Совершенный в технологическом смысле модуль магнитных ботинок, в активированном состоянии абсолютно защищающий от любых \
 		скользких поверхностей. Не замедляет пользователя."
+	removable = FALSE
 
 /obj/item/mod/module/magboot/advanced/elite/get_ru_names()
 	return list(

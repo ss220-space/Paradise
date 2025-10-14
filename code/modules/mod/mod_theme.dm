@@ -1424,7 +1424,7 @@
 
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	slowdown_deployed = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
+	slowdown_deployed = 0
 	ui_theme = "syndicate"
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
@@ -1531,7 +1531,7 @@
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	slowdown_deployed = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
+	slowdown_deployed = 0
 	ui_theme = "syndicate"
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
@@ -1719,39 +1719,6 @@
 				CAN_OVERSLOT = TRUE,
 			),
 		),
-		"inquisitory" = list(
-			/obj/item/clothing/head/mod = list(
-				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
-				UNSEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
-				SEALED_INVISIBILITY = HIDEHAIR,
-				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
-				UNSEALED_MESSAGE = HELMET_UNSEAL_MESSAGE,
-				SEALED_MESSAGE = HELMET_SEAL_MESSAGE,
-			),
-			/obj/item/clothing/suit/mod = list(
-				UNSEALED_MESSAGE = CHESTPLATE_UNSEAL_MESSAGE,
-				SEALED_MESSAGE = CHESTPLATE_SEAL_MESSAGE,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
-			),
-			/obj/item/clothing/gloves/mod = list(
-				UNSEALED_MESSAGE = GAUNTLET_UNSEAL_MESSAGE,
-				SEALED_MESSAGE = GAUNTLET_SEAL_MESSAGE,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-			/obj/item/clothing/shoes/mod = list(
-				UNSEALED_MESSAGE = BOOT_UNSEAL_MESSAGE,
-				SEALED_MESSAGE = BOOT_SEAL_MESSAGE,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-		),
 	)
 
 
@@ -1791,13 +1758,14 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"elite ERT" = list(
+		"inquisitory" = list(
 			/obj/item/clothing/head/mod = list(
-				UNSEALED_LAYER = COLLAR_LAYER,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
-				UNSEALED_INVISIBILITY = HIDENAME,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
+				SEALED_INVISIBILITY = HIDEHAIR,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 				UNSEALED_MESSAGE = HELMET_UNSEAL_MESSAGE,
 				SEALED_MESSAGE = HELMET_SEAL_MESSAGE,
 			),
@@ -1822,7 +1790,7 @@
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-		)
+		),
 	)
 
 
@@ -1854,6 +1822,7 @@
 	ui_theme = "malfunction"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
+	slowdown_deployed = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 10
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,

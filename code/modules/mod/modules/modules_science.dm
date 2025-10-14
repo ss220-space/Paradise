@@ -89,7 +89,7 @@
 	icon_state = "teleporter"
 	module_type = MODULE_ACTIVE
 	complexity = 3
-	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 50 //too good
 	cooldown_time = 5 SECONDS
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/bluespace)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)

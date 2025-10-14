@@ -653,11 +653,15 @@
 		Автоматическая посадка в стандартную комплектацию не входит."
 	icon_state = "jump_jet"
 	module_type = MODULE_USABLE
-	complexity = 3
+	complexity = 1
 	cooldown_time = 30 SECONDS
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/jump_jet)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+
+/obj/item/mod/module/jump_jet/examine(mob/user)
+	. = ..()
+	. += span_notice("Данный модуль будет бесполезен там, где есть только один этаж...")
 
 /obj/item/mod/module/jump_jet/get_ru_names()
 	return list(
@@ -759,6 +763,10 @@
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/longfall)
 	required_slots = list(ITEM_SLOT_FEET)
+
+/obj/item/mod/module/longfall/examine(mob/user)
+	. = ..()
+	. += span_notice("Данный модуль будет бесполезен там, где есть только один этаж...")
 
 /obj/item/mod/module/longfall/get_ru_names()
 	return list(

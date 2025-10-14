@@ -453,7 +453,7 @@
 	capture_time = 1.5 SECONDS
 	packup_time = 0.5 SECONDS
 
-/obj/item/mod/module/organizer/get_ru_names()
+/obj/item/mod/module/criminalcapture/patienttransport/get_ru_names()
 	return list(
 		NOMINATIVE = "модуль мешков для тел",
 		GENITIVE = "модуля мешков для тел",
