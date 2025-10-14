@@ -337,7 +337,7 @@
 		/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
 		/obj/item/reagent_containers/glass/bottle/tuberculosiscure = 50,
 		/obj/item/reagent_containers/glass/bottle/gbs = 50,
-		/obj/item/mod/construction/plating/research = 25,
+		/obj/item/mod/construction/plating/rescue = 25,
 		/obj/item/bodyanalyzer/advanced = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/sec

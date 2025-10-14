@@ -227,7 +227,7 @@
 								/obj/item/storage/box/sec = 1),												// 0 TK
 			"MetaOps" = list("Name" = "'MetaOps' bundle",	// 140-187 TK
 								"Desc" = "Wreak chaos and disguise yourself as a nuclear operative.",
-								/obj/item/clothing/suit/space/hardsuit/syndi/elite = 1,						// 50 TK
+								/obj/item/mod/control/pre_equipped/traitor_elite = 1,						// 50 TK
 								/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff = 1,			// 0-45 TK
 								/obj/item/implanter/explosive = 1,											// 10 TK
 								/obj/item/ammo_box/magazine/cheap_m12g = 2,								// 20 TK
@@ -251,7 +251,7 @@
 								/obj/item/ammo_box/magazine/m10mm = 2,										// 5 TK
 								/obj/item/ammo_box/magazine/m10mm/fire = 2,									// 10 TK
 								/obj/item/clothing/shoes/chameleon/noslip = 1,								// 10 TK
-								/obj/item/storage/box/syndie_kit/hardsuit = 1,								// 30 TK
+								/obj/item/mod/control/pre_equipped/traitor = 1,								// 30 TK
 								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK

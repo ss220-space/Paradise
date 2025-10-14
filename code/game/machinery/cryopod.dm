@@ -251,6 +251,8 @@
 		/obj/item/sensor_device/advanced,
 		/obj/item/qm_quest_tablet,
 		/obj/item/mod/control,
+		/obj/item/autopsy_scanner,
+		/obj/item/storage/belt/rapier,
 	)
 	// These items will NOT be preserved
 	var/static/list/do_not_preserve_items = list (

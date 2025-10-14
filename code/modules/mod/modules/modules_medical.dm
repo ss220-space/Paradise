@@ -149,6 +149,7 @@
 	possible_transfer_amounts = list(5, 10, 15, 20, 30)
 	volume = 30
 	penetrates_thick = TRUE
+	ignores_pierceimmune = TRUE
 
 /obj/item/reagent_containers/syringe/mod/get_ru_names()
 	return list(

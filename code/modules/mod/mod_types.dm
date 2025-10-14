@@ -207,7 +207,6 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/holster,
 	)
 
 /obj/item/mod/control/pre_equipped/magnate
@@ -263,13 +262,12 @@
 
 /obj/item/mod/control/pre_equipped/traitor_elite
 	theme = /datum/mod_theme/elite
-	applied_cell = /obj/item/stock_parts/cell/bluespace
+	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
-		/obj/item/mod/module/storage/syndicate,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/storage,
 		/obj/item/mod/module/status_readout,
-		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/flashlight,
 	)
 	default_pins = list(
@@ -290,7 +288,7 @@
 		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/magboot/advanced,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -306,7 +304,7 @@
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/magboot/advanced,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -383,6 +381,17 @@
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory //Diffrent look, as well as magic proof on TG. We don't have the magic proof stuff here, but it's perfect for inqusitors. Or if you want to give your ERT a fancy look.
 	applied_skin = "inquisitory"
+	theme = /datum/mod_theme/gamma_responsory
+	applied_modules = list(
+		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/welding,
+		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/status_readout,
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/magboot/elite,
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/ert_camera,
+	)
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
 	insignia_type = /obj/item/mod/module/insignia/commander

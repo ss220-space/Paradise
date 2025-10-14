@@ -287,7 +287,7 @@
 		EQUIPMENT("Jump Boots Implants",			/obj/item/storage/box/jumpbootimplant,								7000),
 		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule,												300),
 		EQUIPMENT("Lazarus Capsule belt",			/obj/item/storage/belt/lazarus,										400),
-		EQUIPMENT("Mining MODsuit",					/obj/item/clothing/suit/space/hardsuit/mining,						2500),
+		EQUIPMENT("Mining MODsuit",					/obj/item/mod/control/pre_equipped/mining/vendor,					2500),
 		EQUIPMENT("Advanced Jetpack Module",		/obj/item/mod/module/jetpack/advanced,								2000),
 		EQUIPMENT("Asteroid MODsuit Skin", 			/obj/item/mod/skin_applier/asteroid,								1000),
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker,									800),
