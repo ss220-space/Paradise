@@ -24,10 +24,10 @@
 	..()
 	add_overlay("improvised_grenade_filled")
 	add_overlay("improvised_grenade_wired")
-	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[rand(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[rand(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
+	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[randfloat(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[randfloat(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
 	det_time = text2num(pickweight(times))
 	if(det_time < 0) //checking for 'duds'
-		det_time = rand(3 SECONDS, 8 SECONDS)
+		det_time = randfloat(3 SECONDS, 8 SECONDS)
 
 /obj/item/grenade/iedcasing/CheckParts(list/parts_list)
 	..()

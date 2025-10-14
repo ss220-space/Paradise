@@ -11,12 +11,14 @@
 	var/datum/martial_art/base = null
 	/// Chance to deflect projectiles while on throw mode.
 	var/deflection_chance = 0
+	var/can_deflect = FALSE
 	/// Can it reflect projectiles in a random direction?
 	var/reroute_deflection = FALSE
 	///Chance to block melee attacks using items
 	var/block_chance = 0
 	//Chance to reflect projectiles but NINJA!
 	var/reflection_chance = 0
+	var/can_reflect = FALSE
 	var/help_verb = null
 	/// Set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns = FALSE

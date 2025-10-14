@@ -177,7 +177,7 @@
 			brain_path = /obj/item/organ/internal/brain
 		held_brain = new brain_path(src) // Slime people will keep their slimy brains this way
 	held_brain.dna = brainmob.dna.Clone()
-	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
+	held_brain.name = "\the [brainmob.name]’s [initial(held_brain.name)]"
 	brainmob.update_sight()
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
@@ -190,7 +190,7 @@
 		to_chat(brainmob, span_userdanger("Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!"))
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
-		held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
+		held_brain.name = "\the [brainmob.name]’s [initial(held_brain.name)]"
 
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.forceMove(held_brain) //Throw mob into brain.

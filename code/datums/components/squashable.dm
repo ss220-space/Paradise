@@ -28,6 +28,10 @@
 
 	AddComponent(/datum/component/connect_loc_behalf, parent, loc_connections)
 
+/datum/component/squashable/Destroy(force)
+	on_squash_callback = null
+	return ..()
+
 /datum/component/squashable/UnregisterFromParent()
 	. = ..()
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
@@ -40,7 +44,6 @@
 		return
 
 	var/mob/living/parent_as_living = parent
-
 	if(squash_flags & SQUASHED_SHOULD_BE_DOWN && parent_as_living.resting)
 		return
 
