@@ -205,7 +205,7 @@
 				return
 			var/datum/data/record/G = new /datum/data/record()
 			G.fields["name"] = "New Record"
-			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7), 2), 6)]"
+			G.fields["id"] = "[add_zero(num2hex(rand(1, SHORT_REAL_LIMIT), 2), 6)]"
 			G.fields["rank"] = "Unassigned"
 			G.fields["real_rank"] = "Unassigned"
 			G.fields["sex"] = "Male"
@@ -501,7 +501,7 @@
 		if(prob(10 / severity))
 			switch(rand(1, 6))
 				if(1)
-					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
+					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)

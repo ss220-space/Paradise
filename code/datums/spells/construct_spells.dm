@@ -14,6 +14,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build
 	aoe_range = 0
+	one_per_turf = TRUE
 
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/floor
@@ -78,6 +79,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
+	one_per_turf = FALSE
 	summon_type = list(/obj/item/soulstone)
 
 

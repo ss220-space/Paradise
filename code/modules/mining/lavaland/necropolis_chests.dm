@@ -282,7 +282,7 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред - всего лишь смутное, греховное воспоминание..."))
+	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
 	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
@@ -325,7 +325,7 @@
 		to_chat(user, span_warning("Вы пока не можете этого сделать!"))
 		return
 	if(is_station_level(T.z) && !A.outdoors)
-		to_chat(user, span_warning("Кажется, призывать фауну в помещении – плохая идея."))
+		to_chat(user, span_warning("Кажется, призывать фауну в помещении — плохая идея."))
 		return
 	user.visible_message(span_warning("[user] протягивает букет, призывая союзников!"))
 	for(var/mob/m in summons)

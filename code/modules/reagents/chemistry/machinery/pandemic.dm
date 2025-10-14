@@ -33,14 +33,14 @@
 	update_icon()
 
 /obj/machinery/computer/pandemic/proc/GetDiseaseByIndex(index)
-	if(beaker?.reagents?.reagent_list.len)
+	if(length(beaker?.reagents?.reagent_list))
 		for(var/datum/reagent/BL in beaker.reagents.reagent_list)
 			if(BL?.data && BL.data["diseases"])
 				var/list/diseases = BL.data["diseases"]
 				return diseases[index]
 
 /obj/machinery/computer/pandemic/proc/GetResistancesByIndex(index)
-	if(beaker?.reagents?.reagent_list.len)
+	if(length(beaker?.reagents?.reagent_list))
 		for(var/datum/reagent/BL in beaker.reagents.reagent_list)
 			if(BL?.data && BL.data["resistances"])
 				var/list/resistances = BL.data["resistances"]
@@ -261,7 +261,7 @@
 				if(!Blood.data)
 					continue
 				break
-		if(!R.total_volume||!R.reagent_list.len)
+		if(!R.total_volume||!length(R.reagent_list))
 			dat += "Ёмкость пуста<br>"
 		else if(!Blood)
 			dat += "В ёмкости отсутствует образец крови."
@@ -317,7 +317,7 @@
 
 			if(Blood.data["resistances"])
 				var/list/res = Blood.data["resistances"]
-				if(res.len)
+				if(length(res))
 					dat += "<br><b>Содержит антитела к:</b><ul>"
 					var/i = 0
 					for(var/type in Blood.data["resistances"])
@@ -338,7 +338,7 @@
 					dat += "<br><b>Не содержит антител</b><br>"
 			else
 				dat += "<br><b>Не содержит антител</b><br>"
-		dat += "<br><a href='byond://?src=[UID()];eject=1'>Извлечь ёмкость</a>[((R.total_volume&&R.reagent_list.len) ? "-- <a href='byond://?src=[UID()];empty_beaker=1'>Очистить и извлечь ёмкость</a>":"")]<br>"
+		dat += "<br><a href='byond://?src=[UID()];eject=1'>Извлечь ёмкость</a>[((R.total_volume&&length(R.reagent_list)) ? "-- <a href='byond://?src=[UID()];empty_beaker=1'>Очистить и извлечь ёмкость</a>":"")]<br>"
 		dat += "<a href='byond://?src=[user.UID()];mach_close=pandemic'>Закрыть</a>"
 
 	var/datum/browser/popup = new(user, "pandemic", name, 575, 480)

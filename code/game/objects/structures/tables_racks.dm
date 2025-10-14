@@ -249,7 +249,7 @@
 		return FALSE
 	var/obj/blocking_object = density_check(user)
 	if(blocking_object)
-		to_chat(user, span_warning("Не получается - мешает [blocking_object.declent_ru(NOMINATIVE)]!"))
+		to_chat(user, span_warning("Не получается — мешает [blocking_object.declent_ru(NOMINATIVE)]!"))
 		return FALSE
 	victim.forceMove(get_turf(src))
 	victim.Weaken(4 SECONDS)

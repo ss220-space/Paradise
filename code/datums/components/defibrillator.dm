@@ -102,6 +102,8 @@
  */
 /datum/component/defib/proc/trigger_defib(obj/item/paddles, mob/living/carbon/human/target, mob/living/user)
 	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
+	if(HAS_TRAIT(paddles, TRAIT_DEFIB_BLOCKED))  // The TRAIT is added if the built-in defibrillator in the inugami gloves is disabled
+		return
 	// This includes some do-afters, so we have to pass it off asynchronously
 	INVOKE_ASYNC(src, PROC_REF(defibrillate), user, target)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -194,9 +196,9 @@
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
 			busy = FALSE
 		if(!heart)
-			defib_ref.atom_say("Реанимация не удалась - электрическая активность сердца не зафиксирована!")
+			defib_ref.atom_say("Реанимация не удалась — электрическая активность сердца не зафиксирована!")
 		else if(heart.is_dead())
-			defib_ref.atom_say("Реанимация не удалась - обнаружен некроз сердца!")
+			defib_ref.atom_say("Реанимация не удалась — обнаружен некроз сердца!")
 
 		target.set_heartattack(FALSE)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
@@ -228,22 +230,22 @@
 	var/time_dead = world.time - target.timeofdeath
 
 	if((time_dead > DEFIB_TIME_LIMIT) || !target.get_organ_slot(INTERNAL_ORGAN_HEART))
-		defib_ref.atom_say("Реанимация не удалась - обнаружены необратимые повреждения сердца!")
+		defib_ref.atom_say("Реанимация не удалась — обнаружены необратимые повреждения сердца!")
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180 || target.getCloneLoss() >= 180)
-		defib_ref.atom_say("Реанимация не удалась - обнаружены обширные повреждения тканей!")
+		defib_ref.atom_say("Реанимация не удалась — обнаружены обширные повреждения тканей!")
 		defib_success = FALSE
 	else if(target.blood_volume < BLOOD_VOLUME_SURVIVE)
-		defib_ref.atom_say("Реанимация не удалась - объём крови в организме пациента на критически низком уровне!")
+		defib_ref.atom_say("Реанимация не удалась — объём крови в организме пациента на критически низком уровне!")
 		defib_success = FALSE
 	else if(!target.get_organ_slot(INTERNAL_ORGAN_BRAIN))  //So things like headless clings don't get outed
-		defib_ref.atom_say("Реанимация не удалась - мозг в теле пациента не обнаружен!")
+		defib_ref.atom_say("Реанимация не удалась — мозг в теле пациента не обнаружен!")
 		defib_success = FALSE
 	else if(ghost)
 		if(!ghost.can_reenter_corpse || target.suiciding) // DNR or AntagHUD
-			defib_ref.atom_say("Реанимация не удалась - электрическая активность мозга не зафиксирована!")
+			defib_ref.atom_say("Реанимация не удалась — электрическая активность мозга не зафиксирована!")
 		else
-			defib_ref.atom_say("Реанимация не удалась - мозг пациента не отреагировал!")
+			defib_ref.atom_say("Реанимация не удалась — мозг пациента не отреагировал!")
 		defib_success = FALSE
 	else if(HAS_TRAIT(target, TRAIT_NO_CLONE) || !target.mind || !(target.mind.is_revivable()) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || target.suiciding)  // these are a bit more arbitrary
 		defib_ref.atom_say("Реанимация не удалась!")

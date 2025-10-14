@@ -51,7 +51,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
-	if(!theareas.len)
+	if(!length(theareas))
 		return FALSE
 	var/area/thearea = pick(theareas)
 	var/list/L = list()
@@ -65,7 +65,7 @@
 					break
 			if(clear)
 				L+=T
-	if(!L.len)
+	if(!length(L))
 		return FALSE
 	var/turf/target_turf = pick(L)
 	if(!target_turf)
@@ -672,7 +672,7 @@
 		stop_supressing(holding)
 	else
 		occupant_message(span_notice("Вы начинаете удерживать [target]..."))
-		chassis.visible_message(span_warning(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target].")))
+		chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target]."))
 
 	set_supress_effect(target)
 	if(!do_after_cooldown(target))

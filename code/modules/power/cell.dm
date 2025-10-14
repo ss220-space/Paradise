@@ -26,7 +26,6 @@
 	var/grown_battery = FALSE
 	// For custom overlays.
 	var/overlay_charged = "cell-o2"
-
 /obj/item/stock_parts/cell/get_ru_names()
 	return list(
 		NOMINATIVE = "батарея А",
@@ -37,6 +36,28 @@
 		PREPOSITIONAL = "батарее А"
 	)
 
+/obj/item/stock_parts/cell/clock
+	name = "brass power cell"
+	desc = "Элемент, вырабатывающий энергию для оружия культистов Ратвара, однако бесполезен в других целях. Предназначен для дробовика."
+
+/obj/item/stock_parts/cell/clock/get_ru_names()
+	return list(
+		NOMINATIVE = "латунная батарейка",
+		GENITIVE = "латунной батарейки",
+		DATIVE = "латунной батарейке",
+		ACCUSATIVE = "латунную батарейку",
+		INSTRUMENTAL = "латунной батарейкой",
+		PREPOSITIONAL = "латунной батарейке"
+	)
+
+/obj/item/stock_parts/cell/clock/shotgun
+	maxcharge = 10
+
+/obj/item/stock_parts/cell/clock/sniper
+	maxcharge = 5
+
+/obj/item/stock_parts/cell/clock/minigun
+	maxcharge = 175
 /obj/item/stock_parts/cell/laser
 	maxcharge = 1500
 
@@ -159,7 +180,6 @@
 		explode()
 		return FALSE
 	if(charge < amount)
-		forceMove()
 		return FALSE
 	charge = (charge - amount)
 	return TRUE

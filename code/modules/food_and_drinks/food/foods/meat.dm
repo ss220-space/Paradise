@@ -694,14 +694,14 @@
 	name = "tele bacon"
 	desc = "It tastes a little odd but it's still delicious."
 	icon_state = "bacon"
-	var/obj/item/radio/beacon/bacon/baconbeacon
+	var/obj/item/beacon/bacon/baconbeacon
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 	tastes = list("bacon" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/telebacon/New()
 	..()
-	baconbeacon = new /obj/item/radio/beacon/bacon(src)
+	baconbeacon = new /obj/item/beacon/bacon(src)
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)

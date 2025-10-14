@@ -313,7 +313,7 @@ SUBSYSTEM_DEF(garbage)
 #ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/Recover()
 	if(istype(SSgarbage.queues))
-		for(var/i in 1 to SSgarbage.queues.len)
+		for(var/i in 1 to length(SSgarbage.queues))
 			queues[i] |= SSgarbage.queues[i]
 #endif
 

@@ -1,11 +1,13 @@
 /datum/antagonist/vampire/new_vampire
 	dust_in_space = TRUE
 	antag_datum_blacklist = list(/datum/antagonist/vampire/goon_vampire)
-	upgrade_tiers = list(/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
-									/obj/effect/proc_holder/spell/vampire/glare = 0,
-									/datum/vampire_passive/vision = 100,
-									/obj/effect/proc_holder/spell/vampire/self/specialize = 100,
-									/datum/vampire_passive/regen = 200)
+	upgrade_tiers = list(
+		/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
+		/obj/effect/proc_holder/spell/vampire/glare = 0,
+		/datum/vampire_passive/vision = 100,
+		/obj/effect/proc_holder/spell/vampire/self/specialize = 100,
+		/datum/vampire_passive/regen = 200
+	)
 
 /datum/antagonist/vampire/new_vampire/add_owner_to_gamemode()
 	SSticker.mode.vampires += owner

@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				continue
 			if(length(uplink_item.race) && !uplink_item.race.Find(race) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
-			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name),
+			cats[length(cats)]["items"] += list(list("name" = sanitize(uplink_item.name),
 												"desc" = sanitize(uplink_item.description()),
 												"cost" = uplink_item.cost,
 												"hijack_only" = uplink_item.hijack_only,
@@ -111,7 +111,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/proc/buy(datum/uplink_item/uplink_item, mob/buyer)
 	if(is_jammed)
-		to_chat(buyer, span_warning("[declent_ru(NOMINATIVE)], похоже, заблокирован - нельзя использовать!"))
+		to_chat(buyer, span_warning("[declent_ru(NOMINATIVE)], похоже, заблокирован — нельзя использовать!"))
 		return FALSE
 	if(!uplink_item)
 		return FALSE
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
 	if(is_jammed)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован - нельзя использовать!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован — нельзя использовать!"))
 		return FALSE
 	if(value == target)
 		trigger(user)
@@ -390,7 +390,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] вибрирует, в нём недостаточно телекристаллов!"))
 				return
 			if(is_jammed)
-				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован - нельзя использовать!"))
+				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован — нельзя использовать!"))
 				return
 
 			// Buying of the uplink stuff

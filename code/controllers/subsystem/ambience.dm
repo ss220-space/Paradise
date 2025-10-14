@@ -23,8 +23,8 @@ SUBSYSTEM_DEF(ambience)
 		currentrun = ambience_listening_clients.Copy()
 	var/list/cached_clients = currentrun
 
-	while(cached_clients.len)
-		var/client/client_iterator = cached_clients[cached_clients.len]
+	while(length(cached_clients))
+		var/client/client_iterator = cached_clients[length(cached_clients)]
 		cached_clients.len--
 
 		if(isnull(client_iterator))

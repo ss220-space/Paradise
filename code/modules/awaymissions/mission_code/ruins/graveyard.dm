@@ -89,7 +89,7 @@
 
 /obj/item/storage/funeral_urn/afterattack(atom/A, mob/user, proximity, params)
 	if(istype(A,/obj/effect/decal/cleanable/ash))
-		if(src.contents.len < storage_slots)
+		if(length(src.contents) < storage_slots)
 			var/obj/effect/decal/cleanable/ash/ash = A
 			new /obj/item/ash_holder(src, ash)
 			qdel(ash)

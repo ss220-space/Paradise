@@ -79,7 +79,7 @@
 		dat += span_bad("Emergency Teleporter System.")
 		dat += span_bad("Consider using primary observation console first.")
 		dat += "<a href='byond://?src=[UID()];teleporter_send=1'>Activate Teleporter</a><br>"
-		if(gizmo && gizmo.marked)
+		if(gizmo?.marked)
 			dat += "<a href='byond://?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</a><br>"
 		else
 			dat += "[span_linkoff("Retrieve Mark")]<br>"
@@ -141,7 +141,7 @@
 
 
 /obj/machinery/abductor/console/proc/TeleporterRetrieve()
-	if(pad && gizmo && gizmo.marked)
+	if(pad && gizmo?.marked)
 		pad.Retrieve(gizmo.marked)
 
 /obj/machinery/abductor/console/proc/TeleporterSend()

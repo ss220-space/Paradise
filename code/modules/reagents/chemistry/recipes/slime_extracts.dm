@@ -336,7 +336,7 @@
 	var/turf/TU = get_turf(holder.my_atom)
 	TU.visible_message(span_danger("The slime extract begins to vibrate adorably !"))
 	spawn(50)
-		if(holder && holder.my_atom)
+		if(holder?.my_atom)
 			var/turf/simulated/T = get_turf(holder.my_atom)
 			if(istype(T))
 				T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 50)
@@ -555,7 +555,7 @@
 	add_attack_logs(usr, src, "has primed for detonation", ATKLOG_MOST)
 	T.visible_message(span_danger("The slime extract begins to vibrate violently !"))
 	spawn(50)
-		if(holder && holder.my_atom)
+		if(holder?.my_atom)
 			explosion(get_turf(holder.my_atom), devastation_range = 1, heavy_impact_range = 3, light_impact_range = 6, cause = src)
 
 /datum/chemical_reaction/slimepotionexplosion

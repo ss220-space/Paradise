@@ -165,7 +165,7 @@
 		source = blobbernaut_image,
 		role_cleanname = "blobbernaut",
 	)
-	if(candidates.len)
+	if(length(candidates))
 		var/mob/chosen_one = pick(candidates)
 		on_poll_concluded(factory, chosen_one)
 	else

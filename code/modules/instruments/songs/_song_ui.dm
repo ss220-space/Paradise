@@ -173,7 +173,7 @@
 			tempo = sanitize_tempo(5) // default 120 BPM
 		if(length(lines_to_add) > MUSIC_MAXLINES)
 			to_chat(user, "Too many lines!")
-			lines_to_add.Cut(MUSIC_MAXLINES + 1)
+			lines_to_add.len = MUSIC_MAXLINES
 		var/linenum = 1
 		for(var/l in lines_to_add)
 			if(length_char(l) > MUSIC_MAXLINECHARS)

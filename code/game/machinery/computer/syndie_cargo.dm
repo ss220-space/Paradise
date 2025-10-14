@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	slip.ordernumber = ordernum
 
 	var/stationName = "Syndicate RaMSS 'Taipan' Supply Mannifest"
-	var/packagesAmt = data_storage?.shoppinglist?.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
+	var/packagesAmt = length(data_storage?.shoppinglist) + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
 
@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
 		else
-			var/lostAmt = max(round(crate.contents.len/10), 1)
+			var/lostAmt = max(round(length(crate.contents)/10), 1)
 			//lose some of the items
 			while(--lostAmt >= 0)
 				qdel(pick(crate.contents))
@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			// Must be in a crate (or a critter crate)!
 			if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
 				data_storage.sold_atoms += ":"
-				if(!MA.contents.len)
+				if(!length(MA.contents))
 					data_storage.sold_atoms += " (empty)"
 				++crate_count
 

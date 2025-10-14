@@ -41,7 +41,7 @@
 
 /obj/item/wormhole_jaunter/proc/get_destinations()
 	. = list()
-	for(var/obj/item/radio/beacon/beacon in GLOB.global_radios)
+	for(var/obj/item/beacon/beacon as anything in GLOB.beacons)
 		var/turf/beacon_turf = get_turf(beacon)
 		if(is_station_level(beacon_turf.z))
 			. += beacon
@@ -164,7 +164,7 @@
 	update_mob()
 
 	var/list/destinations = list()
-	for(var/obj/item/radio/beacon/beacon in GLOB.global_radios)
+	for(var/obj/item/beacon/beacon as anything in GLOB.beacons)
 		var/turf/beacon_turf = get_turf(beacon)
 		if(is_station_level(beacon_turf.z))
 			destinations += beacon_turf

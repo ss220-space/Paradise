@@ -190,7 +190,7 @@
 	if(!stat && !resting && !buckled)
 		turns_since_scan++
 		if(turns_since_scan > 5)
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			turns_since_scan = 0
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 				movement_target = null
@@ -204,7 +204,7 @@
 						break
 			if(movement_target)
 				stop_automated_movement = 1
-				SSmove_manager.move_to(src, movement_target, 1, 4)
+				GLOB.move_manager.move_to(src, movement_target, 1, 4)
 
 
 /mob/living/simple_animal/pet/cat/Proc

@@ -14,8 +14,12 @@
 	var/bloodtotal = 0
 	/// Current amount of blood.
 	var/bloodusable = 0
+	/// Blood volume threshold for warnings
+	var/blood_volume_warning = 10000
 	/// What vampire subclass the vampire is.
 	var/datum/vampire_subclass/subclass
+	/// Reference to diablerie datum.
+	var/datum/diablerie/diablerie
 	/// Handles the vampire cloak toggle.
 	var/iscloaking = FALSE
 	/// Handles the goon vampire cloak toggle.
@@ -28,6 +32,8 @@
 	var/nullified = 0
 	/// Time between each suck iteration.
 	var/suck_rate = 5 SECONDS
+	/// Amount of blood in units sucked from victim on every suck iteration
+	var/sucking_amount = 30
 	/// Indicates the type of nullification (old or new)
 	var/nullification = NEW_NULLIFICATION
 	/// Does garlic affect vampire?
@@ -61,8 +67,9 @@
 
 
 /datum/antagonist/vampire/greet()
-	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
+
+	var/list/messages = list()
 	messages.Add(span_danger("Вы — вампир!<br>"))
 	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
 		Вы уязвимы перед святостью, огнём и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
@@ -96,6 +103,11 @@
 		remove_innate_effects(old_body)
 		apply_innate_effects(new_body)
 
+	if(diablerie)
+		diablerie.transfer_diablerie_aura(old_body, new_body)
+
+	old_body?.RemoveElement(/datum/element/pref_viewer)
+
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()
@@ -108,13 +120,11 @@
 		check_vampire_upgrade(announce = FALSE)
 		user.faction |= ROLE_VAMPIRE
 		user.dna?.species?.hunger_type = "vampire"
-		//goon vampire slaves code
-		//if(mob_override.mind.som)
-			//var/datum/mindslaves/slaved = mob_override.mind.som
-			//slaved.masters -= mob_override.mind
-			//slaved.serv -= mob_override.mind
-			//slaved.leave_serv_hud(mob_override.mind)
-			//.mind.som = null
+
+	// We add all vampires to diablerie aura hud to avoid using see_invis system
+	var/datum/atom_hud/diablerie_aura/aura_hud = GLOB.huds[DIABLERIE_AURA_HUD]
+	aura_hud.show_to(user)
+
 	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 	user.AddElement( \
@@ -122,17 +132,16 @@
 		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
-/datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
-	. = ..()
-	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/vampire/handle_last_instance_removal()
 	owner.current.RemoveElement(/datum/element/pref_viewer)
+
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()
 
 	if(!mob_override)	// mob override means body transfer
+		QDEL_NULL(diablerie)
 		remove_all_powers()
 
 	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
@@ -145,6 +154,9 @@
 			hud.remove_vampire_hud()
 
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
+
+	var/datum/atom_hud/diablerie_aura/aura_hud = GLOB.huds[DIABLERIE_AURA_HUD]
+	aura_hud.hide_from(user)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 
@@ -228,128 +240,124 @@
 
 /datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate_override)
 	draining = target
-	var/mob/living/carbon/human/cur = owner.current
+	var/mob/living/carbon/human/vampire = owner.current
 	var/datum/mind/mind = target.get_real_mind()
 	var/unique_suck_id = mind?.UID()
+	/// Used to calculate how much active blood vampire gains from each sucking cycle
 	var/blood = 0
-	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
+	/// Counter to track sucking progress, increases each iteration
 	var/cycle_counter = 0
+	/// Time between each cycle
 	var/time_per_action
-	var/vampire_dir = get_dir(cur, target)
-
-	var/old_bloodusable = 0 //used to see if we increased our blood usable
-
+	var/vampire_dir = get_dir(vampire, target)
+	/// Used to see if we increased our blood usable
+	var/old_bloodusable = 0
+	/// Modifier for time_per_action, used by bestia
 	var/suck_rate_final
 	if(suck_rate_override)
 		suck_rate_final = suck_rate_override
 	else
 		suck_rate_final = suck_rate
 
-	if(cur.is_muzzled())
-		to_chat(cur, span_warning("[cur.wear_mask] мешает вам укусить [target]!"))
+	if(vampire.is_muzzled())
+		to_chat(vampire, span_warning("[capitalize(vampire.wear_mask.declent_ru(NOMINATIVE))] мешает вам укусить [target]!"))
 		draining = null
 		return
 
-	add_attack_logs(cur, target, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
+	add_attack_logs(vampire, target, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
 
-	if(!iscarbon(cur))
+	if(!iscarbon(vampire))
 		target.LAssailant = null
 	else
-		target.LAssailant = cur
+		target.LAssailant = vampire
 
 	var/is_target_grabbed = FALSE
-	if(target.pulledby == cur && cur.grab_state > GRAB_PASSIVE)
+	if(target.pulledby == vampire && vampire.grab_state > GRAB_PASSIVE)
 		is_target_grabbed = TRUE
 
 	if(!is_target_grabbed || vampire_dir == NORTHEAST || vampire_dir == NORTHWEST || \
 		vampire_dir ==  SOUTHEAST || vampire_dir ==  SOUTHWEST)
 		//first, the vampire gets closer to the victim, its quick
-		time_per_action = suck_rate_final*CLOSING_IN_TIME_MOD
+		time_per_action = suck_rate_final * CLOSING_IN_TIME_MOD
 	else
 		//skip getting_closer_animation(), if we are already close enough
 		cycle_counter = STATE_GRABBING
-		time_per_action = suck_rate_final*BITE_TIME_MOD
+		time_per_action = suck_rate_final * BITE_TIME_MOD
 
-	while(do_after(cur, time_per_action, target, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
+	while(do_after(vampire, time_per_action, target, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
 		cycle_counter++
-		cur.face_atom(target)
+		vampire.face_atom(target)
 		old_bloodusable = bloodusable
 		switch(cycle_counter)
 			if(STATE_CLOSING_IN)
-				cur.visible_message(span_danger("[cur] приближается к [target]"), \
-					span_danger("Вы приближаетесь к [target]"))
+				vampire.visible_message(span_danger("[vampire] приближается к [target]."), \
+					span_danger("Вы приближаетесь к [target]."))
 				getting_closer_animation(target, STATE_CLOSING_IN, vampire_dir)
 				time_per_action = suck_rate_final*GRABBING_TIME_MOD
 				continue
 
 			if(STATE_GRABBING)
-				cur.visible_message(span_danger("[cur] грубо хватает шею [target]"), \
-					span_danger("Вы грубо хватаете шею [target]"))
+				vampire.visible_message(span_danger("[vampire] грубо хватает шею [target]."), \
+					span_danger("Вы грубо хватаете шею [target]."))
 				getting_closer_animation(target, STATE_GRABBING, vampire_dir)
 				time_per_action = suck_rate_final*BITE_TIME_MOD
 				continue
 
 			if(STATE_BITE)
-				cur.visible_message(span_danger("[cur] вонзает [genderize_ru(cur.gender, "его", "её", "его", "их")] клыки!"), \
+				vampire.visible_message(span_danger("[vampire] вонзает [genderize_ru(vampire.gender, "его", "её", "его", "их")] клыки!"), \
 					span_danger("Вы вонзаете клыки в шею [target] и начинаете высасывать [genderize_ru(target.gender, "его", "её", "его", "их")] кровь."), \
 					span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))
 				bite_animation(target, vampire_dir)
 				time_per_action = suck_rate_final
 				continue
 
-		if(unique_suck_id && (unique_suck_id in drained_humans))
-			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-				to_chat(cur, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
-				target.AdjustBlood(-30)
-				cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
+		// We draining other vampire
+		if(isvampire(target))
+			to_chat(vampire, span_boldnotice("Кровь сородича утоляет ваш голод, но вы не получите доступной крови, не поглотив всю его жизненную силу!"))
+			// vampire's blood saturates way better then normal human blood, according to WOD lore
+			vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 10))
+			target.AdjustBlood(-sucking_amount)
+			if(check_blood_volume(vampire, target))
 				continue
-
-
-		if(target.stat < DEAD || target.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
-			if(mind && !mind.madeby_sentience_potion && (target.get_real_ckey() || target.player_ghosted)) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
-				blood = min(20, target.blood_volume)
-				adjust_blood(target, blood * BLOOD_GAINED_MODIFIER)
-				cur.adjustBruteLoss(-3)
-				cur.adjustFireLoss(-3)
-				cur.adjustOxyLoss(-10)
-				cur.adjustToxLoss(-2)
-				cur.adjustBrainLoss(-1)
-				for(var/obj/item/organ/external/bodypart as anything in cur.bodyparts)
-					if(bodypart.has_fracture() && prob(5))
-						to_chat(cur, span_notice("Вы чувствуете жжение, когда [bodypart.name] непроизвольно выпрямляется!"))
-						bodypart.mend_fracture()
-
-					if(bodypart.has_internal_bleeding() && prob(5))
-						to_chat(cur, span_notice("Вы чувствуете жжение в [bodypart.name], когда ваши вены начинают восстанавливаться!"))
-						bodypart.stop_internal_bleeding()
-
-				if(bloodtotal >= REQ_BLOOD_FOR_SUBCLASS_ACT)
-					subclass?.on_blood_sucking(cur)
-
-				to_chat(cur, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
-
-		target.AdjustBlood(-30)
-
-		//Blood level warnings (Code 'borrowed' from Fulp)
-		if(target.blood_volume)
-			if(target.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(cur, span_danger("У вашей жертвы остаётся опасно мало крови!"))
-
-			else if(target.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
-				to_chat(cur, span_warning("У вашей жертвы остаётся тревожно мало крови!"))
-
-			blood_volume_warning = target.blood_volume //Set to blood volume, so that you only get the message once
-
-		else
-			to_chat(cur, span_warning("Вы выпили свою жертву досуха!"))
+			try_perform_diablerie(vampire, target)
 			break
 
-		if(!target.get_real_ckey() && !target.player_ghosted || !mind || mind.madeby_sentience_potion)//Only runs if there is no ckey and the body has not being ghosted while alive
-			to_chat(cur, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
-			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
+		// We draining normal human with mind and reached [BLOOD_DRAIN_LIMIT]
+		if(unique_suck_id && (unique_suck_id in drained_humans))
+			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
+				to_chat(vampire, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
+				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
+				target.AdjustBlood(-sucking_amount)
+				if(check_blood_volume(vampire, target))
+					continue
+				break
 
-		else
-			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + (blood / 2)))
+		// We draining normal living human with mind and haven't yet reached [BLOOD_DRAIN_LIMIT]
+		if(target.stat < DEAD || target.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
+			// Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
+			if(mind && !mind.madeby_sentience_potion && (target.get_real_ckey() || target.player_ghosted))
+				blood = min(20, target.blood_volume)
+				adjust_blood(target, blood * BLOOD_GAINED_MODIFIER)
+				vampire.adjustBruteLoss(-3)
+				vampire.adjustFireLoss(-3)
+				vampire.adjustOxyLoss(-10)
+				vampire.adjustToxLoss(-2)
+				vampire.adjustBrainLoss(-1)
+				additional_sucking_effects(vampire)
+				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
+				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
+				target.AdjustBlood(-sucking_amount)
+				if(check_blood_volume(vampire, target))
+					continue
+				break
+
+		// Everything else - we draining sentient monkey, borer controlled non-player human or non-player human, corpses and all other shit
+		to_chat(vampire, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
+		vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
+		target.AdjustBlood(-sucking_amount)
+		if(check_blood_volume(vampire, target))
+			continue
+		break
 
 	stop_sucking()
 
@@ -398,6 +406,38 @@
 	owner.current.do_item_attack_animation(target, ATTACK_EFFECT_BITE)
 
 
+/// Checks vampire's sucking target blood volume and sends a warning message if it's low. Returns FALSE if the target is drained dry
+/datum/antagonist/vampire/proc/check_blood_volume(mob/living/carbon/human/vampire, mob/living/carbon/human/target)
+	if(!target.blood_volume)
+		to_chat(vampire, span_warning("Вы выпили свою жертву досуха!"))
+		return FALSE
+
+	if(target.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
+		to_chat(vampire, span_danger("У вашей жертвы остаётся опасно мало крови!"))
+
+	else if(target.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
+		to_chat(vampire, span_warning("У вашей жертвы остаётся тревожно мало крови!"))
+
+	// Set to blood volume, so that you only get the message once
+	blood_volume_warning = target.blood_volume
+	return TRUE
+
+
+/// Mends fractures, stops internal bleedings and applies special subclass bloodsucking effects
+/datum/antagonist/vampire/proc/additional_sucking_effects(mob/living/carbon/human/vampire)
+	for(var/obj/item/organ/external/bodypart as anything in vampire.bodyparts)
+		if(bodypart.has_fracture() && prob(5))
+			to_chat(vampire, span_notice("Вы чувствуете жжение, когда [bodypart.name] непроизвольно выпрямляется!"))
+			bodypart.mend_fracture()
+
+		if(bodypart.has_internal_bleeding() && prob(5))
+			to_chat(vampire, span_notice("Вы чувствуете жжение в [bodypart.name], когда ваши вены начинают восстанавливаться!"))
+			bodypart.stop_internal_bleeding()
+
+	if(bloodtotal >= REQ_BLOOD_FOR_SUBCLASS_ACT)
+		subclass?.on_blood_sucking(vampire)
+
+
 /datum/antagonist/vampire/proc/stop_sucking()
 	if(draining)
 		to_chat(owner.current, span_notice("Вы прекращаете пить кровь [draining.name]."))
@@ -422,6 +462,11 @@
 		if(istype(spell, /obj/effect/proc_holder/spell/vampire) && subclass)
 			var/obj/effect/proc_holder/spell/vampire/v_spell = spell
 			v_spell.on_trophie_update(src, force = TRUE)
+			// We give cooldown reduction bonus from current diablerie level to all new spells. Covers body transfers as well.
+			if(diablerie && v_spell.cooldown_handler)
+				var/datum/spell_cooldown/cooldown = v_spell.cooldown_handler
+				cooldown.change_cooldowns(recharge_reduction = DIABLERIE_COOLDOWN_REDUCTION * diablerie.diablerie_count)
+
 		if(istype(spell, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
 			subclass.spell_TGUI = spell
 
@@ -454,6 +499,8 @@
 		if(istype(ability, /obj/effect/proc_holder/spell))
 			owner.RemoveSpell(ability)
 		else if(istype(ability, /datum/vampire_passive))
+			var/datum/vampire_passive/passive = ability
+			passive.on_remove(src)
 			qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
@@ -663,6 +710,61 @@
 		if(NEW_NULLIFICATION)
 			adjust_nullification(20, 4)
 
+/**
+ * Checks if our `victim` is suitable for diablerie, and if so, perform diablerie
+ * (more info about it in /datum/diablerie)
+ *
+ * Arguments:
+ * * vampire - The vampire, who is trying to perform a diablerie on the 'victim'
+ * * victim - The potential victim of diablerie
+ */
+/datum/antagonist/vampire/proc/try_perform_diablerie(mob/living/carbon/human/vampire, mob/living/carbon/human/victim)
+	if(!diablerie)
+		diablerie = new(src)
+
+	if(!can_perform_diablerie(vampire, victim))
+		return
+
+	var/datum/antagonist/vampire/victim_datum = isvampire(victim)
+	if(!is_free_vampire(victim))
+		// We transfer all of our victim's usable blood to the vampire
+		adjust_blood(blood_amount = victim_datum.bloodusable)
+
+	victim.visible_message(
+		span_warning("[victim] рассыпается в прах, оставляя после себя лишь груду костей!"),
+		span_boldnotice("Вы ощущаете сладкое чувство избавления, когда ваше тело рассыпается в прах, оставляя после себя лишь груду костей...")
+	)
+	to_chat(vampire, span_boldnotice("Вы поглощаете последнюю каплю жизненной силы сородича и ощущаете, как по телу теплом разливается сила. Вы жаждете ещё!"))
+	victim.dust()
+
+	diablerie.increase_diablerie_level()
+
+/**
+ * Performs all kind of checks to ensure that `vampire` can perform diablerie on the `victim`
+ *
+ * Arguments:
+ * * vampire - The vampire, who is trying to perform a diablerie on 'victim'
+ * * victim - The potential victim of diablerie
+ *
+ * Returns `TRUE` if we can successfully perform diablerie, `FALSE` otherwise
+ */
+/datum/antagonist/vampire/proc/can_perform_diablerie(mob/living/carbon/human/vampire, mob/living/carbon/human/victim)
+	var/datum/antagonist/vampire/vampire_datum = isvampire(vampire)
+	var/datum/antagonist/vampire/victim_datum = isvampire(victim)
+	// Diablerie is for vampires only
+	if(!vampire_datum || !victim_datum)
+		return FALSE
+
+	// No diablerie if one of the vampires has less then 150 total blood
+	if(vampire_datum.bloodtotal < DIABLERIE_REQUIRED_BLOOD_TOTAL || \
+		victim_datum.bloodtotal < DIABLERIE_REQUIRED_BLOOD_TOTAL)
+		return FALSE
+
+	if(vampire_datum.diablerie.diablerie_count >= DIABLERIE_COUNT_MAX)
+		to_chat(vampire, span_warning("Вы достигли пика своего могущества, дальнейшее поглощение силы других вампиров не даст вам ничего."))
+		return FALSE
+
+	return TRUE
 
 /**
  * Takes any datum `source` and checks it for vampire datum.

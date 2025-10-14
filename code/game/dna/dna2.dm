@@ -128,10 +128,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	SetUIValueRange(DNA_UI_BACC_STYLE,		bodyacc,		GLOB.body_accessory_by_name.len,	1)
-	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_BACC_STYLE,		bodyacc,		length(GLOB.body_accessory_by_name),	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		1)
 
 	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), 1)
 
@@ -391,7 +391,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 //  Just checks our character has all the crap it needs.
 /datum/dna/proc/check_integrity(mob/living/carbon/human/character)
 	if(character)
-		if(UI.len != DNA_UI_LENGTH)
+		if(length(UI) != DNA_UI_LENGTH)
 			ResetUIFrom(character)
 
 		if(length(struc_enzymes)!= 3 * DNA_SE_LENGTH)

@@ -22,9 +22,13 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 /datum/station_goal/dna_vault/New()
 	..()
 	animal_count = rand(15, 20) //might be too few given ~15 roundstart stationside ones
-	human_count = rand(round(0.75 * SSticker.mode.num_players_started()), SSticker.mode.num_players_started()) // 75%+ roundstart population.
+	var/min_rand_human_count = round(0.75 * SSticker.mode.num_players_started())
+	var/max_rand_human_count = SSticker.mode.num_players_started()
+	human_count = rand(min_rand_human_count, max_rand_human_count) // 75%+ roundstart population.
 	var/non_standard_plants = non_standard_plants_count()
-	plant_count = rand(round(0.5 * non_standard_plants),round(0.7 * non_standard_plants))
+	var/min_rand_plant_count = round(0.5 * non_standard_plants)
+	var/max_rand_plant_count = round(0.7 * non_standard_plants)
+	plant_count = rand(min_rand_plant_count, max_rand_plant_count)
 
 /datum/station_goal/dna_vault/proc/non_standard_plants_count()
 	. = 0
@@ -287,7 +291,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			return TRUE
 
 /obj/machinery/dna_vault/proc/check_goal()
-	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
+	if(length(plants) >= plants_max && length(animals) >= animals_max && length(dna) >= dna_max)
 		completed = TRUE
 
 

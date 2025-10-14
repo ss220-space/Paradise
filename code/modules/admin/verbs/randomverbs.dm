@@ -376,7 +376,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(G_found.mind.assigned_role=="Alien")
 			if(tgui_alert(usr, "This character appears to have been an alien. Would you like to respawn them as such?",, list("Yes", "No")) == "Yes")
 				var/turf/T
-				if(GLOB.xeno_spawn.len)	T = pick(GLOB.xeno_spawn)
+				if(length(GLOB.xeno_spawn))	T = pick(GLOB.xeno_spawn)
 				else				T = pick(GLOB.latejoin)
 
 				var/mob/living/carbon/alien/new_xeno
@@ -524,14 +524,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(M.client.is_afk())	continue	//we are afk
 			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)	continue	//we have a live body we are tied to
 			candidates += M.ckey
-		if(candidates.len)
+		if(length(candidates))
 			ckey = tgui_input_list(usr, "Pick the player you want to respawn as a xeno.", "Suitable Candidates", candidates)
 		else
 			to_chat(usr, "<span style='color: red;'>Error: create_xeno(): no suitable candidates.</span>", confidential=TRUE)
 	if(!istext(ckey))	return 0
 
 	var/alien_caste = tgui_input_list(usr, "Please choose which caste to spawn.", "Pick a caste", list("Queen", "Hunter", "Sentinel", "Drone", "Larva"), null)
-	var/obj/effect/landmark/spawn_here = GLOB.xeno_spawn.len ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
+	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)
 		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
@@ -997,7 +997,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	if(SSticker && SSticker.mode)
+	if(SSticker?.mode)
 		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!", confidential=TRUE)
 		return
 

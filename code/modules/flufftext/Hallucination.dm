@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(pump)
 		borer = new(pump.loc,target)
 		for(var/i in 0 to 10)
-			SSmove_manager.move_to(borer, T, 1, rand(2, 4))
+			GLOB.move_manager.move_to(borer, T, 1, rand(2, 4))
 			if(borer.Adjacent(T))
 				to_chat(T, span_userdanger("You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing."))
 				T.Stun(8 SECONDS)
@@ -1038,7 +1038,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						slots_free += ui_storage1
 					if(!H.r_store)
 						slots_free += ui_storage2
-				if(slots_free.len)
+				if(length(slots_free))
 					halitem.screen_loc = pick(slots_free)
 					halitem.layer = 50
 					halitem.plane = HUD_PLANE
@@ -1082,7 +1082,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				var/list/actual_view = client ? view(client) : view(src)
 				for(var/turf/simulated/floor/F in actual_view)
 					possible_points += F
-				if(possible_points.len)
+				if(length(possible_points))
 					var/turf/simulated/floor/target = pick(possible_points)
 
 					switch(rand(1,4))
@@ -1121,7 +1121,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				var/list/actual_view = client ? view(client) : view(src)
 				for(var/turf/simulated/floor/F in actual_view)
 					possible_points += F
-				if(possible_points.len)
+				if(length(possible_points))
 					var/turf/simulated/floor/target = pick(possible_points)
 					switch(rand(1,4))
 						if(1)

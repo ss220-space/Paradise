@@ -98,8 +98,8 @@
 
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/med_hud_set_health()
 	return diag_hud_set_health() //we use a different hud
@@ -108,7 +108,7 @@
 	return diag_hud_set_status() //we use a different hud
 
 /mob/living/silicon/Destroy()
-	UnregisterSignal(SSalarm, list(
+	UnregisterSignal(GLOB.alarm_manager, list(
 		COMSIG_TRIGGERED_ALARM,
 		COMSIG_CANCELLED_ALARM
 	))
@@ -131,7 +131,7 @@
 	return
 
 /mob/living/silicon/proc/queueAlarm(message, type, incoming = TRUE)
-	var/in_cooldown = (alarms_to_show.len > 0 || alarms_to_clear.len > 0)
+	var/in_cooldown = (length(alarms_to_show) > 0 || length(alarms_to_clear) > 0)
 	if(incoming)
 		alarms_to_show += message
 		alarm_types_show[type] += 1
@@ -145,7 +145,7 @@
 	addtimer(CALLBACK(src, PROC_REF(show_alarms)), 3 SECONDS)
 
 /mob/living/silicon/proc/show_alarms()
-	if(alarms_to_show.len < 5)
+	if(length(alarms_to_show) < 5)
 		for(var/msg in alarms_to_show)
 			to_chat(src, msg)
 	else if(length(alarms_to_show))
@@ -174,11 +174,11 @@
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
 
-	if(alarms_to_clear.len < 3)
+	if(length(alarms_to_clear) < 3)
 		for(var/msg in alarms_to_clear)
 			to_chat(src, msg)
 
-	else if(alarms_to_clear.len)
+	else if(length(alarms_to_clear))
 		var/list/msg = list("--- ")
 
 		if(alarm_types_clear["Motion"])

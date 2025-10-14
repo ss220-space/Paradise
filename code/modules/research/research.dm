@@ -71,7 +71,7 @@ research holder datum.
 //Checks to see if tech has all the required pre-reqs.
 //Input: datum/tech; Output: 0/1 (false/true)
 /datum/research/proc/TechHasReqs(datum/tech/T)
-	if(T.req_tech.len == 0)
+	if(length(T.req_tech) == 0)
 		return TRUE
 	for(var/req in T.req_tech)
 		var/datum/tech/known = known_tech[req]
@@ -84,7 +84,7 @@ research holder datum.
 /datum/research/proc/DesignHasReqs(datum/design/D)
 	if(!islist(D.req_tech))
 		return FALSE
-	if(!D.req_tech.len)
+	if(!length(D.req_tech))
 		return TRUE
 	for(var/req in D.req_tech)
 		var/datum/tech/known = known_tech[req]
@@ -368,10 +368,10 @@ datum/tech/robotics
 	var/default_name = "Technology Disk"
 	var/default_desc = "A disk for storing technology data for further research."
 
-/obj/item/disk/tech_disk/New()
-	..()
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
+/obj/item/disk/tech_disk/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"

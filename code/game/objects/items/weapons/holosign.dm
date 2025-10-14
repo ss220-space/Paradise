@@ -33,7 +33,7 @@
 				if(holocreator_busy)
 					balloon_alert(user, "уже в работе!")
 					return
-				if(signs.len < max_signs)
+				if(length(signs) < max_signs)
 					playsound(src.loc, 'sound/machines/click.ogg', 20, TRUE)
 					if(creation_time)
 						holocreator_busy = TRUE
@@ -41,7 +41,7 @@
 							holocreator_busy = FALSE
 							return
 						holocreator_busy = FALSE
-						if(signs.len >= max_signs)
+						if(length(signs) >= max_signs)
 							return
 						if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
@@ -57,7 +57,7 @@
 
 
 /obj/item/holosign_creator/attack_self(mob/user)
-	if(signs.len)
+	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
 		balloon_alert(user, "голограммы удалены")
@@ -187,7 +187,7 @@
 			balloon_alert(user, "голограммы удалены")
 			holosign_type = /obj/structure/holosign/barrier/cyborg
 			creation_time = 5
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 			shock = 0
@@ -196,17 +196,17 @@
 			balloon_alert(user, "голограммы удалены")
 			holosign_type = /obj/structure/holosign/barrier/cyborg/hacked
 			creation_time = 30
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 			shock = 1
 			return
 		else
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 				balloon_alert(user, "голограммы удалены")
-	if(signs.len)
+	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
 		balloon_alert(user, "голограммы удалены")

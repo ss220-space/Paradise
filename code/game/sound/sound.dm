@@ -171,8 +171,6 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	sound_to_use.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
 	if(channel)
 		sound_to_use.volume *= USER_VOLUME(src, channel)
-		if(sound_to_use.volume < SOUND_AUDIBLE_VOLUME_MIN)
-			return
 
 	SEND_SOUND(src, sound_to_use)
 

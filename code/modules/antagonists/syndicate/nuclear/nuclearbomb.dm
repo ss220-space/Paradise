@@ -536,7 +536,7 @@ GLOBAL_VAR(bomb_set)
 	safety = TRUE
 	update_icon()
 	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
-	if(SSticker && SSticker.mode)
+	if(SSticker?.mode)
 		SSticker.mode.explosion_in_progress = 1
 	sleep(100)
 
@@ -642,7 +642,7 @@ GLOBAL_VAR(bomb_set)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
-	if(GLOB.blobstart.len > 0)
+	if(length(GLOB.blobstart) > 0)
 		GLOB.poi_list.Remove(src)
 		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.blobstart))
 		transfer_fingerprints_to(NEWDISK)

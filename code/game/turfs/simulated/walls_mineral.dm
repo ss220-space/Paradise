@@ -261,7 +261,7 @@
 /turf/simulated/wall/mineral/titanium/interior/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type)
-		if(underlays.len)
+		if(length(underlays))
 			T.underlays = underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state
@@ -386,7 +386,7 @@
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type)
-		if(underlays.len)
+		if(length(underlays))
 			T.underlays = underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state

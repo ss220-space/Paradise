@@ -151,7 +151,7 @@
 	playsound(get_turf(owner), src.sound_on, 50, TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(crit_fail || (!active_item && !contents.len))
+	if(crit_fail || (!active_item && !length(contents)))
 		to_chat(owner, span_warning("The implant doesn't respond. It seems to be broken..."))
 		return
 
@@ -162,7 +162,7 @@
 
 	if(!active_item || (active_item in src))
 		active_item = null
-		if(contents.len == 1)
+		if(length(contents) == 1)
 			Extend(contents[1])
 		else
 			radial_menu(owner)

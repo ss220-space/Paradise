@@ -59,8 +59,8 @@
 			update_icon(UPDATE_ICON_STATE)
 
 		var/obj/item/paper/P
-		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
-			P = papers[papers.len]
+		if(length(papers) > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
+			P = papers[length(papers)]
 			papers.Remove(P)
 			P.forceMove_turf()
 		else
@@ -132,8 +132,8 @@
 			update_icon(UPDATE_ICON_STATE)
 
 		var/obj/item/paper/carbon/P
-		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
-			P = papers[papers.len]
+		if(length(papers) > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
+			P = papers[length(papers)]
 			papers.Remove(P)
 		else
 			P = new /obj/item/paper/carbon(drop_location())

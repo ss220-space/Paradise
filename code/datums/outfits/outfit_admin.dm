@@ -18,7 +18,7 @@
 	I.assignment = rank
 	I.sex = capitalize(H.gender)
 	I.age = H.age
-	I.name = "[I.registered_name]'s ID Card ([I.assignment])"
+	I.name = "[I.registered_name]’s ID Card ([I.assignment])"
 	I.photo = get_id_photo(H)
 
 	if(special_icon)
@@ -127,7 +127,7 @@
 	..()
 	var/obj/item/card/id/syndicate/I = H.wear_id
 	I.icon_state = "syndie"
-	I.name = "[H.real_name]'s ID Card"
+	I.name = "[H.real_name]’s ID Card"
 	I.assignment = "Syndicate Commando"
 	I.access += get_syndicate_access(I.assignment)
 	I.registered_name = H.real_name
@@ -709,7 +709,7 @@
 	if(visualsOnly)
 		return
 
-	H.rename_character(null, "[rank_list.len ? pick(rank_list) : "[H.gender==FEMALE ? pick(GLOB.first_names_female) : pick(GLOB.first_names_male)]"] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+	H.rename_character(null, "[length(rank_list) ? pick(rank_list) : "[H.gender==FEMALE ? pick(GLOB.first_names_female) : pick(GLOB.first_names_male)]"] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 
 	H.add_language(LANGUAGE_NEO_RUSSIAN)
 	H.set_default_language(GLOB.all_languages[LANGUAGE_NEO_RUSSIAN])
@@ -929,9 +929,9 @@
 		return
 
 	if(is_tsf_lieutenant)
-		H.real_name = "Лейтенант [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+		H.real_name = "Лейтенант [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 	else
-		H.real_name = "[pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+		H.real_name = "[pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 	H.name = H.real_name
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))

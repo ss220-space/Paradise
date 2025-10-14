@@ -142,13 +142,13 @@
 				creeping_widow.teach(usr)
 				creeping_widow.my_suit = src
 				creeping_widow.my_energy_katana = energyKatana
-				ninja_datum.purchased_abilities += "<BIG>[bicon(ability_icon)]</BIG>"
+				ninja_datum.purchased_abilities += "<big>[bicon(ability_icon)]</big>"
 				addtimer(CALLBACK(src, PROC_REF(toggle_ability_buy_block)), 2 SECONDS)
 				return
 			if(ability == "cloning")
 				ninja_clonable = TRUE
 				to_chat(usr, span_notice("Вы внесены в список устройства для воскрешения на своей базе."))
-				ninja_datum.purchased_abilities += "<BIG>[bicon(ability_icon)]</BIG>"
+				ninja_datum.purchased_abilities += "<big>[bicon(ability_icon)]</big>"
 				addtimer(CALLBACK(src, PROC_REF(toggle_ability_buy_block)), 2 SECONDS)
 				return
 			var/action_path = get_suit_ability(ability)
@@ -166,7 +166,7 @@
 				a_boost = ninja_action
 			if(istype(ninja_action, /datum/action/item_action/advanced/ninja/ninjaheal))
 				heal_chems = ninja_action
-			ninja_datum.purchased_abilities += "<BIG>[bicon(ability_icon)]</BIG>"
+			ninja_datum.purchased_abilities += "<big>[bicon(ability_icon)]</big>"
 			addtimer(CALLBACK(src, PROC_REF(toggle_ability_buy_block)), 2 SECONDS)
 		if("move")
 			var/destination = params["move"]

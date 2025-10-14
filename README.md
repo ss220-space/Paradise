@@ -15,13 +15,14 @@
 
 | Вебсайт             | Ссылка                                                                                               |
 | ------------------- | ---------------------------------------------------------------------------------------------------- |
-| Код                 | https://github.com/ss220-space/Paradise                                                              |
+| Code                | https://github.com/ss220-space/Paradise                                                              |
 | Wiki                | https://wiki.ss220.space/                                                                            |
-| Документация        | https://ss220-space.github.io/Paradise/                                                              |
+| Codedocs            | https://ss220-space.github.io/Paradise/                                                              |
 | Discord             | https://discord.ss220.space                                                                          |
 
 # Полезная документация
 
+- [Руководство по локализации](/.github/guides/LOCALIZATION.md)
 - [Руководство по стилю](/.github/guides/STYLE.md)
 - [Руководство по автодокументации](.github/guides/AUTODOC.md)
 - [Правила контрибьюции](.github/CONTRIBUTING.md) (УСТАРЕЛО)

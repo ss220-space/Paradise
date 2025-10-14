@@ -88,7 +88,7 @@
 		spawn(7)
 			if(user)
 				if(phaseanim)
-					if(camera && camera.loc)
+					if(camera?.loc)
 						to_turf = camera.loc
 						flick("chronounphase", phaseanim)
 					else
