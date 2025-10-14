@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 
 	var/url = SSticker.login_music_data["url"]
 	switch(CONFIG_GET(string/asset_transport))
-		if("webroot")
+		if(ASSET_TRANSPORT_WEBROOT)
 			var/datum/asset/music/my_asset
 			var/filepath = SSticker.login_music_data["path"]
 			if(GLOB.cached_songs[filepath])
