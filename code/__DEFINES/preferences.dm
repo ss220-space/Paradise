@@ -225,7 +225,3 @@
 #define PREF_GENDER_MALE "Мужской"
 #define PREF_GENDER_FEMALE "Женский"
 #define PREF_GENDER_PLURAL "Бесполый"
-
-// Exoframes (machines only)
-#define PREF_EXOFRAME_REINFORCED    /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced
-#define PREF_EXOFRAME_INDUSTRIAL    /obj/item/organ/internal/cyberimp/chest/exoframe/industrial
