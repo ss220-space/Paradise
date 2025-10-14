@@ -16,12 +16,12 @@
 
 /obj/item/implant/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "Био-чип для модуля \"Первопроходец\"",
-		GENITIVE = "Био-чипа для модуля \"Первопроходец\"",
-		DATIVE = "Био-чипу для модуля \"Первопроходец\"",
-		ACCUSATIVE = "Био-чип для модуля \"Первопроходец\"",
-		INSTRUMENTAL = "Био-чипом для модуля \"Первопроходец\"",
-		PREPOSITIONAL = "Био-чипе для модуля \"Первопроходец\"",
+		NOMINATIVE = "био-чип для модуля \"Первопроходец\"",
+		GENITIVE = "био-чипа для модуля \"Первопроходец\"",
+		DATIVE = "био-чипу для модуля \"Первопроходец\"",
+		ACCUSATIVE = "био-чип для модуля \"Первопроходец\"",
+		INSTRUMENTAL = "био-чипом для модуля \"Первопроходец\"",
+		PREPOSITIONAL = "био-чипе для модуля \"Первопроходец\"",
 	)
 
 /obj/item/implant/mod/Initialize(mapload)
@@ -41,32 +41,32 @@
 /obj/item/implant/mod/proc/recall()
 	target = get_turf(imp_in)
 	if(!module?.mod)
-		balloon_alert(imp_in, "модуль не присоединен к модульному костюму!")
+		imp_in.balloon_alert(imp_in, "модуль не подсоединён!")
 		return FALSE
 	if(module.mod.open)
-		balloon_alert(imp_in, "модульный костюм раскрыт!")
+		imp_in.balloon_alert(imp_in, "костюм раскрыт!")
 		return FALSE
 	if(length(path))
-		balloon_alert(imp_in, "модульный костюм уже в пути!")
+		imp_in.balloon_alert(imp_in, "костюм уже в пути!")
 		return FALSE
 	if(ismob(get_atom_on_turf(module.mod)))
-		balloon_alert(imp_in, "модульный костюм на ком-то надет!")
+		imp_in.balloon_alert(imp_in, "костюм на ком-то надет!")
 		return FALSE
 	if(module.mod.loc != get_turf(module.mod))
-		balloon_alert(imp_in, "модульный костюм внутри хранилища!")
+		imp_in.balloon_alert(imp_in, "костюм внутри хранилища!")
 		return FALSE
 	if(module.z != z || get_dist(imp_in, module.mod) > 150)
-		balloon_alert(imp_in, "модульный костюм слишком далеко!")
+		imp_in.balloon_alert(imp_in, "костюм слишком далеко!")
 		return FALSE
 	if(!ishuman(imp_in)) //Need to be specific
-		balloon_alert(imp_in, "неизвестное существо!")
+		imp_in.balloon_alert(imp_in, "неизвестное существо!")
 		return FALSE
-	var/mob/living/carbon/human/H = imp_in
-	set_path(get_path_to(module.mod, target, 150, access = H.get_access(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
+	var/mob/living/carbon/human/human = imp_in
+	set_path(get_path_to(module.mod, target, 150, access = human.get_access(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
-		balloon_alert(H, "невозможно расчитать путь!")
+		human.balloon_alert(human, "невозможно расчитать путь!")
 		return FALSE
-	balloon_alert(H, "модульный костюм в пути!")
+	human.balloon_alert(human, "костюм в пути!")
 	animate(module.mod, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 	module.mod.add_overlay(jet_icon)
 	RegisterSignal(module.mod, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
@@ -85,7 +85,7 @@
 	module.mod.transform = matrix()
 	UnregisterSignal(module.mod, COMSIG_MOVABLE_MOVED)
 	if(!successful)
-		balloon_alert(imp_in, "связь потеряна!")
+		imp_in.balloon_alert(imp_in, "связь потеряна!")
 		path = list() //Stopping endless end_recall with luck.
 
 /obj/item/implant/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
@@ -98,8 +98,8 @@
 /obj/item/implant/mod/proc/mod_move(dest)
 	dest = get_turf(dest) //We must always compare turfs, so get the turf of the dest var if dest was originally something else.
 	if(get_turf(module.mod) == dest) //We have arrived, no need to move again.
-		for(var/mob/living/carbon/human/H in range(1, module.mod))
-			if(H == imp_in)
+		for(var/mob/living/carbon/human/human in range(1, module.mod))
+			if(human == imp_in)
 				module.attach(imp_in)
 				end_recall()
 				return TRUE

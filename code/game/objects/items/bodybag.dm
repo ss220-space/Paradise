@@ -345,28 +345,62 @@
 
 /obj/item/bodybag/environmental
 	name = "environmental protection bag"
-	desc = "A folded, reinforced bag designed to protect against exoplanetary environmental storms."
+	desc = "Продвинутый мешок, созданный для защиты от опасной окружающей среды или экстремально низкого давления."
 	icon_state = "envirobag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental
 	w_class = WEIGHT_CLASS_NORMAL //It's reinforced and insulated, like a beefed-up sleeping bag, so it has a higher bulkiness than regular bodybag
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF
 
+/obj/item/bodybag/environmental/get_ru_names()
+	return list(
+		NOMINATIVE = "защитный мешок",
+		GENITIVE = "защитного мешка",
+		DATIVE = "защитному мешку",
+		ACCUSATIVE = "защитный мешок",
+		INSTRUMENTAL = "защитным мешком",
+		PREPOSITIONAL = "защитном мешке"
+	)
+
 /obj/item/bodybag/environmental/nanotrasen
 	name = "elite environmental protection bag"
-	desc = "A folded, heavily reinforced, and insulated bag, capable of fully isolating its contents from external factors."
+	desc = "Продвинутая версия защитного мешка, способная полностью обезопасить содержимое от любого воздействия внешней среды."
 	icon_state = "ntenvirobag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/nanotrasen
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
 
+/obj/item/bodybag/environmental/nanotrasen/get_ru_names()
+	return list(
+		NOMINATIVE = "элитный защитный мешок",
+		GENITIVE = "элитного защитного мешка",
+		DATIVE = "элитному защитному мешку",
+		ACCUSATIVE = "элитный защитный мешок",
+		INSTRUMENTAL = "элитным защитным мешком",
+		PREPOSITIONAL = "элитном защитном мешке"
+	)
+
 /obj/item/bodybag/environmental/prisoner
 	name = "prisoner transport bag"
-	desc = "Intended for transport of prisoners through hazardous environments, this folded environmental protection bag comes with straps to keep an occupant secure."
+	desc = "Мешок, созданный для транспортировки заключённых в условиях враждебной окружающей среды. Оснащён стяжками, \
+		позволяющими насильно удерживать заключённого внутри."
 	icon_state = "prisonerenvirobag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner
+
+/obj/item/bodybag/environmental/prisoner/get_ru_names()
+	return list(
+		NOMINATIVE = "защитный мешок для заключённых",
+		GENITIVE = "защитного мешка для заключённых",
+		DATIVE = "защитному мешку для заключённых",
+		ACCUSATIVE = "защитный мешок для заключённых",
+		INSTRUMENTAL = "защитным мешком для заключённых",
+		PREPOSITIONAL = "защитном мешке для заключённых"
+	)
 
 /obj/item/bodybag/environmental/prisoner/pressurized
 	name = "pressurized prisoner transport bag"
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner/pressurized
+
+/obj/item/bodybag/environmental/prisoner/pressurized/get_ru_names()
+
 
 /obj/item/bodybag/environmental/prisoner/syndicate
 	name = "syndicate prisoner transport bag"
@@ -375,11 +409,13 @@
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
 
-/// Environmental bags. They protect against bad weather.
+/obj/item/bodybag/environmental/prisoner/syndicate/get_ru_names()
 
+
+/// Environmental bags. They protect against bad weather.
 /obj/structure/closet/body_bag/environmental
 	name = "environmental protection bag"
-	desc = "Продвинутый мешок, созданный для защиты от опасной окружающей среды или опасно низкого давления."
+	desc = "Продвинутый мешок, созданный для защиты от опасной окружающей среды или экстремально низкого давления."
 	icon_state = "envirobag"
 	mob_storage_capacity = 1
 	contents_pressure_protection = 0.8
@@ -392,14 +428,13 @@
 
 /obj/structure/closet/body_bag/environmental/get_ru_names()
 	return list(
-		NOMINATIVE = "мешок для защиты от окружающей среды",
-		GENITIVE = "мешка для защиты от окружающей среды",
-		DATIVE = "мешку для защиты от окружающей среды",
-		ACCUSATIVE = "мешок для защиты от окружающей среды",
-		INSTRUMENTAL = "мешком для защиты от окружающей среды",
-		PREPOSITIONAL = "мешке для защиты от окружающей среды"
+		NOMINATIVE = "защитный мешок",
+		GENITIVE = "защитного мешка",
+		DATIVE = "защитному мешку",
+		ACCUSATIVE = "защитный мешок",
+		INSTRUMENTAL = "защитным мешком",
+		PREPOSITIONAL = "защитном мешке"
 	)
-
 
 /obj/structure/closet/body_bag/environmental/Initialize(mapload)
 	. = ..()
@@ -407,8 +442,7 @@
 	refresh_air()
 
 /obj/structure/closet/body_bag/environmental/Destroy()
-	if(air_contents)
-		QDEL_NULL(air_contents)
+	QDEL_NULL(air_contents)
 	return ..()
 
 /obj/structure/closet/body_bag/environmental/return_air()
@@ -426,7 +460,7 @@
 /obj/structure/closet/body_bag/environmental/togglelock(mob/living/user, silent)
 	. = ..()
 	for(var/mob/living/target in contents)
-		to_chat(target, span_warning("Вы слышите тихое шипение и белый дым заполняет пространство мешка..."))
+		to_chat(target, span_warning("Вы слышите тихое шипение, и белый дым заполняет пространство мешка..."))
 
 /obj/structure/closet/body_bag/environmental/proc/refresh_air()
 	air_contents = null
@@ -434,8 +468,8 @@
 	air_contents.temperature = T20C
 	air_contents.volume = 50
 
-	air_contents.oxygen = O2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
-	air_contents.nitrogen = N2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.oxygen = O2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.nitrogen = N2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C)
 
 /obj/structure/closet/body_bag/environmental/update_icon_state()
 	return
@@ -449,8 +483,7 @@
 
 /obj/structure/closet/body_bag/environmental/nanotrasen
 	name = "elite environmental protection bag"
-	desc = "Продвинутая версия мешка для защиты от окружающей среды, способна полностью защитить содержимое от любой внешней среды."
-	desc = "A heavily reinforced and insulated bag, capable of fully isolating its contents from external factors."
+	desc = "Продвинутая версия защитного мешка, способная полностью обезопасить содержимое от любого воздействия внешней среды."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "ntenvirobag"
 	contents_pressure_protection = 1
@@ -460,19 +493,19 @@
 
 /obj/structure/closet/body_bag/environmental/nanotrasen/get_ru_names()
 	return list(
-		NOMINATIVE = "элитный мешок для защиты от окружающей среды",
-		GENITIVE = "элитного мешка для защиты от окружающей среды",
-		DATIVE = "элитному мешку для защиты от окружающей среды",
-		ACCUSATIVE = "элитный мешок для защиты от окружающей среды",
-		INSTRUMENTAL = "элитным мешком для защиты от окружающей среды",
-		PREPOSITIONAL = "элитном мешке для защиты от окружающей среды"
+		NOMINATIVE = "элитный защитный мешок",
+		GENITIVE = "элитного защитного мешка",
+		DATIVE = "элитному защитному мешку",
+		ACCUSATIVE = "элитный защитный мешок",
+		INSTRUMENTAL = "элитным защитным мешком",
+		PREPOSITIONAL = "элитном защитном мешке"
 	)
 
 /// Securable enviro. bags
-
 /obj/structure/closet/body_bag/environmental/prisoner
 	name = "prisoner transport bag"
-	desc = "Мешок, созданный для транспортировки заключённых через опасную внешнюю среду. На данный тип мешков установлены стяжки, позволяющие удержать заключённого в мешке."
+	desc = "Мешок, созданный для транспортировки заключённых в условиях враждебной окружающей среды. Оснащён зажимами, \
+		позволяющими насильно удерживать заключённого внутри."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "prisonerenvirobag"
 	foldedbag_path = /obj/item/bodybag/environmental/prisoner
@@ -486,17 +519,17 @@
 
 /obj/structure/closet/body_bag/environmental/prisoner/get_ru_names()
 	return list(
-		NOMINATIVE = "мешок для транспортировки заключённых",
-		GENITIVE = "мешка для транспортировки заключённых",
-		DATIVE = "мешку для транспортировки заключённых",
-		ACCUSATIVE = "мешок для транспортировки заключённых",
-		INSTRUMENTAL = "мешком для транспортировки заключённых",
-		PREPOSITIONAL = "мешке для транспортировки заключённых"
+		NOMINATIVE = "защитный мешок для заключённых",
+		GENITIVE = "защитного мешка для заключённых",
+		DATIVE = "защитному мешку для заключённых",
+		ACCUSATIVE = "защитный мешок для заключённых",
+		INSTRUMENTAL = "защитным мешком для заключённых",
+		PREPOSITIONAL = "защитном мешке для заключённых"
 	)
 
 /obj/structure/closet/body_bag/environmental/prisoner/attempt_fold(mob/living/carbon/human/the_folder)
 	if(sinched)
-		balloon_alert(the_folder, "сначала ослабьте зажимы!")
+		balloon_alert(the_folder, "ослабьте зажимы!")
 		return FALSE
 	return ..()
 
@@ -522,15 +555,21 @@
 	if(opened || ismovable(loc) || !sinched)
 		return ..()
 
-	user.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] заметно подёргивается!"), \
-		span_notice("Вы пытаетесь выбраться из [declent_ru(GENITIVE)]. Это займёт приблизительно [DisplayTimeText(breakout_time)]."), \
-		span_hear("Вы слышите странное шуршание."))
+	user.balloon_alert(user, "вы сопротивляетесь...")
+	user.visible_message(
+		span_warning("[capitalize(declent_ru(NOMINATIVE))] заметно подёргивается!"),
+		span_notice("Вы пытаетесь выбраться из [declent_ru(GENITIVE)]. Это займёт приблизительно [DisplayTimeText(breakout_time)]."),
+		span_hear("Вы слышите странное шуршание.")
+	)
 	if(do_after(user,(breakout_time), target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || opened || !sinched)
 			return
 		//we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting
-		user.visible_message(span_danger("[user] успешно освобожда[pluralize_ru(user.gender,"ется","ются")] из [declent_ru(GENITIVE)]!"),
-							span_notice("Вы успешно выбрались из [declent_ru(GENITIVE)]!"))
+		user.visible_message(
+			span_danger("[user] успешно освобожда[pluralize_ru(user.gender, "ется", "ются")] из [declent_ru(GENITIVE)]!"),
+			ignored_mobs = user
+		)
+		user.balloon_alert(user, "вы вырываетесь!")
 		if(istype(loc, /obj/machinery/disposal))
 			return ..()
 		bust_open()
@@ -558,26 +597,29 @@
 	if(DOING_INTERACTION_WITH_TARGET(user, src))
 		return
 	if(opened)
-		balloon_alert(user, "сначала закройте мешок!")
+		balloon_alert(user, "закройте мешок!")
 		return
 	if(user in contents)
-		balloon_alert(user, "отсюда не защёлкнуть!")
+		balloon_alert(user, "невозможно!")
+		to_chat(user, span_warning("Вы не можете сложить [declent_ru(ACCUSATIVE)], находясь внутри!"))
 		return
 	if(iscarbon(user))
 		add_fingerprint(user)
 	if(!sinched)
 		for(var/mob/living/target in contents)
-			to_chat(target, span_userdanger("Вы чувствуете, как мешок становится теснее. В скором времени вы не сможете выбраться из мешка!"))
-		user.visible_message(span_notice("[user] пыта[pluralize_ru(user.gender,"ется","ются")] защёлкнуть стяжки на [declent_ru(PREPOSITIONAL)]."))
+			to_chat(target, span_userdanger("Вы чувствуете, как мешок становится теснее. Ещё немного, и вы больше не сможете выбраться без посторонней помощи!"))
+		user.balloon_alert_to_viewers("закрыва[pluralize_ru(user.gender, "ет", "ют")] зажимы...", "закрытие зажимов...")
 		if(!(do_after(user, sinch_time, src, extra_checks = CALLBACK(src, PROC_REF(is_closed)))))
 			return
 	sinched = !sinched
 	if(sinched)
 		playsound(loc, sinch_sound, 15, TRUE, -2)
-	user.visible_message(span_notice("[user] [sinched ? "защёлкивает стяжки на" : "открывает защёлки на"] [declent_ru(PREPOSITIONAL)]."),
-							span_notice("Вы [sinched ? "зещёлкиваете стяжки на" : "открываете защёлки на"] [declent_ru(PREPOSITIONAL)]."),
-							span_hear("Вы слышите странный щелчок."))
-	add_game_logs("[sinched ? "sinched":"unsinched"] secure environmental bag [src]", user)
+	user.visible_message(
+		span_notice("[user] [sinched ? "защёлкивает" : "отщёлкивает"] зажимы на [declent_ru(PREPOSITIONAL)]."),
+		span_notice("Вы [sinched ? "зещёлкиваете" : "отщёлкиваете"] зажимы на [declent_ru(PREPOSITIONAL)]."),
+		span_hear("Вы слышите странный щелчок.")
+	)
+	add_game_logs("[sinched ? "sinched" : "unsinched"] secure environmental bag [src]", user)
 	update_appearance()
 
 /obj/structure/closet/body_bag/environmental/prisoner/syndicate

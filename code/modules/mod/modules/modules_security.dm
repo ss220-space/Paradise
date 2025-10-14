@@ -36,17 +36,11 @@
 			balloon_alert(mod.wearer, "не влезает!")
 			return
 		holstered = holding
-		mod.wearer.visible_message(
-			span_notice("[mod.wearer] убира[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие в кобуру."),
-			span_notice("вы убираете оружие в кобуру.")
-		)
+		mod.wearer.balloon_alert_to_viewers("убира[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие", "оружие убрано")
 		mod.wearer.temporarily_remove_item_from_inventory(holding)
 		holding.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.visible_message(
-			span_warning("[mod.wearer] вытаскива[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие из кобуры!"),
-			span_warning("Вы вытаскиваете оружие из кобуры!")
-		)
+		mod.wearer.balloon_alert_to_viewers("извлека[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие!", "оружие извлечено")
 	else
 		balloon_alert(mod.wearer, "освободите руку!")
 
