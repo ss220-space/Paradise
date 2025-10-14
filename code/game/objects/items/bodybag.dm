@@ -379,7 +379,7 @@
 
 /obj/structure/closet/body_bag/environmental
 	name = "environmental protection bag"
-	desc = "An insulated, reinforced bag designed to protect against exoplanetary storms and other environmental factors."
+	desc = "Продвинутый мешок, созданный для защиты от опасной окружающей среды или опасно низкого давления."
 	icon_state = "envirobag"
 	mob_storage_capacity = 1
 	contents_pressure_protection = 0.8
@@ -389,6 +389,17 @@
 	var/list/weather_protection = list(TRAIT_ASHSTORM_IMMUNE, TRAIT_RADSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE) // Does not protect against lava or the The Floor Is Lava spell.
 	/// The contents of the gas to be distributed to an occupant. Set in Initialize()
 	var/datum/gas_mixture/air_contents = null
+
+/obj/structure/closet/body_bag/environmental/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок для защиты от окружающей среды",
+		GENITIVE = "мешка для защиты от окружающей среды",
+		DATIVE = "мешку для защиты от окружающей среды",
+		ACCUSATIVE = "мешок для защиты от окружающей среды",
+		INSTRUMENTAL = "мешком для защиты от окружающей среды",
+		PREPOSITIONAL = "мешке для защиты от окружающей среды"
+	)
+
 
 /obj/structure/closet/body_bag/environmental/Initialize(mapload)
 	. = ..()
@@ -415,7 +426,7 @@
 /obj/structure/closet/body_bag/environmental/togglelock(mob/living/user, silent)
 	. = ..()
 	for(var/mob/living/target in contents)
-		to_chat(target, span_warning("You hear a faint hiss, and a white mist fills your vision..."))
+		to_chat(target, span_warning("Вы слышите тихое шипение и белый дым заполняет пространство мешка..."))
 
 /obj/structure/closet/body_bag/environmental/proc/refresh_air()
 	air_contents = null
@@ -438,6 +449,7 @@
 
 /obj/structure/closet/body_bag/environmental/nanotrasen
 	name = "elite environmental protection bag"
+	desc = "Продвинутая версия мешка для защиты от окружающей среды, способна полностью защитить содержимое от любой внешней среды."
 	desc = "A heavily reinforced and insulated bag, capable of fully isolating its contents from external factors."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "ntenvirobag"
@@ -446,15 +458,25 @@
 	foldedbag_path = /obj/item/bodybag/environmental/nanotrasen
 	weather_protection = list(TRAIT_WEATHER_IMMUNE)
 
+/obj/structure/closet/body_bag/environmental/nanotrasen/get_ru_names()
+	return list(
+		NOMINATIVE = "элитный мешок для защиты от окружающей среды",
+		GENITIVE = "элитного мешка для защиты от окружающей среды",
+		DATIVE = "элитному мешку для защиты от окружающей среды",
+		ACCUSATIVE = "элитный мешок для защиты от окружающей среды",
+		INSTRUMENTAL = "элитным мешком для защиты от окружающей среды",
+		PREPOSITIONAL = "элитном мешке для защиты от окружающей среды"
+	)
+
 /// Securable enviro. bags
 
 /obj/structure/closet/body_bag/environmental/prisoner
 	name = "prisoner transport bag"
-	desc = "Intended for transport of prisoners through hazardous environments, this environmental protection bag comes with straps to keep an occupant secure."
+	desc = "Мешок, созданный для транспортировки заключённых через опасную внешнюю среду. На данный тип мешков установлены стяжки, позволяющие удержать заключённого в мешке."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "prisonerenvirobag"
 	foldedbag_path = /obj/item/bodybag/environmental/prisoner
-	breakout_time = 4 MINUTES // because it's probably about as hard to get out of this as it is to get out of a straightjacket.
+	breakout_time = 2 MINUTES // because it's probably about as hard to get out of this as it is to get out of a straightjacket.
 	/// How long it takes to sinch the bag.
 	var/sinch_time = 10 SECONDS
 	/// Whether or not the bag is sinched. Starts unsinched.
@@ -462,9 +484,19 @@
 	/// The sound that plays when the bag is done sinching.
 	var/sinch_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
 
+/obj/structure/closet/body_bag/environmental/prisoner/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок для транспортировки заключённых",
+		GENITIVE = "мешка для транспортировки заключённых",
+		DATIVE = "мешку для транспортировки заключённых",
+		ACCUSATIVE = "мешок для транспортировки заключённых",
+		INSTRUMENTAL = "мешком для транспортировки заключённых",
+		PREPOSITIONAL = "мешке для транспортировки заключённых"
+	)
+
 /obj/structure/closet/body_bag/environmental/prisoner/attempt_fold(mob/living/carbon/human/the_folder)
 	if(sinched)
-		to_chat(the_folder, span_warning("You wrestle with [src], but it won't fold while its straps are fastened."))
+		balloon_alert(the_folder, "сначала ослабьте зажимы!")
 		return FALSE
 	return ..()
 
@@ -490,21 +522,21 @@
 	if(opened || ismovable(loc) || !sinched)
 		return ..()
 
-	user.visible_message(span_warning("Someone in [src] begins to wriggle!"), \
-		span_notice("You start wriggling, attempting to loosen [src]'s buckles... (this will take about [DisplayTimeText(breakout_time)].)"), \
-		span_hear("You hear straining cloth from [src]."))
+	user.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] заметно подёргивается!"), \
+		span_notice("Вы пытаетесь выбраться из [declent_ru(GENITIVE)]. Это займёт приблизительно [DisplayTimeText(breakout_time)]."), \
+		span_hear("Вы слышите странное шуршание."))
 	if(do_after(user,(breakout_time), target = src))
-		if(!user || user.stat != CONSCIOUS || user.loc != src || opened || !sinched )
+		if(!user || user.stat != CONSCIOUS || user.loc != src || opened || !sinched)
 			return
 		//we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting
-		user.visible_message(span_danger("[user] successfully broke out of [src]!"),
-							span_notice("You successfully break out of [src]!"))
+		user.visible_message(span_danger("[user] успешно освобожда[pluralize_ru(user.gender,"ется","ются")] из [declent_ru(GENITIVE)]!"),
+							span_notice("Вы успешно выбрались из [declent_ru(GENITIVE)]!"))
 		if(istype(loc, /obj/machinery/disposal))
 			return ..()
 		bust_open()
 	else
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
-			to_chat(user, span_warning("You fail to break out of [src]!"))
+			to_chat(user, span_warning("Вам не удалось выбраться из [declent_ru(GENITIVE)]!"))
 
 
 /obj/structure/closet/body_bag/environmental/prisoner/bust_open()
@@ -526,25 +558,25 @@
 	if(DOING_INTERACTION_WITH_TARGET(user, src))
 		return
 	if(opened)
-		to_chat(user, span_warning("You can't close the buckles while [src] is unzipped!"))
+		balloon_alert(user, "сначала закройте мешок!")
 		return
 	if(user in contents)
-		to_chat(user, span_warning("You can't reach the buckles from here!"))
+		balloon_alert(user, "отсюда не защёлкнуть!")
 		return
 	if(iscarbon(user))
 		add_fingerprint(user)
 	if(!sinched)
 		for(var/mob/living/target in contents)
-			to_chat(target, span_userdanger("You feel the lining of [src] tighten around you! Soon, you won't be able to escape!"))
-		user.visible_message(span_notice("[user] begins sinching down the buckles on [src]."))
+			to_chat(target, span_userdanger("Вы чувствуете, как мешок становится теснее. В скором времени вы не сможете выбраться из мешка!"))
+		user.visible_message(span_notice("[user] пыта[pluralize_ru(user.gender,"ется","ются")] защёлкнуть стяжки на [declent_ru(PREPOSITIONAL)]."))
 		if(!(do_after(user, sinch_time, src, extra_checks = CALLBACK(src, PROC_REF(is_closed)))))
 			return
 	sinched = !sinched
 	if(sinched)
 		playsound(loc, sinch_sound, 15, TRUE, -2)
-	user.visible_message(span_notice("[user] [sinched ? null : "un"]sinches [src]."),
-							span_notice("You [sinched ? null : "un"]sinch [src]."),
-							span_hear("You hear stretching followed by metal clicking from [src]."))
+	user.visible_message(span_notice("[user] [sinched ? "защёлкивает стяжки на" : "открывает защёлки на"] [declent_ru(PREPOSITIONAL)]."),
+							span_notice("Вы [sinched ? "зещёлкиваете стяжки на" : "открываете защёлки на"] [declent_ru(PREPOSITIONAL)]."),
+							span_hear("Вы слышите странный щелчок."))
 	add_game_logs("[sinched ? "sinched":"unsinched"] secure environmental bag [src]", user)
 	update_appearance()
 
@@ -557,7 +589,7 @@
 	contents_thermal_insulation = 1
 	foldedbag_path = /obj/item/bodybag/environmental/prisoner/syndicate
 	weather_protection = list(TRAIT_WEATHER_IMMUNE)
-	breakout_time = 8 MINUTES
+	breakout_time = 4 MINUTES
 	sinch_time = 20 SECONDS
 
 /obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate/refresh_air()

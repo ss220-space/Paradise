@@ -163,7 +163,7 @@
 
 /// Apply a cooldown until this item can be used again
 /obj/item/mod/module/proc/start_cooldown(applied_cooldown)
-	if (isnull(applied_cooldown))
+	if(isnull(applied_cooldown))
 		applied_cooldown = cooldown_time
 	COOLDOWN_START(src, cooldown_timer, applied_cooldown)
 	SEND_SIGNAL(src, COMSIG_MODULE_COOLDOWN_STARTED, applied_cooldown)
@@ -428,12 +428,12 @@
 			return
 	else
 		var/datum/mod_part/part_datum = mod.get_part_datum(source)
-		if (!part_datum?.sealed)
+		if(!part_datum?.sealed)
 			return
 
 	. = list()
 	var/used_overlay = get_current_overlay_state()
-	if (!used_overlay)
+	if(!used_overlay)
 		return
 
 	var/used_icon_file = overlay_icon_file
@@ -515,7 +515,7 @@
 		return
 	var/core_path = pick(cashed_anomalies)
 	core = new core_path(src)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/module/anomaly_locked/Destroy()
 	QDEL_NULL(core)
@@ -568,7 +568,7 @@
 	core = item
 	balloon_alert(user, "ядро установлено")
 	playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -587,7 +587,7 @@
 	if(Adjacent(user) && !issilicon(user))
 		user.put_in_hands(core)
 	core = null
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/module/anomaly_locked/update_icon_state()
 	icon_state = initial(icon_state) + (core ? "-core" : "")

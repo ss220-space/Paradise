@@ -41,7 +41,7 @@
 /obj/item/implant/mod/proc/recall()
 	target = get_turf(imp_in)
 	if(!module?.mod)
-		balloon_alert(imp_in, "Модуль не присоединен к модульному костюму!")
+		balloon_alert(imp_in, "модуль не присоединен к модульному костюму!")
 		return FALSE
 	if(module.mod.open)
 		balloon_alert(imp_in, "модульный костюм раскрыт!")
@@ -59,12 +59,12 @@
 		balloon_alert(imp_in, "модульный костюм слишком далеко!")
 		return FALSE
 	if(!ishuman(imp_in)) //Need to be specific
-		balloon_alert(imp_in, "Ошибка! Неизвестное существо.")
+		balloon_alert(imp_in, "неизвестное существо!")
 		return FALSE
 	var/mob/living/carbon/human/H = imp_in
 	set_path(get_path_to(module.mod, target, 150, access = H.get_access(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
-		balloon_alert(H, "Невозможно расчитать путь.")
+		balloon_alert(H, "невозможно расчитать путь!")
 		return FALSE
 	balloon_alert(H, "модульный костюм в пути!")
 	animate(module.mod, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
@@ -85,7 +85,7 @@
 	module.mod.transform = matrix()
 	UnregisterSignal(module.mod, COMSIG_MOVABLE_MOVED)
 	if(!successful)
-		balloon_alert(imp_in, "Связь с модульным костюмом потеряна.")
+		balloon_alert(imp_in, "связь потеряна!")
 		path = list() //Stopping endless end_recall with luck.
 
 /obj/item/implant/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)

@@ -453,7 +453,7 @@
 /obj/item/mod/control/pre_equipped/debug
 	theme = /datum/mod_theme/debug
 	applied_core = /obj/item/mod/core/infinite
-	applied_modules = list( //one of every type of module, for testing if they all work correctly // boy this isn't even 25% the modules
+	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/bikehorn,
@@ -466,7 +466,7 @@
 		/obj/item/mod/module/medbeam,
 		/obj/item/mod/module/jump_jet,
 		/obj/item/mod/module/flashlight/darkness,
-		/obj/item/mod/module/longfall
+		/obj/item/mod/module/longfall,
 	)
 	default_pins = list(
 		/obj/item/mod/module/bikehorn,

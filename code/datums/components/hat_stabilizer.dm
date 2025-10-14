@@ -52,7 +52,7 @@
 		src.loose_hat = loose_hat
 
 /datum/component/hat_stabilizer/UnregisterFromParent()
-	if (attached_hat)
+	if(attached_hat)
 		remove_hat()
 	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_PARENT_ATTACKBY,
 	COMSIG_CLICK_ALT, COMSIG_MODULE_GENERATE_WORN_OVERLAY,
@@ -117,7 +117,7 @@
 
 /datum/component/hat_stabilizer/proc/get_separate_worn_overlays(atom/movable/source, list/overlays, mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
 	SIGNAL_HANDLER
-	if (isinhands)
+	if(isinhands)
 		return
 	if(!attached_hat)
 		return
@@ -136,7 +136,7 @@
 /datum/component/hat_stabilizer/proc/on_qdel(atom/movable/source)
 	SIGNAL_HANDLER
 
-	if (attached_hat)
+	if(attached_hat)
 		QDEL_NULL(attached_hat)
 
 /datum/component/hat_stabilizer/proc/on_attackby(datum/source, obj/item/hitting_item, mob/user)
@@ -165,10 +165,10 @@
 	attached_hat = hat
 	RegisterSignal(hat, COMSIG_MOVABLE_MOVED, PROC_REF(on_hat_movement))
 
-	if (!isnull(user))
+	if(!isnull(user))
 		movable_parent.balloon_alert(user, "hat attached")
 
-	if (!istype(parent, /obj/item/clothing))
+	if(!istype(parent, /obj/item/clothing))
 		movable_parent.update_appearance()
 		return
 
@@ -180,7 +180,7 @@
 	apparel.visor_flags_cover |= attached_hat.visor_flags_cover
 	apparel.update_appearance()
 
-	if (ismob(apparel.loc))
+	if(ismob(apparel.loc))
 		var/mob/wearer = apparel.loc
 		wearer.update_clothing(wearer.get_slot_by_item(apparel))
 
@@ -208,7 +208,7 @@
 	var/atom/movable/movable_parent = parent
 	UnregisterSignal(attached_hat, COMSIG_MOVABLE_MOVED)
 
-	if (attached_hat.loc == parent)
+	if(attached_hat.loc == parent)
 		attached_hat.forceMove(movable_parent.drop_location())
 
 	if(!isnull(user))
@@ -216,7 +216,7 @@
 	else
 		movable_parent.balloon_alert_to_viewers("the hat falls to the floor!")
 
-	if (!istype(parent, /obj/item/clothing))
+	if(!istype(parent, /obj/item/clothing))
 		attached_hat = null
 		movable_parent.update_appearance()
 		return
@@ -228,7 +228,7 @@
 	apparel.visor_flags_cover = former_visor_flags
 	apparel.update_appearance()
 	attached_hat = null
-	if (ismob(apparel.loc))
+	if(ismob(apparel.loc))
 		var/mob/wearer = apparel.loc
 		wearer.update_clothing(wearer.get_slot_by_item(apparel))
 

@@ -263,7 +263,7 @@
 		wearer.internal = null
 	SEND_SIGNAL(src, COMSIG_MOD_PART_SEALED, part_datum)
 	if(is_sealed)
-		if (!active)
+		if(!active)
 			return
 		for(var/obj/item/mod/module/module as anything in modules)
 			if(module.part_activated || !module.has_required_parts(mod_parts, need_active = TRUE))

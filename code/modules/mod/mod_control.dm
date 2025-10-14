@@ -6,7 +6,7 @@
 
 /obj/item/mod/control
 	name = "MOD control unit"
-	desc = "Устройство управления модульным экзокостюмом - высокотехнологичной бронёй, используемой для защиты пользователя от опасной внешней среды."
+	desc = "Устройство управления модульным экзокостюмом — высокотехнологичной бронёй, используемой для защиты пользователя от опасной внешней среды."
 	icon_state = "standard-control"
 	item_state = "mod_control"
 	base_icon_state = "control"
@@ -449,7 +449,7 @@
 /obj/item/mod/control/proc/get_part_datum_from_slot(slot)
 	RETURN_TYPE(/datum/mod_part)
 	for(var/part_key in mod_parts)
-		if (text2num(part_key) & slot)
+		if(text2num(part_key) & slot)
 			return mod_parts[part_key]
 
 /obj/item/mod/control/proc/set_wearer(mob/living/carbon/human/user)
@@ -684,7 +684,7 @@
 	for(var/datum/mod_part/part_datum as anything in get_part_datums(all = TRUE))
 		var/obj/item/part = part_datum.part_item
 		part.slowdown = total_slowdown / length(mod_parts)
-		if (!part_datum.sealed)
+		if(!part_datum.sealed)
 			part.slowdown = max(part.slowdown, 0)
 	wearer?.update_equipment_speed_mods()
 

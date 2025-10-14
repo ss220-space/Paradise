@@ -23,7 +23,7 @@
 
 /datum/action/item_action/mod/deploy
 	name = "Развернуть модульный костюм"
-	desc = "ЛКМ - развернуть или свернуть все компоненты модульного костюма. СКМ - развернуть/свернуть определённый компонент. "
+	desc = "ЛКМ — развернуть или свернуть все компоненты модульного костюма. СКМ — развернуть/свернуть определённый компонент. "
 	button_icon_state = "deploy"
 
 /datum/action/item_action/mod/deploy/Trigger(left_click, attack_self)
@@ -38,7 +38,7 @@
 
 /datum/action/item_action/mod/activate
 	name = "Активировать модульный костюм"
-	desc = "ЛКМ - активировать модульный костюм с необходимостью дополнительного подтверждения. СКМ - мгновенная активация."
+	desc = "ЛКМ — активировать модульный костюм с необходимостью дополнительного подтверждения. СКМ — мгновенная активация."
 	button_icon_state = "activate"
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE
@@ -137,7 +137,7 @@
 
 	deltimer(cooldown_timer)
 	UpdateButtonIcon()
-	if (cooldown_time == 0)
+	if(cooldown_time == 0)
 		return
 	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(UpdateButtonIcon)), cooldown_time + 1, TIMER_STOPPABLE)
 
