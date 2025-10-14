@@ -471,8 +471,8 @@
 		to_chat(H, span_notice("You feel your heart beating again!"))
 
 /obj/item/organ/internal/cyberimp/chest/exoframe
-	name = "Стандартный каркас экзоскелета"
-	desc = "Несущая конструкция, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Стандартная модель, не отличающаяся выдающимися характеристиками."
+	name = "Exoframe"
+	desc = "Несущая опора, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Стандартная модель, не отличающаяся выдающимися характеристиками."
 	implant_color = "#3a3a3aff"
 	implant_overlay = null
 	origin_tech = "materials=3;engineering=4"
@@ -565,8 +565,8 @@
 	human.dna.species.coldmod = coldmod
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced
-	name = "Укрепленный каркас экзоскелета"
-	desc = "Несущая конструкция, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Укреплённая модель, способная выдержать больше повреждений."
+	name = "Reinforced exoframe"
+	desc = "Несущая опора, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Укреплённая модель, способная выдержать больше повреждений."
 	id = "EXO_REINFORCED"
 	icon_state = "exoframe_reinforced"
 	given_health = 20
@@ -585,8 +585,8 @@
 		)
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/industrial
-	name = "Промышленный каркас экзоскелета"
-	desc = "Несущая конструкция, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Промышленная модель модель, созданная специально для работ в открытом космосе."
+	name = "Industrial exoframe"
+	desc = "Несущая опора, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Промышленная модель, созданная специально для работ в открытом космосе."
 	id = "EXO_INDUSTRIAL"
 	icon_state = "exoframe_industrial"
 	traits_added = list(TRAIT_SHOCKIMMUNE)
@@ -607,8 +607,8 @@
 	)
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat
-	name = "Боевой каркас экзоскелета"
-	desc = "Несущая конструкция, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Облегченная модель из пластитанового сплава с повышенной прочностью конструкции."
+	name = "Combat exoframe"
+	desc = "Несущая опора, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Облегченная модель из пластитанового сплава с повышенной прочностью конструкции."
 	id = "EXO_COMBAT"
 	icon_state = "exoframe_combat"
 	origin_tech = "materials=4;engineering=4;illegal=3;combat=4"
@@ -643,7 +643,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(crit_fail)
-		owner.balloon_alert(owner, "[src] не отвечает!")
+		owner.balloon_alert(owner, "[declent_ru(NOMINATIVE)] не отвечает!")
 		return
 	
 	if(active)

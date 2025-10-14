@@ -221,7 +221,7 @@
 	init_datum_subtypes(/datum/slime_action, GLOB.slime_actions, null, "name")
 
 	var/exoframe_type = /obj/item/organ/internal/cyberimp/chest/exoframe
-	for(var/obj/item/organ/internal/cyberimp/chest/exoframe/frame in subtypesof(exoframe_type))
+	for(var/obj/item/organ/internal/cyberimp/chest/exoframe/frame as anything in subtypesof(exoframe_type))
 		GLOB.exoframe_types[frame.id] = frame
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
