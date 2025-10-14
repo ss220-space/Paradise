@@ -375,7 +375,7 @@
 	var/list/reagent_strings = list()
 	var/reagents_left = length(reagent_list)
 	var/intial_list_length = reagents_left
-	for (var/datum/reagent/reagent as anything in reagent_list)
+	for(var/datum/reagent/reagent as anything in reagent_list)
 		reagents_left--
 		if(final_and && intial_list_length > 1 && reagents_left == 0)
 			reagent_strings += "and [capitalize_names ? capitalize(reagent.name) : reagent.name][names_only ? null : ", [reagent.volume]"]"
