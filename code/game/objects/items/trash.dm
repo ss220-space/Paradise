@@ -164,6 +164,8 @@
 
 /obj/item/spentcasing/Initialize(mapload)
 	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 	dir = pick(GLOB.alldirs)
 
 /obj/effect/spawner/lootdrop/spentcasing
