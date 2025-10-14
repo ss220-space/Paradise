@@ -53,8 +53,9 @@
 /datum/beaker_panel/proc/spawn_container_from_data(mob/user, list/spawn_info)
 	var/container_type = text2path(spawn_info["container"])
 	var/list/container_reagents = list()
-	for(var/reagent_string, reagent_amount in spawn_info["reagents"])
-		container_reagents[text2path(reagent_string)] = text2num(reagent_amount)
+	var/list/reagents_info = spawn_info["reagents"];
+	for(var/reagent_string in reagents_info)
+		container_reagents[text2path(reagent_string)] = text2num(reagents_info[reagent_string])
 
 	return spawn_container(user, container_type, container_reagents)
 
