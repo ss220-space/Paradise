@@ -8,6 +8,11 @@
 .Dropdown {
   display: flex;
   align-items: flex-start;
+
+  &--fluid {
+    flex: 1;
+    width: 100%;
+  }
 }
 
 .Dropdown__control {
