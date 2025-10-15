@@ -396,21 +396,25 @@
 	)
 
 /obj/item/bodybag/environmental/prisoner/pressurized
-	name = "pressurized prisoner transport bag"
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner/pressurized
-
-/obj/item/bodybag/environmental/prisoner/pressurized/get_ru_names()
-
 
 /obj/item/bodybag/environmental/prisoner/syndicate
 	name = "syndicate prisoner transport bag"
-	desc = "An alteration of Nanotrasen's environmental protection bag which has been used in several high-profile kidnappings. Designed to keep a victim unconscious, alive, and secured until they are transported to a required location."
+	desc = "Мешок, созданный для транспортировки пленников синдиката в условиях враждебной окружающей среды. Оснащён стяжками, \
+		позволяющими насильно удерживать пленника внутри."
 	icon_state = "syndieenvirobag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
 
 /obj/item/bodybag/environmental/prisoner/syndicate/get_ru_names()
-
+	return list(
+		NOMINATIVE = "мешок для заключённых синдиката",
+		GENITIVE = "мешка для заключённых синдиката",
+		DATIVE = "мешку для заключённых синдиката",
+		ACCUSATIVE = "мешок для заключённых синдиката",
+		INSTRUMENTAL = "мешком для заключённых синдиката",
+		PREPOSITIONAL = "мешке для заключённых синдиката"
+	)
 
 /// Environmental bags. They protect against bad weather.
 /obj/structure/closet/body_bag/environmental
@@ -645,11 +649,21 @@
 
 /obj/structure/closet/body_bag/environmental/hardlight
 	name = "hardlight bodybag"
-	desc = "A hardlight bag for storing bodies. Resistant to space."
+	desc = "Мешок, созданный с помощью световой голограммы. Достаточно крепкий, чтобы поддерживать атмосферу внутри."
 	icon_state = "holobag_med"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	foldedbag_path = null
 	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/hardlight/get_ru_names()
+	return list(
+		NOMINATIVE = "голографический защитный мешок",
+		GENITIVE = "голографического защитного мешка",
+		DATIVE = "голографическому защитному мешку",
+		ACCUSATIVE = "голографический защитный мешок",
+		INSTRUMENTAL = "голографическим защитным мешком",
+		PREPOSITIONAL = "голографическом защитном мешке"
+	)
 
 /obj/structure/closet/body_bag/environmental/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type in list(BRUTE, BURN))
@@ -657,11 +671,23 @@
 
 /obj/structure/closet/body_bag/environmental/prisoner/hardlight
 	name = "hardlight prisoner bodybag"
+	desc = "Мешок, созданный с помощью световой голограммы. Достаточно крепкий, чтобы поддерживать атмосферу внутри. Имеет зажимы для транспортировки заключённых"
 	desc = "A hardlight bag for storing bodies. Resistant to space, can be sinched to prevent escape."
 	icon_state = "holobag_sec"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	foldedbag_path = null
 	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight/get_ru_names()
+	return list(
+		NOMINATIVE = "голографический защитный мешок для заключённых",
+		GENITIVE = "голографического защитного мешка для заключённых",
+		DATIVE = "голографическому защитному мешку для заключённых",
+		ACCUSATIVE = "голографический защитный мешок для заключённых",
+		INSTRUMENTAL = "голографическим защитным мешком для заключённых",
+		PREPOSITIONAL = "голографическом защитном мешке для заключённых"
+	)
+
 
 /obj/structure/closet/body_bag/environmental/prisoner/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type in list(BRUTE, BURN))

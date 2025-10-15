@@ -678,7 +678,7 @@
 
 	var/list/module_slowdowns = list()
 	SEND_SIGNAL(src, COMSIG_MOD_UPDATE_SPEED, module_slowdowns)
-	for (var/module_slow in module_slowdowns)
+	for(var/module_slow in module_slowdowns)
 		total_slowdown += module_slow
 
 	for(var/datum/mod_part/part_datum as anything in get_part_datums(all = TRUE))

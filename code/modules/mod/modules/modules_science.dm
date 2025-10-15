@@ -138,7 +138,7 @@
 	module_type = MODULE_TOGGLE
 	complexity = 2
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.7
-	incompatible_modules = list( /obj/item/mod/module/anomaly_locked/antigrav) //TODO: add /obj/item/mod/module/atrocinator
+	incompatible_modules = list(/obj/item/mod/module/anomaly_locked/antigrav) //TODO: add /obj/item/mod/module/atrocinator
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/gravitational)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 

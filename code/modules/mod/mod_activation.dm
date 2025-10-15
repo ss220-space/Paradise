@@ -299,7 +299,7 @@
 	update_charge_alert()
 	update_appearance(UPDATE_ICON_STATE)
 	var/updated_slots = slot_flags
-	for (var/slot_key in mod_parts)
+	for(var/slot_key in mod_parts)
 		updated_slots |= text2num(slot_key)
 	wearer.update_clothing(updated_slots)
 
