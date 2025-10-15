@@ -9,7 +9,7 @@
 	W.age = H.age
 	W.sex = capitalize(H.gender)
 	W.registered_name = H.real_name
-	W.name = "[H.real_name]'s ID Card ([rt_job])"
+	W.name = "[H.real_name]’s ID Card ([rt_job])"
 	W.access = get_centcom_access(W.assignment)
 	W.law_level = LAW_LEVEL_RESPONSE_TEAM
 	W.photo = get_id_photo(H)

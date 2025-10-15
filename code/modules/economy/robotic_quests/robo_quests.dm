@@ -64,7 +64,9 @@
 	questinfo["icon_state"] = selected_mech.icon_state
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
 	questinfo["modules"] = list()
-	maximum_cash = rand(round(0.75 * selected.cash_reward), round(1.25 * selected.cash_reward))
+	var/min_rand_maximum_cash = round(0.75 * selected.cash_reward)
+	var/max_rand_maximum_cash = round(1.25 * selected.cash_reward)
+	maximum_cash = rand(min_rand_maximum_cash, max_rand_maximum_cash)
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
 		var/rand_module_amount = rand(1, selected.max_modules)

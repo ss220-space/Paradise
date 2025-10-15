@@ -80,7 +80,7 @@
 	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
 	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
 	var/mob/oranges_ear/assigned_oranges_ear
-	
+
 	var/pressure_difference = 0
 	var/pressure_direction = 0
 	var/list/atmos_adjacent_turfs = list()
@@ -640,26 +640,23 @@
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
-/turf/proc/empty(turf_type = /turf/space)
-	// Remove all atoms except observers, landmarks, docking ports, and (un)`simulated` atoms (lighting overlays)
-	var/turf/T0 = src
-	for(var/X in T0.GetAllContents())
-		var/atom/A = X
-		if(!A.simulated)
-			continue
-		if(istype(A, /mob/dead))
-			continue
-		if(istype(A, /obj/effect/landmark))
-			continue
-		if(istype(A, /obj/docking_port))
-			continue
-		qdel(A, force = TRUE)
+/turf/proc/empty(turf_type=/turf/space, list/ignore_typecache, flags)
+	// Remove all atoms except observers, landmarks, docking ports
+	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port))
+	var/list/allowed_contents = typecache_filter_list_reverse(get_all_contents_ignoring(ignore_typecache), ignored_atoms)
+	allowed_contents -= src
+	for(var/i in 1 to allowed_contents.len)
+		var/thing = allowed_contents[i]
+		qdel(thing, force=TRUE)
 
-	T0.ChangeTurf(turf_type)
+	if(!turf_type)
+		return
 
-	SSair.remove_from_active(T0)
-	T0.CalculateAdjacentTurfs()
-	SSair.add_to_active(T0, TRUE)
+	var/turf/new_turf = ChangeTurf(turf_type, after_flags = flags)
+	SSair.remove_from_active(new_turf)
+	new_turf.CalculateAdjacentTurfs()
+	SSair.add_to_active(new_turf, TRUE)
+
 
 /turf/AllowDrop()
 	return TRUE

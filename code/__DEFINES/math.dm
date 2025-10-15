@@ -127,3 +127,6 @@
 
 /// The number of cells in a taxicab circle (rasterized diamond) of radius X.
 #define DIAMOND_AREA(X) (1 + 2*(X)*((X)+1))
+
+/// rand() but for floats, returns a random floating point number between L and H
+#define randfloat(L, H) ((L) + rand() * ((H) - (L)))

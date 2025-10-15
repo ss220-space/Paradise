@@ -38,6 +38,10 @@
 	var/list/req_access
 	var/check_one_access = TRUE
 
+	/// Icon to use as a 32x32 preview in crafting menus and such
+	var/icon_preview
+	var/icon_state_preview
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)

@@ -357,7 +357,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if(exp_type) // If the ERT have special exp type: EXP_TYPE_COMMAND for Leaders, EXP_TYPE_MEDICAL for medics, etc
 			hours -= text2num(all_hours[exp_type])
 			hours += text2num(all_hours[exp_type]) * 2
-		hours *= rand(0.8, 1.2)
+		hours *= randfloat(0.8, 1.2)
 		if((hours - hours_dif) <= MEDIUM_RANK_HOURS)
 			H.rename_character(null, "[ranks["Min"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 		else if((hours - hours_dif) < MAX_RANK_HOURS)
