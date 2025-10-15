@@ -129,7 +129,7 @@
 /datum/design/module/mod_storage_expanded
 	name = "Expanded Storage Module"
 	id = "mod_storage_expanded"
-	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "syndicate" = 2)
+	req_tech = list("materials" = 7, "powerstorage" = 6, "engineering" = 7)
 	materials = list(MAT_METAL = 2500, MAT_URANIUM = 10000)
 	build_path = /obj/item/mod/module/storage/large_capacity
 
@@ -173,6 +173,13 @@
 	id = "mod_welding"
 	req_tech = list("materials" = 4, "biotech" = 4, "engineering" = 5, "plasmatech" = 4)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
+	build_path = /obj/item/mod/module/welding
+
+/datum/design/module/mod_visor_night
+	name = "Night Visor Module"
+	id = "mod_night_visor"
+	req_tech = list("materials" = 6, "biotech" = 7, "engineering" = 6, "plasmatech" = 6)
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000)
 	build_path = /obj/item/mod/module/welding
 
 /datum/design/module/mod_t_ray
@@ -312,7 +319,7 @@
 /datum/design/module/mod_drill
 	name = "Drill Module"
 	id = "mod_drill"
-	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
+	req_tech = list("materials" = 4, "powerstorage" = 5, "engineering" = 5)
 	materials = list(MAT_METAL = 12500, MAT_DIAMOND = 4000) //This drills **really** fast
 	build_path = /obj/item/mod/module/drill
 
@@ -326,7 +333,7 @@
 /datum/design/module/mod_dna_lock
 	name = "DNA Lock Module"
 	id = "mod_dna_lock"
-	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "syndicate" = 2)
+	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6)
 	materials = list(MAT_METAL = 12500, MAT_DIAMOND = 4000) //EMP beats it, but still, anti theft is a premium price in these here parts partner
 	build_path = /obj/item/mod/module/dna_lock
 
@@ -416,70 +423,91 @@
 
 /datum/design/module/mod_medbeam
 	name = "Medbeam Module"
-	id = "mod_medbeam
+	id = "mod_medbeam"
 	req_tech = list("materials" = 6, "powerstorage" = 7, "biotech" = 7)
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/medbeam
 
 /datum/design/module/mod_jumpjet
-	name = "Jump jet module"
+	name = "Jump Jet Module"
 	id = "mod_jumpjet"
 	req_tech = list("materials" = 6, "powerstorage" = 5, "bluespace" = 5, "plasmatech" = 6)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/jump_jet
 
 /datum/design/module/mod_mouthhole
-	name = "Eating apparatus module"
+	name = "Eating Apparatus Module"
 	id = "mod_mouthhole"
 	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
 	build_path = /obj/item/mod/module/mouthhole
 
 /datum/design/module/mod_longfall
-	name = "Longfall module"
+	name = "Longfall Module"
 	id = "mod_longfall"
 	req_tech = list("materials" = 6, "powerstorage" = 5, "bluespace" = 5, "plasmatech" = 6)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/longfall
 
 /datum/design/module/mod_health_analyzer
-	name = "Health analyzer module"
+	name = "Health Analyzer Module"
 	id = "mod_health_analyzer"
 	req_tech = list("materials" = 2, "powerstorage" = 2, "biotech" = 3)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
 	build_path = /obj/item/mod/module/health_analyzer
 
 /datum/design/module/mod_quick_carry
-	name = "quick carry module"
+	name = "Quick Carry Module"
 	id = "mod_quick_carry"
 	req_tech = list("materials" = 5, "powerstorage" = 4, "biotech" = 6)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/quick_carry
 
 /datum/design/module/mod_patienttransport
-	name = "patient transport module"
-	id = "mod_patienttransport
+	name = "Patient Transport Module"
+	id = "mod_patienttransport"
 	req_tech = list("materials" = 5, "powerstorage" = 4, "biotech" = 6)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/criminalcapture/patienttransport
 
 /datum/design/module/mod_antigrav
-	name = "Anti-gravity module"
+	name = "Anti-Gravity Module"
 	id = "mod_antigrav"
 	req_tech = list("materials" = 7, "powerstorage" = 7, "engineering" = 7) // 3 felt too low.
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
 	build_path = /obj/item/mod/module/anomaly_locked/antigrav
 
 /datum/design/module/mod_criminalcapture
-	name = "Criminal capture module"
+	name = "Criminal Capture Module"
 	id = "mod_criminalcapture"
 	req_tech = list("materials" = 3, "powerstorage" = 2, "biotech" = 3)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
 	build_path = /obj/item/mod/module/criminalcapture
 
 /datum/design/module/mod_magnetic_harness
-	name = "magnetic harness module"
+	name = "Magnetic Harness Module"
 	id = "mod_magnetic_harness"
 	req_tech = list("materials" = 6, "powerstorage" = 5, "biotech" = 6)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000, MAT_SILVER = 4000)
 	build_path = /obj/item/mod/module/magnetic_harness
+
+/datum/design/module/mod_pepper_shoulders
+	name = "Pepper Shoulders Module"
+	id = "mod_pepper_shoulders"
+	req_tech = list("materials" = 3, "powerstorage" = 2, "biotech" = 3)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
+	build_path = /obj/item/mod/module/pepper_shoulders
+
+/datum/design/module/mod_megaphone
+	name = "Megaphone Module"
+	id = "mod_megaphone"
+	req_tech = list("materials" = 3, "powerstorage" = 5, "biotech" = 6)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
+	build_path = /obj/item/mod/module/megaphone
+
+/datum/design/module/mod_quick_cuff
+	name = "Restraint Assist Module"
+	id = "mod_quick_cuff"
+	req_tech = list("materials" = 4, "powerstorage" = 5, "engineering" = 4)
+	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
+	build_path = /obj/item/mod/module/quick_cuff
