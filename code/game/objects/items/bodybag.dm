@@ -556,7 +556,7 @@
 	if(opened || ismovable(loc) || !sinched)
 		return ..()
 
-	user.balloon_alert(user, "вы сопротивляетесь...")
+	balloon_alert(user, "вы сопротивляетесь...")
 	user.visible_message(
 		span_warning("[capitalize(declent_ru(NOMINATIVE))] заметно подёргивается!"),
 		span_notice("Вы пытаетесь выбраться из [declent_ru(GENITIVE)]. Это займёт приблизительно [DisplayTimeText(breakout_time)]."),

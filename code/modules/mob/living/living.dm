@@ -1796,8 +1796,10 @@
 		take_organ_damage(damage)
 	throwned_mob.take_organ_damage(damage)
 	throwned_mob.Weaken(3 SECONDS)
-	throwned_mob.visible_message(span_danger("[throwned_mob.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [name], сбивая друг друга с ног!"),
-					span_userdanger("Вы жестко врезаетесь в [name]!"))
+	throwned_mob.visible_message(
+		span_danger("[capitalize(throwned_mob.declent_ru(NOMINATIVE))] вреза[pluralize_ru(gender, "ет", "ют")]ся в [declent_ru(NOMINATIVE)], сбивая друг друга с ног!"),
+		span_userdanger("Вы жёстко врезаетесь в [declent_ru(ACCUSATIVE)]!")
+	)
 
 
 /mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph

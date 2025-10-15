@@ -21,10 +21,10 @@
 /datum/wires/mod/get_status()
 	var/obj/item/mod/control/mod = holder
 	var/list/status = list()
-	status += "The orange light is [mod.seconds_electrified ? "on" : "off"]."
-	status += "The red light is [mod.malfunctioning ? "off" : "blinking"]."
-	status += "The green light is [mod.locked ? "on" : "off"]."
-	status += "The yellow light is [mod.interface_break ? "off" : "on"]."
+	status += "Оранжевая лампочка [mod.seconds_electrified ? "" : "не"] горит."
+	status += "Красная лампочка [mod.malfunctioning ? "не горит" : "мигает"]."
+	status += "Зелёная лампочка [mod.locked ? "" : "не"] горит."
+	status += "Жёлтая лампочка [mod.interface_break ? "не" : ""] горит."
 	return status
 
 /datum/wires/mod/on_pulse(wire)

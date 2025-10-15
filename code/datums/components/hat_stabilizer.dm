@@ -82,7 +82,7 @@
 	var/obj/item/hat = remove_hat()
 	if(!hat)
 		return
-	hat.visible_message(span_danger("[hat] goes flying off [hatless]'s head!"))
+	hat.visible_message(span_danger("[capitalize(hat.declent_ru(NOMINATIVE))] слета[pluralize_ru(hat.gender, "ет", "ют")] с [hatless.declent_ru(GENITIVE)]!"))
 	hat.throw_at(get_edge_target_turf(get_turf(hat), pick(GLOB.alldirs)), 2, 1, spin = TRUE)
 
 /datum/component/hat_stabilizer/proc/drop_hat(mob/hatless)
@@ -93,10 +93,11 @@
 
 /datum/component/hat_stabilizer/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
 	SIGNAL_HANDLER
+	var/atom/movable/hat_wearer = parent
 	if(attached_hat)
-		examine_list += span_notice("There's \a [attached_hat] [loose_hat ? "loosely" : ""] placed on [parent].")
+		examine_list += span_notice("На [hat_wearer.declent_ru(ACCUSATIVE)] [loose_hat ? "свободно" : ""] надет[genderize_ru(attached_hat.gender, "", "а", "о", "ы")] [attached_hat.declent_ru(NOMINATIVE)].")
 	else
-		examine_list += span_notice("There's nothing placed on [parent]. Yet.")
+		examine_list += span_notice("На [hat_wearer.declent_ru(ACCUSATIVE)] не надета шляпа. Пока ещё.")
 
 /datum/component/hat_stabilizer/proc/get_worn_overlays(atom/movable/source, list/overlays, mutable_appearance/standing, isinhands, icon_file)
 	SIGNAL_HANDLER
@@ -147,12 +148,12 @@
 		return
 
 	if(attached_hat)
-		movable_parent.balloon_alert(user, "hat already attached!")
+		movable_parent.balloon_alert(user, "уже есть шляпа!")
 		return
 
 	var/obj/item/clothing/hat = hitting_item
 	if(hat.clothing_flags & STACKABLE_HELMET_EXEMPT)
-		movable_parent.balloon_alert(user, "invalid hat!")
+		movable_parent.balloon_alert(user, "невозможно!")
 		return
 
 	if(!user.transfer_item_to_loc(hat, parent, force = FALSE, silent = TRUE))
@@ -166,7 +167,7 @@
 	RegisterSignal(hat, COMSIG_MOVABLE_MOVED, PROC_REF(on_hat_movement))
 
 	if(!isnull(user))
-		movable_parent.balloon_alert(user, "hat attached")
+		movable_parent.balloon_alert(user, "шляпа прикреплена")
 
 	if(!istype(parent, /obj/item/clothing))
 		movable_parent.update_appearance()
@@ -195,9 +196,9 @@
 		return
 	var/atom/movable/movable_parent = parent
 	if(remove_hat(user))
-		movable_parent.balloon_alert(user, "hat removed")
+		movable_parent.balloon_alert(user, "шляпа снята")
 	else
-		movable_parent.balloon_alert_to_viewers("the hat falls to the floor!")
+		movable_parent.balloon_alert_to_viewers("шляпа спадает!")
 
 /datum/component/hat_stabilizer/proc/remove_hat(mob/user)
 	if(QDELETED(attached_hat))
@@ -212,7 +213,7 @@
 	if(!isnull(user))
 		. = user.put_in_active_hand(attached_hat)
 	else
-		movable_parent.balloon_alert_to_viewers("the hat falls to the floor!")
+		movable_parent.balloon_alert_to_viewers("шляпа спадает!")
 
 	if(!istype(parent, /obj/item/clothing))
 		attached_hat = null
