@@ -2,8 +2,8 @@
 /obj/item/mod/module/pathfinder
 	name = "MOD pathfinder module"
 	desc = "Модуль для МЭК, состоящий из двух компонентов — набора ионных двигателей с матрицей отслеживания, \
-		устанавливаемых в костюм, и био-чипа \"Первопроходец\". Био-чип, вживляемый в тело, позволяет пользователю вызвать к себе \
-		модульный костюм. Био-чип встроен в модуль, и перед использованием его нужно извлечь."
+			устанавливаемых в костюм, и био-чипа \"Первопроходец\". Последний, после вживления в тело, позволяет пользователю вызвать к себе \
+			модульный костюм. Био-чип встроен в модуль, и перед использованием его необходимо извлечь."
 	icon_state = "pathfinder"
 	complexity = 2
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 200
@@ -35,7 +35,7 @@
 	if(implant)
 		. += span_notice("Внутри находится био-чип. Используйте модуль на себе, чтобы вживить его в тело.")
 	else
-		. += span_warning("Внутри нет био-чипа.")
+		. += span_warning("Слот для био-чипа пуст.")
 
 /obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, def_zone, skip_attack_anim)
 	if(!ishuman(target) || !implant)
@@ -49,8 +49,8 @@
 		balloon_alert(user, "био-чип установлен")
 	else
 		target.visible_message(
-			span_notice("[user] устанавливает био-чип в [target]."),
-			span_notice("[user] устанавливает вам [implant.declent_ru(ACCUSATIVE)].")
+			span_notice("[user] вживля[pluralize_ru(user.gender, "ет", "ют")] [implant.declent_ru(ACCUSATIVE)] в тело [target.declent_ru(GENITIVE)]."),
+			span_notice("[user] вживля[pluralize_ru(user.gender, "ет", "ют")] [implant.declent_ru(ACCUSATIVE)] в ваше тело.")
 		)
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 	icon_state = "pathfinder_empty"

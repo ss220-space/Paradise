@@ -2,8 +2,8 @@
 /obj/item/mod/module/anomaly_locked/kinesis
 	name = "MOD kinesis module"
 	desc = "Модуль для МЭК, подключаемый к предплечью костюма. Генерирует локальное поле анти-гравитации, \
-		что позволяет пользователю с лёгкостью перемещать объекты в пространстве, будь то небольшой титановый стержень \
-		или тяжёлая промышленная техника."
+			что позволяет пользователю с лёгкостью перемещать объекты в пространстве, будь то небольшой титановый стержень \
+			или тяжёлая промышленная техника."
 	icon_state = "kinesis"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -75,7 +75,7 @@
 		clear_grab(playsound = FALSE)
 		return
 	if(!range_check(target))
-		balloon_alert(mod.wearer, "слишком далеко!")
+		balloon_alert(mod.wearer, "цель слишком далеко!")
 		return
 	if(!can_grab(target))
 		balloon_alert(mod.wearer, "нельзя схватить!")
@@ -277,20 +277,39 @@
 	name = "MOD prototype kinesis module"
 	complexity = 0
 
+/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype/get_ru_names()
+	return list(
+		NOMINATIVE = "прототип модуля \"Кинезис\"",
+		GENITIVE = "прототипа модуля \"Кинезис\"",
+		DATIVE = "прототипу модуля \"Кинезис\"",
+		ACCUSATIVE = "прототип модуля \"Кинезис\"",
+		INSTRUMENTAL = "прототипом модуля \"Кинезис\"",
+		PREPOSITIONAL = "прототипе модуля \"Кинезис\"",
+	)
+
 /atom/movable/screen/fullscreen/cursor_catcher/kinesis
 	icon = 'icons/mob/screen_kinesis.dmi'
 	icon_state = "kinesis"
 
-//admin-only, don't need to translate
+//admin-only
 /obj/item/mod/module/anomaly_locked/kinesis/plus
 	name = "MOD kinesis+ module"
-	desc = "A modular plug-in to the forearm, this module was recently redeveloped in secret. \
-		The bane of all ne'er-do-wells, the kinesis+ module is a powerful tool that allows the user \
-		to manipulate the world around them. Like it's older counterpart, it's capable of manipulating \
-		structures, machinery, vehicles, and, thanks to the fruitful efforts of it's creators - living  \
-		beings. They can, however, still struggle after an initial burst of inertia."
+	desc = "Модуль для МЭК, подключаемый к предплечью костюма. Генерирует локальное поле анти-гравитации, \
+			что позволяет пользователю с лёгкостью перемещать объекты в пространстве, будь то небольшой титановый стержень \
+			или тяжёлая промышленная техника. Помимо этого, отличается от стандартной модели возможностью \
+			воздействовать на живых существ благодаря модификации гравитационного механизма."
 	complexity = 0
 	prebuilt = TRUE
 	stat_required = CONSCIOUS //Still conscious here so we don't forget about it if the above is changed
 	incapacitated_required = FALSE
 	mob_stun_time = 10 SECONDS
+
+/obj/item/mod/module/anomaly_locked/kinesis/plus/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль \"Кинезис+\"",
+		GENITIVE = "модуля \"Кинезис+\"",
+		DATIVE = "модулю \"Кинезис+\"",
+		ACCUSATIVE = "модуль \"Кинезис+\"",
+		INSTRUMENTAL = "модулем \"Кинезис+\"",
+		PREPOSITIONAL = "модуле \"Кинезис+\"",
+	)

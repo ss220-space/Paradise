@@ -1,6 +1,7 @@
 ///MOD Module - A special device installed in a MODsuit allowing the suit to do new stuff.
 /obj/item/mod/module
 	name = "MOD module"
+	gender = MALE
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "module"
 	/// If it can be removed
@@ -142,12 +143,12 @@
 		return
 
 	if(!has_required_parts(mod.mod_parts, need_active = TRUE) && !(allow_flags & MODULE_ALLOW_UNWORN)) // Doesn't have parts
-		balloon_alert(activator, "части неактивны!")
+		balloon_alert(activator, "элементы неактивны!")
 		var/list/slot_strings = list()
 		for(var/slot in required_slots)
 			var/list/slot_list = parse_slot_flags(slot)
 			slot_strings += (length(slot_list) == 1 ? "" : "один из ") + russian_list(slot_list, and_text = " или ")
-		to_chat(activator, span_warning("Для работы модуля необходимо, чтобы были развёрнуты данные части: [russian_list(slot_strings)]"))
+		to_chat(activator, span_warning("Для работы модуля необходимо, чтобы были развёрнуты данные элементы: [russian_list(slot_strings)]"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 
@@ -158,7 +159,6 @@
 			activate(activator)
 	else
 		used(activator)
-
 	SEND_SIGNAL(mod, COMSIG_MOD_MODULE_SELECTED, src)
 
 /// Apply a cooldown until this item can be used again
@@ -174,7 +174,7 @@
 		balloon_alert(activator, "на перезарядке!")
 		return FALSE
 	if(!mod.active || mod.activating || !mod.get_charge())
-		balloon_alert(activator, "не хватает энергии!")
+		balloon_alert(activator, "недостаточно энергии!")
 		return FALSE
 	//Used in time travel module, if we port it
 	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
@@ -199,7 +199,7 @@
 		else
 			var/used_button = MIDDLE_CLICK
 			update_signal(used_button)
-			to_chat(mod.wearer, span_notice("\"[capitalize(declent_ru(NOMINATIVE))]\" активирован. Используйте СКМ для управления."))
+			to_chat(mod.wearer, span_notice("\"[capitalize(declent_ru(NOMINATIVE))]\" активирован[genderize_ru(gender, "", "а", "о", "ы")]. Используйте <b>СКМ</b> для управления."))
 	active = TRUE
 	SEND_SIGNAL(src, COMSIG_MODULE_ACTIVATED)
 	on_activation(activator)
@@ -245,7 +245,7 @@
 		balloon_alert(activator, "на перезарядке!")
 		return FALSE
 	if(!check_power(use_energy_cost))
-		balloon_alert(activator, "не хватает энергии!")
+		balloon_alert(activator, "недостаточно энергии!")
 		return FALSE
 	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
 		//specifically a to_chat because the user is phased out.
@@ -526,7 +526,7 @@
 	if(!length(accepted_anomalies))
 		return
 	if(core)
-		. += span_notice("К модулю прикрепл[genderize_ru(core.gender, "ён", "ена", "ено", "ены")] [core.declent_ru(NOMINATIVE)]. [core_removable ? "Используйте <b>отвёртку</b>, чтобы открепить ядро." : "Из-за дизайна модуля ядро невозможно достать."]")
+		. += span_notice("К модулю прикрепл[genderize_ru(core.gender, "ён", "ена", "ено", "ены")] [core.declent_ru(NOMINATIVE)]. [core_removable ? "[pluralize_ru(core.gender, "Может быть <b>откручено</b>", "Могут быть <b>откручены</b>")]." : "Конструкция модуля не позволяет извлечь ядро."]")
 	else
 		var/list/core_list = list()
 		for(var/path in accepted_anomalies)
@@ -535,7 +535,7 @@
 			qdel(core_dummy)
 		. += span_notice("Для работы модуля требуется [russian_list(core_list, and_text = " или ")]")
 		if(!core_removable)
-			. += span_notice("Из-за дизайна модуля, ядро невозможно достать.")
+			. += span_notice("Конструкция модуля не позволяет извлечь ядро.")
 
 /obj/item/mod/module/anomaly_locked/on_select()
 	if(!core)
@@ -573,16 +573,16 @@
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(!core)
-		balloon_alert(user, "нет ядра!")
+		balloon_alert(user, "ядро отсутствует!")
 		return
 	if(!core_removable)
-		balloon_alert(user, "нельзя удалить ядро")
+		balloon_alert(user, "ядро нельзя извлечь!")
 		return
-	balloon_alert(user, "удаление ядра...")
+	balloon_alert(user, "извлечение ядра...")
 	if(!do_after(user, 3 SECONDS, target = src))
-		balloon_alert(user, "прервано")
+		balloon_alert(user, "извлечение ядра прервано!")
 		return
-	balloon_alert(user, "ядро удалено")
+	balloon_alert(user, "ядро извлечено")
 	core.forceMove(drop_location())
 	if(Adjacent(user) && !issilicon(user))
 		user.put_in_hands(core)
