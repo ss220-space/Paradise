@@ -499,7 +499,7 @@ GLOBAL_LIST_EMPTY(closets)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	balloon_alert(user, "вы сопротивляетесь...")
 	balloon_alert_to_viewers("начинает трястись!")
-	span_notice(user, "Вы упираетесь спиной в [declent_ru(ACCUSATIVE)] и начинаете толкать дверь... (это займет [DisplayTimeText(breakout_time)].)")
+	to_chat(user, span_notice("Вы упираетесь спиной в [declent_ru(ACCUSATIVE)] и начинаете толкать дверь... (это займет [DisplayTimeText(breakout_time)].)"))
 
 	spawn(0)
 		if(do_after(user, breakout_time, src))
