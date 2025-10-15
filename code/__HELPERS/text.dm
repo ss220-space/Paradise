@@ -309,9 +309,12 @@
 /proc/trim_length(text, max_length)
 	return copytext_char(text, 1, max_length)
 
-//Returns a string with the first element of the string capitalized.
-/proc/capitalize(t as text)
-	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
+/// Returns a string with the first element of the string capitalized.
+/proc/capitalize(text)
+	. = text
+	if(text)
+		. = text[1]
+		return uppertext(.) + copytext(text, 1 + length(.))
 
 ///Returns a string depending on number it receives
 /proc/numeric_ending(num, more, one, three)
