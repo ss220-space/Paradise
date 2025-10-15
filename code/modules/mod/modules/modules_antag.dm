@@ -4,10 +4,9 @@
 /// Insignia - Gives you a skin specific stripe
 /obj/item/mod/module/insignia
 	name = "MOD insignia module"
-	desc = "Модуль для МЭК, представлящий собой набор микрораспылителей для нанесения и снятия краски на МЭК по заданным цветовым \
-		шаблонам. Несмотря на существование системы опознавания \"свой-чужой\", радиокоммуникации и современных методов \
-		дедуктивного анализа, включающих использование собственных глаз, разноцветная покраска по-прежнему остаётся популярным \
-		способным для различных фракций в галактике отличать друг друга."
+	desc = "Модуль для МЭК, представлящий собой набор микрораспылителей для нанесения и снятия краски на поверхность МЭК по заданным цветовым \
+			шаблонам. Несмотря на существование систем опознавания \"свой-чужой\", различных коммуникационных технологий и современных методов \
+			дедуктивного анализа, включающих использование собственных глаз, разноцветная покраска по-прежнему остаётся популярным \			способом для различных фракций в галактике отличать друг друга."
 	icon_state = "insignia"
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/insignia)
@@ -84,8 +83,7 @@
 /// Power kick - Lets the user launch themselves at someone to kick them.
 /obj/item/mod/module/power_kick
 	name = "MOD power kick module"
-	desc = "Модуль для МЭК, использующий миомеры высокой мощности для генерации невероятного количества энергии, \
-		преобразуемой в кинетическую энергию пинка."
+	desc = "Модуль для МЭК, использующий миомеры высокой мощности для генерации импульса, \			преобразуемого в кинетическую энергию пинка."
 	icon_state = "power_kick"
 	module_type = MODULE_ACTIVE
 	removable = FALSE
@@ -114,7 +112,7 @@
 		return
 	if(mod.wearer.buckled)
 		return
-	mod.wearer.visible_message(span_warning("[mod.wearer] готов[pluralize_ru(mod.wearer.gender, "ится", "ятся")] кого-нибудь пнуть!"))
+	mod.wearer.visible_message(span_warning("[mod.wearer] готов[pluralize_ru(mod.wearer.gender, "ит", "ят")]ся кого-нибудь пнуть!"))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	animate(mod.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, SpinAnimation), 3, 2), 0.3 SECONDS)
@@ -149,7 +147,7 @@
 		add_attack_logs(mod.wearer, target, "[target] was charged by [mod.wearer]'s [src]", ATKLOG_ALMOSTALL)
 		living_target.Weaken(knockdown_time)
 		mod.wearer.visible_message(
-			span_danger("[mod.wearer] вреза[pluralize_ru(mod.wearer.gender, "ется", "ются")] в [target.declent_ru(ACCUSATIVE)]"),
+			span_danger("[mod.wearer] вреза[pluralize_ru(mod.wearer.gender, "ет", "ют")]ся в [target.declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Вы врезаетесь в [target.declent_ru(ACCUSATIVE)]!")
 		)
 	else
@@ -160,8 +158,8 @@
 /// Plate Compression - Compresses the suit to normal size
 /obj/item/mod/module/plate_compression
 	name = "MOD plate compression module"
-	desc = "Модуль для МЭК, позволяющий крайне плотно подогнать друг к другу детали костюма, делая его невероятно компактным. \
-		Оказываемое в процессе давление делает несовместимыми с костюмом большинство стандартных модулей хранилища."
+	desc = "Модуль для МЭК, позволяющий снизить габариты костюма за счёт сближения компонентов костюма друг к другу. \
+			Оказываемое в процессе давление делает совместное использование МЭК со стандартными модулями хранения невозможным."
 	icon_state = "plate_compression"
 	complexity = 2
 	incompatible_modules = list(/obj/item/mod/module/plate_compression, /obj/item/mod/module/storage)
@@ -201,9 +199,8 @@
 /// Cloaking - Lowers the user's visibility, can be interrupted by being touched or attacked.
 /obj/item/mod/module/stealth
 	name = "MOD prototype cloaking module"
-	desc = "Модуль для МЭК, полностью изменяющий устройство костюма. Представляет собой комбинацию \
-		технологий визуального стелса, использующих преломление света у поверхности костюма, и адаптивных наноматериалов, \
-		позволяющих костюму мимикрировать под окружающую среду на основе показателей внешних сенсоров."
+	desc = "Модуль для МЭК, радикально модифицирующий внешнее устройство костюма. Представляет собой комбинацию \
+			технологий оптической маскировки и адаптивных наноматериалов, позволяющих костюму мимикрировать под окружающую среду."
 	icon_state = "cloak"
 	module_type = MODULE_TOGGLE
 	complexity = 4
@@ -246,7 +243,7 @@
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
 	SIGNAL_HANDLER
 
-	balloon_alert(mod.wearer, "маскировка снята!")
+	balloon_alert(mod.wearer, "маскировка снята")
 	do_sparks(2, TRUE, src)
 	drain_power(use_energy_cost)
 	COOLDOWN_START(src, cooldown_timer, cooldown_time) //Put it on cooldown.
@@ -268,9 +265,10 @@
 /// Advanced Cloaking - Doesn't turn off on bump, less power drain, more stealthy.
 /obj/item/mod/module/stealth/ninja
 	name = "MOD advanced cloaking module"
-	desc = "Модуль для МЭК, стоящий на голову выше всех предыдущих версий. \
-		Преломляющее поле было усовершенствовано, приобретя гораздо более высокую скорость и точность реагирования, \
-		поддерживая при этом маскировку даже в случае столкновения носителя с твёрдыми объектами."
+	desc = "Модуль для МЭК, радикально модифицирующий внешнее устройство костюма. Представляет собой комбинацию \
+			технологий оптической маскировки и адаптивных наноматериалов, позволяющих костюму мимикрировать под окружающую среду. \
+			Продвинутая модель, отличающаяся повышенной скоростью реагирования и возможностью поддерживать маскировку \
+			даже в случае столкновения с твёрдыми объектами."
 	icon_state = "cloak_ninja"
 	bumpoff = FALSE
 	cooldown_time = 5 SECONDS
@@ -293,8 +291,9 @@
 /// Status Readout - Puts a lot of information including health, nutrition, fingerprints, temperature to the suit TGUI.
 /obj/item/mod/module/status_readout
 	name = "MOD status readout module"
-	desc = "Модуль для МЭК, подключающийся к позвоночному столбу костюма, напрямую считывая и отображая всевозможные \
-		биометрические данные носителя: уровень утомления, насыщения, физическая форма, здоровье и даже настроение."
+	desc = "Модуль для МЭК, устанавливаемый в спинной отдел костюма. Подключается напрямую к позвоночному столбу носителя, \
+			что позволяет модулю считывать и отображать различные биометрические показатели организма: \
+			уровень утомления, насыщения, физическая форма, состояние здоровья, эмоциональный фон и так далее."
 	icon_state = "status"
 	complexity = 1
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 0.1
@@ -369,8 +368,8 @@
 /obj/item/mod/module/ert_camera
 	name = "MOD camera module"
 	desc = "Модуль для МЭК, представляющий собой комбинацию записывающей камеры и транслирующего устройства. В прямом эфире отправляет всё, \
-	что видит носитель, на чёрный ящик станции и центрального командования. Используется подразделениями ОБР для координации \
-	действий через командный центр, для последующего разбора полевых операций, и для записи смешнейших провалов лучших бойцов Нанотрейзен."
+			что видит носитель, на чёрный ящик объекта и Центрального командования. Используется подразделениями ОБР НТ \
+			для тактической координации, анализа операций и архивирования инцидентов — включая особо показательные ошибки бойцов Нанотрейзен."
 	icon_state = "eradicationlock" //looks like a bluespace transmitter or something, probably could use an actual camera look.
 	complexity = 1
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
@@ -445,7 +444,7 @@
 
 /obj/item/mod/module/chameleon/on_use()
 	if(mod.active || mod.activating)
-		balloon_alert(mod.wearer, "выключите костюм!")
+		balloon_alert(mod.wearer, "сначала выключите костюм!")
 		return
 	if(mod.current_disguise)
 		return_look()
@@ -471,8 +470,8 @@
 /obj/item/mod/module/energy_shield
 	name = "MOD energy shield module"
 	desc = "Модуль персонального защитного силового поля для МЭК, являющийся уменьшенной версией отражателей, устанавливаемых на \
-		космические корабли, что можно легко заметить по его энергозатратности. Впрочем, благодаря этому модуль способен отразить \
-		практически любую атаку. К счастью или нет, но из-за малого количества зарядов носитель всё ещё может внезапно оказаться смертен."
+			космические корабли, что можно легко заметить по его энергозатратности. Впрочем, благодаря этому модуль способен отразить \
+			практически любую атаку. К счастью или нет, но из-за малого количества зарядов носитель всё ещё может внезапно оказаться смертен."
 	icon_state = "energy_shield"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
@@ -545,7 +544,7 @@
 /obj/item/mod/module/anomaly_locked/teslawall
 	name = "MOD arc-shield module" // temp
 	desc = "Экспериментальный модуль для МЭК, требующий для своей работы ядро энергетической аномалии, которое позволяет генерировать \
-		наведённое силовое поле высокой интенсивности. По своей функциональности схож с модулем энергетического щита."
+			наведённое силовое поле высокой интенсивности, функционально схожее с энергетическим щитом."
 	icon_state = "tesla"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
@@ -646,8 +645,8 @@
 /// Flamethrower - Launches fire across the area.
 /obj/item/mod/module/flamethrower
 	name = "MOD flamethrower module"
-	desc = "Модуль ручного огнемёта для МЭК. Поддерживает достаточную температуру, чтобы прожечь вам путь \
-		через любые препятствия, будь то деревянные баррикады или опостылевший агент внутренних дел."
+	desc = "Модуль ручного огнемёта для МЭК. Развивает высокую температуру — достаточную, \
+			чтобы прожечь вам путь через любые препятствия, будь то деревянные баррикады или сотрудник вражеской корпорации."
 	icon_state = "flamethrower"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -685,8 +684,8 @@
 /// Medbeam - Medbeam but built into a modsuit
 /obj/item/mod/module/medbeam
 	name = "MOD medical beamgun module"
-	desc = "Модуль медицинской лучевой пушки для МЭК, встроенный в рукав костюма. Позволяет исцелять союзников без риска \
-		выронить столь ценную экипировку. Впрочем, её всё ещё можно потерять вместе с рукой."
+	desc = "Модуль медицинской лучевой пушки для МЭК, встраиваемый в рукав костюма. Позволяет дистанционно исцелять союзников \
+			без необходимости использования съёмного медоборудования. Однако от механической потери конечности пользователем это не защищает."
 	icon_state = "chronogun"
 	module_type = MODULE_ACTIVE
 	complexity = 1
