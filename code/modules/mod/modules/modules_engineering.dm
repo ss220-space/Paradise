@@ -375,7 +375,7 @@
 	. = ..()
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
-			. += span_notice("Выбранный режим — <b>огнетушител</b>.")
+			. += span_notice("Выбранный режим — <b>огнетушитель</b>.")
 		if(NANOFROST)
 			. += span_notice("Выбранный режим — <b>\"Нанофрост\"</b>.")
 		if(METAL_FOAM)
