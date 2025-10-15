@@ -1743,7 +1743,7 @@
 		ставит этот костюм на один уровень с передовыми разработками \"Киберсан\" и \"Мародёров Горлекса\". Ходят слухи, что \
 		за дизайн элитного боевого костюма Синдиката и этой версии ответственны одни и те же инженеры, но подтверждений этому нет. \
 		На нём приклеена маленькая бирка: \"Торговая марка принадлежит \"Нанотрейзен\". Все права защищены.\""
-	default_skin = "responsory"
+	default_skin = "inquisitory"
 	armor_type = /datum/armor/mod_theme_gamma_responsory
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
