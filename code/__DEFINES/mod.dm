@@ -48,9 +48,9 @@
 #define HELMET_SEAL_MESSAGE "закрывается с характерным скрипом"
 #define CHESTPLATE_UNSEAL_MESSAGE "освобождает ваше тело"
 #define CHESTPLATE_SEAL_MESSAGE "плотно облегает ваше тело"
-#define GAUNTLET_UNSEAL_MESSAGE "ослабевают вокруг ваших пальцев"
-#define GAUNTLET_SEAL_MESSAGE "сжимаются вокруг ваших пальцев и запястий"
-#define BOOT_UNSEAL_MESSAGE "ослабевают хватку ваших ног"
+#define GAUNTLET_UNSEAL_MESSAGE "ослабляют свою хватку на ваших руках"
+#define GAUNTLET_SEAL_MESSAGE "сжимаются на ваших руках"
+#define BOOT_UNSEAL_MESSAGE "ослабляют свою хватку на ваших ногах"
 #define BOOT_SEAL_MESSAGE "плотно обхватывают ваши ноги"
 
 //Defines used to override MOD clothing's icon and worn icon files in the skin.

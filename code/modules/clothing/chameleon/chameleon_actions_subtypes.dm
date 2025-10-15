@@ -203,7 +203,7 @@
 				toreturn.return_look()
 				return
 		if(C.active || C.activating)
-			to_chat(C.wearer, span_warning("Your suit is already active!"))
+			C.wearer.balloon_alert(C.wearer, "выключите костюм!")
 			UpdateButtonIcon()
 			return
 	..()

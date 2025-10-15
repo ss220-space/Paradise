@@ -64,7 +64,7 @@
 	var/mob/living/carbon/human/human = imp_in
 	set_path(get_path_to(module.mod, target, 150, access = human.get_access(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
-		human.balloon_alert(human, "невозможно расчитать путь!")
+		human.balloon_alert(human, "невозможно рассчитать путь!")
 		return FALSE
 	human.balloon_alert(human, "костюм в пути!")
 	animate(module.mod, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)

@@ -301,16 +301,17 @@ GLOBAL_LIST_EMPTY(closets)
 	if(!istype(user))
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("Вы не можете сделать это сейчас!"))
+		balloon_alert(user, "невозможно!")
 		return
 	if(opened)
-		to_chat(user, span_notice("Для начала закройте [declent_ru(GENITIVE)]."))
+		balloon_alert(user, "нужно закрыть!")
 		return
 	if(broken)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] скорее всего сломан."))
+		balloon_alert(user, "сломано!")
 		return
 	if(user.loc == src)
-		to_chat(user, span_notice("Вы не можете достичь замка отсюда."))
+		balloon_alert(user, "невозможно!")
+		to_chat(user, span_notice("Вы не можете достичь замка, находясь внутри."))
 		return
 	if(allowed(user))
 		locked = !locked
@@ -318,7 +319,7 @@ GLOBAL_LIST_EMPTY(closets)
 		visible_message(span_notice("[user.declent_ru(NOMINATIVE)] [locked ? "открыл" : "закрыл"][genderize_ru(gender, "", "а", "о", "и")] замок."))
 		update_icon()
 	else
-		balloon_alert(user, "нет доступа")
+		balloon_alert(user, "нет доступа!")
 	add_fingerprint(user)
 
 // What happens when the closet is attacked by a random item not on harm mode
@@ -496,9 +497,9 @@ GLOBAL_LIST_EMPTY(closets)
 	//okay, so the closet is either welded or locked... resist!!!
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
-	user.visible_message(span_warning("[declent_ru(NOMINATIVE)] начинает трястись!"), \
-		span_notice("Вы упираетесь спиной в [declent_ru(ACCUSATIVE)] и начинаете толкать дверь... (это займет [DisplayTimeText(breakout_time)].)"))
-
+	balloon_alert(user, "вы сопротивляетесь...")
+	balloon_alert_to_viewers("начинает трястись!")
+	span_notice(user, "Вы упираетесь спиной в [declent_ru(ACCUSATIVE)] и начинаете толкать дверь... (это займет [DisplayTimeText(breakout_time)].)")
 
 	spawn(0)
 		if(do_after(user, breakout_time, src))
@@ -512,8 +513,10 @@ GLOBAL_LIST_EMPTY(closets)
 			//Well then break it!
 			welded = FALSE
 			update_icon()
-			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] успешно выбирается из [declent_ru(GENITIVE)]!"),
-							span_notice("Вы успешно выбрались из [declent_ru(GENITIVE)]!"))
+			user.visible_message(
+				span_danger("[user.declent_ru(NOMINATIVE)] успешно выбирается из [declent_ru(GENITIVE)]!"),
+				span_notice("Вы успешно выбрались из [declent_ru(GENITIVE)]!")
+			)
 			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(user)

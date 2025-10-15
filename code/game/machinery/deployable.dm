@@ -8,7 +8,7 @@
 
 #define DROPWALL_UPTIME 3 MINUTES
 
-#define AUTO "automatic"
+#define AUTO "автоматический"
 
 /**
  * MARK: Barricade
@@ -362,7 +362,7 @@
 		if(WEST)
 			mode = AUTO
 
-	to_chat(user, "[capitalize(declent_ru(NOMINATIVE))] переключён в режим \"[mode == AUTO ? mode : dir2text(mode)]\".")
+	to_chat(user, "[capitalize(declent_ru(NOMINATIVE))] переключён в режим \"[mode == AUTO ? mode : dir2rustext(mode)]\".")
 
 /obj/item/grenade/barrier/dropwall/attack_self(mob/user)
 	. = ..()
@@ -384,7 +384,8 @@
 
 /obj/structure/dropwall_generator
 	name = "deployed dropwall shield generator"
-	desc = "Генератор энергетического щита, разработанный корпорацией \"Стальная гвардия\". Используется для создания временного укрытия, при этом позволяя вести безопасную стрельбу со стороны генератора."
+	desc = "Генератор энергетического щита, разработанный корпорацией \"Стальная гвардия\". Используется для создания временного \
+		укрытия, при этом позволяя вести безопасную стрельбу со стороны генератора."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_deployed"
 	max_integrity = 25 // 2 shots
