@@ -307,6 +307,11 @@ def check_rand_floating_point(idx, line):
     if RAND_FLOATING_POINT_NUMBERS.search(line):
         return [(idx + 1, "rand() does not support floating point numbers, use randfloat() instead.")]
 
+BITWISE_AMBIGUOUS_RE = re.compile(r'&[ \t]*\w+[ \t]*\|[ \t]*\w+')
+def check_bitwise_operator_order(idx, line):
+    if BITWISE_AMBIGUOUS_RE.search(line):
+        return [(idx + 1, "Likely operator order mistake with bitwise OR. Use parentheses to specify intention.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -341,6 +346,7 @@ CODE_CHECKS = [
     check_playsound_improper_call,
     check_apostrophe_name,
     check_rand_floating_point,
+    check_bitwise_operator_order,
 ]
 
 def check_updatepaths_validity():
