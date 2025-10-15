@@ -797,9 +797,3 @@
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva/pirate/leader
 	mask_type    = /obj/item/clothing/mask/gas
 	storage_type = /obj/item/tank/internals/oxygen
-
-/obj/machinery/suit_storage_unit/gamma
-	name = "gamma shielded suit storage unit"
-	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_two/gamma
-	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
-	req_access = list(ACCESS_SECURITY)

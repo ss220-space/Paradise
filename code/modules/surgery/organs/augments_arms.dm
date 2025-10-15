@@ -508,17 +508,3 @@
 	contents = newlist(/obj/item/mop/advanced)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
-
-/// ERT (shitspawn) implant, i dont overly expect this to get into the hands of crew. Also I don't want to translate this
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
-	name = "advanced janitorial toolset implant"
-	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm."
-	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/ert, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
-	origin_tech = "materials=5;engineering=6;biotech=5"
-	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
-	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
-	emp_proof = TRUE
-
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/l /// its for ERT, but still probably a good idea.
-	parent_organ_zone = BODY_ZONE_L_ARM
-	slot = INTERNAL_ORGAN_L_ARM_DEVICE
