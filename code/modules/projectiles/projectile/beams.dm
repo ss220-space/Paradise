@@ -364,7 +364,6 @@
 		PREPOSITIONAL = "импульсе иммолятора меха"
 	)
 	damage = 15
-	immolate = 2
 
 /obj/projectile/beam/immolator/on_hit(atom/target, blocked = 0)
 	. = ..()

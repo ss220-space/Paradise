@@ -677,7 +677,7 @@
 	flame.firer = mod.wearer
 	flame.preparePixelProjectile(target, get_turf(target), mod.wearer)
 	flame.fire()
-	playsound(src, 'sound/items/modsuit/flamethrower.ogg', 75, TRUE)
+	playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 75, TRUE)
 	INVOKE_ASYNC(flame, TYPE_PROC_REF(/obj/projectile, fire))
 	drain_power(use_energy_cost)
 
@@ -693,7 +693,6 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	device = /obj/item/gun/medbeam/mod
 	incompatible_modules = list(/obj/item/mod/module/medbeam)
-	removable = TRUE
 	cooldown_time = 0.05 SECONDS
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 

@@ -6,7 +6,6 @@
 	base_icon_state = "helmet"
 	onmob_sheets = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi')
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
-	body_parts_covered = HEAD
 	permeability_coefficient = 0.01
 	heat_protection = HEAD
 	cold_protection = HEAD

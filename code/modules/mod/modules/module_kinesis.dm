@@ -276,7 +276,6 @@
 /obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype
 	name = "MOD prototype kinesis module"
 	complexity = 0
-	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 
 /atom/movable/screen/fullscreen/cursor_catcher/kinesis
 	icon = 'icons/mob/screen_kinesis.dmi'

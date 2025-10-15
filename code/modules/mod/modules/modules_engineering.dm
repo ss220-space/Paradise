@@ -196,7 +196,6 @@
 		Из-за бюрократических проволочек при проектировке и нехватки свинца на Лазисе, модуль не имеет встроенного счётчика Гейгера \
 		и не предоставляет никакой защиты от радиации."
 	icon_state = "radshield"
-	complexity = 0 //I'm setting this to zero for now due to it not currently increasing radiaiton armor. If we add giger counter / additional rad protecion to this, it should be 2. We denied radiation potions before, so this should NOT give full rad immunity on a engi modsuit
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1 //Lowered from 0.3 due to no protection.
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)

@@ -163,7 +163,6 @@
 /obj/effect/temp_visual/sonar_ping
 	duration = 3 SECONDS
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = TRUE
 	randomdir = FALSE
 	/// The image shown to modsuit users
 	var/image/modsuit_image
@@ -510,7 +509,6 @@
 	device = /obj/item/megaphone
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	incompatible_modules = list(/obj/item/mod/module/megaphone)
-	removable = TRUE
 	cooldown_time = 0.05 SECONDS
 
 /obj/item/mod/module/megaphone/get_ru_names()
@@ -529,7 +527,6 @@
 	desc = "Модуль для МЭК, представляющий собой усовершенствованные накладки на перчатки, которые обеспечивают более надёжный захват \
 		и позволяют быстрее заковывать людей в наручники. Похоже, эти накладки невозможно снять."
 	removable = FALSE
-	complexity = 0
 	required_slots = list(ITEM_SLOT_GLOVES)
 
 // idk

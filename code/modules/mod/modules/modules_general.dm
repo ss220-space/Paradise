@@ -127,7 +127,6 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	removable = FALSE
 	max_combined_w_class = 21
-	max_items = 7
 	required_slots = list(ITEM_SLOT_BELT)
 
 /obj/item/mod/module/storage/belt/get_ru_names()
@@ -336,9 +335,7 @@
 	incompatible_modules = list(/obj/item/mod/module/flashlight, /obj/item/mod/module/flashlight/darkness)
 	overlay_state_inactive = "module_light"
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	light_color = COLOR_WHITE
 	light_range = 4
-	light_power = 1
 	light_on = FALSE
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 	/// Charge drain per range amount.
@@ -590,7 +587,6 @@
 /obj/item/mod/module/dna_lock/emp_shield
 	name = "MOD DN-MP shield lock"
 	desc = "Модуль для МЭК, сочетающий в себе функции модуля ДНК-блокировки и защиты от ЭМИ."
-	icon_state = "dnalock"
 	origin_tech = "materials=6;bluespace=5;syndicate=3"
 	complexity = 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
@@ -899,7 +895,6 @@
 /obj/item/mod/module/hearing_protection
 	name = "MOD hearing protection module"
 	desc = "Модуль для МЭК, защищающий уши пользователя от воздействия громких звуков."
-	complexity = 0
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/hearing_protection)
 	required_slots = list(ITEM_SLOT_HEAD)

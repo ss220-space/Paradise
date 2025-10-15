@@ -40,7 +40,6 @@
 	sight_mode = SILICONMESON
 	icon_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "meson"
-	active = FALSE
 
 /datum/action/innate/robot_magpulse
 	name = "Магнитные захваты"

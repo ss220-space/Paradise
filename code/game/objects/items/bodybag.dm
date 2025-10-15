@@ -488,7 +488,6 @@
 /obj/structure/closet/body_bag/environmental/nanotrasen
 	name = "elite environmental protection bag"
 	desc = "Продвинутая версия защитного мешка, способная полностью обезопасить содержимое от любого воздействия внешней среды."
-	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "ntenvirobag"
 	contents_pressure_protection = 1
 	contents_thermal_insulation = 1
@@ -510,10 +509,8 @@
 	name = "prisoner transport bag"
 	desc = "Мешок, созданный для транспортировки заключённых в условиях враждебной окружающей среды. Оснащён зажимами, \
 		позволяющими насильно удерживать заключённого внутри."
-	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "prisonerenvirobag"
 	foldedbag_path = /obj/item/bodybag/environmental/prisoner
-	breakout_time = 2 MINUTES // because it's probably about as hard to get out of this as it is to get out of a straightjacket.
 	/// How long it takes to sinch the bag.
 	var/sinch_time = 10 SECONDS
 	/// Whether or not the bag is sinched. Starts unsinched.
@@ -629,7 +626,6 @@
 /obj/structure/closet/body_bag/environmental/prisoner/syndicate
 	name = "syndicate prisoner transport bag"
 	desc = "An alteration of Nanotrasen's environmental protection bag which has been used in several high-profile kidnappings. Designed to keep a victim unconscious, alive, and secured during transport."
-	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "syndieenvirobag"
 	contents_pressure_protection = 1
 	contents_thermal_insulation = 1

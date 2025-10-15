@@ -349,7 +349,6 @@
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	siemens_coefficient = 0
-	slowdown_deployed = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
 		/obj/item/twohanded/fireaxe/,

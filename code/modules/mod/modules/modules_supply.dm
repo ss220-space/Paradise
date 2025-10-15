@@ -575,7 +575,6 @@
 	range = 6
 	flag = "bomb"
 	light_range = 1
-	light_power = 1
 	light_color = LIGHT_COLOR_ORANGE
 	ammo_type = /obj/structure/mining_bomb
 
@@ -597,7 +596,6 @@
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF|LAVA_PROOF
 	light_range = 1
-	light_power = 1
 	light_color = LIGHT_COLOR_ORANGE
 	/// Time to prime the explosion
 	var/prime_time = 0.5 SECONDS

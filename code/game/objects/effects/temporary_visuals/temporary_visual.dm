@@ -52,5 +52,4 @@
 	name = "jet plume"
 	icon_state = "jet_plume"
 	layer = BELOW_MOB_LAYER
-	plane = GAME_PLANE
 	duration = 0.4 SECONDS

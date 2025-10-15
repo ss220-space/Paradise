@@ -862,7 +862,6 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
 	variance = 70
 	pellets = 8
-	e_cost = 100
 	delay = 1.2 SECONDS //and delay has to be stored here on energy guns
 	select_name = "vortex blast"
 	fire_sound = 'sound/weapons/wave.ogg'

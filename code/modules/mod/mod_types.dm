@@ -123,8 +123,6 @@
 	)
 
 /obj/item/mod/control/pre_equipped/mining/vendor //visit robotics.
-	theme = /datum/mod_theme/mining
-	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 	)

@@ -2072,7 +2072,6 @@
 			Оружие в комплект не идёт."
 	item = /obj/item/mod/module/holster/hidden
 	cost = 2
-	surplus = 10
 
 /datum/uplink_item/suits/springlock_module
 	name = "Модифицированный модуль пружинных замков"
@@ -2083,7 +2082,6 @@
 			Просто добавь воды. Данный модуль замаскирован под модуль ДНК и блокирует снятие костюма на 10 секунд, давая вам окно для нападения."
 	item = /obj/item/mod/module/springlock/bite_of_87
 	cost = 5
-	surplus = 10
 
 /datum/uplink_item/suits/magboot
 	name = "Модуль продвинутых магбутсов"
@@ -2122,14 +2120,12 @@
 	desc = "Модуль для МЭК, устанавливаемый в визор костюма. Позволяет пользователю разборчиво видеть окружение даже в полной темноте."
 	item = /obj/item/mod/module/visor/night
 	cost = 15
-	surplus = 10 //You don't need more than
 
 /datum/uplink_item/suits/thermal
 	name = "Модуль термального зрения"
 	desc = "Модуль для МЭК, устанавливаемый в визор костюма. Предоставляет пользователю термальное зрение."
 	item = /obj/item/mod/module/visor/thermal
 	cost = 5
-	surplus = 10 //You don't need more than
 
 /datum/uplink_item/suits/modsuit_elite
 	name = "Элитный МЭК Синдиката"

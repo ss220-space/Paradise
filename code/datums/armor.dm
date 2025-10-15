@@ -45,17 +45,17 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 	var/acid
 	var/magic
 
-/datum/armor/New(melee_value = 0, bullet_value = 0, laser_value = 0, energy_value = 0, bomb_value = 0, bio_value = 0, rad_value = 0, fire_value = 0, acid_value = 0, magic_value = 0)
-	melee = melee_value
-	bullet = bullet_value
-	laser = laser_value
-	energy = energy_value
-	bomb = bomb_value
-	bio = bio_value
-	rad = rad_value
-	fire = fire_value
-	acid = acid_value
-	magic = magic_value
+/datum/armor/New(melee_value, bullet_value, laser_value, energy_value, bomb_value, bio_value, rad_value, fire_value, acid_value, magic_value)
+	melee = melee_value || melee || 0
+	bullet = bullet_value || bullet || 0
+	laser = laser_value || laser || 0
+	energy = energy_value || energy || 0
+	bomb = bomb_value || bomb || 0
+	bio = bio_value || bio || 0
+	rad = rad_value || rad || 0
+	fire = fire_value || fire || 0
+	acid = acid_value || acid || 0
+	magic = magic_value || magic || 0
 	tag = ARMORID
 
 /datum/armor/proc/modifyRating(melee_value = 0, bullet_value = 0, laser_value = 0, energy_value = 0, bomb_value = 0, bio_value = 0, rad_value = 0, fire_value = 0, acid_value = 0, magic_value = 0)
