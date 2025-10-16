@@ -5,8 +5,8 @@
 /obj/item/mod/module/springlock
 	name = "MOD springlock module"
 	desc = "Модуль для МЭК, представляющий собой пружинный экзоскелет, располагающийся по всей площади костюма под его внешней \
-		оболочкой. При активации раскрывается, значительно ускоряя процесс облачения пользователя в костюм, однако имеет критический \
-		недостаток: при воздействии влаги пружинный механизм имеет тенденцию \"защёлкиваться\" в исходное положение."
+			оболочкой. При активации раскрывается, значительно ускоряя процесс облачения пользователя в костюм, однако имеет критический \
+			недостаток: при воздействии влаги пружинный механизм имеет тенденцию \"защёлкиваться\" в исходное положение."
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
@@ -69,7 +69,7 @@
 		return
 	COOLDOWN_START(src, springlock_cooldown, 5 MINUTES)
 	remove_retraction_block() //No double signals
-	to_chat(mod.wearer, span_danger("[capitalize(declent_ru(NOMINATIVE))] издает мерзкий щёлкающий звук..."))
+	to_chat(mod.wearer, span_danger("[capitalize(declent_ru(NOMINATIVE))] изда[pluralize_ru(gender, "ёт", "ют")] мерзкий щёлкающий звук..."))
 	incoming_jumpscare = TRUE
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(snap_shut)), rand(3 SECONDS, 5 SECONDS))
@@ -79,7 +79,7 @@
 /obj/item/mod/module/springlock/proc/on_activate_spring_block(datum/source, user)
 	SIGNAL_HANDLER
 
-	to_chat(mod.wearer, span_userdanger("Кажется пружинные замки не работают?..."))
+	to_chat(mod.wearer, span_userdanger("Кажется, пружинные замки костюма не работают..."))
 	return MOD_CANCEL_ACTIVATE
 
 /// Removes the retraction blocker from the springlock so long as they are not about to be killed
@@ -93,8 +93,8 @@
 	if(!mod.wearer) //while there is a guaranteed user when on_wearer_exposed() fires, that isn't the same case for this proc
 		return
 	mod.wearer.visible_message(
-		span_danger("Пружинные замки в костюме [mod.wearer] слетают и впиваются в пользователя, разрывая его изнутри!"),
-		span_biggerdanger("<b>*ХРЯСЬ*</b>")
+		span_danger("Пружинные замки в костюме [mod.wearer.declent_ru(GENITIVE)] слетают и впиваются в пользователя, разрывая его изнутри!"),
+		span_biggerdanger("<b>ХРЯСЬ!</b>")
 	)
 	mod.wearer.emote("scream")
 	playsound(mod.wearer, 'sound/effects/snap.ogg', 75, TRUE, frequency = 0.5)
@@ -139,7 +139,7 @@
 /obj/item/mod/module/stamp
 	name = "MOD stamper module"
 	desc = "Модуль для МЭК, устанавливаемый в запястье костюма и выполняющий функцию электронной печати \
-		с возможностью переключения между режимами \"отказано\" и \"одобрено\"."
+			с возможностью переключения между режимами \"Отказано\" и \"Одобрено\"."
 	icon_state = "stamp"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -161,7 +161,7 @@
 
 /obj/item/stamp/mod
 	name = "MOD electronic stamp"
-	desc = "Электронная печать. Переключается между режимами \"отказано\" и \"одобрено\"."
+	desc = "Электронная печать. Переключается между режимами \"Отказано\" и \"Одобрено\"."
 
 /obj/item/stamp/mod/get_ru_names()
 	return list(
@@ -191,8 +191,8 @@
 /// Paper Dispenser - Dispenses (sometimes burning) paper sheets.
 /obj/item/mod/module/paper_dispenser
 	name = "MOD paper dispenser module"
-	desc = "Модуль для МЭК, предназначенный для бюрократов. Печатает тёплые, белоснежные, хрустящие листы бумаги идеального состояния. \
-		По крайней мере, в большинстве случаев."
+	desc = "Модуль для МЭК, предназначенный для бюрократов. Печатает тёплые, белоснежные, хрустящие листы бумаги превосходного качества. \
+			По крайней мере, в большинстве случаев."
 	icon_state = "paper_maker"
 	module_type = MODULE_USABLE
 	complexity = 1
@@ -218,7 +218,7 @@
 		return FALSE
 
 	var/obj/item/paper/crisp_paper = new(get_turf(src))
-	crisp_paper.desc = "Хрустящий и тёплый на ощупь лист бумаги. Должно быть его напечатали недавно."
+	crisp_paper.desc = "Хрустящий и тёплый на ощупь лист бумаги. Судя по всему, напечатан совсем недавно."
 
 	var/obj/structure/table/nearby_table = locate() in range(1, mod.wearer)
 	playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE)
@@ -234,7 +234,7 @@
 			mod.wearer.drop_item_ground(crisp_paper, force = TRUE)
 		// originally here was "PC LOAD LETTER!", actual HP printer error message that became some kind of western "meme" after film "Office Space", do with that information whatever you want
 		crisp_paper.balloon_alert(mod.wearer, UNLINT("ОШИБКА: НЕТ БУМАГИ!"))
-		crisp_paper.visible_message(span_warning("[capitalize(crisp_paper)] сгорает в ярком пламени!"))
+		crisp_paper.visible_message(span_warning("[capitalize(crisp_paper)] сгора[pluralize_ru(crisp_paper.gender, "ет", "ют")] в ярком пламени!"))
 		crisp_paper.fire_act(1000, 100)
 
 	drain_power(use_energy_cost)
