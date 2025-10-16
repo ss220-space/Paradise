@@ -615,7 +615,7 @@
 	throw_range = 3
 	attack_verb = list("стукнул", "толкнул", "долбанул", "ударил")
 	hitsound = 'sound/weapons/smash.ogg'
-	block_chance = 50
+	block_chance = 55
 
 /obj/item/shield/clock_buckler/Initialize(mapload)
 	. = ..()
