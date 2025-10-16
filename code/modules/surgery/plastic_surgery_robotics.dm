@@ -17,7 +17,7 @@
 
 /datum/surgery_step/reshape_face_robotics/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	return ..()
@@ -27,7 +27,7 @@
 	var/species_names = target.dna.species.name
 	if(head.undisfigure())
 		user.visible_message(
-			span_notice("[user] восстанавлива[pluralize_ru(user.gender, "ет", "ют")] внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] восстанавлива[PLUR_ET_UT(user)] внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы восстанавливаете внешность [target], используя [tool.declent_ru(ACCUSATIVE)].")
 		)
 	else
@@ -69,8 +69,8 @@
 		target.real_name = chosen_name
 		var/newname = target.real_name	//something about how the code handles names required that I use this instead of target.real_name
 		user.visible_message(
-			span_notice("[user] изменя[pluralize_ru(user.gender, "ет", "ют")] внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname]."),
-			span_notice("Вы изменяете внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname].")
+			span_notice("[user] изменя[PLUR_ET_UT(user)] внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [GEND_HIS_HER(target)] зовут [newname]."),
+			span_notice("Вы изменяете внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [GEND_HIS_HER(target)] зовут [newname].")
 		)
 	target.update_hud_set()
 	return SURGERY_STEP_CONTINUE
@@ -78,7 +78,7 @@
 /datum/surgery_step/reshape_face_robotics/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(ACCUSATIVE)] корпус на голове [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, повреждая [tool.declent_ru(ACCUSATIVE)] корпус на голове [target]!"),
 		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(ACCUSATIVE)] корпус на голове [target]!")
 	)
 	target.apply_damage(10, BRUTE, head)

@@ -304,8 +304,8 @@
 				continue
 
 			if(STATE_BITE)
-				vampire.visible_message(span_danger("[vampire] вонзает [genderize_ru(vampire.gender, "его", "её", "его", "их")] клыки!"), \
-					span_danger("Вы вонзаете клыки в шею [target] и начинаете высасывать [genderize_ru(target.gender, "его", "её", "его", "их")] кровь."), \
+				vampire.visible_message(span_danger("[vampire] вонзает [GEND_HIS_HER(vampire)] клыки!"), \
+					span_danger("Вы вонзаете клыки в шею [target] и начинаете высасывать [GEND_HIS_HER(target)] кровь."), \
 					span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))
 				bite_animation(target, vampire_dir)
 				time_per_action = suck_rate_final
@@ -344,7 +344,7 @@
 				vampire.adjustToxLoss(-2)
 				vampire.adjustBrainLoss(-1)
 				additional_sucking_effects(vampire)
-				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
+				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[DECL_SEC_MIN(bloodtotal)] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
 				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
 				target.AdjustBlood(-sucking_amount)
 				if(check_blood_volume(vampire, target))
@@ -816,7 +816,7 @@
 	antag_menu_name = "Раб вампира"
 
 /datum/antagonist/mindslave/thrall/greet()
-	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"
+	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [GEND_HIS_HER(master.current)] приказу.</b>"
 	return span_biggerdanger(greet_text)
 
 /datum/antagonist/mindslave/thrall/farewell()

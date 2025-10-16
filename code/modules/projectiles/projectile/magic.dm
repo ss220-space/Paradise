@@ -59,7 +59,7 @@
 		else
 			C.death()
 
-		visible_message(span_danger("[capitalize(C.declent_ru(NOMINATIVE))] падает замертво, когда [genderize_ru(C.gender,"его","её","его","их")] поражает заряд смерти!"))
+		visible_message(span_danger("[capitalize(C.declent_ru(NOMINATIVE))] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
 
 /obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))

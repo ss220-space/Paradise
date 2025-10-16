@@ -91,7 +91,7 @@
 
 				reveal(27)
 				stun(27)
-				target.visible_message(span_warning("[target] внезапно слегка поднима[pluralize_ru(target.gender,"ет","ют")]ся в воздух, [genderize_ru(target.gender,"его","её","его","их")] кожа становится пепельно-серой."))
+				target.visible_message(span_warning("[target] внезапно слегка поднима[PLUR_ET_UT(target)]ся в воздух, [GEND_HIS_HER(target)] кожа становится пепельно-серой."))
 				target.Beam(src,icon_state="drain_life",icon='icons/effects/effects.dmi',time=26)
 
 				if(do_after(src, 3 SECONDS, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
@@ -101,7 +101,7 @@
 						perfectsouls += 1
 						to_chat(src, span_revenboldnotice("Совершенство души [target] увеличило ваш максимальный уровень эссенции. Ваш новый максимум эссенции: [essence_regen_cap]."))
 					to_chat(src, span_revennotice("Душа [target] значительно ослабла и больше не даст эссенции в ближайшее время."))
-					target.visible_message(span_warning("[target] пада[pluralize_ru(target.gender,"ет","ют")] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, приближаясь..."))
+					target.visible_message(span_warning("[target] пада[PLUR_ET_UT(target)] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, приближаясь..."))
 					LAZYADD(drained_mobs, mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
 					target.death()
@@ -110,7 +110,7 @@
 					draining = 0
 					essence_drained = 0
 					if(target) //Wait, target is WHERE NOW?
-						target.visible_message(span_warning("[target] пада[pluralize_ru(target.gender,"ет","ют")] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, отдаляясь..."))
+						target.visible_message(span_warning("[target] пада[PLUR_ET_UT(target)] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, отдаляясь..."))
 					return
 			else
 				to_chat(src, span_revenwarning("Вы недостаточно близко, чтобы вытягивать эссенцию [target ? "души [target]":"их души"]. Связь разорвана."))

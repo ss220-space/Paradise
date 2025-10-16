@@ -54,7 +54,7 @@
 
 
 /mob/living/simple_animal/mouse/do_suicide()
-	visible_message(span_danger("[src] бешено мечется! Уровень сыра упал до критической отметки, и [genderize_ru(gender, "он", "она", "оно", "они")] покинул[genderize_ru(gender, "", "а", "о", "и")] наш мир."))
+	visible_message(span_danger("[src] бешено мечется! Уровень сыра упал до критической отметки, и [GEND_HE_SHE(src)] покинул[genderize_ru(gender, "", "а", "о", "и")] наш мир."))
 	adjustOxyLoss(max(100 - getBruteLoss(100), 0))
 
 
@@ -69,7 +69,7 @@
 
 
 /mob/living/silicon/do_suicide()
-	to_chat(viewers(src), span_danger("[src] отключа[pluralize_ru(gender, "ет", "ют")] питание. Это похоже на попытку суицида."))
+	to_chat(viewers(src), span_danger("[src] отключа[PLUR_ET_UT(src)] питание. Это похоже на попытку суицида."))
 	//put em at -175
 	adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
@@ -95,7 +95,7 @@
 
 
 /mob/living/carbon/brain/do_suicide()
-	to_chat(viewers(loc), span_danger("Мозг [src] становится тусклым и безжизненным. Похоже, [genderize_ru(gender, "он", "она", "оно", "они")] потерял[genderize_ru(gender, "", "а", "о", "и")] волю к жизни."))
+	to_chat(viewers(loc), span_danger("Мозг [src] становится тусклым и безжизненным. Похоже, [GEND_HE_SHE(src)] потерял[genderize_ru(gender, "", "а", "о", "и")] волю к жизни."))
 	spawn(5 SECONDS)
 		death(gibbed = FALSE)
 		suiciding = FALSE

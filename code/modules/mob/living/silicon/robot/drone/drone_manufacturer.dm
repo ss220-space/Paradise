@@ -152,7 +152,7 @@
 
 	if(deathtimeminutes < CONFIG_GET(number/respawn_delay_drone) && joinedasobserver == 0)
 		to_chat(usr, "Вы были мертвы в течении[pluralcheck] [deathtimeseconds] секунд.")
-		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[declension_ru(CONFIG_GET(number/respawn_delay_drone), "у", "ы", "")], чтобы возродиться как дрон!"))
+		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[DECL_SEC_MIN(CONFIG_GET(number/respawn_delay_drone))], чтобы возродиться как дрон!"))
 		return
 
 	if(tgui_alert(usr, "Вы уверены, что хотите возродиться как дрон?", "Вы уверены?", list("Да", "Нет")) != "Да")

@@ -215,7 +215,7 @@
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--
 			H.visible_message(
-				span_warning("Защитный костюм [H] обливает [genderize_ru(H.gender, "его", "её", "его", "их")] космической смазкой!"),
+				span_warning("Защитный костюм [H] обливает [GEND_HIS_HER(H)] космической смазкой!"),
 				span_warning("Ваш костюм обливает вас космической смазкой!")
 			)
 			H.ExtinguishMob()

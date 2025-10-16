@@ -86,8 +86,9 @@
 		finish_action(controller, FALSE)
 		return
 
-	victim.visible_message(span_warning("[living_pawn] пытается взять [target.declent_ru(ACCUSATIVE)] у [victim]!"),
-			span_danger("[living_pawn] пытается взять [target.declent_ru(ACCUSATIVE)]!")
+	victim.visible_message(
+		span_warning("[living_pawn] пытается взять [target.declent_ru(ACCUSATIVE)] у [victim]!"),
+		span_danger("[living_pawn] пытается взять [target.declent_ru(ACCUSATIVE)]!")
 	)
 
 	controller.blackboard[BB_MONKEY_PICKPOCKETING] = TRUE
@@ -97,7 +98,8 @@
 	if(do_after(living_pawn, MONKEY_ITEM_SNATCH_DELAY, victim) && target && living_pawn.Adjacent(victim))
 		for(var/obj/item/I in list(victim.get_active_hand(), victim.get_inactive_hand()))
 			if(I == target)
-				victim.visible_message(span_danger("[living_pawn] ворует [target.declent_ru(ACCUSATIVE)] у [victim]!"),
+				victim.visible_message(
+					span_danger("[living_pawn] ворует [target.declent_ru(ACCUSATIVE)] у [victim]!"),
 					span_userdanger("[living_pawn] своровала [target.declent_ru(ACCUSATIVE)]!")
 				)
 				if(victim.temporarily_remove_item_from_inventory(target))
@@ -107,8 +109,9 @@
 						success = TRUE
 						break
 				else
-					victim.visible_message(span_danger("[living_pawn] пыта[pluralize_ru(living_pawn.gender,"ется","ются")] украсть [target.declent_ru(ACCUSATIVE)] у [victim], но провалива[pluralize_ru(living_pawn.gender,"ется","ются")]!"),
-						span_userdanger("[living_pawn] пыта[pluralize_ru(living_pawn.gender,"ется","ются")] украсть [target.declent_ru(ACCUSATIVE)]!")
+					victim.visible_message(
+						span_danger("[living_pawn] пыта[PLUR_ET_UT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)] у [victim], но провалива[PLUR_ET_UT(living_pawn)]ся!"),
+						span_userdanger("[living_pawn] пыта[PLUR_ET_UT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)]!")
 					)
 
 	finish_action(controller, success) //We either fucked up or got the item.

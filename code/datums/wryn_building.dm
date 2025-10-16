@@ -16,7 +16,7 @@
 		return
 
 	user.adjustWax(-wax_amount)
-	user.visible_message(("[user] выделя[pluralize_ru(user.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(user.gender, "ет", "ют")] из неё [message_word]."))
+	user.visible_message(("[user] выделя[PLUR_ET_UT(user)] кучу воска и формиру[PLUR_ET_UT(user)] из неё [message_word]."))
 
 	new structure(user.loc)
 

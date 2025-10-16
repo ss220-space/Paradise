@@ -106,12 +106,12 @@
 	user.setDir(SOUTH)
 	user.forceMove(src.loc)
 	var/bragmessage = pick(
-		"раздвига[pluralize_ru(user.gender, "ет", "ют")] границы своих возможностей",
-		"превосход[pluralize_ru(user.gender, "ит", "ят")] самого себя",
-		"гор[pluralize_ru(user.gender, "ит", "ят")] решимостью",
-		"броса[pluralize_ru(user.gender, "ет", "ют")] вызов своим возможностям",
-		"станов[pluralize_ru(user.gender, "ит", "ят")]ся сильнее",
-		"облива[pluralize_ru(user.gender, "ет", "ют")]ся потом",
+		"раздвига[PLUR_ET_UT(user)] границы своих возможностей",
+		"превосход[PLUR_IT_YAT(user)] самого себя",
+		"гор[PLUR_IT_YAT(user)] решимостью",
+		"броса[PLUR_ET_UT(user)] вызов своим возможностям",
+		"станов[PLUR_IT_YAT(user)]ся сильнее",
+		"облива[PLUR_ET_UT(user)]ся потом",
 	)
 	user.visible_message(span_bold("[user] [bragmessage]!"))
 	AnimateMachine(user)

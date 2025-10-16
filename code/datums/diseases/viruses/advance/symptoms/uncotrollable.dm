@@ -39,7 +39,7 @@ Uncontrollable Aggression
 
 	if(A.stage >= 5 && prob(50))
 		if(aggressor.incapacitated() || HAS_TRAIT(aggressor, TRAIT_HANDS_BLOCKED))
-			aggressor.visible_message(span_danger("[aggressor] дёрга[pluralize_ru(aggressor.gender,"ется","ются")] и корчится!"))
+			aggressor.visible_message(span_danger("[aggressor] дёрга[PLUR_ET_UT(aggressor)]ся и корчится!"))
 			return
 		aggressor.visible_message(span_danger("[aggressor] яростно бь[pluralize_ru(aggressor.gender,"ётся","ются")] вокруг!"))
 

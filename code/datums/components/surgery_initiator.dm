@@ -163,12 +163,12 @@
 		patient.surgeries -= the_surgery
 		if(affected_organ)
 			user.visible_message(
-				span_notice("[user] прерыва[pluralize_ru(user.gender, "ет", "ют")] операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] прерыва[PLUR_ET_UT(user)] операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы прерываете операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)].")
 			)
 		else
 			user.visible_message(
-				span_notice("[user] прерыва[pluralize_ru(user.gender, "ет", "ют")] операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] прерыва[PLUR_ET_UT(user)] операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы прерываете операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)].")
 			)
 
@@ -316,12 +316,12 @@
 
 	if(affected_organ)
 		user.visible_message(
-			span_notice("[user] готов[pluralize_ru(user.gender, "ит", "ят")]ся начать операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
+			span_notice("[user] готов[PLUR_IT_YAT(user)]ся начать операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
 			span_notice("Вы готовитесь начать операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
 		)
 	else
 		user.visible_message(
-			span_notice("[user] готов[pluralize_ru(user.gender, "ит", "ят")]ся начать операцию на [parse_zone(selected_zone)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
+			span_notice("[user] готов[PLUR_IT_YAT(user)]ся начать операцию на [parse_zone(selected_zone)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
 			span_notice("Вы готовитесь начать операцию на [parse_zone(selected_zone)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
 		)
 

@@ -116,7 +116,7 @@
 			)
 		else
 			visible_message(
-				span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_warning("[name] пыта[PLUR_ET_UT(src)]ся сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
 				span_notice("Вы пытаетесь сломать [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
 			)
 		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
@@ -143,7 +143,7 @@
 				. = clear_cuffs(cuffs, cuff_break)
 				break
 			else if(prob(4))
-				visible_message(span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_warning("[name] пыта[PLUR_ET_UT(src)]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"))
 
 	else
 		if(is_processed)
@@ -153,8 +153,8 @@
 			)
 		else
 			visible_message(
-				span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"),
-				span_notice("Вы пытаетесь снять [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakout_time / 10] секунд[declension_ru(breakout_time / 10, "у", "ы", "")]."),
+				span_warning("[name] пыта[PLUR_ET_UT(src)]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы пытаетесь снять [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakout_time / 10] секунд[DECL_SEC_MIN(breakout_time / 10)]."),
 			)
 		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
 			cancel_on_max = TRUE, cancel_message = ""))
@@ -169,7 +169,7 @@
 	if(I != handcuffed && I != legcuffed && I != wear_suit)
 		return FALSE
 	visible_message(
-		span_danger("[name] [cuff_break ? "лома" : "снима"][pluralize_ru(gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)]!"),
+		span_danger("[name] [cuff_break ? "лома" : "снима"][PLUR_ET_UT(src)] [I.declent_ru(ACCUSATIVE)]!"),
 		span_notice("Вы [cuff_break ? "лома" : "снима"]ете [I.declent_ru(ACCUSATIVE)]."),
 	)
 	if(cuff_break)
@@ -197,14 +197,14 @@
 
 	visible_message(
 		span_warning("[name] грыз[pluralize_ru(gender, "ёт", "ут")] [I.declent_ru(GENITIVE)], пытаясь освободиться!"),
-		span_notice("Вы пытаетесь избавиться от [I.declent_ru(GENITIVE)]. Это займёт примерно [time / 10] секунд[declension_ru(time / 10, "у", "ы", "")]."),
+		span_notice("Вы пытаетесь избавиться от [I.declent_ru(GENITIVE)]. Это займёт примерно [time / 10] секунд[DECL_SEC_MIN(time / 10)]."),
 	)
 
 	if(!do_after(src, time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM) || QDELETED(I) || I != wear_mask)
 		return
 
 	visible_message(
-		span_danger("[name] избавля[pluralize_ru(gender, "ет", "ут")]ся от [I.declent_ru(GENITIVE)]!"),
+		span_danger("[name] избавля[PLUR_ET_YT(src)]ся от [I.declent_ru(GENITIVE)]!"),
 		span_notice("Вы избавляетесь от [I.declent_ru(GENITIVE)]."),
 	)
 	if(I.security_lock)

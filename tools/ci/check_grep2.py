@@ -314,6 +314,22 @@ def check_bitwise_operator_order(idx, line):
     if BITWISE_AMBIGUOUS_RE.search(line):
         return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
 
+IGNORE_LOCALIZATION_FILE = "localization.dm"
+LOCALIZATION_MACROS = [
+    (re.compile(r'(\s*"у",\s*"ы",\s*"")', re.IGNORECASE), "PLUR_ET_UT"),
+    (re.compile(r'(\s*"ет",\s*"ют")', re.IGNORECASE), "PLUR_ET_UT"),
+    (re.compile(r'(\s*"ёт",\s*"ют")', re.IGNORECASE), "PLUR_YOT_UT"),
+    (re.compile(r'(\s*"ет",\s*"ут")', re.IGNORECASE), "PLUR_ET_YT"),
+    (re.compile(r'(\s*"ит",\s*"ят")', re.IGNORECASE), "PLUR_IT_YAT"),
+    (re.compile(r'(\s*"он",\s*"она",\s*"оно",\s*"они")', re.IGNORECASE), "GEND_HE_SHE"),
+    (re.compile(r'(\s*"его",\s*"её",\s*"его",\s*"их")', re.IGNORECASE), "GEND_HIS_HER"),
+    (re.compile(r'(\s*"ему",\s*"ей",\s*"ему",\s*"им")', re.IGNORECASE), "GEND_HIM_HER"),
+]
+def check_localization_macro_usage(idx, line):
+    for pattern, macro_name in LOCALIZATION_MACROS:
+        if pattern.search(line):
+            return [(idx + 1, f"A proc with a macro was found. Use '{macro_name}()' instead.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -383,6 +399,8 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
+        if filename != IGNORE_LOCALIZATION_FILE:
+            extra_checks.append(check_localization_macro_usage)
 
         last_line = None
         for idx, line in enumerate(code):

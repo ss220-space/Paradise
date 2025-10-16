@@ -276,7 +276,7 @@
 		deal_damage(user.obj_damage)
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
 		to_chat(user, span_warning("Вы наносите удар по [declent_ru(DATIVE)]!"))
-		visible_message(span_warning("[capitalize(user)] пробива[pluralize_ru(user.gender, "ет", "ют")] броню [declent_ru(GENITIVE)]"))
+		visible_message(span_warning("[capitalize(user)] пробива[PLUR_ET_UT(user)] броню [declent_ru(GENITIVE)]"))
 
 /obj/spacepod/attack_tk()
 	return
@@ -825,7 +825,7 @@
 				to_chat(user, span_danger("<b>Этот человек не может управлять челноком!</b>"))
 				return .
 			if(length(passengers) < max_passengers)
-				visible_message(span_danger("[user.name] начина[pluralize_ru(user.gender,"ет","ют")] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
+				visible_message(span_danger("[user.name] начина[PLUR_ET_UT(user)] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
 				if(do_after(user, 5 SECONDS, dropping))
 					moved_other_inside(dropping)
 			return .

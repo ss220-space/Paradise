@@ -367,7 +367,7 @@
 		var/message = pick(CULT_CURSES)
 		var/curse_delay = cursetime / 600
 		GLOB.major_announcement.announce(
-			message = "[message] Шаттл задерживается на [curse_delay] минут[declension_ru(curse_delay, "у", "ы", "")].",
+			message = "[message] Шаттл задерживается на [curse_delay] минут[DECL_SEC_MIN(curse_delay)].",
 			new_title = ANNOUNCE_SYSERROR_RU,
 			new_sound = 'sound/misc/notice1.ogg'
 		)

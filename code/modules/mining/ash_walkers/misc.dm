@@ -26,7 +26,7 @@
 		var/mob/living/living = hit_atom
 		var/datum/reagents/reagents_list = new (50)
 		reagents_list.add_reagent("facid", 40)
-		living.visible_message(span_danger("Кислотный пузырек разрывается при попадании на [living], разбрызгивая кислоту по [genderize_ru(living.gender, "его", "её", "его", "их")] телу!"))
+		living.visible_message(span_danger("Кислотный пузырек разрывается при попадании на [living], разбрызгивая кислоту по [GEND_HIS_HER(living)] телу!"))
 		reagents_list.reaction(living, REAGENT_TOUCH)
 		reagents_list.clear_reagents()
 	else if(iswallturf(hit_atom))

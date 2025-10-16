@@ -41,7 +41,7 @@
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--
 			H.visible_message(
-				span_warning("Защитный костюм [H] автоматически тушит [genderize_ru(H.gender, "его", "её", "его", "их")]!"),
+				span_warning("Защитный костюм [H] автоматически тушит [GEND_HIS_HER(H)]!"),
 				span_warning("Встроенный огнетушитель вашего костюма автоматически тушит вас!")
 			)
 			if(!extinguishes_left)

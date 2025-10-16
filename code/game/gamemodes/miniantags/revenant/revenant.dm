@@ -270,7 +270,7 @@
 	if(istype(I, /obj/item/nullrod))
 		visible_message(
 			span_warning("[src] дёргается в конвульсиях!"),
-			span_revendanger("Когда [I.declent_ru(NOMINATIVE)] проход[pluralize_ru(I.gender,"ит","ят")] сквозь вас, вы чувствуете, как ваша эссенция утекает!"),
+			span_revendanger("Когда [I.declent_ru(NOMINATIVE)] проход[PLUR_IT_YAT(I)] сквозь вас, вы чувствуете, как ваша эссенция утекает!"),
 		)
 		apply_damage(25) //hella effective
 		inhibited = TRUE

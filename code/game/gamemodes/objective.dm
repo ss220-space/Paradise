@@ -702,7 +702,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	if(target?.current)
 		target_real_name = target.current.real_name
-		explanation_text = "Сбегите на шаттле или эвакуационном поде под личностью [target_real_name], [target.assigned_role], нося на себе [genderize_ru(target.current.gender, "его", "её", "его", "их")] ID карту."
+		explanation_text = "Сбегите на шаттле или эвакуационном поде под личностью [target_real_name], [target.assigned_role], нося на себе [GEND_HIS_HER(target.current)] ID карту."
 	else
 		explanation_text = "Свободная цель"
 
@@ -1243,7 +1243,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		target = pick(possible_targets)
 
 	if(target?.current)
-		explanation_text = "Ковчег нуждается в [target.current.real_name], [target.assigned_role]. Захватите [genderize_ru(target.current.gender, "его", "её", "его", "их")] живым."
+		explanation_text = "Ковчег нуждается в [target.current.real_name], [target.assigned_role]. Захватите [GEND_HIS_HER(target.current)] живым."
 	else
 		explanation_text = "Свободная цель"
 	return target
@@ -1642,7 +1642,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/set_up/find_target(list/target_blacklist)
 	..()
 	if(target?.current)
-		explanation_text = "Любым способом подставьте [target.current.real_name], [target.assigned_role], чтобы [genderize_ru(target.current.gender, "его", "её", "его", "их")] лишили свободы. Но не убили!"
+		explanation_text = "Любым способом подставьте [target.current.real_name], [target.assigned_role], чтобы [GEND_HIS_HER(target.current)] лишили свободы. Но не убили!"
 	else
 		explanation_text = "Свободная цель"
 	return target

@@ -46,8 +46,8 @@ emp_act
 				if(!creeping_widow.check_katana(mind.current))
 					checks_passed = FALSE
 			if(checks_passed)
-				visible_message(span_danger("[src] отража[pluralize_ru(src.gender, "ет", "ют")] [P.declent_ru(ACCUSATIVE)]!"), \
-								span_userdanger("[src] отража[pluralize_ru(src.gender, "ет", "ют")] [P.declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_danger("[src] отража[PLUR_ET_UT(src)] [P.declent_ru(ACCUSATIVE)]!"), \
+								span_userdanger("[src] отража[PLUR_ET_UT(src)] [P.declent_ru(ACCUSATIVE)]!"))
 				add_attack_logs(P.firer, src, "hit by [P.type] but got reflected by martial arts '[mind.martial_art]'")
 				P.reflect_back(src)
 				return -1
@@ -62,7 +62,7 @@ emp_act
 				var/turf/T = get_turf(src)
 				P.firer = src
 				T.bullet_act(P)
-				visible_message(span_danger("[src] отбива[pluralize_ru(src.gender, "ет", "ют")] [P.declent_ru(ACCUSATIVE)] в сторону!"), \
+				visible_message(span_danger("[src] отбива[PLUR_ET_UT(src)] [P.declent_ru(ACCUSATIVE)] в сторону!"), \
 								span_userdanger("Вы отбиваете [P.declent_ru(ACCUSATIVE)] в сторону!"))
 				playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 			if(mind.martial_art.reroute_deflection)
@@ -134,14 +134,14 @@ emp_act
 		if(E.brute_dam != brute_was)
 			should_update_health = TRUE
 		rembrute = nrembrute
-		user.visible_message(span_alert("[user] ремонтиру[pluralize_ru(src.gender, "ет", "ют")] вмятины на [E.declent_ru(INSTRUMENTAL)] [src], используя [item.declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_alert("[user] ремонтиру[PLUR_ET_UT(src)] вмятины на [E.declent_ru(INSTRUMENTAL)] [src], используя [item.declent_ru(ACCUSATIVE)]."))
 	if(should_update_health)
 		H.updatehealth("welder repair")
 	if(update_damage_icon)
 		H.UpdateDamageIcon()
 	if(bleed_rate && ismachineperson(src))
 		bleed_rate = 0
-		user.visible_message(span_alert("[user] устраня[pluralize_ru(src.gender, "ет", "ют")] протечки в корпусе [src], используя [item.declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_alert("[user] устраня[PLUR_ET_UT(src)] протечки в корпусе [src], используя [item.declent_ru(ACCUSATIVE)]."))
 	if(IgniteMob())
 		add_attack_logs(user, src, "set on fire with [item]")
 
@@ -284,7 +284,7 @@ emp_act
 				update_worn_mask()
 				update_worn_head()
 			else
-				to_chat(src, span_notice("[capitalize(head_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(head_clothes.gender, "ет", "ют")] вашу голову и лицо от кислоты!"))
+				to_chat(src, span_notice("[capitalize(head_clothes.declent_ru(NOMINATIVE))] защища[PLUR_ET_UT(head_clothes)] вашу голову и лицо от кислоты!"))
 		else
 			. = get_organ(BODY_ZONE_HEAD)
 			if(.)
@@ -307,7 +307,7 @@ emp_act
 				update_worn_undersuit()
 				update_worn_oversuit()
 			else
-				to_chat(src, span_notice("[capitalize(chest_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(chest_clothes.gender, "ет", "ют")] ваше туловище от кислоты!"))
+				to_chat(src, span_notice("[capitalize(chest_clothes.declent_ru(NOMINATIVE))] защища[PLUR_ET_UT(chest_clothes)] ваше туловище от кислоты!"))
 		else
 			. = get_organ(BODY_ZONE_CHEST)
 			if(.)
@@ -341,7 +341,7 @@ emp_act
 				update_worn_undersuit()
 				update_worn_oversuit()
 			else
-				to_chat(src, span_notice("[capitalize(arm_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(arm_clothes.gender, "ет", "ют")] ваши руки от кислоты!"))
+				to_chat(src, span_notice("[capitalize(arm_clothes.declent_ru(NOMINATIVE))] защища[PLUR_ET_UT(arm_clothes)] ваши руки от кислоты!"))
 		else
 			. = get_organ(BODY_ZONE_R_ARM)
 			if(.)
@@ -367,7 +367,7 @@ emp_act
 				update_worn_undersuit()
 				update_worn_oversuit()
 			else
-				to_chat(src, span_notice("[capitalize(leg_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(leg_clothes.gender, "ет", "ют")] ваши руки от кислоты!"))
+				to_chat(src, span_notice("[capitalize(leg_clothes.declent_ru(NOMINATIVE))] защища[PLUR_ET_UT(leg_clothes)] ваши руки от кислоты!"))
 		else
 			. = get_organ(BODY_ZONE_R_LEG)
 			if(.)
@@ -483,7 +483,7 @@ emp_act
 	if(user != src && check_shields(item, item.force, "[item.declent_ru(ACCUSATIVE)]", ITEM_ATTACK, item.armour_penetration))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(check_martial_art_defense(src, user, item, span_warning("[src] блокиру[pluralize_ru(src.gender, "ет", "ют")] [item.declent_ru(ACCUSATIVE)]!")))
+	if(check_martial_art_defense(src, user, item, span_warning("[src] блокиру[PLUR_ET_UT(src)] [item.declent_ru(ACCUSATIVE)]!")))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(item, /obj/item/card/emag) && emag_act(user, affecting))
@@ -845,10 +845,10 @@ emp_act
 
 /mob/living/carbon/human/proc/reagent_safety_check(hot = TRUE)
 	if(wear_mask)
-		to_chat(src, span_danger("[capitalize(wear_mask.declent_ru(NOMINATIVE))] защища[pluralize_ru(wear_mask.gender, "ет", "ют")] вас от [hot ? "горячей" : "холодной"] жидкости!"))
+		to_chat(src, span_danger("[capitalize(wear_mask.declent_ru(NOMINATIVE))] защища[PLUR_ET_UT(wear_mask)] вас от [hot ? "горячей" : "холодной"] жидкости!"))
 		return FALSE
 	if(head)
-		to_chat(src, span_danger("[capitalize(head.declent_ru(NOMINATIVE))] защища[pluralize_ru(head.gender, "ет", "ют")] вас от [hot ? "горячей" : "холодной"] жидкости!"))
+		to_chat(src, span_danger("[capitalize(head.declent_ru(NOMINATIVE))] защища[PLUR_ET_UT(head)] вас от [hot ? "горячей" : "холодной"] жидкости!"))
 		return FALSE
 	return TRUE
 

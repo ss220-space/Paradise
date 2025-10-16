@@ -20,7 +20,7 @@
 	return multiple_name // 5, 6, 7, 8, 9, 0
 
 // Макросы для наиболее часто используемых случаев.
-/// Секунд, минут, единиц
+// Секунд, минут, единиц
 #define DECL_SEC_MIN(target) declension_ru(target, "у", "ы", "")
 
 /**
@@ -42,7 +42,9 @@
 
 // Макросы для наиболее часто используемых случаев.
 #define GEND_HE_SHE(target) genderize_ru(target.gender, "он", "она", "оно", "они")
+#define GEND_HE_SHE_CAP(target) capitalize(genderize_ru(target.gender, "он", "она", "оно", "они"))
 #define GEND_HIS_HER(target) genderize_ru(target.gender, "его", "её", "его", "их")
+#define GEND_HIS_HER_CAP(target) capitalize(genderize_ru(target.gender, "его", "её", "его", "их"))
 #define GEND_HIM_HER(target) genderize_ru(target.gender, "ему", "ей", "ему", "им")
 
 /**
@@ -61,6 +63,8 @@
 
 // Макросы для наиболее часто используемых случаев.
 #define PLUR_ET_UT(target) pluralize_ru(target.gender, "ет", "ют")
+#define PLUR_YOT_UT(target) pluralize_ru(target.gender, "ёт", "ют")
+#define PLUR_ET_YT(target) pluralize_ru(target.gender, "ет", "ут")
 #define PLUR_IT_YAT(target) pluralize_ru(target.gender, "ит", "ят")
 
 /**

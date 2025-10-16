@@ -35,8 +35,8 @@
 			return ..()
 		start_action_cooldown()
 		eat_banana(I)
-		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [genderize_ru(gender, "он", "она", "оно", "они")] не мо[pluralize_ru(gender, "жет", "гут")] устоять перед искушением!"))
-		to_chat(src, span_notice("[user] покорм[genderize_ru(user.gender, "ил", "ила", "ило", "или")] Вас, возможно стоит [genderize_ru(user.gender, "его", "её", "его", "их")] отблагодарить..."))
+		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [GEND_HE_SHE(src)] не мо[pluralize_ru(gender, "жет", "гут")] устоять перед искушением!"))
+		to_chat(src, span_notice("[user] покорм[genderize_ru(user.gender, "ил", "ила", "ило", "или")] Вас, возможно стоит [GEND_HIS_HER(user)] отблагодарить..."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(is_on_cooldown())
