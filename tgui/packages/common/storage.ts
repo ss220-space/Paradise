@@ -215,7 +215,7 @@ export class StorageProxy implements StorageBackend {
         }
 
         iframe.destroy();
-
+      } else {
         if (!testHubStorage()) {
           Byond.winset(null, 'browser-options', '+byondstorage');
 
