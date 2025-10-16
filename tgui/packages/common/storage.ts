@@ -188,7 +188,7 @@ export class StorageProxy implements StorageBackend {
 
   constructor() {
     this.backendPromise = (async () => {
-      if (Byond.storageCdn && !window.hubStorage) {
+      if (Byond.storageCdn) {
         const iframe = new IFrameIndexedDbBackend();
         await iframe.ready();
 
@@ -215,22 +215,20 @@ export class StorageProxy implements StorageBackend {
         }
 
         iframe.destroy();
-      } else {
-        if (!testHubStorage()) {
-          Byond.winset(null, 'browser-options', '+byondstorage');
-
-          return new Promise((resolve) => {
-            const listener = () => {
-              document.removeEventListener('byondstorageupdated', listener);
-              resolve(new HubStorageBackend());
-            };
-
-            document.addEventListener('byondstorageupdated', listener);
-          });
-        }
-        return new HubStorageBackend();
       }
-      console.warn('No supported storage backend found.');
+      if (!testHubStorage()) {
+        Byond.winset(null, 'browser-options', '+byondstorage');
+
+        return new Promise((resolve) => {
+          const listener = () => {
+            document.removeEventListener('byondstorageupdated', listener);
+            resolve(new HubStorageBackend());
+          };
+
+          document.addEventListener('byondstorageupdated', listener);
+        });
+      }
+      return new HubStorageBackend();
     })();
   }
   async get(key: string): Promise<any> {
