@@ -90,9 +90,9 @@
 	. = ..()
 	if(health < maxHealth)
 		if(health >= maxHealth * 0.5)
-			. += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] слегка помято.")
+			. += span_warning("[GEND_HE_SHE_CAP(src)] выглядит слегка помято.")
 		else
-			. += span_boldwarning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] серьёзно повреждённо!")
+			. += span_boldwarning("[GEND_HE_SHE_CAP(src)] выглядит серьёзно повреждённо!")
 	. += "[span_notice("Использование сканера на [genderize_ru(gender,"нём","нем","нём","них")] заставит [GEND_HIS_HER(src)] выгрузить руду. <b>[max(0, LAZYLEN(contents) - 1)] ед. руды.</b>")]"
 	if(stored_gun?.max_mod_capacity)
 		. += "<b>[stored_gun.get_remaining_mod_capacity()]%</b> свободного места для модификации."

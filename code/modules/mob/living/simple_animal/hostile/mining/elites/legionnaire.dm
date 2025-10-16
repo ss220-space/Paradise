@@ -409,23 +409,27 @@
 /obj/item/crusher_trophy/legionnaire_spine/on_mark_detonation(mob/living/target, mob/living/user)
 	if(!prob(bonus_value) || target.stat == DEAD)
 		return
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(user.loc)
-	A.GiveTarget(target)
-	A.friends += user
-	A.faction = user.faction.Copy()
+	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legion = new(user.loc)
+	legion.GiveTarget(target)
+	legion.friends += user
+	legion.faction = user.faction.Copy()
 
 /obj/item/crusher_trophy/legionnaire_spine/attack_self(mob/user)
 	if(!isliving(user))
 		return
-	var/mob/living/LivingUser = user
+	var/mob/living/living_user = user
 	if(next_use_time > world.time)
-		LivingUser.visible_message(span_warning("[LivingUser] тряс[pluralize_ru(LivingUser.gender,"ёт","ут")] <b>[declent_ru(ACCUSATIVE)]</b>. Ничего не произошло..."))
-		balloon_alert(LivingUser, "перезарядка")
+		living_user.visible_message(
+			span_warning("[living_user] трясёт <b>[declent_ru(ACCUSATIVE)]</b>. Ничего не произошло...")
+		)
+		balloon_alert(living_user, "перезарядка")
 		return
-	LivingUser.visible_message(span_warning("[LivingUser] тряс[pluralize_ru(LivingUser.gender,"ёт","ут")] <b>[declent_ru(ACCUSATIVE)]</b> и призывает череп легиона!"))
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire/LegionSkull = new(LivingUser.loc)
-	LegionSkull.friends += LivingUser
-	LegionSkull.faction = LivingUser.faction.Copy()
+	living_user.visible_message(
+		span_warning("[living_user] трясёт <b>[declent_ru(ACCUSATIVE)]</b> и призывает череп легиона!")
+	)
+	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire/legion_skull = new(living_user.loc)
+	legion_skull.friends += living_user
+	legion_skull.faction = living_user.faction.Copy()
 	next_use_time = world.time + 4 SECONDS
 
 #undef LEGIONNAIRE_CHARGE

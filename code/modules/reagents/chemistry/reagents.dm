@@ -257,7 +257,7 @@
 		if(prob(8))
 			M.emote("sneeze")
 		if(prob(4))
-			to_chat(M, span_notice("[pluralize_ru(M.gender,"Ты чувствуешь", "Вы чувствуете")] тупую головную боль."))
+			to_chat(M, span_notice("Вы чувствуете тупую головную боль."))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage3(mob/living/M)

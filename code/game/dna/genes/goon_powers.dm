@@ -173,13 +173,13 @@
 				handle_suit = TRUE
 				if(H.internal)
 					H.visible_message(
-						span_warning("[user] распыля[PLUR_ET_UT(user)] облако мелких ледяных кристаллов, сковывая [H]!"),
-						span_notice("[user] распыля[PLUR_ET_UT(user)] облако мелких кристалликов льда на визор вашего [H.head].")
+						span_warning("[user] распыляет облако мелких ледяных кристаллов, сковывая [H]!"),
+						span_notice("[user] распыляет облако мелких кристалликов льда на визор вашего [H.head].")
 					)
 				else
 					H.visible_message(
-						span_warning("[user] распыля[PLUR_ET_UT(user)] облако мелких кристаллов льда, поглощая [H]!"),
-						span_warning("[user] распыля[PLUR_ET_UT(user)] облако мелких ледяных кристаллов, которые покрывают визор вашего [H.head] и попадают в вентиляционные отверстия!")
+						span_warning("[user] распыляет облако мелких кристаллов льда, поглощая [H]!"),
+						span_warning("[user] распыляет облако мелких ледяных кристаллов, которые покрывают визор вашего [H.head] и попадают в вентиляционные отверстия!")
 					)
 
 					H.adjust_bodytemperature(-100)
@@ -189,7 +189,7 @@
 		C.ExtinguishMob()
 
 		C.visible_message(
-			span_warning("[user] распыля[PLUR_ET_UT(user)] облако мелких ледяных кристаллов, поглощая [C]!")
+			span_warning("[user] распыляет облако мелких ледяных кристаллов, поглощая [C]!")
 		)
 		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
 
@@ -304,7 +304,7 @@
 			return FALSE
 
 		user.visible_message(
-			span_danger("[user] приближа[PLUR_ET_UT(user)]ся к [the_item] и начина[PLUR_ET_UT(user)] поглощать [limb.name]!")
+			span_danger("[user] приближается к [the_item] и начинает поглощать [limb.name]!")
 		)
 		var/oldloc = H.loc
 		if(!do_after(user, EAT_MOB_DELAY, H, NONE))
@@ -316,14 +316,14 @@
 				to_chat(user, span_danger("Вы упустили [limb]!"))
 				return
 			user.visible_message(
-				span_danger("[user] [pick("отрыва[pluralize_ru(user, "ет", "ют")]", "откусыва[pluralize_ru(user, "ет", "ют")]")] [limb] от [the_item]!")
+				span_danger("[user] [pick("отрывает", "откусывает")] [limb] от [the_item]!")
 			)
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 			limb.droplimb(0, DROPLIMB_SHARP)
 			doHeal(user)
 	else
 		user.visible_message(
-			span_danger("[user] [pick("съеда[PLUR_ET_UT(user)]", "поглоща[PLUR_ET_UT(user)]")] [the_item].")
+			span_danger("[user] [pick("съедает", "поглощает")] [the_item].")
 		)
 		playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 		qdel(the_item)
@@ -383,13 +383,13 @@
 				puller.stop_pulling()
 
 		user.visible_message(
-			span_danger("[user.name] дела[PLUR_ET_UT(user)] огромный скачок!")
+			span_danger("[user.name] делает огромный скачок!")
 		)
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 		if(failure)
 			user.Weaken(10 SECONDS)
 			user.visible_message(
-				span_warning("[user] пыта[PLUR_ET_UT(user)]ся отпрыгнуть, но снова оказыва[PLUR_ET_UT(user)]ся прижатым[pluralize_ru(user, "", "и")] к земле!"),
+				span_warning("[user] пытается отпрыгнуть, но снова оказывается прижатым к земле!"),
 				span_warning("Вы пытаетесь отпрыгнуть в сторону, но внезапно оказываетесь прижаты к земле!"),
 				span_notice("Вы слышите, как напрягаются мощные мышцы, и внезапно раздается грохот, когда тело падает на пол.")
 			)
@@ -412,7 +412,7 @@
 
 		else if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
 			user.visible_message(
-				span_danger("[user.name] пада[PLUR_ET_UT(user)] на землю под весом своего тела!")
+				span_danger("[user.name] падает на землю под весом своего тела!")
 			)
 			user.AdjustWeakened(20 SECONDS)
 
@@ -424,7 +424,7 @@
 		user.AdjustParalysis(6 SECONDS)
 		user.AdjustWeakened(10 SECONDS)
 		container.visible_message(
-			span_danger("[user.loc] изда[PLUR_ET_UT(user)] громкий стук и немного дребезжит.")
+			span_danger("[user.loc] издает громкий стук и немного дребезжит.")
 		)
 		playsound(user.loc, 'sound/effects/bang.ogg', 50, TRUE)
 		var/wiggle = 6
@@ -559,23 +559,23 @@
 
 		if(M.fire_stacks)
 			pain_condition -= 0.5
-			thoughts = "поглощ[pluralize_ru(M.gender, "ён", "ены")] огнем"
+			thoughts = "поглощён огнем"
 
 		if(M.radiation)
 			pain_condition -= 0.25
 
 		switch(pain_condition)
 			if(0.81 to INFINITY)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] чувству[PLUR_ET_UT(M)] себя хорошо."))
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] чувствует себя хорошо."))
 			if(0.61 to 0.8)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_UT(M)] слабую боль."))
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытывает слабую боль."))
 			if(0.41 to 0.6)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_UT(M)] умеренную боль."))
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытывает умеренную боль."))
 			if(0.21 to 0.4)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_UT(M)] сильную боль."))
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытывает сильную боль."))
 			else
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_UT(M)] мучительную боль."))
-				thoughts = "дума[PLUR_ET_UT(M)] о том, что [GEND_HIS_HER(M)] скоро настигнет смерть"
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытывает мучительную боль."))
+				thoughts = "думает о том, что [GEND_HIS_HER(M)] скоро настигнет смерть"
 
 		switch(M.a_intent)
 			if(INTENT_HELP)
@@ -589,7 +589,7 @@
 				for(var/mob/living/L in view(7,M))
 					if(L == M)
 						continue
-					thoughts = "дума[PLUR_ET_UT(M)] о том, чтобы ударить [L.name]"
+					thoughts = "думает о том, чтобы ударить [L.name]"
 					break
 			else
 				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете странные мысли, исходящие от [M.name]."))

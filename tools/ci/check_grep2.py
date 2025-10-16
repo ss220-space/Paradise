@@ -316,10 +316,7 @@ def check_bitwise_operator_order(idx, line):
 
 IGNORE_LOCALIZATION_FILE = "localization.dm"
 LOCALIZATION_MACROS = [
-    (re.compile(r'(\s*"у",\s*"ы",\s*"")', re.IGNORECASE), "PLUR_ET_UT"),
-    (re.compile(r'(\s*"ет",\s*"ют")', re.IGNORECASE), "PLUR_ET_UT"),
-    (re.compile(r'(\s*"ёт",\s*"ют")', re.IGNORECASE), "PLUR_YOT_UT"),
-    (re.compile(r'(\s*"ет",\s*"ут")', re.IGNORECASE), "PLUR_ET_YT"),
+    (re.compile(r'(\s*"у",\s*"ы",\s*"")', re.IGNORECASE), "DECL_SEC_MIN"),
     (re.compile(r'(\s*"ит",\s*"ят")', re.IGNORECASE), "PLUR_IT_YAT"),
     (re.compile(r'(\s*"он",\s*"она",\s*"оно",\s*"они")', re.IGNORECASE), "GEND_HE_SHE"),
     (re.compile(r'(\s*"его",\s*"её",\s*"его",\s*"их")', re.IGNORECASE), "GEND_HIS_HER"),

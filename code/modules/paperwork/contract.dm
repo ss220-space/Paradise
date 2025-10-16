@@ -118,7 +118,7 @@
 		if(do_after(usr, 1 SECONDS, src, DA_IGNORE_LYING) && usr.mind == target \
 		&& usr.mind.hasSoul && usr.mind.soulOwner != owner && attempt_signature(usr, TRUE))
 			usr.visible_message(
-				span_danger("[usr.declent_ru(NOMINATIVE)] разреза[PLUR_ET_UT(usr)] запястье [declent_ru(INSTRUMENTAL)] и вывод[PLUR_IT_YAT(usr)] своё имя кровью."),
+				span_danger("[usr.declent_ru(NOMINATIVE)] разрезает запястье [declent_ru(INSTRUMENTAL)] и выводит своё имя кровью."),
 				span_danger("Вы разрезаете запястье и выводите своё имя кровью."),
 			)
 			balloon_alert(owner.current, "контракт подписан!")
@@ -143,7 +143,7 @@
 
 	if(I.get_heat())
 		user.visible_message(
-			("[user.declent_ru(NOMINATIVE)] поднос[PLUR_IT_YAT(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
+			("[user.declent_ru(NOMINATIVE)] подносит [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
 			span_danger("[declent_ru(NOMINATIVE)] не загорается!"),
 		)
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK

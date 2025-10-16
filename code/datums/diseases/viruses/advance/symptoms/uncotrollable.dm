@@ -39,9 +39,11 @@ Uncontrollable Aggression
 
 	if(A.stage >= 5 && prob(50))
 		if(aggressor.incapacitated() || HAS_TRAIT(aggressor, TRAIT_HANDS_BLOCKED))
-			aggressor.visible_message(span_danger("[aggressor] дёрга[PLUR_ET_UT(aggressor)]ся и корчится!"))
+			aggressor.visible_message(span_danger("[aggressor] дёргается и корчится!"))
 			return
-		aggressor.visible_message(span_danger("[aggressor] яростно бь[pluralize_ru(aggressor.gender,"ётся","ются")] вокруг!"))
+		aggressor.visible_message(
+			span_danger("[aggressor] яростно бьётся вокруг!")
+		)
 
 		var/obj/item/attacking_item = aggressor.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
 		if(!attacking_item)
@@ -117,7 +119,9 @@ Uncontrollable Actions
 
 	if(A.stage >= 5 && prob(30))
 		if(possesed.incapacitated())
-			possesed.visible_message(span_danger("[possesed] дёргается!"))
+			possesed.visible_message(
+				span_danger("[possesed] дёргается!")
+			)
 			return
 
 		var/obj/item/item = possesed.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)

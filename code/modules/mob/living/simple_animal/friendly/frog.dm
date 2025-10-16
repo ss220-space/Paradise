@@ -68,7 +68,7 @@
 
 /mob/living/simple_animal/frog/proc/frog_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[bicon(src)] квака[PLUR_ET_UT(src)]!"))
+		to_chat(arrived, span_notice("[bicon(src)] квакает!"))
 
 
 /mob/living/simple_animal/frog/toxic

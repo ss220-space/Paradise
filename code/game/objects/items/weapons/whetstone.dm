@@ -61,7 +61,7 @@
 		return .
 
 	user.visible_message(
-		span_notice("[user] затачива[PLUR_ET_UT(user)] [I.declent_ru(ACCUSATIVE)] при помощи [declent_ru(GENITIVE)]!"),
+		span_notice("[user] затачивает [I.declent_ru(ACCUSATIVE)] при помощи [declent_ru(GENITIVE)]!"),
 		span_notice("Вы затачиваете [I.declent_ru(ACCUSATIVE)], делая его гораздо опаснее."),
 	)
 	playsound(src, usesound, 50, TRUE)
@@ -93,7 +93,7 @@
 
 	claws.damage = clamp(claws.damage + claws_increment, 0, max)
 	user.visible_message(
-		span_notice("[user] точ[PLUR_IT_YAT(user)] свои когти о [declent_ru(ACCUSATIVE)]!"),
+		span_notice("[user] точит свои когти о [declent_ru(ACCUSATIVE)]!"),
 		span_notice("Вы точите свои когти о [declent_ru(ACCUSATIVE)]."),
 	)
 	playsound(src, usesound, 50, TRUE)

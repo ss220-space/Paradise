@@ -31,11 +31,11 @@
 
 	if(client)
 		if(is_on_cooldown())
-			to_chat(user, span_warning("[user == src ? "Вы не можете" : "[capitalize(name)] не мож[pluralize_ru(gender, "ет", "гут")]"] настолько быстро поедать бананы!"))
+			to_chat(user, span_warning("[user == src ? "Вы не можете" : "[capitalize(name)] не может"] настолько быстро поедать бананы!"))
 			return ..()
 		start_action_cooldown()
 		eat_banana(I)
-		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [GEND_HE_SHE(src)] не мо[pluralize_ru(gender, "жет", "гут")] устоять перед искушением!"))
+		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [GEND_HE_SHE(src)] не может устоять перед искушением!"))
 		to_chat(src, span_notice("[user] покорм[genderize_ru(user.gender, "ил", "ила", "ило", "или")] Вас, возможно стоит [GEND_HIS_HER(user)] отблагодарить..."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 

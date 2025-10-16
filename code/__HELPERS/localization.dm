@@ -22,6 +22,8 @@
 // Макросы для наиболее часто используемых случаев.
 // Секунд, минут, единиц
 #define DECL_SEC_MIN(target) declension_ru(target, "у", "ы", "")
+// Кредит, символ
+#define DECL_CREDIT(target) declension_ru(target, "", "а", "ов")
 
 /**
  * Возвращает форму слова с учётом грамматического рода в русском языке.
@@ -48,6 +50,8 @@
 #define GEND_HIM_HER(target) genderize_ru(target.gender, "ему", "ей", "ему", "им")
 
 /**
+ * # НЕ ИСПОЛЬЗОВАТЬ!
+ *
  * Возвращает форму единственного или множественного числа в зависимости от грамматического рода.
  *
  * Простой инструмент, который помогает легко переключаться между формами единственного и
@@ -60,12 +64,6 @@
  */
 /proc/pluralize_ru(gender, single_word, plural_word)
 	return gender == PLURAL ? plural_word : single_word
-
-// Макросы для наиболее часто используемых случаев.
-#define PLUR_ET_UT(target) pluralize_ru(target.gender, "ет", "ют")
-#define PLUR_YOT_UT(target) pluralize_ru(target.gender, "ёт", "ют")
-#define PLUR_ET_YT(target) pluralize_ru(target.gender, "ет", "ут")
-#define PLUR_IT_YAT(target) pluralize_ru(target.gender, "ит", "ят")
 
 /**
  * Обрабатывает гендерно-зависимую текстовую разметку в строке.

@@ -18,7 +18,7 @@
 		to_chat(usr, span_warning("Это нельзя просто так взять и передать."))
 		return
 	if(target.r_hand == null || target.l_hand == null)
-		var/ans = tgui_alert(target,"[usr] хо[pluralize_ru(usr.gender,"чет","тят")] передать вам [I.declent_ru(ACCUSATIVE)]?", "Передача предмета", list("Взять","Не брать"))
+		var/ans = tgui_alert(target, "[usr] хочет передать вам [I.declent_ru(ACCUSATIVE)]?", "Передача предмета", list("Взять", "Не брать"))
 		if(!I || !target)
 			return
 		switch(ans)
@@ -71,7 +71,7 @@
 		to_chat(src, span_warning("У вас нет предмета в руке для передачи!"))
 		return
 	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(src, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[genderize_ru(I.gender,"","а","о","и")] к вашей руке и не отда[PLUR_YOT_UT(I)]ся!"))
+		to_chat(src, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[genderize_ru(I.gender,"","а","о","и")] к вашей руке и не отдаётся!"))
 		return
 	if(I.item_flags & ABSTRACT)
 		to_chat(src, span_warning("Такой предмет нельзя просто взять и передать."))
@@ -110,7 +110,7 @@
 	var/mob/living/carbon/giver = attached_effect.owner
 	var/obj/item/I = locateUID(item_UID)
 	to_chat(giver, span_notice("Вы передумали передавать [I.declent_ru(ACCUSATIVE)] [receiver]."))
-	to_chat(receiver, span_warning("[giver] передум[pluralize_ru(giver.gender,"ал","али")] передавать вам [I.declent_ru(ACCUSATIVE)]."))
+	to_chat(receiver, span_warning("[giver] передумал передавать вам [I.declent_ru(ACCUSATIVE)]."))
 	receiver.clear_alert("take item [item_UID]") // This cancels *everything* related to the giving/item offering.
 
 
@@ -155,10 +155,10 @@
 		return
 	var/mob/living/carbon/receiver = object
 	if(receiver.stat != CONSCIOUS)
-		to_chat(user, span_warning("[receiver] без сознания и не мо[pluralize_ru(user.gender, "жет", "гут")] принять предмет!"))
+		to_chat(user, span_warning("[receiver] без сознания и не может принять предмет!"))
 		return
 	if(!receiver.IsAdvancedToolUser())
-		to_chat(user, span_warning("[receiver] недостаточно лов[genderize_ru(receiver.gender,"ок","ка","ок","ки")] для передачи!"))
+		to_chat(user, span_warning("[receiver] недостаточно лов[genderize_ru(receiver.gender, "ок", "ка", "ок", "ки")] для передачи!"))
 		return
 	var/obj/item/item = giving_item
 	if(!user.Adjacent(receiver))
@@ -196,7 +196,7 @@
 
 /atom/movable/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/item)
 	. = ..()
-	desc = "[giver] хо[pluralize_ru(giver.gender, "чет", "тят")] передать вам [item.declent_ru(ACCUSATIVE)]. Нажмите чтобы принять!"
+	desc = "[giver] хочет передать вам [item.declent_ru(ACCUSATIVE)]. Нажмите чтобы принять!"
 	giver_UID = giver.UID()
 	receiver_UID = receiver.UID()
 	item_UID = item.UID()
@@ -271,7 +271,7 @@
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
 
-	receiver.visible_message(span_notice("[giver] переда[PLUR_YOT_UT(giver)] [I.declent_ru(ACCUSATIVE)] [receiver]."))
+	receiver.visible_message(span_notice("[giver] передаёт [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
 
 

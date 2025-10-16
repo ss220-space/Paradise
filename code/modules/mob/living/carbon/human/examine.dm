@@ -101,58 +101,58 @@
 			tie_msg += " c [accessory_list(w_uniform)]"
 
 		if(w_uniform.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(w_uniform)] [w_uniform.declent_ru(ACCUSATIVE)] [w_uniform.blood_color != "#030303" ? "со следами крови":"со следами масла"][tie_msg]!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] носит [bicon(w_uniform)] [w_uniform.declent_ru(ACCUSATIVE)] [w_uniform.blood_color != "#030303" ? "со следами крови":"со следами масла"][tie_msg]!\n")
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(w_uniform)] [w_uniform.declent_ru(ACCUSATIVE)].\n"
+			msg += "[GEND_HE_SHE_CAP(src)] носит [bicon(w_uniform)] [w_uniform.declent_ru(ACCUSATIVE)].\n"
 
 	//head
 	if(head && !(head.item_flags & ABSTRACT))
 		if(head.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(head)] [head.declent_ru(ACCUSATIVE)] [head.blood_color != "#030303" ? "со следами крови":"со следами масла"] на голове!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] носит [bicon(head)] [head.declent_ru(ACCUSATIVE)] [head.blood_color != "#030303" ? "со следами крови":"со следами масла"] на голове!\n")
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(head)] [head.declent_ru(ACCUSATIVE)] на голове.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] носит [bicon(head)] [head.declent_ru(ACCUSATIVE)] на голове.\n"
 
 	//neck
 	if(neck && !(neck.item_flags & ABSTRACT))
 		if(neck.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(neck)] [neck.declent_ru(ACCUSATIVE)] [neck.blood_color != "#030303" ? "со следами крови":"со следами масла"] на шее!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] носит [bicon(neck)] [neck.declent_ru(ACCUSATIVE)] [neck.blood_color != "#030303" ? "со следами крови":"со следами масла"] на шее!\n")
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(neck)] [neck.declent_ru(ACCUSATIVE)] на шее.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] носит [bicon(neck)] [neck.declent_ru(ACCUSATIVE)] на шее.\n"
 
 	//suit/armour
 	if(wear_suit && !(wear_suit.item_flags & ABSTRACT))
 		if(wear_suit.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(wear_suit)] [wear_suit.declent_ru(ACCUSATIVE)] [wear_suit.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] носит [bicon(wear_suit)] [wear_suit.declent_ru(ACCUSATIVE)] [wear_suit.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(wear_suit)] [wear_suit.declent_ru(ACCUSATIVE)].\n"
+			msg += "[GEND_HE_SHE_CAP(src)] носит [bicon(wear_suit)] [wear_suit.declent_ru(ACCUSATIVE)].\n"
 
 		//suit/armour storage
 		if(s_store && !skipsuitstorage)
 			if(s_store.blood_DNA)
-				msg += span_warning("На [GEND_HIS_HER(src)] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[PLUR_IT_YAT(s_store)] [bicon(s_store)] [s_store.declent_ru(NOMINATIVE)] [s_store.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+				msg += span_warning("На [GEND_HIS_HER(src)] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] висит [bicon(s_store)] [s_store.declent_ru(NOMINATIVE)] [s_store.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
 			else
-				msg += "На [GEND_HIS_HER(src)] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[PLUR_IT_YAT(s_store)] [bicon(s_store)] [s_store.declent_ru(NOMINATIVE)].\n"
+				msg += "На [GEND_HIS_HER(src)] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] висит [bicon(s_store)] [s_store.declent_ru(NOMINATIVE)].\n"
 
 	//back
 	if(back && !(back.item_flags & ABSTRACT))
 		if(back.blood_DNA)
-			msg += span_warning("На [GEND_HIS_HER(src)] спине вис[PLUR_IT_YAT(back)] [bicon(back)] [back.declent_ru(NOMINATIVE)] [back.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+			msg += span_warning("На [GEND_HIS_HER(src)] спине висит [bicon(back)] [back.declent_ru(NOMINATIVE)] [back.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
 		else
-			msg += "На [GEND_HIS_HER(src)] спине вис[PLUR_IT_YAT(back)] [bicon(back)] [back.declent_ru(NOMINATIVE)].\n"
+			msg += "На [GEND_HIS_HER(src)] спине висит [bicon(back)] [back.declent_ru(NOMINATIVE)].\n"
 
 	//left hand
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] держ[pluralize_ru(gender, "ит", "ат")] [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] [l_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в левой руке!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] держит [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] [l_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в левой руке!\n")
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] держ[pluralize_ru(gender, "ит", "ат")] [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] в левой руке.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] держит [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] в левой руке.\n"
 
 	//right hand
 	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] держ[pluralize_ru(gender, "ит", "ат")] [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] [r_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в правой руке!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] держит [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] [r_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в правой руке!\n")
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] держ[pluralize_ru(gender, "ит", "ат")] [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] в правой руке.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] держит [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] в правой руке.\n"
 
 	//gloves
 	if(!skipgloves)
@@ -178,17 +178,17 @@
 	//belt
 	if(belt)
 		if(belt.blood_DNA)
-			msg += span_warning("На [GEND_HIS_HER(src)] талии вис[PLUR_IT_YAT(belt)] [bicon(belt)] [belt.declent_ru(NOMINATIVE)] [belt.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+			msg += span_warning("На [GEND_HIS_HER(src)] талии висит [bicon(belt)] [belt.declent_ru(NOMINATIVE)] [belt.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
 		else
-			msg += "На [GEND_HIS_HER(src)] талии вис[PLUR_IT_YAT(belt)] [bicon(belt)] [belt.declent_ru(NOMINATIVE)].\n"
+			msg += "На [GEND_HIS_HER(src)] талии висит [bicon(belt)] [belt.declent_ru(NOMINATIVE)].\n"
 
 	//shoes
 	if(!skipshoes)
 		if(shoes && !(shoes.item_flags & ABSTRACT))
 			if(shoes.blood_DNA)
-				msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(shoes)] [shoes.declent_ru(ACCUSATIVE)] [shoes.blood_color != "#030303" ? "со следами крови":"со следами масла"] на ногах!\n")
+				msg += span_warning("[GEND_HE_SHE_CAP(src)] носит [bicon(shoes)] [shoes.declent_ru(ACCUSATIVE)] [shoes.blood_color != "#030303" ? "со следами крови":"со следами масла"] на ногах!\n")
 			else
-				msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(shoes)] [shoes.declent_ru(ACCUSATIVE)] на ногах.\n"
+				msg += "[GEND_HE_SHE_CAP(src)] носит [bicon(shoes)] [shoes.declent_ru(ACCUSATIVE)] на ногах.\n"
 		else if(blood_DNA)
 			msg += span_warning("[GEND_HIS_HER_CAP(src)] ступни [hand_blood_color != "#030303" ? "измазаны в крови":"измазаны в масле"]!\n")
 
@@ -199,9 +199,9 @@
 	//mask
 	if(wear_mask && !skipmask && !(wear_mask.item_flags & ABSTRACT))
 		if(wear_mask.blood_DNA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(wear_mask)] [wear_mask.declent_ru(ACCUSATIVE)] [wear_mask.blood_color != "#030303" ? "со следами крови":"со следами масла"] на лице!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] носит [bicon(wear_mask)] [wear_mask.declent_ru(ACCUSATIVE)] [wear_mask.blood_color != "#030303" ? "со следами крови":"со следами масла"] на лице!\n")
 		else
-			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(wear_mask)] [wear_mask.declent_ru(ACCUSATIVE)] на лице.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] носит [bicon(wear_mask)] [wear_mask.declent_ru(ACCUSATIVE)] на лице.\n"
 
 	//eyes
 	if(!skipeyes)
@@ -215,15 +215,15 @@
 
 	//left ear
 	if(l_ear && !skipears)
-		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(l_ear)] [l_ear.declent_ru(ACCUSATIVE)] на левом ухе.\n"
+		msg += "[GEND_HE_SHE_CAP(src)] носит [bicon(l_ear)] [l_ear.declent_ru(ACCUSATIVE)] на левом ухе.\n"
 
 	//right ear
 	if(r_ear && !skipears)
-		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(r_ear)] [r_ear.declent_ru(ACCUSATIVE)] на правом ухе.\n"
+		msg += "[GEND_HE_SHE_CAP(src)] носит [bicon(r_ear)] [r_ear.declent_ru(ACCUSATIVE)] на правом ухе.\n"
 
 	//ID
 	if(wear_id)
-		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [bicon(wear_id)] [wear_id.declent_ru(ACCUSATIVE)].\n"
+		msg += "[GEND_HE_SHE_CAP(src)] носит [bicon(wear_id)] [wear_id.declent_ru(ACCUSATIVE)].\n"
 
 	var/rolled_down = FALSE
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
@@ -234,7 +234,7 @@
 	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
 	var/datum/strength_level/strength_level = !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
 	if((rolled_down || !w_uniform || (w_uniform.item_flags & ABSTRACT)) && (!wear_suit || (wear_suit.item_flags & ABSTRACT)) && strength_level != STRENGTH_LEVEL_DEFAULT)
-		msg += span_notice("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] [strength_level.strength_examine][genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
+		msg += span_notice("[GEND_HE_SHE_CAP(src)] выглядит [strength_level.strength_examine][genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
 
 	//Status effects
 	var/status_examines = get_status_effect_examinations()
@@ -245,10 +245,10 @@
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
-			msg += span_warning("Выгляд[PLUR_IT_YAT(src)] так, будто [GEND_HE_SHE(src)] покончил[genderize_ru(gender, "", "а", "о", "и")] с собой... надежды на восстановление нет.\n")
+			msg += span_warning("Выглядит так, будто [GEND_HE_SHE(src)] покончил[genderize_ru(gender, "", "а", "о", "и")] с собой... надежды на восстановление нет.\n")
 		if(mind && !mind.hasSoul)
 			msg += span_boldwarning("<span style='font-size: large;'>[capitalize(GEND_HIS_HER(src))] душа — моя. Не тратьте свое время.</span>\n")
-		msg += span_deadsay("[GEND_HE_SHE_CAP(src)] безжизнен[genderize_ru(gender, "", "на", "но", "ны")] и не реагиру[PLUR_ET_UT(src)]. Нет никаких признаков жизни.")
+		msg += span_deadsay("[GEND_HE_SHE_CAP(src)] безжизнен[genderize_ru(gender, "", "на", "но", "ны")] и не реагирует. Нет никаких признаков жизни.")
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)
 				var/foundghost = FALSE
@@ -344,30 +344,30 @@
 	if(fire_stacks > 0)
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] [genderize_ru(gender, "покрыт", "покрыта", "покрыто", "покрыты")] чем-то легковоспламеняющимся.\n")
 	if(fire_stacks < 0)
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] немного мокр[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] выглядит немного мокр[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
 
 	switch(wetlevel)
 		if(1)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] слегка влажн[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выглядит слегка влажн[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
 		if(2)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] чуть мокр[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выглядит чуть мокр[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
 		if(3)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] мокр[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выглядит мокр[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
 		if(4)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] очень мокр[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выглядит очень мокр[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
 		if(5)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] полностью промокш[genderize_ru(gender, "им", "ой", "им", "ими")].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выглядит полностью промокш[genderize_ru(gender, "им", "ой", "им", "ими")].\n")
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] сильно истощ[genderize_ru(gender, "ён", "ена", "ено", "ены")].\n")
 
 	if(HAS_TRAIT(src, TRAIT_FAT))
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] страда[PLUR_ET_UT(src)] болезненным ожирением.\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] страдает болезненным ожирением.\n")
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] пухл[genderize_ru(gender, "ым", "ой", "ым", "ыми")] и аппетитн[genderize_ru(gender, "ым", "ой", "ым", "ыми")] — как маленький поросёнок. Вкусный поросёнок.\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выглядит пухл[genderize_ru(gender, "ым", "ой", "ым", "ыми")] и аппетитн[genderize_ru(gender, "ым", "ой", "ым", "ыми")] — как маленький поросёнок. Вкусный поросёнок.\n")
 
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] довольно полн[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] выглядит довольно полн[genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
 
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] бледная кожа.\n")
@@ -386,16 +386,16 @@
 		if(suppressed)
 			msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то окровавленным.\n")
 		else if(high_bleeding)
-			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] обильно кровоточ[pluralize_ru(gender, "ит", "ат")] [bodypart.declent_ru(NOMINATIVE)]!\n"))
+			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] обильно кровоточит [bodypart.declent_ru(NOMINATIVE)]!\n"))
 		else
-			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] кровоточ[pluralize_ru(gender, "ит", "ат")] [bodypart.declent_ru(NOMINATIVE)]!\n"))
+			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] кровоточит [bodypart.declent_ru(NOMINATIVE)]!\n"))
 
 	if(reagents.has_reagent("teslium"))
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] излуча[PLUR_ET_UT(src)] мягкое голубое свечение!\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] излучает мягкое голубое свечение!\n")
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
-			msg += "[GEND_HE_SHE_CAP(src)] не реагиру[PLUR_ET_UT(src)] на происходящее вокруг и, кажется, сп[PLUR_IT_YAT(src)].\n"
+			msg += "[GEND_HE_SHE_CAP(src)] не реагирует на происходящее вокруг и, кажется, спит.\n"
 		if(stat == CONSCIOUS)
 			if(getBrainLoss() >= 60)
 				msg += "На [GEND_HIS_HER(src)] лице застыло глупое выражение.\n"
@@ -422,7 +422,7 @@
 
 
 	if(get_gravity(src) < -NO_GRAVITY && !buckled)
-		msg += "[GEND_HE_SHE_CAP(src)] наход[pluralize_ru(gender, "и", "я")]тся на потолке.\n"
+		msg += "[GEND_HE_SHE_CAP(src)] находится на потолке.\n"
 
 	if(user.no_gravity() && !buckled)
 		msg += "[GEND_HE_SHE_CAP(src)] не подвержен[genderize_ru(gender, "", "а", "о", "ы")] действию гравитации.\n"
@@ -430,7 +430,7 @@
 	if(decaylevel == 1)
 		msg += "[GEND_HE_SHE_CAP(src)] начал[genderize_ru(gender, "", "а", "о", "и")] разлагаться и неприятно пахнуть.\n"
 	if(decaylevel == 2)
-		msg += "[GEND_HE_SHE_CAP(src)] раздут[genderize_ru(gender, "", "а", "о", "ы")] и отвратительно пахн[PLUR_ET_UT(src)].\n"
+		msg += "[GEND_HE_SHE_CAP(src)] раздут[genderize_ru(gender, "", "а", "о", "ы")] и отвратительно пахнет.\n"
 	if(decaylevel == 3)
 		msg += "[genderize_ru(gender, "Он почернел", "Она почернела", "Оно почернело", "Они почернели")] и гниёт, кожа слезает лоскутами. Зловоние неописуемо.\n"
 	if(decaylevel == 4)

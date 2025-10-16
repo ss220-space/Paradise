@@ -225,7 +225,7 @@
 
 	if(load(I, user))
 		user.visible_message(
-			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] загрузил[genderize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы загрузили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 		)
 		balloon_alert(user, "загружено внутрь")
@@ -242,7 +242,7 @@
 				items_loaded++
 		if(items_loaded)
 			user.visible_message(
-				span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] загрузил[genderize_ru(user.gender, "", "а", "о", "и")] содержимое [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы загрузили содержимое [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 			)
 			balloon_alert(user, "содержимое загружено")
@@ -291,8 +291,9 @@
 			items_loaded++
 	if(items_loaded)
 		user.visible_message(
-			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы загрузили содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+			span_notice("[user] загрузил[genderize_ru(user.gender, "", "а", "о", "и")] содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы загрузили содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)].")
+		)
 		balloon_alert(user, "содержимое загружено")
 		update_icon(UPDATE_OVERLAYS)
 	var/failed = length(P.contents)

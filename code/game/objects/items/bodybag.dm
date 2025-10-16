@@ -49,7 +49,7 @@
 
 /obj/item/bodybag/suicide_act(mob/living/user)
 	if(isfloorturf(user.loc))
-		user.visible_message(span_suicide("[user] заполза[PLUR_ET_UT(user)] в [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся совершить самоубийство!"))
+		user.visible_message(span_suicide("[user] заползает в [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пытается совершить самоубийство!"))
 		var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
 		R.add_fingerprint(user)
 		qdel(src)

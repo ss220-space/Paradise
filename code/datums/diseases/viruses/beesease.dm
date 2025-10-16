@@ -31,7 +31,10 @@
 					bee_stinging()
 			if(4)
 				if(prob(10))
-					affected_mob.visible_message(span_danger("[affected_mob] жужж[pluralize_ru(affected_mob.gender,"ит","ат")]."), span_userdanger("Ваш желудок яростно жужжит!"))
+					affected_mob.visible_message(
+						span_danger("[affected_mob] жужжит."),
+						span_userdanger("Ваш желудок яростно жужжит!")
+					)
 				if(prob(5))
 					to_chat(affected_mob, span_danger("Вы чувствуете, как что-то движется у вас в горле."))
 				if(prob(12))
@@ -41,7 +44,10 @@
 		playsound(get_turf(affected_mob.loc), pick('sound/creatures/bee3.ogg', 'sound/creatures/bee4.ogg'), (stage*stage)*6.25, TRUE)
 
 	if(stage == max_stages && prob(3) && bees_spawned < 10)
-		affected_mob.visible_message(span_danger("Рой пчёл вылетает изо рта [affected_mob]!"), span_userdanger("Рой пчёл вылетает из вашего рта!"))
+		affected_mob.visible_message(
+			span_danger("Рой пчёл вылетает изо рта [affected_mob]!"),
+			span_userdanger("Рой пчёл вылетает из вашего рта!")
+		)
 		affected_mob.adjustBruteLoss(3)
 		for(var/i = 0, i < 3, i++)
 			var/mob/living/simple_animal/hostile/poison/bees/new_bee = new(affected_mob.loc)

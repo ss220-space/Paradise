@@ -83,7 +83,7 @@
 		ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 
 	visible_message(
-		span_notice("[src] прислоня[PLUR_ET_UT(src)]ся к [lean_target.declent_ru(DATIVE)]."),
+		span_notice("[src] прислоняется к [lean_target.declent_ru(DATIVE)]."),
 		span_notice("Вы прислоняетесь к [lean_target.declent_ru(DATIVE)]."),
 	)
 	leaned_object = lean_target
@@ -129,7 +129,7 @@
 	SIGNAL_HANDLER
 	stop_leaning()
 	visible_message(
-		span_notice("[src] с грохотом пада[PLUR_ET_UT(src)] на пол!"),
+		span_notice("[src] с грохотом падает на пол!"),
 		span_warning("Вы с грохотом падаете на пол после того, как объект, к которому вы прислонились, исчез.")
 	)
 	Knockdown(3 SECONDS)
@@ -149,7 +149,7 @@
 	stop_leaning()
 	Move(location)
 	visible_message(
-		span_notice("[src] с грохотом пада[PLUR_ET_UT(src)] на пол!"),
+		span_notice("[src] с грохотом падает на пол!"),
 		span_warning("Вы с грохотом падаете на пол!")
 	)
 	Knockdown(3 SECONDS) //boowomp
@@ -159,7 +159,7 @@
 	stop_leaning()
 	forceMove(location)
 	visible_message(
-		span_notice("[src] с грохотом пада[PLUR_ET_UT(src)] на пол!"),
+		span_notice("[src] с грохотом падает на пол!"),
 		span_warning("Вы с грохотом падаете на пол из-за открытой двери!")
 	)
 	Knockdown(3 SECONDS) //boowomp

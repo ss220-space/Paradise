@@ -60,8 +60,8 @@
 
 /datum/status_effect/staring/proc/catch_look(mob/living/opponent)
 	if(target == opponent)
-		to_chat(owner, span_notice("[opponent.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
-		to_chat(opponent, span_notice("[owner.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
+		to_chat(owner, span_notice("[opponent.name] ловит ваш взгляд!"))
+		to_chat(opponent, span_notice("[owner.name] ловит ваш взгляд!"))
 		var/list/loved_ones = list(MALE, FEMALE)
 		if(!ishuman(owner) || !(target_gender in loved_ones) || !(owner.gender in loved_ones))
 			return
@@ -140,7 +140,7 @@
 		"перемещает свою руку прямо ко лбу от стыда.",
 		"даёт пять в воздух.",
 		"стыдливо хлопает себя по другой руке, прежде чем смахнуть слезу.",
-		"пытается пожать руку, затем ударить кулаками, прежде чем отдернуть руку...? <i>Что [pluralize_ru(owner.gender, "он", "они")] дела[PLUR_ET_UT(owner)]?</i>"
+		"пытается пожать руку, затем ударить кулаками, прежде чем отдернуть руку...? <i>Что [GEND_HE_SHE(owner)] делает?</i>"
 	)
 	return pick(missed_highfive_messages)
 
@@ -168,9 +168,9 @@
 
 /datum/status_effect/high_five/handshake/get_missed_message()
 	var/list/missed_messages = list(
-		"стыдливо опуска[PLUR_ET_UT(owner)] руку.",
-		"хвата[PLUR_ET_UT(owner)] свою протянутую руку другой рукой и пожима[PLUR_ET_UT(owner)] её, будто здорова[PLUR_ET_UT(owner)]ся сам[genderize_ru(owner.gender, "", "а", "о", "и")] с собой.",
-		"сжима[PLUR_ET_UT(owner)] руку в кулак, медленно убирая её."
+		"стыдливо опускает руку.",
+		"хватает свою протянутую руку другой рукой и пожимает её, будто здоровается сам[genderize_ru(owner.gender, "", "а", "о", "и")] с собой.",
+		"сжимает руку в кулак, медленно убирая её."
 	)
 	return pick(missed_messages)
 
@@ -239,7 +239,7 @@
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id)) // they're kinda busy!
 
 	owner.visible_message(
-		span_danger("[owner] ката[PLUR_ET_UT(owner)]ся по полу, пытаясь потушить себя!"),
+		span_danger("[owner] катается по полу, пытаясь потушить себя!"),
 		span_notice("Вы останавливаетесь, падаете и катаетесь!"),
 	)
 	// Start with one weaker roll
@@ -270,7 +270,7 @@
 		return
 
 	owner.visible_message(
-		span_danger("[owner] успешно туш[pluralize_ru(owner.gender, "ит", "ат")] себя!"),
+		span_danger("[owner] успешно тушит себя!"),
 		span_notice("Вы тушите себя."),
 	)
 	qdel(src)

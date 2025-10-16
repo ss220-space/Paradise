@@ -128,9 +128,9 @@
 	. = return_flags
 
 	if(istype(src, /obj/item/lighter/zippo))
-		cig.light(span_rose("[user] доста[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] и держ[pluralize_ru(user.gender, "ит", "ат")] [GEND_HIS_HER(src)] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [GEND_HE_SHE(user)] прикурива[PLUR_ET_UT(user)] [cig.declent_ru(ACCUSATIVE)]."))
+		cig.light(span_rose("[user] достает [declent_ru(ACCUSATIVE)] и держит [GEND_HIS_HER(src)] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [GEND_HE_SHE(user)] прикуривает [cig.declent_ru(ACCUSATIVE)]."))
 	else
-		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
+		cig.light(span_notice("[user] держит [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
 
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	target.update_worn_mask()
@@ -174,7 +174,7 @@
 	. = ..()
 	user.balloon_alert(user, "включено")
 	if(world.time > next_on_message)
-		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открыва[PLUR_ET_UT(user)] и зажига[PLUR_ET_UT(user)] [src.declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открывает и зажигает [src.declent_ru(ACCUSATIVE)]."))
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
 
@@ -184,7 +184,7 @@
 		return
 	user.balloon_alert(user, "выключено")
 	if(world.time > next_off_message)
-		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрыва[PLUR_ET_UT(user)] [src.declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"))
+		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрывает [src.declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"))
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
@@ -611,14 +611,14 @@
 
 	if(istype(src, /obj/item/match/unathi))
 		if(prob(50))
-			cig.light(span_rose("[user] изверга[PLUR_ET_UT(user)] пламя на [target.declent_ru(ACCUSATIVE)] и зажига[PLUR_ET_UT(user)] [cig.declent_ru(ACCUSATIVE)], чуть не опалив [GEND_HIS_HER(target)] лицо!"))
+			cig.light(span_rose("[user] извергает пламя на [target.declent_ru(ACCUSATIVE)] и зажигает [cig.declent_ru(ACCUSATIVE)], чуть не опалив [GEND_HIS_HER(target)] лицо!"))
 			matchburnout()
 		else
-			cig.light(span_rose("[user] изверга[PLUR_ET_UT(user)] пламя на [target.declent_ru(ACCUSATIVE)] , опаливая [GEND_HIS_HER(target)] лицо и зажигая [cig.declent_ru(ACCUSATIVE)]."))
+			cig.light(span_rose("[user] извергает пламя на [target.declent_ru(ACCUSATIVE)] , опаливая [GEND_HIS_HER(target)] лицо и зажигая [cig.declent_ru(ACCUSATIVE)]."))
 			target.apply_damage(5, BURN, def_zone = BODY_ZONE_HEAD)
 			playsound(src, 'sound/effects/unathiignite.ogg', 40, FALSE)
 	else
-		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], и зажига[PLUR_ET_UT(user)] [cig.declent_ru(ACCUSATIVE)]."))
+		cig.light(span_notice("[user] держит [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], и зажигает [cig.declent_ru(ACCUSATIVE)]."))
 		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 

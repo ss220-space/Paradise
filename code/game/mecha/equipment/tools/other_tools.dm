@@ -662,7 +662,7 @@
 		insert_action(target)
 		return TRUE
 
-	occupant_message(span_notice("[target] не мо[pluralize_ru(target.gender, "жет", "гут")] быть удержа[genderize_ru(target.gender, "н", "на", "но", "ны")], так как [target] не наход[PLUR_IT_YAT(target)]ся в критическом состоянии."))
+	occupant_message(span_notice("[target] не может быть удержан[genderize_ru(target.gender, "", "а", "о", "ы")], так как [target] не находится в критическом состоянии."))
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress_action(mob/living/carbon/target)
@@ -780,10 +780,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
-		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, так как [target] прикова[genderize_ru(target.gender, "н", "на", "но", "ны")] к [target.buckled.declent_ru(DATIVE)]!"))
+		occupant_message(span_warning("[target] не поместится в клетку, так как [target] прикова[genderize_ru(target.gender, "н", "на", "но", "ны")] к [target.buckled.declent_ru(DATIVE)]!"))
 		return FALSE
 	if(target.has_buckled_mobs())
-		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] висит слайм!"))
+		occupant_message(span_warning("[target] не поместится в клетку, пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] висит слайм!"))
 		return FALSE
 	if(prisoner)
 		occupant_message(span_warning("Клетка уже занята!"))

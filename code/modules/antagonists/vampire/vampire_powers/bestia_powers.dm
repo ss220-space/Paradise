@@ -379,11 +379,11 @@
 				to_chat(user, span_notice("Эта жертва вам подойдёт. Стойте неподвижно..."))
 
 			if(2)
-				user.visible_message(span_warning("[user] выпуска[PLUR_ET_UT(user)] когти из пальцев!"), \
+				user.visible_message(span_warning("[user] выпускает когти из пальцев!"), \
 									span_notice("Вы вытягиваете из пальцев когти."))
 
 			if(3)
-				user.visible_message(span_danger("[user] пронза[PLUR_ET_UT(user)] когтями [target]!"), \
+				user.visible_message(span_danger("[user] пронзает когтями [target]!"), \
 									span_notice("Вы пронзаете [target] когтями и начинаете процесс вскрытия..."))
 				to_chat(target, span_danger("Вы чувствуете острую колющую боль!"))
 				target.take_overall_damage(30)
@@ -453,7 +453,7 @@
 	if(msg)
 		to_chat(user, span_warning("Мы достигли максимально возможного количества <b>[msg]</b> для сбора!"))
 
-	user.visible_message(span_danger("[user] вырыва[pluralize_ru(user, "ет", "ют")] [organ_name] из тела [target]!"),
+	user.visible_message(span_danger("[user] вырывает [organ_name] из тела [target]!"),
 						span_notice("Вы вырываете <b>[organ_name]</b> из тела [target]."))
 	add_attack_logs(user, target, "Vampire removed [organ_name]. Skill: [src]")
 
@@ -764,7 +764,7 @@
 	user.buckled?.unbuckle_mob(user, TRUE)
 	user.pulledby?.stop_pulling()
 
-	user.visible_message(span_danger("[user] начина[PLUR_ET_UT(user)] двигаться с неестественной скоростью!"), \
+	user.visible_message(span_danger("[user] начинает двигаться с неестественной скоростью!"), \
 						span_notice("Вы бросаетесь в сторону..."))
 
 	var/leap_range = targeting.range
@@ -1030,7 +1030,7 @@
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/simple_animal/hostile/vampire/vampire_animal = new meta_path(user.loc, vampire, user, src)
 
-	user.visible_message(span_warning("Форма [user] становится размытой, прежде чем [GEND_HE_SHE(user)] принима[PLUR_ET_UT(user)] форму [vampire_animal]!"), \
+	user.visible_message(span_warning("Форма [user] становится размытой, прежде чем [GEND_HE_SHE(user)] принимает форму [vampire_animal]!"), \
 						span_notice("Вы начинаете превращаться в [vampire_animal]."), \
 						span_italics("Вы слышите жуткий шум множества крыльев..."))
 
@@ -1066,7 +1066,7 @@
 		update_vampire_spell_name()
 
 	var/self_message = death_provoked ? span_userdanger("В таком состоянии вы не сможете поддерживать форму, она начнёт рассыпаться!") : span_notice("Вы начинаете превращаться обратно в первоначальную форму.")
-	user.visible_message(span_warning("Форма [user] становится нечёткой, прежде чем [GEND_HE_SHE(user)] прим[PLUR_ET_YT(user)] первоначальный облик!"), self_message, span_italics("Вы слышите жуткий шум множества крыльев..."))
+	user.visible_message(span_warning("Форма [user] становится нечёткой, прежде чем [GEND_HE_SHE(user)] примет первоначальный облик!"), self_message, span_italics("Вы слышите жуткий шум множества крыльев..."))
 
 	user.set_density(FALSE)
 	original_body.dir = SOUTH
@@ -1161,7 +1161,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/bat_screech/cast(list/targets, mob/living/user = usr)
 
-	user.visible_message(span_warning("[user] изда[PLUR_YOT_UT(user)] душераздирающий вопль!"), \
+	user.visible_message(span_warning("[user] издаёт душераздирающий вопль!"), \
 						span_notice("Вы громко кричите."), \
 						span_italics("Вы слышите мучительно громкий визг!"))
 
@@ -1347,7 +1347,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/anabiosis/cast(list/targets, mob/living/user = usr)
-	user.visible_message(span_warning("Вы видите, как [user] начина[PLUR_ET_UT(user)] левитировать!"), \
+	user.visible_message(span_warning("Вы видите, как [user] начинает левитировать!"), \
 						span_notice("Блюспейс сущность внутри вас начинает подготовку к ритуалу, заставляя вас левитировать..."))
 
 	var/turf/user_turf = get_turf(user)
@@ -1391,7 +1391,7 @@
 
 	user.set_stat(UNCONSCIOUS)
 	user.visible_message(
-		span_warning("Внезапно [user] пада[PLUR_ET_UT(user)] прямо в гроб, и он закрывается!"),
+		span_warning("Внезапно [user] падает прямо в гроб, и он закрывается!"),
 		span_notice("Блюспейс сущность бросает вас в гроб и запечатывает его. Процесс регенерации начался..."),
 	)
 
@@ -1563,7 +1563,7 @@
 
 	new /obj/effect/temp_visual/cult/sparks(source_turf)
 	playsound(loc, 'sound/effects/creepyshriek.ogg', 100, TRUE)
-	human_vampire.visible_message(span_danger("[human_vampire] выход[PLUR_IT_YAT(human_vampire)] из разрушенного гроба и изда[PLUR_YOT_UT(human_vampire)] оглушительный вопль!"), \
+	human_vampire.visible_message(span_danger("[human_vampire] выходит из разрушенного гроба и издаёт оглушительный вопль!"), \
 								span_userdanger("Ваш гроб разрушен, и вы кричите в неистовой ярости!"), \
 								span_italics("Вы слышите чрезвычайно громкий визг!"))
 
@@ -1804,7 +1804,7 @@
 		new /obj/effect/temp_visual/cult/sparks(get_turf(user))
 		user.Weaken(10 SECONDS)	// well, you were warned!
 		user.Jitter(20 SECONDS)
-		user.visible_message(span_warning("Как только [user] прикаса[PLUR_ET_UT(user)]ся к [declent_ru(DATIVE)], [GEND_HIS_HER(user)] тело начнет биться в конвульсиях."), \
+		user.visible_message(span_warning("Как только [user] прикасается к [declent_ru(DATIVE)], [GEND_HIS_HER(user)] тело начнет биться в конвульсиях."), \
 							span_userdanger("Внутри вас что-то сжимается, и вы начинаете биться в конвульсиях!"))
 
 		if(!HAS_TRAIT(user, TRAIT_NO_BLOOD))
@@ -2319,10 +2319,11 @@
 	step(src, direction)
 	step(user, GetOppositeDir(direction))
 
-	visible_message(span_notice("[user] поменял[pluralize_ru(user.gender, "ся", "ись")] местами с [src]."), \
-					span_notice("[user] поменял[pluralize_ru(user.gender, "ся", "ись")] с вами местами."))
+	visible_message(
+		span_notice("[user] поменялся местами с [src]."),
+		span_notice("[user] поменялся с вами местами.")
+	)
 	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-
 
 #undef MAX_TROPHIES_PER_TYPE_GENERAL
 #undef MAX_TROPHIES_PER_TYPE_CRITICAL
@@ -2339,4 +2340,3 @@
 #undef TROPHIES_EYES_XRAY
 #undef TROPHIES_EARS_BANG_PROT
 #undef TROPHIES_SUCK_BONUS
-

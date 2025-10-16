@@ -160,14 +160,14 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не поместится в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return TRUE
 	. = TRUE
 	if(put_mob(L))
 		if(L == user)
-			visible_message("[user] начинает[PLUR_ET_UT(user)] залезать в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начинаетет залезать в [declent_ru(ACCUSATIVE)].")
 		else
-			visible_message("[user] начина[PLUR_ET_UT(user)] укладывать [L] в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начинает укладывать [L] в [declent_ru(ACCUSATIVE)].")
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
@@ -332,7 +332,7 @@
 			return ..()
 		beaker = glass
 		add_attack_logs(user, null, "Added [glass] containing [glass.reagents.log_list()] to a cryo cell at [COORD(src)]")
-		visible_message(span_notice("[user] вставля[PLUR_ET_UT(user)] [glass] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставляет [glass] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -351,7 +351,7 @@
 		balloon_alert(grabber, "внутри кто-то есть!")
 		return .
 	if(grabbed_thing.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[grabbed_thing] не помест[PLUR_IT_YAT(grabbed_thing)]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(grabbed_thing.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[grabbed_thing] не поместится в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(grabbed_thing.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
 	if(put_mob(grabbed_thing))
 		return
@@ -489,9 +489,9 @@
 
 	add_fingerprint(usr)
 	if(M == usr)
-		visible_message("[usr] начина[PLUR_ET_UT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[usr] начинает залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[usr] начина[PLUR_ET_UT(usr)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[usr] начинает укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(usr, 2 SECONDS, M))
 		return
