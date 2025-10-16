@@ -1,6 +1,6 @@
 /**
-	*Rep Purchase - Contractor partner
-*/
+ * Rep Purchase - Contractor partner
+ */
 /datum/rep_purchase/item/contractor_partner
 	name = "Вызов напарника"
 	description = "Устройство, позволяющее связаться с ближайшими отделениями Синдиката в вашем секторе. \
@@ -10,8 +10,6 @@
 	cost = 2
 	item_type = /obj/item/antag_spawner/contractor_partner
 	refundable = TRUE
-
-
 
 /obj/item/antag_spawner/contractor_partner
 	name = "Устройство связи с Контрактником"
@@ -74,19 +72,19 @@
 	partner.ckey = key
 	partner_mind = partner.mind
 	partner_mind.make_contractor_support()
-	to_chat(partner_mind.current, span_warning(span_fontsize4("[user.real_name] - Ваш начальник. Выполняйте любые приказы, отданные [genderize_ru(user.gender, "им", "ею", "им", "ими")]. Вы здесь только для того, чтобы помочь [GEND_HIM_HER(user)] с выполнением задач.")))
+	to_chat(partner_mind.current, span_warning(span_fontsize4("[user.real_name] — Ваш начальник. Выполняйте любые приказы, отданные [GEND_ENDING_IM_EI_IM_IMI(user)]. Вы здесь только для того, чтобы помочь [GEND_HIM_HER(user)] с выполнением задач.")))
 	to_chat(partner_mind.current, span_warning("Если [GEND_HE_SHE(user)] погибнет или будет недоступен по другим причинам, вы должны помогать другим агентам в меру своих возможностей."))
 
 	var/datum/objective/protect/contractor/CT = new
 	CT.owner = partner.mind
 	CT.target = user.mind
-	CT.explanation_text = "[user.real_name] - Ваш начальник. [GEND_HIS_HER_CAP(user)] приказы являются первоочередными."
+	CT.explanation_text = "[user.real_name] — Ваш начальник. [GEND_HIS_HER_CAP(user)] приказы являются первоочередными."
 	partner.mind.objectives += CT
 	partner.change_voice()
 
 /obj/item/antag_spawner/contractor_partner/check_uplink_validity()
 	if(checking)
-		to_chat(src.loc, span_notice("Пытаться вернуть деньги за подержанное устройство — довольно глупая затея."))
+		to_chat(loc, span_notice("Пытаться вернуть деньги за подержанное устройство — довольно глупая затея."))
 		return FALSE
 	return TRUE
 
@@ -94,4 +92,3 @@
 	if(has_antag_datum(/datum/antagonist/contractor_support))
 		return
 	add_antag_datum(/datum/antagonist/contractor_support)
-

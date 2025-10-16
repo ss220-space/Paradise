@@ -193,5 +193,5 @@
 /mob/living/basic/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выглядит мёртв[genderize_ru(user.gender,"ым","ой","ым","ыми")].")
+		. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выглядит мёртв[GEND_ENDING_YM_OI_YM_YMI(user)].")
 		return

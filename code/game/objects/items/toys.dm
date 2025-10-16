@@ -1416,10 +1416,10 @@
 	return
 
 /obj/item/toy/plushie/pig/attack_self(mob/user)
-	oink(user, "сжал[genderize_ru(user.gender,"","а","о","и")]")
+	oink(user, "сжал[GEND_ENDING_A_O_I(user)]")
 
 /obj/item/toy/plushie/pig/attack_hand(mob/user)
-	oink(user, pick("сжал[genderize_ru(user.gender,"","а","о","и")]", "раздавил[genderize_ru(user.gender,"","а","о","и")]", "ущипнул[genderize_ru(user.gender,"","а","о","и")]"))
+	oink(user, pick("сжал[GEND_ENDING_A_O_I(user)]", "раздавил[GEND_ENDING_A_O_I(user)]", "ущипнул[GEND_ENDING_A_O_I(user)]"))
 
 /obj/item/toy/plushie/pig/Initialize(mapload)
 	. = ..()
@@ -2064,7 +2064,7 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += span_notice("В запасе ещё [fake_bullets] патрон[declension_ru(fake_bullets, "", "а", "ов")].")
+	. += span_notice("В запасе ещё [fake_bullets] патрон[DECL_CREDIT(fake_bullets)].")
 	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)

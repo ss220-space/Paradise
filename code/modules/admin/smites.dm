@@ -276,7 +276,7 @@
 
 	ADD_TRAIT(clothing, TRAIT_NODROP, ADMIN_TRAIT)
 	target.equip_to_slot_or_del(clothing, slot)
-	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возникш[genderize_ru(clothing.gender, "ий", "ая", "ее", "ие")] из пустоты прилипает к вам. Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возникш[GEND_ENDING_YI_AYA_OE_YE(clothing)] из пустоты прилипает к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
 
 
@@ -433,7 +433,7 @@
 /datum/smite/global_hunting/activate(mob/living/target, reason)
 	var/bounty = tgui_input_number(usr, "Выберите денежное вознаграждение поделённое между исполнителями приговора.", "Выбор вознаграждения", 5000, INFINITY, 0)
 	GLOB.major_announcement.announce(
-		message = "[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[declension_ru(bounty, "", "а", "ов")].",
+		message = "[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[DECL_CREDIT(bounty)].",
 		new_title = ANNOUNCE_CCKILL_RU,
 		new_sound = 'sound/AI/commandreport.ogg'
 	)

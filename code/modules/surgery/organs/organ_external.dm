@@ -236,7 +236,7 @@
 	if(is_robotic() && sabotaged && !special)
 		organ_owner.visible_message(
 			span_danger("[capitalize(declent_ru(NOMINATIVE))] [organ_owner] взрывается!"),
-			span_danger("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] взрывается!"),
+			span_danger("Ваш[GEND_ENDING_A_O_I(src)] [declent_ru(NOMINATIVE)] взрывается!"),
 			span_danger("Вы слышите взрыв!"),
 		)
 		explosion(get_turf(organ_owner), devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, cause = "Organ Sabotage")
@@ -725,14 +725,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 					var/gore_sound = "[is_robotic() ? "скрежета металла" : "разрывающейся на куски плоти"]"
 					owner.visible_message(
 						span_danger("[capitalize(declent_ru(NOMINATIVE))] [owner] отрывается!"),
-						span_userdanger("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] отрывается!"),
+						span_userdanger("Ваш[GEND_ENDING_A_O_I(src)] [declent_ru(NOMINATIVE)] отрывается!"),
 						span_italics("Вы слышите звук [gore_sound]!"),
 					)
 			if(DROPLIMB_BURN)
 				var/gore_sound = "[is_robotic() ? "бульканья расплавленного металла" : "шипения горящей плоти"]"
 				owner.visible_message(
 					span_danger("[capitalize(declent_ru(NOMINATIVE))] [owner] испепеляется!"),
-					span_userdanger("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] испепеляется!"),
+					span_userdanger("Ваш[GEND_ENDING_A_O_I(src)] [declent_ru(NOMINATIVE)] испепеляется!"),
 					span_italics("Вы слышите звук [gore_sound]!"),
 				)
 			if(DROPLIMB_BLUNT)
@@ -740,7 +740,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				var/gore_sound = "[is_robotic() ? "разламывающегося металла" : "отрываемой плоти"]"
 				owner.visible_message(
 					span_danger("[capitalize(declent_ru(NOMINATIVE))] [owner] отрывается, оставляя после себя [gore]!"),
-					span_userdanger("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] отрывается, оставляя после себя [gore]!"),
+					span_userdanger("Ваш[GEND_ENDING_A_O_I(src)] [declent_ru(NOMINATIVE)] отрывается, оставляя после себя [gore]!"),
 					span_italics("Вы слышите звук [gore_sound]!")
 				)
 
@@ -957,7 +957,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	if(owner && !silent)
-		owner.custom_pain("Вы чувствуете, как что-то разорвалось внутри ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)]!")
+		owner.custom_pain("Вы чувствуете, как что-то разорвалось внутри [declent_ru(GENITIVE)]!")
 
 	return TRUE
 
@@ -990,7 +990,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	if(owner && !silent)
-		owner.custom_pain("Вы чувствуете, как что-то сломалось внутри ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)]!")
+		owner.custom_pain("Вы чувствуете, как что-то сломалось внутри [declent_ru(GENITIVE)]!")
 		owner.visible_message(
 			span_warning("Вы слышите громкий хруст, исходящий от [owner]."),
 			null,
@@ -1063,13 +1063,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 				owner.visible_message(
 					span_danger("Шина спадает с [declent_ru(GENITIVE)] [owner], заставляя [GEND_HIS_HER(owner)] кричать от боли!"),
-					span_userdanger("Шина спадает с ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)], заставляя вас кричать от боли!"),
+					span_userdanger("Шина спадает с [declent_ru(GENITIVE)], заставляя вас кричать от боли!"),
 					span_italics("Вы слышите глухой звук падения чего-то, сопровождающийся громким криком!")
 				)
 			else if(!silent)
 				owner.visible_message(
 					span_danger("Шина на [declent_ru(PREPOSITIONAL)] [owner] распутывается и спадает!"),
-					span_userdanger("Шина на ваш[genderize_ru(gender, "ем", "ей", "ем", "их")] [declent_ru(PREPOSITIONAL)] распутывается и спадает!"),
+					span_userdanger("Шина на ваш[GEND_ENDING_EM_EI_EM_IH(src)] [declent_ru(PREPOSITIONAL)] распутывается и спадает!"),
 				)
 
 	return TRUE
@@ -1123,7 +1123,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		owner.update_body()
 		if(!silent)
-			to_chat(owner, span_danger("Вы перестаёте чувствовать ваш[genderize_ru(gender, "", "у", "е", "и")] [declent_ru(ACCUSATIVE)]!"))
+			to_chat(owner, span_danger("Вы перестаёте чувствовать [declent_ru(ACCUSATIVE)]!"))
 		if(vital)
 			owner.death()
 
@@ -1149,7 +1149,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly render the deformed sprite.
 		if(!silent)
-			to_chat(owner, span_warning("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] ощущается неествественным и чужеродным."))
+			to_chat(owner, span_warning("Ваш[GEND_ENDING_A_O_I(src)] [declent_ru(NOMINATIVE)] ощущается неествественным и чужеродным."))
 
 
 /obj/item/organ/external/proc/unmutate(silent = FALSE)
@@ -1162,7 +1162,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly return them to normal.
 		if(!silent)
-			to_chat(owner, span_warning("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] приходит в норму, а чувство неествественности уходит."))
+			to_chat(owner, span_warning("Ваш[GEND_ENDING_A_O_I(src)] [declent_ru(NOMINATIVE)] приходит в норму, а чувство неествественности уходит."))
 
 
 /obj/item/organ/external/proc/is_mutated()
@@ -1200,7 +1200,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(!silent)
 			owner.visible_message(
 				span_warning("[capitalize(declent_ru(NOMINATIVE))] [owner] превращается в кровавую кашу, издавая тошнотворный звук!"),
-				span_userdanger("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] превращается в кровавую кашу!"),
+				span_userdanger("Ваш[GEND_ENDING_A_O_I(src)] [declent_ru(NOMINATIVE)] превращается в кровавую кашу!"),
 				span_italics("Вы слышите тошнотворный звук.")
 			)
 

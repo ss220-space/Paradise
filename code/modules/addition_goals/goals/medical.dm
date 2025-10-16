@@ -32,7 +32,7 @@
 		if(AGS_DIFFICULTY_HARD)
 			name = "Запрос большой медицинской помощи №[request_number]"
 			patiens_count = rand(8, 10)
-	description = "[name]. На станцию прибудет шаттл с [patiens_count] [declension_ru(patiens_count, "пациентом", "пациентами", "пациентами")] для проведения медицинских услуг."
+	description = "[name]. На станцию прибудет шаттл с [patiens_count] пациент[declension_ru(patiens_count, "ом", "ами", "ами")] для проведения медицинских услуг."
 
 /datum/addition_goal/medical_patients/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	spawner = new /obj/effect/mob_spawn/human/addition_goal/medical_patients(shuttle_turfs[1])

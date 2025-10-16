@@ -968,7 +968,7 @@
 		self = 1
 	if(!self)
 		usr.visible_message(
-			span_notice("[usr] склоняется над [declent_ru(INSTRUMENTAL)], нащупывает у [genderize_ru(gender, "него", "неё", "него", "них")] артерию и замирает, будто бы что-то считая."),
+			span_notice("[usr] склоняется над [declent_ru(INSTRUMENTAL)], нащупывает у н[GEND_HIS_HER(src)] артерию и замирает, будто бы что-то считая."),
 			ignored_mobs = usr
 		)
 		balloon_alert(usr, "обнаружение пульса...")

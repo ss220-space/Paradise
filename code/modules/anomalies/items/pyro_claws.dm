@@ -78,7 +78,7 @@
 		if(!do_after(user, 2.5 SECONDS, airlock))
 			return
 
-	user.visible_message(span_warning("[user] силой открыл[genderize_ru(user.gender, "", "а", "о", "и")] шлюз при помощи [declent_ru(GENITIVE)]!"), \
+	user.visible_message(span_warning("[user] силой открыл[GEND_ENDING_A_O_I(user)] шлюз при помощи [declent_ru(GENITIVE)]!"), \
 						span_warning("Вы силой открыли шлюз."), \
 						span_warning("Вы слышите металлический скрежет."))
 	airlock.open(2)

@@ -111,11 +111,11 @@
 				to_chat(usr, span_notice("Сканируемый: [M]"))
 				to_chat(usr, span_notice("UE код: [dna.unique_enzymes]"))
 				if(dna.unique_enzymes == pai_holder.master_dna)
-					to_chat(usr, span_notice("<font color=green>ДНК совпадает с записанным ДНК мастера.</font>"))
+					to_chat(usr, span_notice("ДНК совпадает с записанным ДНК мастера."))
 				else
 					to_chat(usr, span_warning("ДНК не совпадает с записанным ДНК мастера!"))
 			else
-				to_chat(usr, span_warning("[M] отказа[genderize_ru(M.gender,"лся","лась","лось","лись" )] предоставлять вам образец ДНК."))
+				to_chat(usr, span_warning("[M] отказал[GEND_ENDING_SYA_AS_OS_IS(M)] предоставлять вам образец ДНК."))
 
 
 // Crew Manifest //

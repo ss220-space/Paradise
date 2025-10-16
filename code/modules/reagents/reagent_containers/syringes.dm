@@ -91,8 +91,8 @@
 						return
 				busy = FALSE
 				if(L.transfer_blood_to(src, drawn_amount))
-					L.visible_message(span_danger("[user] взял[genderize_ru(user.gender, "", "а", "о", "и")] образец крови у [L]!"), \
-										span_userdanger("[user] взял[genderize_ru(user.gender, "", "а", "о", "и")] у вас образец крови!"))
+					L.visible_message(span_danger("[user] взял[GEND_ENDING_A_O_I(user)] образец крови у [L]!"), \
+										span_userdanger("[user] взял[GEND_ENDING_A_O_I(user)] у вас образец крови!"))
 				else
 					balloon_alert(user, "больше крови не взять!")
 

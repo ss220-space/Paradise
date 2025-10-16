@@ -78,7 +78,7 @@
 			bro.cell.use(chargeAmount)
 			to_chat(user, span_notice("Синтез <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества..."))
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
-			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] снова пол[genderize_ru(gender, "он", "на", "но", "ны")].")), 30 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("[capitalize(declent_ru(NOMINATIVE))] снова пол[GEND_ENDING_YI_AYA_OE_YE(src)].")), 30 SECONDS)
 		else
 			reagents.add_reagent_list(ids_data)
 	else

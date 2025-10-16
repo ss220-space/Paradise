@@ -42,7 +42,7 @@ effective or pretty fucking useless.
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
-	. += span_notice("У [declent_ru(GENITIVE)] осталось [charges] заряд[declension_ru(charges, "", "а", "ов")].")
+	. += span_notice("У [declent_ru(GENITIVE)] осталось [charges] заряд[DECL_CREDIT(charges)].")
 
 
 /obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
@@ -65,7 +65,7 @@ effective or pretty fucking useless.
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, TRUE)
 	charges--
-	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[declension_ru(charges, "", "а", "ов")]."))
+	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[DECL_CREDIT(charges)]."))
 	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
 
 

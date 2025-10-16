@@ -170,7 +170,7 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] разместил[genderize_ru(user.gender, "", "а", "о", "и")] электроды дефибриллятора на груди [target.name]."),
+		span_notice("[user] разместил[GEND_ENDING_A_O_I(user)] электроды дефибриллятора на груди [target.name]."),
 		span_notice("Вы разместили электроды дефибриллятора на груди [target.name]."),
 	)
 	playsound(get_turf(defib_ref), 'sound/machines/defib_charge.ogg', 50, FALSE)
@@ -302,8 +302,8 @@
 		return
 	busy = TRUE
 	target.visible_message(
-		span_danger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] [target.name] электродами боевого дефибриллятора!"),
-		span_userdanger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] вас электродами боевого дефибриллятора!"),
+		span_danger("[user] коснул[GEND_ENDING_SYA_AS_OS_IS(user)] [target.name] электродами боевого дефибриллятора!"),
+		span_userdanger("[user] коснул[GEND_ENDING_SYA_AS_OS_IS(user)] вас электродами боевого дефибриллятора!"),
 	)
 	if(ignore_hardsuits)
 		target.apply_damage(70, STAMINA)

@@ -311,7 +311,7 @@
 	if(flag)
 		if(user.zone_selected == "mouth")
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message(span_danger("[user] сдул[genderize_ru(user.gender,"","а","о","и")] дым с дула [declent_ru(GENITIVE )]. Как же [genderize_ru(user.gender,"он хорош","она хороша","оно хорошо","они хороши")]!"))
+				user.visible_message(span_danger("[user] сдул[GEND_ENDING_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_ENDING_A_O_I(user)]!"))
 			else
 				handle_suicide(user, target, params)
 			return

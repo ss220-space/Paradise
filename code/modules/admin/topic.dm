@@ -314,7 +314,7 @@
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.announce(
-			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")]."
+			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] минут[DECL_SEC_MIN(time_to_destination)]."
 		)
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
 		href_list["check_antagonist"] = TRUE

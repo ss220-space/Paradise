@@ -432,7 +432,7 @@
 		user.balloon_alert(user, "органы в норме!")
 		return SURGERY_BEGINSTEP_SKIP
 
-	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+	target.custom_pain("Боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
 
 
@@ -499,7 +499,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	if(affected)
-		target.custom_pain("Кто-то копается в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)]!")
+		target.custom_pain("Кто-то копается в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

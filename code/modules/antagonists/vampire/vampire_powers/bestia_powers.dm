@@ -379,12 +379,16 @@
 				to_chat(user, span_notice("Эта жертва вам подойдёт. Стойте неподвижно..."))
 
 			if(2)
-				user.visible_message(span_warning("[user] выпускает когти из пальцев!"), \
-									span_notice("Вы вытягиваете из пальцев когти."))
+				user.visible_message(
+					span_warning("[user] выпускает когти из пальцев!"),
+					span_notice("Вы вытягиваете из пальцев когти.")
+				)
 
 			if(3)
-				user.visible_message(span_danger("[user] пронзает когтями [target]!"), \
-									span_notice("Вы пронзаете [target] когтями и начинаете процесс вскрытия..."))
+				user.visible_message(
+					span_danger("[user] пронзает когтями [target]!"), \
+					span_notice("Вы пронзаете [target] когтями и начинаете процесс вскрытия...")
+				)
 				to_chat(target, span_danger("Вы чувствуете острую колющую боль!"))
 				target.take_overall_damage(30)
 				add_attack_logs(user, target, "Vampire dissection. BRUTE: 30. Skill: [src]")
@@ -401,7 +405,7 @@
 		return
 
 	if(target.stat == DEAD)	// grip was too strong mr. vampire
-		to_chat(user, span_warning("[target] [genderize_ru(target, "мёртв", "мертва", "мертво", "мертвы")] и больше не [genderize_ru(target, "пригоден", "пригодна", "пригодно", "пригодны")] для вскрытия."))
+		to_chat(user, span_warning("[target] мертв[GEND_ENDING_A_O_Y(target)] и больше не пригод[GEND_ENDING_EN_NA_NO_NY(target)] для вскрытия."))
 		return
 
 	var/datum/spell_handler/vampire/handler = custom_handler

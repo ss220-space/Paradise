@@ -169,7 +169,7 @@
 /datum/status_effect/high_five/handshake/get_missed_message()
 	var/list/missed_messages = list(
 		"стыдливо опускает руку.",
-		"хватает свою протянутую руку другой рукой и пожимает её, будто здоровается сам[genderize_ru(owner.gender, "", "а", "о", "и")] с собой.",
+		"хватает свою протянутую руку другой рукой и пожимает её, будто здоровается сам[GEND_ENDING_A_O_I(owner)] с собой.",
 		"сжимает руку в кулак, медленно убирая её."
 	)
 	return pick(missed_messages)

@@ -198,7 +198,7 @@
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, TRUE)
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		user.visible_message(
-			span_notice("[user] [cistern ? "поставил[genderize_ru(user.gender, "", "а", "о", "и")] крышку на место" : "снял крышку с бачка"]!"),
+			span_notice("[user] [cistern ? "поставил[GEND_ENDING_A_O_I(user)] крышку на место" : "снял крышку с бачка"]!"),
 			span_notice("Вы [cistern ? "поставили крышку на место" : "сняли крышку с бачка"]!"),
 			span_italics("Вы слышите скрип фарфора.")
 		)
@@ -661,7 +661,7 @@
 	busy = 0
 
 	user.visible_message(
-		span_notice("[user] помыл[genderize_ru(user.gender, "", "а", "о", "и")] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] помыл[GEND_ENDING_A_O_I(user)] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы помыли [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)].")
 	)
 
@@ -835,7 +835,7 @@
 			return ATTACK_CHAIN_PROCEED
 		I.play_tool_sound(src, 100)
 		user.visible_message(
-			span_notice("[user] закопал[genderize_ru(user.gender,"","а","о","и")] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] закопал[GEND_ENDING_A_O_I(user)] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
 			span_notice("Вы закопали [declent_ru(ACCUSATIVE)]."),
 		)
 		qdel(src)

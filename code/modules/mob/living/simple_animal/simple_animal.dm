@@ -229,10 +229,10 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выглядит мёртв[genderize_ru(user.gender,"ым","ой","ым","ыми")].")
+		. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выглядит мёртв[GEND_ENDING_YM_OI_YM_YMI(user)].")
 		return
 	if(IsSleeping())
-		. += span_notice("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выглядит спящ[genderize_ru(user.gender,"им","ей","им","ими")].")
+		. += span_notice("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выглядит спящ[GEND_ENDING_IM_EI_IM_IMI(user)].")
 
 
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)

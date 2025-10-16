@@ -97,10 +97,10 @@
 			for(var/res in results)
 				if(res in winning_options)
 					// Make it stand out
-					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
 				else
 					// Make it normal
-					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
 
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)

@@ -370,7 +370,7 @@
 
 /obj/item/ammo_box/update_desc(updates = ALL)
 	. = ..()
-	desc = "[initial(desc)] В ней осталось [length(stored_ammo)] патрон[declension_ru(length(stored_ammo), "", "а", "ов")] из [max_ammo] возможных!"
+	desc = "[initial(desc)] В ней осталось [length(stored_ammo)] патрон[DECL_CREDIT(length(stored_ammo))] из [max_ammo] возможных!"
 
 
 /obj/item/ammo_box/update_icon_state()

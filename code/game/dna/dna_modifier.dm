@@ -173,11 +173,10 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не поместится в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не поместится в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return TRUE
 	put_in(L, user)
 	return TRUE
-
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -217,7 +216,7 @@
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не поместится в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[target] не поместится в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
 	put_in(target, grabber)
 	add_fingerprint(grabber)
@@ -261,7 +260,7 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не поместится в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не поместится в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return
 
 	M.forceMove(src)

@@ -172,7 +172,7 @@
 		return ..()
 
 	user.visible_message(span_suicide("[user] разрезает свою руку и подключает систему автозаправки к \
-									кровеносной системе! Выглядит будто он[genderize_ru(gender, "", "а", "о", "и")] \
+									кровеносной системе! Выглядит будто [GEND_HE_SHE(src)] \
 									пытается убить себя!"))
 	ready_reagents.reagents.trans_to(user, ready_reagents.reagents.total_volume)
 	user.bleed(user.blood_volume)

@@ -63,7 +63,7 @@
 		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, span_notice("Вы начинаете встряхивать [declent_ru(ACCUSATIVE)]."))
 		if(do_after(H, 1 SECONDS, H))
-			visible_message(span_warning("[user] встряхнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_warning("[user] встряхнул[GEND_ENDING_A_O_I(user)] [declent_ru(ACCUSATIVE)]!"))
 			if(times_shaken == 0)
 				times_shaken++
 				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)

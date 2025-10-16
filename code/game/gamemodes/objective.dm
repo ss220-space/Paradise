@@ -1362,7 +1362,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			target = "diamond"
 			target_amount = 20
 
-	explanation_text = "Разграбьте или поторгуйтесь со станцией, заполучите [target] в количестве [target_amount] [declension_ru(target_amount, "штуки", "штук", "штук")] и сбегите отсюда."
+	explanation_text = "Разграбьте или поторгуйтесь со станцией, заполучите [target] в количестве [target_amount] штук[declension_ru(target_amount, "и", "", "")] и сбегите отсюда."
 
 /datum/objective/heist/salvage/check_completion()
 	var/total_amount = 0
@@ -1587,8 +1587,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	target = safepick(possible_targets)
 
 	if(target?.current)
-		explanation_text = "На [target.current.real_name], [target.assigned_role] ведут охоту. [target.current.real_name] [genderize_ru(target.current.gender, "должен", "должна", "должно", "должны")] любой ценой \
-							дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы [genderize_ru(target.current.gender, "он остался жив", "она осталась жива", "оно осталось живо", "они остались живы")]."
+		explanation_text = "На [target.current.real_name], [target.assigned_role] ведут охоту. [target.current.real_name] долж[GEND_ENDING_EN_NA_NO_NY(target.current)] любой ценой \
+							дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы [GEND_HE_SHE(target.current)] остал[GEND_ENDING_SYA_AS_OS_IS(target.current)] жив[GEND_ENDING_A_O_I(target.current)]."
 	else
 		explanation_text = "Свободная цель"
 
@@ -1616,7 +1616,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(istype(killer_objective, /datum/objective/assassinate))
 			killer_objective.explanation_text = "Убить [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
 		else if(istype(killer_objective, /datum/objective/maroon))
-			killer_objective.explanation_text = "Не дать сбежать [genderize_ru(killer_objective.target.current.gender, "живым или свободным", "живой или свободной", "живым или свободным", "живыми или свободными")] [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
+			killer_objective.explanation_text = "Не дать сбежать жив[GEND_ENDING_YM_OI_YM_YMI(killer_objective.target.current)] или свободн[GEND_ENDING_YM_OI_YM_YMI(killer_objective.target.current)] [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
 
 		for(var/datum/mind/killer in killer_objective.get_owners())
 			killer.prepare_announce_objectives()

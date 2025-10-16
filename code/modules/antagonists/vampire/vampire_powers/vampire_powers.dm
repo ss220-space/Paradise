@@ -486,7 +486,7 @@
 	if(!istype(M) || !istype(H))
 		return
 	if(!H.mind)
-		visible_message("Похоже, [H] слишком глуп[genderize_ru(H.gender, "", "а", "о", "ы")], чтобы понять, что происходит.")
+		visible_message("Похоже, [H] слишком глуп[GEND_ENDING_A_O_Y(H)], чтобы понять, что происходит.")
 		return
 	if(HAS_TRAIT(H, TRAIT_NO_BLOOD) || HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD) || !H.blood_volume)
 		visible_message("[H] выглядит невозмутимым!")
@@ -505,7 +505,7 @@
 			visible_message(span_warning("[H], похоже, испытывает боль!"))
 			H.apply_damage(60, BRAIN)
 		else
-			visible_message(span_warning("Похоже, что [H] ошеломлен[genderize_ru(H.gender, "", "а", "о", "ы")] энергией!"))
+			visible_message(span_warning("Похоже, что [H] ошеломлен[GEND_ENDING_A_O_Y(H)] энергией!"))
 			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)

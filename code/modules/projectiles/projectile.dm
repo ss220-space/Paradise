@@ -228,9 +228,9 @@
 				var/volume = vol_by_damage()
 				playsound(loc, hitsound, volume, TRUE, -1)
 			var/hit_text = pick("получает попадание",
-								"ранен[genderize_ru(L.gender,"","а","о","ы")]",
+								"ранен[GEND_ENDING_A_O_Y(L)]",
 								"получает ранение",
-								"поражён[genderize_ru(L.gender,"","а","о","ы")]",
+								"поражён[GEND_ENDING_A_O_Y(L)]",
 								"прошибает")
 			L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] [hit_text] [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
 								span_userdanger("В вас попали [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"),

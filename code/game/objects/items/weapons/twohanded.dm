@@ -965,7 +965,7 @@
 	target.Stun(4 SECONDS)
 	do_sparks(5, TRUE, target.loc)
 	target.visible_message(
-		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[genderize_ru(target.gender,"", "а", "о", "ы")] разрядом [declent_ru(GENITIVE)]!"),
+		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[GEND_ENDING_A_O_Y(target)] разрядом [declent_ru(GENITIVE)]!"),
 		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
 		span_italics("Раздаётся оглушительный электрический треск!")
 	)
@@ -1044,7 +1044,7 @@
 			var/mob/living/Z = A
 			if(Z.health >= 1)
 				Z.visible_message(
-					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[genderize_ru(Z.gender,"", "а", "о", "ы")] сокрушительным ударом [declent_ru(GENITIVE)]!"),
+					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[GEND_ENDING_A_O_Y(Z)] сокрушительным ударом [declent_ru(GENITIVE)]!"),
 					span_userdanger("Мощный удар разрывает ваше тело и отшвыривает вас!"),
 					span_danger("Слышен глухой удар и хлюпающий звук разрыва плоти!")
 				)

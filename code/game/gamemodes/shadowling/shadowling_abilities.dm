@@ -363,7 +363,7 @@
 
 	enthralling = FALSE
 	to_chat(user, span_shadowling("Вы подчинили себе <b>[target]</b>!"))
-	target.visible_message(span_big("[target], похоже, испытал[genderize_ru(target.gender,"","а","о","и")] откровение!"), \
+	target.visible_message(span_big("[target], похоже, испытал[GEND_ENDING_A_O_I(target)] откровение!"), \
 							span_warning("Фальшивые лица все <b>ТЁМНЫЕ не настоящие, не настоящие, не настоящие</b>!!!"))
 	target.setOxyLoss(0) //In case the shadowling was choking them out
 	SSticker.mode.add_thrall(target.mind)
@@ -767,7 +767,7 @@
 			span_danger("[user] кладет свои руки, из под которых светится красный свет, на лицо [thrall]."), \
 			span_shadowling("Вы кладете ладони на лицо [thrall] и начинаете наполнять [GEND_HIS_HER(thrall)] энергией...")
 		)
-		to_chat(thrall, span_userdanger("[user] положил[genderize_ru(user.gender,"","а","о","и")] свои ладони на ваше лицо. Вы чувствуете, как в вас собирается энергия. Стойте спокойно..."))
+		to_chat(thrall, span_userdanger("[user] положил[GEND_ENDING_A_O_I(user)] свои ладони на ваше лицо. Вы чувствуете, как в вас собирается энергия. Стойте спокойно..."))
 		if(!do_after(user, 8 SECONDS, thrall, NONE))
 			to_chat(user, span_warning("Ваша концентрация нарушается. Поток энергии ослабевает."))
 			revert_cast(user)

@@ -213,7 +213,7 @@
 		span_notice("Вы начинаете заживлять повреждённые сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+	target.custom_pain("Боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
 
 
@@ -265,7 +265,7 @@
 		span_notice("Вы начинаете срезать и удалять мёртвую плоть в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+	target.custom_pain("Боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
 
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -443,7 +443,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	to_chat(target, span_boldannounceic("Ваше сознание заливает волна агонизирующей боли от обжигающего света, направленного прямо на ваш[genderize_ru(affected.gender, "", "у", "е", "и")] [affected.declent_ru(ACCUSATIVE)]!"))
+	to_chat(target, span_boldannounceic("Ваше сознание заливает волна агонизирующей боли от обжигающего света, направленного прямо на [affected.declent_ru(ACCUSATIVE)]!"))
 	return ..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

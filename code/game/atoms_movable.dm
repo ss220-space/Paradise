@@ -328,8 +328,8 @@
 		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(!supress_message)
 			pulled_mob.visible_message(
-				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
-				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[GEND_ENDING_A_O_I(src)] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
+				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[GEND_ENDING_A_O_I(src)] Вас!"),
 			)
 		pulled_mob.LAssailant = iscarbon(src) ? src : null
 	return TRUE
@@ -406,13 +406,13 @@
 		return FALSE
 	if(anchored)
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("Похоже, [declent_ru(NOMINATIVE)] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
+			to_chat(puller, span_warning("Похоже, [declent_ru(NOMINATIVE)] прикрепл[GEND_ENDING_EN_NA_NO_NY(src)] к полу!"))
 		return FALSE
 	if(throwing || move_resist == INFINITY)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("[capitalize(declent_ru(NOMINATIVE))] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!"))
+			to_chat(puller, span_warning("[capitalize(declent_ru(NOMINATIVE))] слишком тяжел[GEND_ENDING_YI_AYA_OE_YE(src)]!"))
 		return FALSE
 	return TRUE
 

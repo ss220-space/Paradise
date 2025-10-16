@@ -60,13 +60,13 @@
 			span_notice("[user] ищет инородные объекты в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 			span_notice("Вы ищете инородные объекты в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
-			)
+		)
 	else
 		user.visible_message(
 			span_notice("[user] ищет [affected.declent_ru(ACCUSATIVE)] у [target]."),
 			span_notice("Вы ищете [affected.declent_ru(ACCUSATIVE)] у [target]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
-			)
+		)
 	return ..()
 
 
@@ -76,9 +76,10 @@
 		var/objects_removed = L.remove_all_embedded_objects()
 		if(objects_removed)
 			user.visible_message(
-				span_notice("[user] извлекает [objects_removed] [declension_ru(objects_removed, "инородный объект", "инородных объекта", "инородных объектов")] из [affected.declent_ru(GENITIVE)] [target]."),
-				span_notice("Вы извлекаете [objects_removed] [declension_ru(objects_removed, "инородный объект", "инородных объекта", "инородных объектов")] из [affected.declent_ru(GENITIVE)] [target]."),
-				chat_message_type = MESSAGE_TYPE_COMBAT)
+				span_notice("[user] извлекает [objects_removed] инородны[declension_ru(objects_removed, "й", "х", "х")] объект[DECL_CREDIT(objects_removed)] из [affected.declent_ru(GENITIVE)] [target]."),
+				span_notice("Вы извлекаете [objects_removed] инородны[declension_ru(objects_removed, "й", "х", "х")] объект[DECL_CREDIT(objects_removed)] из [affected.declent_ru(GENITIVE)] [target]."),
+				chat_message_type = MESSAGE_TYPE_COMBAT
+			)
 		else
 			user.visible_message(
 				span_notice("[user] не находит никаких инородных объектов в [affected.declent_ru(PREPOSITIONAL)] [target]."),

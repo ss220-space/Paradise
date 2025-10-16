@@ -253,7 +253,7 @@
 	var/area/A = candidate_zones[difficulty]
 	extraction_zone = A
 	chosen_difficulty = difficulty
-	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[A.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[declension_ru(S.reward_tc[difficulty], "", "а", "ов")] и [S.reward_credits] кредит[declension_ru(S.reward_credits, "", "а", "ов")]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
+	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[A.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[DECL_CREDIT(S.reward_tc[difficulty])] и [S.reward_credits] кредит[DECL_CREDIT(S.reward_credits)]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
 	return TRUE
 
 /**

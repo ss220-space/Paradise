@@ -85,7 +85,7 @@
 	if(istype(I, /obj/item/grenade/iedcasing))	//Let's get explosive.
 		add_fingerprint(user)
 		if(IED)
-			to_chat(user, span_warning("[capitalize(IED.declent_ru(NOMINATIVE))] уже прикреплен[genderize_ru(IED.gender, "", "а", "о", "ы")] к [declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("[capitalize(IED.declent_ru(NOMINATIVE))] уже прикреплен[GEND_ENDING_A_O_Y(IED)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -100,10 +100,10 @@
 		var/obj/item/assembly/signaler/signaler = I
 		add_fingerprint(user)
 		if(sig)
-			to_chat(user, span_warning("[capitalize(signaler.declent_ru(NOMINATIVE))] уже подключен[genderize_ru(signaler.gender, "", "а", "о", "ы")] к [declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("[capitalize(signaler.declent_ru(NOMINATIVE))] уже подключен[GEND_ENDING_A_O_Y(signaler)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(signaler.secured)
-			to_chat(user, span_notice("[capitalize(signaler.declent_ru(NOMINATIVE))] не долж[genderize_ru(signaler.gender, "ен", "на", "но", "ны")] быть закрепл[genderize_ru(signaler.gender, "ён", "ена", "ено", "ены")]."))
+			to_chat(user, span_notice("[capitalize(signaler.declent_ru(NOMINATIVE))] не долж[GEND_ENDING_EN_NA_NO_NY(signaler)] быть закреплен[GEND_ENDING_A_O_Y(signaler)]."))
 			balloon_alert(user, "невозможно")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
@@ -124,14 +124,14 @@
 
 	if(IED)
 		IED.forceMove(get_turf(src))
-		balloon_alert(user, "[IED.declent_ru(NOMINATIVE)] снят[genderize_ru(IED.gender, "", "а", "о", "ы")]")
+		balloon_alert(user, "[IED.declent_ru(NOMINATIVE)] снят[GEND_ENDING_A_O_Y(IED)]")
 		IED = null
 		update_appearance(UPDATE_DESC)
 		return
 
 	if(sig)
 		sig.forceMove(get_turf(src))
-		balloon_alert(user, "[sig.declent_ru(NOMINATIVE)] снят[genderize_ru(sig.gender, "", "а", "о", "ы")]")
+		balloon_alert(user, "[sig.declent_ru(NOMINATIVE)] снят[GEND_ENDING_A_O_Y(sig)]")
 		sig = null
 		update_appearance(UPDATE_DESC)
 		return
@@ -141,10 +141,10 @@
 	. = ..()
 	desc = initial(desc)
 	if(IED)
-		desc += "\n[span_warning("К [genderize_ru(gender, "нему", "ней", "нему", "ним")] подсоединен[genderize_ru(IED.gender, "", "а", "о", "ы")] [IED.declent_ru(NOMINATIVE)]!")]"
+		desc += "\n[span_warning("К н[GEND_HIM_HER(src)] подсоединен[GEND_ENDING_A_O_Y(IED)] [IED.declent_ru(NOMINATIVE)]!")]"
 
 	if(sig)
-		desc += "\n[span_warning("К [genderize_ru(gender, "нему", "ней", "нему", "ним")] подсоединен[genderize_ru(sig.gender, "", "а", "о", "ы")] [sig.declent_ru(NOMINATIVE)].")]"
+		desc += "\n[span_warning("К н[GEND_HIM_HER(src)] подсоединен[GEND_ENDING_A_O_Y(sig)] [sig.declent_ru(NOMINATIVE)].")]"
 
 /obj/item/restraints/legcuffs/beartrap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -165,8 +165,10 @@
 	armed = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	playsound(src.loc, 'sound/effects/snap.ogg', 50, TRUE)
-	moving_thing.visible_message(span_danger("[moving_thing] активирует [declent_ru(ACCUSATIVE)]."),
-								span_userdanger("Вы активируете [declent_ru(ACCUSATIVE)]!"))
+	moving_thing.visible_message(
+		span_danger("[moving_thing] активирует [declent_ru(ACCUSATIVE)]."),
+		span_userdanger("Вы активируете [declent_ru(ACCUSATIVE)]!")
+	)
 
 	if(IED)
 		IED.active = TRUE

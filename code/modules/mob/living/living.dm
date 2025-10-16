@@ -124,7 +124,7 @@
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземляется на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётся невредим[genderize_ru(src.gender,"","а","о","ы")] после падения."),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземляется на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётся невредим[GEND_ENDING_A_O_Y(src)] после падения."),
 				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
 			AdjustKnockdown(levels * (4 SECONDS))
@@ -619,7 +619,7 @@
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
 		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] направляет [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руках!"))
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] направляет [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у н[GEND_HIS_HER(src)] в руках!"))
 		trick.shoot_gun(src)
 		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 		return TRUE
@@ -1153,11 +1153,11 @@
 	if(resist_chance > 0 && prob(resist_chance))
 		add_attack_logs(pulledby, src, "broke grab", ATKLOG_ALL)
 		visible_message(
-			span_danger("[name] вырвал[genderize_ru(gender, "ся", "ась", "ось", "ись")] из захвата [pulledby.name]!"),
+			span_danger("[name] вырвал[GEND_ENDING_SYA_AS_OS_IS(src)] из захвата [pulledby.name]!"),
 			span_danger("Вы вырвались из захвата [pulledby.name]!"),
 			ignored_mobs = pulledby,
 		)
-		to_chat(pulledby, span_danger("[name] вырвал[genderize_ru(gender, "ся", "ась", "ось", "ись")] из Вашего захвата!"))
+		to_chat(pulledby, span_danger("[name] вырвал[GEND_ENDING_SYA_AS_OS_IS(src)] из Вашего захвата!"))
 		pulledby.stop_pulling()
 		return FALSE
 
@@ -1563,8 +1563,8 @@
 	if(pulled_atom.pulledby)
 		if(!supress_message)
 			pulled_atom.visible_message(
-				span_danger("[name] перехватил[genderize_ru(gender,"","а","о","и")] [pulled_atom.name] у [pulled_atom.pulledby.name]."),
-				span_danger("[name] перехватил[genderize_ru(gender,"","а","о","и")] Вас у [pulled_atom.pulledby.name]!"),
+				span_danger("[name] перехватил[GEND_ENDING_A_O_I(src)] [pulled_atom.name] у [pulled_atom.pulledby.name]."),
+				span_danger("[name] перехватил[GEND_ENDING_A_O_I(src)] Вас у [pulled_atom.pulledby.name]!"),
 			)
 			to_chat(src, span_notice("Вы перехватили [pulled_atom.name] у [pulled_atom.pulledby.name]!"))
 		add_attack_logs(pulled_atom, pulled_atom.pulledby, "pulled from", ATKLOG_ALMOSTALL)
@@ -1602,15 +1602,15 @@
 				var/mob/living/carbon/human/grabbed_human = pulled_mob
 				var/grabbed_by_hands = (zone_selected == BODY_ZONE_PRECISE_R_HAND || zone_selected == BODY_ZONE_PRECISE_L_HAND) && grabbed_human.usable_hands > 0
 				grabbed_human.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"),
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас[grabbed_by_hands ? " за руки" : ""]!"),
+					span_warning("[name] схватил[GEND_ENDING_A_O_I(src)] [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"),
+					span_warning("[name] схватил[GEND_ENDING_A_O_I(src)] Вас[grabbed_by_hands ? " за руки" : ""]!"),
 					ignored_mobs = src,
 				)
 				to_chat(src, span_notice("Вы cхватили [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"))
 			else
 				pulled_mob.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+					span_warning("[name] схватил[GEND_ENDING_A_O_I(src)] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
+					span_warning("[name] схватил[GEND_ENDING_A_O_I(src)] Вас!"),
 					ignored_mobs = src,
 				)
 				to_chat(src, span_notice("Вы схватили [pulled_mob.declent_ru(ACCUSATIVE)]!"))

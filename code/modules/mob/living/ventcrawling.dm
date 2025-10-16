@@ -116,7 +116,7 @@
 
 	if(message)
 		visible_message(
-		span_notice("[name] залез[genderize_ru(gender, "", "ла", "ло", "ли")] в вентиляцию!"),
+		span_notice("[name] залез[GEND_ENDING_LA_LO_LI(src)] в вентиляцию!"),
 		span_notice("Вы залезли в вентиляцию."),
 	)
 	abstract_move(ventcrawl_target)
@@ -147,7 +147,7 @@
 	SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
 	if(message)
 		visible_message(
-			span_notice("[name] вылез[genderize_ru(gender, "", "ла", "ло", "ли")] из вентиляции!"),
+			span_notice("[name] вылез[GEND_ENDING_LA_LO_LI(src)] из вентиляции!"),
 			span_notice("Вы вылезли из вентиляции."),
 		)
 	return TRUE

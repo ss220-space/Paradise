@@ -79,7 +79,7 @@
 
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)
-	to_chat(src, span_userdanger("ВНИМАНИЕ: Обнаружен ЭМИ, системы повреждены!"))
+	to_chat(src, span_userdanger("Внимание! Обнаружен ЭМИ, системы повреждены!"))
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] яростно трещит и искрит!"))
 
 /mob/living/simple_animal/hostile/mining_drone/sentience_act()
@@ -93,7 +93,7 @@
 			. += span_warning("[GEND_HE_SHE_CAP(src)] выглядит слегка помято.")
 		else
 			. += span_boldwarning("[GEND_HE_SHE_CAP(src)] выглядит серьёзно повреждённо!")
-	. += "[span_notice("Использование сканера на [genderize_ru(gender,"нём","нем","нём","них")] заставит [GEND_HIS_HER(src)] выгрузить руду. <b>[max(0, LAZYLEN(contents) - 1)] ед. руды.</b>")]"
+	. += "[span_notice("Использование сканера на [GEND_ON_IN_HIM(src)] заставит [GEND_HIS_HER(src)] выгрузить руду. <b>[max(0, LAZYLEN(contents) - 1)] ед. руды.</b>")]"
 	if(stored_gun?.max_mod_capacity)
 		. += "<b>[stored_gun.get_remaining_mod_capacity()]%</b> свободного места для модификации."
 		for(var/A in stored_gun.get_modkits())

@@ -55,7 +55,9 @@
 		return .
 
 	if(target != user)
-		target.visible_message(span_warning("[user] пытается имплантировать био-чип в [target]."))
+		target.visible_message(
+			span_warning("[user] пытается имплантировать био-чип в [target].")
+		)
 		if(!do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL) || QDELETED(user) || QDELETED(target) || QDELETED(src) || QDELETED(imp))
 			return .
 
@@ -67,8 +69,8 @@
 		to_chat(user, span_notice("Вы имплантировали био-чип."))
 	else
 		target.visible_message(
-			span_warning("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] био-чип в [target]."),
-			span_notice("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] вам био-чип."),
+			span_warning("[user] имплантировал[GEND_ENDING_A_O_I(user)] био-чип в [target]."),
+			span_notice("[user] имплантировал[GEND_ENDING_A_O_I(user)] вам био-чип."),
 		)
 	imp = null
 	update_state()

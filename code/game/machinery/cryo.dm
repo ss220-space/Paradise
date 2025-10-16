@@ -55,7 +55,7 @@
 	. = ..()
 	if(occupant)
 		if(occupant.is_dead())
-			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
+			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [GEND_HE_SHE_CAP(occupant)] мертв[GEND_ENDING_A_O_Y(occupant)]!")
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
@@ -160,7 +160,7 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не поместится в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не поместится в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return TRUE
 	. = TRUE
 	if(put_mob(L))
@@ -351,7 +351,7 @@
 		balloon_alert(grabber, "внутри кто-то есть!")
 		return .
 	if(grabbed_thing.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[grabbed_thing] не поместится в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(grabbed_thing.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[grabbed_thing] не поместится в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(grabbed_thing)] сидит слайм!"))
 		return .
 	if(put_mob(grabbed_thing))
 		return

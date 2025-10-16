@@ -220,7 +220,7 @@
 		switch(alert(user, "Вы хотите вырвать усики этому существу?", "OH SHIT", "Да", "Нет"))
 			if("Да")
 				user.visible_message(span_notice("[user] начинает яростно отрывать усики [target]."))
-				to_chat(target, span_danger("<b>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тянет их!<b>"))
+				to_chat(target, span_danger("<b>[user] схватил[GEND_ENDING_A_O_I(user)] ваши усики и яростно тянет их!<b>"))
 				if(do_after(user, 25 SECONDS, target, NONE))
 					node.remove(target)
 					node.forceMove(get_turf(target))

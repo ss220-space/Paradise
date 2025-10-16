@@ -160,12 +160,8 @@
 			return FALSE
 	to_chat(src, msg, chat_message_type)
 
-
-// Show a message to all mobs in sight of this one
-// This would be for visible actions by the src mob
-// message is the message output to anyone who can see e.g. "[src] does something!"
-// self_message (optional) is what the src mob sees  e.g. "You do something!"
-// blind_message (optional) is what blind people will hear e.g. "You hear something!"
+// MARK: visible_message
+/// Adds the functionality to self_message.
 /mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
 	if(!isturf(loc))
 		vision_distance = floor(vision_distance / 2)
@@ -183,12 +179,22 @@
 	else
 		show_message(self_message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, avoid_highlighting = block_self_highlight)
 
-
-
-// Show a message to all mobs in sight of this atom
-// Use for objects performing visible actions
-// message is output to anyone who can see, e.g. "The [src] does something!"
-// blind_message (optional) is what blind people will hear e.g. "You hear something!"
+/**
+ * Generate a visible message from this atom
+ *
+ * Shows a message to all player mobs who see this atom. If the source is a mob,
+ * shows a self_message to that mob. Used for atoms performing visible actions.
+ *
+ * Arguments:
+ * * message - Main message visible to other mobs
+ * * self_message - Message shown to the source mob
+ * * blind_message - Message shown to blind mobs
+ * * ignored_mobs - List of mobs that won't see the message
+ * * chat_message_type - Type of chat message for rendering
+ * * projectile_message - If TRUE, skips for clients with projectile messages disabled
+ * * vision_distance - Maximum distance to see message (halved if not on turf)
+ * * visible_message_flags - Bitflags controlling message type and behavior
+ */
 /atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
 	var/turf/turf = get_turf(src)
 	if(!turf)
@@ -234,14 +240,8 @@
 
 		mob.show_message(msg, msg_type, blind_message, EMOTE_AUDIBLE)
 
-
-
-// Show a message to all mobs in earshot of this one
-// This would be for audible actions by the src mob
-// message is the message output to anyone who can hear.
-// self_message (optional) is what the src mob hears.
-// deaf_message (optional) is what deaf people will see.
-// hearing_distance (optional) is the range, how many tiles away the message can be heard.
+// MARK: audible_message
+/// This would be for audible actions by the src mob
 /mob/audible_message(message, deaf_message, hearing_distance)
 	var/range = 7
 	if(hearing_distance)
@@ -264,12 +264,17 @@
 	for(var/obj/O in listening_obj)
 		O.hear_message(src, omsg)
 
-
-// Show a message to all mobs in earshot of this atom
-// Use for objects performing audible actions
-// message is the message output to anyone who can hear.
-// deaf_message (optional) is what deaf people will see.
-// hearing_distance (optional) is the range, how many tiles away the message can be heard.
+/**
+ * Show a message to all mobs in earshot of this atom
+ *
+ * Use for objects performing audible actions. Shows a message to all mobs within
+ * hearing range of the atom. Deaf mobs will see the deaf_message instead.
+ *
+ * Arguments:
+ * * message - The message output to anyone who can hear
+ * * deaf_message - What deaf people will see (optional)
+ * * hearing_distance - The range in tiles the message can be heard (default: 7)
+ */
 /atom/proc/audible_message(message, deaf_message, hearing_distance)
 	var/range = 7
 	if(hearing_distance)
@@ -856,7 +861,7 @@
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] наблевал[genderize_ru(src.gender,"","а","о","и")] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
+				visible_message("<span class='warning'>[src.name] наблевал[GEND_ENDING_A_O_I(src)] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
 			location.add_vomit_floor(TRUE)
 
 

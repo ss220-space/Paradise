@@ -11,6 +11,12 @@
  * * multiple_name - Форма слова для 5+ (например, "столов")
  */
 /proc/declension_ru(num, single_name, double_name, multiple_name)
+	if(!isnum(num))
+		stack_trace("Invalid number argument in declension_ru proc.")
+		return double_name
+	if(!istext(single_name) || !istext(double_name) || !istext(multiple_name))
+		stack_trace("Invalid word arguments in declension_ru proc.")
+		return double_name
 	if(!isnum(num) || round(num) != num)
 		return double_name // fractional numbers
 	if(((num % 10) == 1) && ((num % 100) != 11)) // 1, not 11
@@ -19,10 +25,9 @@
 		return double_name
 	return multiple_name // 5, 6, 7, 8, 9, 0
 
-// Макросы для наиболее часто используемых случаев.
-// Секунд, минут, единиц
+/// Секунд, минут, единиц
 #define DECL_SEC_MIN(target) declension_ru(target, "у", "ы", "")
-// Кредит, символ
+/// Кредит, символ
 #define DECL_CREDIT(target) declension_ru(target, "", "а", "ов")
 
 /**
@@ -40,14 +45,34 @@
  * * multiple_word - Форма множественного числа
  */
 /proc/genderize_ru(gender, male_word, female_word, neuter_word, multiple_word)
+	if(!(gender in list(MALE, FEMALE, NEUTER, PLURAL)))
+		stack_trace("Invalid gender argument in genderize_ru proc.")
+		return multiple_word
+	if(!istext(male_word) || !istext(female_word) || !istext(neuter_word) || !istext(multiple_word))
+		stack_trace("Invalid word arguments in genderize_ru proc.")
+		return multiple_word
 	return gender == MALE ? male_word : (gender == FEMALE ? female_word : (gender == NEUTER ? neuter_word : multiple_word))
 
-// Макросы для наиболее часто используемых случаев.
+// Местоимения.
 #define GEND_HE_SHE(target) genderize_ru(target.gender, "он", "она", "оно", "они")
 #define GEND_HE_SHE_CAP(target) capitalize(genderize_ru(target.gender, "он", "она", "оно", "они"))
 #define GEND_HIS_HER(target) genderize_ru(target.gender, "его", "её", "его", "их")
 #define GEND_HIS_HER_CAP(target) capitalize(genderize_ru(target.gender, "его", "её", "его", "их"))
 #define GEND_HIM_HER(target) genderize_ru(target.gender, "ему", "ей", "ему", "им")
+#define GEND_ON_IN_HIM(target) genderize_ru(target.gender, "нём", "ней", "нём", "них")
+// Окончания. Y — буква Ы.
+#define GEND_ENDING_A_O_I(target) genderize_ru(target.gender, "", "а", "о", "и")
+#define GEND_ENDING_A_O_Y(target) genderize_ru(target.gender, "", "а", "о", "ы")
+#define GEND_ENDING_A_E_I(target) genderize_ru(target.gender, "", "а", "е", "и")
+#define GEND_ENDING_SYA_AS_OS_IS(target) genderize_ru(target.gender, "ся", "ась", "ось", "ись")
+#define GEND_ENDING_LA_LO_LI(target) genderize_ru(target.gender, "", "ла", "ло", "ли")
+#define GEND_ENDING_EN_NA_NO_NY(target) genderize_ru(target.gender, "ен", "на", "но", "ны")
+#define GEND_ENDING_EM_EI_EM_IH(target) genderize_ru(target.gender, "ем", "ей", "ем", "их")
+#define GEND_ENDING_YM_OI_YM_YMI(target) genderize_ru(target.gender, "ым", "ой", "ым", "ыми")
+#define GEND_ENDING_IM_EI_IM_IMI(target) genderize_ru(target.gender, "им", "ей", "им", "ими")
+#define GEND_ENDING_YI_AYA_OE_YE(target) genderize_ru(target.gender, "ый", "ая", "ое", "ые")
+// Макросы для случаев, когда обычные не применимы.
+#define GEND_ENDING_SHEL(target) genderize_ru(target.gender, "шёл", "шла", "шло", "шли")
 
 /**
  * # НЕ ИСПОЛЬЗОВАТЬ!
@@ -101,4 +126,3 @@
 			else
 				stack_trace("Invalid data sent to genderize_decode proc.")
 	return msg
-

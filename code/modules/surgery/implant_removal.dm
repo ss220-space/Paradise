@@ -89,7 +89,7 @@
 		span_notice("Вы начинаете искать инородные тела в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто адская!")
+	target.custom_pain("Боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто адская!")
 	return ..()
 
 /datum/surgery_step/extract_implant/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

@@ -210,10 +210,10 @@
 	if(is_type_in_list(I, food_type))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[genderize_ru(gender, "", "а", "о", "ы")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[GEND_ENDING_A_O_Y(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(COOLDOWN_TIMELEFT(src, feeded_cow) > 40 SECONDS) //starting milk mini-factory
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[genderize_ru(gender, "ен", "на", "но", "ны")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[GEND_ENDING_EN_NA_NO_NY(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
@@ -412,10 +412,10 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	if(is_type_in_list(I, food_type)) //feedin' dem chickens
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[genderize_ru(gender, "", "а", "о", "ы")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[GEND_ENDING_A_O_Y(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(eggsleft >= 8)
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[genderize_ru(gender, "ен", "на", "но", "ны")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[GEND_ENDING_EN_NA_NO_NY(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
