@@ -750,7 +750,7 @@
 	name = "Пояс абдуктора"
 	desc = "Пояс с инструментами, используемый абдукторами. Он включает в себя полный набор инопланетных инструментов."
 	item = /obj/item/storage/belt/military/abductor/full
-	cost = 16
+	cost = 8
 	race = list(SPECIES_GREY)
 
 /datum/uplink_item/racial/silencer
@@ -758,6 +758,13 @@
 	desc = "Компактное устройство, предназначенное для выключения коммуникационного оборудования."
 	item = /obj/item/abductor/silencer
 	cost = 12
+	race = list(SPECIES_GREY)
+
+/datum/uplink_item/racial/alien_pistol
+	name = "Пистолет абдуктора"
+	desc = "Технологичный пистолет абдукторов, стреляющий импульсами высокоинтенсивного излучения."
+	item = /obj/item/gun/energy/alien
+	cost = 30
 	race = list(SPECIES_GREY)
 
 /**

@@ -453,6 +453,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_combined_w_class = 18
+	storable = TRUE
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
@@ -465,7 +466,6 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
-	storable = TRUE
 	w_class_override = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
