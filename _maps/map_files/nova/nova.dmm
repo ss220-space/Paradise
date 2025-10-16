@@ -27107,6 +27107,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/carpet/royalblack,
 /area/quartermaster/qm)
 "dXw" = (
@@ -129844,8 +129846,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "tdg" = (
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/sloth/paperwork,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -165298,10 +165298,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ylF" = (
-/obj/item/flag/cargo,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/machinery/suit_storage_unit/qm,
 /turf/simulated/floor/wood,
 /area/quartermaster/qm)
 "ylG" = (

@@ -54266,7 +54266,7 @@
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
 "gpC" = (
-/obj/item/flag/cargo,
+/obj/machinery/suit_storage_unit/qm,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -61408,6 +61408,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/item/flag/cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
