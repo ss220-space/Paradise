@@ -133,6 +133,7 @@ class ChatRenderer {
   loaded: boolean;
   queue: Payload[];
   messages: Message[];
+  storeQueue: Message[];
   visibleMessages: Message[];
   scrollNode: HTMLElement;
   scrollTracking: boolean;
@@ -148,6 +149,7 @@ class ChatRenderer {
     this.rootNode = null;
     this.queue = [];
     this.messages = [];
+    this.storeQueue = [];
     this.visibleMessages = [];
     this.page = null;
     this.events = new EventEmitter();
@@ -483,6 +485,7 @@ class ChatRenderer {
           }
         }
       }
+      this.storeQueue.push({ ...message, stored: true });
       // Store the node in the message
       message.node = node;
       // Query all possible selectors to find out the message type
