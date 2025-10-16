@@ -1,4 +1,4 @@
-name: Generate Documentation
+name: Generate web assets
 
 on:
   schedule:
@@ -6,9 +6,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate_docs:
-    name: 'Generate Documentation'
+  generate_static_assets:
+    name: 'Generate web assets'
     runs-on: ubuntu-22.04
+    concurrency: gen-assets
     steps:
     - name: 'Update Branch'
       uses: actions/checkout@v4
@@ -17,10 +18,11 @@ jobs:
         ref: master220
     - name: 'Install DMDOC'
       run: bash tools/ci/install_dmdoc.sh
-    - name: 'Generate Documentation'
+    - name: 'Generate documentation and static assets'
       run: |
         ~/dmdoc
         touch dmdoc/.nojekyll
+        mv tgui/public/ dmdoc/assets
       # Nojekyll is important to disable jeykll syntax, which can mess with files that start with underscores
 
     - name: 'Deploy Documentation'
