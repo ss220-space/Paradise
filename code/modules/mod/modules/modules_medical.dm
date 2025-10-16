@@ -1,14 +1,14 @@
 //Medical modules for MODsuits
 
-#define HEALTH_SCAN "Health"
-#define CHEM_SCAN "Chemical"
+#define HEALTH_SCAN "Состояние здоровья"
+#define CHEM_SCAN "Химикаты"
 
 // MARK: Health analyzer
 /// Health Analyzer - Gives the user a ranged health analyzer and their health status in the panel.
 /obj/item/mod/module/health_analyzer
 	name = "MOD health analyzer module"
-	desc = "Модуль для МЭК, встраиваемый в перчатку костюма. Позволяет лёгким движени руки получать детальную информацию \
-		о состоянии здоровья людей даже на расстоянии."
+	desc = "Модуль для МЭК, встраиваемый в перчатку костюма. Позволяет лёгким движением руки получить детальную информацию \
+			о состоянии здоровья субъекта даже на расстоянии."
 	icon_state = "health"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -73,8 +73,8 @@
 /// Quick Carry - Lets the user carry bodies quicker.
 /obj/item/mod/module/quick_carry
 	name = "MOD quick carry module"
-	desc = "Модуль для МЭК, являющийся набором продвинутых сервоприводов, устанавливаемых в руки костюма. Позволяют с лёгкостью \
-		переносить тела, если вы оказываете помощь пострадавшим, или просто веселья ради."
+	desc = "Модуль для МЭК, являющийся набором продвинутых сервоприводов, устанавливаемых в руки костюма. \
+			Облегчает перенос тел гуманоидов. Используется спасателями и медицинским персоналом."
 	icon_state = "carry"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
@@ -106,7 +106,7 @@
 	complexity = 0
 	quick_carry_trait = TRAIT_QUICKER_CARRY
 
-/obj/item/mod/module/quick_carry/get_ru_names()
+/obj/item/mod/module/quick_carry/advanced/get_ru_names()
 	return list(
 		NOMINATIVE = "модуль улучшенного хвата",
 		GENITIVE = "модуля улучшенного хвата",
@@ -120,8 +120,8 @@
 /// Injector - Gives the suit an extendable large-capacity piercing syringe.
 /obj/item/mod/module/injector
 	name = "MOD injector module"
-	desc = "Модуль для МЭК, представляющий собой высокоёмкий выдвижной шприц-инжектор, устанавливаемый в запястье костюма. \
-		Умный наконечник позволяет с лёгкостью обнаружить специальные места для инъекций на любом МЭК, проникая через всю броню."
+	desc = "Модуль для МЭК, представляющий собой высокоёмкий выдвижной шприц-инъектор, устанавливаемый в запястье костюма. \
+			Умный наконечник позволяет с лёгкостью обнаружить специальные места для инъекций на МЭК любой модели, проникая через любые бронеэлементы."
 	icon_state = "injector"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -143,8 +143,8 @@
 
 /obj/item/reagent_containers/syringe/mod
 	name = "MOD injector syringe"
-	desc = "Высокоёмкий выдвижной шприц-инжектор. Умный наконечник позволяет с лёгкостью обнаружить специальные места для инъекций \
-		на любом МЭК, проникая через всю броню."
+	desc = "Высокоёмкий выдвижной шприц-инъектор. Умный наконечник позволяет с лёгкостью обнаружить \
+			специальные места для инъекций на МЭК любой модели, проникая через любые бронеэлементы."
 	amount_per_transfer_from_this = 30
 	possible_transfer_amounts = list(5, 10, 15, 20, 30)
 	volume = 30
@@ -170,8 +170,8 @@
 /obj/item/mod/module/defibrillator
 	name = "MOD defibrillator module"
 	desc = "Модуль для МЭК, встраиваемый в перчатки костюма. Представляет собой компактный дефибриллятор с умным микрокомпьютером, \
-		автоматически высчитывающим нужный вольтаж, усилие давления и точку приложения перчаток к пациенту. Встроенная система безопасности \
-		не позволит использовать этот модуль как оружие."
+			автоматически высчитывающим нужный вольтаж, усилие давления и точку приложения перчаток к пациенту. Встроенная система безопасности \
+			блокирует любые попытки использования модуля в качестве оружия."
 	icon_state = "defibrillator"
 	item_state = null // It has an overlay as an item in hands when activated
 	module_type = MODULE_ACTIVE
@@ -239,7 +239,7 @@
 /obj/item/mod_defib/proc/on_cooldown_expire(obj/item/defib)
 	SIGNAL_HANDLER // COMSIG_DEFIB_READY
 	on_cooldown = FALSE
-	visible_message(span_notice("[src] beeps: Defibrillation unit ready."))
+	balloon_alert(mod.wearer, "дефибриллятор готов")
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, FALSE)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -251,8 +251,9 @@
 // MARK: Combat defib
 /obj/item/mod/module/defibrillator/combat
 	name = "MOD combat defibrillator module"
-	desc = "Модуль для МЭК, практически во всём являющийся копией обычного модуля встроенного дефибриллятора, за одним лишь исключением – \
-		встроенная система защиты была переписана, так что теперь его можно использовать в качестве оружия."
+	desc = "Модуль для МЭК, встраиваемый в перчатки костюма. Представляет собой компактный дефибриллятор с умным микрокомпьютером, \
+			автоматически высчитывающим нужный вольтаж, усилие давления и точку приложения перчаток к пациенту. \
+			Протоколы безопасности были модифицированы, что позволяет использовать модуль в качестве оружия."
 	complexity = 1
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 400 // 2000 charge. Since you like causing heart attacks, don't you?
 	overlay_state_inactive = "module_defibrillator_combat"
@@ -290,8 +291,8 @@
 /// Crew Monitor - Deploys or retracts a built-in handheld crew monitor
 /obj/item/mod/module/monitor
 	name = "MOD crew monitor module"
-	desc = "Модуль для МЭК, устанавливаемый в запястье костюма. Предоставляет пользователю информацию о состоянии здоровья экипажа \
-		с их датчиков жизнеобеспечения."
+	desc = "Модуль для МЭК, устанавливаемый в запястье костюма. Предоставляет пользователю \
+			информацию о состоянии здоровья экипажа, считывая данные с их датчиков жизнеобеспечения."
 	icon_state = "scanner"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -313,7 +314,8 @@
 
 /obj/item/sensor_device/mod
 	name = "MOD crew monitor"
-	desc = "Миниатюрное устройство, установленное в МЭК и отслеживающее показатели датчиков жизнеобеспечения экипажа."
+	desc = "Миниатюрное устройство, установленное в МЭК. Предоставляет пользователю \
+			информацию о состоянии здоровья экипажа, считывая данные с их датчиков жизнеобеспечения."
 
 /obj/item/sensor_device/mod/get_ru_names()
 	return list(
@@ -333,8 +335,8 @@
 /// Organizer - Lets you shoot organs, immediately replacing them if the target has the organ manipulation surgery.
 /obj/item/mod/module/organizer
 	name = "MOD organizer module"
-	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Использует блюспейс технологию, схожую с таковой у блюспейс заменителя деталей, \
-		только в этом случае деталями являются органы. Позволяет моментально заменить до 5 органов цели без необходимости извлекать предыдущие."
+	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Позволяет мгновенно заменить до пяти внутренних органов цели \
+			без предварительного извлечения повреждённых. Использует блюспейс-технологии, схожие с принципом работы блюспейс заменителя двигателей."
 	icon_state = "organizer"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -371,7 +373,7 @@
 			return
 		organ_list += organ
 		organ.forceMove(src)
-		balloon_alert(mod.wearer, "взят[genderize_ru(organ.gender, "", "а", "о", "ы") [organ.declent_ru(NOMINATIVE)]]")
+		balloon_alert(mod.wearer, "орган взят")
 		playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
 		drain_power(use_energy_cost)
 		return
@@ -443,8 +445,8 @@
 /obj/item/mod/module/criminalcapture/patienttransport
 	name = "MOD patient transport module"
 	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Громоздкие, неудобные и хрупкие пластиковые мешки для тел теперь уже \
-		прошлый век, ведь этот модуль предоставляет возможность создавать мешки из твёрдого света! Комфортная транспортировка живых \
-		и не очень людей в любой ситуации, в любое время! Не является рекламой."
+			прошлый век, ведь этот модуль предоставляет возможность создавать мешки из твёрдого света! Комфортная транспортировка живых \
+			и не очень пациентов в любой ситуации, в любое время! Не является рекламой."
 	icon_state = "patient_transport"
 	bodybag_type = /obj/structure/closet/body_bag/environmental/hardlight
 	capture_time = 1.5 SECONDS
