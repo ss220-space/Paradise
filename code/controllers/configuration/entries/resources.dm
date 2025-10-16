@@ -31,4 +31,4 @@
 
 /datum/config_entry/string/storage_cdn_iframe
 	protection = CONFIG_ENTRY_LOCKED
-	default = " https://ss220-space.github.io/Paradise//assets/iframe.html"
+	default = "https://ss220-space.github.io/Paradise/assets/iframe.html"

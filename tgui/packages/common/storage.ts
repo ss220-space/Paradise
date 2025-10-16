@@ -87,12 +87,10 @@ class HubStorageBackend implements StorageBackend {
   }
 }
 
-class IFrameIndexedDbBackend implements StorageBackend {
+export class IFrameIndexedDbBackend implements StorageBackend {
   public impl: StorageImplementation;
-
   private documentElement: HTMLIFrameElement;
   private iframeWindow: Window;
-
   constructor() {
     this.impl = IMPL_IFRAME_INDEXED_DB;
   }
@@ -103,14 +101,13 @@ class IFrameIndexedDbBackend implements StorageBackend {
     iframe.src = Byond.storageCdn;
 
     const completePromise: Promise<boolean> = new Promise((resolve) => {
-      iframe.onload = () => resolve(true);
+      iframe.onload = () => resolve(!!this);
     });
 
     this.documentElement = document.body.appendChild(iframe);
     if (!this.documentElement.contentWindow) {
       return new Promise((res) => res(false));
     }
-
     this.iframeWindow = this.documentElement.contentWindow;
 
     return completePromise;
@@ -155,9 +152,29 @@ class IFrameIndexedDbBackend implements StorageBackend {
     this.iframeWindow.postMessage({ type: 'ping' }, '*');
     return promise;
   }
+  async processChatMessages(messages) {
+    this.iframeWindow.postMessage(
+      { type: 'processChatMessages', messages: messages },
+      '*'
+    );
+  }
 
+  async getChatMessages(): Promise<any> {
+    const promise = new Promise((resolve) => {
+      window.addEventListener('message', (message) => {
+        if (message.data.messages) {
+          resolve(message.data.messages);
+        }
+      });
+    });
+
+    this.iframeWindow.postMessage({ type: 'getChatMessages' }, '*');
+    return promise;
+  }
   async destroy(): Promise<void> {
     document.body.removeChild(this.documentElement);
+    this.documentElement = null;
+    this.iframeWindow = null;
   }
 }
 
@@ -165,7 +182,7 @@ class IFrameIndexedDbBackend implements StorageBackend {
  * Web Storage Proxy object, which selects the best backend available
  * depending on the environment.
  */
-class StorageProxy implements StorageBackend {
+export class StorageProxy implements StorageBackend {
   private backendPromise: Promise<StorageBackend>;
   public impl: StorageImplementation = IMPL_MEMORY;
 
@@ -176,6 +193,7 @@ class StorageProxy implements StorageBackend {
         await iframe.ready();
 
         if ((await iframe.ping()) === true) {
+          // Remove with 516... eventually
           if (await iframe.get('byondstorage-migrated')) return iframe;
 
           Byond.winset(null, 'browser-options', '+byondstorage');
@@ -184,25 +202,15 @@ class StorageProxy implements StorageBackend {
             document.addEventListener('byondstorageupdated', async () => {
               setTimeout(() => {
                 const hub = new HubStorageBackend();
-
-                for (const setting of [
-                  'panel-settings',
-                  'chat-state',
-                  'chat-messages',
-                ]) {
-                  hub
-                    .get(setting)
-                    .then((settings) => iframe.set(setting, settings));
-                }
-
+                hub
+                  .get('panel-settings')
+                  .then((settings) => iframe.set('panel-settings', settings));
                 iframe.set('byondstorage-migrated', true);
-                Byond.winset(null, 'browser-options', '-byondstorage');
 
                 resolve();
               }, 1);
             });
           });
-
           return iframe;
         }
 
@@ -243,6 +251,10 @@ class StorageProxy implements StorageBackend {
   async clear(): Promise<void> {
     const backend = await this.backendPromise;
     return backend.clear();
+  }
+
+  getBackendPromise() {
+    return this.backendPromise;
   }
 }
 

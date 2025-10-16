@@ -828,6 +828,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	to_chat(src, span_notice("You can now right click to use inspect on browsers."))
 	winset(src, null, list("browser-options" = "+devtools"))
+	winset(src, null, list("browser-options" = "+find"))
+	winset(src, null, list("browser-options" = "+refresh"))
 
 /client/proc/jump_to_ruin()
 	set category = STATPANEL_OOC

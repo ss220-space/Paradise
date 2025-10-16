@@ -5,7 +5,8 @@
  */
 
 import { Store } from 'common/redux';
-import { storage } from 'common/storage';
+import { IFrameIndexedDbBackend, storage } from 'common/storage';
+import type { ByondWindow } from 'common/types';
 import DOMPurify from 'dompurify';
 
 import {
@@ -47,14 +48,24 @@ const saveChatToStorage = async (store: Store) => {
   // Only save messages if chat saving is enabled
   const chatSavingEnabled = await storage.get('chat-saving-enabled');
   if (chatSavingEnabled !== false) {
-    const fromIndex = Math.max(
-      0,
-      chatRenderer.messages.length - MAX_PERSISTED_MESSAGES
-    );
-    const messages = chatRenderer.messages
-      .slice(fromIndex)
-      .map((message) => serializeMessage(message));
-    await storage.set('chat-messages', messages);
+    if (!(window as ByondWindow).hubStorage) {
+      const indexedDbBackend =
+        (await storage.getBackendPromise()) as IFrameIndexedDbBackend;
+      indexedDbBackend.processChatMessages(chatRenderer.storeQueue);
+    } else {
+      const fromIndex = Math.max(
+        0,
+        chatRenderer.messages.length - MAX_PERSISTED_MESSAGES
+      );
+
+      const messages = chatRenderer.messages
+        .slice(fromIndex)
+        .map((message) => serializeMessage(message));
+
+      storage.set('chat-messages-cm', messages);
+    }
+
+    chatRenderer.storeQueue = [];
   }
 };
 
@@ -71,7 +82,13 @@ const loadChatFromStorage = async (store) => {
   let messages = [];
 
   if (chatSavingEnabled !== false) {
-    messages = await storage.get('chat-messages');
+    if (!(window as ByondWindow).hubStorage) {
+      messages = await (
+        (await storage.getBackendPromise()) as IFrameIndexedDbBackend
+      ).getChatMessages();
+    } else {
+      messages = await storage.get('chat-messages');
+    }
     if (messages) {
       for (let message of messages) {
         if (message.html) {

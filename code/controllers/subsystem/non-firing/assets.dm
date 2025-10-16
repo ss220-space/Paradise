@@ -8,8 +8,10 @@ SUBSYSTEM_DEF(assets)
 	var/list/preload = list()
 	var/datum/asset_transport/transport = new()
 
-/datum/controller/subsystem/assets/Initialize(timeofday)
+/datum/controller/subsystem/assets/OnConfigLoad()
 	apply_configuration()
+
+/datum/controller/subsystem/assets/Initialize(timeofday)
 	load_assets()
 	return SS_INIT_SUCCESS
 
