@@ -181,7 +181,7 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 	return sin(X)
 
 /proc/_list_add(list/L, ...)
-	if(args.len < 2)
+	if(length(args) < 2)
 		return
 	L += args.Copy(2)
 
@@ -201,7 +201,7 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 	return L.Join(Glue, Start, End)
 
 /proc/_list_remove(list/L, ...)
-	if(args.len < 2)
+	if(length(args) < 2)
 		return
 	L -= args.Copy(2)
 

@@ -340,7 +340,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(smeared_mob != target || !reason)
 		return
 
-	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[pluralize_ru(gender, "ит", "ят")] через ваши внутренности, вы внезапно осознаёте - боги наказали вас за [reason]!"))
+	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[pluralize_ru(gender, "ит", "ят")] через ваши внутренности, вы внезапно осознаёте — боги наказали вас за [reason]!"))
 
 
 /**

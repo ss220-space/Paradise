@@ -237,7 +237,7 @@
 		holder.icon_state = STATUS_HUD_XENO
 	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
 		holder.icon_state = STATUS_HUD_TUMOUR
-	else if(B && B.controlling && !B.sneaking)
+	else if(B?.controlling && !B.sneaking)
 		holder.icon_state = STATUS_HUD_BRAINWORM
 	else if(is_in_crit())
 		holder.icon_state = STATUS_HUD_DEFIB

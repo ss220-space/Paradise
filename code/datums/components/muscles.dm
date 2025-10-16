@@ -312,10 +312,7 @@
 
 /datum/component/muscles/proc/on_get_weak_mob_modifiers(user, list/modifiers)
 	SIGNAL_HANDLER
-	var/strength_level_part = get_strength_level_part(user)
-	if(strength_level_part == 0)
-		modifiers.Add(usable_strength_level.weak_mob_modifier)
-		return
+	modifiers.Add(usable_strength_level.weak_mob_modifier)
 
 #undef REQ_STAMINA_FOR_STRENGTH_POINT
 #undef REQ_NUTRITION_FOR_STRENGTH_POINT

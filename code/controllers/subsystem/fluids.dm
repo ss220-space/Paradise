@@ -131,8 +131,8 @@ SUBSYSTEM_DEF(fluids)
 
 	seconds_per_tick = spread_wait / (1 SECONDS)
 	currentrun = currently_spreading
-	while(currentrun.len)
-		var/obj/effect/particle_effect/fluid/to_spread = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/effect/particle_effect/fluid/to_spread = currentrun[length(currentrun)]
 		currentrun.len--
 
 		if(!QDELETED(to_spread))
@@ -151,8 +151,8 @@ SUBSYSTEM_DEF(fluids)
 	seconds_per_tick = effect_wait / (1 SECONDS)
 	cached_bucket_index = effect_bucket_index
 	currentrun = currently_processing
-	while(currentrun.len)
-		var/obj/effect/particle_effect/fluid/to_process = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/effect/particle_effect/fluid/to_process = currentrun[length(currentrun)]
 		currentrun.len--
 
 		if(QDELETED(to_process) || to_process.process(seconds_per_tick) == PROCESS_KILL)

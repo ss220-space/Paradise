@@ -180,8 +180,8 @@ SUBSYSTEM_DEF(pathfinder)
 		if(!shared_source.compare_against_args(pass_info, target, simulated_only, exclude))
 			continue
 		var/max_dist = 0
-		if(shared_source.distances.len)
-			max_dist = shared_source.distances[shared_source.distances.len]
+		if(length(shared_source.distances))
+			max_dist = shared_source.distances[length(shared_source.distances)]
 		if(max_dist < min_range)
 			continue
 		if(oldest_time > shared_source.creation_time && !shared_source.building)
@@ -208,7 +208,7 @@ SUBSYSTEM_DEF(pathfinder)
 	for(var/datum/path_map/shared_source as anything in source_to_maps[target])
 		if(shared_source.compare_against_args(pass_info, target, simulated_only, exclude))
 			continue
-		var/max_dist = shared_source.distances[shared_source.distances.len]
+		var/max_dist = shared_source.distances[length(shared_source.distances)]
 		if(max_dist < min_range)
 			continue
 		if(oldest_time > shared_source.creation_time)

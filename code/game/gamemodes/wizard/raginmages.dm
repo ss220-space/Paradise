@@ -77,7 +77,7 @@
 			time_checked = world.time
 			make_more_mages()
 	else
-		if(wizards.len >= wizard_cap)
+		if(length(wizards) >= wizard_cap)
 			finished = 1
 			return 1
 		else
@@ -105,7 +105,7 @@
 			var/mob/living/carbon/brain/B = L
 			if(isitem(B.loc))
 				qdel(B.loc)
-			if(B && B.container)
+			if(B?.container)
 				qdel(B.container)
 		if(L)
 			qdel(L)
@@ -123,7 +123,7 @@
 	var/mob/dead/observer/harry = null
 	message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
 
-	if(!candidates.len)
+	if(!length(candidates))
 		message_admins("This is awkward, sleeping until another mage check..")
 		making_mage = FALSE
 		sleep(300)

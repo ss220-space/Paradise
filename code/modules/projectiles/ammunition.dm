@@ -1,6 +1,6 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
-	desc = "Иногда гильза от пули - это просто гильза, и ничего более."
+	desc = "Иногда гильза от пули — это просто гильза, и ничего более."
 	ru_names = list(
 		NOMINATIVE = "гильза от пули",
 		GENITIVE = "гильзы от пули",

@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/asteroid/marrowweaver
 	name = "marrow weaver"
-	desc = "Большой, злой и ядовитый паук. Обожает костный мозг. И его любимый источник пищи - это вы."
+	desc = "Большой, злой и ядовитый паук. Обожает костный мозг. И его любимый источник пищи — это вы."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "weaver"
 	icon_living = "weaver"

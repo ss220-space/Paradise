@@ -340,7 +340,7 @@
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
 	belt_icon = "bone_dagger"
-	desc = "Острая кость – минимум для выживания."
+	desc = "Острая кость — минимум для выживания."
 	materials = list()
 	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'

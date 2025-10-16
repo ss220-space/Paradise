@@ -263,7 +263,7 @@
 
 /obj/item/reagent_containers/food/drinks/cans/beer
 	name = "space beer"
-	desc = "Вода, солод и хмель - а больше и не требуется."
+	desc = "Вода, солод и хмель — а больше и не требуется."
 	icon_state = "beer"
 	is_glass = 1
 	list_reagents = list("beer" = 30)

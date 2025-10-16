@@ -218,7 +218,7 @@
 			if(!borg?.mmi)
 				return
 
-			var/permissions = borg?.mmi?.skin_permissions?.len? borg?.mmi?.skin_permissions : GLOB.all_skin_permissions
+			var/permissions = length(borg?.mmi?.skin_permissions)? borg?.mmi?.skin_permissions : GLOB.all_skin_permissions
 
 			var/new_permissions = tgui_input_checkbox_list(usr, "Выберите разрешенные скины", "Разрешенные скины", permissions) || list()
 

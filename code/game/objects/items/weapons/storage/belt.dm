@@ -68,7 +68,7 @@
 
 /obj/item/storage/belt/proc/collect_radial_menu_choices()
 	var/list/choices = list()
-	for(var/i = contents.len; i >= 1; i--) // Reverse order
+	for(var/i = length(contents); i >= 1; i--) // Reverse order
 		var/obj/item = contents[i]
 		choices["[item.declent_ru(NOMINATIVE)]"] = image(icon = item.icon, icon_state = item.icon_state)
 	return choices
@@ -669,7 +669,7 @@
 
 /obj/item/storage/belt/lazarus
 	name = "trainer's belt"
-	desc = "Для шахтёров-мастеров – хранит капсулы Лазаря."
+	desc = "Для шахтёров-мастеров — хранит капсулы Лазаря."
 	icon_state = "lazarusbelt_0"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY

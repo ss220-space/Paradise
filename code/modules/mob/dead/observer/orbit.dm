@@ -160,7 +160,7 @@
 							other_antags += list("[team.name] — ([team.alife_members_count()])" = (mind in team.members))
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
-					if(SSticker && SSticker.mode)
+					if(SSticker?.mode)
 						other_antags += list(
 							"Жертвы абдукторов — ([length(SSticker.mode.abductees)])" = (mind in SSticker.mode.abductees),
 							"Абдукторы — ([length(SSticker.mode.abductors)])" = (mind in SSticker.mode.abductors),

@@ -49,7 +49,7 @@
 		var/difficulty = 0
 
 		if(pda.cartridge)
-			difficulty += pda.cartridge.programs.len / 2
+			difficulty += length(pda.cartridge.programs) / 2
 		else
 			difficulty += 2
 

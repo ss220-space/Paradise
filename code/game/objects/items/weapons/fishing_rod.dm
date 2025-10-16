@@ -4,7 +4,7 @@
 
 /obj/item/twohanded/fishing_rod
 	name = "ol' reliable"
-	desc = "Старая, видавшая виды удочка. Если она прослужила так долго и ещё не развалилась - вам точно не следует волноваться о её надёжности."
+	desc = "Старая, видавшая виды удочка. Если она прослужила так долго и ещё не развалилась — вам точно не следует волноваться о её надёжности."
 	gender = FEMALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'

@@ -69,7 +69,7 @@
 
 
 /obj/machinery/optable/update_icon_state()
-	icon_state = "table2-[(patient && patient.pulse) ? "active" : "idle"]"
+	icon_state = "table2-[(patient?.pulse) ? "active" : "idle"]"
 
 
 /obj/machinery/optable/process()

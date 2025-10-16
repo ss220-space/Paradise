@@ -348,3 +348,38 @@
 	var/taste_desc = taste_description
 	var/taste_amount = volume * taste_mult
 	.[taste_desc] = taste_amount
+
+/**
+ * Input a reagent_list, outputs pretty readable text!
+ * Default output will be formatted as
+ * * water, 5 | silicon, 6 | soup, 4 | space lube, 8
+ *
+ * * names_only will remove the amount displays, showing
+ * * water | silicon | soup | space lube
+ *
+ * * join_text will alter the text between reagents
+ * * setting to ", " will result in
+ * * water, 5, silicon, 6, soup, 4, space lube, 8
+ *
+ * * final_and should be combined with the above. will format as
+ * * water, 5, silicon, 6, soup, 4, and space lube, 8
+ *
+ * * capitalize_names will result in
+ * * Water, 5 | Silicon, 6 | Soup, 4 | Space lube, 8
+ *
+ * * * use (reagents.reagent_list, names_only, join_text = ", ", final_and, capitalize_names) for the formatting
+ * * * Water, Silicon, Soup, and Space Lube
+ */
+/proc/pretty_string_from_reagent_list(list/reagent_list, names_only, join_text = " | ", final_and, capitalize_names)
+	//Convert reagent list to a printable string for logging etc
+	var/list/reagent_strings = list()
+	var/reagents_left = length(reagent_list)
+	var/intial_list_length = reagents_left
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		reagents_left--
+		if(final_and && intial_list_length > 1 && reagents_left == 0)
+			reagent_strings += "and [capitalize_names ? capitalize(reagent.name) : reagent.name][names_only ? null : ", [reagent.volume]"]"
+		else
+			reagent_strings += "[capitalize_names ? capitalize(reagent.name) : reagent.name][names_only ? null : ", [reagent.volume]"]"
+
+	return reagent_strings.Join(join_text)

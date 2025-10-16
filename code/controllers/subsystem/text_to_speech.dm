@@ -219,13 +219,13 @@ SUBSYSTEM_DEF(tts)
 	tts_rrps_counter = 0
 
 	tts_rps_list += tts_rps
-	if(tts_rps_list.len > 15)
+	if(length(tts_rps_list) > 15)
 		tts_rps_list.Cut(1,2)
 
 	var/rps_sum = 0
 	for(var/rps in tts_rps_list)
 		rps_sum += rps
-	tts_sma_rps = round(rps_sum / tts_rps_list.len, 0.1)
+	tts_sma_rps = round(rps_sum / length(tts_rps_list), 0.1)
 
 	var/free_rps = clamp(tts_rps_limit - tts_rps, 0, tts_rps_limit)
 	var/requests = tts_requests_queue.Copy(1, clamp(LAZYLEN(tts_requests_queue), 0, free_rps) + 1)

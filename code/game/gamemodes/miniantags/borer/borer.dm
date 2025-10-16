@@ -159,7 +159,7 @@
 	add_language(LANGUAGE_HIVE_BORER)
 	notify_ghosts("Мозговой червь появился в [get_area(src)]!", enter_link = "<a href=byond://?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 	real_name = "Мозговой червь [rand(1000,9999)]"
-	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
+	truename = "[borer_names[min(generation, length(borer_names))]] [rand(1000,9999)]"
 	GrantBorerActions()
 
 /mob/living/simple_animal/borer/death(gibbed)
@@ -681,18 +681,18 @@
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
-	return FALSE
+	return
 
 /mob/living/carbon/has_brain_worms()
 	if(borer)
 		return borer
 
-	return FALSE
+	return
 
 /mob/living/carbon/proc/BorerControlling()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(borer && borer.controlling)
+	if(borer?.controlling)
 		return TRUE
 
 	return FALSE
@@ -840,8 +840,8 @@
 
 /mob/living/carbon/human/proc/get_real_mind()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
-	return (borer && borer.controlling) ? borer.host_brain.mind : mind
+	return (borer?.controlling) ? borer.host_brain.mind : mind
 
 /mob/living/carbon/human/proc/get_real_ckey()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
-	return (borer && borer.controlling) ? borer.host_brain.ckey : ckey
+	return (borer?.controlling) ? borer.host_brain.ckey : ckey

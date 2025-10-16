@@ -60,7 +60,7 @@ SUBSYSTEM_DEF(demo)
 			var/client/C = CLIENT_FROM_VAR(T)
 			if(C)
 				target_keys += C.ckey
-		if(!target_keys.len)
+		if(!length(target_keys))
 			return
 		target_text = jointext(target_keys, ",")
 	else
@@ -146,7 +146,7 @@ SUBSYSTEM_DEF(demo)
 						continue
 					if(isobj(C) || ismob(C))
 						turf_list += encode_init_obj(C)
-				if(turf_list.len)
+				if(length(turf_list))
 					if(spacing)
 						row_list += spacing
 						spacing = 0
@@ -173,14 +173,14 @@ SUBSYSTEM_DEF(demo)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/demo/fire()
-	if(!src.marked_new.len && !src.marked_dirty.len && !src.marked_turfs.len && !src.del_list.len)
+	if(!length(src.marked_new) && !length(src.marked_dirty) && !length(src.marked_turfs) && !length(src.del_list))
 		return // nothing to do
 
-	last_queued = src.marked_new.len + src.marked_dirty.len + src.marked_turfs.len
+	last_queued = length(src.marked_new) + length(src.marked_dirty) + src.marked_turfs.len
 	last_completed = 0
 
 	write_time()
-	if(src.del_list.len)
+	if(length(src.del_list))
 		var/s = "del [jointext(src.del_list, ",")]\n" // if I don't do it like this I get "incorrect number of macro arguments" because byond is stupid and sucks
 		WRITE_LOG_NO_FORMAT(GLOB.demo_log, s)
 	src.del_list.Cut()
@@ -189,9 +189,9 @@ SUBSYSTEM_DEF(demo)
 
 	var/list/marked_dirty = src.marked_dirty
 	var/list/dirty_updates = list()
-	while(marked_dirty.len)
+	while(length(marked_dirty))
 		last_completed++
-		var/atom/movable/M = marked_dirty[marked_dirty.len]
+		var/atom/movable/M = marked_dirty[length(marked_dirty)]
 		marked_dirty.len--
 		if(M.gc_destroyed || !M)
 			continue
@@ -216,7 +216,7 @@ SUBSYSTEM_DEF(demo)
 		if(MC_TICK_CHECK)
 			canceled = TRUE
 			break
-	if(dirty_updates.len)
+	if(length(dirty_updates))
 		var/s = "update [jointext(dirty_updates, ",")]\n"
 		WRITE_LOG_NO_FORMAT(GLOB.demo_log, s)
 	if(canceled)
@@ -225,9 +225,9 @@ SUBSYSTEM_DEF(demo)
 
 	var/list/marked_new = src.marked_new
 	var/list/new_updates = list()
-	while(marked_new.len)
+	while(length(marked_new))
 		last_completed++
-		var/atom/movable/M = marked_new[marked_new.len]
+		var/atom/movable/M = marked_new[length(marked_new)]
 		marked_new.len--
 		if(M.gc_destroyed || !M)
 			continue
@@ -241,7 +241,7 @@ SUBSYSTEM_DEF(demo)
 		if(MC_TICK_CHECK)
 			canceled = TRUE
 			break
-	if(new_updates.len)
+	if(length(new_updates))
 		var/s = "new [jointext(new_updates, ",")]\n"
 		WRITE_LOG_NO_FORMAT(GLOB.demo_log, s)
 	if(canceled)
@@ -250,9 +250,9 @@ SUBSYSTEM_DEF(demo)
 
 	var/list/marked_turfs = src.marked_turfs
 	var/list/turf_updates = list()
-	while(marked_turfs.len)
+	while(length(marked_turfs))
 		last_completed++
-		var/turf/T = marked_turfs[marked_turfs.len]
+		var/turf/T = marked_turfs[length(marked_turfs)]
 		marked_turfs.len--
 		if(T && T.appearance != T.demo_last_appearance)
 			turf_updates += "([T.x],[T.y],[T.z])=[encode_appearance(T.appearance, T.demo_last_appearance)]"
@@ -260,7 +260,7 @@ SUBSYSTEM_DEF(demo)
 			if(MC_TICK_CHECK)
 				canceled = TRUE
 				break
-	if(turf_updates.len)
+	if(length(turf_updates))
 		var/s = "turf [jointext(turf_updates, ",")]\n"
 		WRITE_LOG_NO_FORMAT(GLOB.demo_log, s)
 	if(canceled)
@@ -274,7 +274,7 @@ SUBSYSTEM_DEF(demo)
 	for(var/C in M.contents)
 		if(isobj(C) || ismob(C))
 			encoded_contents += encode_init_obj(C)
-	return "\ref[M]=[encoded_appearance][(encoded_contents.len ? "([jointext(encoded_contents, ",")])" : "")]"
+	return "\ref[M]=[encoded_appearance][(length(encoded_contents) ? "([jointext(encoded_contents, ",")])" : "")]"
 
 // please make sure the order you call this function in is the same as the order you write
 /datum/controller/subsystem/demo/proc/encode_appearance(image/appearance, image/diff_appearance, diff_remove_overlays = FALSE, atom/movable/target)
@@ -287,41 +287,41 @@ SUBSYSTEM_DEF(demo)
 	var/cached_icon = icon_cache[icon_txt] || icon_txt
 	var/list/icon_state_cache
 	if(!isnum(cached_icon))
-		icon_cache[icon_txt] = icon_cache.len + 1
+		icon_cache[icon_txt] = length(icon_cache) + 1
 		icon_state_cache = (icon_state_caches[++icon_state_caches.len] = list())
 	else
 		icon_state_cache = icon_state_caches[cached_icon]
 
 	var/list/cached_icon_state = icon_state_cache[appearance.icon_state] || appearance.icon_state
 	if(!isnum(cached_icon_state))
-		icon_state_cache[appearance.icon_state] = icon_state_cache.len + 1
+		icon_state_cache[appearance.icon_state] = length(icon_state_cache) + 1
 
 	var/cached_name = name_cache[appearance.name] || appearance.name
 	if(!isnum(cached_name))
-		name_cache[appearance.name] = name_cache.len + 1
+		name_cache[appearance.name] = length(name_cache) + 1
 
 	var/color_string = appearance.color || "w"
 	if(islist(color_string))
 		var/list/old_list = appearance.color
 		var/list/inted = list()
 		inted.len = old_list.len
-		for(var/i in 1 to old_list.len)
+		for(var/i in 1 to length(old_list))
 			inted[i] += round(old_list[i] * 255)
 		color_string = jointext(inted, ",")
 	var/overlays_string = "\[]"
 	var/list/appearance_overlays = appearance.overlays
-	if(appearance_overlays.len)
+	if(length(appearance_overlays))
 		var/list/overlays_list = list()
-		for(var/i in 1 to appearance_overlays.len)
+		for(var/i in 1 to length(appearance_overlays))
 			var/image/overlay = appearance_overlays[i]
 			overlays_list += encode_appearance(overlay, appearance, TRUE, target = target)
 		overlays_string = "\[[jointext(overlays_list, ",")]]"
 
 	var/underlays_string = "\[]"
 	var/list/appearance_underlays = appearance.underlays
-	if(appearance_underlays.len)
+	if(length(appearance_underlays))
 		var/list/underlays_list = list()
-		for(var/i in 1 to appearance_underlays.len)
+		for(var/i in 1 to length(appearance_underlays))
 			var/image/underlay = appearance_underlays[i]
 			underlays_list += encode_appearance(underlay, appearance, TRUE, target = target)
 		underlays_string = "\[[jointext(underlays_list, ",")]]"
@@ -355,10 +355,10 @@ SUBSYSTEM_DEF(demo)
 		appearance:invisibility == 0 ? "" : appearance:invisibility, // colon because dreamchecker is dumb
 		appearance.pixel_w == 0 ? "" : appearance.pixel_w,
 		appearance.pixel_z == 0 ? "" : appearance.pixel_z,
-		appearance.overlays.len ? overlays_string : "",
-		appearance.underlays.len ? underlays_string : ""
+		length(appearance.overlays) ? overlays_string : "",
+		length(appearance.underlays) ? underlays_string : ""
 		)
-	while(appearance_list[appearance_list.len] == "" && appearance_list.len > 0)
+	while(appearance_list[length(appearance_list)] == "" && length(appearance_list) > 0)
 		appearance_list.len--
 
 	var/undiffed_string = "{[jointext(appearance_list, ";")]}"
@@ -366,22 +366,22 @@ SUBSYSTEM_DEF(demo)
 	if(diff_appearance)
 		var/overlays_identical = TRUE
 		if(diff_remove_overlays)
-			overlays_identical = (appearance.overlays.len == 0)
-		else if(appearance.overlays.len != diff_appearance.overlays.len)
+			overlays_identical = (length(appearance.overlays) == 0)
+		else if(length(appearance.overlays) != length(diff_appearance.overlays))
 			overlays_identical = FALSE
 		else
-			for(var/i in 1 to appearance.overlays.len)
+			for(var/i in 1 to length(appearance.overlays))
 				if(appearance.overlays[i] != diff_appearance.overlays[i])
 					overlays_identical = FALSE
 					break
 
 		var/underlays_identical = TRUE
 		if(diff_remove_overlays)
-			underlays_identical = (appearance.underlays.len == 0)
-		else if(appearance.underlays.len != diff_appearance.underlays.len)
+			underlays_identical = (length(appearance.underlays) == 0)
+		else if(length(appearance.underlays) != length(diff_appearance.underlays))
 			underlays_identical = FALSE
 		else
-			for(var/i in 1 to appearance.underlays.len)
+			for(var/i in 1 to length(appearance.underlays))
 				if(appearance.underlays[i] != diff_appearance.underlays[i])
 					underlays_identical = FALSE
 					break
@@ -413,7 +413,7 @@ SUBSYSTEM_DEF(demo)
 			overlays_identical ? "" : overlays_string,
 			underlays_identical ? "" :underlays_string
 			)
-		while(diffed_appearance_list[diffed_appearance_list.len] == "" && diffed_appearance_list.len > 0)
+		while(diffed_appearance_list[length(diffed_appearance_list)] == "" && length(diffed_appearance_list) > 0)
 			diffed_appearance_list.len--
 
 		var/diffed_string = "~{[jointext(diffed_appearance_list, ";")]}"
@@ -423,10 +423,10 @@ SUBSYSTEM_DEF(demo)
 
 /datum/controller/subsystem/demo/stat_entry(msg)
 	msg += "Remaining: {"
-	msg += "Trf:[marked_turfs.len]|"
-	msg += "New:[marked_new.len]|"
-	msg += "Upd:[marked_dirty.len]|"
-	msg += "Del:[del_list.len]"
+	msg += "Trf:[length(marked_turfs)]|"
+	msg += "New:[length(marked_new)]|"
+	msg += "Upd:[length(marked_dirty)]|"
+	msg += "Del:[length(del_list)]"
 	msg += "}"
 	return ..(msg)
 

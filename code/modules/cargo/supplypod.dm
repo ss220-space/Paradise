@@ -447,7 +447,7 @@
 					if(bodypart.limb_zone != BODY_ZONE_HEAD && bodypart.limb_zone != BODY_ZONE_CHEST \
 						&& bodypart.limb_zone != BODY_ZONE_PRECISE_GROIN && !(bodypart.cannot_amputate))//we dont want to kill him, just teach em a lesson!
 						possible_organs |= bp
-				if(possible_organs.len)
+				if(length(possible_organs))
 					bodypart = pick(possible_organs)
 					bodypart.droplimb()
 

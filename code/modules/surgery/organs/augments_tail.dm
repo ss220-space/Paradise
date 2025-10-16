@@ -157,7 +157,7 @@
 	var/type_of_damage = BRUTE // I did it only because I need attacklogs without exception
 	var/damage_deal = 5 * user.physiology.tail_strength_mod
 
-	if(implant && implant.activated) // Prevents exception if you dont have the implant, but unathi
+	if(implant?.activated) // Prevents exception if you dont have the implant, but unathi
 		active_implant = TRUE
 
 	if(active_implant)
@@ -224,7 +224,7 @@
 		return FALSE
 
 	var/active_implant = FALSE
-	if(implant && implant.activated)
+	if(implant?.activated)
 		active_implant = TRUE
 
 	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi) && !active_implant)

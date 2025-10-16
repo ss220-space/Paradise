@@ -1436,7 +1436,7 @@
 			if(T.y>world.maxy-3 || T.y<3)
 				continue
 			turfs += T
-		if(!turfs.len)
+		if(!length(turfs))
 			turfs += pick(/turf in orange(3, H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))

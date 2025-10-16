@@ -247,13 +247,13 @@ BODY SCANNERS
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.reagents)
-			if(H.reagents.reagent_list.len)
+			if(length(H.reagents.reagent_list))
 				to_chat(user, span_notice("Subject contains the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.reagent_list)
 					to_chat(user, "[span_notice("[R.volume]u of [R.name]")][R.overdosed ? " – [span_boldannounceic("OVERDOSING")]" : "[span_notice(".")]"]")
 			else
 				to_chat(user, span_notice("Subject contains no reagents."))
-			if(H.reagents.addiction_list.len)
+			if(length(H.reagents.addiction_list))
 				to_chat(user, span_danger("Subject is addicted to the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					to_chat(user, span_danger("[R.name] Stage: [R.addiction_stage]/5"))
@@ -582,10 +582,10 @@ BODY SCANNERS
 			for(var/mob/living/L in B.contents)
 				scan_content.Add(L)
 
-			if(scan_content.len == 1)
+			if(length(scan_content) == 1)
 				for(var/mob/living/carbon/human/L in scan_content)
 					scan_subject = L
-			else if(scan_content.len > 1)
+			else if(length(scan_content) > 1)
 				balloon_alert(user, "внутри слишком много субъектов!")
 				return
 			else
@@ -683,7 +683,7 @@ BODY SCANNERS
 
 	if(advanced)
 		if(H.reagents)
-			if(H.reagents.reagent_list.len)
+			if(length(H.reagents.reagent_list))
 				var/list/reagentList = list()
 				for(var/datum/reagent/R in H.reagents.reagent_list)
 					reagentList += list(list(
@@ -695,7 +695,7 @@ BODY SCANNERS
 			else
 				data["reagentList"] = FALSE
 
-			if(H.reagents.addiction_list.len)
+			if(length(H.reagents.addiction_list))
 				var/list/addictionList = list()
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					addictionList += list(list(
@@ -845,13 +845,13 @@ BODY SCANNERS
 				scan_data += "&emsp;[span_notice(capitalize(org.name))]: [(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"] - [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font>" : "<font color='red'>0</font>"]"
 	if(advanced)
 		if(H.reagents)
-			if(H.reagents.reagent_list.len)
+			if(length(H.reagents.reagent_list))
 				scan_data += "Обнаружены реагенты:"
 				for(var/datum/reagent/R in H.reagents.reagent_list)
 					scan_data += "&emsp;[R.volume]u [R.name][R.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]"
 			else
 				scan_data += "Реагенты не обнаружены."
-			if(H.reagents.addiction_list.len)
+			if(length(H.reagents.addiction_list))
 				scan_data += span_danger("Обнаружены зависимости от реагентов:")
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					scan_data += span_danger("&emsp;[R.name] Стадия: [R.addiction_stage]/5")
@@ -1242,7 +1242,7 @@ BODY SCANNERS
 		var/mix_name = capitalize(lowertext(scan_target.name))
 		if(scan_target == get_turf(src))
 			mix_name = "Location Reading"
-		if(airs.len != 1) //not a unary gas mixture
+		if(length(airs) != 1) //not a unary gas mixture
 			mix_name += " - Node [airs.Find(air)]"
 		new_gasmix_data += list(gas_mixture_parser(air, mix_name))
 	last_gasmix_data = new_gasmix_data
@@ -1295,7 +1295,7 @@ BODY SCANNERS
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
 	for(var/datum/gas_mixture/air as anything in airs)
 		var/mix_name = capitalize(lowertext(target.name))
-		if(airs.len > 1) //not a unary gas mixture
+		if(length(airs) > 1) //not a unary gas mixture
 			var/mix_number = airs.Find(air)
 			message += span_boldnotice("Node [mix_number]")
 			mix_name += " - Node [mix_number]"
@@ -1329,7 +1329,7 @@ BODY SCANNERS
 			message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
 			message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
 		else
-			message += airs.len > 1 ? span_notice("This node is empty!") : span_notice("[target] is empty!")
+			message += length(airs) > 1 ? span_notice("This node is empty!") : span_notice("[target] is empty!")
 			message += span_notice("Volume: [volume] L") // don't want to change the order volume appears in, suck it
 
 	// we let the join apply newlines so we do need handholding
@@ -1370,7 +1370,7 @@ BODY SCANNERS
 		var/dat = ""
 		var/blood_type = ""
 		var/blood_species = ""
-		if(O.reagents.reagent_list.len > 0)
+		if(length(O.reagents.reagent_list) > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.id != "blood")

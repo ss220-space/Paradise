@@ -48,5 +48,5 @@
 	if(!new_name || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	new_name = reject_bad_name(new_name)
-	name = "[new_name]'s [initial(name)]"
+	name = "[new_name]’s [initial(name)]"
 	change_voice(user)

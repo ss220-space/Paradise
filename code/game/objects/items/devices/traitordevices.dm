@@ -409,7 +409,7 @@ effective or pretty fucking useless.
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 	playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
+	playsound(destination, 'sound/magic/disintegrate.ogg', 50, TRUE)
 	destination.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
 	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
 		if(!user.drop_item_ground(thing))
@@ -552,7 +552,7 @@ effective or pretty fucking useless.
 	if(usability_check(area_check = FALSE, satellite_check = ION_CALLER_COMMS_TARGETING, silent = TRUE))
 		choices[ION_CALLER_COMMS_TARGETING] = mutable_appearance(icon = src.icon, icon_state = "ISD_tele_prev")
 
-	if(choices.len <= 1)
+	if(length(choices) <= 1)
 		to_chat(user, span_notice("It is not ready to be used yet."))
 		return
 

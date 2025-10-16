@@ -2,7 +2,7 @@
 //Bartender
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	desc = "Этот колпак обычно носят повара для того, чтобы избежать попадания волос в еду. Судя по состоянию кухни, волосы в еде - меньшая из ваших проблем."
+	desc = "Этот колпак обычно носят повара для того, чтобы избежать попадания волос в еду. Судя по состоянию кухни, волосы в еде — меньшая из ваших проблем."
 	icon_state = "chef"
 	item_state = "chef"
 	strip_delay = 10
@@ -425,7 +425,7 @@
 
 /obj/item/clothing/head/officer
 	name = "officer's cap"
-	desc = "Красная кепка с классическим полицейским значком, призванная продемонстрировать, что вы тут - закон."
+	desc = "Красная кепка с классическим полицейским значком, призванная продемонстрировать, что вы тут — закон."
 	gender = FEMALE
 	icon_state = "customshelm"
 	item_state = "customshelm"
@@ -702,7 +702,7 @@
 //SolGov
 /obj/item/clothing/head/beret/solgov/command
 	name = "Trans-Solar Federation Lieutenant's beret"
-	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель - лейтенант."
+	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель — лейтенант."
 	icon_state = "solgov_beret"
 	dog_fashion = null
 	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
@@ -737,7 +737,7 @@
 //Culinary Artist
 /obj/item/clothing/head/chefcap
 	name = "chef's red cap"
-	desc = "Этот красный колпак обычно носят повара для того, чтобы избежать попадания волос в еду. Судя по состоянию кухни, волосы в еде - меньшая из ваших проблем."
+	desc = "Этот красный колпак обычно носят повара для того, чтобы избежать попадания волос в еду. Судя по состоянию кухни, волосы в еде — меньшая из ваших проблем."
 	item_state = "redchefcap"
 	icon_state = "redchefcap"
 

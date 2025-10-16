@@ -428,7 +428,7 @@
 	G.reagents.set_reacting(FALSE)
 
 /datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
-	if(G && G.reagents)
+	if(G?.reagents)
 		var/reglist = ""
 		for(var/datum/reagent/R in G.reagents.reagent_list)
 			reglist += "[R.name] [R.volume], "

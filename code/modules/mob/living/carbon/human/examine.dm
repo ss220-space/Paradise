@@ -232,7 +232,7 @@
 
 	var/list/strength_list = list()
 	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
-	var/datum/strength_level/strength_level = !strength_list.len ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
+	var/datum/strength_level/strength_level = !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
 	if((rolled_down || !w_uniform || (w_uniform.item_flags & ABSTRACT)) && (!wear_suit || (wear_suit.item_flags & ABSTRACT)) && strength_level != STRENGTH_LEVEL_DEFAULT)
 		msg += span_notice("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] [strength_level.strength_examine][genderize_ru(gender, "ым", "ой", "ым", "ыми")].\n")
 
@@ -247,7 +247,7 @@
 		if(suiciding)
 			msg += span_warning("Выгляд[pluralize_ru(gender, "ит", "ят")] так, будто [genderize_ru(gender, "он", "она", "оно", "они")] покончил[genderize_ru(gender, "", "а", "о", "и")] с собой... надежды на восстановление нет.\n")
 		if(mind && !mind.hasSoul)
-			msg += span_boldwarning("<span style='font-size: large;'>[capitalize(genderize_ru(gender, "его", "её", "его", "их"))] душа – моя. Не тратьте свое время.</span>\n")
+			msg += span_boldwarning("<span style='font-size: large;'>[capitalize(genderize_ru(gender, "его", "её", "его", "их"))] душа — моя. Не тратьте свое время.</span>\n")
 		msg += span_deadsay("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] безжизнен[genderize_ru(gender, "", "на", "но", "ны")] и не реагиру[pluralize_ru(gender,"ет","ют")]. Нет никаких признаков жизни.")
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)
@@ -449,7 +449,7 @@
 							criminal = R.fields["criminal"]
 							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
 								var/list/comments = R.fields["comments"]
-								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
+								commentLatest = LAZYACCESS(comments, length(comments)) //get the latest entry from the comment log
 							else
 								commentLatest = "Нет записей." //If present but without entries (=target is recognized crew)
 

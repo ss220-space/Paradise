@@ -18,7 +18,7 @@
 		return 0
 
 /datum/job/ai/is_position_available()
-	return GLOB.empty_playable_ai_cores.len && CONFIG_GET(flag/allow_ai)
+	return length(GLOB.empty_playable_ai_cores) && CONFIG_GET(flag/allow_ai)
 
 
 /datum/job/cyborg

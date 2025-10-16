@@ -285,7 +285,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 			continue
 		if(M.can_start())
 			runnable_modes[M] = probabilities[M.config_tag]
-//			log_debug(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
+//			log_debug(world, "DEBUG: runnable_mode\[[length(runnable_modes)]\] = [M.config_tag]")
 	return runnable_modes
 
 /datum/controller/configuration/proc/load_twitch_censor_list()

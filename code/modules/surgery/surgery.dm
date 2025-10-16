@@ -559,7 +559,7 @@
 		if(length(get_path_to(E.loc, M.loc, max_distance = 2, simulated_only = FALSE)))
 			germs++
 
-	if(tool && tool.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools
+	if(tool?.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools
 		germs += 30
 
 	var/internals_length = LAZYLEN(E.internal_organs)

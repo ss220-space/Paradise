@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(throwing)
 	var/list/currentrun = src.currentrun
 
 	while(length(currentrun))
-		var/atom/movable/AM = currentrun[currentrun.len]
+		var/atom/movable/AM = currentrun[length(currentrun)]
 		var/datum/thrownthing/TT = currentrun[AM]
 		currentrun.len--
 		if(QDELETED(AM) || QDELETED(TT))
@@ -118,8 +118,9 @@ SUBSYSTEM_DEF(throwing)
 
 
 /datum/thrownthing/Destroy()
-	SSthrowing.processing -= thrownthing
-	SSthrowing.currentrun -= thrownthing
+	if(SSthrowing)
+		SSthrowing.processing -= thrownthing
+		SSthrowing.currentrun -= thrownthing
 	thrownthing.throwing = null
 	thrownthing = null
 	thrower = null

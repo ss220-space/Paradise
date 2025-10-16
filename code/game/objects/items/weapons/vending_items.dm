@@ -259,7 +259,7 @@
 
 /obj/item/vending_refill/custom/proc/try_add_account(mob/user)
 	. = FALSE
-	if(linked_accounts.len >= 150) // better to do it
+	if(length(linked_accounts) >= 150) // better to do it
 		balloon_alert(user, "лимит привязки достигнут")
 		return
 
@@ -339,10 +339,10 @@
 /obj/item/vending_refill/custom/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		if(!linked_accounts.len)
+		if(!length(linked_accounts))
 			. += span_notice("К этой канистре не привязанно ни одного счета.")
 		else
 			. += span_notice("К этой канистре привязанны следующее счета:")
-			for(var/i = 1; i <= linked_accounts.len; ++i)
+			for(var/i = 1; i <= length(linked_accounts); ++i)
 				. += span_notice("Владелец: " + linked_accounts[i].owner_name + ", вес: [accounts_weights[i]], доля: [round(accounts_weights[i]/sum_of_weigths, 0.01)].")
 

@@ -59,10 +59,10 @@
 /obj/item/gun/dartgun/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		if(beakers.len)
+		if(length(beakers))
 			. += span_notice("[src] contains:")
 			for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
-				if(B.reagents && B.reagents.reagent_list.len)
+				if(B.reagents && length(B.reagents.reagent_list))
 					for(var/datum/reagent/R in B.reagents.reagent_list)
 						. += span_notice("[R.volume] units of [R.name]")
 
@@ -133,7 +133,7 @@
 
 	var/obj/item/reagent_containers/syringe/dart = new(src)
 
-	if(mixing.len)
+	if(length(mixing))
 		var/mix_amount = dart_reagent_amount/mixing.len
 		for(var/obj/item/reagent_containers/glass/beaker/B in mixing)
 			B.reagents.trans_to(dart,mix_amount)
@@ -206,11 +206,11 @@
 	user.set_machine(src)
 	var/dat = {"<b>[src] mixing control:</b><br><br>"}
 
-	if(beakers.len)
+	if(length(beakers))
 		var/i = 1
 		for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
 			dat += "Beaker [i] contains: "
-			if(B.reagents && B.reagents.reagent_list.len)
+			if(B.reagents && length(B.reagents.reagent_list))
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					dat += "<br>    [R.volume] units of [R.name], "
 				if(check_beaker_mixing(B))
@@ -248,18 +248,18 @@
 	src.add_fingerprint(usr)
 	if(href_list["stop_mix"])
 		var/index = text2num(href_list["stop_mix"])
-		if(index <= beakers.len)
+		if(index <= length(beakers))
 			for(var/obj/item/M in mixing)
 				if(M == beakers[index])
 					mixing -= M
 					break
 	else if(href_list["mix"])
 		var/index = text2num(href_list["mix"])
-		if(index <= beakers.len)
+		if(index <= length(beakers))
 			mixing += beakers[index]
 	else if(href_list["eject"])
 		var/index = text2num(href_list["eject"])
-		if(index <= beakers.len)
+		if(index <= length(beakers))
 			if(beakers[index])
 				var/obj/item/reagent_containers/glass/beaker/B = beakers[index]
 				to_chat(usr, span_notice("You remove [B] from [src]."))

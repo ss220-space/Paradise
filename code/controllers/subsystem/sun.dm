@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(sun)
 
 
 /datum/controller/subsystem/sun/get_stat_details()
-	return "P:[solars.len]"
+	return "P:[length(solars)]"
 
 
 /datum/controller/subsystem/sun/fire()
