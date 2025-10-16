@@ -28,24 +28,26 @@ def check_515_proc_syntax(idx, line):
 CHECK_SPACE_INDENTATION_RE = re.compile(r"^( {2})|(^ [^ *])|(^ {4,})")
 def check_space_indentation(idx, line):
     """
-    Check specifically for space-significant indentation.
+    Check specifically for space-significant indentation. Excludes dmdoc
+    block comment lines so long as there is an asterisk immediately after the
+    leading spaces.
 
     >>> bool(check_space_indentation(["  foo"]))
     True
-    >>> bool(check_space_indentation(["  * foo"])) # 2 spaces + asterisk
+    >>> bool(check_space_indentation(["  * foo"]))
     True
-    >>> bool(check_space_indentation([" x"])) # 1 space + letter
+    >>> bool(check_space_indentation([" x"]))
     True
-    >>> bool(check_space_indentation(["    foo"])) # 4+ spaces
+    >>> bool(check_space_indentation(["    foo"]))
     True
-    >>> bool(check_space_indentation(["  "])) # 2 spaces only
+    >>> bool(check_space_indentation(["  "]))
     True
 
-    >>> bool(check_space_indentation(["\\tfoo"])) # tabs are fine
+    >>> bool(check_space_indentation(["\\tfoo"]))
     False
-    >>> bool(check_space_indentation([" * foo"])) # 1 space + asterisk
+    >>> bool(check_space_indentation([" * foo"]))
     False
-    >>> bool(check_space_indentation(["   foo"])) # 3 spaces (not matched)
+    >>> bool(check_space_indentation(["   foo"]))
     False
     """
     if CHECK_SPACE_INDENTATION_RE.match(line):
@@ -307,6 +309,11 @@ def check_rand_floating_point(idx, line):
     if RAND_FLOATING_POINT_NUMBERS.search(line):
         return [(idx + 1, "rand() does not support floating point numbers, use randfloat() instead.")]
 
+BITWISE_AMBIGUOUS_RE = re.compile(r'&[ \t]*\w+[ \t]*\|[ \t]*\w+')
+def check_bitwise_operator_order(idx, line):
+    if BITWISE_AMBIGUOUS_RE.search(line):
+        return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -341,6 +348,7 @@ CODE_CHECKS = [
     check_playsound_improper_call,
     check_apostrophe_name,
     check_rand_floating_point,
+    check_bitwise_operator_order,
 ]
 
 def check_updatepaths_validity():
