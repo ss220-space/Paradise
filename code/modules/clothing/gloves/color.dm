@@ -164,7 +164,6 @@
 	desc = "Pair of gloves with some protection"
 	icon_state = "armored_gloves"
 	item_state = "armored_gloves"
-	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
 	can_be_cut = FALSE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',

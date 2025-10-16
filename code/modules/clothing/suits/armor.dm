@@ -9,7 +9,7 @@
 	put_on_delay = 40
 	max_integrity = 250
 	resistance_flags = NONE
-	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -122,7 +122,7 @@
 	icon_state = "secjacket_open"
 	item_state = "secjacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
+	armor = list(melee = 25, bullet = 15, laser = 35, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	ignore_suitadjust = FALSE
@@ -287,7 +287,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 30, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 70
 	put_on_delay = 50
 	sprite_sheets = list(

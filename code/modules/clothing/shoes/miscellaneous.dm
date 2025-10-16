@@ -10,7 +10,6 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
 	pickup_sound = 'sound/items/handling/pickup/boots_pickup.ogg'
@@ -190,7 +189,6 @@
 	icon_state = "armored_shoes"
 	item_color = "armored_shoes"
 	item_state = "armored_shoes"
-	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',

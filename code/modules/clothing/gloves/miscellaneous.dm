@@ -92,6 +92,7 @@
 	desc = "These riot gloves are both insulated and offer melee protection."
 	icon_state = "riotgloves"
 	item_state = "riotgloves"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
