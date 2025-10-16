@@ -85,6 +85,13 @@ class HubStorageBackend implements StorageBackend {
       });
     });
   }
+  async processChatMessages(messages) {
+    return storage.set('chat-messages', messages);
+  }
+
+  async getChatMessages(): Promise<any> {
+    return await storage.get('chat-messages');
+  }
 }
 
 export class IFrameIndexedDbBackend implements StorageBackend {
