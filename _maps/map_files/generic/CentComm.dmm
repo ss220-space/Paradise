@@ -19487,8 +19487,6 @@
 /area/syndicate_mothership/outside)
 "jsZ" = (
 /obj/structure/table/abductor,
-/obj/item/retractor/alien,
-/obj/item/hemostat/alien,
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "jtb" = (
@@ -20789,8 +20787,6 @@
 "jXB" = (
 /obj/structure/table/abductor,
 /obj/item/paper/abductor,
-/obj/item/scalpel/alien,
-/obj/item/cautery/alien,
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "jYK" = (
@@ -21706,11 +21702,6 @@
 /area/centcom/specops)
 "ktf" = (
 /obj/structure/table/abductor,
-/obj/item/bonegel/alien,
-/obj/item/bonesetter/alien,
-/obj/item/FixOVein/alien,
-/obj/item/surgicaldrill/alien,
-/obj/item/circular_saw/alien,
 /obj/item/healthanalyzer/abductor{
 	pixel_x = 5;
 	pixel_y = 5
@@ -21959,19 +21950,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/specops)
-"kAj" = (
-/obj/structure/table/abductor,
-/obj/item/surgicaldrill/alien,
-/obj/item/circular_saw/alien,
-/obj/item/FixOVein/alien,
-/obj/item/bonesetter/alien,
-/obj/item/bonegel/alien,
-/obj/item/healthanalyzer/abductor{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/turf/simulated/floor/indestructible/abductor,
-/area/abductor_ship)
 "kAl" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/stack/spacecash,
@@ -53881,7 +53859,7 @@ ioP
 iPL
 juD
 iPL
-kAj
+ktf
 kMQ
 mVX
 mVX

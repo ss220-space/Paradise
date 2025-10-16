@@ -767,6 +767,13 @@
 	cost = 30
 	race = list(SPECIES_GREY)
 
+/datum/uplink_item/racial/agent_surgical_belt
+	name = "Хирургический пояс абдукторов"
+	desc = ""  // TODO: Дать desc
+	item = /obj/item/storage/belt/medical/surgery/abductor/loaded
+	cost = 8
+	race = list(SPECIES_GREY)
+
 /**
  * MARK: Dangerous Weapons
  */

@@ -310,6 +310,50 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	update_icon()
 
+/obj/item/storage/belt/medical/surgery/abductor
+	name = "agent surgical belt"
+	desc = ""  // TODO: Дать desc
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "belt"
+	item_state = "security"
+	max_combined_w_class = 17
+	storage_slots = 11
+	storable = TRUE
+	can_hold = list(
+		/obj/item/scalpel,
+		/obj/item/hemostat,
+		/obj/item/retractor,
+		/obj/item/circular_saw,
+		/obj/item/bonegel,
+		/obj/item/bonesetter,
+		/obj/item/FixOVein,
+		/obj/item/surgicaldrill,
+		/obj/item/cautery,
+		/obj/item/radio,
+		/obj/item/clothing/gloves/color/latex,
+		/obj/item/reagent_containers/spray/cleaner)
+
+/obj/item/storage/belt/medical/surgery/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетный хирургический пояс",
+		GENITIVE = "инопланетного хирургического пояса",
+		DATIVE = "инопланетному хирургическому поясу",
+		ACCUSATIVE = "инопланетный хирургический пояс",
+		INSTRUMENTAL = "инопланетным хирургическим поясом",
+		PREPOSITIONAL = "инопланетном хирургическом поясе"
+	)
+
+/obj/item/storage/belt/medical/surgery/abductor/loaded/populate_contents()
+	new /obj/item/scalpel/alien(src)
+	new /obj/item/hemostat/alien(src)
+	new /obj/item/retractor/alien(src)
+	new /obj/item/circular_saw/alien(src)
+	new /obj/item/bonegel/alien(src)
+	new /obj/item/bonesetter/alien(src)
+	new /obj/item/FixOVein/alien(src)
+	new /obj/item/surgicaldrill/alien(src)
+	new /obj/item/cautery/alien(src)
+
 /obj/item/storage/belt/botany
 	name = "botanist belt"
 	desc = "Can hold various botanical supplies."
