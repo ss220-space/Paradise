@@ -66,8 +66,17 @@
 	icon_state = the_dna_lock_behind_the_slaughter.icon_state
 	complexity = the_dna_lock_behind_the_slaughter.complexity
 	use_energy_cost = the_dna_lock_behind_the_slaughter.use_energy_cost
-	ru_names = the_dna_lock_behind_the_slaughter.get_ru_names()
 	qdel(the_dna_lock_behind_the_slaughter)
+
+/obj/item/mod/module/springlock/bite_of_87/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль ДНК-блокировки",
+		GENITIVE = "модуля ДНК-блокировки",
+		DATIVE = "модулю ДНК-блокировки",
+		ACCUSATIVE = "модуль ДНК-блокировки",
+		INSTRUMENTAL = "модулем ДНК-блокировки",
+		PREPOSITIONAL = "модуле ДНК-блокировки",
+	)
 
 /obj/item/mod/module/holster/hidden/Initialize(mapload)
 	. = ..()
@@ -77,8 +86,17 @@
 	icon_state = fake.icon_state
 	complexity = fake.complexity //This is 1 less complex than a holster, but that is fine tbh, paying tc for it.
 	use_energy_cost = fake.use_energy_cost
-	ru_names = fake.get_ru_names()
 	qdel(fake)
+
+/obj/item/mod/module/holster/hidden/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль крюк-кошки",
+		GENITIVE = "модуля крюк-кошки",
+		DATIVE = "модулю крюк-кошки",
+		ACCUSATIVE = "модуль крюк-кошки",
+		INSTRUMENTAL = "модулем крюк-кошки",
+		PREPOSITIONAL = "модуле крюк-кошки",
+	)
 
 // MARK: Power kick
 /// Power kick - Lets the user launch themselves at someone to kick them.
