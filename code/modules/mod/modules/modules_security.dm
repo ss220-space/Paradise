@@ -4,8 +4,8 @@
 /// Holster - Instantly holsters any not huge gun.
 /obj/item/mod/module/holster
 	name = "MOD holster module"
-	desc = "Модуль для МЭК, основанный на системе, схожей с стандартным модулем хранилища. Позволяет хранить в кобуре костюма оружие \
-		с возможностью быстро извлечь его в любой момент."
+	desc = "Модуль для МЭК, основанный на системе, схожей со стандартным модулем хранилища. Позволяет хранить в кобуре костюма оружие \
+			с возможностью быстро извлечь его в любой момент."
 	icon_state = "holster"
 	module_type = MODULE_USABLE
 	complexity = 2
@@ -40,9 +40,9 @@
 		mod.wearer.temporarily_remove_item_from_inventory(holding)
 		holding.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.balloon_alert_to_viewers("извлека[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие!", "оружие извлечено")
+		mod.wearer.balloon_alert_to_viewers("извлека[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие", "оружие извлечено")
 	else
-		balloon_alert(mod.wearer, "освободите руку!")
+		balloon_alert(mod.wearer, "рука занята!")
 
 /obj/item/mod/module/holster/on_uninstall(deleting = FALSE)
 	. = ..()
@@ -62,7 +62,8 @@
 /// Mirage grenade dispenser - Dispenses grenades that copy the user's appearance.
 /obj/item/mod/module/dispenser/mirage
 	name = "MOD mirage grenade dispenser module"
-	desc = "Модуль для МЭК, производящий мираж-гранаты. При взрыве они создают неотличимую копию пользователя в виде голограммы."
+	desc = "Модуль для МЭК, производящий гранаты \"Мираж\", создающие при детонации голограмму-копию пользователя. \
+			Предназначен для тактической дезинформации противника."
 	icon_state = "mirage_grenade"
 	cooldown_time = 20 SECONDS
 	overlay_state_inactive = "module_mirage_grenade"
@@ -84,7 +85,7 @@
 
 /obj/item/grenade/mirage
 	name = "mirage grenade"
-	desc = "Специальное устройство, напоминающее гранату. При активации создаёт голографическую копию пользователя."
+	desc = "Специальное устройство, напоминающее гранату. При активации создаёт голограмму-копию пользователя."
 	icon_state = "mirage"
 	det_time = 3 SECONDS
 	/// Mob that threw the grenade.
@@ -127,8 +128,8 @@
 /// Active Sonar - Displays a hud circle on the turf of any living creatures in the given radius
 /obj/item/mod/module/active_sonar
 	name = "MOD active sonar"
-	desc = "Модуль для МЭК. По сути является эволюцией древней технологии сонара из 20 века, использующей звуковые волны для обнаружения \
-		живых существ в радиусе вокруг пользователя. Аутентичный звук поставляется в комплекте."
+	desc = "Модуль для МЭК, использующий импульсные звуковые волны для обнаружения \
+			живых существ в радиусе действия. Воспроизводит аутентичный звуковой сигнал."
 	icon_state = "active_sonar"
 	module_type = MODULE_USABLE
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 4
@@ -158,7 +159,7 @@
 		new /obj/effect/temp_visual/sonar_ping(mod.wearer.loc, mod.wearer, creature)
 		creatures_detected++
 	playsound(mod.wearer, 'sound/effects/ping_hit.ogg', vol = 75, vary = TRUE, extrarange = 9) // Should be audible for the radius of the sonar
-	to_chat(mod.wearer, (span_notice("Вы бьёте кулаком в пол, запуская звуковую волну сонара, которая обнаруживает [creatures_detected] жив[declension_ru("ое", "ых", "ых")] существ[declension_ru("о", "а", "")] поблизости!")))
+	to_chat(mod.wearer, (span_notice("Вы бьёте кулаком в пол, запуская звуковую волну сонара, которая обнаруживает [creatures_detected] жив[declension_ru("ое существо", "ых существ", "ых существ")] поблизости!")))
 
 /obj/effect/temp_visual/sonar_ping
 	duration = 3 SECONDS
@@ -201,7 +202,8 @@
 /// Firewall. Deployable dropwall that lights projectiles on fire.
 /obj/item/mod/module/anomaly_locked/firewall
 	name = "MOD firewall module"
-	desc = "Модуль для МЭК, использующий ядро пирокластической аномалии для создания огненной стены, сжигающей проходящие сквозь неё снаряды."
+	desc = "Модуль для МЭК, использующий ядро пирокластической аномалии для генерации термобарьера, \
+			поджигающего проходящие через него снаряды."
 	icon_state = "firewall"
 	overlay_state_inactive = "module_mirage_grenade"
 	module_type = MODULE_ACTIVE
@@ -241,7 +243,7 @@
 /obj/item/mod/module/anomaly_locked/vortex_shotgun
 	name = "MOD vortex shotgun module"
 	desc = "Модуль для МЭК, использующий ядро вихревой аномалии в конструкции дробовика, встроенного в предплечье костюма, \
-		чтобы искажать само пространство-время перед пользователем."
+			чтобы искажать само пространство-время перед пользователем."
 	icon_state = "vortex"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -278,8 +280,8 @@
 /// Criminal Capture - Generates hardlight bags you can put people in and sinch.
 /obj/item/mod/module/criminalcapture
 	name = "MOD criminal capture module"
-	desc = "Модуль для МЭК, позволяющий создавать непроницаемые мешки из твёрдого света для комфортной и безопасной транспортировки \
-		пока ещё живых задержанных в условиях отсутствующей атмосферы."
+	desc = "Модуль для МЭК, создающий герметичные контейнеры из твёрдого света для безопасной \
+			транспортировки задержанных в условиях опасной атмосферы."
 	icon_state = "criminal_capture"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -363,7 +365,7 @@
 /obj/item/mod/module/criminalcapture/proc/delete_bag(obj/structure/closet/body_bag/bag)
 	if(mod?.wearer)
 		UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
-		balloon_alert(mod.wearer, "мешок рассеялся")
+		balloon_alert(mod.wearer, "мешок рассеивается")
 	bag.open()
 	qdel(bag)
 
@@ -373,8 +375,8 @@
 /// Magnetic Harness - Automatically puts guns in your suit storage when you drop them.
 /obj/item/mod/module/magnetic_harness
 	name = "MOD magnetic harness module"
-	desc = "Модуль для МЭК, основанный на старой технологии морпехов ТСФ. Умная система магнитов автоматически вернёт выпавшее \
-		из рук оружие назад пользователю." // its obviously from TGMC, but afaik we don't have TerraGov in lore, so i've changed it to TSF marines
+	desc = "Модуль для МЭК, основанный на старой технологии, использовавшейся морской пехотой ТСФ. \
+			Автоматически возвращает выпавшее оружие к пользователю с помощью системы управляемых магнитов."
 	icon_state = "mag_harness"
 	complexity = 2
 	use_energy_cost = DEFAULT_CHARGE_DRAIN
@@ -447,8 +449,8 @@
 /// Pepper Shoulders - When hit, reacts with a spray of pepper spray around the user.
 /obj/item/mod/module/pepper_shoulders
 	name = "MOD pepper shoulders module"
-	desc = "Модуль для МЭК, представляющий собой два перцовых распылителя, установленных в плечи костюма. Они настроены таким образом, \
-		чтобы выпускать перцовую смесь при любом ударе по пользователю."
+	desc = "Модуль для МЭК, представляющий собой два перцовых распылителя, устанавливаемых в плечи костюма. Они настроены таким образом, \
+			чтобы выпускать перцовую смесь при любом ударе по пользователю."
 	icon_state = "pepper_shoulder"
 	module_type = MODULE_USABLE
 	complexity = 1
@@ -492,8 +494,8 @@
 	if(!check_power(use_energy_cost))
 		return
 	mod.wearer.visible_message(
-		span_warning("[declent_ru(NOMINATIVE)] реагирует на атаку и распыляет перцовый газ!"),
-		span_notice("Ваш [declent_ru(NOMINATIVE)] распыляет облако перцового газа!")
+		span_warning("[capitalize(declent_ru(NOMINATIVE))] [mod.declent_ru(GENITIVE)] [mod.wearer.declent_ru(GENITIVE)] реагиру[PLUR_ET_UT(src)] на атаку и распыля[PLUR_ET_UT(src)] перцовый газ!"),
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] вашего [mod.declent_ru(GENITIVE)] распыля[PLUR_ET_UT(src)] облако перцового газа!")
 	)
 	on_use()
 
@@ -501,8 +503,8 @@
 /// Megaphone - Lets you speak loud.
 /obj/item/mod/module/megaphone
 	name = "MOD megaphone module"
-	desc = "Модуль для МЭК, являющийся микрочипом мегафона, интегрированный в костюм. Открывает перед пользователем много новых \
-		возможностей. Например, быть ГРОМКИМ."
+	desc = "Модуль для МЭК, представляющий собой акустический усилитель. Увеличивает \
+			громкость речи пользователя, предоставляя широкий спектр применений."
 	icon_state = "megaphone"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -525,7 +527,7 @@
 /obj/item/mod/module/quick_cuff
 	name = "MOD restraint assist module"
 	desc = "Модуль для МЭК, представляющий собой усовершенствованные накладки на перчатки, которые обеспечивают более надёжный захват \
-		и позволяют быстрее заковывать людей в наручники. Похоже, эти накладки невозможно снять."
+			и позволяют быстрее заковывать цели в наручники. Снятие с МЭК после установки невозможно."
 	removable = FALSE
 	required_slots = list(ITEM_SLOT_GLOVES)
 
