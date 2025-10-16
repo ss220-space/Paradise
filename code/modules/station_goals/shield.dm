@@ -198,8 +198,12 @@
 	setup_proxies()
 
 /obj/machinery/satellite/meteor_shield/Destroy()
-	. = ..()
 	QDEL_NULL(proximity_monitor)
+	if(!(active && emagged))
+		return ..()
+
+	change_meteor_chance(0.5)
+	return ..()
 
 /obj/machinery/satellite/meteor_shield/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
@@ -271,13 +275,6 @@
 		for(var/datum/event_meta/M in container.available_events)
 			if(is_type_in_typecache(M.event_type, meteor_event_typecache))
 				M.weight_mod *= mod
-
-/obj/machinery/satellite/meteor_shield/Destroy()
-	. = ..()
-	if(!(active && emagged))
-		return
-
-	change_meteor_chance(0.5)
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(emagged)
