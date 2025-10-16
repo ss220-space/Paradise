@@ -19,6 +19,10 @@
 		return double_name
 	return multiple_name // 5, 6, 7, 8, 9, 0
 
+// Макросы для наиболее часто используемых случаев.
+/// Секунд, минут, единиц
+#define DECL_SEC_MIN(target) declension_ru(target, "у", "ы", "")
+
 /**
  * Возвращает форму слова с учётом грамматического рода в русском языке.
  *
@@ -36,6 +40,11 @@
 /proc/genderize_ru(gender, male_word, female_word, neuter_word, multiple_word)
 	return gender == MALE ? male_word : (gender == FEMALE ? female_word : (gender == NEUTER ? neuter_word : multiple_word))
 
+// Макросы для наиболее часто используемых случаев.
+#define GEND_HE_SHE(target) genderize_ru(target.gender, "он", "она", "оно", "они")
+#define GEND_HIS_HER(target) genderize_ru(target.gender, "его", "её", "его", "их")
+#define GEND_HIM_HER(target) genderize_ru(target.gender, "ему", "ей", "ему", "им")
+
 /**
  * Возвращает форму единственного или множественного числа в зависимости от грамматического рода.
  *
@@ -49,6 +58,10 @@
  */
 /proc/pluralize_ru(gender, single_word, plural_word)
 	return gender == PLURAL ? plural_word : single_word
+
+// Макросы для наиболее часто используемых случаев.
+#define PLUR_ET_UT(target) pluralize_ru(target.gender, "ет", "ют")
+#define PLUR_IT_YAT(target) pluralize_ru(target.gender, "ит", "ят")
 
 /**
  * Обрабатывает гендерно-зависимую текстовую разметку в строке.
@@ -86,3 +99,4 @@
 			else
 				stack_trace("Invalid data sent to genderize_decode proc.")
 	return msg
+
