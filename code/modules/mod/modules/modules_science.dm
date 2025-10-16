@@ -4,7 +4,7 @@
 /obj/item/mod/module/reagent_scanner
 	name = "MOD reagent scanner module"
 	desc = "Модуль для МЭК, встраиваемый в визор костюма. Собирает и выводит на дисплей пользователя информацию о содержимом \
-		различных ёмкостей. К счастью или нет, не может распознавать ароматы."
+			различных ёмкостей. К счастью или нет, не может распознавать ароматы."
 	icon_state = "scanner"
 	module_type = MODULE_TOGGLE
 	complexity = 1
@@ -43,7 +43,7 @@
 /obj/item/mod/module/reagent_scanner/advanced
 	name = "MOD advanced reagent scanner module"
 	desc = "Модуль для МЭК, встраиваемый в визор костюма. Улучшенная версия обычного сканера реагентов, собирающая информацию \
-		о мощности ближайших взрывов и выводящая их на визор пользователя. Всё ещё не может распознавать ароматы."
+			о мощности ближайших взрывов и выводящая их на визор пользователя. Всё ещё не может распознавать ароматы."
 	complexity = 0
 	removable = FALSE
 	var/explosion_detection_dist = 21
@@ -84,8 +84,8 @@
 /// Teleporter - Lets the user teleport to a nearby location.
 /obj/item/mod/module/anomaly_locked/teleporter
 	name = "MOD teleporter module"
-	desc = "Модуль для МЭК, использующий ядро блюспейс аномалии для того, чтобы пользователь мог комфортно умереть и воссоздать своего \
-		клона в новом месте. Технологии телепортации великолепны!"
+	desc = "Модуль для МЭК, использующий ядро блюспейс-аномалии для телепортации пользователя. \
+			Безопасность процесса для последнего остаётся под вопросом."
 	icon_state = "teleporter"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -133,7 +133,8 @@
 /// Anti-Gravity - Makes the user weightless.
 /obj/item/mod/module/anomaly_locked/antigrav
 	name = "MOD anti-gravity module"
-	desc = "Модуль для МЭК, использующий ядро гравитационной аномалии, чтобы сделать пользователя невесомым."
+	desc = "Модуль для МЭК, использующий ядро гравитационной аномалии для полной компенсации гравитационного воздействия. \
+			Обеспечивает контролируемую невесомость пользователя."
 	icon_state = "antigrav"
 	module_type = MODULE_TOGGLE
 	complexity = 2
