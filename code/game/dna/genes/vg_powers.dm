@@ -19,7 +19,6 @@
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_morph"
 
@@ -108,7 +107,7 @@
 	//Body accessory.
 	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
-		if(valid_body_accessories.len > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
+		if(length(valid_body_accessories) > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
 			var/new_body_accessory = tgui_input_list(usr, "Пожалуйста, выберите стиль аксессуаров для тела.", "Создание персонажа", valid_body_accessories, M.body_accessory)
 			if(new_body_accessory)
 				M.change_body_accessory(new_body_accessory)
@@ -156,10 +155,10 @@
 			M.change_skin_tone(new_tone)
 
 	if(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/prompt = "Пожалуйста, выберите тон кожи: 1-[M.dna.species.icon_skin_tones.len] ("
-		for(var/i = 1 to M.dna.species.icon_skin_tones.len)
+		var/prompt = "Пожалуйста, выберите тон кожи: 1-[length(M.dna.species.icon_skin_tones)] ("
+		for(var/i = 1 to length(M.dna.species.icon_skin_tones))
 			prompt += "[i] = [M.dna.species.icon_skin_tones[i]]"
-			if(i != M.dna.species.icon_skin_tones.len)
+			if(i != length(M.dna.species.icon_skin_tones))
 				prompt += ", "
 		prompt += ")"
 
@@ -167,7 +166,7 @@
 		if(!new_tone)
 			new_tone = 0
 		else
-			new_tone = max(min(round(text2num(new_tone)), M.dna.species.icon_skin_tones.len), 1)
+			new_tone = max(min(round(text2num(new_tone)), length(M.dna.species.icon_skin_tones)), 1)
 			M.change_skin_tone(new_tone)
 
 	//Skin colour.
@@ -217,7 +216,6 @@
 	base_cooldown = 0
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_project"
 
@@ -267,7 +265,6 @@
 	desc = "Дайте людям возможность поделиться их мыслями!"
 	base_cooldown = 45 SECONDS
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 	action_icon_state = "genetic_mindscan"
 	var/list/available_targets = list()
 
@@ -361,10 +358,8 @@
 /obj/effect/proc_holder/spell/remoteview
 	name = "Remote View"
 	desc = "Следите за людьми с любого расстояния!"
-	base_cooldown = 10 SECONDS
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_view"
 

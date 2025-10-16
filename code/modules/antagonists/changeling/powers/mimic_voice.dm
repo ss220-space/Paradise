@@ -5,7 +5,6 @@
 	button_icon_state = "mimic_voice"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	chemical_cost = 0	//constant chemical drain hardcoded
 	req_human = TRUE
 
 

@@ -7,10 +7,7 @@
 	give_objectives = FALSE
 	silent = TRUE
 	show_in_roundend = FALSE
-	job_rank = SPECIAL_ROLE_TRAITOR
-	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_DEVIL
-	antag_hud_name = "mindslave"	// This isn't named "hudmindslave" because `add_serve_hud()` adds "hud" to the beginning.
 	clown_gain_text = "Дьявольская сила помогает вам побороть свою клоунскую натуру, позволяя использовать оружие без вреда для себя."
 	clown_removal_text = "Дьявольская сила покинула вас и к вам вернулась клоунская неуклюжесть, клоуничайте на здоровье."
 	master_hud_icon = "devil"

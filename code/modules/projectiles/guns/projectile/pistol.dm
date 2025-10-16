@@ -2,11 +2,9 @@
 /obj/item/gun/projectile/automatic/pistol
 	name = "stechkin pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
-	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
-	mag_type = /obj/item/ammo_box/magazine/m10mm
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
@@ -34,7 +32,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 6),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
@@ -42,56 +39,6 @@
 	)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_LOW
-
-
-//Specter//
-/obj/item/gun/projectile/automatic/pistol/specter
-	name = "Specter"
-	desc = "Современный пистолет \"Спектр\", модернизирован для возможности стрельбы лазерными патронами. Поставляется только силовым структурам Нанотрейзен."
-	ru_names = list(
-		NOMINATIVE = "Спектр",
-		GENITIVE = "Спектра",
-		DATIVE = "Спектру",
-		ACCUSATIVE = "Спектр",
-		INSTRUMENTAL = "Спектром",
-		PREPOSITIONAL = "Спектре"
-	)
-	icon_state = "specter"
-	item_state = "specter"
-	force = 10
-	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;materials=2"
-	mag_type = /obj/item/ammo_box/magazine/specter
-	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/spec_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/spec_magout.ogg'
-	unique_reskin = TRUE
-	materials = list(MAT_METAL = 1000)
-	accuracy = GUN_ACCURACY_PISTOL
-	recoil = GUN_RECOIL_MIN
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
-	)
-
-
-/obj/item/gun/projectile/automatic/pistol/specter/update_gun_skins()
-	add_skin("Grey slide", "specter")
-	add_skin("Red slide", "specter_red")
-	add_skin("Green slide", "specter_green")
-	add_skin("Tan slide", "specter_tan")
-	add_skin("Green Handle", "specter_greengrip")
-	add_skin("Tan Handle", "specter_tangrip")
-	add_skin("Red Handle", "specter_redgrip")
-
-
-/obj/item/gun/projectile/automatic/pistol/specter/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
 
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
@@ -110,7 +57,18 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
 	)
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;materials=2"
 
+/obj/item/gun/projectile/automatic/pistol/enforcer/get_ru_names()
+	return list(
+		NOMINATIVE = "Блюститель",
+		GENITIVE = "Блюстителя",
+		DATIVE = "Блюстителю",
+		ACCUSATIVE = "Блюститель",
+		INSTRUMENTAL = "Блюстителем",
+		PREPOSITIONAL = "Блюстителе"
+	)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
 	add_skin("Grey slide", "enforcer_grey")
@@ -140,10 +98,8 @@
 
 //СБшный инфорсер//
 /obj/item/gun/projectile/automatic/pistol/enforcer/security
-	name = "Enforcer"
 	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
-	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;materials=2"
+
 
 //SP8 Pistol OBR and Warden//
 /obj/item/gun/projectile/automatic/pistol/sp8
@@ -187,7 +143,6 @@
 	icon_state = "sp8t_dust"
 	desc = "Новейшая разработка для сил защиты активов."
 	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
-	unique_reskin = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
@@ -254,13 +209,11 @@
 	desc = "The original russian version of a widely used Syndicate sidearm. Uses 9mm ammo."
 	icon_state = "aps"
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
 	burst_size = 3
 	fire_delay = 2
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 5),
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8)

@@ -17,7 +17,6 @@
 
 	return playing
 
-
 /**
  * The cinematic screen showed to everyone.
  */
@@ -28,7 +27,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = "BOTTOM,LEFT+50%"
 	appearance_flags = APPEARANCE_UI | TILE_BOUND
-
 
 /**
  * Cinematic datum. Used to show an animation to everyone.
@@ -49,7 +47,6 @@
 	/// Whether the cinematic turns off ooc when played globally.
 	var/stop_ooc = TRUE
 
-
 /datum/cinematic/New(watcher, datum/callback/special_callback)
 	screen = new(src)
 	if(watcher == world)
@@ -57,14 +54,12 @@
 
 	src.special_callback = special_callback
 
-
 /datum/cinematic/Destroy()
 	QDEL_NULL(screen)
 	special_callback = null
 	watching.Cut()
 	locked.Cut()
 	return ..()
-
 
 /**
  * Actually goes through the process of showing the cinematic to the list of watchers.
@@ -95,7 +90,6 @@
 	// Cleans up after it's done playing.
 	addtimer(CALLBACK(src, PROC_REF(clean_up_cinematic), ooc_toggled), cleanup_time)
 
-
 /**
  * Cleans up the cinematic after a set timer of it sticking on the end screen.
  */
@@ -104,7 +98,6 @@
 		toggle_ooc(TRUE)
 
 	stop_cinematic()
-
 
 /**
  * Whenever another cinematic starts to play over us, we have the chacne to block it.
@@ -118,7 +111,6 @@
 		return NONE
 
 	return COMPONENT_GLOB_BLOCK_CINEMATIC
-
 
 /**
  * Whenever a mob watching the cinematic logs in, show them the ongoing cinematic.
@@ -138,7 +130,6 @@
 	watching_client.screen += screen
 	RegisterSignal(watching_client, COMSIG_QDELETING, PROC_REF(remove_watcher))
 
-
 /**
  * Simple helper for playing sounds from the cinematic.
  */
@@ -149,7 +140,6 @@
 		for(var/client/watching_client as anything in watching)
 			SEND_SOUND(watching_client, sound_to_play)
 
-
 /**
  * Invoke any special callbacks for actual effects synchronized with animation.
  * (Such as a real nuke explosion happening midway)
@@ -157,13 +147,11 @@
 /datum/cinematic/proc/invoke_special_callback()
 	special_callback?.Invoke()
 
-
 /**
  * The actual cinematic occurs here.
  */
 /datum/cinematic/proc/play_cinematic()
 	return
-
 
 /**
  * Stops the cinematic and removes it from all the viewers.
@@ -177,14 +165,12 @@
 
 	qdel(src)
 
-
 /**
  * Locks a mob, preventing them from moving, being hurt, or acting.
  */
 /datum/cinematic/proc/lock_mob(mob/to_lock)
 	locked += to_lock
 	ADD_TRAIT(to_lock, TRAIT_NO_TRANSFORM, CINEMATIC_TRAIT)
-
 
 /**
  * Unlocks a previously locked ref.
@@ -195,7 +181,6 @@
 		return
 	REMOVE_TRAIT(locked_mob, TRAIT_NO_TRANSFORM, CINEMATIC_TRAIT)
 	UnregisterSignal(locked_mob, COMSIG_MOB_CLIENT_LOGIN)
-
 
 /**
  * Removes the passed client from our watching list.
@@ -213,4 +198,3 @@
 	no_longer_watching.screen -= screen
 
 	watching -= no_longer_watching
-

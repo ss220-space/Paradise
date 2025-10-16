@@ -1,34 +1,33 @@
 /// How long the chat message's spawn-in animation will occur for
-#define CHAT_MESSAGE_SPAWN_TIME		(0.2 SECONDS)
+#define CHAT_MESSAGE_SPAWN_TIME (0.2 SECONDS)
 /// How long the chat message will exist prior to any exponential decay
-#define CHAT_MESSAGE_LIFESPAN		(5 SECONDS)
+#define CHAT_MESSAGE_LIFESPAN (5 SECONDS)
 /// How long the chat message's end of life fading animation will occur for
-#define CHAT_MESSAGE_EOL_FADE		(0.7 SECONDS)
+#define CHAT_MESSAGE_EOL_FADE (0.7 SECONDS)
 /// Grace period for fade before we actually delete the chat message
-#define CHAT_MESSAGE_GRACE_PERIOD	(0.2 SECONDS)
+#define CHAT_MESSAGE_GRACE_PERIOD (0.2 SECONDS)
 /// Factor of how much the message index (number of messages) will account to exponential decay
-#define CHAT_MESSAGE_EXP_DECAY		0.7
+#define CHAT_MESSAGE_EXP_DECAY 0.7
 /// Factor of how much height will account to exponential decay
-#define CHAT_MESSAGE_HEIGHT_DECAY	0.9
+#define CHAT_MESSAGE_HEIGHT_DECAY 0.9
 /// Approximate height in pixels of an 'average' line, used for height decay
-#define CHAT_MESSAGE_APPROX_LHEIGHT	11
+#define CHAT_MESSAGE_APPROX_LHEIGHT 11
 /// Max width of chat message in pixels
-#define CHAT_MESSAGE_WIDTH			112
+#define CHAT_MESSAGE_WIDTH 112
 /// Max length of chat message in characters
-#define CHAT_MESSAGE_MAX_LENGTH		110
+#define CHAT_MESSAGE_MAX_LENGTH 110
 /// Maximum precision of float before rounding errors occur (in this context)
-#define CHAT_LAYER_Z_STEP			0.0001
+#define CHAT_LAYER_Z_STEP 0.0001
 /// The number of z-layer 'slices' usable by the chat message layering
-#define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
+#define CHAT_LAYER_MAX_Z (CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
-#define CHAT_MESSAGE_ICON_SIZE		9
-
+#define CHAT_MESSAGE_ICON_SIZE 9
 
 /**
-  * # Chat Message Overlay
-  *
-  * Datum for generating a message overlay on the map
-  */
+ * # Chat Message Overlay
+ *
+ * Datum for generating a message overlay on the map
+ */
 /datum/chatmessage
 	/// The visual element of the chat messsage
 	var/image/message
@@ -95,8 +94,8 @@
 
 
 /**
-  * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
-  */
+ * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
+ */
 /datum/chatmessage/proc/on_parent_qdel()
 	SIGNAL_HANDLER
 	if(!QDELETED(src))
@@ -386,12 +385,12 @@
 
 
 /**
-  * Proc to allow atoms to set their own runechat colour
-  *
-  * This is a proc designed to be overridden in places if you want a specific atom to use a specific runechat colour
-  * Exampls include consoles using a colour based on their screen colour, and mobs using a colour based off of a customisation property
-  *
-  */
+ * Proc to allow atoms to set their own runechat colour
+ *
+ * This is a proc designed to be overridden in places if you want a specific atom to use a specific runechat colour
+ * Exampls include consoles using a colour based on their screen colour, and mobs using a colour based off of a customisation property
+ *
+ */
 /atom/proc/get_runechat_color()
 	return chat_color
 

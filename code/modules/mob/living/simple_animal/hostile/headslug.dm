@@ -25,7 +25,6 @@
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
-	a_intent = INTENT_HARM
 	var/evented
 	var/datum/mind/origin
 	var/egg_layed = FALSE
@@ -42,7 +41,7 @@
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
 	egg.evented = evented
-	egg.insert(victim)
+	egg.insert(victim, ORGAN_MANIPULATION_NOEFFECT)
 	if(origin)
 		egg.origin = origin
 	else if(mind) // Let's make this a feature
@@ -112,8 +111,8 @@
 		owner.adjustToxLoss(5)
 
 	if((time >= EGG_INCUBATION_DEAD_TIME && owner.stat == DEAD) || time >= EGG_INCUBATION_LIVING_TIME)
-		Pop()
 		STOP_PROCESSING(SSobj, src)
+		Pop()
 		qdel(src)
 
 

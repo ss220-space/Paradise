@@ -275,8 +275,6 @@
 /obj/structure/closet/sechammercabinet
 	name = "tactical sledgehammer cabinet"
 	desc = "Стойка, предназначенная для хранения тактической кувалды. Надпись гласит: \"Для особых случаев\"."
-	gender = MALE
-	icon = 'icons/obj/closet.dmi'
 	icon_state = "sechammer_full"
 	anchored = TRUE
 	density = FALSE
@@ -308,7 +306,7 @@
 
 /obj/structure/closet/sechammercabinet/populate_contents()
 	sledgehammer = new(src)
-	update_icon_state()	// So its initial icon doesn't show it without the fireaxe
+	update_icon(UPDATE_ICON_STATE)	// So its initial icon doesn't show it without the fireaxe
 
 
 /obj/structure/closet/sechammercabinet/attackby(obj/item/I, mob/living/user, params)
@@ -321,7 +319,7 @@
 			return ..()
 		balloon_alert(user, "кувалда закреплена")
 		sledgehammer = hammer
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -336,7 +334,7 @@
 	user.put_in_hands(sledgehammer, ignore_anim = FALSE)
 	balloon_alert(user, "кувалда извлечена")
 	sledgehammer = null
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/structure/closet/sechammercabinet/blob_act(obj/structure/blob/B)

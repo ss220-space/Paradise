@@ -893,7 +893,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/can,
 /obj/item/storage/bag/trash,
-/obj/item/crowbar/red/sec,
+/obj/item/crowbar/small,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -9578,11 +9578,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced{
 	dir = 8
-	},
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	dir = 8;
-	name = "Broken Computer"
 	},
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";

@@ -17,7 +17,6 @@
 	end_overlay = "light_snow"
 
 	area_type = /area/ruin/unpowered/coldcolony_outside
-	target_trait = STATION_LEVEL
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
 
@@ -33,7 +32,7 @@
 	for(var/z in impacted_z_levels)
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 
-	for(var/i in 1 to eligible_areas.len)
+	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
 		if(place.outdoors)
 			outside_areas |= place

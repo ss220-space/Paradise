@@ -20,7 +20,7 @@
 		if(living_mob.can_see(living_mob, HM, vision_range))
 			potential_targets += HM
 
-	if(!potential_targets.len)
+	if(!length(potential_targets))
 		finish_action(controller, FALSE)
 		return
 
@@ -31,7 +31,7 @@
 			filtered_targets += pot_target
 			continue
 
-	if(!filtered_targets.len)
+	if(!length(filtered_targets))
 		finish_action(controller, FALSE)
 		return
 

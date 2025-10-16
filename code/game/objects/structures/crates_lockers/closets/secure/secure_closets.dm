@@ -1,19 +1,14 @@
-#define CLOSET_BREAKOUT_TIME (2 MINUTES)
+#define CLOSET_BREAKOUT_TIME 2 MINUTES
 
 /obj/structure/closet/secure_closet
 	name = "secure locker"
 	desc = "It's an immobile card-locked storage unit."
-	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
-	density = TRUE
-	opened = FALSE
 	locked = TRUE
-	broken = FALSE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
-	wall_mounted = FALSE //never solid (You can always pass over it)
 
 /obj/structure/closet/secure_closet/can_open()
 	if(locked)
@@ -228,3 +223,5 @@
 				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
+
+#undef CLOSET_BREAKOUT_TIME

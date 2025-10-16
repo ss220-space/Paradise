@@ -1,39 +1,20 @@
-/datum/game_mode
-	/// A list of all minds which have the traitor antag datum.
-	var/list/datum/mind/traitors = list()
-	/// An associative list with mindslave minds as keys and their master's minds as values.
-	var/list/datum/mind/implanted = list()
-	/// The Contractor Support Units
-	var/list/datum/mind/support = list()
-
-	var/datum/mind/exchange_red
-	var/datum/mind/exchange_blue
-	/// The number of contractors who accepted the offer.
-	var/contractor_accepted = 0
-
-
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_LAWYER, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_LAWYER, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF)
 	/// Basically all jobs, except AI.
 	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)
-	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
-	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
-	var/list/datum/mind/pre_traitors = list()
 	/// Same as above for malf AI.
 	var/datum/mind/pre_malf_AI
 	/// Hard limit on traitors if scaling is turned off.
 	var/traitors_possible = 4
 
-
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<b>The current game mode is - Traitor!</b>")
 	to_chat(world, "<b>There is a syndicate traitor on the station. Do not let the traitor succeed!</b>")
-
 
 /datum/game_mode/traitor/pre_setup()
 	. = FALSE

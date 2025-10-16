@@ -1,6 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/space_ninjas = list()
-
 /datum/game_mode/space_ninja
 	name = "Space Ninja"
 	config_tag = "space-ninja"
@@ -11,11 +8,9 @@
 	var/but_wait_theres_more = FALSE
 	var/datum/mind/pre_ninja
 
-
 /datum/game_mode/space_ninja/announce()
 	to_chat(world, "<b>>Текущий игровой режим — Космический Ниндзя!</b>")
 	to_chat(world, "<b>На станцию проник опасный наёмник из клана Паука. Более известный как Космический Ниндзя. Какие бы он не преследовал цели, станция в опасности!</b>")
-
 
 /datum/game_mode/space_ninja/can_start()
 	if(!..())
@@ -28,7 +23,6 @@
 		return FALSE
 	pre_ninja = pick(possible_ninjas)
 	return TRUE
-
 
 /datum/game_mode/space_ninja/pre_setup()
 	space_ninjas |= pre_ninja
@@ -71,7 +65,7 @@
 /datum/game_mode/space_ninja/declare_completion(ragin = FALSE)
 	if(finished && !ragin)
 		SSticker.mode_result = "ninja loss - ninja killed"
-		to_chat(world, span_warning(span_bold(span_fontsize3(" Ниндзя был[(space_ninjas.len>1)?"и":""] убит[(space_ninjas.len>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!"))))
+		to_chat(world, span_warning(span_bold(span_fontsize3(" Ниндзя был[(length(space_ninjas)>1)?"и":""] убит[(length(space_ninjas)>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!"))))
 	..()
 	return TRUE
 

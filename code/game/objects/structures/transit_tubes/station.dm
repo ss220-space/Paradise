@@ -1,30 +1,30 @@
 #define CLOSE_DURATION 6
 #define OPEN_DURATION 6
 #define LAUNCH_COOLDOWN 30
-/*A place where tube pods stop, and people can get in or out.
-Mappers: use "Generate Instances from Directions" for this one.
-Guide "HOW DOES DIRS WORKS"
-Arrow start - direction of mob is aible to get into pod
-Arrow direction - where to pod will move
-
-		Station				Fliped
-	1			2		1			2
-	|		<---		 --->		|
-	--->		|		|		 <---
-
-	4			8		4			8
- 	 ---		/\	  ---		   /\
-	|			|		|			|
-   \/		  ---		\/			---
-
-*/
+/**
+ * A place where tube pods stop, and people can get in or out.
+ * Mappers: use "Generate Instances from Directions" for this one.
+ * Guide "HOW DOES DIRS WORKS"
+ * Arrow start - direction of mob is aible to get into pod
+ * Arrow direction - where to pod will move
+ *
+ *		Station				Fliped
+ *	1			2		1			2
+ *	|		<---		--->		|
+ *	--->		|		|		<---
+ *
+ *	4			8		4			8
+ *	---			/\		---			/\
+ *	|			|		|			|
+ *	\/			---		\/			---
+ *
+ */
 /obj/structure/transit_tube/station
 	name = "station tube station"
 	desc = "The lynchpin of the transit system."
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/transit_tube_station.dmi'
 	icon_state = "closed_station0"
 	base_icon_state = "station0"
-	exit_delay = 1
 	enter_delay = 2
 	var/pod_moving = FALSE
 	var/launch_cooldown = 0
@@ -67,7 +67,7 @@ Arrow direction - where to pod will move
 		return .
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		if(length(pod.contents))
-			to_chat(moving_living, "<span class='warning'>The pod is already occupied.</span>")
+			to_chat(moving_living, span_warning("The pod is already occupied."))
 			break
 		if(!pod.moving && ((pod.dir in directions()) || (reverse_launch && (turn(pod.dir, 180) in directions()))))
 			pod.move_into(moving_living)
@@ -88,8 +88,8 @@ Arrow direction - where to pod will move
 	// Can't empty it when inside or when there is nothing inside
 	if(!length(pod.contents) || user.loc == pod)
 		return
-	user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>", \
-		"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
+	user.visible_message(span_warning("[user] starts emptying [pod]'s contents onto the floor!"), \
+		span_notice("You start emptying [pod]'s contents onto the floor."), span_warning("You hear a loud noise! As if somebody is throwing stuff on the floor!"))
 	if(!do_after(user, 2 SECONDS, pod))
 		return
 	for(var/atom/movable/AM in pod)
@@ -222,8 +222,8 @@ Arrow direction - where to pod will move
 
 /obj/structure/transit_tube/station/dispenser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This station will create a pod for you to ride, no need to wait for one.</span>"
-	. += "<span class='notice'>Any pods arriving at this station will be reclaimed.</span>"
+	. += span_notice("This station will create a pod for you to ride, no need to wait for one.")
+	. += span_notice("Any pods arriving at this station will be reclaimed.")
 
 /obj/structure/transit_tube/station/dispenser/close_hatch()
 	. = ..()
@@ -244,7 +244,7 @@ Arrow direction - where to pod will move
 	if(!isliving(moving_living) || moving_living.dir != boarding_dir || moving_living.anchored || is_type_in_list(moving_living, disallowed_mobs))
 		return .
 	var/obj/structure/transit_tube_pod/dispensed/pod = new(loc)
-	moving_living.visible_message("<span class='notice'>[pod] forms around [moving_living].</span>", "<span class='notice'>[pod] materializes around you.</span>")
+	moving_living.visible_message(span_notice("[pod] forms around [moving_living]."), span_notice("[pod] materializes around you."))
 	playsound(src, 'sound/weapons/emitter2.ogg', 50, TRUE)
 	pod.dir = turn(dir, -90)
 	pod.move_into(moving_living)

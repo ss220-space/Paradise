@@ -1,16 +1,14 @@
-#define RESONATOR_MODE_AUTO   1
+#define RESONATOR_MODE_AUTO 1
 #define RESONATOR_MODE_MANUAL 2
 #define RESONATOR_MODE_MATRIX 3
 
 /**********************Resonator**********************/
 /obj/item/resonator
 	name = "resonator"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "resonator"
 	item_state = "resonator"
 	origin_tech = "magnets=3;engineering=3"
 	desc = "Портативное устройство, создающее энергетические поля, которые резонируют до детонации, разрушая породу. Наносит повышенный урон в условиях низкого давления. Имеет два режима: автоматический и ручной подрыв."
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 15
 	throwforce = 10
 	/// the mode of the resonator; has three modes: auto (1), manual (2), and matrix (3)
@@ -66,7 +64,6 @@
 /obj/effect/temp_visual/resonance
 	name = "resonance field"
 	desc = "Энергетическое поле, наносящее значительный урон всему внутри при разрыве. Эффективнее в условиях низкого давления."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield1"
 	layer = ABOVE_ALL_MOB_LAYER
 	duration = 5 SECONDS
@@ -94,7 +91,7 @@
 		INSTRUMENTAL = "резонансным полем",
 		PREPOSITIONAL = "резонансном поле"
 	)
-	
+
 
 /obj/effect/temp_visual/resonance/Initialize(mapload, set_creator, set_resonator, mode, set_failure = 40)
 	if(mode == RESONATOR_MODE_AUTO)

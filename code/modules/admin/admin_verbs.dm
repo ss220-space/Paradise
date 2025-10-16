@@ -2,8 +2,6 @@
 GLOBAL_LIST_INIT(admin_verbs_default, list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
-	/client/proc/cmd_mentor_check_new_players,
-	/client/proc/cmd_mentor_check_player_exp, /* shows players by playtime */
 ))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
@@ -24,6 +22,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_offer_control,
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp, /* shows players by playtime */
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
@@ -126,6 +126,8 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom_adv,
 	/client/proc/respawn_character,
 	/client/proc/admin_deserialize,
+	/client/proc/spawn_panel,
+	/client/proc/beaker_panel,
 ))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
@@ -181,11 +183,13 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
+#ifndef OPENDREAM
 	/client/proc/dmjit_debug_toggle_call_counts,
 	/client/proc/dmjit_debug_dump_call_count,
 	/client/proc/dmjit_debug_dump_opcode_count,
 	/client/proc/dmjit_debug_toggle_hooks,
 	/client/proc/dmjit_debug_dump_deopts,
+#endif
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
@@ -196,8 +200,10 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_npcpool_suspension,
 	/client/proc/debug_atom_init,
 	/client/proc/debugstatpanel,
+	/client/proc/view_instances,
 	/client/proc/allow_browser_inspect, // XSS prevention
-	/client/proc/change_title_screen_html
+	/client/proc/change_title_screen_html,
+	/client/proc/paint_grids,
 ))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -205,6 +211,7 @@ GLOBAL_LIST_INIT(admin_verbs_possess, list(
 ))
 GLOBAL_LIST_INIT(admin_verbs_permissions, list(
 	/client/proc/edit_admin_permissions,
+	/client/proc/edit_admin_permissions_new,
 	/client/proc/big_brother,
 ))
 GLOBAL_LIST_INIT(admin_verbs_rejuv, list(
@@ -226,11 +233,15 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/ban_panel,
 	/client/proc/view_asays,
 	/client/proc/openAdminTicketUI,
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp, /* shows players by playtime */
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
+	/client/proc/cmd_mentor_check_new_players,
+	/client/proc/cmd_mentor_check_player_exp, /* shows players by playtime */
 	/client/proc/openMentorTicketUI,
 	/client/proc/cmd_mentor_say,	/* mentor say*/
 	/client/proc/view_msays,
@@ -251,7 +262,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/add_admin_verbs()
 	if(holder)
 		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
-		if(holder.rights != R_VIEWRUNTIMES)
+		if(holder.rights)
 			add_verb(src, GLOB.admin_verbs_default)
 		if(holder.rights & R_BUILDMODE)
 			add_verb(src, /client/proc/togglebuildmodeself)
@@ -622,10 +633,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 					log_and_message_admins("tried to spawn for [key_name(H)] a cookie, but their hands were full, so they did not receive their cookie.")
 					return
-				else
-					H.update_inv_r_hand()//To ensure the icon appears in the HUD
-			else
-				H.update_inv_l_hand()
+			H.update_held_items()
 			logmsg = "spawn cookie."
 		if("To Arrivals")
 			M.forceMove(pick(GLOB.latejoin))
@@ -675,7 +683,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
 			var/mob/dead/observer/theghost = null
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 				theghost = pick(candidates)
 				P.key = theghost.key
@@ -720,209 +728,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
 
-/client/proc/smite(mob/living/M as mob)
-	set category = STATPANEL_ADMIN_FUN
-	set name = "Smite"
-	if(!check_rights(R_EVENT))
-		return
-	var/mob/living/carbon/human/H
-	if(!istype(M))
-		to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>", confidential=TRUE)
-		return
-	var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
-	if(ishuman(M))
-		H = M
-		ptypes += "Brain Damage"
-		ptypes += "Honk Tumor"
-		ptypes += "Hallucinate"
-		ptypes += "Cold"
-		ptypes += "Hunger"
-		ptypes += "Cluwne"
-		ptypes += "Mutagen Cookie"
-		ptypes += "Hellwater Cookie"
-		ptypes += "Hunter"
-		ptypes += "Crew Traitor"
-		ptypes += "Floor Cluwne"
-		ptypes += "Shamebrero"
-		ptypes += "Fat"
-		ptypes += "Fakebwoink"
-		ptypes += "Nugget"
-		ptypes += "Rod"
-		ptypes += "Dust"
-		ptypes += "Shitcurity Goblin"
-		ptypes += "High RP"
-	var/punishment = tgui_input_list(usr, "How would you like to smite [M]?", "Its good to be baaaad...", ptypes)
-	if(!(punishment in ptypes))
-		return
-	var/logmsg = null
-	switch(punishment)
-		// These smiting types are valid for all living mobs
-		if("Lightning bolt")
-			M.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
-			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
-			M.adjustFireLoss(75)
-			M.Weaken(10 SECONDS)
-			to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
-			logmsg = "a lightning bolt."
-		if("Fire Death")
-			to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
-			var/turf/simulated/T = get_turf(M)
-			new /obj/effect/hotspot(T)
-			M.adjustFireLoss(150)
-			logmsg = "a firey death."
-		if("Gib")
-			M.gib(FALSE)
-			logmsg = "gibbed."
-
-		// These smiting types are only valid for ishuman() mobs
-		if("Brain Damage")
-			H.adjustBrainLoss(75)
-			logmsg = "75 brain damage."
-		if("Honk Tumor")
-			if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
-				var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
-				to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
-				organ.insert(H)
-			logmsg = "a honk tumor."
-		if("Hallucinate")
-			H.Hallucinate(1000 SECONDS)
-			H.last_hallucinator_log = "Hallucination smite"
-			logmsg = "hallucinations."
-		if("Cold")
-			H.reagents.add_reagent("frostoil", 40)
-			H.reagents.add_reagent("ice", 40)
-			logmsg = "cold."
-		if("Hunger")
-			H.set_nutrition(NUTRITION_LEVEL_ZERO)
-			logmsg = "starvation."
-		if("Cluwne")
-			H.makeCluwne()
-			ADD_TRAIT(H, TRAIT_NO_CLONE, ADMIN_TRAIT)
-			logmsg = "cluwned."
-		if("Mutagen Cookie")
-			var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
-			evilcookie.reagents.add_reagent("mutagen", 10)
-			evilcookie.desc = "It has a faint green glow."
-			evilcookie.bitesize = 100
-			evilcookie.item_flags |= DROPDEL
-			ADD_TRAIT(evilcookie, TRAIT_NODROP, ADMIN_TRAIT)
-			H.drop_l_hand()
-			H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_HAND_LEFT)
-			logmsg = "a mutagen cookie."
-		if("Hellwater Cookie")
-			var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
-			evilcookie.reagents.add_reagent("hell_water", 25)
-			evilcookie.desc = "Sulphur-flavored."
-			evilcookie.bitesize = 100
-			evilcookie.item_flags |= DROPDEL
-			ADD_TRAIT(evilcookie, TRAIT_NODROP, ADMIN_TRAIT)
-			H.drop_l_hand()
-			H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_HAND_LEFT)
-			logmsg = "a hellwater cookie."
-		if("Hunter")
-			ADD_TRAIT(H, TRAIT_NO_CLONE, ADMIN_TRAIT)
-			usr.client.create_eventmob_for(H, 1)
-			logmsg = "hunter."
-		if("Crew Traitor")
-			if(!H.mind)
-				to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>", confidential=TRUE)
-				return
-			var/list/possible_traitors = list()
-			for(var/mob/living/player in GLOB.alive_mob_list)
-				if(player.client && player.mind && player.stat != DEAD && player != H)
-					if(ishuman(player) && !player.mind.special_role)
-						if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
-							possible_traitors += player.mind
-			for(var/datum/mind/player in possible_traitors)
-				if(player.current)
-					if(ismindshielded(player.current))
-						possible_traitors -= player
-			if(possible_traitors.len)
-				var/datum/mind/newtraitormind = pick(possible_traitors)
-				var/datum/objective/assassinate/kill_objective = new()
-				kill_objective.target = H.mind
-				kill_objective.owner = newtraitormind
-				kill_objective.explanation_text = "Assassinate [H.mind.name], the [H.mind.assigned_role]"
-				newtraitormind.objectives += kill_objective
-				var/datum/antagonist/traitor/T = new()
-				T.give_objectives = FALSE
-				to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-				to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
-				newtraitormind.add_antag_datum(T)
-			else
-				to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [H].</span>", confidential=TRUE)
-				return
-			logmsg = "crew traitor."
-		if("Floor Cluwne")
-			var/turf/T = get_turf(M)
-			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
-			FC.smiting = TRUE
-			FC.Acquire_Victim(M)
-			logmsg = "floor cluwne"
-		if("Shamebrero")
-			if(H.head)
-				H.drop_item_ground(H.head, force = TRUE)
-			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
-			H.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
-			logmsg = "shamebrero"
-
-		if("Fat")
-			H.set_nutrition(NUTRITION_LEVEL_FAT * 2)
-
-		if("Fakebwoink")
-			SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
-
-		if("Nugget")
-			H.Weaken(12 SECONDS, TRUE)
-			H.AdjustJitter(40 SECONDS)
-			to_chat(H, span_danger("Вы чувствуете, как будто ваши конечности отрывают от вашего тела!"))
-			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
-			logmsg = "nugget"
-
-		if("Rod")
-
-			var/starting_turf_x = M.x + rand(10, 15) * pick(1, -1)
-			var/starting_turf_y = M.y + rand(10, 15) * pick(1, -1)
-			var/turf/start = locate(starting_turf_x, starting_turf_y, M.z)
-
-			var/obj/effect/immovablerod/smite/rod = new (start, M)
-			rod.go_for_a_walk(M)
-			logmsg = "a rod"
-
-		if("Dust")
-			H.dust()
-			logmsg = "dust"
-		if("Shitcurity Goblin")
-			var/turf/T = get_turf(M)
-			var/mob/living/simple_animal/hostile/shitcur_goblin/goblin = new (T)
-			goblin.GiveTarget(M)
-			logmsg = "shitcurity goblin"
-		if("High RP")
-			var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = H.get_int_organ(/obj/item/organ/internal/high_rp_tumor)
-			if(!hrp_tumor)
-				var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
-				"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
-				var/effect_strength = tgui_input_list(src, "What effect strength do you want?(delay in seconds -  oxy damage)", effect_variants)
-				var/pdelay
-				var/oxy_dmg
-				if(effect_strength == "custom")
-					pdelay = tgui_input_number(src, "Input pump delay.")
-					oxy_dmg = tgui_input_number(src, "Input oxy damage.")
-				else
-					var/list/strength = text2numlist(effect_strength, " - ")
-					pdelay = strength[1]
-					oxy_dmg = strength[2]
-				H.curse_high_rp(pdelay*10, oxy_dmg)
-				LAZYADD(H.mind.curses, "high_rp")
-				logmsg = "high rp([pdelay] - [oxy_dmg])"
-			else
-				hrp_tumor.remove(H)
-				qdel(hrp_tumor)
-				LAZYREMOVE(H.mind.curses, "high_rp")
-				logmsg = "high rp(cure)"
-
-	if(logmsg)
-		log_and_message_admins("smited [key_name_log(M)] with: [logmsg]")
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = STATPANEL_ADMIN_EVENT
@@ -1007,7 +812,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		togglebuildmode(src.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Build Mode")
 
-/client/proc/object_talk(var/msg as text) // -- TLE
+/client/proc/object_talk(msg as text) // -- TLE
 	set name = "oSay"
 	set desc = "Display a message to everyone who can hear the target"
 
@@ -1045,20 +850,25 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "De-admin self"
 	set category = STATPANEL_ADMIN_ADMIN
 
-	if(!check_rights(R_ADMIN|R_MENTOR))
+	if(!check_rights(R_ADMIN|R_MENTOR|R_VIEWRUNTIMES))
 		return
 
 	log_admin("[key_name(usr)] deadmined themself.")
 	message_admins("[key_name_admin(usr)] deadmined themself.")
 	if(check_rights(R_ADMIN, FALSE))
 		GLOB.de_admins |= ckey
-	else
+	else if(check_rights(R_MENTOR, FALSE))
 		GLOB.de_mentors |= ckey
+	else
+		GLOB.de_devs |= ckey
+
 	deadmin()
 	add_verb(src, /client/proc/readmin)
 	update_active_keybindings()
+	update_byond_admin_configs(ckey, 0)
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")
+
 
 /client/proc/readmin()
 	set name = "Re-admin self"
@@ -1069,7 +879,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	var/rank = null
 	if(CONFIG_GET(flag/admin_legacy_system))
 		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
+		var/list/Lines = world.file2list("config/admins.txt")
 		for(var/line in Lines)
 			if(findtext(line, "#")) // Skip comments
 				continue
@@ -1130,7 +940,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.", confidential=TRUE)
 					qdel(admin_read)
 					return
-				if(admin_rank == "Удален") //This person was de-adminned. They are only in the admin list for archive purposes.
+				if(admin_rank == DELETED_RANK) //This person was de-adminned. They are only in the admin list for archive purposes.
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.", confidential=TRUE)
 					qdel(admin_read)
 					return
@@ -1144,11 +954,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
 		update_active_keybindings()
+		update_byond_admin_configs(C.ckey, D.rights)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
-		update_active_keybindings()
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		GLOB.de_devs -= ckey
 		if(isobserver(mob))
 			var/mob/dead/observer/observer = mob
 			observer.update_admin_actions()
@@ -1159,6 +970,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		remove_verb(src, /client/proc/readmin)
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		GLOB.de_devs -= ckey
 		return
 
 /client/proc/select_next_map()
@@ -1316,7 +1128,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	for(var/datum/job/J in SSjobs.occupations)
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
-	if(!jobs.len)
+	if(!length(jobs))
 		to_chat(usr, "There are no fully staffed jobs.", confidential=TRUE)
 		return
 	var/job = tgui_input_list(src, "Please select job slot to free", "Free Job Slot", jobs)

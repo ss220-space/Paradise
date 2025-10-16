@@ -3,23 +3,21 @@
 
 //Potential replacement for genetics revives or something I dunno (?)
 
-#define CLONE_BIOMASS 150
-
 #define BIOMASS_BASE_AMOUNT 50 // How much biomass a BIOMASSABLE item gives the cloning pod
-
-// Not a comprehensive list: Further PRs should add appropriate items here.
-// Meat as usual, monstermeat covers goliath, xeno, spider, bear meat
-GLOBAL_LIST_INIT(cloner_biomass_items, list(\
-/obj/item/reagent_containers/food/snacks/meat,\
-/obj/item/reagent_containers/food/snacks/monstermeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/tofurkey))
 
 #define MINIMUM_HEAL_LEVEL 40
 #define CLONE_INITIAL_DAMAGE 190
 #define BRAIN_INITIAL_DAMAGE 90 // our minds are too feeble for 190
+
+// Not a comprehensive list: Further PRs should add appropriate items here.
+// Meat as usual, monstermeat covers goliath, xeno, spider, bear meat
+GLOBAL_LIST_INIT(cloner_biomass_items, list(\
+	/obj/item/reagent_containers/food/snacks/meat, \
+	/obj/item/reagent_containers/food/snacks/monstermeat, \
+	/obj/item/reagent_containers/food/snacks/carpmeat, \
+	/obj/item/reagent_containers/food/snacks/salmonmeat, \
+	/obj/item/reagent_containers/food/snacks/catfishmeat, \
+	/obj/item/reagent_containers/food/snacks/tofurkey))
 
 /obj/machinery/clonepod
 	anchored = TRUE
@@ -85,8 +83,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	countdown = new(src)
 
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
-	Radio.config(list(MED_FREQ_NAME = 0))
+	Radio.become_speaker_only(MED_FREQ)
 	Radio.follow_target = src
 
 	component_parts = list()
@@ -150,7 +147,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/item/disk/data
 	name = "Cloning Data Disk"
 	desc = "Дискета, предназначенная для хранения данных ДНК-кода гуманоида."
-	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/datum/dna2/record/buf = null
 	var/read_only = FALSE //Well,it's still a floppy disk
 
@@ -186,8 +182,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	buf.dna.unique_enzymes = md5(buf.dna.real_name)
 	buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0xAF0,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x033,0x066,0x0FF,0x4DB,0x002,0x690,0x000,0x000,0x000,0x328,0x045,0x5FC,0x053,0x035,0x035,0x035)
 	//buf.dna.UI=list(0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x000,0x000,0x000,0x000,0x161,0xFBD,0xDEF) // Farmer Jeff
-	if(buf.dna.UI.len != DNA_UI_LENGTH) //If there's a disparity b/w the dna UI string lengths, 0-fill the extra blocks in this UI.
-		for(var/i in buf.dna.UI.len to DNA_UI_LENGTH)
+	if(length(buf.dna.UI) != DNA_UI_LENGTH) //If there's a disparity b/w the dna UI string lengths, 0-fill the extra blocks in this UI.
+		for(var/i in length(buf.dna.UI) to DNA_UI_LENGTH)
 			buf.dna.UI += 0x000
 	buf.dna.ResetSE()
 	buf.dna.UpdateUI()
@@ -201,7 +197,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	initialize()
 	buf.types=DNA2_BUF_SE
 	var/list/new_SE=list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)
-	for(var/i=new_SE.len;i<=DNA_SE_LENGTH;i++)
+	for(var/i=length(new_SE);i<=DNA_SE_LENGTH;i++)
 		new_SE += rand(1,1024)
 	buf.dna.SE=new_SE
 	buf.dna.SetSEValueRange(GLOB.monkeyblock,0xDAC, 0xFFF)
@@ -249,7 +245,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/announce_radio_message(message)
 	if(radio_announce)
-		Radio.autosay(message, name, MED_FREQ_NAME)
+		Radio.autosay(message, name, HEADSET_FREQ_NAME)
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, TRUE)
@@ -272,7 +268,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
 		return 0
 	if(clonemind.active)	//somebody is using that mind
-		if(ckey(clonemind.key) != R.ckey )
+		if(ckey(clonemind.key) != R.ckey)
 			return 0
 		if(clonemind.suicided) // and stay out!
 			malfunction(go_easy = 0)
@@ -384,7 +380,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		else if(occupant.cloneloss > (100 - heal_level))
 			occupant.Paralyse(8 SECONDS)
 
-			 //Slowly get that clone healed and finished.
+			//Slowly get that clone healed and finished.
 			occupant.adjustCloneLoss(-((speed_coeff/2)))
 
 			// For human species that lack non-vital parts for some weird reason
@@ -528,7 +524,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	balloon_alert(user, "хонкнуто!")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
-/obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
+/obj/machinery/clonepod/proc/update_clone_antag(mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
 	if((H.mind in SSticker.mode:revolutionaries) || (H.mind in SSticker.mode:head_revolutionaries))
 		SSticker.mode.update_rev_icons_added() //So the icon actually appears
@@ -597,7 +593,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	occupant.forceMove(T)
 	occupant.update_body()
 	occupant.check_genes() //Waiting until they're out before possible notransform.
-	occupant.special_post_clone_handling()
+	occupant.special_post_clone_handling(TRUE)
 	occupant = null
 	update_icon()
 
@@ -761,10 +757,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	<br>
 	<span style='font-size: 10px;'>This technology produced under license from Thinktronic Systems, LTD.</font>"}
 
-//SOME SCRAPS I GUESS
-/* EMP grenade/spell effect
-		if(istype(A, /obj/machinery/clonepod))
-			A:malfunction()
-*/
-
+#undef BIOMASS_BASE_AMOUNT
 #undef MINIMUM_HEAL_LEVEL
+#undef CLONE_INITIAL_DAMAGE
+#undef BRAIN_INITIAL_DAMAGE

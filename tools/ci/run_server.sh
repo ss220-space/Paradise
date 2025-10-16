@@ -7,8 +7,8 @@ cp config/example/* config/
 rm config/dbconfig.txt
 cp tools/ci/dbconfig.txt config
 
-# Now run the server and the unit tests
+# Now run the server and the game tests
 DreamDaemon paradise.dmb -close -trusted -verbose
 
-# Check if the unit tests actually suceeded
+# Check if the game tests actually suceeded
 cat data/clean_run.lk

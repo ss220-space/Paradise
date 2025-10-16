@@ -16,11 +16,8 @@
 	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "turretCover"
 	anchored = TRUE
-	density = FALSE
-	use_power = IDLE_POWER_USE				//this turret uses and requires power
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
-	power_channel = EQUIP	//drains power from the EQUIPMENT channel
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 
@@ -134,7 +131,7 @@
 
 	weapon_setup(installation)
 
-/obj/machinery/porta_turret/proc/weapon_setup(var/guntype)
+/obj/machinery/porta_turret/proc/weapon_setup(guntype)
 	switch(guntype)
 		if(/obj/item/gun/energy/laser/practice)
 			iconholder = 1
@@ -204,7 +201,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
-	return A && A.turret_controls.len > 0
+	return A && length(A.turret_controls) > 0
 
 /obj/machinery/porta_turret/proc/access_is_configurable()
 	return targetting_is_configurable && !HasController()
@@ -275,7 +272,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return data
 
 /obj/machinery/porta_turret/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(isLocked(usr))
 		return
@@ -470,7 +467,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	..()
 
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+	if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
 		take_damage(Proj.damage)
 
 /obj/machinery/porta_turret/emp_act(severity)
@@ -607,7 +604,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(in_faction(L))
 		return TURRET_NOT_TARGET
 
-	if("syndicate" in L.faction && istype(L.get_id_card(), /obj/item/card/id/syndicate))
+	if(("syndicate" in L.faction) && istype(L.get_id_card(), /obj/item/card/id/syndicate))
 		return TURRET_NOT_TARGET
 
 	if(lethal && locate(/mob/living/silicon/ai) in get_turf(L))		//don't accidentally kill the AI!
@@ -640,10 +637,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!targets)
 		return FALSE
 
-	if(targets.len && last_target && (last_target in targets) && target(last_target))
+	if(length(targets) && last_target && (last_target in targets) && target(last_target))
 		return TRUE
 
-	while(targets.len)
+	while(length(targets))
 		var/mob/living/M = pick(targets)
 		targets -= M
 		if(target(M))
@@ -698,7 +695,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return ..()
 
-/obj/machinery/porta_turret/proc/set_raised_raising(var/is_raised, var/is_raising)
+/obj/machinery/porta_turret/proc/set_raised_raising(is_raised, is_raising)
 	raised = is_raised
 	raising = is_raising
 	density = is_raised || is_raising
@@ -760,12 +757,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	name = "Centcom Turret"
 	enabled = FALSE
 	ailock = TRUE
-	check_synth	 = FALSE
-	check_access = TRUE
-	check_arrest = TRUE
-	check_records = TRUE
 	check_weapons = TRUE
-	check_anomalies = TRUE
 	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
 	req_access = list(ACCESS_CENT_SPECOPS)
 
@@ -790,7 +782,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/check_borgs
 	var/ailock
 
-/obj/machinery/porta_turret/proc/setState(var/datum/turret_checks/TC)
+/obj/machinery/porta_turret/proc/setState(datum/turret_checks/TC)
 	if(controllock)
 		return
 	enabled = TC.enabled
@@ -1066,9 +1058,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	targetting_is_configurable = FALSE
 	check_arrest = FALSE
 	check_records = FALSE
-	check_weapons = FALSE
 	check_access = FALSE
-	check_anomalies = TRUE
 	check_synth	= TRUE
 	ailock = TRUE
 	req_access = list(ACCESS_SYNDICATE)
@@ -1115,8 +1105,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/syndicate/exterior
 	name = "machine gun turret (7.62)"
 	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
-	projectile = /obj/projectile/bullet
-	eprojectile = /obj/projectile/bullet
 
 /obj/machinery/porta_turret/syndicate/grenade
 	name = "mounted grenade launcher (40mm)"
@@ -1124,7 +1112,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	icon_state = "syndieturret01"
 	icon_state_initial = "syndieturret01"
 	icon_state_active = "syndieturret01"
-	icon_state_destroyed = "syndieturret2"
 	projectile = /obj/projectile/bullet/a40mm
 	eprojectile = /obj/projectile/bullet/a40mm
 

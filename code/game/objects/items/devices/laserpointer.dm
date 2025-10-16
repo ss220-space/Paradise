@@ -81,7 +81,7 @@
 	laser_act(target, user, params)
 
 /obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
-	if(!(user in (viewers(7,target))) )
+	if(!(user in (viewers(7,target))))
 		return FALSE
 	if(!diode)
 		user.balloon_alert(user, "не функционирует!")
@@ -164,7 +164,7 @@
 			recharging = 1
 			START_PROCESSING(SSobj, src)
 		if(energy <= 0)
-			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
+			to_chat(user, span_warning("You've overused the battery of [src], now it needs time to recharge!"))
 			recharge_locked = 1
 
 	target.flick_overlay_view(laser, 1 SECONDS)

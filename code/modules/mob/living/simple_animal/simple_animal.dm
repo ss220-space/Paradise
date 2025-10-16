@@ -6,7 +6,6 @@
 	gender = MALE // Placeholder.
 
 	universal_understand = 1
-	universal_speak = 0
 	status_flags = CANPUSH
 
 	hud_type = /datum/hud/simple_animal
@@ -57,7 +56,7 @@
 	var/fire_damage = 2
 
 	/// Healable by medical stacks? Defaults to yes.
-	var/healable = 1
+	var/healable = TRUE
 
 	/// Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) // Leaving something at 0 means it's off - has no maximum.
@@ -174,6 +173,9 @@
 	/// Autodust on a big distance.
 	var/atom/leash
 	var/leash_radius = 10
+
+	/// Health of the mob before being admin-frozen, restored afterwards
+	var/admin_prev_health = null
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -315,42 +317,42 @@
 	set waitfor = FALSE
 	if(speak_chance)
 		if(prob(speak_chance) || override)
-			if(speak && speak.len)
-				if((emote_hear && emote_hear.len) || (emote_see && emote_see.len))
+			if(speak && length(speak))
+				if((emote_hear && length(emote_hear)) || (emote_see && length(emote_see)))
 					var/length = speak.len
-					if(emote_hear && emote_hear.len)
+					if(emote_hear && length(emote_hear))
 						length += emote_hear.len
-					if(emote_see && emote_see.len)
+					if(emote_see && length(emote_see))
 						length += emote_see.len
 					var/randomValue = rand(1,length)
-					if(randomValue <= speak.len)
+					if(randomValue <= length(speak))
 						say(pick(speak))
 					else
 						randomValue -= speak.len
-						if(emote_see && randomValue <= emote_see.len)
+						if(emote_see && randomValue <= length(emote_see))
 							custom_emote(EMOTE_VISIBLE, pick(emote_see))
 						else
 							custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
-				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
+				if(!(emote_hear && length(emote_hear)) && (emote_see && length(emote_see)))
 					custom_emote(EMOTE_VISIBLE, pick(emote_see))
-				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
+				if((emote_hear && length(emote_hear)) && !(emote_see && length(emote_see)))
 					custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
-				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					var/length = emote_hear.len + emote_see.len
+				if((emote_hear && length(emote_hear)) && (emote_see && length(emote_see)))
+					var/length = length(emote_hear) + emote_see.len
 					var/pick = rand(1,length)
-					if(pick <= emote_see.len)
+					if(pick <= length(emote_see))
 						custom_emote(EMOTE_VISIBLE, pick(emote_see))
 					else
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
-	if (leash)
+	if(leash)
 		var/dist = get_dist(src, leash)
-		if (dist > leash_radius)
+		if(dist > leash_radius)
 			src.dust()
 			return
 
@@ -412,7 +414,7 @@
 
 
 /mob/living/simple_animal/say_quote(message)
-	if(speak_emote?.len)
+	if(length(speak_emote))
 		return get_verb(speak_emote)
 	return ..()
 
@@ -435,7 +437,7 @@
 	status_tab_data[++status_tab_data.len] = list("Здоровье:", "[round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/proc/drop_loot()
-	if(loot.len)
+	if(length(loot))
 		for(var/i in loot)
 			new i(loc)
 
@@ -531,7 +533,7 @@
 
 /mob/living/simple_animal/proc/check_if_child(mob/possible_child)
 	for(var/childpath in childtype)
-		if (istype(possible_child, childpath))
+		if(istype(possible_child, childpath))
 			return TRUE
 	return FALSE
 
@@ -539,7 +541,7 @@
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return FALSE
 
-	if (check_if_child(src)) // Children aren't fertile enough
+	if(check_if_child(src)) // Children aren't fertile enough
 		return FALSE
 	next_scan_time = world.time + 400
 
@@ -739,7 +741,7 @@
 
 /mob/living/simple_animal/Login()
 	..()
-	SSmove_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
+	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 	toggle_ai(AI_OFF)
 
 /mob/living/simple_animal/Logout()
@@ -760,7 +762,7 @@
 			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить вас [item.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_danger("Это оружие неэффективно - оно не наносит урона!"))
+		to_chat(user, span_danger("Это оружие неэффективно — оно не наносит урона!"))
 		return ATTACK_CHAIN_BLOCKED
 
 	. = ..()

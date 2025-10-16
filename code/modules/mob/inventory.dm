@@ -360,10 +360,7 @@
 			r_hand = null
 		return FALSE
 
-	if(hand_id == ITEM_SLOT_HAND_LEFT)
-		update_inv_l_hand()
-	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
-		update_inv_r_hand()
+	update_held_items()
 
 	I.layer = ABOVE_HUD_LAYER
 	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
@@ -579,10 +576,10 @@
 
 	if(I == r_hand)
 		r_hand = null
-		update_inv_r_hand()
+		update_held_items()
 	else if(I == l_hand)
 		l_hand = null
-		update_inv_l_hand()
+		update_held_items()
 	else if(I in tkgrabbed_objects)
 		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[I]
 		drop_item_ground(tkgrab, force)
@@ -663,7 +660,7 @@
 //GetAllContents that is reasonable and not stupid
 /mob/living/proc/get_all_gear(recursive = TRUE)
 	var/list/processing_list = get_equipped_items(TRUE, TRUE)
-	listclearnulls(processing_list) // handles empty hands
+	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list))
 		var/obj/item/storage/A = processing_list[++i]
@@ -677,7 +674,7 @@
 	for(var/obj/item/item_contents in contents)
 		if(item_contents.item_flags & IN_INVENTORY)
 			items += item_contents
-	if (!(include_flags & INCLUDE_HELD))
+	if(!(include_flags & INCLUDE_HELD))
 		items -= list(r_hand, l_hand)
 	return items
 
@@ -790,6 +787,6 @@
 /// Returns a list of things that the provided mob has, including any storage-capable implants.
 /mob/living/proc/gather_belongings(accessories = TRUE, recursive = TRUE)
 	var/list/belongings = get_all_gear(accessories, recursive)
-	for (var/obj/item/implant/storage/internal_bag in contents)
+	for(var/obj/item/implant/storage/internal_bag in contents)
 		belongings += internal_bag.contents
 	return belongings

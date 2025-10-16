@@ -3,8 +3,6 @@
 	desc = "This is how real men fight."
 	icon_state = "latexballon"
 	item_state = "nothing"
-	force = 0
-	throwforce = 0
 	item_flags = DROPDEL|ABSTRACT
 	attack_verb = list("шлёпнул")
 	hitsound = 'sound/weapons/slap.ogg'

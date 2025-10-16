@@ -75,7 +75,7 @@
 	icon_state = "box_machine"
 
 /obj/item/storage/box/survival_machine/populate_contents()
-	new /obj/item/weldingtool(src)
+	new /obj/item/weldingtool/mini(src)
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
@@ -111,9 +111,10 @@
 /obj/item/storage/box/survival_mining/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 /obj/item/storage/box/survival_security
 	icon_state = "box_sec"
@@ -122,9 +123,10 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
-	new /obj/item/crowbar/red/sec(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/radio/sec(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 /obj/item/storage/box/survival_security/hos
 	icon_state = "box_hos"
@@ -163,8 +165,10 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
@@ -204,7 +208,6 @@
 
 /obj/item/storage/box/beakers/bluespace
 	name = "box of bluespace beakers"
-	icon_state = "beaker"
 
 /obj/item/storage/box/beakers/bluespace/populate_contents()
 	..()
@@ -336,7 +339,6 @@
 /obj/item/storage/box/tapes
 	name = "Tape Box"
 	desc = "A box of spare recording tapes"
-	icon_state = "box"
 
 /obj/item/storage/box/tapes/populate_contents()
 	for(var/I in 1 to 6)
@@ -363,7 +365,6 @@
 	name = "Death Alarm Kit"
 	desc = "Box of stuff used to implant death alarms."
 	icon_state = "implant"
-	item_state = "syringe_kit"
 
 /obj/item/storage/box/cdeathalarm_kit/populate_contents()
 	for(var/I in 1 to 6)
@@ -430,7 +431,6 @@
 	desc = "Drymate brand monkey cubes. Just add water!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
-	storage_slots = 7
 	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
 	var/monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 
@@ -768,10 +768,8 @@
 
 /obj/item/storage/box/lights
 	name = "replacement bulbs"
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "light"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
-	item_state = "syringe_kit"
 	storage_slots=21
 	can_hold = list(/obj/item/light/tube, /obj/item/light/bulb)
 	max_combined_w_class = 21
@@ -838,7 +836,6 @@
 	desc = "A sack neatly crafted out of paper."
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
-	resistance_flags = FLAMMABLE
 	foldable = null
 	var/design = NODESIGN
 
@@ -921,6 +918,7 @@
 	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
 	new /obj/item/pinpointer(src)
 	new /obj/item/pinpointer/crew/centcom(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
@@ -930,10 +928,11 @@
 	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/storage/firstaid/crew(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 // ERT set for trial admins
 /obj/item/storage/box/responseteam/amber/commander
@@ -1290,9 +1289,10 @@
 /obj/item/storage/box/soviet/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
@@ -1380,14 +1380,14 @@
 	foldable = null
 
 /obj/item/storage/box/hug/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
+	user.visible_message(span_suicide("[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all.."))
 	return (BRUTELOSS)
 
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
-	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
+	user.visible_message(span_notice("[user] hugs \the [src]."),span_notice("You hug \the [src]."))
 
 /obj/item/storage/box/wizard
 	name = "magical box"
@@ -1397,7 +1397,6 @@
 /obj/item/storage/box/wizard/hardsuit
 	name = "Battlemage Armour Bundle"
 	desc = "This box contains a bundle of Battlemage Armour"
-	icon_state = "box_wizard"
 
 /obj/item/storage/box/wizard/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/wizard/shielded(src)
@@ -1406,7 +1405,6 @@
 /obj/item/storage/box/wizard/recharge
 	name = "Armour Recharge Bundle"
 	desc = "This box contains a bundle of Battlemage Armour Recharges"
-	icon_state = "box_wizard"
 
 /obj/item/storage/box/wizard/recharge/populate_contents()
 	for(var/I in 1 to 3)
@@ -1415,7 +1413,6 @@
 /obj/item/storage/box/wizard/kit_spell_book
 	name = "набор волшебных книг"
 	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
-	icon_state = "box_wizard"
 
 /obj/item/storage/box/wizard/kit_spell_book/populate_contents()
 		for(var/i = 1 to 4)
@@ -1436,7 +1433,6 @@
 /obj/item/storage/pouch
 	name = "pouch"
 	desc = "Подсумок на два магазина."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "pouch"
 	item_state = "pouch"
 	storage_slots = 2
@@ -1447,7 +1443,7 @@
 
 /obj/item/storage/pouch/fast
 	name = "fast pouch"
-	desc = "Подсумок на два магазина, настолько быстро перезаряжать оружие ещё никогда не было!"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
 	icon_state = "pouch_fast"
 	item_state = "pouch_fast"
 
@@ -1510,7 +1506,7 @@
 
 /obj/item/storage/box/specter_kit
 	name = "набор Спектр"
-	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 обоймы парализующих патронов."
+	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 аккумулятора."
 	icon_state = "box_specter"
 
 /obj/item/storage/box/specter_kit/get_ru_names()
@@ -1524,10 +1520,10 @@
 	)
 
 /obj/item/storage/box/specter_kit/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/specter(src)
+	new /obj/item/gun/energy/specter/sibyl(src)
 	new /obj/item/clothing/accessory/holster(src)
-	new /obj/item/ammo_box/magazine/specter(src)
-	new /obj/item/ammo_box/magazine/specter(src)
+	new /obj/item/stock_parts/cell/specter(src)
+	new /obj/item/stock_parts/cell/specter(src)
 
 /obj/item/storage/box/revolver_kit
 	name = "Revolver kit"

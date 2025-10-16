@@ -118,7 +118,6 @@
 	list_reagents = list("nutriment" = 40, "vitamin" = 5) //More nutriment because carbs, but it's not any more vitaminicious
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
-	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/macpizzaslice
 	name = "mac 'n' cheese pizza slice"
@@ -290,11 +289,11 @@
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 
-	if(boxes.len > 0)
+	if(length(boxes) > 0)
 		if(user.is_in_inactive_hand(src))
 			..()
 			return
-		var/obj/item/pizzabox/box = boxes[boxes.len]
+		var/obj/item/pizzabox/box = boxes[length(boxes)]
 		boxes -= box
 		box.forceMove_turf()
 		user.put_in_hands(box, ignore_anim = FALSE)

@@ -87,7 +87,7 @@
 		if(!(mach.stat & BROKEN))
 			possible_targets += mach
 
-	if(!possible_targets.len)
+	if(!length(possible_targets))
 		return
 
 	var/obj/target = pick(possible_targets)
@@ -113,7 +113,6 @@
 
 /obj/effect/anomaly/energetic/tier1
 	name = "малая энергетическая аномалия"
-	icon_state = "energetic1"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/energetic/tier2
 	tier = 1

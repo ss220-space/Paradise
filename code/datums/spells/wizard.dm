@@ -2,10 +2,8 @@
 	name = "Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
-	school = "evocation"
 	base_cooldown = 20 SECONDS
 	cooldown_min = 6 SECONDS //35 deciseconds reduction per rank
-	clothes_req = TRUE
 	invocation = "FORTI GY AMA"
 	invocation_type = "shout"
 
@@ -44,8 +42,6 @@
 	name = "Honk Missile"
 	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
 
-	school = "evocation"
-	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "HONK GY AMA"
@@ -99,10 +95,9 @@
 	school = "transmutation"
 	base_cooldown = 40 SECONDS
 	cooldown_min = 30 SECONDS //25 deciseconds reduction per rank
-	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
-	message = "<span class='notice'>You feel strong! You feel a pressure building behind your eyes!</span>"
+	message = span_notice("You feel strong! You feel a pressure building behind your eyes!")
 	centcom_cancast = FALSE
 
 	traits = list(TRAIT_LASEREYES)
@@ -161,7 +156,6 @@
 
 	school = "abjuration"
 	base_cooldown = 2 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 5 //4 deciseconds reduction per rank
 
 	smoke_type = SMOKE_HARMLESS
@@ -180,12 +174,10 @@
 
 /obj/effect/proc_holder/spell/area_teleport/teleport
 	name = "Teleport"
-	desc = "This spell teleports you to a type of area of your selection."
 
 	school = "abjuration"
 	base_cooldown = 60 SECONDS
 	cooldown_min = 20 SECONDS //100 deciseconds reduction per rank
-	clothes_req = TRUE
 	invocation = "SCYAR NILA"
 	invocation_type = "shout"
 
@@ -205,7 +197,6 @@
 	desc = "This spell creates a small unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
 	school = "transmutation"
-	base_cooldown = 10 SECONDS
 	cooldown_min = 5 SECONDS //12 deciseconds reduction per rank
 	clothes_req = FALSE
 	human_req = FALSE
@@ -247,11 +238,9 @@
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
 	base_cooldown = 50 SECONDS
 	cooldown_min = 10 SECONDS
-	clothes_req = TRUE
 	invocation = "TOKI WO TOMARE"
 	invocation_type = "shout"
 
-	summon_amt = 1
 
 	action_icon_state = "time"
 
@@ -265,7 +254,6 @@
 
 	school = "conjuration"
 	base_cooldown = 2 MINUTES
-	clothes_req = TRUE
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = "shout"
 
@@ -316,7 +304,7 @@
 	human_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
-	message = "<span class='notice'>Your eyes cry out in pain!</span>"
+	message = span_notice("Your eyes cry out in pain!")
 	base_cooldown = 30 SECONDS
 	cooldown_min = 5 SECONDS //12 deciseconds reduction per rank
 	need_active_overlay = TRUE
@@ -354,7 +342,6 @@
 	name = "Fireball"
 	desc = "This spell fires a fireball at a target and does not require wizard garb."
 
-	school = "evocation"
 	base_cooldown = 6 SECONDS
 	cooldown_min = 2 SECONDS //10 deciseconds reduction per rank
 	clothes_req = FALSE
@@ -363,7 +350,7 @@
 	invocation_type = "shout"
 
 	selection_activated_message		= "<span class='notice'>Your prepare to cast your fireball spell! <b>Left-click to cast at a target!</b></span>"
-	selection_deactivated_message	= "<span class='notice'>You extinguish your fireball...for now.</span>"
+	selection_deactivated_message	= span_notice("You extinguish your fireball...for now.")
 
 	var/fireball_type = /obj/projectile/magic/fireball
 	action_icon_state = "fireball0"
@@ -407,7 +394,6 @@
 	desc = "This spell throws everything around the user away."
 	base_cooldown = 40 SECONDS
 	cooldown_min = 15 SECONDS
-	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 
@@ -445,13 +431,13 @@
 				var/mob/living/M = AM
 				M.Weaken(10 SECONDS)
 				M.adjustBruteLoss(5)
-				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
+				to_chat(M, span_userdanger("You're slammed into the floor by a mystical force!"))
 		else
 			new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
 			if(isliving(AM))
 				var/mob/living/M = AM
 				M.Weaken(stun_amt)
-				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
+				to_chat(M, span_userdanger("You're thrown back by a mystical force!"))
 			spawn(0)
 				AM.throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
 
@@ -487,3 +473,39 @@
 		var/mob/living/U = user
 		U.IgniteMob()
 
+
+/obj/effect/proc_holder/spell/nullspace_box
+	name = "Призыв блюспейс коробки"
+	desc = "Позволяет призывать блюспейс коробку, способную проходить сквозь пол и потолок между этажами, как если бы вы находились в космосе. \
+			Если у станции один этаж, коробка бесполезна. Нельзя перейти на другой этаж, если в целевом месте кто-то или что-то находится."
+	base_cooldown = 25 SECONDS
+	clothes_req = FALSE // You should be able to dress up in a clown suit. Don't ask why.
+	action_icon_state = "move_up_down"
+	sound = 'sound/magic/magic_missile.ogg'
+
+
+/obj/effect/proc_holder/spell/nullspace_box/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/nullspace_box/cast(list/targets, mob/user)
+	. = ..()
+	var/mutable_appearance/fake_box = mutable_appearance('icons/obj/cardboard_boxes.dmi', "agentbox")
+	fake_box.color = RANDOM_COLOUR
+	fake_box.pixel_z = 30
+	var/atom/movable/flick_visual/fake_box_visual = user.flick_overlay_view(fake_box, 0.4 SECONDS)
+	animate(fake_box_visual, pixel_z = 0, time = 0.3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_hide), user, fake_box), 0.3 SECONDS)
+
+
+/obj/effect/proc_holder/spell/nullspace_box/proc/finish_hide(mob/user, mutable_appearance/fake_box)
+	if(!isturf(user.loc))
+		user.balloon_alert(user, "нужно больше места!")
+		return
+
+	// Spawn the actual box
+	var/obj/structure/closet/cardboard/agent/nullspace/box = new(user.loc)
+	box.color = fake_box.color
+	box.implant_user_UID = user.UID()
+	box.create_fake_box()
+	user.forceMove(box)

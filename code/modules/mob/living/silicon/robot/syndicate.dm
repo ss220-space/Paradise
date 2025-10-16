@@ -21,6 +21,8 @@
 	eye_protection = FLASH_PROTECTION_WELDER // Immunity to flashes and the visual part of flashbangs
 	ear_protection = HEARING_PROTECTION_MINOR // Immunity to the audio part of flashbangs
 	default_cell_type = /obj/item/stock_parts/cell/hyper	//Не очень понимаю почему вместо замены типа батареи тут, какого то чёрта вставляли новую батарею, оставляя старую валяться в contents борга...
+	register_alarms = 0
+
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
 							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
@@ -43,7 +45,7 @@
 	else
 		radio = new /obj/item/radio/borg/syndicate(src)
 
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 
 	if(playstyle_string)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, src, playstyle_string), 5 DECISECONDS)
@@ -62,7 +64,6 @@
 /mob/living/silicon/robot/syndicate/medical
 	base_icon = "syndi-medi"
 	icon_state = "syndi-medi"
-	has_transform_animation = TRUE
 	modtype = /obj/item/robot_module/syndicate_medical
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
@@ -84,7 +85,6 @@
 /mob/living/silicon/robot/syndicate/saboteur
 	base_icon = "syndi-engi"
 	icon_state = "syndi-engi"
-	has_transform_animation = TRUE
 	modtype = /obj/item/robot_module/syndicate_saboteur
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8
@@ -173,13 +173,16 @@
 
 /mob/living/silicon/robot/syndicate/saboteur/attackby(obj/item/I, mob/user, params)
 	cham_proj?.disrupt(src)
+
+	add_attack_logs(user, src, "disrupt [cham_proj] by [I]")
 	return ..()
 
 
-/mob/living/silicon/robot/syndicate/saboteur/attack_hand()
+/mob/living/silicon/robot/syndicate/saboteur/attack_hand(mob/living/carbon/human/user)
 	if(cham_proj)
 		cham_proj.disrupt(src)
 
+	add_attack_logs(user, src, "disrupt [cham_proj] by hand attack")
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/ex_act()

@@ -4,13 +4,11 @@
 	name = "Синдром лояльности"
 	agent = "Халомонас миномай"
 	desc = "Болезнь, вызывающая острую массовую одержимость определённым человеком, а также различные навязчивые идеи."
-	max_stages = 5
 	spread_flags = CONTACT
 	permeability_mod = 0.8
 	can_immunity = FALSE
 	cure_text = "Галоперидол"
 	cures = list("haloperidol")
-	cure_prob = 8
 	visibility_flags = HIDDEN_HUD
 	severity = DANGEROUS
 	var/is_master = FALSE
@@ -23,7 +21,7 @@
 	var/need_meating_message = FALSE
 	var/need_master_death_message = FALSE
 
-/datum/disease/virus/loyalty/New(var/mob/living/carbon/human/new_master)
+/datum/disease/virus/loyalty/New(mob/living/carbon/human/new_master)
 	..()
 	if(new_master)
 		master = new_master
@@ -147,7 +145,7 @@
 			say_timer = 0
 	return
 
-/datum/disease/virus/loyalty/proc/get_direction(var/begin="", var/ending = "")
+/datum/disease/virus/loyalty/proc/get_direction(begin="", ending = "")
 	if(affected_mob.z == master.z)
 		. = begin
 		. += dir2rustext(get_dir(affected_mob.loc, master.loc))

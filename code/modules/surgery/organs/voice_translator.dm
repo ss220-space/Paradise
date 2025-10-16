@@ -1,8 +1,8 @@
-#define DEFAULT_CHIP_SLOTS	1
-#define UPGRADE_SLOTS_GREY	2
+#define DEFAULT_CHIP_SLOTS 1
+#define UPGRADE_SLOTS_GREY 2
 
 
-	// TRANSLATORS //
+// TRANSLATORS //
 
 // Translators also fulfil the role of ‘vocal cords’ when there is a TRAIT_NO_VOCAL_CORDS in species inherent traits.
 // With translator any mob can speak even muted, unless being emped.
@@ -10,7 +10,7 @@
 
 /obj/item/organ/internal/cyberimp/mouth/translator // Lets make it some easier to make a new one. Write this if you want to make non-species translator.
 	name = "Just An Empty Translator"  // You cant get it in-game. At least now
-	desc = "Может быть, учёные NanoTrasen заставят работать его позже..."
+	desc = "Может быть, учёные Nanotrasen заставят работать его позже..."
 	//icon =
 	//icon_state =
 	//origin_tech =
@@ -341,7 +341,6 @@
 
 /datum/action/item_action/organ_action/translator_select_language
 	name = "Выбрать используемый язык"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "select_language"
 
 
@@ -354,7 +353,6 @@
 
 /datum/action/item_action/organ_action/wingdings_decoder
 	name = "Переключить дешифратор Вингдингс"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "wingdings_off"
 	use_itemicon = FALSE
 
@@ -412,7 +410,7 @@
 
 /obj/item/translator_upgrade // just adminspawn now
 	name = "translator upgrade"
-	desc = "Учёные NanoTrasen ещё не поняли, как он работает. Может быть, позже..."
+	desc = "Учёные Nanotrasen ещё не поняли, как он работает. Может быть, позже..."
 	w_class = WEIGHT_CLASS_TINY
 	var/extra_slots = 1
 

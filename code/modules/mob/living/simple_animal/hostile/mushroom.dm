@@ -4,8 +4,6 @@
 	icon_state = "mushroom_color"
 	icon_living = "mushroom_color"
 	icon_dead = "mushroom_dead"
-	speak_chance = 0
-	turns_per_move = 1
 	maxHealth = 10
 	health = 10
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/hugemushroomslice = 1)
@@ -22,8 +20,6 @@
 	faction = list("mushroom")
 	environment_smash = 0
 	stat_attack = DEAD
-	mouse_opacity = MOUSE_OPACITY_ICON
-	speed = 1
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	robust_searching = 1
 	speak_emote = list("пищит")
@@ -38,9 +34,9 @@
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
 	. = ..()
 	if(health >= maxHealth)
-		. += "<span class='notice'>It looks healthy.</span>"
+		. += span_notice("It looks healthy.")
 	else
-		. += "<span class='warning'>It looks like it's been roughed up.</span>"
+		. += span_warning("It looks like it's been roughed up.")
 
 /mob/living/simple_animal/hostile/mushroom/Life(seconds, times_fired)
 	..()
@@ -71,7 +67,7 @@
 	if(isliving(the_target))
 		var/mob/living/L = the_target
 
-		if (!faction_check_mob(L) && attack_same == 2)
+		if(!faction_check_mob(L) && attack_same == 2)
 			return FALSE
 		if(L.stat > stat_attack)
 			return FALSE
@@ -102,7 +98,7 @@
 			M.visible_message("[M] chews a bit on [src].")
 			faint_ticker++
 			return TRUE
-		M.visible_message("<span class='warning'>[M] devours [src]!</span>")
+		M.visible_message(span_warning("[M] devours [src]!"))
 		var/level_gain = (powerlevel - M.powerlevel)
 		if(level_gain >= -1 && !bruised && !M.ckey)//Player shrooms can't level up to become robust gods.
 			if(level_gain < 1)//So we still gain a level if two mushrooms were the same level
@@ -146,7 +142,7 @@
 	addtimer(VARSET_CALLBACK(src, recovery_cooldown, FALSE), 30 SECONDS)
 
 
-/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(var/level_gain)
+/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
 	if(powerlevel <= 9)
 		powerlevel += level_gain
 		if(prob(25))

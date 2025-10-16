@@ -1,7 +1,7 @@
 
 /obj/item/organ/internal/eyes
 	name = "eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали человеку."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали человеку."
 	ru_names = list(
 		NOMINATIVE = "глаза человека",
 		GENITIVE = "глаз человека",
@@ -32,7 +32,7 @@
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
 
-/obj/item/organ/internal/eyes/proc/generate_icon(var/mob/living/carbon/human/HA)
+/obj/item/organ/internal/eyes/proc/generate_icon(mob/living/carbon/human/HA)
 	var/mob/living/carbon/human/H = HA
 	if(!istype(H))
 		H = owner

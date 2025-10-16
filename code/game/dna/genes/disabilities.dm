@@ -25,8 +25,6 @@
 	if(length(activation_message))
 		var/msg = pick(activation_message)
 		to_chat(mutant, span_warning("[msg]"))
-	else
-		testing("[name] has no activation message.")
 
 
 /datum/dna/gene/disability/deactivate(mob/living/mutant, flags)
@@ -34,8 +32,6 @@
 	if(length(deactivation_message))
 		var/msg = pick(deactivation_message)
 		to_chat(mutant, span_warning("[msg]"))
-	else
-		testing("[name] has no deactivation message.")
 
 
 /datum/dna/gene/disability/hallucinate
@@ -387,9 +383,9 @@
 	message,
 	verb,
 	ignore_speech_problems,
-    ignore_atmospherics,
-    ignore_languages,
-    datum/multilingual_say_piece/lang_piece,
+	ignore_atmospherics,
+	ignore_languages,
+	datum/multilingual_say_piece/lang_piece,
 )
 	SIGNAL_HANDLER
 
@@ -429,10 +425,10 @@
 //	return "catears_s"
 
 /datum/dna/gene/disability/catears/proc/paint_felinide_ears(mob/living/carbon/human/human)
-    var/inner_state = "catearsinner"
-    var/outer_state = "catears_s"
-    var/obj/item/organ/external/head/head_organ = human.get_organ(BODY_ZONE_HEAD)
-    var/icon/new_look = icon('icons/effects/genetics.dmi', outer_state)
-    new_look.Blend(head_organ.hair_colour, ICON_ADD)
-    new_look.Blend(icon('icons/effects/genetics.dmi', inner_state), ICON_OVERLAY)
-    return new_look
+	var/inner_state = "catearsinner"
+	var/outer_state = "catears_s"
+	var/obj/item/organ/external/head/head_organ = human.get_organ(BODY_ZONE_HEAD)
+	var/icon/new_look = icon('icons/effects/genetics.dmi', outer_state)
+	new_look.Blend(head_organ.hair_colour, ICON_ADD)
+	new_look.Blend(icon('icons/effects/genetics.dmi', inner_state), ICON_OVERLAY)
+	return new_look

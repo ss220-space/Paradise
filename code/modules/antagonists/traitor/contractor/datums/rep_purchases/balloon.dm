@@ -1,6 +1,6 @@
 /**
-  * # Rep Purchase - Contractor Balloon
-  */
+ * # Rep Purchase - Contractor Balloon
+ */
 /datum/rep_purchase/item/balloon
 	name = "Воздушный шарик Контрактника"
 	description = "Изящный воздушный шар, выполненный в чёрно-золотых тонах и украшенный символикой Контрактника. \

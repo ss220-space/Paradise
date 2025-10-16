@@ -183,7 +183,7 @@
 			observer.name = observer.real_name
 			observer.key = key
 			QDEL_NULL(mind)
-			if (CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
+			if(CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
 			qdel(src)
 			return 1
 
@@ -220,7 +220,8 @@
 				to_chat(usr, span_danger("К сожалению, выбранный вами голос персонажа больше не доступен на вашем текущем уровне подписки."))
 				client.prefs.ShowChoices(src)
 				return FALSE
-
+		if(SSticker?.mode?.late_join(src))
+			return
 		LateChoices()
 
 	if(href_list["manifest"])
@@ -264,6 +265,19 @@
 
 	if(href_list["leave_notice"])
 		client.change_title_screen_notice()
+		return
+
+	if(href_list["switch_server"])
+		var/selected_port = text2num(href_list["switch_server"])
+		if(selected_port == world.port)
+			to_chat(usr, span_warning("Вы уже подключены к данному серверу."))
+			return
+
+		to_chat(usr, span_warning("Подключение к новому серверу..."))
+
+		// Formulate a connection URL
+		var/target = "byond://[world.internet_address]:[selected_port]"
+		src << link(target)
 		return
 
 	if(href_list["focus"])
@@ -354,7 +368,7 @@
 	EquipCustomItems(.)
 
 
-/mob/new_player/proc/AttemptLateSpawn(rank, var/spawning_at)
+/mob/new_player/proc/AttemptLateSpawn(rank, spawning_at)
 	if(src != usr)
 		return FALSE
 
@@ -494,7 +508,7 @@
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			if(A.announce_arrivals)
 				ailist += A
-		if(ailist.len)
+		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
@@ -505,7 +519,7 @@
 			if(character.mind)
 				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, GLOB.global_announcer_base_text)
-					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer", follow_target_override = character)
+					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer", HEADSET_FREQ_NAME, follow_target_override = character)
 
 /mob/new_player/proc/create_announce_message(mob/living/carbon/human/arrived, rank, join_message, message)
 	if(arrived.mind.role_alt_title)
@@ -540,7 +554,7 @@
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer", follow_target_override = character)
+					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer", HEADSET_FREQ_NAME, follow_target_override = character)
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
@@ -637,6 +651,15 @@
 	popup.set_content(dat)
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
+
+// If current character can't be antagonist, try to pick random character, who can.
+/mob/new_player/proc/handle_can_be_antagonist()
+	if(!mind.special_role || client.prefs.can_be_antagonist)
+		return
+
+	client.prefs.get_possible_antagonist()
+
+
 /mob/new_player/proc/create_character()
 	spawning = TRUE
 	close_spawn_windows()
@@ -645,9 +668,11 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
+	handle_can_be_antagonist()
 	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
+
 	client.prefs.copy_to(new_character)
 
 	// stop_sound_channel(CHANNEL_LOBBYMUSIC)

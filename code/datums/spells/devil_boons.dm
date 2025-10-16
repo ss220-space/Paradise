@@ -10,7 +10,6 @@
 
 	school = "conjuration"
 	clothes_req = FALSE
-	base_cooldown = 10 SECONDS
 	cooldown_min = 1 SECONDS
 	action_icon_state = "moneybag"
 
@@ -169,7 +168,7 @@
 
 	var/mob/living/mob = target
 
-	if(mob.stat != DEAD)
+	if(mob.stat != DEAD || !(mob.mind.is_revivable()))
 		return .
 
 	mob.revive()
@@ -183,9 +182,6 @@
 		return
 
 	necrotize_body(mob, REVIVE_SPELL_NECROSIS_PROB)
-
-#undef REVIVE_SPELL_TIME
-
 
 /obj/effect/proc_holder/spell/conjure_item/contract_gun
 	name = "Призвать верное оружие"
@@ -208,3 +204,6 @@
 	item.materials = list()
 	ADD_TRAIT(item, TRAIT_NODROP, INNATE_TRAIT)
 	ADD_TRAIT(item, TRAIT_NOT_TURRET_GUN, INNATE_TRAIT)
+
+#undef REVIVE_SPELL_TIME
+#undef REVIVE_SPELL_NECROSIS_PROB

@@ -1,9 +1,7 @@
 /obj/effect/decal/cleanable/liquid_fuel
 	//Liquid fuel is used for things that used to rely on volatile fuels or plasma being contained to a couple tiles.
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "fuel"
 	layer = ABOVE_NORMAL_TURF_LAYER
-	anchored = TRUE
 	var/amount = 1 //Basically moles.
 
 /obj/effect/decal/cleanable/liquid_fuel/Initialize(mapload, amt = 1)
@@ -37,7 +35,7 @@
 	icon_state = "mustard"
 	anchored = FALSE
 
-/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Initialize(newLoc, amt = 1, d = 0)
+/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Initialize(mapload, newLoc, amt = 1, d = 0)
 	dir = d //Setting this direction means you won't get torched by your own flamethrower.
 	. = ..()
 

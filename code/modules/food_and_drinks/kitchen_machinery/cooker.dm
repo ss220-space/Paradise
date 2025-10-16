@@ -1,10 +1,8 @@
 /obj/machinery/cooker
 	name = "cooker"
 	desc = "You shouldn't be seeing this!"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	var/on = 0
 	var/onicon = null
@@ -37,7 +35,7 @@
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is still active!</span>")
+		to_chat(user, span_notice("[src] is still active!"))
 		return FALSE
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return TRUE
@@ -89,7 +87,7 @@
 		return FALSE
 	. = TRUE
 	icon_state = onicon
-	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
+	to_chat(chef, span_notice("You put [tocook] into [src]."))
 	on = 1
 
 
@@ -190,5 +188,5 @@
 		return 0
 	return 0
 
-/obj/machinery/cooker/proc/cookSpecial(var/special)
+/obj/machinery/cooker/proc/cookSpecial(special)
 	return

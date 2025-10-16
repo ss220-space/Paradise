@@ -2,7 +2,6 @@ GLOBAL_LIST_EMPTY(portals)												//for use by portals
 GLOBAL_LIST(cable_list)													//Index for all cables, so that powernets don't have to look through the entire world all the time
 GLOBAL_LIST_EMPTY(chemical_reactions_list)								//list of all /datum/chemical_reaction datums. Used during chemical reactions
 GLOBAL_LIST_EMPTY(chemical_reagents_list)								//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
-GLOBAL_LIST_EMPTY(landmarks_list)										//list of all landmarks created
 GLOBAL_LIST_EMPTY(surgery_steps)										//list of all surgery steps  |BS12
 GLOBAL_LIST_EMPTY(side_effects)											//list of all medical sideeffects types by thier names |BS12
 GLOBAL_LIST_EMPTY(mechas_list)											//list of all mechs. Used by hostile mobs target tracking.
@@ -17,6 +16,7 @@ GLOBAL_LIST_EMPTY(prisoncomputer_list)
 GLOBAL_LIST_EMPTY(celltimers_list)										// list of all cell timers
 GLOBAL_LIST_EMPTY(cell_logs)
 GLOBAL_LIST_EMPTY(navigation_computers)
+GLOBAL_LIST_EMPTY(station_turfs)
 
 GLOBAL_LIST_EMPTY(machines)
 GLOBAL_LIST_EMPTY(syndiepads)											//list of all syndiepads
@@ -66,3 +66,5 @@ GLOBAL_LIST_EMPTY(wire_name_directory)
 
 GLOBAL_LIST_EMPTY(visual_portals)
 GLOBAL_LIST_EMPTY(pod_styles_by_type)
+
+GLOBAL_LIST_EMPTY(loot_tiers)

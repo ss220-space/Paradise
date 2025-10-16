@@ -3,12 +3,21 @@
 /obj/structure/closet/crate/secure/loot
 	name = "abandoned crate"
 	desc = "Что может быть внутри?"
-	icon_state = "securecrate"
 	var/code = null
 	var/lastattempt = null
 	var/attempts = 10
 	var/codelen = 4
 	integrity_failure = 0 //no breaking open the crate
+
+
+/obj/structure/closet/crate/secure/loot/can_close()
+	. = ..()
+	if(!.)
+		return
+
+	var/mob/living/mob = locate() in get_turf(src)
+	return !mob
+
 
 /obj/structure/closet/crate/secure/loot/get_ru_names()
 	return list(
@@ -166,8 +175,8 @@
 		if(85)
 			new /obj/item/defibrillator/compact(src)
 		if(86)
-			new /obj/item/gun/projectile/automatic/pistol/specter(src)
-			new /obj/item/ammo_box/magazine/specter(src)
+			new /obj/item/gun/energy/specter(src)
+			new /obj/item/stock_parts/cell/specter(src)
 		if(87)
 			new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
 			new /obj/item/ammo_box/magazine/enforcer(src)

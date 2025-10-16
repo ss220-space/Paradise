@@ -1,6 +1,3 @@
-#define GHOST_CAN_REENTER 1
-#define GHOST_IS_OBSERVER 2
-
 GLOBAL_LIST_EMPTY(ghost_images)
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
@@ -17,7 +14,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	density = FALSE
 	blocks_emissive = FALSE // Ghosts are transparent, duh
 	alpha = 127
-	move_resist = INFINITY	//  don't get pushed around
 	light_system = NO_LIGHT_SUPPORT
 	invisibility = INVISIBILITY_OBSERVER
 	pass_flags = PASSEVERYTHING
@@ -76,7 +72,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 			MA.name = body.real_name
 		else
 			if(gender == MALE)
-				MA.name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+				MA.name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
 			else
 				MA.name = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names_female))
 
@@ -96,13 +92,14 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		T = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
 
 	if(!name)							//To prevent nameless ghosts
-		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
 	real_name = name
 
 	//starts ghosts off with all HUDs.
 	show_me_the_hud(THOUGHTS_HUD)
 	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
+	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_DARKNESS, UNIQUE_TRAIT_SOURCE(src))
 	..()
 	abstract_move(T) //let ghost initialize properly, then off to spawn point
 
@@ -252,7 +249,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(stat == CONSCIOUS)
 		if(!is_admin_level(z))
 			player_ghosted = 1
-		if(mind && mind.special_role)
+		if(mind?.special_role)
 			message_admins("[key_name_admin(src)] has ghosted while alive, with special_role: [mind.special_role]")
 
 	if(warningmsg)
@@ -338,7 +335,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(source)
 			var/atom/movable/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
 			if(A)
-				if(client && client.prefs && client.prefs.UI_style)
+				if(client?.prefs && client.prefs.UI_style)
 					A.icon = ui_style2icon(client.prefs.UI_style)
 				A.desc = message
 				var/old_layer = source.layer
@@ -354,13 +351,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
-	H.add_hud_to(src)
+	H.show_to(src)
 	data_hud_seen |= hud_index
 
 /mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
 	data_hud_seen -= hud_index
-	H.remove_hud_from(src)
+	H.hide_from(src)
 
 /mob/dead/observer/verb/open_hud_panel()
 	set category = STATPANEL_GHOST
@@ -377,7 +374,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	antagHUD = TRUE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.add_hud_to(src)
+		H.show_to(src)
 
 /**
  * Toggles off all HUDs for the ghost player.
@@ -389,7 +386,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	antagHUD = FALSE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.remove_hud_from(src)
+		H.hide_from(src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Запретить реанимацию"
@@ -607,7 +604,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return ..()
 
 
-/proc/ghost_follow_link(var/atom/target, var/atom/ghost)
+/proc/ghost_follow_link(atom/target, atom/ghost)
 	if((!target) || (!ghost)) return
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
@@ -770,7 +767,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 
 /mob/dead/observer/update_sight()
-	if (!ghostvision)
+	if(!ghostvision)
 		set_invis_see(SEE_INVISIBLE_LIVING)
 	else
 		set_invis_see(SEE_INVISIBLE_OBSERVER)
@@ -816,7 +813,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!can_admin_interact())
 		return FALSE
 
-	if(client && client.advanced_admin_interaction)
+	if(client?.advanced_admin_interaction)
 		return TRUE
 
 	return FALSE

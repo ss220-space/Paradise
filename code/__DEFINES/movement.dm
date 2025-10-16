@@ -113,6 +113,8 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define ZMOVE_INCLUDE_PULLED (1<<9)
 /// Skips check for whether the moving atom is anchored or not.
 #define ZMOVE_ALLOW_ANCHORED (1<<10)
+/// Z-move with delay (use do_after for move)
+#define ZMOVE_WITH_DELAY (1<<11)
 
 #define ZMOVE_CHECK_PULLS (ZMOVE_CHECK_PULLING|ZMOVE_CHECK_PULLEDBY)
 
@@ -123,6 +125,7 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 /// Used for falling down open space.
 #define ZMOVE_FALL_FLAGS (ZMOVE_FALL_CHECKS|ZMOVE_ALLOW_BUCKLED)
 
+#define ZMOVE_DELAY_DURATION (1.5 SECONDS)
 
 #define ACTIVE_MOVEMENT_OLDLOC 1
 #define ACTIVE_MOVEMENT_DIRECTION 2

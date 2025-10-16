@@ -6,14 +6,16 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 
 // Screen indexes
 /// Headlines screen index.
-#define NEWSCASTER_HEADLINES	0
+#define NEWSCASTER_HEADLINES 0
 /// Available Jobs screen index.
-#define NEWSCASTER_JOBS			1
+#define NEWSCASTER_JOBS 1
 /// View Channel screen index.
-#define NEWSCASTER_CHANNEL		2
+#define NEWSCASTER_CHANNEL 2
 
 // Channels and main editors names
-/// Station Announcements - every big text like "nuke ops incoming"
+/// Station Announcements Log -  it silently publishes every announcement as a news story.
+#define NEWS_CHANNEL_STATION_LOG "Журнал станционных оповещений"
+/// Station Announcements - in newscaster is now public channel by default.
 #define NEWS_CHANNEL_STATION "Публичные станционные оповещения"
 	#define EDITOR_STATION "Автоматический листинг оповещений"
 /// Nyx Daily - everyday-ish news about NT
@@ -25,6 +27,6 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 
 // Censor flags
 /// Censor author name.
-#define CENSOR_AUTHOR (1 << 0)
+#define CENSOR_AUTHOR (1<<0)
 /// Censor story title, body and image.
-#define CENSOR_STORY (1 << 1)
+#define CENSOR_STORY (1<<1)

@@ -1,6 +1,5 @@
 /obj/structure/AIcore
 	density = TRUE
-	anchored = FALSE
 	name = "AI core"
 	icon = 'icons/mob/ai.dmi'
 	icon_state = "0"
@@ -320,7 +319,7 @@
 	for(var/obj/structure/AIcore/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D
 
-	if(!cores.len)
+	if(!length(cores))
 		to_chat(src, "No deactivated AI cores were found.")
 
 	var/id = tgui_input_list(usr, "Which core?", "Toggle AI Core Latejoin", cores, null)
@@ -357,7 +356,7 @@ That prevents a few funky behaviors.
 /obj/structure/AIcore/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(state != AI_READY_CORE || !..())
 		return
- //Transferring a carded AI to a core.
+//Transferring a carded AI to a core.
 	if(interaction == AI_TRANS_FROM_CARD)
 		AI.control_disabled = FALSE
 		AI.aiRadio.disabledAi = FALSE

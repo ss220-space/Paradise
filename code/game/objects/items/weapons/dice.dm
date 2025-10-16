@@ -8,12 +8,12 @@
 
 /obj/item/storage/pill_bottle/dice/get_ru_names()
 	return list(
-        NOMINATIVE = "мешок игральных костей",
-        GENITIVE = "мешка игральных костей",
-        DATIVE = "мешку игральных костей",
-        ACCUSATIVE = "мешок игральных костей",
-        INSTRUMENTAL = "мешком игральных костей",
-        PREPOSITIONAL = "мешке игральных костей"
+		NOMINATIVE = "мешок игральных костей",
+		GENITIVE = "мешка игральных костей",
+		DATIVE = "мешку игральных костей",
+		ACCUSATIVE = "мешок игральных костей",
+		INSTRUMENTAL = "мешком игральных костей",
+		PREPOSITIONAL = "мешке игральных костей"
 	)
 
 /obj/item/storage/pill_bottle/dice/populate_contents()
@@ -39,7 +39,6 @@
 /obj/item/storage/box/dice
 	name = "Коробка игральных костей"
 	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
-	icon_state = "box"
 
 
 /obj/item/storage/box/dice/populate_contents()
@@ -246,7 +245,6 @@
 /obj/item/dice/d20/fate
 	name = "Die of Fate"
 	desc = "A die with twenty sides. You can feel unearthly energies radiating from it. Using this might be VERY risky."
-	icon_state = "d20"
 	var/reusable = TRUE
 	var/used = FALSE
 
@@ -409,7 +407,7 @@
 		if(17)
 			//Choose from 1 of 3 random syndie bundles
 			T.visible_message(span_userdanger("A suspicious radio beacon appears!"))
-			new /obj/item/radio/beacon/syndicate/bundle/magical(drop_location())
+			new /obj/item/beacon/syndicate/bundle/magical(drop_location())
 			create_smoke(2)
 		if(18)
 			//Captain ID

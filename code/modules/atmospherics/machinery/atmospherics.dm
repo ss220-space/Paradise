@@ -11,10 +11,6 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF
-	max_integrity = 200
-	plane = GAME_PLANE
-	idle_power_usage = 0
-	active_power_usage = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
@@ -50,7 +46,7 @@ Pipelines + Other Objects -> Pipe network
 
 
 /obj/machinery/atmospherics/New()
-	if (!armor)
+	if(!armor)
 		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	..()
 
@@ -62,6 +58,11 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 
 /obj/machinery/atmospherics/Initialize(mapload)
+	var/turf/turf_loc = null
+	if(isturf(loc))
+		turf_loc = loc
+	SSspatial_grid.add_grid_awareness(src, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
+	SSspatial_grid.add_grid_membership(src, turf_loc, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
 	. = ..()
 	SSair.atmos_machinery += src
 
@@ -113,7 +114,7 @@ Pipelines + Other Objects -> Pipe network
 		return FALSE
 	return TRUE
 
-/obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
+/obj/machinery/atmospherics/proc/color_cache_name(obj/machinery/atmospherics/node)
 	//Don't use this for standard pipes
 	if(!istype(node))
 		return null
@@ -235,7 +236,7 @@ Pipelines + Other Objects -> Pipe network
 		span_notice("You have unfastened [src]."),
 		span_italics("You hear ratcheting."),
 	)
-	investigate_log("was <span class='warning'>REMOVED</span> by [key_name_log(usr)]", INVESTIGATE_ATMOS)
+	investigate_log("was [span_warning("REMOVED")] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 	if(unsafe_wrenching)
@@ -352,19 +353,17 @@ Pipelines + Other Objects -> Pipe network
 		break
 
 	if(!target_move)
-		if(direction & initialize_directions)
-			user.stop_ventcrawling()
+		if(HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING) && (vent_movement & VENTCRAWL_ENTRANCE_ALLOWED))
+			user.handle_ventcrawl(src)
 		return
 
 	if(!(target_move.vent_movement & VENTCRAWL_ALLOWED))
 		return
 
 	user.abstract_move(target_move)
-	// user.loc = target_move	// we are using loc change instead of forceMove to avoid perspective reset. paradise is special
 
 	var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
-	if(length(pipenetdiff))
-		user.update_pipe_vision()
+	user.update_pipe_vision(full_refresh = !!length(pipenetdiff))
 
 	if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 		user.last_played_vent = world.time

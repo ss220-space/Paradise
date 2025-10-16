@@ -3,7 +3,6 @@
 	desc = "LOADSAMONEY"
 	icon_state = "balaclava"
 	item_state = "balaclava"
-	w_class = WEIGHT_CLASS_SMALL
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/adjust)
 	flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
@@ -39,7 +38,6 @@
 	icon_state = "luchag"
 	item_state = "luchag"
 	flags_inv = HIDENAME|HIDEHAIR
-	w_class = WEIGHT_CLASS_SMALL
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',

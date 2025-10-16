@@ -49,14 +49,17 @@
 #define NUTRITION_LEVEL_ALMOST_FULL 535
 
 //Blood levels
-#define BLOOD_VOLUME_MAXIMUM		2000
-#define BLOOD_VOLUME_NORMAL			560 // 100%
-#define BLOOD_VOLUME_SAFE			501	// 89.5%
-#define BLOOD_VOLUME_PALE			448 // 80%
-#define BLOOD_VOLUME_REGENERATION	392 // 70%
-#define BLOOD_VOLUME_OKAY			346 // 61.8%
-#define BLOOD_VOLUME_BAD			234 // 41.8%
-#define BLOOD_VOLUME_SURVIVE		168 // 30%
+#define BLOOD_VOLUME_MAXIMUM 2000
+#define BLOOD_VOLUME_NORMAL 560 // 100%
+#define BLOOD_VOLUME_SAFE 501 // 89.5%
+#define BLOOD_VOLUME_PALE 448 // 80%
+#define BLOOD_VOLUME_REGENERATION 392 // 70%
+#define BLOOD_VOLUME_OKAY 346 // 61.8%
+#define BLOOD_VOLUME_BAD 234 // 41.8%
+#define BLOOD_VOLUME_SURVIVE 168 // 30%
+
+/// High bleeding value
+#define HIGH_BLEEDING_VALUE 2.5
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0

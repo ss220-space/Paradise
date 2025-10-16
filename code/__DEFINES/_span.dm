@@ -21,6 +21,7 @@
 #define span_combatdanger(str) ("<span class='combat danger'>" + str + "</span>")
 #define span_combatuserdanger(str) ("<span class='combat userdanger'>" + str + "</span>")
 #define span_small(str) ("<span class='small'>" + str + "</span>")
+#define span_emote(str) ("<span class='emote'>" + str + "</span>")
 #define span_game_emote(str) ("<span class='game emote'>" + str + "</span>")
 #define span_vnimanie(str) ("<span class='ВНИМАНИЕ'>" + str + "</span>")
 #define span_holoparasite(str) ("<span class='holoparasite'>" + str + "</span>")
@@ -30,6 +31,7 @@
 #define span_boldannounceic(str) ("<span class='boldannounceic'>" + str + "</span>")
 #define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
 #define span_announce(str) ("<span class='announce'>" + str + "</span>")
+#define span_typing(str) ("<span class='typing'>" + str + "</span>")
 
 /**
  * MARK: GENERAL STUFF
@@ -100,6 +102,8 @@
 #define span_adminticket(str) ("<span class='adminticket'>" + str + "</span>")
 #define span_adminticketalt(str) ("<span class='adminticketalt'>" + str + "</span>")
 #define span_admin_channel(str) ("<span class='admin_channel'>" + str + "</span>")
+#define span_dev_channel(str) ("<span class='dev_channel'>" + str + "</span>")
+#define span_mentor_channel(str) ("<span class='mentor_channel'>" + str + "</span>")
 #define span_all_admin_ping(str) ("<span class='all_admin_ping'>" + str + "</span>")
 
 // MARK: Radio

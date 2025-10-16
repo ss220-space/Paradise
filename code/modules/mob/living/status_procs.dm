@@ -313,6 +313,13 @@
 /mob/living/proc/AdjustEyeBlurry(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetEyeBlurry(directional_bounded_sum(AmountEyeBlurry(), amount, bound_lower, bound_upper))
 
+// MARK: Temperature
+/mob/living/proc/smooth_body_temperature(target_temperature)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_TEMPERATURE, target_temperature)
+
+
 /// HALLUCINATION
 /mob/living/proc/AmountHallucinate()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HALLUCINATION)
@@ -706,6 +713,18 @@
 	else if(amount > 0)
 		K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount)
 	return K
+
+
+/mob/living/proc/unbuckle_if_not_cuffed()
+	if(!buckled)
+		return
+
+	var/mob/living/carbon/carbon = src
+	if(!istype(carbon) || carbon.handcuffed)
+		return
+
+	buckled.unbuckle_mob(src, force = TRUE)
+
 
 // MARK: IMMOBILIZED
 

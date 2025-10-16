@@ -33,7 +33,7 @@
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), ITEM_SLOT_CLOTH_INNER)
 			var/obj/item/card/id/W = new(H)
-			W.name = "[H.real_name]'s ID Card"
+			W.name = "[H.real_name]’s ID Card"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
 			W.access += get_all_centcom_access()
@@ -46,7 +46,7 @@
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), ITEM_SLOT_CLOTH_INNER)
 			var/obj/item/card/id/W = new(H)
-			W.name = "[H.real_name]'s ID Card"
+			W.name = "[H.real_name]’s ID Card"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
 			W.access += get_all_centcom_access()
@@ -78,15 +78,15 @@
 			return
 		var/mob/A = locateUID(thrownby)
 		if((H in GLOB.team_alpha) && (A in GLOB.team_alpha))
-			to_chat(A, "<span class='warning'>He's on your team!</span>")
+			to_chat(A, span_warning("He's on your team!"))
 			return
 		else if((H in GLOB.team_bravo) && (A in GLOB.team_bravo))
-			to_chat(A, "<span class='warning'>He's on your team!</span>")
+			to_chat(A, span_warning("He's on your team!"))
 			return
 		else if(!(A in GLOB.team_alpha) && !(A in GLOB.team_bravo))
-			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
+			to_chat(A, span_warning("You're not part of the dodgeball game, sorry!"))
 			return
 		else
 			playsound(src, 'sound/items/dodgeball.ogg', 50, TRUE)
-			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>")
+			visible_message(span_danger("[H] HAS BEEN ELIMINATED!"))
 			H.melt()

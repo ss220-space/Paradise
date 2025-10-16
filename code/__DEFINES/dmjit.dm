@@ -1,8 +1,10 @@
+#ifndef OPENDREAM
+
 #define DMJIT_LIB "./libdmjit.so"
 #define DMJIT_NATIVE CRASH("dm-jit not loaded")
 
 /proc/dmjit_hook_main_init()
-	if (world.system_type != UNIX)
+	if(world.system_type != UNIX)
 		return
 	world.log << CALL_EXT(DMJIT_LIB, "auxtools_init")()
 	world.log << dmjit_hook_log_init()
@@ -16,7 +18,6 @@
 	dmjit_compile_proc("/turf/simulated/share_air")
 	//dmjit_compile_proc("/turf/simulated/archive") uses global
 	world.log << dmjit_install_compiled()
-
 
 // INIT
 /proc/dmjit_hook_log_init()
@@ -48,28 +49,30 @@
 	CRASH(msg)
 
 /proc/dmjit_compile_proc(name)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_install_compiled()
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_toggle_hooks()
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_toggle_call_counts()
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_get_datum_ref_count(arg)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_mark_time(name)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_report_time(name)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_call_hierarchy(name)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_dump_deopts()
-    DMJIT_NATIVE
+	DMJIT_NATIVE
+
+#endif

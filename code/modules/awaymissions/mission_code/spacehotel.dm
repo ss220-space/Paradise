@@ -16,7 +16,6 @@
 	name = "Amazing Place"
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/spacehotel/snowland
 	name = "Snowland"
@@ -31,7 +30,6 @@
 	icon_state = "arrow"
 
 /obj/item/paper/crumpled/hotel_scrap_1
-	name = "paper scrap"
 	info = "I can't believe this shitty hotel assigned me a purple-themed room. <i>Why does the shower dump grape drink everywhere??</i>"
 
 /obj/item/paper/hotel_scrap_2
@@ -134,7 +132,7 @@
 
 /obj/machinery/door/unpowered/hotel_door/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This room is currently [occupant ? "" : "un"]occupied.</span>"
+	. += span_notice("This room is currently [occupant ? "" : "un"]occupied.")
 
 /obj/machinery/door/unpowered/hotel_door/allowed(mob/living/carbon/user)
 	for(var/obj/item/card/hotel_card/C in user.get_all_slots())
@@ -191,9 +189,6 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = TRUE
-	density = FALSE
-	opacity = FALSE
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door
 	var/list/vacant_rooms[0]		// list of vacant room doors
 	var/list/guests[0]				// assoc list of [guest mob]=room id
@@ -209,8 +204,8 @@
 	controller = src
 
 	radio = new()
-	radio.broadcasting = 0
-	radio.listening = 0
+	radio.set_broadcasting(FALSE)
+	radio.set_listening(FALSE)
 	var/area/myArea = get_area(src)
 	// get room doors
 	for(var/obj/machinery/door/unpowered/hotel_door/D in myArea?.machinery_cache)
@@ -285,8 +280,10 @@
 
 	var/mob/deadbeat = D.occupant
 
-	radio.autosay("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name)
+	radio.autosay("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name, HEADSET_FREQ_NAME)
 	spawn(300)
 		if(D.occupant == deadbeat)
 			// they still haven't checked out...
 			checkout(roomid)
+
+#undef PAY_INTERVAL

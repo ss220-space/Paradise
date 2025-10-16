@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(preferences_datums)
 GLOBAL_PROTECT(preferences_datums) // These feel like something that shouldnt be fucked with
 
-GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts to play these roles
+GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts to play these roles
 	ROLE_PAI = 0,
 	ROLE_THUNDERDOME = 0,
 	ROLE_POSIBRAIN = 0,
@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	return max(0, minimal_player_age_antag - C.player_age)
 
-/proc/check_client_age(client/C, var/days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
+/proc/check_client_age(client/C, days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
 	if(!days)
 		return C.player_age
 	else
@@ -72,10 +72,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
-#define TAB_CHAR	0
-#define TAB_GAME	1
-#define TAB_SPEC	2
-#define TAB_KEYS	3
+#define TAB_CHAR 0
+#define TAB_GAME 1
+#define TAB_SPEC 2
+#define TAB_KEYS 3
 #define TAB_TOGGLES 4
 
 /datum/preferences
@@ -188,6 +188,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	//Special role pref
 	var/uplink_pref = PREF_UPLINK_PDA
+
+	/// Can this character be antagonist.
+	var/can_be_antagonist = TRUE
 
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
@@ -347,7 +350,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Сохранить слот</a> – "
 			dat += "<a href=\"byond://?_src_=prefs;preference=reload\">Перезагрузить слот</a>"
 			if(saved)
-				dat += " – <a href=\"byond://?_src_=prefs;preference=clear\"><span class='bad'>Очистить слот</span></a>"
+				dat += " – <a href=\"byond://?_src_=prefs;preference=clear\">[span_bad("Очистить слот")]</a>"
 			dat += "</center>"
 			dat += "</td></tr></table>"
 
@@ -380,7 +383,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 				dat += "<b>Тон кожи:</b> <a href='byond://?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
 			dat += "<b>Особенности:</b> <a href='byond://?_src_=prefs;preference=disabilities'>Выбрать</a><br>"
-			dat += "<b>Отношение к НаноТрейзен:</b> <a href='byond://?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
+			dat += "<b>Отношение к Нанотрейзен:</b> <a href='byond://?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Задать описание персонажа</a><br>"
 			dat += "[TextPreview(flavor_text)]<br>"
 
@@ -411,7 +414,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<a href='byond://?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
 			dat += "<a href='byond://?_src_=prefs;preference=hair;task=input'>Цвет</a> [color_square(h_colour)]"
 			var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[h_style]
-			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
+			if(temp_hair_style?.secondary_theme && !temp_hair_style.no_sec_colour)
 				dat += " <a href='byond://?_src_=prefs;preference=secondary_hair;task=input'>Цвет №2</a> [color_square(h_sec_colour)]"
 				// Hair gradient
 			dat += "<br>"
@@ -427,7 +430,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<a href='byond://?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
 			dat += "<a href='byond://?_src_=prefs;preference=facial;task=input'>Цвет</a> [color_square(f_colour)]"
 			var/datum/sprite_accessory/temp_facial_hair_style = GLOB.facial_hair_styles_list[f_style]
-			if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
+			if(temp_facial_hair_style?.secondary_theme && !temp_facial_hair_style.no_sec_colour)
 				dat += " <a href='byond://?_src_=prefs;preference=secondary_facial;task=input'>Цвет №2</a> [color_square(f_sec_colour)]"
 			dat += "<br>"
 
@@ -543,6 +546,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<br><b>Носки:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a>"
 			dat += "<br><b>Сумка на спину:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
+			dat += "<b>Может ли персонаж быть антагонистом?</b> <a href='byond://?_src_=prefs;preference=can_be_antagonist;task=input'>[can_be_antagonist ? "Да" : "Нет"]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Меню выбора снаряжения</a><br>"
 
 			dat += "</td></tr></table>"
@@ -564,17 +568,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Публичность донат-статуса:</b> <a href='byond://?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Показать" : "Спрятать"]</b></a><br>"
 			dat += "<b>Всплывающие уведомления о голосовании:</b> <a href='byond://?_src_=prefs;preference=vote_popup'>[(toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS) ? "Нет" : "Да"]</a><br>"
 			dat += "<b>FPS:</b>	 <a href='byond://?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
-			dat += "<b>Призрак – слышимость речи:</b> <a href='byond://?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "Все сообщения" : "В поле зрения"]</b></a><br>"
-			dat += "<b>Призрак – слышимость радио:</b> <a href='byond://?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "Все сообщения" : "В поле зрения"]</b></a><br>"
-			dat += "<b>Призрак – видимость эмоций:</b> <a href='byond://?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "Все эмоции" : "В поле зрения"]</b></a><br>"
-			dat += "<b>Призрак – сообщения на КПК:</b> <a href='byond://?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "Показывать все" : "Не показывать"]</b></a><br>"
+			dat += "<b>Призрак — слышимость речи:</b> <a href='byond://?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "Все сообщения" : "В поле зрения"]</b></a><br>"
+			dat += "<b>Призрак — слышимость радио:</b> <a href='byond://?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "Все сообщения" : "В поле зрения"]</b></a><br>"
+			dat += "<b>Призрак — видимость эмоций:</b> <a href='byond://?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "Все эмоции" : "В поле зрения"]</b></a><br>"
+			dat += "<b>Призрак — сообщения на КПК:</b> <a href='byond://?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "Показывать все" : "Не показывать"]</b></a><br>"
 			dat += "<b>Обводка предметов:</b> <a href='byond://?_src_=prefs;preference=item_outlines'><b>[(toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "Включить" : "Выключить"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<b>OOC цвет сообщений:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=ooccolor;task=input'><b>Поменять</b></a><br>"
 			if(CONFIG_GET(flag/allow_metadata))
 				dat += "<b>OOC заметки:</b> <a href='byond://?_src_=prefs;preference=metadata;task=input'><b>Редактировать</b></a><br>"
 			dat += "<b>Параллакс:</b> <a href='byond://?_src_=prefs;preference=parallax'>"
-			switch (parallax)
+			switch(parallax)
 				if(PARALLAX_LOW)
 					dat += "Низкое качество"
 				if(PARALLAX_MED)
@@ -588,7 +592,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</a><br>"
 			dat += "<b>Multi-Z параллакс:</b> <a href='byond://?_src_=prefs;preference=parallax_multiz'>[toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "Включить" : "Выключить"]</a><br>"
 			dat += "<b>Качество Multi-Z параллакса:</b> <a href='byond://?_src_=prefs;preference=multiz_detail'>"
-			switch (multiz_detail)
+			switch(multiz_detail)
 				if(MULTIZ_DETAIL_DEFAULT)
 					dat += "По умолчанию"
 				if(MULTIZ_DETAIL_LOW)
@@ -619,8 +623,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b> – Размер TGUI strip menu:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Полноразмерный" : "Миниатюрный"]</a><br>"
 			dat += "<b> – Тема TGUI say:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Светлая" : "Тёмная"]</a><br>"
 			dat += "<b> – TGUI ввод:</b> <a href='byond://?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "Нет" : "Да"]</a><br>"
-			dat += "<b> – TGUI ввод – большие кнопки:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
-			dat += "<b> – TGUI ввод – поменять порядок кнопок:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
+			dat += "<b> – TGUI ввод — большие кнопки:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
+			dat += "<b> – TGUI ввод — поменять порядок кнопок:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
 			dat += "<b>Стиль заголовочного меню:</b> <a href='byond://?_src_=prefs;preference=pixelated_menu'>[(toggles2 & PREFTOGGLE_2_PIXELATED_MENU) ? "Пикселизированный" : "Базовый"]</a><br>"
 			dat += "</td></tr></table>"
 
@@ -631,7 +635,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Специальные роли для вас запрещены.</b>"
 				be_special = list()
 			else
-				var/static/last_left = round(GLOB.special_roles.len / 2)
+				var/static/last_left = round(length(GLOB.special_roles) / 2)
 				for(var/i in GLOB.special_roles)
 					if(jobban_isbanned(user, i))
 						dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЗАБАНЕНО]</b></font><br>"
@@ -692,7 +696,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						keys_buttons += "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 					dat += "<tr>"
 					dat += "<td style='width: 25%'>[KB.name]</td>"
-					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'>[span_good("+")]</a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Сбросить</a> <a href='byond://?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Очистить</a></td>"
 					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
 						var/datum/keybinding/custom/custom_emote_keybind = kb
@@ -748,16 +752,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>Изменить</a></td>"
 
 						if(PREFTOGGLE_TOGGLE1)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? "<span class='good'>Включено</span>" : "<span class='bad'>Выключено</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? span_good("Включено") : span_bad("Выключено")]</a></td>"
 
 						if(PREFTOGGLE_TOGGLE2)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Включено</span>" : "<span class='bad'>Выключено</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? span_good("Включено") : span_bad("Выключено")]</a></td>"
 
 						if(PREFTOGGLE_TOGGLE3)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles3 & toggle.preftoggle_bitflag) ? "<span class='good'>Включено</span>" : "<span class='bad'>Выключено</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles3 & toggle.preftoggle_bitflag) ? span_good("Включено") : span_bad("Выключено")]</a></td>"
 
 						if(PREFTOGGLE_SOUND)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Включено</span>" : "<span class='bad'>Выключено</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? span_good("Включено") : span_bad("Выключено")]</a></td>"
 
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
@@ -774,21 +778,28 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 
+#undef MAX_SAVE_SLOTS
+#undef MAX_SAVE_SLOTS_MEMBER
+#undef TAB_CHAR
+#undef TAB_GAME
+#undef TAB_SPEC
+#undef TAB_KEYS
+#undef TAB_TOGGLES
 
-/datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
+/datum/preferences/proc/get_gear_metadata(datum/gear/G)
 	. = loadout_gear[G.index_name]
 	if(!.)
 		. = list()
 		loadout_gear[G.index_name] = .
 
-/datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
+/datum/preferences/proc/get_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak)
 	var/list/metadata = get_gear_metadata(G)
 	. = metadata["[tweak]"]
 	if(!.)
 		. = tweak.get_default()
 		metadata["[tweak]"] = .
 
-/datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
+/datum/preferences/proc/set_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak, new_metadata)
 	var/list/metadata = get_gear_metadata(G)
 	metadata["[tweak]"] = new_metadata
 	tweak.update_gear_intro(new_metadata)
@@ -814,7 +825,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		html += "<tt><center>"
 		html += "<b>Выберите предпочитаемые должности</b><br>Определите приоритет на получение желаемой должности.<br><br>"
 		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Сохранить</a></center><br>" // Easier to press up here.
-		html += "<div align='center'>Левый клик – для повышения предпочтения, правый – для понижения.<br></div>"
+		html += "<div align='center'>Левый клик — для повышения предпочтения, правый — для понижения.<br></div>"
 		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
@@ -1030,7 +1041,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.open(FALSE)
 	onclose(user, "capturekeypress", src)
 
-/datum/preferences/proc/SetJobPreferenceLevel(var/datum/job/job, var/level)
+/datum/preferences/proc/SetJobPreferenceLevel(datum/job/job, level)
 	if(!job)
 		return 0
 
@@ -1266,16 +1277,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	return 1
 
 /**
-  * Rebuilds the `loadout_gear` list of the [active_character], and returns the total end cost.
-  *
-  * Caches and cuts the existing [/datum/character_save/var/loadout_gear] list and remakes it, checking the `subtype_selection_cost` and overall cost validity of each item.
-  *
-  * If the item's [/datum/gear/var/subtype_selection_cost] is `FALSE`, any future items with the same [/datum/gear/var/main_typepath] will have their cost skipped.
-  * If adding the item will take the total cost over the maximum, it won't be added to the list.
-  *
-  * Arguments:
-  * * new_item - A new [/datum/gear] item to be added to the `loadout_gear` list.
-  */
+ * Rebuilds the `loadout_gear` list of the [active_character], and returns the total end cost.
+ *
+ * Caches and cuts the existing [/datum/character_save/var/loadout_gear] list and remakes it, checking the `subtype_selection_cost` and overall cost validity of each item.
+ *
+ * If the item's [/datum/gear/var/subtype_selection_cost] is `FALSE`, any future items with the same [/datum/gear/var/main_typepath] will have their cost skipped.
+ * If adding the item will take the total cost over the maximum, it won't be added to the list.
+ *
+ * Arguments:
+ * * new_item - A new [/datum/gear] item to be added to the `loadout_gear` list.
+ */
 /datum/preferences/proc/build_loadout(datum/gear/new_item)
 	var/total_cost = 0
 	var/list/type_blacklist = list()
@@ -1307,7 +1318,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				continue
 			var/params = item_cache[text_path]
 			var/list/data =tweak?.get_tgui_data(params)
-			if (!data)
+			if(!data)
 				continue
 			tgui_data[text_path] = data["display_param"]
 			tgui_data["name"] = data["name"]
@@ -1337,7 +1348,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	job_karma_low = 0
 
 
-/datum/preferences/proc/GetJobDepartment(var/datum/job/job, var/level)
+/datum/preferences/proc/GetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(job.department_flag)
 		if(JOBCAT_SUPPORT)
@@ -1374,7 +1385,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					return job_karma_low
 	return 0
 
-/datum/preferences/proc/SetJobDepartment(var/datum/job/job, var/level)
+/datum/preferences/proc/SetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(level)
 		if(1)//Only one of these should ever be active at once so clear them all here
@@ -1716,20 +1727,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(dflag >= 0)
 						disabilities ^= text2num(DISABILITY_FLAG_WINGDINGS)
 				if("language")
-//						var/languages_available
 					var/list/new_languages = list(LANGUAGE_NONE)
-/*
-					if(CONFIG_GET(flag/usealienwhitelist))
-						for(var/L in GLOB.all_languages)
-							var/datum/language/lang = GLOB.all_languages[L]
-							if((!(lang.flags & RESTRICTED)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED ))))
-								new_languages += lang
-								languages_available = 1
-
-						if(!(languages_available))
-							alert(user, "There are not currently any available secondary languages.")
-					else
-*/
 					for(var/language_name in GLOB.all_languages)
 						var/datum/language/lang = GLOB.all_languages[language_name]
 						if(lang.flags & UNIQUE)
@@ -2098,18 +2096,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("s_tone")
 					if(S.bodyflags & HAS_SKIN_TONE)
-						var/new_s_tone = tgui_input_number(user, "Выберите тон кожи\n(Больше – темнее)", "Тон кожи", 50, 220, 1)
+						var/new_s_tone = tgui_input_number(user, "Выберите тон кожи\n(Больше — темнее)", "Тон кожи", 50, 220, 1)
 						if(!new_s_tone)
 							return
 						s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 						var/const/MAX_LINE_ENTRIES = 4
-						var/prompt = "Выберите тон кожи: 1-[S.icon_skin_tones.len]\n("
-						for(var/i = 1 to S.icon_skin_tones.len)
+						var/prompt = "Выберите тон кожи: 1-[length(S.icon_skin_tones)]\n("
+						for(var/i = 1 to length(S.icon_skin_tones))
 							if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
 								prompt += "\n"
 							prompt += "[i] = [S.icon_skin_tones[i]]"
-							if(i != S.icon_skin_tones.len)
+							if(i != length(S.icon_skin_tones))
 								prompt += ", "
 						prompt += ")"
 						var/skin_c = tgui_input_number(user, prompt, "Тон кожи", s_tone, length(S.icon_skin_tones), 1)
@@ -2140,7 +2138,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					return FALSE
 
 				if("nt_relation")
-					var/new_relation = tgui_input_list(user, "Выберите отношение к НаноТрейзен. Имейте ввиду, что это та информация, которую кто-то может узнать при изучении биографии персонажа, а не его актуальное мнение.", "Отношение к НаноТрейзен", list(PREF_NTRELATION_LOYAL, PREF_NTRELATION_SUPPORTIVE, PREF_NTRELATION_NEUTRAL, PREF_NTRELATION_SCEPTICAL, PREF_NTRELATION_OPPOSED))
+					var/new_relation = tgui_input_list(user, "Выберите отношение к Нанотрейзен. Имейте ввиду, что это та информация, которую кто-то может узнать при изучении биографии персонажа, а не его актуальное мнение.", "Отношение к Нанотрейзен", list(PREF_NTRELATION_LOYAL, PREF_NTRELATION_SUPPORTIVE, PREF_NTRELATION_NEUTRAL, PREF_NTRELATION_SCEPTICAL, PREF_NTRELATION_OPPOSED))
 					if(new_relation)
 						nanotrasen_relation = new_relation
 
@@ -2188,6 +2186,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_uplink_pref = tgui_input_list(user, "Выберите желаемое местонахождение аплинка", "Местонахождение аплинка", list(PREF_UPLINK_PDA, PREF_UPLINK_HEADSET))
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
+
+				if("can_be_antagonist")
+					can_be_antagonist = tgui_alert(user, "Выберите, может ли текущий персонаж быть антагонистом. Если у выбранного в начале игры персонажа эта опция отключена, при выпадении антагониста будет выбран случайный ваш персонаж, у которого она включена. Если она отключена у всех, выбранный персонаж останется.", \
+																"Может ли быть антагонистом", list("Да", "Нет")) == "Да"
 
 				if("tts_seed")
 					var/static/list/explorer_users = list()
@@ -2301,11 +2303,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									var/datum/robolimb/L = new limb_type()
 									if(limb in L.parts) //Make sure that only models that provide the parts the user needs populate the list.
 										robolimb_models[L.company] = L
-										if(robolimb_models.len == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
+										if(length(robolimb_models) == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
 											subchoice = L.company //If there ends up being more than one model populating the list, subchoice will be overwritten later anyway, so this isn't a problem.
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
-								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
+								if(length(robolimb_models) > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
 									subchoice = tgui_input_list(user, "Выберите модель \"[choice]\" для части тела", "[limb_name] – выбор модели", robolimb_models)
 								if(subchoice)
 									choice = subchoice
@@ -2408,7 +2410,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT_RUS, UI_THEME_PLASMAFIRE_RUS, UI_THEME_RETRO_RUS, UI_THEME_SLIMECORE_RUS, UI_THEME_OPERATIVE_RUS, UI_THEME_WHITE_RUS))
+					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT_RUS, UI_THEME_PLASMAFIRE_RUS, UI_THEME_RETRO_RUS, UI_THEME_SLIMECORE_RUS, UI_THEME_OPERATIVE_RUS, UI_THEME_WHITE_RUS, UI_THEME_CLOCKWORK_RUS))
 					if(!new_UI_style)
 						return
 					switch(new_UI_style)
@@ -2424,6 +2426,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							UI_style = UI_THEME_OPERATIVE
 						if(UI_THEME_WHITE_RUS)
 							UI_style = UI_THEME_WHITE
+						if(UI_THEME_CLOCKWORK_RUS)
+							UI_style = UI_THEME_CLOCKWORK
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
@@ -2622,7 +2626,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					*/
 
 					parallax = parallax_styles[new_parallax]
-					if(parent && parent.mob && parent.mob.hud_used)
+					if(parent?.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("multiz_detail")
@@ -2647,7 +2651,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(!my_hud)
 						return
 
-					for(var/group_key as anything in my_hud.master_groups)
+					for(var/group_key in my_hud.master_groups)
 						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
 						group.build_planes_offset(my_hud, my_hud.current_plane_offset)
 
@@ -2657,7 +2661,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(!my_hud)
 						return
 
-					for(var/group_key as anything in my_hud.master_groups)
+					for(var/group_key in my_hud.master_groups)
 						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
 						group.build_planes_offset(my_hud, my_hud.current_plane_offset)
 
@@ -2815,9 +2819,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		var/firstspace = findtext(real_name, " ")
 		var/name_length = length(real_name)
 		if(!firstspace)	//we need a surname
-			real_name += " [character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+			real_name += " [character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 		else if(firstspace == name_length)
-			real_name += "[character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+			real_name += "[character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 
 
 	character.add_language(language)
@@ -3047,3 +3051,28 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			return UI_THEME_OPERATIVE_RUS
 		if(UI_THEME_WHITE)
 			return UI_THEME_WHITE_RUS
+		if(UI_THEME_CLOCKWORK)
+			return UI_THEME_CLOCKWORK_RUS
+
+
+/// Get random charecter with can_be_antagonist on. If no such characters, don't change current.
+/datum/preferences/proc/get_possible_antagonist()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey AND can_be_antagonist=:req_can_be_antagonist ORDER BY slot", list(
+		"ckey" = parent.ckey,
+		"req_can_be_antagonist" = 1,
+	))
+
+	if(!query.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
+		qdel(query)
+		return
+
+	var/list/saves = list()
+	while(query.NextRow())
+		saves += text2num(query.item[1])
+
+	qdel(query)
+	if(!length(saves))
+		return
+
+	load_character(parent, pick(saves))
+	return

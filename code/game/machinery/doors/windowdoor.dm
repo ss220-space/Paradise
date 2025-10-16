@@ -14,7 +14,6 @@
 	dir = EAST
 	set_dir_on_move = FALSE
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
-	integrity_failure = 0
 	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
 	var/obj/item/access_control/electronics
 	var/base_state = "left"
@@ -332,8 +331,10 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(panel_open && !density && !operating)
-		user.visible_message(span_warning("[user] removes the electronics from the [name]."), \
-							 "You start to remove electronics from the [name]...")
+		user.visible_message(
+			span_warning("[user] removes the electronics from the [name]."), \
+			"You start to remove electronics from the [name]..."
+		)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
@@ -465,7 +466,6 @@
 	dir = NORTH
 
 /obj/machinery/door/window/eastleft
-	dir = EAST
 
 /obj/machinery/door/window/westleft
 	dir = WEST
@@ -479,7 +479,6 @@
 	base_state = "right"
 
 /obj/machinery/door/window/eastright
-	dir = EAST
 	icon_state = "right"
 	base_state = "right"
 
@@ -497,7 +496,6 @@
 	dir = NORTH
 
 /obj/machinery/door/window/brigdoor/eastleft
-	dir = EAST
 
 /obj/machinery/door/window/brigdoor/westleft
 	dir = WEST
@@ -511,7 +509,6 @@
 	base_state = "rightsecure"
 
 /obj/machinery/door/window/brigdoor/eastright
-	dir = EAST
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
 
@@ -529,7 +526,6 @@
 	dir = NORTH
 
 /obj/machinery/door/window/brigdoor/security/cell/eastleft
-	dir = EAST
 
 /obj/machinery/door/window/brigdoor/security/cell/westleft
 	dir = WEST
@@ -543,7 +539,6 @@
 	base_state = "rightsecure"
 
 /obj/machinery/door/window/brigdoor/security/cell/eastright
-	dir = EAST
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
 

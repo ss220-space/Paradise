@@ -1,6 +1,5 @@
 #define EMPOWERED_THRALL_LIMIT 5
 
-
 /obj/effect/proc_holder/spell/proc/shadowling_check(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
@@ -306,7 +305,7 @@
 
 /obj/effect/proc_holder/spell/shadowling_enthrall/cast(list/targets, mob/user = usr)
 
-	listclearnulls(SSticker.mode.shadowling_thralls)
+	list_clear_nulls(SSticker.mode.shadowling_thralls)
 	if(!is_shadow(user))
 		return
 
@@ -380,8 +379,10 @@
 	if(!istype(user))
 		return
 
-	user.visible_message(span_warning("Кожа [user] начинает пузыриться и перемещаться по телу!"), \
-					 span_shadowling("Вы восстанавливаете свою броню и очищаете свою форму от дефектов."))
+	user.visible_message(
+		span_warning("Кожа [user] начинает пузыриться и перемещаться по телу!"), \
+		span_shadowling("Вы восстанавливаете свою броню и очищаете свою форму от дефектов.")
+	)
 	user.set_species(/datum/species/shadow/ling)
 	user.adjustCloneLoss(-(user.getCloneLoss()))
 	user.set_vision_override(/datum/vision_override/nightvision) // nighvision withot button
@@ -551,7 +552,6 @@
 	name = "Странная чёрная жидкость"
 	id = "blindness_smoke"
 	description = "ЗАПИСЬ В БАЗЕ ДАННЫХ ОТСУТСТВУЕТ"
-	color = "#000000" //Complete black (RGB: 0, 0, 0)
 	metabolization_rate = 250 * REAGENTS_METABOLISM //still lel
 
 
@@ -577,7 +577,6 @@
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "screech"
-	aoe_range = 7
 
 
 /obj/effect/proc_holder/spell/aoe/shadowling_screech/create_new_targeting()
@@ -873,9 +872,10 @@
 	target.death()
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/timer = SSshuttle.emergency.timeLeft(1) + 10 MINUTES
-		GLOB.major_announcement.announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.",
-										ANNOUNCE_SYSERROR_RU,
-										'sound/misc/notice1.ogg'
+		GLOB.major_announcement.announce(
+			message = "Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.",
+			new_title = ANNOUNCE_SYSERROR_RU,
+			new_sound = 'sound/misc/notice1.ogg'
 		)
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
@@ -1014,7 +1014,6 @@
 /obj/effect/proc_holder/spell/aoe/ascendant_storm
 	name = "Lightning Storm"
 	desc = "Оглушает окружающих."
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "lightning_storm"
@@ -1073,3 +1072,4 @@
 
 	user.announce(text)
 
+#undef EMPOWERED_THRALL_LIMIT

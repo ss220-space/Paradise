@@ -1,12 +1,3 @@
-
-/datum/chemical_reaction/hot_coco
-	name = "Hot Coco"
-	id = "hot_coco"
-	result = "hot_coco"
-	required_reagents = list("water" = 5, "cocoa" = 1)
-	result_amount = 5
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
 /datum/chemical_reaction/hot_coco
 	name = "Hot Coco"
 	id = "hot_coco"
@@ -31,14 +22,6 @@
 	required_reagents = list("icecoco" = 1)
 	result_amount = 1
 	min_temp = T0C + 100
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
-/datum/chemical_reaction/icecoco
-	name = "Iced Cocoa"
-	id = "icecoco"
-	result = "icecoco"
-	required_reagents = list("chocolate" = 1, "ice" = 1)
-	result_amount = 1
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/icecoco
@@ -770,7 +753,6 @@
 	id = "robottears"
 	result = "robottears"
 	required_reagents = list("synthanol" = 1, "oil" = 1, "sodawater" = 1)
-	result_amount = 3
 	mix_message = "The ingredients combine into a stiff, dark goo."
 
 /datum/chemical_reaction/synthanol/trinary
@@ -778,7 +760,6 @@
 	id = "trinary"
 	result = "trinary"
 	required_reagents = list("synthanol" = 1, "limejuice" = 1, "orangejuice" = 1)
-	result_amount = 3
 	mix_message = "The ingredients mix into a colorful substance."
 
 /datum/chemical_reaction/synthanol/servo
@@ -909,7 +890,7 @@
 	result = "bacchus_blessing"
 	required_reagents = list("hooch" = 1, "absinthe" = 1, "manlydorf" = 1, "syndicatebomb" = 1)
 	result_amount = 4
-	mix_message = "<span class='warning'>The mixture turns to a sickening froth.</span>"
+	mix_message = span_warning("The mixture turns to a sickening froth.")
 
 /datum/chemical_reaction/fernet_cola
 	name = "Fernet Cola"

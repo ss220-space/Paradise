@@ -14,13 +14,11 @@
 	maxHealth = 200
 	health = 200
 	speed = -1
-	attacktext = "атакует"
 	anchored = TRUE
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
 	loot = list(/obj/item/clothing/mask/cursedclown)
-	a_intent = INTENT_HARM
 	wander = FALSE
 	minimum_distance = 2
 	move_to_delay = 1
@@ -128,9 +126,9 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
 	if(!manifested && !is_type_in_typecache(get_area(current_victim.loc), invalid_area_typecache))
-		SSmove_manager.move_to(src, target, minimum_distance, delay)
+		GLOB.move_manager.move_to(src, target, minimum_distance, delay)
 	else
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/FindTarget()
@@ -155,7 +153,7 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
 	var/list/players_copy = GLOB.player_list.Copy()
-	while(players_copy.len)
+	while(length(players_copy))
 		var/mob/living/carbon/human/H = pick_n_take(players_copy)
 		if(!ishuman(H))
 			continue
@@ -336,7 +334,7 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Grab(mob/living/carbon/human/H)
-	to_chat(H, "<span class='userdanger'>You feel a cold, gloved hand clamp down on your ankle!</span>")
+	to_chat(H, span_userdanger("You feel a cold, gloved hand clamp down on your ankle!"))
 	for(var/I in 1 to get_dist(src, H))
 
 		if(do_after(src, 1 SECONDS, H))
@@ -347,7 +345,7 @@
 				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg', 'sound/items/bikehorn.ogg'), 50, TRUE)
 
 	if(get_dist(src,H) <= 1)
-		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
+		visible_message(span_danger("[src] begins dragging [H] under the floor!"))
 
 		if(do_after(src, 5 SECONDS, H) && eating)
 			if(!HAS_TRAIT_FROM(H, TRAIT_BLIND, FLOOR_CLUWNE_TRAIT))
@@ -364,7 +362,7 @@
 			ADD_TRAIT(H, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
 			H.set_anchored(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100)
-			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
+			H.visible_message(span_userdanger("[src] pulls [H] under the floor!"))
 		else//some fuck pulled away our food
 			stage = STAGE_TORMENT
 			eating = FALSE

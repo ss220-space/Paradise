@@ -14,7 +14,6 @@
 	icon_state = "soft_meat_cut"
 	item_state = "soft_meat_cut"
 	list_reagents = list("nutriment" = 1, "vitamin" = 3, "protein" = 3)
-	bitesize = 2
 	filling_color = "#D49284"
 	tastes = list("сырого мяса" = 1)
 	foodtype = MEAT | RAW
@@ -36,7 +35,6 @@
 	icon_state = "eel_filet"
 	item_state = "eel_filet"
 	list_reagents = list("nutriment" = 2, "menthol" = 3, "protein" = 4)
-	bitesize = 2
 	filling_color = "#414F71"
 	tastes = list("сырого мяса" = 1)
 	foodtype = MEAT | RAW
@@ -248,7 +246,6 @@
 /obj/item/reagent_containers/food/snacks/lavaland_food
 	name = "generic lavaland food"
 	desc = "самое обычное блюдо. Если вы это видите, то Зюзя напортачил"
-	gender = NEUTER
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "fine_meal"
 	lefthand_file = 'icons/mob/inhands/lavaland/food_lefthand.dmi'
@@ -274,7 +271,6 @@
 	name = "fine meal"
 	desc = "Мясо Голиафа, обжаренное в соку кактусового фрукта. Невероятно вкусное и питательное."
 	gender = FEMALE
-	icon_state = "fine_meal"
 	list_reagents = list("vitfro" = 6, "protein" = 7, "vitamin" = 3)
 	tastes = list("сбалансированной еды" = 1)
 	foodtype = MEAT|FRUIT
@@ -299,7 +295,6 @@
 	desc = "Многие народы галактики расценивают поедание себе подобных как ужасающее преступление. Однако эти стопы вышли уж слишком питательными..."
 	icon_state = "freaky_leg"
 	tastes = list("тяжёлых времён" = 1)
-	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/freaky_leg/get_ru_names()
 	return list(
@@ -704,7 +699,6 @@
 	display_contents_with_number = TRUE
 	storage_slots = 12
 	max_combined_w_class = 30
-	slot_flags = NONE
 
 /obj/item/storage/lava_tray/get_ru_names()
 	return list(

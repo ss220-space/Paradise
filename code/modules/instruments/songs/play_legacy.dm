@@ -1,6 +1,6 @@
 /**
-  * Compiles our lines into "chords" with filenames for legacy playback. This makes there have to be a bit of lag at the beginning of the song, but repeats will not have to parse it again, and overall playback won't be impacted by as much lag.
-  */
+ * Compiles our lines into "chords" with filenames for legacy playback. This makes there have to be a bit of lag at the beginning of the song, but repeats will not have to parse it again, and overall playback won't be impacted by as much lag.
+ */
 /datum/song/proc/compile_legacy()
 	if(!length(src.lines))
 		return
@@ -39,13 +39,13 @@
 				compiled_chords[++compiled_chords.len] = compiled_chord
 
 /**
-  * Proc to play a legacy note. Just plays the sound to hearing mobs (and does hearcheck if necessary), no fancy channel/sustain/management.
-  *
-  * Arguments:
-  * * note - number from 1-7 for A-G
-  * * acc - either "b", "n", or "#"
-  * * oct - 1-8 (or 9 for C)
-  */
+ * Proc to play a legacy note. Just plays the sound to hearing mobs (and does hearcheck if necessary), no fancy channel/sustain/management.
+ *
+ * Arguments:
+ * * note - number from 1-7 for A-G
+ * * acc - either "b", "n", or "#"
+ * * oct - 1-8 (or 9 for C)
+ */
 /datum/song/proc/playkey_legacy(note, acc as text, oct, mob/user)
 	// handle accidental -> B<>C of E<>F
 	if(acc == "b" && (note == 3 || note == 6)) // C or F
@@ -96,5 +96,5 @@
 		if(!HASBIT(mob.client?.prefs?.sound, SOUND_INSTRUMENTS))
 			continue
 
-		mob.playsound_local(source, null, volume * using_instrument.volume_multiplier, sound = music_played)
+		mob.playsound_local(source, null, volume * using_instrument.volume_multiplier, sound_to_use = music_played)
 		// Could do environment and echo later but not for now

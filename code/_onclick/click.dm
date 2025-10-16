@@ -1,11 +1,3 @@
-// 1 decisecond click delay (above and beyond mob/next_move)
-//This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move()
-/mob/var/next_click	= 0
-
-// THESE DO NOT AFFECT THE BASE 1 DECISECOND DELAY OF NEXT_CLICK
-/mob/var/next_move_adjust = 0 //Amount to adjust action delays by, + or -
-/mob/var/next_move_modifier = 1 //Value to multiply action delays by
-
 //Delays the mob's next click by num deciseconds
 // eg: 10-3 = 7 deciseconds of delay
 // eg: 10*0.5 = 5 deciseconds of delay
@@ -136,10 +128,7 @@
 
 	if(W == A)
 		W.attack_self(src)
-		if(hand)
-			update_inv_l_hand()
-		else
-			update_inv_r_hand()
+		update_held_items()
 		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
@@ -414,7 +403,7 @@
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(atom/A)
-	if(stat || buckled || !A || !x || !y || !A.x || !A.y )
+	if(stat || buckled || !A || !x || !y || !A.x || !A.y)
 		return FALSE
 	var/dx = A.x - x
 	var/dy = A.y - y
@@ -438,17 +427,10 @@
 
 
 /atom/movable/screen/click_catcher
-	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER"
-
-/atom/movable/screen/click_catcher/MouseEntered(location, control, params)
-	return
-
-/atom/movable/screen/click_catcher/MouseExited(location, control, params)
-	return
 
 #define MAX_SAFE_BYOND_ICON_SCALE_TILES (MAX_SAFE_BYOND_ICON_SCALE_PX / ICON_SIZE_ALL)
 #define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32) //Not using world.icon_size on purpose.

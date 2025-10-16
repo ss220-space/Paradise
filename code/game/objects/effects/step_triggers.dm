@@ -5,7 +5,6 @@
 	var/stopper = TRUE // stops throwers
 	var/mobs_only = FALSE
 	invisibility = INVISIBILITY_ABSTRACT // nope cant see this shit
-	anchored = TRUE
 
 
 /obj/effect/step_trigger/Initialize(mapload)
@@ -118,8 +117,6 @@
 	var/teleport_x = 0	// teleportation coordinates (if one is null, then no teleport!)
 	var/teleport_y = 0
 	var/teleport_z = 0
-	density = 0
-	opacity = 0
 
 /obj/effect/step_trigger/teleporter/Trigger(atom/movable/A)
 	if(teleport_x && teleport_y && teleport_z)
@@ -138,7 +135,7 @@
 		if(teleport_x_offset && teleport_y_offset && teleport_z_offset)
 
 			var/turf/T = locate(rand(teleport_x, teleport_x_offset), rand(teleport_y, teleport_y_offset), rand(teleport_z, teleport_z_offset))
-			if (T)
+			if(T)
 				A.forceMove(T)
 
 /* Fancy teleporter, creates sparks and smokes when used */

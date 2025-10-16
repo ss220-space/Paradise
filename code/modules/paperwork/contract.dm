@@ -28,7 +28,7 @@
 
 /obj/item/paper/contract/employment/update_text()
 	name = "Документ — Трудовой договор — [target]"
-	info = "<center>Условия трудоустройства</center><br><br><br><br>Настоящий Договор заключён между [target] (в дальнейшем именуемый Раб) и корпорацией НаноТрейзен (в дальнейшем именуемой Вездесущим и полезным наблюдателем за человечеством). Договор вступает в силу с момента его подписания.\
+	info = "<center>Условия трудоустройства</center><br><br><br><br>Настоящий Договор заключён между [target] (в дальнейшем именуемый Раб) и корпорацией Нанотрейзен (в дальнейшем именуемой Вездесущим и полезным наблюдателем за человечеством). Договор вступает в силу с момента его подписания.\
 	<br>Преамбула \
 	<br>Раб, будучи рождённым естественным путём человеком (или иным гуманоидом), обладает навыками, которыми он может быть полезен Вездесущему и полезному наблюдателю за человечеством. Раб ищет трудоустройства в Вездесущем и полезном наблюдателе за человечеством.\
 	<br>При этом Вездесущий и полезный наблюдатель за человечеством согласен иногда выплачивать Рабу вознаграждение, в обмен на его постоянную службу.\
@@ -48,7 +48,7 @@
 	var/static/soulless_text = "Бездушные существа не могут видеть условия данного договора.<br>\
 	Данный контракт гарантирует, что обещанное в нём благо будет получено подписавшим его существом."
 
-/obj/item/paper/contract/infernal/Initialize(atom/mapload, mob/living/nTarget, datum/mind/nOwner, datum/devil_contract/contract)
+/obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner, datum/devil_contract/contract)
 	. = ..()
 	devilinfo = nOwner.has_antag_datum(/datum/antagonist/devil)
 	owner = nOwner
@@ -118,7 +118,7 @@
 		if(do_after(usr, 1 SECONDS, src, DA_IGNORE_LYING) && usr.mind == target \
 		&& usr.mind.hasSoul && usr.mind.soulOwner != owner && attempt_signature(usr, TRUE))
 			usr.visible_message(
-				span_danger("[usr.declent_ru(NOMINATIVE)] разреза[pluralize_ru(usr.gender, "ет", "ют")] запястье [declent_ru(INSTRUMENTAL)] и выводит[pluralize_ru(usr.gender, "ит", "ят")] своё имя кровью."),
+				span_danger("[usr.declent_ru(NOMINATIVE)] разреза[pluralize_ru(usr.gender, "ет", "ют")] запястье [declent_ru(INSTRUMENTAL)] и вывод[pluralize_ru(usr.gender, "ит", "ят")] своё имя кровью."),
 				span_danger("Вы разрезаете запястье и выводите своё имя кровью."),
 			)
 			balloon_alert(owner.current, "контракт подписан!")

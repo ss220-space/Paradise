@@ -8,6 +8,8 @@
 
 ///from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (list/args)
 #define COMSIG_GLOB_NEW_Z "!new_z"
+/// sent after world.maxx and/or world.maxy are expanded: (has_exapnded_world_maxx, has_expanded_world_maxy)
+#define COMSIG_GLOB_EXPANDED_WORLD_BOUNDS "!expanded_world_bounds"
 /// called after a successful var edit somewhere in the world: (list/args)
 #define COMSIG_GLOB_VAR_EDIT "!var_edit"
 /// called after an explosion happened : (epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
@@ -19,7 +21,7 @@
 /// global living say plug - use sparingly: (mob/speaker , message)
 #define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"
 /// a person somewhere has thrown something : (mob/living/carbon/carbon_thrower, target)
-#define COMSIG_GLOB_CARBON_THROW_THING	"!throw_thing"
+#define COMSIG_GLOB_CARBON_THROW_THING "!throw_thing"
 /// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)
 #define COMSIG_GLOB_PLAY_CINEMATIC "!play_cinematic"
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
@@ -34,6 +36,11 @@
 #define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
 #define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
 #define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
+
+#define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
+#define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
+#define COMSIG_WEATHER_WINDDOWN(event_type) "!weather_winddown [event_type]"
+#define COMSIG_WEATHER_END(event_type) "!weather_end [event_type]"
 
 /// signals from globally accessible objects
 
@@ -220,7 +227,7 @@
 	#define COMPONENT_BLOCK_CONTAMINATION (1<<0)
 ///from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
 #define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
-  #define COMPONENT_RAD_WAVE_HANDLED (1<<0)
+	#define COMPONENT_RAD_WAVE_HANDLED (1<<0)
 ///from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_BLOCK_REACH (1<<0)
@@ -269,6 +276,8 @@
 	#define COMPONENT_NO_AFTERATTACK (1<<1)
 	///Skips the specific attack step, continuing for the next one to happen.
 	#define COMPONENT_SKIP_ATTACK (1<<2)
+	///I dont know where and why it was used, but it was used in the same place with cancel chain and had the same value
+	#define COMPONENT_NO_INTERACT (1<<3)
 
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
@@ -329,6 +338,14 @@
 #define COMSIG_ATOM_ENTERED_AREA "atom_entered_area"
 ///from base of area/Exited(): (area/current_area, area/new_area)
 #define COMSIG_ATOM_EXITED_AREA "atom_exited_area"
+///from base of area/Entered(): (area/new_area). Sent to "area-sensitive" movables, see __DEFINES/traits.dm for info.
+#define COMSIG_ENTER_AREA "enter_area"
+///from base of area/Exited(): (area). Sent to "area-sensitive" movables, see __DEFINES/traits.dm for info.
+#define COMSIG_EXIT_AREA "exit_area"
+/// Called when some weather starts in this area
+#define COMSIG_WEATHER_BEGAN_IN_AREA(event_type) "weather_began_in_area_[event_type]"
+/// Called when some weather ends in this area
+#define COMSIG_WEATHER_ENDED_IN_AREA(event_type) "weather_ended_in_area_[event_type]"
 
 // /turf signals
 
@@ -364,7 +381,7 @@
 #define COMSIG_MOVABLE_IMPACT_ZONE "item_impact_zone"
 ///from /atom/movable/proc/buckle_mob(): (mob/living/M, force, check_loc, buckle_mob_flags)
 #define COMSIG_MOVABLE_PREBUCKLE "prebuckle" // this is the last chance to interrupt and block a buckle before it finishes
-	#define COMPONENT_BLOCK_BUCKLE	(1<<0)
+	#define COMPONENT_BLOCK_BUCKLE (1<<0)
 ///from base of atom/movable/buckle_mob(): (mob, force)
 #define COMSIG_MOVABLE_BUCKLE "buckle"
 ///from base of atom/movable/unbuckle_mob(): (mob, force)
@@ -488,7 +505,7 @@
 ///from base of /mob/living/proc/get_blocking_resistance(): (list/damage_resistances, damage, damagetype, def_zone, sharp, used_weapon)
 #define COMSIG_MOB_APPLY_BLOCKING_RESISTANCES "mob_apply_blocking_resistances"
 ///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone, blocked, sharp, used_weapon, spread_damage, forced)
-#define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
+#define COMSIG_MOB_APPLY_DAMAGE "mob_apply_damage"
 
 ///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
@@ -596,7 +613,8 @@
 #define COMSIG_VIEW_SET "view_set"
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_MOB_CHANGED_TYPE "mob_changed_type"
-
+/// From base of /mob/proc/update_held_items
+#define COMSIG_MOB_UPDATE_HELD_ITEMS "mob_update_held_items"
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -617,7 +635,7 @@
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"
 /// Source: /mob/living/proc/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
 #define COMSIG_LIVING_EARLY_FLASH_EYES "living_flash_eyes"
-	#define STOP_FLASHING_EYES	(1<<0)
+	#define STOP_FLASHING_EYES (1<<0)
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
 ///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
@@ -659,7 +677,7 @@
 ///from base of mob/living/set_buckled(): (new_buckled)
 #define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"
 ///from base of mob/living/set_body_position()
-#define COMSIG_LIVING_SET_BODY_POSITION  "living_set_body_position"
+#define COMSIG_LIVING_SET_BODY_POSITION "living_set_body_position"
 ///From living/set_resting(): (new_resting, silent, instant)
 #define COMSIG_LIVING_RESTING "living_resting"
 ///from base of mob/update_transform()
@@ -722,26 +740,26 @@
 	#define COMPONENT_CANT_TRACK (1<<0)
 
 /// Source: /mob/living/AdjustBlood(amount)
-#define COMSIG_LIVING_BLOOD_ADJUST		"living_blood_adjust"
-	#define COMPONENT_PREVENT_BLOODLOSS	(1<<0)
+#define COMSIG_LIVING_BLOOD_ADJUST "living_blood_adjust"
+	#define COMPONENT_PREVENT_BLOODLOSS (1<<0)
 /// Source: /mob/living/AdjustBlood(amount)
-#define COMSIG_LIVING_BLOOD_ADJUSTED	"living_blood_adjusted"
+#define COMSIG_LIVING_BLOOD_ADJUSTED "living_blood_adjusted"
 /// Source: /mob/living/setBlood(amount)
-#define COMSIG_LIVING_EARLY_SET_BLOOD	"living_early_set_blood"
+#define COMSIG_LIVING_EARLY_SET_BLOOD "living_early_set_blood"
 /// Source: /mob/living/setBlood(amount)
-#define COMSIG_LIVING_SET_BLOOD			"living_set_blood"
+#define COMSIG_LIVING_SET_BLOOD "living_set_blood"
 
 ///From post-can inject check of syringe after attack (mob/user)
 #define COMSIG_LIVING_TRY_SYRINGE "living_try_syringe"
 
 /// From /mob/add_language() (language_name)
-#define COMSIG_MOB_LANGUAGE_ADD		"mob_language_add"
+#define COMSIG_MOB_LANGUAGE_ADD "mob_language_add"
 /// From /mob/remove_language() (language_name)
-#define COMSIG_MOB_LANGUAGE_REMOVE	"mob_language_remove"
+#define COMSIG_MOB_LANGUAGE_REMOVE "mob_language_remove"
 
 /// Source: /mob/living/say (message, verb, ignore_speech_problems, ignore_atmospherics, ignore_languages, datum/multilingual_say_piece)
 #define COMSIG_LIVING_EARLY_SAY "living_early_say"
-	#define COMPONENT_PREVENT_SPEAKING	(1<<0)
+	#define COMPONENT_PREVENT_SPEAKING (1<<0)
 
 /// From base of /client/Move(): (new_loc, direction)
 #define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
@@ -830,10 +848,6 @@
 ///Called after successfully performing the Devil Sacrifice Ritual
 #define COMSIG_DEVIL_SACRIFICE "devil_sacrifice"
 
-// /mob/living/simple_animal/hostile signals
-#define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
-
 ///after attackingtarget has happened, source is the attacker and target is the attacked, extra argument for if the attackingtarget was successful
 #define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
 
@@ -857,7 +871,7 @@
 ///from base of code/game/machinery
 #define COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH "obj_default_unfasten_wrench"
 ///from base of /turf/proc/levelupdate(). (intact) true to hide and false to unhide
-#define COMSIG_OBJ_HIDE	"obj_hide"
+#define COMSIG_OBJ_HIDE "obj_hide"
 ///from base of /proc/possess(): (mob/user)
 #define COMSIG_OBJ_POSSESSED "obj_possessed"
 ///from base of /proc/release(): (mob/user)
@@ -892,7 +906,6 @@
 #define COMSIG_ITEM_ATTACK "item_attack"
 ///from base of obj/item/attack_self(): (/mob)
 #define COMSIG_ITEM_ATTACK_SELF "item_attack_self"
-	#define COMPONENT_NO_INTERACT (1<<0)
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 ///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)
@@ -968,7 +981,7 @@
 #define COMSIG_STRUCTURE_UNWRAPPED "structure_unwrapped"
 #define COMSIG_ITEM_UNWRAPPED "item_unwrapped"
 ///called when a wrapped up item is opened by hand
-	#define COMSIG_ITEM_SPLIT_VALUE  (1<<0)
+	#define COMSIG_ITEM_SPLIT_VALUE (1<<0)
 ///called when getting the item's exact ratio for cargo's profit.
 #define COMSIG_ITEM_SPLIT_PROFIT "item_split_profits"
 ///called when getting the item's exact ratio for cargo's profit, without selling the item.
@@ -1032,6 +1045,17 @@
 /// Sent from obj/item/gun/zoom(): (user, zoomed)
 #define COMSIG_GUN_ZOOM_TOGGLE "gun_zoom_toggle"
 
+/// Sent from datum/component/laser_sight/datum/keybinding/toggle_laser_sight/down(): (user, gun)
+#define COMSIG_KEYBINDING_GUN_LASER_SIGHT "keybbinding_laser_sight_toggle"
+
+/// Sent from datum/component/laser_sight/process_aim(): (user, enable)
+#define COMSIG_GUN_AFTER_LASER_SIGHT_TOGGLE "gun_after_laser_sight_toggle"
+
+/// Sent from obj/item/gun_module/on_attach(): (user, obj/item/gun, obj/item/gun_module)
+#define COMSIG_GUN_MODULE_ATTACH "gun_module_attach"
+/// Sent from obj/item/gun_module/on_detach(): (user, obj/item/gun, obj/item/gun_module)
+#define COMSIG_GUN_MODULE_DETACH "gun_module_detach"
+
 // /obj/item/grenade signals
 
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
@@ -1078,7 +1102,7 @@
 ///from mob/living/carbon/human/UnarmedAttack(): (mob/living/carbon/human/attacker)
 #define COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY "human_melee_unarmed_attackby"
 ///Hit by successful disarm attack (mob/living/carbon/human/attacker,zone_targeted)
-#define COMSIG_HUMAN_DISARM_HIT	"human_disarm_hit"
+#define COMSIG_HUMAN_DISARM_HIT "human_disarm_hit"
 ///Whenever EquipRanked is called, called after job is set
 #define COMSIG_JOB_RECEIVED "job_received"
 // called after DNA is updated
@@ -1117,9 +1141,9 @@
 // /datum/song signals
 
 ///sent to the instrument when a song starts playing
-#define COMSIG_SONG_START	"song_start"
+#define COMSIG_SONG_START "song_start"
 ///sent to the instrument when a song stops playing
-#define COMSIG_SONG_END		"song_end"
+#define COMSIG_SONG_END "song_end"
 
 /*******Component Specific Signals*******/
 //Janitor
@@ -1174,7 +1198,7 @@
 ///() deletes the nanite component
 #define COMSIG_NANITE_DELETE "nanite_delete"
 ///(list/nanite_programs) - makes the input list a copy the nanites' program list
-#define COMSIG_NANITE_GET_PROGRAMS	"nanite_get_programs"
+#define COMSIG_NANITE_GET_PROGRAMS "nanite_get_programs"
 ///(amount) Returns nanite amount
 #define COMSIG_NANITE_GET_VOLUME "nanite_get_volume"
 ///(amount) Sets current nanite volume to the given amount
@@ -1202,9 +1226,9 @@
 ///(datum/nanite_program/new_program, datum/nanite_program/source_program) Called when adding a program to a nanite component
 #define COMSIG_NANITE_ADD_PROGRAM "nanite_add_program"
 	///Installation successful
-	#define COMPONENT_PROGRAM_INSTALLED		(1<<0)
+	#define COMPONENT_PROGRAM_INSTALLED (1<<0)
 	///Installation failed, but there are still nanites
-	#define COMPONENT_PROGRAM_NOT_INSTALLED	(1<<1)
+	#define COMPONENT_PROGRAM_NOT_INSTALLED (1<<1)
 ///(datum/component/nanites, full_overwrite, copy_activation) Called to sync the target's nanites to a given nanite component
 #define COMSIG_NANITE_SYNC "nanite_sync"
 
@@ -1268,17 +1292,17 @@
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
 
-///SSalarm signals
-#define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
-#define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+// /datum/alarm_manager
+#define COMSIG_TRIGGERED_ALARM "alarmmanager_triggered"
+#define COMSIG_CANCELLED_ALARM "alarmmanager_cancelled"
 
 // /datum/objective signals
 ///from datum/objective/proc/find_target()
 #define COMSIG_OBJECTIVE_TARGET_FOUND "objective_target_found"
 ///from datum/objective/is_invalid_target()
 #define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"
-	#define OBJECTIVE_VALID_TARGET		(1<<0)
-	#define OBJECTIVE_INVALID_TARGET	(1<<1)
+	#define OBJECTIVE_VALID_TARGET (1<<0)
+	#define OBJECTIVE_INVALID_TARGET (1<<1)
 
 // /datum/component/bluespace_rift_scanner signals
 /// from scanner's `process()` : (seconds, emagged)
@@ -1356,7 +1380,10 @@
 // HUD:
 /// Sent from /datum/hud/proc/eye_z_changed() : (old_offset, new_offset)
 #define COMSIG_HUD_OFFSET_CHANGED "hud_offset_changed"
-
+/// Sent from /datum/hud/proc/eye_z_changed() : (new_z)
+#define COMSIG_HUD_Z_CHANGED "hud_z_changed"
+/// from /datum/plane_master_group/proc/set_hud(): (datum/hud/new_hud)
+#define COMSIG_GROUP_HUD_CHANGED "group_hud_changed"
 
 ///from [/datum/move_loop/start_loop] ():
 #define COMSIG_MOVELOOP_START "moveloop_start"
@@ -1411,7 +1438,7 @@
 	#define COMPONENT_GHOST_CONTROLABLE (1<<0)
 
 /// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
-#define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"
+#define COMSIG_RANDOM_HAIR_STYLE "random_hair_style"
 // Terror Spiders Signals
 /// Defilers ore queen sybtypes now can lay empress egg
 #define COMSIG_SPIDER_CAN_LAY "spider_can_lay"
@@ -1475,13 +1502,13 @@
 /// Called when proc need update human's strength border.
 #define COMSIG_STRENGTH_BORDER_UPDATE "strength_border_update"
 /// Called when proc need to know if human can change strength.
-#define COMSIG_CAN_CHANGE_STRENGTH	"can_change_strength"
+#define COMSIG_CAN_CHANGE_STRENGTH "can_change_strength"
 	/// Yes, they can.
 	#define COMPONENT_CAN_CHANGE_STRENGTH (1<<0)
 /// Called when proc need to get strength.
-#define COMSIG_GET_STRENGTH	"get_strength"
+#define COMSIG_GET_STRENGTH "get_strength"
 /// Called when proc need to update strength.
-#define COMSIG_UPDATE_STRENGTH	"update_strength"
+#define COMSIG_UPDATE_STRENGTH "update_strength"
 /// Called when proc need to get breakout time modifiers (handkuffs, bolas e.t.c.).
 #define COMSIG_GET_BREAKOUTTIME_MODIFIERS "get_breakouttime_modifiers"
 /// Called when proc need to get throw speed modifiers.
@@ -1494,6 +1521,8 @@
 #define COMSIG_GET_HUNGER_MODS "get_hunger_mods"
 /// Called when proc need to upgrade mob's strength level.
 #define COMSIG_STRENGTH_LEVEL_UP "strength_level_up"
+/// Called when proc need to get weak mob modifier.
+#define COMSIG_GET_WEAK_MOB_MODIFIERS "get_weak_mob_modifiers"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 /// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)
@@ -1518,6 +1547,12 @@
 #define COMSIG_SUPPLYPOD_CLIMB_CHECK "climb_check"
 	#define COMPONENT_CLIMB (1<<0)
 
-
 /// Called after placing item on table. (mob/user, obj/structure/table)
 #define COMSIG_ITEM_PLACED_ON_TABLE "item_placed_on_table"
+
+/// Called when using tool from toolbox via radial menu
+#define COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE "toolbox_radial_menu_tool_usage"
+/// From /datum/diablerie_level/proc/gain()
+#define SIGNAL_DIABLERIE_LEVEL_GAIN "diablerie_level_gain"
+/// From /datum/diablerie_level/proc/remove()
+#define SIGNAL_DIABLERIE_LEVEL_REMOVE "diablerie_level_remove"

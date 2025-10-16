@@ -6,11 +6,8 @@
 	desc = "Станция для хранения и зарядки дефибрилляторов. Вы можете использовать использовать дефибриллятор прямо отсюда, если оный имеется."
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
-	density = FALSE
-	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	idle_power_usage = 1
-	power_channel = EQUIP
 	req_access = list(ACCESS_MEDICAL, ACCESS_HEADS) //used to control clamps
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
@@ -63,7 +60,7 @@
 			. += span_notice("Вы можете активировать систему блокировки, использовав свою ID-карту.")
 
 /obj/machinery/defibrillator_mount/process()
-	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
+	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
 		use_power(200)
 		defib.cell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
 		update_icon(UPDATE_OVERLAYS)

@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		else
 			var/url = web_sound_url
 			switch(CONFIG_GET(string/asset_transport))
-				if ("webroot")
+				if("webroot")
 					var/datum/asset/music/my_asset
 					if(GLOB.cached_songs[web_sound_path])
 						my_asset = GLOB.cached_songs[web_sound_path]
@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	set name = "Play Server Sound"
 	if(!check_rights(R_SOUNDS))	return
 
-	var/list/sounds = file2list("sound/serversound_list.txt")
+	var/list/sounds = world.file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
 	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/A = alert(usr, "This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
 	if(A != "Yep")	return
 
-	var/list/sounds = file2list("sound/serversound_list.txt")
+	var/list/sounds = world.file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
 	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		var/obj/item/radio/intercom/I = O
 		if(!is_station_level(I.z) && !ignore_z)
 			continue
-		if(!I.on && !ignore_power)
+		if(!I.is_on() && !ignore_power)
 			continue
 		playsound(I, melody, cvol)
 

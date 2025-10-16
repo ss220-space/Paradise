@@ -24,7 +24,7 @@
 // If not enough, always return empty list.
 /datum/anomaly_gen_datum/proc/get_used(list/obj/item/containment)
 	var/list/useful = get_useful(containment)
-	if(!useful.len)
+	if(!length(useful))
 		return list()
 
 	return list(useful[1])
@@ -42,11 +42,11 @@
 /datum/anomaly_gen_datum/proc/is_possible_turf(turf/T)
 	return !is_ok_in_range(T, 2)
 
-/datum/anomaly_gen_datum/proc/generate(list/containment, obj/item/radio/beacon/beacon, range = 100, use_items = TRUE)
+/datum/anomaly_gen_datum/proc/generate(list/containment, obj/item/beacon/beacon, range = 100, use_items = TRUE)
 	var/list/used = list()
 	if(use_items)
 		used = get_used(containment)
-		if(!used.len && req_item != "-")
+		if(!length(used) && req_item != "-")
 			return FALSE
 
 	var/turf/choosen
@@ -158,7 +158,7 @@
 
 /datum/anomaly_gen_datum/tier3/get_used(list/obj/item/containment)
 	var/list/useful = get_useful(containment)
-	if(useful.len < 2)
+	if(length(useful) < 2)
 		return list()
 
 	return list(useful[1], useful[2])

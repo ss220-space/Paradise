@@ -100,7 +100,6 @@
 	desc = "These gloves are fire-resistant."
 	name = "black gloves"
 	icon_state = "black"
-	item_state = "bgloves"
 	item_color = "black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -333,6 +332,8 @@
 	icon_state = "inugami_gl"
 	item_state = "inugami_gl"
 	item_color = null
+	var/active = FALSE
+	actions_types = list(/datum/action/item_action/toggle_defibrillator)
 	surgery_step_time = 0.5 SECONDS
 	surgery_germ_chance = 50
 
@@ -349,6 +350,15 @@
 /obj/item/clothing/gloves/color/latex/inugami/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
+
+/obj/item/clothing/gloves/color/latex/inugami/attack_self(mob/living/carbon/human/user)
+	. = ..()
+	if(HAS_TRAIT_FROM(src, TRAIT_DEFIB_BLOCKED, INUGAMI_TRAIT))
+		REMOVE_TRAIT(src, TRAIT_DEFIB_BLOCKED, INUGAMI_TRAIT)
+		user.balloon_alert(user, "дефибриллятор активирован")
+		return
+	ADD_TRAIT(src, TRAIT_DEFIB_BLOCKED, INUGAMI_TRAIT)
+	user.balloon_alert(user, "дефибриллятор деактивирован")
 
 /obj/item/clothing/gloves/color/latex/inugami/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -373,8 +383,10 @@
 	item_color = "mime"
 
 /obj/item/clothing/gloves/color/white/redcoat
-	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
-
+	///Exists for washing machines. Is not different from white gloves in any way.
+	item_color = "redcoat"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/gloves/color/captain
 	desc = "Regal blue gloves, with a nice gold trim. Swanky."

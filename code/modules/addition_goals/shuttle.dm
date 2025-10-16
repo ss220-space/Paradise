@@ -1,8 +1,6 @@
 // Addition goals shuttle
 
-////////////////////////////////////////
 // MARK:	Machinery
-////////////////////////////////////////
 
 /area/shuttle/addition_goals
 	icon_state = "shuttle3"
@@ -17,9 +15,7 @@
 
 
 
-////////////////////////////////////////
 // MARK:	System logic
-////////////////////////////////////////
 
 /// Try send shuttle to station (call shuttle)
 /datum/controller/subsystem/addition_goals/proc/send_shuttle_to_station(mob/user)
@@ -50,7 +46,7 @@
 /// Get text where shuttle docked
 /datum/controller/subsystem/addition_goals/proc/get_shuttle_location()
 	if(!shuttle)
-		return "Неизвестно"
+		return UNKNOWN_STATUS_RUS
 	var/dock_id = shuttle.getDockedId()
 	switch(dock_id)
 		if(AGS_SHUTTLE_CENTCOM_DOCK)
@@ -127,7 +123,7 @@
 			qdel(content)
 
 /datum/controller/subsystem/addition_goals/proc/is_highrisk_item(item)
-	for(var/highrisk_type as anything in GLOB.ungibbable_items_types)
+	for(var/highrisk_type in GLOB.ungibbable_items_types)
 		if(istype(item, highrisk_type))
 			return TRUE
 	return FALSE

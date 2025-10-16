@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		return
 
 	for(var/datum/mind/member as anything in members)
-		to_chat(member.current, "<font color='#d6000b'><span class='bold'>Admin Team Message ([user.key]): </span><span class='notice'>[message]</span>")
+		to_chat(member.current, "<font color='#d6000b'>[span_bold("Admin Team Message ([user.key]): ")][span_notice("[message]")]")
 
 	message_admins("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 	log_admin("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams."
 
-	for(var/team_type as anything in GLOB.antagonist_teams)
+	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/check_team = GLOB.antagonist_teams[team_type]
 		content += "<h3>[check_team.name] - [check_team.type]</h3>"
 		content += "<a href='byond://?_src_=holder;team_command=rename_team;team=[check_team.UID()]'>Rename Team</a>"
@@ -273,6 +273,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		content += "</ol><a href='byond://?_src_=holder;team_command=admin_add_member;team=[check_team.UID()]'>Add Member</a><hr>"
 		content += "<hr>"
 	return content.Join()
+
+/datum/team/proc/pre_declare_completion()
+	return
 
 /datum/team/proc/declare_completion()
 	return

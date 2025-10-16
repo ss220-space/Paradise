@@ -1,5 +1,3 @@
-/datum/preferences
-	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
 	var/datum/species/S = GLOB.all_species[species]
 	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
@@ -46,7 +44,7 @@
 	age = get_rand_age(S)
 
 
-/datum/preferences/proc/randomize_hair_color(var/target = "hair")
+/datum/preferences/proc/randomize_hair_color(target = "hair")
 	if(prob (75) && target == "facial") // Chance to inherit hair color
 		f_colour = h_colour
 		return
@@ -146,7 +144,7 @@
 
 	e_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/randomize_skin_color(var/pass_on)
+/datum/preferences/proc/randomize_skin_color(pass_on)
 	var/red
 	var/green
 	var/blue
@@ -195,7 +193,7 @@
 	else
 		s_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/blend_backpack(var/icon/clothes_s,var/backbag,var/satchel,var/backpack="backpack")
+/datum/preferences/proc/blend_backpack(icon/clothes_s, backbag, satchel, backpack="backpack")
 	switch(backbag)
 		if(2)
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', backpack), ICON_OVERLAY)
@@ -343,14 +341,14 @@
 		if(current_species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
 			var/body_marking = m_styles["body"]
 			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
-			if(body_marking_style && body_marking_style.species_allowed)
+			if(body_marking_style?.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
 				preview_icon.Blend(b_marking_s, ICON_OVERLAY)
 		if(current_species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = m_styles["head"]
 			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
-			if(head_marking_style && head_marking_style.species_allowed)
+			if(head_marking_style?.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
 				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
@@ -385,7 +383,7 @@
 
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
-			if(!hair_style.no_sec_colour && hair_style.do_colouration )
+			if(!hair_style.no_sec_colour && hair_style.do_colouration)
 				hair_secondary_s.Blend(h_sec_colour, ICON_ADD)
 			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
 
@@ -394,13 +392,13 @@
 	//Head Accessory
 	if(current_species && (current_species.bodyflags & HAS_HEAD_ACCESSORY))
 		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
-		if(head_accessory_style && head_accessory_style.species_allowed)
+		if(head_accessory_style?.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			head_accessory_s.Blend(hacc_colour, ICON_ADD)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
-	if(facial_hair_style && facial_hair_style.species_allowed)
+	if(facial_hair_style?.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(current_species.name == SPECIES_SLIMEPERSON) // whee I am part of the problem
 			facial_s.Blend("[s_colour]A0", ICON_ADD)

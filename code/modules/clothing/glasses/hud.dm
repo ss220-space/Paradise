@@ -1,7 +1,6 @@
 /obj/item/clothing/glasses/hud
 	name = "HUD"
 	desc = "A heads-up display that provides important info in (almost) real time."
-	flags = NONE //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
 	prescription_upgradable = TRUE
 	/// The visual icons granted by wearing these glasses.
@@ -16,11 +15,11 @@
 	if(islist(HUDType))
 		for(var/new_hud in HUDType)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
-			hud.add_hud_to(user)
+			hud.show_to(user)
 		return .
 
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
-	hud.add_hud_to(user)
+	hud.show_to(user)
 
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
@@ -31,11 +30,11 @@
 	if(islist(HUDType))
 		for(var/new_hud in HUDType)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
-			hud.remove_hud_from(user)
+			hud.hide_from(user)
 		return .
 
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
-	hud.remove_hud_from(user)
+	hud.hide_from(user)
 
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
@@ -56,10 +55,9 @@
 		var/datum/atom_hud/H = GLOB.huds[initial(HUDType)]
 		if(istype(user) && src == user.glasses)
 			if(HUDType)
-				H.add_hud_to(user)
-
+				H.show_to(user)
 			else
-				H.remove_hud_from(user)
+				H.hide_from(user)
 
 // Allows you to toggle HUDType on glasses.
 /obj/item/clothing/glasses/hud/proc/multiHUD_toggling(mob/living/carbon/human/user)
@@ -70,7 +68,7 @@
 	var/hudMode = null
 
 	// DATA_HUD_MEDICAL_ADVANCED ->  DATA_HUD_SECURITY_BASIC -> DATA_HUD_SECURITY_ADVANCED
-	switch(HUDType) 
+	switch(HUDType)
 		if(DATA_HUD_MEDICAL_ADVANCED)
 			HUDType = DATA_HUD_SECURITY_BASIC
 			examine_extensions = EXAMINE_HUD_SKILLS
@@ -85,9 +83,9 @@
 			hudMode = "здоровья"
 
 	if(user.glasses == src)
-		oldHUD.remove_hud_from(user)
+		oldHUD.hide_from(user)
 		var/datum/atom_hud/newHUD = GLOB.huds[HUDType]
-		newHUD.add_hud_to(user)
+		newHUD.show_to(user)
 
 	balloon_alert(user, "режим ИЛС [hudMode]")
 	playsound(user, 'sound/items/buttonclick.ogg', 50, TRUE)
@@ -100,7 +98,6 @@ MEDICAL
 	name = "Medical HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
-	origin_tech = "magnets=3;biotech=2"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = EXAMINE_HUD_MEDICAL
 
@@ -151,7 +148,6 @@ MEDICAL
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD."
 	icon_state = "tajblind_med"
 	item_state = "tajblind_med"
-	flags_cover = GLASSESCOVERSEYES
 	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
@@ -266,7 +262,6 @@ DIAGNOSTIC
 	desc = "A tajaran veil capable of analyzing the integrity and status of robotics and exosuits."
 	icon_state = "tajblind_diagnostic"
 	item_state = "tajblind_diagnostic"
-	flags_cover = GLASSESCOVERSEYES
 	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
@@ -428,7 +423,6 @@ SECURITY
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
-	flags_cover = GLASSESCOVERSEYES
 	tint_up = 1
 	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
@@ -612,7 +606,6 @@ SKILLS
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
-	prescription_upgradable = TRUE
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -629,7 +622,6 @@ SKILLS
 	desc = "A tajaran veil capable of showing the employment history records of NT crew members."
 	icon_state = "tajblind_skill"
 	item_state = "tajblind_skill"
-	flags_cover = GLASSESCOVERSEYES
 	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 

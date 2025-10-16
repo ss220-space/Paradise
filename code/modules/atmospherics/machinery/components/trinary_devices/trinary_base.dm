@@ -1,9 +1,6 @@
 /obj/machinery/atmospherics/trinary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH|WEST
-	use_power = IDLE_POWER_USE
 
-	on = FALSE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
 	layer_offset = GAS_FILTER_OFFSET
 
@@ -196,7 +193,7 @@
 	else if(Old == parent3)
 		parent3 = New
 
-/obj/machinery/atmospherics/trinary/unsafe_pressure_release(var/mob/user,var/pressures)
+/obj/machinery/atmospherics/trinary/unsafe_pressure_release(mob/user, pressures)
 	..()
 
 	var/turf/T = get_turf(src)

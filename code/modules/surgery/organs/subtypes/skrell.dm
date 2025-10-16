@@ -60,7 +60,7 @@
 /obj/item/organ/internal/headpocket/on_life()
 	..()
 	var/obj/item/organ/external/head/head = owner.get_organ(BODY_ZONE_HEAD)
-	if(pocket.contents.len && !findtextEx(head.h_style, "Tentacles"))
+	if(length(pocket.contents) && !findtextEx(head.h_style, "Tentacles"))
 		owner.visible_message(span_warning("Что-то выпадает из [declent_ru(GENITIVE)] [owner]!"),
 								span_warning("Что-то выпадает из вашего [declent_ru(GENITIVE)]!"))
 		empty_contents()
@@ -124,10 +124,8 @@
 		PREPOSITIONAL = "мозге скрелла"
 	)
 	icon = 'icons/obj/species_organs/skrell.dmi'
-	icon_state = "brain2"
 	item_state = "skrell_brain"
 	mmi_icon = 'icons/obj/species_organs/skrell.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/skrell
 	species_type = /datum/species/skrell
@@ -162,7 +160,7 @@
 /obj/item/organ/internal/eyes/skrell
 	species_type = /datum/species/skrell
 	name = "skrell eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали скреллу."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали скреллу."
 	ru_names = list(
 		NOMINATIVE = "глаза скрелла",
 		GENITIVE = "глаз скрелла",

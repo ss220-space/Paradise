@@ -109,7 +109,7 @@
 		monitor.Grant(human)
 
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.remove_from_hud(human)
+	medhud.remove_atom_from_hud(human)
 
 	add_verb(human, list(
 		/mob/living/carbon/human/proc/emote_ping,
@@ -130,7 +130,7 @@
 	monitor?.Remove(human)
 
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.add_to_hud(human)
+	medhud.add_atom_to_hud(human)
 
 	remove_verb(human, list(
 		/mob/living/carbon/human/proc/emote_ping,
@@ -189,9 +189,9 @@
 
 		for(var/line in lines)									// Looks for lines set up as screen:ckey:screen_name
 			var/list/Entry = splittext(line, ":")				// split lines
-			for(var/i = 1 to Entry.len)
+			for(var/i = 1 to length(Entry))
 				Entry[i] = trim(Entry[i])						// Cleans up lines
-				if(Entry.len != 3 || Entry[1] != "screen")		// Ignore entries that aren't for screens
+				if(length(Entry) != 3 || Entry[1] != "screen")		// Ignore entries that aren't for screens
 					continue
 				if(Entry[2] == H.ckey)							// They're in the list? Custom sprite time, var and icon change required
 					hair += Entry[3]							// Adds custom screen to list

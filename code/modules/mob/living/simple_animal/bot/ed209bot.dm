@@ -4,10 +4,7 @@
 /mob/living/simple_animal/bot/ed209
 	name = "ED-209 Security Robot"
 	desc = "Охранный робот. Он выглядит абсолютно спокойным."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed2090"
-	density = TRUE
-	anchored = FALSE
 	health = 100
 	maxHealth = 100
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -90,12 +87,12 @@
 		if(created_name == initial(name) || !created_name)
 			if(lasercolor == "b")
 				name = pick("СИНИЙ УБИВАТОР","САНИК","СИНИЙ КИБОРГ УБИЙЦА")
-			else if (lasercolor == "r")
+			else if(lasercolor == "r")
 				name = pick("КРАСНОЕ БЕЗУМИЕ","КРАСНЫЙ УНИЧТОЖИТЕЛЬ","КРАСНЫЙ КИБОРГ УБИЙЦА")
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 
 
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
@@ -121,7 +118,7 @@
 	target = null
 	oldtarget_name = null
 	set_anchored(FALSE)
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 	set_weapon()
@@ -165,7 +162,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, span_warning("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))
@@ -288,7 +285,7 @@
 	switch(mode)
 
 		if(BOT_IDLE)		// idle
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			if(!lasercolor) //lasertag bots don't want to arrest anyone
 				look_for_perp()	// see if any criminals are in range
@@ -298,7 +295,7 @@
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				SSmove_manager.stop_looping(src)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 
@@ -318,7 +315,7 @@
 
 				else if(!disabled) // not next to perp
 					var/turf/olddist = get_dist(src, target)
-					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
+					GLOB.move_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -422,13 +419,13 @@
 
 
 /mob/living/simple_animal/bot/ed209/proc/check_for_weapons(obj/item/slot_item)
-	if(slot_item && slot_item.needs_permit)
+	if(slot_item?.needs_permit)
 		return TRUE
 	return FALSE
 
 
 /mob/living/simple_animal/bot/ed209/explode()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 
@@ -495,7 +492,7 @@
 	lastfired = world.time
 	var/turf/T = loc
 	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
-	if((!U || !T))
+	if(!U || !T)
 		return
 	while(!isturf(U))
 		U = U.loc
@@ -536,7 +533,7 @@
 			if(C.stat==2)
 				continue
 			targets += C
-		if(targets.len)
+		if(length(targets))
 			if(prob(50))
 				var/mob/toshoot = pick(targets)
 				if(toshoot)
@@ -550,7 +547,7 @@
 					else
 						shootAt(toshoot)
 			else if(prob(50))
-				if(targets.len)
+				if(length(targets))
 					var/mob/toarrest = pick(targets)
 					if(toarrest)
 						target = toarrest
@@ -560,18 +557,18 @@
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
 	if(!disabled)
 		var/lasertag_check = 0
-		if((lasercolor == "b"))
+		if(lasercolor == "b")
 			if(istype(Proj, /obj/projectile/beam/lasertag/redtag))
 				lasertag_check++
 
-		else if((lasercolor == "r"))
+		else if(lasercolor == "r")
 			if(istype(Proj, /obj/projectile/beam/lasertag/bluetag))
 				lasertag_check++
 
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
 			disabled = TRUE
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			target = null
 			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
 			return TRUE

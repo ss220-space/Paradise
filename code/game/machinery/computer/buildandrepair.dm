@@ -15,7 +15,6 @@
 	var/list/req_components = null
 
 /obj/item/circuitboard/computer
-	board_type = "computer"
 
 /obj/item/circuitboard/machine
 	board_type = "machine"
@@ -44,7 +43,6 @@
 /obj/item/circuitboard/message_monitor
 	board_name = "Message Monitor"
 	build_path = /obj/machinery/computer/message_monitor
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/camera
 	board_name = "Camera Monitor"
@@ -260,7 +258,6 @@
 /obj/item/circuitboard/powermonitor/secret
 	board_name = "Outdated Power Monitor"
 	build_path = /obj/machinery/computer/monitor/secret
-	origin_tech = "programming=2;powerstorage=2"
 
 /obj/item/circuitboard/olddoor
 	board_name = "DoorMex"
@@ -366,7 +363,6 @@
 /obj/item/circuitboard/syndicatesupplycomp/public
 	board_name = "Syndicate Public Supply Pad Console"
 	build_path = /obj/machinery/computer/syndie_supplycomp/public
-	origin_tech = "programming=3;syndicate=3"
 
 /obj/item/circuitboard/syndicate_teleporter
 	board_name = "Syndicate Redspace Teleporter"
@@ -450,7 +446,6 @@
 /obj/item/circuitboard/area_atmos
 	board_name = "Area Air Control"
 	build_path = /obj/machinery/computer/area_atmos
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/telesci_console
 	board_name = "Telepad Control Console"
@@ -471,7 +466,6 @@
 /obj/item/circuitboard/HONKputer
 	board_name = "HONKputer"
 	build_path = /obj/machinery/computer/HONKputer
-	origin_tech = "programming=2"
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "bananium_board"
 	board_type = "HONKputer"
@@ -540,11 +534,11 @@
 
 
 // Construction | Deconstruction
-#define STATE_EMPTY	 1 // Add a circuitboard		   | Weld to destroy
-#define STATE_CIRCUIT	 2 // Screwdriver the cover closed | Crowbar the circuit
-#define STATE_NOWIRES	 3 // Add wires					   | Screwdriver the cover open
-#define STATE_WIRES		 4 // Add glass					   | Remove wires
-#define STATE_GLASS		 5 // Screwdriver to complete	   | Crowbar glass out
+#define STATE_EMPTY 1 // Add a circuitboard | Weld to destroy
+#define STATE_CIRCUIT 2 // Screwdriver the cover closed | Crowbar the circuit
+#define STATE_NOWIRES 3 // Add wires | Screwdriver the cover open
+#define STATE_WIRES 4 // Add glass | Remove wires
+#define STATE_GLASS 5 // Screwdriver to complete | Crowbar glass out
 
 /obj/structure/computerframe
 	name = "computer frame"

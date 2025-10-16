@@ -1,6 +1,7 @@
 /mob/proc/get_screen_colour()
+	return
 
-/mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
+/mob/proc/update_client_colour(time = 10) //Update the mob's client.color with an animation the specified time in length.
 	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
 		return
 	client.colour_transition(get_screen_colour(), time = time) //Get the colour matrix we're going to transition to depending on relevance (magic glasses first, eyes second).
@@ -19,13 +20,13 @@
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/implant/mindshield/L in A)
-		if(L && L.implanted)
+		if(L?.implanted)
 			return 1
 	return 0
 
 /proc/isertmindshielded(A) //Checks to see if the person contains a ert mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/implant/mindshield/ert/L in A)
-		if(L && L.implanted)
+		if(L?.implanted)
 			return 1
 	return 0
 
@@ -80,7 +81,7 @@
 			return 1
 	return 0
 
-/proc/hassensorlevel(A, var/level)
+/proc/hassensorlevel(A, level)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform
@@ -188,9 +189,9 @@
 
 /proc/stars_all(list/message_pieces, probability = 25)
 	for(var/datum/multilingual_say_piece/piece in message_pieces)
-		piece.message = stars(piece.message, probability)
+		piece.message = stars(trim_strip_html_properly(piece.message), probability)
 
-/proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
+/proc/slur(phrase, list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
 	var/leng=length_char(phrase)
 	var/counter=length_char(phrase)
@@ -299,13 +300,15 @@
 	while(counter>=1)
 		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(newletter in list(" ", "!", "?", ".", ","))
-			//do nothing
+			// Skip these
+			counter -= 1
+			continue
 		else if(lowertext(newletter) in list("a", "e", "i", "o", "u", "y", "а", "е", "ё", "и", "о", "у", "ы", "э", "ю", "я"))
 			newletter = "пф"
 		else
 			newletter = "м"
-		newphrase+="[newletter]"
-		counter-=1
+		newphrase += "[newletter]"
+		counter -= 1
 	return newphrase
 
 /proc/muffledspeech_all(list/message_pieces)
@@ -341,7 +344,7 @@
 		//We take the smaller of our two distances so things still have the propencity to feel somewhat jerky
 		var/time = round(max(min(abs(last_x - x_pos), abs(last_y - y_pos)) * time_scalar, 1))
 
-		if (time_spent == 0)
+		if(time_spent == 0)
 			animate(client, pixel_x = x_pos, pixel_y=y_pos, time = time)
 		else
 			animate(pixel_x = x_pos, pixel_y = y_pos, time = time)
@@ -401,7 +404,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					a_intent = intent_numeric((intent_numeric(a_intent)+1) % 4)
 				if("left")
 					a_intent = intent_numeric((intent_numeric(a_intent)+3) % 4)
-			if(hud_used && hud_used.action_intent)
+			if(hud_used?.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
 		else if(isrobot(src) || islarva(src) || isanimal(src) || isAI(src))
@@ -412,7 +415,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					a_intent = INTENT_HARM
 				if("right","left")
 					a_intent = intent_numeric(intent_numeric(a_intent) - 3)
-			if(hud_used && hud_used.action_intent)
+			if(hud_used?.action_intent)
 				if(a_intent == INTENT_HARM)
 					hud_used.action_intent.icon_state = "harm"
 				else
@@ -454,7 +457,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 /proc/say_dead_direct(message, mob/subject = null)
 	var/name
 	var/keyname
-	if(subject && subject.client)
+	if(subject?.client)
 		var/client/C = subject.client
 		keyname = (C.holder && C.holder.fakekey) ? C.holder.fakekey : C.key
 		if(C.mob) //Most of the time this is the dead/observer mob; we can totally use him if there is no better name
@@ -493,7 +496,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				lname = "<span class='name'>[lname]</span> "
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
 
-/proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, var/action = NOTIFY_JUMP) //Easy notification of ghosts.
+/proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.client)
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
@@ -526,10 +529,10 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 
 /**
-  * Checks if a mob's ghost can reenter their body or not. Used to check for DNR or AntagHUD.
-  *
-  * Returns FALSE if there is a ghost, and it can't reenter the body. Returns TRUE otherwise.
-  */
+ * Checks if a mob's ghost can reenter their body or not. Used to check for DNR or AntagHUD.
+ *
+ * Returns FALSE if there is a ghost, and it can't reenter the body. Returns TRUE otherwise.
+ */
 /mob/proc/ghost_can_reenter()
 	var/mob/dead/observer/ghost = get_ghost(TRUE)
 	if(ghost && !ghost.can_reenter_corpse)
@@ -563,21 +566,21 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					break
 
 		//update our pda and id if we have them on our person
-		var/list/searching = GetAllContents(searchDepth = 3)
+		var/list/searching = GetAllContents()
 		var/search_id = 1
 		var/search_pda = 1
 
 		for(var/A in searching)
-			if( search_id && istype(A,/obj/item/card/id) )
+			if(search_id && istype(A,/obj/item/card/id))
 				var/obj/item/card/id/ID = A
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname
-					ID.name = "[newname]'s ID Card ([ID.assignment])"
+					ID.name = "[newname]’s ID Card ([ID.assignment])"
 					ID.RebuildHTML()
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && is_pda(A) )
+			else if(search_pda && is_pda(A))
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.update_owner_name(newname)
@@ -596,7 +599,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			objective.explanation_text = copytext_char(objective.explanation_text, 1, pos)+newname+copytext_char(objective.explanation_text, pos+length)
 	return 1
 
-/mob/proc/rename_self(var/role, var/allow_numbers = FALSE, var/force = FALSE)
+/mob/proc/rename_self(role, allow_numbers = FALSE, force = FALSE)
 	spawn(0)
 		var/oldname = real_name
 
@@ -833,7 +836,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		return TRUE
 	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
 	var/has_antags = FALSE
-	if(client.prefs.be_special.len > 0)
+	if(length(client.prefs.be_special) > 0)
 		has_antags = TRUE
 	if(!client.prefs.check_any_job())
 		to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")

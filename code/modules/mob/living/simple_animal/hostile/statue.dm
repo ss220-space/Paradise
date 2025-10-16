@@ -8,7 +8,6 @@
 	icon_living = "angel"
 	icon_dead = "angel"
 	gender = NEUTER
-	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_OTHER
 
 	response_help = "touches"
@@ -17,7 +16,7 @@
 	speed = -1
 	maxHealth = 50000
 	health = 50000
-	healable = 0
+	healable = FALSE
 
 	harm_intent_damage = 35
 	obj_damage = 100
@@ -56,7 +55,7 @@
 
 // No movement while seen code.
 
-/mob/living/simple_animal/hostile/statue/New(loc, var/mob/living/creator)
+/mob/living/simple_animal/hostile/statue/New(loc, mob/living/creator)
 	..()
 	// Give spells
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/flicker_lights(null))
@@ -76,7 +75,7 @@
 /mob/living/simple_animal/hostile/statue/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(can_be_seen(newloc))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot move, there are eyes on you!"))
 		return 0
 	. = ..()
 
@@ -95,7 +94,7 @@
 /mob/living/simple_animal/hostile/statue/AttackingTarget()
 	if(can_be_seen(get_turf(loc)))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot attack, there are eyes on you!"))
 		return FALSE
 	else
 		return ..()
@@ -192,7 +191,7 @@
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
-	message = "<span class='notice'>You glare your eyes.</span>"
+	message = span_notice("You glare your eyes.")
 	base_cooldown = 60 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE

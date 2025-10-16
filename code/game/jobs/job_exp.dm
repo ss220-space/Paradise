@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	popup.open(FALSE)
 
 
-/datum/admins/proc/cmd_mentor_show_exp_panel(var/client/C)
+/datum/admins/proc/cmd_mentor_show_exp_panel(client/C)
 	if(!C)
 		to_chat(usr, "ERROR: Client not found.")
 		return
@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	if(!CONFIG_GET(flag/use_exp_tracking))
 		return "Tracking is disabled in the server configuration file."
 	var/list/play_records = params2list(prefs.exp)
-	if(!play_records.len)
+	if(!length(play_records))
 		return "[key] has no records."
 	var/return_text = "<ul>"
 	var/list/exp_data = list()
@@ -186,20 +186,20 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 				else
 					var/xp_req = job.get_exp_req_amount()
 					jobs_locked += "[job.title] ([get_exp_format(text2num(play_records[job.get_exp_req_type()]))] / [get_exp_format(xp_req)] as [job.get_exp_req_type()])"
-		if(jobs_unlocked.len)
+		if(length(jobs_unlocked))
 			return_text += "<br><br>Jobs Unlocked:<ul><li>"
 			return_text += jobs_unlocked.Join("</li><li>")
 			return_text += "</li></ul>"
-		if(jobs_locked.len)
+		if(length(jobs_locked))
 			return_text += "<br><br>Jobs Not Unlocked:<ul><li>"
 			return_text += jobs_locked.Join("</li><li>")
 			return_text += "</li></ul>"
 	return return_text
 
-/client/proc/get_exp_type(var/etype)
+/client/proc/get_exp_type(etype)
 	return get_exp_format(get_exp_type_num(etype))
 
-/client/proc/get_exp_type_num(var/etype)
+/client/proc/get_exp_type_num(etype)
 	var/list/play_records = params2list(prefs.exp)
 	return text2num(play_records[etype])
 
@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	return result_text.Join("")
 
 
-/proc/get_exp_format(var/expnum)
+/proc/get_exp_format(expnum)
 	if(expnum > 60)
 		return num2text(round(expnum / 60)) + "ч"
 	else if(expnum > 0)

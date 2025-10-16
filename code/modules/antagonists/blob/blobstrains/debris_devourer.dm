@@ -14,7 +14,7 @@
 
 /datum/blobstrain/debris_devourer/attack_living(mob/living/L, list/nearby_blobs)
 	send_message(L)
-	for (var/obj/structure/blob/blob in nearby_blobs)
+	for(var/obj/structure/blob/blob in nearby_blobs)
 		debris_attack(L, blob)
 
 /datum/blobstrain/debris_devourer/on_sporedeath(mob/living/spore)
@@ -27,7 +27,7 @@
 
 /datum/blobstrain/debris_devourer/expand_reaction(obj/structure/blob/B, obj/structure/blob/newB, turf/T, mob/camera/blob/O, coefficient = 1) //when the blob expands, do this
 	if(overmind)
-		for (var/atom/A in T)
+		for(var/atom/A in T)
 			A.blob_vore_act(overmind.blob_core)
 	return TRUE
 
@@ -58,7 +58,7 @@
 	if(isobserver(user))
 		. += span_notice("Поглощенный мусор в настоящее время снижает получаемый урон на [round(max(min(DEBRIS_DENSITY, 10),0))]")
 	else
-		switch (round(max(min(DEBRIS_DENSITY, 10),0)))
+		switch(round(max(min(DEBRIS_DENSITY, 10),0)))
 			if(0)
 				. += span_notice("В настоящее время поглощенного мусора недостаточно, чтобы уменьшить урон.")
 			if(1 to 3)

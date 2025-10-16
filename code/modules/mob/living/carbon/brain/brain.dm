@@ -40,7 +40,7 @@
 	forceMove(container)
 
 /mob/living/carbon/brain/update_mouse_pointer()
-	if (!client)
+	if(!client)
 		return
 	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 	if(!container)

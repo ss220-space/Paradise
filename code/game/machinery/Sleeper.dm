@@ -261,7 +261,7 @@
 			if(crisis && !(temp.id in emergency_chems))
 				injectable = 0
 
-			if(occupant && occupant.reagents)
+			if(occupant?.reagents)
 				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
 				// If they're mashing the highest concentration, they get one warning
 				if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)

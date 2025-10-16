@@ -108,7 +108,7 @@
 		source = parent,
 		role_cleanname = role_name
 	)
-	var/mob/chosen_one = (possible_ghosts.len)? pick(possible_ghosts): null
+	var/mob/chosen_one = (length(possible_ghosts))? pick(possible_ghosts): null
 	awaiting_ghosts = FALSE
 	if(isnull(chosen_one))
 		return

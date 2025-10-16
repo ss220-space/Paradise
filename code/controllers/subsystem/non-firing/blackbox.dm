@@ -2,13 +2,15 @@
 
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
-	flags = SS_NO_FIRE | SS_NO_INIT
-	// Even though we dont initialize, we need this init_order
 	// On Master.Shutdown(), it shuts down subsystems in the REVERSE order
 	// The database SS has INIT_ORDER_DBCORE=16, and this SS has INIT_ORDER_BLACKBOX=15
 	// So putting this ensures it shuts down in the right order
-	init_order = INIT_ORDER_BLACKBOX
 	ss_id = "blackbox"
+	init_order = INIT_ORDER_BLACKBOX
+	wait = 10 MINUTES
+	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	offline_implications = "Player count and admin count statistics will no longer be logged to the database. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// List of all recorded feedback
 	var/list/datum/feedback_variable/feedback = list()
@@ -18,6 +20,33 @@ SUBSYSTEM_DEF(blackbox)
 	var/list/research_levels = list()
 	/// Associative list of any feedback variables that have had their format changed since creation and their current version, remember to update this
 	var/list/versions = list()
+
+/datum/controller/subsystem/blackbox/Initialize()
+	if(!SSdbcore.IsConnected())
+		flags |= SS_NO_FIRE // Disable firing if SQL is disabled
+	record_feedback("amount", "dm_version", DM_VERSION)
+	record_feedback("amount", "dm_build", DM_BUILD)
+	record_feedback("amount", "byond_version", world.byond_version)
+	record_feedback("amount", "byond_build", world.byond_build)
+	record_feedback("text", "random_seed", 1, num2text(Master.random_seed, 32), 1) // a text string because json_encode turns it into lossy scientific notation
+	record_feedback("text", "rust_g_filepath", 1, "[RUST_G]", 1)
+	record_feedback("text", "rustlibs_filepath", 1, "[RUSTLIB]", 1)
+	return SS_INIT_SUCCESS
+
+/datum/controller/subsystem/blackbox/fire(resumed = 0)
+	sql_poll_players()
+
+/datum/controller/subsystem/blackbox/proc/sql_poll_players()
+	var/datum/db_query/statquery = SSdbcore.NewQuery(
+		"INSERT INTO legacy_population (playercount, admincount, time, server_id) VALUES (:playercount, :admincount, NOW(), :server_id)",
+		list(
+			"playercount" = length(GLOB.clients),
+			"admincount" = length(GLOB.admins),
+			"server_id" = CONFIG_GET(string/instance_id)
+		)
+	)
+	statquery.warn_execute()
+	qdel(statquery)
 
 /datum/controller/subsystem/blackbox/Recover()
 	feedback = SSblackbox.feedback
@@ -40,17 +69,17 @@ SUBSYSTEM_DEF(blackbox)
 	return ..()
 
 /**
-  * Shutdown Helper
-  *
-  * Dumps all feedback stats to the DB. Doesnt get much simpler than that.
-  */
+ * Shutdown Helper
+ *
+ * Dumps all feedback stats to the DB. Doesnt get much simpler than that.
+ */
 /datum/controller/subsystem/blackbox/Shutdown()
 	sealed = FALSE
 	for(var/obj/machinery/message_server/MS in GLOB.message_servers)
-		if(MS.pda_msgs.len)
-			record_feedback("tally", "radio_usage", MS.pda_msgs.len, "PDA")
-		if(MS.rc_msgs.len)
-			record_feedback("tally", "radio_usage", MS.rc_msgs.len, "request console")
+		if(length(MS.pda_msgs))
+			record_feedback("tally", "radio_usage", length(MS.pda_msgs), "PDA")
+		if(length(MS.rc_msgs))
+			record_feedback("tally", "radio_usage", length(MS.rc_msgs), "request console")
 
 	if(length(research_levels))
 		record_feedback("associative", "high_research_level", 1, research_levels)
@@ -79,10 +108,10 @@ SUBSYSTEM_DEF(blackbox)
 	SSdbcore.MassExecute(queries, TRUE, TRUE)
 
 /**
-  * Blackbox Sealer
-  *
-  * Seals the blackbox, preventing new data from being stored. This is to avoid data being bloated during end round grief
-  */
+ * Blackbox Sealer
+ *
+ * Seals the blackbox, preventing new data from being stored. This is to avoid data being bloated during end round grief
+ */
 /datum/controller/subsystem/blackbox/proc/Seal()
 	if(sealed)
 		return FALSE
@@ -91,28 +120,28 @@ SUBSYSTEM_DEF(blackbox)
 	return TRUE
 
 /**
-  * Research level broadcast logging helper
-  *
-  * This is called on R&D updates for a safe way of logging tech levels if an R&D console is destroyed
-  *
-  * Arguments:
-  * * tech - Research technology name
-  * * level - Research technology level
-  */
+ * Research level broadcast logging helper
+ *
+ * This is called on R&D updates for a safe way of logging tech levels if an R&D console is destroyed
+ *
+ * Arguments:
+ * * tech - Research technology name
+ * * level - Research technology level
+ */
 /datum/controller/subsystem/blackbox/proc/log_research(tech, level)
 	if(!(tech in research_levels) || research_levels[tech] < level)
 		research_levels[tech] = level
 
 
 /**
-  * Radio broadcast logging helper
-  *
-  * Called during [/proc/broadcast_message()] to log a message to the blackbox.
-  * Translates the specific frequency to a name
-  *
-  * Arguments:
-  * * freq - Frequency of the transmission
-  */
+ * Radio broadcast logging helper
+ *
+ * Called during [/proc/broadcast_message()] to log a message to the blackbox.
+ * Translates the specific frequency to a name
+ *
+ * Arguments:
+ * * freq - Frequency of the transmission
+ */
 /datum/controller/subsystem/blackbox/proc/LogBroadcast(freq)
 	if(sealed)
 		return
@@ -150,15 +179,15 @@ SUBSYSTEM_DEF(blackbox)
 
 
 /**
-  * Helper to find and return a feeedback datum
-  *
-  * Pass in a feedback datum key and key_type to do a lookup.
-  * It will create the feedback datum if it doesnt exist
-  *
-  * Arguments:
-  * * key - Key of the variable to lookup
-  * * key_type - Type of feedback to be recorded if the feedback datum cant be found
-  */
+ * Helper to find and return a feeedback datum
+ *
+ * Pass in a feedback datum key and key_type to do a lookup.
+ * It will create the feedback datum if it doesnt exist
+ *
+ * Arguments:
+ * * key - Key of the variable to lookup
+ * * key_type - Type of feedback to be recorded if the feedback datum cant be found
+ */
 /datum/controller/subsystem/blackbox/proc/find_feedback_datum(key, key_type)
 	for(var/datum/feedback_variable/FV in feedback)
 		if(FV.key == key)
@@ -169,19 +198,19 @@ SUBSYSTEM_DEF(blackbox)
 	return FV
 
 /**
-  * Main feedback recording proc
-  *
-  * This is the bulk of this subsystem and is in charge of creating and using the variables.
-  * See .github/USING_FEEDBACK_DATA.md for instructions
-  * Note that feedback is not recorded to the DB during this function. That happens at round end.
-  *
-  * Arguments:
-  * * key_type - Type of key. Either "text", "amount", "tally", "nested tally", "associative"
-  * * key - Key of the data to be used (EG: "admin_verb")
-  * * increment - If using "amount", how much to increment why
-  * * data - The actual data to logged
-  * * overwrite - Do we want to overwrite the existing key
-  */
+ * Main feedback recording proc
+ *
+ * This is the bulk of this subsystem and is in charge of creating and using the variables.
+ * See .github/USING_FEEDBACK_DATA.md for instructions
+ * Note that feedback is not recorded to the DB during this function. That happens at round end.
+ *
+ * Arguments:
+ * * key_type - Type of key. Either "text", "amount", "tally", "nested tally", "associative"
+ * * key - Key of the data to be used (EG: "admin_verb")
+ * * increment - If using "amount", how much to increment why
+ * * data - The actual data to logged
+ * * overwrite - Do we want to overwrite the existing key
+ */
 /datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
 	if(sealed || !key_type || !istext(key) || !isnum(increment || !data))
 		return
@@ -219,18 +248,18 @@ SUBSYSTEM_DEF(blackbox)
 				FV.json["data"]["[pos]"]["[i]"] = "[data[i]]"
 
 /**
-  * Recursive list recorder
-  *
-  * Used by the above proc for nested tallies
-  *
-  * Arguments:
-  * * L - List to use
-  * * key_list - List of keys to add
-  * * increment - How much to increase by
-  * * depth - Depth to use
-  */
+ * Recursive list recorder
+ *
+ * Used by the above proc for nested tallies
+ *
+ * Arguments:
+ * * L - List to use
+ * * key_list - List of keys to add
+ * * increment - How much to increase by
+ * * depth - Depth to use
+ */
 /datum/controller/subsystem/blackbox/proc/record_feedback_recurse_list(list/L, list/key_list, increment, depth = 1)
-	if(depth == key_list.len)
+	if(depth == length(key_list))
 		if(L.Find(key_list[depth]))
 			L["[key_list[depth]]"] += increment
 		else
@@ -244,12 +273,12 @@ SUBSYSTEM_DEF(blackbox)
 	return L
 
 /**
-  * # feedback_variable
-  *
-  * Datum to hold feedback data, which gets logged at round end
-  *
-  * Holds all the information being logged
-  */
+ * # feedback_variable
+ *
+ * Datum to hold feedback data, which gets logged at round end
+ *
+ * Holds all the information being logged
+ */
 /datum/feedback_variable
 	var/key
 	var/key_type
@@ -261,13 +290,13 @@ SUBSYSTEM_DEF(blackbox)
 	key_type = new_key_type
 
 /**
-  * Death reporting proc
-  *
-  * Called when humans and cyborgs die, and logs death info to the `death` table
-  *
-  * Arguments:
-  * * L - The human or cyborg to be logged
-  */
+ * Death reporting proc
+ *
+ * Called when humans and cyborgs die, and logs death info to the `death` table
+ *
+ * Arguments:
+ * * L - The human or cyborg to be logged
+ */
 /datum/controller/subsystem/blackbox/proc/ReportDeath(mob/living/L)
 	set waitfor = FALSE
 	if(sealed)
@@ -280,7 +309,7 @@ SUBSYSTEM_DEF(blackbox)
 		return
 
 	var/area/placeofdeath = get_area(L.loc)
-	var/podname = "Unknown"
+	var/podname = UNKNOWN_STATUS_RUS
 	if(placeofdeath)
 		podname = placeofdeath.name
 
@@ -293,8 +322,8 @@ SUBSYSTEM_DEF(blackbox)
 		lakey = L.lastattackerckey
 
 	var/datum/db_query/deathquery = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("death")] (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord)
-		VALUES (:name, :key, :job, :special, :pod, NOW(), :laname, :lakey, :gender, :bruteloss, :fireloss, :brainloss, :oxyloss, :coord)"},
+		INSERT INTO [format_table_name("death")] (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord, server_id)
+		VALUES (:name, :key, :job, :special, :pod, NOW(), :laname, :lakey, :gender, :bruteloss, :fireloss, :brainloss, :oxyloss, :coord, :server_id)"},
 		list(
 			"name" = L.real_name,
 			"key" = L.key,
@@ -308,7 +337,8 @@ SUBSYSTEM_DEF(blackbox)
 			"fireloss" = L.getFireLoss(),
 			"brainloss" = L.getBrainLoss(),
 			"oxyloss" = L.getOxyLoss(),
-			"coord" = "[L.x], [L.y], [L.z]"
+			"coord" = "[L.x], [L.y], [L.z]",
+			"server_id" = CONFIG_GET(string/instance_id)
 		)
 	)
 	deathquery.warn_execute()

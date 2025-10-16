@@ -3,7 +3,6 @@
 	desc = "Unce unce unce unce."
 	icon_state = "headphones0"
 	item_state = "headphones0"
-	slot_flags = ITEM_SLOT_EARS
 	actions_types = list(/datum/action/item_action/change_headphones_song)
 	var/datum/song/headphones/song
 	var/on = FALSE
@@ -57,8 +56,8 @@
 
 
 /**
-  * Called by a component signal when our song starts playing.
-  */
+ * Called by a component signal when our song starts playing.
+ */
 /obj/item/clothing/ears/headphones/proc/start_playing()
 	SIGNAL_HANDLER
 	on = TRUE
@@ -66,8 +65,8 @@
 
 
 /**
-  * Called by a component signal when our song stops playing.
-  */
+ * Called by a component signal when our song stops playing.
+ */
 /obj/item/clothing/ears/headphones/proc/stop_playing()
 	SIGNAL_HANDLER
 	on = FALSE
@@ -75,11 +74,11 @@
 
 
 /**
-  * Whether the headphone's song should stop playing
-  *
-  * Arguments:
-  * * user - The user
-  */
+ * Whether the headphone's song should stop playing
+ *
+ * Arguments:
+ * * user - The user
+ */
 /obj/item/clothing/ears/headphones/proc/should_stop_playing(mob/living/carbon/human/user)
 	return !(src in user) || !istype(user) || !((src == user.l_ear) || (src == user.r_ear))
 
