@@ -85,12 +85,26 @@ class HubStorageBackend implements StorageBackend {
       });
     });
   }
-  async processChatMessages(messages) {
-    return storage.set('chat-messages', messages);
+  async processChatMessages(messages): Promise<void> {
+    return new Promise((resolve) => {
+      queueMicrotask(() => {
+        window.hubStorage.removeItem('paradise-chat-messages');
+        resolve();
+      });
+    });
   }
 
   async getChatMessages(): Promise<any> {
-    return await storage.get('chat-messages');
+    return new Promise((resolve) => {
+      queueMicrotask(() => {
+        const value = window.hubStorage.getItem('paradise-chat-messages');
+        if (typeof value === 'string') {
+          resolve(JSON.parse(value));
+        } else {
+          resolve(undefined);
+        }
+      });
+    });
   }
 }
 
