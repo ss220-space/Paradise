@@ -62,7 +62,7 @@ const saveChatToStorage = async (store: Store) => {
         .slice(fromIndex)
         .map((message) => serializeMessage(message));
 
-      storage.set('chat-messages-cm', messages);
+      storage.set('chat-messages', messages);
     }
 
     chatRenderer.storeQueue = [];
