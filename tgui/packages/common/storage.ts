@@ -98,6 +98,7 @@ export class IFrameIndexedDbBackend implements StorageBackend {
   async ready(): Promise<boolean | null> {
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
+    iframe.sandbox = 'allow-scripts allow-same-origin allow-forms';
     iframe.src = Byond.storageCdn;
 
     const completePromise: Promise<boolean> = new Promise((resolve) => {
