@@ -333,7 +333,7 @@
 
 /obj/effect/ebeam/vetus/Destroy()
 	for(var/mob/living/mob in get_turf(src))
-		mob.electrocute_act(20, "электрической дуги", flags = SHOCK_NOGLOVES)
+		mob.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 	return ..()
 
 /obj/effect/ebeam/vetus_leg
