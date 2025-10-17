@@ -77,20 +77,16 @@
 		if(M.powerlevel > 0)
 			var/stunprob = M.powerlevel * 7 + 10  // 17 at level 1, 80 at level 10
 			if(prob(stunprob))
-				M.powerlevel -= 3
-				if(M.powerlevel < 0)
-					M.powerlevel = 0
 
 				visible_message(span_danger("[M.name] шокиру[pluralize_ru(M.gender, "ет", "ют")] [src]!"), \
 				span_userdanger("[M.name] шокиру[pluralize_ru(M.gender, "ет", "ют")] вас!"))
 
 				do_sparks(5, TRUE, src)
-				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT
-				Stun(power)
-				Stuttering(power)
-				if(prob(stunprob) && M.powerlevel >= 8)
-					adjustFireLoss(M.powerlevel * rand(6, 6 + M.age_state.damage))
-		return 1
+				adjustFireLoss(M.powerlevel * rand(6, 6 + M.age_state.damage)) //42-
+				M.powerlevel -= 4
+				if(M.powerlevel < 0)
+					M.powerlevel = 0
+		return TRUE
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
 	if((!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)))
