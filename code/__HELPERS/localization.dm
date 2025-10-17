@@ -26,9 +26,9 @@
 	return multiple_name // 5, 6, 7, 8, 9, 0
 
 /// Секунд, минут, единиц
-#define DECL_SEC_MIN(target) declension_ru(target, "у", "ы", "")
+#define DECL_SEC_MIN(num) declension_ru(num, "у", "ы", "")
 /// Кредит, символ
-#define DECL_CREDIT(target) declension_ru(target, "", "а", "ов")
+#define DECL_CREDIT(num) declension_ru(num, "", "а", "ов")
 
 /**
  * Возвращает форму слова с учётом грамматического рода в русском языке.

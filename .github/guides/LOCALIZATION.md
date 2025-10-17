@@ -158,8 +158,10 @@ gender = FEMALE
 
 Выбор слова в зависимости от гендера – `genderize_ru(пол, мужской, женский, средний, множественный)`.
 
+**НЕ ИСПОЛЬЗУЙТЕ ЭТОТ ПРОК ПРЯМО!** Используйте готовые макросы в `code\__HELPERS\localization.dm`. Вы можете собрать из них всё, что может вам понадобиться.
+
 ```DM
-"Он[genderize_ru(affected_mob.gender, "", "а", "о", "и")] долж[genderize_ru(affected_mob.gender, "ен", "на", "но", "ны")] вернуться, пока не поздно!"
+"[GEND_HE_SHE_CAP(user)] съел[GEND_ENDING_A_O_I(user)] мороженку!"
 ```
 
 #### **Склонение единиц измерения – `declension_ru`**
@@ -167,7 +169,8 @@ gender = FEMALE
 Выбор правильной формы слова в зависимости от числа – `declension_ru(число, одиночное, двойное, множественное)`.
 
 ```DM
-"Накопите [target_amount] очк[declension_ru(target_amount, "о", "а", "ов")] захвата."
+// DECL_CREDIT это тоже самое, что declension_ru(num, "", "а", "ов")
+"Накопите [target_amount] очк[DECL_CREDIT(target_amount)] захвата."
 ```
 
 #### **Капитализация регистра — `capitalize`**

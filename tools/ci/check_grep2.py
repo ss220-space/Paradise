@@ -314,30 +314,13 @@ def check_bitwise_operator_order(idx, line):
     if BITWISE_AMBIGUOUS_RE.search(line):
         return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
 
-IGNORE_LOCALIZATION_FILE = "localization.dm"
+IGNORE_LOCALIZATION_FILE = ["localization.dm", "golem.dm"] # golems are bullshit
+MACROED_PROCS = re.compile(r'genderize_ru')
 PLURALIZE_DELETE = re.compile(r'pluralize_ru')
-LOCALIZATION_MACROS = [
-    (re.compile(r'(\s*"у",\s*"ы",\s*"")'), "DECL_SEC_MIN"),
-    (re.compile(r'(\s*"",\s*"а",\s*"ов")'), "DECL_CREDIT"),
-    (re.compile(r'(\s*"он",\s*"она",\s*"оно",\s*"они")'), "GEND_HE_SHE"),
-    (re.compile(r'(\s*"Он",\s*"Она",\s*"Оно",\s*"Они")'), "GEND_HE_SHE_CAP"),
-    (re.compile(r'(\s*"его",\s*"её",\s*"его",\s*"их")'), "GEND_HIS_HER"),
-    (re.compile(r'(\s*"Его",\s*"Её",\s*"Его",\s*"Их")'), "GEND_HIS_HER_CAP"),
-    (re.compile(r'(\s*"ему",\s*"ей",\s*"ему",\s*"им")'), "GEND_HIM_HER"),
-    (re.compile(r'(\s*"",\s*"а",\s*"о",\s*"и")'), "GEND_ENDING_A_O_I"),
-    (re.compile(r'(\s*"",\s*"а",\s*"о",\s*"ы")'), "GEND_ENDING_A_O_Y"),
-    (re.compile(r'(\s*"",\s*"а",\s*"е",\s*"и")'), "GEND_ENDING_A_E_I"),
-    (re.compile(r'(\s*"ся",\s*"ась",\s*"ось",\s*"ись")'), "GEND_ENDING_SYA_AS_OS_IS"),
-    (re.compile(r'(\s*"",\s*"ла",\s*"ло",\s*"ли")'), "GEND_ENDING_LA_LO_LI"),
-    (re.compile(r'(\s*"ен",\s*"на",\s*"но",\s*"ны")'), "GEND_ENDING_EN_NA_NO_NY"),
-    (re.compile(r'(\s*"ем",\s*"ей",\s*"ем",\s*"их")'), "GEND_ENDING_EM_EI_EM_IH"),
-    (re.compile(r'(\s*"ым",\s*"ой",\s*"ым",\s*"ыми")'), "GEND_ENDING_YM_OI_YM_YMI"),
-]
 def check_localization_macro_usage(idx, line):
     failures = []
-    for pattern, macro_name in LOCALIZATION_MACROS:
-        if pattern.search(line):
-            failures.append((idx + 1, f"A localization proc was found using a '{pattern}' instead of a '{macro_name}()'."))
+    if MACROED_PROCS.search(line):
+        failures.append((idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization.dm"))
     # This check is needed to prevent people from having their branch broken after a merge,
     # but to prevent them from using this damned function.
     if PLURALIZE_DELETE.search(line):
@@ -413,7 +396,7 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
-        if filename != IGNORE_LOCALIZATION_FILE:
+        if filename not in IGNORE_LOCALIZATION_FILE:
             extra_checks.append(check_localization_macro_usage)
 
         last_line = None
