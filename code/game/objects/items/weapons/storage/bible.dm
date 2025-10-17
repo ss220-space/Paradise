@@ -185,7 +185,7 @@
 	if(god_punishment == 5)
 		to_chat(user, span_danger("<h1>Вы злоупотребляете покровительством Бога \"[deity_name]\", остановитесь и подумайте.</h1>"))
 	else if(god_punishment > 5) //lets apply punishment AFTER heal
-		user.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
+		user.electrocute_act(5, src, flags = SHOCK_NOGLOVES)
 		user.apply_damage(65, BURN)
 		user.Knockdown(10 SECONDS)
 		to_chat(user, span_userdanger("Вы злоупотребили волей Бога и были за это наказаны!"))

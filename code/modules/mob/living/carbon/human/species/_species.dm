@@ -492,7 +492,7 @@
 
 
 
-/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/affected, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/affected, shock_damage, atom/source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 	return
 
 
