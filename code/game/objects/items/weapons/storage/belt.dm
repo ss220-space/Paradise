@@ -314,8 +314,8 @@
 	name = "agent surgical belt"
 	desc = ""  // TODO: Дать desc
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "belt"
-	item_state = "security"
+	icon_state = "surgicalbelt"
+	item_state = "surgical_alien"
 	max_combined_w_class = 17
 	storage_slots = 11
 	storable = TRUE
