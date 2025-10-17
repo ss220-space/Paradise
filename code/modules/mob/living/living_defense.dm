@@ -84,7 +84,7 @@
 		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
-			span_danger("[capitalize(source.declent_ru(NOMINATIVE))] ударил[genderize_ru(source.gender, "", "а", "о", "и")] током [declent_ru(ACCUSATIVE)]!"),
+			span_danger("[capitalize(source.declent_ru(NOMINATIVE))] ударил[GEND_ENDING_A_O_I(source)] током [declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Вы чувствуете как через ваше тело проходит электрический разряд!"),
 			span_hear("Вы слышите громкий электрический треск."),
 		)
