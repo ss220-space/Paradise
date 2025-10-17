@@ -24,8 +24,7 @@
 	var/timing = FALSE
 	var/armed = FALSE
 	var/timepassed = 0
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
+
 
 /obj/item/caution/proximity_sign/Destroy()
 	. = ..()

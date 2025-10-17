@@ -10,8 +10,6 @@
 	var/timing = FALSE
 	/// Time before armed
 	var/time = 10
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
 
 
 /obj/item/assembly/prox_sensor/Initialize(mapload)
@@ -58,19 +56,19 @@
 	return secured
 
 
-/obj/item/assembly/prox_sensor/HasProximity(atom/movable/AM as mob|obj)
-	if(iseffect(AM))
+/obj/item/assembly/prox_sensor/HasProximity(atom/movable/movable)
+	if(iseffect(movable))
 		return
 	sense()
 
 
-/obj/item/assembly/prox_sensor/proc/sense(atom/movable/AM)
+/obj/item/assembly/prox_sensor/proc/sense(atom/movable/movable)
 	if(!secured || !scanning || !COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
 
 	var/mob/triggered
-	if(ismob(AM))
-		triggered = AM
+	if(ismob(movable))
+		triggered = movable
 
 	COOLDOWN_START(src, cooldown, cooldown_time)
 	pulse(FALSE, triggered)

@@ -97,9 +97,6 @@
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
-	/// Proximity monitor for aggresive vendings and rebel vendings event
-	var/datum/proximity_monitor/proximity_monitor
-
 	/**
 	 * List of products this machine sells
 	 *

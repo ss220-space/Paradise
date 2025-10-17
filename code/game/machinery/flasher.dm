@@ -107,8 +107,6 @@
 	range = 1
 	anchored = FALSE
 	density = TRUE
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
 
 
 /obj/machinery/flasher/portable/Initialize(mapload)

@@ -160,6 +160,10 @@
 	/// DM's map reader doesn't forfeit on reading a JSON-serialized map
 	var/map_json_data
 
+	/// Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
+
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()

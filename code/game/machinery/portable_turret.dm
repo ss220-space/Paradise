@@ -83,9 +83,6 @@
 	/// List of some inserted gun data. Used to setup new gun.
 	var/list/old_gun_data = list()
 
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
-
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()

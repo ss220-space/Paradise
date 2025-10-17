@@ -170,8 +170,7 @@
 	var/kill_range = 14
 	/// A list of "proxy" objects used for multi-z coverage.
 	var/list/obj/effect/abstract/meteor_shield_proxy/proxies = list()
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
+
 
 /obj/machinery/satellite/meteor_shield/examine(mob/user)
 	. = ..()
@@ -291,8 +290,6 @@
 	name = "Proxy Detector For Meteor Shield"
 	/// The meteor shield sat this is proxying - any HasProximity calls will be forwarded to it..
 	var/obj/machinery/satellite/meteor_shield/parent
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
 
 /obj/effect/abstract/meteor_shield_proxy/Initialize(mapload, obj/machinery/satellite/meteor_shield/shield)
 	. = ..()

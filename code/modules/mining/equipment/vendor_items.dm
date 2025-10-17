@@ -13,8 +13,6 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup3.ogg'
 	clothing_traits = null
 	holder_flags = ALIEN_HOLDER | HUMAN_HOLDER
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
 
 /obj/item/clothing/mask/facehugger/toy/Initialize(mapload)
 	. = ..()

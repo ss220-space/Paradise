@@ -35,8 +35,6 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-	/// Proximity monitor for motion sensitive cameras
-	var/datum/proximity_monitor/proximity_monitor
 	var/list/localMotionTargets = list()
 	var/detectTime = 0
 	/// Don't forget, there's another 3 seconds in queueAlarm()

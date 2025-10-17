@@ -37,8 +37,6 @@
 	var/consumedSupermatter = FALSE
 	var/warps_projectiles = TRUE
 	var/obj/effect/warp_effect/supermatter/warp
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)

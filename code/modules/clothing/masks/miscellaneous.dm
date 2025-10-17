@@ -144,8 +144,6 @@
 	var/obj/item/assembly/trigger = null
 	origin_tech = "materials=1;engineering=1"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
 
 
 /obj/item/clothing/mask/muzzle/safety/shock/Destroy()
