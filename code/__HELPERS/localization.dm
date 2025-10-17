@@ -75,8 +75,6 @@
 #define GEND_ENDING_SHEL(target) genderize_ru(target.gender, "шёл", "шла", "шло", "шли")
 
 /**
- * # НЕ ИСПОЛЬЗОВАТЬ!
- *
  * Возвращает форму единственного или множественного числа в зависимости от грамматического рода.
  *
  * Простой инструмент, который помогает легко переключаться между формами единственного и
@@ -89,6 +87,11 @@
  */
 /proc/pluralize_ru(gender, single_word, plural_word)
 	return gender == PLURAL ? plural_word : single_word
+
+#define PLUR_ET_UT(target) pluralize_ru(target.gender, "ет", "ют")
+#define PLUR_YOT_UT(target) pluralize_ru(target.gender, "ёт", "ют")
+#define PLUR_ET_YT(target) pluralize_ru(target.gender, "ет", "ут")
+#define PLUR_IT_YAT(target) pluralize_ru(target.gender, "ит", "ят")
 
 /**
  * Обрабатывает гендерно-зависимую текстовую разметку в строке.

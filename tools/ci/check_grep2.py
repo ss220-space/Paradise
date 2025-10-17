@@ -315,17 +315,10 @@ def check_bitwise_operator_order(idx, line):
         return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
 
 IGNORE_LOCALIZATION_FILE = ["localization.dm", "golem.dm"] # golems are bullshit
-MACROED_PROCS = re.compile(r'genderize_ru')
-PLURALIZE_DELETE = re.compile(r'pluralize_ru')
+MACROED_PROCS = re.compile(r'genderize_ru|pluralize_ru')
 def check_localization_macro_usage(idx, line):
-    failures = []
     if MACROED_PROCS.search(line):
-        failures.append((idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization.dm"))
-    # This check is needed to prevent people from having their branch broken after a merge,
-    # but to prevent them from using this damned function.
-    if PLURALIZE_DELETE.search(line):
-        failures.append((idx + 1, "Don't use this proc. It will soon be removed permanently."))
-    return failures
+        return [(idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
 
 CODE_CHECKS = [
     check_space_indentation,
