@@ -153,6 +153,7 @@
 			LAZYADD(actions_types, action_path)
 			var/datum/action/ninja_action = new action_path(src, action_icon[action_path], action_icon_state[action_path])
 			ninja_action.Grant(usr)
+			LAZYADD(actions, ninja_action)
 			if(istype(ninja_action, /datum/action/item_action/advanced/ninja/ninja_smoke_bomb))
 				LAZYADD(actions_types, /datum/action/item_action/advanced/ninja/ninja_smoke_bomb_toggle_auto)
 				var/datum/action/item_action/advanced/ninja/ninja_smoke_bomb_toggle_auto/smoke_toggle = new(src)
