@@ -120,7 +120,7 @@
 		parts += mod_part
 
 	for(var/obj/item/part as anything in parts)
-		part.name = "[name] [part.name]"
+		part.update_appearance(UPDATE_NAME)
 		part.desc = "[part.desc] </p> [desc]"
 		part.set_armor(armor_type)
 		part.resistance_flags = resistance_flags
