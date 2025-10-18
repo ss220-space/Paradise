@@ -4,7 +4,8 @@
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "skinapplier"
 	var/skin = "civilian"
-	var/make_spaceproof = FALSE //Used on the miner asteroid skin to make the suit spaceproof when upgrading.
+	/// Used on the miner asteroid skin to make the suit spaceproof when upgrading.
+	var/make_spaceproof = FALSE
 	var/compatible_theme = /datum/mod_theme/civilian
 
 /obj/item/mod/skin_applier/get_ru_names()
@@ -40,11 +41,11 @@
 	skin = "asteroid"
 	compatible_theme = /datum/mod_theme/mining
 	desc = "Этот одноразовый комплект для покраски позволяет изменить цвет модульного костюма. Этот тип подходит исключительно для шахтёрских \
-		костюмов и делает их пригодными для космоса."
+			костюмов и делает их пригодными для космоса."
 	make_spaceproof = TRUE
 
 /obj/item/mod/skin_applier/corpsman
 	skin = "corpsman"
 	compatible_theme = /datum/mod_theme/medical
 	desc = "Этот одноразовый комплект для покраски позволяет изменить цвет модульного костюма. Этот тип подходит исключительно для \
-		медицинских костюмов."
+			медицинских костюмов."

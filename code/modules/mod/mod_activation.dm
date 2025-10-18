@@ -117,7 +117,7 @@
 	if(part.loc == src)
 		if(!user)
 			return FALSE
-		to_chat(user, span_warning("Вы уже втянули эту часть костюма!"))
+		to_chat(user, span_warning("Вы уже втянули этот элемент костюма!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(SEND_SIGNAL(src, COMSIG_MOD_PART_RETRACTING, user, part_datum) & MOD_CANCEL_RETRACTION)
 		return FALSE
@@ -127,7 +127,7 @@
 		if(instant)
 			seal_part(part, is_sealed = FALSE)
 		else if(!delayed_seal_part(part))
-			balloon_alert(user, "не удалось свернуть")
+			balloon_alert(user, "не удалось свернуть!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 	REMOVE_TRAIT(part, TRAIT_NODROP, MODSUIT_TRAIT)
@@ -158,7 +158,7 @@
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(!get_charge() && !force_deactivate)
-		balloon_alert(user, "костюм не заряжен!")
+		balloon_alert(user, "костюм разряжен!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(open && !force_deactivate)
@@ -167,7 +167,7 @@
 		return FALSE
 	if(activating)
 		if(!force_deactivate)
-			balloon_alert(user, "уже [active ? "отключается" : "включается"]")
+			balloon_alert(user, "уже [active ? "отключается" : "включается"]!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	for(var/obj/item/mod/module/module as anything in modules)
@@ -182,7 +182,7 @@
 	if(original_active_status)
 		if(delayed_activation())
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
-			to_chat(wearer, span_notice("Блок управления отключен. Функции модуля отключены."))
+			to_chat(wearer, span_notice("Блок управления отключён. Функции модуля отключены."))
 		else
 			activating = FALSE
 			return

@@ -133,17 +133,17 @@
 	if(!open && !active)
 		if(!wearer)
 			. += span_notice("Чтобы начать работу с модульным костюмом, наденьте его.")
-		. += span_notice("Вы можете открыть крышку с помощью <b>отвёртки</b>.")
+		. += span_notice("Вы можете открыть крышку, <b>открутив винты</b>.")
 	else if(open)
-		. += span_notice("Вы можете открыть крышку с помощью <b>отвёртки</b>.")
+		. += span_notice("Вы можете открыть крышку, <b>открутив винты</b>.")
 		. += span_notice("Вы можете установить дополнительные <b>модули</b> внутрь, если для них есть место.")
-		. += span_notice("Вы можете удалить лишние модули с помощью <b>лома</b>.")
-		. += span_notice("Вы можете установить блокировку по доступу с помощью вашей <b>личной карты</b>.")
-		. += span_notice("Вы можете получить доступ к проводам с помощью любого подходящего для этого <b>инструмента</b>.")
+		. += span_notice("Вы можете извлечь лишние модули, <b>поддев</b> их.")
+		. += span_notice("Вы можете установить блокировку по уровню доступа с помощью <b>ID-карты</b>.")
+		. += span_notice("Вы можете получить доступ к проводам с помощью любого <b>подходящего инструмента</b>.")
 		if(core)
-			. += span_notice("Вы можете удалить [core.declent_ru(ACCUSATIVE)] с помощью <b>гаечного ключа</b>.")
+			. += span_notice("Вы можете извлечь [core.declent_ru(ACCUSATIVE)], <b>ослабив болты</b>.")
 		else
-			. += span_notice("Ядро отсутствует. Вы можете установить новое <b>ядро модульного экзокостюма</b>.")
+			. += span_notice("Слот для ядра пуст.")
 
 /obj/item/mod/control/get_description_info()
 	if(extended_desc)
@@ -221,7 +221,7 @@
 		return TRUE
 	if(open)
 		if(!core)
-			balloon_alert(user, "нет ядра!")
+			balloon_alert(user, "ядро отсутствует!")
 			return TRUE
 		wrench.play_tool_sound(src, 100)
 		if(!wrench.use_tool(src, user, 3 SECONDS) || !open)
@@ -302,7 +302,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(core)
-			balloon_alert(user, "ядро уже есть!")
+			balloon_alert(user, "слот для ядра занят!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/obj/item/mod/core/attacking_core = attacking_item
@@ -322,13 +322,13 @@
 		return ATTACK_CHAIN_PROCEED
 	else if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!core)
-			balloon_alert(user, "нет ядра!")
+			balloon_alert(user, "ядро отсутствует!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
 	else if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
-			balloon_alert(user, "нет ядра!")
+			balloon_alert(user, "ядро отсутствует!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
@@ -591,7 +591,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(user && !user.drop_from_active_hand())
-		to_chat(user, span_warning("[capitalize(new_module.declent_ru(NOMINATIVE))] застрял у вас в руке!"))
+		to_chat(user, span_warning("[capitalize(new_module.declent_ru(NOMINATIVE))] застрева[PLUR_ET_UT(new_module)] у вас в руке!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	new_module.forceMove(src)
@@ -605,7 +605,7 @@
 		new_module.on_part_activation()
 		new_module.part_activated = TRUE
 	if(user)
-		to_chat(user, span_notice("[capitalize(new_module.declent_ru(NOMINATIVE))] добавлен!")) //they all are "модуль чего-то там."
+		to_chat(user, span_notice("[capitalize(new_module.declent_ru(NOMINATIVE))] добавлен!")) //they all are "модуль чего-то там.", genderizing is unnecessary
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 
 /obj/item/mod/control/proc/uninstall(obj/item/mod/module/old_module, deleting = FALSE)
