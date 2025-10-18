@@ -120,7 +120,7 @@ export const MODsuit = (props) => {
   const { interface_break } = data.suit_status;
   return (
     <Window
-      width={600}
+      width={700}
       height={600}
       theme={ui_theme}
       title="Интерфейс управления МЭК"
@@ -406,7 +406,7 @@ const SuitStatusSection = (props) => {
           <Button
             icon={locked ? 'lock' : 'lock-open'}
             color={locked ? 'good' : 'default'}
-            content={locked ? 'Заблокирован' : 'Разблокирован'}
+            content={locked ? 'Заблокировано' : 'Разблокировано'}
             onClick={() => act('lock')}
           />
         </LabeledList.Item>
@@ -503,7 +503,7 @@ const UserStatusSection = (props) => {
       {!active && <LockedModule />}
       <LabeledList>
         {health !== undefined && (
-          <LabeledList.Item label="Здоровье">
+          <LabeledList.Item label="Оценка здоровья">
             <ProgressBar
               value={active ? health / health_max : 0}
               ranges={{
@@ -517,7 +517,7 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {loss_brute !== undefined && (
-          <LabeledList.Item label="Травмы">
+          <LabeledList.Item label="Мех. повреждения">
             <ProgressBar
               value={active ? loss_brute / health_max : 0}
               ranges={{
@@ -531,7 +531,7 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {loss_fire !== undefined && (
-          <LabeledList.Item label="Ожоги">
+          <LabeledList.Item label="Терм. повреждения">
             <ProgressBar
               value={active ? loss_fire / health_max : 0}
               ranges={{
@@ -545,7 +545,7 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {loss_oxy !== undefined && (
-          <LabeledList.Item label="Кислород">
+          <LabeledList.Item label="Удушье">
             <ProgressBar
               value={active ? loss_oxy / health_max : 0}
               ranges={{
@@ -559,7 +559,7 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {loss_tox !== undefined && (
-          <LabeledList.Item label="Токсины">
+          <LabeledList.Item label="Отравление">
             <ProgressBar
               value={active ? loss_tox / health_max : 0}
               ranges={{
@@ -573,11 +573,11 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {is_user_irradiated !== undefined && (
-          <LabeledList.Item label="Радиация">
+          <LabeledList.Item label="Уровень радиации">
             {!active ? (
               'Неизвестно'
             ) : is_user_irradiated ? (
-              <NoticeBox danger>Пользователь облучен</NoticeBox>
+              <NoticeBox danger>Пользователь облучён</NoticeBox>
             ) : (
               <NoticeBox info>Не обнаружено</NoticeBox>
             )}
@@ -589,12 +589,12 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {nutrition !== undefined && (
-          <LabeledList.Item label="Сытость">
+          <LabeledList.Item label="Насыщение">
             {`${active ? Math.round(nutrition) : 0}`}
           </LabeledList.Item>
         )}
         <LabeledList.Item label="Имя">{user_name}</LabeledList.Item>
-        <LabeledList.Item label="Профессия">{user_assignment}</LabeledList.Item>
+        <LabeledList.Item label="Должность">{user_assignment}</LabeledList.Item>
         {dna_unique_identity !== undefined && (
           <LabeledList.Item label="Отпечатки">
             <Box

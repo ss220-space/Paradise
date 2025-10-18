@@ -52,7 +52,7 @@
 /obj/item/mod/core/proc/get_chargebar_string()
 	var/charge_amount = charge_amount()
 	var/max_charge_amount = max_charge_amount()
-	return "[display_joules(charge_amount)] of [display_joules(max_charge_amount())] \
+	return "[display_joules(charge_amount)] из [display_joules(max_charge_amount())] \
 		([round((100 * charge_amount) / max_charge_amount, 1)]%)"
 
 /obj/item/mod/core/infinite //Admin only.

@@ -216,22 +216,22 @@
 ///Format a power value in W, kW, MW, or GW.
 /proc/display_power(powerused)
 	if(powerused < 1000) //Less than a kW
-		return "[powerused] W"
+		return "[powerused] Вт"
 	else if(powerused < 1000000) //Less than a MW
-		return "[round((powerused * 0.001),0.01)] kW"
+		return "[round((powerused * 0.001),0.01)] кВт"
 	else if(powerused < 1000000000) //Less than a GW
-		return "[round((powerused * 0.000001),0.001)] MW"
-	return "[round((powerused * 0.000000001),0.0001)] GW"
+		return "[round((powerused * 0.000001),0.001)] МВт"
+	return "[round((powerused * 0.000000001),0.0001)] ГВт"
 
 ///Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
 /proc/display_joules(units)
 	if(units < 1000) // Less than a kJ
-		return "[round(units, 0.1)] J"
+		return "[round(units, 0.1)] Дж"
 	else if(units < 1000000) // Less than a MJ
-		return "[round(units * 0.001, 0.01)] kJ"
+		return "[round(units * 0.001, 0.01)] кДж"
 	else if(units < 1000000000) // Less than a GJ
-		return "[round(units * 0.000001, 0.001)] MJ"
-	return "[round(units * 0.000000001, 0.0001)] GJ"
+		return "[round(units * 0.000001, 0.001)] МДж"
+	return "[round(units * 0.000000001, 0.0001)] ГДж"
 
 ///chances are 1:value. anyprob(1) will always return true
 /proc/anyprob(value)

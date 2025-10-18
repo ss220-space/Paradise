@@ -530,7 +530,7 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(module.module_type == MODULE_PASSIVE)
 			continue
-		display_names[module.name] = module.UID()
+		display_names[capitalize(module.declent_ru(NOMINATIVE))] = module.UID()
 		var/image/module_image = image(icon = module.icon, icon_state = module.icon_state)
 		if(module == selected_module)
 			module_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_selected")
@@ -538,7 +538,7 @@
 			module_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_active")
 		if(!COOLDOWN_FINISHED(module, cooldown_timer))
 			module_image.add_overlay(image(icon = 'icons/hud/radial.dmi', icon_state = "module_cooldown"))
-		items += list(module.name = module_image)
+		items += list(capitalize(module.declent_ru(NOMINATIVE)) = module_image)
 	if(!length(items))
 		return
 	var/radial_anchor = src
