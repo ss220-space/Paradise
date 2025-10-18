@@ -312,7 +312,7 @@
 
 /obj/item/storage/belt/medical/surgery/abductor
 	name = "agent surgical belt"
-	desc = ""  // TODO: Дать desc
+	desc = "Хирургический пояс инопланетного происхождения."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "surgicalbelt"
 	item_state = "surgical_alien"
