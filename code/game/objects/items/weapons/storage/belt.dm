@@ -316,7 +316,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "surgicalbelt"
 	item_state = "surgical_alien"
-	max_combined_w_class = 17
+	max_combined_w_class = 19
 	storage_slots = 11
 	storable = TRUE
 	can_hold = list(
@@ -331,6 +331,7 @@
 		/obj/item/cautery,
 		/obj/item/radio,
 		/obj/item/clothing/gloves/color/latex,
+		/obj/item/reagent_containers/applicator,
 		/obj/item/reagent_containers/spray/cleaner)
 
 /obj/item/storage/belt/medical/surgery/abductor/get_ru_names()
@@ -353,6 +354,8 @@
 	new /obj/item/FixOVein/alien(src)
 	new /obj/item/surgicaldrill/alien(src)
 	new /obj/item/cautery/alien(src)
+	new /obj/item/reagent_containers/applicator/abductor/brute(src)
+	new /obj/item/reagent_containers/applicator/abductor/burn(src)
 
 /obj/item/storage/belt/botany
 	name = "botanist belt"
