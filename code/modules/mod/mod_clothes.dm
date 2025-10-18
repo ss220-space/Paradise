@@ -31,22 +31,6 @@
 		PREPOSITIONAL = "шлеме МЭК"
 	)
 
-/obj/item/clothing/head/mod/update_name(updates = ALL)
-	. = ..()
-	if(!control)
-		return
-	if(!ru_names)
-		ru_names = get_ru_names_cached()
-
-	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name]",
-		GENITIVE = ru_names[GENITIVE] + " [control.theme.name]",
-		DATIVE = ru_names[DATIVE] + " [control.theme.name]",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name]",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name]",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name]"
-	)
-
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"
 	desc = "Стандартный нагрудник для модульного экзокостюма."
@@ -88,22 +72,6 @@
 		PREPOSITIONAL = "нагруднике МЭК"
 	)
 
-/obj/item/clothing/suit/mod/update_name(updates = ALL)
-	. = ..()
-	if(!control)
-		return
-	if(!ru_names)
-		ru_names = get_ru_names_cached()
-
-	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name]",
-		GENITIVE = ru_names[GENITIVE] + " [control.theme.name]",
-		DATIVE = ru_names[DATIVE] + " [control.theme.name]",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name]",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name]",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name]"
-	)
-
 /obj/item/clothing/gloves/mod
 	name = "MOD gauntlets"
 	desc = "Пара стандартных рукавиц для модульного экзокостюма."
@@ -139,24 +107,6 @@
 		PREPOSITIONAL = "перчатках МЭК"
 	)
 
-/obj/item/clothing/gloves/mod/update_name(updates = ALL)
-	. = ..()
-
-	if(!control)
-		return
-	if(!ru_names)
-		ru_names = get_ru_names_cached()
-
-	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name]",
-		GENITIVE = ru_names[GENITIVE] + " [control.theme.name]",
-		DATIVE = ru_names[DATIVE] + " [control.theme.name]",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name]",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name]",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name]"
-	)
-
-
 /obj/item/clothing/shoes/mod
 	name = "MOD boots"
 	desc = "Пара стандартных ботинок для модульного экзокостюма."
@@ -189,21 +139,4 @@
 		ACCUSATIVE = "ботинки МЭК",
 		INSTRUMENTAL = "ботинками МЭК",
 		PREPOSITIONAL = "ботинках МЭК"
-	)
-
-/obj/item/clothing/shoes/mod/update_name(updates = ALL)
-	. = ..()
-
-	if(!control)
-		return
-	if(!ru_names)
-		ru_names = get_ru_names_cached()
-
-	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name]",
-		GENITIVE = ru_names[GENITIVE] + " [control.theme.name]",
-		DATIVE = ru_names[DATIVE] + " [control.theme.name]",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name]",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name]",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name]"
 	)

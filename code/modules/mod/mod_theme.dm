@@ -120,7 +120,17 @@
 		parts += mod_part
 
 	for(var/obj/item/part as anything in parts)
-		part.update_appearance(UPDATE_NAME)
+		part.name = "[name] [part.name]"
+		if(!part.ru_names)
+			part.ru_names = part.get_ru_names_cached()
+		part.ru_names = list(
+			NOMINATIVE = part.ru_names[NOMINATIVE] + " [name]",
+			GENITIVE = part.ru_names[GENITIVE] + " [name]",
+			DATIVE = part.ru_names[DATIVE] + " [name]",
+			ACCUSATIVE = part.ru_names[ACCUSATIVE] + " [name]",
+			INSTRUMENTAL = part.ru_names[INSTRUMENTAL] + " [name]",
+			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [name]"
+			)
 		part.desc = "[part.desc] </p> [desc]"
 		part.set_armor(armor_type)
 		part.resistance_flags = resistance_flags
