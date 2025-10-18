@@ -171,7 +171,7 @@
 
 /obj/item/storage/lockbox/research/modsuit
 	name = "Plating lockbox"
-	desc = "Большой защитный кейс. Выглядит чуть менее защищённым, чем остальные."
+	desc = "Большой защитный кейс. Электронный замок выглядит довольно уязвимым."
 
 /obj/item/storage/lockbox/research/modsuit/emp_act(severity) //I want emp to get around it, it's not a gun, I just want people not to always make sec / med modsuits.
 	. = ..()

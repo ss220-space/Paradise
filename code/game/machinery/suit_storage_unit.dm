@@ -142,7 +142,7 @@
 	req_access = list(ACCESS_CMO)
 
 /obj/machinery/suit_storage_unit/qm
-	name = "quartirmaster suit storage unit"
+	name = "quartermaster suit storage unit"
 	suit_type    = /obj/item/mod/control/pre_equipped/loader
 	mask_type    = /obj/item/clothing/mask/breath
 	req_access = list(ACCESS_QM)

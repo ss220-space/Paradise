@@ -66,7 +66,7 @@
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
 		human.balloon_alert(human, "невозможно рассчитать путь!")
 		return FALSE
-	human.balloon_alert(human, "костюм в пути!")
+	human.balloon_alert(human, "костюм в пути...")
 	animate(module.mod, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 	module.mod.add_overlay(jet_icon)
 	RegisterSignal(module.mod, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
@@ -85,7 +85,7 @@
 	module.mod.transform = matrix()
 	UnregisterSignal(module.mod, COMSIG_MOVABLE_MOVED)
 	if(!successful)
-		imp_in.balloon_alert(imp_in, "связь потеряна!")
+		imp_in.balloon_alert(imp_in, "связь с костюмом потеряна!")
 		path = list() //Stopping endless end_recall with luck.
 
 /obj/item/implant/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
@@ -156,7 +156,7 @@
 
 /datum/action/item_action/mod_recall
 	name = "Вызов МЭК"
-	desc = "Призовите модульный костюм к себе из любого места на станции."
+	desc = "Призовите привязанный модульный костюм к себе из любого места на станции."
 	use_itemicon = FALSE
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "recall"

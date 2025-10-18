@@ -587,7 +587,7 @@
 	if(I.loc == user)
 		if(I.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(I)))
 			user.visible_message(
-				span_notice("[user] начинает снимать [I.declent_ru(ACCUSATIVE)]..."),
+				span_notice("[user] начина[PLUR_ET_UT(user)] снимать [I.declent_ru(ACCUSATIVE)]..."),
 				span_notice("Вы начинаете снимать [I.declent_ru(ACCUSATIVE)]..."),
 			)
 			if(!do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [I.declent_ru(GENITIVE)] было прервано!")))

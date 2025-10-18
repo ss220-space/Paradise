@@ -499,7 +499,7 @@ GLOBAL_LIST_EMPTY(closets)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	balloon_alert(user, "вы сопротивляетесь...")
 	balloon_alert_to_viewers("начинает трястись!")
-	to_chat(user, span_notice("Вы упираетесь спиной в [declent_ru(ACCUSATIVE)] и начинаете толкать дверь... (это займет [DisplayTimeText(breakout_time)].)"))
+	to_chat(user, span_notice("Вы упираетесь спиной в внутреннюю стенку [declent_ru(ACCUSATIVE)] и начинаете толкать дверь..."))
 
 	spawn(0)
 		if(do_after(user, breakout_time, src))
@@ -514,8 +514,8 @@ GLOBAL_LIST_EMPTY(closets)
 			welded = FALSE
 			update_icon()
 			user.visible_message(
-				span_danger("[user.declent_ru(NOMINATIVE)] успешно выбирается из [declent_ru(GENITIVE)]!"),
-				span_notice("Вы успешно выбрались из [declent_ru(GENITIVE)]!")
+				span_danger("[user.declent_ru(NOMINATIVE)] успешно выбира[PLUR_ET_UT(user)]ся из [declent_ru(GENITIVE)]!"),
+				span_notice("Вы успешно выбираетесь из [declent_ru(GENITIVE)]!")
 			)
 			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
 				var/obj/structure/bigDelivery/BD = loc

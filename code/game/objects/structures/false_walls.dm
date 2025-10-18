@@ -206,7 +206,10 @@
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
-	throwned_mob.visible_message(span_danger("[throwned_mob] врезается в [declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!"))
+	throwned_mob.visible_message(
+		span_danger("[throwned_mob] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!")
+	)
 	throwned_mob.take_organ_damage(damage)
 	throwned_mob.Weaken(0.1 SECONDS)
 

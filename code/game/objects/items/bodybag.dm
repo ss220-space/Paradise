@@ -49,7 +49,7 @@
 
 /obj/item/bodybag/suicide_act(mob/living/user)
 	if(isfloorturf(user.loc))
-		user.visible_message(span_suicide("[user] заполза[pluralize_ru(user.gender, "ет", "ют")] в [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
+		user.visible_message(span_suicide("[user] заполза[PLUR_ET_UT(user)] в [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[PLUR_ET_UT(user)]ся совершить самоубийство!"))
 		var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
 		R.add_fingerprint(user)
 		qdel(src)
@@ -381,7 +381,7 @@
 /obj/item/bodybag/environmental/prisoner
 	name = "prisoner transport bag"
 	desc = "Мешок, созданный для транспортировки заключённых в условиях враждебной окружающей среды. Оснащён стяжками, \
-		позволяющими насильно удерживать заключённого внутри."
+			позволяющими насильно удерживать заключённого внутри."
 	icon_state = "prisonerenvirobag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner
 
@@ -401,7 +401,7 @@
 /obj/item/bodybag/environmental/prisoner/syndicate
 	name = "syndicate prisoner transport bag"
 	desc = "Мешок, созданный для транспортировки пленников синдиката в условиях враждебной окружающей среды. Оснащён стяжками, \
-		позволяющими насильно удерживать пленника внутри."
+			позволяющими насильно удерживать пленника внутри."
 	icon_state = "syndieenvirobag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
@@ -464,7 +464,7 @@
 /obj/structure/closet/body_bag/environmental/togglelock(mob/living/user, silent)
 	. = ..()
 	for(var/mob/living/target in contents)
-		to_chat(target, span_warning("Вы слышите тихое шипение, и белый дым заполняет пространство мешка..."))
+		to_chat(target, span_warning("Вы слышите тихое шипение, после чего белый дым заполняет пространство мешка..."))
 
 /obj/structure/closet/body_bag/environmental/proc/refresh_air()
 	air_contents = null
@@ -508,7 +508,7 @@
 /obj/structure/closet/body_bag/environmental/prisoner
 	name = "prisoner transport bag"
 	desc = "Мешок, созданный для транспортировки заключённых в условиях враждебной окружающей среды. Оснащён зажимами, \
-		позволяющими насильно удерживать заключённого внутри."
+			позволяющими насильно удерживать заключённого внутри."
 	icon_state = "prisonerenvirobag"
 	foldedbag_path = /obj/item/bodybag/environmental/prisoner
 	/// How long it takes to sinch the bag.
@@ -567,7 +567,7 @@
 			return
 		//we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting
 		user.visible_message(
-			span_danger("[user] успешно освобожда[pluralize_ru(user.gender, "ется", "ются")] из [declent_ru(GENITIVE)]!"),
+			span_danger("[user] успешно освобожда[PLUR_ET_UT(user)]ся из [declent_ru(GENITIVE)]!"),
 			ignored_mobs = user
 		)
 		user.balloon_alert(user, "вы вырываетесь!")
@@ -609,14 +609,14 @@
 	if(!sinched)
 		for(var/mob/living/target in contents)
 			to_chat(target, span_userdanger("Вы чувствуете, как мешок становится теснее. Ещё немного, и вы больше не сможете выбраться без посторонней помощи!"))
-		user.balloon_alert_to_viewers("закрыва[pluralize_ru(user.gender, "ет", "ют")] зажимы...", "закрытие зажимов...")
+		user.balloon_alert_to_viewers("закрыва[PLUR_ET_UT(user)] зажимы...", "закрытие зажимов...")
 		if(!(do_after(user, sinch_time, src, extra_checks = CALLBACK(src, PROC_REF(is_closed)))))
 			return
 	sinched = !sinched
 	if(sinched)
 		playsound(loc, sinch_sound, 15, TRUE, -2)
 	user.visible_message(
-		span_notice("[user] [sinched ? "защёлкивает" : "отщёлкивает"] зажимы на [declent_ru(PREPOSITIONAL)]."),
+		span_notice("[user] [sinched ? "защёлкива" : "отщёлкива"][PLUR_ET_UT(user)] зажимы на [declent_ru(PREPOSITIONAL)]."),
 		span_notice("Вы [sinched ? "зещёлкиваете" : "отщёлкиваете"] зажимы на [declent_ru(PREPOSITIONAL)]."),
 		span_hear("Вы слышите странный щелчок.")
 	)
@@ -625,7 +625,9 @@
 
 /obj/structure/closet/body_bag/environmental/prisoner/syndicate
 	name = "syndicate prisoner transport bag"
-	desc = "An alteration of Nanotrasen's environmental protection bag which has been used in several high-profile kidnappings. Designed to keep a victim unconscious, alive, and secured during transport."
+	desc = "Мешок, используемый Синдикатом для транспортировки живых целей в условиях враждебной окружающей среды. Оснащён зажимами, \
+			позволяющими насильно удерживать цель внутри. Зарекомендовал себя как эффективный инструмент после использования \
+			в серии успешных похищений."
 	icon_state = "syndieenvirobag"
 	contents_pressure_protection = 1
 	contents_thermal_insulation = 1
@@ -645,7 +647,7 @@
 
 /obj/structure/closet/body_bag/environmental/hardlight
 	name = "hardlight bodybag"
-	desc = "Мешок, созданный с помощью световой голограммы. Достаточно крепкий, чтобы поддерживать атмосферу внутри."
+	desc = "Мешок, созданный на основе твёрдого света. Достаточно крепкий, чтобы поддерживать атмосферу внутри."
 	icon_state = "holobag_med"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	foldedbag_path = null
@@ -667,8 +669,7 @@
 
 /obj/structure/closet/body_bag/environmental/prisoner/hardlight
 	name = "hardlight prisoner bodybag"
-	desc = "Мешок, созданный с помощью световой голограммы. Достаточно крепкий, чтобы поддерживать атмосферу внутри. Имеет зажимы для транспортировки заключённых"
-	desc = "A hardlight bag for storing bodies. Resistant to space, can be sinched to prevent escape."
+	desc = "Мешок, созданный на основе твёрдого света. Достаточно крепкий, чтобы поддерживать атмосферу внутри. Имеет зажимы для транспортировки заключённых."
 	icon_state = "holobag_sec"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	foldedbag_path = null

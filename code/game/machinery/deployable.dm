@@ -326,7 +326,7 @@
 /obj/item/grenade/barrier/dropwall
 	name = "dropwall shield generator"
 	desc = "Генератор энергетического щита, разработанный корпорацией \"Стальная Гвардия\". Используется для создания временного \
-		укрытия, при этом позволяя вести безопасную стрельбу с внутренней стороны щита."
+			укрытия, при этом позволяя вести безопасную стрельбу с внутренней стороны щита."
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall"
@@ -385,7 +385,7 @@
 /obj/structure/dropwall_generator
 	name = "deployed dropwall shield generator"
 	desc = "Генератор энергетического щита, разработанный корпорацией \"Стальная гвардия\". Используется для создания временного \
-		укрытия, при этом позволяя вести безопасную стрельбу со стороны генератора."
+			укрытия, при этом позволяя вести безопасную стрельбу со стороны генератора."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_deployed"
 	max_integrity = 25 // 2 shots
