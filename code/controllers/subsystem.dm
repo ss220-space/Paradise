@@ -113,9 +113,9 @@
 //Do not override
 ///datum/controller/subsystem/New()
 
-// Used to initialize the subsystem BEFORE the map has loaded
-// Called AFTER Recover if that is called
-// Prefer to use Initialize if possible
+/// Used to initialize the subsystem BEFORE the map has loaded
+/// Called AFTER Recover if that is called
+/// Prefer to use Initialize if possible
 /datum/controller/subsystem/proc/PreInit()
 	return
 
@@ -161,9 +161,11 @@
 
 /// Called after the config has been loaded or reloaded.
 /datum/controller/subsystem/proc/OnConfigLoad()
+	return
 
 /// Called after the MC has been loaded or reloaded
 /datum/controller/subsystem/proc/OnMasterLoad()
+	return
 
 ///previously, this would have been named 'process()' but that name is used everywhere for different things!
 ///fire() seems more suitable. This is the procedure that gets called every 'wait' deciseconds.
@@ -335,7 +337,7 @@
 /// Usually called via datum/controller/subsystem/New() when replacing a subsystem (i.e. due to a recurring crash)
 /// Should attempt to salvage what it can from the old instance of subsystem
 /datum/controller/subsystem/Recover()
-
+	return
 
 /datum/controller/subsystem/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -349,11 +351,11 @@
 
 
 /**
-  * Returns the metrics for the subsystem.
-  *
-  * This can be overriden on subtypes for variables that could affect tick usage
-  * Example: ATs on SSair
-  */
+ * Returns the metrics for the subsystem.
+ *
+ * This can be overriden on subtypes for variables that could affect tick usage
+ * Example: ATs on SSair
+ */
 /datum/controller/subsystem/proc/get_metrics()
 	SHOULD_CALL_PARENT(TRUE)
 	var/list/out = list()

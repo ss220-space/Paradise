@@ -5,7 +5,6 @@
 	item_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
-	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 4
 	req_access = list(ACCESS_ARMORY)
 	var/locked = TRUE
@@ -65,7 +64,7 @@
 
 /obj/item/storage/lockbox/show_to(mob/user)
 	if(locked)
-		to_chat(user, "<span class='warning'>It's locked!</span>")
+		to_chat(user, span_warning("It's locked!"))
 	else
 		..()
 	return
@@ -75,7 +74,7 @@
 	if(!locked)
 		return ..()
 	if(!stop_messages)
-		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
+		to_chat(usr, span_notice("[src] is locked!"))
 	return FALSE
 
 
@@ -87,13 +86,15 @@
 		desc = "It appears to be broken."
 		update_icon()
 		if(user)
-			to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+			to_chat(user, span_notice("You unlock \the [src]."))
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M, list/message_pieces)
+	return
 
 /obj/item/storage/lockbox/hear_message(mob/living/M, msg)
+	return
 
 /obj/item/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"
@@ -131,7 +132,6 @@
 	name = "medal box"
 	desc = "A locked box used to store medals of honor."
 	icon_state = "medalbox+l"
-	item_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 20

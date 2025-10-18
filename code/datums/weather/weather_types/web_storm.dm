@@ -18,7 +18,6 @@
 
 	area_type = /area
 	protected_areas = list(/area/space, /area/crew_quarters/sleep)
-	target_trait = STATION_LEVEL
 
 	immunity_type = TRAIT_WEATHER_IMMUNE
 
@@ -30,15 +29,16 @@
 /datum/weather/web_storm/telegraph()
 	. = ..()
 	status_alarm(TRUE)
-	GLOB.major_announcement.announce("Зафиксирована сигнатура Императрицы Ужаса на борту станции [station_name()]. Запущено глубокое сканирование.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg'
+	GLOB.major_announcement.announce(
+		message = "Зафиксирована сигнатура Императрицы Ужаса на борту станции [station_name()]. Запущено глубокое сканирование.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg'
 	)
 
 	if(!.)
 		return
 	for(var/area/area as anything in impacted_areas)
-		for(var/turf/turf in area.get_contained_turfs())
+		for(var/turf/turf in area.get_turfs_from_all_zlevels())
 			if(is_space_or_openspace(turf) || turf.density)
 				continue
 			affected_turfs_list += turf

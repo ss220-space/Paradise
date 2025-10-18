@@ -33,3 +33,8 @@
 	var/admin_only = FALSE
 	/// URL to the maps webmap.
 	var/webmap_url
+
+	var/datum/game_mode/forced_mode
+
+	/// Used to disable ruins, lavaland, etc. for a specific map.
+	var/disables = NONE

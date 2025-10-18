@@ -4,15 +4,17 @@
 #define SOME_CORRECT_MODULES 2
 #define ALL_CORRECT_MODULES 3
 // Choosen mecha defines
-#define WORKING_CLASS	1
-#define MEDICAL_CLASS	2
-#define COMBAT_CLASS	3
-#define RANDOM_CLASS	4
+#define WORKING_CLASS 1
+#define MEDICAL_CLASS 2
+#define COMBAT_CLASS 3
+#define RANDOM_CLASS 4
 /// TGUI helper define for shop items good placing
-#define CATS_BY_STAGE list("number" = list("first", "second", "third"), \
-						   "first" = list("working", "medical", "security"), \
-						   "second" = list("working_medical", "medical_security"), \
-						   "third" = list("working_medical_security"))
+#define CATS_BY_STAGE list( \
+	"number" = list("first", "second", "third"), \
+	"first" = list("working", "medical", "security"), \
+	"second" = list("working_medical", "medical_security"), \
+	"third" = list("working_medical_security") \
+)
 
 
 ///////////////////////
@@ -407,9 +409,9 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/stock_parts/capacitor/purple(null)
-	component_parts += new /obj/item/stock_parts/manipulator/purple(null)
-	component_parts += new /obj/item/stock_parts/scanning_module/purple(src)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(src)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/circuitboard/advanced_roboquest_pad(null)
 	RefreshParts()
@@ -434,7 +436,7 @@
 		return
 	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
-/obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
+/obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
 	do_sparks(5, TRUE, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
@@ -444,7 +446,7 @@
 			do_teleport(box, destination)
 		console.canSend = FALSE
 
-/obj/machinery/roboquest_pad/proc/clear(datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
+/obj/machinery/roboquest_pad/proc/clear(datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
 	do_sparks(5, TRUE, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))

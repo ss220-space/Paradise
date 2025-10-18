@@ -30,7 +30,6 @@
 	density = TRUE
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
-	max_integrity = 200
 	resistance_flags = FIRE_PROOF
 	active_power_usage = 600
 	idle_power_usage = 100
@@ -125,7 +124,7 @@
 
 	if(loc == W)
 		return FALSE //Means the item is already in the storage item
-	if(contents.len >= storage_slots)
+	if(length(contents) >= storage_slots)
 		if(!stop_messages)
 			to_chat(usr, span_warning("[capitalize(W.declent_ru(NOMINATIVE))] не помещается в [declent_ru(ACCUSATIVE)], освободите место!"))
 		return FALSE //Storage item is full
@@ -212,7 +211,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		to_chat(user, "Сначала извлеките предметы!")
 		return
 	if(mode == OFF) // It's off but still not unscrewed
@@ -250,7 +249,7 @@
 	)
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals")
-	playsound(src, "sound/effects/bang.ogg", 30)
+	playsound(src, 'sound/effects/bang.ogg', 30)
 	update()
 	return TRUE
 
@@ -641,7 +640,6 @@
 		INSTRUMENTAL = "грузовым люком",
 		PREPOSITIONAL = "грузовом люке"
 	)
-	density = TRUE
 	icon_state = "intake"
 	base_icon_state = "intake"
 	/// Whether this chute directs all items into the cargo waste sorting area

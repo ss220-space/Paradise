@@ -4,13 +4,11 @@
 
 /obj/item/reagent_containers/hypospray
 	name = "hypospray"
-	desc = "Гипоспрей - это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
+	desc = "Гипоспрей — это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "hypo"
 	belt_icon = "hypospray"
-	amount_per_transfer_from_this = 5
-	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
@@ -21,12 +19,12 @@
 
 /obj/item/reagent_containers/hypospray/get_ru_names()
 	return list(
-        NOMINATIVE = "гипоспрей",
-        GENITIVE = "гипоспрея",
-        DATIVE = "гипоспрею",
-        ACCUSATIVE = "гипоспрей",
-        INSTRUMENTAL = "гипоспреем",
-        PREPOSITIONAL = "гипоспрее"
+		NOMINATIVE = "гипоспрей",
+		GENITIVE = "гипоспрея",
+		DATIVE = "гипоспрею",
+		ACCUSATIVE = "гипоспрей",
+		INSTRUMENTAL = "гипоспреем",
+		PREPOSITIONAL = "гипоспрее"
 	)
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -97,12 +95,12 @@
 
 /obj/item/reagent_containers/hypospray/safety/get_ru_names()
 	return list(
-        NOMINATIVE = "медицинский гипоспрей",
-        GENITIVE = "медицинского гипоспрея",
-        DATIVE = "медицинскому гипоспрею",
-        ACCUSATIVE = "медицинский гипоспрей",
-        INSTRUMENTAL = "медицинским гипоспреем",
-        PREPOSITIONAL = "медицинском гипоспрее"
+		NOMINATIVE = "медицинский гипоспрей",
+		GENITIVE = "медицинского гипоспрея",
+		DATIVE = "медицинскому гипоспрею",
+		ACCUSATIVE = "медицинский гипоспрей",
+		INSTRUMENTAL = "медицинским гипоспреем",
+		PREPOSITIONAL = "медицинском гипоспрее"
 	)
 
 /obj/item/reagent_containers/hypospray/safety/proc/update_state()
@@ -153,12 +151,12 @@
 
 /obj/item/reagent_containers/hypospray/safety/upgraded/get_ru_names()
 	return list(
-        NOMINATIVE = "улучшенный медицинский гипоспрей",
-        GENITIVE = "улучшенного медицинского гипоспрея",
-        DATIVE = "улучшенному медицинскому гипоспрею",
-        ACCUSATIVE = "улучшенный медицинский гипоспрей",
-        INSTRUMENTAL = "улучшенным медицинским гипоспреем",
-        PREPOSITIONAL = "улучшенном медицинском гипоспрее"
+		NOMINATIVE = "улучшенный медицинский гипоспрей",
+		GENITIVE = "улучшенного медицинского гипоспрея",
+		DATIVE = "улучшенному медицинскому гипоспрею",
+		ACCUSATIVE = "улучшенный медицинский гипоспрей",
+		INSTRUMENTAL = "улучшенным медицинским гипоспреем",
+		PREPOSITIONAL = "улучшенном медицинском гипоспрее"
 	)
 
 /obj/item/reagent_containers/hypospray/safety/upgraded/update_icon_state()
@@ -173,12 +171,12 @@
 
 /obj/item/reagent_containers/hypospray/safety/ert/get_ru_names()
 	return list(
-        NOMINATIVE = "медицинский гипоспрей (Омнизин)",
-        GENITIVE = "медицинского гипоспрея (Омнизин)",
-        DATIVE = "медицинскому гипоспрею (Омнизин)",
-        ACCUSATIVE = "медицинский гипоспрей (Омнизин)",
-        INSTRUMENTAL = "медицинским гипоспреем (Омнизин)",
-        PREPOSITIONAL = "медицинском гипоспрее (Омнизин)"
+		NOMINATIVE = "медицинский гипоспрей (Омнизин)",
+		GENITIVE = "медицинского гипоспрея (Омнизин)",
+		DATIVE = "медицинскому гипоспрею (Омнизин)",
+		ACCUSATIVE = "медицинский гипоспрей (Омнизин)",
+		INSTRUMENTAL = "медицинским гипоспреем (Омнизин)",
+		PREPOSITIONAL = "медицинском гипоспрее (Омнизин)"
 	)
 
 /obj/item/reagent_containers/hypospray/CMO
@@ -189,12 +187,12 @@
 
 /obj/item/reagent_containers/hypospray/CMO/get_ru_names()
 	return list(
-        NOMINATIVE = "гипоспрей Главного Врача",
-        GENITIVE = "гипоспрея Главного Врача",
-        DATIVE = "гипоспрею Главного Врача",
-        ACCUSATIVE = "гипоспрей Главного Врача",
-        INSTRUMENTAL = "гипоспреем Главного Врача",
-        PREPOSITIONAL = "гипоспрее Главного Врача"
+		NOMINATIVE = "гипоспрей Главного Врача",
+		GENITIVE = "гипоспрея Главного Врача",
+		DATIVE = "гипоспрею Главного Врача",
+		ACCUSATIVE = "гипоспрей Главного Врача",
+		INSTRUMENTAL = "гипоспреем Главного Врача",
+		PREPOSITIONAL = "гипоспрее Главного Врача"
 	)
 
 /obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
@@ -216,12 +214,12 @@
 
 /obj/item/reagent_containers/hypospray/combat/get_ru_names()
 	return list(
-        NOMINATIVE = "боевой инъектор",
-        GENITIVE = "боевого инъектора",
-        DATIVE = "боевому инъектору",
-        ACCUSATIVE = "боевой инъектор",
-        INSTRUMENTAL = "боевым инъектором",
-        PREPOSITIONAL = "боевом инъекторе"
+		NOMINATIVE = "боевой инъектор",
+		GENITIVE = "боевого инъектора",
+		DATIVE = "боевому инъектору",
+		ACCUSATIVE = "боевой инъектор",
+		INSTRUMENTAL = "боевым инъектором",
+		PREPOSITIONAL = "боевом инъекторе"
 	)
 
 /obj/item/reagent_containers/hypospray/ertm
@@ -239,12 +237,12 @@
 
 /obj/item/reagent_containers/hypospray/ertm/hydrocodone/get_ru_names()
 	return list(
-        NOMINATIVE = "боевой инъектор (Гидрокодон)",
-        GENITIVE = "боевого инъектора (Гидрокодон)",
-        DATIVE = "боевому инъектору (Гидрокодон)",
-        ACCUSATIVE = "боевой инъектор (Гидрокодон)",
-        INSTRUMENTAL = "боевым инъектором (Гидрокодон)",
-        PREPOSITIONAL = "боевом инъекторе (Гидрокодон)"
+		NOMINATIVE = "боевой инъектор (Гидрокодон)",
+		GENITIVE = "боевого инъектора (Гидрокодон)",
+		DATIVE = "боевому инъектору (Гидрокодон)",
+		ACCUSATIVE = "боевой инъектор (Гидрокодон)",
+		INSTRUMENTAL = "боевым инъектором (Гидрокодон)",
+		PREPOSITIONAL = "боевом инъекторе (Гидрокодон)"
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/perfluorodecalin
@@ -256,16 +254,15 @@
 
 /obj/item/reagent_containers/hypospray/ertm/perfluorodecalin/get_ru_names()
 	return list(
-        NOMINATIVE = "боевой инъектор (Перфтодекалин)",
-        GENITIVE = "боевого инъектора (Перфтодекалин)",
-        DATIVE = "боевому инъектору (Перфтодекалин)",
-        ACCUSATIVE = "боевой инъектор (Перфтодекалин)",
-        INSTRUMENTAL = "боевым инъектором (Перфтодекалин)",
-        PREPOSITIONAL = "боевом инъекторе (Перфтодекалин)"
+		NOMINATIVE = "боевой инъектор (Перфтодекалин)",
+		GENITIVE = "боевого инъектора (Перфтодекалин)",
+		DATIVE = "боевому инъектору (Перфтодекалин)",
+		ACCUSATIVE = "боевой инъектор (Перфтодекалин)",
+		INSTRUMENTAL = "боевым инъектором (Перфтодекалин)",
+		PREPOSITIONAL = "боевом инъекторе (Перфтодекалин)"
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/pentic_acid
-	amount_per_transfer_from_this = 5
 	name = "Pentic acid combat stimulant injector"
 	icon_state = "hypocombat-dtpa"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит пентетовую кислоту."
@@ -273,16 +270,15 @@
 
 /obj/item/reagent_containers/hypospray/ertm/pentic_acid/get_ru_names()
 	return list(
-        NOMINATIVE = "боевой инъектор (Пентетовая кислота)",
-        GENITIVE = "боевого инъектора (Пентетовая кислота)",
-        DATIVE = "боевому инъектору (Пентетовая кислота)",
-        ACCUSATIVE = "боевой инъектор (Пентетовая кислота)",
-        INSTRUMENTAL = "боевым инъектором (Пентетовая кислота)",
-        PREPOSITIONAL = "боевом инъекторе (Пентетовая кислота)"
+		NOMINATIVE = "боевой инъектор (Пентетовая кислота)",
+		GENITIVE = "боевого инъектора (Пентетовая кислота)",
+		DATIVE = "боевому инъектору (Пентетовая кислота)",
+		ACCUSATIVE = "боевой инъектор (Пентетовая кислота)",
+		INSTRUMENTAL = "боевым инъектором (Пентетовая кислота)",
+		PREPOSITIONAL = "боевом инъекторе (Пентетовая кислота)"
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/epinephrine
-	amount_per_transfer_from_this = 5
 	name = "Epinephrine combat stimulant injector"
 	icon_state = "hypocombat-epi"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит эпинефрин."
@@ -290,16 +286,15 @@
 
 /obj/item/reagent_containers/hypospray/ertm/epinephrine/get_ru_names()
 	return list(
-        NOMINATIVE = "боевой инъектор (Эпинефрин)",
-        GENITIVE = "боевого инъектора (Эпинефрин)",
-        DATIVE = "боевому инъектору (Эпинефрин)",
-        ACCUSATIVE = "боевой инъектор (Эпинефрин)",
-        INSTRUMENTAL = "боевым инъектором (Эпинефрин)",
-        PREPOSITIONAL = "боевом инъекторе (Эпинефрин)"
+		NOMINATIVE = "боевой инъектор (Эпинефрин)",
+		GENITIVE = "боевого инъектора (Эпинефрин)",
+		DATIVE = "боевому инъектору (Эпинефрин)",
+		ACCUSATIVE = "боевой инъектор (Эпинефрин)",
+		INSTRUMENTAL = "боевым инъектором (Эпинефрин)",
+		PREPOSITIONAL = "боевом инъекторе (Эпинефрин)"
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/mannitol
-	amount_per_transfer_from_this = 5
 	name = "Mannitol combat stimulant injector"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит маннитол."
 	icon_state = "hypocombat-mani"
@@ -307,16 +302,15 @@
 
 /obj/item/reagent_containers/hypospray/ertm/mannitol/get_ru_names()
 	return list(
-        NOMINATIVE = "боевой инъектор (Маннитол)",
-        GENITIVE = "боевого инъектора (Маннитол)",
-        DATIVE = "боевому инъектору (Маннитол)",
-        ACCUSATIVE = "боевой инъектор (Маннитол)",
-        INSTRUMENTAL = "боевым инъектором (Маннитол)",
-        PREPOSITIONAL = "боевом инъекторе (Маннитол)"
+		NOMINATIVE = "боевой инъектор (Маннитол)",
+		GENITIVE = "боевого инъектора (Маннитол)",
+		DATIVE = "боевому инъектору (Маннитол)",
+		ACCUSATIVE = "боевой инъектор (Маннитол)",
+		INSTRUMENTAL = "боевым инъектором (Маннитол)",
+		PREPOSITIONAL = "боевом инъекторе (Маннитол)"
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/oculine
-	amount_per_transfer_from_this = 5
 	name = "Oculine combat stimulant injector"
 	icon_state = "hypocombat-ocu"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит окулин."
@@ -324,12 +318,12 @@
 
 /obj/item/reagent_containers/hypospray/ertm/oculine/get_ru_names()
 	return list(
-        NOMINATIVE = "боевой инъектор (Окулин)",
-        GENITIVE = "боевого инъектора (Окулин)",
-        DATIVE = "боевому инъектору (Окулин)",
-        ACCUSATIVE = "боевой инъектор (Окулин)",
-        INSTRUMENTAL = "боевым инъектором (Окулин)",
-        PREPOSITIONAL = "боевом инъекторе (Окулин)"
+		NOMINATIVE = "боевой инъектор (Окулин)",
+		GENITIVE = "боевого инъектора (Окулин)",
+		DATIVE = "боевому инъектору (Окулин)",
+		ACCUSATIVE = "боевой инъектор (Окулин)",
+		INSTRUMENTAL = "боевым инъектором (Окулин)",
+		PREPOSITIONAL = "боевом инъекторе (Окулин)"
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/omnisal
@@ -342,12 +336,12 @@
 
 /obj/item/reagent_containers/hypospray/ertm/omnisal/get_ru_names()
 	return list(
-        NOMINATIVE = "боевой инъектор (Разб. омнизин + Физраствор)",
-        GENITIVE = "боевого инъектора (Разб. омнизин + Физраствор)",
-        DATIVE = "боевому инъектору (Разб. омнизин + Физраствор)",
-        ACCUSATIVE = "боевой инъектор (Разб. омнизин + Физраствор)",
-        INSTRUMENTAL = "боевым инъектором (Разб. омнизин + Физраствор)",
-        PREPOSITIONAL = "боевом инъекторе (Разб. омнизин + Физраствор)"
+		NOMINATIVE = "боевой инъектор (Разб. омнизин + Физраствор)",
+		GENITIVE = "боевого инъектора (Разб. омнизин + Физраствор)",
+		DATIVE = "боевому инъектору (Разб. омнизин + Физраствор)",
+		ACCUSATIVE = "боевой инъектор (Разб. омнизин + Физраствор)",
+		INSTRUMENTAL = "боевым инъектором (Разб. омнизин + Физраствор)",
+		PREPOSITIONAL = "боевом инъекторе (Разб. омнизин + Физраствор)"
 	)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
@@ -357,12 +351,12 @@
 
 /obj/item/reagent_containers/hypospray/combat/nanites/get_ru_names()
 	return list(
-        NOMINATIVE = "боевой инъектор (Боевые наниты)",
-        GENITIVE = "боевого инъектора (Боевые наниты)",
-        DATIVE = "боевому инъектору (Боевые наниты)",
-        ACCUSATIVE = "боевой инъектор (Боевые наниты)",
-        INSTRUMENTAL = "боевым инъектором (Боевые наниты)",
-        PREPOSITIONAL = "боевом инъекторе (Боевые наниты)"
+		NOMINATIVE = "боевой инъектор (Боевые наниты)",
+		GENITIVE = "боевого инъектора (Боевые наниты)",
+		DATIVE = "боевому инъектору (Боевые наниты)",
+		ACCUSATIVE = "боевой инъектор (Боевые наниты)",
+		INSTRUMENTAL = "боевым инъектором (Боевые наниты)",
+		PREPOSITIONAL = "боевом инъекторе (Боевые наниты)"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector
@@ -389,12 +383,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/get_ru_names()
 	return list(
-        NOMINATIVE = "аварийный автоинъектор",
-        GENITIVE = "аварийного автоинъектора",
-        DATIVE = "аварийному автоинъектору",
-        ACCUSATIVE = "аварийный автоинъектор",
-        INSTRUMENTAL = "аварийным автоинъектором",
-        PREPOSITIONAL = "аварийном автоинъекторе"
+		NOMINATIVE = "аварийный автоинъектор",
+		GENITIVE = "аварийного автоинъектора",
+		DATIVE = "аварийному автоинъектору",
+		ACCUSATIVE = "аварийный автоинъектор",
+		INSTRUMENTAL = "аварийным автоинъектором",
+		PREPOSITIONAL = "аварийном автоинъекторе"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
@@ -416,6 +410,8 @@
 			base_state = "autoinjector"
 		if("Gray")
 			base_state = "stimpen"
+		if("Orange")
+			base_state = "orangeinjector"
 		else
 			base_state = initial(icon_state)
 
@@ -473,6 +469,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/empty()
 	set hidden = TRUE
+	return
 
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -491,7 +488,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
-	if(reagents && reagents.reagent_list.len)
+	if(reagents && length(reagents.reagent_list))
 		. += span_notice("Не использовано.")
 	else
 		. += span_notice("Использовано.")
@@ -545,13 +542,49 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone/get_ru_names()
 	return list(
-        NOMINATIVE = "автоинъектор (Тепорон)",
-        GENITIVE = "автоинъектора (Тепорон)",
-        DATIVE = "автоинъектору (Тепорон)",
-        ACCUSATIVE = "автоинъектор (Тепорон)",
-        INSTRUMENTAL = "автоинъектором (Тепорон)",
-        PREPOSITIONAL = "автоинъекторе (Тепорон)"
+		NOMINATIVE = "автоинъектор (Тепорон)",
+		GENITIVE = "автоинъектора (Тепорон)",
+		DATIVE = "автоинъектору (Тепорон)",
+		ACCUSATIVE = "автоинъектор (Тепорон)",
+		INSTRUMENTAL = "автоинъектором (Тепорон)",
+		PREPOSITIONAL = "автоинъекторе (Тепорон)"
 	)
+
+
+/obj/item/reagent_containers/hypospray/autoinjector/traneksam
+	name = "traneksam acid autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу транексамовой кислота. Экстренный способ остановки кровотечений."
+	icon_state = "orangeinjector"
+	list_reagents = list("traneksam_acid" = 5)
+
+/obj/item/reagent_containers/hypospray/autoinjector/traneksam/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Транексамовая кислота)",
+		GENITIVE = "автоинъектора (Транексамовая кислота)",
+		DATIVE = "автоинъектору (Транексамовая кислота)",
+		ACCUSATIVE = "автоинъектор (Транексамовая кислота)",
+		INSTRUMENTAL = "автоинъектором (Транексамовая кислота)",
+		PREPOSITIONAL = "автоинъекторе (Транексамовая кислота)"
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/neuromatin
+	name = "neuromatin autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу нейроматина. Мощный иммунодепрессант."
+	icon_state = "violetinjector"
+	volume = 15
+	amount_per_transfer_from_this = 15
+	list_reagents = list("neuromatin" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/neuromatin/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Нейроматин)",
+		GENITIVE = "автоинъектора (Нейроматин)",
+		DATIVE = "автоинъектору (Нейроматин)",
+		ACCUSATIVE = "автоинъектор (Нейроматин)",
+		INSTRUMENTAL = "автоинъектором (Нейроматин)",
+		PREPOSITIONAL = "автоинъекторе (Нейроматин)"
+	)
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"
@@ -563,12 +596,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack/get_ru_names()
 	return list(
-        NOMINATIVE = "автоинъектор (Стим-пак)",
-        GENITIVE = "автоинъектора (Стим-пак)",
-        DATIVE = "автоинъектору (Стим-пак)",
-        ACCUSATIVE = "автоинъектор (Стим-пак)",
-        INSTRUMENTAL = "автоинъектором (Стим-пак)",
-        PREPOSITIONAL = "автоинъекторе (Стим-пак)"
+		NOMINATIVE = "автоинъектор (Стим-пак)",
+		GENITIVE = "автоинъектора (Стим-пак)",
+		DATIVE = "автоинъектору (Стим-пак)",
+		ACCUSATIVE = "автоинъектор (Стим-пак)",
+		INSTRUMENTAL = "автоинъектором (Стим-пак)",
+		PREPOSITIONAL = "автоинъекторе (Стим-пак)"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants
@@ -581,12 +614,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants/get_ru_names()
 	return list(
-        NOMINATIVE = "автоинъектор (Стимуляторы)",
-        GENITIVE = "автоинъектора (Стимуляторы)",
-        DATIVE = "автоинъектору (Стимуляторы)",
-        ACCUSATIVE = "автоинъектор (Стимуляторы)",
-        INSTRUMENTAL = "автоинъектором (Стимуляторы)",
-        PREPOSITIONAL = "автоинъекторе (Стимуляторы)"
+		NOMINATIVE = "автоинъектор (Стимуляторы)",
+		GENITIVE = "автоинъектора (Стимуляторы)",
+		DATIVE = "автоинъектору (Стимуляторы)",
+		ACCUSATIVE = "автоинъектор (Стимуляторы)",
+		INSTRUMENTAL = "автоинъектором (Стимуляторы)",
+		PREPOSITIONAL = "автоинъекторе (Стимуляторы)"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival
@@ -600,12 +633,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/get_ru_names()
 	return list(
-        NOMINATIVE = "автоинъектор выживания",
-        GENITIVE = "автоинъектора выживания",
-        DATIVE = "автоинъектору выживания",
-        ACCUSATIVE = "автоинъектор выживания",
-        INSTRUMENTAL = "автоинъектором выживания",
-        PREPOSITIONAL = "автоинъекторе выживания"
+		NOMINATIVE = "автоинъектор выживания",
+		GENITIVE = "автоинъектора выживания",
+		DATIVE = "автоинъектору выживания",
+		ACCUSATIVE = "автоинъектор выживания",
+		INSTRUMENTAL = "автоинъектором выживания",
+		PREPOSITIONAL = "автоинъекторе выживания"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury
@@ -618,12 +651,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/get_ru_names()
 	return list(
-        NOMINATIVE = "улучшенный автоинъектор выживания",
-        GENITIVE = "улучшенного автоинъектора выживания",
-        DATIVE = "улучшенному автоинъектору выживания",
-        ACCUSATIVE = "улучшенный автоинъектор выживания",
-        INSTRUMENTAL = "улучшенным автоинъектором выживания",
-        PREPOSITIONAL = "улучшенном автоинъекторе выживания"
+		NOMINATIVE = "улучшенный автоинъектор выживания",
+		GENITIVE = "улучшенного автоинъектора выживания",
+		DATIVE = "улучшенному автоинъектору выживания",
+		ACCUSATIVE = "улучшенный автоинъектор выживания",
+		INSTRUMENTAL = "улучшенным автоинъектором выживания",
+		PREPOSITIONAL = "улучшенном автоинъекторе выживания"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -649,12 +682,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/get_ru_names()
 	return list(
-        NOMINATIVE = "экспериментальный автоинъектор (Нано-Кальций)",
-        GENITIVE = "экспериментального автоинъектора (Нано-Кальций)",
-        DATIVE = "экспериментальному автоинъектору (Нано-Кальций)",
-        ACCUSATIVE = "экспериментальный автоинъектор (Нано-Кальций)",
-        INSTRUMENTAL = "экспериментальным автоинъектором (Нано-Кальций)",
-        PREPOSITIONAL = "экспериментальном автоинъекторе (Нано-Кальций)"
+		NOMINATIVE = "экспериментальный автоинъектор (Нано-Кальций)",
+		GENITIVE = "экспериментального автоинъектора (Нано-Кальций)",
+		DATIVE = "экспериментальному автоинъектору (Нано-Кальций)",
+		ACCUSATIVE = "экспериментальный автоинъектор (Нано-Кальций)",
+		INSTRUMENTAL = "экспериментальным автоинъектором (Нано-Кальций)",
+		PREPOSITIONAL = "экспериментальном автоинъекторе (Нано-Кальций)"
 	)
 
 
@@ -676,12 +709,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/selfmade/get_ru_names()
 	return list(
-        NOMINATIVE = "самодельный автоинъектор",
-        GENITIVE = "самодельного автоинъектора",
-        DATIVE = "самодельному автоинъектору",
-        ACCUSATIVE = "самодельный автоинъектор",
-        INSTRUMENTAL = "самодельным автоинъектором",
-        PREPOSITIONAL = "самодельном автоинъекторе"
+		NOMINATIVE = "самодельный автоинъектор",
+		GENITIVE = "самодельного автоинъектора",
+		DATIVE = "самодельному автоинъектору",
+		ACCUSATIVE = "самодельный автоинъектор",
+		INSTRUMENTAL = "самодельным автоинъектором",
+		PREPOSITIONAL = "самодельном автоинъекторе"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/selfmade/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -700,12 +733,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/salbutamol/get_ru_names()
 	return list(
-        NOMINATIVE = "автоинъектор (Сальбутамол)",
-        GENITIVE = "автоинъектора (Сальбутамол)",
-        DATIVE = "автоинъектору (Сальбутамол)",
-        ACCUSATIVE = "автоинъектор (Сальбутамол)",
-        INSTRUMENTAL = "автоинъектором (Сальбутамол)",
-        PREPOSITIONAL = "автоинъекторе (Сальбутамол)"
+		NOMINATIVE = "автоинъектор (Сальбутамол)",
+		GENITIVE = "автоинъектора (Сальбутамол)",
+		DATIVE = "автоинъектору (Сальбутамол)",
+		ACCUSATIVE = "автоинъектор (Сальбутамол)",
+		INSTRUMENTAL = "автоинъектором (Сальбутамол)",
+		PREPOSITIONAL = "автоинъекторе (Сальбутамол)"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/radium
@@ -716,12 +749,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/radium/get_ru_names()
 	return list(
-        NOMINATIVE = "автоинъектор (Радий)",
-        GENITIVE = "автоинъектора (Радий)",
-        DATIVE = "автоинъектору (Радий)",
-        ACCUSATIVE = "автоинъектор (Радий)",
-        INSTRUMENTAL = "автоинъектором (Радий)",
-        PREPOSITIONAL = "автоинъекторе (Радий)"
+		NOMINATIVE = "автоинъектор (Радий)",
+		GENITIVE = "автоинъектора (Радий)",
+		DATIVE = "автоинъектору (Радий)",
+		ACCUSATIVE = "автоинъектор (Радий)",
+		INSTRUMENTAL = "автоинъектором (Радий)",
+		PREPOSITIONAL = "автоинъекторе (Радий)"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/charcoal
@@ -734,11 +767,10 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/charcoal/get_ru_names()
 	return list(
-        NOMINATIVE = "автоинъектор (Активированный уголь)",
-        GENITIVE = "автоинъектора (Активированный уголь)",
-        DATIVE = "автоинъектору (Активированный уголь)",
-        ACCUSATIVE = "автоинъектор (Активированный уголь)",
-        INSTRUMENTAL = "автоинъектором (Активированный уголь)",
-        PREPOSITIONAL = "автоинъекторе (Активированный уголь)"
+		NOMINATIVE = "автоинъектор (Активированный уголь)",
+		GENITIVE = "автоинъектора (Активированный уголь)",
+		DATIVE = "автоинъектору (Активированный уголь)",
+		ACCUSATIVE = "автоинъектор (Активированный уголь)",
+		INSTRUMENTAL = "автоинъектором (Активированный уголь)",
+		PREPOSITIONAL = "автоинъекторе (Активированный уголь)"
 	)
-

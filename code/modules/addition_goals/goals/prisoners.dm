@@ -1,7 +1,7 @@
 // Prisoners addition goal shuttle
 
-#define AGS_CREDITS_PER_PRISONER 5000
-#define AGS_CAPRGOPOINTS_PER_PRISONER 30
+#define AGS_CREDITS_PER_PRISONER 7500
+#define AGS_CAPRGOPOINTS_PER_PRISONER 35
 
 /datum/addition_goal/prisoners
 	id = "prisoners"
@@ -197,3 +197,6 @@
 	shoes = /obj/item/clothing/shoes/prison
 	head = /obj/item/clothing/head/prison
 	id = /obj/item/card/id/prisoner
+
+#undef AGS_CREDITS_PER_PRISONER
+#undef AGS_CAPRGOPOINTS_PER_PRISONER

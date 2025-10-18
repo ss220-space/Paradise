@@ -1,6 +1,6 @@
-#define SEC_DATA_R_LIST	1	// Record list
-#define SEC_DATA_MAINT	2	// Records maintenance
-#define SEC_DATA_RECORD	3	// Record
+#define SEC_DATA_R_LIST 1 // Record list
+#define SEC_DATA_MAINT 2 // Records maintenance
+#define SEC_DATA_RECORD 3 // Record
 
 #define SEC_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
@@ -205,12 +205,12 @@
 				return
 			var/datum/data/record/G = new /datum/data/record()
 			G.fields["name"] = "New Record"
-			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7), 2), 6)]"
+			G.fields["id"] = "[add_zero(num2hex(rand(1, SHORT_REAL_LIMIT), 2), 6)]"
 			G.fields["rank"] = "Unassigned"
 			G.fields["real_rank"] = "Unassigned"
 			G.fields["sex"] = "Male"
-			G.fields["age"] = "Unknown"
-			G.fields["fingerprint"] = "Unknown"
+			G.fields["age"] = UNKNOWN_STATUS_RUS
+			G.fields["fingerprint"] = UNKNOWN_STATUS_RUS
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
 			G.fields["species"] = SPECIES_HUMAN
@@ -318,12 +318,12 @@
 	add_fingerprint(usr)
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/computer/secure_data/proc/ui_act_modal(action, list/params)
 	if(!ui_login_get().logged_in)
 		return
@@ -443,8 +443,8 @@
 			return FALSE
 
 /**
-  * Called when the print record timer finishes
-  */
+ * Called when the print record timer finishes
+ */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
 	var/obj/item/paper/P = new(loc)
 	P.info = "<center><b>Security Record</b></center><br>"
@@ -483,8 +483,8 @@
 	SStgui.update_uis(src)
 
 /**
-  * Called when the print cell log timer finishes
-  */
+ * Called when the print cell log timer finishes
+ */
 /obj/machinery/computer/secure_data/proc/print_cell_log_finish(name, info)
 	var/obj/item/paper/P = new(loc)
 	P.name = name
@@ -501,7 +501,7 @@
 		if(prob(10 / severity))
 			switch(rand(1, 6))
 				if(1)
-					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
+					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)
@@ -522,12 +522,12 @@
 	..(severity)
 
 /**
-  * Sets a temporary message to display to the user
-  *
-  * Arguments:
-  * * text - Text to display, null/empty to clear the message from the UI
-  * * style - The style of the message: (color name), info, success, warning, danger
-  */
+ * Sets a temporary message to display to the user
+ *
+ * Arguments:
+ * * text - Text to display, null/empty to clear the message from the UI
+ * * style - The style of the message: (color name), info, success, warning, danger
+ */
 /obj/machinery/computer/secure_data/proc/set_temp(text = "", style = "info", update_now = FALSE)
 	temp_notice = list(text = text, style = style)
 	if(update_now)

@@ -91,8 +91,8 @@ SUBSYSTEM_DEF(ticker)
 	if(!login_music)
 		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
 
-	randomtips = file2list("strings/tips.txt")
-	memetips = file2list("strings/sillytips.txt")
+	randomtips = world.file2list("strings/tips.txt")
+	memetips = world.file2list("strings/sillytips.txt")
 	return SS_INIT_SUCCESS
 
 
@@ -159,9 +159,9 @@ SUBSYSTEM_DEF(ticker)
 						all_maps -= M
 				switch(CONFIG_GET(string/map_rotate))
 					if("rotate")
-						for(var/i in 1 to all_maps.len)
+						for(var/i in 1 to length(all_maps))
 							if(istype(SSmapping.map_datum, all_maps[i]))
-								var/target_map = all_maps[(i % all_maps.len) + 1]
+								var/target_map = all_maps[(i % length(all_maps)) + 1]
 								SSmapping.next_map = new target_map
 								break
 					if("random")
@@ -276,7 +276,7 @@ SUBSYSTEM_DEF(ticker)
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
-		to_chat(world, "<b>Текущий режим игры – Скрыт!</b>")
+		to_chat(world, "<b>Текущий режим игры — Скрыт!</b>")
 		to_chat(world, "<b>Возможные варианты:</b> [russian_list(modes)]")
 	else
 		mode.announce()
@@ -314,7 +314,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate the list of empty playable AI cores in the world
 	for(var/obj/effect/landmark/S as anything in GLOB.landmarks_list)
-		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/event/tripai::name))
+		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/spawner/tripai::name))
 			continue
 		if(locate(/mob/living) in S.loc)
 			continue
@@ -370,7 +370,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(CONFIG_GET(number/restrict_maint))
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-			if(M.req_access && M.req_access.len == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
+			if(M.req_access && length(M.req_access) == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
 				M.req_access = null
 				if(CONFIG_GET(number/restrict_maint) == 1)
 					M.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
@@ -384,10 +384,8 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			SStitle.show_title_screen_to(N.client) // New Title Screen
 
-	#ifdef UNIT_TESTS
-	// Run map tests first in case unit tests futz with map state
-	GLOB.test_runner.RunMap()
-	GLOB.test_runner.Run()
+	#ifdef TEST_RUNNER
+	GLOB.test_runner.RunAll()
 	#endif
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
@@ -504,34 +502,46 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.mind)
-			if(player.mind.assigned_role == JOB_TITLE_AI)
-				player.close_spawn_windows()
-				var/mob/living/character = player.create_character()
-				var/mob/living/silicon/ai/ai_character = character.AIize()
-				ai_character.moveToAILandmark()
-				SSticker?.score?.save_silicon_laws(ai_character, additional_info = "job assignment", log_all_laws = TRUE)
-			else if(!player.mind.assigned_role)
-				continue
-			else
-				player.create_character()
-				qdel(player)
+		if(!player.ready || !player.mind)
+			continue
+
+		if(!player.mind.assigned_role)
+			continue
+
+		if(player.mind.assigned_role != JOB_TITLE_AI)
+			player.create_character()
+			qdel(player)
+			continue
+
+		player.close_spawn_windows()
+		var/mob/living/character = player.create_character()
+		var/mob/living/silicon/ai/ai_character = character.AIize()
+		ai_character.moveToAILandmark()
+		SSticker?.score?.save_silicon_laws(ai_character, additional_info = "job assignment", log_all_laws = TRUE)
 
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == JOB_TITLE_CAPTAIN)
-				captainless = FALSE
-			if(player.mind.assigned_role != player.mind.special_role)
-				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
-				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
-				EquipCustomItems(player)
-	if(captainless)
-		for(var/mob/M in GLOB.player_list)
-			if(!isnewplayer(M))
-				to_chat(M, "Captainship not forced on anyone.")
+		if(!player || !player.mind || !player.mind.assigned_role)
+			continue
+
+		captainless = captainless || player.mind.assigned_role == JOB_TITLE_CAPTAIN
+		if(player.mind.assigned_role == player.mind.special_role)
+			continue
+
+		SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
+		SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
+		EquipCustomItems(player)
+
+	if(!captainless)
+		return
+
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(isnewplayer(mob))
+			return
+
+		to_chat(mob, "Captainship not forced on anyone.")
 
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
@@ -539,9 +549,9 @@ SUBSYSTEM_DEF(ticker)
 	if(selected_tip)
 		m = selected_tip
 	else
-		if(randomtips.len && prob(95))
+		if(length(randomtips) && prob(95))
 			m = pick(randomtips)
-		else if(memetips.len)
+		else if(length(memetips))
 			m = pick(memetips)
 
 	if(m)
@@ -575,7 +585,7 @@ SUBSYSTEM_DEF(ticker)
 
 		for(var/datum/ai_law/law as anything in aiPlayer.laws.sorted_laws)
 			if(law == aiPlayer.laws.zeroth_law)
-				end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+				end_of_round_info += span_danger("[law.get_index()]. [law.law]")
 			else
 				end_of_round_info += "[law.get_index()]. [law.law]"
 
@@ -604,7 +614,7 @@ SUBSYSTEM_DEF(ticker)
 			robo.laws_sanity_check()
 			for(var/datum/ai_law/law as anything in robo.laws.sorted_laws)
 				if(law == robo.laws.zeroth_law)
-					end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+					end_of_round_info += span_danger("[law.get_index()]. [law.law]")
 				else
 					end_of_round_info += "[law.get_index()]. [law.law]"
 
@@ -616,6 +626,10 @@ SUBSYSTEM_DEF(ticker)
 			end_of_round_info += printeventplayer(eventmind)
 			end_of_round_info += printobjectives(eventmind)
 		end_of_round_info += "<br>"
+
+	for(var/team_type in GLOB.antagonist_teams)
+		var/datum/team/team = GLOB.antagonist_teams[team_type]
+		team.pre_declare_completion()
 
 	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/team = GLOB.antagonist_teams[team_type]
@@ -649,7 +663,7 @@ SUBSYSTEM_DEF(ticker)
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		for(var/m in GLOB.player_list)
 			var/mob/M = m
-			H.add_hud_to(M)
+			H.show_to(M)
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()
@@ -668,16 +682,26 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = NEWS_CHANNEL_STATION
+	newChannel.channel_name = NEWS_CHANNEL_STATION_LOG
 	newChannel.author = EDITOR_STATION
+	newChannel.description = "Автоматический журнал, записывающий новости смены."
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
+	newChannel.channel_name = NEWS_CHANNEL_STATION
+	newChannel.author = EDITOR_STATION
+	newChannel.description = "Публичный канал оповещений и рабочих объявлений для всех желающих."
+	newChannel.icon = "users"
+	newChannel.is_public = TRUE
+	GLOB.news_network.channels += newChannel
+
+	newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_NYX
 	newChannel.author = EDITOR_NYX
+	newChannel.description = "Новости Нанотрейзен!"
 	newChannel.icon = "meteor"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
@@ -686,6 +710,7 @@ SUBSYSTEM_DEF(ticker)
 	newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_GIB
 	newChannel.author = EDITOR_GIB
+	newChannel.description = "ШОКИРУЮЩИЕ НОВОСТИ КАЖДЫЙ ЧАС! Вы не поверите!"
 	newChannel.icon = "star"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE

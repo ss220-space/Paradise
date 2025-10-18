@@ -34,7 +34,7 @@
 /datum/autopsy_data_scanner
 	var/weapon = null // this is the DEFINITE weapon type that was used
 	var/list/organs_scanned = list() // this maps a number of scanned organs to
-									 // the wounds to those organs with this data's weapon type
+									// the wounds to those organs with this data's weapon type
 	var/organ_names = ""
 
 /datum/autopsy_data_scanner/Destroy()
@@ -62,12 +62,12 @@
 	for(var/index in check_organ.autopsy_data)
 		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
 
-		if(!LAZYACCESS(wdata, index))
-			var/datum/autopsy_data_scanner/scanner_data = new
+		var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, index)
+		if(!scanner_data)
+			scanner_data = new()
 			scanner_data.weapon = weapon_data.weapon
-			wdata[index] = scanner_data
+			LAZYADDASSOC(wdata, index, scanner_data)
 
-		var/datum/autopsy_data_scanner/scanner_data = wdata[index]
 		var/organ_name = check_organ.declent_ru(NOMINATIVE)
 
 		if(!scanner_data.organs_scanned[organ_name])
@@ -142,7 +142,7 @@
 	if(LAZYLEN(wdata))
 		var/n = 1
 		for(var/wdata_idx in wdata)
-			var/datum/autopsy_data_scanner/scanner_data = wdata[wdata_idx]
+			var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, wdata_idx)
 			var/total_hits = 0
 			var/total_score = 0
 			var/age = 0
@@ -203,7 +203,7 @@
 	if(target_UID != target.UID())
 		target_UID = target.UID()
 		target_name = target.name
-		target_rank = target.get_assignment(if_no_id = "Неизвестный", if_no_job = null)
+		target_rank = target.get_assignment(if_no_id = UNKNOWN_STATUS_RUS, if_no_job = null)
 		LAZYCLEARLIST(wdata)
 		LAZYCLEARLIST(chemtraces)
 		timeofdeath = null

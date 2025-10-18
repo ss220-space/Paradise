@@ -4,7 +4,6 @@
 	origin_tech = "materials=1;engineering=1"
 	var/sheets_refunded = 2
 	var/list/mount_reqs = list() //can contain simfloor, nospace. Used in try_build to see if conditions are needed, then met
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 
@@ -23,11 +22,11 @@
 		var/turf/turf_loc = get_turf(user)
 
 		if(src.mount_reqs.Find("simfloor") && !isfloorturf(turf_loc))
-			to_chat(user, "<span class='warning'>[src] cannot be placed on this spot.</span>")
+			to_chat(user, span_warning("[src] cannot be placed on this spot."))
 			return
 		if(src.mount_reqs.Find("nospace"))
 			var/area/my_area = turf_loc.loc
 			if(!istype(my_area) || (my_area.requires_power == 0 || istype(my_area,/area/space)))
-				to_chat(user, "<span class='warning'>[src] cannot be placed in this area.</span>")
+				to_chat(user, span_warning("[src] cannot be placed in this area."))
 				return
 		return 1

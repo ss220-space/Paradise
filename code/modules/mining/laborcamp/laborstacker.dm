@@ -5,7 +5,6 @@
 	desc = "Консоль с электромагнитным записывающим устройством для учета добытой заключенными руды."
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
-	density = FALSE
 	anchored = TRUE
 	var/obj/machinery/mineral/stacking_machine/laborstacker/stacking_machine = null
 	var/machinedir = SOUTH
@@ -29,7 +28,6 @@
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
 	announcer.follow_target = src
-	announcer.config(list(SEC_FREQ_NAME = 0))
 
 	if(!sheet_values)
 		for(var/sheet_type in subtypesof(/obj/item/stack/sheet))
@@ -186,7 +184,6 @@
 	desc = "Консоль для проверки заключенными прогресса выполнения квоты. Просто проведите картой заключенного."
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
-	density = FALSE
 	anchored = TRUE
 
 /obj/machinery/mineral/labor_points_checker/get_ru_names()

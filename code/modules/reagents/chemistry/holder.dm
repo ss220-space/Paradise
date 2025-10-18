@@ -1,8 +1,6 @@
 #define ADDICTION_TIME 8 MINUTES
 #define MINOR_ADDICTION_TIME 45 MINUTES
 
-///////////////////////////////////////////////////////////////////////////////////
-
 /datum/reagents
 	var/list/datum/reagent/reagent_list = new/list()
 	var/total_volume = 0
@@ -368,14 +366,14 @@
 		R.on_update(A)
 	update_total()
 
-/datum/reagents/proc/find_blood_group(var/datum/chemical_reaction/reaction)
+/datum/reagents/proc/find_blood_group(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_group)
 		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
 		if(I.data["blood_group"] == K)
 			return TRUE
 	return FALSE
 
-/datum/reagents/proc/find_blood_species(var/datum/chemical_reaction/reaction)
+/datum/reagents/proc/find_blood_species(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_species)
 		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
 		if(I.data["blood_species"] == K)
@@ -931,6 +929,23 @@
 		return TRUE
 	return FALSE
 
+/**
+ * Returns the average clothing pen of all chemicals combined in src.
+ *
+ * Can be used if you are using a certain amount of all reagents in an object.
+ * Values returned are in a range from 0 to 1.
+ */
+/datum/reagents/proc/get_average_clothing_pen()
+	var/clothing_pen = 0
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		if(!reagent.clothing_penetration)
+			continue
+
+		clothing_pen += reagent.clothing_penetration * (reagent.volume / total_volume)
+
+	return clothing_pen
+
+
 /datum/reagents/Destroy()
 	. = ..()
 	QDEL_LIST(reagent_list)
@@ -939,3 +954,6 @@
 	addiction_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
+
+#undef ADDICTION_TIME
+#undef MINOR_ADDICTION_TIME

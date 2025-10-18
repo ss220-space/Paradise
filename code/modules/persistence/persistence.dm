@@ -18,13 +18,8 @@
 * Also, this should only be called by `list_to_object` in persistence.dm - at least
 * with current plans - that way it can actually initialize the type from the list
 */
-/datum/proc/deserialize(var/list/data)
+/datum/proc/deserialize(list/data)
 	return
-
-/atom
-	// This var isn't actually used for anything, but is present so that
-	// DM's map reader doesn't forfeit on reading a JSON-serialized map
-	var/map_json_data
 
 // This is so specific atoms can override these, and ignore certain ones
 /atom/proc/vars_to_save()
@@ -50,7 +45,7 @@
 	return data
 
 
-/atom/deserialize(var/list/data)
+/atom/deserialize(list/data)
 	for(var/thing in vars_to_save())
 		if(thing in data)
 			vars[thing] = data[thing]
@@ -70,11 +65,11 @@ If you're clever, you can do neat things with SDQL and this, though be careful -
 some objects, like humans, are dependent that certain extra things are defined
 in their list
 */
-/proc/json_to_object(var/json_data, var/loc)
+/proc/json_to_object(json_data, loc)
 	var/data = json_decode(json_data)
 	return list_to_object(data, loc)
 
-/proc/list_to_object(var/list/data, var/loc)
+/proc/list_to_object(list/data, loc)
 	if(!islist(data))
 		throw EXCEPTION("You didn't give me a list, bucko")
 	if(!("type" in data))

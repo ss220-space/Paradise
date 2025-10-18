@@ -1,6 +1,6 @@
 /obj/item/organ/internal/eyes/nian
 	name = "luam eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали луам."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали луам."
 	ru_names = list(
 		NOMINATIVE = "глаза луам",
 		GENITIVE = "глаз луам",
@@ -64,10 +64,8 @@
 		PREPOSITIONAL = "мозге луам"
 	)
 	icon = 'icons/obj/species_organs/nian.dmi'
-	icon_state = "brain2"
 	item_state = "nian_brain"
 	mmi_icon = 'icons/obj/species_organs/nian.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/nian
 	name = "luam lungs"
@@ -109,4 +107,3 @@
 		PREPOSITIONAL = "крыльях луам"
 	)
 	max_damage = 25
-	min_broken_damage = 15

@@ -54,7 +54,6 @@
 
 
 /datum/action/innate/hide/alien_larva
-	desc = "Позволяет прятаться под столами и некоторыми объектами."
 	background_icon_state = "bg_alien"
 	button_icon_state = "alien_hide"
 	layer_to_change_to = ABOVE_NORMAL_TURF_LAYER

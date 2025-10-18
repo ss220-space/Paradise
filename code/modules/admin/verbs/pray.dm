@@ -18,7 +18,7 @@
 	var/prayer_type = "PRAYER"
 	var/deity
 	if(job == JOB_TITLE_CHAPLAIN)
-		if(SSticker && SSticker.Bible_deity_name)
+		if(SSticker?.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
 		cross = image('icons/obj/library.dmi',"bible_kingyellow")
 		font_color = "blue"
@@ -31,7 +31,7 @@
 
 	add_game_logs("Prayed to the gods: [msg]", usr)
 	GLOB.requests.pray(client, msg, job == JOB_TITLE_CHAPLAIN)
-	msg = "<span class='notice'>[bicon(cross)]<b><span style='color: [font_color];'>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<a href='byond://?_src_=holder;Bless=[UID()]'>BLESS</a>) (<a href='byond://?_src_=holder;Smite=[UID()]'>SMITE</a>):</b> [msg]</span>"
+	msg = "<span class='notice'>[bicon(cross)]<b><span style='color: [font_color];'>[prayer_type][deity ? " (to [deity])" : ""][mind?.isholy ? " (blessings: [mind.num_blessed])" : ""]:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<a href='byond://?_src_=holder;Bless=[UID()]'>BLESS</a>) (<a href='byond://?_src_=holder;Smite=[UID()]'>SMITE</a>):</b> [msg]</span>"
 
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
@@ -42,7 +42,7 @@
 
 	BLACKBOX_LOG_ADMIN_VERB("Pray")
 
-/proc/Centcomm_announce(var/text , var/mob/Sender)
+/proc/Centcomm_announce(text, mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_centcom(Sender.client, msg)
 	msg = "<span class='boldnotice'><span style='color: orange;'>CENTCOMM: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")])):</span> [msg]"
@@ -52,7 +52,7 @@
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
-/proc/Syndicate_announce(var/text , var/mob/Sender)
+/proc/Syndicate_announce(text, mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_syndicate(Sender.client, msg)
 	msg = "<span class='boldnotice'><span style='color: #DC143C;'>SYNDICATE: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):</span> [msg]"
@@ -62,7 +62,7 @@
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
-/proc/HONK_announce(var/text , var/mob/Sender)
+/proc/HONK_announce(text, mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_honk(Sender.client, msg)
 	msg = "<span class='boldnotice'><span style='color: pink;'>HONK: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;HONKReply=[Sender.UID()]'>RPLY</a>):</span> [msg]"

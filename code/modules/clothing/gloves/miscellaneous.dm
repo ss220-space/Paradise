@@ -71,7 +71,6 @@
 	desc = "These high-tech gloves don't leave any material traces on objects they touch. Perfect for leaving crime scenes undisturbed...both before and after the crime."
 	icon_state = "forensics"
 	can_leave_fibers = FALSE
-	transfer_prints = FALSE
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
@@ -163,7 +162,6 @@
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
 	desc = "Эти перчатки не защитят ваших врагов от электрического удара."
-	gender = PLURAL
 	var/obj/item/stock_parts/cell/cell = null
 	var/stun_strength = 2 SECONDS
 	var/stun_cost = 1500
@@ -348,7 +346,7 @@
 		var/armor_block = target.run_armor_check(affecting, MELEE)
 		playsound(target.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 
-		target.visible_message("<span class='danger'>[user] cuts [target] with razor gloves!</span>")
+		target.visible_message(span_danger("[user] cuts [target] with razor gloves!"))
 
 		var/all_objectives = user?.mind?.get_all_objectives()
 		if(target.mind && all_objectives)
@@ -363,7 +361,7 @@
 		user.do_attack_animation(A, "claw")
 		var/mob/living/living = A
 		playsound(living.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
-		living.visible_message("<span class='danger'>[user] cuts [living] with razor gloves!</span>")
+		living.visible_message(span_danger("[user] cuts [living] with razor gloves!"))
 		living.apply_damage(damage, BRUTE)
 		return TRUE
 
@@ -371,7 +369,7 @@
 		var/obj/obj = A
 		user.do_attack_animation(A, "claw")
 		user.changeNext_move(CLICK_CD_MELEE)
-		user.visible_message("<span class='danger'>[user] has hit [obj] with razor gloves!</span>", "<span class='danger'>You hit [obj] with razor gloves!</span>")
+		user.visible_message(span_danger("[user] has hit [obj] with razor gloves!"), span_danger("You hit [obj] with razor gloves!"))
 		obj.take_damage(damage, BRUTE, MELEE, 1, get_dir(src, user))
 		return TRUE
 
@@ -380,7 +378,6 @@
 	desc = "The choice of the professional to beat the shit out of some jerk!"
 	icon_state = "knuckles"
 	item_state = "knuckles"
-	sharp = FALSE
 	extra_knock_chance = 15 //20% overall
 	var/knuckle_damage = 5 //additional fists damage
 	var/knock_damage_low = 5 // stamina damage
@@ -412,7 +409,7 @@
 		add_attack_logs(user, target, "Melee attacked with knuckles")
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 
-		target.visible_message("<span class='danger'>[user] smash [target] with knuckles!</span>")
+		target.visible_message(span_danger("[user] smash [target] with knuckles!"))
 
 		var/all_objectives = user?.mind?.get_all_objectives()
 		if(target.mind && all_objectives)
@@ -428,7 +425,7 @@
 		var/mob/living/living = A
 		user.do_attack_animation(A, "kick")
 		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		living.visible_message("<span class='danger'>[user] smash [living] with knuckles!</span>")
+		living.visible_message(span_danger("[user] smash [living] with knuckles!"))
 		living.apply_damage(damage, BRUTE)
 		return TRUE
 
@@ -436,7 +433,7 @@
 		var/obj/obj = A
 		user.do_attack_animation(A, "kick")
 		user.changeNext_move(CLICK_CD_MELEE)
-		user.visible_message("<span class='danger'>[user] has hit [obj] with knuckles!</span>", "<span class='danger'>You hit [obj] with knuckles!</span>")
+		user.visible_message(span_danger("[user] has hit [obj] with knuckles!"), span_danger("You hit [obj] with knuckles!"))
 		obj.take_damage(knobj_damage, BRUTE, MELEE, 1, get_dir(src, user))
 		return TRUE
 

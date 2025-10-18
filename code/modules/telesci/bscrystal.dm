@@ -10,7 +10,6 @@
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/sheet/bluespace_crystal
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stack/ore/bluespace_crystal/attack_self_tk(mob/user)
@@ -21,7 +20,7 @@
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/stack/ore/bluespace_crystal/attack_self(var/mob/user)
+/obj/item/stack/ore/bluespace_crystal/attack_self(mob/user)
 	if(do_after(user, 1 SECONDS, user))
 		var/mob/living/carbon/human/bs_user = user
 		if(use(1))
@@ -31,7 +30,7 @@
 	else
 		to_chat(user, span_notice("Вам нужно оставаться неподвижным, чтобы раздавить [singular_name]."))
 
-/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
+/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
 	if(!is_teleport_allowed(L.z))
 		src.visible_message(span_warning("Осколки [src.declent_ru(GENITIVE)] начинают быстро вибрировать и исчезают."))
 		qdel(src)
@@ -68,13 +67,12 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	name = "bluespace polycrystal"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "polycrystal"
+	protolathe_name = "bluespace_polycrystal"
 	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
 	origin_tech = "bluespace=6;materials=3"
 	merge_type = /obj/item/stack/sheet/bluespace_crystal
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("блюспейс полиударил", "блюспейс полиогрел", "блюспейс полистукнул", "блюспейс полисокрушил")
-	toolspeed = 1
-	usesound = 'sound/items/deconstruct.ogg'
 	point_value = 30
 
 /obj/item/stack/sheet/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)

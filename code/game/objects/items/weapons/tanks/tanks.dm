@@ -4,7 +4,6 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5
 	throwforce = 10
@@ -102,7 +101,7 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
+			. += span_notice("It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.")
 		return
 
 	var/celsius_temperature = air_contents.temperature - T0C
@@ -121,8 +120,8 @@
 	else
 		descriptive = "furiously hot"
 
-	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
-	. += "<span class='notice'>The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
+	. += span_notice("\The [bicon(icon)][src] feels [descriptive]")
+	. += span_notice("The pressure gauge displays [round(air_contents.return_pressure())] kPa")
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc && !QDELETED(src))

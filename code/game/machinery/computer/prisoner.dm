@@ -2,7 +2,6 @@
 
 /obj/machinery/computer/prisoner
 	name = "labor camp points manager"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
 	req_access = list(ACCESS_ARMORY)
@@ -96,7 +95,7 @@
 		if(!check_implant(track_imp))
 			continue
 		var/mob/living/carbon/carrier = track_imp.imp_in
-		var/loc_display = "Unknown"
+		var/loc_display = UNKNOWN_STATUS_RUS
 		var/health_display = "OK"
 		var/total_loss = (carrier.maxHealth - carrier.health)
 		if(carrier.stat == DEAD)

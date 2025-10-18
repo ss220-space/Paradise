@@ -8,7 +8,6 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	language = LANGUAGE_GALACTIC_COMMON
 	default_language = LANGUAGE_MONKEY_HUMAN
 	inherent_traits = list(
 		TRAIT_HAS_REGENERATION,
@@ -104,7 +103,6 @@
 	base_color = "#000000"
 	tail = "farwatail"
 	skinned_type = /obj/item/stack/sheet/animalhide/farwa
-	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/tajaran,
@@ -153,7 +151,6 @@
 	base_color = "#000000"
 	tail = "wolpintail"
 	skinned_type = /obj/item/stack/sheet/animalhide/wolpin
-	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/vulpkanin,
@@ -201,7 +198,6 @@
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	skinned_type = /obj/item/stack/sheet/animalhide/neara
-	reagent_tag = PROCESS_ORG
 	tail = null
 	inherent_traits = list(
 		TRAIT_HAS_REGENERATION,
@@ -255,9 +251,7 @@
 	flesh_color = "#34AF10"
 	base_color = "#000000"
 	skinned_type = /obj/item/stack/sheet/animalhide/stok
-	reagent_tag = PROCESS_ORG
 
-	bodyflags = HAS_TAIL
 
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,

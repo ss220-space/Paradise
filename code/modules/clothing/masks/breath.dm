@@ -7,7 +7,6 @@
 	item_state = "breath"
 	clothing_flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
 	actions_types = list(/datum/action/item_action/adjust)
@@ -56,7 +55,7 @@
 			Обладает минимальным коэффициентом проницаемости газов и практически не пропускает вредные вещества. \
 			Предназначена для анестезии при проведении хирургических операций путём ввода седативной дыхательной смеси."
 	icon_state = "medical"
-	item_state = "medical"
+	item_state = "m_mask"
 	permeability_coefficient = 0.01
 	put_on_delay = 10
 

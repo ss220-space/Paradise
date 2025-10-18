@@ -101,6 +101,26 @@
 	result_amount = 4
 	mix_message = "The solution yields an astringent powder."
 
+/datum/chemical_reaction/traneksam_acid
+	name = "Транексамовая кислота"
+	id = "traneksam_acid"
+	result = "traneksam_acid"
+	required_reagents = list("synthflesh" = 1, "ammonia" = 1, "sal_acid" = 1, "water" = 1)
+	result_amount = 3
+	min_temp = 400 //K
+	mix_message = "The mixture gives off a faint scent of almonds."
+
+/datum/chemical_reaction/traneksam_acid/on_reaction(datum/reagents/holder, created_volume)
+	make_vaporation(list("cyanide"), holder, created_volume * 0.25, 1)
+
+/datum/chemical_reaction/neuromatin
+	name = "Нейроматин"
+	id = "neuromatin"
+	result = "neuromatin"
+	required_reagents = list("sterilizine" = 3, "mannitol" = 5, "mitocholide" = 1, "atropine" = 1)
+	result_amount = 10
+	min_temp = 350 //K
+
 /datum/chemical_reaction/calomel
 	name = "Calomel"
 	id = "calomel"

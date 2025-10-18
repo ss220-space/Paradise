@@ -9,14 +9,18 @@
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#ffba4c"
 	req_admin_notify = 1
-	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
-			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
-			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
-			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
-			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
-			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
-			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
+		ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
+		ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
+		ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM
+	)
+	minimal_access = list(
+		ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
+		ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
+		ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
+		ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM
+	)
 	minimal_player_age = 21
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_ENGINEERING
@@ -70,9 +74,9 @@
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/engineer
 
-	salary = 150
+	salary = 160
 	min_start_money = 200
-	max_start_money = 400
+	max_start_money = 500
 
 /datum/outfit/job/engineer
 	name = "Station Engineer"
@@ -97,10 +101,8 @@
 /datum/job/engineer/trainee
 	title = JOB_TITLE_ENGINEER_TRAINEE
 	flag = JOB_FLAG_ENGINEER_TRAINEE
-	total_positions = 5
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
-	selection_color = "#ffeaca"
 	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -109,9 +111,9 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/engineer/trainee
 
-	salary = 150
-	min_start_money = 200
-	max_start_money = 400
+	salary = 130
+	min_start_money = 150
+	max_start_money = 300
 
 /datum/outfit/job/engineer/trainee
 	name = "Trainee Engineer"
@@ -160,9 +162,9 @@
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/atmos
 
-	salary = 150
+	salary = 170
 	min_start_money = 200
-	max_start_money = 400
+	max_start_money = 500
 
 /datum/outfit/job/atmos
 	name = "Life Support Specialist"

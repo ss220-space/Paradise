@@ -8,7 +8,6 @@
 	icon = 'icons/obj/craft_blueprints.dmi'
 	icon_state = "blueprint"
 	var/place_icon = "put_blueprint"
-	w_class = WEIGHT_CLASS_NORMAL
 
 	/// Placing state
 	var/placed_on_table = FALSE
@@ -29,12 +28,12 @@
 
 /obj/item/craft_blueprints/get_ru_names()
 	return list(
-        NOMINATIVE = "чертежи для крафта",
-        GENITIVE = "чертежей для крафта",
-        DATIVE = "чертежам для крафта",
-        ACCUSATIVE = "чертежи для крафта",
-        INSTRUMENTAL = "чертежами для крафта",
-        PREPOSITIONAL = "чертежах для крафта"
+		NOMINATIVE = "чертежи для крафта",
+		GENITIVE = "чертежей для крафта",
+		DATIVE = "чертежам для крафта",
+		ACCUSATIVE = "чертежи для крафта",
+		INSTRUMENTAL = "чертежами для крафта",
+		PREPOSITIONAL = "чертежах для крафта"
 	)
 
 /obj/item/craft_blueprints/copy
@@ -45,7 +44,7 @@
 
 /obj/item/craft_blueprints/Initialize(mapload)
 	. = ..()
-	update_desc()
+	update_appearance(UPDATE_DESC)
 	RegisterSignal(src, COMSIG_ITEM_PLACED_ON_TABLE, PROC_REF(on_table_place))
 
 
@@ -60,11 +59,11 @@
 
 
 /obj/item/craft_blueprints/examine(mob/user)
-	update_desc()
+	update_appearance(UPDATE_DESC)
 	. = ..()
 	if(length(tools))
 		var/required_tools_text = "Требуемые инструменты: "
-		for(var/tool as anything in tools)
+		for(var/tool in tools)
 			required_tools_text += "[tool] "
 		. += span_notice(required_tools_text)
 	if(!length(components))

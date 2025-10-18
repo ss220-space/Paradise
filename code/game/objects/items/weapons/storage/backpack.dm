@@ -15,13 +15,12 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
-	resistance_flags = NONE
 	max_integrity = 300
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi'
-		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+	) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
 	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
@@ -40,15 +39,15 @@
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
-			. += "<span class='notice'> [src] is empty.</span>"
+			. += span_notice(" [src] is empty.")
 		else if(space_used <= max_combined_w_class*0.6)
-			. += "<span class='notice'> [src] still has plenty of remaining space.</span>"
+			. += span_notice(" [src] still has plenty of remaining space.")
 		else if(space_used <= max_combined_w_class*0.8)
-			. += "<span class='notice'> [src] is beginning to run out of space.</span>"
+			. += span_notice(" [src] is beginning to run out of space.")
 		else if(space_used < max_combined_w_class)
-			. += "<span class='notice'> [src] doesn't have much space left.</span>"
+			. += span_notice(" [src] doesn't have much space left.")
 		else
-			. += "<span class='notice'> [src] is full.</span>"
+			. += span_notice(" [src] is full.")
 
 /*
  * Backpack Types
@@ -129,8 +128,6 @@
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
 
 
@@ -469,7 +466,7 @@
 	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_back()
+		H.update_worn_back()
 
 
 /obj/item/storage/backpack/satchel/withwallet/populate_contents()
@@ -556,14 +553,14 @@
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/lmg
-    desc = "A large duffel bag containing 5 LMG box magazines"
+	desc = "A large duffel bag containing 5 LMG box magazines"
 
 /obj/item/storage/backpack/duffel/syndie/ammo/lmg/populate_contents()
 	for(var/i in 1 to 5)
-		new /obj/item/ammo_box/magazine/mm556x45(src)
+		new /obj/item/ammo_box/magazine/a762x51(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine
-    desc = "A large duffel bag containing a lot of 5.56 toploader magazines, and a 40mm Grenade Ammo Box"
+	desc = "A large duffel bag containing a lot of 5.56 toploader magazines, and a 40mm Grenade Ammo Box"
 
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine/populate_contents()
 	new /obj/item/ammo_box/a40mm(src)
@@ -576,7 +573,7 @@ desc = "Сумка, содержащая 10 магазинов на 30 патр�
 TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi
-    desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
+	desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
 
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi/populate_contents()
 	for(var/i in 1 to 10)
@@ -889,7 +886,6 @@ TODO Use this name and desc for localisation*/
 	name = "emergency response team backpack"
 	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ert_commander"
-	item_state = "backpack"
 	max_combined_w_class = 30
 	resistance_flags = FIRE_PROOF
 
@@ -934,7 +930,6 @@ TODO Use this name and desc for localisation*/
 	icon_state = "guitarbag"
 	item_state = "guitarbag"
 	resistance_flags = FLAMMABLE
-	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
 	min_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 4

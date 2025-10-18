@@ -1,4 +1,5 @@
 #define ASH_WALKER_SPAWN_THRESHOLD 2
+
 //The ash walker den consumes corpses or unconscious mobs to create ash walker eggs. For more info on those, check ghost_role_spawners.dm
 /obj/structure/lavaland/ash_walker
 	name = "necropolis tendril nest"
@@ -149,7 +150,7 @@
 	mob_name = "an ash walker shaman"
 	mob_species = /datum/species/unathi/ashwalker/shaman
 	outfit = /datum/outfit/ashwalker/shaman //might be OP, but the flavour is there
-	description = "Вы - шаман племени пеплоходцев. Ваше племя поклоняется некрополю. Обеспечьте выживание и лечение подконтрольных вам пеплоходцев. Проводите обряды, направленные на исцеление тела и души, обеспечивайте охотников пропитанием."
+	description = "Вы — шаман племени пеплоходцев. Ваше племя поклоняется некрополю. Обеспечьте выживание и лечение подконтрольных вам пеплоходцев. Проводите обряды, направленные на исцеление тела и души, обеспечивайте охотников пропитанием."
 	assignedrole = "Ash Walker Shaman"
 	eggtype = "шамана пеплоходцев"
 
@@ -190,3 +191,5 @@ Use about 3 tiles before lava river and 9 to 10 lava river tiles under this land
 	map.load(spawn_area, TRUE)
 
 	qdel(src, force=TRUE)
+
+#undef ASH_WALKER_SPAWN_THRESHOLD

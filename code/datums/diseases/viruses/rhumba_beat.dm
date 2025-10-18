@@ -1,8 +1,7 @@
 //meme copy of GBS
 /datum/disease/virus/rhumba_beat
 	name = "Румба-бит"
-	agent = "Неизвестно"
-	max_stages = 5
+	agent = UNKNOWN_STATUS_RUS
 	spread_flags = CONTACT
 	cure_text = "Чики-чики БУМ!"
 	cures = list("plasma")

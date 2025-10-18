@@ -84,7 +84,6 @@
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	species_restricted = list(SPECIES_VOX, SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
@@ -153,12 +152,19 @@
 	desc = "An almost organic looking nonhuman pressure suit."
 
 /obj/item/clothing/under/vox
+	name = "ripped jumpsuit"
+	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
 	has_sensor = 0
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list(SPECIES_VOX)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
+
+	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
+	icon_state = "vgrey"
+	item_state = "vgrey"
+	item_color = "vgrey"
 
 /obj/item/clothing/under/vox/vox_casual
 	name = "alien clothing"
@@ -185,8 +191,6 @@
 	name = "insulated gauntlets"
 	icon_state = "gloves-vox"
 	item_state = "gloves-vox"
-	siemens_coefficient = 0
-	permeability_coefficient = 0.05
 	item_color = "gloves-vox"
 	icon = 'icons/obj/clothing/species/vox/gloves.dmi'
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
@@ -236,7 +240,7 @@
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)
 	. = ..()
 	if(magpulse)
-		. += "<span class='notice'>It would be hard to take these off without relaxing your grip first.</span>"//theoretically this message should only be seen by the wearer when the claws are equipped.
+		. += span_notice("It would be hard to take these off without relaxing your grip first.")//theoretically this message should only be seen by the wearer when the claws are equipped.
 
 /obj/item/storage/backpack/alien
 	name = "alien backpack"

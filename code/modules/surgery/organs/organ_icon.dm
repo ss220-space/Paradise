@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	for(var/child_i in child_icons)
 		cut_overlay(child_i)
 	LAZYREINITLIST(child_icons)
-	 // This is a kludge, only one icon has more than one generation of children though.
+	// This is a kludge, only one icon has more than one generation of children though.
 	for(var/obj/item/organ/external/childpart as anything in children)
 		add_overlay(childpart.mob_icon)
 		child_icons += childpart.mob_icon
@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		s_tone = null
 		s_col = rgb(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
 
-/obj/item/organ/external/head/sync_colour_to_human(var/mob/living/carbon/human/H)
+/obj/item/organ/external/head/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes) eyes.update_colour()
@@ -110,7 +110,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	var/head_marking = owner.m_styles["head"]
 	if(head_marking)
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
-		if(head_marking_style && head_marking_style.species_allowed && (dna.species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
+		if(head_marking_style?.species_allowed && (dna.species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
 			var/icon/h_marking_s = new /icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
 				h_marking_s.Blend(owner.m_colours["head"], ICON_ADD)
@@ -119,7 +119,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(!((owner.head && (owner.head.flags_inv & HIDEHAIR)) || (owner.wear_mask && (owner.wear_mask.flags_inv & HIDEHAIR)))) //Common restriction for all the below features.
 		if(ha_style)
 			var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
-			if(head_accessory_style && head_accessory_style.species_allowed && (dna.species.name in head_accessory_style.species_allowed))
+			if(head_accessory_style?.species_allowed && (dna.species.name in head_accessory_style.species_allowed))
 				var/icon/head_accessory_s = new /icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				if(head_accessory_style.do_colouration)
 					head_accessory_s.Blend(headacc_colour, ICON_ADD)

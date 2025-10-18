@@ -214,7 +214,7 @@
 /area/maintenance/livingcomplex)
 "fk" = (
 /obj/effect/decal/cleanable/dust,
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/carpet/arcade,
 /area/maintenance/livingcomplex)
 "fE" = (
@@ -417,7 +417,7 @@
 /area/maintenance/fsmaint3)
 "kk" = (
 /obj/effect/decal/cleanable/flour,
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "kq" = (
@@ -872,7 +872,7 @@
 /area/maintenance/abandonedwarehouse)
 "wH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/ninja_teleport,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "wK" = (
@@ -895,7 +895,7 @@
 	},
 /area/maintenance/livingcomplex)
 "xc" = (
-/obj/effect/landmark/event/xeno_spawn,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/livingcomplex)
 "xe" = (

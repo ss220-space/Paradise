@@ -12,7 +12,6 @@
 	requires_power = FALSE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwgov
 	name = "Wild West Mansion"
@@ -20,7 +19,6 @@
 	requires_power = FALSE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwrefine
 	name = "Wild West Refinery"
@@ -28,7 +26,6 @@
 	requires_power = FALSE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwvault
 	name = "Wild West Vault"
@@ -50,7 +47,7 @@
 	var/chargesa = 1
 	var/insistinga = 0
 
-/obj/machinery/wish_granter_dark/attack_hand(var/mob/living/carbon/human/user as mob)
+/obj/machinery/wish_granter_dark/attack_hand(mob/living/carbon/human/user as mob)
 	usr.set_machine(src)
 
 	if(chargesa <= 0)
@@ -83,9 +80,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
-						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
+						to_chat(user, span_warning("Your flesh rapidly mutates!"))
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
+						to_chat(user, "[span_warning("Your body reacts violently to light.")] [span_notice("However, it naturally heals in darkness.")]")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
@@ -96,9 +93,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
-						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
+						to_chat(user, span_warning("Your flesh rapidly mutates!"))
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
+						to_chat(user, "[span_warning("Your body reacts violently to light.")] [span_notice("However, it naturally heals in darkness.")]")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
@@ -109,9 +106,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
-						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
+						to_chat(user, span_warning("Your flesh rapidly mutates!"))
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
+						to_chat(user, "[span_warning("Your body reacts violently to light.")] [span_notice("However, it naturally heals in darkness.")]")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
@@ -129,8 +126,6 @@
 	name = "Meat Grinder"
 	desc = "What is that thing?"
 	density = TRUE
-	anchored = TRUE
-	layer = 3
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"
 	var/triggered = FALSE
@@ -173,20 +168,20 @@
 
 	var/mob/living/carbon/C = usr
 	if(C.stat != DEAD)
-		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
+		to_chat(C, span_notice("You're not dead yet!"))
 		return
 	if(revival_in_progress)
-		to_chat(C, "<span class='notice'>You're already rising from the dead!</span>")
+		to_chat(C, span_notice("You're already rising from the dead!"))
 		return //no spam callbacks
 	C.revival_in_progress = TRUE
-	to_chat(C, "<span class='notice'>Death is not your end!</span>")
+	to_chat(C, span_notice("Death is not your end!"))
 	addtimer(CALLBACK(C, PROC_REF(resurrect), C), rand(80 SECONDS, 120 SECONDS))
 
-/mob/living/carbon/proc/resurrect(var/mob/living/carbon/user)
+/mob/living/carbon/proc/resurrect(mob/living/carbon/user)
 	user.revive()
 	user.revival_in_progress = FALSE
-	to_chat(user, "<span class='notice'>You have regenerated.</span>")
-	user.visible_message("<span class='warning'>[user] appears to wake from the dead, having healed all wounds.</span>")
+	to_chat(user, span_notice("You have regenerated."))
+	user.visible_message(span_warning("[user] appears to wake from the dead, having healed all wounds."))
 	return 1
 
 

@@ -8,10 +8,7 @@
 		INSTRUMENTAL = "пулей",
 		PREPOSITIONAL = "пуле"
 	)
-	icon_state = "bullet"
 	damage = 50
-	damage_type = BRUTE
-	flag = BULLET
 	hitsound = SFX_BULLET
 	hitsound_wall = SFX_RICOCHET
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
@@ -117,7 +114,6 @@
 	armour_penetration = 10
 
 /obj/projectile/bullet/weakbullet3/fortynr
-	name = "bullet"
 	ru_names = list(
 		NOMINATIVE = "пуля",
 		GENITIVE = "пули",
@@ -143,9 +139,9 @@
 	stamina = 30
 	icon_state = "bullet-r"
 
-/obj/projectile/bullet/weakbullet4/c9mmte
-	name = "9mm TE"
-	damage = 7
+/obj/projectile/bullet/weakbullet4/c45nr
+	name = "45 N&R"
+	damage = 10
 	stamina = 15
 
 /obj/projectile/bullet/toxinbullet
@@ -558,7 +554,6 @@
 	armour_penetration = 5
 
 /obj/projectile/bullet/weakbullet3/c257
-	damage = 20
 
 /obj/projectile/bullet/weakbullet3/c257/phosphorus/on_hit(atom/target, blocked, hit_zone)
 	do_sparks(rand(1, 3), FALSE, target)

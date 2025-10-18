@@ -3,9 +3,7 @@
 #define SECURE_CRATE_STAGE_WIRES_PREPARED 2
 #define SECURE_CRATE_STAGE_OPENED 1
 
-
 // MARK: Basic crate
-
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
@@ -14,8 +12,6 @@
 	climbable = TRUE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
-	open_sound_volume = 35
-	close_sound_volume = 50
 	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
 	var/rigged = FALSE
 	var/obj/item/paper/manifest/manifest
@@ -54,10 +50,11 @@
 					return FALSE
 				break
 
-	if(rigged && locate(/obj/item/radio/electropack) in src)
+	var/obj/item/radio/electropack = locate() in src
+	if(rigged && electropack)
 		if(isliving(usr))
 			var/mob/living/L = usr
-			if(L.electrocute_act(17, "электропака в ящике"))
+			if(L.electrocute_act(17, electropack))
 				do_sparks(5, TRUE, src)
 				return 2
 
@@ -152,17 +149,18 @@
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/radio/electropack) in src)
+		var/obj/item/radio/electropack = locate() in src
+		if(rigged && electropack)
 			if(isliving(user))
 				var/mob/living/L = user
-				if(L.electrocute_act(17, "электропака в ящике"))
+				if(L.electrocute_act(17, electropack))
 					do_sparks(5, TRUE, src)
 					return
 		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
-/obj/structure/closet/crate/proc/notifyRecipient(var/destination)
+/obj/structure/closet/crate/proc/notifyRecipient(destination)
 	var/msg = "[capitalize(name)] has arrived at [destination]."
 	if(destination in announce_beacons)
 		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
@@ -185,7 +183,6 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
 	var/tamperproof = FALSE
-	broken = SECURE_CRATE_STAGE_NO_BROKEN
 	locked = TRUE
 	can_be_emaged = TRUE
 
@@ -306,7 +303,7 @@
 		return
 	if(user)
 		balloon_alert(user, "не удалось!")
-	playsound(loc, "sound/misc/sadtrombone.ogg", 60, TRUE)
+	playsound(loc, 'sound/misc/sadtrombone.ogg', 60, TRUE)
 
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/tool)
@@ -407,7 +404,6 @@
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
 	name = "RCD crate"
-	icon_state = "crate"
 
 /obj/structure/closet/crate/rcd/populate_contents()
 	new /obj/item/rcd_ammo(src)
@@ -681,7 +677,6 @@
 	icon_state = "bloodcrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	req_access = list(ACCESS_MEDICAL)
-	locked = TRUE
 
 /obj/structure/closet/crate/secure/blood/get_ru_names()
 	return list(
@@ -733,12 +728,12 @@
 
 /obj/structure/closet/crate/secure/blood/nitrogenis/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект донорской крови (синтетическая кровь – азот)",
-		GENITIVE = "комплекта донорской крови (синтетическая кровь – азот)",
-		DATIVE = "комплекту донорской крови (синтетическая кровь – азот)",
-		ACCUSATIVE = "комплект донорской крови (синтетическая кровь – азот)",
-		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – азот)",
-		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – азот)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь — азот)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь — азот)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь — азот)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь — азот)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — азот)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — азот)"
 	)
 
 
@@ -749,10 +744,15 @@
 
 /obj/structure/closet/crate/secure/blood/oxygenis/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект донорской крови (синтетическая кровь – кислород)",
-		GENITIVE = "комплекта донорской крови (синтетическая кровь – кислород)",
-		DATIVE = "комплекту донорской крови (синтетическая кровь – кислород)",
-		ACCUSATIVE = "комплект донорской крови (синтетическая кровь – кислород)",
-		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – кислород)",
-		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – кислород)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь — кислород)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь — кислород)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — кислород)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — кислород)"
 	)
+
+#undef SECURE_CRATE_STAGE_NO_BROKEN
+#undef SECURE_CRATE_STAGE_PANEL_OPEN
+#undef SECURE_CRATE_STAGE_WIRES_PREPARED
+#undef SECURE_CRATE_STAGE_OPENED

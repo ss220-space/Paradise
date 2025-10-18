@@ -8,7 +8,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
 	base_icon_state = "portal"
-	anchored = TRUE
 	density = TRUE // dense for receiving bumbs
 	layer = HIGH_OBJ_LAYER
 
@@ -253,7 +252,6 @@
 	icon_state = "portal-syndicate"
 	base_icon_state = "portal-syndicate"
 	failchance = 0
-	precision = 0
 	ignore_tele_proof_area_setting = TRUE
 
 

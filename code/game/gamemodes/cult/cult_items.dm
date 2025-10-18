@@ -6,7 +6,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "tome"
 	item_state = "book"
-	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -93,7 +92,6 @@
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "Тяжёлая бола, наполненная тёмной магией. При попадании она опрокинет и замедлит вашу цель, но не повлияет на других культистов."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakout_time = 4 SECONDS
@@ -174,7 +172,6 @@
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
-	slowdown = 1
 	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEJUMPSUIT
@@ -192,7 +189,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60)
 	flags_inv_transparent = HIDEGLOVES
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	species_restricted = null
@@ -205,7 +201,6 @@
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list(MELEE = 40, BULLET = 30, LASER = 40,ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
-	body_parts_covered = HEAD
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
@@ -236,7 +231,6 @@
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list(MELEE = -50, BULLET = -50, LASER = -50,ENERGY = -50, BOMB = -50, BIO = -50, RAD = -50, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -294,7 +288,6 @@
 	increment = 5
 	max = 40
 	claws_increment = 4
-	gender = MALE
 	prefix = "Потемневшее"
 
 /obj/item/whetstone/cult/update_icon_state()
@@ -329,7 +322,6 @@
 	desc = "May the master guide you through the darkness and shield you from the light."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
@@ -374,9 +366,10 @@
 		curselimit++
 		var/message = pick(CULT_CURSES)
 		var/curse_delay = cursetime / 600
-		GLOB.major_announcement.announce("[message] Шаттл задерживается на [curse_delay] минут[declension_ru(curse_delay, "у", "ы", "")].",
-										ANNOUNCE_SYSERROR_RU,
-										'sound/misc/notice1.ogg'
+		GLOB.major_announcement.announce(
+			message = "[message] Шаттл задерживается на [curse_delay] минут[declension_ru(curse_delay, "у", "ы", "")].",
+			new_title = ANNOUNCE_SYSERROR_RU,
+			new_sound = 'sound/misc/notice1.ogg'
 		)
 		qdel(src)
 
@@ -486,7 +479,6 @@
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	name = "ghostly cult robes"
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	item_flags = DROPDEL
@@ -557,19 +549,19 @@
 	return ..()
 
 /**
-  * Reflect/Block/Shatter proc.
-  *
-  * Projectiles:
-  * If you have been hit by a projectile, the 'threshold' will be set depending on the damage type.
-  * By default, energy weapons have a 70% chance of being reflected, so you're going to want to use ballistics against mirror shields. (Reflection is calculated beforehand in [/mob/living/carbon/human/bullet_act])
-  * For every point of damage above the threshold, the shield will have a 3% chance to shatter. (Up to a maximum of 75%)
-  * If a ballistic projectile doesn't shatter the shield, it will move on to the melee section.
-  *
-  * Melee and blocked projectiles:
-  * Melee attacks and bullets have a 50|50 chance of being blocked by the mirror shield. (Based on the 'block_chance' variable)
-  * If they are blocked, and the shield has an illusion charge, an illusion will be spawned at src.
-  * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
-  */
+ * Reflect/Block/Shatter proc.
+ *
+ * Projectiles:
+ * If you have been hit by a projectile, the 'threshold' will be set depending on the damage type.
+ * By default, energy weapons have a 70% chance of being reflected, so you're going to want to use ballistics against mirror shields. (Reflection is calculated beforehand in [/mob/living/carbon/human/bullet_act])
+ * For every point of damage above the threshold, the shield will have a 3% chance to shatter. (Up to a maximum of 75%)
+ * If a ballistic projectile doesn't shatter the shield, it will move on to the melee section.
+ *
+ * Melee and blocked projectiles:
+ * Melee attacks and bullets have a 50|50 chance of being blocked by the mirror shield. (Based on the 'block_chance' variable)
+ * If they are blocked, and the shield has an illusion charge, an illusion will be spawned at src.
+ * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
+ */
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(iscultist(owner)) // Cultist holding the shield
 
@@ -659,7 +651,6 @@
 	force_unwielded = 17
 	force_wielded = 24
 	throwforce = 40
-	throw_speed = 2
 	armour_penetration = 30
 	block_chance = 30
 	attack_verb = list("атаковал", "пронзил", "уколол", "поранил", "пронзил")
@@ -676,6 +667,18 @@
 
 /obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
+/obj/item/twohanded/cult_spear/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+	if(!iscultist(user))
+		user.Knockdown(10 SECONDS)
+		user.drop_item_ground(src, force = TRUE)
+		user.visible_message(
+			span_warning("A powerful force shoves [user] away from [target]!"),
+			span_cultlarge("\"You shouldn't play with sharp things. You'll poke someone's eye out.\""),
+		)
+		user.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /obj/item/twohanded/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
@@ -721,7 +724,6 @@
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
-	background_icon_state = "bg_cult"
 	button_icon_state = "bloodspear"
 	var/obj/item/twohanded/cult_spear/spear
 	var/cooldown = 0
@@ -749,12 +751,14 @@
 	name = "blood bolt barrage"
 	desc = "Blood for blood."
 	item_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 	color = "#ff0000"
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
+	pickup_sound = 'sound/effects/splat.ogg'
+	drop_sound = 'sound/effects/splat.ogg'
 	item_flags = NOBLUDGEON|DROPDEL
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
@@ -768,7 +772,7 @@
 	name = "blood bolt"
 	icon_state = "blood_bolt"
 	damage_type = BRUTE
-	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
+	impact_effect_type = /obj/effect/temp_visual/cult/sparks
 	hitsound = 'sound/effects/splat.ogg'
 
 /obj/projectile/magic/arcane_barrage/blood/prehit(atom/target)

@@ -1,24 +1,5 @@
 // Accuracy datum for /obj/item/gun
 
-/// Default accuracy for all projectile weapon
-#define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy/default()
-/// Minimal gun accuracy
-#define GUN_ACCURACY_MINIMAL new /datum/gun_accuracy/minimal()
-/// Shotgun accuracy (less than default)
-#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
-/// Pistol accuracy (near default)
-#define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
-/// Uplink pistol accuracy (better than normal pistols)
-#define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
-/// Rifle accuracy (more than default)
-#define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
-/// Laser rifle accuracy (default but lesser spread)
-#define GUN_ACCURACY_RIFLE_LASER new /datum/gun_accuracy/rifle/laser()
-/// Uplink rifles accuracy (better than default rifles)
-#define GUN_ACCURACY_RIFLE_UPLINK new /datum/gun_accuracy/rifle/uplink()
-/// Sniper rifle accuracy (100% hit)
-#define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
-
 GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 
 //MARK: Accuracy datum
@@ -102,7 +83,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 
 /datum/gun_accuracy/shotgun
 	head = 70
-	chest = 100
 	arms = 60
 	legs = 60
 	hands = 40
@@ -116,21 +96,14 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 
 /datum/gun_accuracy/default
 	head = 75
-	chest = 100
 	arms = 66
 	legs = 66
 	hands = 50
 	foots = 50
 	other = 50
-	dual_wield_spread = 24
-	min_spread = 0
-	max_spread = 0
-	spread_increase_step = 0
-	spread_restore_duration = 0
 
 /datum/gun_accuracy/pistol
 	head = 75
-	chest = 100
 	arms = 66
 	legs = 66
 	hands = 50
@@ -144,7 +117,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 
 /datum/gun_accuracy/pistol/uplink
 	head = 80
-	chest = 100
 	arms = 75
 	legs = 75
 	hands = 60
@@ -153,7 +125,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	min_spread = 2
 	max_spread = 10
 	spread_increase_step = 2
-	spread_restore_duration = 1 SECONDS
 
 /datum/gun_accuracy/rifle
 	head = 90
@@ -163,8 +134,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	hands = 66
 	foots = 66
 	other = 66
-	dual_wield_spread = 24
-	min_spread = 0
 	max_spread = 12
 	spread_increase_step = 2
 	spread_restore_duration = 1 SECONDS
@@ -183,10 +152,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	min_spread = 1
 	max_spread = 8
 	spread_increase_step = 1
-	spread_restore_duration = 1 SECONDS
-
-/datum/gun_accuracy/rifle/laser
-	max_spread = 6
 
 // min accuracy on range 12 is 50%, summary accuracy = 50% * 200% = 100%
 /datum/gun_accuracy/sniper
@@ -198,11 +163,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	foots = 200
 	other = 200
 	///Additional spread when dual wielding.
-	dual_wield_spread = 24
-	min_spread = 0
-	max_spread = 0
-	spread_increase_step = 0
-	spread_restore_duration = 0
 
 
 // MARK: Specific accuracy
@@ -221,7 +181,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 
 // MARK: Procs
 
-/datum/gun_accuracy/proc/randomize_spread(bonus_spread)
+/datum/gun_accuracy/proc/randomize_spread(mob/living/user, bonus_spread)
 	// no spread guns
 	if(!max_spread)
 		return round((rand() - 0.5) * bonus_spread)
@@ -234,7 +194,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 			current_spread = min(current_spread + spread_increase_step, max_spread)
 		last_shot_time = world.time
 	// randomize spread
-	return round((rand() - 0.5) * (current_spread + bonus_spread))
+	var/rnd_angle = round((rand() - 0.5) * (current_spread + bonus_spread))
+	if(HAS_TRAIT(user, TRAIT_BADASS))
+		return 0.5 * rnd_angle
+	return rnd_angle
 
 
 /obj/projectile/proc/calculate_hit_chance(obj/projectile/projectile, mob/living/target)

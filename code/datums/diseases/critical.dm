@@ -68,7 +68,7 @@
 					to_chat(affected_mob, span_danger("Вы чувствуете себя ужасно!"))
 
 				if(prob(5))
-					affected_mob.emote("faint", "collapse", "groan")
+					affected_mob.emote("groan")
 
 			if(3)
 				if(prob(1) && prob(10))
@@ -99,7 +99,7 @@
 	additional_info = "У пациента сердечный приступ"
 	max_stages = 3
 	stage_prob = 5
-	cures = list("atropine", "epinephrine", "heparin")
+	cures = list("atropine", "epinephrine", "heparin", "neuromatin")
 	cure_prob = 10
 	needs_all_cures = FALSE
 	required_organs = list(/obj/item/organ/internal/heart)

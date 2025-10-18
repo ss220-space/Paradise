@@ -8,7 +8,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	var/previous_rights = 0
 
 	//load text from file
-	var/list/Lines = file2list("config/admin_ranks.txt")
+	var/list/Lines = world.file2list("config/admin_ranks.txt")
 
 	//process each line seperately
 	for(var/line in Lines)
@@ -16,16 +16,16 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		if(copytext(line,1,2) == "#")	continue
 
 		var/list/List = splittext(line,"+")
-		if(!List.len)					continue
+		if(!length(List))					continue
 
 		var/rank = trim(List[1])
 		switch(rank)
 			if(null,"")		continue
 			if("Removed")	continue				//Reserved
-			if("Удален")	continue				//Reserved
+			if(DELETED_RANK)	continue				//Reserved
 
 		var/rights = 0
-		for(var/i=2, i<=List.len, i++)
+		for(var/i=2, i<=length(List), i++)
 			switch(ckey(List[i]))
 				if("@","prev")					rights |= previous_rights
 				if("buildmode","build")			rights |= R_BUILDMODE
@@ -56,6 +56,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		msg += "\t[rank] - [GLOB.admin_ranks[rank]]\n"
 	testing(msg)
 	#endif
+	GLOB.admin_ranks[DELETED_RANK] = 0
 
 /proc/load_admins(run_async = FALSE)
 	if(IsAdminAdvancedProcCall())
@@ -76,7 +77,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	if(CONFIG_GET(flag/admin_legacy_system))
 
 		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
+		var/list/Lines = world.file2list("config/admins.txt")
 
 		//process each line seperately
 		for(var/line in Lines)
@@ -85,7 +86,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 			//Split the line at every "-"
 			var/list/List = splittext(line, "-")
-			if(!List.len)					continue
+			if(!length(List))					continue
 
 			//ckey is before the first "-"
 			var/ckey = ckey(List[1])
@@ -93,7 +94,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 			//rank follows the first "-"
 			var/rank = ""
-			if(List.len >= 2)
+			if(length(List) >= 2)
 				rank = List[2]
 
 			//load permissions associated with this rank
@@ -124,13 +125,14 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		while(query.NextRow())
 			var/ckey = query.item[1]
 			var/rank = query.item[2]
-			if(rank == "Удален")	continue	//This person was de-adminned. They are only in the admin list for archive purposes.
+			if(rank == DELETED_RANK)	continue	//This person was de-adminned. They are only in the admin list for archive purposes.
 
 			var/rights = query.item[4]
 			if(istext(rights))	rights = text2num(rights)
 			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
 			GLOB.de_admins -= ckey
 			GLOB.de_mentors -= ckey
+			GLOB.de_devs -= ckey
 
 			if(D.rights & R_DEBUG || D.rights & R_VIEWRUNTIMES) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
 				world.SetConfig("APP/admin", ckey, "role=admin")

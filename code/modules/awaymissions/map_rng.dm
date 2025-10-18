@@ -2,10 +2,6 @@
 	name = "map loader"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
-	invisibility = INVISIBILITY_ABSTRACT
-	anchored = TRUE
-	density = FALSE
-	opacity = FALSE
 	var/template_name = null
 	var/datum/map_template/template = null
 	var/centered = 1

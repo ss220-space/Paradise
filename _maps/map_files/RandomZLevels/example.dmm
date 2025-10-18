@@ -75,10 +75,6 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "al" = (

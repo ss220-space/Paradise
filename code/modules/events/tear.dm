@@ -54,9 +54,9 @@
 			kill()
 			return
 	GLOB.minor_announcement.announce(
-		"На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
-		ANNOUNCE_ANOMALY_RU,
-		'sound/AI/anomaly.ogg'
+		message = "На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
+		new_title = ANNOUNCE_ANOMALY_RU,
+		new_sound = 'sound/AI/anomaly.ogg'
 	)
 
 /datum/event/tear/end()

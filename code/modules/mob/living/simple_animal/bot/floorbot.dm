@@ -1,11 +1,16 @@
+#define HULL_BREACH 1
+#define BRIDGE_MODE 2
+#define FIX_TILE 3
+#define AUTO_TILE 4
+#define REPLACE_TILE 5
+#define TILE_EMAG 6
+
 //Floorbot
 /mob/living/simple_animal/bot/floorbot
 	name = "Floorbot"
 	desc = "Маленький робот для починки полов и обшивки. Он выглядит таким увлечённым!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot0"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 
@@ -19,7 +24,7 @@
 	window_name = "Автоматическая Ремонтная Единица v1.1"
 	path_image_color = "#FFA500"
 
-	/// Determines what to do when process_scan() recieves a target. See process_scan() for details.
+	/// Determines what to do when process_scan() receives a target. See process_scan() for details.
 	var/process_type
 	var/targetdirection
 	var/amount = 10
@@ -35,13 +40,6 @@
 	var/turf/target
 	var/oldloc = null
 	var/toolbox_color = ""
-
-	#define HULL_BREACH		1
-	#define BRIDGE_MODE		2
-	#define FIX_TILE		3
-	#define AUTO_TILE		4
-	#define REPLACE_TILE	5
-	#define TILE_EMAG		6
 
 /mob/living/simple_animal/bot/floorbot/get_ru_names()
 	return list(
@@ -486,3 +484,9 @@
 /obj/machinery/bot_core/floorbot
 	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 
+#undef HULL_BREACH
+#undef BRIDGE_MODE
+#undef FIX_TILE
+#undef AUTO_TILE
+#undef REPLACE_TILE
+#undef TILE_EMAG

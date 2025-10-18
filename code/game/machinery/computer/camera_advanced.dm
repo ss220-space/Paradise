@@ -230,7 +230,7 @@
 
 	for(var/obj/machinery/camera/netcam in L)
 		var/list/tempnetwork = netcam.network&origin.networks
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			T[text("[][]", netcam.c_tag, (netcam.can_use() ? null : " (Deactivated)"))] = netcam
 
 
@@ -248,7 +248,6 @@
 
 /datum/action/innate/camera_multiz_up
 	name = "На этаж выше"
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "move_up"
 
 /datum/action/innate/camera_multiz_up/Activate()
@@ -262,7 +261,6 @@
 
 /datum/action/innate/camera_multiz_down
 	name = "На этаж ниже"
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "move_down"
 
 /datum/action/innate/camera_multiz_down/Activate()

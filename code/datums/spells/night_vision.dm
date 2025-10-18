@@ -6,7 +6,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-	message = "<span class='notice'>You toggle your night vision!</span>"
+	message = span_notice("You toggle your night vision!")
 
 
 /obj/effect/proc_holder/spell/night_vision/create_new_targeting()
@@ -16,13 +16,13 @@
 /obj/effect/proc_holder/spell/night_vision/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		switch(target.lighting_alpha)
-			if (LIGHTING_PLANE_ALPHA_VISIBLE)
+			if(LIGHTING_PLANE_ALPHA_VISIBLE)
 				target.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 				name = "Toggle Nightvision \[More]"
-			if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+			if(LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 				target.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 				name = "Toggle Nightvision \[Full]"
-			if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
+			if(LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
 				target.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 				name = "Toggle Nightvision \[OFF]"
 			else

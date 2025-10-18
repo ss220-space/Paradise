@@ -45,9 +45,10 @@
 
 /datum/gear/earrings/New()
 	..()
-	var/list/earrings = list("silver" = /obj/item/clothing/ears/earrings/silver,
-								 "gold" = /obj/item/clothing/ears/earrings
-								 )
+	var/list/earrings = list(
+		"silver" = /obj/item/clothing/ears/earrings/silver,
+		"gold" = /obj/item/clothing/ears/earrings
+	)
 	gear_tweaks += new /datum/gear_tweak/path(earrings, src)
 
 /datum/gear/matches
@@ -111,13 +112,14 @@
 
 /datum/gear/wallet/color/New()
 	..()
-	var/list/wallets = list("blue" = /obj/item/storage/wallet/color/blue,
-							"red" = /obj/item/storage/wallet/color/red,
-							"yellow" = /obj/item/storage/wallet/color/yellow,
-							"green" = /obj/item/storage/wallet/color/green,
-							"pink" = /obj/item/storage/wallet/color/pink,
-							"black" = /obj/item/storage/wallet/color/black,
-							)
+	var/list/wallets = list(
+		"blue" = /obj/item/storage/wallet/color/blue,
+		"red" = /obj/item/storage/wallet/color/red,
+		"yellow" = /obj/item/storage/wallet/color/yellow,
+		"green" = /obj/item/storage/wallet/color/green,
+		"pink" = /obj/item/storage/wallet/color/pink,
+		"black" = /obj/item/storage/wallet/color/black,
+	)
 	gear_tweaks += new /datum/gear_tweak/path(wallets, src)
 
 /datum/gear/bandana
@@ -127,15 +129,16 @@
 
 /datum/gear/bandana/New()
 	..()
-	var/list/bands = list("black" = /obj/item/clothing/mask/bandana/black,
-							"red" = /obj/item/clothing/mask/bandana/red,
-							"gold" = /obj/item/clothing/mask/bandana/gold,
-							"green" = /obj/item/clothing/mask/bandana/green,
-							"skull" = /obj/item/clothing/mask/bandana/skull,
-							"purple" = /obj/item/clothing/mask/bandana/purple,
-							"orange" = /obj/item/clothing/mask/bandana/orange,
-							"blue" = /obj/item/clothing/mask/bandana/blue,
-							)
+	var/list/bands = list(
+		"black" = /obj/item/clothing/mask/bandana/black,
+		"red" = /obj/item/clothing/mask/bandana/red,
+		"gold" = /obj/item/clothing/mask/bandana/gold,
+		"green" = /obj/item/clothing/mask/bandana/green,
+		"skull" = /obj/item/clothing/mask/bandana/skull,
+		"purple" = /obj/item/clothing/mask/bandana/purple,
+		"orange" = /obj/item/clothing/mask/bandana/orange,
+		"blue" = /obj/item/clothing/mask/bandana/blue,
+	)
 	gear_tweaks += new /datum/gear_tweak/path(bands, src)
 
 /datum/gear/piano_synth
@@ -154,12 +157,14 @@
 
 /datum/gear/lipstick/New()
 	..()
-	var/list/lips = list(/obj/item/lipstick,
-						 /obj/item/lipstick/black,
-						 /obj/item/lipstick/jade,
-						 /obj/item/lipstick/purple,
-						 /obj/item/lipstick/blue,
-						 /obj/item/lipstick/lime,)
+	var/list/lips = list(
+		/obj/item/lipstick,
+		/obj/item/lipstick/black,
+		/obj/item/lipstick/jade,
+		/obj/item/lipstick/purple,
+		/obj/item/lipstick/blue,
+		/obj/item/lipstick/lime
+	)
 	gear_tweaks += new /datum/gear_tweak/path(lips, src, TRUE)
 
 

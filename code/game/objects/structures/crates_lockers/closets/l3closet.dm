@@ -10,7 +10,6 @@
 
 
 /obj/structure/closet/l3closet/general
-	icon_state = "bio"
 
 /obj/structure/closet/l3closet/general/populate_contents()
 	new /obj/item/clothing/suit/bio_suit/general( src )

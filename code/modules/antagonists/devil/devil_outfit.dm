@@ -20,7 +20,7 @@
 	if(devilinfo)
 		name_to_use = devilinfo.info.truename // Having hell create an ID for you causes its risks
 
-	id.name = "[name_to_use]'s ID Card (Lawyer)"
+	id.name = "[name_to_use]’s ID Card (Lawyer)"
 	id.registered_name = name_to_use
 	id.assignment = "Lawyer"
 	id.rank = id.assignment

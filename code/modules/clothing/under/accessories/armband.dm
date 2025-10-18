@@ -38,8 +38,10 @@
 	name = "medical armband"
 	desc = "An armband, worn by the crew to display which department they're assigned to. This one is white."
 	icon_state = "med"
+	item_state = "med"
 
 /obj/item/clothing/accessory/armband/medgreen
 	name = "EMT armband"
 	desc = "An armband, worn by the crew to display which department they're assigned to. This one is white and green."
 	icon_state = "medgreen"
+	item_state = "medgreen"

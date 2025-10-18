@@ -32,6 +32,11 @@ GLOBAL_LIST_EMPTY(sortedAreas)
 /// An association from typepath to area instance. Only includes areas with `unique` set.
 GLOBAL_LIST_EMPTY_TYPED(areas_by_type, /area)
 
+/// list of all landmarks created
+GLOBAL_LIST_EMPTY(landmarks_list)
+/// list of all job spawn points created
+GLOBAL_LIST_EMPTY(start_landmarks_list)
+
 GLOBAL_LIST_EMPTY(wizardstart)
 GLOBAL_LIST_EMPTY(newplayer_start)
 GLOBAL_LIST_EMPTY(start_override)
@@ -60,6 +65,14 @@ GLOBAL_LIST_EMPTY(ninja_teleport)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
 GLOBAL_LIST_EMPTY(nukespawn)
+GLOBAL_LIST_EMPTY(captain_body_spawns)
+GLOBAL_LIST_EMPTY(armory_body_spawns)
+GLOBAL_LIST_EMPTY(airdrops_points)
+GLOBAL_LIST_INIT(battle_teams_spawns, list(
+	JOB_TITLE_TEAM1 = list(),
+	JOB_TITLE_TEAM2 = list(),
+	JOB_TITLE_TEAM3 = list()
+))
 
 //away missions
 GLOBAL_LIST_EMPTY(awaydestinations)	//a list of landmarks that the warpgate can take you to

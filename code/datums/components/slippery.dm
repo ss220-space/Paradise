@@ -32,7 +32,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(Slip),
 	)
 
-
 /**
  * Initialize the slippery component behaviour
  *
@@ -62,19 +61,16 @@
 	else
 		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(Slip))
 
-
 /datum/component/slippery/UnregisterFromParent()
 	if(ismovable(parent))
 		qdel(GetComponent(/datum/component/connect_loc_behalf))
 	else
 		UnregisterSignal(parent, COMSIG_ATOM_ENTERED)
 
-
 /datum/component/slippery/Destroy(force)
 	can_slip_callback = null
 	on_slip_callback = null
 	return ..()
-
 
 /datum/component/slippery/InheritComponent(
 	datum/component/slippery/component,
@@ -98,7 +94,6 @@
 	src.on_slip_callback = on_slip_callback
 	src.can_slip_callback = can_slip_callback
 
-
 /**
  * The proc that does the sliping. Invokes the slip callback we have set.
  *
@@ -121,4 +116,3 @@
 		return
 	if(victim.slip(weaken_time, parent, lube_flags, slip_tiles))
 		on_slip_callback?.Invoke(victim)
-

@@ -1,10 +1,10 @@
 /datum/component/pref_holder
-    var/list/preferences
+	var/list/preferences
 
 /datum/component/pref_holder/Destroy(force)
-    LAZYNULL(preferences)
+	LAZYNULL(preferences)
 
-    return ..()
+	return ..()
 
 /datum/component/pref_holder/Initialize(list/preferences)
 	if(!ismob(parent))
@@ -13,7 +13,7 @@
 	src.preferences = preferences || forge_preferences()
 
 /datum/component/pref_holder/RegisterWithParent()
-    RegisterSignal(parent, COMSIG_MOB_LOGIN, PROC_REF(handle_transfer))
+	RegisterSignal(parent, COMSIG_MOB_LOGIN, PROC_REF(handle_transfer))
 
 /datum/component/pref_holder/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOB_LOGIN)
@@ -22,9 +22,9 @@
 		pref.deactivate(parent)
 
 /datum/component/pref_holder/proc/handle_transfer(mob/source)
-    SIGNAL_HANDLER
+	SIGNAL_HANDLER
 
-    preferences = forge_preferences()
+	preferences = forge_preferences()
 
 /datum/component/pref_holder/proc/forge_preferences()
 	var/mob/mob = parent
@@ -34,7 +34,7 @@
 
 	for(var/datum/preference_info/pref as anything in preferences) // deactivate current
 		pref.deactivate(mob)
-        
+
 	var/list/prefs
 
 	for(var/datum/preference_info/pref as anything in GLOB.preferences_info)
@@ -55,7 +55,7 @@
 
 /datum/component/pref_holder/proc/is_active_toggle(datum/preference_toggle/toggle)
 	var/mob/mob = parent
-	
+
 	switch(toggle.preftoggle_toggle)
 		if(PREFTOGGLE_TOGGLE1)
 			. = HASBIT(mob.client.prefs.toggles, toggle.preftoggle_bitflag)
@@ -65,6 +65,6 @@
 
 		if(PREFTOGGLE_TOGGLE3)
 			. = HASBIT(mob.client.prefs.toggles3, toggle.preftoggle_bitflag)
-			
+
 		if(PREFTOGGLE_SOUND)
 			. = HASBIT(mob.client.prefs.sound, toggle.preftoggle_bitflag)
