@@ -172,8 +172,7 @@ jobs:
 
           if [ "$CHANGES" -gt 0 ] ; then
             ./tgui/bin/tgui
-            AFTERCHANGES=$(git diff --quiet || git diff --cached --quiet)
-            if [ "$AFTERCHANGES" -gt 0 ] ; then
+            if ! git diff --quiet || ! git diff --cached --quiet ; then
               git config --local user.email "action@github.com"
               git config --local user.name "TGUI bundle Generation"
               git commit -am "Testmerge TGUI bundle build generation"
