@@ -86,6 +86,7 @@ export const FUNDAMENTAL_DATA_TYPES = {
     return (
       <Dropdown
         className="IntegratedCircuit__BlueBorder"
+        placeholder="Выбор"
         color={'transparent'}
         options={data}
         onSelected={setValue}

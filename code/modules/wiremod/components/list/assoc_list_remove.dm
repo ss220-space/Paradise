@@ -4,7 +4,7 @@
  * Removes an element from an assoc list.
  */
 /obj/item/circuit_component/variable/assoc_list/list_remove
-	display_name = "Ассоциативный список — удаление"
+	display_name = "Ассоциативный список — удалить"
 	desc = "Удаляет ключ из ассоциативного списка переменных."
 	category = "List"
 

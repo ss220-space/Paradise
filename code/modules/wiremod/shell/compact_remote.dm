@@ -29,7 +29,7 @@
 	), SHELL_CAPACITY_SMALL)
 
 /obj/item/circuit_component/compact_remote
-	display_name = "Компактный пульт дистанционного управления"
+	display_name = "Компактный пульт"
 	desc = "Используется для получения входных сигналов от компактного пульта дистанционного управления. Используйте пульт в руке для активации выходного сигнала."
 
 	/// Called when attack_self is called on the shell.

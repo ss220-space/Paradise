@@ -141,7 +141,7 @@ export class VariableMenu extends Component<
               <Stack vertical fill>
                 <Stack.Item>
                   <Input
-                    placeholder="Name"
+                    placeholder="Название"
                     width="100%"
                     fluid
                     onChange={(nameVal) =>
