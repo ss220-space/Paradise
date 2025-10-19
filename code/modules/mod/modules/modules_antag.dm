@@ -60,7 +60,7 @@
 
 /obj/item/mod/module/springlock/bite_of_87/Initialize(mapload)
 	. = ..()
-	var/obj/item/mod/module/dna_lock/the_dna_lock_behind_the_slaughter = /obj/item/mod/module/dna_lock
+	var/obj/item/mod/module/dna_lock/the_dna_lock_behind_the_slaughter = new /obj/item/mod/module/dna_lock
 	name = the_dna_lock_behind_the_slaughter.name
 	desc = the_dna_lock_behind_the_slaughter.desc
 	icon_state = the_dna_lock_behind_the_slaughter.icon_state
