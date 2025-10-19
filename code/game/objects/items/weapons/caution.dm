@@ -72,6 +72,7 @@
 	visible_message("[capitalize(declent_ru(NOMINATIVE))] сообщает: \"Бег по мокрому полу может быть опасен для вашего здоровья!\"")
 	explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 	if(!ishuman(victim))
+		return
 	dead_legs(victim)
 	qdel(src)
 
