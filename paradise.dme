@@ -104,6 +104,7 @@
 #include "code\__DEFINES\keybindings.dm"
 #include "code\__DEFINES\language.dm"
 #include "code\__DEFINES\layers.dm"
+#include "code\__DEFINES\level_traits.dm"
 #include "code\__DEFINES\library.dm"
 #include "code\__DEFINES\lighting.dm"
 #include "code\__DEFINES\lights.dm"
