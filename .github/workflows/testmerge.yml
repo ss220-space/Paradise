@@ -132,6 +132,23 @@ jobs:
 
             # Check for merge conflicts
             git merge --no-commit --no-ff pr-$PR_NUMBER || true
+            TGUI_CHANGES=$(git diff --name-only --cached | grep -E "^tgui/" | wc -l)
+  
+            if [ "$TGUI_CHANGES" -gt 0 ]; then
+              echo "TGUI changes detected, building..."
+    
+              echo "Cleaning tgui/public directory..."
+              find tgui/public -type f -not -name "*.html" -delete
+    
+              ./tgui/bin/tgui
+    
+              TGUI_AFTER_BUILD=$(git status --porcelain | wc -l)
+              if [ "$TGUI_AFTER_BUILD" -gt 0 ]; then
+                git config --local user.email "action@github.com"
+                git config --local user.name "TGUI Build"
+                git commit -am "TGUI build for PR #$PR_NUMBER"
+              fi
+            fi
             CONFLICTS=$(git ls-files -u | wc -l)
             if [ "$CONFLICTS" -gt 0 ] ; then
               echo "::endgroup::"
