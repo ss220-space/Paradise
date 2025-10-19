@@ -98,8 +98,8 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
-	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
-	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+	/// Список склонений русского названия атома в разных грамматических падежах.
+	/// Формат: list(CASE_ID = "name_in_case", ...)
 	var/list/ru_names
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
@@ -1543,19 +1543,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			color = C
 			return
 
-/atom/proc/get_ru_names()
-	return
-
-/atom/proc/get_ru_names_cached()
-	var/list/names = GLOB.cached_ru_names[type]
-	if(names)
-		return names
-	names = get_ru_names()
-	if(names)
-		GLOB.cached_ru_names[type] = names
-		return names
-	return
-
 /** Call this when you want to present a renaming prompt to the user.
 
 	It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
@@ -1638,16 +1625,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 					ru_names[i] = "[t]"
 			name = "[prefix][t]"
 	return t
-
-
-// Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
-// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
-/atom/proc/declent_ru(case_id, list/ru_names_override)
-	var/list/list_to_use = ru_names_override || ru_names || get_ru_names_cached()
-	if(length(list_to_use))
-		return list_to_use[case_id] || name
-	return name
-
 
 /**
  * This proc is used for telling whether something can pass by this atom in a given direction, for use by the pathfinding system.

@@ -504,7 +504,7 @@
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		get_icon()
-		name = "[dna.real_name]'s head"
+		name = "[dna.real_name]’s head"
 		if(ru_names)
 			for(var/i = 1; i <= 6; i++)
 				ru_names[i] += " [dna.real_name]"

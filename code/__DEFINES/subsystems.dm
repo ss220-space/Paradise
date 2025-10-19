@@ -100,19 +100,19 @@
 #define INIT_ORDER_TICKER 30
 #define INIT_ORDER_NEW_PLAYERS_INFO 31
 #define INIT_ORDER_MAPPING 20
-#define INIT_ORDER_HOLOMAP 9 // after map loads, but before atoms init
-#define INIT_ORDER_EARLY_ASSETS 8
-#define INIT_ORDER_SPATIAL_GRID 7
-#define INIT_ORDER_FLUIDS 6 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
-#define INIT_ORDER_ATOMS 5
-#define INIT_ORDER_MACHINES 4
-#define INIT_ORDER_IDLENPCS 3
-#define INIT_ORDER_MOBS 2
+#define INIT_ORDER_HOLOMAP 10 // after map loads, but before atoms init
+#define INIT_ORDER_EARLY_ASSETS 9
+#define INIT_ORDER_SPATIAL_GRID 8
+#define INIT_ORDER_FLUIDS 7 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
+#define INIT_ORDER_ATOMS 6
+#define INIT_ORDER_MACHINES 5
+#define INIT_ORDER_IDLENPCS 4
+#define INIT_ORDER_MOBS 3
+#define INIT_ORDER_ASSETS 2
 #define INIT_ORDER_TIMER 1
 #define INIT_ORDER_DEFAULT 0
 #define INIT_ORDER_AIR -1
 #define INIT_ORDER_SUN -2
-#define INIT_ORDER_ASSETS -4
 #define INIT_ORDER_ICON_SMOOTHING -5
 #define INIT_ORDER_OVERLAY -6
 #define INIT_ORDER_XKEYSCORE -10

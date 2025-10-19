@@ -33,7 +33,7 @@
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), ITEM_SLOT_CLOTH_INNER)
 			var/obj/item/card/id/W = new(H)
-			W.name = "[H.real_name]'s ID Card"
+			W.name = "[H.real_name]’s ID Card"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
 			W.access += get_all_centcom_access()
@@ -46,7 +46,7 @@
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), ITEM_SLOT_CLOTH_INNER)
 			var/obj/item/card/id/W = new(H)
-			W.name = "[H.real_name]'s ID Card"
+			W.name = "[H.real_name]’s ID Card"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
 			W.access += get_all_centcom_access()

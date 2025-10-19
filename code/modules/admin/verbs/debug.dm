@@ -421,7 +421,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 			id.registered_name = H.real_name
 			id.assignment = JOB_TITLE_CAPTAIN
-			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
+			id.name = "[id.registered_name]’s ID Card ([id.assignment])"
 			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
 			H.update_worn_id()
 	else
@@ -828,6 +828,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	to_chat(src, span_notice("You can now right click to use inspect on browsers."))
 	winset(src, null, list("browser-options" = "+devtools"))
+	winset(src, null, list("browser-options" = "+find"))
+	winset(src, null, list("browser-options" = "+refresh"))
 
 /client/proc/jump_to_ruin()
 	set category = STATPANEL_OOC

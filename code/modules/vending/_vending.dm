@@ -1438,14 +1438,14 @@
 		victim.Weaken(4 SECONDS)
 		victim.Knockdown(8 SECONDS)
 
-		playsound(victim, "sound/effects/blobattack.ogg", 40, TRUE)
-		playsound(victim, "sound/effects/splat.ogg", 50, TRUE)
+		playsound(victim, 'sound/effects/blobattack.ogg', 40, TRUE)
+		playsound(victim, 'sound/effects/splat.ogg', 50, TRUE)
 
 		tilt_over(should_throw_at_target ? target_atom : null)
 
 /obj/machinery/vending/proc/tilt_over(mob/victim)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] опрокидывается!"))
-	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
+	playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
 	var/picked_rotation = pick(90, 270)
 	tilted_rotation = picked_rotation
 	var/matrix/to_turn = turn(transform, tilted_rotation)

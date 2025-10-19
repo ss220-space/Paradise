@@ -42,10 +42,10 @@ HYPHEN_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) - (?=[а-яё])|(?<=[а-яё]) 
 EN_DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) – (?=[а-яё])|(?<=[а-яё]) – \d+|\d+ – (?=[а-яё]))', re.IGNORECASE)
 def check_dash_usage(idx, line):
     failures = []
-    if match := HYPHEN_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A hyphen with spaces was found '{match.group(0)}', which should be replaced with a dash (—)."))
-    if match := EN_DASH_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A en dash with spaces was found '{match.group(0)}', which should be replaced with a dash (—)."))
+    if HYPHEN_USAGE_RE.search(line):
+        failures.append((idx + 1, f"A hyphen was found, which should be replaced with a dash (—)."))
+    if EN_DASH_USAGE_RE.search(line):
+        failures.append((idx + 1, f"A en dash was found, which should be replaced with a dash (—)."))
     return failures
 
 HTML_TAGS_UPPERCASE_RE = re.compile(r'</?[A-Z][A-Z0-9]*\b[^>]*/?>')
@@ -53,11 +53,17 @@ def check_html_tags_case(idx, line):
     if match := HTML_TAGS_UPPERCASE_RE.search(line):
         return [(idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase.")]
 
+SUSPICIOUS_SYMBOLS = re.compile(r'[<>]')
+def check_suspicious_symbols_in_maps(idx, line):
+    if SUSPICIOUS_SYMBOLS.search(line):
+        return [(idx + 1, f"HTML code in maps detected.")]
+
 CODE_CHECKS = [
     check_non_tgm_map_format,
     check_nanotrasen_style,
     check_dash_usage,
     check_html_tags_case,
+#    check_suspicious_symbols_in_maps,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
