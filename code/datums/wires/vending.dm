@@ -32,9 +32,9 @@
 			vending.shoot_inventory = !vending.shoot_inventory
 			vending.aggressive = !vending.aggressive
 			if(vending.aggressive)
-				holder.AddComponent(/datum/component/proximity_monitor)
+				vending.create_proximity_monitor()
 			else
-				qdel(holder.GetComponent(/datum/component/proximity_monitor))
+				vending.remove_proximity_monitor()
 
 		if(WIRE_CONTRABAND)
 			vending.extended_inventory = !vending.extended_inventory
