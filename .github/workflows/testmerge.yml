@@ -137,7 +137,7 @@ jobs:
             if [ "$CONFLICTS" -gt 0 ] ; then
               echo "::endgroup::"
               echo "$(red "$PR_STRING: There is a merge conflict. Skipping!")"
-              echo "$(red "Conflicts files: $CONFLICTS")"
+              echo "$(red "Conflicts count: $CONFLICTS")"
               git merge --abort
               continue
             fi
