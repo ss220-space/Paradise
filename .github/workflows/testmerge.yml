@@ -161,6 +161,7 @@ jobs:
               git merge --abort
             else 
               git reset --hard $CURRENT_STATE
+            fi
 
             git merge --squash pr-$PR_NUMBER
             if [ "$TGUI_CHANGES" -gt 0 ]; then
