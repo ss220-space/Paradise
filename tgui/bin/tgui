@@ -135,22 +135,37 @@ task-merge-bundle() {
   local file_current="${2}"
   echo "----------------------"
   echo "tgui: prepping to replace a conflicted bundle"
-  cat $file_path > $file_current
-  task-rebuild-conflicted-bundle
+
+  git rm --cached "$file_path" 2>/dev/null || true
+  rm -f "$file_path" 2>/dev/null || true
+
+  cat "$file_current" > "$file_path" 2>/dev/null || true
+
+  task-rebuild-conflicted-bundle "$file_path"
   exit 0
 }
 
 task-rebuild-conflicted-bundle() {
+  local file_path="${1}"
   echo "----------------------"
   echo "tgui: rebuilding a conflicted tgui bundle, ${file_path}"
-  rm -f "$file_path"
-  git rm --cached "$file_path" 2>/dev/null || true
+
+  if [[ -f "$file_path" ]]; then
+    if grep -q "^<<<<<<< " "$file_path"; then
+      echo "tgui: removing conflict markers from $file_path"
+      sed -i.bak -e '/^<<<<<<< /d' -e '/^=======$/d' -e '/^>>>>>>> /d' "$file_path"
+      rm -f "$file_path.bak"
+    fi
+  fi
+
   task-install
   task-webpack --mode=production
+
   git add "$file_path"
+
+  echo "tgui: bundle rebuilt and added to index"
   exit 0
 }
-
 
 ## Main
 ## --------------------------------------------------------
