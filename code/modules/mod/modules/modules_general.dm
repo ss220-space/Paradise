@@ -5,7 +5,7 @@
 /obj/item/mod/module/storage
 	name = "MOD storage module"
 	desc = "Модуль для МЭК, являющийся системой устанавливаемых по всему костюму отсеков разного размера для хранения \
-			снаряжение и мелких предметов."
+			снаряжения и мелких предметов."
 	icon_state = "storage"
 	complexity = 3
 	incompatible_modules = list(/obj/item/mod/module/storage, /obj/item/mod/module/plate_compression)
