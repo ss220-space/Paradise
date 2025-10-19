@@ -143,8 +143,11 @@ task-merge-bundle() {
 task-rebuild-conflicted-bundle() {
   echo "----------------------"
   echo "tgui: rebuilding a conflicted tgui bundle, ${file_path}"
+  rm -f "$file_path"
+  git rm --cached "$file_path" 2>/dev/null || true
   task-install
   task-webpack --mode=production
+  git add "$file_path"
   exit 0
 }
 
