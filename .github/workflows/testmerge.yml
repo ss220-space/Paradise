@@ -129,7 +129,8 @@ jobs:
 
             git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
             echo "Preparing..."
-
+            
+            CURRENT_STATE=$(git rev-parse HEAD)
             # Check for merge conflicts
             git merge --no-commit --no-ff pr-$PR_NUMBER || true
             TGUI_CHANGES=$(git diff --name-only --cached | grep -E "^tgui/" | wc -l)
@@ -156,9 +157,26 @@ jobs:
               git merge --abort
               continue
             fi
-            git merge --abort
+            if [ -f "$(git rev-parse --git-dir)/MERGE_HEAD" ]; then
+              git merge --abort
+            else 
+              git reset --hard $CURRENT_STATE
 
             git merge --squash pr-$PR_NUMBER
+            if [ "$TGUI_CHANGES" -gt 0 ]; then
+              echo "TGUI changes detected, building..."
+    
+              echo "Cleaning tgui/public directory..."
+              find tgui/public -type f -not -name "*.html" -delete
+    
+              ./tgui/bin/tgui
+    
+              TGUI_AFTER_BUILD=$(git status --porcelain | wc -l)
+              if [ "$TGUI_AFTER_BUILD" -gt 0 ]; then
+                git config --local user.email "action@github.com"
+                git config --local user.name "TGUI Build"
+              fi
+            fi
             git commit -m "$PR_TITLE (#$PR_NUMBER) [testmerge][$PR_LAST_COMMIT]"
 
             # Perform your git actions here, for example:
