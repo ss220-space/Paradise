@@ -71,9 +71,9 @@
 	var/mob/living/carbon/victim = proximity_check_mob
 	visible_message("[capitalize(declent_ru(NOMINATIVE))] сообщает: \"Бег по мокрому полу может быть опасен для вашего здоровья!\"")
 	explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
-	if(ishuman(victim))
-		dead_legs(victim)
-		qdel(src)
+	if(!ishuman(victim))
+	dead_legs(victim)
+	qdel(src)
 
 /obj/item/caution/proximity_sign/proc/dead_legs(mob/living/carbon/human/human as mob)
 	var/obj/item/organ/external/left_leg = human.get_organ(BODY_ZONE_L_LEG)
