@@ -132,7 +132,7 @@ task-install-git-hooks() {
 ## Bundle merge driver
 task-merge-bundle(){
   local our_version="${2}"
-  local file_path="${4}"
+  local file_path="${1}"
   echo "----------------------"
   echo "tgui: prepping to replace a conflicted bundle"
   cat "$our_version" > "$file_path"
