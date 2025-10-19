@@ -511,7 +511,7 @@
 	set src in usr
 	if(usr != src)
 		to_chat(usr, "No.")
-	var/msg = tgui_input_text(usr, "Пропишите описание внешности. Текст описания должен отражать базовую информацию с первого взгляда на персонажа, не стоит указывать. Нарисованный арт персонажа или ссылка на него не запрещены.", "Описания внешности", flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Описания внешности", flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
 	if(isnull(msg))
 		return
 	if(stat)
