@@ -90,12 +90,12 @@
 
 /obj/machinery/suit_storage_unit/security/hos
 	name = "head of security suit storage unit"
-	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_one
+	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_two
 	req_access = list(ACCESS_HOS)
 
 /obj/machinery/suit_storage_unit/security/warden
 	name = "warden's suit storage unit"
-	suit_type = /obj/item/clothing/suit/space/hardsuit/security/warden
+	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_one
 	req_access = list(ACCESS_ARMORY)
 
 /obj/machinery/suit_storage_unit/security/pod_pilot
