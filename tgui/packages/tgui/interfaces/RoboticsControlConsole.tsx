@@ -118,7 +118,7 @@ const Cyborgs = (props: CyborgsProps) => {
                 })
               }
             >
-              Detonate
+              Self-destruct
             </Button.Confirm>
           </>
         }
