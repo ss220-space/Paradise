@@ -232,10 +232,10 @@
 	force = 15
 	force_unwielded = 15
 	force_wielded = 25
-	throwforce = 40
+	throwforce = 35
 	armour_penetration = 40
 	sharp = TRUE
-	embed_chance = 75
+	embed_chance = 70
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("уколол", "ткнул", "полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -1095,7 +1095,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
-	var/reflect_uses = 10
+	var/reflect_uses = 7
 	var/normal_armor
 	var/harden_armor = list(MELEE = 80, BULLET = 70, LASER = 80, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 
