@@ -218,7 +218,7 @@
 	SIGNAL_HANDLER
 
 	if(isobserver(mob))
-		examine_text += span_notice("Показать имплантированную <a href='byond://?src=[UID()];open_bci=1'>интегральную схему.</a>.")
+		examine_text += span_notice("Показать имплантированную <a href='byond://?src=[UID()];open_bci=1'>интегральную схему.</a>")
 
 /obj/item/circuit_component/bci_core/Topic(href, list/href_list)
 	..()
@@ -328,6 +328,7 @@
 	drop_stored_bci()
 
 /obj/machinery/bci_implanter/Destroy()
+	go_out(force = TRUE)
 	qdel(bci_to_implant)
 	return ..()
 
@@ -485,9 +486,6 @@
 
 /obj/machinery/bci_implanter/proc/put_in(mob/M, mob/living/user)
 	add_fingerprint(user)
-	if(occupant)
-		balloon_alert(user, "внутри кто-то есть!")
-		return
 
 	if(M == user)
 		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
@@ -495,6 +493,10 @@
 		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(user, 2 SECONDS, M))
+		return
+
+	if(occupant)
+		balloon_alert(user, "внутри кто-то есть!")
 		return
 
 	if(!istype(M) || M.buckled)
@@ -543,10 +545,17 @@
 	go_out()
 
 /obj/machinery/bci_implanter/proc/go_out(mob/user, force)
-	if(occupant)
-		occupant.forceMove(loc)
-		occupant = null
-		icon_state = base_icon_state
+	if(!occupant)
+		if(user)
+			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] пустa!"))
+		return
+	if(locked && !force)
+		if(user)
+			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] заблокированa!"))
+		return
+	occupant.forceMove(loc)
+	occupant = null
+	icon_state = base_icon_state
 
 /obj/machinery/bci_implanter/proc/start_process()
 	if(stat & (NOPOWER|BROKEN))

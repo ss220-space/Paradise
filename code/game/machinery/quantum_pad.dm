@@ -118,7 +118,7 @@
 		ghost.forceMove(get_turf(linked_pad))
 
 /obj/machinery/quantumpad/proc/doteleport(mob/user, obj/machinery/quantumpad/target_pad = linked_pad)
-	if(!linked_pad)
+	if(!target_pad)
 		return
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 	teleporting = TRUE
@@ -128,12 +128,10 @@
 /obj/machinery/quantumpad/proc/teleport_contents(mob/user, obj/machinery/quantumpad/target_pad)
 	teleporting = FALSE
 
-	if(!target_pad || QDELETED(target_pad))
-		return
 	if(stat & NOPOWER)
-		to_chat(user, span_warning("[target_pad] is unpowered!"))
+		to_chat(user, span_warning("[src] is unpowered!"))
 		return
-	if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
+	if(!target_pad || QDELETED(target_pad) || target_pad.stat & NOPOWER)
 		to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
 		return
 
@@ -142,14 +140,14 @@
 	// use a lot of power
 	use_power(10000 / power_efficiency)
 	sparks()
-	linked_pad.sparks()
+	target_pad.sparks()
 
-	flick("[initial(icon_state)]-beam", target_pad)
+	flick("[initial(icon_state)]-beam", src)
+	playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
+	flick("[initial(target_pad.icon_state)]-beam", target_pad)
 	playsound(get_turf(target_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
-	flick("[initial(linked_pad.icon_state)]-beam", linked_pad)
-	playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 	var/tele_success = TRUE
-	for(var/atom/movable/ROI in get_turf(target_pad))
+	for(var/atom/movable/ROI in get_turf(src))
 		// if is anchored, don't let through
 		if(ROI.anchored)
 			if(isliving(ROI))
@@ -162,7 +160,7 @@
 					continue
 			else if(!isobserver(ROI))
 				continue
-		tele_success = do_teleport(ROI, get_turf(linked_pad))
+		tele_success = do_teleport(ROI, get_turf(target_pad))
 	if(!tele_success)
 		to_chat(user, span_warning("Teleport failed due to bluespace interference."))
 

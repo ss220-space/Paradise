@@ -69,15 +69,15 @@
 /obj/item/circuit_component/object_overlay/populate_options()
 	var/static/component_options = list(
 		HUD_CORNERS_BLUE = "hud_corners",
-		HUD_CORNERS_RED  = "hud_corners_red",
-		HUD_CIRCLE_BLUE  = "hud_circle",
-		HUD_CIRCLE_RED  = "hud_circle_red",
-		HUD_SMALL_CORNERS_BLUE  = "hud_corners_small",
-		HUD_SMALL_CORNERS_RED  = "hud_corners_small_red",
-		HUD_TRIANGLE_BLUE  = "hud_triangle",
-		HUD_TRIANGLE_RED  = "hud_triangle_red",
-		HUD_MARK_BLUE  = "hud_mark",
-		HUD_MARK_RED  = "hud_mark_red",
+		HUD_CORNERS_RED = "hud_corners_red",
+		HUD_CIRCLE_BLUE = "hud_circle",
+		HUD_CIRCLE_RED = "hud_circle_red",
+		HUD_SMALL_CORNERS_BLUE = "hud_corners_small",
+		HUD_SMALL_CORNERS_RED = "hud_corners_small_red",
+		HUD_TRIANGLE_BLUE = "hud_triangle",
+		HUD_TRIANGLE_RED = "hud_triangle_red",
+		HUD_MARK_BLUE = "hud_mark",
+		HUD_MARK_RED = "hud_mark_red",
 	)
 
 	object_overlay_options = add_option_port("Object", component_options)
@@ -118,6 +118,10 @@
 
 /obj/item/circuit_component/object_overlay/proc/show_to_owner(atom/target_atom, mob/living/owner)
 	if(length(active_overlays) > OBJECT_OVERLAY_LIMIT)
+		return
+
+	var/current_option = object_overlay_options.value
+	if(isnull(current_option))
 		return
 
 	var/datum/atom_hud/existing_overlay = LAZYACCESS(active_overlays, target_atom.UID())
