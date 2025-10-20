@@ -3,8 +3,6 @@
 	icon = 'icons/obj/tank.dmi'
 	item_state = "assembly"
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
 	throw_range = 4
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
 	var/status = 0   //0 - not readied //1 - bomb finished with welder
@@ -15,7 +13,6 @@
 
 /obj/item/onetankbomb/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -71,13 +68,13 @@
 		status = TRUE
 		investigate_log("[key_name_log(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
 		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature - T0C]")
-		to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited.</span>")
+		to_chat(user, span_notice("A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited."))
 		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_FEW)
 	else
 		status = FALSE
 		investigate_log("[key_name_log(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_ALMOSTALL)
-		to_chat(user, "<span class='notice'>The hole has been closed.</span>")
+		to_chat(user, span_notice("The hole has been closed."))
 
 
 /obj/item/onetankbomb/attack_self(mob/user) //pressing the bomb accesses its assembly

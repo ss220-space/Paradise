@@ -8,7 +8,6 @@
 	gender = FEMALE
 	icon_state = "dropper"
 	item_state = "dropper"
-	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
 	pass_open_check = TRUE
@@ -72,7 +71,7 @@
 
 			if(H.glasses)
 				safe_thing = H.glasses
-			if(H.wear_mask )
+			if(H.wear_mask)
 				if(H.wear_mask.flags_cover & MASKCOVERSEYES)
 					safe_thing = H.wear_mask
 			if(H.head)
@@ -114,6 +113,7 @@
 				return
 
 			to_transfer = reagents.trans_to(target, amount_per_transfer_from_this)
+			after_transfer(target)
 			to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "у", "ы", "")] вещества, используя [declent_ru(ACCUSATIVE)]."))
 
 		else
@@ -128,6 +128,9 @@
 			to_transfer = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
 			to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "ей", "ами", "ами")] вещества."))
+
+/obj/item/reagent_containers/dropper/get_sound_for_reagent_containers()
+	return SFX_DROPPERPOUR
 
 /obj/item/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"

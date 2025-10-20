@@ -66,7 +66,6 @@
 	jobtype = /datum/job/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargotech
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
@@ -120,7 +119,6 @@
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/mining/equipped
-	name = "Shaft Miner"
 	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
@@ -212,7 +210,6 @@
 	uniform = /obj/item/clothing/under/rank/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	pda = /obj/item/pda/bar
@@ -254,7 +251,6 @@
 	uniform = /obj/item/clothing/under/rank/chef
 	suit = /obj/item/clothing/suit/chef
 	belt = /obj/item/storage/belt/chef
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
@@ -308,7 +304,6 @@
 	uniform = /obj/item/clothing/under/rank/hydroponics
 	suit = /obj/item/clothing/suit/apron
 	gloves = /obj/item/clothing/gloves/botanic_leather
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	suit_store = /obj/item/plant_analyzer
 	pda = /obj/item/pda/botanist
@@ -563,7 +558,6 @@
 	uniform = /obj/item/clothing/under/mime
 	suit = /obj/item/clothing/suit/suspenders
 	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
 	l_ear = /obj/item/radio/headset/headset_service
@@ -619,7 +613,6 @@
 	jobtype = /datum/job/janitor
 
 	uniform = /obj/item/clothing/under/rank/janitor
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
 
@@ -649,7 +642,6 @@
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/suit_jacket/red
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner
@@ -662,8 +654,6 @@
 	title = JOB_TITLE_EXPLORER
 	flag = JOB_FLAG_EXPLORER
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 0
-	spawn_positions = 0
 	supervisors = "the head of personnel"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
@@ -682,4 +672,3 @@
 	name = "Explorer"
 	jobtype = /datum/job/explorer
 	uniform = /obj/item/clothing/under/color/random
-	shoes = /obj/item/clothing/shoes/black

@@ -5,7 +5,6 @@
 	name = "pill"
 	desc = "Небольшая таблетка, предназначенная для введения веществ в организм субъекта пероральным путём."
 	gender = FEMALE
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pill"
 	item_state = "pill"
 	possible_transfer_amounts = null
@@ -109,7 +108,7 @@
 
 /obj/item/reagent_containers/food/pill/fakedeath
 	name = "fake death pill"
-	desc = "Проглотите, чтобы скрыть свой пульс и прикинуться мёртвым. Побочный эффект - вы не сможете говорить во время действия вещества."
+	desc = "Проглотите, чтобы скрыть свой пульс и прикинуться мёртвым. Побочный эффект — вы не сможете говорить во время действия вещества."
 	icon_state = "pill4"
 	list_reagents = list("capulettium_plus" = 50)
 

@@ -11,7 +11,6 @@
 
 	var/obj/machinery/portable_atmospherics/connected_device
 
-	on = FALSE
 
 /obj/machinery/atmospherics/unary/portables_connector/Destroy()
 	if(connected_device)
@@ -49,3 +48,4 @@
 	return connected_device.portableConnectorReturnAir()
 
 /obj/proc/portableConnectorReturnAir()
+	return

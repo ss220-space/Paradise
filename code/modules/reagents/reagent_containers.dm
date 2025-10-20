@@ -71,8 +71,7 @@
 			return
 		if(reagents.total_volume)
 			balloon_alert(usr, "содержимое вылито")
-			reagents.reaction(usr.loc)
-			reagents.clear_reagents()
+			make_splashes(usr.loc)
 		else
 			balloon_alert(usr, "пусто, нечего выливать!")
 
@@ -139,6 +138,31 @@
 			to_chat(user, span_notice("Вы наполняете [declent_ru(ACCUSATIVE)] из [source.declent_ru(GENITIVE)]."))
 			return
 	..()
+
+/obj/item/reagent_containers/proc/get_sound_for_reagent_containers()
+	switch(amount_per_transfer_from_this)
+		if(0 to 9)
+			return SFX_BEAKERPOUR_0_10
+		if(10 to 24)
+			return SFX_BEAKERPOUR_10_25
+		if(25 to 50)
+			return SFX_BEAKERPOUR_25_50
+
+	return SFX_BEAKERPOUR_50_INF
+
+/obj/item/reagent_containers/proc/after_transfer(atom/target)
+	if(!target)
+		return FALSE
+
+	playsound(target, get_sound_for_reagent_containers(), rand(5, 25), TRUE)
+
+/obj/item/reagent_containers/proc/make_splashes(atom/target)
+	if(!target)
+		return FALSE
+
+	reagents.reaction(target)
+	reagents.clear_reagents()
+	playsound(target, SFX_LIQUID_SPLASH, 50, TRUE)
 
 /obj/item/reagent_containers/examine(mob/user)
 	. = ..()

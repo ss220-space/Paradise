@@ -18,7 +18,7 @@
 /obj/item/organ/internal/eyes/vox
 	species_type = /datum/species/vox
 	name = "vox eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали воксу."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали воксу."
 	ru_names = list(
 		NOMINATIVE = "глаза вокса",
 		GENITIVE = "глаз вокса",
@@ -77,7 +77,6 @@
 	icon_state = "cortical-stack"
 	item_state = "vox_cortical-stack"
 	mmi_icon = 'icons/obj/species_organs/vox.dmi'
-	mmi_icon_state = "mmi_full"
 	sterile = TRUE
 
 /obj/item/organ/internal/kidneys/vox
@@ -108,7 +107,6 @@
 		PREPOSITIONAL = "лёгких вокса"
 	)
 	icon = 'icons/obj/species_organs/vox.dmi'
-	icon_state = "lungs"
 	item_state = "vox_lungs"
 
 	safe_oxygen_min = 0 //We don't breathe this

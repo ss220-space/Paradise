@@ -6,9 +6,6 @@
 	icon_state = "solar_panel_base"
 	var/broken_state = list("solar_panel_broken", "solar_panel_broken_alt")
 	density = TRUE
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 50
 	var/id = 0
@@ -122,7 +119,7 @@
 		. +=  image('icons/obj/engines_and_power/solar_panels.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
 		dir = angle2dir(adir)
 
-//calculates the fraction of the sunlight that the panel recieves
+///calculates the fraction of the sunlight that the panel receives
 /obj/machinery/power/solar/proc/update_solar_exposure()
 	if(obscured)
 		sunfrac = 0
@@ -206,7 +203,6 @@
 	icon_state = "solar_panel_base"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	anchored = FALSE
 	var/tracker = FALSE
 	var/glass_type = null
 
@@ -338,11 +334,9 @@
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "computer"
-	anchored = TRUE
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
-	max_integrity = 200
 	integrity_failure = 100
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"
@@ -470,7 +464,7 @@
 /obj/machinery/power/solar_control/ui_data(mob/user)
 	var/list/data = list()
 	data["generated"] = round(lastgen) //generated power by all connected panels
-	data["generated_ratio"] = data["generated"] / round(max(connected_panels.len, 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
+	data["generated_ratio"] = data["generated"] / round(max(length(connected_panels), 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
 	data["direction"] = angle2text(cdir)	//current orientation of the panels
 	data["cdir"] = cdir	//current orientation of the of the panels in degrees
 	data["tracking_state"] = track	//tracker status: TRACKER_OFF, TRACKER_TIMED, TRACKER_AUTO
@@ -528,12 +522,12 @@
 	for(var/obj/C in src)
 		C.forceMove(loc)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+		to_chat(user, span_notice("The broken glass falls out."))
 		A.state = 4	// STATE_WIRES
 		var/obj/item/shard/shard = new(drop_location())
 		shard.add_fingerprint(user)
 	else
-		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+		to_chat(user, span_notice("You disconnect the monitor."))
 		A.state = 5	// STATE_GLASS
 	A.dir = dir
 	A.circuit = M

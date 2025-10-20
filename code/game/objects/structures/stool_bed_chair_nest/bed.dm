@@ -78,7 +78,6 @@
 	icon_state = "leather_bed"
 	comfort = 1.2
 	buildstacktype = /obj/item/stack/sheet/leather
-	buildstackamount = 2
 
 /obj/structure/bed/leather/get_ru_names()
 	return list(
@@ -114,7 +113,7 @@
 /obj/structure/bed/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+		to_chat(user, span_warning("You can't figure out how to deconstruct [src]!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

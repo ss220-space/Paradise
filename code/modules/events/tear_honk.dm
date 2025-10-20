@@ -10,9 +10,9 @@
 
 /datum/event/tear/honk/announce()
 	GLOB.minor_announcement.announce(
-		"На борту станции зафиксирована Хонканомалия. Предполагаемая локация: [impact_area.name].",
-		ANNOUNCE_HONKANOMALY_RU,
-		'sound/items/airhorn.ogg'
+		message = "На борту станции зафиксирована Хонканомалия. Предполагаемая локация: [impact_area.name].",
+		new_title = ANNOUNCE_HONKANOMALY_RU,
+		new_sound = 'sound/items/airhorn.ogg'
 	)
 
 /datum/event/tear/honk/end()

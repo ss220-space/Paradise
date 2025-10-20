@@ -313,7 +313,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	SIGNAL_HANDLER
 
 	if(operating == CONVEYOR_OFF)
-		SSmove_manager.stop_looping(conveyable, SSconveyors)
+		GLOB.move_manager.stop_looping(conveyable, SSconveyors)
 		return
 	start_conveying(conveyable)
 
@@ -324,13 +324,13 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	var/direction = get_dir(loc, newLoc)
 	var/has_conveyor = neighbors["[direction]"]
 	if(conveyable.z != z || !has_conveyor || !isturf(conveyable.loc)) //If you've entered something on us, stop moving
-		SSmove_manager.stop_looping(conveyable, SSconveyors)
+		GLOB.move_manager.stop_looping(conveyable, SSconveyors)
 
 
 /obj/machinery/conveyor/proc/start_conveying(atom/movable/moving)
 	if(QDELETED(moving))
 		return
-	var/datum/move_loop/move/moving_loop = SSmove_manager.processing_on(moving, SSconveyors)
+	var/datum/move_loop/move/moving_loop = GLOB.move_manager.processing_on(moving, SSconveyors)
 	if(moving_loop)
 		moving_loop.direction = movedir
 		moving_loop.delay = speed
@@ -345,7 +345,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor/proc/stop_conveying(atom/movable/thing)
 	if(!ismovable(thing))
 		return
-	SSmove_manager.stop_looping(thing, SSconveyors)
+	GLOB.move_manager.stop_looping(thing, SSconveyors)
 
 
 // subtypes

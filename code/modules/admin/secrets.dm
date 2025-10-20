@@ -1,6 +1,3 @@
-/datum/admins
-	var/current_tab =0
-
 /datum/admins/proc/Secrets()
 
 
@@ -65,7 +62,7 @@
 		if(1)
 			if(check_rights((R_EVENT|R_SERVER), FALSE))
 				var/security_levels_data = ""
-				for (var/level_name in SSsecurity_level.available_levels)
+				for(var/level_name in SSsecurity_level.available_levels)
 					var/datum/security_level/this_level = SSsecurity_level.available_levels[level_name]
 					security_levels_data += "<a href='byond://?src=[UID()];secretsfun=securitylevel;number=[this_level.number_level]'>[this_level.name]</a>"
 				dat += {"

@@ -7,7 +7,6 @@
 /obj/item/grenade/clusterbuster
 	desc = "Use of this weapon may constiute a war crime in your area, consult your local captain."
 	name = "clusterbang"
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "clusterbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
 	var/payload_power = CLUSTERBUSTER_PAYLOAD_POWER
@@ -39,7 +38,6 @@
 /obj/item/grenade/clusterbuster/segment
 	desc = "A smaller segment of a clusterbang. Better run."
 	name = "clusterbang segment"
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
 /obj/item/grenade/clusterbuster/segment/New(loc, payload_type = /obj/item/grenade/flashbang/cluster)
@@ -47,7 +45,7 @@
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = 1
-	SSmove_manager.move_away(src, loc, rand(1,4), 1)
+	GLOB.move_manager.move_away(src, loc, rand(1,4), 1)
 	payload_power /= SEGMENTATION_PAYLOAD_DECREASE
 	spawn(rand(15,60))
 		prime()
@@ -70,7 +68,7 @@
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P, /obj/item/grenade))
 			P.active = 1
-		SSmove_manager.move_away(P, loc, rand(1,4), 1)
+		GLOB.move_manager.move_away(P, loc, rand(1,4), 1)
 
 		spawn(rand(15,60))
 			if(!QDELETED(P))

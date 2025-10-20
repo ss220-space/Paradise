@@ -311,7 +311,7 @@
 		if(rebound.last_pushoff == world.time)
 			continue
 		if(continuous_move && !pass_allowed)
-			var/datum/move_loop/move/rebound_engine = SSmove_manager.processing_on(rebound, SSspacedrift)
+			var/datum/move_loop/move/rebound_engine = GLOB.move_manager.processing_on(rebound, SSspacedrift)
 			// If you're moving toward it and you're both going the same direction, stop
 			if(moving_direction == get_dir(src, pushover) && rebound_engine && moving_direction == rebound_engine.direction)
 				continue
@@ -339,7 +339,7 @@
 
 
 /client/proc/check_has_body_select()
-	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /atom/movable/screen/zone_sel)
+	return mob?.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /atom/movable/screen/zone_sel)
 
 /client/verb/body_toggle_head()
 	set name = "body-toggle-head"
@@ -473,7 +473,7 @@
 		var/mob/living/carbon/C = mob
 		C.toggle_throw_mode()
 	else
-		to_chat(usr, "<span class='danger'>Это существо не может бросать предметы.</span>")
+		to_chat(usr, span_danger("Это существо не может бросать предметы"))
 
 
 /mob/proc/toggle_move_intent(new_move_intent)
@@ -490,7 +490,7 @@
 	var/turf/above_turf = GET_TURF_ABOVE(current_turf)
 
 	if(!above_turf)
-		to_chat(src, "<span class='warning'>There's nowhere to go in that direction!</span>")
+		to_chat(src, span_warning("В этом направлении некуда идти!"))
 		return
 
 	if(ismovable(loc)) //Inside an object, tell it we moved
@@ -500,12 +500,12 @@
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(can_z_move(DOWN, above_turf, current_turf, ZMOVE_FALL_FLAGS|ventcrawling_flag)) //Will we fall down if we go up?
 		if(buckled)
-			to_chat(src, "<span class='notice'>[buckled] is is not capable of flight.<span>")
+			to_chat(src, span_notice("[capitalize(buckled.declent_ru(NOMINATIVE))] не способ[genderize_ru(buckled.gender, "ен", "на", "но", "ны")] летать."))
 		else
-			to_chat(src, "<span class='notice'>You are not Superman.<span>")
+			to_chat(src, span_notice("Вы не Супермен чтобы взлететь вверх."))
 		return
 	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
-		to_chat(src, span_notice("You move upwards."))
+		to_chat(src, span_notice("Вы двигаетесь вверх."))
 
 /mob/verb/move_down()
 	set name = "Опуститься"
@@ -518,7 +518,7 @@
 	var/turf/below_turf = GET_TURF_BELOW(current_turf)
 
 	if(!below_turf)
-		to_chat(src, span_warning("There's nowhere to go in that direction!"))
+		to_chat(src, span_warning("В этом направлении некуда идти!"))
 		return
 
 	if(ismovable(loc)) //Inside an object, tell it we moved
@@ -527,5 +527,5 @@
 
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
-		to_chat(src, span_notice("You move down."))
+		to_chat(src, span_notice("Вы двигаетесь вниз."))
 	return FALSE

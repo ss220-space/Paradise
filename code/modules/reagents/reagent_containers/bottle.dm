@@ -5,12 +5,9 @@
 	name = "bottle"
 	desc = "Небольшая стеклянная бутылочка."
 	gender = FEMALE
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle"
 	item_state = "bottle"
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30)
-	container_type = OPENCONTAINER
 	volume = 30
 	materials = list(MAT_GLASS = 1000)
 
@@ -144,6 +141,7 @@
 	name = "unstable mutagen bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится нестабильный мутаген."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("mutagen" = 30)
 
 /obj/item/reagent_containers/glass/bottle/mutagen/get_ru_names()
@@ -160,6 +158,7 @@
 	name = "ammonia bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится аммиак."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("ammonia" = 30)
 
 /obj/item/reagent_containers/glass/bottle/ammonia/get_ru_names()
@@ -176,6 +175,7 @@
 	name = "diethylamine bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится диэтиламин."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("diethylamine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/diethylamine/get_ru_names()
@@ -192,6 +192,7 @@
 	name = "Fluorosulfuric Acid Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится фторсерная кислота."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("facid" = 30)
 
 /obj/item/reagent_containers/glass/bottle/facid/get_ru_names()
@@ -225,6 +226,7 @@
 	name = "Capsaicin Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится капсаицин, получаемый из перца чили."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("capsaicin" = 30)
 
 /obj/item/reagent_containers/glass/bottle/capsaicin/get_ru_names()
@@ -241,6 +243,7 @@
 	name = "Frost Oil Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится ледяное масло, получаемое из ледяного перца чили."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("frostoil" = 30)
 
 /obj/item/reagent_containers/glass/bottle/frostoil/get_ru_names()
@@ -257,6 +260,7 @@
 	name = "Morphine Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится морфин."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("morphine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/morphine/get_ru_names()
@@ -273,6 +277,7 @@
 	name = "Ether Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится эфир."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("ether" = 30)
 
 /obj/item/reagent_containers/glass/bottle/ether/get_ru_names()
@@ -289,6 +294,7 @@
 	name = "Charcoal Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится активированный уголь."
 	icon_state = "wide_bottle"
+	item_state = "wide_bottle"
 	list_reagents = list("charcoal" = 30)
 
 /obj/item/reagent_containers/glass/bottle/charcoal/get_ru_names()
@@ -305,6 +311,7 @@
 	name = "Epinephrine Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится эпинефрин."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("epinephrine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/epinephrine/get_ru_names()
@@ -321,6 +328,7 @@
 	name = "Pancuronium Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится панкуроний."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("pancuronium" = 30)
 
 /obj/item/reagent_containers/glass/bottle/pancuronium/get_ru_names()
@@ -337,6 +345,7 @@
 	name = "Sulfonal Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится сульфонал."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("sulfonal" = 30)
 
 /obj/item/reagent_containers/glass/bottle/sulfonal/get_ru_names()
@@ -353,8 +362,8 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent
 	name = "Reagent Bottle"
-	desc = "Небольшая стеклянная бутылочка."
 	icon_state = "reagent_bottle"
+	item_state = "reagent_bottle"
 	volume = 50
 
 /obj/item/reagent_containers/glass/bottle/reagent/oil
@@ -592,6 +601,7 @@
 	name = "plasma dust bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится плазменная пыль."
 	icon_state = "wide_bottle"
+	item_state = "wide_bottle"
 	list_reagents = list("plasma_dust" = 30)
 
 /obj/item/reagent_containers/glass/bottle/plasma/get_ru_names()
@@ -608,6 +618,7 @@
 	name = "diphenhydramine bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится дифенгидрамин."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("diphenhydramine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/diphenhydramine/get_ru_names()
@@ -624,6 +635,7 @@
 	name = "oculine bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится окулин."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("oculine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/oculine/get_ru_names()
@@ -640,6 +652,7 @@
 	name = "potassium iodide bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится иодид калия."
 	icon_state = "wide_bottle"
+	item_state = "wide_bottle"
 	list_reagents = list("potass_iodide" = 30)
 
 /obj/item/reagent_containers/glass/bottle/potassium_iodide/get_ru_names()
@@ -656,6 +669,7 @@
 	name = "Rhinovirus culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Простуда\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/cold
 
 /obj/item/reagent_containers/glass/bottle/cold/get_ru_names()
@@ -672,6 +686,7 @@
 	name = "Flu virion culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Грипп\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/flu
 
 /obj/item/reagent_containers/glass/bottle/flu/get_ru_names()
@@ -688,6 +703,7 @@
 	name = "Sneezing symptom bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Чихание\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/sneezing
 
 /obj/item/reagent_containers/glass/bottle/sneezing/get_ru_names()
@@ -704,6 +720,7 @@
 	name = "Cough symptom bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Кашель\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/cough
 
 /obj/item/reagent_containers/glass/bottle/cough/get_ru_names()
@@ -720,6 +737,7 @@
 	name = "Epiglottis virion culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Надгортанник\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/voice_change
 
 /obj/item/reagent_containers/glass/bottle/epiglottis_virion/get_ru_names()
@@ -736,6 +754,7 @@
 	name = "Liver enhancement virion culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Укрепление печени\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/heal
 
 /obj/item/reagent_containers/glass/bottle/liver_enhance_virion/get_ru_names()
@@ -752,6 +771,7 @@
 	name = "Hullucigen virion culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Галлюцинации\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/hullucigen
 
 /obj/item/reagent_containers/glass/bottle/hullucigen_virion/get_ru_names()
@@ -768,6 +788,7 @@
 	name = "Pierrot's Throat culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Горло Пьеро\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/pierrot_throat
 
 /obj/item/reagent_containers/glass/bottle/pierrot_throat/get_ru_names()
@@ -784,6 +805,7 @@
 	name = "Reality Purifier culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Восстановление сознания\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/mind_restoration
 
 /obj/item/reagent_containers/glass/bottle/mind_restoration/get_ru_names()
@@ -800,6 +822,7 @@
 	name = "Advanced Neogenesis culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Улучшенная регенерация\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/advanced_regeneration
 
 /obj/item/reagent_containers/glass/bottle/advanced_regeneration/get_ru_names()
@@ -816,6 +839,7 @@
 	name = "Necroeyrosis culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Некроз\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/stealth_necrosis
 
 /obj/item/reagent_containers/glass/bottle/stealth_necrosis/get_ru_names()
@@ -832,6 +856,7 @@
 	name = "Neverlasting Stranger culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Синдром Кингстона\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/pre_kingstons
 
 /obj/item/reagent_containers/glass/bottle/pre_kingstons/get_ru_names()
@@ -848,6 +873,7 @@
 	name = "love"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Любовь\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/love
 
 /obj/item/reagent_containers/glass/bottle/love/get_ru_names()
@@ -864,6 +890,7 @@
 	name = "aggression"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Агрессия\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/aggression
 
 /obj/item/reagent_containers/glass/bottle/aggression/get_ru_names()
@@ -880,6 +907,7 @@
 	name = "obsession"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Одержимость\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/obsession
 
 /obj/item/reagent_containers/glass/bottle/obsession/get_ru_names()
@@ -896,6 +924,7 @@
 	name = "confusion"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Замешательство\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/confusion
 
 /obj/item/reagent_containers/glass/bottle/confusion/get_ru_names()
@@ -912,6 +941,7 @@
 	name = "bones"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Кости\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/bones
 
 /obj/item/reagent_containers/glass/bottle/bones/get_ru_names()
@@ -928,6 +958,7 @@
 	name = "limb_throw"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Отстреливание конечностей\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/limb_throw
 
 /obj/item/reagent_containers/glass/bottle/limb_throw/get_ru_names()
@@ -944,6 +975,7 @@
 	name = "laugh"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Смех\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/laugh
 
 /obj/item/reagent_containers/glass/bottle/laugh/get_ru_names()
@@ -960,6 +992,7 @@
 	name = "moan"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Стоны\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/moan
 
 /obj/item/reagent_containers/glass/bottle/moan/get_ru_names()
@@ -976,6 +1009,7 @@
 	name = "infection"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Инфекция\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/infection
 
 /obj/item/reagent_containers/glass/bottle/infection/get_ru_names()
@@ -992,6 +1026,7 @@
 	name = "loyalty"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Преданность\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/loyalty
 
 /obj/item/reagent_containers/glass/bottle/loyalty/get_ru_names()
@@ -1008,6 +1043,7 @@
 	name = "pre_loyalty"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Пре-преданность\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/pre_loyalty
 
 /obj/item/reagent_containers/glass/bottle/pre_loyalty/get_ru_names()
@@ -1024,6 +1060,7 @@
 	name = "Retrovirus culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Ретровирус\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/dna_retrovirus
 
 /obj/item/reagent_containers/glass/bottle/retrovirus/get_ru_names()
@@ -1040,6 +1077,7 @@
 	name = "GBS culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"ГБС+\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	amount_per_transfer_from_this = 5
 	spawned_disease = /datum/disease/virus/gbs
 
@@ -1057,6 +1095,7 @@
 	name = "GBS culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"ГБС-\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/fake_gbs
 
 /obj/item/reagent_containers/glass/bottle/fake_gbs/get_ru_names()
@@ -1073,6 +1112,7 @@
 	name = "Brainrot culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Мозговая гниль\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/brainrot
 
 /obj/item/reagent_containers/glass/bottle/brainrot/get_ru_names()
@@ -1089,6 +1129,7 @@
 	name = "Magnitis culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Магнитис\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/magnitis
 
 /obj/item/reagent_containers/glass/bottle/magnitis/get_ru_names()
@@ -1105,6 +1146,7 @@
 	name = "Wizarditis culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Визардис\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/wizarditis
 
 /obj/item/reagent_containers/glass/bottle/wizarditis/get_ru_names()
@@ -1121,6 +1163,7 @@
 	name = "Severe Anxiety culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Сильное беспокойство\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/anxiety
 
 /obj/item/reagent_containers/glass/bottle/anxiety/get_ru_names()
@@ -1137,6 +1180,7 @@
 	name = "Beesease culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Пчелораза\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/beesease
 
 /obj/item/reagent_containers/glass/bottle/beesease/get_ru_names()
@@ -1153,6 +1197,7 @@
 	name = "Spanish flu culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Испанский Грипп\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/fluspanish
 
 /obj/item/reagent_containers/glass/bottle/fluspanish/get_ru_names()
@@ -1169,6 +1214,7 @@
 	name = "Fungal Tuberculosis culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Грибковый туберкулёз\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/tuberculosis
 
 /obj/item/reagent_containers/glass/bottle/tuberculosis/get_ru_names()
@@ -1185,6 +1231,7 @@
 	name = "Regeneration culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Восстановление\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/heal
 
 /obj/item/reagent_containers/glass/bottle/regeneration/get_ru_names()
@@ -1201,6 +1248,7 @@
 	name = "Sensory Restoration culture bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вирусная культура \"Сенсорное восстановление\"."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/advance/preset/sensory_restoration
 
 /obj/item/reagent_containers/glass/bottle/sensory_restoration/get_ru_names()
@@ -1217,6 +1265,7 @@
 	name = "BVAK bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится смесь лекарственных веществ для лечения био-вирусов."
 	icon_state = "wide_bottle"
+	item_state = "wide_bottle"
 	list_reagents = list("atropine" = 5, "epinephrine" = 5, "salbutamol" = 10, "spaceacillin" = 10)
 
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure/get_ru_names()
@@ -1233,6 +1282,7 @@
 	name = "bottle of monkey language potion"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вещество, заставляющее выпившего выучить обезьяний язык. Удивительно."
 	icon_state = "round_bottle"
+	item_state = "round_bottle"
 	list_reagents = list("monkeylanguage" = 30)
 
 /obj/item/reagent_containers/glass/bottle/monkeylangue/get_ru_names()

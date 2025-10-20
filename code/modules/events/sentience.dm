@@ -12,9 +12,9 @@
 	if(prob(25))
 		for(var/mob/living/carbon/human/lesser/L in GLOB.alive_mob_list)
 			var/turf/T = get_turf(L)
-			if (!is_station_level(T.z))
+			if(!is_station_level(T.z))
 				continue
-			if (L.health <= L.maxHealth - 50)
+			if(L.health <= L.maxHealth - 50)
 				continue
 			if(!(L in GLOB.player_list) && !L.mind)
 				potential += L
@@ -23,12 +23,12 @@
 	if(!isLesserForm)
 		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 			var/turf/T = get_turf(L)
-			if (!is_station_level(T.z))
+			if(!is_station_level(T.z))
 				continue
 			if(!(L in GLOB.player_list) && !L.mind && (L.sentience_type == sentience_type))
 				potential += L
 
-	if(!candidates.len || !potential.len) //if there are no players or simple animals to choose from, then end
+	if(!length(candidates) || !length(potential)) //if there are no players or simple animals to choose from, then end
 		return FALSE
 
 	var/sentience_report = span_bold(span_fontsize3("[command_name()] Medium-Priority Update"))
@@ -43,7 +43,7 @@
 	sentience_report += "<br><br>Based on [data], we believe that one of the station's [pets] has developed [strength] level intelligence, and the ability to communicate."
 
 	var/mob/SG = pick(candidates)
-	if (isLesserForm)
+	if(isLesserForm)
 		var/mob/living/carbon/human/lesser/LF = pick(potential)
 		LF.key = SG.key
 		LF.health = LF.maxHealth
@@ -64,5 +64,5 @@
 	processing = TRUE // Let it naturally end, if it runs successfully
 
 /datum/event/sentience/proc/greet_sentient(mob/living/carbon/human/M)
-	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained human level intelligence and the ability to speak and understand human language!</span>"))
+	to_chat(M, chat_box_green("[span_userdanger("Hello world!")]<br>[span_warning("Due to freak radiation, you have gained human level intelligence and the ability to speak and understand human language!")]"))
 	log_game("[M] was made into a sentient animal")

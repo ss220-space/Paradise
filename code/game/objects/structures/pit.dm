@@ -3,8 +3,6 @@
 	desc = "Watch your step, partner."
 	icon = 'icons/obj/pit.dmi'
 	icon_state = "pit1"
-	blend_mode = BLEND_DEFAULT
-	density = FALSE
 	anchored = TRUE
 	armor = list(melee = 50, bullet = 100, laser = 100, energy = 50, bomb = 50, bio = 50, rad = 50, fire = 50, acid = 50)
 	layer = 2.9
@@ -194,7 +192,6 @@
 //spoooky
 /obj/structure/pit/closed/grave
 	name = "grave"
-	icon_state = "pit0"
 
 /obj/structure/pit/closed/grave/Initialize(mapload)
 	. = ..()
@@ -234,7 +231,7 @@
 		nam += " " + pick(GLOB.last_names_female)
 	else
 		nam = pick(GLOB.first_names_male)
-		nam += " " + pick(GLOB.last_names)
+		nam += " " + pick(GLOB.last_names_male)
 	var/cur_year = GLOB.game_year
 	var/born = cur_year - rand(5,150)
 	var/died = max(cur_year - rand(0,70),born)

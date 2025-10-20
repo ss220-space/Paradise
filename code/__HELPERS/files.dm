@@ -69,7 +69,7 @@
 			break
 
 	var/extension = copytext(path,-4,0)
-	if( !fexists(path) || !(extension in valid_extensions) )
+	if(!fexists(path) || !(extension in valid_extensions))
 		to_chat(src, span_red("Error: browse_files(): File not found/Invalid file([path])."))
 		return
 
@@ -108,7 +108,7 @@
 	var/list/jobs = list(path)
 	var/list/filenames = list()
 
-	while(jobs.len)
+	while(length(jobs))
 		var/current_dir = pop(jobs)
 		var/list/new_filenames = flist(current_dir)
 

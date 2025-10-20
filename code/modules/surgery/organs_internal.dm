@@ -24,8 +24,6 @@
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
 	)
-	requires_organic_bodypart = TRUE
-	requires_bodypart = TRUE
 	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn, /datum/species/plasmaman)
 
 /datum/surgery/organ_manipulation/soft
@@ -59,7 +57,6 @@
 		/datum/surgery_step/proxy/manipulate_organs,
 		/datum/surgery_step/generic/cauterize
 	)
-	requires_organic_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/plasmaman
 	name = "Манипуляция с внутренними органами (Плазмолюд)"
@@ -80,7 +77,6 @@
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
 	)
-	requires_organic_bodypart = TRUE
 	target_speciestypes = list(/datum/species/plasmaman)
 	restricted_speciestypes = null
 
@@ -120,7 +116,6 @@
 		BODY_ZONE_HEAD,
 		BODY_ZONE_PRECISE_GROIN,
 	)
-	requires_organic_bodypart = TRUE
 	target_speciestypes = list(/datum/species/kidan, /datum/species/wryn)
 	restricted_speciestypes = null
 
@@ -136,7 +131,6 @@
 		/datum/surgery_step/proxy/manipulate_organs,
 		/datum/surgery_step/generic/cauterize
 	)
-	requires_organic_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/alien
 	name = "Манипуляция с внутренними органами (Ксеноморф)"
@@ -174,7 +168,7 @@
 	if(!.)
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(affected && affected.encased) //no bones no problem.
+	if(affected?.encased) //no bones no problem.
 		return FALSE
 
 /datum/surgery/translator_manipulations
@@ -206,7 +200,6 @@
 /datum/surgery_step/screwdriver_use
 	name = "откручивание/закручивание импланта-переводчика"
 	allowed_tools = list(TOOL_SCREWDRIVER = 100)
-	time = 1 SECONDS
 
 /datum/surgery_step/screwdriver_use/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
@@ -230,7 +223,7 @@
 
 
 /datum/surgery_step/proxy/manipulate_translator
-	name = "манипуляция с имплантом-переводчиком – прокси"
+	name = "манипуляция с имплантом-переводчиком — прокси"
 	branches = list(
 		/datum/surgery/intermediate/manipulate_translator/install,
 		/datum/surgery/intermediate/manipulate_translator/uninstall,
@@ -238,7 +231,6 @@
 
 
 /datum/surgery/intermediate/manipulate_translator
-	requires_bodypart = TRUE
 	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
 
 
@@ -368,7 +360,6 @@
 
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
-	requires_bodypart = TRUE
 	possible_locs = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
@@ -398,7 +389,7 @@
 
 /// The surgery step to trigger this whole situation
 /datum/surgery_step/proxy/manipulate_organs
-	name = "манипуляция с внутренними органами – прокси"
+	name = "манипуляция с внутренними органами — прокси"
 	branches = list(
 		/datum/surgery/intermediate/manipulate/extract,
 		/datum/surgery/intermediate/manipulate/implant,
@@ -749,7 +740,7 @@
 	if(!user.drop_item_ground(I))
 		user.balloon_alert(user, "не получается выпустить!")
 		return SURGERY_STEP_INCOMPLETE
-	I.insert(target)
+	I.insert(target, ORGAN_MANIPULATION_TRANSPLANTATE)
 	if(istype(I, /obj/item/organ/internal/cyberimp))
 		add_attack_logs(user, target, "Surgically inserted [I]([I.type])", ATKLOG_ALMOSTALL)
 	spread_germs_to_organ(I, user, tool)

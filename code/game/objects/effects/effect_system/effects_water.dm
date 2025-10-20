@@ -2,7 +2,6 @@
 /obj/effect/particle_effect/water
 	name = "water"
 	icon_state = "extinguish"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pass_flags = PASSTABLE|PASSMACHINE|PASSSTRUCTURE|PASSGRILLE|PASSBLOB|PASSVEHICLE
 	var/life = 15
 
@@ -57,7 +56,7 @@
 /// Starts the effect moving at a target with a delay in deciseconds, and a lifetime in moves
 /// Returns the created loop
 /obj/effect/particle_effect/water/extinguisher/proc/move_at(atom/target, delay, lifetime)
-	var/datum/move_loop/loop = SSmove_manager.move_towards_legacy(src, target, delay, timeout = delay * lifetime, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	var/datum/move_loop/loop = GLOB.move_manager.move_towards_legacy(src, target, delay, timeout = delay * lifetime, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(post_forcemove))
 	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(movement_stopped))
 	return loop
@@ -98,7 +97,6 @@
 /obj/effect/particle_effect/steam
 	name = "steam"
 	icon_state = "extinguish"
-	density = FALSE
 
 /obj/effect/particle_effect/steam/New()
 	..()

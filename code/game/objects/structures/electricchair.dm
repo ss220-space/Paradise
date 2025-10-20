@@ -80,6 +80,8 @@
 	set name = "Вкл/выкл эл. стул"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	shock(usr)
 
@@ -112,9 +114,9 @@
 
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
-			buckled_mob.electrocute_act(110, "электрического стула")
+			buckled_mob.electrocute_act(110, src)
 			to_chat(buckled_mob, span_userdanger("You feel a deep shock course through your body!"))
-			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, "электрического стула"), 0.1 SECONDS, TIMER_DELETE_ME)
+			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, src), 0.1 SECONDS, TIMER_DELETE_ME)
 
 
 /obj/structure/chair/e_chair/proc/reset_echair()

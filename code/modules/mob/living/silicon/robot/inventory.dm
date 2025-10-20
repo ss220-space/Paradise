@@ -294,7 +294,7 @@
 
 
 /mob/living/silicon/robot/proc/update_module_icon()
-	if (!hands)
+	if(!hands)
 		return
 
 	if(!module)

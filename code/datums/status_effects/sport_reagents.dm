@@ -352,7 +352,7 @@
 // Get the multiplication of all modifiers.
 /datum/status_effect/sport_grouped/proc/get_mult()
 	var/result = 1
-	for(var/source as anything in sources)
+	for(var/source in sources)
 		result *= sources[source]
 
 	return result
@@ -361,7 +361,7 @@
 // Get summ of all modifiers.
 /datum/status_effect/sport_grouped/proc/get_sum()
 	var/result = 0
-	for(var/source as anything in sources)
+	for(var/source in sources)
 		result += sources[source]
 
 	return result

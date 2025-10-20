@@ -140,22 +140,22 @@
 			t += "<a href='byond://?src=[UID()];ejectGPS=1'>Eject GPS</a>"
 			t += "<a href='byond://?src=[UID()];setMemory=1'>Set GPS memory</a>"
 		else
-			t += "<span class='linkOff'>Eject GPS</span>"
-			t += "<span class='linkOff'>Set GPS memory</span>"
+			t += span_linkoff("Eject GPS")
+			t += span_linkoff("Set GPS memory")
 		t += "<div class='statusDisplay'>[temp_msg]</div><br>"
 		t += "<a href='byond://?src=[UID()];setrotation=1'>Set Bearing</a>"
 		t += "<div class='statusDisplay'>[rotation] degrees</div>"
 		t += "<a href='byond://?src=[UID()];setangle=1'>Set Elevation</a>"
 		t += "<div class='statusDisplay'>[angle] degrees</div>"
-		t += "<span class='linkOn'>Set Power</span>"
+		t += span_linkon("Set Power")
 		t += "<div class='statusDisplay'>"
 
-		for(var/i = 1; i <= power_options.len; i++)
+		for(var/i = 1; i <= length(power_options); i++)
 			if(crystals + telepad.efficiency < i)
-				t += "<span class='linkOff'>[power_options[i]]</span>"
+				t += span_linkoff("[power_options[i]]")
 				continue
 			if(power == power_options[i])
-				t += "<span class='linkOn'>[power_options[i]]</span>"
+				t += span_linkon("[power_options[i]]")
 				continue
 			t += "<a href='byond://?src=[UID()];setpower=[i]'>[power_options[i]]</a>"
 		t += "</div>"
@@ -317,13 +317,12 @@
 		telefail()
 		temp_msg = "ОШИБКА!<br>Угол меньше 1 или больше 90."
 		return
-	if(z_co == 2 || z_co < 1 || z_co > 6)
-		if(z_co == 7 & emagged == 1)
-		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
-		else
-			telefail()
-			temp_msg = "ОШИБКА! Сектор меньше 1, <br>больше [src.emagged ? "7" : "6"], или равен 2."
-			return
+	// THIS FUCKING THING USES ZLEVEL NUMBERS WHY
+	var/cc_z = level_name_to_num(CENTCOMM)
+	if(z_co == cc_z || z_co < cc_z + 1 || cc_z > world.maxz)
+		telefail()
+		temp_msg = "ERROR! Sector must be greater than or equal to 2, and less than or equal to [world.maxz]."
+		return
 
 
 	var/truePower = clamp(power + power_off, 1, 1000)

@@ -1,5 +1,5 @@
 #define BUTTON_COOLDOWN 60 // cant delay the bomb forever
-#define BUTTON_DELAY	50 //five seconds
+#define BUTTON_DELAY 50 //five seconds
 
 /obj/machinery/syndicatebomb
 	icon = 'icons/obj/assemblies.dmi'
@@ -7,8 +7,6 @@
 	icon_state = "syndicate-bomb"
 	desc = "A large and menacing device. Can be bolted down with a wrench."
 
-	anchored = FALSE
-	density = FALSE
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	use_power = NO_POWER_USE
@@ -343,7 +341,6 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bombcore"
 	item_state = "eshield0"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "syndicate=3;combat=6"
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
@@ -371,6 +368,7 @@
 	qdel(src)
 
 /obj/item/bombcore/proc/defuse()
+	return
 //Note:	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
 //			otherwise remove the core/reset the wires before the end of defuse(). It will repeatedly be called otherwise.
 
@@ -545,7 +543,7 @@
 			for(var/obj/item/reagent_containers/glass/G in beakers)
 				G.reagents.trans_to(S, G.reagents.total_volume)
 
-			if(S && S.reagents && S.reagents.total_volume)
+			if(S?.reagents && S.reagents.total_volume)
 				reactants += S.reagents
 
 	if(!chem_splash(get_turf(src), spread_range, reactants, temp_boost))
@@ -585,7 +583,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(beakers.len == 0)
+	if(length(beakers) == 0)
 		return
 	for(var/obj/item/B in beakers)
 		B.loc = get_turf(src)
@@ -606,7 +604,7 @@
 			spread_range += 2 // Extra range, reduced density.
 			temp_boost += 50 // maximum of +150K blast using only large beakers. Not enough to self ignite.
 			for(var/obj/item/slime_extract/S in LG.beakers) // And slime cores.
-				if(beakers.len < max_beakers)
+				if(length(beakers) < max_beakers)
 					beakers += S
 					S.loc = src
 				else
@@ -623,7 +621,7 @@
 			time_release += 50 // A typical bomb, using basic beakers, will explode over 2-4 seconds. Using two will make the reaction last for less time, but it will be more dangerous overall.
 
 		for(var/obj/item/reagent_containers/glass/B in G)
-			if(beakers.len < max_beakers)
+			if(length(beakers) < max_beakers)
 				beakers += B
 				B.loc = src
 			else

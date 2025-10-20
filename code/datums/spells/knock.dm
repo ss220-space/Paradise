@@ -3,7 +3,6 @@
 	desc = "This spell opens nearby doors and does not require wizard garb."
 
 	school = "transmutation"
-	base_cooldown = 10 SECONDS
 	cooldown_min = 2 SECONDS //20 deciseconds reduction per rank
 	clothes_req = FALSE
 	human_req = FALSE
@@ -69,8 +68,8 @@
 		GLOB.major_announcement.announce(
 			message = "Мы убрали все доступы с шлюзов на вашей станции. Вы сможете поблагодарить нас позже!",
 			new_title = "Послание Федерации Космических Волшебников.",
-			new_subtitle = "Приветствуем!",
-			new_sound = 'sound/misc/notice2.ogg'
+			new_sound = 'sound/misc/notice2.ogg',
+			new_subtitle = "Приветствуем!"
 		)
 	else
 		..()

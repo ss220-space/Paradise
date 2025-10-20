@@ -104,10 +104,35 @@
 	/// Whether the turfs in the area should be drawn onto the "base" holomap.
 	var/holomap_should_draw = TRUE
 
+	//all air alarms in area are connected via magic
+	var/obj/machinery/alarm/master_air_alarm
+	var/list/air_vent_names = list()
+	var/list/air_scrub_names = list()
+	var/list/air_vent_info = list()
+	var/list/air_scrub_info = list()
+
+	/// Turrets use this list to see if individual power/lethal settings are allowed
+	var/list/obj/machinery/turretid/turret_controls = list()
+
+	luminosity = TRUE
+	///List of mutable appearances we underlay to show light
+	///In the form plane offset + 1 -> appearance to use
+	var/list/mutable_appearance/lighting_effects = null
+	///Whether this area has a currently active base lighting, bool
+	var/area_has_base_lighting = FALSE
+	///alpha 0-255 of lighting_effect and thus baselighting intensity
+	var/base_lighting_alpha = 0
+	///The colour of the light acting on this area
+	var/base_lighting_color = COLOR_WHITE
+	///Whether this area allows static lighting and thus loads the lighting objects
+	var/static_lighting = TRUE
+	///Whether this area is iluminated by starlight
+	var/use_starlight = FALSE
+
 /area/New(loc, ...)
 	// This interacts with the map loader, so it needs to be set immediately
 	// rather than waiting for atoms to initialize.
-	if (area_flags & UNIQUE_AREA)
+	if(area_flags & UNIQUE_AREA)
 		GLOB.areas_by_type[type] = src
 	GLOB.areas += src
 	..()
@@ -232,12 +257,12 @@
 
 /// Returns the highest zlevel that this area contains turfs for
 /area/proc/get_highest_zlevel()
-	for (var/area_zlevel in length(turfs_by_zlevel) to 1 step -1)
-		if (length(turfs_to_uncontain_by_zlevel) >= area_zlevel)
-			if (length(turfs_by_zlevel[area_zlevel]) - length(turfs_to_uncontain_by_zlevel[area_zlevel]) > 0)
+	for(var/area_zlevel in length(turfs_by_zlevel) to 1 step -1)
+		if(length(turfs_to_uncontain_by_zlevel) >= area_zlevel)
+			if(length(turfs_by_zlevel[area_zlevel]) - length(turfs_to_uncontain_by_zlevel[area_zlevel]) > 0)
 				return area_zlevel
 		else
-			if (length(turfs_by_zlevel[area_zlevel]))
+			if(length(turfs_by_zlevel[area_zlevel]))
 				return area_zlevel
 	return 0
 
@@ -249,17 +274,17 @@
 
 	var/list/zlevel_turf_lists = list()
 
-	for (var/list/zlevel_turfs as anything in turfs_by_zlevel)
-		if (length(zlevel_turfs))
+	for(var/list/zlevel_turfs as anything in turfs_by_zlevel)
+		if(length(zlevel_turfs))
 			zlevel_turf_lists += list(zlevel_turfs)
 	return zlevel_turf_lists
 
 /// Returns a list with all turfs in this zlevel.
 /area/proc/get_turfs_by_zlevel(zlevel)
-	if (length(turfs_to_uncontain_by_zlevel) >= zlevel && length(turfs_to_uncontain_by_zlevel[zlevel]))
+	if(length(turfs_to_uncontain_by_zlevel) >= zlevel && length(turfs_to_uncontain_by_zlevel[zlevel]))
 		cannonize_contained_turfs_by_zlevel(zlevel)
 
-	if (length(turfs_by_zlevel) < zlevel)
+	if(length(turfs_by_zlevel) < zlevel)
 		return list()
 
 	return turfs_by_zlevel[zlevel]
@@ -267,7 +292,7 @@
 /// Merges a list containing all of the turfs zlevel lists from get_zlevel_turf_lists inside one list. Use get_zlevel_turf_lists() or get_turfs_by_zlevel() unless you need all the turfs in one list to avoid generating large lists
 /area/proc/get_turfs_from_all_zlevels()
 	. = list()
-	for (var/list/zlevel_turfs as anything in get_zlevel_turf_lists())
+	for(var/list/zlevel_turfs as anything in get_zlevel_turf_lists())
 		. += zlevel_turfs
 
 /// Ensures that the contained_turfs list properly represents the turfs actually inside us
@@ -277,42 +302,42 @@
 	// We only actually add to contained turfs after large changes (Also the management subsystem)
 	// Do your damndest to keep turfs out of /area/space as a stepping stone
 	// That sucker gets HUGE and will make this take actual seconds
-	if (zlevel_to_clean <= length(turfs_by_zlevel) && zlevel_to_clean <= length(turfs_to_uncontain_by_zlevel))
+	if(zlevel_to_clean <= length(turfs_by_zlevel) && zlevel_to_clean <= length(turfs_to_uncontain_by_zlevel))
 		turfs_by_zlevel[zlevel_to_clean] -= turfs_to_uncontain_by_zlevel[zlevel_to_clean]
 
-	if (!_autoclean) // Removes empty lists from the end of this list
+	if(!_autoclean) // Removes empty lists from the end of this list
 		turfs_to_uncontain_by_zlevel[zlevel_to_clean] = list()
 		return
 
 	var/new_length = length(turfs_to_uncontain_by_zlevel)
 	// Walk backwards thru the list
-	for (var/i in length(turfs_to_uncontain_by_zlevel) to 0 step -1)
-		if (i && length(turfs_to_uncontain_by_zlevel[i]))
+	for(var/i in length(turfs_to_uncontain_by_zlevel) to 0 step -1)
+		if(i && length(turfs_to_uncontain_by_zlevel[i]))
 			break // Stop the moment we find a useful list
 		new_length = i
 
-	if (new_length < length(turfs_to_uncontain_by_zlevel))
+	if(new_length < length(turfs_to_uncontain_by_zlevel))
 		turfs_to_uncontain_by_zlevel.len = new_length
 
-	if (new_length >= zlevel_to_clean)
+	if(new_length >= zlevel_to_clean)
 		turfs_to_uncontain_by_zlevel[zlevel_to_clean] = list()
 
 
 /// Ensures that the contained_turfs list properly represents the turfs actually inside us
 /area/proc/cannonize_contained_turfs()
-	for (var/area_zlevel in 1 to length(turfs_to_uncontain_by_zlevel))
+	for(var/area_zlevel in 1 to length(turfs_to_uncontain_by_zlevel))
 		cannonize_contained_turfs_by_zlevel(area_zlevel, _autoclean = FALSE)
 
 	turfs_to_uncontain_by_zlevel = list()
 
 /// Returns TRUE if we have contained turfs, FALSE otherwise
 /area/proc/has_contained_turfs()
-	for (var/area_zlevel in 1 to length(turfs_by_zlevel))
-		if (length(turfs_to_uncontain_by_zlevel) >= area_zlevel)
-			if (length(turfs_by_zlevel[area_zlevel]) - length(turfs_to_uncontain_by_zlevel[area_zlevel]) > 0)
+	for(var/area_zlevel in 1 to length(turfs_by_zlevel))
+		if(length(turfs_to_uncontain_by_zlevel) >= area_zlevel)
+			if(length(turfs_by_zlevel[area_zlevel]) - length(turfs_to_uncontain_by_zlevel[area_zlevel]) > 0)
 				return TRUE
 		else
-			if (length(turfs_by_zlevel[area_zlevel]))
+			if(length(turfs_by_zlevel[area_zlevel]))
 				return TRUE
 	return FALSE
 
@@ -343,9 +368,9 @@
 						C.network |= "Power Alarms"
 
 			if(state)
-				SSalarm.cancelAlarm("Power", src, source)
+				GLOB.alarm_manager.cancel_alarm("Power", src, source)
 			else
-				SSalarm.triggerAlarm("Power", src, cameras, source)
+				GLOB.alarm_manager.trigger_alarm("Power", src, cameras, source)
 
 /**
  * Generate an atmospheric alert for this area
@@ -362,7 +387,7 @@
 					C.network |= "Atmosphere Alarms"
 
 
-			SSalarm.triggerAlarm("Atmosphere", src, cameras, source)
+			GLOB.alarm_manager.trigger_alarm("Atmosphere", src, cameras, source)
 
 		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/thing in cameras)
@@ -370,7 +395,7 @@
 				if(!QDELETED(C) && is_station_level(C.z))
 					C.network -= "Atmosphere Alarms"
 
-			SSalarm.cancelAlarm("Atmosphere", src, source)
+			GLOB.alarm_manager.cancel_alarm("Atmosphere", src, source)
 
 		atmosalm = danger_level
 		return TRUE
@@ -428,7 +453,7 @@
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network |= "Fire Alarms"
 
-	SSalarm.triggerAlarm("Fire", src, cameras, source)
+	GLOB.alarm_manager.trigger_alarm("Fire", src, cameras, source)
 
 	START_PROCESSING(SSobj, src)
 
@@ -450,7 +475,7 @@
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network -= "Fire Alarms"
 
-	SSalarm.cancelAlarm("Fire", src, source)
+	GLOB.alarm_manager.cancel_alarm("Fire", src, source)
 
 	STOP_PROCESSING(SSobj, src)
 
@@ -489,9 +514,9 @@
 	for(var/obj/machinery/door/DOOR in machinery_cache)
 		close_and_lock_door(DOOR)
 
-	if(SSalarm.triggerAlarm("Burglar", src, cameras, trigger))
+	if(GLOB.alarm_manager.trigger_alarm("Burglar", src, cameras, trigger))
 		//Cancel silicon alert after 1 minute
-		addtimer(CALLBACK(SSalarm, TYPE_PROC_REF(/datum/controller/subsystem/alarm, cancelAlarm), "Burglar", src, trigger), 600)
+		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Burglar", src, trigger), 1 MINUTES)
 
 /**
  * Trigger the fire alarm visual affects in an area
@@ -623,6 +648,10 @@
 
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
 	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
+	if(!LAZYACCESS(arrived.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
+		return
+	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
 	if(ismob(arrived))
 		var/mob/arrived_mob = arrived
@@ -632,6 +661,10 @@
 /area/Exited(atom/movable/departed, area/new_area)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src, new_area)
+	if(!LAZYACCESS(departed.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
+		return
+	for(var/atom/movable/recipient as anything in departed.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_EXIT_AREA, src)
 
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)
@@ -666,15 +699,15 @@
 	var/max_y = -1
 	var/center_z = -1
 	for(var/turf/area_turf in area_turfs)
-		if (center_z == -1)
+		if(center_z == -1)
 			center_z = area_turf.z
-		if (area_turf.x < min_x)
+		if(area_turf.x < min_x)
 			min_x = area_turf.x
-		if (area_turf.y < min_y)
+		if(area_turf.y < min_y)
 			min_y = area_turf.y
-		if (area_turf.x > max_x)
+		if(area_turf.x > max_x)
 			max_x = area_turf.x
-		if (area_turf.y > max_y)
+		if(area_turf.y > max_y)
 			max_y = area_turf.y
 	var/center_x = min_x + round((max_x - min_x) / 2)
 	var/center_y = min_y + round((max_y - min_y) / 2)

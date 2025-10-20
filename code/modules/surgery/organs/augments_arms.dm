@@ -6,7 +6,7 @@
 	icon_state = "implant-toolkit"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
-	///A ref for the arm we're taking up. Mostly for the unregister signal upon removal
+	/// A ref for the arm we're taking up. Mostly for the unregister signal upon removal
 	var/obj/hand
 	/// Used to store a list of all items inside, for multi-item implants.
 	var/list/items_list = list()// I would use contents, but they shuffle on every activation/deactivation leading to interface inconsistencies.
@@ -23,6 +23,11 @@
 	update_transform()
 	slot = parent_organ_zone + "_device"
 	items_list = contents.Copy()
+
+/obj/item/organ/internal/cyberimp/arm/Destroy()
+	QDEL_NULL(active_item)
+	hand = null
+	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/proc/update_transform()
 	if(parent_organ_zone == BODY_ZONE_R_ARM)
@@ -146,7 +151,7 @@
 	playsound(get_turf(owner), src.sound_on, 50, TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(crit_fail || (!active_item && !contents.len))
+	if(crit_fail || (!active_item && !length(contents)))
 		to_chat(owner, span_warning("The implant doesn't respond. It seems to be broken..."))
 		return
 
@@ -157,7 +162,7 @@
 
 	if(!active_item || (active_item in src))
 		active_item = null
-		if(contents.len == 1)
+		if(length(contents) == 1)
 			Extend(contents[1])
 		else
 			radial_menu(owner)

@@ -25,7 +25,6 @@
 	tts_seed = "Priest"
 
 	response_help  = "гладит"
-	response_disarm = "толкает"
 	response_harm   = "бьёт"
 
 	melee_damage_lower = 1
@@ -34,14 +33,12 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	speed = 0
-	stop_automated_movement = 0
 	turns_per_move = 4
 
 	var/list/donors = list()
 	holder_type = /obj/item/holder/diona
 	can_collar = TRUE
 
-	a_intent = INTENT_HELP
 
 	var/random_name = TRUE
 	var/gestalt_alert = "слился с гештальтом" //used in adding and clearing alert
@@ -184,7 +181,7 @@
 			continue
 		choices += H
 
-	if(!choices.len)
+	if(!length(choices))
 		balloon_alert(src, "нет подходящей дионы!")
 		return FALSE
 
@@ -228,7 +225,7 @@
 	if(stat != CONSCIOUS)
 		return FALSE
 
-	if(donors.len < evolve_donors)
+	if(length(donors) < evolve_donors)
 		balloon_alert(src, "нужно больше крови!")
 		return FALSE
 
@@ -293,7 +290,7 @@
 		if(Adjacent(H) && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
 			choices += H
 
-	if(!choices.len)
+	if(!length(choices))
 		balloon_alert(src, "нет подходящего донора!")
 		return FALSE
 
@@ -320,14 +317,14 @@
 		update_progression()
 
 /mob/living/simple_animal/diona/proc/update_progression()
-	if(stat != CONSCIOUS || !donors.len)
+	if(stat != CONSCIOUS || !length(donors))
 		return FALSE
 
-	if(donors.len == evolve_donors)
+	if(length(donors) == evolve_donors)
 		to_chat(src, span_noticealien("Вы готовы к следующей стадии роста."))
-	else if(donors.len == awareness_donors)
+	else if(length(donors) == awareness_donors)
 		universal_understand = 1
-		to_chat(src, span_noticealien("Ваше сознание расширяется - теперь вы понимаете окружающих."))
+		to_chat(src, span_noticealien("Ваше сознание расширяется — теперь вы понимаете окружающих."))
 	else
 		to_chat(src, span_noticealien("Кровь проникает в вас, принося воспоминания и черты личности."))
 

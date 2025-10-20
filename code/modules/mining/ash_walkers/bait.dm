@@ -39,8 +39,6 @@
 /obj/item/reagent_containers/food/snacks/bait/ash_eater
 	name = "ash eater"
 	desc = "Маленький червячок со множеством невероятно острых зубов, покрывающих его ротовую полость. Ходят слухи, что эти крохи способны вырастать до размеров целого города. Пепел должен течь рекой."
-	icon_state = "ash_eater"
-	rod_overlay = "ash_eater_rod"
 
 /obj/item/reagent_containers/food/snacks/bait/ash_eater/get_ru_names()
 	return list(
@@ -90,7 +88,7 @@
 
 /obj/item/reagent_containers/food/snacks/charred_krill
 	name = "charred krill"
-	desc = "Одна из самых редких обитателей Лазис Ардакса, множество лет признанная вымершей. Эта креветка - одно из самых любимых угощений для местной \"подводной\" фауны."
+	desc = "Одна из самых редких обитателей Лазис Ардакса, множество лет признанная вымершей. Эта креветка — одно из самых любимых угощений для местной \"подводной\" фауны."
 	gender = FEMALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "charred_krill"

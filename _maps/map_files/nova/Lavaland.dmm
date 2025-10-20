@@ -8346,7 +8346,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "WJ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/hologram/holopad,
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{

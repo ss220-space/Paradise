@@ -35,8 +35,8 @@
 	pixel_x = base_pixel_x + body_position_pixel_x_offset
 	pixel_y = base_pixel_y + body_position_pixel_y_offset
 
-	update_inv_hands()
-	update_inv_pockets()
+	update_held_items()
+	update_pockets()
 	update_fire()
 
 	if(blocks_emissive)
@@ -62,7 +62,7 @@
 			overlays_standing[FIRE_LAYER] = mutable_appearance('icons/mob/OnFire.dmi', icon_state = fire_icon_state, layer = -FIRE_LAYER)
 	apply_overlay(FIRE_LAYER)
 
-/mob/living/carbon/alien/humanoid/update_inv_pockets()
+/mob/living/carbon/alien/humanoid/update_pockets()
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_LEFT) + 1]
 		inv?.update_icon()

@@ -46,7 +46,7 @@
 
 	energy = starting_energy
 	if(warps_projectiles)
-		AddComponent(/datum/component/proximity_monitor/singulo, _radius = 10)
+		proximity_monitor = new(src, range = 10)
 
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -62,6 +62,7 @@
 	GLOB.singularities -= src
 	vis_contents -= warp
 	QDEL_NULL(warp)  // don't want to leave it hanging
+	QDEL_NULL(proximity_monitor)
 	target = null
 	return ..()
 
@@ -327,20 +328,20 @@
 		set_light(10)
 	if(istype(A, /obj/singularity/god/narsie))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
+			visible_message(span_userdanger("[SSticker.cultdat?.entity_name] is consumed by [src]!"))
 			investigate_log("consumed Nar'Sie!", INVESTIGATE_ENGINE)
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
+			visible_message(span_userdanger("[SSticker.cultdat?.entity_name] strikes down [src]!"))
 			investigate_log("has been destroyed by Nar'Sie", INVESTIGATE_ENGINE)
 			qdel(src)
 
 	if(istype(A, /obj/singularity/god/ratvar))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>Rat'var is consumed by [src]!</span>")
+			visible_message(span_userdanger("Rat'var is consumed by [src]!"))
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>Rat'var strikes down [src]!</span>")
+			visible_message(span_userdanger("Rat'var strikes down [src]!"))
 			investigate_log("has been destroyed by Ratvar","singulo")
 			qdel(src)
 
@@ -422,11 +423,11 @@
 		return 0
 	else if(locate(/obj/machinery/field/generator) in T)
 		var/obj/machinery/field/generator/G = locate(/obj/machinery/field/generator) in T
-		if(G && G.active)
+		if(G?.active)
 			return 0
 	else if(locate(/obj/machinery/shieldwallgen) in T)
 		var/obj/machinery/shieldwallgen/S = locate(/obj/machinery/shieldwallgen) in T
-		if(S && S.active)
+		if(S?.active)
 			return 0
 	return 1
 
@@ -462,8 +463,10 @@
 
 /obj/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
-		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
-						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
+		C.visible_message(
+			span_warning("[C]'s skin bursts into flame!"), \
+			span_userdanger("You feel an inner fire as your skin bursts into flames!")
+		)
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
@@ -476,11 +479,11 @@
 		if(!M.stat) // We can't stare on the lord if we are not so alive.
 			continue
 		if((M.sight >= SEE_TURFS) && !(M.sight >= (SEE_TURFS|SEE_OBJS))) // If they can see it without mesons on or can see objects through mesons. Bad on them.
-			to_chat(M, "<span class='notice'>You look directly into the [src.name], good thing you had your protective eyewear on!</span>")
+			to_chat(M, span_notice("You look directly into the [src.name], good thing you had your protective eyewear on!"))
 			continue
 		M.Stun(6 SECONDS)
-		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
-						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
+		M.visible_message(span_danger("[M] stares blankly at [src]!"), \
+						span_userdanger("You look directly into [src] and feel weak."))
 	return
 
 
@@ -510,49 +513,29 @@
 	qdel(src)
 	return(gain)
 
-/datum/component/proximity_monitor/singulo
-	field_checker_type = /obj/effect/abstract/proximity_checker/singulo
+/obj/singularity/HasProximity(atom/movable/movable)
+	var/obj/projectile/projectile = movable
+	if(!istype(projectile))
+		return
 
-/datum/component/proximity_monitor/singulo/create_single_prox_checker(turf/T, checker_type)
-	. = ..()
-	var/obj/effect/abstract/proximity_checker/singulo/S = .
-	S.calibrate()
-
-/datum/component/proximity_monitor/singulo/recenter_prox_checkers()
-	. = ..()
-	for(var/obj/effect/abstract/proximity_checker/singulo/S as anything in proximity_checkers)
-		S.calibrate()
-
-/obj/effect/abstract/proximity_checker/singulo
-	var/angle_to_singulo
-	var/distance_to_singulo
-
-/obj/effect/abstract/proximity_checker/singulo/proc/calibrate()
-	angle_to_singulo = ATAN2(monitor.hasprox_receiver.y - y, monitor.hasprox_receiver.x - x)
-	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
-
-
-/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/projectile/projectile)
-	. = ..()
-	if(!isprojectile(projectile))
-		return .
-	var/distance = distance_to_singulo
+	var/angle_to_singulo = ATAN2(proximity_monitor.hasprox_receiver.y - y, proximity_monitor.hasprox_receiver.x - x)
+	var/distance_to_singulo = get_dist(proximity_monitor.hasprox_receiver, src)
 	var/projectile_angle = projectile.Angle
-	var/angle_to_projectile = angle_to_singulo
-	if(angle_to_projectile == 180)
-		angle_to_projectile = -180
-	angle_to_projectile -= projectile_angle
-	if(angle_to_projectile > 180)
-		angle_to_projectile -= 360
-	else if(angle_to_projectile < -180)
-		angle_to_projectile += 360
 
-	if(distance == 0)
+	if(angle_to_singulo == 180)
+		angle_to_singulo = -180
+	angle_to_singulo -= projectile_angle
+	if(angle_to_singulo > 180)
+		angle_to_singulo -= 360
+	else if(angle_to_singulo < -180)
+		angle_to_singulo += 360
+
+	if(distance_to_singulo == 0)
 		qdel(projectile)
-		return .
+		return
 
-	projectile_angle += angle_to_projectile / (distance ** 2)
-	projectile.damage += 10 / distance
+	projectile_angle += angle_to_singulo / (distance_to_singulo ** 2)
+	projectile.damage += 10 / distance_to_singulo
 	projectile.set_angle(projectile_angle)
 
 

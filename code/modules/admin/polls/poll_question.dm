@@ -56,7 +56,7 @@
 	poll_votes = text2num(vote_count) || 0
 	created_by = creator
 	future_poll = text2num(future)
-	if (active_poll)
+	if(active_poll)
 		GLOB.active_polls += src
 	src.minimum_playtime = text2num(minimum_playtime) || 0  //item[15]
 	edit_ready = dbload
@@ -116,7 +116,7 @@
 	var/admin_ckey = created_by
 
 	var/end_datetime_sql
-	if (interval in list("SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR"))
+	if(interval in list("SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR"))
 		end_datetime_sql = "NOW() + INTERVAL :duration [interval]"
 	else
 		end_datetime_sql = ":duration"
@@ -134,7 +134,7 @@
 	if(!query_save_poll.warn_execute())
 		qdel(query_save_poll)
 		return
-	if (!poll_id)
+	if(!poll_id)
 		poll_id = query_save_poll.last_insert_id
 	qdel(query_save_poll)
 	var/datum/db_query/query_get_poll_id_start_endtime = SSdbcore.NewQuery(

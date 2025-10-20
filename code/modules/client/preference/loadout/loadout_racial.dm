@@ -1,7 +1,6 @@
 /datum/gear/racial
 	sort_category = "Расовое"
 	subtype_path = /datum/gear/racial
-	cost = 1
 	var/list/whitelisted_species
 
 /datum/gear/racial/can_select(client/cl, job_name, species_name, silent = FALSE)
@@ -130,8 +129,10 @@
 
 /datum/gear/racial/eveningdress/New()
 	..()
-	var/list/eveningdresses = list(/obj/item/clothing/under/tchaikowsky/evening_dress,
-						   /obj/item/clothing/under/tchaikowsky/evening_dress/cyan)
+	var/list/eveningdresses = list(
+		/obj/item/clothing/under/tchaikowsky/evening_dress,
+		/obj/item/clothing/under/tchaikowsky/evening_dress/cyan
+	)
 	gear_tweaks += new /datum/gear_tweak/path(eveningdresses, src, TRUE)
 
 /datum/gear/racial/formaldress

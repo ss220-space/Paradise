@@ -4,7 +4,6 @@
 	school = "transmutation"
 	action_icon_state = "jaunt"
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
 	nonabstract_req = TRUE
 	centcom_cancast = FALSE //Prevent people from getting to centcom
@@ -25,7 +24,7 @@
 /obj/effect/proc_holder/spell/ethereal_jaunt/cast(list/targets, mob/user = usr) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
-			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
+			to_chat(target, span_warning("You are somehow too bound to your current location to abandon it."))
 			continue
 		INVOKE_ASYNC(src, PROC_REF(do_jaunt), target)
 
@@ -99,12 +98,9 @@
 
 /obj/effect/dummy/spell_jaunt
 	name = "water"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = 60
-	density = FALSE
-	anchored = TRUE
 	var/reappearing = FALSE
 	var/movedelay = 0
 	var/movespeed = 2
@@ -125,7 +121,7 @@
 	if(can_move(newLoc, user))
 		forceMove(newLoc)
 	else
-		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
+		to_chat(user, span_warning("Something is blocking the way!"))
 	movedelay = world.time + movespeed
 
 

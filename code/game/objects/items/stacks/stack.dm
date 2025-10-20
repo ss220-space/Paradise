@@ -352,13 +352,13 @@
 /obj/item/stack/proc/change_stack(mob/user, amount)
 	var/obj/item/stack/material = new type(user, amount, FALSE)
 	. = material
+	use(amount)
 	material.copy_evidences(src)
 	if(!user.put_in_hands(material, merge_stacks = FALSE))
 		material.forceMove(user.drop_location())
 	add_fingerprint(user)
 	material.add_fingerprint(user)
 	do_pickup_animation(user)
-	use(amount)
 	SStgui.update_uis(src)
 
 /**
@@ -421,7 +421,7 @@
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
 		w_class = clamp(full_w_class-2, WEIGHT_CLASS_TINY, full_w_class)
-	else if (amount <= (max_amount * (2/3)))
+	else if(amount <= (max_amount * (2/3)))
 		w_class = clamp(full_w_class-1, WEIGHT_CLASS_TINY, full_w_class)
 	else
 		w_class = full_w_class

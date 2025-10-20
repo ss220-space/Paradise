@@ -1,7 +1,6 @@
 /obj/machinery/papershredder
 	name = "paper shredder"
 	desc = "Устройство для тех документов, которых вы не хотите видеть."
-	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
 	density = TRUE
@@ -98,7 +97,7 @@
 	if(empty_into && !istype(empty_into))
 		empty_into = null
 
-	if(empty_into && empty_into.contents.len >= empty_into.storage_slots)
+	if(empty_into && length(empty_into.contents) >= empty_into.storage_slots)
 		balloon_alert(user, "нет места!")
 		return
 
@@ -109,7 +108,7 @@
 			break
 		if(empty_into)
 			empty_into.handle_item_insertion(SP)
-			if(empty_into.contents.len >= empty_into.storage_slots)
+			if(length(empty_into.contents) >= empty_into.storage_slots)
 				break
 	if(empty_into)
 		if(paperamount)
@@ -167,13 +166,11 @@
 	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "shredded_paper"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	layer = 4
 	max_integrity = 25
 	throw_range = 3
-	throw_speed = 2
 
 /obj/item/shredded_paper/get_ru_names()
 	return list(

@@ -7,13 +7,11 @@
 	health = 3000 //so griefers had a rough time with it
 	loot = list(/obj/item/banhammer)
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB
-	a_intent = INTENT_HARM
 	environment_smash = 2
 	lose_patience_timeout = 300 MINUTES //i mean, it will be impressive, if he can survive him and admin for 5 hours
 	attacktext = "bans"
 	ranged = TRUE
 	ranged_message = "thorws a warn"
-	ranged_cooldown_time = 3 SECONDS
 	projectiletype = /obj/projectile/energy/electrode
 	projectilesound = 'sound/weapons/taser.ogg'
 	AI_delay_max = 0 SECONDS
@@ -25,8 +23,8 @@
 /mob/living/simple_animal/hostile/shitcur_goblin/proc/stun_attack(mob/living/carbon/griefer)
 	griefer.SetStuttering(10 SECONDS)
 	griefer.Weaken(10 SECONDS)
-	griefer.visible_message("<span class='danger'>[src] dealing with [griefer]!</span>",\
-							"<span class='userdanger'>You have been BANNED FOR NO REASON</span>")
+	griefer.visible_message(span_danger("[src] dealing with [griefer]!"),\
+							span_userdanger("You have been BANNED FOR NO REASON"))
 
 /mob/living/simple_animal/hostile/shitcur_goblin/lose_target()
 	message_admins("Smiting shitcurity goblin was deleted due to a lack of valid target. Someone killed them first, or they ceased to exist.")

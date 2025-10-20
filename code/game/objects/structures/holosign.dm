@@ -151,7 +151,6 @@
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
-	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 	alpha = 150
 
@@ -180,7 +179,6 @@
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
 	desc = "Хрупкое энергетическое поле, которое блокирует движение. Отлично защищает от смертоносных снарядов."
-	density = TRUE
 	max_integrity = 10
 	allow_walk = FALSE
 
@@ -226,7 +224,7 @@
 	. = ..()
 	if(. || !COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(user))
 		return
-	user.electrocute_act(15, "энергетического барьера", flags = SHOCK_NOGLOVES)
+	user.electrocute_act(15, src, flags = SHOCK_NOGLOVES)
 	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 
 
@@ -234,6 +232,6 @@
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(moving_living))
 		return .
-	moving_living.electrocute_act(15, "энергетического барьера", flags = SHOCK_NOGLOVES)
+	moving_living.electrocute_act(15, src, flags = SHOCK_NOGLOVES)
 	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 

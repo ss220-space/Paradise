@@ -58,16 +58,16 @@
 	var/mtl = CONFIG_GET(number/minute_topic_limit)
 	if(!holder && (href_list["window_id"] != "statbrowser") && mtl) // Admins are allowed to spam click, deal with it.
 		var/minute = round(world.time, 600)
-		if (!topiclimiter)
+		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
-		if (minute != topiclimiter[CURRENT_MINUTE])
+		if(minute != topiclimiter[CURRENT_MINUTE])
 			topiclimiter[CURRENT_MINUTE] = minute
 			topiclimiter[MINUTE_COUNT] = 0
 
 		topiclimiter[MINUTE_COUNT] += 1
-		if (topiclimiter[MINUTE_COUNT] > mtl)
+		if(topiclimiter[MINUTE_COUNT] > mtl)
 			var/msg = "Ваше предыдущее действие было проигнорировано, потому что вы совершили слишком много действий за минуту."
-			if (minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
+			if(minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				topiclimiter[ADMINSWARNED_AT] = minute
 				msg += " Администраторы были уведомлены."
 				add_game_logs("has hit the per-minute topic limit of [mtl] topic calls in a given game minute", src)
@@ -78,19 +78,19 @@
 	var/stl = CONFIG_GET(number/second_topic_limit)
 	if(!holder && stl) // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
-		if (!topiclimiter)
+		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
-		if (second != topiclimiter[CURRENT_SECOND])
+		if(second != topiclimiter[CURRENT_SECOND])
 			topiclimiter[CURRENT_SECOND] = second
 			topiclimiter[SECOND_COUNT] = 0
 
 		topiclimiter[SECOND_COUNT] += 1
-		if (topiclimiter[SECOND_COUNT] > stl)
+		if(topiclimiter[SECOND_COUNT] > stl)
 			to_chat(src, span_danger("Ваше предыдущее действие было проигнорировано, потому что вы совершили слишком много действий за секунду."), confidential=TRUE)
 			return
 
 	//search the href for script injection
-	if( findtext(href,"<script",1,0) )
+	if(findtext(href,"<script",1,0))
 		log_world("Attempted use of scripts within a topic call, by [src]")
 		stack_trace("Attempted use of scripts within a topic call, by [src]")
 		message_admins("Attempted use of scripts within a topic call, by [src]")
@@ -228,9 +228,6 @@
 	var/tdata = TopicData //save this for later use
 	TopicData = null //Prevent calls to client.Topic from connect
 
-	if(byond_version >= 516)
-		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
-
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
@@ -308,7 +305,7 @@
 	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
 	GLOB.clients += src
 
-	if( (world.address == address || !address) && !GLOB.host )
+	if((world.address == address || !address) && !GLOB.host)
 		GLOB.host = key
 		world.update_status()
 
@@ -440,17 +437,18 @@
 	#endif
 
 	if(movingmob)
-		movingmob.client_mobs_in_contents -= mob
-		UNSETEMPTY(movingmob.client_mobs_in_contents)
+		LAZYREMOVE(movingmob.client_mobs_in_contents, mob)
+		movingmob = null
 
 
 	SSambience.remove_ambience_client(src)
+	SSmouse_entered.hovers -= src
 	SSping.currentrun -= src
-	QDEL_LIST(parallax_layers_cached)
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
+	QDEL_LIST(parallax_layers_cached)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()
@@ -559,7 +557,7 @@
 		prefs.max_gear_slots = CONFIG_GET(number/max_loadout_points) + 15
 
 /client/proc/send_to_server_by_url(url)
-	if (!url)
+	if(!url)
 		return
 	var/datum/browser/browser = new(src, "redirect_[url]", null, 400, 400)
 	browser.set_window_options("border=0;titlebar=0;focus=1;can_close=0;can_resize=0;")
@@ -629,7 +627,7 @@
 
 	qdel(query_cid)
 
-	var/admin_rank = "Игрок"
+	var/admin_rank = PLAYER_RANK
 	if(holder)
 		admin_rank = holder.rank
 	// Admins don't get slammed by this, I guess
@@ -639,7 +637,7 @@
 
 
 	//Log all the alts
-	if(related_accounts_cid.len)
+	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] alts:[jointext(related_accounts_cid, " - ")]")
 
 
@@ -819,7 +817,7 @@
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.", confidential=TRUE)
 		return
-	if(prefs && prefs.fuid)
+	if(prefs?.fuid)
 		if(!fromban)
 			to_chat(src, "Your forum account is already set.", confidential=TRUE)
 		return
@@ -897,8 +895,8 @@
 			qdel(src)
 			return TRUE
 	else
-		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
-			if (!cidcheck_spoofckeys[ckey])
+		if(!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
+			if(!cidcheck_spoofckeys[ckey])
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] appears to have attempted to spoof a cid randomizer check."))
 				cidcheck_spoofckeys[ckey] = TRUE
 			cidcheck[ckey] = computer_id
@@ -932,7 +930,7 @@
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been allowed to connect after showing they removed their cid randomizer"))
 				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
-			if (cidcheck_spoofckeys[ckey])
+			if(cidcheck_spoofckeys[ckey])
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time"))
 				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
@@ -991,7 +989,7 @@
 /// Send resources to the client.
 /// Sends both game resources and browser assets.
 /client/proc/send_resources()
-#if (PRELOAD_RSC == 0)
+#if(PRELOAD_RSC == 0)
 	var/static/next_external_rsc = 0
 	var/list/external_rsc_urls = CONFIG_GET(keyed_list/external_rsc_urls)
 	if(length(external_rsc_urls))
@@ -1005,17 +1003,17 @@
 		src << browse('code/modules/asset_cache/validate_assets.html', "window=asset_cache_browser")
 
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
-		if (CONFIG_GET(flag/asset_simple_preload))
+		if(CONFIG_GET(flag/asset_simple_preload))
 			addtimer(CALLBACK(SSassets.transport, TYPE_PROC_REF(/datum/asset_transport, send_assets_slow), src, SSassets.transport.preload), 5 SECONDS)
 
-		#if (PRELOAD_RSC == 0)
+		#if(PRELOAD_RSC == 0)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/client, preload_vox)), 1 MINUTES)
 		#endif
 
 
-#if (PRELOAD_RSC == 0)
+#if(PRELOAD_RSC == 0)
 /client/proc/preload_vox()
-	for (var/name in GLOB.vox_sounds)
+	for(var/name in GLOB.vox_sounds)
 		var/file = GLOB.vox_sounds[name]
 		Export("##action=load_rsc", file)
 		stoplag()
@@ -1112,14 +1110,14 @@
 	void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/change_view(new_size)
-	if (isnull(new_size))
+	if(isnull(new_size))
 		CRASH("change_view called without argument.")
 
 	view = new_size
 	SEND_SIGNAL(src, COMSIG_VIEW_SET, new_size)
 	apply_clickcatcher()
 	mob.hud_used?.reload_fullscreen()
-	if (isliving(mob))
+	if(isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
 	fit_viewport()
@@ -1142,7 +1140,7 @@
 
 	fullscreen = !fullscreen
 
-	if (fullscreen)
+	if(fullscreen)
 		winset(usr, "mainwindow", "on-size=")
 		winset(usr, "mainwindow", "titlebar=false")
 		winset(usr, "mainwindow", "can-resize=false")
@@ -1176,7 +1174,7 @@
 			var/atom/movable/screen/screen_object = object
 			if(!screen_object.clear_with_screen)
 				continue
-		if( istype(object, /atom/movable/render_plane_relay) || \
+		if(istype(object, /atom/movable/render_plane_relay) || \
 			istype(object, /atom/movable/screen/parallax_layer) || \
 			istype(object, /atom/movable/screen/plane_master/))
 			continue
@@ -1280,7 +1278,7 @@
 		return
 	if(prefs)
 		prefs.load_preferences(usr)
-	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
+	if(prefs?.discord_id && length(prefs.discord_id) < 32)
 		to_chat(usr, chat_box_red(span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
@@ -1631,7 +1629,7 @@
 	if(byond_version >= 516)
 		return
 
-	var/choice = alert(src, "Внимание - Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
+	var/choice = alert(src, "Внимание — Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
 	ТГУИ уже не поддерживает Internet Explorer, а следовательно на 515 и ниже будет работать некорректно. \
 	Обновитесь, чтобы избежать проблем в будущем.", " Предупреждение о версии BYOND", "Обновиться сейчас", "Игнорировать")
 	if(choice != "Обновиться сейчас")

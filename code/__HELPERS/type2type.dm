@@ -2,7 +2,6 @@
  * Holds procs designed to change one type of value, into another.
  * Contains:
  *			file2list
- *			file2list
  *			angle2dir
  *			angle2text
  *			worldtime2text
@@ -11,7 +10,7 @@
 /// Splits the text of a file at seperator and returns them in a list.
 /// returns an empty list if the file doesn't exist
 /world/proc/file2list(filename, seperator="\n", trim = TRUE)
-	if (trim)
+	if(trim)
 		return splittext(trim(file2text(filename)),seperator)
 	return splittext(file2text(filename),seperator)
 
@@ -42,23 +41,6 @@
 		num_list += text2num(x)
 	return num_list
 
-/// Splits the text of a file at seperator and returns them in a list.
-/proc/file2list(filename, seperator="\n", trim = TRUE)
-	if (trim)
-		return splittext(trim(return_file_text(filename)),seperator)
-	return splittext(return_file_text(filename),seperator)
-
-
-/// Turns a direction into text
-/proc/num2dir(direction)
-	switch(direction)
-		if(1.0) return NORTH
-		if(2.0) return SOUTH
-		if(4.0) return EAST
-		if(8.0) return WEST
-		else
-			log_runtime(EXCEPTION("UNKNOWN DIRECTION: [direction]"))
-
 /proc/dir2text(direction)
 	switch(direction)
 		if(1.0)
@@ -77,8 +59,8 @@
 			return "northwest"
 		if(10.0)
 			return "southwest"
-		else
-	return
+
+	return NONE
 
 /// Returns a string the last bit of a type, without the preceeding '/'
 /proc/type2top(the_type)
@@ -119,8 +101,8 @@
 			return "северо-запад"
 		if(10.0)
 			return "юго-запад"
-		else
-	return
+
+	return NONE
 
 /// Turns text into proper directions
 /proc/text2dir(direction)
@@ -141,8 +123,8 @@
 			return 6
 		if(DIR_NAME_ENG_SOUTHWEST)
 			return 10
-		else
-	return
+
+	return NONE
 
 /// Turns text into proper directions
 /proc/text2dir_rus(direction)
@@ -163,9 +145,8 @@
 			return 6
 		if(DIR_NAME_RUS_SOUTHWEST)
 			return 10
-		else
-	return
 
+	return NONE
 
 /// Converts an angle (degrees) into an ss13 direction
 GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST,NORTHWEST))
@@ -238,6 +219,28 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 	if(rights & R_SKINS)		. += "[seperator]+SKINS"
 	return .
 
+/proc/rights2text_tgui(rights)
+	. = list()
+	if(rights & R_BUILDMODE)	. += R_BUILDMODE_NAME
+	if(rights & R_ADMIN)		. += R_ADMIN_NAME
+	if(rights & R_BAN)			. += R_BAN_NAME
+	if(rights & R_EVENT)		. += R_EVENT_NAME
+	if(rights & R_SERVER)		. += R_SERVER_NAME
+	if(rights & R_DEBUG)		. += R_DEBUG_NAME
+	if(rights & R_POSSESS)		. += R_POSSESS_NAME
+	if(rights & R_PERMISSIONS)	. += R_PERMISSIONS_NAME
+	if(rights & R_STEALTH)		. += R_STEALTH_NAME
+	if(rights & R_REJUVINATE)	. += R_REJUVINATE_NAME
+	if(rights & R_VAREDIT)		. += R_VAREDIT_NAME
+	if(rights & R_SOUNDS)		. += R_SOUNDS_NAME
+	if(rights & R_SPAWN)		. += R_SPAWN_NAME
+	if(rights & R_PROCCALL)		. += R_PROCCALL_NAME
+	if(rights & R_MOD)			. += R_MOD_NAME
+	if(rights & R_MENTOR)		. += R_MENTOR_NAME
+	if(rights & R_VIEWRUNTIMES)	. += R_VIEWRUNTIMES_NAME
+	if(rights & R_SKINS)		. += R_SKINS_NAME
+	return .
+
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
 		if(UI_THEME_RETRO)
@@ -252,6 +255,8 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return 'icons/mob/screen_white.dmi'
 		if(UI_THEME_MIDNIGHT)
 			return 'icons/mob/screen_midnight.dmi'
+		if(UI_THEME_CLOCKWORK)
+			return 'icons/mob/screen_clockwork.dmi'
 		else
 			return 'icons/mob/screen_midnight.dmi'
 
@@ -356,7 +361,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 		if(entry == null)
 			return null
 		matrix_list += entry
-	if(matrix_list.len < 6)
+	if(length(matrix_list) < 6)
 		return null
 	var/a = matrix_list[1]
 	var/b = matrix_list[2]

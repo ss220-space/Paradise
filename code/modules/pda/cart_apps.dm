@@ -216,13 +216,13 @@
 		else
 			beepskyData["botstatus"] = list("loca" = null, "mode" = -1)
 		var/botsCount=0
-		if(SC.botlist && SC.botlist.len)
+		if(SC.botlist && length(SC.botlist))
 			for(var/mob/living/simple_animal/bot/B in SC.botlist)
 				botsCount++
 				if(B.loc)
 					botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
 
-		if(!botsData.len)
+		if(!length(botsData))
 			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		beepskyData["bots"] = botsData
@@ -306,7 +306,7 @@
 			if(B.loc)
 				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
 
-		if(!mulebotsData.len)
+		if(!length(mulebotsData))
 			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		muleData["bots"] = mulebotsData
@@ -393,7 +393,7 @@
 		supplyOrderCount++
 		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
 
-	if(!supplyOrderData.len)
+	if(!length(supplyOrderData))
 		supplyOrderData[++supplyOrderData.len] = list("Number" = null, "Name" = null, "OrderedBy"=null)
 
 	supplyData["approved"] = supplyOrderData
@@ -406,7 +406,7 @@
 		requestCount++
 		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
 
-	if(!requestData.len)
+	if(!length(requestData))
 		requestData[++requestData.len] = list("Number" = null, "Name" = null, "orderedBy" = null, "Comment" = null)
 
 	supplyData["requests"] = requestData
@@ -466,8 +466,8 @@
 			var/direction = get_dir(pda,B)
 			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
-	JaniData["mops"] = MopData.len ? MopData : null
-	JaniData["buckets"] = BucketData.len ? BucketData : null
-	JaniData["cleanbots"] = CbotData.len ? CbotData : null
-	JaniData["carts"] = CartData.len ? CartData : null
+	JaniData["mops"] = length(MopData) ? MopData : null
+	JaniData["buckets"] = length(BucketData) ? BucketData : null
+	JaniData["cleanbots"] = length(CbotData) ? CbotData : null
+	JaniData["carts"] = length(CartData) ? CartData : null
 	data["janitor"] = JaniData

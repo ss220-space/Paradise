@@ -42,7 +42,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/random/Initialize(mapload)
 	. = ..()
-	wine_power = rand(0.1,1.5)
+	wine_power = randfloat(0.1, 1.5)
 	if(prob(1))
-		wine_power = 2.0
+		wine_power = 2
 

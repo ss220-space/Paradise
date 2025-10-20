@@ -10,7 +10,7 @@
 ### azizonkg
 # CI + Tooling
 /.github/workflows/ @Bizzonium
-/code/modules/unit_tests/ @Bizzonium
+/code/tests/ @Bizzonium
 /tools/ci/ @Bizzonium
 _build_dependencies.sh @Bizzonium
 

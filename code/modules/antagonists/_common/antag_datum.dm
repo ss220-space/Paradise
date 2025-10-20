@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 
 /**
- * Checks if the person trying to recieve this datum is role banned from it.
+ * Checks if the person trying to receive this datum is role banned from it.
  */
 /datum/antagonist/proc/is_banned(mob/user)
 	if(!user)
@@ -396,7 +396,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 				general_targets |= general_objective.target
 
 			new_objective.find_target(target_blacklist = general_targets)
-			if(new_objective.target )
+			if(new_objective.target)
 				found_valid_target = TRUE
 
 	if(!found_valid_target)

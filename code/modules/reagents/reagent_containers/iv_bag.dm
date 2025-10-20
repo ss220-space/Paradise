@@ -31,6 +31,7 @@
 
 /obj/item/reagent_containers/iv_bag/empty()
 	set hidden = TRUE
+	return
 
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
@@ -178,6 +179,7 @@
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
+		after_transfer(target)
 		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(istype(target, /obj/item/reagent_containers/glass) && !target.is_open_container())
@@ -298,7 +300,6 @@
 	blood_type = "O+"
 
 /obj/item/reagent_containers/iv_bag/blood/OMinus
-	blood_type = "O-"
 
 /obj/item/reagent_containers/iv_bag/blood/skrell
 	blood_species = "Skrell"
@@ -339,12 +340,12 @@
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/get_ru_names()
 	return list(
-			NOMINATIVE = "капельница - Синтетическая кровь (Кислород)" ,
-			GENITIVE = "капельницы - Синтетическая кровь (Кислород)",
-			DATIVE = "капельнице - Синтетическая кровь (Кислород)",
-			ACCUSATIVE = "капельницу - Синтетическая кровь (Кислород)",
-			INSTRUMENTAL = "капельницей - Синтетическая кровь (Кислород)",
-			PREPOSITIONAL = "капельнице - Синтетическая кровь (Кислород)"
+			NOMINATIVE = "капельница — Синтетическая кровь (Кислород)" ,
+			GENITIVE = "капельницы — Синтетическая кровь (Кислород)",
+			DATIVE = "капельнице — Синтетическая кровь (Кислород)",
+			ACCUSATIVE = "капельницу — Синтетическая кровь (Кислород)",
+			INSTRUMENTAL = "капельницей — Синтетическая кровь (Кислород)",
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Кислород)"
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
@@ -359,12 +360,12 @@
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/get_ru_names()
 	return list(
-			NOMINATIVE = "капельница - Синтетическая кровь (Азот)" ,
-			GENITIVE = "капельницы - Синтетическая кровь (Азот)",
-			DATIVE = "капельнице - Синтетическая кровь (Азот)",
-			ACCUSATIVE = "капельницу - Синтетическая кровь (Азот)",
-			INSTRUMENTAL = "капельницей - Синтетическая кровь (Азот)",
-			PREPOSITIONAL = "капельнице - Синтетическая кровь (Азот)"
+			NOMINATIVE = "капельница — Синтетическая кровь (Азот)" ,
+			GENITIVE = "капельницы — Синтетическая кровь (Азот)",
+			DATIVE = "капельнице — Синтетическая кровь (Азот)",
+			ACCUSATIVE = "капельницу — Синтетическая кровь (Азот)",
+			INSTRUMENTAL = "капельницей — Синтетическая кровь (Азот)",
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Азот)"
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
@@ -379,12 +380,12 @@
 
 /obj/item/reagent_containers/iv_bag/slime/get_ru_names()
 	return list(
-		NOMINATIVE = "капельница - Слаймовое желе" ,
-		GENITIVE = "капельницы - Слаймовое желе",
-		DATIVE = "капельнице - Слаймовое желе",
-		ACCUSATIVE = "капельницу - Слаймовое желе",
-		INSTRUMENTAL = "капельницей - Слаймовое желе",
-		PREPOSITIONAL = "капельнице - Слаймовое желе"
+		NOMINATIVE = "капельница — Слаймовое желе" ,
+		GENITIVE = "капельницы — Слаймовое желе",
+		DATIVE = "капельнице — Слаймовое желе",
+		ACCUSATIVE = "капельницу — Слаймовое желе",
+		INSTRUMENTAL = "капельницей — Слаймовое желе",
+		PREPOSITIONAL = "капельнице — Слаймовое желе"
 	)
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)

@@ -1,7 +1,7 @@
 /obj/item/organ/internal/liver/grey
 	species_type = /datum/species/grey
 	name = "grey liver"
-	desc = "Маленькая печень серого цвета - орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма."
+	desc = "Маленькая печень серого цвета — орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма."
 	ru_names = list(
 		NOMINATIVE = "печень серого",
 		GENITIVE = "печени серого",
@@ -26,10 +26,8 @@
 		PREPOSITIONAL = "мозге серого"
 	)
 	icon = 'icons/obj/species_organs/grey.dmi'
-	icon_state = "brain2"
 	item_state = "grey_brain"
 	mmi_icon = 'icons/obj/species_organs/grey.dmi'
-	mmi_icon_state = "mmi_full"
 	smart_mind = TRUE // nerd brains show us sci-hud and research scanner
 
 /obj/item/organ/internal/brain/grey/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -43,7 +41,7 @@
 /obj/item/organ/internal/eyes/grey
 	species_type = /datum/species/grey
 	name = "grey eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Даже в таком виде они выглядят абсолютно пустыми и безэмоциональными."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Даже в таком виде они выглядят абсолютно пустыми и безэмоциональными."
 	ru_names = list(
 		NOMINATIVE = "глаза серого",
 		GENITIVE = "глаз серого",

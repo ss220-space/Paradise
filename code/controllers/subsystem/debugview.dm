@@ -42,7 +42,11 @@ SUBSYSTEM_DEF(debugview)
 
 	// Do some parsing to format it properly
 	var/out_text = entries.Join("\n")
-	var/mty = 480 - 9 * length(entries)
+	/*
+		480 - standart highest Y position
+		10 = 8(font_size) + 2(gap between lines)
+	*/
+	var/mty = 480 - 10 * length(entries)
 
 	// And update the clients
 	for(var/client/C as anything in processing)

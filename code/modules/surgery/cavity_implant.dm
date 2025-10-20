@@ -24,7 +24,6 @@
 
 
 /datum/surgery/cavity_implant/soft
-	name = "Полостная хирургия"
 	desc = "Имплантация объекта в полость, не защищённую костями."
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
@@ -119,26 +118,14 @@
 		BODY_ZONE_PRECISE_GROIN,
 	)
 
-/datum/surgery/cavity_implant/synth
-	name = "Полостная хирургия (Синтетик)"
-	steps = list(
-		/datum/surgery_step/robotics/external/unscrew_hatch,
-		/datum/surgery_step/robotics/external/open_hatch,
-		/datum/surgery_step/proxy/cavity_manipulation/robotic,
-		/datum/surgery_step/robotics/external/close_hatch
-	)
-	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN)
-	requires_organic_bodypart = FALSE
-
 /datum/surgery_step/proxy/cavity_manipulation
-	name = "Полостная манипуляция – прокси"
+	name = "Полостная манипуляция — прокси"
 	branches = list(
 		/datum/surgery/intermediate/open_cavity/implant,
 		/datum/surgery/intermediate/open_cavity/extract,
 		/datum/surgery/intermediate/bleeding
 	)
 
-	insert_self_after = TRUE
 
 /datum/surgery_step/proxy/cavity_manipulation/robotic
 	name = "Полостная манипуляция (Синтетик) – прокси"

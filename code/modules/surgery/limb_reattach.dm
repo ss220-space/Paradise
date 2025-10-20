@@ -20,7 +20,6 @@
 		BODY_ZONE_TAIL,
 		BODY_ZONE_WING,
 	)
-	requires_organic_bodypart = TRUE
 	cancel_on_organ_change = FALSE
 
 
@@ -116,7 +115,7 @@
 	)
 
 /datum/surgery_step/proxy/robo_limb_attach
-	name = "установка робо-конечности – прокси"
+	name = "установка робо-конечности — прокси"
 	branches = list(
 		/datum/surgery/robo_attach,
 		/datum/surgery/reattach_synth
@@ -153,7 +152,6 @@
 		return FALSE
 
 /datum/surgery_step/limb
-	can_infect = FALSE
 
 /datum/surgery_step/limb/attach
 	name = "присоединить конечность"

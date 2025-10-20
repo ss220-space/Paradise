@@ -82,9 +82,7 @@
 	name = "BFL Emitter"
 	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
-	anchored = TRUE
 	density = TRUE
-	use_power = NO_POWER_USE
 	idle_power_usage = 100000
 	active_power_usage = 500000
 
@@ -348,7 +346,7 @@
 			to_chat(user, span_warning("Нет питания.<br>Попробуйте открыть шахту вручную с помощью лома."))
 		if("Очистить хранилище руды")
 			if(lens)
-				to_chat(user, span_warning("Линза создаёт помехи - невозможно получить руду из хранилища."))
+				to_chat(user, span_warning("Линза создаёт помехи — невозможно получить руду из хранилища."))
 				return
 			if(state && (user.ckey != last_user_ckey))
 				to_chat(user, span_warning("Внутренний голос подсказывает, что сначала нужно закрыть шахту."))

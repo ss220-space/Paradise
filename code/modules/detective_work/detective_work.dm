@@ -1,8 +1,5 @@
 //CONTAINS: Suit fibers and Detective's Scanning Computer
 
-/atom/var/list/suit_fibers
-/atom/var/list/time_of_touch
-
 /atom/proc/add_fibers(mob/living/carbon/human/M)
 	if(M.gloves && istype(M.gloves,/obj/item/clothing/))
 		var/obj/item/clothing/gloves/G = M.gloves
@@ -23,7 +20,7 @@
 			if(!(fibertext in suit_fibers))
 				suit_fibers += fibertext
 			time_of_touch.Add("[station_time_timestamp()] — [fibertext]")
-			if(time_of_touch.len > 20)
+			if(length(time_of_touch) > 20)
 				time_of_touch -= time_of_touch[1]
 		if(!(M.wear_suit.body_parts_covered & UPPER_TORSO))
 			if(M.w_uniform)
@@ -33,7 +30,7 @@
 					if(!(fibertext in suit_fibers))
 						suit_fibers += fibertext
 					time_of_touch.Add("[station_time_timestamp()] — [fibertext]")
-					if(time_of_touch.len > 20)
+					if(length(time_of_touch) > 20)
 						time_of_touch -= time_of_touch[1]
 		if(!(M.wear_suit.body_parts_covered & HANDS))
 			if(M.gloves)
@@ -43,7 +40,7 @@
 					if(!(fibertext in suit_fibers))
 						suit_fibers += fibertext
 					time_of_touch.Add("[station_time_timestamp()] — [fibertext]")
-					if(time_of_touch.len > 20)
+					if(length(time_of_touch) > 20)
 						time_of_touch -= time_of_touch[1]
 	else if(M.w_uniform)
 		fibertext = "Fibers from \a [M.w_uniform]."
@@ -52,7 +49,7 @@
 			if(!(fibertext in suit_fibers))
 				suit_fibers += fibertext
 			time_of_touch.Add("[station_time_timestamp()] — [fibertext]")
-			if(time_of_touch.len > 20)
+			if(length(time_of_touch) > 20)
 				time_of_touch -= time_of_touch[1]
 		if(M.gloves)
 			fibertext = "Material from a pair of [M.gloves.name]."
@@ -61,7 +58,7 @@
 				if(!(fibertext in suit_fibers))
 					suit_fibers += fibertext
 				time_of_touch.Add("[station_time_timestamp()] — [fibertext]")
-				if(time_of_touch.len > 20)
+				if(length(time_of_touch) > 20)
 					time_of_touch -= time_of_touch[1]
 	else if(M.gloves)
 		fibertext = "Material from a pair of [M.gloves.name]."
@@ -70,5 +67,5 @@
 			if(!(fibertext in suit_fibers))
 				suit_fibers += fibertext
 			time_of_touch.Add("[station_time_timestamp()] — [fibertext]")
-			if(time_of_touch.len > 20)
+			if(length(time_of_touch) > 20)
 				time_of_touch -= time_of_touch[1]

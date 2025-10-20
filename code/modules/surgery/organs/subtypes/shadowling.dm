@@ -26,7 +26,7 @@
 /obj/item/organ/internal/eyes/shadowling
 	species_type = /datum/species/shadow/ling
 	name = "shadowling eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали тенелингу."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали тенелингу."
 	ru_names = list(
 		NOMINATIVE = "глаза тенелинга",
 		GENITIVE = "глаз тенелинга",

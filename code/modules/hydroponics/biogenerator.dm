@@ -8,7 +8,6 @@
 	icon_state = "biogen-empty"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	/// Is the biogenerator curretly grinding up plants?
 	var/processing = FALSE
@@ -263,7 +262,7 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is currently processing!</span>")
+		to_chat(user, span_warning("[src] is currently processing!"))
 		return
 
 	processing = TRUE

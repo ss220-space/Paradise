@@ -84,7 +84,6 @@
 	requires_power = FALSE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/vision_change_area/awaymission/evil_santa/end/hall
 	name = "Evil santa hall"
@@ -153,7 +152,7 @@
 				naughty_guys |= naughty
 				RegisterSignal(naughty, COMSIG_MOB_DEATH, PROC_REF(ready_or_not))
 
-	if(naughty_guys.len > 0)
+	if(length(naughty_guys) > 0)
 		BlockBlastDoors()
 	else
 		UnlockBlastDoors()
@@ -199,7 +198,6 @@
 
 /obj/effect/mob_spawn/human/corpse/monkey_shaftminer
 	mob_type = /mob/living/carbon/human/lesser/monkey
-	death = TRUE
 	name = "Dead monkey shaftminer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet-monkey"
@@ -282,14 +280,14 @@
 /obj/item/paper/journal_scrap_1
 	name = "Журнал неизвестного, страница 1"
 	info = "И снова уголёк...<br> \
-			Каждый год, как наступает этот дурацкий праздник - я обнаруживаю вместо подарка УГОЛЬ!.<br> \
+			Каждый год, как наступает этот дурацкий праздник — я обнаруживаю вместо подарка УГОЛЬ!.<br> \
 			Но не в этот раз. Хватит с меня. В этом году всё будет по другому. Клянусь, я найду этого старикашку.<br> \
 			И он отдаст мне ВСЕ подарки, если, конечно, он хочет жить долго и продолжать наслаждаться своим печеньем с молоком."
 
 /obj/item/paper/journal_scrap_2
 	name = "Журнал неизвестного, страница 9"
 	info = "Свереный полюс... Все думали, что это всего лишь легенда, но он на самом деле живет здесь!<br> \
-			А вот эльфы и сказочная деревушка - полная брехня. Не знаю, где он собирает все эти игрушки, но я обязательно выясню.<br> \
+			А вот эльфы и сказочная деревушка — полная брехня. Не знаю, где он собирает все эти игрушки, но я обязательно выясню.<br> \
 			Не так уж и много интересного тут на полюсе: снег, лес, да пара иглу; но в центре леса что то есть... Уверен он прячется там!.<br> \
 			К слову, здесь очень приятный и липкий снег. Сегодня слепил снеговика."
 

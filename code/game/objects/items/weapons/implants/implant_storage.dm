@@ -5,7 +5,6 @@
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=4"
 	item_color = "r"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/storage
 	var/obj/item/storage/hidden/implant/storage
 
@@ -60,7 +59,7 @@
 
 
 /obj/item/implant/storage/proc/get_contents() //Used for swiftly returning a list of the implant's contents i.e. for checking a theft objective's completion.
-	if(storage && storage.contents)
+	if(storage?.contents)
 		return storage.contents
 
 

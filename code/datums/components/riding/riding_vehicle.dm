@@ -15,19 +15,19 @@
 
 	if(!keycheck(rider))
 		if(z_move_flags & ZMOVE_FEEDBACK)
-			to_chat(rider, "<span class='warning'>[movable_parent] has no key inserted!</span>")
+			to_chat(rider, span_warning("[movable_parent] has no key inserted!"))
 		return COMPONENT_RIDDEN_STOP_Z_MOVE
 	if(HAS_TRAIT(rider, TRAIT_INCAPACITATED))
 		if(z_move_flags & ZMOVE_FEEDBACK)
-			to_chat(rider, "<span class='warning'>You cannot operate [movable_parent] right now!</span>")
+			to_chat(rider, span_warning("You cannot operate [movable_parent] right now!"))
 		return COMPONENT_RIDDEN_STOP_Z_MOVE
 	if(ride_check_flags & RIDER_NEEDS_LEGS && HAS_TRAIT(rider, TRAIT_FLOORED))
 		if(z_move_flags & ZMOVE_FEEDBACK)
-			to_chat(rider, "<span class='warning'>You can't seem to manage that while unable to stand up enough to move [movable_parent]...</span>")
+			to_chat(rider, span_warning("You can't seem to manage that while unable to stand up enough to move [movable_parent]..."))
 		return COMPONENT_RIDDEN_STOP_Z_MOVE
 	if(ride_check_flags & RIDER_NEEDS_ARMS && HAS_TRAIT(rider, TRAIT_HANDS_BLOCKED))
 		if(z_move_flags & ZMOVE_FEEDBACK)
-			to_chat(rider, "<span class='warning'>You can't seem to hold onto [movable_parent] to move it...</span>")
+			to_chat(rider, span_warning("You can't seem to hold onto [movable_parent] to move it..."))
 		return COMPONENT_RIDDEN_STOP_Z_MOVE
 
 	return COMPONENT_RIDDEN_ALLOW_Z_MOVE
@@ -129,7 +129,6 @@
 /datum/component/riding/vehicle/ambulance
 	keytype = /obj/item/key/ambulance
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
-	vehicle_move_delay = 2
 
 /datum/component/riding/vehicle/ambulance/handle_specials()
 	. = ..()
@@ -157,7 +156,7 @@
 
 /datum/component/riding/vehicle/secway/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list(0, 4)))
 	set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 
 /datum/component/riding/vehicle/snowmobile
@@ -172,21 +171,20 @@
 
 /datum/component/riding/vehicle/speedbike/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, -8), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-10, 5), TEXT_WEST = list( 10, 5)))
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, -8), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-10, 5), TEXT_WEST = list(10, 5)))
 	set_vehicle_dir_offsets(NORTH, -16, -16)
 	set_vehicle_dir_offsets(SOUTH, -16, -16)
 	set_vehicle_dir_offsets(EAST, -18, 0)
 	set_vehicle_dir_offsets(WEST, -18, 0)
 
 /datum/component/riding/vehicle/lavaboat
-	ride_check_flags = NONE // not sure
 	vehicle_move_delay = 3
 	keytype = /obj/item/oar
 	var/allowed_turf = /turf/simulated/floor/lava
 
 /datum/component/riding/vehicle/lavaboat/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(1, 2), TEXT_SOUTH = list(1, 2), TEXT_EAST = list(1, 2), TEXT_WEST = list( 1, 2)))
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(1, 2), TEXT_SOUTH = list(1, 2), TEXT_EAST = list(1, 2), TEXT_WEST = list(1, 2)))
 	set_vehicle_dir_layer(NORTH, ABOVE_MOB_LAYER)
 	allowed_turf_typecache = typecacheof(allowed_turf)
 
@@ -217,7 +215,7 @@
 
 /datum/component/riding/vehicle/bicycle/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list(0, 4)))
 
 /datum/component/riding/vehicle/scooter/handle_specials(mob/living/riding_mob)
 	. = ..()
@@ -387,11 +385,6 @@
 	set_vehicle_dir_offsets(WEST, -48, -48)
 	for(var/i in GLOB.cardinal)
 		set_vehicle_dir_layer(i, BELOW_MOB_LAYER)
-
-
-/datum/component/riding/vehicle/wheelchair
-	vehicle_move_delay = 0
-	ride_check_flags = RIDER_NEEDS_ARMS
 
 /datum/component/riding/vehicle/wheelchair/handle_specials()
 	. = ..()

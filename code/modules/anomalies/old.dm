@@ -7,8 +7,6 @@
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
-	density = FALSE
-	anchored = TRUE
 	light_range = 3
 	var/movechance = ANOMALY_MOVECHANCE
 	var/obj/item/assembly/signaler/core/aSignal = /obj/item/assembly/signaler/core
@@ -62,16 +60,16 @@
 	for(var/obj/item/item in get_turf(src))
 		if(!item.origin_tech)
 			continue
-		if (istype(item, /obj/item/relict_production/rapid_dupe))
+		if(istype(item, /obj/item/relict_production/rapid_dupe))
 			var/amount = rand(1, 3)
-			for (var/i; i <= amount; i++)
+			for(var/i; i <= amount; i++)
 				new /obj/item/relic(get_turf(item))
 				var/datum/effect_system/fluid_spread/smoke/smoke = new
 				smoke.set_up(5, get_turf(item))
 				smoke.start()
 			qdel(item)
 			continue
-		if (prob(2))
+		if(prob(2))
 			new /obj/item/relic(get_turf(item))
 			qdel(item)
 
@@ -113,7 +111,6 @@
 /obj/effect/old_anomaly/gravitational
 	name = "gravitational anomaly"
 	icon_state = "shield2"
-	density = FALSE
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/core/gravitational/tier2
@@ -208,7 +205,7 @@
 /obj/effect/old_anomaly/energetic/proc/mobShock(mob/living/mob)
 	if(canshock && istype(mob))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
-		mob.electrocute_act(shockdamage, "потоковой аномалии", flags = SHOCK_NOGLOVES)
+		mob.electrocute_act(shockdamage, src, flags = SHOCK_NOGLOVES)
 
 /obj/effect/old_anomaly/energetic/detonate()
 	if(explosive)
@@ -248,9 +245,9 @@
 	var/turf/turf = pick(get_area_turfs(impact_area))
 	if(turf)
 		// Calculate new position (searches through beacons in world)
-		var/obj/item/radio/beacon/chosen
+		var/obj/item/beacon/chosen
 		var/list/possible = list()
-		for(var/obj/item/radio/beacon/W in GLOB.beacons)
+		for(var/obj/item/beacon/W as anything in GLOB.beacons)
 			if(!is_station_level(W.z))
 				continue
 			possible += W
@@ -264,8 +261,9 @@
 			var/turf/turf_to = get_turf(chosen) // the turf of origin we're travelling TO
 
 			playsound(turf_to, 'sound/effects/phasein.ogg', 100, TRUE)
-			GLOB.minor_announcement.announce("Обнаружено перемещение крупной блюспейс-аномалии.",
-											ANNOUNCE_ANOMALY_RU
+			GLOB.minor_announcement.announce(
+				message = "Обнаружено перемещение крупной блюспейс-аномалии.",
+				new_title = ANNOUNCE_ANOMALY_RU
 			)
 
 			var/list/flashers = list()
@@ -276,7 +274,7 @@
 			var/y_distance = turf_to.y - turf_from.y
 			var/x_distance = turf_to.x - turf_from.x
 			for(var/atom/movable/movable_atom in urange(12, turf_from)) // iterate thru list of mobs in the area
-				if(istype(movable_atom, /obj/item/radio/beacon))
+				if(istype(movable_atom, /obj/item/beacon))
 					continue // don't teleport beacons because that's just insanely stupid
 				if(movable_atom.anchored || movable_atom.move_resist == INFINITY)
 					continue
@@ -351,7 +349,6 @@
 
 /obj/effect/old_anomaly/bhole
 	name = "vortex anomaly"
-	icon_state = "bhole3"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
 	aSignal = /obj/item/assembly/signaler/core/vortex/tier2
 

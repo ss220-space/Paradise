@@ -139,7 +139,7 @@
 /obj/item/organ/internal/eyes/kidan
 	species_type = /datum/species/kidan
 	name = "kidan eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали кидану."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали кидану."
 	ru_names = list(
 		NOMINATIVE = "глаза кидана",
 		GENITIVE = "глаз кидана",
@@ -192,10 +192,8 @@
 		PREPOSITIONAL = "мозге кидана"
 	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
-	icon_state = "brain2"
 	item_state = "kidan_brain"
 	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
-	mmi_icon_state = "mmi_full"
 	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/brain/kidan/on_life()

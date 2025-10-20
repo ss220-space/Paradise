@@ -701,6 +701,17 @@
 /obj/structure/cult/archives,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
+"qp" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "qs" = (
 /obj/structure/closet/toolcloset,
 /turf/simulated/floor/plating,
@@ -1323,6 +1334,18 @@
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
+"DJ" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/flashlight/lamp/green,
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/graveyard/church)
 "DP" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
@@ -1717,17 +1740,6 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
-"LM" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
 "LZ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -1916,27 +1928,6 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
-"RA" = (
-/obj/item/stack/sheet/wood{
-	amount = 50
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 20
-	},
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/item/flashlight/lantern,
-/obj/item/flashlight/lantern,
-/obj/item/paper/crumpled{
-	info = "Дебилы! Как вы меня уже достали! Хватит пытаться заменить лампочку! Если кто-нибудь еще сунет свои рученки - отправится к господу богу...";
-	desc = "Старая помятая бумажка"
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
 "RE" = (
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
@@ -2071,6 +2062,27 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
+"Ub" = (
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 20
+	},
+/obj/structure/cable{
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/paper/crumpled{
+	info = "Дебилы! Как вы меня уже достали! Хватит пытаться заменить лампочку! Если кто-нибудь еще сунет свои рученки — отправится к господу богу...";
+	desc = "Старая помятая бумажка"
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "Uj" = (
 /obj/structure/statue/silver/janitor{
 	icon_state = "angel";
@@ -2355,18 +2367,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
-"Ya" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/item/flashlight/lamp/green,
-/turf/simulated/floor/carpet/red,
-/area/ruin/space/graveyard/church)
 "Ye" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -2891,7 +2891,7 @@ vN
 vN
 JV
 Vd
-RA
+Ub
 wu
 vN
 rb
@@ -3951,7 +3951,7 @@ ts
 rb
 RT
 HY
-Ya
+DJ
 rb
 Bz
 qA
@@ -4147,7 +4147,7 @@ it
 it
 it
 rb
-LM
+qp
 ow
 ow
 ow

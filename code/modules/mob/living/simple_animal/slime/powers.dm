@@ -68,10 +68,10 @@
 		if(S.damage_coeff[TOX] <= 0 && S.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
 			if(silent)
 				return FALSE
-			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
+			to_chat(src, span_warning("[pick("This subject is incompatible", \
 			"This subject does not have life energy", "This subject is empty", \
 			"I am not satisified", "I can not feed from this subject", \
-			"I do not feel nourished", "This subject is not food")]!</span>")
+			"I do not feel nourished", "This subject is not food")]!"))
 			return FALSE
 
 	if(isslime(M))
@@ -109,20 +109,20 @@
 	M.unbuckle_all_mobs(force = TRUE) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
 	if(M.buckle_mob(src, force = TRUE, check_loc = FALSE))
 		layer = M.layer + 0.01 //appear above the target mob
-		M.visible_message("<span class='danger'>[name] has latched onto [M]!</span>", \
-						"<span class='userdanger'>[name] has latched onto [M]!</span>")
+		M.visible_message(span_danger("[name] has latched onto [M]!"), \
+						span_userdanger("[name] has latched onto [M]!"))
 	else
 		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
 
 /mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE, living = 1)
 	if(buckled)
 		if(!living)
-			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
+			to_chat(src, span_warning("[pick("This subject is incompatible", \
 			"This subject does not have life energy", "This subject is empty", \
 			"I am not satisified", "I can not feed from this subject", \
-			"I do not feel nourished", "This subject is not food")]!</span>")
+			"I do not feel nourished", "This subject is not food")]!"))
 		if(!silent)
-			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
+			visible_message(span_warning("[src] has let go of [buckled]!"), \
 							"<span class='notice'><i>I stopped feeding.</i></span>")
 		layer = initial(layer)
 		buckled.unbuckle_mob(src,force=TRUE)
@@ -148,7 +148,7 @@
 		amount_grown = 0
 		update_state()
 		regenerate_icons()
-		update_name()
+		update_appearance(UPDATE_NAME)
 	else
 		to_chat(src, "<i>I am not ready to evolve yet...</i>")
 
@@ -225,10 +225,10 @@
 	var/baby_counts = round(rand(3 + add_counts, age_state.baby_counts) * baby_mod)
 	baby_counts = baby_counts <= 0 ? 1 : baby_counts	//даже если нутриентов по нулям, то поделится на 1-го BABY
 	var/baby_counts_adult = 0
-	if (age_state.age == SLIME_OLD || age_state.age == SLIME_ELDER)
+	if(age_state.age == SLIME_OLD || age_state.age == SLIME_ELDER)
 		baby_counts_adult = rand(0, round(baby_counts / 2))
 	var/baby_counts_old = 0
-	if (age_state.age == SLIME_ELDER && baby_counts)
+	if(age_state.age == SLIME_ELDER && baby_counts)
 		baby_counts_old	= rand(0, round((baby_counts - baby_counts_adult * 2) / 3) + 1)
 
 	baby_counts -= baby_counts_adult * 2 + baby_counts_old * 3
@@ -237,20 +237,20 @@
 
 	//Определяем количество детей и будущее набольшее тело
 	var/mob/living/simple_animal/slime/new_slime
-	if (baby_counts_old)
+	if(baby_counts_old)
 		for(var/i in 1 to baby_counts_old)
 			reproduce_baby_stats(babies, /datum/slime_age/old, new_nutrition, new_powerlevel, can_mutate)
 		new_slime = pick(babies)
-	if (baby_counts_adult)
+	if(baby_counts_adult)
 		for(var/i in 1 to baby_counts_adult)
 			reproduce_baby_stats(babies, /datum/slime_age/adult, new_nutrition, new_powerlevel, can_mutate)
-		if (!new_slime)
+		if(!new_slime)
 			new_slime = pick(babies)
-	if (baby_counts)
+	if(baby_counts)
 		for(var/i in 1 to baby_counts)
 			reproduce_baby_stats(babies, /datum/slime_age/baby, new_nutrition, new_powerlevel, can_mutate)
 
-	if (!new_slime)
+	if(!new_slime)
 		new_slime = pick(babies)
 
 	new_slime.a_intent = INTENT_HARM

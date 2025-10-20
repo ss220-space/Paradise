@@ -4,7 +4,7 @@
 
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
-	desc = "Высокотехнологичная машина, способная синтезировать определённые вещества с помощью сложных физико-химических процессов. Даже не спрашивайте, как оно работает - вы всё равно не поймёте."
+	desc = "Высокотехнологичная машина, способная синтезировать определённые вещества с помощью сложных физико-химических процессов. Даже не спрашивайте, как оно работает — вы всё равно не поймёте."
 	ru_names = list(
 		NOMINATIVE = "химический раздатчик",
 		GENITIVE = "химического раздатчика",
@@ -17,7 +17,6 @@
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "dispenser"
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/ui_title = "ХимРаздатчик 5000"
@@ -188,7 +187,7 @@
 
 	var/beakerContents[0]
 	var/beakerCurrentVolume = 0
-	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
+	if(beaker?.reagents && length(beaker.reagents.reagent_list))
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
@@ -648,7 +647,7 @@
 
 /obj/item/handheld_chem_dispenser/update_overlays()
 	. = ..()
-	if(cell && cell.charge)
+	if(cell?.charge)
 		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
 		switch(percent)
@@ -673,7 +672,7 @@
 /obj/item/handheld_chem_dispenser/process()
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell && R.cell.charge && (R.cell != cell))
+		if(R?.cell && R.cell.charge && (R.cell != cell))
 			cell = R.cell //Use robot's power source.
 
 	update_icon(UPDATE_OVERLAYS)

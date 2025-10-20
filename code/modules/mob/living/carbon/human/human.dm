@@ -11,8 +11,10 @@
 	physiology = new(src)
 
 	setup_dna(new_species)
+	special_check_for_transplantation()
+
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
+	diag_hud.add_atom_to_hud(src)
 	med_hud_set_health()	// Updating med huds is necessary after `setup_dna()` due to the fact that while
 	med_hud_set_status()	// a human does not have a heart, the hud status is displayed incorrectly.
 
@@ -103,12 +105,12 @@
 
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/machine/Initialize(mapload)
@@ -230,7 +232,7 @@
 
 	// I REALLY need to split up status panel things into datums
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
-	if(borer && borer.controlling)
+	if(borer?.controlling)
 		status_tab_data[++status_tab_data.len] = list("Объём химикатов:", borer.chemicals)
 		status_tab_data[++status_tab_data.len] = list("Стадия:", borer.antag_datum.borer_rank.rankname)
 		status_tab_data[++status_tab_data.len] = list("Очки эволюции:", borer.antag_datum.evo_points)
@@ -453,7 +455,7 @@
 
 
 /// Calculates the siemens coeff based on clothing and species, can also restart hearts.
-/mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/carbon/human/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	//Calculates the siemens coeff based on clothing. Completely ignores the arguments
 	if(flags & SHOCK_TESLA) //I hate this entire block. This gets the siemens_coeff for tesla shocks
 		if(gloves && gloves.siemens_coefficient <= 0)
@@ -498,8 +500,8 @@
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
 
 			usr.visible_message(
-				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
-				span_warning("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
+				span_warning("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 			)
 
 			if(do_after(usr, time_taken, src))
@@ -513,8 +515,8 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]!"),
-					span_notice("Вы успешно извлекаете [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_notice("Вы успешно извлекаете [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				)
 			return
 
@@ -641,7 +643,7 @@
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
 									modified = 1
-									if(GLOB.PDA_Manifest.len)
+									if(length(GLOB.PDA_Manifest))
 										GLOB.PDA_Manifest.Cut()
 
 									spawn()
@@ -720,7 +722,7 @@
 						skills = E.fields["notes"]
 						break
 				if(skills)
-					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
+					to_chat(usr, "[span_deptradio("Employment records: [skills]")]\n")
 
 	. = ..()
 
@@ -1353,6 +1355,7 @@
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon
+
 /// Referenced cult constructs for shining in the dark. Needs to be above lighting effects such as shading.
 /mob/living/carbon/human/proc/get_eye_shine()
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
@@ -1372,12 +1375,22 @@ Used to check if eyes should shine in the dark. Returns the image of the eyes on
 Eyes need to have significantly high darksight to shine unless the mob has the XRAY vision mutation. Eyes will not shine if they are covered in any way.
 */
 /mob/living/carbon/human/proc/eyes_shine()
-	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
-	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
+	// Has xray shining
+	if(HAS_TRAIT(src, TRAIT_XRAY) || HAS_TRAIT(src, TRAIT_HULK))
+		return TRUE
+
+	// Eyes covered by something
 	if(!get_location_accessible(src, BODY_ZONE_PRECISE_EYES))
 		return FALSE
-	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
-	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || HAS_TRAIT(src, TRAIT_XRAY))
+
+	// Natural eyeshine
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	if(istype(eyes) && eyes.shine())
+		return TRUE
+
+	// Implants shine
+	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
+	if(istype(eye_implant))
 		return TRUE
 
 	return FALSE
@@ -1457,7 +1470,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF) )
+		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF))
 			. = 100
 		if(mind.assigned_role == JOB_TITLE_ENGINEER_TRAINEE)	//Чем глупее, тем вкуснее
 			. = 300
@@ -1641,17 +1654,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
-		balloon_alert(src, span_warning("слишком толстые пальцы!"))
+		balloon_alert(src, "слишком толстые пальцы!")
 		return FALSE
 
-	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
+	if(mind?.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
+		to_chat(src, "[mind.martial_art.no_guns_message]")
 		return FALSE
 
 	// ninjas will not use default ranged weapons
 	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 	if(ninja && !ninja.allow_guns && !check_gun.ninja_weapon)
-		to_chat(src, span_warning("[ninja.no_guns_message]"))
+		to_chat(src, "[ninja.no_guns_message]")
 		return FALSE
 
 
@@ -1824,13 +1837,30 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 
-/mob/living/carbon/human/proc/special_post_clone_handling()
+/mob/living/carbon/human/proc/special_post_clone_handling(transplantated = FALSE)
+	special_check_for_transplantation()
 	if(!mind)
 		return
 	if(mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
 	if(LAZYIN(mind.curses, "high_rp")) // Probably need to make a new proc to handle curses in case if there will be new ones
 		curse_high_rp()
+
+/mob/living/carbon/human/proc/special_check_for_transplantation()
+	var/obj/item/organ/internal/brain/brains = get_int_organ(/obj/item/organ/internal/brain)
+	if(!brains || !istype(brains))
+		return
+	var/obj/item/organ/external/chest/self_chest = get_organ(BODY_ZONE_CHEST)
+	if(!self_chest || !istype(self_chest))
+		return
+	if(brains.original_body == self_chest)
+		return
+	if(brains.original_body)
+		//this is not original body for brain, apply brain transplantation disease
+		var/datum/disease/brain_transplant_syndrome/disease = new
+		disease.Contract(src)
+	//now this body are original for brain
+	brains.original_body = self_chest
 
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100
@@ -1858,7 +1888,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	..()
 
 	var/obj/item/organ/internal/lantern/O = get_int_organ(/obj/item/organ/internal/lantern)
-	if(O && O.glowing)
+	if(O?.glowing)
 		O.toggle_biolum(TRUE)
 		visible_message(
 			span_danger("[src] растворя[pluralize_ru(gender, "ет", "юс")]ся во тьме."),

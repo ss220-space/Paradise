@@ -75,7 +75,7 @@
 
 /obj/effect/anomaly/energetic/mob_touch_effect(mob/living/mob)
 	. = ..(mob)
-	mob.electrocute_act(collapse_shock_damage, "энергетической аномалии", flags = SHOCK_NOGLOVES)
+	mob.electrocute_act(collapse_shock_damage, src, flags = SHOCK_NOGLOVES)
 
 /obj/effect/anomaly/energetic/item_touch_effect(obj/item/item)
 	. = ..(item)
@@ -87,7 +87,7 @@
 		if(!(mach.stat & BROKEN))
 			possible_targets += mach
 
-	if(!possible_targets.len)
+	if(!length(possible_targets))
 		return
 
 	var/obj/target = pick(possible_targets)
@@ -113,7 +113,6 @@
 
 /obj/effect/anomaly/energetic/tier1
 	name = "малая энергетическая аномалия"
-	icon_state = "energetic1"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/energetic/tier2
 	tier = 1
@@ -302,7 +301,7 @@
 		return
 
 	var/mob/living/mob = mover
-	mob.electrocute_act(rand(20, 30), "энергетического шара",  flags = SHOCK_NOGLOVES)
+	mob.electrocute_act(rand(20, 30), src,  flags = SHOCK_NOGLOVES)
 
 /obj/effect/energy_ball/big
 	size = 1
@@ -351,7 +350,7 @@
 /obj/effect/anomaly/energetic/tier4/New()
 	. = ..()
 	for(var/mob/living/mob as anything in GLOB.player_list)
-		mob.electrocute_act(rand(5, 15), "[declent_ru(GENITIVE)]")
+		mob.electrocute_act(rand(5, 15), src)
 		if(mob.stat)
 			continue
 

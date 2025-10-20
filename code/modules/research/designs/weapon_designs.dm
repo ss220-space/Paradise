@@ -104,7 +104,7 @@
 	id = "tele_shield"
 	req_tech = list("combat" = 4, "materials" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000, MAT_SILVER = 300, MAT_TITANIUM = 200)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 7500, MAT_SILVER = 300, MAT_TITANIUM = 200)
 	build_path = /obj/item/shield/riot/tele
 	category = list("Weapons")
 
@@ -209,7 +209,7 @@
 	id = "stunshell"
 	req_tech = list("combat" = 3, "materials" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200)
+	materials = list(MAT_METAL = 250)
 	build_path = /obj/item/ammo_casing/shotgun/stunslug
 	category = list("Weapons")
 

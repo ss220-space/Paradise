@@ -26,6 +26,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergencyDockTime = SHUTTLE_DOCKTIME	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
 	var/emergencyEscapeTime = SHUTTLE_ESCAPETIME	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
+	var/emergency_refill_time = 30 MINUTES
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
 	var/list/hostile_environment = list()
@@ -115,7 +116,7 @@ SUBSYSTEM_DEF(shuttle)
 				qdel(T, force=TRUE)
 
 	if(!SSmapping.clearing_reserved_turfs)
-		while(transit_requesters.len)
+		while(length(transit_requesters))
 			var/requester = popleft(transit_requesters)
 			var/success = generate_transit_dock(requester)
 			if(!success) // BACK OF THE QUEUE
@@ -432,7 +433,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/get_dock_overlap(x0, y0, x1, y1, z)
 	. = list()
 	var/list/stationary_cache = stationary
-	for(var/i in 1 to stationary_cache.len)
+	for(var/i in 1 to length(stationary_cache))
 		var/obj/docking_port/port = stationary_cache[i]
 		if(!port || port.z != z)
 			continue
@@ -440,7 +441,7 @@ SUBSYSTEM_DEF(shuttle)
 		var/list/overlap = get_overlap(x0, y0, x1, y1, bounds[1], bounds[2], bounds[3], bounds[4])
 		var/list/xs = overlap[1]
 		var/list/ys = overlap[2]
-		if(xs.len && ys.len)
+		if(length(xs) && length(ys))
 			.[port] = overlap
 
 /datum/controller/subsystem/shuttle/proc/update_hidden_docking_ports(list/remove_turfs, list/add_turfs)
@@ -458,7 +459,7 @@ SUBSYSTEM_DEF(shuttle)
 		for(var/V in add_turfs)
 			var/turf/T = V
 			var/image/I
-			if(remove_images.len)
+			if(length(remove_images))
 				//we can just reuse any images we are about to delete instead of making new ones
 				I = remove_images[1]
 				remove_images.Cut(1, 2)

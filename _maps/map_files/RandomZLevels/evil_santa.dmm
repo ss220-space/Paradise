@@ -259,6 +259,12 @@
 /obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"cz" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/storage/box/matches,
+/turf/simulated/floor/carpet,
+/area/vision_change_area/awaymission/evil_santa/hut_n)
 "cB" = (
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -517,19 +523,6 @@
 	icon_state = "wood-broken3"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"eI" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/obj/item/storage/box/matches,
-/turf/simulated/floor/carpet,
-/area/vision_change_area/awaymission/evil_santa/hut_n)
-"eK" = (
-/mob/living/simple_animal/pet/penguin/emperor{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	faction = list("hostile","syndicate","winter");
-	},
-/turf/simulated/floor/plating/ice/smooth,
-/area/vision_change_area/awaymission/evil_santa_storm)
 "eP" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/cane,
 /turf/simulated/floor/wood/oak,
@@ -892,6 +885,14 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
+"hp" = (
+/obj/structure/spider/stickyweb,
+/obj/item/paper/crumpled{
+	desc = "Полезть прятаться в шахте — самая тупая идея за последние пару дней. Ладно, надо затесаться среди этих макак, отпинаю одну и заберу ее форму, авось прокатит. Вот только где скинуть ствол...";
+	
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/vision_change_area/awaymission/evil_santa/mine)
 "hr" = (
 /obj/item/flashlight/lantern{
 	light_color = "#ffb366";
@@ -1114,6 +1115,13 @@
 	},
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
+"iU" = (
+/obj/item/paper{
+	info = "Кто теперь займет место Санты и раздаст подарки всме достойным? \n И помни главное — открывать подарки раньше времени не стоит!";
+	name = "Записка"
+	},
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/end/exit)
 "iY" = (
 /obj/machinery/gateway/centeraway{
 	calibrated = 0;
@@ -1844,6 +1852,13 @@
 	},
 /turf/simulated/floor/vault,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
+"oy" = (
+/mob/living/simple_animal/pet/penguin/emperor{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	faction = list("hostile","syndicate","winter")
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/vision_change_area/awaymission/evil_santa_storm)
 "oC" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -1876,16 +1891,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
-"oT" = (
-/obj/structure/decorative_structures/garland{
-	dir = 1
-	},
-/obj/structure/wooden_sign{
-	desc = "Ответь себе и входи: Вёл ли ты себя хорошо весь этот год? Если нет - уходи, Санта не любит плохишей!";
-	name = "Warning sign"
-	},
-/turf/simulated/floor/wood/oak,
-/area/vision_change_area/awaymission/evil_santa/end/hall)
 "oW" = (
 /mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
@@ -2883,6 +2888,16 @@
 	},
 /turf/simulated/floor/carpet/orange,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
+"xD" = (
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/wooden_sign{
+	desc = "Ответь себе и входи: Вёл ли ты себя хорошо весь этот год? Если нет — уходи, Санта не любит плохишей!";
+	name = "Warning sign"
+	},
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
 "xE" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating/asteroid,
@@ -3372,6 +3387,14 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_nw)
+"Cj" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/storage/box/matches,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/vision_change_area/awaymission/evil_santa/hut_e)
 "Ck" = (
 /turf/simulated/floor/plating/ice{
 	icon = 'icons/effects/freeze.dmi';
@@ -3922,10 +3945,6 @@
 "Hc" = (
 /turf/simulated/floor/vault,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"Hd" = (
-/obj/machinery/vending/clothing,
-/turf/simulated/floor/wood/fancy,
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "He" = (
 /obj/item/twohanded/spear,
 /obj/effect/spawner/lootdrop/spentcasing/pistol,
@@ -4141,6 +4160,12 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
+"Jb" = (
+/mob/living/simple_animal/pet/penguin/eldrich{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/vision_change_area/awaymission/evil_santa_storm)
 "Jd" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_y = 9
@@ -4397,6 +4422,10 @@
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
+"Lo" = (
+/obj/machinery/vending/clothesmate,
+/turf/simulated/floor/wood/fancy,
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Lv" = (
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/wood/fancy,
@@ -4529,12 +4558,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
-"MD" = (
-/mob/living/simple_animal/pet/penguin/baby{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	},
-/turf/simulated/floor/plating/ice/smooth,
-/area/vision_change_area/awaymission/evil_santa_storm)
 "ME" = (
 /obj/structure/firepit{
 	active = 1
@@ -4601,14 +4624,6 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6";
 	tag = "icon-wood-broken6"
-	},
-/area/vision_change_area/awaymission/evil_santa/hut_e)
-"Nh" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/obj/item/storage/box/matches,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "Ni" = (
@@ -5043,6 +5058,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
+"QI" = (
+/mob/living/simple_animal/pet/penguin/baby{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/vision_change_area/awaymission/evil_santa_storm)
 "QN" = (
 /obj/item/snowball,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
@@ -5258,12 +5279,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/wood/cold,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"Sx" = (
-/mob/living/simple_animal/pet/penguin/eldrich{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	},
-/turf/simulated/floor/plating/ice/smooth,
-/area/vision_change_area/awaymission/evil_santa_storm)
 "Sy" = (
 /obj/item/stack/ore/gold,
 /turf/simulated/floor/plating/asteroid,
@@ -5659,13 +5674,6 @@
 /obj/item/reagent_containers/food/snacks/gingercookie/ball,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
-"VH" = (
-/obj/item/paper{
-	info = "Кто теперь займет место Санты и раздаст подарки всме достойным? \n И помни главное - открывать подарки раньше времени не стоит!";
-	name = "Записка"
-	},
-/turf/simulated/floor/wood,
-/area/vision_change_area/awaymission/evil_santa/end/exit)
 "VP" = (
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /obj/item/clothing/head/ushanka,
@@ -5926,14 +5934,6 @@
 /obj/item/decorations/sticky_decorations/flammable/holly,
 /turf/simulated/wall/indestructible/snow,
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
-"XV" = (
-/obj/structure/spider/stickyweb,
-/obj/item/paper/crumpled{
-	desc = "Полезть прятаться в шахте - самая тупая идея за последние пару дней. Ладно, надо затесаться среди этих макак, отпинаю одну и заберу ее форму, авось прокатит. Вот только где скинуть ствол...";
-	layer = 2.9
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/vision_change_area/awaymission/evil_santa/mine)
 "Yb" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/reagent_containers/food/snacks/amanitajelly,
@@ -11517,9 +11517,9 @@ NN
 NN
 NN
 NN
-Sx
+Jb
 Ys
-eK
+oy
 NN
 NN
 NN
@@ -11774,9 +11774,9 @@ NN
 NN
 NN
 Ys
-MD
+QI
 vp
-MD
+QI
 Ys
 NN
 NN
@@ -12034,7 +12034,7 @@ Ys
 Ys
 Ys
 Ys
-eK
+oy
 NN
 NN
 NN
@@ -12289,7 +12289,7 @@ NN
 NN
 Ys
 Ys
-MD
+QI
 Ys
 Ys
 NN
@@ -12547,7 +12547,7 @@ NN
 Sp
 Ys
 Ys
-eK
+oy
 NN
 NN
 NN
@@ -27750,7 +27750,7 @@ Yw
 CS
 RY
 CS
-VH
+iU
 yS
 Pr
 Ij
@@ -27778,7 +27778,7 @@ Pd
 Pd
 RN
 rD
-oT
+xD
 mj
 mj
 mj
@@ -28806,7 +28806,7 @@ Pd
 Pd
 RN
 rD
-oT
+xD
 mj
 UM
 mj
@@ -30419,7 +30419,7 @@ Sp
 Sp
 TR
 rK
-eI
+cz
 wZ
 Lm
 MJ
@@ -41792,7 +41792,7 @@ Sp
 Sp
 EY
 kB
-Nh
+Cj
 ah
 od
 aJ
@@ -58121,7 +58121,7 @@ ZB
 ZB
 ZB
 jl
-Hd
+Lo
 BA
 BA
 fM
@@ -60284,7 +60284,7 @@ Zx
 Zx
 Zx
 xE
-XV
+hp
 kJ
 kJ
 kJ

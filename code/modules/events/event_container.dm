@@ -14,20 +14,20 @@ GLOBAL_LIST_INIT(severity_to_string, list(
 	EVENT_LEVEL_NONE = "None",
 ))
 
-GLOBAL_LIST_INIT(string_to_severity, list(	//Config compatibility thing
+GLOBAL_LIST_INIT(string_to_severity, list(//Config compatibility thing
 	"ev_level_mundane" = EVENT_LEVEL_MUNDANE,
 	"ev_level_moderate" = EVENT_LEVEL_MODERATE,
 	"ev_level_major" = EVENT_LEVEL_MAJOR,
 	"ev_level_none" = EVENT_LEVEL_NONE
 ))
 
-GLOBAL_LIST_INIT(event_delay_lower, list(  //redacted by /datum/config_entry/keyed_list/event_delay_lower
+GLOBAL_LIST_INIT(event_delay_lower, list(//redacted by /datum/config_entry/keyed_list/event_delay_lower
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 30 MINUTES,
 	EVENT_LEVEL_MAJOR = 50 MINUTES
 ))
 
-GLOBAL_LIST_INIT(event_delay_upper, list( //redacted by /datum/config_entry/keyed_list/event_delay_upper
+GLOBAL_LIST_INIT(event_delay_upper, list(//redacted by /datum/config_entry/keyed_list/event_delay_upper
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 45 MINUTES,
 	EVENT_LEVEL_MAJOR = 70 MINUTES
@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 
 /datum/event_container/proc/acquire_event()
-	if(available_events.len == 0)
+	if(length(available_events) == 0)
 		return
 	var/active_with_role = number_active_with_role()
 
@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		else
 			possible_events -= event_meta
 
-	if(possible_events.len == 0)
+	if(length(possible_events) == 0)
 		return null
 
 	// Select an event and remove it from the pool of available events
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	// Otherwise, follow the standard setup process
 	else
 		var/playercount_modifier = 1
-		switch(GLOB.player_list.len)
+		switch(length(GLOB.player_list))
 			if(0 to 10)
 				playercount_modifier = 1.2
 			if(11 to 15)

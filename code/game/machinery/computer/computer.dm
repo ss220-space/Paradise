@@ -4,10 +4,8 @@
 	icon_state = "computer"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
-	max_integrity = 200
 	integrity_failure = 100
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
@@ -56,7 +54,7 @@
 	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
-		visible_message(span_danger("[src] grows dim, its screen barely readable."))
+		visible_message(span_danger("Экран [declent_ru(GENITIVE)] тускнеет, изображение становится едва видимым."))
 
 /obj/machinery/computer/MouseDrop_T(atom/dropping, mob/user, params)
 	. = ..()
@@ -177,19 +175,15 @@
 		if(circuit) //no circuit, no computer frame
 			if(stat & BROKEN)
 				if(user)
-					to_chat(user, span_notice("The broken glass falls out."))
-
+					to_chat(user, span_notice("Из рамки дисплея выпадает разбитое стекло."))
 				else
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
-
 				new /obj/item/shard(drop_location())
 				new /obj/item/shard(drop_location())
 				frame.state = 4
-
 			else
 				if(user)
-					to_chat(user, span_notice("You disconnect the monitor."))
-
+					balloon_alert(user, "монитор отключён")
 			frame.update_icon()
 
 		for(var/obj/C in src)
@@ -261,7 +255,6 @@
 	icon_state = "right-closed"
 
 /obj/machinery/computer/old_frame/macintosh
-	icon = 'icons/obj/machines/computer3.dmi'
 	icon_screen = "stock_computer"
 	icon_state = "oldcomp"
 

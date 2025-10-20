@@ -25,7 +25,7 @@
 	icon_state = "cryo_s"
 	important_info = "Не мешайте другим оперативникам Синдиката (таким, как предатели или ядерные оперативники). Вы можете работать вместе или против не связанных с Синдикатом антагонистов в индивидуальном порядке. Не покидайте свою базу без разрешения администрации! Ваша база, её секретность и сохранность является для вас высшим приоритетом!"
 	description = "Экспериментируйте со смертельными химикатами, растениями, генами и вирусами. Наслаждайтесь спокойной жизнью, зная, что ваша работа так или иначе насолит НТ в будущем!"
-	flavour_text = "Вы — агент Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания НаноТрейзен, имеет собственную массивную научную базу в вашем секторе. Продолжайте свои исследования насколько можете и постарайтесь не высовываться. \
+	flavour_text = "Вы — агент Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрейзен, имеет собственную массивную научную базу в вашем секторе. Продолжайте свои исследования насколько можете и постарайтесь не высовываться. \
 	Вам дали ясно понять, что синдикат заставит вас очень сильно пожалеть если вы разочаруете их!"
 	outfit = /datum/outfit/space_base_syndicate
 	assignedrole = TAIPAN_SCIENTIST
@@ -37,7 +37,6 @@
 	pickable_species = list(SPECIES_HUMAN, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_SKRELL, SPECIES_DIONA, SPECIES_DRASK, SPECIES_VOX, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_KIDAN, SPECIES_GREY, SPECIES_NUCLEATION, SPECIES_SLIMEPERSON, SPECIES_WRYN, SPECIES_MOTH)
 	faction = list("syndicate")
 	min_hours = 10
-	exp_type = EXP_TYPE_LIVING
 
 /obj/effect/mob_spawn/human/space_base_syndicate/Destroy()
 	var/obj/machinery/cryopod/syndie/S = new(get_turf(src))
@@ -112,20 +111,11 @@
 	description = "Проводите медицинские опыты сомнительного содержания. Вылечивайте своих коллег, которые опять поссорились с генералом Синди, или оживляйте неудачливых космических путников, для допросов или киборгизации. Даже Синдикату нужны врачи!"
 	outfit = /datum/outfit/space_base_syndicate/medic
 	assignedrole = TAIPAN_MEDIC
-	min_hours = 10
-	exp_type = EXP_TYPE_LIVING
 /datum/outfit/space_base_syndicate/medic
 	name = "Space Base Syndicate Medic"
-	r_hand = /obj/item/melee/energy/sword/saber
-	uniform = /obj/item/clothing/under/syndicate
 	glasses = /obj/item/clothing/glasses/hud/health
-	suit = /obj/item/clothing/suit/storage/labcoat
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	back = /obj/item/storage/backpack/syndicate/med
 	belt = /obj/item/storage/belt/medical
-	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/medic
 	implants = list(/obj/item/implant/weapons_auth)
 	backpack_contents = list(
@@ -143,20 +133,12 @@
 	description = "Выращивайте сомнительные растения. Помогите повару накормить экипаж, а учёным — создать опаснейшие растения! Наслаждайтесь силой природы в руках Синдиката!"
 	outfit = /datum/outfit/space_base_syndicate/botanist
 	assignedrole = TAIPAN_BOTANIST
-	min_hours = 10
-	exp_type = EXP_TYPE_LIVING
 /datum/outfit/space_base_syndicate/botanist
 	name = "Space Base Syndicate Botanist"
-	r_hand = /obj/item/melee/energy/sword/saber
-	uniform = /obj/item/clothing/under/syndicate
 	glasses = /obj/item/clothing/glasses/hud/hydroponic
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	suit = /obj/item/clothing/suit/apron
 	back = /obj/item/storage/backpack/syndicate
 	belt = /obj/item/storage/belt/botany
-	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/botanist
 	implants = list(/obj/item/implant/weapons_auth)
 
@@ -165,16 +147,13 @@
 	mob_name = "Syndicate Cargo Technician"
 	id_job = "Syndicate Cargo Technician"
 	description = "Даже Синдикату нужны рабочие руки, приносите людям их посылки, заказывайте и продавайте, наслаждайтесь простой работой среди всех этих учёных. Здесь всё равно платят в разы лучше!"
-	flavour_text = "Вы — грузчик Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания НаноТрейзен, имеет собственную массивную научную базу в вашем секторе. Работайте с грузами, заказывайте всё, что может потребоваться станции или вам и зарабатывайте реальные деньги, а не виртуальные очки!"
+	flavour_text = "Вы — грузчик Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрейзен, имеет собственную массивную научную базу в вашем секторе. Работайте с грузами, заказывайте всё, что может потребоваться станции или вам и зарабатывайте реальные деньги, а не виртуальные очки!"
 	outfit = /datum/outfit/space_base_syndicate/cargotech
 	assignedrole = TAIPAN_CARGO
-	min_hours = 10
-	exp_type = EXP_TYPE_LIVING
 /datum/outfit/space_base_syndicate/cargotech
 	name = "Space Base Syndicate Cargo Technician"
 	head = /obj/item/clothing/head/soft
 	uniform = /obj/item/clothing/under/rank/cargotech
-	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	suit = /obj/item/clothing/suit/armor/vest
 	id = /obj/item/card/id/syndicate/cargo
 	shoes = /obj/item/clothing/shoes/black
@@ -185,11 +164,9 @@
 	mob_name = "Syndicate Chef"
 	id_job = "Syndicate Chef"
 	description = "Даже Синдикату нужны рабочие руки! У вас в распоряжении свой бар, кухня и ботаника. Накормите этих голодных учёных или помогите им создать последнее блюдо для ваших врагов. Здесь всё равно платят в разы лучше!"
-	flavour_text = "Вы — повар Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания НаноТрейзен, имеет собственную массивную научную базу в вашем секторе. Готовьте еду и напитки экипажу и постарайтесь не высовываться!"
+	flavour_text = "Вы — повар Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрейзен, имеет собственную массивную научную базу в вашем секторе. Готовьте еду и напитки экипажу и постарайтесь не высовываться!"
 	outfit = /datum/outfit/space_base_syndicate/chef
 	assignedrole = TAIPAN_CHEF
-	min_hours = 10
-	exp_type = EXP_TYPE_LIVING
 
 /obj/effect/mob_spawn/human/space_base_syndicate/chef/special(mob/living/carbon/human/H)
 	. = ..()
@@ -200,7 +177,6 @@
 	name = "Space Base Syndicate Chef"
 	head = /obj/item/clothing/head/chefhat
 	uniform = /obj/item/clothing/under/suit_jacket/charcoal
-	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	suit = /obj/item/clothing/suit/chef/classic
 	id = /obj/item/card/id/syndicate/kitchen
 	shoes = /obj/item/clothing/shoes/black
@@ -211,15 +187,13 @@
 	mob_name = "Syndicate Atmos Engineer"
 	id_job = "Syndicate Atmos Engineer"
 	description = "Там, где есть космическая станция, есть и двигатели с трубами, которым нужно своё техобслуживание. Обеспечьте станцию энергией, чините повреждения после неудачных опытов учёных и отдыхайте в баре, пока снова что-нибудь не взорвут. "
-	flavour_text = "Вы — инженер-атмосферник Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания НаноТрейзен, имеет собственную массивную научную базу в вашем секторе. Запустите двигатель, убедитесь, что на станцию подаётся достаточно электричества и воздуха, а также чините отделы, которые непременно сломают."
+	flavour_text = "Вы — инженер-атмосферник Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрейзен, имеет собственную массивную научную базу в вашем секторе. Запустите двигатель, убедитесь, что на станцию подаётся достаточно электричества и воздуха, а также чините отделы, которые непременно сломают."
 	outfit = /datum/outfit/space_base_syndicate/engineer
 	assignedrole = TAIPAN_ENGINEER
-	min_hours = 10
 	exp_type = EXP_TYPE_ENGINEERING
 /datum/outfit/space_base_syndicate/engineer
 	name = "Space Base Syndicate Engineer"
 	head = /obj/item/clothing/head/beret/eng
-	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	suit = /obj/item/clothing/suit/storage/hazardvest
 	belt = /obj/item/storage/belt/utility/atmostech
 	id = /obj/item/card/id/syndicate/engineer
@@ -231,7 +205,7 @@
 	mob_name = "Syndicate Comms Officer"
 	id_job = "Syndicate Comms Officer"
 	description = "Проверяйте камеры и коммуникации, руководите станцией в случае ЧП, старайтесь помогать любым агентам Синдиката на станции, при этом сохраняя свою базу в секрете от НТ. Вы являетесь единственным агентом с доступом в хранилище и оружейную."
-	flavour_text = "Вы — офицер Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания НаноТрейзен, имеет собственную массивную научную базу в вашем секторе. Наблюдайте за станцией НТ, руководите вверенной вам базой и постарайтесь не высовываться. \
+	flavour_text = "Вы — офицер Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрейзен, имеет собственную массивную научную базу в вашем секторе. Наблюдайте за станцией НТ, руководите вверенной вам базой и постарайтесь не высовываться. \
 	Синдикат ясно дал вам понять, что не стоит подводить их доверие. Не разочаруйте их!"
 	outfit = /datum/outfit/space_base_syndicate/comms
 	assignedrole = TAIPAN_COMMS
@@ -256,8 +230,8 @@
 	name = "Syndicate Research Director sleeper"
 	mob_name = "Syndicate Research Director"
 	id_job = "Syndicate Research Director"
-	description = "Следите за тем, чтобы учёные занимались исследованиями и не подорвали всю станцию, предоставьте Синдикату результаты своих исследований через карго и помните: смерть НаноТрейзен!"
-	flavour_text = "Вы Директор Исследований Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания НаноТрейзен, имеет собственную массивную научную базу в вашем секторе. Продолжайте свои исследования насколько сможете и постарайтесь не высовываться. \
+	description = "Следите за тем, чтобы учёные занимались исследованиями и не подорвали всю станцию, предоставьте Синдикату результаты своих исследований через карго и помните: смерть Нанотрейзен!"
+	flavour_text = "Вы Директор Исследований Синдиката, работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания Нанотрейзен, имеет собственную массивную научную базу в вашем секторе. Продолжайте свои исследования насколько сможете и постарайтесь не высовываться. \
 	Вам дали ясно понять, что синдикат заставит вас очень сильно пожалеть если вы разочаруете их!"
 	outfit = /datum/outfit/space_base_syndicate/rd
 	assignedrole = TAIPAN_RD
@@ -265,7 +239,6 @@
 	exp_type = EXP_TYPE_SCIENCE
 /datum/outfit/space_base_syndicate/rd
 	name = "Space Base Syndicate Research Director"
-	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	r_hand = /obj/item/melee/baton/telescopic
 	l_pocket = /obj/item/melee/energy/sword/saber
 	head = /obj/item/clothing/head/beret/sci

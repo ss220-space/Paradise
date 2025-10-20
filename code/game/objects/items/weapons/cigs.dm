@@ -16,7 +16,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette
 	name = "cigarette"
 	desc = "Закрученный в бумагу табак."
-	gender = FEMALE
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
@@ -331,11 +330,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 			is_being_smoked = TRUE
 	if(location)
 		location.hotspot_expose(700, 5)
-	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
+	if(reagents?.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
 			for(var/datum/reagent/R in reagents.reagent_list)
-				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
+				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / length(reagents.reagent_list), 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				C.balloon_alert(C, "сигарета теряет вкус")
@@ -395,7 +394,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "spliffon"
 	icon_off = "spliffoff"
 	type_butt = /obj/item/cigbutt/roach
-	throw_speed = 0.5
 	item_state = "spliffoff"
 
 /obj/item/clothing/mask/cigarette/rollie/get_ru_names()
@@ -436,7 +434,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
 	type_butt = /obj/item/cigbutt/cigarbutt
-	throw_speed = 0.5
 	item_state = "cigaroff"
 	smoketime = 300
 	chem_volume = 120
@@ -728,7 +725,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/holo_cigar
 	name = "Holo-Cigar"
 	desc = "Изящная электронная сигара, изготовленна в Солнечной Системе. При одном взгляде на нее чувствуешь себя крутым..."
-	gender = FEMALE
 	icon_state = "holocigaroff"
 	item_state = "holocigaroff"
 	var/enabled = FALSE

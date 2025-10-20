@@ -133,20 +133,20 @@
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/cast(list/targets, mob/user)
 	var/input = tgui_input_text(user, "Введите сообщение для передачи другим рабам", "Сообщение рабам")
-	if(! input)
+	if(!input)
 		revert_cast(user)
 		return
 
 	// if admins give this to a non vampire/thrall it is not my problem
 	var/is_thrall = isvampirethrall(user)
-	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : "<span class='dantalion'><font size='3'>(Мастер Вампир) [user.real_name]</font></span>"
-	var/message = is_thrall ? "<span class='dantalion'>[input]</span>" : "<span class='dantalion'><font size='3'><b>[input]</b></font></span>"
+	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : span_dantalion(span_fontsize3("(Мастер Вампир) [user.real_name]"))
+	var/message = is_thrall ? span_dantalion("[input]") : span_dantalion(span_fontsize3(span_bold("[input]")))
 
 	for(var/mob/player in targets)
-		to_chat(player, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> телепатезирует, [message]</span><i>")
+		to_chat(player, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] телепатезирует, [message]<i>"))
 
 	for(var/mob/ghost in GLOB.dead_mob_list)
-		to_chat(ghost, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> ([ghost_follow_link(user, ghost)]) телепатезирует, [message]</span><i>")
+		to_chat(ghost, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] ([ghost_follow_link(user, ghost)]) телепатезирует, [message]<i>"))
 
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
@@ -157,7 +157,6 @@
 	desc = "Временно умиротворяет цель, делая её неспособной причинить вред. Возможно использовать сквозь стены."
 	gain_desc = "Вы обрели способность умиротворять агрессивные порывы гуманоида, не позволяя ему причинить кому-либо физический вред."
 	action_icon_state = "pacify"
-	base_cooldown = 10 SECONDS
 	required_blood = 10
 	need_active_overlay = TRUE
 
@@ -176,6 +175,10 @@
 	sound.volume = 30
 	SEND_SOUND(user, sound)
 	for(var/mob/living/carbon/human/target as anything in targets)
+		if(!target.affects_vampire(user))
+			to_chat(user, span_warning("Вы чувствуете, что ваша способность не произвела никакого эффекта!"))
+			return
+
 		to_chat(target, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
 		SEND_SOUND(target, sound('sound/hallucinations/i_see_you1.ogg'))
 		target.apply_status_effect(STATUS_EFFECT_PACIFIED, user) // we wont to see, whom we already pacify

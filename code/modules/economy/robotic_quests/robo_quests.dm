@@ -1,10 +1,9 @@
-#define WORKING_CLASS	1
-#define MEDICAL_CLASS	2
-#define COMBAT_CLASS	3
-#define RANDOM_CLASS	4
+#define WORKING_CLASS 1
+#define MEDICAL_CLASS 2
+#define COMBAT_CLASS 3
+#define RANDOM_CLASS 4
 
 //robotics quests console datums
-
 /datum/roboquest
 	/// Name of our current mecha
 	var/name
@@ -51,7 +50,7 @@
 	var/datum/quest_mech/selected = new mech
 	if(selected.type in working_mechas)
 		reward["working"] += 3
-	else if (selected.type in combat_mechas)
+	else if(selected.type in combat_mechas)
 		reward["security"] += 3
 	else
 		reward["medical"] += 3
@@ -65,7 +64,9 @@
 	questinfo["icon_state"] = selected_mech.icon_state
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
 	questinfo["modules"] = list()
-	maximum_cash = rand(round(0.75 * selected.cash_reward), round(1.25 * selected.cash_reward))
+	var/min_rand_maximum_cash = round(0.75 * selected.cash_reward)
+	var/max_rand_maximum_cash = round(1.25 * selected.cash_reward)
+	maximum_cash = rand(min_rand_maximum_cash, max_rand_maximum_cash)
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
 		var/rand_module_amount = rand(1, selected.max_modules)
@@ -103,7 +104,7 @@
 		"На связи ваши коллеги из Einstein Engines. У нас образовалась нехватка экзачей после того, как наше транспортное судно пропало недалеко от вашей станции, так что нам нужна срочная замена. Необходим [name]. Сделаете?",
 		"Отдел по связям с общественностью Shellguard Amunitions отправляет контактному лицу стандартный корпоративный заказ на экзокостюм типа [name]. Детали контракта засекречены согласно регламенту У-[rand(100, 999)]-67 .",
 		"РАСШИФРОВКА ПЕРЕДАЧИ... Приветствуем, агент. Данный заказ был отправлен вам по зашифрованной передаче. Для выполнения задачи нам необходим [name]. Оплата заказа будет осуществлена через подставные счета, так что вам ничего не угрожает.",
-		"Официальный заказ Республики Элизиум. требования для удовлетворения условий контракта - доставка экзокостюма типа [name]. По завершении заказа и выполнения дополнительных требований вас будет ожидать до [maximum_cash] кредитов.",
+		"Официальный заказ Республики Элизиум. требования для удовлетворения условий контракта — доставка экзокостюма типа [name]. По завершении заказа и выполнения дополнительных требований вас будет ожидать до [maximum_cash] кредитов.",
 		"Эээ.. Привет? Эта штука работает? Эээ.. в общем, если оно работает, это сообщество свободных шахтёров. В общем.. нам нужен [name]. Мы готовы хорошо заплатить! П-пожалуйста, нам очень нужен этот мех, или мы обречены...",
 	)
 	var/list/medical = list("Корпорация Vey-med производит ревизию своих лицензированных экзокостюмов. Согласно договору об аренде экзокостюмов типа [name] вы обязаны отослать один из образцов для сверки с контрольной группой. Оплату расходов берет на себя ваша корпорация.",
@@ -116,9 +117,9 @@
 	)
 	var/list/combat = list("Поступил заказ от правительства колонии [pick("Гаусс", "Кита Эпсилон", "Тартессос")] на приобретение стандартного экзокостюма типа [name]. Запрошенные спецификации вы можете увидеть на консоли.",
 		"РАСШИФРОВКА ПЕРЕДАЧИ... Приветствуем, агент. Данный заказ был отправлен вам по зашифрованной передаче. Для выполнения задачи нам необходим [name]. Оплата заказа будет осуществлена через подставные счета, так что вам ничего не угрожает.",
-		"Официальный заказ Республики Элизиум. требования для удовлетворения условий контракта - доставка экзокостюма типа [name]. По завершении заказа и выполнения дополнительных требований вас будет ожидать до [maximum_cash] кредитов.",
+		"Официальный заказ Республики Элизиум. требования для удовлетворения условий контракта — доставка экзокостюма типа [name]. По завершении заказа и выполнения дополнительных требований вас будет ожидать до [maximum_cash] кредитов.",
 		"Отделом исследований и разработок на [new_station_name()] был запрошен стандартный экзокостюм класса [name]. Выполение заказа в краткие сроки будет способствовать развитию науки!",
-		"Отдел защиты активов корпорации NanoTrasen объявил конкурс на приобретение партии боевых экзокостюмов типа [name]. Доставьте требуемый образец в кратчайшие сроки для выплаты вознаграждения.",
+		"Отдел защиты активов корпорации Nanotrasen объявил конкурс на приобретение партии боевых экзокостюмов типа [name]. Доставьте требуемый образец в кратчайшие сроки для выплаты вознаграждения.",
 		"Корпус земного экспидиционного корпуса Транс-Солнечной Федерации оставил контракт на приобретение экзокостюма типа [name]. Выполнение данного контракта обеспечит исполнителю беспрепятственный доступ к посещению Солнечной системы. Слава ТСФ!",
 		"Приветствуем, товарищ! Союз Советских Социалистических Планет обращается к тебе в это непростое время за возможностью заработать денег. Нам нужен [name], а взамен мы готовы даровать тебе гражданство на территории Союза. Слава СССП!",
 		"Поступил заказ от местечковой частной военной корпорации на приобретение поддержанных военных экзокостюмов класса [name]. Все юридические формальности были улажены, заказ был передан вам.",
@@ -169,15 +170,39 @@
 
 /datum/roboshop_item/bluespace_core
 	name = "bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. Пространство вокруг него постоянно искривляется."
 	visual_item = /obj/item/assembly/signaler/core/bluespace/tier3
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
+/datum/roboshop_item/energetic_core
+	name = "energetic anomaly core"
+	desc = "Стабилизированное ядро большой ​​энергетической аномалии. Вокруг ядра периодически возникают электрические разряды. Окружающая электроника напряженно гудит."
+	visual_item = /obj/item/assembly/signaler/core/energetic/tier3
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
+/datum/roboshop_item/vortex_core
+	name = "vortex anomaly core"
+	desc = "Стабилизированное ядро большой ​​вихревой аномалии. Предметы вокруг ядра опасно подрагивают."
+	visual_item = /obj/item/assembly/signaler/core/vortex/tier3
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
+/datum/roboshop_item/gravitational_core
+	name = "gravitational anomaly core"
+	desc = "Нейтрализованное ядро большой ​​гравитационной аномалии. Вы чувствуете сильное несоответствие веса многих окружающих предметов с их внешним видом."
+	visual_item = /obj/item/assembly/signaler/core/gravitational/tier3
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
+/datum/roboshop_item/atmospheric_core
+	name = "atmospheric anomaly core"
+	desc = "Стабилизированное ядро большой атмосферной аномалии. От одного его вида вас бросает то в жар, то в холод, причём буквально."
+	visual_item = /obj/item/assembly/signaler/core/atmospheric/tier3
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
 
 /datum/roboshop_item/advanced_roboquest_pad
 	name = "robotics request advanced quantum pad"
 	desc = "This quantum pad is capable of instant teleportation of mech without need of send them to the cargo."
 	visual_item = /obj/item/circuitboard/advanced_roboquest_pad
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 7)
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 12)
 
 /datum/roboshop_item/universal_paintkit
 	name = "universal mech paintkit"

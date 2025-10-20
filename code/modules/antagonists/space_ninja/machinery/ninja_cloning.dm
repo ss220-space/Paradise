@@ -1,6 +1,6 @@
 /// Особая клонёрка для ниндзя.
-/* Суть этой машины в том, что она позволяет ниндзя при покупке соответствующей абилки - 1 раз восстать из мёртвых.
- * В новом костюме и с новой катаной. Она не работает как типичная клонёрка и зависит только от того купил ли ниндзя - абилку.
+/* Суть этой машины в том, что она позволяет ниндзя при покупке соответствующей абилки –  раз восстать из мёртвых.
+ * В новом костюме и с новой катаной. Она не работает как типичная клонёрка и зависит только от того купил ли ниндзя — абилку.
  * На карте обязательно должна быть одна такая в додзё ниндзя.
  */
 /obj/machinery/ninja_clonepod
@@ -14,11 +14,11 @@
 	icon_state = "ninja_cloning_off"
 	/// Нельзя чтобы такая дорогая технология была сломана игроком по фану
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
-	/// Записи о Ниндзя - купивших эту способность, для автовоскрешения оных.
+	/// Записи о Ниндзя — купивших эту способность, для автовоскрешения оных.
 	var/list/records = null
 	/// Записи костюмов ниндзя для копирования на новый костюм при воскрешении оных.
 	var/list/suits_data = null
-	/// Новое тело ниндзя. Для авто-активации клонирования - оно должно быть null. Используется в процессе "Клонирования"
+	/// Новое тело ниндзя. Для авто-активации клонирования — оно должно быть null. Используется в процессе "Клонирования"
 	var/mob/living/carbon/human/ninja
 	/// Разум клонируемого
 	var/datum/mind/clonemind
@@ -42,7 +42,7 @@
 			if(revive_ninja(ninja_dna_record))
 				records.Remove(ninja_dna_record)
 
-// Автоматически вызываемое - оживление ниндзя!
+// Автоматически вызываемое — оживление ниндзя!
 /obj/machinery/ninja_clonepod/proc/revive_ninja(datum/dna2/record/ninja_dna_record)
 	if(attempting)
 		return FALSE
@@ -54,7 +54,7 @@
 	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
 		return FALSE
 	if(clonemind.active)	//somebody is using that mind
-		if(ckey(clonemind.key) != ninja_dna_record.ckey )
+		if(ckey(clonemind.key) != ninja_dna_record.ckey)
 			return FALSE
 	var/mob/dead/observer/ninja_ghost = clonemind.get_ghost()
 	var/datum/ninja_suit_cloning_data/ninja_suit_data = find_suit_data(ckey(clonemind.key))
@@ -87,10 +87,12 @@
 	n_suit.preferred_scarf_over_hood = ninja_suit_data.preferred_scarf_over_hood
 	n_suit.style_preview_icon_state = ninja_suit_data.style_preview_icon_state
 	//Выдача купленных ранее абилок
-	var/list/ability_blacklist = list(	/datum/action/item_action/advanced/ninja/SpiderOS,
-										/datum/action/item_action/advanced/ninja/ninja_autodust,
-										/datum/action/item_action/ninjastatus,
-										/datum/action/item_action/advanced/ninja/ninja_sword_recall)
+	var/list/ability_blacklist = list(
+		/datum/action/item_action/advanced/ninja/SpiderOS,
+		/datum/action/item_action/advanced/ninja/ninja_autodust,
+		/datum/action/item_action/ninjastatus,
+		/datum/action/item_action/advanced/ninja/ninja_sword_recall
+	)
 	var/action_path
 	for(action_path in n_suit.actions_types)
 		if(action_path in ability_blacklist)
@@ -140,13 +142,13 @@
 	// Мы уже его клонируем
 	if(ninja && clonemind == subject.mind)
 		return
-	// Нет костюма, либо костюм - не костюм ниндзя
+	// Нет костюма, либо костюм — не костюм ниндзя
 	var/obj/item/clothing/suit/space/space_ninja/n_suit = subject.wear_suit
 	if(n_suit && !istype(n_suit))
 		return
 
 	// Копируем данные самого ниндзя
-	// По большей части - это копипаст кода клонёрки
+	// По большей части — это копипаст кода клонёрки
 	subject.dna.check_integrity()
 
 	var/datum/dna2/record/ninja_dna_record = new()
@@ -202,7 +204,7 @@
 			break
 	return selected_suit
 
-// Датум - Хранилище важных данных с костюма ниндзя
+// Датум — Хранилище важных данных с костюма ниндзя
 /datum/ninja_suit_cloning_data
 	// Данные хозяина костюма
 	var/ckey = null

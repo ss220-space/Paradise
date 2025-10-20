@@ -134,9 +134,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				body += "<b>Discord:</b>  <@[M.client.prefs.discord_id]>  <b>[M.client.prefs.discord_name]</b><br>"
 			else
 				body += "<b>Discord: Привязка не завершена!</b><br>"
-		if(M.client.related_accounts_cid.len)
+		if(length(M.client.related_accounts_cid))
 			body += "<b>Related accounts by CID:</b> [jointext(M.client.related_accounts_cid, " - ")]<br>"
-		if(M.client.related_accounts_ip.len)
+		if(length(M.client.related_accounts_ip))
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
 	if(M.ckey)
@@ -321,12 +321,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	onclose(usr, "adminplayeropts")
 	BLACKBOX_LOG_ADMIN_VERB("Show Player Panel")
 
-
-/datum/player_info/var/author // admin who authored the information
-/datum/player_info/var/rank //rank of admin who made the notes
-/datum/player_info/var/content // text content of the information
-/datum/player_info/var/timestamp // Because this is bloody annoying
-
 /datum/admins/proc/PlayerNotes()
 	set category = STATPANEL_ADMIN_BAN
 	set name = "Player Notes"
@@ -361,7 +355,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/dat = {"<b>Job Bans!</b><hr><table>"}
 	for(var/t in GLOB.jobban_keylist)
 		var/r = t
-		if( findtext(r,"##") )
+		if(findtext(r,"##"))
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
 		dat += text("<tr><td>[t] (<a href='byond://?src=[UID()];removejobban=[r]'>unban</a>)</td></tr>")
 	dat += "</table>"
@@ -384,10 +378,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		dat += "<p><a href='byond://?src=[cached_UID];change_weights=1'>Change Antag Weights</a><br></p>"
 
 	dat += "<hr><br>"
-	dat += "<p><a href='byond://?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];create_mob=1'>Create Mob</a></p>"
+	dat += "<a href='byond://?src=[cached_UID];spawn_panel=1'>Spawn Panel</a><br>"
 	if(marked_datum && istype(marked_datum, /atom))
 		dat += "<a href='byond://?src=[cached_UID];dupe_marked_datum=1'>Duplicate Marked Datum</a><br>"
 
@@ -608,7 +599,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	GLOB.enter_allowed = !( GLOB.enter_allowed )
-	if(!( GLOB.enter_allowed ))
+	if(!( GLOB.enter_allowed))
 		to_chat(world, "<b>New players may no longer enter the game.</b>")
 	else
 		to_chat(world, "<b>New players may now enter the game.</b>")
@@ -894,7 +885,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	GLOB.guests_allowed = !( GLOB.guests_allowed )
-	if(!( GLOB.guests_allowed ))
+	if(!( GLOB.guests_allowed))
 		to_chat(world, "<b>Guests may no longer enter the game.</b>")
 	else
 		to_chat(world, "<b>Guests may now enter the game.</b>")

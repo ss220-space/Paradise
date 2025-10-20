@@ -175,7 +175,7 @@
 		return
 	var/turf/beacon_turf = get_turf(beacon)
 	if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
-		to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+		to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 		return
 	if(!isturf(user.loc))
 		to_chat(user, span_warning("Здесь недостаточно места для телепортации!"))
@@ -193,7 +193,7 @@
 		var/turf/source = get_turf(user)
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+			to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -216,7 +216,7 @@
 			return
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+			to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -431,7 +431,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/valid_target(mob/living/carbon/human/target, mob/living/simple_animal/shade/talisman/user)
-	if (target.ckey == user.master)
+	if(target.ckey == user.master)
 		return TRUE
 	return FALSE
 
@@ -510,7 +510,6 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	should_recharge_after_cast = TRUE
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_message"
 	action_background_icon_state = "bg_hierophant_talisman"

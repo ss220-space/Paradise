@@ -36,7 +36,7 @@
 /datum/station_goal/bluespace_tap/print_result()
 	..()
 	var/highscore = get_highscore()
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceooc'>"][highscore]</span>")
+	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce(highscore)]": "[span_boldannounceooc(highscore)]"]")
 
 
 //needed for the vending part of it
@@ -61,7 +61,6 @@
 
 /obj/effect/spawner/lootdrop/bluespace_tap
 	name = "bluespace harvester reward spawner"
-	lootcount = 1
 
 /obj/effect/spawner/lootdrop/bluespace_tap/hat
 	name = "exotic hat"
@@ -221,7 +220,6 @@
 	plane = BELOW_GAME_PLANE
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -356,9 +354,10 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.major_announcement.announce("Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
-										ANNOUNCE_BLUESPACETAP_RU,
-										'sound/AI/harvester.ogg'
+		GLOB.major_announcement.announce(
+			message = "Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
+			new_title = ANNOUNCE_BLUESPACETAP_RU,
+			new_sound = 'sound/AI/harvester.ogg'
 		)
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged

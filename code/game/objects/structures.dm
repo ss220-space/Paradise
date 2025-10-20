@@ -17,8 +17,8 @@
 	..()
 	if(smooth)
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
-			queue_smooth(src)
-			queue_smooth_neighbors(src)
+			QUEUE_SMOOTH(src)
+			QUEUE_SMOOTH_NEIGHBORS(src)
 		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
@@ -38,7 +38,7 @@
 	if(smooth)
 		var/turf/T = get_turf(src)
 		spawn(0)
-			queue_smooth_neighbors(T)
+			QUEUE_SMOOTH_NEIGHBORS(T)
 	if(creates_cover && isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	if(isprocessing)
@@ -163,7 +163,7 @@
 			if(!AM.anchored && !isliving(AM))
 				if(prob(slopchance))
 					thrownatoms += AM
-					if(thrownatoms.len >= max_throws_count)
+					if(length(thrownatoms) >= max_throws_count)
 						break
 
 	var/atom/throwtarget

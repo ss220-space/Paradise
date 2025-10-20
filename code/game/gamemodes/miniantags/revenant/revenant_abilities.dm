@@ -164,7 +164,6 @@
 
 
 /obj/effect/proc_holder/spell/aoe/revenant
-	name = "Spell"
 	clothes_req = FALSE
 	human_req = FALSE
 	action_background_icon_state = "bg_revenant"
@@ -283,7 +282,7 @@
 			continue
 
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
-		M.electrocute_act(shock_damage, "настенной лампы", flags = SHOCK_NOGLOVES)
+		M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
 
 		do_sparks(4, FALSE, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
@@ -358,10 +357,8 @@
 	action_icon_state = "r_haunt"
 	base_cooldown = 60 SECONDS
 	unlock_amount = 150
-	cast_amount = 50
 	stun = 3 SECONDS
 	reveal = 10 SECONDS
-	aoe_range = 7
 	/// The maximum number of objects to haunt
 	var/max_targets = 7
 	/// Self explanatory

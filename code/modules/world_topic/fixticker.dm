@@ -7,6 +7,6 @@
 	if(SSticker.state == SS_SLEEPING)
 		log_debug("SStimer.state is sleeping")
 		SSticker.state = SS_IDLE
-		to_chat(world, "<span class='announce'>SERVER: подсистема SSticker была восстановлена!</span>")
+		to_chat(world, span_announce("SERVER: подсистема SSticker была восстановлена!"))
 		return json_encode(list("success" = "SSticker was resumed"))
 	return json_encode(list("error" = "SSticker state is not SS_SLEEPING"))

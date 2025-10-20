@@ -35,6 +35,11 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
+	var/list/localMotionTargets = list()
+	var/detectTime = 0
+	/// Don't forget, there's another 3 seconds in queueAlarm()
+	var/alarm_delay = 30
+
 /obj/machinery/camera/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	. = ..()
 	wires = new(src)
@@ -55,7 +60,7 @@
 		upgrade.camera_upgrade(src)
 
 	var/list/tempnetwork = difflist(src.network, GLOB.restricted_camera_networks)
-	if(tempnetwork.len)
+	if(length(tempnetwork))
 		GLOB.cameranet.addCamera(src)
 	else
 		GLOB.cameranet.removeCamera(src)
@@ -69,6 +74,7 @@
 	SStgui.close_uis(wires)
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
+	QDEL_NULL(proximity_monitor)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
 	if(isarea(myArea))
@@ -112,7 +118,7 @@
 	GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
-	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
+	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
 	..()
 
@@ -174,7 +180,7 @@
 			AI.last_paper_seen_title = itemname
 
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
-			for(var/uid_watcher as anything in console.concurrent_users)
+			for(var/uid_watcher in console.concurrent_users)
 				var/watcher = locateUID(uid_watcher)
 				to_chat(watcher, "[user] holds the [itemname] up to one of the cameras ...")
 				var/datum/browser/popup = new(watcher, itemname, itemname)
@@ -221,8 +227,10 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message(span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
-						span_warning("You unweld [src], leaving it as just a frame bolted to the wall"))
+		visible_message(
+			span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+			span_warning("You unweld [src], leaving it as just a frame bolted to the wall")
+		)
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -248,7 +256,7 @@
 		target.update_appearance(UPDATE_NAME)
 	// Add it to machines that process
 	START_PROCESSING(SSmachines, target)
-	target.AddComponent(/datum/component/proximity_monitor, target.view_range, TRUE)
+	target.proximity_monitor = new(target, target.view_range)
 
 /obj/machinery/camera/update_name(updates)
 	. = ..()
@@ -256,8 +264,6 @@
 		name = "motion-sensitive security camera"
 	else
 		name = "security camera"
-
-
 
 /obj/machinery/camera/obj_break(damage_flag)
 	if(status && !(obj_flags & NODECONSTRUCT))
@@ -326,13 +332,13 @@
 	if(status || alarm_on || (assembly && assembly.state == 1)) // checks if camera still off OR alarms already on OR camera disasembled
 		return
 	alarm_on = TRUE
-	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
+	GLOB.alarm_manager.trigger_alarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if (!alarm_on) // you don't have to turn off alarm twice
+	if(!alarm_on) // you don't have to turn off alarm twice
 		return
 	alarm_on = FALSE
-	SSalarm.cancelAlarm("Camera", get_area(src), src)
+	GLOB.alarm_manager.cancel_alarm("Camera", get_area(src), src)
 
 /obj/machinery/camera/proc/can_use(mob/user)
 	if(!status)
@@ -346,17 +352,17 @@
 	var/turf/pos = get_turf(src)
 	var/turf/directly_above = GET_TURF_ABOVE(pos)
 	var/check_lower = pos != get_lowest_turf(pos)
-	var/check_higher = directly_above && directly_above.transparent_floor && (pos != get_highest_turf(pos))
+	var/check_higher = directly_above?.transparent_floor && (pos != get_highest_turf(pos))
 
 	if(isXRay())
 		see = range(view_range, pos)
 	else
-		see = hear(view_range, pos)
+		see = get_hear(view_range, pos)
 	if(check_lower || check_higher)
 		for(var/turf/seen in see)
 			if(check_lower)
 				var/turf/visible = seen
-				while(visible && visible.transparent_floor)
+				while(visible?.transparent_floor)
 					var/turf/below = GET_TURF_BELOW(visible)
 					for(var/turf/adjacent in range(1, below))
 						see += adjacent
@@ -364,7 +370,7 @@
 					visible = below
 			if(check_higher)
 				var/turf/above = GET_TURF_ABOVE(seen)
-				while(above && above.transparent_floor)
+				while(above?.transparent_floor)
 					for(var/turf/adjacent in range(1, above))
 						see += adjacent
 						see += adjacent.contents
@@ -439,7 +445,7 @@
 		return TRUE
 
 	var/list/tempnetwork = network & ai.network
-	return tempnetwork.len > 0
+	return length(tempnetwork) > 0
 
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
@@ -479,7 +485,6 @@
 /obj/machinery/camera/mortar
 	alpha = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = FALSE
 	invuln = TRUE
 	network = list("mortar")
 	use_power = NO_POWER_USE
