@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				justzap = TRUE
 				addtimer(VARSET_CALLBACK(src, justzap, FALSE), 1 SECONDS)
 				return
-		else if(!operating && user.AmountHallucinate() > 50 SECONDS && prob(10) && user.electrocute_act(50, "шлюза", flags = SHOCK_ILLUSION))
+		else if(!operating && user.AmountHallucinate() > 50 SECONDS && prob(10) && user.electrocute_act(50, src, flags = SHOCK_ILLUSION))
 			return
 	return ..()
 

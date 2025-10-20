@@ -57,7 +57,7 @@
 
 
 /// As the name suggests, this should be called to apply electric shocks.
-/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/proc/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags) & COMPONENT_LIVING_BLOCK_SHOCK)
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_GODMODE))	//godmode
@@ -74,8 +74,8 @@
 		apply_damage(shock_damage, BURN, spread_damage = TRUE)
 		if(shock_damage > 200)
 			visible_message(
-				span_danger("[capitalize(source)] поразил электрической дугой [name]!"),
-				span_userdanger("Электрическая дуга от [source] вспыхивает и убивает вас!"),
+				span_danger("[capitalize(source.declent_ru(NOMINATIVE))] поразил электрической дугой [declent_ru(ACCUSATIVE)]!"),
+				span_userdanger("Электрическая дуга от [source.declent_ru(GENITIVE)] вспыхивает и убивает вас!"),
 				span_italics("Вы слышите треск, похожий на молнию!")
 			)
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
@@ -84,7 +84,7 @@
 		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
-			span_danger("[capitalize(source)] ударил током [name]!"),
+			span_danger("[capitalize(source.declent_ru(NOMINATIVE))] ударил[genderize_ru(source.gender, "", "а", "о", "и")] током [declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Вы чувствуете как через ваше тело проходит электрический разряд!"),
 			span_hear("Вы слышите громкий электрический треск."),
 		)

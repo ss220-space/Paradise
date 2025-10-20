@@ -13,6 +13,7 @@
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
 
+
 /obj/item/assembly_holder/Initialize(mapload, left_icon, left_iconstate, right_icon, right_iconstate)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -54,35 +55,27 @@
 	A2.holder = src
 	a_left = A1
 	a_right = A2
-	if(has_prox_sensors())
-		AddComponent(/datum/component/proximity_monitor)
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
-
-
-/obj/item/assembly_holder/proc/has_prox_sensors()
-	if(isprox(a_left) || isprox(a_right))
-		return TRUE
-	return FALSE
 
 
 /obj/item/assembly_holder/proc/process_activation(obj/D, normal = TRUE, special = TRUE, mob/user)
 	if(!D)
 		return FALSE
 
-	if(normal && a_right && a_left)
-		if(a_right != D)
-			a_right.pulsed()
+	if(normal && a_left && a_right)
 		if(a_left != D)
 			a_left.pulsed()
+		if(a_right != D)
+			a_right.pulsed()
 
 	if(master)
 		var/datum/signal/signal = new
 		signal.source = src
 		signal.user = user
 		master.receive_signal(signal)
-		
+
 	return TRUE
 
 
@@ -245,10 +238,12 @@
 		if(a_left)
 			a_left.holder = null
 			a_left.forceMove(T)
+			a_left.on_detach()
 			user.put_in_hands(a_left, ignore_anim = FALSE)
 		if(a_right)
 			a_right.holder = null
 			a_right.forceMove(T)
+			a_right.on_detach()
 			user.put_in_hands(a_right, ignore_anim = FALSE)
 		qdel(src)
 

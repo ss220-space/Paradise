@@ -85,6 +85,27 @@ class HubStorageBackend implements StorageBackend {
       });
     });
   }
+  async processChatMessages(messages): Promise<void> {
+    return new Promise((resolve) => {
+      queueMicrotask(() => {
+        window.hubStorage.removeItem('paradise-chat-messages');
+        resolve();
+      });
+    });
+  }
+
+  async getChatMessages(): Promise<any> {
+    return new Promise((resolve) => {
+      queueMicrotask(() => {
+        const value = window.hubStorage.getItem('paradise-chat-messages');
+        if (typeof value === 'string') {
+          resolve(JSON.parse(value));
+        } else {
+          resolve(undefined);
+        }
+      });
+    });
+  }
 }
 
 export class IFrameIndexedDbBackend implements StorageBackend {
@@ -189,7 +210,7 @@ export class StorageProxy implements StorageBackend {
 
   constructor() {
     this.backendPromise = (async () => {
-      if (Byond.storageCdn && !window.hubStorage) {
+      if (Byond.storageCdn) {
         const iframe = new IFrameIndexedDbBackend();
         await iframe.ready();
 
@@ -216,22 +237,20 @@ export class StorageProxy implements StorageBackend {
         }
 
         iframe.destroy();
-
-        if (!testHubStorage()) {
-          Byond.winset(null, 'browser-options', '+byondstorage');
-
-          return new Promise((resolve) => {
-            const listener = () => {
-              document.removeEventListener('byondstorageupdated', listener);
-              resolve(new HubStorageBackend());
-            };
-
-            document.addEventListener('byondstorageupdated', listener);
-          });
-        }
-        return new HubStorageBackend();
       }
-      console.warn('No supported storage backend found.');
+      if (!testHubStorage()) {
+        Byond.winset(null, 'browser-options', '+byondstorage');
+
+        return new Promise((resolve) => {
+          const listener = () => {
+            document.removeEventListener('byondstorageupdated', listener);
+            resolve(new HubStorageBackend());
+          };
+
+          document.addEventListener('byondstorageupdated', listener);
+        });
+      }
+      return new HubStorageBackend();
     })();
   }
   async get(key: string): Promise<any> {
