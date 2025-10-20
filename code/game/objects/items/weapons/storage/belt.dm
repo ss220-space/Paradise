@@ -314,10 +314,8 @@
 	name = "agent surgical belt"
 	desc = "Хирургический пояс инопланетного происхождения."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "surgicalbelt"
 	item_state = "surgical_alien"
 	max_combined_w_class = 19
-	storage_slots = 11
 	storable = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
