@@ -97,7 +97,6 @@
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
-
 	/**
 	 * List of products this machine sells
 	 *
@@ -290,6 +289,7 @@
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(inserted_item)
+	QDEL_NULL(proximity_monitor)
 	return ..()
 
 /// Better would be to make constructable child
@@ -394,6 +394,14 @@
 	skip_non_primary_icon_updates = FALSE
 	flick_sequence = FLICK_NONE
 	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/vending/proc/create_proximity_monitor()
+	proximity_monitor = new(src)
+
+
+/obj/machinery/vending/proc/remove_proximity_monitor()
+	QDEL_NULL(proximity_monitor)
 
 
 /*
@@ -746,17 +754,20 @@
 			record.amount--
 			break
 
-/obj/machinery/vending/HasProximity(atom/movable/AM)
-	if(!aggressive  || tilted || !tiltable)
+/obj/machinery/vending/HasProximity(atom/movable/movable)
+	if(!aggressive || tilted || !tiltable)
 		return
 
-	if(isliving(AM) && prob(25))
-		AM.visible_message(
-			span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [AM.declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
-		)
-	tilt(AM, prob(5), FALSE)
+	if(!isliving(movable) || !prob(25))
+		return
+
+	movable.visible_message(
+		span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [movable.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
+	)
+	tilt(movable, prob(5), FALSE)
 	aggressive = FALSE
+	remove_proximity_monitor()
 	// Not making same mistakes as offs did.
 	// Don't make this prob more than 5%
 
@@ -1453,6 +1464,7 @@
 
 	if(victim && get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
+		SStgui.close_uis(wires)
 
 /obj/machinery/vending/proc/untilt(mob/user)
 	if(!tilted)

@@ -48,7 +48,7 @@ const saveChatToStorage = async (store: Store) => {
   // Only save messages if chat saving is enabled
   const chatSavingEnabled = await storage.get('chat-saving-enabled');
   if (chatSavingEnabled !== false) {
-    if (!(window as ByondWindow).hubStorage) {
+    if (!window.hubStorage) {
       const indexedDbBackend =
         (await storage.getBackendPromise()) as IFrameIndexedDbBackend;
       indexedDbBackend.processChatMessages(chatRenderer.storeQueue);
@@ -82,7 +82,7 @@ const loadChatFromStorage = async (store) => {
   let messages = [];
 
   if (chatSavingEnabled !== false) {
-    if (!(window as ByondWindow).hubStorage) {
+    if (!window.hubStorage) {
       messages = await (
         (await storage.getBackendPromise()) as IFrameIndexedDbBackend
       ).getChatMessages();
