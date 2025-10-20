@@ -101115,13 +101115,12 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/glass,
 /obj/item/clipboard,
 /obj/item/toy/figure/virologist,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = 10;
 	pixel_y = 4
 	},
@@ -106274,7 +106273,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/window/reinforced{
@@ -109487,7 +109485,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/warning_stripes/yellow/partial,
@@ -125637,13 +125634,12 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/beautyplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции НаноТрейзен. С благодарностью, Saad603. Слава НаноТрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Saad603. Слава Нанотрейзен!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/window/reinforced,
@@ -135406,13 +135402,12 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/goldenplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции НаноТрейзен. С благодарностью, Zhojaba. Слава НаноТрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Zhojaba. Слава Нанотрейзен!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/window/reinforced,
@@ -146395,7 +146390,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/flora/ausbushes/palebush,
@@ -152976,15 +152970,14 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = -5;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = 7;
 	pixel_y = 1
 	},
@@ -155046,7 +155039,6 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/landmark/spawner/xeno,
@@ -157621,7 +157613,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/flora/ausbushes/brflowers,

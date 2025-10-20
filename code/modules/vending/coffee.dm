@@ -28,7 +28,7 @@
 
 	item_slot = TRUE
 	products = list(
-		/obj/item/reagent_containers/food/drinks/coffee = 25,
+		/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 25,
 		/obj/item/reagent_containers/food/drinks/tea = 25,
 		/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
 		/obj/item/reagent_containers/food/drinks/chocolate = 10,
@@ -41,7 +41,7 @@
 		/obj/item/reagent_containers/food/drinks/ice = 10
 	)
 	prices = list(
-		/obj/item/reagent_containers/food/drinks/coffee = 19,
+		/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 19,
 		/obj/item/reagent_containers/food/drinks/tea = 19,
 		/obj/item/reagent_containers/food/drinks/h_chocolate = 19,
 		/obj/item/reagent_containers/food/drinks/chocolate = 19,
