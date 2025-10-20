@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-byondapi = "0.4.7"
+byondapi = {version = "0.5.14", default-features = false}
 eyre = "0.6.12"
 slotmap = "1.0.7"
 base64 = "0.22.1"
@@ -17,15 +17,18 @@ dreammaker = { git = "https://github.com/SpaceManiac/SpacemanDMM", rev = "6c5a75
 fxhash = "0.2.1"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0" }
-serde_repr = { version = "0.1", optional = true }
+serde_repr = "0.1"
 walkdir = "2.5.0"
 regex = "1.10.5"
 rand = "0.9.2"
 itertools = "0.10.5"
 diff = "0.1"
-dmi = { version = "0.5.0", optional = true }
-png = { version = "0.17", optional = true }
-image = { version = "0.25", optional = true, default-features = false, features = [
-    "png",
-] }
-qrcode = { version = "0.14.1", optional = true, features = ["image", "svg"]}
+dmi = "0.5.0"
+png = "0.17"
+image = { version = "0.25", features = ["png"] }
+qrcode = { version = "0.14.1", features = ["image", "svg"] }
+
+[features]
+default = ["byond-515"]
+byond-515 = ["byondapi/byond-515-1621"]
+byond-516 = ["byondapi/byond-516-1651"]

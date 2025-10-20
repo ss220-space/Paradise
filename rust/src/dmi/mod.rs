@@ -1,11 +1,10 @@
-use crate::error::{Error, Result};
-use ::image::Rgba;
-use ::png::{text_metadata::ZTXtChunk, Decoder, Encoder, OutputInfo, Reader};
 use byondapi::value::ByondValue;
 use dmi::{
     error::DmiError,
     icon::{Icon, Looping},
 };
+use image::Rgba;
+use png::{text_metadata::ZTXtChunk, Decoder, Encoder, OutputInfo, Reader};
 use qrcode::{render::svg, QrCode};
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
@@ -64,9 +63,15 @@ fn dmi_resize_png(
 }
 
 #[byondapi::bind]
+fn dmi_read_metadata(path: ByondValue) -> eyre::Result<ByondValue> {
+    let metadata = read_metadata(&path.get_string()?)?;
+    Ok(metadata.try_into()?)
+}
+
+#[byondapi::bind]
 fn dmi_icon_states(path: ByondValue) -> eyre::Result<ByondValue> {
     let states = read_states(&path.get_string()?)?;
-    Ok(states.try_into()?)
+    Ok(states)
 }
 
 #[byondapi::bind]
@@ -75,12 +80,12 @@ fn dmi_inject_metadata(path: ByondValue, metadata: ByondValue) -> eyre::Result<B
     Ok(ByondValue::null())
 }
 
-fn strip_metadata(path: &str) -> Result<()> {
+fn strip_metadata(path: &str) -> eyre::Result<()> {
     let (reader, frame_info, image) = read_png(path)?;
     write_png(path, &reader, &frame_info, &image, true)
 }
 
-fn read_png(path: &str) -> Result<(Reader<File>, OutputInfo, Vec<u8>)> {
+fn read_png(path: &str) -> eyre::Result<(Reader<File>, OutputInfo, Vec<u8>)> {
     let mut reader = Decoder::new(File::open(path)?).read_info()?;
     let mut buf = vec![0; reader.output_buffer_size()];
     let frame_info = reader.next_frame(&mut buf)?;
@@ -94,7 +99,7 @@ fn write_png(
     info: &OutputInfo,
     image: &[u8],
     strip: bool,
-) -> Result<()> {
+) -> eyre::Result<()> {
     let mut encoder = Encoder::new(File::create(path)?, info.width, info.height);
     encoder.set_color(info.color_type);
     encoder.set_depth(info.bit_depth);
@@ -118,7 +123,7 @@ fn write_png(
     Ok(writer.write_image_data(image)?)
 }
 
-fn create_png(path: &str, width: &str, height: &str, data: &str) -> Result<()> {
+fn create_png(path: &str, width: &str, height: &str, data: &str) -> eyre::Result<()> {
     let width = width.parse::<u32>()?;
     let height = height.parse::<u32>()?;
 
@@ -127,7 +132,7 @@ fn create_png(path: &str, width: &str, height: &str, data: &str) -> Result<()> {
     let mut result: Vec<u8> = Vec::new();
     for pixel in bytes.split(|&b| b == b'#').skip(1) {
         if pixel.len() != 6 && pixel.len() != 8 {
-            return Err(Error::InvalidPngData);
+            return Err(eyre::eyre!("Invalid PNG data"));
         }
         for channel in pixel.chunks_exact(2) {
             result.push(u8::from_str_radix(std::str::from_utf8(channel)?, 16)?);
@@ -156,7 +161,7 @@ fn resize_png<P: AsRef<Path>>(
     width: &str,
     height: &str,
     resizetype: image::imageops::FilterType,
-) -> std::result::Result<(), Error> {
+) -> eyre::Result<()> {
     let width = width.parse::<u32>()?;
     let height = height.parse::<u32>()?;
 
@@ -170,26 +175,29 @@ fn resize_png<P: AsRef<Path>>(
 /// Output is a JSON string for reading within BYOND
 ///
 /// Erroring at any point will produce an empty string
-fn read_states(path: &str) -> Result<String> {
+fn read_states(path: &str) -> eyre::Result<ByondValue> {
     let file = File::open(path).map(BufReader::new)?;
     let decoder = png::Decoder::new(file);
-    let reader = decoder.read_info().map_err(|_| Error::InvalidPngData)?;
+    let reader = decoder
+        .read_info()
+        .map_err(|_| eyre::eyre!("Invalid PNG data"))?;
     let info = reader.info();
-    let mut states = Vec::<String>::new();
+    let mut list = ByondValue::new_list()?;
+
     for ztxt in &info.compressed_latin1_text {
         let text = ztxt.get_text()?;
-        text.lines()
-            .take_while(|line| !line.contains("# END DMI"))
-            .filter_map(|line| {
-                line.trim()
-                    .strip_prefix("state = \"")
-                    .and_then(|line| line.strip_suffix('"'))
-            })
-            .for_each(|state| {
-                states.push(state.to_owned());
-            });
+        for line in text.lines().take_while(|line| !line.contains("# END DMI")) {
+            if let Some(state) = line
+                .trim()
+                .strip_prefix("state = \"")
+                .and_then(|line| line.strip_suffix('"'))
+            {
+                list.push_list(state.try_into()?)?;
+            }
+        }
     }
-    Ok(serde_json::to_string(&states)?)
+
+    Ok(list)
 }
 
 #[derive(Serialize_repr, Deserialize_repr, Clone, Copy)]
@@ -202,7 +210,7 @@ enum DmiStateDirCount {
 
 impl TryFrom<u8> for DmiStateDirCount {
     type Error = u8;
-    fn try_from(value: u8) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: u8) -> eyre::Result<Self, Self::Error> {
         match value {
             1 => Ok(Self::One),
             4 => Ok(Self::Four),
@@ -235,7 +243,7 @@ struct DmiMetadata {
     states: Vec<DmiState>,
 }
 
-fn read_metadata(path: &str) -> Result<String> {
+fn read_metadata(path: &str) -> eyre::Result<String> {
     let dmi = Icon::load_meta(File::open(path).map(BufReader::new)?)?;
     let metadata = DmiMetadata {
         width: dmi.width,
@@ -262,15 +270,17 @@ fn read_metadata(path: &str) -> Result<String> {
                     hotspot: state.hotspot.map(|hotspot| (hotspot.x, hotspot.y, 1)),
                 })
             })
-            .collect::<Result<Vec<DmiState>>>()?,
+            .collect::<Result<Vec<DmiState>, DmiError>>()?,
     };
     Ok(serde_json::to_string(&metadata)?)
 }
 
-fn inject_metadata(path: &str, metadata: &str) -> Result<()> {
+fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
     let read_file = File::open(path).map(BufReader::new)?;
     let decoder = png::Decoder::new(read_file);
-    let mut reader = decoder.read_info().map_err(|_| Error::InvalidPngData)?;
+    let mut reader = decoder
+        .read_info()
+        .map_err(|_| eyre::eyre!("Invalid PNG data"))?;
     let new_dmi_metadata: DmiMetadata = serde_json::from_str(metadata)?;
     let mut new_metadata_string = String::new();
     writeln!(new_metadata_string, "# BEGIN DMI")?;
