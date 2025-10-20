@@ -1,11 +1,11 @@
 use crate::error::{Error, Result};
+use ::image::Rgba;
+use ::png::{text_metadata::ZTXtChunk, Decoder, Encoder, OutputInfo, Reader};
 use byondapi::value::ByondValue;
 use dmi::{
     error::DmiError,
     icon::{Icon, Looping},
 };
-use image::Rgba;
-use png::{text_metadata::ZTXtChunk, Decoder, Encoder, OutputInfo, Reader};
 use qrcode::{render::svg, QrCode};
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
