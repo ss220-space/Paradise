@@ -217,7 +217,6 @@
 		assembly.forceMove_turf()
 		usr.put_in_hands(assembly, ignore_anim = FALSE)
 		assembly = null
-		qdel(GetComponent(/datum/component/proximity_monitor))
 		update_icon(UPDATE_OVERLAYS)
 	else
 		balloon_alert(usr, "нечего отсоединять!")
@@ -240,8 +239,6 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		balloon_alert(user, "заготовка прикреплена")
-		if(assembly.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
 		assembly = I
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
