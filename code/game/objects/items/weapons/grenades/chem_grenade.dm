@@ -191,8 +191,6 @@
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return ..()
 				nadeassembly = new_assembly
-				if(nadeassembly.has_prox_sensors())
-					AddComponent(/datum/component/proximity_monitor)
 				nadeassembly.master = src
 				assemblyattacher = user.ckey
 				stage = GRENADE_WIRED
@@ -240,7 +238,6 @@
 		nadeassembly.forceMove(drop_loc)
 		nadeassembly.master = null
 		nadeassembly = null
-		qdel(GetComponent(/datum/component/proximity_monitor))
 	else
 		new /obj/item/stack/cable_coil(drop_loc, 1)
 	if(length(beakers))
@@ -378,22 +375,22 @@
 	qdel(src)
 
 /obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(typekey)
-	if(ispath(typekey,/obj/item/assembly))
-		nadeassembly = new(src)
-		if(nadeassembly.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
-		nadeassembly.a_left = new /obj/item/assembly/igniter(nadeassembly)
-		nadeassembly.a_left.holder = nadeassembly
-		nadeassembly.a_left.secured = 1
-		nadeassembly.a_right = new typekey(nadeassembly)
-		if(!nadeassembly.a_right.secured)
-			nadeassembly.a_right.toggle_secure() // necessary because fuxing prock_sensors
-		nadeassembly.a_right.holder = nadeassembly
-		nadeassembly.secured = 1
-		nadeassembly.master = src
-		nadeassembly.update_icon()
-		stage = GRENADE_READY
-		update_appearance(UPDATE_ICON|UPDATE_NAME)
+	if(!ispath(typekey, /obj/item/assembly))
+		return
+
+	nadeassembly = new(src)
+	nadeassembly.a_left = new /obj/item/assembly/igniter(nadeassembly)
+	nadeassembly.a_left.holder = nadeassembly
+	nadeassembly.a_left.secured = 1
+	nadeassembly.a_right = new typekey(nadeassembly)
+	if(!nadeassembly.a_right.secured)
+		nadeassembly.a_right.toggle_secure() // necessary because fuxing prock_sensors
+	nadeassembly.a_right.holder = nadeassembly
+	nadeassembly.secured = 1
+	nadeassembly.master = src
+	nadeassembly.update_icon()
+	stage = GRENADE_READY
+	update_appearance(UPDATE_ICON|UPDATE_NAME)
 
 
 //Large chem grenades accept slime cores and use the appropriately.

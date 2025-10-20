@@ -482,7 +482,7 @@
 				. = FALSE
 		if("flash")
 			for(var/obj/machinery/flasher/flasher in targets)
-				if(flasher.last_flash && (flasher.last_flash + 15 SECONDS) > world.time)
+				if(!COOLDOWN_FINISHED(flasher, flash_cooldown))
 					to_chat(usr, span_warning("Flash is still recharging."))
 				else
 					flasher.flash()

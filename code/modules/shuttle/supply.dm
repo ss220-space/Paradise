@@ -100,7 +100,7 @@
 			if(!A.simulated)
 				continue
 
-			if(is_proximity(A) || is_light(A))
+			if(is_light(A))
 				continue
 
 

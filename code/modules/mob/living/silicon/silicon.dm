@@ -224,7 +224,7 @@
 /mob/living/silicon/drop_from_active_hand(force = FALSE)
 	return
 
-/mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/silicon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //So borgs they don't die trying to fix wiring
 
 /mob/living/silicon/emp_act(severity)
