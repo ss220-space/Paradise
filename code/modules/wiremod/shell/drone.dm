@@ -83,7 +83,7 @@
 	COOLDOWN_DECLARE(west_delay)
 
 	/// Delay between each movement
-	var/move_delay = 0.2 SECONDS
+	var/move_delay = 0.4 SECONDS
 
 /obj/item/circuit_component/bot_circuit/register_shell(atom/movable/shell)
 	. = ..()

@@ -16,7 +16,7 @@
 #define HUD_HEART "Сердце"
 #define HUD_ID "ID"
 #define HUD_INFO "Инфо"
-#define HUD_INJECTION "Инъекцтя"
+#define HUD_INJECTION "Инъекция"
 #define HUD_MAGNETISM "Магнетизм"
 #define HUD_MINUS "Минус"
 #define HUD_NETWORK "Сеть"
@@ -79,7 +79,7 @@
 	HUD_TWO = "bci_two",
 	HUD_THREE = "bci_three",
 	HUD_FOUR = "bci_four",
-	HUD_FIVE = "bci_five",
+	HUD_FIVE = "bci_fiv",
 
 	HUD_BLOOD = "bci_blood",
 	HUD_BOMB = "bci_bomb",

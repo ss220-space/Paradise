@@ -12,7 +12,6 @@
 	display_name = "Отображение графического столбца"
 	desc = "Требуется оболочка BCI. Компонент, отображающий графический столбец поверх объекта со значениями от 0 до 100."
 
-	var/datum/port/input/option/bar_overlay_options
 	var/datum/port/input/bar_number
 
 /obj/item/circuit_component/object_overlay/bar/populate_ports()
@@ -24,11 +23,11 @@
 		COMP_BAR_OVERLAY_VERTICAL = "barvert",
 		COMP_BAR_OVERLAY_HORIZONTAL = "barhoriz"
 	)
-	bar_overlay_options = add_option_port("Настройка столбца", component_options_bar)
+	object_overlay_options = add_option_port("Настройка столбца", component_options_bar)
 	options_map = component_options_bar
 
 /obj/item/circuit_component/object_overlay/bar/get_cool_overlay(atom/target_atom)
-	var/current_option = bar_overlay_options.value
+	var/current_option = object_overlay_options.value
 	var/number_clear = clamp(bar_number.value, 0, 100)
 
 	if(current_option == COMP_BAR_OVERLAY_HORIZONTAL)
