@@ -1,10 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <!-- Remove with 516 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8" />
-
     <!-- Inlined metadata -->
     <meta id="tgui:windowId" content="[tgui:windowId]" />
     <meta id="tgui:strictMode" content="[tgui:strictMode]" />
@@ -15,18 +12,6 @@
       (function () {
         // Utility functions
         var hasOwn = Object.prototype.hasOwnProperty;
-        // Remove with 516
-        var assign = function (target) {
-          for (var i = 1; i < arguments.length; i++) {
-            var source = arguments[i];
-            for (var key in source) {
-              if (hasOwn.call(source, key)) {
-                target[key] = source[key];
-              }
-            }
-          }
-          return target;
-        };
         var parseMetaTag = function (name) {
           var content = document.getElementById(name).getAttribute('content');
           if (content === '[' + name + ']') {
@@ -111,17 +96,10 @@
           }
 
           // Perform a standard call via location.href
-          // Remove condition with 516
-          if (url.length < 2048 || Byond.BLINK !== null) {
+          if (url.length < 2048) {
             location.href = 'byond://' + url;
             return;
           }
-          // Remove with 516
-          // Send an HTTP request to DreamSeeker's HTTP server.
-          // Allows sending much bigger payloads.
-          var xhr = new XMLHttpRequest();
-          xhr.open('GET', url);
-          xhr.send();
         };
 
         Byond.callAsync = function (path, params) {
