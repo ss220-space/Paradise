@@ -1557,7 +1557,7 @@
 	desc = "Элитный боевой МЭК от \"Мародёров Горлекса\" и \"Киберсан Индастриз\", дальнейшее развитие модели \"Палач\". \
 			Обеспечивает максимальную защиту в боевых условиях при сохранении тактической мобильности."
 	extended_desc = "Прямой преемник боевого костюма \"Палач\", разработанный \"Мародёрами Горлекса\" при технической поддержке \"Киберсан Индастриз\" \
-		для высшего командного состава и элитных боевых групп Синдиката. Модель \"Каратель\" выполнена в матово-чёрной палитре, снижающей визуальную и ИК-заметность. \
+		для высшего командного состава и элитных боевых групп \"Синдиката\". Модель \"Каратель\" выполнена в матово-чёрной палитре, снижающей визуальную и ИК-заметность. \
 		Бронирование усилено дополнительным слоем композитных плит на основе керамики и кевлара, что повышает стойкость к бронебойным и термическим угрозам. \
 		Несмотря на улучшение защитных показателей, применение облегчённых сплавов нового поколения позволило сохранить скорость и манёвренность на уровне предшественника. \
 		На внутренней поверхности шлема нанесена маркировка: \"Торговая марка принадлежит компании \"Мародёры Горлекса\", создано при \
@@ -1624,6 +1624,80 @@
 	bio = 100
 	rad = 100
 	fire = 100
+	acid = 100
+
+/datum/mod_theme/contractor
+	name = "модели \"Специалист\""
+	desc = "Элитный боевой МЭК от \"Мародёров Горлекса\", созданный при поддержке \"Киберсан Индастриз\". \
+			Разработан для использования специализированными наёмниками \"Синдиката\"."
+	extended_desc = "Редкое отклонение от традиционной кроваво-красной палитры \"Синдиката\". Модель \"Специалист\" создана для независимых контрактников, \
+		выполняющих высокорисковые операции. Корпус выполнен из обтекаемых слоёв формованного пластитаниума и композитной керамики, \
+		а внутренний подшлемник — из гибридной ткани на основе кевлара и дюраткани, обеспечивающей защиту в зонах минимального бронирования. \
+		Ключевые особенности: встроенный хамелеон-модуль с функцией оптической маскировки и противолазерный энергощит, \
+		эффективный против большинства видов энергетического оружия. Данная модель признана незаконной в большинстве юрисдикций Галактики, \
+		что только подчёркивает её уникальный статус. \
+		На внутренней поверхности шлема нанесена маркировка: \"Торговая марка принадлежит компании \"Мародёры Горлекса\", создано при \
+		сотрудничестве с \"Киберсан Индастриз\". Все права защищены. Вмешательство в работу внутренних систем повлечёт аннулирование гарантии.\""
+	default_skin = "contractor"
+	armor_type = /datum/armor/mod_theme_contractor
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	slowdown_deployed = 0
+	ui_theme = "syndicate"
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/melee/energy/sword,
+		/obj/item/shield/energy,
+		/obj/item/gun,
+	)
+	variants = list(
+		"contractor" = list(
+			/obj/item/clothing/head/mod = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+				UNSEALED_MESSAGE = HELMET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = HELMET_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/suit/mod = list(
+				UNSEALED_MESSAGE = CHESTPLATE_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = CHESTPLATE_SEAL_MESSAGE,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			/obj/item/clothing/gloves/mod = list(
+				UNSEALED_MESSAGE = GAUNTLET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = GAUNTLET_SEAL_MESSAGE,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			/obj/item/clothing/shoes/mod = list(
+				UNSEALED_MESSAGE = BOOT_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = BOOT_SEAL_MESSAGE,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/datum/armor/mod_theme_contractor
+	melee = 45
+	bullet = 50
+	laser = 40
+	energy = 30
+	bomb = 50
+	bio = 100
+	rad = 100
+	fire = 50
 	acid = 100
 
 /datum/mod_theme/prototype
@@ -2121,77 +2195,4 @@
 	bio = 100
 	rad = 100
 	fire = 100
-	acid = 100
-
-/datum/mod_theme/contractor
-	name = "модели \"Без названия\""
-	desc = "A top-tier syndicate helmet, a favorite of Syndicate field Contractors. Property of the Gorlex Marauders, with assistance from Cybersun Industries."
-	extended_desc = "A rare depart from the Syndicate's usual color scheme, the Contractor MODsuit is produced and manufactured \
-		for specialty contractors. The build is a streamlined layering consisting of shaped Plastitanium, \
-		and composite ceramic, while the under suit is lined with a lightweight Kevlar and durathread hybrid weave \
-		to provide ample protection to the user where the plating doesn't, with an illegal onboard electric powered \
-		ablative shield module to provide resistance against conventional energy firearms. \
-		In addition, it has an in-built chameleon system, allowing you to disguise the suit while undeployed. \
-		A small tag hangs off of it reading; 'Property of the Gorlex Marauders, with assistance from Cybersun Industries. \
-		All rights reserved, tampering with suit will void warranty."
-	default_skin = "contractor"
-	armor_type = /datum/armor/mod_theme_contractor
-	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
-	siemens_coefficient = 0
-	slowdown_deployed = 0
-	ui_theme = "syndicate"
-	allowed_suit_storage = list(
-		/obj/item/ammo_box,
-		/obj/item/ammo_casing,
-		/obj/item/restraints/handcuffs,
-		/obj/item/flash,
-		/obj/item/melee/baton,
-		/obj/item/melee/energy/sword,
-		/obj/item/shield/energy,
-		/obj/item/gun,
-	)
-	variants = list(
-		"contractor" = list(
-			/obj/item/clothing/head/mod = list(
-				UNSEALED_LAYER = COLLAR_LAYER,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
-				UNSEALED_INVISIBILITY = HIDENAME,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
-				UNSEALED_MESSAGE = HELMET_UNSEAL_MESSAGE,
-				SEALED_MESSAGE = HELMET_SEAL_MESSAGE,
-			),
-			/obj/item/clothing/suit/mod = list(
-				UNSEALED_MESSAGE = CHESTPLATE_UNSEAL_MESSAGE,
-				SEALED_MESSAGE = CHESTPLATE_SEAL_MESSAGE,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
-			),
-			/obj/item/clothing/gloves/mod = list(
-				UNSEALED_MESSAGE = GAUNTLET_UNSEAL_MESSAGE,
-				SEALED_MESSAGE = GAUNTLET_SEAL_MESSAGE,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-			/obj/item/clothing/shoes/mod = list(
-				UNSEALED_MESSAGE = BOOT_UNSEAL_MESSAGE,
-				SEALED_MESSAGE = BOOT_SEAL_MESSAGE,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-		),
-	)
-
-/datum/armor/mod_theme_contractor
-	melee = 45
-	bullet = 50
-	laser = 40
-	energy = 30
-	bomb = 50
-	bio = 100
-	rad = 100
-	fire = 50
 	acid = 100
