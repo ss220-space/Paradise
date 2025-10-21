@@ -2122,3 +2122,76 @@
 	rad = 100
 	fire = 100
 	acid = 100
+
+/datum/mod_theme/contractor
+	name = "модели \"Без названия\""
+	desc = "A top-tier syndicate helmet, a favorite of Syndicate field Contractors. Property of the Gorlex Marauders, with assistance from Cybersun Industries."
+	extended_desc = "A rare depart from the Syndicate's usual color scheme, the Contractor MODsuit is produced and manufactured \
+		for specialty contractors. The build is a streamlined layering consisting of shaped Plastitanium, \
+		and composite ceramic, while the under suit is lined with a lightweight Kevlar and durathread hybrid weave \
+		to provide ample protection to the user where the plating doesn't, with an illegal onboard electric powered \
+		ablative shield module to provide resistance against conventional energy firearms. \
+		In addition, it has an in-built chameleon system, allowing you to disguise the suit while undeployed. \
+		A small tag hangs off of it reading; 'Property of the Gorlex Marauders, with assistance from Cybersun Industries. \
+		All rights reserved, tampering with suit will void warranty."
+	default_skin = "contractor"
+	armor_type = /datum/armor/mod_theme_contractor
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	slowdown_deployed = 0
+	ui_theme = "syndicate"
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/melee/energy/sword,
+		/obj/item/shield/energy,
+		/obj/item/gun,
+	)
+	variants = list(
+		"contractor" = list(
+			/obj/item/clothing/head/mod = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDENAME,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+				UNSEALED_MESSAGE = HELMET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = HELMET_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/suit/mod = list(
+				UNSEALED_MESSAGE = CHESTPLATE_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = CHESTPLATE_SEAL_MESSAGE,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			/obj/item/clothing/gloves/mod = list(
+				UNSEALED_MESSAGE = GAUNTLET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = GAUNTLET_SEAL_MESSAGE,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			/obj/item/clothing/shoes/mod = list(
+				UNSEALED_MESSAGE = BOOT_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = BOOT_SEAL_MESSAGE,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/datum/armor/mod_theme_contractor
+	melee = 45
+	bullet = 50
+	laser = 40
+	energy = 30
+	bomb = 50
+	bio = 100
+	rad = 100
+	fire = 50
+	acid = 100
