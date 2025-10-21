@@ -572,4 +572,35 @@
 /obj/item/mod/control/pre_equipped/empty/elite
 	theme = /datum/mod_theme/elite
 
+/obj/item/mod/control/pre_equipped/empty/contractor
+	theme = /datum/mod_theme/contractor
+
 INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
+
+/obj/item/mod/control/pre_equipped/contractor
+	applied_cell = /obj/item/stock_parts/cell/hyper
+	applied_modules = list(
+		/obj/item/mod/module/baton_holster,
+		/obj/item/mod/module/dna_lock/emp_shield,
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/magnetic_harness,
+		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/tether,
+	)
+	default_pins = list(/obj/item/mod/module/tether,
+		/obj/item/mod/module/baton_holster,
+	)
+
+/obj/item/mod/control/pre_equipped/contractor/upgraded //for future midround contractor
+	applied_cell = /obj/item/stock_parts/power_store/cell/bluespace
+	applied_modules = list(
+		/obj/item/mod/module/baton_holster,
+		/obj/item/mod/module/dna_lock/emp_shield,
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/magnetic_harness,
+		/obj/item/mod/module/storage/syndicate,
+	)
+	default_pins = list(/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/baton_holster,
+	)

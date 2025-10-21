@@ -736,3 +736,50 @@
 		INSTRUMENTAL = "медицинской лучевой пушкой МЭК",
 		PREPOSITIONAL = "медицинской лучевой пушке МЭК"
 	)
+
+//contractor modules
+// MARK: Baton Holster
+///  Baton Holster - secondary holster for baton
+/obj/item/mod/module/baton_holster
+	name = "MOD baton holster module"
+	desc = "Модуль для МЭК, основанный на системе, схожей со стандартным модулем хранилища. Позволяет прятать в костюм \
+			дубинку контрактника и доставать её по желанию пользователя. Совместимо со стандартными модулями кобуры."
+	icon_state = "holster_contractor"
+	module_type = MODULE_USABLE
+	complexity = 2
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
+	incompatible_modules = list(/obj/item/mod/module/baton_holster)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	cooldown_time = 0.5 SECONDS
+	allow_flags = MODULE_ALLOW_INACTIVE
+	/// Our holstered baton
+	var/obj/item/melee/baton/telescopic/contractor/holstered
+
+/obj/item/mod/module/baton_holster/on_use()
+	if(!holstered)
+		var/obj/item/melee/baton/telescopic/contractor/holding = mod.wearer.get_active_hand()
+		if(!holding)
+			balloon_alert(mod.wearer, "нечего класть!")
+			return
+		holstered = holding
+		mod.wearer.balloon_alert_to_viewers("убира[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие", "оружие убрано")
+		mod.wearer.temporarily_remove_item_from_inventory(holding)
+		holding.forceMove(src)
+	else if(mod.wearer.put_in_active_hand(holstered))
+		mod.wearer.balloon_alert_to_viewers("извлека[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие", "оружие извлечено")
+	else
+		balloon_alert(mod.wearer, "рука занята!")
+
+/obj/item/mod/module/baton_holster/on_uninstall(deleting = FALSE)
+	. = ..()
+	if(holstered)
+		holstered.forceMove(drop_location())
+
+/obj/item/mod/module/baton_holster/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone == holstered)
+		holstered = null
+
+/obj/item/mod/module/baton_holster/Destroy()
+	QDEL_NULL(holstered)
+	return ..()

@@ -2138,6 +2138,7 @@
 	armor_type = /datum/armor/mod_theme_contractor
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
+	inbuilt_modules = list(/obj/item/mod/module/chameleon/contractor)
 	slowdown_deployed = 0
 	ui_theme = "syndicate"
 	allowed_suit_storage = list(
