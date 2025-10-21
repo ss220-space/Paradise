@@ -55,6 +55,8 @@
 	desc = "Этот одноразовый комплект для покраски позволяет сменить внешний вид МЭК. В отличие от других вариаций, данный комплект можно применить к любому МЭК."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "paintkit"
+	/// If our kit should be destroyed on use
+	var/del_on_use = TRUE
 
 /obj/item/mod/universal_modkit/get_ru_names()
 	return list(
@@ -98,5 +100,10 @@
 
 	mod.theme.set_skin(mod, choice)
 	balloon_alert(user, "перекрашено")
-	qdel(src)
+	if(del_on_use)
+		qdel(src)
 	return ATTACK_CHAIN_BLOCKED
+
+/obj/item/mod/universal_modkit/infinite
+	desc = "Этот многоразовый комплект для покраски позволяет сменить внешний вид МЭК. В отличие от других вариаций, данный комплект можно применить к любому МЭК."
+	del_on_use = FALSE
