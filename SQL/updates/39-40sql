@@ -1,4 +1,4 @@
-# Updates DB from 38 to 39
+# Updates DB from 39 to 40
 # Adds a new table for achievements
 
 DROP TABLE IF EXISTS `achievements`;
