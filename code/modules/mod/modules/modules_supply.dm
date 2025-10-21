@@ -1,7 +1,7 @@
 //Supply modules for MODsuits
 
 // MARK: GPS
-/// Internal GPS - Extends a GPS you can use.
+/// GPS - Extends a GPS you can use.
 /obj/item/mod/module/gps
 	name = "MOD internal GPS module"
 	desc = "Модуль для МЭК, использующий стандартную технологию Нанотрейзен для вычисления \
