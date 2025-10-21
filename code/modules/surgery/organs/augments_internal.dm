@@ -513,7 +513,7 @@
 	SEND_SIGNAL(target, COMSIG_STRENGTH_LEVEL_UP, strength_gain)
 	return ..()
 
-/obj/item/organ/internal/cyberimp/chest/exoframe/remove(mob/living/carbon/human/target)
+/obj/item/organ/internal/cyberimp/chest/exoframe/remove(mob/living/carbon/human/target, special)
 	if(!crit_fail)
 		target.remove_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
 		target.health -= given_health
@@ -552,10 +552,10 @@
 	if(crit_fail && owner)
 		to_chat(owner, span_notice("Приводы вашего экзоскелета вновь активны."))
 	crit_fail = FALSE
-	
+
 	if(!ishuman(owner))
 		return
-		
+
 	var/mob/living/carbon/human/human = owner
 	human.add_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
 	human.maxHealth += given_health
@@ -631,7 +631,7 @@
 		PREPOSITIONAL = "боевом каркасе экзоскелета"
 	)
 
-/obj/item/organ/internal/cyberimp/chest/exoframe/combat/remove(mob/living/carbon/human/target)
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat/remove(mob/living/carbon/human/target, special)
 	if(active)
 		ui_action_click()
 	return ..()
@@ -645,7 +645,7 @@
 	if(crit_fail)
 		owner.balloon_alert(owner, "каркас не отвечает!")
 		return
-	
+
 	if(active)
 		to_chat(owner, span_notice("Ваши движения замедляются!"))
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/increaserun)
