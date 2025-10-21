@@ -102,3 +102,10 @@
 
 	/// Store what the body last looked like, so we only have to update it if something changed
 	var/previous_damage_appearance
+
+	/// Time required to repair cybernetic limbs
+	var/robotic_limb_repair_time = 1 SECONDS
+	/// EMP damage multiplier for internal organs
+	var/emp_damage_multiplier_internal = 1
+	/// EMP damage multiplier for external organs
+	var/emp_damage_multiplier_external = 1

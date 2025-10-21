@@ -251,6 +251,8 @@
 					gear_leftovers += G
 			else
 				gear_leftovers += G
+		
+	H.dna.species.job_pre_equip(H)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
