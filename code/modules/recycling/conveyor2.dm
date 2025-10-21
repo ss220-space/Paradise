@@ -418,6 +418,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(new_id)
 		id = new_id
 	update_appearance()
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/conveyor_switch,
+	))
 	LAZYADD(GLOB.conveyors_by_id[id], src)
 
 
@@ -734,6 +737,60 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	<p> Set single directional switches by using your multitool on the switch after you've installed the switch assembly.</p>\
 	<p> This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
 
+
+/obj/item/circuit_component/conveyor_switch
+	display_name = "Конвейерный переключатель"
+	desc = "Позволяет управлять подключенными конвейерными лентами."
+
+	/// Direction input ports.
+	var/datum/port/input/stop
+	var/datum/port/input/active
+	var/datum/port/input/reverse
+	/// The current direction of the conveyor attached to the component.
+	var/datum/port/output/direction
+	/// The switch this conveyor switch component is attached to.
+	var/obj/machinery/conveyor_switch/attached_switch
+
+/obj/item/circuit_component/conveyor_switch/populate_ports()
+	active = add_input_port("Старт", PORT_TYPE_SIGNAL, trigger = PROC_REF(activate))
+	stop = add_input_port("Стоп", PORT_TYPE_SIGNAL, trigger = PROC_REF(stop))
+	direction = add_output_port("Направление", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/conveyor_switch/get_ui_notices()
+	. = ..()
+	. += create_ui_notice("Направление конвейера: 0 означает, что он остановлен, 1 означает, что он активен, а -1 означает, что он работает в обратном режиме.", "orange", "info")
+
+/obj/item/circuit_component/conveyor_switch/register_usb_parent(atom/movable/shell)
+	. = ..()
+	if(istype(shell, /obj/machinery/conveyor_switch))
+		attached_switch = shell
+		if(!attached_switch.one_way)
+			reverse = add_input_port("Реверс", PORT_TYPE_SIGNAL, trigger = PROC_REF(reverse))
+
+/obj/item/circuit_component/conveyor_switch/unregister_usb_parent(atom/movable/shell)
+	attached_switch = null
+	return ..()
+
+/obj/item/circuit_component/conveyor_switch/proc/on_switch_changed()
+	attached_switch.update_appearance()
+	attached_switch.update_linked_conveyors()
+	attached_switch.update_linked_switches()
+	direction.set_output(attached_switch.position)
+
+/obj/item/circuit_component/conveyor_switch/proc/activate()
+	SIGNAL_HANDLER
+	attached_switch.position = CONVEYOR_FORWARD
+	INVOKE_ASYNC(src, PROC_REF(on_switch_changed))
+
+/obj/item/circuit_component/conveyor_switch/proc/stop()
+	SIGNAL_HANDLER
+	attached_switch.position = CONVEYOR_OFF
+	INVOKE_ASYNC(src, PROC_REF(on_switch_changed))
+
+/obj/item/circuit_component/conveyor_switch/proc/reverse()
+	SIGNAL_HANDLER
+	attached_switch.position = CONVEYOR_BACKWARDS
+	INVOKE_ASYNC(src, PROC_REF(on_switch_changed))
 
 #undef CONVEYOR_BACKWARDS
 #undef CONVEYOR_OFF

@@ -19,6 +19,13 @@
 /// Global list for all telecomms machines in the world
 GLOBAL_LIST_EMPTY(tcomms_machines)
 
+/proc/find_functional_tcomms_core()
+	for(var/obj/machinery/tcomms/core/core in GLOB.tcomms_machines)
+		if(!core.active)
+			continue
+		return TRUE
+	return FALSE
+
 /**
  * # Telecommunications Device
  *

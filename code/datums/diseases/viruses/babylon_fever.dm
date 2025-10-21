@@ -9,7 +9,7 @@
 	cures = list("mannitol", "mitocholide")
 	cure_prob = 30
 	permeability_mod = 0.75
-	severity = MEDIUM
+	severity = DISEASE_SEVERITY_MEDIUM
 
 	// We'll store the languages the mob knew before the fever here
 	var/list/datum/language/stored_languages

@@ -1,24 +1,21 @@
 // the light switch
 // can have multiple per area
-// can also operate on non-loc area through "otherarea" var
 /obj/machinery/light_switch
 	name = "light switch"
 	desc = "It turns lights on and off. What are you, simple?"
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
-	var/on = TRUE
+	/// Set this to a string, path, or area instance to control that area
+	/// instead of the switch's location.
 	var/area/area = null
-	var/otherarea = null
-	//	luminosity = 1
-	var/light_connect = TRUE							//Allows the switch to control lights in its associated areas. When set to 0, using the switch won't affect the lights.
-	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
-	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
+	/// Should this lightswitch automatically rename itself to match the area it's in?
+	var/autoname = TRUE
 
 
-/obj/machinery/light_switch/New(turf/loc, w_dir)
-	..()
-	switch(w_dir)
+/obj/machinery/light_switch/Initialize(mapload, build_dir)
+	. = ..()
+	switch(build_dir)
 		if(NORTH)
 			pixel_y = 25
 		if(SOUTH)
@@ -28,41 +25,27 @@
 		if(WEST)
 			pixel_x = -25
 
-
-/obj/machinery/light_switch/Initialize(mapload)
-	. = ..()
-	set_frequency(frequency)
-
-	if(otherarea)
-		area = locate(text2path("/area/[otherarea]"))
-	else
+	if(istext(area))
+		area = text2path(area)
+	if(ispath(area))
+		area = GLOB.areas_by_type[area]
+	if(!area)
 		area = get_area(src)
+	if(autoname)
+		name = "[name] ([area.name])"
 
-	if(!name)
-		name = "light switch([area.name])"
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/light_switch,
+	))
 
-	on = area.lightswitch
 	update_icon()
-
-
-/obj/machinery/light_switch/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_LOGIC)
-
-
-/obj/machinery/light_switch/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
 
 
 /obj/machinery/light_switch/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "light-p"
 		return
-	icon_state = "light[on]"
+	icon_state = "light[area.lightswitch]"
 
 
 /obj/machinery/light_switch/update_overlays()
@@ -76,7 +59,7 @@
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	. += span_notice("A light switch. It is [on? "on" : "off"].")
+	. += span_notice("Переключатель света. Он [area.lightswitch ? "включен" : "выключен"].")
 
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
@@ -85,58 +68,27 @@
 
 
 /obj/machinery/light_switch/attack_hand(mob/user)
-	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 	add_fingerprint(user)
-	on = !on
+	set_lights(!area.lightswitch)
+
+/obj/machinery/light_switch/proc/set_lights(status)
+	if(area.lightswitch == status)
+		return
+	area.lightswitch = status
 	update_icon()
+	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 
+	area.update_icon(UPDATE_ICON_STATE)
 
-	if(light_connect && area)
-		area.lightswitch = on
-		area.update_icon(UPDATE_ICON_STATE)
+	for(var/obj/machinery/light_switch/light_switch in (area.machinery_cache - src))
+		light_switch.update_icon()
+		SEND_SIGNAL(light_switch, COMSIG_LIGHT_SWITCH_SET, status)
 
-	if(logic_connect && powered(LIGHT))		//Don't bother sending a signal if we aren't set to send them or we have no power to send with.
-		handle_output()
-
-	if(light_connect)
-		for(var/obj/machinery/light_switch/light_switch in (area.machinery_cache - src))
-			light_switch.on = on
-			light_switch.update_icon()
-		area?.power_change()
-
-
-/obj/machinery/light_switch/proc/handle_output()
-	if(!radio_connection)		//can't output without this
-		return
-
-	if(logic_id_tag == null)	//Don't output to an undefined id_tag
-		return
-
-	var/datum/signal/signal = new
-	signal.transmission_method = 1	//radio signal
-	signal.source = src
-
-	//Light switches are continuous signal sources, since they register as ON or OFF and stay that way until adjusted again
-	if(on)
-		signal.data = list(
-				"tag" = logic_id_tag,
-				"sigtype" = "logic",
-				"state" = LOGIC_ON,
-		)
-	else
-		signal.data = list(
-				"tag" = logic_id_tag,
-				"sigtype" = "logic",
-				"state" = LOGIC_OFF,
-		)
-
-	radio_connection.post_signal(src, signal, filter = RADIO_LOGIC)
-	if(on)
-		use_power(5, LIGHT)			//Use a tiny bit of power every time we send an ON signal. Draws from the local APC's lighting circuit, since this is a LIGHT switch.
+	area?.power_change()
 
 
 /obj/machinery/light_switch/power_change(forced = FALSE)
-	if(!..() || !otherarea)
+	if(!..())
 		return
 	update_icon()
 
@@ -147,10 +99,6 @@
 		return
 	power_change()
 	..(severity)
-
-/obj/machinery/light_switch/process()
-	if(logic_connect && powered(LIGHT))		//We won't send signals while unpowered, but the last signal will remain valid for anything that received it before we went dark
-		handle_output()
 
 
 /obj/machinery/light_switch/attackby(obj/item/I, mob/user, params)
@@ -169,3 +117,38 @@
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new/obj/item/mounted/frame/light_switch(get_turf(src))
 	qdel(src)
+
+
+/obj/item/circuit_component/light_switch
+	display_name = "Выключатель света"
+	desc = "Позволяет управлять освещением."
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
+
+	///If the lights should be turned on or off when the trigger is triggered.
+	var/datum/port/input/on_setting
+	///Whether the lights are turned on
+	var/datum/port/output/is_on
+
+	var/obj/machinery/light_switch/attached_switch
+
+/obj/item/circuit_component/light_switch/populate_ports()
+	on_setting = add_input_port("Вкл", PORT_TYPE_NUMBER)
+	is_on = add_output_port("Включено", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/light_switch/register_usb_parent(atom/movable/parent)
+	. = ..()
+	if(istype(parent, /obj/machinery/light_switch))
+		attached_switch = parent
+		RegisterSignal(parent, COMSIG_LIGHT_SWITCH_SET, PROC_REF(on_light_switch_set))
+
+/obj/item/circuit_component/light_switch/unregister_usb_parent(atom/movable/parent)
+	attached_switch = null
+	UnregisterSignal(parent, COMSIG_LIGHT_SWITCH_SET)
+	return ..()
+
+/obj/item/circuit_component/light_switch/proc/on_light_switch_set(datum/source, status)
+	SIGNAL_HANDLER
+	is_on.set_output(status)
+
+/obj/item/circuit_component/light_switch/input_received(datum/port/input/port)
+	attached_switch?.set_lights(on_setting.value ? TRUE : FALSE)

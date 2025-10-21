@@ -32,7 +32,9 @@
 	var/alarm_on = FALSE
 	var/busy = FALSE
 
-	var/in_use_lights = 0 // TO BE IMPLEMENTED
+	///Boolean on whether the AI can even turn on this camera's light- borg cameras dont have one, for example.
+	var/internal_light = TRUE
+
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
 	var/list/localMotionTargets = list()

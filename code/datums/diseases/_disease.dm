@@ -21,8 +21,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	//Visibility
 	var/visibility_flags = VISIBLE
-	/// If NONTHREAT, not marked on HUD
-	var/severity = NONTHREAT
+	/// If nonthreat, not marked on HUD
+	var/severity = DISEASE_SEVERITY_NONTHREAT
 
 	/// The fraction of stages the disease must at least be at to show up on medical HUDs. Rounded up.
 	var/discovery_threshold = 0.5
@@ -248,3 +248,22 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		qdel(src)
 		return TRUE
 
+//Use this to compare severities
+/proc/get_disease_severity_value(severity)
+	switch(severity)
+		if(DISEASE_SEVERITY_UNCURABLE)
+			return 0
+		if(DISEASE_SEVERITY_POSITIVE)
+			return 1
+		if(DISEASE_SEVERITY_NONTHREAT)
+			return 2
+		if(DISEASE_SEVERITY_MINOR)
+			return 3
+		if(DISEASE_SEVERITY_MEDIUM)
+			return 4
+		if(DISEASE_SEVERITY_HARMFUL)
+			return 5
+		if(DISEASE_SEVERITY_DANGEROUS)
+			return 6
+		if(DISEASE_SEVERITY_BIOHAZARD)
+			return 7

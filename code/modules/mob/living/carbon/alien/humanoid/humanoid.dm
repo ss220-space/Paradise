@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 
 
 /mob/living/carbon/alien/humanoid/lying_angle_on_lying_down(new_lying_angle)
-	set_lying_angle(90)	// it had to be 90, looks silly otherwise
+	set_lying_angle(LYING_ANGLE_EAST)	// it had to be 90, looks silly otherwise
 
 
 /mob/living/carbon/alien/humanoid/get_permeability_protection()

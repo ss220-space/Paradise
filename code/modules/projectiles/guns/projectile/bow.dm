@@ -115,7 +115,7 @@
 	return
 
 
-/obj/item/gun/projectile/bow/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/projectile/bow/handle_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
 	ready_to_fire = FALSE
 	update_state()

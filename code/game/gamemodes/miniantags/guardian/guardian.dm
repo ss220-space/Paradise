@@ -70,17 +70,15 @@
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
-		var/image/holder = hud_list[HEALTH_HUD]
-		holder.icon_state = "hud[RoundHealth(summoner)]"
+		set_hud_image_state(HEALTH_HUD, "hud[RoundHealth(summoner)]")
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_status()
 	if(summoner)
-		var/image/holder = hud_list[STATUS_HUD]
-		holder.pixel_y = get_cached_height() - ICON_SIZE_Y
+		var/pixel_y = get_cached_height() - ICON_SIZE_Y
 		if(summoner.stat == DEAD)
-			holder.icon_state = STATUS_HUD_DEAD
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD, y_offset = pixel_y)
 		else
-			holder.icon_state = STATUS_HUD_HEALTHY
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_HEALTHY, y_offset = pixel_y)
 
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()

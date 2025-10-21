@@ -66,7 +66,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_LAVENDER
 	circuit = /obj/item/circuitboard/rdconsole
-	var/datum/research/files							//Stores all the collected research data.
+	var/datum/research/files					//Stores all the collected research data.
 	var/obj/item/disk/tech_disk/t_disk = null	//Stores the technology disk.
 	var/obj/item/disk/design_disk/d_disk = null	//Stores the design disk.
 
@@ -137,6 +137,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(linked_imprinter == null)
 				linked_imprinter = D
 				D.linked_console = src
+				linked_imprinter.update_components_list()
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -288,12 +289,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			server_processed = TRUE
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 			S.produce_heat(100)
+
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
+
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/reset_research()
 	qdel(files)
 	files = new /datum/research(src)
 	clear_wait_message()
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()

@@ -7,6 +7,8 @@
 #define BOT_BEACON_FREQ 1445 //bot navigation beacons
 #define AIRLOCK_FREQ 1449 //airlock controls, electropack, magnets
 
+#define DEFAULT_SIGNALER_CODE 30
+
 #define RSD_FREQ 1457 //radio signal device
 #define IMPL_FREQ 1451 //tracking implant
 
@@ -70,6 +72,7 @@
 #define RADIO_MEDBOT "12"
 #define RADIO_MAGNETS "radio_magnet"
 #define RADIO_LOGIC "radio_logic"
+#define RADIO_SIGNALER "signaler"
 
 // Signal types
 #define SIGNALTYPE_NORMAL 0

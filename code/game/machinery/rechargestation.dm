@@ -154,6 +154,7 @@
 
 /obj/machinery/recharge_station/proc/process_occupant()
 	if(src.occupant)
+		SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs, recharge_speed_nutrition)
 		if(istype(occupant, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/R = occupant
 			restock_modules()
@@ -290,7 +291,7 @@
 		if(occupant)
 			to_chat(H, span_warning("The cell is already occupied!"))
 			return
-		if(!H.get_int_organ(/obj/item/organ/internal/cell))
+		if(!H.get_int_organ(/obj/item/organ/internal/cell) && !H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci))
 			return
 		can_accept_user = 1
 

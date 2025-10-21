@@ -16,7 +16,7 @@
 	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 
-/obj/item/gun/syringe/process_chamber()
+/obj/item/gun/syringe/handle_chamber()
 	if(!length(syringes) || chambered.BB)
 		return
 

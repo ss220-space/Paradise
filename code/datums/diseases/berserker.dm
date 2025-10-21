@@ -7,7 +7,7 @@
 	stage_prob = 5
 	cures = list("haloperidol")
 	cure_prob = 10
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 	can_immunity = FALSE
 	visibility_flags = HIDDEN_PANDEMIC
 

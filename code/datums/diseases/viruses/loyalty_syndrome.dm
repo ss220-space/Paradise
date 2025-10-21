@@ -10,7 +10,7 @@
 	cure_text = "Галоперидол"
 	cures = list("haloperidol")
 	visibility_flags = HIDDEN_HUD
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_BIOHAZARD
 	var/is_master = FALSE
 	var/mob/living/carbon/human/master
 	var/timer = 0

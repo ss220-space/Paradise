@@ -34,6 +34,6 @@
 	item_state = icon_state
 
 
-/obj/item/gun/throw/piecannon/process_chamber()
+/obj/item/gun/throw/piecannon/handle_chamber()
 	..()
 	update_icon(UPDATE_ICON_STATE)
