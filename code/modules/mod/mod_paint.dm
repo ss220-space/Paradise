@@ -49,3 +49,54 @@
 	compatible_theme = /datum/mod_theme/medical
 	desc = "Этот одноразовый комплект для покраски позволяет изменить цвет модульного костюма. Этот тип подходит исключительно для \
 			медицинских костюмов."
+
+/obj/item/mod/universal_modkit
+	name = "MOD universal skin applier"
+	desc = "Этот одноразовый комплект для покраски позволяет сменить внешний вид МЭК. В отличие от других вариаций, данный комплект можно применить к любому МЭК."
+	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
+	icon_state = "paintkit"
+
+/obj/item/mod/universal_modkit/get_ru_names()
+	return list(
+		NOMINATIVE = "универсальный комплект покраски МЭК",
+		GENITIVE = "универсального комплекта покраски МЭК",
+		DATIVE = "универсальному комплекту покраски МЭК",
+		ACCUSATIVE = "универсальный комплект покраски МЭК",
+		INSTRUMENTAL = "универсальным комплектом покраски МЭК",
+		PREPOSITIONAL = "универсальном комплекте покраски МЭК"
+	)
+
+/obj/item/mod/universal_modkit/pre_attackby(atom/attacked_atom, mob/living/user, params)
+	if(!ismodcontrol(attacked_atom))
+		return ..()
+	var/obj/item/mod/control/mod = attacked_atom
+	if(mod.active || mod.activating)
+		balloon_alert(user, "выключите костюм!")
+		return ATTACK_CHAIN_BLOCKED
+
+	var/list/possibilities = list()
+	for(var/variant in mod.theme.variants)
+		if(mod.skin == variant)
+			continue
+		possibilities += variant
+
+	if(isemptylist(possibilities))
+		balloon_alert(user, "нет раскрасок!")
+		return ATTACK_CHAIN_PROCEED
+
+	INVOKE_ASYNC(src, PROC_REF(choose_skin), user, mod, possibilities)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/item/mod/universal_modkit/proc/choose_skin(mob/living/user, obj/item/mod/control/mod, list/possibilities)
+	var/choice = tgui_input_list(user, "Выберите подходящую раскраску", "раскраски", possibilities)
+	if(!choice || user.incapacitated() || !user.is_in_hands(src) || !user.Adjacent(mod))
+		return
+
+	balloon_alert(user, "применение раскраски...")
+	if(!do_after(user, 3 SECONDS, mod))
+		return
+
+	mod.theme.set_skin(mod, choice)
+	balloon_alert(user, "перекрашено")
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED
