@@ -592,7 +592,7 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 	)
 
 /obj/item/mod/control/pre_equipped/contractor/upgraded //for future midround contractor
-	applied_cell = /obj/item/stock_parts/power_store/cell/bluespace
+	applied_cell = /obj/item/stock_parts/cell/bluespace
 	applied_modules = list(
 		/obj/item/mod/module/baton_holster,
 		/obj/item/mod/module/dna_lock/emp_shield,

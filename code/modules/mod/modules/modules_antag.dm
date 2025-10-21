@@ -755,6 +755,16 @@
 	/// Our holstered baton
 	var/obj/item/melee/baton/telescopic/contractor/holstered
 
+/obj/item/mod/module/baton_holster/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль хранения дубинки",
+		GENITIVE = "модуля хранения дубинки",
+		DATIVE = "модулю хранения дубинки",
+		ACCUSATIVE = "модуль хранения дубинки",
+		INSTRUMENTAL = "модулем хранения дубинки",
+		PREPOSITIONAL = "модуле хранения дубинки",
+	)
+
 /obj/item/mod/module/baton_holster/on_use()
 	if(!holstered)
 		var/obj/item/melee/baton/telescopic/contractor/holding = mod.wearer.get_active_hand()
@@ -782,4 +792,120 @@
 
 /obj/item/mod/module/baton_holster/Destroy()
 	QDEL_NULL(holstered)
+	return ..()
+
+// MARK: Scorpion hook
+///  Scorpion hook - slight reskin of meat hook
+/obj/item/mod/module/scorpion_hook
+	name = "MOD SCORPION hook module"
+	desc = "Модуль для МЭК, устаналвиваемый в предплечье костюма. Представляет из себя незаконную модификацию технологии крюк-кошки \
+			с использованием технологий твёрдого света. В отличие от оригинальной технологии, данный крюк применяется исключительно \
+			против биологических целей. Мощные катушки притягивают жертву к пользователю на огромной скорости, выбивая жертву из равновесия."
+	icon_state = "hook_contractor"
+	incompatible_modules = list(/obj/item/mod/module/scorpion_hook)
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
+	device = /obj/item/gun/magic/contractor_hook
+	cooldown_time = 0.5 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
+
+/obj/item/mod/module/scorpion_hook/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль крюк-кошки \"Скорпион\"",
+		GENITIVE = "модуля крюк-кошки \"Скорпион\"",
+		DATIVE = "модулю крюк-кошки \"Скорпион\"",
+		ACCUSATIVE = "модуль крюк-кошки \"Скорпион\"",
+		INSTRUMENTAL = "модулем крюк-кошки \"Скорпион\"",
+		PREPOSITIONAL = "модуле крюк-кошки \"Скорпион\"",
+	)
+
+/obj/item/gun/magic/contractor_hook
+	name = "SCORPION hook"
+	desc = "A hardlight hook used to non-lethally pull targets much closer to the user."
+	ammo_type = /obj/item/ammo_casing/magic/contractor_hook
+	icon = 'icons/obj/weapons/energy.dmi'
+	icon_state = "hook_weapon"
+	item_state = "gun"
+	fire_sound = 'sound/weapons/batonextend.ogg'
+	max_charges = 1
+	recharge_rate = 0
+	charge_tick = 1
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_MEDIUM
+	slot_flags = NONE
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON|NOPICKUP
+	force = 0
+
+/obj/item/gun/magic/contractor_hook/get_ru_names()
+	return list(
+		NOMINATIVE = "крюк-кошка \"Скорпион\"",
+		GENITIVE = "крюк-кошки \"Скорпион\"",
+		DATIVE = "крюк-кошке \"Скорпион\"",
+		ACCUSATIVE = "крюк-кошку \"Скорпион\"",
+		INSTRUMENTAL = "крюк-кошкой \"Скорпион\"",
+		PREPOSITIONAL = "крюк-кошке \"Скорпион\"",
+	)
+
+/obj/item/ammo_casing/magic/contractor_hook
+	name = "Hardlight hook"
+	desc = "Крюк из твёрдого света. Хватит его разглядывать, уворачивайся!"
+	projectile_type = /obj/projectile/contractor_hook
+	caliber = "hardlight_hook"
+	icon_state = "hard_hook"
+	muzzle_flash_effect = null
+
+/obj/item/ammo_casing/magic/contractor_hook/get_ru_names()
+	return list(
+		NOMINATIVE = "крюк из твёрдого света",
+		GENITIVE = "крюка из твёрдого света",
+		DATIVE = "крюку из твёрдого света",
+		ACCUSATIVE = "крюк из твёрдого света",
+		INSTRUMENTAL = "крюком из твёрдого света",
+		PREPOSITIONAL = "крюке из твёрдого света",
+	)
+
+/obj/projectile/contractor_hook
+	name = "Hardlight hook"
+	icon_state = "hard_hook"
+	damage = 0
+	stamina = 25
+	hitsound = 'sound/weapons/whip.ogg'
+	weaken = 2 SECONDS
+	ricochet_chance = 0
+	range = 7
+
+/obj/projectile/contractor_hook/get_ru_names()
+	return list(
+		NOMINATIVE = "крюк из твёрдого света",
+		GENITIVE = "крюка из твёрдого света",
+		DATIVE = "крюку из твёрдого света",
+		ACCUSATIVE = "крюк из твёрдого света",
+		INSTRUMENTAL = "крюком из твёрдого света",
+		PREPOSITIONAL = "крюке из твёрдого света",
+	)
+
+/obj/projectile/contractor_hook/fire(setAngle)
+	if(firer)
+		chain = firer.Beam(src, icon_state = "hard_chain", time = INFINITY, maxdistance = INFINITY)
+	..()
+
+/obj/projectile/contractor_hook/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(blocked >= 100)
+		return 0
+	var/turf/firer_turf = get_turf(firer)
+	if(isliving(target))
+		var/mob/living/L = target
+		if(!L.anchored && L.loc)
+			L.visible_message(span_danger("[L] был захвачен крюком [firer]!"))
+			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
+			L.forceMove(firer_turf)
+			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
+			firer.drop_item_ground(src)
+
+
+
+/obj/projectile/contractor_hook/Destroy()
+	QDEL_NULL(chain)
 	return ..()
