@@ -236,7 +236,7 @@
 	if(!(device || constructed))
 		build_device()
 
-	if(device?.cooldown > 0)
+	if(!COOLDOWN_FINISHED(device, cooldown))
 		return
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())

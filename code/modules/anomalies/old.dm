@@ -205,7 +205,7 @@
 /obj/effect/old_anomaly/energetic/proc/mobShock(mob/living/mob)
 	if(canshock && istype(mob))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
-		mob.electrocute_act(shockdamage, "потоковой аномалии", flags = SHOCK_NOGLOVES)
+		mob.electrocute_act(shockdamage, src, flags = SHOCK_NOGLOVES)
 
 /obj/effect/old_anomaly/energetic/detonate()
 	if(explosive)

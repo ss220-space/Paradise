@@ -146,6 +146,11 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 
+/obj/item/clothing/mask/muzzle/safety/shock/Destroy()
+	. = ..()
+	QDEL_NULL(proximity_monitor)
+
+
 /obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/I, mob/user, params)
 	if(issignaler(I) || istype(I, /obj/item/assembly/voice))
 		add_fingerprint(user)
@@ -157,7 +162,7 @@
 		trigger = I
 		trigger.master = src
 		trigger.holder = src
-		AddComponent(/datum/component/proximity_monitor)
+		proximity_monitor = new(src)
 		to_chat(user, span_notice("You have attached [I] to [src]."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -180,7 +185,7 @@
 	trigger.master = null
 	trigger.holder = null
 	trigger = null
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	QDEL_NULL(proximity_monitor)
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/can_shock(obj/item/clothing/C)
 	if(istype(C))

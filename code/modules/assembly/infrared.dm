@@ -133,20 +133,22 @@
 
 
 /obj/item/assembly/infra/proc/trigger_beam(atom/movable/AM)
+	if(!secured || !on || !COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
 	var/mob/triggered
 	if(AM.throwing?.thrower)
 		triggered = AM.throwing.thrower
+
 	else if(ismob(AM))
 		triggered = AM
-	if(!secured || !on || cooldown > 0)
-		return FALSE
-	cooldown = 2
+
+	COOLDOWN_START(src, cooldown, cooldown_time)
 	pulse(FALSE, triggered)
 	audible_message("[bicon(src)] *beep* *beep* *beep*", hearing_distance = 3)
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	if(first)
 		qdel(first)
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
 
 
 /obj/item/assembly/infra/interact(mob/user)//TODO: change this this to the wire control panel

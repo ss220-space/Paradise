@@ -492,13 +492,13 @@
 			if(1)
 				// 44 total burn damage with 11 augmented limbs
 				if(owner)
-					owner.apply_damage(8, BURN, def_zone = src)
+					owner.apply_damage(8 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 8)
 			if(2)
 				// 22 total burn damage with 11 augmented limbs
 				if(owner)
-					owner.apply_damage(6, BURN, def_zone = src)
+					owner.apply_damage(6 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 6)
 	else if(emp_resistant) // IPC limbs
@@ -506,25 +506,25 @@
 			if(1)
 				// 5.28 (9 * 0.66 burn_mod) burn damage, 65.34 damage with 11 limbs.
 				if(owner)
-					owner.apply_damage(9, BURN, def_zone = src)
+					owner.apply_damage(9 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 9)
 			if(2)
 				// 3.63 (5 * 0.66 burn_mod) burn damage, 39.93 damage with 11 limbs.
 				if(owner)
-					owner.apply_damage(5.5, BURN, def_zone = src)
+					owner.apply_damage(5.5 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 5.5)
 	else // Basic prosthetic limbs
 		switch(severity)
 			if(1)
 				if(owner)
-					owner.apply_damage(20, BURN, def_zone = src)
+					owner.apply_damage(20 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 20)
 			if(2)
 				if(owner)
-					owner.apply_damage(7, BURN, def_zone = src)
+					owner.apply_damage(7 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 7)
 
