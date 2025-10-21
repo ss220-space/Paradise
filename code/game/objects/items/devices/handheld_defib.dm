@@ -1,6 +1,7 @@
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
 	desc = "Used to restart stopped hearts."
+	icon = 'icons/obj/defib.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
 	belt_icon = "handheld_defibrillator"

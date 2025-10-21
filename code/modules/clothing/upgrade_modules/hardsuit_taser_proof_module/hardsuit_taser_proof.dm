@@ -29,11 +29,11 @@
 			new /obj/item/hardsuit_taser_proof/ert_locked(src)
 
 /obj/item/hardsuit_taser_proof/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+	. = FALSE
 	if(!hardsuit)
-		return FALSE
+		return .
 	if(!hardsuit.suit_adjusted)
-		return FALSE
+		return .
 	var/obj/projectile/P = hitby
 	if(istype(P) && P.shockbull)
 		return TRUE
-	return FALSE

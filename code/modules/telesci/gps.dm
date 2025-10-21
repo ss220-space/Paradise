@@ -301,4 +301,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	return ..()
 
 
+/obj/item/gps/mod
+	icon_state = "gps-m"
+	gpstag = "MOD0"
+	desc = "Система ГПС-позиционирования для МЭК, предназначенная для поиска и эвакуации шахтёров, оказавшихся в чрезвычайной ситуации \
+			Передаёт точные координаты костюма, позволяя отследить пользователя с помощью других ГПС-устройств."
+/obj/item/gps/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, MODSUIT_TRAIT)
+
 #undef EMP_DISABLE_TIME

@@ -90,6 +90,7 @@
 
 #define TOGGLES_3_TOTAL 63 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
+
 #define TOGGLES_3_DEFAULT (PREFTOGGLE_3_FACING_TO_MOUSE)
 
 #if TOGGLES_3_TOTAL > 16777215

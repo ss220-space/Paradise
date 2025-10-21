@@ -30,12 +30,13 @@
 
 	/// Special flags applied to clothing items only
 	var/clothing_flags = NONE
-	/// Clothing flags that are added/removed when an item is adjusted up/down
-	var/visor_clothing_flags = NONE
-	/// Same as visor_clothing_flags, but for flags_inv
+	var/visor_flags = NONE
+	/// Same as visor_flags, but for flags_inv
 	var/visor_flags_inv = NONE
 	/// Same as visor_flags_inv, but for flags_inv_transparent
 	var/visor_flags_inv_transparent = NONE
+	/// Same as visor_flags_inv_transparent, but for flags_cover
+	var/visor_flags_cover = NONE
 	/// What to toggle when toggled with weldingvisortoggle()
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT|VISOR_TINT|VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW|VISOR_FULL_HUD
 
@@ -135,15 +136,15 @@
 
 	. = TRUE
 	up = !up
-	clothing_flags ^= visor_clothing_flags
+	clothing_flags ^= visor_flags
 	flags_inv ^= visor_flags_inv
 	flags_inv_transparent ^= visor_flags_inv_transparent
-	flags_cover ^= initial(flags_cover)
+	flags_cover ^= visor_flags_cover
 	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint = up ? tint_up : initial(tint)
-	update_icon(UPDATE_ICON_STATE)
+	update_appearance()
 
 
 // Aurora forensics port.
@@ -994,6 +995,8 @@
 	. = ..()
 
 	if(ishuman(user) && hide_tail_by_species && slot == ITEM_SLOT_CLOTH_OUTER)
+		if("modsuit" in hide_tail_by_species)
+			return
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
@@ -1027,7 +1030,7 @@
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
@@ -1065,6 +1068,7 @@
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	strip_delay = 80
 	put_on_delay = 80
+	equip_delay_self = 4 SECONDS
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")

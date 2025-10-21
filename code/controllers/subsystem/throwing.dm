@@ -95,9 +95,11 @@ SUBSYSTEM_DEF(throwing)
 	var/last_move = 0
 	///When this variable is `FALSE`, non dense mobs will be hit by a thrown thing.
 	var/dodgeable = TRUE
+	/// Can a thrown mob move themselves to stop the throw?
+	var/block_movement = TRUE
 
 
-/datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone, dodgeable)
+/datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone, dodgeable, block_movement)
 	. = ..()
 	src.thrownthing = thrownthing
 	RegisterSignal(thrownthing, COMSIG_QDELETING, PROC_REF(on_thrownthing_qdel))
@@ -115,6 +117,7 @@ SUBSYSTEM_DEF(throwing)
 	src.callback = callback
 	src.target_zone = target_zone
 	src.dodgeable = dodgeable
+	src.block_movement = block_movement
 
 
 /datum/thrownthing/Destroy()

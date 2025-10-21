@@ -471,8 +471,15 @@
 				H.update_worn_mask()
 
 			if(H.head && !(H.head.resistance_flags & ACID_PROOF))
-				to_chat(H, span_danger("Ваш[genderize_ru(H.head.gender, "", "а", "е", "и")] [H.head.declent_ru(NOMINATIVE)] плавится!"))
-				qdel(H.head)
+				if(istype(H.head, /obj/item/clothing/head/mod) && ismodcontrol(H.back))
+					var/obj/item/mod/control/C = H.back
+					var/name = H.head.declent_ru(NOMINATIVE)
+					C.seal_part(H.head, FALSE)
+					C.retract(null, H.head)
+					to_chat(H, span_danger("Ваш[genderize_ru(H.head.gender, "", "а", "е", "и")] [name] начинает оплавляться, как вдруг костюм проводит процедуру экстренного ремонта, выключаясь от перегрузки!"))
+				else
+					to_chat(H, span_danger("Ваш[genderize_ru(H.head.gender, "", "а", "е", "и")] [H.head.declent_ru(NOMINATIVE)] плавится!"))
+					qdel(H.head)
 				H.update_worn_head()
 
 			return

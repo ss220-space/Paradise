@@ -153,21 +153,21 @@
 		return TRUE
 
 /obj/machinery/recharge_station/proc/process_occupant()
-	if(src.occupant)
-		SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs, recharge_speed_nutrition)
-		if(istype(occupant, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R = occupant
-			restock_modules()
+	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs, recharge_speed_nutrition)
+	if(isrobot(occupant))
+		var/mob/living/silicon/robot/R = occupant
+		restock_modules()
+		if(repairs)
+			R.heal_overall_damage(repairs, repairs)
+		if(R.cell)
+			R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
+	else if(ishuman(occupant))
+		var/mob/living/carbon/human/H = occupant
+		if(H.get_int_organ(/obj/item/organ/internal/cell))
+			if(H.nutrition < NUTRITION_LEVEL_FULL - 1)
+				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
 			if(repairs)
-				R.heal_overall_damage(repairs, repairs)
-			if(R.cell)
-				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
-		else if(ishuman(occupant))
-			var/mob/living/carbon/human/H = occupant
-			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
-				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
-			if(repairs)
-				H.heal_overall_damage(repairs, repairs, affect_robotic = TRUE)
+				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out(mob/user = usr)
 	if(!occupant)
@@ -291,7 +291,7 @@
 		if(occupant)
 			to_chat(H, span_warning("The cell is already occupied!"))
 			return
-		if(!H.get_int_organ(/obj/item/organ/internal/cell) && !H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci))
+		if(!(ismodcontrol(H.back) || H.get_int_organ(/obj/item/organ/internal/cell) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci)))
 			return
 		can_accept_user = 1
 

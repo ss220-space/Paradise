@@ -177,3 +177,33 @@
 		/obj/item/clothing/under/rank,
 	), only_root_path = TRUE)
 
+// Modsuit
+/datum/action/item_action/chameleon/change/modsuit
+	chameleon_name = "Backpack"
+	chameleon_type = /obj/item/storage/backpack
+
+/datum/action/item_action/chameleon/change/modsuit/update_item(obj/item/picked_item)
+	. = ..()
+	if(ismodcontrol(target))
+		var/obj/item/mod/control/C = target
+		if(C.current_disguise) //backup check
+			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
+				toreturn.return_look()
+			return
+		C.current_disguise = TRUE
+		C.item_state = initial(picked_item.item_state)
+		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
+			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look))
+
+/datum/action/item_action/chameleon/change/modsuit/select_look(mob/user)
+	if(ismodcontrol(target))
+		var/obj/item/mod/control/C = target
+		if(C.current_disguise) //backup check
+			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
+				toreturn.return_look()
+				return
+		if(C.active || C.activating)
+			C.wearer.balloon_alert(C.wearer, "выключите костюм!")
+			UpdateButtonIcon()
+			return
+	..()

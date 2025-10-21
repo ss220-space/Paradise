@@ -60,7 +60,12 @@
 			span_userdanger("[user] is trying to put [name] on you!"),
 		)
 
-	if(!do_after(user, 5 SECONDS, target))
+	var/handcuff_time_mod = 1
+
+	if(HAS_TRAIT(user, TRAIT_FAST_CUFFING))
+		handcuff_time_mod = 0.75
+
+	if(!do_after(user, handcuff_time_mod * 5 SECONDS, target))
 		to_chat(user, span_warning("You failed to handcuff [user == target ? "yourself" : target]!"))
 		return .
 

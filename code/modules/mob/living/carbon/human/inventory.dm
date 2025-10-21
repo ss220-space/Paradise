@@ -30,7 +30,6 @@
 	if(!istype(our_glasses))
 		update_worn_glasses()
 		return
-
 	if(our_glasses.tint || initial(our_glasses.tint))
 		update_tint()
 	if(our_glasses.prescription)
@@ -38,17 +37,19 @@
 	if(our_glasses.vision_flags || our_glasses.see_in_dark || our_glasses.invis_override || our_glasses.invis_view || !isnull(our_glasses.lighting_alpha))
 		update_sight()
 		update_client_colour()
-	// Handle eyes shine
 	if(our_glasses.flags_cover & GLASSESCOVERSEYES)
 		update_misc_effects()
-
 	update_worn_glasses()
 
 
 /**
  * Handle stuff to update when a mob equips/unequips a mask.
  */
-/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off = FALSE)
+/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off)
+	mask = mask || wear_mask
+	if(!mask)
+		return
+
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
@@ -96,7 +97,9 @@
 
 	if(forced || \
 		(check_item.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
-		(initial(check_item.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
+		(initial(check_item.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
+		(check_item.visor_flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
+		(initial(check_item.visor_flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -113,18 +116,30 @@
 	if(forced || \
 		(check_item.flags_inv & HIDEHEADSETS) || \
 		(check_item.flags_inv_transparent & HIDEHEADSETS) || \
+		(check_item.visor_flags_inv & HIDEHEADSETS) || \
+		(check_item.visor_flags_inv_transparent & HIDEHEADSETS) || \
+		(initial(check_item.visor_flags_inv) & HIDEHEADSETS) || \
+		(initial(check_item.visor_flags_inv_transparent) & HIDEHEADSETS) || \
 		(initial(check_item.flags_inv) & HIDEHEADSETS) || \
 		(initial(check_item.flags_inv_transparent) & HIDEHEADSETS))
 		update_worn_ears()
 	if(forced || \
 		(check_item.flags_inv & HIDEMASK) || \
 		(check_item.flags_inv_transparent & HIDEMASK) || \
+		(check_item.visor_flags_inv & HIDEMASK) || \
+		(check_item.visor_flags_inv_transparent & HIDEMASK) || \
+		(initial(check_item.visor_flags_inv) & HIDEMASK) || \
+		(initial(check_item.visor_flags_inv_transparent) & HIDEMASK) || \
 		(initial(check_item.flags_inv) & HIDEMASK) || \
 		(initial(check_item.flags_inv_transparent) & HIDEMASK))
 		update_worn_mask()
 	if(forced || \
 		(check_item.flags_inv & HIDEGLASSES) || \
 		(check_item.flags_inv_transparent & HIDEGLASSES) || \
+		(check_item.visor_flags_inv & HIDEGLASSES) || \
+		(check_item.visor_flags_inv_transparent & HIDEGLASSES) || \
+		(initial(check_item.visor_flags_inv) & HIDEGLASSES) || \
+		(initial(check_item.visor_flags_inv_transparent) & HIDEGLASSES) || \
 		(initial(check_item.flags_inv) & HIDEGLASSES) || \
 		(initial(check_item.flags_inv_transparent) & HIDEGLASSES))
 		update_worn_glasses()
@@ -141,20 +156,36 @@
  * Handles stuff to update when a mob equips/unequips a suit.
  */
 /mob/living/carbon/human/wear_suit_update(obj/item/clothing/suit)
+	suit = suit || wear_suit
+	if(!suit)
+		return
+
 	if((suit.flags_inv & HIDEJUMPSUIT) || \
 		(suit.flags_inv_transparent & HIDEJUMPSUIT) || \
+		(suit.visor_flags_inv & HIDEJUMPSUIT) || \
+		(suit.visor_flags_inv_transparent & HIDEJUMPSUIT) || \
+		(initial(suit.visor_flags_inv) & HIDEJUMPSUIT) || \
+		(initial(suit.visor_flags_inv_transparent) & HIDEJUMPSUIT) || \
 		(initial(suit.flags_inv) & HIDEJUMPSUIT) || \
 		(initial(suit.flags_inv_transparent) & HIDEJUMPSUIT))
 		update_worn_undersuit()
 
 	if((suit.flags_inv & HIDESHOES) || \
 		(suit.flags_inv_transparent & HIDESHOES) || \
+		(suit.visor_flags_inv & HIDESHOES) || \
+		(suit.visor_flags_inv_transparent & HIDESHOES) || \
+		(initial(suit.visor_flags_inv) & HIDESHOES) || \
+		(initial(suit.visor_flags_inv_transparent) & HIDESHOES) || \
 		(initial(suit.flags_inv) & HIDESHOES) || \
 		(initial(suit.flags_inv_transparent) & HIDESHOES))
 		update_worn_shoes()
 
 	if((suit.flags_inv & HIDEGLOVES) || \
 		(suit.flags_inv_transparent & HIDEGLOVES) || \
+		(suit.visor_flags_inv & HIDEGLOVES) || \
+		(suit.visor_flags_inv_transparent & HIDEGLOVES) || \
+		(initial(suit.visor_flags_inv) & HIDEGLOVES) || \
+		(initial(suit.visor_flags_inv_transparent) & HIDEGLOVES) || \
 		(initial(suit.flags_inv) & HIDEGLOVES) || \
 		(initial(suit.flags_inv_transparent) & HIDEGLOVES))
 		update_worn_gloves()
@@ -438,6 +469,9 @@
 				if(get_active_hand() == I)
 					temporarily_remove_item_from_inventory(I)
 				I.forceMove(back)
+			else if(ismodcontrol(back))
+				var/obj/item/mod/control/control = back
+				I.forceMove(control.bag || drop_location())
 			else
 				I.item_flags &= ~IN_STORAGE
 				I.forceMove(drop_location())

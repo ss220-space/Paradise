@@ -1054,6 +1054,13 @@
 				var/obj/item/storage/backpack/backpack = user.back
 				if(length(backpack.contents) < backpack.storage_slots && I.w_class <= backpack.max_w_class)
 					return TRUE
+			else if(user.back && ismodcontrol(user.back))
+				var/obj/item/mod/control/control = user.back
+				if(!control.bag)
+					return FALSE
+				var/obj/item/storage/backpack/backpack = control.bag
+				if(length(backpack.contents) < backpack.storage_slots && I.w_class <= backpack.max_w_class)
+					return TRUE
 			return FALSE
 
 		// UNIFORM ACCESORIES
@@ -1079,7 +1086,7 @@
  */
 /datum/species/proc/equip_delay_self_check(obj/item/I, slot, mob/living/carbon/human/user)
 	user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] надевать [I.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете надевать [I.declent_ru(ACCUSATIVE)]..."))
-	return do_after(user, I.equip_delay_self, user)
+	return do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE))
 
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
@@ -1172,6 +1179,21 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 		if(human.vision_type.light_sensitive)
 			human.weakeyes = TRUE
+
+	if(HAS_TRAIT(human, TRAIT_MESON_VISION))
+		human.add_sight(SEE_TURFS)
+		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(human, TRAIT_THERMAL_VISION))
+		human.add_sight(SEE_MOBS)
+		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(human, TRAIT_XRAY_VISION))
+		human.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+
+	if(HAS_TRAIT(human, TRAIT_NIGHT_VISION))
+		human.nightvision = max(human.nightvision, 8)
+		human.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	if(HAS_TRAIT(human, TRAIT_XRAY))
 		human.add_sight((SEE_TURFS|SEE_MOBS|SEE_OBJS))

@@ -200,6 +200,7 @@
 /mob/living/proc/MobBump(mob/living/bumped_mob)
 	// even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(bumped_mob)
+	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, bumped_mob)
 
 	if(get_confusion() && get_disoriented())
 		Weaken(1 SECONDS)
@@ -1353,7 +1354,7 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_EARLY_FLASH_EYES, intensity, override_blindness_check, affect_silicon, visual, type) & STOP_FLASHING_EYES)
 		return FALSE
 
-	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)) && !HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
@@ -1441,34 +1442,20 @@
 	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 0.2 SECONDS, loop = loop_amount, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS)
 
-
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	if(istype(loc, /obj/structure/closet/critter))
-		return environment.temperature
-	if(ismecha(loc))
-		var/obj/mecha/M = loc
-		return  M.return_temperature()
-	if(isvampirecoffin(loc))
-		var/obj/structure/closet/coffin/vampire/coffin = loc
-		return coffin.return_temperature()
-	if(isspacepod(loc))
-		var/obj/spacepod/S = loc
-		return S.return_temperature()
-	if(istype(loc, /obj/structure/transit_tube_pod))
-		return environment.temperature
-	if(istype(get_turf(src), /turf/space))
+	var/loc_temp = environment ? environment.temperature : T0C
+	if(isobj(loc))
+		var/obj/oloc = loc
+		var/obj_temp = oloc.return_temperature()
+		if(obj_temp != null)
+			loc_temp = obj_temp
+	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
-		return heat_turf.temperature
-	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-		if(C.air_contents.total_moles() < 10)
-			return environment.temperature
-		else
-			return C.air_contents.temperature
-	if(environment)
-		return environment.temperature
-	return T0C
-
+		loc_temp = heat_turf.temperature
+	if(ismovable(loc))
+		var/atom/movable/occupied_space = loc
+		loc_temp = ((1 - occupied_space.contents_thermal_insulation) * loc_temp) + (occupied_space.contents_thermal_insulation * bodytemperature)
+	return loc_temp
 
 /mob/living/proc/spawn_dust()
 	new /obj/effect/decal/cleanable/ash(loc)
@@ -1794,23 +1781,25 @@
 			sync_lighting_plane_alpha()
 
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
 	return ..()
 
 
-/mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	if(C == src || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !density)
+/mob/living/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(throwned_mob == src || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 	if(mob_hurt)
 		return
 	if(!self_hurt)
 		take_organ_damage(damage)
-	C.take_organ_damage(damage)
-	C.Weaken(3 SECONDS)
-	C.visible_message(span_danger("[C.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [name], сбивая друг друга с ног!"),
-					span_userdanger("Вы жестко врезаетесь в [name]!"))
+	throwned_mob.take_organ_damage(damage)
+	throwned_mob.Weaken(3 SECONDS)
+	throwned_mob.visible_message(
+		span_danger("[capitalize(throwned_mob.declent_ru(NOMINATIVE))] вреза[PLUR_ET_UT(src)]ся в [declent_ru(ACCUSATIVE)], сбивая друг друга с ног!"),
+		span_userdanger("Вы жёстко врезаетесь в [declent_ru(ACCUSATIVE)]!")
+	)
 
 
 /mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
@@ -2189,6 +2178,9 @@
 
 /// Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment.
 /mob/living/proc/on_fall()
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_THUD)
 	return
 
 

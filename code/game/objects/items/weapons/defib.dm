@@ -3,6 +3,7 @@
 /obj/item/defibrillator
 	name = "defibrillator"
 	desc = "Прибор, генерирующий высоковольтный импульс, позволяющий запустить остановившееся сердце."
+	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibunit"
 	item_state = "defibunit"
 	slot_flags = ITEM_SLOT_BACK
@@ -359,6 +360,7 @@
 /obj/item/twohanded/shockpaddles
 	name = "defibrillator paddles"
 	desc = "Пара электродов с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
+	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles"
 	item_state = "defibpaddles"
 	throwforce = 6

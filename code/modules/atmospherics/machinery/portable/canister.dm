@@ -272,7 +272,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/portable_atmospherics/canister/return_air()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/canister/proc/return_temperature()
+/obj/machinery/portable_atmospherics/canister/return_temperature()
 	var/datum/gas_mixture/GM = return_air()
 	if(GM && GM.volume>0)
 		return GM.temperature

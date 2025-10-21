@@ -2982,14 +2982,15 @@
 	},
 /area/centcom/jail)
 "bsK" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_x = -8;
-	pixel_y = 4
-	},
 /obj/item/syndicatedetonator{
-	pixel_x = 4
+	pixel_x = 6;
+	pixel_y = 5
 	},
 /obj/structure/table/wood/poker,
+/obj/item/mod/universal_modkit/infinite{
+	pixel_x = -8;
+	pixel_y = 7
+	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "btN" = (
@@ -50137,7 +50138,14 @@
 /area/shuttle/escape)
 "xaF" = (
 /obj/structure/table,
-/obj/item/coin/antagtoken/syndicate,
+/obj/item/coin/antagtoken/syndicate{
+	pixel_x = -8;
+	pixel_y = -2
+	},
+/obj/item/mod/universal_modkit/infinite{
+	pixel_x = 5;
+	pixel_y = 12
+	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium_red"
@@ -50351,7 +50359,12 @@
 /obj/item/paper/syndimemo{
 	info = "Пришлось срочно вылететь на задание. Печенье доделаете сами. - Джордж";
 	name = "Записка'";
-	pixel_x = 3
+	pixel_x = 10;
+	pixel_y = 3
+	},
+/obj/item/mod/universal_modkit/infinite{
+	pixel_x = -4;
+	pixel_y = 6
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"

@@ -36,12 +36,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
 "aak" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/computer/guestpass{
-	pixel_x = 28
-	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Quartermaster's Desk";
@@ -49,10 +43,12 @@
 	name = "Quartermaster Requests Console";
 	pixel_y = -30
 	},
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/sloth/paperwork,
+/obj/machinery/light,
+/obj/structure/cable{
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "brown"
 	},
 /area/quartermaster/qm)
@@ -13364,6 +13360,9 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/quartermaster,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -38879,6 +38878,12 @@
 /obj/machinery/light_switch{
 	pixel_y = 24
 	},
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "qm";
+	pixel_x = 8;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -41910,6 +41915,22 @@
 "eyS" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/item/mod/module/megaphone{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/mod/module/quick_cuff{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/obj/item/mod/module/quick_cuff{
+	pixel_x = -7;
+	pixel_y = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42542,7 +42563,18 @@
 /area/hallway/secondary/exit)
 "eGw" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/donut/sprinkles,
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = 1;
+	pixel_y = -6
+	},
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/mod/module/pepper_shoulders{
+	pixel_y = 9;
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43881,6 +43913,10 @@
 	pixel_y = -4
 	},
 /obj/item/reagent_containers/food/drinks/mug/sec,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "whitered"
@@ -48784,6 +48820,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -65682,6 +65720,10 @@
 /area/hallway/primary/fore)
 "kiM" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/box/syndie_kit/dropwall{
+	pixel_x = -2;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72227,6 +72269,10 @@
 	},
 /obj/structure/table/glass,
 /obj/item/reagent_containers/spray/cleaner/medical,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -82719,6 +82765,12 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = 7
+	},
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = -9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -87608,6 +87660,10 @@
 /obj/item/clothing/accessory/stethoscope,
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
+	},
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -95035,6 +95091,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/range)
+"qSO" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "qTn" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -101311,11 +101376,8 @@
 /area/maintenance/asmaint4)
 "sqn" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "qm";
-	pixel_x = 5;
-	pixel_y = 24
+/obj/machinery/computer/guestpass{
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -106456,6 +106518,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
+"tBq" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "tBr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -110644,6 +110715,9 @@
 	pixel_y = -10
 	},
 /obj/machinery/keycard_auth,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -111245,6 +111319,16 @@
 	icon_state = "dark"
 	},
 /area/security/prisonershuttle)
+"uCE" = (
+/obj/machinery/suit_storage_unit/qm,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "uCM" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
@@ -172529,11 +172613,11 @@ coE
 aaq
 aaq
 aaq
-uDx
+tBq
 bSJ
 duw
 bIp
-duw
+vft
 aak
 dDb
 cqB
@@ -172791,7 +172875,7 @@ dDb
 dmQ
 wFL
 bMz
-dDb
+uCE
 dDb
 aaq
 dXb
@@ -173048,8 +173132,8 @@ dDb
 dDb
 dDb
 dDb
+qSO
 dDb
-aaq
 aaq
 dJH
 boD

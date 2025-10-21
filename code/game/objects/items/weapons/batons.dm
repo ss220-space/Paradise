@@ -166,12 +166,14 @@
 
 
 /obj/item/melee/baton/proc/baton_effect(mob/living/target, mob/living/user, stun_override)
+	var/trait_check = HAS_TRAIT(target, TRAIT_BATON_RESISTANCE)
+
 	if(isrobot(target))
 		if(!affect_cyborgs)
 			return FALSE
 		var/mob/living/silicon/robot/cyborg = target
 		cyborg.flash_eyes(3, affect_silicon = TRUE)
-		cyborg.Stun((isnull(stun_override) ? stun_time_cyborg : stun_override))
+		cyborg.Stun((isnull(stun_override) ? stun_time_cyborg : stun_override) * (trait_check ? 0.1 : 1))
 		additional_effects_cyborg(cyborg, user)
 	else if(isbot(target))
 		if(!affect_bots)
@@ -183,8 +185,11 @@
 			var/mob/living/carbon/human/human_target = target
 			human_target.forcesay(GLOB.hit_appends)
 		target.apply_damage(stamina_damage, STAMINA)
-		target.Knockdown((isnull(stun_override) ? knockdown_time : stun_override))
+		if(!trait_check)
+			target.Knockdown((isnull(stun_override) ? knockdown_time : stun_override))
 		additional_effects_non_cyborg(target, user)
+
+	SEND_SIGNAL(target, COMSIG_MOB_BATONED, user, src)
 	return TRUE
 
 
@@ -197,6 +202,8 @@
 
 
 /obj/item/melee/baton/proc/clumsy_check(mob/living/user, mob/living/intented_target)
+	var/trait_check = HAS_TRAIT(user, TRAIT_BATON_RESISTANCE)
+
 	if(!active || !HAS_TRAIT(user, TRAIT_CLUMSY) || prob(50))
 		return FALSE
 	user.visible_message(
@@ -208,7 +215,7 @@
 		if(affect_cyborgs)
 			var/mob/living/silicon/robot/cyborg = user
 			cyborg.flash_eyes(3, affect_silicon = TRUE)
-			cyborg.Stun(clumsy_knockdown_time)
+			cyborg.Stun(clumsy_knockdown_time * (trait_check ? 0.1 : 1))
 			additional_effects_cyborg(user, user) // user is the target here
 			if(on_stun_sound)
 				playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
@@ -218,7 +225,8 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user
 			human_user.forcesay(GLOB.hit_appends)
-		user.Knockdown(clumsy_knockdown_time)
+		if(!trait_check)
+			user.Knockdown(clumsy_knockdown_time)
 		user.apply_damage(stamina_damage, STAMINA)
 		additional_effects_non_cyborg(user, user) // user is the target here
 		if(on_stun_sound)
@@ -229,6 +237,8 @@
 	add_attack_logs(user, user, "accidentally stun attacked [user.p_them()]self due to their clumsiness")
 	if(stun_animation)
 		user.do_attack_animation(user)
+
+	SEND_SIGNAL(user, COMSIG_MOB_BATONED, user, src)
 	return TRUE
 
 
@@ -261,12 +271,17 @@
 
 /// Contains any special effects that we apply to living, non-cyborg mobs we stun. Does not include applying a knockdown, dealing stamina damage, etc.
 /obj/item/melee/baton/proc/additional_effects_non_cyborg(mob/living/target, mob/living/user)
-	return
+	if(HAS_TRAIT(target, TRAIT_BATON_RESISTANCE))
+		return FALSE
+	return TRUE
 
 
 /// Contains any special effects that we apply to cyborgs we stun. Does not include flashing the cyborg's screen, hardstunning them, etc.
 /obj/item/melee/baton/proc/additional_effects_cyborg(mob/living/target, mob/living/user)
-	return
+	if(HAS_TRAIT(target, TRAIT_BATON_RESISTANCE))
+		return FALSE
+	return TRUE
+
 
 
 /obj/item/melee/baton/ntcane

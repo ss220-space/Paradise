@@ -268,6 +268,9 @@
 
 // See click_override.dm
 /mob/living/MiddleClickOn(atom/A)
+	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A, src)
+	if(. & COMSIG_MOB_CANCEL_CLICKON)
+		return
 	if(middleClickOverride)
 		middleClickOverride.onClick(A, src)
 	else

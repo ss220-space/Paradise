@@ -25494,6 +25494,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/item/bodybag/environmental/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -54271,7 +54272,7 @@
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
 "gpC" = (
-/obj/item/flag/cargo,
+/obj/machinery/suit_storage_unit/qm,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -60325,6 +60326,16 @@
 	},
 /turf/simulated/floor/carpet/purple,
 /area/maintenance/server)
+"jfE" = (
+/obj/structure/table/glass,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/security/medbay)
 "jgi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -61403,6 +61414,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/item/flag/cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -66725,6 +66737,10 @@
 /obj/item/toy/figure/cmo,
 /obj/item/lighter/zippo/cmo,
 /obj/item/stamp/cmo,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 7;
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -73869,6 +73885,10 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
+/obj/item/storage/box/syndie_kit/dropwall{
+	pixel_x = -2;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -74344,6 +74364,18 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/item/mod/module/pepper_shoulders{
+	pixel_y = 9;
+	pixel_x = 6
+	},
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = 1;
+	pixel_y = -6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -81073,6 +81105,22 @@
 	network = list("SS13","Security")
 	},
 /obj/structure/table/reinforced,
+/obj/item/mod/module/quick_cuff{
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/mod/module/quick_cuff{
+	pixel_x = 7;
+	pixel_y = 5
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = 6;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -84437,6 +84485,12 @@
 "tUB" = (
 /obj/structure/table,
 /obj/machinery/recharger,
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = -8
+	},
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = 7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -118995,7 +119049,7 @@ adO
 aee
 afj
 aeI
-uQe
+jfE
 afp
 ash
 hdV

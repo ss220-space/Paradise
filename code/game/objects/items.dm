@@ -456,7 +456,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				span_notice("[user] начинает снимать [declent_ru(ACCUSATIVE)]..."),
 				span_notice("Вы начинаете снимать [declent_ru(ACCUSATIVE)]..."),
 			)
-			if(!do_after(user, equip_delay_self, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [declent_ru(GENITIVE)] было прервано!")))
+			if(!do_after(user, equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [declent_ru(GENITIVE)] было прервано!")))
 				return
 
 		if(!user.temporarily_remove_item_from_inventory(src, silent = FALSE))
@@ -809,6 +809,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			continue
 		if(container.can_be_inserted(src, TRUE))
 			return container.handle_item_insertion(src)
+
+	for(var/obj/item/mod/control/control in possible)
+		if(control.can_be_inserted(src, TRUE))
+			return control.handle_item_insertion(src)
 
 	if(drop_on_fail)
 		if(src in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
@@ -1374,7 +1378,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	stack_trace("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
 
 
-/obj/item/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/item/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	return
 
 

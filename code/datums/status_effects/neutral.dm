@@ -387,3 +387,7 @@
 	if(!.)
 		return
 	new_owner.start_leaning(object, leaning_offset)
+
+/datum/status_effect/impact_immune
+	id = "impact_immune"
+	alert_type = null

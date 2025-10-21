@@ -17,6 +17,10 @@
 	var/projectile_type = /obj/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
+	///If this variable is true, the syringe will work through hardsuits / modsuits / biosuits.
+	var/penetrates_thick = FALSE
+	///If this variable is true, the syringe will work through unathi skin
+	var/ignores_pierceimmune = FALSE
 
 /obj/item/reagent_containers/syringe/get_ru_names()
 	return list(
@@ -66,7 +70,7 @@
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		if(!L.can_inject(user, TRUE))
+		if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick, ignore_pierceimmune = ignores_pierceimmune))
 			return
 
 	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE, user)
@@ -126,7 +130,7 @@
 				return
 
 			if(L) //living mob
-				if(!L.can_inject(user, TRUE))
+				if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick, ignore_pierceimmune = ignores_pierceimmune))
 					return
 				if(L != user)
 					L.visible_message(span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся сделать [L] укол [declent_ru(INSTRUMENTAL)]!"), \
