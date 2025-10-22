@@ -41,7 +41,7 @@
 	if(msg == "")
 		. = ""
 		return
-	
+
 	SEND_SIGNAL(src, COMSIG_COMBINE_MESSAGE_FOR_HEARER, &msg)
 
 	return trim(msg)
@@ -261,8 +261,8 @@
 		message = strip_html_properly(message)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
-		if(messages.len > 0)
-			var/R = rand(1, messages.len)
+		if(length(messages) > 0)
+			var/R = rand(1, length(messages))
 			var/heardword = messages[R]
 			if(copytext(heardword,1, 1) in punctuation)
 				heardword = copytext(heardword,2)

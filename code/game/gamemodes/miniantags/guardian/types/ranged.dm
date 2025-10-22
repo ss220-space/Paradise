@@ -3,13 +3,11 @@
 	icon_state = "guardian"
 	damage = 20
 	armour_penetration = 100
-	damage_type = BRUTE
 
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	damage_transfer = 1
 	projectiletype = /obj/projectile/guardian
 	ranged_cooldown_time = 5 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
@@ -77,13 +75,13 @@
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleLight()
 	var/msg
 	switch(lighting_alpha)
-		if (LIGHTING_PLANE_ALPHA_VISIBLE)
+		if(LIGHTING_PLANE_ALPHA_VISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 			msg = "Вы активировали ночное зрение."
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		if(LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 			msg = "Вы усилили ночное зрение."
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
+		if(LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 			msg = "Вы увеличили ночное зрение до максимума."
 		else
@@ -98,7 +96,7 @@
 	set name = "Установить ловушку"
 	set category = STATPANEL_GUARDIAN
 	set desc = "Установите невидимую ловушку, которая оповестит вас, когда по ней пройдут живые существа. Максимум 5"
-	if(snares.len <6)
+	if(length(snares) <6)
 		var/turf/snare_loc = get_turf(loc)
 		var/obj/item/effect/snare/snare = new(snare_loc, src)
 		snare.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"

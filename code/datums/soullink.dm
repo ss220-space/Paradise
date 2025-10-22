@@ -37,18 +37,22 @@
 //Runs after /living death()
 //Override this for content
 /datum/soullink/proc/ownerDies(gibbed, mob/living/owner)
+	return
 
 //Runs after /living death()
 //Override this for content
 /datum/soullink/proc/sharerDies(gibbed, mob/living/owner)
+	return
 
 //Runs after /living update_revive()
 //Override this for content
 /datum/soullink/proc/ownerRevives(mob/living/owner)
+	return
 
 //Runs after /living update_revive()
 //Override this for content
 /datum/soullink/proc/sharerRevives(mob/living/owner)
+	return
 
 //Quick-use helper
 /proc/soullink(typepath, ...)
@@ -121,7 +125,7 @@
 		soulsharer.death(gibbed)
 
 /datum/soullink/sharedbody/sharerDies(gibbed, mob/living/sharer)
-	if(soulowner && soulsharer && soulsharer.mind)
+	if(soulowner && soulsharer?.mind)
 		soulsharer.mind.transfer_to(soulowner)
 
 

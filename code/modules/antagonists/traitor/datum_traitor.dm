@@ -1,4 +1,4 @@
-#define EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED	8
+#define EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED 8
 
 // For "Actual traitors"
 /datum/antagonist/traitor
@@ -117,7 +117,7 @@
 
 
 	var/objective_count = hijacker_antag			//Hijacking counts towards number of objectives
-	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
+	if(!SSticker.mode.exchange_blue && length(SSticker.mode.traitors) >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
 			SSticker.mode.exchange_red = owner
 		else
@@ -226,16 +226,16 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
-	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
+	antag_memory += "<b>Code Phrase</b>: [span_red("[phrases]")]<br>"
+	antag_memory += "<b>Code Response</b>: [span_red("[responses]")]<br>"
 
 	var/list/messages = list()
 	if(silent)
 		return messages
 
 	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<b>Code Phrase:</b> <span class='codephrases'>[phrases]</span>")
-	messages.Add("<b>Code Response:</b> <span class='coderesponses'>[responses]</span>")
+	messages.Add("<b>Code Phrase:</b> [span_codephrases("[phrases]")]")
+	messages.Add("<b>Code Response:</b> [span_coderesponses("[responses]")]")
 	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
@@ -285,7 +285,7 @@
 			freq += 2
 			if((freq % 2) == 0)
 				freq += 1
-		freq = freqlist[rand(1, freqlist.len)]
+		freq = freqlist[rand(1, length(freqlist))]
 
 		var/obj/item/uplink/hidden/new_uplink = new(target_radio)
 		hidden_uplink = new_uplink
@@ -317,8 +317,8 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var/message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
+	var/message = "<br><b>The code phrases were:</b> [span_blue(span_big(phrases))]<br>\
+					<b>The code responses were:</b> [span_redtext("[responses]")]<br>"
 
 	return message
 

@@ -57,9 +57,12 @@
 			blockselfban = 1
 			kickbannedckey = 1
 
-	if( !bantype_pass ) return
-	if( !istext(reason) ) return
-	if( !isnum(duration) ) return
+	if(!bantype_pass)
+		return
+	if(!istext(reason))
+		return
+	if(!isnum(duration))
+		return
 
 	var/ckey
 	var/computerid
@@ -146,7 +149,7 @@
 		qdel(adm_query)
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `server_id)
+		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `server_id`)
 		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null, :server_id)
 	"}, list(
 		// Get ready for parameters
@@ -178,7 +181,7 @@
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Ban]** [a_ckey] applied a [bantype_str] on [ckey]")
 
 	if(kickbannedckey)
-		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
+		if(banned_mob?.client && banned_mob.client.ckey == banckey)
 			qdel(banned_mob.client)
 
 	if(isjobban)
@@ -225,7 +228,8 @@
 			if(BANTYPE_ANY_FULLBAN)
 				bantype_str = "ANY"
 				bantype_pass = 1
-		if( !bantype_pass ) return
+		if(!bantype_pass)
+			return
 
 	var/bantype_sql
 	if(bantype_str == "ANY")
@@ -339,7 +343,7 @@
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
 				var/list/values = text2numlist(raw_values, ":")
-				if(!values?.len || values.len != 3)
+				if(!length(values) || length(values) != 3)
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
 				value = values[1] BAN_DAYS + values[2] BAN_HOURS + values[3]

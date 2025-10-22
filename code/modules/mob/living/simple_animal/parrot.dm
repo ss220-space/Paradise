@@ -35,7 +35,6 @@
 /mob/living/simple_animal/parrot
 	name = "parrot"
 	desc = "Попугай пронзительно кричит: \"Это попугай! БВАХ-бах!\""
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 	icon_living = "parrot_fly"
 	icon_dead = "parrot_dead"
@@ -122,18 +121,22 @@
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
-	verbs.Add(/mob/living/simple_animal/parrot/proc/steal_from_ground, \
-			  /mob/living/simple_animal/parrot/proc/steal_from_mob, \
-			  /mob/living/simple_animal/parrot/verb/drop_held_item_player, \
-			  /mob/living/simple_animal/parrot/proc/perch_player)
+	verbs.Add(
+		/mob/living/simple_animal/parrot/proc/steal_from_ground, \
+		/mob/living/simple_animal/parrot/proc/steal_from_mob, \
+		/mob/living/simple_animal/parrot/verb/drop_held_item_player, \
+		/mob/living/simple_animal/parrot/proc/perch_player
+	)
 
-	desired_perches = typecacheof(list(/obj/structure/computerframe,	/obj/structure/displaycase, \
-									/obj/structure/filingcabinet,	/obj/machinery/teleport, \
-									/obj/machinery/suit_storage_unit,/obj/machinery/clonepod, \
-									/obj/machinery/dna_scannernew,	/obj/machinery/tcomms, \
-									/obj/machinery/nuclearbomb,		/obj/machinery/particle_accelerator, \
-									/obj/machinery/recharge_station,	/obj/machinery/smartfridge, \
-									/obj/machinery/computer))
+	desired_perches = typecacheof(list( \
+		/obj/structure/computerframe, /obj/structure/displaycase, \
+		/obj/structure/filingcabinet, /obj/machinery/teleport, \
+		/obj/machinery/suit_storage_unit, /obj/machinery/clonepod, \
+		/obj/machinery/dna_scannernew, /obj/machinery/tcomms, \
+		/obj/machinery/nuclearbomb, /obj/machinery/particle_accelerator, \
+		/obj/machinery/recharge_station, /obj/machinery/smartfridge, \
+		/obj/machinery/computer)
+	)
 
 /mob/living/simple_animal/parrot/add_strippable_element()
 	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
@@ -155,7 +158,7 @@
 		if(held_item)
 			custom_emote(EMOTE_VISIBLE, "бросает [held_item.declent_ru(ACCUSATIVE)]!")
 			drop_held_item()
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 	return ..()
 
 
@@ -300,9 +303,9 @@
 
 //-----SPEECH
 	/* Parrot speech mimickry!
-	   Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
-	   Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
-	   Then it clears the buffer to make sure they dont magically remember something from hours ago. */
+	Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
+	Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
+	Then it clears the buffer to make sure they dont magically remember something from hours ago. */
 	if(length(speech_buffer) && prob(10))
 		if(length(clean_speak))
 			clean_speak -= pick(clean_speak)
@@ -344,7 +347,7 @@
 //-----WANDERING - This is basically a 'I dont know what to do yet' state
 	else if(parrot_state == PARROT_WANDER)
 		//Stop movement, we'll set it later
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		parrot_interest = null
 
 		//Wander around aimlessly. This will help keep the loops from searches down
@@ -384,7 +387,7 @@
 
 //-----STEALING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_STEAL))
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_interest || held_item || !(parrot_interest in view(src)))
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
@@ -413,12 +416,12 @@
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
-		SSmove_manager.move_to(src, path_to_take[2], 0, parrot_speed)
+		GLOB.move_manager.move_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
 //-----RETURNING TO PERCH
 	else if(parrot_state == (PARROT_SWOOP|PARROT_RETURN))
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_perch || !isturf(parrot_perch.loc)) //Make sure the perch exists and somehow isnt inside of something else.
 			parrot_perch = null
@@ -438,19 +441,19 @@
 			parrot_state = PARROT_WANDER
 			return
 
-		SSmove_manager.move_to(src, path_to_take[2], 0, parrot_speed)
+		GLOB.move_manager.move_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
 //-----FLEEING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_FLEE))
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_interest || !isliving(parrot_interest) || !Adjacent(parrot_interest)) //Sanity
 			parrot_state = PARROT_WANDER
 			parrot_interest = null
 			return
 
-		SSmove_manager.move_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
+		GLOB.move_manager.move_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
 		parrot_been_shot--
 		return
 
@@ -496,11 +499,11 @@
 		//Otherwise, fly towards the mob!
 		else
 			// No pathfinding here because the parrot is pissed and isn't thinking rationally.
-			SSmove_manager.move_to(src, parrot_interest, 1, parrot_speed)
+			GLOB.move_manager.move_to(src, parrot_interest, 1, parrot_speed)
 		return
 //-----STATE MISHAP
 	else //This should not happen. If it does lets reset everything and try again
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		parrot_interest = null
 		parrot_perch = null
 		drop_held_item()

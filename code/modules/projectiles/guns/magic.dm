@@ -6,7 +6,6 @@
 	item_state = "staff"
 	fire_sound = 'sound/weapons/emitter.ogg'
 	fire_sound_text = "energy blast"
-	flags =  CONDUCT
 	w_class = WEIGHT_CLASS_HUGE
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
@@ -29,7 +28,7 @@
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
-			to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
+			to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 			return
 		else
 			no_den_usage = 0
@@ -95,10 +94,10 @@
 	return
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>The [name] whizzles quietly.</span>")
+	to_chat(user, span_warning("The [name] whizzles quietly."))
 	return
 
 /obj/item/gun/magic/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is twisting the [name] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is twisting the [name] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide."))
 	playsound(loc, fire_sound, 50, TRUE, -1)
 	return FIRELOSS

@@ -87,7 +87,7 @@
 	},
 /area/ruin/unpowered)
 "cd" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -113,8 +113,8 @@
 	},
 /area/ruin/unpowered)
 "cT" = (
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -147,7 +147,7 @@
 	},
 /area/ruin/unpowered)
 "eo" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -161,7 +161,7 @@
 /area/ruin/unpowered)
 "eE" = (
 /obj/structure/door_assembly/door_assembly_ext,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -314,7 +314,7 @@
 	},
 /area/ruin/unpowered)
 "iC" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
@@ -326,7 +326,7 @@
 "iW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	nitrogen = 23;
 	oxygen = 14;
@@ -334,7 +334,7 @@
 	},
 /area/ruin/unpowered)
 "jM" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -352,7 +352,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kg" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -363,9 +363,9 @@
 	},
 /area/ruin/unpowered)
 "kw" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
@@ -444,7 +444,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "nf" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -494,8 +494,8 @@
 	},
 /area/lavaland/surface/outdoors)
 "nI" = (
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
@@ -709,7 +709,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "vi" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -720,7 +720,7 @@
 	},
 /area/ruin/unpowered)
 "vz" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel{
 	nitrogen = 23;
@@ -757,7 +757,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -901,8 +901,8 @@
 	},
 /area/ruin/unpowered)
 "yM" = (
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -962,7 +962,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "Ab" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -981,7 +981,7 @@
 	},
 /area/ruin/unpowered)
 "Ao" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/rack_parts,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1008,7 +1008,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Br" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1019,7 +1019,7 @@
 	},
 /area/ruin/unpowered)
 "BH" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
@@ -1027,7 +1027,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "BV" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
@@ -1055,7 +1055,7 @@
 	},
 /area/ruin/unpowered)
 "Cy" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/bedsheet,
 /obj/structure/bed,
@@ -1067,8 +1067,8 @@
 	},
 /area/ruin/unpowered)
 "CQ" = (
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/machinery/light_construct/small,
 /obj/effect/decal/cleanable/dirt,
@@ -1080,7 +1080,7 @@
 	},
 /area/ruin/unpowered)
 "Dw" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1090,7 +1090,7 @@
 	},
 /area/ruin/unpowered)
 "DB" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1102,7 +1102,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "Ex" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	nitrogen = 23;
@@ -1111,7 +1111,7 @@
 	},
 /area/ruin/unpowered)
 "Ez" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1130,7 +1130,7 @@
 	},
 /area/ruin/unpowered)
 "EI" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
@@ -1170,7 +1170,7 @@
 	},
 /area/ruin/unpowered)
 "FZ" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -1207,7 +1207,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "HP" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/miner,
@@ -1219,7 +1219,7 @@
 /area/lavaland/surface/outdoors)
 "HS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	nitrogen = 23;
 	oxygen = 14;
@@ -1227,7 +1227,7 @@
 	},
 /area/ruin/unpowered)
 "If" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
@@ -1251,8 +1251,8 @@
 	},
 /area/ruin/unpowered)
 "IX" = (
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1322,7 +1322,7 @@
 	},
 /area/ruin/unpowered)
 "KF" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating{
@@ -1344,7 +1344,7 @@
 "Ly" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/door_assembly/door_assembly_mhatch,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
@@ -1367,8 +1367,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Mj" = (
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
@@ -1466,7 +1466,7 @@
 	},
 /area/ruin/unpowered)
 "Qo" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1477,7 +1477,7 @@
 	},
 /area/ruin/unpowered)
 "QE" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
@@ -1499,7 +1499,7 @@
 	},
 /area/ruin/unpowered)
 "Rs" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -1533,7 +1533,7 @@
 	},
 /area/ruin/unpowered)
 "RS" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/workboots/mining,
@@ -1563,7 +1563,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "SV" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/marker_beacon,
 /turf/simulated/floor/plating{
@@ -1608,7 +1608,7 @@
 	},
 /area/ruin/unpowered)
 "UK" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -1648,7 +1648,7 @@
 	},
 /area/ruin/unpowered)
 "VJ" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1711,8 +1711,8 @@
 	dir = 10
 	},
 /obj/item/stack/ore/plasma,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -1744,7 +1744,7 @@
 	pixel_x = -7;
 	pixel_y = -8
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{

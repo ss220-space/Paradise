@@ -1,8 +1,8 @@
-#define MED_DATA_R_LIST	2	// Record list
-#define MED_DATA_MAINT	3	// Records maintenance
-#define MED_DATA_RECORD	4	// Record
-#define MED_DATA_V_DATA	5	// Virus database
-#define MED_DATA_MEDBOT	6	// Medbot monitor
+#define MED_DATA_R_LIST 2 // Record list
+#define MED_DATA_MAINT 3 // Records maintenance
+#define MED_DATA_RECORD 4 // Record
+#define MED_DATA_V_DATA 5 // Virus database
+#define MED_DATA_MEDBOT 6 // Medbot monitor
 
 #define FIELD(N, V, E) list(field = N, value = V, edit = E)
 #define MED_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
@@ -445,7 +445,7 @@
 		if(prob(10/severity))
 			switch(rand(1,6))
 				if(1)
-					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
+					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
 					R.fields["sex"] = pick("Мужской", "Женский", "Небинарный", "Множественный")
 				if(3)

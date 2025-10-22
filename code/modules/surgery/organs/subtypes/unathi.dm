@@ -17,7 +17,7 @@
 /obj/item/organ/internal/eyes/unathi
 	species_type = /datum/species/unathi
 	name = "unathi eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали унатху."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали унатху."
 	ru_names = list(
 		NOMINATIVE = "глаза унатха",
 		GENITIVE = "глаз унатха",
@@ -71,10 +71,8 @@
 		PREPOSITIONAL = "мозге унатха"
 	)
 	icon = 'icons/obj/species_organs/unathi.dmi'
-	icon_state = "brain2"
 	item_state = "unathi_brain"
 	mmi_icon = 'icons/obj/species_organs/unathi.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/unathi
 	species_type = /datum/species/unathi
@@ -119,7 +117,6 @@
 		PREPOSITIONAL = "хвосте унатха"
 	)
 	icon_name = "sogtail_s"
-	max_damage = 30
 	min_broken_damage = 20
 
 /obj/item/organ/internal/lungs/unathi/ash_walker
@@ -137,7 +134,7 @@
 
 /obj/item/organ/internal/eyes/unathi/ash_walker
 	name = "ash walker eyes"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали пеплоходцу."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали пеплоходцу."
 	ru_names = list(
 		NOMINATIVE = "глаза пеплоходца",
 		GENITIVE = "глаз пеплоходца",
@@ -148,11 +145,10 @@
 	)
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	see_in_dark = 3
 
 /obj/item/organ/internal/eyes/unathi/ash_walker_shaman
 	name = "ash walker shaman eyes"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали шаману пеплоходцев."
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали шаману пеплоходцев."
 	ru_names = list(
 		NOMINATIVE = "глаза шамана пеплоходцев",
 		GENITIVE = "глаз шамана пеплоходцев",
@@ -167,9 +163,9 @@
 /obj/item/organ/internal/eyes/unathi/ash_walker_shaman/insert(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(target)
+	H.show_to(target)
 
 /obj/item/organ/internal/eyes/unathi/ash_walker_shaman/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.remove_hud_from(target)
+	H.hide_from(target)

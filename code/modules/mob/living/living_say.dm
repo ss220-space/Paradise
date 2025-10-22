@@ -363,7 +363,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				italics = TRUE
 				sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
 
-		var/list/hear = hear(message_range, T)
+		var/list/hear = get_hear(message_range, T)
 		var/list/hearturfs = list()
 
 		for(var/I in hear)
@@ -401,7 +401,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, FALSE)
+		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, is_whisper = FALSE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
@@ -423,9 +423,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(O) //It's possible that it could be deleted in the meantime.
 				if(isradio(O))
 					var/obj/item/radio/radio = O
-					if(radio.broadcasting && get_dist(radio, M) <= radio.canhear_range && !(radio.frequency in transmited_channels))
+					if(radio.get_broadcasting() && get_dist(radio, M) <= radio.canhear_range && !(radio.get_frequency() in transmited_channels))
 						if(radio.talk_into(M, message_pieces, null, verbage))
-							transmited_channels += radio.frequency
+							transmited_channels += radio.get_frequency()
 				else
 					O.hear_talk(M, message_pieces, verbage)
 
@@ -509,7 +509,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		verb = "[adverb] [genderize_decode(src, verb)]"
 
 	var/atom/whisper_loc = get_whisper_loc()
-	var/list/listening = hear(message_range, whisper_loc)
+	var/list/listening = get_hear(message_range, whisper_loc)
 	listening |= src
 
 	var/list/hearturfs = list()
@@ -566,8 +566,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
-	if(eavesdropping.len)
-		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
+	if(length(eavesdropping))
+		stars_all(message_pieces) //hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
 			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
 			if(M.client)

@@ -40,11 +40,8 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	item_state = "trashbag"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = NONE
 	storage_slots = 30
 	max_combined_w_class = 30
@@ -52,7 +49,7 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
+	user.visible_message(span_suicide("[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))
 	playsound(loc, 'sound/items/eatfood.ogg', 50, TRUE, -1)
 	return TOXLOSS
 
@@ -92,10 +89,7 @@
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
-	storage_slots = 7
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
@@ -104,7 +98,7 @@
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	if(slot == ITEM_SLOT_HEAD && length(contents))
 		if(!disable_warning)
-			to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
+			to_chat(M, span_warning("You need to empty the bag first!"))
 		return FALSE
 	return ..()
 
@@ -139,9 +133,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = ITEM_SLOT_BELT
 	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
-	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_BULKY
@@ -184,7 +176,7 @@
 
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
-	desc = "Революционное решение – бесконечное хранилище для руды с защитой от сбоев."
+	desc = "Революционное решение — бесконечное хранилище для руды с защитой от сбоев."
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
@@ -214,9 +206,7 @@
 	desc = "Вы ожидали чего-то более стильного, как в мультфильмах про грабителей."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
-	slot_flags = ITEM_SLOT_BELT
 	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
-	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 48
 	max_combined_w_class = 48
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -249,9 +239,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bomb_satchel"
 	origin_tech = "engineering=2"
-	slot_flags = ITEM_SLOT_BELT
 	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
-	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 5
 	max_combined_w_class = 200
 	max_w_class = WEIGHT_CLASS_BULKY
@@ -414,9 +402,7 @@
 	icon_state = "sheetsnatcher"
 
 	var/capacity = 300; //the number of sheets it can carry.
-	w_class = WEIGHT_CLASS_NORMAL
 
-	allow_quick_empty = TRUE// this function is superceded
 
 /obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
@@ -428,7 +414,7 @@
 		current += S.amount
 	if(capacity == current)//If it's full, you're done
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>The snatcher is full.</span>")
+			to_chat(usr, span_warning("The snatcher is full."))
 		return 0
 	return 1
 
@@ -483,14 +469,17 @@
 			adjusted_contents++
 			var/datum/numbered_display/D = new/datum/numbered_display(I)
 			D.number = I.amount
-			numbered_contents.Add( D )
+			numbered_contents.Add(D)
 
 	var/row_num = 0
 	var/col_count = min(7,storage_slots) -1
 	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
-	src.standard_orient_objs(row_num, col_count, numbered_contents)
-	return
+
+	if(!display_contents_with_number)
+		space_orient_objs(numbered_contents)
+	else
+		standard_orient_objs(row_num, col_count, numbered_contents)
 
 
 // Modified quick_empty verb drops appropriate sized stacks
@@ -514,7 +503,7 @@
 	if(!istype(S)) return 0
 
 	//I would prefer to drop a new stack, but the item/attack_hand code
-	// that calls this can't recieve a different object than you clicked on.
+	// that calls this can't receive a different object than you clicked on.
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 
@@ -538,7 +527,6 @@
 // MARK:	Cash bag
 ////////////////////////////////////////
 /obj/item/storage/bag/cash
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "cashbag"
 	name = "Cash bag"
 	desc = "A bag for carrying lots of cash. It's got a big dollar sign printed on the front."
@@ -561,7 +549,6 @@
 	icon_state = "bookbag"
 	item_state = "bookbag"
 	display_contents_with_number = 0 //This would look really stupid otherwise
-	storage_slots = 7
 	max_combined_w_class = 21
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
@@ -722,10 +709,8 @@
 	force = 5
 	throwforce = 25
 	throw_speed = 3
-	throw_range = 7
 	armour_penetration = 15
 	sharp = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
@@ -803,7 +788,6 @@
 /obj/item/storage/bag/medpouch
 	name = "medicinal pouch"
 	desc = "Небольшой мешочек для хранения трав, припарок, наживки и мелких предметов."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "pouch_ash"
 	storage_slots = 40
 	max_combined_w_class = 200
@@ -829,8 +813,6 @@
 	name = "fishing pouch"
 	desc = "Небольшой мешочек для хранения различной наживки и частей рыб."
 	icon_state = "fishpouch_ash"
-	storage_slots = 40
-	max_combined_w_class = 200
 	can_hold = list(/obj/item/reagent_containers/food/snacks/bait,
 					/obj/item/reagent_containers/food/snacks/charred_krill,
 					/obj/item/stack/sheet/cartilage_plate,

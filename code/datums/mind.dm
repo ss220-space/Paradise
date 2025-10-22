@@ -59,8 +59,10 @@
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
-	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
-	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
+	/// this mind's ANTAG_HUD should have this icon_state
+	var/antag_hud_icon_state = null
+	/// this mind's antag HUD
+	var/datum/atom_hud/antag/antag_hud = null
 	var/datum/mindslaves/som //stands for slave or master...hush..
 	var/damnation_type = 0
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
@@ -85,6 +87,9 @@
 	var/list/curses
 
 	var/madeby_sentience_potion = FALSE
+
+	///a list of objectives that a player with this job could complete for space credit rewards
+	var/list/job_objectives = list()
 
 
 /datum/mind/New(new_key)
@@ -182,7 +187,7 @@
 		antag.on_body_transfer(old_current, current)
 
 	if(active)
-		new_character.set_key(key)		// now transfer the key to link the client to our new body
+		new_character.possess_by_player(key)		// now transfer the key to link the client to our new body
 
 	// essential mob updates
 	new_character.update_blind_effects()
@@ -295,7 +300,7 @@
 
 /datum/mind/proc/_memory_edit_role_enabled(role)
 	. = "|Disabled in Prefs"
-	if(current && current.client && (role in current.client.prefs.be_special))
+	if(current?.client && (role in current.client.prefs.be_special))
 		. = "|Enabled in Prefs"
 
 /datum/mind/proc/memory_edit_implant(mob/living/carbon/human/H)
@@ -408,6 +413,7 @@
 		. += " | Total blood: <a href='byond://?src=[UID()];vampire=edit_total_blood'>[vamp.bloodtotal]</a>"
 		var/has_subclass = !QDELETED(vamp.subclass)
 		. += "<br>Subclass: <a href='byond://?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
+		. += "<br>Diablerie level: <a href='byond://?src=[UID()];vampire=diablerie_level'>[vamp.diablerie ? vamp.diablerie.diablerie_count : "Нет"]</a>"
 		if(has_subclass)
 			. += " | Force full power: <a href='byond://?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
 			if(istype(vamp.subclass, /datum/vampire_subclass/bestia) || istype(vamp.subclass, /datum/vampire_subclass/ancient))
@@ -660,12 +666,12 @@
 		if(robot.laws.zeroth_law)
 			. += "<br>0th law: [robot.laws.zeroth_law?.law]"
 	var/mob/living/silicon/ai/ai = current
-	if(istype(ai) && ai.connected_robots.len)
+	if(istype(ai) && length(ai.connected_robots))
 		var/n_e_robots = 0
 		for(var/mob/living/silicon/robot/R in ai.connected_robots)
 			if(R.emagged)
 				n_e_robots++
-		. += "<br>[n_e_robots] of [ai.connected_robots.len] slaved cyborgs are emagged. <a href='byond://?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
+		. += "<br>[n_e_robots] of [length(ai.connected_robots)] slaved cyborgs are emagged. <a href='byond://?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
 
 
 /datum/mind/proc/memory_edit_uplink()
@@ -1027,7 +1033,7 @@
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
-				if(possible_targets.len)
+				if(length(possible_targets))
 					var/mob/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
@@ -1219,8 +1225,8 @@
 					input_sum = tgui_input_number(usr, "Введите необходимую денежную сумму:", "Денежная Сумма", max_value = INFINITY)
 				else
 					accounts_procent = tgui_input_number(usr, "Введите необходимый процентаж суммы со всех аккаунтов (1-100), иначе будет 60%:", "Процентаж", min_value = 1, max_value = 100)
-					if(!accounts_procent)
-						accounts_procent = initial(accounts_procent)
+					if(isnull(accounts_procent) || accounts_procent < 0)
+						return
 				money_objective.owner = src
 				money_objective.new_cash(input_sum, accounts_procent)
 
@@ -1321,14 +1327,14 @@
 		switch(href_list["implant"])
 			if("ertremove")
 				for(var/obj/item/implant/mindshield/ert/I in H.contents)
-					if(I && I.implanted)
+					if(I?.implanted)
 						qdel(I)
 				to_chat(H, span_notice(span_fontsize3("<b>Your ert mindshield implant has been deactivated.</b>")))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s ert mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s ert mindshield implant")
 			if("remove")
 				for(var/obj/item/implant/mindshield/I in H.contents)
-					if(I && I.implanted)
+					if(I?.implanted)
 						qdel(I)
 				to_chat(H, span_notice(span_fontsize3("<b>Your mindshield implant has been deactivated.</b>")))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
@@ -1547,7 +1553,7 @@
 					log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 				else if(src in SSticker.mode.apprentices)
-					if (SSticker.mode.wizards.len)
+					if(length(SSticker.mode.wizards))
 						var/datum/mind/wizard = pick(SSticker.mode.wizards)
 						SSticker.mode.forge_wizard_apprentice_objectives(wizard, src)
 					else
@@ -1602,8 +1608,7 @@
 
 				remove_vampire_role()
 				to_chat(current, span_fontsize3(span_red("<b>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</b>")))
-				log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
+				log_and_message_admins("has de-vampired [key_name(current)].")
 
 			if("goonvampire")
 				if(isvampire(src))
@@ -1613,8 +1618,7 @@
 				g_vamp.give_objectives = FALSE
 				add_antag_datum(g_vamp)
 				to_chat(usr, span_notice("У вампира [key] отсутствуют цели. Вы можете добавить их вручную или сгенерировать случайный набор, кнопкой <b>Randomize!</b>"))
-				log_admin("[key_name(usr)] has goon-vampired [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has goon-vampired [key_name_admin(current)]")
+				log_and_message_admins("has goon-vampired [key_name(current)].")
 
 			if("vampire")
 				if(isvampire(src))
@@ -1625,41 +1629,38 @@
 				add_antag_datum(vamp)
 				to_chat(usr, span_notice("У вампира [key] отсутствуют цели. Вы можете добавить их вручную или сгенерировать случайный набор, кнопкой <b>Randomize!</b>"))
 				to_chat(current, "<b><font color='red'>Ваши силы пробудились. Ваша жажда крови растет... Вы вампир!</font></b>")
-				log_admin("[key_name(usr)] has vampired [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
+				log_and_message_admins("has vampired [key_name(current)].")
 
 			if("edit_usable_blood")
 				if(!isvampire(src))
 					return
 
-				var/new_usable = tgui_input_number(usr, "Select a new value:", "Modify usable blood")
+				var/new_usable = tgui_input_number(usr, "Новое значение:", "Количество активной крови")
 				if(isnull(new_usable) || new_usable < 0)
 					return
 
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				vamp.bloodusable = new_usable
 				current.update_action_buttons_icon()
-				log_admin("[key_name(usr)] has set [key_name(current)]'s usable blood to [new_usable].")
-				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s usable blood to [new_usable].")
+				log_and_message_admins("has set [key_name(current)]'s usable blood to [new_usable].")
 
 			if("edit_total_blood")
 				if(!isvampire(src))
 					return
 
-				var/new_total = tgui_input_number(usr, "Select a new value:", "Modify total blood")
+				var/new_total = tgui_input_number(usr, "Новое значение:", "Общее количество крови")
 				if(isnull(new_total) || new_total < 0)
 					return
 
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				if(new_total < vamp.bloodtotal)
-					if(tgui_alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", list("Yes", "No")) == "No")
+					if(tgui_alert(usr, "Обратите внимание, уменьшение общей крови вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) != "Да")
 						return
 					vamp.remove_all_powers()
 
 				vamp.bloodtotal = new_total
 				vamp.check_vampire_upgrade()
-				log_admin("[key_name(usr)] has set [key_name(current)]'s total blood to [new_total].")
-				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s total blood to [new_total].")
+				log_and_message_admins("has set [key_name(current)]'s total blood to [new_total].")
 
 			if("change_subclass")
 				if(!isvampire(src))
@@ -1669,9 +1670,9 @@
 				for(var/subtype in subtypesof(/datum/vampire_subclass))
 					var/datum/vampire_subclass/subclass = subtype
 					subclass_selection[capitalize(initial(subclass.name))] = subtype
-				subclass_selection["Let them choose (remove current subclass)"] = NONE
+				subclass_selection["Удалить текущий подкласс"] = NONE
 
-				var/new_subclass_name = tgui_input_list(usr, "Choose a new subclass:", "Change Vampire Subclass", subclass_selection)
+				var/new_subclass_name = tgui_input_list(usr, "Выберите новый подкласс:", "Изменение текущего подкласса", subclass_selection)
 				if(!new_subclass_name)
 					return
 
@@ -1680,13 +1681,33 @@
 
 				if(subclass_type == NONE)
 					vamp.clear_subclass()
-					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
-					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
 				else
 					vamp.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
 					vamp.change_subclass(subclass_type)
-					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
-					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
+
+			if("diablerie_level")
+				if(!isvampire(src))
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+
+				var/new_total = tgui_input_number(usr, "Выберите новое значение:", "Изменение уровня диаблери", max_value = DIABLERIE_COUNT_MAX)
+				if(isnull(new_total))
+					to_chat(usr, span_warning("Неверное значение. Максимальный уровень — [DIABLERIE_COUNT_MAX], минимальный — 0."))
+					return
+
+				if(!vamp.diablerie)
+					vamp.diablerie = new(vamp)
+
+				if(new_total < vamp.diablerie.diablerie_count)
+					if(tgui_alert(usr, "Обратите внимание, понижение уровня диаблери вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) != "Да")
+						return
+
+				vamp.diablerie.force_diablerie_level(new_total)
+
+				log_and_message_admins("has set [key_name(current)]'s diablerie count to [new_total].")
 
 			if("full_power_override")
 				if(!isvampire(src))
@@ -1703,8 +1724,7 @@
 					vamp.subclass.full_power_override = TRUE
 
 				vamp.check_full_power_upgrade()
-				log_admin("[key_name(usr)] set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
-				message_admins("[key_name_admin(usr)] set [key_name_admin(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
+				log_and_message_admins("set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 
 			if("edit_hearts")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1716,8 +1736,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_HEART, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s hearts trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s hearts trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s hearts trophies by [new_total].")
 
 			if("edit_lungs")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1729,8 +1748,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_LUNGS, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s lungs trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s lungs trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s lungs trophies by [new_total].")
 
 			if("edit_livers")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1742,8 +1760,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_LIVER, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s livers trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s livers trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s livers trophies by [new_total].")
 
 			if("edit_kidneys")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1755,8 +1772,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_KIDNEYS, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s kidneys trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s kidneys trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s kidneys trophies by [new_total].")
 
 			if("edit_eyes")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1768,8 +1784,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_EYES, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s eyes trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s eyes trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s eyes trophies by [new_total].")
 
 			if("edit_ears")
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1781,8 +1796,7 @@
 					return
 
 				vamp.adjust_trophies(INTERNAL_ORGAN_EARS, new_total)
-				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s ears trophies by [new_total].")
-				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s ears trophies by [new_total].")
+				log_and_message_admins("has adjusted [key_name(current)]'s ears trophies by [new_total].")
 
 			if("autoobjectives")
 				if(!isvampire(src))
@@ -1791,16 +1805,14 @@
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				vamp.give_objectives()
 				to_chat(usr, span_notice("Для вампира [key] сгенерированы задания. Вы можете отредактировать и объявить их вручную."))
-				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+				log_and_message_admins("has automatically forged objectives for [key_name(current)].")
 
 	else if(href_list["vampthrall"])
 		switch(href_list["vampthrall"])
 			if("clear")
 				if(has_antag_datum(/datum/antagonist/mindslave/thrall))
 					remove_antag_datum(/datum/antagonist/mindslave/thrall)
-					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+					log_and_message_admins("has de-vampthralled [key_name(current)].")
 
 	else if(href_list["nuclear"])
 
@@ -1979,7 +1991,7 @@
 
 	else if(href_list["contractor"])
 		var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
-		var/datum/contractor_hub/H = C && C.contractor_uplink?.hub
+		var/datum/contractor_hub/H = C?.contractor_uplink?.hub
 		var/datum/antagonist/traitor/traitor = has_antag_datum(/datum/antagonist/traitor)
 		switch(href_list["contractor"])
 			if("clear")
@@ -2340,7 +2352,7 @@
 			if("autoobjectives")
 				var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
 				if(!ninja_datum?.my_suit)
-					to_chat(usr,span_warning("Ниндзя - зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!"))
+					to_chat(usr,span_warning("Ниндзя — зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!"))
 					return
 				var/list/objective_types = list(NINJA_TYPE_GENERIC, NINJA_TYPE_PROTECTOR, NINJA_TYPE_HACKER, NINJA_TYPE_KILLER)
 				var/objective_type = tgui_input_list(usr, "Select type of objectives to generate", "Objective type selection", objective_types)
@@ -2823,6 +2835,10 @@
 		add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
 
+/datum/mind/proc/make_free_vampire()
+	if(!isvampire(src))
+		add_antag_datum(/datum/antagonist/vampire/free_vampire)
+
 
 /datum/mind/proc/make_Wizard()
 	if(!(src in SSticker.mode.wizards))
@@ -2830,7 +2846,7 @@
 		special_role = SPECIAL_ROLE_WIZARD
 		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
-		if(!GLOB.wizardstart.len)
+		if(!length(GLOB.wizardstart))
 			current.forceMove(pick(GLOB.latejoin))
 			to_chat(current, "HOT INSERTION, GO GO GO")
 		else
@@ -2967,7 +2983,7 @@
 
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
-	if(old_current && old_current.actions)
+	if(old_current?.actions)
 		for(var/datum/action/A in old_current.actions)
 			if(A.check_flags & AB_TRANSFER_MIND)
 				A.Grant(new_character)
@@ -2989,8 +3005,7 @@
 		if(exception)
 			continue
 		if(spell.cooldown_handler)
-			spell.cooldown_handler.recharge_duration = delay
-			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge))
+			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge), delay)
 		spell.updateButtonIcon()
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
@@ -3021,7 +3036,7 @@
 		if(H.w_uniform)
 			jumpsuit = H.w_uniform
 			jumpsuit.color = team_color
-			H.update_inv_w_uniform()
+			H.update_worn_undersuit()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	add_conversion_logs(current, "became a mindslave for [convert_duration/600] minutes. Master: [key_name_log(missionary)]")
@@ -3041,7 +3056,7 @@
 		jumpsuit.color = initial(jumpsuit.color)		//reset the jumpsuit no matter where our mind is
 		if(ishuman(current))							//but only try updating us if we are still a human type since it is a human proc
 			var/mob/living/carbon/human/H = current
-			H.update_inv_w_uniform()
+			H.update_worn_undersuit()
 
 	to_chat(current, span_warning("<b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b>"))
 	to_chat(current, span_warning("<b>This means you don't remember who you were working for or what you were doing.</b>"))

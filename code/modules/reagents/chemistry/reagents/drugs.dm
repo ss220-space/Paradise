@@ -2,7 +2,6 @@
 	name = "Литий"
 	id = "lithium"
 	description = "Химический элемент."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "металла"
 
@@ -168,7 +167,6 @@
 	addiction_chance = 20
 	addiction_threshold = 15
 	shock_reduction = 30
-	harmless = FALSE
 	minor_addiction = TRUE
 	heart_rate_increase = 1
 	taste_description = "мятного онемения во рту"
@@ -390,7 +388,8 @@
 	heart_rate_increase = 1
 	taste_description = "бодрости"
 	tags = REAGENT_TAG_ANTI_STUN
-
+	chemdesc = "Ускоряет передвижение, бодрит и помогает легче справляться с оглушениями разного рода. Повреждает мозг."
+	chemuse = 50
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/user)
 	. = ..()
@@ -461,7 +460,6 @@
 	name = "Соль для ванн"
 	id = "bath_salts"
 	description = "На самом деле это не соли для купания в ванной, а синтетические наркотики, которые часто маскируют под соли для ванн и прочие бытовые вещества, чтобы упроситить распространение."
-	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_chance = 15
@@ -539,7 +537,7 @@
 /datum/reagent/jenkem
 	name = "Дженкем"
 	id = "jenkem"
-	description = "Дженкем - это тюремный наркотик, изготовленный путем брожения фекалий в растворе мочи. Крайне отвратительно."
+	description = "Дженкем — это тюремный наркотик, изготовленный путем брожения фекалий в растворе мочи. Крайне отвратительно."
 	reagent_state = LIQUID
 	color = "#644600"
 	addiction_chance = 5
@@ -639,6 +637,8 @@
 	addiction_chance_additional = 20
 	addiction_threshold = 10
 	taste_description = "кувырков"
+	chemdesc = "Вызывает неконтролируемое вращение."
+	chemuse = 50
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -747,9 +747,7 @@
 	addiction_threshold = 20
 	color = "#FF4DD2"
 	taste_description = "смеха"
-	can_synth = TRUE
 	reagent_state = LIQUID
-	harmless = TRUE
 
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -873,8 +871,7 @@
 /datum/reagent/lube/ultra
 	name = "Ультра-смазка"
 	id = "ultralube"
-	description = "Ультра-смазка - это улучшенная смазка, которая вызывает у синтетиков эффект, подобный метамфетамину, за счет резкого снижения внутреннего трения и повышения охлаждающей способности."
-	reagent_state = LIQUID
+	description = "Ультра-смазка — это улучшенная смазка, которая вызывает у синтетиков эффект, подобный метамфетамину, за счет резкого снижения внутреннего трения и повышения охлаждающей способности."
 	color = "#1BB1FF"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
@@ -1031,7 +1028,7 @@
 /datum/reagent/lube/combat
 	name = "Боевая смазка"
 	id = "combatlube"
-	description = "Боевая смазка - это улучшенная смазка, которая вызывает у синтетиков эффекты, многократно превосходящие аналогичные у \"Ультра-смазки\" за счёт резкого снижения внутреннего трения и повышения охлаждающей способности."
+	description = "Боевая смазка — это улучшенная смазка, которая вызывает у синтетиков эффекты, многократно превосходящие аналогичные у \"Ультра-смазки\" за счёт резкого снижения внутреннего трения и повышения охлаждающей способности."
 	process_flags = SYNTHETIC
 	overdose_threshold = 30
 	addiction_chance = 1

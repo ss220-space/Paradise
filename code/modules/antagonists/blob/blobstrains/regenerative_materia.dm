@@ -31,7 +31,7 @@
 	if(metabolizer.adjustToxLoss(1 * REM * seconds_per_tick, updating_health = FALSE))
 		return STATUS_UPDATE_HEALTH
 
-/datum/reagent/blob/regenerative_materia/on_mob_start_metabolize(mob/living/metabolizer)
+/datum/reagent/blob/regenerative_materia/on_mob_metabolize(mob/living/metabolizer)
 	. = ..()
 	metabolizer.apply_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
 

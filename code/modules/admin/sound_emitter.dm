@@ -9,12 +9,8 @@
 /obj/effect/sound_emitter
 	name = "sound emitter"
 	desc = "Издаёт звуки, наверное."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield2"
 	invisibility = INVISIBILITY_OBSERVER
-	anchored = TRUE
-	density = FALSE
-	opacity = FALSE
 	alpha = 175
 	var/sound_file //The sound file the emitter plays
 	var/sound_volume = 50 //The volume the sound file is played at

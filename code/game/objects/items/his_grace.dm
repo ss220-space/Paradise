@@ -349,9 +349,9 @@
 	playsound(src, 'sound/effects/his_grace/his_grace_ascend.ogg', 100)
 	if(!istype(master))
 		return
+	master.client?.give_award(/datum/award/achievement/misc/ascension, master)
 	if(master.is_in_hands(src))
-		master.update_inv_l_hand()
-		master.update_inv_r_hand()
+		master.update_held_items()
 	master.visible_message(span_his_grace("[span_big("Боги заинтересовались тобой.")]"))
 	SEND_SIGNAL(master, COMSIG_MOB_HALO_GAINED)
 

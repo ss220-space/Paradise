@@ -10,7 +10,6 @@
 	desc = "Метеорологическое радио, предназначенное для использования в неблагоприятных условиях. Подает звуковые предупреждения о приближении шторма. Имеет доступ к каналу карго."
 	freqlock = TRUE
 	luminosity = 1
-	light_power = 1
 	light_range = 1.6
 	/// Currently displayed warning level
 	var/warning_level = WEATHER_ALERT_CLEAR
@@ -95,7 +94,7 @@
 	for(var/datum/weather/check_weather as anything in SSweather.processing)
 		if(!check_weather.barometer_predictable || check_weather.stage == WIND_DOWN_STAGE || check_weather.stage == END_STAGE)
 			continue
-		for (var/mining_level in mining_z_levels)
+		for(var/mining_level in mining_z_levels)
 			if(mining_level in check_weather.impacted_z_levels)
 				warning_level = WEATHER_ALERT_IMMINENT_OR_ACTIVE
 				return 0

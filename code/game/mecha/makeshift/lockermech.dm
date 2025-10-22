@@ -64,8 +64,8 @@
 /obj/mecha/combat/lockersyndie/add_cell()
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
 
-/obj/mecha/combat/lockersyndie/loaded/New()
-	..()
+/obj/mecha/combat/lockersyndie/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill(src)
@@ -105,7 +105,7 @@
 		PREPOSITIONAL = "инструменте для доставки меха"
 	)
 
-/obj/item/mecha_drop/New()
+/obj/item/mecha_drop/Initialize(mapload)
 	. = ..()
 	if(mecha_type)
 		summon_mecha = new mecha_type(src)

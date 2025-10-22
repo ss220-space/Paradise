@@ -14,11 +14,11 @@
 	if(istext(new_type))
 		new_type = text2path(new_type)
 
-	if( !ispath(new_type) )
+	if(!ispath(new_type))
 		to_chat(usr, "Invalid type path (new_type = [new_type]) in change_mob_type(). Contact a coder.")
 		return
 
-	if( new_type == /mob/new_player )
+	if(new_type == /mob/new_player)
 		to_chat(usr, "<span class='warning'>cannot convert into a new_player mob type.</span>")
 		return
 
@@ -33,7 +33,7 @@
 		qdel(M)
 		return
 
-	if( istext(new_name) )
+	if(istext(new_name))
 		M.name = new_name
 		M.real_name = new_name
 	else
@@ -46,7 +46,7 @@
 	if((mind && isliving(M)) && !forcekey)
 		mind.transfer_to(M)
 	else
-		M.key = key
+		M.possess_by_player(key)
 
 	SEND_SIGNAL(src, COMSIG_MOB_CHANGED_TYPE, M)
 

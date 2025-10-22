@@ -3,7 +3,6 @@
 	desc = "Throws a lightning bolt at your enemies. Classic. When clicked will start to charge in power. Then click on a mob to send the bolt before it overloads with power."
 	base_cooldown = 30 SECONDS
 	cooldown_min = 3 SECONDS
-	clothes_req = TRUE
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "shout"
 	action_icon_state = "lightning"
@@ -58,7 +57,7 @@
 		return
 
 	if(damaging)
-		target.electrocute_act(energy, "молнии", flags = SHOCK_NOGLOVES)
+		target.electrocute_act(energy, src, flags = SHOCK_NOGLOVES)
 	else
 		target.AdjustJitter(2000 SECONDS) //High numbers for violent convulsions
 		target.AdjustStuttering(4 SECONDS)

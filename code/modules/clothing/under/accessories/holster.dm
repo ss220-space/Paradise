@@ -48,7 +48,7 @@
 		to_chat(user, span_warning("Putting holster into another holster was pretty dumb idea!"))
 		return FALSE
 
-	if(holstered.len >= max_content)
+	if(length(holstered) >= max_content)
 		to_chat(user, span_warning("Holster is full!"))
 		return FALSE
 
@@ -70,11 +70,11 @@
 	playsound(user.loc, sound_holster, 50, TRUE)
 
 /obj/item/clothing/accessory/holster/proc/unholster(mob/user)
-	if(!holstered.len)
+	if(!length(holstered))
 		to_chat(user, span_warning("Holster is empty!"))
 		return
 
-	var/obj/item/next_item = holstered[holstered.len]
+	var/obj/item/next_item = holstered[length(holstered)]
 
 	if(user.stat || HAS_TRAIT(user, TRAIT_INCAPACITATED))
 		to_chat(user, span_warning("You can't get [next_item] now!"))
@@ -91,11 +91,15 @@
 
 /obj/item/clothing/accessory/holster/proc/unholster_message(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
-		usr.visible_message(span_warning("[user] draws the [I], ready to shoot!"),
-							span_warning("You draw the [I], ready to shoot!"))
+		usr.visible_message(
+			span_warning("[user] draws the [I], ready to shoot!"),
+			span_warning("You draw the [I], ready to shoot!")
+		)
 	else
-		user.visible_message(span_notice("[user] draws the [I], pointing it at the ground."),
-							span_notice("You draw the [I], pointing it at the ground."))
+		user.visible_message(
+			span_notice("[user] draws the [I], pointing it at the ground."),
+			span_notice("You draw the [I], pointing it at the ground.")
+		)
 
 /obj/item/clothing/accessory/holster/attack_hand(mob/user)
 	if(has_suit)	//if we are part of a suit
@@ -119,7 +123,7 @@
 
 /obj/item/clothing/accessory/holster/examine(mob/user)
 	. = ..(user)
-	if(holstered.len)
+	if(length(holstered))
 		for(var/obj/item/I in holstered)
 			. += span_notice("A [I] is holstered here.")
 	else
@@ -163,12 +167,10 @@
 
 
 /obj/item/clothing/accessory/holster/armpit
-	name = "shoulder holster"
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	holster_allow = /obj/item/gun/projectile
 
 /obj/item/clothing/accessory/holster/waist
-	name = "shoulder holster"
 	desc = "A handgun holster. Made of expensive leather."
 
 /obj/item/clothing/accessory/holster/leg
@@ -212,14 +214,18 @@
 
 /obj/item/clothing/accessory/holster/knives/unholster_message(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message(span_warning("[user] takes the [I] out, ready to throw!"),
-			span_warning("You takes the [I] out, [holstered.len] knives left!"))
+		user.visible_message(
+			span_warning("[user] takes the [I] out, ready to throw!"),
+			span_warning("You takes the [I] out, [length(holstered)] knives left!")
+		)
 	else
-		user.visible_message(span_notice("[user] takes the [I] out."),
-			span_notice("You takes the [I] out, [holstered.len] knives left"))
+		user.visible_message(
+			span_notice("[user] takes the [I] out."),
+			span_notice("You takes the [I] out, [length(holstered)] knives left")
+		)
 
 /obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
 	return is_type_in_list(I, holster_allow, FALSE)
 
 /obj/item/clothing/accessory/holster/knives/attached_examine(mob/user)
-	return span_notice("\A [src] with [holstered.len] knives attached to it.")
+	return span_notice("\A [src] with [length(holstered)] knives attached to it.")

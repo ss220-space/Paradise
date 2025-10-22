@@ -1,13 +1,11 @@
 /obj/machinery/door_control
 	name = "remote door-control"
 	desc = "A remote control-switch for a door."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl"
 	base_icon_state = "doorctrl"
 	power_channel = ENVIRON
 
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
@@ -238,7 +236,7 @@
 	if(!(device || constructed))
 		build_device()
 
-	if(device?.cooldown > 0)
+	if(!COOLDOWN_FINISHED(device, cooldown))
 		return
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())

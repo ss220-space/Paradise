@@ -10,7 +10,6 @@
 	throw_speed = 3
 	throw_range = 10
 	origin_tech = "magnets=1;engineering=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
@@ -20,9 +19,10 @@
 	var/secured = TRUE
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
-	var/cooldown = FALSE //To prevent spam
 	var/wires = WIRE_RECEIVE | WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
+	COOLDOWN_DECLARE(cooldown)
+	var/cooldown_time = 1 SECONDS
 
 
 /obj/item/assembly/Destroy()
@@ -45,17 +45,14 @@
 	return
 
 
+/// Called when the parts of assembly holder were taken apart
+/obj/item/assembly/proc/on_detach(mob/user)
+	holder_movement(user)
+
+
 /// Called when attack_self is called
 /obj/item/assembly/interact(mob/user)
 	return
-
-
-/// Called via 1 SECONDS to have it count down the cooldown var
-/obj/item/assembly/proc/process_cooldown()
-	if(cooldown-- <= 0)
-		return FALSE
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
-	return TRUE
 
 
 /// Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
@@ -87,10 +84,10 @@
 
 /// What the device does when turned on
 /obj/item/assembly/proc/activate()
-	if(!secured || cooldown > 0)
+	if(!secured || !COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
-	cooldown = 2
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
+
+	COOLDOWN_START(src, cooldown, cooldown_time)
 	return TRUE
 
 

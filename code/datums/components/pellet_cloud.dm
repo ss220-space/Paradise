@@ -123,7 +123,7 @@
 		shell.BB.damage = original_damage
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(fired_from)
-		if (!istype(target_loc) || !istype(current_loc) || !(shell.BB))
+		if(!istype(target_loc) || !istype(current_loc) || !(shell.BB))
 			return
 		INVOKE_ASYNC(shell, TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj), target, target_loc, shooter, params, spread, fired_from)
 
@@ -152,7 +152,7 @@
 		return
 
 	var/list/all_the_turfs_were_gonna_lacerate = RANGE_TURFS(radius, A) - RANGE_TURFS(radius-1, A)
-	num_pellets = all_the_turfs_were_gonna_lacerate.len + pellet_delta
+	num_pellets = length(all_the_turfs_were_gonna_lacerate) + pellet_delta
 
 	for(var/T in all_the_turfs_were_gonna_lacerate)
 		INVOKE_ASYNC(src, PROC_REF(pew), T)
@@ -263,6 +263,9 @@
 
 ///All of our pellets are accounted for, time to go target by target and tell them how many things they got hit by.
 /datum/component/pellet_cloud/proc/finalize()
+	for(var/mob/living/martyr as anything in purple_hearts)
+		if(martyr.stat == DEAD && martyr.client)
+			martyr.client.give_award(/datum/award/achievement/misc/lookoutsir, martyr)
 	UnregisterSignal(parent, COMSIG_PREQDELETED)
 	if(queued_delete)
 		qdel(parent)

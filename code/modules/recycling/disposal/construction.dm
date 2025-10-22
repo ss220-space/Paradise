@@ -6,10 +6,7 @@
 	desc = "A huge pipe segment used for constructing disposal systems."
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	icon_state = "conpipe-s"
-	anchored = FALSE
-	density = FALSE
 	pressure_resistance = 5 * ONE_ATMOSPHERE
-	level = 2
 	max_integrity = 200
 	set_dir_on_move = FALSE
 	/// What disposals type we are representing

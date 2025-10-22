@@ -2,13 +2,11 @@
 
 /obj/machinery/computer/library
 	name = "visitor computer"
-	desc = "Старый библиотечный компьютер с ограниченным функционалом – специально для посетителей книжного храма."
+	desc = "Старый библиотечный компьютер с ограниченным функционалом — специально для посетителей книжного храма."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null
-	anchored = TRUE
-	density = TRUE
 	var/screenstate = 0
 	var/page_num = 1
 	var/num_pages = 0

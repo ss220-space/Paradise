@@ -9,7 +9,6 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "extinguisher_closed"
 	anchored = TRUE
-	density = FALSE
 	max_integrity = 200
 	integrity_failure = 50
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
@@ -81,10 +80,10 @@
 
 /obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I)
 	if(has_extinguisher)
-		to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing [src]!</span>")
+		to_chat(user, span_warning("You need to remove the extinguisher before deconstructing [src]!"))
 		return
 	if(!opened)
-		to_chat(user, "<span class='warning'>Open the cabinet before cutting it apart!</span>")
+		to_chat(user, span_warning("Open the cabinet before cutting it apart!"))
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -96,7 +95,7 @@
 
 /obj/structure/extinguisher_cabinet/attack_hand(mob/user)
 	if(isrobot(user) || isalien(user))
-		to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_notice("You don't have the dexterity to do this!"))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -112,7 +111,7 @@
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		has_extinguisher.forceMove_turf()
 		user.put_in_hands(has_extinguisher, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You take [has_extinguisher] from [src].</span>")
+		to_chat(user, span_notice("You take [has_extinguisher] from [src]."))
 		has_extinguisher = null
 		opened = 1
 	else
@@ -125,7 +124,7 @@
 		if(icon_state == "extinguisher_closed")
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		has_extinguisher.loc = loc
-		to_chat(user, "<span class='notice'>You telekinetically remove [has_extinguisher] from [src].</span>")
+		to_chat(user, span_notice("You telekinetically remove [has_extinguisher] from [src]."))
 		has_extinguisher = null
 		opened = 1
 	else

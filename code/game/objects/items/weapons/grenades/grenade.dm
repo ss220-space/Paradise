@@ -99,7 +99,7 @@
 
 
 /obj/item/grenade/attack_hand(mob/user)
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	. = ..()
 
 

@@ -87,7 +87,6 @@
 /datum/data/pda/utility
 	name = "Utility"
 	icon = "gear"
-	size = 1
 	category = "Utilities"
 
 

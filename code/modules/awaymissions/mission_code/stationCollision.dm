@@ -88,7 +88,6 @@
 /obj/item/gun/energy/laser/practice/sc_laser
 	name = "Old laser"
 	desc = "A once potent weapon, years of dust have collected in the chamber and lens of this weapon, weakening the beam significantly."
-	clumsy_check = 0
 
 /*
  * Safe code hints
@@ -134,7 +133,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 			<br>
 			Our on-board spy has learned the code and has hidden away a few copies of the code around the station. Unfortunatly he has been captured by security
 			Your objective is to split up, locate any of the papers containing the captain's safe code, open the safe and
-			secure anything found inside. If possible, recover the imprisioned syndicate operative and recieve the code from him.<br>
+			secure anything found inside. If possible, recover the imprisioned syndicate operative and receive the code from him.<br>
 			<br>
 			<u>As always, eliminate anyone who gets in the way.</u><br>
 			<br>

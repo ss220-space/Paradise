@@ -2,8 +2,6 @@
 	name = "staff of storms"
 	desc = "Древний посох, извлечённый из останков Легиона. Ветер колышется, когда вы двигаете им."
 	icon_state = "staffofstorms"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "staffofstorms"
 	icon = 'icons/obj/weapons/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK
@@ -119,7 +117,7 @@
 		new /obj/effect/temp_visual/electricity(T)
 		for(var/mob/living/hit_mob in T)
 			to_chat(hit_mob, span_userdanger("Вас поразила молния!"))
-			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), "штормового посоха", flags = SHOCK_NOGLOVES)
+			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_NOGLOVES)
 
 		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)

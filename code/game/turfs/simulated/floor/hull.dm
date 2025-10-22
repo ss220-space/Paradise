@@ -1,14 +1,13 @@
 /turf/simulated/floor/engine/hull
 	name = "exterior hull plating"
 	desc = "Sturdy exterior hull plating that separates you from the uncaring vacuum of space."
-	explosion_vertical_block = 2
 	icon_state = "regular_hull"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
 
 /turf/simulated/floor/engine/hull/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
-	to_chat(user, "<span class='warning'>The flooring is too thick to be regularly deconstructed!</span>")
+	to_chat(user, span_warning("The flooring is too thick to be regularly deconstructed!"))
 	return RCD_ACT_FAILED
 
 /// RCD-immune plating generated only by shuttle code for shuttle ceilings on multi-z maps, should not be mapped in or creatable in any other way

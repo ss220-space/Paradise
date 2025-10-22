@@ -1,11 +1,9 @@
 /obj/item/grenade/flashbang
 	name = "flashbang"
 	icon_state = "flashbang"
-	item_state = "flashbang"
 	belt_icon = "flashbang"
 	origin_tech = "materials=2;combat=3"
 	light_power = 10
-	light_color = COLOR_WHITE
 
 	var/light_time = 0.2 SECONDS // The duration the area is illuminated
 	var/range = 7 // The range in tiles of the flashbang
@@ -20,7 +18,7 @@
 		playsound(T, 'sound/effects/bang.ogg', 100, TRUE)
 		new /obj/effect/dummy/lighting_obj(T, range + 2, light_power, light_color, light_time)
 		// Blob damage
-		for(var/obj/structure/blob/B in hear(range + 1, T))
+		for(var/obj/structure/blob/B in get_hear(range + 1, T))
 			var/damage = round(30 / (get_dist(B, T) + 1))
 			B.take_damage(damage * power, BURN, MELEE, FALSE)
 

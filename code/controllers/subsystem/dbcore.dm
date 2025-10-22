@@ -106,8 +106,8 @@ SUBSYSTEM_DEF(dbcore)
  */
 /datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
 	if(CONFIG_GET(flag/sql_enabled))
-		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
-		#ifndef UNIT_TESTS
+		// The game tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running game tests
+		#ifndef GAME_TESTS
 		if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/db_version) != SQL_VERSION)
 			CONFIG_SET(flag/sql_enabled, FALSE)
 			schema_valid = FALSE
@@ -268,23 +268,23 @@ SUBSYSTEM_DEF(dbcore)
  * the erroneous row(s) aren't inserted and there isn't really any way to know why or why errored
 */
 /datum/controller/subsystem/dbcore/proc/MassInsert(table, list/rows, duplicate_key = FALSE, ignore_errors = FALSE, warn = FALSE, async = TRUE, special_columns = null)
-	if (!table || !rows || !istype(rows))
+	if(!table || !rows || !istype(rows))
 		return
 
 	// Prepare column list
 	var/list/columns = list()
 	var/list/has_question_mark = list()
-	for (var/list/row in rows)
-		for (var/column in row)
+	for(var/list/row in rows)
+		for(var/column in row)
 			columns[column] = "?"
 			has_question_mark[column] = TRUE
-	for (var/column in special_columns)
+	for(var/column in special_columns)
 		columns[column] = special_columns[column]
 		has_question_mark[column] = findtext(special_columns[column], "?")
 
 	// Prepare SQL query full of placeholders
 	var/list/query_parts = list("INSERT")
-	if (ignore_errors)
+	if(ignore_errors)
 		query_parts += " IGNORE"
 	query_parts += " INTO "
 	query_parts += table
@@ -292,16 +292,16 @@ SUBSYSTEM_DEF(dbcore)
 
 	var/list/arguments = list()
 	var/has_row = FALSE
-	for (var/list/row in rows)
-		if (has_row)
+	for(var/list/row in rows)
+		if(has_row)
 			query_parts += ","
 		query_parts += "\n  ("
 		var/has_col = FALSE
-		for (var/column in columns)
-			if (has_col)
+		for(var/column in columns)
+			if(has_col)
 				query_parts += ", "
-			if (has_question_mark[column])
-				var/name = "p[arguments.len]"
+			if(has_question_mark[column])
+				var/name = "p[length(arguments)]"
 				query_parts += replacetext(columns[column], "?", ":[name]")
 				arguments[name] = row[column]
 			else
@@ -310,16 +310,16 @@ SUBSYSTEM_DEF(dbcore)
 		query_parts += ")"
 		has_row = TRUE
 
-	if (duplicate_key == TRUE)
+	if(duplicate_key == TRUE)
 		var/list/column_list = list()
-		for (var/column in columns)
+		for(var/column in columns)
 			column_list += "[column] = VALUES([column])"
 		query_parts += "\nON DUPLICATE KEY UPDATE [column_list.Join(", ")]"
-	else if (duplicate_key != FALSE)
+	else if(duplicate_key != FALSE)
 		query_parts += duplicate_key
 
 	var/datum/db_query/Query = NewQuery(query_parts.Join(), arguments)
-	if (warn)
+	if(warn)
 		. = Query.warn_execute(async)
 	else
 		. = Query.Execute(async)
@@ -364,7 +364,7 @@ SUBSYSTEM_DEF(dbcore)
 			query = querys[thing]
 		else
 			query = thing
-		UNTIL(!query.in_progress)
+		query.sync()
 		if(qdel)
 			qdel(query)
 
@@ -558,6 +558,11 @@ SUBSYSTEM_DEF(dbcore)
 	rows = null
 	item = null
 
+/// Sleeps until execution of the query has finished.
+/datum/db_query/proc/sync()
+	while(in_progress)
+		stoplag()
+
 // Verb that lets admins force reconnect the DB
 /client/proc/reestablish_db_connection()
 	set category = "Debug"
@@ -588,3 +593,4 @@ SUBSYSTEM_DEF(dbcore)
 		message_admins("Database connection failed: [SSdbcore.ErrorMsg()]")
 	else
 		message_admins("Database connection re-established")
+

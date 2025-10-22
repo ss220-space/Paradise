@@ -5,10 +5,6 @@
 		return 1
 	return 0
 
-
-/mob/living/silicon/ai/var/max_locations = 10
-/mob/living/silicon/ai/var/stored_locations[0]
-
 /mob/living/silicon/ai/proc/get_camera_list()
 
 	track.cameras.Cut()
@@ -60,7 +56,7 @@
 		to_chat(src, span_warning("Must supply a location name"))
 		return
 
-	if(stored_locations.len >= max_locations)
+	if(length(stored_locations) >= max_locations)
 		to_chat(src, span_warning("Cannot store additional locations. Remove one first"))
 		return
 
@@ -248,7 +244,7 @@
 	var/obj/machinery/camera/a
 	var/obj/machinery/camera/b
 
-	for(var/i = L.len, i > 0, i--)
+	for(var/i = length(L), i > 0, i--)
 		for(var/j = 1 to i - 1)
 			a = L[j]
 			b = L[j + 1]

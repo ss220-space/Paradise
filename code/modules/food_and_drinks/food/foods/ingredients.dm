@@ -349,9 +349,7 @@
 
 
 /obj/item/reagent_containers/food/snacks/rawcookies/chocochips
-	name = "raw cookies"
 	desc = "Ready for oven! They have little pieces of chocolate all over them"
-	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies_choco"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "chocolate" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "chocolate" = 1)

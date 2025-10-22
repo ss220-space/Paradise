@@ -10,7 +10,7 @@
 	var/list/mobs_in_view = user.get_visible_mobs()
 
 	for(var/mob/living/M in range(14, T))
-		if(M && M.mind)
+		if(M?.mind)
 			if(M == user)
 				continue
 			var/mob_name

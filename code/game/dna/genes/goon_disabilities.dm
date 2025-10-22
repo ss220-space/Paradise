@@ -267,7 +267,7 @@
 
 	var/list/words = splittext(message," ")
 	var/list/rearranged = list()
-	for(var/i=1;i<=words.len;i++)
+	for(var/i=1;i<=length(words);i++)
 		var/cword = pick(words)
 		words.Remove(cword)
 		var/suffix = copytext(cword,length(cword)-1,length(cword))
@@ -320,7 +320,6 @@
 	desc = "Субъект приобретает способность преобразовывать избыточную клеточную энергию в тепловую."
 	base_cooldown = 60 SECONDS
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 	action_icon_state = "genetic_incendiary"
 

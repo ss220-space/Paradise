@@ -282,7 +282,7 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред - всего лишь смутное, греховное воспоминание..."))
+	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
 	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
@@ -325,7 +325,7 @@
 		to_chat(user, span_warning("Вы пока не можете этого сделать!"))
 		return
 	if(is_station_level(T.z) && !A.outdoors)
-		to_chat(user, span_warning("Кажется, призывать фауну в помещении – плохая идея."))
+		to_chat(user, span_warning("Кажется, призывать фауну в помещении — плохая идея."))
 		return
 	user.visible_message(span_warning("[user] протягивает букет, призывая союзников!"))
 	for(var/mob/m in summons)
@@ -379,7 +379,6 @@
 	icon_state = "rune_scimmy"
 	force = 28
 	slot_flags = ITEM_SLOT_BELT
-	damtype = BRUTE
 	sharp = TRUE
 	hitsound = 'sound/weapons/rs_slash.ogg'
 	attack_verb = list("плс'л","атк'л","руб'л")
@@ -483,8 +482,6 @@
 	desc = "Катана, некогда сдерживавшая ужасное существо, была разрушена. Однако даже после этого её фрагменты, в которых заключена сущность, вновь объединились, чтобы найти нового хозяина."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 15
 	armour_penetration = 15
 	block_chance = 50

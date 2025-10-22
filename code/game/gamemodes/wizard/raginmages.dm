@@ -1,8 +1,6 @@
 /datum/game_mode/wizard/raginmages
 	name = "ragin' mages"
 	config_tag = "raginmages"
-	required_players = 20
-	use_huds = 1
 	but_wait_theres_more = 1
 	var/max_mages = 0
 	var/making_mage = FALSE
@@ -79,7 +77,7 @@
 			time_checked = world.time
 			make_more_mages()
 	else
-		if(wizards.len >= wizard_cap)
+		if(length(wizards) >= wizard_cap)
 			finished = 1
 			return 1
 		else
@@ -107,7 +105,7 @@
 			var/mob/living/carbon/brain/B = L
 			if(isitem(B.loc))
 				qdel(B.loc)
-			if(B && B.container)
+			if(B?.container)
 				qdel(B.container)
 		if(L)
 			qdel(L)
@@ -125,7 +123,7 @@
 	var/mob/dead/observer/harry = null
 	message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
 
-	if(!candidates.len)
+	if(!length(candidates))
 		message_admins("This is awkward, sleeping until another mage check..")
 		making_mage = FALSE
 		sleep(300)
@@ -151,7 +149,7 @@
 		return // Let's not steal someone's soul here
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))
 	G.client.prefs.copy_to(new_character)
-	new_character.key = G.key
+	new_character.possess_by_player(G.key)
 	return new_character
 
 /datum/game_mode/wizard/raginmages/declare_completion()

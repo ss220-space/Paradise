@@ -9,7 +9,6 @@
 	name = "rock"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
-	max_amount = 50
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
@@ -128,7 +127,6 @@
 /obj/item/stack/ore/iron
 	name = "iron ore"
 	icon_state = "Iron ore"
-	origin_tech = "materials=1"
 	singular_name = "iron ore chunk"
 	points = 1
 	refined_type = /obj/item/stack/sheet/metal
@@ -147,7 +145,6 @@
 /obj/item/stack/ore/glass
 	name = "sand pile"
 	icon_state = "Glass ore"
-	origin_tech = "materials=1"
 	singular_name = "sand pile"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
@@ -217,7 +214,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
-	icon_state = "volcanic_sand"
 	item_state = "volcanic_sand"
 	singular_name = "ancient sand pile"
 
@@ -547,7 +543,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		else if(triggered_by == 2)
 			add_game_logs("A signal has primed a [name] for detonation at [AREACOORD(bombturf)]). Igniter attacher: [key_name(attacher)].")
 		else
-			user.visible_message("<span class='warning'>[user] strikes \the [src], causing a chain reaction!</span>", "<span class='danger'>You strike \the [src], causing a chain reaction.</span>")
+			user.visible_message(span_warning("[user] strikes \the [src], causing a chain reaction!"), span_danger("You strike \the [src], causing a chain reaction."))
 			add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)])", user)
 		spawn(det_time)
 		if(primed)

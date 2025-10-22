@@ -59,7 +59,7 @@
 
 /obj/item/clothing/accessory/storage/proc/return_inv()
 
-	var/list/L = list(  )
+	var/list/L = list()
 
 	L += src.contents
 
@@ -75,7 +75,7 @@
 	if(has_suit)	//if we are part of a suit
 		hold.open(user)
 	else
-		to_chat(user, "<span class='notice'>You empty [src].</span>")
+		to_chat(user, span_notice("You empty [src]."))
 		var/turf/T = get_turf(src)
 		hold.hide_from(user)
 		for(var/obj/item/I in hold.contents)
@@ -85,7 +85,6 @@
 /obj/item/clothing/accessory/storage/webbing
 	name = "webbing"
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
-	icon_state = "webbing"
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',

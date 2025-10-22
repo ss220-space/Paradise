@@ -38,7 +38,7 @@ emp_act
 		return 2
 
 
-	if(mind?.martial_art?.reflection_chance) //Some martial arts users can even reflect projectiles!
+	if(mind?.martial_art?.can_reflect) //Some martial arts users can even reflect projectiles!
 		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
 			var/checks_passed = TRUE
 			if(istype(mind.martial_art, /datum/martial_art/ninja_martial_art))
@@ -53,7 +53,7 @@ emp_act
 				return -1
 			return FALSE
 
-	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
+	if(mind?.martial_art?.can_deflect) //Some martial arts users can deflect projectiles!
 		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
 			if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL)) //if it cannot be reflected, it hits the floor. This is the exception to the rule
@@ -99,11 +99,17 @@ emp_act
 	if(!S.brute_dam)
 		balloon_alert(user, "нечего ремонтировать!")
 		return
+	if(HAS_TRAIT(H, TRAIT_REPAIRING_LIMB))
+		balloon_alert(user, "уже ремонтируется!")
+		return
+	ADD_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
 	var/surgery_time = 0
 	if(user == src)
-		surgery_time = 10
+		surgery_time = H.robotic_limb_repair_time
+
 	if(!item.use_tool(src, user, surgery_time, amount = 1, volume = item.tool_volume))
+		REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 		return
 	var/rembrute = HEALPERWELD
 	var/nrembrute = 0
@@ -144,6 +150,8 @@ emp_act
 		user.visible_message(span_alert("[user] устраня[pluralize_ru(src.gender, "ет", "ют")] протечки в корпусе [src], используя [item.declent_ru(ACCUSATIVE)]."))
 	if(IgniteMob())
 		add_attack_logs(user, src, "set on fire with [item]")
+
+	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
 
 /mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
@@ -261,7 +269,7 @@ emp_act
 	return FALSE
 
 /mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/item, visible_message, self_message)
-	if(mind && mind.martial_art)
+	if(mind?.martial_art)
 		return mind.martial_art.attack_reaction(defender, attacker, item, visible_message, self_message)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
@@ -280,9 +288,9 @@ emp_act
 		if(head_clothes)
 			if(!(head_clothes.resistance_flags & UNACIDABLE))
 				head_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_glasses()
-				update_inv_wear_mask()
-				update_inv_head()
+				update_worn_glasses()
+				update_worn_mask()
+				update_worn_head()
 			else
 				to_chat(src, span_notice("[capitalize(head_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(head_clothes.gender, "ет", "ют")] вашу голову и лицо от кислоты!"))
 		else
@@ -304,8 +312,8 @@ emp_act
 		if(chest_clothes)
 			if(!(chest_clothes.resistance_flags & UNACIDABLE))
 				chest_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("[capitalize(chest_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(chest_clothes.gender, "ет", "ют")] ваше туловище от кислоты!"))
 		else
@@ -337,9 +345,9 @@ emp_act
 		if(arm_clothes)
 			if(!(arm_clothes.resistance_flags & UNACIDABLE))
 				arm_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_gloves()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_gloves()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("[capitalize(arm_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(arm_clothes.gender, "ет", "ют")] ваши руки от кислоты!"))
 		else
@@ -363,9 +371,9 @@ emp_act
 		if(leg_clothes)
 			if(!(leg_clothes.resistance_flags & UNACIDABLE))
 				leg_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_shoes()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_shoes()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("[capitalize(leg_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(leg_clothes.gender, "ет", "ют")] ваши руки от кислоты!"))
 		else
@@ -543,13 +551,13 @@ emp_act
 			if(bloody)//Apply blood
 				if(wear_mask)
 					wear_mask.add_mob_blood(src)
-					update_inv_wear_mask()
+					update_worn_mask()
 				if(head)
 					head.add_mob_blood(src)
-					update_inv_head()
+					update_worn_head()
 				if(glasses && prob(33))
 					glasses.add_mob_blood(src)
-					update_inv_glasses()
+					update_worn_glasses()
 
 		if(BODY_ZONE_CHEST)//Easier to score a stun but lasts less time
 			if(apply_damage_result && stat == CONSCIOUS && prob(item.force + 10))
@@ -562,10 +570,10 @@ emp_act
 			if(bloody)
 				if(wear_suit)
 					wear_suit.add_mob_blood(src)
-					update_inv_wear_suit()
+					update_worn_oversuit()
 				if(w_uniform)
 					w_uniform.add_mob_blood(src)
-					update_inv_w_uniform()
+					update_worn_undersuit()
 
 	if(apply_damage_result && (item.force > 10 || (item.force >= 5 && prob(33))))
 		forcesay(GLOB.hit_appends)	//forcesay checks stat already
@@ -648,16 +656,16 @@ emp_act
 	else
 		add_mob_blood(source)
 		bloody_hands = amount
-	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
+	update_worn_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(mob/living/source)
 	if(wear_suit)
 		wear_suit.add_mob_blood(source)
-		update_inv_wear_suit()
+		update_worn_oversuit()
 		return
 	if(w_uniform)
 		w_uniform.add_mob_blood(source)
-		update_inv_w_uniform()
+		update_worn_undersuit()
 
 /mob/living/carbon/human/attack_hand(mob/user)
 	if(..())	//to allow surgery to return properly.

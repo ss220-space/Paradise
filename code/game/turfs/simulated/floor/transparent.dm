@@ -17,7 +17,6 @@
 	footstep = FOOTSTEP_GLASS
 	barefootstep = FOOTSTEP_GLASS
 	clawfootstep = FOOTSTEP_GLASS
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished glass floor tile has been lit up
 	var/light_process = 0
 
@@ -193,7 +192,6 @@
 	desc = "Stylish AND strong!"
 	icon = 'icons/turf/floors/titaniumglass.dmi'
 	base_icon_state = "titaniumglass"
-	canSmoothWith = SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS
 	thermal_conductivity = 0.025
 	heat_capacity = 1600
 	explosion_vertical_block = 2

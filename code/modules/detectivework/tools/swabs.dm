@@ -89,12 +89,12 @@
 		return
 
 	if(is_used())
-		to_chat(user, "<span class='warning'>This swab has already been used.</span>")
+		to_chat(user, span_warning("This swab has already been used."))
 		return
 
 	add_fingerprint(user)
 	inuse = 1
-	to_chat(user, "<span class='notice'>You begin collecting evidence.</span>")
+	to_chat(user, span_notice("You begin collecting evidence."))
 	if(do_after(user, 2 SECONDS, src))
 		var/list/choices = list()
 		if(A.blood_DNA)
@@ -103,11 +103,11 @@
 			choices |= "Gunshot Residue"
 
 		var/choice
-		if(!choices.len)
-			to_chat(user, "<span class='warning'>There is no evidence on \the [A].</span>")
+		if(!length(choices))
+			to_chat(user, span_warning("There is no evidence on \the [A]."))
 			inuse = 0
 			return
-		else if(choices.len == 1)
+		else if(length(choices) == 1)
 			choice = choices[1]
 		else
 			choice = tgui_input_list(usr, "What kind of evidence are you looking for?", "Evidence Collection", choices)
@@ -120,7 +120,7 @@
 		var/target_dna
 		var/target_gsr
 		if(choice == "Blood")
-			if(!A.blood_DNA || !A.blood_DNA.len)
+			if(!A.blood_DNA || !length(A.blood_DNA))
 				inuse = 0
 				return
 			target_dna = A.blood_DNA.Copy()
@@ -129,7 +129,7 @@
 		else if(choice == "Gunshot Residue")
 			var/obj/item/clothing/B = A
 			if(!istype(B) || !B.gunshot_residue)
-				to_chat(user, "<span class='warning'>There is no residue on \the [A].</span>")
+				to_chat(user, span_warning("There is no residue on \the [A]."))
 				inuse = 0
 				return
 			target_gsr = B.gunshot_residue
@@ -137,7 +137,7 @@
 
 		if(sample_type)
 			user.visible_message("\The [user] swabs \the [A] for a sample.", "You swab \the [A] for a sample.")
-			if (!dispenser)
+			if(!dispenser)
 				dna = target_dna
 				gsr = target_gsr
 				set_used(sample_type, A)
@@ -155,6 +155,4 @@
 	used = 1
 
 /obj/item/forensics/swab/cyborg
-	name = "swab kit"
-	desc = "A sterilized cotton swab and vial used to take forensic samples."
 	dispenser = 1

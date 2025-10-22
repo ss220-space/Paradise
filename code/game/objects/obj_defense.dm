@@ -17,11 +17,8 @@
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
-	switch(damage_type)
-		if(BRUTE)
-		if(BURN)
-		else
-			return 0
+	if(damage_type != BRUTE && damage_type != BURN)
+		return 0
 	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
@@ -110,7 +107,7 @@
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
-	visible_message(span_danger(pick(list("[capitalize(declent_ru(NOMINATIVE))] пораж[genderize_ru(gender,"ён","ена","ено","ены")] [P.declent_ru(INSTRUMENTAL)]!", "[P.declent_ru(NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
+	visible_message(span_danger(pick(list("[capitalize(declent_ru(NOMINATIVE))] пораж[genderize_ru(gender,"ён","ена","ено","ены")] [P.declent_ru(INSTRUMENTAL)]!", "[capitalize(P.declent_ru(NOMINATIVE))] попадает в [declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
@@ -185,7 +182,7 @@
 	take_damage(amt, BRUTE)
 
 /obj/attack_slime(mob/living/simple_animal/slime/user)
-	if(user.age_state.age == SLIME_BABY )
+	if(user.age_state.age == SLIME_BABY)
 		return
 	attack_generic(user, rand(5 + user.age_state.damage, 10 + user.age_state.damage), BRUTE, MELEE, 1)
 
@@ -335,7 +332,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 			var/mob/living/buckled_mob = mob
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
-/obj/handle_flamer_fire(src, damage, delta_time)
+/obj/handle_flamer_fire(source, damage, delta_time)
 	flamer_fire_act(damage)
 
 /obj/flamer_fire_act(damage)

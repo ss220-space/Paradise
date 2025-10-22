@@ -273,96 +273,7 @@
 
 
 	else if(href_list["editrights"])
-		if(!check_rights(R_PERMISSIONS))
-			message_admins("[key_name_admin(usr)] attempted to edit the admin permissions without sufficient rights.")
-			log_admin("[key_name(usr)] attempted to edit the admin permissions without sufficient rights.")
-			return
-
-		var/adm_ckey
-
-		var/task = href_list["editrights"]
-		if(task == "add")
-			var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))
-			if(!new_ckey)	return
-			if(new_ckey in GLOB.admin_datums)
-				to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</span>", confidential=TRUE)
-				return
-			adm_ckey = new_ckey
-			task = "rank"
-		else if(task != "show")
-			adm_ckey = ckey(href_list["ckey"])
-			if(!adm_ckey)
-				to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный сикей</span>", confidential=TRUE)
-				return
-
-		var/datum/admins/D = GLOB.admin_datums[adm_ckey]
-
-		if(task == "remove")
-			if(tgui_alert(usr, "Вы уверены что хотите удалить [adm_ckey]?","Внимание!",list("Да", "Отмена")) == "Да")
-				if(!D)	return
-				GLOB.admin_datums -= adm_ckey
-				D.disassociate()
-
-				updateranktodb(adm_ckey, "Игрок")
-				message_admins("[key_name_admin(usr)] удалил [adm_ckey] из списка админов")
-				log_admin("[key_name(usr)] удалил [adm_ckey] из списка админов")
-				log_admin_rank_modification(adm_ckey, "Удален")
-
-		else if(task == "rank")
-			var/new_rank
-			if(length(GLOB.admin_ranks))
-				new_rank = tgui_input_list(usr, "Выберите стандартный ранг или создайте новый", "Выбор ранга", (GLOB.admin_ranks|"*Новый Ранг*"), null)
-			else
-				CRASH("GLOB.admin_ranks is empty, inform coders")
-
-			var/rights = 0
-			if(D)
-				rights = D.rights
-			switch(new_rank)
-				if(null,"") return
-				if("*Новый Ранг*")
-					new_rank = tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null, encode = FALSE)
-					if(!new_rank)
-						to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный ранг</span>", confidential=TRUE)
-						return
-					if(new_rank in GLOB.admin_ranks)
-						rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
-					else
-						GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
-				else
-					rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
-
-			if(D)
-				D.disassociate()								//remove adminverbs and unlink from client
-				D.rank = new_rank								//update the rank
-				D.rights = rights								//update the rights based on admin_ranks (default: 0)
-			else
-				D = new /datum/admins(new_rank, rights, adm_ckey)
-
-			var/client/C = GLOB.directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
-			D.associate(C)											//link up with the client and add verbs
-
-			updateranktodb(adm_ckey, new_rank)
-			message_admins("[key_name_admin(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
-			log_admin("[key_name(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
-			log_admin_rank_modification(adm_ckey, new_rank, rights)
-
-		else if(task == "permissions")
-			if(!D)
-				return
-			var/new_value = input_bitfield(usr, "rights", D.rights)
-			if(!new_value)
-				return
-			var/add_bits = new_value & ~D.rights
-			var/removed_bits = D.rights & ~new_value
-			D.rights = new_value
-			edit_admin_permissions()
-			message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
-			log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
-			log_admin_permission_modification(adm_ckey, new_value )
-
-
-		edit_admin_permissions()
+		permissions_topic(task = href_list["editrights"], ckey = href_list["ckey"])
 
 	else if(href_list["call_shuttle"])
 
@@ -402,7 +313,9 @@
 		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
-		GLOB.minor_announcement.announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")].")
+		GLOB.minor_announcement.announce(
+			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")]."
+		)
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
 		href_list["check_antagonist"] = TRUE
 
@@ -469,35 +382,57 @@
 
 		var/delmob = 0
 		switch(tgui_alert(usr, "Delete old mob?", "Message", list("Yes", "No", "Cancel")))
-			if("Cancel")	return
-			if("Yes")		delmob = 1
+			if("Cancel")
+				return
+			if("Yes")
+				delmob = 1
 
 		switch(href_list["simplemake"])
-			if("observer")			M.change_mob_type( /mob/dead/observer , null, null, delmob, 1 )
-			if("drone")				M.change_mob_type( /mob/living/carbon/alien/humanoid/drone , null, null, delmob, 1 )
-			if("hunter")			M.change_mob_type( /mob/living/carbon/alien/humanoid/hunter , null, null, delmob, 1 )
-			if("queen")				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen/large , null, null, delmob, 1 )
-			if("sentinel")			M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob, 1 )
-			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob, 1 )
+			if("observer")
+				M.change_mob_type( /mob/dead/observer , null, null, delmob, 1)
+			if("drone")
+				M.change_mob_type( /mob/living/carbon/alien/humanoid/drone , null, null, delmob, 1)
+			if("hunter")
+				M.change_mob_type( /mob/living/carbon/alien/humanoid/hunter , null, null, delmob, 1)
+			if("queen")
+				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen/large , null, null, delmob, 1)
+			if("sentinel")
+				M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob, 1)
+			if("larva")
+				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob, 1)
 			if("human")
 				var/posttransformoutfit = usr.client.robust_dress_shop()
 				var/mob/living/carbon/human/newmob = M.change_mob_type(/mob/living/carbon/human, null, null, delmob, 1)
 				if(posttransformoutfit && istype(newmob))
 					newmob.equipOutfit(posttransformoutfit)
-			if("slime")				M.change_mob_type( /mob/living/simple_animal/slime , null, null, delmob, 1 )
-			if("monkey")			M.change_mob_type( /mob/living/carbon/human/lesser/monkey , null, null, delmob, 1 )
-			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1 )
-			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1 )
-			if("runtime")			M.change_mob_type( /mob/living/simple_animal/pet/cat/Runtime , null, null, delmob, 1 )
-			if("corgi")				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob, 1 )
-			if("crab")				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob, 1 )
-			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/Coffee , null, null, delmob, 1 )
-			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1 )
-			if("polyparrot")		M.change_mob_type( /mob/living/simple_animal/parrot/Poly , null, null, delmob, 1 )
-			if("constructarmoured")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/armoured , null, null, delmob, 1 )
-			if("constructbuilder")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/builder , null, null, delmob, 1 )
-			if("constructwraith")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/wraith , null, null, delmob, 1 )
-			if("shade")				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob, 1 )
+			if("slime")
+				M.change_mob_type( /mob/living/simple_animal/slime , null, null, delmob, 1)
+			if("monkey")
+				M.change_mob_type( /mob/living/carbon/human/lesser/monkey , null, null, delmob, 1)
+			if("robot")
+				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1)
+			if("cat")
+				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1)
+			if("runtime")
+				M.change_mob_type( /mob/living/simple_animal/pet/cat/Runtime , null, null, delmob, 1)
+			if("corgi")
+				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob, 1)
+			if("crab")
+				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob, 1)
+			if("coffee")
+				M.change_mob_type( /mob/living/simple_animal/crab/Coffee , null, null, delmob, 1)
+			if("parrot")
+				M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1)
+			if("polyparrot")
+				M.change_mob_type( /mob/living/simple_animal/parrot/Poly , null, null, delmob, 1)
+			if("constructarmoured")
+				M.change_mob_type( /mob/living/simple_animal/hostile/construct/armoured , null, null, delmob, 1)
+			if("constructbuilder")
+				M.change_mob_type( /mob/living/simple_animal/hostile/construct/builder , null, null, delmob, 1)
+			if("constructwraith")
+				M.change_mob_type( /mob/living/simple_animal/hostile/construct/wraith , null, null, delmob, 1)
+			if("shade")
+				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob, 1)
 
 		log_and_message_admins("has used rudimentary transformation on [key_name(M)]. Transforming to [href_list["simplemake"]]; deletemob=[delmob]")
 
@@ -635,9 +570,9 @@
 		var/jobs = ""
 
 	/***********************************WARNING!************************************
-				      The jobban stuff looks mangled and disgusting
-						      But it looks beautiful in-game
-						                -Nodrak
+					The jobban stuff looks mangled and disgusting
+							But it looks beautiful in-game
+										-Nodrak
 	************************************WARNING!***********************************/
 		var/counter = 0
 //Regular jobs
@@ -945,7 +880,7 @@
 				notbannedlist += job
 
 		//Banning comes first
-		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
+		if(length(notbannedlist)) //at least 1 unbanned job exists in joblist so we have stuff to ban.
 			switch(tgui_alert(usr, "Temporary Ban of [M.ckey]?",, list("Yes", "No", "Cancel")))
 				if("Yes")
 					if(CONFIG_GET(flag/ban_legacy_system))
@@ -1000,7 +935,7 @@
 
 		//Unbanning joblist
 		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
-		if(joblist.len) //at least 1 banned job exists in joblist so we have stuff to unban.
+		if(length(joblist)) //at least 1 banned job exists in joblist so we have stuff to unban.
 			if(!CONFIG_GET(flag/ban_legacy_system))
 				to_chat(usr, span_warning("Unfortunately, database based unbanning cannot be done through this panel"), confidential=TRUE)
 				DB_ban_panel(M.ckey)
@@ -1037,7 +972,7 @@
 			to_chat(usr, span_warning("Mob has no client to kick."), confidential=TRUE)
 			return
 		if(tgui_alert(usr, "Kick [C.ckey]?",, list("Yes", "No")) == "Yes")
-			if(C && C.holder && (C.holder.rights & R_BAN))
+			if(C?.holder && (C.holder.rights & R_BAN))
 				to_chat(usr, span_warning("[key_name_admin(C)] cannot be kicked from the server."), confidential=TRUE)
 				return
 			to_chat(C, span_warning("You have been kicked from the server"), confidential=TRUE)
@@ -1055,7 +990,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["geoip"])
-		if (ismob(M))
+		if(ismob(M))
 			if(!M.client)
 				return
 			var/dat = ""
@@ -1255,7 +1190,7 @@
 	else if(href_list["c_mode"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
@@ -1274,7 +1209,7 @@
 	else if(href_list["f_secret"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "secret")
 			return tgui_alert(usr, "The game mode has to be secret!")
@@ -1293,20 +1228,20 @@
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		GLOB.master_mode = href_list["c_mode2"]
 		log_and_message_admins(span_notice("set the mode as [GLOB.master_mode]."))
 		to_chat(world, span_boldnotice("The mode is now: [GLOB.master_mode]"))
 		Game() // updates the main game menu
-		if (tgui_alert(usr, " Хотите ли вы сохранить этот режим как режим по умолчанию?", "Сохранить режим", list("Да", "Нет")) == "Да")
+		if(tgui_alert(usr, " Хотите ли вы сохранить этот режим как режим по умолчанию?", "Сохранить режим", list("Да", "Нет")) == "Да")
 			world.save_mode(GLOB.master_mode)
 		.(href, list("c_mode"=1))
 
 	else if(href_list["f_secret2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "secret")
 			return tgui_alert(usr, "The game mode has to be secret!")
@@ -1318,7 +1253,7 @@
 	else if(href_list["change_weights"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
 			return tgui_alert(usr, "The game mode has to be Antag Paradise!")
@@ -1355,7 +1290,7 @@
 	else if(href_list["change_weights2"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
 			return tgui_alert(usr, "The game mode has to be Antag Paradise!")
@@ -1474,7 +1409,7 @@
 
 		var/mob/new_player/NP = new()
 		GLOB.non_respawnable_keys -= M.ckey
-		NP.ckey = M.ckey
+		NP.possess_by_player(M.ckey)
 		qdel(M)
 
 	else if(href_list["eraseflavortext"])
@@ -2189,7 +2124,8 @@
 
 		var/mob/M = locateUID(href_list["randomizename"])
 		//exists?
-		if( !M )	return
+		if(!M)
+			return
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
@@ -2210,7 +2146,7 @@
 		if(LAZYLEN(found_ids))
 			for(var/obj/item/card/id/ID in found_ids)
 				if(ID.registered_name == old_name)
-					ID.name = "[new_name]'s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
+					ID.name = "[new_name]’s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
 					ID.registered_name = new_name
 					ID.RebuildHTML()
 		//rename all pdas with mob old name
@@ -2308,7 +2244,7 @@
 		gamemode.cult_objs.obj_summon.find_summon_locations(TRUE)
 		if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
 			for(var/datum/mind/cult_mind in gamemode.cult)
-				if(cult_mind && cult_mind.current)
+				if(cult_mind?.current)
 					to_chat(cult_mind.current, span_cult("The veil has shifted! Our summoning will need to take place elsewhere."))
 					to_chat(cult_mind.current, span_cult("Current goal : [gamemode.cult_objs.obj_summon.explanation_text]"))
 
@@ -2374,7 +2310,7 @@
 		gamemode.clocker_objs.obj_summon.find_summon_locations(TRUE)
 		if(gamemode.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
 			for(var/datum/mind/clock_mind in gamemode.clockwork_cult)
-				if(clock_mind && clock_mind.current)
+				if(clock_mind?.current)
 					to_chat(clock_mind.current, span_cult("The veil has shifted! Our summoning will need to take place elsewhere."))
 					to_chat(clock_mind.current, span_cult("Current goal : [gamemode.clocker_objs.obj_summon.explanation_text]"))
 
@@ -2429,10 +2365,8 @@
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
 				return
-			else
-				H.update_inv_r_hand()//To ensure the icon appears in the HUD
-		else
-			H.update_inv_l_hand()
+
+		H.update_held_items()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
 		message_admins("[key_name_admin(H)] got [H.p_their()] cookie, spawned by [key_name_admin(src.owner)]")
 		SSblackbox.record_feedback("amount", "admin_cookies_spawned", 1)
@@ -2563,7 +2497,7 @@
 		P.name = "Центральное командование - paper"
 		var/stypes = list("Разберитесь с этим сами!","Неразборчивый факс","Факс не подписан","Не сейчас","Вы напрасно тратите наше время", "Продолжайте в том же духе", "Инструкции ОБР")
 		var/stype = tgui_input_list(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?", "Выберите этот документ", stypes)
-		var/tmsg = "<span style='font-face: \"Verdana\"; color: black;'><center><img src = 'ntlogo.png'><br><br><br><span style='font-size: 18px;'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></span><br><br><br><span style='font-size: 4;'>Отчет отдела коммуникаций [command_name()]</span></center><br><br>"
+		var/tmsg = "<span style='font-face: \"Verdana\"; color: black;'><center><img src = 'ntlogo.png'><br><br><br><span style='font-size: 18px;'><b>Научная станция Nanotrasen [SSmapping.map_datum.station_short]</b></span><br><br><br><span style='font-size: 4;'>Отчет отдела коммуникаций [command_name()]</span></center><br><br>"
 		if(stype == "Разберитесь с этим сами!")
 			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов [command_name()].<br><br>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального командования.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Неразборчивый факс")
@@ -2625,8 +2559,9 @@
 			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
 			if(announce_to_crew)
-				GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
-												ANNOUNCE_ERT_UNAVAIL_RU
+				GLOB.major_announcement.announce(
+					message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
+					new_title = ANNOUNCE_ERT_UNAVAIL_RU
 				)
 				return
 
@@ -2917,21 +2852,9 @@
 			return
 		show_traitor_panel(M)
 
-	else if(href_list["create_object"])
-		if(!check_rights(R_SPAWN))	return
-		return create_object(usr)
-
-	else if(href_list["quick_create_object"])
-		if(!check_rights(R_SPAWN))	return
-		return quick_create_object(usr)
-
-	else if(href_list["create_turf"])
-		if(!check_rights(R_SPAWN))	return
-		return create_turf(usr)
-
-	else if(href_list["create_mob"])
-		if(!check_rights(R_SPAWN))	return
-		return create_mob(usr)
+	else if(href_list["spawn_panel"])
+		usr.client.spawn_panel()
+		return
 
 	else if(href_list["dupe_marked_datum"])
 		if(!check_rights(R_SPAWN))	return
@@ -2967,9 +2890,9 @@
 
 		var/list/offset = splittext(href_list["offset"],",")
 		var/number = dd_range(1, 100, text2num(href_list["object_count"]))
-		var/X = offset.len > 0 ? text2num(offset[1]) : 0
-		var/Y = offset.len > 1 ? text2num(offset[2]) : 0
-		var/Z = offset.len > 2 ? text2num(offset[3]) : 0
+		var/X = length(offset) > 0 ? text2num(offset[1]) : 0
+		var/Y = length(offset) > 1 ? text2num(offset[2]) : 0
+		var/Z = length(offset) > 2 ? text2num(offset[3]) : 0
 		var/tmp_dir = href_list["object_dir"]
 		var/obj_dir = tmp_dir ? text2num(tmp_dir) : 2
 		if(!obj_dir || !(obj_dir in list(1,2,4,8,5,6,9,10)))
@@ -3178,22 +3101,22 @@
 				message_admins("[key_name(usr)] is creating a custom portal storm...")
 				var/list/prefreturn = presentpreflikepicker(usr,"Настройка портального шторма", "Настройка портального шторма", Button1="Старт", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
 
-				if (prefreturn["button"] == 1)
+				if(prefreturn["button"] == 1)
 					var/list/prefs = settings["mainsettings"]
 
-					if (prefs["amount"]["value"] < 1 || prefs["portalnum"]["value"] < 1)
+					if(prefs["amount"]["value"] < 1 || prefs["portalnum"]["value"] < 1)
 						to_chat(usr, "Число порталов для спавна должно быть минимум 1")
 						return
 
 					var/pathToSpawn = prefs["typepath"]["value"]
-					if (!ispath(pathToSpawn))
+					if(!ispath(pathToSpawn))
 						pathToSpawn = text2path(pathToSpawn)
 
-					if (!ispath(pathToSpawn))
+					if(!ispath(pathToSpawn))
 						to_chat(usr, "Некорректный тип [pathToSpawn]")
 						return
 
-					if (prefs["announce_players"]["value"] == "Да")
+					if(prefs["announce_players"]["value"] == "Да")
 						portalAnnounce(prefs["announcement"]["value"], (prefs["playlightning"]["value"] == "Да" ? TRUE : FALSE))
 
 					var/mutable_appearance/storm = mutable_appearance('icons/obj/stationobjs.dmi', "portal-projector0", FLY_LAYER)
@@ -3201,7 +3124,7 @@
 
 					log_and_message_admins("has created a customized portal storm that will spawn [prefs["portalnum"]["value"]] portals, each of them spawning [prefs["amount"]["value"]] of [pathToSpawn]")
 
-					for (var/i in 1 to prefs["portalnum"]["value"])
+					for(var/i in 1 to prefs["portalnum"]["value"])
 						var/turf/turf = get_random_station_turf()
 						while(iswallturf(turf))
 							turf = get_random_station_turf()
@@ -3226,7 +3149,9 @@
 					return
 				change_station_name(new_name)
 				log_and_message_admins("renamed the station to: [new_name].")
-				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce(
+					message = "Решением [command_name()] станция переименована в \"[new_name]\"."
+				)
 
 			if("set_english_station_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
@@ -3256,10 +3181,12 @@
 				var/new_name = new_station_name()
 				change_station_name(new_name)
 				log_and_message_admins("reset the station name.")
-				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce(
+					message = "Решением [command_name()] станция переименована в \"[new_name]\"."
+				)
 
 			if("gravity")
-				if(!(SSticker && SSticker.mode))
+				if(!(SSticker?.mode))
 					to_chat(usr, span_warning("Please wait until the game starts! Not sure how it will work otherwise."), confidential=TRUE)
 					return
 
@@ -3274,7 +3201,9 @@
 
 				var/gravity_announce = tgui_input_text(usr, "Do you wish to make any global announcement?", "Announcement Text", encode = FALSE)
 				if(gravity_announce)
-					GLOB.minor_announcement.announce("[gravity_announce]")
+					GLOB.minor_announcement.announce(
+						message = "[gravity_announce]"
+					)
 
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 
@@ -3519,7 +3448,7 @@
 						ADD_TRAIT(hat, TRAIT_NODROP, INNATE_TRAIT)
 					var/list/honorifics = list(MALE = list("кун"), FEMALE = list("чан","тан"), NEUTER = list("сан")) //John Robust -> Robust-kun
 					var/list/names = splittext(human.real_name," ")
-					var/newname = "[names[names.len]]-[pick(honorifics[human.gender])]"
+					var/newname = "[names[length(names)]]-[pick(honorifics[human.gender])]"
 					human.name = newname
 					human.real_name = newname
 
@@ -3531,8 +3460,9 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				GLOB.minor_announcement.announce("Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
-												new_sound = 'sound/AI/commandreport.ogg'
+				GLOB.minor_announcement.announce(
+					message = "Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
+					new_sound = 'sound/AI/commandreport.ogg'
 				)
 			if("onlyone")
 				if(!you_realy_want_do_this())
@@ -3830,7 +3760,6 @@
 			if("lavatype")
 				change_lava_type()
 
-			else
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
 			if(ok)
@@ -3844,7 +3773,7 @@
 				var/dat = "<b>Admin Log<hr></b>"
 				for(var/l in GLOB.admin_log)
 					dat += "<li>[l]</li>"
-				if(!GLOB.admin_log.len)
+				if(!length(GLOB.admin_log))
 					dat += "No-one has done anything this round!"
 				var/datum/browser/popup = new(usr, "admin_log", "Admin Log")
 				popup.set_content(dat)
@@ -4098,7 +4027,7 @@
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_traitor")
 	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source, role_cleanname = "[killthem ? "murderous" : "protective"] [dresscode]")
-	if(!candidates.len)
+	if(!length(candidates))
 		to_chat(usr, span_warning("ERROR: Could not create eventmob. No valid candidates."), confidential=TRUE)
 		return
 	var/mob/C = pick(candidates)
@@ -4168,19 +4097,23 @@
 
 
 /proc/portalAnnounce(announcement, playlightning)
-	set waitfor = 0
-	if (playlightning)
+	set waitfor = FALSE
+	if(playlightning)
 		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
 		sleep(80)
-	GLOB.major_announcement.announce(replacetext(announcement, "%STATION%", station_name()))
-	if (playlightning)
+	GLOB.major_announcement.announce(
+		message = announcement,
+		new_title = "%STATION%",
+		new_subtitle = station_name()
+	)
+	if(playlightning)
 		sleep(20)
 		sound_to_playing_players('sound/magic/lightningbolt.ogg')
 
 /proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance)
 	loc.flick_overlay_static(portal_appearance, 15)
 	playsound(loc, SFX_SPARKS, rand(80, 100), TRUE)
-	for (var/i in 1 to numtospawn)
+	for(var/i in 1 to numtospawn)
 		new mobtype(loc)
 
 /datum/admins/proc/mass_mindswap()

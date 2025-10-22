@@ -1,14 +1,13 @@
 //A slow but strong beast that tries to stun using its tentacles
 /mob/living/simple_animal/hostile/asteroid/goliath
 	name = "goliath"
-	desc = "Массивный зверь, использующий длинные щупальца для поимки добычи. Угрожать ему – плохая идея при любых обстоятельствах."
+	desc = "Массивный зверь, использующий длинные щупальца для поимки добычи. Угрожать ему — плохая идея при любых обстоятельствах."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath"
 	icon_living = "Goliath"
 	icon_aggro = "Goliath_alert"
 	icon_dead = "Goliath_dead"
 	icon_gib = "syndicate_gib"
-	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 40
 	ranged = TRUE
 	ranged_cooldown_time = 120
@@ -27,7 +26,6 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "не наносит вреда его прочной шкуре"
 	vision_range = 5
-	aggro_vision_range = 9
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
@@ -140,7 +138,7 @@
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] опутывает щупальцами [target.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 	ranged_cooldown = world.time + ranged_cooldown_time
-	if((stat == DEAD))
+	if(stat == DEAD)
 		return
 	icon_state = icon_aggro
 	pre_attack = FALSE
@@ -158,13 +156,13 @@
 	var/turf/T = get_ranged_target_turf(chargeturf, dir, chargepast)
 	if(!T)
 		return
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	charge_turf = T
 	setDir(dir)
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(src, delay)
-	var/datum/move_loop/new_loop = SSmove_manager.home_onto(src, charge_turf, delay = GOLIATH_CHARGE_SPEED, timeout = 2 SECONDS, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	var/datum/move_loop/new_loop = GLOB.move_manager.home_onto(src, charge_turf, delay = GOLIATH_CHARGE_SPEED, timeout = 2 SECONDS, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	if(!new_loop)
 		return
 	RegisterSignal(src, COMSIG_MOVABLE_BUMP, PROC_REF(on_bump), override = TRUE)
@@ -191,7 +189,7 @@
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/end_charge()
 	UnregisterSignal(src, COMSIG_MOVABLE_BUMP)
 	charge_turf = null
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	INVOKE_ASYNC(src, PROC_REF(CheckAndAttack))
 	COOLDOWN_START(src, post_charge_delay, 2 SECONDS)
 
@@ -219,14 +217,11 @@
 
 //Lavaland Goliath
 /mob/living/simple_animal/hostile/asteroid/goliath/beast
-	name = "goliath"
 	desc = "Громадный зверь в бронированном панцире, со щупальцами, изгибающимися у него за спиной."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath"
 	icon_living = "goliath"
 	icon_aggro = "goliath"
 	icon_dead = "goliath_dead"
-	throw_message = "не наносит вреда его прочной шкуре"
 	pre_attack_icon = "goliath2"
 	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath= 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
@@ -261,7 +256,6 @@
 	health = 400
 	speed = 4
 	pre_attack_icon = "Goliath_preattack"
-	throw_message = "не наносит вреда его прочной шкуре"
 	crusher_loot = /obj/item/crusher_trophy/eyed_tentacle
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 2, /obj/item/stack/sheet/bone = 2)
 	crusher_drop_mod = 30

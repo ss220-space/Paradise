@@ -2,10 +2,8 @@
 /mob/living/simple_animal/bot/cleanbot
 	name = "Cleanbot"
 	desc = "Маленький робот-уборщик. Он выглядит таким увлечённым!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	radio_channel = SRV_FREQ_NAME //Service
@@ -51,7 +49,6 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 	update_icon(UPDATE_OVERLAYS)
-
 
 /mob/living/simple_animal/bot/cleanbot/update_icon_state()
 	return
@@ -269,7 +266,7 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, span_danger("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))

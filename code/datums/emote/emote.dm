@@ -281,7 +281,7 @@
  * * text - The text of the emote.
  */
 /proc/runechat_emote(atom/user, text)
-	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
+	var/list/can_see = get_hearers_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
 	for(var/mob/viewer in can_see)
 		if(viewer.status_flags & PASSEMOTES)

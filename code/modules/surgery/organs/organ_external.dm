@@ -15,9 +15,7 @@
 ****************************************************/
 /obj/item/organ/external
 	name = "external"
-	min_broken_damage = 30
 	max_damage = 0
-	dir = SOUTH
 	blocks_emissive = FALSE
 	/// External body part zone
 	var/limb_zone
@@ -216,6 +214,12 @@
 
 	. = ..()
 
+	// Grab all the internal giblets.
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		var/atom/movable/thing = organ.remove(organ_owner, special)
+		if(!QDELETED(thing))
+			thing.forceMove(src)
+
 	// Attached organs also fly off.
 	if(!ignore_children)
 		for(var/obj/item/organ/external/childpart as anything in children)
@@ -223,12 +227,6 @@
 			if(!QDELETED(thing))
 				thing.forceMove(src)
 		organ_owner.updatehealth("limb remove")
-
-	// Grab all the internal giblets too.
-	for(var/obj/item/organ/internal/organ as anything in internal_organs)
-		var/atom/movable/thing = organ.remove(organ_owner, special)
-		if(!QDELETED(thing))
-			thing.forceMove(src)
 
 	release_restraints(organ_owner)
 	organ_owner.bodyparts -= src
@@ -494,13 +492,13 @@
 			if(1)
 				// 44 total burn damage with 11 augmented limbs
 				if(owner)
-					owner.apply_damage(8, BURN, def_zone = src)
+					owner.apply_damage(8 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 8)
 			if(2)
 				// 22 total burn damage with 11 augmented limbs
 				if(owner)
-					owner.apply_damage(6, BURN, def_zone = src)
+					owner.apply_damage(6 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 6)
 	else if(emp_resistant) // IPC limbs
@@ -508,25 +506,25 @@
 			if(1)
 				// 5.28 (9 * 0.66 burn_mod) burn damage, 65.34 damage with 11 limbs.
 				if(owner)
-					owner.apply_damage(9, BURN, def_zone = src)
+					owner.apply_damage(9 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 9)
 			if(2)
 				// 3.63 (5 * 0.66 burn_mod) burn damage, 39.93 damage with 11 limbs.
 				if(owner)
-					owner.apply_damage(5.5, BURN, def_zone = src)
+					owner.apply_damage(5.5 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 5.5)
 	else // Basic prosthetic limbs
 		switch(severity)
 			if(1)
 				if(owner)
-					owner.apply_damage(20, BURN, def_zone = src)
+					owner.apply_damage(20 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 20)
 			if(2)
 				if(owner)
-					owner.apply_damage(7, BURN, def_zone = src)
+					owner.apply_damage(7 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 7)
 
@@ -576,7 +574,7 @@ This function completely restores a damaged organ to perfect condition.
 
 
 /****************************************************
-			   PROCESSING & UPDATING
+				PROCESSING & UPDATING
 ****************************************************/
 
 //Determines if we even need to process this organ.
@@ -711,7 +709,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /****************************************************
-			   DISMEMBERMENT
+				DISMEMBERMENT
 ****************************************************/
 /obj/item/organ/external/proc/droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, ignore_children = FALSE, nodamage = FALSE, silent = FALSE)
 	if(!owner || cannot_amputate)
@@ -920,7 +918,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /****************************************************
-			   HELPERS
+				HELPERS
 ****************************************************/
 /obj/item/organ/external/proc/release_restraints(mob/living/carbon/human/holder, silent = FALSE)
 	if(!holder)

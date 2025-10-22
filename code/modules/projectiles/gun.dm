@@ -8,7 +8,6 @@
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -53,6 +52,9 @@
 
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+
+	/// Guns can be placed on racks
+	var/on_rack = FALSE
 
 /*
  * Gun modules
@@ -179,7 +181,7 @@
 		. += span_notice("К цевью прикреплен [attachments_by_slot[ATTACHMENT_SLOT_UNDER].declent_ru(NOMINATIVE)].")
 	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_UNDER)
 		. += span_notice("Имеет маленькую планку на цевье для крепление пистолетного фонаря.")
-	else if(attachable_allowed & GUN_MODULE_CLASS_RIFLE_UNDER | attachable_allowed & GUN_MODULE_CLASS_SHOTGUN_UNDER)
+	else if(attachable_allowed & (GUN_MODULE_CLASS_RIFLE_UNDER|GUN_MODULE_CLASS_SHOTGUN_UNDER))
 		. += span_notice("Имеет большую планку на цевье для крепление большого фонаря или рукоятки.")
 
 	if(unique_reskin)
@@ -287,6 +289,7 @@
 		O.emp_act(severity)
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
+	. = ..()
 	if(firing_burst)
 		return
 	if(flag) //It's adjacent, is the user, or is on the user's person
@@ -316,7 +319,7 @@
 		user.drop_from_active_hand()
 		return
 
-	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE )] нужны две свободные руки!"))
 		return
 
@@ -326,7 +329,7 @@
 	if(ishuman(user) && user.a_intent == INTENT_HARM)
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/gun/G in get_both_hands(H))
-			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
+			if(G == src || (!HAS_TRAIT(user, TRAIT_BADASS) && G.weapon_weight >= WEAPON_MEDIUM))
 				continue
 			else if(G.can_trigger_gun(user))
 				if(!HAS_TRAIT(user, TRAIT_BADASS))
@@ -345,7 +348,7 @@
 		if(!user.can_use_guns(src))
 			return FALSE
 
-		if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] несовместим с вашей биологией!"))
 			return FALSE
 
@@ -375,11 +378,11 @@
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
 
-	if (is_tk_grab)
+	if(is_tk_grab)
 		rotate_to_target(target)
 
 	if(burst_size > 1)
-		if(chambered && chambered.harmful)
+		if(chambered?.harmful)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
@@ -388,13 +391,13 @@
 			if(!user)
 				break
 			if(!issilicon(user))
-				if( i>1 && !(src in get_both_hands(user))) //for burst firing
+				if(i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
 				if(randomspread)
-					sprd = accuracy.randomize_spread(bonus_spread)
+					sprd = accuracy.randomize_spread(user, bonus_spread)
 				else
-					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(bonus_spread))
+					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
 				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 					shoot_with_empty_chamber(user)
 					break
@@ -418,7 +421,7 @@
 				if(chambered.harmful) // Is the bullet chambered harmful?
 					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
-			sprd = accuracy.randomize_spread(bonus_spread)
+			sprd = accuracy.randomize_spread(user, bonus_spread)
 			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 				shoot_with_empty_chamber(user)
 				return
@@ -439,17 +442,14 @@
 			semicd = 0
 
 	if(user)
-		if(user.hand)
-			user.update_inv_l_hand()
-		else
-			user.update_inv_r_hand()
+		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 	if(rusted_weapon)
 		malf_counter -= burst_size
 		// if the gun grabbed by telekinesis, it's can exploise but without damage for user
-		if (user.tkgrabbed_objects[src])
-			if (malf_counter <= 0 && prob(50))
+		if(user.tkgrabbed_objects[src])
+			if(malf_counter <= 0 && prob(50))
 				user.drop_item_ground(user.tkgrabbed_objects[src])
 				new /obj/effect/decal/cleanable/ash(loc)
 				to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается!"))
@@ -734,7 +734,7 @@
 
 	target.visible_message(span_warning("[user] нажимает на спусковой крючок!"), span_userdanger("[user] нажимает на спусковой крючок!"))
 
-	if(chambered && chambered.BB)
+	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
 	process_fire(target, user, 1, params)
@@ -853,10 +853,6 @@
 	// The gun is equipped in their hands, give them the zoom ability.
 	azoom.Grant(user)
 
-//Guns can be placed on racks
-/obj/item/gun
-	var/on_rack = FALSE
-
 /obj/item/gun/proc/place_on_rack()
 	on_rack = TRUE
 	var/matrix/M = matrix()
@@ -874,10 +870,10 @@
 /obj/item/gun/proc/rotate_to_target(atom/target)
 	setDir(barrel_dir)
 	var/upd_dir = get_dir(src, target)
-	if (barrel_dir == upd_dir)
+	if(barrel_dir == upd_dir)
 		return
 	var/angle = dir2angle(upd_dir) - dir2angle(barrel_dir)
-	if (angle > 180)
+	if(angle > 180)
 		angle -= 360
 	var/matrix/M = matrix(transform)
 	M.Turn(angle)
@@ -886,7 +882,7 @@
 
 // if the gun have rotate transformation - reset it
 /obj/item/gun/proc/reset_direction()
-	if (barrel_dir == EAST)
+	if(barrel_dir == EAST)
 		return
 	var/matrix/M = matrix()
 	transform = M
@@ -894,7 +890,7 @@
 
 /obj/item/gun/pickup(mob/user)
 	. = ..()
-	if (on_rack)
+	if(on_rack)
 		remove_from_rack()
 	else
 		reset_direction()

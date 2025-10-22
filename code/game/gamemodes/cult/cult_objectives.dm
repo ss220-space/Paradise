@@ -79,7 +79,7 @@
 	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
 	if(current_obj.find_target())
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
-			if(cult_mind && cult_mind.current)
+			if(cult_mind?.current)
 				to_chat(cult_mind.current, "[span_danger(SSticker.cultdat.entity_name)] murmurs, [span_cultlarge("Our goal is beyond your reach. Sacrifice [current_obj.target] instead...")]")
 		return TRUE
 	return FALSE
@@ -95,7 +95,7 @@
 		if(obj_sac.find_target())
 			presummon_objs += obj_sac
 			for(var/datum/mind/cult_mind in SSticker.mode.cult)
-				if(cult_mind && cult_mind.current)
+				if(cult_mind?.current)
 					to_chat(cult_mind.current, span_cult("You and your acolytes have made progress, but there is more to do still before [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"] can be summoned!"))
 					to_chat(cult_mind.current, span_cult("Current goal: [obj_sac.explanation_text]"))
 		else
@@ -104,7 +104,7 @@
 /datum/cult_objectives/proc/ready_to_summon()
 	cult_status = NARSIE_NEEDS_SUMMONING
 	for(var/datum/mind/cult_mind in SSticker.mode.cult)
-		if(cult_mind && cult_mind.current)
+		if(cult_mind?.current)
 			to_chat(cult_mind.current, span_cult("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"))
 			to_chat(cult_mind.current, span_cult("Current goal: [obj_summon.explanation_text]"))
 

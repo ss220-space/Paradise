@@ -58,7 +58,6 @@
 	desc = "A suit that protects against extreme fire and heat."
 	//icon_state = "thermal"
 	item_state = "ro_suit"
-	w_class = WEIGHT_CLASS_BULKY
 	slowdown = 1.5
 
 /obj/item/clothing/suit/fire/atmos

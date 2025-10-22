@@ -24,7 +24,7 @@
 	team_objective.team = src
 	objectives += team_objective
 	syndicate_name = create_syndicate_name()
-	var/obj/effect/landmark/nuke_spawn = locate(/obj/effect/landmark/nuclear_bomb)
+	var/obj/effect/landmark/nuke_spawn = locate(/obj/effect/landmark/spawner/nuclear_bomb)
 	nuke_code = GLOB.nuke_codes[/obj/machinery/nuclearbomb/syndicate]
 	if(!nuke_spawn)
 		return
@@ -38,7 +38,7 @@
 	total_tc += danger * NUKESCALINGMODIFIER
 
 /datum/team/nuclear_team/proc/scale_challange()
-	total_tc = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS) / CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
+	total_tc = CHALLENGE_TELECRYSTALS + round((((length(GLOB.player_list) - CHALLENGE_MIN_PLAYERS) / CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
 
 /datum/team/nuclear_team/add_member(datum/mind/new_member, add_objectives)
 	if(!leader)
@@ -91,7 +91,7 @@
 
 	var/list/uplinks = get_uplinks()
 
-	player_tc = round(total_tc / uplinks.len)
+	player_tc = round(total_tc / length(uplinks))
 	remainder = total_tc % uplinks.len
 
 	for(var/obj/item/uplink/uplink as anything in uplinks)

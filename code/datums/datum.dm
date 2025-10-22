@@ -5,9 +5,9 @@
 	  * If this is non zero then the object has been garbage collected and is awaiting either
 	  * a hard del by the GC subsystme, or to be autocollected (if it has no references)
 	  */
-	var/gc_destroyed //Time when this object was destroyed.
+	var/gc_destroyed
 	/// Active timers with this datum as the target
-	var/list/active_timers  //for SStimer
+	var/list/active_timers
 	/// Status traits attached to this datum
 	var/list/_status_traits
 	/**
@@ -31,6 +31,12 @@
 
 	/// A weak reference to another datum
 	var/datum/weakref/weak_reference
+
+	/// Used by SSprocessing
+	var/isprocessing = FALSE
+
+	/// List for handling persistent filters.
+	var/list/filter_data
 
 #ifdef TESTING
 	var/running_find_references

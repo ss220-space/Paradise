@@ -8,8 +8,8 @@
 	human_req = FALSE
 	invocation = "GIN'YU CAPAN"
 	invocation_type = "whisper"
-	selection_activated_message = "<span class='notice'>You prepare to transfer your mind. Click on a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You decide that your current form is good enough.</span>"
+	selection_activated_message = span_notice("You prepare to transfer your mind. Click on a target to cast the spell.")
+	selection_deactivated_message = span_notice("You decide that your current form is good enough.")
 	cooldown_min = 20 SECONDS //100 deciseconds reduction per rank
 	var/list/protected_roles = list("Wizard","Changeling","Cultist") //which roles are immune to the spell
 	var/paralysis_amount_caster = 40 SECONDS //how much the caster is paralysed for after the spell
@@ -40,7 +40,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/mob/living/target = targets[1]
 
 	if(user.suiciding)
-		to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
+		to_chat(user, span_warning("You're killing yourself! You can't concentrate enough to do this!"))
 		return
 
 	if(target.mind.special_role in protected_roles)
@@ -55,28 +55,28 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/mob/living/caster = user//The wizard/whomever doing the body transferring.
 
 	//MIND TRANSFER BEGIN
-	if(caster.mind.special_verbs.len)//If the caster had any special verbs, remove them from the mob verb list.
+	if(length(caster.mind.special_verbs))//If the caster had any special verbs, remove them from the mob verb list.
 		for(var/V in caster.mind.special_verbs)//Since the caster is using an object spell system, this is mostly moot.
 			remove_verb(caster, V)//But a safety nontheless.
 
-	if(victim.mind.special_verbs.len)//Now remove all of the victim's verbs.
+	if(length(victim.mind.special_verbs))//Now remove all of the victim's verbs.
 		for(var/V in victim.mind.special_verbs)
 			remove_verb(victim, V)
 
 	var/mob/dead/observer/ghost = victim.ghostize(0)
 	caster.mind.transfer_to(victim)
 
-	if(victim.mind.special_verbs.len)//To add all the special verbs for the original caster.
+	if(length(victim.mind.special_verbs))//To add all the special verbs for the original caster.
 		for(var/V in caster.mind.special_verbs)//Not too important but could come into play.
 			add_verb(caster, V)
 
 	ghost.mind.transfer_to(caster)
 	if(ghost.key)
 		GLOB.non_respawnable_keys -= ghost.ckey //ghostizing with an argument of 0 will make them unable to respawn forever, which is bad
-		caster.key = ghost.key	//have to transfer the key since the mind was not active
+		caster.possess_by_player(ghost.ckey)	//have to transfer the key since the mind was not active
 	qdel(ghost)
 
-	if(caster.mind.special_verbs.len)//If they had any special verbs, we add them here.
+	if(length(caster.mind.special_verbs))//If they had any special verbs, we add them here.
 		for(var/V in caster.mind.special_verbs)
 			add_verb(caster, V)
 	//MIND TRANSFER END

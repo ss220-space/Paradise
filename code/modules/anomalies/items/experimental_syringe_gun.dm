@@ -91,7 +91,7 @@
 			return ..()
 
 		var/obj/item/reagent_containers/glass/RC = item
-		if (!RC.reagents.reagent_list)
+		if(!RC.reagents.reagent_list)
 			return  ..()
 
 		ready_reagents.reagents.clear_reagents()
@@ -130,7 +130,7 @@
 	if(!core)
 		return
 
-	if(syringes.len < max_syringes && prob(core.get_strength() / 5))
+	if(length(syringes) < max_syringes && prob(core.get_strength() / 5))
 		syringes.Add(new /obj/item/reagent_containers/syringe)
 		process_chamber()
 
@@ -141,7 +141,7 @@
 	if(chambered?.BB)
 		ready_reagents.reagents.trans_to(chambered.BB, ready_reagents.reagents.total_volume)
 
-	for (var/obj/item/reagent_containers/syringe/slime in syringes)
+	for(var/obj/item/reagent_containers/syringe/slime in syringes)
 		ready_reagents.reagents.trans_to(slime, ready_reagents.reagents.total_volume)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/living/user, flag, params)

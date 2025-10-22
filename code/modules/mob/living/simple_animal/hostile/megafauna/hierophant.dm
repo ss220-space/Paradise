@@ -58,16 +58,19 @@ Difficulty: Hard
 	loot = list(/obj/item/hierophant_club, /obj/item/gem/purple)
 	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman, /obj/item/gem/purple)
 	wander = FALSE
-	medal_type = BOSS_MEDAL_HIEROPHANT
-	score_type = HIEROPHANT_SCORE
+	achievement_type = /datum/award/achievement/boss/hierophant_kill
+	crusher_achievement_type = /datum/award/achievement/boss/hierophant_crusher
+	score_achievement_type = /datum/award/score/hierophant_score
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
 	enraged_unique_loot = /obj/item/clothing/accessory/necklace/hierophant_talisman
-	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
-							   /datum/action/innate/megafauna_attack/chaser_swarm,
-							   /datum/action/innate/megafauna_attack/cross_blasts,
-							   /datum/action/innate/megafauna_attack/blink_spam)
+	attack_action_types = list(
+		/datum/action/innate/megafauna_attack/blink,
+		/datum/action/innate/megafauna_attack/chaser_swarm,
+		/datum/action/innate/megafauna_attack/cross_blasts,
+		/datum/action/innate/megafauna_attack/blink_spam
+	)
 
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
@@ -190,7 +193,7 @@ Difficulty: Hard
 				possibilities = list("chaser_swarm")
 			else
 				possibilities += "chaser_swarm"
-		if(possibilities.len)
+		if(length(possibilities))
 			switch(pick(possibilities))
 				if("blink_spam") //blink either once or multiple times.
 					blink_spam(blink_counter, target_slowness, cross_counter)
@@ -292,9 +295,9 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(src, 6)
 	var/list/targets = ListTargets()
 	var/list/cardinal_copy = GLOB.cardinal.Copy()
-	while(targets.len && cardinal_copy.len)
+	while(length(targets) && length(cardinal_copy))
 		var/mob/living/pickedtarget = pick(targets)
-		if(targets.len >= cardinal_copy.len)
+		if(length(targets) >= length(cardinal_copy))
 			pickedtarget = pick_n_take(targets)
 		if(!istype(pickedtarget) || pickedtarget.stat == DEAD)
 			pickedtarget = target
@@ -617,11 +620,11 @@ Difficulty: Hard
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
 	. = ..()
-	queue_smooth_neighbors(src)
-	queue_smooth(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /obj/effect/temp_visual/hierophant/wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 
@@ -825,7 +828,6 @@ Difficulty: Hard
 	icon_state = "hierophant_tele_off"
 	light_range = 2
 	layer = LOW_OBJ_LAYER
-	anchored = TRUE
 	var/teleporting = FALSE
 
 /obj/effect/hierophant/get_ru_names()

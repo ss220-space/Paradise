@@ -4,16 +4,14 @@
 	desc = "Мощная атмосферная буря поднимает пепел с поверхности планеты, обрушивая его на землю и нанося сильные ожоги незащищённым существам."
 
 	telegraph_message = span_boldwarning("Глухой рокот нарастает вдали, превращаясь в оглушительный рёв. Горизонт застилают мрачные волны пепла. Ищите убежище!")
-	telegraph_duration = 30 SECONDS
 	telegraph_overlay = "light_ash"
 
-	weather_message = span_userdanger("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью – прячьтесь в убежище!</i>")
+	weather_message = span_userdanger("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью — прячьтесь в убежище!</i>")
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 120 SECONDS
 	weather_overlay = "ash_storm"
 
 	end_message = span_boldannounceic("Буря отступила, оставив после себя лишь опалённую тишину. Можно выходить...")
-	end_duration = 30 SECONDS
 	end_overlay = "light_ash"
 
 	area_type = /area/lavaland/surface/outdoors
@@ -43,7 +41,7 @@
 	for(var/z in impacted_z_levels)
 		eligible_areas += SSmapping.areas_in_z["[z]"]
 
-	for(var/i in 1 to eligible_areas.len)
+	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
 		if(istype(place, /area/shuttle)) // Don't play storm audio to shuttles that are not at lavaland
 			continue

@@ -1,16 +1,7 @@
-/*
+/**
  * This file contains all of the trait sources, or all of the things that grant traits.
  * Several things such as `type` or `ref(src)` may be used in the ADD_TRAIT() macro as the "source", but this file contains all of the defines for immutable static strings.
  */
-
-/// The item is magically cursed
-#define CURSED_ITEM_TRAIT(item_type) "cursed_item_[item_type]"
-/// Gives a unique trait source for any given datum
-#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID_of(target)]"
-/// Trait applied by element
-#define ELEMENT_TRAIT(source) "element_trait_[source]"
-/// A trait given by a specific status effect (not sure why we need both but whatever!)
-#define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
 
 // Common trait sources
 #define GENERIC_TRAIT "generic"
@@ -33,8 +24,6 @@
 #define CHASM_TRAIT "chasm_trait"
 
 // unique trait sources
-#define CULT_EYES "cult_eyes"
-#define CLOCK_HANDS "clock_hands"
 #define PULSEDEMON_TRAIT "pulse_demon"
 #define CHANGELING_TRAIT "changeling"
 #define VAMPIRE_TRAIT "vampire"
@@ -60,6 +49,7 @@
 #define AUGMENT_TRAIT "augment"
 #define ANTIDROP_TRAIT "antidrop"
 #define HOLO_CIGAR_TRAIT "holo_cigar"
+#define INUGAMI_TRAIT "inugami_gl"
 
 #define WISHGRANTER_TRAIT "wishgranter"
 #define THUNDERDOME_TRAIT "thunderdome"
@@ -174,7 +164,7 @@
 
 #define ADMIN_OFFER_TRAIT "admin_offer"
 
-#define GRAVITATION_TRAIT	"gravitation"
+#define GRAVITATION_TRAIT "gravitation"
 
 #define FAKEFIRE_TRAIT "fakefire"
 

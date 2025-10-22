@@ -17,7 +17,6 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	move_to_delay = 15
-	response_help  = "гладит"
 	response_disarm = "аккуратно отодвигает"
 	response_harm   = "шлёпает"
 	friendly = "щиплет"
@@ -26,7 +25,6 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	stat_attack = UNCONSCIOUS
 	gender = NEUTER
-	stop_automated_movement = FALSE
 	stop_automated_movement_when_pulled = TRUE
 	stat_exclusive = TRUE
 	robust_searching = TRUE
@@ -88,7 +86,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/ListTargetsLazy(check_z)//override to include wanted_objects as valid targets
 	. = ..()
-	for(var/atom/movable/movable as anything in view(vision_range, loc))
+	for(var/atom/movable/movable in view(vision_range, loc))
 		if(wanted_objects[movable.type])
 			if(isturf(movable.loc))
 				. += movable
@@ -197,7 +195,7 @@
 	gold_core_spawnable = NO_SPAWN
 	var/growth = 0
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/get_ru_names()	
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/get_ru_names()
 	return list(
 		NOMINATIVE = "червожор",
 		GENITIVE = "червожора",

@@ -15,21 +15,21 @@
 		return
 
 	if(!labels_left)
-		to_chat(user, "<span class='warning'>No labels left!</span>")
+		to_chat(user, span_warning("No labels left!"))
 		return
 	if(!label || !length(label))
-		to_chat(user, "<span class='warning'>No text set!</span>")
+		to_chat(user, span_warning("No text set!"))
 		return
 	if(length(A.name) + length(label) > 64)
-		to_chat(user, "<span class='warning'>Label too big!</span>")
+		to_chat(user, span_warning("Label too big!"))
 		return
 	if(ismob(A))
-		to_chat(user, "<span class='warning'>You can't label creatures!</span>") // use a collar
+		to_chat(user, span_warning("You can't label creatures!")) // use a collar
 		return
 
 	user.visible_message(
-		"<span class='notice'>[user] labels [A] as [label].</span>", \
-		"<span class='notice'>You label [A] as [label].</span>"
+		span_notice("[user] labels [A] as [label]."), \
+		span_notice("You label [A] as [label].")
 	)
 	A.AddComponent(/datum/component/label, label)
 	playsound(A, 'sound/items/handling/pickup/component_pickup.ogg', 20, TRUE)
@@ -44,16 +44,16 @@
 	mode = !mode
 	update_icon(UPDATE_ICON_STATE)
 	if(mode)
-		to_chat(user, "<span class='notice'>You turn on \the [src].</span>")
+		to_chat(user, span_notice("You turn on \the [src]."))
 		//Now let them chose the text.
 		var/str = reject_bad_text(tgui_input_text(user,"Label text?", "Set label"))
 		if(!str || !length(str))
-			to_chat(user, "<span class='notice'>Invalid text.</span>")
+			to_chat(user, span_notice("Invalid text."))
 			return
 		label = str
-		to_chat(user, "<span class='notice'>You set the text to '[str]'.</span>")
+		to_chat(user, span_notice("You set the text to '[str]'."))
 	else
-		to_chat(user, "<span class='notice'>You turn off \the [src].</span>")
+		to_chat(user, span_notice("You turn off \the [src]."))
 
 
 /obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)

@@ -282,7 +282,6 @@
 	id = "smoke_powder_smoke"
 	required_reagents = list("smoke_powder" = 1)
 	min_temp = T0C + 100
-	result_amount = 1
 	forbidden_reagents = list("stimulants")
 	mix_sound = null
 
@@ -394,14 +393,14 @@
 	result = null
 	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
 	result_amount = 1
-	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
+	mix_message = span_danger("The reaction releases an electrical blast!")
 	mix_sound = 'sound/magic/lightningbolt.ogg'
 
 /atom/proc/do_shock_ex(radius, damage = 3.5, animate = FALSE)
 	var/turf/epicenter = get_turf(src)
 	for(var/mob/living/L in view(radius, src))
 		L.Beam(epicenter, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
-		L.electrocute_act(damage, "взрыва электричества")
+		L.electrocute_act(damage, src)
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)

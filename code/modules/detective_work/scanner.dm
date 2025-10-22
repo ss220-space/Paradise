@@ -7,7 +7,6 @@
 	desc = "Анализатор, способный выдать отчет по человеку, исходя из имени, ДНК или отпечатков пальцев."
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "detscanner"
-	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
 	flags = CONDUCT
 	item_flags = NOBLUDGEON
@@ -55,8 +54,8 @@
 
 	if(name)
 		to_chat(user, "<span class='notice'>Совпадение найдено в записях станции: <b>[name]</b></span><br>\
-		<i>Отпечатки пальцев:</i><span class='notice'> [fingerprint]</span><br>\
-		<i>ДНК:</i><span class='notice'> [dna]</span>")
+		<i>Отпечатки пальцев:</i>[span_notice(" [fingerprint]")]<br>\
+		<i>ДНК:</i>[span_notice(" [dna]")]")
 	else
 		to_chat(user, span_warning("В записях станции не найдено совпадений."))
 

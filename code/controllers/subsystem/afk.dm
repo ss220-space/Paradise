@@ -1,6 +1,6 @@
-#define AFK_WARNED			1
-#define AFK_CRYOD			2
-#define AFK_ADMINS_WARNED	3
+#define AFK_WARNED 1
+#define AFK_CRYOD 2
+#define AFK_ADMINS_WARNED 3
 
 SUBSYSTEM_DEF(afk)
 	name = "AFK Watcher"
@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(afk)
 
 /datum/controller/subsystem/afk/proc/removeFromWatchList(list/toRemove)
 	for(var/C in toRemove)
-		for(var/i in 1 to afk_players.len)
+		for(var/i in 1 to length(afk_players))
 			if(afk_players[i] == C)
 				afk_players.Cut(i, i + 1)
 				break

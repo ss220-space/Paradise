@@ -8,8 +8,6 @@
 	force = 3
 	throwforce = 5
 	throw_speed = 3
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("ударил", "огрел")
 	resistance_flags = FLAMMABLE
 	var/mopping = 0
@@ -85,7 +83,7 @@
 
 	var/clicked_turf = get_turf(atom)
 	var/list/turf/turfs = get_mopping_turfs(user, clicked_turf)
-	if(!turfs.len)
+	if(!length(turfs))
 		return
 
 	user.visible_message(
@@ -151,7 +149,7 @@
 
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
-	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
+	to_chat(user, span_notice("You wet [src] in [source]."))
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 	return 1
 
@@ -181,7 +179,7 @@
 		START_PROCESSING(SSobj, src)
 	else
 		STOP_PROCESSING(SSobj, src)
-	to_chat(user, "<span class='notice'>You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position.</span>")
+	to_chat(user, span_notice("You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position."))
 	playsound(user, 'sound/machines/click.ogg', 30, TRUE)
 
 /obj/item/mop/advanced/process()

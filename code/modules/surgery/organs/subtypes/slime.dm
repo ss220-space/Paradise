@@ -31,7 +31,6 @@
 		PREPOSITIONAL = "лёгких слаймолюда"
 	)
 	icon = 'icons/obj/species_organs/slime.dmi'
-	icon_state = "lungs"
 	item_state = "slime_lungs"
 
 /obj/item/organ/internal/brain/slime

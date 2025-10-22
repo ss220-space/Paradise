@@ -48,12 +48,12 @@
 
 /datum/action/innate/robot_sight_hydro/Activate()
 	for(var/datum/atom_hud/data/hydroponic/hydrosensors in GLOB.huds)
-		hydrosensors.add_hud_to(owner)
+		hydrosensors.show_to(owner)
 
 	active = TRUE
 
 /datum/action/innate/robot_sight_hydro/Deactivate()
 	for(var/datum/atom_hud/data/hydroponic/hydrosensors in GLOB.huds)
-		hydrosensors.remove_hud_from(owner)
+		hydrosensors.hide_from(owner)
 
 	active = FALSE

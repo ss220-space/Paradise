@@ -550,7 +550,6 @@
 	flag = MELEE //jokair
 	damage = 15
 	light_range = 1
-	light_power = 1
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 
 /obj/projectile/soulscythe/get_ru_names()
@@ -564,7 +563,7 @@
 	)
 
 /obj/projectile/soulscythe/on_hit(atom/target, blocked = 0, pierce_hit)
-	if (isliving(target))
+	if(isliving(target))
 		var/mob/living/as_living = target
 		if(firer.faction_check_mob(as_living))
 			damage *= 0

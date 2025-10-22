@@ -1,7 +1,6 @@
 /obj/machinery/computer/arcade
 	name = "random arcade"
 	desc = "Случайный аркадный автомат."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "arcade"
 	icon_keyboard = null
 	icon_screen = "invaders"
@@ -37,8 +36,16 @@
 	return ..()
 
 /obj/machinery/computer/arcade/proc/prizevend(score)
-	var/atom/movable/picked_prize = pick_n_take(prize_storage)
+	if(prob(0.0001)) //1 in a million
+		new /obj/item/gun/energy/pulse/prize(src)
+		visible_message(
+			span_notice("[capitalize(declent_ru(NOMINATIVE))] выда[pluralize_ru(gender, "ёт", "ют")]... Ого, оружие! Это просто улёт!"),
+			span_notice("Вы слышите выстрелы и звон.")
+		)
+		usr.client.give_award(/datum/award/achievement/misc/pulse, usr)
+		return
 
+	var/atom/movable/picked_prize = pick_n_take(prize_storage)
 	if(picked_prize)
 		picked_prize.forceMove(get_turf(src))
 		return
@@ -63,8 +70,6 @@
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
 	desc = "Не поддерживает пинбол."
-	icon = 'icons/obj/machines/computer.dmi'
-	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villian"
 	var/temp = "Победители не употребляют Космодурь" //Temporary message, for attack messages, etc
@@ -270,9 +275,7 @@
 		enemy_mp = 20
 		gameover = 0
 		blocked = 0
-
 		emagged = 1
-
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
 
@@ -280,25 +283,24 @@
 
 // *** THE ORION TRAIL ** //
 
-#define ORION_TRAIL_WINTURN		9
+#define ORION_TRAIL_WINTURN 9
 
 //Orion Trail Events
-#define ORION_TRAIL_RAIDERS		"Рейдеры"
-#define ORION_TRAIL_FLUX		"Межзвездный поток"
-#define ORION_TRAIL_ILLNESS		"Болезнь"
-#define ORION_TRAIL_BREAKDOWN	"Авария"
-#define ORION_TRAIL_LING		"Генокрады?"
+#define ORION_TRAIL_RAIDERS "Рейдеры"
+#define ORION_TRAIL_FLUX "Межзвездный поток"
+#define ORION_TRAIL_ILLNESS "Болезнь"
+#define ORION_TRAIL_BREAKDOWN "Авария"
+#define ORION_TRAIL_LING "Генокрады?"
 #define ORION_TRAIL_LING_ATTACK "Засада генокрадов"
-#define ORION_TRAIL_MALFUNCTION	"Неисправность"
-#define ORION_TRAIL_COLLISION	"Столкновение"
-#define ORION_TRAIL_SPACEPORT	"Космопорт"
-#define ORION_TRAIL_BLACKHOLE	"Черная Дыра"
+#define ORION_TRAIL_MALFUNCTION "Неисправность"
+#define ORION_TRAIL_COLLISION "Столкновение"
+#define ORION_TRAIL_SPACEPORT "Космопорт"
+#define ORION_TRAIL_BLACKHOLE "Черная Дыра"
 
 
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"
 	desc = "Узнайте, как наши предки добрались до Ориона, и повеселитесь в процессе!"
-	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/orion_trail
 	var/busy = 0 //prevent clickspam that allowed people to ~speedrun~ the game.
 	var/engine = 0
@@ -313,21 +315,26 @@
 	var/eventdat = null
 	var/event = null
 	var/list/settlers = list("Harry", "Larry", "Bob")
-	var/static/list/events = list(ORION_TRAIL_RAIDERS		= 3,
-						   ORION_TRAIL_FLUX			= 1,
-						   ORION_TRAIL_ILLNESS		= 3,
-						   ORION_TRAIL_BREAKDOWN	= 2,
-						   ORION_TRAIL_LING			= 3,
-						   ORION_TRAIL_MALFUNCTION	= 2,
-						   ORION_TRAIL_COLLISION	= 1,
-						   ORION_TRAIL_SPACEPORT	= 2
-						   )
+	var/static/list/events = list(
+		ORION_TRAIL_RAIDERS = 3,
+		ORION_TRAIL_FLUX = 1,
+		ORION_TRAIL_ILLNESS = 3,
+		ORION_TRAIL_BREAKDOWN = 2,
+		ORION_TRAIL_LING = 3,
+		ORION_TRAIL_MALFUNCTION = 2,
+		ORION_TRAIL_COLLISION = 1,
+		ORION_TRAIL_SPACEPORT = 2
+	)
 	var/list/stops
 	var/list/stopblurbs
 	var/lings_aboard = 0
 	var/spaceport_raided = 0
 	var/spaceport_freebie = 0
 	var/last_spaceport_action = ""
+
+	var/obj/item/radio/radio
+	var/list/gamers = list()
+	var/killed_crew = 0
 
 /obj/machinery/computer/arcade/orion_trail/get_ru_names()
 	return list(
@@ -338,6 +345,15 @@
 		INSTRUMENTAL = "игровым автоматом The Orion Trail",
 		PREPOSITIONAL = "игровом автомате The Orion Trail"
 	)
+
+/obj/machinery/computer/arcade/orion_trail/Initialize(mapload)
+	. = ..()
+	radio = new /obj/item/radio(src)
+	radio.set_listening(FALSE)
+
+/obj/machinery/computer/arcade/orion_trail/Destroy(force)
+	QDEL_NULL(radio)
+	. = ..()
 
 /obj/machinery/computer/arcade/orion_trail/Reset()
 	// Sets up the main trail
@@ -351,7 +367,7 @@
 		"Tau Ceti Beta стала отправной точкой для колонистов, направляющихся к Ориону. Поблизости находится множество кораблей и временных станций.",
 		"Датчики показывают, что гравитационное поле черной дыры влияет на область пространства, через которую мы направляемся. Мы могли бы придерживаться курса, но есть риск, что нас одолеет ее гравитация, или же мы могли бы изменить курс и обогнуть ее, что займет больше времени.",
 		"Вы оказались в поле зрения первого рукотворного сооружения в этом регионе космоса. Оно было построено не путешественниками с Солнечной Системы, а колонистами с Ориона. Оно стоит как памятник успеху колонистов.",
-		"Вы добрались до Ориона! Поздравляю! Ваша команда – одна из немногих, кто создал новую точку опоры для человечества!"
+		"Вы добрались до Ориона! Поздравляю! Ваша команда — одна из немногих, кто создал новую точку опоры для человечества!"
 		)
 
 /obj/machinery/computer/arcade/orion_trail/proc/newgame()
@@ -372,16 +388,53 @@
 	playing = 1
 	gameover = 0
 	lings_aboard = 0
+	killed_crew = 0
 
 	//spaceport junk
 	spaceport_raided = 0
 	spaceport_freebie = 0
 	last_spaceport_action = ""
 
+/obj/machinery/computer/arcade/orion_trail/proc/report_player(mob/gamer)
+	if(gamers[gamer] == -2)
+		return // enough harassing them
+
+	if(gamers[gamer] == -1)
+		atom_say("Внимание! Зафиксировано продолжающееся антисоциальное поведение! Распечатана литература по самопомощи.")
+		new /obj/item/paper/pamphlet/violent_video_games(get_turf(src))
+		gamers[gamer]--
+		return
+
+	if(!(gamer in gamers))
+		gamers[gamer] = 0
+
+	gamers[gamer]++ // How many times the player has 'prestiged' (massacred their crew)
+	if(gamers[gamer] <= 2 || !prob(20 * gamers[gamer]))
+		return
+
+	radio.set_frequency(SEC_FREQ)
+	radio.autosay("Оповещение безопасности! Член экипажа [gamer.declent_ru(NOMINATIVE)] демонстрирует признаки асоциального поведения в [get_area(src)]. Пожалуйста, будьте внимательны к проявлениям агрессивного поведения.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	radio.set_frequency(MED_FREQ)
+	radio.talk_into(src, "Оповещение о психичестком расстройстве! У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+
+	gamers[gamer] = -1
+
+	gamer.client.give_award(/datum/award/achievement/misc/gamer, gamer) // PSYCH REPORT NOTE: patient kept rambling about how they did it for an "achievement", recommend continued holding for observation
+
+	if(isnull(GLOB.data_core.general))
+		return
+
+	for(var/datum/data/record/record as anything in GLOB.data_core.general)
+		if(record.fields["name"] != gamer.name)
+			continue
+
+		record.fields["m_stat"] = "Нестабильное"
+		return
+
 /obj/machinery/computer/arcade/orion_trail/attack_hand(mob/user)
 	if(..())
 		return
-	if(fuel <= 0 || food <=0 || settlers.len == 0)
+	if(fuel <= 0 || food <=0 || length(settlers) == 0)
 		gameover = 1
 		event = null
 	user.set_machine(src)
@@ -389,7 +442,7 @@
 	if(gameover)
 		dat = "<center><h1>Игра Окончена</h1></center>"
 		dat += "Как и многие до вас, ваша команда так и не добралась до Ориона, затерявшись в космосе... <br><b>Навсегда</b>."
-		if(settlers.len == 0)
+		if(length(settlers) == 0)
 			dat += "<br>Весь ваш экипаж погиб, и ваш корабль присоединяется к флоту кораблей-призраков, разбросанных по галактике."
 		else
 			if(food <= 0)
@@ -580,7 +633,7 @@
 		event = null
 	else if(href_list["keepspeed"]) //keep speed
 		if(prob(75))
-			event = "Breakdown"
+			event = ORION_TRAIL_BREAKDOWN
 			event()
 		else
 			event = null
@@ -613,6 +666,7 @@
 			return
 		var/sheriff = remove_crewmember() //I shot the sheriff
 		playsound(loc, 'sound/weapons/gunshots/gunshot.ogg', 100, TRUE)
+		killed_crew++
 
 		if(length(settlers) == 0 || alive == 0)
 			atom_say("Последний член команды [sheriff], застрелился, ИГРА ОКОНЧЕНА!")
@@ -621,6 +675,9 @@
 				emagged = FALSE
 			gameover = TRUE
 			event = null
+			if(killed_crew >= 4)
+				report_player(usr)
+
 		else if(emagged)
 			if(usr.name == sheriff)
 				atom_say("Экипаж корабля решил убить [usr.name]!")
@@ -628,6 +685,7 @@
 
 		if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places
 			event = null
+			killed_crew-- // the kill was valid
 
 	//Spaceport specific interactions
 	//they get a header because most of them don't reset event (because it's a shop, you leave when you want to)
@@ -638,6 +696,7 @@
 		fuel -= 10
 		food -= 10
 		event()
+		killed_crew-- // I mean not really but you know
 
 	else if(href_list["sellcrew"]) //sell a crewmember
 		var/sold = remove_crewmember()
@@ -792,7 +851,7 @@
 
 		if(ORION_TRAIL_LING)
 			eventdat += "Странные сообщения предупреждают о том, что Генокрады проникают в экипаж во время полетов на Орион..."
-			if(settlers.len <= 2)
+			if(length(settlers) <= 2)
 				eventdat += "<br>Шансы вашей команды добраться до Ориона настолько малы, что Генокрады, скорее всего, избегали вашего корабля..."
 				eventdat += "<p align='right'><a href='byond://?src=[UID()];eventclose=1'>Продолжить</a></p>"
 				eventdat += "<p align='right'><a href='byond://?src=[UID()];close=1'>Закрыть</a></p>"
@@ -819,7 +878,7 @@
 				if(lings_aboard >= 2)
 					ling2 = remove_crewmember()
 
-				eventdat += "О нет, некоторые из вашей команды – Генокрады!"
+				eventdat += "О нет, некоторые из вашей команды — Генокрады!"
 				if(ling2)
 					eventdat += "<br>Руки [ling1] и [ling2] изгибаются, превращаясь в гротескные клинки!"
 				else
@@ -901,7 +960,7 @@
 					eventdat += "<p align='right'>Вы не можете позволить себе нанять нового члена экипажа</p>"
 
 				//Sell crew
-				if(settlers.len > 1)
+				if(length(settlers) > 1)
 					eventdat += "<p align='right'><a href='byond://?src=[UID()];sellcrew=1'>Продать члена экипажа за Топливо и Пищу (+7FU,+7FO)</a></p>"
 				else
 					eventdat += "<p align='right'>Вы не можете продать члена экипажа</p>"
@@ -969,7 +1028,7 @@
 	if(specific && specific != dont_remove)
 		safe2remove = list(specific)
 	else
-		if(safe2remove.len >= 1) //need to make sure we even have anyone to remove
+		if(length(safe2remove) >= 1) //need to make sure we even have anyone to remove
 			removed = pick(safe2remove)
 
 	if(removed)
@@ -1016,7 +1075,6 @@
 	desc = "Лучшие корпоративные силы службы безопасности для всех космопортов, расположенных вдоль пути к Ориону."
 	faction = list("orion")
 	loot = list()
-	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/orion/get_ru_names()
 	return list(
@@ -1081,7 +1139,6 @@
 /obj/machinery/computer/arcade/orion_trail/pc_frame
 	name = "special purpose computer"
 	desc = "Выполнять вычисления на этом компьютере будет сложно..."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "aimainframe"
 
 /obj/machinery/computer/arcade/orion_trail/pc_frame/macintosh
@@ -1092,7 +1149,6 @@
 /obj/machinery/computer/arcade/battle/pc_frame
 	name = "special purpose computer"
 	desc = "Выполнять вычисления на этом компьютере будет сложно..."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "aimainframe"
 
 /obj/machinery/computer/arcade/battle/pc_frame/macintosh
