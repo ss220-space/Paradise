@@ -26,14 +26,14 @@
 /datum/click_intercept/buildmode/New()
 	mode = new /datum/buildmode_mode/basic(src)
 	li_cb = CALLBACK(src, PROC_REF(post_login))
-	holder.persistent_client.post_login_callbacks += li_cb
 	. = ..()
+	holder.persistent_client.post_login_callbacks += li_cb
 	mode.enter_mode(src)
 
 /datum/click_intercept/buildmode/Destroy()
 	close_switchstates()
 	close_preview()
-	holder.persistent_client.post_login_callbacks -= li_cb
+	holder?.persistent_client.post_login_callbacks -= li_cb
 	li_cb = null
 	QDEL_NULL(mode)
 	QDEL_LIST(modeswitch_buttons)
@@ -150,6 +150,11 @@
 /datum/click_intercept/buildmode/InterceptClickOn(user, params, atom/object)
 	mode.handle_click(user, params, object)
 
+/datum/click_intercept/buildmode/quit(force)
+	if(!force)
+		return
+	. = ..()
+
 /proc/togglebuildmode(mob/user as mob in  GLOB.player_list)
 	set name = "Toggle Build Mode"
 	set category = STATPANEL_ADMIN_EVENT
@@ -157,7 +162,7 @@
 	if(user.client)
 		if(istype(user.client.click_intercept, /datum/click_intercept/buildmode))
 			var/datum/click_intercept/buildmode/buildmode = user.client.click_intercept
-			buildmode.quit()
+			buildmode.quit(TRUE)
 			log_admin("[key_name(user)] has left build mode.")
 		else
 			new/datum/click_intercept/buildmode(user.client)
