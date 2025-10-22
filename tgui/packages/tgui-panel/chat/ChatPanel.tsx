@@ -50,7 +50,7 @@ export class ChatPanel extends Component<Props, State> {
     );
   }
 
-  static updatedProps = ['fontSize', 'lineHeight']
+  static updatedProps = ['fontSize', 'lineHeight'];
 
   componentDidUpdate(prevProps?) {
     requestAnimationFrame(() => {

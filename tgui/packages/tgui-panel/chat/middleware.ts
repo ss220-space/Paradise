@@ -80,7 +80,6 @@ const loadChatFromStorage = async (store) => {
   let messages = [];
 
   if (chatSavingEnabled !== false) {
-
     messages = await storage.getChatMessages();
 
     if (messages) {

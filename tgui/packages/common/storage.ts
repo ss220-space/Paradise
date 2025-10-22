@@ -22,7 +22,7 @@ type StorageBackend = {
   set(key: string, value: any): Promise<void>;
   remove(key: string): Promise<void>;
   clear(): Promise<void>;
-  processChatMessages(messages): Promise<void>
+  processChatMessages(messages): Promise<void>;
   getChatMessages(): Promise<any>;
   iframe_check(): Promise<boolean>;
 };
@@ -88,7 +88,10 @@ class HubStorageBackend implements StorageBackend {
   async processChatMessages(messages): Promise<void> {
     return new Promise((resolve) => {
       queueMicrotask(() => {
-        window.hubStorage.setItem('paradise-chat-messages',JSON.stringify( messages));
+        window.hubStorage.setItem(
+          'paradise-chat-messages',
+          JSON.stringify(messages)
+        );
         resolve();
       });
     });
@@ -106,9 +109,9 @@ class HubStorageBackend implements StorageBackend {
       });
     });
   }
-    async iframe_check() : Promise<boolean>{
-    return false
-  };
+  async iframe_check(): Promise<boolean> {
+    return false;
+  }
 }
 
 export class IFrameIndexedDbBackend implements StorageBackend {
@@ -202,9 +205,9 @@ export class IFrameIndexedDbBackend implements StorageBackend {
     this.iframeWindow = null;
   }
 
-  async iframe_check() : Promise<boolean>{
-    return true
-  };
+  async iframe_check(): Promise<boolean> {
+    return true;
+  }
 }
 
 /**
@@ -290,11 +293,11 @@ export class StorageProxy implements StorageBackend {
     return backend.getChatMessages();
   }
 
-  async iframe_check() : Promise<boolean>{
+  async iframe_check(): Promise<boolean> {
     const backend = await this.backendPromise;
 
     return backend.iframe_check();
-  };
+  }
 }
 
 export const storage = new StorageProxy();
