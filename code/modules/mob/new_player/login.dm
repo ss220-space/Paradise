@@ -1,4 +1,5 @@
 /mob/new_player/Login()
+	client?.persistent_client?.set_mob(src)
 	update_Login_details()	//handles setting lastKnownIP and computer_id for use by the ban systems as well as checking for multikeying
 
 	//Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
