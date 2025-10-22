@@ -1016,7 +1016,7 @@
 		return RITUAL_FAILED_ON_PROCEED // no mercy guys. But you got friendly creature
 
 	var/mob/mob = pick(candidates)
-	animal.key = mob.key
+	animal.possess_by_player(mob.ckey)
 	animal.universal_speak = 1
 	animal.sentience_act()
 	animal.can_collar = 1

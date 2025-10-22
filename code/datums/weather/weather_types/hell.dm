@@ -67,7 +67,7 @@
 	var/demon_type = (prob(50))? /mob/living/simple_animal/demon/slaughter : /mob/living/simple_animal/demon/slaughter/laughter
 	var/mob/new_mob = new demon_type(get_turf(mob))
 	LAZYOR(new_mob.faction, "hell")
-	new_mob.key = mob.key
+	new_mob.possess_by_player(mob.key)
 	mob.dust()
 	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/demon)
 
@@ -86,7 +86,7 @@
 		return
 	var/mob/new_mob = new /mob/living/simple_animal/imp(get_turf(mob))
 	LAZYOR(new_mob.faction, "hell")
-	new_mob.key = mob.key
+	new_mob.possess_by_player(mob.key)
 	mob.dust()
 	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/from_soul)
 
@@ -114,7 +114,7 @@
 
 	var/mob/new_mob = new /mob/living/simple_animal/demon/shadow(get_turf(mob))
 	LAZYOR(new_mob.faction, "hell")
-	new_mob.key = mob.key
+	new_mob.possess_by_player(mob.key)
 	mob.dust()
 	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/demon/shadow)
 
@@ -222,7 +222,7 @@
 	if(!result)
 		return ..()
 	var/mob/living/simple_animal/imp/imp = new(get_turf(loc))
-	imp.key = user.key
+	imp.possess_by_player(user.key)
 	imp.mind?.add_antag_datum(/datum/antagonist/imp)
 	imps_count++
 	if(imps_count < PORTAL_MAX_IMPS)

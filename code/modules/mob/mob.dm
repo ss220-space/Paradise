@@ -1,4 +1,5 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
+	persistent_client?.set_mob(null)
 	remove_from_mob_list()
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
@@ -461,6 +462,9 @@
 	if(!canon_client)
 		return
 
+	for(var/datum/callback/callback as anything in persistent_client.post_logout_callbacks)
+		callback.Invoke()
+
 	if(canon_client?.movingmob)
 		LAZYREMOVE(canon_client.movingmob.client_mobs_in_contents, src)
 		canon_client.movingmob = null
@@ -543,7 +547,7 @@
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
 
-	var/deathtime = world.time - src.timeofdeath
+	var/deathtime = world.time - persistent_client.time_of_death
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
@@ -589,7 +593,7 @@
 		qdel(M)
 		return
 
-	M.key = key
+	M.possess_by_player(key)
 	GLOB.respawnable_list += usr
 	return
 
@@ -802,7 +806,7 @@
 
 	to_chat(usr, span_notice(message))
 	GLOB.respawnable_list -= usr
-	picked_mob.key = key
+	picked_mob.possess_by_player(key)
 
 
 /mob/proc/become_mouse()
@@ -820,7 +824,7 @@
 		var/obj/vent_found = pick(found_vents)
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
 		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
-		host.ckey = src.ckey
+		host.possess_by_player(ckey)
 		to_chat(host, span_notice("You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent."))
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
@@ -1322,9 +1326,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		else if(!client && registered_z)
 			add_misc_logs(src, "Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 			update_z(null)
-
-/mob/proc/set_key(key)
-	src.key = key
 
 /// Assigns a (c)key to this mob.
 /mob/proc/possess_by_player(ckey)

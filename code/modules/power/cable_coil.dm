@@ -167,6 +167,10 @@
 	if(!ishuman(target))
 		return ..()
 
+	if(HAS_TRAIT(target, TRAIT_REPAIRING_LIMB))
+		balloon_alert(user, "уже ремонтируется!")
+		return ATTACK_CHAIN_PROCEED
+
 	var/obj/item/organ/external/target_organ = target.get_organ(check_zone(user.zone_selected))
 	if(!target_organ || !target_organ.is_robotic() || user.a_intent != INTENT_HELP || target_organ.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
@@ -181,7 +185,9 @@
 		to_chat(user, span_notice("Nothing to fix!"))
 		return .
 
-	if(target == user && !do_after(user, 1 SECONDS, target, NONE))
+	ADD_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	if(target == user && !do_after(user, target.robotic_limb_repair_time, target, NONE))
+		REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
@@ -218,6 +224,7 @@
 		target.updatehealth("cable repair")
 	if(update_damage_icon)
 		target.UpdateDamageIcon()
+	REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
 
 /obj/item/stack/cable_coil/attackby(obj/item/I, mob/user, params)

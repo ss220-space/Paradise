@@ -70,8 +70,9 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	loot = list(/obj/structure/closet/crate/necropolis/ancient)
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
-	medal_type = BOSS_MEDAL_ROBOT
-	score_type = ROBOT_SCORE
+	achievement_type = /datum/award/achievement/boss/ancient_robot_kill
+	crusher_achievement_type = /datum/award/achievement/boss/ancient_robot_crusher
+	score_achievement_type = /datum/award/score/ancient_robot_score
 	deathmessage = "взрывается дождём из сплавов"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()

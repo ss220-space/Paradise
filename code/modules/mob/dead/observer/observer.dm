@@ -184,7 +184,12 @@ Works together with spawning an observer, noted above.
 		if(client)
 			client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
 
-		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
+		var/recordable_time = world.time
+		var/mob/living/former_mob = ghost.mind?.current
+		if(isliving(former_mob))
+			recordable_time = former_mob.timeofdeath
+
+		ghost.persistent_client?.time_of_death = recordable_time
 		GLOB.respawnable_list -= src
 
 		if(ghost.can_reenter_corpse)
@@ -192,7 +197,7 @@ Works together with spawning an observer, noted above.
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 
-		ghost.key = key
+		ghost.possess_by_player(key)
 		ghost.client?.init_verbs()
 		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
 		return ghost
@@ -322,7 +327,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, span_warning("Другое сознание находится в вашем теле... Оно сопротивляется вам."))
 		return FALSE
 
-	mind.current.key = key
+	mind.current.possess_by_player(key)
 
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 
@@ -848,7 +853,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		mind.active = TRUE
 		mind.transfer_to(new_char)
 	else
-		new_char.key = key
+		new_char.possess_by_player(key)
 
 	return new_char
 

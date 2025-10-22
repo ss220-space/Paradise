@@ -90,7 +90,7 @@
 
 		spawn(6)
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
-			new_xeno.key = C.key
+			new_xeno.possess_by_player(C.key)
 			new_xeno.mind.name = new_xeno.name
 			new_xeno.update_datum()
 			SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))//To get the player's attention

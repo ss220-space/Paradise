@@ -1418,6 +1418,7 @@
 		tilt_over()
 		return
 	for(var/mob/living/victim in get_turf(target_atom))
+		var/was_alive = (victim.stat != DEAD)
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
@@ -1448,6 +1449,8 @@
 		. = TRUE
 		victim.Weaken(4 SECONDS)
 		victim.Knockdown(8 SECONDS)
+		if(was_alive && victim.stat == DEAD && victim.client)
+			victim.client.give_award(/datum/award/achievement/misc/vendor_squish, victim) // good job losing a fight with an inanimate object idiot
 
 		playsound(victim, 'sound/effects/blobattack.ogg', 40, TRUE)
 		playsound(victim, 'sound/effects/splat.ogg', 50, TRUE)

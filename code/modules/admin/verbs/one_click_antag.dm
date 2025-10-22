@@ -281,7 +281,7 @@
 
 		var/mob/mob = pick_n_take(candidates)
 		var/mob/living/carbon/human/human = new /mob/living/carbon/human(GLOB.nukespawn[spawnpos])
-		human.key = mob.key
+		human.possess_by_player(mob.key)
 		create_syndicate(human.mind)
 		team.add_member(human.mind)
 		var/datum/antagonist/nuclear_operative/datum = human.mind.has_antag_datum(/datum/antagonist/nuclear_operative)
@@ -354,7 +354,7 @@
 	A.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
-	new_character.key = G_found.key
+	new_character.possess_by_player(G_found.key)
 
 	return new_character
 
@@ -402,7 +402,7 @@
 		raider.set_original_mob(new_vox)
 
 		raider.key = candidate.key
-		new_vox.key = raider.key
+		new_vox.possess_by_player(raider.key)
 
 		mode.create_vox(raider)
 		mode.greet_vox(raider)
@@ -492,7 +492,7 @@
 					qdel(newMember)
 					break
 
-				newMember.key = theghost.key
+				newMember.possess_by_player(theghost.key)
 				teamOneMembers--
 				to_chat(newMember, "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!")
 
@@ -514,7 +514,7 @@
 					qdel(newMember)
 					break
 
-				newMember.key = theghost.key
+				newMember.possess_by_player(theghost.key)
 				teamTwoMembers--
 				to_chat(newMember, "You are a member of the <font color = 'red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
 	else

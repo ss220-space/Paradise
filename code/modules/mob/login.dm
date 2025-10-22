@@ -31,6 +31,8 @@
 
 	canon_client = client
 
+	client.persistent_client.set_mob(src)
+
 	add_to_player_list()
 	GLOB.left_player_list -= src
 
@@ -95,6 +97,12 @@
 	update_client_colour(0)
 	update_morgue()
 	client.init_verbs()
+
+	for(var/datum/action/action as anything in persistent_client.player_actions)
+		action.Grant(src)
+
+	for(var/datum/callback/callback as anything in persistent_client.post_login_callbacks)
+		callback.Invoke()
 
 	clear_important_client_contents(client)
 	enable_client_mobs_in_contents(client)

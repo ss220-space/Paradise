@@ -164,7 +164,7 @@
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)
-	monke.key = SG.key
+	monke.possess_by_player(SG.key)
 	monke.health = monke.maxHealth
 	greet_sentient(monke)
 
@@ -174,7 +174,7 @@
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)
-	animal.key = SG.key
+	animal.possess_by_player(SG.ckey)
 	animal.universal_speak = 1
 	animal.sentience_act()
 	animal.can_collar = 1

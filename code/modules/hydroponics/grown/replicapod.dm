@@ -107,9 +107,9 @@
 			podman.real_name = realName
 		mind.transfer_to(podman)
 		if(ckey)
-			podman.ckey = ckey
+			podman.possess_by_player(ckey)
 		else
-			podman.ckey = ckey_holder
+			podman.possess_by_player(ckey_holder)
 		podman.gender = blood_gender
 		podman.faction |= factions
 

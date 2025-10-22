@@ -51,7 +51,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 			if(length(candidates))
 				var/mob/mob = pick(candidates)
-				new_honksquad.key = mob.key
+				new_honksquad.possess_by_player(mob.key)
 				candidates -= new_honksquad.key
 				new_honksquad.internal = new_honksquad.s_store
 				new_honksquad.update_action_buttons_icon()

@@ -135,9 +135,9 @@
 
 	switch(severity)
 		if(1)
-			internal_receive_damage(20, silent = TRUE)
+			internal_receive_damage(20 * owner.emp_damage_multiplier_internal, silent = TRUE)
 		if(2)
-			internal_receive_damage(7, silent = TRUE)
+			internal_receive_damage(7 * owner.emp_damage_multiplier_internal, silent = TRUE)
 
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
