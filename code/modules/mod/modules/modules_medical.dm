@@ -434,7 +434,7 @@
 
 	var/list/organs_to_boot_out = organ_receiver.get_organ_slot(organ.parent_organ_zone)
 	for(var/obj/item/organ/internal/organ_evacced as anything in organs_to_boot_out)
-		organ_evacced.remove(target, special = TRUE)
+		organ_evacced.remove(target)
 		organ_evacced.forceMove(get_turf(target))
 
 	organ.insert(target)
