@@ -47,7 +47,7 @@
 	if(change <= 0)
 		return
 
-	change += get_raw_value(database_id)
+	change += get_raw_value(holder.owner_ckey)
 
 	return list(
 		"ckey" = holder.owner_ckey,
