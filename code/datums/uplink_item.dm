@@ -760,13 +760,6 @@
 	cost = 12
 	race = list(SPECIES_GREY)
 
-/datum/uplink_item/racial/alien_pistol
-	name = "Пистолет абдуктора"
-	desc = "Технологичный пистолет абдукторов, стреляющий импульсами высокоинтенсивного излучения."
-	item = /obj/item/gun/energy/alien
-	cost = 30
-	race = list(SPECIES_GREY)
-
 /datum/uplink_item/racial/agent_surgical_belt
 	name = "Хирургический пояс абдукторов"
 	desc = "Абдукторский хирургический пояс. Включает в себя полный набор абдукторских инструментов и два мендера. Может помещаться в рюкзак"
