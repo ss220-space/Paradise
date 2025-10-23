@@ -43,8 +43,8 @@ SUBSYSTEM_DEF(achievements)
 	 * Thanks to Jordie for the query.
 	 */
 	var/datum/db_query/query = SSdbcore.NewQuery(
-		"SELECT a.achievement_key, COUNT(a.achievement_key) AS count FROM achievements a \
-		JOIN achievement_metadata m ON a.achievement_key = m.achievement_key AND m.achievement_type = 'achievement' \
+		"SELECT a.achievement_key, COUNT(a.achievement_key) AS count FROM [format_table_name("achievements")] a \
+		JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key COLLATE utf8mb4_unicode_ci = m.achievement_key AND m.achievement_type = 'achievement' \
 		GROUP BY a.achievement_key ORDER BY count DESC"
 	)
 	if(query.Execute(async = TRUE))
@@ -66,9 +66,6 @@ SUBSYSTEM_DEF(achievements)
 
 	return SS_INIT_SUCCESS
 
-/datum/controller/subsystem/achievements/Shutdown()
-	save_achievements_to_db()
-
 /datum/controller/subsystem/achievements/proc/save_achievements_to_db()
 	var/list/cheevos_to_save = list()
 	for(var/ckey in GLOB.persistent_clients_by_ckey)
@@ -80,7 +77,7 @@ SUBSYSTEM_DEF(achievements)
 	if(!length(cheevos_to_save))
 		return
 
-	SSdbcore.MassInsert(format_table_name("achievements"), cheevos_to_save,duplicate_key = TRUE)
+	SSdbcore.MassInsert(format_table_name("achievements"), cheevos_to_save, duplicate_key = TRUE)
 	SEND_SIGNAL(src, COMSIG_ACHIEVEMENTS_SAVED_TO_DB)
 
 //Update the metadata if any are behind

@@ -42,10 +42,17 @@
 	if(!database_id || !holder.owner_ckey || !name)
 		return
 
+	var/change = holder.data[type] - holder.original_cached_data[type]
+
+	if(change <= 0)
+		return
+
+	change += get_raw_value(database_id)
+
 	return list(
 		"ckey" = holder.owner_ckey,
 		"achievement_key" = database_id,
-		"value" = holder.data[type],
+		"value" = change,
 	)
 
 /datum/award/proc/get_metadata_row()
@@ -59,8 +66,6 @@
 
 ///Get raw numerical achievement value from the database
 /datum/award/proc/get_raw_value(key)
-	set waitfor = FALSE
-
 	var/datum/db_query/query = SSdbcore.NewQuery(
 		"SELECT value FROM [format_table_name("achievements")] WHERE ckey = :ckey AND achievement_key = :achievement_key",
 		list("ckey" = key, "achievement_key" = database_id)
@@ -212,7 +217,7 @@
 /datum/award/score/achievements_score/get_ui_data(list/award_data, datum/achievement_data/holder)
 	. = ..()
 	var/datum/db_query/get_unlocked_count = SSdbcore.NewQuery(
-		"SELECT COUNT(m.achievement_key) FROM [format_table_name("achievements")] AS a JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key = m.achievement_key AND m.achievement_type = 'Achievement' WHERE a.ckey = :ckey",
+		"SELECT COUNT(m.achievement_key) FROM [format_table_name("achievements")] AS a JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key COLLATE utf8mb4_unicode_ci = m.achievement_key AND m.achievement_type = 'Achievement' WHERE a.ckey = :ckey",
 		list("ckey" = holder.owner_ckey)
 	)
 
@@ -229,7 +234,7 @@
 
 /datum/award/score/achievements_score/LoadHighScores()
 	var/datum/db_query/get_unlocked_highscore = SSdbcore.NewQuery(
-		"SELECT ckey, COUNT(ckey) AS c FROM [format_table_name("achievements")] AS a JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key = m.achievement_key AND m.achievement_type = 'Achievement' GROUP BY ckey ORDER BY c DESC LIMIT 50",
+		"SELECT ckey, COUNT(ckey) AS c FROM [format_table_name("achievements")] AS a JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key COLLATE utf8mb4_unicode_ci = m.achievement_key AND m.achievement_type = 'Achievement' GROUP BY ckey ORDER BY c DESC LIMIT 50",
 	)
 
 	if(!get_unlocked_highscore.Execute(async = TRUE))
@@ -245,7 +250,7 @@
 
 /datum/award/score/achievements_score/on_achievement_data_init(datum/achievement_data/holder, database_value)
 	var/datum/db_query/get_unlocked_load = SSdbcore.NewQuery(
-		"SELECT COUNT(m.achievement_key) FROM [format_table_name("achievements")] AS a JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key = m.achievement_key AND m.achievement_type = 'Achievement' WHERE a.ckey = :ckey",
+		"SELECT COUNT(m.achievement_key) FROM [format_table_name("achievements")] AS a JOIN [format_table_name("achievement_metadata")] m ON a.achievement_key COLLATE utf8mb4_unicode_ci = m.achievement_key AND m.achievement_type = 'Achievement' WHERE a.ckey = :ckey",
 		list("ckey" = holder.owner_ckey)
 	)
 
