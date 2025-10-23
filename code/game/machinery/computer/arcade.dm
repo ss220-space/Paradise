@@ -332,7 +332,6 @@
 	var/spaceport_freebie = 0
 	var/last_spaceport_action = ""
 
-	var/obj/item/radio/radio
 	var/list/gamers = list()
 	var/killed_crew = 0
 
@@ -345,15 +344,6 @@
 		INSTRUMENTAL = "игровым автоматом The Orion Trail",
 		PREPOSITIONAL = "игровом автомате The Orion Trail"
 	)
-
-/obj/machinery/computer/arcade/orion_trail/Initialize(mapload)
-	. = ..()
-	radio = new /obj/item/radio(src)
-	radio.set_listening(FALSE)
-
-/obj/machinery/computer/arcade/orion_trail/Destroy(force)
-	QDEL_NULL(radio)
-	. = ..()
 
 /obj/machinery/computer/arcade/orion_trail/Reset()
 	// Sets up the main trail
@@ -412,10 +402,8 @@
 	if(gamers[gamer] <= 2 || !prob(20 * gamers[gamer]))
 		return
 
-	radio.set_frequency(SEC_FREQ)
-	radio.autosay("Оповещение безопасности! Член экипажа [gamer.declent_ru(NOMINATIVE)] демонстрирует признаки асоциального поведения в [get_area(src)]. Пожалуйста, будьте внимательны к проявлениям агрессивного поведения.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
-	radio.set_frequency(MED_FREQ)
-	radio.talk_into(src, "Оповещение о психичестком расстройстве! У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), HEADSET_FREQ_NAME)
+	radio_announce("Оповещение безопасности! Член экипажа [gamer.declent_ru(NOMINATIVE)] демонстрирует признаки асоциального поведения в [get_area(src)]. Пожалуйста, будьте внимательны к проявлениям агрессивного поведения.", declent_ru(NOMINATIVE), SEC_FREQ, src)
+	radio_announce("Оповещение о психичестком расстройстве! У члена экипажа [gamer.declent_ru(NOMINATIVE)] зафиксированы проявления асоциального поведения в [get_area(src)]. Пожалуйста, назначьте психологическое обследование.", declent_ru(NOMINATIVE), MED_FREQ, src)
 
 	gamers[gamer] = -1
 

@@ -597,7 +597,7 @@
 	if(!on || !message)
 		return
 	if(channel)
-		Radio.autosay(message, name, channel == HEADSET_MODE ? null : channel)
+		radio_announce(message, name, channel == HEADSET_MODE ? PUB_FREQ : channel, src)
 	else
 		say(message)
 

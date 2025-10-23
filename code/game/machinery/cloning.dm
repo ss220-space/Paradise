@@ -40,7 +40,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	var/datum/mind/clonemind
 	var/grab_ghost_when = CLONER_MATURE_CLONE
 
-	var/obj/item/radio/Radio
 	var/radio_announce = TRUE
 
 	var/obj/effect/countdown/clonepod/countdown
@@ -81,10 +80,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		req_access = list(ACCESS_SYNDICATE)
 
 	countdown = new(src)
-
-	Radio = new /obj/item/radio(src)
-	Radio.become_speaker_only(MED_FREQ)
-	Radio.follow_target = src
 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
@@ -128,7 +123,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(clonemind)
 		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
-	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
 	QDEL_LIST(missing_organs)
 	return ..()
@@ -245,7 +239,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/announce_radio_message(message)
 	if(radio_announce)
-		Radio.autosay(message, name, HEADSET_FREQ_NAME)
+		radio_announce(message, name, MED_FREQ, src)
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, TRUE)
