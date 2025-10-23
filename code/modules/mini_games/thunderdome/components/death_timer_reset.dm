@@ -17,7 +17,7 @@
  * A bit of a trick with ghostized dead without possibility to return to left body. (Because it resets time of death to world.time)
  */
 /datum/component/death_timer_reset/proc/reset_death_time(mob/living/creature, mob/dead/observer/ghost)
-	ghost.timeofdeath = death_time_before
+	ghost.persistent_client.time_of_death = death_time_before
 	ghost.can_reenter_corpse = FALSE
 	UnregisterSignal(parent, list(COMSIG_MOB_GHOSTIZE))
 

@@ -251,6 +251,8 @@
 					gear_leftovers += G
 			else
 				gear_leftovers += G
+		
+	H.dna.species.job_pre_equip(H)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -296,7 +298,7 @@
 		C.assignment = alt_title ? alt_title : J.title
 		C.sex = capitalize(H.gender)
 		C.age = H.age
-		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
+		C.name = "[C.registered_name]’s ID Card ([C.assignment])"
 		C.photo = get_id_photo(H)
 
 		if(H.mind && H.mind.initial_account)

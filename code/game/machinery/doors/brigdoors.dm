@@ -104,7 +104,7 @@
 						<b>Arresting Officer:</b>		[usr.name]<br><hr><br>
 						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
 
-		playsound(C.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, TRUE)
+		playsound(C.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 		GLOB.cell_logs += P
 
 	var/datum/data/record/G = find_record("name", occupant, GLOB.data_core.general)
@@ -482,7 +482,7 @@
 				. = FALSE
 		if("flash")
 			for(var/obj/machinery/flasher/flasher in targets)
-				if(flasher.last_flash && (flasher.last_flash + 15 SECONDS) > world.time)
+				if(!COOLDOWN_FINISHED(flasher, flash_cooldown))
 					to_chat(usr, span_warning("Flash is still recharging."))
 				else
 					flasher.flash()

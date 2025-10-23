@@ -172,7 +172,6 @@
 			var/obj/O = locate("landmark*Observer-Start")
 			to_chat(src, span_notice("Телепортация."))
 			observer.abstract_move(get_turf(O))
-			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
 			observer.icon = client.prefs.preview_icon
 			observer.alpha = 127
@@ -181,7 +180,8 @@
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
 			observer.real_name = client.prefs.real_name
 			observer.name = observer.real_name
-			observer.key = key
+			observer.possess_by_player(key)
+			observer.persistent_client.time_of_death = world.time
 			QDEL_NULL(mind)
 			if(CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
 			qdel(src)
@@ -378,6 +378,10 @@
 
 	if(!GLOB.enter_allowed)
 		to_chat(usr, span_notice("Администратор заблокировал вход в игру!"))
+		return FALSE
+
+	if("[client.prefs.default_slot]" in persistent_client.joined_as_slots)
+		tgui_alert(usr, "Вы уже играли за этого персонажа в этом раунде!")
 		return FALSE
 
 	if(rank == "RandomJob")
@@ -668,6 +672,8 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
+	LAZYADD(persistent_client.joined_as_slots, "[client.prefs.default_slot]")
+
 	handle_can_be_antagonist()
 	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
@@ -695,7 +701,7 @@
 		GLOB.human_names_list += new_character.real_name
 
 
-	new_character.set_key(key)		// Manually transfer the key to log them in
+	new_character.possess_by_player(key)		// Manually transfer the key to log them in
 
 	return new_character
 

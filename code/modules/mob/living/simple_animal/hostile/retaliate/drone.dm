@@ -279,7 +279,7 @@
 		if(length(candidates))
 			var/mob/living/simple_animal/hostile/malf_drone/syndicate/S = new /mob/living/simple_animal/hostile/malf_drone/syndicate(get_turf(src))
 			var/mob/M = pick(candidates)
-			S.key = M.key
+			S.possess_by_player(M.key)
 			S.master_commander = user
 			S.sentience_act()
 			to_chat(S, "Модуль активирован. Основная задача: подчинение [user.name]. Дополнительная задача: уничтожение враждебных единиц не относящихся к Синдикату в подконтрольном секторе.")

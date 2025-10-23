@@ -1181,7 +1181,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 
 		else if(char == "'")
 			if(word != "")
-				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unexpected ' in query: \"<span style='color: gray;'>[query_text]</span>\" following \"<span style='color: gray;'>[word]</span>\". Please check your syntax, and try again.", confidential=TRUE)
+				to_chat(usr, span_red(" SDQL2: You have an error in your SDQL syntax, unexpected ' in query: \"<span style='color: gray;'>[query_text]</span>\" following \"<span style='color: gray;'>[word]</span>\". Please check your syntax, and try again."), confidential=TRUE)
 				return null
 
 			word = "'"
@@ -1201,7 +1201,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 					word += char
 
 			if(i > len)
-				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unmatched ' in query: \"<span style='color: gray;'>[query_text]</span>\". Please check your syntax, and try again.", confidential=TRUE)
+				to_chat(usr, span_red(" SDQL2: You have an error in your SDQL syntax, unmatched ' in query: \"<span style='color: gray;'>[query_text]</span>\". Please check your syntax, and try again."), confidential=TRUE)
 				return null
 
 			query_list += "[word]'"
@@ -1209,7 +1209,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 
 		else if(char == "\"")
 			if(word != "")
-				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unexpected \" in query: \"<span style='color: gray;'>[query_text]</span>\" following \"<span style='color: gray;'>[word]</span>\". Please check your syntax, and try again.", confidential=TRUE)
+				to_chat(usr, span_red(" SDQL2: You have an error in your SDQL syntax, unexpected \" in query: \"<span style='color: gray;'>[query_text]</span>\" following \"<span style='color: gray;'>[word]</span>\". Please check your syntax, and try again."), confidential=TRUE)
 				return null
 
 			word = "\""
@@ -1229,7 +1229,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 					word += char
 
 			if(i > len)
-				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unmatched \" in query: \"<span style='color: gray;'>[query_text]</span>\". Please check your syntax, and try again.", confidential=TRUE)
+				to_chat(usr, span_red(" SDQL2: You have an error in your SDQL syntax, unmatched \" in query: \"<span style='color: gray;'>[query_text]</span>\". Please check your syntax, and try again."), confidential=TRUE)
 				return null
 
 			query_list += "[word]\""

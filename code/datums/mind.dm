@@ -187,7 +187,7 @@
 		antag.on_body_transfer(old_current, current)
 
 	if(active)
-		new_character.set_key(key)		// now transfer the key to link the client to our new body
+		new_character.possess_by_player(key)		// now transfer the key to link the client to our new body
 
 	// essential mob updates
 	new_character.update_blind_effects()

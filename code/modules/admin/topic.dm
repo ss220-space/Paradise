@@ -1409,7 +1409,7 @@
 
 		var/mob/new_player/NP = new()
 		GLOB.non_respawnable_keys -= M.ckey
-		NP.ckey = M.ckey
+		NP.possess_by_player(M.ckey)
 		qdel(M)
 
 	else if(href_list["eraseflavortext"])
@@ -2146,7 +2146,7 @@
 		if(LAZYLEN(found_ids))
 			for(var/obj/item/card/id/ID in found_ids)
 				if(ID.registered_name == old_name)
-					ID.name = "[new_name]'s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
+					ID.name = "[new_name]’s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
 					ID.registered_name = new_name
 					ID.RebuildHTML()
 		//rename all pdas with mob old name
@@ -2852,21 +2852,9 @@
 			return
 		show_traitor_panel(M)
 
-	else if(href_list["create_object"])
-		if(!check_rights(R_SPAWN))	return
-		return create_object(usr)
-
-	else if(href_list["quick_create_object"])
-		if(!check_rights(R_SPAWN))	return
-		return quick_create_object(usr)
-
-	else if(href_list["create_turf"])
-		if(!check_rights(R_SPAWN))	return
-		return create_turf(usr)
-
-	else if(href_list["create_mob"])
-		if(!check_rights(R_SPAWN))	return
-		return create_mob(usr)
+	else if(href_list["spawn_panel"])
+		usr.client.spawn_panel()
+		return
 
 	else if(href_list["dupe_marked_datum"])
 		if(!check_rights(R_SPAWN))	return

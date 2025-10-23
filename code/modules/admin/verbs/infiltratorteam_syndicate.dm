@@ -62,7 +62,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		if(length(infiltrators))
 			var/mob/theguy = pick(infiltrators)
 			if(theguy.key != key)
-				new_syndicate_infiltrator.key = theguy.key
+				new_syndicate_infiltrator.possess_by_player(theguy.key)
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_action_buttons_icon()
 			infiltrators -= theguy
@@ -164,7 +164,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		W.access += get_syndicate_access("Syndicate Commando")
 	else
 		W.access += get_syndicate_access("Syndicate Operative")
-	W.name = "[real_name]'s ID Card ([W.assignment])"
+	W.name = "[real_name]’s ID Card ([W.assignment])"
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, ITEM_SLOT_ID)
 

@@ -2,10 +2,10 @@
  * Two Handed Component
  *
  * When applied to an item it will make it two handed
- *
+ * Only one of the component can exist on an item.
  */
 /datum/component/two_handed
-	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS // Only one of the component can exist on an item
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	/// Are we holding the two handed item properly
 	var/wielded = FALSE
 	/// The multiplier applied to force when wielded, does not work with force_wielded, and force_unwielded
@@ -37,7 +37,6 @@
 	/// To prevent message spamming
 	var/antispam_timer = 0
 
-
 /**
  * Two Handed component
  *
@@ -51,9 +50,19 @@
  * * force_unwielded (optional) The force setting when the item is unwielded, do not use with force_multiplier
  * * icon_wielded (optional) The icon to be used when wielded
  */
-/datum/component/two_handed/Initialize(require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
-										force_multiplier=0, force_wielded=0, force_unwielded=0, sharp_when_wielded = FALSE, \
-										icon_wielded=FALSE, datum/callback/wield_callback, datum/callback/unwield_callback)
+/datum/component/two_handed/Initialize(
+	require_twohands = FALSE,
+	wieldsound = FALSE,
+	unwieldsound = FALSE,
+	attacksound = FALSE,
+	force_multiplier = 0,
+	force_wielded = 0,
+	force_unwielded = 0,
+	sharp_when_wielded = FALSE,
+	icon_wielded = FALSE,
+	datum/callback/wield_callback,
+	datum/callback/unwield_callback,
+)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -72,11 +81,27 @@
 	if(require_twohands)
 		ADD_TRAIT(parent, TRAIT_NEEDS_TWO_HANDS, ABSTRACT_ITEM_TRAIT)
 
+/datum/component/two_handed/Destroy(force)
+	offhand_item = null
+	wield_callback = null
+	unwield_callback = null
+	return ..()
 
 // Inherit the new values passed to the component
-/datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
-											force_multiplier, force_wielded, force_unwielded, sharp_when_wielded, icon_wielded, \
-											datum/callback/wield_callback, datum/callback/unwield_callback)
+/datum/component/two_handed/InheritComponent(
+	datum/component/two_handed/new_comp,
+	original,
+	require_twohands,
+	wieldsound,
+	unwieldsound,
+	force_multiplier,
+	force_wielded,
+	force_unwielded,
+	sharp_when_wielded,
+	icon_wielded,
+	datum/callback/wield_callback,
+	datum/callback/unwield_callback,
+)
 	if(!original)
 		return
 	if(require_twohands)
@@ -102,7 +127,6 @@
 	if(unwield_callback)
 		src.unwield_callback = unwield_callback
 
-
 // register signals withthe parent item
 /datum/component/two_handed/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
@@ -112,7 +136,6 @@
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
-
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
@@ -126,7 +149,6 @@
 		COMSIG_ITEM_SHARPEN_ACT,
 	))
 
-
 /// Triggered on equip of the item containing the component
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
@@ -135,7 +157,6 @@
 		wield(user)
 	if(!require_twohands && wielded && !user.is_in_hands(parent))
 		unwield(user)
-
 
 /// Triggered on drop of item containing the component and its offhand part
 /datum/component/two_handed/proc/on_drop(datum/source, mob/user)
@@ -149,13 +170,11 @@
 		offhand_item = null
 		qdel(source)
 
-
 /// Triggered on destroy of the component's offhand
 /datum/component/two_handed/proc/on_destroy(datum/source)
 	SIGNAL_HANDLER
 
 	offhand_item = null
-
 
 /// Triggered on attack self of the item containing the component
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
@@ -166,7 +185,6 @@
 			unwield(user)
 		else if(user.is_in_hands(parent))
 			wield(user)
-
 
 /**
  * Wield the two handed item in both hands
@@ -285,7 +303,6 @@
 	RegisterSignal(offhand_item, COMSIG_QDELETING, PROC_REF(on_destroy))
 	user.put_in_inactive_hand(offhand_item)
 
-
 /**
  * Unwield the two handed item
  *
@@ -371,7 +388,6 @@
 	// Clear any old refrence to an item that should be gone now
 	offhand_item = null
 
-
 /**
  * on_attack triggers on attack with the parent item
  */
@@ -380,7 +396,6 @@
 
 	if(wielded && attacksound)
 		playsound(source.loc, attacksound, 50, TRUE)
-
 
 /**
  * on_update_icon triggers on call to update parent items icon
@@ -397,7 +412,6 @@
 	source.icon_state = icon_wielded
 	return COMSIG_ATOM_NO_UPDATE_ICON_STATE
 
-
 /**
  * on_moved Triggers on item moved
  */
@@ -405,7 +419,6 @@
 	SIGNAL_HANDLER
 
 	unwield(user, can_drop = FALSE)
-
 
 /**
  * on_swap_hands Triggers on swapping hands, blocks swap if the other hand is busy
@@ -417,7 +430,6 @@
 		return
 	if(held_item == parent)
 		return COMPONENT_BLOCK_SWAP
-
 
 /**
  * on_sharpen Triggers on usage of a sharpening stone on the item
@@ -442,7 +454,6 @@
 		return COMPONENT_BLOCK_SHARPEN_MAXED
 	sharpened_increase = min(amount, (max_amount - wielded_val))
 	return COMPONENT_BLOCK_SHARPEN_APPLIED
-
 
 /**
  * The offhand dummy item for two handed items

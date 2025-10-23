@@ -137,7 +137,7 @@
 	if(C && !QDELETED(src))
 		var/mob/camera/blob/B = new(loc, src)
 		B.mind_initialize()
-		B.key = C.key
+		B.possess_by_player(C.key)
 		link_to_overmind(B)
 		B.is_offspring = is_offspring
 		addtimer(CALLBACK(src, PROC_REF(add_datum_if_not_exist)), TIME_TO_ADD_OM_DATUM)

@@ -337,7 +337,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
-		H.ckey = R.ckey
+		H.possess_by_player(R.ckey)
 		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 		var/message
 		message += "<b>Вы медленно обретаете сознание по мере того, как ваше тело восстанавливается.</b><br>"

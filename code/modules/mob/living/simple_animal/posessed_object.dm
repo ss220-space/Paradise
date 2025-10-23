@@ -58,7 +58,7 @@
 		return
 	set_resting(TRUE, instant = TRUE)
 	var/mob/dead/observer/ghost = ghostize(1)
-	ghost.timeofdeath = world.time
+	ghost.persistent_client.time_of_death = world.time
 	death(0) // Turn back into a regular object.
 
 /mob/living/simple_animal/possessed_object/death(gibbed)

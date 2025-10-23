@@ -90,8 +90,9 @@
 #define INIT_ORDER_BLACKBOX 56
 #define INIT_ORDER_CLEANUP 55
 #define INIT_ORDER_INPUT 50
-#define INIT_ORDER_SOUNDS 44
-#define INIT_ORDER_INSTRUMENTS 43
+#define INIT_ORDER_SOUNDS 45
+#define INIT_ORDER_INSTRUMENTS 44
+#define INIT_ORDER_ACHIEVEMENTS 43
 #define INIT_ORDER_EVENTS 42
 #define INIT_ORDER_HOLIDAY 41
 #define INIT_ORDER_JOBS 40
@@ -100,19 +101,19 @@
 #define INIT_ORDER_TICKER 30
 #define INIT_ORDER_NEW_PLAYERS_INFO 31
 #define INIT_ORDER_MAPPING 20
-#define INIT_ORDER_HOLOMAP 9 // after map loads, but before atoms init
-#define INIT_ORDER_EARLY_ASSETS 8
-#define INIT_ORDER_SPATIAL_GRID 7
-#define INIT_ORDER_FLUIDS 6 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
-#define INIT_ORDER_ATOMS 5
-#define INIT_ORDER_MACHINES 4
-#define INIT_ORDER_IDLENPCS 3
-#define INIT_ORDER_MOBS 2
+#define INIT_ORDER_HOLOMAP 10 // after map loads, but before atoms init
+#define INIT_ORDER_EARLY_ASSETS 9
+#define INIT_ORDER_SPATIAL_GRID 8
+#define INIT_ORDER_FLUIDS 7 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
+#define INIT_ORDER_ATOMS 6
+#define INIT_ORDER_MACHINES 5
+#define INIT_ORDER_IDLENPCS 4
+#define INIT_ORDER_MOBS 3
+#define INIT_ORDER_ASSETS 2
 #define INIT_ORDER_TIMER 1
 #define INIT_ORDER_DEFAULT 0
 #define INIT_ORDER_AIR -1
 #define INIT_ORDER_SUN -2
-#define INIT_ORDER_ASSETS -4
 #define INIT_ORDER_ICON_SMOOTHING -5
 #define INIT_ORDER_OVERLAY -6
 #define INIT_ORDER_XKEYSCORE -10
@@ -220,3 +221,5 @@
 #define GAME_STATE_PLAYING 3
 /// Game has round finished
 #define GAME_STATE_FINISHED 4
+
+#define SPEEDRUN_ROUND_TIME (300 SECONDS)

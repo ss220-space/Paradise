@@ -125,7 +125,7 @@
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(offer_mob)])")
 		log_game("[theghost.key] has taken control of [offer_mob] (ckey: [offer_mob.key])")
 		offer_mob.ghostize()
-		offer_mob.key = theghost.key
+		offer_mob.possess_by_player(theghost.key)
 	else
 		to_chat(offer_mob, span_notice("Не было призраков, желающих взять под свой контроль ваше существо."))
 		log_game("No one decided to take control of [offer_mob] (ckey: [offer_mob.key])")
@@ -575,7 +575,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				var/obj/item/card/id/ID = A
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname
-					ID.name = "[newname]'s ID Card ([ID.assignment])"
+					ID.name = "[newname]’s ID Card ([ID.assignment])"
 					ID.RebuildHTML()
 					if(!search_pda)	break
 					search_id = 0

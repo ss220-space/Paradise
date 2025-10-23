@@ -34,7 +34,7 @@
 	if(!chosen_ghost)
 		visible_message(span_notice("[src] buzzes quietly as the cog stops moving. Perhaps you could use it to capture another soul?"))
 		return FALSE
-	M.ckey = chosen_ghost.ckey
+	M.possess_by_player(chosen_ghost.ckey)
 	log_game("[M.ckey] has possesed clockwork robotic brain.")
 	transfer_personality(M)
 	return TRUE
@@ -57,7 +57,7 @@
 
 /obj/item/mmi/robotic_brain/clockwork/transfer_personality(mob/candidate)
 	searching = FALSE
-	brainmob.key = candidate.key
+	brainmob.possess_by_player(candidate.key)
 	brainmob.name = "[pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
 	brainmob.real_name = brainmob.name
 	brainmob.mind.assigned_role = "Soul Vessel Cube"

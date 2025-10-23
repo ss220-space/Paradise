@@ -97,7 +97,6 @@
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
-
 	/**
 	 * List of products this machine sells
 	 *
@@ -211,6 +210,7 @@
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
 		/datum/vendor_crit/shatter,
+		/datum/vendor_crit/pop_head,
 		/datum/vendor_crit/lucky
 	)
 	/// number of shards to apply when a crit embeds
@@ -290,6 +290,7 @@
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(inserted_item)
+	QDEL_NULL(proximity_monitor)
 	return ..()
 
 /// Better would be to make constructable child
@@ -394,6 +395,14 @@
 	skip_non_primary_icon_updates = FALSE
 	flick_sequence = FLICK_NONE
 	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/vending/proc/create_proximity_monitor()
+	proximity_monitor = new(src)
+
+
+/obj/machinery/vending/proc/remove_proximity_monitor()
+	QDEL_NULL(proximity_monitor)
 
 
 /*
@@ -746,17 +755,20 @@
 			record.amount--
 			break
 
-/obj/machinery/vending/HasProximity(atom/movable/AM)
-	if(!aggressive  || tilted || !tiltable)
+/obj/machinery/vending/HasProximity(atom/movable/movable)
+	if(!aggressive || tilted || !tiltable)
 		return
 
-	if(isliving(AM) && prob(25))
-		AM.visible_message(
-			span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [AM.declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
-		)
-	tilt(AM, prob(5), FALSE)
+	if(!isliving(movable) || !prob(25))
+		return
+
+	movable.visible_message(
+		span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [movable.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
+	)
+	tilt(movable, prob(5), FALSE)
 	aggressive = FALSE
+	remove_proximity_monitor()
 	// Not making same mistakes as offs did.
 	// Don't make this prob more than 5%
 
@@ -1407,6 +1419,7 @@
 		tilt_over()
 		return
 	for(var/mob/living/victim in get_turf(target_atom))
+		var/was_alive = (victim.stat != DEAD)
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
@@ -1437,15 +1450,17 @@
 		. = TRUE
 		victim.Weaken(4 SECONDS)
 		victim.Knockdown(8 SECONDS)
+		if(was_alive && victim.stat == DEAD && victim.client)
+			victim.client.give_award(/datum/award/achievement/misc/vendor_squish, victim) // good job losing a fight with an inanimate object idiot
 
-		playsound(victim, "sound/effects/blobattack.ogg", 40, TRUE)
-		playsound(victim, "sound/effects/splat.ogg", 50, TRUE)
+		playsound(victim, 'sound/effects/blobattack.ogg', 40, TRUE)
+		playsound(victim, 'sound/effects/splat.ogg', 50, TRUE)
 
 		tilt_over(should_throw_at_target ? target_atom : null)
 
 /obj/machinery/vending/proc/tilt_over(mob/victim)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] опрокидывается!"))
-	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
+	playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
 	var/picked_rotation = pick(90, 270)
 	tilted_rotation = picked_rotation
 	var/matrix/to_turn = turn(transform, tilted_rotation)
@@ -1453,6 +1468,7 @@
 
 	if(victim && get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
+		SStgui.close_uis(wires)
 
 /obj/machinery/vending/proc/untilt(mob/user)
 	if(!tilted)

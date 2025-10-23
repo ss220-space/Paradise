@@ -470,6 +470,7 @@
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
 
+
 /obj/structure/alien/egg/grown
 	status = GROWN
 	icon_state = "egg"
@@ -490,9 +491,14 @@
 		if(GROWN)
 			var/mob/living/simple_animal/hostile/facehugger/hugger = new(src)
 			hugger.lose_target()
-			AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
+			proximity_monitor = new(src, PROXIMITY_RADIUS)
 		if(BURST)
 			update_integrity(integrity_failure)
+
+
+/obj/structure/alien/egg/Destroy(force)
+	. = ..()
+	QDEL_NULL(proximity_monitor)
 
 
 /obj/structure/alien/egg/update_icon_state()
@@ -536,7 +542,7 @@
 /obj/structure/alien/egg/proc/Grow()
 	status = GROWN
 	update_icon(UPDATE_ICON_STATE)
-	AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
+	proximity_monitor = new(src, PROXIMITY_RADIUS)
 
 ///Need to carry the kill from Burst() to Hatch(), this section handles the alien opening the egg
 /obj/structure/alien/egg/proc/Burst(kill = TRUE, atom/movable/trigger)	//drops and kills the hugger if any is remaining
@@ -544,7 +550,7 @@
 		playsound(get_turf(src), 'sound/creatures/alien/xeno_egg_crack.ogg', 50)
 		flick("egg_opening", src)
 		status = BURSTING
-		qdel(GetComponent(/datum/component/proximity_monitor))
+		QDEL_NULL(proximity_monitor)
 		addtimer(CALLBACK(src, PROC_REF(Hatch), kill, trigger), 1.5 SECONDS)
 
 

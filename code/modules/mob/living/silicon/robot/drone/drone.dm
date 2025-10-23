@@ -310,7 +310,7 @@
 			SSticker.mode.add_clocker(mind)
 			mind.transfer_to(cog)
 		else
-			cog.key = client.key
+			cog.possess_by_player(client.key)
 	spawn_dust()
 	gib()
 

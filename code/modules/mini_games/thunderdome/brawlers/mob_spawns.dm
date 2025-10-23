@@ -32,7 +32,7 @@
 	create(plr = user, prefs = mob_use_prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
 
 /obj/effect/mob_spawn/human/thunderdome/create(mob/dead/observer/plr, flavour, name, prefs, _mob_name, _mob_gender, _mob_species)
-	var/death_time_before = plr.timeofdeath
+	var/death_time_before = plr.persistent_client.time_of_death
 	var/mob/living/created = ..()
 	thunderdome.fighters += created
 	created.ignore_slowdown(THUNDERDOME_TRAIT)

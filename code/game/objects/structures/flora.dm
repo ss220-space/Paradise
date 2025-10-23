@@ -634,3 +634,35 @@
 	light_range = 2
 	resistance_flags = LAVA_PROOF
 	gender = PLURAL
+
+/obj/structure/festivus
+	name = "festivus pole"
+	desc = "На прошлогодних \"Испытаниях Силы\" директор исследований умудрился забросить этот неподвижный стержень, пролетавший мимо, прямиком в цветочный горшок."
+	icon = 'icons/obj/flora/pinetrees.dmi'
+	icon_state = "festivus_pole"
+
+/obj/structure/festivus/get_ru_names()
+	return list(
+		NOMINATIVE = "горшок силы",
+		GENITIVE = "горшка силы",
+		DATIVE = "горшка силы",
+		ACCUSATIVE = "горшок силы",
+		INSTRUMENTAL = "горшком силы",
+		PREPOSITIONAL = "горшке силы"
+	)
+
+/obj/structure/festivus/anchored
+	name = "suplexed rod"
+	desc = "Настоящий подвиг силы, почти не уступающий прошлогоднему."
+	icon_state = "anchored_rod"
+	anchored = TRUE
+
+/obj/structure/festivus/anchored/get_ru_names()
+	return list(
+		NOMINATIVE = "остановленный стержень",
+		GENITIVE = "остановленного стерженя",
+		DATIVE = "остановленному стерженю",
+		ACCUSATIVE = "остановленный стержень",
+		INSTRUMENTAL = "остановленным стерженем",
+		PREPOSITIONAL = "остановленном стержене"
+	)

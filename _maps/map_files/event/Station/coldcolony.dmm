@@ -48187,7 +48187,6 @@
 "rts" = (
 /obj/item/reagent_containers/hypospray/autoinjector{
 	icon_state = "autoinjector0";
-	plane = 41;
 	spent = 1
 	},
 /turf/simulated/floor/plasteel{

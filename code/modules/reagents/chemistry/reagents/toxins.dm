@@ -1307,7 +1307,7 @@
 /datum/reagent/toxic_slurry/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
-		update_flags |= M.adjustToxLoss(rand(2.4), FALSE)
+		update_flags |= M.adjustToxLoss(rand(2, 4), FALSE)
 	if(prob(7))
 		to_chat(M, span_danger("Вас одолевает ужасная мигрень!"))
 		M.Stun(rand(4 SECONDS, 10 SECONDS))
@@ -1383,7 +1383,7 @@
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		affected_mob.electrocute_act(rand(5, 20), "теслиума внутри организма", flags = SHOCK_NOGLOVES) //SHOCK_NOGLOVES because it's caused from INSIDE of you
+		affected_mob.electrocute_act(rand(5, 20), src, flags = SHOCK_NOGLOVES) //SHOCK_NOGLOVES because it's caused from INSIDE of you
 		playsound(affected_mob, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
 

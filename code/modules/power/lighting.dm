@@ -595,7 +595,7 @@
 
 	else if(status == LIGHT_EMPTY && prob(75))
 		to_chat(user, span_userdanger("You aimed right into the light socket."))
-		electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
+		electrocute_mob(user, get_area(src), src, randfloat(0.7, 1), TRUE)
 		do_sparks(3, TRUE, src)
 
 	add_fingerprint(user)
