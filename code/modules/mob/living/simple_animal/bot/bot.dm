@@ -214,7 +214,6 @@
 	access_card.access += ACCESS_ROBOTICS	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
-	Radio.follow_target = src
 	add_language(LANGUAGE_GALACTIC_COMMON, TRUE)
 	add_language(LANGUAGE_SOL_COMMON, TRUE)
 	add_language(LANGUAGE_TRADER, TRUE)
