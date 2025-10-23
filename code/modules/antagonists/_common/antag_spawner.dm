@@ -70,7 +70,7 @@
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 
-	M.key = C.key
+	M.possess_by_player(C.key)
 	create_syndicate(M.mind)
 	var/datum/antagonist/nuclear_operative/datum = M.mind.add_antag_datum(/datum/antagonist/nuclear_operative/reinf, /datum/team/nuclear_team)
 	datum.equip()
@@ -152,11 +152,11 @@
 	R.mmi.brainmob.name = brainopsname
 
 	if(!switch_roles)
-		R.key = C.key
+		R.possess_by_player(C.key)
 	else
 		var/mob/living/L = user.current
-		R.key = user.current.client.key
-		L.key = C.key
+		R.possess_by_player(user.current.client.key)
+		L.possess_by_player(C.key)
 	R.mind.add_antag_datum(/datum/antagonist/nuclear_operative/cyborg, /datum/team/nuclear_team)
 
 ///////////SLAUGHTER DEMON
@@ -206,7 +206,7 @@
 	var/mob/living/simple_animal/demon/demon = new demon_type(holder)
 	demon.vialspawned = TRUE
 	demon.holder = holder
-	demon.key = C.key
+	demon.possess_by_player(C.key)
 	demon.mind.assigned_role = ROLE_DEMON
 	demon.mind.special_role = SPECIAL_ROLE_DEMON
 	SSticker.mode.demons |= demon.mind
@@ -286,7 +286,7 @@
 
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
-	M.key = C.key
+	M.possess_by_player(C.key)
 	M.mind.assigned_role = SPECIAL_ROLE_MORPH
 	M.mind.special_role = SPECIAL_ROLE_MORPH
 	to_chat(M, M.playstyle_string)

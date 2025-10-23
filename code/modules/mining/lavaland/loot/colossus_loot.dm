@@ -274,7 +274,7 @@
 		if(be_helper != "Да")
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
-		W.key = user.key
+		W.possess_by_player(user.key)
 
 /obj/machinery/anomalous_crystal/helpers/Topic(href, href_list)
 	if(href_list["ghostjoin"])

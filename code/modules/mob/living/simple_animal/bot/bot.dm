@@ -1209,7 +1209,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		if(mind && paicard.pai)
 			mind.transfer_to(paicard.pai)
 		else if(paicard.pai)
-			paicard.pai.key = key
+			paicard.pai.possess_by_player(key)
 		else
 			ghostize(0) // The pAI card that just got ejected was dead.
 		key = null

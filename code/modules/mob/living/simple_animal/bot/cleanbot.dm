@@ -50,7 +50,6 @@
 	prev_access = access_card.access
 	update_icon(UPDATE_OVERLAYS)
 
-
 /mob/living/simple_animal/bot/cleanbot/update_icon_state()
 	return
 

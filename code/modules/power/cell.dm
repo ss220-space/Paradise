@@ -349,7 +349,7 @@
 	rating = 3
 	chargerate = 1500
 
-/obj/item/stock_parts/cell/upgraded/plus/get_ru_names()
+/obj/item/stock_parts/cell/pulse/get_ru_names()
 	return list(
 		NOMINATIVE = "батарея пульсовой винтовки",
 		GENITIVE = "батареи пульсовой винтовки",
@@ -358,6 +358,9 @@
 		INSTRUMENTAL = "батареей пульсовой винтовки",
 		PREPOSITIONAL = "батарее пульсовой винтовки"
 	)
+
+/obj/item/stock_parts/cell/pulse/prise
+	chargerate = 0
 
 /obj/item/stock_parts/cell/pulse/carbine //33 pulse shots
 	name = "pulse carbine power cell"

@@ -195,7 +195,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	equip(mob, use_prefs = prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
 
 	if(plr)
-		mob.ckey = plr.ckey
+		mob.possess_by_player(plr.ckey)
 		if(flavour)
 
 			to_chat(mob, chat_box_green(flavour_text))

@@ -306,7 +306,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [declent_ru(GENITIVE)]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	if(boosted)
-		mychild.key = elitemind.key
+		mychild.possess_by_player(elitemind.key)
 		mychild.sentience_act()
 		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] пробуждается в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")

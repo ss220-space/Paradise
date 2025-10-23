@@ -19,6 +19,9 @@
 /obj/item/gun/energy/pulse/emp_act(severity)
 	return
 
+/obj/item/gun/energy/pulse/prize
+	cell_type = /obj/item/stock_parts/cell/pulse/prise
+
 /obj/item/gun/energy/pulse/cyborg
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 

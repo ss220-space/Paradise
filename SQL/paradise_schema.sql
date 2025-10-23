@@ -86,6 +86,7 @@ CREATE TABLE `characters` (
   `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '200',
   `custom_emotes` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   `can_be_antagonist` tinyint(1) NOT NULL DEFAULT '1',
+  `exoframe_type` VARCHAR(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'EXO_REINFORCED',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -296,6 +297,7 @@ CREATE TABLE `player` (
   `toggles_3` int(11) DEFAULT NULL,
   `screentip_mode` tinyint(1) DEFAULT '8',
   `screentip_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#deefff',
+  `achivements_sound` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Success Ping',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -741,6 +743,7 @@ CREATE TABLE IF NOT EXISTS `poll_vote` (
   KEY `idx_pvote_optionid_ckey` (`optionid`,`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `set_poll_deleted`;
 CREATE PROCEDURE `set_poll_deleted`(
@@ -766,3 +769,28 @@ CREATE TABLE `instance_data_cache` (
 	`last_updated` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
 	PRIMARY KEY (`server_id`, `key_name`) USING HASH
 ) COLLATE='utf8mb4_unicode_ci' ENGINE=MEMORY;
+
+--
+-- Table structure for table `achievements`
+--
+DROP TABLE IF EXISTS `achievements`;
+CREATE TABLE `achievements` (
+	`ckey` VARCHAR(32) NOT NULL,
+	`achievement_key` VARCHAR(32)  NOT NULL,
+	`value` INT NULL,
+	`last_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`ckey`,`achievement_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `achievement_metadata`
+--
+DROP TABLE IF EXISTS `achievement_metadata`;
+CREATE TABLE `achievement_metadata` (
+	`achievement_key` VARCHAR(32) NOT NULL,
+	`achievement_version` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+	`achievement_type` enum('achievement','score','award') NULL DEFAULT NULL,
+	`achievement_name` VARCHAR(64) COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	`achievement_description` VARCHAR(512) COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	PRIMARY KEY (`achievement_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

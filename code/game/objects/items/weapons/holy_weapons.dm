@@ -344,7 +344,7 @@
 		var/mob/living/simple_animal/shade/sword/S = new(src)
 		S.real_name = name
 		S.name = name
-		S.ckey = theghost.ckey
+		S.possess_by_player(theghost.ckey)
 		var/input = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
 
 		if(src && input)

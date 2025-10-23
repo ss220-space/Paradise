@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { Component, createRef, RefObject } from 'react';
+import { Component, createRef, CSSProperties, RefObject } from 'react';
 import { Button } from 'tgui/components';
 import { shallowDiffers } from 'common/react';
 
@@ -49,6 +49,8 @@ export class ChatPanel extends Component<Props, State> {
       this.handleScrollTrackingChange
     );
   }
+
+  static updatedProps = ['fontSize', 'lineHeight'];
 
   componentDidUpdate(prevProps?) {
     requestAnimationFrame(() => {

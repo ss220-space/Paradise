@@ -287,7 +287,7 @@
 
 		if(length(candidates))
 			var/mob/C = pick(candidates)
-			SM.key = C.key
+			SM.possess_by_player(C.ckey)
 			SM.universal_speak = TRUE
 			SM.faction = user.faction
 			SM.master_commander = user

@@ -125,7 +125,7 @@
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(offer_mob)])")
 		log_game("[theghost.key] has taken control of [offer_mob] (ckey: [offer_mob.key])")
 		offer_mob.ghostize()
-		offer_mob.key = theghost.key
+		offer_mob.possess_by_player(theghost.key)
 	else
 		to_chat(offer_mob, span_notice("Не было призраков, желающих взять под свой контроль ваше существо."))
 		log_game("No one decided to take control of [offer_mob] (ckey: [offer_mob.key])")

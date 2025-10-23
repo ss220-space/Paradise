@@ -369,7 +369,7 @@
 
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user, user)
 	G.summoned = TRUE
-	G.key = key
+	G.possess_by_player(key)
 	SSticker.mode.guardians |= G.mind
 	to_chat(G, "Вы [mob_name], обязанный служить [user.real_name].")
 	to_chat(G, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")

@@ -1568,7 +1568,7 @@
 	if(length(candidates))
 		var/mob/dead/observer/O = pick(candidates)
 		var/mob/living/silicon/robot/cogscarab/cog = new /mob/living/silicon/robot/cogscarab(get_turf(src))
-		cog.key = O.key
+		cog.possess_by_player(O.key)
 		if(SSticker.mode.add_clocker(cog.mind))
 			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone by [user.name]")
 		user.drop_item_ground(src)
@@ -1714,7 +1714,7 @@
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		golem.ghostize(FALSE)
-		golem.key = C.key
+		golem.possess_by_player(C.key)
 		golem.revive()
 		golem.set_species(/datum/species/golem/clockwork)
 		log_game("[golem.key] has become Brass Golem.")

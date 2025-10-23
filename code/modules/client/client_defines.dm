@@ -243,6 +243,9 @@
 	var/ViewModsActive = FALSE
 	var/ViewPreferedIconSize = 0
 
+	///these persist between logins/logouts during the same round.
+	var/datum/persistent_client/persistent_client
+
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

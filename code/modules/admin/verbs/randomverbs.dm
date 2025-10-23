@@ -391,7 +391,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 				//Now to give them their mind back.
 				G_found.mind.transfer_to(new_xeno)	//be careful when doing stuff like this! I've already checked the mind isn't in use
-				new_xeno.key = G_found.key
+				new_xeno.possess_by_player(G_found.key)
 				to_chat(new_xeno, "You have been fully respawned. Enjoy the game.")
 				log_and_message_admins("<span class='notice'>has respawned [new_xeno.key] as a filthy xeno.</span>")
 				return	//all done. The ghost is auto-deleted
@@ -445,7 +445,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else//If they have no records, we just do a random DNA for them, based on their random appearance/savefile.
 		new_character.dna.ready_dna(new_character)
 
-	new_character.key = G_found.key
+	new_character.possess_by_player(G_found.key)
 
 	/*
 	The code below functions with the assumption that the mob is already a traitor if they have a special role.
@@ -541,7 +541,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Larva")		new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
 		else			return 0
 
-	new_xeno.ckey = ckey
+	new_xeno.possess_by_player(ckey)
 	log_and_message_admins("<span class='notice'>has spawned [ckey] as a filthy xeno [alien_caste].</span>")
 	return 1
 

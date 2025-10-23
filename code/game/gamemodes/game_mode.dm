@@ -760,7 +760,7 @@
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(player)]) to replace a jobbanned player.")
 		log_game("[theghost.key] has taken control of ([player.key]) to replace a jobbanned for [role_type] player.")
 		player.ghostize()
-		player.key = theghost.key
+		player.possess_by_player(theghost.key)
 	else
 		log_game("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take player's place.")
 		message_admins("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [player.p_their()] place.")

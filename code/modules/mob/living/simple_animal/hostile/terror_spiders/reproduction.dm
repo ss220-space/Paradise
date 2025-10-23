@@ -100,7 +100,7 @@
 		S.enemies = enemies
 
 		if(!spider_awaymission && asigned_ghost)
-			S.key = asigned_ghost.key
+			S.possess_by_player(asigned_ghost.key)
 			S.add_datum_if_not_exist()
 			asigned_ghost = null
 		else if(!spider_awaymission)
