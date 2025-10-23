@@ -73,6 +73,7 @@
 #define FROST_MINER_SCORE "DFMs Killed"
 #define WENDIGO_SCORE "Wendigos Killed"
 
+#define MAINT_PILLS_SCORE "Weird Pills Eaten"
 
 /// DB ID for the amount of achievements unlocked by the player.
 #define ACHIEVEMENTS_SCORE "Achievements Score"
