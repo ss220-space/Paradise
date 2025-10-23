@@ -174,6 +174,8 @@ SUBSYSTEM_DEF(ticker)
 			if(SSmapping.next_map)
 				to_chat(world, "<b>Следующая карта – [SSmapping.next_map.name]!</b>")
 
+			SSachievements.save_achievements_to_db()
+
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)

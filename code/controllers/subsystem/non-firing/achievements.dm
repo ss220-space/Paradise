@@ -66,9 +66,6 @@ SUBSYSTEM_DEF(achievements)
 
 	return SS_INIT_SUCCESS
 
-/datum/controller/subsystem/achievements/Shutdown()
-	save_achievements_to_db()
-
 /datum/controller/subsystem/achievements/proc/save_achievements_to_db()
 	var/list/cheevos_to_save = list()
 	for(var/ckey in GLOB.persistent_clients_by_ckey)
