@@ -19,15 +19,7 @@
 	var/datum/port/input/enc_key
 
 /obj/item/circuit_component/list_literal/ntnet_send/populate_ports()
-	AddComponent(/datum/component/circuit_component_add_port, \
-		port_list = entry_ports, \
-		add_action = "add", \
-		remove_action = "remove", \
-		port_type = PORT_TYPE_ANY, \
-		prefix = "Index", \
-		minimum_amount = 1, \
-		maximum_amount = 20 \
-	)
+	. = ..()
 	enc_key = add_input_port("Ключ", PORT_TYPE_STRING)
 
 /obj/item/circuit_component/list_literal/ntnet_send/should_receive_input(datum/port/input/port)

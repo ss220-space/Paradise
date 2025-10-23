@@ -51,6 +51,10 @@ GLOBAL_LIST_EMPTY(firealarms)
 	if(is_station_contact(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/firealarm,
+	))
+
 	update_fire_light()
 	update_icon()
 

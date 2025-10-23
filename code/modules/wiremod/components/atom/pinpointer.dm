@@ -19,6 +19,10 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/pinpointer/get_ui_notices()
+	. = ..()
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[declension_ru(max_range, "", "а", "ов")]", "orange", "info")
+
 /obj/item/circuit_component/pinpointer/populate_ports()
 	target = add_input_port("Цель", PORT_TYPE_ATOM, FALSE)
 
@@ -38,7 +42,7 @@
 
 	var/atom/target_entity = target.value
 
-	if(CAN_I_SEE(target_entity) && IN_GIVEN_RANGE(get_location(), target_entity, max_range))
+	if(is_in_sight(target_entity, get_location()) && IN_GIVEN_RANGE(get_location(), target_entity, max_range))
 		var/turf/location = get_turf(target_entity)
 
 		x_pos.set_output(location?.x)

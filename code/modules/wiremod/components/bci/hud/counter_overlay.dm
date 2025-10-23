@@ -68,6 +68,8 @@
 	var/image/counter = image(icon = 'icons/hud/screen_bci.dmi', icon_state = "hud_numbers", loc = owner, layer = RIPPLE_LAYER)
 	SET_PLANE_EXPLICIT(counter, ABOVE_LIGHTING_PLANE, owner)
 
+	counter.appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR|RESET_ALPHA
+
 	if(image_pixel_x.value != null)
 		counter.pixel_x = image_pixel_x.value
 	if(image_pixel_y.value != null)
@@ -90,6 +92,8 @@
 		var/cur_num = round(cleared_number / (10 ** (3 - i))) % 10
 		var/image/number = image(icon = 'icons/hud/screen_bci.dmi', icon_state = "hud_number_[cur_num]", loc = owner, layer = RIPPLE_LAYER)
 		SET_PLANE_EXPLICIT(number, ABOVE_LIGHTING_PLANE, owner)
+
+		number.appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR|RESET_ALPHA
 
 		if(image_pixel_x.value != null)
 			number.pixel_x = image_pixel_x.value + (i - 1) * 9

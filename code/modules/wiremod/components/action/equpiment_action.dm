@@ -79,7 +79,7 @@
 	HUD_TWO = "bci_two",
 	HUD_THREE = "bci_three",
 	HUD_FOUR = "bci_four",
-	HUD_FIVE = "bci_fiv",
+	HUD_FIVE = "bci_five",
 
 	HUD_BLOOD = "bci_blood",
 	HUD_BOMB = "bci_bomb",
@@ -125,8 +125,8 @@
 		update_actions()
 
 /obj/item/circuit_component/equipment_action/proc/update_actions()
-	for(var/ref in granted_to)
-		var/datum/action/granted_action = granted_to[ref]
+	for(var/uid in granted_to)
+		var/datum/action/granted_action = granted_to[uid]
 		granted_action.name = button_name.value || "Дейстие"
 		granted_action.button_icon_state = LAZYACCESS(options_map, icon_options.value)
 

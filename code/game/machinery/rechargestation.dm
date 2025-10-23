@@ -243,49 +243,46 @@
 	set src in oview(1)
 	move_inside(usr)
 
-/obj/machinery/recharge_station/proc/move_inside(mob/user = usr)
-	set category = STATPANEL_OBJECT
-	set src in oview(1)
-	if(!user || !usr)
+/obj/machinery/recharge_station/proc/move_inside(mob/user)
+	if(!user)
 		return
 
-	if(usr.stat != CONSCIOUS)
+	if(ismob(usr) && usr.stat != CONSCIOUS)
 		return
 
-	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
-		to_chat(usr, "They are too far away to put inside")
+	if(user.stat == DEAD)
+		return
+
+	if(get_dist(src, user) > 2)
+		to_chat(user, "They are too far away to put inside")
 		return
 
 	if(panel_open)
-		to_chat(usr, span_warning("Close the maintenance panel first."))
+		to_chat(user, span_warning("Close the maintenance panel first."))
+		return
+
+	if(occupant)
+		to_chat(user, span_warning("The cell is already occupied!"))
 		return
 
 	var/can_accept_user
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
 
-		if(R.stat == DEAD)
-			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
-			return
-		if(occupant)
-			to_chat(R, span_warning("The cell is already occupied!"))
-			return
 		if(!R.cell)
 			to_chat(R, span_warning("Without a power cell, you can't be recharged."))
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
 		can_accept_user = 1
 
-	else if(ishuman(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
-		if(H.stat == DEAD)
-			return
-		if(occupant)
-			to_chat(H, span_warning("The cell is already occupied!"))
-			return
 		if(!H.get_int_organ(/obj/item/organ/internal/cell) && !H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci))
 			return
+		can_accept_user = 1
+
+	if(istype(user, /mob/living/simple_animal/circuit_drone))
 		can_accept_user = 1
 
 	if(!can_accept_user)

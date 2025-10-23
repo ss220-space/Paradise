@@ -234,10 +234,11 @@
 	for(var/obj/item/circuit_component/component as anything in circuit_components)
 		UnregisterSignal(component, COMSIG_CIRCUIT_COMPONENT_REMOVED)
 		attached_circuit.remove_component(component)
-		component.moveToNullspace()
 
 	unregister_circuit_signals()
 	unregister_physical_signals()
+
+	QDEL_LIST(circuit_components)
 
 	var/atom/atom_parent = parent
 	usb_cable.forceMove(atom_parent.drop_location())

@@ -28,11 +28,13 @@
 	var/max_list_count = 100
 
 /obj/item/circuit_component/assoc_literal/pre_input_received(datum/port/input/port)
-	if(port == list_options)
-		var/new_datatype = list_options.value
-		list_output.set_datatype(PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, new_datatype))
-		for(var/datum/port/input/port_to_set as anything in entry_ports)
-			port_to_set.set_datatype(new_datatype)
+	if(port != list_options)
+		return
+
+	var/new_datatype = list_options.value
+	list_output.set_datatype(PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, new_datatype))
+	for(var/datum/port/input/port_to_set as anything in entry_ports)
+		port_to_set.set_datatype(new_datatype)
 
 /obj/item/circuit_component/assoc_literal/populate_options()
 	list_options = add_option_port("Тип списка", GLOB.wiremod_basic_types)

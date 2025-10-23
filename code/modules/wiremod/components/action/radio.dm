@@ -102,7 +102,7 @@
 
 		var/datum/signal/signal = new
 		signal.encryption = signal_code
-		signal.data = list("message" = "АКТИВИРОВАТь", "key" = parent?.owner_id)
+		signal.data = list("message" = "ACTIVATE", "key" = parent?.owner_id)
 		radio_connection.post_signal(src, signal)
 
 /obj/item/circuit_component/radio/receive_signal(datum/signal/signal)

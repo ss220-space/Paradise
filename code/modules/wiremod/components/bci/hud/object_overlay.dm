@@ -133,6 +133,8 @@
 	var/image/cool_overlay = get_cool_overlay(target_atom)
 	SET_PLANE_EXPLICIT(cool_overlay, ABOVE_LIGHTING_PLANE, target_atom)
 
+	cool_overlay.appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR
+
 	if(image_pixel_x.value != null)
 		cool_overlay.pixel_x = image_pixel_x.value
 
