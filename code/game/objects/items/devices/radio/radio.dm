@@ -114,7 +114,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	var/obj/item/encryptionkey/keyslot
 
 	var/const/FREQ_LISTENING = 1
-	var/atom/follow_target // Custom follow target for autosay-using bots
 
 	var/list/internal_channels
 
@@ -155,7 +154,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	SSradio?.remove_object_all(src)
 	LAZYCLEARLIST(secure_radio_connections)
 	GLOB.global_radios -= src
-	follow_target = null
 	return ..()
 
 /obj/item/radio/dummy/Initialize(mapload)
