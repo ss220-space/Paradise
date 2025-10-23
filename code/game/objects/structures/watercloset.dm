@@ -102,6 +102,7 @@
 
 /obj/structure/toilet/proc/do_swirlie(mob/living/grabber, mob/living/victim)
 	swirlie = victim
+	var/was_alive = (swirlie.stat != DEAD)
 	var/prev_angle = victim.lying_angle
 	var/oldx = victim.pixel_x
 	var/oldy = victim.pixel_y
@@ -137,7 +138,6 @@
 	if(!do_after(grabber, 1 SECONDS, src, NONE) || grabber.pulling != victim)
 		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 		return
-	var/was_alive = (swirlie.stat != DEAD)
 	// success toilet swirlie
 	apply_swirlie_effect(grabber, victim)
 	if(was_alive && swirlie.stat == DEAD && swirlie.client)

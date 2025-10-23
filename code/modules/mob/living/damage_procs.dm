@@ -459,6 +459,7 @@
 	forced = FALSE,
 	used_weapon = null,
 )
+	SHOULD_NOT_SLEEP(TRUE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/old_oxyloss = getOxyLoss()
 		oxyloss = 0
