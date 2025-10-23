@@ -5,7 +5,9 @@
  */
 /obj/item/circuit_component/pathfind
 	display_name = "Следопыт"
-	desc = "При срабатывании делает шаг к местоположению цели. Это можно использовать вместе с компонентом направления и оболочкой дрона, чтобы заставить её двигаться самостоятельно. Входной порт для удостоверения личности предназначен для учёта доступа к идентификатору при определении маршрута, но не предоставляет оболочке фактический доступ."
+	desc = "При срабатывании делает шаг к местоположению цели. \
+			Входной порт для удостоверения личности предназначен для учёта доступа к идентификатору при определении маршрута, \
+			но не предоставляет оболочке фактический доступ."
 	category = "Action"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -32,7 +34,7 @@
 	. = ..()
 	// Not necessary to show the same path cooldown, since it doesn't change much for the player
 	. += create_ui_notice("Перезарядка поиска пути: [DisplayTimeText(different_path_cooldown)]", "orange", "stopwatch")
-	. += create_ui_notice("Максимальная дальность: [max_range] метров", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[declension_ru(max_range, "", "а", "ов")]", "orange", "info")
 
 /obj/item/circuit_component/pathfind/populate_ports()
 	input_X = add_input_port("X", PORT_TYPE_NUMBER, trigger = null)
@@ -62,7 +64,7 @@
 		access = id.GetAccess()
 	else if(id_card.value)
 		failed.set_output(COMPONENT_SIGNAL)
-		reason_failed.set_output("Отмеченный объект не имеет идентификатор! Вместо этого используется отсутствие идентификатора.")
+		reason_failed.set_output("Отмеченный объект не имеет идентификатора! Вместо этого используется отсутствие идентификатора.")
 
 	// Get both the current turf and the destination's turf
 	var/turf/current_turf = get_location()

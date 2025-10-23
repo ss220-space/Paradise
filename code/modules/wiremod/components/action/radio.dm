@@ -8,7 +8,9 @@
  */
 /obj/item/circuit_component/radio
 	display_name = "Сигнал"
-	desc = "Компонент, который может принимать и передавать частоты. Если выбран режим «Частный», компонент будет принимать сигналы только от других компонентов, подключенных к печатным платам с тем же идентификатором владельца."
+	desc = "Компонент, который может принимать и передавать частоты. \
+			Если выбран режим \"Частный\", компонент будет принимать сигналы только от других компонентов, \
+			подключённых к печатным платам с тем же идентификатором владельца."
 	category = "Action"
 
 	/// The publicity options. Controls whether it's public or private.
@@ -34,10 +36,10 @@
 	/// How long of a cooldown we have before we can send another signal.
 	var/signal_cooldown_time = 1 SECONDS
 
-/obj/item/circuit_component/radio/Initialize(mapload)
+/obj/item/circuit_component/radio/examine()
 	. = ..()
 	if(signal_cooldown_time > 0)
-		desc = "[desc] Еще [signal_cooldown_time * 0.1] секунд перезарядки между отправкой сигнала."
+		. += "Ещё [signal_cooldown_time * 0.1] секунд[declension_ru(signal_cooldown_time * 0.1, "а", "ы", "")] перезарядки между отправками сигнала."
 
 /obj/item/circuit_component/radio/register_shell(atom/movable/shell)
 	parent_shell = shell
@@ -100,7 +102,7 @@
 
 		var/datum/signal/signal = new
 		signal.encryption = signal_code
-		signal.data = list("message" = "ACTIVATE", "key" = parent?.owner_id)
+		signal.data = list("message" = "АКТИВИРОВАТь", "key" = parent?.owner_id)
 		radio_connection.post_signal(src, signal)
 
 /obj/item/circuit_component/radio/receive_signal(datum/signal/signal)

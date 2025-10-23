@@ -13,7 +13,7 @@
 	/// Whether we are adding output ports or not
 	var/is_output = FALSE
 	/// The prefix of the new ports
-	var/prefix = "Port"
+	var/prefix = "Порт"
 	/// The order of the new ports
 	var/order = 1
 	/// The minimum amount of ports required
@@ -21,7 +21,7 @@
 	/// The maximum amount of ports allowed
 	var/maximum_amount = 10
 
-/datum/component/circuit_component_add_port/Initialize(list/port_list, add_action, remove_action, port_type, is_output = FALSE, prefix = "Port", order = 1, minimum_amount = 1, maximum_amount = 10)
+/datum/component/circuit_component_add_port/Initialize(list/port_list, add_action, remove_action, port_type, is_output = FALSE, prefix = "Порт", order = 1, minimum_amount = 1, maximum_amount = 10)
 	. = ..()
 	if(!istype(parent, /obj/item/circuit_component))
 		return COMPONENT_INCOMPATIBLE

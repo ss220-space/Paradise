@@ -7,8 +7,9 @@
  * Any changes made to those files should be copied over with discretion
  */
 /obj/item/circuit_component/list_literal/nfc_send
-	display_name = "NFC передатчик литерал"
-	desc = "Создаёт пакет данных списка литералов и отправляет его через NFC. Если задан ключ шифрования, передаваемые данные будут приняты только получателями с таким же ключом шифрования."
+	display_name = "NFC передатчик литералов"
+	desc = "Создаёт пакет данных списка литералов и отправляет его через NFC. \
+			Если задан ключ шифрования, передаваемые данные будут приняты только получателями с таким же ключом шифрования."
 	category = "Utility"
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL

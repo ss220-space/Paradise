@@ -29,7 +29,7 @@
 
 /obj/item/circuit_component/light/populate_ports()
 	red = add_input_port("Красный", PORT_TYPE_NUMBER)
-	green = add_input_port("Зеленый", PORT_TYPE_NUMBER)
+	green = add_input_port("Зелёный", PORT_TYPE_NUMBER)
 	blue = add_input_port("Синий", PORT_TYPE_NUMBER)
 	brightness = add_input_port("Яркость", PORT_TYPE_NUMBER)
 

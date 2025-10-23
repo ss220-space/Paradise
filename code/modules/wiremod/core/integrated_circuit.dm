@@ -10,7 +10,9 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
  */
 /obj/item/integrated_circuit
 	name = "integrated circuit"
-	desc = "Вставив в него компоненты и ячейку, соединив их проводами и поместив в оболочку, любой может притвориться программистом."
+	desc = "Плата для сборки функциональных модулей на основе комьютерной логики. \
+			Поддерживает установку различных компонентов."
+	gender = FEMALE
 	icon = 'icons/obj/module.dmi'
 	icon_state = "integrated_circuit"
 	w_class = WEIGHT_CLASS_TINY
@@ -127,9 +129,9 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 /obj/item/integrated_circuit/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += span_notice("Заряд элемента питания: [round(cell.percent(), 1)]%.")
+		. += span_notice("<b>Заряд элемента питания:</b> [round(cell.percent(), 1)]%.")
 	else
-		. += span_notice("Элемент питания не установлен.")
+		. += span_notice("Элемент питания <b>не установлен</b>.")
 
 /obj/item/integrated_circuit/attack_self(mob/user as mob)
 	ui_interact(user)
@@ -173,7 +175,11 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 			return
 		set_cell(I)
 		I.add_fingerprint(user)
-		user.visible_message(span_notice("[user] вставляет элемент питания в [src.declent_ru(ACCUSATIVE)]."), span_notice("Вы вставили элемент питания в [src.declent_ru(ACCUSATIVE)]."))
+		user.visible_message(
+			span_notice("[user] вставля[PLUR_ET_UT(user)] элемент питания в [declent_ru(ACCUSATIVE)]."),
+			ignored_mobs = user,
+		)
+		balloon_alert(user, "элемент питания установлен")
 		return
 
 	if(is_id_card(I))
@@ -185,7 +191,11 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 		if(!cell)
 			return
 		I.play_tool_sound(src)
-		user.visible_message(span_notice("[user] откручивает элемент питания от [src.declent_ru(GENITIVE)]."), span_notice("Вы откручиваете элемент питания от [src.declent_ru(GENITIVE)]."))
+		user.visible_message(
+			span_notice("[user] откручива[PLUR_ET_UT(user)] элемент питания от [declent_ru(GENITIVE)]."),
+			ignored_mobs = user,
+		)
+		balloon_alert(user, "элемент питания извлечён")
 		cell.forceMove(drop_location())
 		set_cell(null)
 		return
@@ -274,7 +284,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 
 	if(to_add.circuit_flags & CIRCUIT_NO_DUPLICATES)
 		if(is_duplicate(to_add))
-			to_chat(user, span_danger("Вы не можете вставить несколько экземпляров этого компонента в одну и ту же цепь!"))
+			balloon_alert(user, "компонент уже есть в цепи!")
 			return FALSE
 
 	var/success = FALSE
@@ -451,7 +461,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 /obj/item/integrated_circuit/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "IntegratedCircuit", name)
+		ui = new(user, src, "IntegratedCircuit", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -559,13 +569,13 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 					if(!marked_atom)
 						return TRUE
 					port.set_input(marked_atom)
-					balloon_alert(usr, "обновлено значение [port.name] для отмеченного объекта.")
+					to_chat(user, span_notice("Значение порта \"[port.name]\" обновлено для отмеченного объекта."))
 					return TRUE
 				if(!marker.marked_atom)
 					port.set_input(null)
-					marker.atom_say("Очищено значение порта ('[port.name]').")
+					marker.atom_say("Очищено значение порта \"[port.name]\".")
 					return TRUE
-				marker.atom_say("Значение порта ('[port.name]') обновлено для отмеченного объекта.")
+				marker.atom_say("Значение порта \"[port.name]\" обновлено для отмеченного объекта.")
 				port.set_input(marker.marked_atom)
 				return TRUE
 
@@ -592,7 +602,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 			var/string_form = copytext("[value]", 1, PORT_MAX_STRING_DISPLAY)
 			if(length(string_form) >= PORT_MAX_STRING_DISPLAY-1)
 				string_form += "..."
-			balloon_alert(usr, "[port.name] значение: [string_form]")
+			balloon_alert(usr, "значение [port.name]: [string_form]")
 			. = TRUE
 		if("set_display_name")
 			var/new_name = params["display_name"]
@@ -656,7 +666,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 			. = TRUE
 		if("add_setter_or_getter")
 			if(setter_and_getter_count >= max_setters_and_getters)
-				balloon_alert(usr, "количество \"Получить значение\" и \"Задать значение\" достигло максимума")
+				to_chat(usr, span_warning("Количество компонентов \"Получить значение\" и \"Задать значение\" достигло максимума!"))
 				return
 			var/designated_type = /obj/item/circuit_component/variable/getter
 			if(params["is_setter"])
@@ -720,7 +730,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 
 /obj/item/integrated_circuit/proc/on_atom_usb_cable_try_attach(datum/source, obj/item/usb_cable/usb_cable, mob/user)
 	SIGNAL_HANDLER
-	usb_cable.balloon_alert(user, "схема должна быть в совместимой оболочке")
+	usb_cable.balloon_alert(user, "схема не в совместимой оболочке!")
 	return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 /// Sets the display name that appears on the shell.
@@ -730,12 +740,20 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 		return
 
 	if(display_name != "")
+		var/list/names = get_ru_names_cached()
+		ru_names = names ? names.Copy() : new /list(6)
+
 		if(!admin_only)
 			shell.name = "[initial(shell.name)] ([strip_html(display_name)])"
+			for(var/i = 1; i <= 6; i++)
+				ru_names[i] = "[names ? names[i] : initial(name)] ([strip_html(display_name)])"
 		else
 			shell.name = display_name
+			for(var/i = 1; i <= 6; i++)
+				ru_names[i] = "[names ? names[i] : initial(name)] ([display_name])"
 	else
 		shell.name = initial(shell.name)
+		shell.ru_names = shell.get_ru_names_cached()
 
 /// Toggles the grid mode property for this circuit.
 /obj/item/integrated_circuit/proc/toggle_grid_mode()
@@ -774,5 +792,14 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 /obj/item/integrated_circuit/admin
 	name = "administrative circuit"
 	desc = "Компоненты, установленные здесь, находятся далеко за пределами вашего понимания."
-
 	admin_only = TRUE
+
+/obj/item/integrated_circuit/admin/get_ru_names()
+	return list(
+		NOMINATIVE = "интегральная схема администрации",
+		GENITIVE = "интегральной схемы администрации",
+		DATIVE = "интегральной схеме администрации",
+		ACCUSATIVE = "интегральную схему администрации",
+		INSTRUMENTAL = "интегральной схемой администрации",
+		PREPOSITIONAL = "интегральной схеме администрации"
+	)

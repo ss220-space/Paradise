@@ -7,7 +7,8 @@
 
 /obj/item/circuit_component/target_intercept
 	display_name = "Перехват цели"
-	desc = "Требует оболочку BCI. При активации этот компонент позволит пользователю нацеливаться на объект силой мысли и выводит ссылку на этот объект."
+	desc = "Требуется ИМК-оболочка. \
+			При активации этот компонент позволит пользователю нацеливаться на объект выводить ссылку на него."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)
@@ -47,7 +48,7 @@
 	if(TIMER_COOLDOWN_RUNNING(parent.shell, COOLDOWN_CIRCUIT_TARGET_INTERCEPT))
 		return
 
-	to_chat(owner, "<b>Left-click для активации перехватчика цели!</b>")
+	to_chat(owner, span_warning("Используйте <b>ЛКМ</b> для активации перехватчика цели!"))
 	owner.client.click_intercept = src
 
 /obj/item/circuit_component/target_intercept/proc/on_organ_removed(datum/source, mob/living/carbon/owner)

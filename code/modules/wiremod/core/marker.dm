@@ -1,8 +1,7 @@
 /obj/item/multitool/circuit
 	name = "circuit multitool"
-	desc = "Мультитул для схем. Используется для маркировки объектов, которые затем можно загрузить в компоненты нажатием кнопки загрузки на порту. \
-	В остальном действует как обычный мультитул. Используйте в руке, чтобы очистить отмеченный объект и пометить другой объект."
-
+	desc = "Мультиметр для схем. Используется для маркировки объектов, которые затем можно загрузить \
+			в компоненты нажатием кнопки загрузки на порту. В остальном действует как обычный мультиметр."
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "multitool_circuit"
 
@@ -11,12 +10,12 @@
 
 /obj/item/multitool/circuit/get_ru_names()
 	return list(
-		NOMINATIVE = "мультитул для схем",
-		GENITIVE = "мультитула для схем",
-		DATIVE = "мультитулу для схем",
-		ACCUSATIVE = "мультитул для схем",
-		INSTRUMENTAL = "мультитулом для схем",
-		PREPOSITIONAL = "мультитуле для схем"
+		NOMINATIVE = "мультиметр для схем",
+		GENITIVE = "мультиметра для схем",
+		DATIVE = "мультиметру для схем",
+		ACCUSATIVE = "мультиметр для схем",
+		INSTRUMENTAL = "мультиметром для схем",
+		PREPOSITIONAL = "мультиметре для схем"
 	)
 
 /obj/item/multitool/circuit/Initialize(mapload)
@@ -29,7 +28,8 @@
 
 /obj/item/multitool/circuit/examine(mob/user)
 	. = ..()
-	. += span_notice("[marked_atom? "Обнаружен" : "Не обнаружен"] отмеченный зарегистрированный объект.")
+	. += span_notice("<b>[marked_atom? "Обнаружен" : "Не обнаружен"]</b> отмеченный зарегистрированный объект.")
+	. += span_notice("<b>Используйте в руке</b>, чтобы очистить отмеченный объект и пометить другой объект.")
 
 /obj/item/multitool/circuit/attack_self(mob/user, modifiers)
 	if(marked_atom)
@@ -99,7 +99,7 @@
 	if(chosen == target || (chosen in (carbon_target ? carbon_target.get_visible_items() : target.get_equipped_items())))
 		select_target(chosen)
 	else
-		balloon_alert(user, "невозможно отметить объект")
+		balloon_alert(user, "невозможно отметить объект!")
 
 /obj/item/multitool/circuit/proc/check_menu(mob/user, mob/living/target)
 	return !marked_atom && user.is_in_hands(src) && user.Adjacent(target)

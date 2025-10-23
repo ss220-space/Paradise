@@ -15,7 +15,7 @@
 
 /obj/item/circuit_component/id_access_reader/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] метров.", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[declension_ru(max_range, "", "а", "ов")].", "orange", "info")
 
 /obj/item/circuit_component/id_access_reader/populate_ports()
 	target = add_input_port("Цель", PORT_TYPE_ATOM)

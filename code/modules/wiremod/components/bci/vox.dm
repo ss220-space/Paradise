@@ -7,7 +7,8 @@
 
 /obj/item/circuit_component/vox
 	display_name = "ВОКС"
-	desc = "Компонент, воспроизводящий локальное ВОКС-объявление для пользователя. Требуется оболочка BCI."
+	desc = "Компонент, воспроизводящий локальное ВОКС-объявление для пользователя. \
+			Требуется ИМК-оболочка."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)

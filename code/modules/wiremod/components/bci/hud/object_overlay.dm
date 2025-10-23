@@ -15,12 +15,13 @@
 #define HUD_SMALL_CORNERS_RED "Малые углы (красные)"
 #define HUD_TRIANGLE_BLUE "Треугольник (синий)"
 #define HUD_TRIANGLE_RED "Треугольник (красный)"
-#define HUD_MARK_BLUE "Метка HUD (синяя)"
-#define HUD_MARK_RED "Метка HUD (красная)"
+#define HUD_MARK_BLUE "ИЛС-метка (синяя)"
+#define HUD_MARK_RED "ИЛС-метка (красная)"
 
 /obj/item/circuit_component/object_overlay
 	display_name = "Отображение маркировки"
-	desc = "Требуется оболочка BCI. Компонент, отображающий маркировку поверх объекта."
+	desc = "Требуется ИМК-оболочка. \
+			Компонент, отображающий маркировку поверх объекта."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)
@@ -56,7 +57,7 @@
 	signal_on = add_input_port("Создать", PORT_TYPE_SIGNAL)
 	signal_off = add_input_port("Убрать", PORT_TYPE_SIGNAL)
 
-	signal_off_all = add_input_port("Убрать Всё", PORT_TYPE_SIGNAL)
+	signal_off_all = add_input_port("Убрать всё", PORT_TYPE_SIGNAL)
 
 	image_pixel_x = add_input_port("X", PORT_TYPE_NUMBER)
 	image_pixel_y = add_input_port("Y", PORT_TYPE_NUMBER)

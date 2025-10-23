@@ -5,7 +5,7 @@
  */
 /obj/item/circuit_component/species
 	display_name = "Раса"
-	desc = "Компонент, который возвращает расу входного объекта"
+	desc = "Компонент, который возвращает расу входного объекта-существа."
 	category = "Entity"
 
 	/// The input port

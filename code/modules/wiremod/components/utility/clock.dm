@@ -4,7 +4,7 @@
  * Fires every tick of the circuit timer SS
  */
 /obj/item/circuit_component/clock
-	display_name = "Повторитель"
+	display_name = "Часы"
 	desc = "Компонент, который срабатывает неоднократно."
 	category = "Utility"
 

@@ -221,7 +221,7 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	rel_y = component_data["rel_y"]
 
 /client/proc/load_circuit()
-	set name = "Load Circuit"
+	set name = "Загрузка схемы"
 	set category = "Admin.Fun"
 
 	if(!check_rights(R_VAREDIT))
@@ -229,13 +229,13 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 
 	var/list/errors = list()
 
-	var/option = alert(usr, "Load by file or direct input?", "Load by file or string", "File", "Direct Input")
+	var/option = alert(usr, "Загрузить из файла или напрямую?", "Загрузка схемы", "Файл", "Прямой ввод") // перевести на TGUI
 	var/txt
 	switch(option)
-		if("File")
-			txt = file2text(input(usr, "Input File") as null|file)
-		if("Direct Input")
-			txt = input(usr, "Input JSON", "Input JSON") as text|null
+		if("Файл")
+			txt = file2text(input(usr, "Укажите файл") as null|file)
+		if("Прямой ввод")
+			txt = input(usr, "Введите JSON-строку", "Прямой ввод") as text|null
 
 	if(!txt)
 		return
@@ -244,6 +244,6 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	circuit.load_circuit_data(txt, errors)
 
 	if(length(errors))
-		to_chat(src, span_warning("При компиляции данных схемы были обнаружены следующие ошибки:"))
+		to_chat(src, span_warning("<b>При компиляции данных схемы были обнаружены следующие ошибки:</b>"))
 		for(var/error in errors)
 			to_chat(src, span_warning(error))

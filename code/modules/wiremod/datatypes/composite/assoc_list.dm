@@ -5,9 +5,9 @@
 
 /datum/circuit_composite_template/assoc_list/generate_name(list/composite_datatypes)
 	if(composite_datatypes[1] == PORT_TYPE_STRING)
-		return "[composite_datatypes[2]] associative list"
+		return "[composite_datatypes[2]] асоциативный список"
 	else
-		return "[composite_datatypes[1]], [composite_datatypes[2]] assoc. list"
+		return "[composite_datatypes[1]], [composite_datatypes[2]] асоц. список"
 
 /datum/circuit_datatype/composite_instance/assoc_list
 	color = "white"

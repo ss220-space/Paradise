@@ -128,7 +128,7 @@
 	if(isnull(attached_circuit))
 		examine_text += span_notice("На передней панели расположен USB-порт.")
 	else
-		examine_text += span_notice("[attached_circuit.shell || attached_circuit] подключен с помощью USB-порта.")
+		examine_text += span_notice("[capitalize(attached_circuit.shell.declent_ru(NOMINATIVE) || attached_circuit.declent_ru(NOMINATIVE))] подключено с помощью USB-порта.")
 
 /datum/component/usb_port/proc/on_examine_shell(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
@@ -136,7 +136,7 @@
 	if(!istype(shell))
 		return
 
-	examine_text += span_notice("подключен к [shell.declent_ru(DATIVE)] с помошью USB-кабеля.")
+	examine_text += span_notice("Подключено к [shell.declent_ru(DATIVE)] с помошью USB-кабеля.")
 
 /datum/component/usb_port/proc/on_atom_usb_cable_try_attach(datum/source, obj/item/usb_cable/connecting_cable, mob/user)
 	SIGNAL_HANDLER
@@ -153,12 +153,12 @@
 
 	if(isnull(connecting_cable.attached_circuit))
 		if(user)
-			connecting_cable.balloon_alert(user, "сначала оболочка")
+			connecting_cable.balloon_alert(user, "оболочка не подключена!")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	if(!IN_GIVEN_RANGE(connecting_cable.attached_circuit, parent, USB_CABLE_MAX_RANGE))
 		if(user)
-			connecting_cable.balloon_alert(user, "слишком далеко")
+			connecting_cable.balloon_alert(user, "слишком далеко!")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	if(connecting_cable.attached_circuit.locked)
@@ -241,7 +241,7 @@
 
 	var/atom/atom_parent = parent
 	usb_cable.forceMove(atom_parent.drop_location())
-	usb_cable.balloon_alert_to_viewers("щелк")
+	usb_cable.balloon_alert_to_viewers("отключено!")
 
 	physical_object = null
 	attached_circuit = null

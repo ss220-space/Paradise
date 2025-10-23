@@ -669,7 +669,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/item/circuit_component/conveyor_switch
 	display_name = "Конвейерный переключатель"
-	desc = "Позволяет управлять подключенными конвейерными лентами."
+	desc = "Позволяет управлять подключёнными конвейерными лентами."
 
 	/// Direction input ports.
 	var/datum/port/input/stop
@@ -687,7 +687,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/item/circuit_component/conveyor_switch/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Направление конвейера: 0 означает, что он остановлен, 1 означает, что он активен, а -1 означает, что он работает в обратном режиме.", "orange", "info")
+	. += create_ui_notice("Направление конвейера: 0 — остановлен; 1 — активен; -1 — работает в обратном режиме.", "orange", "info")
 
 /obj/item/circuit_component/conveyor_switch/register_usb_parent(atom/movable/shell)
 	. = ..()

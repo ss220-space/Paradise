@@ -5,7 +5,7 @@
  */
 /obj/item/circuit_component/list_literal
 	display_name = "Список — элемент"
-	desc = "Компонент, который создает список на основе любых введенных вами данных."
+	desc = "Компонент, который создает список на основе любых введённых вами данных."
 	category = "List"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -53,7 +53,7 @@
 		var/value = entry_port.value
 		// To prevent people from infinitely making lists to crash the server
 		if(islist(value) && get_list_count(value, max_list_count) >= max_list_count)
-			visible_message("[src] начал перегреваться!")
+			balloon_alert_to_viewers("начинает перегреваться!")
 			return
 		var/value_to_add = handler.convert_value(list_output, value)
 		if(isdatum(value_to_add))

@@ -347,7 +347,8 @@
 #define MAX_PICTURE_SIZE 7
 /obj/item/circuit_component/camera
 	display_name = "Камера"
-	desc = "Камера Polaroid, делающая снимки при вызове. Порты координат изображения определяются относительно положения камеры."
+	desc = "Камера Polaroid, делающая снимки при вызове. \
+			Порты координат изображения определяются относительно положения камеры."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 
 	/// The atom that was photographed from either user click or trigger input.
@@ -366,7 +367,7 @@
 	var/obj/item/camera/camera
 
 /obj/item/circuit_component/camera/populate_ports()
-	picture_taken = add_output_port("Сделан снимок", PORT_TYPE_SIGNAL)
+	picture_taken = add_output_port("Снимок сделан", PORT_TYPE_SIGNAL)
 	photographed_atom = add_output_port("Цель", PORT_TYPE_ATOM)
 
 	picture_target = add_input_port("Цель", PORT_TYPE_ATOM)

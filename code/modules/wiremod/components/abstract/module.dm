@@ -5,7 +5,9 @@
  */
 /obj/item/circuit_component/module
 	display_name = "Модуль"
-	desc = "Компонент, содержащий другие компоненты внутри, действующий как функция. Используйте его в руке, чтобы управлять количеством входных и выходных портов, а также получать доступ к встроенной интегральной схеме."
+	desc = "Компонент, содержащий другие компоненты внутри, действующий как функция. \
+			Используется, чтобы управлять количеством входных и выходных портов, \
+			а также получать доступ к встроенной интегральной схеме."
 	category = "Abstract"
 
 	var/obj/item/integrated_circuit/module/internal_circuit
@@ -34,6 +36,15 @@
 	. = ..()
 	attached_module.display_name = new_name
 	attached_module.name = "module ([new_name])"
+	attached_module.ru_names = list(
+		NOMINATIVE = "модуль ([new_name])",
+		GENITIVE = "модуля ([new_name])",
+		DATIVE = "модулю ([new_name])",
+		ACCUSATIVE = "модуль ([new_name])",
+		INSTRUMENTAL = "модулем ([new_name])",
+		PREPOSITIONAL = "модуле ([new_name])"
+	)
+
 
 /obj/item/integrated_circuit/module/load_component(type)
 	if(!attached_module)
@@ -66,7 +77,7 @@
 
 /obj/item/circuit_component/module_input
 	display_name = "Вход"
-	desc = "Компонент, который получает данные из модуля к которому он подключен."
+	desc = "Компонент, который получает данные из модуля, к которому он подключен."
 
 	removable = FALSE
 
@@ -79,7 +90,7 @@
 
 /obj/item/circuit_component/module_output
 	display_name = "Выход"
-	desc = "Компонент, который получает данные из модуля к которому он подключен."
+	desc = "Компонент, который получает данные из модуля, к которому он подключен."
 
 	removable = FALSE
 
@@ -320,6 +331,6 @@
 /obj/item/circuit_component/module/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "CircuitModule", name)
+		ui = new(user, src, "CircuitModule", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 		ui.set_autoupdate(FALSE)

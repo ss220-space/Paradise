@@ -7,7 +7,8 @@
 
 /obj/item/circuit_component/counter_overlay
 	display_name = "Отображение счетчика"
-	desc = "Компонент, отображающий трёхзначный счётчик. Требуется оболочка BCI."
+	desc = "Компонент, отображающий трёхзначный счётчик. \
+			Требуется ИМК-оболочка."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)

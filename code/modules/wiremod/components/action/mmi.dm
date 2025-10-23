@@ -54,7 +54,7 @@
 	west = add_output_port("Запад", PORT_TYPE_SIGNAL)
 
 	attack = add_output_port("Атака", PORT_TYPE_SIGNAL)
-	alt_attack = add_output_port("Альт атака", PORT_TYPE_SIGNAL)
+	alt_attack = add_output_port("Альт. атака", PORT_TYPE_SIGNAL)
 	clicked_atom = add_output_port("Цель", PORT_TYPE_ATOM)
 
 /obj/item/circuit_component/mmi/Destroy()

@@ -6,6 +6,7 @@
 /obj/item/assembly/wiremod
 	name = "circuit assembly"
 	desc = "Небольшое электронное устройство, в котором может размещаться интегральная схема."
+	gender = FEMALE
 	icon_state = "wiremod"
 
 /obj/item/assembly/wiremod/get_ru_names()
@@ -28,7 +29,7 @@
 
 /obj/item/circuit_component/assembly_input
 	display_name = "Ввод"
-	desc = "Срабатывает при подаче импульса на подключенный порт."
+	desc = "Срабатывает при подаче импульса на подключённый порт."
 
 	var/datum/port/output/signal
 
@@ -47,7 +48,7 @@
 
 /obj/item/circuit_component/assembly_output
 	display_name = "Вывод"
-	desc = "При срабатывании подает импульс на подключенный порт."
+	desc = "При срабатывании подает импульс на подключённый порт."
 
 	var/obj/item/assembly/attached_assembly
 

@@ -5,7 +5,8 @@
  */
 /obj/item/circuit_component/soundemitter
 	display_name = "Динамик"
-	desc = "Компонент, издающий звук при получении входного сигнала. Частота — это множитель, определяющий скорость воспроизведения звука."
+	desc = "Компонент, издающий звук при получении входного сигнала. \
+			Частота — множитель, определяющий скорость воспроизведения звука."
 	category = "Action"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -45,24 +46,24 @@
 
 /obj/item/circuit_component/soundemitter/populate_options()
 	var/static/component_options = list(
-		"Buzz" = 'sound/machines/buzz-sigh.ogg',
-		"Buzz Twice" = 'sound/machines/buzz-two.ogg',
-		"Chime" = 'sound/machines/chime.ogg',
-		"Honk" = 'sound/items/bikehorn.ogg',
-		"Ping" = 'sound/machines/ping.ogg',
-		"Sad Trombone" = 'sound/misc/sadtrombone.ogg',
-		"Warn" = 'sound/machines/warning-buzzer.ogg',
-		"Moth Buzz" = 'sound/voice/scream_moth.ogg',
-		"Squeak" = 'sound/items/toysqueak1.ogg',
-		"Rip" = 'sound/items/poster_ripped.ogg',
-		"Coinflip" = 'sound/items/coinflip.ogg',
-		"Hiss" = 'sound/voice/hiss1.ogg',
-		"Flashbang" = 'sound/weapons/flashbang.ogg',
-		"Flash" = 'sound/weapons/flash.ogg',
-		"Whip" = 'sound/weapons/whip.ogg',
-		"Laugh Track" = 'sound/items/sitcomLaugh1.ogg',
-		"Gavel" = 'sound/items/gavel.ogg',
-		"Fart" = SFX_FART,
+		"Жужжание" = 'sound/machines/buzz-sigh.ogg',
+		"Двойное жужжание" = 'sound/machines/buzz-two.ogg',
+		"Звон" = 'sound/machines/chime.ogg',
+		"Гудок" = 'sound/items/bikehorn.ogg',
+		"Звон №2" = 'sound/machines/ping.ogg',
+		"Грустный тромбон" = 'sound/misc/sadtrombone.ogg',
+		"Предупреждение" = 'sound/machines/warning-buzzer.ogg',
+		"Жужжание моли" = 'sound/voice/scream_moth.ogg',
+		"Писк игрушки" = 'sound/items/toysqueak1.ogg',
+		"Разрыв" = 'sound/items/poster_ripped.ogg',
+		"Подброс монеты" = 'sound/items/coinflip.ogg',
+		"Шипение" = 'sound/voice/hiss1.ogg',
+		"Светошумовая граната" = 'sound/weapons/flashbang.ogg',
+		"Флешер" = 'sound/weapons/flash.ogg',
+		"Хлыст" = 'sound/weapons/whip.ogg',
+		"Смех толпы" = 'sound/items/sitcomLaugh1.ogg',
+		"Судейский молоток" = 'sound/items/gavel.ogg',
+		"Пердёж" = SFX_FART,
 	)
 	sound_file = add_option_port("Звук", component_options)
 	options_map = component_options

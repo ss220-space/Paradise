@@ -5,7 +5,7 @@
  */
 /obj/item/circuit_component/health
 	display_name = "Получить состояние здоровья"
-	desc = "Компонент, возвращающий состояние здоровья организма."
+	desc = "Компонент, возвращающий оценку состояния здоровья организма."
 	category = "Entity"
 
 	/// The input port
@@ -28,16 +28,16 @@
 
 /obj/item/circuit_component/health/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] метров", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[declension_ru(max_range, "", "а", "ов")]", "orange", "info")
 
 /obj/item/circuit_component/health/populate_ports()
 	input_port = add_input_port("Организм", PORT_TYPE_ATOM)
 
-	brute = add_output_port("Травмы", PORT_TYPE_NUMBER)
-	burn = add_output_port("Ожоги", PORT_TYPE_NUMBER)
-	toxin = add_output_port("Токсины", PORT_TYPE_NUMBER)
+	brute = add_output_port("Мех. повреждения", PORT_TYPE_NUMBER)
+	burn = add_output_port("Терм. повреждения", PORT_TYPE_NUMBER)
+	toxin = add_output_port("Отравление", PORT_TYPE_NUMBER)
 	oxy = add_output_port("Удушье", PORT_TYPE_NUMBER)
-	health = add_output_port("Здоровье", PORT_TYPE_NUMBER)
+	health = add_output_port("Оценка здоровья", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/health/input_received(datum/port/input/port)
 

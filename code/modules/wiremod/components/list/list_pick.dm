@@ -5,7 +5,8 @@
  */
 /obj/item/circuit_component/list_pick
 	display_name = "Список — выбор"
-	desc = "Компонент, позволяющий пользователю выбрать один элемент из списка. Возвращает выбранный элемент."
+	desc = "Компонент, позволяющий пользователю выбрать один элемент из списка. \
+			Возвращает выбранный элемент."
 	category = "List"
 
 	/// The data type of the input_list
@@ -52,7 +53,7 @@
 		failure.set_output(COMPONENT_SIGNAL)
 		return
 	if(!message)
-		message = "circuit input"
+		message = "Ввод..."
 	if(!(user.can_perform_action(parent.shell, FORBID_TELEKINESIS_REACH|ALLOW_SILICON_REACH|ALLOW_RESTING)))
 		failure.set_output(COMPONENT_SIGNAL)
 		return

@@ -9,7 +9,7 @@
 #define HUD_BLOOD "Кровь"
 #define HUD_BOMB "Бомба"
 #define HUD_BRAIN "Мозг"
-#define HUD_BRAIN_DAMAGE "Повреждение Мозга"
+#define HUD_BRAIN_DAMAGE "Повреждение мозга"
 #define HUD_CROSS "Крест"
 #define HUD_ELECTRICITY "Электричество"
 #define HUD_EXCLAMATION "Восклицание"
@@ -31,7 +31,7 @@
 #define HUD_SHIELD "Щит"
 #define HUD_SKILL "Череп"
 #define HUD_SLEEP "Сон"
-#define HUD_WIRELESS "Беспроводная Связь"
+#define HUD_WIRELESS "Беспроводная связь"
 
 /obj/item/circuit_component/equipment_action
 	display_name = "Действие оборудования"

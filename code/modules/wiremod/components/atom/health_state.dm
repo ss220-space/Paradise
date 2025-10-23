@@ -1,7 +1,7 @@
-#define ALIVE "Жив"
+#define ALIVE "Норма"
 #define CRIT "Критическое состояние"
 #define UNCONS "Без сознания"
-#define DECEASED "Мертв"
+#define DECEASED "Смерть"
 
 /**
  * # Compare Health State Component
@@ -11,7 +11,7 @@
 
 /obj/item/circuit_component/compare/health_state
 	display_name = "Сравнение состояния здоровья"
-	desc = "Компонент, который сравнивает состояние здоровья организма и возвращает значение «истина» или «ложь»."
+	desc = "Компонент, который сравнивает оценку состояния здоровья организма и возвращает значение \"истина\" или \"ложь\"."
 	category = "Entity"
 
 	/// The input port
@@ -24,7 +24,7 @@
 
 /obj/item/circuit_component/compare/health_state/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] метров", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[declension_ru(max_range, "", "а", "ов")]", "orange", "info")
 
 /obj/item/circuit_component/compare/health_state/populate_options()
 	input_port = add_input_port("Организм", PORT_TYPE_ATOM)

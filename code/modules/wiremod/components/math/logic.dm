@@ -1,6 +1,6 @@
-#define COMP_LOGIC_AND "AND"
-#define COMP_LOGIC_OR "OR"
-#define COMP_LOGIC_XOR "XOR"
+#define COMP_LOGIC_AND "И"
+#define COMP_LOGIC_OR "ИЛИ"
+#define COMP_LOGIC_XOR "ИСКЛ. ИЛИ"
 
 /**
  * # Logic Component
@@ -9,7 +9,7 @@
  */
 /obj/item/circuit_component/compare/logic
 	display_name = "Логика"
-	desc = "Компонент с возможностями «и» и «или»."
+	desc = "Компонент с возможностями \"и\" и \"или\"."
 	category = "Math"
 
 	var/datum/port/input/option/logic_options

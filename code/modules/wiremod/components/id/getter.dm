@@ -1,6 +1,6 @@
 /obj/item/circuit_component/id_getter
 	display_name = "Получить ID"
-	desc = "Компонент, который возвращает первую доступную идентификационную карту организма."
+	desc = "Компонент, который возвращает первую доступную ID-карту субъекта."
 	category = "ID"
 
 	/// The input port
@@ -15,7 +15,7 @@
 
 /obj/item/circuit_component/id_getter/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] метров.", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[declension_ru(max_range, "", "а", "ов")].", "orange", "info")
 
 /obj/item/circuit_component/id_getter/populate_ports()
 	target = add_input_port("Цель", PORT_TYPE_ATOM)

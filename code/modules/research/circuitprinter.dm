@@ -164,9 +164,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/amount_inserted = materials.insert_item(tool)
 	if(amount_inserted)
 		qdel(tool)
-		to_chat(user, span_notice("[tool.declent_ru(NOMINATIVE)] стоимостью [amount_inserted /  SHEET_VOLUME] листов материала было потреблено [declent_ru(INSTRUMENTAL)]"))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] переребатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[declension_ru(amount_inserted /  SHEET_VOLUME, "у", "ы", "")] материала."))
 	else
-		to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] был отклонен [declent_ru(INSTRUMENTAL)]"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отклоняет переработку [tool.declent_ru(GENITIVE)]."))
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/circuit_iteract(mob/user, obj/item/circuit)
 	if(!is_circuit(circuit))
@@ -228,11 +228,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return FALSE
 
 	if(!linked_console)
-		balloon_alert(user, "консоль исследований не привязана!")
+		balloon_alert(user, "не привязано к консоли!")
 		return FALSE
 
 	if(HAS_TRAIT(circuit, TRAIT_CIRCUIT_UNDUPABLE))
-		balloon_alert(user, "интегральная схема не может быть сохранена!")
+		balloon_alert(user, "не подлежит сохранению!")
 		return FALSE
 
 	return TRUE
@@ -345,7 +345,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/list/design = LAZYACCESS(scanned_designs, design_id)
 			var/list/design_materials = design["materials"]
 
-			try_use_materials(design_materials) ? print_module(design) : atom_say("Недостаточно материалов.")
+			try_use_materials(design_materials) ? print_module(design) : atom_say("Недостаточно материала для печати!")
 
 		if("del_design")
 			var/design_id = text2num(params["designId"])
@@ -410,7 +410,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return .
 	if(!panel_open)
 		add_fingerprint(user)
-		balloon_alert(user, "панель закрыта!")
+		balloon_alert(user, "техпанель закрыта!")
 		return .
 	var/atom/drop_loc = drop_location()
 	for(var/obj/component as anything in component_parts)

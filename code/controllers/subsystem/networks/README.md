@@ -1,9 +1,9 @@
-# Networks: Subsystems that are conceptually networked IN-GAME
-### Specifically, these subsystems are for in-game mechanics that are intended to rely on a digital/radio/physical network, such as telecomms servers or the powernet
+# Сети: подсистемы, которые концептуально объединены в сеть В ИГРЕ
+### В частности, эти подсистемы предназначены для игровых механик, зависящих от цифровой/радио/физической сети — например, телекоммуникационные серверы или энергосеть.
 
-The intent of this folder categorization is to be able to quickly reference what are intended to be in-game networks, vs what is logically networked inside the code.
+Цель такой классификации папок — быстро отличать те компоненты, которые задуманы как игровые сети, от тех, что логически связаны только внутри кода.
 
-Knowing what is meant to be conceptually working off of an in-game network serves as guidance for adding or modifying features or fixing oversights and/or bugs.
+Понимание того, какие системы концептуально работают через игровую сеть, помогает при добавлении или изменении функций, а также при исправлении упущений и багов.
 
-For instance, the radio jammer only affecting headsets and suit sensors could benefit from a shorthand awareness of other systems that are represented as a network, such as research. Using the radio jammer near a server or fabricator could cause it to sever its link to the supply silo or the research web.
-This example is presented only as such, and not a recommendation on any new features or balance changes.
+Например, радиоглушитель, влияющий только на гарнитуры и датчики одежды, могли бы учитывать и другие системы, представленные в игре как сеть — к примеру, исследовательскую сеть. Применение радиоглушителя рядом с сервером или фабрикатором могло бы разорвать его связь с сило снабжения снабжения или исследовательской сетью.
+Этот пример приведён исключительно для иллюстрации и не является предложением по внедрению новых функций или изменению баланса.

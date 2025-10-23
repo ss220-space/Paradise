@@ -5,7 +5,7 @@
  */
 /obj/item/circuit_component/filter_list
 	display_name = "Фильтр"
-	desc = "Компонент, который просматривает каждый элемент списка и фильтрует их."
+	desc = "Компонент, который просматривает элементы списка и фильтрует их."
 	category = "List"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_INSTANT
 
@@ -76,7 +76,7 @@
 		index += 1
 		var/list/result = SScircuit_component.execute_instant_run()
 		if(!result)
-			balloon_alert_to_viewers("[src] начал перегреваться!")
+			balloon_alert_to_viewers("начинает перегреваться!")
 			on_failed.set_output(COMPONENT_SIGNAL)
 			return
 		if(result["accept_entry"])

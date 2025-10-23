@@ -17,7 +17,7 @@
 
 		data["circuits"] += list(list(
 			"ref" = circuit.UID(),
-			"name" = "[circuit.name] in [loc_name(circuit)]",
+			"name" = "[circuit.declent_ru(NOMINATIVE)] in [loc_name(circuit)]",
 			"creator" = circuit.get_creator(),
 			"has_inserter" = !isnull(inserter),
 		))
@@ -39,7 +39,7 @@
 
 	switch(action)
 		if("duplicate_circuit")
-			if(alert(usr, "Это создаст новую схему в том месте, где вы находитесь. Вы уверены?", "Confirm", "Yes", "No") != "Yes")
+			if(alert(usr, "Это создаст новую схему в том месте, где вы находитесь. Вы уверены?", "Подтверждение", "Да", "Нет") != "Да") // перевести на TGUI алёрт
 				return FALSE
 
 			var/list/errors = list()
@@ -48,7 +48,7 @@
 			new_circuit.load_circuit_data(circuit.convert_to_json(), errors)
 
 			if(length(errors))
-				to_chat(usr, span_warning("Каким-то образом, дублирование схемы не удалось:"))
+				to_chat(usr, span_warning("Каким-то образом, дублирование схемы не удалось!"))
 				for(var/error in errors)
 					to_chat(usr, span_warning(error))
 		if("follow_circuit")

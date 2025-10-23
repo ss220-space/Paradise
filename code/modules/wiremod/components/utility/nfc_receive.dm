@@ -8,7 +8,8 @@
 
 /obj/item/circuit_component/nfc_receive
 	display_name = "NFC приемник"
-	desc = "Получает пакеты данных через NFC. Если установлен ключ шифрования, будут приниматься только сигналы с таким же ключом шифрования."
+	desc = "Получает пакеты данных через NFC. \
+			Если установлен ключ шифрования, будут приниматься только сигналы с таким же ключом шифрования."
 	category = "Utility"
 
 	circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL //trigger_output

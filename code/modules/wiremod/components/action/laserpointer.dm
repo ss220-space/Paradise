@@ -21,7 +21,7 @@
 
 /obj/item/circuit_component/laserpointer/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] метров", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[declension_ru(max_range, "", "а", "ов")]", "orange", "info")
 
 /obj/item/circuit_component/laserpointer/populate_options()
 	var/static/component_options = list(
@@ -57,7 +57,7 @@
 		var/mob/living/silicon/robot/silicon = target
 		add_attack_logs(shell, silicon, "shone [src] in their eyes")
 		silicon.flash_eyes(affect_silicon = TRUE) /// no stunning, just a blind
-		to_chat(silicon, span_danger("Ваши датчики были перегружены слабым лазером испускаемым [shell]!"))
+		to_chat(silicon, span_danger("Ваши датчики были перегружены лазером, испускаемым [shell.declent_ru(PREPOSITIONAL)]!"))
 
 	var/mutable_appearance/laser_location = mutable_appearance('icons/obj/weapons/projectiles.dmi', "[pointer_icon_state]_laser", target.layer + 0.01)
 

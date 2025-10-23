@@ -12,7 +12,8 @@
 
 /obj/item/circuit_component/variable/setter/trigger
 	display_name = "Установщик переменной вызова"
-	desc = "Компонент, который устанавливает переменную глобально в схеме. Требует входных сигналов и также обеспечивает выходной сигнал."
+	desc = "Компонент, который устанавливает переменную глобально в схеме. \
+			Требует входные сигналы и обеспечивает выходной сигнал."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 /obj/item/circuit_component/variable/setter/get_variable_list(obj/item/integrated_circuit/integrated_circuit)

@@ -4,8 +4,8 @@
  * Checks if a string contains a word/letter
  */
 /obj/item/circuit_component/compare/contains
-	display_name = "Содержит"
-	desc = "Проверяет, содержит ли строка слово или букву"
+	display_name = "Содержимое строки"
+	desc = "Проверяет, содержит ли строка слово или букву."
 	category = "String"
 
 	var/datum/port/input/needle

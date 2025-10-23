@@ -141,7 +141,7 @@
 
 /obj/item/circuit_component/atmos_meter
 	display_name = "Атмосферный измеритель"
-	desc = "Позволяет считывать давление и температуру трубопровода."
+	desc = "Позволяет считывать давление и температуру в трубопроводе."
 
 	///Signals the circuit to retrieve the pipenet's current pressure and temperature
 	var/datum/port/input/request_data
@@ -155,7 +155,7 @@
 	var/obj/machinery/atmospherics/meter/connected_meter
 
 /obj/item/circuit_component/atmos_meter/populate_ports()
-	request_data = add_input_port("Запрос данных счетчика", PORT_TYPE_SIGNAL, trigger = PROC_REF(request_meter_data))
+	request_data = add_input_port("Запрос данных счётчика", PORT_TYPE_SIGNAL, trigger = PROC_REF(request_meter_data))
 
 	pressure = add_output_port("Давление", PORT_TYPE_NUMBER)
 	temperature = add_output_port("Температура", PORT_TYPE_NUMBER)

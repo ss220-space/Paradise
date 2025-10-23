@@ -2,15 +2,16 @@
 #define RU_ASSIGNMENT "должность"
 #define RU_STAT "статус"
 #define RU_OXY "удушье"
-#define RU_TOX "токсины"
-#define RU_FIRE "ожоги"
-#define RU_BRUTE "травмы"
+#define RU_TOX "отравление"
+#define RU_FIRE "терм. повреждения"
+#define RU_BRUTE "мех. повреждения"
 #define RU_AREA "местоположение"
-#define RU_HEALTH "здоровье"
+#define RU_HEALTH "общая оценка"
 
 /obj/machinery/computer/crew
 	name = "crew monitoring computer"
-	desc = "Консоль, используемая для контроля активных датчиков состояния здоровья, встроенных в униформу большинства членов экипажа."
+	desc = "Консоль, используемая для контроля активных датчиков состояния здоровья, \
+			встроенных в униформу большинства членов экипажа."
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	idle_power_usage = 250
@@ -68,7 +69,8 @@
 
 /obj/item/circuit_component/medical_console_data
 	display_name = "Данные мониторинга экипажа"
-	desc = "Выводит информацию о медицинском состоянии людей на компьютер мониторинга экипажа, где ее затем можно отфильтровать с помощью компонента «Выбрать запрос»."
+	desc = "Выводит биометрические данные гуманоидов на консоль наблюдения за экипажем,  \
+			где её затем можно отфильтровать с помощью компонента \"Выбрать запрос\"."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The records retrieved

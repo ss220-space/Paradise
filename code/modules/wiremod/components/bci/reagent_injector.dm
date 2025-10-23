@@ -7,7 +7,7 @@
 
 /obj/item/circuit_component/reagent_injector
 	display_name = "Инъектор реагента"
-	desc = "Компонент, который может вводить реагенты из хранилища реагентов BCI."
+	desc = "Компонент, который может вводить реагенты из хранилища реагентов ИМК."
 	category = "BCI"
 	circuit_flags = CIRCUIT_NO_DUPLICATES
 
@@ -49,7 +49,7 @@
 	var/units = bci.reagents.trans_to(bci.owner, transfer_amounts.value)
 	if(units)
 		injected.set_output(COMPONENT_SIGNAL)
-		add_attack_logs(bci.owner, bci.owner, "Введено с помощью [name] содержащим [bci.reagents.log_list()], введено [units] единиц", bci.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+		add_attack_logs(bci.owner, bci.owner, "Injected with [name] containing [bci.reagents.log_list()], transfered [units] units", bci.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 /obj/item/circuit_component/reagent_injector/register_shell(atom/movable/shell)
 	. = ..()

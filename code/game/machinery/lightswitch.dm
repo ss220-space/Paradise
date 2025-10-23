@@ -55,7 +55,7 @@
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	. += span_notice("Переключатель света. Он [area.lightswitch ? "включен" : "выключен"].")
+	. += span_notice("[area.lightswitch ? "Включено" : "Выключено"].")
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

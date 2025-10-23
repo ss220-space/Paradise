@@ -5,7 +5,7 @@
 #define REMOTECAM_EMP_RESET 90 SECONDS
 
 /**
- * # Remote Camera Component
+ * № Remote Camera Component
  *
  * Attaches a camera for surveillance-on-the-go.
  */
@@ -34,7 +34,7 @@
 	/// The shell storing the parent circuit
 	var/atom/movable/shell_parent = null
 	/// The shell's type (used for prefix naming)
-	var/camera_prefix = "Camera"
+	var/camera_prefix = "Камера"
 	/// Camera random ID
 	var/c_tag_random = 0
 
@@ -59,7 +59,7 @@
 		. += create_ui_notice("Использование энергии для ближнего диапазона: [REMOTECAM_ENERGY_USAGE_NEAR] за [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
 		. += create_ui_notice("Использование энергии для дальнего диапазона: [REMOTECAM_ENERGY_USAGE_FAR] за [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
 	else
-		. += create_ui_notice("Использование энергии пока активно: [current_camera_range > 0 ? REMOTECAM_ENERGY_USAGE_FAR : REMOTECAM_ENERGY_USAGE_NEAR] Per [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
+		. += create_ui_notice("Использование энергии пока активно: [current_camera_range > 0 ? REMOTECAM_ENERGY_USAGE_FAR : REMOTECAM_ENERGY_USAGE_NEAR] за [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
 
 /obj/item/circuit_component/remotecam/populate_ports()
 	start = add_input_port("Старт", PORT_TYPE_SIGNAL)
@@ -104,7 +104,7 @@
  * Initializes the camera
  */
 /obj/item/circuit_component/remotecam/proc/init_camera()
-	shell_camera.desc = "Эта камера — часть схемы. Если увидите это, сообщите программистам из Центрального Коммандования!"
+	shell_camera.desc = "Эта камера — часть схемы. Если вы видите это описание, сообщите о баге!"
 	shell_camera.use_power = NO_POWER_USE
 	shell_camera.start_active = TRUE
 	shell_camera.internal_light = FALSE
@@ -159,16 +159,16 @@
  */
 /obj/item/circuit_component/remotecam/proc/update_camera_name_network()
 	if(!parent || !parent.display_name || parent.display_name == "")
-		shell_camera.c_tag = "[camera_prefix]: unspecified #[c_tag_random]"
+		shell_camera.c_tag = "[camera_prefix]: немаркированная №[c_tag_random]"
 		current_camera_name = ""
 	else if(current_camera_name != parent.display_name)
 		current_camera_name = parent.display_name
 		var/new_cam_name = reject_bad_name(current_camera_name, allow_numbers = TRUE)
 		//Set camera name using parent circuit name
 		if(new_cam_name)
-			shell_camera.c_tag = "[camera_prefix]: [new_cam_name] #[c_tag_random]"
+			shell_camera.c_tag = "[camera_prefix]: [new_cam_name] №[c_tag_random]"
 		else
-			shell_camera.c_tag = "[camera_prefix]: unspecified #[c_tag_random]"
+			shell_camera.c_tag = "[camera_prefix]: немаркированная №[c_tag_random]"
 
 	if(!network.value || network.value == "")
 		shell_camera.network = list("SS13")
@@ -276,10 +276,12 @@
 		shell_camera.toggle_cam(null, 0)
 
 /obj/item/circuit_component/remotecam/bci
-	display_name = "BCI камера"
-	desc = "Оцифровывает зрение пользователя для мобильного видеонаблюдения. Для работы оцифровщика необходимо наличие полностью работоспособного зрения. Диапазон действия камеры может быть ближним или дальним. Поле «Сеть» используется для настройки сети камер."
+	display_name = "ИМК камера"
+	desc = "Оцифровывает зрение пользователя для мобильного видеонаблюдения. \
+			Для работы оцифровщика необходимо наличие полностью работоспособного зрения. \
+			Диапазон действия камеры может быть ближним или дальним. Поле \"Сеть\" используется для настройки сети камер."
 	category = "BCI"
-	camera_prefix = "BCI"
+	camera_prefix = "ИМК"
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)
 
 	/// BCIs are organs, and thus the signal must be assigned ONLY when the shell has been installed in a mob - otherwise the camera will never update position
@@ -290,12 +292,14 @@
 
 /obj/item/circuit_component/remotecam/drone
 	display_name = "Удаленная камера"
-	desc = "Снимает окружающую обстановку для мобильного видеонаблюдения. Диапазон действия камеры может быть ближним или дальним. Поле «Сеть» используется для настройки сети камеры."
+	desc = "Снимает окружающую обстановку для мобильного видеонаблюдения. \
+			Диапазон действия камеры может быть ближним или дальним. Поле \"Сеть\" используется для настройки сети камеры."
 	camera_prefix = "Drone"
 
 /obj/item/circuit_component/remotecam/airlock
 	display_name = "Камера-глазок"
-	desc = "Камера-глазок, которая снимает происходящее с обеих сторон шлюза. Сетевое поле используется для организации сети камер. Не использовать в туалетах!"
+	desc = "Камера-глазок, которая снимает происходящее с обеих сторон шлюза. \
+			Сетевое поле используется для организации сети камер."
 	camera_prefix = "Airlock"
 
 	/// Hardcode camera to near range
@@ -303,7 +307,9 @@
 
 /obj/item/circuit_component/remotecam/polaroid
 	display_name = "Дополнение к потоковой передачи камеры"
-	desc = "Передаёт изображение с камеры-поларойда в виде цифрового потока для мобильного видеонаблюдения. Видеопоток с камеры не будет работать, если она хранится в контейнере, например, в рюкзаке или коробке. Поле «Сеть» используется для настройки сети камеры."
+	desc = "Передаёт изображение с камеры-полароида в виде цифрового потока для мобильного видеонаблюдения. \
+			Видеопоток с камеры не будет работать, если она хранится в контейнере, например, в рюкзаке или коробке. \
+			Поле \"Сеть\" используется для настройки сети камеры."
 	camera_prefix = "Polaroid"
 
 	/// Hardcode camera to near range

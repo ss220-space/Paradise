@@ -16,7 +16,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 	/// The name of the component shown on the UI
-	var/display_name = "Generic"
+	var/display_name = "ШАБЛОННОЕ_ИМЯ"
 
 	/// The category of the component in the UI
 	var/category = COMPONENT_DEFAULT_CATEGORY
@@ -130,11 +130,11 @@
 	if(remove_flag)
 		circuit_flags &= ~remove_flag
 	if(circuit_flags & CIRCUIT_FLAG_INSTANT)
-		ui_alerts["tachometer-alt"] = "Instant"
+		ui_alerts["tachometer-alt"] = "Мгновенно"
 	else
 		ui_alerts -= "tachometer-alt"
 	if(circuit_flags & CIRCUIT_FLAG_DISABLED)
-		ui_alerts["exclamation"] = "Non-functional"
+		ui_alerts["exclamation"] = "Нефункционально"
 	else
 		ui_alerts -= "exclamation"
 
@@ -290,7 +290,7 @@
 
 	if(!parent.admin_only)
 		if(circuit_flags & CIRCUIT_FLAG_ADMIN)
-			message_admins("[display_name] попытался выполнить действие, требующее прав администратора, над объектом [parent.get_creator_admin()], который не является администратором")
+			message_admins("[display_name] tried to execute on [parent.get_creator_admin()] that has admin_only set to 0")
 			return FALSE
 
 		var/flags = SEND_SIGNAL(parent, COMSIG_CIRCUIT_PRE_POWER_USAGE, energy_usage_per_input)
@@ -359,7 +359,7 @@
 		. += create_ui_notice("Мгновенное исполнение", "red", "tachometer-alt")
 
 	if(!removable)
-		. += create_ui_notice("Несъемный", "red", "lock")
+		. += create_ui_notice("Несъемное", "red", "lock")
 
 	if(length(required_shells))
 		. += create_ui_notice("Поддерживаемые оболочки:", "green", "notes-medical")
@@ -408,11 +408,11 @@
 	SHOULD_BE_PURE(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	. = list()
-	. += create_ui_notice("Доступно [column_name_plural]:", "grey", "question-circle")
+	. += create_ui_notice("Доступные [column_name_plural]:", "grey", "question-circle")
 
 
 	for(var/entry in entries)
-		. += create_ui_notice("[column_name] Название: '[entry]'", "grey", "columns")
+		. += create_ui_notice("[column_name] — название: '[entry]'", "grey", "columns")
 
 /**
  * Called when a circuit component is added to an object with a USB port.

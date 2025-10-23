@@ -232,7 +232,7 @@ Thus, the two variables affect pump operation are set in New():
 	rename_interactive(user, I)
 
 /obj/item/circuit_component/atmos_volume_pump
-	display_name = "Объемный атмосферный насос"
+	display_name = "Объёмный атмосферный насос"
 	desc = "Интерфейс для связи с объемным насосом."
 
 	///Set the transfer rate of the pump

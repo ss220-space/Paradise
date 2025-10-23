@@ -5,6 +5,7 @@
  */
 /obj/structure/bot
 	name = "bot"
+	gender = MALE
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_medium_box"
 
@@ -51,7 +52,7 @@
 
 /obj/item/circuit_component/bot/proc/on_attack_hand(atom/source, mob/user)
 	SIGNAL_HANDLER
-	source.balloon_alert(user, "нажата кнопка")
+	source.balloon_alert(user, "кнопка нажата")
 	playsound(source, "terminal_type", 25, FALSE)
 	entity.set_output(user)
 	signal.set_output(COMPONENT_SIGNAL)

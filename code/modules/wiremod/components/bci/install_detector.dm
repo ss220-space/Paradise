@@ -6,8 +6,8 @@
  */
 
 /obj/item/circuit_component/install_detector
-	display_name = "Детектор установки BCI"
-	desc = "Компонент, определяющий установку или изъятие BCI у пользователя."
+	display_name = "Детектор установки интерфейса \"Мозг-Компьютер\""
+	desc = "Компонент, определяющий установку или изъятие интерфейса \"Мозг-Компьютер\" у пользователя."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)

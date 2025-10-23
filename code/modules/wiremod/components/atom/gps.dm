@@ -5,7 +5,7 @@
  */
 /obj/item/circuit_component/gps
 	display_name = "Внутренний GPS"
-	desc = "Компонент, возвращающий свои координаты XYZ."
+	desc = "Компонент, возвращающий свои GPS-координаты."
 	category = "Entity"
 
 	/// The result from the output
