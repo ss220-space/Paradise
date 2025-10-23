@@ -10,10 +10,13 @@
 
 /datum/status_effect/selfdestruct/tick(seconds_between_ticks)
 	var/mob/living/silicon/robot/borg = owner
-	if(borg.stat != DEAD)
-		borg.adjustBruteLoss(10)
-		borg.adjustFireLoss(10)
-	else
+	if(borg.stat == DEAD)
 		return
-	if(borg.cell && borg.cell.charge > 500)
-		borg.cell.charge = borg.cell.charge - 500
+	else
+		borg.adjustBruteLoss(15 * seconds_between_ticks)
+		borg.adjustFireLoss(15 * seconds_between_ticks)
+
+	if(!borg.cell)
+		return
+	else
+		borg.cell.charge = max(0, borg.cell.charge - 500)
