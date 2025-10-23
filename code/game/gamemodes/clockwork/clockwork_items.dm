@@ -229,9 +229,9 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "ratvarian_spear0"
 	slot_flags = ITEM_SLOT_BACK
-	force = 10
-	force_unwielded = 10
-	force_wielded = 20
+	force = 15
+	force_unwielded = 15
+	force_wielded = 25
 	throwforce = 35
 	armour_penetration = 40
 	sharp = TRUE
@@ -240,6 +240,7 @@
 	attack_verb = list("уколол", "ткнул", "полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_HUGE
+	block_chance = 25
 	needs_permit = TRUE
 
 /obj/item/twohanded/ratvarian_spear/Initialize(mapload)
@@ -327,9 +328,10 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "ratvarian_spear0"
-	force = 20
+	force = 25
 	armour_penetration = 30
 	sharp = TRUE
+	block_chance = 25
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/clock_borg_spear/Initialize(mapload)
@@ -378,13 +380,14 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_hammer0"
 	slot_flags = ITEM_SLOT_BACK
-	force = 5
-	force_unwielded = 5
-	force_wielded = 20
+	force = 15
+	force_unwielded = 15
+	force_wielded = 35
 	armour_penetration = 40
-	throwforce = 30
+	throwforce = 45
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
+	block_chance = 40
 
 /obj/item/twohanded/clock_hammer/Initialize(mapload)
 	. = ..()
@@ -491,10 +494,10 @@
 	icon_state = "clock_sword"
 	item_state = "clock_sword"
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	force = 20
+	force = 25
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration = 10
+	armour_penetration = 30
 	sharp = TRUE
 	attack_verb = list("полоснул", "уколол")
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -542,7 +545,7 @@
 	if(enchant_type == FASTSWORD_SPELL && src == user.get_active_hand())
 		ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTSWORD_SPELL))
 		enchant_type = CASTING_SPELL
-		force = 7
+		force = 15
 		swordsman = TRUE
 		add_attack_logs(user, user, "Sworded [src]", ATKLOG_ALL)
 		to_chat(user, span_danger("The blood inside your veind flows quickly, as you try to sharp someone by any means!"))
@@ -612,7 +615,7 @@
 	throw_range = 3
 	attack_verb = list("стукнул", "толкнул", "долбанул", "ударил")
 	hitsound = 'sound/weapons/smash.ogg'
-	block_chance = 30
+	block_chance = 55
 
 /obj/item/shield/clock_buckler/Initialize(mapload)
 	. = ..()
@@ -1092,7 +1095,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
-	var/reflect_uses = 4
+	var/reflect_uses = 7
 	var/normal_armor
 	var/harden_armor = list(MELEE = 80, BULLET = 70, LASER = 80, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 
@@ -1204,11 +1207,12 @@
 // Gloves
 /obj/item/clothing/gloves/clockwork
 	name = "clockwork gauntlets"
-	desc = "Heavy, fire-resistant gauntlets with brass reinforcement."
+	desc = "Heavy, fire,shock-resistant gauntlets with brass reinforcement."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_gauntlets"
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	siemens_coefficient = 0
 	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 	var/north_star = FALSE
 	var/fire_casting = FALSE
