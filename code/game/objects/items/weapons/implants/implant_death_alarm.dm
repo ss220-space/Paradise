@@ -18,10 +18,9 @@
 /obj/item/implant/death_alarm/activate(cause) // Death signal sends name followed by the gibbed / not gibbed check
 	var/area/mob_area = get_area(imp_in)
 
-	var/obj/item/radio/headset/dummy = new /obj/item/radio/headset(src)
-	dummy.follow_target = imp_in
 	var/message
 	var/destroy = FALSE
+	
 	switch(cause)
 		if("gib")
 			message = "[mobname] has died-zzzzt in-in-in..."
