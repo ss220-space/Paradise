@@ -58,6 +58,12 @@
 	database_id = MEDAL_CULT_SHUTTLE_OMFG
 	icon_state = "cult_shuttle_omfg"
 
+/datum/award/achievement/misc/springlock
+	name = "ЭТО ЧТО, УКУС 87-ОГО????"
+	desc = "Проигнорируйте предупреждение на пружинном модуле МЭК."
+	database_id = MEDAL_SPRINGLOCK
+	icon_state = "springlock"
+
 //TODO Uncomment when be implemented
 /*
 /datum/award/achievement/misc/round_and_full

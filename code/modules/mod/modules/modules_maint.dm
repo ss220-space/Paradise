@@ -100,6 +100,7 @@
 	playsound(mod.wearer, 'sound/effects/snap.ogg', 75, TRUE, frequency = 0.5)
 	playsound(mod.wearer, 'sound/effects/splat.ogg', 50, TRUE, frequency = 0.5)
 	mod.wearer.adjustBruteLoss(1987) //boggers, bogchamp, etc //why not just poggers, also this caps at 595 damage but comedy
+	mod.wearer.client?.give_award(/datum/award/achievement/misc/springlock, mod.wearer)
 	incoming_jumpscare = FALSE
 
 // MARK: Balloon blower
