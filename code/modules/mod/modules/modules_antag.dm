@@ -828,7 +828,6 @@
 	item_state = "gun"
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
-	recharge_rate = 4
 	charge_tick = 4
 
 /obj/item/gun/magic/contractor_hook/get_ru_names()
