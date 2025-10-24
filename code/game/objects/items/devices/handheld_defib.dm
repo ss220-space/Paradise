@@ -10,13 +10,18 @@
 	var/charge_time = 100
 	var/shocking = FALSE
 	var/advanced = FALSE
+	var/charges = 1
+	var/max_charges = 1
 
 
 /obj/item/handheld_defibrillator/update_icon_state()
 	if(shocking)
 		icon_state = "[icon_base]-shock"
 		return
-	icon_state = "[icon_base][cooldown ? "-off" : "-on"]"
+	if(max_charges == 1)
+		icon_state = "[icon_base][charges == 0 ? "-off" : "-on"]"
+	else
+		icon_state = "[icon_base]-[charges]"
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!istype(H))
@@ -28,9 +33,11 @@
 		if(istype(I, /obj/item/clothing/suit/space/hardsuit))
 			var/obj/item/clothing/suit/space/hardsuit/hardsuit = I
 			blocked = hardsuit.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if(cooldown)
+
+	if(charges == 0)
 		to_chat(user, span_warning("[src] is still charging!"))
 		return .
+
 	if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
 		. |= ATTACK_CHAIN_SUCCESS
 		user.visible_message(span_notice("[user] shocks [H] with [src]."), span_notice("You tried to shock [H] with [src]."))
@@ -45,15 +52,11 @@
 				if(H.health <= HEALTH_THRESHOLD_CRIT)
 					if(total_damage >= 90)
 						to_chat(user, span_danger("[H] looks horribly injured. Resuscitation alone may not help revive them."))
-					if(advanced)
+					if((prob(66)) || (advanced))
 						to_chat(user, span_danger("[H] inhales deeply!"))
-						H.adjustOxyLoss(-75)
+						H.adjustOxyLoss(-50)
 					else
-						if(prob(66))
-							to_chat(user, span_danger("[H] inhales deeply!"))
-							H.adjustOxyLoss(-50)
-						else
-							to_chat(user, span_danger("[H] doesn't respond!"))
+						to_chat(user, span_danger("[H] doesn't respond!"))
 
 				H.AdjustKnockdown(4 SECONDS)
 				H.AdjustStuttering(20 SECONDS)
@@ -61,11 +64,13 @@
 				H.shock_internal_organs(100)
 		else
 			to_chat(user, span_danger("[H] has a hardsuit!"))
-		cooldown = TRUE
 		shocking = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, PROC_REF(short_charge)), 1 SECONDS)
-		addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
+		if(charges > 0)
+			charges--
+			update_icon(UPDATE_ICON_STATE)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
 
 	else
 		to_chat(user, span_notice("[src]'s on board medical scanner indicates that no shock is required."))
@@ -76,9 +81,10 @@
 
 
 /obj/item/handheld_defibrillator/proc/recharge()
-	cooldown = FALSE
+	charges++
 	update_icon(UPDATE_ICON_STATE)
 	playsound(loc, 'sound/weapons/flash.ogg', 75, TRUE)
+
 
 /obj/item/handheld_defibrillator/syndie
 	name = "combat handheld defibrillator"
@@ -95,4 +101,10 @@
 	icon_state = "defib-on"
 	item_state = "defib"
 	advanced = TRUE
-	charge_time = 50
+	charges = 3
+	max_charges = 3
+	charge_time = 70
+
+/obj/item/handheld_defibrillator/examine(mob/user)
+	. = ..()
+	. += span_notice("[src] has <b>[charges]</b> out of <b>[max_charges]</b> charges left.")
