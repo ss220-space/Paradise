@@ -203,8 +203,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/datum/radio_frequency/connection
 	/// Who sent it
 	var/atom/movable/sender
-	/// The radio it was sent from
-	var/obj/item/radio/radio
 	/// The signal data (See defines/radio.dm)
 	var/data
 	/// Verbage used
@@ -229,7 +227,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
  */
 /datum/tcomms_message/Destroy()
 	connection = null
-	radio = null
+	sender = null
 	follow_target = null
 	return ..()
 

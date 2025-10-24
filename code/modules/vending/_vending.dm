@@ -210,6 +210,7 @@
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
 		/datum/vendor_crit/shatter,
+		/datum/vendor_crit/pop_head,
 		/datum/vendor_crit/lucky
 	)
 	/// number of shards to apply when a crit embeds

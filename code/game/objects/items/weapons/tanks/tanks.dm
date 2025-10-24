@@ -101,7 +101,7 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += span_notice("It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.")
+			. += span_notice("It's \a [icon2html(icon, user)][src]! If you want any more information you'll need to get closer.")
 		return
 
 	var/celsius_temperature = air_contents.temperature - T0C
@@ -120,7 +120,7 @@
 	else
 		descriptive = "furiously hot"
 
-	. += span_notice("\The [bicon(icon)][src] feels [descriptive]")
+	. += span_notice("[icon2html(icon, user)] [src] feels [descriptive]")
 	. += span_notice("The pressure gauge displays [round(air_contents.return_pressure())] kPa")
 
 /obj/item/tank/blob_act(obj/structure/blob/B)

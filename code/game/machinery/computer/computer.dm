@@ -183,7 +183,7 @@
 				frame.state = 4
 			else
 				if(user)
-					balloon_alert(user, "монитор отключён")
+					loc.balloon_alert(user, "монитор отключён")
 			frame.update_icon()
 
 		for(var/obj/C in src)

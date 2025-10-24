@@ -728,7 +728,7 @@
 			f_name = "a "
 		f_name += span_danger("blood-stained [name]!")
 
-	. = list("[bicon(src)] That's [f_name]")
+	. = list("[icon2html(src, user)] That's [f_name]")
 
 	if(desc)
 		. += desc
