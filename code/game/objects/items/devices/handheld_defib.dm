@@ -9,6 +9,7 @@
 	var/cooldown = FALSE
 	var/charge_time = 100
 	var/shocking = FALSE
+	var/advanced = FALSE
 
 
 /obj/item/handheld_defibrillator/update_icon_state()
@@ -44,11 +45,15 @@
 				if(H.health <= HEALTH_THRESHOLD_CRIT)
 					if(total_damage >= 90)
 						to_chat(user, span_danger("[H] looks horribly injured. Resuscitation alone may not help revive them."))
-					if(prob(66))
+					if(advanced)
 						to_chat(user, span_danger("[H] inhales deeply!"))
-						H.adjustOxyLoss(-50)
+						H.adjustOxyLoss(-75)
 					else
-						to_chat(user, span_danger("[H] doesn't respond!"))
+						if(prob(66))
+							to_chat(user, span_danger("[H] inhales deeply!"))
+							H.adjustOxyLoss(-50)
+						else
+							to_chat(user, span_danger("[H] doesn't respond!"))
 
 				H.AdjustKnockdown(4 SECONDS)
 				H.AdjustStuttering(20 SECONDS)
@@ -83,3 +88,11 @@
 	charge_time = 30
 	icon_base = "sdefib"
 	shield_ignore = TRUE
+
+/obj/item/handheld_defibrillator/advanced
+	name = "advanced handheld defibrillator"
+	desc = "Used to more effectively restart stopped hearts."  // TODO: перевод
+	icon_state = "defib-on"
+	item_state = "defib"
+	advanced = TRUE
+	charge_time = 50

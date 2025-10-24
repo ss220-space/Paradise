@@ -72,14 +72,24 @@
 	build_path = /obj/item/bodyanalyzer/rnd
 	category = list("Medical")
 
-/datum/design/handheld_defib
-	name = "Handheld Defibrillator"
-	desc = "A smaller defibrillator only capable of treating cardiac arrest."
-	id = "handheld_defib"
-	req_tech = list("biotech" = 2, "magnets" = 3)
+// /datum/design/handheld_defib  // TODO: Del
+// 	name = "Handheld Defibrillator"
+// 	desc = "A smaller defibrillator only capable of treating cardiac arrest."
+// 	id = "handheld_defib"
+// 	req_tech = list("biotech" = 2, "magnets" = 3)
+// 	build_type = PROTOLATHE
+// 	materials = list(MAT_METAL = 20, MAT_GLASS = 20)
+// 	build_path = /obj/item/handheld_defibrillator
+// 	category = list("Medical")
+
+/datum/design/handheld_defib_adv
+	name = "Advanced Handheld Defibrillator"
+	desc = ""  // TODO: add desc
+	id = "handheld_defib_adv"
+	req_tech = list("biotech" = 7, "materials" = 6, "magnets" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 20, MAT_GLASS = 20)
-	build_path = /obj/item/handheld_defibrillator
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_GOLD = 1000, MAT_TITANIUM = 500)
+	build_path = /obj/item/handheld_defibrillator/advanced
 	category = list("Medical")
 
 /datum/design/defib
