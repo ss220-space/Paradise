@@ -2,13 +2,13 @@
  * # Rep Purchase - Contractor Hardsuit
  */
 /datum/rep_purchase/item/contractor_hardsuit
-	name = "ИКС Контрактника"
-	description = "ИКС, оснащённый технологией \"Хамелеон\". В комплект также входит оборудование для поддержания жизнедеятельности. \
-			ИКС выполнен в чёрно-золотых тонах и отличается компактностью, что позволяет легко носить его в сумке. \
-			Передовые материалы обеспечивают надёжную защиту от внешних угроз, а шлем защищает от ярких вспышек."
-	cost = 4 //free reskinned blood-red hardsuit with chameleon
+	name = "МЭК Контрактника"
+	description = "Элитный МЭК, оснащённый технологией \"Хамелеон\". В комплект также входит оборудование для поддержания жизнедеятельности. \
+			МЭК окрашен в классические для контрактников цвета, при этом обеспечивает достойную защиту. Вы можете приобрести модули для \
+			дальнейшего улучшения вашего МЭКа."
+	cost = 2
 	stock = 1
-	item_type = /obj/item/storage/box/contractor/hardsuit
+	item_type = /obj/item/mod/control/pre_equipped/contractor
 
 /obj/item/storage/box/contractor/hardsuit
 	name = "Boxed Contractor Hardsuit"
@@ -31,3 +31,23 @@
 	new /obj/item/clothing/suit/space/hardsuit/contractor(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+
+
+/datum/rep_purchase/item/scorpion_hook
+	name = "Модуль Крюк-Кошки \"Скорпион\""
+	description = "Модифицированный вариант крюк-кошки, сделанный с применением технологий тёмного света. В отличие от оригинальной технологии, \
+			данный крюк применяется исключительно против биологических целей. Мощные катушки притягивают жертву к пользователю на огромной скорости, \
+			выбивая жертву из равновесия. К сожалению, не спасает от падения с большой высоты."
+	cost = 2
+	stock = 1
+	item_type = /obj/item/mod/module/scorpion_hook
+
+/datum/rep_purchase/item/activation_upgrade
+	name = "Модуль Продвинутых Актуаторов"
+	description = "Набор обновленных актуаторов для МЭК, сделанных из пластитана. Данные актуаторы, еще официально не вышедшие на рынок, применяются \
+			позволяют пользователю активировать МЭК практически без каких либо задержек. Полезно в случае, если вы не планируете носить МЭК на \
+			постоянной основе."
+	cost = 2
+	stock = 1
+	item_type = /obj/item/mod/module/activation_upgrade/elite
+

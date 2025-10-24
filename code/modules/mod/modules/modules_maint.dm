@@ -10,7 +10,7 @@
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
-	incompatible_modules = list(/obj/item/mod/module/springlock, /obj/item/module/activation_upgrade)
+	incompatible_modules = list(/obj/item/mod/module/springlock, /obj/item/mod/module/activation_upgrade)
 	/// How much faster will your suit deploy?
 	var/activation_step_time_booster = 2
 	/// Is this the syndicate version, which can be toggled on multitool?

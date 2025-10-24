@@ -59,7 +59,6 @@
 			Its onboard equipment also allows the user to decontaminate the contents through a UV-ray purging cycle.	\
 			This one looks kind of fancy."
 	suit_type    = /obj/item/mod/control/pre_equipped/magnate
-	helmet_type  = /obj/item/clothing/head/helmet/space/capspace
 	mask_type    = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots/security/captain
 	storage_type = /obj/item/tank/internals/oxygen

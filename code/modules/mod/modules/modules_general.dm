@@ -997,10 +997,11 @@
 //
 /obj/item/mod/module/activation_upgrade
 	name = "MOD upgraded actuator module"
-	desc = "Модуль для МЭК, представляющий из себя набор продвинутых актуаторов из пластитана, предназначенных для увеличения \
+	desc = "Модуль для МЭК, представляющий из себя набор продвинутых актуаторов из пластали, предназначенных для увеличения \
 			скорости развёртывания МЭК. Продвинутая версия пружинного модуля, лишенная недостатков оригинальной версии."
+	icon_state = "magnet"
 	complexity = 3
-	incompatible_modules = list(/obj/item/mod/module/springlock, /obj/item/module/activation_upgrade)
+	incompatible_modules = list(/obj/item/mod/module/springlock, /obj/item/mod/module/activation_upgrade)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// How much faster will your suit deploy?
 	var/activation_step_time_booster = 2
@@ -1023,13 +1024,14 @@
 	. = ..()
 	mod.activation_step_time *= activation_step_time_booster
 
-/obj/item/mod/module/activation_upgrade/contractor
+/obj/item/mod/module/activation_upgrade/elite
 	name = "MOD elite actuator module"
 	desc = "Модуль для МЭК, представляющий из себя набор продвинутых актуаторов из пластитана, предназначенных для увеличения \
-			скорости развёртывания МЭК. Специальная версия, поставляемая контрактникам Синдиката."
-	activation_step_time_booster = 5
+			скорости развёртывания МЭК. Данная модель еще официально не вышла на рынок."
+	icon_state = "magnet_contractor"
+	activation_step_time_booster = 4
 
-/obj/item/mod/module/activation_upgrade/contractor/get_ru_names()
+/obj/item/mod/module/activation_upgrade/elite/get_ru_names()
 	return list(
 		NOMINATIVE = "модуль элитных актуаторов",
 		GENITIVE = "модуля элитных актуаторов",
@@ -1043,15 +1045,16 @@
 	name = "MOD upgraded servos module"
 	desc = "Модуль для МЭК, представляющий из себя набор улучшенных сервоприводов, предназначенных для увеличения скорости МЭКа \
 			в активном состоянии. Для некоторых устаревших моделей костюмов замена сервоприводов это базовая необходимость."
+	icon_state = "microwave_beam"
 	complexity = 3
-	incompatible_modules = list(/obj/item/module/deployed_upgrade)
+	incompatible_modules = list(/obj/item/mod/module/deployed_upgrade)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 5 //free speed, after all
 	/// How much do we upgrade our speed?
 	var/speed_booster = 2
 	var/original_speed_cached
 
-/obj/item/mod/module/deployed_upgrade/deployed_upgrade/get_ru_names()
+/obj/item/mod/module/deployed_upgrade/get_ru_names()
 	return list(
 		NOMINATIVE = "модуль улучшенных сервоприводов",
 		GENITIVE = "модуля  улучшенных сервоприводов",
@@ -1066,6 +1069,6 @@
 	original_speed_cached = mod.slowdown_deployed
 	mod.slowdown_deployed /= speed_booster
 
-/obj/item/mod/module/activation_upgrade/on_uninstall(deleting = FALSE)
+/obj/item/mod/module/deployed_upgrade/on_uninstall(deleting = FALSE)
 	. = ..()
 	mod.slowdown_deployed = original_speed_cached

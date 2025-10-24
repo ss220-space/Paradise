@@ -745,7 +745,7 @@
 			дубинку контрактника и доставать её по желанию пользователя. Совместимо со стандартными модулями кобуры."
 	icon_state = "holster_contractor"
 	module_type = MODULE_USABLE
-	complexity = 2
+	complexity = 1
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/baton_holster)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
@@ -803,7 +803,7 @@
 	icon_state = "hook_contractor"
 	incompatible_modules = list(/obj/item/mod/module/scorpion_hook)
 	module_type = MODULE_ACTIVE
-	complexity = 3
+	complexity = 2
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	device = /obj/item/gun/magic/contractor_hook
 	cooldown_time = 0.5 SECONDS
@@ -830,11 +830,6 @@
 	max_charges = 1
 	recharge_rate = 0
 	charge_tick = 1
-	w_class = WEIGHT_CLASS_BULKY
-	weapon_weight = WEAPON_MEDIUM
-	slot_flags = NONE
-	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON|NOPICKUP
-	force = 0
 
 /obj/item/gun/magic/contractor_hook/get_ru_names()
 	return list(
@@ -901,7 +896,6 @@
 			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
 			L.forceMove(firer_turf)
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
-			firer.drop_item_ground(src)
 
 /obj/projectile/contractor_hook/Destroy()
 	QDEL_NULL(chain)

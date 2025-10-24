@@ -506,3 +506,18 @@
 	req_tech = list("materials" = 4, "powerstorage" = 5, "engineering" = 4)
 	materials = list(MAT_METAL = 4200, MAT_GLASS = 4000)
 	build_path = /obj/item/mod/module/quick_cuff
+
+/datum/design/module/activation_upgrade
+	name = "Upgraded Actuator Module"
+	id = "mod_activation_upgrade"
+	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 7, "biotech" = 6)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
+	build_path = /obj/item/mod/module/activation_upgrade
+
+
+/datum/design/module/deployed_upgrade
+	name = "Upgraded Servos Module"
+	id = "mod_deployed_upgrade"
+	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 6, "biotech" = 6)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
+	build_path = /obj/item/mod/module/deployed_upgrade

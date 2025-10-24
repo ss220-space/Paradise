@@ -230,7 +230,9 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/hearing_protection,
-		/obj/item/mod/module/hat_stabilizer
+		/obj/item/mod/module/deployed_upgrade,
+		/obj/item/mod/module/activation_upgrade,
+		/obj/item/mod/module/hat_stabilizer,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -608,3 +610,8 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/baton_holster,
 	)
+
+/obj/item/mod/control/pre_equipped/contractor/Initialize(mapload)
+	. = ..()
+	new /obj/item/clothing/mask/gas/syndicate(bag)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
