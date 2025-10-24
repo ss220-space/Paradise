@@ -992,3 +992,15 @@
 		INSTRUMENTAL = "модулем стабилизатора шляп Синдиката",
 		PREPOSITIONAL = "модуле стабилизатора шляп Синдиката",
 	)
+
+// MARK: Passive MOD upgrades
+/*
+/obj/item/module/activation_upgrade
+	name = "MOD longfall module"
+
+/obj/item/module/deployed_upgrade
+	name = "MOD longfall module"
+
+/obj/item/module/undeployed_upgrade
+	name = "MOD longfall module"
+*/

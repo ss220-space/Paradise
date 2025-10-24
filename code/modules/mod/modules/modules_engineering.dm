@@ -141,7 +141,6 @@
 			и предотвращает скольжение на влажных, обледенелых или загрязнённых поверхностях. \
 			Функционирует в условиях нулевой гравитации. Оснащён системой активного контроля сцепления, \
 			что позволяет не замедлять пользователя при передвижении."
-	complexity = 0
 	slowdown_active = 0
 
 /obj/item/mod/module/magboot/advanced/get_ru_names()
@@ -172,6 +171,7 @@
 	desc = "Модуль для МЭК, являющийся встраиваемым аналогом магнитных ботинок. Обеспечивает активное сцепление \
 			и предотвращает скольжение на любых поверхностях. Оснащён системой активного контроля сцепления, \
 			что позволяет не замедлять пользователя при передвижении."
+	complexity = 0
 	removable = FALSE
 
 /obj/item/mod/module/magboot/advanced/elite/get_ru_names()
@@ -236,6 +236,7 @@
 	incompatible_modules = list(/obj/item/mod/module/tether)
 	required_slots = list(ITEM_SLOT_GLOVES)
 	cooldown_time = 4 SECONDS
+	var/upgraded = FALSE
 
 /obj/item/mod/module/tether/get_ru_names()
 	return list(
@@ -247,17 +248,12 @@
 		PREPOSITIONAL = "модуле крюк-кошки",
 	)
 
-/obj/item/mod/module/tether/on_use()
-	if(get_gravity(get_turf(src)))
+/obj/item/mod/module/tether/on_select_use(atom/target)
+	. = ..()
+	if(get_gravity(get_turf(src)) && !upgraded)
 		balloon_alert(mod.wearer, "нельзя использовать!")
 		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
 		return FALSE
-	return ..()
-
-/obj/item/mod/module/tether/on_select_use(atom/target)
-	. = ..()
-	if(!.)
-		return
 	var/obj/projectile/tether = new /obj/projectile/tether(get_turf(mod.wearer))
 	tether.original = target
 	tether.firer = mod.wearer

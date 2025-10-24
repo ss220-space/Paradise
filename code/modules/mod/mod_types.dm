@@ -578,6 +578,7 @@
 INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 
 /obj/item/mod/control/pre_equipped/contractor
+	theme = /datum/mod_theme/contractor
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
 		/obj/item/mod/module/baton_holster,
@@ -587,7 +588,8 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/tether,
 	)
-	default_pins = list(/obj/item/mod/module/tether,
+	default_pins = list(
+		/obj/item/mod/module/active_chameleon/elite,
 		/obj/item/mod/module/baton_holster,
 	)
 
@@ -601,6 +603,7 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/storage/syndicate,
 	)
-	default_pins = list(/obj/item/mod/module/jetpack,
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/baton_holster,
 	)

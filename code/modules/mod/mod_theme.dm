@@ -178,6 +178,18 @@
 		mod.wearer?.update_clothing(part.slot_flags)
 	mod.wearer?.refresh_obscured()
 
+///Simplified proc, that only changes visuals
+/datum/mod_theme/proc/set_only_visual_skin(obj/item/mod/control/mod, skin)
+	mod.skin = skin
+	var/list/parts = mod.get_parts()
+	for(var/obj/item/part as anything in parts + mod)
+		part.icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+		part.onmob_sheets = list(slot_bitfield_to_slot_string(part.slot_flags) = 'icons/mob/clothing/modsuit/mod_clothing.dmi')
+
+		part.icon_state = "[skin]-[part.base_icon_state][mod.get_part_datum(part).sealed ? "-sealed" : ""]"
+		mod.wearer?.update_clothing(part.slot_flags)
+	mod.wearer?.refresh_obscured()
+
 /datum/armor/mod_theme
 	melee = 25
 	bullet = 15
@@ -1644,6 +1656,7 @@
 	siemens_coefficient = 0
 	slowdown_deployed = 0
 	ui_theme = "syndicate"
+	inbuilt_modules = list(/obj/item/mod/module/active_chameleon/elite)
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,

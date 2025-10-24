@@ -105,7 +105,6 @@
 	desc = "Модуль для МЭК, использующий миомеры высокой мощности для генерации импульса, преобразуемого в кинетическую энергию пинка."
 	icon_state = "power_kick"
 	module_type = MODULE_ACTIVE
-	removable = FALSE
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/power_kick)
 	cooldown_time = 5 SECONDS
@@ -904,8 +903,119 @@
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 			firer.drop_item_ground(src)
 
-
-
 /obj/projectile/contractor_hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()
+
+// MARK: Active Chameleon
+// active chameleon module - change modsuit skin, while it's active
+/obj/item/mod/module/active_chameleon
+	name = "MOD active chameleon module"
+	desc = "Модуль для МЭК, представляющий из себя комплект модифицированных микрораспылителей, совмещенный с экспериментальным полем \
+			\"Хамелеон\". При использовании позволяет практически мгновенно модифицировать внешний вид МЭК для стороннего наблюдателя, \
+			исходя из заранее заданных шаблонов."
+	icon_state = "chameleon_contractor"
+	module_type = MODULE_TOGGLE
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
+	incompatible_modules = list(/obj/item/mod/module/active_chameleon, /obj/item/mod/module/chameleon)
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 6
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 15
+	complexity = 3
+	///List of datums we take our skins of
+	var/cached_default_skin
+
+/obj/item/mod/module/active_chameleon/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль активного хамелеона",
+		GENITIVE = "модуля активного хамелеона",
+		DATIVE = "модулю активного хамелеона",
+		ACCUSATIVE = "модуль активного хамелеона",
+		INSTRUMENTAL = "модулем активного хамелеона",
+		PREPOSITIONAL = "модуле активного хамелеона",
+	)
+
+
+
+/obj/item/mod/module/active_chameleon/on_install()
+	. = ..()
+	RegisterSignal(mod, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
+
+/obj/item/mod/module/active_chameleon/on_uninstall(deleting = FALSE)
+	. = ..()
+	UnregisterSignal(mod, COMSIG_ATOM_EMP_ACT)
+
+/obj/item/mod/module/active_chameleon/on_activation()
+	cached_default_skin = mod.theme.default_skin
+	var/list/choices = list(
+		"civilian" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_civillian_sealed"),
+		"mining" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_mining_sealed"),
+		"medical" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_medical_sealed"),
+		"security" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_security_sealed"),
+		"engineering" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_engineering_sealed")
+	)
+	var/choosed_skin
+	var/choosed_name
+	var/selected_chameleon = show_radial_menu(usr, loc, choices, require_near = TRUE)
+	switch(selected_chameleon)
+		if("civilian")
+			choosed_name = "модели \"Путник\""
+			choosed_skin = "civilian"
+		if("mining")
+			choosed_name = "модели \"Первопроходец\""
+			choosed_skin = "mining"
+		if("medical")
+			choosed_name = "модели \"Пульс\""
+			choosed_skin = "medical"
+		if("security")
+			choosed_name = "модели \"Страж\""
+			choosed_skin = "security"
+		if("engineering")
+			choosed_name = "модели \"Искра\""
+			choosed_skin = "engineering"
+
+	sleep(25)
+	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
+	balloon_alert_to_viewers("костюм преображается!", "маскировка активна")
+	var/list/parts = mod.get_parts()
+	for(var/obj/item/part as anything in parts + mod)
+		part.ru_names = part.get_ru_names_cached()
+		part.ru_names = list(
+			NOMINATIVE = part.ru_names[NOMINATIVE] + " [choosed_name]",
+			GENITIVE = part.ru_names[GENITIVE] + " [choosed_name]",
+			DATIVE = part.ru_names[DATIVE] + " [choosed_name]",
+			ACCUSATIVE = part.ru_names[ACCUSATIVE] + " [choosed_name]",
+			INSTRUMENTAL = part.ru_names[INSTRUMENTAL] + " [choosed_name]",
+			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [choosed_name]"
+			)
+	mod.theme.default_skin = choosed_skin
+	mod.theme.set_only_visual_skin(mod, choosed_skin)
+
+/obj/item/mod/module/active_chameleon/on_deactivation(display_message = TRUE, deleting = FALSE)
+	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
+	balloon_alert_to_viewers("костюм преображается!", "маскировка снята")
+
+	mod.theme.default_skin = cached_default_skin
+	cached_default_skin = null
+
+	mod.theme.set_skin(mod, mod.theme.default_skin)
+	var/list/parts = mod.get_parts()
+	for(var/obj/item/part as anything in parts + mod)
+		part.ru_names = part.get_ru_names_cached()
+		part.ru_names = list(
+			NOMINATIVE = part.ru_names[NOMINATIVE] + " [mod.theme.name]",
+			GENITIVE = part.ru_names[GENITIVE] + " [mod.theme.name]",
+			DATIVE = part.ru_names[DATIVE] + " [mod.theme.name]",
+			ACCUSATIVE = part.ru_names[ACCUSATIVE] + " [mod.theme.name]",
+			INSTRUMENTAL = part.ru_names[INSTRUMENTAL] + " [mod.theme.name]",
+			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [mod.theme.name]"
+			)
+
+/obj/item/mod/module/active_chameleon/proc/on_emp(datum/source, severity)
+	to_chat(mod.wearer, span_robot("замечен всплеск ЭМИ! Система маскировки костюма перегружена."))
+	on_deactivation()
+
+/obj/item/mod/module/active_chameleon/elite
+	complexity = 0
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 3
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 15
+	removable = FALSE
