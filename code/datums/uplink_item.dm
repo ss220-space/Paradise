@@ -2104,7 +2104,7 @@
 	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Позволяет выстрелить крюк-кошкой на лебёдке с встроенным мотором. \
 			Первоначальные модели этого крюка предназначались как спассительная соломинка для инженеров, однако  модуль показал \
 			себя в разы лучше в боевых сценариях."
-	item = /obj/item/mod/module/grappling_hook
+	item = /obj/item/mod/module/grappling_hook/upgraded
 	cost = 5
 
 /datum/uplink_item/suits/magboot
@@ -2152,13 +2152,13 @@
 	name = "Модуль ночного видения"
 	desc = "Модуль для МЭК, устанавливаемый в визор костюма. Позволяет пользователю разборчиво видеть окружение даже в полной темноте."
 	item = /obj/item/mod/module/visor/night
-	cost = 15
+	cost = 5
 
 /datum/uplink_item/suits/thermal
 	name = "Модуль термального зрения"
 	desc = "Модуль для МЭК, устанавливаемый в визор костюма. Предоставляет пользователю термальное зрение."
 	item = /obj/item/mod/module/visor/thermal
-	cost = 5
+	cost = 15
 
 /datum/uplink_item/suits/modsuit_elite
 	name = "Элитный МЭК Синдиката"

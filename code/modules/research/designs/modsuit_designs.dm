@@ -241,11 +241,11 @@
 	build_path = /obj/item/mod/module/flashlight/darkness
 
 /datum/design/module/mod_tether
-	name = "Emergency Tether Module"
+	name = "Emergency Grappling Hook Module"
 	id = "mod_tether"
 	req_tech = list("materials" = 4, "magnets" = 4, "engineering" = 5)
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
-	build_path = /obj/item/mod/module/tether
+	build_path = /obj/item/mod/module/grappling_hook
 
 
 /datum/design/module/mod_reagent_scanner

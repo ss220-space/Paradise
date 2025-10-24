@@ -994,13 +994,78 @@
 	)
 
 // MARK: Passive MOD upgrades
-/*
-/obj/item/module/activation_upgrade
-	name = "MOD longfall module"
+//
+/obj/item/mod/module/activation_upgrade
+	name = "MOD upgraded actuator module"
+	desc = "Модуль для МЭК, представляющий из себя набор продвинутых актуаторов из пластитана, предназначенных для увеличения \
+			скорости развёртывания МЭК. Продвинутая версия пружинного модуля, лишенная недостатков оригинальной версии."
+	complexity = 3
+	incompatible_modules = list(/obj/item/mod/module/springlock, /obj/item/module/activation_upgrade)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	/// How much faster will your suit deploy?
+	var/activation_step_time_booster = 2
 
-/obj/item/module/deployed_upgrade
-	name = "MOD longfall module"
+/obj/item/mod/module/activation_upgrade/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль улучшенных актуаторов",
+		GENITIVE = "модуля улучшенных актуаторов",
+		DATIVE = "модулю улучшенных актуаторов",
+		ACCUSATIVE = "модуль улучшенных актуаторов",
+		INSTRUMENTAL = "модулем улучшенных актуаторов",
+		PREPOSITIONAL = "модуле улучшенных актуаторов",
+	)
 
-/obj/item/module/undeployed_upgrade
-	name = "MOD longfall module"
-*/
+/obj/item/mod/module/activation_upgrade/on_install()
+	. = ..()
+	mod.activation_step_time *= (1 / activation_step_time_booster) //1 second for standart, 0,4 for elite
+
+/obj/item/mod/module/activation_upgrade/on_uninstall(deleting = FALSE)
+	. = ..()
+	mod.activation_step_time *= activation_step_time_booster
+
+/obj/item/mod/module/activation_upgrade/contractor
+	name = "MOD elite actuator module"
+	desc = "Модуль для МЭК, представляющий из себя набор продвинутых актуаторов из пластитана, предназначенных для увеличения \
+			скорости развёртывания МЭК. Специальная версия, поставляемая контрактникам Синдиката."
+	activation_step_time_booster = 5
+
+/obj/item/mod/module/activation_upgrade/contractor/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль элитных актуаторов",
+		GENITIVE = "модуля элитных актуаторов",
+		DATIVE = "модулю элитных актуаторов",
+		ACCUSATIVE = "модуль элитных актуаторов",
+		INSTRUMENTAL = "модулем элитных актуаторов",
+		PREPOSITIONAL = "модуле элитных актуаторов",
+	)
+
+/obj/item/mod/module/deployed_upgrade
+	name = "MOD upgraded servos module"
+	desc = "Модуль для МЭК, представляющий из себя набор улучшенных сервоприводов, предназначенных для увеличения скорости МЭКа \
+			в активном состоянии. Для некоторых устаревших моделей костюмов замена сервоприводов это базовая необходимость."
+	complexity = 3
+	incompatible_modules = list(/obj/item/module/deployed_upgrade)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 5 //free speed, after all
+	/// How much do we upgrade our speed?
+	var/speed_booster = 2
+	var/original_speed_cached
+
+/obj/item/mod/module/deployed_upgrade/deployed_upgrade/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль улучшенных сервоприводов",
+		GENITIVE = "модуля  улучшенных сервоприводов",
+		DATIVE = "модулю  улучшенных сервоприводов",
+		ACCUSATIVE = "модуль  улучшенных сервоприводов",
+		INSTRUMENTAL = "модулем  улучшенных сервоприводов",
+		PREPOSITIONAL = "модуле  улучшенных сервоприводов",
+	)
+
+/obj/item/mod/module/deployed_upgrade/on_install()
+	. = ..()
+	original_speed_cached = mod.slowdown_deployed
+	mod.slowdown_deployed /= speed_booster
+
+/obj/item/mod/module/activation_upgrade/on_uninstall(deleting = FALSE)
+	. = ..()
+	mod.slowdown_deployed = original_speed_cached

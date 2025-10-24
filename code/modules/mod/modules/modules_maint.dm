@@ -10,16 +10,16 @@
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
-	incompatible_modules = list(/obj/item/mod/module/springlock)
-	///How much faster will your suit deploy?
+	incompatible_modules = list(/obj/item/mod/module/springlock, /obj/item/module/activation_upgrade)
+	/// How much faster will your suit deploy?
 	var/activation_step_time_booster = 2
-	///Is this the syndicate version, which can be toggled on multitool?
+	/// Is this the syndicate version, which can be toggled on multitool?
 	var/nineteen_eighty_seven_edition = FALSE
-	///If this is true, the suit will prevent you from retracting for 10 seconds, so an antag can smoke bomb you.
+	/// If this is true, the suit will prevent you from retracting for 10 seconds, so an antag can smoke bomb you.
 	var/dont_let_you_come_back = FALSE
-	///If this is true, we are about to spring shut on someone, and should not remove the retraction blocking.
+	/// If this is true, we are about to spring shut on someone, and should not remove the retraction blocking.
 	var/incoming_jumpscare = FALSE
-	/// in order not to make 1000 snups, we make sanity check
+	/// In order not to make 1000 snups, we make sanity check
 	COOLDOWN_DECLARE(springlock_cooldown)
 
 /obj/item/mod/module/holster/get_ru_names() //i have to look on fucking fnaf wiki to find out how to translate this shit

@@ -227,7 +227,8 @@
 /// Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.
 /obj/item/mod/module/grappling_hook
 	name = "MOD grappling hook module"
-	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Позволяет выстрелить крюк-кошкой на лебёдке с встроенным мотором."
+	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Позволяет выстрелить крюк-кошкой на лебёдке с встроенным мотором. \
+			Конструкционные ограничения не позволяют использовать его вне среды с нулевой гравитацией."
 	icon_state = "tether"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -247,8 +248,17 @@
 		PREPOSITIONAL = "модуле крюк-кошки",
 	)
 
+/obj/item/mod/module/grappling_hook/used()
+	if(get_gravity(get_turf(src)) && !upgraded)
+		balloon_alert(mod.wearer, "нельзя использовать!")
+		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
+		return FALSE
+	return ..()
+
 /obj/item/mod/module/grappling_hook/on_select_use(atom/target)
 	. = ..()
+	if(!.)
+		return
 	var/obj/projectile/tether = new /obj/projectile/tether(get_turf(mod.wearer))
 	tether.original = target
 	tether.firer = mod.wearer
@@ -282,6 +292,23 @@
 /obj/projectile/tether/Destroy()
 	QDEL_NULL(chain)
 	return ..()
+
+/obj/item/mod/module/grappling_hook/upgraded
+	name = "MOD upgraded grappling hook module"
+	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Позволяет выстрелить крюк-кошкой на лебёдке с встроенным мотором. \
+	Улучшенные тросы позволяют использовать модуль на в среде с гравитацией."
+	complexity = 2
+	upgraded = TRUE
+
+/obj/item/mod/module/grappling_hook/upgraded/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль улучшенной крюк-кошки",
+		GENITIVE = "модуля улучшенной крюк-кошки",
+		DATIVE = "модулю улучшенной крюк-кошки",
+		ACCUSATIVE = "модуль улучшенной крюк-кошки",
+		INSTRUMENTAL = "модулем улучшенной крюк-кошки",
+		PREPOSITIONAL = "модуле улучшенной крюк-кошки",
+	)
 
 // MARK: Atmos watertank
 /// Atmos water tank module

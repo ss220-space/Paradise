@@ -54,11 +54,11 @@
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot,
-		/obj/item/mod/module/tether,
+		/obj/item/mod/module/grappling_hook,
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,
-		/obj/item/mod/module/tether,
+		/obj/item/mod/module/grappling_hook,
 	)
 
 /obj/item/mod/control/pre_equipped/atmospheric
@@ -86,7 +86,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/hearing_protection,
-		/obj/item/mod/module/grappling_hook,
+		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -191,7 +191,7 @@
 		/obj/item/mod/module/holster,
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/active_sonar,
-		/obj/item/mod/module/grappling_hook,
+		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard_mk_two
@@ -205,7 +205,7 @@
 		/obj/item/mod/module/holster,
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/active_sonar,
-		/obj/item/mod/module/grappling_hook,
+		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -347,10 +347,10 @@
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/grappling_hook,
+		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 	default_pins = list(
-		/obj/item/mod/module/tether,
+		/obj/item/mod/module/grappling_hook,
 		/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype,
 	)
 
@@ -587,7 +587,7 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/storage/syndicate,
-		/obj/item/mod/module/grappling_hook,
+		/obj/item/mod/module/grappling_hook/upgraded,
 	)
 	default_pins = list(
 		/obj/item/mod/module/active_chameleon/elite,

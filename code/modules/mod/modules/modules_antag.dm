@@ -80,7 +80,7 @@
 
 /obj/item/mod/module/holster/hidden/Initialize(mapload)
 	. = ..()
-	var/obj/item/mod/module/tether/fake = new /obj/item/mod/module/tether
+	var/obj/item/mod/module/grappling_hook/fake = new /obj/item/mod/module/grappling_hook
 	name = fake.name
 	desc = fake.desc
 	icon_state = fake.icon_state

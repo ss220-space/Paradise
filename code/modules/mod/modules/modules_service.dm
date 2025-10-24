@@ -100,36 +100,3 @@
 	var/turf/simulated/t_loc = get_turf(src)
 	if(istype(t_loc) && t_loc.wet)
 		t_loc.MakeDry(TURF_WET_WATER)
-
-// MARK: Cleaner spray
-/// Recharging cleaner spray module
-/obj/item/mod/module/mister/cleaner
-	name = "MOD janitorial mister module"
-	desc = "Модуль для МЭК, являющийся обычным встроенным распылителем космочиста. В активированном состоянии \
-			медленно синтезирует вещество."
-	desc = "Модуль для МЭК, представляющий собой встроенный распылитель космочиста. \
-			Пассивно синтезирует вещество, потребляя заряд костюма. Производительность модуля \
-			ограничена энергетическими лимитами уборочного персонала."
-	device = /obj/item/reagent_containers/spray/mister/janitor
-	volume = 100
-	active_power_cost = DEFAULT_CHARGE_DRAIN
-
-/obj/item/mod/module/mister/cleaner/get_ru_names()
-	return list(
-		NOMINATIVE = "модуль чистящего спрея",
-		GENITIVE = "модуля чистящего спрея",
-		DATIVE = "модулю чистящего спрея",
-		ACCUSATIVE = "модуль чистящего спрея",
-		INSTRUMENTAL = "модулем чистящего спрея",
-		PREPOSITIONAL = "модуле чистящего спрея",
-	)
-
-/obj/item/mod/module/mister/cleaner/Initialize(mapload)
-	. = ..()
-	reagents.flags = AMOUNT_VISIBLE
-	reagents.add_reagent(/datum/reagent/space_cleaner, volume)
-
-/obj/item/mod/module/mister/cleaner/on_active_process(seconds_per_tick)
-	var/refill_add = min(volume - reagents.total_volume, 2 * seconds_per_tick)
-	if(refill_add > 0)
-		reagents.add_reagent(/datum/reagent/space_cleaner, refill_add)
