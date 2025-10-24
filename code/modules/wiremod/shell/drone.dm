@@ -60,7 +60,7 @@
 	if(user.a_intent != INTENT_HELP)
 		return FALSE
 	if(health == maxHealth)
-		balloon_alert(user, "ремонт не требуется")
+		balloon_alert(user, "ремонт не требуется!")
 		return TRUE
 	if(tool.use_tool(src, user, 1 SECONDS, volume = tool.tool_volume))
 		adjustHealth(-5)

@@ -38,7 +38,7 @@
 
 
 /obj/structure/dispenser_bot/proc/add_item(mob/user, obj/item/to_add)
-	balloon_alert(user, "вставлен предмет")
+	balloon_alert(user, "объект вставлен")
 	stored_items += to_add
 	user.drop_transfer_item_to_loc(to_add, src)
 	RegisterSignal(to_add, COMSIG_MOVABLE_MOVED, PROC_REF(handle_stored_item_moved))
@@ -76,7 +76,7 @@
 	if(istype(item, /obj/item/wrench) || istype(item, /obj/item/multitool) || istype(item, /obj/item/integrated_circuit))
 		return ..()
 	if(item.w_class > max_weight && !istype(item, /obj/item/storage/bag))
-		balloon_alert(user, "предмет слишком большой!")
+		balloon_alert(user, "объект слишком большой!")
 		return ATTACK_CHAIN_BLOCKED
 	if(length(stored_items) >= capacity)
 		balloon_alert(user, "хранилище заполнено!")
@@ -97,7 +97,7 @@
 		return
 	set_anchored(!anchored)
 	tool.play_tool_sound(src)
-	balloon_alert(user, "[anchored? "закреплен" : "незакреплен"]")
+	balloon_alert(user, "[anchored ? "" : "не"]закреплено")
 	return TRUE
 
 /obj/item/circuit_component/dispenser_bot
@@ -123,8 +123,8 @@
 	var/max_vendor_components = 20
 
 /obj/item/circuit_component/dispenser_bot/populate_ports()
-	item_list = add_output_port("Предметы", PORT_TYPE_LIST(PORT_TYPE_ATOM))
-	item = add_output_port("Предмет", PORT_TYPE_ATOM)
+	item_list = add_output_port("Объекты", PORT_TYPE_LIST(PORT_TYPE_ATOM))
+	item = add_output_port("Объект", PORT_TYPE_ATOM)
 	on_item_added = add_output_port("Добавлено", PORT_TYPE_SIGNAL)
 	on_item_removed = add_output_port("Изъято", PORT_TYPE_SIGNAL)
 
@@ -166,7 +166,7 @@
 	switch(action)
 		if("add_vend_component")
 			if(length(vendor_components) >= max_vendor_components)
-				balloon_alert(user, "вы достигли лимита компонентов раздатчика!")
+				balloon_alert(user, "отсек для компонентов полон!")
 				return
 			var/obj/item/circuit_component/vendor_component/vendor_component = new(parent)
 			parent.add_component(vendor_component, user)
@@ -201,7 +201,7 @@
 	return ..()
 
 /obj/item/circuit_component/vendor_component/populate_ports()
-	item_to_vend = add_input_port("Предмет", PORT_TYPE_ATOM, trigger = null)
+	item_to_vend = add_input_port("Объект", PORT_TYPE_ATOM, trigger = null)
 	vend_item = add_input_port("Выдать", PORT_TYPE_SIGNAL, trigger = PROC_REF(vend_item))
 
 /obj/item/circuit_component/vendor_component/proc/vend_item(datum/port/input/port, list/return_values)

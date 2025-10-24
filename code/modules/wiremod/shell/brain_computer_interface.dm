@@ -1,6 +1,7 @@
 /obj/item/organ/internal/cyberimp/brain/bci
 	name = "brain-computer interface"
-	desc = "Имплантат, который можно поместить в голову пользователя для управления электрическими схемами с помощью его мозга."
+	desc = "Имплант, предназначенный для управления интегральными схемами напрямую. \
+			Устанавливается в головной мозге, подключаясь к нейронной системе пользователя."
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "bci"
 	slot = INTERNAL_ORGAN_BRAIN_COMPUTER_INTERFACE
@@ -60,7 +61,7 @@
 	QDEL_LIST_ASSOC_VAL(action_comp.granted_to)
 
 /datum/action/innate/bci_action
-	name = "Action"
+	name = "Действие"
 	button_icon = 'icons/mob/actions/actions_bci.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "bci_power"
@@ -85,8 +86,8 @@
 	circuit_component.signal.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/bci_core
-	display_name = "Ядро BCI"
-	desc = "Контролирует основные операции BCI."
+	display_name = "Ядро ИМК"
+	desc = "Контролирует основные операции ИМК."
 
 	/// A reference to the action button to look at charge/get info
 	var/datum/action/innate/bci_charge_action/charge_action
@@ -230,8 +231,7 @@
 		parent.ui_interact(usr)
 
 /datum/action/innate/bci_charge_action
-	name = "Check BCI Charge"
-	check_flags = NONE
+	name = "Проверить заряд ИМК"
 	button_icon = 'icons/obj/engines_and_power/power.dmi'
 	button_icon_state = "cell"
 
@@ -266,8 +266,7 @@
 	if(isnull(cell))
 		to_chat(owner, span_boldwarning("[circuit_component.parent.declent_ru(NOMINATIVE)] не имеет элемента питания."))
 	else
-		to_chat(owner, span_notice("В [cell.name] [circuit_component.parent.declent_ru(GENITIVE)] осталось <b>[cell.percent()]%</b> заряда."))
-		to_chat(owner, span_notice("Его можно подзарядить с помощью станции зарядки киборгов."))
+		to_chat(owner, span_notice("В [cell.declent_ru(PREPOSITIONAL)] [circuit_component.parent.declent_ru(GENITIVE)] осталось <b>[cell.percent()]%</b> заряда."))
 
 /datum/action/innate/bci_charge_action/process(seconds_per_tick)
 	build_all_button_icons(UPDATE_BUTTON_STATUS)
@@ -279,7 +278,8 @@
 
 /obj/machinery/bci_implanter
 	name = "brain-computer interface manipulation chamber"
-	desc = "Машина, которая при наличии BCI имплантирует его в тело человека. В противном случае она удалит все имеющиеся BCI."
+	desc = "Машина, которая при наличии интерфейса \"Мозг-Компьютер\" имплантирует его в тело гуманоида. \
+			В противном случае она удалит все имеющиеся ИМК."
 	icon = 'icons/obj/machines/bci_implanter.dmi'
 	icon_state = "bci_implanter"
 	base_icon_state = "bci_implanter"
@@ -309,9 +309,9 @@
 /obj/machinery/bci_implanter/examine(mob/user)
 	. = ..()
 	if(isnull(bci_to_implant))
-		. += span_notice("BCI не вставлен.")
+		. += span_notice("ИМК не вставлен.")
 	else
-		. += span_notice("Alt-click чтобы удалить текущий BCI.")
+		. += span_notice("Используйте <b>ALT+ЛКМ</b>, чтобы удалить текущий ИМК.")
 
 /obj/machinery/bci_implanter/Initialize(mapload)
 	. = ..()
@@ -379,7 +379,7 @@
 	var/obj/item/organ/internal/cyberimp/brain/bci/new_bci = weapon
 	if(istype(new_bci))
 		if(!(locate(/obj/item/integrated_circuit) in new_bci))
-			balloon_alert(user, UNLINT("BCI не имеет схемы!"))
+			balloon_alert(user, UNLINT("ИМК не имеет схемы!"))
 			return ATTACK_CHAIN_PROCEED
 
 		var/obj/item/organ/internal/cyberimp/brain/bci/previous_bci_to_implant = bci_to_implant
@@ -388,9 +388,9 @@
 		bci_to_implant = weapon
 
 		if(isnull(previous_bci_to_implant))
-			balloon_alert(user, "вставлен BCI")
+			balloon_alert(user, UNLINT("ИМК установлен"))
 		else
-			balloon_alert(user, "замена BCI")
+			balloon_alert(user, UNLINT("ИМК заменён"))
 			user.put_in_hands(previous_bci_to_implant)
 
 		return ATTACK_CHAIN_PROCEED
@@ -404,11 +404,11 @@
 	if(istype(occupant))
 		var/obj/item/organ/internal/cyberimp/brain/bci/bci_organ = occupant.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci)
 		if(isnull(bci_organ) && isnull(bci_to_implant))
-			atom_say("BCI не установлен, и он отсутствует у цели. Для имплантации необходимо установить BCI.")
+			atom_say("Интерфейс \"Мозг-Компьютер\" не установлен в слот! Для имплантации ИМК в цель необходимо установить установить его в соответствующий слот.")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 			return FALSE
 		if(HAS_TRAIT(occupant, TRAIT_NO_CYBERIMPLANTS))
-			atom_say("Невозможно имплантировать BCI в цель.")
+			atom_say("Невозможно имплантировать интерфейс \"Мозг-Компьютер\" в организм цели!")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 			return FALSE
 
@@ -420,15 +420,15 @@
 		return CLICK_ACTION_BLOCKING
 
 	if(locked)
-		balloon_alert(user, "закрыто!")
+		balloon_alert(user, "заблокировано!")
 		return CLICK_ACTION_BLOCKING
 
 	if(isnull(bci_to_implant))
-		balloon_alert(user, UNLINT("BCI не вставлен!"))
+		balloon_alert(user, UNLINT("ИМК не вставлен!"))
 	else
 		user.put_in_hands(bci_to_implant)
 		bci_to_implant = null
-		balloon_alert(user, "изъятие BCI")
+		balloon_alert(user, UNLINT("ИМК извлечён"))
 
 	return CLICK_ACTION_SUCCESS
 
@@ -459,7 +459,7 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return TRUE
 	put_in(L, user)
 	return TRUE
@@ -479,7 +479,7 @@
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
 	put_in(target, grabber)
 	add_fingerprint(grabber)
@@ -488,9 +488,9 @@
 	add_fingerprint(user)
 
 	if(M == user)
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_UT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_UT(user)] укладывать [M.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(user, 2 SECONDS, M))
 		return
@@ -507,7 +507,7 @@
 		return
 
 	if(M.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[M] не помест[pluralize_ru(M.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(M.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[M] не помест[PLUR_IT_YAT(M)]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(M.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return
 
 	if(M.forceMove(src))
@@ -534,7 +534,7 @@
 	if(locked)
 		message = "не влезает!"
 	else if(user.stat != CONSCIOUS)
-		message = "нету энергии!"
+		message = "нет энергии!"
 
 	if(!isnull(message))
 		if(COOLDOWN_FINISHED(src, message_cooldown))
@@ -547,11 +547,11 @@
 /obj/machinery/bci_implanter/proc/go_out(mob/user, force)
 	if(!occupant)
 		if(user)
-			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] пустa!"))
+			balloon_alert(user, "внутри никого!")
 		return
 	if(locked && !force)
 		if(user)
-			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] заблокированa!"))
+			balloon_alert(user, "заблокировано!")
 		return
 	occupant.forceMove(loc)
 	occupant = null
@@ -592,14 +592,14 @@
 		bci_organ.remove(carbon_occupant)
 
 		if(isnull(bci_to_implant))
-			atom_say("Предыдущий BCI цели был пермещен во внутреннее хранилище.")
+			atom_say("Предыдущий интерфейс \"Мозг-Компьютер\" цели был перемещён во внутреннее хранилище.")
 			carbon_occupant.transfer_item_to_loc(bci_organ, src)
 			bci_to_implant = bci_organ
 		else
-			atom_say("Предыдущий BCI цели был изъят.")
+			atom_say("Предыдущий интерфейс \"Мозг-Компьютер\" цели был изъят.")
 			bci_organ.forceMove(drop_location())
 	else if(!isnull(bci_to_implant))
-		atom_say("Цели был введен [bci_to_implant].")
+		atom_say("[capitalize(bci_to_implant.declent_ru(NOMINATIVE))] был имплантирован в организм цели.")
 		bci_to_implant.insert(carbon_occupant)
 		bci_to_implant = null
 

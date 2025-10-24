@@ -25,7 +25,7 @@
 
 /obj/item/circuit_component/keyboard_shell
 	display_name = "Оболочка клавиатуры"
-	desc = "Ручная клавиатура, позволяющая пользователю вводить текст. Используйте клавиатуру в руке, чтобы открыть панель ввода."
+	desc = "Ручная клавиатура, позволяющая пользователю вводить текст."
 
 	/// Called when the input window is closed
 	var/datum/port/output/signal
@@ -33,6 +33,10 @@
 	var/datum/port/output/entity
 	/// The string, entity typed and submitted
 	var/datum/port/output/output
+
+/obj/item/circuit_component/keyboard_shell/examine(mob/user)
+	. = ..()
+	. += span_notice("<b>Используйте в руке</b>, чтобы открыть панель ввода.")
 
 /obj/item/circuit_component/keyboard_shell/populate_ports()
 	entity = add_output_port("Пользователь", PORT_TYPE_USER)
@@ -56,7 +60,7 @@
 		to_chat(user, span_warning("Вы начинаете нажимать клавиши в случайном порядке!"))
 		return
 
-	var/message = tgui_input_text(user, "Input your text", "Keyboard", max_length = MAX_MESSAGE_LEN)
+	var/message = tgui_input_text(user, "Введите текст", "Клавиатура", max_length = MAX_MESSAGE_LEN)
 	entity.set_output(user)
 	output.set_output(message)
 	signal.set_output(COMPONENT_SIGNAL)

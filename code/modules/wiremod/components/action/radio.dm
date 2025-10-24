@@ -36,7 +36,7 @@
 	/// How long of a cooldown we have before we can send another signal.
 	var/signal_cooldown_time = 1 SECONDS
 
-/obj/item/circuit_component/radio/examine()
+/obj/item/circuit_component/radio/examine(mob/user)
 	. = ..()
 	if(signal_cooldown_time > 0)
 		. += "Ещё [signal_cooldown_time * 0.1] секунд[declension_ru(signal_cooldown_time * 0.1, "а", "ы", "")] перезарядки между отправками сигнала."

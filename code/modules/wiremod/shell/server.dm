@@ -30,5 +30,5 @@
 /obj/structure/server/wrench_act(mob/living/user, obj/item/tool)
 	set_anchored(!anchored)
 	tool.play_tool_sound(src)
-	balloon_alert(user, anchored ? "закреплен" : "не закреплен")
+	balloon_alert(user, "[anchored ? "" : "не"]закреплено")
 	return TRUE

@@ -5,7 +5,8 @@
  */
 /obj/item/gun/energy/wiremod_gun
 	name = "circuit gun"
-	desc = "Оружие, стреляющее снарядами, которым можно управлять электронными схемами. Оно может перезаряжаться, используя энергию подключенной схемы."
+	desc = "Оружие, стреляющее снарядами, которым можно управлять электронными схемами. \
+			Оно может перезаряжаться, используя энергию подключенной схемы."
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_gun"
 	ammo_type = list(/obj/item/ammo_casing/energy/wiremod_gun)
@@ -48,7 +49,7 @@
 
 /obj/item/circuit_component/wiremod_gun
 	display_name = "Сигнальная пушка"
-	desc = "Используется для получения поражённых, снарядами из пушки, объектов."
+	desc = "Используется для получения объектов, поражённых снарядами из пушки."
 	/// Called when a projectile hits
 	var/datum/port/output/signal
 	/// The shooter

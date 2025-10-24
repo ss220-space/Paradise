@@ -44,13 +44,14 @@
 		return
 	set_anchored(!anchored)
 	tool.play_tool_sound(src)
-	balloon_alert(user, anchored ? "Зареплен" : "Не закреплен")
+	balloon_alert(user, "[anchored ? "" : "не"]закреплено")
 	return TRUE
 
 
 /obj/item/circuit_component/money_dispenser
 	display_name = "Бот-банкомат"
-	desc = "Используется для выдачи денег из денежного бота. Деньги берутся из внутреннего хранилища."
+	desc = "Используется для выдачи денег из денежного бота. \
+			Деньги берутся из внутреннего хранилища."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The amount of money to dispense
@@ -90,7 +91,8 @@
 /obj/item/circuit_component/money_bot
 	display_name = "Денежный бот"
 	var/obj/structure/money_bot/attached_bot
-	desc = "Используется для получения входных сигналов при вставке денег в оболочку денежного бота, а также для отслеживания общего количества денег в оболочке."
+	desc = "Используется для получения входных сигналов при вставке денег в оболочку денежного бота, \
+			а также для отслеживания общего количества денег в оболочке."
 
 	/// Total money in the shell
 	var/datum/port/output/total_money
@@ -136,11 +138,11 @@
 
 	var/amount_to_insert = item.get_item_credit_value()
 	if(!amount_to_insert)
-		balloon_alert(attacker, "это не имеет никакой ценности!")
+		balloon_alert(attacker, "это не деньги!")
 		return
 
 	attached_bot.add_money(amount_to_insert)
-	balloon_alert(attacker, "вставлено [amount_to_insert] кредитов.")
+	balloon_alert(attacker, "вставлено [amount_to_insert] кредит[declension_ru(amount_to_insert, "", "а", "ов")]")
 	money_input.set_output(amount_to_insert)
 	entity.set_output(attacker)
 	money_trigger.set_output(COMPONENT_SIGNAL)

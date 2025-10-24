@@ -32,7 +32,8 @@
 
 /obj/item/circuit_component/controller
 	display_name = "Контроллер"
-	desc = "Используется для получения входных сигналов от корпуса контроллера. Используйте корпус в руке для активации выходного сигнала.\nAlt-click для альтернативного сигнала. \nCtrl-click для дополнительного сигнала."
+	desc = "Используется для получения входных сигналов от корпуса контроллера. \
+			Используйте корпус в руке для активации выходного сигнала."
 	/// The three separate buttons that are called in attack_hand on the shell.
 	var/datum/port/output/signal
 	var/datum/port/output/alt
@@ -40,6 +41,10 @@
 
 	/// The entity output
 	var/datum/port/output/entity
+
+/obj/item/circuit_component/controller/examine(mob/user)
+	. = ..()
+	. += "Используйте <b>ALT+ЛКМ</b> для подачи альтернативного сигнала, <b>CTRL+ЛКМ</b> для дополнительного."
 
 /obj/item/circuit_component/controller/populate_ports()
 	entity = add_output_port("Пользователь", PORT_TYPE_USER)

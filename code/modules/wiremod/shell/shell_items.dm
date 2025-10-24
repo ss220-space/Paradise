@@ -15,11 +15,21 @@
 	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
 
 /obj/item/shell/screwdriver_act(mob/living/user, obj/item/tool)
-	user.visible_message(span_notice("[user] начал заканчивать [src]."), span_notice("Вы заканчиваете [src]."))
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_UT(user)] завершать сборку [declent_ru(ACCUSATIVE)]."),
+		ignored_mobs = user,
+	)
+	balloon_alert(user, "завершение сборки...")
+
 	tool.play_tool_sound(src)
 	if(!do_after(user, screw_delay, src))
 		return
-	user.visible_message(span_notice("[user] закончил [src]."), span_notice("Вы закончили [src]."))
+
+	user.visible_message(
+		span_notice("[user] заверша[PLUR_ET_UT(user)] сборку [declent_ru(ACCUSATIVE)]."),
+		ignored_mobs = user,
+	)
+	balloon_alert(user, "сборка завершена")
 
 	var/turf/drop_loc = drop_location()
 
