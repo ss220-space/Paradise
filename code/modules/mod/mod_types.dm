@@ -86,6 +86,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/grappling_hook,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -190,6 +191,7 @@
 		/obj/item/mod/module/holster,
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/active_sonar,
+		/obj/item/mod/module/grappling_hook,
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard_mk_two
@@ -201,10 +203,9 @@
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/holster,
-		/obj/item/mod/module/jump_jet,
-		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/active_sonar,
+		/obj/item/mod/module/grappling_hook,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -346,7 +347,7 @@
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/tether,
+		/obj/item/mod/module/grappling_hook,
 	)
 	default_pins = list(
 		/obj/item/mod/module/tether,
@@ -586,7 +587,7 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/storage/syndicate,
-		/obj/item/mod/module/tether,
+		/obj/item/mod/module/grappling_hook,
 	)
 	default_pins = list(
 		/obj/item/mod/module/active_chameleon/elite,

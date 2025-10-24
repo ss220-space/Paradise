@@ -1017,5 +1017,5 @@
 /obj/item/mod/module/active_chameleon/elite
 	complexity = 0
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 3
-	use_energy_cost = DEFAULT_CHARGE_DRAIN * 15
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 10
 	removable = FALSE

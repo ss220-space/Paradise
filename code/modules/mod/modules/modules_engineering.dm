@@ -225,20 +225,19 @@
 
 // MARK: Grappling hook
 /// Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.
-/obj/item/mod/module/tether
-	name = "MOD emergency tether module"
-	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Позволяет выстрелить крюк-кошкой на лебёдке с встроенным мотором. \
-			Конструкционные ограничения не позволяют использовать его вне среды с нулевой гравитацией."
+/obj/item/mod/module/grappling_hook
+	name = "MOD grappling hook module"
+	desc = "Модуль для МЭК, встраиваемый в предплечье костюма. Позволяет выстрелить крюк-кошкой на лебёдке с встроенным мотором."
 	icon_state = "tether"
 	module_type = MODULE_ACTIVE
 	complexity = 1
 	use_energy_cost = DEFAULT_CHARGE_DRAIN
-	incompatible_modules = list(/obj/item/mod/module/tether)
+	incompatible_modules = list(/obj/item/mod/module/grappling_hook)
 	required_slots = list(ITEM_SLOT_GLOVES)
 	cooldown_time = 4 SECONDS
 	var/upgraded = FALSE
 
-/obj/item/mod/module/tether/get_ru_names()
+/obj/item/mod/module/grappling_hook/get_ru_names()
 	return list(
 		NOMINATIVE = "модуль крюк-кошки",
 		GENITIVE = "модуля крюк-кошки",
@@ -248,12 +247,8 @@
 		PREPOSITIONAL = "модуле крюк-кошки",
 	)
 
-/obj/item/mod/module/tether/on_select_use(atom/target)
+/obj/item/mod/module/grappling_hook/on_select_use(atom/target)
 	. = ..()
-	if(get_gravity(get_turf(src)) && !upgraded)
-		balloon_alert(mod.wearer, "нельзя использовать!")
-		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
-		return FALSE
 	var/obj/projectile/tether = new /obj/projectile/tether(get_turf(mod.wearer))
 	tether.original = target
 	tether.firer = mod.wearer
@@ -425,32 +420,3 @@
 #undef NANOFROST
 #undef METAL_FOAM
 
-// MARK: Mister
-/// Mister - Sprays water over an area.
-/obj/item/mod/module/mister
-	name = "MOD water mister module"
-	desc = "Модуль распылителя для МЭК, дающий пользователю возможность пшикать водой. Крайне полезно."
-	icon_state = "mister"
-	module_type = MODULE_ACTIVE
-	complexity = 2
-	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
-	device = /obj/item/reagent_containers/spray/mister
-	incompatible_modules = list(/obj/item/mod/module/mister)
-	cooldown_time = 0.5 SECONDS
-	required_slots = list(ITEM_SLOT_BACK)
-	/// Volume of our reagent holder.
-	var/volume = 500
-
-/obj/item/mod/module/mister/get_ru_names()
-	return list(
-		NOMINATIVE = "модуль распылителя",
-		GENITIVE = "модуля распылителя",
-		DATIVE = "модулю распылителя",
-		ACCUSATIVE = "модуль распылителя",
-		INSTRUMENTAL = "модулем распылителя",
-		PREPOSITIONAL = "модуле распылителя",
-	)
-
-/obj/item/mod/module/mister/Initialize(mapload)
-	create_reagents(volume, OPENCONTAINER)
-	return ..()
