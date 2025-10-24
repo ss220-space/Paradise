@@ -41,14 +41,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
-	var/obj/item/radio/Radio
-	var/radiochannel = ""
+	var/radiochannel = PUB_FREQ
 	var/list/connected_apps = list()
 
 
 /obj/machinery/requests_console/Initialize(mapload)
-	Radio = new /obj/item/radio(src)
-	Radio.follow_target = src
 	. = ..()
 
 	announcer.config.default_title = "[department] объявление."
@@ -80,7 +77,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			GLOB.req_console_supplies -= department
 		if(departmentType & RC_INFO)
 			GLOB.req_console_information -= department
-	QDEL_NULL(Radio)
 	for(var/datum/data/pda/app/request_console/app as anything in connected_apps)
 		app.on_rc_destroyed(src)
 	return ..()
@@ -202,23 +198,23 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(pass)
 				screen = RCS_SENTPASS
 				if(recipient in ENGI_ROLES)
-					radiochannel = ENG_FREQ_NAME
+					radiochannel = ENG_FREQ
 				else if(recipient in SEC_ROLES)
-					radiochannel = SEC_FREQ_NAME
+					radiochannel = SEC_FREQ
 				else if(recipient in MISC_ROLES)
-					radiochannel = SRV_FREQ_NAME
+					radiochannel = SRV_FREQ
 				else if(recipient in MED_ROLES)
-					radiochannel = MED_FREQ_NAME
+					radiochannel = MED_FREQ
 				else if(recipient in COM_ROLES)
-					radiochannel = COMM_FREQ_NAME
+					radiochannel = COMM_FREQ
 				else if(recipient in SCI_ROLES)
-					radiochannel = SCI_FREQ_NAME
+					radiochannel = SCI_FREQ
 				else if(recipient == RC_AI)
-					radiochannel = AI_FREQ_NAME
+					radiochannel = AI_FREQ
 				else if(recipient == RC_CARGO_BAY)
-					radiochannel = SUP_FREQ_NAME
+					radiochannel = SUP_FREQ
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
-				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
+				radio_announce("Alert; a new requests console message received for [recipient] from [department]", null, radiochannel, src)
 			else
 				atom_say("Сервер не обнаружен!")
 

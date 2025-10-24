@@ -481,7 +481,7 @@
 		L.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
 		if(!L.IsWeakened())
 			to_chat(target, span_warning("В вас попадает волшебный банан."))
-			L.Weaken(slip_disable_time)
+			L.Knockdown(slip_disable_time)
 	. = ..()
 
 /obj/projectile/magic/arcane_barrage

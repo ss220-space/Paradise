@@ -243,7 +243,7 @@
 	if(equipment && length(equipment))
 		. += span_notice("Он экипирован следующими модулями:")
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
-			. += span_notice("[bicon(ME)] [ME]")
+			. += span_notice("[icon2html(ME, user)] [ME]")
 
 /obj/mecha/hear_talk(mob/M, list/message_pieces)
 	if(M == occupant && radio.get_broadcasting())
@@ -1152,7 +1152,7 @@
 		var/can_control_mech = FALSE
 		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
 			can_control_mech = TRUE
-			to_chat(user, "[span_notice("[bicon(src)] Status of [name]:")]\n\
+			to_chat(user, "[span_notice("[icon2html(src, user)] Status of [name]:")]\n\
 				[A.get_mecha_info_text()]")
 			break
 		if(!can_control_mech)

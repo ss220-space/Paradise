@@ -467,14 +467,14 @@
 					var/list/seen = viewers(4, get_turf(my_atom))
 					for(var/mob/living/M in seen)
 						if(C.mix_message)
-							to_chat(M, span_notice("[bicon(my_atom)] [C.mix_message]"))
+							to_chat(M, span_notice("[icon2html(my_atom, M)] [C.mix_message]"))
 
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, span_notice("[bicon(my_atom)] Мощность [my_atom.declent_ru(GENITIVE)] расходуется в реакции."))
+								to_chat(M, span_notice("[icon2html(my_atom, M)] Мощность [my_atom.declent_ru(GENITIVE)] расходуется в реакции."))
 								ME2.name = "использованный экстракт слайма"
 								ME2.desc = "Этот экстракт уже был использован."
 

@@ -64,3 +64,6 @@
 /proc/cmp_camera_ctag_asc(obj/machinery/camera/a, obj/machinery/camera/b)
 	return sorttext(b.c_tag, a.c_tag)
 
+/proc/cmp_sheet_list(list/a, list/b)
+	return a["value"] - b["value"]
+

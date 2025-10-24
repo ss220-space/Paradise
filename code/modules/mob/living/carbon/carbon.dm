@@ -354,7 +354,7 @@
 		status_list += msg
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
-			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(GENITIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [bicon(embedded)] [embedded.declent_ru(NOMINATIVE)]!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(GENITIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
 
 	for(var/t in missing)
 		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")

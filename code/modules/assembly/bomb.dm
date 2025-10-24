@@ -84,7 +84,7 @@
 
 
 /obj/item/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
-	visible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
+	audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	sleep(1 SECONDS)
 	if(!src)

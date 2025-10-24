@@ -114,7 +114,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	var/obj/item/encryptionkey/keyslot
 
 	var/const/FREQ_LISTENING = 1
-	var/atom/follow_target // Custom follow target for autosay-using bots
 
 	var/list/internal_channels
 
@@ -155,8 +154,12 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	SSradio?.remove_object_all(src)
 	LAZYCLEARLIST(secure_radio_connections)
 	GLOB.global_radios -= src
-	follow_target = null
 	return ..()
+
+/obj/item/radio/dummy/Initialize(mapload)
+	. = ..()
+	// this is just dummy. We minimalize memmory usage for this object
+	Destroy()
 
 
 //simple getters only because i NEED to enforce complex setter use for these vars for caching purposes but VAR_PROTECTED requires getter usage as well.
@@ -409,53 +412,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/proc/ToggleReception()
 	set_listening(!listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL)))
-
-/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
-	var/datum/radio_frequency/connection = null
-	if(channel && channels && length(channels) > 0)
-		if(channel == DEPARTMENT_FREQ_NAME)
-			channel = channels[1]
-		connection = LAZYACCESS(secure_radio_connections, channel)
-	if(channel == HEADSET_FREQ_NAME)
-		connection = radio_connection
-	if(!istype(connection))
-		return
-	if(!connection)
-		return
-	var/jammed = FALSE
-	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
-		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
-			jammed = TRUE
-			break
-	if(jammed)
-		message = Gibberish(message, 100)
-	var/list/message_pieces = message_to_multilingual(message)
-
-		// Make us a message datum!
-	var/datum/tcomms_message/tcm = new
-	tcm.connection = connection
-	tcm.sender = src
-	tcm.radio = src
-	tcm.sender_name = from
-	tcm.message_pieces = message_pieces
-	tcm.sender_job = "Автоматическое оповещение"
-	tcm.vname = "синтезированный голос"
-	tcm.data = SIGNALTYPE_AINOTRACK
-	// Datum radios dont have a location (obviously)
-	if(loc?.z)
-		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
-	else
-		tcm.source_level = levels_by_trait(MAIN_STATION)[1] // Assume main station level if we dont have an actual Z level available to us.
-	tcm.freq = connection.frequency
-	if(follow_target_override)
-		tcm.follow_target = follow_target_override
-	else
-		tcm.follow_target = follow_target
-
-	// Now put that through the stuff
-	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-		C.handle_message(tcm)
-	qdel(tcm) // Delete the message datum
 
 /obj/item/radio/sec
 	name = "security shortwave radio"
@@ -770,10 +726,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		disable_timer--
 	if(!disable_timer)
 		set_on(TRUE)
-
-/obj/item/radio/proc/become_speaker_only(freq)
-	set_listening(FALSE)
-	set_frequency(freq)
 
 /obj/item/radio/proc/recalculate_channels(setDescription = TRUE)
 	reset_channels()

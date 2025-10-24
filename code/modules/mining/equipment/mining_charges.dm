@@ -245,7 +245,7 @@
 	if(length(bombs))
 		. += span_notice("Список синхронизированных зарядов:")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += span_notice("[bicon(charge)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
+			. += span_notice("[icon2html(charge, user)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
 
 
 /obj/item/detonator/update_icon_state()
