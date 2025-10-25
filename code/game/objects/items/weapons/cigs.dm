@@ -114,13 +114,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/item)
 	. = TRUE
 	if(item.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light(span_notice("[user] непринуждённо прикурива[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_ENDING_A_O_I(user)] крут[GEND_ENDING_A_O_Y(user)]!"))
+		light(span_notice("[user] непринуждённо прикурива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_ENDING_A_O_I(user)] крут[GEND_ENDING_A_O_Y(user)]!"))
 
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/weldingtool/sword))
 		if(item.tool_enabled)
-			light(span_notice("[user] непринуждённо прикурива[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_ENDING_A_O_I(user)] крут[GEND_ENDING_A_O_Y(user)]!"))
+			light(span_notice("[user] непринуждённо прикурива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_ENDING_A_O_I(user)] крут[GEND_ENDING_A_O_Y(user)]!"))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(item, /obj/item/lighter/zippo))
@@ -128,7 +128,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/lighter/zippo/zippo = item
 		if(!zippo.lit)
 			return ..()
-		light(span_rose("Лёгким движением руки, [user] прикурива[pluralize_ru(user, "ет", "ют")] свою [declent_ru(ACCUSATIVE)] [zippo.declent_ru(INSTRUMENTAL)]. Чёрт, как же он[GEND_ENDING_A_O_I(user)] крут[GEND_ENDING_A_O_Y(user)]."))
+		light(span_rose("Лёгким движением руки, [user] прикурива[PLUR_ET_UT(user)] свою [declent_ru(ACCUSATIVE)] [zippo.declent_ru(INSTRUMENTAL)]. Чёрт, как же он[GEND_ENDING_A_O_I(user)] крут[GEND_ENDING_A_O_Y(user)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(item, /obj/item/lighter))
@@ -162,7 +162,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/melee/energy/sword/saber/saber = item
 		if(!saber.active)
 			return ..()
-		light(span_warning("[user] дела[PLUR_ET_UT(user)] резкое движение [saber.declent_ru(INSTRUMENTAL)], проводя [genderize_ru(saber.gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
+		light(span_warning("[user] дела[PLUR_ET_UT(user)] резкое движение [saber.declent_ru(INSTRUMENTAL)], проводя [GEND_ENDING_IM_EI_IM_IMI(saber)] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(isigniter(item))
@@ -544,7 +544,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 	if(!is_type_in_typecache(item, acceptable_lighters))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВА[pluralize_ru(gender, "ЕТ", "ЮТ")]СЯ быть прикуренной столь нецивилизованными методами."))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВА[uppertext(PLUR_ET_UT(src))]СЯ быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 

@@ -578,7 +578,7 @@
 					var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 					if(H.reagent_safety_check())
 						if(mult > 0)
-							to_chat(H, span_danger("[genderize_ru(H.gender,"Ты обожжен","Ты обожжена","Вы обожжены","Вы обожжены")] горячими химикатами!"))
+							to_chat(H, span_danger("Вы обожжены горячими химикатами!"))
 							H.apply_damage(round(log(chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
@@ -586,7 +586,7 @@
 					var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 					if(H.reagent_safety_check(FALSE))
 						if(mult > 0)
-							to_chat(H, span_danger("[genderize_ru(H.gender,"Ты получил","Ты получила","Вы получили","Вы получили")] обморожение от ледяных химикатов!"))
+							to_chat(H, span_danger("Вы получили обморожение от ледяных химикатов!"))
 							H.apply_damage(round(log(T0C - chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
@@ -595,13 +595,13 @@
 			if(chem_temp > H.dna.species.heat_level_1)
 				var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 				if(mult > 0)
-					to_chat(H, span_danger("[genderize_ru(H.gender,"Ты обжёгся","Ты обожглась","Вы обожглись","Вы обожглись")], пытаясь употребить кипящее вещество!"))
+					to_chat(H, span_danger("Вы обожглись, пытаясь употребить кипящее вещество!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
 				var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 				if(mult > 0)
-					to_chat(H, span_danger("[genderize_ru(H.gender,"Ты получил","Ты получила","Вы получили","Вы получили")] холодовой ожог, пытаясь употребить ледяное вещество!"))
+					to_chat(H, span_danger("Вы получили холодовой ожог, пытаясь употребить ледяное вещество!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
 

@@ -406,7 +406,7 @@
 		return FALSE
 	if(anchored)
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("Похоже, [declent_ru(NOMINATIVE)] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
+			to_chat(puller, span_warning("Похоже, [declent_ru(NOMINATIVE)] прикреплен[GEND_ENDING_A_O_Y(src)] к полу!"))
 		return FALSE
 	if(throwing || move_resist == INFINITY)
 		return FALSE

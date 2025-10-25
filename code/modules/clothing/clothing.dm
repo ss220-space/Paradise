@@ -67,7 +67,7 @@
 		if(25 to 50)
 			. +=  span_notice("Выглядит сильно повреждённ[GEND_ENDING_YM_OI_YM_YMI(src)].")
 		if(0 to 25)
-			. +=  span_warning("Да [genderize_ru(gender, "он разваливается", "она разваливается", "оно разваливается", "они разваливаются")] на глазах!")
+			. +=  span_warning("Да [GEND_HE_SHE(src)] развалива[PLUR_ET_UT(src)][GEND_ENDING_SYA_AS_OS_IS(src)] на глазах!")
 
 
 /obj/item/clothing/update_icon_state()

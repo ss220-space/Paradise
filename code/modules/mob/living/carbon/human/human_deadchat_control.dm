@@ -15,7 +15,7 @@
 	if(!victim)
 		switch(intent)
 			if(INTENT_HARM)
-				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] дико [pluralize_ru(gender, "бьёт", "бьют")] [implement]!"))
+				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] дико бь[PLUR_YOT_UT(src)] [implement]!"))
 			if(INTENT_HELP)
 				visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, дела[PLUR_ET_UT(src)] глубокий вдох."))
 		return
@@ -34,7 +34,7 @@
 
 /mob/living/carbon/human/proc/dchat_resist()
 	if(!can_resist())
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется, ничего не cмо[pluralize_ru(gender, "жет", "гут")] сделать!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется, ничего не cмо[PLUR_JET_GUT(src)] сделать!"))
 		return
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED))
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, ничего особенного не дела[PLUR_ET_UT(src)]."))
@@ -54,10 +54,10 @@
 
 	if(in_hand)
 		if(HAS_TRAIT(in_hand, TRAIT_NODROP))
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(src)]ся выпустить [in_hand.declent_ru(ACCUSATIVE)], но кажется, что [genderize_ru(in_hand.gender, "он застрял", "она застряла", "оно зястряло", "они застряли")] в руке!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(src)]ся выпустить [in_hand.declent_ru(ACCUSATIVE)], но кажется, что [GEND_HE_SHE(in_hand)] застрял[GEND_ENDING_A_O_I(in_hand)] в руке!"))
 			return
 		if(in_hand.flags & ABSTRACT)
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, что у [genderize_ru(gender, "него", "неё", "него", "них")] заняты руки!"))
+			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, что у н[GEND_HIS_HER(src)] заняты руки!"))
 			return
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] броса[PLUR_ET_UT(src)] [in_hand.declent_ru(ACCUSATIVE)] и поднимает [thing.declent_ru(ACCUSATIVE)]!"))
 		do_unEquip(in_hand)

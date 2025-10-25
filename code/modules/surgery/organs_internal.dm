@@ -494,7 +494,7 @@
 		var/can_treat_organic = !organ.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
 		if(can_treat_robotic || can_treat_organic)
 			if(organ.is_dead())
-				to_chat(user, span_warning("[capitalize(organ.declent_ru(NOMINATIVE))] [genderize_ru(organ.gender, "мёртв", "мертва", "мертво", "мертвы")]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
+				to_chat(user, span_warning("[capitalize(organ.declent_ru(NOMINATIVE))] мертв[GEND_ENDING_A_O_Y(organ)]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
 				continue
 			user.visible_message(
 				span_notice("[user] начина[PLUR_ET_UT(user)] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),

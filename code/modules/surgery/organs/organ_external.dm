@@ -957,7 +957,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	if(owner && !silent)
-		owner.custom_pain("Вы чувствуете, как что-то разорвалось внутри ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)]!")
+		owner.custom_pain("Вы чувствуете, как что-то разорвалось внутри [GEND_YOURS(src)] [declent_ru(GENITIVE)]!")
 
 	return TRUE
 
@@ -990,7 +990,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	if(owner && !silent)
-		owner.custom_pain("Вы чувствуете, как что-то сломалось внутри ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)]!")
+		owner.custom_pain("Вы чувствуете, как что-то сломалось внутри [GEND_YOURS(src)] [declent_ru(GENITIVE)]!")
 		owner.visible_message(
 			span_warning("Вы слышите громкий хруст, исходящий от [owner]."),
 			null,
@@ -1063,7 +1063,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 				owner.visible_message(
 					span_danger("Шина спадает с [declent_ru(GENITIVE)] [owner], заставляя [GEND_HIS_HER(owner)] кричать от боли!"),
-					span_userdanger("Шина спадает с ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)], заставляя вас кричать от боли!"),
+					span_userdanger("Шина спадает с [GEND_YOURS(src)] [declent_ru(GENITIVE)], заставляя вас кричать от боли!"),
 					span_italics("Вы слышите глухой звук падения чего-то, сопровождающийся громким криком!")
 				)
 			else if(!silent)
@@ -1123,7 +1123,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		owner.update_body()
 		if(!silent)
-			to_chat(owner, span_danger("Вы перестаёте чувствовать ваш[genderize_ru(gender, "", "у", "е", "и")] [declent_ru(ACCUSATIVE)]!"))
+			to_chat(owner, span_danger("Вы перестаёте чувствовать [GEND_YOUR(src)] [declent_ru(ACCUSATIVE)]!"))
 		if(vital)
 			owner.death()
 

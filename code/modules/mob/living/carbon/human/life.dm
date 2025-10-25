@@ -878,7 +878,7 @@
 				apply_damage(thing.w_class * thing.embedded_fall_pain_multiplier, def_zone = bodypart)
 				visible_message(
 					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]] [name]!"),
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из ваш[genderize_ru(bodypart.gender, "его", "ей", "его", "их")] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GEND_YOURS(bodypart)] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
 				)
 
 

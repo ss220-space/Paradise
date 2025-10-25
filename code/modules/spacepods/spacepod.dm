@@ -1233,7 +1233,7 @@
 		to_chat(user, span_warning("Батарея не обнаружена."))
 		. = FALSE
 	else if(!COOLDOWN_FINISHED(src, cooldown_emp))
-		to_chat(user, span_warning("Интерфейс не отвечает. Перезагрузка через [COOLDOWN_TIMELEFT(src, cooldown_emp)] секунд[pluralize_ru(COOLDOWN_TIMELEFT(src, cooldown_emp))]."))
+		to_chat(user, span_warning("Интерфейс не отвечает. Перезагрузка через [COOLDOWN_TIMELEFT(src, cooldown_emp)] [DECL_SEC_MIN(COOLDOWN_TIMELEFT(src, cooldown_emp))]."))
 		. = FALSE
 	else if(!battery.use(1))
 		to_chat(user, span_warning("Недостаточно энергии."))

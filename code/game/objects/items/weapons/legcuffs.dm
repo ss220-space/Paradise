@@ -103,7 +103,7 @@
 			to_chat(user, span_warning("[capitalize(signaler.declent_ru(NOMINATIVE))] уже подключен[GEND_ENDING_A_O_Y(signaler)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(signaler.secured)
-			to_chat(user, span_notice("[capitalize(signaler.declent_ru(NOMINATIVE))] не долж[GEND_ENDING_EN_NA_NO_NY(signaler)] быть закрепл[genderize_ru(signaler.gender, "ён", "ена", "ено", "ены")]."))
+			to_chat(user, span_notice("[capitalize(signaler.declent_ru(NOMINATIVE))] не долж[GEND_ENDING_EN_NA_NO_NY(signaler)] быть закреплен[GEND_ENDING_A_O_Y(signaler)]."))
 			balloon_alert(user, "невозможно")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
@@ -141,10 +141,10 @@
 	. = ..()
 	desc = initial(desc)
 	if(IED)
-		desc += "\n[span_warning("К [genderize_ru(gender, "нему", "ней", "нему", "ним")] подсоединен[GEND_ENDING_A_O_Y(IED)] [IED.declent_ru(NOMINATIVE)]!")]"
+		desc += "\n[span_warning("К н[GEND_HIM_HER(src)] подсоединен[GEND_ENDING_A_O_Y(IED)] [IED.declent_ru(NOMINATIVE)]!")]"
 
 	if(sig)
-		desc += "\n[span_warning("К [genderize_ru(gender, "нему", "ней", "нему", "ним")] подсоединен[GEND_ENDING_A_O_Y(sig)] [sig.declent_ru(NOMINATIVE)].")]"
+		desc += "\n[span_warning("К н[GEND_HIM_HER(src)] подсоединен[GEND_ENDING_A_O_Y(sig)] [sig.declent_ru(NOMINATIVE)].")]"
 
 /obj/item/restraints/legcuffs/beartrap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER

@@ -966,7 +966,7 @@
 		var/obj/item/stack/spacecash/cash = H.get_active_hand()
 		if(istype(cash))
 			data["userMoney"] = cash.amount
-			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[pluralize_ru(cash.amount, "", "а", "ов")]."
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[DECL_CREDIT(cash.amount)]."
 		else if(istype(H))
 			var/obj/item/card/id/C = H.get_id_card()
 			if(istype(money_account))

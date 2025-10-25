@@ -33,14 +33,14 @@
 				var/speak = pick("ААААРГХ!!!!", "ГРРР!!!", "ЕБАТЬ!! БЛЯТЬ!!!", "ЁБАННЫЙ, СУКА!!", "ВРОООАААГХ!!")
 				affected_mob.say(speak)
 			if(prob(15))
-				affected_mob.visible_message(span_danger("[affected_mob] дёрга[pluralize_ru(affected_mob.gender,"ется", "ются")] в конвульсиях!"))
+				affected_mob.visible_message(span_danger("[affected_mob] дёрга[PLUR_ET_UT(affected_mob)]ся в конвульсиях!"))
 				affected_mob.drop_l_hand()
 				affected_mob.drop_r_hand()
 			if(prob(33))
 				if(affected_mob.incapacitated())
-					affected_mob.visible_message(span_danger("[affected_mob] бьётся в судорогах и дёрга[pluralize_ru(affected_mob.gender,"ется", "ются")]!"))
+					affected_mob.visible_message(span_danger("[affected_mob] бьётся в судорогах и дёрга[PLUR_ET_UT(affected_mob)]ся!"))
 					return
-				affected_mob.visible_message(span_danger("[affected_mob] яростно меч[pluralize_ru(affected_mob.gender,"ется", "ются")]!"))
+				affected_mob.visible_message(span_danger("[affected_mob] яростно меч[PLUR_ET_UT(affected_mob)]ся!"))
 				for(var/mob/living/carbon/M in range(1, affected_mob))
 					if(M == affected_mob)
 						continue

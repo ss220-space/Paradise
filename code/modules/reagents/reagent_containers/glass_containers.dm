@@ -120,7 +120,7 @@
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
-			user.visible_message(span_danger("[user] облива[pluralize_ru(user, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
+			user.visible_message(span_danger("[user] облива[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
 								("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"))
 			make_splashes(target)
 
@@ -165,7 +165,7 @@
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
-		. += span_notice("К нему прикрепл[genderize_ru(assembly.gender, "ён", "ена", "ено", "ены")] [assembly]. Открутите [GEND_HIS_HER(assembly)] чем-нибудь, чтобы отсоединить.")
+		. += span_notice("К нему прикреплен[GEND_ENDING_A_O_Y(assembly)] [assembly]. Открутите [GEND_HIS_HER(assembly)] чем-нибудь, чтобы отсоединить.")
 
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()

@@ -70,7 +70,7 @@
 	if(signed && (user == target.current) && istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/human = user
 		human.forcesay("О, ВЕЛИКИЙ АД! Я ТРЕБУЮ, ЧТОБЫ ТЫ НЕМЕДЛЕННО ЗАБРАЛ СВОЮ НАГРАДУ!")
-		human.visible_message(span_suicide("[human.declent_ru(NOMINATIVE)] поднимает контракт, заявляющий права на его душу, а затем сразу же загорается. Похоже, [genderize_ru(human.gender, "Он")] пытается покончить с собой!"))
+		human.visible_message(span_suicide("[human.declent_ru(NOMINATIVE)] поднимает контракт, заявляющий права на его душу, а затем сразу же загорается. Похоже, [GEND_HE_SHE(human)] пытается покончить с собой!"))
 		human.adjust_fire_stacks(20)
 		human.IgniteMob()
 		return FIRELOSS

@@ -665,7 +665,7 @@
 					to_chat(src, span_warning("Вам нужно подойти поближе."))
 
 			if("Нет")
-				to_chat(src, span_warning("[user] не хо[pluralize_ru(user.gender,"чет","тят")] вас подбирать..."))
+				to_chat(src, span_warning("[user] не хо[PLUR_CHET_TYAT(user)] вас подбирать..."))
 	else
 		if(Adjacent(user))
 			get_scooped(user)

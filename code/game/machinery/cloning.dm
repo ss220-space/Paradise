@@ -603,7 +603,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			occupant.grab_ghost() // We really just want to make you suffer.
 			var/message
 			message += "<b>Ваше тело выворачивает наизнанку, волна агонизирующей боли заливает ваше сознание.</b><br>"
-			message += "<i>Это и есть [pluralize_ru(occupant.gender, "моя", "наша")] смерть? Да, это она.</i>"
+			message += "<i>Это и есть моя смерть? Да, это она.</i>"
 			to_chat(occupant, span_warning("[message]"))
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
 		for(var/i in missing_organs)

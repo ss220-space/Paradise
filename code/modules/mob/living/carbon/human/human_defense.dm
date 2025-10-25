@@ -540,7 +540,7 @@ emp_act
 			if(apply_damage_result && stat == CONSCIOUS && armor < 50)
 				if(prob(item.force))
 					visible_message(
-						span_combatdanger("[src] [genderize_ru(src.gender, "был сбит", "была сбита", "было сбито", "были сбиты")] с ног ударом по голове!"),
+						span_combatdanger("[src] был[GEND_ENDING_A_O_I(src)] сбит[GEND_ENDING_A_O_Y(src)] с ног ударом по голове!"),
 						span_combatuserdanger("Вы сбили [src] с ног ударом по голове!"),
 					)
 					apply_effect(4 SECONDS, KNOCKDOWN, armor)
@@ -562,7 +562,7 @@ emp_act
 		if(BODY_ZONE_CHEST)//Easier to score a stun but lasts less time
 			if(apply_damage_result && stat == CONSCIOUS && prob(item.force + 10))
 				visible_message(
-					span_combatdanger("[src] [genderize_ru(src.gender, "был сбит", "была сбита", "было сбито", "были сбиты")] с ног ударом в грудь!"),
+					span_combatdanger("[src] был[GEND_ENDING_A_O_I(src)] сбит[GEND_ENDING_A_O_Y(src)] с ног ударом в грудь!"),
 					span_combatuserdanger("Вы сбили [src] с ног ударом в грудь!"),
 				)
 				apply_effect(2 SECONDS, KNOCKDOWN, armor)

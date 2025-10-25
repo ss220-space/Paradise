@@ -749,7 +749,7 @@
 	if(prob(3))
 
 		M.AdjustDrowsy(2 SECONDS)
-		M.visible_message(span_notice("[M] выгляд[pluralize_ru(M.gender, "ит вялым", "ят вялыми")]."))
+		M.visible_message(span_notice("[M] выгляд[PLUR_IT_YAT(M)] вялым[PLUR_I(M)]."))
 	return ..()
 
 /datum/reagent/medicine/morphine

@@ -386,7 +386,7 @@
 		return
 
 	var/mob/living/carbon/human/target = targets_by_name[target_name]
-	var/message = "[target_name] наход[pluralize_ru(target_name, "ит", "ят")]ся в локации [get_area(target)], на [dir2rustext(get_dir(user, target))]е от вас."
+	var/message = "[target_name] наход[PLUR_IT_YAT(target)]ся в локации [get_area(target)], на [dir2rustext(get_dir(user, target))]е от вас."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
 		message += "<i> Цель ранена...</i>"
 	to_chat(user, span_cultlarge("[message]"))

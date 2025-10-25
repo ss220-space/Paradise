@@ -76,9 +76,9 @@
 			var/mob/living/silicon/robot/bro = user
 			var/chargeAmount = max(30,4*trans)
 			bro.cell.use(chargeAmount)
-			to_chat(user, span_notice("Синтез <b>[trans]</b> единиц[pluralize_ru(trans, "ы", "", "")] вещества..."))
+			to_chat(user, span_notice("Синтез <b>[trans]</b> единиц[declension_ru(trans, "ы", "", "")] вещества..."))
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
-			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("Ваш[GEND_ENDING_A_E_I(src)] [declent_ru(NOMINATIVE)] снова пол[genderize_ru(gender, "он", "на", "но", "ны")].")), 30 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("Ваш[GEND_ENDING_A_E_I(src)] [declent_ru(NOMINATIVE)] снова полн[GEND_ENDING_YI_AYA_OE_YE(src)].")), 30 SECONDS)
 		else
 			reagents.add_reagent_list(ids_data)
 	else

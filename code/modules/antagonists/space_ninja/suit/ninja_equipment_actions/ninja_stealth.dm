@@ -69,7 +69,7 @@
 		animate(ninja, alpha = stealth_alpha, time = 6)
 		ninja.alpha_set(standartize_alpha(stealth_alpha), ALPHA_SOURCE_NINJA)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(ninja), ninja.dir)
-		ninja.visible_message(span_warning("[ninja.name] появ[genderize_ru(ninja.gender, "ляется", "илась", "илось", "ились") ] из воздуха!"), span_notice("Теперь вас снова видно невооружённым глазом."))
+		ninja.visible_message(span_warning("[ninja.name] появил[GEND_ENDING_SYA_AS_OS_IS(ninja) ] из воздуха!"), span_notice("Теперь вас снова видно невооружённым глазом."))
 		qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))
 		for(var/datum/action/item_action/advanced/ninja/ninja_stealth/ninja_action in actions)
 			ninja_action.action_ready = FALSE

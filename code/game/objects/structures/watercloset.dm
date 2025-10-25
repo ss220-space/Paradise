@@ -91,7 +91,7 @@
 		return
 	var/mob/living/victim = grabbed_thing
 	if(victim.loc != get_turf(src))
-		to_chat(grabber, span_warning("[victim] долж[pluralize_ru(victim.gender, "ен", "ны")] быть на [declent_ru(PREPOSITIONAL)]!"))
+		to_chat(grabber, span_warning("[victim] долж[GEND_ENDING_EN_NA_NO_NY(victim)] быть на [declent_ru(PREPOSITIONAL)]!"))
 		return
 	add_fingerprint(grabber)
 	if(open && !swirlie)

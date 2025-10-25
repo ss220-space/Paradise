@@ -67,7 +67,7 @@
 
 	if(isstructure(crossing_movable) && !crossing_movable.anchored)
 		if(should_squash)
-			crossing_movable.visible_message(span_notice("[parent_as_living.declent_ru(NOMINATIVE)] раздавлива[pluralize_ru(parent_as_living.gender, "ется", "ются")] под [crossing_movable.declent_ru(INSTRUMENTAL)]"))
+			crossing_movable.visible_message(span_notice("[parent_as_living.declent_ru(NOMINATIVE)] раздавлива[PLUR_ET_UT(parent_as_living)]ся под [crossing_movable.declent_ru(INSTRUMENTAL)]"))
 			Squish(parent_as_living)
 		else
 			parent_as_living.visible_message(span_notice("[parent_as_living.declent_ru(NOMINATIVE)] избега[PLUR_ET_UT(parent_as_living)] смерти!"))

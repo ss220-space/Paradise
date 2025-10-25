@@ -443,7 +443,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	to_chat(target, span_boldannounceic("Ваше сознание заливает волна агонизирующей боли от обжигающего света, направленного прямо на ваш[genderize_ru(affected.gender, "", "у", "е", "и")] [affected.declent_ru(ACCUSATIVE)]!"))
+	to_chat(target, span_boldannounceic("Ваше сознание заливает волна агонизирующей боли от обжигающего света, направленного прямо на [GEND_YOUR(affected)] [affected.declent_ru(ACCUSATIVE)]!"))
 	return ..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

@@ -276,7 +276,7 @@
 
 	ADD_TRAIT(clothing, TRAIT_NODROP, ADMIN_TRAIT)
 	target.equip_to_slot_or_del(clothing, slot)
-	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возникш[genderize_ru(clothing.gender, "ий", "ая", "ее", "ие")] из пустоты прилипа[PLUR_ET_UT(clothing)] к вам. Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возника[PLUR_ET_UT(clothing)] из пустоты прилипа[PLUR_ET_UT(clothing)] к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
 
 

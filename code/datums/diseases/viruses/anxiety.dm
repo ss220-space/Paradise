@@ -31,7 +31,7 @@
 			if(prob(10))
 				to_chat(affected_mob, span_danger("Вы чувствуете бабочек в животе."))
 			if(prob(5))
-				affected_mob.visible_message(span_danger("[affected_mob] меч[pluralize_ru(affected_mob.gender,"ется","ются")] в панике."), span_userdanger("У вас паническая атака!"))
+				affected_mob.visible_message(span_danger("[affected_mob] меч[PLUR_ET_UT(affected_mob)]ся в панике."), span_userdanger("У вас паническая атака!"))
 				affected_mob.AdjustConfused(rand(6 SECONDS, 12 SECONDS), bound_upper = 20 SECONDS)
 				affected_mob.AdjustJitter(rand(20 SECONDS, 40 SECONDS), bound_upper = 50 SECONDS)
 				affected_mob.AdjustStuttering(rand(20 SECONDS, 40 SECONDS), bound_upper = 50 SECONDS)

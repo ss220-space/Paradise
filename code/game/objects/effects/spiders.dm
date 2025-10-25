@@ -83,7 +83,7 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			S.new_mind_memory = master_commander ? "<b>Мой хозяин [master_commander.name], выполню [genderize_ru(master_commander.gender, "его", "её", "этого", "их")] цели любой ценой!</b>" : new_mind_memory
+			S.new_mind_memory = master_commander ? "<b>Мой хозяин [master_commander.name], выполню [GEND_HIS_HER(master_commander)] цели любой ценой!</b>" : new_mind_memory
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)

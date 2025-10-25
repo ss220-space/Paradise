@@ -109,7 +109,7 @@
 
 			if((2 * STAGE_TIME + 1) to (4 * STAGE_TIME))
 				if(need_meating_message && see_master)
-					message = pick("[genderize_ru(affected_mob.gender, "Я нашёл", "Я нашла", "Я нашло", "Мы нашли")] вас, [master.real_name]!")
+					message = pick("Я на[GEND_ENDING_SHEL(affected_mob)] вас, [master.real_name]!")
 					need_meating_message = FALSE
 
 				if(!see_master)
@@ -121,7 +121,7 @@
 
 			if((4 * STAGE_TIME + 1) to INFINITY)
 				if(need_meating_message && see_master)
-					message = pick("Наконец то [genderize_ru(affected_mob.gender, "я снова обрёл", "я снова обрёла", "я снова обрёло", "мы снова обрёли")] вас, [master.real_name]!")
+					message = pick("Наконец то я снова обрёл[GEND_ENDING_A_O_I(affected_mob)] вас, [master.real_name]!")
 					need_meating_message = FALSE
 
 				if(!see_master)

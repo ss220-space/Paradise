@@ -1403,7 +1403,7 @@
 		add_fingerprint(user)
 		if(message_spam_flag == 0)
 			message_spam_flag = 1
-			user.visible_message(span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"), span_notice("[pluralize_ru(user.gender,"Ты","Вы")] [msg] [declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"), span_notice("Вы [msg] [declent_ru(ACCUSATIVE)]!"))
 			spawn(30)
 				message_spam_flag = 0
 		spawn(3)

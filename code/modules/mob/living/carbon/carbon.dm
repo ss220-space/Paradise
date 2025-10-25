@@ -215,8 +215,8 @@
 			check_self_for_injuries()
 		else
 			if(player_logged)
-				M.visible_message(span_notice("[M] встряхива[PLUR_ET_UT(M)] [name], но он[GEND_ENDING_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у [genderize_ru(gender, "него", "неё", "него", "них")] КРС."), \
-				span_notice("Вы встряхиваете [name], но он[GEND_ENDING_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у [genderize_ru(gender, "него", "неё", "него", "них")] КРС."))
+				M.visible_message(span_notice("[M] встряхива[PLUR_ET_UT(M)] [name], но он[GEND_ENDING_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."), \
+				span_notice("Вы встряхиваете [name], но он[GEND_ENDING_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."))
 			if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				if(buckled)
 					balloon_alert(M, "цель пристёгнута!")
@@ -834,7 +834,7 @@
 		if(!toEat.instant_application)
 			visible_message(span_warning("[user] пыта[PLUR_ET_UT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 	else
-		visible_message(span_warning("[user] не мо[pluralize_ru(user.gender, "жет", "гутт")]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_warning("[user] не мо[PLUR_JET_GUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 		return FALSE
 	if(!toEat.instant_application)
 		if(!do_after(user, 3 SECONDS, src, NONE))

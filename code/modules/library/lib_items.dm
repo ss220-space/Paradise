@@ -280,7 +280,7 @@
 /obj/item/book/attack_self(mob/user)
 	if(carved)
 		if(store)
-			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпада[pluralize_ru(store, "ет", "ют")] из \"[title]\"!"))
+			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпада[PLUR_ET_UT(store)] из \"[title]\"!"))
 			store.forceMove(get_turf(loc))
 			store = null
 			return

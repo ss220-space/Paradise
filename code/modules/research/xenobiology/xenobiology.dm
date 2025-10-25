@@ -261,7 +261,7 @@
 					var/mob/living/simple_animal/slime/SM_slime = SM
 					SM_slime.is_renamed = TRUE
 
-			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
+			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [GEND_HIS_HER(user)] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name_log(user)]", SM)
 			return
 
@@ -312,7 +312,7 @@
 					var/mob/living/simple_animal/slime/SM_slime = SM
 					SM_slime.is_renamed = TRUE
 
-			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
+			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [GEND_HIS_HER(user)] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", SM)
 		else
 			to_chat(user, span_notice("[M] looks interested for a moment, but then looks back down. Maybe you should try again later."))
@@ -348,7 +348,7 @@
 			LF.master_commander = user
 			LF.mind.madeby_sentience_potion = TRUE
 			to_chat(LF, span_warning("Труд из обезьяны сделал человека! А зелье разума сделало вас осознающим себя в этом мире. Вы по прежнему являетесь обезьяной и вашего ограниченного ума не хватает чтобы осознать всей окружающей вас аппаратуры и продвинутого окружения. Вы знаете что оно как-то работает у людей и вам этого хватает. Ваши желания просты и примитивны, как и вы сами. Но что точно вы знаете лучше всей своей жизни..."))
-			to_chat(LF, span_userdanger("Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [genderize_ru(user.gender, "ему", "ей", "этому", "им")] в выполнении [genderize_ru(user.gender, "его", "её", "этого", "их")] целей любой ценой!"))
+			to_chat(LF, span_userdanger("Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [GEND_HIM_HER(user)] в выполнении [GEND_HIS_HER(user)] целей любой ценой!"))
 			to_chat(user, span_notice("[M] бер[PLUR_ET_YT(LF)] зелье и дела[PLUR_ET_UT(LF)] глоток. Он[GEND_ENDING_A_O_I(LF)] смотр[PLUR_IT_YAT(LF)] на вас грустными и понимающими глазами. Сработало!"))
 			qdel(src)
 
@@ -359,7 +359,7 @@
 				LF.real_name = new_name
 				LF.name = new_name
 
-			LF.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
+			LF.mind.store_memory("<b>Мой хозяин [user.name], выполню [GEND_HIS_HER(user)] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", LF)
 		else
 			to_chat(user, span_notice("[M] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже."))

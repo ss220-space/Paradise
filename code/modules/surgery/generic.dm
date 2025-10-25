@@ -31,7 +31,7 @@
 		span_notice("Вы начинаете делать надрез на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Вы чувствуете острую боль, будто бы кто-то вонзает нож в ваш[genderize_ru(affected.gender, "", "у", "е", "и")] [affected.declent_ru(ACCUSATIVE)]!")
+	target.custom_pain("Вы чувствуете острую боль, будто бы кто-то вонзает нож в [GEND_YOUR(affected)] [affected.declent_ru(ACCUSATIVE)]!")
 	return ..()
 
 /datum/surgery_step/generic/cut_open/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

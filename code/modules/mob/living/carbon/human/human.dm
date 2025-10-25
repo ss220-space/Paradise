@@ -968,7 +968,7 @@
 		self = 1
 	if(!self)
 		usr.visible_message(
-			span_notice("[usr] склоня[PLUR_ET_UT(usr)]ся над [declent_ru(INSTRUMENTAL)], нащупыва[PLUR_ET_UT(usr)] у [genderize_ru(gender, "него", "неё", "него", "них")] артерию и замира[PLUR_ET_UT(usr)], будто бы что-то считая."),
+			span_notice("[usr] склоня[PLUR_ET_UT(usr)]ся над [declent_ru(INSTRUMENTAL)], нащупыва[PLUR_ET_UT(usr)] у н[GEND_HIS_HER(src)] артерию и замира[PLUR_ET_UT(usr)], будто бы что-то считая."),
 			ignored_mobs = usr
 		)
 		balloon_alert(usr, "обнаружение пульса...")
@@ -1323,7 +1323,7 @@
 	/// tweeter style
 	var/max_length = bloody_hands * 30
 
-	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина – [max_length] символ[pluralize_ru(max_length, "", "а", "ов")].", "Письмо кровью", max_length = max_length)
+	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина – [max_length] символ[DECL_CREDIT(max_length)].", "Письмо кровью", max_length = max_length)
 	if(origin != loc)
 		balloon_alert(src, "не двигайтесь во время письма!")
 		return
@@ -1891,7 +1891,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(O?.glowing)
 		O.toggle_biolum(TRUE)
 		visible_message(
-			span_danger("[src] растворя[pluralize_ru(gender, "ет", "юс")]ся во тьме."),
+			span_danger("[src] растворя[PLUR_ET_UT(src)]ся во тьме."),
 			span_danger("Вы растворяетесь во тьме.")
 		)
 

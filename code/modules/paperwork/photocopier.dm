@@ -416,7 +416,7 @@
 			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else
 		balloon_alert(usr, "нельзя отсканировать!")
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлечен[GEND_ENDING_A_O_Y(copyitem)]."))
 		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
 		finish_copying()
 

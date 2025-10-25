@@ -40,6 +40,12 @@ REPLACEMENTS = [
     (r'pluralize_ru\(([^,]+)\.gender,\s*"ёт",\s*"ут"\)', r'PLUR_YOT_YT(\1)', 'PLUR_YOT_YT'),
     (r'pluralize_ru\(gender,\s*"ёт",\s*"ут"\)', r'PLUR_YOT_YT(src)', 'PLUR_YOT_YT'),
 
+    (r'pluralize_ru\(([^,]+)\.gender,\s*"жет",\s*"гут"\)', r'PLUR_JET_GUT(\1)', 'PLUR_JET_GUT'),
+    (r'pluralize_ru\(gender,\s*"жет",\s*"гут"\)', r'PLUR_JET_GUT(src)', 'PLUR_JET_GUT'),
+
+    (r'pluralize_ru\(([^,]+)\.gender,\s*"чет",\s*"тят"\)', r'PLUR_CHET_TYAT(\1)', 'PLUR_CHET_TYAT'),
+    (r'pluralize_ru\(gender,\s*"чет",\s*"тят"\)', r'PLUR_CHET_TYAT(src)', 'PLUR_CHET_TYAT'),
+
     # genderize_ru()
     (r'genderize_ru\(([^,]+)\.gender,\s*"он",\s*"она",\s*"оно",\s*"они"\)', r'GEND_HE_SHE(\1)', 'GEND_HE_SHE'),
     (r'genderize_ru\(gender,\s*"он",\s*"она",\s*"оно",\s*"они"\)', r'GEND_HE_SHE(src)', 'GEND_HE_SHE'),
@@ -91,6 +97,15 @@ REPLACEMENTS = [
 
     (r'genderize_ru\(([^,]+)\.gender,\s*"шёл",\s*"шла",\s*"шло",\s*"шли"\)', r'GEND_ENDING_SHEL(\1)', 'GEND_ENDING_SHEL'),
     (r'genderize_ru\(gender,\s*"шёл",\s*"шла",\s*"шло",\s*"шли"\)', r'GEND_ENDING_SHEL(src)', 'GEND_ENDING_SHEL'),
+
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ваш",\s*"вашу",\s*"ваше",\s*"ваши"\)', r'GEND_YOUR(\1)', 'GEND_YOUR'),
+    (r'genderize_ru\(gender,\s*"ваш",\s*"вашу",\s*"ваше",\s*"ваши"\)', r'GEND_YOUR(src)', 'GEND_YOUR'),
+
+    (r'genderize_ru\(([^,]+)\.gender,\s*"вашего",\s*"вашей",\s*"вашего",\s*"ваших"\)', r'GEND_YOURS(\1)', 'GEND_YOURS'),
+    (r'genderize_ru\(gender,\s*"вашего",\s*"вашей",\s*"вашего",\s*"ваших"\)', r'GEND_YOURS(src)', 'GEND_YOURS'),
+
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_ENDING_II_AYA_II_IE(\1)', 'GEND_ENDING_II_AYA_II_IE'),
+    (r'genderize_ru\(gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_ENDING_II_AYA_II_IE(src)', 'GEND_ENDING_II_AYA_II_IE'),
 ]
 
 COMPILED_PATTERNS = [(re.compile(pattern), replacement, name) for pattern, replacement, name in REPLACEMENTS]

@@ -239,7 +239,7 @@
 	return TRUE
 
 /obj/structure/proc/get_climb_text()
-	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на н[GEND_HIS_HER(src)].")
 
 /obj/structure/examine(mob/user)
 	. = ..()

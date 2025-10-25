@@ -115,7 +115,7 @@
 				else
 					to_chat(usr, span_warning("ДНК не совпадает с записанным ДНК мастера!"))
 			else
-				to_chat(usr, span_warning("[M] отказа[genderize_ru(M.gender,"лся","лась","лось","лись" )] предоставлять вам образец ДНК."))
+				to_chat(usr, span_warning("[M] отказал[GEND_ENDING_SYA_AS_OS_IS(M)] предоставлять вам образец ДНК."))
 
 
 // Crew Manifest //

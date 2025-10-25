@@ -102,7 +102,7 @@
 
 
 /mob/living/carbon/alien/humanoid/do_suicide()
-	to_chat(viewers(src), span_danger("[src] [pluralize_ru(gender, "бьётся", "бьются")] в конвульсиях! Это похоже на попытку суицида."))
+	to_chat(viewers(src), span_danger("[src] бь[PLUR_ET_UT(src)]ся в конвульсиях! Это похоже на попытку суицида."))
 	//put em at -175
 	adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 

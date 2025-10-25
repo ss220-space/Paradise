@@ -124,7 +124,7 @@
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[pluralize_ru(src.gender,"ётся","ются")] невредим[GEND_ENDING_A_O_Y(src)] после падения."),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_UT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[PLUR_YOT_UT(src)]ся невредим[GEND_ENDING_A_O_Y(src)] после падения."),
 				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
 			AdjustKnockdown(levels * (4 SECONDS))
@@ -146,13 +146,13 @@
 		skip_weaken = TRUE
 		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_UT(src)] на ноги!"),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_UT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_UT(src)] на ноги!"),
 				span_notice("Вы жёстко приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакиваете на ноги!"),
 			)
 			return .
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_UT(src)] на ноги!"),
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_UT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_UT(src)] на ноги!"),
 			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)]] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
@@ -610,7 +610,7 @@
 
 		target.visible_message(
 			span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
+			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на вас!"),
 		)
 		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
 		SEND_SOUND(src, sound('sound/weapons/targeton.ogg'))
@@ -619,7 +619,7 @@
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
 		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руках!"))
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у н[GEND_HIS_HER(src)] в руках!"))
 		trick.shoot_gun(src)
 		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 		return TRUE
@@ -1173,7 +1173,7 @@
 		span_danger("Вам не удаётся вырваться из захвата [pulledby.name]!"),
 		ignored_mobs = pulledby,
 	)
-	to_chat(pulledby, span_danger("[name] пыта[pluralize_ru(gender,"ется","ются")] вырваться из Вашего захвата!"))
+	to_chat(pulledby, span_danger("[name] пыта[PLUR_ET_UT(src)]ся вырваться из Вашего захвата!"))
 	COOLDOWN_START(src, grab_resist_delay, 2 SECONDS)
 	if(moving_resist && client) //we resisted by trying to move
 		client.move_delay = world.time + 2 SECONDS

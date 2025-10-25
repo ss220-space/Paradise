@@ -160,7 +160,7 @@
 			to_chat(O, span_notice("Если вы хотите принять участие, включите дедчат и снова прыгните на этот объект."))
 			return
 		else
-			to_chat(O, span_deadsay("[capitalize(atom_parent.declent_ru(NOMINATIVE))] контролируется призраками через чат! Осмотрите [atom_parent.declent_ru(ACCUSATIVE)] чтобы увидеть команды управления, которые вы можете использовать пока летаете вокруг [genderize_ru(atom_parent.gender, "него", "неё", "него", "них")]!"))
+			to_chat(O, span_deadsay("[capitalize(atom_parent.declent_ru(NOMINATIVE))] контролируется призраками через чат! Осмотрите [atom_parent.declent_ru(ACCUSATIVE)] чтобы увидеть команды управления, которые вы можете использовать пока летаете вокруг н[GEND_HIS_HER(atom_parent)]!"))
 
 	RegisterSignal(orbiter, COMSIG_MOB_DEADSAY, PROC_REF(deadchat_react))
 	RegisterSignal(orbiter, COMSIG_MOB_AUTOMUTE_CHECK, PROC_REF(waive_automute))
@@ -207,7 +207,7 @@
 		return
 
 	if(!(user in orbiters))
-		examine_list += span_deadsay(span_bold("Прыгнете на [genderize_ru(object.gender, "него", "неё", "него", "них")]] и осмотрите снова, чтобы увидеть список доступных команд."))
+		examine_list += span_deadsay(span_bold("Прыгнете на н[GEND_HIS_HER(object)]] и осмотрите снова, чтобы увидеть список доступных команд."))
 		return
 
 	var/input_cooldown_s = input_cooldown * 0.1

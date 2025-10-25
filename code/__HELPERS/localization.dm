@@ -60,6 +60,8 @@
 #define GEND_HIS_HER_CAP(target) capitalize(genderize_ru(target.gender, "его", "её", "его", "их"))
 #define GEND_HIM_HER(target) genderize_ru(target.gender, "ему", "ей", "ему", "им")
 #define GEND_ON_IN_HIM(target) genderize_ru(target.gender, "нём", "ней", "нём", "них")
+#define GEND_YOUR(target) genderize_ru(target.gender, "ваш", "вашу", "ваше", "ваши")
+#define GEND_YOURS(target) genderize_ru(target.gender, "вашего", "вашей", "вашего", "ваших")
 // Окончания. Y — буква Ы.
 #define GEND_ENDING_A_O_I(target) genderize_ru(target.gender, "", "а", "о", "и")
 #define GEND_ENDING_A_O_Y(target) genderize_ru(target.gender, "", "а", "о", "ы")
@@ -71,6 +73,7 @@
 #define GEND_ENDING_YM_OI_YM_YMI(target) genderize_ru(target.gender, "ым", "ой", "ым", "ыми")
 #define GEND_ENDING_IM_EI_IM_IMI(target) genderize_ru(target.gender, "им", "ей", "им", "ими")
 #define GEND_ENDING_YI_AYA_OE_YE(target) genderize_ru(target.gender, "ый", "ая", "ое", "ые")
+#define GEND_ENDING_II_AYA_II_IE(target) genderize_ru(target.gender,"ий","ая","ий","ие")
 // Макросы для случаев, когда обычные не применимы.
 #define GEND_ENDING_SHEL(target) genderize_ru(target.gender, "шёл", "шла", "шло", "шли")
 
@@ -95,6 +98,9 @@
 #define PLUR_IT_YAT(target) pluralize_ru(target.gender, "ит", "ят")
 #define PLUR_IT_AT(target) pluralize_ru(target.gender, "ит", "ат")
 #define PLUR_I(target) pluralize_ru(target.gender, "", "и")
+// Макросы для случаев, когда обычные не применимы.
+#define PLUR_JET_GUT(target) pluralize_ru(target.gender, "жет", "гут")
+#define PLUR_CHET_TYAT(target) pluralize_ru(target.gender, "чет", "тят")
 
 /**
  * Обрабатывает гендерно-зависимую текстовую разметку в строке.

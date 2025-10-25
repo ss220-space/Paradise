@@ -401,7 +401,7 @@
 		return
 
 	if(target.stat == DEAD)	// grip was too strong mr. vampire
-		to_chat(user, span_warning("[target] [genderize_ru(target, "мёртв", "мертва", "мертво", "мертвы")] и больше не [genderize_ru(target, "пригоден", "пригодна", "пригодно", "пригодны")] для вскрытия."))
+		to_chat(user, span_warning("[target] мертв[GEND_ENDING_A_O_Y(target)] и больше не пригод[GEND_ENDING_EN_NA_NO_NY(target)] для вскрытия."))
 		return
 
 	var/datum/spell_handler/vampire/handler = custom_handler
@@ -453,7 +453,7 @@
 	if(msg)
 		to_chat(user, span_warning("Мы достигли максимально возможного количества <b>[msg]</b> для сбора!"))
 
-	user.visible_message(span_danger("[user] вырыва[pluralize_ru(user, "ет", "ют")] [organ_name] из тела [target]!"),
+	user.visible_message(span_danger("[user] вырыва[PLUR_ET_UT(user)] [organ_name] из тела [target]!"),
 						span_notice("Вы вырываете <b>[organ_name]</b> из тела [target]."))
 	add_attack_logs(user, target, "Vampire removed [organ_name]. Skill: [src]")
 
@@ -2319,8 +2319,8 @@
 	step(src, direction)
 	step(user, GetOppositeDir(direction))
 
-	visible_message(span_notice("[user] поменял[pluralize_ru(user.gender, "ся", "ись")] местами с [src]."), \
-					span_notice("[user] поменял[pluralize_ru(user.gender, "ся", "ись")] с вами местами."))
+	visible_message(span_notice("[user] поменял[GEND_ENDING_SYA_AS_OS_IS(user)] местами с [src]."), \
+					span_notice("[user] поменял[GEND_ENDING_SYA_AS_OS_IS(user)] с вами местами."))
 	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 

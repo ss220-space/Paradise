@@ -590,7 +590,7 @@
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
-			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)], но промахива[pluralize_ru(user.gender,"ется","ются")]!"))
+			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)], но промахива[PLUR_ET_UT(user)]ся!"))
 			return FALSE
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
@@ -757,7 +757,7 @@
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
-		H.visible_message(span_warning("[M.declent_ru(NOMINATIVE)] пыта[pluralize_ru(M.gender,"ется","ются")] коснуться [H.declent_ru(ACCUSATIVE)]!"))
+		H.visible_message(span_warning("[M.declent_ru(NOMINATIVE)] пыта[PLUR_ET_UT(M)]ся коснуться [H.declent_ru(ACCUSATIVE)]!"))
 		return FALSE
 
 	switch(M.a_intent)

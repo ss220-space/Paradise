@@ -279,7 +279,7 @@
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(deflectmode)
 			if(prob(10))
-				visible_message(span_boldwarning("[owner] отбива[PLUR_ET_UT(owner)] [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"), span_boldwarning("[pluralize_ru(owner.gender,"Ты отбиваешь","Вы отбиваете")] [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"))
+				visible_message(span_boldwarning("[owner] отбива[PLUR_ET_UT(owner)] [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"), span_boldwarning("Вы отбиваете [I.declent_ru(ACCUSATIVE)] прямо в метателя! Это хоум-ран!"))
 				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(locateUID(I.thrownby), 20, 20, owner)
@@ -288,7 +288,7 @@
 					lastdeflect = world.time + 600
 				return TRUE
 			else if(prob(30))
-				visible_message(span_warning("[owner] замахива[PLUR_ET_UT(owner)]ся... и промахива[PLUR_ET_UT(owner)]ся! Как неловко..."), span_warning("[pluralize_ru(owner.gender,"Ты замахиваешься","Вы замахиваетесь")]... и промахивае[pluralize_ru(owner.gender,"шься","тесь")]! Вот чёрт!"))
+				visible_message(span_warning("[owner] замахива[PLUR_ET_UT(owner)]ся... и промахива[PLUR_ET_UT(owner)]ся! Как неловко..."), span_warning("Вы замахиваетесь... и промахиваетесь! Вот чёрт!"))
 				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
 				deflectmode = FALSE
@@ -296,7 +296,7 @@
 					lastdeflect = world.time + 600
 				return FALSE
 			else
-				visible_message(span_warning("[owner] замахива[PLUR_ET_UT(owner)]ся и отбивает [I.declent_ru(ACCUSATIVE)]!"), span_warning("[pluralize_ru(owner.gender,"Ты отбиваешь","Вы отбиваете")] [I.declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_warning("[owner] замахива[PLUR_ET_UT(owner)]ся и отбивает [I.declent_ru(ACCUSATIVE)]!"), span_warning("Вы отбиваете [I.declent_ru(ACCUSATIVE)]!"))
 				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
