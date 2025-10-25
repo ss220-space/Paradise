@@ -143,7 +143,7 @@
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
 	if(in_range(user, src) || isobserver(user))
-		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[declension_ru(recharge_amount, "у", "ы", "")] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
+		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[DECL_SEC_MIN(recharge_amount)] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
 
 
 /obj/machinery/chem_dispenser/process()
@@ -570,11 +570,11 @@
 			target.reagents.add_reagent(current_reagent, actual)
 			cell.charge -= actual / efficiency
 			if(actual)
-				to_chat(user, span_notice("Вы наливаете [amount] единиц[declension_ru(amount, "у", "ы", "")] [current_reagent] в [target.declent_ru(ACCUSATIVE)]."))
+				to_chat(user, span_notice("Вы наливаете [amount] единиц[DECL_SEC_MIN(amount)] [current_reagent] в [target.declent_ru(ACCUSATIVE)]."))
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, span_notice("Вы удаляете [amount] единиц[declension_ru(amount, "у", "ы", "")] [current_reagent] из [target.declent_ru(GENITIVE)]."))
+				to_chat(user, span_notice("Вы удаляете [amount] единиц[DECL_SEC_MIN(amount)] [current_reagent] из [target.declent_ru(GENITIVE)]."))
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
 				to_chat(user, span_notice("Вы удаляете всё, кроме [current_reagent] в [target.declent_ru(PREPOSITIONAL)]."))

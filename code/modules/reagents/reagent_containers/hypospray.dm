@@ -55,10 +55,10 @@
 	var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 
 	if(safety_hypo)
-		visible_message(span_warning("[user] вкалыва[pluralize_ru(user.gender, "ет", "ют")] [target] <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества \"[primary_reagent_name]\"."))
+		visible_message(span_warning("[user] вкалыва[PLUR_ET_UT(user)] [target] <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества \"[primary_reagent_name]\"."))
 		playsound(loc, 'sound/goonstation/items/hypo.ogg', 80)
 
-	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")]."))
+	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")]."))
 	add_attack_logs(user, target, "Injected with [src] containing ([english_list(injected)])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 

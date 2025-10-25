@@ -293,7 +293,7 @@
 		popup.set_content("<tt><i>Автор — [author].</i></tt><br>" + "[dat]")
 		popup.open(TRUE)
 		if(!isobserver(user))
-			user.visible_message("[user] открыва[pluralize_ru(user.gender, "ет", "ют")] книгу под заголовком \"[title]\" и начина[pluralize_ru(user.gender, "ет", "ют")] внимательно её читать.")
+			user.visible_message("[user] открыва[PLUR_ET_UT(user)] книгу под заголовком \"[title]\" и начина[PLUR_ET_UT(user)] внимательно её читать.")
 		onclose(user, "book")
 	else
 		to_chat(user, "Эта книга полностью пуста!")

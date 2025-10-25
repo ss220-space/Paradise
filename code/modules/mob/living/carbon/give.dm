@@ -30,16 +30,16 @@
 					to_chat(target, span_warning("[usr.name] отош[genderize_ru(usr.gender,"ел","ла","ло","ли")] слишком далеко."))
 					return
 				if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
-					to_chat(usr, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[genderize_ru(I.gender,"","ла","ло","ли")]  к вашей руке и не отдаётся!"))
-					to_chat(target, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[genderize_ru(I.gender,"","ла","ло","ли")] к руке [usr.name], когда вы попытались взять!"))
+					to_chat(usr, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_ENDING_LA_LO_LI(I)]  к вашей руке и не отдаётся!"))
+					to_chat(target, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_ENDING_LA_LO_LI(I)] к руке [usr.name], когда вы попытались взять!"))
 					return
 				if(I != get_active_hand())
 					to_chat(usr, span_warning("Нужно держать предмет в активной руке."))
-					to_chat(target, span_warning("[usr.name] передумал[genderize_ru(usr.gender,"","а","о","и")] передавать вам [I.declent_ru(NOMINATIVE)]."))
+					to_chat(target, span_warning("[usr.name] передумал[GEND_ENDING_A_O_I(usr)] передавать вам [I.declent_ru(NOMINATIVE)]."))
 					return
 				if(target.r_hand != null && target.l_hand != null)
 					to_chat(target, span_warning("Ваши руки заняты."))
-					to_chat(usr, span_warning("[genderize_ru(usr.gender,"Его","Её","Его","Их")] руки заняты."))
+					to_chat(usr, span_warning("[GEND_HIS_HER_CAP(usr)] руки заняты."))
 					return
 				usr.drop_item_ground(I)
 				target.put_in_hands(I, ignore_anim = FALSE)
@@ -71,7 +71,7 @@
 		to_chat(src, span_warning("У вас нет предмета в руке для передачи!"))
 		return
 	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(src, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[genderize_ru(I.gender,"","а","о","и")] к вашей руке и не отда[pluralize_ru(I.gender,"ёт","ют")]ся!"))
+		to_chat(src, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_ENDING_A_O_I(I)] к вашей руке и не отда[PLUR_YOT_UT(I)]ся!"))
 		return
 	if(I.item_flags & ABSTRACT)
 		to_chat(src, span_warning("Такой предмет нельзя просто взять и передать."))
@@ -271,7 +271,7 @@
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
 
-	receiver.visible_message(span_notice("[giver] переда[pluralize_ru(giver.gender, "ёт", "ют")] [I.declent_ru(ACCUSATIVE)] [receiver]."))
+	receiver.visible_message(span_notice("[giver] переда[PLUR_YOT_UT(giver)] [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
 
 
@@ -282,5 +282,5 @@
 	if(giver in view(3, receiver))
 		var/obj/item/I = locateUID(item_UID)
 		to_chat(giver, span_warning("Вы пытались передать [I.declent_ru(ACCUSATIVE)] [receiver], но [genderize_ru(receiver.gender,"тот отказался","та отказалась","тот отказался","те отказались")]."))
-		to_chat(receiver, span_warning("[giver] прекратил[genderize_ru(giver.gender, "", "а", "о", "и")] попытку передать вам [I.declent_ru(ACCUSATIVE)]."))
+		to_chat(receiver, span_warning("[giver] прекратил[GEND_ENDING_A_O_I(giver)] попытку передать вам [I.declent_ru(ACCUSATIVE)]."))
 	..()

@@ -36,7 +36,7 @@
 	torch.fingerprints = src.fingerprints
 	torch.fingerprintshidden = src.fingerprintshidden
 	torch.fingerprintslast = src.fingerprintslast
-	user.visible_message(span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] на [on_wall.declent_ru(ACCUSATIVE)]"), \
+	user.visible_message(span_notice("[user] устанавлива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [on_wall.declent_ru(ACCUSATIVE)]"), \
 		span_notice("вы устанавливаете [declent_ru(ACCUSATIVE)] на [on_wall.declent_ru(ACCUSATIVE)]."))
 	qdel(src)
 

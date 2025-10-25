@@ -62,7 +62,7 @@
 
 		if(master.stat == DEAD)
 			if(need_master_death_message)
-				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master.real_name] мертв[genderize_ru(master.gender, "", "а", "о", "ы")]!")]"))
+				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master.real_name] мертв[GEND_ENDING_A_O_Y(master)]!")]"))
 			return FALSE
 		else
 			need_master_death_message = TRUE
@@ -93,7 +93,7 @@
 				else
 					if(prob(say_prob))
 						to_chat(affected_mob, span_notice(pick("Мне не следует отдаляться от [master.real_name]...", \
-							"Я долж[genderize_ru(affected_mob.gender, "ен", "на", "но", "ны")] вернуться, пока не поздно!")))
+							"Я долж[GEND_ENDING_EN_NA_NO_NY(affected_mob)] вернуться, пока не поздно!")))
 
 			if((STAGE_TIME + 1) to (2 * STAGE_TIME))
 				if(need_meating_message && see_master)

@@ -122,7 +122,7 @@
 	. = ..()
 	if(ishuman(user))
 		if(user.a_intent == INTENT_HELP)
-			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name]."))
+			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[GEND_ENDING_A_O_I(user)] брюшко [src.name]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		else
 			user.changeNext_move(CLICK_CD_MELEE)

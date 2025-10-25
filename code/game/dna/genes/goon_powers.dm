@@ -520,7 +520,7 @@
 			to_chat(user, span_warning("Вы не можете прочитать мысли мёртвого существа."))
 			return
 		if(M.health < 0)
-			to_chat(user, span_warning("[M.name] в предсмертном состоянии, а [genderize_ru(M.gender, "его", "её", "его", "их")] мысли слишком спутаны, чтобы их прочитать."))
+			to_chat(user, span_warning("[M.name] в предсмертном состоянии, а [GEND_HIS_HER(M)] мысли слишком спутаны, чтобы их прочитать."))
 			return
 
 		to_chat(user, span_notice("Чтение мыслей <b>[M.name]:</b>"))
@@ -541,16 +541,16 @@
 
 		switch(pain_condition)
 			if(0.81 to INFINITY)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] чувству[pluralize_ru(M.gender, "ет", "ют")] себя хорошо."))
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] чувству[PLUR_ET_UT(M)] себя хорошо."))
 			if(0.61 to 0.8)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[pluralize_ru(M.gender, "ет", "ют")] слабую боль."))
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_UT(M)] слабую боль."))
 			if(0.41 to 0.6)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[pluralize_ru(M.gender, "ет", "ют")] умеренную боль."))
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_UT(M)] умеренную боль."))
 			if(0.21 to 0.4)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[pluralize_ru(M.gender, "ет", "ют")] сильную боль."))
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_UT(M)] сильную боль."))
 			else
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[pluralize_ru(M.gender, "ет", "ют")] мучительную боль."))
-				thoughts = "дума[pluralize_ru(M.gender, "ет", "ют")] о том, что [genderize_ru(M.gender, "его", "её", "его", "их")] скоро настигнет смерть"
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_UT(M)] мучительную боль."))
+				thoughts = "дума[PLUR_ET_UT(M)] о том, что [GEND_HIS_HER(M)] скоро настигнет смерть"
 
 		switch(M.a_intent)
 			if(INTENT_HELP)
@@ -564,7 +564,7 @@
 				for(var/mob/living/L in view(7,M))
 					if(L == M)
 						continue
-					thoughts = "дума[pluralize_ru(M.gender, "ет", "ют")] о том, чтобы ударить [L.name]"
+					thoughts = "дума[PLUR_ET_UT(M)] о том, чтобы ударить [L.name]"
 					break
 			else
 				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете странные мысли, исходящие от [M.name]."))

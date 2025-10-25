@@ -305,7 +305,7 @@
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_warning("[user] разбира[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
 		span_italics("Слышны стук и лязг."),
 	)
@@ -408,7 +408,7 @@
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_warning("[user] разбира[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
 		span_italics("Слышны стук и лязг."),
 	)
@@ -481,7 +481,7 @@
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_warning("[user] разбира[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
 		span_italics("Слышны стук и лязг."),
 	)

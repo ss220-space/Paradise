@@ -161,7 +161,7 @@
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
 			L.apply_damage(33, TOX)
-			L.visible_message(span_warning("[L] опутыва[pluralize_ru(L.gender, "ет", "ют")]ся кровавыми щупальцами, которые ограничивают [genderize_ru(L.gender, "его", "её", "его", "их")] движение!"))
+			L.visible_message(span_warning("[L] опутыва[PLUR_ET_UT(L)]ся кровавыми щупальцами, которые ограничивают [GEND_HIS_HER(L)] движение!"))
 			var/turf/target_turf = get_turf(L)
 			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
 			new /obj/effect/decal/cleanable/blood(target_turf)
@@ -431,7 +431,7 @@
 		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
 		L.Stun(3 SECONDS)
-		L.visible_message(span_warning("<b>[L] пронзен[genderize_ru(L.gender, "", "а", "о", "ы")] шипом живой крови!</b>"))
+		L.visible_message(span_warning("<b>[L] пронзен[GEND_ENDING_A_O_Y(L)] шипом живой крови!</b>"))
 
 
 /obj/effect/temp_visual/blood_spike

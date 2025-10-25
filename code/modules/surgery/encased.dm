@@ -30,7 +30,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] распиливать [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] распиливать [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете распиливать [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 	)
 	target.custom_pain("Вы чувствуете невыносимую боль в [affected.declent_ru(PREPOSITIONAL)]!")
@@ -40,7 +40,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_notice("[user] распилива[pluralize_ru(user.gender, "ет", "ют")] [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] распилива[PLUR_ET_UT(user)] [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы распиливаете [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -52,7 +52,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, ломая [tool.declent_ru(INSTRUMENTAL)] [affected.encased] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, ломая [tool.declent_ru(INSTRUMENTAL)] [affected.encased] [target]!"),
 		span_warning("Вы дёргаете рукой, ломая [tool.declent_ru(INSTRUMENTAL)] [affected.encased] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -80,7 +80,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] расширять [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] расширять [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинает расширять [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -92,7 +92,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_notice("[user] расширя[pluralize_ru(user.gender, "ет", "ют")] [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] расширя[PLUR_ET_UT(user)] [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы расширяете [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -105,7 +105,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, ломая [affected.encased] [target] [tool.declent_ru(INSTRUMENTAL)]!"),
+		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, ломая [affected.encased] [target] [tool.declent_ru(INSTRUMENTAL)]!"),
 		span_warning("Вы дёргаете рукой, ломая [affected.encased] [target] [tool.declent_ru(INSTRUMENTAL)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -132,7 +132,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] вставлять кость в [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] вставлять кость в [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинает вставлять кость в [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -143,7 +143,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] кость в [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] вставля[PLUR_ET_UT(user)] кость в [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы вставляете кость в [affected.encased] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -154,7 +154,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, неправильно вставляя кость в [affected.encased] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, неправильно вставляя кость в [affected.encased] [target]!"),
 		span_warning("Вы дёргаете рукой, неправильно вставляя кость в [affected.encased] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -180,7 +180,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] сращивать повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] сращивать повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете сращивать повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -191,7 +191,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_notice("[user] сращива[pluralize_ru(user.gender, "ет", "ют")] повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] сращива[PLUR_ET_UT(user)] повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы сращиваете повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)

@@ -36,7 +36,7 @@
 				affected_mob.AdjustJitter(rand(20 SECONDS, 40 SECONDS), bound_upper = 50 SECONDS)
 				affected_mob.AdjustStuttering(rand(20 SECONDS, 40 SECONDS), bound_upper = 50 SECONDS)
 			if(prob(3))
-				affected_mob.visible_message(span_danger("[affected_mob] откашлива[pluralize_ru(affected_mob.gender,"ет","ют")] бабочек!"), span_userdanger("Вы откашливаете бабочек!"))
+				affected_mob.visible_message(span_danger("[affected_mob] откашлива[PLUR_ET_UT(affected_mob)] бабочек!"), span_userdanger("Вы откашливаете бабочек!"))
 				affected_mob.Stun(rand(5 SECONDS, 10 SECONDS))
 				new /mob/living/simple_animal/butterfly(affected_mob.loc)
 				new /mob/living/simple_animal/butterfly(affected_mob.loc)

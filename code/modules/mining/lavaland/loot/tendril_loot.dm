@@ -571,7 +571,7 @@
 
 	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(effect_turf)
-	user.visible_message(span_danger("[user] материализу[pluralize_ru(user.gender, "ет", "ют")]ся в пространстве, вновь возвращаясь в нашу реальность!"))
+	user.visible_message(span_danger("[user] материализу[PLUR_ET_UT(user)]ся в пространстве, вновь возвращаясь в нашу реальность!"))
 	effect.can_destroy = TRUE
 
 	if(length(effect.contents))
