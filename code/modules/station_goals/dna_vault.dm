@@ -69,14 +69,6 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 /obj/item/dna_probe
 	name = "DNA Sampler"
 	desc = "Может использоваться для взятия химических и генетических образцов практически любого объекта."
-	ru_names = list(
-		NOMINATIVE = "ДНК-семплер",
-		GENITIVE = "ДНК-семплера",
-		DATIVE = "ДНК-семплеру",
-		ACCUSATIVE = "ДНК-семплер",
-		INSTRUMENTAL = "ДНК-семплером",
-		PREPOSITIONAL = "ДНК-семплере"
-	)
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "sampler_hypo"
 	icon_state = "sampler_hypo"
@@ -84,6 +76,16 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 	var/list/animals = list()
 	var/list/plants = list()
 	var/list/dna = list()
+
+/obj/item/dna_probe/get_ru_names()
+	return list(
+		NOMINATIVE = "ДНК-семплер",
+		GENITIVE = "ДНК-семплера",
+		DATIVE = "ДНК-семплеру",
+		ACCUSATIVE = "ДНК-семплер",
+		INSTRUMENTAL = "ДНК-семплером",
+		PREPOSITIONAL = "ДНК-семплере"
+	)
 
 /obj/item/dna_probe/proc/clear_data()
 	animals = list()
