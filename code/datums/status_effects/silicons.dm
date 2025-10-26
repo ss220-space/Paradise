@@ -5,7 +5,7 @@
 
 /atom/movable/screen/alert/status_effect/selfdestruct
 	name = "Самоуничтожение"
-	desc = "Запущен процесс вашего самоуничтожения с помощью консоли директора исследований."
+	desc = "Запущен процесс вашего самоуничтожения с помощью консоли Директора исследований."
 	icon_state = "hacked"
 
 /datum/status_effect/selfdestruct/tick(seconds_between_ticks)
