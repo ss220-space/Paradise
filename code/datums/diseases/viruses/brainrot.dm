@@ -46,7 +46,7 @@
 				if(prob(30))
 					to_chat(affected_mob, span_danger("Странное жужжание заполняет вашу голову, вытесняя все мысли."))
 			if(prob(4))
-				affected_mob.visible_message(span_warning("[affected_mob] внезапно пада[pluralize_ru(affected_mob.gender,"ет","ют")]"), span_danger("Вы теряете сознание..."))
+				affected_mob.visible_message(span_warning("[affected_mob] внезапно пада[PLUR_ET_UT(affected_mob)]"), span_danger("Вы теряете сознание..."))
 				affected_mob.Paralyse(rand(10 SECONDS, 20 SECONDS))
 			if(prob(10))
 				affected_mob.AdjustStuttering(30 SECONDS, bound_upper = 30 SECONDS)

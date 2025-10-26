@@ -75,12 +75,12 @@
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 	balloon_alert(user, "демонтаж...")
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] снимать стекло с [declent_ru(GENITIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] снимать стекло с [declent_ru(GENITIVE)]."),
 		span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
 	)
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		user.visible_message(
-			span_notice("[user] снима[pluralize_ru(user.gender, "ет", "ют")] стекло с [declent_ru(GENITIVE)]."),
+			span_notice("[user] снима[PLUR_ET_UT(user)] стекло с [declent_ru(GENITIVE)]."),
 			span_notice("Вы снимаете стекло с [declent_ru(GENITIVE)].")
 		)
 		deconstruct(TRUE)

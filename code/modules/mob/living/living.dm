@@ -124,7 +124,7 @@
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[pluralize_ru(src.gender,"ётся","ются")] невредим[genderize_ru(src.gender,"","а","о","ы")] после падения."),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_UT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[PLUR_YOT_UT(src)]ся невредим[GEND_A_O_Y(src)] после падения."),
 				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
 			AdjustKnockdown(levels * (4 SECONDS))
@@ -146,13 +146,13 @@
 		skip_weaken = TRUE
 		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[pluralize_ru(src.gender,"ет","ют")] на ноги!"),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_UT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_UT(src)] на ноги!"),
 				span_notice("Вы жёстко приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакиваете на ноги!"),
 			)
 			return .
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[pluralize_ru(src.gender,"ёт","ют")] на ноги!"),
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_UT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_UT(src)] на ноги!"),
 			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)]] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
@@ -207,7 +207,7 @@
 		bumped_mob.Weaken(1 SECONDS)
 		bumped_mob.take_organ_damage(rand(5, 10))
 		visible_message(
-			span_danger("[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [bumped_mob.declent_ru(ACCUSATIVE)], сбивая друг друга с ног!"),
+			span_danger("[name] вреза[PLUR_ET_UT(src)]ся в [bumped_mob.declent_ru(ACCUSATIVE)], сбивая друг друга с ног!"),
 			span_userdanger("Вы жестко врезаетесь в [bumped_mob.declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
@@ -314,7 +314,7 @@
 		Weaken(1 SECONDS)
 		take_organ_damage(rand(5, 10))
 		visible_message(
-			span_danger("[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [object.declent_ru(ACCUSATIVE)]!"),
+			span_danger("[name] вреза[PLUR_ET_UT(src)]ся в [object.declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Вы жестко врезаетесь в [object.declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
@@ -605,12 +605,12 @@
 
 	if(isgun(hand_item) && target != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(target))
-			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
+			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_UT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
 
 		target.visible_message(
-			span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
+			span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
+			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на вас!"),
 		)
 		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
 		SEND_SOUND(src, sound('sound/weapons/targeton.ogg'))
@@ -619,12 +619,12 @@
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
 		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руках!"))
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у н[GEND_HIS_HER(src)] в руках!"))
 		trick.shoot_gun(src)
 		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 		return TRUE
 
-	visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] на [pointed_object].")
+	visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_UT(src)] на [pointed_object].")
 	add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 	return TRUE
 
@@ -953,7 +953,7 @@
 		return
 	Knockdown(3 SECONDS)
 	puller.stop_pulling()
-	visible_message(span_danger("Ноги [name] путаются и [genderize_ru(gender,"он","она","оно","они")] с грохотом пада[pluralize_ru(gender,"ет","ют")] на пол!"))
+	visible_message(span_danger("Ноги [name] путаются и [GEND_HE_SHE(src)] с грохотом пада[PLUR_ET_UT(src)] на пол!"))
 
 
 /mob/living/proc/makeTrail(turf/T)
@@ -1153,11 +1153,11 @@
 	if(resist_chance > 0 && prob(resist_chance))
 		add_attack_logs(pulledby, src, "broke grab", ATKLOG_ALL)
 		visible_message(
-			span_danger("[name] вырвал[genderize_ru(gender, "ся", "ась", "ось", "ись")] из захвата [pulledby.name]!"),
+			span_danger("[name] вырвал[GEND_SYA_AS_OS_IS(src)] из захвата [pulledby.name]!"),
 			span_danger("Вы вырвались из захвата [pulledby.name]!"),
 			ignored_mobs = pulledby,
 		)
-		to_chat(pulledby, span_danger("[name] вырвал[genderize_ru(gender, "ся", "ась", "ось", "ись")] из Вашего захвата!"))
+		to_chat(pulledby, span_danger("[name] вырвал[GEND_SYA_AS_OS_IS(src)] из Вашего захвата!"))
 		pulledby.stop_pulling()
 		return FALSE
 
@@ -1173,7 +1173,7 @@
 		span_danger("Вам не удаётся вырваться из захвата [pulledby.name]!"),
 		ignored_mobs = pulledby,
 	)
-	to_chat(pulledby, span_danger("[name] пыта[pluralize_ru(gender,"ется","ются")] вырваться из Вашего захвата!"))
+	to_chat(pulledby, span_danger("[name] пыта[PLUR_ET_UT(src)]ся вырваться из Вашего захвата!"))
 	COOLDOWN_START(src, grab_resist_delay, 2 SECONDS)
 	if(moving_resist && client) //we resisted by trying to move
 		client.move_delay = world.time + 2 SECONDS
@@ -1563,8 +1563,8 @@
 	if(pulled_atom.pulledby)
 		if(!supress_message)
 			pulled_atom.visible_message(
-				span_danger("[name] перехватил[genderize_ru(gender,"","а","о","и")] [pulled_atom.name] у [pulled_atom.pulledby.name]."),
-				span_danger("[name] перехватил[genderize_ru(gender,"","а","о","и")] Вас у [pulled_atom.pulledby.name]!"),
+				span_danger("[name] перехватил[GEND_A_O_I(src)] [pulled_atom.name] у [pulled_atom.pulledby.name]."),
+				span_danger("[name] перехватил[GEND_A_O_I(src)] Вас у [pulled_atom.pulledby.name]!"),
 			)
 			to_chat(src, span_notice("Вы перехватили [pulled_atom.name] у [pulled_atom.pulledby.name]!"))
 		add_attack_logs(pulled_atom, pulled_atom.pulledby, "pulled from", ATKLOG_ALMOSTALL)
@@ -1602,15 +1602,15 @@
 				var/mob/living/carbon/human/grabbed_human = pulled_mob
 				var/grabbed_by_hands = (zone_selected == BODY_ZONE_PRECISE_R_HAND || zone_selected == BODY_ZONE_PRECISE_L_HAND) && grabbed_human.usable_hands > 0
 				grabbed_human.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"),
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас[grabbed_by_hands ? " за руки" : ""]!"),
+					span_warning("[name] схватил[GEND_A_O_I(src)] [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"),
+					span_warning("[name] схватил[GEND_A_O_I(src)] Вас[grabbed_by_hands ? " за руки" : ""]!"),
 					ignored_mobs = src,
 				)
 				to_chat(src, span_notice("Вы cхватили [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"))
 			else
 				pulled_mob.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+					span_warning("[name] схватил[GEND_A_O_I(src)] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
+					span_warning("[name] схватил[GEND_A_O_I(src)] Вас!"),
 					ignored_mobs = src,
 				)
 				to_chat(src, span_notice("Вы схватили [pulled_mob.declent_ru(ACCUSATIVE)]!"))
@@ -1712,8 +1712,8 @@
 			if(!head)
 				return
 			victim.visible_message(
-				span_danger("[attacker] нанос[pluralize_ru(attacker.gender,"ит","ят")] удар головой в мягкие ткани черепа [victim.name]!"),
-				span_userdanger("[attacker] нанос[pluralize_ru(attacker.gender,"ит","ят")] удар головой в мягкие ткани Вашего черепа!"),
+				span_danger("[attacker] нанос[PLUR_IT_YAT(attacker)] удар головой в мягкие ткани черепа [victim.name]!"),
+				span_userdanger("[attacker] нанос[PLUR_IT_YAT(attacker)] удар головой в мягкие ткани Вашего черепа!"),
 			)
 			attacker.do_attack_animation(victim, no_effect = TRUE)
 			var/damage = 5
@@ -1809,7 +1809,7 @@
 		take_organ_damage(damage)
 	C.take_organ_damage(damage)
 	C.Weaken(3 SECONDS)
-	C.visible_message(span_danger("[C.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [name], сбивая друг друга с ног!"),
+	C.visible_message(span_danger("[C.name] вреза[PLUR_ET_UT(src)]ся в [name], сбивая друг друга с ног!"),
 					span_userdanger("Вы жестко врезаетесь в [name]!"))
 
 
@@ -2385,10 +2385,10 @@
 /mob/living/proc/knockOver(mob/living/carbon/target)
 	if(target.key) //save us from monkey hordes
 		target.visible_message(span_warning("[pick( \
-			"[target] спотыка[pluralize_ru(target.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
-			"[target] опрокидыва[pluralize_ru(target.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
-			"[target] отлета[pluralize_ru(target.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
+			"[target] спотыка[PLUR_ET_UT(target)]ся об [declent_ru(GENITIVE)]!", \
+			"[target] опрокидыва[PLUR_ET_UT(target)]ся на [declent_ru(GENITIVE)]!", \
+			"[target] отлета[PLUR_ET_UT(target)] с пути [declent_ru(GENITIVE)]!", \
 			"[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
-			"[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [genderize_ru(target.gender, "его", "её", "его", "их")] упасть!", \
+			"[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
 			"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]")
 		)

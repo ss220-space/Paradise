@@ -37,7 +37,7 @@ Fragile Bones Syndrome
 						to_chat(M, span_warning("Вы чувствуете ужасную боль в [pick("ноге", "стопе", "руке", "кисти", "плече", "позвоночнике", "шее")]."))
 					if(3)
 						M.Slowed(1 SECONDS)
-						M.visible_message(span_warning("[capitalize(M.declent_ru(NOMINATIVE))] хрома[pluralize_ru(M.gender,"ет","ют")]."), span_warning("Ваша нога больше не держит форму!"))
+						M.visible_message(span_warning("[capitalize(M.declent_ru(NOMINATIVE))] хрома[PLUR_ET_UT(M)]."), span_warning("Ваша нога больше не держит форму!"))
 
 			if(5)
 				switch(rand(1, 2))

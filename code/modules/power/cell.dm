@@ -206,7 +206,7 @@
 		. += span_notice("<b>Индикатор заряда:</b> [round(percent())]%")
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), span_suicide("[user] облизыва[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
+	to_chat(viewers(user), span_suicide("[user] облизыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся совершить самоубийство!"))
 	return FIRELOSS
 
 

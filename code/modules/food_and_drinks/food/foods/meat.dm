@@ -54,13 +54,13 @@
 	var/strips_amount = 3
 	if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
 		user.visible_message(
-			span_notice("[user] реж[pluralize_ru(user.gender, "ет", "ут")] мясо тонкими полосками."),
+			span_notice("[user] реж[PLUR_ET_YT(user)] мясо тонкими полосками."),
 			span_notice("Вы режете мясо тонкими полосками."),
 		)
 	else
 		strips_amount = 1
 		user.visible_message(
-			span_notice("[user] грубо реж[pluralize_ru(user.gender, "ет", "ут")] мясо тонкими полосками."),
+			span_notice("[user] грубо реж[PLUR_ET_YT(user)] мясо тонкими полосками."),
 			span_notice("Вы грубо режете мясо тонкими полосками."),
 		)
 	for(var/i = 1 to strips_amount)

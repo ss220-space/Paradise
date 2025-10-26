@@ -280,7 +280,7 @@
 /obj/item/book/attack_self(mob/user)
 	if(carved)
 		if(store)
-			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпада[pluralize_ru(store, "ет", "ют")] из \"[title]\"!"))
+			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпада[PLUR_ET_UT(store)] из \"[title]\"!"))
 			store.forceMove(get_turf(loc))
 			store = null
 			return
@@ -293,7 +293,7 @@
 		popup.set_content("<tt><i>Автор — [author].</i></tt><br>" + "[dat]")
 		popup.open(TRUE)
 		if(!isobserver(user))
-			user.visible_message("[user] открыва[pluralize_ru(user.gender, "ет", "ют")] книгу под заголовком \"[title]\" и начина[pluralize_ru(user.gender, "ет", "ют")] внимательно её читать.")
+			user.visible_message("[user] открыва[PLUR_ET_UT(user)] книгу под заголовком \"[title]\" и начина[PLUR_ET_UT(user)] внимательно её читать.")
 		onclose(user, "book")
 	else
 		to_chat(user, "Эта книга полностью пуста!")

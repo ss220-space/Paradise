@@ -71,21 +71,21 @@
 		return
 
 	if(airlock.arePowerSystemsOn())
-		user.visible_message(span_warning("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] в шлюз и начина[pluralize_ru(user.gender,"ет","ют")] открывать его!"), \
+		user.visible_message(span_warning("[user] вставля[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)] в шлюз и начина[PLUR_ET_UT(user)] открывать его!"), \
 							span_warning("Вы начинаете силой открывать шлюз."), \
 							span_warning("Вы слышите металлический скрежет."))
 		playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
 		if(!do_after(user, 2.5 SECONDS, airlock))
 			return
 
-	user.visible_message(span_warning("[user] силой открыл[genderize_ru(user.gender, "", "а", "о", "и")] шлюз при помощи [declent_ru(GENITIVE)]!"), \
+	user.visible_message(span_warning("[user] силой открыл[GEND_A_O_I(user)] шлюз при помощи [declent_ru(GENITIVE)]!"), \
 						span_warning("Вы силой открыли шлюз."), \
 						span_warning("Вы слышите металлический скрежет."))
 	airlock.open(2)
 
 /obj/item/twohanded/required/pyro_claws/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] начина[pluralize_ru(user.gender,"ет","ют")] пилить [declent_ru(NOMINATIVE)] друг об друга! \
-						Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся убить себя!"))
+	user.visible_message(span_suicide("[user] начина[PLUR_ET_UT(user)] пилить [declent_ru(NOMINATIVE)] друг об друга! \
+						Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся убить себя!"))
 	user.adjust_fire_stacks(10)
 	user.IgniteMob()
 	return FIRELOSS
@@ -158,7 +158,7 @@
 	claws.block_chance = 100 * (1 - 0.5 / strength_mult)
 	claws.toolspeed = 0.5 / strength_mult
 
-	user.visible_message(span_warning("[user] со снопом искр выпуска[pluralize_ru(user.gender,"ет","ют")] [claws.declent_ru(NOMINATIVE)] из запястий!"), \
+	user.visible_message(span_warning("[user] со снопом искр выпуска[PLUR_ET_UT(user)] [claws.declent_ru(NOMINATIVE)] из запястий!"), \
 						span_notice("Вы выпускаете [claws.declent_ru(NOMINATIVE)] из [declent_ru(GENITIVE)]!"), \
 						span_warning("Вы слышите сноп искр!"))
 	user.put_in_hands(claws)

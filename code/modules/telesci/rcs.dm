@@ -47,7 +47,7 @@
 
 /obj/item/rcs/examine(mob/user)
 	. = ..()
-	. += to_chat(user, span_notice("Осталось [round(rcell.charge/chargecost)] заряд[declension_ru(round(rcell.charge/chargecost),"","а","ов")]."))
+	. += to_chat(user, span_notice("Осталось [round(rcell.charge/chargecost)] заряд[DECL_CREDIT(round(rcell.charge/chargecost))]."))
 
 /obj/item/rcs/Destroy()
 	QDEL_NULL(rcell)
@@ -156,4 +156,4 @@
 	rcell.use(chargecost)
 	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
-	to_chat(user, span_notice("Телепортация успешна. Осталось [round(rcell.charge/chargecost)] заряд[declension_ru(round(rcell.charge/chargecost),"","а","ов")]."))
+	to_chat(user, span_notice("Телепортация успешна. Осталось [round(rcell.charge/chargecost)] заряд[DECL_CREDIT(round(rcell.charge/chargecost))]."))

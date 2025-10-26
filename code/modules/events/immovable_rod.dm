@@ -340,7 +340,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(smeared_mob != target || !reason)
 		return
 
-	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[pluralize_ru(gender, "ит", "ят")] через ваши внутренности, вы внезапно осознаёте — боги наказали вас за [reason]!"))
+	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[PLUR_IT_YAT(src)] через ваши внутренности, вы внезапно осознаёте — боги наказали вас за [reason]!"))
 
 
 /**
@@ -392,7 +392,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/proc/suplex_effect(mob/living/carbon/human/human)
 	human.client.give_award(/datum/award/achievement/jobs/feat_of_strength, human) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
 	human.visible_message(
-		span_boldwarning("[capitalize(human.declent_ru(NOMINATIVE))] хвата[pluralize_ru(human.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и броса[pluralize_ru(human.gender, "ет", "ют")] на землю!"),
+		span_boldwarning("[capitalize(human.declent_ru(NOMINATIVE))] хвата[PLUR_ET_UT(human)] [declent_ru(ACCUSATIVE)] и броса[PLUR_ET_UT(human)] на землю!"),
 		span_warning("Вы хватаете [declent_ru(ACCUSATIVE)] и бросаете на землю!")
 	)
 	new /obj/structure/festivus/anchored(drop_location())

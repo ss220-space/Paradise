@@ -173,7 +173,7 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return TRUE
 	put_in(L, user)
 	return TRUE
@@ -194,7 +194,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_UT(user)] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -217,7 +217,7 @@
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
 	put_in(target, grabber)
 	add_fingerprint(grabber)
@@ -244,9 +244,9 @@
 /obj/machinery/dna_scannernew/proc/put_in(mob/M, mob/living/user)
 	add_fingerprint(user)
 	if(M == user)
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_UT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_UT(user)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(user, 2 SECONDS, M))
 		return
@@ -261,7 +261,7 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return
 
 	M.forceMove(src)
@@ -362,7 +362,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		disk = I
-		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_UT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "дискета вставлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL

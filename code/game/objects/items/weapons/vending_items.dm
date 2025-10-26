@@ -53,7 +53,7 @@
 	else if(num == 0)
 		. += span_notice("Пустой.")
 	else
-		. += span_notice("Может пополнить <b>[num]</b> товар[declension_ru(num, "", "а", "ов")].")
+		. += span_notice("Может пополнить <b>[num]</b> товар[DECL_CREDIT(num)].")
 
 /obj/item/vending_refill/get_part_rating()
 	if(!products || !product_categories || !contraband || !premium)

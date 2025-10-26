@@ -545,7 +545,7 @@
 
 /obj/item/cursed_katana/proc/strike(mob/living/target, mob/user)
 	user.visible_message(
-		span_warning("[user] бь[pluralize_ru(user.gender,"ёт","ют")] [target.declent_ru(ACCUSATIVE)] рукоятью [declent_ru(GENITIVE)]!"),
+		span_warning("[user] бь[PLUR_YOT_UT(user)] [target.declent_ru(ACCUSATIVE)] рукоятью [declent_ru(GENITIVE)]!"),
 		span_notice("Вы бьёте рукоятью по [target.declent_ru(DATIVE)]!")
 	)
 	to_chat(target, span_userdanger("[user] ударил вас рукоятью!"))
@@ -554,7 +554,7 @@
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, 5, 3, user, FALSE, callback = CALLBACK(target, TYPE_PROC_REF(/datum, UnregisterSignal), target, COMSIG_MOVABLE_IMPACT))
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST)
-	to_chat(target, span_userdanger("[user] ударил[pluralize_ru(user.gender,"","и")] вас рукоятью!"))
+	to_chat(target, span_userdanger("[user] ударил[PLUR_I(user)] вас рукоятью!"))
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
 /obj/item/cursed_katana/proc/strike_throw_impact(mob/living/source, atom/hit_atom, datum/thrownthing/thrownthing)
@@ -572,7 +572,7 @@
 
 /obj/item/cursed_katana/proc/slice(mob/living/target, mob/user)
 	user.visible_message(
-		span_warning("[user] соверша[pluralize_ru(user.gender,"ет","ют")] широкий взмах!"),
+		span_warning("[user] соверша[PLUR_ET_UT(user)] широкий взмах!"),
 		span_notice("Вы совершаете широкий взмах!")
 	)
 	playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
@@ -585,12 +585,12 @@
 		for(var/mob/living/additional_target in T)
 			if(user.Adjacent(additional_target) && additional_target.density)
 				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-				to_chat(additional_target, span_userdanger("[user] поразил[pluralize_ru(user.gender,"","и")] вас взмахом!"))
+				to_chat(additional_target, span_userdanger("[user] поразил[PLUR_I(user)] вас взмахом!"))
 	target.apply_damage(5, BRUTE, BODY_ZONE_CHEST, TRUE)
 
 /obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
 	user.visible_message(
-		span_warning("[user] позволя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)]!"),
+		span_warning("[user] позволя[PLUR_ET_UT(user)] [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)]!"),
 		span_warning("Вы позволяете [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)], исцеляя себя ценой его жизни!")
 	)
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
@@ -598,10 +598,10 @@
 
 /obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
 	user.visible_message(
-		span_warning("[user] подреза[pluralize_ru(user.gender,"ет","ют")] сухожилия [target.declent_ru(GENITIVE)]!"),
+		span_warning("[user] подреза[PLUR_ET_UT(user)] сухожилия [target.declent_ru(GENITIVE)]!"),
 		span_notice("Вы подрезаете сухожилия [target.declent_ru(GENITIVE)]!")
 	)
-	to_chat(target, span_userdanger("[user] подрезал[pluralize_ru(user.gender,"","и")] ваши сухожилия!"))
+	to_chat(target, span_userdanger("[user] подрезал[PLUR_I(user)] ваши сухожилия!"))
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(src, 'sound/weapons/rapierhit.ogg', 50, TRUE)
@@ -619,10 +619,10 @@
 		to_chat(user, span_userdanger("Сюда невозможно совершить рывок!"))
 		return
 	user.visible_message(
-		span_warning("[user] стремительно пронза[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!"),
+		span_warning("[user] стремительно пронза[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)]!"),
 		span_notice("Вы стремительно пронзаете [target.declent_ru(ACCUSATIVE)]!")
 	)
-	to_chat(target, span_userdanger("[user] пронза[pluralize_ru(user.gender,"ет","ют")] вас!"))
+	to_chat(target, span_userdanger("[user] пронза[PLUR_ET_UT(user)] вас!"))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
 	for(var/distance in 1 to 9)
@@ -633,7 +633,7 @@
 		dash_target = current_dash_target
 		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
 			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-			to_chat(additional_target, span_userdanger("[user] порезал[pluralize_ru(user.gender,"","и")] вас!"))
+			to_chat(additional_target, span_userdanger("[user] порезал[PLUR_I(user)] вас!"))
 	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
 	user.forceMove(dash_target)
 

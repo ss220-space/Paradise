@@ -500,7 +500,7 @@
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
 
 			usr.visible_message(
-				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
+				span_warning("[usr] пыта[PLUR_ET_UT(usr)]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				span_warning("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 			)
 
@@ -515,7 +515,7 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_warning("[usr] с усилием извлека[PLUR_ET_UT(usr)] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
 					span_notice("Вы успешно извлекаете [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				)
 			return
@@ -785,7 +785,7 @@
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
 		visible_message(
-			span_warning("[src] начина[pluralize_ru(gender, "ет", "ют")] играть на своей грудной клетке, как на ксилофоне."),
+			span_warning("[src] начина[PLUR_ET_UT(src)] играть на своей грудной клетке, как на ксилофоне."),
 			span_notice("Вы начинаете играть на своей грудной клетке, как на ксилофоне."),
 			span_warning("Вы слышите звуки игры на ксилофоне, сильно напоминающие стук костей.")
 		)
@@ -968,13 +968,13 @@
 		self = 1
 	if(!self)
 		usr.visible_message(
-			span_notice("[usr] склоня[pluralize_ru(usr.gender, "ет", "ют")]ся над [declent_ru(INSTRUMENTAL)], нащупыва[pluralize_ru(usr.gender, "ет", "ют")] у [genderize_ru(gender, "него", "неё", "него", "них")] артерию и замира[pluralize_ru(usr.gender, "ет", "ют")], будто бы что-то считая."),
+			span_notice("[usr] склоня[PLUR_ET_UT(usr)]ся над [declent_ru(INSTRUMENTAL)], нащупыва[PLUR_ET_UT(usr)] у н[GEND_HIS_HER(src)] артерию и замира[PLUR_ET_UT(usr)], будто бы что-то считая."),
 			ignored_mobs = usr
 		)
 		balloon_alert(usr, "обнаружение пульса...")
 	else
 		usr.visible_message(
-			span_notice("[usr] прижима[pluralize_ru(usr.gender, "ет", "ют")] пальцы к артерии и замира[pluralize_ru(usr.gender, "ет", "ют")], будто бы что-то считая."),
+			span_notice("[usr] прижима[PLUR_ET_UT(usr)] пальцы к артерии и замира[PLUR_ET_UT(usr)], будто бы что-то считая."),
 			ignored_mobs = usr
 		)
 		balloon_alert(usr, "обнаружение пульса...")
@@ -1323,7 +1323,7 @@
 	/// tweeter style
 	var/max_length = bloody_hands * 30
 
-	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина – [max_length] символ[pluralize_ru(max_length, "", "а", "ов")].", "Письмо кровью", max_length = max_length)
+	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина – [max_length] символ[DECL_CREDIT(max_length)].", "Письмо кровью", max_length = max_length)
 	if(origin != loc)
 		balloon_alert(src, "не двигайтесь во время письма!")
 		return
@@ -1523,7 +1523,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		balloon_alert(src, "на цели уже применяют слр!")
 		return
 	visible_message(
-		span_danger("[src] пыта[pluralize_ru(gender, "ет", "ют")]ся провести СЛР на [H.declent_ru(PREPOSITIONAL)]."),
+		span_danger("[src] пыта[PLUR_ET_UT(src)]ся провести СЛР на [H.declent_ru(PREPOSITIONAL)]."),
 		ignored_mobs = src
 	)
 	H.balloon_alert(src, "проведение слр...")
@@ -1534,7 +1534,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			H.SetLoseBreath(0)
 			H.AdjustParalysis(-2 SECONDS)
 			visible_message(
-				span_danger("[src] успешно провод[pluralize_ru(gender, "ит", "ят")] СЛР на [H.declent_ru(PREPOSITIONAL)]."),
+				span_danger("[src] успешно провод[PLUR_IT_YAT(src)] СЛР на [H.declent_ru(PREPOSITIONAL)]."),
 				ignored_mobs = src
 			)
 			H.balloon_alert(src, "слр проведена")
@@ -1891,7 +1891,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(O?.glowing)
 		O.toggle_biolum(TRUE)
 		visible_message(
-			span_danger("[src] растворя[pluralize_ru(gender, "ет", "юс")]ся во тьме."),
+			span_danger("[src] растворя[PLUR_ET_UT(src)]ся во тьме."),
 			span_danger("Вы растворяетесь во тьме.")
 		)
 
@@ -1919,7 +1919,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
 	set category = STATPANEL_IC
 
-	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(genderize_ru(gender, "он", "она", "оно", "они"))]...", "Выбор позы", pose)
+	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(GEND_HE_SHE(src))]...", "Выбор позы", pose)
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Описание внешности"
@@ -1936,7 +1936,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		while(meatleft > 0)
 			new dna.species.meat_type(loc)
 			meatleft--
-		visible_message(span_notice("[user] разделыва[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] разделыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."))
 		gib()
 
 
@@ -2005,7 +2005,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		carrydelay -= 1 SECONDS
 
 	visible_message(
-		span_notice("[src] начина[pluralize_ru(gender, "ет", "ют")] поднимать [target.declent_ru(ACCUSATIVE)] и закидывать на плечо."),
+		span_notice("[src] начина[PLUR_ET_UT(src)] поднимать [target.declent_ru(ACCUSATIVE)] и закидывать на плечо."),
 		ignored_mobs = src
 	)
 	target.balloon_alert(src, "взваливание на плечо...")
