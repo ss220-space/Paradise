@@ -3,14 +3,6 @@
 
 /obj/structure/punching_bag
 	name = "punching bag"
-	ru_names = list(
-		NOMINATIVE = "боксёрская груша",
-		GENITIVE = "боксёрской груши",
-		DATIVE = "боксёрской груше",
-		ACCUSATIVE = "боксёрскую грушу",
-		INSTRUMENTAL = "боксёрской грушей",
-		PREPOSITIONAL = "боксёрской груше",
-	)
 	desc = "Боксёрская груша. Есть мнение, что её использование становится более эффективным, если представлять на её месте своего начальника."
 	gender = FEMALE
 	icon = 'icons/goonstation/objects/fitness.dmi'
@@ -21,6 +13,16 @@
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 	var/material_drop = /obj/item/stack/sheet/cloth
 	var/material_drop_amount = 10
+
+/obj/structure/punching_bag/get_ru_names()
+	return list(
+		NOMINATIVE = "боксёрская груша",
+		GENITIVE = "боксёрской груши",
+		DATIVE = "боксёрской груше",
+		ACCUSATIVE = "боксёрскую грушу",
+		INSTRUMENTAL = "боксёрской грушей",
+		PREPOSITIONAL = "боксёрской груше",
+	)
 
 /obj/structure/punching_bag/attack_hand(mob/living/user, obj/item/item)
 	. = FALSE
@@ -62,14 +64,6 @@
 
 /obj/structure/weightmachine
 	name = "weight machine"
-	ru_names = list(
-		NOMINATIVE = "силовой тренажёр",
-		GENITIVE = "силового тренажёра",
-		DATIVE = "силовому тренажёру",
-		ACCUSATIVE = "силовой тренажёр",
-		INSTRUMENTAL = "силовым тренажёром",
-		PREPOSITIONAL = "силовом тренажёре",
-	)
 	desc = "Даже при взгляде на этот тренажёр вы ощущаете усталость."
 	gender = MALE
 	density = TRUE
@@ -77,6 +71,16 @@
 	var/icon_state_inuse
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 5
+
+/obj/structure/weightmachine/get_ru_names()
+	return list(
+		NOMINATIVE = "силовой тренажёр",
+		GENITIVE = "силового тренажёра",
+		DATIVE = "силовому тренажёру",
+		ACCUSATIVE = "силовой тренажёр",
+		INSTRUMENTAL = "силовым тренажёром",
+		PREPOSITIONAL = "силовом тренажёре",
+	)
 
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
 	return
@@ -153,7 +157,12 @@
 
 /obj/structure/weightmachine/stacklifter
 	name = "chest press"
-	ru_names = list(
+	icon = 'icons/goonstation/objects/fitness.dmi'
+	icon_state = "fitnesslifter"
+	icon_state_inuse = "fitnesslifter2"
+
+/obj/structure/weightmachine/stacklifter/get_ru_names()
+	return list(
 		NOMINATIVE = "грузоблочный тренажёр",
 		GENITIVE = "грузоблочного тренажёра",
 		DATIVE = "грузоблочному тренажёру",
@@ -161,9 +170,6 @@
 		INSTRUMENTAL = "грузоблочным тренажёром",
 		PREPOSITIONAL = "грузоблочном тренажёре"
 	)
-	icon = 'icons/goonstation/objects/fitness.dmi'
-	icon_state = "fitnesslifter"
-	icon_state_inuse = "fitnesslifter2"
 
 /obj/structure/weightmachine/stacklifter/AnimateMachine(mob/living/carbon/human/user)
 	var/lifts = 0
@@ -184,7 +190,12 @@
 
 /obj/structure/weightmachine/weightlifter
 	name = "bench press"
-	ru_names = list(
+	icon = 'icons/goonstation/objects/fitness.dmi'
+	icon_state = "fitnessweight"
+	icon_state_inuse = "fitnessweight-c"
+
+/obj/structure/weightmachine/weightlifter/get_ru_names()
+	return list(
 		NOMINATIVE = "скамья для жима",
 		GENITIVE = "скамьи для жима",
 		DATIVE = "скамье для жима",
@@ -192,9 +203,6 @@
 		INSTRUMENTAL = "скамьёй для жима",
 		PREPOSITIONAL = "скамье для жима"
 	)
-	icon = 'icons/goonstation/objects/fitness.dmi'
-	icon_state = "fitnessweight"
-	icon_state_inuse = "fitnessweight-c"
 
 /obj/structure/weightmachine/weightlifter/AnimateMachine(mob/living/carbon/human/user)
 	var/mutable_appearance/swole_overlay = mutable_appearance(icon, "fitnessweight-w", WALL_OBJ_LAYER)
@@ -222,7 +230,14 @@
 
 /obj/structure/weightmachine/horizontalbar
 	name = "турник"
-	ru_names = list(
+	desc = "Простенький турник. На большинстве планет с развитой разумной жизнью его аналоги используются в качестве вешалки."
+	icon = 'icons/goonstation/objects/fitness.dmi'
+	icon_state = "horizontalbar"
+	icon_state_inuse = "horizontalbar"
+	var/rod_y = 28
+
+/obj/structure/weightmachine/horizontalbar/get_ru_names()
+	return list(
 		NOMINATIVE = "турник",
 		GENITIVE = "турника",
 		DATIVE = "турнику",
@@ -230,11 +245,6 @@
 		INSTRUMENTAL = "турником",
 		PREPOSITIONAL = "турнике",
 	)
-	desc = "Простенький турник. На большинстве планет с развитой разумной жизнью его аналоги используются в качестве вешалки."
-	icon = 'icons/goonstation/objects/fitness.dmi'
-	icon_state = "horizontalbar"
-	icon_state_inuse = "horizontalbar"
-	var/rod_y = 28
 
 /obj/structure/weightmachine/horizontalbar/AnimateMachine(mob/living/carbon/human/user)
 	var/mutable_appearance/swole_overlay = mutable_appearance(icon, "rod", WALL_OBJ_LAYER)

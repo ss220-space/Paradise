@@ -168,7 +168,9 @@
 	species_type = /datum/species/wryn
 	name = "wryn ears"
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали врину."
-	ru_names = list(
+
+/obj/item/organ/internal/ears/wryn/get_ru_names()
+	return list(
 		NOMINATIVE = "уши врина",
 		GENITIVE = "ушей врина",
 		DATIVE = "ушам врина",
@@ -181,7 +183,12 @@
 	species_type = /datum/species/wryn
 	name = "wryn tail"
 	desc = "Хвост. Этот принадлежал врину."
-	ru_names = list(
+	icon_name = "wryntail_s"
+	max_damage = 35
+	min_broken_damage = 25
+
+/obj/item/organ/external/tail/wryn/get_ru_names()
+	return list(
 		NOMINATIVE = "хвост врина",
 		GENITIVE = "хвоста врина",
 		DATIVE = "хвосту врина",
@@ -189,9 +196,6 @@
 		INSTRUMENTAL = "хвостом врина",
 		PREPOSITIONAL = "хвосте врина"
 	)
-	icon_name = "wryntail_s"
-	max_damage = 35
-	min_broken_damage = 25
 
 /obj/item/organ/external/chest/wryn
 	encased = "хитиновую оболочку на груди"

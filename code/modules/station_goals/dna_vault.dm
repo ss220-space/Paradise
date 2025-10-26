@@ -163,14 +163,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 /obj/machinery/dna_vault
 	name = "DNA Vault"
 	desc = "Разбейте стекло в случае апокалипсиса."
-	ru_names = list(
-		NOMINATIVE = "ДНК хранилище",
-		GENITIVE = "ДНК хранилища",
-		DATIVE = "ДНК хранилищу",
-		ACCUSATIVE = "ДНК хранилище",
-		INSTRUMENTAL = "ДНК хранилищем",
-		PREPOSITIONAL = "ДНК хранилище"
-	)
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
 	density = TRUE
@@ -192,6 +184,16 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	var/static/list/power_lottery = list()
 
 	var/list/obj/structure/fillers = list()
+
+/obj/machinery/dna_vault/get_ru_names()
+	return list(
+		NOMINATIVE = "ДНК хранилище",
+		GENITIVE = "ДНК хранилища",
+		DATIVE = "ДНК хранилищу",
+		ACCUSATIVE = "ДНК хранилище",
+		INSTRUMENTAL = "ДНК хранилищем",
+		PREPOSITIONAL = "ДНК хранилище"
+	)
 
 /obj/machinery/dna_vault/Initialize(mapload)
 	. = ..()

@@ -1,14 +1,6 @@
 /obj/machinery/computer/telescience
 	name = "telepad control console"
 	desc = "Используется для телепортации объектов на телепад и обратно."
-	ru_names = list(
-		NOMINATIVE = "консоль управления телепадом",
-		GENITIVE = "консоли управления телепадом",
-		DATIVE = "консоли управления телепадом",
-		ACCUSATIVE = "консоль управления телепадом",
-		INSTRUMENTAL = "консолью управления телепадом",
-		PREPOSITIONAL = "консоли управления телепадом"
-	)
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console
@@ -37,6 +29,16 @@
 	var/crystals = 0
 	var/max_crystals = 4
 	var/obj/item/gps/inserted_gps
+
+/obj/machinery/computer/telescience/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления телепадом",
+		GENITIVE = "консоли управления телепадом",
+		DATIVE = "консоли управления телепадом",
+		ACCUSATIVE = "консоль управления телепадом",
+		INSTRUMENTAL = "консолью управления телепадом",
+		PREPOSITIONAL = "консоли управления телепадом"
+	)
 
 /obj/machinery/computer/telescience/Initialize(mapload)
 	. = ..()

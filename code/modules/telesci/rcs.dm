@@ -8,14 +8,6 @@
 /obj/item/rcs
 	name = "rapid-crate-sender (RCS)"
 	desc = "Устройство для телепортации ящиков и шкафов на телепады карго."
-	ru_names = list(
-		NOMINATIVE = "система быстрой доставки (RCS)",
-		GENITIVE = "системы быстрой доставки (RCS)",
-		DATIVE = "системе быстрой доставки (RCS)",
-		ACCUSATIVE = "систему быстрой доставки (RCS)",
-		INSTRUMENTAL = "системой быстрой доставки (RCS)",
-		PREPOSITIONAL = "системе быстрой доставки (RCS)"
-	)
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
 	item_state = "rcd"
@@ -35,6 +27,16 @@
 	var/chargecost = 1000
 	/// Is emagged?
 	var/emagged = FALSE
+
+/obj/item/rcs/get_ru_names()
+	return list(
+		NOMINATIVE = "система быстрой доставки (RCS)",
+		GENITIVE = "системы быстрой доставки (RCS)",
+		DATIVE = "системе быстрой доставки (RCS)",
+		ACCUSATIVE = "систему быстрой доставки (RCS)",
+		INSTRUMENTAL = "системой быстрой доставки (RCS)",
+		PREPOSITIONAL = "системе быстрой доставки (RCS)"
+	)
 
 /obj/item/rcs/get_cell()
 	return rcell

@@ -204,14 +204,6 @@
  */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
-	ru_names = list(
-		NOMINATIVE = "блюспейс сборщик",
-		GENITIVE = "блюспейс сборщика",
-		DATIVE = "блюспейс сборщику",
-		ACCUSATIVE = "блюспейс сборщик",
-		INSTRUMENTAL = "блюспейс сборщиком",
-		PREPOSITIONAL = "блюспейс сборщике"
-	)
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward
 	max_integrity = 300
@@ -259,6 +251,15 @@
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
 
+/obj/machinery/power/bluespace_tap/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс сборщик",
+		GENITIVE = "блюспейс сборщика",
+		DATIVE = "блюспейс сборщику",
+		ACCUSATIVE = "блюспейс сборщик",
+		INSTRUMENTAL = "блюспейс сборщиком",
+		PREPOSITIONAL = "блюспейс сборщике"
+	)
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
