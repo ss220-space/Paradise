@@ -30,7 +30,7 @@
 
 
 /datum/spell_cooldown/proc/is_on_cooldown()
-	return recharge_time > world.time
+	return recharge_time >= world.time
 
 
 /datum/spell_cooldown/proc/should_end_cooldown()
@@ -64,6 +64,7 @@
 
 	if(should_end_cooldown())
 		end_recharge()
+		spell_parent.action.UpdateButtonIcon()
 		return PROCESS_KILL
 
 
@@ -104,4 +105,7 @@
 
 
 /datum/spell_cooldown/proc/cooldown_last_duration()
-	return "[round((recharge_time - world.time)/10, 0.1)]"
+	var/time = round((recharge_time - world.time)/10, 0.1)
+	if(time > 0)
+		return "[time]"
+	return ""
