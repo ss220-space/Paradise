@@ -144,7 +144,6 @@
 			usr.visible_message(span_notice("[usr] detaches [rig] from [src]."), span_notice("You detach [rig] from [src]."))
 			rig.forceMove(get_turf(usr))
 			rig = null
-			qdel(GetComponent(/datum/component/proximity_monitor))
 			lastrigger = null
 			QDEL_NULL(rigged_olay)
 			update_icon(UPDATE_OVERLAYS)
@@ -184,8 +183,6 @@
 		investigate_log("[key_name_log(user)] rigged [name] with [assembly.name] for explosion", INVESTIGATE_BOMB)
 		lastrigger = "[key_name_log(user)]"
 		rig = assembly
-		if(rig.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
 		rigged_olay = getFlatIcon(assembly)
 		rigged_olay.Shift(NORTH, 1)
 		rigged_olay.Shift(EAST, 6)

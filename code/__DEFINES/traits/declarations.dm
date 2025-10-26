@@ -377,3 +377,6 @@
 #define TRAIT_AREA_SENSITIVE "area-sensitive"
 ///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
+
+/// If any of the owner's robotic parts are being repaired right now
+#define TRAIT_REPAIRING_LIMB "repairing_limb"

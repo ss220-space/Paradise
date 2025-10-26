@@ -91,18 +91,13 @@
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
 
-	var/list/cameras = get_available_cameras()
-	data["cameras"] = list()
-	for(var/i in cameras)
-		var/obj/machinery/camera/camera = cameras[i]
-		data["cameras"] += list(list(
-			name = camera.c_tag,
-			x = camera.x,
-			y = camera.y,
-			z = camera.z,
-			ref = camera.UID(),
-			status = camera.status
-		))
+	var/list/cameras
+	if(is_away_level(z))
+		cameras = GLOB.cameranet.get_available_cameras_data(network, list(z))
+	else
+		cameras = GLOB.cameranet.get_available_cameras_data(network)
+
+	data["cameras"] = cameras
 
 	data["activeCamera"] = null
 	if(active_camera)
@@ -199,26 +194,6 @@
 		active_camera = null
 		last_camera_turf = null
 		playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
-
-// Returns the list of cameras accessible from this computer
-/obj/machinery/computer/security/proc/get_available_cameras()
-	var/list/L = list()
-	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
-			continue
-		L.Add(C)
-	var/list/D = list()
-	for(var/obj/machinery/camera/C in L)
-		if(!C.network)
-			stack_trace("Camera in a cameranet has no camera network")
-			continue
-		if(!(islist(C.network)))
-			stack_trace("Camera in a cameranet has a non-list camera network")
-			continue
-		var/list/tempnetwork = C.network & network
-		if(length(tempnetwork))
-			D["[C.c_tag]"] = C
-	return D
 
 /obj/machinery/computer/security/attack_hand(mob/user)
 	if(stat || ..())

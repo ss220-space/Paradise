@@ -55,8 +55,6 @@
 		to_chat(user, span_notice("You attach [assembly] to the valve controls and secure it."))
 		assembly.holder = src
 		assembly.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
-		if(isprox(assembly))
-			AddComponent(/datum/component/proximity_monitor)
 		investigate_log("[key_name_log(user)] attached [assembly] to a transfer valve.", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "attached [assembly] to a transfer valve", ATKLOG_FEW)
 		add_game_logs("attached [assembly] to a transfer valve.", user)
@@ -140,7 +138,6 @@
 				usr?.put_in_hands(attached_device, ignore_anim = FALSE)
 				attached_device.holder = null
 				attached_device = null
-				qdel(GetComponent(/datum/component/proximity_monitor))
 				update_icon()
 		else
 			. = FALSE

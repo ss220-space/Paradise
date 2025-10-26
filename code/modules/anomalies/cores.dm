@@ -432,7 +432,7 @@
 
 /obj/item/assembly/signaler/core/energetic/tier3/suicide_act(mob/living/user)
 	..()
-	user.electrocute_act(600, "[declent_ru(GENITIVE)]")
+	user.electrocute_act(600, src)
 	return FIRELOSS
 
 /obj/item/assembly/signaler/core/energetic/tier3/proc/try_shock(atom/target)
@@ -441,7 +441,7 @@
 
 	visible_message(span_warning("[declent_ru(NOMINATIVE)] внезапно испустил[genderize_ru(gender, "", "а", "о", "и")] электрический разряд!"))
 	var/mob/living/carbon/human/H = target
-	if(H.electrocute_act(charge, "[declent_ru(GENITIVE)]"))
+	if(H.electrocute_act(charge, src))
 		do_sparks(max(1, charge / 20), FALSE, src)
 		return TRUE
 

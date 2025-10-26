@@ -192,7 +192,7 @@
 				atom_say("Все Отряды Быстрого Реагирования распределены и не могут быть вызваны в данный момент.")
 				return
 			atom_say("Запрос ОБР отправлен!")
-			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name, HEADSET_FREQ_NAME, follow_target_override = src)
+			radio_announce("ERT request transmitted. Reason: [ert_reason]", name, COMM_FREQ, follow_target_override = src)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 

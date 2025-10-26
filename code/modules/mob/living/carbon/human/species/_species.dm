@@ -492,7 +492,7 @@
 
 
 
-/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/affected, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/affected, shock_damage, atom/source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 	return
 
 
@@ -1279,6 +1279,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	var/age_limits = get_age_limits(src, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 	return 1 + 0.5 * (age_limits[SPECIES_AGE_MIN] + 10 - H.age) / age_limits[SPECIES_AGE_MAX] + (0.01 * rand(-tolerance, tolerance))
+
+/datum/species/proc/job_pre_equip(mob/living/carbon/human/human)
+	return
 
 /datum/species/proc/get_blood_overlays()
 	if(isnull(blood_overlays))

@@ -30,6 +30,10 @@ SUBSYSTEM_DEF(shuttle)
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
 	var/list/hostile_environment = list()
+	/// Do we prevent the recall of the shuttle?
+	var/emergency_no_recall = FALSE
+	/// Did admins force-prevent the recall of the shuttle?
+	var/admin_emergency_no_recall = FALSE
 
 		//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
@@ -221,7 +225,7 @@ SUBSYSTEM_DEF(shuttle)
 		return 1
 
 /datum/controller/subsystem/shuttle/proc/canRecall()
-	if(emergency.mode != SHUTTLE_CALL)
+	if(emergency.mode != SHUTTLE_CALL || admin_emergency_no_recall || emergency_no_recall)
 		return
 	if(!emergency.canRecall)
 		return
@@ -504,6 +508,32 @@ SUBSYSTEM_DEF(shuttle)
 	centcom_message += "[span_good("+50")]: Компенсация за уход члена экипажа в крио при критической угрозе объекту.<hr>"
 
 #undef CRYOPOD_POINTS
+
+/datum/controller/subsystem/shuttle/proc/block_recall(lockout_timer)
+	if(isnull(lockout_timer))
+		CRASH("Emergency shuttle block was called, but missing a value for the lockout duration")
+	if(admin_emergency_no_recall)
+		GLOB.major_announcement.announce(
+			message = "Обнаружены помехи в канале связи эвакуационного шаттла. Вызов шаттла отключен до завершения перезагрузки системы. Примерное время восстановления: [DisplayTimeText(lockout_timer, round_seconds_to = 60)].",
+			new_title = "Канал связи эвакуационного шаттла.",
+			new_subtitle = "Обнаружены помехи.",
+			new_sound = 'sound/misc/announce_dig.ogg',
+		)
+		addtimer(CALLBACK(src, PROC_REF(unblock_recall)), lockout_timer)
+		return
+	emergency_no_recall = TRUE
+	addtimer(CALLBACK(src, PROC_REF(unblock_recall)), lockout_timer)
+
+/datum/controller/subsystem/shuttle/proc/unblock_recall()
+	if(admin_emergency_no_recall)
+		GLOB.major_announcement.announce(
+			message = "Канал связи эвакуационного шаттла восстановлен.",
+			new_title = "Канал связи эвакуационного шаттла.",
+			new_subtitle = "Связь восстановлена.",
+			new_sound = 'sound/misc/announce_dig.ogg',
+		)
+		return
+	emergency_no_recall = FALSE
 
 // Allow admins to fix shuttles ports list.
 /client/proc/reregister_docks()

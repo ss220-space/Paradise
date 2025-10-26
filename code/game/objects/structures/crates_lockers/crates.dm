@@ -50,10 +50,11 @@
 					return FALSE
 				break
 
-	if(rigged && locate(/obj/item/radio/electropack) in src)
+	var/obj/item/radio/electropack = locate() in src
+	if(rigged && electropack)
 		if(isliving(usr))
 			var/mob/living/L = usr
-			if(L.electrocute_act(17, "электропака в ящике"))
+			if(L.electrocute_act(17, electropack))
 				do_sparks(5, TRUE, src)
 				return 2
 
@@ -148,10 +149,11 @@
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/radio/electropack) in src)
+		var/obj/item/radio/electropack = locate() in src
+		if(rigged && electropack)
 			if(isliving(user))
 				var/mob/living/L = user
-				if(L.electrocute_act(17, "электропака в ящике"))
+				if(L.electrocute_act(17, electropack))
 					do_sparks(5, TRUE, src)
 					return
 		add_fingerprint(user)

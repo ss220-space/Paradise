@@ -146,7 +146,7 @@
 		if(!length(candidates))
 			return
 		var/mob/dead/observer/observer = pick(candidates)
-		new_borg.key = observer.key
+		new_borg.possess_by_player(observer.key)
 		log_game("[new_borg.key] has become malfunctioning cyborg.")
 	SSticker?.score?.save_silicon_laws(new_borg, additional_info = "malf AI factory transformation", log_all_laws = TRUE)
 

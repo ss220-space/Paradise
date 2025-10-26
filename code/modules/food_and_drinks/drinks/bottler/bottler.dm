@@ -369,7 +369,7 @@
 		for(var/i = 1, i <= length(slots), i++)
 			var/obj/O = slots[i]
 			if(O)
-				dat += "<td>[bicon(O)]<br>[O.name]</td>"
+				dat += "<td>[icon2html(O, user)]<br>[O.name]</td>"
 			else
 				dat += "<td>Tray Empty</td>"
 

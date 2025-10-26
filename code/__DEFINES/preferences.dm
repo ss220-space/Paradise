@@ -228,3 +228,6 @@
 #define PREF_GENDER_FEMALE "Женский"
 #define PREF_GENDER_PLURAL "Бесполый"
 
+// Exoframes (machines only)
+#define PREF_EXOFRAME_REINFORCED "EXO_REINFORCED"
+#define PREF_EXOFRAME_INDUSTRIAL "EXO_INDUSTRIAL"

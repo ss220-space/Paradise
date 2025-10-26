@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	spell.InterceptClickOn(user, params, object)
 
 
-/datum/click_intercept/proc_holder/quit()
+/datum/click_intercept/proc_holder/quit(force)
 	spell.remove_ranged_ability(spell.ranged_ability_user)
 	return ..()
 

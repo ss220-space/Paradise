@@ -120,7 +120,7 @@
 			if(brainmob.mind)
 				brainmob.mind.transfer_to(target)
 			else
-				target.key = brainmob.key
+				target.possess_by_player(brainmob.key)
 		else if(brainmob?.mind && target_changeling)
 			brainmob.mind.current = null
 			brainmob.ghostize()
