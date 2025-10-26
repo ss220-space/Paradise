@@ -1,7 +1,7 @@
 /datum/martial_combo/sleeping_carp/keelhaul
 	name = "Килхаул"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Ты прибиваешь оппонента к полу, дополнительно нанося урон по стамине!"
+	explaination_text = "Вы прибиваете оппонента к полу, дополнительно нанося урон по стамине!"
 
 /datum/martial_combo/sleeping_carp/keelhaul/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target == user)

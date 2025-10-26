@@ -1548,19 +1548,21 @@
 
 /datum/status_effect/krav_maga/lung_punch/on_apply()
 	. = ..()
-	if(ishuman(owner))
-		ADD_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
-		var/mob/living/carbon/human/human_owner = owner
-		human_owner.physiology.stamina_mod *= 1.2
-		human_owner.stam_regen_start_modifier *= 1.5
+	if(!ishuman(owner))
+		return
+	ADD_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.physiology.stamina_mod *= 1.2
+	human_owner.stam_regen_start_modifier *= 1.5
 
 /datum/status_effect/krav_maga/lung_punch/on_remove()
 	. = ..()
-	if(ishuman(owner))
-		REMOVE_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
-		var/mob/living/carbon/human/human_owner = owner
-		human_owner.physiology.stamina_mod /= 1.2
-		human_owner.stam_regen_start_modifier /= 1.5
+	if(!ishuman(owner))
+		return
+	REMOVE_TRAIT(owner, TRAIT_KRAVMAGA_DEBUFF, STATUS_EFFECT_TRAIT)
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.physiology.stamina_mod /= 1.2
+	human_owner.stam_regen_start_modifier /= 1.5
 
 /atom/movable/screen/alert/status_effect/neck_chop
 	name = "Удар по шее"

@@ -7,8 +7,8 @@
 	if(IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL
 	target.visible_message(
-		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] кида[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] на землю!"), \
-		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] кида[pluralize_ru(user.gender, "ет", "ют")] тебя на землю!")
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] кида[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)] на землю!"), \
+		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] кида[PLUR_ET_UT(user)] Вас на землю!")
 	)
 	playsound(get_turf(user), 'sound/weapons/slam.ogg', 50, TRUE, -1)
 	target.apply_damage(10, BRUTE)

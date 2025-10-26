@@ -21,25 +21,25 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("бь[PLUR_YOT_UT(A)]", "пина[PLUR_ET_UT(A)]", "руб[PLUR_IT_YAT(A)]", "забива[PLUR_ET_UT(A)]")
 	D.visible_message(span_danger("[capitalize(A.declent_ru(NOMINATIVE))] [atk_verb] [D.declent_ru(ACCUSATIVE)]!"),
-					span_userdanger("[A.declent_ru(NOMINATIVE)] [atk_verb] тебя!"))
+					span_userdanger("[A.declent_ru(NOMINATIVE)] [atk_verb] Вас!"))
 	D.apply_damage(rand(10, 15), BRUTE, A.zone_selected)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/explaination_header(user)
-	to_chat(usr, "<b><i>Ты фокусируешься и начинаешь вспоминать технику Спящего Карпа...</i></b>")
+	to_chat(usr, "<b><i>Вы фокусируетесь и начинаете вспоминать технику Спящего Карпа...</i></b>")
 
 /datum/martial_art/the_sleeping_carp/teach(mob/living/carbon/human/H, make_temporary)
 	. = ..()
 	H.faction |= "carp"// :D
-	to_chat(H, span_sciradio("Ты выучил древнюю технику Спящего Карпа! \
-					Твои навыки рукопашного боя стали намного эффективнее, также ты теперь способен отражать пули и лазеры до тех пор пока хотя бы одна твоя рука свободна. \
-					Однако, ты теперь не можешь пользоваться стрелковым оружием. \
-					Ты можешь узнать больше о своей новоприобретенной технике, используя кнопку 'Информация о БИ' во вкладке 'Боевые Искусства'."))
+	to_chat(H, span_sciradio("Вы выучили древнюю технику Спящего Карпа! \
+					Ваши навыки рукопашного боя стали намного эффективнее, также Вы теперь способны отражать пули и лазеры до тех пор пока хотя бы одна Ваша рука свободна. \
+					Однако, Вы теперь не можете пользоваться стрелковым оружием. \
+					Вы можете узнать больше о своей новоприобретенной технике, используя кнопку 'Информация о БИ' во вкладке 'Боевые Искусства'."))
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
-		to_chat(H, span_warning("Овладев техникой Спящего Карпа, ты отвергаешь её наиболее жестокие учения. \
-					Отражаемые тобой пули и лазеры будут направлены на землю."))
+		to_chat(H, span_warning("Овладев техникой Спящего Карпа, Вы отвергаете её наиболее жестокие учения. \
+					Отражаемые вами пули и лазеры будут направлены в землю."))
 
 /datum/martial_art/the_sleeping_carp/remove(mob/living/carbon/human/H)
 	. = ..()

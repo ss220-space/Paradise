@@ -6,8 +6,8 @@
 /datum/martial_combo/cqc/consecutive/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.stat)
 		return MARTIAL_COMBO_FAIL
-	target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] нанос[pluralize_ru(user.gender, "ит", "ят")] последовательные удары по животу, шее и спине [target.declent_ru(ACCUSATIVE)]"), \
-						span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] нанос[pluralize_ru(user.gender, "ит", "ят")] последовательные удары по твоим животу, шее и спине!"))
+	target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] нанос[PLUR_IT_YAT(user)] последовательные удары по животу, шее и спине [target.declent_ru(ACCUSATIVE)]"), \
+						span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] нанос[PLUR_IT_YAT(user)]] последовательные удары по Вашим животу, шее и спине!"))
 	playsound(get_turf(target), 'sound/weapons/cqchit2.ogg', 50, TRUE, -1)
 	target.apply_damage(65, STAMINA)
 	target.apply_damage(25, BRUTE)
