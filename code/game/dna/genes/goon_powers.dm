@@ -534,7 +534,7 @@
 
 		if(M.fire_stacks)
 			pain_condition -= 0.5
-			thoughts = "поглощен[GEND_ENDING_A_O_Y(M)] огнем"
+			thoughts = "поглощен[GEND_A_O_Y(M)] огнем"
 
 		if(M.radiation)
 			pain_condition -= 0.25

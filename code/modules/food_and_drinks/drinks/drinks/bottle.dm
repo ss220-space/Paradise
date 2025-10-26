@@ -105,13 +105,13 @@
 	//Display an attack message.
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] ударил[GEND_ENDING_A_O_I(user)] [target][head_attack_message] [declent_ru(INSTRUMENTAL)]!"),
-			span_userdanger("[user] ударил[GEND_ENDING_A_O_I(user)] [target][head_attack_message] [declent_ru(INSTRUMENTAL)]!"),
+			span_danger("[user] ударил[GEND_A_O_I(user)] [target][head_attack_message] [declent_ru(INSTRUMENTAL)]!"),
+			span_userdanger("[user] ударил[GEND_A_O_I(user)] [target][head_attack_message] [declent_ru(INSTRUMENTAL)]!"),
 		)
 	else
 		user.visible_message(
-			span_danger("[target] ударил[GEND_ENDING_A_O_I(target)] себя [declent_ru(INSTRUMENTAL)][head_attack_message]!"),
-			span_userdanger("[target] ударил[GEND_ENDING_A_O_I(target)] себя [declent_ru(INSTRUMENTAL)][head_attack_message]!"),
+			span_danger("[target] ударил[GEND_A_O_I(target)] себя [declent_ru(INSTRUMENTAL)][head_attack_message]!"),
+			span_userdanger("[target] ударил[GEND_A_O_I(target)] себя [declent_ru(INSTRUMENTAL)][head_attack_message]!"),
 		)
 
 	//Attack logs

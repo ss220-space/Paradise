@@ -215,8 +215,8 @@
 			check_self_for_injuries()
 		else
 			if(player_logged)
-				M.visible_message(span_notice("[M] встряхива[PLUR_ET_UT(M)] [name], но он[GEND_ENDING_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."), \
-				span_notice("Вы встряхиваете [name], но он[GEND_ENDING_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."))
+				M.visible_message(span_notice("[M] встряхива[PLUR_ET_UT(M)] [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."), \
+				span_notice("Вы встряхиваете [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."))
 			if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				if(buckled)
 					balloon_alert(M, "цель пристёгнута!")
@@ -307,19 +307,19 @@
 
 		switch(brutedamage)
 			if(0.1 to 20)
-				status += "ушиблен[GEND_ENDING_A_O_Y(bodypart)]"
+				status += "ушиблен[GEND_A_O_Y(bodypart)]"
 			if(20 to 40)
-				status += "побит[GEND_ENDING_A_O_Y(bodypart)]"
+				status += "побит[GEND_A_O_Y(bodypart)]"
 			if(40 to INFINITY)
-				status += "искалечен[GEND_ENDING_A_O_Y(bodypart)]"
+				status += "искалечен[GEND_A_O_Y(bodypart)]"
 		if(brutedamage > 0 && burndamage > 0)
 			status += " и "
 
 		switch(burndamage)
 			if(0.1 to 10)
-				status += "покрыт[GEND_ENDING_A_O_Y(bodypart)] волдырями"
+				status += "покрыт[GEND_A_O_Y(bodypart)] волдырями"
 			if(10 to 40)
-				status += "обожен[GEND_ENDING_A_O_Y(bodypart)]"
+				status += "обожен[GEND_A_O_Y(bodypart)]"
 			if(40 to INFINITY)
 				status += "сло[PLUR_IT_YAT(bodypart)]ся кусками обожённой плоти"
 
@@ -329,7 +329,7 @@
 			var/high_bleeding = bodypart.bleeding_amount > HIGH_BLEEDING_VALUE
 			var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 			if(suppressed)
-				status += " перевязан[GEND_ENDING_A_O_Y(bodypart)] чем-то окровавленным"
+				status += " перевязан[GEND_A_O_Y(bodypart)] чем-то окровавленным"
 			else if(high_bleeding)
 				status += " обильно кровоточ[PLUR_IT_AT(bodypart)]"
 			else
@@ -338,18 +338,18 @@
 			if(bodypart.bleedsuppress)
 				if(brutedamage > 0 && burndamage > 0)
 					status += ", "
-				status += " перевязан[GEND_ENDING_A_O_Y(bodypart)] чем-то"
+				status += " перевязан[GEND_A_O_Y(bodypart)] чем-то"
 
 		if(bodypart.status & ORGAN_MUTATED)
 			status = "выгляд[PLUR_IT_YAT(bodypart)] неестественно"
 
-		var/msg = span_notice("Ваш[GEND_ENDING_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] в порядке.")
+		var/msg = span_notice("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] в порядке.")
 		if(!isnull(status) && status != "")
-			msg = span_warning("Ваш[GEND_ENDING_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] [status].")
+			msg = span_warning("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] [status].")
 		status_list += msg
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
-			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[GEND_ENDING_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(GENITIVE)] застрял[GEND_ENDING_A_O_I(embedded)] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(GENITIVE)] застрял[GEND_A_O_I(embedded)] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
 
 	for(var/t in missing)
 		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")
@@ -723,7 +723,7 @@
 
 	if(is_processed)
 		visible_message(
-			span_warning("[name] перестал[GEND_ENDING_A_O_I(src)] пытаться отстегнуться!"),
+			span_warning("[name] перестал[GEND_A_O_I(src)] пытаться отстегнуться!"),
 			span_notice("Вы перестали пытаться отстегнуться."),
 		)
 	else

@@ -1411,10 +1411,10 @@
 	return
 
 /obj/item/toy/plushie/pig/attack_self(mob/user)
-	oink(user, "сжал[GEND_ENDING_A_O_I(user)]")
+	oink(user, "сжал[GEND_A_O_I(user)]")
 
 /obj/item/toy/plushie/pig/attack_hand(mob/user)
-	oink(user, pick("сжал[GEND_ENDING_A_O_I(user)]", "раздавил[GEND_ENDING_A_O_I(user)]", "ущипнул[GEND_ENDING_A_O_I(user)]"))
+	oink(user, pick("сжал[GEND_A_O_I(user)]", "раздавил[GEND_A_O_I(user)]", "ущипнул[GEND_A_O_I(user)]"))
 
 /obj/item/toy/plushie/pig/Initialize(mapload)
 	. = ..()

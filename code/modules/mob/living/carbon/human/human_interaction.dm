@@ -58,10 +58,10 @@
 				return
 
 			if(prob(90))
-				H.custom_emote(message = "лизнул[GEND_ENDING_A_O_I(H)] [P] в щеку.")
+				H.custom_emote(message = "лизнул[GEND_A_O_I(H)] [P] в щеку.")
 
 			else
-				H.custom_emote(message = "особо тщательно лизнул[GEND_ENDING_A_O_I(H)] [P].")
+				H.custom_emote(message = "особо тщательно лизнул[GEND_A_O_I(H)] [P].")
 
 		if("hug")
 			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
@@ -90,7 +90,7 @@
 			H.custom_emote(message = "жм[PLUR_YOT_YT(H)] руку [P].")
 
 		if("bow_affably")
-			H.custom_emote(message = "приветливо кивнул[GEND_ENDING_A_O_I(H)] в сторону [P].")
+			H.custom_emote(message = "приветливо кивнул[GEND_A_O_I(H)] в сторону [P].")
 
 		if("wave")
 			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))

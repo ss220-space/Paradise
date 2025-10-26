@@ -162,7 +162,7 @@ gender = FEMALE
 Вместо этого используйте готовые макросы, расположенные в файле `code/__HELPERS/localization.dm`. Из этих макросов можно собрать всё необходимое.
 
 ```DM
-"[GEND_HE_SHE_CAP(user)] съел[GEND_ENDING_A_O_I(user)] мороженку!"
+"[GEND_HE_SHE_CAP(user)] съел[GEND_A_O_I(user)] мороженку!"
 ```
 
 #### **Плюрализация – `pluralize_ru`**

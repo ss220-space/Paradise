@@ -457,7 +457,7 @@
 			return ..()
 		paicard = card
 		user.visible_message(
-			span_notice("[user] поместил[GEND_ENDING_A_O_I(user)] [card] в [declent_ru(GENITIVE)]."),
+			span_notice("[user] поместил[GEND_A_O_I(user)] [card] в [declent_ru(GENITIVE)]."),
 			span_notice("Вы поместили [card] в [declent_ru(GENITIVE)]."),
 		)
 		paicard.pai.mind.transfer_to(src)
@@ -481,7 +481,7 @@
 			return ATTACK_CHAIN_PROCEED
 		balloon_alert(user, UNLINT("ПИИ извлечён"))
 		visible_message(
-			span_notice("[user] вытащил[GEND_ENDING_A_O_I(user)] [paicard] из [declent_ru(GENITIVE)]!"),
+			span_notice("[user] вытащил[GEND_A_O_I(user)] [paicard] из [declent_ru(GENITIVE)]!"),
 			span_notice("Вы вытащили [paicard] из [declent_ru(GENITIVE)]."),
 		)
 		ejectpai(user)

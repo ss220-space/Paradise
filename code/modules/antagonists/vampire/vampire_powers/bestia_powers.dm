@@ -401,7 +401,7 @@
 		return
 
 	if(target.stat == DEAD)	// grip was too strong mr. vampire
-		to_chat(user, span_warning("[target] мертв[GEND_ENDING_A_O_Y(target)] и больше не пригод[GEND_ENDING_EN_NA_NO_NY(target)] для вскрытия."))
+		to_chat(user, span_warning("[target] мертв[GEND_A_O_Y(target)] и больше не пригод[GEND_EN_NA_NO_NY(target)] для вскрытия."))
 		return
 
 	var/datum/spell_handler/vampire/handler = custom_handler
@@ -2319,8 +2319,8 @@
 	step(src, direction)
 	step(user, GetOppositeDir(direction))
 
-	visible_message(span_notice("[user] поменял[GEND_ENDING_SYA_AS_OS_IS(user)] местами с [src]."), \
-					span_notice("[user] поменял[GEND_ENDING_SYA_AS_OS_IS(user)] с вами местами."))
+	visible_message(span_notice("[user] поменял[GEND_SYA_AS_OS_IS(user)] местами с [src]."), \
+					span_notice("[user] поменял[GEND_SYA_AS_OS_IS(user)] с вами местами."))
 	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 

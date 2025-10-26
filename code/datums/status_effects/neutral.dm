@@ -169,7 +169,7 @@
 /datum/status_effect/high_five/handshake/get_missed_message()
 	var/list/missed_messages = list(
 		"стыдливо опуска[PLUR_ET_UT(owner)] руку.",
-		"хвата[PLUR_ET_UT(owner)] свою протянутую руку другой рукой и пожима[PLUR_ET_UT(owner)] её, будто здорова[PLUR_ET_UT(owner)]ся сам[GEND_ENDING_A_O_I(owner)] с собой.",
+		"хвата[PLUR_ET_UT(owner)] свою протянутую руку другой рукой и пожима[PLUR_ET_UT(owner)] её, будто здорова[PLUR_ET_UT(owner)]ся сам[GEND_A_O_I(owner)] с собой.",
 		"сжима[PLUR_ET_UT(owner)] руку в кулак, медленно убирая её."
 	)
 	return pick(missed_messages)

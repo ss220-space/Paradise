@@ -27,15 +27,15 @@
 					return
 				if(!Adjacent(target))
 					to_chat(usr, span_warning("Нужно оставаться в пределах досягаемости!"))
-					to_chat(target, span_warning("[usr.name] ото[GEND_ENDING_SHEL(usr)] слишком далеко."))
+					to_chat(target, span_warning("[usr.name] ото[GEND_SHEL(usr)] слишком далеко."))
 					return
 				if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
-					to_chat(usr, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_ENDING_LA_LO_LI(I)]  к вашей руке и не отдаётся!"))
-					to_chat(target, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_ENDING_LA_LO_LI(I)] к руке [usr.name], когда вы попытались взять!"))
+					to_chat(usr, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_LA_LO_LI(I)]  к вашей руке и не отдаётся!"))
+					to_chat(target, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_LA_LO_LI(I)] к руке [usr.name], когда вы попытались взять!"))
 					return
 				if(I != get_active_hand())
 					to_chat(usr, span_warning("Нужно держать предмет в активной руке."))
-					to_chat(target, span_warning("[usr.name] передумал[GEND_ENDING_A_O_I(usr)] передавать вам [I.declent_ru(NOMINATIVE)]."))
+					to_chat(target, span_warning("[usr.name] передумал[GEND_A_O_I(usr)] передавать вам [I.declent_ru(NOMINATIVE)]."))
 					return
 				if(target.r_hand != null && target.l_hand != null)
 					to_chat(target, span_warning("Ваши руки заняты."))
@@ -47,7 +47,7 @@
 				target.visible_message(span_notice("[usr.name] передаёт [I.declent_ru(ACCUSATIVE)] [target.name]."))
 				I.on_give(usr, target)
 			if("Не брать")
-				target.visible_message(span_warning("[usr.name] пытался передать [I.declent_ru(ACCUSATIVE)] [target.name], но [GEND_HE_SHE(usr)] отказал[GEND_ENDING_SYA_AS_OS_IS(usr)]."))
+				target.visible_message(span_warning("[usr.name] пытался передать [I.declent_ru(ACCUSATIVE)] [target.name], но [GEND_HE_SHE(usr)] отказал[GEND_SYA_AS_OS_IS(usr)]."))
 	else
 		to_chat(usr, span_warning("Руки [target.name] заняты."))
 
@@ -71,7 +71,7 @@
 		to_chat(src, span_warning("У вас нет предмета в руке для передачи!"))
 		return
 	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(src, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_ENDING_A_O_I(I)] к вашей руке и не отда[PLUR_YOT_UT(I)]ся!"))
+		to_chat(src, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_A_O_I(I)] к вашей руке и не отда[PLUR_YOT_UT(I)]ся!"))
 		return
 	if(I.item_flags & ABSTRACT)
 		to_chat(src, span_warning("Такой предмет нельзя просто взять и передать."))
@@ -158,7 +158,7 @@
 		to_chat(user, span_warning("[receiver] без сознания и не мо[PLUR_JET_GUT(user)] принять предмет!"))
 		return
 	if(!receiver.IsAdvancedToolUser())
-		to_chat(user, span_warning("[receiver] недостаточно ловк[GEND_ENDING_II_AYA_II_IE(receiver)] для передачи!"))
+		to_chat(user, span_warning("[receiver] недостаточно ловк[GEND_II_AYA_II_IE(receiver)] для передачи!"))
 		return
 	var/obj/item/item = giving_item
 	if(!user.Adjacent(receiver))
@@ -230,7 +230,7 @@
 	var/mob/living/receiver = locateUID(receiver_UID)
 
 	to_chat(giver, span_warning("Держите предмет в активной руке для передачи!"))
-	to_chat(receiver, span_warning("[giver] передумал[GEND_ENDING_A_O_I(giver)] передавать вам [locateUID(item_UID)]."))
+	to_chat(receiver, span_warning("[giver] передумал[GEND_A_O_I(giver)] передавать вам [locateUID(item_UID)]."))
 
 	receiver.clear_alert("take item [item_UID]")
 
@@ -281,6 +281,6 @@
 	// Make sure we're still nearby. We don't want to show a message if the giver not near us.
 	if(giver in view(3, receiver))
 		var/obj/item/I = locateUID(item_UID)
-		to_chat(giver, span_warning("Вы пытались передать [I.declent_ru(ACCUSATIVE)] [receiver], но [GEND_HE_SHE(receiver)] отказал[GEND_ENDING_SYA_AS_OS_IS(receiver)]."))
-		to_chat(receiver, span_warning("[giver] прекратил[GEND_ENDING_A_O_I(giver)] попытку передать вам [I.declent_ru(ACCUSATIVE)]."))
+		to_chat(giver, span_warning("Вы пытались передать [I.declent_ru(ACCUSATIVE)] [receiver], но [GEND_HE_SHE(receiver)] отказал[GEND_SYA_AS_OS_IS(receiver)]."))
+		to_chat(receiver, span_warning("[giver] прекратил[GEND_A_O_I(giver)] попытку передать вам [I.declent_ru(ACCUSATIVE)]."))
 	..()

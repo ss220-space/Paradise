@@ -91,7 +91,7 @@
 		return
 	var/mob/living/victim = grabbed_thing
 	if(victim.loc != get_turf(src))
-		to_chat(grabber, span_warning("[victim] долж[GEND_ENDING_EN_NA_NO_NY(victim)] быть на [declent_ru(PREPOSITIONAL)]!"))
+		to_chat(grabber, span_warning("[victim] долж[GEND_EN_NA_NO_NY(victim)] быть на [declent_ru(PREPOSITIONAL)]!"))
 		return
 	add_fingerprint(grabber)
 	if(open && !swirlie)
@@ -201,7 +201,7 @@
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, TRUE)
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		user.visible_message(
-			span_notice("[user] [cistern ? "поставил[GEND_ENDING_A_O_I(user)] крышку на место" : "снял[PLUR_I(user)] крышку с бачка"]!"),
+			span_notice("[user] [cistern ? "поставил[GEND_A_O_I(user)] крышку на место" : "снял[PLUR_I(user)] крышку с бачка"]!"),
 			span_notice("Вы [cistern ? "поставили крышку на место" : "сняли крышку с бачка"]!"),
 			span_italics("Вы слышите скрип фарфора."))
 		cistern = !cistern
@@ -656,7 +656,7 @@
 
 	busy = 0
 
-	user.visible_message(span_notice("[user] помыл[GEND_ENDING_A_O_I(user)] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."), \
+	user.visible_message(span_notice("[user] помыл[GEND_A_O_I(user)] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."), \
 						span_notice("Вы помыли [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."))
 
 	if(SEND_SIGNAL(user, COMSIG_SINK_ACT) & COMSIG_SINK_ACT_SUCCESS) // special sink acts
@@ -817,7 +817,7 @@
 			return ATTACK_CHAIN_PROCEED
 		I.play_tool_sound(src, 100)
 		user.visible_message(
-			span_notice("[user] закопал[GEND_ENDING_A_O_I(user)] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] закопал[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
 			span_notice("Вы закопали [declent_ru(ACCUSATIVE)]."),
 		)
 		qdel(src)

@@ -165,11 +165,11 @@
 	//handcuffed?
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_ENDING_A_O_Y(src)] стяжками!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_A_O_Y(src)] стяжками!\n")
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_ENDING_A_O_Y(src)] самодельными стяжками!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_A_O_Y(src)] самодельными стяжками!\n")
 		else
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_ENDING_A_O_Y(src)] наручниками!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] [icon2html(handcuffed, user)] скован[GEND_A_O_Y(src)] наручниками!\n")
 
 	//belt
 	if(belt)
@@ -230,7 +230,7 @@
 	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
 	var/datum/strength_level/strength_level = !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
 	if((rolled_down || !w_uniform || (w_uniform.item_flags & ABSTRACT)) && (!wear_suit || (wear_suit.item_flags & ABSTRACT)) && strength_level != STRENGTH_LEVEL_DEFAULT)
-		msg += span_notice("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] [strength_level.strength_examine][GEND_ENDING_YM_OI_YM_YMI(src)].\n")
+		msg += span_notice("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] [strength_level.strength_examine][GEND_YM_OI_YM_YMI(src)].\n")
 
 	//Status effects
 	var/status_examines = get_status_effect_examinations()
@@ -241,7 +241,7 @@
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
-			msg += span_warning("Выгляд[PLUR_IT_YAT(src)] так, будто [GEND_HE_SHE(src)] покончил[GEND_ENDING_A_O_I(src)] с собой... надежды на восстановление нет.\n")
+			msg += span_warning("Выгляд[PLUR_IT_YAT(src)] так, будто [GEND_HE_SHE(src)] покончил[GEND_A_O_I(src)] с собой... надежды на восстановление нет.\n")
 		if(mind && !mind.hasSoul)
 			msg += span_boldwarning("<span style='font-size: large;'>[GEND_HIS_HER_CAP(src)] душа — моя. Не тратьте свое время.</span>\n")
 		msg += span_deadsay("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] безжизненно и не реагиру[PLUR_ET_UT(src)]. Нет никаких признаков жизни.")
@@ -338,49 +338,49 @@
 
 
 	if(fire_stacks > 0)
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] покрыт[GEND_ENDING_A_O_Y(src)] чем-то легковоспламеняющимся.\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] покрыт[GEND_A_O_Y(src)] чем-то легковоспламеняющимся.\n")
 	if(fire_stacks < 0)
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] немного мокр[GEND_ENDING_YM_OI_YM_YMI(src)].\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] немного мокр[GEND_YM_OI_YM_YMI(src)].\n")
 
 	switch(wetlevel)
 		if(1)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] слегка влажн[GEND_ENDING_YM_OI_YM_YMI(src)].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] слегка влажн[GEND_YM_OI_YM_YMI(src)].\n")
 		if(2)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] чуть мокр[GEND_ENDING_YM_OI_YM_YMI(src)].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] чуть мокр[GEND_YM_OI_YM_YMI(src)].\n")
 		if(3)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] мокр[GEND_ENDING_YM_OI_YM_YMI(src)].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] мокр[GEND_YM_OI_YM_YMI(src)].\n")
 		if(4)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] очень мокр[GEND_ENDING_YM_OI_YM_YMI(src)].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] очень мокр[GEND_YM_OI_YM_YMI(src)].\n")
 		if(5)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] полностью промокш[GEND_ENDING_IM_EI_IM_IMI(src)].\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] полностью промокш[GEND_IM_EI_IM_IMI(src)].\n")
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] сильно истощен[GEND_ENDING_A_O_Y(src)].\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] сильно истощен[GEND_A_O_Y(src)].\n")
 
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] страда[PLUR_ET_UT(src)] болезненным ожирением.\n")
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] пухл[GEND_ENDING_YM_OI_YM_YMI(src)] и аппетитн[GEND_ENDING_YM_OI_YM_YMI(src)] — как маленький поросёнок. Вкусный поросёнок.\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] пухл[GEND_YM_OI_YM_YMI(src)] и аппетитн[GEND_YM_OI_YM_YMI(src)] — как маленький поросёнок. Вкусный поросёнок.\n")
 
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] довольно полн[GEND_ENDING_YM_OI_YM_YMI(src)].\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] довольно полн[GEND_YM_OI_YM_YMI(src)].\n")
 
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += span_warning("У н[GEND_HIS_HER(src)] бледная кожа.\n")
 
 	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(istype(vampire_datum) && vampire_datum.draining)
-		msg += span_warning("<b>[GEND_HE_SHE_CAP(src)] впил[GEND_ENDING_SYA_AS_OS_IS(src)] своими клыками в шею [vampire_datum.draining].\n</b>")
+		msg += span_warning("<b>[GEND_HE_SHE_CAP(src)] впил[GEND_SYA_AS_OS_IS(src)] своими клыками в шею [vampire_datum.draining].\n</b>")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.bleeding_amount)
 			if(bodypart.bleedsuppress)
-				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_ENDING_A_O_Y(src)] чем-то.\n")
+				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")
 			continue
 		var/high_bleeding = bodypart.bleeding_amount > HIGH_BLEEDING_VALUE
 		var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 		if(suppressed)
-			msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_ENDING_A_O_Y(src)] чем-то окровавленным.\n")
+			msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то окровавленным.\n")
 		else if(high_bleeding)
 			msg += span_warning(span_bold("У н[GEND_HIS_HER(src)] обильно кровоточ[PLUR_IT_AT(src)] [bodypart.declent_ru(NOMINATIVE)]!\n"))
 		else
@@ -404,7 +404,7 @@
 				if(!key)
 					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] в полной кататонии. Должно быть, тяготы жизни в глубоком космосе оказались непосильны для н[GEND_HIS_HER(src)]. Шансы на восстановление ничтожны.\n")
 				else if(!client)
-					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] внезапно заснул[GEND_ENDING_A_O_I(src)]. [GEND_HE_SHE_CAP(src)] может скоро проснуться.\n")
+					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] внезапно заснул[GEND_A_O_I(src)]. [GEND_HE_SHE_CAP(src)] может скоро проснуться.\n")
 
 		if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 			msg += span_italics("[GEND_HE_SHE_CAP(src)] двигает своё тело неестественно и откровенно нечеловеческим образом.\n")
@@ -421,16 +421,16 @@
 		msg += "[GEND_HE_SHE_CAP(src)] наход[PLUR_IT_YAT(src)]ся на потолке.\n"
 
 	if(user.no_gravity() && !buckled)
-		msg += "[GEND_HE_SHE_CAP(src)] не подвержен[GEND_ENDING_A_O_Y(src)] действию гравитации.\n"
+		msg += "[GEND_HE_SHE_CAP(src)] не подвержен[GEND_A_O_Y(src)] действию гравитации.\n"
 
 	if(decaylevel == 1)
-		msg += "[GEND_HE_SHE_CAP(src)] начал[GEND_ENDING_A_O_I(src)] разлагаться и неприятно пахнуть.\n"
+		msg += "[GEND_HE_SHE_CAP(src)] начал[GEND_A_O_I(src)] разлагаться и неприятно пахнуть.\n"
 	if(decaylevel == 2)
-		msg += "[GEND_HE_SHE_CAP(src)] раздут[GEND_ENDING_A_O_Y(src)] и отвратительно пахн[PLUR_ET_UT(src)].\n"
+		msg += "[GEND_HE_SHE_CAP(src)] раздут[GEND_A_O_Y(src)] и отвратительно пахн[PLUR_ET_UT(src)].\n"
 	if(decaylevel == 3)
-		msg += "[GEND_HE_SHE_CAP(src)] почернел[GEND_ENDING_A_O_I(src)] и гниёт, кожа слезает лоскутами. Зловоние неописуемо.\n"
+		msg += "[GEND_HE_SHE_CAP(src)] почернел[GEND_A_O_I(src)] и гниёт, кожа слезает лоскутами. Зловоние неописуемо.\n"
 	if(decaylevel == 4)
-		msg += "[GEND_HE_SHE_CAP(src)] почти полностью разложил[GEND_ENDING_SYA_AS_OS_IS(src)]. От н[GEND_HIS_HER(src)] остался лишь скелет.\n"
+		msg += "[GEND_HE_SHE_CAP(src)] почти полностью разложил[GEND_SYA_AS_OS_IS(src)]. От н[GEND_HIS_HER(src)] остался лишь скелет.\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(add_id_name = FALSE)

@@ -1587,8 +1587,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	target = safepick(possible_targets)
 
 	if(target?.current)
-		explanation_text = "На [target.current.real_name], [target.assigned_role] ведут охоту. [target.current.real_name] должен[GEND_ENDING_A_O_Y(target.current)] любой ценой \
-							дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы [GEND_HE_SHE(target.current)] остал[GEND_ENDING_SYA_AS_OS_IS(target.current)] жив[GEND_ENDING_A_O_Y(target.current)]."
+		explanation_text = "На [target.current.real_name], [target.assigned_role] ведут охоту. [target.current.real_name] должен[GEND_A_O_Y(target.current)] любой ценой \
+							дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы [GEND_HE_SHE(target.current)] остал[GEND_SYA_AS_OS_IS(target.current)] жив[GEND_A_O_Y(target.current)]."
 	else
 		explanation_text = "Свободная цель"
 
@@ -1616,7 +1616,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(istype(killer_objective, /datum/objective/assassinate))
 			killer_objective.explanation_text = "Убить [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
 		else if(istype(killer_objective, /datum/objective/maroon))
-			killer_objective.explanation_text = "Не дать сбежать жив[GEND_ENDING_YM_OI_YM_YMI(killer_objective.target.current)] или свободн[GEND_ENDING_YM_OI_YM_YMI(killer_objective.target.current)] [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
+			killer_objective.explanation_text = "Не дать сбежать жив[GEND_YM_OI_YM_YMI(killer_objective.target.current)] или свободн[GEND_YM_OI_YM_YMI(killer_objective.target.current)] [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
 
 		for(var/datum/mind/killer in killer_objective.get_owners())
 			killer.prepare_announce_objectives()

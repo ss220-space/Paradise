@@ -133,7 +133,7 @@
 /obj/effect/proc_holder/spell/vampire/goon/targetted/hypnotise/cast(list/targets, mob/living/carbon/human/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 
-	user.visible_message(span_warning("Глаза [user] ярко вспыхивают, когда он[GEND_ENDING_A_O_I(user)] пристально смотр[PLUR_IT_YAT(user)] в глаза [target]."))
+	user.visible_message(span_warning("Глаза [user] ярко вспыхивают, когда он[GEND_A_O_I(user)] пристально смотр[PLUR_IT_YAT(user)] в глаза [target]."))
 	if(do_after(user, 6 SECONDS, target, NONE))
 		if(!affects(target))
 			to_chat(user, span_warning("Ваш пронзительный взгляд не смог заворожить [target]."))

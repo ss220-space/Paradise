@@ -35,7 +35,7 @@
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	cigarette.light(span_rose("[user] привычным движением прикурива[PLUR_ET_UT(user)] заслуженную \
-					[GEND_ENDING_IM_EI_IM_IMI(user)] [cigarette.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. В воздухе запахло телекристаллами."))
+					[GEND_IM_EI_IM_IMI(user)] [cigarette.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. В воздухе запахло телекристаллами."))
 
 
 /**

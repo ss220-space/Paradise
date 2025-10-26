@@ -834,7 +834,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	self_heal_delay = 1 SECONDS
 
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
-	H.visible_message(span_danger("[H] рассыпал[GEND_ENDING_SYA_AS_OS_IS(H)] в кучу песка!"))
+	H.visible_message(span_danger("[H] рассыпал[GEND_SYA_AS_OS_IS(H)] в кучу песка!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -891,7 +891,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, SFX_SHATTER, 70, TRUE)
-	H.visible_message(span_danger("[H] разбил[GEND_ENDING_SYA_AS_OS_IS(H)] в дребезги!"))
+	H.visible_message(span_danger("[H] разбил[GEND_SYA_AS_OS_IS(H)] в дребезги!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -949,7 +949,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	self_heal_delay = 1 SECONDS
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
-	H.visible_message(span_warning("[H] телепортировал[GEND_ENDING_SYA_AS_OS_IS(H)]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
+	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
@@ -1042,7 +1042,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
-	H.visible_message(span_warning("[H] телепортировал[GEND_ENDING_SYA_AS_OS_IS(H)]!"), span_danger("Вы телепортировались!"))
+	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы телепортировались!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(isspaceturf(T))

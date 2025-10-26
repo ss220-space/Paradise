@@ -76,7 +76,7 @@
 		span_notice("Вы начинаете пережимать кровоточащие сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+	target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
 
 /datum/surgery_step/generic/clamp_bleeders/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -125,7 +125,7 @@
 		span_notice("Вы начинаете зашивать раны в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+	target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
 
 /datum/surgery_step/generic/suture/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -176,7 +176,7 @@
 		msg = "[user] начина[PLUR_ET_UT(user)] раздвигать органы в брюшной полости [target], используя [tool.declent_ru(ACCUSATIVE)]."
 		self_msg = "Вы начинаете раздвигать органы в брюшной полости [target], используя [tool.declent_ru(ACCUSATIVE)]."
 	user.visible_message(span_notice(msg), span_notice(self_msg), chat_message_type = MESSAGE_TYPE_COMBAT)
-	target.custom_pain("Вы чувствуете, что кожа на ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] горит!")
+	target.custom_pain("Вы чувствуете, что кожа на ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] горит!")
 	return ..()
 
 /datum/surgery_step/generic/retract_skin/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -356,7 +356,7 @@
 
 	if(istype(target) && target.has_pain())
 		// okay if you can feel your arm getting chopped off you aren't gonna be singing
-		to_chat(target, span_userdanger("Ваш[GEND_ENDING_A_E_I(affected)] [affected.declent_ru(NOMINATIVE)] неме[PLUR_ET_UT(affected)], боль застилает ваше сознание!"))
+		to_chat(target, span_userdanger("Ваш[GEND_A_E_I(affected)] [affected.declent_ru(NOMINATIVE)] неме[PLUR_ET_UT(affected)], боль застилает ваше сознание!"))
 		target.emote("scream")
 	if(isitem(thing))
 		thing.forceMove(get_turf(target))

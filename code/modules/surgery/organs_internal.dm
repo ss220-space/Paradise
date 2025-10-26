@@ -494,7 +494,7 @@
 		var/can_treat_organic = !organ.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
 		if(can_treat_robotic || can_treat_organic)
 			if(organ.is_dead())
-				to_chat(user, span_warning("[capitalize(organ.declent_ru(NOMINATIVE))] мертв[GEND_ENDING_A_O_Y(organ)]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
+				to_chat(user, span_warning("[capitalize(organ.declent_ru(NOMINATIVE))] мертв[GEND_A_O_Y(organ)]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
 				continue
 			user.visible_message(
 				span_notice("[user] начина[PLUR_ET_UT(user)] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
@@ -511,7 +511,7 @@
 
 	if(affected)
 		var/mob/living/carbon/patient = target
-		patient.custom_pain("Боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+		patient.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 
 	return ..()
 
@@ -604,7 +604,7 @@
 			span_notice("Вы начинаете извлекать [extracting.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		)
 		if(target && affected)
-			target.custom_pain("Боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+			target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	else
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -724,7 +724,7 @@
 			span_notice("[user] начина[PLUR_ET_UT(user)] трансплантировать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 			span_notice("Вы начинаете трансплантировать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		)
-		target.custom_pain("Кто-то копается в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)]!")
+		target.custom_pain("Кто-то копается в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)]!")
 	else
 		user.visible_message(
 			span_notice("[user] начина[PLUR_ET_UT(user)] трансплантировать [tool.declent_ru(ACCUSATIVE)] в [parse_zone(target_zone)] [target]."),
@@ -803,7 +803,7 @@
 			msg = "[user] начина[PLUR_ET_UT(user)] вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
 			self_msg = "Вы начинаете вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
 		user.visible_message(span_notice(msg), span_notice(self_msg))
-		target.custom_pain("Вы чувствуете жгучую боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)]!")
+		target.custom_pain("Вы чувствуете жгучую боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)]!")
 
 	return ..()
 
@@ -946,7 +946,7 @@
 	user.visible_message(span_notice(msg), span_notice(self_msg))
 
 	if(target && affected)
-		target.custom_pain("Боль в ваш[GEND_ENDING_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+		target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 
 	return ..()
 

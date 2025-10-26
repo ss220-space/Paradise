@@ -162,8 +162,8 @@
 		if(INTENT_HARM)
 			var/damage = rand(1, 5)
 			playsound(loc, SFX_PUNCH, 25, TRUE, -1)
-			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] ударил[GEND_ENDING_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
-					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] ударил[GEND_ENDING_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] ударил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
+					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] ударил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
 			adjustBruteLoss(damage)
 			add_attack_logs(M, src, "attacked")
 
@@ -180,19 +180,19 @@
 				Paralyse(4 SECONDS)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				add_attack_logs(M, src, "pushed")
-				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] повалил[GEND_ENDING_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
-						span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] повалил[GEND_ENDING_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] повалил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
+						span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] повалил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
 				return FALSE
 
 			if(!prob(25))
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] попытал[GEND_ENDING_SYA_AS_OS_IS(M)] обезоружить [declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] попытал[GEND_SYA_AS_OS_IS(M)] обезоружить [declent_ru(ACCUSATIVE)]!"))
 				return FALSE
 
 			drop_from_active_hand()
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] обезоружил[GEND_ENDING_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
-			span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] обезоружил[GEND_ENDING_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] обезоружил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
+			span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] обезоружил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
 
 
 /mob/living/carbon/true_devil/handle_breathing()

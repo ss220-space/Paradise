@@ -111,7 +111,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] нервн[GEND_ENDING_YM_OI_YM_YMI(M)]!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] нервн[GEND_YM_OI_YM_YMI(M)]!"))
 			M.AdjustConfused(30 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			M.Jitter(20 SECONDS)
@@ -194,7 +194,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] нервн[GEND_ENDING_YM_OI_YM_YMI(M)]!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] нервн[GEND_YM_OI_YM_YMI(M)]!"))
 			M.AdjustConfused(35 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			M.Jitter(20 SECONDS)

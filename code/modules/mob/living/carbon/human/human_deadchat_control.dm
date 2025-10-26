@@ -54,7 +54,7 @@
 
 	if(in_hand)
 		if(HAS_TRAIT(in_hand, TRAIT_NODROP))
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(src)]ся выпустить [in_hand.declent_ru(ACCUSATIVE)], но кажется, что [GEND_HE_SHE(in_hand)] застрял[GEND_ENDING_A_O_I(in_hand)] в руке!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(src)]ся выпустить [in_hand.declent_ru(ACCUSATIVE)], но кажется, что [GEND_HE_SHE(in_hand)] застрял[GEND_A_O_I(in_hand)] в руке!"))
 			return
 		if(in_hand.flags & ABSTRACT)
 			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, что у н[GEND_HIS_HER(src)] заняты руки!"))

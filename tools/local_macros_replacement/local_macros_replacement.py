@@ -65,38 +65,38 @@ REPLACEMENTS = [
     (r'genderize_ru\(([^,]+)\.gender,\s*"нём",\s*"ней",\s*"нём",\s*"них"\)', r'GEND_ON_IN_HIM(\1)', 'GEND_ON_IN_HIM'),
     (r'genderize_ru\(gender,\s*"нём",\s*"ней",\s*"нём",\s*"них"\)', r'GEND_ON_IN_HIM(src)', 'GEND_ON_IN_HIM'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"ся",\s*"ась",\s*"ось",\s*"ись"\)', r'GEND_ENDING_SYA_AS_OS_IS(\1)', 'GEND_ENDING_SYA_AS_OS_IS'),
-    (r'genderize_ru\(gender,\s*"ся",\s*"ась",\s*"ось",\s*"ись"\)', r'GEND_ENDING_SYA_AS_OS_IS(src)', 'GEND_ENDING_SYA_AS_OS_IS'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ся",\s*"ась",\s*"ось",\s*"ись"\)', r'GEND_SYA_AS_OS_IS(\1)', 'GEND_SYA_AS_OS_IS'),
+    (r'genderize_ru\(gender,\s*"ся",\s*"ась",\s*"ось",\s*"ись"\)', r'GEND_SYA_AS_OS_IS(src)', 'GEND_SYA_AS_OS_IS'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"",\s*"а",\s*"о",\s*"и"\)', r'GEND_ENDING_A_O_I(\1)', 'GEND_ENDING_A_O_I'),
-    (r'genderize_ru\(gender,\s*"",\s*"а",\s*"о",\s*"и"\)', r'GEND_ENDING_A_O_I(src)', 'GEND_ENDING_A_O_I'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"",\s*"а",\s*"о",\s*"и"\)', r'GEND_A_O_I(\1)', 'GEND_A_O_I'),
+    (r'genderize_ru\(gender,\s*"",\s*"а",\s*"о",\s*"и"\)', r'GEND_A_O_I(src)', 'GEND_A_O_I'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"",\s*"а",\s*"о",\s*"ы"\)', r'GEND_ENDING_A_O_Y(\1)', 'GEND_ENDING_A_O_Y'),
-    (r'genderize_ru\(gender,\s*"",\s*"а",\s*"о",\s*"ы"\)', r'GEND_ENDING_A_O_Y(src)', 'GEND_ENDING_A_O_Y'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"",\s*"а",\s*"о",\s*"ы"\)', r'GEND_A_O_Y(\1)', 'GEND_A_O_Y'),
+    (r'genderize_ru\(gender,\s*"",\s*"а",\s*"о",\s*"ы"\)', r'GEND_A_O_Y(src)', 'GEND_A_O_Y'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"",\s*"а",\s*"е",\s*"и"\)', r'GEND_ENDING_A_E_I(\1)', 'GEND_ENDING_A_E_I'),
-    (r'genderize_ru\(gender,\s*"",\s*"а",\s*"е",\s*"и"\)', r'GEND_ENDING_A_E_I(src)', 'GEND_ENDING_A_E_I'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"",\s*"а",\s*"е",\s*"и"\)', r'GEND_A_E_I(\1)', 'GEND_A_E_I'),
+    (r'genderize_ru\(gender,\s*"",\s*"а",\s*"е",\s*"и"\)', r'GEND_A_E_I(src)', 'GEND_A_E_I'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"",\s*"ла",\s*"ло",\s*"ли"\)', r'GEND_ENDING_LA_LO_LI(\1)', 'GEND_ENDING_LA_LO_LI'),
-    (r'genderize_ru\(gender,\s*"",\s*"ла",\s*"ло",\s*"ли"\)', r'GEND_ENDING_LA_LO_LI(src)', 'GEND_ENDING_LA_LO_LI'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"",\s*"ла",\s*"ло",\s*"ли"\)', r'GEND_LA_LO_LI(\1)', 'GEND_LA_LO_LI'),
+    (r'genderize_ru\(gender,\s*"",\s*"ла",\s*"ло",\s*"ли"\)', r'GEND_LA_LO_LI(src)', 'GEND_LA_LO_LI'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"ен",\s*"на",\s*"но",\s*"ны"\)', r'GEND_ENDING_EN_NA_NO_NY(\1)', 'GEND_ENDING_EN_NA_NO_NY'),
-    (r'genderize_ru\(gender,\s*"ен",\s*"на",\s*"но",\s*"ны"\)', r'GEND_ENDING_EN_NA_NO_NY(src)', 'GEND_ENDING_EN_NA_NO_NY'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ен",\s*"на",\s*"но",\s*"ны"\)', r'GEND_EN_NA_NO_NY(\1)', 'GEND_EN_NA_NO_NY'),
+    (r'genderize_ru\(gender,\s*"ен",\s*"на",\s*"но",\s*"ны"\)', r'GEND_EN_NA_NO_NY(src)', 'GEND_EN_NA_NO_NY'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"ем",\s*"ей",\s*"ем",\s*"их"\)', r'GEND_ENDING_EM_EI_EM_IH(\1)', 'GEND_ENDING_EM_EI_EM_IH'),
-    (r'genderize_ru\(gender,\s*"ем",\s*"ей",\s*"ем",\s*"их"\)', r'GEND_ENDING_EM_EI_EM_IH(src)', 'GEND_ENDING_EM_EI_EM_IH'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ем",\s*"ей",\s*"ем",\s*"их"\)', r'GEND_EM_EI_EM_IH(\1)', 'GEND_EM_EI_EM_IH'),
+    (r'genderize_ru\(gender,\s*"ем",\s*"ей",\s*"ем",\s*"их"\)', r'GEND_EM_EI_EM_IH(src)', 'GEND_EM_EI_EM_IH'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"ым",\s*"ой",\s*"ым",\s*"ыми"\)', r'GEND_ENDING_YM_OI_YM_YMI(\1)', 'GEND_ENDING_YM_OI_YM_YMI'),
-    (r'genderize_ru\(gender,\s*"ым",\s*"ой",\s*"ым",\s*"ыми"\)', r'GEND_ENDING_YM_OI_YM_YMI(src)', 'GEND_ENDING_YM_OI_YM_YMI'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ым",\s*"ой",\s*"ым",\s*"ыми"\)', r'GEND_YM_OI_YM_YMI(\1)', 'GEND_YM_OI_YM_YMI'),
+    (r'genderize_ru\(gender,\s*"ым",\s*"ой",\s*"ым",\s*"ыми"\)', r'GEND_YM_OI_YM_YMI(src)', 'GEND_YM_OI_YM_YMI'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"им",\s*"ей",\s*"им",\s*"ими"\)', r'GEND_ENDING_IM_EI_IM_IMI(\1)', 'GEND_ENDING_IM_EI_IM_IMI'),
-    (r'genderize_ru\(gender,\s*"им",\s*"ей",\s*"им",\s*"ими"\)', r'GEND_ENDING_IM_EI_IM_IMI(src)', 'GEND_ENDING_IM_EI_IM_IMI'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"им",\s*"ей",\s*"им",\s*"ими"\)', r'GEND_IM_EI_IM_IMI(\1)', 'GEND_IM_EI_IM_IMI'),
+    (r'genderize_ru\(gender,\s*"им",\s*"ей",\s*"им",\s*"ими"\)', r'GEND_IM_EI_IM_IMI(src)', 'GEND_IM_EI_IM_IMI'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"ый",\s*"ая",\s*"ое",\s*"ые"\)', r'GEND_ENDING_YI_AYA_OE_YE(\1)', 'GEND_ENDING_YI_AYA_OE_YE'),
-    (r'genderize_ru\(gender,\s*"ый",\s*"ая",\s*"ое",\s*"ые"\)', r'GEND_ENDING_YI_AYA_OE_YE(src)', 'GEND_ENDING_YI_AYA_OE_YE'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ый",\s*"ая",\s*"ое",\s*"ые"\)', r'GEND_YI_AYA_OE_YE(\1)', 'GEND_YI_AYA_OE_YE'),
+    (r'genderize_ru\(gender,\s*"ый",\s*"ая",\s*"ое",\s*"ые"\)', r'GEND_YI_AYA_OE_YE(src)', 'GEND_YI_AYA_OE_YE'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"шёл",\s*"шла",\s*"шло",\s*"шли"\)', r'GEND_ENDING_SHEL(\1)', 'GEND_ENDING_SHEL'),
-    (r'genderize_ru\(gender,\s*"шёл",\s*"шла",\s*"шло",\s*"шли"\)', r'GEND_ENDING_SHEL(src)', 'GEND_ENDING_SHEL'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"шёл",\s*"шла",\s*"шло",\s*"шли"\)', r'GEND_SHEL(\1)', 'GEND_SHEL'),
+    (r'genderize_ru\(gender,\s*"шёл",\s*"шла",\s*"шло",\s*"шли"\)', r'GEND_SHEL(src)', 'GEND_SHEL'),
 
     (r'genderize_ru\(([^,]+)\.gender,\s*"ваш",\s*"вашу",\s*"ваше",\s*"ваши"\)', r'GEND_YOUR(\1)', 'GEND_YOUR'),
     (r'genderize_ru\(gender,\s*"ваш",\s*"вашу",\s*"ваше",\s*"ваши"\)', r'GEND_YOUR(src)', 'GEND_YOUR'),
@@ -104,8 +104,8 @@ REPLACEMENTS = [
     (r'genderize_ru\(([^,]+)\.gender,\s*"вашего",\s*"вашей",\s*"вашего",\s*"ваших"\)', r'GEND_YOURS(\1)', 'GEND_YOURS'),
     (r'genderize_ru\(gender,\s*"вашего",\s*"вашей",\s*"вашего",\s*"ваших"\)', r'GEND_YOURS(src)', 'GEND_YOURS'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_ENDING_II_AYA_II_IE(\1)', 'GEND_ENDING_II_AYA_II_IE'),
-    (r'genderize_ru\(gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_ENDING_II_AYA_II_IE(src)', 'GEND_ENDING_II_AYA_II_IE'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_II_AYA_II_IE(\1)', 'GEND_II_AYA_II_IE'),
+    (r'genderize_ru\(gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_II_AYA_II_IE(src)', 'GEND_II_AYA_II_IE'),
 ]
 
 COMPILED_PATTERNS = [(re.compile(pattern), replacement, name) for pattern, replacement, name in REPLACEMENTS]

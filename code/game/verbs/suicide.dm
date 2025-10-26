@@ -54,7 +54,7 @@
 
 
 /mob/living/simple_animal/mouse/do_suicide()
-	visible_message(span_danger("[src] бешено мечется! Уровень сыра упал до критической отметки, и [GEND_HE_SHE(src)] покинул[GEND_ENDING_A_O_I(src)] наш мир."))
+	visible_message(span_danger("[src] бешено мечется! Уровень сыра упал до критической отметки, и [GEND_HE_SHE(src)] покинул[GEND_A_O_I(src)] наш мир."))
 	adjustOxyLoss(max(100 - getBruteLoss(100), 0))
 
 
@@ -95,7 +95,7 @@
 
 
 /mob/living/carbon/brain/do_suicide()
-	to_chat(viewers(loc), span_danger("Мозг [src] становится тусклым и безжизненным. Похоже, [GEND_HE_SHE(src)] потерял[GEND_ENDING_A_O_I(src)] волю к жизни."))
+	to_chat(viewers(loc), span_danger("Мозг [src] становится тусклым и безжизненным. Похоже, [GEND_HE_SHE(src)] потерял[GEND_A_O_I(src)] волю к жизни."))
 	spawn(5 SECONDS)
 		death(gibbed = FALSE)
 		suiciding = FALSE

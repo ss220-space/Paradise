@@ -105,7 +105,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		visible_message(span_notice("[user] прикрепил[GEND_ENDING_A_O_I(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
+		visible_message(span_notice("[user] прикрепил[GEND_A_O_I(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 		balloon_alert(user, "дефибриллятор установлен")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I

@@ -111,12 +111,12 @@
 /datum/component/eatable/proc/try_eat_item(mob/living/carbon/human/target, mob/user)
 	var/obj/item/item = parent
 	var/chat_message_to_user = "Вы кормите [target] [item.name]."
-	var/chat_message_to_target = "[user] покормил[GEND_ENDING_A_O_I(user)] вас [item.declent_ru(INSTRUMENTAL)]."
+	var/chat_message_to_target = "[user] покормил[GEND_A_O_I(user)] вас [item.declent_ru(INSTRUMENTAL)]."
 
 	switch(user.a_intent)
 		if(INTENT_HELP, INTENT_GRAB)
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
-				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [item.declent_ru(NOMINATIVE)]. [target == user ? "Вы" : target] наел[target == user ? "ись" : GEND_ENDING_SYA_AS_OS_IS(target)]!"
+				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [item.declent_ru(NOMINATIVE)]. [target == user ? "Вы" : target] наел[target == user ? "ись" : GEND_SYA_AS_OS_IS(target)]!"
 				return FALSE
 			else if(target == user)
 				chat_message_to_user = "Вы откусили от [item.declent_ru(ACCUSATIVE)]. Вкуснятина!"
@@ -152,14 +152,14 @@
 
 	if(isstack(item))
 		var/obj/item/stack/stack = item
-		target.visible_message(span_notice("[target] съел[GEND_ENDING_A_O_I(target)] [stack.declent_ru(ACCUSATIVE)]."))
+		target.visible_message(span_notice("[target] съел[GEND_A_O_I(target)] [stack.declent_ru(ACCUSATIVE)]."))
 		stack.use(stack_use)
 	else
 		current_bites++
 		item.update_integrity(item.obj_integrity - integrity_bite)
 		item.add_atom_colour(get_colour(), FIXED_COLOUR_PRIORITY)
 		if(current_bites >= max_bites)
-			target.visible_message(span_notice("[target] доел[GEND_ENDING_A_O_I(target)] [item.declent_ru(ACCUSATIVE)]."))
+			target.visible_message(span_notice("[target] доел[GEND_A_O_I(target)] [item.declent_ru(ACCUSATIVE)]."))
 			qdel(item)
 	return
 

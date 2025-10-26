@@ -229,7 +229,7 @@
 
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
-	. += span_notice("Похоже, что [GEND_HE_SHE(src)] <b>[anchored ? "прикручен[GEND_ENDING_A_O_Y(src)]" : "не прикручен[GEND_ENDING_A_O_Y(src)]"]</b>.")
+	. += span_notice("Похоже, что [GEND_HE_SHE(src)] <b>[anchored ? "прикручен[GEND_A_O_Y(src)]" : "не прикручен[GEND_A_O_Y(src)]"]</b>.")
 	if(tracker)
 		. += span_notice("В [GEND_ON_IN_HIM(src)] видно плату солнечного датчика. <b>Её можно достать</b>.")
 	else

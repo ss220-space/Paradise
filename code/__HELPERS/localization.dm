@@ -63,19 +63,19 @@
 #define GEND_YOUR(target) genderize_ru(target.gender, "ваш", "вашу", "ваше", "ваши")
 #define GEND_YOURS(target) genderize_ru(target.gender, "вашего", "вашей", "вашего", "ваших")
 // Окончания. Y — буква Ы.
-#define GEND_ENDING_A_O_I(target) genderize_ru(target.gender, "", "а", "о", "и")
-#define GEND_ENDING_A_O_Y(target) genderize_ru(target.gender, "", "а", "о", "ы")
-#define GEND_ENDING_A_E_I(target) genderize_ru(target.gender, "", "а", "е", "и")
-#define GEND_ENDING_SYA_AS_OS_IS(target) genderize_ru(target.gender, "ся", "ась", "ось", "ись")
-#define GEND_ENDING_LA_LO_LI(target) genderize_ru(target.gender, "", "ла", "ло", "ли")
-#define GEND_ENDING_EN_NA_NO_NY(target) genderize_ru(target.gender, "ен", "на", "но", "ны")
-#define GEND_ENDING_EM_EI_EM_IH(target) genderize_ru(target.gender, "ем", "ей", "ем", "их")
-#define GEND_ENDING_YM_OI_YM_YMI(target) genderize_ru(target.gender, "ым", "ой", "ым", "ыми")
-#define GEND_ENDING_IM_EI_IM_IMI(target) genderize_ru(target.gender, "им", "ей", "им", "ими")
-#define GEND_ENDING_YI_AYA_OE_YE(target) genderize_ru(target.gender, "ый", "ая", "ое", "ые")
-#define GEND_ENDING_II_AYA_II_IE(target) genderize_ru(target.gender,"ий","ая","ий","ие")
+#define GEND_A_O_I(target) genderize_ru(target.gender, "", "а", "о", "и")
+#define GEND_A_O_Y(target) genderize_ru(target.gender, "", "а", "о", "ы")
+#define GEND_A_E_I(target) genderize_ru(target.gender, "", "а", "е", "и")
+#define GEND_SYA_AS_OS_IS(target) genderize_ru(target.gender, "ся", "ась", "ось", "ись")
+#define GEND_LA_LO_LI(target) genderize_ru(target.gender, "", "ла", "ло", "ли")
+#define GEND_EN_NA_NO_NY(target) genderize_ru(target.gender, "ен", "на", "но", "ны")
+#define GEND_EM_EI_EM_IH(target) genderize_ru(target.gender, "ем", "ей", "ем", "их")
+#define GEND_YM_OI_YM_YMI(target) genderize_ru(target.gender, "ым", "ой", "ым", "ыми")
+#define GEND_IM_EI_IM_IMI(target) genderize_ru(target.gender, "им", "ей", "им", "ими")
+#define GEND_YI_AYA_OE_YE(target) genderize_ru(target.gender, "ый", "ая", "ое", "ые")
+#define GEND_II_AYA_II_IE(target) genderize_ru(target.gender,"ий","ая","ий","ие")
 // Макросы для случаев, когда обычные не применимы.
-#define GEND_ENDING_SHEL(target) genderize_ru(target.gender, "шёл", "шла", "шло", "шли")
+#define GEND_SHEL(target) genderize_ru(target.gender, "шёл", "шла", "шло", "шли")
 
 /**
  * Возвращает форму единственного или множественного числа в зависимости от грамматического рода.

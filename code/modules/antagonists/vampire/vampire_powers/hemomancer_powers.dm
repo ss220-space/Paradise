@@ -431,7 +431,7 @@
 		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
 		L.Stun(3 SECONDS)
-		L.visible_message(span_warning("<b>[L] пронзен[GEND_ENDING_A_O_Y(L)] шипом живой крови!</b>"))
+		L.visible_message(span_warning("<b>[L] пронзен[GEND_A_O_Y(L)] шипом живой крови!</b>"))
 
 
 /obj/effect/temp_visual/blood_spike

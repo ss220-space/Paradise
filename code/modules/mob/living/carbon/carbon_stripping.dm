@@ -74,8 +74,8 @@
 
 	if(!success)
 		return
-	muzzle.visible_message(span_danger("[user] [muzzle.locked ? "за" : "раз"]блокировал[GEND_ENDING_A_O_I(user)] [muzzle.declent_ru(ACCUSATIVE)] [source]!"), \
-					span_userdanger("[user] [muzzle.locked ? "за" : "раз"]блокировал[GEND_ENDING_A_O_I(user)] [muzzle.declent_ru(ACCUSATIVE)] [source]!"))
+	muzzle.visible_message(span_danger("[user] [muzzle.locked ? "за" : "раз"]блокировал[GEND_A_O_I(user)] [muzzle.declent_ru(ACCUSATIVE)] [source]!"), \
+					span_userdanger("[user] [muzzle.locked ? "за" : "раз"]блокировал[GEND_A_O_I(user)] [muzzle.declent_ru(ACCUSATIVE)] [source]!"))
 
 
 /datum/strippable_item/mob_item_slot/handcuffs

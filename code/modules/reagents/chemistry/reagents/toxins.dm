@@ -466,12 +466,12 @@
 
 		if(volume > 9 && (H.wear_mask || H.head))
 			if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
-				to_chat(H, span_danger("Ваш[GEND_ENDING_A_E_I(H.wear_mask)] [H.wear_mask.declent_ru(NOMINATIVE)] плавится!"))
+				to_chat(H, span_danger("Ваш[GEND_A_E_I(H.wear_mask)] [H.wear_mask.declent_ru(NOMINATIVE)] плавится!"))
 				qdel(H.wear_mask)
 				H.update_worn_mask()
 
 			if(H.head && !(H.head.resistance_flags & ACID_PROOF))
-				to_chat(H, span_danger("Ваш[GEND_ENDING_A_E_I(H.head)] [H.head.declent_ru(NOMINATIVE)] плавится!"))
+				to_chat(H, span_danger("Ваш[GEND_A_E_I(H.head)] [H.head.declent_ru(NOMINATIVE)] плавится!"))
 				qdel(H.head)
 				H.update_worn_head()
 

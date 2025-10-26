@@ -72,8 +72,8 @@
 		if(!do_after(user, 3 SECONDS, target, NONE) || !reagents || !reagents.total_volume)
 			return .
 		target.visible_message(
-			span_danger("[user] напоил[GEND_ENDING_A_O_I(user)] [target] содержимым [declent_ru(GENITIVE)]!"),
-			span_userdanger("[user] напоил[GEND_ENDING_A_O_I(user)] вас содержимым [declent_ru(GENITIVE)]!"),
+			span_danger("[user] напоил[GEND_A_O_I(user)] [target] содержимым [declent_ru(GENITIVE)]!"),
+			span_userdanger("[user] напоил[GEND_A_O_I(user)] вас содержимым [declent_ru(GENITIVE)]!"),
 		)
 		add_attack_logs(user, target, "Fed with [name] containing [contained]")
 	else
@@ -165,7 +165,7 @@
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
-		. += span_notice("К нему прикреплен[GEND_ENDING_A_O_Y(assembly)] [assembly]. Открутите [GEND_HIS_HER(assembly)] чем-нибудь, чтобы отсоединить.")
+		. += span_notice("К нему прикреплен[GEND_A_O_Y(assembly)] [assembly]. Открутите [GEND_HIS_HER(assembly)] чем-нибудь, чтобы отсоединить.")
 
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()

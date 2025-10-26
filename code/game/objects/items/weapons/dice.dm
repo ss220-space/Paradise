@@ -52,7 +52,7 @@
 
 
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] игра[PLUR_ET_UT(user)] со смертью! Похоже, он[GEND_ENDING_A_O_I(user)] пыта[PLUR_ET_UT(user)]ся покончить жизнь самоубийством!"))
+	user.visible_message(span_suicide("[user] игра[PLUR_ET_UT(user)] со смертью! Похоже, он[GEND_A_O_I(user)] пыта[PLUR_ET_UT(user)]ся покончить жизнь самоубийством!"))
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6

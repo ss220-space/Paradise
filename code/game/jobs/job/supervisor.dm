@@ -32,7 +32,7 @@
 	. = ..()
 	// Why the hell are captain announcements minor
 	GLOB.minor_announcement.announce(
-		message = "Всему экипажу! Капитан [human.real_name] взо[GEND_ENDING_SHEL(human)] на борт!",
+		message = "Всему экипажу! Капитан [human.real_name] взо[GEND_SHEL(human)] на борт!",
 		new_sound = 'sound/misc/announce.ogg'
 	)
 

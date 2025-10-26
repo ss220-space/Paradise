@@ -111,7 +111,7 @@
 	if(cuff_break)
 		if(is_processed)
 			visible_message(
-				span_warning("[name] перестал[GEND_ENDING_A_O_I(src)] пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_warning("[name] перестал[GEND_A_O_I(src)] пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
 				span_notice("Вы перестали пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]."),
 			)
 		else
@@ -128,7 +128,7 @@
 	else if(istype(cuffs, /obj/item/restraints/handcuffs))
 		if(is_processed)
 			visible_message(
-				span_warning("[name] перестал[GEND_ENDING_A_O_I(src)] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_warning("[name] перестал[GEND_A_O_I(src)] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
 				span_notice("Вы перестали пытаться снять [cuffs.declent_ru(ACCUSATIVE)]."),
 			)
 		else
@@ -148,7 +148,7 @@
 	else
 		if(is_processed)
 			visible_message(
-				span_warning("[name] перестал[GEND_ENDING_A_O_I(src)] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_warning("[name] перестал[GEND_A_O_I(src)] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
 				span_notice("Вы перестали пытаться снять [cuffs.declent_ru(ACCUSATIVE)]."),
 			)
 		else

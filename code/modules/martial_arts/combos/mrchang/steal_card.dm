@@ -14,9 +14,9 @@
 		user.put_in_hands(I, ignore_anim = FALSE)
 		user.say(pick("В+аша б+онусная к+арта!", "5000 б+аллов сп+исано!", "Приним+аем к+арты всех б+анков!", \
 						"Н+аше л+учшее предлож+ение!", "Безнал+ичный расч+ёт!", "Хват+ай! Беспл+атно!!"))
-		var/attack_verb = pick("кэшбекнул[GEND_ENDING_A_O_I(user)]", \
-		"уценил[GEND_ENDING_A_O_I(user)]", \
-		"сторговал[GEND_ENDING_A_O_I(user)]")
+		var/attack_verb = pick("кэшбекнул[GEND_A_O_I(user)]", \
+		"уценил[GEND_A_O_I(user)]", \
+		"сторговал[GEND_A_O_I(user)]")
 		target.visible_message(span_warning("[user] [attack_verb] [target]!"), \
 						span_userdanger("[user] [attack_verb] вас!"))
 		var/sound = pick('sound/weapons/mr_chang/mr_chang_steal_card_1.mp3', 'sound/weapons/mr_chang/mr_chang_steal_card_2.mp3', \

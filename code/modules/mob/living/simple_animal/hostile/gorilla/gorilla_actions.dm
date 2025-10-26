@@ -36,11 +36,11 @@
 		start_action_cooldown()
 		eat_banana(I)
 		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [GEND_HE_SHE(src)] не мо[PLUR_JET_GUT(src)] устоять перед искушением!"))
-		to_chat(src, span_notice("[user] покормил[GEND_ENDING_A_O_I(user)] Вас, возможно стоит [GEND_HIS_HER(user)] отблагодарить..."))
+		to_chat(src, span_notice("[user] покормил[GEND_A_O_I(user)] Вас, возможно стоит [GEND_HIS_HER(user)] отблагодарить..."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(is_on_cooldown())
-		to_chat(user, span_warning("[capitalize(name)] сейчас занят[GEND_ENDING_A_O_Y(src)]."))
+		to_chat(user, span_warning("[capitalize(name)] сейчас занят[GEND_A_O_Y(src)]."))
 		return ..()
 
 	start_action_cooldown()
@@ -253,7 +253,7 @@
 		return
 
 	if(is_on_cooldown())
-		to_chat(master, span_warning("[capitalize(name)] сейчас занят[GEND_ENDING_A_O_Y(src)]."))
+		to_chat(master, span_warning("[capitalize(name)] сейчас занят[GEND_A_O_Y(src)]."))
 		return
 
 	if(incapacitated())
