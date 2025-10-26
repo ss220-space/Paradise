@@ -333,7 +333,7 @@
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
 			if(is_monkeybasic(M) && M.stat)
-				M.visible_message("[capitalize(M)] исчезает, [genderize_ru(M.gender,"он","она","оно","они")] отправлен[genderize_ru(M.gender,"","а","о","ы")] на переработку!")
+				M.visible_message("[capitalize(M)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 				recycler.use_power(500)
 				X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 				qdel(M)
@@ -534,7 +534,7 @@
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(is_monkeybasic(M) && M.stat)
-			M.visible_message("[capitalize(M)] исчезает, [genderize_ru(M.gender,"он","она","оно","они")] отправлен[genderize_ru(M.gender,"","а","о","ы")] на переработку!")
+			M.visible_message("[capitalize(M)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 			recycler.use_power(500)
 			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 			qdel(M)

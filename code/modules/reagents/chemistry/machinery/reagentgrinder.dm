@@ -253,7 +253,7 @@
 			balloon_alert(user, "нечего загружать!")
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] загрузил[GEND_A_O_I(user)] содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы загрузили содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "содержимое загружено")
 		updateUsrDialog()
@@ -268,7 +268,7 @@
 
 	holdingitems += I
 	user.visible_message(
-		span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] загрузил[GEND_A_O_I(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы загрузили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	balloon_alert(user, "загружено в камеру")
 	updateUsrDialog()

@@ -105,7 +105,7 @@
 	if(!active_item || (active_item in src))
 		return FALSE
 
-	owner.visible_message(span_notice("[owner] убира[pluralize_ru(owner.gender,"ет","ют")] [active_item.declent_ru(ACCUSATIVE)] обратно в [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
+	owner.visible_message(span_notice("[owner] убира[PLUR_ET_UT(owner)] [active_item.declent_ru(ACCUSATIVE)] обратно в [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
 		span_notice("[capitalize(active_item.declent_ru(NOMINATIVE))] втягивается в вашу [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
 		span_italics("Слышен короткий механический щелчок."))
 

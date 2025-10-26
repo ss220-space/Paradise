@@ -7,7 +7,7 @@
 		return ..()
 
 	put_in_active_hand(AM)
-	visible_message(span_warning("[src] лов[pluralize_ru(gender, "ит", "ят")] [AM.declent_ru(ACCUSATIVE)]."))
+	visible_message(span_warning("[src] лов[PLUR_IT_YAT(src)] [AM.declent_ru(ACCUSATIVE)]."))
 	throw_mode_off()
 	SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
 	return TRUE
@@ -81,8 +81,8 @@
 				if(M.powerlevel < 0)
 					M.powerlevel = 0
 
-				visible_message(span_danger("[M.name] шокиру[pluralize_ru(M.gender, "ет", "ют")] [src]!"), \
-				span_userdanger("[M.name] шокиру[pluralize_ru(M.gender, "ет", "ют")] вас!"))
+				visible_message(span_danger("[M.name] шокиру[PLUR_ET_UT(M)] [src]!"), \
+				span_userdanger("[M.name] шокиру[PLUR_ET_UT(M)] вас!"))
 
 				do_sparks(5, TRUE, src)
 				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT

@@ -141,7 +141,7 @@
 	process_chamber()
 	user.balloon_alert(user, "выстрел в воздух")
 	user.visible_message(
-		span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"),
+		span_cultlarge("[user] поднима[PLUR_ET_UT(user)] дуло вверх и стреля[PLUR_ET_UT(user)], используя [declent_ru(ACCUSATIVE)]!"),
 		ignored_mobs = user
 
 	)
@@ -728,7 +728,7 @@
 			f_name = "a "
 		f_name += span_danger("blood-stained [name]!")
 
-	. = list("[bicon(src)] That's [f_name]")
+	. = list("[icon2html(src, user)] That's [f_name]")
 
 	if(desc)
 		. += desc

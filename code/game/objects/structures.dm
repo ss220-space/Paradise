@@ -117,7 +117,7 @@
 	if(!T || !istype(T))
 		return FALSE
 
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] забираться на [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_UT(user)] забираться на [declent_ru(ACCUSATIVE)]!"))
 	climber = user
 	if(!do_after(user, 5 SECONDS, src))
 		climber = null
@@ -129,7 +129,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся на [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[PLUR_ET_UT(user)]ся на [declent_ru(ACCUSATIVE)]!"))
 
 	clumse_stuff(climber)
 
@@ -239,7 +239,7 @@
 	return TRUE
 
 /obj/structure/proc/get_climb_text()
-	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на н[GEND_HIS_HER(src)].")
 
 /obj/structure/examine(mob/user)
 	. = ..()

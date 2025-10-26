@@ -65,7 +65,7 @@
 	record.fields["last_modifier_level"] = LAW_LEVEL_MAGISTRATE
 	var/crimes = generate_prisoner_role_crimes()
 	human.mind.store_memory("Меня посадили за: [crimes]")
-	record.fields["comments"] += "Заключён[genderize_ru(human.gender, "", "а", "о", "ы")] в пермабриг за: [crimes]"
+	record.fields["comments"] += "Заключён[GEND_A_O_Y(human)] в пермабриг за: [crimes]"
 
 /datum/job/civilian/prisoner/proc/generate_prisoner_role_crimes()
 	var/list/major_crimes = list("400", "402", "407")

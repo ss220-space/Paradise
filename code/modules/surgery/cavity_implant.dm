@@ -190,7 +190,7 @@
 /datum/surgery_step/cavity/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		span_warning("Вы дёргаете рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!")
 	)
 	target.apply_damage(20, def_zone = affected)
@@ -211,7 +211,7 @@
 /datum/surgery_step/cavity/make_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] создавать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] создавать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете создавать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	target.custom_pain("Вы чувствуете острую боль в [affected.declent_ru(PREPOSITIONAL)]!")
@@ -220,7 +220,7 @@
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] созда[pluralize_ru(user.gender, "ёт", "ют")] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] созда[PLUR_YOT_UT(user)] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы создаёте [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 
@@ -243,7 +243,7 @@
 /datum/surgery_step/cavity/close_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] закрывать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] закрывать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете закрывать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	target.custom_pain("Вы чувствуете жгучую боль в [affected.declent_ru(PREPOSITIONAL)]!")
@@ -252,7 +252,7 @@
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] закрыва[pluralize_ru(user.gender, "ет", "ют")] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] закрыва[PLUR_ET_UT(user)] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы закрываете [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 
@@ -269,7 +269,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	// Check even if there isn't anything inside
 	user.visible_message(
-		span_notice("[user] проверя[pluralize_ru(user.gender, "ет", "ют")] полость в [affected.declent_ru(GENITIVE)] [target] на наличие чужеродных объектов."),
+		span_notice("[user] проверя[PLUR_ET_UT(user)] полость в [affected.declent_ru(GENITIVE)] [target] на наличие чужеродных объектов."),
 		span_notice("Вы проверяете полость в [affected.declent_ru(GENITIVE)] [target] на наличие чужеродных объектов.")
 	)
 	return ..()
@@ -290,7 +290,7 @@
 		to_chat(user, span_warning("Вы ничего не находите в [affected.declent_ru(GENITIVE)] [target]."))
 		return SURGERY_STEP_CONTINUE
 	user.visible_message(
-		span_notice("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target]!"),
+		span_notice("[user] доста[PLUR_YOT_UT(user)] [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target]!"),
 		span_notice("Вы достаёте [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target]!")
 	)
 	user.put_in_hands(extracting, ignore_anim = FALSE)
@@ -300,7 +300,7 @@
 /datum/surgery_step/cavity/remove_item/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] по ошибке хвата[pluralize_ru(user.gender, "ет", "ют")]ся рукой за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], нанося серьёзные повреждения!"),
+		span_warning("[user] по ошибке хвата[PLUR_ET_UT(user)]ся рукой за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], нанося серьёзные повреждения!"),
 		span_warning("Вы по ошибке хватаетесь рукой за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], нанося серьёзные повреждения!")
 	)
 	target.apply_damage(rand(3,7), def_zone = affected)
@@ -346,11 +346,11 @@
 
 	var/can_fit = !affected.hidden && tool.w_class <= get_max_wclass(affected)
 	if(!can_fit)
-		to_chat(user, span_warning("[capitalize(tool.declent_ru(NOMINATIVE))] не помест[pluralize_ru(tool.gender, "ит", "ят")]ся внутри [affected.declent_ru(GENITIVE)]!"))
+		to_chat(user, span_warning("[capitalize(tool.declent_ru(NOMINATIVE))] не помест[PLUR_IT_YAT(tool)]ся внутри [affected.declent_ru(GENITIVE)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."),
 		span_notice("Вы начинаете помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target].")
 	)
 	target.custom_pain("Вы чувствуете сильную боль в [affected.declent_ru(GENITIVE)]!")
@@ -363,12 +363,12 @@
 		return SURGERY_STEP_CONTINUE
 
 	user.visible_message(
-		span_notice("[user] помеща[pluralize_ru(user.gender, "ет", "ют")] [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."),
+		span_notice("[user] помеща[PLUR_ET_UT(user)] [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."),
 		span_notice("Вы помещаете [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target].")
 	)
 	if((tool.w_class > get_max_wclass(affected) / 2 && prob(50) && !affected.is_robotic()))
 		user.visible_message(
-			span_warning("[user] разрыва[pluralize_ru(user.gender, "ет", "ют")] кровеносные сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], пытаясь засунуть [tool.declent_ru(ACCUSATIVE)] в полость!"),
+			span_warning("[user] разрыва[PLUR_ET_UT(user)] кровеносные сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], пытаясь засунуть [tool.declent_ru(ACCUSATIVE)] в полость!"),
 			span_danger("Вы разрываете кровеносные сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], пытаясь засунуть [tool.declent_ru(ACCUSATIVE)] в полость!"),
 			span_warning("Вы слышите тихий звук, напоминающий разрыв чего-то."))
 		affected.internal_bleeding()

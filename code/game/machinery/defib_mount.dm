@@ -105,7 +105,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		visible_message(span_notice("[user] прикрепил[genderize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
+		visible_message(span_notice("[user] прикрепил[GEND_A_O_I(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 		balloon_alert(user, "дефибриллятор установлен")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
@@ -159,7 +159,7 @@
 		return CLICK_ACTION_BLOCKING
 	defib.forceMove_turf()
 	user.put_in_hands(defib, ignore_anim = FALSE)
-	visible_message(span_notice("[user] вынима[pluralize_ru(user.gender, "ет", "ют")] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
+	visible_message(span_notice("[user] вынима[PLUR_ET_UT(user)] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	balloon_alert(user, "дефибриллятор извлечён")
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	defib = null

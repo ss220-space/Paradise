@@ -457,7 +457,7 @@
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message(span_warning("[user] переписыва[pluralize_ru(user.gender,"ет","ют")] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
+		user.visible_message(span_warning("[user] переписыва[PLUR_ET_UT(user)] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

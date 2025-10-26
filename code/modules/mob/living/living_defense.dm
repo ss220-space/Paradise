@@ -19,18 +19,18 @@
 		if(penetrated_text)
 			to_chat(src, span_userdanger("[penetrated_text]"))
 		else
-			to_chat(src, span_userdanger("[pluralize_ru(src.gender,"Твоя","Ваша")] броня пробита!"))
+			to_chat(src, span_userdanger("Ваша броня пробита!"))
 
 	if(armor >= 100)
 		if(absorb_text)
 			to_chat(src, span_userdanger("[absorb_text]"))
 		else
-			to_chat(src, span_userdanger("[pluralize_ru(src.gender,"Твоя","Ваша")] броня поглощает удар!"))
+			to_chat(src, span_userdanger("Ваша броня поглощает удар!"))
 	else if(armor > 0)
 		if(soften_text)
 			to_chat(src, span_userdanger("[soften_text]"))
 		else
-			to_chat(src, span_userdanger("[pluralize_ru(src.gender,"Твоя","Ваша")] броня смягчает удар!"))
+			to_chat(src, span_userdanger("Ваша броня смягчает удар!"))
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
@@ -84,7 +84,7 @@
 		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
-			span_danger("[capitalize(source.declent_ru(NOMINATIVE))] ударил[genderize_ru(source.gender, "", "а", "о", "и")] током [declent_ru(ACCUSATIVE)]!"),
+			span_danger("[capitalize(source.declent_ru(NOMINATIVE))] ударил[GEND_A_O_I(source)] током [declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Вы чувствуете как через ваше тело проходит электрический разряд!"),
 			span_hear("Вы слышите громкий электрический треск."),
 		)
@@ -137,13 +137,13 @@
 	if(nosell_hit)
 		return ..()
 
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] получа[pluralize_ru(gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."),
-					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] получа[pluralize_ru(gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] получа[PLUR_ET_UT(src)] удар [thrown_item.declent_ru(INSTRUMENTAL)]."),
+					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] получа[PLUR_ET_UT(src)] удар [thrown_item.declent_ru(INSTRUMENTAL)]."))
 
 	if(!thrown_item.throwforce)
 		return
 
-	var/armor = run_armor_check(zone, MELEE, "Броня защитила [GLOB.body_zone[zone][ACCUSATIVE]].", "[pluralize_ru(gender,"Твоя","Ваша")] броня смягчила удар по [GLOB.body_zone[zone][DATIVE]].", thrown_item.armour_penetration)
+	var/armor = run_armor_check(zone, MELEE, "Броня защитила [GLOB.body_zone[zone][ACCUSATIVE]].", "Ваша броня смягчила удар по [GLOB.body_zone[zone][DATIVE]].", thrown_item.armour_penetration)
 	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, is_sharp(thrown_item), thrown_item)
 
 	if(QDELETED(src)) //Damage can delete the mob.
@@ -162,7 +162,7 @@
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-			to_chat(M.occupant, span_warning("[pluralize_ru(M.occupant.gender,"Ты не хочешь","Вы не хотите")] навредить живым существам!"))
+			to_chat(M.occupant, span_warning("Вы не хотите навредить живым существам!"))
 			return
 		M.do_attack_animation(src)
 		if(M.damtype == "brute" && !is_strong())
@@ -180,24 +180,24 @@
 				M.mech_toxin_damage(src)
 			else
 				return
-		M.occupant_message(span_danger("[pluralize_ru(M.occupant.gender,"Ты","Вы")] ударяе[pluralize_ru(M.occupant.gender,"шь","те")] [declent_ru(ACCUSATIVE)]."))
-		visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] ударя[pluralize_ru(M.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"), span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] ударя[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!"))
+		M.occupant_message(span_danger("Вы ударяете [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] ударя[PLUR_ET_UT(M)] [declent_ru(ACCUSATIVE)]!"), span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] ударя[PLUR_ET_UT(M)] вас!"))
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		if(!is_strong())
 			step_away(src,M)
 			add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
-			M.occupant_message(span_warning("[pluralize_ru(M.occupant.gender,"Ты толкаешь","Вы толкаете")] [declent_ru(ACCUSATIVE)] в сторону."))
-			visible_message(span_warning("[capitalize(M.declent_ru(NOMINATIVE))] отталкива[pluralize_ru(M.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] в сторону."))
+			M.occupant_message(span_warning("Вы толкаете [declent_ru(ACCUSATIVE)] в сторону."))
+			visible_message(span_warning("[capitalize(M.declent_ru(NOMINATIVE))] отталкива[PLUR_ET_UT(M)] [declent_ru(ACCUSATIVE)] в сторону."))
 		else
-			M.occupant_message(span_warning("[pluralize_ru(M.occupant.gender,"Ты пытаешься оттолкнуть","Вы пытаетесь оттолкнуть")] [declent_ru(ACCUSATIVE)] в сторону, но это не срабатывает."))
+			M.occupant_message(span_warning("Вы пытаетесь оттолкнуть [declent_ru(ACCUSATIVE)] в сторону, но это не срабатывает."))
 			visible_message(span_warning("[capitalize(M.declent_ru(NOMINATIVE))] безуспешно пытается оттолкнуть [declent_ru(ACCUSATIVE)] в сторону."))
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = TRUE
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] загора[pluralize_ru(gender,"ется","ются")]!"), span_userdanger("Вы загораетесь!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] загора[PLUR_ET_UT(src)]ся!"), span_userdanger("Вы загораетесь!"))
 		set_light_range(light_range + 3)
 		set_light_color("#ED9200")
 		throw_alert("fire", /atom/movable/screen/alert/fire)
@@ -383,8 +383,8 @@
 	if(isnull(grab_state_override) && grabber.grab_state) //only the first upgrade is instantaneous
 		var/old_grab_state = grabber.grab_state
 		visible_message(
-			span_danger("[grabber.name] начина[pluralize_ru(grabber.gender,"ет","ют")] усиливать хватку над [name]!"),
-			span_userdanger("[grabber.name] начина[pluralize_ru(grabber.gender,"ет","ют")] усиливать хватку над Вами!"),
+			span_danger("[grabber.name] начина[PLUR_ET_UT(grabber)] усиливать хватку над [name]!"),
+			span_userdanger("[grabber.name] начина[PLUR_ET_UT(grabber)] усиливать хватку над Вами!"),
 			span_italics("Вы слышите агрессивную возню!"),
 			ignored_mobs = grabber,
 		)
@@ -406,8 +406,8 @@
 			var/add_log = ""
 			if(HAS_TRAIT(grabber, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 				visible_message(
-					span_danger("[grabber.name] крепко сжима[pluralize_ru(grabber.gender,"ет","ют")] [name]!"),
-					span_danger("[grabber.name] крепко сжима[pluralize_ru(grabber.gender,"ет","ют")] Вас!"),
+					span_danger("[grabber.name] крепко сжима[PLUR_ET_UT(grabber)] [name]!"),
+					span_danger("[grabber.name] крепко сжима[PLUR_ET_UT(grabber)] Вас!"),
 					span_italics("Вы слышите агрессивную возню!"),
 					ignored_mobs = grabber,
 				)
@@ -415,8 +415,8 @@
 				add_log = " (pacifist)"
 			else
 				visible_message(
-					span_danger("[grabber.name] агрессивно хвата[pluralize_ru(grabber.gender,"ет","ют")] [name]!"),
-					span_danger("[grabber.name] агрессивно хвата[pluralize_ru(grabber.gender,"ет","ют")] Вас!"),
+					span_danger("[grabber.name] агрессивно хвата[PLUR_ET_UT(grabber)] [name]!"),
+					span_danger("[grabber.name] агрессивно хвата[PLUR_ET_UT(grabber)] Вас!"),
 					span_italics("Вы слышите агрессивную возню!"),
 					ignored_mobs = grabber,
 				)
@@ -425,8 +425,8 @@
 		if(GRAB_NECK)
 			add_attack_logs(grabber, src, "grabbed (neck grab)", ATKLOG_ALL)
 			visible_message(
-				span_danger("[grabber.name] хвата[pluralize_ru(grabber.gender,"ет","ют")] [name] за шею!"),
-				span_userdanger("[grabber.name] хвата[pluralize_ru(grabber.gender,"ет","ют")] Вас за шею!"),
+				span_danger("[grabber.name] хвата[PLUR_ET_UT(grabber)] [name] за шею!"),
+				span_userdanger("[grabber.name] хвата[PLUR_ET_UT(grabber)] Вас за шею!"),
 				span_italics("Вы слышите агрессивную возню!"),
 				ignored_mobs = grabber,
 			)
@@ -436,8 +436,8 @@
 		if(GRAB_KILL)
 			add_attack_logs(grabber, src, "strangled (kill grab)", ATKLOG_ALL)
 			visible_message(
-				span_danger("[grabber.name] душ[pluralize_ru(grabber.gender,"ит","ат")] [name]!"),
-				span_userdanger("[grabber.name] душ[pluralize_ru(grabber.gender,"ит","ат")] Вас!"),
+				span_danger("[grabber.name] душ[PLUR_IT_AT(grabber)] [name]!"),
+				span_userdanger("[grabber.name] душ[PLUR_IT_AT(grabber)] Вас!"),
 				span_italics("Вы слышите агрессивную возню!"),
 				ignored_mobs = grabber,
 			)
@@ -475,7 +475,7 @@
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)
-		to_chat(M, "[pluralize_ru(M.gender,"Ты не можешь","Вы не можете")] нападать на людей, пока игра не началась.")
+		to_chat(M, "Вы не можете нападать на людей, пока игра не началась.")
 		return
 
 	if(M.buckled)
@@ -484,15 +484,15 @@
 		return // can't attack while eating!
 
 	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(M, span_warning("[pluralize_ru(M.gender,"Ты не хочешь","Вы не хотите")] никому навредить!"))
+		to_chat(M, span_warning("Вы не хотите никому навредить!"))
 		return FALSE
 
 	if(stat != DEAD)
 		add_attack_logs(M, src, "Slime'd")
 		M.do_attack_animation(src)
 		visible_message(
-			span_danger("[capitalize(M.declent_ru(NOMINATIVE))] поглоща[pluralize_ru(M.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[M.declent_ru(NOMINATIVE)] поглоща[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(gender,"тебя","вас")]!"))
+			span_danger("[capitalize(M.declent_ru(NOMINATIVE))] поглоща[PLUR_ET_UT(M)] [declent_ru(ACCUSATIVE)]!"),
+			span_userdanger("[M.declent_ru(NOMINATIVE)] поглоща[PLUR_ET_UT(M)] вас!"))
 		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
@@ -503,7 +503,7 @@
 		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [declent_ru(ACCUSATIVE)].")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(M, span_warning("[pluralize_ru(M.gender,"Ты не хочешь","Вы не хотите")] никому навредить!"))
+		to_chat(M, span_warning("Вы не хотите никому навредить!"))
 		return FALSE
 
 	if(M.attack_sound)
@@ -518,38 +518,38 @@
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
 	switch(L.a_intent)
 		if(INTENT_HELP)
-			visible_message(span_notice("[L.declent_ru(NOMINATIVE)] [pluralize_ru(L.gender,"трётся","трутся")] головой о [declent_ru(ACCUSATIVE)]."))
+			visible_message(span_notice("[L.declent_ru(NOMINATIVE)] тр[PLUR_YOT_YT(L)]ся головой о [declent_ru(ACCUSATIVE)]."))
 			return FALSE
 
 		else
 			if(HAS_TRAIT(L, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-				to_chat(L, span_warning("[pluralize_ru(L.gender,"Ты не хочешь","Вы не хотите")] никому навредить!"))
+				to_chat(L, span_warning("Вы не хотите никому навредить!"))
 				return FALSE
 
 			L.do_attack_animation(src)
 			if(prob(90))
 				add_attack_logs(L, src, "Larva attacked")
-				visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] куса[pluralize_ru(L.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"), \
-						span_userdanger("[capitalize(L.declent_ru(NOMINATIVE))] куса[pluralize_ru(L.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] куса[PLUR_ET_UT(L)] [declent_ru(ACCUSATIVE)]!"), \
+						span_userdanger("[capitalize(L.declent_ru(NOMINATIVE))] куса[PLUR_ET_UT(L)] [declent_ru(ACCUSATIVE)]!"))
 				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 				return TRUE
 			else
-				visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] пыта[pluralize_ru(L.gender,"ет","ют")]ся укусить [declent_ru(ACCUSATIVE)]!"), \
-					span_userdanger("[capitalize(L.declent_ru(NOMINATIVE))] пыта[pluralize_ru(L.gender,"ет","ют")]ся укусить [declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(L)]ся укусить [declent_ru(ACCUSATIVE)]!"), \
+					span_userdanger("[capitalize(L.declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(L)]ся укусить [declent_ru(ACCUSATIVE)]!"))
 	return FALSE
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
 	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			visible_message(span_notice("[M.declent_ru(NOMINATIVE)] глад[pluralize_ru(M.gender,"ит","ят")] [declent_ru(ACCUSATIVE)] своей серповидной рукой."))
+			visible_message(span_notice("[M.declent_ru(NOMINATIVE)] глад[PLUR_IT_YAT(M)] [declent_ru(ACCUSATIVE)] своей серповидной рукой."))
 			return FALSE
 		if(INTENT_GRAB)
 			grabbedby(M)
 			return FALSE
 		if(INTENT_HARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-				to_chat(M, span_warning("[pluralize_ru(M.gender,"Ты","Вы")] не [pluralize_ru(M.gender,"хочешь","хотите")] никому навредить!"))
+				to_chat(M, span_warning("Вы не хотите никому навредить!"))
 				return FALSE
 			M.do_attack_animation(src)
 			return TRUE

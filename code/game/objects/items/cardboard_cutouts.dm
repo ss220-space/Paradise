@@ -18,7 +18,7 @@
 /obj/item/twohanded/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
-	user.visible_message(span_warning("[user] толка[pluralize_ru(user.gender,"ет","ют")] [src]!"), span_danger("[pluralize_ru(user.gender,"Ты толкаешь","Вы толкаете")] [src]!"))
+	user.visible_message(span_warning("[user] толка[PLUR_ET_UT(user)] [src]!"), span_danger("Вы толкаете [src]!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 	push_over()
 
@@ -35,7 +35,7 @@
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		if(pushed_over)
-			to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты поднимаешь","Вы поднимаете")] [src]."))
+			to_chat(user, span_notice("Вы поднимаете [src]."))
 			desc = initial(desc)
 			icon = initial(icon)
 			icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting

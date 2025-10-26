@@ -466,12 +466,12 @@
 
 		if(volume > 9 && (H.wear_mask || H.head))
 			if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
-				to_chat(H, span_danger("Ваш[genderize_ru(H.wear_mask.gender, "", "а", "е", "и")] [H.wear_mask.declent_ru(NOMINATIVE)] плавится!"))
+				to_chat(H, span_danger("Ваш[GEND_A_E_I(H.wear_mask)] [H.wear_mask.declent_ru(NOMINATIVE)] плавится!"))
 				qdel(H.wear_mask)
 				H.update_worn_mask()
 
 			if(H.head && !(H.head.resistance_flags & ACID_PROOF))
-				to_chat(H, span_danger("Ваш[genderize_ru(H.head.gender, "", "а", "е", "и")] [H.head.declent_ru(NOMINATIVE)] плавится!"))
+				to_chat(H, span_danger("Ваш[GEND_A_E_I(H.head)] [H.head.declent_ru(NOMINATIVE)] плавится!"))
 				qdel(H.head)
 				H.update_worn_head()
 
@@ -658,7 +658,7 @@
 		M.emote(pick("blink", "sneeze"))
 		M.AdjustEyeBlurry(6 SECONDS)
 	if(prob(10))
-		M.visible_message(span_danger("[M] расчёсыва[pluralize_ru(M.gender, "ет", "ют")] кожу до крови!"))
+		M.visible_message(span_danger("[M] расчёсыва[PLUR_ET_UT(M)] кожу до крови!"))
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		M.emote("grumble")
 	if(prob(5))
@@ -690,7 +690,7 @@
 			M.visible_message(span_danger("У [M] выступила крапивница на коже!"))
 			update_flags |= M.adjustBruteLoss(6, FALSE)
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] оглушительно кашля[pluralize_ru(M.gender, "ет", "ют")], сгинаясь пополам!"))
+			M.visible_message(span_warning("[M] оглушительно кашля[PLUR_ET_UT(M)], сгинаясь пополам!"))
 			M.Jitter(20 SECONDS)
 			M.AdjustStuttering(rand(0, 10 SECONDS))
 			M.emote("cough")
@@ -850,7 +850,7 @@
 		to_chat(M, span_notice("Вам щекотно!"))
 		M.emote(pick("laugh", "giggle"))
 	if(prob(15))
-		M.visible_message(span_danger("[M] сильно чеш[pluralize_ru(M.gender, "ет", "ут")]ся!"))
+		M.visible_message(span_danger("[M] сильно чеш[PLUR_ET_YT(M)]ся!"))
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		M.Stun(rand(0, 2 SECONDS))
 		M.emote("grumble")
@@ -864,7 +864,7 @@
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 		M.Weaken(10 SECONDS)
 		M.AdjustJitter(12 SECONDS)
-		M.visible_message(span_danger("[M] вал[pluralize_ru(M.gender, "ит", "ят")]ся на землю, истерично рассчёсывая свою кожу до крови!"))
+		M.visible_message(span_danger("[M] вал[PLUR_IT_YAT(M)]ся на землю, истерично рассчёсывая свою кожу до крови!"))
 		M.emote("scream")
 	return ..() | update_flags
 

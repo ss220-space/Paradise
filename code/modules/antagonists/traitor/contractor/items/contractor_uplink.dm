@@ -51,6 +51,6 @@
 	if(!istype(M))
 		return
 
-	to_chat(M, span_notice("[bicon(src)] Входящая зашифрованная передача от ваших кураторов. Сообщение следующее:<br/>") + span_boldnotice("[text]"))
+	to_chat(M, span_notice("[icon2html(src, M)] Входящая зашифрованная передача от ваших кураторов. Сообщение следующее:<br/>") + span_boldnotice("[text]"))
 	if(sndfile)
 		M.playsound_local(get_turf(M), sndfile, 30, FALSE)

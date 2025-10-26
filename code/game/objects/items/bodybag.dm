@@ -49,7 +49,7 @@
 
 /obj/item/bodybag/suicide_act(mob/living/user)
 	if(isfloorturf(user.loc))
-		user.visible_message(span_suicide("[user] заполза[pluralize_ru(user.gender, "ет", "ют")] в [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
+		user.visible_message(span_suicide("[user] заполза[PLUR_ET_UT(user)] в [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся совершить самоубийство!"))
 		var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
 		R.add_fingerprint(user)
 		qdel(src)
@@ -271,7 +271,7 @@
 	// you are still in the bag? time to go unless you KO'd, honey!
 	// if they escape during this time and you rebag them the timer is still clocking down and does NOT reset so they can very easily get out.
 	if(user.incapacitated())
-		to_chat(loc, span_warning("Давление ослабевает. Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] переста[genderize_ru(user.gender, "л", "ла", "ло", "ли")] сопротивляться..."))
+		to_chat(loc, span_warning("Давление ослабевает. Похоже, [GEND_HE_SHE(user)] перестал[GEND_A_O_I(user)] сопротивляться..."))
 		return
 	loc.visible_message(span_warning("[user] внезапно появляется перед [loc.declent_ru(INSTRUMENTAL)]!"))
 	balloon_alert(user, "вы вырываетесь!")

@@ -875,7 +875,7 @@
 	else
 		to_chat(user, display_parts(user))
 	if(moved)
-		balloon_alert(user, "пополнено [moved] товар[declension_ru(moved, "", "а", "ов")]")
+		balloon_alert(user, "пополнено [moved] товар[DECL_CREDIT(moved)]")
 		W.play_rped_sound()
 	return TRUE
 
@@ -887,7 +887,7 @@
 	if(!item_slot || inserted_item)
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто бы приклеен[genderize_ru(I.gender, "", "а", "о", "ы")] к вашей руке! Вы не можете [genderize_ru(I.gender, "его", "её", "его", "их")] скинуть!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто бы приклеен[GEND_A_O_Y(I)] к вашей руке! Вы не можете [GEND_HIS_HER(I)] скинуть!"))
 		return
 	inserted_item = I
 	balloon_alert(user, "предмет вставлен")
@@ -966,7 +966,7 @@
 		var/obj/item/stack/spacecash/cash = H.get_active_hand()
 		if(istype(cash))
 			data["userMoney"] = cash.amount
-			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[pluralize_ru(cash.amount, "", "а", "ов")]."
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[DECL_CREDIT(cash.amount)]."
 		else if(istype(H))
 			var/obj/item/card/id/C = H.get_id_card()
 			if(istype(money_account))
@@ -1330,14 +1330,14 @@
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 		tilt(target, from_combat = TRUE)
 		target.visible_message(
-			span_danger("[attacker] толка[pluralize_ru(attacker.gender, "ет", "ют")] [target] в [declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[attacker] впечатыва[pluralize_ru(attacker.gender, "ет", "ют")] вас в [declent_ru(ACCUSATIVE)]!"),
+			span_danger("[attacker] толка[PLUR_ET_UT(attacker)] [target] в [declent_ru(ACCUSATIVE)]!"),
+			span_userdanger("[attacker] впечатыва[PLUR_ET_UT(attacker)] вас в [declent_ru(ACCUSATIVE)]!"),
 			span_danger("Вы слышите громкий хруст.")
 		)
 	else
 		attacker.visible_message(
-			span_notice("[attacker] слегка прижима[pluralize_ru(attacker.gender, "ет", "ют")] [target] к [declent_ru(DATIVE)]."),
-			span_userdanger("Вы слегка прижимаете [target] к [declent_ru(DATIVE)], вы же не хотите причинить [genderize_ru(target.gender, "ему", "ей", "ему", "им")] боль!")
+			span_notice("[attacker] слегка прижима[PLUR_ET_UT(attacker)] [target] к [declent_ru(DATIVE)]."),
+			span_userdanger("Вы слегка прижимаете [target] к [declent_ru(DATIVE)], вы же не хотите причинить [GEND_HIM_HER(target)] боль!")
 			)
 	return TRUE
 
@@ -1482,7 +1482,7 @@
 		if(!do_after(user, 7 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE))
 			return
 		user.visible_message(
-			span_notice("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] поднима[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы слышите громкий лязг.")
 		)

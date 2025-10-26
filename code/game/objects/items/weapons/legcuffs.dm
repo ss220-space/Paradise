@@ -63,7 +63,7 @@
 
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] засовыва[pluralize_ru(user.gender, "ет", "ют")] свою голову в [declent_ru(NOMINATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
+	user.visible_message(span_suicide("[user] засовыва[PLUR_ET_UT(user)] свою голову в [declent_ru(NOMINATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся совершить самоубийство!"))
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
@@ -85,7 +85,7 @@
 	if(istype(I, /obj/item/grenade/iedcasing))	//Let's get explosive.
 		add_fingerprint(user)
 		if(IED)
-			to_chat(user, span_warning("[capitalize(IED.declent_ru(NOMINATIVE))] уже прикреплен[genderize_ru(IED.gender, "", "а", "о", "ы")] к [declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("[capitalize(IED.declent_ru(NOMINATIVE))] уже прикреплен[GEND_A_O_Y(IED)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -100,10 +100,10 @@
 		var/obj/item/assembly/signaler/signaler = I
 		add_fingerprint(user)
 		if(sig)
-			to_chat(user, span_warning("[capitalize(signaler.declent_ru(NOMINATIVE))] уже подключен[genderize_ru(signaler.gender, "", "а", "о", "ы")] к [declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("[capitalize(signaler.declent_ru(NOMINATIVE))] уже подключен[GEND_A_O_Y(signaler)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(signaler.secured)
-			to_chat(user, span_notice("[capitalize(signaler.declent_ru(NOMINATIVE))] не долж[genderize_ru(signaler.gender, "ен", "на", "но", "ны")] быть закрепл[genderize_ru(signaler.gender, "ён", "ена", "ено", "ены")]."))
+			to_chat(user, span_notice("[capitalize(signaler.declent_ru(NOMINATIVE))] не долж[GEND_EN_NA_NO_NY(signaler)] быть закреплен[GEND_A_O_Y(signaler)]."))
 			balloon_alert(user, "невозможно")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
@@ -124,14 +124,14 @@
 
 	if(IED)
 		IED.forceMove(get_turf(src))
-		balloon_alert(user, "[IED.declent_ru(NOMINATIVE)] снят[genderize_ru(IED.gender, "", "а", "о", "ы")]")
+		balloon_alert(user, "[IED.declent_ru(NOMINATIVE)] снят[GEND_A_O_Y(IED)]")
 		IED = null
 		update_appearance(UPDATE_DESC)
 		return
 
 	if(sig)
 		sig.forceMove(get_turf(src))
-		balloon_alert(user, "[sig.declent_ru(NOMINATIVE)] снят[genderize_ru(sig.gender, "", "а", "о", "ы")]")
+		balloon_alert(user, "[sig.declent_ru(NOMINATIVE)] снят[GEND_A_O_Y(sig)]")
 		sig = null
 		update_appearance(UPDATE_DESC)
 		return
@@ -141,10 +141,10 @@
 	. = ..()
 	desc = initial(desc)
 	if(IED)
-		desc += "\n[span_warning("К [genderize_ru(gender, "нему", "ней", "нему", "ним")] подсоединен[genderize_ru(IED.gender, "", "а", "о", "ы")] [IED.declent_ru(NOMINATIVE)]!")]"
+		desc += "\n[span_warning("К н[GEND_HIM_HER(src)] подсоединен[GEND_A_O_Y(IED)] [IED.declent_ru(NOMINATIVE)]!")]"
 
 	if(sig)
-		desc += "\n[span_warning("К [genderize_ru(gender, "нему", "ней", "нему", "ним")] подсоединен[genderize_ru(sig.gender, "", "а", "о", "ы")] [sig.declent_ru(NOMINATIVE)].")]"
+		desc += "\n[span_warning("К н[GEND_HIM_HER(src)] подсоединен[GEND_A_O_Y(sig)] [sig.declent_ru(NOMINATIVE)].")]"
 
 /obj/item/restraints/legcuffs/beartrap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -165,7 +165,7 @@
 	armed = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	playsound(src.loc, 'sound/effects/snap.ogg', 50, TRUE)
-	moving_thing.visible_message(span_danger("[moving_thing] активиру[pluralize_ru(moving_thing.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+	moving_thing.visible_message(span_danger("[moving_thing] активиру[PLUR_ET_UT(moving_thing)] [declent_ru(ACCUSATIVE)]."),
 								span_userdanger("Вы активируете [declent_ru(ACCUSATIVE)]!"))
 
 	if(IED)
@@ -346,18 +346,18 @@
 	if(vamp && HAS_TRAIT_FROM(target, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT))
 		if(vamp.bloodusable)
 			vamp.bloodusable = max(vamp.bloodusable - 10, 0)
-			target.visible_message(span_danger("[target] отража[pluralize_ru(target.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]!"),
+			target.visible_message(span_danger("[target] отража[PLUR_ET_UT(target)] [declent_ru(ACCUSATIVE)]!"),
 									span_notice("Вы отражаете [declent_ru(ACCUSATIVE)], это стоит вам 10 крови."))
 			return TRUE
 
 		REMOVE_TRAIT(target, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT)
 
 	if(HAS_TRAIT(target, TRAIT_DEFLECT_BOLAS))
-		target.visible_message(span_danger("[target] отража[pluralize_ru(target.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]!"))
+		target.visible_message(span_danger("[target] отража[PLUR_ET_UT(target)] [declent_ru(ACCUSATIVE)]!"))
 		return TRUE
 
-	target.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сковыва[pluralize_ru(target.gender, "ет", "ют")] ноги [target.declent_ru(GENITIVE)]!"))
-	to_chat(target, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] сковыва[pluralize_ru(target.gender, "ет", "ют")] ваши ноги!"))
+	target.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сковыва[PLUR_ET_UT(target)] ноги [target.declent_ru(GENITIVE)]!"))
+	to_chat(target, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] сковыва[PLUR_ET_UT(target)] ваши ноги!"))
 	target.apply_restraints(src, ITEM_SLOT_LEGCUFFED)
 	if(weaken_amt)
 		target.Weaken(weaken_amt)

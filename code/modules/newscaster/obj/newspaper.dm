@@ -167,7 +167,7 @@
 			text = new_scribble
 		))
 		user.visible_message(
-			span_notice("[user] дела[pluralize_ru(user.gender, "ет", "ют")] пометку в газете."),
+			span_notice("[user] дела[PLUR_ET_UT(user)] пометку в газете."),
 			span_notice("Вы делаете пометку на [current_page] странице [declent_ru(GENITIVE)]."),
 		)
 		attack_self(user)
@@ -179,7 +179,7 @@
 	rolled = !rolled
 	icon_state = "newspaper[rolled ? "_rolled" : ""]"
 	update_icon()
-	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),\
+	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),\
 							span_notice("Вы [rolled ? "с" : "раз"]ворачиваете [declent_ru(ACCUSATIVE)]."))
 	name = "[rolled ? "rolled" : ""] [initial(name)]"
 	ru_names = list(

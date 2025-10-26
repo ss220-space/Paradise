@@ -48,7 +48,7 @@
 		flick(pulseicon, src)
 
 /obj/item/nuke_core/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] натирает себя [src.declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пытается покончить с собой!"))
+	user.visible_message(span_suicide("[user] натирает себя [src.declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой!"))
 	return TOXLOSS
 
 //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
@@ -307,7 +307,7 @@
 		user.balloon_alert(user, "слишком тяжело!")
 		return FALSE
 	user.visible_message(
-		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [src.declent_ru(DATIVE)]. [genderize_ru(user.gender,"его","её","его","их")] тело начинает светиться и мгновенно вспыхивает!"),
+		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [src.declent_ru(DATIVE)]. [GEND_HIS_HER(user)] тело начинает светиться и мгновенно вспыхивает!"),
 		span_userdanger("Вы попытались взять [src.declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
 		span_italics("Внезапно наступает тишина.")
 	)
@@ -415,7 +415,7 @@
 		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE) || HAS_TRAIT(user, TRAIT_SUPERMATTERIMMUNE))
 			return FALSE
 		user.visible_message(
-			span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [sliver.declent_ru(DATIVE)]. [genderize_ru(user.gender,"Его","Её","Его","Их")] тело начинает светиться и вспыхивает!"),
+			span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [sliver.declent_ru(DATIVE)]. [GEND_HIS_HER_CAP(user)] тело начинает светиться и вспыхивает!"),
 			span_userdanger("Вы попытались взять [sliver.declent_ru(ACCUSATIVE)] голыми руками. Это было глупо."),
 			span_italics("Внезапно наступает тишина.")
 		)

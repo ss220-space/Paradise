@@ -87,7 +87,7 @@
 	//ventcrawl_target.flick_overlay_static(image('icons/effects/vent_indicator.dmi', "arrow", ABOVE_MOB_LAYER, dir = get_dir(src.loc, ventcrawl_target.loc)), 2 SECONDS)
 	ventcrawl_target.add_overlay(crawl_overlay)
 	visible_message(
-		span_notice("[name] начина[pluralize_ru(gender,"ет", "ют")] залезать в вентиляцию..."),
+		span_notice("[name] начина[PLUR_ET_UT(src)] залезать в вентиляцию..."),
 		span_notice("Вы начинаете залезать в вентиляцию..."),
 	)
 	if(!do_after(src, 4.5 SECONDS, target = ventcrawl_target))
@@ -116,7 +116,7 @@
 
 	if(message)
 		visible_message(
-		span_notice("[name] залез[genderize_ru(gender, "", "ла", "ло", "ли")] в вентиляцию!"),
+		span_notice("[name] залез[GEND_LA_LO_LI(src)] в вентиляцию!"),
 		span_notice("Вы залезли в вентиляцию."),
 	)
 	abstract_move(ventcrawl_target)
@@ -147,7 +147,7 @@
 	SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
 	if(message)
 		visible_message(
-			span_notice("[name] вылез[genderize_ru(gender, "", "ла", "ло", "ли")] из вентиляции!"),
+			span_notice("[name] вылез[GEND_LA_LO_LI(src)] из вентиляции!"),
 			span_notice("Вы вылезли из вентиляции."),
 		)
 	return TRUE

@@ -859,7 +859,7 @@
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] наблевал[genderize_ru(src.gender,"","а","о","и")] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
+				visible_message("<span class='warning'>[src.name] наблевал[GEND_A_O_I(src)] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
 			location.add_vomit_floor(TRUE)
 
 

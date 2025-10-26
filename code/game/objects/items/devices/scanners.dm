@@ -560,7 +560,7 @@ BODY SCANNERS
 
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message(
-			span_warning("[user] анализиру[pluralize_ru(user.gender, "ет", "ют")] жизненные показатели пола!"),
+			span_warning("[user] анализиру[PLUR_ET_UT(user)] жизненные показатели пола!"),
 			span_notice("Вы по глупости проанализировали жизненные показатели пола!")
 		)
 		var/list/data = list()
@@ -597,12 +597,12 @@ BODY SCANNERS
 
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] сканиру[pluralize_ru(user.gender,"ет","ют")] себя с помощью [declent_ru(GENITIVE)]."),
+			span_notice("[user] сканиру[PLUR_ET_UT(user)] себя с помощью [declent_ru(GENITIVE)]."),
 			span_notice("Вы сканируете себя с помощью [declent_ru(GENITIVE)].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] сканиру[pluralize_ru(user.gender,"ет","ют")] [target] с помощью [declent_ru(GENITIVE)]."),
+			span_notice("[user] сканиру[PLUR_ET_UT(user)] [target] с помощью [declent_ru(GENITIVE)]."),
 			span_notice("Вы сканируете [target] с помощью [declent_ru(GENITIVE)].")
 		)
 	var/mob/living/carbon/human/H = target
@@ -1286,8 +1286,8 @@ BODY SCANNERS
 	var/icon = target
 	var/message = list()
 	if(!silent && isliving(user))
-		user.visible_message(span_notice("[user] uses the analyzer on [bicon(icon)] [target]."), span_notice("You use the analyzer on [bicon(icon)] [target]"))
-	message += span_boldnotice("Results of analysis of [bicon(icon)] [target].")
+		user.visible_message(span_notice("[user] uses the analyzer on [icon2html(icon, viewers(icon))] [target]."), span_notice("You use the analyzer on [icon2html(icon, user)] [target]"))
+	message += span_boldnotice("Results of analysis of [icon2html(icon, user)] [target].")
 
 	if(!print)
 		return TRUE

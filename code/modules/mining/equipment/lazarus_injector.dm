@@ -51,7 +51,7 @@
 					else
 						H.attack_same = 0
 				loaded = FALSE
-				user.visible_message(span_notice("[user] ввод[pluralize_ru(user.gender,"ит","яд")] в [M.declent_ru(ACCUSATIVE)] инъектор Лазаря, оживляя его."))
+				user.visible_message(span_notice("[user] ввод[PLUR_IT_YAT(user)] в [M.declent_ru(ACCUSATIVE)] инъектор Лазаря, оживляя его."))
 				playsound(src,'sound/effects/refill.ogg',50, TRUE)
 				update_icon(UPDATE_ICON_STATE)
 				return

@@ -36,7 +36,7 @@
 		if(chambered.BB)
 			. += span_notice("It is loaded.")
 		if(tank)
-			. += span_notice("[bicon(tank)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
+			. += span_notice("[icon2html(tank, user)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
 		if(isBelted)
 			. += span_notice("It has a strap, now you can hold [src] on your back.")
 

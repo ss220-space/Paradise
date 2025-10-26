@@ -46,8 +46,8 @@
 
 	if(user.a_intent == INTENT_HARM)
 		target.visible_message(
-			span_danger("[user] вылива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на [target]!"),
-			span_userdanger("[user] вылива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на вас!")
+			span_danger("[user] вылива[PLUR_ET_UT(user)] содержимое [declent_ru(GENITIVE)] на [target]!"),
+			span_userdanger("[user] вылива[PLUR_ET_UT(user)] содержимое [declent_ru(GENITIVE)] на вас!")
 		)
 		add_attack_logs(user, target, "Splashed with [name] containing [contained]")
 		make_splashes(target)
@@ -66,14 +66,14 @@
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся напоить содержимым [declent_ru(GENITIVE)] [target]!"),
-			span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся напоить вас содержимым [declent_ru(GENITIVE)]!"),
+			span_danger("[user] пыта[PLUR_ET_UT(user)]ся напоить содержимым [declent_ru(GENITIVE)] [target]!"),
+			span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся напоить вас содержимым [declent_ru(GENITIVE)]!"),
 		)
 		if(!do_after(user, 3 SECONDS, target, NONE) || !reagents || !reagents.total_volume)
 			return .
 		target.visible_message(
-			span_danger("[user] напоил[genderize_ru(user.gender, "", "а", "о", "и")] [target] содержимым [declent_ru(GENITIVE)]!"),
-			span_userdanger("[user] напоил[genderize_ru(user.gender, "", "а", "о", "и")] вас содержимым [declent_ru(GENITIVE)]!"),
+			span_danger("[user] напоил[GEND_A_O_I(user)] [target] содержимым [declent_ru(GENITIVE)]!"),
+			span_userdanger("[user] напоил[GEND_A_O_I(user)] вас содержимым [declent_ru(GENITIVE)]!"),
 		)
 		add_attack_logs(user, target, "Fed with [name] containing [contained]")
 	else
@@ -104,7 +104,7 @@
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		after_transfer(target)
-		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)
@@ -120,7 +120,7 @@
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
-			user.visible_message(span_danger("[user] облива[pluralize_ru(user, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
+			user.visible_message(span_danger("[user] облива[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
 								("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"))
 			make_splashes(target)
 
@@ -165,7 +165,7 @@
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
-		. += span_notice("К нему прикрепл[genderize_ru(assembly.gender, "ён", "ена", "ено", "ены")] [assembly]. Открутите [genderize_ru(assembly.gender, "его", "её", "его", "их")] чем-нибудь, чтобы отсоединить.")
+		. += span_notice("К нему прикреплен[GEND_A_O_Y(assembly)] [assembly]. Открутите [GEND_HIS_HER(assembly)] чем-нибудь, чтобы отсоединить.")
 
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()

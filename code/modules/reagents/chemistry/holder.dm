@@ -467,14 +467,14 @@
 					var/list/seen = viewers(4, get_turf(my_atom))
 					for(var/mob/living/M in seen)
 						if(C.mix_message)
-							to_chat(M, span_notice("[bicon(my_atom)] [C.mix_message]"))
+							to_chat(M, span_notice("[icon2html(my_atom, M)] [C.mix_message]"))
 
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, span_notice("[bicon(my_atom)] Мощность [my_atom.declent_ru(GENITIVE)] расходуется в реакции."))
+								to_chat(M, span_notice("[icon2html(my_atom, M)] Мощность [my_atom.declent_ru(GENITIVE)] расходуется в реакции."))
 								ME2.name = "использованный экстракт слайма"
 								ME2.desc = "Этот экстракт уже был использован."
 
@@ -578,7 +578,7 @@
 					var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 					if(H.reagent_safety_check())
 						if(mult > 0)
-							to_chat(H, span_danger("[genderize_ru(H.gender,"Ты обожжен","Ты обожжена","Вы обожжены","Вы обожжены")] горячими химикатами!"))
+							to_chat(H, span_danger("Вы обожжены горячими химикатами!"))
 							H.apply_damage(round(log(chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
@@ -586,7 +586,7 @@
 					var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 					if(H.reagent_safety_check(FALSE))
 						if(mult > 0)
-							to_chat(H, span_danger("[genderize_ru(H.gender,"Ты получил","Ты получила","Вы получили","Вы получили")] обморожение от ледяных химикатов!"))
+							to_chat(H, span_danger("Вы получили обморожение от ледяных химикатов!"))
 							H.apply_damage(round(log(T0C - chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
@@ -595,13 +595,13 @@
 			if(chem_temp > H.dna.species.heat_level_1)
 				var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 				if(mult > 0)
-					to_chat(H, span_danger("[genderize_ru(H.gender,"Ты обжёгся","Ты обожглась","Вы обожглись","Вы обожглись")], пытаясь употребить кипящее вещество!"))
+					to_chat(H, span_danger("Вы обожглись, пытаясь употребить кипящее вещество!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
 				var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 				if(mult > 0)
-					to_chat(H, span_danger("[genderize_ru(H.gender,"Ты получил","Ты получила","Вы получили","Вы получили")] холодовой ожог, пытаясь употребить ледяное вещество!"))
+					to_chat(H, span_danger("Вы получили холодовой ожог, пытаясь употребить ледяное вещество!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
 

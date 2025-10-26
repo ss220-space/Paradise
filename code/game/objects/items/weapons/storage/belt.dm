@@ -310,6 +310,51 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	update_icon()
 
+/obj/item/storage/belt/medical/surgery/abductor
+	name = "agent surgical belt"
+	desc = "Хирургический пояс инопланетного происхождения."
+	icon = 'icons/obj/abductor.dmi'
+	item_state = "surgical_alien"
+	max_combined_w_class = 19
+	storable = TRUE
+	can_hold = list(
+		/obj/item/scalpel,
+		/obj/item/hemostat,
+		/obj/item/retractor,
+		/obj/item/circular_saw,
+		/obj/item/bonegel,
+		/obj/item/bonesetter,
+		/obj/item/FixOVein,
+		/obj/item/surgicaldrill,
+		/obj/item/cautery,
+		/obj/item/radio,
+		/obj/item/clothing/gloves/color/latex,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/spray/cleaner)
+
+/obj/item/storage/belt/medical/surgery/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетный хирургический пояс",
+		GENITIVE = "инопланетного хирургического пояса",
+		DATIVE = "инопланетному хирургическому поясу",
+		ACCUSATIVE = "инопланетный хирургический пояс",
+		INSTRUMENTAL = "инопланетным хирургическим поясом",
+		PREPOSITIONAL = "инопланетном хирургическом поясе"
+	)
+
+/obj/item/storage/belt/medical/surgery/abductor/loaded/populate_contents()
+	new /obj/item/scalpel/alien(src)
+	new /obj/item/hemostat/alien(src)
+	new /obj/item/retractor/alien(src)
+	new /obj/item/circular_saw/alien(src)
+	new /obj/item/bonegel/alien(src)
+	new /obj/item/bonesetter/alien(src)
+	new /obj/item/FixOVein/alien(src)
+	new /obj/item/surgicaldrill/alien(src)
+	new /obj/item/cautery/alien(src)
+	new /obj/item/reagent_containers/applicator/abductor/brute(src)
+	new /obj/item/reagent_containers/applicator/abductor/burn(src)
+
 /obj/item/storage/belt/botany
 	name = "botanist belt"
 	desc = "Can hold various botanical supplies."
@@ -453,6 +498,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_combined_w_class = 18
+	storable = TRUE
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
@@ -465,7 +511,6 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
-	storable = TRUE
 	w_class_override = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,

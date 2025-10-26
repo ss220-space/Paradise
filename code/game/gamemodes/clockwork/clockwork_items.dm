@@ -380,14 +380,14 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_hammer0"
 	slot_flags = ITEM_SLOT_BACK
-	force = 15
-	force_unwielded = 15
-	force_wielded = 35
-	armour_penetration = 40
-	throwforce = 45
+	force = 10
+	force_unwielded = 10
+	force_wielded = 30
+	armour_penetration = 35
+	throwforce = 40
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
-	block_chance = 40
+	block_chance = 30
 
 /obj/item/twohanded/clock_hammer/Initialize(mapload)
 	. = ..()
@@ -721,7 +721,7 @@
 	. = ..()
 	if(!isclocker(user))
 		return
-	. += span_clockitalic("\n Остал[declension_ru(cell.charge, "ся", "ось", "ось")] [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
+	. += span_clockitalic("\n Остал[declension_ru(cell.charge, "ся", "ось", "ось")] [cell.charge] заряд[DECL_CREDIT(cell.charge)].")
 
 /obj/item/gun/energy/clockwork/proc/charge()
 	cell.charge = min(cell.charge + charge_rate, cell.maxcharge)

@@ -669,7 +669,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			print_command_report(input_message, subtitle)
 		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.", HEADSET_FREQ_NAME)
+			radio_announce("Отчёт был загружен и распечатан на всех консолях связи.", "Консоль связи", COMM_FREQ)
 			print_command_report(input_message, "Секретно: [subtitle]")
 		else
 			return

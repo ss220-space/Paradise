@@ -249,7 +249,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		if(!user.drop_transfer_item_to_loc(paper, src))
 			return ..()
 		user.visible_message(
-			span_notice("[user] загружа[pluralize_ru(user.gender, "ет", "ют")] немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
+			span_notice("[user] загружа[PLUR_ET_UT(user)] немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
 			span_notice("Вы загружаете немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
 		)
 		atom_say("Проходит печать книги...", FALSE)
