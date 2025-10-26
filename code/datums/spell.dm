@@ -307,6 +307,18 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	targeting = null
 	return ..()
 
+/obj/effect/proc_holder/spell/update_icon_state()
+	if(!action)
+		return
+	action.targeting_process = active
+	action.UpdateButtonIcon(ALL)
+
+/obj/effect/proc_holder/spell/remove_ranged_ability(mob/user, msg)
+	. = ..()
+	if(!action)
+		return
+	action.targeting_process = FALSE
+	action.UpdateButtonIcon(ALL)
 
 /**
  * Creates and returns the targeting datum for this spell type. Override this!

@@ -72,6 +72,7 @@
 /datum/spell_targeting/proc/InterceptClickOn(mob/user, params, atom/A, obj/effect/proc_holder/spell/spell)
 	var/list/targets = choose_targets(user, spell, params, A)
 	spell.try_perform(targets, user)
+	return TRUE
 
 
 /**

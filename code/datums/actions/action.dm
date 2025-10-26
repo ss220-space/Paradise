@@ -44,6 +44,7 @@
 	/// (If set to ACTION_BUTTON_DEFAULT_BACKGROUND, uses the hud's default background)
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 	var/background_icon_state_active = ACTION_BUTTON_DEFAULT_BACKGROUND_ACTIVE
+	var/targeting_overlay = ACTION_BUTTON_DEFAULT_TARGETING_OVERLAY
 
 	/// This is the file for the icon that appears on the button
 	var/button_icon = 'icons/mob/actions/actions.dmi'
@@ -64,6 +65,8 @@
 	var/action_disabled = FALSE
 	/// Can this action be shared with our rider?
 	var/can_be_shared = TRUE
+	/// Action in targeting mode (use only for overlay)
+	var/targeting_process = FALSE
 
 /datum/action/New(Target)
 	link_to(Target)
@@ -321,13 +324,19 @@
 
 	SEND_SIGNAL(src, COMSIG_ACTION_OVERLAY_APPLY, current_button, force)
 
-	if(!overlay_icon || !overlay_icon_state || (current_button.active_overlay_icon_state == overlay_icon_state && !force))
-		return
+	if(overlay_icon && overlay_icon_state && (current_button.active_overlay_icon_state != overlay_icon_state || force))
+		current_button.cut_overlay(current_button.button_overlay)
+		current_button.button_overlay = mutable_appearance(icon = overlay_icon, icon_state = overlay_icon_state)
+		current_button.add_overlay(current_button.button_overlay)
+		current_button.active_overlay_icon_state = overlay_icon_state
 
-	current_button.cut_overlay(current_button.button_overlay)
-	current_button.button_overlay = mutable_appearance(icon = overlay_icon, icon_state = overlay_icon_state)
-	current_button.add_overlay(current_button.button_overlay)
-	current_button.active_overlay_icon_state = overlay_icon_state
+	// Make the targeting overlay
+	if(current_button.button_targeting_overlay)
+		current_button.cut_overlay(current_button.button_targeting_overlay)
+		current_button.button_targeting_overlay = null
+	if(targeting_process)
+		current_button.button_targeting_overlay = mutable_appearance(icon = background_icon, icon_state = targeting_overlay)
+		current_button.add_overlay(current_button.button_targeting_overlay)
 
 /**
  * Any other miscellaneous "status" updates within the action button is handled here,

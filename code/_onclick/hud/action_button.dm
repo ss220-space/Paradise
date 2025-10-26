@@ -11,6 +11,8 @@
 	var/active_underlay_icon_state
 	/// The overlay we have overtop our button
 	var/mutable_appearance/button_overlay
+	/// The targeting overlay
+	var/mutable_appearance/button_targeting_overlay
 
 	/// Where we are currently placed on the hud. SCRN_OBJ_DEFAULT asks the linked action what it thinks
 	var/location = SCRN_OBJ_DEFAULT

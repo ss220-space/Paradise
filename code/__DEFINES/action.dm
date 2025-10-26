@@ -48,6 +48,8 @@
 #define ACTION_BUTTON_DEFAULT_BACKGROUND "bg_default"
 /// Default active action button background
 #define ACTION_BUTTON_DEFAULT_BACKGROUND_ACTIVE "bg_default_on"
+/// Default targeting action button overlay
+#define ACTION_BUTTON_DEFAULT_TARGETING_OVERLAY "targeting"
 
 // Action button update flags
 #define UPDATE_BUTTON_NAME (1<<0)
