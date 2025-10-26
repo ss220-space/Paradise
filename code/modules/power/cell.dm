@@ -74,7 +74,7 @@
 	chargerate = 480
 
 /obj/item/stock_parts/cell/specter/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "аккумулятор Спектра",
 		GENITIVE = "аккумулятора Спектра",
 		DATIVE = "аккумулятору Спектра",

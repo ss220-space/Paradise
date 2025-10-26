@@ -612,7 +612,7 @@
 	if(LAZYLEN(cards) <= 2)
 		for(var/datum/action/action as anything in actions)
 			action.UpdateButtonIcon()
-	..()
+	return ..()
 
 
 /obj/item/cardhand/update_name(updates = ALL)
@@ -637,7 +637,7 @@
 			INSTRUMENTAL = "игральной картой",
 			PREPOSITIONAL = "игральной карте"
 		)
-	. = ..()
+	return ..()
 
 
 /obj/item/cardhand/update_desc(updates = ALL)

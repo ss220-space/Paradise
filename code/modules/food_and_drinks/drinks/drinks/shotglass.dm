@@ -32,12 +32,12 @@
 	if(reagents.total_volume)
 		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
 		ru_names = list(
-			NOMINATIVE = "рюмка - " + reagents.get_master_reagent_name(),
-			GENITIVE = "рюмки - " + reagents.get_master_reagent_name(),
-			DATIVE = "рюмке - " + reagents.get_master_reagent_name(),
-			ACCUSATIVE = "рюмку - " + reagents.get_master_reagent_name(),
-			INSTRUMENTAL = "рюмкой - " + reagents.get_master_reagent_name(),
-			PREPOSITIONAL = "рюмке - " +reagents.get_master_reagent_name()
+			NOMINATIVE = "рюмка — " + reagents.get_master_reagent_name(),
+			GENITIVE = "рюмки — " + reagents.get_master_reagent_name(),
+			DATIVE = "рюмке — " + reagents.get_master_reagent_name(),
+			ACCUSATIVE = "рюмку — " + reagents.get_master_reagent_name(),
+			INSTRUMENTAL = "рюмкой — " + reagents.get_master_reagent_name(),
+			PREPOSITIONAL = "рюмке — " +reagents.get_master_reagent_name()
 		)
 		if(resistance_flags & ON_FIRE)
 			name = "flaming [name]"

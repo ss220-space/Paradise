@@ -1,14 +1,6 @@
 /obj/item/gun/projectile/bow
 	name = "bow"
 	desc = "Прочный лук, сделанный из дерева."
-	ru_names = list(
-		NOMINATIVE = "деревянный лук",
-		GENITIVE = "деревянного лука",
-		DATIVE = "деревянному луку",
-		ACCUSATIVE = "деревянный лук",
-		INSTRUMENTAL = "деревянным луком",
-		PREPOSITIONAL = "деревянном луке"
-	)
 	gender = MALE
 	icon_state = "bow"
 	item_state = "bow"
@@ -30,17 +22,19 @@
 	accuracy = GUN_ACCURACY_DEFAULT
 	recoil = null
 
+/obj/item/gun/projectile/bow/get_ru_names()
+	return list(
+		NOMINATIVE = "деревянный лук",
+		GENITIVE = "деревянного лука",
+		DATIVE = "деревянному луку",
+		ACCUSATIVE = "деревянный лук",
+		INSTRUMENTAL = "деревянным луком",
+		PREPOSITIONAL = "деревянном луке"
+	)
+
 /obj/item/gun/projectile/bow/ashen //better than wooden
 	name = "bone bow"
 	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами."
-	ru_names = list(
-		NOMINATIVE = "костяной лук",
-		GENITIVE = "костяного лука",
-		DATIVE = "костяному луку",
-		ACCUSATIVE = "костяной лук",
-		INSTRUMENTAL = "костяным луком",
-		PREPOSITIONAL = "костяном луке"
-	)
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
 
@@ -54,11 +48,20 @@
 	slowdown_when_ready = 1
 	accuracy = GUN_ACCURACY_RIFLE
 
+/obj/item/gun/projectile/bow/ashen/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной лук",
+		GENITIVE = "костяного лука",
+		DATIVE = "костяному луку",
+		ACCUSATIVE = "костяной лук",
+		INSTRUMENTAL = "костяным луком",
+		PREPOSITIONAL = "костяном луке"
+	)
+
 /obj/item/gun/projectile/bow/proc/update_state()
 	update_slowdown()
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item()
-
 
 /obj/item/gun/projectile/bow/update_icon_state()
 	if(chambered && !ready_to_fire)
@@ -68,10 +71,8 @@
 	else
 		icon_state = initial(icon_state)
 
-
 /obj/item/gun/projectile/bow/proc/update_slowdown()
 	slowdown = ready_to_fire ? slowdown_when_ready : initial(slowdown)
-
 
 /obj/item/gun/projectile/bow/dropped(mob/user, slot, silent = FALSE)
 	if(chambered)
@@ -79,9 +80,7 @@
 		chambered = null
 		ready_to_fire = FALSE
 		update_state()
-
-	. = ..()
-
+	return ..()
 
 /obj/item/gun/projectile/bow/unload_act(mob/user)
 	if(chambered && !ready_to_fire)
@@ -90,7 +89,6 @@
 	else
 		ready_to_fire = FALSE
 	update_state()
-
 
 /obj/item/gun/projectile/bow/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
@@ -106,20 +104,16 @@
 
 	return ..()
 
-
 /obj/item/gun/projectile/bow/can_shoot(mob/user)
 	return chambered && ready_to_fire
 
-
 /obj/item/gun/projectile/bow/shoot_with_empty_chamber(mob/living/user)
 	return
-
 
 /obj/item/gun/projectile/bow/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
 	ready_to_fire = FALSE
 	update_state()
-
 
 // ammo
 /obj/item/ammo_box/magazine/internal/bow
@@ -167,7 +161,7 @@
 			damage += faction_bonus_damage
 			break
 
-	. = ..()
+	return ..()
 
 /obj/projectile/bullet/reusable/arrow/bone //A fully upgraded normal arrow; it's got the stats to show. Still *less* damage than a slug, slower, and with negative AP. Only for bone bow!
 	name = "bone-tipped arrow"
@@ -190,14 +184,6 @@
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
 	desc = "Послушай, ты не мог бы положить это яблоко себе на голову?"
-	ru_names = list(
-		NOMINATIVE = "деревянная стрела",
-		GENITIVE = "деревянной стрелы",
-		DATIVE = "деревянной стреле",
-		ACCUSATIVE = "деревянную стрелу",
-		INSTRUMENTAL = "деревянной стрелой",
-		PREPOSITIONAL = "деревянной стреле"
-	)
 	gender = FEMALE
 	icon_state = "arrow"
 	item_state = "arrow"
@@ -206,10 +192,26 @@
 	muzzle_flash_effect = null
 	caliber = CALIBER_ARROW
 
+/obj/item/ammo_casing/caseless/arrow/get_ru_names()
+	return list(
+		NOMINATIVE = "деревянная стрела",
+		GENITIVE = "деревянной стрелы",
+		DATIVE = "деревянной стреле",
+		ACCUSATIVE = "деревянную стрелу",
+		INSTRUMENTAL = "деревянной стрелой",
+		PREPOSITIONAL = "деревянной стреле"
+	)
+
 /obj/item/ammo_casing/caseless/arrow/bone_tipped
 	name = "bone-tipped arrow"
 	desc = "Стрела, сделанная из кости, дерева и сухожилий. Прочная и острая."
-	ru_names = list(
+	icon_state = "bone_arrow"
+	item_state = "bone_arrow"
+	force = 12
+	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
+
+/obj/item/ammo_casing/caseless/arrow/bone_tipped/get_ru_names()
+	return list(
 		NOMINATIVE = "костяная стрела",
 		GENITIVE = "костяной стрелы",
 		DATIVE = "костяной стреле",
@@ -217,15 +219,16 @@
 		INSTRUMENTAL = "костяной стрелой",
 		PREPOSITIONAL = "костяной стреле"
 	)
-	icon_state = "bone_arrow"
-	item_state = "bone_arrow"
-	force = 12
-	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
 
 /obj/item/ammo_casing/caseless/arrow/jagged
 	name = "jagged-tipped arrow"
 	desc = "Стрела, сделанная из зубов хищной рыбы. Невероятно острая и крепкая."
-	ru_names = list(
+	icon_state = "jagged_arrow"
+	force = 16
+	projectile_type = /obj/projectile/bullet/reusable/arrow/jagged
+
+/obj/item/ammo_casing/caseless/arrow/jagged/get_ru_names()
+	return list(
 		NOMINATIVE = "зазубренная стрела",
 		GENITIVE = "зазубренной стрелы",
 		DATIVE = "зазубренной стреле",
@@ -233,22 +236,11 @@
 		INSTRUMENTAL = "зазубренной стрелой",
 		PREPOSITIONAL = "зазубренной стреле",
 	)
-	icon_state = "jagged_arrow"
-	force = 16
-	projectile_type = /obj/projectile/bullet/reusable/arrow/jagged
 
 //quiver
 /obj/item/storage/backpack/quiver
 	name = "quiver"
 	desc = "Колчан для хранения стрел."
-	ru_names = list(
-		NOMINATIVE = "колчан",
-		GENITIVE = "колчана",
-		DATIVE = "колчану",
-		ACCUSATIVE = "колчан",
-		INSTRUMENTAL = "колчаном",
-		PREPOSITIONAL = "колчане"
-	)
 	gender =  MALE
 	icon_state = "quiver"
 	item_state = "quiver"
@@ -256,7 +248,17 @@
 	display_contents_with_number = TRUE
 	can_hold = list(
 		/obj/item/ammo_casing/caseless/arrow
-		)
+	)
+
+/obj/item/storage/backpack/quiver/get_ru_names()
+	return list(
+		NOMINATIVE = "колчан",
+		GENITIVE = "колчана",
+		DATIVE = "колчану",
+		ACCUSATIVE = "колчан",
+		INSTRUMENTAL = "колчаном",
+		PREPOSITIONAL = "колчане"
+	)
 
 /obj/item/storage/backpack/quiver/full/populate_contents()
 	for(var/i in 1 to storage_slots)
@@ -272,14 +274,6 @@
 /obj/item/storage/belt/quiver_weaver //belt slot
 	name = "weaver chitin quiver"
 	desc = "Огнеупорный колчан, сделанный из хитина ткача. Используется для хранения стрел."
-	ru_names = list(
-		NOMINATIVE = "колчан из хитина ткача",
-		GENITIVE = "колчана из хитина ткача",
-		DATIVE = "колчану из хитина ткача",
-		ACCUSATIVE = "колчан из хитина ткача",
-		INSTRUMENTAL = "колчаном из хитина ткача",
-		PREPOSITIONAL = "колчане из хитина ткача"
-	)
 	icon_state = "quiver_weaver"
 	item_state = "quiver_weaver"
 	storage_slots = 21 //every craft makes 3 arrows
@@ -287,8 +281,18 @@
 	display_contents_with_number = TRUE
 	can_hold = list(
 		/obj/item/ammo_casing/caseless/arrow
-		)
+	)
 	resistance_flags = FIRE_PROOF
+
+/obj/item/storage/belt/quiver_weaver/get_ru_names()
+	return list(
+		NOMINATIVE = "колчан из хитина ткача",
+		GENITIVE = "колчана из хитина ткача",
+		DATIVE = "колчану из хитина ткача",
+		ACCUSATIVE = "колчан из хитина ткача",
+		INSTRUMENTAL = "колчаном из хитина ткача",
+		PREPOSITIONAL = "колчане из хитина ткача"
+	)
 
 /obj/item/storage/belt/quiver_weaver/full/populate_contents()
 	for(var/i in 1 to storage_slots)

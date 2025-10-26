@@ -1,13 +1,5 @@
 /obj/projectile/magic
 	name = "bolt of nothing"
-	ru_names = list(
-		NOMINATIVE = "разряд пустоты",
-		GENITIVE = "разряда пустоты",
-		DATIVE = "разряду пустоты",
-		ACCUSATIVE = "разряд пустоты",
-		INSTRUMENTAL = "разрядом пустоты",
-		PREPOSITIONAL = "разряде пустоты"
-	)
 	icon_state = "energy"
 	damage = 0
 	hitsound = 'sound/weapons/magic.ogg'
@@ -17,9 +9,22 @@
 	armour_penetration = 100
 	flag = "magic"
 
+/obj/projectile/magic/get_ru_names()
+	return list(
+		NOMINATIVE = "разряд пустоты",
+		GENITIVE = "разряда пустоты",
+		DATIVE = "разряду пустоты",
+		ACCUSATIVE = "разряд пустоты",
+		INSTRUMENTAL = "разрядом пустоты",
+		PREPOSITIONAL = "разряде пустоты"
+	)
+
 /obj/projectile/magic/death
 	name = "bolt of death"
-	ru_names = list(
+	icon_state = "pulse1_bl"
+
+/obj/projectile/magic/death/get_ru_names()
+	return list(
 		NOMINATIVE = "заряд смерти",
 		GENITIVE = "заряда смерти",
 		DATIVE = "заряду смерти",
@@ -27,18 +32,9 @@
 		INSTRUMENTAL = "зарядом смерти",
 		PREPOSITIONAL = "заряде смерти"
 	)
-	icon_state = "pulse1_bl"
 
 /obj/projectile/magic/fireball
 	name = "bolt of fireball"
-	ru_names = list(
-		NOMINATIVE = "огненный шар",
-		GENITIVE = "огненного шара",
-		DATIVE = "огненному шару",
-		ACCUSATIVE = "огненный шар",
-		INSTRUMENTAL = "огненным шаром",
-		PREPOSITIONAL = "огненном шаре"
-	)
 	icon_state = "fireball"
 	damage = 10
 	damage_type = BRUTE
@@ -50,6 +46,16 @@
 	var/exp_light = 2
 	var/exp_flash = 3
 	var/exp_fire = 2
+
+/obj/projectile/magic/fireball/get_ru_names()
+	return list(
+		NOMINATIVE = "огненный шар",
+		GENITIVE = "огненного шара",
+		DATIVE = "огненному шару",
+		ACCUSATIVE = "огненный шар",
+		INSTRUMENTAL = "огненным шаром",
+		PREPOSITIONAL = "огненном шаре"
+	)
 
 /obj/projectile/magic/death/on_hit(mob/living/carbon/C)
 	. = ..()
@@ -88,10 +94,17 @@
 	var/mob/living/M = target
 	M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
 
-
 /obj/projectile/magic/fireball/infernal
 	name = "infernal fireball"
-	ru_names = list(
+	exp_heavy = -1
+	exp_light = -1
+	exp_flash = 4
+	exp_fire= -1
+	var/hellfire_power = BURN_LEVEL_TIER_1
+	var/hellfire_type = /datum/reagent/napalm/hellfire
+
+/obj/projectile/magic/fireball/infernal/get_ru_names()
+	return list(
 		NOMINATIVE = "адский фаербол",
 		GENITIVE = "адского фаербола",
 		DATIVE = "адскому фаерболу",
@@ -99,12 +112,6 @@
 		INSTRUMENTAL = "адским фаерболом",
 		PREPOSITIONAL = "адском фаерболе"
 	)
-	exp_heavy = -1
-	exp_light = -1
-	exp_flash = 4
-	exp_fire= -1
-	var/hellfire_power = BURN_LEVEL_TIER_1
-	var/hellfire_type = /datum/reagent/napalm/hellfire
 
 /obj/projectile/magic/fireball/infernal/acsend
 	name = "acsend fireball"
@@ -118,7 +125,10 @@
 
 /obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
-	ru_names = list(
+	icon_state = "ion"
+
+/obj/projectile/magic/resurrection/get_ru_names()
+	return list(
 		NOMINATIVE = "воскрешающий заряд",
 		GENITIVE = "воскрешающего заряда",
 		DATIVE = "воскрешающему заряду",
@@ -126,7 +136,6 @@
 		INSTRUMENTAL = "воскрешающим зарядом",
 		PREPOSITIONAL = "воскрешающем заряде"
 	)
-	icon_state = "ion"
 
 /obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
@@ -148,7 +157,12 @@
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"
-	ru_names = list(
+	icon_state = "bluespace"
+	var/inner_tele_radius = 0
+	var/outer_tele_radius = 6
+
+/obj/projectile/magic/teleport/get_ru_names()
+	return list(
 		NOMINATIVE = "телепортационный импульс",
 		GENITIVE = "телепортационного импульса",
 		DATIVE = "телепортационному импульсу",
@@ -156,9 +170,6 @@
 		INSTRUMENTAL = "телепортационным импульсом",
 		PREPOSITIONAL = "телепортационном импульсе"
 	)
-	icon_state = "bluespace"
-	var/inner_tele_radius = 0
-	var/outer_tele_radius = 6
 
 /obj/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
@@ -176,7 +187,12 @@
 
 /obj/projectile/magic/door
 	name = "bolt of door creation"
-	ru_names = list(
+	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
+		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
+		/obj/structure/mineral_door/transparent/diamond)
+
+/obj/projectile/magic/door/get_ru_names()
+	return list(
 		NOMINATIVE = "заряд создания дверей",
 		GENITIVE = "заряда создания дверей",
 		DATIVE = "заряду создания дверей",
@@ -184,9 +200,6 @@
 		INSTRUMENTAL = "зарядом создания дверей",
 		PREPOSITIONAL = "заряде создания дверей"
 	)
-	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
-		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
-		/obj/structure/mineral_door/transparent/diamond)
 
 /obj/projectile/magic/door/on_hit(atom/target)
 	. = ..()
@@ -219,7 +232,11 @@
 
 /obj/projectile/magic/change
 	name = "bolt of change"
-	ru_names = list(
+	icon_state = "ice_1"
+	damage_type = BURN
+
+/obj/projectile/magic/change/get_ru_names()
+	return list(
 		NOMINATIVE = "заряд полиморфа",
 		GENITIVE = "заряда полиморфа",
 		DATIVE = "заряду полиморфа",
@@ -227,8 +244,6 @@
 		INSTRUMENTAL = "зарядом полиморфа",
 		PREPOSITIONAL = "заряде полиморфа"
 	)
-	icon_state = "ice_1"
-	damage_type = BURN
 
 /obj/projectile/magic/change/on_hit(atom/change)
 	. = ..()
@@ -388,7 +403,11 @@
 
 /obj/projectile/magic/animate
 	name = "bolt of animation"
-	ru_names = list(
+	icon_state = "red_1"
+	damage_type = BURN
+
+/obj/projectile/magic/animate/get_ru_names()
+	return list(
 		NOMINATIVE = "анимационный заряд",
 		GENITIVE = "анимационного заряда",
 		DATIVE = "анимационному заряду",
@@ -396,9 +415,6 @@
 		INSTRUMENTAL = "анимационным зарядом",
 		PREPOSITIONAL = "анимационном заряде"
 	)
-	icon_state = "red_1"
-	damage_type = BURN
-
 
 /obj/projectile/magic/animate/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
@@ -430,17 +446,8 @@
 		var/mob/living/simple_animal/hostile/mimic/copy/mimic = target
 		mimic.ChangeOwner(firer)
 
-
 /obj/projectile/magic/spellblade
 	name = "blade energy"
-	ru_names = list(
-		NOMINATIVE = "энергия лезвия",
-		GENITIVE = "энергии лезвия",
-		DATIVE = "энергии лезвия",
-		ACCUSATIVE = "энергию лезвия",
-		INSTRUMENTAL = "энергией лезвия",
-		PREPOSITIONAL = "энергии лезвия"
-	)
 	icon_state = "lavastaff"
 	damage = 15
 	damage_type = BURN
@@ -448,9 +455,25 @@
 	dismember_head = TRUE
 	nodamage = FALSE
 
+/obj/projectile/magic/spellblade/get_ru_names()
+	return list(
+		NOMINATIVE = "энергия лезвия",
+		GENITIVE = "энергии лезвия",
+		DATIVE = "энергии лезвия",
+		ACCUSATIVE = "энергию лезвия",
+		INSTRUMENTAL = "энергией лезвия",
+		PREPOSITIONAL = "энергии лезвия"
+	)
+
 /obj/projectile/magic/slipping
 	name = "magical banana"
-	ru_names = list(
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "banana"
+	hitsound = 'sound/items/bikehorn.ogg'
+	var/slip_disable_time = 10 SECONDS
+
+/obj/projectile/magic/slipping/get_ru_names()
+	return list(
 		NOMINATIVE = "волшебный банан",
 		GENITIVE = "волшебного банана",
 		DATIVE = "волшебному банану",
@@ -458,10 +481,6 @@
 		INSTRUMENTAL = "волшебным бананом",
 		PREPOSITIONAL = "волшебном банане"
 	)
-	icon = 'icons/obj/hydroponics/harvest.dmi'
-	icon_state = "banana"
-	hitsound = 'sound/items/bikehorn.ogg'
-	var/slip_disable_time = 10 SECONDS
 
 /obj/projectile/magic/slipping/New()
 	..()
@@ -486,14 +505,6 @@
 
 /obj/projectile/magic/arcane_barrage
 	name = "arcane bolt"
-	ru_names = list(
-		NOMINATIVE = "тайный заряд",
-		GENITIVE = "тайного заряда",
-		DATIVE = "тайному заряду",
-		ACCUSATIVE = "тайный заряд",
-		INSTRUMENTAL = "тайным зарядом",
-		PREPOSITIONAL = "тайном заряде"
-	)
 	icon_state = "arcane_barrage"
 	damage = 20
 	damage_type = BURN
@@ -501,3 +512,13 @@
 	armour_penetration = 0
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	forced_accuracy = TRUE
+
+/obj/projectile/magic/arcane_barrage/get_ru_names()
+	return list(
+		NOMINATIVE = "тайный заряд",
+		GENITIVE = "тайного заряда",
+		DATIVE = "тайному заряду",
+		ACCUSATIVE = "тайный заряд",
+		INSTRUMENTAL = "тайным зарядом",
+		PREPOSITIONAL = "тайном заряде"
+	)

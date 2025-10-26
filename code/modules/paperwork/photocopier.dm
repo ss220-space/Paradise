@@ -737,7 +737,12 @@
 /obj/item/toner
 	name = "toner cartridge"
 	desc = "Стандартный картридж с чернилами для ксероксов на 30 использований. Пользуется высоким спросом у бюрократов."
-	ru_names = list(
+	icon = 'icons/obj/device.dmi'
+	icon_state = "tonercartridge"
+	var/toner_amount = 30
+
+/obj/item/toner/get_ru_names()
+	return list(
 		NOMINATIVE = "тонер-картридж",
 		GENITIVE = "тонер-картриджа",
 		DATIVE = "тонер-картриджу",
@@ -745,9 +750,6 @@
 		INSTRUMENTAL = "тонер-картриджом",
 		PREPOSITIONAL = "тонер-картридже"
 	)
-	icon = 'icons/obj/device.dmi'
-	icon_state = "tonercartridge"
-	var/toner_amount = 30
 
 #undef PHOTOCOPIER_DELAY
 #undef MAX_COPIES_PRINTABLE
