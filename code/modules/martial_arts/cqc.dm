@@ -84,7 +84,7 @@
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 	D.visible_message(
 		span_danger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] [D.declent_ru(ACCUSATIVE)]!"), \
-		span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] тебя!")
+		span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] Вас!")
 	)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(A.resting && !D.stat && D.body_position != LYING_DOWN)
