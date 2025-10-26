@@ -306,16 +306,16 @@
 
 /obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
-		return
+		return FALSE
 	if(ranged_ability_user.incapacitated() || !iscultist(user))
 		user.ranged_ability.remove_ranged_ability(user)
-		return
+		return FALSE
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
 		return FALSE
 	if(target in view(7, ranged_ability_user))
 		if(!ishuman(target) || iscultist(target))
-			return
+			return FALSE
 		var/mob/living/carbon/human/H = target
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
@@ -326,6 +326,8 @@
 		if(attached_action.charges <= 0)
 			to_chat(ranged_ability_user, span_cult("You have exhausted the spell's power!"))
 			qdel(src)
+			return TRUE
+	return FALSE
 
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"

@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 
 /datum/click_intercept/proc_holder/InterceptClickOn(user, params, atom/object)
-	spell.InterceptClickOn(user, params, object)
+	return !spell.InterceptClickOn(user, params, object) //NOT because TRUE for failed, FALSE for passed.
 
 
 /datum/click_intercept/proc_holder/quit(force)
