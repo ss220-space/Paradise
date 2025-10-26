@@ -12,11 +12,11 @@
 	var/mob/living/silicon/robot/borg = owner
 	if(borg.stat == DEAD)
 		return
-	else
-		borg.adjustBruteLoss(15 * seconds_between_ticks)
-		borg.adjustFireLoss(15 * seconds_between_ticks)
+
+	borg.adjustBruteLoss(15 * seconds_between_ticks)
+	borg.adjustFireLoss(15 * seconds_between_ticks)
 
 	if(!borg.cell)
 		return
-	else
-		borg.cell.charge = max(0, borg.cell.charge - 500)
+
+	borg.cell.charge = max(0, borg.cell.charge - 500)
