@@ -312,21 +312,17 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/machinery/constructable_frame/machine_frame/proc/apply_parts_from_construction_bag(obj/item/storage/bag/construction/bag, mob/user, count = 0)
-	var/list/part_list = list()
-	//Assemble a list of current parts, then sort them by their rating!
-	for(var/obj/item/stock_parts/part in bag)
-		part_list += part
 	for(var/path in req_components)
-		if(req_components[path] > 0 && (locate(path) in part_list))
+		if(req_components[path] > 0 && (locate(path) in bag))
 			if(!do_after(user, 0.7 SECONDS, src, interaction_key = bag, max_interact_count = 1))
 				return FALSE
-			var/obj/item/part = (locate(path) in part_list)
+			var/obj/item/part = (locate(path) in bag)
 			bag.remove_from_storage(part, src)
 			req_components[path]--
 			components += part
-			to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставлен."))
+			to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставле[genderize_ru(part.gender, "н", "на", "но", "ны")]."))
 			return apply_parts_from_construction_bag(bag, user, count + 1)
-	balloon_alert(user, "вставлено [count] деталей")
+	balloon_alert(user, "вставлен[declension_ru(count, "а", "о", "о")] [count] [declension_ru(count, "деталь", "детали", "деталей")]")
 	return TRUE
 
 #undef STATE_EMPTY
