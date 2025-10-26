@@ -320,7 +320,7 @@
 			bag.remove_from_storage(part, src)
 			req_components[path]--
 			components += part
-			to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставле[genderize_ru(part.gender, "н", "на", "но", "ны")]."))
+			to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставлен[genderize_ru(part.gender, "", "а", "о", "ы")]."))
 			return apply_parts_from_construction_bag(bag, user, count + 1)
 	balloon_alert(user, "вставлен[declension_ru(count, "а", "о", "о")] [count] [declension_ru(count, "деталь", "детали", "деталей")]")
 	return TRUE
