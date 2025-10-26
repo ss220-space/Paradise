@@ -246,12 +246,15 @@
 	name = "Снять скотч"
 
 /datum/action/item_action/remove_tape/do_effect(trigger_flags)
-	if(..())
-		var/component = target.GetComponent(/datum/component/ducttape)
-		if(component)
-			usr.transfer_fingerprints_to(target)
-			to_chat(usr, span_notice("Вы отрываете скотч от [target]!"))
-			qdel(component)
+	if(!target)
+		return FALSE
+	var/component = target.GetComponent(/datum/component/ducttape)
+	if(component)
+		usr.transfer_fingerprints_to(target)
+		to_chat(usr, span_notice("Вы отрываете скотч от [target]!"))
+		qdel(component)
+		UpdateButtonIcon()
+		return TRUE
 
 /datum/action/item_action/toggle_jetpack
 	name = "Переключить джетпак"
