@@ -194,7 +194,7 @@
 	if(HAS_TRAIT(user, TRAIT_HIGH_MISS_CHANCE))
 		if(prob(ATTACK_MISS_CHANCE))
 			playsound(target.loc, SFX_GENERIC_SWING_LIGHT, 25, TRUE, -1)
-			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] атаку[pluralize_ru(user.gender, "ет", "ют")] [name] [target.declent_ru(ACCUSATIVE)] и промахива[pluralize_ru(user.gender,"ется","ются")]!"))
+			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] атаку[PLUR_ET_UT(user)] [name] [target.declent_ru(ACCUSATIVE)] и промахива[PLUR_ET_UT(user)]ся!"))
 			return .
 
 
