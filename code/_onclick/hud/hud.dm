@@ -72,6 +72,11 @@
 	var/datum/action_group/listed/listed_actions
 	var/list/floating_actions
 
+	/// List of weakrefs to objects that we add to our screen that we don't expect to DO anything
+	/// They typically use * in their render target. They exist solely so we can reuse them,
+	/// and avoid needing to make changes to all idk 300 consumers if we want to change the appearance
+	var/list/asset_refs_for_reuse = list()
+
 /datum/hud/New(mob/owner)
 	mymob = owner
 
@@ -332,14 +337,24 @@
 	hud_version = display_hud_version
 	persistent_inventory_update(screenmob)
 	// Gives all of the actions the screenmob owes to their hud
-	mymob.update_action_buttons(TRUE)
+	screenmob.update_action_buttons(TRUE)
 	reorganize_alerts()
 	reload_fullscreen()
 	if(screenmob == mymob)
 		update_parallax_pref(screenmob)
 	else
 		viewmob.hud_used.update_parallax_pref()
-	plane_masters_update()
+
+	update_reuse(screenmob)
+
+	// ensure observers get an accurate and up-to-date view
+	if(!viewmob)
+		plane_masters_update()
+		for(var/M in mymob.inventory_observers)
+			show_hud(hud_version, M)
+	else if(viewmob.hud_used)
+		viewmob.hud_used.plane_masters_update()
+		viewmob.show_other_mob_action_buttons(mymob)
 
 	SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)
 	return TRUE
@@ -373,6 +388,22 @@
 /datum/hud/proc/persistent_inventory_update(mob/viewer)
 	return
 
+/datum/hud/proc/register_reuse(atom/movable/screen/reuse)
+	asset_refs_for_reuse += WEAKREF(reuse)
+	mymob?.client?.screen += reuse
+
+/datum/hud/proc/unregister_reuse(atom/movable/screen/reuse)
+	asset_refs_for_reuse -= WEAKREF(reuse)
+	mymob?.client?.screen -= reuse
+
+/datum/hud/proc/update_reuse(mob/show_to)
+	for(var/datum/weakref/screen_ref as anything in asset_refs_for_reuse)
+		var/atom/movable/screen/reuse = screen_ref.resolve()
+		if(isnull(reuse))
+			asset_refs_for_reuse -= screen_ref
+			continue
+		show_to.client?.screen += reuse
+
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()
@@ -398,7 +429,6 @@
 		hud_used.show_hud(hud_used.hud_version)
 
 /mob/proc/update_action_buttons_icon()
-	//TODO vakons actions: update actions buttons here
 	update_action_buttons()
 	return
 

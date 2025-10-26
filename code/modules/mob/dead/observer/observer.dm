@@ -131,8 +131,14 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	update_sight()
 
 /mob/dead/observer/proc/cleanup_observe()
+	if(isnull(do_observe_target))
+		return
+	var/mob/target = do_observe_target
+	do_observe_target = null
 	client?.perspective = initial(client.perspective)
 	set_sight(SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF)
+	if(target)
+		hide_other_mob_action_buttons(target)
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -697,11 +703,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	do_observe_target = mob_eye
 	ADD_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
-
-	// TODO: Реализовать отображение actions если надо
-
-	for(var/atom/movable/screen/alert/alert in mob_eye.alerts)
-		client.screen |= alert
 
 
 /mob/dead/observer/proc/handle_when_autoobserve_move()
