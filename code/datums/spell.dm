@@ -31,6 +31,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /datum/click_intercept/proc_holder/New(client/C, obj/effect/proc_holder/spell_to_cast)
 	. = ..()
 	spell = spell_to_cast
+	holder.mouse_override_icon = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
+	holder.mouse_pointer_icon = holder.mouse_override_icon
 
 
 /datum/click_intercept/proc_holder/InterceptClickOn(user, params, atom/object)
@@ -40,6 +42,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /datum/click_intercept/proc_holder/quit(force)
 	spell.remove_ranged_ability(spell.ranged_ability_user)
 	return ..()
+
+/datum/click_intercept/proc_holder/Destroy()
+	holder.mouse_override_icon = null
+	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
+	. = ..()
 
 
 /obj/effect/proc_holder/proc/add_ranged_ability(mob/user, msg)
