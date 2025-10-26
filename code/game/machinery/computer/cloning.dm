@@ -47,7 +47,7 @@
 	return ..()
 
 /obj/machinery/computer/cloning/process()
-	if(!scanner || !pods.len || !autoprocess || stat & NOPOWER)
+	if(!scanner || !length(pods) || !autoprocess || stat & NOPOWER)
 		return
 
 	if(scanner.occupant && can_autoprocess())
@@ -67,7 +67,7 @@
 	src.scanner = findscanner()
 	releasecloner()
 	findcloner()
-	if(!selected_pod && pods.len)
+	if(!selected_pod && length(pods))
 		selected_pod = pods[1]
 
 /obj/machinery/computer/cloning/proc/findscanner()
@@ -196,7 +196,7 @@
 	data["scanner"] = sanitize("[src.scanner]")
 
 	var/canpodautoprocess = 0
-	if(pods.len)
+	if(length(pods))
 		data["numberofpods"] = src.pods.len
 
 		var/list/tempods[0]
@@ -223,7 +223,7 @@
 	data["can_brainscan"] = can_brainscan() // You'll need tier 4s for this
 	data["scan_mode"] = scan_mode
 
-	if(scanner && pods.len && ((scanner.scan_level > 2) || canpodautoprocess))
+	if(scanner && length(pods) && ((scanner.scan_level > 2) || canpodautoprocess))
 		data["autoallowed"] = 1
 	else
 		data["autoallowed"] = 0

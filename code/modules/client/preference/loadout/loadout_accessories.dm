@@ -181,7 +181,7 @@
 	index_name = "holster, select"
 	display_name = "Кобура"
 	path = /obj/item/clothing/accessory/holster/
-	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT)
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT, JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF)
 
 /datum/gear/accessory/holsters/New()
 	..()

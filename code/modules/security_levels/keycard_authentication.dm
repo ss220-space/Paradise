@@ -99,11 +99,11 @@
 	data["redAvailable"] = SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_RED
 	data["swiping"] = swiping
 	data["busy"] = busy
-	data["event"] = active && event_source && event_source.event ? event_source.event : event
-	data["ertreason"] = active && event_source && event_source.ert_reason ? event_source.ert_reason : ert_reason
+	data["event"] = active && event_source?.event ? event_source.event : event
+	data["ertreason"] = active && event_source?.ert_reason ? event_source.ert_reason : ert_reason
 	data["isRemote"] = active ? TRUE : FALSE
 	data["hasSwiped"] = event_triggered_by ? TRUE : FALSE
-	data["hasConfirm"] = event_confirmed_by || (active && event_source && event_source.event_confirmed_by) ? TRUE : FALSE
+	data["hasConfirm"] = event_confirmed_by || (active && event_source?.event_confirmed_by) ? TRUE : FALSE
 	return data
 
 /obj/machinery/keycard_auth/ui_act(action, params)
@@ -192,7 +192,7 @@
 				atom_say("Все Отряды Быстрого Реагирования распределены и не могут быть вызваны в данный момент.")
 				return
 			atom_say("Запрос ОБР отправлен!")
-			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name, HEADSET_FREQ_NAME, follow_target_override = src)
+			radio_announce("ERT request transmitted. Reason: [ert_reason]", name, COMM_FREQ, follow_target_override = src)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 

@@ -36,7 +36,7 @@
 	var/mob/mob = pick(candidates)
 	var/mob/living/simple_animal/imp/ritual/imp = new(get_turf(ritual_object))
 
-	imp.key = mob.key
+	imp.possess_by_player(mob.key)
 	imp.master_commander = invoker
 
 	improve_imp(imp, invoker)
@@ -147,7 +147,7 @@
 		ritual_object.balloon_alert(invoker, "мало грешников!")
 		return FALSE
 
-	if(devil.soulsOwned.len < ASCEND_THRESHOLD)
+	if(length(devil.soulsOwned) < ASCEND_THRESHOLD)
 		ritual_object.balloon_alert(invoker, "недостаточно душ!")
 		return FALSE
 

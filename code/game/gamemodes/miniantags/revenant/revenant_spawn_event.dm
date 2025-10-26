@@ -14,7 +14,7 @@
 
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Ревенанта?", ROLE_REVENANT, TRUE, source = /mob/living/simple_animal/revenant)
-		if(!candidates.len)
+		if(!length(candidates))
 			key_of_revenant = null
 			kill()
 			return

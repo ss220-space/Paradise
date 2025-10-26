@@ -461,7 +461,7 @@
 		choices["Barrel"] = image(icon = barrel.icon, icon_state = barrel.icon_state)
 	if(magazine)
 		choices["Magazine"] = image(icon = magazine.icon, icon_state = magazine.icon_state)
-	var/choice = choices.len == 1 ? pick(choices) : show_radial_menu(user, src, choices, require_near = TRUE)
+	var/choice = length(choices) == 1 ? pick(choices) : show_radial_menu(user, src, choices, require_near = TRUE)
 
 	if(!choice || loc != user)
 		return
@@ -728,7 +728,7 @@
 			f_name = "a "
 		f_name += span_danger("blood-stained [name]!")
 
-	. = list("[bicon(src)] That's [f_name]")
+	. = list("[icon2html(src, user)] That's [f_name]")
 
 	if(desc)
 		. += desc

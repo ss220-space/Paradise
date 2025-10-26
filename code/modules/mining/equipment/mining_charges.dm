@@ -242,10 +242,10 @@
 
 /obj/item/detonator/examine(mob/user)
 	. = ..()
-	if(bombs.len)
+	if(length(bombs))
 		. += span_notice("Список синхронизированных зарядов:")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += span_notice("[bicon(charge)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
+			. += span_notice("[icon2html(charge, user)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
 
 
 /obj/item/detonator/update_icon_state()
@@ -257,7 +257,7 @@
 
 /obj/item/detonator/attack_self(mob/user)
 	playsound(src, 'sound/items/detonator.ogg', 40)
-	if(bombs.len)
+	if(length(bombs))
 		balloon_alert(user, "активация взрывчатки...")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
 			if(QDELETED(charge))

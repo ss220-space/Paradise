@@ -205,7 +205,7 @@
 /obj/effect/old_anomaly/energetic/proc/mobShock(mob/living/mob)
 	if(canshock && istype(mob))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
-		mob.electrocute_act(shockdamage, "потоковой аномалии", flags = SHOCK_NOGLOVES)
+		mob.electrocute_act(shockdamage, src, flags = SHOCK_NOGLOVES)
 
 /obj/effect/old_anomaly/energetic/detonate()
 	if(explosive)
@@ -245,9 +245,9 @@
 	var/turf/turf = pick(get_area_turfs(impact_area))
 	if(turf)
 		// Calculate new position (searches through beacons in world)
-		var/obj/item/radio/beacon/chosen
+		var/obj/item/beacon/chosen
 		var/list/possible = list()
-		for(var/obj/item/radio/beacon/W in GLOB.beacons)
+		for(var/obj/item/beacon/W as anything in GLOB.beacons)
 			if(!is_station_level(W.z))
 				continue
 			possible += W
@@ -274,7 +274,7 @@
 			var/y_distance = turf_to.y - turf_from.y
 			var/x_distance = turf_to.x - turf_from.x
 			for(var/atom/movable/movable_atom in urange(12, turf_from)) // iterate thru list of mobs in the area
-				if(istype(movable_atom, /obj/item/radio/beacon))
+				if(istype(movable_atom, /obj/item/beacon))
 					continue // don't teleport beacons because that's just insanely stupid
 				if(movable_atom.anchored || movable_atom.move_resist == INFINITY)
 					continue
@@ -341,7 +341,7 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pyroclastic anomaly slime?", ROLE_SENTIENT, FALSE, 100, source = slime, role_cleanname = "pyroclastic anomaly slime")
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/chosen = pick(candidates)
-		slime.key = chosen.key
+		slime.possess_by_player(chosen.key)
 		slime.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
 		add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(turf)].", slime)
 

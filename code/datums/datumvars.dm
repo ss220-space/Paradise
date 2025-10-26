@@ -213,7 +213,7 @@
 	var/list/variable_html = list()
 	if(islist)
 		var/list/L = D
-		for(var/i in 1 to L.len)
+		for(var/i in 1 to length(L))
 			var/key = L[i]
 			var/value
 			if(IS_NORMAL_LIST(L) && !isnum(key))
@@ -496,7 +496,7 @@
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		item = "[name] = /icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		item = "[name] = /icon (<span class='value'>[value]</span>) [icon2html(value, usr)]"
 		#else
 		item = "[name] = /icon (<span class='value'>[value]</span>)"
 		#endif
@@ -504,7 +504,7 @@
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [icon2html(value, usr)]"
 		#else
 		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif
@@ -524,8 +524,8 @@
 		var/list/L = value
 		var/list/items = list()
 
-		if(!(display_flags & VV_ALWAYS_CONTRACT_LIST) && L.len && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
-			for(var/i in 1 to L.len)
+		if(!(display_flags & VV_ALWAYS_CONTRACT_LIST) && length(L) && !(name == "underlays" || name == "overlays" || name == "vars" || length(L) > (IS_NORMAL_LIST(L) ? 250 : 300)))
+			for(var/i in 1 to length(L))
 				var/key = L[i]
 				var/val
 				if(IS_NORMAL_LIST(L) && !isnum(key))
@@ -542,7 +542,7 @@
 				item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
 
 		else
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
 
 	else if(name in GLOB.bitfields)
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
@@ -981,16 +981,12 @@
 	else if(href_list["mark_object"])
 		if(!check_rights(0))	return
 
-		var/datum/D = locateUID(href_list["mark_object"])
-		if(!istype(D))
+		var/datum/datum = locateUID(href_list["mark_object"])
+		if(!istype(datum))
 			to_chat(usr, "This can only be done to instances of type /datum", confidential=TRUE)
 			return
 
-		src.holder.marked_datum = D
-		if(holder.marked_datum)
-			vv_update_display(holder.marked_datum, "marked", "")
-		holder.marked_datum = D
-		vv_update_display(D, "marked", VV_MSG_MARKED)
+		mark_datum(datum)
 
 	else if(href_list["proc_call"])
 		if(!check_rights(R_PROCCALL))
@@ -1662,9 +1658,9 @@
 			return TRUE
 
 		L.len = value["value"]
-		log_world("### ListVarEdit by [src]: /list len: [L.len]")
-		log_admin("[key_name(src)] modified list's len: [L.len]")
-		message_admins("[key_name_admin(src)] modified list's len: [L.len]")
+		log_world("### ListVarEdit by [src]: /list len: [length(L)]")
+		log_admin("[key_name(src)] modified list's len: [length(L)]")
+		message_admins("[key_name_admin(src)] modified list's len: [length(L)]")
 		return TRUE
 
 	if(href_list["listshuffle"])

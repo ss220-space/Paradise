@@ -86,7 +86,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(cult_mind.current)
 
-		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
+		if(iscarbon(cult_mind.current))
+			cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
@@ -202,7 +203,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		obj.owner = cult_mind
 		cult_mind.objectives += obj
 
-		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
+		if(iscarbon(cult_mind.current))
+			cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
 
 		if(cult_risen)
 			rise(cult_mind.current)
@@ -252,7 +254,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			H.original_eye_color = H.get_eye_color()
 		H.change_eye_color(BLOODCULT_EYE, FALSE)
 		H.update_eyes()
-		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
+		ADD_TRAIT(H, TRAIT_RED_EYES, CULT_TRAIT)
 		H.update_body()
 
 /datum/game_mode/proc/ascend(cultist)
@@ -279,7 +281,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(ishuman(cultist))
 			var/mob/living/carbon/human/H = cultist
-			REMOVE_TRAIT(H, CULT_EYES, null)
+			REMOVE_TRAIT(H, TRAIT_RED_EYES, CULT_TRAIT)
 			H.change_eye_color(H.original_eye_color, FALSE)
 			H.update_eyes()
 			H.remove_overlay(HALO_LAYER)
@@ -347,7 +349,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 
 /proc/iscultist(mob/living/user)
-	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.cult)
+	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.cult)
 
 /proc/iscultist_ascended(mob/living/user)
 	return iscultist(user) && SSticker.mode.cult_ascendant

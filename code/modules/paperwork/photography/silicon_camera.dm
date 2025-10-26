@@ -42,7 +42,7 @@
 
 	var/list/nametemp = list()
 	var/find
-	if(cam.aipictures.len == 0)
+	if(length(cam.aipictures) == 0)
 		to_chat(usr, span_userdanger("No images saved"))
 		return
 	for(var/datum/picture/t in cam.aipictures)

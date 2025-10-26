@@ -273,7 +273,7 @@
 
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
 	. = 0
-	if(chambered && chambered.BB)
+	if(chambered?.BB)
 		process_fire(user, user,0)
 		. = 1
 
@@ -337,7 +337,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)
 	var/f_name = "\a [src]."
-	. = list("[bicon(src)] That's [f_name]")
+	. = list("[icon2html(src, user)] That's [f_name]")
 	. += desc // Override since magical hand lasers don't have chambers or bolts
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)
@@ -391,7 +391,7 @@
 		alternate_magazine = new mag_type(src)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/unload_act(mob/user)
-	if(!chambered && magazine.contents.len)
+	if(!chambered && length(magazine.contents))
 		pump()
 	else
 		toggle_tube(user)

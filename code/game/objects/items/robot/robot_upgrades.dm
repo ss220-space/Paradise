@@ -124,7 +124,7 @@
 	if(!robot.key)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
 			if(ghost.mind && ghost.mind.current == robot)
-				robot.key = ghost.key
+				robot.possess_by_player(ghost.key)
 
 	robot.set_stat(CONSCIOUS)
 	robot.remove_from_dead_mob_list() //please never forget this ever kthx

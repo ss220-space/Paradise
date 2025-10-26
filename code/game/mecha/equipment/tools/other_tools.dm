@@ -51,7 +51,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
-	if(!theareas.len)
+	if(!length(theareas))
 		return FALSE
 	var/area/thearea = pick(theareas)
 	var/list/L = list()
@@ -65,7 +65,7 @@
 					break
 			if(clear)
 				L+=T
-	if(!L.len)
+	if(!length(L))
 		return FALSE
 	var/turf/target_turf = pick(L)
 	if(!target_turf)

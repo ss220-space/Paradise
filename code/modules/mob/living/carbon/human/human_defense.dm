@@ -38,7 +38,7 @@ emp_act
 		return 2
 
 
-	if(mind?.martial_art?.reflection_chance) //Some martial arts users can even reflect projectiles!
+	if(mind?.martial_art?.can_reflect) //Some martial arts users can even reflect projectiles!
 		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
 			var/checks_passed = TRUE
 			if(istype(mind.martial_art, /datum/martial_art/ninja_martial_art))
@@ -53,7 +53,7 @@ emp_act
 				return -1
 			return FALSE
 
-	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
+	if(mind?.martial_art?.can_deflect) //Some martial arts users can deflect projectiles!
 		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
 			if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL)) //if it cannot be reflected, it hits the floor. This is the exception to the rule
@@ -99,11 +99,17 @@ emp_act
 	if(!S.brute_dam)
 		balloon_alert(user, "нечего ремонтировать!")
 		return
+	if(HAS_TRAIT(H, TRAIT_REPAIRING_LIMB))
+		balloon_alert(user, "уже ремонтируется!")
+		return
+	ADD_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
 	var/surgery_time = 0
 	if(user == src)
-		surgery_time = 10
+		surgery_time = H.robotic_limb_repair_time
+
 	if(!item.use_tool(src, user, surgery_time, amount = 1, volume = item.tool_volume))
+		REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 		return
 	var/rembrute = HEALPERWELD
 	var/nrembrute = 0
@@ -144,6 +150,8 @@ emp_act
 		user.visible_message(span_alert("[user] устраня[pluralize_ru(src.gender, "ет", "ют")] протечки в корпусе [src], используя [item.declent_ru(ACCUSATIVE)]."))
 	if(IgniteMob())
 		add_attack_logs(user, src, "set on fire with [item]")
+
+	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
 
 /mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
@@ -261,7 +269,7 @@ emp_act
 	return FALSE
 
 /mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/item, visible_message, self_message)
-	if(mind && mind.martial_art)
+	if(mind?.martial_art)
 		return mind.martial_art.attack_reaction(defender, attacker, item, visible_message, self_message)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc

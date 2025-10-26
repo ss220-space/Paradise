@@ -77,6 +77,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/openMentorTicketUI,
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets,
+	/client/proc/achievements_cleanup,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -126,6 +127,8 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom_adv,
 	/client/proc/respawn_character,
 	/client/proc/admin_deserialize,
+	/client/proc/spawn_panel,
+	/client/proc/beaker_panel,
 ))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
@@ -382,7 +385,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		var/mob/body = mob
 		body.ghostize(1)
 		if(body && !body.key)
-			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
+			body.possess_by_player("@[key]")	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		BLACKBOX_LOG_ADMIN_VERB("Aghost")
@@ -681,10 +684,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
 			var/mob/dead/observer/theghost = null
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 				theghost = pick(candidates)
-				P.key = theghost.key
+				P.possess_by_player(theghost.key)
 				P.master_commander = H
 				P.universal_speak = TRUE
 				P.universal_understand = TRUE
@@ -1126,7 +1129,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	for(var/datum/job/J in SSjobs.occupations)
 		if(J.current_positions >= J.total_positions && J.total_positions != -1)
 			jobs += J.title
-	if(!jobs.len)
+	if(!length(jobs))
 		to_chat(usr, "There are no fully staffed jobs.", confidential=TRUE)
 		return
 	var/job = tgui_input_list(src, "Please select job slot to free", "Free Job Slot", jobs)

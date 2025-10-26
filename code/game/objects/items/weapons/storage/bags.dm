@@ -176,7 +176,7 @@
 
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
-	desc = "Революционное решение – бесконечное хранилище для руды с защитой от сбоев."
+	desc = "Революционное решение — бесконечное хранилище для руды с защитой от сбоев."
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
@@ -469,14 +469,17 @@
 			adjusted_contents++
 			var/datum/numbered_display/D = new/datum/numbered_display(I)
 			D.number = I.amount
-			numbered_contents.Add( D )
+			numbered_contents.Add(D)
 
 	var/row_num = 0
 	var/col_count = min(7,storage_slots) -1
 	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
-	src.standard_orient_objs(row_num, col_count, numbered_contents)
-	return
+
+	if(!display_contents_with_number)
+		space_orient_objs(numbered_contents)
+	else
+		standard_orient_objs(row_num, col_count, numbered_contents)
 
 
 // Modified quick_empty verb drops appropriate sized stacks

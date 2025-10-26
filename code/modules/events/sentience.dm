@@ -28,7 +28,7 @@
 			if(!(L in GLOB.player_list) && !L.mind && (L.sentience_type == sentience_type))
 				potential += L
 
-	if(!candidates.len || !potential.len) //if there are no players or simple animals to choose from, then end
+	if(!length(candidates) || !length(potential)) //if there are no players or simple animals to choose from, then end
 		return FALSE
 
 	var/sentience_report = span_bold(span_fontsize3("[command_name()] Medium-Priority Update"))
@@ -45,13 +45,13 @@
 	var/mob/SG = pick(candidates)
 	if(isLesserForm)
 		var/mob/living/carbon/human/lesser/LF = pick(potential)
-		LF.key = SG.key
+		LF.possess_by_player(SG.key)
 		LF.health = LF.maxHealth
 		greet_sentient(LF)
 
 	else
 		var/mob/living/simple_animal/SA = pick(potential)
-		SA.key = SG.key
+		SA.possess_by_player(SG.key)
 		SA.universal_speak = 1
 		SA.sentience_act()
 		SA.can_collar = 1

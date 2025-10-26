@@ -40,7 +40,7 @@
 				connectedparts += pointer
 			linked = pointer
 			pointer = null
-	if(connectedparts.len < 4)
+	if(length(connectedparts) < 4)
 		return 0
 	for(var/i = 1; i <=4; i++)
 		var/obj/item/pod_parts/pod_frame/F = connectedparts[i]
@@ -58,7 +58,7 @@
 		var/obj/item/stack/rods/rods = I
 		var/list/linkedparts = find_square()
 		if(!linkedparts)
-			to_chat(user, span_warning("Вы не можете собрать каркас шаттла - отсутствуют необходимые компоненты."))
+			to_chat(user, span_warning("Вы не можете собрать каркас шаттла — отсутствуют необходимые компоненты."))
 			return ATTACK_CHAIN_PROCEED
 		var/cached_sound = rods.usesound
 		if(!rods.use(10))

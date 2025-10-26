@@ -161,6 +161,11 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	GLOB.meteor_list -= src
 	return ..()
 
+/obj/effect/meteor/examine(mob/user, infix, suffix)
+	. = ..()
+	if((flags & ADMIN_SPAWNED) || !isliving(user))
+		return
+	user.client.give_award(/datum/award/achievement/misc/meteor_examine, user)
 
 /obj/effect/meteor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
@@ -200,7 +205,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 /obj/effect/meteor/proc/chase_target(atom/chasing, delay, home)
 	if(!isatom(chasing))
 		return
-	var/datum/move_loop/new_loop = SSmove_manager.move_towards(src, chasing, delay, home, lifetime)
+	var/datum/move_loop/new_loop = GLOB.move_manager.move_towards(src, chasing, delay, home, lifetime)
 	if(!new_loop)
 		return
 

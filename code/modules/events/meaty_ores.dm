@@ -23,5 +23,5 @@
 	while(qnty-- > 0)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/spawn_meteors, 1, GLOB.meteors_pigs)
 		if(prob(10))
-			sleep(rand(1 SECONDS, 1.5 SECONDS))
+			sleep(randfloat(1 SECONDS, 1.5 SECONDS))
 

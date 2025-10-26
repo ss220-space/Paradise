@@ -232,7 +232,7 @@
 
 	// I REALLY need to split up status panel things into datums
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
-	if(borer && borer.controlling)
+	if(borer?.controlling)
 		status_tab_data[++status_tab_data.len] = list("Объём химикатов:", borer.chemicals)
 		status_tab_data[++status_tab_data.len] = list("Стадия:", borer.antag_datum.borer_rank.rankname)
 		status_tab_data[++status_tab_data.len] = list("Очки эволюции:", borer.antag_datum.evo_points)
@@ -455,7 +455,7 @@
 
 
 /// Calculates the siemens coeff based on clothing and species, can also restart hearts.
-/mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/carbon/human/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	//Calculates the siemens coeff based on clothing. Completely ignores the arguments
 	if(flags & SHOCK_TESLA) //I hate this entire block. This gets the siemens_coeff for tesla shocks
 		if(gloves && gloves.siemens_coefficient <= 0)
@@ -643,7 +643,7 @@
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
 									modified = 1
-									if(GLOB.PDA_Manifest.len)
+									if(length(GLOB.PDA_Manifest))
 										GLOB.PDA_Manifest.Cut()
 
 									spawn()
@@ -1657,7 +1657,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		balloon_alert(src, "слишком толстые пальцы!")
 		return FALSE
 
-	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
+	if(mind?.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
 		to_chat(src, "[mind.martial_art.no_guns_message]")
 		return FALSE
 
@@ -1888,7 +1888,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	..()
 
 	var/obj/item/organ/internal/lantern/O = get_int_organ(/obj/item/organ/internal/lantern)
-	if(O && O.glowing)
+	if(O?.glowing)
 		O.toggle_biolum(TRUE)
 		visible_message(
 			span_danger("[src] растворя[pluralize_ru(gender, "ет", "юс")]ся во тьме."),

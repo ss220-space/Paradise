@@ -1,17 +1,17 @@
 /datum/event/lone_operative
-	name = "Ядерный Оперативник - Одиночка"
+	name = "Ядерный Оперативник — Одиночка"
 
 
 /datum/event/lone_operative/proc/get_operative()
 	processing = 0
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Ядерного оперативника - Одиночки?", ROLE_OPERATIVE, TRUE, source = image('icons/mob/simple_human.dmi', "syndicate_space_sword"))
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Ядерного оперативника — Одиночки?", ROLE_OPERATIVE, TRUE, source = image('icons/mob/simple_human.dmi', "syndicate_space_sword"))
 	if(!length(candidates))
 		log_and_message_admins("Warning: nobody volunteered to become a Lone Operative!")
 		kill()
 		return FALSE
 	var/mob/living/carbon/human/operative = new (pick(GLOB.carplist))
 	var/mob/candidate = pick(candidates)
-	operative.key = candidate.key
+	operative.possess_by_player(candidate.key)
 	create_syndicate(operative.mind)
 	var/datum/antagonist/nuclear_operative/datum = operative.mind.add_antag_datum(/datum/antagonist/nuclear_operative/loneop)
 	datum.equip()

@@ -168,7 +168,7 @@
 	if(!.)
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(affected && affected.encased) //no bones no problem.
+	if(affected?.encased) //no bones no problem.
 		return FALSE
 
 /datum/surgery/translator_manipulations
@@ -223,7 +223,7 @@
 
 
 /datum/surgery_step/proxy/manipulate_translator
-	name = "манипуляция с имплантом-переводчиком – прокси"
+	name = "манипуляция с имплантом-переводчиком — прокси"
 	branches = list(
 		/datum/surgery/intermediate/manipulate_translator/install,
 		/datum/surgery/intermediate/manipulate_translator/uninstall,
@@ -389,7 +389,7 @@
 
 /// The surgery step to trigger this whole situation
 /datum/surgery_step/proxy/manipulate_organs
-	name = "манипуляция с внутренними органами – прокси"
+	name = "манипуляция с внутренними органами — прокси"
 	branches = list(
 		/datum/surgery/intermediate/manipulate/extract,
 		/datum/surgery/intermediate/manipulate/implant,

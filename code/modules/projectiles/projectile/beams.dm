@@ -520,3 +520,24 @@
 	icon_state = "laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = COLOR_SOFT_RED
+
+/obj/projectile/beam/laser/light/rat
+	name = "clockwork energy laser"
+	icon_state = "brasslaser"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/orange_laser
+
+/obj/projectile/beam/laser/light/rat/get_ru_names()
+	return list(
+		NOMINATIVE = "лазер часовой энергии",
+		GENITIVE = "лазера часовой энергии",
+		DATIVE = "лазеру часовой энергии",
+		ACCUSATIVE = "лазер часовой энергии",
+		INSTRUMENTAL = "лазером часовой энергии",
+		PREPOSITIONAL = "лазере часовой энергии"
+	)
+
+
+/obj/projectile/beam/laser/light/rat/prehit(atom/target)
+	if(isclocker(target))
+		damage = 0
+	. = ..()

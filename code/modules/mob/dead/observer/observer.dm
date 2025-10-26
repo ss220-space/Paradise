@@ -72,7 +72,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 			MA.name = body.real_name
 		else
 			if(gender == MALE)
-				MA.name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+				MA.name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
 			else
 				MA.name = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names_female))
 
@@ -92,7 +92,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		T = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
 
 	if(!name)							//To prevent nameless ghosts
-		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
 	real_name = name
 
 	//starts ghosts off with all HUDs.
@@ -184,7 +184,12 @@ Works together with spawning an observer, noted above.
 		if(client)
 			client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
 
-		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
+		var/recordable_time = world.time
+		var/mob/living/former_mob = ghost.mind?.current
+		if(isliving(former_mob))
+			recordable_time = former_mob.timeofdeath
+
+		ghost.persistent_client?.time_of_death = recordable_time
 		GLOB.respawnable_list -= src
 
 		if(ghost.can_reenter_corpse)
@@ -192,7 +197,7 @@ Works together with spawning an observer, noted above.
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 
-		ghost.key = key
+		ghost.possess_by_player(key)
 		ghost.client?.init_verbs()
 		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
 		return ghost
@@ -249,7 +254,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(stat == CONSCIOUS)
 		if(!is_admin_level(z))
 			player_ghosted = 1
-		if(mind && mind.special_role)
+		if(mind?.special_role)
 			message_admins("[key_name_admin(src)] has ghosted while alive, with special_role: [mind.special_role]")
 
 	if(warningmsg)
@@ -322,7 +327,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, span_warning("Другое сознание находится в вашем теле... Оно сопротивляется вам."))
 		return FALSE
 
-	mind.current.key = key
+	mind.current.possess_by_player(key)
 
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 
@@ -335,7 +340,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(source)
 			var/atom/movable/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
 			if(A)
-				if(client && client.prefs && client.prefs.UI_style)
+				if(client?.prefs && client.prefs.UI_style)
 					A.icon = ui_style2icon(client.prefs.UI_style)
 				A.desc = message
 				var/old_layer = source.layer
@@ -813,7 +818,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!can_admin_interact())
 		return FALSE
 
-	if(client && client.advanced_admin_interaction)
+	if(client?.advanced_admin_interaction)
 		return TRUE
 
 	return FALSE
@@ -848,7 +853,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		mind.active = TRUE
 		mind.transfer_to(new_char)
 	else
-		new_char.key = key
+		new_char.possess_by_player(key)
 
 	return new_char
 

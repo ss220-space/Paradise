@@ -208,9 +208,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_multi_tile_object(atom) (atom.bound_width > ICON_SIZE_X || atom.bound_height > ICON_SIZE_Y)
 
-#define is_proximity(A) (istype(A, /obj/effect/abstract/proximity_checker))
-
 #define is_light(A) (istype(A, /atom/movable/lighting_object))
+
 #define ischest(A) (istype(A, /obj/item/organ/external/chest))
 
 #define isgroin(A) (istype(A, /obj/item/organ/external/groin))

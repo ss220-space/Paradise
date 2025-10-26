@@ -374,7 +374,7 @@
 
 				discipline_slime(M)
 	else
-		if(stat == DEAD && surgeries.len)
+		if(stat == DEAD && length(surgeries))
 			if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_DISARM)
 				for(var/datum/surgery/S in surgeries)
 					if(S.next_step(M, src))
@@ -465,7 +465,7 @@
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is [bicon(src)] \a <em>[src]</em>!"
+	. += "<span class='notice'>This is [icon2html(src, user)] \a <em>[src]</em>!"
 	if(stat == DEAD)
 		. += span_deadsay("It is limp and unresponsive.")
 	else

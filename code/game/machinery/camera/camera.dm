@@ -60,7 +60,7 @@
 		upgrade.camera_upgrade(src)
 
 	var/list/tempnetwork = difflist(src.network, GLOB.restricted_camera_networks)
-	if(tempnetwork.len)
+	if(length(tempnetwork))
 		GLOB.cameranet.addCamera(src)
 	else
 		GLOB.cameranet.removeCamera(src)
@@ -74,6 +74,7 @@
 	SStgui.close_uis(wires)
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
+	QDEL_NULL(proximity_monitor)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
 	if(isarea(myArea))
@@ -255,7 +256,7 @@
 		target.update_appearance(UPDATE_NAME)
 	// Add it to machines that process
 	START_PROCESSING(SSmachines, target)
-	target.AddComponent(/datum/component/proximity_monitor, target.view_range, TRUE)
+	target.proximity_monitor = new(target, target.view_range)
 
 /obj/machinery/camera/update_name(updates)
 	. = ..()
@@ -263,8 +264,6 @@
 		name = "motion-sensitive security camera"
 	else
 		name = "security camera"
-
-
 
 /obj/machinery/camera/obj_break(damage_flag)
 	if(status && !(obj_flags & NODECONSTRUCT))
@@ -333,13 +332,13 @@
 	if(status || alarm_on || (assembly && assembly.state == 1)) // checks if camera still off OR alarms already on OR camera disasembled
 		return
 	alarm_on = TRUE
-	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
+	GLOB.alarm_manager.trigger_alarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
 	if(!alarm_on) // you don't have to turn off alarm twice
 		return
 	alarm_on = FALSE
-	SSalarm.cancelAlarm("Camera", get_area(src), src)
+	GLOB.alarm_manager.cancel_alarm("Camera", get_area(src), src)
 
 /obj/machinery/camera/proc/can_use(mob/user)
 	if(!status)
@@ -353,7 +352,7 @@
 	var/turf/pos = get_turf(src)
 	var/turf/directly_above = GET_TURF_ABOVE(pos)
 	var/check_lower = pos != get_lowest_turf(pos)
-	var/check_higher = directly_above && directly_above.transparent_floor && (pos != get_highest_turf(pos))
+	var/check_higher = directly_above?.transparent_floor && (pos != get_highest_turf(pos))
 
 	if(isXRay())
 		see = range(view_range, pos)
@@ -363,7 +362,7 @@
 		for(var/turf/seen in see)
 			if(check_lower)
 				var/turf/visible = seen
-				while(visible && visible.transparent_floor)
+				while(visible?.transparent_floor)
 					var/turf/below = GET_TURF_BELOW(visible)
 					for(var/turf/adjacent in range(1, below))
 						see += adjacent
@@ -371,7 +370,7 @@
 					visible = below
 			if(check_higher)
 				var/turf/above = GET_TURF_ABOVE(seen)
-				while(above && above.transparent_floor)
+				while(above?.transparent_floor)
 					for(var/turf/adjacent in range(1, above))
 						see += adjacent
 						see += adjacent.contents
@@ -446,7 +445,7 @@
 		return TRUE
 
 	var/list/tempnetwork = network & ai.network
-	return tempnetwork.len > 0
+	return length(tempnetwork) > 0
 
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)

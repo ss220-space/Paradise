@@ -16,6 +16,14 @@
 ///This is slower and better for more intensive status effects - 1s between ticks
 #define STATUS_EFFECT_NORMAL_PROCESS 1
 
+#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
+//several flags for the Necropolis curse status effect
+///makes the edges of the target's screen obscured
+#define CURSE_BLINDING (1<<0)
+///causes gradual damage
+#define CURSE_WASTING (1<<1)
+///hands reach out from the sides of the screen, doing damage and stunning if they hit the target
+#define CURSE_GRASPING (1<<2)
 
 ///////////
 // BUFFS //
@@ -127,16 +135,6 @@
 #define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few seconds
 
 #define STATUS_EFFECT_VOMIT /datum/status_effect/tox_vomit // When carbon got enough tox damage - he will vomit.
-
-//#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
-//#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
-//#define CURSE_SPAWNING	2 //spawns creatures that attack the target only
-//#define CURSE_WASTING	4 //causes gradual damage
-//#define CURSE_GRASPING	8 //hands reach out from the sides of the screen, doing damage and stunning if they hit the target
-
-//#define STATUS_EFFECT_KINDLE /datum/status_effect/kindle //A knockdown reduced by 1 second for every 3 points of damage the target takes.
-
-//#define STATUS_EFFECT_ICHORIAL_STAIN /datum/status_effect/ichorial_stain //Prevents a servant from being revived by vitality matrices for one minute.
 
 /// Whether a moth's wings are burnt
 #define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings

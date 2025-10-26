@@ -991,7 +991,7 @@
 					new /obj/effect/decal/cleanable/trail_holder(loc)
 
 				for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)
-					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
+					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && length(TH.existing_dirs) <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
 						TH.existing_dirs += newdir
 						TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
@@ -1405,21 +1405,21 @@
 					SSticker.mode.add_clocker(mind)
 					mind.transfer_to(cog)
 				else
-					cog.key = client.key
+					cog.possess_by_player(client.key)
 			if(2)
 				var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
 				if(mind)
 					SSticker.mode.add_clocker(mind)
 					mind.transfer_to(cog)
 				else
-					cog.key = client.key
+					cog.possess_by_player(client.key)
 			if(3)
 				var/mob/living/silicon/robot/cog = new (get_turf(src))
 				if(mind)
 					SSticker.mode.add_clocker(mind)
 					mind.transfer_to(cog)
 				else
-					cog.key = client.key
+					cog.possess_by_player(client.key)
 				cog.ratvar_act()
 	spawn_dust()
 	gib()
@@ -1508,7 +1508,7 @@
 
 
 /mob/living/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
-	return ..() && !(buckled && buckled.buckle_prevents_pull)
+	return ..() && !(buckled?.buckle_prevents_pull)
 
 
 /mob/living/proc/can_pull(hand_to_check, supress_message = FALSE)

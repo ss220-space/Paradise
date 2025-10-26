@@ -30,6 +30,10 @@ SUBSYSTEM_DEF(shuttle)
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
 	var/list/hostile_environment = list()
+	/// Do we prevent the recall of the shuttle?
+	var/emergency_no_recall = FALSE
+	/// Did admins force-prevent the recall of the shuttle?
+	var/admin_emergency_no_recall = FALSE
 
 		//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
@@ -116,7 +120,7 @@ SUBSYSTEM_DEF(shuttle)
 				qdel(T, force=TRUE)
 
 	if(!SSmapping.clearing_reserved_turfs)
-		while(transit_requesters.len)
+		while(length(transit_requesters))
 			var/requester = popleft(transit_requesters)
 			var/success = generate_transit_dock(requester)
 			if(!success) // BACK OF THE QUEUE
@@ -221,7 +225,7 @@ SUBSYSTEM_DEF(shuttle)
 		return 1
 
 /datum/controller/subsystem/shuttle/proc/canRecall()
-	if(emergency.mode != SHUTTLE_CALL)
+	if(emergency.mode != SHUTTLE_CALL || admin_emergency_no_recall || emergency_no_recall)
 		return
 	if(!emergency.canRecall)
 		return
@@ -433,7 +437,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/get_dock_overlap(x0, y0, x1, y1, z)
 	. = list()
 	var/list/stationary_cache = stationary
-	for(var/i in 1 to stationary_cache.len)
+	for(var/i in 1 to length(stationary_cache))
 		var/obj/docking_port/port = stationary_cache[i]
 		if(!port || port.z != z)
 			continue
@@ -441,7 +445,7 @@ SUBSYSTEM_DEF(shuttle)
 		var/list/overlap = get_overlap(x0, y0, x1, y1, bounds[1], bounds[2], bounds[3], bounds[4])
 		var/list/xs = overlap[1]
 		var/list/ys = overlap[2]
-		if(xs.len && ys.len)
+		if(length(xs) && length(ys))
 			.[port] = overlap
 
 /datum/controller/subsystem/shuttle/proc/update_hidden_docking_ports(list/remove_turfs, list/add_turfs)
@@ -459,7 +463,7 @@ SUBSYSTEM_DEF(shuttle)
 		for(var/V in add_turfs)
 			var/turf/T = V
 			var/image/I
-			if(remove_images.len)
+			if(length(remove_images))
 				//we can just reuse any images we are about to delete instead of making new ones
 				I = remove_images[1]
 				remove_images.Cut(1, 2)
@@ -504,6 +508,32 @@ SUBSYSTEM_DEF(shuttle)
 	centcom_message += "[span_good("+50")]: Компенсация за уход члена экипажа в крио при критической угрозе объекту.<hr>"
 
 #undef CRYOPOD_POINTS
+
+/datum/controller/subsystem/shuttle/proc/block_recall(lockout_timer)
+	if(isnull(lockout_timer))
+		CRASH("Emergency shuttle block was called, but missing a value for the lockout duration")
+	if(admin_emergency_no_recall)
+		GLOB.major_announcement.announce(
+			message = "Обнаружены помехи в канале связи эвакуационного шаттла. Вызов шаттла отключен до завершения перезагрузки системы. Примерное время восстановления: [DisplayTimeText(lockout_timer, round_seconds_to = 60)].",
+			new_title = "Канал связи эвакуационного шаттла.",
+			new_subtitle = "Обнаружены помехи.",
+			new_sound = 'sound/misc/announce_dig.ogg',
+		)
+		addtimer(CALLBACK(src, PROC_REF(unblock_recall)), lockout_timer)
+		return
+	emergency_no_recall = TRUE
+	addtimer(CALLBACK(src, PROC_REF(unblock_recall)), lockout_timer)
+
+/datum/controller/subsystem/shuttle/proc/unblock_recall()
+	if(admin_emergency_no_recall)
+		GLOB.major_announcement.announce(
+			message = "Канал связи эвакуационного шаттла восстановлен.",
+			new_title = "Канал связи эвакуационного шаттла.",
+			new_subtitle = "Связь восстановлена.",
+			new_sound = 'sound/misc/announce_dig.ogg',
+		)
+		return
+	emergency_no_recall = FALSE
 
 // Allow admins to fix shuttles ports list.
 /client/proc/reregister_docks()

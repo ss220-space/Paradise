@@ -55,8 +55,8 @@ SUBSYSTEM_DEF(movement)
 /// Processes a bucket of movement loops (This should only ever be called by fire(), it exists to prevent runtime fuckery)
 /datum/controller/subsystem/movement/proc/pour_bucket(list/bucket_info)
 	var/list/processing = bucket_info[MOVEMENT_BUCKET_LIST] // Cache for lookup speed
-	while(processing.len)
-		var/datum/move_loop/loop = processing[processing.len]
+	while(length(processing))
+		var/datum/move_loop/loop = processing[length(processing)]
 		processing.len--
 		// No longer queued since we just got removed from the loop
 		loop.queued_time = null

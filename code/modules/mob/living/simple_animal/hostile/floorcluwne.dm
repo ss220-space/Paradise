@@ -126,9 +126,9 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
 	if(!manifested && !is_type_in_typecache(get_area(current_victim.loc), invalid_area_typecache))
-		SSmove_manager.move_to(src, target, minimum_distance, delay)
+		GLOB.move_manager.move_to(src, target, minimum_distance, delay)
 	else
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/FindTarget()
@@ -147,13 +147,13 @@
 	return
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS) //prevents runtimes with machine fuckery
+/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS) //prevents runtimes with machine fuckery
 	return FALSE
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
 	var/list/players_copy = GLOB.player_list.Copy()
-	while(players_copy.len)
+	while(length(players_copy))
 		var/mob/living/carbon/human/H = pick_n_take(players_copy)
 		if(!ishuman(H))
 			continue

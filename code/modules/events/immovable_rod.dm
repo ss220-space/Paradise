@@ -81,9 +81,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		SSaugury.register_doom(src, 2000)
 
 	if(special_target)
-		SSmove_manager.home_onto(src, special_target, delay = move_delay)
+		GLOB.move_manager.home_onto(src, special_target, delay = move_delay)
 	else
-		SSmove_manager.move_towards(src, destination_turf, delay = move_delay)
+		GLOB.move_manager.move_towards(src, destination_turf, delay = move_delay)
 
 
 /obj/effect/immovablerod/Destroy(force)
@@ -171,7 +171,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				return
 
 			visible_message(span_danger("[src] phases into reality."))
-			SSmove_manager.home_onto(src, special_target, delay = move_delay)
+			GLOB.move_manager.home_onto(src, special_target, delay = move_delay)
 
 		if(loc == target_turf)
 			complete_trajectory()
@@ -301,7 +301,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
  * Stops your rod's automated movement. Sit... Stay... Good rod!
  */
 /obj/effect/immovablerod/proc/sit_stay_good_rod()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 
 
 /obj/effect/immovablerod/smite
@@ -332,7 +332,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	// our exit condition: get outta there kowalski
 	var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
 	exit = new /obj/effect/portal(target_turf, null, null, 2 SECONDS)
-	SSmove_manager.move_towards(src, exit, delay = move_delay)
+	GLOB.move_manager.move_towards(src, exit, delay = move_delay)
 
 
 /obj/effect/immovablerod/smite/penetrate(mob/living/smeared_mob)
@@ -340,7 +340,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(smeared_mob != target || !reason)
 		return
 
-	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[pluralize_ru(gender, "ит", "ят")] через ваши внутренности, вы внезапно осознаёте - боги наказали вас за [reason]!"))
+	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[pluralize_ru(gender, "ит", "ят")] через ваши внутренности, вы внезапно осознаёте — боги наказали вас за [reason]!"))
 
 
 /**
@@ -355,7 +355,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/proc/go_for_a_walk(walkies_location = null)
 	if(walkies_location)
 		special_target = walkies_location
-		SSmove_manager.home_onto(src, special_target, delay = move_delay)
+		GLOB.move_manager.home_onto(src, special_target, delay = move_delay)
 		return
 	complete_trajectory()
 
@@ -368,10 +368,36 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
  */
 /obj/effect/immovablerod/proc/walk_in_direction(direction)
 	destination_turf = get_edge_target_turf(src, direction)
-	SSmove_manager.move_towards(src, destination_turf, delay = move_delay)
-
-
+	GLOB.move_manager.move_towards(src, destination_turf, delay = move_delay)
 
 /obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
 	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
 
+/obj/effect/immovablerod/attack_hand(mob/living/user)
+	if(ishuman(user) && try_suplex(user))
+		return TRUE
+	. = ..()
+
+/obj/effect/immovablerod/proc/try_suplex(mob/living/carbon/human/human)
+	if(human.job != JOB_TITLE_RD)
+		return FALSE
+
+	playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	for(var/mob/mob in urange(8, src))
+		if(mob.stat)
+			continue
+		shake_camera(mob, duration = 2, strength = 3)
+	suplex_effect(human)
+
+/obj/effect/immovablerod/proc/suplex_effect(mob/living/carbon/human/human)
+	human.client.give_award(/datum/award/achievement/jobs/feat_of_strength, human) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
+	human.visible_message(
+		span_boldwarning("[capitalize(human.declent_ru(NOMINATIVE))] хвата[pluralize_ru(human.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и броса[pluralize_ru(human.gender, "ет", "ют")] на землю!"),
+		span_warning("Вы хватаете [declent_ru(ACCUSATIVE)] и бросаете на землю!")
+	)
+	new /obj/structure/festivus/anchored(drop_location())
+	new /obj/effect/anomaly/energetic/tier2(drop_location())
+	qdel(src)
+
+/obj/effect/immovablerod/smite/try_suplex(mob/living/carbon/human/human)
+	return FALSE

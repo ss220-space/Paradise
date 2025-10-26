@@ -1,7 +1,7 @@
 /obj/item/organ/external/chest/diona
 	species_type = /datum/species/diona
 	name = "core trunk"
-	desc = "Основной ствол - ядро."
+	desc = "Основной ствол — ядро."
 	ru_names = list(
 		NOMINATIVE = "основной ствол",
 		GENITIVE = "основного ствола",

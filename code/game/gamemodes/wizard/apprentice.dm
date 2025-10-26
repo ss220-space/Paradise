@@ -41,7 +41,7 @@
 				var/mob/C = pick(candidates)
 				new /obj/effect/particle_effect/fluid/smoke(teacher.loc)
 				var/mob/living/carbon/human/apprentice = new/mob/living/carbon/human(teacher.loc)
-				apprentice.key = C.key
+				apprentice.possess_by_player(C.key)
 				to_chat(apprentice, span_notice("You are the [teacher.real_name]'s apprentice! You are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals."))
 
 				school_href_choose(href_list, teacher, apprentice)
@@ -167,7 +167,7 @@
 	var/dat = "<b>Магический учебник:</b><br>"
 	dat += "<i>Изучив этот учебник, вы определитесь в магии, которую будете практиковать.</i><br>"
 	dat += "<i>Перед тем как выбрать один из путей, хорошо подумайте и поговорите со своим учителем для получении рекомендаций.</i><br>"
-	dat += "<i>Если учитель не настроен на разговор - ничего страшного! В данном учебнике приведено краткое описание возможных путей.</i><br>"
+	dat += "<i>Если учитель не настроен на разговор — ничего страшного! В данном учебнике приведено краткое описание возможных путей.</i><br>"
 
 	dat += "<br><b>Какую школу магии вы хотели бы изучать?:</b><br>"
 	return dat

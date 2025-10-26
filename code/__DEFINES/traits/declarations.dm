@@ -96,6 +96,10 @@
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
 /// Objects with this trait can cross chasm safe/
 #define TRAIT_CHASM_IGNORED "chasm_ignored"
+/// This mob has red glowing eyes with special text upon examination
+#define TRAIT_RED_EYES "red_eyes"
+/// This mob's hands will glow amber with special text upon examination
+#define TRAIT_CLOCK_HANDS "clock_hands"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
@@ -180,6 +184,8 @@
 
 //***** ITEM TRAITS *****//
 #define TRAIT_CMAGGED "cmagged"
+/// Trait to toggle Inugami Gloves built-in defibrillator mode
+#define TRAIT_DEFIB_BLOCKED "defib_blocked"
 /// The items needs two hands to be carried
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands"
 /// Properly wielded two handed item
@@ -371,3 +377,6 @@
 #define TRAIT_AREA_SENSITIVE "area-sensitive"
 ///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
+
+/// If any of the owner's robotic parts are being repaired right now
+#define TRAIT_REPAIRING_LIMB "repairing_limb"

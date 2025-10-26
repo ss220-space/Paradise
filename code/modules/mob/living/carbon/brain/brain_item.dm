@@ -41,7 +41,7 @@
 	if(isnull(dna)) // someone didn't set this right...
 		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
 		dna = H.dna.Clone()
-	name = "\the [dna.real_name]'s [initial(src.name)]"
+	name = "\the [dna.real_name]’s [initial(src.name)]"
 	if(ru_names)
 		for(var/i in NOMINATIVE to PREPOSITIONAL)
 			ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
@@ -57,7 +57,7 @@
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
-	if(brainmob && brainmob.client)//if there be a brain inside... the brain.
+	if(brainmob?.client)//if there be a brain inside... the brain.
 		. += "В нём ощущается мощная нейронная активность."
 		return
 	if(brainmob?.mind)
@@ -74,7 +74,7 @@
 
 /obj/item/organ/internal/brain/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(dna)
-		name = "[dna.real_name]'s [initial(name)]"
+		name = "[dna.real_name]’s [initial(name)]"
 		if(ru_names)
 			for(var/i in NOMINATIVE to PREPOSITIONAL)
 				ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
@@ -120,7 +120,7 @@
 			if(brainmob.mind)
 				brainmob.mind.transfer_to(target)
 			else
-				target.key = brainmob.key
+				target.possess_by_player(brainmob.key)
 		else if(brainmob?.mind && target_changeling)
 			brainmob.mind.current = null
 			brainmob.ghostize()

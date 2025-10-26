@@ -625,7 +625,7 @@
 #define COMSIG_LIVING_WET "living_weted"
 ///from base of mob/living/ExtinguishMob() (/mob/living)
 #define COMSIG_LIVING_EXTINGUISHED "living_extinguished"
-///from base of mob/living/electrocute_act(): (shock_damage, source, siemens_coeff, flags)
+///from base of mob/living/electrocute_act(): (shock_damage, atom/source, siemens_coeff, flags)
 #define COMSIG_LIVING_ELECTROCUTE_ACT "living_electrocute_act"
 	/// Block the electrocute_act() proc from proceeding
 	#define COMPONENT_LIVING_BLOCK_SHOCK (1<<0)
@@ -1292,9 +1292,9 @@
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
 
-///SSalarm signals
-#define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
-#define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+// /datum/alarm_manager
+#define COMSIG_TRIGGERED_ALARM "alarmmanager_triggered"
+#define COMSIG_CANCELLED_ALARM "alarmmanager_cancelled"
 
 // /datum/objective signals
 ///from datum/objective/proc/find_target()
@@ -1521,6 +1521,8 @@
 #define COMSIG_GET_HUNGER_MODS "get_hunger_mods"
 /// Called when proc need to upgrade mob's strength level.
 #define COMSIG_STRENGTH_LEVEL_UP "strength_level_up"
+/// Called when proc need to get weak mob modifier.
+#define COMSIG_GET_WEAK_MOB_MODIFIERS "get_weak_mob_modifiers"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 /// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)
@@ -1550,3 +1552,10 @@
 
 /// Called when using tool from toolbox via radial menu
 #define COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE "toolbox_radial_menu_tool_usage"
+/// From /datum/diablerie_level/proc/gain()
+#define SIGNAL_DIABLERIE_LEVEL_GAIN "diablerie_level_gain"
+/// From /datum/diablerie_level/proc/remove()
+#define SIGNAL_DIABLERIE_LEVEL_REMOVE "diablerie_level_remove"
+
+///Sent after awards are saved in the database (/datum/controller/subsystem/achievements/save_achievements_to_db)
+#define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"

@@ -36,7 +36,7 @@
 		return
 	var/mob/living/simple_animal/hostile/space_dragon/space_dragon = new (pick(GLOB.carplist))
 	var/mob/candidate = pick(candidates)
-	space_dragon.key = candidate.key
+	space_dragon.possess_by_player(candidate.key)
 	space_dragon.mind.add_antag_datum(/datum/antagonist/space_dragon)
 	playsound(space_dragon, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	log_and_message_admins("[ADMIN_LOOKUPFLW(space_dragon)] has been made into a Space Dragon by an event.")

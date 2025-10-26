@@ -506,7 +506,7 @@
 
 	ranged_ability_user.playsound_local(ranged_ability_user, SFX_SPARKS, 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
-	if(attached_action && attached_action.uses)
+	if(attached_action?.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message(span_italics("You hear a loud electrical buzzing sound coming from [target]!"))
@@ -560,7 +560,7 @@
 
 	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
-	if(attached_action && attached_action.uses)
+	if(attached_action?.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [target]!"))

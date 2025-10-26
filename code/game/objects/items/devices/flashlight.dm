@@ -280,7 +280,7 @@
 
 /obj/item/flashlight/flare/on/illumination/Initialize(mapload)
 	. = ..()
-	fuel = rand(5.0 MINUTES, 6.0 MINUTES) // Approximately half the effective duration of a flare, but justified since it's invincible
+	fuel = rand(5 MINUTES, 6 MINUTES) // Approximately half the effective duration of a flare, but justified since it's invincible
 
 /obj/item/flashlight/flare/on/illumination/update_icon()
 	. = ..(NONE)

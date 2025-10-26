@@ -283,7 +283,7 @@
 
 	var/list/destinations = list()
 
-	for(var/obj/item/radio/beacon/beacon in GLOB.global_radios)
+	for(var/obj/item/beacon/beacon as anything in GLOB.beacons)
 		LAZYADD(destinations, get_turf(beacon))
 
 	human.forceMove(safepick(destinations))
@@ -1016,7 +1016,7 @@
 		return RITUAL_FAILED_ON_PROCEED // no mercy guys. But you got friendly creature
 
 	var/mob/mob = pick(candidates)
-	animal.key = mob.key
+	animal.possess_by_player(mob.ckey)
 	animal.universal_speak = 1
 	animal.sentience_act()
 	animal.can_collar = 1
@@ -1025,7 +1025,7 @@
 	animal.master_commander = invoker
 
 	animal.mind.store_memory("<b>Мой хозяин - [invoker.name], выполню [genderize_ru(invoker.gender, "его", "её", "его", "их")] цели любой ценой!</b>")
-	to_chat(animal, chat_box_green("Вы - раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
+	to_chat(animal, chat_box_green("Вы — раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
 	add_game_logs("стал питомцем игрока [key_name(invoker)]", animal)
 
 	return RITUAL_SUCCESSFUL

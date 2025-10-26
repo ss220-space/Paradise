@@ -465,7 +465,7 @@
 			if(T.y>world.maxy-tele_range || T.y<tele_range)
 				continue
 			turfs += T
-		if(!turfs.len)
+		if(!length(turfs))
 			turfs += pick(/turf in orange(tele_range, H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))

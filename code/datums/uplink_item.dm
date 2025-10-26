@@ -188,9 +188,9 @@
 
 	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
 		for(var/atom/box_item in spawned)
-			target_uplink.purchase_log += span_fontsize4(bicon(box_item))
+			target_uplink.purchase_log += span_fontsize4(icon2base64html(box_item))
 	else
-		target_uplink.purchase_log += span_fontsize4(bicon(spawned))
+		target_uplink.purchase_log += span_fontsize4(icon2base64html(spawned))
 
 	return spawned
 
@@ -253,7 +253,7 @@
 
 /datum/uplink_item/jobspecific/bipki
 	name = "Чемодан с бипками"
-	desc = "Хочешь знать, что там внутри? Отсосёшь - скажу."
+	desc = "Хочешь знать, что там внутри? Отсосёшь — скажу."
 	item = /obj/item/case_with_bipki
 	cost = 30
 	job = list(JOB_TITLE_CLOWN)
@@ -688,6 +688,15 @@
 	cost = 40
 	race = list(SPECIES_MACNINEPERSON)
 
+/datum/uplink_item/racial/combat_exoframe
+	name = "Боевой каркас экзоскелета"
+	desc = "Укреплённый титановыми вставками каркас экзоскелета, значительно повышающий прочность корпуса, при этом практически не увеличивая вес. \
+			Благодаря усовершенствованной гидравлической системе повышает мобильность пользователя без потери боевых характеристик. \
+			Поставляется с одноразовым автоимплантером для установки на месте."
+	item = /obj/item/storage/box/syndie_kit/combat_exoframe
+	cost = 43
+	race = list(SPECIES_MACNINEPERSON)
+
 //Slime People
 
 /datum/uplink_item/racial/anomaly_extract
@@ -750,7 +759,7 @@
 	name = "Пояс абдуктора"
 	desc = "Пояс с инструментами, используемый абдукторами. Он включает в себя полный набор инопланетных инструментов."
 	item = /obj/item/storage/belt/military/abductor/full
-	cost = 16
+	cost = 8
 	race = list(SPECIES_GREY)
 
 /datum/uplink_item/racial/silencer
@@ -758,6 +767,13 @@
 	desc = "Компактное устройство, предназначенное для выключения коммуникационного оборудования."
 	item = /obj/item/abductor/silencer
 	cost = 12
+	race = list(SPECIES_GREY)
+
+/datum/uplink_item/racial/agent_surgical_belt
+	name = "Хирургический пояс абдукторов"
+	desc = "Абдукторский хирургический пояс. Включает в себя полный набор абдукторских инструментов и два мендера. Может помещаться в рюкзак"
+	item = /obj/item/storage/belt/medical/surgery/abductor/loaded
+	cost = 8
 	race = list(SPECIES_GREY)
 
 /**
@@ -1460,7 +1476,7 @@
 			который телепортирует бомбу к вам при активации. Бомбу можно прикрутить к полу гаечным ключом. После того как таймер будет запущен, \
 			она начнёт издавать громкий звук, который будет усиливаться по мере приближения взрыва. Если бомбу обнаружат вовремя, её можно будет обезвредить. \
 			Взрыв нанесёт серьёзный ущерб окружению."
-	item = /obj/item/radio/beacon/syndicate/bomb
+	item = /obj/item/beacon/syndicate/bomb
 	cost = 40
 	surplus = 0
 	can_discount = FALSE
@@ -1479,7 +1495,7 @@
 			который телепортирует бомбу к вам при активации. Бомбу можно прикрутить к полу гаечным ключом. После того как таймер будет запущен, \
 			она начнёт издавать громкий звук, который будет усиливаться по мере приближения взрыва. Если бомбу обнаружат вовремя, её можно будет обезвредить. \
 			На 2-3 минуты все электронные устройства в радиусе 36 тайлов будут полностью отключены."
-	item = /obj/item/radio/beacon/syndicate/bomb/emp
+	item = /obj/item/beacon/syndicate/bomb/emp
 	cost = 40
 	surplus = 0
 	can_discount = FALSE
@@ -1944,7 +1960,7 @@
 	name = "Силовой маяк"
 	desc = "Устройство, притягивающее к себе сингулярность и тесла-шар после того, как они покинут зону содержания. \
 			Чтобы его подключить, необходимо установить его на узел и закрепить с помощью отвёртки, а затем включить."
-	item = /obj/item/radio/beacon/syndicate
+	item = /obj/item/beacon/syndicate
 	cost = 30
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
@@ -2364,7 +2380,7 @@
 /datum/uplink_item/bundles_TC/badass
 	name = "Набор Синдиката"
 	desc = "Предлагает вам выбрать один из трёх наборов или получить случайный набор. Общая стоимость предметов в наборах превышает 100 телекристаллов."
-	item = /obj/item/radio/beacon/syndicate/bundle
+	item = /obj/item/beacon/syndicate/bundle
 	cost = 100
 	refundable = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -2393,7 +2409,7 @@
 	target_uplink.used_TC = cost
 
 
-	while(remaining_TC && buyable_items.len)
+	while(remaining_TC && length(buyable_items))
 		var/datum/uplink_item/chosen_item = pick(buyable_items)
 		if(!chosen_item.surplus || prob(100 - chosen_item.surplus))
 			continue
@@ -2405,10 +2421,10 @@
 		remaining_TC -= chosen_item.cost
 		itemlog += chosen_item.name // To make the name more readable for the log compared to just i.item
 
-	target_uplink.purchase_log += "<BIG>[bicon(crate)]</BIG>"
+	target_uplink.purchase_log += "<big>[icon2base64html(crate)]</big>"
 	for(var/bought_item in bought_items)
 		var/obj/purchased = new bought_item(crate)
-		target_uplink.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
+		target_uplink.purchase_log += "<big>[icon2base64html(purchased)]</big>"
 	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", buyer)
 
 /datum/uplink_item/bundles_TC/telecrystal

@@ -181,7 +181,7 @@
 		. += span_notice("К цевью прикреплен [attachments_by_slot[ATTACHMENT_SLOT_UNDER].declent_ru(NOMINATIVE)].")
 	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_UNDER)
 		. += span_notice("Имеет маленькую планку на цевье для крепление пистолетного фонаря.")
-	else if(attachable_allowed & GUN_MODULE_CLASS_RIFLE_UNDER | attachable_allowed & GUN_MODULE_CLASS_SHOTGUN_UNDER)
+	else if(attachable_allowed & (GUN_MODULE_CLASS_RIFLE_UNDER|GUN_MODULE_CLASS_SHOTGUN_UNDER))
 		. += span_notice("Имеет большую планку на цевье для крепление большого фонаря или рукоятки.")
 
 	if(unique_reskin)
@@ -348,7 +348,7 @@
 		if(!user.can_use_guns(src))
 			return FALSE
 
-		if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] несовместим с вашей биологией!"))
 			return FALSE
 
@@ -382,7 +382,7 @@
 		rotate_to_target(target)
 
 	if(burst_size > 1)
-		if(chambered && chambered.harmful)
+		if(chambered?.harmful)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
@@ -734,7 +734,7 @@
 
 	target.visible_message(span_warning("[user] нажимает на спусковой крючок!"), span_userdanger("[user] нажимает на спусковой крючок!"))
 
-	if(chambered && chambered.BB)
+	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
 	process_fire(target, user, 1, params)

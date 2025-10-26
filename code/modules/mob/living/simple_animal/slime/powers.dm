@@ -257,7 +257,7 @@
 	if(src.mind)
 		src.mind.transfer_to(new_slime)
 	else
-		new_slime.key = src.key
+		new_slime.possess_by_player(key)
 	qdel(src)
 	return TRUE
 

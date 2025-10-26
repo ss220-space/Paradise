@@ -56,7 +56,7 @@
 					M.show_message(span_warning("Вы слышите, как в животе [name] что-то урчит."), 2)
 
 			var/obj/item/I = user.get_active_hand()
-			if(I && I.force)
+			if(I?.force)
 				apply_damage(rand(round(I.force / 4), I.force), def_zone = BODY_ZONE_CHEST)
 
 				for(var/mob/M in viewers(user, null))
@@ -157,7 +157,7 @@
 		visible_message(span_danger("[M] вырыва[pluralize_ru(M.gender, "ет", "ют")]ся из нутра [name]!"))
 
 /// Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
-/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/carbon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	. = ..()
 	if(!.)
 		return .
@@ -180,7 +180,7 @@
 			if(victim == src)
 				continue
 
-			victim.electrocute_act(shock_damage * 0.75, name, 1, flags, jitter_time, stutter_time, stun_duration)
+			victim.electrocute_act(shock_damage * 0.75, src, 1, flags, jitter_time, stutter_time, stun_duration)
 
 	//Stun
 	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
@@ -349,7 +349,7 @@
 		status_list += msg
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
-			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(GENITIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [bicon(embedded)] [embedded.declent_ru(NOMINATIVE)]!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(GENITIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
 
 	for(var/t in missing)
 		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")
@@ -375,7 +375,7 @@
 			return
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-		if(!E || (E && E.weld_proof))
+		if(!E || (E?.weld_proof))
 			return
 
 		if(weakeyes)
@@ -507,7 +507,7 @@
 /mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	/*
 	for(var/obj/item/twohanded/dualsaber/D in contents)
-		if(D.wielded && D.force)
+		if(D.wielded?.force)
 			visible_message(span_danger("[name] impales [C] with [D], before dropping them on the ground!"))
 			C.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
 			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!

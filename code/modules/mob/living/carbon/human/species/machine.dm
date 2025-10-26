@@ -189,9 +189,9 @@
 
 		for(var/line in lines)									// Looks for lines set up as screen:ckey:screen_name
 			var/list/Entry = splittext(line, ":")				// split lines
-			for(var/i = 1 to Entry.len)
+			for(var/i = 1 to length(Entry))
 				Entry[i] = trim(Entry[i])						// Cleans up lines
-				if(Entry.len != 3 || Entry[1] != "screen")		// Ignore entries that aren't for screens
+				if(length(Entry) != 3 || Entry[1] != "screen")		// Ignore entries that aren't for screens
 					continue
 				if(Entry[2] == H.ckey)							// They're in the list? Custom sprite time, var and icon change required
 					hair += Entry[3]							// Adds custom screen to list
@@ -213,3 +213,11 @@
 
 /datum/species/machine/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	return 1 + (0.01*rand(-tolerance,tolerance))
+
+/datum/species/machine/job_pre_equip(mob/living/carbon/human/human)
+	if(human.client.prefs.exoframe_type)
+		var/exoframe_path = GLOB.exoframe_types[human.client.prefs.exoframe_type]
+		var/obj/item/organ/internal/cyberimp/chest/exoframe/exoframe = new exoframe_path
+		exoframe.insert(human)
+	
+	return ..()

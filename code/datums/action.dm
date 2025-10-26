@@ -325,6 +325,9 @@
 /datum/action/item_action/toggle_helmet_light
 	name = "Переключить фонарь шлема"
 
+/datum/action/item_action/toggle_defibrillator
+	name = "Включить/выключить встроенный дефибриллятор"
+
 /datum/action/item_action/toggle_welding_screen/plasmaman
 	name = "Поднять/опустить сварочный щиток"
 

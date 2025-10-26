@@ -58,8 +58,9 @@ Difficulty: Hard
 	loot = list(/obj/item/hierophant_club, /obj/item/gem/purple)
 	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman, /obj/item/gem/purple)
 	wander = FALSE
-	medal_type = BOSS_MEDAL_HIEROPHANT
-	score_type = HIEROPHANT_SCORE
+	achievement_type = /datum/award/achievement/boss/hierophant_kill
+	crusher_achievement_type = /datum/award/achievement/boss/hierophant_crusher
+	score_achievement_type = /datum/award/score/hierophant_score
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
@@ -192,7 +193,7 @@ Difficulty: Hard
 				possibilities = list("chaser_swarm")
 			else
 				possibilities += "chaser_swarm"
-		if(possibilities.len)
+		if(length(possibilities))
 			switch(pick(possibilities))
 				if("blink_spam") //blink either once or multiple times.
 					blink_spam(blink_counter, target_slowness, cross_counter)
@@ -294,9 +295,9 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(src, 6)
 	var/list/targets = ListTargets()
 	var/list/cardinal_copy = GLOB.cardinal.Copy()
-	while(targets.len && cardinal_copy.len)
+	while(length(targets) && length(cardinal_copy))
 		var/mob/living/pickedtarget = pick(targets)
-		if(targets.len >= cardinal_copy.len)
+		if(length(targets) >= length(cardinal_copy))
 			pickedtarget = pick_n_take(targets)
 		if(!istype(pickedtarget) || pickedtarget.stat == DEAD)
 			pickedtarget = target

@@ -50,10 +50,11 @@
 					return FALSE
 				break
 
-	if(rigged && locate(/obj/item/radio/electropack) in src)
+	var/obj/item/radio/electropack = locate() in src
+	if(rigged && electropack)
 		if(isliving(usr))
 			var/mob/living/L = usr
-			if(L.electrocute_act(17, "электропака в ящике"))
+			if(L.electrocute_act(17, electropack))
 				do_sparks(5, TRUE, src)
 				return 2
 
@@ -148,10 +149,11 @@
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/radio/electropack) in src)
+		var/obj/item/radio/electropack = locate() in src
+		if(rigged && electropack)
 			if(isliving(user))
 				var/mob/living/L = user
-				if(L.electrocute_act(17, "электропака в ящике"))
+				if(L.electrocute_act(17, electropack))
 					do_sparks(5, TRUE, src)
 					return
 		add_fingerprint(user)
@@ -301,7 +303,7 @@
 		return
 	if(user)
 		balloon_alert(user, "не удалось!")
-	playsound(loc, "sound/misc/sadtrombone.ogg", 60, TRUE)
+	playsound(loc, 'sound/misc/sadtrombone.ogg', 60, TRUE)
 
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/tool)
@@ -726,12 +728,12 @@
 
 /obj/structure/closet/crate/secure/blood/nitrogenis/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект донорской крови (синтетическая кровь – азот)",
-		GENITIVE = "комплекта донорской крови (синтетическая кровь – азот)",
-		DATIVE = "комплекту донорской крови (синтетическая кровь – азот)",
-		ACCUSATIVE = "комплект донорской крови (синтетическая кровь – азот)",
-		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – азот)",
-		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – азот)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь — азот)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь — азот)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь — азот)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь — азот)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — азот)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — азот)"
 	)
 
 
@@ -742,12 +744,12 @@
 
 /obj/structure/closet/crate/secure/blood/oxygenis/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект донорской крови (синтетическая кровь – кислород)",
-		GENITIVE = "комплекта донорской крови (синтетическая кровь – кислород)",
-		DATIVE = "комплекту донорской крови (синтетическая кровь – кислород)",
-		ACCUSATIVE = "комплект донорской крови (синтетическая кровь – кислород)",
-		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – кислород)",
-		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – кислород)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь — кислород)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь — кислород)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — кислород)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — кислород)"
 	)
 
 #undef SECURE_CRATE_STAGE_NO_BROKEN

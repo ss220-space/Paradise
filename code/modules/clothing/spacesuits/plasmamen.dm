@@ -721,7 +721,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/captain
 	name = "captain envirosuit helmet"
-	desc = "Шлем защитного костюма плазмолюда, имеющий множество эмблем и маркировок, демонстрирующих, что их владелец - капитан."
+	desc = "Шлем защитного костюма плазмолюда, имеющий множество эмблем и маркировок, демонстрирующих, что их владелец — капитан."
 	icon_state = "cap_envirohelm"
 	item_state = "cap_envirohelm"
 	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)

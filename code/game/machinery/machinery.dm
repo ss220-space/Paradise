@@ -352,7 +352,7 @@
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		on_deconstruction()
-		if(component_parts && component_parts.len)
+		if(component_parts && length(component_parts))
 			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
@@ -517,7 +517,7 @@
 /obj/machinery/proc/display_parts(mob/user)
 	. = list(span_notice("Following parts detected in the machine:"))
 	for(var/obj/item/C in component_parts)
-		. += span_notice("[bicon(C)] [C.name]")
+		. += span_notice("[icon2html(C, user)] [C.name]")
 	. = jointext(., "\n")
 
 /obj/machinery/examine(mob/user)

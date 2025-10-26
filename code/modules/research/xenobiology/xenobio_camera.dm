@@ -22,7 +22,7 @@
 	if(!.)
 		return
 	var/area/new_area = get_area(.)
-	if(new_area && new_area.name != allowed_area && !(new_area && new_area.xenobiology_compatible))
+	if(new_area && new_area.name != allowed_area && !(new_area?.xenobiology_compatible))
 		return FALSE
 
 #define MAX_SLIME_IN_CONSOLE 5
@@ -388,10 +388,10 @@
 		return
 	var/obj/machinery/computer/camera_advanced/xenobio/X = owner.machine
 	to_chat(owner, "<b>Горячие клавиши:</b>")
-	to_chat(owner, "Shift+ЛКМ по слайму – подобрать, по полу – выбросить всех.")
-	to_chat(owner, "Ctrl+ЛКМ по слайму – сканировать.")
-	to_chat(owner, "Alt+ЛКМ по слайму – накормить зельем.")
-	to_chat(owner, "Ctrl+ЛКМ по мертвой мартышке – утилизировать, по полу – разместить новую.")
+	to_chat(owner, "Shift+ЛКМ по слайму — подобрать, по полу — выбросить всех.")
+	to_chat(owner, "Ctrl+ЛКМ по слайму — сканировать.")
+	to_chat(owner, "Alt+ЛКМ по слайму — накормить зельем.")
+	to_chat(owner, "Ctrl+ЛКМ по мертвой мартышке — утилизировать, по полу — разместить новую.")
 	to_chat(owner, "В [X.declent_ru(GENITIVE)] сейчас [X.monkeys] мартыш[declension_ru(X.monkeys,"ка","ки","ек")].")
 
 //

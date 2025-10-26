@@ -68,7 +68,7 @@
 		return
 
 	var/mob/dead/observer/chosen = pick(candidates)
-	slime.key = chosen.key
+	slime.possess_by_player(chosen.key)
 	slime.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
 	add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(turf)].", slime)
 

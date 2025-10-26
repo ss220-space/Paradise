@@ -4,6 +4,7 @@
 	name = "Спящий Карп"
 	reroute_deflection = TRUE
 	deflection_chance = 100
+	can_deflect = TRUE
 	no_guns = TRUE
 	no_guns_message = "Использование подобного оружия обесчестит клан."
 	has_explaination_verb = TRUE
@@ -49,7 +50,7 @@
 		deflection_chance = initial(deflection_chance)
 	else if(!user.l_hand || !user.r_hand)
 		deflection_chance = 50
-	else if(user.reagents && length(user.reagents.addiction_list))
+	else if(length(user.reagents.addiction_list))
 		deflection_chance = 0
 	else
 		deflection_chance = 0

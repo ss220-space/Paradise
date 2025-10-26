@@ -88,7 +88,7 @@
 	var/maxdam = 0
 	var/obj/item/organ/external/damaged_organ = null
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if((bodypart.status & ORGAN_DEAD|ORGAN_ROBOT) || bodypart.hidden_pain)
+		if((bodypart.status & (ORGAN_DEAD|ORGAN_ROBOT)) || bodypart.hidden_pain)
 			continue
 
 		var/dam = bodypart.get_damage()

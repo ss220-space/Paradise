@@ -42,14 +42,14 @@
 	if(gamemode)
 		gamemode.clocker_objs.ratvar_death()
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
-			if(clock_mind && clock_mind.current)
+			if(clock_mind?.current)
 				to_chat(clock_mind.current, span_clocklarge("RETRIBUTION!"))
 				to_chat(clock_mind.current, span_clock("Current goal: Slaughter the heretics!"))
 	return ..()
 
 /obj/singularity/god/ratvar/attack_ghost(mob/dead/observer/user)
 	var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
-	cog.key = user.key
+	cog.possess_by_player(user.key)
 	SSticker.mode.add_clocker(cog.mind)
 
 

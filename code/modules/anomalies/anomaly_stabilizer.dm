@@ -100,7 +100,7 @@
 		balloon_alert(user, "ядро пустое!")
 		return ATTACK_CHAIN_PROCEED
 
-	if(cores.len >= 2)
+	if(length(cores) >= 2)
 		balloon_alert(user, "ячейки для ядер заняты!")
 		return ATTACK_CHAIN_PROCEED
 
@@ -185,10 +185,10 @@
 	data["full_info"] = full_info
 	data["core1_name"] = null
 	data["core2_name"] = null
-	if(cores.len > 0)
+	if(length(cores) > 0)
 		data["core1_name"] = cores[1].name
 
-	if(cores.len > 1)
+	if(length(cores) > 1)
 		data["core2_name"] = cores[2].name
 
 	data["possible_stability"] = stability_range

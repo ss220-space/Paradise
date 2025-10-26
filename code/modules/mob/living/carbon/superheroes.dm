@@ -32,7 +32,7 @@
 
 
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
-	if(default_spells.len)
+	if(length(default_spells))
 		for(var/spell in default_spells)
 			var/obj/effect/proc_holder/spell/S = spell
 			if(!S)
@@ -163,7 +163,7 @@
 
 
 /obj/effect/proc_holder/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(SSticker.mode.greyshirts.len >= 3)
+	if(length(SSticker.mode.greyshirts) >= 3)
 		if(show_message)
 			to_chat(user, span_warning("You have already recruited the maximum number of henchmen."))
 		return FALSE

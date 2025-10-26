@@ -75,7 +75,7 @@
 		throwforce = initial(throwforce)
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = list()
 		w_class = initial(w_class)
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, TRUE)  //changed it from 50% volume to 35% because deafness
@@ -364,7 +364,7 @@
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		throw_speed = 4
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = attack_verb_on
 		w_class = w_class_on
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
@@ -374,7 +374,7 @@
 		throwforce = initial(throwforce)
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = list()
 		w_class = initial(w_class)
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE)  //changed it from 50% volume to 35% because deafness

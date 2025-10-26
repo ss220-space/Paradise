@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	spell.InterceptClickOn(user, params, object)
 
 
-/datum/click_intercept/proc_holder/quit()
+/datum/click_intercept/proc_holder/quit(force)
 	spell.remove_ranged_ability(spell.ranged_ability_user)
 	return ..()
 
@@ -432,7 +432,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	before_cast(targets, user)
 	invocation(user)
 
-	if(user && user.ckey)
+	if(user?.ckey)
 		if(create_custom_logs)
 			write_custom_logs(targets, user)
 		if(create_attack_logs)

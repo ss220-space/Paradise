@@ -169,7 +169,7 @@ mob
 
 		Output_Icon()
 			set name = "2. Output Icon"
-			to_chat(src, "Icon is: [bicon(getFlatIcon(src))]")
+			to_chat(src, "Icon is: [icon2base64html(getFlatIcon(src))]")
 
 		Label_Icon()
 			set name = "3. Label Icon"
@@ -433,7 +433,7 @@ world
 		else if(hue >= 255)  {r=mid; g=hi;  b=lo }
 		else				 {r=hi;  g=mid; b=lo }
 
-	return (HSV.len > 3) ? rgb(r,g,b,HSV[4]) : rgb(r,g,b)
+	return (length(HSV) > 3) ? rgb(r,g,b,HSV[4]) : rgb(r,g,b)
 
 /proc/RGBtoHSV(rgb)
 	if(!rgb) return "#0000000"
@@ -464,7 +464,7 @@ world
 			else {hue=1023; dir=-1; mid=g}
 		hue += dir * round((mid-lo) * 255 / (hi-lo), 1)
 
-	return hsv(hue, sat, val, (RGB.len>3 ? RGB[4] : null))
+	return hsv(hue, sat, val, (length(RGB)>3 ? RGB[4] : null))
 
 /proc/hsv(hue, sat, val, alpha)
 	if(hue < 0 || hue >= 1536) hue %= 1536
@@ -504,9 +504,9 @@ world
 	var/list/HSV2 = ReadHSV(hsv2)
 
 	// add missing alpha if needed
-	if(HSV1.len < HSV2.len) HSV1 += 255
-	else if(HSV2.len < HSV1.len) HSV2 += 255
-	var/usealpha = HSV1.len > 3
+	if(length(HSV1) < length(HSV2)) HSV1 += 255
+	else if(length(HSV2) < length(HSV1)) HSV2 += 255
+	var/usealpha = length(HSV1) > 3
 
 	// normalize hsv values in case anything is screwy
 	if(HSV1[1] > 1536) HSV1[1] %= 1536
@@ -558,9 +558,9 @@ world
 	var/list/RGB2 = ReadRGB(rgb2)
 
 	// add missing alpha if needed
-	if(RGB1.len < RGB2.len) RGB1 += 255
-	else if(RGB2.len < RGB1.len) RGB2 += 255
-	var/usealpha = RGB1.len > 3
+	if(length(RGB1) < length(RGB2)) RGB1 += 255
+	else if(length(RGB2) < length(RGB1)) RGB2 += 255
+	var/usealpha = length(RGB1) > 3
 
 	var/r = round(RGB1[1] + (RGB2[1] - RGB1[1]) * amount, 1)
 	var/g = round(RGB1[2] + (RGB2[2] - RGB1[2]) * amount, 1)
@@ -621,13 +621,13 @@ world
 	// decompress hue
 	HSV[1] += round(HSV[1] / 255)
 
-	return hsv(HSV[1], HSV[2], HSV[3], (HSV.len > 3 ? HSV[4] : null))
+	return hsv(HSV[1], HSV[2], HSV[3], (length(HSV) > 3 ? HSV[4] : null))
 
 // Convert an rgb color to grayscale
 /proc/GrayScale(rgb)
 	var/list/RGB = ReadRGB(rgb)
 	var/gray = RGB[1]*0.3 + RGB[2]*0.59 + RGB[3]*0.11
-	return (RGB.len > 3) ? rgb(gray, gray, gray, RGB[4]) : rgb(gray, gray, gray)
+	return (length(RGB) > 3) ? rgb(gray, gray, gray, RGB[4]) : rgb(gray, gray, gray)
 
 // Change grayscale color to black->tone->white range
 /proc/ColorTone(rgb, tone)
@@ -651,7 +651,7 @@ The _flatIcons list is a cache for generated icon files.
 /proc/getFlatIcon(image/appearance, defdir, deficon, defstate, defblend, start = TRUE, no_anim = TRUE)
 	// Loop through the underlays, then overlays, sorting them into the layers list
 	#define PROCESS_OVERLAYS_OR_UNDERLAYS(flat, process, base_layer) \
-		for(var/i in 1 to process.len) { \
+		for(var/i in 1 to length(process)) { \
 			var/image/current = process[i]; \
 			if(!current) { \
 				continue; \
@@ -666,7 +666,7 @@ The _flatIcons list is a cache for generated icon files.
 				} \
 				current_layer = base_layer + appearance.layer + current_layer / 1000; \
 			} \
-			for(var/index_to_compare_to in 1 to layers.len) { \
+			for(var/index_to_compare_to in 1 to length(layers)) { \
 				var/compare_to = layers[index_to_compare_to]; \
 				if(current_layer < layers[compare_to]) { \
 					layers.Insert(index_to_compare_to, current); \
@@ -722,7 +722,7 @@ The _flatIcons list is a cache for generated icon files.
 
 	var/curblend = appearance.blend_mode || defblend
 
-	if(appearance.overlays.len || appearance.underlays.len)
+	if(length(appearance.overlays) || length(appearance.underlays))
 		var/icon/flat = icon(flat_template)
 		// Layers will be a sorted list of icons/overlays, based on the order in which they are displayed
 		var/list/layers = list()
@@ -890,7 +890,7 @@ The _flatIcons list is a cache for generated icon files.
 			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient
 		if(gap < 1)
 			gap = 1
-		for(var/i = 1; gap + i <= result.len; i++)
+		for(var/i = 1; gap + i <= length(result); i++)
 			var/atom/l = result[i]		//Fucking hate
 			var/atom/r = result[gap+i]	//how lists work here
 			if(l.layer > r.layer)		//no "result[i].layer" for me
@@ -1021,9 +1021,9 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	WRITE_FILE(dummySave["dummy"], icon)
 	var/iconData = dummySave.ExportText("dummy")
 	var/list/partial = splittext(iconData, "{")
-	return replacetext(copytext_char(partial[2], 3, -5), "\n", "") //if cleanup fails we want to still return the correct base64
+	return replacetext(copytext(partial[2], 3, -5), "\n", "")
 
-/proc/bicon(obj, use_class = 1)
+/proc/icon2base64html(obj, use_class = TRUE)
 	var/class = use_class ? "class='icon misc'" : null
 	if(!obj)
 		return
@@ -1031,7 +1031,6 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	if(isicon(obj))
 		if(!GLOB.bicon_cache["\ref[obj]"]) // Doesn't exist yet, make it.
 			GLOB.bicon_cache["\ref[obj]"] = icon2base64(obj)
-
 		return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache["\ref[obj]"]]'>"
 
 	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
@@ -1043,7 +1042,8 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			var/icon/temp = I
 			I = icon()
 			I.Insert(temp, dir = SOUTH)
-		GLOB.bicon_cache[key] = icon2base64(I, key)
+		GLOB.bicon_cache[key] = icon2base64(I)
+
 	if(use_class)
 		class = "class='icon [A.icon_state]'"
 
@@ -1133,102 +1133,6 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		return icon_path
 
 	return FALSE
-
-/**
- * generate an asset for the given icon or the icon of the given appearance for [thing], and send it to any clients in target.
- * Arguments:
- * * thing - either a /icon object, or an object that has an appearance (atom, image, mutable_appearance).
- * * target - either a reference to or a list of references to /client's or mobs with clients
- * * icon_state - string to force a particular icon_state for the icon to be used
- * * dir - dir number to force a particular direction for the icon to be used
- * * frame - what frame of the icon_state's animation for the icon being used
- * * moving - whether or not to use a moving state for the given icon
- * * sourceonly - if TRUE, only generate the asset and send back the asset url, instead of tags that display the icon to players
- * * extra_classes - string of extra css classes to use when returning the icon string
- *
- * You may also call is icon2html
- */
-/proc/icon2asset(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null)
-	if(!thing)
-		return
-
-	var/key
-	var/icon/icon2collapse = thing
-	if(!target)
-		return
-	if(target == world)
-		target = GLOB.clients
-	var/list/targets
-	if(!islist(target))
-		targets = list(target)
-	else
-		targets = target
-	if(!length(targets))
-		return
-
-	// Check if the given object is associated with a dmi file in the icons folder. if it is then we dont need to do a lot of work
-	// For asset generation to get around byond limitations
-	var/icon_path = get_icon_dmi_path(thing)
-
-	if(!isicon(icon2collapse))
-		if(isfile(thing)) //special snowflake
-			var/name = SANITIZE_FILENAME("[GENERATE_ASSET_NAME(thing)].png")
-			if(!SSassets.cache[name])
-				SSassets.transport.register_asset(name, thing)
-			for(var/thing2 in targets)
-				SSassets.transport.send_assets(thing2, name)
-			if(sourceonly)
-				return SSassets.transport.get_asset_url(name)
-			return "<img class='icon icon-misc' src='[SSassets.transport.get_asset_url(name)]'>"
-
-		// Its either an atom, image, or mutable_appearance, we want its icon var
-		icon2collapse = thing.icon
-		if(isnull(icon_state))
-			icon_state = thing.icon_state
-			// Despite casting to atom, this code path supports mutable appearances, so let's be nice to them
-			if(isnull(icon_state) || (isatom(thing)))
-				icon_state = initial(thing.icon_state)
-				if(isnull(dir))
-					dir = initial(thing.dir)
-
-		if(isnull(dir))
-			dir = thing.dir
-
-		if(ishuman(thing)) // Shitty workaround for a BYOND issue.
-			var/icon/temp = icon2collapse
-			icon2collapse = icon()
-			icon2collapse.Insert(temp, dir = SOUTH)
-			dir = SOUTH
-
-	else
-		if(isnull(dir))
-			dir = SOUTH
-		if(isnull(icon_state))
-			icon_state = ""
-
-	icon2collapse = icon(icon2collapse, icon_state, dir, frame, moving)
-
-	var/list/name_and_ref = generate_and_hash_rsc_file(icon2collapse, icon_path) // Pretend that tuples exist
-
-	var/rsc_ref = name_and_ref[1] // Weird object thats not even readable to the debugger, represents a reference to the icons rsc entry
-	var/file_hash = name_and_ref[2]
-	key = "[name_and_ref[3]].png"
-	if(!SSassets.cache[key])
-		SSassets.transport.register_asset(key, rsc_ref, file_hash, icon_path)
-	for(var/client_target in targets)
-		SSassets.transport.send_assets(client_target, key)
-	return key
-
-/// Costlier version of icon2asset() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
-/proc/costly_icon2asset(thing, target, sourceonly = FALSE)
-	if(!thing)
-		return
-
-	if(isicon(thing))
-		return icon2asset(thing, target)
-
-	var/icon/I = getFlatIcon(thing)
-	return icon2asset(I, target)
 
 /// Generate a filename for this asset
 /// The same asset will always lead to the same asset name
@@ -1329,6 +1233,17 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	if(sourceonly)
 		return SSassets.transport.get_asset_url(key)
 	return "<img class='[extra_classes] icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
+
+//Costlier version of icon2html() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
+/proc/costly_icon2html(thing, target, sourceonly = FALSE)
+	if(!thing)
+		return
+
+	if(isicon(thing))
+		return icon2html(thing, target)
+
+	var/icon/flat_icon = getFlatIcon(thing)
+	return icon2html(flat_icon, target, sourceonly = sourceonly)
 
 #define CACHED_WIDTH_INDEX "width"
 #define CACHED_HEIGHT_INDEX "height"

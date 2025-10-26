@@ -82,7 +82,7 @@
 	else
 		silenced = !silenced
 		to_chat(user, span_notice("You toggle the speaker [silenced ? "off" : "on"]."))
-		if(brainmob && brainmob.key)
+		if(brainmob?.key)
 			to_chat(brainmob, span_warning("Your internal speaker has been toggled [silenced ? "off" : "on"]."))
 
 
@@ -156,7 +156,7 @@
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
 	searching = FALSE
 	brainmob.revive() /// in case of death
-	brainmob.key = candidate.key
+	brainmob.possess_by_player(candidate.key)
 	to_chat(brainmob, "<b>You are a [src], brought into existence on [station_name()].</b>")
 	to_chat(brainmob, "<b>As a non-sentient synthetic intelligence, you answer to [imprinted_master], unless otherwise placed inside of a lawed synthetic structure or mech.</b>")
 	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed  or placed into a mech in the future.</b>")
@@ -168,7 +168,7 @@
 
 
 /obj/item/mmi/robotic_brain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
-	if(brainmob && brainmob.key)
+	if(brainmob?.key)
 		return
 	searching = FALSE
 	update_icon(UPDATE_ICON_STATE)
@@ -226,7 +226,7 @@
 
 	var/list/msg = list("<span class='notice'>")
 
-	if(brainmob && brainmob.key)
+	if(brainmob?.key)
 		switch(brainmob.stat)
 			if(CONSCIOUS)
 				if(!brainmob.client)
@@ -271,7 +271,7 @@
 	if(searching)
 		volunteer(O)
 		return
-	if(brainmob && brainmob.key)
+	if(brainmob?.key)
 		return // No point pinging a posibrain with a player already inside
 	if(check_observer(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)

@@ -159,9 +159,9 @@ SUBSYSTEM_DEF(ticker)
 						all_maps -= M
 				switch(CONFIG_GET(string/map_rotate))
 					if("rotate")
-						for(var/i in 1 to all_maps.len)
+						for(var/i in 1 to length(all_maps))
 							if(istype(SSmapping.map_datum, all_maps[i]))
-								var/target_map = all_maps[(i % all_maps.len) + 1]
+								var/target_map = all_maps[(i % length(all_maps)) + 1]
 								SSmapping.next_map = new target_map
 								break
 					if("random")
@@ -173,6 +173,8 @@ SUBSYSTEM_DEF(ticker)
 						SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
 				to_chat(world, "<b>Следующая карта – [SSmapping.next_map.name]!</b>")
+
+			SSachievements.save_achievements_to_db()
 
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
@@ -276,7 +278,7 @@ SUBSYSTEM_DEF(ticker)
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
-		to_chat(world, "<b>Текущий режим игры – Скрыт!</b>")
+		to_chat(world, "<b>Текущий режим игры — Скрыт!</b>")
 		to_chat(world, "<b>Возможные варианты:</b> [russian_list(modes)]")
 	else
 		mode.announce()
@@ -370,7 +372,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(CONFIG_GET(number/restrict_maint))
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-			if(M.req_access && M.req_access.len == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
+			if(M.req_access && length(M.req_access) == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
 				M.req_access = null
 				if(CONFIG_GET(number/restrict_maint) == 1)
 					M.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
@@ -549,9 +551,9 @@ SUBSYSTEM_DEF(ticker)
 	if(selected_tip)
 		m = selected_tip
 	else
-		if(randomtips.len && prob(95))
+		if(length(randomtips) && prob(95))
 			m = pick(randomtips)
-		else if(memetips.len)
+		else if(length(memetips))
 			m = pick(memetips)
 
 	if(m)
@@ -571,7 +573,14 @@ SUBSYSTEM_DEF(ticker)
 	end_of_round_info += "<br>[TAB]Shift Duration: <b>[SHIFT_TIME_TEXT()]</b>"
 	end_of_round_info += "<br>[TAB]Station Integrity: <b>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</b>"
 	end_of_round_info += "<br>"
+	var/speed_round = FALSE
+	if(world.time - SSticker.round_start_time <= SPEEDRUN_ROUND_TIME)
+		speed_round = TRUE
 
+	for(var/client/client as anything in GLOB.clients)
+		if(!speed_round)
+			continue
+		client.give_award(/datum/award/achievement/misc/speed_round, client.mob)
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)
@@ -626,6 +635,8 @@ SUBSYSTEM_DEF(ticker)
 			end_of_round_info += printeventplayer(eventmind)
 			end_of_round_info += printobjectives(eventmind)
 		end_of_round_info += "<br>"
+
+	end_of_round_info += cheevo_report()
 
 	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/team = GLOB.antagonist_teams[team_type]
@@ -782,3 +793,45 @@ SUBSYSTEM_DEF(ticker)
 	message_admins(log_text.Join("<br>"))
 
 	flagged_antag_rollers.Cut()
+
+
+/datum/controller/subsystem/ticker/proc/cheevo_report()
+	var/list/parts = list()
+	if(!length(GLOB.achievements_unlocked))
+		return
+	var/static/style = "<style scoped>\
+		.panel {\
+			background-color: #313131;\
+			padding: 10px;\
+			border-radius: 10px;\
+			margin-bottom: 5px;\
+		}\
+		li {\
+			margin-bottom: 0.2rem;\
+		}\
+		.greenborder {\
+			border-bottom: 2px solid #90ee90;\
+		}\
+		.header {\
+			font-size: 24px;\
+			font-weight: bold;\
+		}\
+	</style>"
+	parts += span_header("Получененные достижения!<br>")
+	parts += "В раунде получены следующие достижения: [span_bold(length(GLOB.achievements_unlocked))]!<br>"
+	parts += "<ul class='playerlist'>"
+	for(var/datum/achievement_report/cheevo_report in GLOB.achievements_unlocked)
+		parts += "<br>[cheevo_report.winner_key] был(а) [span_bold(cheevo_report.winner)] и заработал(а) достижение [span_greentext("\"[cheevo_report.cheevo]\"")] в [cheevo_report.award_location]!<br>"
+	parts += "</ul>"
+	return "<div>[style]<div class='panel greenborder'><ul>[parts.Join()]</ul></div></div>"
+
+///A datum containing the info necessary for an achievement readout, reported and added to the global list in /datum/award/achievement/on_unlock(mob/user)
+/datum/achievement_report
+	///The winner of this achievement.
+	var/winner
+	///The achievement that was won.
+	var/cheevo
+	///The ckey of our winner
+	var/winner_key
+	///The name of the area we earned this cheevo in
+	var/award_location

@@ -70,8 +70,9 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	loot = list(/obj/structure/closet/crate/necropolis/ancient)
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
-	medal_type = BOSS_MEDAL_ROBOT
-	score_type = ROBOT_SCORE
+	achievement_type = /datum/award/achievement/boss/ancient_robot_kill
+	crusher_achievement_type = /datum/award/achievement/boss/ancient_robot_crusher
+	score_achievement_type = /datum/award/score/ancient_robot_score
 	deathmessage = "взрывается дождём из сплавов"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
@@ -278,14 +279,14 @@ Difficulty: Very Hard
 	charging = TRUE
 	revving_charge = TRUE
 	DestroySurroundings()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	setDir(dir)
 	SLEEP_CHECK_DEATH(src, delay)
 	revving_charge = FALSE
 	var/movespeed = 0.8
-	SSmove_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	GLOB.move_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	SLEEP_CHECK_DEATH(src, get_dist(src, T) * movespeed)
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	charging = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/MeleeAction(patience = TRUE)
@@ -480,7 +481,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message(span_biggerdanger("[declent_ru(NOMINATIVE)] начинает перегружать своё ядро. Оно вот-вот взорвётся!"))
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	playsound(src,'sound/machines/alarm.ogg',100, FALSE,5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
@@ -607,7 +608,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/mob_negates_gravity() //No more being thrown around like a spastic child by grav anomalies
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
 /mob/living/simple_animal/hostile/ancient_robot_leg
@@ -732,7 +733,7 @@ Difficulty: Very Hard
 		core.fix_specific_leg(who_am_i)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed)
-	SSmove_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	GLOB.move_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living)
@@ -783,7 +784,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
 /obj/projectile/bullet/ancient_robot_bullet

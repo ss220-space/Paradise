@@ -537,7 +537,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 <font size = "4">1. Возьмите Cyborg Analyzer, проведите им по роботу.<br>
 2. Запомните сломанные компоненты, которые вывел Cyborg Analyzer.<br>
-3. Если робот закрыт (будет визуально заметно), то попросите его открыться. Если он уничтожен - проведите ЕМАГом для открытия.<br>
+3. Если робот закрыт (будет визуально заметно), то попросите его открыться. Если он уничтожен — проведите ЕМАГом для открытия.<br>
 4. Монтировкой откройте крышку робота.<br>
 5. Руками вытащите батарейку у робота.<br>
 6. Монтировкой снимите сломанные компоненты из пункта 2.<br>
@@ -929,3 +929,22 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
+
+/obj/item/storage/box/syndie_kit/combat_exoframe
+	name = "combat exoframe kit"
+	desc = "Коробка, содержащая боевой модуль экзоскелета и автоимплантер."
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/syndie_kit/combat_exoframe/get_ru_names()
+	return list(
+		NOMINATIVE = "набор боевого экзоскелета",
+		GENITIVE = "набора боевого экзоскелета",
+		DATIVE = "набору боевого экзоскелета",
+		ACCUSATIVE = "набор боевого экзоскелета",
+		INSTRUMENTAL = "набором боевого экзоскелета",
+		PREPOSITIONAL = "наборе боевого экзоскелета"
+	)
+
+/obj/item/storage/box/syndie_kit/combat_exoframe/populate_contents()
+	new /obj/item/organ/internal/cyberimp/chest/exoframe/combat(src)
+	new /obj/item/autoimplanter/oneuse(src)

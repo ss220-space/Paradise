@@ -407,10 +407,10 @@
 
 	var/should_update_health = FALSE
 	var/update_damage_icon = NONE
-	while(parts.len && (brute > 0 || burn > 0))
+	while(length(parts) && (brute > 0 || burn > 0))
 		var/obj/item/organ/external/picked = pick(parts)
-		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
-		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
+		var/brute_per_part = round(brute/length(parts), DAMAGE_PRECISION)
+		var/burn_per_part = round(burn/length(parts), DAMAGE_PRECISION)
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
@@ -460,10 +460,10 @@
 
 	var/should_update_health = FALSE
 	var/update_damage_icon = NONE
-	while(parts.len && (brute > 0 || burn > 0))
+	while(length(parts) && (brute > 0 || burn > 0))
 		var/obj/item/organ/external/picked = pick(parts)
-		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
-		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
+		var/brute_per_part = round(brute/length(parts), DAMAGE_PRECISION)
+		var/burn_per_part = round(burn/length(parts), DAMAGE_PRECISION)
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam

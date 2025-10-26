@@ -48,8 +48,9 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	universal_speak = TRUE
 	tts_seed = null
-	medal_type = BOSS_MEDAL_COLOSSUS
-	score_type = COLOSSUS_SCORE
+	achievement_type = /datum/award/achievement/boss/colossus_kill
+	crusher_achievement_type = /datum/award/achievement/boss/colossus_crusher
+	score_achievement_type = /datum/award/score/colossus_score
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "распадается, оставляя после себя светящееся ядро."
@@ -172,7 +173,7 @@ Difficulty: Very Hard
 	if(!ishuman(L))
 		return
 	var/mob/living/carbon/human/H = L
-	if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
+	if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.can_deflect))
 		return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots(telegraphing = TRUE)

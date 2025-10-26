@@ -68,7 +68,7 @@ RSF
 
 /obj/item/rsf/attack_self(mob/user)
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, FALSE)
-	if(mode >= configured_items.len)
+	if(mode >= length(configured_items))
 		mode = 1
 	else
 		mode++

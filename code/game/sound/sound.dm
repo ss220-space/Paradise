@@ -171,8 +171,6 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	sound_to_use.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
 	if(channel)
 		sound_to_use.volume *= USER_VOLUME(src, channel)
-		if(sound_to_use.volume < SOUND_AUDIBLE_VOLUME_MIN)
-			return
 
 	SEND_SOUND(src, sound_to_use)
 
@@ -215,7 +213,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 
 	var/url = SSticker.login_music_data["url"]
 	switch(CONFIG_GET(string/asset_transport))
-		if("webroot")
+		if(ASSET_TRANSPORT_WEBROOT)
 			var/datum/asset/music/my_asset
 			var/filepath = SSticker.login_music_data["path"]
 			if(GLOB.cached_songs[filepath])

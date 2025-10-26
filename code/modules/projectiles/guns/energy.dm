@@ -28,6 +28,7 @@
 
 	var/can_add_sibyl_system = TRUE	//if a sibyl system's mod can be added or removed if it already has one
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
+	var/isclockwork = FALSE
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
@@ -166,7 +167,7 @@
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
-	for(var/i = 1, i <= ammo_type.len, i++)
+	for(var/i = 1, i <= length(ammo_type), i++)
 		var/shottype = ammo_type[i]
 		shot = new shottype(src)
 		ammo_type[i] = shot
@@ -242,7 +243,7 @@
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	if(!user)	// If it's called by something, but not human (Security level changing), drop firemode to non-lethal.
 		select = 1
-	else if(++select > ammo_type.len)
+	else if(++select > length(ammo_type))
 		select = 1
 	else
 		if(sibyl_mod && !sibyl_mod.check_select(select))
@@ -330,6 +331,8 @@
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
+	if(isclockwork)
+		return
 	var/overlay_name = overlay_set ? overlay_set : icon_state
 	if(!length(ammo_type))
 		return
@@ -384,7 +387,7 @@
 		return
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell)
+		if(R?.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 			if(R.cell.use(shot.e_cost))		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot

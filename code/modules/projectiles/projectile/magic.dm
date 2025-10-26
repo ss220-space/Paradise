@@ -337,7 +337,7 @@
 					if("syndiemouse")
 						new_mob = new /mob/living/simple_animal/hostile/retaliate/syndirat(M.loc)
 				briefing_msg = "Вы агрессивное животное, питаемое жаждой голода, вы можете совершать убийства, \
-				сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна - утолить свой голод."
+				сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна — утолить свой голод."
 				new_mob.universal_speak = TRUE
 			if("ЧЕЛОВЕК")
 				if(prob(50))
@@ -375,7 +375,7 @@
 				if(briefing_msg)
 					new_mob.mind.store_memory(briefing_msg)
 		else
-			new_mob.key = M.key
+			new_mob.possess_by_player(M.ckey)
 
 		if(is_new_mind)
 			to_chat(new_mob, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))
@@ -481,7 +481,7 @@
 		L.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
 		if(!L.IsWeakened())
 			to_chat(target, span_warning("В вас попадает волшебный банан."))
-			L.Weaken(slip_disable_time)
+			L.Knockdown(slip_disable_time)
 	. = ..()
 
 /obj/projectile/magic/arcane_barrage

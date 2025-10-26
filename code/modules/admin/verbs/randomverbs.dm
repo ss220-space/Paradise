@@ -376,7 +376,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(G_found.mind.assigned_role=="Alien")
 			if(tgui_alert(usr, "This character appears to have been an alien. Would you like to respawn them as such?",, list("Yes", "No")) == "Yes")
 				var/turf/T
-				if(GLOB.xeno_spawn.len)	T = pick(GLOB.xeno_spawn)
+				if(length(GLOB.xeno_spawn))	T = pick(GLOB.xeno_spawn)
 				else				T = pick(GLOB.latejoin)
 
 				var/mob/living/carbon/alien/new_xeno
@@ -391,7 +391,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 				//Now to give them their mind back.
 				G_found.mind.transfer_to(new_xeno)	//be careful when doing stuff like this! I've already checked the mind isn't in use
-				new_xeno.key = G_found.key
+				new_xeno.possess_by_player(G_found.key)
 				to_chat(new_xeno, "You have been fully respawned. Enjoy the game.")
 				log_and_message_admins("<span class='notice'>has respawned [new_xeno.key] as a filthy xeno.</span>")
 				return	//all done. The ghost is auto-deleted
@@ -445,7 +445,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else//If they have no records, we just do a random DNA for them, based on their random appearance/savefile.
 		new_character.dna.ready_dna(new_character)
 
-	new_character.key = G_found.key
+	new_character.possess_by_player(G_found.key)
 
 	/*
 	The code below functions with the assumption that the mob is already a traitor if they have a special role.
@@ -524,14 +524,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(M.client.is_afk())	continue	//we are afk
 			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)	continue	//we have a live body we are tied to
 			candidates += M.ckey
-		if(candidates.len)
+		if(length(candidates))
 			ckey = tgui_input_list(usr, "Pick the player you want to respawn as a xeno.", "Suitable Candidates", candidates)
 		else
 			to_chat(usr, "<span style='color: red;'>Error: create_xeno(): no suitable candidates.</span>", confidential=TRUE)
 	if(!istext(ckey))	return 0
 
 	var/alien_caste = tgui_input_list(usr, "Please choose which caste to spawn.", "Pick a caste", list("Queen", "Hunter", "Sentinel", "Drone", "Larva"), null)
-	var/obj/effect/landmark/spawn_here = GLOB.xeno_spawn.len ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
+	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)
 		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
@@ -541,7 +541,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Larva")		new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
 		else			return 0
 
-	new_xeno.ckey = ckey
+	new_xeno.possess_by_player(ckey)
 	log_and_message_admins("<span class='notice'>has spawned [ckey] as a filthy xeno [alien_caste].</span>")
 	return 1
 
@@ -669,7 +669,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			print_command_report(input_message, subtitle)
 		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.", HEADSET_FREQ_NAME)
+			radio_announce("Отчёт был загружен и распечатан на всех консолях связи.", "Консоль связи", COMM_FREQ)
 			print_command_report(input_message, "Секретно: [subtitle]")
 		else
 			return
@@ -997,7 +997,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	if(SSticker && SSticker.mode)
+	if(SSticker?.mode)
 		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!", confidential=TRUE)
 		return
 

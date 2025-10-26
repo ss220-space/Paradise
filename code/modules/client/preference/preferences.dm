@@ -272,10 +272,18 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	/// Minigames notification about their end, start and etc.
 	var/minigames_notifications = TRUE
 
+	var/achivements_sound = CHEEVO_SOUND_PING
+
 	///TRUE when a player declines to be included for the selection process of game mode antagonists.
 	var/skip_antag = FALSE
 
 	var/datum/ui_module/loadout/loadout
+
+	var/static/list/exoframe_names = list(
+		PREF_EXOFRAME_REINFORCED = "Укрепленный каркас экзоскелета",
+		PREF_EXOFRAME_INDUSTRIAL = "Промышленный каркас экзоскелета"
+		)
+	var/exoframe_type = PREF_EXOFRAME_REINFORCED
 
 
 /datum/preferences/New(client/C)
@@ -414,7 +422,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<a href='byond://?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
 			dat += "<a href='byond://?_src_=prefs;preference=hair;task=input'>Цвет</a> [color_square(h_colour)]"
 			var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[h_style]
-			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
+			if(temp_hair_style?.secondary_theme && !temp_hair_style.no_sec_colour)
 				dat += " <a href='byond://?_src_=prefs;preference=secondary_hair;task=input'>Цвет №2</a> [color_square(h_sec_colour)]"
 				// Hair gradient
 			dat += "<br>"
@@ -430,7 +438,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<a href='byond://?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
 			dat += "<a href='byond://?_src_=prefs;preference=facial;task=input'>Цвет</a> [color_square(f_colour)]"
 			var/datum/sprite_accessory/temp_facial_hair_style = GLOB.facial_hair_styles_list[f_style]
-			if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
+			if(temp_facial_hair_style?.secondary_theme && !temp_facial_hair_style.no_sec_colour)
 				dat += " <a href='byond://?_src_=prefs;preference=secondary_facial;task=input'>Цвет №2</a> [color_square(f_sec_colour)]"
 			dat += "<br>"
 
@@ -466,6 +474,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 				dat += "<b>Альтернативный тип головы:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=alt_head;task=input'>[alt_head]</a><br>"
+			if(species == SPECIES_MACNINEPERSON)
+				var/exoframe_name = exoframe_names[exoframe_type] || exoframe_type
+				dat += "<b>Каркас экзоскелета:</b> <a href='byond://?_src_=prefs;preference=exoframe;task=input'>[exoframe_name]</a><br>"
 			dat += "<b>Части тела:</b> <a href='byond://?_src_=prefs;preference=limbs;task=input'>Изменить</a><br>"
 			if(species != SPECIES_SLIMEPERSON && species != SPECIES_MACNINEPERSON)
 				dat += "<b>Внутренние органы:</b> <a href='byond://?_src_=prefs;preference=organs;task=input'>Изменить</a><br>"
@@ -568,10 +579,10 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				dat += "<b>Публичность донат-статуса:</b> <a href='byond://?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Показать" : "Спрятать"]</b></a><br>"
 			dat += "<b>Всплывающие уведомления о голосовании:</b> <a href='byond://?_src_=prefs;preference=vote_popup'>[(toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS) ? "Нет" : "Да"]</a><br>"
 			dat += "<b>FPS:</b>	 <a href='byond://?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
-			dat += "<b>Призрак – слышимость речи:</b> <a href='byond://?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "Все сообщения" : "В поле зрения"]</b></a><br>"
-			dat += "<b>Призрак – слышимость радио:</b> <a href='byond://?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "Все сообщения" : "В поле зрения"]</b></a><br>"
-			dat += "<b>Призрак – видимость эмоций:</b> <a href='byond://?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "Все эмоции" : "В поле зрения"]</b></a><br>"
-			dat += "<b>Призрак – сообщения на КПК:</b> <a href='byond://?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "Показывать все" : "Не показывать"]</b></a><br>"
+			dat += "<b>Призрак — слышимость речи:</b> <a href='byond://?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "Все сообщения" : "В поле зрения"]</b></a><br>"
+			dat += "<b>Призрак — слышимость радио:</b> <a href='byond://?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "Все сообщения" : "В поле зрения"]</b></a><br>"
+			dat += "<b>Призрак — видимость эмоций:</b> <a href='byond://?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "Все эмоции" : "В поле зрения"]</b></a><br>"
+			dat += "<b>Призрак — сообщения на КПК:</b> <a href='byond://?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "Показывать все" : "Не показывать"]</b></a><br>"
 			dat += "<b>Обводка предметов:</b> <a href='byond://?_src_=prefs;preference=item_outlines'><b>[(toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "Включить" : "Выключить"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<b>OOC цвет сообщений:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=ooccolor;task=input'><b>Поменять</b></a><br>"
@@ -610,6 +621,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<b>Mute End Of Round Sounds:</b> <a href='byond://?_src_=prefs;preference=mute_end_of_round'><b>[(sound & SOUND_MUTE_END_OF_ROUND) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Диапазон обзора:</b> <a href='byond://?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Мигающие окна:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Да" : "Нет"]</a><br>"
+			dat += "<b>Звук получения достижения:</b> <a href='byond://?_src_=prefs;preference=achievement_sound'>[achivements_sound]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки интерфейса</h2>"
@@ -623,8 +635,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<b> – Размер TGUI strip menu:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Полноразмерный" : "Миниатюрный"]</a><br>"
 			dat += "<b> – Тема TGUI say:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Светлая" : "Тёмная"]</a><br>"
 			dat += "<b> – TGUI ввод:</b> <a href='byond://?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "Нет" : "Да"]</a><br>"
-			dat += "<b> – TGUI ввод – большие кнопки:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
-			dat += "<b> – TGUI ввод – поменять порядок кнопок:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
+			dat += "<b> – TGUI ввод — большие кнопки:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
+			dat += "<b> – TGUI ввод — поменять порядок кнопок:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
 			dat += "<b>Стиль заголовочного меню:</b> <a href='byond://?_src_=prefs;preference=pixelated_menu'>[(toggles2 & PREFTOGGLE_2_PIXELATED_MENU) ? "Пикселизированный" : "Базовый"]</a><br>"
 			dat += "</td></tr></table>"
 
@@ -635,7 +647,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				dat += "<b>Специальные роли для вас запрещены.</b>"
 				be_special = list()
 			else
-				var/static/last_left = round(GLOB.special_roles.len / 2)
+				var/static/last_left = round(length(GLOB.special_roles) / 2)
 				for(var/i in GLOB.special_roles)
 					if(jobban_isbanned(user, i))
 						dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЗАБАНЕНО]</b></font><br>"
@@ -825,7 +837,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		html += "<tt><center>"
 		html += "<b>Выберите предпочитаемые должности</b><br>Определите приоритет на получение желаемой должности.<br><br>"
 		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Сохранить</a></center><br>" // Easier to press up here.
-		html += "<div align='center'>Левый клик – для повышения предпочтения, правый – для понижения.<br></div>"
+		html += "<div align='center'>Левый клик — для повышения предпочтения, правый — для понижения.<br></div>"
 		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
@@ -2096,18 +2108,18 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 				if("s_tone")
 					if(S.bodyflags & HAS_SKIN_TONE)
-						var/new_s_tone = tgui_input_number(user, "Выберите тон кожи\n(Больше – темнее)", "Тон кожи", 50, 220, 1)
+						var/new_s_tone = tgui_input_number(user, "Выберите тон кожи\n(Больше — темнее)", "Тон кожи", 50, 220, 1)
 						if(!new_s_tone)
 							return
 						s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 						var/const/MAX_LINE_ENTRIES = 4
-						var/prompt = "Выберите тон кожи: 1-[S.icon_skin_tones.len]\n("
-						for(var/i = 1 to S.icon_skin_tones.len)
+						var/prompt = "Выберите тон кожи: 1-[length(S.icon_skin_tones)]\n("
+						for(var/i = 1 to length(S.icon_skin_tones))
 							if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
 								prompt += "\n"
 							prompt += "[i] = [S.icon_skin_tones[i]]"
-							if(i != S.icon_skin_tones.len)
+							if(i != length(S.icon_skin_tones))
 								prompt += ", "
 						prompt += ")"
 						var/skin_c = tgui_input_number(user, prompt, "Тон кожи", s_tone, length(S.icon_skin_tones), 1)
@@ -2303,11 +2315,11 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 									var/datum/robolimb/L = new limb_type()
 									if(limb in L.parts) //Make sure that only models that provide the parts the user needs populate the list.
 										robolimb_models[L.company] = L
-										if(robolimb_models.len == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
+										if(length(robolimb_models) == 1) //If there's only one model available in the list, autoselect it to avoid having to bother the user with a dialog that provides only one option.
 											subchoice = L.company //If there ends up being more than one model populating the list, subchoice will be overwritten later anyway, so this isn't a problem.
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
-								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
+								if(length(robolimb_models) > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
 									subchoice = tgui_input_list(user, "Выберите модель \"[choice]\" для части тела", "[limb_name] – выбор модели", robolimb_models)
 								if(subchoice)
 									choice = subchoice
@@ -2370,6 +2382,14 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							parent.fps = clientfps
 						else
 							parent.fps = CONFIG_GET(number/clientfps)
+				if("exoframe")
+					var/available_frames = list()
+					for(var/path in exoframe_names)
+						available_frames[exoframe_names[path]] = path
+
+					var/chosen_name = tgui_input_list(user, "Выберите желаемый каркас экзоскелета", "Каркас экзоскелета", available_frames)
+					if(chosen_name && available_frames[chosen_name])
+						exoframe_type = available_frames[chosen_name]
 		else
 			switch(href_list["preference"])
 				if("publicity")
@@ -2626,7 +2646,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					*/
 
 					parallax = parallax_styles[new_parallax]
-					if(parent && parent.mob && parent.mob.hud_used)
+					if(parent?.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("multiz_detail")
@@ -2664,6 +2684,12 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					for(var/group_key in my_hud.master_groups)
 						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
 						group.build_planes_offset(my_hud, my_hud.current_plane_offset)
+
+				if("achievement_sound")
+					achivements_sound = tgui_input_list(usr, "Выберите нужный звук", "Звук получения достижения", GLOB.achievement_sounds, CHEEVO_SOUND_PING)
+					var/sound/sound_to_send = LAZYACCESS(GLOB.achievement_sounds, achivements_sound)
+					if(sound_to_send)
+						SEND_SOUND(usr, sound_to_send)
 
 				if("keybindings")
 					if(!keybindings_overrides)
@@ -2819,9 +2845,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		var/firstspace = findtext(real_name, " ")
 		var/name_length = length(real_name)
 		if(!firstspace)	//we need a surname
-			real_name += " [character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+			real_name += " [character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 		else if(firstspace == name_length)
-			real_name += "[character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+			real_name += "[character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 
 
 	character.add_language(language)
@@ -3071,7 +3097,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		saves += text2num(query.item[1])
 
 	qdel(query)
-	if(!saves.len)
+	if(!length(saves))
 		return
 
 	load_character(parent, pick(saves))

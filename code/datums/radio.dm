@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(all_radios)
 	devices_line+=device
 //			var/list/obj/devices_line___ = devices[filter_str]
 //			var/l = devices_line___.len
-	//log_admin("DEBUG: devices_line.len=[devices_line.len]")
+	//log_admin("DEBUG: devices_line.len=[length(devices_line)]")
 	//log_admin("DEBUG: devices(filter_str).len=[l]")
 
 /datum/radio_frequency/proc/remove_listener(obj/device)

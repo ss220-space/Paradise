@@ -379,7 +379,7 @@
 	name = "alien pistol"
 	desc = "A complicated gun that fires bursts of high-intensity radiation."
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
-	restricted_species = list(/datum/species/abductor)
+	restricted_species = list(/datum/species/abductor, /datum/species/grey)
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	origin_tech = "combat=4;magnets=7;powerstorage=3;abductor=3"
@@ -457,7 +457,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 
 /obj/item/melee/baton/abductor/proc/toggle(mob/living/user = usr)
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return
 	mode = (mode + 1) % BATON_MODES
 	var/txt
@@ -504,7 +504,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/melee/baton/abductor/examine(mob/user)
 	. = ..()
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return .
 	switch(mode)
 		if(BATON_STUN)
@@ -518,7 +518,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 
 /obj/item/melee/baton/abductor/baton_attack(mob/target, mob/living/user)
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return BATON_ATTACK_DONE
 	return ..()
 
@@ -850,7 +850,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor/brute
 	name = "alien brute mender"
-	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления механических повреждений. Выполнено из прочного инопланетного материала."
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений. Выполнено из прочного инопланетного материала."
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/abductor/brute/get_ru_names()
@@ -865,7 +865,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor/burn
 	name = "alien burn mender"
-	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления термических повреждений. Выполнено из прочного инопланетного материала."
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений. Выполнено из прочного инопланетного материала."
 	base_icon = "alien_mender_burn"
 	list_reagents = list("silver_sulfadiazine" = 200)
 

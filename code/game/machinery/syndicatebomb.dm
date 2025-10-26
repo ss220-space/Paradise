@@ -260,14 +260,14 @@
 	var/new_timer = tgui_input_number(user, "Please set the timer.", "Timer", "[timer_set]")
 	if(can_interact(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
-		loc.visible_message(span_notice("[bicon(src)] timer set for [timer_set] seconds."))
+		loc.visible_message(span_notice("[icon2html(src, viewers(src))] timer set for [timer_set] seconds."))
 	if(tgui_alert(user, "Would you like to start the countdown now?", "Countdown", list("Yes", "No")) == "Yes" && can_interact(user))
 		if(defused || active)
 			if(defused)
-				loc.visible_message(span_notice("[bicon(src)] Device error: User intervention required."))
+				loc.visible_message(span_notice("[icon2html(src, viewers(src))] Device error: User intervention required."))
 			return
 		else
-			loc.visible_message(span_danger("[bicon(src)] [timer_set] seconds until detonation, please clear the area."))
+			loc.visible_message(span_danger("[icon2html(src, viewers(src))] [timer_set] seconds until detonation, please clear the area."))
 			activate()
 			update_icon(UPDATE_ICON_STATE)
 			add_fingerprint(user)
@@ -398,7 +398,7 @@
 	var/obj/machinery/syndicatebomb/holder = loc
 	if(istype(holder))
 		attempts++
-		holder.loc.visible_message(span_danger("[bicon(holder)] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires..."))
+		holder.loc.visible_message(span_danger("[icon2html(holder, viewers(holder))] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires..."))
 		reset()
 	else
 		qdel(src)
@@ -408,7 +408,7 @@
 	if(istype(holder))
 		attempts++
 		defusals++
-		holder.loc.visible_message(span_notice("[bicon(holder)] Alert: Bomb has been defused. Your score is now [defusals] for [attempts]! Resetting wires in 5 seconds..."))
+		holder.loc.visible_message(span_notice("[icon2html(holder, viewers(holder))] Alert: Bomb has been defused. Your score is now [defusals] for [attempts]! Resetting wires in 5 seconds..."))
 		sleep(50)	//Just in case someone is trying to remove the bomb core this gives them a little window to crowbar it out
 		if(istype(holder))
 			reset()
@@ -543,7 +543,7 @@
 			for(var/obj/item/reagent_containers/glass/G in beakers)
 				G.reagents.trans_to(S, G.reagents.total_volume)
 
-			if(S && S.reagents && S.reagents.total_volume)
+			if(S?.reagents && S.reagents.total_volume)
 				reactants += S.reagents
 
 	if(!chem_splash(get_turf(src), spread_range, reactants, temp_boost))
@@ -583,7 +583,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(beakers.len == 0)
+	if(length(beakers) == 0)
 		return
 	for(var/obj/item/B in beakers)
 		B.loc = get_turf(src)
@@ -604,7 +604,7 @@
 			spread_range += 2 // Extra range, reduced density.
 			temp_boost += 50 // maximum of +150K blast using only large beakers. Not enough to self ignite.
 			for(var/obj/item/slime_extract/S in LG.beakers) // And slime cores.
-				if(beakers.len < max_beakers)
+				if(length(beakers) < max_beakers)
 					beakers += S
 					S.loc = src
 				else
@@ -621,7 +621,7 @@
 			time_release += 50 // A typical bomb, using basic beakers, will explode over 2-4 seconds. Using two will make the reaction last for less time, but it will be more dangerous overall.
 
 		for(var/obj/item/reagent_containers/glass/B in G)
-			if(beakers.len < max_beakers)
+			if(length(beakers) < max_beakers)
 				beakers += B
 				B.loc = src
 			else

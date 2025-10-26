@@ -10,7 +10,7 @@
 
 
 /datum/addition_goal/trash/setup()
-	trash_count = rand(20, 40)
+	trash_count = rand(30, 40)
 	request_number = "[rand(100, 999)]"
 	name = "Запрос утилизации мусора №[request_number]"
 	description = "Запрос утилизации мусора №[request_number]. На станцию прибудет шаттл с мусором, необходимо разгрузить мусор с шаттла и вернуть его обратно. Дальнейшая судьба мусора нас не интересует."

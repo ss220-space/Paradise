@@ -375,7 +375,7 @@
 
 		if(ITEM_SLOT_ID)
 			wear_id = I
-			if(hud_list.len)
+			if(length(hud_list))
 				update_hud_set()
 			update_worn_id()
 

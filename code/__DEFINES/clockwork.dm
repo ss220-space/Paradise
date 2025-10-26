@@ -40,14 +40,22 @@
 #define EMP_SPELL 1
 #define TIME_SPELL 2
 #define RECONSTRUCT_SPELL 3
+//guns and heart
+#define EMP_G_SPELL 1
+#define HEAL_G_SPELL 2
+#define STUN_G_SPELL 3
+//minigun
+#define MINIGUN_ATTACK 1
+#define MINIGUN_HEAL 2
+
 
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
-	new /datum/spell_enchant("Stun", STUN_SPELL, 125, 8),
+	new /datum/spell_enchant("Stun", STUN_SPELL, 125, 4),
 	new /datum/spell_enchant("Force Passage", KNOCK_SPELL, 100),
 	new /datum/spell_enchant("Terraform", REFORM_SPELL, 40),
-	new /datum/spell_enchant("Teleportation", TELEPORT_SPELL, 25, 5), // has do_after 1.5 seconds
-	new /datum/spell_enchant("Seal Wounds", HEAL_SPELL, 100, 7),
+	new /datum/spell_enchant("Teleportation", TELEPORT_SPELL, 25, 3), // has do_after 1.5 seconds
+	new /datum/spell_enchant("Seal Wounds", HEAL_SPELL, 100, 4),
 	new /datum/spell_enchant("Hidings Clock", HIDE_SPELL, 100)
 ))
 GLOBAL_LIST_INIT(spear_spells, list(
@@ -59,32 +67,42 @@ GLOBAL_LIST_INIT(hammer_spells, list(
 	new /datum/spell_enchant("Knock off", KNOCKOFF_SPELL, 100)
 ))
 GLOBAL_LIST_INIT(sword_spells, list(
-	new /datum/spell_enchant("Bloodshed", BLOODSHED_SPELL, 100, 4),
-	new /datum/spell_enchant("Swordsman", FASTSWORD_SPELL, 100, 6, spell_action = TRUE)
+	new /datum/spell_enchant("Bloodshed", BLOODSHED_SPELL, 100, 2),
+	new /datum/spell_enchant("Swordsman", FASTSWORD_SPELL, 100, 3, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(shield_spells, list(
 	new /datum/spell_enchant("Flash", FLASH_SPELL, 25, spell_action = TRUE),
 	new /datum/spell_enchant("Push off", PUSHOFF_SPELL, 100)
 ))
 GLOBAL_LIST_INIT(robe_spells, list(
-	new /datum/spell_enchant("Camoflauge", INVIS_SPELL, 100, 5, spell_action = TRUE),
-	new /datum/spell_enchant("Haste", SPEED_SPELL, 100, 8, spell_action = TRUE)
+	new /datum/spell_enchant("Camoflauge", INVIS_SPELL, 100, 3, spell_action = TRUE),
+	new /datum/spell_enchant("Haste", SPEED_SPELL, 100, 4, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(armour_spells, list(
-	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 100, 8),
-	new /datum/spell_enchant("Absorb", ABSORB_SPELL, 100, 4),
-	new /datum/spell_enchant("Harden plates", ARMOR_SPELL, 100, 10, spell_action = TRUE)
+	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 100, 4),
+	new /datum/spell_enchant("Absorb", ABSORB_SPELL, 100, 2),
+	new /datum/spell_enchant("Harden plates", ARMOR_SPELL, 100, 5, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(gloves_spell, list(
-	new /datum/spell_enchant("Hands of North Star", FASTPUNCH_SPELL, 75, 5, spell_action = TRUE),
-	new /datum/spell_enchant("Stunning", STUNHAND_SPELL, 75, 8),
-	new /datum/spell_enchant("Red Flame", FIRE_SPELL, 50, 5, spell_action = TRUE)
+	new /datum/spell_enchant("Hands of North Star", FASTPUNCH_SPELL, 75, 3, spell_action = TRUE),
+	new /datum/spell_enchant("Stunning", STUNHAND_SPELL, 75, 4),
+	new /datum/spell_enchant("Red Flame", FIRE_SPELL, 50, 3, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(shard_spells, list(
-	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 9),
-	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 9),
-	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 9)
+	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 5),
+	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 5),
+	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 5)
 ))
+GLOBAL_LIST_INIT(gun_and_heart_spells, list(
+	new /datum/spell_enchant("EMP", EMP_G_SPELL, time = 1),
+	new /datum/spell_enchant("Heal", HEAL_G_SPELL, time = 1),
+	new /datum/spell_enchant("Stun", STUN_G_SPELL, time = 1)
+))
+GLOBAL_LIST_INIT(minigun_spells, list(
+	new /datum/spell_enchant("Attack sphere", MINIGUN_ATTACK, time = 3),
+	new /datum/spell_enchant("Heal sphere", MINIGUN_HEAL, time = 3),
+))
+
 
 /// Power gains permanent
 #define CLOCK_POWER_CONVERT 200
@@ -109,17 +127,19 @@ GLOBAL_LIST_INIT(shard_spells, list(
 /// At what population does it switch to highpop values
 #define CLOCK_POPULATION_THRESHOLD 70
 /// Power per crew demand. (Lowpop)
-#define CLOCK_POWER_PER_CREW_LOW 260
+#define CLOCK_POWER_PER_CREW_LOW 26
 /// Percent for power to reveal (Lowpop)
 #define CLOCK_POWER_REVEAL_LOW 0.7
 /// Percent clockers to reveal (Lowpop)
 #define CLOCK_CREW_REVEAL_LOW 0.35
 /// Power per crew demand. (highpop)
-#define CLOCK_POWER_PER_CREW_HIGH 180
+#define CLOCK_POWER_PER_CREW_HIGH 18
 /// Percent for power to reveal (Highpop)
 #define CLOCK_POWER_REVEAL_HIGH 0.5
 /// Percent clockers to reveal (Highpop)
 #define CLOCK_CREW_REVEAL_HIGH 0.25
+/// Default power for goal
+#define CLOCK_BASIC_POWER_GOAL 120
 
 // Text
 #define CLOCK_GREETING span_clocklarge("You catch a glimpse of the Realm of Ratvar, the Clockwork Justiciar. \
@@ -140,8 +160,10 @@ GLOBAL_LIST_INIT(shard_spells, list(
 // Clockwork objective status
 #define RATVAR_IS_ASLEEP 0
 #define RATVAR_DEMANDS_POWER 1
-#define RATVAR_NEEDS_SUMMONING 2
-#define RATVAR_HAS_RISEN 3
+#define RATVAR_NEED_HEART 2
+#define RATVAR_BREAK_SEALS 3
+#define RATVAR_NEEDS_SUMMONING 4
+#define RATVAR_HAS_RISEN 5
 #define RATVAR_HAS_FALLEN -1
 
 #define RATVAR_SUMMON_POSSIBILITIES 3

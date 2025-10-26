@@ -228,9 +228,6 @@
 	var/tdata = TopicData //save this for later use
 	TopicData = null //Prevent calls to client.Topic from connect
 
-	if(byond_version >= 516)
-		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
-
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
@@ -259,6 +256,16 @@
 	to_chat(src, span_warning("Если вы видите чёрный экран, это означает, что процесс загрузки ещё продолжается. Пожалуйста, подождите немного, пока не появится начальный экран."), confidential=TRUE)
 
 	GLOB.directory[ckey] = src
+
+	if(GLOB.persistent_clients_by_ckey[ckey])
+		persistent_client = GLOB.persistent_clients_by_ckey[ckey]
+		persistent_client.byond_build = byond_build
+		persistent_client.byond_version = byond_version
+	else
+		persistent_client = new(ckey)
+		persistent_client.byond_build = byond_build
+		persistent_client.byond_version = byond_version
+
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
 	if(!CONFIG_GET(flag/disable_localhost_admin))
@@ -432,8 +439,11 @@
 		holder.owner = null
 		GLOB.admins -= src
 
+
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+
+	persistent_client.client = null
 
 	#ifdef MULTIINSTANCE
 	INVOKE_ASYNC(SSinstancing, TYPE_PROC_REF(/datum/controller/subsystem/instancing, update_playercache)) // Clear us out
@@ -640,7 +650,7 @@
 
 
 	//Log all the alts
-	if(related_accounts_cid.len)
+	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] alts:[jointext(related_accounts_cid, " - ")]")
 
 
@@ -820,7 +830,7 @@
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.", confidential=TRUE)
 		return
-	if(prefs && prefs.fuid)
+	if(prefs?.fuid)
 		if(!fromban)
 			to_chat(src, "Your forum account is already set.", confidential=TRUE)
 		return
@@ -1281,7 +1291,7 @@
 		return
 	if(prefs)
 		prefs.load_preferences(usr)
-	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
+	if(prefs?.discord_id && length(prefs.discord_id) < 32)
 		to_chat(usr, chat_box_red(span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
@@ -1632,13 +1642,21 @@
 	if(byond_version >= 516)
 		return
 
-	var/choice = alert(src, "Внимание - Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
+	var/choice = alert(src, "Внимание — Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
 	ТГУИ уже не поддерживает Internet Explorer, а следовательно на 515 и ниже будет работать некорректно. \
 	Обновитесь, чтобы избежать проблем в будущем.", " Предупреждение о версии BYOND", "Обновиться сейчас", "Игнорировать")
 	if(choice != "Обновиться сейчас")
 		return
 
 	src << link("https://secure.byond.com/download/")
+
+///Redirect proc that makes it easier to call the unlock achievement proc. Achievement type is the typepath to the award, user is the mob getting the award, and value is an optional variable used for leaderboard value increments
+/client/proc/give_award(achievement_type, mob/user, value = 1)
+	return persistent_client.achievements.unlock(achievement_type, user, value)
+
+///Redirect proc that makes it easier to get the status of an achievement. Achievement type is the typepath to the award.
+/client/proc/get_award_status(achievement_type, mob/user, value = 1)
+	return persistent_client.achievements.get_achievement_status(achievement_type)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

@@ -150,7 +150,7 @@
 		t += span_linkon("Set Power")
 		t += "<div class='statusDisplay'>"
 
-		for(var/i = 1; i <= power_options.len; i++)
+		for(var/i = 1; i <= length(power_options); i++)
 			if(crystals + telepad.efficiency < i)
 				t += span_linkoff("[power_options[i]]")
 				continue

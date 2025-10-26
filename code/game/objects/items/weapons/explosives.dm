@@ -227,7 +227,7 @@
 	else
 		location = get_atom_on_turf(src)
 	if(location)
-		if(target && target.density)
+		if(target?.density)
 			var/turf/T = get_step(location, aim_dir)
 			explosion(get_step(T, aim_dir), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = "Dir. X4")
 			explosion(T,0,2,0, cause = src)
@@ -260,7 +260,7 @@
 	else
 		location = get_turf(src)
 	if(location)
-		if(target && target.density)
+		if(target?.density)
 			var/turf/T = get_step(location, aim_dir)
 			explosion(get_step(T, aim_dir), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = src)
 			location.ex_act(EXPLODE_HEAVY, target)
@@ -282,7 +282,7 @@
 
 /obj/item/grenade/plastic/c4_shaped/flash/prime()
 	var/turf/T
-	if(target && target.density)
+	if(target?.density)
 		T = get_step(get_turf(target), aim_dir)
 	else if(target)
 		T = get_turf(target)
@@ -311,7 +311,7 @@
 	if(location)
 		var/datum/effect_system/fluid_spread/smoke/smoke = new
 		smoke.set_up(amount = 8, location = location)
-		if(target && target.density)
+		if(target?.density)
 			var/turf/T = get_step(location, aim_dir)
 			for(var/turf/simulated/wall/W in range(1, location))
 				W.thermitemelt(time = 3 SECONDS)

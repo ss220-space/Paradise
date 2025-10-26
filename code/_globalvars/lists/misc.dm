@@ -114,3 +114,5 @@ GLOBAL_LIST_INIT(permissions_name_to_flag, list(
 	R_VIEWRUNTIMES_NAME = R_VIEWRUNTIMES,
 	R_SKINS_NAME = R_SKINS
 ))
+
+GLOBAL_LIST_EMPTY(exoframe_types)

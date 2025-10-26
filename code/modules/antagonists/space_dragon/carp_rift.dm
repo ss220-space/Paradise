@@ -105,7 +105,7 @@
 			newcarp.faction = dragon.owner.current.faction.Copy()
 		if(SPT_PROB(1.5, seconds_per_tick))
 			var/rand_dir = pick(GLOB.cardinal)
-			SSmove_manager.move_to(src, get_step(src, rand_dir), 1)
+			GLOB.move_manager.move_to(src, get_step(src, rand_dir), 1)
 		return
 
 	// Increase time trackers and check for any updated states.
@@ -215,7 +215,7 @@
 
 	if(!is_listed)
 		ckey_list += user.ckey
-	newcarp.key = user.key
+	newcarp.possess_by_player(user.key)
 	newcarp.name = "carp ([rand(1, 1000)])"
 	var/datum/antagonist/space_carp/carp_antag = new(src)
 	newcarp.mind.add_antag_datum(carp_antag)

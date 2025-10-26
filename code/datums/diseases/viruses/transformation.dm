@@ -72,7 +72,7 @@
 				if(is_new_mind)
 					new_mob.mind.wipe_memory()
 			else
-				new_mob.key = affected_mob.key
+				new_mob.possess_by_player(affected_mob.ckey)
 
 		qdel(affected_mob)
 		transformed = TRUE

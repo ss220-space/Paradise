@@ -306,7 +306,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [declent_ru(GENITIVE)]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	if(boosted)
-		mychild.key = elitemind.key
+		mychild.possess_by_player(elitemind.key)
 		mychild.sentience_act()
 		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] пробуждается в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
@@ -490,7 +490,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/item/tumor_shard
 	name = "tumor shard"
-	desc = "Странный острый кристаллический осколок из необычной опухоли Лазиса. Если пронзить им труп элиты Лазиса, это воскресит существо - при условии, что его душа ещё не ушла. Воскрешённые элиты имеют только половину здоровья, и абсолютно лояльны к своему воскресителю."
+	desc = "Странный острый кристаллический осколок из необычной опухоли Лазиса. Если пронзить им труп элиты Лазиса, это воскресит существо — при условии, что его душа ещё не ушла. Воскрешённые элиты имеют только половину здоровья, и абсолютно лояльны к своему воскресителю."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "crevice_shard"
 	throwforce = 5
