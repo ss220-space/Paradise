@@ -81,7 +81,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				if(!(R.mind in SSticker.minds))
 					SSticker.minds += R.mind
 				SSticker.mode.deathsquad |= R.mind
-				R.key = ghost_mob.key
+				R.possess_by_player(ghost_mob.key)
 				if(nuke_code)
 					R.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code].</span>")
 				R.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input].</span>")
@@ -89,7 +89,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 			else
 				var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
 				new_commando.mind.key = ghost_mob.key
-				new_commando.key = ghost_mob.key
+				new_commando.possess_by_player(ghost_mob.key)
 				new_commando.internal = new_commando.s_store
 				new_commando.update_action_buttons_icon()
 				new_commando.change_voice()

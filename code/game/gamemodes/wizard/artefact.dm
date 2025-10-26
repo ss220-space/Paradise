@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		user.client.prefs.copy_to(M)
 	else
 		C.prefs.copy_to(M)
-	M.key = C.key
+	M.possess_by_player(C.key)
 	M.mind.name = user.real_name
 	to_chat(M, "<b>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</b>")
 	M.faction = list("[user.real_name]")

@@ -698,7 +698,7 @@
 		// returns used energy, not damage dealt, but ez conversion with /20
 		dealt = electrocute_mob(L, current_cable.powernet, src, siemens_coeff) / 20
 	else if(charge >= 1000)
-		dealt = L.electrocute_act(30, "пульс-демона", siemens_coeff)
+		dealt = L.electrocute_act(30, src, siemens_coeff)
 		adjust_charge(-1000)
 	if(dealt > 0)
 		do_sparks(rand(2, 4), FALSE, src)
@@ -823,7 +823,7 @@
 		return ..()
 	visible_message(span_warning("[proj] goes right through [src]!"), projectile_message = TRUE)
 
-/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
 /mob/living/simple_animal/demon/pulse_demon/blob_act(obj/structure/blob/B)

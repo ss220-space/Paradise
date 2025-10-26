@@ -215,7 +215,7 @@
 
 	if(!is_listed)
 		ckey_list += user.ckey
-	newcarp.key = user.key
+	newcarp.possess_by_player(user.key)
 	newcarp.name = "carp ([rand(1, 1000)])"
 	var/datum/antagonist/space_carp/carp_antag = new(src)
 	newcarp.mind.add_antag_datum(carp_antag)

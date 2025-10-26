@@ -53,7 +53,7 @@
 		. += span_notice("<b>К Крушителю прикреплены следующие трофеи</b>:")
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
-			. += span_notice("[bicon(t)] <b>[capitalize(T.declent_ru(NOMINATIVE))]</b>: [T.effect_desc()].")
+			. += span_notice("[icon2html(t, user)] <b>[capitalize(T.declent_ru(NOMINATIVE))]</b>: [T.effect_desc()].")
 
 
 /obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/user, params)

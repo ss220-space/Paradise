@@ -1,58 +1,6 @@
 //pronoun procs, for getting pronouns without using the text macros that only work in certain positions
 //datums don't have gender, but most of their subtypes do!
 
-/proc/declension_ru(num, single_name, double_name, multiple_name)
-	if(!isnum(num) || round(num) != num)
-		return double_name // fractional numbers
-	if(((num % 10) == 1) && ((num % 100) != 11)) // 1, not 11
-		return single_name
-	if(((num % 10) in 2 to 4) && !((num % 100) in 12 to 14)) // 2, 3, 4, not 12, 13, 14
-		return double_name
-	return multiple_name // 5, 6, 7, 8, 9, 0
-
-/proc/genderize_ru(gender, male_word, female_word, neuter_word, multiple_word)
-	return gender == MALE ? male_word : (gender == FEMALE ? female_word : (gender == NEUTER ? neuter_word : multiple_word))
-
-/proc/pluralize_ru(gender, single_word, plural_word)
-	return gender == PLURAL ? plural_word : single_word
-
-
-/**
- * Replaces the `%(SINGLE,PLURAL)%` or `%(MALE,FEMALE,NEUTER,PLURAL)%` message piece accordingly to user gender.
- * Use `*` to deliberatly skip one genderize word: `%(*,FEMALE,*,PLURAL)%`.
- *
- * Arguments:
- * * user - Person which pronouns will be used.
- * * msg - The string to modify.
- *
- * Returns the modified msg string.
- */
-/proc/genderize_decode(mob/user, msg)
-	if(!istext(msg))
-		stack_trace("Invalid arguments in genderize_decode proc.")
-	var/gender
-	if(ismob(user))
-		gender = user.gender
-	else
-		gender = NEUTER
-	while(TRUE)
-		var/prefix = findtext_char(msg, "%(")
-		if(!prefix)
-			break
-		var/postfix = findtext_char(msg, ")%")
-		if(!postfix)
-			stack_trace("Genderize string is missing proper ending, expected )%.")
-		var/list/pieces = splittext(copytext_char(msg, prefix + 2, postfix), ",")
-		switch(length(pieces))
-			if(2)	// pluralize if only two parts present
-				msg = replacetext(splicetext_char(msg, prefix, postfix + 2, pluralize_ru(gender, pieces[1], pieces[2])), "*", "")
-			if(4)	// use full genderize if all four parts exist
-				msg = replacetext(splicetext_char(msg, prefix, postfix + 2, genderize_ru(gender, pieces[1], pieces[2], pieces[3], pieces[4])), "*", "")
-			else
-				stack_trace("Invalid data sent to genderize_decode proc.")
-	return msg
-
-
 /datum/proc/p_they(capitalized, temp_gender)
 	. = "it"
 	if(capitalized)

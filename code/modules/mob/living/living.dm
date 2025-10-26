@@ -1405,21 +1405,21 @@
 					SSticker.mode.add_clocker(mind)
 					mind.transfer_to(cog)
 				else
-					cog.key = client.key
+					cog.possess_by_player(client.key)
 			if(2)
 				var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
 				if(mind)
 					SSticker.mode.add_clocker(mind)
 					mind.transfer_to(cog)
 				else
-					cog.key = client.key
+					cog.possess_by_player(client.key)
 			if(3)
 				var/mob/living/silicon/robot/cog = new (get_turf(src))
 				if(mind)
 					SSticker.mode.add_clocker(mind)
 					mind.transfer_to(cog)
 				else
-					cog.key = client.key
+					cog.possess_by_player(client.key)
 				cog.ratvar_act()
 	spawn_dust()
 	gib()

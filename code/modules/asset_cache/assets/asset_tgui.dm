@@ -16,6 +16,7 @@
 	legacy = TRUE
 	assets = list(
 		"fa-brands-400.ttf" = 'html/font-awesome/webfonts/fa-brands-400.ttf',
+		"fa-brands-400.woff2" = 'html/font-awesome/webfonts/fa-brands-400.woff2',
 		"fa-solid-900.ttf" = 'html/font-awesome/webfonts/fa-solid-900.ttf',
 		"fa-regular-400.ttf" = 'html/font-awesome/webfonts/fa-regular-400.ttf',
 		"fa-v4compatibility.ttf" = 'html/font-awesome/webfonts/fa-v4compatibility.ttf',

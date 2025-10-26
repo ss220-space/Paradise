@@ -157,7 +157,7 @@
 		visible_message(span_danger("[M] вырыва[pluralize_ru(M.gender, "ет", "ют")]ся из нутра [name]!"))
 
 /// Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
-/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/carbon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	. = ..()
 	if(!.)
 		return .
@@ -180,7 +180,7 @@
 			if(victim == src)
 				continue
 
-			victim.electrocute_act(shock_damage * 0.75, name, 1, flags, jitter_time, stutter_time, stun_duration)
+			victim.electrocute_act(shock_damage * 0.75, src, 1, flags, jitter_time, stutter_time, stun_duration)
 
 	//Stun
 	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
@@ -349,7 +349,7 @@
 		status_list += msg
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
-			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(GENITIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [bicon(embedded)] [embedded.declent_ru(NOMINATIVE)]!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(GENITIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
 
 	for(var/t in missing)
 		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")

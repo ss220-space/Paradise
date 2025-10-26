@@ -6,41 +6,11 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" type="text/css" href="v4shim.css">
 		<link rel="stylesheet" type="text/css" href="font-awesome.css">
-		<script>
-			/** Remove conditionals with 516*/
-			if ('devicePixelRatio' in window) {
-				var supportsCssVariables = false;
-				try {
-					var testElement = document.createElement('div');
-					testElement.style.setProperty('--test', '1px');
-					supportsCssVariables = testElement.style.getPropertyValue('--test') === '1px';
-				} catch (e) {
-					supportsCssVariables = false;
-				}
-
-				if (supportsCssVariables) {
-					var updateDpr = function () {
-						document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
-					};
-
-					updateDpr();
-					window.addEventListener('resize', updateDpr);
-				}
-			}
-		</script>
+		<!-- zoom -->
 		<style type='text/css'>
 			@font-face {
 				font-family: Pixellari;
 				src: url("Pixellari_modif.ttf");
-			}
-
-			/* No animations for IE users. Laggy. */
-			* {
-				-ms-transition: none !important;
-			}
-
-			*::before {
-				-ms-transition: none !important;
 			}
 
 			html{
@@ -80,12 +50,12 @@
 
 			hr {
 				border: 0;
-				border-bottom: 0.15em solid rgba(0, 0, 0, 0.15);
+				border-bottom: 0.15rem solid rgba(0, 0, 0, 0.15);
 			}
 
 			i {
-				width: 1em;
-				height: 1em;
+				width: 1rem;
+				height: 1rem;
 				transition: transform 0.2s;
 			}
 
@@ -100,9 +70,9 @@
 			.container_notice {
 				position: absolute;
 				box-sizing: border-box;
-				width: calc(100vw - 20em);
+				width: calc(100vw - 20rem);
 				bottom: 0;
-				left: 20em;
+				left: 20rem;
 				background-color: rgba(22, 22, 22, 0.85);
 				border-top: 1px solid rgba(255, 255, 255, 0.1);
 				transition: left 0.2s, width 0.2s;
@@ -116,26 +86,22 @@
 			}
 
 			.menu_notice {
-				margin: 0.75em 0.5em;
+				margin: 0.75rem 0.5rem;
 				color: #bd2020;
 				font-family: Pixellari
 			}
 
 			.container_menu {
 				display: flex;
-				overflow: auto;
+				overflow: hidden;
 				flex-direction: column;
 				justify-content: space-between;
-				position: absolute;
-				overflow: hidden;
 				box-sizing: border-box;
-				bottom: 0;
-				left: 0;
-				width: 20em;
-				height: 100vh;
+				width: 20rem;
+				height: 100%;
 				background-color: rgba(239, 238, 238, 0.85);
 				border-right: 1px solid rgba(255, 255, 255, 0.1);
-				box-shadow: 0.5em 0 1.25em rgba(0, 0 ,0, 0.5);
+				box-shadow: 0.5rem 0 1.25rem rgba(0, 0 ,0, 0.5);
 				transition: transform 0.2s, box-shadow 0.2s;
 				backdrop-filter: blur(24px);
 				z-index: 3;
@@ -168,11 +134,11 @@
 				flex-direction: column;
 				box-sizing: border-box;
 				width: 100%;
-				padding: 0.5em 0.75em;
+				padding: 0.5rem 0.75rem;
 				background-color: rgba(255,255,255,0.05);
 				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 				border-top: 1px solid rgba(255, 255, 255, 0.1);
-				box-shadow: 0 0.25em 1.75em rgba(0,0,0,0.75);
+				box-shadow: 0 0.25rem 1.75rem rgba(0,0,0,0.75);
 			}
 
 			.character {
@@ -185,7 +151,7 @@
 
 			.character:first-of-type {
 				width: 100%;
-				margin-top: 0.5em;
+				margin-top: 0.5rem;
 				font-weight: bold;
 				text-align: left;
 				color: #5a5a5a;
@@ -199,19 +165,18 @@
 			.preview {
 				overflow: hidden;
 				position: absolute;
-				right: 0.5em;
-				bottom: -1.75em;
+				right: 0.5rem;
+				bottom: -1.75rem;
 				width: 96px;
 				height: 96px;
 				background-color: #252525;
 				border: 1px solid rgba(255, 255, 255, 0.1);
-				box-shadow: 0px 0.25em 0.25em 0.1em rgba(0, 0, 0, 0.33);
-				border-radius: 100em;
+				box-shadow: 0px 0.25rem 0.25rem 0.1rem rgba(0, 0, 0, 0.33);
+				border-radius: 100rem;
 				z-index: 1;
 			}
 
 			#preview {
-				-ms-interpolation-mode: nearest-neighbor; /* Remove with 516 */
 				image-rendering: pixelated;
 				width: 96px;
 				height: 96px;
@@ -219,8 +184,9 @@
 			}
 
 			.container_buttons {
-				flex: 1;
-				margin: 2em 0.5em 0.5em 0
+				flex:auto;
+				flex-direction: column;
+				margin: 0.5rem 0.5rem 0.5rem 0;
 			}
 
 			.menu_button {
@@ -232,11 +198,11 @@
 				text-align: left;
 				box-sizing: border-box;
 				width: 100%;
-				margin-bottom: 0.25em;
-				padding: 0.25em 0.25em 0.25em 0.5em;
+				margin-bottom: 0.25rem;
+				padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 				color: #000000;
 				border: 1px solid transparent;
-				border-radius: 0 0.25em 0.25em 0;
+				border-radius: 0 0.25rem 0.25rem 0;
 				transition: color 0.2s, background-color 0.2s, border-color 0.2s;
 				-webkit-user-drag: none;
 			}
@@ -296,7 +262,7 @@
 
 			.container_links {
 				position: fixed;
-				left: 20em;
+				left: 20rem;
 				bottom: 0;
 				display: flex;
 				width: 3.5rem;
@@ -305,12 +271,12 @@
 			}
 
 			#hide_menu:checked ~ .container_links {
-				transform: translateX(-20em);
+				transform: translateX(-20rem);
 			}
 
 			.link_button {
 				cursor: pointer;
-				padding: 0.9em;
+				padding: 0.9rem;
 				vertical-align: middle;
 				background-color: rgba(238, 238, 238, 0.85);
 				color: #000000;
@@ -330,8 +296,8 @@
 				cursor: pointer;
 				position: fixed;
 				top: 0;
-				left: 20em;
-				padding: 0.9em;
+				left: 20rem;
+				padding: 0.9rem;
 				vertical-align: middle;
 				background-color: rgba(238, 238, 238, 0.85);
 				color: #000000;
@@ -396,9 +362,9 @@
 				right: 0;
 				top: auto;
 				left: auto;
-				bottom: 45em;
+				bottom: 55.1%;
 				width: fit-content;
-				transition: transform 0.5s;
+				transition: bottom 0.5s;
 				position: absolute;
 			}
 
@@ -407,16 +373,16 @@
 			}
 
 			#hide_lobby:checked ~ .hide_lobby {
-				transform: translateY(45em);
 				right: 0;
+				bottom: 0;
 			}
 
 			.lobby-box {
 				background: rgba(255, 255, 255, 0.85);
 				border-radius: 10px;
 				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-				height: 45em;
-				width: 18em;
+				height: 55%;
+				width: 18rem;
 				text-align: center;
 				align-items: center;
 				position: absolute;
@@ -439,14 +405,14 @@
 			}
 
 			.game-item {
-				padding: 1em;
+				padding: 1rem;
 				border-radius: 10px;
 				background-color: rgba(255,255,255,0.05);
 				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-				box-shadow: 0 0.25em 1.75em rgba(0,0,0,0.75);
+				box-shadow: 0 0.25rem 1.75rem rgba(0,0,0,0.75);
 				margin-top: 5px;
-				width: 15em;
-				height: 10em;
+				width: 15rem;
+				height: 10rem;
 				text-align:	left;
 				position: relative;
 				display: flex;
@@ -526,7 +492,7 @@
 			}
 
 			.dark hr{
-				border-bottom: 0.15em solid rgba(255, 255, 255, 0.1);
+				border-bottom: 0.15rem solid rgba(255, 255, 255, 0.1);
 			}
 
 			.dark .status-box, .dark .lobby-box {
@@ -567,7 +533,7 @@
 			}
 
 			.ntos hr{
-				border-bottom: 0.15em solid rgba(255, 255, 255, 0.2);
+				border-bottom: 0.15rem solid rgba(255, 255, 255, 0.2);
 			}
 
 			.ntos .status-box, .ntos .lobby-box {
@@ -616,7 +582,7 @@
 			}
 
 			.syndicate hr{
-				border-bottom: 0.15em solid rgba(255, 255, 255, 0.2);
+				border-bottom: 0.15rem solid rgba(255, 255, 255, 0.2);
 			}
 
 			.syndicate .status-box, .syndicate .lobby-box {
@@ -657,7 +623,7 @@
 			}
 
 			.paradise hr {
-				border-bottom: 0.15em solid rgba(255, 255, 255, 0.2);
+				border-bottom: 0.15rem solid rgba(255, 255, 255, 0.2);
 			}
 
 			.paradise .game-button {
@@ -698,92 +664,52 @@
 			}
 
 			.pixelated .preview {
-				bottom: -2.25em;
+				bottom: -2.25rem;
 			}
 
 			.pixelated  .game-button, .pixelated .status-box .countdown, .pixelated .game-name, .pixelated .status-box .status-item span {
 				font-weight: normal;
 			}
 
-			/** Remove conditionals with 516*/
-			@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
-
-				body {
-					font-size: calc(15px / var(--dpr));
-				}
-
-				.pixelated .character:first-of-type {
-					font-size: calc(1.5rem / var(--dpr));
-				}
-
-				.hide_button i {
-					font-size: calc(1.5rem / var(--dpr));
-				}
-
-				.link_button i {
-					font-size: calc(1.5rem / var(--dpr));
-				}
-
-				.menu_button {
-					font-size: calc(1.35rem / var(--dpr));
-				}
-
-				.character:first-of-type {
-					font-size: calc(1.2rem / var(--dpr));
-				}
-
-				.character {
-					font-size: calc(1.1rem / var(--dpr));
-				}
-
-				.menu_notice {
-					line-height: calc(1.75rem / var(--dpr));
-					font-size: calc(1.75rem / var(--dpr));
-				}
+			body {
+				font-size: 15px;
 			}
 
-			/** Remove with 516 */
-			@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-				body {
-					font-size: 15px;
-				}
+			.pixelated .character:first-of-type {
+				font-size: 1.5rem;
+			}
 
-				.pixelated .character:first-of-type {
-					font-size: 1.5rem;
-				}
+			.hide_button i {
+				font-size: 1.5rem;
+			}
 
-				.hide_button i {
-					font-size: 1.5rem;
-				}
+			.link_button i {
+				font-size: 1.5rem;
+			}
 
-				.link_button i {
-					font-size: 1.5rem;
-				}
+			.menu_button {
+				font-size: 1.35rem;
+			}
 
-				.menu_button {
-					font-size: 1.35rem;
-				}
+			.character:first-of-type {
+				font-size: 1.2rem;
+			}
 
-				.character:first-of-type {
-					font-size: 1.2rem;
-				}
+			.character {
+				font-size: 1.1rem;
+			}
 
-				.character {
-					font-size: 1.1rem;
-				}
+			.menu_notice {
+				line-height: 1.75rem;
+				font-size: 1.75rem;
+			}
 
-				.menu_notice {
-					line-height: 1.75rem;
-					font-size: 1.75rem;
-				}
-
-				.status-box {
-					background: rgba(255, 255, 255, 0.9);
-					box-shadow: none;
-					display: flex;
-					flex-wrap: wrap;
-					flex-direction: column;
-				}
+			.status-box {
+				background: rgba(255, 255, 255, 0.9);
+				box-shadow: none;
+				display: flex;
+				flex-wrap: wrap;
+				flex-direction: column;
 			}
 		</style>
 	</head>

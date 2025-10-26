@@ -67,8 +67,9 @@ Difficulty: Hard
 	var/maximum_enraged_healing = 500
 	/// Enraged healing recived
 	var/enraged_healing = 0
-	medal_type = BOSS_MEDAL_BUBBLEGUM
-	score_type = BUBBLEGUM_SCORE
+	achievement_type = /datum/award/achievement/boss/bubblegum_kill
+	crusher_achievement_type = /datum/award/achievement/boss/bubblegum_crusher
+	score_achievement_type = /datum/award/score/bubblegum_score
 	deathmessage = "погружается в лужу крови, покидая битву. Вы победили... на сей раз."
 	death_sound = 'sound/misc/enter_blood.ogg'
 	attack_action_types = list(
@@ -669,8 +670,9 @@ Difficulty: Hard
 	maxHealth = 1
 	alpha = 127.5
 	crusher_loot = null
-	medal_type = null
-	score_type = null
+	achievement_type = null
+	crusher_achievement_type = null
+	score_achievement_type = null
 	deathmessage = "Взрывается в лужу крови!"
 	death_sound = 'sound/effects/splat.ogg'
 	true_spawn = FALSE

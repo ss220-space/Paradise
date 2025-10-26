@@ -88,21 +88,21 @@
 
 
 /mob/living/carbon/true_devil/examine(mob/user)
-	var/msg = span_notice("Это [bicon(src)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
+	var/msg = span_notice("Это [icon2html(src, user)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
 
 	//left hand
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
-			msg += span_warning("[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] [l_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в левой руке!\n")
+			msg += span_warning("[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [icon2html(l_hand, user)] [l_hand.declent_ru(ACCUSATIVE)] [l_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в левой руке!\n")
 		else
-			msg += "[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] в левой руке.\n"
+			msg += "[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [icon2html(l_hand, user)] [l_hand.declent_ru(ACCUSATIVE)] в левой руке.\n"
 
 	//right hand
 	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
-			msg += span_warning("[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] [r_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в правой руке!\n")
+			msg += span_warning("[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [icon2html(r_hand, user)] [r_hand.declent_ru(ACCUSATIVE)] [r_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в правой руке!\n")
 		else
-			msg += "[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] в правой руке.\n"
+			msg += "[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [icon2html(r_hand, user)] [r_hand.declent_ru(ACCUSATIVE)] в правой руке.\n"
 
 	//Braindead
 	if(!client && stat != DEAD)

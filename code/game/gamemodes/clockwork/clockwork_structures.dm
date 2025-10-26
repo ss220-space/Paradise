@@ -535,7 +535,7 @@
 			to_chat(user, span_notice("There's no empty shells to take!"))
 			return FALSE
 		var/mob/living/silicon/robot/cogscarab/cog = new(loc)
-		cog.key = user.key
+		cog.possess_by_player(user.key)
 		if(SSticker.mode.add_clocker(cog.mind))
 			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone")
 		cog.fabr = src

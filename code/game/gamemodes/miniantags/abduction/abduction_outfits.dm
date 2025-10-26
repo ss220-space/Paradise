@@ -52,6 +52,7 @@
 /datum/outfit/abductor/scientist
 	name = "Abductor Scientist"
 	gloves = /obj/item/clothing/gloves/abductor_science
+	belt = /obj/item/storage/belt/medical/surgery/abductor/loaded
 
 	backpack_contents = list(
 		/obj/item/abductor/gizmo = 1

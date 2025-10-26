@@ -628,7 +628,7 @@
 #define COMSIG_LIVING_WET "living_weted"
 ///from base of mob/living/ExtinguishMob() (/mob/living)
 #define COMSIG_LIVING_EXTINGUISHED "living_extinguished"
-///from base of mob/living/electrocute_act(): (shock_damage, source, siemens_coeff, flags)
+///from base of mob/living/electrocute_act(): (shock_damage, atom/source, siemens_coeff, flags)
 #define COMSIG_LIVING_ELECTROCUTE_ACT "living_electrocute_act"
 	/// Block the electrocute_act() proc from proceeding
 	#define COMPONENT_LIVING_BLOCK_SHOCK (1<<0)
@@ -1579,3 +1579,6 @@
 #define SIGNAL_DIABLERIE_LEVEL_GAIN "diablerie_level_gain"
 /// From /datum/diablerie_level/proc/remove()
 #define SIGNAL_DIABLERIE_LEVEL_REMOVE "diablerie_level_remove"
+
+///Sent after awards are saved in the database (/datum/controller/subsystem/achievements/save_achievements_to_db)
+#define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"

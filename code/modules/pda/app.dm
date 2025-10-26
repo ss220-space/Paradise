@@ -41,7 +41,7 @@
 			L = get(pda, /mob/living/silicon)
 
 		if(L && L.stat != UNCONSCIOUS) // Awake or dead people can see their messages
-			to_chat(L, "[bicon(pda)] [message]")
+			to_chat(L, "[icon2html(pda, L)] [message]")
 			SStgui.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
 
 	if(!pda.silent)

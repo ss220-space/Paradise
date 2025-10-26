@@ -40,7 +40,7 @@
 		if(C)
 			GLOB.respawnable_list -= C
 			var/mob/living/simple_animal/hostile/headslug/evented/new_slug = new(vent.loc)
-			new_slug.key = C.key
+			new_slug.possess_by_player(C.key)
 			new_slug.make_slug_antag() //give objective and plays coolsound
 			new_slug.move_into_vent(vent, FALSE)
 			spawncount--

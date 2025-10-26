@@ -134,7 +134,7 @@
 		if(cling.can_absorb_dna(owner))
 			cling.absorb_dna(owner)
 		cling.give_power(new /datum/action/changeling/humanform)
-		monka.key = origin.key
+		monka.possess_by_player(origin.key)
 		monka.revive() // better make sure some weird shit doesn't happen, because it has in the past P.S. some weird shit still happen
 		if(cling.absorbed_count == 0)
 			var/mob/living/carbon/human/rand_dna = new

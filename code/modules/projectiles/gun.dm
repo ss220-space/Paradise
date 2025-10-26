@@ -181,7 +181,7 @@
 		. += span_notice("К цевью прикреплен [attachments_by_slot[ATTACHMENT_SLOT_UNDER].declent_ru(NOMINATIVE)].")
 	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_UNDER)
 		. += span_notice("Имеет маленькую планку на цевье для крепление пистолетного фонаря.")
-	else if(attachable_allowed & GUN_MODULE_CLASS_RIFLE_UNDER | attachable_allowed & GUN_MODULE_CLASS_SHOTGUN_UNDER)
+	else if(attachable_allowed & (GUN_MODULE_CLASS_RIFLE_UNDER|GUN_MODULE_CLASS_SHOTGUN_UNDER))
 		. += span_notice("Имеет большую планку на цевье для крепление большого фонаря или рукоятки.")
 
 	if(unique_reskin)

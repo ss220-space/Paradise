@@ -97,7 +97,7 @@
 	message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(guardian)])")
 
 	guardian.ghostize()
-	guardian.key = new_stand.key
+	guardian.possess_by_player(new_stand.key)
 	log_game("[guardian.key] has taken control of [guardian], owner: [guardian]")
 	qdel(src)
 

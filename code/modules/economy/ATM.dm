@@ -48,7 +48,7 @@ log transactions
 	if(linked_db && ((linked_db.stat & NOPOWER) || !linked_db.activated))
 		linked_db = null
 		authenticated_account = null
-		visible_message("[bicon(src)][span_warning("[src] buzzes rudely, \"Connection to remote database lost.\"")]")
+		visible_message("[icon2html(src, viewers(src))][span_warning("[src] buzzes rudely, \"Connection to remote database lost.\"")]")
 		SStgui.update_uis(src)
 
 	if(ticks_left_timeout > 0)
@@ -201,16 +201,16 @@ log transactions
 				return
 			var/transfer_amount = text2num(params["funds_amount"])
 			if(transfer_amount <= 0)
-				to_chat(usr, "[bicon(src)][span_warning("That is not a valid amount.")]")
+				to_chat(usr, "[icon2html(src, usr)][span_warning("That is not a valid amount.")]")
 			else if(transfer_amount <= authenticated_account.money)
 				var/target_account_number = text2num(params["target_acc_number"])
 				var/transfer_purpose = params["purpose"]
 				if(linked_db.charge_to_account(target_account_number, authenticated_account, transfer_purpose, machine_id, transfer_amount))
-					to_chat(usr, "[bicon(src)][span_notice("Funds transfer successful.")]")
+					to_chat(usr, "[icon2html(src, usr)][span_notice("Funds transfer successful.")]")
 				else
-					to_chat(usr, "[bicon(src)][span_warning("Funds transfer failed.")]")
+					to_chat(usr, "[icon2html(src, usr)][span_warning("Funds transfer failed.")]")
 			else
-				to_chat(usr, "[bicon(src)][span_warning("You don't have enough funds to do that!")]")
+				to_chat(usr, "[icon2html(src, usr)][span_warning("You don't have enough funds to do that!")]")
 
 		if("view_screen")
 			var/list/valid_screen = list(DEFAULT_SCREEN, CHANGE_SECURITY_LEVEL, TRANSFER_FUNDS, VIEW_TRANSACTION_LOGS, CHANGE_INSURANCE_TYPE)
@@ -270,11 +270,11 @@ log transactions
 									T.time = station_time_timestamp()
 									failed_account.transaction_log.Add(T)
 							else
-								to_chat(usr, "[bicon(src)][span_warning("Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempt\s remaining.")]")
+								to_chat(usr, "[icon2html(src, usr)][span_warning("Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempt\s remaining.")]")
 								previous_account_number = tried_account_num
 								playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 						else
-							to_chat(usr, "[bicon(src)][span_warning("Incorrect pin/account combination entered.")]")
+							to_chat(usr, "[icon2html(src, usr)][span_warning("Incorrect pin/account combination entered.")]")
 							number_incorrect_tries = 0
 					else
 						playsound(src, 'sound/machines/twobeep.ogg', 50, TRUE)
@@ -289,13 +289,13 @@ log transactions
 						T.date = GLOB.current_date_string
 						T.time = station_time_timestamp()
 						authenticated_account.transaction_log.Add(T)
-						to_chat(usr, "[bicon(src)][span_notice("Access granted. Welcome user '[authenticated_account.owner_name].'")]")
+						to_chat(usr, "[icon2html(src, usr)][span_notice("Access granted. Welcome user '[authenticated_account.owner_name].'")]")
 					previous_account_number = tried_account_num
 
 		if("withdrawal")
 			var/amount = max(text2num(params["funds_amount"]), 0)
 			if(amount <= 0)
-				to_chat(usr, "[bicon(src)][span_warning("That is not a valid amount.")]")
+				to_chat(usr, "[icon2html(src, usr)][span_warning("That is not a valid amount.")]")
 			else if(authenticated_account && amount > 0)
 				if(amount <= authenticated_account.money)
 					playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
@@ -308,12 +308,12 @@ log transactions
 						withdraw_arbitrary_sum(amount)
 
 				else
-					to_chat(usr, "[bicon(src)][span_warning("You don't have enough funds to do that!")]")
+					to_chat(usr, "[icon2html(src, usr)][span_warning("You don't have enough funds to do that!")]")
 
 		if("insurance")
 			var/amount = max(text2num(params["insurance_amount"]), 0)
 			if(amount <= 0)
-				to_chat(usr, "[bicon(src)]" + span_warning("That is not a valid amount."))
+				to_chat(usr, "[icon2html(src, usr)]" + span_warning("That is not a valid amount."))
 			else if(authenticated_account && amount > 0)
 				if(amount <= authenticated_account.money)
 					playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
@@ -325,14 +325,14 @@ log transactions
 					if(authenticated_account.charge(amount, null, "Insurance replenishment", machine_id, authenticated_account.owner_name))
 						replenish_insurance(amount)
 				else
-					to_chat(usr, "[bicon(src)]" + span_warning("У вас недостаточно кредитов для этого!"))
+					to_chat(usr, "[icon2html(src, usr)]" + span_warning("У вас недостаточно кредитов для этого!"))
 
 		if("insurance_replenishment")
 			authenticated_account.insurance_auto_replen = !authenticated_account.insurance_auto_replen
 			if(authenticated_account.insurance_auto_replen)
-				to_chat(usr, "[bicon(src)]" + span_warning("Автопополнение страховки включено!"))
+				to_chat(usr, "[icon2html(src, usr)]" + span_warning("Автопополнение страховки включено!"))
 			else
-				to_chat(usr, "[bicon(src)]" + span_warning("Автопополнение страховки отключено!"))
+				to_chat(usr, "[icon2html(src, usr)]" + span_warning("Автопополнение страховки отключено!"))
 
 		if("balance_statement")
 			if(authenticated_account)

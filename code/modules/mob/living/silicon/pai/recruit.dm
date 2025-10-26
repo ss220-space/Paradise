@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			else
 				pai.name = candidate.name
 			pai.real_name = pai.name
-			pai.key = candidate.key
+			pai.possess_by_player(candidate.key)
 			card.setPersonality(pai)
 			card.looking_for_personality = 0
 
