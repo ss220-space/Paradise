@@ -98,6 +98,7 @@
 
 /datum/action/innate/overdrive
 	name = "Овердрайв"
+	button_icon_state = "mech_overload_off"
 	check_flags = AB_CHECK_CONSCIOUS
 	var/used = FALSE
 
@@ -126,6 +127,7 @@
 
 /datum/action/innate/research_scanner
 	name = "Переключить исследовательский анализатор"
+	button_icon_state = "scan_mode"
 
 /datum/action/innate/research_scanner/Activate()
 	owner.research_scanner = !owner.research_scanner
