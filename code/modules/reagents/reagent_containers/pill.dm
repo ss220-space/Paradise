@@ -392,3 +392,35 @@
 		INSTRUMENTAL = "таблеткой (Маннитол)",
 		PREPOSITIONAL = "таблетке (Маннитол)"
 	)
+
+/obj/item/reagent_containers/food/pill/bicaridine
+	name = "bicaridine pill"
+	desc = "Используется для лечения травм."
+	icon_state = "pill5"
+	list_reagents = list("bicaridine" = 10)
+
+/obj/item/reagent_containers/food/pill/bicaridine/get_ru_names()
+	return list(
+		NOMINATIVE = "таблетка (Бикаридин)",
+		GENITIVE = "таблетки (Бикаридин)",
+		DATIVE = "таблетке (Бикаридин)",
+		ACCUSATIVE = "таблетку (Бикаридин)",
+		INSTRUMENTAL = "таблеткой (Бикаридин)",
+		PREPOSITIONAL = "таблетке (Бикаридин)"
+	)
+
+/obj/item/reagent_containers/food/pill/kelotane
+	name = "kelotane pill"
+	desc = "Используется для лечения ожогов."
+	icon_state = "pill6"
+	list_reagents = list("kelotane" = 10)
+
+/obj/item/reagent_containers/food/pill/bicaridine/get_ru_names()
+	return list(
+		NOMINATIVE = "таблетка (Келотан)",
+		GENITIVE = "таблетки (Келотан)",
+		DATIVE = "таблетке (Келотан)",
+		ACCUSATIVE = "таблетку (Келотан)",
+		INSTRUMENTAL = "таблеткой (Келотан)",
+		PREPOSITIONAL = "таблетке (Келотан)"
+	)

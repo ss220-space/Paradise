@@ -500,6 +500,29 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 
+/obj/item/storage/firstaid/crew/unathi
+	name = "unathi first aid kit"
+	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Специализированная версия для сотрудников НТ, чья кожа слишком толстая для использования патчей."
+
+/obj/item/storage/firstaid/crew/unathi/get_ru_names()
+	return list(
+		NOMINATIVE = "экстренная аптечка (Унати)",
+		GENITIVE = "экстренной аптечки (Унати)",
+		DATIVE = "экстренной аптечке (Унати)",
+		ACCUSATIVE = "экстренную аптечку (Унати)",
+		INSTRUMENTAL = "экстренной аптечкой (Унати)",
+		PREPOSITIONAL = "экстренной аптечке (Унати)"
+	)
+
+/obj/item/storage/firstaid/crew/unathi/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/bicaridine(src)
+	new	/obj/item/reagent_containers/food/pill/kelotane(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
 /obj/item/storage/firstaid/doctor/mining_medic
 	name = "mining first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи, используемая шахтёрским врачом."

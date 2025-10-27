@@ -41,6 +41,9 @@
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
+
+	speciesbox = /obj/item/storage/box/survival_unathi
+
 	//Default styles for created mobs.
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
