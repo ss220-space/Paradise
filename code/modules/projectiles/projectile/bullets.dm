@@ -4,6 +4,8 @@
 	hitsound = SFX_BULLET
 	hitsound_wall = SFX_RICOCHET
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
+	ricochets_max = 1
+	ricochet_chance = 5
 
 /obj/projectile/bullet/get_ru_names()
 	return list(
@@ -15,17 +17,24 @@
 		PREPOSITIONAL = "пуле"
 	)
 
+/obj/projectile/bullet/on_ricochet(atom/A)
+	. = ..()
+	damage = damage / 2
+	stamina = stamina / 2
+
 /obj/projectile/bullet/slug
 	armour_penetration = 40
 	damage = 33
 
 /obj/projectile/bullet/desert_eagle
 	stamina = 33
+	ricochet_chance = 10
 
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5
 	stamina = 55
+	ricochet_chance = 20 //rubber bullets - high ricochet chance
 
 /obj/projectile/bullet/weakbullet/get_ru_names()
 	return list(
@@ -62,6 +71,7 @@
 	damage = 5
 	stamina = 35
 	icon_state = "bullet-r"
+	ricochet_chance = 20
 
 /obj/projectile/bullet/weakbullet2/get_ru_names()
 	return list(
@@ -76,6 +86,7 @@
 /obj/projectile/bullet/hp38 //Detective hollow-point
 	damage = 33
 	armour_penetration = -50
+	ricochets_max = 0 //no ricochets for HP
 
 /obj/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
 	if(..(target, blocked))
@@ -109,6 +120,7 @@
 //9mm bullet casing
 /obj/projectile/bullet/weakbullet3
 	damage = 23
+	ricochet_chance = 10
 
 //4.6x30mm bullet casing
 /obj/projectile/bullet/weakbullet3/foursix
@@ -127,6 +139,7 @@
 /obj/projectile/bullet/weakbullet3/fortynr
 	damage = 28
 	stamina = 20
+	ricochet_chance = 10
 
 /obj/projectile/bullet/weakbullet3/fortynr/get_ru_names()
 	return list(
@@ -143,6 +156,7 @@
 	damage = 5
 	stamina = 30
 	icon_state = "bullet-r"
+	ricochet_chance = 20
 
 /obj/projectile/bullet/weakbullet4/get_ru_names()
 	return list(
@@ -159,6 +173,7 @@
 	name = "45 N&R"
 	damage = 12
 	stamina = 15
+	ricochet_chance = 10
 
 /obj/projectile/bullet/toxinbullet
 	damage = 15
@@ -190,6 +205,7 @@
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
 	armour_penetration = -20
+	ricochets_max = 0
 
 /obj/projectile/bullet/pellet/get_ru_names()
 	return list(
@@ -237,6 +253,8 @@
 	damage = 3
 	stamina = 15
 	icon_state = "bullet-r"
+	ricochets_max = 1
+	ricochet_chance = 20
 
 /obj/projectile/bullet/pellet/rubber/get_ru_names()
 	return list(
@@ -298,18 +316,22 @@
 /obj/projectile/bullet/midbullet_r
 	damage = 5
 	stamina = 33 //Still four rounds to knock people down
+	ricochet_chance = 20
 
 //.36 bullet casing
 /obj/projectile/bullet/midbullet2
 	damage = 25
+	ricochet_chance = 10
 
 //10mm bullet casing
 /obj/projectile/bullet/midbullet3
 	damage = 33
+	ricochet_chance = 10
 
 /obj/projectile/bullet/midbullet3/hp
 	damage = 50
 	armour_penetration = -50
+	ricochets_max = 0
 
 /obj/projectile/bullet/midbullet3/hp/on_hit(atom/target, blocked, hit_zone)
 	if(..(target, blocked))
@@ -340,6 +362,7 @@
 	range = 7
 	icon_state = "spark"
 	color = "#FFFF00"
+	ricochets_max = 0
 
 /obj/projectile/bullet/stunshot/get_ru_names()
 	return list(
@@ -417,6 +440,7 @@
 	damage = 30
 	weaken = 4 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
+	ricochets_max = 0
 
 /obj/projectile/bullet/meteorshot/get_ru_names()
 	return list(
@@ -470,6 +494,7 @@
 	damage = 6
 	var/volume = 50
 	var/piercing = FALSE
+	ricochets_max = 0
 
 /obj/projectile/bullet/dart/get_ru_names()
 	return list(
@@ -589,6 +614,7 @@
 	damage = 9
 	stamina = 1
 	armour_penetration = 5
+	ricochet_chance = 10
 
 /obj/projectile/bullet/ftt762/get_ru_names()
 	return list(

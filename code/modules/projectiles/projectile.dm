@@ -500,6 +500,9 @@
 	if((flag == BOMB || flag == BULLET) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
+	if(flag == BULLET && (A.flags_ricochet & RICOCHET_BALLISTIC))
+		return TRUE
+
 	return FALSE
 
 

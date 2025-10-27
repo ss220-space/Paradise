@@ -4,6 +4,7 @@
 	var/ammo_type = /obj/item/ammo_casing/caseless/
 	var/dropped = 0
 	impact_effect_type = null
+	ricochets_max = 0
 
 /obj/projectile/bullet/reusable/get_ru_names()
 	return list(
