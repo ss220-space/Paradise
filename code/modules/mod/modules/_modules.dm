@@ -199,7 +199,7 @@
 		else
 			var/used_button = MIDDLE_CLICK
 			update_signal(used_button)
-			to_chat(mod.wearer, span_notice("\"[capitalize(declent_ru(NOMINATIVE))]\" активирован[genderize_ru(gender, "", "а", "о", "ы")]. Используйте <b>СКМ</b> для управления."))
+			to_chat(mod.wearer, span_notice("\"[capitalize(declent_ru(NOMINATIVE))]\" активирован[GEND_A_O_Y(src)]. Используйте <b>СКМ</b> для управления."))
 	active = TRUE
 	SEND_SIGNAL(src, COMSIG_MODULE_ACTIVATED)
 	on_activation(activator)
@@ -526,7 +526,8 @@
 	if(!length(accepted_anomalies))
 		return
 	if(core)
-		. += span_notice("К модулю прикрепл[genderize_ru(core.gender, "ён", "ена", "ено", "ены")] [core.declent_ru(NOMINATIVE)]. [core_removable ? "[pluralize_ru(core.gender, "Может быть <b>откручено</b>", "Могут быть <b>откручены</b>")]." : "Конструкция модуля не позволяет извлечь ядро."]")
+		. += span_notice("К модулю прикреплен[GEND_A_O_Y(core)] [core.declent_ru(NOMINATIVE)]. \
+						[core_removable ? "Мо[PLUR_JET_GUT(core)] быть откручен[GEND_A_O_Y(core)]." : "Конструкция модуля не позволяет извлечь ядро."]")
 	else
 		var/list/core_list = list()
 		for(var/path in accepted_anomalies)

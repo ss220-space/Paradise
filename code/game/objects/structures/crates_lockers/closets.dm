@@ -316,7 +316,7 @@ GLOBAL_LIST_EMPTY(closets)
 	if(allowed(user))
 		locked = !locked
 		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
-		visible_message(span_notice("[user.declent_ru(NOMINATIVE)] [locked ? "открыл" : "закрыл"][genderize_ru(gender, "", "а", "о", "и")] замок."))
+		visible_message(span_notice("[user.declent_ru(NOMINATIVE)] [locked ? "открыл" : "закрыл"][GEND_A_O_I(src)] замок."))
 		update_icon()
 	else
 		balloon_alert(user, "нет доступа!")

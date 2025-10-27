@@ -1086,9 +1086,9 @@
  */
 /datum/species/proc/equip_delay_self_check(obj/item/I, slot, mob/living/carbon/human/user)
 	user.visible_message(
-    span_notice("[user] начина[PLUR_ET_UT(user)] надевать [I.declent_ru(ACCUSATIVE)]..."),
-    span_notice("Вы начинаете надевать [I.declent_ru(ACCUSATIVE)]...")
-  )
+		span_notice("[user] начина[PLUR_ET_UT(user)] надевать [I.declent_ru(ACCUSATIVE)]..."),
+		span_notice("Вы начинаете надевать [I.declent_ru(ACCUSATIVE)]...")
+	)
 	return do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE))
 
 

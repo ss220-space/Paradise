@@ -36,11 +36,11 @@
 			balloon_alert(mod.wearer, "не влезает!")
 			return
 		holstered = holding
-		mod.wearer.balloon_alert_to_viewers("убира[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие", "оружие убрано")
+		mod.wearer.balloon_alert_to_viewers("убира[PLUR_ET_UT(mod.wearer)] оружие", "оружие убрано")
 		mod.wearer.temporarily_remove_item_from_inventory(holding)
 		holding.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.balloon_alert_to_viewers("извлека[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие", "оружие извлечено")
+		mod.wearer.balloon_alert_to_viewers("извлека[PLUR_ET_UT(mod.wearer)] оружие", "оружие извлечено")
 	else
 		balloon_alert(mod.wearer, "рука занята!")
 

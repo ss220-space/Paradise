@@ -82,7 +82,7 @@
 	var/obj/item/hat = remove_hat()
 	if(!hat)
 		return
-	hat.visible_message(span_danger("[capitalize(hat.declent_ru(NOMINATIVE))] слета[pluralize_ru(hat.gender, "ет", "ют")] с [hatless.declent_ru(GENITIVE)]!"))
+	hat.visible_message(span_danger("[capitalize(hat.declent_ru(NOMINATIVE))] слета[PLUR_ET_UT(hat)] с [hatless.declent_ru(GENITIVE)]!"))
 	hat.throw_at(get_edge_target_turf(get_turf(hat), pick(GLOB.alldirs)), 2, 1, spin = TRUE)
 
 /datum/component/hat_stabilizer/proc/drop_hat(mob/hatless)
@@ -95,7 +95,7 @@
 	SIGNAL_HANDLER
 	var/atom/movable/hat_wearer = parent
 	if(attached_hat)
-		examine_list += span_notice("На [hat_wearer.declent_ru(ACCUSATIVE)] [loose_hat ? "свободно" : ""] надет[genderize_ru(attached_hat.gender, "", "а", "о", "ы")] [attached_hat.declent_ru(NOMINATIVE)].")
+		examine_list += span_notice("На [hat_wearer.declent_ru(ACCUSATIVE)] [loose_hat ? "свободно" : ""] надет[GEND_A_O_Y(attached_hat)] [attached_hat.declent_ru(NOMINATIVE)].")
 	else
 		examine_list += span_notice("На [hat_wearer.declent_ru(ACCUSATIVE)] не надета шляпа. Пока ещё.")
 

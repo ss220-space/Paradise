@@ -130,7 +130,7 @@
 		return
 	if(mod.wearer.buckled)
 		return
-	mod.wearer.visible_message(span_warning("[mod.wearer] готов[pluralize_ru(mod.wearer.gender, "ит", "ят")]ся кого-нибудь пнуть!"))
+	mod.wearer.visible_message(span_warning("[mod.wearer] готов[PLUR_IT_YAT(mod.wearer)]ся кого-нибудь пнуть!"))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	animate(mod.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, SpinAnimation), 3, 2), 0.3 SECONDS)
@@ -165,7 +165,7 @@
 		add_attack_logs(mod.wearer, target, "[target] was charged by [mod.wearer]'s [src]", ATKLOG_ALMOSTALL)
 		living_target.Weaken(knockdown_time)
 		mod.wearer.visible_message(
-			span_danger("[mod.wearer] вреза[pluralize_ru(mod.wearer.gender, "ет", "ют")]ся в [target.declent_ru(ACCUSATIVE)]!"),
+			span_danger("[mod.wearer] вреза[PLUR_ET_UT(mod.wearer)]ся в [target.declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Вы врезаетесь в [target.declent_ru(ACCUSATIVE)]!")
 		)
 	else
@@ -771,11 +771,11 @@
 			balloon_alert(mod.wearer, "нечего класть!")
 			return
 		holstered = holding
-		mod.wearer.balloon_alert_to_viewers("убира[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие", "оружие убрано")
+		mod.wearer.balloon_alert_to_viewers("убира[PLUR_ET_UT(mod.wearer)] оружие", "оружие убрано")
 		mod.wearer.temporarily_remove_item_from_inventory(holding)
 		holding.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.balloon_alert_to_viewers("извлека[pluralize_ru(mod.wearer.gender, "ет", "ют")] оружие", "оружие извлечено")
+		mod.wearer.balloon_alert_to_viewers("извлека[PLUR_ET_UT(mod.wearer)] оружие", "оружие извлечено")
 	else
 		balloon_alert(mod.wearer, "рука занята!")
 

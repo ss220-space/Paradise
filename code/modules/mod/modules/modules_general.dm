@@ -689,7 +689,7 @@
 	mod.wearer.apply_status_effect(/datum/status_effect/jump_jet)
 	var/turf/launch_from = get_turf(mod.wearer)
 	if(mod.wearer.zMove(UP, z_move_flags = ZMOVE_CHECK_PULLS))
-		launch_from.visible_message(span_warning("[mod.wearer] поднима[pluralize_ru(mod.wearer.gender, "ет", "ют")]ся вверх!"))
+		launch_from.visible_message(span_warning("[mod.wearer] поднима[PLUR_ET_UT(mod.wearer)]ся вверх!"))
 	new /obj/effect/temp_visual/jet_plume(launch_from)
 
 	var/obj/item/mod/module/jetpack/linked_jetpack = locate() in mod.modules
@@ -804,8 +804,8 @@
 		mod.wearer.Stun(clamp(3 SECONDS * levels, 0, 10 SECONDS))
 
 	mod.wearer.visible_message(
-		span_notice("[mod.wearer] без ущерба приземля[pluralize_ru(mod.wearer.gender, "ет", "ют")]ся на [fell_on.declent_ru(ACCUSATIVE)] [extreme_fall ? ", едва устояв на ногах" : ", даже не шелохнувшись"]."),
-		span_notice("[capitalize(declent_ru(NOMINATIVE))] защища[pluralize_ru(gender, "ет", "ют")] вас от ущерба при падении!"),
+		span_notice("[mod.wearer] без ущерба приземля[PLUR_ET_UT(mod.wearer)]ся на [fell_on.declent_ru(ACCUSATIVE)] [extreme_fall ? ", едва устояв на ногах" : ", даже не шелохнувшись"]."),
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] защища[PLUR_ET_UT(src)] вас от ущерба при падении!"),
 	)
 	return ZIMPACT_CANCEL_DAMAGE|ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 

@@ -69,7 +69,7 @@
 		return
 	COOLDOWN_START(src, springlock_cooldown, 5 MINUTES)
 	remove_retraction_block() //No double signals
-	to_chat(mod.wearer, span_danger("[capitalize(declent_ru(NOMINATIVE))] изда[pluralize_ru(gender, "ёт", "ют")] мерзкий щёлкающий звук..."))
+	to_chat(mod.wearer, span_danger("[capitalize(declent_ru(NOMINATIVE))] изда[PLUR_YOT_UT(src)] мерзкий щёлкающий звук..."))
 	incoming_jumpscare = TRUE
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(snap_shut)), rand(3 SECONDS, 5 SECONDS))
@@ -235,7 +235,7 @@
 			mod.wearer.drop_item_ground(crisp_paper, force = TRUE)
 		// originally here was "PC LOAD LETTER!", actual HP printer error message that became some kind of western "meme" after film "Office Space", do with that information whatever you want
 		crisp_paper.balloon_alert(mod.wearer, UNLINT("ОШИБКА: НЕТ БУМАГИ!"))
-		crisp_paper.visible_message(span_warning("[capitalize(crisp_paper)] сгора[pluralize_ru(crisp_paper.gender, "ет", "ют")] в ярком пламени!"))
+		crisp_paper.visible_message(span_warning("[capitalize(crisp_paper)] сгора[PLUR_ET_UT(crisp_paper)] в ярком пламени!"))
 		crisp_paper.fire_act(1000, 100)
 
 	drain_power(use_energy_cost)

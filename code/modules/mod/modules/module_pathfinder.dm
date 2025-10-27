@@ -49,8 +49,8 @@
 		balloon_alert(user, "био-чип установлен")
 	else
 		target.visible_message(
-			span_notice("[user] вживля[pluralize_ru(user.gender, "ет", "ют")] [implant.declent_ru(ACCUSATIVE)] в тело [target.declent_ru(GENITIVE)]."),
-			span_notice("[user] вживля[pluralize_ru(user.gender, "ет", "ют")] [implant.declent_ru(ACCUSATIVE)] в ваше тело.")
+			span_notice("[user] вживля[PLUR_ET_UT(user)] [implant.declent_ru(ACCUSATIVE)] в тело [target.declent_ru(GENITIVE)]."),
+			span_notice("[user] вживля[PLUR_ET_UT(user)] [implant.declent_ru(ACCUSATIVE)] в ваше тело.")
 		)
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 	icon_state = "pathfinder_empty"

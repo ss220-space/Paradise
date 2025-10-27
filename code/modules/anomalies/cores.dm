@@ -2,6 +2,7 @@
 /obj/item/assembly/signaler/core
 	name = "anomaly core"
 	desc = "Нейтрализованное ядро ​​аномалии. Вероятно, оно пригодится для исследований."
+	gender = NEUTER
 	icon_state = "core_bluespace_t2"
 	item_state = "electronic"
 	resistance_flags = FIRE_PROOF
@@ -18,11 +19,11 @@
 
 /obj/item/assembly/signaler/core/get_ru_names()
 	return list(
-		NOMINATIVE = "ядро аномалии", \
-		GENITIVE = "ядра аномалии", \
-		DATIVE = "ядру аномалии", \
-		ACCUSATIVE = "ядро аномалии", \
-		INSTRUMENTAL = "ядром аномалии", \
+		NOMINATIVE = "ядро аномалии",
+		GENITIVE = "ядра аномалии",
+		DATIVE = "ядру аномалии",
+		ACCUSATIVE = "ядро аномалии",
+		INSTRUMENTAL = "ядром аномалии",
 		PREPOSITIONAL = "ядре аномалии"
 	)
 
