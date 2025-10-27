@@ -274,6 +274,10 @@
 
 //Spraycan stuff
 
+#define SPRAYCAN_TOGGLE_CAP_ACTION "Toggle Cap"
+#define SPRAYCAN_CHANGE_DRAWING_ACTION "Change Drawing"
+#define SPRAYCAN_CHANGE_COLOR_ACTION "Change Color"
+
 /obj/item/toy/crayon/spraycan
 	name = "Nanotrasen-brand Rapid Paint Applicator"
 	icon_state = "spraycan"
@@ -292,20 +296,31 @@
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
-	var/choice = tgui_input_list(user, "Spraycan options", , list("Toggle Cap", "Change Drawing", "Change Color"))
+	var/list/choices = list(
+		SPRAYCAN_TOGGLE_CAP_ACTION = image(icon = 'icons/obj/crayons.dmi', icon_state = "spraycan_cap_colors"),
+		SPRAYCAN_CHANGE_DRAWING_ACTION = image(icon = 'icons/effects/crayondecal.dmi', icon_state = "rune1"),
+		SPRAYCAN_CHANGE_COLOR_ACTION = image(icon = 'icons/obj/items.dmi', icon_state = "paint_green"),
+	)
+	var/choice = show_radial_menu(user, user, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	//var/choice = tgui_input_list(user, "Spraycan options", , list(SPRAYCAN_TOGGLE_CAP_ACTION, SPRAYCAN_CHANGE_DRAWING_ACTION, SPRAYCAN_CHANGE_COLOR_ACTION))
 	switch(choice)
-		if("Toggle Cap")
+		if(SPRAYCAN_TOGGLE_CAP_ACTION)
 			to_chat(user, span_notice("You [capped ? "Remove" : "Replace"] the cap of the [src]"))
 			capped = !capped
 			update_icon()
-		if("Change Drawing")
+		if(SPRAYCAN_CHANGE_DRAWING_ACTION)
 			..()
-		if("Change Color")
+		if(SPRAYCAN_CHANGE_COLOR_ACTION)
 			var/new_color = tgui_input_color(user, "Choose Color")
 			if(isnull(new_color))
 				return
 			colour = new_color
 			update_icon()
+
+/obj/item/toy/crayon/spraycan/proc/check_menu(mob/user)
+	if(user.incapacitated())
+		return FALSE
+	return TRUE
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -374,3 +389,7 @@
 	desc = "Баллончик с корпусом цвета хаки. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Head, eyes, blyad»."
 	icon_state = "spraycan_slavic"
 	weld_icons = list("Slavic" = "welding_slavic")
+
+#undef SPRAYCAN_TOGGLE_CAP_ACTION
+#undef SPRAYCAN_CHANGE_DRAWING_ACTION
+#undef SPRAYCAN_CHANGE_COLOR_ACTION
