@@ -29,7 +29,7 @@
 	)
 
 /mob/living/simple_animal/circuit_drone/Destroy()
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлета[PLUR_ET_UT(src)]ся на части!"))
 	do_sparks(3, TRUE, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	return ..()

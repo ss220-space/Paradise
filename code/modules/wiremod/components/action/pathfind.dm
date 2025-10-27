@@ -34,7 +34,7 @@
 	. = ..()
 	// Not necessary to show the same path cooldown, since it doesn't change much for the player
 	. += create_ui_notice("Перезарядка поиска пути: [DisplayTimeText(different_path_cooldown)]", "orange", "stopwatch")
-	. += create_ui_notice("Максимальная дальность: [max_range] тайл[declension_ru(max_range, "", "а", "ов")]", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)]", "orange", "info")
 
 /obj/item/circuit_component/pathfind/populate_ports()
 	input_X = add_input_port("X", PORT_TYPE_NUMBER, trigger = null)

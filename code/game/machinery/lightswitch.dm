@@ -55,7 +55,7 @@
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	. += span_notice("[area.lightswitch ? "Включено" : "Выключено"].")
+	. += span_boldnotice("[area.lightswitch ? "Включено" : "Выключено"].")
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

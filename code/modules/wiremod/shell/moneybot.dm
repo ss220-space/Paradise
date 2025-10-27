@@ -142,7 +142,7 @@
 		return
 
 	attached_bot.add_money(amount_to_insert)
-	balloon_alert(attacker, "вставлено [amount_to_insert] кредит[declension_ru(amount_to_insert, "", "а", "ов")]")
+	balloon_alert(attacker, "вставлено [amount_to_insert] кредит[DECL_CREDIT(amount_to_insert)]")
 	money_input.set_output(amount_to_insert)
 	entity.set_output(attacker)
 	money_trigger.set_output(COMPONENT_SIGNAL)

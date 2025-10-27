@@ -28,7 +28,7 @@
 
 /obj/item/circuit_component/direction/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] тайл[declension_ru(max_range, "", "а", "ов")]", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)]", "orange", "info")
 
 /obj/item/circuit_component/direction/populate_ports()
 	input_port = add_input_port("Цель", PORT_TYPE_ATOM)

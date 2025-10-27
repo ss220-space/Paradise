@@ -164,7 +164,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/amount_inserted = materials.insert_item(tool)
 	if(amount_inserted)
 		qdel(tool)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] переребатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[declension_ru(amount_inserted /  SHEET_VOLUME, "у", "ы", "")] материала."))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] переребатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[DECL_SEC_MIN(amount_inserted /  SHEET_VOLUME)] материала."))
 	else
 		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отклоняет переработку [tool.declent_ru(GENITIVE)]."))
 

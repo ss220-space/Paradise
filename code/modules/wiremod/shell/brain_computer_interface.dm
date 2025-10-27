@@ -263,7 +263,7 @@
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if(isnull(cell))
-		to_chat(owner, span_boldwarning("[circuit_component.parent.declent_ru(NOMINATIVE)] не имеет элемента питания."))
+		to_chat(owner, span_boldwarning("[circuit_component.parent.declent_ru(NOMINATIVE)] не име[PLUR_ET_UT(circuit_component.parent)] элемента питания."))
 	else
 		to_chat(owner, span_notice("В [cell.declent_ru(PREPOSITIONAL)] [circuit_component.parent.declent_ru(GENITIVE)] осталось <b>[cell.percent()]%</b> заряда."))
 

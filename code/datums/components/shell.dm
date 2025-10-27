@@ -131,25 +131,32 @@
 	if(!is_authorized(user))
 		return
 
+	examine_text += span_boldnotice("Интегральная схема:")
+
 	if(!attached_circuit)
-		examine_text += span_notice("Интегральная схема отсутствует.")
+		examine_text += span_notice("- отсутствует.")
 		return
 
-	examine_text += span_notice("Установлена интегральная схема. Используйте мультитул для доступа к проводке. Используйте отвертку, чтобы снять его с [source.declent_ru(GENITIVE)].")
-	examine_text += span_notice("Крышка интегральной схемы [locked ? "закрыта" : "открыта"].")
+	examine_text += span_notice("- установлена.")
+	examine_text += span_notice("- крышка <b>[locked ? "закрыта" : "открыта"]</b>.")
+	examine_text += span_notice("- используйте <b>мультиметр</b> для доступа к проводке.")
+	examine_text += span_notice("- <b>открутите винты</b>, чтобы снять с [source.declent_ru(GENITIVE)].")
+
+
 	var/obj/item/stock_parts/cell/cell = attached_circuit.cell
+	examine_text += span_boldnotice("Элемент питания:")
 	if(cell)
-		examine_text += span_notice("Заряд элемента питания: [round(cell.percent(), 1)]%.")
+		examine_text += span_notice("- заряд = <b>[round(cell.percent(), 1)]</b>%.")
 	else
-		examine_text += span_notice("Элемент питания не установлен.")
+		examine_text += span_notice("- отсутствует")
 
 	if(shell_flags & SHELL_FLAG_USB_PORT)
-		examine_text += span_notice("Здесь есть <b>USB-порт</b> на панели.")
+		examine_text += span_notice("На панели находится <b>USB-порт</b>.")
 
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
-		examine_text += span_notice("Для работы оболочки не требуется элемент питания, он будет использовать энергию ЛКП, когда это возможно.")
+		examine_text += span_notice("Для работы оболочки не требуется элемент питания. Вместо этого будет использоваться энергия ближайшего ЛКП по возможности.")
 		if(!source.anchored)
-			examine_text += span_danger("<b>Интегральная схема не функционирует, пока оболочка не закреплена.</b>")
+			examine_text += span_danger("<b>Интегральная схема не будет функционировать, пока не закреплена оболочка!</b>")
 
 
 /**
@@ -180,11 +187,11 @@
 	if(attached_circuit)
 		if(attached_circuit.owner_id && item == attached_circuit.owner_id.resolve())
 			set_locked(!locked)
-			source.balloon_alert(attacker, "[locked ? "закрыто" : "открыто"] [source]")
+			source.balloon_alert(attacker, "[locked ? "за" : "раз"]блокировано")
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
 		if(!attached_circuit.owner_id && is_id_card(item))
-			source.balloon_alert(attacker, UNLINT("ID пользователя установлено для [item.declent_ru(GENITIVE)]"))
+			source.balloon_alert(attacker, UNLINT("ID-карта привязана к схеме"))
 			attached_circuit.owner_id = WEAKREF(item)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -201,11 +208,11 @@
 		return
 
 	if(attached_circuit)
-		source.balloon_alert(attacker, "здесь уже есть плата схемы внутри!")
+		source.balloon_alert(attacker, "слот для схемы занят!")
 		return
 
 	if(logic_board.current_size > capacity)
-		source.balloon_alert(attacker, "это слишком большое чтобы вставить в [parent]!")
+		source.balloon_alert(attacker, "не влезает!")
 		return
 
 	logic_board.inserter_mind = WEAKREF(attacker.mind)
@@ -226,7 +233,7 @@
 		return
 
 	if(!istype(tool, /obj/item/multitool/circuit))
-		source.balloon_alert(user, "это не мультитул для схем!")
+		source.balloon_alert(user, "не мультиметр для схем!")
 		return
 
 	if(locked)
@@ -256,7 +263,7 @@
 		return TRUE
 
 	tool.play_tool_sound(parent)
-	source.balloon_alert(user, "вы открутили [attached_circuit.declent_ru(ACCUSATIVE)] from [parent].")
+	source.balloon_alert(user, "откручено")
 	remove_circuit()
 	return TRUE
 
@@ -370,11 +377,11 @@
 		return
 
 	if(!(shell_flags & SHELL_FLAG_USB_PORT))
-		source.balloon_alert(user, "отсутствует USB порт")
+		source.balloon_alert(user, UNLINT("USB-порт отсутствует"))
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	if(isnull(attached_circuit))
-		source.balloon_alert(user, "схема отсутствует")
+		source.balloon_alert(user, "схема отсутствует!")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	if(attached_circuit.locked)
