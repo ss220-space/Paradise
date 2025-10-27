@@ -104,11 +104,11 @@
 ///////////////////////////////////
 /obj/item/stack/cable_coil/attack_self(mob/user)
 	var/image/restraints_icon = image(icon = 'icons/obj/items.dmi', icon_state = "cuff_white")
-	var/image/tourniquet_icon = image(icon = 'icons/obj/medicine/packs.dmi', icon_state = "makeshift_tourniquet")
+	//var/image/tourniquet_icon = image(icon = 'icons/obj/medicine/packs.dmi', icon_state = "makeshift_tourniquet") //TODO vakons: temp disable - await bleeding-part-3
 	var/image/multiz_icon = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "cable_bridge")
 	var/choices = list(
 		"cable restraints (15)" = restraints_icon,
-		"самодельный жгут (20)" = tourniquet_icon,
+		//"самодельный жгут (20)" = tourniquet_icon, //TODO vakons: temp disable - await bleeding-part-3
 		"multi z cable hub (10)" = multiz_icon,
 	)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))

@@ -29,7 +29,7 @@
 					/obj/item/stack/medical/suture = 15, /obj/item/stack/medical/suture/advanced = 5,
 					/obj/item/stack/medical/bruise_pack/military = 10,
 					/obj/item/stack/medical/splint = 4,
-					/obj/item/tourniquet = 5, /obj/item/tourniquet/advanced = 4,
+					///obj/item/tourniquet = 5, /obj/item/tourniquet/advanced = 4, //TODO vakons: temp disable - await bleeding-part-3
 					/obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4,
 					/obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
 					/obj/item/healthanalyzer = 4,/obj/item/healthupgrade = 4,
@@ -55,7 +55,7 @@
 					/obj/item/stack/medical/bruise_pack/synthflesh_kit = 99,
 					/obj/item/stack/medical/suture/advanced = 149,
 					/obj/item/stack/medical/bruise_pack/military = 299,
-					/obj/item/tourniquet/advanced = 299,
+					///obj/item/tourniquet/advanced = 299, //TODO vakons: temp disable - await bleeding-part-3
 					/obj/item/reagent_containers/hypospray/safety = 199,
 					/obj/item/pinpointer/crew = 299,
 					/obj/item/sensor_device = 599,
@@ -153,14 +153,16 @@
 					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 2,
 					/obj/item/stack/medical/suture = 4,
 					/obj/item/healthanalyzer = 1,
-					/obj/item/tourniquet = 4)
+					///obj/item/tourniquet = 4)//TODO vakons: temp disable - await bleeding-part-3
+	)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 69,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 69,
 					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 99,
 					/obj/item/stack/medical/suture = 99,
 					/obj/item/healthanalyzer = 99,
-					/obj/item/tourniquet = 99)
+					///obj/item/tourniquet = 99, //TODO vakons: temp disable - await bleeding-part-3
+	)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
