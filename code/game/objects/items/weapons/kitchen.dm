@@ -191,33 +191,46 @@
 		var/datum/martial_art/throwing/MA = user?.mind?.martial_art
 		if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 			force = default_force + MA.knife_bonus_damage
-			if(neck_cut(target, user, MA.neck_cut_delay))
-				return ATTACK_CHAIN_PROCEED_SUCCESS
-		else if(neck_cut(target, user))
-			return ATTACK_CHAIN_PROCEED_SUCCESS
+			if(can_neck_cut(target, user))
+				. = ATTACK_CHAIN_BLOCKED_ALL
+				neck_cut(target, user, MA.neck_cut_delay)
+				force = default_force
+				return
+		else if(can_neck_cut(target, user))
+			. = ATTACK_CHAIN_BLOCKED_ALL
+			neck_cut(target, user)
+			force = default_force
+			return
 	. = ..()
 	force = default_force
 
-
-/obj/item/kitchen/knife/proc/neck_cut(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, neck_cut_delay = 5 SECONDS)
+/obj/item/kitchen/knife/proc/can_neck_cut(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, silence = TRUE)
+	. = TRUE
 	if(!attacker.pulling || attacker.pulling != defender || attacker.grab_state < GRAB_NECK || !defender.dna || HAS_TRAIT(defender, TRAIT_NO_BLOOD))
 		return FALSE
 	var/selected_zone = attacker.zone_selected
 	if(selected_zone != BODY_ZONE_HEAD)
+		return FALSE
+	var/obj/item/organ/external/head = defender.get_organ(selected_zone)
+	if(!head)
+		if(!silence)
+			balloon_alert(attacker, "голова отсутствует!")
+		return FALSE
+
+
+/obj/item/kitchen/knife/proc/neck_cut(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, neck_cut_delay = 5 SECONDS)
+	if(!can_neck_cut(defender, attacker, FALSE))
 		return FALSE
 
 	attacker.visible_message(span_danger("[attacker] прикладывает нож к горлу [defender]!"), span_danger("Вы прикладываете нож к горлу [defender]!."))
 	if(!do_after(attacker, neck_cut_delay, defender, max_interact_count = 1) || attacker.pulling != defender || attacker.grab_state < GRAB_NECK)
 		return FALSE
 
-	var/obj/item/organ/external/head = defender.get_organ(selected_zone)
-	if(!head)
-		balloon_alert(attacker, "голова отсутствует!")
-		return FALSE
+	var/obj/item/organ/external/head = defender.get_organ(attacker.zone_selected)
 	if(!head.has_arterial_bleeding())
 		if(!head.arterial_bleeding())
+			balloon_alert(attacker, "не получилось!")
 			return FALSE
-
 	if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
 		defender.blood_volume = max(0, defender.blood_volume - 0.25 * (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-25% of max blood volume
 		for(var/i in 1 to 2)
@@ -227,7 +240,7 @@
 	attacker.stop_pulling()
 	var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg', 'sound/weapons/knife_holster/throat_slice2.ogg')
 	playsound(defender.loc, sound, 25, TRUE)
-	defender.apply_damage(30, BRUTE, BODY_ZONE_HEAD, 0, TRUE, src, FALSE, FALSE, FALSE, TRUE, TRUE)
+	defender.apply_damage(2 * force, BRUTE, BODY_ZONE_HEAD, 0, TRUE, src, FALSE, FALSE, FALSE, TRUE, TRUE)
 	attacker.visible_message(span_danger("[attacker] перерезает глотку [defender]!"), span_danger("Вы перерезаете глотку [defender]!"))
 	return TRUE
 
