@@ -150,7 +150,6 @@
 /obj/projectile/bullet/weakbullet3/fortynr
 	damage = 28
 	stamina = 20
-	ricochet_chance = 10
 
 /obj/projectile/bullet/weakbullet3/fortynr/get_ru_names()
 	return list(

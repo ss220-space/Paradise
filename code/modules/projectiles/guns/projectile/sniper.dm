@@ -391,7 +391,6 @@
 	icon_state = ".50exp"
 
 /obj/projectile/bullet/sniper/explosive/a338
-	ricochets_max = 0
 
 //hemorrhage ammo
 /obj/item/ammo_box/magazine/a338/haemorrhage
