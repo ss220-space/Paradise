@@ -304,8 +304,8 @@
 
 	if(target != user) // Cheks if user interacts with himself
 		target.visible_message(
-			span_warning("[user] пыта[PLUR_ET_UT(user)]ся пристегнуть [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
-			span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся пристегнуть вас к [declent_ru(DATIVE)]!"),
+			span_warning("[user] пыта[PLUR_ET_YUT(user)]ся пристегнуть [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся пристегнуть вас к [declent_ru(DATIVE)]!"),
 			span_italics("Слышен лязг металла."),
 		)
 		if(!do_after(user, 0.7 SECONDS, target, NONE))
@@ -321,14 +321,14 @@
 	if(.)
 		if(target == user)
 			target.visible_message(
-				span_notice("[target] пристегива[PLUR_ET_UT(target)] себя к [declent_ru(DATIVE)]."),
+				span_notice("[target] пристегива[PLUR_ET_YUT(target)] себя к [declent_ru(DATIVE)]."),
 				span_notice("Вы пристегиваете себя к [declent_ru(DATIVE)]."),
 				span_italics("Слышен лязг металла."),
 			)
 		else
 			target.visible_message(
-				span_warning("[user] пристегива[PLUR_ET_UT(target)] [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
-				span_warning("[user] пристегива[PLUR_ET_UT(target)] вас к [declent_ru(DATIVE)]!"),
+				span_warning("[user] пристегива[PLUR_ET_YUT(target)] [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
+				span_warning("[user] пристегива[PLUR_ET_YUT(target)] вас к [declent_ru(DATIVE)]!"),
 				span_italics("Слышен лязг металла."),
 			)
 
@@ -349,13 +349,13 @@
 	if(buckled_mob)
 		if(buckled_mob != user)
 			buckled_mob.visible_message(
-				span_notice("[user] отстегива[PLUR_ET_UT(target)] [buckled_mob] от [declent_ru(GENITIVE)]."),
-				span_notice("[user] отстегива[PLUR_ET_UT(target)] вас от [declent_ru(GENITIVE)]."),
+				span_notice("[user] отстегива[PLUR_ET_YUT(target)] [buckled_mob] от [declent_ru(GENITIVE)]."),
+				span_notice("[user] отстегива[PLUR_ET_YUT(target)] вас от [declent_ru(GENITIVE)]."),
 				span_italics("Слышен лязг металла."),
 			)
 		else
 			buckled_mob.visible_message(
-				span_notice("[buckled_mob] отстегива[PLUR_ET_UT(target)] себя от [declent_ru(GENITIVE)]."),
+				span_notice("[buckled_mob] отстегива[PLUR_ET_YUT(target)] себя от [declent_ru(GENITIVE)]."),
 				span_notice("Вы отстегиваете себя от [declent_ru(GENITIVE)]."),
 				span_italics("Слышен лязг металла."),
 			)

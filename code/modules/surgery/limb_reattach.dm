@@ -186,7 +186,7 @@
 		user.balloon_alert(user, "неподходящая раса!")
 		return SURGERY_BEGINSTEP_ABORT
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] присоединять [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] присоединять [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
 		span_notice("Вы начинаете присоединять [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -195,7 +195,7 @@
 /datum/surgery_step/limb/attach/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/bodypart = tool
 	user.visible_message(
-		span_notice("[user] присоединя[PLUR_ET_UT(user)] присоединять [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
+		span_notice("[user] присоединя[PLUR_ET_YUT(user)] присоединять [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
 		span_notice("Вы присоединяете [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -205,7 +205,7 @@
 /datum/surgery_step/limb/attach/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/bodypart = tool
 	user.visible_message(
-		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, повреждая [bodypart.amputation_point] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [bodypart.amputation_point] [target]!"),
 		span_warning("Вы дёргаете рукой, повреждая [bodypart.amputation_point] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -269,7 +269,7 @@
 /datum/surgery_step/limb/connect/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/bodypart = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] соединять связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] соединять связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете соединять связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -278,7 +278,7 @@
 /datum/surgery_step/limb/connect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/bodypart = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] соединя[PLUR_ET_UT(user)] связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] соединя[PLUR_ET_YUT(user)] связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы соединяете связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -291,7 +291,7 @@
 /datum/surgery_step/limb/connect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/bodypart = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, повреждая [bodypart.amputation_point] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [bodypart.amputation_point] [target]!"),
 		span_warning("Вы дёргаете рукой, повреждая [bodypart.amputation_point] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -312,7 +312,7 @@
 			return SURGERY_BEGINSTEP_ABORT
 
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] присоединять [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] присоединять [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
 		span_notice("Вы начинаете присоединять [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -322,7 +322,7 @@
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/limb = tool
 	user.visible_message(
-		span_notice("[user] присоединя[PLUR_ET_UT(user)] [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
+		span_notice("[user] присоединя[PLUR_ET_YUT(user)] [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
 		span_notice("Вы присоединяете [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -354,7 +354,7 @@
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message(
-		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, повреждая [GLOB.body_zone[target_zone][ACCUSATIVE]] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [GLOB.body_zone[target_zone][ACCUSATIVE]] [target]!"),
 		span_warning("Вы дёргаете рукой, повреждая [GLOB.body_zone[target_zone][ACCUSATIVE]] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)

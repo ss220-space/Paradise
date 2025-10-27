@@ -399,7 +399,7 @@
 		destination = get_random_station_turf()
 
 	do_sparks(8, FALSE, victim)
-	victim.visible_message(span_notice("[victim] исчеза[PLUR_ET_UT(victim)]..."))
+	victim.visible_message(span_notice("[victim] исчеза[PLUR_ET_YUT(victim)]..."))
 
 	victim.forceMove(src)
 

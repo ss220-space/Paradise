@@ -163,12 +163,12 @@
 		patient.surgeries -= the_surgery
 		if(affected_organ)
 			user.visible_message(
-				span_notice("[user] прерыва[PLUR_ET_UT(user)] операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] прерыва[PLUR_ET_YUT(user)] операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы прерываете операцию на [affected_organ.declent_ru(PREPOSITIONAL)] [patient], используя [tool.declent_ru(ACCUSATIVE)].")
 			)
 		else
 			user.visible_message(
-				span_notice("[user] прерыва[PLUR_ET_UT(user)] операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] прерыва[PLUR_ET_YUT(user)] операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы прерываете операцию на [parse_zone(selected_zone)] [patient], используя [tool.declent_ru(ACCUSATIVE)].")
 			)
 

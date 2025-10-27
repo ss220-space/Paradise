@@ -155,7 +155,7 @@
 	if(awakened)
 		return
 	user.forceMove(get_turf(src))
-	user.visible_message(span_warning("[user] выкарабкива[PLUR_ET_UT(user)]ся из [declent_ru(GENITIVE)]!"), span_notice("Вы выбираетесь из [declent_ru(GENITIVE)]!"))
+	user.visible_message(span_warning("[user] выкарабкива[PLUR_ET_YUT(user)]ся из [declent_ru(GENITIVE)]!"), span_notice("Вы выбираетесь из [declent_ru(GENITIVE)]!"))
 
 /obj/item/his_grace/process(seconds_per_tick)
 	if(!bloodthirst)
@@ -238,7 +238,7 @@
 
 	var/datum/mind/mind = meal.mind
 	if(!mind || mind.madeby_sentience_potion)
-		meal.visible_message(span_his_grace("[capitalize(declent_ru(NOMINATIVE))] не получа[PLUR_ET_UT(src)] насыщения от подобной пищи. [capitalize(declent_ru(NOMINATIVE))] недоволен!"))
+		meal.visible_message(span_his_grace("[capitalize(declent_ru(NOMINATIVE))] не получа[PLUR_ET_YUT(src)] насыщения от подобной пищи. [capitalize(declent_ru(NOMINATIVE))] недоволен!"))
 		meal.forceMove(src)
 		return
 

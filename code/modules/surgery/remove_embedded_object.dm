@@ -57,13 +57,13 @@
 	L = surgery.organ_to_manipulate
 	if(L)
 		user.visible_message(
-			span_notice("[user] ищ[PLUR_ET_YT(user)] инородные объекты в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+			span_notice("[user] ищ[PLUR_ET_UT(user)] инородные объекты в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 			span_notice("Вы ищете инородные объекты в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 			)
 	else
 		user.visible_message(
-			span_notice("[user] ищ[PLUR_ET_YT(user)] [affected.declent_ru(ACCUSATIVE)] у [target]."),
+			span_notice("[user] ищ[PLUR_ET_UT(user)] [affected.declent_ru(ACCUSATIVE)] у [target]."),
 			span_notice("Вы ищете [affected.declent_ru(ACCUSATIVE)] у [target]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 			)
@@ -76,7 +76,7 @@
 		var/objects_removed = L.remove_all_embedded_objects()
 		if(objects_removed)
 			user.visible_message(
-				span_notice("[user] извлека[PLUR_ET_UT(user)] [objects_removed] [declension_ru(objects_removed, "инородный объект", "инородных объекта", "инородных объектов")] из [affected.declent_ru(GENITIVE)] [target]."),
+				span_notice("[user] извлека[PLUR_ET_YUT(user)] [objects_removed] [declension_ru(objects_removed, "инородный объект", "инородных объекта", "инородных объектов")] из [affected.declent_ru(GENITIVE)] [target]."),
 				span_notice("Вы извлекаете [objects_removed] [declension_ru(objects_removed, "инородный объект", "инородных объекта", "инородных объектов")] из [affected.declent_ru(GENITIVE)] [target]."),
 				chat_message_type = MESSAGE_TYPE_COMBAT)
 		else

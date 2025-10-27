@@ -346,7 +346,7 @@
 		sleep(50)
 		if(!owner)
 			return
-		owner.visible_message(span_danger("[capitalize(owner)] отрыгива[PLUR_ET_UT(owner)] облако плазмы!"))
+		owner.visible_message(span_danger("[capitalize(owner)] отрыгива[PLUR_ET_YUT(owner)] облако плазмы!"))
 		var/turf/simulated/T = get_turf(owner)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,50)

@@ -116,21 +116,21 @@
 			return .
 		if(target != user)
 			target.visible_message(
-				span_danger("[user] пыта[PLUR_ET_UT(user)]ся убрать иглу [declent_ru(GENITIVE)] из руки [target]!"),
-				span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся убрать иглу [declent_ru(GENITIVE)] из вашей руки!"),
+				span_danger("[user] пыта[PLUR_ET_YUT(user)]ся убрать иглу [declent_ru(GENITIVE)] из руки [target]!"),
+				span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся убрать иглу [declent_ru(GENITIVE)] из вашей руки!"),
 				ignored_mobs = user,
 			)
 			to_chat(user, span_notice("Вы пытаетесь убрать иглу [declent_ru(GENITIVE)] из руки [target]."))
 			if(!do_after(user, 3 SECONDS, target, NONE) || !injection_target)
 				return .
 			target.visible_message(
-				span_danger("[user] убира[PLUR_ET_UT(user)] иглу [declent_ru(GENITIVE)] из руки [target]!"),
-				span_userdanger("[user] убира[PLUR_ET_UT(user)] иглу [declent_ru(GENITIVE)] из вашей руки!"),
+				span_danger("[user] убира[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] из руки [target]!"),
+				span_userdanger("[user] убира[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] из вашей руки!"),
 				ignored_mobs = user,
 			)
 			to_chat(user, span_notice("Вы убираете иглу [declent_ru(GENITIVE)] из руки [target]."))
 		else
-			user.visible_message(span_warning("[user] убира[PLUR_ET_UT(user)] иглу [declent_ru(GENITIVE)] из своей руки!"))
+			user.visible_message(span_warning("[user] убира[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] из своей руки!"))
 			balloon_alert(user, "игла убрана")
 		end_processing()
 		return .|ATTACK_CHAIN_SUCCESS
@@ -145,21 +145,21 @@
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] пыта[PLUR_ET_UT(user)]ся вставить иглу [declent_ru(GENITIVE)] в руку [target]!"),
-			span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся вставить иглу [declent_ru(GENITIVE)] в вашу руку!"),
+			span_danger("[user] пыта[PLUR_ET_YUT(user)]ся вставить иглу [declent_ru(GENITIVE)] в руку [target]!"),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся вставить иглу [declent_ru(GENITIVE)] в вашу руку!"),
 			ignored_mobs = user,
 		)
 		to_chat(user, span_notice("Вы пытаетесь вставить иглу [declent_ru(GENITIVE)] в руку [target]."))
 		if(!do_after(user, 3 SECONDS, target, NONE) || injection_target)
 			return .
 		target.visible_message(
-				span_danger("[user] вставля[PLUR_ET_UT(user)] иглу [declent_ru(GENITIVE)] в руку [target]!"),
-				span_userdanger("[user] вставля[PLUR_ET_UT(user)] иглу [declent_ru(GENITIVE)] в вашу руку!"),
+				span_danger("[user] вставля[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] в руку [target]!"),
+				span_userdanger("[user] вставля[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] в вашу руку!"),
 			ignored_mobs = user,
 		)
 		balloon_alert(user, "игла вставлена")
 	else
-		user.visible_message(span_warning("[user] вставля[PLUR_ET_UT(user)] иглу [declent_ru(GENITIVE)] в свою руку!"))
+		user.visible_message(span_warning("[user] вставля[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] в свою руку!"))
 		balloon_alert(user, "игла вставлена")
 	add_attack_logs(user, target, "Inserted [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"]) containing ([reagents.log_list()]), transfering [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 	begin_processing(target, def_zone)

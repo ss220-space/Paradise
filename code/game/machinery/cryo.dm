@@ -165,9 +165,9 @@
 	. = TRUE
 	if(put_mob(L))
 		if(L == user)
-			visible_message("[user] начинает[PLUR_ET_UT(user)] залезать в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начинает[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 		else
-			visible_message("[user] начина[PLUR_ET_UT(user)] укладывать [L] в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [L] в [declent_ru(ACCUSATIVE)].")
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
@@ -332,7 +332,7 @@
 			return ..()
 		beaker = glass
 		add_attack_logs(user, null, "Added [glass] containing [glass.reagents.log_list()] to a cryo cell at [COORD(src)]")
-		visible_message(span_notice("[user] вставля[PLUR_ET_UT(user)] [glass] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [glass] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -489,9 +489,9 @@
 
 	add_fingerprint(usr)
 	if(M == usr)
-		visible_message("[usr] начина[PLUR_ET_UT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[usr] начина[PLUR_ET_YUT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[usr] начина[PLUR_ET_UT(usr)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[usr] начина[PLUR_ET_YUT(usr)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(usr, 2 SECONDS, M))
 		return

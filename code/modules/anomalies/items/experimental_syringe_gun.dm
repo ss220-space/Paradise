@@ -171,9 +171,9 @@
 	if(!core || HAS_TRAIT(user, TRAIT_NO_BLOOD) || !istype(user))
 		return ..()
 
-	user.visible_message(span_suicide("[user] разреза[PLUR_ET_UT(user)] свою руку и подключа[PLUR_ET_UT(user)] систему автозаправки к \
+	user.visible_message(span_suicide("[user] разреза[PLUR_ET_YUT(user)] свою руку и подключа[PLUR_ET_YUT(user)] систему автозаправки к \
 									кровеносной системе! Выглядит будто он[GEND_A_O_I(src)] \
-									пыта[PLUR_ET_UT(user)]ся убить себя!"))
+									пыта[PLUR_ET_YUT(user)]ся убить себя!"))
 	ready_reagents.reagents.trans_to(user, ready_reagents.reagents.total_volume)
 	user.bleed(user.blood_volume)
 	return OXYLOSS | BRUTELOSS

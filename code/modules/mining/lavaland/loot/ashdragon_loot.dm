@@ -102,7 +102,7 @@
 		return
 	to_chat(user, "Вы взываете о помощи, пытаясь призвать духов на свою сторону.")
 
-	notify_ghosts("[user] поднима[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)], взывая о вашей помощи!", enter_link="<a href='byond://?src=[UID()];follow=1'>(Нажмите, чтобы помочь)</a>", source = user, action = NOTIFY_FOLLOW)
+	notify_ghosts("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)], взывая о вашей помощи!", enter_link="<a href='byond://?src=[UID()];follow=1'>(Нажмите, чтобы помочь)</a>", source = user, action = NOTIFY_FOLLOW)
 
 	summon_cooldown = world.time + 600
 
@@ -299,10 +299,10 @@
 			var/obj/effect/temp_visual/lavastaff/L = new /obj/effect/temp_visual/lavastaff(T)
 			L.alpha = 0
 			animate(L, alpha = 255, time = create_delay)
-			user.visible_message(span_danger("[user] направля[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [T.declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_danger("[user] направля[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [T.declent_ru(ACCUSATIVE)]!"))
 			timer = world.time + create_delay + 1
 			if(do_after(user, create_delay, T))
-				user.visible_message(span_danger("[user] превраща[PLUR_ET_UT(user)] [T.declent_ru(ACCUSATIVE)] в лаву!"))
+				user.visible_message(span_danger("[user] превраща[PLUR_ET_YUT(user)] [T.declent_ru(ACCUSATIVE)] в лаву!"))
 				message_admins("[key_name_admin(user)] fired the lava staff at [ADMIN_COORDJMP(T)]")
 				add_attack_logs(user, target, "fired lava staff", ATKLOG_MOST)
 				T.ChangeTurf(turf_type, keep_icon = FALSE)
@@ -313,7 +313,7 @@
 				qdel(L)
 				return
 		else
-			user.visible_message(span_danger("[user] превраща[PLUR_ET_UT(user)] [T.declent_ru(ACCUSATIVE)] в базаль!"))
+			user.visible_message(span_danger("[user] превраща[PLUR_ET_YUT(user)] [T.declent_ru(ACCUSATIVE)] в базаль!"))
 			T.ChangeTurf(reset_turf_type, keep_icon = FALSE)
 			timer = world.time + reset_cooldown
 		playsound(T,'sound/magic/fireball.ogg', 200, TRUE)

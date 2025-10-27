@@ -30,7 +30,7 @@
 			if(prob(10))
 				to_chat(affected_mob, span_danger("<b>Ваш желудок лает?!</b>"))
 			if(prob(5))
-				affected_mob.visible_message(span_danger("[affected_mob] во[PLUR_ET_UT(affected_mob)]!"), span_userdanger("Вы воете!"))
+				affected_mob.visible_message(span_danger("[affected_mob] во[PLUR_ET_YUT(affected_mob)]!"), span_userdanger("Вы воете!"))
 				affected_mob.AdjustConfused(rand(12 SECONDS, 16 SECONDS))
 			if(prob(3) && barklimit <= 10)
 				var/list/puppytype = list(
@@ -39,7 +39,7 @@
 					/mob/living/simple_animal/pet/dog/fox)
 
 				var/mob/living/puppypicked = pick(puppytype)
-				affected_mob.visible_message(span_danger("[affected_mob] отрыгива[PLUR_ET_UT(affected_mob)] [initial(puppypicked.name)]!"), span_userdanger("Вы отрыгиваете [initial(puppypicked.name)]?!"))
+				affected_mob.visible_message(span_danger("[affected_mob] отрыгива[PLUR_ET_YUT(affected_mob)] [initial(puppypicked.name)]!"), span_userdanger("Вы отрыгиваете [initial(puppypicked.name)]?!"))
 				new puppypicked(affected_mob.loc)
 				new puppypicked(affected_mob.loc)
 				barklimit ++
@@ -47,7 +47,7 @@
 				var/list/plushtype = list(/obj/item/toy/plushie/orange_fox, /obj/item/toy/plushie/corgi, /obj/item/toy/plushie/robo_corgi, /obj/item/toy/plushie/pink_fox)
 				var/obj/item/toy/plushie/coughfox = pick(plushtype)
 				new coughfox(affected_mob.loc)
-				affected_mob.visible_message(span_danger("[affected_mob] отрыгива[PLUR_ET_UT(affected_mob)] [coughfox.declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы отрыгиваете [coughfox.declent_ru(ACCUSATIVE)]?!"))
+				affected_mob.visible_message(span_danger("[affected_mob] отрыгива[PLUR_ET_YUT(affected_mob)] [coughfox.declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы отрыгиваете [coughfox.declent_ru(ACCUSATIVE)]?!"))
 			if(prob(50))
 				affected_mob.emote("cough")
 			affected_mob.adjustBruteLoss(5)

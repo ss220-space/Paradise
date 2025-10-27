@@ -276,7 +276,7 @@
 
 	ADD_TRAIT(clothing, TRAIT_NODROP, ADMIN_TRAIT)
 	target.equip_to_slot_or_del(clothing, slot)
-	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возника[PLUR_ET_UT(clothing)] из пустоты прилипа[PLUR_ET_UT(clothing)] к вам. Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возника[PLUR_ET_YUT(clothing)] из пустоты прилипа[PLUR_ET_YUT(clothing)] к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
 
 
@@ -502,7 +502,7 @@
 	var/obj/fallen = new type(target_turf)
 	target_turf.zImpact(fallen, 1)
 	to_chat(target, span_userdanger(
-		"Откуда-то сверху на вас пада[PLUR_ET_UT(fallen)] [fallen.declent_ru(NOMINATIVE)]! \
+		"Откуда-то сверху на вас пада[PLUR_ET_YUT(fallen)] [fallen.declent_ru(NOMINATIVE)]! \
 		Вам почему-то кажется, что это наказание за [reason]." \
 	))
 

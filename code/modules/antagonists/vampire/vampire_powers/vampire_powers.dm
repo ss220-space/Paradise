@@ -502,7 +502,7 @@
 		return
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
-			visible_message(span_warning("[H], похоже, испытыва[PLUR_ET_UT(H)] боль!"))
+			visible_message(span_warning("[H], похоже, испытыва[PLUR_ET_YUT(H)] боль!"))
 			H.apply_damage(60, BRAIN)
 		else
 			visible_message(span_warning("Похоже, что [H] ошеломлен[GEND_A_O_Y(H)] энергией!"))
@@ -514,7 +514,7 @@
 	for(var/obj/item/implant/traitor/T in H)
 		if(T?.implanted)
 			qdel(T)
-	visible_message(span_warning("У [H] появля[PLUR_ET_UT(H)]ся жуткое красное свечение в глазах!"))
+	visible_message(span_warning("У [H] появля[PLUR_ET_YUT(H)]ся жуткое красное свечение в глазах!"))
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = H.mind
 	protect_objective.target = M.mind

@@ -137,7 +137,7 @@
 				balloon_alert(user, "не сработает на трупах!")
 				return
 			if(H != user)
-				H.visible_message("[user] заставля[PLUR_ET_UT(user)] [H.declent_ru(ACCUSATIVE)] применить [declent_ru(ACCUSATIVE)]... Чёрные щупальца опутывают и укрепляют [GEND_HIS_HER(H)]!")
+				H.visible_message("[user] заставля[PLUR_ET_YUT(user)] [H.declent_ru(ACCUSATIVE)] применить [declent_ru(ACCUSATIVE)]... Чёрные щупальца опутывают и укрепляют [GEND_HIS_HER(H)]!")
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 			else
 				to_chat(user, span_notice("Вы начинаете наносить [declent_ru(ACCUSATIVE)] на себя. Мерзкие щупальца скрепляют ваше тело, но как долго это продлится?"))

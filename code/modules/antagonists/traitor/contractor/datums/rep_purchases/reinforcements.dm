@@ -75,7 +75,7 @@
 	partner_mind = partner.mind
 	partner_mind.make_contractor_support()
 	to_chat(partner_mind.current, span_warning(span_fontsize4("[user.real_name] — Ваш начальник. Выполняйте любые приказы, отданные [GEND_IM_EI_IM_IMI(user)]. Вы здесь только для того, чтобы помочь [GEND_HIM_HER(user)] с выполнением задач.")))
-	to_chat(partner_mind.current, span_warning("Если [GEND_HE_SHE(user)] погибн[PLUR_ET_YT(user)] или буд[PLUR_ET_YT(user)] недоступ[GEND_EN_NA_NO_NY(user)] по другим причинам, вы должны помогать другим агентам в меру своих возможностей."))
+	to_chat(partner_mind.current, span_warning("Если [GEND_HE_SHE(user)] погибн[PLUR_ET_UT(user)] или буд[PLUR_ET_UT(user)] недоступ[GEND_EN_NA_NO_NY(user)] по другим причинам, вы должны помогать другим агентам в меру своих возможностей."))
 
 	var/datum/objective/protect/contractor/CT = new
 	CT.owner = partner.mind

@@ -110,7 +110,7 @@
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] помеща[PLUR_ET_UT(user)] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!"))
+	user.visible_message(span_suicide("[user] помеща[PLUR_ET_YUT(user)] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!"))
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 

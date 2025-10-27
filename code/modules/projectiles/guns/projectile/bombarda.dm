@@ -689,7 +689,12 @@
 	dryname = "dried paint"
 	desc = "Она густая и липкая. Возможно, кто то разлил тут краску?"
 	drydesc = "Она сухая и засохшая. Кто-то явно халтурит."
-	ru_names = list(
+	gender = FEMALE
+	blood_state = BLOOD_STATE_NOT_BLOODY
+	//drying_time = 1
+
+/obj/effect/decal/cleanable/blood/paint/get_ru_names()
+	return list(
 		NOMINATIVE = "краска",
 		GENITIVE = "краски",
 		DATIVE = "краске",
@@ -697,9 +702,6 @@
 		INSTRUMENTAL = "краской",
 		PREPOSITIONAL = "краске"
 	)
-	gender = FEMALE
-	blood_state = BLOOD_STATE_NOT_BLOODY
-	//drying_time = 1
 
 /obj/effect/decal/cleanable/blood/paint/dry()
 	. = ..()
@@ -716,7 +718,11 @@
 	name = "paint"
 	dryname = "dried paint"
 	desc = "Оно густое и липкое. Возможно, кто то разлил тут краску?"
-	ru_names = list(
+	blood_state = BLOOD_STATE_NOT_BLOODY
+	//drying_time = 1
+
+/obj/effect/decal/cleanable/blood/drip/paint/get_ru_names()
+	return list(
 		NOMINATIVE = "капли краска",
 		GENITIVE = "капель краски",
 		DATIVE = "каплям краски",
@@ -724,8 +730,6 @@
 		INSTRUMENTAL = "каплями краски",
 		PREPOSITIONAL = "каплях краски"
 	)
-	blood_state = BLOOD_STATE_NOT_BLOODY
-	//drying_time = 1
 
 /obj/effect/decal/cleanable/blood/drip/paint/dry()
 	. = ..()

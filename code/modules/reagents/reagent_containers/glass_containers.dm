@@ -46,8 +46,8 @@
 
 	if(user.a_intent == INTENT_HARM)
 		target.visible_message(
-			span_danger("[user] вылива[PLUR_ET_UT(user)] содержимое [declent_ru(GENITIVE)] на [target]!"),
-			span_userdanger("[user] вылива[PLUR_ET_UT(user)] содержимое [declent_ru(GENITIVE)] на вас!")
+			span_danger("[user] вылива[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)] на [target]!"),
+			span_userdanger("[user] вылива[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)] на вас!")
 		)
 		add_attack_logs(user, target, "Splashed with [name] containing [contained]")
 		make_splashes(target)
@@ -66,8 +66,8 @@
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] пыта[PLUR_ET_UT(user)]ся напоить содержимым [declent_ru(GENITIVE)] [target]!"),
-			span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся напоить вас содержимым [declent_ru(GENITIVE)]!"),
+			span_danger("[user] пыта[PLUR_ET_YUT(user)]ся напоить содержимым [declent_ru(GENITIVE)] [target]!"),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся напоить вас содержимым [declent_ru(GENITIVE)]!"),
 		)
 		if(!do_after(user, 3 SECONDS, target, NONE) || !reagents || !reagents.total_volume)
 			return .
@@ -120,7 +120,7 @@
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
-			user.visible_message(span_danger("[user] облива[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
+			user.visible_message(span_danger("[user] облива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
 								("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"))
 			make_splashes(target)
 

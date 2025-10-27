@@ -129,8 +129,8 @@
 		return
 
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	target.visible_message(span_danger("[user] начина[PLUR_ET_UT(user)] связывать [target] [declent_ru(INSTRUMENTAL)]!"),
-							span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся связать вас!"))
+	target.visible_message(span_danger("[user] начина[PLUR_ET_YUT(user)] связывать [target] [declent_ru(INSTRUMENTAL)]!"),
+							span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся связать вас!"))
 	if(!do_after(user, 1 SECONDS, target, NONE) || target.handcuffed || !cuffs_amount)
 		to_chat(user, span_warning("Вам не удается связать [target]."))
 		return

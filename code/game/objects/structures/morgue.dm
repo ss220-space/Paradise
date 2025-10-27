@@ -328,7 +328,7 @@
 	dropping.forceMove(loc)
 
 	if(user != dropping)
-		user.visible_message(span_warning("[user] помеща[PLUR_ET_UT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
+		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
 	return TRUE
 
 
@@ -782,7 +782,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	dropping.forceMove(loc)
 
 	if(user != dropping)
-		user.visible_message(span_warning("[user] помеща[PLUR_ET_UT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
+		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
 	return TRUE
 
 

@@ -19,11 +19,11 @@ REPLACEMENTS = [
     (r'declension_ru\(([^,]+),\s*"",\s*"а",\s*"ов"\)', r'DECL_CREDIT(\1)', 'DECL_CREDIT'),
 
     # pluralize_ru()
-    (r'pluralize_ru\(([^,]+)\.gender,\s*"ёт",\s*"ют"\)', r'PLUR_YOT_UT(\1)', 'PLUR_YOT_UT'),
-    (r'pluralize_ru\(gender,\s*"ёт",\s*"ют"\)', r'PLUR_YOT_UT(src)', 'PLUR_YOT_UT'),
+    (r'pluralize_ru\(([^,]+)\.gender,\s*"ёт",\s*"ют"\)', r'PLUR_YOT_YUT(\1)', 'PLUR_YOT_YUT'),
+    (r'pluralize_ru\(gender,\s*"ёт",\s*"ют"\)', r'PLUR_YOT_YUT(src)', 'PLUR_YOT_YUT'),
 
-    (r'pluralize_ru\(([^,]+)\.gender,\s*"ет",\s*"ут"\)', r'PLUR_ET_YT(\1)', 'PLUR_ET_YT'),
-    (r'pluralize_ru\(gender,\s*"ет",\s*"ут"\)', r'PLUR_ET_YT(src)', 'PLUR_ET_YT'),
+    (r'pluralize_ru\(([^,]+)\.gender,\s*"ет",\s*"ут"\)', r'PLUR_ET_UT(\1)', 'PLUR_ET_UT'),
+    (r'pluralize_ru\(gender,\s*"ет",\s*"ут"\)', r'PLUR_ET_UT(src)', 'PLUR_ET_UT'),
 
     (r'pluralize_ru\(([^,]+)\.gender,\s*"ит",\s*"ят"\)', r'PLUR_IT_YAT(\1)', 'PLUR_IT_YAT'),
     (r'pluralize_ru\(gender,\s*"ит",\s*"ят"\)', r'PLUR_IT_YAT(src)', 'PLUR_IT_YAT'),
@@ -31,14 +31,14 @@ REPLACEMENTS = [
     (r'pluralize_ru\(([^,]+)\.gender,\s*"ит",\s*"ат"\)', r'PLUR_IT_AT(\1)', 'PLUR_IT_AT'),
     (r'pluralize_ru\(gender,\s*"ит",\s*"ат"\)', r'PLUR_IT_AT(src)', 'PLUR_IT_AT'),
 
-    (r'pluralize_ru\(([^,]+)\.gender,\s*"ет",\s*"ют"\)', r'PLUR_ET_UT(\1)', 'PLUR_ET_UT'),
-    (r'pluralize_ru\(gender,\s*"ет",\s*"ют"\)', r'PLUR_ET_UT(src)', 'PLUR_ET_UT'),
+    (r'pluralize_ru\(([^,]+)\.gender,\s*"ет",\s*"ют"\)', r'PLUR_ET_YUT(\1)', 'PLUR_ET_YUT'),
+    (r'pluralize_ru\(gender,\s*"ет",\s*"ют"\)', r'PLUR_ET_YUT(src)', 'PLUR_ET_YUT'),
 
     (r'pluralize_ru\(([^,]+)\.gender,\s*"",\s*"и"\)', r'PLUR_I(\1)', 'PLUR_I'),
     (r'pluralize_ru\(gender,\s*"",\s*"и"\)', r'PLUR_I(src)', 'PLUR_I'),
 
-    (r'pluralize_ru\(([^,]+)\.gender,\s*"ёт",\s*"ут"\)', r'PLUR_YOT_YT(\1)', 'PLUR_YOT_YT'),
-    (r'pluralize_ru\(gender,\s*"ёт",\s*"ут"\)', r'PLUR_YOT_YT(src)', 'PLUR_YOT_YT'),
+    (r'pluralize_ru\(([^,]+)\.gender,\s*"ёт",\s*"ут"\)', r'PLUR_YOT_UT(\1)', 'PLUR_YOT_UT'),
+    (r'pluralize_ru\(gender,\s*"ёт",\s*"ут"\)', r'PLUR_YOT_UT(src)', 'PLUR_YOT_UT'),
 
     (r'pluralize_ru\(([^,]+)\.gender,\s*"жет",\s*"гут"\)', r'PLUR_JET_GUT(\1)', 'PLUR_JET_GUT'),
     (r'pluralize_ru\(gender,\s*"жет",\s*"гут"\)', r'PLUR_JET_GUT(src)', 'PLUR_JET_GUT'),

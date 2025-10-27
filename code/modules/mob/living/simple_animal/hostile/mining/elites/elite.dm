@@ -252,7 +252,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(TUMOR_PASSIVE)
 			// Prevents the user from being forcemoved back and forth between two elite arenas.
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
-				user.visible_message(span_warning("[user] протягива[PLUR_ET_UT(user)] руку к [declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [declent_ru(DATIVE)]... но ничего не происходит."))
+				user.visible_message(span_warning("[user] протягива[PLUR_ET_YUT(user)] руку к [declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [declent_ru(DATIVE)]... но ничего не происходит."))
 				return
 			activity = TUMOR_ACTIVE
 			user.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда рука [user] входит в её радиус! О-ох..."), span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда ваша рука входит в её радиус! Ваши инстинкты говорят вам отступить!"))
@@ -267,7 +267,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			INVOKE_ASYNC(src, PROC_REF(arena_checks))
 		if(TUMOR_INACTIVE)
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
-				user.visible_message(span_warning("[user] протягива[PLUR_ET_UT(user)] руку к [declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [declent_ru(DATIVE)]... но ничего не происходит."))
+				user.visible_message(span_warning("[user] протягива[PLUR_ET_YUT(user)] руку к [declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [declent_ru(DATIVE)]... но ничего не происходит."))
 				return
 			activity = TUMOR_ACTIVE
 			var/mob/dead/observer/elitemind = null
@@ -374,7 +374,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		visible_message(span_warning("Когда [user] помеща[PLUR_ET_UT(user)] ядро в [declent_ru(ACCUSATIVE)], оно начинает пульсировать."))
+		visible_message(span_warning("Когда [user] помеща[PLUR_ET_YUT(user)] ядро в [declent_ru(ACCUSATIVE)], оно начинает пульсировать."))
 		update_icon(UPDATE_ICON_STATE)
 		set_light(6, l_on = TRUE)
 		qdel(I)
@@ -519,7 +519,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.friends += user
 		E.reviver = user
 		E.revive()
-		user.visible_message(span_notice("[user] пронза[PLUR_ET_UT(user)] [E.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)], воскрешая его."))
+		user.visible_message(span_notice("[user] пронза[PLUR_ET_YUT(user)] [E.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)], воскрешая его."))
 		SEND_SOUND(E, sound('sound/magic/cult_spell.ogg'))
 		to_chat(user, span_notice("Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам."))
 		to_chat(E, span_userdanger("Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск."))

@@ -359,14 +359,14 @@
 	var/obj/chosen = mirrors_to_use[input_mirror]
 	if(chosen == null)
 		return
-	usr.visible_message(span_warning("[usr] начина[PLUR_ET_UT(usr)] пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
+	usr.visible_message(span_warning("[usr] начина[PLUR_ET_YUT(usr)] пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 	if(do_after(usr, 2 SECONDS, usr))
 		var/turf/destination = get_turf(chosen)
 		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return
-		usr.visible_message(span_warning("[usr] пролеза[PLUR_ET_UT(usr)] в [starting_mirror.declent_ru(ACCUSATIVE)], и исчеза[PLUR_ET_UT(usr)] в нём!"), span_notice("Вы пролезаете в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
+		usr.visible_message(span_warning("[usr] пролеза[PLUR_ET_YUT(usr)] в [starting_mirror.declent_ru(ACCUSATIVE)], и исчеза[PLUR_ET_YUT(usr)] в нём!"), span_notice("Вы пролезаете в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 		usr.forceMove(destination)
-		usr.visible_message(span_warning("[usr] вылеза[PLUR_ET_UT(usr)] из [chosen.declent_ru(ACCUSATIVE)], разбивая его!"), span_warning("Вы вылезаете из собственного отражения, разбивая зеркало!"))
+		usr.visible_message(span_warning("[usr] вылеза[PLUR_ET_YUT(usr)] из [chosen.declent_ru(ACCUSATIVE)], разбивая его!"), span_warning("Вы вылезаете из собственного отражения, разбивая зеркало!"))
 		if(istype(chosen, /obj/structure/mirror))
 			var/obj/structure/mirror/M = chosen
 			M.obj_break("brute")
