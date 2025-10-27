@@ -2,7 +2,6 @@
 /obj/item/assembly/signaler/core
 	name = "anomaly core"
 	desc = "Нейтрализованное ядро ​​аномалии. Вероятно, оно пригодится для исследований."
-	gender = NEUTER
 	icon_state = "core_bluespace_t2"
 	item_state = "electronic"
 	resistance_flags = FIRE_PROOF
