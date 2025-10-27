@@ -506,10 +506,6 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(user == target)
-		try_self_supress_bleeding(user)
-		return TRUE
-
 	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_UT(target)] попытку захвата [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE

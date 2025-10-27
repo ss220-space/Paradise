@@ -396,7 +396,7 @@
 			msg += span_warning("[capitalize(GEND_HIS_HER(src))] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то окровавленным.\n")
 		else if(bodypart.has_arterial_bleeding())
 			msg += span_warning(span_bold("Из [GEND_HIS_HER(src)] [bodypart.declent_ru(GENITIVE)] хлещет кровь!\n"))
-		if(bodypart.has_heavy_bleeding())
+		else if(bodypart.has_heavy_bleeding())
 			msg += span_warning(span_bold("У н[GEND_HIS_HER(src)] обильно кровоточ[PLUR_IT_AT(src)] [bodypart.declent_ru(NOMINATIVE)]!\n"))
 		else
 			msg += span_warning(span_bold("У н[GEND_HIS_HER(src)] кровоточ[PLUR_IT_AT(src)] [bodypart.declent_ru(NOMINATIVE)]!\n"))

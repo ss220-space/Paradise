@@ -54,7 +54,7 @@
 
 		if(human_target == user && !unique_handling)
 			user.visible_message(
-				span_notice("[human_target] начина[PLUR_ET_UT(human_target)] применять на себе [declension_ru(ACCUSATIVE)]."),
+				span_notice("[human_target] начина[PLUR_ET_UT(human_target)] применять на себе [declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы начинаете применять на себе [declent_ru(ACCUSATIVE)]..."),
 			)
 			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
