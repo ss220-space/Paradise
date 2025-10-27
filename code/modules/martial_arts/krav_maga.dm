@@ -19,7 +19,7 @@
 		to_chat(owner, "<b><i>Вы не можете отменить неактивный приём!</i></b>")
 		return
 	to_chat(owner, "<b><i>Вы отменили активный приём.</i></b>")
-	owner.visible_message(span_danger(" [owner] расслабля[PLUR_ET_UT(owner)] свою стойку."))
+	owner.visible_message(span_danger(" [owner] расслабля[PLUR_ET_YUT(owner)] свою стойку."))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.in_stance = FALSE
 
@@ -36,7 +36,7 @@
 		to_chat(owner, span_warning("Вы не можете использовать Крав-мага будучи оглушённым."))
 		return
 	to_chat(owner, "<b><i>Вашей следующей атакой будет удар по шее.</i></b>")
-	owner.visible_message(span_danger("[owner] принима[PLUR_ET_UT(owner)] стойку, чтобы ударить по шее!"))
+	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы ударить по шее!"))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.mind.martial_art.reset_combos()
@@ -55,7 +55,7 @@
 		to_chat(owner, span_warning("Вы не можете использовать Крав-мага будучи оглушённым."))
 		return
 	to_chat(owner, "<b><i>Вашей следующей атакой будет Подсечка.</i></b>")
-	owner.visible_message(span_danger("[owner] принима[PLUR_ET_UT(owner)] стойку, чтобы провести подсечку!"))
+	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы провести подсечку!"))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.mind.martial_art.reset_combos()
@@ -74,7 +74,7 @@
 		to_chat(owner, span_warning("Вы не можете использовать Крав-мага будучи оглушённым."))
 		return
 	to_chat(owner, "<b><i>Вашей следующей атакой будет удар по лёгким.</i></b>")
-	owner.visible_message(span_danger("[owner] принима[PLUR_ET_UT(owner)] стойку, чтобы ударить по лёгким!"))
+	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы ударить по лёгким!"))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
@@ -103,16 +103,16 @@
 /datum/martial_art/krav_maga/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	add_attack_logs(A, D, "Melee attacked with [src]")
-	var/picked_hit_type = pick("бь[PLUR_YOT_UT(A)]", "пина[PLUR_ET_UT(A)]")
+	var/picked_hit_type = pick("бь[PLUR_YOT_YUT(A)]", "пина[PLUR_ET_YUT(A)]")
 	var/bonus_damage = 15
 	if(IS_HORIZONTAL(D))
 		bonus_damage += 5
-		picked_hit_type = "топч[PLUR_ET_YT(A)]"
+		picked_hit_type = "топч[PLUR_ET_UT(A)]"
 
 	D.apply_damage(bonus_damage, BRUTE)
 	objective_damage(A, D, bonus_damage, BRUTE)
 
-	if(picked_hit_type == "пина[PLUR_ET_UT(A)]" || picked_hit_type == "топч[PLUR_ET_YT(A)]")
+	if(picked_hit_type == "пина[PLUR_ET_YUT(A)]" || picked_hit_type == "топч[PLUR_ET_UT(A)]")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	else

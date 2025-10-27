@@ -10,8 +10,8 @@
 	if(CQC.restraining)
 		return MARTIAL_COMBO_FAIL
 	if(!target.stat)
-		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] захватыва[PLUR_ET_UT(user)] и обездвижива[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] захватыва[PLUR_ET_UT(user)] и обездвижива[PLUR_ET_UT(user)] Вас!"))
+		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] захватыва[PLUR_ET_YUT(user)] и обездвижива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"), \
+							span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] захватыва[PLUR_ET_YUT(user)] и обездвижива[PLUR_ET_YUT(user)] Вас!"))
 		target.apply_damage(30, STAMINA)
 		target.Stun(2 SECONDS)
 		CQC.restraining = TRUE

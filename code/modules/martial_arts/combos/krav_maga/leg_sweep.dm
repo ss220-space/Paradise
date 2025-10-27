@@ -8,8 +8,8 @@
 	if(HAS_TRAIT(target, TRAIT_KRAVMAGA_DEBUFF))
 		return FALSE
 	target.visible_message(
-		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YT(user)] по ноге [target.declent_ru(ACCUSATIVE)]!"), \
-		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YT(user)] по Вашей ноге!")
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(user)] по ноге [target.declent_ru(ACCUSATIVE)]!"), \
+		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(user)] по Вашей ноге!")
 	)
 	var/affecting_leg = pick(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)

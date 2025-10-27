@@ -7,8 +7,8 @@
 	if(target == user)
 		return MARTIAL_COMBO_DONE_BASIC_HIT
 	target.visible_message(
-		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] пина[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)]!"), \
-		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] пина[PLUR_ET_UT(user)] Вас!")
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] пина[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"), \
+		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] пина[PLUR_ET_YUT(user)] Вас!")
 	)
 	playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
