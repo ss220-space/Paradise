@@ -311,7 +311,7 @@
 		if(SPRAYCAN_CHANGE_DRAWING_ACTION)
 			..()
 		if(SPRAYCAN_CHANGE_COLOR_ACTION)
-			var/new_color = tgui_input_color(user, "Choose Color")
+			var/new_color = tgui_input_color(user, "Choose Color", default = colour)
 			if(isnull(new_color))
 				return
 			colour = new_color
