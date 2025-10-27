@@ -156,7 +156,7 @@
 
 		user.face_atom(over_object)
 		user.visible_message(
-			span_notice("[user] опустоша[pluralize_ru(user.gender, "ет", "ют")] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] опустоша[PLUR_ET_UT(user)] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
 		)
 		var/turf/object_turf = get_turf(over_object)
@@ -617,12 +617,12 @@
 	if(length(can_hold))
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[pluralize_ru(gender, "ит", "ят")] для [W.declent_ru(GENITIVE)]!"))
+				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 			return FALSE
 
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[pluralize_ru(gender, "ит", "ят")] для [W.declent_ru(GENITIVE)]!"))
+			to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	if(W.w_class > max_w_class)
@@ -663,7 +663,7 @@
 	// item unequip delay
 	if(usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(
-			span_notice("[usr] начина[pluralize_ru(usr.gender, "ет", "ют")] снимать [W.declent_ru(ACCUSATIVE)]."),
+			span_notice("[usr] начина[PLUR_ET_UT(usr)] снимать [W.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы начинаете снимать [W.declent_ru(ACCUSATIVE)]."),
 		)
 		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_on_max = TRUE))
@@ -720,9 +720,9 @@
 				if(M == usr)
 					to_chat(usr, span_notice("Вы помещаете [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
-					M.show_message(span_notice("[usr] помеща[pluralize_ru(usr.gender, "ет", "ют")] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+					M.show_message(span_notice("[usr] помеща[PLUR_ET_UT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
-					M.show_message(span_notice("[usr] помеща[pluralize_ru(usr.gender, "ет", "ют")] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+					M.show_message(span_notice("[usr] помеща[PLUR_ET_UT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 
 		orient2hud(usr)
 		if(usr.s_active)

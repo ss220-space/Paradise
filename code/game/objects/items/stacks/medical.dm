@@ -54,7 +54,7 @@
 
 		if(human_target == user && !unique_handling)
 			user.visible_message(
-				span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять на себе [declension_ru(ACCUSATIVE)]."),
+				span_notice("[human_target] начина[PLUR_ET_UT(human_target)] применять на себе [declension_ru(ACCUSATIVE)]."),
 				span_notice("Вы начинаете применять на себе [declent_ru(ACCUSATIVE)]..."),
 			)
 			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
@@ -74,7 +74,7 @@
 				return .
 		else
 			user.visible_message(
-				span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [human_target]."),
+				span_notice("[user] применя[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)] на [human_target]."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
 			)
 			if(use_duration && !do_after(user, use_duration, human_target))
@@ -96,7 +96,7 @@
 			return .
 		critter.heal_organ_damage(heal_brute, heal_burn)
 		user.visible_message(
-			span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
+			span_green("[user] применя[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
 			span_green("Вы применяете [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
 		)
 
@@ -107,7 +107,7 @@
 
 	target.heal_organ_damage(heal_brute, heal_burn)
 	user.visible_message(
-		span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] к [target]."),
+		span_green("[user] применя[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)] к [target]."),
 		span_green("Вы применяете [declent_ru(NOMINATIVE)] к [target]."),
 	)
 	return .|ATTACK_CHAIN_SUCCESS
@@ -116,7 +116,7 @@
 /obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/target, mob/user)
 	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
 	user.visible_message(
-		span_green("[user] использу[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
+		span_green("[user] использу[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
 		span_green("Вы используете [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
 	)
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
@@ -157,7 +157,7 @@
 		rembrute = nrembrute
 		remburn = nremburn
 		user.visible_message(
-			span_green("[user] обрабатыва[pluralize_ru(user.gender,"ет","ют")] раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
+			span_green("[user] обрабатыва[PLUR_ET_UT(user)] раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
 			span_green("Вы обрабатываете раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
 		)
 	if(should_update_health)
@@ -752,7 +752,7 @@
 	if(human_target == user)
 		balloon_alert(user, "применение [declent_ru(GENITIVE)]...")
 		user.visible_message(
-			span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять на себе [declension_ru(ACCUSATIVE)]."),
+			span_notice("[human_target] начина[PLUR_ET_UT(human_target)] применять на себе [declension_ru(ACCUSATIVE)]."),
 			ignored_mobs = user
 		)
 		if(!do_after(human_target, self_duration, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
@@ -770,7 +770,7 @@
 	else
 		user.balloon_alert_to_viewers("применение [declent_ru(GENITIVE)]...")
 		user.visible_message(
-			span_danger("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [human_target]."),
+			span_danger("[user] применя[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [human_target]."),
 			ignored_mobs = user
 		)
 		if(!do_after(user, other_duration, human_target) || applyed_bodypart)
@@ -786,7 +786,7 @@
 			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
 			return .
 		user.visible_message(
-			span_danger("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
+			span_danger("[user] применя[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
 			span_green("Вы применяете [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
 		)
 

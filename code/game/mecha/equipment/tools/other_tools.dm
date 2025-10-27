@@ -662,7 +662,7 @@
 		insert_action(target)
 		return TRUE
 
-	occupant_message(span_notice("[target] не мо[pluralize_ru(target.gender, "жет", "гут")] быть удержа[genderize_ru(target.gender, "н", "на", "но", "ны")], так как [target] не наход[pluralize_ru(target.gender, "ит", "ят")]ся в критическом состоянии."))
+	occupant_message(span_notice("[target] не мо[PLUR_JET_GUT(target)] быть удержан[GEND_A_O_Y(target)], так как [target] не наход[PLUR_IT_YAT(target)]ся в критическом состоянии."))
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress_action(mob/living/carbon/target)
@@ -717,7 +717,7 @@
 	stop_supressing(target)
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_escape))
-	occupant_message(span_notice("[target] успешно помещ[genderize_ru(target.gender, "ён", "ена", "ено", "ены")] в клетку."))
+	occupant_message(span_notice("[target] успешно помещен[GEND_A_O_Y(target)] в клетку."))
 	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] поместил [target] в клетку."))
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
@@ -746,7 +746,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/on_escape(mob/living/carbon/target)
 	SIGNAL_HANDLER
-	occupant_message(span_warning("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки."))
+	occupant_message(span_warning("[prisoner] сбежал[GEND_A_O_I(prisoner)] из клетки."))
 	prisoner = null
 	if(holding)
 		if(holding.handcuffed)
@@ -780,10 +780,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
-		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, так как [target] прикова[genderize_ru(target.gender, "н", "на", "но", "ны")] к [target.buckled.declent_ru(DATIVE)]!"))
+		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, так как [target] прикован[GEND_A_O_Y(target)] к [target.buckled.declent_ru(DATIVE)]!"))
 		return FALSE
 	if(target.has_buckled_mobs())
-		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] висит слайм!"))
+		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, пока на [GEND_ON_IN_HIM(target)] висит слайм!"))
 		return FALSE
 	if(prisoner)
 		occupant_message(span_warning("Клетка уже занята!"))
@@ -805,9 +805,9 @@
 	UnregisterSignal(prisoner, COMSIG_MOVABLE_MOVED)
 	prisoner.forceMove(get_turf(src))
 	if(!force)
-		occupant_message("[prisoner] извлеч[genderize_ru(prisoner.gender, "ён", "ена", "ено", "ены")].")
+		occupant_message("[prisoner] извлечен[GEND_A_O_Y(prisoner)].")
 	else
-		occupant_message("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки.")
+		occupant_message("[prisoner] сбежал[GEND_A_O_I(prisoner)] из клетки.")
 	prisoner = null
 	change_state("mecha_cage")
 

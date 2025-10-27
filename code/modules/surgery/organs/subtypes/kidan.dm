@@ -46,10 +46,10 @@
 /obj/item/organ/internal/lantern/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(toggle_biolum())
 		if(glowing)
-			owner.visible_message(span_notice("[owner] начина[pluralize_ru(owner.gender, "ет", "ют")] светиться."))
+			owner.visible_message(span_notice("[owner] начина[PLUR_ET_UT(owner)] светиться."))
 			balloon_alert(owner, "световая железа активирована")
 		else
-			owner.visible_message(span_notice("[owner] переста[pluralize_ru(owner.gender, "ёт", "ют")] светиться."))
+			owner.visible_message(span_notice("[owner] переста[PLUR_YOT_UT(owner)] светиться."))
 			balloon_alert(owner, "световая железа деактивирована")
 
 /obj/item/organ/internal/lantern/on_life()
@@ -62,7 +62,7 @@
 
 		if(owner.stat)
 			toggle_biolum(1)
-			owner.visible_message(span_notice("[owner] переста[pluralize_ru(owner.gender, "ёт", "ют")] светиться."))
+			owner.visible_message(span_notice("[owner] переста[PLUR_YOT_UT(owner)] светиться."))
 			return
 
 		owner.set_nutrition(max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST))

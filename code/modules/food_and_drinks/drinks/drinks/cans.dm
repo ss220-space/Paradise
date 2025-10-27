@@ -63,7 +63,7 @@
 		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, span_notice("Вы начинаете встряхивать [declent_ru(ACCUSATIVE)]."))
 		if(do_after(H, 1 SECONDS, H))
-			visible_message(span_warning("[user] встряхнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_warning("[user] встряхнул[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]!"))
 			if(times_shaken == 0)
 				times_shaken++
 				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
@@ -83,7 +83,7 @@
 		return ATTACK_CHAIN_PROCEED
 	if(target == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == BODY_ZONE_HEAD)
 		user.visible_message(
-			span_warning("[user] смина[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] своим лбом!"),
+			span_warning("[user] смина[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] своим лбом!"),
 			span_warning("Вы сминаете [declent_ru(ACCUSATIVE)] своим лбом!"),
 		)
 		crush(user)
@@ -94,7 +94,7 @@
 /obj/item/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash/cyborg))
 		user.visible_message(
-			span_notice("[user] засовыва[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] в свой уплотнитель мусора."),
+			span_notice("[user] засовыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] в свой уплотнитель мусора."),
 			span_notice("Вы засовываете [declent_ru(ACCUSATIVE)] в свой уплотнитель мусора."),
 		)
 		var/obj/can = crush(user)

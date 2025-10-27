@@ -81,8 +81,8 @@
 			if(L) //living mob
 				var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 				if(target != user)
-					target.visible_message(span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся взять образец крови у [target]!"), \
-											span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся взять у вас образец крови!"))
+					target.visible_message(span_danger("[user] пыта[PLUR_ET_UT(user)]ся взять образец крови у [target]!"), \
+											span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся взять у вас образец крови!"))
 					busy = TRUE
 					if(!do_after(user, 3 SECONDS, target, NONE))
 						busy = FALSE
@@ -91,8 +91,8 @@
 						return
 				busy = FALSE
 				if(L.transfer_blood_to(src, drawn_amount))
-					L.visible_message(span_danger("[user] взял[genderize_ru(user.gender, "", "а", "о", "и")] образец крови у [L]!"), \
-										span_userdanger("[user] взял[genderize_ru(user.gender, "", "а", "о", "и")] у вас образец крови!"))
+					L.visible_message(span_danger("[user] взял[GEND_A_O_I(user)] образец крови у [L]!"), \
+										span_userdanger("[user] взял[GEND_A_O_I(user)] у вас образец крови!"))
 				else
 					balloon_alert(user, "больше крови не взять!")
 
@@ -107,7 +107,7 @@
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
 
-				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества. Теперь он содержит <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "у", "ы", "")] вещества."))
+				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества. Теперь он содержит <b>[reagents.total_volume]</b> единиц[DECL_SEC_MIN(reagents.total_volume)] вещества."))
 			if(reagents.holder_full())
 				mode = !mode
 				update_icon()
@@ -129,16 +129,16 @@
 				if(!L.can_inject(user, TRUE))
 					return
 				if(L != user)
-					L.visible_message(span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся сделать [L] укол [declent_ru(INSTRUMENTAL)]!"), \
-										span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся сделать вам укол [declent_ru(INSTRUMENTAL)]!"))
+					L.visible_message(span_danger("[user] пыта[PLUR_ET_UT(user)]ся сделать [L] укол [declent_ru(INSTRUMENTAL)]!"), \
+										span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся сделать вам укол [declent_ru(INSTRUMENTAL)]!"))
 					if(!do_after(user, 3 SECONDS, L, NONE))
 						return
 					if(!reagents.total_volume)
 						return
 					if(L.reagents.total_volume >= L.reagents.maximum_volume)
 						return
-					L.visible_message(span_danger("[user] дела[pluralize_ru(user.gender, "ет", "ют")] [L] укол [declent_ru(INSTRUMENTAL)]!"), \
-										span_userdanger("[user] дела[pluralize_ru(user.gender, "ет", "ют")] вам укол [declent_ru(INSTRUMENTAL)]!"))
+					L.visible_message(span_danger("[user] дела[PLUR_ET_UT(user)] [L] укол [declent_ru(INSTRUMENTAL)]!"), \
+										span_userdanger("[user] дела[PLUR_ET_UT(user)] вам укол [declent_ru(INSTRUMENTAL)]!"))
 
 			add_attack_logs(user, target, "Injected with [name] containing [reagents.log_list()], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
@@ -146,7 +146,7 @@
 			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			after_transfer(target)
-			to_chat(user, span_notice("Вы вкололи <b>[amount_per_transfer_from_this]</b> единиц[declension_ru(amount_per_transfer_from_this, "у", "ы", "")] вещества с помощью [declent_ru(GENITIVE)]. В нём остаётся <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества."))
+			to_chat(user, span_notice("Вы вкололи <b>[amount_per_transfer_from_this]</b> единиц[DECL_SEC_MIN(amount_per_transfer_from_this)] вещества с помощью [declent_ru(GENITIVE)]. В нём остаётся <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества."))
 			if(istype(target, /obj/item/reagent_containers/food))
 				var/obj/item/reagent_containers/food/F = target
 				F.log_eating = TRUE

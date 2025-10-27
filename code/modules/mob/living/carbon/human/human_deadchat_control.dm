@@ -15,13 +15,13 @@
 	if(!victim)
 		switch(intent)
 			if(INTENT_HARM)
-				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] дико [pluralize_ru(gender, "бьёт", "бьют")] [implement]!"))
+				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] дико бь[PLUR_YOT_UT(src)] [implement]!"))
 			if(INTENT_HELP)
-				visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, дела[pluralize_ru(gender, "ет", "ют")] глубокий вдох."))
+				visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, дела[PLUR_ET_UT(src)] глубокий вдох."))
 		return
 	implement = "[isnull(in_hand) ? "кулаки" : in_hand.declent_ru(ACCUSATIVE)]"
 	if(isLivingSSD(victim))
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] [intent == INTENT_HARM ? "неохотно " : ""] опуска[pluralize_ru(gender, "ет", "ют")] [implement]."))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] [intent == INTENT_HARM ? "неохотно " : ""] опуска[PLUR_ET_UT(src)] [implement]."))
 		return
 
 	var/original_intent = a_intent
@@ -34,13 +34,13 @@
 
 /mob/living/carbon/human/proc/dchat_resist()
 	if(!can_resist())
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется, ничего не cмо[pluralize_ru(gender, "жет", "гут")] сделать!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется, ничего не cмо[PLUR_JET_GUT(src)] сделать!"))
 		return
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED))
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, ничего особенного не дела[pluralize_ru(gender, "ет", "ют")]."))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, ничего особенного не дела[PLUR_ET_UT(src)]."))
 		return
 
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[pluralize_ru(gender, "ет", "ют")]ся освободиться!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(src)]ся освободиться!"))
 	resist()
 
 /mob/living/carbon/human/proc/dchat_pickup()
@@ -54,22 +54,22 @@
 
 	if(in_hand)
 		if(HAS_TRAIT(in_hand, TRAIT_NODROP))
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[pluralize_ru(gender, "ет", "ют")]ся выпустить [in_hand.declent_ru(ACCUSATIVE)], но кажется, что [genderize_ru(in_hand.gender, "он застрял", "она застряла", "оно зястряло", "они застряли")] в руке!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(src)]ся выпустить [in_hand.declent_ru(ACCUSATIVE)], но кажется, что [GEND_HE_SHE(in_hand)] застрял[GEND_A_O_I(in_hand)] в руке!"))
 			return
 		if(in_hand.flags & ABSTRACT)
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, что у [genderize_ru(gender, "него", "неё", "него", "них")] заняты руки!"))
+			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] кажется, что у н[GEND_HIS_HER(src)] заняты руки!"))
 			return
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] броса[pluralize_ru(gender, "ет", "ют")] [in_hand.declent_ru(ACCUSATIVE)] и поднимает [thing.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] броса[PLUR_ET_UT(src)] [in_hand.declent_ru(ACCUSATIVE)] и поднимает [thing.declent_ru(ACCUSATIVE)]!"))
 		do_unEquip(in_hand)
 		in_hand.forceMove(old_loc)
 	else
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поднима[pluralize_ru(gender, "ет", "ют")] [thing.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поднима[PLUR_ET_UT(src)] [thing.declent_ru(ACCUSATIVE)]!"))
 	put_in_active_hand(thing)
 
 /mob/living/carbon/human/proc/dchat_throw()
 	var/obj/item/in_hand = get_active_hand()
 	if(!in_hand || in_hand.flags & ABSTRACT)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дела[pluralize_ru(gender, "ет", "ют")] движение, похожее на бросок!"))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дела[PLUR_ET_UT(src)] движение, похожее на бросок!"))
 		return
 	var/atom/possible_target
 	var/cur_turf = get_turf(src)
@@ -86,7 +86,7 @@
 	if(!possible_target)
 		possible_target = cur_turf
 	if(HAS_TRAIT(in_hand, TRAIT_NODROP))
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[pluralize_ru(gender, "ет", "ют")]ся бросить [in_hand.declent_ru(ACCUSATIVE)][isturf(possible_target) ? "" : " в сторону [possible_target]"], но [genderize_ru(gender, "он", "она", "оно", "они")] не отрыва[pluralize_ru(gender, "ет", "ют")]ся от руки!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(src)]ся бросить [in_hand.declent_ru(ACCUSATIVE)][isturf(possible_target) ? "" : " в сторону [possible_target]"], но [GEND_HE_SHE(src)] не отрыва[PLUR_ET_UT(src)]ся от руки!"))
 		return
 	throw_item(possible_target)
 
@@ -94,7 +94,7 @@
 	var/turf/ahead = get_turf(get_step(src, dir))
 	var/mob/living/carbon/human/H = locate(/mob/living/carbon/human) in ahead
 	if(!H)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] пыта[pluralize_ru(gender, "ет", "ют")]ся что-то отодвинуть в сторону!"))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] пыта[PLUR_ET_UT(src)]ся что-то отодвинуть в сторону!"))
 		return
 	dna?.species.disarm(src, H)
 
@@ -113,14 +113,14 @@
 
 	var/obj/item/gun/held_gun = get_active_hand()
 	if(!held_gun)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] направля[pluralize_ru(gender, "ет", "ют")] палец в форме пистолета в сторону [possible_target.declent_ru(GENITIVE)]!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] направля[PLUR_ET_UT(src)] палец в форме пистолета в сторону [possible_target.declent_ru(GENITIVE)]!"))
 		return
 	if(!istype(held_gun))
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] направля[pluralize_ru(gender, "ет", "ют")] [held_gun.declent_ru(ACCUSATIVE)] в сторону [possible_target.declent_ru(GENITIVE)]!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] направля[PLUR_ET_UT(src)] [held_gun.declent_ru(ACCUSATIVE)] в сторону [possible_target.declent_ru(GENITIVE)]!"))
 		return
 	// for his neutral special, he wields a Gun
 	held_gun.afterattack(possible_target, src)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] стреля[pluralize_ru(gender, "ет", "ют")] из [held_gun.declent_ru(GENITIVE)][isturf(possible_target) ? "" : " в сторону [possible_target.declent_ru(GENITIVE)]!"]"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] стреля[PLUR_ET_UT(src)] из [held_gun.declent_ru(GENITIVE)][isturf(possible_target) ? "" : " в сторону [possible_target.declent_ru(GENITIVE)]!"]"))
 
 /mob/living/carbon/human/proc/dchat_step(dir)
 	if(length(pulledby))

@@ -52,7 +52,7 @@
 
 
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] игра[pluralize_ru(user.gender,"ет","ют")] со смертью! Похоже, он[genderize_ru(user.gender,"","а","о","и")] пыта[pluralize_ru(user.gender,"ется","ются")] покончить жизнь самоубийством!"))
+	user.visible_message(span_suicide("[user] игра[PLUR_ET_UT(user)] со смертью! Похоже, он[GEND_A_O_I(user)] пыта[PLUR_ET_UT(user)]ся покончить жизнь самоубийством!"))
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
@@ -203,7 +203,7 @@
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
 		user.visible_message(
-			"[user] броса[pluralize_ru(user.gender,"ет","ют")] [src.name]. На [src.name] выпадает [result]. [comment]",
+			"[user] броса[PLUR_ET_UT(user)] [src.name]. На [src.name] выпадает [result]. [comment]",
 			span_notice("Вы бросили [src.name] и выпало [result]. [comment]"),
 			span_italics("Вы слышите как катится [src.name], звучит как [fake_result].")
 		)
@@ -398,7 +398,7 @@
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
 				H.possess_by_player(C.key)
-				to_chat(H, span_notice("Вы слуга [user.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [genderize_ru(user.gender, "его", "eё", "его", "их")] приказы."))
+				to_chat(H, span_notice("Вы слуга [user.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(user)] приказы."))
 
 			var/obj/effect/proc_holder/spell/summonmob/S = new
 			S.target_mob = H

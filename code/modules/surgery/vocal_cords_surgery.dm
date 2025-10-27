@@ -33,7 +33,7 @@
 
 /datum/surgery_step/tune_vocal_cords/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] изменять голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] изменять голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете изменять голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	..()
@@ -41,7 +41,7 @@
 /datum/surgery_step/tune_vocal_cords/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	target.change_voice(user, TRUE)
 	user.visible_message(
-		span_notice("[user] изменя[pluralize_ru(user.gender, "ет", "ют")] голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] изменя[PLUR_ET_UT(user)] голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы изменяете голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	return TRUE
@@ -49,7 +49,7 @@
 /datum/surgery_step/tune_vocal_cords/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] голосовые связки [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] голосовые связки [target]!"),
 		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] голосовые связки [target]!")
 	)
 	target.tts_seed = SStts.get_random_seed(target)
@@ -75,7 +75,7 @@
 
 /datum/surgery_step/tune_vocal_cords/ipc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] настраивать микрофон [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_UT(user)] настраивать микрофон [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете настраивать микрофон [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	..()
@@ -83,7 +83,7 @@
 /datum/surgery_step/tune_vocal_cords/ipc/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	target.change_voice(user, TRUE)
 	user.visible_message(
-		span_notice("[user] настраива[pluralize_ru(user.gender, "ет", "ют")] микрофон [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] настраива[PLUR_ET_UT(user)] микрофон [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы настраиваете микрофон [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	return TRUE
@@ -91,7 +91,7 @@
 /datum/surgery_step/tune_vocal_cords/ipc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] микрофон [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] микрофон [target]!"),
 		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] микрофон [target]!")
 	)
 	target.tts_seed = SStts.get_random_seed(target)

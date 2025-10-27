@@ -163,7 +163,7 @@
 
 /// Additional info when examine accessory on the suit
 /obj/item/clothing/accessory/proc/attached_examine(mob/user, obj/item/clothing/under/uniform)
-	return span_notice("К [genderize_ru(uniform.gender, "нему", "ней", "нему", "ним")] прикрепл[genderize_ru(gender, "ён", "ена", "ено", "ены")] [icon2html(src, user)] [declent_ru(NOMINATIVE)].")
+	return span_notice("К н[GEND_HIM_HER(uniform)] прикреплен[GEND_A_O_Y(src)] [icon2html(src, user)] [declent_ru(NOMINATIVE)].")
 
 
 /obj/item/clothing/accessory/blue

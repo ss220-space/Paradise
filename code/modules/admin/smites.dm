@@ -276,7 +276,7 @@
 
 	ADD_TRAIT(clothing, TRAIT_NODROP, ADMIN_TRAIT)
 	target.equip_to_slot_or_del(clothing, slot)
-	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возникш[genderize_ru(clothing.gender, "ий", "ая", "ее", "ие")] из пустоты прилипа[pluralize_ru(clothing.gender, "ет", "ют")] к вам. Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возника[PLUR_ET_UT(clothing)] из пустоты прилипа[PLUR_ET_UT(clothing)] к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
 
 
@@ -433,7 +433,7 @@
 /datum/smite/global_hunting/activate(mob/living/target, reason)
 	var/bounty = tgui_input_number(usr, "Выберите денежное вознаграждение поделённое между исполнителями приговора.", "Выбор вознаграждения", 5000, INFINITY, 0)
 	GLOB.major_announcement.announce(
-		message = "[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[declension_ru(bounty, "", "а", "ов")].",
+		message = "[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[DECL_CREDIT(bounty)].",
 		new_title = ANNOUNCE_CCKILL_RU,
 		new_sound = 'sound/AI/commandreport.ogg'
 	)
@@ -502,7 +502,7 @@
 	var/obj/fallen = new type(target_turf)
 	target_turf.zImpact(fallen, 1)
 	to_chat(target, span_userdanger(
-		"Откуда-то сверху на вас пада[pluralize_ru(fallen.gender, "ет", "ют")] [fallen.declent_ru(NOMINATIVE)]! \
+		"Откуда-то сверху на вас пада[PLUR_ET_UT(fallen)] [fallen.declent_ru(NOMINATIVE)]! \
 		Вам почему-то кажется, что это наказание за [reason]." \
 	))
 

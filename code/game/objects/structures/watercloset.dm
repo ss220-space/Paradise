@@ -41,8 +41,8 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, TRUE)
 		swirlie.visible_message(
-			span_danger("[user] бь[pluralize_ru(user.gender, "ет", "ют")] головой [swirlie] об унитаз!"),
-			span_userdanger("[user] бь[pluralize_ru(user.gender, "ет", "ют")] вас головой об унитаз!"),
+			span_danger("[user] бь[PLUR_ET_UT(user)] головой [swirlie] об унитаз!"),
+			span_userdanger("[user] бь[PLUR_ET_UT(user)] вас головой об унитаз!"),
 			span_italics("Вы слышите гулкий звон фарфора.")
 		)
 		swirlie.adjustBruteLoss(5)
@@ -91,7 +91,7 @@
 		return
 	var/mob/living/victim = grabbed_thing
 	if(victim.loc != get_turf(src))
-		to_chat(grabber, span_warning("[victim] долж[pluralize_ru(victim.gender, "ен", "ны")] быть на [declent_ru(PREPOSITIONAL)]!"))
+		to_chat(grabber, span_warning("[victim] долж[GEND_EN_NA_NO_NY(victim)] быть на [declent_ru(PREPOSITIONAL)]!"))
 		return
 	add_fingerprint(grabber)
 	if(open && !swirlie)
@@ -112,8 +112,8 @@
 	// begin up victim
 	victim.set_lying_angle(180)
 	victim.visible_message(
-		span_danger("[grabber] поднима[pluralize_ru(grabber.gender, "ет", "ют")] [victim] над унитазом!"),
-		span_userdanger("[grabber] поднима[pluralize_ru(grabber.gender, "ет", "ют")] вас над унитазом!"),
+		span_danger("[grabber] поднима[PLUR_ET_UT(grabber)] [victim] над унитазом!"),
+		span_userdanger("[grabber] поднима[PLUR_ET_UT(grabber)] вас над унитазом!"),
 	)
 	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y, time = 0.8 SECONDS)
 	if(!do_after(grabber, 0.8 SECONDS, src, NONE) || grabber.pulling != victim)
@@ -121,8 +121,8 @@
 		return
 	// begin move down into toilet
 	victim.visible_message(
-		span_danger("[grabber] начина[pluralize_ru(grabber.gender, "ет", "ют")] окунать голову [victim] в унитаз!"),
-		span_userdanger("[grabber] начина[pluralize_ru(grabber.gender, "ет", "ют")] окунать вашу голову в унитаз..."),
+		span_danger("[grabber] начина[PLUR_ET_UT(grabber)] окунать голову [victim] в унитаз!"),
+		span_userdanger("[grabber] начина[PLUR_ET_UT(grabber)] окунать вашу голову в унитаз..."),
 	)
 	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 1.2 SECONDS)
 	if(!do_after(grabber, 1.2 SECONDS, src, NONE) || grabber.pulling != victim)
@@ -130,8 +130,8 @@
 		return
 	// begin flushing water with victim
 	victim.visible_message(
-		span_danger("[grabber] окуна[pluralize_ru(grabber.gender, "ет", "ют")] голову [victim] в унитаз!"),
-		span_userdanger("[grabber] окуна[pluralize_ru(grabber.gender, "ет", "ют")] вашу голову в унитаз!"),
+		span_danger("[grabber] окуна[PLUR_ET_UT(grabber)] голову [victim] в унитаз!"),
+		span_userdanger("[grabber] окуна[PLUR_ET_UT(grabber)] вашу голову в унитаз!"),
 		span_italics("Вы слышите звук смыва унитаза."),
 	)
 	playsound(loc, 'sound/items/toilet_flush.ogg', 80, TRUE)
@@ -157,8 +157,8 @@
 /obj/structure/toilet/proc/do_smash_into_toilet(mob/living/grabber, mob/living/victim)
 	playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
 	victim.visible_message(
-		span_danger("[grabber] бь[pluralize_ru(grabber.gender, "ет", "ют")] [victim] головой об [declent_ru(NOMINATIVE)]!"),
-		span_userdanger("[grabber] бь[pluralize_ru(grabber.gender, "ет", "ют")] вас головой об [declent_ru(NOMINATIVE)]!"),
+		span_danger("[grabber] бь[PLUR_ET_UT(grabber)] [victim] головой об [declent_ru(NOMINATIVE)]!"),
+		span_userdanger("[grabber] бь[PLUR_ET_UT(grabber)] вас головой об [declent_ru(NOMINATIVE)]!"),
 	)
 	victim.adjustBruteLoss(5)
 
@@ -201,7 +201,7 @@
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, TRUE)
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		user.visible_message(
-			span_notice("[user] [cistern ? "поставил[genderize_ru(user.gender, "", "а", "о", "и")] крышку на место" : "снял[pluralize_ru(user.gender,"","и")] крышку с бачка"]!"),
+			span_notice("[user] [cistern ? "поставил[GEND_A_O_I(user)] крышку на место" : "снял[PLUR_I(user)] крышку с бачка"]!"),
 			span_notice("Вы [cistern ? "поставили крышку на место" : "сняли крышку с бачка"]!"),
 			span_italics("Вы слышите скрип фарфора."))
 		cistern = !cistern
@@ -229,25 +229,25 @@
 			stash_goods(item, user)
 		if(DISCONNECT_CHOICE)
 			user.visible_message(
-				span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] отсоединять [declent_ru(NOMINATIVE)]."),
+				span_notice("[user] начина[PLUR_ET_UT(user)] отсоединять [declent_ru(NOMINATIVE)]."),
 				span_notice("Вы начинаете отсоединять [declent_ru(NOMINATIVE)]..."))
 			if(item.use_tool(src, user, 40, volume = item.tool_volume))
 				if(!loc || !anchored)
 					return
 				user.visible_message(
-					span_notice("[user] отсоединя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)]!"),
+					span_notice("[user] отсоединя[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)]!"),
 					span_notice("Вы отсоединили [declent_ru(NOMINATIVE)]!"))
 				balloon_alert(user, "отсоединено")
 				set_anchored(FALSE)
 		if(CONNECT_CHOICE)
 			user.visible_message(
-				span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] подключать [declent_ru(NOMINATIVE)]."),
+				span_notice("[user] начина[PLUR_ET_UT(user)] подключать [declent_ru(NOMINATIVE)]."),
 				span_notice("Вы начинаете подключать [declent_ru(NOMINATIVE)]..."))
 			if(item.use_tool(src, user, 40, volume = item.tool_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message(
-					span_notice("[user] подключил[pluralize_ru(user.gender,"","и")] [declent_ru(NOMINATIVE)]!"),
+					span_notice("[user] подключил[PLUR_I(user)] [declent_ru(NOMINATIVE)]!"),
 					span_notice("Вы подключили [declent_ru(NOMINATIVE)]!"))
 				balloon_alert(user, "соединено")
 				set_anchored(TRUE)
@@ -644,7 +644,7 @@
 	var/washing_face = FALSE
 	if(user.zone_selected in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH))
 		washing_face = TRUE
-	user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] мыть [washing_face ? "своё лицо" : "свои руки"]..."), \
+	user.visible_message(span_notice("[user] начина[PLUR_ET_UT(user)] мыть [washing_face ? "своё лицо" : "свои руки"]..."), \
 						span_notice("Вы начинаете мыть [washing_face ? "своё лицо" : "свои руки"]..."))
 	busy = 1
 
@@ -656,7 +656,7 @@
 
 	busy = 0
 
-	user.visible_message(span_notice("[user] помыл[genderize_ru(user.gender, "", "а", "о", "и")] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."), \
+	user.visible_message(span_notice("[user] помыл[GEND_A_O_I(user)] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."), \
 						span_notice("Вы помыли [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."))
 
 	if(SEND_SIGNAL(user, COMSIG_SINK_ACT) & COMSIG_SINK_ACT_SUCCESS) // special sink acts
@@ -808,7 +808,7 @@
 
 	if(istype(I, /obj/item/shovel))
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] закапывать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] начина[PLUR_ET_UT(user)] закапывать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
 			span_notice("Вы начинаете закапывать [declent_ru(ACCUSATIVE)]..."),
 		)
 		I.play_tool_sound(src, 100)
@@ -817,7 +817,7 @@
 			return ATTACK_CHAIN_PROCEED
 		I.play_tool_sound(src, 100)
 		user.visible_message(
-			span_notice("[user] закопал[genderize_ru(user.gender,"","а","о","и")] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] закопал[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
 			span_notice("Вы закопали [declent_ru(ACCUSATIVE)]."),
 		)
 		qdel(src)

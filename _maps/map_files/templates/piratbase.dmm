@@ -1680,6 +1680,7 @@
 "ew" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/stack/medical/bruise_pack/extended,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "ex" = (
@@ -2087,8 +2088,9 @@
 	req_access = list(160);
 	name = "prison locker"
 	},
-/obj/item/clothing/shoes/orange,
 /obj/item/clothing/head/beanie/orange,
+/obj/item/stack/spacecash/c10,
+/obj/item/clothing/shoes/orange,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4892,10 +4894,15 @@
 /area/ruin/space/pirate_base/xeno_lab)
 "nE" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
 /area/ruin/space/pirate_base/lab_medical)
+"nH" = (
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/entertainment)
 "nJ" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -6211,6 +6218,7 @@
 	req_access = list(160);
 	name = "prison locker"
 	},
+/obj/item/stack/spacecash/c100,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6434,7 +6442,6 @@
 "sl" = (
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
-/obj/item/card/id/prisoner/random,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -6443,6 +6450,8 @@
 	req_access = list(160);
 	name = "prison locker"
 	},
+/obj/item/stack/spacecash/c100,
+/obj/item/card/id/prisoner/random,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -9336,6 +9345,7 @@
 /area/ruin/unpowered)
 "AV" = (
 /obj/structure/table,
+/obj/item/stack/spacecash/c100,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -9634,6 +9644,7 @@
 "BQ" = (
 /obj/structure/table,
 /obj/item/stack/medical/splint,
+/obj/item/stack/medical/suture,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/mining)
 "BR" = (
@@ -10737,6 +10748,7 @@
 /area/ruin/space/pirate_base/entertainment)
 "Fh" = (
 /obj/structure/closet,
+/obj/item/stack/medical/ointment/extended,
 /obj/item/toy/plushie/plasmamanplushie,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -11955,6 +11967,14 @@
 /obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
+"IJ" = (
+/obj/structure/table/glass,
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/xeno_lab)
 "IK" = (
 /obj/effect/turf_decal/siding/thinplating/dark/end{
 	dir = 1
@@ -12137,6 +12157,7 @@
 	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "Jk" = (
@@ -12829,6 +12850,8 @@
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/firstaid/with_mousetrap/tactical,
+/obj/item/stack/medical/suture/advanced,
+/obj/item/stack/medical/bruise_pack/military,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -14879,6 +14902,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/spacecash/c100,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16910,6 +16934,7 @@
 /obj/item/inflatable,
 /obj/item/inflatable,
 /obj/item/inflatable/door,
+/obj/item/stack/nanopaste,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -21035,7 +21060,7 @@ wn
 YT
 Yj
 CQ
-rw
+nH
 IH
 jj
 cR
@@ -25213,7 +25238,7 @@ AK
 AK
 MD
 oB
-Nv
+IJ
 qW
 uv
 Md

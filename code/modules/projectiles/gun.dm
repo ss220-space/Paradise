@@ -267,14 +267,14 @@
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
-				user.visible_message(span_danger("[user] стреля[pluralize_ru(user.gender,"ет","ют")] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("[pluralize_ru(user.gender,"Ты стреляешь","Вы стреляете")] из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите \a [fire_sound_text]!"), projectile_message = TRUE)
+				user.visible_message(span_danger("[user] стреля[PLUR_ET_UT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
 				if(pb_knockback > 0 && isliving(target))
 					var/mob/living/living_target = target
 					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
 						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
 						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
-				user.visible_message(span_danger("[user] стреля[pluralize_ru(user.gender,"ет","ют")] из [declent_ru(GENITIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты стреляешь","Вы стреляете")] из [declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
+				user.visible_message(span_danger("[user] стреля[PLUR_ET_UT(user)] из [declent_ru(GENITIVE)]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
@@ -306,7 +306,7 @@
 	if(flag)
 		if(user.zone_selected == "mouth")
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message(span_danger("[user] сдул[genderize_ru(user.gender,"","а","о","и")] дым с дула [declent_ru(GENITIVE )]. Как же [genderize_ru(user.gender,"он хорош","она хороша","оно хорошо","они хороши")]!"))
+				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
 			else
 				handle_suicide(user, target, params)
 			return
@@ -694,7 +694,7 @@
 
 	if(choice && reskin_radial_check(user) && !current_skin)
 		current_skin = skin_options[choice]
-		to_chat(user, "Теперь [pluralize_ru(user.gender,"твое","ваше")] оружие имеет облик [choice]. Познакомь[pluralize_ru(user.gender,"ся","тесь")] с новым дизайном.")
+		to_chat(user, "Теперь ваше оружие имеет облик [choice]. Познакомьтесь с новым дизайном.")
 		update_icon()
 		update_equipped_item(update_speedmods = FALSE)
 
@@ -714,10 +714,10 @@
 
 	if(user == target)
 		target.visible_message(span_warning("[user] вставляет ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."), \
-							span_userdanger("[pluralize_ru(user.gender,"Ты вставляешь","Вы вставляеете")] ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."))
+							span_userdanger("Вы вставляеете ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."))
 	else
 		target.visible_message(span_warning("[user] направляет [declent_ru(ACCUSATIVE)] в голову [target], готовясь выстрелить..."), \
-							span_userdanger("[user] направляет [declent_ru(ACCUSATIVE)] [pluralize_ru(target.gender,"тебе","вам")] в голову, готовясь выстрелить!"))
+							span_userdanger("[user] направляет [declent_ru(ACCUSATIVE)] вам в голову, готовясь выстрелить!"))
 
 	semicd = 1
 
@@ -726,7 +726,7 @@
 			if(user == target)
 				user.visible_message(span_notice("[user] решает, что жить всё-таки хочется."))
 			else if(target && target.Adjacent(user))
-				target.visible_message(span_notice("[user] решает пощадить [target]."), span_notice("[user] решает оставить [pluralize_ru(target.gender,"тебя","вас")] в живых!"))
+				target.visible_message(span_notice("[user] решает пощадить [target]."), span_notice("[user] решает оставить вас в живых!"))
 		semicd = 0
 		return
 

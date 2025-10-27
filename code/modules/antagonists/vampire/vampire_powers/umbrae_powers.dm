@@ -138,7 +138,7 @@
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	user.do_attack_animation(src)
 	user.visible_message(
-		span_danger("[user] навод[pluralize_ru(user.gender, "ит", "ят")] [I] на [declent_ru(ACCUSATIVE)], и она исчезает!"),
+		span_danger("[user] навод[PLUR_IT_YAT(user)] [I] на [declent_ru(ACCUSATIVE)], и она исчезает!"),
 		span_danger("Наведите [I] на [declent_ru(ACCUSATIVE)], и она исчезнет!"),
 	)
 	qdel(src)

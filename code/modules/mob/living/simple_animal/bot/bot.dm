@@ -377,7 +377,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	apply_damage(user.attack_damage, BRUTE)
-	visible_message(span_danger("[user] руб[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(GENITIVE)]!"))
+	visible_message(span_danger("[user] руб[PLUR_IT_YAT(user)] [declent_ru(GENITIVE)]!"))
 	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
@@ -457,7 +457,7 @@
 			return ..()
 		paicard = card
 		user.visible_message(
-			span_notice("[user] помести[genderize_ru(user.gender, "л", "ла", "ло", "ли")] [card] в [declent_ru(GENITIVE)]."),
+			span_notice("[user] поместил[GEND_A_O_I(user)] [card] в [declent_ru(GENITIVE)]."),
 			span_notice("Вы поместили [card] в [declent_ru(GENITIVE)]."),
 		)
 		paicard.pai.mind.transfer_to(src)
@@ -481,7 +481,7 @@
 			return ATTACK_CHAIN_PROCEED
 		balloon_alert(user, UNLINT("ПИИ извлечён"))
 		visible_message(
-			span_notice("[user] вытащи[genderize_ru(user.gender, "л", "ла", "ло", "ли")] [paicard] из [declent_ru(GENITIVE)]!"),
+			span_notice("[user] вытащил[GEND_A_O_I(user)] [paicard] из [declent_ru(GENITIVE)]!"),
 			span_notice("Вы вытащили [paicard] из [declent_ru(GENITIVE)]."),
 		)
 		ejectpai(user)
@@ -520,7 +520,7 @@
 	adjustBruteLoss(-10)
 	add_fingerprint(user)
 	user.visible_message(
-		span_notice("[user] ремонтиру[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(GENITIVE)]."),
+		span_notice("[user] ремонтиру[PLUR_ET_UT(user)] [declent_ru(GENITIVE)]."),
 		span_notice("Вы ремонтируете [declent_ru(GENITIVE)].")
 	)
 

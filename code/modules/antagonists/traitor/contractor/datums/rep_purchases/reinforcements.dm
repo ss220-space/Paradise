@@ -74,13 +74,13 @@
 	partner.possess_by_player(key)
 	partner_mind = partner.mind
 	partner_mind.make_contractor_support()
-	to_chat(partner_mind.current, span_warning(span_fontsize4("[user.real_name] - Ваш начальник. Выполняйте любые приказы, отданные [genderize_ru(user.gender, "им", "ею", "им", "ими")]. Вы здесь только для того, чтобы помочь [genderize_ru(user.gender, "ему", "ей", "ему", "им")] с выполнением задач.")))
-	to_chat(partner_mind.current, span_warning("Если [genderize_ru(user.gender, "он", "она", "оно", "они")] погибн[pluralize_ru(user.gender, "ет", "ут")] или буд[pluralize_ru(user.gender, "ет", "ут")] недоступ[pluralize_ru(user.gender, "ен", "ны")] по другим причинам, вы должны помогать другим агентам в меру своих возможностей."))
+	to_chat(partner_mind.current, span_warning(span_fontsize4("[user.real_name] — Ваш начальник. Выполняйте любые приказы, отданные [GEND_IM_EI_IM_IMI(user)]. Вы здесь только для того, чтобы помочь [GEND_HIM_HER(user)] с выполнением задач.")))
+	to_chat(partner_mind.current, span_warning("Если [GEND_HE_SHE(user)] погибн[PLUR_ET_YT(user)] или буд[PLUR_ET_YT(user)] недоступ[GEND_EN_NA_NO_NY(user)] по другим причинам, вы должны помогать другим агентам в меру своих возможностей."))
 
 	var/datum/objective/protect/contractor/CT = new
 	CT.owner = partner.mind
 	CT.target = user.mind
-	CT.explanation_text = "[user.real_name] - Ваш начальник. [genderize_ru(user.gender, "Его", "Её", "Его", "Их")] приказы являются первоочередными."
+	CT.explanation_text = "[user.real_name] — Ваш начальник. [GEND_HIS_HER_CAP(user)] приказы являются первоочередными."
 	partner.mind.objectives += CT
 	partner.change_voice()
 

@@ -331,10 +331,10 @@
 				if(!safe_thing)
 					safe_thing = victim.glasses
 			if(eyes_covered && mouth_covered)
-				to_chat(victim, span_danger("[safe_thing] защища[pluralize_ru(safe_thing, "ет", "ют")] ваше лицо от перца!"))
+				to_chat(victim, span_danger("[safe_thing] защища[PLUR_ET_UT(safe_thing)] ваше лицо от перца!"))
 				return
 			else if(mouth_covered) // Reduced effects if partially protected
-				to_chat(victim, span_danger("[safe_thing] почти полностью защища[pluralize_ru(safe_thing, "ет", "ют")] ваше лицо от перца!"))
+				to_chat(victim, span_danger("[safe_thing] почти полностью защища[PLUR_ET_UT(safe_thing)] ваше лицо от перца!"))
 				if(prob(20))
 					victim.emote("scream")
 				victim.EyeBlurry(6 SECONDS)
@@ -345,7 +345,7 @@
 				victim.drop_from_active_hand()
 				return
 			else if(eyes_covered) // Eye cover is better than mouth cover but not best
-				to_chat(victim, span_danger("[safe_thing] частично защища[pluralize_ru(safe_thing, "ет", "ют")] ваше лицо от перца!"))
+				to_chat(victim, span_danger("[safe_thing] частично защища[PLUR_ET_UT(safe_thing)] ваше лицо от перца!"))
 				if(prob(20))
 					victim.emote("scream")
 				victim.EyeBlurry(4 SECONDS)

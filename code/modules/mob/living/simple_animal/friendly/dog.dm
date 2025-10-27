@@ -334,13 +334,13 @@
 		inventory_head.forceMove(drop_location())
 		inventory_head = null
 	place_on_head(pick(possible_headwear))
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] надева[pluralize_ru(gender, "ет", "ют")] [inventory_head.declent_ru(ACCUSATIVE)] на голову каким-то образом."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] надева[PLUR_ET_UT(src)] [inventory_head.declent_ru(ACCUSATIVE)] на голову каким-то образом."))
 
 ///Deadchat plays command that drops the current hat off Ian.
 /mob/living/simple_animal/pet/dog/corgi/proc/drop_hat()
 	if(!inventory_head)
 		return
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] энергично тряс[pluralize_ru(gender, "ёт", "ут")] головой, бросая [inventory_head.declent_ru(ACCUSATIVE)] на землю."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] энергично тряс[PLUR_YOT_YT(src)] головой, бросая [inventory_head.declent_ru(ACCUSATIVE)] на землю."))
 	inventory_head.forceMove(drop_location())
 	inventory_head = null
 	update_dog_fluff()

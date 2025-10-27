@@ -229,10 +229,10 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += span_deadsay("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] мёртв[genderize_ru(user.gender,"ым","ой","ым","ыми")].")
+		. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] мёртв[GEND_YM_OI_YM_YMI(user)].")
 		return
 	if(IsSleeping())
-		. += span_notice("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] спящ[genderize_ru(user.gender,"им","ей","им","ими")].")
+		. += span_notice("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] спящ[GEND_IM_EI_IM_IMI(user)].")
 
 
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
@@ -705,7 +705,7 @@
 	if(user)
 		visible_message(
 			span_warning(span_notice("Вы надеваете [P.declent_ru(ACCUSATIVE)] на шею [src.declent_ru(GENITIVE)].")),
-			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[pluralize_ru(user.gender,"ет","ют")] [P.declent_ru(ACCUSATIVE)] вам на шею [src.declent_ru(GENITIVE)]."))
+			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[PLUR_ET_UT(user)] [P.declent_ru(ACCUSATIVE)] вам на шею [src.declent_ru(GENITIVE)]."))
 		)
 	if(P.tagname && !unique_pet)
 		name = P.tagname
