@@ -60,7 +60,7 @@
 
 /datum/award/achievement/misc/springlock
 	name = "ЭТО ЧТО, УКУС 87-ОГО????"
-	desc = "Проигнорируйте предупреждение на пружинном модуле МЭК."
+	desc = "Проигнорируйте предупреждение пружинного модуля для МЭК."
 	database_id = MEDAL_SPRINGLOCK
 	icon_state = "springlock"
 
