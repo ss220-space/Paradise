@@ -214,12 +214,9 @@
 	if(!head)
 		balloon_alert(attacker, "голова отсутствует!")
 		return FALSE
-	if(head.has_arterial_bleeding())
-		balloon_alert(attacker, "горло уже перерезано!")
-		return FALSE
-
-	if(!head.arterial_bleeding())
-		return FALSE
+	if(!head.has_arterial_bleeding())
+		if(!head.arterial_bleeding())
+			return FALSE
 
 	if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
 		defender.blood_volume = max(0, defender.blood_volume - 0.25 * (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-25% of max blood volume
@@ -230,6 +227,7 @@
 	attacker.stop_pulling()
 	var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg', 'sound/weapons/knife_holster/throat_slice2.ogg')
 	playsound(defender.loc, sound, 25, TRUE)
+	defender.apply_damage(30, BRUTE, BODY_ZONE_HEAD, 0, TRUE, src, FALSE, FALSE, FALSE, TRUE, TRUE)
 	attacker.visible_message(span_danger("[attacker] перерезает глотку [defender]!"), span_danger("Вы перерезаете глотку [defender]!"))
 	return TRUE
 
