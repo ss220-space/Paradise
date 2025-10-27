@@ -473,7 +473,6 @@
 			if(H.head && !(H.head.resistance_flags & ACID_PROOF))
 				if(istype(H.head, /obj/item/clothing/head/mod) && ismodcontrol(H.back))
 					var/obj/item/mod/control/C = H.back
-					var/name = H.head.declent_ru(NOMINATIVE)
 					C.seal_part(H.head, FALSE)
 					C.retract(null, H.head)
 					to_chat(H, span_danger("Ваш[GEND_A_E_I(H.head)] [H.head.declent_ru(NOMINATIVE)] начина[PLUR_ET_UT(H.head)] оплавляться, \
