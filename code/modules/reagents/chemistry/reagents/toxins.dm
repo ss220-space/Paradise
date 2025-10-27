@@ -476,8 +476,7 @@
 					var/name = H.head.declent_ru(NOMINATIVE)
 					C.seal_part(H.head, FALSE)
 					C.retract(null, H.head)
-					to_chat(H, span_danger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] начинает оплавляться, что активирует процедуру экстренного ремонта МЭК, \
-                  заставляя его выключиться от перегрузки!"))
+					to_chat(H, span_danger("Ваш[GEND_A_E_I(H.head)] [H.head.declent_ru(NOMINATIVE)] начинает оплавляться, что активирует процедуру экстренного ремонта МЭК, заставляя его выключиться от перегрузки!"))
 				else
 					to_chat(H, span_danger("Ваш[GEND_A_E_I(H.head)] [H.head.declent_ru(NOMINATIVE)] плав[PLUR_IT_AT(H.head)]ся!"))
 					qdel(H.head)
