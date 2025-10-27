@@ -188,7 +188,7 @@
 	cardhand.update_values()
 	cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message(
-		span_notice("[user] тян[PLUR_ET_YT(user)] карту из колоды."),
+		span_notice("[user] тян[PLUR_ET_UT(user)] карту из колоды."),
 		span_notice("Вы тянете карту из колоды. Это <b>[play_card]</b>.")
 	)
 
@@ -268,12 +268,12 @@
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] разда[PLUR_YOT_UT(user)] себе <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] себе <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
 			span_notice("Вы раздаёте себе <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] разда[PLUR_YOT_UT(user)] [target] <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] [target] <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
 			span_notice("Вы раздаёте [target] <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
 		)
 	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
@@ -295,7 +295,7 @@
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
 	cards = shuffle(cards)
 	user.visible_message(
-		span_notice("[user] тасу[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] тасу[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы тасуете [declent_ru(ACCUSATIVE)]."),
 	)
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
@@ -313,7 +313,7 @@
 	if(user.put_in_hands(src, ignore_anim = FALSE))
 		add_fingerprint(user)
 		user.visible_message(
-			span_notice("[user] поднима[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
 		)
 		return TRUE
@@ -432,7 +432,7 @@
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message(
-		span_notice("[user] [concealed ? "скрыва" : "показыва"][PLUR_ET_UT(user)] свою руку с картами."),
+		span_notice("[user] [concealed ? "скрыва" : "показыва"][PLUR_ET_YUT(user)] свою руку с картами."),
 		span_notice("Вы [concealed ? "скрыва" : "показыва"]ете свою руку с картами.")
 	)
 
@@ -537,7 +537,7 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] тян[PLUR_ET_UT(user)] карту из своей руки."),
+		span_notice("[user] тян[PLUR_ET_YUT(user)] карту из своей руки."),
 		span_notice("Вы тянете [pickedcard] из своей руки."),
 	)
 	pickedcard = null
@@ -597,7 +597,7 @@
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(LAZYLEN(cardhand.cards))
 			user.visible_message(
-				span_notice("[user] клад[PLUR_YOT_UT(user)] [discarding]."),,
+				span_notice("[user] клад[PLUR_YOT_YUT(user)] [discarding]."),,
 				span_notice("Вы кладёте [discarding]."),
 			)
 		cardhand.loc = get_step(user, user.dir)

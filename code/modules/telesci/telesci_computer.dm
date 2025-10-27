@@ -70,7 +70,7 @@
 		crystals++
 		updateUsrDialog()
 		user.visible_message(
-			span_notice("[user] вставля[PLUR_ET_UT(user)] [crystal.singular_name] в слот для кристаллов [src]."),
+			span_notice("[user] вставля[PLUR_ET_YUT(user)] [crystal.singular_name] в слот для кристаллов [src]."),
 			span_notice("Вы вставляете [crystal.singular_name] в слот для кристаллов [src].")
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

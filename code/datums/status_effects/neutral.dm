@@ -140,7 +140,7 @@
 		"перемещает свою руку прямо ко лбу от стыда.",
 		"даёт пять в воздух.",
 		"стыдливо хлопает себя по другой руке, прежде чем смахнуть слезу.",
-		"пытается пожать руку, затем ударить кулаками, прежде чем отдернуть руку...? <i>Что [GEND_HE_SHE(owner)] дела[PLUR_ET_UT(owner)]?</i>"
+		"пытается пожать руку, затем ударить кулаками, прежде чем отдернуть руку...? <i>Что [GEND_HE_SHE(owner)] дела[PLUR_ET_YUT(owner)]?</i>"
 	)
 	return pick(missed_highfive_messages)
 
@@ -168,9 +168,9 @@
 
 /datum/status_effect/high_five/handshake/get_missed_message()
 	var/list/missed_messages = list(
-		"стыдливо опуска[PLUR_ET_UT(owner)] руку.",
-		"хвата[PLUR_ET_UT(owner)] свою протянутую руку другой рукой и пожима[PLUR_ET_UT(owner)] её, будто здорова[PLUR_ET_UT(owner)]ся сам[GEND_A_O_I(owner)] с собой.",
-		"сжима[PLUR_ET_UT(owner)] руку в кулак, медленно убирая её."
+		"стыдливо опуска[PLUR_ET_YUT(owner)] руку.",
+		"хвата[PLUR_ET_YUT(owner)] свою протянутую руку другой рукой и пожима[PLUR_ET_YUT(owner)] её, будто здорова[PLUR_ET_YUT(owner)]ся сам[GEND_A_O_I(owner)] с собой.",
+		"сжима[PLUR_ET_YUT(owner)] руку в кулак, медленно убирая её."
 	)
 	return pick(missed_messages)
 
@@ -239,7 +239,7 @@
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id)) // they're kinda busy!
 
 	owner.visible_message(
-		span_danger("[owner] ката[PLUR_ET_UT(owner)]ся по полу, пытаясь потушить себя!"),
+		span_danger("[owner] ката[PLUR_ET_YUT(owner)]ся по полу, пытаясь потушить себя!"),
 		span_notice("Вы останавливаетесь, падаете и катаетесь!"),
 	)
 	// Start with one weaker roll

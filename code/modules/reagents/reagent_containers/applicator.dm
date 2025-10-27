@@ -111,12 +111,12 @@
 
 	if(target == user)
 		target.visible_message(
-			span_notice("[user] начина[PLUR_ET_UT(user)] применять [declent_ru(ACCUSATIVE)] на себе."),
+			span_notice("[user] начина[PLUR_ET_YUT(user)] применять [declent_ru(ACCUSATIVE)] на себе."),
 			span_notice("Вы начинаете применять [declent_ru(ACCUSATIVE)] на себе."),
 		)
 	else
 		user.visible_message(
-			span_notice("[user] начина[PLUR_ET_UT(user)] применять [declent_ru(ACCUSATIVE)] на [target]."),
+			span_notice("[user] начина[PLUR_ET_YUT(user)] применять [declent_ru(ACCUSATIVE)] на [target]."),
 			span_notice("Вы начинаете применять [declent_ru(ACCUSATIVE)] на [target]."),
 		)
 

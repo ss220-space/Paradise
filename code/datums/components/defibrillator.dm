@@ -154,7 +154,7 @@
 		return
 
 	user.visible_message(
-		span_warning("[user] начина[PLUR_ET_UT(user)] размещать электроды дефибриллятора на груди [target.name]."),
+		span_warning("[user] начина[PLUR_ET_YUT(user)] размещать электроды дефибриллятора на груди [target.name]."),
 		span_warning("Вы начинаете размещать электроды дефибриллятора на груди [target.name]."),
 	)
 
@@ -344,7 +344,7 @@
 	if(electrocute_mob(affecting, power_source, origin)) // shock anyone touching them >:)
 		var/obj/item/organ/internal/heart/heart = affecting.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(istype(heart) && heart.parent_organ_zone == BODY_ZONE_CHEST && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
-			affecting.visible_message(span_danger("[affecting] сотряса[PLUR_ET_UT(affecting)]ся от электрического тока, проходящего через [GEND_HIS_HER(affecting)] руку!"), \
+			affecting.visible_message(span_danger("[affecting] сотряса[PLUR_ET_YUT(affecting)]ся от электрического тока, проходящего через [GEND_HIS_HER(affecting)] руку!"), \
 							span_userdanger("Вы чувствуете мощный удар током, проходящий через ваше сердце!"))
 			affecting.set_heartattack(TRUE)
 

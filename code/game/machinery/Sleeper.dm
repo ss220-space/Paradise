@@ -332,7 +332,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		visible_message(span_notice("[user] вставля[PLUR_ET_UT(user)] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -358,7 +358,7 @@
 		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
 
-	visible_message("[grabber] начина[PLUR_ET_UT(grabber)] укладывать [target] в [declent_ru(ACCUSATIVE)].")
+	visible_message("[grabber] начина[PLUR_ET_YUT(grabber)] укладывать [target] в [declent_ru(ACCUSATIVE)].")
 	if(!do_after(grabber, 2 SECONDS, target) || panel_open || !target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
 		return .
 
@@ -539,9 +539,9 @@
 		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return TRUE
 	if(L == user)
-		visible_message("[user] начина[PLUR_ET_UT(user)] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[PLUR_ET_UT(user)] укладывать [L.name] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [L.name] в [declent_ru(ACCUSATIVE)].")
 	. = TRUE
 	INVOKE_ASYNC(src, PROC_REF(put_in), L, user)
 
@@ -582,7 +582,7 @@
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
 		return
-	visible_message("[usr] начина[PLUR_ET_UT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
+	visible_message("[usr] начина[PLUR_ET_YUT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
 	put_in(usr, usr)
 
 

@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] начина[PLUR_ET_UT(user)] очищать бронированные сегменты [declent_ru(GENITIVE)]."),
+			span_notice("[user] начина[PLUR_ET_YUT(user)] очищать бронированные сегменты [declent_ru(GENITIVE)]."),
 			span_notice("Вы начинаете очищать бронированные сегменты [declent_ru(GENITIVE)]..."),
 			span_italics("Слышен звук трения ножа о плоть."),
 		)

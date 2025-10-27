@@ -61,7 +61,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(span_warning("[user] атаку[PLUR_ET_UT(user)] стенку желудка [name], используя [I.declent_ru(ACCUSATIVE)]!"), 2)
+						M.show_message(span_warning("[user] атаку[PLUR_ET_YUT(user)] стенку желудка [name], используя [I.declent_ru(ACCUSATIVE)]!"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 
 				if(prob(getBruteLoss() - 50))
@@ -95,7 +95,7 @@
 
 	if((nutrition - VOMIT_SAFE_NUTRITION) < lost_nutrition && (!(mode & VOMIT_BLOOD)))
 		if(message)
-			visible_message(span_warning("[name] сухо кашля[PLUR_ET_UT(src)]."), \
+			visible_message(span_warning("[name] сухо кашля[PLUR_ET_YUT(src)]."), \
 							span_userdanger("Вы пытаетесь проблеваться, но в вашем желудке пусто!"))
 
 		if(stun)
@@ -104,7 +104,7 @@
 		return FALSE
 
 	if(message)
-		visible_message(span_danger("[name] блю[PLUR_YOT_UT(src)]!"), \
+		visible_message(span_danger("[name] блю[PLUR_YOT_YUT(src)]!"), \
 						span_userdanger("Вы блюёте!"))
 
 	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, TRUE)
@@ -154,7 +154,7 @@
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
 		M.forceMove(drop_loc)
-		visible_message(span_danger("[M] вырыва[PLUR_ET_UT(M)]ся из нутра [name]!"))
+		visible_message(span_danger("[M] вырыва[PLUR_ET_YUT(M)]ся из нутра [name]!"))
 
 /// Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
 /mob/living/carbon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
@@ -215,8 +215,8 @@
 			check_self_for_injuries()
 		else
 			if(player_logged)
-				M.visible_message(span_notice("[M] встряхива[PLUR_ET_UT(M)] [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."), \
-				span_notice("Вы встряхиваете [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_UT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."))
+				M.visible_message(span_notice("[M] встряхива[PLUR_ET_YUT(M)] [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."), \
+				span_notice("Вы встряхиваете [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."))
 			if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				if(buckled)
 					balloon_alert(M, "цель пристёгнута!")
@@ -237,7 +237,7 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				if(!player_logged)
 					M.visible_message( \
-						span_notice("[M] тряс[PLUR_YOT_YT(M)] [name], пытаясь поднять [GEND_HIS_HER(src)]."),\
+						span_notice("[M] тряс[PLUR_YOT_UT(M)] [name], пытаясь поднять [GEND_HIS_HER(src)]."),\
 						span_notice("Вы трясёте [name], пытаясь поднять [GEND_HIS_HER(src)]."),\
 						)
 
@@ -253,7 +253,7 @@
 						self_message = span_danger("Вы обжигаете свои руки, пытаясь потушить [name]!")
 						H.update_icons()
 
-				M.visible_message(span_warning("[M] пыта[PLUR_ET_UT(M)]ся потушить [name]."), self_message)
+				M.visible_message(span_warning("[M] пыта[PLUR_ET_YUT(M)]ся потушить [name]."), self_message)
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				adjust_fire_stacks(-0.5)
 
@@ -268,7 +268,7 @@
 				else
 
 					M.visible_message(\
-					span_notice("[M] [pick("обнима[PLUR_ET_UT(M)]", "тепло обнима[PLUR_ET_UT(M)]", "прижима[PLUR_ET_UT(M)] к груди", "приобнима[PLUR_ET_UT(M)]", "прижима[PLUR_ET_UT(M)] к груди голову", "приобнима[PLUR_ET_UT(M)] за плечи")] [name]."),\
+					span_notice("[M] [pick("обнима[PLUR_ET_YUT(M)]", "тепло обнима[PLUR_ET_YUT(M)]", "прижима[PLUR_ET_YUT(M)] к груди", "приобнима[PLUR_ET_YUT(M)]", "прижима[PLUR_ET_YUT(M)] к груди голову", "приобнима[PLUR_ET_YUT(M)] за плечи")] [name]."),\
 					span_notice("Вы обнимаете [name]."),\
 					)
 					if(ishuman(src))
@@ -281,7 +281,7 @@
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
-	visible_message(span_notice("[name] осматрива[PLUR_ET_UT(src)] себя."),
+	visible_message(span_notice("[name] осматрива[PLUR_ET_YUT(src)] себя."),
 					span_notice("Вы осматриваете себя на наличие травм."))
 
 	var/list/status_list = list()
@@ -494,7 +494,7 @@
 				hit_something = TRUE
 
 		if(hit_something)
-			visible_message(span_danger("[name] вреза[PLUR_ET_UT(src)]ся в [hit_atom.declent_ru(ACCUSATIVE)]!"),
+			visible_message(span_danger("[name] вреза[PLUR_ET_YUT(src)]ся в [hit_atom.declent_ru(ACCUSATIVE)]!"),
 							span_userdanger("Вы врезаетесь в [hit_atom.declent_ru(ACCUSATIVE)]!"))
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
@@ -664,7 +664,7 @@
 	playsound(src, throwsound, min(8 * min(get_dist(loc, target), range), 50), vary = TRUE, extrarange = -1, frequency = frequency_number)
 
 	visible_message(
-		span_danger("[name][power_throw_text] броса[PLUR_ET_UT(src)] [thrown_thing.declent_ru(ACCUSATIVE)]."),
+		span_danger("[name][power_throw_text] броса[PLUR_ET_YUT(src)] [thrown_thing.declent_ru(ACCUSATIVE)]."),
 		span_danger("Вы[power_throw_text] бросаете [thrown_thing.declent_ru(ACCUSATIVE)]."),
 	)
 	newtonian_move(get_dir(target, src))
@@ -728,7 +728,7 @@
 		)
 	else
 		visible_message(
-			span_warning("[name] пыта[PLUR_ET_UT(src)]ся себя отстегнуть!"),
+			span_warning("[name] пыта[PLUR_ET_YUT(src)]ся себя отстегнуть!"),
 			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[DECL_SEC_MIN(breakout_time * 0.1)]."),
 		)
 
@@ -832,14 +832,14 @@
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
-			visible_message(span_warning("[user] пыта[PLUR_ET_UT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 	else
 		visible_message(span_warning("[user] не мо[PLUR_JET_GUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 		return FALSE
 	if(!toEat.instant_application)
 		if(!do_after(user, 3 SECONDS, src, NONE))
 			return FALSE
-	visible_message(span_warning("[user] заставля[PLUR_ET_UT(user)] [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_warning("[user] заставля[PLUR_ET_YUT(user)] [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 	return TRUE
 
 

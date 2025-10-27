@@ -403,7 +403,7 @@
 				inserted_id.forceMove_turf()
 				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
 				usr.visible_message(
-					span_notice("[usr] извлека[PLUR_ET_UT(usr)] [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
+					span_notice("[usr] извлека[PLUR_ET_YUT(usr)] [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
 					span_notice("Вы извлекаете [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
 				)
 			else
@@ -416,7 +416,7 @@
 				inserted_disk.forceMove_turf()
 				usr.put_in_hands(inserted_disk, ignore_anim = FALSE)
 				usr.visible_message(
-					span_notice("[usr] извлека[PLUR_ET_UT(usr)] [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
+					span_notice("[usr] извлека[PLUR_ET_YUT(usr)] [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
 					span_notice("Вы извлекаете [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
 				)
 			else

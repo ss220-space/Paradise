@@ -472,7 +472,7 @@
 
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] поднос[PLUR_IT_YAT(user)] включенные электроды к своей груди! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся совершить самоубийство!"))
+	user.visible_message(span_suicide("[user] поднос[PLUR_IT_YAT(user)] включенные электроды к своей груди! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	return OXYLOSS

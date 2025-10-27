@@ -81,8 +81,8 @@
 				if(M.powerlevel < 0)
 					M.powerlevel = 0
 
-				visible_message(span_danger("[M.name] шокиру[PLUR_ET_UT(M)] [src]!"), \
-				span_userdanger("[M.name] шокиру[PLUR_ET_UT(M)] вас!"))
+				visible_message(span_danger("[M.name] шокиру[PLUR_ET_YUT(M)] [src]!"), \
+				span_userdanger("[M.name] шокиру[PLUR_ET_YUT(M)] вас!"))
 
 				do_sparks(5, TRUE, src)
 				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT

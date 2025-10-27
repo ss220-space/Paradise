@@ -159,7 +159,7 @@
 		return CLICK_ACTION_BLOCKING
 	defib.forceMove_turf()
 	user.put_in_hands(defib, ignore_anim = FALSE)
-	visible_message(span_notice("[user] вынима[PLUR_ET_UT(user)] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
+	visible_message(span_notice("[user] вынима[PLUR_ET_YUT(user)] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	balloon_alert(user, "дефибриллятор извлечён")
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	defib = null

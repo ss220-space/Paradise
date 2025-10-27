@@ -81,7 +81,7 @@
 	if(!(resistance_flags & ON_FIRE))
 		return ATTACK_CHAIN_PROCEED
 	user.visible_message(
-		span_warning("[user] пролива[PLUR_ET_UT(user)] содержимое [declent_ru(GENITIVE)] на себя!"),
+		span_warning("[user] пролива[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)] на себя!"),
 		span_danger("Вы проливаете содержимое [declent_ru(GENITIVE)] на себя!"),
 		span_italics("Вы слышите \"Ух!\" и последующее шипение."),
 	)
@@ -142,7 +142,7 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		clumsilyDrink(user)
 	else
-		user.visible_message(span_notice("[user] накрыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"),
+		user.visible_message(span_notice("[user] накрыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"),
 								span_notice("Вы накрываете [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"))
 		extinguish()
 

@@ -43,10 +43,10 @@
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")
-	user.visible_message(span_suicide("[user] поднима[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)] в воздух! Похоже, [GEND_HE_SHE(user)] собира[PLUR_ET_UT(user)]ся покончить с собой!"))
+	user.visible_message(span_suicide("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] в воздух! Похоже, [GEND_HE_SHE(user)] собира[PLUR_ET_YUT(user)]ся покончить с собой!"))
 	new/obj/effect/temp_visual/hierophant/telegraph(get_turf(user))
 	playsound(user,'sound/machines/airlock_open.ogg', 75, TRUE)
-	user.visible_message(span_hierophant_warning("[user] растворя[PLUR_ET_UT(user)]ся в воздухе, оставляя свои вещи!"))
+	user.visible_message(span_hierophant_warning("[user] растворя[PLUR_ET_YUT(user)]ся в воздухе, оставляя свои вещи!"))
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.drop_item_ground(I)
@@ -160,7 +160,7 @@
 				beacon = new/obj/effect/hierophant(T)
 				beacon.add_fingerprint(user)
 				user.update_action_buttons_icon()
-				user.visible_message(span_hierophant_warning("[user] размеща[PLUR_ET_UT(user)] странный механизм у своих ног!"), "[span_hierophant("Вы отсоединяете маяк Иерофанта, позволяя телепортироваться к нему в любой момент!")]\n[span_notice("Можете ударить посохом, чтобы забрать его.")]")
+				user.visible_message(span_hierophant_warning("[user] размеща[PLUR_ET_YUT(user)] странный механизм у своих ног!"), "[span_hierophant("Вы отсоединяете маяк Иерофанта, позволяя телепортироваться к нему в любой момент!")]\n[span_notice("Можете ударить посохом, чтобы забрать его.")]")
 			else
 				timer = world.time
 				INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -182,7 +182,7 @@
 		return
 	teleporting = TRUE //start channel
 	user.update_action_buttons_icon()
-	user.visible_message(span_hierophant_warning("[user] начина[PLUR_ET_UT(user)] слабо светиться..."))
+	user.visible_message(span_hierophant_warning("[user] начина[PLUR_ET_YUT(user)] слабо светиться..."))
 	timer = world.time + 50
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 	beacon.teleporting = TRUE

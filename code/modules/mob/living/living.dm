@@ -124,7 +124,7 @@
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_UT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[PLUR_YOT_UT(src)]ся невредим[GEND_A_O_Y(src)] после падения."),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[PLUR_YOT_YUT(src)]ся невредим[GEND_A_O_Y(src)] после падения."),
 				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
 			AdjustKnockdown(levels * (4 SECONDS))
@@ -146,13 +146,13 @@
 		skip_weaken = TRUE
 		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_UT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_UT(src)] на ноги!"),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_YUT(src)] на ноги!"),
 				span_notice("Вы жёстко приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакиваете на ноги!"),
 			)
 			return .
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_UT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_UT(src)] на ноги!"),
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_YUT(src)] на ноги!"),
 			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)]] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
@@ -207,7 +207,7 @@
 		bumped_mob.Weaken(1 SECONDS)
 		bumped_mob.take_organ_damage(rand(5, 10))
 		visible_message(
-			span_danger("[name] вреза[PLUR_ET_UT(src)]ся в [bumped_mob.declent_ru(ACCUSATIVE)], сбивая друг друга с ног!"),
+			span_danger("[name] вреза[PLUR_ET_YUT(src)]ся в [bumped_mob.declent_ru(ACCUSATIVE)], сбивая друг друга с ног!"),
 			span_userdanger("Вы жестко врезаетесь в [bumped_mob.declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
@@ -314,7 +314,7 @@
 		Weaken(1 SECONDS)
 		take_organ_damage(rand(5, 10))
 		visible_message(
-			span_danger("[name] вреза[PLUR_ET_UT(src)]ся в [object.declent_ru(ACCUSATIVE)]!"),
+			span_danger("[name] вреза[PLUR_ET_YUT(src)]ся в [object.declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Вы жестко врезаетесь в [object.declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
@@ -605,12 +605,12 @@
 
 	if(isgun(hand_item) && target != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(target))
-			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_UT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
+			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
 
 		target.visible_message(
-			span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на вас!"),
+			span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
+			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на вас!"),
 		)
 		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
 		SEND_SOUND(src, sound('sound/weapons/targeton.ogg'))
@@ -619,12 +619,12 @@
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
 		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_UT(src)] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у н[GEND_HIS_HER(src)] в руках!"))
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у н[GEND_HIS_HER(src)] в руках!"))
 		trick.shoot_gun(src)
 		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 		return TRUE
 
-	visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_UT(src)] на [pointed_object].")
+	visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_YUT(src)] на [pointed_object].")
 	add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 	return TRUE
 
@@ -953,7 +953,7 @@
 		return
 	Knockdown(3 SECONDS)
 	puller.stop_pulling()
-	visible_message(span_danger("Ноги [name] путаются и [GEND_HE_SHE(src)] с грохотом пада[PLUR_ET_UT(src)] на пол!"))
+	visible_message(span_danger("Ноги [name] путаются и [GEND_HE_SHE(src)] с грохотом пада[PLUR_ET_YUT(src)] на пол!"))
 
 
 /mob/living/proc/makeTrail(turf/T)
@@ -1173,7 +1173,7 @@
 		span_danger("Вам не удаётся вырваться из захвата [pulledby.name]!"),
 		ignored_mobs = pulledby,
 	)
-	to_chat(pulledby, span_danger("[name] пыта[PLUR_ET_UT(src)]ся вырваться из Вашего захвата!"))
+	to_chat(pulledby, span_danger("[name] пыта[PLUR_ET_YUT(src)]ся вырваться из Вашего захвата!"))
 	COOLDOWN_START(src, grab_resist_delay, 2 SECONDS)
 	if(moving_resist && client) //we resisted by trying to move
 		client.move_delay = world.time + 2 SECONDS
@@ -1809,7 +1809,7 @@
 		take_organ_damage(damage)
 	C.take_organ_damage(damage)
 	C.Weaken(3 SECONDS)
-	C.visible_message(span_danger("[C.name] вреза[PLUR_ET_UT(src)]ся в [name], сбивая друг друга с ног!"),
+	C.visible_message(span_danger("[C.name] вреза[PLUR_ET_YUT(src)]ся в [name], сбивая друг друга с ног!"),
 					span_userdanger("Вы жестко врезаетесь в [name]!"))
 
 
@@ -2385,9 +2385,9 @@
 /mob/living/proc/knockOver(mob/living/carbon/target)
 	if(target.key) //save us from monkey hordes
 		target.visible_message(span_warning("[pick( \
-			"[target] спотыка[PLUR_ET_UT(target)]ся об [declent_ru(GENITIVE)]!", \
-			"[target] опрокидыва[PLUR_ET_UT(target)]ся на [declent_ru(GENITIVE)]!", \
-			"[target] отлета[PLUR_ET_UT(target)] с пути [declent_ru(GENITIVE)]!", \
+			"[target] спотыка[PLUR_ET_YUT(target)]ся об [declent_ru(GENITIVE)]!", \
+			"[target] опрокидыва[PLUR_ET_YUT(target)]ся на [declent_ru(GENITIVE)]!", \
+			"[target] отлета[PLUR_ET_YUT(target)] с пути [declent_ru(GENITIVE)]!", \
 			"[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
 			"[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
 			"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]")

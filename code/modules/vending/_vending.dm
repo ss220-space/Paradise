@@ -1330,13 +1330,13 @@
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 		tilt(target, from_combat = TRUE)
 		target.visible_message(
-			span_danger("[attacker] толка[PLUR_ET_UT(attacker)] [target] в [declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[attacker] впечатыва[PLUR_ET_UT(attacker)] вас в [declent_ru(ACCUSATIVE)]!"),
+			span_danger("[attacker] толка[PLUR_ET_YUT(attacker)] [target] в [declent_ru(ACCUSATIVE)]!"),
+			span_userdanger("[attacker] впечатыва[PLUR_ET_YUT(attacker)] вас в [declent_ru(ACCUSATIVE)]!"),
 			span_danger("Вы слышите громкий хруст.")
 		)
 	else
 		attacker.visible_message(
-			span_notice("[attacker] слегка прижима[PLUR_ET_UT(attacker)] [target] к [declent_ru(DATIVE)]."),
+			span_notice("[attacker] слегка прижима[PLUR_ET_YUT(attacker)] [target] к [declent_ru(DATIVE)]."),
 			span_userdanger("Вы слегка прижимаете [target] к [declent_ru(DATIVE)], вы же не хотите причинить [GEND_HIM_HER(target)] боль!")
 			)
 	return TRUE
@@ -1482,7 +1482,7 @@
 		if(!do_after(user, 7 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE))
 			return
 		user.visible_message(
-			span_notice("[user] поднима[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы слышите громкий лязг.")
 		)

@@ -141,7 +141,7 @@
 	process_chamber()
 	user.balloon_alert(user, "выстрел в воздух")
 	user.visible_message(
-		span_cultlarge("[user] поднима[PLUR_ET_UT(user)] дуло вверх и стреля[PLUR_ET_UT(user)], используя [declent_ru(ACCUSATIVE)]!"),
+		span_cultlarge("[user] поднима[PLUR_ET_YUT(user)] дуло вверх и стреля[PLUR_ET_YUT(user)], используя [declent_ru(ACCUSATIVE)]!"),
 		ignored_mobs = user
 
 	)

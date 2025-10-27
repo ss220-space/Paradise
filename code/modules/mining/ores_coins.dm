@@ -787,7 +787,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 				"salad" = "ERROR"
 			)
 			user.visible_message(
-				span_notice("[user] подбрасыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
+				span_notice("[user] подбрасыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
 				span_notice("Вы подбросили [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
 				span_notice("Слышен звон монеты.")
 			)

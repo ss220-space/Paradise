@@ -87,7 +87,7 @@
 	//ventcrawl_target.flick_overlay_static(image('icons/effects/vent_indicator.dmi', "arrow", ABOVE_MOB_LAYER, dir = get_dir(src.loc, ventcrawl_target.loc)), 2 SECONDS)
 	ventcrawl_target.add_overlay(crawl_overlay)
 	visible_message(
-		span_notice("[name] начина[PLUR_ET_UT(src)] залезать в вентиляцию..."),
+		span_notice("[name] начина[PLUR_ET_YUT(src)] залезать в вентиляцию..."),
 		span_notice("Вы начинаете залезать в вентиляцию..."),
 	)
 	if(!do_after(src, 4.5 SECONDS, target = ventcrawl_target))

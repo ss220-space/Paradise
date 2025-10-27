@@ -199,7 +199,7 @@ Ranges with core charge 50-100:
 	if(!can_teleport()) // Without massages.
 		return ..()
 
-	user.visible_message(span_suicide("[user] перенастраива[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)] случайным образом и пыта[PLUR_ET_UT(user)]ся телепортироваться! Выглядит, будто он[GEND_A_O_I(src)] хо[PLUR_CHET_TYAT(src)] убить себя!"))
+	user.visible_message(span_suicide("[user] перенастраива[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] случайным образом и пыта[PLUR_ET_YUT(user)]ся телепортироваться! Выглядит, будто он[GEND_A_O_I(src)] хо[PLUR_CHET_TYAT(src)] убить себя!"))
 	if(!do_after(user, 1 SECONDS, user))
 		return ..()
 

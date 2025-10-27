@@ -81,8 +81,8 @@
 			if(L) //living mob
 				var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 				if(target != user)
-					target.visible_message(span_danger("[user] пыта[PLUR_ET_UT(user)]ся взять образец крови у [target]!"), \
-											span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся взять у вас образец крови!"))
+					target.visible_message(span_danger("[user] пыта[PLUR_ET_YUT(user)]ся взять образец крови у [target]!"), \
+											span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся взять у вас образец крови!"))
 					busy = TRUE
 					if(!do_after(user, 3 SECONDS, target, NONE))
 						busy = FALSE
@@ -129,16 +129,16 @@
 				if(!L.can_inject(user, TRUE))
 					return
 				if(L != user)
-					L.visible_message(span_danger("[user] пыта[PLUR_ET_UT(user)]ся сделать [L] укол [declent_ru(INSTRUMENTAL)]!"), \
-										span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся сделать вам укол [declent_ru(INSTRUMENTAL)]!"))
+					L.visible_message(span_danger("[user] пыта[PLUR_ET_YUT(user)]ся сделать [L] укол [declent_ru(INSTRUMENTAL)]!"), \
+										span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся сделать вам укол [declent_ru(INSTRUMENTAL)]!"))
 					if(!do_after(user, 3 SECONDS, L, NONE))
 						return
 					if(!reagents.total_volume)
 						return
 					if(L.reagents.total_volume >= L.reagents.maximum_volume)
 						return
-					L.visible_message(span_danger("[user] дела[PLUR_ET_UT(user)] [L] укол [declent_ru(INSTRUMENTAL)]!"), \
-										span_userdanger("[user] дела[PLUR_ET_UT(user)] вам укол [declent_ru(INSTRUMENTAL)]!"))
+					L.visible_message(span_danger("[user] дела[PLUR_ET_YUT(user)] [L] укол [declent_ru(INSTRUMENTAL)]!"), \
+										span_userdanger("[user] дела[PLUR_ET_YUT(user)] вам укол [declent_ru(INSTRUMENTAL)]!"))
 
 			add_attack_logs(user, target, "Injected with [name] containing [reagents.log_list()], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 

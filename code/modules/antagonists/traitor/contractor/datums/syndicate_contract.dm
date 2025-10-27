@@ -273,7 +273,7 @@
 		return "Чтобы начать процесс похищения, вы и цель должны находиться в нужной локации."
 
 	contractor.visible_message(
-		span_notice("[contractor] начина[PLUR_ET_UT(contractor)] вводить загадочную серию символов в [uplink.declent_ru(ACCUSATIVE)]..."),\
+		span_notice("[contractor] начина[PLUR_ET_YUT(contractor)] вводить загадочную серию символов в [uplink.declent_ru(ACCUSATIVE)]..."),\
 		span_notice("Вы начинаете подавать сигнал для эвакуации своим кураторам через [uplink.declent_ru(ACCUSATIVE)]...")
 	)
 	if(!do_after(contractor, EXTRACTION_PHASE_PREPARE, contractor))
@@ -283,8 +283,8 @@
 	var/obj/effect/contractor_flare/flare = new(get_turf(contractor))
 	extraction_flare = flare
 	extraction_deadline = world.time + extraction_cooldown
-	contractor.visible_message(span_notice("[contractor] ввод[PLUR_IT_YAT(contractor)] таинственный код в [uplink.declent_ru(ACCUSATIVE)] и доста[PLUR_YOT_UT(contractor)] \
-						чёрно-золотую сигнальную ракету, после чего зажига[PLUR_ET_UT(contractor)] её."),\
+	contractor.visible_message(span_notice("[contractor] ввод[PLUR_IT_YAT(contractor)] таинственный код в [uplink.declent_ru(ACCUSATIVE)] и доста[PLUR_YOT_YUT(contractor)] \
+						чёрно-золотую сигнальную ракету, после чего зажига[PLUR_ET_YUT(contractor)] её."),\
 						span_notice("Вы завершаете ввод сигнала в [uplink.declent_ru(ACCUSATIVE)] и зажигаете сигнальную ракету, начиная процесс эвакуации."))
 	addtimer(CALLBACK(src, PROC_REF(open_extraction_portal), uplink, contractor, flare), EXTRACTION_PHASE_PORTAL)
 	extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
@@ -657,7 +657,7 @@
 			victim.take_overall_damage(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
-	victim.visible_message(span_notice("[capitalize(victim.declent_ru(NOMINATIVE))] исчеза[PLUR_ET_UT(victim)]..."))
+	victim.visible_message(span_notice("[capitalize(victim.declent_ru(NOMINATIVE))] исчеза[PLUR_ET_YUT(victim)]..."))
 	victim.Paralyse(3 SECONDS)
 	victim.EyeBlurry(5 SECONDS)
 	victim.AdjustConfused(5 SECONDS)

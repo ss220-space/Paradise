@@ -17,7 +17,7 @@
 	if(!istext(single_name) || !istext(double_name) || !istext(multiple_name))
 		stack_trace("Invalid word arguments in declension_ru proc.")
 		return double_name
-	if(!isnum(num) || round(num) != num)
+	if(round(num) != num)
 		return double_name // fractional numbers
 	if(((num % 10) == 1) && ((num % 100) != 11)) // 1, not 11
 		return single_name
@@ -73,7 +73,7 @@
 #define GEND_YM_OI_YM_YMI(target) genderize_ru(target.gender, "ым", "ой", "ым", "ыми")
 #define GEND_IM_EI_IM_IMI(target) genderize_ru(target.gender, "им", "ей", "им", "ими")
 #define GEND_YI_AYA_OE_YE(target) genderize_ru(target.gender, "ый", "ая", "ое", "ые")
-#define GEND_II_AYA_II_IE(target) genderize_ru(target.gender,"ий","ая","ий","ие")
+#define GEND_II_AYA_II_IE(target) genderize_ru(target.gender, "ий", "ая", "ий", "ие")
 // Макросы для случаев, когда обычные не применимы.
 #define GEND_SHEL(target) genderize_ru(target.gender, "шёл", "шла", "шло", "шли")
 
@@ -91,10 +91,10 @@
 /proc/pluralize_ru(gender, single_word, plural_word)
 	return gender == PLURAL ? plural_word : single_word
 
-#define PLUR_ET_UT(target) pluralize_ru(target.gender, "ет", "ют")
-#define PLUR_YOT_UT(target) pluralize_ru(target.gender, "ёт", "ют")
-#define PLUR_ET_YT(target) pluralize_ru(target.gender, "ет", "ут")
-#define PLUR_YOT_YT(target) pluralize_ru(target.gender, "ёт", "ут")
+#define PLUR_ET_YUT(target) pluralize_ru(target.gender, "ет", "ют")
+#define PLUR_YOT_YUT(target) pluralize_ru(target.gender, "ёт", "ют")
+#define PLUR_ET_UT(target) pluralize_ru(target.gender, "ет", "ут")
+#define PLUR_YOT_UT(target) pluralize_ru(target.gender, "ёт", "ут")
 #define PLUR_IT_YAT(target) pluralize_ru(target.gender, "ит", "ят")
 #define PLUR_IT_AT(target) pluralize_ru(target.gender, "ит", "ат")
 #define PLUR_I(target) pluralize_ru(target.gender, "", "и")

@@ -264,7 +264,7 @@
 	var/mob/living/carbon/human/H = user
 
 	if(emagged)
-		to_chat(src, span_warning("[user] пыта[PLUR_ET_UT(user)]ся загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
+		to_chat(src, span_warning("[user] пыта[PLUR_ET_YUT(user)]ся загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
 		to_chat(user, span_warning("Вы пытаетесь подчинить [declent_ru(GENITIVE)], но секвенсор не оказывает эффекта."))
 		return
 

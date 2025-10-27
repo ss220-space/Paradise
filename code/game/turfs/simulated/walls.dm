@@ -198,7 +198,7 @@
 	if(our_rpd.mode == RPD_ATMOS_MODE)
 		if(!our_rpd.ranged)
 			playsound(src, 'sound/weapons/circsawhit.ogg', 50, TRUE)
-			user.visible_message(span_notice("[user] начина[PLUR_ET_UT(user)] сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
+			user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
 				span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
 				span_italics("Вы слышите звук сверления."))
 			if(!do_after(user, our_rpd.walldelay, src)) //Drilling into walls takes time
@@ -477,7 +477,7 @@
 		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL))
 			to_chat(user, span_notice("Вы удаляете внешнюю обшивку."))
 			dismantle_wall()
-			visible_message(span_warning("[user] разреза[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]!"), span_warning("Слышен звук разрезаемого металла."))
+			visible_message(span_warning("[user] разреза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]!"), span_warning("Слышен звук разрезаемого металла."))
 			return TRUE
 
 	return FALSE
@@ -490,9 +490,9 @@
 
 		var/delay = isdiamond ? 48 SECONDS : 24 SECONDS
 		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL)) // Diamond pickaxe has 0.25 toolspeed, so 12s./6s.
-			to_chat(user, span_notice("Ваш [I.declent_ru(NOMINATIVE)] пробива[PLUR_ET_UT(user)] последний слой укреплённой обшивки."))
+			to_chat(user, span_notice("Ваш [I.declent_ru(NOMINATIVE)] пробива[PLUR_ET_YUT(user)] последний слой укреплённой обшивки."))
 			dismantle_wall()
-			visible_message(span_warning("[user] просверлива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]!"), span_italics("Слышен скрежет металла."))
+			visible_message(span_warning("[user] просверлива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]!"), span_italics("Слышен скрежет металла."))
 			return TRUE
 
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
@@ -502,7 +502,7 @@
 		if(do_after(user, delay * jh.wall_toolspeed, src, category = DA_CAT_TOOL)) // Jackhammer has 0.1 toolspeed, so 6s./3s.
 			to_chat(user, span_notice("Ваш [I.declent_ru(NOMINATIVE)] дезинтегрирует укреплённую обшивку."))
 			dismantle_wall()
-			visible_message(span_warning("[user] дезинтегриру[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]!"), span_warning("Слышен скрежет металла."))
+			visible_message(span_warning("[user] дезинтегриру[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]!"), span_warning("Слышен скрежет металла."))
 			return TRUE
 
 	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
@@ -529,10 +529,10 @@
 		var/obj/item/pipe/P = I
 		if(P.pipe_type != -1) // ANY PIPE
 			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, TRUE)
-			user.visible_message(span_notice("[user] начина[PLUR_ET_UT(user)] сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_italics("Слышен звук дрели."))
+			user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_italics("Слышен звук дрели."))
 
 			if(do_after(user, 8 SECONDS * P.toolspeed, src, category = DA_CAT_TOOL))
-				user.visible_message(span_notice("[user] просверлива[PLUR_ET_UT(user)] отверстие в [declent_ru(PREPOSITIONAL)] и проталкива[PLUR_ET_UT(user)] [P.declent_ru(ACCUSATIVE)] в пустоту."), span_notice("Вы заканчиваете сверление [declent_ru(PREPOSITIONAL)] и проталкиваете [P.declent_ru(ACCUSATIVE)] в пустоту."), span_italics("Слышен звук трещотки."))
+				user.visible_message(span_notice("[user] просверлива[PLUR_ET_YUT(user)] отверстие в [declent_ru(PREPOSITIONAL)] и проталкива[PLUR_ET_YUT(user)] [P.declent_ru(ACCUSATIVE)] в пустоту."), span_notice("Вы заканчиваете сверление [declent_ru(PREPOSITIONAL)] и проталкиваете [P.declent_ru(ACCUSATIVE)] в пустоту."), span_italics("Слышен звук трещотки."))
 
 				user.drop_from_active_hand()
 				if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm

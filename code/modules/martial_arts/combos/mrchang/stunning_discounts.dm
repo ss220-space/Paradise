@@ -11,7 +11,7 @@
 	if(target.body_position == LYING_DOWN)
 		return MARTIAL_COMBO_FAIL
 
-	user.visible_message(span_warning("[user] броса[PLUR_ET_UT(user)] [target] через плечо!"))
+	user.visible_message(span_warning("[user] броса[PLUR_ET_YUT(user)] [target] через плечо!"))
 	target.forceMove(user.loc)
 	target.Knockdown(4 SECONDS)
 	user.SpinAnimation(10,1)

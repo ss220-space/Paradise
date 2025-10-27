@@ -87,7 +87,7 @@
 				H.set_resting(FALSE, instant = TRUE)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			user.visible_message( \
-				span_notice("[user] тряс[PLUR_ET_YT(user)] [H] пытаясь поднять [GEND_HIS_HER(H)]!"),\
+				span_notice("[user] тряс[PLUR_ET_UT(user)] [H] пытаясь поднять [GEND_HIS_HER(H)]!"),\
 				span_notice("Вы трясёте [H] пытаясь поднять [GEND_HIS_HER(H)]!"),\
 				)
 			user.changeNext_move(CLICK_CD_MELEE)

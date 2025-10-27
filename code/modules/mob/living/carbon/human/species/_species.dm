@@ -506,7 +506,7 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_UT(target)] попытку захвата [user.declent_ru(GENITIVE)]!")
+	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] попытку захвата [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
 
@@ -548,7 +548,7 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 
-	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_UT(target)] атаку [user.declent_ru(GENITIVE)]!")
+	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] атаку [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
@@ -590,7 +590,7 @@
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
-			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)], но промахива[PLUR_ET_UT(user)]ся!"))
+			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)], но промахива[PLUR_ET_YUT(user)]ся!"))
 			return FALSE
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
@@ -628,8 +628,8 @@
 		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= (user.dna.species.punchstunthreshold + user.physiology.punch_stun_threshold))
 			target.visible_message(
-				span_danger("[user.declent_ru(NOMINATIVE)] ослабля[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)]!"), \
-				span_userdanger("[user.declent_ru(NOMINATIVE)] ослабля[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)]!")
+				span_danger("[user.declent_ru(NOMINATIVE)] ослабля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"), \
+				span_userdanger("[user.declent_ru(NOMINATIVE)] ослабля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!")
 			)
 			target.apply_effect(4 SECONDS, KNOCKDOWN, armor_block)
 			target.forcesay(GLOB.hit_appends)
@@ -640,7 +640,7 @@
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
 		return FALSE
-	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_UT(target)] попытку обезоруживания [user.declent_ru(GENITIVE)]!")
+	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] попытку обезоруживания [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
@@ -660,7 +660,7 @@
 		if(randn <= 5 + extra_knock_chance)
 			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)]!"))
+			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"))
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
 			if(!iscarbon(user))
 				target.LAssailant = null
@@ -721,7 +721,7 @@
 	if(!moved) //they got pushed into a dense object
 		if(prob(75)) // Chance to knockdown on wall hit
 			add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-			target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толка[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)]"), \
+			target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]"), \
 									span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
 									"Раздаётся глухой удар.")
 			if(!HAS_TRAIT(target, TRAIT_FLOORED))
@@ -757,7 +757,7 @@
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
-		H.visible_message(span_warning("[M.declent_ru(NOMINATIVE)] пыта[PLUR_ET_UT(M)]ся коснуться [H.declent_ru(ACCUSATIVE)]!"))
+		H.visible_message(span_warning("[M.declent_ru(NOMINATIVE)] пыта[PLUR_ET_YUT(M)]ся коснуться [H.declent_ru(ACCUSATIVE)]!"))
 		return FALSE
 
 	switch(M.a_intent)
@@ -1078,7 +1078,7 @@
  * Proc that provide delayed item equip. Returns `TRUE` on success.
  */
 /datum/species/proc/equip_delay_self_check(obj/item/I, slot, mob/living/carbon/human/user)
-	user.visible_message(span_notice("[user] начина[PLUR_ET_UT(user)] надевать [I.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете надевать [I.declent_ru(ACCUSATIVE)]..."))
+	user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] надевать [I.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете надевать [I.declent_ru(ACCUSATIVE)]..."))
 	return do_after(user, I.equip_delay_self, user)
 
 

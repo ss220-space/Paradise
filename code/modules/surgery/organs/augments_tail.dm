@@ -202,7 +202,7 @@
 		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
 			user.visible_message(
-				span_danger("[user.declent_ru(NOMINATIVE)] теря[PLUR_ET_UT(user)] равновесие!"),
+				span_danger("[user.declent_ru(NOMINATIVE)] теря[PLUR_ET_YUT(user)] равновесие!"),
 				span_danger("Вы теряете равновесие!")
 			)
 			return
