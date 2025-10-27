@@ -752,7 +752,7 @@
 	if(human_target == user)
 		balloon_alert(user, "применение [declent_ru(GENITIVE)]...")
 		user.visible_message(
-			span_notice("[human_target] начина[PLUR_ET_UT(human_target)] применять на себе [declension_ru(ACCUSATIVE)]."),
+			span_notice("[human_target] начина[PLUR_ET_UT(human_target)] применять на себе [declent_ru(ACCUSATIVE)]."),
 			ignored_mobs = user
 		)
 		if(!do_after(human_target, self_duration, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
@@ -843,6 +843,28 @@
 	if(zone_selected == BODY_ZONE_HEAD)
 		return TRUE
 	return FALSE
+
+/mob/living/carbon/human/proc/exists_tourniquet()
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(bodypart.tourniquet)
+			return TRUE
+	return FALSE
+
+/mob/living/carbon/human/proc/cut_all_tourniquets(mob/living/user)
+	balloon_alert(src, "жгуты срезаны!")
+	balloon_alert(user, "жгуты срезаны!")
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(!bodypart.tourniquet)
+			continue
+		var/obj/item/tourniquet/tourniquet = bodypart.tourniquet
+		var/drop_loc = bodypart.drop_location()
+		tourniquet.forceMove(drop_loc)
+		bodypart.tourniquet = null
+		tourniquet.applyed_bodypart = null
+		if(tourniquet.applyed_addition_bodypart)
+			tourniquet.applyed_addition_bodypart.tourniquet = null
+			tourniquet.applyed_addition_bodypart = null
+		tourniquet.stop_apply_timers()
 
 /obj/item/tourniquet/makeshift
 	name = "makeshift tourniquet"

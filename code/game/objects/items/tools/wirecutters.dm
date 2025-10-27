@@ -47,6 +47,12 @@
 		target.temporarily_remove_item_from_inventory(cuffs, force = TRUE)
 		qdel(cuffs)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	var/mob/living/carbon/human/human_target = target
+	if(istype(human_target) && human_target.exists_tourniquet())
+		human_target.cut_all_tourniquets(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
