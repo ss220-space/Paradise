@@ -58,9 +58,6 @@
 
 	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
-/obj/item/clothing/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
@@ -200,6 +197,7 @@
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
+// MARK: Ears
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
@@ -274,7 +272,7 @@
 	return original_ear.attack_hand(user, pickupfireoverride)
 
 
-//Glasses
+//MARK: Glasses
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
@@ -347,7 +345,7 @@
 	over_mask = !over_mask
 	to_chat(user, span_notice("[action_fluff] to be worn [over_mask ? "over" : "under"] a mask."))
 
-//Gloves
+//MARK: Gloves
 /obj/item/clothing/gloves
 	name = "gloves"
 	gender = PLURAL //Carn: for grammarically correct text-parsing
@@ -475,7 +473,7 @@
 		if(blood_overlay)
 			. += blood_overlay
 
-
+// MARK: Under
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
@@ -553,7 +551,7 @@
 		. |= accessory.GetAccess()
 
 
-//Head
+// MARK: Head
 /obj/item/clothing/head
 	name = "head"
 	gender = MALE
@@ -631,7 +629,7 @@
 		. += blood_overlay
 
 
-//Mask
+// MARK: Mask
 /obj/item/clothing/mask
 	name = "mask"
 	gender = FEMALE
@@ -745,7 +743,7 @@
 		. += blood_overlay
 
 
-//Shoes
+// MARK: Shoes
 /obj/item/clothing/shoes
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
@@ -891,7 +889,7 @@
 		return
 
 
-//Suit
+// MARK: Suit
 /obj/item/clothing/suit
 	name = "suit"
 	gender = MALE
@@ -1024,7 +1022,7 @@
 		. += blood_overlay
 
 
-//Spacesuit
+// MARK: Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
 /obj/item/clothing/head/helmet/space
@@ -1144,7 +1142,7 @@
 	return ..()
 
 
-// Under clothing
+// MARK: Under clothing
 /obj/item/clothing/under
 	name = "under"
 	gender = MALE
@@ -1246,6 +1244,7 @@
 		. += blood_overlay
 
 
+// MARK: Accessory
 /*
  * # can_attach_accessory
  *
@@ -1396,7 +1395,7 @@
 	else
 		..()
 
-// Neck clothing
+// MARK: Neck
 /obj/item/clothing/neck
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
