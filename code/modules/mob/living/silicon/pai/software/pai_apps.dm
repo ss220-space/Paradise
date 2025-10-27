@@ -106,7 +106,7 @@
 			// Check the carrier
 			var/answer = tgui_alert(M, "[pai_holder] запрашивает у вас образец ДНК. Предоставить образец для подтверждения вашей личности?", "[pai_holder] запрашивает ДНК", list("Да", "Нет"))
 			if(answer == "Да")
-				M.visible_message(span_notice("[M] помеща[PLUR_ET_UT(M)] палец на сканер ДНК."), span_notice("Вы помещаете палец на сканер ДНК."))
+				M.visible_message(span_notice("[M] помеща[PLUR_ET_YUT(M)] палец на сканер ДНК."), span_notice("Вы помещаете палец на сканер ДНК."))
 				var/datum/dna/dna = M.dna
 				to_chat(usr, span_notice("Сканируемый: [M]"))
 				to_chat(usr, span_notice("UE код: [dna.unique_enzymes]"))

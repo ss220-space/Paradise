@@ -578,7 +578,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		final_block_chance = 0
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
-		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_UT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
 		return signal_result
 	return FALSE
 
@@ -923,12 +923,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] вонза[PLUR_ET_UT(user)] [src.declent_ru(ACCUSATIVE)] в глаз [target]!"),
+			span_danger("[user] вонза[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)] в глаз [target]!"),
 			span_userdanger("[user] вонзает [src.declent_ru(ACCUSATIVE)] вам в глаз!"),
 		)
 	else
 		user.visible_message(
-			span_danger("[user] вонза[PLUR_ET_UT(user)] [src.declent_ru(ACCUSATIVE)] себе в глаза!"),
+			span_danger("[user] вонза[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)] себе в глаза!"),
 			span_userdanger("Вы вонзаете [src.declent_ru(ACCUSATIVE)] себе в глаза!"),
 		)
 
@@ -1044,7 +1044,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, 5)
 	acid_level = 0
 	user.visible_message(
-		span_notice("[user] мо[PLUR_ET_UT(user)] [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),
+		span_notice("[user] мо[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),
 		span_notice("Вы моете [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)].")
 	)
 	return TRUE

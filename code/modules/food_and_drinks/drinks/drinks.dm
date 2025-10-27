@@ -95,7 +95,7 @@
 		balloon_alert(chugger, "ваш рот чем-то закрыт!")
 		return
 	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
-		chugger.visible_message(span_notice("[chugger] поднос[PLUR_IT_YAT(chugger)] [declent_ru(ACCUSATIVE)] к своему рту и начина[PLUR_ET_UT(chugger)] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
+		chugger.visible_message(span_notice("[chugger] поднос[PLUR_IT_YAT(chugger)] [declent_ru(ACCUSATIVE)] к своему рту и начина[PLUR_ET_YUT(chugger)] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
 			span_notice("Вы подносите [declent_ru(ACCUSATIVE)] к своему рту и начинаете [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
 			span_notice("Вы слышите звуки, походящие на питьё чего-то."))
 		chugging = TRUE
@@ -103,7 +103,7 @@
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
-				chugger.visible_message(span_notice("[chugger] [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпива[PLUR_ET_UT(chugger)] содержимое [declent_ru(GENITIVE)]."),
+				chugger.visible_message(span_notice("[chugger] [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпива[PLUR_ET_YUT(chugger)] содержимое [declent_ru(GENITIVE)]."),
 					span_notice("Вы [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпиваете содержимое [declent_ru(GENITIVE)]."),
 					span_notice("Вы слышите громкие глотки и последующий громкий выдох."))
 				break

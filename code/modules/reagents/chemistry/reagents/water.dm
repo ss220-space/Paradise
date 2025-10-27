@@ -353,7 +353,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
-			M.visible_message(span_biggerdanger("[M] отшатыва[PLUR_ET_UT(M)]ся, [GEND_HIS_HER(M)] кожа окрашивается в яркий цвет, [GEND_HE_SHE(M)] вновь обрета[PLUR_ET_UT(M)] чувство контроля над собой!"))
+			M.visible_message(span_biggerdanger("[M] отшатыва[PLUR_ET_YUT(M)]ся, [GEND_HIS_HER(M)] кожа окрашивается в яркий цвет, [GEND_HE_SHE(M)] вновь обрета[PLUR_ET_YUT(M)] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -419,7 +419,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 						M.emote("scream")
 					vamp.base_nullification()
 				if(13 to INFINITY)
-					M.visible_message(span_danger("[M] внезапно вспыхива[PLUR_ET_UT(M)]!"),
+					M.visible_message(span_danger("[M] внезапно вспыхива[PLUR_ET_YUT(M)]!"),
 									span_danger("Внезапно святая вода внутри вас начинает гореть!"))
 					M.fire_stacks = min(5, M.fire_stacks + 3)
 					M.IgniteMob()

@@ -26,7 +26,7 @@
 		if(use(1))
 			blink_mob(bs_user)
 			bs_user.adjustStaminaLoss(33) // same as taser ; balance ideas - increase staminoloss / time to crush, move staminaLoss before blink or even do_after, replace if(do_after...) and if(use(1))
-			bs_user.visible_message(span_notice("[bs_user] раздавлива[PLUR_ET_UT(bs_user)] [singular_name]!"))
+			bs_user.visible_message(span_notice("[bs_user] раздавлива[PLUR_ET_YUT(bs_user)] [singular_name]!"))
 	else
 		to_chat(user, span_notice("Вам нужно оставаться неподвижным, чтобы раздавить [singular_name]."))
 

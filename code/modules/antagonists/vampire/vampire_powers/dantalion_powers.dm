@@ -29,7 +29,7 @@
 /obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/target = targets[1]
-	user.visible_message(span_warning("[user] куса[PLUR_ET_UT(user)] [target] за шею!"), \
+	user.visible_message(span_warning("[user] куса[PLUR_ET_YUT(user)] [target] за шею!"), \
 						span_warning("Вы кусаете [target] за шею и впускаете поток силы."))
 	to_chat(target, span_warning("Вы чувствуете, как в ваш разум проникают потоки нечистой силы."))
 	if(do_after(user, 15 SECONDS, target, NONE))
@@ -65,12 +65,12 @@
 		return
 
 	if(ismindshielded(C) || isvampire(C) || isvampirethrall(C) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
-		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_UT(user)]ся захвату!"), \
+		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_YUT(user)]ся захвату!"), \
 						span_notice("Вы чувствуете знакомое ощущение в черепе, которое быстро проходит."))
 		return
 
 	if(C.mind.isholy)
-		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_UT(user)]ся захвату!"), \
+		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_YUT(user)]ся захвату!"), \
 						span_notice("Ваша вера в [SSticker.Bible_deity_name] сохранила ваш разум чистым от всякого зла."))
 		return
 

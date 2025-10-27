@@ -84,8 +84,8 @@
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
 	source.visible_message(
-		span_notice("[user] пыта[PLUR_ET_UT(user)]ся надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)]."),
-		span_notice("[user] пыта[PLUR_ET_UT(user)]ся надеть на вас [equipping.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] пыта[PLUR_ET_YUT(user)]ся надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] пыта[PLUR_ET_YUT(user)]ся надеть на вас [equipping.declent_ru(ACCUSATIVE)]."),
 	)
 	if(ishuman(source))
 		var/mob/living/carbon/human/victim_human = source
@@ -132,8 +132,8 @@
 
 	if(!in_thief_mode(user))
 		source.visible_message(
-			span_warning("[user] пыта[PLUR_ET_UT(user)]ся снять [item.declent_ru(ACCUSATIVE)] с [source.declent_ru(GENITIVE)]."),
-			span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся снять с вас [item.declent_ru(ACCUSATIVE)]!"),
+			span_warning("[user] пыта[PLUR_ET_YUT(user)]ся снять [item.declent_ru(ACCUSATIVE)] с [source.declent_ru(GENITIVE)]."),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся снять с вас [item.declent_ru(ACCUSATIVE)]!"),
 			"Слышно шуршание."
 		)
 

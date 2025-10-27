@@ -322,7 +322,7 @@
 		switch(progress)
 			if(1)
 				to_chat(user, span_notice("Вы прикладываете ладони к голове [target]..."))
-				user.visible_message(span_warning("[user] прикладыва[PLUR_ET_UT(user)] свои ладони к голове [target]"))
+				user.visible_message(span_warning("[user] прикладыва[PLUR_ET_YUT(user)] свои ладони к голове [target]"))
 			if(2)
 				to_chat(user, span_notice("Вы начинаете обрабатывать разум [target] до состояния чистого листа..."))
 				user.visible_message(span_warning("Ладони [user] вспыхивают ярко-красным светом на висках [target]!"))
@@ -561,7 +561,7 @@
 		to_chat(M, span_warning("Вы вдыхаете чёрный дым, и ваши глаза ужасно горят!"))
 		M.EyeBlind(10 SECONDS)
 		if(prob(25))
-			M.visible_message(span_warning("[M] яростно тр[PLUR_YOT_YT(M)] свои глаза!"))
+			M.visible_message(span_warning("[M] яростно тр[PLUR_YOT_UT(M)] свои глаза!"))
 			M.Stun(4 SECONDS)
 	else
 		to_chat(M, span_notice("Вы вдыхаете чёрный дым и чувствуете лёгкость!"))
@@ -596,7 +596,7 @@
 		revert_cast(user)
 		return
 
-	user.audible_message(span_warning("<b>[user] изда[PLUR_ET_UT(user)] ужасный крик!</b>"))
+	user.audible_message(span_warning("<b>[user] изда[PLUR_ET_YUT(user)] ужасный крик!</b>"))
 	playsound(user.loc, 'sound/effects/screech.ogg', 100, TRUE)
 
 	for(var/turf/turf in targets)
@@ -736,7 +736,7 @@
 			revert_cast(user)
 			return
 
-		user.visible_message(span_danger("[user] клад[PLUR_ET_YT(user)] свои руки, из под которых светится красный свет, на лицо [thrall]."), \
+		user.visible_message(span_danger("[user] клад[PLUR_ET_UT(user)] свои руки, из под которых светится красный свет, на лицо [thrall]."), \
 							span_shadowling("Вы кладете ладони на лицо [thrall] и начинаете наполнять [GEND_HIS_HER(thrall)] энергией..."))
 		to_chat(thrall, span_userdanger("[user] положил[GEND_A_O_I(user)] свои ладони на ваше лицо. Вы чувствуете, как в вас собирается энергия. Стойте спокойно..."))
 		if(!do_after(user, 8 SECONDS, thrall, NONE))
@@ -762,7 +762,7 @@
 			revert_cast(user)
 			return
 
-		thrall.visible_message(span_warning("[thrall] медленно поднима[PLUR_ET_UT(thrall)]ся, переставая быть похожим[PLUR_I(thrall)] на гуманоида."), \
+		thrall.visible_message(span_warning("[thrall] медленно поднима[PLUR_ET_YUT(thrall)]ся, переставая быть похожим[PLUR_I(thrall)] на гуманоида."), \
 								span_shadowling("<b>Вы чувствуете, как в вас вливается новая сила. Вы получили дар от своих хозяев. Теперь вы очень похожи на них. Вы обретаете силу во тьме, но медленно увядаете при свете. Кроме того, теперь вы обладаете способностью использовать ослепляющий взгляд и ходить в тени.</b>"))
 
 		thrall.set_species(/datum/species/shadow/ling/lesser)
@@ -771,7 +771,7 @@
 		thrall.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_shadow_walk(null))
 
 	else if(thrall.stat == DEAD)
-		user.visible_message(span_danger("[user] опуска[PLUR_ET_UT(user)]ся на колени над [thrall], кладя свои ладони на [GEND_HIS_HER(thrall)] грудь."), \
+		user.visible_message(span_danger("[user] опуска[PLUR_ET_YUT(user)]ся на колени над [thrall], кладя свои ладони на [GEND_HIS_HER(thrall)] грудь."), \
 							span_shadowling("Вы склоняетесь над телом своего раба и начинаете накапливать энергию..."))
 		thrall.notify_ghost_cloning("Ваши хозяева возрождают вас! Если вы хотите оживить свой труп, войдите в него заново.", source = thrall)
 		if(!do_after(user, 3 SECONDS, thrall, NONE))
@@ -920,7 +920,7 @@
 		revert_cast(user)
 		return
 
-	user.visible_message(span_danger("Метки [user] вспыхивают, когда [GEND_HE_SHE(user)] дела[PLUR_ET_UT(user)] жест в [target]!"), \
+	user.visible_message(span_danger("Метки [user] вспыхивают, когда [GEND_HE_SHE(user)] дела[PLUR_ET_YUT(user)] жест в [target]!"), \
 						span_shadowling("Вы направляете копьё телекинетической энергии в [target]."))
 	sleep(0.4 SECONDS)
 
@@ -1005,7 +1005,7 @@
 		user.incorporeal_move = INCORPOREAL_NORMAL
 		user.alpha_set(0, ALPHA_SOURCE_SHADOWLING)
 	else
-		user.visible_message(span_danger("[user] внезапно появля[PLUR_ET_UT(user)]ся из ниоткуда!"), \
+		user.visible_message(span_danger("[user] внезапно появля[PLUR_ET_YUT(user)]ся из ниоткуда!"), \
 							span_shadowling("Вы возвращаетесь из пространства между мирами."))
 		user.incorporeal_move = INCORPOREAL_NONE
 		user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)

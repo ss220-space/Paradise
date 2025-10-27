@@ -560,7 +560,7 @@ BODY SCANNERS
 
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message(
-			span_warning("[user] анализиру[PLUR_ET_UT(user)] жизненные показатели пола!"),
+			span_warning("[user] анализиру[PLUR_ET_YUT(user)] жизненные показатели пола!"),
 			span_notice("Вы по глупости проанализировали жизненные показатели пола!")
 		)
 		var/list/data = list()
@@ -597,12 +597,12 @@ BODY SCANNERS
 
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] сканиру[PLUR_ET_UT(user)] себя с помощью [declent_ru(GENITIVE)]."),
+			span_notice("[user] сканиру[PLUR_ET_YUT(user)] себя с помощью [declent_ru(GENITIVE)]."),
 			span_notice("Вы сканируете себя с помощью [declent_ru(GENITIVE)].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] сканиру[PLUR_ET_UT(user)] [target] с помощью [declent_ru(GENITIVE)]."),
+			span_notice("[user] сканиру[PLUR_ET_YUT(user)] [target] с помощью [declent_ru(GENITIVE)]."),
 			span_notice("Вы сканируете [target] с помощью [declent_ru(GENITIVE)].")
 		)
 	var/mob/living/carbon/human/H = target

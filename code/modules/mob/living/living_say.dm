@@ -163,22 +163,22 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"))
 			else
 				S.message = slur(S.message)
-			verb = "бормоч[PLUR_ET_YT(src)]"
+			verb = "бормоч[PLUR_ET_UT(src)]"
 
 		if(AmountStuttering())
 			if(robot)
 				S.message = robostutter(S.message)
 			else
 				S.message = stutter(S.message)
-			verb = "заика[PLUR_ET_UT(src)]ся"
+			verb = "заика[PLUR_ET_YUT(src)]ся"
 
 		if(AmountCultSlurring())
 			S.message = cultslur(S.message)
-			verb = "бормоч[PLUR_ET_YT(src)]"
+			verb = "бормоч[PLUR_ET_UT(src)]"
 
 		if(AmountClockSlurring())
 			S.message = clockslur(S.message)
-			verb = "бормоч[PLUR_ET_YT(src)]"
+			verb = "бормоч[PLUR_ET_UT(src)]"
 
 		if(!IsVocal())
 			S.message = ""

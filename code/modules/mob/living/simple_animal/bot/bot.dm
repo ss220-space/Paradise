@@ -520,7 +520,7 @@
 	adjustBruteLoss(-10)
 	add_fingerprint(user)
 	user.visible_message(
-		span_notice("[user] ремонтиру[PLUR_ET_UT(user)] [declent_ru(GENITIVE)]."),
+		span_notice("[user] ремонтиру[PLUR_ET_YUT(user)] [declent_ru(GENITIVE)]."),
 		span_notice("Вы ремонтируете [declent_ru(GENITIVE)].")
 	)
 

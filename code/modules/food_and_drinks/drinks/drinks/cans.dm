@@ -83,7 +83,7 @@
 		return ATTACK_CHAIN_PROCEED
 	if(target == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == BODY_ZONE_HEAD)
 		user.visible_message(
-			span_warning("[user] смина[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] своим лбом!"),
+			span_warning("[user] смина[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] своим лбом!"),
 			span_warning("Вы сминаете [declent_ru(ACCUSATIVE)] своим лбом!"),
 		)
 		crush(user)
@@ -94,7 +94,7 @@
 /obj/item/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash/cyborg))
 		user.visible_message(
-			span_notice("[user] засовыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] в свой уплотнитель мусора."),
+			span_notice("[user] засовыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] в свой уплотнитель мусора."),
 			span_notice("Вы засовываете [declent_ru(ACCUSATIVE)] в свой уплотнитель мусора."),
 		)
 		var/obj/can = crush(user)

@@ -194,7 +194,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		visible_message(span_notice("[user] вставля[PLUR_ET_UT(user)] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -244,9 +244,9 @@
 /obj/machinery/dna_scannernew/proc/put_in(mob/M, mob/living/user)
 	add_fingerprint(user)
 	if(M == user)
-		visible_message("[user] начина[PLUR_ET_UT(user)] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[PLUR_ET_UT(user)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(user, 2 SECONDS, M))
 		return
@@ -362,7 +362,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		disk = I
-		visible_message(span_notice("[user] вставля[PLUR_ET_UT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "дискета вставлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL

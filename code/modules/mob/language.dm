@@ -434,7 +434,7 @@
 		to_chat(speaker, span_warning("Вы не можете поднести руки к голове для телепатии!"))
 		return FALSE
 
-	speaker.visible_message( span_notice("[speaker] прикладыва[PLUR_ET_UT(speaker)] пальцы к виску.")) //If placed in grey/broadcast, it will happen regardless of the success of the action.
+	speaker.visible_message( span_notice("[speaker] прикладыва[PLUR_ET_YUT(speaker)] пальцы к виску.")) //If placed in grey/broadcast, it will happen regardless of the success of the action.
 
 	return TRUE
 

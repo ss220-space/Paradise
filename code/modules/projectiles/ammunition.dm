@@ -1,14 +1,6 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "Иногда гильза от пули — это просто гильза, и ничего более."
-	ru_names = list(
-		NOMINATIVE = "гильза от пули",
-		GENITIVE = "гильзы от пули",
-		DATIVE = "гильзе от пули",
-		ACCUSATIVE = "гильзу от пули",
-		INSTRUMENTAL = "гильзой от пули",
-		PREPOSITIONAL = "гильзе от пули"
-	)
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
 	origin_tech = "materials=3;combat=3"
@@ -53,7 +45,6 @@
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 
-
 /obj/item/ammo_casing/Initialize(mapload)
 	. = ..()
 	if(projectile_type)
@@ -73,14 +64,22 @@
 	gun.chambered = null
 	. = ..()
 
+/obj/item/ammo_casing/get_ru_names()
+	return list(
+		NOMINATIVE = "гильза от пули",
+		GENITIVE = "гильзы от пули",
+		DATIVE = "гильзе от пули",
+		ACCUSATIVE = "гильзу от пули",
+		INSTRUMENTAL = "гильзой от пули",
+		PREPOSITIONAL = "гильзе от пули"
+	)
+
 /obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
-
 
 /obj/item/ammo_casing/update_desc(updates = ALL)
 	. = ..()
 	desc = "[initial(desc)][BB ? "" : " Эта гильза уже отстрелялась."]"
-
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
 	if(!BB)
@@ -92,7 +91,6 @@
 		qdel(src)
 		return TRUE
 	return ..()
-
 
 /obj/item/ammo_casing/attackby(obj/item/item, mob/user, params)
 	if(!istype(item, /obj/item/ammo_box) || !can_be_box_inserted)

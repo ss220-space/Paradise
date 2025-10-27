@@ -419,10 +419,10 @@
 		return
 	var/mob/living/LivingUser = user
 	if(next_use_time > world.time)
-		LivingUser.visible_message(span_warning("[LivingUser] тряс[PLUR_YOT_YT(LivingUser)] <b>[declent_ru(ACCUSATIVE)]</b>. Ничего не произошло..."))
+		LivingUser.visible_message(span_warning("[LivingUser] тряс[PLUR_YOT_UT(LivingUser)] <b>[declent_ru(ACCUSATIVE)]</b>. Ничего не произошло..."))
 		balloon_alert(LivingUser, "перезарядка")
 		return
-	LivingUser.visible_message(span_warning("[LivingUser] тряс[PLUR_YOT_YT(LivingUser)] <b>[declent_ru(ACCUSATIVE)]</b> и призывает череп легиона!"))
+	LivingUser.visible_message(span_warning("[LivingUser] тряс[PLUR_YOT_UT(LivingUser)] <b>[declent_ru(ACCUSATIVE)]</b> и призывает череп легиона!"))
 	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire/LegionSkull = new(LivingUser.loc)
 	LegionSkull.friends += LivingUser
 	LegionSkull.faction = LivingUser.faction.Copy()

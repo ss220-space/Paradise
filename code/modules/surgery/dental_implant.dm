@@ -17,7 +17,7 @@
 
 /datum/surgery_step/insert_pill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] вставлять [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] вставлять [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
 		span_notice("Вы начинаете вставлять [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -32,7 +32,7 @@
 		dental_implants++
 	if(dental_implants >= 4)
 		user.visible_message(
-			span_notice("[user] доста[PLUR_YOT_UT(user)] [tool.declent_ru(ACCUSATIVE)] обратно из ротовой полости [target]."),
+			span_notice("[user] доста[PLUR_YOT_YUT(user)] [tool.declent_ru(ACCUSATIVE)] обратно из ротовой полости [target]."),
 			span_notice("Вы достаёте [tool.declent_ru(ACCUSATIVE)] обратно из ротовой полости [target] – некуда вставлять.")
 		)
 		return SURGERY_STEP_INCOMPLETE
@@ -44,7 +44,7 @@
 	P.Grant(target)
 
 	user.visible_message(
-		span_notice("[user] вставля[PLUR_ET_UT(user)] [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
+		span_notice("[user] вставля[PLUR_ET_YUT(user)] [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
 		span_notice("Вы вставляете [tool.declent_ru(ACCUSATIVE)] в ротовую полость [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)

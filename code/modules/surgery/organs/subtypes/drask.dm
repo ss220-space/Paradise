@@ -3,7 +3,12 @@
 	species_type = /datum/species/drask
 	name = "drask organ"
 	desc = "Зеленоватый, слегка прозрачный орган. Он чрезвычайно холодный."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/drask.dmi'
+	icon_state = "innards"
+	item_state = "drask_innards"
+
+/obj/item/organ/internal/drask/get_ru_names()
+	return list(
 		NOMINATIVE = "орган драска",
 		GENITIVE = "органа драска",
 		DATIVE = "органу драска",
@@ -11,15 +16,18 @@
 		INSTRUMENTAL = "органом драска",
 		PREPOSITIONAL = "органе драска"
 	)
-	icon = 'icons/obj/species_organs/drask.dmi'
-	icon_state = "innards"
-	item_state = "drask_innards"
 
 /obj/item/organ/internal/heart/drask
 	species_type = /datum/species/drask
 	name = "drask heart"
 	desc = "Орган, качающий криоксадон по организму драска."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/drask.dmi'
+	item_state = "drask_heart-on"
+	item_base = "drask_heart"
+	parent_organ_zone = BODY_ZONE_HEAD
+
+/obj/item/organ/internal/heart/drask/get_ru_names()
+	return list(
 		NOMINATIVE = "сердце драска",
 		GENITIVE = "сердца драска",
 		DATIVE = "сердцу драска",
@@ -27,16 +35,19 @@
 		INSTRUMENTAL = "сердцем драска",
 		PREPOSITIONAL = "сердце драска"
 	)
-	icon = 'icons/obj/species_organs/drask.dmi'
-	item_state = "drask_heart-on"
-	item_base = "drask_heart"
-	parent_organ_zone = BODY_ZONE_HEAD
 
 /obj/item/organ/internal/liver/drask
 	species_type = /datum/species/drask
 	name = "metabolic strainer"
 	desc = "Орган выделительной системы организма драска. Выделяет особый фермент, очищающий кровоток от токсинов и стимулирующий процесс клеточного деления."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/species_organs/drask.dmi'
+	icon_state = "kidneys"
+	item_state = "drask_liver"
+	alcohol_intensity = 0.8
+
+/obj/item/organ/internal/liver/drask/get_ru_names()
+	return list(
 		NOMINATIVE = "метаболический фильтр",
 		GENITIVE = "метаболического фильтра",
 		DATIVE = "метаболическому фильтру",
@@ -44,16 +55,16 @@
 		INSTRUMENTAL = "метаболическим фильтром",
 		PREPOSITIONAL = "метаболическом фильтре"
 	)
-	gender = MALE
-	icon = 'icons/obj/species_organs/drask.dmi'
-	icon_state = "kidneys"
-	item_state = "drask_liver"
-	alcohol_intensity = 0.8
 
 /obj/item/organ/internal/brain/drask
 	species_type = /datum/species/drask
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал драску."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/drask.dmi'
+	item_state = "drask_brain"
+	mmi_icon = 'icons/obj/species_organs/drask.dmi'
+
+/obj/item/organ/internal/brain/drask/get_ru_names()
+	return list(
 		NOMINATIVE = "мозг драска",
 		GENITIVE = "мозга драска",
 		DATIVE = "мозгу драска",
@@ -61,15 +72,17 @@
 		INSTRUMENTAL = "мозгом драска",
 		PREPOSITIONAL = "мозге драска"
 	)
-	icon = 'icons/obj/species_organs/drask.dmi'
-	item_state = "drask_brain"
-	mmi_icon = 'icons/obj/species_organs/drask.dmi'
 
 /obj/item/organ/internal/eyes/drask
 	species_type = /datum/species/drask
 	name = "drask eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали драску."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/drask.dmi'
+	item_state = "drask_eyes"
+	see_in_dark = 5
+
+/obj/item/organ/internal/eyes/drask/get_ru_names()
+	return list(
 		NOMINATIVE = "глаза драска",
 		GENITIVE = "глаз драска",
 		DATIVE = "глазам драска",
@@ -77,15 +90,14 @@
 		INSTRUMENTAL = "глазами драска",
 		PREPOSITIONAL = "глазах драска"
 	)
-	icon = 'icons/obj/species_organs/drask.dmi'
-	item_state = "drask_eyes"
-	see_in_dark = 5
 
 /obj/item/organ/internal/ears/drask
 	species_type = /datum/species/drask
 	name = "drask ears"
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали драску."
-	ru_names = list(
+
+/obj/item/organ/internal/ears/drask/get_ru_names()
+	return list(
 		NOMINATIVE = "уши драска",
 		GENITIVE = "ушей драска",
 		DATIVE = "ушам драска",
@@ -97,14 +109,6 @@
 /obj/item/organ/internal/lungs/drask
 	name = "drask lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма драска."
-	ru_names = list(
-		NOMINATIVE = "лёгкие драска",
-		GENITIVE = "лёгких драска",
-		DATIVE = "лёгким драска",
-		ACCUSATIVE = "лёгкие драска",
-		INSTRUMENTAL = "лёгкими драска",
-		PREPOSITIONAL = "лёгких драска"
-	)
 	icon = 'icons/obj/species_organs/drask.dmi'
 	item_state = "drask_lungs"
 	cold_message = " освежающий холод"
@@ -115,6 +119,16 @@
 
 	var/cooling_start_temp = DRASK_LUNGS_COOLING_START_TEMP
 	var/cooling_stop_temp = DRASK_LUNGS_COOLING_STOP_TEMP
+
+/obj/item/organ/internal/lungs/drask/get_ru_names()
+	return list(
+		NOMINATIVE = "лёгкие драска",
+		GENITIVE = "лёгких драска",
+		DATIVE = "лёгким драска",
+		ACCUSATIVE = "лёгкие драска",
+		INSTRUMENTAL = "лёгкими драска",
+		PREPOSITIONAL = "лёгких драска"
+	)
 
 /obj/item/organ/internal/lungs/drask/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()

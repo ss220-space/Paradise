@@ -1,56 +1,49 @@
 /obj/item/gun/medbeam
 	name = "Medical Beamgun"
 	desc = "Передает целебные наниты своим сфокусированным лучом. Не скрещивайте лучи!"
-	ru_names = list(
-		NOMINATIVE = "Медицинская лучевая пушка",
-		GENITIVE = "Медицинской лучевой пушки",
-		DATIVE = "Медицинской лучевой пушке",
-		ACCUSATIVE = "Медицинскую лучевую пушку",
-		INSTRUMENTAL = "Медицинской лучевой пушкой",
-		PREPOSITIONAL = "Медицинской лучевой пушке"
-	)
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
 	weapon_weight = WEAPON_MEDIUM
+	accuracy = GUN_ACCURACY_SNIPER
 
 	var/mob/living/current_target
 	var/datum/beam/current_beam
-
 	COOLDOWN_DECLARE(last_check)
 	var/check_delay = 1 SECONDS
-
 	var/max_range = 8
-
 	var/active = FALSE
 	var/mounted = FALSE
-	accuracy = GUN_ACCURACY_SNIPER
 
+/obj/item/gun/medbeam/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинская лучевая пушка",
+		GENITIVE = "медицинской лучевой пушки",
+		DATIVE = "медицинской лучевой пушке",
+		ACCUSATIVE = "медицинскую лучевую пушку",
+		INSTRUMENTAL = "медицинской лучевой пушкой",
+		PREPOSITIONAL = "медицинской лучевой пушке"
+	)
 
 /obj/item/gun/medbeam/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-
 
 /obj/item/gun/medbeam/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	LoseTarget()
 	return ..()
 
-
 /obj/item/gun/medbeam/handle_suicide()
 	return
-
 
 /obj/item/gun/medbeam/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	LoseTarget()
 
-
 /obj/item/gun/medbeam/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	LoseTarget()
-
 
 /**
  * Proc that always is called when we want to end the beam and makes sure things are cleaned up, see beam_died()
@@ -62,7 +55,6 @@
 		on_beam_release(current_target)
 
 	current_target = null
-
 
 /**
  * Proc that is only called when the beam fails due to something, so not when manually ended.
@@ -78,7 +70,6 @@
 	current_beam = null
 	active = FALSE // skip qdelling the beam again if we're doing this proc
 	LoseTarget()
-
 
 /obj/item/gun/medbeam/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(isliving(user))
@@ -119,7 +110,6 @@
 
 	if(current_target)
 		on_beam_tick(current_target)
-
 
 /obj/item/gun/medbeam/proc/los_check(atom/movable/user, mob/target)
 	var/turf/user_turf = user.loc
@@ -184,11 +174,8 @@
 	qdel(dummy)
 	return TRUE
 
-
-
 /obj/item/gun/medbeam/proc/on_beam_hit(mob/living/target)
 	return
-
 
 /obj/item/gun/medbeam/proc/on_beam_tick(mob/living/carbon/human/target)
 	var/prev_health = target.health
@@ -203,7 +190,6 @@
 
 	if(target.health != prev_health || bones_mended)
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
-
 
 /obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)
 	return

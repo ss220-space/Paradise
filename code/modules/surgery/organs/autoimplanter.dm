@@ -49,7 +49,7 @@
 
 	storedorgan.insert(user, ORGAN_MANIPULATION_TRANSPLANTATE)//insert stored organ into the user
 	user.visible_message(
-		span_notice("[user] активиру[PLUR_ET_UT(user)] автоимплантер и вы слышите недолгий механический шум."),
+		span_notice("[user] активиру[PLUR_ET_YUT(user)] автоимплантер и вы слышите недолгий механический шум."),
 		span_notice("Вы чувствуете острое жжение, когда автоимплантер приступает к работе."),
 	)
 	playsound(get_turf(user), usesound, 50, TRUE)

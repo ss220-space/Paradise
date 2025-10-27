@@ -593,9 +593,9 @@
 		return
 
 	arrived.visible_message(span_warning("[pick( \
-						"[arrived] спотыка[PLUR_ET_UT(arrived)]ся об [declent_ru(GENITIVE)]!", \
-						"[arrived] опрокидыва[PLUR_ET_UT(arrived)]ся на [declent_ru(GENITIVE)]!", \
-						"[arrived] отлета[PLUR_ET_UT(arrived)] с пути [declent_ru(GENITIVE)]!", \
+						"[arrived] спотыка[PLUR_ET_YUT(arrived)]ся об [declent_ru(GENITIVE)]!", \
+						"[arrived] опрокидыва[PLUR_ET_YUT(arrived)]ся на [declent_ru(GENITIVE)]!", \
+						"[arrived] отлета[PLUR_ET_YUT(arrived)] с пути [declent_ru(GENITIVE)]!", \
 						"[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
 						"[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [GEND_HIS_HER(arrived)] упасть!", \
 						"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]"))

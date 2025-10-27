@@ -65,7 +65,7 @@
 		balloon_alert(user, "таблетка растворена")
 		reagents.trans_to(target, reagents.total_volume)
 		for(var/mob/O in viewers(2, user))
-			O.show_message(span_warning("[user] броса[PLUR_ET_UT(user)] что-то в [target.declent_ru(ACCUSATIVE)]."), 1)
+			O.show_message(span_warning("[user] броса[PLUR_ET_YUT(user)] что-то в [target.declent_ru(ACCUSATIVE)]."), 1)
 		spawn(5)
 			qdel(src)
 

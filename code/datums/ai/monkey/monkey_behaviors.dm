@@ -107,8 +107,8 @@
 						success = TRUE
 						break
 				else
-					victim.visible_message(span_danger("[living_pawn] пыта[PLUR_ET_UT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)] у [victim], но провалива[PLUR_ET_UT(living_pawn)]ся!"),
-						span_userdanger("[living_pawn] пыта[PLUR_ET_UT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)]!")
+					victim.visible_message(span_danger("[living_pawn] пыта[PLUR_ET_YUT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)] у [victim], но провалива[PLUR_ET_YUT(living_pawn)]ся!"),
+						span_userdanger("[living_pawn] пыта[PLUR_ET_YUT(living_pawn)]ся украсть [target.declent_ru(ACCUSATIVE)]!")
 					)
 
 	finish_action(controller, success) //We either fucked up or got the item.

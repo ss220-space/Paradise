@@ -44,7 +44,7 @@
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] аугментировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] аугментировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
 		span_notice("Вы начинаете аугментировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -54,7 +54,7 @@
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] заверша[PLUR_ET_UT(user)] аугментацию [affected.declent_ru(GENITIVE)] [target]."),
+		span_notice("[user] заверша[PLUR_ET_YUT(user)] аугментацию [affected.declent_ru(GENITIVE)] [target]."),
 		span_notice("Вы завершаете аугментацию [affected.declent_ru(GENITIVE)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)

@@ -393,7 +393,7 @@
 				var/obj/item/photo/P = usr.get_active_hand()
 				if(istype(P) && usr.drop_transfer_item_to_loc(P, src))
 					photo = P
-					usr.visible_message(span_notice("[usr] вставля[PLUR_ET_UT(usr)] [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."), \
+					usr.visible_message(span_notice("[usr] вставля[PLUR_ET_YUT(usr)] [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."), \
 					span_notice("Вы вставляете [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."))
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))

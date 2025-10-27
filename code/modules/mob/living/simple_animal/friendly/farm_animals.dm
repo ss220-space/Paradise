@@ -218,7 +218,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] скармлива[PLUR_ET_UT(user)] пшеницу [declent_ru(DATIVE)]! [GEND_HE_SHE_CAP(src)] [pick(feedMessages)]."),
+			span_notice("[user] скармлива[PLUR_ET_YUT(user)] пшеницу [declent_ru(DATIVE)]! [GEND_HE_SHE_CAP(src)] [pick(feedMessages)]."),
 			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]! [GEND_HE_SHE_CAP(src)] [pick(feedMessages)].")
 		)
 		COOLDOWN_START(src, feeded_cow, 60 SECONDS)
@@ -247,7 +247,7 @@
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		M.visible_message(span_warning("[M] опрокидыва[PLUR_ET_UT(M)] [declent_ru(ACCUSATIVE)]!"), \
+		M.visible_message(span_warning("[M] опрокидыва[PLUR_ET_YUT(M)] [declent_ru(ACCUSATIVE)]!"), \
 								span_notice("Вы опрокидываете [declent_ru(ACCUSATIVE)]."))
 		Weaken(60 SECONDS)
 		icon_state = icon_dead
@@ -420,7 +420,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] скармлива[PLUR_ET_UT(user)] пшеницу [declent_ru(DATIVE)]. [GEND_HE_SHE_CAP(src)] радостно [pick(speak_emote)]."),
+			span_notice("[user] скармлива[PLUR_ET_YUT(user)] пшеницу [declent_ru(DATIVE)]. [GEND_HE_SHE_CAP(src)] радостно [pick(speak_emote)]."),
 			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]. [GEND_HE_SHE_CAP(src)] радостно [pick(speak_emote)]."),
 		)
 		eggsleft += rand(1, 4)

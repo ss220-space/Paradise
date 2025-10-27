@@ -931,11 +931,11 @@
 /datum/status_effect/transient/jittery/get_examine_text()
 	switch(strength)
 		if(600 SECONDS to INFINITY)
-			return span_warning("<b>[GEND_HE_SHE_CAP(owner)] бь[PLUR_YOT_UT(owner)]ся в судорогах!</b>")
+			return span_warning("<b>[GEND_HE_SHE_CAP(owner)] бь[PLUR_YOT_YUT(owner)]ся в судорогах!</b>")
 		if(400 SECONDS to 600 SECONDS)
-			return span_warning("[GEND_HE_SHE_CAP(owner)] крайне нервнича[PLUR_ET_UT(owner)].")
+			return span_warning("[GEND_HE_SHE_CAP(owner)] крайне нервнича[PLUR_ET_YUT(owner)].")
 		if(200 SECONDS to 400 SECONDS)
-			return span_warning("[GEND_HE_SHE_CAP(owner)] слегка дёрга[PLUR_ET_UT(owner)]ся.")
+			return span_warning("[GEND_HE_SHE_CAP(owner)] слегка дёрга[PLUR_ET_YUT(owner)]ся.")
 
 
 /datum/status_effect/transient/stammering

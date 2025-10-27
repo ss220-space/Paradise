@@ -94,7 +94,7 @@
 		else
 			var/damage = M.attack_damage
 			visible_message(
-				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] дела[PLUR_ET_UT(M)] резкий выпад в сторону [declent_ru(ACCUSATIVE)]!"),
+				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] дела[PLUR_ET_YUT(M)] резкий выпад в сторону [declent_ru(ACCUSATIVE)]!"),
 				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] делает резкий выпад в вашу сторону!")
 			)
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)

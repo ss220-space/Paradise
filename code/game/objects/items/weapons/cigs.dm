@@ -91,7 +91,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target.on_fire)
 		user.do_attack_animation(target)
-		light(span_notice("[user] хладнокровно прикурива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] от горящего тела [target.declent_ru(GENITIVE)]. Очевидно, [GEND_HE_SHE(user)] жела[PLUR_ET_UT(user)] [target.declent_ru(DATIVE)] всего хорошего."))
+		light(span_notice("[user] хладнокровно прикурива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] от горящего тела [target.declent_ru(GENITIVE)]. Очевидно, [GEND_HE_SHE(user)] жела[PLUR_ET_YUT(user)] [target.declent_ru(DATIVE)] всего хорошего."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
@@ -114,13 +114,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/item)
 	. = TRUE
 	if(item.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light(span_notice("[user] непринуждённо прикурива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_A_O_I(user)] крут[GEND_A_O_Y(user)]!"))
+		light(span_notice("[user] непринуждённо прикурива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_A_O_I(user)] крут[GEND_A_O_Y(user)]!"))
 
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/weldingtool/sword))
 		if(item.tool_enabled)
-			light(span_notice("[user] непринуждённо прикурива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_A_O_I(user)] крут[GEND_A_O_Y(user)]!"))
+			light(span_notice("[user] непринуждённо прикурива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_A_O_I(user)] крут[GEND_A_O_Y(user)]!"))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(item, /obj/item/lighter/zippo))
@@ -128,7 +128,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/lighter/zippo/zippo = item
 		if(!zippo.lit)
 			return ..()
-		light(span_rose("Лёгким движением руки, [user] прикурива[PLUR_ET_UT(user)] свою [declent_ru(ACCUSATIVE)] [zippo.declent_ru(INSTRUMENTAL)]. Чёрт, как же он[GEND_A_O_I(user)] крут[GEND_A_O_Y(user)]."))
+		light(span_rose("Лёгким движением руки, [user] прикурива[PLUR_ET_YUT(user)] свою [declent_ru(ACCUSATIVE)] [zippo.declent_ru(INSTRUMENTAL)]. Чёрт, как же он[GEND_A_O_I(user)] крут[GEND_A_O_Y(user)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(item, /obj/item/lighter))
@@ -145,7 +145,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(!match.lit)
 			return ..()
 		playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
-		light(span_rose("[user] плю[PLUR_YOT_UT(user)] огнём на свою [declent_ru(ACCUSATIVE)], зажигая её."))
+		light(span_rose("[user] плю[PLUR_YOT_YUT(user)] огнём на свою [declent_ru(ACCUSATIVE)], зажигая её."))
 		match.matchburnout()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -154,7 +154,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/match/match = item
 		if(!match.lit)
 			return ..()
-		light(span_notice("[user] зажига[PLUR_ET_UT(user)] свою [declent_ru(ACCUSATIVE)] [match.declent_ru(INSTRUMENTAL)]."))
+		light(span_notice("[user] зажига[PLUR_ET_YUT(user)] свою [declent_ru(ACCUSATIVE)] [match.declent_ru(INSTRUMENTAL)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(item, /obj/item/melee/energy/sword/saber))
@@ -162,12 +162,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/melee/energy/sword/saber/saber = item
 		if(!saber.active)
 			return ..()
-		light(span_warning("[user] дела[PLUR_ET_UT(user)] резкое движение [saber.declent_ru(INSTRUMENTAL)], проводя [GEND_IM_EI_IM_IMI(saber)] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
+		light(span_warning("[user] дела[PLUR_ET_YUT(user)] резкое движение [saber.declent_ru(INSTRUMENTAL)], проводя [GEND_IM_EI_IM_IMI(saber)] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(isigniter(item))
 		add_fingerprint(user)
-		light(span_notice("[user] воз[PLUR_IT_YAT(user)]ся с [item.declent_ru(INSTRUMENTAL)], но в конце концов прикурива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."))
+		light(span_notice("[user] воз[PLUR_IT_YAT(user)]ся с [item.declent_ru(INSTRUMENTAL)], но в конце концов прикурива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(item, /obj/item/gun/magic/wand/fireball))
@@ -197,7 +197,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/candle/candle = item
 		if(!candle.lit)
 			return ..()
-		light(span_notice("[user] прикурива[PLUR_ET_UT(user)] свою [declent_ru(ACCUSATIVE)] [candle.declent_ru(INSTRUMENTAL)]."))
+		light(span_notice("[user] прикурива[PLUR_ET_YUT(user)] свою [declent_ru(ACCUSATIVE)] [candle.declent_ru(INSTRUMENTAL)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(item, /obj/item/clothing/mask/cigarette))
@@ -205,7 +205,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/clothing/mask/cigarette/cigarette = item
 		if(!cigarette.lit)
 			return ..()
-		light(span_notice("[user] прикурива[PLUR_ET_UT(user)] свою [declent_ru(ACCUSATIVE)] другой [cigarette.declent_ru(INSTRUMENTAL)]. Бедолага..."))
+		light(span_notice("[user] прикурива[PLUR_ET_YUT(user)] свою [declent_ru(ACCUSATIVE)] другой [cigarette.declent_ru(INSTRUMENTAL)]. Бедолага..."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -315,7 +315,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
-		user.visible_message(span_notice("[user] спокойно зажима[PLUR_ET_UT(user)] прикуренный конец [declent_ru(GENITIVE)], мгновенно погасив [GEND_HIS_HER(src)]."))
+		user.visible_message(span_notice("[user] спокойно зажима[PLUR_ET_YUT(user)] прикуренный конец [declent_ru(GENITIVE)], мгновенно погасив [GEND_HIS_HER(src)]."))
 		die()
 	return ..()
 
@@ -544,7 +544,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 	if(!is_type_in_typecache(item, acceptable_lighters))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВА[uppertext(PLUR_ET_UT(src))]СЯ быть прикуренной столь нецивилизованными методами."))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВА[uppertext(PLUR_ET_YUT(src))]СЯ быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 

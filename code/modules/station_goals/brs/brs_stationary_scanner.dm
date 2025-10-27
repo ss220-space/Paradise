@@ -197,7 +197,7 @@
 
 	// It's a large machine, add a delay
 	user.visible_message(
-		"[user] начина[PLUR_ET_UT(user)] [panel_open ? "за" : "от"]кручивать панель [src].",
+		"[user] начина[PLUR_ET_YUT(user)] [panel_open ? "за" : "от"]кручивать панель [src].",
 		"Вы начинаете [panel_open ? "за" : "от"]кручивать панель [src]."
 	)
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
@@ -214,7 +214,7 @@
 		return
 
 	// It's a large machine, add a delay
-	user.visible_message("[user] начина[PLUR_ET_UT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
+	user.visible_message("[user] начина[PLUR_ET_YUT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 
