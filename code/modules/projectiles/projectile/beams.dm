@@ -2,7 +2,7 @@
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	damage = 20
+	damage = 23
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
@@ -29,7 +29,7 @@
 /obj/projectile/beam/laser
 
 /obj/projectile/beam/laser/light
-	damage = 15
+	damage = 18
 
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
@@ -210,7 +210,7 @@
 /obj/projectile/beam/emitter
 	name = "emitter beam"
 	icon_state = "emitter"
-	damage = 30
+	damage = 33
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN

@@ -17,10 +17,10 @@
 
 /obj/projectile/bullet/slug
 	armour_penetration = 40
-	damage = 30
+	damage = 33
 
 /obj/projectile/bullet/desert_eagle
-	stamina = 30
+	stamina = 33
 
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
@@ -106,9 +106,11 @@
 	nodamage = TRUE
 	log_override = TRUE
 
+//9mm bullet casing
 /obj/projectile/bullet/weakbullet3
-	damage = 20
+	damage = 23
 
+//4.6x30mm bullet casing
 /obj/projectile/bullet/weakbullet3/foursix
 	damage = 15
 
@@ -121,8 +123,9 @@
 	damage_type = TOX
 	armour_penetration = 10
 
+//40nr bullet casing
 /obj/projectile/bullet/weakbullet3/fortynr
-	damage = 25
+	damage = 28
 	stamina = 20
 
 /obj/projectile/bullet/weakbullet3/fortynr/get_ru_names()
@@ -151,9 +154,10 @@
 		PREPOSITIONAL = "резиновой пуле"
 	)
 
+//45 N&R bullet casing
 /obj/projectile/bullet/weakbullet4/c45nr
 	name = "45 N&R"
-	damage = 10
+	damage = 12
 	stamina = 15
 
 /obj/projectile/bullet/toxinbullet
@@ -177,7 +181,7 @@
 	armour_penetration = 10
 
 /obj/projectile/bullet/armourpiercing
-	damage = 17
+	damage = 18
 	armour_penetration = 10
 
 /obj/projectile/bullet/pellet
@@ -281,23 +285,27 @@
 	do_sparks(3, TRUE, src)
 	..()
 
+//.45 bullet casing
 /obj/projectile/bullet/midbullet
-	damage = 20
+	damage = 23
 	stamina = 33 //four rounds from the c20r knocks people down
 
 /obj/projectile/bullet/midbullet_AC2S
-	damage = 20
+	damage = 23
 	stamina = 40 //three rounds from the AC 2 Special knocks people down
 
+//.45 rubber bullet casing
 /obj/projectile/bullet/midbullet_r
 	damage = 5
 	stamina = 33 //Still four rounds to knock people down
 
+//.36 bullet casing
 /obj/projectile/bullet/midbullet2
 	damage = 25
 
+//10mm bullet casing
 /obj/projectile/bullet/midbullet3
-	damage = 30
+	damage = 33
 
 /obj/projectile/bullet/midbullet3/hp
 	damage = 50
@@ -318,8 +326,9 @@
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 
+//5.56mm bullet casing
 /obj/projectile/bullet/heavybullet
-	damage = 35
+	damage = 36
 
 /obj/projectile/bullet/stunshot	//taser slugs for shotguns, nothing special
 	name = "stunshot"
@@ -562,7 +571,7 @@
 
 /obj/projectile/bullet/f545 // Rusted AK
 	name = "Fusty FMJ 5.45 bullet"
-	damage = 18
+	damage = 20
 	stamina = 6
 
 /obj/projectile/bullet/f545/get_ru_names()
@@ -577,7 +586,7 @@
 
 /obj/projectile/bullet/ftt762 // Rusted PPSh
 	name = "Fusty FMJ 7.62 TT bullet"
-	damage = 8
+	damage = 9
 	stamina = 1
 	armour_penetration = 5
 
