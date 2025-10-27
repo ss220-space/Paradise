@@ -31,7 +31,7 @@
 					bee_stinging()
 			if(4)
 				if(prob(10))
-					affected_mob.visible_message(span_danger("[affected_mob] жужж[pluralize_ru(affected_mob.gender,"ит","ат")]."), span_userdanger("Ваш желудок яростно жужжит!"))
+					affected_mob.visible_message(span_danger("[affected_mob] жужж[PLUR_IT_AT(affected_mob)]."), span_userdanger("Ваш желудок яростно жужжит!"))
 				if(prob(5))
 					to_chat(affected_mob, span_danger("Вы чувствуете, как что-то движется у вас в горле."))
 				if(prob(12))

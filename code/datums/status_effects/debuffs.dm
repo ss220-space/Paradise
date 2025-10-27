@@ -931,11 +931,11 @@
 /datum/status_effect/transient/jittery/get_examine_text()
 	switch(strength)
 		if(600 SECONDS to INFINITY)
-			return span_warning("<b>[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] бь[pluralize_ru(owner.gender,"ётся","ются")] в судорогах!</b>")
+			return span_warning("<b>[GEND_HE_SHE_CAP(owner)] бь[PLUR_YOT_UT(owner)]ся в судорогах!</b>")
 		if(400 SECONDS to 600 SECONDS)
-			return span_warning("[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] крайне нервнича[pluralize_ru(owner.gender,"ет","ют")].")
+			return span_warning("[GEND_HE_SHE_CAP(owner)] крайне нервнича[PLUR_ET_UT(owner)].")
 		if(200 SECONDS to 400 SECONDS)
-			return span_warning("[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] слегка дёрга[pluralize_ru(owner.gender,"ется","ются")].")
+			return span_warning("[GEND_HE_SHE_CAP(owner)] слегка дёрга[PLUR_ET_UT(owner)]ся.")
 
 
 /datum/status_effect/transient/stammering

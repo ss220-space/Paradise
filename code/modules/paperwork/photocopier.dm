@@ -416,7 +416,7 @@
 			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else
 		balloon_alert(usr, "нельзя отсканировать!")
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлечен[GEND_A_O_Y(copyitem)]."))
 		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
 		finish_copying()
 
@@ -668,7 +668,7 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing) || grabbed_thing == copymob)
 		return .
 	add_fingerprint(grabber)
-	visible_message(span_warning("[grabber] затаскива[pluralize_ru(grabber.gender, "ет", "ют")] [grabbed_thing.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_warning("[grabber] затаскива[PLUR_ET_UT(grabber)] [grabbed_thing.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
 	var/turf/source_turf = get_turf(src)
 	grabbed_thing.forceMove(source_turf)
 	copymob = grabbed_thing
@@ -693,16 +693,16 @@
 		return
 	add_fingerprint(user)
 	if(target == user)
-		visible_message(span_warning("[user] запрыгива[pluralize_ru(user.gender, "ет", "ют")] на [declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_warning("[user] запрыгива[PLUR_ET_UT(user)] на [declent_ru(ACCUSATIVE)]!"))
 	else if(target != user)
 		if(target.anchored || !ishuman(user))
 			return
-		visible_message(span_warning("[user] затаскива[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_warning("[user] затаскива[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]!"))
 	target.forceMove(get_turf(src))
 	copymob = target
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
-		visible_message(span_notice("[capitalize(copymob.declent_ru(NOMINATIVE))] сталкива[pluralize_ru(user.gender, "ет", "ют")] [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
+		visible_message(span_notice("[capitalize(copymob.declent_ru(NOMINATIVE))] сталкива[PLUR_ET_UT(user)] [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)

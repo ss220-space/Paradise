@@ -268,10 +268,10 @@
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/katana/suicide_act(mob/user)
-	var/dmsg = pick("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся воткнуть [declent_ru(ACCUSATIVE)] себе в живот, но он ломается! Выглядит так, будто [genderize_ru(user.gender,"он","она","оно","они")] умр[pluralize_ru(user.gender,"ёт","ут")] от стыда.",
-					"[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся воткнуть [declent_ru(ACCUSATIVE)] себе в живот, но он гнётся и ломается пополам! Выглядит так, будто [genderize_ru(user.gender,"он","она","оно","они")] умр[pluralize_ru(user.gender,"ёт","ут")] от стыда.",
-					"[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся перерезать себе горло, но тупое пластиковое лезвие приводит к тому, что [genderize_ru(user.gender,"он","она","оно","они")] поскальзыва[pluralize_ru(user.gender,"ет","ют")]ся и лома[pluralize_ru(user.gender,"ет","ют")] шею с громким хрустом!")
-	user.visible_message(span_suicide("[dmsg] Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
+	var/dmsg = pick("[user] пыта[PLUR_ET_UT(user)]ся воткнуть [declent_ru(ACCUSATIVE)] себе в живот, но он ломается! Выглядит так, будто [GEND_HE_SHE(user)] умр[PLUR_YOT_YT(user)] от стыда.",
+					"[user] пыта[PLUR_ET_UT(user)]ся воткнуть [declent_ru(ACCUSATIVE)] себе в живот, но он гнётся и ломается пополам! Выглядит так, будто [GEND_HE_SHE(user)] умр[PLUR_YOT_YT(user)] от стыда.",
+					"[user] пыта[PLUR_ET_UT(user)]ся перерезать себе горло, но тупое пластиковое лезвие приводит к тому, что [GEND_HE_SHE(user)] поскальзыва[PLUR_ET_UT(user)]ся и лома[PLUR_ET_UT(user)] шею с громким хрустом!")
+	user.visible_message(span_suicide("[dmsg] Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся покончить с собой."))
 	return BRUTELOSS
 
 
@@ -472,7 +472,7 @@
 /obj/item/toy/nuke/attack_self(mob/user)
 	if(cooldown < world.time)
 		cooldown = world.time + 3 MINUTES
-		user.visible_message(span_warning("[user] нажима[pluralize_ru(user.gender,"ет","ют")] кнопку на [declent_ru(GENITIVE)]"), span_notice("Вы активируете [declent_ru(NOMINATIVE)], раздаётся громкий звук!"), span_notice("Слышишь щелчок кнопки."))
+		user.visible_message(span_warning("[user] нажима[PLUR_ET_UT(user)] кнопку на [declent_ru(GENITIVE)]"), span_notice("Вы активируете [declent_ru(NOMINATIVE)], раздаётся громкий звук!"), span_notice("Слышишь щелчок кнопки."))
 		INVOKE_ASYNC(src, PROC_REF(async_animation))
 	else
 		var/timeleft = (cooldown - world.time)
@@ -681,7 +681,7 @@
 	playsound(get_turf(src), poof_sound, 30, TRUE)
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
-	var/cuddle_verb = pick("обнима[pluralize_ru(user.gender,"ет","ют")]", "тиска[pluralize_ru(user.gender,"ет","ют")]", "прижима[pluralize_ru(user.gender,"ет","ют")]")
+	var/cuddle_verb = pick("обнима[PLUR_ET_UT(user)]", "тиска[PLUR_ET_UT(user)]", "прижима[PLUR_ET_UT(user)]")
 	user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
 	play_poof_sound()
 	return ..()
@@ -1403,7 +1403,7 @@
 		add_fingerprint(user)
 		if(message_spam_flag == 0)
 			message_spam_flag = 1
-			user.visible_message(span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"), span_notice("[pluralize_ru(user.gender,"Ты","Вы")] [msg] [declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"), span_notice("Вы [msg] [declent_ru(ACCUSATIVE)]!"))
 			spawn(30)
 				message_spam_flag = 0
 		spawn(3)
@@ -1411,10 +1411,10 @@
 	return
 
 /obj/item/toy/plushie/pig/attack_self(mob/user)
-	oink(user, "сжал[genderize_ru(user.gender,"","а","о","и")]")
+	oink(user, "сжал[GEND_A_O_I(user)]")
 
 /obj/item/toy/plushie/pig/attack_hand(mob/user)
-	oink(user, pick("сжал[genderize_ru(user.gender,"","а","о","и")]", "раздавил[genderize_ru(user.gender,"","а","о","и")]", "ущипнул[genderize_ru(user.gender,"","а","о","и")]"))
+	oink(user, pick("сжал[GEND_A_O_I(user)]", "раздавил[GEND_A_O_I(user)]", "ущипнул[GEND_A_O_I(user)]"))
 
 /obj/item/toy/plushie/pig/Initialize(mapload)
 	. = ..()
@@ -1667,7 +1667,7 @@
 /obj/item/toy/flash/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	playsound(loc, 'sound/weapons/flash.ogg', 100, TRUE)
 	flick("[initial(icon_state)]2", src)
-	user.visible_message(span_disarm("[user] ослепля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)] вспышкой флешера!"))
+	user.visible_message(span_disarm("[user] ослепля[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)] вспышкой флешера!"))
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
@@ -1685,7 +1685,7 @@
 /obj/item/toy/redbutton/attack_self(mob/user)
 	if(cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
-		user.visible_message(span_warning("[user] нажима[pluralize_ru(user.gender,"ет","ют")] большую красную кнопку."), span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"), span_notice("Кнопка громко щёлкает."))
+		user.visible_message(span_warning("[user] нажима[PLUR_ET_UT(user)] большую красную кнопку."), span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"), span_notice("Кнопка громко щёлкает."))
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
 		for(var/mob/M in range(10, src)) // Checks range
 			if(!M.stat && !istype(M, /mob/living/silicon/ai)) // Checks to make sure whoever's getting shaken is alive/not the AI
@@ -1734,7 +1734,7 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] нажима[pluralize_ru(user.gender,"ет","ют")] кнопку на [declent_ru(PREPOSITIONAL)]."),
+		span_notice("[user] нажима[PLUR_ET_UT(user)] кнопку на [declent_ru(PREPOSITIONAL)]."),
 		span_notice("Вы нажимаете кнопку на [declent_ru(PREPOSITIONAL)]."),
 		span_sinister("Слышишь тихий щелчок."))
 
@@ -1938,7 +1938,7 @@
 /obj/item/toy/toy_xeno/attack_self(mob/user)
 	if(cooldown <= world.time)
 		cooldown = (world.time + 50) //5 second cooldown
-		user.visible_message(span_notice("[user] дергает[pluralize_ru(user.gender,"ет","ют")] верёвку на [declent_ru(PREPOSITIONAL)]."))
+		user.visible_message(span_notice("[user] дергает[PLUR_ET_UT(user)] верёвку на [declent_ru(PREPOSITIONAL)]."))
 		INVOKE_ASYNC(src, PROC_REF(async_animation))
 	else
 		to_chat(user, span_warning("Верёвка [declent_ru(GENITIVE)] еще не замоталась!"))
@@ -1977,7 +1977,7 @@
 	var/max_shots = 6
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] быстро заряжает шесть патронов в барабан [declent_ru(GENITIVE)], приставляет к виску и нажимает на курок! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
+	user.visible_message(span_suicide("[user] быстро заряжает шесть патронов в барабан [declent_ru(GENITIVE)], приставляет к виску и нажимает на курок! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся покончить с собой."))
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
 	return BRUTELOSS
 
@@ -2059,7 +2059,7 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += span_notice("В запасе ещё [fake_bullets] патрон[declension_ru(fake_bullets, "", "а", "ов")].")
+	. += span_notice("В запасе ещё [fake_bullets] патрон[DECL_CREDIT(fake_bullets)].")
 	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
@@ -2364,7 +2364,7 @@
 /obj/item/toy/eight_ball/attack_self(mob/user as mob)
 	if(!cooldown)
 		var/answer = pick(possible_answers)
-		user.visible_message(span_notice("[user] сосредотачива[pluralize_ru(user.gender,"ет","ют")]ся на своём вопросе и [use_action]..."))
+		user.visible_message(span_notice("[user] сосредотачива[PLUR_ET_UT(user)]ся на своём вопросе и [use_action]..."))
 		user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит: \"[answer]\""))
 		spawn(30)
 			cooldown = 0

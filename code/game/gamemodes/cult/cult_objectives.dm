@@ -153,7 +153,7 @@
 				target_candidates += H.mind
 	if(length(target_candidates))
 		target = pick(target_candidates)
-		explanation_text = "Принесите в жертву [target], [target.assigned_role] посредством вызова руны Предложения с помощью [genderize_ru(target.current.gender, "его", "её", "его", "их")] тела или мозга на ней и трёх культистов вокруг руны."
+		explanation_text = "Принесите в жертву [target], [target.assigned_role] посредством вызова руны Предложения с помощью [GEND_HIS_HER(target.current)] тела или мозга на ней и трёх культистов вокруг руны."
 		return TRUE
 	message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. Nar'Sie summoning unlocked!")
 	return FALSE

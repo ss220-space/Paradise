@@ -59,7 +59,7 @@
 
 	correctness -= human.getBrainLoss() * 0.5 //Brain damage makes researching hard.
 	speed += human.getBrainLoss() * 0.3 SECONDS
-	human.visible_message("[human.declent_ru(NOMINATIVE)] открыва[pluralize_ru(human.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и начина[pluralize_ru(human.gender, "ет", "ют")] усердно читать.")
+	human.visible_message("[human.declent_ru(NOMINATIVE)] открыва[PLUR_ET_UT(human)] [declent_ru(ACCUSATIVE)] и начина[PLUR_ET_UT(human)] усердно читать.")
 
 	if(!do_after(human, speed, human, DEFAULT_DOAFTER_IGNORE | DA_IGNORE_HELD_ITEM))
 		is_used = FALSE

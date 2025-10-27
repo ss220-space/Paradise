@@ -98,7 +98,7 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!w_uniform && !wear_suit)
-		to_chat(user, span_warning("У Вас нет желания лезть к [genderize_ru(gender, "нему", "ней", "этому", "ним")] в трусы. Жучок необходимо крепить на одежду!"))
+		to_chat(user, span_warning("У вас нет желания лезть к н[GEND_HIM_HER(src)] в трусы. Жучок необходимо крепить на одежду!"))
 		return .
 
 	var/obj/item/radio/spy_spider/spy_spider = I

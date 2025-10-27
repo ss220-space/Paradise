@@ -117,7 +117,7 @@
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(H.stat == DEAD || H == L)
 				continue
-			to_chat(H, span_userdanger("Вы испытываете непреодолимое желание убить [L]. [genderize_ru(L.gender,"Он","Она","Оно","Они")] помечен[genderize_ru(L.gender,"","а","о","ы")] красным! УБЕЙТЕ [genderize_ru(L.gender,"ЕГО","ЕЁ","ЕГО","ИХ")]!"))
+			to_chat(H, span_userdanger("Вы испытываете непреодолимое желание убить [L]. [GEND_HE_SHE_CAP(L)] помечен[GEND_A_O_Y(L)] красным! УБЕЙТЕ [uppertext(GEND_HIS_HER(L))]!"))
 			H.put_in_hands(new /obj/item/kitchen/knife/butcher(H))
 
 	qdel(src)
@@ -450,7 +450,7 @@
 	projectile.firer = soul
 	projectile.firer_source_atom = src
 	projectile.fire(null, attacked_atom)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] стреля[pluralize_ru(gender,"ет","ют")] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] стреля[PLUR_ET_UT(src)] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
 
 /obj/item/soulscythe/proc/slash_target(atom/attacked_atom)
@@ -459,13 +459,13 @@
 		if(attacked_mob.stat != DEAD)
 			give_blood(15)
 		attacked_mob.apply_damage(damage = force * (faction_check(attacked_mob.faction, MINING_FACTIONS) ? 2 : 1), sharp = TRUE)
-		to_chat(attacked_mob, span_userdanger("Вас разруба[pluralize_ru(gender,"ет","ют")] [declent_ru(NOMINATIVE)]!"))
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] разруба[pluralize_ru(gender,"ет","ют")] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы разрубаете [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		to_chat(attacked_mob, span_userdanger("Вас разруба[PLUR_ET_UT(src)] [declent_ru(NOMINATIVE)]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] разруба[PLUR_ET_UT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы разрубаете [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 	else if((ismachinery(attacked_atom) || isstructure(attacked_atom)) && use_blood(5))
 		var/obj/attacked_obj = attacked_atom
 		attacked_obj.take_damage(force, BRUTE, MELEE, FALSE)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] бь[pluralize_ru(gender,"ёт","ют")] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы бьёте [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] бь[PLUR_YOT_UT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы бьёте [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/effects/meteorimpact.ogg', 50, TRUE)
 	else
 		return

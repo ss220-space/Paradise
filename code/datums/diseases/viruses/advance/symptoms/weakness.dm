@@ -40,6 +40,6 @@ Bonus
 				to_chat(M, span_userdanger(pick("Вы чувствуете себя невероятно слабым!", "Ваше тело дрожит, а усталость окутывает вас.")))
 				M.adjustStaminaLoss(30)
 				if(M.getStaminaLoss() > 60 && !M.stat)
-					M.visible_message(span_warning("[M] пада[pluralize_ru(M.gender,"ет","ют")] в обморок!</span>"), span_userdanger("Вы теряете сознание и падаете..."))
+					M.visible_message(span_warning("[M] пада[PLUR_ET_UT(M)] в обморок!</span>"), span_userdanger("Вы теряете сознание и падаете..."))
 					M.AdjustSleeping(10 SECONDS)
 	return

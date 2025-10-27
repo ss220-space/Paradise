@@ -52,12 +52,12 @@
 			return
 		else
 			if(istype(summoner.loc, /obj/effect))
-				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[declension_ru(range,"","а","ов")] от [summoner.real_name]!"))
+				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от [summoner.real_name]!"))
 				visible_message(span_danger("[src] возвращается к своему хозяину."))
 				Recall(TRUE)
 			else
-				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[declension_ru(range,"","а","ов")] от <b>[src]</b>!"))
-				summoner.visible_message(span_danger("[summoner] отпрыгива[pluralize_ru(summoner.gender,"ет","ют")] назад к своему защитнику."))
+				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от <b>[src]</b>!"))
+				summoner.visible_message(span_danger("[summoner] отпрыгива[PLUR_ET_UT(summoner)] назад к своему защитнику."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector

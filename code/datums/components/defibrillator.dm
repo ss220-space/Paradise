@@ -154,7 +154,7 @@
 		return
 
 	user.visible_message(
-		span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] размещать электроды дефибриллятора на груди [target.name]."),
+		span_warning("[user] начина[PLUR_ET_UT(user)] размещать электроды дефибриллятора на груди [target.name]."),
 		span_warning("Вы начинаете размещать электроды дефибриллятора на груди [target.name]."),
 	)
 
@@ -170,7 +170,7 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] разместил[genderize_ru(user.gender, "", "а", "о", "и")] электроды дефибриллятора на груди [target.name]."),
+		span_notice("[user] разместил[GEND_A_O_I(user)] электроды дефибриллятора на груди [target.name]."),
 		span_notice("Вы разместили электроды дефибриллятора на груди [target.name]."),
 	)
 	playsound(get_turf(defib_ref), 'sound/machines/defib_charge.ogg', 50, FALSE)
@@ -302,8 +302,8 @@
 		return
 	busy = TRUE
 	target.visible_message(
-		span_danger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] [target.name] электродами боевого дефибриллятора!"),
-		span_userdanger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] вас электродами боевого дефибриллятора!"),
+		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] электродами боевого дефибриллятора!"),
+		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас электродами боевого дефибриллятора!"),
 	)
 	if(ignore_hardsuits)
 		target.apply_damage(70, STAMINA)
@@ -344,7 +344,7 @@
 	if(electrocute_mob(affecting, power_source, origin)) // shock anyone touching them >:)
 		var/obj/item/organ/internal/heart/heart = affecting.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(istype(heart) && heart.parent_organ_zone == BODY_ZONE_CHEST && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
-			affecting.visible_message(span_danger("[affecting] сотряса[pluralize_ru(affecting.gender, "ет", "ют")]ся от электрического тока, проходящего через [genderize_ru(affecting.gender, "его", "её", "его", "их")] руку!"), \
+			affecting.visible_message(span_danger("[affecting] сотряса[PLUR_ET_UT(affecting)]ся от электрического тока, проходящего через [GEND_HIS_HER(affecting)] руку!"), \
 							span_userdanger("Вы чувствуете мощный удар током, проходящий через ваше сердце!"))
 			affecting.set_heartattack(TRUE)
 

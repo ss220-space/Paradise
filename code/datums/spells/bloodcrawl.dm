@@ -127,7 +127,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/sink_animation(atom/enter_point, mob/living/user)
 	var/turf/mob_loc = get_turf(user)
-	visible_message(span_danger("[user] погружа[pluralize_ru(user.gender, "ется", "ются")] в [enter_point.declent_ru(ACCUSATIVE)]."))
+	visible_message(span_danger("[user] погружа[PLUR_ET_UT(user)]ся в [enter_point.declent_ru(ACCUSATIVE)]."))
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, user.dir, "jaunt")
 
@@ -140,13 +140,13 @@
 		return
 
 	if(victim.stat == CONSCIOUS)
-		enter_point.visible_message(span_warning("[victim] вырыва[pluralize_ru(victim.gender, "ется", "ются")] из [enter_point.declent_ru(GENITIVE)] в последний момент!"))
+		enter_point.visible_message(span_warning("[victim] вырыва[PLUR_ET_UT(victim)]ся из [enter_point.declent_ru(GENITIVE)] в последний момент!"))
 		user.stop_pulling()
 		return
 
 	victim.emote("scream")
 	victim.forceMove(holder)
-	enter_point.visible_message(span_warning("<b>[user] затягива[pluralize_ru(user.gender, "ет", "ют")] [victim] в [enter_point.declent_ru(ACCUSATIVE)]!</b>"))
+	enter_point.visible_message(span_warning("<b>[user] затягива[PLUR_ET_UT(user)] [victim] в [enter_point.declent_ru(ACCUSATIVE)]!</b>"))
 	if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
 		to_chat(user, "<b>Вы хватаете [victim.declent_ru(ACCUSATIVE)] и начинаете безжалостную щекотку! Вы не можете двигаться, пока делаете это.</b>")
 		enter_point.visible_message(span_clown("<b>Из крови доносятся крики и дикий хохот...</b>"))
@@ -176,7 +176,7 @@
 		user.heal_damages(brute = 1000, burn = 1000, tox = 1000, oxy = 1000)
 	else
 		if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
-			to_chat(user, span_clown("Вы заставляете [victim.declent_ru(ACCUSATIVE)] смеяться до слёз, но [genderize_ru(victim.gender,"его","её","его","их")] страдания лишь слегка подпитывают вашу радость!"))
+			to_chat(user, span_clown("Вы заставляете [victim.declent_ru(ACCUSATIVE)] смеяться до слёз, но [GEND_HIS_HER(victim)] страдания лишь слегка подпитывают вашу радость!"))
 		else
 			to_chat(user, span_warning("Вы пожираете [victim.declent_ru(ACCUSATIVE)], но эта скудная добыча едва утоляет ваш голод!"))
 		user.heal_damages(brute = 25, burn = 25)

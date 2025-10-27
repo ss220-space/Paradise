@@ -486,13 +486,13 @@
 	if(!istype(M) || !istype(H))
 		return
 	if(!H.mind)
-		visible_message("Похоже, [H] слишком глуп[genderize_ru(H.gender, "", "а", "о", "ы")], чтобы понять, что происходит.")
+		visible_message("Похоже, [H] слишком глуп[GEND_A_O_Y(H)], чтобы понять, что происходит.")
 		return
 	if(HAS_TRAIT(H, TRAIT_NO_BLOOD) || HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD) || !H.blood_volume)
-		visible_message("[H] выгляд[pluralize_ru(H.gender, "ит", "ят")] невозмутимым!")
+		visible_message("[H] выгляд[PLUR_IT_YAT(H)] невозмутимым!")
 		return
 	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
-		visible_message(span_notice("[H] выгляд[pluralize_ru(H.gender, "ит", "ят")] посвежевшим!"))
+		visible_message(span_notice("[H] выгляд[PLUR_IT_YAT(H)] посвежевшим!"))
 		H.heal_overall_damage(60, 60, affect_robotic = TRUE)
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			if(prob(25))
@@ -502,10 +502,10 @@
 		return
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
-			visible_message(span_warning("[H], похоже, испытыва[pluralize_ru(H.gender, "ет", "ют")] боль!"))
+			visible_message(span_warning("[H], похоже, испытыва[PLUR_ET_UT(H)] боль!"))
 			H.apply_damage(60, BRAIN)
 		else
-			visible_message(span_warning("Похоже, что [H] ошеломлен[genderize_ru(H.gender, "", "а", "о", "ы")] энергией!"))
+			visible_message(span_warning("Похоже, что [H] ошеломлен[GEND_A_O_Y(H)] энергией!"))
 			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)
@@ -514,7 +514,7 @@
 	for(var/obj/item/implant/traitor/T in H)
 		if(T?.implanted)
 			qdel(T)
-	visible_message(span_warning("У [H] появля[pluralize_ru(H.gender, "ет", "ют")]ся жуткое красное свечение в глазах!"))
+	visible_message(span_warning("У [H] появля[PLUR_ET_UT(H)]ся жуткое красное свечение в глазах!"))
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = H.mind
 	protect_objective.target = M.mind

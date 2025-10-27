@@ -202,7 +202,7 @@
 	. = TRUE
 
 	// Add a delay, as server's points will be lost after disassembly
-	user.visible_message("[user] начина[pluralize_ru(user.gender, "ет", "ют")] разбирать [src].", "Вы начинаете разбирать [src].")
+	user.visible_message("[user] начина[PLUR_ET_UT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 

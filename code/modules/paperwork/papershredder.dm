@@ -112,7 +112,7 @@
 				break
 	if(empty_into)
 		if(paperamount)
-			to_chat(user, span_notice("Вы заполняете [empty_into.declent_ru(ACCUSATIVE)] стольким количеством растерзанной бумаги, сколько [genderize_ru(empty_into.gender, "он", "она", "оно", "они")] мо[pluralize_ru(empty_into.gender, "жет", "гут")] вместить."))
+			to_chat(user, span_notice("Вы заполняете [empty_into.declent_ru(ACCUSATIVE)] стольким количеством растерзанной бумаги, сколько [GEND_HE_SHE(empty_into)] мо[PLUR_JET_GUT(empty_into)] вместить."))
 		else
 			to_chat(user, span_notice("Вы опустошаете [declent_ru(ACCUSATIVE)] в [empty_into.declent_ru(ACCUSATIVE)]."))
 	else

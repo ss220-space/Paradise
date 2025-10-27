@@ -34,8 +34,8 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(cigarette) || cigarette.lit)
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
-	cigarette.light(span_rose("[user] привычным движением прикурива[pluralize_ru(user.gender, "ет", "ют")] заслуженную \
-					[genderize_ru(user.gender, "им", "ей", "им", "ими")] [cigarette.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. В воздухе запахло телекристаллами."))
+	cigarette.light(span_rose("[user] привычным движением прикурива[PLUR_ET_UT(user)] заслуженную \
+					[GEND_IM_EI_IM_IMI(user)] [cigarette.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. В воздухе запахло телекристаллами."))
 
 
 /**

@@ -62,7 +62,7 @@
 /obj/item/twohanded/fishing_rod/examine(mob/user)
 	. = ..()
 	if(bait)
-		. += span_notice("на крючке наход[pluralize_ru(bait.gender, "ит", "ят")]ся [bait.declent_ru(NOMINATIVE)].")
+		. += span_notice("на крючке наход[PLUR_IT_YAT(bait)]ся [bait.declent_ru(NOMINATIVE)].")
 		. += span_notice("Вы можете снять наживку, используя <b>Alt + ЛКМ</b>.")
 
 /obj/item/twohanded/fishing_rod/update_icon_state()

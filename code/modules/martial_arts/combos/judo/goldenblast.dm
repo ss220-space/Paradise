@@ -6,7 +6,7 @@
 
 
 /datum/martial_combo/judo/goldenblast/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
-	target.visible_message(span_warning("[user] бьёт [target] чистой Золотой энергией, вбивая [genderize_ru(target.gender, "его", "её", "его", "их")] в пол!"), \
+	target.visible_message(span_warning("[user] бьёт [target] чистой Золотой энергией, вбивая [GEND_HIS_HER(target)] в пол!"), \
 						span_userdanger("[user] странно жестикулирует, дико кричит и тычет вам прямо в грудь! Вы чувствуете, как гнев <b>ЗОЛОТОЙ МОЛНИИ</b> пронзает ваше тело! Вы полностью парализованы!"))
 	playsound(get_turf(target), 'sound/weapons/taser.ogg', 55, TRUE, -1)
 	playsound(get_turf(target), 'sound/weapons/tase.ogg', 55, TRUE, -1)

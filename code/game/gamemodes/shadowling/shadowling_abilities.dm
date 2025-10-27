@@ -64,7 +64,7 @@
 	user.visible_message(span_warning("<b>Глаза [user] вспыхивают ослепительно красным светом!</b>"))
 	var/distance = get_dist(target, user)
 	if(distance <= 2)
-		target.visible_message(span_danger("[target] застывает на месте, [genderize_ru(target.gender,"его","её","его","их")] глаза стекленеют..."), \
+		target.visible_message(span_danger("[target] застывает на месте, [GEND_HIS_HER(target)] глаза стекленеют..."), \
 								span_userdanger("Ваш взгляд насильно притягивается к глазам [user], и вы пленяетесь их неописуемой красотой..."))
 
 		target.Weaken(4 SECONDS)
@@ -77,7 +77,7 @@
 		target.Slowed(10 SECONDS)
 		target.AdjustSilence(10 SECONDS)
 		to_chat(target, span_userdanger("Красный свет вспыхивает перед глазами, и разум пытается противостоять ему... Вы обессилены... Вы не в состоянии говорить..."))
-		target.visible_message(span_danger("[target] застывает на месте, [genderize_ru(target.gender,"его","её","его","их")] глаза стекленеют..."))
+		target.visible_message(span_danger("[target] застывает на месте, [GEND_HIS_HER(target)] глаза стекленеют..."))
 
 
 /obj/effect/proc_holder/spell/aoe/shadowling_veil
@@ -316,13 +316,13 @@
 
 	enthralling = TRUE
 	to_chat(user, span_danger("Эта цель верна. Вы начинаете процесс подчинения."))
-	to_chat(target, span_userdanger("[user] смотр[pluralize_ru(user.gender,"ит","ят")] на вас. Вы чувствуете, что ваша голова начинает пульсировать."))
+	to_chat(target, span_userdanger("[user] смотр[PLUR_IT_YAT(user)] на вас. Вы чувствуете, что ваша голова начинает пульсировать."))
 
 	for(var/progress = 0, progress <= 3, progress++)
 		switch(progress)
 			if(1)
 				to_chat(user, span_notice("Вы прикладываете ладони к голове [target]..."))
-				user.visible_message(span_warning("[user] прикладыва[pluralize_ru(user.gender,"ет","ют")] свои ладони к голове [target]"))
+				user.visible_message(span_warning("[user] прикладыва[PLUR_ET_UT(user)] свои ладони к голове [target]"))
 			if(2)
 				to_chat(user, span_notice("Вы начинаете обрабатывать разум [target] до состояния чистого листа..."))
 				user.visible_message(span_warning("Ладони [user] вспыхивают ярко-красным светом на висках [target]!"))
@@ -344,7 +344,7 @@
 
 	enthralling = FALSE
 	to_chat(user, span_shadowling("Вы подчинили себе <b>[target]</b>!"))
-	target.visible_message(span_big("[target], похоже, испытал[genderize_ru(target.gender,"","а","о","и")] откровение!"), \
+	target.visible_message(span_big("[target], похоже, испытал[GEND_A_O_I(target)] откровение!"), \
 							span_warning("Фальшивые лица все <b>ТЁМНЫЕ не настоящие, не настоящие, не настоящие</b>!!!"))
 	target.setOxyLoss(0) //In case the shadowling was choking them out
 	SSticker.mode.add_thrall(target.mind)
@@ -561,7 +561,7 @@
 		to_chat(M, span_warning("Вы вдыхаете чёрный дым, и ваши глаза ужасно горят!"))
 		M.EyeBlind(10 SECONDS)
 		if(prob(25))
-			M.visible_message(span_warning("[M] яростно тр[pluralize_ru(M.gender, "ёт", "ут")] свои глаза!"))
+			M.visible_message(span_warning("[M] яростно тр[PLUR_YOT_YT(M)] свои глаза!"))
 			M.Stun(4 SECONDS)
 	else
 		to_chat(M, span_notice("Вы вдыхаете чёрный дым и чувствуете лёгкость!"))
@@ -596,7 +596,7 @@
 		revert_cast(user)
 		return
 
-	user.audible_message(span_warning("<b>[user] изда[pluralize_ru(user.gender,"ет","ют")] ужасный крик!</b>"))
+	user.audible_message(span_warning("<b>[user] изда[PLUR_ET_UT(user)] ужасный крик!</b>"))
 	playsound(user.loc, 'sound/effects/screech.ogg', 100, TRUE)
 
 	for(var/turf/turf in targets)
@@ -736,9 +736,9 @@
 			revert_cast(user)
 			return
 
-		user.visible_message(span_danger("[user] клад[pluralize_ru(user.gender,"ет","ут")] свои руки, из под которых светится красный свет, на лицо [thrall]."), \
-							span_shadowling("Вы кладете ладони на лицо [thrall] и начинаете наполнять [genderize_ru(thrall.gender,"его","её","его","их")] энергией..."))
-		to_chat(thrall, span_userdanger("[user] положил[genderize_ru(user.gender,"","а","о","и")] свои ладони на ваше лицо. Вы чувствуете, как в вас собирается энергия. Стойте спокойно..."))
+		user.visible_message(span_danger("[user] клад[PLUR_ET_YT(user)] свои руки, из под которых светится красный свет, на лицо [thrall]."), \
+							span_shadowling("Вы кладете ладони на лицо [thrall] и начинаете наполнять [GEND_HIS_HER(thrall)] энергией..."))
+		to_chat(thrall, span_userdanger("[user] положил[GEND_A_O_I(user)] свои ладони на ваше лицо. Вы чувствуете, как в вас собирается энергия. Стойте спокойно..."))
 		if(!do_after(user, 8 SECONDS, thrall, NONE))
 			to_chat(user, span_warning("Ваша концентрация нарушается. Поток энергии ослабевает."))
 			revert_cast(user)
@@ -754,7 +754,7 @@
 		playsound(thrall, 'sound/machines/defib_zap.ogg', 50, TRUE)
 		user.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 		thrall.Weaken(10 SECONDS)
-		thrall.visible_message(span_warning("<b>[thrall] падает, [genderize_ru(thrall.gender,"его","её","его","их")] кожа лица деформируются!"), \
+		thrall.visible_message(span_warning("<b>[thrall] падает, [GEND_HIS_HER(thrall)] кожа лица деформируются!"), \
 								span_userdanger("<i>АААААААААААААААХХ</i>"))
 
 		sleep(2 SECONDS)
@@ -762,7 +762,7 @@
 			revert_cast(user)
 			return
 
-		thrall.visible_message(span_warning("[thrall] медленно поднима[pluralize_ru(thrall.gender,"ет","ют")]ся, переставая быть похожим[pluralize_ru(thrall.gender,"","и")] на гуманоида."), \
+		thrall.visible_message(span_warning("[thrall] медленно поднима[PLUR_ET_UT(thrall)]ся, переставая быть похожим[PLUR_I(thrall)] на гуманоида."), \
 								span_shadowling("<b>Вы чувствуете, как в вас вливается новая сила. Вы получили дар от своих хозяев. Теперь вы очень похожи на них. Вы обретаете силу во тьме, но медленно увядаете при свете. Кроме того, теперь вы обладаете способностью использовать ослепляющий взгляд и ходить в тени.</b>"))
 
 		thrall.set_species(/datum/species/shadow/ling/lesser)
@@ -771,7 +771,7 @@
 		thrall.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_shadow_walk(null))
 
 	else if(thrall.stat == DEAD)
-		user.visible_message(span_danger("[user] опуска[pluralize_ru(user.gender,"ет","ют")]ся на колени над [thrall], кладя свои ладони на [genderize_ru(thrall.gender,"его","её","его","их")] грудь."), \
+		user.visible_message(span_danger("[user] опуска[PLUR_ET_UT(user)]ся на колени над [thrall], кладя свои ладони на [GEND_HIS_HER(thrall)] грудь."), \
 							span_shadowling("Вы склоняетесь над телом своего раба и начинаете накапливать энергию..."))
 		thrall.notify_ghost_cloning("Ваши хозяева возрождают вас! Если вы хотите оживить свой труп, войдите в него заново.", source = thrall)
 		if(!do_after(user, 3 SECONDS, thrall, NONE))
@@ -798,7 +798,7 @@
 		thrall.update_revive()
 		thrall.Weaken(8 SECONDS)
 		thrall.emote("gasp")
-		thrall.visible_message(span_boldannounceic("[thrall] тяжело дышит, в [genderize_ru(thrall.gender,"его","её","его","их")] глазах сияет тусклый красный свет."), \
+		thrall.visible_message(span_boldannounceic("[thrall] тяжело дышит, в [GEND_HIS_HER(thrall)] глазах сияет тусклый красный свет."), \
 								span_shadowling("<b><i>Вы вернулись. Один из ваших хозяев привел вас из потусторонней тьмы.</b></i>"))
 		playsound(thrall, SFX_BODYFALL, 50, TRUE)
 
@@ -920,7 +920,7 @@
 		revert_cast(user)
 		return
 
-	user.visible_message(span_danger("Метки [user] вспыхивают, когда [genderize_ru(user.gender,"он","она","оно","они")] дела[pluralize_ru(user.gender,"ет","ют")] жест в [target]!"), \
+	user.visible_message(span_danger("Метки [user] вспыхивают, когда [GEND_HE_SHE(user)] дела[PLUR_ET_UT(user)] жест в [target]!"), \
 						span_shadowling("Вы направляете копьё телекинетической энергии в [target]."))
 	sleep(0.4 SECONDS)
 
@@ -972,7 +972,7 @@
 
 	target.vomit(0, VOMIT_BLOOD, distance = 2, message = FALSE)
 	playsound(user.loc, 'sound/hallucinations/veryfar_noise.ogg', 50, TRUE)
-	to_chat(user, span_shadowling("Вы мгновенно изменяете воспоминания <b>[target]</b>, превращая [genderize_ru(target.gender,"его","её","его","их")] в раба"))
+	to_chat(user, span_shadowling("Вы мгновенно изменяете воспоминания <b>[target]</b>, превращая [GEND_HIS_HER(target)] в раба"))
 	to_chat(target, span_userdanger(span_fontsize3("Волна мучительной боли проникает в ваше сознание, и...")))
 	SSticker.mode.add_thrall(target.mind)
 	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
@@ -1005,7 +1005,7 @@
 		user.incorporeal_move = INCORPOREAL_NORMAL
 		user.alpha_set(0, ALPHA_SOURCE_SHADOWLING)
 	else
-		user.visible_message(span_danger("[user] внезапно появля[pluralize_ru(user.gender,"ет","ют")]ся из ниоткуда!"), \
+		user.visible_message(span_danger("[user] внезапно появля[PLUR_ET_UT(user)]ся из ниоткуда!"), \
 							span_shadowling("Вы возвращаетесь из пространства между мирами."))
 		user.incorporeal_move = INCORPOREAL_NONE
 		user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)

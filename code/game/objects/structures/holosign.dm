@@ -102,7 +102,7 @@
 
 
 /obj/structure/holosign/wetsign/mine/proc/triggermine(mob/living/victim)
-	empulse(src, 1, 1, TRUE, "[victim] активировал[genderize_ru(victim.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]")
+	empulse(src, 1, 1, TRUE, "[victim] активировал[GEND_A_O_I(victim)] [declent_ru(ACCUSATIVE)]")
 	if(ishuman(victim))
 		victim.apply_damage(100, STAMINA)
 	qdel(src)

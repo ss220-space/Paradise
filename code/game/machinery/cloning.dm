@@ -446,13 +446,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		if(!cleaning)
 			return ..()
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] счищать слизь с [declent_ru(GENITIVE)]."),
+			span_notice("[user] начина[PLUR_ET_UT(user)] счищать слизь с [declent_ru(GENITIVE)]."),
 			span_notice("Вы начинаете счищать слизь с [declent_ru(GENITIVE)].")
 		)
 		if(!do_after(user, 5 SECONDS, src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] убира[pluralize_ru(user.gender, "ет", "ют")] слизь с [declent_ru(GENITIVE)]."),
+			span_notice("[user] убира[PLUR_ET_UT(user)] слизь с [declent_ru(GENITIVE)]."),
 			span_notice("Вы убрали слизь с [declent_ru(GENITIVE)].")
 		)
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
@@ -603,7 +603,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			occupant.grab_ghost() // We really just want to make you suffer.
 			var/message
 			message += "<b>Ваше тело выворачивает наизнанку, волна агонизирующей боли заливает ваше сознание.</b><br>"
-			message += "<i>Это и есть [pluralize_ru(occupant.gender, "моя", "наша")] смерть? Да, это она.</i>"
+			message += "<i>Это и есть моя смерть? Да, это она.</i>"
 			to_chat(occupant, span_warning("[message]"))
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
 		for(var/i in missing_organs)
