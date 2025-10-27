@@ -82,7 +82,11 @@
 				span_userdanger("[M.name] шокиру[pluralize_ru(M.gender, "ет", "ют")] вас!"))
 
 				do_sparks(5, TRUE, src)
-				adjustFireLoss(M.powerlevel * rand(6, 6 + M.age_state.damage)) //42-
+				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT
+				Knockdown(power)
+				Stuttering(power)
+				if(prob(stunprob) && M.powerlevel >= 8)
+					adjustFireLoss(M.powerlevel * rand(6, 6 + M.age_state.damage))
 				M.powerlevel -= 4
 				if(M.powerlevel < 0)
 					M.powerlevel = 0
