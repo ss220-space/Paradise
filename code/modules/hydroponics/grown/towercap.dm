@@ -218,7 +218,7 @@
 			to_chat(user, span_warning("Для этого вам потребуется как минимум один стержень."))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] устанавлива[pluralize_ru(user.gender,"ет","ют")] центральный стержень внутри [declent_ru(GENITIVE)]."),
+			span_notice("[user] устанавлива[PLUR_ET_UT(user)] центральный стержень внутри [declent_ru(GENITIVE)]."),
 			span_notice("Вы установили металлический стержень внутри [declent_ru(GENITIVE)]."),
 		)
 		rod_installed = TRUE

@@ -36,7 +36,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant
 	name = "hierophant"
-	desc = "Массивный металлический клуб, зависающий в воздухе будто в ожидании. Он заставит вас танцевать под свой ритм."
+	desc = "Массивный металлический посох, зависающий в воздухе будто в ожидании. Он заставит вас танцевать под свой ритм."
 	health = 2500
 	maxHealth = 2500
 	attacktext = "качает"
@@ -857,10 +857,10 @@ Difficulty: Hard
 		add_fingerprint(user)
 		var/obj/item/hierophant_club/club = I
 		if(club.timer > world.time)
-			to_chat(user, span_hierophant_warning("Клуб перезаряжается."))
+			to_chat(user, span_hierophant_warning("Посох перезаряжается."))
 			return ATTACK_CHAIN_PROCEED
 		if(club.beacon != src)
-			to_chat(user, span_hierophant_warning("Вы касаетесь маяка клубом, но ничего не происходит."))
+			to_chat(user, span_hierophant_warning("Вы касаетесь маяка посохом, но ничего не происходит."))
 			return ATTACK_CHAIN_PROCEED
 		club.timer = world.time + 5.1 SECONDS
 		to_chat(user, span_notice("Вы начинаете извлекать маяк иерофанта..."))
@@ -871,7 +871,7 @@ Difficulty: Hard
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, 'sound/magic/blind.ogg', 200, TRUE, -4)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(loc, user)
-		to_chat(user, span_hierophant_warning("Вы собираете [declent_ru(ACCUSATIVE)], возвращая его к клубу!"))
+		to_chat(user, span_hierophant_warning("Вы собираете [declent_ru(ACCUSATIVE)], возвращая его к посоху!"))
 		club.beacon = null
 		user.update_action_buttons_icon()
 		qdel(src)

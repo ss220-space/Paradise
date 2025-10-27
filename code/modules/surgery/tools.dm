@@ -198,8 +198,8 @@
 
 /obj/item/surgicaldrill/suicide_act(mob/living/user)
 	user.visible_message(
-		span_suicide("[user] наматыва[pluralize_ru(user.gender, "ет", "ют")] себя на [declent_ru(ACCUSATIVE)]!\n\
-		Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет", "ют")] суицид!")
+		span_suicide("[user] наматыва[PLUR_ET_UT(user)] себя на [declent_ru(ACCUSATIVE)]!\n\
+		Похоже, что [GEND_HE_SHE(user)] соверша[PLUR_ET_UT(user)] суицид!")
 		)
 
 	addtimer(CALLBACK(src, PROC_REF(second_act), user), 2.5 SECONDS)
@@ -278,9 +278,9 @@
 
 
 /obj/item/scalpel/suicide_act(mob/user)
-	to_chat(viewers(user), pick(span_suicide("[user] [declent_ru(INSTRUMENTAL)] среза[pluralize_ru(user.gender, "ет", "ют")] свою кожу! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет", "ют")] суицид!"),
-						span_suicide("[user] реж[pluralize_ru(user.gender, "ет", "ут")] своё горло с помощью [declent_ru(GENITIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет", "ют")] суицид!"),
-						span_suicide("[user] вонза[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(NOMINATIVE)] в свой желудок! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить сэппуку!")))
+	to_chat(viewers(user), pick(span_suicide("[user] [declent_ru(INSTRUMENTAL)] среза[PLUR_ET_UT(user)] свою кожу! Похоже, что [GEND_HE_SHE(user)] соверша[PLUR_ET_UT(user)] суицид!"),
+						span_suicide("[user] реж[PLUR_ET_YT(user)] своё горло с помощью [declent_ru(GENITIVE)]! Похоже, что [GEND_HE_SHE(user)] соверша[PLUR_ET_UT(user)] суицид!"),
+						span_suicide("[user] вонза[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)] в свой желудок! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся совершить сэппуку!")))
 	return BRUTELOSS
 
 

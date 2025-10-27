@@ -254,14 +254,14 @@ def check_can_perform_action(idx, line):
         return [(idx + 1, "Found a can_perform_action() proc with improper arguments.")]
 
 AS_ANYTHING_TYPELESS = re.compile(r'var/[^/]+ as anything')
-def check_as_anything_typeless(idx, line):
-    if AS_ANYTHING_TYPELESS.search(line):
-        return [(idx + 1, "'as anything' used in a typeless for loop. This doesn't do anything and should be removed.")]
-
 AS_ANYTHING_INTERNAL = re.compile(r'var\/(turf|mob|obj|atom\/movable).+ as anything in o?(view|range|hearers)\(')
-def check_as_anything_internal(idx, line):
+def check_as_anything(idx, line):
+    failures = []
+    if AS_ANYTHING_TYPELESS.search(line):
+        failures.append((idx + 1, "'as anything' used in a typeless for loop. This doesn't do anything and should be removed."))
     if AS_ANYTHING_INTERNAL.search(line):
-        return [(idx + 1, "'as anything' typed for loop over an internal function. These functions have some internal optimization that relies on the loop not having 'as anything' in it.")]
+        failures.append((idx + 1, "'as anything' typed for loop over an internal function. These functions have some internal optimization that relies on the loop not having 'as anything' in it."))
+    return failures
 
 IE_TYPO_RE = re.compile(r'eciev', re.IGNORECASE)
 def check_ie_typo(idx, line):
@@ -301,8 +301,7 @@ def check_playsound_improper_call(idx, line):
 APOSTROPHE_NAME = re.compile(r'name\s*=\s*"[^"]*\[[^]]*\]\'s')
 def check_apostrophe_name(idx, line):
     if APOSTROPHE_NAME.search(line):
-        if 'UNLINT' not in line:
-            return [(idx + 1, f"Using an apostrophe in a name like \"[mob]'s brain\" may cause Byond to get confused between the two objects, such as click verbs, etc. Please use ’ (U+2019) instead.")]
+        return [(idx + 1, f"Using an apostrophe in a name like \"[mob]'s brain\" may cause Byond to get confused between the two objects, such as click verbs, etc. Please use ’ (U+2019) instead.")]
 
 RAND_FLOATING_POINT_NUMBERS = re.compile(r'rand\([^)]*[0-9]\.')
 def check_rand_floating_point(idx, line):
@@ -313,6 +312,13 @@ BITWISE_AMBIGUOUS_RE = re.compile(r'&[ \t]*\w+[ \t]*\|[ \t]*\w+')
 def check_bitwise_operator_order(idx, line):
     if BITWISE_AMBIGUOUS_RE.search(line):
         return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
+
+IGNORE_LOCALIZATION_FILE = ["localization.dm"]
+MACROED_PROCS = re.compile(r'genderize_ru|pluralize_ru')
+def check_localization_macro_usage(idx, line):
+    if MACROED_PROCS.search(line):
+        if 'UNLINT' not in line:
+            return [(idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -338,8 +344,7 @@ CODE_CHECKS = [
     check_timer_flags,
     check_force_move_syntax,
     check_can_perform_action,
-    check_as_anything_typeless,
-    check_as_anything_internal,
+    check_as_anything,
     check_ie_typo,
     check_define_formatting,
     check_duplicate_spans,
@@ -383,6 +388,8 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
+        if filename not in IGNORE_LOCALIZATION_FILE:
+            extra_checks.append(check_localization_macro_usage)
 
         last_line = None
         for idx, line in enumerate(code):

@@ -276,7 +276,7 @@
 	var/obj/item/reagent_containers/food/snacks/charred_krill/krill = AM //yourself
 	krill.in_lava = TRUE
 	krill.anchored = TRUE	//no closet kidnaping
-	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[pluralize_ru(krill.gender, "ет", "ут")] в лаве!"))
+	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[PLUR_ET_YT(krill)] в лаве!"))
 	sleep(5 SECONDS)
 	qdel(krill)
 	if(!can_be_fished_on)
@@ -347,7 +347,7 @@
 
 	. |= ATTACK_CHAIN_SUCCESS
 	if(!I.reagents.add_reagent("plasma", 10))
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] уже заполнен[genderize_ru(I.gender,"","а","о","ы")] до краёв."))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] уже заполнен[GEND_A_O_Y(I)] до краёв."))
 		return .
 	to_chat(user, span_notice("Вы черпаете лаву из [declent_ru(GENITIVE)] используя [I.declent_ru(ACCUSATIVE)]."))
 

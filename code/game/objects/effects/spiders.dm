@@ -83,7 +83,7 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			S.new_mind_memory = master_commander ? "<b>Мой хозяин [master_commander.name], выполню [genderize_ru(master_commander.gender, "его", "её", "этого", "их")] цели любой ценой!</b>" : new_mind_memory
+			S.new_mind_memory = master_commander ? "<b>Мой хозяин [master_commander.name], выполню [GEND_HIS_HER(master_commander)] цели любой ценой!</b>" : new_mind_memory
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
@@ -122,7 +122,7 @@
 	. = ..()
 	if(ishuman(user))
 		if(user.a_intent == INTENT_HELP)
-			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name]."))
+			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[GEND_A_O_I(user)] брюшко [src.name]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		else
 			user.changeNext_move(CLICK_CD_MELEE)

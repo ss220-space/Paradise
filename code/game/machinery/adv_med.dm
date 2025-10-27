@@ -42,7 +42,7 @@
 	. = ..()
 	if(occupant)
 		if(occupant.is_dead())
-			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
+			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [GEND_HE_SHE_CAP(occupant)] мертв[GEND_A_O_Y(occupant)]!")
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
@@ -89,10 +89,10 @@
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
 
-	visible_message("[grabber] начина[pluralize_ru(grabber.gender,"ет","ют")] укладывать [target] в [declent_ru(ACCUSATIVE)].")
+	visible_message("[grabber] начина[PLUR_ET_UT(grabber)] укладывать [target] в [declent_ru(ACCUSATIVE)].")
 	if(!do_after(grabber, 2 SECONDS, target) || panel_open || !target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
 		return .
 
@@ -154,9 +154,9 @@
 		return TRUE
 
 	if(H == user)
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_UT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [H] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_UT(user)] укладывать [H] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(user, 2 SECONDS, H))
 		return
@@ -446,7 +446,7 @@
 			if(1)
 				t1 = "без сознания"
 			else
-				t1 = "[genderize_ru(occupant.gender, "мёртв", "мертва", "мертво", "мертвы")]"
+				t1 = "мертв[GEND_A_O_Y(occupant)]"
 		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tПроцентная оценка состояния: [occupant.health]%, [t1]</font><br>"
 
 		var/found_disease = FALSE

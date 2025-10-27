@@ -254,12 +254,12 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!item.force)
 		user.visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
 			span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
 		)
 		return .
 	user.visible_message(
-		span_danger("[user] ударил[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] ударил[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
 		span_danger("Вы ударили [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
 	)
 	take_damage(item.get_final_force(user), item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
@@ -304,8 +304,8 @@
 
 	if(!item.force)
 		visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [item.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[GEND_A_O_I(user)] вас [item.declent_ru(INSTRUMENTAL)]."),
 			ignored_mobs = user,
 		)
 		to_chat(user, span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."))
@@ -316,8 +316,8 @@
 		message_verb = "[pick(item.attack_verb)]"
 
 	visible_message(
-		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [item.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] [message_verb][GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] [message_verb][GEND_A_O_I(user)] вас [item.declent_ru(INSTRUMENTAL)]!"),
 		ignored_mobs = user,
 	)
 	to_chat(user, span_danger("Вы [message_verb]и [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"))

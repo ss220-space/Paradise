@@ -56,7 +56,7 @@
 	if(issoap(item))
 		balloon_alert(user, "очистка...")
 		user.visible_message(
-			"[user.declent_ru(NOMINATIVE)] начина[pluralize_ru(user.gender, "ет", "ют")] стирать рисунки с [declent_ru(GENITIVE)].",
+			"[user.declent_ru(NOMINATIVE)] начина[PLUR_ET_UT(user)] стирать рисунки с [declent_ru(GENITIVE)].",
 			ignored_mobs = user
 		)
 		if(!do_after(user, 3 SECONDS, src))
@@ -71,7 +71,7 @@
 	var/obj/item/toy/crayon/crayon = item
 	balloon_alert(user, "покраска...")
 	user.visible_message(
-		span_notice("[user.declent_ru(NOMINATIVE)] начина[pluralize_ru(user.gender, "ет", "ют")] красить [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user.declent_ru(NOMINATIVE)] начина[PLUR_ET_UT(user)] красить [declent_ru(ACCUSATIVE)]."),
 		ignored_mobs = user
 	)
 	if(!do_after(user, 3 SECONDS, src))
@@ -277,10 +277,10 @@
 		return
 
 	playsound(old_loc, 'sound/magic/blink.ogg', 50)
-	old_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "улета[pluralize_ru(gender, "ет", "ют")] ввысь, сквозь потолок" : "провалива[pluralize_ru(gender, "ет", "ют")]ся сквозь пол"]!"))
+	old_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "улета[PLUR_ET_UT(src)] ввысь, сквозь потолок" : "провалива[PLUR_ET_UT(src)]ся сквозь пол"]!"))
 	do_sparks(rand(2, 5), TRUE, old_loc)
 	playsound(new_loc, 'sound/magic/blink.ogg', 50)
-	new_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "появля[pluralize_ru(gender, "ет", "ют")]ся из под пола" : "пада[pluralize_ru(gender, "ет", "ют")] сквозь потолок"]!"))
+	new_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "появля[PLUR_ET_UT(src)]ся из под пола" : "пада[PLUR_ET_UT(src)] сквозь потолок"]!"))
 	do_sparks(rand(2, 5), TRUE, new_loc)
 	change_colour()
 

@@ -47,8 +47,8 @@
 /obj/item/twohanded/kinetic_crusher/examine(mob/living/user)
 	. = ..()
 	. += span_notice("Требуется две руки. Выстрел разрушает породу и накладывает на фауну дестабилизирующее поле.")
-	. += span_notice("Удары по отмеченной фауне наносят <b>[force + detonation_damage]</b> единиц[declension_ru(force + detonation_damage, "у", "ы", "")] урона.")
-	. += span_notice("Наносит <b>[force + detonation_damage + backstab_bonus]</b> единиц[declension_ru(force + detonation_damage + backstab_bonus, "у", "ы", "")] урона при ударе в спину.\n")
+	. += span_notice("Удары по отмеченной фауне наносят <b>[force + detonation_damage]</b> единиц[DECL_SEC_MIN(force + detonation_damage)] урона.")
+	. += span_notice("Наносит <b>[force + detonation_damage + backstab_bonus]</b> единиц[DECL_SEC_MIN(force + detonation_damage + backstab_bonus)] урона при ударе в спину.\n")
 	if(length(trophies) != 0)
 		. += span_notice("<b>К Крушителю прикреплены следующие трофеи</b>:")
 		for(var/t in trophies)
@@ -116,7 +116,7 @@
 	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
 		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
 			playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-			user.visible_message(span_warning("[user] соверша[pluralize_ru(user, "ет", "ют")] рывок!"))
+			user.visible_message(span_warning("[user] соверша[PLUR_ET_UT(user)] рывок!"))
 		else
 			to_chat(user, span_warning("Что-то не даёт вам совершить рывок!"))
 		user.remove_status_effect(STATUS_EFFECT_DASH)
@@ -330,7 +330,7 @@
 	)
 
 /obj/item/crusher_trophy/goliath_tentacle/effect_desc()
-	return "Взрыв метки наносит <b>[bonus_value]</b> едениц[declension_ru(bonus_value, "у", "ы", "")] дополнительного урона за каждые <b>[missing_health_desc]</b> единиц[declension_ru(missing_health_desc, "у", "ы", "")] недостающего у вас здоровья"
+	return "Взрыв метки наносит <b>[bonus_value]</b> едениц[DECL_SEC_MIN(bonus_value)] дополнительного урона за каждые <b>[missing_health_desc]</b> единиц[DECL_SEC_MIN(missing_health_desc)] недостающего у вас здоровья"
 
 /obj/item/crusher_trophy/goliath_tentacle/on_mark_detonation(mob/living/target, mob/living/user)
 	var/missing_health = user.health - user.maxHealth
@@ -388,7 +388,7 @@
 	)
 
 /obj/item/crusher_trophy/blaster_tubes/magma_wing/effect_desc()
-	return "Следующий за взрывом метки заряд дестабилизатора наносит <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] урона"
+	return "Следующий за взрывом метки заряд дестабилизатора наносит <b>[bonus_value]</b> единиц[DECL_SEC_MIN(bonus_value)] урона"
 
 /obj/item/crusher_trophy/blaster_tubes/magma_wing/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
@@ -435,7 +435,7 @@
 	)
 
 /obj/item/crusher_trophy/legion_skull/effect_desc()
-	return "Перезарядка дестабилизатора ускорена на <b>[bonus_value * 0.1]</b> секунд[declension_ru(bonus_value * 0.1, "у", "ы", "")]"
+	return "Перезарядка дестабилизатора ускорена на <b>[bonus_value * 0.1]</b> секунд[DECL_SEC_MIN(bonus_value * 0.1)]"
 
 /obj/item/crusher_trophy/legion_skull/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	. = ..()
@@ -585,7 +585,7 @@
 	)
 
 /obj/item/crusher_trophy/tail_spike/effect_desc()
-	return "Взрыв метки отталкивает врага и наносит близлежащим существам <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] урона"
+	return "Взрыв метки отталкивает врага и наносит близлежащим существам <b>[bonus_value]</b> единиц[DECL_SEC_MIN(bonus_value)] урона"
 
 /obj/item/crusher_trophy/tail_spike/on_mark_detonation(mob/living/target, mob/living/user)
 	for(var/mob/living/L in oview(2, user))
@@ -620,7 +620,7 @@
 	)
 
 /obj/item/crusher_trophy/demon_claws/effect_desc()
-	return "Ваши удары наносят <b>[bonus_value * 0.2]</b> бонусного урона и восстанавливают вам <b>[bonus_value * 0.1]</b> единиц[declension_ru(bonus_value * 0.1, "у", "ы", "")] здоровья. При взрыве метки сила эффекта увеличена в 5 раз"
+	return "Ваши удары наносят <b>[bonus_value * 0.2]</b> бонусного урона и восстанавливают вам <b>[bonus_value * 0.1]</b> единиц[DECL_SEC_MIN(bonus_value * 0.1)] здоровья. При взрыве метки сила эффекта увеличена в 5 раз"
 
 /obj/item/crusher_trophy/demon_claws/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	. = ..()
@@ -666,7 +666,7 @@
 	)
 
 /obj/item/crusher_trophy/blaster_tubes/effect_desc()
-	return "После взрыва метки, заменяет дестабилизатор медленным снарядом, наносящим <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] урона"
+	return "После взрыва метки, заменяет дестабилизатор медленным снарядом, наносящим <b>[bonus_value]</b> единиц[DECL_SEC_MIN(bonus_value)] урона"
 
 /obj/item/crusher_trophy/blaster_tubes/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
@@ -731,7 +731,7 @@
 	)
 
 /obj/item/crusher_trophy/adaptive_intelligence_core/effect_desc()
-	return "Увеличивает ваш урон на <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] с каждой атакой, до максимума в <b>[bonus_value * 10]</b> единиц[declension_ru(bonus_value, "у", "ы", "")]"
+	return "Увеличивает ваш урон на <b>[bonus_value]</b> единиц[DECL_SEC_MIN(bonus_value)] с каждой атакой, до максимума в <b>[bonus_value * 10]</b> единиц[DECL_SEC_MIN(bonus_value)]"
 
 /obj/item/crusher_trophy/adaptive_intelligence_core/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	. = ..()

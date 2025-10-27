@@ -161,7 +161,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 
 /obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд[declension_ru((next_command - world.time)/10, "у", "ы", "")] перед следующим Словом."))
+		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд[DECL_SEC_MIN((next_command - world.time)/10)] перед следующим Словом."))
 		return FALSE
 	if(!owner)
 		return FALSE

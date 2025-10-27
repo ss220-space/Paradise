@@ -38,7 +38,7 @@ BONUS
 					H.s_tone = -85
 					H.update_body()
 				else
-					H.visible_message(span_warning("[H] выгляд[pluralize_ru(H.gender,"ит","ят")] немного бледным...</span>"), span_notice("Ваша кожа внезапно становится светлее..."))
+					H.visible_message(span_warning("[H] выгляд[PLUR_IT_YAT(H)] немного бледным...</span>"), span_notice("Ваша кожа внезапно становится светлее..."))
 
 	return
 
@@ -83,6 +83,6 @@ BONUS
 					H.s_tone = 85
 					H.update_body()
 				else
-					H.visible_message(span_warning("[H] выгляд[pluralize_ru(H.gender,"ит","ят")] немного темнее..."), span_warning("Ваша кожа внезапно становится темнее..."))
+					H.visible_message(span_warning("[H] выгляд[PLUR_IT_YAT(H)] немного темнее..."), span_warning("Ваша кожа внезапно становится темнее..."))
 
 	return

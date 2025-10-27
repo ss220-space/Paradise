@@ -934,7 +934,7 @@
 /datum/emote/living/carbon/human/kidan/can_run_emote(mob/living/carbon/human/user, status_check = TRUE, intentional = FALSE)
 	. = ..()
 	if(. && head_required && !user.get_organ(BODY_ZONE_HEAD))
-		user.custom_emote(EMOTE_VISIBLE, "отчаянно дёрга[pluralize_ru(user.gender, "ет", "ют")]ся!")
+		user.custom_emote(EMOTE_VISIBLE, "отчаянно дёрга[PLUR_ET_UT(user)]ся!")
 		return FALSE
 
 

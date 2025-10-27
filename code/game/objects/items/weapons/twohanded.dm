@@ -259,7 +259,7 @@
 	charge = 0
 	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
 	user.visible_message(
-		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[pluralize_ru(user.gender,"ет","ют")] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[PLUR_ET_UT(user)] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы со всей мощи вгоняете заряженный топор в [target.declent_ru(ACCUSATIVE)]!")
 	)
 	do_sparks(1, TRUE, src)
@@ -603,7 +603,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		user.visible_message(
-			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] насажива[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
+			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] насажива[PLUR_ET_UT(user)] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
 			span_notice("Вы насаживаете [I.declent_ru(ACCUSATIVE)] на копьё и устанавливаете его вертикально.")
 		)
 		var/obj/structure/headspear/trophy = new(get_turf(src))
@@ -652,7 +652,7 @@
 
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message(
-		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] ногой!"),
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] ногой!"),
 		span_danger("Вы с пинаете [declent_ru(ACCUSATIVE)], опрокидывая его!")
 	)
 	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
@@ -965,7 +965,7 @@
 	target.Stun(4 SECONDS)
 	do_sparks(5, TRUE, target.loc)
 	target.visible_message(
-		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[genderize_ru(target.gender,"", "а", "о", "ы")] разрядом [declent_ru(GENITIVE)]!"),
+		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[GEND_A_O_Y(target)] разрядом [declent_ru(GENITIVE)]!"),
 		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
 		span_italics("Раздаётся оглушительный электрический треск!")
 	)
@@ -1044,7 +1044,7 @@
 			var/mob/living/Z = A
 			if(Z.health >= 1)
 				Z.visible_message(
-					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[genderize_ru(Z.gender,"", "а", "о", "ы")] сокрушительным ударом [declent_ru(GENITIVE)]!"),
+					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[GEND_A_O_Y(Z)] сокрушительным ударом [declent_ru(GENITIVE)]!"),
 					span_userdanger("Мощный удар разрывает ваше тело и отшвыривает вас!"),
 					span_danger("Слышен глухой удар и хлюпающий звук разрыва плоти!")
 				)
@@ -1053,7 +1053,7 @@
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
 				Z.visible_message(
-					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[pluralize_ru(Z.gender,"ет","ют")]ся на куски силой [declent_ru(GENITIVE)]!"),
+					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[PLUR_ET_UT(Z)]ся на куски силой [declent_ru(GENITIVE)]!"),
 					span_userdanger("Вы чувствуете, как ваше тело разрывается на куски!"),
 					span_danger("Слышен мощный удар и звук разрывающейся плоти!")
 				)
@@ -1127,7 +1127,7 @@
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[pluralize_ru(user.gender, "ет", "ют")] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] пытается покончить с собой..."))
+	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[PLUR_ET_UT(user)] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой..."))
 	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
@@ -1140,7 +1140,7 @@
 	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || living_user.mind.soulOwner != living_user.mind) //Burn hands unless they are a devil or have sold their soul
 		return
 
-	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[pluralize_ru(living_user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)], [genderize_ru(living_user.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
+	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[PLUR_ET_UT(living_user)] [declent_ru(ACCUSATIVE)], [GEND_HIS_HER(living_user)] руки на мгновение загораются."), \
 					span_warning("Когда вы поднимаете [declent_ru(ACCUSATIVE)], ваши руки воспламеняются, напоминая вам обо всех ваших прошлых грехах."))
 
 	if(!ishuman(living_user))

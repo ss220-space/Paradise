@@ -125,7 +125,7 @@
 		balloon_alert(user, "не получилось собрать")
 		return ATTACK_CHAIN_PROCEED
 	box.update_appearance(UPDATE_ICON|UPDATE_DESC)
-	to_chat(user, span_notice("Вы собрали [boolets] гильз[declension_ru(boolets,"у","ы","")]. Теперь в [box.declent_ru(GENITIVE)] [length(box.stored_ammo)] гильз[declension_ru(length(box.stored_ammo),"а","ы","")]."))
+	to_chat(user, span_notice("Вы собрали [boolets] гильз[DECL_SEC_MIN(boolets)]. Теперь в [box.declent_ru(GENITIVE)] [length(box.stored_ammo)] гильз[declension_ru(length(box.stored_ammo),"а","ы","")]."))
 	if(box.can_fast_load)
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, TRUE)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -370,7 +370,7 @@
 
 /obj/item/ammo_box/update_desc(updates = ALL)
 	. = ..()
-	desc = "[initial(desc)] В ней осталось [length(stored_ammo)] патрон[declension_ru(length(stored_ammo), "", "а", "ов")] из [max_ammo] возможных!"
+	desc = "[initial(desc)] В ней осталось [length(stored_ammo)] патрон[DECL_CREDIT(length(stored_ammo))] из [max_ammo] возможных!"
 
 
 /obj/item/ammo_box/update_icon_state()

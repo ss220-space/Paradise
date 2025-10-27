@@ -50,7 +50,7 @@
 	owner.apply_damage(item.force * bonus_damage)
 	attacker.visible_message(
 		span_warning("На этот раз [item.declent_ru(NOMINATIVE)] кажется необычайно робастным."),
-		span_notice("[capitalize(item.declent_ru(NOMINATIVE))] уничтожа[pluralize_ru(item.gender,"ет","ют")] [owner.declent_ru(ACCUSATIVE)]!"))
+		span_notice("[capitalize(item.declent_ru(NOMINATIVE))] уничтожа[PLUR_ET_UT(item)] [owner.declent_ru(ACCUSATIVE)]!"))
 
 /datum/devil_bane/whiteclothes
 	name = BANE_WHITECLOTHES

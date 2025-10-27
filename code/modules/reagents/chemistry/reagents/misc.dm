@@ -672,9 +672,9 @@
 		set_skin_color(N)
 		if(prob(7))
 			if(N.w_uniform)
-				M.visible_message(span_notice(pick("Воротник [M] приподнимается без предупреждения.", "[M] игра[pluralize_ru(M.gender, "ет", "ют")] своими бицепсами.")))
+				M.visible_message(span_notice(pick("Воротник [M] приподнимается без предупреждения.", "[M] игра[PLUR_ET_UT(M)] своими бицепсами.")))
 			else
-				M.visible_message(span_notice("[M] игра[pluralize_ru(M.gender, "ет", "ют")] своими бицепсами."))
+				M.visible_message(span_notice("[M] игра[PLUR_ET_UT(M)] своими бицепсами."))
 	if(prob(10))
 		M.say(pick(
 			"Это было ПРОСТО ОХУИТЕЛЬНО.",

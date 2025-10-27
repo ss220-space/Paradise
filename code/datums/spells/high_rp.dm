@@ -32,7 +32,7 @@
 
 /obj/item/organ/internal/high_rp_tumor/on_life()
 	if(world.time > (last_pump + (pump_delay - pump_window)))
-		to_chat(owner, span_userdanger("Я долж[genderize_ru(owner.gender, "ен", "на", "но", "ны")] дышать, иначе просто задохн[pluralize_ru(owner.gender, "усь", "ёмся")]!"))
+		to_chat(owner, span_userdanger("Я долж[GEND_EN_NA_NO_NY(owner)] дышать, иначе просто задохнусь!"))
 		warned = TRUE
 
 	if(world.time > (last_pump + pump_delay))
