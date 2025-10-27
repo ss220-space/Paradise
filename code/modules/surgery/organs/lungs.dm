@@ -1,21 +1,12 @@
 /obj/item/organ/internal/lungs
 	name = "lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали человеку."
-	ru_names = list(
-		NOMINATIVE = "лёгкие человека",
-		GENITIVE = "лёгких человека",
-		DATIVE = "лёгким человека",
-		ACCUSATIVE = "лёгкие человека",
-		INSTRUMENTAL = "лёгкими человека",
-		PREPOSITIONAL = "лёгких человека"
-	)
 	gender = PLURAL
 	icon_state = "lungs"
 	slot = INTERNAL_ORGAN_LUNGS
 	w_class = WEIGHT_CLASS_NORMAL
 
 	//Breath damage
-
 	var/safe_oxygen_min = 16 // Minimum safe partial pressure of O2, in kPa
 	var/safe_oxygen_max = 0
 	var/safe_nitro_min = 0
@@ -26,7 +17,6 @@
 	var/safe_toxins_max = 0.05
 	var/SA_para_min = 1 //Sleeping agent
 	var/SA_sleep_min = 5 //Sleeping agent
-
 
 	var/oxy_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/oxy_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
@@ -57,6 +47,16 @@
 	var/heat_level_2_damage = HEAT_GAS_DAMAGE_LEVEL_2
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
 	var/heat_damage_types = list(BURN = 1)
+
+/obj/item/organ/internal/lungs/get_ru_names()
+	return list(
+		NOMINATIVE = "лёгкие человека",
+		GENITIVE = "лёгких человека",
+		DATIVE = "лёгким человека",
+		ACCUSATIVE = "лёгкие человека",
+		INSTRUMENTAL = "лёгкими человека",
+		PREPOSITIONAL = "лёгких человека"
+	)
 
 /obj/item/organ/internal/lungs/emp_act()
 	if(!is_robotic() || emp_proof)
@@ -319,7 +319,15 @@
 /obj/item/organ/internal/lungs/cybernetic
 	name = "cybernetic lungs"
 	desc = "Электронное устройство, имитирующее работу органических лёгких. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
-	ru_names = list(
+	icon_state = "lungs-c"
+	origin_tech = "biotech=4"
+	status = ORGAN_ROBOT
+	var/species_state = "человек"
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
+
+/obj/item/organ/internal/lungs/cybernetic/get_ru_names()
+	return list(
 		NOMINATIVE = "кибернетические лёгкие",
 		GENITIVE = "кибернетических лёгких",
 		DATIVE = "кибернетическим лёгким",
@@ -327,12 +335,6 @@
 		INSTRUMENTAL = "кибернетическими лёгкими",
 		PREPOSITIONAL = "кибернетических лёгких"
 	)
-	icon_state = "lungs-c"
-	origin_tech = "biotech=4"
-	status = ORGAN_ROBOT
-	var/species_state = "человек"
-	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()
@@ -368,14 +370,6 @@
 /obj/item/organ/internal/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"
 	desc = "Продвинутая версия кибернетического сердца. Оснащены системой фильтрации, удаляющей токсины и углекислый газ и поступаемого газа. Очень уязвимы к ЭМИ."
-	ru_names = list(
-		NOMINATIVE = "улучшенные кибернетические лёгкие",
-		GENITIVE = "улучшенных кибернетических лёгких",
-		DATIVE = "улучшенным кибернетическим лёгким",
-		ACCUSATIVE = "улучшенные кибернетические лёгкие",
-		INSTRUMENTAL = "улучшенными кибернетическими лёгкими",
-		PREPOSITIONAL = "улучшенных кибернетических лёгких"
-	)
 	icon_state = "lungs-c-u"
 	origin_tech = "biotech=5"
 
@@ -385,6 +379,16 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+/obj/item/organ/internal/lungs/cybernetic/upgraded/get_ru_names()
+	return list(
+		NOMINATIVE = "улучшенные кибернетические лёгкие",
+		GENITIVE = "улучшенных кибернетических лёгких",
+		DATIVE = "улучшенным кибернетическим лёгким",
+		ACCUSATIVE = "улучшенные кибернетические лёгкие",
+		INSTRUMENTAL = "улучшенными кибернетическими лёгкими",
+		PREPOSITIONAL = "улучшенных кибернетических лёгких"
+	)
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded/insert(mob/living/carbon/human/target, special)
 	. = ..()

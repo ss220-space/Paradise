@@ -467,7 +467,7 @@
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] подхватыва[PLUR_ET_UT(src)] огонь и быстро сгора[PLUR_ET_UT(src)] до тла."))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] подхватыва[PLUR_ET_YUT(src)] огонь и быстро сгора[PLUR_ET_YUT(src)] до тла."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 

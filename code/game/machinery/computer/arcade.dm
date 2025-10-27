@@ -39,7 +39,7 @@
 	if(prob(0.0001)) //1 in a million
 		new /obj/item/gun/energy/pulse/prize(src)
 		visible_message(
-			span_notice("[capitalize(declent_ru(NOMINATIVE))] выда[PLUR_YOT_UT(src)]... Ого, оружие! Это просто улёт!"),
+			span_notice("[capitalize(declent_ru(NOMINATIVE))] выда[PLUR_YOT_YUT(src)]... Ого, оружие! Это просто улёт!"),
 			span_notice("Вы слышите выстрелы и звон.")
 		)
 		usr.client.give_award(/datum/award/achievement/misc/pulse, usr)

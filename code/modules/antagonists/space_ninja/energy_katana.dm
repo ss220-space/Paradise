@@ -160,7 +160,7 @@
 		to_chat(user, span_notice("[msg]"))
 
 /obj/item/melee/energy_katana/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] пронза[PLUR_ET_UT(user)] свой живот с помощью [src]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся совершить сеппуку!"))
+	user.visible_message(span_suicide("[user] пронза[PLUR_ET_YUT(user)] свой живот с помощью [src]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить сеппуку!"))
 	return BRUTELOSS
 
 /datum/action/innate/dash/ninja

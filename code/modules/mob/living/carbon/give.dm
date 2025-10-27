@@ -71,7 +71,7 @@
 		to_chat(src, span_warning("У вас нет предмета в руке для передачи!"))
 		return
 	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(src, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_A_O_I(I)] к вашей руке и не отда[PLUR_YOT_UT(I)]ся!"))
+		to_chat(src, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_A_O_I(I)] к вашей руке и не отда[PLUR_YOT_YUT(I)]ся!"))
 		return
 	if(I.item_flags & ABSTRACT)
 		to_chat(src, span_warning("Такой предмет нельзя просто взять и передать."))
@@ -271,7 +271,7 @@
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
 
-	receiver.visible_message(span_notice("[giver] переда[PLUR_YOT_UT(giver)] [I.declent_ru(ACCUSATIVE)] [receiver]."))
+	receiver.visible_message(span_notice("[giver] переда[PLUR_YOT_YUT(giver)] [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
 
 

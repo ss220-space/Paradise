@@ -57,7 +57,7 @@
 				Recall(TRUE)
 			else
 				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от <b>[src]</b>!"))
-				summoner.visible_message(span_danger("[summoner] отпрыгива[PLUR_ET_UT(summoner)] назад к своему защитнику."))
+				summoner.visible_message(span_danger("[summoner] отпрыгива[PLUR_ET_YUT(summoner)] назад к своему защитнику."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector

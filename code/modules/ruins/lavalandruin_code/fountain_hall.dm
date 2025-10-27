@@ -1,7 +1,13 @@
 /obj/structure/sacrificealtar
 	name = "sacrificial altar"
 	desc = "Алтарь, предназначенный для совершения кровавых жертвоприношений во имя божества."
-	ru_names = list(
+	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = "sacrificealtar"
+	anchored = TRUE
+	can_buckle = TRUE
+
+/obj/structure/sacrificealtar/get_ru_names()
+	return list(
 		NOMINATIVE = "жертвенный алтарь",
 		GENITIVE = "жертвенного алтаря",
 		DATIVE = "жертвенному алтарю",
@@ -9,10 +15,6 @@
 		INSTRUMENTAL = "жертвенным алтарем",
 		PREPOSITIONAL = "жертвенном алтаре"
 	)
-	icon = 'icons/obj/hand_of_god_structures.dmi'
-	icon_state = "sacrificealtar"
-	anchored = TRUE
-	can_buckle = TRUE
 
 /obj/structure/sacrificealtar/attack_hand(mob/living/user)
 	if(user.incapacitated())
@@ -30,7 +32,15 @@
 /obj/structure/healingfountain
 	name = "healing fountain"
 	desc = "Фонтан, содержащий воды жизни."
-	ru_names = list(
+	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = "fountain"
+	anchored = TRUE
+	density = TRUE
+	var/time_between_uses = 1800
+	var/last_process = 0
+
+/obj/structure/healingfountain/get_ru_names()
+	return list(
 		NOMINATIVE = "целебный фонтан",
 		GENITIVE = "целебного фонтана",
 		DATIVE = "целебному фонтану",
@@ -38,12 +48,6 @@
 		INSTRUMENTAL = "целебным фонтаном",
 		PREPOSITIONAL = "целебном фонтане"
 	)
-	icon = 'icons/obj/hand_of_god_structures.dmi'
-	icon_state = "fountain"
-	anchored = TRUE
-	density = TRUE
-	var/time_between_uses = 1800
-	var/last_process = 0
 
 /obj/structure/healingfountain/attack_hand(mob/living/user)
 	. = ..()

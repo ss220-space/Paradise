@@ -606,13 +606,13 @@
 			balloon_alert(user, "пусто!")
 			return FALSE
 
-		user.visible_message(span_danger("[user] открыва[PLUR_ET_UT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_UT(user)] глотать содержимое!"))
+		user.visible_message(span_danger("[user] открыва[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] глотать содержимое!"))
 		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
 			return FALSE
 
 		for(var/obj/item/reagent_containers/food/pill/pill in src)
 			pill.attack(user, user)
-		user.visible_message(span_danger("[user] проглатыва[PLUR_ET_UT(user)] всё содержимое [declent_ru(GENITIVE)] за раз!"))
+		user.visible_message(span_danger("[user] проглатыва[PLUR_ET_YUT(user)] всё содержимое [declent_ru(GENITIVE)] за раз!"))
 		return FALSE
 
 	return ..()
@@ -662,13 +662,13 @@
 			balloon_alert(user, "пусто!")
 			return FALSE
 
-		user.visible_message(span_danger("[user] откиды[PLUR_ET_UT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_UT(user)] стремительно клеить пластыри оттуда на свою кожу!"))
+		user.visible_message(span_danger("[user] откиды[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] стремительно клеить пластыри оттуда на свою кожу!"))
 		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
 			return FALSE
 
 		for(var/obj/item/reagent_containers/food/pill/pill in src)
 			pill.attack(user, user)
-		user.visible_message(span_danger("[user] обклеива[PLUR_ET_UT(user)] себя всеми пластырями, которые были в [declent_ru(PREPOSITIONAL)]!"))
+		user.visible_message(span_danger("[user] обклеива[PLUR_ET_YUT(user)] себя всеми пластырями, которые были в [declent_ru(PREPOSITIONAL)]!"))
 		return FALSE
 
 	return ..()

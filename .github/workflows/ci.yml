@@ -65,6 +65,7 @@ jobs:
           python tools/ci/check_icons.py
           python tools/ci/trait_validity.py
           python tools/ci/alphabetical_check.py
+          python tools/ci/check_ru_names.py
           python -m tools.maplint.source --github
 
       - name: Run DreamChecker

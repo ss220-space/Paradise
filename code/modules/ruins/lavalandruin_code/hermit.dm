@@ -2,14 +2,6 @@
 /obj/effect/mob_spawn/human/hermit
 	name = "malfunctioning cryostasis sleeper"
 	desc = "Гудящая криокапсула с силуэтом гуманоида внутри. Функция стазиса сломана, и, вероятно, её используют как кровать."
-	ru_names = list(
-		NOMINATIVE = "неисправная криокапсула",
-		GENITIVE = "неисправной криокапсулы",
-		DATIVE = "неисправной криокапсуле",
-		ACCUSATIVE = "неисправную криокапсулу",
-		INSTRUMENTAL = "неисправной криокапсулой",
-		PREPOSITIONAL = "неисправной криокапсуле"
-	)
 	mob_name = "a stranded hermit"
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "cryostasis_sleeper"
@@ -25,6 +17,16 @@
 	flavour_text = "Вы застряли на этой безбожной планете дольше, чем можете вспомнить. Каждый день вы едва сводите концы с концами, и между ужасными условиями вашего импровизированного укрытия, \
 	враждебными существами и пепельными драконами, пикирующими с безоблачного неба, всё, о чём вы мечтаете — это ощущение мягкой травы под ногами и свежий воздух Земли. Эти мысли развеиваются очередным воспоминанием о том, как вы сюда попали...\n"
 	assignedrole = "Hermit"
+
+/obj/effect/mob_spawn/human/hermit/get_ru_names()
+	return list(
+		NOMINATIVE = "неисправная криокапсула",
+		GENITIVE = "неисправной криокапсулы",
+		DATIVE = "неисправной криокапсуле",
+		ACCUSATIVE = "неисправную криокапсулу",
+		INSTRUMENTAL = "неисправной криокапсулой",
+		PREPOSITIONAL = "неисправной криокапсуле"
+	)
 
 /datum/outfit/hermit
 	name = "Lavaland Survivor"

@@ -332,7 +332,7 @@
 		if(!reason_text)
 			return
 
-		to_chat(user, span_notice("Вы предлагаете [src] [LF]... Он[GEND_A_O_I(LF)] осторожно осматрива[PLUR_ET_UT(LF)] его"))
+		to_chat(user, span_notice("Вы предлагаете [src] [LF]... Он[GEND_A_O_I(LF)] осторожно осматрива[PLUR_ET_YUT(LF)] его"))
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
@@ -349,7 +349,7 @@
 			LF.mind.madeby_sentience_potion = TRUE
 			to_chat(LF, span_warning("Труд из обезьяны сделал человека! А зелье разума сделало вас осознающим себя в этом мире. Вы по прежнему являетесь обезьяной и вашего ограниченного ума не хватает чтобы осознать всей окружающей вас аппаратуры и продвинутого окружения. Вы знаете что оно как-то работает у людей и вам этого хватает. Ваши желания просты и примитивны, как и вы сами. Но что точно вы знаете лучше всей своей жизни..."))
 			to_chat(LF, span_userdanger("Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [GEND_HIM_HER(user)] в выполнении [GEND_HIS_HER(user)] целей любой ценой!"))
-			to_chat(user, span_notice("[M] бер[PLUR_ET_YT(LF)] зелье и дела[PLUR_ET_UT(LF)] глоток. Он[GEND_A_O_I(LF)] смотр[PLUR_IT_YAT(LF)] на вас грустными и понимающими глазами. Сработало!"))
+			to_chat(user, span_notice("[M] бер[PLUR_ET_UT(LF)] зелье и дела[PLUR_ET_YUT(LF)] глоток. Он[GEND_A_O_I(LF)] смотр[PLUR_IT_YAT(LF)] на вас грустными и понимающими глазами. Сработало!"))
 			qdel(src)
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name, max_length = MAX_NAME_LEN)

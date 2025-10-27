@@ -255,8 +255,8 @@
 	victim.Weaken(4 SECONDS)
 	item_placed(victim)
 	victim.visible_message(
-		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] толка[PLUR_ET_UT(user)] [victim.declent_ru(GENITIVE)] на [src.declent_ru(ACCUSATIVE)]."),
-		span_userdanger("[user] толка[PLUR_ET_UT(user)] вас на [src.declent_ru(ACCUSATIVE)]."),
+		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] толка[PLUR_ET_YUT(user)] [victim.declent_ru(GENITIVE)] на [src.declent_ru(ACCUSATIVE)]."),
+		span_userdanger("[user] толка[PLUR_ET_YUT(user)] вас на [src.declent_ru(ACCUSATIVE)]."),
 	)
 	add_attack_logs(user, victim, "Pushed onto a table")
 	return TRUE

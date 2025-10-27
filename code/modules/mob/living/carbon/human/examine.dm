@@ -244,7 +244,7 @@
 			msg += span_warning("Выгляд[PLUR_IT_YAT(src)] так, будто [GEND_HE_SHE(src)] покончил[GEND_A_O_I(src)] с собой... надежды на восстановление нет.\n")
 		if(mind && !mind.hasSoul)
 			msg += span_boldwarning("<span style='font-size: large;'>[GEND_HIS_HER_CAP(src)] душа — моя. Не тратьте свое время.</span>\n")
-		msg += span_deadsay("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] безжизненно и не реагиру[PLUR_ET_UT(src)]. Нет никаких признаков жизни.")
+		msg += span_deadsay("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] безжизненно и не реагиру[PLUR_ET_YUT(src)]. Нет никаких признаков жизни.")
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)
 				var/foundghost = FALSE
@@ -358,7 +358,7 @@
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] сильно истощен[GEND_A_O_Y(src)].\n")
 
 	if(HAS_TRAIT(src, TRAIT_FAT))
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] страда[PLUR_ET_UT(src)] болезненным ожирением.\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] страда[PLUR_ET_YUT(src)] болезненным ожирением.\n")
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] пухл[GEND_YM_OI_YM_YMI(src)] и аппетитн[GEND_YM_OI_YM_YMI(src)] — как маленький поросёнок. Вкусный поросёнок.\n")
 
@@ -387,11 +387,11 @@
 			msg += span_warning(span_bold("У н[GEND_HIS_HER(src)] кровоточ[PLUR_IT_AT(src)] [bodypart.declent_ru(NOMINATIVE)]!\n"))
 
 	if(reagents.has_reagent("teslium"))
-		msg += span_warning("[GEND_HE_SHE_CAP(src)] излуча[PLUR_ET_UT(src)] мягкое голубое свечение!\n")
+		msg += span_warning("[GEND_HE_SHE_CAP(src)] излуча[PLUR_ET_YUT(src)] мягкое голубое свечение!\n")
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
-			msg += "[GEND_HE_SHE_CAP(src)] не реагиру[PLUR_ET_UT(src)] на происходящее вокруг и, кажется, сп[PLUR_IT_YAT(src)].\n"
+			msg += "[GEND_HE_SHE_CAP(src)] не реагиру[PLUR_ET_YUT(src)] на происходящее вокруг и, кажется, сп[PLUR_IT_YAT(src)].\n"
 		if(stat == CONSCIOUS)
 			if(getBrainLoss() >= 60)
 				msg += "На [GEND_HIS_HER(src)] лице застыло глупое выражение.\n"
@@ -426,7 +426,7 @@
 	if(decaylevel == 1)
 		msg += "[GEND_HE_SHE_CAP(src)] начал[GEND_A_O_I(src)] разлагаться и неприятно пахнуть.\n"
 	if(decaylevel == 2)
-		msg += "[GEND_HE_SHE_CAP(src)] раздут[GEND_A_O_Y(src)] и отвратительно пахн[PLUR_ET_UT(src)].\n"
+		msg += "[GEND_HE_SHE_CAP(src)] раздут[GEND_A_O_Y(src)] и отвратительно пахн[PLUR_ET_YUT(src)].\n"
 	if(decaylevel == 3)
 		msg += "[GEND_HE_SHE_CAP(src)] почернел[GEND_A_O_I(src)] и гниёт, кожа слезает лоскутами. Зловоние неописуемо.\n"
 	if(decaylevel == 4)

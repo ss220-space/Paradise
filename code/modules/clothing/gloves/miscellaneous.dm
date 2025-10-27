@@ -53,7 +53,7 @@
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		add_attack_logs(user, target, "Melee attacked with weaver gloves")
 
-		target.visible_message(span_danger("[user] сокруша[PLUR_ET_UT(user)] [target] [declent_ru(INSTRUMENTAL)]!"))
+		target.visible_message(span_danger("[user] сокруша[PLUR_ET_YUT(user)] [target] [declent_ru(INSTRUMENTAL)]!"))
 
 		target.apply_damage(damage, BRUTE, affecting)
 		target.apply_damage(stamindamage, STAMINA, affecting)
@@ -202,7 +202,7 @@
 				do_sparks(5, FALSE, loc)
 				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
-				visible_message(span_danger("[H] дотрагива[PLUR_ET_UT(H)]ся [declent_ru(INSTRUMENTAL)] до [C]!"))
+				visible_message(span_danger("[H] дотрагива[PLUR_ET_YUT(H)]ся [declent_ru(INSTRUMENTAL)] до [C]!"))
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)

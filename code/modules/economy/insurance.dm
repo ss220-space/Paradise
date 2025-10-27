@@ -52,8 +52,8 @@
 		if(!acc.insurance_auto_replen || !acc.charge(from_money_acc))
 			to_chat(user, span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки отключено или провалилось."))
 			target.visible_message(
-				span_danger("[user] безуспешно пыта[PLUR_ET_UT(user)]ся списать страховку у [target]!"),
-				span_userdanger("[user] безуспешно пыта[PLUR_ET_UT(user)]ся списать вашу страховку!"),
+				span_danger("[user] безуспешно пыта[PLUR_ET_YUT(user)]ся списать страховку у [target]!"),
+				span_userdanger("[user] безуспешно пыта[PLUR_ET_YUT(user)]ся списать вашу страховку!"),
 				ignored_mobs = user,
 			)
 			return FALSE
@@ -75,8 +75,8 @@
 
 	to_chat(user, span_notice("Вы списали страховку у [target] в размере: [req]."))
 	target.visible_message(
-		span_danger("[user] списыва[PLUR_ET_UT(user)] страховку у [target] в размере: [req]."),
-		span_userdanger("[user] списыва[PLUR_ET_UT(user)] вашу страховку в размере: [req]."),
+		span_danger("[user] списыва[PLUR_ET_YUT(user)] страховку у [target] в размере: [req]."),
+		span_userdanger("[user] списыва[PLUR_ET_YUT(user)] вашу страховку в размере: [req]."),
 		ignored_mobs = user,
 	)
 	if(from_money_acc)

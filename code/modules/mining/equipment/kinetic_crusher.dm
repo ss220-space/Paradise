@@ -116,7 +116,7 @@
 	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
 		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
 			playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-			user.visible_message(span_warning("[user] соверша[PLUR_ET_UT(user)] рывок!"))
+			user.visible_message(span_warning("[user] соверша[PLUR_ET_YUT(user)] рывок!"))
 		else
 			to_chat(user, span_warning("Что-то не даёт вам совершить рывок!"))
 		user.remove_status_effect(STATUS_EFFECT_DASH)

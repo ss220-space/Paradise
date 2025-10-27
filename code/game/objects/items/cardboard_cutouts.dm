@@ -18,7 +18,7 @@
 /obj/item/twohanded/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
-	user.visible_message(span_warning("[user] толка[PLUR_ET_UT(user)] [src]!"), span_danger("Вы толкаете [src]!"))
+	user.visible_message(span_warning("[user] толка[PLUR_ET_YUT(user)] [src]!"), span_danger("Вы толкаете [src]!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 	push_over()
 

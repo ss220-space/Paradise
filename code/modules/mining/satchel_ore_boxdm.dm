@@ -55,7 +55,7 @@
 	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return .
 	user.visible_message(
-		span_notice("[user] разбира[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] разбира[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы разбираете [declent_ru(ACCUSATIVE)]."),
 		span_italics("Слышен треск дерева."),
 	)

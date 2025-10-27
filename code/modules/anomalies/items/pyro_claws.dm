@@ -71,7 +71,7 @@
 		return
 
 	if(airlock.arePowerSystemsOn())
-		user.visible_message(span_warning("[user] вставля[PLUR_ET_UT(user)] [declent_ru(NOMINATIVE)] в шлюз и начина[PLUR_ET_UT(user)] открывать его!"), \
+		user.visible_message(span_warning("[user] вставля[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] в шлюз и начина[PLUR_ET_YUT(user)] открывать его!"), \
 							span_warning("Вы начинаете силой открывать шлюз."), \
 							span_warning("Вы слышите металлический скрежет."))
 		playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
@@ -84,8 +84,8 @@
 	airlock.open(2)
 
 /obj/item/twohanded/required/pyro_claws/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] начина[PLUR_ET_UT(user)] пилить [declent_ru(NOMINATIVE)] друг об друга! \
-						Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся убить себя!"))
+	user.visible_message(span_suicide("[user] начина[PLUR_ET_YUT(user)] пилить [declent_ru(NOMINATIVE)] друг об друга! \
+						Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся убить себя!"))
 	user.adjust_fire_stacks(10)
 	user.IgniteMob()
 	return FIRELOSS
@@ -158,7 +158,7 @@
 	claws.block_chance = 100 * (1 - 0.5 / strength_mult)
 	claws.toolspeed = 0.5 / strength_mult
 
-	user.visible_message(span_warning("[user] со снопом искр выпуска[PLUR_ET_UT(user)] [claws.declent_ru(NOMINATIVE)] из запястий!"), \
+	user.visible_message(span_warning("[user] со снопом искр выпуска[PLUR_ET_YUT(user)] [claws.declent_ru(NOMINATIVE)] из запястий!"), \
 						span_notice("Вы выпускаете [claws.declent_ru(NOMINATIVE)] из [declent_ru(GENITIVE)]!"), \
 						span_warning("Вы слышите сноп искр!"))
 	user.put_in_hands(claws)

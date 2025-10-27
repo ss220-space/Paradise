@@ -35,14 +35,6 @@
 
 /obj/machinery/computer/camera_advanced/xenobio
 	name = "slime management console"
-	ru_names = list(
-		NOMINATIVE = "консоль управления слаймами",
-		GENITIVE = "консоли управления слаймами",
-		DATIVE = "консоли управления слаймами",
-		ACCUSATIVE = "консоль управления слаймами",
-		INSTRUMENTAL = "консолью управления слаймами",
-		PREPOSITIONAL = "консоли управления слаймами"
-	)
 	desc = "Компьютер, используемый для удаленного взаимодействия со слаймами."
 	networks = list("SS13")
 	circuit = /obj/item/circuitboard/xenobiology
@@ -61,6 +53,16 @@
 	var/monkeys = 0
 	var/obj/item/slimepotion/slime/current_potion
 	var/obj/machinery/monkey_recycler/connected_recycler
+
+/obj/machinery/computer/camera_advanced/xenobio/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления слаймами",
+		GENITIVE = "консоли управления слаймами",
+		DATIVE = "консоли управления слаймами",
+		ACCUSATIVE = "консоль управления слаймами",
+		INSTRUMENTAL = "консолью управления слаймами",
+		PREPOSITIONAL = "консоли управления слаймами"
+	)
 
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
 	. = ..()

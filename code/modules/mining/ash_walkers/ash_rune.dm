@@ -30,7 +30,7 @@
 		return ..()
 	if(transforming)
 		return ..()
-	visible_message(span_notice("[user] прикаса[PLUR_ET_UT(user)]ся рукой к руне."))
+	visible_message(span_notice("[user] прикаса[PLUR_ET_YUT(user)]ся рукой к руне."))
 	transforming = TRUE
 	var/obj/effect/rune_animation_landmark/our_landmark = locate() in orange(3, src)
 	if(!our_landmark)

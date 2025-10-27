@@ -61,7 +61,7 @@
 		return .
 
 	user.visible_message(
-		span_notice("[user] затачива[PLUR_ET_UT(user)] [I.declent_ru(ACCUSATIVE)] при помощи [declent_ru(GENITIVE)]!"),
+		span_notice("[user] затачива[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] при помощи [declent_ru(GENITIVE)]!"),
 		span_notice("Вы затачиваете [I.declent_ru(ACCUSATIVE)], делая его гораздо опаснее."),
 	)
 	playsound(src, usesound, 50, TRUE)

@@ -42,10 +42,10 @@
 		var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
 		if(!pocket.pocket.master_item)
 			return
-		user.visible_message(span_danger("[user] пыта[PLUR_ET_UT(user)]ся достать что-то из головного кармана [source]!"),
+		user.visible_message(span_danger("[user] пыта[PLUR_ET_YUT(user)]ся достать что-то из головного кармана [source]!"),
 							span_danger("Вы пытаетесь достать предмет из головного кармана [source]!"))
 		if(do_after(user, POCKET_STRIP_DELAY, source, max_interact_count = 1))
-			user.visible_message(span_danger("[user] доста[PLUR_YOT_UT(user)] что-то из головного кармана [source]!"),
+			user.visible_message(span_danger("[user] доста[PLUR_YOT_YUT(user)] что-то из головного кармана [source]!"),
 								span_danger("Вы достаёте предмет из головного кармана [source]!"))
 			pocket.empty_contents()
 			add_attack_logs(user, source, "Stripped of headpocket items", isLivingSSD(source) ? null : ATKLOG_ALL)
@@ -61,8 +61,8 @@
 		user.balloon_alert(user, "не получится!")
 		return
 
-	muzzle.visible_message(span_danger("[user] пыта[PLUR_ET_UT(user)]ся [muzzle.locked ? "раз" : "за"]блокировать [muzzle.declent_ru(ACCUSATIVE)] [source]!"), \
-					span_userdanger("[user] пыта[PLUR_ET_UT(user)]ся [muzzle.locked ? "раз" : "за"]блокировать [muzzle.declent_ru(ACCUSATIVE)] [source]!"))
+	muzzle.visible_message(span_danger("[user] пыта[PLUR_ET_YUT(user)]ся [muzzle.locked ? "раз" : "за"]блокировать [muzzle.declent_ru(ACCUSATIVE)] [source]!"), \
+					span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся [muzzle.locked ? "раз" : "за"]блокировать [muzzle.declent_ru(ACCUSATIVE)] [source]!"))
 	if(!do_after(user, POCKET_STRIP_DELAY, source, max_interact_count = 1))
 		return
 

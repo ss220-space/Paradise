@@ -126,7 +126,7 @@ effective or pretty fucking useless.
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "Irradiated by [src]")
-	user.visible_message(span_notice("[user] анализиру[PLUR_ET_UT(user)] жизненные показатели [target]."))
+	user.visible_message(span_notice("[user] анализиру[PLUR_ET_YUT(user)] жизненные показатели [target]."))
 	var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 	used = TRUE
 	update_icon(UPDATE_ICON_STATE)

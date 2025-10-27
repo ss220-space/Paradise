@@ -36,7 +36,7 @@
 	)
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] жадно вдыха[PLUR_ET_UT(user)] содержимое [declent_ru(GENITIVE)]! Кажется, что это попытка самоубийства!"))
+	user.visible_message(span_suicide("[user] жадно вдыха[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)]! Кажется, что это попытка самоубийства!"))
 	return TOXLOSS
 
 /obj/item/reagent_containers/spray/pestspray // -- Skie
@@ -60,7 +60,7 @@
 	)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] жадно вдыха[PLUR_ET_UT(user)] содержимое [declent_ru(GENITIVE)]! Кажется, что это попытка самоубийства!"))
+	user.visible_message(span_suicide("[user] жадно вдыха[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)]! Кажется, что это попытка самоубийства!"))
 	return TOXLOSS
 
 /obj/item/cultivator

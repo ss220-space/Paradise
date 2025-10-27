@@ -68,12 +68,12 @@
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 	balloon_alert(user, "демонтаж...")
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] снимать стекло с [declent_ru(GENITIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] снимать стекло с [declent_ru(GENITIVE)]."),
 		span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
 	)
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		user.visible_message(
-			span_notice("[user] снима[PLUR_ET_UT(user)] стекло с [declent_ru(GENITIVE)]."),
+			span_notice("[user] снима[PLUR_ET_YUT(user)] стекло с [declent_ru(GENITIVE)]."),
 			span_notice("Вы снимаете стекло с [declent_ru(GENITIVE)].")
 		)
 		deconstruct(TRUE)
@@ -251,7 +251,7 @@
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, cached_sound, 50, TRUE)
 		user.visible_message(
-			span_notice("[user] устанавлива[PLUR_ET_UT(user)] стеклянные панели на солнечной батарее."),
+			span_notice("[user] устанавлива[PLUR_ET_YUT(user)] стеклянные панели на солнечной батарее."),
 			span_notice("Вы устанавливаете стеклянные панели на солнечной батарее."),
 		)
 		glass_type = glass.merge_type
@@ -277,7 +277,7 @@
 		tracker = TRUE
 		balloon_alert(user, "установлено")
 		user.visible_message(
-			span_notice("[user] вставля[PLUR_ET_UT(user)] плату трекера в солнечную батарею."),
+			span_notice("[user] вставля[PLUR_ET_YUT(user)] плату трекера в солнечную батарею."),
 			span_notice("Вы вставляете плату трекера в солнечную батарею."),
 		)
 		qdel(I)
@@ -298,13 +298,13 @@
 	if(anchored)
 		balloon_alert(user, "прикручено")
 		user.visible_message(
-			span_notice("[user] прикручива[PLUR_ET_UT(user)] солнечную батарею к полу."),
+			span_notice("[user] прикручива[PLUR_ET_YUT(user)] солнечную батарею к полу."),
 			span_notice("Вы прикручиваете солнечную батарею к полу."),
 		)
 	else
 		balloon_alert(user, "откручено")
 		user.visible_message(
-			span_notice("[user] откручива[PLUR_ET_UT(user)] солнечную батарею от пола."),
+			span_notice("[user] откручива[PLUR_ET_YUT(user)] солнечную батарею от пола."),
 			span_notice("Вы откручиваете солнечную батарею от пола."),
 		)
 
@@ -321,7 +321,7 @@
 	tracker = FALSE
 	balloon_alert(user, "плата извлечена")
 	user.visible_message(
-		span_notice("[user] доста[PLUR_ET_UT(user)] плату солнечного датчика из [declent_ru(GENITIVE)]."),
+		span_notice("[user] доста[PLUR_ET_YUT(user)] плату солнечного датчика из [declent_ru(GENITIVE)]."),
 		span_notice("Вы достаёте плату трекера из [declent_ru(GENITIVE)]."),
 	)
 

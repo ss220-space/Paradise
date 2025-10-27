@@ -173,7 +173,7 @@
 		balloon_alert(user, "ремонт не требуется")
 		return .
 	user.visible_message(
-		span_notice("[user] ремонтиру[PLUR_ET_UT(user)] [declent_ru(GENITIVE)]."),
+		span_notice("[user] ремонтиру[PLUR_ET_YUT(user)] [declent_ru(GENITIVE)]."),
 		span_notice("Вы ремонтируете [declent_ru(GENITIVE)].")
 	)
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || health >= maxHealth)

@@ -87,12 +87,12 @@
 
 	if(new_patient == user)
 		user.visible_message(
-			"[user] забира[PLUR_ET_UT(user)]ся на [declent_ru(ACCUSATIVE)].",
+			"[user] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)].",
 			"Вы забираетесь на на [declent_ru(ACCUSATIVE)]."
 		)
 	else
 		visible_message(
-			span_alert("[user] укладыва[PLUR_ET_UT(user)] [new_patient] на [declent_ru(ACCUSATIVE)]."),
+			span_alert("[user] укладыва[PLUR_ET_YUT(user)] [new_patient] на [declent_ru(ACCUSATIVE)]."),
 			span_alert("Вы укладываете [new_patient] на [declent_ru(ACCUSATIVE)].")
 		)
 	if(user.pulling == new_patient)
