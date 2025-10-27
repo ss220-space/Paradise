@@ -109,6 +109,10 @@
 	item_state = "bunny"
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
+/obj/item/clothing/head/collectable/rabbitears/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/head/collectable/wizard
 	name = "collectable wizard's hat"
 	desc = "NOTE:Any magical powers gained from wearing this hat are purely coincidental."

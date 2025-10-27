@@ -44,6 +44,10 @@
 	icon_state = "whitepants"
 	item_color = "whitepants"
 
+/obj/item/clothing/under/pants/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/under/pants/red
 	name = "red pants"
 	desc = "Bright red pants. Overflowing with personality."

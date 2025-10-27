@@ -382,6 +382,10 @@
 	item_state = "wgloves"
 	item_color = "mime"
 
+/obj/item/clothing/gloves/color/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/gloves/color/white/redcoat
 	///Exists for washing machines. Is not different from white gloves in any way.
 	item_color = "redcoat"

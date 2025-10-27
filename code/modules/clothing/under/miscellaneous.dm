@@ -827,6 +827,10 @@
 	item_state = "mafiawhite"
 	item_color = "mafiawhite"
 
+/obj/item/clothing/under/mafia/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/under/mafia/sue
 	name = "mafia vest"
 	desc = "The business is born into."
@@ -1260,6 +1264,10 @@
 	icon_state = "night_dress_white"
 	item_state = "night_dress_white"
 	item_color = "night_dress_white"
+
+/obj/item/clothing/under/night_dress/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/under/steampunkdress
 	name = "victorian blue-white dress"

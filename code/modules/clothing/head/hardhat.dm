@@ -89,6 +89,10 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 
+/obj/item/clothing/head/hardhat/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/head/hardhat/dblue
 	name = "dark blue hard hat"
 	icon_state = "hardhat0_dblue"

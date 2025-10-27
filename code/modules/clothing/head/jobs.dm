@@ -19,6 +19,10 @@
 		PREPOSITIONAL = "поварском колпаке"
 	)
 
+/obj/item/clothing/head/chefhat/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 //Captain
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
@@ -782,6 +786,10 @@
 		INSTRUMENTAL = "тюремной шапкой",
 		PREPOSITIONAL = "тюремной шапке"
 	)
+
+/obj/item/clothing/head/prison/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 //Mining medic
 /obj/item/clothing/head/beret/mining_medic

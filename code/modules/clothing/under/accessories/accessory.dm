@@ -592,6 +592,10 @@
 	name = "white scarf"
 	icon_state = "whitescarf"
 
+/obj/item/clothing/accessory/scarf/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/accessory/scarf/black
 	name = "black scarf"
 	icon_state = "blackscarf"
@@ -786,6 +790,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+
+/obj/item/clothing/accessory/cowboyshirt/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 	name = "short sleeved white cowboy shirt"

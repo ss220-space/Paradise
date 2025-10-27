@@ -89,6 +89,10 @@
 	item_color = "mime"
 	dog_fashion = null
 
+/obj/item/clothing/head/soft/mime/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/head/soft/purple
 	name = "purple cap"
 	desc = "It's a baseball hat in a tasteless purple colour."

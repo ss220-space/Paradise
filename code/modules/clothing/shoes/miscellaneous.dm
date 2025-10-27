@@ -344,6 +344,10 @@
 	icon_state = "medsandal"
 	item_state = "medsandal"
 
+/obj/item/clothing/shoes/sandal/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/shoes/sandal/fancy
 	name = "Fancy Sandals"
 	desc = "FANCY!!."
@@ -412,6 +416,10 @@
 	desc = "For the rancher in us all."
 	icon_state = "cowboy_white"
 	item_color = "cowboy_white"
+
+/obj/item/clothing/shoes/cowboy/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/shoes/cowboy/fancy
 	name = "bilton wrangler boots"

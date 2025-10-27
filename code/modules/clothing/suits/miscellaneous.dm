@@ -821,6 +821,10 @@
 	name = "white tracksuit"
 	icon_state = "trackjacketwhite_open"
 
+/obj/item/clothing/suit/tracksuit/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 //actual suits
 
 /obj/item/clothing/suit/creamsuit
@@ -859,6 +863,10 @@
 	name = "white military jacket"
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one comes in snow white."
 	icon_state = "white_jacket"
+
+/obj/item/clothing/suit/jacket/miljacket/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/xenos
 	name = "xenos suit"
@@ -1228,6 +1236,10 @@
 	name = "long cyberpunk white coat"
 	icon_state = "cyberpunksleek_long_white"
 
+/obj/item/clothing/suit/cyberpunk/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/suit/cyberpunk/green
 	name = "long cyberpunk green coat"
 	icon_state = "cyberpunksleek_long_green"
@@ -1453,6 +1465,10 @@
 	desc = "Fashionable and stylish white plaid hoodie with hood."
 	icon_state = "plaidhoodie_white"
 	item_state = "plaidhoodie_white"
+
+/obj/item/clothing/suit/hoodie/plaidhoodie_white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/hoodie/plaidhoodie_red
 	name = "red plaid hoodie"

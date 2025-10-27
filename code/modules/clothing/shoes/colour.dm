@@ -84,6 +84,10 @@
 	permeability_coefficient = 0.01
 	dying_key = DYE_REGISTRY_SHOES
 
+/obj/item/clothing/shoes/white/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/shoes/leather
 	name = "leather shoes"
 	desc = "A sturdy pair of leather shoes."

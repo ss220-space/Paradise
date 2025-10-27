@@ -234,6 +234,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list(/obj/item/kitchen/knife)
 
+/obj/item/clothing/suit/chef/classic/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 //Detective
 /obj/item/clothing/suit/storage/det_suit
 	name = "coat"

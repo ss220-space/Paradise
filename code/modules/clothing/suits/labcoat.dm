@@ -32,6 +32,10 @@
 		PREPOSITIONAL = "лабораторном халате"
 	)
 
+/obj/item/clothing/suit/storage/labcoat/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/suit/storage/labcoat/cmo
 	name = "chief medical officer's labcoat"
 	desc = "Стерильный лабораторный халат. Окрашен в синие цвета."
