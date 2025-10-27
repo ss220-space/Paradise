@@ -261,7 +261,7 @@
 		door.name = base_name
 	door.previous_airlock = previous_assembly
 
-	if(access_electronics.shell)
+	if(access_electronics?.shell)
 		door.AddComponent( \
 			/datum/component/shell, \
 			unremovable_circuit_components = list(new /obj/item/circuit_component/airlock, new /obj/item/circuit_component/airlock_access_event), \

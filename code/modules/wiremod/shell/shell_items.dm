@@ -29,12 +29,12 @@
 		span_notice("[user] заверша[PLUR_ET_UT(user)] сборку [declent_ru(ACCUSATIVE)]."),
 		ignored_mobs = user,
 	)
-	balloon_alert(user, "сборка завершена")
 
 	var/turf/drop_loc = drop_location()
 
 	qdel(src)
 	if(drop_loc)
+		drop_loc.balloon_alert(user, "сборка завершена")
 		new shell_to_spawn(drop_loc)
 
 	return TRUE

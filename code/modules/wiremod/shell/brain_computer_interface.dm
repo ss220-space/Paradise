@@ -37,15 +37,14 @@
 	forceMove(target)
 
 /obj/item/organ/internal/cyberimp/brain/bci/atom_say(message)
-	if(owner)
-		// Otherwise say_dead will be called.
-		// It's intentional that a circuit for a dead person does not speak from the shell.
-		if(owner.stat == DEAD)
-			return
+	if(!owner)
+		return ..()
 
+	// Otherwise say_dead will be called.
+	// It's intentional that a circuit for a dead person does not speak from the shell.
+	if(owner.stat != DEAD)
 		return owner.say(message)
 
-	return ..()
 
 /obj/item/organ/internal/cyberimp/brain/bci/proc/action_comp_registered(datum/source, obj/item/circuit_component/equipment_action/action_comp)
 	SIGNAL_HANDLER
@@ -432,36 +431,33 @@
 
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/bci_implanter/MouseDrop_T(atom/movable/O, mob/user, params)
-	if(!istype(O))
+/obj/machinery/bci_implanter/MouseDrop_T(mob/living/target, mob/living/user, params)
+	if(!ishuman(target))
 		return
-	if(O.loc == user) //no you can't pull things out of your ass
+	if(target.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
-	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
+	if(target.anchored || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
-	if(!ishuman(O))
-		return
-	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
+	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the implanter
 		return
 	if(user.loc == null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!istype(user.loc, /turf) || !istype(target.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
 		return TRUE
-	var/mob/living/L = O
-	if(!istype(L) || L.buckled)
+	if(target.buckled)
 		return
-	if(L.abiotic())
+	if(target.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
-	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+	if(target.has_buckled_mobs()) //mob attached to us
+		to_chat(user, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return TRUE
-	put_in(L, user)
+	put_in(target, user)
 	return TRUE
 
 /obj/machinery/bci_implanter/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
@@ -479,39 +475,39 @@
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
 	put_in(target, grabber)
 	add_fingerprint(grabber)
 
-/obj/machinery/bci_implanter/proc/put_in(mob/M, mob/living/user)
+/obj/machinery/bci_implanter/proc/put_in(mob/target, mob/living/user)
 	add_fingerprint(user)
 
-	if(M == user)
+	if(target == user)
 		visible_message("[user] начина[PLUR_ET_UT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[PLUR_ET_UT(user)] укладывать [M.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_UT(user)] укладывать [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
 
-	if(!do_after(user, 2 SECONDS, M))
+	if(!do_after(user, 2 SECONDS, target))
 		return
 
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
 		return
 
-	if(!istype(M) || M.buckled)
+	if(!istype(target) || target.buckled)
 		return
 
-	if(M.abiotic())
+	if(target.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
 		return
 
-	if(M.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[M] не помест[PLUR_IT_YAT(M)]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(M.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+	if(target.has_buckled_mobs()) //mob attached to us
+		to_chat(user, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return
 
-	if(M.forceMove(src))
-		occupant = M
+	if(target.forceMove(src))
+		occupant = target
 		icon_state = "bci_implanter_occupied"
 
 /obj/machinery/bci_implanter/verb/eject()

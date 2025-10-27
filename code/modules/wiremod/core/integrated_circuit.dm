@@ -133,6 +133,9 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	else
 		. += span_notice("Элемент питания <b>не установлен</b>.")
 
+/obj/item/integrated_circuit/attack_ghost(mob/dead/observer/user)
+	ui_interact(user)
+
 /obj/item/integrated_circuit/attack_self(mob/user as mob)
 	ui_interact(user)
 

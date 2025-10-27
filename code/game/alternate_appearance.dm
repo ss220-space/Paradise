@@ -31,7 +31,6 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	..()
 
 	GLOB.active_alternate_appearances += src
-	appearance_key = key
 
 	for(var/mob in GLOB.player_list)
 		apply_to_new_mob(mob)
@@ -184,7 +183,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /datum/atom_hud/alternate_appearance/basic/one_person/mobShouldSee(mob/M)
 	return M == seer
 
-/datum/atom_hud/alternate_appearance/basic/one_person/New(key, image/I, options, mob/living/seer)
+/datum/atom_hud/alternate_appearance/basic/one_person/New(key, image/I, options = NONE, mob/living/seer)
 	src.seer = seer
 	return ..()
 

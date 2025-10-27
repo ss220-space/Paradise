@@ -127,7 +127,7 @@
 
 	var/datum/atom_hud/existing_overlay = LAZYACCESS(active_overlays, target_atom.UID())
 	if(!isnull(existing_overlay))
-		LAZYREMOVE(active_overlays, target_atom.UID()) // TODO: Поменять спискок. Возможность установить всего один худ на атом меня не радует.
+		LAZYREMOVE(active_overlays, target_atom.UID())
 		qdel(existing_overlay)
 
 	var/image/cool_overlay = get_cool_overlay(target_atom)
