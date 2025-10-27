@@ -8,14 +8,10 @@
 #define LIMB_FRACTURE_MIN_DMG 15
 /// Threshold needed to have a chance of inflicting internal bleeding
 #define LIMB_INT_BLEEDING_MIN_DMG 15
-/// Chance of arterial bleeding if damage lower by threshold of inflicting arterial bleeding
-#define LIMB_ARTERIAL_BLEEDING_BEFORE_TRESHOLD_CHANCE_MOD 0.1
+/// Threshold needed to have a chance of inflicting arterial bleeding
+#define LIMB_ARTERIAL_BLEEDING_MIN_DMG 15
 /// Chance for arterial bleeding based on inflicting damage
-#define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.15
-/// Maximal chance to arterial bleeding
-#define ARTERIAL_BLEEDING_MAX_CHANCE 18
-/// Chance for arterial bleeding based on inflicting damage for sharp items
-#define LIMB_ARTERIAL_BLEEDING_SHARP_CHANCE_MOD 1.25
+#define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.5
 /// Arterial bleeding size
 #define LIMB_ARTERIAL_BLEEDING_SIZE 21
 
@@ -705,13 +701,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return FALSE
 
 /obj/item/organ/external/proc/try_arterial_bleeding(inflicted_damage, sharp = FALSE, silent = FALSE)
-	var/calc_prob = (brute_dam + inflicted_damage) * LIMB_ARTERIAL_BLEEDING_CHANCE_MOD
-	if(brute_dam + inflicted_damage <= min_arterial_bleeding_damage)
-		calc_prob = calc_prob * LIMB_ARTERIAL_BLEEDING_BEFORE_TRESHOLD_CHANCE_MOD
-	if(sharp)
-		calc_prob = calc_prob *LIMB_ARTERIAL_BLEEDING_SHARP_CHANCE_MOD
-	calc_prob = clamp(calc_prob, 0, max(ARTERIAL_BLEEDING_MAX_CHANCE, inflicted_damage))
-	if(!prob(calc_prob))
+	if(inflicted_damage <= LIMB_ARTERIAL_BLEEDING_MIN_DMG)
+		return FALSE
+	if(brute_dam + burn_dam + inflicted_damage <= min_arterial_bleeding_damage)
+		return FALSE
+	if(!prob(inflicted_damage * LIMB_ARTERIAL_BLEEDING_CHANCE_MOD))
 		return FALSE
 	if(arterial_bleeding(silent))
 		add_attack_logs(owner, null, "Suffered arterial bleeding to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
@@ -1394,8 +1388,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 #undef LIMB_DMG_PROB
 #undef LIMB_FRACTURE_MIN_DMG
 #undef LIMB_INT_BLEEDING_MIN_DMG
-#undef LIMB_ARTERIAL_BLEEDING_BEFORE_TRESHOLD_CHANCE_MOD
+#undef LIMB_ARTERIAL_BLEEDING_MIN_DMG
 #undef LIMB_ARTERIAL_BLEEDING_CHANCE_MOD
-#undef ARTERIAL_BLEEDING_MAX_CHANCE
-#undef LIMB_ARTERIAL_BLEEDING_SHARP_CHANCE_MOD
 #undef LIMB_ARTERIAL_BLEEDING_SIZE
