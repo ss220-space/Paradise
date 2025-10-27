@@ -22,6 +22,17 @@
 	damage = damage / 2
 	stamina = stamina / 2
 
+/obj/projectile/bullet/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(!.)
+		return
+	if(!ismob(target))
+		return
+	var/datum/gun_recoil/recoil = GLOB.mob_hit_recoil
+	var/shot_angle = get_angle(firer, target)
+	var/rand_angle = (rand() - 0.5) * recoil.angle + shot_angle
+	recoil_camera(target, recoil.strength, recoil.in_duration, recoil.back_duration, rand_angle)
+
 /obj/projectile/bullet/slug
 	armour_penetration = 40
 	damage = 33
