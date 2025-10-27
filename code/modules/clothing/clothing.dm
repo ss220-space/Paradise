@@ -58,6 +58,10 @@
 
 	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
+/obj/item/clothing/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/examine(mob/user)
 	. = ..()
 	var/healthpercent = (obj_integrity/max_integrity) * 100
