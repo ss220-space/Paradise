@@ -774,6 +774,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
 	)
 	ammo_x_offset = 0
+	actions_types = list(/datum/action/item_action/toggle_firemode)
 
 /obj/item/gun/energy/specter/get_ru_names()
 	return list(
@@ -801,9 +802,14 @@
 /obj/item/gun/energy/specter/update_icon_state()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(current_skin)
-		icon_state = "[current_skin][magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
+		icon_state = "[current_skin][magazine && magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
 	else
-		icon_state = "[initial(icon_state)][magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
+		icon_state = "[initial(icon_state)][magazine && magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
+
+/obj/item/gun/energy/specter/can_shoot(mob/living/user, silent)
+	if(!magazine)
+		return FALSE
+	. = ..()
 
 /obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
 	if(!is_spectercell(item))
@@ -812,8 +818,9 @@
 	if(!user.drop_transfer_item_to_loc(item, src))
 		balloon_alert(user, "отпустить невозможно!")
 		return ATTACK_CHAIN_PROCEED
-	magazine.update_icon(UPDATE_OVERLAYS)
-	user.put_in_hands(magazine)
+	if(magazine)
+		magazine.update_icon(UPDATE_OVERLAYS)
+		user.put_in_hands(magazine)
 	cell = item.get_cell()
 	cell_type = cell.type
 	magazine = item
@@ -823,6 +830,23 @@
 	if(magazine.is_available_shot(shot.e_cost))
 		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
 	return ATTACK_CHAIN_PROCEED
+
+/obj/item/gun/energy/specter/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_firemode))
+		if(!. && length(ammo_type) > 1)
+			select_fire(user)
+			update_icon()
+		return TRUE
+	. = ..()
+
+/obj/item/gun/energy/specter/attack_self(mob/living/user)
+	if(!magazine)
+		return ..()
+	magazine.update_icon(UPDATE_OVERLAYS)
+	user.put_in_hands(magazine)
+	cell = null
+	magazine = null
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/energy/emittergun
 	name = "Handicraft Emitter Rifle"
