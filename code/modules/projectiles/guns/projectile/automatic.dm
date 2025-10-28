@@ -229,6 +229,34 @@
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 
+//Sparkle-A12
+/obj/item/gun/projectile/automatic/sparkle_a12
+	name = "Sparkle-A12"
+	desc = "Компактный пистолет-пулемёт под калибр 9 мм."
+	icon_state = "sparkle-a12"
+	item_state = "SP-91-RC"
+	mag_type = /obj/item/ammo_box/magazine/sparkle_a12
+	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+	)
+	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
+	burst_size = 2
+	var/autofire_delay = 0.25 SECONDS
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+
+/obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
+	icon_state = "sparkle-a12[magazine ? "" : "-e"]"
+	item_state = "sparkle-a12[magazine ? "" : "-e"]"
+
+
 /*Type-U3 Uzi
 name = "Пистолет-пулемёт Uzi"
 desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм.
