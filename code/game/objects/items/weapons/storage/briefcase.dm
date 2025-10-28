@@ -25,7 +25,8 @@
 	new /obj/item/clothing/under/syndicate/sniper(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
-	new /obj/item/gun_module/muzzle/suppressor(src)
+	new /obj/item/gun_module/muzzle/suppressor/heavy(src)
+	new /obj/item/gun_module/rail/scope/x8(src)
 
 /obj/item/storage/briefcase/false_bottomed
 	max_w_class = WEIGHT_CLASS_SMALL

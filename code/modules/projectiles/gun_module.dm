@@ -124,6 +124,39 @@
 	target_gun.fire_sound = oldsound
 	target_gun.w_class = initial_w_class
 
+/obj/item/gun_module/muzzle/suppressor/shotgun
+	name = "shotgun suppressor"
+	desc = "Тяжёлый квадратный глушитель, предназначенный для дробовиков и ружей, позволяет значительно снизить шум от выстрелов и интенсивность вспышки."
+	icon_state = "suppshotgun"
+	overlay_state = "suppshotgun_o"
+	class = GUN_MODULE_CLASS_SHOTGUN_MUZZLE
+
+/obj/item/gun_module/muzzle/suppressor/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "ружейный глушитель",
+		GENITIVE = "ружейного глушителя",
+		DATIVE = "ружейному глушителю",
+		ACCUSATIVE = "ружейный глушитель",
+		INSTRUMENTAL = "ружейным глушителем",
+		PREPOSITIONAL = "ружейном глушителе"
+	)
+
+/obj/item/gun_module/muzzle/suppressor/heavy
+	name = "heavy suppressor"
+	desc = "Массивный глушитель, предназначенный для крупнокалиберных винтовок, снижает шум выстрелов и интенсивность вспышки."
+	icon_state = "suppheavy"
+	overlay_state = "suppheavy_o"
+	class = GUN_MODULE_CLASS_SNIPER_MUZZLE
+
+/obj/item/gun_module/muzzle/suppressor/heavy/get_ru_names()
+	return list(
+		NOMINATIVE = "тяжёлый глушитель",
+		GENITIVE = "тяжёлого глушителя",
+		DATIVE = "тяжёлому глушителю",
+		ACCUSATIVE = "тяжёлый глушитель",
+		INSTRUMENTAL = "тяжёлым глушителем",
+		PREPOSITIONAL = "тёжёлом глушителе"
+	)
 
 /obj/item/gun_module/muzzle/suppressor/handmade
 	name = "handmade suppressor"
