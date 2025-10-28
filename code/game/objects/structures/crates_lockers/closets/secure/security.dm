@@ -207,6 +207,28 @@
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
 	new /obj/item/gun/projectile/automatic/sp91rc(src)
 
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12
+	name = "security Sparkle-A12 gun cabinet"
+	desc = "Защищённый шкаф для хранения пистолетов пулемётов Sparkle-A12. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф пистолет пулемётов Sparkle-A12",
+		GENITIVE = "шкафа пистолет пулемётов Sparkle-A12",
+		DATIVE = "шкафу пистолет пулемётов Sparkle-A12",
+		ACCUSATIVE = "шкаф пистолет пулемётов Sparkle-A12",
+		INSTRUMENTAL = "шкафом пистолет пулемётов Sparkle-A12",
+		PREPOSITIONAL = "шкафе пистолет пулемётов Sparkle-A12"
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
 	desc = "Защищённый шкаф для хранения лазерных винтовок. Шкаф прикручен к полу."
