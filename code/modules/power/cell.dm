@@ -221,10 +221,6 @@
 		return 0
 
 // MARK: Cell variants
-/obj/item/stock_parts/cell/zero
-	charge = 0
-	maxcharge = 0.1
-
 /obj/item/stock_parts/cell/empty/New()
 	..()
 	charge = 0
