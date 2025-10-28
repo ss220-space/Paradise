@@ -287,6 +287,27 @@ do { \
 /obj/item/storage/belt/chameleon
 	name = "toolbelt"
 	desc = "Holds tools."
+	max_combined_w_class = 18
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/flashlight,
+		/obj/item/stack/cable_coil,
+		/obj/item/t_scanner,
+		/obj/item/analyzer,
+		/obj/item/extinguisher/mini,
+		/obj/item/holosign_creator,
+		/obj/item/radio,
+		/obj/item/robotanalyzer,
+		/obj/item/clothing/gloves,
+		/obj/item/rcd,
+		/obj/item/rpd
+	)
 	actions_types = list(/datum/action/item_action/chameleon/change/belt)
 
 
