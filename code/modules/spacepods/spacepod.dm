@@ -18,7 +18,11 @@
 
 /obj/item/pod_paint_bucket
 	name = "space pod paintkit"
-	ru_names = list(
+	desc = "Pimp your ride"
+	icon_state = "paint_red"
+
+/obj/item/pod_paint_bucket/get_ru_names()
+	return list(
 		NOMINATIVE = "набор для покраски челнока",
 		GENITIVE = "набора для покраски челнока",
 		DATIVE = "набору для покраски челнока",
@@ -26,20 +30,10 @@
 		INSTRUMENTAL = "набором для покраски челнока",
 		PREPOSITIONAL = "наборе для покраски челнока"
 	)
-	desc = "Pimp your ride"
-	icon_state = "paint_red"
 
 /obj/spacepod
 	name = "space pod"
 	desc = "Космический челнок, предназначенный для путешествий в открытом космосе."
-	ru_names = list(
-		NOMINATIVE = "космический челнок",
-		GENITIVE = "космического челнока",
-		DATIVE = "космическому челноку",
-		ACCUSATIVE = "космический челнок",
-		INSTRUMENTAL = "космическим челноком",
-		PREPOSITIONAL = "космическом челноке"
-	)
 	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = TRUE //Dense. To raise the heat.
 
@@ -102,6 +96,16 @@
 	var/datum/action/innate/pod/pod_toggle_lights/lights_action = new
 	var/datum/action/innate/pod/pod_fire/fire_action = new
 	var/datum/action/innate/pod/pod_misc/misc_action = new
+
+/obj/spacepod/get_ru_names()
+	return list(
+		NOMINATIVE = "космический челнок",
+		GENITIVE = "космического челнока",
+		DATIVE = "космическому челноку",
+		ACCUSATIVE = "космический челнок",
+		INSTRUMENTAL = "космическим челноком",
+		PREPOSITIONAL = "космическом челноке"
+	)
 
 /obj/spacepod/proc/apply_paint(mob/user)
 	var/part_type
@@ -276,7 +280,7 @@
 		deal_damage(user.obj_damage)
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
 		to_chat(user, span_warning("Вы наносите удар по [declent_ru(DATIVE)]!"))
-		visible_message(span_warning("[capitalize(user)] пробива[pluralize_ru(user.gender, "ет", "ют")] броню [declent_ru(GENITIVE)]"))
+		visible_message(span_warning("[capitalize(user)] пробива[PLUR_ET_YUT(user)] броню [declent_ru(GENITIVE)]"))
 
 /obj/spacepod/attack_tk()
 	return
@@ -670,7 +674,11 @@
 /obj/spacepod/sec
 	name = "security spacepod"
 	desc = "Бронированный челнок службы безопасности с усиленной бронёй."
-	ru_names = list(
+	icon_state = "pod_dece"
+	health = 600
+
+/obj/spacepod/sec/get_ru_names()
+	return list(
 		NOMINATIVE = "космический челнок охраны",
 		GENITIVE = "космического челнока охраны",
 		DATIVE = "космическому челноку охраны",
@@ -678,13 +686,16 @@
 		INSTRUMENTAL = "космическим челноком охраны",
 		PREPOSITIONAL = "космическом челноке охраны"
 	)
-	icon_state = "pod_dece"
-	health = 600
 
 /obj/spacepod/syndi
 	name = "syndicate spacepod"
 	desc = "Челнок, окрашенный в цвета Синдиката."
-	ru_names = list(
+	icon_state = "pod_synd"
+	health = 400
+	unlocked = FALSE
+
+/obj/spacepod/syndi/get_ru_names()
+	return list(
 		NOMINATIVE = "космический челнок Синдиката",
 		GENITIVE = "космического челнока Синдиката",
 		DATIVE = "космическому челноку Синдиката",
@@ -692,9 +703,6 @@
 		INSTRUMENTAL = "космическим челноком Синдиката",
 		PREPOSITIONAL = "космическом челноке Синдиката"
 	)
-	icon_state = "pod_synd"
-	health = 400
-	unlocked = FALSE
 
 /obj/spacepod/syndi/unlocked
 	unlocked = TRUE
@@ -825,7 +833,7 @@
 				to_chat(user, span_danger("<b>Этот человек не может управлять челноком!</b>"))
 				return .
 			if(length(passengers) < max_passengers)
-				visible_message(span_danger("[user.name] начина[pluralize_ru(user.gender,"ет","ют")] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
+				visible_message(span_danger("[user.name] начина[PLUR_ET_YUT(user)] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
 				if(do_after(user, 5 SECONDS, dropping))
 					moved_other_inside(dropping)
 			return .
@@ -1233,7 +1241,7 @@
 		to_chat(user, span_warning("Батарея не обнаружена."))
 		. = FALSE
 	else if(!COOLDOWN_FINISHED(src, cooldown_emp))
-		to_chat(user, span_warning("Интерфейс не отвечает. Перезагрузка через [COOLDOWN_TIMELEFT(src, cooldown_emp)] секунд[pluralize_ru(COOLDOWN_TIMELEFT(src, cooldown_emp))]."))
+		to_chat(user, span_warning("Интерфейс не отвечает. Перезагрузка через [COOLDOWN_TIMELEFT(src, cooldown_emp)] [DECL_SEC_MIN(COOLDOWN_TIMELEFT(src, cooldown_emp))]."))
 		. = FALSE
 	else if(!battery.use(1))
 		to_chat(user, span_warning("Недостаточно энергии."))

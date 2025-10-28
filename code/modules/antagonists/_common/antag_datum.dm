@@ -132,7 +132,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 	message_admins("[key_name_admin(chosen)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
 	owner.current.ghostize(FALSE)
-	owner.current.key = chosen.key
+	owner.current.possess_by_player(chosen.key)
 	log_game("[owner.current.key] has taken control of ([owner.current]) to replace a jobbaned player.")
 	return TRUE
 

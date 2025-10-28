@@ -2,7 +2,10 @@
 	species_type = /datum/species/shadow
 	name = "shadow orbs"
 	desc = "Две тёмные сферы, напоминающие человеческие глаза. Судя по всему, эти принадлежали тени."
-	ru_names = list(
+	see_in_dark = 8
+
+/obj/item/organ/internal/eyes/shadow/get_ru_names()
+	return list(
 		NOMINATIVE = "теневые сферы",
 		GENITIVE = "теневых сфер",
 		DATIVE = "теневым сферам",
@@ -10,4 +13,3 @@
 		INSTRUMENTAL = "теневыми сферами",
 		PREPOSITIONAL = "теневых сферах"
 	)
-	see_in_dark = 8

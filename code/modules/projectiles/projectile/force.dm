@@ -1,6 +1,11 @@
 /obj/projectile/forcebolt
 	name = "force bolt"
-	ru_names = list(
+	icon_state = "ice_1"
+	damage = 20
+	flag = "energy"
+
+/obj/projectile/forcebolt/get_ru_names()
+	return list(
 		NOMINATIVE = "силовой импульс",
 		GENITIVE = "силового импульса",
 		DATIVE = "силовому импульсу",
@@ -8,9 +13,6 @@
 		INSTRUMENTAL = "силовым импульсом",
 		PREPOSITIONAL = "силовом импульсе"
 	)
-	icon_state = "ice_1"
-	damage = 20
-	flag = "energy"
 
 /obj/projectile/forcebolt/strong
 

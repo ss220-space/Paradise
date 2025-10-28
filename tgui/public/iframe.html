@@ -96,13 +96,21 @@
       const addMessageBatch = async (messages) => {
         const database = await dbPromise;
 
+        messages = messages.filter(msg => msg != null);
+
         const trans = database
           .transaction('messages', READ_WRITE)
           .objectStore('messages');
 
+        const writeTo = writeFrom + messages.length
+
+        if(writeTo === writeFrom)
+          return
+
         let cursorReq = trans.openCursor(
-          IDBKeyRange.bound(writeFrom, writeFrom + messages.length, false, true)
+          IDBKeyRange.bound(writeFrom, writeTo)
         );
+
         let cursor = await promiseForRequest(cursorReq);
 
         for (let index = 0; index < messages.length; index++) {
@@ -139,12 +147,9 @@
         const messyMessages = await promiseForRequest(trans.getAll());
 
         const upTo = messyMessages.splice(0, writeFrom);
+        const downTo = messyMessages.splice(writeFrom);
 
-        if (messyMessages[0] === null) {
-          return upTo;
-        }
-
-        const messages = messyMessages.concat(upTo);
+        const messages = downTo.concat(upTo).filter(msg => msg != null);
         return messages;
       };
 

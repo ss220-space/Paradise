@@ -97,7 +97,6 @@
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
-
 	/**
 	 * List of products this machine sells
 	 *
@@ -211,6 +210,7 @@
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
 		/datum/vendor_crit/shatter,
+		/datum/vendor_crit/pop_head,
 		/datum/vendor_crit/lucky
 	)
 	/// number of shards to apply when a crit embeds
@@ -290,6 +290,7 @@
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(inserted_item)
+	QDEL_NULL(proximity_monitor)
 	return ..()
 
 /// Better would be to make constructable child
@@ -394,6 +395,14 @@
 	skip_non_primary_icon_updates = FALSE
 	flick_sequence = FLICK_NONE
 	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/vending/proc/create_proximity_monitor()
+	proximity_monitor = new(src)
+
+
+/obj/machinery/vending/proc/remove_proximity_monitor()
+	QDEL_NULL(proximity_monitor)
 
 
 /*
@@ -746,17 +755,20 @@
 			record.amount--
 			break
 
-/obj/machinery/vending/HasProximity(atom/movable/AM)
-	if(!aggressive  || tilted || !tiltable)
+/obj/machinery/vending/HasProximity(atom/movable/movable)
+	if(!aggressive || tilted || !tiltable)
 		return
 
-	if(isliving(AM) && prob(25))
-		AM.visible_message(
-			span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [AM.declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
-		)
-	tilt(AM, prob(5), FALSE)
+	if(!isliving(movable) || !prob(25))
+		return
+
+	movable.visible_message(
+		span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [movable.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
+	)
+	tilt(movable, prob(5), FALSE)
 	aggressive = FALSE
+	remove_proximity_monitor()
 	// Not making same mistakes as offs did.
 	// Don't make this prob more than 5%
 
@@ -863,7 +875,7 @@
 	else
 		to_chat(user, display_parts(user))
 	if(moved)
-		balloon_alert(user, "пополнено [moved] товар[declension_ru(moved, "", "а", "ов")]")
+		balloon_alert(user, "пополнено [moved] товар[DECL_CREDIT(moved)]")
 		W.play_rped_sound()
 	return TRUE
 
@@ -875,7 +887,7 @@
 	if(!item_slot || inserted_item)
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто бы приклеен[genderize_ru(I.gender, "", "а", "о", "ы")] к вашей руке! Вы не можете [genderize_ru(I.gender, "его", "её", "его", "их")] скинуть!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто бы приклеен[GEND_A_O_Y(I)] к вашей руке! Вы не можете [GEND_HIS_HER(I)] скинуть!"))
 		return
 	inserted_item = I
 	balloon_alert(user, "предмет вставлен")
@@ -954,7 +966,7 @@
 		var/obj/item/stack/spacecash/cash = H.get_active_hand()
 		if(istype(cash))
 			data["userMoney"] = cash.amount
-			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[pluralize_ru(cash.amount, "", "а", "ов")]."
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[DECL_CREDIT(cash.amount)]."
 		else if(istype(H))
 			var/obj/item/card/id/C = H.get_id_card()
 			if(istype(money_account))
@@ -1318,14 +1330,14 @@
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 		tilt(target, from_combat = TRUE)
 		target.visible_message(
-			span_danger("[attacker] толка[pluralize_ru(attacker.gender, "ет", "ют")] [target] в [declent_ru(ACCUSATIVE)]!"),
-			span_userdanger("[attacker] впечатыва[pluralize_ru(attacker.gender, "ет", "ют")] вас в [declent_ru(ACCUSATIVE)]!"),
+			span_danger("[attacker] толка[PLUR_ET_YUT(attacker)] [target] в [declent_ru(ACCUSATIVE)]!"),
+			span_userdanger("[attacker] впечатыва[PLUR_ET_YUT(attacker)] вас в [declent_ru(ACCUSATIVE)]!"),
 			span_danger("Вы слышите громкий хруст.")
 		)
 	else
 		attacker.visible_message(
-			span_notice("[attacker] слегка прижима[pluralize_ru(attacker.gender, "ет", "ют")] [target] к [declent_ru(DATIVE)]."),
-			span_userdanger("Вы слегка прижимаете [target] к [declent_ru(DATIVE)], вы же не хотите причинить [genderize_ru(target.gender, "ему", "ей", "ему", "им")] боль!")
+			span_notice("[attacker] слегка прижима[PLUR_ET_YUT(attacker)] [target] к [declent_ru(DATIVE)]."),
+			span_userdanger("Вы слегка прижимаете [target] к [declent_ru(DATIVE)], вы же не хотите причинить [GEND_HIM_HER(target)] боль!")
 			)
 	return TRUE
 
@@ -1407,6 +1419,7 @@
 		tilt_over()
 		return
 	for(var/mob/living/victim in get_turf(target_atom))
+		var/was_alive = (victim.stat != DEAD)
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
@@ -1437,6 +1450,8 @@
 		. = TRUE
 		victim.Weaken(4 SECONDS)
 		victim.Knockdown(8 SECONDS)
+		if(was_alive && victim.stat == DEAD && victim.client)
+			victim.client.give_award(/datum/award/achievement/misc/vendor_squish, victim) // good job losing a fight with an inanimate object idiot
 
 		playsound(victim, 'sound/effects/blobattack.ogg', 40, TRUE)
 		playsound(victim, 'sound/effects/splat.ogg', 50, TRUE)
@@ -1453,6 +1468,7 @@
 
 	if(victim && get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
+		SStgui.close_uis(wires)
 
 /obj/machinery/vending/proc/untilt(mob/user)
 	if(!tilted)
@@ -1466,7 +1482,7 @@
 		if(!do_after(user, 7 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE))
 			return
 		user.visible_message(
-			span_notice("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы слышите громкий лязг.")
 		)

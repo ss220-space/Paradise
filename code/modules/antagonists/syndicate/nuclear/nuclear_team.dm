@@ -203,7 +203,7 @@
 	text += "<br>"
 
 	if(TC_uses == 0 && station_was_nuked && !is_operatives_are_dead())
-		text += span_fontsize4(bicon(icon('icons/misc/badass.dmi', "badass")))
+		text += span_fontsize4(icon2html(icon('icons/misc/badass.dmi', "badass"), world))
 
 	return text.Join("")
 

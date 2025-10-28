@@ -500,7 +500,7 @@
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(can_z_move(DOWN, above_turf, current_turf, ZMOVE_FALL_FLAGS|ventcrawling_flag)) //Will we fall down if we go up?
 		if(buckled)
-			to_chat(src, span_notice("[capitalize(buckled.declent_ru(NOMINATIVE))] не способ[genderize_ru(buckled.gender, "ен", "на", "но", "ны")] летать."))
+			to_chat(src, span_notice("[capitalize(buckled.declent_ru(NOMINATIVE))] не способ[GEND_EN_NA_NO_NY(buckled)] летать."))
 		else
 			to_chat(src, span_notice("Вы не Супермен чтобы взлететь вверх."))
 		return

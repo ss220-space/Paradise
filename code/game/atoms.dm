@@ -160,6 +160,10 @@
 	/// DM's map reader doesn't forfeit on reading a JSON-serialized map
 	var/map_json_data
 
+	/// Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
+
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -424,7 +428,7 @@
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 
-/atom/proc/HasProximity(atom/movable/AM)
+/atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)
 	return
 
 /atom/proc/emp_act(severity)
@@ -481,7 +485,7 @@
 			f_name += span_danger("в кровавых следах.")
 		else
 			f_name += "в масляных следах."
-	. = list("[bicon(src)] Это [declent_ru(NOMINATIVE)][f_name] [suffix]")
+	. = list("[icon2html(src, user)] Это [declent_ru(NOMINATIVE)][f_name] [suffix]")
 	if(desc)
 		. += desc
 

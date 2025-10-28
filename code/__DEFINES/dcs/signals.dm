@@ -1556,3 +1556,6 @@
 #define SIGNAL_DIABLERIE_LEVEL_GAIN "diablerie_level_gain"
 /// From /datum/diablerie_level/proc/remove()
 #define SIGNAL_DIABLERIE_LEVEL_REMOVE "diablerie_level_remove"
+
+///Sent after awards are saved in the database (/datum/controller/subsystem/achievements/save_achievements_to_db)
+#define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"

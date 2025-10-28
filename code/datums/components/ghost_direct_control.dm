@@ -164,7 +164,7 @@
 		return
 	add_game_logs("took control of [new_body].", harbinger)
 	// doesn't transfer mind because that transfers antag datum as well
-	new_body.key = harbinger.key
+	new_body.possess_by_player(harbinger.ckey)
 	if(isanimal(new_body))
 		var/mob/living/simple_animal/animal_body = new_body
 		animal_body.toggle_ai(AI_OFF)

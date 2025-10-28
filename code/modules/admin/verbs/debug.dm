@@ -442,10 +442,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			return
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
-			ghost.ckey = M.ckey
+			ghost.possess_by_player(M.ckey)
 	log_and_message_admins(span_notice("assumed direct control of [M]."))
 	var/mob/adminmob = src.mob
-	M.ckey = src.ckey
+	M.possess_by_player(ckey)
 	if(isobserver(adminmob))
 		qdel(adminmob)
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
@@ -885,11 +885,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG))
 		return
 
-	SSmedals.hub_enabled = !SSmedals.hub_enabled
+	SSachievements.achievements_enabled = !SSachievements.achievements_enabled
 
-	message_admins(span_adminnotice("[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout."))
+	log_and_message_admins("[SSachievements.achievements_enabled? "disabled" : "enabled"] the medal hub lockout.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
-	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
 
 
 /client/proc/visualise_active_turfs()

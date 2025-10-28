@@ -161,6 +161,11 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	GLOB.meteor_list -= src
 	return ..()
 
+/obj/effect/meteor/examine(mob/user, infix, suffix)
+	. = ..()
+	if((flags & ADMIN_SPAWNED) || !isliving(user))
+		return
+	user.client.give_award(/datum/award/achievement/misc/meteor_examine, user)
 
 /obj/effect/meteor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()

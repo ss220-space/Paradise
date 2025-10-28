@@ -77,6 +77,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/openMentorTicketUI,
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets,
+	/client/proc/achievements_cleanup,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -384,7 +385,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		var/mob/body = mob
 		body.ghostize(1)
 		if(body && !body.key)
-			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
+			body.possess_by_player("@[key]")	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		BLACKBOX_LOG_ADMIN_VERB("Aghost")
@@ -686,7 +687,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			if(length(candidates))
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 				theghost = pick(candidates)
-				P.key = theghost.key
+				P.possess_by_player(theghost.key)
 				P.master_commander = H
 				P.universal_speak = TRUE
 				P.universal_understand = TRUE

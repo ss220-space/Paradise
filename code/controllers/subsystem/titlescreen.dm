@@ -287,14 +287,25 @@ SUBSYSTEM_DEF(title)
 	if(!viewer)
 		return
 
-	var/list/html = list(title_html)
+	var/html_text = title_html
+
+	if(viewer?.window_scaling && viewer?.window_scaling != 1 && !(viewer?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE))
+		var/zoom =  {"
+			<style>
+				body {
+					zoom: [100 / viewer.window_scaling]%;
+				}
+			</style>
+		"}
+		html_text = replacetextEx(html_text, "<!-- zoom -->", zoom)
+
+	var/list/html = list(html_text)
 	var/mob/new_player/player = user
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
 	var/icon_url = SSassets.transport.get_asset_url(asset_name = current_icon)
 
 	//hope that client won`t use custom theme
 	html += {"<body class="[current_theme][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
-
 	html += {"<input type="checkbox" id="hide_menu">"}
 	html += {"<input type="checkbox" checked="checked" id="hide_lobby">"}
 

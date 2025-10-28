@@ -35,14 +35,6 @@
 
 /obj/machinery/computer/camera_advanced/xenobio
 	name = "slime management console"
-	ru_names = list(
-		NOMINATIVE = "консоль управления слаймами",
-		GENITIVE = "консоли управления слаймами",
-		DATIVE = "консоли управления слаймами",
-		ACCUSATIVE = "консоль управления слаймами",
-		INSTRUMENTAL = "консолью управления слаймами",
-		PREPOSITIONAL = "консоли управления слаймами"
-	)
 	desc = "Компьютер, используемый для удаленного взаимодействия со слаймами."
 	networks = list("SS13")
 	circuit = /obj/item/circuitboard/xenobiology
@@ -61,6 +53,16 @@
 	var/monkeys = 0
 	var/obj/item/slimepotion/slime/current_potion
 	var/obj/machinery/monkey_recycler/connected_recycler
+
+/obj/machinery/computer/camera_advanced/xenobio/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления слаймами",
+		GENITIVE = "консоли управления слаймами",
+		DATIVE = "консоли управления слаймами",
+		ACCUSATIVE = "консоль управления слаймами",
+		INSTRUMENTAL = "консолью управления слаймами",
+		PREPOSITIONAL = "консоли управления слаймами"
+	)
 
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
 	. = ..()
@@ -333,7 +335,7 @@
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
 			if(is_monkeybasic(M) && M.stat)
-				M.visible_message("[capitalize(M)] исчезает, [genderize_ru(M.gender,"он","она","оно","они")] отправлен[genderize_ru(M.gender,"","а","о","ы")] на переработку!")
+				M.visible_message("[capitalize(M)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 				recycler.use_power(500)
 				X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 				qdel(M)
@@ -534,7 +536,7 @@
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(is_monkeybasic(M) && M.stat)
-			M.visible_message("[capitalize(M)] исчезает, [genderize_ru(M.gender,"он","она","оно","они")] отправлен[genderize_ru(M.gender,"","а","о","ы")] на переработку!")
+			M.visible_message("[capitalize(M)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 			recycler.use_power(500)
 			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 			qdel(M)

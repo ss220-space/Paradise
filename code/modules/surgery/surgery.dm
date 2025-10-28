@@ -362,7 +362,11 @@
 		prob_success = allowed_tools[implement_type]
 	prob_success *= get_location_modifier(target)
 
+	var/was_sleeping = (target.stat != DEAD && target.IsSleeping())
+
 	if(!do_after(user, modded_time, target, DA_IGNORE_SLOWDOWNS))
+		if(target.stat == DEAD && was_sleeping && user.client)
+			user.client.give_award(/datum/award/achievement/jobs/sandman, user)
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_INTERRUPTED
 
@@ -397,6 +401,9 @@
 		surgery.step_number++
 		if(surgery.step_number > length(surgery.steps))
 			surgery.complete(target)
+
+	if(target.stat == DEAD && was_sleeping && user.client)
+		user.client.give_award(/datum/award/achievement/jobs/sandman, user)
 
 	surgery.step_in_progress = FALSE
 	if(advance)

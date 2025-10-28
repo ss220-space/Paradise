@@ -194,7 +194,7 @@
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
-			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[declension_ru(wait_time, "у", "ы", "")] перед отправкой нового сообщения."), confidential=TRUE)
+			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[DECL_SEC_MIN(wait_time)] перед отправкой нового сообщения."), confidential=TRUE)
 			return 1
 		last_message_time = world.time
 	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, 0) && last_message == message)
@@ -256,6 +256,16 @@
 	to_chat(src, span_warning("Если вы видите чёрный экран, это означает, что процесс загрузки ещё продолжается. Пожалуйста, подождите немного, пока не появится начальный экран."), confidential=TRUE)
 
 	GLOB.directory[ckey] = src
+
+	if(GLOB.persistent_clients_by_ckey[ckey])
+		persistent_client = GLOB.persistent_clients_by_ckey[ckey]
+		persistent_client.byond_build = byond_build
+		persistent_client.byond_version = byond_version
+	else
+		persistent_client = new(ckey)
+		persistent_client.byond_build = byond_build
+		persistent_client.byond_version = byond_version
+
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
 	if(!CONFIG_GET(flag/disable_localhost_admin))
@@ -429,8 +439,11 @@
 		holder.owner = null
 		GLOB.admins -= src
 
+
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+
+	persistent_client.client = null
 
 	#ifdef MULTIINSTANCE
 	INVOKE_ASYNC(SSinstancing, TYPE_PROC_REF(/datum/controller/subsystem/instancing, update_playercache)) // Clear us out
@@ -1636,6 +1649,14 @@
 		return
 
 	src << link("https://secure.byond.com/download/")
+
+///Redirect proc that makes it easier to call the unlock achievement proc. Achievement type is the typepath to the award, user is the mob getting the award, and value is an optional variable used for leaderboard value increments
+/client/proc/give_award(achievement_type, mob/user, value = 1)
+	return persistent_client.achievements.unlock(achievement_type, user, value)
+
+///Redirect proc that makes it easier to get the status of an achievement. Achievement type is the typepath to the award.
+/client/proc/get_award_status(achievement_type, mob/user, value = 1)
+	return persistent_client.achievements.get_achievement_status(achievement_type)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

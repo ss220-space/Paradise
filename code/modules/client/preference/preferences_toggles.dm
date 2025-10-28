@@ -408,6 +408,15 @@
 	disable_message = "Теперь вы не будете видеть информацию о подсистемах в панели действий."
 	blackbox_message = "MC tabs toggled"
 
+/datum/preference_toggle/toggle_mctabs/set_toggles(client/user)
+	. = ..()
+
+	if(!(user.prefs.toggles2 & preftoggle_bitflag))
+		return
+
+	user.stat_panel.send_message("add_mc_tab", user.holder.href_token)
+	SSstatpanels.set_MC_tab(user)
+
 /datum/preference_toggle/toggle_split_admins_tabs
 	name = "Разделение админ-вкладок"
 	description = "Включает разделение админ-действий на подкатегории."
@@ -667,8 +676,9 @@
 		return
 	ASYNC
 		user.acquire_dpi()
-	INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
-	user.tgui_say?.load()
+		INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
+		user.tgui_say?.load()
+		user.fix_title_screen()
 
 
 /datum/preference_toggle/pain_blurb
