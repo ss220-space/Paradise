@@ -763,11 +763,11 @@
 	force = 10
 	origin_tech = "combat=4;materials=2"
 	cell_type = /obj/item/stock_parts/cell/specter
+	var/obj/item/weapon_cell/magazine = new /obj/item/weapon_cell/specter()
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
 	unique_reskin = TRUE
 	materials = list(MAT_METAL = 1000)
 	accuracy = GUN_ACCURACY_PISTOL
-	recoil = GUN_RECOIL_MIN
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
@@ -799,10 +799,11 @@
 	add_skin("Red Handle", "specter_redgrip")
 
 /obj/item/gun/energy/specter/update_icon_state()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(current_skin)
-		icon_state = "[current_skin][cell.charge > 0 ? "" : "-e"]"
+		icon_state = "[current_skin][magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
 	else
-		icon_state = "[initial(icon_state)][cell.charge > 0 ? "" : "-e"]"
+		icon_state = "[initial(icon_state)][magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
 
 /obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
 	if(!is_spectercell(item))
@@ -811,15 +812,16 @@
 	if(!user.drop_transfer_item_to_loc(item, src))
 		balloon_alert(user, "отпустить невозможно!")
 		return ATTACK_CHAIN_PROCEED
-
-	user.put_in_hands(cell)
-	cell = item
-	cell_type = item.type
+	magazine.update_icon(UPDATE_OVERLAYS)
+	user.put_in_hands(magazine)
+	cell = item.get_cell()
+	cell_type = cell.type
+	magazine = item
 	balloon_alert(user, "батарейка заменена")
 	update_icon(UPDATE_ICON_STATE)
-	if(cell.charge > 0)
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(magazine.is_available_shot(shot.e_cost))
 		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
-
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/gun/energy/emittergun

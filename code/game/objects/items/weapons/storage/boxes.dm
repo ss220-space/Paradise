@@ -1522,8 +1522,8 @@
 /obj/item/storage/box/specter_kit/populate_contents()
 	new /obj/item/gun/energy/specter/sibyl(src)
 	new /obj/item/clothing/accessory/holster(src)
-	new /obj/item/stock_parts/cell/specter(src)
-	new /obj/item/stock_parts/cell/specter(src)
+	new /obj/item/weapon_cell/specter(src)
+	new /obj/item/weapon_cell/specter(src)
 
 /obj/item/storage/box/revolver_kit
 	name = "Revolver kit"

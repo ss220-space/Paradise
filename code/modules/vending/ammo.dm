@@ -35,7 +35,7 @@
 				/obj/item/ammo_box/magazine/sp91rc = 10,
 				/obj/item/ammo_box/magazine/enforcer/lethal = 10,
 				/obj/item/ammo_box/magazine/lr30mag = 10,
-				/obj/item/stock_parts/cell/specter = 10,
+				/obj/item/weapon_cell/specter = 10,
 			),
 		),
 		list(
@@ -48,7 +48,7 @@
 			),
 		),
 	)
-	
+
 	contraband = list(
 		/obj/item/storage/box/flashbangs = 2,
 		/obj/item/storage/box/barrier = 2,
