@@ -246,10 +246,11 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
+	starting_attachment_types = list(/obj/item/gun_module/muzzle/suppressor/integrated)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 	fire_delay = 1
-	damage_mod = 0.5
+	damage_mod = 0.7
 
 /obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
 	icon_state = "sparkle-a12[magazine ? "" : "-e"]"

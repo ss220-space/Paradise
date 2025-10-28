@@ -67,7 +67,7 @@
 	///List of allowed attachments, IT MUST INCLUDE THE STARTING ATTACHMENT TYPES OR THEY WILL NOT ATTACH.
 	var/attachable_allowed = 0
 	///The attachments this gun starts with on Init
-	var/list/starting_attachment_types = null //TODO implement later
+	var/list/starting_attachment_types = null
 	///Image list of attachments overlays.
 	var/list/image/attachment_overlays = list()
 	///List of offsets to make attachment overlays not look wonky.
@@ -134,6 +134,7 @@
 	if(rusted_weapon)
 		malf_counter = rand(malf_low_bound, malf_high_bound)
 	update_gun_skins()
+	create_start_gun_modules()
 	if(islist(accuracy))
 		accuracy = getAccuracy(arglist(accuracy))
 	else if(!accuracy)
@@ -228,7 +229,18 @@
 		attachment_overlays[module.slot] = null
 	update_icon()
 
-
+/obj/item/gun/proc/create_start_gun_modules()
+	if(!starting_attachment_types)
+		return
+	for(var/module_path in starting_attachment_types)
+		if(!ispath(module_path, /obj/item/gun_module))
+			continue
+		var/obj/item/gun_module/module = new module_path(src)
+		attachments_by_slot[module.slot] = module
+		add_attachment_overlay(module)
+		module.gun = src
+		module.on_attach(src, null)
+		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
 
 
 /**
@@ -676,7 +688,8 @@
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		choices += module.declent_ru(NOMINATIVE)
+		if(module.can_detach)
+			choices += module.declent_ru(NOMINATIVE)
 	if(length(choices) == 0)
 		return
 	var/choice = tgui_input_list(user, "Выберите модуль, который хотите снять", "Снять модуль", choices, choices[1], 0, GLOB.conscious_state)
