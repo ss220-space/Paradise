@@ -239,18 +239,19 @@
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
-		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7),
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
-	burst_size = 2
-	var/autofire_delay = 0.25 SECONDS
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	burst_size = 3
+	fire_delay = 1
+	fire_modes = GUN_MODE_SINGLE_BURST
+	damage_mod = 0.5
 
 /obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
 	icon_state = "sparkle-a12[magazine ? "" : "-e"]"

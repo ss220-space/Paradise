@@ -1,8 +1,8 @@
-/obj/item/ammo_casing/proc/fire(atom/target, mob/living/user, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
+/obj/item/ammo_casing/proc/fire(atom/target, mob/living/user, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	distro += variance
 	for(var/i = max(1, pellets), i > 0, i--)
 		var/targloc = get_turf(target)
-		ready_proj(target, user, quiet, zone_override, firer_source_atom)
+		ready_proj(target, user, quiet, zone_override, firer_source_atom, damage_mod, stamina_mod)
 		if(distro) //We have to spread a pixel-precision bullet. throw_proj was called before so angles should exist by now...
 			if(randomspread)
 				spread = round((rand() - 0.5) * distro)
@@ -22,12 +22,14 @@
 	return TRUE
 
 
-/obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom)
+/obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	if(!BB)
 		return
 	BB.original = target
 	BB.firer = user
 	BB.firer_source_atom = firer_source_atom
+	BB.damage *= damage_mod
+	BB.stamina *= stamina_mod
 	if(zone_override)
 		BB.def_zone = zone_override
 	else

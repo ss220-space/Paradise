@@ -56,6 +56,11 @@
 	/// Guns can be placed on racks
 	var/on_rack = FALSE
 
+	/// Damage modifier for projectile
+	var/damage_mod = 1
+	/// Stamina modifier for projectile
+	var/stamina_mod = 1
+
 /*
  * Gun modules
  */
@@ -398,7 +403,7 @@
 					sprd = accuracy.randomize_spread(user, bonus_spread)
 				else
 					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
-				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
+				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 					shoot_with_empty_chamber(user)
 					break
 				else
@@ -422,7 +427,7 @@
 					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
 			sprd = accuracy.randomize_spread(user, bonus_spread)
-			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
+			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 				shoot_with_empty_chamber(user)
 				return
 			else
