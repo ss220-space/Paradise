@@ -671,10 +671,14 @@
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		choices += module.declent_ru(NOMINATIVE)
+		choices[module.declent_ru(NOMINATIVE)] = image(icon = module.icon, icon_state = module.icon_state)
 	if(length(choices) == 0)
 		return
-	var/choice = tgui_input_list(user, "Выберите модуль, который хотите снять", "Снять модуль", choices, choices[1], 0, GLOB.conscious_state)
+	var/choice = choices[1]
+	if(length(choices) > 1)
+		choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
+	if(!choice)
+		return FALSE
 	for(var/slot in attachments_by_slot)
 		if(!attachments_by_slot[slot])
 			continue
