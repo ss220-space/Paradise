@@ -997,8 +997,8 @@
 
 
 /mob/living/carbon/human/verb/begin_strip()
-	set name = "Осмотреть"
-	set desc = "Осмотреть цель."
+	set name = "Обычкать"
+	set desc = "Обыскать цель."
 	set src in view(1)
 
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
