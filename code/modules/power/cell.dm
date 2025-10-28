@@ -667,7 +667,7 @@
 	drop_sound = 'sound/items/handling/drop/ammobox_drop.ogg'
 	var/obj/item/stock_parts/cell/internal_cell = new /obj/item/stock_parts/cell/laser
 
-/obj/item/weapon_cell/New()
+/obj/item/weapon_cell/Initialize(mapload)
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
