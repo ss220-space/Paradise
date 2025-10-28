@@ -741,7 +741,7 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
 	// Admins delayed round end. Just alert and dont bother with anything else.
 	if(delay_end)
-		to_chat(world, span_boldannounceooc("Администрация отложил окончание раунда."))
+		to_chat(world, span_boldannounceooc("Администрация отложила окончание раунда."))
 		return
 
 	if(!isnull(delay))
