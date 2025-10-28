@@ -248,9 +248,7 @@
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
-	burst_size = 3
 	fire_delay = 1
-	fire_modes = GUN_MODE_SINGLE_BURST
 	damage_mod = 0.5
 
 /obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
