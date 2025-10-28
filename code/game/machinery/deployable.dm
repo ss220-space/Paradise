@@ -492,14 +492,6 @@
 
 /obj/item/storage/box/syndie_kit/dropwall
 	name = "dropwall generator box"
-	ru_names = list(
-		NOMINATIVE = "коробка с генераторами энергощита",
-		GENITIVE = "коробку с генераторами энергощита",
-		DATIVE = "коробке с генераторами энергощита",
-		ACCUSATIVE = "коробку с генераторами энергощита",
-		INSTRUMENTAL = "коробке с генераторами энергощита",
-		PREPOSITIONAL = "коробкой с генераторами энергощита"
-	)
 
 /obj/item/storage/box/syndie_kit/dropwall/get_ru_names()
 	return list(
