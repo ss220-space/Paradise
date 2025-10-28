@@ -91,7 +91,7 @@
 	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
 	icon_state = "bullethelmet"
 	item_state = "bullethelmet"
-	armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 45, LASER = 10, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = null
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDEHAIR
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
