@@ -359,11 +359,11 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	for(var/H in subtypesof(/datum/holiday))
 		choice += "[H]"
 
-	choice += "--ОТМЕНА--"
+	choice += "ОТМЕНА"
 
-	var/selected = tgui_input_list(usr, "Какой праздник вы хотите зафорсить?", "Форс праздника", choice, "--ОТМЕНА--")
+	var/selected = tgui_input_list(usr, "Какой праздник вы хотите зафорсить?", "Форс праздника", choice, "ОТМЕНА")
 
-	if(selected == "--ОТМЕНА--")
+	if(selected == "ОТМЕНА")
 		return
 
 	var/selected2path = text2path(selected)
