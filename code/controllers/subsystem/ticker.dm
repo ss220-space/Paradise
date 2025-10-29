@@ -197,7 +197,7 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 		if(!length(runnable_modes))
-			to_chat(world, "<b>Не удалось выбрать играбельный режим игры.</b> Возврат в предыгровое лобби.")
+			to_chat(world, "<b>Не удалось выбрать игровой режим.</b> Возврат в предыгровое лобби.")
 			force_start = FALSE
 			change_state(GAME_STATE_PREGAME)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
