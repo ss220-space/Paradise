@@ -12,12 +12,6 @@
  * Creates text that will float from the atom upwards to the viewer.
  * When you add new balloons, make sure to use less text, as possible, starting with small letter
  *
- *
- * Russian is preferable in all new balloons, but..
- * In order not to make bad translation like classical "вы slip на banana peel"
- * avoid using balloons, where any [variables] are used
- *
- *
  * Args:
  * * mob/viewer: The mob the text will be shown to. Nullable (But only in the form of it won't runtime).
  * * text: The text to be shown to viewer. Must not be null.
@@ -41,10 +35,12 @@
 
 		balloon_alert(hearer, (hearer == src && self_message) || message)
 
-// Do not use.
-// MeasureText blocks. I have no idea for how long.
-// I would've made the maptext_height update on its own, but I don't know
-// if this would look bad on laggy clients.
+/**
+ * Do not use.
+ * MeasureText blocks. I have no idea for how long.
+ * I would've made the maptext_height update on its own, but I don't know
+ * if this would look bad on laggy clients.
+ */
 /atom/proc/balloon_alert_perform(mob/viewer, text)
 
 	var/client/viewer_client = viewer?.client
