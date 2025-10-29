@@ -2,6 +2,7 @@
 	name = "crowbar"
 	desc = "Инструмент, предназначенный для использования в качестве рычага. \
 			Пригоден для широкого спектра задач: от поддевания напольных плит до вскрытия обесточенных шлюзов."
+	gender = FEMALE
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -103,12 +104,12 @@
 
 /obj/item/crowbar/abductor/get_ru_names()
 	return list(
-		NOMINATIVE = "инопланетная монтировка",
-		GENITIVE = "инопланетной монтировки",
-		DATIVE = "инопланетной монтировке",
-		ACCUSATIVE = "инопланетную монтировку",
-		INSTRUMENTAL = "инопланетной монтировкой",
-		PREPOSITIONAL = "инопланетной монтировке"
+		NOMINATIVE = "чежеродная монтировка",
+		GENITIVE = "чежеродной монтировки",
+		DATIVE = "чежеродной монтировке",
+		ACCUSATIVE = "чежеродную монтировку",
+		INSTRUMENTAL = "чежеродной монтировкой",
+		PREPOSITIONAL = "чежеродной монтировке"
 	)
 
 /obj/item/crowbar/large
@@ -179,18 +180,22 @@
 		PREPOSITIONAL = "челюстях жизни"
 	)
 
+/obj/item/crowbar/power/examine(mob/user)
+	. = ..()
+	. += span_notice("Установлена <b>поддевающая</b> насадка.")
+
 /obj/item/crowbar/power/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
+
+/obj/item/crowbar/power/attack_self(mob/user)
+	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
+	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
+	balloon_alert(user, "установлена перерезающая насадка")
+	qdel(src)
+	user.put_in_active_hand(cutjaws)
 
 /obj/item/crowbar/power/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] помеща[PLUR_ET_YUT(user)] свою голову между лезвиями [declent_ru(GENITIVE)]. Это похоже на попытку самоубийства!"))
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
-
-/obj/item/crowbar/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
-	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
-	balloon_alert(user, "режим — перерезание")
-	qdel(src)
-	user.put_in_active_hand(cutjaws)

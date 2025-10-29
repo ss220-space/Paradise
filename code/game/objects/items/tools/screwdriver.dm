@@ -1,4 +1,3 @@
-// Screwdriver
 /obj/item/screwdriver
 	name = "screwdriver"
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой."
@@ -124,6 +123,23 @@
 		PREPOSITIONAL = "чужеродной отвёртке"
 	)
 
+/obj/item/screwdriver/cyborg
+	name = "powered screwdriver"
+	desc = "Гидравлический инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой. \
+			Специализированная версия для установки в роботизированные системы."
+	usesound = 'sound/items/drill_use.ogg'
+	toolspeed = 0.5
+
+/obj/item/screwdriver/cyborg/get_ru_names()
+	return list(
+		NOMINATIVE = "электрическая отвёртка",
+		GENITIVE = "электрической отвёртки",
+		DATIVE = "электрической отвёртке",
+		ACCUSATIVE = "электрическую отвёртку",
+		INSTRUMENTAL = "электрической отвёрткой",
+		PREPOSITIONAL = "электрической отвёртке"
+	)
+
 /obj/item/screwdriver/power
 	name = "hand drill"
 	desc = "Электрическая инструмент, используемый для завинчивания объектов с резьбой \
@@ -162,10 +178,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/screwdriver/power/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] приставля[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] к своему виску. Это похоже на попытку самоубийства!"))
-	return BRUTELOSS
-
 /obj/item/screwdriver/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, TRUE)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
@@ -173,19 +185,6 @@
 	qdel(src)
 	user.put_in_active_hand(b_drill)
 
-/obj/item/screwdriver/cyborg
-	name = "powered screwdriver"
-	desc = "Гидравлический инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой. \
-			Специализированная версия для установки в роботизированные системы."
-	usesound = 'sound/items/drill_use.ogg'
-	toolspeed = 0.5
-
-/obj/item/screwdriver/cyborg/get_ru_names()
-	return list(
-		NOMINATIVE = "электрическая отвёртка",
-		GENITIVE = "электрической отвёртки",
-		DATIVE = "электрической отвёртке",
-		ACCUSATIVE = "электрическую отвёртку",
-		INSTRUMENTAL = "электрической отвёрткой",
-		PREPOSITIONAL = "электрической отвёртке"
-	)
+/obj/item/screwdriver/power/suicide_act(mob/user)
+	user.visible_message(span_suicide("[user] приставля[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] к своему виску. Это похоже на попытку самоубийства!"))
+	return BRUTELOSS

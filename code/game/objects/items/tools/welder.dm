@@ -4,6 +4,7 @@
 	name = "welding tool"
 	desc = "Инструмент, используемый для выполнения сварочных работ. \
 			Оборудован небольшим баком для топлива."
+	gender = MALE
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'

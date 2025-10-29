@@ -1,6 +1,7 @@
 /obj/item/wirecutters
 	name = "wirecutters"
 	desc = "Инструмент, предназначенный для перекусывания различных материалов."
+	gender = PLURAL
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -102,9 +103,20 @@
 	)
 
 /obj/item/wirecutters/cyborg
+	name = "alien wirecutters"
+	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
+			Специализированная версия для установки в роботизированные системы."
 	toolspeed = 0.5
 
-// Наследует базовое название "кусачки", уникального name нет → get_ru_names() не требуется
+/obj/item/wirecutters/cyborg/get_ru_names()
+	return list(
+		NOMINATIVE = "автоматизированные кусачки",
+		GENITIVE = "автоматизированных кусачек",
+		DATIVE = "автоматизированным кусачкам",
+		ACCUSATIVE = "автоматизированные кусачки",
+		INSTRUMENTAL = "автоматизированными кусачками",
+		PREPOSITIONAL = "автоматизированных кусачках"
+	)
 
 /obj/item/wirecutters/power
 	name = "jaws of life"
@@ -135,6 +147,13 @@
 	. = ..()
 	. += span_notice("Установлена <b>режущая</b> насадка.")
 
+/obj/item/wirecutters/power/attack_self(mob/user)
+	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
+	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
+	balloon_alert(user, "установлена поддевающая насадка")
+	qdel(src)
+	user.put_in_active_hand(pryjaws)
+
 /obj/item/wirecutters/power/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] помеща[PLUR_ET_YUT(user)] свою голову между лезвиями [declent_ru(GENITIVE)]. Это похоже на попытку самоубийства!"))
 	playsound(loc, 'sound/items/jaws_cut.ogg', 50, TRUE, -1)
@@ -145,10 +164,3 @@
 			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
 			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
-
-/obj/item/wirecutters/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
-	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
-	balloon_alert(user, "установлена поддевающая насадка")
-	qdel(src)
-	user.put_in_active_hand(pryjaws)
