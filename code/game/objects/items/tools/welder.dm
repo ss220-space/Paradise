@@ -375,8 +375,6 @@
 	requires_fuel = FALSE
 	light_intensity = 0
 
-// Наследует get_ru_names() от /largetank/cyborg — но поскольку это отдельный путь,
-// и он переопределяет name, добавим явно:
 /obj/item/weldingtool/experimental/mecha/get_ru_names()
 	return list(
 		NOMINATIVE = "встроенный сварочный аппарат",

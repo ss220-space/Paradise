@@ -129,7 +129,8 @@
 	var/name = "???"
 	var/sound
 	var/behavior
-	var/speed = 0.5 // upgraded instruments are 0.25 speed
+	/// Upgraded instruments are 0.25 speed
+	var/speed = 0.5
 
 /datum/holotool_mode/proc/can_be_used(obj/item/holotool/H)
 	return TRUE

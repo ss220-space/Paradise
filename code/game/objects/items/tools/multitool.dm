@@ -2,9 +2,6 @@
 #define PROXIMITY_ON_SCREEN "_red"
 #define PROXIMITY_NEAR "_yellow"
 
-/**
- * Multitool -- A multitool is used for hacking electronic devices.
- */
 /obj/item/multitool
 	name = "multimeter"
 	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. \
@@ -27,8 +24,10 @@
 	tool_behaviour = TOOL_MULTITOOL
 	toolbox_radial_menu_compatibility = TRUE
 	hitsound = 'sound/weapons/tap.ogg'
-	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
-	var/obj/machinery/buffer // simple machine buffer for device linkage
+	/// Shows what a wire does if set to TRUE
+	var/shows_wire_information = FALSE
+	/// Simple machine buffer for device linkage
+	var/obj/machinery/buffer
 	var/datum/multitool_menu_host/menu
 	var/emp_shielded = FALSE
 	var/broken_type = /obj/item/multitool_broken
