@@ -555,7 +555,7 @@
 	)
 
 /obj/item/ammo_box/magazine/sparkle_a12/update_icon_state()
-	icon_state = "[initial(icon_state)][ammo_count() > 0 ? "" : "e"]"
+	icon_state = "[initial(icon_state)][ammo_count() > 0 ? "" : "-e"]"
 
 
 /obj/item/ammo_box/magazine/uzim9mm

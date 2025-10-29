@@ -234,7 +234,7 @@
 	name = "Sparkle-A12"
 	desc = "Компактный пистолет-пулемёт под калибр 9 мм."
 	icon_state = "sparkle-a12"
-	item_state = "SP-91-RC"
+	item_state = "sparkle-a12"
 	mag_type = /obj/item/ammo_box/magazine/sparkle_a12
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
@@ -254,7 +254,6 @@
 
 /obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
 	icon_state = "sparkle-a12[magazine ? "" : "-e"]"
-	item_state = "sparkle-a12[magazine ? "" : "-e"]"
 
 
 /*Type-U3 Uzi
