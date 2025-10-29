@@ -1,7 +1,7 @@
 /datum/holiday
 	var/name = "День багодарения"
-	/// Right now, only holidays that take place on a certain day or within a time period are supported.
-	/// It would be nice to support things like "the second monday in march" or "the first sunday after the second sunday in june"
+	// Right now, only holidays that take place on a certain day or within a time period are supported.
+	// It would be nice to support things like "the second monday in march" or "the first sunday after the second sunday in june"
 	var/begin_day = 1
 	var/begin_month = 0
 	/// Default of 0 means the holiday lasts a single day
