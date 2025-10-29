@@ -536,7 +536,7 @@
 /obj/item/ammo_box/magazine/sparkle_a12
 	name = "Sparkle-A12 magazine (9mm)"
 	desc = "Магазин пистолет-пулемета \"Sparkle-A12\", заряженный патронами калибра 9 мм."
-	icon_state = "c20r45"
+	icon_state = "sparkle_a12"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
 	max_ammo = 24
@@ -555,7 +555,7 @@
 	)
 
 /obj/item/ammo_box/magazine/sparkle_a12/update_icon_state()
-	icon_state = "[initial(icon_state)]-[round(ammo_count(), 2)]"
+	icon_state = "[initial(icon_state)][ammo_count() > 0 ? "" : "e"]"
 
 
 /obj/item/ammo_box/magazine/uzim9mm
