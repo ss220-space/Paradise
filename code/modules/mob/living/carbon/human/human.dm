@@ -997,7 +997,7 @@
 
 
 /mob/living/carbon/human/verb/begin_strip()
-	set name = "Обычкать"
+	set name = "Обыскать"
 	set desc = "Обыскать цель."
 	set src in view(1)
 
