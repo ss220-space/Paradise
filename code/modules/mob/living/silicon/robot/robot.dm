@@ -345,8 +345,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			"Medical" = /obj/item/robot_module/medical,
 			"Miner" = /obj/item/robot_module/miner,
 			"Janitor" = /obj/item/robot_module/janitor,
-			"Service" = /obj/item/robot_module/butler,
-			"Security" = /obj/item/robot_module/security
+			"Service" = /obj/item/robot_module/butler
 		)
 
 	if(islist(limited_modules) && LAZYLEN(limited_modules))
