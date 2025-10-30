@@ -79,3 +79,8 @@
 		// 2 for preloading absolutely everything;
 
 //#define PASSIVE_GC
+
+//#define OPTIMIZATION
+#ifdef OPTIMIZATION
+// ПОКА ЧТО НЕ ПРИДУМАЛ, ДОЛГИЙ ДРАФТ, ДОЛГИЙ ВИП, ПЛОТНЫЙ СТАФФ, ЖЁСТКИЙ СВЭЭЭЭГГГ
+#endif
