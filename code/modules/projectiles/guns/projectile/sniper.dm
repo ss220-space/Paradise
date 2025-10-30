@@ -290,10 +290,11 @@
 		PREPOSITIONAL = "снайперской винтовке axmc",
 	)
 
-/obj/item/gun/projectile/automatic/sniper_rifle/axmc/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun_module/muzzle/suppressor))
+/obj/item/gun/projectile/automatic/sniper_rifle/axmc/attackby(obj/item/item, mob/user, params)
+	//TODO: remove it after normal sprite for AXMC
+	if(istype(item, /obj/item/gun_module/muzzle/suppressor))
 		add_fingerprint(user)
-		var/obj/item/gun_module/muzzle/suppressor/suppressor = I
+		var/obj/item/gun_module/muzzle/suppressor/suppressor = item
 		if(!can_suppress)
 			balloon_alert(user, "несовместимо!")
 			return ATTACK_CHAIN_PROCEED
