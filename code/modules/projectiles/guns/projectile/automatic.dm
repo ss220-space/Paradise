@@ -229,7 +229,7 @@
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 
-//Sparkle-A12
+// MARK: Sparkle-A12
 /obj/item/gun/projectile/automatic/sparkle_a12
 	name = "Sparkle-A12"
 	desc = "Компактный пистолет-пулемёт под калибр 9 мм."
@@ -251,6 +251,16 @@
 	weapon_weight = WEAPON_HEAVY
 	fire_delay = 1
 	damage_mod = 0.7
+
+/obj/item/gun/projectile/automatic/sparkle_a12/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет пулемёт Sparkle-A12",
+		GENITIVE = "пистолет пулемёта Sparkle-A12",
+		DATIVE = "пистолет пулемёту Sparkle-A12",
+		ACCUSATIVE = "пистолет пулемёт Sparkle-A12",
+		INSTRUMENTAL = "пистолет пулемётом Sparkle-A12",
+		PREPOSITIONAL = "пистолет пулемёте Sparkle-A12"
+	)
 
 /obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
 	icon_state = "sparkle-a12[magazine ? "" : "-e"]"

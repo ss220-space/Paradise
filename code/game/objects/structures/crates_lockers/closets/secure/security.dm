@@ -214,12 +214,12 @@
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф пистолет пулемётов Sparkle-A12",
-		GENITIVE = "шкафа пистолет пулемётов Sparkle-A12",
-		DATIVE = "шкафу пистолет пулемётов Sparkle-A12",
-		ACCUSATIVE = "шкаф пистолет пулемётов Sparkle-A12",
-		INSTRUMENTAL = "шкафом пистолет пулемётов Sparkle-A12",
-		PREPOSITIONAL = "шкафе пистолет пулемётов Sparkle-A12"
+		NOMINATIVE = "шкаф пистолет пулемёта Sparkle-A12",
+		GENITIVE = "шкафа пистолет пулемёта Sparkle-A12",
+		DATIVE = "шкафу пистолет пулемёта Sparkle-A12",
+		ACCUSATIVE = "шкаф пистолет пулемёта Sparkle-A12",
+		INSTRUMENTAL = "шкафом пистолет пулемёта Sparkle-A12",
+		PREPOSITIONAL = "шкафе пистолет пулемёта Sparkle-A12"
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
