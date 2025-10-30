@@ -53,12 +53,12 @@
 
 /obj/item/crowbar/small/get_ru_names()
 	return list(
-		NOMINATIVE = "мини-монтировка из титана",
-		GENITIVE = "мини-монтировки из титана",
-		DATIVE = "мини-монтировке из титана",
-		ACCUSATIVE = "мини-монтировку из титана",
-		INSTRUMENTAL = "мини-монтировкой из титана",
-		PREPOSITIONAL = "мини-монтировке из титана"
+		NOMINATIVE = "титановая мини-монтировка",
+		GENITIVE = "титановой мини-монтировки",
+		DATIVE = "титановой мини-монтировке",
+		ACCUSATIVE = "титановую мини-монтировку",
+		INSTRUMENTAL = "титановой мини-монтировкой",
+		PREPOSITIONAL = "титановой мини-монтировке"
 	)
 
 /obj/item/crowbar/red
@@ -104,12 +104,12 @@
 
 /obj/item/crowbar/abductor/get_ru_names()
 	return list(
-		NOMINATIVE = "чежеродная монтировка",
-		GENITIVE = "чежеродной монтировки",
-		DATIVE = "чежеродной монтировке",
-		ACCUSATIVE = "чежеродную монтировку",
-		INSTRUMENTAL = "чежеродной монтировкой",
-		PREPOSITIONAL = "чежеродной монтировке"
+		NOMINATIVE = "чужеродная монтировка",
+		GENITIVE = "чужеродной монтировки",
+		DATIVE = "чужеродной монтировке",
+		ACCUSATIVE = "чужеродную монтировку",
+		INSTRUMENTAL = "чужеродной монтировкой",
+		PREPOSITIONAL = "чужеродной монтировке"
 	)
 
 /obj/item/crowbar/large
