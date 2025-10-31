@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 	user.visible_message(blind_message = span_hear("Слышны звуки сваривания."));
 #define WELDER_FLOOR_SLICE_SUCCESS_MESSAGE balloon_alert_to_viewers("отделя[PLUR_ET_YUT(user)] от пола", "отделено от пола")
 
-#define WELDER_ATTEMPT_FLOOR_WELD_MESSAGE  \
+#define WELDER_ATTEMPT_FLOOR_WELD_MESSAGE \
 	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] приваривать к полу...", "приваривание к полу...");\
 	user.visible_message(blind_message = span_hear("Слышны звуки сваривания."));
 #define WELDER_FLOOR_WELD_SUCCESS_MESSAGE balloon_alert_to_viewers("приварива[PLUR_ET_YUT(user)] к полу", "приварено к полу")
