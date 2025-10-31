@@ -104,5 +104,5 @@
 	SIGNAL_HANDLER
 
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[bicon(src)] Squeek!"))
+		to_chat(arrived, span_notice("[icon2html(src, arrived)] Squeek!"))
 

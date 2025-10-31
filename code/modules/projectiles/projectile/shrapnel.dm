@@ -7,7 +7,10 @@
 	armour_penetration = 30
 	dismemberment = 5
 	ricochet_chance = 70
-	ru_names = list(
+	var/embedded_type = /obj/item/embedded/shrapnel
+
+/obj/projectile/shrapnel/get_ru_names()
+	return list(
 		NOMINATIVE = "шрапнель",
 		GENITIVE = "шрапнели",
 		DATIVE = "шрапнели",
@@ -15,7 +18,6 @@
 		INSTRUMENTAL = "шрапнелью",
 		PREPOSITIONAL = "шрапнели"
 	)
-	var/embedded_type = /obj/item/embedded/shrapnel
 
 /obj/projectile/shrapnel/Initialize(mapload)
 	. = ..()
@@ -35,14 +37,6 @@
 
 /obj/item/embedded/shrapnel
 	name = "shrapnel"
-	ru_names = list(
-		NOMINATIVE = "шрапнель",
-		GENITIVE = "шрапнели",
-		DATIVE = "шрапнели",
-		ACCUSATIVE = "шрапнель",
-		INSTRUMENTAL = "шрапнелью",
-		PREPOSITIONAL = "шрапнели"
-	)
 	icon = 'icons/obj/shards.dmi'
 	throwforce = 10
 	throw_speed =  EMBED_THROWSPEED_THRESHOLD
@@ -51,6 +45,16 @@
 	w_class = WEIGHT_CLASS_SMALL
 	sharp = TRUE
 	hitsound = 'sound/weapons/pierce.ogg'
+
+/obj/item/embedded/shrapnel/get_ru_names()
+	return list(
+		NOMINATIVE = "шрапнель",
+		GENITIVE = "шрапнели",
+		DATIVE = "шрапнели",
+		ACCUSATIVE = "шрапнель",
+		INSTRUMENTAL = "шрапнелью",
+		PREPOSITIONAL = "шрапнели"
+	)
 
 /obj/item/embedded/shrapnel/Initialize(mapload)
 	. = ..()

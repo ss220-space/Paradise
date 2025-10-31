@@ -8,7 +8,7 @@ CREATE TABLE `achievements` (
 	`value` INT NULL,
 	`last_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`ckey`,`achievement_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `achievement_metadata`;
 CREATE TABLE `achievement_metadata` (

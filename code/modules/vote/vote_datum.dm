@@ -97,10 +97,10 @@
 			for(var/res in results)
 				if(res in winning_options)
 					// Make it stand out
-					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
 				else
 					// Make it normal
-					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
 
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)
@@ -123,7 +123,7 @@
 /datum/vote/proc/announce(start_text)
 	to_chat(world, chat_box_purple(span_purple("<b>[start_text]</b>\n\
 		<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос.\n\
-		У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать!")), MESSAGE_TYPE_OOC)
+		У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[DECL_SEC_MIN(CONFIG_GET(number/vote_period) / 10)], чтобы проголосовать!")), MESSAGE_TYPE_OOC)
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
 

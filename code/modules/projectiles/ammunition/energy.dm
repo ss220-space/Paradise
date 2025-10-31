@@ -540,7 +540,14 @@
 
 /obj/item/ammo_casing/energy/rat
 	name = "mechanical energy module"
-	ru_names = list(
+	desc = "Несколько шестерней, запитывающих оружие энергией Ратвара."
+	caliber = "ratvar"
+	projectile_type = /obj/projectile/energy/rat
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	e_cost = 1
+
+/obj/item/ammo_casing/energy/rat/get_ru_names()
+	return list(
 		NOMINATIVE = "механическая энергоячейка",
 		GENITIVE = "механической энергоячейки",
 		DATIVE = "механической энергоячейке",
@@ -548,11 +555,6 @@
 		INSTRUMENTAL = "механичекой энергоячейкой",
 		PREPOSITIONAL = "механической энергоячейке"
 	)
-	desc = "Несколько шестерней, запитывающих оружие энергией Ратвара."
-	caliber = "ratvar"
-	projectile_type = /obj/projectile/energy/rat
-	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
-	e_cost = 1
 
 /obj/item/ammo_casing/energy/rat/slug
 	projectile_type = /obj/projectile/energy/rat/slug

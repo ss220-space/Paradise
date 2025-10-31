@@ -43,7 +43,7 @@
 		if(!account.charge(bounty, account, "Выплата вознаграждения персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Поступление зарплаты" ,"Biesel TCD Terminal #[rand(111,333)]"))
 			continue
 
-		account.notify_pda_owner("<b>Поступление вознаграждения </b>\"На ваш привязанный аккаунт поступил[declension_ru(bounty, "", "о", "о")] [bounty] кредит[declension_ru(bounty, "", "а", "ов")].\" (Невозможно Ответить)", FALSE)
+		account.notify_pda_owner("<b>Поступление вознаграждения </b>\"На ваш привязанный аккаунт поступил[declension_ru(bounty, "", "о", "о")] [bounty] кредит[DECL_CREDIT(bounty)].\" (Невозможно Ответить)", FALSE)
 
 	qdel(src)
 

@@ -188,9 +188,9 @@
 
 	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
 		for(var/atom/box_item in spawned)
-			target_uplink.purchase_log += span_fontsize4(bicon(box_item))
+			target_uplink.purchase_log += span_fontsize4(icon2base64html(box_item))
 	else
-		target_uplink.purchase_log += span_fontsize4(bicon(spawned))
+		target_uplink.purchase_log += span_fontsize4(icon2base64html(spawned))
 
 	return spawned
 
@@ -759,7 +759,7 @@
 	name = "Пояс абдуктора"
 	desc = "Пояс с инструментами, используемый абдукторами. Он включает в себя полный набор инопланетных инструментов."
 	item = /obj/item/storage/belt/military/abductor/full
-	cost = 16
+	cost = 8
 	race = list(SPECIES_GREY)
 
 /datum/uplink_item/racial/silencer
@@ -767,6 +767,13 @@
 	desc = "Компактное устройство, предназначенное для выключения коммуникационного оборудования."
 	item = /obj/item/abductor/silencer
 	cost = 12
+	race = list(SPECIES_GREY)
+
+/datum/uplink_item/racial/agent_surgical_belt
+	name = "Хирургический пояс абдукторов"
+	desc = "Абдукторский хирургический пояс. Включает в себя полный набор абдукторских инструментов и два мендера. Может помещаться в рюкзак"
+	item = /obj/item/storage/belt/medical/surgery/abductor/loaded
+	cost = 8
 	race = list(SPECIES_GREY)
 
 /**
@@ -2414,10 +2421,10 @@
 		remaining_TC -= chosen_item.cost
 		itemlog += chosen_item.name // To make the name more readable for the log compared to just i.item
 
-	target_uplink.purchase_log += "<big>[bicon(crate)]</big>"
+	target_uplink.purchase_log += "<big>[icon2base64html(crate)]</big>"
 	for(var/bought_item in bought_items)
 		var/obj/purchased = new bought_item(crate)
-		target_uplink.purchase_log += "<big>[bicon(purchased)]</big>"
+		target_uplink.purchase_log += "<big>[icon2base64html(purchased)]</big>"
 	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", buyer)
 
 /datum/uplink_item/bundles_TC/telecrystal

@@ -145,7 +145,7 @@
 
 	COOLDOWN_START(src, cooldown, cooldown_time)
 	pulse(FALSE, triggered)
-	audible_message("[bicon(src)] *beep* *beep* *beep*", hearing_distance = 3)
+	audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*", hearing_distance = 3)
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	if(first)
 		qdel(first)

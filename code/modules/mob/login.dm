@@ -42,8 +42,6 @@
 
 	client.images = list()				//remove the images such as AIs being unable to see runes
 	client.screen = list()				//remove hud items just in case
-	if(client.click_intercept)
-		client.click_intercept.quit() // Let's not keep any old click_intercepts
 
 	if(!hud_used)
 		create_mob_hud()	 // creating a hud will add it to the client's screen, which can process a disconnect
@@ -103,6 +101,9 @@
 
 	for(var/datum/callback/callback as anything in persistent_client.post_login_callbacks)
 		callback.Invoke()
+
+	if(client.click_intercept)
+		client.click_intercept.quit() // Let's not keep any old click_intercepts
 
 	clear_important_client_contents(client)
 	enable_client_mobs_in_contents(client)

@@ -142,7 +142,10 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
 	desc = "Генерирует импульс для орудия. Требуется соединение с фузором."
-	ru_names = list(
+	icon_state = "power_box"
+
+/obj/machinery/bsa/back/get_ru_names()
+	return list(
 		NOMINATIVE = "генератор блюспейс-артиллерии",
 		GENITIVE = "генератора блюспейс-артиллерии",
 		DATIVE = "генератору блюспейс-артиллерии",
@@ -150,8 +153,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		INSTRUMENTAL = "генератором блюспейс-артиллерии",
 		PREPOSITIONAL = "генераторе блюспейс-артиллерии"
 	)
-	icon_state = "power_box"
-
 
 /obj/machinery/bsa/back/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
@@ -171,7 +172,10 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
 	desc = "Не стойте перед орудием во время работы. Требуется соединение с фузором."
-	ru_names = list(
+	icon_state = "emitter_center"
+
+/obj/machinery/bsa/front/get_ru_names()
+	return list(
 		NOMINATIVE = "ускоритель блюспейс-артиллерии",
 		GENITIVE = "ускорителя блюспейс-артиллерии",
 		DATIVE = "ускорителю блюспейс-артиллерии",
@@ -179,8 +183,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		INSTRUMENTAL = "ускорителем блюспейс-артиллерии",
 		PREPOSITIONAL = "ускорителе блюспейс-артиллерии"
 	)
-	icon_state = "emitter_center"
-
 
 /obj/machinery/bsa/front/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
@@ -200,7 +202,12 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
 	desc = "Содержимое засекречено военно-космическим командованием Нанотрейзен. Требуется соединение с другими компонентами БСА с помощью мультитула."
-	ru_names = list(
+	icon_state = "fuel_chamber"
+	var/obj/machinery/bsa/back/back
+	var/obj/machinery/bsa/front/front
+
+/obj/machinery/bsa/middle/get_ru_names()
+	return list(
 		NOMINATIVE = "фузор блюспейс-артиллерии",
 		GENITIVE = "фузора блюспейс-артиллерии",
 		DATIVE = "фузору блюспейс-артиллерии",
@@ -208,10 +215,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		INSTRUMENTAL = "фузором блюспейс-артиллерии",
 		PREPOSITIONAL = "фузоре блюспейс-артиллерии"
 	)
-	icon_state = "fuel_chamber"
-	var/obj/machinery/bsa/back/back
-	var/obj/machinery/bsa/front/front
-
 
 /obj/machinery/bsa/middle/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
@@ -274,14 +277,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/bsa/full
 	name = "Bluespace Artillery"
 	desc = "Дальнобойная блюспейс-артиллерия."
-	ru_names = list(
-		NOMINATIVE = "блюспейс-артиллерия",
-		GENITIVE = "блюспейс-артиллерии",
-		DATIVE = "блюспейс-артиллерии",
-		ACCUSATIVE = "блюспейс-артиллерию",
-		INSTRUMENTAL = "блюспейс-артиллерией",
-		PREPOSITIONAL = "блюспейс-артиллерии"
-	)
 	icon = 'icons/obj/lavaland/cannon.dmi'
 	icon_state = "cannon_west"
 
@@ -298,6 +293,16 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	pixel_x = -192
 	bound_width = 352
 	bound_x = -192
+
+/obj/machinery/bsa/full/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс-артиллерия",
+		GENITIVE = "блюспейс-артиллерии",
+		DATIVE = "блюспейс-артиллерии",
+		ACCUSATIVE = "блюспейс-артиллерию",
+		INSTRUMENTAL = "блюспейс-артиллерией",
+		PREPOSITIONAL = "блюспейс-артиллерии"
+	)
 
 /obj/machinery/bsa/full/Destroy()
 	if(controller && controller.cannon == src)
@@ -451,14 +456,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/computer/bsa_control
 	name = "Bluespace Artillery Control"
-	ru_names = list(
-		NOMINATIVE = "консоль управления БСА",
-		GENITIVE = "консоли управления БСА",
-		DATIVE = "консоли управления БСА",
-		ACCUSATIVE = "консоль управления БСА",
-		INSTRUMENTAL = "консолью управления БСА",
-		PREPOSITIONAL = "консоли управления БСА"
-	)
 	var/obj/machinery/bsa/full/cannon
 	var/notice
 	var/target
@@ -486,6 +483,16 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/atom/movable/screen/map_view/camera/cam_screen
 	var/last_camera_turf = null
 	var/image/crosshair
+
+/obj/machinery/computer/bsa_control/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления БСА",
+		GENITIVE = "консоли управления БСА",
+		DATIVE = "консоли управления БСА",
+		ACCUSATIVE = "консоль управления БСА",
+		INSTRUMENTAL = "консолью управления БСА",
+		PREPOSITIONAL = "консоли управления БСА"
+	)
 
 /obj/machinery/computer/bsa_control/Initialize(mapload)
 	. = ..()

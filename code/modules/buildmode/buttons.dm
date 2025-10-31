@@ -1,5 +1,6 @@
 /atom/movable/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
+	layer = BUILDMOD_LAYER
 	var/datum/click_intercept/buildmode/bd
 
 /atom/movable/screen/buildmode/New(bld)
@@ -84,7 +85,7 @@
 
 /atom/movable/screen/buildmode/quit/Click()
 	bd.mode.exit_mode(bd) // so area_edit won't leave highlighted icons
-	bd.quit()
+	bd.quit(TRUE)
 	return TRUE
 
 /atom/movable/screen/buildmode/preview_item

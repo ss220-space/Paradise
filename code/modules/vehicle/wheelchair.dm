@@ -1,14 +1,6 @@
 /obj/vehicle/ridden/wheelchair
 	name = "wheelchair"
 	desc = "Коляска для людей с ограниченными физическими возможностями. Почему просто не пришить новые ноги?"
-	ru_names = list(
-		NOMINATIVE = "инвалидная коляска",
-		GENITIVE = "инвалидной коляски",
-		DATIVE = "инвалидной коляске",
-		ACCUSATIVE = "инвалидную коляску",
-		INSTRUMENTAL = "инвалидной коляской",
-		PREPOSITIONAL = "инвалидной коляске"
-	)
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wheelchair"
 	base_icon_state = "wheelchair"
@@ -24,6 +16,16 @@
 	var/detonation_delay = FALSE
 	var/obj/item/grenade/bomb = null
 	var/datum/action/innate/wheelchair/bell/bell_action
+
+/obj/vehicle/ridden/wheelchair/get_ru_names()
+	return list(
+		NOMINATIVE = "инвалидная коляска",
+		GENITIVE = "инвалидной коляски",
+		DATIVE = "инвалидной коляске",
+		ACCUSATIVE = "инвалидную коляску",
+		INSTRUMENTAL = "инвалидной коляской",
+		PREPOSITIONAL = "инвалидной коляске"
+	)
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
@@ -58,7 +60,7 @@
 		return
 	if(decon_speed)
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] откручивать [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(INSTRUMENTAL)]..."),
+			span_notice("[user] начина[PLUR_ET_YUT(user)] откручивать [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(INSTRUMENTAL)]..."),
 			span_notice("Вы начинаете откреплять [bomb.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(INSTRUMENTAL)]..."),
 			span_warning("Слышны звуки работы с инструментом.")
 		)

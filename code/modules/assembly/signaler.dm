@@ -157,9 +157,8 @@
 		return FALSE
 	pulse(1, signal.user)
 
-	for(var/mob/hearer in hearers(1, loc))
-		hearer.show_message("[bicon(src)] *beep* *beep* *beep*", 3, "*beep* *beep* *beep*", 2)
-		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	audible_message("[icon2html(src, hearers(1, loc))] *beep* *beep* *beep*")
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
 
 

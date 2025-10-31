@@ -6,7 +6,7 @@
 
 SUBSYSTEM_DEF(new_player_info)
 	name = "New Players Info"
-	wait = 1 SECONDS
+	wait = LOBBY_WAIT_TIME
 	init_order = INIT_ORDER_NEW_PLAYERS_INFO
 	priority = FIRE_PRIORITY_NEW_PLAYERS_INFO
 	flags = SS_KEEP_TIMING
@@ -14,21 +14,13 @@ SUBSYSTEM_DEF(new_player_info)
 
 /datum/controller/subsystem/new_player_info/Initialize()
 	fire()
-	RegisterSignal(SSticker, COMSIG_TICKER_GAME_STATE_CHANGED, PROC_REF(on_game_state_changed))
 	return SS_INIT_SUCCESS
-
-/datum/controller/subsystem/new_player_info/proc/on_game_state_changed(datum/source, new_state)
-	SIGNAL_HANDLER
-	if(new_state >= GAME_STATE_SETTING_UP)
-		wait = PLAYIND_WAIT_TIME
-	else
-		wait = LOBBY_WAIT_TIME
 
 /datum/controller/subsystem/new_player_info/fire(resumed)
 	var/list/data = list()
 
 	var/time_remaining = SSticker.pregame_timeleft
-	if(time_remaining == -10 || (SSticker?.delay_end && SSticker?.current_state < GAME_STATE_PLAYING))
+	if(time_remaining == -10 || (SSticker?.delay_end && SSticker.current_state < GAME_STATE_PLAYING) || !SSticker.ticker_going)
 		time_remaining = ROUND_DELAY
 	else if(SSticker?.current_state >= GAME_STATE_PLAYING)
 		time_remaining = ROUND_STARTED
@@ -45,7 +37,7 @@ SUBSYSTEM_DEF(new_player_info)
 
 		for(var/mob/new_player/player as anything in GLOB.new_player_mobs)
 			if(!player.ready)
-				return
+				continue
 			total_players_ready++
 
 		data["total_players_ready"] = total_players_ready

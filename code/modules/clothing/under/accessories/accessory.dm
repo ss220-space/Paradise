@@ -163,7 +163,7 @@
 
 /// Additional info when examine accessory on the suit
 /obj/item/clothing/accessory/proc/attached_examine(mob/user, obj/item/clothing/under/uniform)
-	return span_notice("К [genderize_ru(uniform.gender, "нему", "ней", "нему", "ним")] прикрепл[genderize_ru(gender, "ён", "ена", "ено", "ены")] [bicon(src)] [declent_ru(NOMINATIVE)].")
+	return span_notice("К н[GEND_HIM_HER(uniform)] прикреплен[GEND_A_O_Y(src)] [icon2html(src, user)] [declent_ru(NOMINATIVE)].")
 
 
 /obj/item/clothing/accessory/blue
@@ -984,7 +984,7 @@
 /obj/item/clothing/accessory/petcollar/examine(mob/user)
 	. = ..()
 	if(access_id)
-		. += span_notice("There is [bicon(access_id)] \a [access_id] clipped onto it.")
+		. += span_notice("There is [icon2html(access_id, user)] \a [access_id] clipped onto it.")
 
 
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user, slot, initial = FALSE)
@@ -1005,7 +1005,6 @@
 		return
 	var/announce_channel = PUB_FREQ			// Channel toggler for mobs, who dies in specific locations.
 	var/area/t = get_area(M)
-	var/obj/item/radio/headset/all_channels/a = new /obj/item/radio/headset/all_channels(src)
 	if(M.z == level_name_to_num(RAMSS_TAIPAN))
 		announce_channel = SYND_TAIPAN_FREQ		// Taipan channel for Руж.
 	else if(istype(t, /area/centcom))
@@ -1017,12 +1016,10 @@
 	else if(istype(t, /area/ussp_centcom))
 		announce_channel = SOV_FREQ			// MISHA, FU!
 	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
-		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
-		qdel(a)
+		radio_announce("[M] has been vandalized in Space!", "[M]'s Death Alarm", PUB_FREQ, src)	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
 		STOP_PROCESSING(SSobj, src)
 		return
-	a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm", announce_channel)
-	qdel(a)
+	radio_announce("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm", announce_channel, src)
 	STOP_PROCESSING(SSobj, src)
 
 

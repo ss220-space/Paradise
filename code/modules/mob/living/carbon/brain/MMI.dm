@@ -287,7 +287,7 @@
 		overdrive.Grant(borg)
 
 /obj/item/mmi/syndie/greet(mob/living/silicon/robot/borg)
-	to_chat(borg, "Вы помните вашу прошлую жизнь. Вы не обязаны подчиняться законам или ИИ.")
+	to_chat(borg, span_warning("Вы стали роботом, но ваша личность осталась нетронутой. Вы помните, кто вы и какие у вас цели. Вы не обязаны подчиняться законам или следовать указаниям ИИ."))
 	borg.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, FALSE)
 	return TRUE
 

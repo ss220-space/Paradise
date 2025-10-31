@@ -18,25 +18,29 @@
 /obj/item/implant/death_alarm/activate(cause) // Death signal sends name followed by the gibbed / not gibbed check
 	var/area/mob_area = get_area(imp_in)
 
-	var/obj/item/radio/headset/dummy = new /obj/item/radio/headset(src)
-	dummy.follow_target = imp_in
-
+	var/message
+	var/destroy = FALSE
+	
 	switch(cause)
 		if("gib")
-			dummy.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
-			qdel(src)
+			message = "[mobname] has died-zzzzt in-in-in..."
+			destroy = TRUE
 		if("emp")
 			var/name = prob(50) ? mob_area.name : pick(SSmapping.teleportlocs)
-			dummy.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
+			message = "[mobname] has died in [name]!"
 		else
 			if(is_type_in_typecache(mob_area, stealth_areas))
 				//give the syndies a bit of stealth
-				dummy.autosay("[mobname] has died in Space!", "[mobname]'s Death Alarm")
+				message = "[mobname] has died in Space!"
 			else
-				dummy.autosay("[mobname] has died in [mob_area.name]!", "[mobname]'s Death Alarm")
-			qdel(src)
+				message = "[mobname] has died in [mob_area.name]!"
+			destroy = TRUE
+	radio_announce(message, "[mobname]'s Death Alarm", PUB_FREQ, follow_target_override = imp_in)
 
-	qdel(dummy)
+	if(!destroy)
+		return
+
+	qdel(src)
 
 
 /obj/item/implant/death_alarm/emp_act(severity)	//for some reason alarms stop going off in case they are emp'd, even without this

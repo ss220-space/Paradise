@@ -360,7 +360,7 @@
 	dumbass.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, dumbass, "morph ambush attacked")
 	do_attack_animation(dumbass, ATTACK_EFFECT_BITE)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass.declent_ru(ACCUSATIVE)]!"), span_warning("Вы атакуете [dumbass.declent_ru(ACCUSATIVE)], когда [genderize_ru(dumbass.gender,"он","она","оно","они")] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass.declent_ru(ACCUSATIVE)]!"), span_warning("Вы атакуете [dumbass.declent_ru(ACCUSATIVE)], когда [GEND_HE_SHE(dumbass)] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
 
 	restore_form()
 

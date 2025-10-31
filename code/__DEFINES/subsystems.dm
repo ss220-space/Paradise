@@ -222,4 +222,4 @@
 /// Game has round finished
 #define GAME_STATE_FINISHED 4
 
-#define SPEEDRUN_ROUND_TIME (300 SECONDS)
+#define SPEEDRUN_ROUND_TIME (720 SECONDS)

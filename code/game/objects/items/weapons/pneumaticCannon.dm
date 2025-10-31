@@ -45,9 +45,9 @@
 	else
 		. += span_notice("Use a <b>wrench</b> to change the pressure level. Current output level is <b>[pressure_setting_to_text(pressure_setting)]</b>.")
 		if(tank)
-			. += span_notice("[bicon(tank)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
+			. += span_notice("[icon2html(tank, user)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
 		for(var/obj/item/I in loadedItems)
-			. += span_notice("[bicon(I)] It has \a [I] loaded.")
+			. += span_notice("[icon2html(I, user)] It has \a [I] loaded.")
 
 
 /obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
