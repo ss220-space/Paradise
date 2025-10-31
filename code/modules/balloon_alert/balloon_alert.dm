@@ -32,8 +32,7 @@
 	for(var/mob/hearer in hearers)
 		if(!hearer.has_vision())
 			continue
-
-		balloon_alert(hearer, (hearer == src && self_message) || message)
+		hearer == usr ? balloon_alert(hearer, self_message) : usr.balloon_alert(hearer, message)
 
 /**
  * Do not use.

@@ -50,7 +50,7 @@
 /obj/item/wirecutters/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(istype(target) && istype(target.handcuffed, /obj/item/restraints/handcuffs/cable))
 		var/obj/item/cuffs = target.handcuffed
-		target.balloon_alert_to_viewers("стяжки перекусаны", "стяжки перекусаны")
+		target.balloon_alert_to_viewers("перекусыва[PLUR_ET_YUT(user)] стяжки", "стяжки перекусаны")
 		play_tool_sound(target, 100)
 		target.temporarily_remove_item_from_inventory(cuffs, force = TRUE)
 		qdel(cuffs)
