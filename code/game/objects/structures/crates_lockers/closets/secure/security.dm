@@ -209,17 +209,17 @@
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12
 	name = "security Sparkle-A12 gun cabinet"
-	desc = "Защищённый шкаф для хранения пистолетов пулемётов Sparkle-A12. Шкаф прикручен к полу."
+	desc = "Защищённый шкаф для хранения пистолетов пулемётов А9 \"Искра\". Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф пистолет пулемёта Sparkle-A12",
-		GENITIVE = "шкафа пистолет пулемёта Sparkle-A12",
-		DATIVE = "шкафу пистолет пулемёта Sparkle-A12",
-		ACCUSATIVE = "шкаф пистолет пулемёта Sparkle-A12",
-		INSTRUMENTAL = "шкафом пистолет пулемёта Sparkle-A12",
-		PREPOSITIONAL = "шкафе пистолет пулемёта Sparkle-A12"
+		NOMINATIVE = "шкаф пистолет пулемёта А9 \"Искра\"",
+		GENITIVE = "шкафа пистолет пулемёта А9 \"Искра\"",
+		DATIVE = "шкафу пистолет пулемёта А9 \"Искра\"",
+		ACCUSATIVE = "шкаф пистолет пулемёта А9 \"Искра\"",
+		INSTRUMENTAL = "шкафом пистолет пулемёта А9 \"Искра\"",
+		PREPOSITIONAL = "шкафе пистолет пулемёта А9 \"Искра\""
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()

@@ -535,7 +535,7 @@
 
 /obj/item/ammo_box/magazine/sparkle_a12
 	name = "Sparkle-A12 magazine (9mm)"
-	desc = "Магазин пистолет-пулемета \"Sparkle-A12\", заряженный патронами калибра 9 мм."
+	desc = "Магазин пистолет пулемета А9 \"Искра\", заряженный патронами калибра 9 мм."
 	icon_state = "sparkle_a12"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
@@ -546,12 +546,12 @@
 
 /obj/item/ammo_box/magazine/sparkle_a12/get_ru_names()
 	return list(
-		NOMINATIVE = "магазин пистолет-пулемета \"Sparkle-A12\" (9 мм)",
-		GENITIVE = "магазина пистолет-пулемета \"Sparkle-A12\" (9 мм)",
-		DATIVE = "магазину пистолет-пулемета \"Sparkle-A12\" (9 мм)",
-		ACCUSATIVE = "магазин пистолет-пулемета \"Sparkle-A12\" (9 мм)",
-		INSTRUMENTAL = "магазином пистолет-пулемета \"Sparkle-A12\" (9 мм)",
-		PREPOSITIONAL = "магазине пистолет-пулемета \"Sparkle-A12\" (9 мм)"
+		NOMINATIVE = "магазин пистолет-пулемета А9 \"Искра\" (9 мм)",
+		GENITIVE = "магазина пистолет-пулемета А9 \"Искра\" (9 мм)",
+		DATIVE = "магазину пистолет-пулемета А9 \"Искра\" (9 мм)",
+		ACCUSATIVE = "магазин пистолет-пулемета А9 \"Искра\" (9 мм)",
+		INSTRUMENTAL = "магазином пистолет-пулемета А9 \"Искра\" (9 мм)",
+		PREPOSITIONAL = "магазине пистолет-пулемета А9 \"Искра\" (9 мм)"
 	)
 
 /obj/item/ammo_box/magazine/sparkle_a12/update_icon_state()

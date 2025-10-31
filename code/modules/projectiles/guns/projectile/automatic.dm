@@ -231,8 +231,8 @@
 
 // MARK: Sparkle-A12
 /obj/item/gun/projectile/automatic/sparkle_a12
-	name = "Sparkle-A12"
-	desc = "Компактный пистолет-пулемёт под калибр 9 мм."
+	name = "A9 \"Sparkle\""
+	desc = "Пистолет-пулемёт под калибр 9x19 мм, произведённый концерном \"Скарборо\". Штатно используется силовыми структурами \"Нанотрейзен\". Отличается надёжностью, высокой точностью и малыми габаритами. Предназначен для ближнего боя в условиях ограниченного пространства."
 	icon_state = "sparkle-a12"
 	item_state = "sparkle-a12"
 	mag_type = /obj/item/ammo_box/magazine/sparkle_a12
@@ -254,12 +254,12 @@
 
 /obj/item/gun/projectile/automatic/sparkle_a12/get_ru_names()
 	return list(
-		NOMINATIVE = "пистолет пулемёт Sparkle-A12",
-		GENITIVE = "пистолет пулемёта Sparkle-A12",
-		DATIVE = "пистолет пулемёту Sparkle-A12",
-		ACCUSATIVE = "пистолет пулемёт Sparkle-A12",
-		INSTRUMENTAL = "пистолет пулемётом Sparkle-A12",
-		PREPOSITIONAL = "пистолет пулемёте Sparkle-A12"
+		NOMINATIVE = "А9 \"Искра\"",
+		GENITIVE = "А9 \"Искра\"",
+		DATIVE = "А9 \"Искра\"",
+		ACCUSATIVE = "А9 \"Искра\"",
+		INSTRUMENTAL = "А9 \"Искра\"",
+		PREPOSITIONAL = "А9 \"Искра\""
 	)
 
 /obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
