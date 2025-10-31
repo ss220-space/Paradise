@@ -250,8 +250,6 @@
 	name = "Shellguard mantis blade"
 	force = 15
 	armour_penetration = 20
-	block_chance = 20
-	block_type = MELEE_ATTACKS
 	icon_state = "mantis"
 	item_state = "mantis"
 
