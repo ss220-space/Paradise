@@ -348,7 +348,12 @@ research holder datum.
 /obj/item/disk/tech_disk
 	name = "Technology Disk"
 	desc = "Переносной носитель данных, специализированный для хранения научной информации."
-	ru_names = list(
+	icon_state = "datadisk2"
+	materials = list(MAT_METAL=30, MAT_GLASS=10)
+	var/datum/tech/stored
+	var/default_name = "Technology Disk"
+	var/default_desc = "Переносной носитель данных, специализированный для хранения научной информации."
+	var/default_ru_names = list(
 		NOMINATIVE = "дискета технологий",
 		GENITIVE = "дискеты технологий",
 		DATIVE = "дискете технологий",
@@ -356,12 +361,9 @@ research holder datum.
 		INSTRUMENTAL = "дискетой технологий",
 		PREPOSITIONAL = "дискете технологий"
 	)
-	icon_state = "datadisk2"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
-	var/datum/tech/stored
-	var/default_name = "Technology Disk"
-	var/default_desc = "Переносной носитель данных, специализированный для хранения научной информации."
-	var/default_ru_names = list(
+
+/obj/item/disk/tech_disk/get_ru_names()
+	return list(
 		NOMINATIVE = "дискета технологий",
 		GENITIVE = "дискеты технологий",
 		DATIVE = "дискете технологий",
@@ -378,14 +380,10 @@ research holder datum.
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"
 	desc = T.desc + " <b>Уровень: \"[T.level]\"</b>."
-	ru_names = list(
-		NOMINATIVE = "дискета технологий \[[T]\]",
-		GENITIVE = "дискеты технологий \[[T]\]",
-		DATIVE = "дискете технологий \[[T]\]",
-		ACCUSATIVE = "дискету технологий \[[T]\]",
-		INSTRUMENTAL = "дискетой технологий \[[T]\]",
-		PREPOSITIONAL = "дискете технологий \[[T]\]"
-	)
+	var/list/names = get_ru_names_cached()
+	ru_names = names ? names.Copy() : new /list(6)
+	for(var/i = 1; i <= 6; i++)
+		ru_names[i] = "[names ? names[i] : initial(name)] \[[T]\]"
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
 	stored = T
@@ -461,14 +459,6 @@ research holder datum.
 /obj/item/disk/design_disk
 	name = "Component Design Disk"
 	desc = "Переносной носитель данных, специализированный для хранения шаблонов печати."
-	ru_names = list(
-		NOMINATIVE = "дискета шаблона печати",
-		GENITIVE = "дискеты шаблона печати",
-		DATIVE = "дискете шаблона печати",
-		ACCUSATIVE = "дискету шаблона печати",
-		INSTRUMENTAL = "дискетой шаблона печати",
-		PREPOSITIONAL = "дискете шаблона печати"
-	)
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=100, MAT_GLASS=100)
 	var/datum/design/blueprint
@@ -485,25 +475,34 @@ research holder datum.
 		PREPOSITIONAL = "дискете шаблона печати"
 	)
 
+/obj/item/disk/design_disk/get_ru_names()
+	return list(
+		NOMINATIVE = "дискета шаблона печати",
+		GENITIVE = "дискеты шаблона печати",
+		DATIVE = "дискете шаблона печати",
+		ACCUSATIVE = "дискету шаблона печати",
+		INSTRUMENTAL = "дискетой шаблона печати",
+		PREPOSITIONAL = "дискете шаблона печати"
+	)
+
 /obj/item/disk/design_disk/New()
 	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
 /obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
-	name = "[default_name] \[[D]\]"
+	var/obj/design_item = new D
+	name = "[default_name] \[[design_item]\]"
 	desc = D.desc
-	ru_names = list(
-		NOMINATIVE = "дискета технологий \[[D]\]",
-		GENITIVE = "дискеты технологий \[[D]\]",
-		DATIVE = "дискете технологий \[[D]\]",
-		ACCUSATIVE = "дискету технологий \[[D]\]",
-		INSTRUMENTAL = "дискетой технологий \[[D]\]",
-		PREPOSITIONAL = "дискете технологий \[[D]\]"
-	)
+
+	var/list/names = get_ru_names_cached()
+	ru_names = names ? names.Copy() : new /list(6)
+	for(var/i = 1; i <= 6; i++)
+		ru_names[i] = "[names ? names[i] : initial(name)] \[[capitalize(design_item.declent_ru(NOMINATIVE))]\]"
 	// NOTE: This is just a reference to the design on the system it grabbed it from
 	// This seems highly fragile
 	blueprint = D
+	qdel(design_item)
 
 /obj/item/disk/design_disk/proc/wipe_blueprint()
 	name = default_name
@@ -513,7 +512,10 @@ research holder datum.
 
 /obj/item/disk/design_disk/golem_shell
 	name = "golem creation disk"
-	ru_names = list(
+	icon_state = "datadisk1"
+
+/obj/item/disk/design_disk/golem_shell/get_ru_names()
+	return list(
 		NOMINATIVE = "дискета для создания голема",
 		GENITIVE = "дискеты для создания голема",
 		DATIVE = "дискете для создания голема",
@@ -521,7 +523,6 @@ research holder datum.
 		INSTRUMENTAL = "дискетой для создания голема",
 		PREPOSITIONAL = "дискете для создания голема"
 	)
-	icon_state = "datadisk1"
 
 /obj/item/disk/design_disk/golem_shell/Initialize(mapload)
 	. = ..()
@@ -596,3 +597,12 @@ research holder datum.
 			Получен корпорацией \"Нанотрейзен\" по уникальному контракту с \"Кибернетикой М’Саи\"."
 	blueprint = new /datum/design/tailblade
 
+/obj/item/disk/design_disk/tailblade/blade_nt/get_ru_names()
+	return list(
+		NOMINATIVE = "дискета шаблона печати (Имплант хвостового лазера)",
+		GENITIVE = "дискеты шаблона печати (Имплант хвостового лазера)",
+		DATIVE = "дискете шаблона печати (Имплант хвостового лазера)",
+		ACCUSATIVE = "дискету шаблона печати (Имплант хвостового лазера)",
+		INSTRUMENTAL = "дискетой шаблона печати (Имплант хвостового лазера)",
+		PREPOSITIONAL = "дискете шаблона печати (Имплант хвостового лазера)"
+	)
