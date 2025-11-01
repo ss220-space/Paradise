@@ -148,6 +148,6 @@
 #define PROTOLATHE_CATEGORY_WEAPON "Вооружение"
 #define PROTOLATHE_CATEGORY_STOCK_PARTS "Компоненты машинерии"
 #define PROTOLATHE_CATEGORY_MEDICAL "Медицина"
-#define PROTOLATHE_CATEGORY_MISC "Разное"
 #define PROTOLATHE_CATEGORY_POWER "Электроэнергия"
+#define PROTOLATHE_CATEGORY_MISC "Разное"
 #define PROTOLATHE_CATEGORY_ILLEGAL "КОНТРАБАНДА"
