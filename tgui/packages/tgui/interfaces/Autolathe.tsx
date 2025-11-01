@@ -130,7 +130,7 @@ export const Autolathe = (props: unknown) => {
 
   let rText = '';
   if (searchText) {
-    rText = "Результаты поиска: \"" + searchText + "\":";
+    rText = 'Результаты поиска: "' + searchText + '":';
   } else if (category) {
     rText = 'Категория "' + category + '"';
   }
