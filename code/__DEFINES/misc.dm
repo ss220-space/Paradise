@@ -316,6 +316,16 @@
 #define TRANSIT_TUBE_CLOSING 2
 #define TRANSIT_TUBE_CLOSED 3
 
+
+// Donation level for Tier I
+#define DONATOR_TIER_I 1
+// Donation level for Tier II
+#define DONATOR_TIER_II 2
+// Donation level for Tier III
+#define DONATOR_TIER_III 3
+// Donation level for Tier IV
+#define DONATOR_TIER_IV 4
+
 // Maximum donation level
 #define DONATOR_LEVEL_MAX 4
 

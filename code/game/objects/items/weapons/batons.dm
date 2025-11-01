@@ -297,7 +297,50 @@
 	var/extend_item_state = "telebaton"
 	/// The force on extension.
 	var/extend_force = 10
+	/// The skin choice if we had a reskin
+	var/current_skin
 
+/obj/item/melee/baton/telescopic/click_alt(mob/user)
+	if(loc != user)
+		return NONE
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("Вы не можете сделать это сейчас!"))
+		return CLICK_ACTION_BLOCKING
+	if(!current_skin)
+		reskin_item(user)
+	return CLICK_ACTION_SUCCESS
+
+/obj/item/melee/baton/telescopic/proc/reskin_item(mob/user)
+	if(!user.client.donator_level)
+		to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord сообществе."))
+		return
+
+	var/skin_options = list()
+	skin_options["Бронзовая телескопическая дубинка"] = "telebaton_bronze"
+	if(user.client.donator_level >= DONATOR_TIER_II)
+		skin_options["Серебрянная телескопическая дубинка"] = "telebaton_silver"
+	if(user.client.donator_level >= DONATOR_TIER_III)
+		skin_options["Золотая телескопическая дубинка"] = "telebaton_gold"
+
+	var/list/skins = list()
+	for(var/skin in skin_options)
+		skins[skin] = image(icon = icon, icon_state = "[skin_options[skin]]_on")
+	var/choice = show_radial_menu(user, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
+
+	if(!choice || !reskin_radial_check(user) || current_skin)
+		return
+
+	current_skin = skin_options[choice]
+	to_chat(user, "Теперь ваше оружие имеет облик [choice]. Познакомьтесь с новым дизайном.")
+	src.base_icon_state = current_skin
+	src.icon_state = current_skin
+	update_icon()
+	update_equipped_item()
+
+/obj/item/melee/baton/telescopic/proc/reskin_radial_check(mob/living/carbon/human/user)
+	if(!ishuman(user) || QDELETED(src) || !user.is_in_hands(src) || user.incapacitated())
+		return FALSE
+	return TRUE
 
 /obj/item/melee/baton/telescopic/Initialize(mapload)
 	. = ..()
