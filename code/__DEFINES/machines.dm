@@ -115,6 +115,9 @@
 #define CATEGORY_SECURITY "Безопасность"
 #define CATEGORY_MACHINERY "Машинерия"
 #define CATEGORY_MEDICAL "Медицина"
-#define CATEGORY_MISC "Прочее"
+#define CATEGORY_MISC "Разное"
 #define CATEGORY_DINNERWARE "Посуда и утварь"
 #define CATEGORY_IMPORTED "Импортированное"
+
+#define CATEGORY_INITIAL "initial"
+#define CATEGORY_HACKED "hacked"

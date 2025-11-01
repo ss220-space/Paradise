@@ -36,7 +36,18 @@
 	var/selected_category
 	var/list/recipiecache = list()
 
-	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
+	var/list/categories = list(
+		CATEGORY_TOOLS,
+		CATEGORY_ELECTRONICS,
+		CATEGORY_CONSTRUCTION,
+		CATEGORY_COMMUNICATION,
+		CATEGORY_SECURITY,
+		CATEGORY_MACHINERY,
+		CATEGORY_MEDICAL,
+		CATEGORY_MISC,
+		CATEGORY_DINNERWARE,
+		CATEGORY_IMPORTED,
+	)
 
 /obj/machinery/autolathe/New()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
@@ -114,14 +125,15 @@
 			var/list/categories = istype(default_categories) ? default_categories.Copy() : list()
 
 			if(imported[D.id])
-				categories |= "Imported"
+				categories |= CATEGORY_IMPORTED
 
 			recipes.Add(list(list(
-				"name" = I.declent_ru(NOMINATIVE),
+				"name" = capitalize(I.declent_ru(NOMINATIVE)),
+				"desc" = I.desc,
 				"category" = categories,
 				"uid" = D.UID(),
 				"requirements" =  matreq,
-				"hacked" = ("hacked" in categories) ? TRUE : FALSE,
+				"hacked" = (CATEGORY_HACKED in categories) ? TRUE : FALSE,
 				"max_multiplier" = maxmult,
 				"icon" = initial(I.icon),
 				"icon_state" = initial(I.icon_state),
@@ -183,7 +195,7 @@
 			if(design_last_ordered.materials[MAT_GLASS] / coeff > materials.amount(MAT_GLASS))
 				to_chat(usr, span_warning("Invalid design (not enough glass)"))
 				return
-			if(!hacked && ("hacked" in design_last_ordered.category))
+			if(!hacked && (CATEGORY_HACKED in design_last_ordered.category))
 				to_chat(usr, span_warning("Invalid design (lathe requires hacking)"))
 				return
 			//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
@@ -476,11 +488,11 @@
 
 	if(hack)
 		for(var/datum/design/D in files.possible_designs)
-			if((D.build_type & AUTOLATHE) && ("hacked" in D.category))
+			if((D.build_type & AUTOLATHE) && (CATEGORY_HACKED in D.category))
 				files.AddDesign2Known(D)
 	else
 		for(var/datum/design/D in files.known_designs)
-			if("hacked" in D.category)
+			if(CATEGORY_HACKED in D.category)
 				files.known_designs -= D.id
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI, thus adding/removing hacked entries from lists
 	recipiecache = list()
