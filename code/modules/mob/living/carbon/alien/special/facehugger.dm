@@ -104,7 +104,7 @@
 			if(CONSCIOUS)
 				. += span_boldannounceic("[capitalize(declent_ru(NOMINATIVE))] кажется, активен!")
 		if(sterile)
-			. += span_boldannounceic("Похоже хоботок [genderize_ru(gender, "eго", "её", "его", "их")] удалили.")
+			. += span_boldannounceic("Похоже хоботок [GEND_HIS_HER(src)] удалили.")
 
 /obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()

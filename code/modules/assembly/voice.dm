@@ -33,6 +33,8 @@
 /obj/item/assembly/voice/proc/hear_input(mob/living/M, msg, type)
 	if(!isliving(M))
 		return
+
+	var/turf/T = get_turf(src) // Otherwise it won't work in hand
 	if(listening)
 		if(findtext(msg, "</span>"))
 			recorded = strip_html_properly(msg)
@@ -41,11 +43,9 @@
 		recorded = msg
 		recorded_type = type
 		listening = FALSE
-		var/turf/T = get_turf(src)	//otherwise it won't work in hand
-		T.visible_message("[bicon(src)] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
+		T.audible_message("[icon2html(src, hearers(T))] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
 	else if(findtext(msg, recorded) && type == recorded_type)
-		var/turf/T = get_turf(src)  //otherwise it won't work in hand
-		T.visible_message(span_warning("[bicon(src)] beeps!"))
+		T.visible_message(span_warning("[icon2html(src, viewers(T))] beeps!"))
 		pulse(0, M)
 
 
@@ -59,7 +59,7 @@
 
 	listening = !listening
 	var/turf/T = get_turf(src)
-	T.visible_message("[bicon(src)] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
+	T.audible_message("[icon2html(src, hearers(T))] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
 	return TRUE
 
 
@@ -91,5 +91,5 @@
 /obj/item/assembly/voice/noise/hear_message(mob/living/M, msg)
 	pulse(0, M)
 	var/turf/T = get_turf(src)  //otherwise it won't work in hand
-	T.visible_message(span_warning("[bicon(src)] beeps!"))
+	T.visible_message(span_warning("[icon2html(src, viewers(T))] beeps!"))
 

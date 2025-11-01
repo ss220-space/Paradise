@@ -8,8 +8,10 @@ SUBSYSTEM_DEF(assets)
 	var/list/preload = list()
 	var/datum/asset_transport/transport = new()
 
-/datum/controller/subsystem/assets/Initialize(timeofday)
+/datum/controller/subsystem/assets/OnConfigLoad()
 	apply_configuration()
+
+/datum/controller/subsystem/assets/Initialize(timeofday)
 	load_assets()
 	return SS_INIT_SUCCESS
 
@@ -20,7 +22,7 @@ SUBSYSTEM_DEF(assets)
 /datum/controller/subsystem/assets/proc/apply_configuration()
 	var/newtransporttype = /datum/asset_transport
 	switch(CONFIG_GET(string/asset_transport))
-		if("webroot")
+		if(ASSET_TRANSPORT_WEBROOT)
 			newtransporttype = /datum/asset_transport/webroot
 
 	if(newtransporttype == transport.type)

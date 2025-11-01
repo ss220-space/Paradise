@@ -119,7 +119,7 @@
 		H.desc = desc
 	H.attack_hand(grabber)
 	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
-	to_chat(src, span_notice("[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас."))
+	to_chat(src, span_notice("[grabber.name] поднял[GEND_A_O_I(grabber)] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	switch(mob_size)

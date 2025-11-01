@@ -19,7 +19,7 @@
 		if(!usr.mind.miming)
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
-		invocation = "<b>[usr]</b> выглядит так, как будто бы перед [genderize_ru(usr.gender, "ним", "ней", "ним", "ними")] находится стена."
+		invocation = "<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(usr)] находится стена."
 	else
 		invocation_type ="none"
 	..()
@@ -98,7 +98,7 @@
 		if(!usr.mind.miming)
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
-		invocation = "<b>[usr]</b> выглядит так, как будто бы перед [genderize_ru(usr.gender, "ним", "ней", "ним", "ними")] находится стена."
+		invocation = "<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(usr)] находится стена."
 	else
 		invocation_type ="none"
 	..()

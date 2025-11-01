@@ -630,7 +630,7 @@
 		qdel(host_brain)
 		host_brain = new(src)
 
-		host_brain.ckey = host.ckey
+		host_brain.possess_by_player(host.ckey)
 
 		host_brain.name = host.name
 
@@ -646,7 +646,7 @@
 		src.computer_id = null
 		src.lastKnownIP = null
 
-		host.ckey = src.ckey
+		host.possess_by_player(ckey)
 
 		if(!host.computer_id)
 			host.computer_id = s2h_id
@@ -663,7 +663,7 @@
 		host.med_hud_set_status()
 
 		if(src && !src.key)
-			src.key = "@[borer_key]"
+			src.possess_by_player("@[borer_key]")
 
 		return
 
@@ -780,7 +780,7 @@
 	var/datum/mind/mind = create_borer_mind(candidate.ckey)
 	mind.transfer_to(src)
 	candidate.mob = src
-	ckey = candidate.ckey
+	possess_by_player(candidate.ckey)
 	mind.add_antag_datum(antag_datum)
 
 	GrantBorerSpells()

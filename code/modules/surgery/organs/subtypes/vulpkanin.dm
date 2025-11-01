@@ -8,7 +8,12 @@
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала вульпканину."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_liver"
+	alcohol_intensity = 1.4
+
+/obj/item/organ/internal/liver/vulpkanin/get_ru_names()
+	return list(
 		NOMINATIVE = "печень вульпканина",
 		GENITIVE = "печени вульпканина",
 		DATIVE = "печени вульпканина",
@@ -16,15 +21,19 @@
 		INSTRUMENTAL = "печенью вульпканина",
 		PREPOSITIONAL = "печени вульпканина"
 	)
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	item_state = "vulpkanin_liver"
-	alcohol_intensity = 1.4
 
 /obj/item/organ/internal/eyes/vulpkanin
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпканину."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_eyes"
+	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will receive when they get the disability.
+	replace_colours = PROTANOPIA_COLOR_REPLACE
+	see_in_dark = 8
+
+/obj/item/organ/internal/eyes/vulpkanin/get_ru_names()
+	return list(
 		NOMINATIVE = "глаза вульпканина",
 		GENITIVE = "глаз вульпканина",
 		DATIVE = "глазам вульпканина",
@@ -32,17 +41,16 @@
 		INSTRUMENTAL = "глазами вульпканина",
 		PREPOSITIONAL = "глазах вульпканина"
 	)
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	item_state = "vulpkanin_eyes"
-	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will receive when they get the disability.
-	replace_colours = PROTANOPIA_COLOR_REPLACE
-	see_in_dark = 8
 
 /obj/item/organ/internal/eyes/vulpkanin/wolpin //Being the lesser form of Vulpkanin, Wolpins have an utterly incurable version of their colourblindness.
 	species_type = /datum/species/monkey/vulpkanin
 	name = "wolpin eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпину."
-	ru_names = list(
+	colourmatrix = MATRIX_VULP_CBLIND
+	replace_colours = PROTANOPIA_COLOR_REPLACE
+
+/obj/item/organ/internal/eyes/vulpkanin/wolpin/get_ru_names()
+	return list(
 		NOMINATIVE = "глаза вульпина",
 		GENITIVE = "глаз вульпина",
 		DATIVE = "глазам вульпина",
@@ -50,14 +58,14 @@
 		INSTRUMENTAL = "глазами вульпина",
 		PREPOSITIONAL = "глазах вульпина"
 	)
-	colourmatrix = MATRIX_VULP_CBLIND
-	replace_colours = PROTANOPIA_COLOR_REPLACE
 
 /obj/item/organ/internal/ears/vulpkanin
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin ears"
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали вульпканину."
-	ru_names = list(
+
+/obj/item/organ/internal/ears/vulpkanin/get_ru_names()
+	return list(
 		NOMINATIVE = "уши вульпканина",
 		GENITIVE = "ушей вульпканина",
 		DATIVE = "ушам вульпканина",
@@ -70,7 +78,12 @@
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало вульпканину."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_heart-on"
+	item_base = "vulpkanin_heart"
+
+/obj/item/organ/internal/heart/vulpkanin/get_ru_names()
+	return list(
 		NOMINATIVE = "сердце вульпканина",
 		GENITIVE = "сердца вульпканина",
 		DATIVE = "сердцу вульпканина",
@@ -78,14 +91,16 @@
 		INSTRUMENTAL = "сердцем вульпканина",
 		PREPOSITIONAL = "сердце вульпканина"
 	)
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	item_state = "vulpkanin_heart-on"
-	item_base = "vulpkanin_heart"
 
 /obj/item/organ/internal/brain/vulpkanin
 	species_type = /datum/species/vulpkanin
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал вульпканину."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_brain"
+	mmi_icon = 'icons/obj/species_organs/vulpkanin.dmi'
+
+/obj/item/organ/internal/brain/vulpkanin/get_ru_names()
+	return list(
 		NOMINATIVE = "мозг вульпканина",
 		GENITIVE = "мозга вульпканина",
 		DATIVE = "мозгу вульпканина",
@@ -93,15 +108,16 @@
 		INSTRUMENTAL = "мозгом вульпканина",
 		PREPOSITIONAL = "мозге вульпканина"
 	)
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	item_state = "vulpkanin_brain"
-	mmi_icon = 'icons/obj/species_organs/vulpkanin.dmi'
 
 /obj/item/organ/internal/lungs/vulpkanin
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали вульпканину."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_lungs"
+
+/obj/item/organ/internal/lungs/vulpkanin/get_ru_names()
+	return list(
 		NOMINATIVE = "лёгкие вульпканина",
 		GENITIVE = "лёгких вульпканина",
 		DATIVE = "лёгким вульпканина",
@@ -109,14 +125,16 @@
 		INSTRUMENTAL = "лёгкими вульпканина",
 		PREPOSITIONAL = "лёгких вульпканина"
 	)
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	item_state = "vulpkanin_lungs"
 
 /obj/item/organ/internal/kidneys/vulpkanin
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали вульпканину."
-	ru_names = list(
+	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_kidneys"
+
+/obj/item/organ/internal/kidneys/vulpkanin/get_ru_names()
+	return list(
 		NOMINATIVE = "почки вульпканина",
 		GENITIVE = "почек вульпканина",
 		DATIVE = "почкам вульпканина",
@@ -124,14 +142,16 @@
 		INSTRUMENTAL = "почками вульпканина",
 		PREPOSITIONAL = "почках вульпканина"
 	)
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	item_state = "vulpkanin_kidneys"
 
 /obj/item/organ/external/tail/vulpkanin
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin tail"
 	desc = "Хвост. Этот принадлежал вульпканину."
-	ru_names = list(
+	icon_name = "vulptail_s"
+	max_damage = 25
+
+/obj/item/organ/external/tail/vulpkanin/get_ru_names()
+	return list(
 		NOMINATIVE = "хвост вульпканина",
 		GENITIVE = "хвоста вульпканина",
 		DATIVE = "хвосту вульпканина",
@@ -139,5 +159,3 @@
 		INSTRUMENTAL = "хвостом вульпканина",
 		PREPOSITIONAL = "хвосте вульпканина"
 	)
-	icon_name = "vulptail_s"
-	max_damage = 25

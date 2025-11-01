@@ -20,7 +20,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/obj/item/card/id/modify = null
 	var/mode = IDCOMPUTER_SCREEN_TRANSFER
 	var/target_dept = 0 //Which department this computer has access to. 0=all departments
-	var/obj/item/radio/Radio
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -79,17 +78,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	//This is used to keep track of opened positions for jobs to allow instant closing
 	//Assoc array: "JobName" = (int)<Opened Positions>
 	var/list/opened_positions = list()
-
-
-/obj/machinery/computer/card/Initialize(mapload)
-	. = ..()
-	Radio = new /obj/item/radio(src)
-	Radio.become_speaker_only(COMM_FREQ)
-	Radio.follow_target = src
-
-/obj/machinery/computer/card/Destroy()
-	QDEL_NULL(Radio)
-	return ..()
 
 /obj/machinery/computer/card/proc/is_centcom()
 	return FALSE
@@ -678,7 +666,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if(R.fields["id"] == E.fields["id"])
 							if(status_valid_for_demotion(R.fields["criminal"]))
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
-								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, HEADSET_FREQ_NAME)
+								radio_announce("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, COMM_FREQ, src)
 								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: \"[reason]\"")
 								add_game_logs("([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", usr)
 								investigate_log("[key_name_log(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", INVESTIGATE_RECORDS)

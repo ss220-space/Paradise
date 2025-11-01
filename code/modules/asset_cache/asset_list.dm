@@ -533,7 +533,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/item_filename
 
 /datum/asset/music/New(path)
-	item_filename = sanitize_filename(path)
+	item_filename = SANITIZE_FILENAME(path)
 	SSassets.transport.register_asset(item_filename, file(path))
 	fdel(path)
 

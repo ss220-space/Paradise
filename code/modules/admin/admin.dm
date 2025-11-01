@@ -378,10 +378,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		dat += "<p><a href='byond://?src=[cached_UID];change_weights=1'>Change Antag Weights</a><br></p>"
 
 	dat += "<hr><br>"
-	dat += "<p><a href='byond://?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];create_mob=1'>Create Mob</a></p>"
+	dat += "<a href='byond://?src=[cached_UID];spawn_panel=1'>Spawn Panel</a><br>"
 	if(marked_datum && istype(marked_datum, /atom))
 		dat += "<a href='byond://?src=[cached_UID];dupe_marked_datum=1'>Duplicate Marked Datum</a><br>"
 
@@ -1007,7 +1004,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
 		BLACKBOX_LOG_ADMIN_VERB("Ghost Drag")
 
-		tomob.ckey = frommob.ckey
+		tomob.possess_by_player(frommob.ckey)
 		qdel(frommob)
 
 
@@ -1032,7 +1029,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
 		BLACKBOX_LOG_ADMIN_VERB("Ghost Drag")
 
-		tomob.ckey = frommob.ckey
+		tomob.possess_by_player(frommob.ckey)
 		qdel(frommob)
 
 		return TRUE
@@ -1053,7 +1050,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 		var/transfer_key = frommob.key // frommob is qdel'd in frommob.AIize()
 		var/mob/living/silicon/ai/ai_character = frommob.AIize()
-		ai_character.key = transfer_key // this wont occur in mind transferring if the mind is not active, which causes some weird stuff. This fixes it.
+		ai_character.possess_by_player(transfer_key) // this wont occur in mind transferring if the mind is not active, which causes some weird stuff. This fixes it.
 		GLOB.empty_playable_ai_cores -= tothing
 
 		ai_character.forceMove(get_turf(tothing))

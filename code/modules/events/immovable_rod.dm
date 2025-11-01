@@ -340,7 +340,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(smeared_mob != target || !reason)
 		return
 
-	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[pluralize_ru(gender, "ит", "ят")] через ваши внутренности, вы внезапно осознаёте — боги наказали вас за [reason]!"))
+	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[PLUR_IT_YAT(src)] через ваши внутренности, вы внезапно осознаёте — боги наказали вас за [reason]!"))
 
 
 /**
@@ -370,8 +370,34 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination_turf = get_edge_target_turf(src, direction)
 	GLOB.move_manager.move_towards(src, destination_turf, delay = move_delay)
 
-
-
 /obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
 	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
 
+/obj/effect/immovablerod/attack_hand(mob/living/user)
+	if(ishuman(user) && try_suplex(user))
+		return TRUE
+	. = ..()
+
+/obj/effect/immovablerod/proc/try_suplex(mob/living/carbon/human/human)
+	if(human.job != JOB_TITLE_RD)
+		return FALSE
+
+	playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	for(var/mob/mob in urange(8, src))
+		if(mob.stat)
+			continue
+		shake_camera(mob, duration = 2, strength = 3)
+	suplex_effect(human)
+
+/obj/effect/immovablerod/proc/suplex_effect(mob/living/carbon/human/human)
+	human.client.give_award(/datum/award/achievement/jobs/feat_of_strength, human) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
+	human.visible_message(
+		span_boldwarning("[capitalize(human.declent_ru(NOMINATIVE))] хвата[PLUR_ET_YUT(human)] [declent_ru(ACCUSATIVE)] и броса[PLUR_ET_YUT(human)] на землю!"),
+		span_warning("Вы хватаете [declent_ru(ACCUSATIVE)] и бросаете на землю!")
+	)
+	new /obj/structure/festivus/anchored(drop_location())
+	new /obj/effect/anomaly/energetic/tier2(drop_location())
+	qdel(src)
+
+/obj/effect/immovablerod/smite/try_suplex(mob/living/carbon/human/human)
+	return FALSE

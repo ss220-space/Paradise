@@ -193,8 +193,8 @@
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
-	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
-		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
+	user.visible_message("[user] shows you: [icon2html(src, viewers(user))] [src.name]. The assignment on the card: [src.assignment]",\
+		"You flash your ID card: [icon2html(src, user)] [src.name]. The assignment on the card: [src.assignment]")
 	if(mining_points)
 		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
 	src.add_fingerprint(user)

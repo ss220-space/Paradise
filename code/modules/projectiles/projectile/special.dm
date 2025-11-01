@@ -1,13 +1,5 @@
 /obj/projectile/ion
 	name = "ion bolt"
-	ru_names = list(
-		NOMINATIVE = "ионный заряд",
-		GENITIVE = "ионного заряда",
-		DATIVE = "ионному заряду",
-		ACCUSATIVE = "ионный заряд",
-		INSTRUMENTAL = "ионным зарядом",
-		PREPOSITIONAL = "ионном заряде"
-	)
 	icon_state = "ion"
 	damage = 0
 	damage_type = BURN
@@ -16,6 +8,16 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
 	hitsound = 'sound/weapons/tap.ogg'
+
+/obj/projectile/ion/get_ru_names()
+	return list(
+		NOMINATIVE = "ионный заряд",
+		GENITIVE = "ионного заряда",
+		DATIVE = "ионному заряду",
+		ACCUSATIVE = "ионный заряд",
+		INSTRUMENTAL = "ионным зарядом",
+		PREPOSITIONAL = "ионном заряде"
+	)
 
 /obj/projectile/ion/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -31,7 +33,10 @@
 
 /obj/projectile/bullet/gyro
 	name ="explosive bolt"
-	ru_names = list(
+	icon_state= "bolter"
+
+/obj/projectile/bullet/gyro/get_ru_names()
+	return list(
 		NOMINATIVE = "разрывной заряд",
 		GENITIVE = "разрывного заряда",
 		DATIVE = "разрывному заряду",
@@ -39,7 +44,6 @@
 		INSTRUMENTAL = "разрывным зарядом",
 		PREPOSITIONAL = "разрывном заряде"
 	)
-	icon_state= "bolter"
 
 /obj/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
@@ -48,7 +52,12 @@
 
 /obj/projectile/bullet/a40mm
 	name ="40mm grenade"
-	ru_names = list(
+	desc = "USE A WEEL GUN"
+	icon_state= "bolter"
+	damage = 60
+
+/obj/projectile/bullet/a40mm/get_ru_names()
+	return list(
 		NOMINATIVE = "40мм граната",
 		GENITIVE = "40мм гранаты",
 		DATIVE = "40мм гранате",
@@ -56,9 +65,6 @@
 		INSTRUMENTAL = "40мм гранатой",
 		PREPOSITIONAL = "40мм гранате"
 	)
-	desc = "USE A WEEL GUN"
-	icon_state= "bolter"
-	damage = 60
 
 /obj/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
@@ -67,14 +73,6 @@
 
 /obj/projectile/temp
 	name = "temperature beam"
-	ru_names = list(
-		NOMINATIVE = "температурный луч",
-		GENITIVE = "температурного луча",
-		DATIVE = "температурному лучу",
-		ACCUSATIVE = "температурный луч",
-		INSTRUMENTAL = "температурным лучом",
-		PREPOSITIONAL = "температурном луче"
-	)
 	icon_state = "temp_4"
 	damage = 0
 	damage_type = BURN
@@ -84,6 +82,16 @@
 	var/temperature = 300
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	hitsound = 'sound/weapons/tap.ogg'
+
+/obj/projectile/temp/get_ru_names()
+	return list(
+		NOMINATIVE = "температурный луч",
+		GENITIVE = "температурного луча",
+		DATIVE = "температурному лучу",
+		ACCUSATIVE = "температурный луч",
+		INSTRUMENTAL = "температурным лучом",
+		PREPOSITIONAL = "температурном луче"
+	)
 
 /obj/projectile/temp/New(loc, shot_temp)
 	..()
@@ -201,7 +209,6 @@
 				PREPOSITIONAL = "температурном луче"
 			)
 
-
 /obj/projectile/temp/on_hit(mob/living/carbon/human/target, blocked = 0, hit_zone)
 	. = ..()
 	if(!.)
@@ -233,10 +240,16 @@
 		target.IgniteMob()
 		playsound(target.loc, 'sound/effects/bamf.ogg', 50, FALSE)
 
-
 /obj/projectile/meteor
 	name = "meteor"
-	ru_names = list(
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "small"
+	damage = 0
+	nodamage = TRUE
+	hitsound = 'sound/effects/meteorimpact.ogg'
+
+/obj/projectile/meteor/get_ru_names()
+	return list(
 		NOMINATIVE = "метеор",
 		GENITIVE = "метеора",
 		DATIVE = "метеору",
@@ -244,12 +257,6 @@
 		INSTRUMENTAL = "метеором",
 		PREPOSITIONAL = "метеоре"
 	)
-	icon = 'icons/obj/meteor.dmi'
-	icon_state = "small"
-	damage = 0
-	nodamage = TRUE
-	hitsound = 'sound/effects/meteorimpact.ogg'
-
 
 /obj/projectile/meteor/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
@@ -262,7 +269,15 @@
 // FLORAGUN
 /obj/projectile/energy/floraalpha
 	name = "alpha somatoray"
-	ru_names = list(
+	icon_state = "declone"
+	damage = 2
+	range = 7
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	/// how strong the fire will be
+	var/fire_stacks = 0.3
+
+/obj/projectile/energy/floraalpha/get_ru_names()
+	return list(
 		NOMINATIVE = "альфа-соматорей",
 		GENITIVE = "альфа-соматорея",
 		DATIVE = "альфа-соматорею",
@@ -270,12 +285,6 @@
 		INSTRUMENTAL = "альфа-соматореем",
 		PREPOSITIONAL = "альфа-соматорее"
 	)
-	icon_state = "declone"
-	damage = 2
-	range = 7
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
-	/// how strong the fire will be
-	var/fire_stacks = 0.3
 
 /obj/projectile/energy/floraalpha/prehit(atom/target)
 	if(target && !HAS_TRAIT(target, TRAIT_PLANT_ORIGIN)) // burn damage for only plant
@@ -316,7 +325,13 @@
 
 /obj/projectile/energy/florabeta
 	name = "beta somatoray"
-	ru_names = list(
+	icon_state = "energy"
+	damage_type = TOX
+	nodamage = TRUE
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+
+/obj/projectile/energy/florabeta/get_ru_names()
+	return list(
 		NOMINATIVE = "бета-соматорей",
 		GENITIVE = "бета-соматорея",
 		DATIVE = "бета-соматорею",
@@ -324,14 +339,16 @@
 		INSTRUMENTAL = "бета-соматореем",
 		PREPOSITIONAL = "бета-соматорее"
 	)
-	icon_state = "energy"
+
+/obj/projectile/energy/floragamma
+	name = "gamma somatoray"
+	icon_state = "energy2"
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
-/obj/projectile/energy/floragamma
-	name = "gamma somatoray"
-	ru_names = list(
+/obj/projectile/energy/floragamma/get_ru_names()
+	return list(
 		NOMINATIVE = "гамма-соматорей",
 		GENITIVE = "гамма-соматорея",
 		DATIVE = "гамма-соматорею",
@@ -339,14 +356,12 @@
 		INSTRUMENTAL = "гамма-соматореем",
 		PREPOSITIONAL = "гамма-соматорее"
 	)
-	icon_state = "energy2"
-	damage_type = TOX
-	nodamage = TRUE
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
 /obj/projectile/beam/mindflayer
 	name = "flayer ray"
-	ru_names = list(
+
+/obj/projectile/beam/mindflayer/get_ru_names()
+	return list(
 		NOMINATIVE = "заряд мозгоёба",
 		GENITIVE = "заряда мозгоёба",
 		DATIVE = "заряду мозгоёба",
@@ -365,7 +380,13 @@
 
 /obj/projectile/clown
 	name = "snap-pop"
-	ru_names = list(
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "snappop"
+	nodamage = TRUE
+	damage = 0
+
+/obj/projectile/clown/get_ru_names()
+	return list(
 		NOMINATIVE = "щёлк-хлоп",
 		GENITIVE = "щёлк-хлопа",
 		DATIVE = "щёлк-хлопу",
@@ -373,11 +394,6 @@
 		INSTRUMENTAL = "щёлк-хлопом",
 		PREPOSITIONAL = "щёлк-хлопе"
 	)
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "snappop"
-	nodamage = TRUE
-	damage = 0
-
 
 /obj/projectile/clown/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
@@ -389,17 +405,8 @@
 	if(isturf(target.loc) && !target.loc.density)
 		new /obj/effect/decal/cleanable/ash(target.loc)
 
-
 /obj/projectile/beam/wormhole
 	name = "bluespace beam"
-	ru_names = list(
-		NOMINATIVE = "блюспейс-луч",
-		GENITIVE = "блюспейс-луча",
-		DATIVE = "блюспейс-лучу",
-		ACCUSATIVE = "блюспейс-луч",
-		INSTRUMENTAL = "блюспейс-лучом",
-		PREPOSITIONAL = "блюспейс-луче"
-	)
 	icon_state = "spark"
 	hitsound = SFX_SPARKS
 	damage = 0
@@ -407,9 +414,23 @@
 	nodamage = TRUE
 	var/is_orange = FALSE
 
+/obj/projectile/beam/wormhole/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс-луч",
+		GENITIVE = "блюспейс-луча",
+		DATIVE = "блюспейс-лучу",
+		ACCUSATIVE = "блюспейс-луч",
+		INSTRUMENTAL = "блюспейс-лучом",
+		PREPOSITIONAL = "блюспейс-луче"
+	)
+
 /obj/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"
-	ru_names = list(
+	color = "#FF6600"
+	is_orange = TRUE
+
+/obj/projectile/beam/wormhole/orange/get_ru_names()
+	return list(
 		NOMINATIVE = "оранжевый блюспейс-луч",
 		GENITIVE = "оранжевого блюспейс-луча",
 		DATIVE = "оранжевому блюспейс-лучу",
@@ -417,8 +438,6 @@
 		INSTRUMENTAL = "оранжевым блюспейс-лучом",
 		PREPOSITIONAL = "оранжевом блюспейс-луче"
 	)
-	color = "#FF6600"
-	is_orange = TRUE
 
 /obj/projectile/beam/wormhole/on_hit(atom/target)
 	if(ismob(target))
@@ -434,7 +453,11 @@
 
 /obj/projectile/bullet/frag12
 	name ="explosive slug"
-	ru_names = list(
+	damage = 20
+	knockdown = 5 SECONDS
+
+/obj/projectile/bullet/frag12/get_ru_names()
+	return list(
 		NOMINATIVE = "разрывная пуля",
 		GENITIVE = "разрывной пули",
 		DATIVE = "разрывной пуле",
@@ -442,8 +465,6 @@
 		INSTRUMENTAL = "разрывной пулей",
 		PREPOSITIONAL = "разрывной пуле"
 	)
-	damage = 20
-	knockdown = 5 SECONDS
 
 /obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
@@ -452,14 +473,6 @@
 
 /obj/projectile/plasma
 	name = "plasma blast"
-	ru_names = list(
-		NOMINATIVE = "плазменный луч",
-		GENITIVE = "плазменного луча",
-		DATIVE = "плазменному лучу",
-		ACCUSATIVE = "плазменный луч",
-		INSTRUMENTAL = "плазменным лучом",
-		PREPOSITIONAL = "плазменном луче"
-	)
 	icon_state = "plasmacutter"
 	damage = 5
 	hitsound = SFX_BULLET
@@ -467,6 +480,16 @@
 	dismemberment = 20
 	dismember_limbs = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+
+/obj/projectile/plasma/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменный луч",
+		GENITIVE = "плазменного луча",
+		DATIVE = "плазменному лучу",
+		ACCUSATIVE = "плазменный луч",
+		INSTRUMENTAL = "плазменным лучом",
+		PREPOSITIONAL = "плазменном луче"
+	)
 
 /obj/projectile/plasma/on_hit(atom/target, pointblank = 0)
 	. = ..()
@@ -512,7 +535,12 @@
 
 /obj/projectile/energy/teleport
 	name = "teleportation burst"
-	ru_names = list(
+	icon_state = "bluespace"
+	nodamage = TRUE
+	var/teleport_target = null
+
+/obj/projectile/energy/teleport/get_ru_names()
+	return list(
 		NOMINATIVE = "вспышка телепортации",
 		GENITIVE = "вспышки телепортации",
 		DATIVE = "вспышке телепортации",
@@ -520,9 +548,6 @@
 		INSTRUMENTAL = "вспышкой телепортации",
 		PREPOSITIONAL = "вспышке телепортации"
 	)
-	icon_state = "bluespace"
-	nodamage = TRUE
-	var/teleport_target = null
 
 /obj/projectile/energy/teleport/New(loc, tele_target)
 	..(loc)
@@ -539,7 +564,13 @@
 
 /obj/projectile/snowball
 	name = "snowball"
-	ru_names = list(
+	icon_state = "snowball"
+	hitsound = 'sound/items/dodgeball.ogg'
+	damage = 4
+	damage_type = BURN
+
+/obj/projectile/snowball/get_ru_names()
+	return list(
 		NOMINATIVE = "снежок",
 		GENITIVE = "снежка",
 		DATIVE = "снежку",
@@ -547,10 +578,6 @@
 		INSTRUMENTAL = "снежком",
 		PREPOSITIONAL = "снежке"
 	)
-	icon_state = "snowball"
-	hitsound = 'sound/items/dodgeball.ogg'
-	damage = 4
-	damage_type = BURN
 
 /obj/projectile/snowball/on_hit(atom/target)	//chilling
 	. = ..()
@@ -561,7 +588,12 @@
 
 /obj/projectile/ornament
 	name = "ornament"
-	ru_names = list(
+	icon_state = "ornament-1"
+	hitsound = 'sound/effects/glasshit.ogg'
+	damage = 7
+
+/obj/projectile/ornament/get_ru_names()
+	return list(
 		NOMINATIVE = "орнамент",
 		GENITIVE = "орнамента",
 		DATIVE = "орнаменту",
@@ -569,9 +601,6 @@
 		INSTRUMENTAL = "орнаментом",
 		PREPOSITIONAL = "орнаменте"
 	)
-	icon_state = "ornament-1"
-	hitsound = 'sound/effects/glasshit.ogg'
-	damage = 7
 
 /obj/projectile/ornament/New()
 	icon_state = pick("ornament-1", "ornament-2")

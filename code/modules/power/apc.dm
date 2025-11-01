@@ -1575,7 +1575,7 @@
 			shock_mobs += victim
 		var/mob/living/victim = safepick(shock_mobs)	//We only want to shock a single random mob in range, not every one.
 		if(victim)
-			victim.electrocute_act(rand(5, 25), "электрической дуги")
+			victim.electrocute_act(rand(5, 25), src)
 			playsound(get_turf(victim), 'sound/effects/eleczap.ogg', 75, TRUE)
 			Beam(victim, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 

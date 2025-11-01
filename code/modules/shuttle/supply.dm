@@ -100,7 +100,7 @@
 			if(!A.simulated)
 				continue
 
-			if(is_proximity(A) || is_light(A))
+			if(is_light(A))
 				continue
 
 
@@ -264,7 +264,7 @@
 
 	if(crate_count > 0)
 		pointsEarned = round(crate_count * SSshuttle.points_per_crate)
-		msg += "[span_good("+[pointsEarned]")]: Получен[declension_ru(crate_count, "", "ы", "о")] [crate_count] ящик[declension_ru(crate_count, "", "а", "ов")].<br>"
+		msg += "[span_good("+[pointsEarned]")]: Получен[declension_ru(crate_count, "", "ы", "о")] [crate_count] ящик[DECL_CREDIT(crate_count)].<br>"
 		SSshuttle.points += pointsEarned
 
 	SSshuttle.centcom_message += "[msg]<hr>"

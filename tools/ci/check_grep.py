@@ -53,11 +53,17 @@ def check_html_tags_case(idx, line):
     if match := HTML_TAGS_UPPERCASE_RE.search(line):
         return [(idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase.")]
 
+SUSPICIOUS_SYMBOLS = re.compile(r'[<>]')
+def check_suspicious_symbols_in_maps(idx, line):
+    if SUSPICIOUS_SYMBOLS.search(line):
+        return [(idx + 1, f"HTML code in maps detected.")]
+
 CODE_CHECKS = [
     check_non_tgm_map_format,
     check_nanotrasen_style,
     check_dash_usage,
     check_html_tags_case,
+#    check_suspicious_symbols_in_maps,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:

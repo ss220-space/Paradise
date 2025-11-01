@@ -15,7 +15,7 @@
 /datum/antagonist/mindslave/devil_pawn/greet()
 	var/datum/antagonist/devil/devil = master.has_antag_datum(/datum/antagonist/devil)
 
-	var/greet_text = span_bold("Вы подверглись дьявольскому воздействию [master.current.real_name], известному в аду как [devil.info.truename]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.")
+	var/greet_text = span_bold("Вы подверглись дьявольскому воздействию [master.current.real_name], известному в аду как [devil.info.truename]. Следуйте каждому [GEND_HIS_HER(master.current)] приказу.")
 	return span_biggerdanger(greet_text)
 
 /datum/antagonist/mindslave/devil_pawn/farewell()

@@ -1,3 +1,6 @@
+#define GOLEM_END_PR_1(gender) UNLINT(genderize_ru(gender, "ый", "ая", "ое", "ые"))
+#define GOLEM_END_PR_2(gender) UNLINT(genderize_ru(gender, "ой", "ая", "ое", "ые"))
+
 GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/species/golem
@@ -176,9 +179,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	var/end_pr
 	switch(prefix_type)
 		if(1)
-			end_pr = genderize_ru(gender_name,"ый","ая","ое","ые") // Male, Female, Neuter, Plural endings
+			end_pr = GOLEM_END_PR_1(gender_name) // Male, Female, Neuter, Plural endings
 		if(2)
-			end_pr = genderize_ru(gender_name,"ой","ая","ое","ые")
+			end_pr = GOLEM_END_PR_2(gender_name)
 		if(3)
 			end_pr = ""
 
@@ -831,7 +834,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	self_heal_delay = 1 SECONDS
 
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
-	H.visible_message(span_danger("[H] рассыпал[genderize_ru(H.gender,"ся","ась","ось","ись")] в кучу песка!"))
+	H.visible_message(span_danger("[H] рассыпал[GEND_SYA_AS_OS_IS(H)] в кучу песка!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -888,7 +891,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, SFX_SHATTER, 70, TRUE)
-	H.visible_message(span_danger("[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!"))
+	H.visible_message(span_danger("[H] разбил[GEND_SYA_AS_OS_IS(H)] в дребезги!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -946,7 +949,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	self_heal_delay = 1 SECONDS
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
-	H.visible_message(span_warning("[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
+	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
@@ -1039,7 +1042,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
-	H.visible_message(span_warning("[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!"), span_danger("Вы телепортировались!"))
+	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы телепортировались!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(isspaceturf(T))
@@ -1121,7 +1124,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/species/golem/bananium/get_random_name()
 	var/clown_name = pick(GLOB.clown_names)
-	var/golem_name = "[prefix][genderize_ru(gender_name,"ый","ая","ое","ые")] [clown_name]"
+	var/golem_name = "[prefix][GOLEM_END_PR_1(gender_name)] [clown_name]"
 	return golem_name
 
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
@@ -1203,7 +1206,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/species/golem/tranquillite/get_random_name()
 	var/mime_name = pick(GLOB.mime_names)
-	var/golem_name = "[prefix][genderize_ru(gender_name,"ый","ая","ое","ые")] [mime_name]"
+	var/golem_name = "[prefix][GOLEM_END_PR_1(gender_name)] [mime_name]"
 	return golem_name
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
@@ -1269,3 +1272,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	return list(
 		/obj/item/stack/sheet/brass,
 	)
+
+#undef GOLEM_END_PR_1
+#undef GOLEM_END_PR_2

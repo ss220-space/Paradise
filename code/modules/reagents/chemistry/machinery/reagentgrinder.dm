@@ -1,14 +1,6 @@
 /obj/machinery/reagentgrinder
 	name = "All-In-One Grinder"
 	desc = "Измельчает, дробит, разжижает и извлекает вещества из предметов, помещённых внутрь. Ради всего святого, не суйте туда свои пальцы."
-	ru_names = list(
-		NOMINATIVE = "универсальный блендер",
-		GENITIVE = "универсального блендера",
-		DATIVE = "универсальному блендеру",
-		ACCUSATIVE = "универсальный блендер",
-		INSTRUMENTAL = "универсальным блендером",
-		PREPOSITIONAL = "универсальном блендере"
-	)
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	anchored = TRUE
@@ -102,6 +94,16 @@
 	)
 
 	var/list/holdingitems = list()
+
+/obj/machinery/reagentgrinder/get_ru_names()
+	return list(
+		NOMINATIVE = "универсальный блендер",
+		GENITIVE = "универсального блендера",
+		DATIVE = "универсальному блендеру",
+		ACCUSATIVE = "универсальный блендер",
+		INSTRUMENTAL = "универсальным блендером",
+		PREPOSITIONAL = "универсальном блендере"
+	)
 
 /obj/machinery/reagentgrinder/examine(mob/user)
 	. = ..()
@@ -253,7 +255,7 @@
 			balloon_alert(user, "нечего загружать!")
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] загрузил[GEND_A_O_I(user)] содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы загрузили содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "содержимое загружено")
 		updateUsrDialog()
@@ -268,7 +270,7 @@
 
 	holdingitems += I
 	user.visible_message(
-		span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] загрузил[GEND_A_O_I(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы загрузили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	balloon_alert(user, "загружено в камеру")
 	updateUsrDialog()

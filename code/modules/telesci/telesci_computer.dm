@@ -1,14 +1,6 @@
 /obj/machinery/computer/telescience
 	name = "telepad control console"
 	desc = "Используется для телепортации объектов на телепад и обратно."
-	ru_names = list(
-		NOMINATIVE = "консоль управления телепадом",
-		GENITIVE = "консоли управления телепадом",
-		DATIVE = "консоли управления телепадом",
-		ACCUSATIVE = "консоль управления телепадом",
-		INSTRUMENTAL = "консолью управления телепадом",
-		PREPOSITIONAL = "консоли управления телепадом"
-	)
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console
@@ -38,6 +30,16 @@
 	var/max_crystals = 4
 	var/obj/item/gps/inserted_gps
 
+/obj/machinery/computer/telescience/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления телепадом",
+		GENITIVE = "консоли управления телепадом",
+		DATIVE = "консоли управления телепадом",
+		ACCUSATIVE = "консоль управления телепадом",
+		INSTRUMENTAL = "консолью управления телепадом",
+		PREPOSITIONAL = "консоли управления телепадом"
+	)
+
 /obj/machinery/computer/telescience/Initialize(mapload)
 	. = ..()
 	recalibrate()
@@ -51,7 +53,7 @@
 
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
-	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[declension_ru(crystals,"","а","ов")]" : "нет кристаллов"] блюспейса.")
+	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[DECL_CREDIT(crystals)]" : "нет кристаллов"] блюспейса.")
 
 
 /obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, params)
@@ -70,7 +72,7 @@
 		crystals++
 		updateUsrDialog()
 		user.visible_message(
-			span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [crystal.singular_name] в слот для кристаллов [src]."),
+			span_notice("[user] вставля[PLUR_ET_YUT(user)] [crystal.singular_name] в слот для кристаллов [src]."),
 			span_notice("Вы вставляете [crystal.singular_name] в слот для кристаллов [src].")
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

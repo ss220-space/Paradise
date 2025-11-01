@@ -702,7 +702,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	if(target?.current)
 		target_real_name = target.current.real_name
-		explanation_text = "Сбегите на шаттле или эвакуационном поде под личностью [target_real_name], [target.assigned_role], нося на себе [genderize_ru(target.current.gender, "его", "её", "его", "их")] ID карту."
+		explanation_text = "Сбегите на шаттле или эвакуационном поде под личностью [target_real_name], [target.assigned_role], нося на себе [GEND_HIS_HER(target.current)] ID карту."
 	else
 		explanation_text = "Свободная цель"
 
@@ -1243,7 +1243,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		target = pick(possible_targets)
 
 	if(target?.current)
-		explanation_text = "Ковчег нуждается в [target.current.real_name], [target.assigned_role]. Захватите [genderize_ru(target.current.gender, "его", "её", "его", "их")] живым."
+		explanation_text = "Ковчег нуждается в [target.current.real_name], [target.assigned_role]. Захватите [GEND_HIS_HER(target.current)] живым."
 	else
 		explanation_text = "Свободная цель"
 	return target
@@ -1587,8 +1587,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	target = safepick(possible_targets)
 
 	if(target?.current)
-		explanation_text = "На [target.current.real_name], [target.assigned_role] ведут охоту. [target.current.real_name] [genderize_ru(target.current.gender, "должен", "должна", "должно", "должны")] любой ценой \
-							дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы [genderize_ru(target.current.gender, "он остался жив", "она осталась жива", "оно осталось живо", "они остались живы")]."
+		explanation_text = "На [target.current.real_name], [target.assigned_role] ведут охоту. [target.current.real_name] должен[GEND_A_O_Y(target.current)] любой ценой \
+							дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы [GEND_HE_SHE(target.current)] остал[GEND_SYA_AS_OS_IS(target.current)] жив[GEND_A_O_Y(target.current)]."
 	else
 		explanation_text = "Свободная цель"
 
@@ -1616,7 +1616,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(istype(killer_objective, /datum/objective/assassinate))
 			killer_objective.explanation_text = "Убить [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
 		else if(istype(killer_objective, /datum/objective/maroon))
-			killer_objective.explanation_text = "Не дать сбежать [genderize_ru(killer_objective.target.current.gender, "живым или свободным", "живой или свободной", "живым или свободным", "живыми или свободными")] [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
+			killer_objective.explanation_text = "Не дать сбежать жив[GEND_YM_OI_YM_YMI(killer_objective.target.current)] или свободн[GEND_YM_OI_YM_YMI(killer_objective.target.current)] [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
 
 		for(var/datum/mind/killer in killer_objective.get_owners())
 			killer.prepare_announce_objectives()
@@ -1642,7 +1642,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/set_up/find_target(list/target_blacklist)
 	..()
 	if(target?.current)
-		explanation_text = "Любым способом подставьте [target.current.real_name], [target.assigned_role], чтобы [genderize_ru(target.current.gender, "его", "её", "его", "их")] лишили свободы. Но не убили!"
+		explanation_text = "Любым способом подставьте [target.current.real_name], [target.assigned_role], чтобы [GEND_HIS_HER(target.current)] лишили свободы. Но не убили!"
 	else
 		explanation_text = "Свободная цель"
 	return target

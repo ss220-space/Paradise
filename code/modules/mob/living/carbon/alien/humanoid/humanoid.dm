@@ -103,14 +103,14 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			. += span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!")
+			. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(handcuffed, user)] restrained with zipties!")
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			. += span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!")
+			. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(handcuffed, user)] restrained with cable!")
 		else
-			. += span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!")
+			. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(handcuffed, user)] handcuffed!")
 
 	if(legcuffed)
-		. += span_warning("[p_they(TRUE)] [p_are()] [bicon(legcuffed)] restrained with [legcuffed]!")
+		. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(legcuffed, user)] restrained with [legcuffed]!")
 
 
 /mob/living/carbon/alien/humanoid/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)

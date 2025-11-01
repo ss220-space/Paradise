@@ -50,10 +50,11 @@
 					return FALSE
 				break
 
-	if(rigged && locate(/obj/item/radio/electropack) in src)
+	var/obj/item/radio/electropack = locate() in src
+	if(rigged && electropack)
 		if(isliving(usr))
 			var/mob/living/L = usr
-			if(L.electrocute_act(17, "электропака в ящике"))
+			if(L.electrocute_act(17, electropack))
 				do_sparks(5, TRUE, src)
 				return 2
 
@@ -148,10 +149,11 @@
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/radio/electropack) in src)
+		var/obj/item/radio/electropack = locate() in src
+		if(rigged && electropack)
 			if(isliving(user))
 				var/mob/living/L = user
-				if(L.electrocute_act(17, "электропака в ящике"))
+				if(L.electrocute_act(17, electropack))
 					do_sparks(5, TRUE, src)
 					return
 		add_fingerprint(user)
@@ -325,7 +327,7 @@
 	var/obj/item/organ/external/affecting = human.get_organ(user.r_hand == tool ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	user.apply_damage(5, BRUTE , affecting)
 	user.emote("scream")
-	to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] сорвал[genderize_ru(tool.gender, "ся", "ась", "ось", "ись")]ась и повредил[genderize_ru(tool.gender, "", "а", "о", "и")] [affecting.declent_ru(ACCUSATIVE)]!"))
+	to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(tool)]ась и повредил[GEND_A_O_I(tool)] [affecting.declent_ru(ACCUSATIVE)]!"))
 
 
 /obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/tool)

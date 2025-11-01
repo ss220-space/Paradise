@@ -28,7 +28,7 @@
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
-	. += span_notice("Встроенный огнетушитель имеет [extinguishes_left] заряд[declension_ru(extinguishes_left, "", "а", "ов")].")
+	. += span_notice("Встроенный огнетушитель имеет [extinguishes_left] заряд[DECL_CREDIT(extinguishes_left)].")
 
 /obj/item/clothing/under/plasmaman/proc/Extinguish(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -41,7 +41,7 @@
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--
 			H.visible_message(
-				span_warning("Защитный костюм [H] автоматически тушит [genderize_ru(H.gender, "его", "её", "его", "их")]!"),
+				span_warning("Защитный костюм [H] автоматически тушит [GEND_HIS_HER(H)]!"),
 				span_warning("Встроенный огнетушитель вашего костюма автоматически тушит вас!")
 			)
 			if(!extinguishes_left)

@@ -239,7 +239,7 @@
 			return TRUE
 		message = "верт%(ит,ят)% [held_item.declent_ru(ACCUSATIVE)] в руках!"
 	else if(grabbed_mob)
-		message = "крут%(ит,ят)% <b>[grabbed_mob.name]</b>, удерживая [genderize_ru(grabbed_mob.gender, "его", "её", "его", "их")] в захвате!"
+		message = "крут%(ит,ят)% <b>[grabbed_mob.name]</b>, удерживая [GEND_HIS_HER(grabbed_mob)] в захвате!"
 		grabbed_mob.spin(32, 1)
 
 	. = ..()

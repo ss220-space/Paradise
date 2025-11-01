@@ -344,3 +344,12 @@
 	result_amount = 6
 	min_temp = T0C + 200
 	mix_message = "The solution gurgles, it has an almost incredible calming influence on the mind."
+
+/datum/chemical_reaction/helbital
+	name = "Хельбитал"
+	id = "helbital"
+	result = "helbital"
+	required_reagents = list("carbon" = 1, "sugar" = 1, "fluorine" = 1)
+	result_amount = 3
+	min_temp = T0C + 250
+	mix_message = "Смесь превращается в густой жёлтый порошок."

@@ -20,12 +20,10 @@
 
 
 /obj/structure/AIcore/proc/death_alarm()
-	var/obj/item/radio/headset/all_channels/dummy = new(src)
 	var/static/msg = "Внимание! Обнаружено повреждение внутренних систем станционного ИИ. \
 					Требуется срочное вмешательство."
 	var/static/sender = "Автоматическая система оповещений"
-	dummy.autosay(msg, sender, COMM_FREQ_NAME)
-	qdel(dummy)
+	radio_announce(msg, sender, COMM_FREQ, src)
 
 	var/obj/item/pda/dummy_pda = new /obj/item/pda()
 	dummy_pda.owner = sender

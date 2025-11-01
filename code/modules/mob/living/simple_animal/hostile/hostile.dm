@@ -153,8 +153,8 @@
 		FindTarget(list(user), TRUE)
 
 
-/mob/living/simple_animal/hostile/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
-	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && isatom(source)) // strings are often used in electrocute_act()
+/mob/living/simple_animal/hostile/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && isatom(source))
 		FindTarget(list(source))
 	return ..()
 
