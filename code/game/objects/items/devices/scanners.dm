@@ -266,14 +266,6 @@ BODY SCANNERS
 /obj/item/healthanalyzer
 	name = "health analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
-	ru_names = list(
-		NOMINATIVE = "анализатор здоровья",
-		GENITIVE = "анализатора здоровья",
-		DATIVE = "анализатору здоровья",
-		ACCUSATIVE = "анализатор здоровья",
-		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
-	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
