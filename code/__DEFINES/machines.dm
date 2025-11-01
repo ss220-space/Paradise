@@ -107,3 +107,14 @@
 #define START_PROCESSING_MANUALLY (1<<1)
 
 #define ORE_REDEMPTION "Плавильная печь"
+
+#define CATEGORY_TOOLS "Инструменты"
+#define CATEGORY_ELECTRONICS "Электроника"
+#define CATEGORY_CONSTRUCTION "Конструирование"
+#define CATEGORY_COMMUNICATION "Радиосвязь"
+#define CATEGORY_SECURITY "Безопасность"
+#define CATEGORY_MACHINERY "Машинерия"
+#define CATEGORY_MEDICAL "Медицина"
+#define CATEGORY_MISC "Прочее"
+#define CATEGORY_DINNERWARE "Посуда и утварь"
+#define CATEGORY_IMPORTED "Импортированное"

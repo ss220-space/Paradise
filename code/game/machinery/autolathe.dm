@@ -105,7 +105,7 @@
 					matreq["metal"] = x["amount"]
 				if(x["name"] == "glass")
 					matreq["glass"] = x["amount"]
-			var/obj/item/I = D.build_path
+			var/obj/item/I = new D.build_path
 			var/maxmult = 1
 			if(ispath(D.build_path, /obj/item/stack))
 				maxmult = D.maxstack
@@ -117,7 +117,7 @@
 				categories |= "Imported"
 
 			recipes.Add(list(list(
-				"name" = D.name,
+				"name" = I.declent_ru(NOMINATIVE),
 				"category" = categories,
 				"uid" = D.UID(),
 				"requirements" =  matreq,
@@ -125,6 +125,7 @@
 				"max_multiplier" = maxmult,
 				"icon" = initial(I.icon),
 				"icon_state" = initial(I.icon_state),
+			qdel(I)
 			)))
 		recipiecache = recipes
 	data["recipes"] = recipiecache
