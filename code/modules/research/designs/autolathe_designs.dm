@@ -598,17 +598,9 @@
 /datum/design/enforcermag
 	id = "rubber9mmmag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 7200) //5200 за пули + 2000 за корпус
-	build_path = /obj/item/ammo_box/magazine/enforcer
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/enforcer/empty
 	category = list(CATEGORY_INITIAL, CATEGORY_SECURITY)
-
-//hacked autolathe recipes
-/datum/design/enforcermaglethal
-	id = "c9mmmag"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10000) //8000 за пули + 2000 за корпус
-	build_path = /obj/item/ammo_box/magazine/enforcer/lethal
-	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
 
 /datum/design/flamethrower
 	id = "flamethrower"
@@ -683,8 +675,8 @@
 /datum/design/sp8mag
 	id = "fortynrmag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 13000)
-	build_path = /obj/item/ammo_box/magazine/sp8
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/sp8/empty
 	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
 
 /datum/design/sp91rc_box
@@ -708,26 +700,18 @@
 	build_path = /obj/item/ammo_box/enforcer/laser
 	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
 
-/datum/design/enforcermag_disabler
-	id = "enforcermag_disabler"
+/datum/design/spectermag_disabler
+	id = "spectermag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 8000)
-	build_path = /obj/item/ammo_box/magazine/enforcer
+	materials = list(MAT_METAL = 18750)
+	build_path = /obj/item/stock_parts/cell/specter
 	category = list(CATEGORY_INITIAL, CATEGORY_SECURITY)
-
-//hacked autolathe recipes
-/datum/design/enforcermag_laser
-	id = "enforcermag_laser"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10000)
-	build_path = /obj/item/ammo_box/magazine/enforcer/laser
-	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
 
 /datum/design/sp91rc_mag
 	id = "9mm-te"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 12000)
-	build_path = /obj/item/ammo_box/magazine/sp91rc
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/sp91rc/empty
 	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
 
 /datum/design/buckshot_shell
