@@ -139,7 +139,7 @@
 				"category" = categories,
 				"uid" = D.UID(),
 				"requirements" =  matreq,
-				"hacked" = (AUTOLATHE_CATEGORY_HACKED in categories) ? TRUE : FALSE,
+				"hacked" = (PRINTER_CATEGORY_HACKED in categories) ? TRUE : FALSE,
 				"max_multiplier" = maxmult,
 				"icon" = initial(I.icon),
 				"icon_state" = initial(I.icon_state),
@@ -201,7 +201,7 @@
 			if(design_last_ordered.materials[MAT_GLASS] / coeff > materials.amount(MAT_GLASS))
 				to_chat(usr, span_warning("Недостаточно стекла для печати объекта!"))
 				return
-			if(!hacked && (AUTOLATHE_CATEGORY_HACKED in design_last_ordered.category))
+			if(!hacked && (PRINTER_CATEGORY_HACKED in design_last_ordered.category))
 				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не взломан!"))
 				return
 			//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
@@ -493,11 +493,11 @@
 
 	if(hack)
 		for(var/datum/design/D in files.possible_designs)
-			if((D.build_type & AUTOLATHE) && (AUTOLATHE_CATEGORY_HACKED in D.category))
+			if((D.build_type & AUTOLATHE) && (PRINTER_CATEGORY_HACKED in D.category))
 				files.AddDesign2Known(D)
 	else
 		for(var/datum/design/D in files.known_designs)
-			if(AUTOLATHE_CATEGORY_HACKED in D.category)
+			if(PRINTER_CATEGORY_HACKED in D.category)
 				files.known_designs -= D.id
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI, thus adding/removing hacked entries from lists
 	recipiecache = list()

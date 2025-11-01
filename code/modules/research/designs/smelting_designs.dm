@@ -7,32 +7,32 @@
 	id = "plasteel"
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/plasteel
-	category = list(AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PRINTER_CATEGORY_INITIAL)
 
 
 /datum/design/smelter/plastitanium_alloy
 	id = "plastitanium"
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/mineral/plastitanium
-	category = list(AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PRINTER_CATEGORY_INITIAL)
 
 /datum/design/smelter/plaglass_alloy
 	id = "plasmaglass"
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/plasmaglass
-	category = list(AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PRINTER_CATEGORY_INITIAL)
 
 /datum/design/smelter/titaniumglass_alloy
 	id = "titaniumglass"
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/titaniumglass
-	category = list(AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PRINTER_CATEGORY_INITIAL)
 
 /datum/design/smelter/plastitaniumglass_alloy
 	id = "plastitaniumglass"
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/plastitaniumglass
-	category = list(AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PRINTER_CATEGORY_INITIAL)
 
 /datum/design/smelter/alienalloy
 	id = "alienalloy"

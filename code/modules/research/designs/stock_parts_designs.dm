@@ -10,7 +10,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	build_path = /obj/item/stock_parts/capacitor
-	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, PRINTER_CATEGORY_INITIAL)
 	lathe_time_factor = 0.2
 
 /datum/design/basic_sensor
@@ -19,7 +19,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 	build_path = /obj/item/stock_parts/scanning_module
-	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, PRINTER_CATEGORY_INITIAL)
 	lathe_time_factor = 0.2
 
 /datum/design/micro_mani
@@ -28,7 +28,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/stock_parts/manipulator
-	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, PRINTER_CATEGORY_INITIAL)
 	lathe_time_factor = 0.2
 
 /datum/design/basic_micro_laser
@@ -37,7 +37,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 	build_path = /obj/item/stock_parts/micro_laser
-	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, PRINTER_CATEGORY_INITIAL)
 	lathe_time_factor = 0.2
 
 /datum/design/basic_matter_bin
@@ -46,7 +46,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/stock_parts/matter_bin
-	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, AUTOLATHE_CATEGORY_INITIAL)
+	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS, AUTOLATHE_CATEGORY_MACHINERY, PRINTER_CATEGORY_INITIAL)
 	lathe_time_factor = 0.2
 
 // Tier 2 Parts

@@ -9,7 +9,7 @@
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
 	construction_time = 100
 	build_path = /obj/item/stock_parts/cell
-	category = list(AUTOLATHE_CATEGORY_MISC, PROTOLATHE_CATEGORY_POWER, AUTOLATHE_CATEGORY_MACHINERY, AUTOLATHE_CATEGORY_INITIAL)
+	category = list(AUTOLATHE_CATEGORY_MISC, PROTOLATHE_CATEGORY_POWER, AUTOLATHE_CATEGORY_MACHINERY, PRINTER_CATEGORY_INITIAL)
 
 /datum/design/high_cell
 	id = "high_cell"
@@ -53,7 +53,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/pacman
-	category = list("Engineering Machinery")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/mrspacman
 	id = "mrspacman"
@@ -61,7 +61,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/pacman/mrs
-	category = list("Engineering Machinery")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/superpacman
 	id = "superpacman"
@@ -69,7 +69,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/pacman/super
-	category = list("Engineering Machinery")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/tesla_coil
 	id = "tesla_coil"
@@ -77,7 +77,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/tesla_coil
-	category = list("Engineering Machinery")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/grounding_rod
 	id = "grounding_rod"
@@ -85,4 +85,4 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/grounding_rod
-	category = list("Engineering Machinery")
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)

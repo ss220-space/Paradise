@@ -124,6 +124,9 @@
 #define RESEARCH_TREE_ILLEGAL "Запрещённые технологии"
 #define RESEARCH_TREE_ALIEN "Инопланетные технологии"
 
+// Categories, used in different types of printers
+#define PRINTER_CATEGORY_INITIAL "initial"
+#define PRINTER_CATEGORY_HACKED "hacked"
 
 // Autolathe categories
 #define AUTOLATHE_CATEGORY_TOOLS "Инструменты"
@@ -136,9 +139,6 @@
 #define AUTOLATHE_CATEGORY_MISC "Разное"
 #define AUTOLATHE_CATEGORY_DINNERWARE "Посуда и утварь"
 #define AUTOLATHE_CATEGORY_IMPORTED "Импортированное"
-
-#define AUTOLATHE_CATEGORY_INITIAL "initial"
-#define AUTOLATHE_CATEGORY_HACKED "hacked"
 
 // Protolathe categories
 #define PROTOLATHE_CATEGORY_BLUESPACE "Блюспейс"
