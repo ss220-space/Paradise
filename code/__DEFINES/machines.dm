@@ -109,6 +109,22 @@
 
 #define ORE_REDEMPTION "Плавильная печь"
 
+// Research tree names
+#define RESEARCH_TREE_MATERIALS "Материаловедение"
+#define RESEARCH_TREE_ENGINEERING "Инженерные технологии"
+#define RESEARCH_TREE_PLASMA "Плазмотехнологии"
+#define RESEARCH_TREE_POWERSTORAGE "Энергетические системы"
+#define RESEARCH_TREE_BLUESPACE "Блюспейс-исследования"
+#define RESEARCH_TREE_BIOTECH "Биотехнологии"
+#define RESEARCH_TREE_COMBAT "Боевые системы"
+#define RESEARCH_TREE_MAGNETS "Электромагнитные технологии"
+#define RESEARCH_TREE_PROGRAMMING "Теория данных"
+#define RESEARCH_TREE_TOXINS "Токсинология"
+
+#define RESEARCH_TREE_ILLEGAL "Запрещённые технологии"
+#define RESEARCH_TREE_ALIEN "Инопланетные технологии"
+
+
 // Autolathe categories
 #define AUTOLATHE_CATEGORY_TOOLS "Инструменты"
 #define AUTOLATHE_CATEGORY_ELECTRONICS "Электроника"

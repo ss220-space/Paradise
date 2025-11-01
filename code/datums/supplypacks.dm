@@ -2019,43 +2019,43 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/htdisk/materials
 	contains = list(/obj/item/disk/tech_disk/loaded/materials)
-	name = "Дискета технологий (Материалы)"
+	name = "Дискета технологий (" + RESEARCH_TREE_MATERIALS + ")"
 
 /datum/supply_packs/misc/htdisk/engineering
 	contains = list(/obj/item/disk/tech_disk/loaded/engineering)
-	name = "Дискета технологий (Инженерия)"
+	name = "Дискета технологий (" + RESEARCH_TREE_ENGINEERING + ")"
 
 /datum/supply_packs/misc/htdisk/plasmatech
 	contains = list(/obj/item/disk/tech_disk/loaded/plasmatech)
-	name = "Дискета технологий (Плазма)"
+	name = "Дискета технологий (" + RESEARCH_TREE_PLASMA + ")"
 
 /datum/supply_packs/misc/htdisk/powerstorage
 	contains = list(/obj/item/disk/tech_disk/loaded/powerstorage)
-	name = "Дискета технологий (Электроэнергия)"
+	name = "Дискета технологий (" + RESEARCH_TREE_POWERSTORAGE + ")"
 
 /datum/supply_packs/misc/htdisk/bluespace
 	contains = list(/obj/item/disk/tech_disk/loaded/bluespace)
-	name = "Дискета технологий (Блюспейс)"
+	name = "Дискета технологий (" + RESEARCH_TREE_BLUESPACE + ")"
 
 /datum/supply_packs/misc/htdisk/biotech
 	contains = list(/obj/item/disk/tech_disk/loaded/biotech)
-	name = "Дискета технологий (Биотехнологии)"
+	name = "Дискета технологий (" + RESEARCH_TREE_BIOTECH + ")"
 
 /datum/supply_packs/misc/htdisk/combat
 	contains = list(/obj/item/disk/tech_disk/loaded/combat)
-	name = "Дискета технологий (Боевые технологии)"
+	name = "Дискета технологий (" + RESEARCH_TREE_COMBAT + ")"
 
 /datum/supply_packs/misc/htdisk/magnets
 	contains = list(/obj/item/disk/tech_disk/loaded/magnets)
-	name = "Дискета технологий (Электромагнитный спектр)"
+	name = "Дискета технологий (" + RESEARCH_TREE_MAGNETS + ")"
 
 /datum/supply_packs/misc/htdisk/programming
 	contains = list(/obj/item/disk/tech_disk/loaded/programming)
-	name = "искета технологий (Программная инженерия)"
+	name = "искета технологий (" + RESEARCH_TREE_PROGRAMMING + ")"
 
 /datum/supply_packs/misc/htdisk/toxins
 	contains = list(/obj/item/disk/tech_disk/loaded/toxins)
-	name = "Дискета технологий (Токсикология)"
+	name = "Дискета технологий (" + RESEARCH_TREE_TOXINS + ")"
 
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Medical
