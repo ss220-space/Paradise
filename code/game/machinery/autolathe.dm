@@ -453,10 +453,12 @@
 	return output
 
 /obj/machinery/autolathe/proc/add_to_queue(D, multiplier)
+	var/obj/design_item = D
 	if(!istype(queue))
 		queue = list()
 	if(D)
-		queue.Add(list(list(D,multiplier)))
+		queue.Add(list(list(capitalize(design_item.declent_ru(NOMINATIVE)), multiplier)))
+	qdel(design_item)
 	return queue.len
 
 /obj/machinery/autolathe/proc/remove_from_queue(index)

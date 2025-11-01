@@ -534,9 +534,11 @@ research holder datum.
 /obj/item/disk/design_disk/station_goal_machinery
 	name = ""
 	desc = ""
-	ru_names = list()
 	icon_state = "datadisk5"
 	var/design_type
+
+/obj/item/disk/design_disk/station_goal_machinery/brs_server/get_ru_names()
+	return list()
 
 /obj/item/disk/design_disk/station_goal_machinery/Initialize(mapload)
 	. = ..()
