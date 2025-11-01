@@ -74,7 +74,7 @@
 	owner.current.dust()
 	qdel(src)
 
-/datum/antagonist/servant/kick()
+/datum/antagonist/servant/proc/kick()
 	SIGNAL_HANDLER
 
 	if(in_owner)
