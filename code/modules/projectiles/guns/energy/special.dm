@@ -211,7 +211,7 @@
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += span_notice("Заряд [bicon(src)] [declent_ru(GENITIVE)] [round(cell.percent())]%")
+		. += span_notice("Заряд [icon2html(src, user)] [declent_ru(GENITIVE)] [round(cell.percent())]%")
 
 /obj/item/gun/energy/plasmacutter/get_heat()
 	return 3800
@@ -758,14 +758,6 @@
 /obj/item/gun/energy/specter
 	name = "Specter"
 	desc = "Современный пистолет \"Спектр\", работающий на съёмных аккумуляторах, имеет магнитные приводы для быстрой перезарядки. Поставляется только силовым структурам Нанотрейзен."
-	ru_names = list(
-		NOMINATIVE = "Спектр",
-		GENITIVE = "Спектра",
-		DATIVE = "Спектру",
-		ACCUSATIVE = "Спектр",
-		INSTRUMENTAL = "Спектром",
-		PREPOSITIONAL = "Спектре"
-	)
 	icon_state = "specter"
 	item_state = "specter"
 	force = 10
@@ -783,6 +775,16 @@
 	)
 	ammo_x_offset = 0
 
+/obj/item/gun/energy/specter/get_ru_names()
+	return list(
+		NOMINATIVE = "Спектр",
+		GENITIVE = "Спектра",
+		DATIVE = "Спектру",
+		ACCUSATIVE = "Спектр",
+		INSTRUMENTAL = "Спектром",
+		PREPOSITIONAL = "Спектре"
+	)
+
 /obj/item/gun/energy/specter/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
@@ -795,7 +797,6 @@
 	add_skin("Green Handle", "specter_greengrip")
 	add_skin("Tan Handle", "specter_tangrip")
 	add_skin("Red Handle", "specter_redgrip")
-
 
 /obj/item/gun/energy/specter/update_icon_state()
 	if(current_skin)

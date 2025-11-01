@@ -74,7 +74,7 @@
 			cell_component.brute_damage = 0
 			cell_component.electronics_damage = 0
 			diag_hud_set_borgcell()
-		var/law = "[ninja.real_name] — член Клана Паука и ваш хозяин. Исполняйте [genderize_ru(ninja.gender,"его","её","его","их")] приказы и указания."
+		var/law = "[ninja.real_name] — член Клана Паука и ваш хозяин. Исполняйте [GEND_HIS_HER(ninja)] приказы и указания."
 		ninja_borg.set_zeroth_law(law)
 		SSticker?.score?.save_silicon_laws(ninja_borg, ninja, "ninja's conversion, new zero law was added '[law]'")
 		//Переносим разум в нового борга и удаляем старое тело

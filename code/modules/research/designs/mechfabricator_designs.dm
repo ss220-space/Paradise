@@ -2149,3 +2149,23 @@
 	materials = list(MAT_METAL = 20000, MAT_PLASMA = 8000, MAT_GLASS = 8000)
 	construction_time = 20 SECONDS
 	category = list("Exosuit Paintkits")
+
+/datum/design/exoframe_reinforced
+	name = "Укрепленный каркас экзоскелета"
+	id = "exo_reinforced"
+	build_type = MECHFAB
+	req_tech = list("materials" = 4, "engineering" = 5)
+	build_path = /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced
+	materials = list(MAT_METAL = 20000, MAT_PLASMA = 4000)
+	construction_time = 50 SECONDS
+	category = list("IPC")
+
+/datum/design/exoframe_industrial
+	name = "Промышленный каркас экзоскелета"
+	id = "exo_industrial"
+	build_type = MECHFAB
+	req_tech = list("materials" = 4,"engineering" = 5)
+	build_path = /obj/item/organ/internal/cyberimp/chest/exoframe/industrial
+	materials = list(MAT_METAL = 20000, MAT_TITANIUM = 6000)
+	construction_time = 50 SECONDS
+	category = list("IPC")

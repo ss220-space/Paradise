@@ -74,7 +74,7 @@
 	chargerate = 480
 
 /obj/item/stock_parts/cell/specter/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "аккумулятор Спектра",
 		GENITIVE = "аккумулятора Спектра",
 		DATIVE = "аккумулятору Спектра",
@@ -206,7 +206,7 @@
 		. += span_notice("<b>Индикатор заряда:</b> [round(percent())]%")
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), span_suicide("[user] облизыва[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
+	to_chat(viewers(user), span_suicide("[user] облизыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 	return FIRELOSS
 
 
@@ -349,7 +349,7 @@
 	rating = 3
 	chargerate = 1500
 
-/obj/item/stock_parts/cell/upgraded/plus/get_ru_names()
+/obj/item/stock_parts/cell/pulse/get_ru_names()
 	return list(
 		NOMINATIVE = "батарея пульсовой винтовки",
 		GENITIVE = "батареи пульсовой винтовки",
@@ -358,6 +358,9 @@
 		INSTRUMENTAL = "батареей пульсовой винтовки",
 		PREPOSITIONAL = "батарее пульсовой винтовки"
 	)
+
+/obj/item/stock_parts/cell/pulse/prise
+	chargerate = 0
 
 /obj/item/stock_parts/cell/pulse/carbine //33 pulse shots
 	name = "pulse carbine power cell"

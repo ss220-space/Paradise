@@ -38,6 +38,10 @@
 	var/list/req_access
 	var/check_one_access = TRUE
 
+	/// Icon to use as a 32x32 preview in crafting menus and such
+	var/icon_preview
+	var/icon_state_preview
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -335,7 +339,7 @@
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
 	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	C.take_organ_damage(damage)

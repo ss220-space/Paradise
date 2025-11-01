@@ -1191,3 +1191,9 @@
 		if(I < length(L))
 			. += ", "
 	. += ")"
+
+///Return a list with no duplicate entries
+/proc/unique_list(list/inserted_list)
+	. = list()
+	for(var/i in inserted_list)
+		. |= LIST_VALUE_WRAP_LISTS(i)

@@ -49,7 +49,7 @@
 
 /obj/singularity/god/ratvar/attack_ghost(mob/dead/observer/user)
 	var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
-	cog.key = user.key
+	cog.possess_by_player(user.key)
 	SSticker.mode.add_clocker(cog.mind)
 
 

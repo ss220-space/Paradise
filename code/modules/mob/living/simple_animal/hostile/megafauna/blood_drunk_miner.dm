@@ -42,8 +42,9 @@ Difficulty: Medium
 	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/gem/phoron)
 	wander = FALSE
 	del_on_death = TRUE
-	blood_volume = BLOOD_VOLUME_NORMAL
-	medal_type = BOSS_MEDAL_MINER
+	achievement_type = /datum/award/achievement/boss/blood_miner_kill
+	crusher_achievement_type = /datum/award/achievement/boss/blood_miner_crusher
+	score_achievement_type = /datum/award/score/blood_miner_score
 	var/obj/item/melee/energy/cleaving_saw/miner_saw
 	var/time_until_next_transform = 0
 	var/dashing = FALSE

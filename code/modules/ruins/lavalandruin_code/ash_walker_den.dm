@@ -4,14 +4,6 @@
 /obj/structure/lavaland/ash_walker
 	name = "necropolis tendril nest"
 	desc = "Щупальце искажённой злобы. Вокруг него обустроено гнездо, полное быстро растущих яиц..."
-	ru_names = list(
-		NOMINATIVE = "гнездо некрополя",
-		GENITIVE = "гнезда некрополя",
-		DATIVE = "гнезду некрополя",
-		ACCUSATIVE = "гнездо некрополя",
-		INSTRUMENTAL = "гнездом некрополя",
-		PREPOSITIONAL = "гнезде некрополя"
-	)
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "ash_walker_nest"
 
@@ -24,6 +16,16 @@
 
 	var/faction = list("ashwalker")
 	var/meat_counter = 6
+
+/obj/structure/lavaland/ash_walker/get_ru_names()
+	return list(
+		NOMINATIVE = "гнездо некрополя",
+		GENITIVE = "гнезда некрополя",
+		DATIVE = "гнезду некрополя",
+		ACCUSATIVE = "гнездо некрополя",
+		INSTRUMENTAL = "гнездом некрополя",
+		PREPOSITIONAL = "гнезде некрополя"
+	)
 
 /obj/structure/lavaland/ash_walker/Initialize(mapload)
 	. = ..()
@@ -94,14 +96,6 @@
 /obj/effect/mob_spawn/human/ash_walker
 	name = "Ash walker egg"
 	desc = "Жёлтое яйцо размером с человека, порождённое каким-то непостижимым существом. Внутри проглядывает гуманоидный силуэт."
-	ru_names = list(
-		NOMINATIVE = "яйцо пеплоходца",
-		GENITIVE = "яйца пеплоходца",
-		DATIVE = "яйцу пеплоходца",
-		ACCUSATIVE = "яйцо пеплоходца",
-		INSTRUMENTAL = "яйцом пеплоходца",
-		PREPOSITIONAL = "яйце пеплоходца"
-	)
 	mob_name = "an ash walker"
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "ashwalker_egg"
@@ -123,6 +117,16 @@
 	respawn_cooldown = 10 MINUTES
 	var/eggtype = "пеплоходца"
 
+/obj/effect/mob_spawn/human/ash_walker/get_ru_names()
+	return list(
+		NOMINATIVE = "яйцо пеплоходца",
+		GENITIVE = "яйца пеплоходца",
+		DATIVE = "яйцу пеплоходца",
+		ACCUSATIVE = "яйцо пеплоходца",
+		INSTRUMENTAL = "яйцом пеплоходца",
+		PREPOSITIONAL = "яйце пеплоходца"
+	)
+
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
 	new_spawn.faction += "ashwalker"
@@ -137,14 +141,6 @@
 //Ash walker shaman eggs: Spawns in ash walker dens in lavaland. Only one can exist at a time, they are squishier than regular ashwalkers, and have the sole purpose of keeping other ashwalkers alive.
 /obj/effect/mob_spawn/human/ash_walker/shaman
 	name = "Ash walker shaman egg"
-	ru_names = list(
-		NOMINATIVE = "яйцо шамана пеплоходцев",
-		GENITIVE = "яйца шамана пеплоходцев",
-		DATIVE = "яйцу шамана пеплоходцев",
-		ACCUSATIVE = "яйцо шамана пеплоходцев",
-		INSTRUMENTAL = "яйцом шамана пеплоходцев",
-		PREPOSITIONAL = "яйце шамана пеплоходцев"
-	)
 	desc = "Янтарное яйцо размером с человека, порождённое каким-то непостижимым существом. Внутри проглядывает гуманоидный силуэт."
 	icon_state = "shaman_egg"
 	mob_name = "an ash walker shaman"
@@ -153,6 +149,16 @@
 	description = "Вы — шаман племени пеплоходцев. Ваше племя поклоняется некрополю. Обеспечьте выживание и лечение подконтрольных вам пеплоходцев. Проводите обряды, направленные на исцеление тела и души, обеспечивайте охотников пропитанием."
 	assignedrole = "Ash Walker Shaman"
 	eggtype = "шамана пеплоходцев"
+
+/obj/effect/mob_spawn/human/ash_walker/shaman/get_ru_names()
+	return list(
+		NOMINATIVE = "яйцо шамана пеплоходцев",
+		GENITIVE = "яйца шамана пеплоходцев",
+		DATIVE = "яйцу шамана пеплоходцев",
+		ACCUSATIVE = "яйцо шамана пеплоходцев",
+		INSTRUMENTAL = "яйцом шамана пеплоходцев",
+		PREPOSITIONAL = "яйце шамана пеплоходцев"
+	)
 
 /datum/outfit/ashwalker
 	name ="Ashwalker"

@@ -11,7 +11,6 @@
 	var/obj/item/card/id/prisoner/inserted_id
 	var/obj/machinery/door/airlock/release_door
 	var/door_tag = "prisonshuttle"
-	var/obj/item/radio/intercom/announcer
 	var/static/list/sheet_values
 
 /obj/machinery/mineral/labor_claim_console/get_ru_names()
@@ -26,8 +25,6 @@
 
 /obj/machinery/mineral/labor_claim_console/Initialize(mapload)
 	. = ..()
-	announcer = new /obj/item/radio/intercom(null)
-	announcer.follow_target = src
 
 	if(!sheet_values)
 		for(var/sheet_type in subtypesof(/obj/item/stack/sheet))
@@ -36,13 +33,6 @@
 				continue
 			sheet_values += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
 		sheet_values = sortTim(sheet_values, cmp = /proc/cmp_sheet_list)
-
-/obj/machinery/mineral/labor_claim_console/Destroy()
-	. = ..()
-	QDEL_NULL(announcer)
-
-/proc/cmp_sheet_list(list/a, list/b)
-	return a["value"] - b["value"]
 
 
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
@@ -137,7 +127,7 @@
 					else
 						if(!emagged)
 							var/message = "[inserted_id.registered_name] вернулся на станцию. Минералы и ID-карта заключенного готовы к выдаче."
-							announcer.autosay(message, "Labor Camp Controller", SEC_FREQ_NAME)
+							radio_announce(message, "Labor Camp Controller", SEC_FREQ, src)
 						to_chat(usr, span_notice("Сообщение получено, шаттл будет отправлен в ближайшее время."))
 						add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
 

@@ -102,7 +102,7 @@
 
 
 /obj/structure/holosign/wetsign/mine/proc/triggermine(mob/living/victim)
-	empulse(src, 1, 1, TRUE, "[victim] активировал[genderize_ru(victim.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]")
+	empulse(src, 1, 1, TRUE, "[victim] активировал[GEND_A_O_I(victim)] [declent_ru(ACCUSATIVE)]")
 	if(ishuman(victim))
 		victim.apply_damage(100, STAMINA)
 	qdel(src)
@@ -224,7 +224,7 @@
 	. = ..()
 	if(. || !COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(user))
 		return
-	user.electrocute_act(15, "энергетического барьера", flags = SHOCK_NOGLOVES)
+	user.electrocute_act(15, src, flags = SHOCK_NOGLOVES)
 	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 
 
@@ -232,6 +232,6 @@
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(moving_living))
 		return .
-	moving_living.electrocute_act(15, "энергетического барьера", flags = SHOCK_NOGLOVES)
+	moving_living.electrocute_act(15, src, flags = SHOCK_NOGLOVES)
 	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 

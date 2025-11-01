@@ -10,7 +10,6 @@
 	var/icon_base = "heart"
 	var/item_base = "heart"
 
-
 /obj/item/organ/internal/heart/get_ru_names()
 	return list(
 		NOMINATIVE = "сердце человека",
@@ -88,14 +87,6 @@
 /obj/item/organ/internal/heart/cursed
 	name = "cursed heart"
 	desc = "Странно выглядящее сердце. Судя по всему, ему требуется постоянная подкачка..."
-	ru_names = list(
-		NOMINATIVE = "проклятое сердце",
-		GENITIVE = "проклятого сердца",
-		DATIVE = "проклятому сердцу",
-		ACCUSATIVE = "проклятое сердце",
-		INSTRUMENTAL = "проклятое сердцем",
-		PREPOSITIONAL = "проклятое сердце"
-	)
 	icon_state = "cursedheart-off"
 	icon_base = "cursedheart"
 	origin_tech = "biotech=6"
@@ -109,6 +100,15 @@
 	var/heal_burn = 0
 	var/heal_oxy = 0
 
+/obj/item/organ/internal/heart/cursed/get_ru_names()
+	return list(
+		NOMINATIVE = "проклятое сердце",
+		GENITIVE = "проклятого сердца",
+		DATIVE = "проклятому сердцу",
+		ACCUSATIVE = "проклятое сердце",
+		INSTRUMENTAL = "проклятое сердцем",
+		PREPOSITIONAL = "проклятое сердце"
+	)
 
 /obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target != user || !ishuman(target))
@@ -181,14 +181,6 @@
 /obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"
 	desc = "Электронное устройство, имитирующее работу органического сердца. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
-	ru_names = list(
-		NOMINATIVE = "кибернетическое сердце",
-		GENITIVE = "кибернетического сердца",
-		DATIVE = "кибернетическому сердцу",
-		ACCUSATIVE = "кибернетическое сердце",
-		INSTRUMENTAL = "кибернетическим сердцем",
-		PREPOSITIONAL = "кибернетическом сердце"
-	)
 	icon_state = "heart-c-on"
 	icon_base = "heart-c"
 	dead_icon = "heart-c-off"
@@ -196,11 +188,27 @@
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
+/obj/item/organ/internal/heart/cybernetic/get_ru_names()
+	return list(
+		NOMINATIVE = "кибернетическое сердце",
+		GENITIVE = "кибернетического сердца",
+		DATIVE = "кибернетическому сердцу",
+		ACCUSATIVE = "кибернетическое сердце",
+		INSTRUMENTAL = "кибернетическим сердцем",
+		PREPOSITIONAL = "кибернетическом сердце"
+	)
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
 	desc = "Продвинутая версия кибернетического сердца. Даёт пользователю дополнительную выносливость и стабильность работы, но при этом является очень уязвимым к ЭМИ."
-	ru_names = list(
+	icon_state = "heart-c-u-on"
+	icon_base = "heart-c-u"
+	dead_icon = "heart-c-u-off"
+	var/emagged = FALSE
+	var/attempted_restart = FALSE
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/get_ru_names()
+	return list(
 		NOMINATIVE = "улучшенное кибернетическое сердце",
 		GENITIVE = "улучшенного кибернетического сердца",
 		DATIVE = "улучшенному кибернетическому сердцу",
@@ -208,12 +216,6 @@
 		INSTRUMENTAL = "улучшенным кибернетическим сердцем",
 		PREPOSITIONAL = "улучшенном кибернетическом сердце"
 	)
-	icon_state = "heart-c-u-on"
-	icon_base = "heart-c-u"
-	dead_icon = "heart-c-u-off"
-	var/emagged = FALSE
-	var/attempted_restart = FALSE
-
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/target, special)
 	. = ..()

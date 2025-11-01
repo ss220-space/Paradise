@@ -1128,7 +1128,7 @@
 			M.adjust_fire_stacks(20)
 		if(prob(50))
 			to_chat(M, span_userdanger("КАК ЖЖЁТСЯ, КАК ЖЕ ОНО ЖЖЁТСЯ!!!"))
-			M.visible_message( span_danger("[M] сгорел[genderize_ru(M.gender, "", "а", "о", "и")] заживо!"))
+			M.visible_message( span_danger("[M] сгорел[GEND_A_O_I(M)] заживо!"))
 			M.dust()
 			return
 	return ..() | update_flags

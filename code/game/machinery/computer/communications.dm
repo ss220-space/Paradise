@@ -394,7 +394,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else
-				GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.", HEADSET_FREQ_NAME)
+				radio_announce("Отчёт был загружен и распечатан на всех консолях связи.", "Консоль связи", COMM_FREQ)
 				print_command_report(params["text"], "Секретно: [params["subtitle"]]")
 
 			log_and_message_admins("has created a communications report: [params["text"]]")

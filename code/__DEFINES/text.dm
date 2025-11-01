@@ -51,3 +51,7 @@
 
 
 #define LOWER_TEXT(thing) lowertext(UNLINT("[thing]"))
+
+// JSON text files found in the tgstation/strings folder
+/// File location for cult shuttle curse descriptions
+#define CULT_SHUTTLE_CURSE "cult_shuttle_curse.json"

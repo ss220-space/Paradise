@@ -517,7 +517,7 @@
 /obj/machinery/proc/display_parts(mob/user)
 	. = list(span_notice("Following parts detected in the machine:"))
 	for(var/obj/item/C in component_parts)
-		. += span_notice("[bicon(C)] [C.name]")
+		. += span_notice("[icon2html(C, user)] [C.name]")
 	. = jointext(., "\n")
 
 /obj/machinery/examine(mob/user)

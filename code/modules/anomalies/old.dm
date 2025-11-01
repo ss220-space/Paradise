@@ -205,7 +205,7 @@
 /obj/effect/old_anomaly/energetic/proc/mobShock(mob/living/mob)
 	if(canshock && istype(mob))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
-		mob.electrocute_act(shockdamage, "потоковой аномалии", flags = SHOCK_NOGLOVES)
+		mob.electrocute_act(shockdamage, src, flags = SHOCK_NOGLOVES)
 
 /obj/effect/old_anomaly/energetic/detonate()
 	if(explosive)
@@ -341,7 +341,7 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pyroclastic anomaly slime?", ROLE_SENTIENT, FALSE, 100, source = slime, role_cleanname = "pyroclastic anomaly slime")
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/chosen = pick(candidates)
-		slime.key = chosen.key
+		slime.possess_by_player(chosen.key)
 		slime.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
 		add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(turf)].", slime)
 

@@ -217,7 +217,6 @@
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
-	var/obj/item/radio/intercom/announce
 	var/syndicate = FALSE // Silent
 
 	var/obj/machinery/computer/cryopod/control_computer
@@ -280,8 +279,6 @@
 
 /obj/machinery/cryopod/Initialize(mapload)
 	. = ..()
-	announce = new /obj/item/radio/intercom(src)
-	announce.follow_target = src
 	icon_state = base_icon_state
 	set_light(1, 1, COLOR_GREEN)
 	find_control_computer()
@@ -378,7 +375,6 @@
 	//Delete all items not on the preservation list.
 	var/list/items = contents
 	items -= occupant // Don't delete the occupant
-	items -= announce // or the autosay radio.
 
 	for(var/obj/item/I in items)
 		if(is_pda(I))
@@ -471,9 +467,9 @@
 				announcer.say(";[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]")
 		else
 			if(announce_rank)
-				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
+				radio_announce("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]", PUB_FREQ, follow_target_override = src)
 			else
-				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]")
+				radio_announce("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]", PUB_FREQ, follow_target_override = src)
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] с характерным жужжанием и шипением перемещает [occupant.real_name] в хранилище."))
 
 	SEND_SIGNAL(SSshuttle, COMSIG_CRYOPOD_DESPAWN, src, occupant)
@@ -648,8 +644,6 @@
 	var/list/items = contents
 	if(occupant)
 		items -= occupant
-	if(announce)
-		items -= announce
 
 	for(var/obj/item/I in items)
 		I.forceMove(get_turf(src))

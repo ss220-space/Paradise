@@ -58,8 +58,9 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = NONE
 	var/player_cooldown = 0
-	medal_type = BOSS_MEDAL_DRAKE
-	score_type = DRAKE_SCORE
+	achievement_type = /datum/award/achievement/boss/drake_kill
+	crusher_achievement_type = /datum/award/achievement/boss/drake_crusher
+	score_achievement_type = /datum/award/score/drake_score
 	deathmessage = "распадается в кучу костей, его плоть осыпается."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
@@ -380,7 +381,7 @@ Difficulty: Medium
 	playsound(loc, 'sound/effects/meteorimpact.ogg', 200, TRUE)
 	for(var/mob/living/L in orange(1, src))
 		if(L.stat)
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] обрушивается на [L.declent_ru(NOMINATIVE)], раздавливая [genderize_ru(L.gender,"его","её","его","их")]!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] обрушивается на [L.declent_ru(NOMINATIVE)], раздавливая [GEND_HIS_HER(L)]!"))
 			L.gib()
 		else
 			L.adjustBruteLoss(75)
@@ -656,7 +657,7 @@ Difficulty: Medium
 	if(!istype(A))
 		return
 	if(player_cooldown >= world.time)
-		to_chat(src, span_warning("Вам нужно подождать [(player_cooldown - world.time) / 10] секунд[declension_ru((player_cooldown - world.time) / 10,"у","ы","")] перед следующим пикированием!"))
+		to_chat(src, span_warning("Вам нужно подождать [(player_cooldown - world.time) / 10] секунд[DECL_SEC_MIN((player_cooldown - world.time) / 10)] перед следующим пикированием!"))
 		return
 	swoop_attack(FALSE, A)
 	lava_pools(10, 2) // less pools but longer delay before spawns

@@ -73,6 +73,14 @@
 		stack.source = get_or_create_estorage(stack.energy_type)
 		stack.is_cyborg = TRUE
 
+/obj/item/robot_module/proc/add_module(obj/item/module)
+	if(!istype(module))
+		return
+
+	modules += module
+	rebuild()
+	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/proc/get_or_create_estorage(storage_type)
 	for(var/datum/robot_energy_storage/S in storages)
@@ -387,6 +395,7 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel(src)
+	modules += new /obj/item/lightreplacer/cyborg(src)
 	emag = new /obj/item/gun/energy/emittercannon(src)
 
 	fix_modules()

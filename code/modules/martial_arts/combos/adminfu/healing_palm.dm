@@ -18,7 +18,7 @@
 			if(O.mind)
 				O.mind.transfer_to(P)
 			else
-				P.key = O.key
+				P.possess_by_player(O.key)
 			qdel(O)
 			target = P
 		else

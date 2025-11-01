@@ -470,6 +470,193 @@
 	if(H.stat == CONSCIOUS)
 		to_chat(H, span_notice("You feel your heart beating again!"))
 
+/obj/item/organ/internal/cyberimp/chest/exoframe
+	name = "Exoframe"
+	desc = "Несущая опора, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Стандартная модель, не отличающаяся выдающимися характеристиками."
+	implant_color = "#3a3a3aff"
+	implant_overlay = null
+	origin_tech = "materials=3;engineering=4"
+	slot = INTERNAL_ORGAN_CHEST_EXOFRAME
+	species_restrictions = list(SPECIES_MACNINEPERSON)
+	var/id = "EXO_DEFAULT"
+	var/given_health = 0
+	var/repair_time = 1 SECONDS
+	var/list/traits_added
+	var/strength_gain = 1
+	var/internal_emp_damage = 1
+	var/external_emp_damage = 1
+	var/low_pressure_hazard = HAZARD_LOW_PRESSURE
+	var/low_pressure_warning = WARNING_LOW_PRESSURE
+	var/coldmod = 1
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/get_ru_names()
+	return list(
+		NOMINATIVE = "стандартный каркас экзоскелета",
+		GENITIVE = "стандартного каркаса экзоскелета",
+		DATIVE = "стандартному каркасу экзоскелета",
+		ACCUSATIVE = "стандартный каркас экзоскелета",
+		INSTRUMENTAL = "стандартным каркасом экзоскелета",
+		PREPOSITIONAL = "стандартном каркасе экзоскелета"
+	)
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/insert(mob/living/carbon/human/target)
+	if(!crit_fail)
+		target.add_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
+		target.maxHealth += given_health
+		target.health += given_health
+		target.dna.species.hazard_low_pressure = low_pressure_hazard
+		target.dna.species.warning_low_pressure = low_pressure_warning
+		target.dna.species.coldmod = coldmod
+	target.robotic_limb_repair_time = repair_time
+	target.emp_damage_multiplier_external = external_emp_damage
+	target.emp_damage_multiplier_internal = internal_emp_damage
+	SEND_SIGNAL(target, COMSIG_STRENGTH_LEVEL_UP, strength_gain)
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/remove(mob/living/carbon/human/target)
+	if(!crit_fail)
+		target.remove_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
+		target.health -= given_health
+		target.maxHealth -= given_health
+		target.dna.species.hazard_low_pressure = initial(target.dna.species.hazard_low_pressure)
+		target.dna.species.warning_low_pressure = initial(target.dna.species.warning_low_pressure)
+		target.dna.species.coldmod = initial(target.dna.species.coldmod)
+	target.robotic_limb_repair_time = initial(target.robotic_limb_repair_time)
+	target.emp_damage_multiplier_external = initial(target.emp_damage_multiplier_external)
+	target.emp_damage_multiplier_internal = initial(target.emp_damage_multiplier_internal)
+	SEND_SIGNAL(target, COMSIG_STRENGTH_LEVEL_UP, 1)
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/emp_act(severity)
+	if(emp_proof || crit_fail)
+		return
+
+	if(!ishuman(owner))
+		return
+
+	if(!prob(30))
+		return
+
+	to_chat(owner, span_warning("Приводы вашего экзоскелета перестают двигаться!"))
+	crit_fail = TRUE
+	var/mob/living/carbon/human/human = owner
+	human.health -= given_health
+	human.maxHealth -= given_health
+	human.dna.species.hazard_low_pressure = initial(human.dna.species.hazard_low_pressure)
+	human.dna.species.warning_low_pressure = initial(human.dna.species.warning_low_pressure)
+	human.dna.species.coldmod = initial(human.dna.species.coldmod)
+	human.remove_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
+	damage = 1
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/surgeryize()
+	if(crit_fail && owner)
+		to_chat(owner, span_notice("Приводы вашего экзоскелета вновь активны."))
+	crit_fail = FALSE
+	
+	if(!ishuman(owner))
+		return
+		
+	var/mob/living/carbon/human/human = owner
+	human.add_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
+	human.maxHealth += given_health
+	human.health += given_health
+	human.dna.species.hazard_low_pressure = low_pressure_hazard
+	human.dna.species.warning_low_pressure = low_pressure_warning
+	human.dna.species.coldmod = coldmod
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/reinforced
+	name = "Reinforced exoframe"
+	desc = "Несущая опора, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Укреплённая модель, способная выдержать больше повреждений."
+	id = "EXO_REINFORCED"
+	icon_state = "exoframe_reinforced"
+	given_health = 20
+	repair_time = 2 SECONDS
+	traits_added = list(TRAIT_IGNOREDAMAGESLOWDOWN)
+	strength_gain = 3
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/reinforced/get_ru_names()
+	return list(
+			NOMINATIVE = "укрепленный каркас экзоскелета",
+			GENITIVE = "укрепленного каркаса экзоскелета",
+			DATIVE = "укрепленному каркасу экзоскелета",
+			ACCUSATIVE = "укрепленный каркас экзоскелета",
+			INSTRUMENTAL = "укрепленным каркасом экзоскелета",
+			PREPOSITIONAL = "укрепленном каркасе экзоскелета"
+		)
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/industrial
+	name = "Industrial exoframe"
+	desc = "Несущая опора, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Промышленная модель, созданная специально для работ в открытом космосе."
+	id = "EXO_INDUSTRIAL"
+	icon_state = "exoframe_industrial"
+	traits_added = list(TRAIT_SHOCKIMMUNE)
+	strength_gain = 4
+	low_pressure_hazard = 1
+	low_pressure_warning = -300
+	coldmod = -1
+	external_emp_damage = 1.5
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/industrial/get_ru_names()
+	return list(
+		NOMINATIVE = "промышленный каркас экзоскелета",
+		GENITIVE = "промышленного каркаса экзоскелета",
+		DATIVE = "промышленному каркасу экзоскелета",
+		ACCUSATIVE = "промышленный каркас экзоскелета",
+		INSTRUMENTAL = "промышленным каркасом экзоскелета",
+		PREPOSITIONAL = "промышленном каркасе экзоскелета"
+	)
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat
+	name = "Combat exoframe"
+	desc = "Несущая опора, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Облегченная модель из пластитанового сплава с повышенной прочностью конструкции."
+	id = "EXO_COMBAT"
+	icon_state = "exoframe_combat"
+	origin_tech = "materials=4;engineering=4;illegal=3;combat=4"
+	given_health = 40
+	repair_time = 4 SECONDS
+	traits_added = list(TRAIT_IGNOREDAMAGESLOWDOWN)
+	strength_gain = 4
+	internal_emp_damage = 0.25
+	external_emp_damage = 0.5
+	var/active = FALSE
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat/get_ru_names()
+	return list(
+		NOMINATIVE = "боевой каркас экзоскелета",
+		GENITIVE = "боевого каркаса экзоскелета",
+		DATIVE = "боевому каркасу экзоскелета",
+		ACCUSATIVE = "боевой каркас экзоскелета",
+		INSTRUMENTAL = "боевым каркасом экзоскелета",
+		PREPOSITIONAL = "боевом каркасе экзоскелета"
+	)
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat/remove(mob/living/carbon/human/target)
+	if(active)
+		ui_action_click()
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat/emp_act(severity)
+	if(active)
+		ui_action_click()
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(crit_fail)
+		owner.balloon_alert(owner, "каркас не отвечает!")
+		return
+	
+	if(active)
+		to_chat(owner, span_notice("Ваши движения замедляются!"))
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/increaserun)
+		owner.dna.species.hunger_drain_mod /= 4
+		active = FALSE
+		return
+
+	to_chat(owner, span_notice("Ваши движения ускоряются!"))
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/increaserun)
+	owner.dna.species.hunger_drain_mod *= 4
+	active = TRUE
 
 //BOX O' IMPLANTS
 

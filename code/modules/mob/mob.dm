@@ -1,4 +1,5 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
+	persistent_client?.set_mob(null)
 	remove_from_mob_list()
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
@@ -461,6 +462,9 @@
 	if(!canon_client)
 		return
 
+	for(var/datum/callback/callback as anything in persistent_client.post_logout_callbacks)
+		callback.Invoke()
+
 	if(canon_client?.movingmob)
 		LAZYREMOVE(canon_client.movingmob.client_mobs_in_contents, src)
 		canon_client.movingmob = null
@@ -511,13 +515,12 @@
 	set src in usr
 	if(usr != src)
 		to_chat(usr, "No.")
-	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE)
+	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Описание внешности", flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
 	if(isnull(msg))
 		return
 	if(stat)
 		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 		return
-	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	flavor_text = msg
 
 /mob/proc/print_flavor_text(shrink = TRUE)
@@ -544,7 +547,7 @@
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
 
-	var/deathtime = world.time - src.timeofdeath
+	var/deathtime = world.time - persistent_client.time_of_death
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
@@ -590,7 +593,7 @@
 		qdel(M)
 		return
 
-	M.key = key
+	M.possess_by_player(key)
 	GLOB.respawnable_list += usr
 	return
 
@@ -803,7 +806,7 @@
 
 	to_chat(usr, span_notice(message))
 	GLOB.respawnable_list -= usr
-	picked_mob.key = key
+	picked_mob.possess_by_player(key)
 
 
 /mob/proc/become_mouse()
@@ -821,7 +824,7 @@
 		var/obj/vent_found = pick(found_vents)
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
 		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
-		host.ckey = src.ckey
+		host.possess_by_player(ckey)
 		to_chat(host, span_notice("You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent."))
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
@@ -856,7 +859,7 @@
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] наблевал[genderize_ru(src.gender,"","а","о","и")] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
+				visible_message("<span class='warning'>[src.name] наблевал[GEND_A_O_I(src)] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
 			location.add_vomit_floor(TRUE)
 
 
@@ -1323,9 +1326,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		else if(!client && registered_z)
 			add_misc_logs(src, "Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 			update_z(null)
-
-/mob/proc/set_key(key)
-	src.key = key
 
 /// Assigns a (c)key to this mob.
 /mob/proc/possess_by_player(ckey)

@@ -11,10 +11,6 @@
 	if(!..())
 		return FALSE
 
-	if(affected_mob.ckey == "rosham")
-		cure()
-		return
-
 	switch(stage)
 		if(2)
 			if(prob(45))

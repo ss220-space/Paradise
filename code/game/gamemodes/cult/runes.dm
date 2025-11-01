@@ -617,7 +617,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			to_chat(mob_to_revive, span_biggerdanger("Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form."))
 			message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(mob_to_revive)]) to replace an AFK player.")
 			mob_to_revive.ghostize(FALSE)
-			mob_to_revive.key = C.key
+			mob_to_revive.possess_by_player(C.key)
 		else
 			fail_invoke()
 			return
@@ -899,7 +899,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
 	var/mob/living/carbon/human/new_human = new(T)
 	new_human.real_name = ghost_to_spawn.real_name
-	new_human.key = ghost_to_spawn.key
+	new_human.possess_by_player(ghost_to_spawn.key)
 	new_human.alpha = 150 //Makes them translucent
 	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts, also lets you see actual ghosts

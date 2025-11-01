@@ -1075,6 +1075,25 @@
 	icon = 'icons/turf/floors.dmi'
 	},
 /area/ruin/space/pirate_base/black_market)
+"SS" = (
+/obj/structure/rack,
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/pistol{
+	pixel_x = 3
+	},
+/obj/item/clothing/accessory/holster,
+/obj/item/melee/energy/sword/pirate{
+	pixel_y = 6
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
 "Tt" = (
 /obj/structure/rack,
 /obj/item/radio/headset,
@@ -1510,7 +1529,7 @@ Xz
 mV
 mV
 rC
-mV
+SS
 PK
 Xz
 Xz
@@ -1600,7 +1619,7 @@ Xz
 mV
 mV
 rC
-mV
+SS
 PK
 Xz
 Xz
@@ -1690,7 +1709,7 @@ Xz
 mV
 mV
 rC
-mV
+SS
 PK
 Xz
 Xz
@@ -1780,7 +1799,7 @@ Xz
 mV
 mV
 rC
-mV
+SS
 PK
 Xz
 Xz
