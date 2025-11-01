@@ -1,4 +1,6 @@
 /obj/item/melee/baton
+
+	icon = 'icons/obj/weapons/baton.dmi'
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
 	gender = FEMALE
