@@ -242,6 +242,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	var/embed_disarm = FALSE
 
+	/// The skin choice if we had a reskin
+	var/current_skin
+
 /obj/item/Initialize(mapload)
 	. = ..()
 

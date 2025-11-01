@@ -45,8 +45,6 @@
 	var/unique_rename = TRUE
 	/// Allows reskinning
 	var/unique_reskin = FALSE
-	/// The skin choice if we had a reskin
-	var/current_skin
 	/// Lazy list of gun visual skins. Filled on Initialize() in proc/update_gun_skins()
 	var/list/skin_options
 

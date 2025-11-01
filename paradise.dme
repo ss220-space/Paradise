@@ -609,6 +609,7 @@
 #include "code\datums\components\hide_highest_offset.dm"
 #include "code\datums\components\hide_weather_planes.dm"
 #include "code\datums\components\holderloving.dm"
+#include "code\datums\components\item_skins.dm"
 #include "code\datums\components\jackboots.dm"
 #include "code\datums\components\jetpack.dm"
 #include "code\datums\components\killing_reward.dm"
