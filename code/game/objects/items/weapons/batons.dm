@@ -316,11 +316,15 @@
 		return
 
 	var/skin_options = list()
+	skin_options["Классическая телескопическая дубинка"] = "telebaton_tg"
 	skin_options["Бронзовая телескопическая дубинка"] = "telebaton_bronze"
+	skin_options["Классическая бронзовая телескопическая дубинка"] = "telebaton_tg_bronze"
 	if(user.client.donator_level >= DONATOR_TIER_II)
 		skin_options["Серебрянная телескопическая дубинка"] = "telebaton_silver"
+		skin_options["Классическая серебрянная телескопическая дубинка"] = "telebaton_tg_silver"
 	if(user.client.donator_level >= DONATOR_TIER_III)
 		skin_options["Золотая телескопическая дубинка"] = "telebaton_gold"
+		skin_options["Классическая золотая телескопическая дубинка"] = "telebaton_tg_gold"
 
 	var/list/skins = list()
 	for(var/skin in skin_options)
