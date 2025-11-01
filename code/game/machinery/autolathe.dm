@@ -122,7 +122,7 @@
 					matreq["metal"] = x["amount"]
 				if(x["name"] == "glass")
 					matreq["glass"] = x["amount"]
-			var/obj/item/I = new D.build_path
+			var/obj/item/design_item = new D.build_path
 			var/maxmult = 1
 			if(ispath(D.build_path, /obj/item/stack))
 				maxmult = D.maxstack
@@ -134,16 +134,16 @@
 				categories |= AUTOLATHE_CATEGORY_IMPORTED
 
 			recipes.Add(list(list(
-				"name" = capitalize(I.declent_ru(NOMINATIVE)),
-				"desc" = I.desc,
+				"name" = capitalize(design_item.declent_ru(NOMINATIVE)),
+				"desc" = design_item.desc,
 				"category" = categories,
 				"uid" = D.UID(),
 				"requirements" =  matreq,
 				"hacked" = (PRINTER_CATEGORY_HACKED in categories) ? TRUE : FALSE,
 				"max_multiplier" = maxmult,
-				"icon" = initial(I.icon),
-				"icon_state" = initial(I.icon_state),
-			qdel(I)
+				"icon" = initial(design_item.icon),
+				"icon_state" = initial(design_item.icon_state),
+			qdel(design_item)
 			)))
 		recipiecache = recipes
 	data["recipes"] = recipiecache
@@ -161,8 +161,10 @@
 	data["busyamt"] = 1
 	if(length(being_built) > 0)
 		var/datum/design/D = being_built[1]
-		data["busyname"] =  istype(D) && D.name ? D.name : FALSE
+		var/obj/item/design_item = new D.build_path
+		data["busyname"] =  istype(D) && capitalize(design_item.declent_ru(NOMINATIVE)) ? capitalize(design_item.declent_ru(NOMINATIVE)) : FALSE
 		data["busyamt"] = length(being_built) > 1 ? being_built[2] : 1
+		qdel(design_item)
 	data["showhacked"] = hacked ? TRUE : FALSE
 	data["buildQueue"] = queue
 	data["buildQueueLen"] = queue.len
