@@ -46,6 +46,8 @@
 	qdel(src)
 
 /datum/servant_revive/proc/stop()
+	SIGNAL_HANDLER
+
 	to_chat(master, span_userdanger("Умирая, вы чувствуете как связь с вашим слугой теряется."))
 	qdel(src)
 

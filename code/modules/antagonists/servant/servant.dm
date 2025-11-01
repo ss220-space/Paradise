@@ -20,6 +20,7 @@
 	RegisterSignal(serve_to, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
 	RegisterSignal(owner.current, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
 	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(die))
+	RegisterSignal(serve_to, COMSIG_MOB_DEATH, PROC_REF(kick))
 
 /datum/antagonist/servant/proc/check_if_in_owner()
 	if(owner.current.loc == serve_to)
@@ -54,11 +55,14 @@
 	UnregisterSignal(serve_to, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(owner.current, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(owner.current, COMSIG_MOB_DEATH)
+	UnregisterSignal(serve_to, COMSIG_MOB_DEATH)
 	var/datum/action/summon_servant/summon_action = locate() in serve_to.actions
 	qdel(summon_action)
 	. = ..()
 
 /datum/antagonist/servant/proc/die()
+	SIGNAL_HANDLER
+
 	for(var/obj/item/item in owner.current.contents)
 		owner.current.drop_item_ground(item)
 	if(serve_to.stat != DEAD)
@@ -69,3 +73,9 @@
 	to_chat(serve_to, span_userdanger("Умирая, вы чувствуете как связь с вашим слугой теряется."))
 	owner.current.dust()
 	qdel(src)
+
+/datum/antagonist/servant/kick()
+	SIGNAL_HANDLER
+
+	if(in_owner)
+		owner.current.forceMove(serve_to.loc)
