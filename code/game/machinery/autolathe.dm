@@ -389,7 +389,6 @@
 	return coeff
 
 /obj/machinery/autolathe/proc/build_item(datum/design/D, multiplier)
-	desc = initial(desc)+"\nIt's building \a [initial(D.name)]."
 	var/is_stack = ispath(D.build_path, /obj/item/stack)
 	var/coeff = get_coeff(D)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -414,7 +413,6 @@
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.update_materials_coeff(coeff)
 	SStgui.update_uis(src)
-	desc = initial(desc)
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, multiplier = 1, custom_metal, custom_glass)
 	if(length(D.make_reagents))
@@ -457,7 +455,7 @@
 	if(!istype(queue))
 		queue = list()
 	if(D)
-		queue.Add(list(list(capitalize(design_item.declent_ru(NOMINATIVE)), multiplier)))
+		queue.Add(list(list(D,multiplier)))
 	qdel(design_item)
 	return queue.len
 

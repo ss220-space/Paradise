@@ -8,7 +8,7 @@ export const RndNavbar = () => (
       menu={(n) => n !== MENU.MAIN}
       render={() => (
         <RndNavButton menu={MENU.MAIN} submenu={SUBMENU.MAIN} icon="reply">
-          Главною меню
+          Главное меню
         </RndNavButton>
       )}
     />
