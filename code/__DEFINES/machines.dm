@@ -151,3 +151,16 @@
 #define PROTOLATHE_CATEGORY_POWER "Электроэнергия"
 #define PROTOLATHE_CATEGORY_MISC "Разное"
 #define PROTOLATHE_CATEGORY_ILLEGAL "КОНТРАБАНДА"
+
+// Circuit Imprinter categories
+#define CIRCUIT_IMPRINTER_CATEGORY_AI "Станционный ИИ"
+#define CIRCUIT_IMPRINTER_CATEGORY_COMPUTER "Компьютеры и консоли"
+#define CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING "Инженерные модули"
+#define CIRCUIT_IMPRINTER_CATEGORY_EXOSUIT "Экзоскелеты"
+#define CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS "Гидропоника"
+#define CIRCUIT_IMPRINTER_CATEGORY_MEDICAL "Медицина"
+#define CIRCUIT_IMPRINTER_CATEGORY_POWER "Электроэнергия"
+#define CIRCUIT_IMPRINTER_CATEGORY_MISC "Разное"
+#define CIRCUIT_IMPRINTER_CATEGORY_RESEARCH "Наука и исследование"
+#define CIRCUIT_IMPRINTER_CATEGORY_TELECOMS "Телекоммуникация"
+#define CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION "Телепортация"
