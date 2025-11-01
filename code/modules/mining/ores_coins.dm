@@ -759,7 +759,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/mob/dead/observer/chosen = pick(candidates)
 	message_admins("[ADMIN_LOOKUPFLW(chosen)] was spawned as Dice Servant")
 	Servant.key = chosen.key
-	to_chat(Servant, span_notice("Вы слуга [user.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [genderize_ru(user.gender, "его", "eё", "его", "их")] приказы."))
+	to_chat(Servant, span_notice("Вы слуга [user.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(user)] приказы."))
 	to_chat(user, span_warning("Нечто принимает вашу плату в обмен на вечную службу."))
 
 	var/datum/mind/servant_mind = new /datum/mind()
