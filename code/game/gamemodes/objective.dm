@@ -1847,7 +1847,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/serve
 	name = "Служить"
 	antag_menu_name = "Служить"
-	needs_target = TRUE
 	var/mob/living/serve_to
 	explanation_text = "Вы должны служить... Кому-то..."
 
