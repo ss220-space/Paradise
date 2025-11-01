@@ -763,6 +763,7 @@
 	force = 10
 	origin_tech = "combat=4;materials=2"
 	cell_type = /obj/item/stock_parts/cell/specter
+	modifystate = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
 	unique_reskin = TRUE
 	materials = list(MAT_METAL = 1000)
@@ -770,8 +771,8 @@
 	recoil = GUN_RECOIL_MIN
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 10),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -4)
 	)
 	ammo_x_offset = 0
 

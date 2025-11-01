@@ -535,6 +535,7 @@
 	projectile_type = /obj/projectile/beam/specter/disabler
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
+	select_name = "disable"
 	e_cost = 450
 	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
 
