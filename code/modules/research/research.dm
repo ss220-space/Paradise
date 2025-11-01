@@ -377,9 +377,15 @@ research holder datum.
 
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"
-	desc = T.desc + " Level: '[T.level]'"
-	for(var/i = 1; i <= 6; i++)
-		ru_names[i] += " \[[T]\]"
+	desc = T.desc + " <b>Уровень: \"[T.level]\"</b>."
+	ru_names = list(
+		NOMINATIVE = "дискета технологий \[[T]\]",
+		GENITIVE = "дискеты технологий \[[T]\]",
+		DATIVE = "дискете технологий \[[T]\]",
+		ACCUSATIVE = "дискету технологий \[[T]\]",
+		INSTRUMENTAL = "дискетой технологий \[[T]\]",
+		PREPOSITIONAL = "дискете технологий \[[T]\]"
+	)
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
 	stored = T
@@ -455,6 +461,14 @@ research holder datum.
 /obj/item/disk/design_disk
 	name = "Component Design Disk"
 	desc = "Переносной носитель данных, специализированный для хранения шаблонов печати."
+	ru_names = list(
+		NOMINATIVE = "дискета шаблона печати",
+		GENITIVE = "дискеты шаблона печати",
+		DATIVE = "дискете шаблона печати",
+		ACCUSATIVE = "дискету шаблона печати",
+		INSTRUMENTAL = "дискетой шаблона печати",
+		PREPOSITIONAL = "дискете шаблона печати"
+	)
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=100, MAT_GLASS=100)
 	var/datum/design/blueprint
@@ -479,8 +493,14 @@ research holder datum.
 /obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
 	name = "[default_name] \[[D]\]"
 	desc = D.desc
-	for(var/i = 1; i <= 6; i++)
-		ru_names[i] += " \[[D]\]"
+	ru_names = list(
+		NOMINATIVE = "дискета технологий \[[D]\]",
+		GENITIVE = "дискеты технологий \[[D]\]",
+		DATIVE = "дискете технологий \[[D]\]",
+		ACCUSATIVE = "дискету технологий \[[D]\]",
+		INSTRUMENTAL = "дискетой технологий \[[D]\]",
+		PREPOSITIONAL = "дискете технологий \[[D]\]"
+	)
 	// NOTE: This is just a reference to the design on the system it grabbed it from
 	// This seems highly fragile
 	blueprint = D
