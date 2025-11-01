@@ -1,6 +1,7 @@
 /obj/machinery/autolathe
 	name = "autolathe"
-	desc = "Крупное устройство, предназначенное для печати различных вещей из металла и стекла."
+	desc = "Оборудование, предназначенное для печати различных изделий базового уровня сложности \
+			на основе предустановленных схем. Использует металл и стекло в качестве сырья."
 	icon_state = "autolathe"
 	density = TRUE
 
@@ -32,16 +33,16 @@
 	var/list/recipiecache = list()
 
 	var/list/categories = list(
-		CATEGORY_TOOLS,
-		CATEGORY_ELECTRONICS,
-		CATEGORY_CONSTRUCTION,
-		CATEGORY_COMMUNICATION,
-		CATEGORY_SECURITY,
-		CATEGORY_MACHINERY,
-		CATEGORY_MEDICAL,
-		CATEGORY_MISC,
-		CATEGORY_DINNERWARE,
-		CATEGORY_IMPORTED,
+		AUTOLATHE_CATEGORY_TOOLS,
+		AUTOLATHE_CATEGORY_ELECTRONICS,
+		AUTOLATHE_CATEGORY_CONSTRUCTION,
+		AUTOLATHE_CATEGORY_COMMUNICATION,
+		AUTOLATHE_CATEGORY_SECURITY,
+		AUTOLATHE_CATEGORY_MACHINERY,
+		AUTOLATHE_CATEGORY_MEDICAL,
+		AUTOLATHE_CATEGORY_MISC,
+		AUTOLATHE_CATEGORY_DINNERWARE,
+		AUTOLATHE_CATEGORY_IMPORTED,
 	)
 
 /obj/machinery/autolathe/get_ru_names()
@@ -101,7 +102,7 @@
 /obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Autolathe", name)
+		ui = new(user, src, "Autolathe", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 
@@ -130,7 +131,7 @@
 			var/list/categories = istype(default_categories) ? default_categories.Copy() : list()
 
 			if(imported[D.id])
-				categories |= CATEGORY_IMPORTED
+				categories |= AUTOLATHE_CATEGORY_IMPORTED
 
 			recipes.Add(list(list(
 				"name" = capitalize(I.declent_ru(NOMINATIVE)),
@@ -138,7 +139,7 @@
 				"category" = categories,
 				"uid" = D.UID(),
 				"requirements" =  matreq,
-				"hacked" = (CATEGORY_HACKED in categories) ? TRUE : FALSE,
+				"hacked" = (AUTOLATHE_CATEGORY_HACKED in categories) ? TRUE : FALSE,
 				"max_multiplier" = maxmult,
 				"icon" = initial(I.icon),
 				"icon_state" = initial(I.icon_state),
@@ -181,27 +182,27 @@
 			var/index = text2num(params["remove_from_queue"])
 			if(isnum(index) && ISINRANGE(index, 1, length(queue)))
 				remove_from_queue(index)
-				to_chat(usr, span_notice("Removed item from queue."))
+				to_chat(usr, span_notice("Шаблон удалён из очереди печати."))
 		if("make")
 			BuildTurf = loc
 			var/datum/design/design_last_ordered
 			design_last_ordered = locateUID(params["make"])
 			if(!istype(design_last_ordered))
-				to_chat(usr, span_warning("Invalid design"))
+				to_chat(usr, span_warning("Неподходящий шаблон."))
 				return
 			if(!(design_last_ordered.id in files.known_designs))
-				to_chat(usr, span_warning("Invalid design (not in autolathe's known designs, report this error.)"))
+				to_chat(usr, span_warning("Шаблон отсутствует в базе данных [declent_ru(GENITIVE)], сообщите о баге!"))
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/coeff = get_coeff(design_last_ordered)
 			if(design_last_ordered.materials[MAT_METAL] / coeff > materials.amount(MAT_METAL))
-				to_chat(usr, span_warning("Invalid design (not enough metal)"))
+				to_chat(usr, span_warning("Недостаточно стали для печати объекта!"))
 				return
 			if(design_last_ordered.materials[MAT_GLASS] / coeff > materials.amount(MAT_GLASS))
-				to_chat(usr, span_warning("Invalid design (not enough glass)"))
+				to_chat(usr, span_warning("Недостаточно стекла для печати объекта!"))
 				return
-			if(!hacked && (CATEGORY_HACKED in design_last_ordered.category))
-				to_chat(usr, span_warning("Invalid design (lathe requires hacking)"))
+			if(!hacked && (AUTOLATHE_CATEGORY_HACKED in design_last_ordered.category))
+				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не взломан!"))
 				return
 			//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 			var/multiplier = text2num(params["multiplier"])
@@ -216,7 +217,7 @@
 			if((length(queue) + 1) < queue_max_len)
 				add_to_queue(design_last_ordered, multiplier)
 			else
-				to_chat(usr, span_warning("The autolathe queue is full!"))
+				to_chat(usr, span_warning("Очередь печати заполнена!"))
 			if(!busy)
 				busy = TRUE
 				process_queue()
@@ -267,7 +268,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(busy)
-		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
+		balloon_alert(user, "в процессе печати!")
 		return ATTACK_CHAIN_PROCEED
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -280,23 +281,21 @@
 		if(!istype(I, /obj/item/disk/design_disk))
 			// So that people who are bad at computers don't shred their disks
 			to_chat(user, span_warning("This is not the correct type of disk for the autolathe!"))
+			balloon_alert(user, "неверный тип дискеты!")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/disk/design_disk/disk = I
 		if(!disk.blueprint)
-			to_chat(user, span_warning("That disk does not have a design on it!"))
+			balloon_alert(user, "дискета не содержит шаблон!")
 			return ATTACK_CHAIN_PROCEED
 		var/datum/design/design = disk.blueprint // READ ONLY!!
 		if(design.id in files.known_designs)
-			to_chat(user, span_warning("This design has already been loaded into the autolathe."))
+			balloon_alert(user, "данный шаблон уже загружен!")
 			return ATTACK_CHAIN_PROCEED
 		if(!files.CanAddDesign2Known(design))
-			to_chat(user, span_warning("This design is not compatible with the autolathe."))
+			balloon_alert(user, "шаблон несовместим с автолатом!")
 			return ATTACK_CHAIN_PROCEED
-		user.visible_message(
-			span_notice("[user] begins to load [disk] in [src]..."),
-			span_notice("You begin to load a design from [disk]..."),
-			span_italics("You hear the chatter of a floppy drive."),
-		)
+		balloon_alert_to_viewers("загружа[PLUR_ET_YUT(user)] дискету с шаблоном...", "загрузка дискеты с шаблоном...")
+		user.visible_message(blind_message = "Вы слышите жужжание дисковода.")
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 		busy = TRUE
 		if(!do_after(user, 1.4 SECONDS, src))
@@ -317,7 +316,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
+		balloon_alert(user, "в процессе печати!")
 		return
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
@@ -327,7 +326,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
+		balloon_alert(user, "в процессе печати!")
 		return
 	default_deconstruction_screwdriver(user, "autolathe_unscrewed", "autolathe", I)
 
@@ -338,7 +337,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
+		balloon_alert(user, "в процессе печати!")
 		return
 	interact(user)
 
@@ -349,7 +348,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
+		balloon_alert(user, "в процессе печати!")
 		return
 	interact(user)
 
@@ -445,9 +444,10 @@
 
 /obj/machinery/autolathe/proc/get_processing_line()
 	var/datum/design/D = being_built[1]
+	var/obj/design_item = new D
 	var/multiplier = being_built[2]
 	var/is_stack = (multiplier>1)
-	var/output = "PROCESSING: [initial(D.name)][is_stack?" (x[multiplier])":null]"
+	var/output = "ПЕЧАТЬ: [capitalize(design_item.declent_ru(NOMINATIVE))][is_stack?" (x[multiplier])":null]"
 	return output
 
 /obj/machinery/autolathe/proc/add_to_queue(D, multiplier)
@@ -477,7 +477,7 @@
 			being_built = new /list()
 			return 0
 		if(!can_build(D, multiplier))
-			visible_message("[icon2html(src, viewers(src))] <b>[src]</b> beeps: \"Not enough resources. Queue processing terminated.\"")
+			atom_say("Недостаточно материала для печати! Очередь печати очищена.")
 			queue = list()
 			being_built = new /list()
 			return 0
@@ -493,11 +493,11 @@
 
 	if(hack)
 		for(var/datum/design/D in files.possible_designs)
-			if((D.build_type & AUTOLATHE) && (CATEGORY_HACKED in D.category))
+			if((D.build_type & AUTOLATHE) && (AUTOLATHE_CATEGORY_HACKED in D.category))
 				files.AddDesign2Known(D)
 	else
 		for(var/datum/design/D in files.known_designs)
-			if(CATEGORY_HACKED in D.category)
+			if(AUTOLATHE_CATEGORY_HACKED in D.category)
 				files.known_designs -= D.id
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI, thus adding/removing hacked entries from lists
 	recipiecache = list()
@@ -516,7 +516,9 @@
 
 /obj/machinery/autolathe/security
 	name = "Security Autolathe"
-	desc = "Autolathe with preloaded open recipes"
+	desc = "Оборудование, предназначенное для печати различных изделий базового уровня сложности \
+			на основе предустановленных схем. Использует металл и стекло в качестве сырья. \
+			Специализированная модель для силовых структур, поставляемая с дополнительными шаблонами печати."
 	icon = 'icons/obj/machines/sec_autolathe.dmi'
 
 /obj/machinery/autolathe/security/Initialize(mapload)
@@ -524,3 +526,12 @@
 	wires?.cut(WIRE_AUTOLATHE_HACK)
 	adjust_hacked(TRUE)
 
+/obj/machinery/autolathe/security/get_ru_names()
+	return list(
+		NOMINATIVE = "автолат службы безопасности",
+		GENITIVE = "автолата службы безопасности",
+		DATIVE = "автолату службы безопасности",
+		ACCUSATIVE = "автолат службы безопасности",
+		INSTRUMENTAL = "автолатом службы безопасности",
+		PREPOSITIONAL = "автолате службы безопасности",
+	)
