@@ -86,3 +86,4 @@
 #define SPECIAL_ROLE_DEVIL_PAWN "Devil's pawn"
 #define SPECIAL_ROLE_DEVIL "Devil"
 #define SPECIAL_ROLE_IMP "Imp"
+#define SPECIAL_ROLE_SERVANT "Servant"

@@ -1843,3 +1843,14 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = "Геноцид разумной жизни"
 	needs_target = FALSE
 	explanation_text = "Убивайте всех, кто не является ксеноморфом. Утопите станцию в крови!"
+
+/datum/objective/serve
+	name = "Служить"
+	antag_menu_name = "Служить"
+	needs_target = TRUE
+	var/mob/living/serve_to
+	explanation_text = "Вы должны служить... Кому-то..."
+
+/datum/objective/serve/New(mob/living/target_to_serve)
+	serve_to = target_to_serve
+	explanation_text = "Вы слуга [serve_to.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [genderize_ru(serve_to.gender, "его", "eё", "его", "их")] приказы."

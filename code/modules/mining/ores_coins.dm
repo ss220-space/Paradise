@@ -717,6 +717,62 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		PREPOSITIONAL = "монете Синдиката"
 	)
 
+/obj/item/coin/magic
+	name = "magical coin"
+	cmineral = "gold"
+	icon_state = "coin_gold_heads"
+	name_by_cmineral = FALSE
+	materials = list(MAT_GOLD = 9999)
+	credits = 9999
+	COOLDOWN_DECLARE(COIN_SUMMON_COOLDOWN)
+
+/obj/item/coin/magic/get_ru_names()
+	return list(
+		NOMINATIVE = "волшебная монета",
+		GENITIVE = "волшебной монеты",
+		DATIVE = "волшебной монете",
+		ACCUSATIVE = "волшебную монету",
+		INSTRUMENTAL = "волшебной монетой",
+		PREPOSITIONAL = "волшебной монете"
+	)
+
+/obj/item/coin/magic/examine(mob/user)
+	. = ..()
+	if(COOLDOWN_FINISHED(src, COIN_SUMMON_COOLDOWN))
+		. += span_notice("[capitalize(declent_ru(NOMINATIVE))] ярко блестит!")
+
+/obj/item/coin/magic/attack_self(mob/user)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, COIN_SUMMON_COOLDOWN))
+		return
+	to_chat(user, span_warning("Вы подкидываете монету в руке, и та начинает нагреваться"))
+	var/mob/living/carbon/human/Servant = new(user.loc)
+	Servant.equipOutfit(/datum/outfit/butler)
+	Servant.forceMove(user)
+	COOLDOWN_START(src, COIN_SUMMON_COOLDOWN, 10 SECONDS)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [user.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 10 SECONDS, source = Servant)
+	if(!LAZYLEN(candidates))
+		to_chat(user, span_warning("Монета остывает у вас в руке. Возможно, стоит попробовать позже."))
+		qdel(Servant)
+		return
+
+	var/mob/dead/observer/chosen = pick(candidates)
+	message_admins("[ADMIN_LOOKUPFLW(chosen)] was spawned as Dice Servant")
+	Servant.key = chosen.key
+	to_chat(Servant, span_notice("Вы слуга [user.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [genderize_ru(user.gender, "его", "eё", "его", "их")] приказы."))
+	to_chat(user, span_warning("Нечто принимает вашу плату в обмен на вечную службу."))
+
+	var/datum/mind/servant_mind = new /datum/mind()
+	servant_mind.transfer_to(Servant)
+	var/datum/antagonist/servant/serve = new(user)
+	servant_mind.add_antag_datum(serve)
+	var/datum/action/summon_servant/summon_action = new
+	var/datum/action/servant_self_summon/self_summon_action = new
+	self_summon_action.master = user
+	summon_action.servant = Servant
+	self_summon_action.Grant(Servant)
+	summon_action.Grant(user)
+	qdel(src)
 
 /obj/item/coin/update_overlays()
 	. = ..()
