@@ -65,15 +65,13 @@ export const MainMenu = (properties) => {
         {tech_levels.map(({ name, level, desc }) => (
           <LabeledList.Item
             label={
-              <Button
-                color="transparent"
-                tooltip={desc}
-              >
+              <Button color="transparent" tooltip={desc}>
                 {name}:
               </Button>
             }
-            key={name}>
-              {level}
+            key={name}
+          >
+            {level}
           </LabeledList.Item>
         ))}
       </LabeledList>

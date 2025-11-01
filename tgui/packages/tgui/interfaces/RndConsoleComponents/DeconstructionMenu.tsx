@@ -28,7 +28,11 @@ export const DeconstructionMenu = (properties) => {
   }
 
   if (!loaded_item) {
-    return <Section title="Меню разборки"><b>Камера разборки пуста.</b></Section>;
+    return (
+      <Section title="Меню разборки">
+        <b>Камера разборки пуста.</b>
+      </Section>
+    );
   }
 
   return (
