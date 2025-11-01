@@ -73,5 +73,5 @@
  * This will return `null` if the datum was deleted. This MUST be respected.
  */
 /datum/weakref/proc/resolve()
-	var/datum/D = locate(reference)
-	return (!QDELETED(D) && D.weak_reference == src) ? D : null
+	var/datum/datum = locateUID(reference)
+	return (!QDELETED(datum) && datum.weak_reference == src) ? datum : null

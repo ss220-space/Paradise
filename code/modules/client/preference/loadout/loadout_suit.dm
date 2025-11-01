@@ -91,6 +91,10 @@
 	allowed_roles = list(JOB_TITLE_HOP)
 
 //LABCOATS
+/datum/gear/suit/labcoat
+	index_name = "labcoat"
+	path = /obj/item/clothing/suit/storage/labcoat
+
 /datum/gear/suit/labcoat_emt
 	index_name = "labcoat, paramedic"
 	path = /obj/item/clothing/suit/storage/labcoat/emt
@@ -248,14 +252,15 @@
 
 /datum/gear/suit/hoodie/New()
 	..()
-	var/list/hoods = list(/obj/item/clothing/suit/hooded/hoodie,
-						  /obj/item/clothing/suit/hooded/hoodie/tp,
-						  /obj/item/clothing/suit/hooded/hoodie/nt,
-						  /obj/item/clothing/suit/hooded/hoodie/lam,
-						  /obj/item/clothing/suit/hooded/hoodie/cut,
-						  /obj/item/clothing/suit/hooded/hoodie/mit,
-						  /obj/item/clothing/suit/hooded/hoodie/blue,
-						  )
+	var/list/hoods = list(
+		/obj/item/clothing/suit/hooded/hoodie,
+		/obj/item/clothing/suit/hooded/hoodie/tp,
+		/obj/item/clothing/suit/hooded/hoodie/nt,
+		/obj/item/clothing/suit/hooded/hoodie/lam,
+		/obj/item/clothing/suit/hooded/hoodie/cut,
+		/obj/item/clothing/suit/hooded/hoodie/mit,
+		/obj/item/clothing/suit/hooded/hoodie/blue,
+	)
 	gear_tweaks += new /datum/gear_tweak/path(hoods, src, TRUE)
 
 //SUITS!
@@ -267,9 +272,11 @@
 
 /datum/gear/suit/blacksuit/New()
 	..()
-	var/list/suits = list("black" = /obj/item/clothing/suit/storage/lawyer/blackjacket,
-						  "blue" = /obj/item/clothing/suit/storage/lawyer/bluejacket,
-						  "purple" = /obj/item/clothing/suit/storage/lawyer/purpjacket,)
+	var/list/suits = list(
+		"black" = /obj/item/clothing/suit/storage/lawyer/blackjacket,
+		"blue" = /obj/item/clothing/suit/storage/lawyer/bluejacket,
+		"purple" = /obj/item/clothing/suit/storage/lawyer/purpjacket
+	)
 	gear_tweaks += new /datum/gear_tweak/path(suits, src)
 
 //Robes!
@@ -286,5 +293,13 @@
 	path = /obj/item/clothing/suit/suspenders
 
 /datum/gear/suit/suspenders/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/suit/bomber
+	index_name = "bomber"
+	path = /obj/item/clothing/suit/storage/bomber
+
+/datum/gear/suit/bomber/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)

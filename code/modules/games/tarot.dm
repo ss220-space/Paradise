@@ -3,7 +3,11 @@
 
 /obj/item/deck/tarot
 	name = "deck of tarot cards"
-	ru_names = list(
+	desc = "Для всех ваших оккультных нужд!"
+	icon_state = "deck_tarot"
+
+/obj/item/deck/tarot/get_ru_names()
+	return list(
 		NOMINATIVE = "колода карт таро",
 		GENITIVE = "колоды карт таро",
 		DATIVE = "колоде карт таро",
@@ -11,9 +15,6 @@
 		INSTRUMENTAL = "колодой карт таро",
 		PREPOSITIONAL = "колоде карт таро"
 	)
-	desc = "Для всех ваших оккультных нужд!"
-	icon_state = "deck_tarot"
-
 
 /obj/item/deck/tarot/build_deck()
 	for(var/tarotname in list("Шут", "Маг", "Верховная Жрица", "Императрица", "Император", "Иерофант", "Влюблённые", "Колесница", "Сила", "Отшельник", "Колесо Фортуны", "Справедливость", "Повешенный", "Смерть", "Умеренность", "Дьявол", "Башня", "Звезда", "Луна", "Солнце", "Суд", "Мир"))
@@ -35,7 +36,7 @@
 
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
 	var/list/newcards = list()
-	while(cards.len)
+	while(length(cards))
 		var/datum/playingcard/card = pick_n_take(cards)
 		card.name = replacetext(card.name," перевёрнутая", "")
 		if(prob(50))
@@ -44,7 +45,7 @@
 	cards = newcards
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 	user.visible_message(
-		span_notice("[user] тасу[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] тасу[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы тасуете [declent_ru(ACCUSATIVE)].")
 	)
 

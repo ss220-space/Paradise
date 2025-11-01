@@ -10,23 +10,32 @@
 	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
-	var/contained = 1 //Are we going to move around?
-	var/energy = 100 //How strong are we?
-	var/dissipate = 1 //Do we lose energy over time?
+	/// How strong are we?
+	var/energy = 100
+	/// Do we lose energy over time?
+	var/dissipate = TRUE
 	var/dissipate_delay = 10
 	var/dissipate_track = 0
-	var/dissipate_strength = 1 //How much energy do we lose?
-	var/move_self = 1 //Do we move on our own?
-	var/grav_pull = 4 //How many tiles out do we pull?
-	move_resist = INFINITY	//no, you don't get to push the singulo. Not even you OP wizard gateway statues
-	var/consume_range = 0 //How many tiles out do we eat
-	var/event_chance = 15 //Prob for event each tick
-	var/target = null //its target. moves towards the target if it has one
-	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
+	/// How much energy do we lose?
+	var/dissipate_strength = 1
+	/// Do we move on our own?
+	var/move_self = TRUE
+	/// How many tiles out do we pull?
+	var/grav_pull = 4
+	/// No, you don't get to push the singulo. Not even you OP wizard gateway statues
+	move_resist = INFINITY
+	/// How many tiles out do we eat
+	var/consume_range = 0
+	/// Prob for event each tick
+	var/event_chance = 15
+	/// Its target. moves towards the target if it has one
+	var/target = null
+	/// Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
+	var/last_failed_movement = 0
 	var/last_warning
-	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
+	/// If the singularity has eaten a supermatter shard and can go to stage six
+	var/consumedSupermatter = FALSE
 	var/warps_projectiles = TRUE
-	allow_spin = 0
 	var/obj/effect/warp_effect/supermatter/warp
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
@@ -37,7 +46,7 @@
 
 	energy = starting_energy
 	if(warps_projectiles)
-		AddComponent(/datum/component/proximity_monitor/singulo, _radius = 10)
+		proximity_monitor = new(src, range = 10)
 
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -53,6 +62,7 @@
 	GLOB.singularities -= src
 	vis_contents -= warp
 	QDEL_NULL(warp)  // don't want to leave it hanging
+	QDEL_NULL(proximity_monitor)
 	target = null
 	return ..()
 
@@ -87,19 +97,20 @@
 /obj/singularity/blob_act(obj/structure/blob/B)
 	return
 
-/obj/singularity/ex_act(severity)
+/obj/singularity/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			if(current_size <= STAGE_TWO)
 				investigate_log("has been destroyed by a heavy explosion.", INVESTIGATE_ENGINE)
 				qdel(src)
 				return
 			else
 				energy -= round(((energy+1)/2),1)
-		if(2)
+		if(EXPLODE_HEAVY)
 			energy -= round(((energy+1)/3),1)
-		if(3)
+		if(EXPLODE_LIGHT)
 			energy -= round(((energy+1)/4),1)
+
 	return
 
 
@@ -317,20 +328,20 @@
 		set_light(10)
 	if(istype(A, /obj/singularity/god/narsie))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
+			visible_message(span_userdanger("[SSticker.cultdat?.entity_name] is consumed by [src]!"))
 			investigate_log("consumed Nar'Sie!", INVESTIGATE_ENGINE)
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
+			visible_message(span_userdanger("[SSticker.cultdat?.entity_name] strikes down [src]!"))
 			investigate_log("has been destroyed by Nar'Sie", INVESTIGATE_ENGINE)
 			qdel(src)
 
 	if(istype(A, /obj/singularity/god/ratvar))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>Rat'var is consumed by [src]!</span>")
+			visible_message(span_userdanger("Rat'var is consumed by [src]!"))
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>Rat'var strikes down [src]!</span>")
+			visible_message(span_userdanger("Rat'var strikes down [src]!"))
 			investigate_log("has been destroyed by Ratvar","singulo")
 			qdel(src)
 
@@ -412,11 +423,11 @@
 		return 0
 	else if(locate(/obj/machinery/field/generator) in T)
 		var/obj/machinery/field/generator/G = locate(/obj/machinery/field/generator) in T
-		if(G && G.active)
+		if(G?.active)
 			return 0
 	else if(locate(/obj/machinery/shieldwallgen) in T)
 		var/obj/machinery/shieldwallgen/S = locate(/obj/machinery/shieldwallgen) in T
-		if(S && S.active)
+		if(S?.active)
 			return 0
 	return 1
 
@@ -452,8 +463,10 @@
 
 /obj/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
-		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
-						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
+		C.visible_message(
+			span_warning("[C]'s skin bursts into flame!"), \
+			span_userdanger("You feel an inner fire as your skin bursts into flames!")
+		)
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
@@ -466,11 +479,11 @@
 		if(!M.stat) // We can't stare on the lord if we are not so alive.
 			continue
 		if((M.sight >= SEE_TURFS) && !(M.sight >= (SEE_TURFS|SEE_OBJS))) // If they can see it without mesons on or can see objects through mesons. Bad on them.
-			to_chat(M, "<span class='notice'>You look directly into the [src.name], good thing you had your protective eyewear on!</span>")
+			to_chat(M, span_notice("You look directly into the [src.name], good thing you had your protective eyewear on!"))
 			continue
 		M.Stun(6 SECONDS)
-		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
-						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
+		M.visible_message(span_danger("[M] stares blankly at [src]!"), \
+						span_userdanger("You look directly into [src] and feel weak."))
 	return
 
 
@@ -496,53 +509,33 @@
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2),1)
-	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "Another singularity")
+	explosion(loc, devastation_range = (dist), heavy_impact_range = (dist*2), light_impact_range = (dist*4), cause = "Another singularity")
 	qdel(src)
 	return(gain)
 
-/datum/component/proximity_monitor/singulo
-	field_checker_type = /obj/effect/abstract/proximity_checker/singulo
+/obj/singularity/HasProximity(atom/movable/movable)
+	var/obj/projectile/projectile = movable
+	if(!istype(projectile))
+		return
 
-/datum/component/proximity_monitor/singulo/create_single_prox_checker(turf/T, checker_type)
-	. = ..()
-	var/obj/effect/abstract/proximity_checker/singulo/S = .
-	S.calibrate()
-
-/datum/component/proximity_monitor/singulo/recenter_prox_checkers()
-	. = ..()
-	for(var/obj/effect/abstract/proximity_checker/singulo/S as anything in proximity_checkers)
-		S.calibrate()
-
-/obj/effect/abstract/proximity_checker/singulo
-	var/angle_to_singulo
-	var/distance_to_singulo
-
-/obj/effect/abstract/proximity_checker/singulo/proc/calibrate()
-	angle_to_singulo = ATAN2(monitor.hasprox_receiver.y - y, monitor.hasprox_receiver.x - x)
-	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
-
-
-/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/projectile/projectile)
-	. = ..()
-	if(!isprojectile(projectile))
-		return .
-	var/distance = distance_to_singulo
+	var/angle_to_singulo = ATAN2(proximity_monitor.hasprox_receiver.y - y, proximity_monitor.hasprox_receiver.x - x)
+	var/distance_to_singulo = get_dist(proximity_monitor.hasprox_receiver, src)
 	var/projectile_angle = projectile.Angle
-	var/angle_to_projectile = angle_to_singulo
-	if(angle_to_projectile == 180)
-		angle_to_projectile = -180
-	angle_to_projectile -= projectile_angle
-	if(angle_to_projectile > 180)
-		angle_to_projectile -= 360
-	else if(angle_to_projectile < -180)
-		angle_to_projectile += 360
 
-	if(distance == 0)
+	if(angle_to_singulo == 180)
+		angle_to_singulo = -180
+	angle_to_singulo -= projectile_angle
+	if(angle_to_singulo > 180)
+		angle_to_singulo -= 360
+	else if(angle_to_singulo < -180)
+		angle_to_singulo += 360
+
+	if(distance_to_singulo == 0)
 		qdel(projectile)
-		return .
+		return
 
-	projectile_angle += angle_to_projectile / (distance ** 2)
-	projectile.damage += 10 / distance
+	projectile_angle += angle_to_singulo / (distance_to_singulo ** 2)
+	projectile.damage += 10 / distance_to_singulo
 	projectile.set_angle(projectile_angle)
 
 

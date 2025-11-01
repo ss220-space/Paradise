@@ -29,9 +29,8 @@
 
 	breathid = "tox"
 
-	brute_mod = 0.9
-	burn_mod = 1.5
-	heatmod = 1.5
+	burn_mod = 1.2
+	heatmod = 1.2
 
 	//Has default darksight of 2.
 
@@ -67,6 +66,10 @@
 		JOB_MIN_AGE_COMMAND = 25,
 	)
 
+	autohiss_basic_map = list(
+			"s" = list("ss", "sss", "ssss"),
+			"с" = list("сс", "ссс", "сссс")
+		)
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -234,7 +237,7 @@
 				if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message("<span class='danger'>Тело [H] вступает в реакцию с атмосферой и загорается!</span>","<span class='userdanger'>Ваше тело вступает в реакцию с атмосферой и загорается!</span>")
+						H.visible_message(span_danger("Тело [H] вступает в реакцию с атмосферой и загорается!"),span_userdanger("Ваше тело вступает в реакцию с атмосферой и загорается!"))
 					H.IgniteMob()
 	else
 		if(H.fire_stacks)
@@ -253,7 +256,7 @@
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)
 		if("plasma")
-			H.heal_overall_damage(0.25, 0.25)
+			H.heal_overall_damage(0.5, 0.5)
 			H.adjust_alien_plasma(20)
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 			return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman

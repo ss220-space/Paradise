@@ -43,11 +43,11 @@
 	var/turf/simulated/floor/plasteel/F = A
 
 	if(F.icon_state == floor_state && F.dir == floor_dir)
-		to_chat(user, "<span class='notice'>This is already painted [floor_state] [dir2text(floor_dir)]!</span>")
+		to_chat(user, span_notice("This is already painted [floor_state] [dir2text(floor_dir)]!"))
 		return
 
 	if(!istype(F))
-		to_chat(user, "<span class='warning'>\The [src] can only be used on station flooring.</span>")
+		to_chat(user, span_warning("\The [src] can only be used on station flooring."))
 		return
 
 	playsound(loc, usesound, 30, TRUE)
@@ -56,7 +56,7 @@
 	F.floor_regular_dir = floor_dir
 	F.dir = floor_dir
 
-/obj/item/floor_painter/attack_self(var/mob/user)
+/obj/item/floor_painter/attack_self(mob/user)
 	if(!user)
 		return 0
 	user.set_machine(src)
@@ -97,7 +97,7 @@
 
 	if(action == "select_style")
 		var/new_style = params["style"]
-		if (allowed_states.Find(new_style) != 0)
+		if(allowed_states.Find(new_style) != 0)
 			floor_state = new_style
 
 	if(action == "cycle_style")
@@ -111,7 +111,7 @@
 
 	if(action == "select_direction")
 		var/dir = params["direction"]
-		if (dir != 0)
+		if(dir != 0)
 			floor_dir = dir
 
 	SStgui.update_uis(src)

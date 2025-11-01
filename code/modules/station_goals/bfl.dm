@@ -48,6 +48,8 @@
 		return
 	SScargo_quests.remove_bfl_quests(COUNT_PLASMA_QUESTS)
 
+#undef COUNT_PLASMA_QUESTS
+
 ////////////
 //Building//
 ////////////
@@ -80,9 +82,7 @@
 	name = "BFL Emitter"
 	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
-	anchored = TRUE
 	density = TRUE
-	use_power = NO_POWER_USE
 	idle_power_usage = 100000
 	active_power_usage = 500000
 
@@ -225,8 +225,8 @@
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 //TODO: Replace this,bsa and gravgen with some big machinery datum
-/obj/machinery/power/bfl_emitter/Initialize()
-	.=..()
+/obj/machinery/power/bfl_emitter/Initialize(mapload)
+	. = ..()
 	lavaland_z_lvl = level_name_to_num(MINING)
 	pixel_x = -32
 	pixel_y = 0
@@ -269,14 +269,6 @@
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
 	desc = "Кнопка активации выглядит подозрительно. Возможно, следует открыть шахту вручную с помощью лома."
-	ru_names = list(
-		NOMINATIVE = "приёмник BFL",
-		GENITIVE = "приёмника BFL",
-		DATIVE = "приёмнику BFL",
-		ACCUSATIVE = "приёмник BFL",
-		INSTRUMENTAL = "приёмником BFL",
-		PREPOSITIONAL = "приёмнике BFL"
-	)
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
@@ -300,6 +292,15 @@
 	///Used for storing last icon update for receiver lights on borders of receiver
 	var/last_light_state_number = 0
 
+/obj/machinery/bfl_receiver/get_ru_names()
+	return list(
+		NOMINATIVE = "приёмник BFL",
+		GENITIVE = "приёмника BFL",
+		DATIVE = "приёмнику BFL",
+		ACCUSATIVE = "приёмник BFL",
+		INSTRUMENTAL = "приёмником BFL",
+		PREPOSITIONAL = "приёмнике BFL"
+	)
 
 /obj/machinery/bfl_receiver/Initialize(mapload)
 	. = ..()
@@ -346,7 +347,7 @@
 			to_chat(user, span_warning("Нет питания.<br>Попробуйте открыть шахту вручную с помощью лома."))
 		if("Очистить хранилище руды")
 			if(lens)
-				to_chat(user, span_warning("Линза создаёт помехи - невозможно получить руду из хранилища."))
+				to_chat(user, span_warning("Линза создаёт помехи — невозможно получить руду из хранилища."))
 				return
 			if(state && (user.ckey != last_user_ckey))
 				to_chat(user, span_warning("Внутренний голос подсказывает, что сначала нужно закрыть шахту."))
@@ -449,14 +450,6 @@
 /obj/machinery/bfl_lens
 	name = "High-precision lens"
 	desc = "Чрезвычайно хрупкая, обращайтесь осторожно."
-	ru_names = list(
-		NOMINATIVE = "высокоточная линза",
-		GENITIVE = "высокоточной линзы",
-		DATIVE = "высокоточной линзе",
-		ACCUSATIVE = "высокоточную линзу",
-		INSTRUMENTAL = "высокоточной линзой",
-		PREPOSITIONAL = "высокоточной линзе"
-	)
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Lens_Pull"
 	max_integrity = 40
@@ -465,6 +458,16 @@
 
 	var/step_count = 0
 	var/state = FALSE
+
+/obj/machinery/bfl_lens/get_ru_names()
+	return list(
+		NOMINATIVE = "высокоточная линза",
+		GENITIVE = "высокоточной линзы",
+		DATIVE = "высокоточной линзе",
+		ACCUSATIVE = "высокоточную линзу",
+		INSTRUMENTAL = "высокоточной линзой",
+		PREPOSITIONAL = "высокоточной линзе"
+	)
 
 /obj/machinery/bfl_lens/update_icon_state()
 	if(state)
@@ -520,7 +523,7 @@
 	update_icon()
 
 
-/obj/machinery/bfl_lens/Initialize()
+/obj/machinery/bfl_lens/Initialize(mapload)
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
@@ -528,7 +531,7 @@
 
 /obj/machinery/bfl_lens/Destroy()
 	visible_message(span_danger("Линза разлетается на миллионы осколков!"))
-	playsound(src, "shatter", 70, 1)
+	playsound(src, SFX_SHATTER, 70, TRUE)
 	return ..()
 
 
@@ -599,7 +602,7 @@
 /obj/singularity/bfl_red/singularity_act()
 	return 0
 
-/obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
+/obj/singularity/bfl_red/New(loc, starting_energy = 50, temp = 0)
 	starting_energy = 250
 	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)
@@ -607,7 +610,11 @@
 /obj/effect/bfl_laser
 	name = "big laser beam"
 	desc = "Огромный сияющий луч, бьющий сверху вниз. Лучше не касаться."
-	ru_names = list(
+	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
+	icon_state = "laser"
+
+/obj/effect/bfl_laser/get_ru_names()
+	return list(
 		NOMINATIVE = "луч мегалазера",
 		GENITIVE = "луча мегалазера",
 		DATIVE = "лучу мегалазера",
@@ -615,8 +622,6 @@
 		INSTRUMENTAL = "лучом мегалазера",
 		PREPOSITIONAL = "луче мегалазера"
 	)
-	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
-	icon_state = "laser"
 
 /obj/effect/bfl_laser/Initialize(mapload)
 	. = ..()
@@ -677,5 +682,5 @@
 	if(.)
 		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE, -4)
 
-/obj/effect/bfl_laser/ex_act(severity)
+/obj/effect/bfl_laser/ex_act(severity, target)
 	return

@@ -146,7 +146,7 @@
  * - Runechats the emote
  *
  * You most likely want to use try_run_emote() anywhere you would otherwise call this directly,
- * 	as that will incorporate can_run_emote() checking as well.
+ *	as that will incorporate can_run_emote() checking as well.
  *
  * Arguments:
  * * user - Person that is trying to send the emote.
@@ -247,7 +247,7 @@
 		if(COMPONENT_BLOCK_EMOTE_SILENT)
 			return TRUE
 
-	var/initial_message = message 	// we need this since initial list value is empty list
+	var/initial_message = message	// we need this since initial list value is empty list
 
 	. = run_emote(user, params, type_override, intentional)
 
@@ -281,7 +281,7 @@
  * * text - The text of the emote.
  */
 /proc/runechat_emote(atom/user, text)
-	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
+	var/list/can_see = get_hearers_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
 	for(var/mob/viewer in can_see)
 		if(viewer.status_flags & PASSEMOTES)

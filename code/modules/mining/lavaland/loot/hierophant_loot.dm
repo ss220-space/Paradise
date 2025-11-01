@@ -3,14 +3,6 @@
 /obj/item/hierophant_club
 	name = "hierophant club"
 	desc = "Странные технологии этого массивного посоха позволяют совершать почти магические действия. Раньше он бил вас, теперь вы задаёте ритм."
-	ru_names = list(
-		NOMINATIVE = "посох Иерофанта",
-		GENITIVE = "посоха Иерофанта",
-		DATIVE = "посоху Иерофанта",
-		ACCUSATIVE = "посох Иерофанта",
-		INSTRUMENTAL = "посохом Иерофанта",
-		PREPOSITIONAL = "посохе Иерофанта"
-	)
 	icon_state = "hierophant_club_ready_beacon"
 	item_state = "hierophant_club_ready_beacon"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
@@ -35,16 +27,26 @@
 	var/tele_proof_bypass = FALSE //for admins to bypass tele_proof with VV
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
+/obj/item/hierophant_club/get_ru_names()
+	return list(
+		NOMINATIVE = "посох Иерофанта",
+		GENITIVE = "посоха Иерофанта",
+		DATIVE = "посоху Иерофанта",
+		ACCUSATIVE = "посох Иерофанта",
+		INSTRUMENTAL = "посохом Иерофанта",
+		PREPOSITIONAL = "посохе Иерофанта"
+	)
+
 /obj/item/hierophant_club/examine(mob/user)
 	. = ..()
 	. += span_hierophant_warning("[beacon ? "К маяку ничего не прикреплено" : "Здесь уже прикреплён маяк"].")
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")
-	user.visible_message(span_suicide("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] в воздух! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] собира[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой!"))
+	user.visible_message(span_suicide("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] в воздух! Похоже, [GEND_HE_SHE(user)] собира[PLUR_ET_YUT(user)]ся покончить с собой!"))
 	new/obj/effect/temp_visual/hierophant/telegraph(get_turf(user))
 	playsound(user,'sound/machines/airlock_open.ogg', 75, TRUE)
-	user.visible_message(span_hierophant_warning("[user] растворя[pluralize_ru(user.gender,"ет","ют")]ся в воздухе, оставляя свои вещи!"))
+	user.visible_message(span_hierophant_warning("[user] растворя[PLUR_ET_YUT(user)]ся в воздухе, оставляя свои вещи!"))
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.drop_item_ground(I)
@@ -146,7 +148,7 @@
 	if(!beacon || QDELETED(beacon))
 		if(isturf(user.loc))
 			user.visible_message(
-				span_hierophant_warning("[user] воз[pluralize_ru(user.gender,"ит","ят")]ся с навершием [declent_ru(GENITIVE)]..."),
+				span_hierophant_warning("[user] воз[PLUR_IT_YAT(user)]ся с навершием [declent_ru(GENITIVE)]..."),
 				span_notice("Вы начинаете отсоединять маяк Иерофанта...")
 			)
 			timer = world.time + 51
@@ -158,7 +160,7 @@
 				beacon = new/obj/effect/hierophant(T)
 				beacon.add_fingerprint(user)
 				user.update_action_buttons_icon()
-				user.visible_message(span_hierophant_warning("[user] размеща[pluralize_ru(user.gender,"ет","ют")] странный механизм у своих ног!"), "[span_hierophant("Вы отсоединяете маяк Иерофанта, позволяя телепортироваться к нему в любой момент!")]\n[span_notice("Можете ударить посохом, чтобы забрать его.")]")
+				user.visible_message(span_hierophant_warning("[user] размеща[PLUR_ET_YUT(user)] странный механизм у своих ног!"), "[span_hierophant("Вы отсоединяете маяк Иерофанта, позволяя телепортироваться к нему в любой момент!")]\n[span_notice("Можете ударить посохом, чтобы забрать его.")]")
 			else
 				timer = world.time
 				INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -173,14 +175,14 @@
 		return
 	var/turf/beacon_turf = get_turf(beacon)
 	if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
-		to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+		to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 		return
 	if(!isturf(user.loc))
 		to_chat(user, span_warning("Здесь недостаточно места для телепортации!"))
 		return
 	teleporting = TRUE //start channel
 	user.update_action_buttons_icon()
-	user.visible_message(span_hierophant_warning("[user] начина[pluralize_ru(user.gender,"ет","ют")] слабо светиться..."))
+	user.visible_message(span_hierophant_warning("[user] начина[PLUR_ET_YUT(user)] слабо светиться..."))
 	timer = world.time + 50
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 	beacon.teleporting = TRUE
@@ -191,7 +193,7 @@
 		var/turf/source = get_turf(user)
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+			to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -214,7 +216,7 @@
 			return
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+			to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -312,7 +314,19 @@
 /obj/item/clothing/accessory/necklace/hierophant_talisman
 	name = "Dormnant talisman of warding"
 	desc = "Защитный талисман Иерофанта. Он спасёт вас."
-	ru_names = list(
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "hierophant_talisman_nonactive"
+	item_state = "hierophant_talisman_nonactive"
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 100, ACID = 100)
+	allow_duplicates = FALSE
+	var/possessed = FALSE
+	var/mob/living/simple_animal/shade/talisman/slave // Talisman
+	var/obj/effect/proc_holder/spell/hierophant_talisman_heal/spell_heal
+	var/obj/effect/proc_holder/spell/hierophant_talisman_teleport/spell_teleport
+	var/obj/effect/proc_holder/spell/hierophant_talisman_message/spell_message
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/get_ru_names()
+	return list(
 		NOMINATIVE = "дремлющий защитный талисман",
 		GENITIVE = "дремлющего защитного талисмана",
 		DATIVE = "дремлющему защитному талисману",
@@ -320,16 +334,6 @@
 		INSTRUMENTAL = "дремлющим защитным талисманом",
 		PREPOSITIONAL = "дремлющем защитном талисмане"
 	)
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "hierophant_talisman_nonactive"
-	item_state = "hierophant_talisman_nonactive"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 100, "acid" = 100)
-	allow_duplicates = FALSE
-	var/possessed = FALSE
-	var/mob/living/simple_animal/shade/talisman/slave // Talisman
-	var/obj/effect/proc_holder/spell/hierophant_talisman_heal/spell_heal
-	var/obj/effect/proc_holder/spell/hierophant_talisman_teleport/spell_teleport
-	var/obj/effect/proc_holder/spell/hierophant_talisman_message/spell_message
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attack_self(mob/living/user)
 	if(possessed)
@@ -356,7 +360,7 @@
 	if(length(candidates))
 		theghost = pick(candidates)
 		slave = new(src)
-		slave.ckey = theghost.ckey
+		slave.possess_by_player(theghost.ckey)
 		slave.master = user.ckey
 		name = "Talisman of warding"
 		ru_names = list(
@@ -427,7 +431,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/valid_target(mob/living/carbon/human/target, mob/living/simple_animal/shade/talisman/user)
-	if (target.ckey == user.master)
+	if(target.ckey == user.master)
 		return TRUE
 	return FALSE
 
@@ -506,7 +510,6 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	should_recharge_after_cast = TRUE
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_message"
 	action_background_icon_state = "bg_hierophant_talisman"

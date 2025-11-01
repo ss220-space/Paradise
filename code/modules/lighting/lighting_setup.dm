@@ -7,6 +7,6 @@
 		for(var/turf/T in A)
 			if(T.always_lit)
 				continue
-			new/atom/movable/lighting_object(T)
+			new /atom/movable/lighting_object(T)
 			CHECK_TICK
 		CHECK_TICK

@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(clients)							//list of all clients
 GLOBAL_LIST_EMPTY(admins)							//list of all clients whom are admins
 GLOBAL_LIST_EMPTY(de_admins)							//list of all admins who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(de_mentors)							//list of all mentors who have used the de-admin verb.
+GLOBAL_LIST_EMPTY(de_devs)								//list of all devs who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(directory)							//list of all ckeys with associated client
 GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys, for stealthmins
 
@@ -38,7 +39,7 @@ GLOBAL_LIST_EMPTY(non_respawnable_keys)	//List of ckeys that are excluded from r
 GLOBAL_LIST_EMPTY(blob_telepathy_mobs)
 /// One for each AI_* status define, List of all simple animals, including clientless
 GLOBAL_LIST_INIT(simple_animals, list(list(), list(), list(), list()))
-GLOBAL_LIST_EMPTY(bots_list) 					//List of all bots(beepsky, medibots,etc)
+GLOBAL_LIST_EMPTY(bots_list)					//List of all bots(beepsky, medibots,etc)
 GLOBAL_LIST_EMPTY(morphs_alive_list)
 
 GLOBAL_LIST_EMPTY(med_hud_users)
@@ -83,3 +84,6 @@ GLOBAL_LIST_INIT(halo_callbacks, list(
 GLOBAL_LIST_EMPTY(wryn_structures)
 
 GLOBAL_LIST_EMPTY(robot_skins)
+
+/// List of all /datum/nutrition_level
+GLOBAL_LIST_EMPTY(nutrition_levels)

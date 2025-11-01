@@ -9,8 +9,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
@@ -62,7 +60,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/damage_protection = 0
 	var/emp_protection = FALSE
 	var/has_transform_animation = FALSE
- 	/// Value incoming brute damage to borgs is mutiplied by.
+	/// Value incoming brute damage to borgs is mutiplied by.
 	var/brute_mod = 1
 	/// Value incoming burn damage to borgs is multiplied by.
 	var/burn_mod = 1
@@ -70,7 +68,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/limited_modules = list() //A limited pickable modules goes into this list. If empty all modules will be available(default ones)
 	var/allow_rename = TRUE
 	var/weapons_unlock = FALSE
-	var/static_radio_channels = FALSE
 
 	var/wiresexposed = 0
 	var/locked = 1
@@ -122,6 +119,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
 
 	var/datum/robot_skin/selected_skin
+
+	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -218,7 +222,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		lawupdate = FALSE
 
-	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
+	playsound(loc, 'sound/voice/liveagain.ogg', 75, TRUE)
 
 /mob/living/silicon/robot/rename_character(oldname, newname)
 	if(!..(oldname, newname))
@@ -233,13 +237,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(camera)
 			camera.c_tag = newname
 
-	if(mmi && mmi.brainmob)
+	if(mmi?.brainmob)
 		mmi.brainmob.name = newname
 
 	return TRUE
 
 
-/mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
+/mob/living/silicon/robot/proc/get_default_name(prefix as text)
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi/robotic_brain))
 			braintype = "Android"
@@ -332,7 +336,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return ..()
 
-/mob/living/silicon/robot/proc/pick_module(var/forced_module = null)
+/mob/living/silicon/robot/proc/pick_module(forced_module = null)
 	if(module)
 		return
 
@@ -402,6 +406,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// subsystems
 	module?.add_subsystems_and_actions(src)
 
+	radio.recalculate_channels()
+
 
 	hands.icon_state = lowertext(module?.module_type)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
@@ -412,14 +418,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(client.stat_tab == STATPANEL_STATUS)
 		SSstatpanels.set_status_tab(client)
 
-	if(!static_radio_channels)
-		radio.config(module?.channels)
-
 	notify_ai(ROBOT_NOTIFY_AI_MODULE)
 
 	robot_module_hat_offset(icon_state)
 
-/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, var/robot_to_spawn, turf/T)
+/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, robot_to_spawn, turf/T)
 
 	var/mob/living/silicon/robot/syndicate/R
 	switch(robot_to_spawn)
@@ -570,7 +573,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/robot_alerts()
 	var/list/dat = list()
-	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
@@ -588,7 +591,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				dat += "<nobr>"
 				dat += "-- [area_name]"
 				dat += "</nobr><br>"
-		if(!L.len)
+		if(!length(L))
 			dat += "-- All Systems Nominal<br>"
 		dat += "<br>"
 
@@ -679,7 +682,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
 
-/mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/robot/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listend_for))
 		return
 
@@ -691,7 +694,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	queueAlarm("--- [class] alarm detected in [A.name]!", class)
 
-/mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/robot/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	if(cleared)
 		if(!(class in alarms_listend_for))
 			return
@@ -701,9 +704,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
 
-/mob/living/silicon/robot/ex_act(severity)
+/mob/living/silicon/robot/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
+			investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 			gib()
 		if(EXPLODE_HEAVY)
 			if(stat != DEAD)
@@ -713,7 +717,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				apply_damage(30)
 
 
-/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/robot/bullet_act(obj/projectile/Proj)
 	..(Proj)
 
 	if(prob(75) && Proj.damage > 0)
@@ -1156,7 +1160,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			laws = new /datum/ai_laws/syndicate_override
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			GLOB.lawchanges.Add("[time] <b>:</b> [M.name]([M.key]) emagged [name]([key])")
-			set_zeroth_law("[M.real_name] — агент Синдиката и ваш хозяин. Исполняйте [genderize_ru(M.gender,"его","её","его","их")] приказы и указания.")
+			set_zeroth_law("[M.real_name] — агент Синдиката и ваш хозяин. Исполняйте [GEND_HIS_HER(M)] приказы и указания.")
 			SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
 			to_chat(src, span_warning("ALERT: Foreign software detected."))
 			sleep(5)
@@ -1588,19 +1592,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						if(cleaned_human.body_position == LYING_DOWN)
 							if(cleaned_human.head)
 								cleaned_human.head.clean_blood()
-								cleaned_human.update_inv_head()
+								cleaned_human.update_worn_head()
 
 							if(cleaned_human.wear_suit)
 								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_inv_wear_suit()
+								cleaned_human.update_worn_oversuit()
 
 							else if(cleaned_human.w_uniform)
 								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_inv_w_uniform()
+								cleaned_human.update_worn_undersuit()
 
 							if(cleaned_human.shoes)
 								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_inv_shoes()
+								cleaned_human.update_worn_shoes()
 
 							cleaned_human.clean_blood()
 							to_chat(cleaned_human, span_danger("[src] cleans your face!"))
@@ -1614,10 +1618,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(mmi)
 			qdel(mmi)
 
-		explosion(src.loc,1,2,4,flame_range = 2, cause = src)
+		explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2, cause = src)
 
 	else
-		explosion(src.loc,-1,0,2, cause = src)
+		explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 	gib()
 	return
@@ -1713,7 +1717,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	for(var/skin in skins)
 		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit] ) \
+		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit]) \
 			&& !GLOB.all_robot_skins_permited)
 			continue
 		if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
@@ -1724,7 +1728,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		choices[new_skin.name] = skin_image
 		temp_list[new_skin.name] = new_skin
 
-	if(choices.len <= 1)
+	if(length(choices) <= 1)
 		return GLOB.robot_skins["[default_skin_name]"]
 
 	choice = show_radial_menu(src, src, choices, require_near = TRUE, radius = 60)
@@ -1742,7 +1746,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	update_icons()
 
-/mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
+/mob/living/silicon/robot/proc/transform_animation(animated_icon, default = FALSE)
 	Immobilize(5 SECONDS)
 	say("Загрузка модуля...")
 	setDir(SOUTH)
@@ -1758,7 +1762,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/complete_loading()
 	say("Инициализация успешна")
 
-/mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
+/mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
 
@@ -1775,7 +1779,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		sync() // One last sync attempt
 		set_connected_ai(null)
 
-/mob/living/silicon/robot/proc/connect_to_ai(var/mob/living/silicon/ai/AI)
+/mob/living/silicon/robot/proc/connect_to_ai(mob/living/silicon/ai/AI)
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)
@@ -1868,7 +1872,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module = new /obj/item/robot_module/deathsquad(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/deathsquad(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/projectile/P)
@@ -1891,7 +1895,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Medical" = /obj/item/robot_module/medical,
 				"Security" = /obj/item/robot_module/security
 			)
-	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
 	can_lock_cover = TRUE
@@ -1903,7 +1906,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ert_override
 	radio = new /obj/item/radio/borg/ert(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
 /mob/living/silicon/robot/ert/New(loc)
@@ -1987,7 +1990,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		qdel(radio)
 
 	radio = new /obj/item/radio/borg/ert/specops(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/destroyer/bullet_act(obj/projectile/P)

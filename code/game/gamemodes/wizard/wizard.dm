@@ -1,7 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/wizards = list()
-	var/list/datum/mind/apprentices = list()
-
 /datum/game_mode/wizard
 	name = "wizard"
 	config_tag = "wizard"
@@ -115,13 +111,13 @@
 	wizhud.leave_hud(wiz_mind.current)
 	set_antag_hud(wiz_mind.current, null)
 
-/datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
+/datum/game_mode/proc/forge_wizard_objectives(datum/mind/wizard)
 	var/datum/objective/wizchaos/wiz_objective = new
 	wiz_objective.owner = wizard
 	wizard.objectives += wiz_objective
 	return
 
-/datum/game_mode/proc/forge_wizard_apprentice_objectives(var/datum/mind/wizard, var/datum/mind/apprentice)
+/datum/game_mode/proc/forge_wizard_apprentice_objectives(datum/mind/wizard, datum/mind/apprentice)
 	apprentice.objectives += wizard.objectives
 
 	var/datum/objective/wizchaos/wiz_objective = new /datum/objective/protect
@@ -146,13 +142,13 @@
 	if(wizard_mob.mind)
 		wizard_mob.mind.name = newname
 
-	if (!(wizard_mob in wizards))
-		for (var/datum/mind/apprentice in apprentices)
-			for (var/datum/objective/protect/objective in apprentice.objectives)
+	if(!(wizard_mob in wizards))
+		for(var/datum/mind/apprentice in apprentices)
+			for(var/datum/objective/protect/objective in apprentice.objectives)
 				objective.explanation_text = "Protect [wizard_mob.real_name], the wizard teacher."
 
 
-/datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+/datum/game_mode/proc/greet_wizard(datum/mind/wizard, you_are=1)
 	addtimer(CALLBACK(wizard.current, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	var/list/messages = list()
 	if(you_are)
@@ -295,15 +291,15 @@
 		finished = 1
 		return 1
 
-/datum/game_mode/wizard/declare_completion(var/ragin = 0)
+/datum/game_mode/wizard/declare_completion(ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
-		to_chat(world, span_warning(span_bold(span_fontsize3(" The wizard[(wizards.len>1)?"s":""] [(apprentices.len>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!"))))
+		to_chat(world, span_warning(span_bold(span_fontsize3(" The wizard[(length(wizards)>1)?"s":""] [(length(apprentices)>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!"))))
 	..()
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
-	if(wizards.len)
+	if(length(wizards))
 		var/list/text = list(span_bold(span_fontsize3("<br>the wizards/witches were:")))
 
 		for(var/datum/mind/wizard in wizards)
@@ -343,12 +339,12 @@
 				var/i = 1
 				for(var/obj/effect/proc_holder/spell/spell as anything in wizard.spell_list)
 					text += "[spell.name]"
-					if(wizard.spell_list.len > i)
+					if(length(wizard.spell_list) > i)
 						text += ", "
 					i++
 			text += "<br>"
 
-		if(apprentices.len)
+		if(length(apprentices))
 			text += span_bold(span_fontsize3("<br>the wizards/witches apprentices were:"))
 			for(var/datum/mind/apprentice in apprentices)
 				text += "<br><b>[apprentice.get_display_key()]</b> was <b>[apprentice.name]</b> ("
@@ -418,4 +414,4 @@ Made a proc so this is not repeated 14 (or more) times.*/
 		return 1
 
 /proc/iswizard(mob/living/M as mob)
-	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.wizards) || (M.mind in SSticker.mode.apprentices))
+	return istype(M) && M.mind && SSticker?.mode && ((M.mind in SSticker.mode.wizards) || (M.mind in SSticker.mode.apprentices))

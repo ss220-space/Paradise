@@ -4,6 +4,7 @@
 	obj_damage = 40
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Bitflags. Set to ENVIRONMENT_SMASH_STRUCTURES to break closets,tables,racks, etc; ENVIRONMENT_SMASH_WALLS for walls; ENVIRONMENT_SMASH_RWALLS for rwalls
 	AI_delay_max = 1.5 SECONDS
+	a_intent = INTENT_HARM
 	var/atom/target
 	var/ranged = FALSE
 	var/ranged_distance = INFINITY
@@ -92,7 +93,7 @@
 /mob/living/simple_animal/hostile/Life(seconds, times_fired)
 	. = ..()
 	if(!.)	// dead
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 
 
 /mob/living/simple_animal/hostile/handle_automated_action()
@@ -152,8 +153,8 @@
 		FindTarget(list(user), TRUE)
 
 
-/mob/living/simple_animal/hostile/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
-	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && isatom(source)) // strings are often used in electrocute_act()
+/mob/living/simple_animal/hostile/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && isatom(source))
 		FindTarget(list(source))
 	return ..()
 
@@ -169,7 +170,7 @@
 
 
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
-	if(retaliate_only && !enemies.len)
+	if(retaliate_only && !length(enemies))
 		return list()
 	if(!search_objects)
 		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
@@ -301,13 +302,13 @@
 
 	var/list/mob/high_priority_targets = list()
 	for(var/mob/T in Targets)
-		if (!(T.UID() in low_priority_targets))
+		if(!(T.UID() in low_priority_targets))
 			high_priority_targets.Add(T)
 
-	if (high_priority_targets.len)
+	if(length(high_priority_targets))
 		Targets = high_priority_targets
 
-	if(!Targets.len)//We didnt find nothin!
+	if(!length(Targets))//We didnt find nothin!
 		return
 
 	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
@@ -392,14 +393,14 @@
 		for(var/i in 1 to rapid_melee)
 			addtimer(cb, (i - 1)*delay)
 	else if(target)
-		AttackingTarget()
+		UnarmedAttack(target, TRUE)
 	if(patience)
 		GainPatience()
 
 
 /mob/living/simple_animal/hostile/proc/CheckAndAttack()
 	if(target && targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && !incapacitated())
-		AttackingTarget()
+		UnarmedAttack(target, TRUE)
 
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)//Step 5, handle movement between us and our target
@@ -418,12 +419,12 @@
 			if(COOLDOWN_FINISHED(src, ranged_cooldown) && !target.Adjacent(targets_from)&& target_distance <= ranged_distance) //But make sure they're not in range for a melee attack
 				OpenFire(target)
 		if(!Process_Spacemove(NONE)) //Drifting
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			return TRUE
 		if(!isnull(retreat_distance)) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
 				var/glide_flag = move_to_delay > END_GLIDE_SPEED ? MOVEMENT_LOOP_IGNORE_GLIDE : NONE
-				SSmove_manager.move_away(src, target, retreat_distance, move_to_delay, flags = glide_flag)
+				GLOB.move_manager.move_away(src, target, retreat_distance, move_to_delay, flags = glide_flag)
 			else
 				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
 		else
@@ -459,8 +460,8 @@
 		approaching_target = FALSE
 	var/glide_flag = delay > END_GLIDE_SPEED ? MOVEMENT_LOOP_IGNORE_GLIDE : NONE
 	if(use_pathfinding)
-		return SSmove_manager.move_to_pathfind(src, target, minimum_distance, delay, timeout, flags = glide_flag)
-	return SSmove_manager.move_to(src, target, minimum_distance, delay, timeout, flags = glide_flag)
+		return GLOB.move_manager.move_to_pathfind(src, target, minimum_distance, delay, timeout, flags = glide_flag)
+	return GLOB.move_manager.move_to(src, target, minimum_distance, delay, timeout, flags = glide_flag)
 
 
 /mob/living/simple_animal/hostile/adjustHealth(
@@ -489,7 +490,6 @@
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	in_melee = TRUE
-	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	if(!client)
 		mob_attack_logs += "[time_stamp()] Attacked [target] at [COORD(src)]"
 	var/result = attack_proc()
@@ -501,7 +501,7 @@
 
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
-	if(target && emote_taunt.len && prob(taunt_chance))
+	if(target && length(emote_taunt) && prob(taunt_chance))
 		INVOKE_ASYNC(src, PROC_REF(custom_emote), EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
 
@@ -517,7 +517,7 @@
 	GiveTarget(null)
 	approaching_target = FALSE
 	in_melee = FALSE
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	LoseAggro()
 
 
@@ -569,13 +569,14 @@
 	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 
 /mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)
-	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
+	if(QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from)
 		return
 	var/turf/startloc = get_turf(targets_from)
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, TRUE)
 		casing.fire(targeted_atom, src, zone_override = ran_zone())
+		casing.after_fire()
 	else if(projectiletype)
 		var/obj/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, TRUE)

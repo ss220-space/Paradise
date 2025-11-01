@@ -178,7 +178,7 @@
 	if(!force && !can_implant(source, user))
 		return
 	var/obj/item/implant/imp_e = locate(type) in source
-	if(!allow_multiple && imp_e && imp_e != src)
+	if(!allow_multiple && imp_e && imp_e != src && imp_e.type == src.type)
 		if(imp_e.uses < initial(imp_e.uses) * 2)
 			if(uses == -1)
 				imp_e.uses = -1
@@ -193,7 +193,7 @@
 	implanted = BIOCHIP_IMPLANTED
 
 	if(trigger_emotes)
-		if(!(trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL|BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL))
+		if(!(trigger_causes & (BIOCHIP_EMOTE_TRIGGER_INTENTIONAL|BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL)))
 			CRASH("Bio-chip [src] has trigger emotes defined but no trigger cause with which to use them!")
 		if(activated == BIOCHIP_ACTIVATED_PASSIVE && (trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL))
 			CRASH("Bio-chip [src] has intentional emote triggers on a passive bio-chip")

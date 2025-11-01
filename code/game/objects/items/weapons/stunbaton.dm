@@ -6,23 +6,22 @@
 	base_icon_state = "stunbaton"
 	item_state = "baton"
 	belt_icon = "stunbaton"
-	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("огрел", "ударил")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	active = FALSE
 	allows_stun_in_harm = TRUE
 	force_say_chance = 50
-	stamina_damage = 55
+	stamina_damage = 45
 	knockdown_time = 5 SECONDS
 	clumsy_knockdown_time = 15 SECONDS
 	cooldown = 2.5 SECONDS
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	on_stun_volume = 50
 	/// Time passed between a hit and knockdown effect.
-	var/knockdown_delay_time = 2 SECONDS
+	var/knockdown_delay_time = 4 SECONDS
 	/// Chance for the baton to stun when thrown at someone.
 	var/throw_stun_chance = 50
 	/// Cell to use, can be a path, to start loaded.
@@ -111,7 +110,7 @@
 		//we're below minimum, turn off
 		active = FALSE
 		update_icon(UPDATE_ICON_STATE)
-		playsound(src, "sparks", 75, TRUE, -1)
+		playsound(src, SFX_SPARKS, 75, TRUE, -1)
 
 
 /obj/item/melee/baton/security/clumsy_check(mob/living/carbon/human/user, mob/living/intented_target)
@@ -162,7 +161,7 @@
 	if(cell?.charge >= cell_hit_cost)
 		active = !active
 		balloon_alert(user, "[active ? "включено" : "выключено"]")
-		playsound(src, "sparks", 75, TRUE, -1)
+		playsound(src, SFX_SPARKS, 75, TRUE, -1)
 	else
 		if(isrobot(loc))
 			balloon_alert(user, "недостаточно заряда!")
@@ -239,7 +238,7 @@
 			span_warning("[user] shocks [user.p_themselves()] while attempting to wash the active [src]!"),
 			span_userdanger("You unwisely attempt to wash [src] while it's still on."),
 		)
-		playsound(src, "sparks", 50, TRUE)
+		playsound(src, SFX_SPARKS, 50, TRUE)
 		deductcharge(cell_hit_cost)
 		return TRUE
 	return ..()

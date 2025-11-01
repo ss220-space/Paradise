@@ -10,6 +10,19 @@
 	pixel_x = -16
 	layer = 9
 
+
+/// Return a see_through_map, examples in seethrough.dm
+/obj/structure/flora/tree/proc/get_seethrough_map()
+	return SEE_THROUGH_MAP_DEFAULT
+
+
+/obj/structure/flora/tree/ComponentInitialize()
+	AddComponent(/datum/component/seethrough, get_seethrough_map())
+
+
+/obj/structure/flora/tree/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+
 /obj/structure/flora/tree/pine
 	name = "pine tree"
 	icon = 'icons/obj/flora/pinetrees.dmi'
@@ -23,7 +36,6 @@
 
 /obj/structure/flora/tree/pine/xmas
 	name = "xmas tree"
-	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_c"
 	randomize_tree = FALSE
 
@@ -45,12 +57,14 @@
 	pixel_x = 0
 
 /obj/structure/flora/tree/jungle
-	name = "tree"
 	icon_state = "tree"
 	desc = "It's seriously hampering your view of the jungle."
 	icon = 'icons/obj/flora/jungletrees.dmi'
 	pixel_x = -48
 	pixel_y = -20
+
+/obj/structure/flora/tree/jungle/get_seethrough_map()
+	return SEE_THROUGH_MAP_DEFAULT_TWO_TALL
 
 /obj/structure/flora/tree/jungle/Initialize(mapload)
 	icon_state = "[icon_state][rand(1, 6)]"
@@ -60,6 +74,9 @@
 	pixel_y = 0
 	pixel_x = -32
 	icon = 'icons/obj/flora/jungletreesmall.dmi'
+
+/obj/structure/flora/tree/jungle/small/get_seethrough_map()
+	return SEE_THROUGH_MAP_DEFAULT
 
 //grass
 /obj/structure/flora/grass
@@ -227,13 +244,10 @@
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
 	item_flags = NO_PIXEL_RANDOM_DROP
-	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
-	w_class = WEIGHT_CLASS_HUGE
 	force = 10
 	force_wielded = 10
 	throwforce = 13
-	throw_speed = 2
 	throw_range = 4
 	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished plant has been lit up
 	var/light_process = 0
@@ -255,12 +269,12 @@
 	if(num == 9)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light_range_power_color(l_range_init, l_power_init, COLOR_LUMINOL)
+		set_light_range_power_color(l_range_init, l_power_init, LIGHT_COLOR_CYAN)
 		set_light_on(TRUE)
 	else if(num == 20)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light_range_power_color(l_range_init, l_power_init, COLOR_WHEAT)
+		set_light_range_power_color(l_range_init, l_power_init, LIGHT_COLOR_BRIGHT_YELLOW)
 		set_light_on(TRUE)
 
 
@@ -370,7 +384,6 @@
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "cornstalk1"
-	anchored = FALSE
 	layer = 5
 
 /obj/structure/flora/corn_stalk/alt_1
@@ -484,7 +497,6 @@
 	icon_state = "rock"
 	desc = "A pile of rocks."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	density = FALSE
 
 /obj/structure/flora/rock/jungle/Initialize(mapload)
 	. = ..()
@@ -517,10 +529,8 @@
 	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/structure/flora/rock/pile/largejungle
-	name = "rocks"
 	icon_state = "rocks"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
-	density = FALSE
 	pixel_x = -16
 	pixel_y = -16
 
@@ -535,7 +545,6 @@
 	desc = "A bush being consumed by flames. Maybe it'll rise from its ashes like a phoenix?"
 	icon = 'icons/obj/flora/hellflora.dmi'
 	icon_state = "hell_bush"
-	density = FALSE
 	light_color = "#e08300"
 	light_power = 2
 	light_range = 3
@@ -550,7 +559,7 @@
 	resistance_flags = LAVA_PROOF
 	gender = PLURAL
 
-/obj/structure/flora/ausbushes/fullgrass/hell/Initialize()
+/obj/structure/flora/ausbushes/fullgrass/hell/Initialize(mapload)
 	. = ..()
 	icon_state = "fullgrass_[rand(1, 3)]"
 	light_color = pick("#e87800", "#780606")
@@ -564,7 +573,7 @@
 	resistance_flags = LAVA_PROOF
 	gender = PLURAL
 
-/obj/structure/flora/ausbushes/sparsegrass/hell/Initialize()
+/obj/structure/flora/ausbushes/sparsegrass/hell/Initialize(mapload)
 	. = ..()
 	icon_state = "sparsegrass_[rand(1, 3)]"
 	light_color = pick("#e87800", "#780606")
@@ -583,10 +592,9 @@
 	desc = "Some kind of orange plant that appears to be slowly burning."
 	icon = 'icons/obj/flora/hellflora.dmi'
 	light_range = 2
-	light_power = 1
 	resistance_flags = LAVA_PROOF
 
-/obj/structure/flora/ausbushes/hell/Initialize()
+/obj/structure/flora/ausbushes/hell/Initialize(mapload)
 	. = ..()
 	if(icon_state == "firstbush_1")
 		icon_state = "firstbush_[rand(1, 4)]"
@@ -597,10 +605,9 @@
 	desc = "Some kind of orange fern."
 	icon = 'icons/obj/flora/hellflora.dmi'
 	light_range = 2
-	light_power = 1
 	resistance_flags = LAVA_PROOF
 
-/obj/structure/flora/ausbushes/fernybush/hell/Initialize()
+/obj/structure/flora/ausbushes/fernybush/hell/Initialize(mapload)
 	. = ..()
 	icon_state = "fernybush_[rand(1, 3)]"
 	light_color = pick("#e87800", "#780606")
@@ -613,7 +620,7 @@
 	light_power = 2
 	resistance_flags = LAVA_PROOF
 
-/obj/structure/flora/ausbushes/genericbush/hell/Initialize()
+/obj/structure/flora/ausbushes/genericbush/hell/Initialize(mapload)
 	. = ..()
 	icon_state = "genericbush_[rand(1, 4)]"
 	light_color = pick("#e87800", "#780606")
@@ -627,3 +634,35 @@
 	light_range = 2
 	resistance_flags = LAVA_PROOF
 	gender = PLURAL
+
+/obj/structure/festivus
+	name = "festivus pole"
+	desc = "На прошлогодних \"Испытаниях Силы\" директор исследований умудрился забросить этот неподвижный стержень, пролетавший мимо, прямиком в цветочный горшок."
+	icon = 'icons/obj/flora/pinetrees.dmi'
+	icon_state = "festivus_pole"
+
+/obj/structure/festivus/get_ru_names()
+	return list(
+		NOMINATIVE = "горшок силы",
+		GENITIVE = "горшка силы",
+		DATIVE = "горшка силы",
+		ACCUSATIVE = "горшок силы",
+		INSTRUMENTAL = "горшком силы",
+		PREPOSITIONAL = "горшке силы"
+	)
+
+/obj/structure/festivus/anchored
+	name = "suplexed rod"
+	desc = "Настоящий подвиг силы, почти не уступающий прошлогоднему."
+	icon_state = "anchored_rod"
+	anchored = TRUE
+
+/obj/structure/festivus/anchored/get_ru_names()
+	return list(
+		NOMINATIVE = "остановленный стержень",
+		GENITIVE = "остановленного стерженя",
+		DATIVE = "остановленному стерженю",
+		ACCUSATIVE = "остановленный стержень",
+		INSTRUMENTAL = "остановленным стерженем",
+		PREPOSITIONAL = "остановленном стержене"
+	)

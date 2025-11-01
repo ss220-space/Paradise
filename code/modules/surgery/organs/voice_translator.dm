@@ -1,8 +1,8 @@
-#define DEFAULT_CHIP_SLOTS	1
-#define UPGRADE_SLOTS_GREY 	2
+#define DEFAULT_CHIP_SLOTS 1
+#define UPGRADE_SLOTS_GREY 2
 
 
-	// TRANSLATORS //
+// TRANSLATORS //
 
 // Translators also fulfil the role of ‘vocal cords’ when there is a TRAIT_NO_VOCAL_CORDS in species inherent traits.
 // With translator any mob can speak even muted, unless being emped.
@@ -10,7 +10,7 @@
 
 /obj/item/organ/internal/cyberimp/mouth/translator // Lets make it some easier to make a new one. Write this if you want to make non-species translator.
 	name = "Just An Empty Translator"  // You cant get it in-game. At least now
-	desc = "Может быть, учёные NanoTrasen заставят работать его позже..."
+	desc = "Может быть, учёные Nanotrasen заставят работать его позже..."
 	//icon =
 	//icon_state =
 	//origin_tech =
@@ -44,14 +44,6 @@
 /obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator
 	name = "Psionic Voice Retranslator"
 	desc = "Необычный инопланетный имплант с маленьким экранчиком. Судя по всему, создан специально для греев."
-	ru_names = list(
-		NOMINATIVE = "ретранслятор псионического голоса",
-		GENITIVE = "ретранслятора псионического голоса",
-		DATIVE = "ретранслятору псионического голоса",
-		ACCUSATIVE = "ретранслятор псионического голоса",
-		INSTRUMENTAL = "ретранслятором псионического голоса",
-		PREPOSITIONAL = "ретрансляторе псионического голоса",
-	)
 	icon = 'icons/obj/voice_translator.dmi'
 	icon_state = "pvr_implant"
 	given_languages = list()
@@ -59,6 +51,15 @@
 	origin_tech = "materials=2;biotech=3;engineering=3;programming=3;abductor=2"
 	species_restrictions = list(SPECIES_GREY, SPECIES_ABDUCTOR)
 
+/obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/get_ru_names()
+	return list(
+		NOMINATIVE = "ретранслятор псионического голоса",
+		GENITIVE = "ретранслятора псионического голоса",
+		DATIVE = "ретранслятору псионического голоса",
+		ACCUSATIVE = "ретранслятор псионического голоса",
+		INSTRUMENTAL = "ретранслятором псионического голоса",
+		PREPOSITIONAL = "ретрансляторе псионического голоса",
+	)
 
 /obj/item/organ/internal/cyberimp/mouth/translator/New()
 	if(!..())
@@ -341,7 +342,6 @@
 
 /datum/action/item_action/organ_action/translator_select_language
 	name = "Выбрать используемый язык"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "select_language"
 
 
@@ -354,7 +354,6 @@
 
 /datum/action/item_action/organ_action/wingdings_decoder
 	name = "Переключить дешифратор Вингдингс"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "wingdings_off"
 	use_itemicon = FALSE
 
@@ -412,7 +411,7 @@
 
 /obj/item/translator_upgrade // just adminspawn now
 	name = "translator upgrade"
-	desc = "Учёные NanoTrasen ещё не поняли, как он работает. Может быть, позже..."
+	desc = "Учёные Nanotrasen ещё не поняли, как он работает. Может быть, позже..."
 	w_class = WEIGHT_CLASS_TINY
 	var/extra_slots = 1
 
@@ -420,7 +419,13 @@
 /obj/item/translator_upgrade/grey_retraslator
 	name = "PVR storage upgrade"
 	desc = "Маленькое инопланетное устройство с мелким экраном, показывающим только помехи. Видимо, что-то из технологий греев."
-	ru_names = list(
+	icon = 'icons/obj/voice_translator.dmi'
+	icon_state = "pvr_upgrade"
+	origin_tech = "materials=2;programming=3;abductor=1"
+	extra_slots = UPGRADE_SLOTS_GREY
+
+/obj/item/translator_upgrade/grey_retraslator/get_ru_names()
+	return list(
 		NOMINATIVE = "модуль улучшения РПГ",
 		GENITIVE = "модуля улучшения РПГ",
 		DATIVE = "модулю улучшения РПГ",
@@ -428,25 +433,12 @@
 		INSTRUMENTAL = "модулем улучшения РПГ",
 		PREPOSITIONAL = "модуле улучшения РПГ",
 	)
-	icon = 'icons/obj/voice_translator.dmi'
-	icon_state = "pvr_upgrade"
-	origin_tech = "materials=2;programming=3;abductor=1"
-	extra_slots = UPGRADE_SLOTS_GREY
-
 
 	// LANGUAGE TRANSLATOR CHIPS //
 
 /obj/item/translator_chip
 	name = "language chip"
 	desc = "Крошечный чип с мигающим индикатором."
-	ru_names = list(
-		NOMINATIVE = "языковой чип",
-		GENITIVE = "языкового чипа",
-		DATIVE = "языковому чипу",
-		ACCUSATIVE = "языковой чип",
-		INSTRUMENTAL = "языковым чипом",
-		PREPOSITIONAL = "языковом чипе",
-	)
 	icon = 'icons/obj/voice_translator.dmi'
 	icon_state = "chip_empty"
 	w_class = WEIGHT_CLASS_TINY
@@ -454,6 +446,15 @@
 	var/datum/language/stored_language
 	var/stored_language_rus
 
+/obj/item/translator_chip/get_ru_names()
+	return list(
+		NOMINATIVE = "языковой чип",
+		GENITIVE = "языкового чипа",
+		DATIVE = "языковому чипу",
+		ACCUSATIVE = "языковой чип",
+		INSTRUMENTAL = "языковым чипом",
+		PREPOSITIONAL = "языковом чипе",
+	)
 
 /obj/item/translator_chip/New()
 	. = ..()

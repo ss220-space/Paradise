@@ -1,24 +1,12 @@
 /obj/item/extinguisher
 	name = "fire extinguisher"
 	desc = "Традиционный красный огнетушитель."
-	ru_names = list(
-		NOMINATIVE = "огнетушитель",
-		GENITIVE = "огнетушителя",
-		DATIVE = "огнетушителю",
-		ACCUSATIVE = "огнетушитель",
-		INSTRUMENTAL = "огнетушителем",
-		PREPOSITIONAL = "огнетушителе"
-	)
-	icon = 'icons/obj/items.dmi'
 	icon_state = "fire_extinguisher0"
 	base_icon_state = "fire_extinguisher"
 	item_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
-	throw_range = 7
 	force = 10
 	container_type = AMOUNT_VISIBLE
 	materials = list(MAT_METAL=90)
@@ -40,18 +28,19 @@
 	/// Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled.
 	var/cooling_power = 2
 
+/obj/item/extinguisher/get_ru_names()
+	return list(
+		NOMINATIVE = "огнетушитель",
+		GENITIVE = "огнетушителя",
+		DATIVE = "огнетушителю",
+		ACCUSATIVE = "огнетушитель",
+		INSTRUMENTAL = "огнетушителем",
+		PREPOSITIONAL = "огнетушителе"
+	)
 
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
 	desc = "Лёгкая и компактная модель огнетушителя в фиберглассовом корпусе."
-	ru_names = list(
-		NOMINATIVE = "карманный огнетушитель",
-		GENITIVE = "карманного огнетушителя",
-		DATIVE = "карманному огнетушителю",
-		ACCUSATIVE = "карманный огнетушитель",
-		INSTRUMENTAL = "карманным огнетушителем",
-		PREPOSITIONAL = "карманном огнетушителе"
-	)
 	icon_state = "miniFE0"
 	base_icon_state = "miniFE"
 	item_state = "miniFE"
@@ -63,6 +52,17 @@
 	materials = list()
 	max_water = 30
 	dog_fashion = null
+	toolbox_radial_menu_compatibility = TRUE
+
+/obj/item/extinguisher/mini/get_ru_names()
+	return list(
+		NOMINATIVE = "карманный огнетушитель",
+		GENITIVE = "карманного огнетушителя",
+		DATIVE = "карманному огнетушителю",
+		ACCUSATIVE = "карманный огнетушитель",
+		INSTRUMENTAL = "карманным огнетушителем",
+		PREPOSITIONAL = "карманном огнетушителе"
+	)
 
 
 /obj/item/extinguisher/Initialize(mapload)
@@ -109,7 +109,7 @@
 		var/obj/structure/reagent_dispensers/watertank/watertank = target
 		var/transferred = watertank.reagents.trans_to(src, max_water)
 		if(transferred > 0)
-			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] был заправлен на [transferred] единиц[declension_ru(transferred,"у","ы","")]."))
+			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] был заправлен на [transferred] единиц[DECL_SEC_MIN(transferred)]."))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			for(var/datum/reagent/water/reagent in reagents.reagent_list)
 				reagent.cooling_temperature = cooling_power
@@ -186,7 +186,7 @@
 
 //Chair movement loop
 /obj/item/extinguisher/proc/move_chair(obj/buckled_object, movementdirection)
-	var/datum/move_loop/loop = SSmove_manager.move(buckled_object, movementdirection, 1, timeout = 9, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	var/datum/move_loop/loop = GLOB.move_manager.move(buckled_object, movementdirection, 1, timeout = 9, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	//This means the chair slowing down is dependant on the extinguisher existing, which is weird
 	//Couldn't figure out a better way though
 	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(manage_chair_speed))

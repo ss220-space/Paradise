@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			uploaded_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
 			SEND_SOUND(M, uploaded_sound)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Play Global Sound")
 
 
 /client/proc/play_local_sound(S as sound)
@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	log_and_message_admins("played a local sound [S]")
 	playsound(get_turf(src.mob), S, 50, FALSE, 0)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Play Local Sound")
 
 
 /client/proc/play_web_sound()
@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		else
 			var/url = web_sound_url
 			switch(CONFIG_GET(string/asset_transport))
-				if ("webroot")
+				if(ASSET_TRANSPORT_WEBROOT)
 					var/datum/asset/music/my_asset
 					if(GLOB.cached_songs[web_sound_path])
 						my_asset = GLOB.cached_songs[web_sound_path]
@@ -165,21 +165,21 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 				if(C.prefs.sound & SOUND_MIDI)
 					C.tgui_panel?.play_music(url, music_extra_data)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
+	BLACKBOX_LOG_ADMIN_VERB("Play Internet Sound")
 
 /client/proc/play_server_sound()
 	set category = STATPANEL_ADMIN_SOUNDS
 	set name = "Play Server Sound"
 	if(!check_rights(R_SOUNDS))	return
 
-	var/list/sounds = file2list("sound/serversound_list.txt")
+	var/list/sounds = world.file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
 	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
 	if(!melody)	return
 
 	play_sound(melody)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Server Sound") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Play Server Sound")
 
 /client/proc/play_intercomm_sound()
 	set category = STATPANEL_ADMIN_SOUNDS
@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/A = alert(usr, "This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
 	if(A != "Yep")	return
 
-	var/list/sounds = file2list("sound/serversound_list.txt")
+	var/list/sounds = world.file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
 	var/melody = tgui_input_list(usr, "Select a sound from the server to play", "Server sound list", sounds)
@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		var/obj/item/radio/intercom/I = O
 		if(!is_station_level(I.z) && !ignore_z)
 			continue
-		if(!I.on && !ignore_power)
+		if(!I.is_on() && !ignore_power)
 			continue
 		playsound(I, melody, cvol)
 

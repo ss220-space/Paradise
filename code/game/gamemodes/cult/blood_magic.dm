@@ -195,8 +195,10 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/emp/Activate()
-	owner.visible_message(span_warning("[owner]'s body flashes a bright blue!"), \
-						 span_cultitalic("You speak the cursed words, channeling an electromagnetic pulse from your body."))
+	owner.visible_message(
+		span_warning("[owner]'s body flashes a bright blue!"), \
+		span_cultitalic("You speak the cursed words, channeling an electromagnetic pulse from your body.")
+	)
 	owner.emp_act(2)
 	add_attack_logs(owner, owner, "activated EMP spell")
 	empulse(owner, 2, 5, cause = "cult")
@@ -231,14 +233,18 @@
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
 	var/turf/T = get_turf(owner)
-	owner.visible_message(span_warning("[owner]'s hand glows red for a moment."), \
-						  span_cultitalic("Red light begins to shimmer and take form within your hand!"))
+	owner.visible_message(
+		span_warning("[owner]'s hand glows red for a moment."), \
+		span_cultitalic("Red light begins to shimmer and take form within your hand!")
+	)
 	var/obj/item/melee/cultblade/dagger/O = new(T)
 	if(owner.put_in_hands(O))
 		to_chat(owner, span_warning("A [O.name] appears in your hand!"))
 	else
-		owner.visible_message(span_warning("A [O.name] appears at [owner]'s feet!"), \
-							  span_cultitalic("A [O.name] materializes at your feet."))
+		owner.visible_message(
+			span_warning("A [O.name] appears at [owner]'s feet!"), \
+			span_cultitalic("A [O.name] materializes at your feet.")
+		)
 	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE)
 	charges--
 	desc = base_desc
@@ -275,7 +281,6 @@
 	return TRUE
 
 /obj/effect/proc_holder/horror
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
@@ -367,15 +372,11 @@
 /obj/item/melee/blood_magic
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
-	icon = 'icons/obj/items.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	/// Does it have a source, AKA bloody empowerment.
@@ -386,12 +387,12 @@
 	var/datum/action/innate/cult/blood_spell/source
 	var/max_charges
 
-/obj/item/melee/blood_magic/New(loc, spell)
-	if(has_source)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
+	. = ..()
+	if(spell && has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(has_source && !QDELETED(source))
@@ -447,35 +448,47 @@
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
+
 	if(iscultist(target))
 		return
+
 	user.visible_message(	span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
 							span_cultitalic("You attempt to stun [L] with the spell!"))
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
+
 	if(N)
-		target.visible_message(	span_warning("[target]'s holy weapon absorbs the red light!"), \
-								span_userdanger("Your holy weapon absorbs the blinding light!"))
-	else
-		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
-		// These are in life cycles, so double the time that's stated.
-		L.Knockdown(3 SECONDS)
-		L.apply_damage(30, STAMINA)
-		L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
-		L.flash_eyes(1, TRUE)
-		if(issilicon(target))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.Silence(10 SECONDS)
-			C.Stuttering(16 SECONDS)
-			C.CultSlur(20 SECONDS)
-			C.Jitter(16 SECONDS)
+		target.visible_message(span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"), \
+								span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"))
+		uses--
+		return ..()
+
+	if(ismindshielded(L))
+		target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"), \
+								span_userdanger("Ваш имплант блокирует ослепляющий свет!"))
+		return ..()
+
+	to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
+	// These are in life cycles, so double the time that's stated.
+	L.Knockdown(3 SECONDS)
+	L.apply_damage(55, STAMINA)
+	L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+	L.flash_eyes(1, TRUE)
+
+	if(issilicon(target))
+		var/mob/living/silicon/S = L
+		S.emp_act(EMP_HEAVY)
+	else if(iscarbon(target))
+		var/mob/living/carbon/C = L
+		C.Silence(10 SECONDS)
+		C.Stuttering(16 SECONDS)
+		C.CultSlur(20 SECONDS)
+		C.Jitter(16 SECONDS)
+
 	uses--
-	..()
+	return ..()
 
 
 //Teleportation
@@ -501,39 +514,52 @@
 		else
 			teleportnames.Add(resultkey)
 			duplicaterunecount[resultkey] = 1
-		potential_runes[resultkey] = T
+		if(is_station_level(T.z))
+			potential_runes[resultkey] = T
 
 	if(!length(potential_runes))
 		to_chat(user, span_warning("There are no valid runes to teleport to!"))
 		return
+
 	if(!is_level_reachable(user.z))
 		to_chat(user, span_cultitalic("You are not in the right dimension!"))
 		return
 
-	var/mob/living/L = target
+	var/mob/living/teleporting_mob = target
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
-		return
-	uses--
-
-	var/turf/origin = get_turf(user)
 	var/turf/destination = get_turf(actual_selected_rune)
-	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), user, origin, destination)
+	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune || !destination)
+		return
+
+	var/turf/origin = get_turf(teleporting_mob)
+	var/mob_color = teleporting_mob.color
+	animate(teleporting_mob, color = LIGHT_COLOR_BLOOD_MAGIC, time = 1.5 SECONDS)
+	if(!do_after(user, 2 SECONDS, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = "") || !destination)
+		teleporting_mob.color = mob_color
+		balloon_alert(user, "телепорт прерван!")
+		return
+
+	playsound(origin, 'sound/misc/enter_blood.ogg', 50, TRUE, -1)
+	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), teleporting_mob, origin, destination)
+	add_attack_logs(teleporting_mob, destination, "Teleported to by [user]", ATKLOG_ALL)
+	uses--
+	teleporting_mob.color = mob_color
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
 	else if(!is_station_level(user.z) || istype(get_area(user), /area/space))
 		actual_selected_rune.handle_portal("space", origin)
 
-	if(user == target)
-		target.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!"), \
+	if(user == teleporting_mob)
+		teleporting_mob.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!"), \
 		span_cultitalic("You speak the words and find yourself somewhere else!"))
 	else
-		target.visible_message(span_warning("Dust flows from [user]'s hand, and [target] disappears in a flash of red light!"), \
+		teleporting_mob.visible_message(span_warning("Dust flows from [user]'s hand, and [teleporting_mob] disappears in a flash of red light!"), \
 		span_cultitalic("You suddenly find yourself somewhere else!"))
 	destination.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
-	L.forceMove(destination)
+	teleporting_mob.forceMove(destination)
+	playsound(destination, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)
 	return ..()
 
 //Shackles
@@ -579,7 +605,6 @@
 /obj/item/restraints/handcuffs/energy/cult //For the shackling spell
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
-	trashtype = /obj/item/restraints/handcuffs/energy/used
 	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user, slot, silent = FALSE)
@@ -644,10 +669,11 @@
 			else
 				channeling = FALSE
 				return
+
 		else
 			to_chat(user, span_warning("The spell will not work on [target]!"))
 			return
-		..()
+		return ..()
 
 //Armor: Gives the target a basic cultist combat loadout
 /obj/item/melee/blood_magic/armor
@@ -805,8 +831,10 @@
 						uses += 50
 						user.Beam(H, icon_state = "drainbeam", time = 10)
 						playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50)
-						H.visible_message(span_danger("[user] has drained some of [H]'s blood!"),
-											span_userdanger("[user] has drained some of your blood!"))
+						H.visible_message(
+							span_danger("[user] has drained some of [H]'s blood!"),
+							span_userdanger("[user] has drained some of your blood!")
+						)
 						to_chat(user, span_cultitalic("Your blood rite gains 50 charges from draining [H]'s blood."))
 						new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					else
@@ -823,13 +851,17 @@
 			if(missing)
 				if(uses > missing)
 					M.adjustHealth(-missing)
-					M.visible_message(span_warning("[M] is fully healed by [user]'s blood magic!"),
-										span_cultitalic("You are fully healed by [user]'s blood magic!"))
+					M.visible_message(
+						span_warning("[M] is fully healed by [user]'s blood magic!"),
+						span_cultitalic("You are fully healed by [user]'s blood magic!")
+					)
 					uses -= missing
 				else
 					M.adjustHealth(-uses)
-					M.visible_message(span_warning("[M] is partially healed by [user]'s blood magic!"),
-										span_cultitalic("You are partially healed by [user]'s blood magic."))
+					M.visible_message(
+						span_warning("[M] is partially healed by [user]'s blood magic!"),
+						span_cultitalic("You are partially healed by [user]'s blood magic.")
+					)
 					uses = 0
 				playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25)
 				user.Beam(M, icon_state = "sendbeam", time = 10)

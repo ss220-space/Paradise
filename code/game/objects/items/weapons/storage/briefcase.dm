@@ -7,7 +7,6 @@
 	hitsound = "swing_hit"
 	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
-	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -26,7 +25,7 @@
 	new /obj/item/clothing/under/syndicate/sniper(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
-	new /obj/item/suppressor/specialoffer(src)
+	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/briefcase/false_bottomed
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -97,14 +96,6 @@
 /obj/item/case_with_bipki
 	name = "bipki case"
 	desc = "Легендарный чемодан с бипками! Стоп, а что такое бипки?"
-	ru_names = list(
-		NOMINATIVE = "чемодан с бипками",
-		GENITIVE = "чемодана с бипками",
-		DATIVE = "чемодану с бипками",
-		ACCUSATIVE = "чемодан с бипками",
-		INSTRUMENTAL = "чемоданом с бипками",
-		PREPOSITIONAL = "чемодане с бипками"
-	)
 	icon = 'icons/obj/beebki.dmi'
 	icon_state = "briefcase_bipki"
 	item_state = "briefcase"
@@ -113,6 +104,16 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	var/opened = FALSE
+
+/obj/item/case_with_bipki/get_ru_names()
+	return list(
+		NOMINATIVE = "чемодан с бипками",
+		GENITIVE = "чемодана с бипками",
+		DATIVE = "чемодану с бипками",
+		ACCUSATIVE = "чемодан с бипками",
+		INSTRUMENTAL = "чемоданом с бипками",
+		PREPOSITIONAL = "чемодане с бипками"
+	)
 
 /obj/item/case_with_bipki/attack_self(mob/user)
 	. = ..()

@@ -41,10 +41,6 @@
 	// Optimization, not for setting outside of initialize
 	var/init_air = TRUE
 
-	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
-
-	flags = 0
-
 	var/changing_turf = FALSE
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
@@ -78,6 +74,17 @@
 	///whether or not this turf forces movables on it to have no gravity (unless they themselves have forced gravity)
 	var/force_no_gravity = FALSE
 
+	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
+	var/list/fixed_underlay = null
+
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
+
+	var/pressure_difference = 0
+	var/pressure_direction = 0
+	var/list/atmos_adjacent_turfs = list()
+	var/atmos_supeconductivity = 0
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -108,7 +115,7 @@
 
 	levelupdate()
 	if(smooth)
-		queue_smooth(src)
+		QUEUE_SMOOTH(src)
 
 	for(var/atom/movable/content as anything in src)
 		Entered(content)
@@ -128,10 +135,6 @@
 
 	ComponentInitialize()
 	return INITIALIZE_HINT_NORMAL
-
-/turf/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/blob_turf_consuming, 0)
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
@@ -183,7 +186,7 @@
 /turf/attack_robot(mob/user)
 	user.Move_Pulled(src)
 
-/turf/ex_act(severity)
+/turf/ex_act(severity, target)
 	return FALSE
 
 /turf/proc/blob_consume()
@@ -205,15 +208,15 @@
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
 
-/turf/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/beam/pulse))
-		src.ex_act(2)
+/turf/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/beam/pulse))
+		ex_act(EXPLODE_HEAVY)
 	..()
 	return FALSE
 
-/turf/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/bullet/gyro))
-		explosion(src, -1, 0, 2, cause = Proj)
+/turf/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/bullet/gyro))
+		explosion(src, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = proj)
 	..()
 	return FALSE
 
@@ -315,9 +318,9 @@
 			return
 		if(/turf/baseturf_bottom)
 			path = check_level_trait(z, ZTRAIT_BASETURF) || /turf/space
-			if (!ispath(path))
+			if(!ispath(path))
 				path = text2path(path)
-				if (!ispath(path))
+				if(!ispath(path))
 					warning("Z-level [z] has invalid baseturf '[check_level_trait(z, ZTRAIT_BASETURF)]'")
 					path = /turf/space
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
@@ -382,7 +385,7 @@
 		// We are guarenteed to have these overlays because of how generation works
 		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 		W.add_overlay(overlay)
-	else if (old_always_lit)
+	else if(old_always_lit)
 		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 		W.cut_overlay(overlay)
 
@@ -557,7 +560,7 @@
 
 /turf/handle_fall(mob/living/carbon/faller)
 	if(!no_gravity(src))
-		playsound(src, "bodyfall", 50, TRUE)
+		playsound(src, SFX_BODYFALL, 50, TRUE)
 
 	faller.drop_from_hands()
 
@@ -637,26 +640,23 @@
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
-/turf/proc/empty(turf_type = /turf/space)
-	// Remove all atoms except observers, landmarks, docking ports, and (un)`simulated` atoms (lighting overlays)
-	var/turf/T0 = src
-	for(var/X in T0.GetAllContents())
-		var/atom/A = X
-		if(!A.simulated)
-			continue
-		if(istype(A, /mob/dead))
-			continue
-		if(istype(A, /obj/effect/landmark))
-			continue
-		if(istype(A, /obj/docking_port))
-			continue
-		qdel(A, force = TRUE)
+/turf/proc/empty(turf_type=/turf/space, list/ignore_typecache, flags)
+	// Remove all atoms except observers, landmarks, docking ports
+	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port))
+	var/list/allowed_contents = typecache_filter_list_reverse(get_all_contents_ignoring(ignore_typecache), ignored_atoms)
+	allowed_contents -= src
+	for(var/i in 1 to allowed_contents.len)
+		var/thing = allowed_contents[i]
+		qdel(thing, force=TRUE)
 
-	T0.ChangeTurf(turf_type)
+	if(!turf_type)
+		return
 
-	SSair.remove_from_active(T0)
-	T0.CalculateAdjacentTurfs()
-	SSair.add_to_active(T0, TRUE)
+	var/turf/new_turf = ChangeTurf(turf_type, after_flags = flags)
+	SSair.remove_from_active(new_turf)
+	new_turf.CalculateAdjacentTurfs()
+	SSair.add_to_active(new_turf, TRUE)
+
 
 /turf/AllowDrop()
 	return TRUE
@@ -797,7 +797,7 @@
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	C.take_organ_damage(damage)
@@ -827,7 +827,7 @@
 
 	for(var/atom/movable/movable_content as anything in contents)
 		// We don't want to block ourselves
-		if((movable_content == source_atom))
+		if(movable_content == source_atom)
 			continue
 		// dont consider ignored atoms or their types
 		if(length(ignore_atoms))

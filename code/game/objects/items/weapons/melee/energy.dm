@@ -11,16 +11,14 @@
 	var/list/attack_verb_on = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
-	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	item_flags = NOSHARPENING
-	toolspeed = 1
 	light_power = 2
 	light_range = 2
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -38,8 +36,8 @@
 
 
 /obj/item/melee/energy/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
-						"<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
+	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku."), \
+						span_suicide("[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.")))
 	return BRUTELOSS|FIRELOSS
 
 
@@ -61,7 +59,7 @@
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+		to_chat(user, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_organ_damage(5,5)
 	active = !active
 	if(active)
@@ -70,18 +68,18 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		throw_speed = 4
 		w_class = w_class_on
-		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		playsound(user, 'sound/weapons/saberon.ogg', 35, TRUE) //changed it from 50% volume to 35% because deafness
+		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = list()
 		w_class = initial(w_class)
-		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		playsound(user, 'sound/weapons/saberoff.ogg', 35, TRUE)  //changed it from 50% volume to 35% because deafness
+		to_chat(user, span_notice("[src] can now be concealed."))
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -108,10 +106,16 @@
 	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	attack_verb_on = list()
 	sharp = 1
-	light_color = LIGHT_COLOR_WHITE
+
+/obj/item/melee/energy/axe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
+	)
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swings the [name] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] swings the [name] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/sword
@@ -130,6 +134,14 @@
 	block_chance = 50
 	sharp = 1
 	var/hacked = FALSE
+
+/obj/item/melee/energy/sword/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0, \
+		swing_sound = SFX_ENERGY_SWORD_SWING \
+	)
 
 /obj/item/melee/energy/sword/New()
 	..()
@@ -158,9 +170,7 @@
 /obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	force_on = 30
 	force = 18 //About as much as a spear
-	sharp = 1
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "esaw_0"
@@ -168,7 +178,6 @@
 	hitcost = 75 //Costs more than a standard cyborg esword
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
-	light_color = LIGHT_COLOR_WHITE
 	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
@@ -266,20 +275,27 @@
 	desc = "Arrrr matey."
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/item/melee/energy/blade
 	name = "energy blade"
 	desc = "A concentrated beam of energy in the shape of a blade. Very stylish... and lethal."
 	icon_state = "blade"
 	force = 30	//Normal attacks deal esword damage
-	hitsound = 'sound/weapons/blade1.ogg'
 	active = 1
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
 	sharp = 1
+
+/obj/item/melee/energy/blade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0, \
+		swing_sound = SFX_ENERGY_SWORD_SWING \
+	)
 
 /obj/item/melee/energy/blade/attack_self(mob/user)
 	return
@@ -299,7 +315,6 @@
 	force = 12
 	force_on = 20 //force when active
 	throwforce = 20
-	throwforce_on = 20
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
@@ -341,7 +356,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(50))
-			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+			to_chat(H, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 			H.take_organ_damage(10,10)
 	active = !active
 	if(active)
@@ -349,21 +364,21 @@
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		throw_speed = 4
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = attack_verb_on
 		w_class = w_class_on
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
-		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
+		to_chat(user, span_notice("You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna."))
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
-		if(attack_verb_on.len)
+		if(length(attack_verb_on))
 			attack_verb = list()
 		w_class = initial(w_class)
-		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE)  //changed it from 50% volume to 35% because deafness
+		to_chat(user, span_notice("You close [src]. It will now attack rapidly and cause fauna to bleed."))
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 
@@ -374,7 +389,7 @@
 	Transforming it immediately after an attack causes the next attack to come out faster.</span>"
 
 /obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	transform_cooldown = 0
 	transform_weapon(user, TRUE)
 	return BRUTELOSS

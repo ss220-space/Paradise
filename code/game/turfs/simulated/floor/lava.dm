@@ -1,14 +1,6 @@
 /turf/simulated/floor/lava
 	name = "lava"
 	desc = "Раскалённая жидкая порода, бурлящая адским жаром. Контакт с ней приведёт к мгновенным ожогам."
-	ru_names = list(
-		NOMINATIVE = "лава",
-		GENITIVE = "лавы",
-		DATIVE = "лаве",
-		ACCUSATIVE = "лаву",
-		INSTRUMENTAL = "лавой",
-		PREPOSITIONAL = "лаве"
-	)
 	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "unsmooth"
 	base_icon_state = "lava"
@@ -38,6 +30,16 @@
 	var/immunity_resistance_flags = LAVA_PROOF
 	/// Is the lava close to the shore
 	var/deep_water = TRUE
+
+/turf/simulated/floor/lava/get_ru_names()
+	return list(
+		NOMINATIVE = "лава",
+		GENITIVE = "лавы",
+		DATIVE = "лаве",
+		ACCUSATIVE = "лаву",
+		INSTRUMENTAL = "лавой",
+		PREPOSITIONAL = "лаве"
+	)
 
 /turf/simulated/floor/lava/ex_act()
 	return
@@ -274,7 +276,7 @@
 	var/obj/item/reagent_containers/food/snacks/charred_krill/krill = AM //yourself
 	krill.in_lava = TRUE
 	krill.anchored = TRUE	//no closet kidnaping
-	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[pluralize_ru(krill.gender, "ет", "ут")] в лаве!"))
+	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[PLUR_ET_UT(krill)] в лаве!"))
 	sleep(5 SECONDS)
 	qdel(krill)
 	if(!can_be_fished_on)
@@ -308,14 +310,21 @@
 			qdel(I)
 			return .|ATTACK_CHAIN_SUCCESS
 
-/turf/simulated/floor/lava/airless
-	temperature = TCMB
-
 /turf/simulated/floor/lava/lava_land_surface/plasma
 	name = "liquid plasma"
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 	desc = "Текучая масса охлаждённой жидкой плазмы. Вам определённо не стоит в этом купаться."
-	ru_names = list(
+	icon = 'icons/turf/floors/liquidplasma.dmi'
+	base_icon_state = "liquidplasma"
+	can_be_fished_on = FALSE // ~ Sin City's cold and empty, No one`s around to judge me ~
+	light_range = 3
+	light_color = LIGHT_COLOR_PINK
+	lava_damage = 2
+	/// How much fire and toxic damage we deal to human mobs stepping on us
+	var/human_tox_fire_damage = 15
+
+/turf/simulated/floor/lava/lava_land_surface/plasma/get_ru_names()
+	return list(
 		NOMINATIVE = "жидкая плазма",
 		GENITIVE = "жидкой плазмы",
 		DATIVE = "жидкой плазме",
@@ -323,17 +332,6 @@
 		INSTRUMENTAL = "жидкой плазмой",
 		PREPOSITIONAL = "жидкой плазме"
 	)
-	icon = 'icons/turf/floors/liquidplasma.dmi'
-	base_icon_state = "liquidplasma"
-	icon_state = "unsmooth"
-	smooth = SMOOTH_BITMASK
-	can_be_fished_on = FALSE // ~ Sin City's cold and empty, No one`s around to judge me ~
-	light_range = 3
-	light_power = 0.75
-	light_color = LIGHT_COLOR_PINK
-	lava_damage = 2
-	/// How much fire and toxic damage we deal to human mobs stepping on us
-	var/human_tox_fire_damage = 15
 
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
@@ -349,7 +347,7 @@
 
 	. |= ATTACK_CHAIN_SUCCESS
 	if(!I.reagents.add_reagent("plasma", 10))
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] уже заполнен[genderize_ru(I.gender,"","а","о","ы")] до краёв."))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] уже заполнен[GEND_A_O_Y(I)] до краёв."))
 		return .
 	to_chat(user, span_notice("Вы черпаете лаву из [declent_ru(GENITIVE)] используя [I.declent_ru(ACCUSATIVE)]."))
 

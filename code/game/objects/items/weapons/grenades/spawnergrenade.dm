@@ -1,9 +1,7 @@
 /obj/item/grenade/spawnergrenade
 	name = "delivery grenade"
 	desc = "Она взорвётся через 5 секунд, что вызовет выброс всех содержащихся в ней существ."
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "delivery"
-	item_state = "flashbang"
 	origin_tech = "materials=3;magnets=4"
 	var/spawner_type = null // must be an object path
 	var/deliveryamt = 1 // amount of type to deliver
@@ -19,7 +17,7 @@
 			C.flash_eyes()
 
 		for(var/i=1, i<=deliveryamt, i++)
-			var/atom/movable/x = new spawner_type
+			var/atom/movable/x = new spawner_type(loc)
 			if(flags & ADMIN_SPAWNED)
 				x.flags |= ADMIN_SPAWNED
 			x.loc = T
@@ -34,7 +32,6 @@
 
 /obj/item/grenade/spawnergrenade/manhacks
 	name = "manhack delivery grenade"
-	spawner_type = /mob/living/simple_animal/hostile/viscerator
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
@@ -47,7 +44,12 @@
 /obj/item/grenade/spawnergrenade/feral_cats
 	name = "feral cat delivery grenade"
 	desc = "Граната, содержащая 5 дегидратированных кошек!"
-	ru_names = list(
+	spawner_type = /mob/living/simple_animal/hostile/feral_cat
+	deliveryamt = 5
+	origin_tech = "materials=3;magnets=4;syndicate=3"
+
+/obj/item/grenade/spawnergrenade/feral_cats/get_ru_names()
+	return list(
 		NOMINATIVE = "граната с дикими кошками",
 		GENITIVE = "гранаты с дикими кошками",
 		DATIVE = "гранате с дикими кошками",
@@ -55,9 +57,6 @@
 		INSTRUMENTAL = "гранатой с дикими кошками",
 		PREPOSITIONAL = "гранате с дикими кошками"
 	)
-	spawner_type = /mob/living/simple_animal/hostile/feral_cat
-	deliveryamt = 5
-	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/grenade/spawnergrenade/feral_cats/prime()			//Own proc for this because the regular one would flash people which was dumb.
 	update_mob()

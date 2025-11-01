@@ -140,6 +140,11 @@ export const RADIO_CHANNELS: Channel[] = [
     color: '#dd3535',
   },
   {
+    name: 'Заключенные',
+    freq: 1361,
+    color: '#ff831a',
+  },
+  {
     name: 'Безопасность (ИТК)',
     freq: 1475,
     color: '#dd3535',

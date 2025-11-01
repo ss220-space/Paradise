@@ -147,7 +147,7 @@
 	if(..())
 		return
 	if(shuttle_and_preview_cooldown > world.time)
-		to_chat(usr, "<span class='warning'>Please wait until the desired shuttle has finished being loaded.</span>")
+		to_chat(usr, span_warning("Please wait until the desired shuttle has finished being loaded."))
 		return
 	. = TRUE
 
@@ -236,6 +236,9 @@
 		throw EXCEPTION(m)
 
 	var/result = preview_shuttle.canDock(D)
+	if(result == SHUTTLE_LOCKED)
+		// currenct shuttle is locked, do nothing
+		return
 	// truthy value means that it cannot dock for some reason
 	// but we can ignore the someone else docked error because we'll
 	// be moving into their place shortly

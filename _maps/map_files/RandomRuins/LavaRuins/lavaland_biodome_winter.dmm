@@ -498,7 +498,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/twohanded/required/chainsaw,
+/obj/item/twohanded/chainsaw_handmade,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Lf" = (

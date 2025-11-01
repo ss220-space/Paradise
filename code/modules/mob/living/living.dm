@@ -1,9 +1,9 @@
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.add_to_hud(src)
+	medhud.add_atom_to_hud(src)
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	gravity_setup()
@@ -120,16 +120,17 @@
 
 	// If you are incapped, you probably can't brace yourself
 	var/can_help_themselves = !incapacitated(INC_IGNORE_RESTRAINED)
-	if(levels <= 1 && can_help_themselves)
+	if(can_help_themselves)
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[pluralize_ru(src.gender,"ётся","ются")] невредим[genderize_ru(src.gender,"","а","о","ы")] после падения."),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[PLUR_YOT_YUT(src)]ся невредим[GEND_A_O_Y(src)] после падения."),
 				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
-			AdjustWeakened((levels * 4 SECONDS))
+			AdjustKnockdown(levels * (4 SECONDS))
 			return . | ZIMPACT_NO_MESSAGE
-	var/incoming_damage = (levels * 5) ** 1.5
+
+	var/incoming_damage = 25 + (levels - 1) * 50
 	var/cat = iscat(src)
 	var/functional_legs = TRUE
 	var/skip_weaken = FALSE
@@ -139,18 +140,19 @@
 			if(leg.has_fracture())
 				functional_legs = FALSE
 				break
-	if(((istajaran(src) && functional_legs) || cat) && body_position != LYING_DOWN && can_help_themselves)
+	// cat check, work only for 1 level fall
+	if(levels <= 1 && ((istajaran(src) && functional_legs) || cat) && body_position != LYING_DOWN && can_help_themselves)
 		. |= ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 		skip_weaken = TRUE
 		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[pluralize_ru(src.gender,"ет","ют")] на ноги!"),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_YUT(src)] на ноги!"),
 				span_notice("Вы жёстко приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакиваете на ноги!"),
 			)
 			return .
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[pluralize_ru(src.gender,"ёт","ют")] на ноги!"),
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_YUT(src)] на ноги!"),
 			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)]] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
@@ -160,13 +162,20 @@
 		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_R_LEG)
 		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_PRECISE_L_FOOT)
 		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_PRECISE_R_FOOT)
-
 	else
 		apply_damage(incoming_damage, BRUTE)
 
-	if(!skip_weaken)
+	if(skip_weaken)
+		return
+
+	if(levels > 1)
+		if(prob(50))
+			emote("scream") //for fun
 		AdjustWeakened(levels * 5 SECONDS)
-	return .
+		return
+	// fall to 1 level
+	AdjustKnockdown(5 SECONDS)
+	return . |= ZIMPACT_NO_SPIN
 
 
 // Generic Bump(). Override MobBump() and ObjBump() instead of this.
@@ -198,7 +207,7 @@
 		bumped_mob.Weaken(1 SECONDS)
 		bumped_mob.take_organ_damage(rand(5, 10))
 		visible_message(
-			span_danger("[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [bumped_mob.declent_ru(ACCUSATIVE)], сбивая друг друга с ног!"),
+			span_danger("[name] вреза[PLUR_ET_YUT(src)]ся в [bumped_mob.declent_ru(ACCUSATIVE)], сбивая друг друга с ног!"),
 			span_userdanger("Вы жестко врезаетесь в [bumped_mob.declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
@@ -247,12 +256,12 @@
 		if(bumped_mob.pulledby == src && !too_strong)
 			mob_swap = TRUE
 		// can't swap or push mobs in neck grab
-		else if( \
+		else if(\
 			(bumped_mob.pulling && bumped_mob.grab_state >= GRAB_NECK) || \
 			(bumped_mob.pulledby && bumped_mob.pulledby.grab_state >= GRAB_NECK))
 			return TRUE
 		// restrained people act if they were on 'help' intent to prevent a person being pulled from being separated from their puller
-		else if( \
+		else if(\
 			((HAS_TRAIT(bumped_mob, TRAIT_RESTRAINED) && !too_strong) || bumped_mob.a_intent == INTENT_HELP) && \
 			(HAS_TRAIT(src, TRAIT_RESTRAINED) || a_intent == INTENT_HELP))
 			mob_swap = TRUE
@@ -305,7 +314,7 @@
 		Weaken(1 SECONDS)
 		take_organ_damage(rand(5, 10))
 		visible_message(
-			span_danger("[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [object.declent_ru(ACCUSATIVE)]!"),
+			span_danger("[name] вреза[PLUR_ET_YUT(src)]ся в [object.declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Вы жестко врезаетесь в [object.declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
@@ -446,7 +455,7 @@
 		return FALSE
 
 	// NEED_HANDS is already checked by MOBILITY_UI for humans so this is for silicons
-	if((action_bitflags & NEED_HANDS))
+	if(action_bitflags & NEED_HANDS)
 		if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 			to_chat(src, span_warning("Ваши руки заблокированы для этого действия!"))
 			return FALSE
@@ -465,7 +474,7 @@
 					to_chat(src, span_warning("Вы слишком далеко!"))
 				return FALSE
 		else // just a normal carbon mob
-			if((action_bitflags & FORBID_TELEKINESIS_REACH))
+			if(action_bitflags & FORBID_TELEKINESIS_REACH)
 				if(!(action_bitflags & SILENT_ADJACENCY))
 					to_chat(src, span_warning("Вы слишком далеко!"))
 				return FALSE
@@ -516,19 +525,21 @@
 
 /// Special projectiles handling for living mobs
 /mob/living/proc/projectile_allow_through(obj/projectile/projectile, border_dir)
-	// default behavior for generic mobs
-	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))
-		return !density
 	// DEAD mobs are fine to skip if they are not dense or lying
-	if(stat == DEAD)
+	if(stat == DEAD && projectile.original != src)
 		return !density || body_position == LYING_DOWN
 	// always hitting dense/standing mobs
 	if(density || body_position == STANDING_UP)
-		return FALSE
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		return !prob(def_zone_hit_chance)
+	//if this is clicked target in lying down
+	if(projectile.original == src)
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		return !prob(def_zone_hit_chance)
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
-	if(projectile.hit_crawling_mobs_chance > 0 && projectile.hit_crawling_mobs_chance <= 100)
-		return !prob(projectile.hit_crawling_mobs_chance)
-	return TRUE
+	var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+	var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
+	return !prob(total_hit_chance)
 
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
@@ -594,12 +605,12 @@
 
 	if(isgun(hand_item) && target != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(target))
-			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
+			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
 
 		target.visible_message(
-			span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
+			span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
+			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на вас!"),
 		)
 		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
 		SEND_SOUND(src, sound('sound/weapons/targeton.ogg'))
@@ -608,12 +619,12 @@
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
 		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руках!"))
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у н[GEND_HIS_HER(src)] в руках!"))
 		trick.shoot_gun(src)
 		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 		return TRUE
 
-	visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] на [pointed_object].")
+	visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_YUT(src)] на [pointed_object].")
 	add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 	return TRUE
 
@@ -622,8 +633,8 @@
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 
-/mob/living/ex_act(severity)
-	..()
+/mob/living/ex_act(severity, target)
+	. = ..()
 	flash_eyes()
 
 /mob/living/acid_act(acidpwr, acid_volume)
@@ -644,6 +655,7 @@
 	med_hud_set_status()
 	update_health_hud()
 	update_stamina_hud()
+	update_nutrition_hud()
 	update_damage_hud()
 	if(should_log)
 		log_debug("[src] update_stat([reason][HAS_TRAIT(src, TRAIT_GODMODE) ? ", GODMODE" : ""])")
@@ -691,10 +703,11 @@
 
 
 /mob/proc/get_contents()
+	return
 
 
 //Recursive function to find everything a mob is holding.
-/mob/living/get_contents(var/obj/item/storage/Storage = null)
+/mob/living/get_contents(obj/item/storage/Storage = null)
 	var/list/L = list()
 
 	if(Storage) //If it called itself
@@ -919,7 +932,7 @@
 	if(isliving(pulling))
 		set_pull_offsets(pulling, grab_state)
 
-	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
+	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !(s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss() * 200 / maxHealth))
@@ -940,7 +953,7 @@
 		return
 	Knockdown(3 SECONDS)
 	puller.stop_pulling()
-	visible_message(span_danger("Ноги [name] путаются и [genderize_ru(gender,"он","она","оно","они")] с грохотом пада[pluralize_ru(gender,"ет","ют")] на пол!"))
+	visible_message(span_danger("Ноги [name] путаются и [GEND_HE_SHE(src)] с грохотом пада[PLUR_ET_YUT(src)] на пол!"))
 
 
 /mob/living/proc/makeTrail(turf/T)
@@ -978,7 +991,7 @@
 					new /obj/effect/decal/cleanable/trail_holder(loc)
 
 				for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)
-					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
+					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && length(TH.existing_dirs) <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
 						TH.existing_dirs += newdir
 						TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
@@ -990,11 +1003,11 @@
 								TH.color = H.dna.species.blood_color
 
 						else
-							TH.color = "#A10808"
+							TH.color = BLOOD_COLOR_RED
 
 
 /mob/living/carbon/human/makeTrail(turf/T)
-	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !bleed_rate || bleedsuppress)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !bleed_rate)
 		return
 	..()
 
@@ -1016,7 +1029,7 @@
 
 	if(has_limbs)
 		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
-		if (T)
+		if(T)
 			turfs_to_check += T
 
 		T = get_step(src, angle2dir(dir2angle(direction) - 90))
@@ -1117,7 +1130,7 @@
 		if(ishuman(src))
 			var/mob/living/carbon/human/human = src
 			. *= human.physiology.grab_resist_mod
-		. = round(. * (1 - (clamp(getStaminaLoss(), 0, maxHealth) / maxHealth)))
+		. = round(. * (1 - (clamp(getStaminaLoss(), 0, get_max_stamina()) / get_max_stamina())))
 	else if(. < 0)
 		. = 0
 		stack_trace("Wrong resist chance passed to get_resist_chance(), defaulting to zero.")
@@ -1140,11 +1153,11 @@
 	if(resist_chance > 0 && prob(resist_chance))
 		add_attack_logs(pulledby, src, "broke grab", ATKLOG_ALL)
 		visible_message(
-			span_danger("[name] вырвал[genderize_ru(gender, "ся", "ась", "ось", "ись")] из захвата [pulledby.name]!"),
+			span_danger("[name] вырвал[GEND_SYA_AS_OS_IS(src)] из захвата [pulledby.name]!"),
 			span_danger("Вы вырвались из захвата [pulledby.name]!"),
 			ignored_mobs = pulledby,
 		)
-		to_chat(pulledby, span_danger("[name] вырвал[genderize_ru(gender, "ся", "ась", "ось", "ись")] из Вашего захвата!"))
+		to_chat(pulledby, span_danger("[name] вырвал[GEND_SYA_AS_OS_IS(src)] из Вашего захвата!"))
 		pulledby.stop_pulling()
 		return FALSE
 
@@ -1160,7 +1173,7 @@
 		span_danger("Вам не удаётся вырваться из захвата [pulledby.name]!"),
 		ignored_mobs = pulledby,
 	)
-	to_chat(pulledby, span_danger("[name] пыта[pluralize_ru(gender,"ется","ются")] вырваться из Вашего захвата!"))
+	to_chat(pulledby, span_danger("[name] пыта[PLUR_ET_YUT(src)]ся вырваться из Вашего захвата!"))
 	COOLDOWN_START(src, grab_resist_delay, 2 SECONDS)
 	if(moving_resist && client) //we resisted by trying to move
 		client.move_delay = world.time + 2 SECONDS
@@ -1392,21 +1405,21 @@
 					SSticker.mode.add_clocker(mind)
 					mind.transfer_to(cog)
 				else
-					cog.key = client.key
+					cog.possess_by_player(client.key)
 			if(2)
 				var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
 				if(mind)
 					SSticker.mode.add_clocker(mind)
 					mind.transfer_to(cog)
 				else
-					cog.key = client.key
+					cog.possess_by_player(client.key)
 			if(3)
 				var/mob/living/silicon/robot/cog = new (get_turf(src))
 				if(mind)
 					SSticker.mode.add_clocker(mind)
 					mind.transfer_to(cog)
 				else
-					cog.key = client.key
+					cog.possess_by_player(client.key)
 				cog.ratvar_act()
 	spawn_dust()
 	gib()
@@ -1487,7 +1500,7 @@
 	gib()
 
 
-/mob/living/proc/can_use_guns(var/obj/item/gun/G)
+/mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
 		to_chat(src, span_warning("У вас недостаточно ловкости для этого!"))
 		return 0
@@ -1495,7 +1508,7 @@
 
 
 /mob/living/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
-	return ..() && !(buckled && buckled.buckle_prevents_pull)
+	return ..() && !(buckled?.buckle_prevents_pull)
 
 
 /mob/living/proc/can_pull(hand_to_check, supress_message = FALSE)
@@ -1550,8 +1563,8 @@
 	if(pulled_atom.pulledby)
 		if(!supress_message)
 			pulled_atom.visible_message(
-				span_danger("[name] перехватил[genderize_ru(gender,"","а","о","и")] [pulled_atom.name] у [pulled_atom.pulledby.name]."),
-				span_danger("[name] перехватил[genderize_ru(gender,"","а","о","и")] Вас у [pulled_atom.pulledby.name]!"),
+				span_danger("[name] перехватил[GEND_A_O_I(src)] [pulled_atom.name] у [pulled_atom.pulledby.name]."),
+				span_danger("[name] перехватил[GEND_A_O_I(src)] Вас у [pulled_atom.pulledby.name]!"),
 			)
 			to_chat(src, span_notice("Вы перехватили [pulled_atom.name] у [pulled_atom.pulledby.name]!"))
 		add_attack_logs(pulled_atom, pulled_atom.pulledby, "pulled from", ATKLOG_ALMOSTALL)
@@ -1589,15 +1602,15 @@
 				var/mob/living/carbon/human/grabbed_human = pulled_mob
 				var/grabbed_by_hands = (zone_selected == BODY_ZONE_PRECISE_R_HAND || zone_selected == BODY_ZONE_PRECISE_L_HAND) && grabbed_human.usable_hands > 0
 				grabbed_human.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"),
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас[grabbed_by_hands ? " за руки" : ""]!"),
+					span_warning("[name] схватил[GEND_A_O_I(src)] [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"),
+					span_warning("[name] схватил[GEND_A_O_I(src)] Вас[grabbed_by_hands ? " за руки" : ""]!"),
 					ignored_mobs = src,
 				)
 				to_chat(src, span_notice("Вы cхватили [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"))
 			else
 				pulled_mob.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+					span_warning("[name] схватил[GEND_A_O_I(src)] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
+					span_warning("[name] схватил[GEND_A_O_I(src)] Вас!"),
 					ignored_mobs = src,
 				)
 				to_chat(src, span_notice("Вы схватили [pulled_mob.declent_ru(ACCUSATIVE)]!"))
@@ -1699,8 +1712,8 @@
 			if(!head)
 				return
 			victim.visible_message(
-				span_danger("[attacker] нанос[pluralize_ru(attacker.gender,"ит","ят")] удар головой в мягкие ткани черепа [victim.name]!"),
-				span_userdanger("[attacker] нанос[pluralize_ru(attacker.gender,"ит","ят")] удар головой в мягкие ткани Вашего черепа!"),
+				span_danger("[attacker] нанос[PLUR_IT_YAT(attacker)] удар головой в мягкие ткани черепа [victim.name]!"),
+				span_userdanger("[attacker] нанос[PLUR_IT_YAT(attacker)] удар головой в мягкие ткани Вашего черепа!"),
 			)
 			attacker.do_attack_animation(victim, no_effect = TRUE)
 			var/damage = 5
@@ -1709,7 +1722,7 @@
 			victim.apply_damage(damage*rand(90, 110)/100, BRUTE, BODY_ZONE_HEAD, victim.run_armor_check(head, MELEE))
 			if(prob(40))
 				victim.Knockdown(2 SECONDS)
-			playsound(victim.loc, "desceration", 35, TRUE, -1)
+			playsound(victim.loc, SFX_DESECRATION, 35, TRUE, -1)
 			add_attack_logs(attacker, victim, "Headbutted")
 
 		if(INTENT_GRAB)
@@ -1796,12 +1809,12 @@
 		take_organ_damage(damage)
 	C.take_organ_damage(damage)
 	C.Weaken(3 SECONDS)
-	C.visible_message(span_danger("[C.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [name], сбивая друг друга с ног!"),
+	C.visible_message(span_danger("[C.name] вреза[PLUR_ET_YUT(src)]ся в [name], сбивая друг друга с ног!"),
 					span_userdanger("Вы жестко врезаетесь в [name]!"))
 
 
 /mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
-	return "Unknown"
+	return UNKNOWN_STATUS_RUS
 
 
 /**
@@ -1838,7 +1851,7 @@
 
 	if(examine_time && target != src)
 		var/visible_gender = target.get_visible_gender()
-		var/visible_species = "Unknown"
+		var/visible_species = UNKNOWN_STATUS_RUS
 
 		// If we did not see the target with our own eyes when starting the examine, then there is no need to check whether it is close.
 		var/near_target = examine_distance_check(target)
@@ -1880,12 +1893,12 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_EXAMINE, user, .)
 
 /**
-  * Sets the mob's direction lock towards a given atom.
-  *
-  * Arguments:
-  * * a - The atom to face towards.
-  * * track - If TRUE, updates our direction relative to the atom when moving.
-  */
+ * Sets the mob's direction lock towards a given atom.
+ *
+ * Arguments:
+ * * a - The atom to face towards.
+ * * track - If TRUE, updates our direction relative to the atom when moving.
+ */
 /mob/living/proc/set_forced_look(atom/A, track = FALSE)
 	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
 	setDir()
@@ -1895,11 +1908,11 @@
 
 
 /**
-  * Clears the mob's direction lock if enabled.
-  *
-  * Arguments:
-  * * quiet - Whether to display a chat message.
-  */
+ * Clears the mob's direction lock if enabled.
+ *
+ * Arguments:
+ * * quiet - Whether to display a chat message.
+ */
 /mob/living/proc/clear_forced_look(quiet = FALSE)
 	if(!forced_look)
 		return
@@ -2054,7 +2067,7 @@
 	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
 	if(rotate_on_lying)
-		body_position_pixel_y_offset = PIXEL_Y_OFFSET_LYING
+		body_position_pixel_y_offset = pixel_y_lying_offset
 	if(!buckled || buckled.buckle_lying == NO_BUCKLE_LYING)
 		lying_angle_on_lying_down(new_lying_angle)
 
@@ -2075,9 +2088,7 @@
 
 /// Returns what the body_position_pixel_y_offset should be if the current size were `value`
 /mob/living/proc/get_pixel_y_offset_standing(value)
-	var/icon/living_icon = icon(icon)
-	var/height = living_icon.Height()
-	return (value-1) * height * 0.5
+	return (value-1) * get_cached_height() * 0.5
 
 
 /mob/living/proc/toggle_resting()
@@ -2126,6 +2137,7 @@
 /// Proc to append and redefine behavior to the change of the [/mob/living/var/resting] variable.
 /mob/living/proc/update_resting()
 	//update_rest_hud_icon()
+	return
 
 
 /// Change the [body_position] to [LYING_DOWN] and update associated behavior.
@@ -2276,7 +2288,7 @@
 	if(enable)
 		if(stat == DEAD)	// dead mobs are skipped, unless we are removing SSD status
 			return FALSE
-		if(!mind.active || (ckey && ckey[1] == "@")) 	// aghosting will do this, we want to avoid SSDing admemes
+		if(!mind.active || (ckey && ckey[1] == "@"))	// aghosting will do this, we want to avoid SSDing admemes
 			return FALSE
 		if(!isnull(player_logged))	// already in SSD, return TRUE and we are done
 			return TRUE
@@ -2373,9 +2385,10 @@
 /mob/living/proc/knockOver(mob/living/carbon/target)
 	if(target.key) //save us from monkey hordes
 		target.visible_message(span_warning("[pick( \
-						  "[target] спотыка[pluralize_ru(target.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
-						  "[target] опрокидыва[pluralize_ru(target.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
-						  "[target] отлета[pluralize_ru(target.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [genderize_ru(target.gender, "его", "её", "его", "их")] упасть!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]"))
+			"[target] спотыка[PLUR_ET_YUT(target)]ся об [declent_ru(GENITIVE)]!", \
+			"[target] опрокидыва[PLUR_ET_YUT(target)]ся на [declent_ru(GENITIVE)]!", \
+			"[target] отлета[PLUR_ET_YUT(target)] с пути [declent_ru(GENITIVE)]!", \
+			"[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
+			"[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
+			"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]")
+		)

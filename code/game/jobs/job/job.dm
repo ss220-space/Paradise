@@ -6,6 +6,7 @@
 	//Job access. The use of minimal_access or access is determined by a config setting: CONFIG_GET(flag/jobs_have_minimal_access)
 	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
 	var/list/access = list()				//Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
+	var/law_level = LAW_LEVEL_BASE
 
 	//Bitflags for the job
 	var/flag = 0
@@ -81,11 +82,20 @@
 
 	var/insurance = INSURANCE_STANDART
 	var/insurance_type = INSURANCE_TYPE_STANDART
+	var/announce_job = TRUE
+
+	/// The department the job belongs to.
+	var/department = null
+
+	/// Whether this is a head position
+	var/head_position = 0
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	return
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
+	return
 
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE)
 	if(!H)
@@ -140,13 +150,13 @@
 	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	var/list/slightly_prohibited_disabilities = list(DISABILITY_FLAG_PARAPLEGIA)
 
-	for(var/i = 1, i <= prohibited_disabilities.len, i++)
+	for(var/i = 1, i <= length(prohibited_disabilities), i++)
 		var/this_disability = prohibited_disabilities[i]
 		if(C.prefs.disabilities & this_disability)
 			return 1
 
 	if(!disabilities_allowed_slightly)
-		for(var/i = 1, i <= slightly_prohibited_disabilities.len, i++)
+		for(var/i = 1, i <= length(slightly_prohibited_disabilities), i++)
 			var/this_disability = slightly_prohibited_disabilities[i]
 			if(C.prefs.disabilities & this_disability)
 				return 1
@@ -241,6 +251,8 @@
 					gear_leftovers += G
 			else
 				gear_leftovers += G
+		
+	H.dna.species.job_pre_equip(H)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -248,11 +260,11 @@
 
 	imprint_idcard(H)
 
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 	imprint_pda(H)
 
-	if(gear_leftovers.len)
+	if(length(gear_leftovers))
 		for(var/datum/gear/G in gear_leftovers)
 			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
 			if(placed_in.equip_to_best_slot(H))
@@ -280,12 +292,13 @@
 	var/obj/item/card/id/C = H.wear_id
 	if(istype(C))
 		C.access = J.get_access()
+		C.law_level = J.law_level
 		C.registered_name = H.real_name
 		C.rank = J.title
 		C.assignment = alt_title ? alt_title : J.title
 		C.sex = capitalize(H.gender)
 		C.age = H.age
-		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
+		C.name = "[C.registered_name]’s ID Card ([C.assignment])"
 		C.photo = get_id_photo(H)
 
 		if(H.mind && H.mind.initial_account)

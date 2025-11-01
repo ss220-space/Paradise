@@ -21,25 +21,25 @@
 				impersonating = I
 				jobname = impersonating.get_assignment()
 			else
-				jobname = "Unknown"
+				jobname = UNKNOWN_STATUS_RUS
 		else
 			jobname = H.get_assignment()
 
 	else if(iscarbon(speaker)) // Nonhuman carbon mob
-		jobname = "No ID"
+		jobname = "Без ID"
 	else if(isAI(speaker))
 		jobname = JOB_TITLE_AI
 	else if(iscogscarab(speaker))
-		jobname = "Unknown"
+		jobname = UNKNOWN_STATUS_RUS
 	else if(isrobot(speaker))
 		var/mob/living/silicon/robot/R = speaker
 		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
 	else if(ispAI(speaker))
-		jobname = "Personal AI"
+		jobname = "Персональный ИИ"
 	else if(isradio(speaker))
 		jobname = "Автоматическое оповещение"
 	else
-		jobname = "Unknown"
+		jobname = UNKNOWN_STATUS_RUS
 
 	var/track = ""
 	var/mob/mob_to_track = null
@@ -121,7 +121,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	var/list/words = splittext(trim(message), " ")
 	var/list/incorrect_words = list()
 
-	if(words.len > 30)
+	if(length(words) > 30)
 		words.len = 30
 
 	for(var/word in words)
@@ -132,7 +132,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		if(!GLOB.vox_sounds[word])
 			incorrect_words += word
 
-	if(incorrect_words.len)
+	if(length(incorrect_words))
 		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
 		return
 

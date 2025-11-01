@@ -10,7 +10,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/active = FALSE
 
 
-/obj/machinery/gateway/Initialize()
+/obj/machinery/gateway/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	update_density_from_dir()
@@ -28,7 +28,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 //this is da important part wot makes things go
 /obj/machinery/gateway/centerstation
 	icon_state = "offcenter"
-	use_power = IDLE_POWER_USE
 
 	//warping vars
 	var/list/linked = list()
@@ -37,14 +36,11 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
 
-/obj/machinery/gateway/centerstation/New()
-	..()
+/obj/machinery/gateway/centerstation/Initialize(mapload)
+	. = ..()
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
 
-
-/obj/machinery/gateway/centerstation/Initialize(mapload)
-	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	wait = world.time + CONFIG_GET(number/gateway_delay)
 	return INITIALIZE_HINT_LATELOAD
@@ -113,10 +109,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!awaygate)
 		awaygate = locate(/obj/machinery/gateway/centeraway) in SSmachines.get_by_type(/obj/machinery/gateway)
 		if(!awaygate)
-			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
+			to_chat(user, span_notice("Error: No destination found."))
 			return
 	if(world.time < wait)
-		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>")
+		to_chat(user, span_notice("Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes."))
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -181,7 +177,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
-/obj/machinery/gateway/centeraway/Initialize()
+/obj/machinery/gateway/centeraway/Initialize(mapload)
 	. = ..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation) in SSmachines.get_by_type(/obj/machinery/gateway)
@@ -223,7 +219,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!stationgate)
 		stationgate = locate(/obj/machinery/gateway/centerstation) in SSmachines.get_by_type(/obj/machinery/gateway)
 		if(!stationgate)
-			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
+			to_chat(user, span_notice("Error: No destination found."))
 			return
 	if(!calibrated && calibrating_on_activating)
 		calibrated = TRUE
@@ -283,7 +279,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centeraway/proc/exilecheck(mob/living/carbon/user)
 	for(var/obj/item/implant/exile/imp in user)//Checking that there is an exile implant in the contents
 		if(imp.imp_in == user)//Checking that it's actually implanted vs just in their pocket
-			to_chat(user, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
+			to_chat(user, span_notice("The station gate has detected your exile implant and is blocking your entry."))
 			return TRUE
 	return FALSE
 

@@ -22,7 +22,7 @@
 	var/timestamp
 
 /datum/request/New(client/requestee, type, request)
-	if (!requestee)
+	if(!requestee)
 		qdel(src)
 		return
 	id = ++atomic_id

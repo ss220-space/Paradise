@@ -154,6 +154,8 @@
 		return .
 	if(attempt_harvest(item, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
+	if(item.sharp && item.damtype == BRUTE && !(HAS_TRAIT(item, TRAIT_SURGICAL) && body_position == LYING_DOWN && user.a_intent == INTENT_HELP) && !issyringe(item) && !isbot(src) && !(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
+		new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), get_blood_color())
 	user.changeNext_move(item.attack_speed)
 	. |= item.attack(src, user, params, user.zone_selected)
 
@@ -195,11 +197,14 @@
 		playsound(target.loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
 		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)]), DMG: [force])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
-		if(hitsound)
+		if(COOLDOWN_FINISHED(src, sound_cooldown) && hitsound)   // Prevent stacking sounds when using cleave attacks
 			playsound(target.loc, hitsound, get_clamped_volume(), TRUE, -1)
+			COOLDOWN_START(src, sound_cooldown, 0.05 SECONDS) // Attack speed below 0.05 sec will not play sound on every hit
 
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
+	if(force && target == user && user.client)
+		user.client.give_award(/datum/award/achievement/misc/selfouch, user)
 
 	if(!skip_attack_anim)
 		user.do_attack_animation(target)
@@ -249,12 +254,12 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!item.force)
 		user.visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
 			span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
 		)
 		return .
 	user.visible_message(
-		span_danger("[user] ударил[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] ударил[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
 		span_danger("Вы ударили [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
 	)
 	take_damage(item.get_final_force(user), item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
@@ -299,8 +304,8 @@
 
 	if(!item.force)
 		visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [item.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[GEND_A_O_I(user)] вас [item.declent_ru(INSTRUMENTAL)]."),
 			ignored_mobs = user,
 		)
 		to_chat(user, span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."))
@@ -311,11 +316,23 @@
 		message_verb = "[pick(item.attack_verb)]"
 
 	visible_message(
-		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [item.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] [message_verb][GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] [message_verb][GEND_A_O_I(user)] вас [item.declent_ru(INSTRUMENTAL)]!"),
 		ignored_mobs = user,
 	)
 	to_chat(user, span_danger("Вы [message_verb]и [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"))
+
+
+/// Applies slowdown for a period of time after performing cleave attack, used for cleave component
+/mob/living/proc/apply_afterswing_slowdown(mob/living/user, afterswing_slowdown, slowdown_duration)
+	if(afterswing_slowdown == 0)
+		return
+
+	if(!ishuman(user)) // we dont want cyborgs to slowdown after swinging
+		return
+
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/afterswing_slowdown, multiplicative_slowdown = afterswing_slowdown)
+	addtimer(CALLBACK(src, PROC_REF(remove_movespeed_modifier), /datum/movespeed_modifier/afterswing_slowdown), slowdown_duration, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /*
 /mob/living/basic/attackby(obj/item/item, mob/living/user)

@@ -8,7 +8,6 @@
 	item_state = "render"
 	force = 15
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
 	var/spawn_type = /obj/singularity/god/narsie/wizard
@@ -31,11 +30,10 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = TRUE
-	anchored = TRUE
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
-/obj/effect/rend/New(loc, var/spawn_type, var/spawn_amt, var/desc)
+/obj/effect/rend/New(loc, spawn_type, spawn_amt, desc)
 	..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
@@ -205,7 +203,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, TRUE, 10 SECONDS, source = source)
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
 				to_chat(user, span_warning("<b>The sword flashes, and you find yourself face to face with...you!</b>"))
@@ -216,13 +214,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 		to_chat(user, span_warning("<b>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
 
 
-/obj/item/multisword/proc/spawn_copy(var/client/C, var/turf/T, mob/user)
+/obj/item/multisword/proc/spawn_copy(client/C, turf/T, mob/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 	if(duplicate_self)
 		user.client.prefs.copy_to(M)
 	else
 		C.prefs.copy_to(M)
-	M.key = C.key
+	M.possess_by_player(C.key)
 	M.mind.name = user.real_name
 	to_chat(M, "<b>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</b>")
 	M.faction = list("[user.real_name]")
@@ -263,7 +261,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
 
-/obj/item/multisword/proc/equip_copy(var/mob/living/carbon/human/M)
+/obj/item/multisword/proc/equip_copy(mob/living/carbon/human/M)
 
 	var/obj/item/multisword/sword = new sword_type
 	sword.assigned = assigned
@@ -548,7 +546,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	check_spooky()//clean out/refresh the list
 
-	if(spooky_scaries.len >= 3 && !unlimited)
+	if(length(spooky_scaries) >= 3 && !unlimited)
 		to_chat(user, span_warning("This artifact can only affect three undead at a time!"))
 		return .
 
@@ -565,7 +563,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	spooky_scaries |= target
 	to_chat(target, "[span_userdanger("You have been revived by ")]<b>[user.real_name]!</b>")
 	to_chat(target, span_userdanger("[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!"))
-	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
+	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [length(spooky_scaries)]/3 active thralls."]"
 
 
 /obj/item/necromantic_stone/proc/check_spooky()
@@ -579,7 +577,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(H.stat == DEAD)
 			spooky_scaries.Remove(X)
 			continue
-	listclearnulls(spooky_scaries)
+	list_clear_nulls(spooky_scaries)
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
 //Voodoo Zombie Pirates added for paradise
@@ -650,7 +648,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	H.equip_to_slot_or_del(new /obj/item/melee/katana(H), ITEM_SLOT_HAND_RIGHT)
 	H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), ITEM_SLOT_HAND_LEFT)
 	H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), ITEM_SLOT_BACK)
-	if(!H.real_name || H.real_name == "unknown")
+	if(!H.real_name || H.real_name == UNKNOWN_NAME_RUS)
 		H.real_name = "Neko-chan"
 	else
 		H.real_name = "[H.name]-chan"
@@ -659,11 +657,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/necromantic_stone/nya
 	name = "nya-cromantic stone"
 	desc = "A shard capable of resurrecting humans as creatures of Vile Heresy. Even the Wizard Federation fears it.."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "nyacrostone"
-	item_state = "electronic"
-	origin_tech = "bluespace=4;materials=4"
-	w_class = WEIGHT_CLASS_TINY
 	heresy = 1
 	unlimited = 1
 
@@ -673,7 +667,20 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/voodoo
 	name = "wicker doll"
 	desc = "Выглядит зловеще."
-	ru_names = list(
+	gender = FEMALE
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "voodoo"
+	item_state = "electronic"
+	var/mob/living/carbon/human/target = null
+	var/list/mob/living/carbon/human/possible
+	var/obj/item/link = null
+	var/cooldown_time = 3 SECONDS
+	COOLDOWN_DECLARE(cooldown)
+	max_integrity = 10
+	resistance_flags = FLAMMABLE
+
+/obj/item/voodoo/get_ru_names()
+	return list(
 		NOMINATIVE = "плетёная кукла",
 		GENITIVE = "плетёной куклы",
 		DATIVE = "плетёной кукле",
@@ -681,18 +688,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 		INSTRUMENTAL = "плетёной куклой",
 		PREPOSITIONAL = "плетёной кукле"
 	)
-	gender = FEMALE
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "voodoo"
-	item_state = "electronic"
-	var/mob/living/carbon/human/target = null
-	var/list/mob/living/carbon/human/possible = list()
-	var/obj/item/link = null
-	var/cooldown_time = 3 SECONDS
-	COOLDOWN_DECLARE(cooldown)
-	max_integrity = 10
-	resistance_flags = FLAMMABLE
-
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && COOLDOWN_FINISHED(src, cooldown))
@@ -729,7 +724,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		user.unset_machine()
 
 /obj/item/voodoo/attack_self(mob/user as mob)
-	if(!target && possible.len)
+	if(!target && LAZYLEN(possible))
 		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible)
 		return
 
@@ -765,7 +760,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				for(var/mob/living/L in range(1,target))
 					if(L!=target)
 						nearby_mobs |= L
-				if(nearby_mobs.len)
+				if(length(nearby_mobs))
 					var/mob/living/T = pick(nearby_mobs)
 					add_attack_logs(user, target, "force click on [T] with a voodoo doll.")
 					target.ClickOn(T)
@@ -778,13 +773,15 @@ GLOBAL_LIST_EMPTY(multiverse)
 		cooldown = world.time + cooldown_time
 
 /obj/item/voodoo/proc/update_targets()
-	possible = list()
+	LAZYCLEARLIST(possible)
+
 	if(!link)
 		return
+
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
-		if(H.stat != DEAD && (md5(H.dna.uni_identity) in link.fingerprints))
-			possible |= H
+		if(H.stat != DEAD && (H.real_name in link.interactors))
+			LAZYOR(possible, H)
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
 	if(prob(50) || force)

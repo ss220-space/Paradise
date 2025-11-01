@@ -1,5 +1,7 @@
-#define DRAKE_SWOOP_HEIGHT 270 //how high up drakes go, in pixels
-#define DRAKE_SWOOP_DIRECTION_CHANGE_RANGE 5 //the range our x has to be within to not change the direction we slam from
+/// How high up drakes go, in pixels
+#define DRAKE_SWOOP_HEIGHT 270
+/// The range our x has to be within to not change the direction we slam from
+#define DRAKE_SWOOP_DIRECTION_CHANGE_RANGE 5
 
 #define SWOOP_DAMAGEABLE 1
 #define SWOOP_INVULNERABLE 2
@@ -15,14 +17,14 @@ It acts as a melee creature, chasing down and attacking its target while also us
 Whenever possible, the drake will breathe fire directly at it's target, igniting and heavily damaging anything caught in the blast.
 It also often causes lava to pool from the ground around you - many nearby turfs will temporarily turn into lava, dealing damage to anything on the turfs.
 The drake also utilizes its wings to fly into the sky, flying after its target and attempting to slam down on them. Anything near when it slams down takes huge damage.
- - Sometimes it will chain these swooping attacks over and over, making swiftness a necessity.
- - Sometimes, it will encase its target in an arena of lava
+	- Sometimes it will chain these swooping attacks over and over, making swiftness a necessity.
+	- Sometimes, it will encase its target in an arena of lava
 
 When an ash drake dies, it leaves behind a chest that can contain four things:
- 1. A spectral blade that allows its wielder to call ghosts to it, enhancing its power
- 2. A lava staff that allows its wielder to create lava
- 3. A spellbook and wand of fireballs
- 4. A bottle of dragon's blood with several effects, including turning its imbiber into a drake themselves.
+	1. A spectral blade that allows its wielder to call ghosts to it, enhancing its power
+	2. A lava staff that allows its wielder to create lava
+	3. A spellbook and wand of fireballs
+	4. A bottle of dragon's blood with several effects, including turning its imbiber into a drake themselves.
 
 When butchered, they leave behind diamonds, sinew, bone, and ash drake hide. Ash drake hide can be used to create a hooded cloak that protects its wearer from ash storms.
 
@@ -33,14 +35,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon
 	name = "ash drake"
 	desc = "Стражи некрополя."
-	ru_names = list(
-		NOMINATIVE = "пепельный дрейк",
-		GENITIVE = "пепельного дрейка",
-		DATIVE = "пепельному дрейку",
-		ACCUSATIVE = "пепельного дрейка",
-		INSTRUMENTAL = "пепельным дрейком",
-		PREPOSITIONAL = "пепельном дрейке"
-	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "грызёт"
@@ -51,7 +45,6 @@ Difficulty: Medium
 	icon_dead = "dragon_dead"
 	friendly = "пристально смотрит"
 	speak_emote = list("рычит")
-	tts_seed = "Mannoroth"
 	armour_penetration = 40
 	melee_damage_lower = 40
 	melee_damage_upper = 40
@@ -65,18 +58,29 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = NONE
 	var/player_cooldown = 0
-	internal_type = /obj/item/gps/internal/dragon
-	medal_type = BOSS_MEDAL_DRAKE
-	score_type = DRAKE_SCORE
+	achievement_type = /datum/award/achievement/boss/drake_kill
+	crusher_achievement_type = /datum/award/achievement/boss/drake_crusher
+	score_achievement_type = /datum/award/score/drake_score
 	deathmessage = "распадается в кучу костей, его плоть осыпается."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/ash_drake
-	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
-							   /datum/action/innate/megafauna_attack/fire_cone_meteors,
-							   /datum/action/innate/megafauna_attack/mass_fire,
-							   /datum/action/innate/megafauna_attack/lava_swoop)
+	attack_action_types = list(
+		/datum/action/innate/megafauna_attack/fire_cone,
+		/datum/action/innate/megafauna_attack/fire_cone_meteors,
+		/datum/action/innate/megafauna_attack/mass_fire,
+		/datum/action/innate/megafauna_attack/lava_swoop
+	)
 
+/mob/living/simple_animal/hostile/megafauna/dragon/get_ru_names()
+	return list(
+		NOMINATIVE = "пепельный дрейк",
+		GENITIVE = "пепельного дрейка",
+		DATIVE = "пепельному дрейку",
+		ACCUSATIVE = "пепельного дрейка",
+		INSTRUMENTAL = "пепельным дрейком",
+		PREPOSITIONAL = "пепельном дрейке"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/Initialize(mapload)
 	. = ..()
@@ -110,12 +114,6 @@ Difficulty: Medium
 	button_icon_state = "lavastaff_warn"
 	chosen_message = span_colossus("Вы пикируете и обрушиваете лаву на цель.")
 	chosen_attack_num = 4
-
-/obj/item/gps/internal/dragon
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "Here there be dragons."
-	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
 	if(swooping)
@@ -162,7 +160,7 @@ Difficulty: Medium
 		if(prob(enraged ? 44 : 11))
 			new /obj/effect/temp_visual/target(turf)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(var/amount, var/delay = 0.8)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(amount, delay = 0.8)
 	if(!target)
 		return
 	target.visible_message(span_boldwarning("Вокруг вас начинают образовываться лужи лавы!"))
@@ -174,7 +172,7 @@ Difficulty: Medium
 		amount--
 		SLEEP_CHECK_DEATH(src, delay)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(var/amount = 30)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(amount = 30)
 	if(health < maxHealth * 0.5)
 		return swoop_attack(lava_arena = TRUE, swoop_cooldown = enraged ? 2 SECONDS : 6 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(lava_pools), enraged ? 60 : amount)
@@ -188,7 +186,7 @@ Difficulty: Medium
 		fire_cone()
 	SetRecoveryTime(40)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/mass_fire(var/spiral_count = 12, var/range = 15, var/times = 3)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/mass_fire(spiral_count = 12, range = 15, times = 3)
 	SLEEP_CHECK_DEATH(src, 0)
 	if(prob(50) && enraged)
 		INVOKE_ASYNC(src, PROC_REF(fire_rain))
@@ -261,7 +259,7 @@ Difficulty: Medium
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
 	light_range = initial(light_range)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_cone(var/atom/at = target, var/meteors = TRUE)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_cone(atom/at = target, meteors = TRUE)
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(src, 0)
 	if(prob(50) && meteors)
@@ -275,7 +273,7 @@ Difficulty: Medium
 	turfs = line_target(40, range, at)
 	INVOKE_ASYNC(src, PROC_REF(fire_line), turfs)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/line_target(var/offset, var/range, var/atom/at = target)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/line_target(offset, range, atom/at = target)
 	if(!at)
 		return
 	var/angle = ATAN2(at.x - src.x, at.y - src.y) + offset
@@ -287,12 +285,12 @@ Difficulty: Medium
 		T = check
 	return (get_line(src, T) - get_turf(src))
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(var/list/turfs)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(list/turfs)
 	SLEEP_CHECK_DEATH(src, 0)
 	dragon_fire_line(src, turfs)
 
 //fire line keeps going even if dragon is deleted
-/proc/dragon_fire_line(var/source, var/list/turfs)
+/proc/dragon_fire_line(source, list/turfs)
 	var/list/hit_list = list()
 	for(var/turf/T in turfs)
 		if(T.density)
@@ -300,7 +298,7 @@ Difficulty: Medium
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700,50,1)
 		for(var/mob/living/L in T.contents)
-			if(L in hit_list || L == source)
+			if((L in hit_list) || L == source)
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
@@ -311,10 +309,10 @@ Difficulty: Medium
 			if(M in hit_list)
 				continue
 			hit_list += M
-			M.take_damage(45, BRUTE, "melee", 1)
+			M.take_damage(45, BRUTE, MELEE, 1)
 		sleep(1.5)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(lava_arena = FALSE, atom/movable/manual_target, var/swoop_cooldown = 30)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(lava_arena = FALSE, atom/movable/manual_target, swoop_cooldown = 30)
 	if(stat || swooping)
 		return
 	if(manual_target)
@@ -383,7 +381,7 @@ Difficulty: Medium
 	playsound(loc, 'sound/effects/meteorimpact.ogg', 200, TRUE)
 	for(var/mob/living/L in orange(1, src))
 		if(L.stat)
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] обрушивается на [L.declent_ru(NOMINATIVE)], раздавливая [genderize_ru(L.gender,"его","её","его","их")]!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] обрушивается на [L.declent_ru(NOMINATIVE)], раздавливая [GEND_HIS_HER(L)]!"))
 			L.gib()
 		else
 			L.adjustBruteLoss(75)
@@ -395,7 +393,7 @@ Difficulty: Medium
 				L.throw_at(throwtarget, 3)
 				visible_message(span_warning("[capitalize(L.declent_ru(NOMINATIVE))] отбрасывается в сторону от [declent_ru(ACCUSATIVE)]!"))
 	for(var/obj/mecha/M in orange(1, src))
-		M.take_damage(75, BRUTE, "melee", 1)
+		M.take_damage(75, BRUTE, MELEE, 1)
 
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
@@ -408,9 +406,9 @@ Difficulty: Medium
 		arena_escape_enrage()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/ex_act(severity, target)
-	if(severity == EXPLODE_LIGHT)
-		return
-	..()
+	if(severity <= EXPLODE_LIGHT)
+		return FALSE
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(
 	amount = 0,
@@ -456,13 +454,13 @@ Difficulty: Medium
 /obj/effect/temp_visual/lava_warning/ex_act()
 	return
 
-/obj/effect/temp_visual/lava_warning/Initialize(mapload, var/reset_time = 10)
+/obj/effect/temp_visual/lava_warning/Initialize(mapload, reset_time = 10)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fall), reset_time)
 	src.alpha = 63.75
 	animate(src, alpha = 255, time = duration)
 
-/obj/effect/temp_visual/lava_warning/proc/fall(var/reset_time)
+/obj/effect/temp_visual/lava_warning/proc/fall(reset_time)
 	var/turf/T = get_turf(src)
 	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
 	sleep(duration)
@@ -476,7 +474,7 @@ Difficulty: Medium
 
 	// deals damage to mechs
 	for(var/obj/mecha/M in T.contents)
-		M.take_damage(45, BRUTE, "melee", 1)
+		M.take_damage(45, BRUTE, MELEE, 1)
 
 	// changes turf to lava temporarily
 	if(!T.density && !islava(T))
@@ -489,7 +487,14 @@ Difficulty: Medium
 /obj/effect/temp_visual/drakewall
 	name = "Fire Barrier"
 	desc = "Истинное пламя пепельного дрейка."
-	ru_names = list(
+	icon = 'icons/effects/fire.dmi'
+	icon_state = "1"
+	density = TRUE
+	duration = 82
+	color = COLOR_DARK_ORANGE
+
+/obj/effect/temp_visual/drakewall/get_ru_names()
+	return list(
 		NOMINATIVE = "огненный барьер",
 		GENITIVE = "огненного барьера",
 		DATIVE = "огненному барьеру",
@@ -497,13 +502,6 @@ Difficulty: Medium
 		INSTRUMENTAL = "огненным барьером",
 		PREPOSITIONAL = "огненном барьере"
 	)
-	icon = 'icons/effects/fire.dmi'
-	icon_state = "1"
-	anchored = TRUE
-	opacity = FALSE
-	density = TRUE
-	duration = 82
-	color = COLOR_DARK_ORANGE
 
 /obj/effect/temp_visual/drakewall/CanAtmosPass(turf/T, vertical)
 	return !density
@@ -517,14 +515,6 @@ Difficulty: Medium
 
 /obj/effect/temp_visual/dragon_swoop
 	name = "certain death"
-	ru_names = list(
-		NOMINATIVE = "неизбежная смерть",
-		GENITIVE = "неизбежной смерти",
-		DATIVE = "неизбежной смерти",
-		ACCUSATIVE = "неизбежную смерть",
-		INSTRUMENTAL = "неизбежной смертью",
-		PREPOSITIONAL = "неизбежной смерти"
-	)
 	desc = "Не стойте на месте, двигайтесь!"
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "landing"
@@ -532,14 +522,22 @@ Difficulty: Medium
 	pixel_x = -32
 	pixel_y = -32
 	color = "#FF0000"
-	duration = 10
+
+/obj/effect/temp_visual/dragon_swoop/get_ru_names()
+	return list(
+		NOMINATIVE = "неизбежная смерть",
+		GENITIVE = "неизбежной смерти",
+		DATIVE = "неизбежной смерти",
+		ACCUSATIVE = "неизбежную смерть",
+		INSTRUMENTAL = "неизбежной смертью",
+		PREPOSITIONAL = "неизбежной смерти"
+	)
 
 /obj/effect/temp_visual/dragon_flight
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "dragon"
 	layer = ABOVE_ALL_MOB_LAYER
 	pixel_x = -16
-	duration = 10
 	randomdir = FALSE
 
 /obj/effect/temp_visual/dragon_flight/Initialize(mapload, negative)
@@ -561,7 +559,6 @@ Difficulty: Medium
 /obj/effect/temp_visual/dragon_flight/end
 	pixel_x = DRAKE_SWOOP_HEIGHT
 	pixel_z = DRAKE_SWOOP_HEIGHT
-	duration = 10
 
 /obj/effect/temp_visual/dragon_flight/end/flight(negative)
 	if(negative)
@@ -575,7 +572,13 @@ Difficulty: Medium
 	icon_state = "fireball"
 	name = "fireball"
 	desc = "Убирайтесь с дороги!"
-	ru_names = list(
+	layer = FLY_LAYER
+	randomdir = FALSE
+	duration = 9
+	pixel_z = 270
+
+/obj/effect/temp_visual/fireball/get_ru_names()
+	return list(
 		NOMINATIVE = "огненный шар",
 		GENITIVE = "огненного шара",
 		DATIVE = "огненному шару",
@@ -583,10 +586,6 @@ Difficulty: Medium
 		INSTRUMENTAL = "огненным шаром",
 		PREPOSITIONAL = "огненном шаре"
 	)
-	layer = FLY_LAYER
-	randomdir = FALSE
-	duration = 9
-	pixel_z = 270
 
 /obj/effect/temp_visual/fireball/Initialize(mapload)
 	. = ..()
@@ -614,7 +613,7 @@ Difficulty: Medium
 	if(ismineralturf(T))
 		var/turf/simulated/mineral/M = T
 		M.attempt_drill()
-	playsound(T, "explosion", 80, TRUE)
+	playsound(T, SFX_EXPLOSION, 80, TRUE)
 	new /obj/effect/hotspot(T)
 	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
@@ -629,14 +628,6 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 	name = "lesser ash drake"
-	ru_names = list(
-		NOMINATIVE = "младший пепельный дрейк",
-		GENITIVE = "младшего пепельного дрейка",
-		DATIVE = "младшему пепельному дрейку",
-		ACCUSATIVE = "младший пепельный дрейк",
-		INSTRUMENTAL = "младшим пепельным дрейком",
-		PREPOSITIONAL = "младшем пепельном дрейке"
-	)
 	maxHealth = 200
 	health = 200
 	faction = list("neutral")
@@ -650,13 +641,23 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
 
+/mob/living/simple_animal/hostile/megafauna/dragon/lesser/get_ru_names()
+	return list(
+		NOMINATIVE = "младший пепельный дрейк",
+		GENITIVE = "младшего пепельного дрейка",
+		DATIVE = "младшему пепельному дрейку",
+		ACCUSATIVE = "младший пепельный дрейк",
+		INSTRUMENTAL = "младшим пепельным дрейком",
+		PREPOSITIONAL = "младшем пепельном дрейке"
+	)
+
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/AltClickOn(atom/movable/A)
 	if(a_intent == INTENT_HELP || intent == INTENT_HELP)
 		return
 	if(!istype(A))
 		return
 	if(player_cooldown >= world.time)
-		to_chat(src, span_warning("Вам нужно подождать [(player_cooldown - world.time) / 10] секунд[declension_ru((player_cooldown - world.time) / 10,"у","ы","")] перед следующим пикированием!"))
+		to_chat(src, span_warning("Вам нужно подождать [(player_cooldown - world.time) / 10] секунд[DECL_SEC_MIN((player_cooldown - world.time) / 10)] перед следующим пикированием!"))
 		return
 	swoop_attack(FALSE, A)
 	lava_pools(10, 2) // less pools but longer delay before spawns
@@ -667,14 +668,6 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
-	ru_names = list(
-		NOMINATIVE = "космический дракон",
-		GENITIVE = "космического дракона",
-		DATIVE = "космическому дракону",
-		ACCUSATIVE = "космический дракон",
-		INSTRUMENTAL = "космическим драконом",
-		PREPOSITIONAL = "космическом драконе"
-	)
 	maxHealth = 250
 	health = 250
 	faction = list("neutral")
@@ -697,6 +690,16 @@ Difficulty: Medium
 	deathmessage = "визжит, когда его крылья превращаются в пыль и он рушится на пол, жизнь погасла."
 	attack_action_types = list()
 
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/get_ru_names()
+	return list(
+		NOMINATIVE = "космический дракон",
+		GENITIVE = "космического дракона",
+		DATIVE = "космическому дракону",
+		ACCUSATIVE = "космический дракон",
+		INSTRUMENTAL = "космическим драконом",
+		PREPOSITIONAL = "космическом драконе"
+	)
+
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/grant_achievement(medaltype, scoretype)
 	return
 
@@ -704,7 +707,7 @@ Difficulty: Medium
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src))
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(var/atom/at = target)
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(atom/at = target)
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(src, 0)
 	var/range = 20
@@ -723,7 +726,6 @@ Difficulty: Medium
 	desc = "Отбрасывайте нападающих ударом хвоста."
 	sound = 'sound/magic/tail_swing.ogg'
 	base_cooldown = 15 SECONDS
-	cooldown_min = 15 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
 	invocation_type = "none"
@@ -742,3 +744,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return
+
+#undef DRAKE_SWOOP_HEIGHT
+#undef DRAKE_SWOOP_DIRECTION_CHANGE_RANGE
+#undef SWOOP_DAMAGEABLE
+#undef SWOOP_INVULNERABLE

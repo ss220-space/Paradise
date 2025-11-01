@@ -1,9 +1,7 @@
 /obj/effect/decal/cleanable/blood/xeno
 	name = "xeno blood"
 	desc = "It's green and acidic. It looks like... <i>blood?</i>"
-	icon = 'icons/effects/blood.dmi'
-	basecolor = "#05EE05"
-	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	basecolor = BLOOD_COLOR_XENO
 	blood_state = BLOOD_STATE_XENO
 
 /obj/effect/decal/cleanable/blood/xeno/splatter
@@ -15,7 +13,7 @@
 	desc = "Gnarly..."
 	icon_state = "xgib1"
 	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6")
-	basecolor = "#05EE05"
+	basecolor = BLOOD_COLOR_XENO
 
 /obj/effect/decal/cleanable/blood/gibs/xeno/update_icon(updates = ALL)
 	color = "#FFFFFF"
@@ -37,7 +35,7 @@
 	random_icon_states = list("xgibmid1", "xgibmid2", "xgibmid3")
 
 /obj/effect/decal/cleanable/blood/xtracks
-	basecolor = "#05EE05"
+	basecolor = BLOOD_COLOR_XENO
 
 /obj/effect/decal/cleanable/blood/slime // this is the alien blood file, slimes are aliens.
 	name = "slime jelly"

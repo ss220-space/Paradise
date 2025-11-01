@@ -70,7 +70,7 @@
 #define ui_zonesel "EAST-1:28,SOUTH:5"
 #define ui_acti_alt "EAST-1:28,SOUTH:5" //alternative intent switcher for when the interface is hidden (F12)
 
-#define ui_crafting	"EAST:-5,SOUTH+2:7"
+#define ui_crafting "EAST:-5,SOUTH+2:7"
 #define ui_language_menu "EAST:-22,SOUTH+2:7"
 
 #define ui_borg_pull "EAST-2:26,SOUTH+1:7"
@@ -104,12 +104,12 @@
 #define ui_alien_nightvision "EAST-1:28,CENTER+2:25"
 
 //Middle right (status indicators)
-#define ui_nutrition "EAST-1:28,CENTER-3:11"
+#define ui_nutrition "EAST-1:28,CENTER-2:13"
 #define ui_temp "EAST-1:28,CENTER-2:13"
 #define ui_healthdoll "EAST-1:28,CENTER-1:15"
 #define ui_health "EAST-1:28,CENTER:17"
 #define ui_internal "EAST-1:28,CENTER+1:19"
-#define ui_stamina "EAST-1:28,CENTER-2:13"
+#define ui_stamina "EAST-1:28,CENTER-3:11"
 
 //borgs
 #define ui_borg_health "EAST-1:28,CENTER-1:15" //borgs have the health display where humans have the pressure damage indicator.

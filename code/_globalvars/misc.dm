@@ -5,21 +5,15 @@ GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and ki
 GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
 
 // Announcer intercom, because too much stuff creates an intercom for one message then qdel()s it.
-GLOBAL_DATUM_INIT(global_announcer, /obj/item/radio/intercom, create_global_announcer())
+GLOBAL_DATUM_INIT(global_announcer, /obj/item/radio/dummy, create_global_announcer())
 GLOBAL_VAR_INIT(global_announcer_base_text, "$name, $rank, $join_message.")
-GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_command_announcer())
 
 // Load order issues means this can't be new'd until other code runs
 // This is probably not the way I should be doing this, but I don't know how to do it right!
 /proc/create_global_announcer()
-  spawn(0)
-    GLOB.global_announcer = new(null)
-  return
-
-/proc/create_command_announcer()
-  spawn(0)
-    GLOB.command_announcer = new(null)
-  return
+	spawn(0)
+		GLOB.global_announcer = new(null)
+	return
 
 GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
 	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
@@ -55,7 +49,16 @@ GLOBAL_VAR_INIT(panic_bunker_enabled, FALSE) // Is the panic bunker enabled
 GLOBAL_VAR_INIT(pending_server_update, FALSE)
 
 GLOBAL_LIST_EMPTY(ability_verbs) // Create-level abilities
-GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "purple" = PIPE_COLOR_PURPLE))
+
+GLOBAL_LIST_INIT(pipe_colors, list(
+	"grey" = PIPE_COLOR_GREY,
+	"red" = PIPE_COLOR_RED,
+	"blue" = PIPE_COLOR_BLUE,
+	"cyan" = PIPE_COLOR_CYAN,
+	"green" = PIPE_COLOR_GREEN,
+	"yellow" = PIPE_COLOR_YELLOW,
+	"purple" = PIPE_COLOR_PURPLE
+))
 
 GLOBAL_VAR(genname) //Nanotrasen officer name for fax send via fax panel, randoms every round
 

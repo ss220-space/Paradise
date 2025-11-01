@@ -1,10 +1,11 @@
 /datum/event/carp_migration
 	announceWhen	= 50
-	endWhen 		= 900
+	endWhen		= 900
 
 	var/list/spawned_mobs = list(
-    /mob/living/simple_animal/hostile/carp = 95,
-    /mob/living/simple_animal/hostile/carp/megacarp = 5)
+		/mob/living/simple_animal/hostile/carp = 95,
+		/mob/living/simple_animal/hostile/carp/megacarp = 5
+	)
 
 /datum/event/carp_migration/setup()
 	announceWhen = rand(40, 60)
@@ -16,16 +17,17 @@
 		announcement = "Массовая миграция неизвестных биологических объектов была зафиксирована вблизи станции [station_name()], будьте наготове."
 	else
 		announcement = "Неизвестные биологические объекты были зафиксированы вблизи станции [station_name()], будьте наготове."
-	GLOB.minor_announcement.announce(announcement,
-									ANNOUNCE_UNID_LIFEFORMS_RU
+	GLOB.minor_announcement.announce(
+		message = announcement,
+		new_title = ANNOUNCE_UNID_LIFEFORMS_RU
 	)
 
 /datum/event/carp_migration/start()
 
 	if(severity == EVENT_LEVEL_MAJOR)
-		spawn_fish(GLOB.landmarks_list.len)
+		spawn_fish(length(GLOB.landmarks_list))
 	else if(severity == EVENT_LEVEL_MODERATE)
-		spawn_fish(rand(4, 6)) 			//12 to 30 carp, in small groups
+		spawn_fish(rand(4, 6))			//12 to 30 carp, in small groups
 	else
 		spawn_fish(rand(1, 3), 1, 2)	//1 to 6 carp, alone or in pairs
 
@@ -34,7 +36,7 @@
 
 	spawn_locations += GLOB.carplist
 	spawn_locations = shuffle(spawn_locations)
-	num_groups = min(num_groups, spawn_locations.len)
+	num_groups = min(num_groups, length(spawn_locations))
 
 	var/i = 1
 	while(i <= num_groups)

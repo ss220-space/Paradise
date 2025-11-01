@@ -7,7 +7,7 @@
 	item_state = "flashbang"
 	belt_icon = "grenade"
 	throw_speed = 4
-	throw_range = 20
+	throw_range = 9
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
@@ -99,7 +99,7 @@
 
 
 /obj/item/grenade/attack_hand(mob/user)
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	. = ..()
 
 

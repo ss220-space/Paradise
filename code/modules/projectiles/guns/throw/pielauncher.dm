@@ -5,16 +5,16 @@
 	w_class = WEIGHT_CLASS_HUGE
 	throw_speed = 2
 	throw_range = 3
-	force = 5
 
 	clumsy_check = 0
 	valid_projectile_type = /obj/item/reagent_containers/food/snacks/pie
 	max_capacity = 5
 	projectile_speed = 2
 	projectile_range = 30
+	accuracy = GUN_ACCURACY_DEFAULT
 
 
-/obj/item/gun/throw/piecannon/Initialize()
+/obj/item/gun/throw/piecannon/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to max_capacity)
 		var/obj/item/reagent_containers/food/snacks/pie/P = new /obj/item/reagent_containers/food/snacks/pie(src)
@@ -36,4 +36,4 @@
 
 /obj/item/gun/throw/piecannon/process_chamber()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)

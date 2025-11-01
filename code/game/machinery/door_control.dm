@@ -1,13 +1,11 @@
 /obj/machinery/door_control
 	name = "remote door-control"
 	desc = "A remote control-switch for a door."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl"
 	base_icon_state = "doorctrl"
 	power_channel = ENVIRON
 
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
@@ -31,7 +29,7 @@
 	/// FALSE is closed, TRUE is open.
 	var/desiredstate = FALSE
 	/**
-	Bitflag, 	1= open
+	Bitflag,	1= open
 				2= idscan,
 				4= bolts
 				8= shock
@@ -160,7 +158,7 @@
 	if(!emagged)
 		emagged = TRUE
 		req_access = list()
-		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/door_control/attack_ghost(mob/user)
 	if(open)
@@ -238,7 +236,7 @@
 	if(!(device || constructed))
 		build_device()
 
-	if(device?.cooldown > 0)
+	if(!COOLDOWN_FINISHED(device, cooldown))
 		return
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())

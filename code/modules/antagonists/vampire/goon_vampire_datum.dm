@@ -2,7 +2,6 @@
 	name = "Goon-Vampire"
 	nullification = OLD_NULLIFICATION
 	is_garlic_affected = TRUE
-	dust_in_space = FALSE
 	antag_datum_blacklist = list(/datum/antagonist/vampire/new_vampire)
 	antag_menu_name = "Goon вампир"
 	upgrade_tiers = list(
@@ -20,7 +19,8 @@
 		/obj/effect/proc_holder/spell/vampire/goon/self/jaunt = 300,
 		/obj/effect/proc_holder/spell/vampire/goon/targetted/enthrall = 300,
 		/datum/vampire_passive/xray = 500,
-		/datum/vampire_passive/full = 500)
+		/datum/vampire_passive/full = 500
+	)
 
 
 /datum/antagonist/vampire/goon_vampire/add_owner_to_gamemode()

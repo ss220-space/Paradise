@@ -10,6 +10,12 @@
 
 /mob/dead/Logout()
 	update_z(null)
+
+	if(!mind || !mind.current)
+		return ..()
+
+	mind.current.med_hud_set_status()
+
 	return ..()
 
 

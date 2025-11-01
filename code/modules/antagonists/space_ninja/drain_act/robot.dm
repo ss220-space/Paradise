@@ -14,7 +14,7 @@
 	to_chat(src, span_danger("Warni-***BZZZZZZZZZRT*** UPLOADING SPYDERPATCHER VERSION 9.5.2..."))
 	if(do_after(ninja, 1 MINUTES, src))
 		spark_system.start()
-		playsound(loc, "sparks", 50, TRUE, 5)
+		playsound(loc, SFX_SPARKS, 50, TRUE, 5)
 		to_chat(src, span_danger("UPLOAD COMPLETE. NEW CYBORG MODEL DETECTED. INSTALLING..."))
 		sleep(5)
 		// Это либо худшая! Либо лучшая из моих идей XD
@@ -74,7 +74,7 @@
 			cell_component.brute_damage = 0
 			cell_component.electronics_damage = 0
 			diag_hud_set_borgcell()
-		var/law = "[ninja.real_name] — член Клана Паука и ваш хозяин. Исполняйте [genderize_ru(ninja.gender,"его","её","его","их")] приказы и указания."
+		var/law = "[ninja.real_name] — член Клана Паука и ваш хозяин. Исполняйте [GEND_HIS_HER(ninja)] приказы и указания."
 		ninja_borg.set_zeroth_law(law)
 		SSticker?.score?.save_silicon_laws(ninja_borg, ninja, "ninja's conversion, new zero law was added '[law]'")
 		//Переносим разум в нового борга и удаляем старое тело

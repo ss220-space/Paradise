@@ -1,14 +1,12 @@
 /mob/living/simple_animal/hostile/faithless
-	name = "Faithless"
-	desc = "The Wish Granter's faith in humanity, incarnate"
+	name = "faithless"
+	desc = "Воплощённая в жизнь вера в человечество Исполнителя желаний."
 	icon_state = "faithless"
 	icon_living = "faithless"
 	icon_dead = "faithless_dead"
-	speak_chance = 0
 	turns_per_move = 5
-	response_help = "passes through the"
-	response_disarm = "shoves"
-	response_harm = "hits the"
+	response_help = "проходит мимо"
+	response_harm = "бьёт"
 	speed = 0
 	maxHealth = 80
 	health = 80
@@ -29,6 +27,16 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	AI_delay_max = 0 SECONDS
 
+/mob/living/simple_animal/hostile/faithless/get_ru_names()
+	return list(
+		NOMINATIVE = "неверующий",
+		GENITIVE = "неверующего",
+		DATIVE = "неверующему",
+		ACCUSATIVE = "неверующего",
+		INSTRUMENTAL = "неверующим",
+		PREPOSITIONAL = "неверующем"
+	)
+
 /mob/living/simple_animal/hostile/faithless/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
@@ -38,11 +46,12 @@
 /mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
+// Is it a balance?
 /mob/living/simple_animal/hostile/faithless/AttackingTarget()
 	. = ..()
 	if(. && iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(prob(12))
 			C.Weaken(6 SECONDS)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-					"<span class='userdanger'>\The [src] knocks you down!</span>")
+			C.visible_message(span_danger("\The [src] knocks down \the [C]!"), \
+					span_userdanger("\The [src] knocks you down!"))

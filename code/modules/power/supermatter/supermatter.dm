@@ -1,8 +1,8 @@
-#define NITROGEN_RETARDATION_FACTOR 0.15	//Higher == N2 slows reaction more
-#define THERMAL_RELEASE_MODIFIER 10000		//Higher == more heat released during reaction
-#define PLASMA_RELEASE_MODIFIER 1500		//Higher == less phor.. plasma released by reaction
-#define OXYGEN_RELEASE_MODIFIER 15000		//Higher == less oxygen released at high temperature/power
-#define REACTION_POWER_MODIFIER 1.1			//Higher == more overall power
+#define NITROGEN_RETARDATION_FACTOR 0.15 //Higher == N2 slows reaction more
+#define THERMAL_RELEASE_MODIFIER 10000 //Higher == more heat released during reaction
+#define PLASMA_RELEASE_MODIFIER 1500 //Higher == less phor.. plasma released by reaction
+#define OXYGEN_RELEASE_MODIFIER 15000 //Higher == less oxygen released at high temperature/power
+#define REACTION_POWER_MODIFIER 1.1 //Higher == more overall power
 #define SHARD_CUT_COEF 7
 
 /*
@@ -80,8 +80,6 @@
 	var/aw_emerg = FALSE
 	var/aw_delam = FALSE
 
-	var/obj/item/radio/radio
-
 	//for logging
 	var/has_been_powered = 0
 	var/has_reached_emergency = 0
@@ -107,9 +105,6 @@
 	//Added to the atmos_machine process as the SM is highly coupled with the atmospherics system.
 	//Having the SM run at a different rate then atmospherics causes odd behavior.
 	SSair.atmos_machinery += src
-	radio = new(src)
-	radio.listening = FALSE
-	radio.follow_target = src
 	investigate_log("has been created.", INVESTIGATE_ENGINE)
 	supermatter_explosive_effects = new()
 	supermatter_explosive_effects.z = src.z
@@ -143,7 +138,6 @@
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINE)
 	if(damage > emergency_point)
 		emergency_lighting(0)
-	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	SSair.atmos_machinery -= src
 	return ..()
@@ -162,7 +156,7 @@
 	if(isnull(L))		// We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
 
-	if(!istype(L)) 	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
+	if(!istype(L))	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
 		return  //Yeah just stop.
 
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
@@ -172,7 +166,7 @@
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Дестабилизация: [stability]%", name, null)
+				radio_announce("[emergency_alert] Дестабилизация: [stability]%", name, PUB_FREQ, src)
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINE)
@@ -180,11 +174,11 @@
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Дестабилизация: [stability]%", name)
+				radio_announce("[warning_alert] Дестабилизация: [stability]%", name, PUB_FREQ, src)
 				lastwarning = world.timeofday - 150
 
 			else                                                 // Phew, we're safe
-				radio.autosay("[safe_alert]", name)
+				radio_announce(safe_alert, name, PUB_FREQ, src)
 				emergency_lighting(0)
 				lastwarning = world.timeofday
 
@@ -301,16 +295,14 @@
 
 	return 1
 
-/obj/machinery/power/supermatter_shard
-
-/obj/machinery/power/supermatter_shard/bullet_act(var/obj/projectile/Proj)
+/obj/machinery/power/supermatter_shard/bullet_act(obj/projectile/Proj)
 	var/turf/L = loc
 	if(!istype(L))		// We don't run process() when we are in space
 		return 0	// This stops people from being able to really power up the supermatter
 				// Then bring it inside to explode instantly upon landing on a valid turf.
 
 
-	if(Proj.flag != "bullet")
+	if(Proj.flag != BULLET)
 		power += Proj.damage * config_bullet_energy
 		if(!has_been_powered)
 			investigate_log("has been powered for the first time.", INVESTIGATE_ENGINE)
@@ -580,14 +572,14 @@
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 
 /obj/machinery/power/supermatter_shard/proc/emergency_lighting(active)
-    if(active)
-        post_status(STATUS_DISPLAY_ALERT, "radiation")
-    else
-        post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
+	if(active)
+		post_status(STATUS_DISPLAY_ALERT, "radiation")
+	else
+		post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = zap_sound_extrarange)
-	tesla_zap(src, 10, max(1000,power * damage / explosion_point))
+	tesla_zap(source = src, zap_range = 10, power = max(1000, power * damage / explosion_point), cutoff = 1e3, zap_flags = ZAP_GENERATES_POWER | ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE)
 
 // SM shard that can't be moved for ruins and gates
 /obj/machinery/power/supermatter_shard/anchored
@@ -614,7 +606,7 @@
 	user.apply_effect(150, IRRADIATE)
 
 
-/obj/machinery/power/supermatter_shard/proc/nuclear_touch(var/mob/living/user)
+/obj/machinery/power/supermatter_shard/proc/nuclear_touch(mob/living/user)
 	var/datum/species/nucleation/nuclear = user.dna.species
 	if(nuclear.touched_supermatter == FALSE)
 		user.revive()
@@ -622,9 +614,22 @@
 		to_chat(user, span_userdanger("The wave of warm energy is overwhelming you. You feel calm."))
 
 /obj/effect/warp_effect/supermatter
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
 	icon = 'icons/effects/light_overlays/light_352.dmi'
 	icon_state = "light"
 	pixel_x = -176
 	pixel_y = -176
+
+#undef NITROGEN_RETARDATION_FACTOR
+#undef THERMAL_RELEASE_MODIFIER
+#undef PLASMA_RELEASE_MODIFIER
+#undef OXYGEN_RELEASE_MODIFIER
+#undef REACTION_POWER_MODIFIER
+#undef SHARD_CUT_COEF
+#undef POWER_FACTOR
+#undef DECAY_FACTOR
+#undef CRITICAL_TEMPERATURE
+#undef CHARGING_FACTOR
+#undef DAMAGE_RATE_LIMIT
+#undef DETONATION_RADS
+#undef DETONATION_HALLUCINATION
+#undef WARNING_DELAY

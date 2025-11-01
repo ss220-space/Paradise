@@ -2,14 +2,14 @@ GLOBAL_VAR_INIT(BSACooldown, 0)
 GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////
-/proc/message_admins(var/msg)
+/proc/message_admins(msg)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
 				to_chat(C, msg, MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 
-/proc/msg_admin_attack(var/text, var/loglevel)
+/proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
@@ -21,7 +21,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Arguments:
  * msg - The message being send
  * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
-               send a sound and flash the window. Defaults to FALSE
+ * send a sound and flash the window. Defaults to FALSE
  */
 /proc/message_adminTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Arguments:
  * msg - The message being send
  * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
-               send a sound and flash the window. Defaults to FALSE
+ * send a sound and flash the window. Defaults to FALSE
  */
 /proc/message_mentorTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
@@ -50,7 +50,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 				window_flash(C)
 
-/proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
+/proc/admin_ban_mobsearch(mob/M, ckey_to_find, mob/admin_to_notify)
 	if(!M || !M.ckey)
 		if(ckey_to_find)
 			for(var/mob/O in GLOB.mob_list)
@@ -68,7 +68,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
 	set name = "\[Admin\] Show Player Panel"
-	set desc="Edit player (respawn, ban, heal, etc)"
+	set desc = "Edit player (respawn, ban, heal, etc)"
 
 	if(!M)
 		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
@@ -90,12 +90,18 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
+	var/our_key = M.key
+	if(M.client && M.client.holder)
+		if(M.client.holder.fakekey && M.client.holder.big_brother)
+			our_key = M.client.holder.fakekey
 
-	var/body = "<body>Options panel for <b>[M]</b>"
+	var/body = "<body>Options panel for <b>[our_key]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		if(check_rights(R_PERMISSIONS, 0))
+		if(check_rights(R_PERMISSIONS, FALSE))
 			body += "\[<a href='byond://?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</a>\] "
+		else if(M.client.holder && M.client.holder.fakekey && M.client.holder.big_brother)
+			body += "\[Player\] "
 		else
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<a href='byond://?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
@@ -128,9 +134,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				body += "<b>Discord:</b>  <@[M.client.prefs.discord_id]>  <b>[M.client.prefs.discord_name]</b><br>"
 			else
 				body += "<b>Discord: Привязка не завершена!</b><br>"
-		if(M.client.related_accounts_cid.len)
+		if(length(M.client.related_accounts_cid))
 			body += "<b>Related accounts by CID:</b> [jointext(M.client.related_accounts_cid, " - ")]<br>"
-		if(M.client.related_accounts_ip.len)
+		if(length(M.client.related_accounts_ip))
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
 	if(M.ckey)
@@ -313,15 +319,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
 	popup.open(TRUE)
 	onclose(usr, "adminplayeropts")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Show Player Panel")
 
-
-/datum/player_info/var/author // admin who authored the information
-/datum/player_info/var/rank //rank of admin who made the notes
-/datum/player_info/var/content // text content of the information
-/datum/player_info/var/timestamp // Because this is bloody annoying
-
-#define PLAYER_NOTES_ENTRIES_PER_PAGE 50
 /datum/admins/proc/PlayerNotes()
 	set category = STATPANEL_ADMIN_BAN
 	set name = "Player Notes"
@@ -331,7 +330,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	show_note()
 
-/datum/admins/proc/show_player_notes(var/key as text)
+/datum/admins/proc/show_player_notes(key as text)
 	set category = STATPANEL_ADMIN_BAN
 	set name = "Show Player Notes"
 
@@ -356,7 +355,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/dat = {"<b>Job Bans!</b><hr><table>"}
 	for(var/t in GLOB.jobban_keylist)
 		var/r = t
-		if( findtext(r,"##") )
+		if(findtext(r,"##"))
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
 		dat += text("<tr><td>[t] (<a href='byond://?src=[UID()];removejobban=[r]'>unban</a>)</td></tr>")
 	dat += "</table>"
@@ -379,10 +378,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		dat += "<p><a href='byond://?src=[cached_UID];change_weights=1'>Change Antag Weights</a><br></p>"
 
 	dat += "<hr><br>"
-	dat += "<p><a href='byond://?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];create_mob=1'>Create Mob</a></p>"
+	dat += "<a href='byond://?src=[cached_UID];spawn_panel=1'>Spawn Panel</a><br>"
 	if(marked_datum && istype(marked_datum, /atom))
 		dat += "<a href='byond://?src=[cached_UID];dupe_marked_datum=1'>Duplicate Marked Datum</a><br>"
 
@@ -420,7 +416,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			return FALSE
 
 	if(result)
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot World") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+		BLACKBOX_LOG_ADMIN_VERB("Reboot World")
 		var/init_by = "Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]."
 		switch(result)
 
@@ -464,7 +460,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(announcement)
 		to_chat(world, "<span class='warning'><big><b>[announcement]</b></big></span>")
 	SSticker.force_ending = TRUE
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("End Round")
 	SSticker.mode_result = "admin ended"
 
 
@@ -488,7 +484,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			window_flash(clients_to_alert)
 			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
 				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Announce")
 
 /datum/admins/proc/toggleooc()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -500,7 +496,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	toggle_ooc()
 	log_and_message_admins("toggled OOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle OOC")
 
 /datum/admins/proc/togglelooc()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -517,7 +513,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<b>The LOOC channel has been globally disabled!</b>")
 	log_and_message_admins("toggled LOOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle LOOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle LOOC")
 
 /datum/admins/proc/toggledsay()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -534,7 +530,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<b>Deadchat has been globally disabled!</b>")
 	log_and_message_admins("toggled deadchat.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Deadchat")
 
 /datum/admins/proc/toggleoocdead()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -550,7 +546,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<b>Dead OOC has been globally disabled!</b>")
 	log_and_message_admins("toggled Dead OOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Dead OOC")
 
 /datum/admins/proc/toggleemoji()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -562,7 +558,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	CONFIG_SET(flag/disable_ooc_emoji, !CONFIG_GET(flag/disable_ooc_emoji))
 
 	log_and_message_admins("toggled OOC Emoji.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
+	BLACKBOX_LOG_ADMIN_VERB("Toggle OOC Emoji")
 
 /datum/admins/proc/startnow()
 	set category = STATPANEL_SERVER
@@ -587,7 +583,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
 		message_admins("<span class='darkmblue'>[usr.key] has started the game.[msg]</span>")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+		BLACKBOX_LOG_ADMIN_VERB("Start Game")
 		return 1
 	else
 		to_chat(usr, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential=TRUE)
@@ -603,13 +599,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	GLOB.enter_allowed = !( GLOB.enter_allowed )
-	if(!( GLOB.enter_allowed ))
+	if(!( GLOB.enter_allowed))
 		to_chat(world, "<b>New players may no longer enter the game.</b>")
 	else
 		to_chat(world, "<b>New players may now enter the game.</b>")
 	log_and_message_admins("toggled new player game entering.")
 	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Entering")
 
 /datum/admins/proc/toggleAI()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -626,7 +622,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<b>The AI job is chooseable now.</b>")
 	log_and_message_admins("toggled AI allowed.")
 	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle AI")
 
 /datum/admins/proc/toggleaban()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -643,7 +639,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<b>You may no longer respawn :(</b>")
 	log_and_message_admins("toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].")
 	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Respawn")
 
 /datum/admins/proc/delay()
 	set category = STATPANEL_SERVER
@@ -668,7 +664,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		SSticker.ticker_going = TRUE
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Delay")
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
@@ -712,11 +708,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /**
-  * A proc that return whether the mob is a "Special Character" aka Antagonist
-  *
-  * Arguments:
-  * * M - the mob you're checking
-  */
+ * A proc that return whether the mob is a "Special Character" aka Antagonist
+ *
+ * Arguments:
+ * * M - the mob you're checking
+ */
 /proc/is_special_character(mob/M)
 	if(!SSticker.mode)
 		return FALSE
@@ -732,11 +728,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /**
-  * A proc that return an array of capitalized strings containing name of the antag types they are
-  *
-  * Arguments:
-  * * M - the mob you're checking
-  */
+ * A proc that return an array of capitalized strings containing name of the antag types they are
+ *
+ * Arguments:
+ * * M - the mob you're checking
+ */
 /proc/get_antag_type_strings_list(mob/M) // return an array of all the antag types they are with name
 	var/list/antag_list = list()
 
@@ -775,15 +771,15 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /**
-  * A proc that return a string containing all the singled out antags . Empty string if not antag
-  *
-  * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
-  * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
-  * It always append "(May be other antag)"
-  * Arguments:
-  * * M - the mob you're checking
-  * *
-  */
+ * A proc that return a string containing all the singled out antags . Empty string if not antag
+ *
+ * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
+ * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
+ * It always append "(May be other antag)"
+ * Arguments:
+ * * M - the mob you're checking
+ * *
+ */
 /proc/get_antag_type_truncated_plaintext_string(mob/M as mob)
 	var/list/antag_list = get_antag_type_strings_list(M)
 
@@ -854,14 +850,15 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 		arguments = list(usr.loc) + arguments
 
-		var/atom/A = new chosen(arglist(arguments))
-		A.flags |= ADMIN_SPAWNED
+		var/atom/atom = new chosen(arglist(arguments))
+		if(atom)
+			atom.flags |= ADMIN_SPAWNED
 
 	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
 
 
-/datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
+/datum/admins/proc/show_traitor_panel(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_ADMIN
 	set desc = "Edit mobs's memory and role"
 	set name = "\[Admin\] Show Traitor Panel"
@@ -877,7 +874,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	M.mind.edit_memory()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Traitor Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Show Traitor Panel")
 
 /datum/admins/proc/toggleguests()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -888,17 +885,19 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	GLOB.guests_allowed = !( GLOB.guests_allowed )
-	if(!( GLOB.guests_allowed ))
+	if(!( GLOB.guests_allowed))
 		to_chat(world, "<b>Guests may no longer enter the game.</b>")
 	else
 		to_chat(world, "<b>Guests may now enter the game.</b>")
 	log_and_message_admins("toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Guests")
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
 	var/list/messages = list()
 	for(var/mob/living/silicon/S in GLOB.mob_list)
+		if(istype(S, /mob/living/silicon/decoy) && !S.client)
+			continue
 		ai_number++
 		if(isAI(S))
 			messages += "<b>AI [key_name(S, TRUE)]'s laws:</b>"
@@ -918,7 +917,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(S.laws == null)
 			messages += "[key_name(S, TRUE)]'s laws are null. Contact a coder."
 		else
-			messages += S.laws.show_laws()
+			messages += S.laws.return_laws_text()
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
@@ -939,7 +938,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 //ALL DONE
 //*********************************************************************************************************
 
-/proc/formatJumpTo(var/location,var/where="")
+/proc/formatJumpTo(location, where="")
 	var/turf/loc
 	if(istype(location,/turf/))
 		loc = location
@@ -949,7 +948,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		where=formatLocation(loc)
 	return "<a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>[where]</a>"
 
-/proc/formatLocation(var/location)
+/proc/formatLocation(location)
 	var/turf/loc
 	if(istype(location,/turf/))
 		loc = location
@@ -958,7 +957,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/area/A = get_area(location)
 	return "[A.name] - [loc.x],[loc.y],[loc.z]"
 
-/proc/formatPlayerPanel(var/mob/U,var/text="PP")
+/proc/formatPlayerPanel(mob/U, text="PP")
 	return "[ADMIN_PP(U,"[text]")]"
 
 //Kicks all the clients currently in the lobby. The second parameter (kick_only_afk) determins if an is_afk() check is ran, or if all clients are kicked
@@ -1003,9 +1002,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
 
 		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
+		BLACKBOX_LOG_ADMIN_VERB("Ghost Drag")
 
-		tomob.ckey = frommob.ckey
+		tomob.possess_by_player(frommob.ckey)
 		qdel(frommob)
 
 
@@ -1028,9 +1027,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			tomob.ghostize(0)
 
 		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
+		BLACKBOX_LOG_ADMIN_VERB("Ghost Drag")
 
-		tomob.ckey = frommob.ckey
+		tomob.possess_by_player(frommob.ckey)
 		qdel(frommob)
 
 		return TRUE
@@ -1047,11 +1046,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			return TRUE
 
 		log_and_message_admins("has put [frommob.ckey] in control of an empty AI core.")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
+		BLACKBOX_LOG_ADMIN_VERB("Ghost Drag")
 
 		var/transfer_key = frommob.key // frommob is qdel'd in frommob.AIize()
 		var/mob/living/silicon/ai/ai_character = frommob.AIize()
-		ai_character.key = transfer_key // this wont occur in mind transferring if the mind is not active, which causes some weird stuff. This fixes it.
+		ai_character.possess_by_player(transfer_key) // this wont occur in mind transferring if the mind is not active, which causes some weird stuff. This fixes it.
 		GLOB.empty_playable_ai_cores -= tothing
 
 		ai_character.forceMove(get_turf(tothing))
@@ -1151,4 +1150,4 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SStitle.set_title_html(new_html)
 
 	message_admins("[key_name_admin(usr)] has changed the title screen HTML.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Change Title Screen")
+	BLACKBOX_LOG_ADMIN_VERB("Change Title Screen")

@@ -2,7 +2,6 @@
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
 	item_state = "handcuff"
 	belt_icon = "handcuffs"
@@ -10,12 +9,11 @@
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_HANDCUFFED
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
-	breakout_time = 600 //Deciseconds = 60s = 1 minutes
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	breakout_time = 150 SECONDS
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
@@ -124,7 +122,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sinewcuff"
 	item_state = "sinewcuff"
-	breakout_time = 300 //Deciseconds = 30s
+	breakout_time = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
 /obj/item/restraints/handcuffs/cable
@@ -133,7 +131,7 @@
 	icon_state = "cuff_white"
 	origin_tech = "engineering=2"
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
-	breakout_time = 300 //Deciseconds = 30s
+	breakout_time = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
 /obj/item/restraints/handcuffs/cable/red
@@ -230,8 +228,7 @@
 /obj/item/restraints/handcuffs/cable/zipties
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
-	icon_state = "cuff_white"
-	breakout_time = 450 //Deciseconds = 45s
+	breakout_time = 90 SECONDS
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
@@ -253,7 +250,7 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "manacle_lock"
 	item_state = "manacle"
-	breakout_time = 450 //Deciseconds = 45s
+	breakout_time = 2 MINUTES
 	cuffsound = 'sound/items/zippoclose.ogg'
 	onmob_sheets = list(
 		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi'

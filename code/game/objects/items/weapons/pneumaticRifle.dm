@@ -7,10 +7,8 @@
 	icon = 'icons/obj/weapons/pneumaticRifle.dmi'
 	icon_state = "pneumaticRifle"
 	item_state = "pneumaticRifle"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	fire_sound = 'sound/weapons/pneumatic_rifle.ogg'
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
 	var/obj/item/tank/internals/tank = null
 	var/list/syringes = list()
 	var/max_syringes = 1
@@ -38,7 +36,7 @@
 		if(chambered.BB)
 			. += span_notice("It is loaded.")
 		if(tank)
-			. += span_notice("[bicon(tank)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
+			. += span_notice("[icon2html(tank, user)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
 		if(isBelted)
 			. += span_notice("It has a strap, now you can hold [src] on your back.")
 
@@ -111,7 +109,7 @@
 
 /obj/item/gun/pneumatic_rifle/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, span_notice("[src] is empty."))
 		return FALSE
 
 	var/obj/item/reagent_containers/syringe/S
@@ -126,7 +124,7 @@
 	user.put_in_hands(S)
 	syringes.Remove(S)
 	process_chamber()
-	to_chat(user, "<span class='notice'>You unload [S] from \the [src]!</span>")
+	to_chat(user, span_notice("You unload [S] from \the [src]!"))
 	return TRUE
 
 /obj/item/gun/pneumatic_rifle/process_chamber()

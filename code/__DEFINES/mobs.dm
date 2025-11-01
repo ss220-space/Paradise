@@ -1,13 +1,11 @@
-///////////////////ORGAN DEFINES///////////////////
-
 // Organ defines.
-#define ORGAN_BROKEN		(1<<0)
-#define ORGAN_ROBOT			(1<<1)
-#define ORGAN_SPLINTED		(1<<2)
-#define ORGAN_DEAD			(1<<3)
-#define ORGAN_MUTATED		(1<<4)
-#define ORGAN_INT_BLEED		(1<<5)
-#define ORGAN_DISFIGURED	(1<<6)
+#define ORGAN_BROKEN (1<<0)
+#define ORGAN_ROBOT (1<<1)
+#define ORGAN_SPLINTED (1<<2)
+#define ORGAN_DEAD (1<<3)
+#define ORGAN_MUTATED (1<<4)
+#define ORGAN_INT_BLEED (1<<5)
+#define ORGAN_DISFIGURED (1<<6)
 
 #define PROCESS_ACCURACY 10
 
@@ -17,35 +15,33 @@
 
 #define TOXIN_TO_INTERNAL_DAMAGE_MULTIPLIER 2 // coefficient wich defines ratio of toxin into internal organs damage transfer
 
-
 #define LEFT 1
 #define RIGHT 2
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
-
 //Pulse levels, very simplified
-#define PULSE_NONE		0	//so !M.pulse checks would be possible
-#define PULSE_SLOW		1	//<60 bpm
-#define PULSE_NORM		2	//60-90 bpm
-#define PULSE_FAST		3	//90-120 bpm
-#define PULSE_2FAST		4	//>120 bpm
-#define PULSE_THREADY	5	//occurs during hypovolemic shock
+#define PULSE_NONE 0 //so !M.pulse checks would be possible
+#define PULSE_SLOW 1 //<60 bpm
+#define PULSE_NORM 2 //60-90 bpm
+#define PULSE_FAST 3 //90-120 bpm
+#define PULSE_2FAST 4 //>120 bpm
+#define PULSE_THREADY 5 //occurs during hypovolemic shock
 //feel free to add shit to lists below
 
 
 //proc/get_pulse methods
-#define GETPULSE_HAND	0	//less accurate (hand)
-#define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
+#define GETPULSE_HAND 0 //less accurate (hand)
+#define GETPULSE_TOOL 1 //more accurate (med scanner, sleeper, etc)
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
-#define PROCESS_ORG 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_SYN 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_DUO 4		//Only processes reagents with "ORGANIC | SYNTHETIC"
+#define PROCESS_ORG 1 //Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_SYN 2 //Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_DUO 4 //Only processes reagents with "ORGANIC | SYNTHETIC"
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
-#define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
+#define SHOES_SLOWDOWN 0 // How much shoes slow you down by default. Negative values speed you up
 
 #define DISGUST_LEVEL_MAXEDOUT 150 STATUS_EFFECT_CONSTANT
 #define DISGUST_LEVEL_DISGUSTED 75 STATUS_EFFECT_CONSTANT
@@ -81,9 +77,12 @@
 #define ORGANIC 1
 #define SYNTHETIC 2
 
+// Reagent tag flags, define reagent behaviour (now use only for anti-stun reagents)
+#define REAGENT_TAG_ANTI_STUN (1<<0)
+
 // Appearance change flags
 #define APPEARANCE_UPDATE_DNA (1<<0)
-#define APPEARANCE_RACE	(1<<1|APPEARANCE_UPDATE_DNA)
+#define APPEARANCE_RACE (1<<1|APPEARANCE_UPDATE_DNA)
 #define APPEARANCE_GENDER (1<<2|APPEARANCE_UPDATE_DNA)
 #define APPEARANCE_SKIN (1<<3)
 #define APPEARANCE_HAIR (1<<4)
@@ -109,23 +108,23 @@
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE 50
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN 100
 
-#define SLIME_BABY 		"baby"
-#define SLIME_ADULT 	"adult"
-#define SLIME_OLD 		"old"
-#define SLIME_ELDER 	"elder"
-#define SLIME_SLIMEMAN 	"slimeman"
+#define SLIME_BABY "baby"
+#define SLIME_ADULT "adult"
+#define SLIME_OLD "old"
+#define SLIME_ELDER "elder"
+#define SLIME_SLIMEMAN "slimeman"
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
 
 //Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT 			5 //Min friendship to order it to stop eating someone
-#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
-#define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
-#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
-#define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
-#define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
+#define SLIME_FRIENDSHIP_FOLLOW 3 //Min friendship to order it to follow
+#define SLIME_FRIENDSHIP_STOPEAT 5 //Min friendship to order it to stop eating someone
+#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY 7 //Min friendship to order it to stop eating someone without it losing friendship
+#define SLIME_FRIENDSHIP_STOPCHASE 4 //Min friendship to order it to stop chasing someone (their target)
+#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY 6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
+#define SLIME_FRIENDSHIP_STAY 3 //Min friendship to order it to stay
+#define SLIME_FRIENDSHIP_ATTACK 8 //Min friendship to order it to attack
 
 //Spiders ai states
 #define SPINNING_WEB 1
@@ -144,14 +143,14 @@
 #define MAX_SIMPLEMOB_WAKEUP_RANGE 5
 
 // Intents
-#define INTENT_HELP		"help"
-#define INTENT_DISARM	"disarm"
-#define INTENT_GRAB		"grab"
-#define INTENT_HARM		"harm"
+#define INTENT_HELP "help"
+#define INTENT_DISARM "disarm"
+#define INTENT_GRAB "grab"
+#define INTENT_HARM "harm"
 
 // Movement Intents
 #define MOVE_INTENT_WALK "walk"
-#define MOVE_INTENT_RUN  "run"
+#define MOVE_INTENT_RUN "run"
 
 // AI wire/radio settings
 #define AI_CHECK_WIRELESS 1
@@ -164,13 +163,13 @@
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE 0
 #define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect
-#define ENVIRONMENT_SMASH_WALLS 2   //walls
-#define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
+#define ENVIRONMENT_SMASH_WALLS 2 //walls
+#define ENVIRONMENT_SMASH_RWALLS 4 //rwalls
 
-#define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
+#define POCKET_STRIP_DELAY 4 SECONDS	//time taken to search somebody's pockets
 
-#define DEFAULT_ITEM_STRIP_DELAY		4 SECONDS  //time taken to strip somebody
-#define DEFAULT_ITEM_PUTON_DELAY		2 SECONDS  //time taken to reverse-strip somebody
+#define DEFAULT_ITEM_STRIP_DELAY 4 SECONDS  //time taken to strip somebody
+#define DEFAULT_ITEM_PUTON_DELAY 2 SECONDS  //time taken to reverse-strip somebody
 
 #define IGNORE_ACCESS -1
 
@@ -193,45 +192,13 @@
 #define STATUS_UPDATE_NEARSIGHTED (1<<4)
 
 #define STATUS_UPDATE_NONE 0
-#define STATUS_UPDATE_ALL (~0)
+#define STATUS_UPDATE_ALL ALL
 
 // Incorporeal movement
 #define INCORPOREAL_NONE 0
 #define INCORPOREAL_NORMAL 1
 #define INCORPOREAL_NINJA 2
 #define INCORPOREAL_REVENANT 3
-
-//Human sub-species
-#define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
-#define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
-#define isabductor(A) (is_species(A, /datum/species/abductor))
-#define isgolem(A) (is_species(A, /datum/species/golem))
-#define isfarwa(A) (is_species(A, /datum/species/monkey/tajaran))
-#define iswolpin(A) (is_species(A, /datum/species/monkey/vulpkanin))
-#define isneara(A) (is_species(A, /datum/species/monkey/skrell))
-#define isstok(A) (is_species(A, /datum/species/monkey/unathi))
-#define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
-#define isshadowperson(A) (is_species(A, /datum/species/shadow))
-#define isskeleton(A) (is_species(A, /datum/species/skeleton))
-#define ishumanbasic(A) (is_species(A, /datum/species/human))
-#define isunathi(A) (is_species(A, /datum/species/unathi))
-#define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
-#define isashwalkershaman(A) (is_species(A, /datum/species/unathi/ashwalker/shaman))
-#define isdraconid(A) (is_species(A, /datum/species/unathi/draconid))
-#define istajaran(A) (is_species(A, /datum/species/tajaran))
-#define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
-#define isskrell(A) (is_species(A, /datum/species/skrell))
-#define isvox(A) (is_species(A, /datum/species/vox))
-#define isvoxarmalis(A) (is_species(A, /datum/species/vox/armalis))
-#define iskidan(A) (is_species(A, /datum/species/kidan))
-#define isslimeperson(A) (is_species(A, /datum/species/slime))
-#define isnucleation(A) (is_species(A, /datum/species/nucleation))
-#define isgrey(A) (is_species(A, /datum/species/grey))
-#define isdiona(A) (is_species(A, /datum/species/diona))
-#define ismachineperson(A) (is_species(A, /datum/species/machine))
-#define isdrask(A) (is_species(A, /datum/species/drask))
-#define iswryn(A) (is_species(A, /datum/species/wryn))
-#define ismoth(A) (is_species(A, /datum/species/moth))
 
 //Human sub-species names
 #define SPECIES_ABDUCTOR "Abductor"
@@ -294,63 +261,6 @@
 // not race
 #define SPECIES_OTHER "Other"
 
-#define isanimal(A)		(istype((A), /mob/living/simple_animal) || istype(A, /mob/living/basic))
-#define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
-#define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
-#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
-#define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
-#define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
-#define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
-#define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
-#define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
-#define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
-#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
-#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
-#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
-#define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
-#define isborer(A)		(istype((A), /mob/living/simple_animal/borer))
-#define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
-#define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
-#define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
-#define ismarauder(A) 	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
-
-
-#define issilicon(A)	(istype((A), /mob/living/silicon))
-#define isAI(A)			(istype((A), /mob/living/silicon/ai))
-#define isrobot(A)		(istype((A), /mob/living/silicon/robot))
-#define ispAI(A)		(istype((A), /mob/living/silicon/pai))
-#define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
-#define iscogscarab(A)	(istype((A), /mob/living/silicon/robot/cogscarab))
-
-// For the tcomms monitor
-#define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
-#define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
-#define ispathslime(A)		(ispath(A, /mob/living/simple_animal/slime))
-#define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
-#define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
-#define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
-
-#define isAIEye(A)		(istype((A), /mob/camera/aiEye))
-#define isovermind(A)	(istype((A), /mob/camera/blob))
-
-#define isminion(A)		(istype((A), /mob/living/simple_animal/hostile/blob_minion))
-#define isblobbernaut(M) istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut)
-
-#define isSpirit(A)		(istype((A), /mob/spirit))
-#define ismask(A)		(istype((A), /mob/spirit/mask))
-
-#define isobserver(A)	(istype((A), /mob/dead/observer))
-
-#define isnewplayer(A)  (istype((A), /mob/new_player))
-
-#define isexternalorgan(A)		(istype((A), /obj/item/organ/external))
-
-#define hasorgans(A)	(iscarbon(A))
-
-#define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
-
-#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user)
-
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
 	if(QDELETED(A)) return; \
@@ -370,14 +280,11 @@
 		}; \
 	};
 
-// Locations
-#define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
-
 // Hearing protection
-#define HEARING_PROTECTION_NONE	0
-#define HEARING_PROTECTION_MINOR	1
-#define HEARING_PROTECTION_MAJOR	2
-#define HEARING_PROTECTION_TOTAL	3
+#define HEARING_PROTECTION_NONE 0
+#define HEARING_PROTECTION_MINOR 1
+#define HEARING_PROTECTION_MAJOR 2
+#define HEARING_PROTECTION_TOTAL 3
 
 // Eye protection
 #define FLASH_PROTECTION_VERYVUNERABLE -4
@@ -432,7 +339,7 @@
 
 #define PULL_LYING_MOB_SLOWDOWN 1.3
 #define PUSH_STANDING_MOB_SLOWDOWN 1.3
-#define HUMAN_CARRY_SLOWDOWN 0.6
+#define HUMAN_CARRY_SLOWDOWN 1.18  // PULL_LYING_MOB_SLOWDOWN / 1.1 = 1.18(18) ~ 1.18
 
 #define ACTIVE_HAND_RIGHT 0
 #define ACTIVE_HAND_LEFT 1
@@ -447,14 +354,14 @@
 #define DEVOUR_TIME_ANIMAL (3 SECONDS)
 
 
-//Flags used by the flags parameter of electrocute act.
-///Makes it so that the shock doesn't take gloves into account.
+// Flags used by the flags parameter of electrocute act.
+/// Makes it so that the shock doesn't take gloves into account.
 #define SHOCK_NOGLOVES (1<<0)
-///Used when the shock is from a tesla bolt.
+/// Used when the shock is from a tesla bolt.
 #define SHOCK_TESLA (1<<1)
-///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
+/// Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
 #define SHOCK_ILLUSION (1<<2)
-///The shock doesn't stun.
+/// The shock doesn't stun.
 #define SHOCK_NOSTUN (1<<3)
 /// No default message is sent from the shock
 #define SHOCK_SUPPRESS_MESSAGE (1<<4)
@@ -465,26 +372,38 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
+// tesla_zap
+#define ZAP_MACHINE_EXPLOSIVE (1<<0)
+#define ZAP_ALLOW_DUPLICATES (1<<1)
+#define ZAP_OBJ_DAMAGE (1<<2)
+#define ZAP_MOB_DAMAGE (1<<3)
+#define ZAP_MOB_STUN (1<<4)
+#define ZAP_GENERATES_POWER (1<<5)
+
+#define ZAP_DEFAULT_FLAGS ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+#define ZAP_TESLA_FLAGS ZAP_DEFAULT_FLAGS | ZAP_MACHINE_EXPLOSIVE
+#define ZAP_FUSION_FLAGS ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN
+#define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
 
 /// Vomit defines
-#define VOMIT_NUTRITION_LOSS	10
-#define VOMIT_STUN_TIME			(8 SECONDS)
-#define VOMIT_DISTANCE			1
-#define VOMIT_SAFE_NUTRITION	90
+#define VOMIT_NUTRITION_LOSS 10
+#define VOMIT_STUN_TIME (8 SECONDS)
+#define VOMIT_DISTANCE 1
+#define VOMIT_SAFE_NUTRITION 90
 /// Vomit modes
-#define VOMIT_BLOOD	(1<<0)
+#define VOMIT_BLOOD (1<<0)
 
 /// When reached - we'll apply status effect which will force carbon to vomit
-#define TOX_VOMIT_THRESHOLD_REACHED(mob, toxloss)	(mob.getToxLoss() >= toxloss)
-#define TOX_VOMIT_REQUIRED_TOXLOSS	45
+#define TOX_VOMIT_THRESHOLD_REACHED(mob, toxloss) (mob.getToxLoss() >= toxloss)
+#define TOX_VOMIT_REQUIRED_TOXLOSS 45
 
 /// For babylon fever disease.
 #define DISEASE_MOB_LANGUAGE_PROCESSED (1<<0)
 
 /// Eyes examine time mod
-#define EXAMINE_INSTANT	0 // 0 seconds
+#define EXAMINE_INSTANT 0 // 0 seconds
 
-//Incapacitated ignore flags for [/proc/incapacitated()].
+// Incapacitated ignore flags for [/proc/incapacitated()].
 // They also used at interaction_flags_c var.
 /// If the incapacitated will ignore a mob in restraints
 #define INC_IGNORE_RESTRAINED (1<<0)
@@ -524,3 +443,9 @@
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
 #define MINING_FACTIONS list("mining", "boss")
+
+//Health hud screws for carbon mobs
+#define SCREWYHUD_NONE 0
+#define SCREWYHUD_CRIT 1
+#define SCREWYHUD_DEAD 2
+#define SCREWYHUD_HEALTHY 3

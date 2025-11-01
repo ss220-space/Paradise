@@ -18,7 +18,7 @@
 	I.assignment = rank
 	I.sex = capitalize(H.gender)
 	I.age = H.age
-	I.name = "[I.registered_name]'s ID Card ([I.assignment])"
+	I.name = "[I.registered_name]’s ID Card ([I.assignment])"
 	I.photo = get_id_photo(H)
 
 	if(special_icon)
@@ -97,7 +97,7 @@
 
 /datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 	if(!visualsOnly)
 		H.faction |= "syndicate"
 
@@ -127,7 +127,7 @@
 	..()
 	var/obj/item/card/id/syndicate/I = H.wear_id
 	I.icon_state = "syndie"
-	I.name = "[H.real_name]'s ID Card"
+	I.name = "[H.real_name]’s ID Card"
 	I.assignment = "Syndicate Commando"
 	I.access += get_syndicate_access(I.assignment)
 	I.registered_name = H.real_name
@@ -143,7 +143,6 @@
 	H.back.contents += new /obj/item/disk/nuclear/unrestricted
 
 /datum/outfit/admin/syndicate_strike_team/full_gear
-	name = "Syndicate Strike Team Commando"
 	can_be_admin_equipped = TRUE
 	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
@@ -156,7 +155,7 @@
 	backpack_contents = list(
 		/obj/item/tank/jetpack/oxygen/harness = 1,
 		/obj/item/radio/uplink/sst = 1,
-		/obj/item/ammo_box/magazine/mm556x45 = 1,
+		/obj/item/ammo_box/magazine/a762x51 = 1,
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/gun/projectile/revolver = 1,
@@ -168,7 +167,6 @@
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	uplink_uses = 200
-	id_access = SYNDICATE_AGENT
 
 	implants = list(
 		/obj/item/implant/dust
@@ -198,7 +196,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("VIP Guest"), "VIP Guest")
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/special_reaction_team
 	name = "Special Reaction Team Member"
@@ -224,7 +222,7 @@
 		/obj/item/gun/projectile/automatic/proto = 1,
 		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
-		/obj/item/suppressor = 1,
+		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/CQC_manual = 1,
 		/obj/item/storage/box/responseteam = 1
 	)
@@ -255,7 +253,8 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
-	H.sec_hud_set_ID()
+		I.law_level = LAW_LEVEL_RESPONSE_TEAM
+	H.update_hud_set()
 
 
 /datum/outfit/admin/nt_navy_captain
@@ -289,7 +288,8 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
-	H.sec_hud_set_ID()
+		I.law_level = LAW_LEVEL_CENTCOMM
+	H.update_hud_set()
 
 /datum/outfit/admin/nt_diplomat
 	name = "NT Diplomat"
@@ -320,7 +320,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Representative"), "Nanotrasen Diplomat")
-	H.sec_hud_set_ID() //No, it's recognized.
+	H.update_hud_set() //No, it's recognized.
 
 /datum/outfit/admin/nt_undercover
 	name = "NT Undercover Operative"
@@ -359,7 +359,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), JOB_TITLE_CIVILIAN)
-	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
+	H.update_hud_set() // Force it to show as Civ on sec huds
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
@@ -412,7 +412,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando", "deathsquad")
 		I.photo = get_id_photo(H, custom_job = JOB_TITLE_REPRESENTATIVE) // They should go die with a good photo instead of assistants grey shorts xD
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/death_commando/officer
 	name = "NT Death Commando officer"
@@ -552,7 +552,7 @@
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
-		/obj/item/suppressor = 1,
+		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/card/emag = 1,
 		/obj/item/radio/uplink = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
@@ -579,7 +579,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), JOB_TITLE_MIME)
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/greytide
 	name = "Greytide"
@@ -709,7 +709,7 @@
 	if(visualsOnly)
 		return
 
-	H.rename_character(null, "[rank_list.len ? pick(rank_list) : "[H.gender==FEMALE ? pick(GLOB.first_names_female) : pick(GLOB.first_names_male)]"] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+	H.rename_character(null, "[length(rank_list) ? pick(rank_list) : "[H.gender==FEMALE ? pick(GLOB.first_names_female) : pick(GLOB.first_names_male)]"] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]")
 
 	H.add_language(LANGUAGE_NEO_RUSSIAN)
 	H.set_default_language(GLOB.all_languages[LANGUAGE_NEO_RUSSIAN])
@@ -717,7 +717,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"
@@ -843,7 +843,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 
 /datum/outfit/admin/solgov
@@ -884,14 +884,11 @@
 
 /datum/outfit/admin/solgov/elite
 	name = "Solar Federation Specops Marine"
-	is_tsf_lieutenant = FALSE
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	suit_store = /obj/item/gun/projectile/automatic/ar
 	head = /obj/item/clothing/head/soft/solgov/elite
-	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
-	id = /obj/item/card/id
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
@@ -912,13 +909,11 @@
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	head = /obj/item/clothing/head/beret/solgov/command/elite
-	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/melee/baton/security/loaded
 	l_hand = null
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
-	id = /obj/item/card/id
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/storage/box/handcuffs = 1,
@@ -934,14 +929,14 @@
 		return
 
 	if(is_tsf_lieutenant)
-		H.real_name = "Лейтенант [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+		H.real_name = "Лейтенант [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 	else
-		H.real_name = "[pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+		H.real_name = "[pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names_male)]"
 	H.name = H.real_name
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/sol_trader
 	name = "Sol Trader"
@@ -969,7 +964,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"

@@ -12,7 +12,6 @@
 	name = "Organic Weapon"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
-	power_type = CHANGELING_UNOBTAINABLE_POWER
 	chemical_cost = 1000
 	genetic_damage = 1000
 	req_human = TRUE
@@ -77,7 +76,6 @@
 	name = "Organic Suit"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
-	power_type = CHANGELING_UNOBTAINABLE_POWER
 	chemical_cost = 1000
 	req_human = TRUE
 	var/helmet_type = /obj/item
@@ -97,8 +95,8 @@
 		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		qdel(user.wear_suit)
 		qdel(user.head)
-		user.update_inv_wear_suit()
-		user.update_inv_head()
+		user.update_worn_oversuit()
+		user.update_worn_head()
 		user.update_hair()
 		user.update_fhair()
 
@@ -111,7 +109,7 @@
 	..(user, target)
 
 
-/datum/action/changeling/suit/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
 	if(!user.can_unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return FALSE
@@ -144,18 +142,17 @@
 	chemical_cost = 10
 	genetic_damage = 10
 	max_genetic_damage = 20
-	weapon_type = /obj/item/melee/arm_blade
-	weapon_check_type = /obj/item/melee/arm_blade
+	weapon_type = /obj/item/melee/changeling/arm_blade
+	weapon_check_type = /obj/item/melee/changeling // so we can't have maul and armblade at the same time
 	weapon_name_simple = "blade"
 
 
-/obj/item/melee/arm_blade
+/obj/item/melee/changeling/arm_blade
 	name = "arm blade"
 	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	item_flags = ABSTRACT|DROPDEL
-	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 	force = 45
@@ -163,29 +160,50 @@
 	block_chance = 50
 	block_type = MELEE_ATTACKS
 	hitsound = 'sound/weapons/armblade.ogg'
-	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
 	gender = FEMALE
-	ru_names = list(NOMINATIVE = "рука-клинок", GENITIVE = "руки-клинка", DATIVE = "руке-клинку", ACCUSATIVE = "руку-клинок", INSTRUMENTAL = "рукой-клинком", PREPOSITIONAL = "руке-клинке")
 	var/datum/action/changeling/weapon/parent_action
 
+/obj/item/melee/changeling/arm_blade/get_ru_names()
+	return list(
+		NOMINATIVE = "рука-клинок",
+		GENITIVE = "руки-клинка",
+		DATIVE = "руке-клинку",
+		ACCUSATIVE = "руку-клинок",
+		INSTRUMENTAL = "рукой-клинком",
+		PREPOSITIONAL = "руке-клинке"
+	)
 
-/obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
+
+/obj/item/melee/changeling/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	parent_action = new_parent_action
 
 
-/obj/item/melee/arm_blade/Destroy()
-	if(parent_action)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
-		parent_action = null
-	return ..()
+/obj/item/melee/changeling/arm_blade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_sound = SFX_BLADE_SWING_LIGHT \
+	)
 
 
-/obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/changeling/arm_blade/Destroy()
+	. = ..()
+
+	if(!parent_action)
+		return
+
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	parent_action = null
+
+
+/obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+
 	if(!proximity)
 		return
 
@@ -217,7 +235,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
-		if(O.brute_dam >= 50)
+		if(O && O.brute_dam >= 50)
 			O.droplimb()
 
 
@@ -234,31 +252,75 @@
 	chemical_cost = 10
 	genetic_damage = 10
 	max_genetic_damage = 20
-	weapon_type = /obj/item/melee/arm_blade/fleshy_maul
-	weapon_check_type = /obj/item/melee/arm_blade
+	weapon_type = /obj/item/melee/changeling/fleshy_maul
+	weapon_check_type = /obj/item/melee/changeling
 	weapon_name_simple = "maul"
 
-/obj/item/melee/arm_blade/fleshy_maul
+
+/obj/item/melee/changeling/fleshy_maul
 	name = "fleshy maul"
 	desc = "An enormous maul made out of bone and flesh that crushes limbs in the dust"
 	icon_state = "flesh_maul"
 	item_state = "flesh_maul"
-	sharp = FALSE
+	item_flags = ABSTRACT|DROPDEL
+	w_class = WEIGHT_CLASS_HUGE
 	force = 25
-	block_chance = 0
 	armour_penetration = 35
 	hitsound = "swing_hit"
+	throw_range = 0
+	throw_speed = 0
 	gender = MALE
-	ru_names = list(NOMINATIVE = "молот из плоти", GENITIVE = "молота из плоти", DATIVE = "молоту из плоти", ACCUSATIVE = "молот из плоти", INSTRUMENTAL = "молотом из плоти", PREPOSITIONAL = "молоте из плоти")
+	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/melee/changeling/fleshy_maul/get_ru_names()
+	return list(
+		NOMINATIVE = "молот из плоти",
+		GENITIVE = "молота из плоти",
+		DATIVE = "молоту из плоти",
+		ACCUSATIVE = "молот из плоти",
+		INSTRUMENTAL = "молотом из плоти",
+		PREPOSITIONAL = "молоте из плоти"
+	)
+
+/obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
+	parent_action = new_parent_action
+
+
+/obj/item/melee/changeling/fleshy_maul/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.3, \
+		no_multi_hit = TRUE, \
+		swing_sound = SFX_BLUNT_SWING_HEAVY, \
+	)
+
+
+/obj/item/melee/changeling/fleshy_maul/Destroy()
+	. = ..()
+
+	if(!parent_action)
+		return
+
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	parent_action = null
+
+
+/obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
+	. = ..()
+
 	if(!proximity)
 		return
 
 	if(isstructure(target))
 		var/obj/structure/S = target
 		if(!QDELETED(S))
-			S.attack_generic(user, 80, BRUTE, "melee", 0)
+			S.attack_generic(user, 80, BRUTE, MELEE, 0)
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
@@ -279,11 +341,13 @@
 			if(O.brute_dam > 20)
 				O.fracture()
 
-/obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
+
+/obj/item/melee/changeling/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
 		target.Weaken(1 SECONDS)
 
-/obj/item/melee/arm_blade/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
+
+/obj/item/melee/changeling/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
 	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
 
 
@@ -313,11 +377,12 @@
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
 	icon = 'icons/obj/items.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
 	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
 	slot_flags = NONE
-	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
 	fire_sound = 'sound/effects/splat.ogg'
 	force = 0
@@ -383,12 +448,9 @@
 /obj/projectile/tentacle
 	name = "tentacle"
 	icon_state = "tentacle_end"
-	pass_flags = PASSTABLE
 	damage = 0
-	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
-	armour_penetration = 0
 	reflectability = REFLECTABILITY_NEVER //Let us not reflect this ever. It's not quite a bullet, and a cling should never wrap its tentacle around itself, it controls its body well
 	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
@@ -478,7 +540,7 @@
 	if(isitem(target))
 		var/obj/item/item = target
 		if(!item.anchored)
-			to_chat(firer, "<span class='notice'>You pull [item] towards yourself.</span>")
+			to_chat(firer, span_notice("You pull [item] towards yourself."))
 			add_attack_logs(src, item, "[src] pulled [item] towards them with a tentacle")
 			user.throw_mode_on()
 			item.throw_at(user, 10, 2, callback = CALLBACK(src, PROC_REF(tentacle_disarm), item, user))
@@ -587,7 +649,6 @@
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
 	item_flags = DROPDEL
 	icon_state = "ling_shield"
-	block_chance = 50
 	var/remaining_uses //Set by the changeling ability.
 
 
@@ -646,7 +707,7 @@
 	flags_inv = HIDETAIL
 	item_flags = DROPDEL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90) //No armor at all
 	species_restricted = null
 	faction_restricted = null
 	sprite_sheets = list(
@@ -680,7 +741,7 @@
 	clothing_flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	item_flags = DROPDEL
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
 	sprite_sheets = list(
@@ -722,7 +783,7 @@
 	icon_state = "lingarmor"
 	item_flags = DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -755,7 +816,7 @@
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 	item_flags = DROPDEL
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
 

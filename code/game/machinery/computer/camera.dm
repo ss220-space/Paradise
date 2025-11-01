@@ -6,7 +6,7 @@
 
 	icon_keyboard = "security_key"
 	icon_screen = "cameras"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 	circuit = /obj/item/circuitboard/camera
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
@@ -29,7 +29,7 @@
 /obj/machinery/computer/security/ui_host()
 	return parent ? parent : src
 
-/obj/machinery/computer/security/Initialize()
+/obj/machinery/computer/security/Initialize(mapload)
 	. = ..()
 	// Map name has to start and end with an A-Z character,
 	// and definitely NOT with a square bracket or even a number.
@@ -90,19 +90,14 @@
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
-	
-	var/list/cameras = get_available_cameras()
-	data["cameras"] = list()
-	for(var/i in cameras)
-		var/obj/machinery/camera/camera = cameras[i]
-		data["cameras"] += list(list(
-			name = camera.c_tag,
-			x = camera.x,
-			y = camera.y,
-			z = camera.z,
-			ref = camera.UID(),
-			status = camera.status
-		))
+
+	var/list/cameras
+	if(is_away_level(z))
+		cameras = GLOB.cameranet.get_available_cameras_data(network, list(z))
+	else
+		cameras = GLOB.cameranet.get_available_cameras_data(network)
+
+	data["cameras"] = cameras
 
 	data["activeCamera"] = null
 	if(active_camera)
@@ -133,14 +128,16 @@
 		return
 
 	if(action == "switch_camera")
-		var/obj/machinery/camera/selected_camera = locate(params["camera"]) in GLOB.cameranet.cameras
+		var/obj/machinery/camera/selected_camera = locateUID(params["camera"])
+
 		if(isnull(selected_camera))
 			to_chat(usr, span_warning("ОШИБКА. Камера не найдена."))
 			return
+
 		active_camera?.computers_watched_by -= src
 		active_camera = selected_camera
 		active_camera.computers_watched_by += src
-		playsound(src, get_sfx("terminal_type"), 25, FALSE)
+		playsound(src, SFX_TERMINAL_TYPE, 25, FALSE)
 
 		if(isnull(active_camera))
 			return TRUE
@@ -197,26 +194,6 @@
 		active_camera = null
 		last_camera_turf = null
 		playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
-
-// Returns the list of cameras accessible from this computer
-/obj/machinery/computer/security/proc/get_available_cameras()
-	var/list/L = list()
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
-			continue
-		L.Add(C)
-	var/list/D = list()
-	for(var/obj/machinery/camera/C in L)
-		if(!C.network)
-			stack_trace("Camera in a cameranet has no camera network")
-			continue
-		if(!(islist(C.network)))
-			stack_trace("Camera in a cameranet has a non-list camera network")
-			continue
-		var/list/tempnetwork = C.network & network
-		if(tempnetwork.len)
-			D["[C.c_tag]"] = C
-	return D
 
 /obj/machinery/computer/security/attack_hand(mob/user)
 	if(stat || ..())
@@ -306,7 +283,7 @@
 	/// Icon utilised when `GLOB.active_video_cameras` list have anything inside.
 	var/icon_screen_on = "entertainment"
 
-/obj/machinery/computer/security/telescreen/entertainment/Initialize()
+/obj/machinery/computer/security/telescreen/entertainment/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOB_ATTACKED_RANGED, PROC_REF(on_ranged_attack))
 
@@ -408,7 +385,6 @@
 	icon_keyboard = "kb15"
 
 /obj/machinery/computer/security/old_frame/macintosh
-	icon = 'icons/obj/machines/computer3.dmi'
 	icon_screen = "sec_oldcomp"
 	icon_state = "oldcomp"
 	icon_keyboard = null

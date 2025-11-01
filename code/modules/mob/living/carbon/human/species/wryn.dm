@@ -7,7 +7,6 @@
 	blacklisted = TRUE
 	tail = "wryntail"
 	eyes = "wryn_eyes_s"
-	punchdamagelow = 0
 	punchdamagehigh = 1
 	warning_low_pressure = -300
 	hazard_low_pressure = 1
@@ -159,7 +158,7 @@
 	..()
 
 //Select a Target from a List
-/datum/action/innate/wryn/wryn_sting/proc/select_target(var/mob/living/carbon/human/user)
+/datum/action/innate/wryn/wryn_sting/proc/select_target(mob/living/carbon/human/user)
 	var/list/names = list()
 	for(var/mob/living/carbon/human/M in orange(1))
 		names += M
@@ -220,13 +219,13 @@
 	if(target.handcuffed && node && user.zone_selected == BODY_ZONE_HEAD)
 		switch(alert(user, "Вы хотите вырвать усики этому существу?", "OH SHIT", "Да", "Нет"))
 			if("Да")
-				user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target]."))
-				to_chat(target, span_danger("<b>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<b>"))
+				user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] яростно отрывать усики [target]."))
+				to_chat(target, span_danger("<b>[user] схватил[GEND_A_O_I(user)] ваши усики и яростно тян[PLUR_ET_UT(user)] их!<b>"))
 				if(do_after(user, 25 SECONDS, target, NONE))
 					node.remove(target)
 					node.forceMove(get_turf(target))
 					to_chat(user, span_notice("Вы слышите громкий хруст, когда безжалостно отрываете усики [target]."))
-					to_chat(target, span_danger("Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы."))
+					to_chat(target, span_danger("Вы слышите невыносимый хруст, когда [user] вырыва[PLUR_ET_YUT(user)] усики из вашей головы."))
 					to_chat(target, span_danger("<b>Стало так тихо...</b>"))
 
 					add_attack_logs(user, target, "Antennae removed")
@@ -237,15 +236,15 @@
 		..()
 
 /mob/living/carbon/human/proc/adjustWax(amount)
- 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
- 	if(!glands) return
- 	glands.wax = clamp(glands.wax + amount, 0, 75)
- 	return 1
+	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+	if(!glands) return
+	glands.wax = clamp(glands.wax + amount, 0, 75)
+	return 1
 
 /mob/living/carbon/human/proc/getWax()
- 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
- 	if(!glands) return 0
- 	return glands.wax
+	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+	if(!glands) return 0
+	return glands.wax
 
 /mob/living/carbon/human/proc/toggle_producing()
 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
@@ -254,5 +253,5 @@
 		glands.producing = !glands.producing
 
 /mob/living/carbon/human/proc/get_producing()
- 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
- 	return glands ? glands.producing : FALSE
+	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+	return glands ? glands.producing : FALSE

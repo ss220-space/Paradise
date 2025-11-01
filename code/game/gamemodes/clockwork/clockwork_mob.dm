@@ -10,7 +10,6 @@
 	force_threshold = 8
 	melee_damage_lower = 18
 	melee_damage_upper = 18
-	obj_damage = 40
 	speed = 0
 	friendly = "pokes"
 	attacktext = "порезал"
@@ -18,7 +17,6 @@
 	tts_seed = "Earth"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	pressure_resistance = 100
-	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
 	nightvision = 8
 	pass_flags = PASSTABLE
@@ -93,7 +91,7 @@
 		if(energy_projectile)
 			playsound(src, 'sound/weapons/effects/searwall.ogg', 50, TRUE)
 		else
-			playsound(src, "ricochet", 50, TRUE)
+			playsound(src, SFX_RICOCHET, 50, TRUE)
 		return TRUE
 	return FALSE
 
@@ -118,7 +116,7 @@
 					a_intent = INTENT_HELP
 				else if(a_intent == INTENT_HARM)
 					a_intent = INTENT_DISARM
-		if(hud_used && hud_used.action_intent)
+		if(hud_used?.action_intent)
 			hud_used.action_intent.icon_state = "[a_intent]"
 
 

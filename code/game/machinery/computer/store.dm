@@ -1,6 +1,5 @@
 /obj/machinery/computer/merch
 	name = "merch computer"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "comm_logs"
 	circuit = /obj/item/circuitboard/merch
 
@@ -9,9 +8,6 @@
 /obj/item/circuitboard/merch
 	board_name = "Merchandise Computer"
 	build_path = /obj/machinery/computer/merch
-
-/obj/machinery/computer/merch/New()
-	..()
 
 /obj/machinery/computer/merch/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)

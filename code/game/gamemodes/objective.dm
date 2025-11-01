@@ -1,12 +1,3 @@
-#define THEFT_FLAG_HIGHRISK 	1
-#define THEFT_FLAG_UNIQUE 		2
-#define THEFT_FLAG_HARD 		3
-#define THEFT_FLAG_MEDIUM 		4
-#define THEFT_FLAG_STRUCTURE	5
-#define THEFT_FLAG_ANIMAL		6
-#define THEFT_FLAG_COLLECT 		7
-
-
 GLOBAL_LIST_EMPTY(all_objectives)
 
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
@@ -138,8 +129,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /**
-  * Called when the objective's target goes to cryo.
-  */
+ * Called when the objective's target goes to cryo.
+ */
 /datum/objective/proc/on_target_cryo()
 	if(!check_cryo)
 		return
@@ -157,8 +148,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /**
-  * Called a tick after when the objective's target goes to cryo.
-  */
+ * Called a tick after when the objective's target goes to cryo.
+ */
 /datum/objective/proc/post_target_cryo(list/owners)
 
 	find_target(existing_targets_blacklist())
@@ -223,7 +214,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/assassinate/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD)
 			return TRUE
 
@@ -246,7 +237,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/mutiny/find_target(list/target_blacklist)
 	..()
-	if(target && target.current)
+	if(target?.current)
 		explanation_text = "Изгнать или убить[target.current.real_name], [target.assigned_role]."
 	else
 		explanation_text = "Свободная цель"
@@ -254,7 +245,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/mutiny/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
 			return TRUE
 
@@ -293,7 +284,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/maroon/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD)
 			return TRUE
 
@@ -325,7 +316,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/debrain //I want braaaainssss
 	name = "Debrain"
 	antag_menu_name = "Украсть мозг"
-	martyr_compatible = FALSE
 
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
@@ -338,15 +328,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/debrain/find_target(list/target_blacklist)
-    ..()
-    if(target?.current)
-        var/obj/item/organ/internal/brains = target.current.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-        explanation_text = "Украсть [brains.declent_ru(ACCUSATIVE)] у [target.current.real_name], [target.assigned_role]."
-        if(!(target in SSticker.mode.victims))
-            SSticker.mode.victims.Add(target)
-    else
-        explanation_text = "Свободная цель"
-    return target
+	..()
+	if(target?.current)
+		var/obj/item/organ/internal/brains = target.current.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+		explanation_text = "Украсть [brains.declent_ru(ACCUSATIVE)] у [target.current.real_name], [target.assigned_role]."
+		if(!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
+	else
+		explanation_text = "Свободная цель"
+	return target
 
 
 /datum/objective/debrain/check_completion()
@@ -508,7 +498,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/protect/find_target(list/target_blacklist)
 	..()
-	if(target && target.current)
+	if(target?.current)
 		explanation_text = "Защитить [target.current.real_name], [target.assigned_role]."
 	else
 		explanation_text = "Свободная цель"
@@ -551,7 +541,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/hijack
 	name = "Hijack"
 	antag_menu_name = "Угон шаттла"
-	martyr_compatible = FALSE //Technically you won't get both anyway.
 	explanation_text = "Угоните шаттл, эвакуировавшись без лояльного Nanotrasen экипажа на борту, будучи свободным. \
 	Агенты Синдикта, другие враги Nanotrasen, борги, питомцы, и заложники в наручниках/связывающих устройствах могут быть на шаттле живыми."
 	needs_target = FALSE
@@ -572,7 +561,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = "Hijack (with clones)"
 	antag_menu_name = "Угон шаттла (с клонами)"
 	explanation_text = "Захватите шаттл, убедившись, что сбежите только вы (или ваши копии)."
-	martyr_compatible = FALSE
 	needs_target = FALSE
 
 
@@ -712,9 +700,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	else
 		..()
 
-	if(target && target.current)
+	if(target?.current)
 		target_real_name = target.current.real_name
-		explanation_text = "Сбегите на шаттле или эвакуационном поде под личностью [target_real_name], [target.assigned_role], нося на себе [genderize_ru(target.current.gender, "его", "её", "его", "их")] ID карту."
+		explanation_text = "Сбегите на шаттле или эвакуационном поде под личностью [target_real_name], [target.assigned_role], нося на себе [GEND_HIS_HER(target.current)] ID карту."
 	else
 		explanation_text = "Свободная цель"
 
@@ -767,6 +755,43 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 
+/datum/objective/prison_escape
+	name = "Prison Escape"
+	antag_menu_name = "Сбежать из тюрьмы"
+	explanation_text = "Сбежать из тюрьмы и улететь на шаттле или эвакуационном челноке живым и свободным."
+	needs_target = FALSE
+
+/datum/objective/prison_escape/check_completion()
+	var/list/owners = get_owners()
+
+	for(var/datum/mind/player as anything in owners)
+		// These are mandatory conditions, they should come before the freebie conditions below.
+		if(QDELETED(player.current) || player.current.stat == DEAD || is_special_dead(player.current))
+			return FALSE
+
+	if(SSticker.force_ending) // This one isn't their fault, so lets just assume good faith.
+		return TRUE
+
+	if(SSticker.mode.station_was_nuked) // If they escaped the blast somehow, let them win.
+		return TRUE
+
+	if(!EMERGENCY_ESCAPED_OR_ENDGAMED)
+		return FALSE
+
+	for(var/datum/mind/player as anything in owners)
+		// Fails traitors if they are in the security area
+		var/area/location = get_area(player.current)
+		if(istype(location, /area/security))
+			return FALSE
+
+		// Fails traitors if they are in the shuttle brig
+		var/turf/turf = get_turf(player.current)
+		if(istype(turf, /turf/simulated/floor/shuttle/objective_check) || istype(turf, /turf/simulated/floor/mineral/plastitanium/red/brig))
+			return FALSE
+
+	return TRUE
+
+
 /datum/objective/die
 	name = "Glorious Death"
 	antag_menu_name = "Умереть славной смертью"
@@ -815,7 +840,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = "Steal Item"
 	antag_menu_name = "Украсть предмет"
 	var/datum/theft_objective/steal_target
-	martyr_compatible = FALSE
 	var/type_theft_flag = THEFT_FLAG_HIGHRISK
 
 
@@ -848,7 +872,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		var/has_invalid_owner = FALSE
 		for(var/datum/mind/player in get_owners())
-			if((player.assigned_role in new_theft_objective.protected_jobs))
+			if(player.assigned_role in new_theft_objective.protected_jobs)
 				has_invalid_owner = TRUE
 				break
 
@@ -894,7 +918,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		var/tmp_obj = new O.typepath
 		var/custom_name = tmp_obj:name
 		qdel(tmp_obj)
-		O.name = sanitize(tgui_input_text("Введите название цели:", "Цель", custom_name, MAX_NAME_LEN))
+		O.name = sanitize(tgui_input_text(usr, "Введите название цели:", "Цель", custom_name, MAX_NAME_LEN))
 		if(!O.name)
 			return FALSE
 		steal_target = O
@@ -954,12 +978,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/steal/exchange
-	martyr_compatible = FALSE
 	needs_target = FALSE
 	antag_menu_name = "Заполучить"
 
 
-/datum/objective/steal/exchange/proc/set_faction(var/faction,var/otheragent)
+/datum/objective/steal/exchange/proc/set_faction(faction, otheragent)
 	target = otheragent
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")
@@ -973,7 +996,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/exchange/backstab
 	antag_menu_name = "Сохранить"
 
-/datum/objective/steal/exchange/backstab/set_faction(var/faction)
+/datum/objective/steal/exchange/backstab/set_faction(faction)
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")
 		targetinfo = new /datum/theft_objective/unique/docs_red
@@ -1070,7 +1093,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/destroy/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD || is_away_level(target.current.z) || !target.current.ckey)
 			return TRUE
 		return FALSE
@@ -1214,19 +1237,19 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 					priority_targets += possible_target
 					continue
 
-	if(priority_targets.len > 0)
+	if(length(priority_targets) > 0)
 		target = pick(priority_targets)
-	else if(possible_targets.len > 0)
+	else if(length(possible_targets) > 0)
 		target = pick(possible_targets)
 
-	if(target && target.current)
-		explanation_text = "Ковчег нуждается в [target.current.real_name], [target.assigned_role]. Захватите [genderize_ru(target.current.gender, "его", "её", "его", "их")] живым."
+	if(target?.current)
+		explanation_text = "Ковчег нуждается в [target.current.real_name], [target.assigned_role]. Захватите [GEND_HIS_HER(target.current)] живым."
 	else
 		explanation_text = "Свободная цель"
 	return target
 
 /datum/objective/heist/kidnap/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD)
 			return FALSE
 
@@ -1243,7 +1266,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return FALSE
 
 /datum/objective/heist/loot
-	needs_target = FALSE
 
 /datum/objective/heist/loot/choose_target()
 	var/loot = "объект"
@@ -1317,7 +1339,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 /datum/objective/heist/salvage
-	needs_target = FALSE
 	antag_menu_name = "Добыть материалы"
 
 /datum/objective/heist/salvage/choose_target()
@@ -1388,7 +1409,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/heist/inviolate_crew
 	antag_menu_name = "Не бросать своих"
 	explanation_text = "Не бросайте ни одного вокса, живого или мёртвого.."
-	needs_target = FALSE
 
 /datum/objective/heist/inviolate_crew/check_completion()
 	var/datum/game_mode/heist/H = SSticker.mode
@@ -1399,7 +1419,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/heist/inviolate_death
 	antag_menu_name = "Ненасилие"
 	explanation_text = "Следуйте Ненасилию. Минимизируйте смерть и потерю ресурсов."
-	needs_target = FALSE
 
 /datum/objective/heist/inviolate_death/check_completion()
 	return TRUE
@@ -1540,7 +1559,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/protect/ninja
 	name = "Ninja's Protect"
-	antag_menu_name = "Защитить"
 	var/list/killers_objectives = list()
 	var/list/killers = list()
 
@@ -1569,8 +1587,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	target = safepick(possible_targets)
 
 	if(target?.current)
-		explanation_text = "На [target.current.real_name], [target.assigned_role] ведут охоту. [target.current.real_name] [genderize_ru(target.current.gender, "должен", "должна", "должно", "должны")] любой ценой \
-							дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы [genderize_ru(target.current.gender, "он остался жив", "она осталась жива", "оно осталось живо", "они остались живы")]."
+		explanation_text = "На [target.current.real_name], [target.assigned_role] ведут охоту. [target.current.real_name] должен[GEND_A_O_Y(target.current)] любой ценой \
+							дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы [GEND_HE_SHE(target.current)] остал[GEND_SYA_AS_OS_IS(target.current)] жив[GEND_A_O_Y(target.current)]."
 	else
 		explanation_text = "Свободная цель"
 
@@ -1598,7 +1616,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(istype(killer_objective, /datum/objective/assassinate))
 			killer_objective.explanation_text = "Убить [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
 		else if(istype(killer_objective, /datum/objective/maroon))
-			killer_objective.explanation_text = "Не дать сбежать [genderize_ru(killer_objective.target.current.gender, "живым или свободным", "живой или свободной", "живым или свободным", "живыми или свободными")] [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
+			killer_objective.explanation_text = "Не дать сбежать жив[GEND_YM_OI_YM_YMI(killer_objective.target.current)] или свободн[GEND_YM_OI_YM_YMI(killer_objective.target.current)] [killer_objective.target.current.real_name], [killer_objective.target.assigned_role]."
 
 		for(var/datum/mind/killer in killer_objective.get_owners())
 			killer.prepare_announce_objectives()
@@ -1624,7 +1642,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/set_up/find_target(list/target_blacklist)
 	..()
 	if(target?.current)
-		explanation_text = "Любым способом подставьте [target.current.real_name], [target.assigned_role], чтобы [genderize_ru(target.current.gender, "его", "её", "его", "их")] лишили свободы. Но не убили!"
+		explanation_text = "Любым способом подставьте [target.current.real_name], [target.assigned_role], чтобы [GEND_HIS_HER(target.current)] лишили свободы. Но не убили!"
 	else
 		explanation_text = "Свободная цель"
 	return target

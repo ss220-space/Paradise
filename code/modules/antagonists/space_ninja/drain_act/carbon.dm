@@ -10,6 +10,7 @@
 		//Got that electric touch
 		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, loc)
+		ninja_suit.cancel_stealth()
 		playsound(src, 'sound/machines/defib_zap.ogg', 50, TRUE, 5)
 		visible_message(span_danger("[ninja] electrocutes [src] with [ninja.p_their()] touch!"), span_userdanger("[ninja] electrocutes you with [ninja.p_their()] touch!"))
 		Weaken(0.5 SECONDS)

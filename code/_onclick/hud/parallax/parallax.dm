@@ -1,22 +1,3 @@
-/client
-	var/list/parallax_layers
-	var/list/parallax_layers_cached
-	var/atom/movable/screen/parallax_home/parallax_rock
-	var/atom/movable/movingmob
-	var/turf/previous_turf
-	/// world.time of when we can state animate()ing parallax again
-	var/dont_animate_parallax
-	/// Direction our current area wants to move parallax
-	var/parallax_movedir = 0
-	/// How many parallax layers to show our client
-	var/parallax_layers_max = 4
-	/// Timers for the area directional animation, one for each layer
-	var/list/parallax_animate_timers
-	/// Do we want to do parallax animations at all?
-	/// Exists to prevent laptop fires
-	var/do_parallax_animations = TRUE
-
-
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
@@ -73,7 +54,7 @@
 	var/client/C = screenmob.client
 	var/pref = C.prefs?.parallax || PARALLAX_HIGH
 	switch(pref)
-		if (PARALLAX_INSANE)
+		if(PARALLAX_INSANE)
 			C.parallax_layers_max = 5
 			C.do_parallax_animations = TRUE
 			return TRUE
@@ -83,17 +64,17 @@
 			C.do_parallax_animations = TRUE
 			return TRUE
 
-		if (PARALLAX_MED)
+		if(PARALLAX_MED)
 			C.parallax_layers_max = 3
 			C.do_parallax_animations = TRUE
 			return TRUE
 
-		if (PARALLAX_LOW)
+		if(PARALLAX_LOW)
 			C.parallax_layers_max = 1
 			C.do_parallax_animations = FALSE
 			return TRUE
 
-		if (PARALLAX_DISABLE)
+		if(PARALLAX_DISABLE)
 			return FALSE
 
 
@@ -141,7 +122,7 @@
 
 		layer.transform = new_transform
 		animate(layer, transform = matrix(), time = scaled_time, easing = QUAD_EASING | (new_parallax_movedir ? EASE_IN : EASE_OUT))
-		if (new_parallax_movedir == NONE)
+		if(new_parallax_movedir == NONE)
 			continue
 		//queue up another animate so lag doesn't create a shutter
 		animate(transform = new_transform, time = 0)
@@ -193,7 +174,7 @@
 	if(!offset_x && !offset_y && !force)
 		return
 
-	var/glide_rate = round(world.icon_size / screenmob.glide_size * world.tick_lag, world.tick_lag)
+	var/glide_rate = round(ICON_SIZE_ALL / screenmob.glide_size * world.tick_lag, world.tick_lag)
 	C.previous_turf = posobj
 	var/largest_change = max(abs(offset_x), abs(offset_y))
 	var/max_allowed_dist = (glide_rate / world.tick_lag) + 1
@@ -243,11 +224,12 @@
 			animate(parallax_layer, pixel_w = round(parallax_layer.offset_x, 1), pixel_z = round(parallax_layer.offset_y, 1), time = glide_rate)
 
 /atom/movable/proc/update_parallax_contents()
-	if(length(client_mobs_in_contents))
-		for(var/thing in client_mobs_in_contents)
-			var/mob/M = thing
-			if(M && M.client && M.hud_used && length(M.client.parallax_layers))
-				M.hud_used.update_parallax()
+	if(!length(client_mobs_in_contents))
+		return
+
+	for(var/mob/client_mob as anything in client_mobs_in_contents)
+		if(length(client_mob?.client?.parallax_layers) && client_mob.hud_used)
+			client_mob.hud_used.update_parallax()
 
 // Root object for parallax, all parallax layers are drawn onto this
 INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_home)
@@ -294,7 +276,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 /atom/movable/screen/parallax_layer/proc/update_o(view)
 	if(!view)
 		view = world.view
-	var/static/parallax_scaler = world.icon_size / 480
+	var/static/pixel_grid_size = ICON_SIZE_ALL * 15
+	var/static/parallax_scaler = ICON_SIZE_ALL / pixel_grid_size
 
 	// Turn the view size into a grid of correctly scaled overlays
 	var/list/viewscales = getviewsize(view)
@@ -307,36 +290,30 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 			if(x == 0 && y == 0)
 				continue
 			var/mutable_appearance/texture_overlay = mutable_appearance(icon, icon_state)
-			texture_overlay.pixel_w += 480 * x
-			texture_overlay.pixel_z += 480 * y
+			texture_overlay.pixel_w += pixel_grid_size * x
+			texture_overlay.pixel_z += pixel_grid_size * y
 			new_overlays += texture_overlay
 
 	cut_overlays()
 	add_overlay(new_overlays)
 
-
 // I left this so if the player re-enables parallax, it will correctly update parallax, instead "flicks" on the first move
 /atom/movable/screen/parallax_layer/proc/update_status(mob/M)
 	return
-
 
 /atom/movable/screen/parallax_layer/layer_1
 	icon_state = "layer1"
 	speed = 0.6
 	layer = 1
 
-
 /atom/movable/screen/parallax_layer/layer_2
 	icon_state = "layer2"
-	speed = 1
 	layer = 2
-
 
 /atom/movable/screen/parallax_layer/layer_3
 	icon_state = "layer3"
 	speed = 1.4
 	layer = 3
-
 
 /atom/movable/screen/parallax_layer/planet
 	icon_state = "planet"

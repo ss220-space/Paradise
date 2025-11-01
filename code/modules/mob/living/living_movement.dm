@@ -73,11 +73,14 @@
 
 	if(isliving(pulling))
 		var/mob/living/pulling_mob = pulling
-		if(!slowed_by_pull_and_push || pulling_mob.body_position == STANDING_UP || grab_state > GRAB_PASSIVE || HAS_TRAIT(src, TRAIT_STRONG_PULLING))
+		if(!slowed_by_pull_and_push || grab_state > GRAB_PASSIVE || HAS_TRAIT(src, TRAIT_STRONG_PULLING))
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 			return
 
 		if(!pulling_mob.buckled)
+			if(pulling_mob.body_position == STANDING_UP) //no buckled standing up
+				remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
+				return
 			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = PULL_LYING_MOB_SLOWDOWN * get_strength_pull_slowdown_modifier())
 			return
 
@@ -208,17 +211,33 @@
  */
 /mob/living/zMove(dir, turf/target, z_move_flags = ZMOVE_FLIGHT_FLAGS)
 	if(buckled)
-		if(buckled.currently_z_moving)
+		return do_buckled_zMove(dir, target, z_move_flags)
+
+	if(!target)
+		target = can_z_move(dir, get_turf(src), null, z_move_flags)
+		if(!target)
+			set_currently_z_moving(FALSE, TRUE)
 			return FALSE
-		if(!(z_move_flags & ZMOVE_ALLOW_BUCKLED))
-			buckled.unbuckle_mob(src, force = TRUE, can_fall = FALSE)
-		else
-			if(!target)
-				target = can_z_move(dir, get_turf(src), null, z_move_flags, src)
-				if(!target)
-					return FALSE
-			return buckled.zMove(dir, target, z_move_flags) // Return value is a loc.
-	return ..()
+
+	if(z_move_flags & ZMOVE_WITH_DELAY && !do_after(src, ZMOVE_DELAY_DURATION, interaction_key = src, max_interact_count = 1, cancel_on_max = TRUE))
+		set_currently_z_moving(FALSE, TRUE)
+		return FALSE
+
+	do_zMove(dir, target, z_move_flags)
+	return TRUE
+
+/mob/living/proc/do_buckled_zMove(dir, turf/target, z_move_flags = ZMOVE_FLIGHT_FLAGS)
+	if(buckled.currently_z_moving)
+		return FALSE
+	if(!(z_move_flags & ZMOVE_ALLOW_BUCKLED))
+		buckled.unbuckle_mob(src, force = TRUE, can_fall = FALSE)
+		return TRUE
+	if(!target)
+		target = can_z_move(dir, get_turf(src), null, z_move_flags, src)
+		if(!target)
+			return FALSE
+	return buckled.zMove(dir, target, z_move_flags) // Return value is a loc.
+
 
 /mob/living/can_z_move(direction, turf/start, turf/destination, z_move_flags = ZMOVE_FLIGHT_FLAGS, mob/living/rider)
 	if(z_move_flags & ZMOVE_INCAPACITATED_CHECKS && incapacitated())
@@ -268,8 +287,8 @@
 	var/turf/ceiling = get_step_multiz(src, UP)
 	if(!ceiling) //We are at the highest z-level.
 		end_look_up() // Why would you look from highest? cancel trying.
-		if (prob(0.1))
-			to_chat(src, span_warning("Вы смотрите в бескрайнюю пустоту глубокого космоса. На мгновение вас охватывает импульс продолжить путь - туда, в бесконечную даль, прежде чем сознание берёт верх, и вы решаете остаться в пределах досягаемости станции."))
+		if(prob(0.1))
+			to_chat(src, span_warning("Вы смотрите в бескрайнюю пустоту глубокого космоса. На мгновение вас охватывает импульс продолжить путь — туда, в бесконечную даль, прежде чем сознание берёт верх, и вы решаете остаться в пределах досягаемости станции."))
 			return
 		to_chat(src, span_warning("Там нет ничего интересного."))
 		return

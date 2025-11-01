@@ -21,7 +21,7 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Landing"
+	name = "Free Golem Ship"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/greed
@@ -43,6 +43,9 @@
 
 /area/ruin/powered/green_bio
 	name = "Biodome"
+	icon_state = "dk_yellow"
+
+/area/ruin/powered/lavaland
 	icon_state = "dk_yellow"
 
 /area/ruin/unpowered/syndicate_lava_base
@@ -101,7 +104,6 @@
 
 // This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
 /area/ruin/unpowered/misc_lavaruin
-	outdoors = FALSE
 
 //'safe' caves
 /area/ruin/unpowered/safe_cave

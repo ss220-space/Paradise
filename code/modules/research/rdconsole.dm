@@ -64,7 +64,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "R&D console"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	circuit = /obj/item/circuitboard/rdconsole
 	var/datum/research/files							//Stores all the collected research data.
 	var/obj/item/disk/tech_disk/t_disk = null	//Stores the technology disk.
@@ -152,8 +152,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			KT.level=KT.max_level
 	files.RefreshResearch()
 
-/obj/machinery/computer/rdconsole/New()
-	..()
+/obj/machinery/computer/rdconsole/Initialize(mapload)
+	. = ..()
 	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
 	if(is_taipan(z))
@@ -164,13 +164,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
 		id = 0027
 		update_icon()
-	if(!id)
-		for(var/obj/machinery/r_n_d/server/centcom/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
-			S.initialize_serv()
-			break
-
-/obj/machinery/computer/rdconsole/Initialize(mapload)
-	. = ..()
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
@@ -228,7 +221,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		req_access = list()
 		emagged = TRUE
 		if(user)
@@ -268,9 +261,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/update_from_disk()
 	clear_wait_message()
-	if(d_disk && d_disk.blueprint)
+	if(d_disk?.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
-	else if(t_disk && t_disk.stored)
+	else if(t_disk?.stored)
 		var/datum/tech/tech_copy = t_disk.stored.copyTech()
 		files.AddTech2Known(tech_copy)
 	SStgui.update_uis(src)
@@ -420,7 +413,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 		return
 
-	if(being_built.make_reagents.len) // build_type should equal BIOGENERATOR though..
+	if(length(being_built.make_reagents)) // build_type should equal BIOGENERATOR though..
 		return
 
 	var/max_amount = is_lathe ? 10 : 1
@@ -442,10 +435,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(is_lathe)
 		add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
-		flick("[machine.base_icon_state]_n", machine)
+		flick("[machine.base_icon_state]_work", machine)
 	else
 		add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
-		flick("[machine.base_icon_state]_ani", machine)
+		flick("[machine.base_icon_state]_work", machine)
 
 	machine.busy = TRUE
 	use_power(power)
@@ -770,7 +763,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
-	if (!is_lathe && !is_imprinter)
+	if(!is_lathe && !is_imprinter)
 		return
 
 	var/coeff = machine.efficiency_coeff
@@ -930,7 +923,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				item["name"] = D.name
 				item["id"] = D.id
 
-	else if(menu == MENU_DESTROY && linked_destroy && linked_destroy.loaded_item)
+	else if(menu == MENU_DESTROY && linked_destroy?.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
 		loaded_item_list["name"] = linked_destroy.loaded_item.name

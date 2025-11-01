@@ -27,12 +27,12 @@
 	var/obj/visual = new /obj/effect/temp_visual/point(source_turf, invisibility)
 
 	/// Set position
-	var/final_x = (pointed_turf.x - source_turf.x) * world.icon_size + pointed_atom.pixel_x
-	var/final_y = (pointed_turf.y - source_turf.y) * world.icon_size + pointed_atom.pixel_y
+	var/final_x = (pointed_turf.x - source_turf.x) * ICON_SIZE_X + pointed_atom.pixel_x
+	var/final_y = (pointed_turf.y - source_turf.y) * ICON_SIZE_Y + pointed_atom.pixel_y
 
 	/// Set rotation
 	var/matrix/rotated_matrix = new()
-	rotated_matrix.TurnTo(0, Get_Pixel_Angle(-final_y, -final_x))
+	rotated_matrix.TurnTo(0, delta_to_angle(-final_x, -final_y))
 	visual.transform = rotated_matrix
 
 	animate(visual, pixel_x = final_x, pixel_y = final_y, time = 0.5 SECONDS, easing = QUAD_EASING)
@@ -63,7 +63,7 @@
 	thought_bubble.overlays += pointed_atom_appearance
 
 	var/hover_outline_index = pointed_atom.get_filter("hover_outline")
-	if (!isnull(hover_outline_index))
+	if(!isnull(hover_outline_index))
 		pointed_atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
 
 	thought_bubble.pixel_x = 16
@@ -94,6 +94,7 @@
 
 /atom/movable/proc/clear_point_bubble(obj/effect/thought_bubble)
 	LAZYREMOVE(update_on_z, thought_bubble)
+	vis_contents -= thought_bubble
 	qdel(thought_bubble)
 
 /obj/effect/temp_visual/point

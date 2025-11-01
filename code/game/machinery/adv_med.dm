@@ -1,14 +1,6 @@
 /obj/machinery/bodyscanner
 	name = "body scanner"
 	desc = "Сложное медицинское устройство, используется для сканирования физического состояния гуманоидов."
-	ru_names = list(
-		NOMINATIVE = "медицинский сканер",
-		GENITIVE = "медицинского сканера",
-		DATIVE = "медицинскому сканеру",
-		ACCUSATIVE = "медицинский сканер",
-		INSTRUMENTAL = "медицинским сканером",
-		PREPOSITIONAL = "медицинском сканере"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
@@ -18,9 +10,19 @@
 	active_power_usage = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
-	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
+	var/static/list/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 	var/isPrinting = FALSE
 	var/obj/item/card/id/inserted_id = null
+
+/obj/machinery/bodyscanner/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинский сканер",
+		GENITIVE = "медицинского сканера",
+		DATIVE = "медицинскому сканеру",
+		ACCUSATIVE = "медицинский сканер",
+		INSTRUMENTAL = "медицинским сканером",
+		PREPOSITIONAL = "медицинском сканере"
+	)
 
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
@@ -40,7 +42,7 @@
 	. = ..()
 	if(occupant)
 		if(occupant.is_dead())
-			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
+			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [GEND_HE_SHE_CAP(occupant)] мертв[GEND_A_O_Y(occupant)]!")
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
@@ -61,8 +63,8 @@
 		else
 			M.forceMove(loc)
 
-/obj/machinery/bodyscanner/New()
-	..()
+/obj/machinery/bodyscanner/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -87,10 +89,10 @@
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
 
-	visible_message("[grabber] начина[pluralize_ru(grabber.gender,"ет","ют")] укладывать [target] в [declent_ru(ACCUSATIVE)].")
+	visible_message("[grabber] начина[PLUR_ET_YUT(grabber)] укладывать [target] в [declent_ru(ACCUSATIVE)].")
 	if(!do_after(grabber, 2 SECONDS, target) || panel_open || !target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
 		return .
 
@@ -152,9 +154,9 @@
 		return TRUE
 
 	if(H == user)
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [H] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [H] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(user, 2 SECONDS, H))
 		return
@@ -236,10 +238,10 @@
 /obj/machinery/bodyscanner/force_eject_occupant(mob/target)
 	go_out()
 
-/obj/machinery/bodyscanner/ex_act(severity)
+/obj/machinery/bodyscanner/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/bodyscanner/handle_atom_del(atom/A)
 	..()
@@ -418,7 +420,7 @@
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
-			var/name = occupant ? occupant.name : "Неизвестный"
+			var/name = occupant ? occupant.name : UNKNOWN_NAME_RUS
 			P.info = "<center><b>Отчёт по сканированию пациента - [name]</b></center><br>"
 			P.info += "<b>Время сканирования</b> [station_time_timestamp()]<br><br>"
 			P.info += "[generate_printing_text()]"
@@ -444,7 +446,7 @@
 			if(1)
 				t1 = "без сознания"
 			else
-				t1 = "[genderize_ru(occupant.gender, "мёртв", "мертва", "мертво", "мертвы")]"
+				t1 = "мертв[GEND_A_O_Y(occupant)]"
 		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tПроцентная оценка состояния: [occupant.health]%, [t1]</font><br>"
 
 		var/found_disease = FALSE
@@ -494,7 +496,7 @@
 		dat += "[extra_font]\tУровень крови: [blood_percent] ([occupant.blood_volume] u)</font><br>"
 
 		if(occupant.reagents)
-			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("Epinephrine")] u<br>"
+			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("epinephrine")] u<br>"
 			dat += "Эфир: [occupant.reagents.get_reagent_amount("ether")] u<br>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")

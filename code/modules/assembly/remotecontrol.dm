@@ -12,7 +12,7 @@
 	/// Can it be configured by players
 	var/configurable = TRUE
 
-/obj/item/assembly/control/Initialize()
+/obj/item/assembly/control/Initialize(mapload)
 	. = ..()
 	ids = list()
 

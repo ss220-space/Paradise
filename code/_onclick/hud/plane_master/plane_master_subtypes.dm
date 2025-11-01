@@ -103,6 +103,13 @@
 	plane = WALL_PLANE
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD, EMISSIVE_MASK_PLANE)
 
+/atom/movable/screen/plane_master/below_game
+	name = "Под основными объектами"
+	documentation = "Содержит то, что должно быть выше турфов, но ниже большинства игровых объектов. \
+					Используется в случаях, когда спрайт объекта вылазит за свою плитку и перекрывает спрайты находящиеся выше."
+	plane = BELOW_GAME_PLANE
+	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
+
 /atom/movable/screen/plane_master/game
 	name = "Lower game world"
 	documentation = "Holds anything that draws just above floor. Runes, crayons and etc."
@@ -135,6 +142,18 @@
 	name = "Area"
 	documentation = "Holds the areas themselves, which ends up meaning it holds any overlays/effects we apply to areas. NOT snow or rad storms, those go on above lighting"
 	plane = AREA_PLANE
+
+/atom/movable/screen/plane_master/weather
+	name = "Weather"
+	documentation = "Holds the main tiling 32x32 sprites of weather. We mask against walls that are on the edge of weather effects."
+	plane = WEATHER_PLANE
+	start_hidden = TRUE
+
+/atom/movable/screen/plane_master/weather/set_home(datum/plane_master_group/home)
+	. = ..()
+	if(!.)
+		return
+	home.AddComponent(/datum/component/hide_weather_planes, src)
 
 /atom/movable/screen/plane_master/massive_obj
 	name = "Massive object"
@@ -215,7 +234,7 @@
 	// Has a nice effect, makes thing stand out
 	color = list(1.2,0,0,0, 0,1.2,0,0, 0,0,1.2,0, 0,0,0,1, 0,0,0,0)
 	// This serves a similar purpose, I want the pipes to pop
-	add_filter("pipe_dropshadow", 1, drop_shadow_filter(x = -1, y= -1, size = 1, color = "#0000007A"))
+	add_filter("pipe_dropshadow", 1, drop_shadow_filter(x = -1, y= -1, size = 1, color = COLOR_HALF_TRANSPARENT_BLACK))
 	mirror_parent_hidden()
 
 /atom/movable/screen/plane_master/camera_static

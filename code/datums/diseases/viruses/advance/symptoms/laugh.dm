@@ -10,7 +10,6 @@ Uncontrolled Laughter Effect
 
 	name = "Эффект неконтролируемого смеха"
 	id = "laugh"
-	stealth = 0
 	resistance = -3
 	stage_speed = 3
 	transmittable = -1

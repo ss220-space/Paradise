@@ -7,7 +7,6 @@
 	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 
-	use_power = NO_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 300
 
@@ -122,7 +121,7 @@
 		return 1
 
 
-/obj/machinery/power/emitter/emp_act(var/severity)//Emitters are hardened but still might have issues
+/obj/machinery/power/emitter/emp_act(severity)//Emitters are hardened but still might have issues
 //	add_load(1000)
 /*	if((severity == 1)&&prob(1)&&prob(1))
 		if(src.active)
@@ -266,14 +265,14 @@
 	switch(state)
 		if(0)
 			state = 1
-			playsound(loc, I.usesound, 75, 1)
+			playsound(loc, I.usesound, 75, TRUE)
 			user.visible_message("[user.name] secures [name] to the floor.", \
 				"You secure the external reinforcing bolts to the floor.", \
 				"You hear a ratchet")
 			set_anchored(TRUE)
 		if(1)
 			state = 0
-			playsound(loc, I.usesound, 75, 1)
+			playsound(loc, I.usesound, 75, TRUE)
 			user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 				"You undo the external reinforcing bolts.", \
 				"You hear a ratchet")

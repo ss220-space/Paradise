@@ -6,7 +6,6 @@
 	item_state = "spikethrower"
 	w_class = WEIGHT_CLASS_SMALL
 	fire_sound_text = "a strange noise"
-	can_suppress = 0
 	burst_size = 2 // burst has to be stored here
 	can_charge = FALSE
 	selfcharge = TRUE
@@ -22,7 +21,6 @@
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/projectile/bullet/spike
 	muzzle_flash_effect = null
-	e_cost = 100
 	delay = 3 //and delay has to be stored here on energy guns
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
@@ -47,12 +45,12 @@
 	desc = "It's some kind of enormous alien weapon, as long as a man is tall."
 	icon_state = "noisecannon"
 	item_state = "noisecannon"
-	recoil = 1
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
 	cell_type = /obj/item/stock_parts/cell/super
 	restricted_species = list(/datum/species/vox/armalis)
 	sprite_sheets_inhand = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/energy/noisecannon/update_icon_state()
@@ -74,7 +72,6 @@
 	icon_state = "particle"
 	damage = 60
 	damage_type = BRUTE
-	flag = "bullet"
+	flag = BULLET
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-
 	weaken = 10 SECONDS

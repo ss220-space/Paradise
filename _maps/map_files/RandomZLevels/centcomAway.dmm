@@ -545,15 +545,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
-"bx" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f6"
-	},
-/area/awaymission/centcomAway/hangar)
 "by" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_l";
@@ -582,10 +573,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
 "bD" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f10"
 	},
@@ -745,13 +732,11 @@
 	},
 /area/awaymission/centcomAway/maint)
 "cd" = (
-/turf/simulated/floor/shuttle/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f6"
 	},
 /area/awaymission/centcomAway/hangar)
 "ce" = (
-/turf/simulated/floor/shuttle,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f9"
 	},
@@ -809,7 +794,6 @@
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcomAway/cafe)
 "ck" = (
-/turf/simulated/floor/shuttle/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f10";
 	layer = 2
@@ -833,7 +817,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "cn" = (
-/turf/simulated/floor/shuttle,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f5"
 	},
@@ -1149,24 +1132,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/shuttle,
-/area/awaymission/centcomAway/hangar)
-"dh" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f5"
-	},
-/area/awaymission/centcomAway/hangar)
-"di" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f9"
-	},
 /area/awaymission/centcomAway/hangar)
 "dj" = (
 /obj/machinery/light{
@@ -2115,12 +2080,6 @@
 	icon_state = "redfull"
 	},
 /area/awaymission/centcomAway/cafe)
-"fM" = (
-/turf/simulated/floor/plating,
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f5"
-	},
-/area/awaymission/centcomAway/hangar)
 "fN" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2746,9 +2705,6 @@
 /turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hE" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
@@ -3716,14 +3672,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
-"jZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f10"
-	},
-/area/awaymission/centcomAway/hangar)
 "ka" = (
 /obj/structure/table,
 /obj/item/paper/ccaMemo,
@@ -3806,14 +3754,6 @@
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcomAway/general)
-"km" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f9"
-	},
-/area/awaymission/centcomAway/hangar)
 "kn" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
@@ -4252,7 +4192,6 @@
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f6"
 	},
@@ -4261,7 +4200,6 @@
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f5"
 	},
@@ -6300,15 +6238,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/thunderdome)
-"Di" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle,
-/area/awaymission/centcomAway/hangar)
 "JB" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/tcomms/relay/ruskie{
@@ -10640,11 +10569,11 @@ aa
 aa
 aW
 bn
-bx
+bn
 bL
 bL
 bL
-dh
+cn
 bn
 bo
 bo
@@ -10775,7 +10704,7 @@ bK
 bU
 cQ
 ck
-dh
+cn
 bn
 cU
 bn
@@ -10928,7 +10857,7 @@ gX
 gX
 gX
 bP
-Di
+dg
 bP
 oc
 aW
@@ -11045,7 +10974,7 @@ bL
 bL
 bL
 bL
-fM
+cn
 cU
 cU
 bn
@@ -11057,9 +10986,9 @@ jz
 gX
 gX
 gX
-jZ
+gX
 hX
-km
+gX
 gX
 aW
 iP
@@ -11176,7 +11105,7 @@ dE
 dE
 dE
 fO
-fM
+cn
 cU
 cU
 bn
@@ -11309,7 +11238,7 @@ fO
 bR
 bL
 bL
-dh
+cn
 bn
 bn
 jo
@@ -11707,7 +11636,7 @@ jz
 gX
 gX
 bP
-Di
+dg
 bP
 gX
 gX
@@ -11836,9 +11765,9 @@ bn
 jz
 gX
 gX
-jZ
+gX
 hF
-km
+gX
 gX
 oc
 aW
@@ -12089,7 +12018,7 @@ fO
 bN
 bL
 bL
-di
+bn
 bn
 bn
 bn
@@ -12200,7 +12129,7 @@ aa
 aa
 aW
 bn
-bx
+bn
 bR
 cn
 cq
@@ -12216,7 +12145,7 @@ bY
 cq
 bX
 fO
-di
+bn
 bn
 bn
 bn
@@ -12345,7 +12274,7 @@ eg
 bH
 eQ
 bL
-di
+bn
 bn
 bn
 bn
@@ -12595,7 +12524,7 @@ bK
 bU
 cT
 cd
-di
+bn
 bn
 bn
 bn
@@ -12724,7 +12653,7 @@ bD
 bL
 bL
 bL
-di
+bn
 bn
 bn
 bn

@@ -50,8 +50,8 @@
 	var/seed_multiplier = 1
 	var/vend_amount = 1
 
-/obj/machinery/seed_extractor/New()
-	..()
+/obj/machinery/seed_extractor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/seed_extractor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -158,13 +158,13 @@
 /obj/machinery/seed_extractor/proc/generate_strainText(obj/item/seeds/O) //Генерация отображаемого текста описания
 	var/strain_text = ""
 
-	for (var/datum/plant_gene/reagent/G in O.genes)
-		if (strain_text !="")
+	for(var/datum/plant_gene/reagent/G in O.genes)
+		if(strain_text !="")
 			strain_text += ", "
 		strain_text += "[G.get_name()]"
 
-	for (var/datum/plant_gene/trait/G in O.genes)
-		if (strain_text !="")
+	for(var/datum/plant_gene/trait/G in O.genes)
+		if(strain_text !="")
 			strain_text += ", "
 		strain_text += "[G.get_name()]"
 

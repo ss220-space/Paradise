@@ -4,13 +4,12 @@
 	icon_state = "ripley"
 	initial_icon = "ripley"
 	step_in = 4 //Move speed, lower is faster.
-	fast_pressure_step_in = 2 //step_in while in normal pressure conditions
 	slow_pressure_step_in = 4 //step_in while in better pressure conditions
 	max_temperature = 20000
 	max_integrity = 200
 	lights_power = 7
 	deflect_chance = 15
-	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/hides = 0
@@ -91,8 +90,7 @@
 	max_temperature = 65000
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	lights_power = 7
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 0, "rad" = 70, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
 
@@ -106,25 +104,23 @@
 	opacity = FALSE
 	max_temperature = 65000
 	max_integrity = 300
-	lights_power = 7
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 0, "bomb" = 70, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 	normal_step_energy_drain = 0
 
-/obj/mecha/working/ripley/deathripley/New()
-	..()
+/obj/mecha/working/ripley/deathripley/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
-	return
 
 /obj/mecha/working/ripley/mining
 	desc = "An old, dusty mining ripley."
 	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/mining/New()
-	..()
+/obj/mecha/working/ripley/mining/Initialize(mapload)
+	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
 	//Attach drill
@@ -158,7 +154,7 @@
 		emagged = TRUE
 		if(user)
 			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		desc += span_danger("</br>The mech's equipment slots spark dangerously!")
 	else if(user)
 		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
@@ -175,7 +171,7 @@
 	fast_pressure_step_in = 1 //не хочу страдать на щитспавн мехе для тестов
 	slow_pressure_step_in = 0.5
 
-/obj/mecha/working/ripley/full_load/New()
+/obj/mecha/working/ripley/full_load/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/drill
 	ME.attach(src)

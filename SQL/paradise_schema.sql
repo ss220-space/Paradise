@@ -85,6 +85,8 @@ CREATE TABLE `characters` (
   `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '200',
   `custom_emotes` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
+  `can_be_antagonist` tinyint(1) NOT NULL DEFAULT '1',
+  `exoframe_type` VARCHAR(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'EXO_REINFORCED',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -124,6 +126,7 @@ CREATE TABLE `death` (
   `pod` text NOT NULL COMMENT 'Place of death',
   `coord` text NOT NULL COMMENT 'X, Y, Z POD',
   `tod` datetime NOT NULL COMMENT 'Time of death',
+  `server_id` TEXT NULL DEFAULT NULL,
   `job` text NOT NULL,
   `special` text NOT NULL,
   `name` text NOT NULL,
@@ -206,6 +209,7 @@ CREATE TABLE `ban` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bantime` datetime NOT NULL,
   `serverip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
   `bantype` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `reason` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `job` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -291,6 +295,9 @@ CREATE TABLE `player` (
   `viewrange` VARCHAR(5) NOT NULL DEFAULT '17x15' COLLATE 'utf8mb4_general_ci',
   `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255',
   `toggles_3` int(11) DEFAULT NULL,
+  `screentip_mode` tinyint(1) DEFAULT '8',
+  `screentip_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#deefff',
+  `achivements_sound` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Success Ping',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -333,6 +340,7 @@ CREATE TABLE `karma` (
   `receiverspecial` text,
   `isnegative` tinyint(1) DEFAULT NULL,
   `spenderip` text NOT NULL,
+  `server_id` TEXT NULL DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=73614 DEFAULT CHARSET=utf8mb4;
@@ -387,6 +395,7 @@ CREATE TABLE `legacy_population` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `playercount` int(11) DEFAULT NULL,
   `admincount` int(11) DEFAULT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2550 DEFAULT CHARSET=utf8mb4;
@@ -543,6 +552,7 @@ CREATE TABLE `connection_log` (
   `ckey` varchar(32) NOT NULL,
   `ip` varchar(32) NOT NULL,
   `computerid` varchar(32) NOT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
   KEY `ip` (`ip`),
@@ -594,6 +604,7 @@ CREATE TABLE `round` (
   `shuttle_name` VARCHAR(64) NULL,
   `map_name` VARCHAR(32) NULL,
   `station_name` VARCHAR(80) NULL,
+  `server_id` VARCHAR(50) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -732,6 +743,7 @@ CREATE TABLE IF NOT EXISTS `poll_vote` (
   KEY `idx_pvote_optionid_ckey` (`optionid`,`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `set_poll_deleted`;
 CREATE PROCEDURE `set_poll_deleted`(
@@ -746,3 +758,39 @@ UPDATE `poll_textreply` SET deleted = 1 WHERE pollid = poll_id;
 END
 $$
 DELIMITER ;
+
+--
+-- Table structure for table `instance_data_cache`
+--
+CREATE TABLE `instance_data_cache` (
+	`server_id` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`key_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`key_value` VARCHAR(5000) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`last_updated` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	PRIMARY KEY (`server_id`, `key_name`) USING HASH
+) COLLATE='utf8mb4_unicode_ci' ENGINE=MEMORY;
+
+--
+-- Table structure for table `achievements`
+--
+DROP TABLE IF EXISTS `achievements`;
+CREATE TABLE `achievements` (
+	`ckey` VARCHAR(32) NOT NULL,
+	`achievement_key` VARCHAR(32)  NOT NULL,
+	`value` INT NULL,
+	`last_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`ckey`,`achievement_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Table structure for table `achievement_metadata`
+--
+DROP TABLE IF EXISTS `achievement_metadata`;
+CREATE TABLE `achievement_metadata` (
+	`achievement_key` VARCHAR(32) NOT NULL,
+	`achievement_version` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+	`achievement_type` enum('achievement','score','award') NULL DEFAULT NULL,
+	`achievement_name` VARCHAR(64) COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	`achievement_description` VARCHAR(512) COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	PRIMARY KEY (`achievement_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -27,9 +27,15 @@
 #define DISABILITY_FLAG_NICOTINE_ADDICT (1<<15)
 #define DISABILITY_FLAG_PARAPLEGIA (1<<16)
 #define DISABILITY_FLAG_APHASIA (1<<17)
+#define DISABILITY_FLAG_CATEARS (1<<18)
+
+// If you add new disability, modify this value
+#define DISABILITY_MAX ((1<<19) - 1)
 
 
-//Nutrition levels for humans. No idea where else to put it
+// Nutrition levels for humans. No idea where else to put it
+// Number stands for the upper limit, reaching the number increases the nutrition level (349 - LEVEL_FED, 350 -> WELL_FED)
+// except for the number NUTRITION_LEVEL_FAT - its just FAT + 50 additional nutrition and NUTRITION_LEVEL_ZERO is just 0 nutrition
 #define NUTRITION_LEVEL_FAT 600
 #define NUTRITION_LEVEL_FULL 550
 #define NUTRITION_LEVEL_WELL_FED 450
@@ -37,20 +43,23 @@
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
 #define NUTRITION_LEVEL_HYPOGLYCEMIA 100
-#define NUTRITION_LEVEL_CURSED 0
+#define NUTRITION_LEVEL_ZERO 0
 
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 535
 
 //Blood levels
-#define BLOOD_VOLUME_MAXIMUM		2000
-#define BLOOD_VOLUME_NORMAL			560 // 100%
-#define BLOOD_VOLUME_SAFE			501	// 89.5%
-#define BLOOD_VOLUME_PALE			448 // 80%
-#define BLOOD_VOLUME_REGENERATION	392 // 70%
-#define BLOOD_VOLUME_OKAY			346 // 61.8%
-#define BLOOD_VOLUME_BAD			234 // 41.8%
-#define BLOOD_VOLUME_SURVIVE		168 // 30%
+#define BLOOD_VOLUME_MAXIMUM 2000
+#define BLOOD_VOLUME_NORMAL 560 // 100%
+#define BLOOD_VOLUME_SAFE 501 // 89.5%
+#define BLOOD_VOLUME_PALE 448 // 80%
+#define BLOOD_VOLUME_REGENERATION 392 // 70%
+#define BLOOD_VOLUME_OKAY 346 // 61.8%
+#define BLOOD_VOLUME_BAD 234 // 41.8%
+#define BLOOD_VOLUME_SURVIVE 168 // 30%
+
+/// High bleeding value
+#define HIGH_BLEEDING_VALUE 2.5
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0

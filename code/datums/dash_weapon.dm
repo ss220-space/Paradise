@@ -1,7 +1,6 @@
 /datum/action/innate/dash
 	name = "Рывок"
 	desc = "Мгновенный телепорт в указанную точку."
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 	var/current_charges = 1
 	var/max_charges = 1
@@ -43,7 +42,7 @@
 	var/turf/starting_turf = get_turf(user)
 	if(!user.Adjacent(target) && (target in view(user.client.view, user)))
 		var/mob/living/pulled_mob = user.pulling
-		if(!do_teleport(user, target_turf))
+		if(!do_teleport(user, target_turf, ignore_bluespace_interference = TRUE))
 			user.balloon_alert(user, "нельзя телепортироваться!")
 			return FALSE
 		var/obj/spot1 = new phaseout(starting_turf, user.dir)

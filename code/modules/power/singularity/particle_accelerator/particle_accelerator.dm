@@ -30,11 +30,11 @@ proc
 process()
 check_build()
 
-Setup map
-  |EC|
-CC|FC|
-  |PB|
-PE|PE|PE
+* Setup map
+*   |EC|
+* CC|FC|
+*   |PB|
+* PE|PE|PE
 
 
 Icon Addemdum
@@ -52,22 +52,21 @@ Closed   - [reference]c
 Powered  - [reference]p[strength]
 Strength being set by the computer and a null strength (Computer is powered off or inactive) returns a 'null', counting as empty
 So, hopefully this is helpful if any more icons are to be added/changed/wondering what the hell is going on here
-
 */
-#define ACCELERATOR_UNWRENCHED	0
-#define ACCELERATOR_WRENCHED	1
-#define ACCELERATOR_WIRED		2
-#define ACCELERATOR_READY		3
+
+#define ACCELERATOR_UNWRENCHED 0
+#define ACCELERATOR_WRENCHED 1
+#define ACCELERATOR_WIRED 2
+#define ACCELERATOR_READY 3
 
 /obj/structure/particle_accelerator
 	name = "Particle Accelerator"
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "none"
-	anchored = FALSE
 	density = TRUE
 	max_integrity = 500
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80)
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = 0
 	var/reference = null
@@ -99,7 +98,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(user, span_notice("It is fastened to the floor!"))
 		return
 	dir = turn(dir, 270)
 
@@ -127,7 +126,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/structure/particle_accelerator/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
-	if(master && master.active)
+	if(master?.active)
 		master.toggle_power()
 		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.", INVESTIGATE_ENGINE)
 
@@ -150,7 +149,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return 0
 
 
-/obj/structure/particle_accelerator/proc/report_ready(var/obj/O)
+/obj/structure/particle_accelerator/proc/report_ready(obj/O)
 	if(O && (O == master))
 		if(construction_state >= 3)
 			return 1
@@ -163,7 +162,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 0
 
 
-/obj/structure/particle_accelerator/proc/connect_master(var/obj/O)
+/obj/structure/particle_accelerator/proc/connect_master(obj/O)
 	if(O && istype(O,/obj/machinery/particle_accelerator/control_box))
 		if(O.dir == dir)
 			master = O
@@ -252,11 +251,8 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "none"
-	anchored = FALSE
 	density = TRUE
 	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 	var/construction_state = 0
 	var/active = 0
 	var/reference = null
@@ -277,7 +273,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(user, span_notice("It is fastened to the floor!"))
 		return
 	dir = turn(dir, 270)
 

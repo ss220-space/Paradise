@@ -1016,14 +1016,14 @@
 
 
 /datum/design/improved_exosuit_control_system
-    name = "Exosuit Common Equipment (Control System Upgrade)"
-    id = "mech_improved_exosuit_control_system"
-    build_type = MECHFAB
-    build_path = /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
-    req_tech = list("engineering" = 7, "materials" = 6, "magnets" = 5, "powerstorage"= 5)
-    materials = list(MAT_METAL=20000,MAT_TITANIUM=10000,MAT_SILVER=2000,MAT_URANIUM=2000)
-    construction_time = 20 SECONDS
-    category = list("Exosuit Equipment")
+	name = "Exosuit Common Equipment (Control System Upgrade)"
+	id = "mech_improved_exosuit_control_system"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
+	req_tech = list("engineering" = 7, "materials" = 6, "magnets" = 5, "powerstorage"= 5)
+	materials = list(MAT_METAL=20000,MAT_TITANIUM=10000,MAT_SILVER=2000,MAT_URANIUM=2000)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_repair_droid
 	name = "Exosuit Defence Module (Repair Droid)"
@@ -2149,3 +2149,23 @@
 	materials = list(MAT_METAL = 20000, MAT_PLASMA = 8000, MAT_GLASS = 8000)
 	construction_time = 20 SECONDS
 	category = list("Exosuit Paintkits")
+
+/datum/design/exoframe_reinforced
+	name = "Укрепленный каркас экзоскелета"
+	id = "exo_reinforced"
+	build_type = MECHFAB
+	req_tech = list("materials" = 4, "engineering" = 5)
+	build_path = /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced
+	materials = list(MAT_METAL = 20000, MAT_PLASMA = 4000)
+	construction_time = 50 SECONDS
+	category = list("IPC")
+
+/datum/design/exoframe_industrial
+	name = "Промышленный каркас экзоскелета"
+	id = "exo_industrial"
+	build_type = MECHFAB
+	req_tech = list("materials" = 4,"engineering" = 5)
+	build_path = /obj/item/organ/internal/cyberimp/chest/exoframe/industrial
+	materials = list(MAT_METAL = 20000, MAT_TITANIUM = 6000)
+	construction_time = 50 SECONDS
+	category = list("IPC")

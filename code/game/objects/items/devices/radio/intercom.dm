@@ -8,7 +8,19 @@
 	desc = "Станционный интерком общего назначения. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
 			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта."
-	ru_names = list(
+	gender = MALE
+	icon_state = "intercom"
+	anchored = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+	canhear_range = 2
+	blocks_emissive = FALSE
+	var/circuitry_installed = TRUE
+	/// Current buildstage of the object
+	var/buildstage = INTERCOM_BUILD_NO_CIRCUIT
+	dog_fashion = null
+
+/obj/item/radio/intercom/get_ru_names()
+	return list(
 		NOMINATIVE = "станционный интерком (Общий)",
 		GENITIVE = "станционного интеркома (Общий)",
 		DATIVE = "станционному интеркому (Общий)",
@@ -16,131 +28,6 @@
 		INSTRUMENTAL = "станционным интеркомом (Общий)",
 		PREPOSITIONAL = "станционном интеркоме (Общий)"
 	)
-	gender = MALE
-	icon_state = "intercom"
-	anchored = TRUE
-	w_class = WEIGHT_CLASS_BULKY
-	canhear_range = 2
-	flags = CONDUCT
-	blocks_emissive = FALSE
-	var/circuitry_installed = TRUE
-	/// Current buildstage of the object
-	var/buildstage = INTERCOM_BUILD_NO_CIRCUIT
-	dog_fashion = null
-
-/obj/item/radio/intercom/custom
-	name = "station intercom (Custom)"
-	ru_names = list(
-		NOMINATIVE = "станционный интерком (Персонализированный)",
-		GENITIVE = "станционного интеркома (Персонализированный)",
-		DATIVE = "станционному интеркому (Персонализированный)",
-		ACCUSATIVE = "станционный интерком (Персонализированный)",
-		INSTRUMENTAL = "станционным интеркомом (Персонализированный)",
-		PREPOSITIONAL = "станционном интеркоме (Персонализированный)"
-	)
-	broadcasting = 0
-	listening = 0
-
-/obj/item/radio/intercom/interrogation
-	name = "station intercom (Interrogation)"
-	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
-			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
-			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
-			По умолчанию преднастроен на специализированную частоту для проведения допроса подозреваемых."
-	ru_names = list(
-		NOMINATIVE = "станционный интерком (Допросный)",
-		GENITIVE = "станционного интеркома (Допросный)",
-		DATIVE = "станционному интеркому (Допросный)",
-		ACCUSATIVE = "станционный интерком (Допросный)",
-		INSTRUMENTAL = "станционным интеркомом (Допросный)",
-		PREPOSITIONAL = "станционном интеркоме (Допросный)"
-	)
-	frequency  = AIRLOCK_FREQ
-
-/obj/item/radio/intercom/private
-	name = "station intercom (Private)"
-	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
-			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
-			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
-			По умолчанию преднастроен на частоту Искусственного Интеллекта объекта."
-	ru_names = list(
-		NOMINATIVE = "станционный интерком (Приватный)",
-		GENITIVE = "станционного интеркома (Приватный)",
-		DATIVE = "станционному интеркому (Приватный)",
-		ACCUSATIVE = "станционный интерком (Приватный)",
-		INSTRUMENTAL = "станционным интеркомом (Приватный)",
-		PREPOSITIONAL = "станционном интеркоме (Приватный)"
-	)
-	frequency = AI_FREQ
-
-/obj/item/radio/intercom/command
-	name = "station intercom (Command)"
-	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
-			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
-			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
-			По умолчанию преднастроен на частоту командного состава объекта."
-	ru_names = list(
-		NOMINATIVE = "станционный интерком (Командный)",
-		GENITIVE = "станционного интеркома (Командный)",
-		DATIVE = "станционному интеркому (Командный)",
-		ACCUSATIVE = "станционный интерком (Командный)",
-		INSTRUMENTAL = "станционным интеркомом (Командный)",
-		PREPOSITIONAL = "станционном интеркоме (Командный)"
-	)
-	frequency = COMM_FREQ
-
-/obj/item/radio/intercom/specops
-	name = "Special Operations intercom"
-	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
-			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
-			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
-			По умолчанию преднастроен на частоту Отряда Быстрого Реагирования."
-	ru_names = list(
-		NOMINATIVE = "интерком спецопераций",
-		GENITIVE = "интеркома спецопераций",
-		DATIVE = "интеркому спецопераций",
-		ACCUSATIVE = "интерком спецопераций",
-		INSTRUMENTAL = "интеркомом спецопераций",
-		PREPOSITIONAL = "интеркоме спецопераций"
-	)
-	frequency = ERT_FREQ
-
-/obj/item/radio/intercom/department
-	canhear_range = 5
-	broadcasting = 0
-	listening = 1
-
-/obj/item/radio/intercom/department/medbay
-	name = "station intercom (Medbay)"
-	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
-			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
-			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
-			По умолчанию преднастроен на внутреннюю частоту медицинского отдела объекта."
-	ru_names = list(
-		NOMINATIVE = "станционный интерком (Медицинский)",
-		GENITIVE = "станционного интеркома (Медицинский)",
-		DATIVE = "станционному интеркому (Медицинский)",
-		ACCUSATIVE = "станционный интерком (Медицинский)",
-		INSTRUMENTAL = "станционным интеркомом (Медицинский)",
-		PREPOSITIONAL = "станционном интеркоме (Медицинский)"
-	)
-	frequency = MED_I_FREQ
-
-/obj/item/radio/intercom/department/security
-	name = "station intercom (Security)"
-	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
-			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
-			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
-			По умолчанию преднастроен на внутреннюю частоту службы безопасности объекта."
-	ru_names = list(
-		NOMINATIVE = "станционный интерком (Служба безопасности)",
-		GENITIVE = "станционного интеркома (Служба безопасности)",
-		DATIVE = "станционному интеркому (Служба безопасности)",
-		ACCUSATIVE = "станционный интерком (Служба безопасности)",
-		INSTRUMENTAL = "станционным интеркомом (Служба безопасности)",
-		PREPOSITIONAL = "станционном интеркоме (Служба безопасности)"
-	)
-	frequency = SEC_I_FREQ
 
 /obj/item/radio/intercom/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
 	. = ..()
@@ -152,76 +39,12 @@
 			setDir(direction)
 			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat = TRUE
-		on = FALSE
-	GLOB.global_intercoms.Add(src)
+		set_on(FALSE)
+	GLOB.global_intercoms |= src
 	update_icon()
 
-/obj/item/radio/intercom/department/medbay/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
-	. = ..()
-	internal_channels = GLOB.default_medbay_channels.Copy()
-
-/obj/item/radio/intercom/department/security/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
-	. = ..()
-	internal_channels = list(
-		num2text(PUB_FREQ) = list(),
-		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY),
-	)
-
-/obj/item/radio/intercom/syndicate
-	name = "illicit intercom"
-	desc = "Модернизированный вариант стандартного интеркома. Представляет собой устройство из прочного полимерно-металлического корпуса \
-			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Помимо стандартного телекоммуникацонного оборудования, \
-			внутри установлен специальный ключ шифрования, позволяющий прослушивать закрытые каналы НаноТрейзен, \
-			а также подключаться к зашифрованной частоте сотрудников Синдиката."
-	ru_names = list(
-		NOMINATIVE = "нелегальный интерком",
-		GENITIVE = "нелегального интеркома",
-		DATIVE = "нелегальному интеркому",
-		ACCUSATIVE = "нелегальный интерком",
-		INSTRUMENTAL = "нелегальным интеркомом",
-		PREPOSITIONAL = "нелегальном интеркоме"
-	)
-	frequency = SYND_FREQ
-	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
-
-/obj/item/radio/intercom/syndicate/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
-	. = ..()
-	internal_channels[num2text(SYND_FREQ)] = list(ACCESS_SYNDICATE)
-	internal_channels[num2text(SYND_TAIPAN_FREQ)] = list(ACCESS_SYNDICATE)
-
-/obj/item/radio/intercom/pirate
-	name = "pirate radio intercom"
-	desc = "Самодельный интерком, собранный из разнообразных дешёвых радиокомпонентов. Представляет собой кустарное устройство из низкокачественно \
-			металлического корпуса с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование \
-			позволяет подключаться к широкому диапазону радиочастот, однако не обладает протоколами защиты и шифрования."
-	ru_names = list(
-		NOMINATIVE = "пиратский интерком",
-		GENITIVE = "пиратского интеркома",
-		DATIVE = "пиратскому интеркому",
-		ACCUSATIVE = "пиратский интерком",
-		INSTRUMENTAL = "пиратским интеркомом",
-		PREPOSITIONAL = "пиратском интеркоме"
-	)
-
-/obj/item/radio/intercom/pirate/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
-	. = ..()
-	internal_channels.Cut()
-	internal_channels = list(
-		num2text(PUB_FREQ) = list(),
-		num2text(AI_FREQ)  = list(),
-		num2text(COMM_FREQ)= list(),
-		num2text(ENG_FREQ) = list(),
-		num2text(MED_FREQ) = list(),
-		num2text(MED_I_FREQ)=list(),
-		num2text(SEC_FREQ) = list(),
-		num2text(SEC_I_FREQ)=list(),
-		num2text(SCI_FREQ) = list(),
-		num2text(SUP_FREQ) = list(),
-		num2text(SRV_FREQ) = list()
-	)
-
 /obj/item/radio/intercom/Destroy()
-	GLOB.global_intercoms.Remove(src)
+	GLOB.global_intercoms -= src
 	return ..()
 
 /obj/item/radio/intercom/attack_ai(mob/user)
@@ -303,7 +126,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || buildstage != INTERCOM_BUILD_WIRED)
 		return
-	on = TRUE
+	set_on(TRUE)
 	b_stat = FALSE
 	buildstage = INTERCOM_BUILD_SECURED
 	user.balloon_alert(user, "корпус заблокирован")
@@ -313,14 +136,14 @@
 		wires.on_cut(i, TRUE)
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
-	if((buildstage != INTERCOM_BUILD_WIRED || b_stat) && !wires.is_all_cut())
+	if(!(buildstage == INTERCOM_BUILD_SECURED && b_stat && wires.is_all_cut()))
 		return ..()
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	WIRECUTTER_SNIP_MESSAGE
 	new /obj/item/stack/cable_coil(drop_location(), 5)
-	on = FALSE
+	set_on(FALSE)
 	b_stat = TRUE
 	buildstage = INTERCOM_BUILD_CIRCUIT
 	update_icon()
@@ -361,28 +184,209 @@
 		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 
 /**
-  * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
-  *
-  * Normally called after the intercom's area recieves the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
-  *
-  * Arguments:
-  *
-  * source - the area that just had a power change.
-  */
+ * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
+ *
+ * Normally called after the intercom's area receives the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
+ *
+ * Arguments:
+ *
+ * source - the area that just had a power change.
+ */
 /obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
 	var/area/current_area = get_area(src)
 	if(!current_area)
-		on = FALSE
+		set_on(FALSE)
 	else
-		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
+		set_on(current_area.powered(EQUIP)) // set "on" to the equipment power status of our area.
 	update_icon()
+
+/obj/item/radio/intercom/custom
+	name = "station intercom (Custom)"
+	should_be_listening = FALSE
+
+/obj/item/radio/intercom/custom/get_ru_names()
+	return list(
+		NOMINATIVE = "станционный интерком (Персонализированный)",
+		GENITIVE = "станционного интеркома (Персонализированный)",
+		DATIVE = "станционному интеркому (Персонализированный)",
+		ACCUSATIVE = "станционный интерком (Персонализированный)",
+		INSTRUMENTAL = "станционным интеркомом (Персонализированный)",
+		PREPOSITIONAL = "станционном интеркоме (Персонализированный)"
+	)
+
+/obj/item/radio/intercom/interrogation
+	name = "station intercom (Interrogation)"
+	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
+			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
+			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
+			По умолчанию преднастроен на специализированную частоту для проведения допроса подозреваемых."
+	default_frequency = AIRLOCK_FREQ
+
+/obj/item/radio/intercom/interrogation/get_ru_names()
+	return list(
+		NOMINATIVE = "станционный интерком (Допросный)",
+		GENITIVE = "станционного интеркома (Допросный)",
+		DATIVE = "станционному интеркому (Допросный)",
+		ACCUSATIVE = "станционный интерком (Допросный)",
+		INSTRUMENTAL = "станционным интеркомом (Допросный)",
+		PREPOSITIONAL = "станционном интеркоме (Допросный)"
+	)
+
+/obj/item/radio/intercom/private
+	name = "station intercom (Private)"
+	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
+			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
+			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
+			По умолчанию преднастроен на частоту Искусственного Интеллекта объекта."
+	default_frequency = AI_FREQ
+
+/obj/item/radio/intercom/private/get_ru_names()
+	return list(
+		NOMINATIVE = "станционный интерком (Приватный)",
+		GENITIVE = "станционного интеркома (Приватный)",
+		DATIVE = "станционному интеркому (Приватный)",
+		ACCUSATIVE = "станционный интерком (Приватный)",
+		INSTRUMENTAL = "станционным интеркомом (Приватный)",
+		PREPOSITIONAL = "станционном интеркоме (Приватный)"
+	)
+
+/obj/item/radio/intercom/command
+	name = "station intercom (Command)"
+	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
+			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
+			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
+			По умолчанию преднастроен на частоту командного состава объекта."
+	default_frequency = COMM_FREQ
+
+/obj/item/radio/intercom/command/get_ru_names()
+	return list(
+		NOMINATIVE = "станционный интерком (Командный)",
+		GENITIVE = "станционного интеркома (Командный)",
+		DATIVE = "станционному интеркому (Командный)",
+		ACCUSATIVE = "станционный интерком (Командный)",
+		INSTRUMENTAL = "станционным интеркомом (Командный)",
+		PREPOSITIONAL = "станционном интеркоме (Командный)"
+	)
+
+/obj/item/radio/intercom/specops
+	name = "Special Operations intercom"
+	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
+			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
+			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
+			По умолчанию преднастроен на частоту Отряда Быстрого Реагирования."
+	default_frequency = ERT_FREQ
+
+/obj/item/radio/intercom/specops/get_ru_names()
+	return list(
+		NOMINATIVE = "интерком спецопераций",
+		GENITIVE = "интеркома спецопераций",
+		DATIVE = "интеркому спецопераций",
+		ACCUSATIVE = "интерком спецопераций",
+		INSTRUMENTAL = "интеркомом спецопераций",
+		PREPOSITIONAL = "интеркоме спецопераций"
+	)
+
+/obj/item/radio/intercom/department
+	canhear_range = 5
+
+/obj/item/radio/intercom/department/medbay
+	name = "station intercom (Medbay)"
+	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
+			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
+			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
+			По умолчанию преднастроен на внутреннюю частоту медицинского отдела объекта."
+	default_frequency = MED_I_FREQ
+
+/obj/item/radio/intercom/department/medbay/get_ru_names()
+	return list(
+		NOMINATIVE = "станционный интерком (Медицинский)",
+		GENITIVE = "станционного интеркома (Медицинский)",
+		DATIVE = "станционному интеркому (Медицинский)",
+		ACCUSATIVE = "станционный интерком (Медицинский)",
+		INSTRUMENTAL = "станционным интеркомом (Медицинский)",
+		PREPOSITIONAL = "станционном интеркоме (Медицинский)"
+	)
+
+/obj/item/radio/intercom/department/security
+	name = "station intercom (Security)"
+	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
+			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
+			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
+			По умолчанию преднастроен на внутреннюю частоту службы безопасности объекта."
+	default_frequency = SEC_I_FREQ
+
+/obj/item/radio/intercom/department/security/get_ru_names()
+	return list(
+		NOMINATIVE = "станционный интерком (Служба безопасности)",
+		GENITIVE = "станционного интеркома (Служба безопасности)",
+		DATIVE = "станционному интеркому (Служба безопасности)",
+		ACCUSATIVE = "станционный интерком (Служба безопасности)",
+		INSTRUMENTAL = "станционным интеркомом (Служба безопасности)",
+		PREPOSITIONAL = "станционном интеркоме (Служба безопасности)"
+	)
+
+/obj/item/radio/intercom/department/medbay/get_internal_channels()
+	return GLOB.default_medbay_channels
+
+/obj/item/radio/intercom/department/security/get_internal_channels()
+	return GLOB.default_security_channels
+
+/obj/item/radio/intercom/syndicate
+	name = "illicit intercom"
+	desc = "Модернизированный вариант стандартного интеркома. Представляет собой устройство из прочного полимерно-металлического корпуса \
+			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Помимо стандартного телекоммуникацонного оборудования, \
+			внутри установлен специальный ключ шифрования, позволяющий прослушивать закрытые каналы Нанотрейзен, \
+			а также подключаться к зашифрованной частоте сотрудников Синдиката."
+	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
+	default_frequency = SYND_FREQ
+
+/obj/item/radio/intercom/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "нелегальный интерком",
+		GENITIVE = "нелегального интеркома",
+		DATIVE = "нелегальному интеркому",
+		ACCUSATIVE = "нелегальный интерком",
+		INSTRUMENTAL = "нелегальным интеркомом",
+		PREPOSITIONAL = "нелегальном интеркоме"
+	)
+
+/obj/item/radio/intercom/syndicate/get_internal_channels()
+	return GLOB.default_syndicate_channels
+
+/obj/item/radio/intercom/pirate
+	name = "pirate radio intercom"
+	desc = "Самодельный интерком, собранный из разнообразных дешёвых радиокомпонентов. Представляет собой кустарное устройство из низкокачественно \
+			металлического корпуса с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование \
+			позволяет подключаться к широкому диапазону радиочастот, однако не обладает протоколами защиты и шифрования."
+
+/obj/item/radio/intercom/pirate/get_ru_names()
+	return list(
+		NOMINATIVE = "пиратский интерком",
+		GENITIVE = "пиратского интеркома",
+		DATIVE = "пиратскому интеркому",
+		ACCUSATIVE = "пиратский интерком",
+		INSTRUMENTAL = "пиратским интеркомом",
+		PREPOSITIONAL = "пиратском интеркоме"
+	)
+
+/obj/item/radio/intercom/pirate/get_internal_channels()
+	return GLOB.default_pirate_channels
 
 /obj/item/intercom_electronics
 	name = "intercom electronics"
 	desc = "Компактная печатная плата, предназначенная для установки в интерком. \
 			Поддерживает передачу и приём голосовых сигналов через встроенные радиомодули. \
 			Совместима со всеми стандартными типами интеркомов."
-	ru_names = list(
+	gender = FEMALE
+	icon = 'icons/obj/doors/door_assembly.dmi'
+	icon_state = "door_electronics"
+	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	origin_tech = "engineering=2;programming=1"
+	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/intercom_electronics/get_ru_names()
+	return list(
 		NOMINATIVE = "печатная плата интеркома",
 		GENITIVE = "печатной платы интеркома",
 		DATIVE = "печатной плате интеркома",
@@ -390,14 +394,6 @@
 		INSTRUMENTAL = "печатной платой интеркома",
 		PREPOSITIONAL = "печатной плате интеркома"
 	)
-	gender = FEMALE
-	icon = 'icons/obj/doors/door_assembly.dmi'
-	icon_state = "door_electronics"
-	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
-	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
-	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/radio/intercom/locked
 	freqlock = TRUE
@@ -408,7 +404,10 @@
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование преднастроено \
 			на закрытый канал Искусственного Интеллекта, обеспечивая приватную коммуникацию. \
 			Возможность смены частоты заблокирована на программном уровне."
-	ru_names = list(
+	default_frequency = AI_FREQ
+
+/obj/item/radio/intercom/locked/ai_private/get_ru_names()
+	return list(
 		NOMINATIVE = "интерком ИИ",
 		GENITIVE = "интеркома ИИ",
 		DATIVE = "интеркому ИИ",
@@ -416,7 +415,6 @@
 		INSTRUMENTAL = "интеркомом ИИ",
 		PREPOSITIONAL = "интеркоме ИИ"
 	)
-	frequency = AI_FREQ
 
 /obj/item/radio/intercom/locked/confessional
 	name = "confessional intercom"
@@ -424,7 +422,10 @@
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование преднастроено \
 			на закрытый канал, предназначенный для приватной коммуникации со священнослужителями в исповедальных комнатах. \
 			Возможность смены частоты заблокирована на программном уровне."
-	ru_names = list(
+	default_frequency = 1480
+
+/obj/item/radio/intercom/locked/confessional/get_ru_names()
+	return list(
 		NOMINATIVE = "исповедальный интерком",
 		GENITIVE = "исповедального интеркома",
 		DATIVE = "исповедальному интеркому",
@@ -432,14 +433,15 @@
 		INSTRUMENTAL = "исповедальным интеркомом",
 		PREPOSITIONAL = "исповедальном интеркоме"
 	)
-	frequency = 1480
 
 /obj/item/radio/intercom/locked/prison
 	name = "prison intercom"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование преднастроено \
 			на общую частоту. Возможность смены частоты заблокирована на уровне прошивки, а микрофон отключён на аппаратном уровне."
-	ru_names = list(
+
+/obj/item/radio/intercom/locked/prison/get_ru_names()
+	return list(
 		NOMINATIVE = "тюремный интерком",
 		GENITIVE = "тюремного интеркома",
 		DATIVE = "тюремному интеркому",

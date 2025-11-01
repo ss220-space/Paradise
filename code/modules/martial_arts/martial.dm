@@ -11,12 +11,14 @@
 	var/datum/martial_art/base = null
 	/// Chance to deflect projectiles while on throw mode.
 	var/deflection_chance = 0
+	var/can_deflect = FALSE
 	/// Can it reflect projectiles in a random direction?
 	var/reroute_deflection = FALSE
 	///Chance to block melee attacks using items
 	var/block_chance = 0
 	//Chance to reflect projectiles but NINJA!
 	var/reflection_chance = 0
+	var/can_reflect = FALSE
 	var/help_verb = null
 	/// Set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns = FALSE
@@ -157,7 +159,7 @@
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, attack.attack_sound, 25, TRUE, -1)
 	D.visible_message(span_danger("[A] has [atk_verb] [D]!"), \
@@ -202,6 +204,7 @@
 
 	if(change_musculs && HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
 		ADD_TRAIT(human, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
+		SEND_SIGNAL(human, COMSIG_STRENGTH_LEVEL_UP, 4)
 		human.update_body(TRUE)
 
 	for(var/datum/martial_art/art in human.mind.known_martial_arts)
@@ -336,8 +339,22 @@
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style = new
+	name = "boxing gloves"
+	desc = "Because you really needed another excuse to punch your crewmates."
+	icon_state = "boxing"
+	item_state = "boxing"
+	put_on_delay = 60
 
+	var/datum/martial_art/boxing/style
+
+/obj/item/clothing/gloves/boxing/Initialize(mapload)
+	. = ..()
+	style = new()
+
+/obj/item/clothing/gloves/boxing/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
@@ -355,11 +372,20 @@
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
-	var/datum/martial_art/wrestling/style = new
+	var/datum/martial_art/wrestling/style
+
+/obj/item/storage/belt/champion/wrestling/Initialize(mapload)
+	. = ..()
+	style = new()
+
+/obj/item/storage/belt/champion/wrestling/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
 
 /obj/item/storage/belt/champion/wrestling/true
 	name = "Пояс Истинного Чемпиона"
-	desc = "Вы - лучший! и Вы это знаете!"
+	desc = "Вы — лучший! и Вы это знаете!"
 
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial = FALSE)
@@ -417,8 +443,8 @@
 
 
 /obj/item/sleeping_carp_scroll
-	name = "mysterious scroll"
-	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
+	name = "загадочный свиток"
+	desc = "Свиток исписанный загадочными символами. Похоже, в нём описаны техники какого-то боевого искусства."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
@@ -427,33 +453,33 @@
 		return
 	if(user.mind && (ischangeling(user) || isvampire(user))) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user)) //Changelings
-			to_chat(user, span_warning("We try multiple times, but we are not able to comprehend the contents of the scroll!"))
+			to_chat(user, span_warning("Мы пытаемся много раз, но всё же не способны понять содержимое свитка!"))
 			return
 		else //Vampires
-			to_chat(user, span_warning("Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!"))
+			to_chat(user, span_warning("Твоя жажда крови не даёт тебе сконцентрироваться на изучении свитка!"))
 			return
 
 	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
-		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
+		to_chat(user, span_warning("Ты уже изучил техники Спящего Карпа. Прочтение свитка ничего не даст."))
 		return
-
-	to_chat(user, span_sciradio("You have learned the ancient martial art of the Sleeping Carp! \
-					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
-					However, you are also unable to use any ranged weaponry. \
-					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab."))
 
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
-	visible_message(span_warning("[src] lights up in fire and quickly burns to ash."))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] подхватыва[PLUR_ET_YUT(src)] огонь и быстро сгора[PLUR_ET_YUT(src)] до тла."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
 /obj/item/CQC_manual
 	name = "old manual"
 	desc = "Небольшая книжка чёрного цвета. Это подробное руководство по тактике рукопашного боя."
-	ru_names = list(
+	icon = 'icons/obj/library.dmi'
+	icon_state = "cqcmanual"
+	item_state = "cqcmanual"
+
+/obj/item/CQC_manual/get_ru_names()
+	return list(
 		NOMINATIVE = "старое руководство",
 		GENITIVE = "старого руководства",
 		DATIVE = "старому руководству",
@@ -461,8 +487,6 @@
 		INSTRUMENTAL = "старым руководством",
 		PREPOSITIONAL = "старом руководстве"
 	)
-	icon = 'icons/obj/library.dmi'
-	icon_state = "cqcmanual"
 
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
@@ -491,7 +515,13 @@
 /obj/item/CQC_manual/chef
 	name = "CQC Upgrade implant"
 	desc = "Небольшой шприц, содержащий в себе имплант. Даёт вам запомнить то, что вы всегда забываете."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implanter1"
+	item_state = "syringe_0"
+
+/obj/item/CQC_manual/chef/get_ru_names()
+	return list(
 		NOMINATIVE = "имплант улучшения CQC",
 		GENITIVE = "импланта улучшения CQC",
 		DATIVE = "импланту улучшения CQC",
@@ -499,9 +529,6 @@
 		INSTRUMENTAL = "имплантом улучшения CQC",
 		PREPOSITIONAL = "импланте улучшения CQC"
 	)
-	icon = 'icons/obj/items.dmi'
-	icon_state = "implanter1"
-	item_state = "syringe_0"
 
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
 	if(!istype(user))
@@ -543,10 +570,22 @@
 
 
 /obj/item/mr_chang_technique
-	name = "«Aggressive Marketing Technique»"
-	desc = "Even a sneak peek on a cover of this magazine just made you 23 credit of clear profit! Wow!"
+	name = "\"Aggressive Marketing Technique\""
+	desc = "Лишь беглый взгляд по обложке этого журнала принёс вам 23 кредита чистой прибыли! О как!"
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "mr_cheng_manual"
+	item_state = "mr_cheng_manual"
+
+/obj/item/mr_chang_technique/get_ru_names()
+	return list(
+		NOMINATIVE = "журнал \"Техника Агрессивного Маркетинга\"",
+		GENITIVE = "журнала \"Техника Агрессивного Маркетинга\"",
+		DATIVE = "журналу \"Техника Агрессивного Маркетинга\"",
+		ACCUSATIVE = "журнал \"Техника Агрессивного Маркетинга\"",
+		INSTRUMENTAL = "журналом \"Техника Агрессивного Маркетинга\"",
+		PREPOSITIONAL = "журнале \"Техника Агрессивного Маркетинга\""
+	)
 
 /obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
@@ -562,9 +601,21 @@
 
 /obj/item/throwing_manual
 	name = "Commandos knife techniques manual"
-	desc = "This is a thin black book. On the front there is a picture of a man with knives. \nContains a guide for learning the commandos knife technique with a visual representation of the application of the techniques."
+	desc = "Тонкая чёрная книжка. На обложке изображён мужчина с ножами в руках. \nСодержит руководство по изучению техники владения ножами с наглядной демонстрацией применения приёмов."
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "throwingknives"
+	item_state = "throwingknives"
+
+/obj/item/throwing_manual/get_ru_names()
+	return list(
+		NOMINATIVE = "мануал \"Курс Техники метания ножей молодого Десантника\"",
+		GENITIVE = "мануала \"Курс Техники метания ножей молодого Десантника\"",
+		DATIVE = "мануалу \"Курс Техники метания ножей молодого Десантника\"",
+		ACCUSATIVE = "мануал \"Курс Техники метания ножей молодого Десантника\"",
+		INSTRUMENTAL = "Мануалом \"Курс Техники метания ножей молодого Десантника\"",
+		PREPOSITIONAL = "Мануале \"Курс Техники метания ножей молодого Десантника\""
+	)
 
 /obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
@@ -587,7 +638,6 @@
 	force_unwielded = 10
 	force_wielded = 24
 	throwforce = 20
-	throw_speed = 2
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
 	block_chance = 50
@@ -668,6 +718,10 @@
 	layer = ABOVE_HUD_LAYER
 	var/streak
 
+/atom/movable/screen/combo/Destroy()
+	if(hud)
+		hud.combo_display = null
+	. = ..()
 
 /atom/movable/screen/combo/proc/clear_streak()
 	cut_overlays()

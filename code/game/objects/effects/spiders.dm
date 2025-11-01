@@ -5,7 +5,6 @@
 	gender = FEMALE
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
-	density = FALSE
 	max_integrity = 15
 	var/mob/living/carbon/human/master_commander = null
 	var/new_mind_memory = "Я свободный паук."
@@ -16,7 +15,7 @@
 
 
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BURN)
 				damage_amount *= 2
@@ -84,7 +83,7 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			S.new_mind_memory = master_commander ? "<b>Мой хозяин [master_commander.name], выполню [genderize_ru(master_commander.gender, "его", "её", "этого", "их")] цели любой ценой!</b>" : new_mind_memory
+			S.new_mind_memory = master_commander ? "<b>Мой хозяин [master_commander.name], выполню [GEND_HIS_HER(master_commander)] цели любой ценой!</b>" : new_mind_memory
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
@@ -122,8 +121,8 @@
 /obj/structure/spider/spiderling/attack_hand(mob/living/user)
 	. = ..()
 	if(ishuman(user))
-		if (user.a_intent == INTENT_HELP)
-			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name]."))
+		if(user.a_intent == INTENT_HELP)
+			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[GEND_A_O_I(user)] брюшко [src.name]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
@@ -142,7 +141,7 @@
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
@@ -183,7 +182,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				SSmove_manager.move_to(src, entry_vent, 1, rand(2, 4))
+				GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
 				break
 	if(isturf(loc))
 		amount_grown += rand(0,2)
@@ -205,10 +204,10 @@
 				spawn()
 					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
 
-					if(candidates.len)
+					if(length(candidates))
 						var/mob/C = pick(candidates)
 						if(C)
-							S.key = C.key
+							S.possess_by_player(C.key)
 							if(S.master_commander)
 								to_chat(S, span_biggerdanger("You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost."))
 							add_game_logs("was made giant spider, master: [S.master_commander ? S.master_commander : "None"]")
@@ -223,7 +222,7 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
-	SSmove_manager.move_to(src, pick(available_turfs), 1, rand(2, 4))
+	GLOB.move_manager.move_to(src, pick(available_turfs), 1, rand(2, 4))
 	return TRUE
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -239,9 +238,7 @@
 /obj/effect/decal/cleanable/spiderling_remains
 	name = "spiderling remains"
 	desc = "Green squishy mess."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
-	anchored = TRUE
 
 /obj/structure/spider/cocoon
 	name = "cocoon"

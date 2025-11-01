@@ -9,14 +9,19 @@
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#c25656"
 	req_admin_notify = 1
-	access = list(ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
-			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
-			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS)
+	access = list(
+		ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+		ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
+		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS
+	)
+	minimal_access = list(
+		ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+		ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
+		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS
+	)
+	law_level = LAW_LEVEL_HOS
 	minimal_player_age = 21
 	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
@@ -74,6 +79,7 @@
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_GATEWAY, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_WEAPONS)
+	law_level = LAW_LEVEL_WARDEN
 	alt_titles = list("Brig Sergeant")
 	minimal_player_age = 21
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
@@ -84,9 +90,9 @@
 	outfit = /datum/outfit/job/warden
 	insurance_type = INSURANCE_TYPE_DELUXE
 
-	salary = 170
-	min_start_money = 200
-	max_start_money = 550
+	salary = 200
+	min_start_money = 300
+	max_start_money = 600
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -128,6 +134,7 @@
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
+	law_level = LAW_LEVEL_SEC
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	exp_requirements = 1200
@@ -138,7 +145,7 @@
 	outfit = /datum/outfit/job/detective
 	insurance_type = INSURANCE_TYPE_DELUXE
 
-	salary = 170
+	salary = 180
 	min_start_money = 200
 	max_start_money = 550
 
@@ -195,6 +202,7 @@
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	law_level = LAW_LEVEL_SEC
 	alt_titles = list("Security Trainer","Patrol Officer", "Security Cadet")
 	minimal_player_age = 14
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
@@ -205,9 +213,9 @@
 	outfit = /datum/outfit/job/officer
 	insurance_type = INSURANCE_TYPE_DELUXE
 
-	salary = 170
+	salary = 150
 	min_start_money = 200
-	max_start_money = 550
+	max_start_money = 500
 
 /datum/outfit/job/officer
 	name = "Security Officer"
@@ -238,7 +246,6 @@
 	head = /obj/item/clothing/head/soft/sec
 	id = /obj/item/card/id/security/cadet
 	l_pocket = /obj/item/reagent_containers/spray/pepper
-	suit_store = /obj/item/gun/energy/gun/advtaser
 	box = /obj/item/storage/box/survival_security/cadet
 
 /datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -308,6 +315,7 @@
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
+	law_level = LAW_LEVEL_SEC
 	minimal_player_age = 7
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 1200
@@ -317,9 +325,9 @@
 	outfit = /datum/outfit/job/pilot
 	insurance_type = INSURANCE_TYPE_DELUXE
 
-	salary = 170
-	min_start_money = 200
-	max_start_money = 550
+	salary = 180
+	min_start_money = 250
+	max_start_money = 600
 
 /datum/outfit/job/pilot
 	name = "Security Pod Pilot"

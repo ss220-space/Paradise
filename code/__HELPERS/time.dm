@@ -80,9 +80,9 @@
 				. += splits[i] SECONDS
 
 /* This is used for displaying the "station time" equivelent of a world.time value
- Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
- - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date
-   which is much more useful for a player)*/
+* Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
+* - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date
+*   which is much more useful for a player)*/
 /proc/station_time(time=world.time, display_only=FALSE)
 	return ((((time - SSticker.round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
 
@@ -90,7 +90,7 @@
 	return time2text(station_time(time, TRUE), format)
 
 /* Returns 1 if it is the selected month and day */
-/proc/isDay(var/month, var/day)
+/proc/isDay(month, day)
 	if(isnum(month) && isnum(day))
 		var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
 		var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
@@ -122,110 +122,44 @@
 	return GLOB.month_names.Find(number)
 
 //Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
-/proc/seconds_to_time(var/seconds as num)
+/proc/seconds_to_time(seconds as num)
 	var/numSeconds = seconds % 60
 	var/numMinutes = (seconds - numSeconds) / 60
 	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
 
 //Take a value in seconds and makes it display like a clock
-/proc/seconds_to_clock(var/seconds as num)
+/proc/seconds_to_clock(seconds as num)
 	return "[add_zero(num2text((seconds / 60) % 60), 2)]:[add_zero(num2text(seconds % 60), 2)]"
 
-//Takes a value of time in deciseconds.
-//Returns a text value of that number in hours, minutes, or seconds.
-/proc/DisplayTimeText(time_value)
-	var/second = time_value * 0.1
-	var/second_adjusted = null
-	var/second_rounded = FALSE
-	var/minute = null
-	var/hour = null
-	var/day = null
-
+///Takes a value of time in deciseconds.
+///Returns a text value of that number in hours, minutes, or seconds.
+/proc/DisplayTimeText(time_value, round_seconds_to = 0.1)
+	var/second = FLOOR(time_value * 0.1, round_seconds_to)
 	if(!second)
-		return "0 seconds"
-	if(second >= 60)
-		minute = round_down(second / 60)
-		second = round(second - (minute * 60), 0.1)
-		second_rounded = TRUE
-	if(second)	//check if we still have seconds remaining to format, or if everything went into minute.
-		second_adjusted = round(second)	//used to prevent '1 seconds' being shown
-		if(day || hour || minute)
-			if(second_adjusted == 1 && second >= 1)
-				second = " and 1 second"
-			else if(second > 1)
-				second = " and [second_adjusted] seconds"
-			else	//shows a fraction if seconds is < 1
-				if(second_rounded) //no sense rounding again if it's already done
-					second = " and [second] seconds"
-				else
-					second = " and [round(second, 0.1)] seconds"
-		else
-			if(second_adjusted == 1 && second >= 1)
-				second = "1 second"
-			else if(second > 1)
-				second = "[second_adjusted] seconds"
-			else
-				if(second_rounded)
-					second = "[second] seconds"
-				else
-					second = "[round(second, 0.1)] seconds"
-	else
-		second = null
-
-	if(!minute)
-		return "[second]"
-	if(minute >= 60)
-		hour = round_down(minute / 60,1)
-		minute = (minute - (hour * 60))
-	if(minute) //alot simpler from here since you don't have to worry about fractions
-		if(minute != 1)
-			if((day || hour) && second)
-				minute = ", [minute] minutes"
-			else if((day || hour) && !second)
-				minute = " and [minute] minutes"
-			else
-				minute = "[minute] minutes"
-		else
-			if((day || hour) && second)
-				minute = ", 1 minute"
-			else if((day || hour) && !second)
-				minute = " and 1 minute"
-			else
-				minute = "1 minute"
-	else
-		minute = null
-
-	if(!hour)
-		return "[minute][second]"
-	if(hour >= 24)
-		day = round_down(hour / 24,1)
-		hour = (hour - (day * 24))
+		return "right now"
+	if(second < 60)
+		return "[second] second[(second != 1)? "s":""]"
+	var/minute = FLOOR(second / 60, 1)
+	second = FLOOR(MODULUS(second, 60), round_seconds_to)
+	var/secondT
+	if(second)
+		secondT = " and [second] second[(second != 1)? "s":""]"
+	if(minute < 60)
+		return "[minute] minute[(minute != 1)? "s":""][secondT]"
+	var/hour = FLOOR(minute / 60, 1)
+	minute = MODULUS(minute, 60)
+	var/minuteT
+	if(minute)
+		minuteT = " and [minute] minute[(minute != 1)? "s":""]"
+	if(hour < 24)
+		return "[hour] hour[(hour != 1)? "s":""][minuteT][secondT]"
+	var/day = FLOOR(hour / 24, 1)
+	hour = MODULUS(hour, 24)
+	var/hourT
 	if(hour)
-		if(hour != 1)
-			if(day && (minute || second))
-				hour = ", [hour] hours"
-			else if(day && (!minute || !second))
-				hour = " and [hour] hours"
-			else
-				hour = "[hour] hours"
-		else
-			if(day && (minute || second))
-				hour = ", 1 hour"
-			else if(day && (!minute || !second))
-				hour = " and 1 hour"
-			else
-				hour = "1 hour"
-	else
-		hour = null
+		hourT = " and [hour] hour[(hour != 1)? "s":""]"
+	return "[day] day[(day != 1)? "s":""][hourT][minuteT][secondT]"
 
-	if(!day)
-		return "[hour][minute][second]"
-	if(day > 1)
-		day = "[day] days"
-	else
-		day = "1 day"
-
-	return "[day][hour][minute][second]"
 
 GLOBAL_VAR_INIT(midnight_rollovers, 0)
 GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)

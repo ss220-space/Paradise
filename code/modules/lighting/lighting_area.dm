@@ -9,22 +9,6 @@ GLOBAL_LIST_INIT_TYPED(fullbright_overlays, /mutable_appearance, list(create_ful
 	lighting_effect.blend_mode = BLEND_ADD
 	return lighting_effect
 
-/area
-	luminosity = TRUE
-	///List of mutable appearances we underlay to show light
-	///In the form plane offset + 1 -> appearance to use
-	var/list/mutable_appearance/lighting_effects = null
-	///Whether this area has a currently active base lighting, bool
-	var/area_has_base_lighting = FALSE
-	///alpha 0-255 of lighting_effect and thus baselighting intensity
-	var/base_lighting_alpha = 0
-	///The colour of the light acting on this area
-	var/base_lighting_color = COLOR_WHITE
-	///Whether this area allows static lighting and thus loads the lighting objects
-	var/static_lighting = TRUE
-	///Whether this area is iluminated by starlight
-	var/use_starlight = FALSE
-
 /area/proc/set_base_lighting(new_base_lighting_color = -1, new_alpha = -1)
 	if(base_lighting_alpha == new_alpha && base_lighting_color == new_base_lighting_color)
 		return FALSE

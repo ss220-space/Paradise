@@ -68,6 +68,26 @@
 		return TRUE
 	return FALSE
 
+/mob/proc/has_left_foot()
+	return TRUE
+
+/mob/living/carbon/human/has_left_foot()
+	return get_organ(BODY_ZONE_PRECISE_L_FOOT)
+
+/mob/proc/has_right_foot()
+	return TRUE
+
+/mob/living/carbon/human/has_right_foot()
+	return get_organ(BODY_ZONE_PRECISE_R_FOOT)
+
+/mob/proc/has_both_feet()
+	return TRUE
+
+/mob/living/carbon/human/has_both_feet()
+	if(has_left_foot() && has_right_foot())
+		return TRUE
+	return FALSE
+
 /mob/proc/l_arm_broken()
 	return FALSE
 

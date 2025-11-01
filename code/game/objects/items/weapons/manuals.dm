@@ -2,8 +2,6 @@
 
 //Oh god what the fuck I am not good at computer
 /obj/item/book/manual
-	icon = 'icons/obj/library.dmi'
-	due_date = 0
 	unique = TRUE
 	has_drm = TRUE // No reuploading. Piracy is a crime
 	dat = {"
@@ -20,9 +18,25 @@
 		"}
 	/// Put name of wiki page to open frame to. If none set - it will not link any wiki.
 	var/wiki_title = ""
+	/// book title in name variable
+	var/manual_title = ""
+	/// book title in ru_names
+	var/manual_title_ru = ""
+
+/obj/item/book/manual/get_ru_names()
+	return list(
+		NOMINATIVE = "руководство \"[manual_title_ru]\"",
+		GENITIVE = "руководства \"[manual_title_ru]\"",
+		DATIVE = "руководству \"[manual_title_ru]\"",
+		ACCUSATIVE = "руководство \"[manual_title_ru]\"",
+		INSTRUMENTAL = "руководством \"[manual_title_ru]\"",
+		PREPOSITIONAL = "руководстве \"[manual_title_ru]\""
+	)
 
 /obj/item/book/manual/Initialize(mapload)
 	. = ..()
+	name = "manual \"[manual_title]\""
+	title = manual_title_ru
 	if(!wiki_title || !CONFIG_GET(string/wikiurl)) //it means, manual doesnt rely on wiki, or we dont have wiki
 		return
 	dat = {"
@@ -40,45 +54,57 @@
 
 
 /obj/item/book/manual/engineering_construction
-	name = "Руководство по Ремонту и Строительству"
-	icon_state ="bookEngineering"
+	manual_title = "Maintenance and construction"
+	manual_title_ru = "Ремонт и строительство"
+	desc = "Руководство по строительсву, сборке и ремонту оборудования."
+	icon_state = "bookEngineering"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Руководство по Ремонту и Строительству"
 	wiki_title = "Руководство_по_строительству"
 
 /obj/item/book/manual/engineering_particle_accelerator
-	name = "Тесла Двигатель: Руководство Пользователя"
-	icon_state ="bookParticleAccelerator"
+	manual_title = "Tesla Engine: User Manual"
+	manual_title_ru = "Тесла двигатель: Руководство пользователя"
+	desc = "Руководство по запуску Тесла Двигателя."
+	icon_state = "bookParticleAccelerator"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Тесла Двигатель: Руководство Пользователя"
 	wiki_title = "Тесла-двигатель"
 
 /obj/item/book/manual/supermatter_engine
-	name = "Двигатель на Суперматерии: Руководство Пользователя"
+	manual_title = "SuperMatter Engine: User Manual"
+	manual_title_ru = "Двигатель на Суперматерии: Руководство пользователя"
+	desc = "Руководство по запуску двигателя на Суперматерии."
 	icon_state = "bookSupermatter"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Двигатель на Суперматерии: Руководство Пользователя"
 	wiki_title = "Двигатель_Суперматерии"
 
 /obj/item/book/manual/engineering_hacking
-	name = "Взлом"
-	icon_state ="bookHacking"
+	manual_title = "Hacking"
+	manual_title_ru = "Взлом"
+	desc = "Руководство по взлому различных устройств."
+	icon_state = "bookHacking"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Взлом"
 	wiki_title = "Руководство_по_взлому"
 
 /obj/item/book/manual/engineering_singularity_safety
-	name = "Сингулярный Двигатель: Руководство Пользователя"
-	icon_state ="bookEngineeringSingularitySafety"
+	manual_title = "Singularity Engine: User Manual"
+	manual_title_ru = "Сингулярный двигатель: Руководство пользователя"
+	desc = "Руководство по запуску Сингулярности."
+	icon_state = "bookEngineeringSingularitySafety"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Сингулярный Двигатель: Руководство Пользователя"
 	wiki_title = "Сингулярный_двигатель"
 
 /obj/item/book/manual/hydroponics_pod_people
-	name = "The Human Harvest - From seed to market"
-	icon_state ="bookHydroponicsPodPeople"
-	author = "Farmer John"
-	title = "The Human Harvest - From seed to market"
+	manual_title = "The Human Harvest - From seed to market"
+	manual_title_ru = "От семян до урожая: полное руководство по выращиванию людей на грядках."
+	desc = "Руководство по клонированию людей в стручках Боба-репликанта."
+	icon_state = "bookHydroponicsPodPeople"
+	item_state = "bookHydroponicsPodPeople"
+	author = "Джон Фермер"
 	dat = {"<html>
 				<meta charset="UTF-8">
 				<head>
@@ -111,10 +137,12 @@
 				"}
 
 /obj/item/book/manual/medical_cloning
-	name = "Cloning techniques of the 26th century"
-	icon_state ="bookCloning"
-	author = "Medical Journal, volume 3"
-	title = "Cloning techniques of the 26th century"
+	manual_title = "Cloning Techniques of the 26th century"
+	manual_title_ru = "Технология клонирования 26 века"
+	desc = "Руководство по классическому клонированию, актуально на сегодняшний день."
+	icon_state = "bookCloning"
+	item_state = "bookCloning"
+	author = "Медицинский Журнал \"Доктор Денчиго\", выпуск 3"
 //big pile of shit below.
 
 	dat = {"<html>
@@ -147,37 +175,37 @@
 					<li><a href='#11'>Send person on their way</a></li>
 				</ol>
 
-				<a name='1'><H4>Step 1: Acquire body</H4>
+				<a name='1'><h4>Step 1: Acquire body</h4>
 				This is pretty much vital for the process because without a body, you cannot clone it. Usually, bodies will be brought to you, so you do not need to worry so much about this step. If you already have a body, great! Move on to the next step.
 
-				<a name='2'><H4>Step 2: Strip body</H4>
+				<a name='2'><h4>Step 2: Strip body</h4>
 				The cloning machine does not like abiotic items. What this means is you cant clone anyone if theyre wearing clothes, so take all of it off. If its just one person, its courteous to put their possessions in the closet. If you have about seven people awaiting cloning, just leave the piles where they are, but dont mix them around and for Gods sake dont let people in to steal them.
 
-				<a name='3'><H4>Step 3: Put body in cloning machine</H4>
+				<a name='3'><h4>Step 3: Put body in cloning machine</h4>
 				Grab the body and then put it inside the DNA modifier. If you cannot do this, then you messed up at Step 2. Go back and check you took EVERYTHING off - a commonly missed item is their headset.
 
-				<a name='4'><H4>Step 4: Scan body</H4>
+				<a name='4'><h4>Step 4: Scan body</h4>
 				Go onto the computer and scan the body by pressing Scan - <Subject Name Here>. If youre successful, they will be added to the records (note that this can be done at any time, even with living people, so that they can be cloned without a body in the event that they are lying dead on port solars and didnt turn on their suit sensors)! If not, and it says Error: Mental interface failure., then they have left their bodily confines and are one with the spirits. If this happens, just shout at them to get back in their body, click Refresh and try scanning them again. If theres no success, threaten them with gibbing. Still no success? Skip over to Step 7 and dont continue after it, as you have an unresponsive body and it cannot be cloned. If you got Error: Unable to locate valid genetic data., you are trying to clone a monkey - start over.
 
-				<a name='5'><H4>Step 5: Clone body</H4>
+				<a name='5'><h4>Step 5: Clone body</h4>
 				Now that the body has a record, click View Records, click the subjects name, and then click Clone to start the cloning process. Congratulations! Youre halfway there. Remember not to Eject the cloning pod as this will kill the developing clone and youll have to start the process again.
 
-				<a name='6'><H4>Step 6: Get clean SEs for body</H4>
+				<a name='6'><h4>Step 6: Get clean SEs for body</h4>
 				Cloning is a finicky and unreliable process. Whilst it will most certainly bring someone back from the dead, they can have any number of nasty disabilities given to them during the cloning process! For this reason, you need to prepare a clean, defect-free Structural Enzyme (SE) injection for when theyre done. If youre a competent Geneticist, you will already have one ready on your working computer. If, for any reason, you do not, then eject the body from the DNA modifier (NOT THE CLONING POD) and take it next door to the Genetics research room. Put the body in one of those DNA modifiers and then go onto the console. Go into View/Edit/Transfer Buffer, find an open slot and click SE to save it. Then click Injector to get the SEs in syringe form. Put this in your pocket or something for when the body is done.
 
-				<a name='7'><H4>Step 7: Put body in morgue</H4>
+				<a name='7'><h4>Step 7: Put body in morgue</h4>
 				Now that the cloning process has been initiated and you have some clean Structural Enzymes, you no longer need the body! Drag it to the morgue and tell the Chef over the radio that they have some fresh meat waiting for them in there. To put a body in a morgue bed, simply open the tray, grab the body, put it on the open tray, then close the tray again. Use one of the nearby pens to label the bed CHEF MEAT in order to avoid confusion.
 
-				<a name='8'><H4>Step 8: Await cloned body</H4>
+				<a name='8'><h4>Step 8: Await cloned body</h4>
 				Now go back to the lab and wait for your patient to be cloned. It wont be long now, I promise.
 
-				<a name='9'><H4>Step 9: Use the clean SE injector on person</H4>
+				<a name='9'><h4>Step 9: Use the clean SE injector on person</h4>
 				Has your body been cloned yet? Great! As soon as the guy pops out, grab your injector and jab it in them. Once youve injected them, they now have clean Structural Enzymes and their defects, if any, will disappear in a short while.
 
-				<a name='10'><H4>Step 10: Give person clothes back</H4>
+				<a name='10'><h4>Step 10: Give person clothes back</h4>
 				Obviously the person will be naked after they have been cloned. Provided you werent an irresponsible little shit, you should have protected their possessions from thieves and should be able to give them back to the patient. No matter how cruel you are, its simply against protocol to force your patients to walk outside naked.
 
-				<a name='11'><H4>Step 11: Send person on their way</H4>
+				<a name='11'><h4>Step 11: Send person on their way</h4>
 				Give the patient one last check-over - make sure they dont still have any defects and that they have all their possessions. Ask them how they died, if they know, so that you can report any foul play over the radio. Once youre done, your patient is ready to go back to work! Chances are they do not have Medbay access, so you should let them out of Genetics and the Medbay main entrance.
 
 				<p>If youve gotten this far, congratulations! You have mastered the art of cloning. Now, the real problem is how to resurrect yourself after that traitor had his way with you for cloning his target.
@@ -190,10 +218,10 @@
 
 
 /obj/item/book/manual/ripley_build_and_repair
-	name = "APLU \"Ripley\" Construction and Operation Manual"
-	icon_state ="book"
-	author = "Weyland-Yutani Corp"
-	title = "APLU \"Ripley\" Construction and Operation Manual"
+	manual_title = "APLU \"Ripley\" Construction and Operation Manual"
+	manual_title_ru = "Сборка и оперирование АТМЕ \"Рипли\""
+	desc = "Руководство по сбору и оперированию меха АТМЕ \"Рипли\"."
+	author = "Корпорация \"Вейланд-Ютани\""
 //big pile of shit below.
 
 	dat = {"<html>
@@ -267,10 +295,12 @@
 
 
 /obj/item/book/manual/experimentor
-	name = "Mentoring your Experiments"
+	manual_title = "E.X.P.E.R.I-MENTOR for Dummies"
+	manual_title_ru = "Э.К.С.П.Е.Р.И-МЕНТОР для чайников"
+	desc = "Руководство по работе с Э.К.С.П.Е.Р.И-МЕНТОРом для самых маленьких сотрудников научного отдела."
 	icon_state = "rdbook"
-	author = "Dr. H.P. Kritz"
-	title = "Mentoring your Experiments"
+	item_state = "rdbook"
+	author = "Доктор Кой-Карпов"
 	dat = {"<html>
 		<meta charset="UTF-8">
 		<head>
@@ -400,10 +430,12 @@
 	"}
 
 /obj/item/book/manual/research_and_development
-	name = "Research and Development 101"
+	manual_title = "Research and Development for Dummies"
+	manual_title_ru = "Исследование и разработка для чайников"
+	desc = "Руководство по работе в РнД для самых маленьких."
 	icon_state = "rdbook"
-	author = "Dr. L. Ight"
-	title = "Research and Development 101"
+	item_state = "rdbook"
+	author = "Доктор С. Вет"
 	dat = {"
 	<html>
 				<meta charset="UTF-8">
@@ -452,17 +484,19 @@
 
 
 /obj/item/book/manual/robotics_cyborgs
-	name = "Cyborgs for Dummies"
+	manual_title = "Robotics for Dummies"
+	manual_title_ru = "Робототехника для чайников"
+	desc = "Руководство по работе роботами и прочими синтетиками для самых маленьких сотрудников научного отдела."
 	icon_state = "borgbook"
-	author = "XISC"
-	title = "Cyborgs for Dummies"
+	item_state = "borgbook"
+	author = "NanoChat™"
 	dat = {"<html>
 				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 21px; margin: 15px 0px 5px;}
 				h2 {font-size: 18px; margin: 15px 0px 5px;}
-        h3 {font-size: 15px; margin: 15px 0px 5px;}
+		h3 {font-size: 15px; margin: 15px 0px 5px;}
 				li {margin: 2px 0px 2px 15px;}
 				ul {list-style: none; margin: 5px; padding: 0px;}
 				ol {margin: 5px; padding: 0px 15px;}
@@ -502,80 +536,80 @@
 				<h3>Standard Cyborg</h3>
 				The standard cyborg module is a multi-purpose cyborg. It is equipped with various modules, allowing it to do basic tasks.<br>A Standard Cyborg comes with:
 				<ul>
-				  <li>Crowbar</li>
-				  <li>Stun Baton</li>
-				  <li>Health Analyzer</li>
-				  <li>Fire Extinguisher</li>
+					<li>Crowbar</li>
+					<li>Stun Baton</li>
+					<li>Health Analyzer</li>
+					<li>Fire Extinguisher</li>
 				</ul>
 
 				<h3>Engineering Cyborg</h3>
 				The Engineering cyborg module comes equipped with various engineering-related tools to help with engineering-related tasks.<br>An Engineering Cyborg comes with:
 				<ul>
-				  <li>A basic set of engineering tools</li>
-				  <li>Metal Synthesizer</li>
-				  <li>Reinforced Glass Synthesizer</li>
-				  <li>An RCD</li>
-				  <li>Wire Synthesizer</li>
-				  <li>Fire Extinguisher</li>
-				  <li>Built-in Optical Meson Scanners</li>
+					<li>A basic set of engineering tools</li>
+					<li>Metal Synthesizer</li>
+					<li>Reinforced Glass Synthesizer</li>
+					<li>An RCD</li>
+					<li>Wire Synthesizer</li>
+					<li>Fire Extinguisher</li>
+					<li>Built-in Optical Meson Scanners</li>
 				</ul>
 
 				<h3>Mining Cyborg</h3>
 				The Mining Cyborg module comes equipped with the latest in mining equipment. They are efficient at mining due to no need for oxygen, but their power cells limit their time in the mines.<br>A Mining Cyborg comes with:
 				<ul>
-				  <li>Jackhammer</li>
-				  <li>Shovel</li>
-				  <li>Mining Satchel</li>
-				  <li>Built-in Optical Meson Scanners</li>
+					<li>Jackhammer</li>
+					<li>Shovel</li>
+					<li>Mining Satchel</li>
+					<li>Built-in Optical Meson Scanners</li>
 				</ul>
 
 				<h3>Security Cyborg</h3>
 				The Security Cyborg module is equipped with effective security measures used to apprehend and arrest criminals without harming them a bit.<br>A Security Cyborg comes with:
 				<ul>
-				  <li>Stun Baton</li>
-				  <li>Handcuffs</li>
-				  <li>Taser</li>
+					<li>Stun Baton</li>
+					<li>Handcuffs</li>
+					<li>Taser</li>
 				</ul>
 
 				<h3>Janitor Cyborg</h3>
 				The Janitor Cyborg module is equipped with various cleaning-facilitating devices.<br>A Janitor Cyborg comes with:
 				<ul>
-				  <li>Mop</li>
-				  <li>Hand Bucket</li>
-				  <li>Cleaning Spray Synthesizer and Spray Nozzle</li>
+					<li>Mop</li>
+					<li>Hand Bucket</li>
+					<li>Cleaning Spray Synthesizer and Spray Nozzle</li>
 				</ul>
 
 				<h3>Service Cyborg</h3>
 				The service cyborg module comes ready to serve your human needs. It includes various entertainment and refreshment devices. Occasionally some service cyborgs may have been referred to as "Bros"<br>A Service Cyborg comes with:
 				<ul>
-				  <li>Shaker</li>
-				  <li>Industrail Dropper</li>
-				  <li>Platter</li>
-				  <li>Beer Synthesizer</li>
-				  <li>Zippo Lighter</li>
-				  <li>Rapid-Service-Fabricator (Produces various entertainment and refreshment objects)</li>
-				  <li>Pen</li>
+					<li>Shaker</li>
+					<li>Industrail Dropper</li>
+					<li>Platter</li>
+					<li>Beer Synthesizer</li>
+					<li>Zippo Lighter</li>
+					<li>Rapid-Service-Fabricator (Produces various entertainment and refreshment objects)</li>
+					<li>Pen</li>
 				</ul>
 
 				<h2><a name="Construction">Cyborg Construction</h2>
 				Cyborg construction is a rather easy process, requiring a decent amount of metal and a few other supplies.<br>The required materials to make a cyborg are:
 				<ul>
-				  <li>Metal</li>
-				  <li>Two Flashes</li>
-				  <li>One Power Cell (Preferrably rated to 15000w)</li>
-				  <li>Some electrical wires</li>
-				  <li>One Human Brain</li>
-				  <li>One Man-Machine Interface</li>
+					<li>Metal</li>
+					<li>Two Flashes</li>
+					<li>One Power Cell (Preferrably rated to 15000w)</li>
+					<li>Some electrical wires</li>
+					<li>One Human Brain</li>
+					<li>One Man-Machine Interface</li>
 				</ul>
 				Once you have acquired the materials, you can start on construction of your cyborg.<br>To construct a cyborg, follow the steps below:
 				<ol>
-				  <li>Start the Exosuit Fabricators constructing all of the cyborg parts</li>
-				  <li>While the parts are being constructed, take your human brain, and place it inside the Man-Machine Interface</li>
-				  <li>Once you have a Robot Head, place your two flashes inside the eye sockets</li>
-				  <li>Once you have your Robot Chest, wire the Robot chest, then insert the power cell</li>
-				  <li>Attach all of the Robot parts to the Robot frame</li>
-				  <li>Insert the Man-Machine Interface (With the Brain inside) Into the Robot Body</li>
-				  <li>Congratulations! You have a new cyborg!</li>
+					<li>Start the Exosuit Fabricators constructing all of the cyborg parts</li>
+					<li>While the parts are being constructed, take your human brain, and place it inside the Man-Machine Interface</li>
+					<li>Once you have a Robot Head, place your two flashes inside the eye sockets</li>
+					<li>Once you have your Robot Chest, wire the Robot chest, then insert the power cell</li>
+					<li>Attach all of the Robot parts to the Robot frame</li>
+					<li>Insert the Man-Machine Interface (With the Brain inside) Into the Robot Body</li>
+					<li>Congratulations! You have a new cyborg!</li>
 				</ol>
 
 				<h2><a name="Maintenance">Cyborg Maintenance</h2>
@@ -584,209 +618,216 @@
 				<h3>Replacing a Power Cell</h3>
 				Replacing a Power cell is a common type of maintenance for cyborgs. It usually involves replacing the cell with a fully charged one, or upgrading the cell with a larger capacity cell.<br>The steps to replace a cell are follows:
 				<ol>
-				  <li>Unlock the Cyborg's Interface by swiping your ID on it</li>
-				  <li>Open the Cyborg's outer panel using a crowbar</li>
-				  <li>Remove the old power cell</li>
-				  <li>Insert the new power cell</li>
-				  <li>Close the Cyborg's outer panel using a crowbar</li>
-				  <li>Lock the Cyborg's Interface by swiping your ID on it, this will prevent non-qualified personnel from attempting to remove the power cell</li>
+					<li>Unlock the Cyborg's Interface by swiping your ID on it</li>
+					<li>Open the Cyborg's outer panel using a crowbar</li>
+					<li>Remove the old power cell</li>
+					<li>Insert the new power cell</li>
+					<li>Close the Cyborg's outer panel using a crowbar</li>
+					<li>Lock the Cyborg's Interface by swiping your ID on it, this will prevent non-qualified personnel from attempting to remove the power cell</li>
 				</ol>
 
 				<h3>Exposing the Internal Wiring</h3>
 				Exposing the internal wiring of a cyborg is fairly easy to do, and is mainly used for cyborg repairs.<br>You can easily expose the internal wiring by following the steps below:
 				<ol>
-				  <li>Follow Steps 1 - 3 of "Replacing a Cyborg's Power Cell"</li>
-				  <li>Open the cyborg's internal wiring panel by using a screwdriver to unsecure the panel</li>
-			  </ol>
-			  To re-seal the cyborg's internal wiring:
-			  <ol>
-			    <li>Use a screwdriver to secure the cyborg's internal panel</li>
-			    <li>Follow steps 4 - 6 of "Replacing a Cyborg's Power Cell" to close up the cyborg</li>
-			  </ol>
+					<li>Follow Steps 1 - 3 of "Replacing a Cyborg's Power Cell"</li>
+					<li>Open the cyborg's internal wiring panel by using a screwdriver to unsecure the panel</li>
+				</ol>
+				To re-seal the cyborg's internal wiring:
+				<ol>
+				<li>Use a screwdriver to secure the cyborg's internal panel</li>
+				<li>Follow steps 4 - 6 of "Replacing a Cyborg's Power Cell" to close up the cyborg</li>
+				</ol>
 
-			  <h2><a name="Repairs">Cyborg Repairs</h2>
-			  Occasionally a Cyborg may become damaged. This could be in the form of impact damage from a heavy or fast-travelling object, or it could be heat damage from high temperatures, or even lasers or Electromagnetic Pulses (EMPs).
+				<h2><a name="Repairs">Cyborg Repairs</h2>
+				Occasionally a Cyborg may become damaged. This could be in the form of impact damage from a heavy or fast-travelling object, or it could be heat damage from high temperatures, or even lasers or Electromagnetic Pulses (EMPs).
 
-			  <h3>Dents</h3>
-			  If a cyborg becomes damaged due to impact from heavy or fast-moving objects, it will become dented. Sure, a dent may not seem like much, but it can compromise the structural integrity of the cyborg, possibly causing a critical failure.
-			  Dents in a cyborg's frame are rather easy to repair, all you need is to apply a welding tool to the dented area, and the high-tech cyborg frame will repair the dent under the heat of the welder.
+				<h3>Dents</h3>
+				If a cyborg becomes damaged due to impact from heavy or fast-moving objects, it will become dented. Sure, a dent may not seem like much, but it can compromise the structural integrity of the cyborg, possibly causing a critical failure.
+				Dents in a cyborg's frame are rather easy to repair, all you need is to apply a welding tool to the dented area, and the high-tech cyborg frame will repair the dent under the heat of the welder.
 
-        <h3>Excessive Heat Damage</h3>
-        If a cyborg becomes damaged due to excessive heat, it is likely that the internal wires will have been damaged. You must replace those wires to ensure that the cyborg remains functioning properly.<br>To replace the internal wiring follow the steps below:
-        <ol>
-          <li>Unlock the Cyborg's Interface by swiping your ID</li>
-          <li>Open the Cyborg's External Panel using a crowbar</li>
-          <li>Remove the Cyborg's Power Cell</li>
-          <li>Using a screwdriver, expose the internal wiring or the Cyborg</li>
-          <li>Replace the damaged wires inside the cyborg</li>
-          <li>Secure the internal wiring cover using a screwdriver</li>
-          <li>Insert the Cyborg's Power Cell</li>
-          <li>Close the Cyborg's External Panel using a crowbar</li>
-          <li>Lock the Cyborg's Interface by swiping your ID</li>
-        </ol>
-        These repair tasks may seem difficult, but are essential to keep your cyborgs running at peak efficiency.
+		<h3>Excessive Heat Damage</h3>
+		If a cyborg becomes damaged due to excessive heat, it is likely that the internal wires will have been damaged. You must replace those wires to ensure that the cyborg remains functioning properly.<br>To replace the internal wiring follow the steps below:
+		<ol>
+			<li>Unlock the Cyborg's Interface by swiping your ID</li>
+			<li>Open the Cyborg's External Panel using a crowbar</li>
+			<li>Remove the Cyborg's Power Cell</li>
+			<li>Using a screwdriver, expose the internal wiring or the Cyborg</li>
+			<li>Replace the damaged wires inside the cyborg</li>
+			<li>Secure the internal wiring cover using a screwdriver</li>
+			<li>Insert the Cyborg's Power Cell</li>
+			<li>Close the Cyborg's External Panel using a crowbar</li>
+			<li>Lock the Cyborg's Interface by swiping your ID</li>
+		</ol>
+		These repair tasks may seem difficult, but are essential to keep your cyborgs running at peak efficiency.
 
-        <h2><a name="Emergency">In Case of Emergency</h2>
-        In case of emergency, there are a few steps you can take.
+		<h2><a name="Emergency">In Case of Emergency</h2>
+		In case of emergency, there are a few steps you can take.
 
-        <h3>"Rogue" Cyborgs</h3>
-        If the cyborgs seem to become "rogue", they may have non-standard laws. In this case, use extreme caution.
-        To repair the situation, follow these steps:
-        <ol>
-          <li>Locate the nearest robotics console</li>
-          <li>Determine which cyborgs are "Rogue"</li>
-          <li>Press the lockdown button to immobolize the cyborg</li>
-          <li>Locate the cyborg</li>
-          <li>Expose the cyborg's internal wiring</li>
-          <li>Check to make sure the LawSync and AI Sync lights are lit</li>
-          <li>If they are not lit, pulse the LawSync wire using a multitool to enable the cyborg's Law Sync</li>
-          <li>Proceed to a cyborg upload console. Nanotrasen usually places these in the same location as AI uplaod consoles.</li>
-          <li>Use a "Reset" upload moduleto reset the cyborg's laws</li>
-          <li>Proceed to a Robotics Control console</li>
-          <li>Remove the lockdown on the cyborg</li>
-        </ol>
+		<h3>"Rogue" Cyborgs</h3>
+		If the cyborgs seem to become "rogue", they may have non-standard laws. In this case, use extreme caution.
+		To repair the situation, follow these steps:
+		<ol>
+			<li>Locate the nearest robotics console</li>
+			<li>Determine which cyborgs are "Rogue"</li>
+			<li>Press the lockdown button to immobolize the cyborg</li>
+			<li>Locate the cyborg</li>
+			<li>Expose the cyborg's internal wiring</li>
+			<li>Check to make sure the LawSync and AI Sync lights are lit</li>
+			<li>If they are not lit, pulse the LawSync wire using a multitool to enable the cyborg's Law Sync</li>
+			<li>Proceed to a cyborg upload console. Nanotrasen usually places these in the same location as AI uplaod consoles.</li>
+			<li>Use a "Reset" upload moduleto reset the cyborg's laws</li>
+			<li>Proceed to a Robotics Control console</li>
+			<li>Remove the lockdown on the cyborg</li>
+		</ol>
 
-        <h3>As a last resort</h3>
-        If all else fails in a case of cyborg-related emergency. There may be only one option. Using a Robotics Control console, you may have to remotely detonate the cyborg.
-        <h3>WARNING:</h3> Do not detonate a borg without an explicit reason for doing so. Cyborgs are expensive pieces of Nanotrasen equipment, and you may be punished for detonating them without reason.
+		<h3>As a last resort</h3>
+		If all else fails in a case of cyborg-related emergency. There may be only one option. Using a Robotics Control console, you may have to remotely detonate the cyborg.
+		<h3>WARNING:</h3> Do not detonate a borg without an explicit reason for doing so. Cyborgs are expensive pieces of Nanotrasen equipment, and you may be punished for detonating them without reason.
 
-        </body>
+		</body>
 		</html>
 		"}
 
 /obj/item/book/manual/security_space_law
-	name = "Космический Закон"
-	desc = "Свод корпоративных правил Nanotrasen для поддержания закона и порядка на своих космических станциях."
+	manual_title = "Space Law"
+	manual_title_ru = "Космический закон"
+	desc = "Свод корпоративных правил Нанотрейзен для поддержания закона и порядка на своих объектах."
 	icon_state = "bookSpaceLaw"
+	item_state = "bookSpaceLaw"
 	force = 4 //advanced magistrate tactics
-	author = "Nanotrasen"
-	title = "Космический Закон"
+	author = "Нанотрейзен"
 	wiki_title = "Космический_Закон"
 
 /obj/item/book/manual/security_space_law/black
-	name = "Космический Закон - Ограниченное Издание"
-	desc = "Кожаный переплет и безукоризненное качество исполнения - превосходня копия ПРАВОСУДИЯ."
+	manual_title = "Space Law - Limited Edition"
+	manual_title_ru = "Космический закон — ограниченное издание"
+	desc = "Кожаный переплет и безукоризненное качество исполнения — превосходня копия ПРАВОСУДИЯ."
 	icon_state = "bookSpaceLawblack"
-	title = "Космический Закон - Ограниченное Издание"
+	item_state = "bookSpaceLawblack"
 
 /obj/item/book/manual/engineering_guide
-	name = "Руководство по Инженерии"
+	manual_title = "General Engineering"
+	manual_title_ru = "Основы инженерии"
+	desc = "Классическое издание руководства по инженерии, широко используемое в образовательных учреждениях."
 	icon_state ="bookEngineering2"
+	item_state = "bookEng"
 	author = "Инженерная Энциклопедия"
-	title = "Руководство по Инженерии"
 	wiki_title = "Руководство_по_инженерии"
 
 /obj/item/book/manual/chef_recipes
-	name = "Рецепты от шеф-повара: Введение"
+	manual_title = "The Flavor Bible: Introduction"
+	manual_title_ru = "Азбука вкуса: Введение"
 	desc = "Одна из частей сборника рецептов шеф-повара."
 	icon_state = "cooked_book"
-	author = "NanoTrasen"
-	title = "Рецепты от шеф-повара: Введение"
+	item_state = "cooked_book"
+	author = "Нанотрейзен"
 	wiki_title = "Руководство_по_еде"
 
 /obj/item/book/manual/chef_recipes/part_one
-	name = "Рецепты от шеф-повара: Основные ингредиенты и приправы"
-	title = "Рецепты от шеф-повара: Основные ингредиенты и приправы"
+	manual_title = "The Flavor Bible: Main Ingredients and spices"
+	manual_title_ru = "Азбука вкуса: Основные ингредиенты и приправы"
 	wiki_title = "Руководство_по_еде_и_напиткам/Основные_ингредиенты_и_приправы"
 
 /obj/item/book/manual/chef_recipes/part_two
-	name = "Рецепты от шеф-повара: Тесто и хлеб"
-	title = "Рецепты от шеф-повара: Тесто и хлеб"
+	manual_title = "The Flavor Bible: dough and bread"
+	manual_title_ru = "Азбука вкуса: Тесто и хлеб"
 	wiki_title = "Руководство_по_еде_и_напиткам/Тесто_и_базовый_хлеб"
 
 /obj/item/book/manual/chef_recipes/part_three
-	name = "Рецепты от шеф-повара: Мясные блюда"
-	title = "Рецепты от шеф-повара: Мясные блюда"
+	manual_title = "The Flavor Bible: Meat"
+	manual_title_ru = "Азбука вкуса: Мясные блюда"
 	wiki_title = "Руководство_по_еде_и_напиткам/Мясные_блюда"
 
 /obj/item/book/manual/chef_recipes/part_four
-	name = "Рецепты от шеф-повара: Рыба, морепродукты, суши"
-	title = "Рецепты от шеф-повара: Рыба, морепродукты, суши"
+	manual_title = "The Flavor Bible: Fish, seafood, sushi"
+	manual_title_ru = "Азбука вкуса: Рыба, морепродукты, суши"
 	wiki_title = "Руководство_по_еде_и_напиткам/Рыба,_морепродукты,_суши"
 
 /obj/item/book/manual/chef_recipes/part_five
-	name = "Рецепты от шеф-повара: Бутерброды"
-	title = "Рецепты от шеф-повара: Бутерброды"
+	manual_title = "The Flavor Bible: Sandwiches"
+	manual_title_ru = "Азбука вкуса: Бутерброды"
 	wiki_title = "Руководство_по_еде_и_напиткам/Бутерброды"
 
 /obj/item/book/manual/chef_recipes/part_six
-	name = "Рецепты от шеф-повара: Паста и пицца"
-	title = "Рецепты от шеф-повара: Паста и пицца"
+	manual_title = "The Flavor Bible: Pasta and pizza"
+	manual_title_ru = "Азбука вкуса: Паста и пицца"
 	wiki_title = "Руководство_по_еде_и_напиткам/Паста_и_пицца"
 
 /obj/item/book/manual/chef_recipes/part_seven
-	name = "Рецепты от шеф-повара: Супы, салаты и гарниры"
-	title = "Рецепты от шеф-повара: Супы, салаты и гарниры"
+	manual_title = "The Flavor Bible: Soups, salats and side dishes"
+	manual_title_ru = "Азбука вкуса: Супы, салаты и гарниры"
 	wiki_title = "Руководство_по_еде_и_напиткам/Супы,_салаты_и_гарниры"
 
 /obj/item/book/manual/chef_recipes/part_eight
-	name = "Рецепты от шеф-повара: Хлебобулочные изделия и десерты"
-	title = "Рецепты от шеф-повара: Хлебобулочные изделия и десерты"
+	manual_title = "The Flavor Bible: Bakery and Desserts"
+	manual_title_ru = "Азбука вкуса: Хлебобулочные изделия и десерты"
 	wiki_title = "Руководство_по_еде_и_напиткам/Хлебобулочные_изделия_и_десерты"
 
 /obj/item/book/manual/chef_recipes/part_nine
-	name = "Рецепты от шеф-повара: Шоколадки и конфеты"
-	title = "Рецепты от шеф-повара: Шоколадки и конфеты"
+	manual_title = "The Flavor Bible: Candies and sweets"
+	manual_title_ru = "Азбука вкуса: Шоколадки и конфеты"
 	wiki_title = "Руководство_по_еде_и_напиткам/Шоколадки_и_конфеты"
 
 /obj/item/book/manual/chef_recipes/part_ten
-	name = "Рецепты от шеф-повара: Остальные рецепты"
-	title = "Рецепты от шеф-повара: Остальные рецепты"
+	manual_title = "The Flavor Bible: Other"
+	manual_title_ru = "Азбука вкуса: Остальные рецепты"
 	wiki_title = "Руководство_по_еде_и_напиткам/Остальные_рецепты"
 
 /obj/item/book/manual/barman_recipes
-	name = "Рецепты Бармена: Введение"
+	manual_title = "Barman on your own: Introduction"
+	manual_title_ru = "Сам себе бармен: Введение"
 	desc = "Одна из частей сборника рецептов бармена."
 	icon_state = "barbook"
-	author = "Сэр Джон Роуз"
-	title = "Рецепты Бармена: Введение"
+	author = "Нанотрейзен"
 	wiki_title = "Руководство_по_напиткам"
 
 /obj/item/book/manual/barman_recipes/part_one
-	name = "Рецепты Бармена: Ассортимент бухломата"
-	title = "Рецепты Бармена: Ассортимент бухломата"
+	manual_title = "Barman on your own: Booz-o-mate assortiment"
+	manual_title_ru = "Сам себе бармен: Ассортимент бухломата"
 	wiki_title = "Руководство_по_еде_и_напиткам/Ассортимент_бухломата"
 
 /obj/item/book/manual/barman_recipes/part_two
-	name = "Рецепты Бармена: Раздатчик выпивки"
-	title = "Рецепты Бармена: Раздатчик выпивки"
+	manual_title = "Barman on your own: The booze dispenser"
+	manual_title_ru = "Сам себе бармен: Раздатчик алкоголя"
 	wiki_title = "Руководство_по_еде_и_напиткам/Раздатчик_выпивки"
 
 /obj/item/book/manual/barman_recipes/part_three
-	name = "Рецепты Бармена: Фонтан газировки"
-	title = "Рецепты Бармена: Фонтан газировки"
+	manual_title = "Barman on your own: soda fountain"
+	manual_title_ru = "Сам себе бармен: Раздатчик газировки"
 	wiki_title = "Руководство_по_еде_и_напиткам/Фонтан_газировки"
 
 /obj/item/book/manual/barman_recipes/part_four
-	name = "Рецепты Бармена: Рецепты бутылочницы"
-	title = "Рецепты Бармена: Рецепты бутылочницы"
+	manual_title = "Barman on your own: Bottler"
+	manual_title_ru = "Сам себе бармен: Бутылочница"
 	wiki_title = "Руководство_по_еде_и_напиткам/Рецепты_Бутылочницы"
 
 /obj/item/book/manual/barman_recipes/part_five
-	name = "Рецепты Бармена: Алкогольные напитки и коктейли"
-	title = "Рецепты Бармена: Алкогольные напитки и коктейли"
+	manual_title = "Barman on your own: Alcoholic drinks and cocktails"
+	manual_title_ru = "Сам себе бармен: Алкогольные напитки и коктейли"
 	wiki_title = "Руководство_по_еде_и_напиткам/Алкогольные_напитки_и_коктейли"
 
 /obj/item/book/manual/barman_recipes/part_six
-	name = "Рецепты Бармена: Напитки на основе синтанола"
-	title = "Рецепты Бармена: Напитки на основе синтанола"
+	manual_title = "Barman on your own: Alcoholic drinks on synthanol"
+	manual_title_ru = "Сам себе бармен: Алкогольные напитки на синтаноле"
 	wiki_title = "Руководство_по_еде_и_напиткам/Напитки_на_основе_синтанола"
 
 /obj/item/book/manual/barman_recipes/part_seven
-	name = "Рецепты Бармена: Безалкогольные напитки"
-	title = "Рецепты Бармена: Безалкогольные напитки"
+	manual_title = "Barman on your own: Non-alcoholic drinks"
+	manual_title_ru = "Сам себе бармен: Безалкогольные напитки"
 	wiki_title = "Руководство_по_еде_и_напиткам/Безалкогольные_напитки"
 
 /obj/item/book/manual/barman_recipes/part_eight
-	name = "Рецепты Бармена: Напитки из ингредиентов с кухни"
-	title = "Рецепты Бармена: Напитки из ингредиентов с кухни"
+	manual_title = "Barman on your own: Drinks made from kitchen ingredients"
+	manual_title_ru = "Сам себе бармен: Напитки из ингредиентов с кухни"
 	wiki_title = "Руководство_по_еде_и_напиткам/Напитки_из_ингредиентов_с_кухни"
 
 /obj/item/book/manual/detective
-	name = "The Film Noir: Proper Procedures for Investigations"
+	manual_title = "The Film Noir: Proper Procedures for Investigations"
+	manual_title_ru = "Киношный нуар: Надлежащие процедуры расследования"
+	desc = "Нуарная книга о том, как необходимо проводить расследования"
 	icon_state ="bookDetective"
-	author = "Nanotrasen"
-	title = "The Film Noir: Proper Procedures for Investigations"
+	item_state = "bookDetective"
+	author = "Нанотрейзен"
 	dat = {"<html>
 			<meta charset="UTF-8">
 			<head>
@@ -825,10 +866,11 @@
 			</html>"}
 
 /obj/item/book/manual/nuclear
-	name = "Fission Mailed: Nuclear Sabotage 101"
+	manual_title = "Fission Mailed: Nuclear Sabotage 101"
+	manual_title_ru = "Операция \"С доставкой на дом\": Ядерный саботаж для чайников"
 	icon_state ="bookNuclear"
-	author = "Syndicate"
-	title = "Fission Mailed: Nuclear Sabotage 101"
+	item_state = "bookNuclear"
+	author = "Синдикат"
 	dat = {"<html>
 			<meta charset="UTF-8">
 			Nuclear Explosives 101:<br>
@@ -861,10 +903,11 @@
 			</html>"}
 
 /obj/item/book/manual/atmospipes
-	name = "Pipes and You: Getting To Know Your Scary Tools"
+	manual_title = "Pipes and You: Getting To Know Your Scary Tools"
+	manual_title_ru = "Вы и ваша труба: Руководство по прокладке трубопроводов"
 	icon_state = "pipingbook"
-	author = "Maria Crash, Senior Atmospherics Technician"
-	title = "Pipes and You: Getting To Know Your Scary Tools"
+	item_state = "pipingbook"
+	author = "Мария Протечкина, старший Атмосферный Техник"
 	dat = {"<html>
 				<meta charset="UTF-8">
 				<head>
@@ -926,7 +969,7 @@
 				<li><i>Gas Pump:</i> Take a wild guess. It moves gas in the direction it's pointing (marked by the red line on one end). It moves it based on pressure, the maximum output being 4500 kPa (kilopascals).
 				Ordinary atmospheric pressure, for comparison, is 101.3 kPa, and the minimum pressure of room-temperature pure oxygen needed to not suffocate in a matter of minutes is 16 kPa
 				(though 18 is preferred using internals, for various reasons).</li>
-				<li><i>Volume pump:</i> This pump goes based on volume, instead of pressure, and the possible maximum pressure it can create in the pipe on the recieving end is double the gas pump because of this,
+				<li><i>Volume pump:</i> This pump goes based on volume, instead of pressure, and the possible maximum pressure it can create in the pipe on the receiving end is double the gas pump because of this,
 				clocking in at an incredible 9000 kPa. If a pipe with this is destroyed or damaged, and this pressure of gas escapes, it can be incredibly dangerous depending on the size of the pipe filled.
 				Don't hook this to the distribution loop, or you will make babies cry and the Chief Engineer brutally beat you.</li>
 				<li><i>Passive gate:</i> This is essentially a cap on the pressure of gas allowed to flow in a specific direction.
@@ -959,10 +1002,11 @@
 			"}
 
 /obj/item/book/manual/evaguide
-	name = "EVA Gear and You: Not Spending All Day Inside"
+	manual_title = "EVA Gear and You: Not Spending All Day Inside"
+	manual_title_ru = "Костюмы для ВКД: Как дышать свежим воздухом даже на орбите"
 	icon_state = "evabook"
-	author = "Maria Crash, Senior Atmospherics Technician"
-	title = "EVA Gear and You: Not Spending All Day Inside"
+	item_state = "evabook"
+	author = "Мария Протечкина, старший Атмосферный Техник"
 	dat = {"<html>
 				<meta charset="UTF-8">
 				<head>
@@ -991,7 +1035,7 @@
 
 				EVA gear. Wonderful to use. It's useful for mining, engineering, and occasionally just surviving, if things are that bad. Most people have EVA training,
 				but apparently there are some on a space station who don't. This guide should give you a basic idea of how to use this gear, safely. It's split into two sections:
-				 Civilian suits and hardsuits.<br><br>
+				Civilian suits and hardsuits.<br><br>
 
 				<h1><a name="Civilian">Civilian Suits</a></h1><br>
 				<i>The bulkiest things this side of Alpha Centauri</i><br>
@@ -1029,11 +1073,12 @@
 			"}
 
 /obj/item/book/manual/faxes
-	name = "A Guide to Faxes"
-	desc = "A Nanotrasen-approved guide to writing faxes"
+	manual_title = "Faxes for dummies"
+	manual_title_ru = "Факсы для чайников"
+	desc = "Руководство по написанию факсов, одобренное руководством Нанотрейзен"
 	icon_state = "book6"
-	author = "Nanotrasen"
-	title = "A Guide to Faxes"
+	item_state = "book6"
+	author = "Нанотрейзен"
 	dat = {"
 
 		<html>
@@ -1089,73 +1134,83 @@
 		"}
 
 /obj/item/book/manual/sop_science
+	manual_title = "Standard Operating Procedures (Science)"
+	manual_title_ru = "Стандартные Рабочие Процедуры научного отдела"
 	name = "Стандартные Рабочие Процедуры Научного Отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой научной деятельности."
 	icon_state = "sop_science"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Научного Отдела"
+	item_state = "sop_science"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Исследование)"
 
 /obj/item/book/manual/sop_medical
-	name = "Стандартные Рабочие Процедуры Медицинского Отдела"
+	manual_title = "Standard Operating Procedures (Medical)"
+	manual_title_ru = "Стандартные Рабочие Процедуры медицинского отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой медицинской деятельности."
 	icon_state = "sop_medical"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Медицинского Отдела"
+	item_state = "sop_medical"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Медицина)"
 
 /obj/item/book/manual/sop_engineering
-	name = "Стандартные Рабочие Процедуры Инженерного Отдела"
+	manual_title = "Standard Operating Procedures (Engineering)"
+	manual_title_ru = "Стандартные Рабочие Процедуры инженерного отдела"
 	desc = "Свод правил, направленных на безопасное ведение любой инженерной деятельности."
 	icon_state = "sop_engineering"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Инженерного Отдела"
+	item_state = "sop_engineering"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Инженерия)"
 
 /obj/item/book/manual/sop_service
-	name = "Стандартные Рабочие Процедуры Отдела Обслуживания"
+	manual_title = "Standard Operating Procedures (Service)"
+	manual_title_ru = "Стандартные Рабочие Процедуры отдела Обслуживания"
 	desc = "Свод правил, направленных на безопасное ведение любой обслуживающей деятельности."
 	icon_state = "sop_service"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Отдела Обслуживания"
+	item_state = "sop_service"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Сервис)"
 
 /obj/item/book/manual/sop_supply
-	name = "Стандартные Рабочие Процедуры Отдела Снабжения"
+	manual_title = "Standard Operating Procedures (Cargo)"
+	manual_title_ru = "Стандартные Рабочие Процедуры отдела снабжения"
 	desc = "Свод правил, направленных на безопасное ведение любой снабженческой деятельности."
 	icon_state = "sop_cargo"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Отдела Снабжения"
+	item_state = "sop_cargo"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Снабжение)"
 
 /obj/item/book/manual/sop_security
-	name = "Стандартные Рабочие Процедуры Службы Безопасности"
+	manual_title = "Standard Operating Procedures (Security)"
+	manual_title_ru = "Стандартные Рабочие Процедуры службы безопасности"
 	desc = "Свод правил, направленных на безопасное ведение любой охранной деятельности."
 	icon_state = "sop_security"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Службы Безопасности"
+	item_state = "sop_security"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Охрана)"
 
 /obj/item/book/manual/sop_legal
-	name = "Правовые Стандартные Рабочие Процедуры"
-	desc = "Свод правил, направленных на безопасное ведение любой правовой деятельности."
+	manual_title = "Standard Operating Procedures (Legal)"
+	manual_title_ru = "Стандартные Рабочие Процедуры отдела юриспруденции"
+	desc = "Свод правил, направленных на безопасное ведение любой юридической деятельности."
 	icon_state = "sop_legal"
-	author = "Nanotrasen"
-	title = "Правовые Стандартные Рабочие Процедуры"
+	item_state = "sop_legal"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Закон)"
 
 /obj/item/book/manual/sop_general
-	name = "Стандартные Рабочие Процедуры"
-	desc = "Свод правил, направленных на безопасное ведение любой станционной деятельности."
+	manual_title = "General Standard Operating Procedures"
+	manual_title_ru = "Общие Стандартные Рабочие Процедуры"
+	desc = "Свод правил, направленных на безопасное ведение любой деятельности на объектах НТ."
 	icon_state = "sop"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры"
+	item_state = "sop"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_Рабочие_Процедуры"
 
 /obj/item/book/manual/sop_command
-	name = "Стандартные Рабочие Процедуры Коммандования"
-	desc = "Свод правил, направленных на безопасное ведение любой Коммандной деятельности."
+	manual_title = "Standard Operating Procedures (Command)"
+	manual_title_ru = "Стандартные Рабочие Процедуры коммандования"
+	desc = "Свод правил, направленных на безопасное ведение любой управленческой деятельности."
 	icon_state = "sop_command"
-	author = "Nanotrasen"
-	title = "Стандартные Рабочие Процедуры Коммандования"
+	item_state = "sop_command"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Командование)"

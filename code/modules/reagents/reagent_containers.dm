@@ -15,6 +15,12 @@
 	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
 	var/temperature_max = 10000
 	var/pass_open_check = FALSE // Pass open check in empty verb
+	var/chem_master_made = FALSE
+
+/obj/item/reagent_containers/get_ru_names_cached()
+	if(chem_master_made)
+		return
+	return ..()
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Установить объём перемещения"
@@ -41,7 +47,7 @@
 		return
 
 	amount_per_transfer_from_this = N
-	to_chat(usr, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[pluralize_ru(gender, "ет", "ут")] перемещать по <b>[N]</b> единиц[declension_ru(N, "у", "ы", "")] вещества за раз."))
+	to_chat(usr, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[PLUR_ET_UT(src)] перемещать по <b>[N]</b> единиц[DECL_SEC_MIN(N)] вещества за раз."))
 
 /obj/item/reagent_containers/click_alt(mob/user)
 	set_APTFT()
@@ -65,8 +71,7 @@
 			return
 		if(reagents.total_volume)
 			balloon_alert(usr, "содержимое вылито")
-			reagents.reaction(usr.loc)
-			reagents.clear_reagents()
+			make_splashes(usr.loc)
 		else
 			balloon_alert(usr, "пусто, нечего выливать!")
 
@@ -80,7 +85,7 @@
 	. = ..()
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease
-		var/list/data = list("diseases" = list(F), "blood_color" = "#A10808")
+		var/list/data = list("diseases" = list(F), "blood_color" = BLOOD_COLOR_RED)
 		reagents.add_reagent("blood", disease_amount, data)
 	add_initial_reagents()
 	update_icon()
@@ -133,6 +138,31 @@
 			to_chat(user, span_notice("Вы наполняете [declent_ru(ACCUSATIVE)] из [source.declent_ru(GENITIVE)]."))
 			return
 	..()
+
+/obj/item/reagent_containers/proc/get_sound_for_reagent_containers()
+	switch(amount_per_transfer_from_this)
+		if(0 to 9)
+			return SFX_BEAKERPOUR_0_10
+		if(10 to 24)
+			return SFX_BEAKERPOUR_10_25
+		if(25 to 50)
+			return SFX_BEAKERPOUR_25_50
+
+	return SFX_BEAKERPOUR_50_INF
+
+/obj/item/reagent_containers/proc/after_transfer(atom/target)
+	if(!target)
+		return FALSE
+
+	playsound(target, get_sound_for_reagent_containers(), rand(5, 25), TRUE)
+
+/obj/item/reagent_containers/proc/make_splashes(atom/target)
+	if(!target)
+		return FALSE
+
+	reagents.reaction(target)
+	reagents.clear_reagents()
+	playsound(target, SFX_LIQUID_SPLASH, 50, TRUE)
 
 /obj/item/reagent_containers/examine(mob/user)
 	. = ..()

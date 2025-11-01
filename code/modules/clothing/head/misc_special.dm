@@ -24,7 +24,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 60)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60)
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
@@ -124,13 +124,12 @@
 	icon_state = "cake0"
 	base_icon_state = "cake"
 	flags_cover = HEADCOVERSEYES
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	var/on_fire = FALSE
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_range = 1.5
-	light_power = 1
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 
 
 /obj/item/clothing/head/cakehat/process()
@@ -227,7 +226,7 @@
 	icon_state = "soviethelm"
 	item_state = "soviethelm"
 	flags_inv = HIDEHEADSETS|HIDEHAIR
-	armor = list("melee" = 25, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 25, BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 30, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	materials = list(MAT_METAL=2500)
 
 /*
@@ -252,7 +251,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	light_range = 2 //luminosity when on
 
 
@@ -262,7 +261,7 @@
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
 	item_color = "reindeer"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	light_range = 1 //luminosity when on
 	dog_fashion = /datum/dog_fashion/head/reindeer
 
@@ -308,7 +307,7 @@
 	new_look.Blend(head_organ.hair_colour, ICON_ADD)
 	new_look.Blend(icon('icons/mob/clothing/head.dmi', inner_state), ICON_OVERLAY)
 	onmob_sheets[ITEM_SLOT_HEAD_STRING] = new_look
-	user.update_inv_head()
+	user.update_worn_head()
 
 
 /obj/item/clothing/head/cardborg
@@ -366,14 +365,6 @@
 /obj/item/clothing/head/shapka_pepega
 	name = "frog hat"
 	desc = "Милая шапочка в виде головы лягушки, окутывающая голову. Мило, мягко и приятно!"
-	ru_names = list(
-		NOMINATIVE = "лягушачья шапка",
-		GENITIVE = "лягушачьей шапки",
-		DATIVE = "лягушачьей шапке",
-		ACCUSATIVE = "лягушачью шапку",
-		INSTRUMENTAL = "лягушачьей шапкой",
-		PREPOSITIONAL = "лягушачьей шапке"
-	)
 	icon_state = "shapka_pepega"
 	item_state = "shapka_pepega"
 	sprite_sheets = list(
@@ -387,3 +378,40 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 	flags_inv = HIDEHEADSETS|HIDEHAIR
+
+/obj/item/clothing/head/shapka_pepega/get_ru_names()
+	return list(
+		NOMINATIVE = "лягушачья шапка",
+		GENITIVE = "лягушачьей шапки",
+		DATIVE = "лягушачьей шапке",
+		ACCUSATIVE = "лягушачью шапку",
+		INSTRUMENTAL = "лягушачьей шапкой",
+		PREPOSITIONAL = "лягушачьей шапке"
+	)
+
+/obj/item/clothing/head/carp_hat
+	name = "carp hat"
+	desc = "Шапочка в виде устрашающего хищника космоса. Мило!"
+	icon_state = "carp_hat"
+	item_state = "carp_hat"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+	)
+	flags_inv = HIDEHEADSETS|HIDEHEADHAIR
+
+/obj/item/clothing/head/carp_hat/get_ru_names()
+	return list(
+		NOMINATIVE = "карповая шапка",
+		GENITIVE = "карповой шапки",
+		DATIVE = "карповой шапке",
+		ACCUSATIVE = "капровую шапку",
+		INSTRUMENTAL = "карповой шапкой",
+		PREPOSITIONAL = "карповой шапке"
+	)

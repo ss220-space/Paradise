@@ -81,7 +81,7 @@
 	if(!outfit)
 		return
 
-	for (var/obj/item/item in human.get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item in human.get_equipped_items(TRUE, TRUE))
 		qdel(item)
 
 	human.equipOutfit(outfit)
@@ -137,9 +137,9 @@
 	return messages
 
 /datum/antagonist/nuclear_operative/loneop
-	name = "Ядерный Оперативник - Одиночка"
-	antag_menu_name = "Ядерный Оперативник - Одиночка"
-	greet_name = "Ядерный Оперативник - Одиночка"
+	name = "Ядерный Оперативник — Одиночка"
+	antag_menu_name = "Ядерный Оперативник — Одиночка"
+	greet_name = "Ядерный Оперативник — Одиночка"
 	show_in_roundend = TRUE
 	show_in_orbit = TRUE
 	race_equipment = list(

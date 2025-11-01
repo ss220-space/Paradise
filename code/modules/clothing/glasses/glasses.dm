@@ -160,7 +160,11 @@
 /obj/item/clothing/glasses/meson/visor
 	name = "Meson Optical Visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "mesonvisor"
+	item_state = "mesonvisor"
+
+/obj/item/clothing/glasses/meson/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "мезонный оптический визор",
 		GENITIVE = "мезонного оптического визора",
 		DATIVE = "мезонному оптическому визору",
@@ -168,8 +172,6 @@
 		INSTRUMENTAL = "мезонным оптическим визором",
 		PREPOSITIONAL = "мезонном оптическом визоре"
 	)
-	icon_state = "mesonvisor"
-	item_state = "mesonvisor"
 
 /obj/item/clothing/glasses/meson/monocle
 	name = "Meson Monocle Scanner"
@@ -188,10 +190,9 @@
 	icon_state = "purple"
 	item_state = "purple"
 	origin_tech = "magnets=2;engineering=1"
-	prescription_upgradable = FALSE
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -212,7 +213,6 @@
 	name = "Night Vision Science Goggle"
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
-	item_state = "purple"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
@@ -225,7 +225,11 @@
 /obj/item/clothing/glasses/science/visor
 	name = "Science Optical Visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "sciencevisor"
+	item_state = "sciencevisor"
+
+/obj/item/clothing/glasses/science/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "научный оптический визор",
 		GENITIVE = "научного оптического визора",
 		DATIVE = "научному оптическому визору",
@@ -233,8 +237,6 @@
 		INSTRUMENTAL = "научным оптическим визором",
 		PREPOSITIONAL = "научном оптическом визоре"
 	)
-	icon_state = "sciencevisor"
-	item_state = "sciencevisor"
 
 /obj/item/clothing/glasses/science/monocle
 	name = "Science HUD monocle"
@@ -381,7 +383,6 @@
 		)
 
 /obj/item/clothing/glasses/regular/hipster
-	name = "prescription glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
@@ -768,7 +769,6 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
 	icon_state = "tajblind"
 	item_state = "tajblind"
-	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	tint = 3
 

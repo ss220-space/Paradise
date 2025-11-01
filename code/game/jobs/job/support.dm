@@ -11,7 +11,6 @@
 	selection_color = "#9f8545"
 	access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SEC_DOORS, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SECURITY, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	min_age_type = JOB_MIN_AGE_COMMAND
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
 	disabilities_allowed = 0
@@ -19,7 +18,7 @@
 	outfit = /datum/outfit/job/qm
 	insurance_type = INSURANCE_TYPE_DELUXE // Always has been.
 
-	//QM IS NOT THE HEAD!!
+	//QM IS THE HEAD!!
 	salary = 300
 	min_start_money = 400
 	max_start_money = 700
@@ -58,16 +57,15 @@
 	alt_titles = list("Supply Manager","Loader")
 	outfit = /datum/outfit/job/cargo_tech
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
+	salary = 130
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"
 	jobtype = /datum/job/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargotech
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
@@ -121,7 +119,6 @@
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/mining/equipped
-	name = "Shaft Miner"
 	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
@@ -162,7 +159,7 @@
 	exp_requirements = 600 //10 hours
 	exp_type = EXP_TYPE_MEDICAL
 
-	salary = 150
+	salary = 170
 	min_start_money = 250
 	max_start_money = 500
 
@@ -213,7 +210,6 @@
 	uniform = /obj/item/clothing/under/rank/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	pda = /obj/item/pda/bar
@@ -255,7 +251,6 @@
 	uniform = /obj/item/clothing/under/rank/chef
 	suit = /obj/item/clothing/suit/chef
 	belt = /obj/item/storage/belt/chef
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
@@ -309,7 +304,6 @@
 	uniform = /obj/item/clothing/under/rank/hydroponics
 	suit = /obj/item/clothing/suit/apron
 	gloves = /obj/item/clothing/gloves/botanic_leather
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	suit_store = /obj/item/plant_analyzer
 	pda = /obj/item/pda/botanist
@@ -500,7 +494,7 @@
 /datum/mimicking_voice/proc/voice_data()
 	return list("name" = name, "voice" = voice, "selected" = selected, "id" = UID())
 
-/mob/living/carbon/human/proc/mimicking(var/mob/living/carbon/human/H)
+/mob/living/carbon/human/proc/mimicking(mob/living/carbon/human/H)
 	set name = "Имитировать голос"
 	set category = STATPANEL_IC
 	if(!H)
@@ -564,7 +558,6 @@
 	uniform = /obj/item/clothing/under/mime
 	suit = /obj/item/clothing/suit/suspenders
 	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
 	l_ear = /obj/item/radio/headset/headset_service
@@ -620,7 +613,6 @@
 	jobtype = /datum/job/janitor
 
 	uniform = /obj/item/clothing/under/rank/janitor
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
 
@@ -650,7 +642,6 @@
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/suit_jacket/red
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner
@@ -663,8 +654,6 @@
 	title = JOB_TITLE_EXPLORER
 	flag = JOB_FLAG_EXPLORER
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 0
-	spawn_positions = 0
 	supervisors = "the head of personnel"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
@@ -683,4 +672,3 @@
 	name = "Explorer"
 	jobtype = /datum/job/explorer
 	uniform = /obj/item/clothing/under/color/random
-	shoes = /obj/item/clothing/shoes/black

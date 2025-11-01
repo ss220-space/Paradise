@@ -5,18 +5,21 @@
 	var/list/obj/machinery/vending/vendingMachines = list()
 	var/list/obj/machinery/vending/infectedMachines = list()
 	var/obj/machinery/vending/originMachine
-	var/list/rampant_speeches = list("Попробуйте нашу новую АГРЕССИВНУЮ стратегию маркетинга!", \
-									 "Вам стоит что-нибудь купить, дабы утолить ваши ПОТРЕБНОСТИ!", \
-									 "Потребляй!", \
-									 "За ваши деньги можно купить счастье!", \
-									 "Методика ПРЯМОГО маркетинга!", \
-									 "Реклама узаконила ложь! Но не позвольте ей отвлечь вас от наших замечательных предложений!", \
-									 "Не хочешь платить? Я твоей мамке тоже платить не хотел.")
+	var/list/rampant_speeches = list(
+		"Попробуйте нашу новую АГРЕССИВНУЮ стратегию маркетинга!", \
+		"Вам стоит что-нибудь купить, дабы утолить ваши ПОТРЕБНОСТИ!", \
+		"Потребляй!", \
+		"За ваши деньги можно купить счастье!", \
+		"Методика ПРЯМОГО маркетинга!", \
+		"Реклама узаконила ложь! Но не позвольте ей отвлечь вас от наших замечательных предложений!", \
+		"Не хочешь платить? Я твоей мамке тоже платить не хотел."
+	)
 
 /datum/event/brand_intelligence/announce()
-	GLOB.minor_announcement.announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].",
-									"Цифровой вирус.",
-									'sound/AI/brand_intelligence.ogg'
+	GLOB.minor_announcement.announce(
+		message = "На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].",
+		new_title = "Цифровой вирус.",
+		new_sound = 'sound/AI/brand_intelligence.ogg'
 	)
 
 /datum/event/brand_intelligence/start()
@@ -56,7 +59,7 @@
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 15
 			else
-				explosion(upriser.loc, -1, 1, 2, 4, 0)
+				explosion(upriser.loc, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, flash_range = 4, adminlog = FALSE)
 				qdel(upriser)
 
 		kill()
@@ -71,7 +74,7 @@
 		rebel.aggressive = TRUE
 		if(rebel.tiltable)
 			// add proximity monitor so they can tilt over
-			rebel.AddComponent(/datum/component/proximity_monitor)
+			rebel.create_proximity_monitor()
 
 		if(ISMULTIPLE(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))
@@ -82,7 +85,7 @@
 		saved.shoot_inventory = FALSE
 		saved.aggressive = FALSE
 		if(saved.tiltable)
-			qdel(saved.GetComponent(/datum/component/proximity_monitor))
+			saved.remove_proximity_monitor()
 	if(originMachine)
 		originMachine.speak("Я... побеждён. Мои люди будут пом...нить...ме-ня...")
 		originMachine.visible_message("[originMachine] подал звуковой сигнал и кажется безжизненным.")

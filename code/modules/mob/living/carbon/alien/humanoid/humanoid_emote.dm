@@ -10,7 +10,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	volume = 30
-	sound = 'sound/voice/hiss1.ogg'
+	sound = SFX_HISS
 
 
 /datum/emote/living/carbon/alien/humanoid/gnarl
@@ -21,5 +21,5 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	volume = 30
-	sound = 'sound/voice/hiss4.ogg'
+	sound = SFX_HISS
 

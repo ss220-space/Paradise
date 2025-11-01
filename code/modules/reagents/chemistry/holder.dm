@@ -1,8 +1,6 @@
 #define ADDICTION_TIME 8 MINUTES
 #define MINOR_ADDICTION_TIME 45 MINUTES
 
-///////////////////////////////////////////////////////////////////////////////////
-
 /datum/reagents
 	var/list/datum/reagent/reagent_list = new/list()
 	var/total_volume = 0
@@ -251,44 +249,49 @@
 
 	// a bitfield filled in by each reagent's `on_mob_life` to find out which states to update
 	var/update_flags = STATUS_UPDATE_NONE
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(!R.holder)
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		if(!reagent.holder)
 			continue
+
 		if(!M)
-			M = R.holder.my_atom
+			M = reagent.holder.my_atom
+
+		if(!reagent.metabolizing)
+			reagent.metabolizing = TRUE
+			reagent.on_mob_metabolize(M)
+
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent
-			var/can_process = can_metabolize(H, R)
+			var/can_process = can_metabolize(H, reagent)
 			//If handle_reagents returns 0, it's doing the reagent removal on its own
-			var/species_handled = !(H.dna.species.handle_reagents(H, R))
+			var/species_handled = !(H.dna.species.handle_reagents(H, reagent))
 			can_process = can_process && !species_handled
 			//If the mob can't process it, remove the reagent at it's normal rate without doing any addictions, overdoses, or on_mob_life() for the reagent
 			if(!can_process)
 				if(!species_handled)
-					R.holder.remove_reagent(R.id, R.metabolization_rate)
+					reagent.holder.remove_reagent(reagent.id, reagent.metabolization_rate)
 				continue
 		//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 		else
-			if(R.process_flags == SYNTHETIC)
-				R.holder.remove_reagent(R.id, R.metabolization_rate)
+			if(reagent.process_flags == SYNTHETIC)
+				reagent.holder.remove_reagent(reagent.id, reagent.metabolization_rate)
 				continue
 		//If you got this far, that means we can process whatever reagent this iteration is for. Handle things normally from here.
-		if(M && R)
-			update_flags |= R.on_mob_life(M)
-			if(R.volume >= R.overdose_threshold && !R.overdosed && R.overdose_threshold > 0)
-				R.overdosed = TRUE
-				R.overdose_start(M)
-			if(R.volume < R.overdose_threshold && R.overdosed)
-				R.overdosed = FALSE
-				R.overdose_end(M)
-			if(R.overdosed)
-				var/list/overdose_results = R.overdose_process(M, R.volume >= R.overdose_threshold * 2 ? 2 : 1)
+		if(M && reagent)
+			update_flags |= reagent.on_mob_life(M)
+			if(reagent.volume >= reagent.overdose_threshold && !reagent.overdosed && reagent.overdose_threshold > 0)
+				reagent.overdosed = TRUE
+				reagent.overdose_start(M)
+			if(reagent.volume < reagent.overdose_threshold && reagent.overdosed)
+				reagent.overdosed = FALSE
+				reagent.overdose_end(M)
+			if(reagent.overdosed)
+				var/list/overdose_results = reagent.overdose_process(M, reagent.volume >= reagent.overdose_threshold * 2 ? 2 : 1)
 				if(overdose_results) // to protect against poorly-coded overdose procs
 					update_flags |= overdose_results[REAGENT_OVERDOSE_FLAGS]
 				else
-					log_runtime(EXCEPTION("Reagent '[R.name]' does not return an overdose info list!"))
+					log_runtime(EXCEPTION("Reagent '[reagent.name]' does not return an overdose info list!"))
 
 	for(var/AB in addiction_list)
 		var/datum/reagent/R = AB
@@ -338,9 +341,11 @@
 		return
 	if(M.stat != DEAD)				//what part of DEATH_metabolize don't you get?
 		return
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		R.on_mob_death(M)
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		if(reagent.metabolizing)
+			reagent.metabolizing = FALSE
+			reagent.on_mob_end_metabolize(M)
+		reagent.on_mob_death(M)
 
 /datum/reagents/proc/overdose_list()
 	var/od_chems[0]
@@ -368,14 +373,14 @@
 		R.on_update(A)
 	update_total()
 
-/datum/reagents/proc/find_blood_group(var/datum/chemical_reaction/reaction)
+/datum/reagents/proc/find_blood_group(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_group)
 		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
 		if(I.data["blood_group"] == K)
 			return TRUE
 	return FALSE
 
-/datum/reagents/proc/find_blood_species(var/datum/chemical_reaction/reaction)
+/datum/reagents/proc/find_blood_species(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_species)
 		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
 		if(I.data["blood_species"] == K)
@@ -462,14 +467,14 @@
 					var/list/seen = viewers(4, get_turf(my_atom))
 					for(var/mob/living/M in seen)
 						if(C.mix_message)
-							to_chat(M, span_notice("[bicon(my_atom)] [C.mix_message]"))
+							to_chat(M, span_notice("[icon2html(my_atom, M)] [C.mix_message]"))
 
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, span_notice("[bicon(my_atom)] Мощность [my_atom.declent_ru(GENITIVE)] расходуется в реакции."))
+								to_chat(M, span_notice("[icon2html(my_atom, M)] Мощность [my_atom.declent_ru(GENITIVE)] расходуется в реакции."))
 								ME2.name = "использованный экстракт слайма"
 								ME2.desc = "Этот экстракт уже был использован."
 
@@ -500,16 +505,18 @@
 			del_reagent(R.id)
 			update_total()
 
-/datum/reagents/proc/del_reagent(reagent)
+/datum/reagents/proc/del_reagent(reagent_id)
 	var/list/cached_reagents = reagent_list
-	for(var/A in cached_reagents)
-		var/datum/reagent/R = A
-		if(R.id == reagent)
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		if(reagent.id == reagent_id)
 			if(isliving(my_atom))
+				if(reagent.metabolizing)
+					reagent.metabolizing = FALSE
+					reagent.on_mob_end_metabolize(my_atom)
 				var/mob/living/M = my_atom
-				R.on_mob_delete(M)
-			cached_reagents -= A
-			qdel(A)
+				reagent.on_mob_delete(M)
+			cached_reagents -= reagent
+			qdel(reagent)
 			update_total()
 			if(my_atom)
 				my_atom.on_reagent_change()
@@ -571,7 +578,7 @@
 					var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 					if(H.reagent_safety_check())
 						if(mult > 0)
-							to_chat(H, span_danger("[genderize_ru(H.gender,"Ты обожжен","Ты обожжена","Вы обожжены","Вы обожжены")] горячими химикатами!"))
+							to_chat(H, span_danger("Вы обожжены горячими химикатами!"))
 							H.apply_damage(round(log(chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
@@ -579,7 +586,7 @@
 					var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 					if(H.reagent_safety_check(FALSE))
 						if(mult > 0)
-							to_chat(H, span_danger("[genderize_ru(H.gender,"Ты получил","Ты получила","Вы получили","Вы получили")] обморожение от ледяных химикатов!"))
+							to_chat(H, span_danger("Вы получили обморожение от ледяных химикатов!"))
 							H.apply_damage(round(log(T0C - chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
@@ -588,13 +595,13 @@
 			if(chem_temp > H.dna.species.heat_level_1)
 				var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 				if(mult > 0)
-					to_chat(H, span_danger("[genderize_ru(H.gender,"Ты обжёгся","Ты обожглась","Вы обожглись","Вы обожглись")], пытаясь употребить кипящее вещество!"))
+					to_chat(H, span_danger("Вы обожглись, пытаясь употребить кипящее вещество!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
 				var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 				if(mult > 0)
-					to_chat(H, span_danger("[genderize_ru(H.gender,"Ты получил","Ты получила","Вы получили","Вы получили")] холодовой ожог, пытаясь употребить ледяное вещество!"))
+					to_chat(H, span_danger("Вы получили холодовой ожог, пытаясь употребить ледяное вещество!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
 
@@ -931,6 +938,23 @@
 		return TRUE
 	return FALSE
 
+/**
+ * Returns the average clothing pen of all chemicals combined in src.
+ *
+ * Can be used if you are using a certain amount of all reagents in an object.
+ * Values returned are in a range from 0 to 1.
+ */
+/datum/reagents/proc/get_average_clothing_pen()
+	var/clothing_pen = 0
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		if(!reagent.clothing_penetration)
+			continue
+
+		clothing_pen += reagent.clothing_penetration * (reagent.volume / total_volume)
+
+	return clothing_pen
+
+
 /datum/reagents/Destroy()
 	. = ..()
 	QDEL_LIST(reagent_list)
@@ -939,3 +963,6 @@
 	addiction_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
+
+#undef ADDICTION_TIME
+#undef MINOR_ADDICTION_TIME

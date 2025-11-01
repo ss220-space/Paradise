@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name_log(user)]. [P?"Fuel: [round(P.air_contents.toxins/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_ENGINE)
 			return
 		else
-			to_chat(user, "<span class='warning'>The controls are locked!</span>")
+			to_chat(user, span_warning("The controls are locked!"))
 			return
 
 
@@ -158,7 +158,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		update_icon()
 
 
-/obj/machinery/power/rad_collector/proc/receive_pulse(var/pulse_strength)
+/obj/machinery/power/rad_collector/proc/receive_pulse(pulse_strength)
 	if(P && active)
 		var/power_produced = 0
 		power_produced = P.air_contents.toxins*pulse_strength*20

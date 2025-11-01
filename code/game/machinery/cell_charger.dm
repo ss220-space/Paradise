@@ -1,15 +1,11 @@
-#define CELL_CHARGE_AMOUNT 175 // Beeb-
-
 /obj/machinery/cell_charger
 	name = "cell charger"
 	desc = "It charges power cells."
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "ccharger0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 60
-	power_channel = EQUIP
 	pass_flags = PASSTABLE
 	/// The item that is being charged
 	var/obj/item/stock_parts/cell/charging = null
@@ -49,7 +45,7 @@
 	if(!charging || (stat & (BROKEN|NOPOWER)))
 		return
 
-	var/newlevel = 	round(charging.percent() * 4 / 100)
+	var/newlevel =	round(charging.percent() * 4 / 100)
 	. += "ccharger-o[newlevel]"
 
 
@@ -177,7 +173,7 @@
 
 
 /obj/machinery/cell_charger/proc/check_level()
-	var/newlevel = 	round(charging.percent() * 4 / 100)
+	var/newlevel =	round(charging.percent() * 4 / 100)
 	if(chargelevel != newlevel)
 		chargelevel = newlevel
 		return TRUE

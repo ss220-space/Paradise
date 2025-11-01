@@ -4,7 +4,6 @@
 	icon_state = "adrenal_old"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=2"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/adrenaline
 	actions_types = null
 	base_cooldown = 120 SECONDS
@@ -46,7 +45,7 @@
 	imp_in.SetKnockdown(0)
 	imp_in.SetImmobilized(0)
 	imp_in.SetParalysis(0)
-	imp_in.adjustStaminaLoss(-100)
+	imp_in.setStaminaLoss(0)
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 
@@ -89,7 +88,7 @@
 	imp_in.SetKnockdown(0)
 	imp_in.SetImmobilized(0)
 	imp_in.SetParalysis(0)
-	imp_in.adjustStaminaLoss(-100)
+	imp_in.setStaminaLoss(0)
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 

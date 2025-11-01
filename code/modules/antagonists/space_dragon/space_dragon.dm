@@ -27,7 +27,6 @@
 	maxHealth = 400
 	health = 400
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 1, CLONE = 1, STAMINA = 1, OXY = 0)
-	a_intent = INTENT_HARM
 	speed = -0.2
 	attacktext = "кусает"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
@@ -48,7 +47,6 @@
 	maptext_width = 64
 	turns_per_move = 5
 	ranged = TRUE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30, /obj/item/reagent_containers/food/snacks/carpmeat = 15)
 	deathmessage = "визж%(ит,ат)%, %(его,её,его,их)% глаза мутнеют, крылья превращаются в пыль и %(он,она,оно,они)% пада%(ет,ют)% замертво!"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -111,11 +109,11 @@
 
 
 /mob/living/simple_animal/hostile/space_dragon/ex_act(severity, origin)
-	if(severity == 1)
+	if(severity >= EXPLODE_DEVASTATE)
 		var/damage_coefficient = rand(devastation_damage_min_percentage, devastation_damage_max_percentage) / 100
 		adjustBruteLoss(initial(maxHealth)*damage_coefficient)
 		return
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/hostile/space_dragon/Life(seconds_per_tick, times_fired)
@@ -183,7 +181,7 @@
 	. = ..()
 	if(ismecha(target))
 		var/obj/mecha/M = target
-		M.take_damage(80, BRUTE, "melee", 1)
+		M.take_damage(80, BRUTE, MELEE, 1)
 
 
 /mob/living/simple_animal/hostile/space_dragon/proc/try_gust()
@@ -212,7 +210,7 @@
 	. = ..()
 	add_dragon_overlay()
 
-	if (was_dead)
+	if(was_dead)
 		RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
 
 
@@ -246,7 +244,7 @@
 		return
 	var/temp_hsv = RGBtoHSV(chosen_color)
 	if(ReadHSV(temp_hsv)[3] < DARKNESS_THRESHOLD)
-		to_chat(src, span_danger("Этот цвет некорректен - он недостаточно светлый."))
+		to_chat(src, span_danger("Этот цвет некорректен — он недостаточно светлый."))
 		color_selection()
 		return
 	add_atom_colour(chosen_color, FIXED_COLOUR_PRIORITY)
@@ -355,7 +353,7 @@
 		if(M in hit_list)
 			continue
 		hit_list += M
-		M.take_damage(90, BRUTE, "melee", 1)
+		M.take_damage(90, BRUTE, MELEE, 1)
 
 
 /**

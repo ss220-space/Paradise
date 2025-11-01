@@ -1,10 +1,9 @@
 /obj/structure/blob/special/core
 	name = "blob core"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	desc = "Огромная пульсирующая желтая масса."
 	max_integrity = BLOB_CORE_MAX_HP
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 90)
 	explosion_block = 6
 	explosion_vertical_block = 5
 	point_return = BLOB_REFUND_CORE_COST
@@ -12,7 +11,6 @@
 	health_regen = BLOB_CORE_HP_REGEN
 	resistance_flags = LAVA_PROOF
 	strong_reinforce_range = BLOB_CORE_STRONG_REINFORCE_RANGE
-	reflector_reinforce_range = BLOB_CORE_REFLECTOR_REINFORCE_RANGE
 	claim_range = BLOB_CORE_CLAIM_RANGE
 	pulse_range = BLOB_CORE_PULSE_RANGE
 	expand_range = BLOB_CORE_EXPAND_RANGE
@@ -47,7 +45,7 @@
 	. = ..()
 	owner_overmind.blob_core = src
 
-/obj/structure/blob/special/core/Destroy()
+/obj/structure/blob/special/core/Destroy(force)
 	GLOB.blob_cores -= src
 	SSshuttle?.remove_hostile_environment(src)
 	if(overmind)
@@ -139,7 +137,7 @@
 	if(C && !QDELETED(src))
 		var/mob/camera/blob/B = new(loc, src)
 		B.mind_initialize()
-		B.key = C.key
+		B.possess_by_player(C.key)
 		link_to_overmind(B)
 		B.is_offspring = is_offspring
 		addtimer(CALLBACK(src, PROC_REF(add_datum_if_not_exist)), TIME_TO_ADD_OM_DATUM)

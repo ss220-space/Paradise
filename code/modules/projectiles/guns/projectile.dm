@@ -3,22 +3,29 @@
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
 	icon_state = "pistol"
 	origin_tech = "combat=2;materials=2"
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1000)
-
+	recoil = GUN_RECOIL_LOW
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
+	/// Register fireshoot component
+	var/can_air_shoot = FALSE
 
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
+	if(can_air_shoot)
+		RegisterSignal(src, COMSIG_ITEM_ATTACK_SELF, PROC_REF(try_air_fire))
+		description_info += "\nНаходясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание."
 	if(!magazine && mag_type)
 		magazine = new mag_type(src)
 	chamber_round()
 	update_weight()
 	update_icon()
 
+/obj/item/gun/projectile/Destroy()
+	. = ..()
+	UnregisterSignal(src, COMSIG_ITEM_ATTACK_SELF)
 
 /obj/item/gun/projectile/update_name(updates = ALL)
 	. = ..()
@@ -35,12 +42,11 @@
 	else
 		desc = initial(desc)
 
-
 /obj/item/gun/projectile/update_icon_state()
 	if(current_skin)
-		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		icon_state = "[current_skin][sawn_state ? "-sawn" : ""]"
 	else
-		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
+		icon_state = "[initial(icon_state)][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 
 
 /obj/item/gun/projectile/update_overlays()
@@ -78,6 +84,9 @@
 		chambered = magazine.get_round()
 		chambered.forceMove(src)
 
+/obj/item/gun/projectile/proc/try_air_fire(datum/source, mob/user)
+	SIGNAL_HANDLER
+	return
 
 /obj/item/gun/projectile/can_shoot(mob/user)
 	if(!magazine || !magazine.ammo_count(FALSE))
@@ -89,7 +98,7 @@
 
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/new_magazine, mob/user)
-	if(user && magazine.loc == user && !user.drop_transfer_item_to_loc(new_magazine, src))
+	if(user && magazine.loc == user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
 		return FALSE
 	. = TRUE
 	magazine = new_magazine
@@ -127,54 +136,22 @@
 		reload(new_magazine, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/suppressor))
-		add_fingerprint(user)
-		var/obj/item/suppressor/suppressor = I
-		if(!can_suppress)
-			balloon_alert(user, "не совместимо!")
-			return ATTACK_CHAIN_PROCEED
-		if(suppressed)
-			balloon_alert(user, "уже установлено!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(suppressor, src))
-			return ..()
-		balloon_alert(user, "установлено")
-		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
-		suppressed = suppressor
-		suppressor.oldsound = fire_sound
-		suppressor.initial_w_class = w_class
-		fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
-		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
-		update_icon()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	return ..()
 
 
-/obj/item/gun/projectile/attack_hand(mob/user)
-	if(loc == user)
-		if(suppressed && can_unsuppress)
-			var/obj/item/suppressor/S = suppressed
-			if(user.l_hand != src && user.r_hand != src)
-				..()
-				return
-
-			balloon_alert(user, "глушитель снят!")
-			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
-			user.put_in_hands(suppressed)
-			fire_sound = S.oldsound
-			w_class = S.initial_w_class
-			suppressed = null
-			update_icon()
-			return
-	..()
-
-
 /obj/item/gun/projectile/attack_self(mob/living/user)
+	add_fingerprint(user)
+	. = ..()
+	if(.)
+		return TRUE // Attack chain is canceled
+
+	unload_act(user)
+
+/obj/item/gun/projectile/proc/unload_act(mob/user)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)
 		magazine.forceMove(drop_location())
-		user.put_in_hands(magazine)
+		user.put_in_hands(magazine, silent = TRUE)
 		magazine.update_appearance()
 		magazine = null
 		update_weight()
@@ -195,10 +172,10 @@
 		balloon_alert(user, "уже разряжено!")
 	update_icon()
 
-
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
-	. += span_notice("Has [get_ammo()] round\s remaining.")
+	var/ammo_num = get_ammo()
+	. += span_notice("Остал[declension_ru(ammo_num, "ся", "ось", "ось")] [ammo_num] патрон[DECL_CREDIT(ammo_num)].")
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = TRUE, countempties = TRUE)
 	var/boolets = 0 //mature var names for mature people
@@ -209,7 +186,7 @@
 	return boolets
 
 /obj/item/gun/projectile/suicide_act(mob/user)
-	if(chambered && chambered.BB && !chambered.BB.nodamage)
+	if(chambered?.BB && !chambered.BB.nodamage)
 		user.visible_message(span_suicide("[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide."))
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)

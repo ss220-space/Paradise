@@ -80,7 +80,7 @@
 	 * use a starting location from the firer source
 	*/
 	var/fire_from_tk_grab = !isnull(firer_source_atom) && ismob(user) && user.tkgrabbed_objects[firer_source_atom]
-	if (fire_from_tk_grab)
+	if(fire_from_tk_grab)
 		curloc = get_turf(firer_source_atom)
 
 	loc = curloc
@@ -90,28 +90,28 @@
 	xo = targloc.x - curloc.x
 
 	if(params)
-		var/list/mouse_control = params2list(params)
-		if(mouse_control["icon-x"])
-			p_x = text2num(mouse_control["icon-x"])
-		if(mouse_control["icon-y"])
-			p_y = text2num(mouse_control["icon-y"])
-		if(mouse_control["screen-loc"])
+		var/list/modifiers = params2list(params)
+		if(LAZYACCESS(modifiers, ICON_X))
+			p_x = text2num(LAZYACCESS(modifiers, ICON_X))
+		if(LAZYACCESS(modifiers, ICON_Y))
+			p_y = text2num(LAZYACCESS(modifiers, ICON_Y))
+		if(LAZYACCESS(modifiers, SCREEN_LOC))
 			//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-			var/list/screen_loc_params = splittext(mouse_control["screen-loc"], ",")
+			var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
 
 			//Split X+Pixel_X up into list(X, Pixel_X)
 			var/list/screen_loc_X = splittext(screen_loc_params[1],":")
 
 			//Split Y+Pixel_Y up into list(Y, Pixel_Y)
 			var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-			var/x = (text2num(screen_loc_X[1]) - 1) * world.icon_size + text2num(screen_loc_X[2])
-			var/y = (text2num(screen_loc_Y[1]) - 1) * world.icon_size + text2num(screen_loc_Y[2])
+			var/x = (text2num(screen_loc_X[1]) - 1) * ICON_SIZE_X + text2num(screen_loc_X[2])
+			var/y = (text2num(screen_loc_Y[1]) - 1) * ICON_SIZE_Y + text2num(screen_loc_Y[2])
 
 			//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
 			var/list/screenview = getviewsize(user.client.view)
 
-			var/ox = round((screenview[1] * world.icon_size) / 2) - user.client.pixel_x //"origin" x
-			var/oy = round((screenview[2] * world.icon_size) / 2) - user.client.pixel_y //"origin" y
+			var/ox = round((screenview[1] * ICON_SIZE_X) / 2) - user.client.pixel_x //"origin" x
+			var/oy = round((screenview[2] * ICON_SIZE_Y) / 2) - user.client.pixel_y //"origin" y
 			var/angle = ATAN2(y - oy, x - ox)
 			Angle = angle
 	if(spread)

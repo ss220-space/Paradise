@@ -1,10 +1,3 @@
-#define VEST_STEALTH 1
-#define VEST_COMBAT 2
-#define GIZMO_SCAN 1
-#define GIZMO_MARK 2
-#define MIND_DEVICE_MESSAGE 1
-#define MIND_DEVICE_CONTROL 2
-
 //AGENT VEST
 /obj/item/clothing/suit/armor/abductor/vest
 	name = "agent vest"
@@ -14,15 +7,15 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(/obj/item/abductor, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
 	var/datum/icon_snapshot/disguise
-	var/stealth_armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70)
-	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90)
+	var/stealth_armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70)
+	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 90, ACID = 90)
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
@@ -61,7 +54,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_wear_suit()
+		H.update_worn_oversuit()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -85,7 +78,7 @@
 		M.icon_state = disguise.icon_state
 		M.cut_overlays()
 		M.add_overlay(disguise.overlays)
-		M.update_inv_hands()
+		M.update_held_items()
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
@@ -297,11 +290,9 @@
 /obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
 	var/list/all_items = M.GetAllContents()
 
-	for(var/obj/I in all_items)
-		if(isradio(I))
-			var/obj/item/radio/R = I
-			R.listening = 0 // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
-			R.emp_act(1)
+	for(var/obj/item/radio/radio in all_items)
+		radio.set_listening(FALSE) // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
+		radio.emp_act(1)
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"
@@ -388,7 +379,7 @@
 	name = "alien pistol"
 	desc = "A complicated gun that fires bursts of high-intensity radiation."
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
-	restricted_species = list(/datum/species/abductor)
+	restricted_species = list(/datum/species/abductor, /datum/species/grey)
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	origin_tech = "combat=4;magnets=7;powerstorage=3;abductor=3"
@@ -399,24 +390,24 @@
 	icon_state = "alienpaper_words"
 	info = {"<b>Dissection for Dummies</b><br>
 <br>
- 1.Acquire fresh specimen.<br>
- 2.Put the specimen on operating table.<br>
- 3.Apply scalpel to the chest, preparing for experimental dissection.<br>
- 4.Apply scalpel to specimen's torso.<br>
- 5.Clamp bleeders on specimen's torso with a hemostat.<br>
- 6.Retract skin of specimen's torso with a retractor.<br>
- 7.Saw through the specimen's torso with a saw.<br>
- 8.Apply retractor again to specimen's torso.<br>
- 9.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
- 10.Insert replacement gland (Retrieve one from gland storage).<br>
- 11.Apply bone gel to mend the ribcage.<br>
- 12.Use the bone setter to finish mending the ribcage.<br>
- 13.Apply bone gel to mend the ribcage once more.<br>
- 14.Cauterize the patient's torso with a cautery.<br>
- 15.Consider dressing the specimen back to not disturb the habitat.<br>
- 16.Put the specimen in the experiment machinery.<br>
- 17.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
- 18.You will receive one supply credit, and the subject will be counted towards your quota.<br>
+1.Acquire fresh specimen.<br>
+2.Put the specimen on operating table.<br>
+3.Apply scalpel to the chest, preparing for experimental dissection.<br>
+4.Apply scalpel to specimen's torso.<br>
+5.Clamp bleeders on specimen's torso with a hemostat.<br>
+6.Retract skin of specimen's torso with a retractor.<br>
+7.Saw through the specimen's torso with a saw.<br>
+8.Apply retractor again to specimen's torso.<br>
+9.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
+10.Insert replacement gland (Retrieve one from gland storage).<br>
+11.Apply bone gel to mend the ribcage.<br>
+12.Use the bone setter to finish mending the ribcage.<br>
+13.Apply bone gel to mend the ribcage once more.<br>
+14.Cauterize the patient's torso with a cautery.<br>
+15.Consider dressing the specimen back to not disturb the habitat.<br>
+16.Put the specimen in the experiment machinery.<br>
+17.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
+18.You will receive one supply credit, and the subject will be counted towards your quota.<br>
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
@@ -439,7 +430,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
-	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
 	force = 7
 	affect_cyborgs = TRUE
@@ -467,7 +457,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 
 /obj/item/melee/baton/abductor/proc/toggle(mob/living/user = usr)
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return
 	mode = (mode + 1) % BATON_MODES
 	var/txt
@@ -514,7 +504,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/melee/baton/abductor/examine(mob/user)
 	. = ..()
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return .
 	switch(mode)
 		if(BATON_STUN)
@@ -528,7 +518,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 
 /obj/item/melee/baton/abductor/baton_attack(mob/target, mob/living/user)
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return BATON_ATTACK_DONE
 	return ..()
 
@@ -647,7 +637,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/restraints/handcuffs/energy/used/dropped(mob/user, slot, silent = FALSE)
 	user.visible_message(span_danger("[src] restraining [user] breaks in a discharge of energy!"), \
 							span_userdanger("[src] restraining [user] breaks in a discharge of energy!"))
-	do_sparks(4, 0, user.loc)
+	do_sparks(4, FALSE, user.loc)
 	. = ..()
 
 
@@ -661,12 +651,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "abductor_headset"
 	ks2type = /obj/item/encryptionkey/heads/captain
 
-/obj/item/radio/headset/abductor/New()
-	..()
-	make_syndie()
+/obj/item/radio/headset/abductor/Initialize(mapload)
+	. = ..()
+	make_syndie() // Why the hell is this a proc why cant it just be a subtype
 
 /obj/item/radio/headset/abductor/screwdriver_act()
-	return// Stops humans from disassembling abductor headsets.
+	return // Stops humans from disassembling abductor headsets.
 
 /obj/item/scalpel/alien
 	name = "alien scalpel"
@@ -749,7 +739,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"
 	icon = 'icons/obj/abductor.dmi'
 	buildstacktype = /obj/item/stack/sheet/mineral/abductor
-	icon_state = "bed"
 
 /obj/structure/table_frame/abductor
 	name = "alien table frame"
@@ -796,7 +785,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	can_be_flipped = FALSE
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
-	buildstackamount = 1
 	framestackamount = 1
 	base_icon_state = "alien_table"
 	smoothing_groups = SMOOTH_GROUP_ABDUCTOR_TABLES
@@ -832,14 +820,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/reagent_containers/applicator/abductor
 	name = "alien mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Выполнено из прочного инопланетного материала."
-	ru_names = list(
-        NOMINATIVE = "инопланетный авто-мендер",
-        GENITIVE = "инопланетного авто-мендера",
-        DATIVE = "инопланетному авто-мендеру",
-        ACCUSATIVE = "инопланетный авто-мендер",
-        INSTRUMENTAL = "инопланетным авто-мендером",
-        PREPOSITIONAL = "инопланетном авто-мендере"
-	)
 	origin_tech = "materials=2;biotech=3;abductor=2"
 	icon_state = "alien_mender_empty"
 	item_state = "alien_mender"
@@ -847,6 +827,16 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	emagged = TRUE
 	ignore_flags = TRUE
 	var/base_icon = "alien_mender_brute"
+
+/obj/item/reagent_containers/applicator/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетный авто-мендер",
+		GENITIVE = "инопланетного авто-мендера",
+		DATIVE = "инопланетному авто-мендеру",
+		ACCUSATIVE = "инопланетный авто-мендер",
+		INSTRUMENTAL = "инопланетным авто-мендером",
+		PREPOSITIONAL = "инопланетном авто-мендере"
+	)
 
 /obj/item/reagent_containers/applicator/abductor/update_icon_state()
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
@@ -860,120 +850,127 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor/brute
 	name = "alien brute mender"
-	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления механических повреждений. Выполнено из прочного инопланетного материала."
-	ru_names = list(
-        NOMINATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
-        GENITIVE = "инопланетного авто-мендера (Мех. Повреждения)",
-        DATIVE = "инопланетному авто-мендеру (Мех. Повреждения)",
-        ACCUSATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
-        INSTRUMENTAL = "инопланетным авто-мендером (Мех. Повреждения)",
-        PREPOSITIONAL = "инопланетном авто-мендере (Мех. Повреждения)"
-	)
-	base_icon = "alien_mender_brute"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений. Выполнено из прочного инопланетного материала."
 	list_reagents = list("styptic_powder" = 200)
+
+/obj/item/reagent_containers/applicator/abductor/brute/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
+		GENITIVE = "инопланетного авто-мендера (Мех. Повреждения)",
+		DATIVE = "инопланетному авто-мендеру (Мех. Повреждения)",
+		ACCUSATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
+		INSTRUMENTAL = "инопланетным авто-мендером (Мех. Повреждения)",
+		PREPOSITIONAL = "инопланетном авто-мендере (Мех. Повреждения)"
+	)
 
 /obj/item/reagent_containers/applicator/abductor/burn
 	name = "alien burn mender"
-	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления термических повреждений. Выполнено из прочного инопланетного материала."
-	ru_names = list(
-        NOMINATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
-        GENITIVE = "инопланетного авто-мендера (Терм. Повреждения)",
-        DATIVE = "инопланетному авто-мендеру (Терм. Повреждения)",
-        ACCUSATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
-        INSTRUMENTAL = "инопланетным авто-мендером (Терм. Повреждения)",
-        PREPOSITIONAL = "инопланетном авто-мендере (Терм. Повреждения)"
-	)
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений. Выполнено из прочного инопланетного материала."
 	base_icon = "alien_mender_burn"
 	list_reagents = list("silver_sulfadiazine" = 200)
+
+/obj/item/reagent_containers/applicator/abductor/burn/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
+		GENITIVE = "инопланетного авто-мендера (Терм. Повреждения)",
+		DATIVE = "инопланетному авто-мендеру (Терм. Повреждения)",
+		ACCUSATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
+		INSTRUMENTAL = "инопланетным авто-мендером (Терм. Повреждения)",
+		PREPOSITIONAL = "инопланетном авто-мендере (Терм. Повреждения)"
+	)
 
 /obj/item/reagent_containers/glass/bottle/abductor
 	name = "alien bottle"
 	desc = "Прочная бутылка, сделанная из инопланетного материала."
-	ru_names = list(
-        NOMINATIVE = "инопланетная бутылка",
-        GENITIVE = "инопланетной бутылки",
-        DATIVE = "инопланетной бутылке",
-        ACCUSATIVE = "инопланетную бутылку",
-        INSTRUMENTAL = "инопланетной бутылкой",
-        PREPOSITIONAL = "инопланетной бутылке"
-	)
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=4"
 	icon_state = "alien_bottle"
 	item_state = "alien_bottle"
 	volume = 50
 
+/obj/item/reagent_containers/glass/bottle/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетная бутылка",
+		GENITIVE = "инопланетной бутылки",
+		DATIVE = "инопланетной бутылке",
+		ACCUSATIVE = "инопланетную бутылку",
+		INSTRUMENTAL = "инопланетной бутылкой",
+		PREPOSITIONAL = "инопланетной бутылке"
+	)
+
 /obj/item/reagent_containers/glass/bottle/abductor/rezadone
 	name = "rezadone bottle"
-	ru_names = list(
-        NOMINATIVE = "инопланетная бутылка (Резадон)",
-        GENITIVE = "инопланетной бутылки (Резадон)",
-        DATIVE = "инопланетной бутылке (Резадон)",
-        ACCUSATIVE = "инопланетную бутылку (Резадон)",
-        INSTRUMENTAL = "инопланетной бутылкой (Резадон)",
-        PREPOSITIONAL = "инопланетной бутылке (Резадон)"
-	)
 	list_reagents = list("rezadone" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/rezadone/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетная бутылка (Резадон)",
+		GENITIVE = "инопланетной бутылки (Резадон)",
+		DATIVE = "инопланетной бутылке (Резадон)",
+		ACCUSATIVE = "инопланетную бутылку (Резадон)",
+		INSTRUMENTAL = "инопланетной бутылкой (Резадон)",
+		PREPOSITIONAL = "инопланетной бутылке (Резадон)"
+	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/epinephrine
 	name = "epinephrine bottle"
-	ru_names = list(
-        NOMINATIVE = "инопланетная бутылка (Эпинефрин)",
-        GENITIVE = "инопланетной бутылки (Эпинефрин)",
-        DATIVE = "инопланетной бутылке (Эпинефрин)",
-        ACCUSATIVE = "инопланетную бутылку (Эпинефрин)",
-        INSTRUMENTAL = "инопланетной бутылкой (Эпинефрин)",
-        PREPOSITIONAL = "инопланетной бутылке (Эпинефрин)"
-	)
 	list_reagents = list("epinephrine" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/epinephrine/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетная бутылка (Эпинефрин)",
+		GENITIVE = "инопланетной бутылки (Эпинефрин)",
+		DATIVE = "инопланетной бутылке (Эпинефрин)",
+		ACCUSATIVE = "инопланетную бутылку (Эпинефрин)",
+		INSTRUMENTAL = "инопланетной бутылкой (Эпинефрин)",
+		PREPOSITIONAL = "инопланетной бутылке (Эпинефрин)"
+	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/salgu
 	name = "saline-glucose solution bottle"
-	ru_names = list(
-        NOMINATIVE = "инопланетная бутылка (Физиологический раствор)",
-        GENITIVE = "инопланетной бутылки (Физиологический раствор)",
-        DATIVE = "инопланетной бутылке (Физиологический раствор)",
-        ACCUSATIVE = "инопланетную бутылку (Физиологический раствор)",
-        INSTRUMENTAL = "инопланетной бутылкой (Физиологический раствор)",
-        PREPOSITIONAL = "инопланетной бутылке (Физиологический раствор)"
-	)
 	list_reagents = list("salglu_solution" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/salgu/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетная бутылка (Физиологический раствор)",
+		GENITIVE = "инопланетной бутылки (Физиологический раствор)",
+		DATIVE = "инопланетной бутылке (Физиологический раствор)",
+		ACCUSATIVE = "инопланетную бутылку (Физиологический раствор)",
+		INSTRUMENTAL = "инопланетной бутылкой (Физиологический раствор)",
+		PREPOSITIONAL = "инопланетной бутылке (Физиологический раствор)"
+	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/oculine
 	name = "oculine bottle"
-	ru_names = list(
-        NOMINATIVE = "инопланетная бутылка (Окулин)",
-        GENITIVE = "инопланетной бутылки (Окулин)",
-        DATIVE = "инопланетной бутылке (Окулин)",
-        ACCUSATIVE = "инопланетную бутылку (Окулин)",
-        INSTRUMENTAL = "инопланетной бутылкой (Окулин)",
-        PREPOSITIONAL = "инопланетной бутылке (Окулин)"
-	)
 	list_reagents = list("oculine" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/oculine/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетная бутылка (Окулин)",
+		GENITIVE = "инопланетной бутылки (Окулин)",
+		DATIVE = "инопланетной бутылке (Окулин)",
+		ACCUSATIVE = "инопланетную бутылку (Окулин)",
+		INSTRUMENTAL = "инопланетной бутылкой (Окулин)",
+		PREPOSITIONAL = "инопланетной бутылке (Окулин)"
+	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/pen_acid
 	name = "pentetic acid bottle"
-	ru_names = list(
-        NOMINATIVE = "инопланетная бутылка (Пентетовая кислота)",
-        GENITIVE = "инопланетной бутылки (Пентетовая кислота)",
-        DATIVE = "инопланетной бутылке (Пентетовая кислота)",
-        ACCUSATIVE = "инопланетную бутылку (Пентетовая кислота)",
-        INSTRUMENTAL = "инопланетной бутылкой (Пентетовая кислота)",
-        PREPOSITIONAL = "инопланетной бутылке (Пентетовая кислота)"
-	)
 	list_reagents = list("pen_acid" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/pen_acid/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетная бутылка (Пентетовая кислота)",
+		GENITIVE = "инопланетной бутылки (Пентетовая кислота)",
+		DATIVE = "инопланетной бутылке (Пентетовая кислота)",
+		ACCUSATIVE = "инопланетную бутылку (Пентетовая кислота)",
+		INSTRUMENTAL = "инопланетной бутылкой (Пентетовая кислота)",
+		PREPOSITIONAL = "инопланетной бутылке (Пентетовая кислота)"
+	)
 
 /obj/item/healthanalyzer/abductor
 	name = "alien health analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта. Выполнен из прочного инопланетного материала."
-	ru_names = list(
-		NOMINATIVE = "инопланетный анализатор здоровья",
-		GENITIVE = "инопланетного анализатора здоровья",
-		DATIVE = "инопланетному анализатору здоровья",
-		ACCUSATIVE = "инопланетный анализатор здоровья",
-		INSTRUMENTAL = "инопланетным анализатором здоровья",
-		PREPOSITIONAL = "инопланетном анализаторе здоровья"
-	)
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=4;biotech=4;abductor=2"
 	advanced = TRUE
@@ -981,13 +978,22 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "alien_hscanner"
 	theme = "abductor"
 
+/obj/item/healthanalyzer/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетный анализатор здоровья",
+		GENITIVE = "инопланетного анализатора здоровья",
+		DATIVE = "инопланетному анализатору здоровья",
+		ACCUSATIVE = "инопланетный анализатор здоровья",
+		INSTRUMENTAL = "инопланетным анализатором здоровья",
+		PREPOSITIONAL = "инопланетном анализаторе здоровья"
+	)
+
 /obj/item/storage/firstaid_abductor
 	name = "alien medkit"
 	desc = "Kit that contains some advanced alien medicine. Keep it away from alien-kids"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "alien_medkit"
 	item_state = "alien_medkit"
-	throw_speed = 2
 	throw_range = 8
 
 /obj/item/storage/firstaid_abductor/populate_contents()

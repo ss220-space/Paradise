@@ -4,7 +4,6 @@
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "Contain_F"
 	anchored = TRUE
-	density = FALSE
 	move_resist = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	use_power = NO_POWER_USE
@@ -51,15 +50,15 @@
 	return FALSE
 
 
-/obj/machinery/field/containment/ex_act(severity)
-	return 0
+/obj/machinery/field/containment/ex_act(severity, target)
+	return FALSE
 
 /obj/machinery/field/containment/attack_animal(mob/living/simple_animal/M)
 	if(!FG1 || !FG2)
 		qdel(src)
 		return
 	if(ismegafauna(M))
-		M.visible_message("<span class='warning'>[M] glows fiercely as the containment field flickers out!</span>")
+		M.visible_message(span_warning("[M] glows fiercely as the containment field flickers out!"))
 		FG1.calc_power(INFINITY) //rip that 'containment' field
 		M.adjustHealth(-M.obj_damage)
 	else
@@ -99,7 +98,7 @@
 // Used for overriding certain procs
 
 /obj/machinery/field
-	var/hasShocked = 0 //Used to add a delay between shocks. In some cases this used to crash servers by spawning hundreds of sparks every second.
+	var/hasShocked = FALSE //Used to add a delay between shocks. In some cases this used to crash servers by spawning hundreds of sparks every second.
 
 
 /obj/machinery/field/Bumped(atom/movable/moving_atom)
@@ -128,24 +127,24 @@
 		if(isliving(user) && !is_silicon)
 			var/stun = (min(shock_damage, 15)) STATUS_EFFECT_CONSTANT
 			user.Weaken(stun)
-			user.electrocute_act(shock_damage, "сдерживающего барьера")
+			user.electrocute_act(shock_damage, src)
 
 		else if(is_silicon)
 			if(prob(20))
 				user.Stun(4 SECONDS)
 			user.take_overall_damage(0, shock_damage)
-			user.visible_message("<span class='danger'>[user.name] was shocked by the [src.name]!</span>", \
-			"<span class='userdanger'>Energy pulse detected, system damaged!</span>", \
-			"<span class='italics'>You hear an electrical crack.</span>")
+			user.visible_message(span_danger("[user.name] was shocked by the [src.name]!"), \
+			span_userdanger("Energy pulse detected, system damaged!"), \
+			span_italics("You hear an electrical crack."))
 
 		bump_field(user)
 
 /obj/machinery/field/proc/bump_field(atom/movable/AM)
 	if(hasShocked)
 		return 0
-	hasShocked = 1
-	do_sparks(5, 1, AM.loc)
+	hasShocked = TRUE
+	do_sparks(5, TRUE, AM.loc)
 	var/atom/target = get_edge_target_turf(AM, get_dir(src, get_step_away(AM, src)))
 	AM.throw_at(target, 200, 4)
 	spawn(5)
-		hasShocked = 0
+		hasShocked = FALSE

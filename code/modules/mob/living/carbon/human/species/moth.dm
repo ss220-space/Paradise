@@ -1,7 +1,6 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS
 #define COCOON_EMERGE_DELAY 15 SECONDS
 #define COCOON_HARM_AMOUNT 50
-#define COCOON_NUTRITION_REQUIREMENT 201
 #define COCOON_NUTRITION_AMOUNT -200
 #define FLYSWATTER_DAMAGE_MULTIPLIER 10
 #define MOTH_PITCH_SHIFT 0.15 // a bit higher emotes
@@ -224,7 +223,7 @@
 	desc = "Кто-то завернулся в кокон."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cocoon1"
-	color = COLOR_PALE_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
+	color = LIGHT_COLOR_DIM_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
 	max_integrity = 60
 	var/preparing_to_emerge = TRUE
 
@@ -268,7 +267,6 @@
 /datum/species/moth/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	. = ..()
 	. += MOTH_PITCH_SHIFT
-
 
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY

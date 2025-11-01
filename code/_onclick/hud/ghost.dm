@@ -2,6 +2,7 @@
 	icon = 'icons/mob/screen_ghost.dmi'
 
 /atom/movable/screen/ghost/MouseEntered()
+	. = ..()
 	flick(icon_state + "_anim", src)
 
 /atom/movable/screen/ghost/jumptomob
@@ -59,7 +60,7 @@
 	M.Turn(-90)
 
 	cut_overlays()
-	var/image/img = image('icons/mob/actions/actions.dmi', src, (hud && hud.inventory_shown) ? "hide" : "show")
+	var/image/img = image('icons/mob/actions/actions.dmi', src, (hud?.inventory_shown) ? "hide" : "show")
 	img.transform = M
 	add_overlay(img)
 
@@ -91,7 +92,6 @@
 	GLOB.paiController.recruitWindow(G)
 
 /datum/hud/ghost
-	inventory_shown = FALSE
 
 /datum/hud/ghost/New(mob/owner)
 	..()

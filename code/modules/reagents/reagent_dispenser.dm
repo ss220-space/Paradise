@@ -4,10 +4,8 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
 	density = TRUE
-	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
-	max_integrity = 300
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
 	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
@@ -16,7 +14,7 @@
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && obj_integrity > 0)
-		if(tank_volume && (damage_flag == "bullet" || damage_flag == "laser"))
+		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom(FALSE, TRUE)
 
 
@@ -42,7 +40,7 @@
 	if(went_boom)
 		return
 	went_boom = TRUE
-	visible_message("<span class='danger'>[src] ruptures!</span>")
+	visible_message(span_danger("[src] ruptures!"))
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
 
@@ -127,25 +125,25 @@
 	..()
 	boom()
 
-/obj/structure/reagent_dispensers/fueltank/tesla_act()
-	..() //extend the zap
-	boom()
+/obj/structure/reagent_dispensers/fueltank/zap_act(power, zap_flags)
+	. = ..() //extend the zap
+	if(ZAP_OBJ_DAMAGE & zap_flags)
+		boom()
 
 /obj/structure/reagent_dispensers/fueltank/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2 && rig)
-		. += "<span class='notice'>There is some kind of device rigged to the tank.</span>"
+		. += span_notice("There is some kind of device rigged to the tank.")
 
 
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if(rig)
-		usr.visible_message("<span class='notice'>[usr] begins to detach [rig] from [src].</span>", "<span class='notice'>You begin to detach [rig] from [src].</span>")
+		usr.visible_message(span_notice("[usr] begins to detach [rig] from [src]."), span_notice("You begin to detach [rig] from [src]."))
 		if(do_after(usr, 2 SECONDS, src))
 			add_fingerprint(usr)
-			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
+			usr.visible_message(span_notice("[usr] detaches [rig] from [src]."), span_notice("You detach [rig] from [src]."))
 			rig.forceMove(get_turf(usr))
 			rig = null
-			qdel(GetComponent(/datum/component/proximity_monitor))
 			lastrigger = null
 			QDEL_NULL(rigged_olay)
 			update_icon(UPDATE_OVERLAYS)
@@ -185,8 +183,6 @@
 		investigate_log("[key_name_log(user)] rigged [name] with [assembly.name] for explosion", INVESTIGATE_BOMB)
 		lastrigger = "[key_name_log(user)]"
 		rig = assembly
-		if(rig.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
 		rigged_olay = getFlatIcon(assembly)
 		rigged_olay.Shift(NORTH, 1)
 		rigged_olay.Shift(EAST, 6)
@@ -205,10 +201,10 @@
 /obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!reagents.has_reagent("fuel"))
-		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
+		to_chat(user, span_warning("[src] is out of fuel!"))
 		return
 	if(I.tool_enabled && I.use_tool(src, user, volume = I.tool_volume)) //check it's enabled first to prevent duplicate messages when refuelling
-		user.visible_message("<span class='danger'>[user] catastrophically fails at refilling [user.p_their()] [I]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
+		user.visible_message(span_danger("[user] catastrophically fails at refilling [user.p_their()] [I]!"), span_userdanger("That was stupid of you."))
 		add_attack_logs(user, src, "hit with lit welder")
 		investigate_log("[key_name(user)] triggered a fueltank explosion", INVESTIGATE_BOMB)
 		boom()
@@ -264,20 +260,19 @@
 	icon_state = "water_cooler"
 	anchored = TRUE
 	tank_volume = 500
-	reagent_id = "water"
 	var/paper_cups = 25 //Paper cups left from the cooler
 
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		. += "<span class='notice'>There are [paper_cups ? paper_cups : "no"] paper cups left.</span>"
+		. += span_notice("There are [paper_cups ? paper_cups : "no"] paper cups left.")
 
 /obj/structure/reagent_dispensers/water_cooler/attack_hand(mob/living/user)
 	if(!paper_cups)
-		to_chat(user, "<span class='warning'>There aren't any cups left!</span>")
+		to_chat(user, span_warning("There aren't any cups left!"))
 		return
 	add_fingerprint(user)
-	user.visible_message("<span class='notice'>[user] takes a cup from [src].</span>", "<span class='notice'>You take a paper cup from [src].</span>")
+	user.visible_message(span_notice("[user] takes a cup from [src]."), span_notice("You take a paper cup from [src]."))
 	var/obj/item/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
 	user.put_in_hands(S, ignore_anim = FALSE)
 	paper_cups--
@@ -296,7 +291,7 @@
 	var/has_lid = TRUE
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
-	explosion(loc, 0, 3, 5, 7, 10, cause = "[src.name] got blobbed")
+	explosion(loc, devastation_range = 0, heavy_impact_range = 3, light_impact_range = 5, flash_range = 7, flame_range = 10, cause = "[src.name] got blobbed")
 	if(!QDELETED(src))
 		qdel(src)
 
@@ -311,10 +306,10 @@
 /obj/structure/reagent_dispensers/beerkeg/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(has_lid)
-		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+		to_chat(usr, span_notice("You take the lid off [src]."))
 		remove_lid()
 	else
-		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+		to_chat(usr, span_notice("You put the lid on [src]."))
 		add_lid()
 
 /obj/structure/reagent_dispensers/beerkeg/nuke

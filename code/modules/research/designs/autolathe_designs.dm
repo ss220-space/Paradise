@@ -54,7 +54,7 @@
 /datum/design/weldingtool
 	id = "welding_tool"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 70, MAT_GLASS = 20)
+	materials = list(MAT_METAL = 70, MAT_GLASS = 30)
 	build_path = /obj/item/weldingtool
 	category = list(CATEGORY_INITIAL, CATEGORY_TOOLS)
 
@@ -596,19 +596,21 @@
 	category = list(CATEGORY_INITIAL, CATEGORY_SECURITY)
 
 /datum/design/enforcermag
+	name = "handgun magazine (9mm rubber)"
 	id = "rubber9mmmag"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 7200) //5200 за пули + 2000 за корпус
 	build_path = /obj/item/ammo_box/magazine/enforcer
-	category = list(CATEGORY_INITIAL, CATEGORY_SECURITY)
+	category = list("initial", "Security")
 
 //hacked autolathe recipes
 /datum/design/enforcermaglethal
+	name = "handgun magazine (9mm)"
 	id = "c9mmmag"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 10000) //8000 за пули + 2000 за корпус
 	build_path = /obj/item/ammo_box/magazine/enforcer/lethal
-	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
+	category = list("hacked", "Security")
 
 /datum/design/flamethrower
 	id = "flamethrower"
@@ -674,6 +676,7 @@
 	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
 
 /datum/design/sp8box
+	name = "Ammo Box (40n&r)"
 	id = "fortynrbox"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 45000)
@@ -681,11 +684,12 @@
 	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
 
 /datum/design/sp8mag
+	name = "handgun magazine (40n&r)"
 	id = "fortynrmag"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 13000)
 	build_path = /obj/item/ammo_box/magazine/sp8
-	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
+	category = list("hacked", "Security")
 
 /datum/design/sp91rc_box
 	id = "9mmTEbox"
@@ -695,40 +699,44 @@
 	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
 
 /datum/design/specter/disable
+	name = "ammo box (Specter disabler)"
 	id = "specter_disable"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 25000)
 	build_path = /obj/item/ammo_box/specter/disabler
-	category = list(CATEGORY_INITIAL, CATEGORY_SECURITY)
+	category = list("initial", "Security")
 
 /datum/design/specter/laser
+	name = "ammo box (Specter laser)"
 	id = "specter_laser"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 35000)
 	build_path = /obj/item/ammo_box/specter/laser
-	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
+	category = list("hacked", "Security")
 
 /datum/design/spectermag_disabler
+	name = "magazine Specter (disabler)"
 	id = "spectermag_disabler"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 8000)
 	build_path = /obj/item/ammo_box/magazine/specter
-	category = list(CATEGORY_INITIAL, CATEGORY_SECURITY)
+	category = list("initial", "Security")
 
 //hacked autolathe recipes
 /datum/design/spectermag_laser
+	name = "magazine Specter (laser)"
 	id = "spectermag_laser"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 10000)
 	build_path = /obj/item/ammo_box/magazine/specter/laser
-	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
+	category = list("hacked", "Security")
 
 /datum/design/sp91rc_mag
 	id = "9mm-te"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 12000)
 	build_path = /obj/item/ammo_box/magazine/sp91rc
-	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
+	category = list("hacked", "Security")
 
 /datum/design/buckshot_shell
 	id = "buckshot_shell"
@@ -736,6 +744,14 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/buckshot
 	category = list(CATEGORY_HACKED, CATEGORY_SECURITY)
+
+/datum/design/dragonsbreath
+	name = "Dragonsbreath shell"
+	id = "dragonsbreath_shell"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+	category = list("hacked", "Security")
 
 /datum/design/shotgun_dart
 	id = "shotgun_dart"

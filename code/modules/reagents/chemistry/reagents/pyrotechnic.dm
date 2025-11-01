@@ -38,7 +38,7 @@
 /datum/reagent/phlogiston/firedust
 	name = "Флогистоновая пыль"
 	id = "phlogiston_dust"
-	description = "А это - твёрдый огонь. Как бы то ни было, это работает."
+	description = "А это — твёрдый огонь. Как бы то ни было, это работает."
 	temp_fire = 1500
 	temp_deviance = 500
 	size_divisor = 80
@@ -50,8 +50,11 @@
 	description = "Легковоспламеняющееся желеобразное топливо."
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
-	color = "#C86432"
 	taste_description = "горения"
+	color = "#ffb300"
+	chemfiresupp = TRUE
+	burncolor = "#d05006"
+	burn_sprite = "red"
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
@@ -142,7 +145,7 @@
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
 		if(will_explode)
 			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
-			explosion(T, -1, -1, boomrange, 1, cause = "Fuel Reaction Temp.")
+			explosion(T, devastation_range = -1, heavy_impact_range = -1, light_impact_range = boomrange, flash_range = 1, cause = "Fuel Reaction Temp.")
 
 /datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
 	if(isspaceturf(T))
@@ -200,7 +203,6 @@
 	name = "Термит"
 	id = "thermite"
 	description = "Термит вызывает алюминотермическую реакцию, известную как термитная реакция. Может использоваться для плавления замков. Или стен."
-	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "ржавчины"
@@ -236,7 +238,7 @@
 /datum/reagent/glycerol
 	name = "Глицерин"
 	id = "glycerol"
-	description = "Глицерин - это простое полиольное соединение. Глицерин обладает сладким вкусом и низкой токсичностью."
+	description = "Глицерин — это простое полиольное соединение. Глицерин обладает сладким вкусом и низкой токсичностью."
 	reagent_state = LIQUID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "сладости"
@@ -323,7 +325,6 @@
 	id = "blackpowder"
 	description = "Взрывается. Сильно взрывается."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	taste_description = "взрывов"
@@ -454,7 +455,7 @@
 /datum/reagent/firefighting_foam
 	name = "Противопожарная пена"
 	id = "firefighting_foam"
-	description = "Тетрахлорид углерода - это пена, используемая для тушения пожаров."
+	description = "Тетрахлорид углерода — это пена, используемая для тушения пожаров."
 	reagent_state = LIQUID
 	color = "#A0A090"
 	var/cooling_temperature = 3 // more effective than water

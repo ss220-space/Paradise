@@ -21,15 +21,15 @@
 
 	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 
-/obj/machinery/navbeacon/New()
-	..()
+/obj/machinery/navbeacon/Initialize(mapload)
+	. = ..()
 
 	set_codes()
 
 	var/turf/T = loc
 	if(!T.transparent_floor)
 		hide(T.intact)
-	if(!codes || !codes.len)
+	if(!codes || !length(codes))
 		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
 	if("patrol" in codes)
 		if(!GLOB.navbeacons["[z]"])

@@ -1,13 +1,14 @@
-/datum/mind/var/list/job_objectives = list()
-
 #define FINDJOBTASK_DEFAULT_NEW 1 // Make a new task of this type if one can't be found.
-/datum/mind/proc/findJobTask(var/typepath, var/options = 0)
+
+/datum/mind/proc/findJobTask(typepath, options = 0)
 	var/datum/job_objective/task = locate(typepath) in job_objectives
 	if(!istype(task,typepath))
 		if(options & FINDJOBTASK_DEFAULT_NEW)
 			task = new typepath()
 			job_objectives += task
 	return task
+
+#undef FINDJOBTASK_DEFAULT_NEW
 
 /datum/job_objective
 	var/datum/mind/owner = null			//Who owns the objective.
@@ -18,7 +19,7 @@
 	var/units_requested = INFINITY
 	var/completion_payment = 0			// Credits paid to owner when completed
 
-/datum/job_objective/New(var/datum/mind/new_owner)
+/datum/job_objective/New(datum/mind/new_owner)
 	owner = new_owner
 	owner.job_objectives += src
 
@@ -27,7 +28,7 @@
 	var/desc = "Placeholder Objective"
 	return desc
 
-/datum/job_objective/proc/unit_completed(var/count=1)
+/datum/job_objective/proc/unit_completed(count=1)
 	units_completed += count
 
 /datum/job_objective/proc/is_completed()
@@ -74,60 +75,3 @@
 			SSblackbox.record_feedback("tally", "employee_success", 1, "FAIL")
 
 	return text
-
-/datum/mind/proc/ambition_topic(href, href_list)
-	var/ambition_func = FALSE
-
-	if(href_list["amb_add"])
-		ambition_func = TRUE
-		if(length(ambition_objectives) < ambition_limit)
-			var/datum/ambition_objective/objective = new /datum/ambition_objective(usr.mind)
-
-			var/counter = 0
-			do
-				counter = 0
-				objective.description = objective.get_random_ambition()
-				if(objective.description == null || objective.description == "")
-					break
-				for(var/datum/ambition_objective/amb in ambition_objectives)
-					if(objective.description == amb.description) //&& objective.unique_datum_id != amb.unique_datum_id)
-						counter++
-						if(counter > 1)
-							break
-			while(counter > 1)
-
-			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.description].</span>")
-		else
-			to_chat(usr, "<span class='warning'>Количество амбиций переполнено, избавьтесь от неосуществимых.</span>")
-		add_misc_logs(usr, "has added [key_name(current)]'s ambition.")
-
-
-	else if(href_list["amb_delete"])
-		ambition_func = TRUE
-		var/datum/ambition_objective/objective = locate(href_list["amb_delete"])
-		if(!istype(objective))
-			return
-		ambition_objectives.Remove(objective)
-
-		add_misc_logs(usr, "has removed one of [key_name(current)]'s ambitions: [objective]")
-		qdel(objective)
-
-	else if(href_list["amb_completed"])
-		ambition_func = TRUE
-		var/datum/ambition_objective/objective = locate(href_list["amb_completed"])
-		if(!istype(objective))
-			return
-		objective.completed = !objective.completed
-
-		if(objective.completed)
-			to_chat(usr, "<span class='warning'>[pluralize_ru(usr.gender,"Моя","Наша")] амбиция выполнена. [pluralize_ru(usr.gender,"Поздравляю сам себя","Поздравим же нас")]!</span>")
-		else
-			to_chat(usr, "<span class='warning'>Пожалуй [pluralize_ru(usr.gender,"моя","наша")] амбиция ещё не выполнена. Но у [pluralize_ru(usr.gender,"меня","нас")] ещё будут возможности!</span>")
-		add_misc_logs(usr, "[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
-
-	// Обновляем открытую память
-	if(ambition_func)
-		show_memory()
-
-	return ambition_func
-

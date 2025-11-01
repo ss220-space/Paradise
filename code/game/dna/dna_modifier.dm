@@ -1,10 +1,5 @@
 #define DNA_BLOCK_SIZE 3
 
-// Buffer datatype flags.
-#define DNA2_BUF_UI 1
-#define DNA2_BUF_UE 2
-#define DNA2_BUF_SE 4
-
 #define NEGATE_MUTATION_THRESHOLD 30 // Occupants with over ## percent radiation threshold will not gain mutations
 
 #define PAGE_UI "ui"
@@ -57,19 +52,10 @@
 /obj/machinery/dna_scannernew
 	name = "DNA modifier"
 	desc = "Высокотехнологичное устройство, предназначенное для сканирования и изменения структуры ДНК гуманоидов. Здесь и происходит всё волшебство."
-	ru_names = list(
-		NOMINATIVE = "ДНК-модификатор",
-		GENITIVE = "ДНК-модификатора",
-		DATIVE = "ДНК-модификатору",
-		ACCUSATIVE = "ДНК-модификатор",
-		INSTRUMENTAL = "ДНК-модификатором",
-		PREPOSITIONAL = "ДНК-модификаторе"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "scanner_open"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	active_power_usage = 300
 	interact_offline = 1
@@ -81,9 +67,18 @@
 	var/scan_level
 	var/precision_coeff
 
+/obj/machinery/dna_scannernew/get_ru_names()
+	return list(
+		NOMINATIVE = "ДНК-модификатор",
+		GENITIVE = "ДНК-модификатора",
+		DATIVE = "ДНК-модификатору",
+		ACCUSATIVE = "ДНК-модификатор",
+		INSTRUMENTAL = "ДНК-модификатором",
+		PREPOSITIONAL = "ДНК-модификаторе"
+	)
 
-/obj/machinery/dna_scannernew/New()
-	..()
+/obj/machinery/dna_scannernew/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -94,8 +89,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/dna_scannernew/upgraded/New()
-	..()
+/obj/machinery/dna_scannernew/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -143,10 +138,7 @@
 /obj/machinery/dna_scannernew/proc/eject_occupant(user, force)
 	go_out(user, force)
 	for(var/obj/O in src)
-		if(!istype(O,/obj/item/circuitboard/clonescanner) && \
-		   !istype(O,/obj/item/stock_parts) && \
-		   !istype(O,/obj/item/stack/cable_coil) && \
-		   O != beaker)
+		if(!istype(O,/obj/item/circuitboard/clonescanner) && !istype(O,/obj/item/stock_parts) && !istype(O,/obj/item/stack/cable_coil) && O != beaker)
 			O.forceMove(get_turf(src))//Ejects items that manage to get in there (exluding the components and beaker)
 	if(!occupant)
 		for(var/mob/M in src)//Failsafe so you can get mobs out
@@ -181,7 +173,7 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return TRUE
 	put_in(L, user)
 	return TRUE
@@ -202,7 +194,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -225,7 +217,7 @@
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
 	put_in(target, grabber)
 	add_fingerprint(grabber)
@@ -252,9 +244,9 @@
 /obj/machinery/dna_scannernew/proc/put_in(mob/M, mob/living/user)
 	add_fingerprint(user)
 	if(M == user)
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(user, 2 SECONDS, M))
 		return
@@ -269,7 +261,7 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return
 
 	M.forceMove(src)
@@ -302,13 +294,13 @@
 /obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
 	go_out(null, TRUE)
 
-/obj/machinery/dna_scannernew/ex_act(severity)
+/obj/machinery/dna_scannernew/ex_act(severity, target)
 	if(occupant)
 		occupant.ex_act(severity)
-	..()
+	return ..()
 
 /obj/machinery/dna_scannernew/handle_atom_del(atom/A)
-	..()
+	. = ..()
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
@@ -331,18 +323,8 @@
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier access console"
 	desc = "Консоль для работы с ДНК-модификатором."
-	ru_names = list(
-		NOMINATIVE = "консоль управления ДНК-модификатором",
-		GENITIVE = "консоли управления ДНК-модификатором",
-		DATIVE = "консоли управления ДНК-модификатором",
-		ACCUSATIVE = "консоль управления ДНК-модификатором",
-		INSTRUMENTAL = "консолью управления ДНК-модификатором",
-		PREPOSITIONAL = "консоли управления ДНК-модификатором"
-	)
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
-	density = TRUE
 	circuit = /obj/item/circuitboard/scan_consolenew
 	var/selected_ui_block = 1.0
 	var/selected_ui_subblock = 1.0
@@ -358,11 +340,18 @@
 	var/obj/machinery/dna_scannernew/connected = null
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
-	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 400
 
+/obj/machinery/computer/scan_consolenew/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления ДНК-модификатором",
+		GENITIVE = "консоли управления ДНК-модификатором",
+		DATIVE = "консоли управления ДНК-модификатором",
+		ACCUSATIVE = "консоль управления ДНК-модификатором",
+		INSTRUMENTAL = "консолью управления ДНК-модификатором",
+		PREPOSITIONAL = "консоли управления ДНК-модификатором"
+	)
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
@@ -373,28 +362,31 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		disk = I
-		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "дискета вставлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 
-/obj/machinery/computer/scan_consolenew/New()
-	..()
+/obj/machinery/computer/scan_consolenew/Initialize(mapload)
+	. = ..()
 	for(var/i=0;i<3;i++)
 		buffers[i+1]=new /datum/dna2/record
-	spawn(5)
-		for(dir in list(NORTH,EAST,SOUTH,WEST))
-			connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
-			if(!isnull(connected))
-				break
-		spawn(250)
-			injector_ready = TRUE
+	addtimer(CALLBACK(src, PROC_REF(find_machine)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(ready)), 25 SECONDS)
+
+/obj/machinery/computer/scan_consolenew/proc/find_machine()
+	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
+		connected = scanner
+		return
+
+/obj/machinery/computer/scan_consolenew/proc/ready()
+	injector_ready = TRUE
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(list/buffer)
 	var/list/arr = list()
-	for(var/i = 1, i <= buffer.len, i++)
+	for(var/i = 1, i <= length(buffer), i++)
 		arr += "[i]:[EncodeDNABlock(buffer[i])]"
 	return arr
 
@@ -511,7 +503,7 @@
 	data["beakerVolume"] = 0
 	if(connected.beaker)
 		data["beakerLabel"] = connected.beaker.label_text ? connected.beaker.label_text : null
-		if(connected.beaker.reagents && connected.beaker.reagents.reagent_list.len)
+		if(connected.beaker.reagents && length(connected.beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in connected.beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
@@ -545,7 +537,7 @@
 				return
 			selected_menu_key = key
 		if("toggleLock")
-			if(connected && connected.occupant)
+			if(connected?.occupant)
 				connected.locked = !(connected.locked)
 		if("pulseRadiation")
 			irradiating = radiation_duration
@@ -768,8 +760,8 @@
 
 					var/datum/dna2/record/buf = buffers[bufferId]
 
-					if((buf.types & DNA2_BUF_UI))
-						if((buf.types & DNA2_BUF_UE))
+					if(buf.types & DNA2_BUF_UI)
+						if(buf.types & DNA2_BUF_UE)
 							connected.occupant.real_name = buf.dna.real_name
 							connected.occupant.name = buf.dna.real_name
 						connected.occupant.UpdateAppearance(buf.dna.UI.Copy())
@@ -806,12 +798,12 @@
 			disk = null
 
 /**
-  * Creates a blank injector with the name of the buffer at the given buffer_id
-  *
-  * Arguments:
-  * * buffer_id - The ID of the buffer
-  * * copy_buffer - Whether the injector should copy the buffer contents
-  */
+ * Creates a blank injector with the name of the buffer at the given buffer_id
+ *
+ * Arguments:
+ * * buffer_id - The ID of the buffer
+ * * copy_buffer - Whether the injector should copy the buffer contents
+ */
 /obj/machinery/computer/scan_consolenew/proc/create_injector(buffer_id, copy_buffer = FALSE)
 	if(buffer_id < 1 || buffer_id > length(buffers))
 		return
@@ -832,18 +824,18 @@
 	return I
 
 /**
-  * Called when the injector creation cooldown finishes
-  */
+ * Called when the injector creation cooldown finishes
+ */
 /obj/machinery/computer/scan_consolenew/proc/injector_cooldown_finish()
 	injector_ready = TRUE
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/computer/scan_consolenew/proc/ui_act_modal(action, params)
 	. = TRUE
 	var/id = params["id"] // The modal's ID
@@ -871,10 +863,9 @@
 		else
 			return FALSE
 
-
+#undef DNA_BLOCK_SIZE
+#undef NEGATE_MUTATION_THRESHOLD
 #undef PAGE_UI
 #undef PAGE_SE
 #undef PAGE_BUFFER
 #undef PAGE_REJUVENATORS
-
-/////////////////////////// DNA MACHINES

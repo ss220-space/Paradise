@@ -25,7 +25,6 @@
 		/obj/effect/particle_effect/fluid/smoke,
 		/obj/effect/particle_effect/ion_trails,
 		/obj/effect/particle_effect/sparks,
-		/obj/effect/particle_effect/expl_particles,
 		/obj/effect/wisp,
 		/obj/effect/ebeam,
 		/obj/effect/spawner,
@@ -156,7 +155,7 @@
 					var/turf/chasm = get_turf(dropped_mob)
 					var/fall_into_chasm = jaunter.chasm_react(dropped_mob)
 					if(!fall_into_chasm)
-						chasm.visible_message(span_boldwarning("[capitalize(dropped_mob.declent_ru(NOMINATIVE))] пада[pluralize_ru(dropped_mob.gender,"ет","ют")] в [chasm.declent_ru(ACCUSATIVE)]!")) //To freak out any bystanders
+						chasm.visible_message(span_boldwarning("[capitalize(dropped_mob.declent_ru(NOMINATIVE))] пада[PLUR_ET_YUT(dropped_mob)] в [chasm.declent_ru(ACCUSATIVE)]!")) //To freak out any bystanders
 					return fall_into_chasm ? CHASM_DROPPING : CHASM_NOT_DROPPING
 
 	return CHASM_DROPPING
@@ -185,7 +184,7 @@
 			qdel(dropped_thing)
 			return
 		// send to the turf below
-		dropped_thing.visible_message(span_boldwarning("[capitalize(dropped_thing.declent_ru(NOMINATIVE))] пада[pluralize_ru(dropped_thing.gender,"ет","ют")] в [atom_parent]!"), span_userdanger("[fall_message]"))
+		dropped_thing.visible_message(span_boldwarning("[capitalize(dropped_thing.declent_ru(NOMINATIVE))] пада[PLUR_ET_YUT(dropped_thing)] в [atom_parent]!"), span_userdanger("[fall_message]"))
 		below_turf.visible_message(span_boldwarning("[capitalize(dropped_thing.declent_ru(NOMINATIVE))] падает сверху!"))
 		playsound(below_turf, 'sound/effects/break_stone.ogg', 50, TRUE)
 		dropped_thing.forceMove(below_turf)
@@ -197,7 +196,7 @@
 		return
 
 	// send to oblivion
-	dropped_thing.visible_message(span_boldwarning("[capitalize(dropped_thing.declent_ru(NOMINATIVE))] пада[pluralize_ru(dropped_thing.gender,"ет","ют")] в [atom_parent]!"), span_userdanger("[oblivion_message]"))
+	dropped_thing.visible_message(span_boldwarning("[capitalize(dropped_thing.declent_ru(NOMINATIVE))] пада[PLUR_ET_YUT(dropped_thing)] в [atom_parent]!"), span_userdanger("[oblivion_message]"))
 	if(isliving(dropped_thing))
 		var/mob/living/falling_mob = dropped_thing
 		ADD_TRAIT(falling_mob, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
@@ -284,7 +283,6 @@
 /obj/effect/abstract/chasm_storage
 	name = "chasm depths"
 	desc = "The bottom of a hole. You shouldn't be able to interact with this."
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 

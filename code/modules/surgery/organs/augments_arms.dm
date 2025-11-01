@@ -6,7 +6,7 @@
 	icon_state = "implant-toolkit"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
-	///A ref for the arm we're taking up. Mostly for the unregister signal upon removal
+	/// A ref for the arm we're taking up. Mostly for the unregister signal upon removal
 	var/obj/hand
 	/// Used to store a list of all items inside, for multi-item implants.
 	var/list/items_list = list()// I would use contents, but they shuffle on every activation/deactivation leading to interface inconsistencies.
@@ -15,7 +15,7 @@
 	var/sound_on = 'sound/mecha/mechmove03.ogg'
 	var/sound_off = 'sound/mecha/mechmove03.ogg'
 
-/obj/item/organ/internal/cyberimp/arm/Initialize()
+/obj/item/organ/internal/cyberimp/arm/Initialize(mapload)
 	. = ..()
 	if(ispath(active_item))
 		active_item = new active_item(src)
@@ -23,6 +23,11 @@
 	update_transform()
 	slot = parent_organ_zone + "_device"
 	items_list = contents.Copy()
+
+/obj/item/organ/internal/cyberimp/arm/Destroy()
+	QDEL_NULL(active_item)
+	hand = null
+	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/proc/update_transform()
 	if(parent_organ_zone == BODY_ZONE_R_ARM)
@@ -100,7 +105,7 @@
 	if(!active_item || (active_item in src))
 		return FALSE
 
-	owner.visible_message(span_notice("[owner] убира[pluralize_ru(owner.gender,"ет","ют")] [active_item.declent_ru(ACCUSATIVE)] обратно в [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
+	owner.visible_message(span_notice("[owner] убира[PLUR_ET_YUT(owner)] [active_item.declent_ru(ACCUSATIVE)] обратно в [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
 		span_notice("[capitalize(active_item.declent_ru(NOMINATIVE))] втягивается в вашу [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
 		span_italics("Слышен короткий механический щелчок."))
 
@@ -146,7 +151,7 @@
 	playsound(get_turf(owner), src.sound_on, 50, TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(crit_fail || (!active_item && !contents.len))
+	if(crit_fail || (!active_item && !length(contents)))
 		to_chat(owner, span_warning("The implant doesn't respond. It seems to be broken..."))
 		return
 
@@ -157,14 +162,14 @@
 
 	if(!active_item || (active_item in src))
 		active_item = null
-		if(contents.len == 1)
+		if(length(contents) == 1)
 			Extend(contents[1])
 		else
 			radial_menu(owner)
 	else
 		Retract()
 
-/obj/item/organ/internal/cyberimp/arm/proc/check_menu(var/mob/user)
+/obj/item/organ/internal/cyberimp/arm/proc/check_menu(mob/user)
 	return (owner && owner == user && owner.stat != DEAD && (src in owner.internal_organs) && !active_item)
 
 /obj/item/organ/internal/cyberimp/arm/proc/radial_menu(mob/user)
@@ -285,7 +290,7 @@
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "flash")
 
-/obj/item/organ/internal/cyberimp/arm/flash/Initialize()
+/obj/item/organ/internal/cyberimp/arm/flash/Initialize(mapload)
 	. = ..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
@@ -339,6 +344,7 @@
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "syndie_mantis")
 	icon_state = "syndie_mantis"
+	emp_proof = TRUE
 
 
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
@@ -448,7 +454,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_int_organ(/obj/item/organ/internal/cell))
 		if(A.emagged || A.stat & BROKEN)
-			do_sparks(3, 1, A)
+			do_sparks(3, TRUE, A)
 			to_chat(H, span_warning("The APC power currents surge erratically, damaging your chassis!"))
 			H.adjustFireLoss(10)
 		else if(A.cell && A.cell.charge > 0)

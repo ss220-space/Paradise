@@ -3,14 +3,6 @@
 
 /turf/simulated/floor/plating/asteroid
 	name = "asteroid sand"
-	ru_names = list(
-		NOMINATIVE = "астероидный песок",
-		GENITIVE = "астероидного песка",
-		DATIVE = "астероидному песку",
-		ACCUSATIVE = "астероидный песок",
-		INSTRUMENTAL = "астероидным песком",
-		PREPOSITIONAL = "астероидном песке"
-	)
 	gender = PLURAL
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
@@ -18,7 +10,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
@@ -26,6 +17,16 @@
 	var/dug
 	///Chance to dig up a worm
 	var/worm_chance = 30
+
+/turf/simulated/floor/plating/asteroid/get_ru_names()
+	return list(
+		NOMINATIVE = "астероидный песок",
+		GENITIVE = "астероидного песка",
+		DATIVE = "астероидному песку",
+		ACCUSATIVE = "астероидный песок",
+		INSTRUMENTAL = "астероидным песком",
+		PREPOSITIONAL = "астероидном песке"
+	)
 
 /turf/simulated/floor/plating/asteroid/Initialize(mapload)
 	var/proper_name = name
@@ -74,16 +75,17 @@
 /turf/simulated/floor/plating/asteroid/remove_plating()
 	return
 
-/turf/simulated/floor/plating/asteroid/ex_act(severity)
+/turf/simulated/floor/plating/asteroid/ex_act(severity, target)
 	if(!can_dig())
 		return
+
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(20))
 				getDug()
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			getDug()
 
 
@@ -141,7 +143,14 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
 	desc = "Выглядит горячим."
-	ru_names = list(
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt
+	icon_state = "basalt"
+	icon_plating = "basalt"
+	environment_type = "basalt"
+	floor_variance = 15
+
+/turf/simulated/floor/plating/asteroid/basalt/get_ru_names()
+	return list(
 		NOMINATIVE = "вулканический пол",
 		GENITIVE = "вулканического пола",
 		DATIVE = "вулканическому полу",
@@ -149,12 +158,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 		INSTRUMENTAL = "вулканическим полом",
 		PREPOSITIONAL = "вулканическом поле"
 	)
-	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	icon_state = "basalt"
-	icon_plating = "basalt"
-	environment_type = "basalt"
-	floor_variance = 15
-	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/simulated/floor/plating/asteroid/basalt/refill_dug()
 	. = ..()
@@ -227,16 +230,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
 /turf/simulated/floor/plating/asteroid/snow
-	gender = PLURAL
 	name = "snow"
-	ru_names = list(
-		NOMINATIVE = "снег",
-		GENITIVE = "снега",
-		DATIVE = "снегу",
-		ACCUSATIVE = "снег",
-		INSTRUMENTAL = "снегом",
-		PREPOSITIONAL = "снеге"
-	)
 	desc = "Выглядит холодным."
 	icon = 'icons/turf/snow.dmi'
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
@@ -247,6 +241,16 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	environment_type = "snow"
 	planetary_atmos = TRUE
 	digResult = /obj/item/stack/sheet/mineral/snow
+
+/turf/simulated/floor/plating/asteroid/snow/get_ru_names()
+	return list(
+		NOMINATIVE = "снег",
+		GENITIVE = "снега",
+		DATIVE = "снегу",
+		ACCUSATIVE = "снег",
+		INSTRUMENTAL = "снегом",
+		PREPOSITIONAL = "снеге"
+	)
 
 /turf/simulated/floor/plating/asteroid/snow/broken_states()
 	return list("snow_dug")
@@ -271,7 +275,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	oxygen = 22
 	nitrogen = 82
-	temperature = 180
 	planetary_atmos = FALSE
 
 /turf/simulated/floor/plating/asteroid/snow/planet

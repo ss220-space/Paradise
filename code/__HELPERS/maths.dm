@@ -54,25 +54,25 @@
 #undef ACCURACY
 
 
-/proc/get_turf_in_angle(angle, turf/starting, increments)
+/proc/get_turf_in_angle(angle, turf/starting, increments = 1)
 	var/pixel_x = 0
 	var/pixel_y = 0
 	for(var/i in 1 to increments)
-		pixel_x += sin(angle)+16*sin(angle)*2
-		pixel_y += cos(angle)+16*cos(angle)*2
+		pixel_x += sin(angle)+(ICON_SIZE_X/2)*sin(angle)*2
+		pixel_y += cos(angle)+(ICON_SIZE_Y/2)*cos(angle)*2
 	var/new_x = starting.x
 	var/new_y = starting.y
-	while(pixel_x > 16)
-		pixel_x -= 32
+	while(pixel_x > (ICON_SIZE_X/2))
+		pixel_x -= ICON_SIZE_X
 		new_x++
-	while(pixel_x < -16)
-		pixel_x += 32
+	while(pixel_x < -(ICON_SIZE_X/2))
+		pixel_x += ICON_SIZE_X
 		new_x--
-	while(pixel_y > 16)
-		pixel_y -= 32
+	while(pixel_y > (ICON_SIZE_Y/2))
+		pixel_y -= ICON_SIZE_Y
 		new_y++
-	while(pixel_y < -16)
-		pixel_y += 32
+	while(pixel_y < -(ICON_SIZE_Y/2))
+		pixel_y += ICON_SIZE_Y
 		new_y--
 	new_x = clamp(new_x, 0, world.maxx)
 	new_y = clamp(new_y, 0, world.maxy)
@@ -129,14 +129,28 @@
 	else
 		return num
 
-///Calculate the angle between two points and the west|east coordinate
-/proc/get_angle_alt(atom/movable/start, atom/movable/end)//For beams.
+/// Calculate the angle between two movables and the west|east coordinate
+/proc/get_angle(atom/movable/start, atom/movable/end)
 	if(!start || !end)
 		return 0
-	var/dy
-	var/dx
-	dy=(32 * end.y + end.pixel_y) - (32 * start.y + start.pixel_y)
-	dx=(32 * end.x + end.pixel_x) - (32 * start.x + start.pixel_x)
+	var/dy = (ICON_SIZE_Y * end.y + end.pixel_y) - (ICON_SIZE_Y * start.y + start.pixel_y)
+	var/dx = (ICON_SIZE_X * end.x + end.pixel_x) - (ICON_SIZE_X * start.x + start.pixel_x)
+	return delta_to_angle(dx, dy)
+
+/// Calculate the angle produced by a pair of x and y deltas
+/proc/delta_to_angle(x, y)
+	if(!y)
+		return (x >= 0) ? 90 : 270
+	. = arctan(x/y)
+	if(y < 0)
+		. += 180
+	else if(x < 0)
+		. += 360
+
+/// Angle between two arbitrary points and horizontal line same as [/proc/get_angle]
+/proc/get_angle_raw(start_x, start_y, start_pixel_x, start_pixel_y, end_x, end_y, end_pixel_x, end_pixel_y)
+	var/dy = (ICON_SIZE_Y * end_y + end_pixel_y) - (ICON_SIZE_Y * start_y + start_pixel_y)
+	var/dx = (ICON_SIZE_X * end_x + end_pixel_x) - (ICON_SIZE_X * start_x + start_pixel_x)
 	if(!dy)
 		return (dx >= 0) ? 90 : 270
 	. = arctan(dx/dy)
@@ -145,15 +159,13 @@
 	else if(dx < 0)
 		. += 360
 
-///for getting the angle when animating something's pixel_x and pixel_y
-/proc/get_pixel_angle(y, x)
-	if(!y)
-		return (x >= 0) ? 90 : 270
-	. = arctan(x/y)
-	if(y < 0)
-		. += 180
-	else if(x < 0)
-		. += 360
+/// Get normalized angle (for fix rotation animation bug near 90 and -90 degrees)
+/proc/normalize_angle(angle)
+	while(angle > 90)
+		angle -= 360
+	while(angle < -90)
+		angle += 360
+	return angle
 
 /**
  * Get a list of turfs in a line from `starting_atom` to `ending_atom`.
@@ -213,11 +225,11 @@
 
 ///Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
 /proc/display_joules(units)
-	if (units < 1000) // Less than a kJ
+	if(units < 1000) // Less than a kJ
 		return "[round(units, 0.1)] J"
-	else if (units < 1000000) // Less than a MJ
+	else if(units < 1000000) // Less than a MJ
 		return "[round(units * 0.001, 0.01)] kJ"
-	else if (units < 1000000000) // Less than a GJ
+	else if(units < 1000000000) // Less than a GJ
 		return "[round(units * 0.000001, 0.001)] MJ"
 	return "[round(units * 0.000000001, 0.0001)] GJ"
 
@@ -251,14 +263,10 @@
 		else //It gets too tedious to use latin prefixes from here.
 			return "[number]-tuple"
 
-/// Angle between two arbitrary points and horizontal line same as [/proc/get_angle]
-/proc/get_angle_raw(start_x, start_y, start_pixel_x, start_pixel_y, end_x, end_y, end_pixel_x, end_pixel_y)
-	var/dy = (32 * end_y + end_pixel_y) - (32 * start_y + start_pixel_y)
-	var/dx = (32 * end_x + end_pixel_x) - (32 * start_x + start_pixel_x)
-	if(!dy)
-		return (dx >= 0) ? 90 : 270
-	. = arctan(dx/dy)
-	if(dy < 0)
-		. += 180
-	else if(dx < 0)
-		. += 360
+/// Returns a text string containing N prefixed with a series of zeros with length equal to max_zeros minus log(10, N), rounded down.
+/proc/prefix_zeros_to_number(number, max_zeros)
+	var/zeros = ""
+	var/how_many_zeros = max_zeros - round(log(10, number))
+	for(var/zero in 1 to how_many_zeros)
+		zeros += "0"
+	return "[zeros][number]"

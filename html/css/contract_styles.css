@@ -16,24 +16,11 @@ body{
 	box-sizing: border-box;
 }
 
-/* Remove condotion with 516 */
-@supports (display: flex) {
-	.contract-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-	}
-}
-
-/* Remove with 516 */
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-	.contract-container {
-		display: -ms-flexbox;
-		align-items: center;
-		justify-content: center;
-		-ms-flex-direction: column;
-	}
+.contract-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .close-button {
@@ -44,11 +31,11 @@ body{
     font-size: 24px;
     color: black;
     padding: 5px 10px;
-  }
+}
 
-  .close-button:hover {
+.close-button:hover {
     color: red;
-  }
+}
 
 .contract-title {
 	font-size: 24px;

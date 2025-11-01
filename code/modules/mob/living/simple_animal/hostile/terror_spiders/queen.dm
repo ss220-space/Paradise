@@ -11,15 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen
 	name = "Queen of Terror spider"
 	desc = "Огромный, ужасающий паук. Её яйцевой мешок почти такого же размера, как и её тело, и изобилует паучьими яйцами!"
-	ru_names = list(
-		NOMINATIVE = "Королева Ужаса",
-		GENITIVE = "Королевы Ужаса",
-		DATIVE = "Королеве Ужаса",
-		ACCUSATIVE = "Королеву Ужаса",
-		INSTRUMENTAL = "Королевой Ужаса",
-		PREPOSITIONAL = "Королеве Ужаса",
-	)
-	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"
@@ -52,7 +43,7 @@
 	delay_web = 15
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_queen)
 	can_wrap = FALSE
-	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать неминуюемую гибель гнезда, ведь все пауки погибнут."
+	spider_intro_text = "Будучи Королевой Ужаса, ваша цель — управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать неминуюемую гибель гнезда, ведь все пауки погибнут."
 	datum_type = /datum/antagonist/terror_spider/main_spider/queen
 	var/spider_spawnfrequency = 1600 // 160 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
 	var/spider_spawnfrequency_stable = 3600 // 360 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
@@ -71,6 +62,16 @@
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	tts_seed = "Anivia"
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/get_ru_names()
+	return list(
+		NOMINATIVE = "Королева Ужаса",
+		GENITIVE = "Королевы Ужаса",
+		DATIVE = "Королеве Ужаса",
+		ACCUSATIVE = "Королеву Ужаса",
+		INSTRUMENTAL = "Королевой Ужаса",
+		PREPOSITIONAL = "Королеве Ужаса",
+	)
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
@@ -189,7 +190,7 @@
 					visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] приживается, начиная строить гнездо."))
 				else if(entry_vent)
 					if(!path_to_vent)
-						visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] настороженно оглядывается – затем ищет лучшее место для строительста гнезда."))
+						visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] настороженно оглядывается — затем ищет лучшее место для строительста гнезда."))
 						path_to_vent = 1
 				else
 					neststep = -1
@@ -388,7 +389,10 @@
 /obj/structure/spider/terrorweb/queen
 	name = "airtight web"
 	desc = "Эта многослойная паутина, кажется, способна противостоять давлению воздуха."
-	ru_names = list(
+	max_integrity = 30
+
+/obj/structure/spider/terrorweb/queen/get_ru_names()
+	return list(
 		NOMINATIVE = "воздухонепроницаемая паутина",
 		GENITIVE = "воздухонепроницаемой паутины",
 		DATIVE = "воздухонепроницаемой паутине",
@@ -396,8 +400,6 @@
 		INSTRUMENTAL = "воздухонепроницаемой паутиной",
 		PREPOSITIONAL = "воздухонепроницаемой паутине",
 	)
-	max_integrity = 30
-
 
 /obj/structure/spider/terrorweb/queen/Initialize(mapload)
 	. = ..()

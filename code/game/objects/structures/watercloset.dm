@@ -1,18 +1,30 @@
 //todo: toothbrushes, and some sort of "toilet-filthinator" for the hos
 
+#define STASH_CHOICE "Спрятать предмет"
+#define DISCONNECT_CHOICE "Отсоеденить"
+#define CONNECT_CHOICE "Подключить"
+#define ROTATE_CHOICE "Крутить"
 
 /obj/structure/toilet
 	name = "toilet"
-	desc = "The HT-451, a torque rotation-based, waste disposal unit for small matter. This one seems remarkably clean."
+	desc = "Унитаз марки НТ-451. Предназначен для смыва мелких отходов. Выглядит необычайно чистым."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "toilet00"
-	density = FALSE
 	anchored = TRUE
 	var/open = 0			//if the lid is up
 	var/cistern = 0			//if the cistern bit is open
 	var/w_items = 0			//the combined w_class of all the items in the cistern
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
+/obj/structure/toilet/get_ru_names()
+	return list(
+		NOMINATIVE = "унитаз",
+		GENITIVE = "унитаза",
+		DATIVE = "унитазу",
+		ACCUSATIVE = "унитаз",
+		INSTRUMENTAL = "унитазом",
+		PREPOSITIONAL = "унитазе",
+	)
 
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
@@ -29,27 +41,27 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, TRUE)
 		swirlie.visible_message(
-			span_danger("[user] slams the toilet seat onto [swirlie]'s head!"),
-			span_userdanger("[user] slams the toilet seat onto [swirlie]'s head!"),
-			span_italics("You hear reverberating porcelain.")
+			span_danger("[user] бь[PLUR_ET_YUT(user)] головой [swirlie] об унитаз!"),
+			span_userdanger("[user] бь[PLUR_ET_YUT(user)] вас головой об унитаз!"),
+			span_italics("Вы слышите гулкий звон фарфора.")
 		)
 		swirlie.adjustBruteLoss(5)
 		return
 
 	if(cistern && !open)
-		if(!contents.len)
-			to_chat(user, span_notice("The cistern is empty."))
+		if(!length(contents))
+			to_chat(user, span_notice("В бачке ничего нет."))
 			return
 		else
-			var/obj/item/I = pick(contents)
+			var/obj/item/item = pick(contents)
 			add_fingerprint(user)
 			if(ishuman(user))
-				I.forceMove_turf()
-				user.put_in_hands(I, ignore_anim = FALSE)
+				item.forceMove_turf()
+				user.put_in_hands(item, ignore_anim = FALSE)
 			else
-				I.loc = get_turf(src)
-			to_chat(user, span_notice("You find [I] in the cistern."))
-			w_items -= I.w_class
+				item.loc = get_turf(src)
+			to_chat(user, span_notice("Вы находите [item.declent_ru(ACCUSATIVE)] в бачке."))
+			w_items -= item.w_class
 			return
 
 	add_fingerprint(user)
@@ -76,59 +88,106 @@
 /obj/structure/toilet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
-		return .
+		return
 	var/mob/living/victim = grabbed_thing
 	if(victim.loc != get_turf(src))
-		to_chat(grabber, span_warning("[victim] needs to be on [src]!"))
-		return .
+		to_chat(grabber, span_warning("[victim] долж[GEND_EN_NA_NO_NY(victim)] быть на [declent_ru(PREPOSITIONAL)]!"))
+		return
 	add_fingerprint(grabber)
 	if(open && !swirlie)
-		victim.visible_message(
-			span_danger("[grabber] starts to give [victim] a swirlie!"),
-			span_userdanger("[grabber] starts to give you a swirlie..."),
-		)
-		swirlie = victim
-		if(do_after(grabber, 3 SECONDS, src, NONE) && grabber.pulling == victim)
-			victim.visible_message(
-				span_danger("[grabber] gives [victim] a swirlie!"),
-				span_userdanger("[grabber] gives [victim] a swirlie!"),
-				span_italics("You hear a toilet flushing."),
-			)
-			if(!victim.internal)
-				victim.adjustOxyLoss(5)
-		swirlie = null
-	else
-		playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
-		victim.visible_message(
-			span_danger("[grabber] slams [victim.name] into [src]!"),
-			span_userdanger("[grabber] slams you into [src]!"),
-		)
-		victim.adjustBruteLoss(5)
+		do_swirlie(grabber, victim)
+		return
+	do_smash_into_toilet(grabber, victim)
 
 
-/obj/structure/toilet/attackby(obj/item/I, mob/user, params)
+/obj/structure/toilet/proc/do_swirlie(mob/living/grabber, mob/living/victim)
+	swirlie = victim
+	var/was_alive = (swirlie.stat != DEAD)
+	var/prev_angle = victim.lying_angle
+	var/oldx = victim.pixel_x
+	var/oldy = victim.pixel_y
+	var/swirlie_x = 0
+	var/swirlie_y = 24
+	var/swirlie_y_down = 8
+	// begin up victim
+	victim.set_lying_angle(180)
+	victim.visible_message(
+		span_danger("[grabber] поднима[PLUR_ET_YUT(grabber)] [victim] над унитазом!"),
+		span_userdanger("[grabber] поднима[PLUR_ET_YUT(grabber)] вас над унитазом!"),
+	)
+	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y, time = 0.8 SECONDS)
+	if(!do_after(grabber, 0.8 SECONDS, src, NONE) || grabber.pulling != victim)
+		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
+		return
+	// begin move down into toilet
+	victim.visible_message(
+		span_danger("[grabber] начина[PLUR_ET_YUT(grabber)] окунать голову [victim] в унитаз!"),
+		span_userdanger("[grabber] начина[PLUR_ET_YUT(grabber)] окунать вашу голову в унитаз..."),
+	)
+	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 1.2 SECONDS)
+	if(!do_after(grabber, 1.2 SECONDS, src, NONE) || grabber.pulling != victim)
+		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
+		return
+	// begin flushing water with victim
+	victim.visible_message(
+		span_danger("[grabber] окуна[PLUR_ET_YUT(grabber)] голову [victim] в унитаз!"),
+		span_userdanger("[grabber] окуна[PLUR_ET_YUT(grabber)] вашу голову в унитаз!"),
+		span_italics("Вы слышите звук смыва унитаза."),
+	)
+	playsound(loc, 'sound/items/toilet_flush.ogg', 80, TRUE)
+	if(!do_after(grabber, 1 SECONDS, src, NONE) || grabber.pulling != victim)
+		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
+		return
+	// success toilet swirlie
+	apply_swirlie_effect(grabber, victim)
+	if(was_alive && swirlie.stat == DEAD && swirlie.client)
+		swirlie.client.give_award(/datum/award/achievement/misc/swirlie, swirlie)
+	cancel_swirlie_act(victim, oldx, oldy, prev_angle)
+
+/obj/structure/toilet/proc/cancel_swirlie_act(mob/living/victim, oldx, oldy, prev_angle)
+	animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
+	victim.set_lying_angle(prev_angle)
+	swirlie = null
+
+/obj/structure/toilet/proc/apply_swirlie_effect(mob/living/grabber, mob/living/victim)
+	if(!victim.internal)
+		victim.adjustOxyLoss(15)
+	victim.SetEyeBlurry(5 SECONDS)
+
+/obj/structure/toilet/proc/do_smash_into_toilet(mob/living/grabber, mob/living/victim)
+	playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
+	victim.visible_message(
+		span_danger("[grabber] бь[PLUR_ET_YUT(grabber)] [victim] головой об [declent_ru(NOMINATIVE)]!"),
+		span_userdanger("[grabber] бь[PLUR_ET_YUT(grabber)] вас головой об [declent_ru(NOMINATIVE)]!"),
+	)
+	victim.adjustBruteLoss(5)
+
+
+/obj/structure/toilet/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/reagent_containers))
+	if(istype(item, /obj/item/reagent_containers))
 		add_fingerprint(user)
 		if(!open)
-			to_chat(user, span_warning("You cannot fill [I] from [src] while its closed."))
+			balloon_alert(user, "нужно открыть")
 			return ATTACK_CHAIN_PROCEED
-		var/obj/item/reagent_containers/container = I
+		var/obj/item/reagent_containers/container = item
 		if(!container.is_refillable())
-			to_chat(user, span_warning("The [container.name] is not refillable."))
+			to_chat(user, span_warning("[capitalize(container.declent_ru(NOMINATIVE))] не предназначен для повторного заполнения."))
+			balloon_alert(user, "не удалось")
 			return ATTACK_CHAIN_PROCEED
 		if(container.reagents.holder_full())
-			to_chat(user, span_warning("The [container.name] is full.."))
+			to_chat(user, span_warning("[capitalize(container.declent_ru(NOMINATIVE))] уже полный..."))
+			balloon_alert(user, "уже полный")
 			return ATTACK_CHAIN_PROCEED
 		container.reagents.add_reagent("toiletwater", min(container.volume - container.reagents.total_volume, container.amount_per_transfer_from_this))
-		to_chat(user, span_notice("You fill [container] from [src]. Gross."))
+		to_chat(user, span_notice("Вы заполняете [container.declent_ru(NOMINATIVE)] из [declent_ru(GENITIVE)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(cistern)
 		add_fingerprint(user)
-		stash_goods(I, user)
+		stash_goods(item, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -138,67 +197,80 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, span_notice("You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]..."))
+	to_chat(user, span_notice("Вы начинаете [cistern ? "ставить крышку на бачок" : "снимать крышку с бачка"]..."))
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, TRUE)
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", span_notice("You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!"), span_italics("You hear grinding porcelain."))
+		user.visible_message(
+			span_notice("[user] [cistern ? "поставил[GEND_A_O_I(user)] крышку на место" : "снял[PLUR_I(user)] крышку с бачка"]!"),
+			span_notice("Вы [cistern ? "поставили крышку на место" : "сняли крышку с бачка"]!"),
+			span_italics("Вы слышите скрип фарфора."))
 		cistern = !cistern
 		update_icon()
 
 
-/obj/structure/toilet/wrench_act(mob/user, obj/item/I)
+/obj/structure/toilet/wrench_act(mob/user, obj/item/item)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!item.tool_use_check(user, 0))
 		return
 	var/choices = list()
 	if(cistern)
-		choices += "Stash"
+		choices += STASH_CHOICE
 	if(anchored)
-		choices += "Disconnect"
+		choices += DISCONNECT_CHOICE
 	else
-		choices += "Connect"
-		choices += "Rotate"
+		choices += CONNECT_CHOICE
+		choices += ROTATE_CHOICE
 
-	var/response = tgui_input_list(user, "What do you want to do?", "[src]", choices)
+	var/response = tgui_input_list(user, "Что вы хотите сделать?", "[declent_ru(NOMINATIVE)]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)
-		if("Stash")
-			stash_goods(I, user)
-		if("Disconnect")
-			user.visible_message(span_notice("[user] starts disconnecting [src]."), span_notice("You begin disconnecting [src]..."))
-			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(STASH_CHOICE)
+			stash_goods(item, user)
+		if(DISCONNECT_CHOICE)
+			user.visible_message(
+				span_notice("[user] начина[PLUR_ET_YUT(user)] отсоединять [declent_ru(NOMINATIVE)]."),
+				span_notice("Вы начинаете отсоединять [declent_ru(NOMINATIVE)]..."))
+			if(item.use_tool(src, user, 40, volume = item.tool_volume))
 				if(!loc || !anchored)
 					return
-				user.visible_message(span_notice("[user] disconnects [src]!"), span_notice("You disconnect [src]!"))
+				user.visible_message(
+					span_notice("[user] отсоединя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)]!"),
+					span_notice("Вы отсоединили [declent_ru(NOMINATIVE)]!"))
+				balloon_alert(user, "отсоединено")
 				set_anchored(FALSE)
-		if("Connect")
-			user.visible_message(span_notice("[user] starts connecting [src]."), span_notice("You begin connecting [src]..."))
-			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(CONNECT_CHOICE)
+			user.visible_message(
+				span_notice("[user] начина[PLUR_ET_YUT(user)] подключать [declent_ru(NOMINATIVE)]."),
+				span_notice("Вы начинаете подключать [declent_ru(NOMINATIVE)]..."))
+			if(item.use_tool(src, user, 40, volume = item.tool_volume))
 				if(!loc || anchored)
 					return
-				user.visible_message(span_notice("[user] connects [src]!"), span_notice("You connect [src]!"))
+				user.visible_message(
+					span_notice("[user] подключил[PLUR_I(user)] [declent_ru(NOMINATIVE)]!"),
+					span_notice("Вы подключили [declent_ru(NOMINATIVE)]!"))
+				balloon_alert(user, "соединено")
 				set_anchored(TRUE)
-		if("Rotate")
-			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
-			var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", dir_choices)
+		if(ROTATE_CHOICE)
+			var/list/dir_choices = list("Север" = NORTH, "Восток" = EAST, "Юг" = SOUTH, "Запад" = WEST)
+			var/selected = tgui_input_list(user, "Выберите направление соединения.", "Направление соединения", dir_choices)
 			dir = dir_choices[selected]
 	update_icon()
 
-/obj/structure/toilet/proc/stash_goods(obj/item/I, mob/user)
-	if(!I)
+/obj/structure/toilet/proc/stash_goods(obj/item/item, mob/user)
+	if(!item)
 		return
-	if(I.w_class > WEIGHT_CLASS_NORMAL) // if item size > 3
-		to_chat(user, span_warning("[I] does not fit!"))
+	if(item.w_class > WEIGHT_CLASS_NORMAL) // if item size > 3
+		balloon_alert(user, "не помещается")
 		return
-	if(w_items + I.w_class > WEIGHT_CLASS_HUGE) // if item size > 5
-		to_chat(user, span_warning("The cistern is full!"))
+	if(w_items + item.w_class > WEIGHT_CLASS_HUGE) // if item size > 5
+		balloon_alert(user, "бачок уже полон")
 		return
-	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[I] is stuck to your hand, you cannot put it in the cistern!"))
+	if(!user.drop_transfer_item_to_loc(item, src))
+		balloon_alert(user, "не удалось")
 		return
-	w_items += I.w_class
-	to_chat(user, span_notice("You carefully place [I] into the cistern."))
+	w_items += item.w_class
+	to_chat(user, span_notice("Вы осторожно поместили [item.declent_ru(ACCUSATIVE)] внутрь бачка."))
 
 /obj/structure/toilet/secret
 	var/secret_type = null
@@ -254,9 +326,7 @@
 	desc = "The HU-452, an experimental urinal."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "urinal"
-	density = FALSE
 	anchored = TRUE
-
 
 /obj/structure/urinal/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -308,7 +378,6 @@
 	desc = "The HS-451. Installed in the 2550s by the Nanotrasen Hygiene Division."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "shower"
-	density = FALSE
 	anchored = TRUE
 	use_power = NO_POWER_USE
 	///Is the shower on or off?
@@ -352,7 +421,6 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mist"
 	layer = FLY_LAYER
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 
@@ -485,6 +553,7 @@
 		to_chat(l_target, span_warning("Вы насквозь промокли!"))
 
 	target.clean_blood()
+	SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, 10)
 
 
 /obj/machinery/shower/process()
@@ -537,7 +606,6 @@
 /obj/item/bikehorn/rubberducky/captain
 	name = "уточка-капитан"
 	desc = "Капитан всех уточек на этой станции. Крайне важная и престижная уточка. Выпущены в ограниченных экземплярах и только для капитанов. Ценная находка для коллекционеров."
-	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "captain_rubberducky"
 	item_state = "captain_rubberducky"
 
@@ -547,7 +615,7 @@
 	icon_state = "sink"
 	desc = "A sink used for washing one's hands and face."
 	anchored = TRUE
-	var/busy = 0 	//Something's being washed at the moment
+	var/busy = 0	//Something's being washed at the moment
 	var/can_move = 1	//if the sink can be disconnected and moved
 	var/can_rotate = 1	//if the sink can be rotated to face alternate directions
 
@@ -576,7 +644,7 @@
 	var/washing_face = FALSE
 	if(user.zone_selected in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH))
 		washing_face = TRUE
-	user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] мыть [washing_face ? "своё лицо" : "свои руки"]..."), \
+	user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] мыть [washing_face ? "своё лицо" : "свои руки"]..."), \
 						span_notice("Вы начинаете мыть [washing_face ? "своё лицо" : "свои руки"]..."))
 	busy = 1
 
@@ -588,7 +656,7 @@
 
 	busy = 0
 
-	user.visible_message(span_notice("[user] помыл[genderize_ru(user.gender, "", "а", "о", "и")] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."), \
+	user.visible_message(span_notice("[user] помыл[GEND_A_O_I(user)] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."), \
 						span_notice("Вы помыли [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."))
 
 	if(SEND_SIGNAL(user, COMSIG_SINK_ACT) & COMSIG_SINK_ACT_SUCCESS) // special sink acts
@@ -705,7 +773,13 @@
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
 	desc = "Неглубокий водоём с мутноватой водой. Идеален для мытья рук, полива грядок и философских размышлений о том, кто в нём купался до вас."
-	ru_names = list(
+	icon_state = "puddle"
+	can_move = 0
+	can_rotate = 0
+	resistance_flags = UNACIDABLE
+
+/obj/structure/sink/puddle/get_ru_names()
+	return list(
 		NOMINATIVE = "пруд",
 		GENITIVE = "пруда",
 		DATIVE = "пруду",
@@ -713,10 +787,6 @@
 		INSTRUMENTAL = "прудом",
 		PREPOSITIONAL = "пруде"
 	)
-	icon_state = "puddle"
-	can_move = 0
-	can_rotate = 0
-	resistance_flags = UNACIDABLE
 
 /obj/structure/sink/puddle/Initialize(mapload)
 	. = ..()
@@ -738,7 +808,7 @@
 
 	if(istype(I, /obj/item/shovel))
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] закапывать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] начина[PLUR_ET_YUT(user)] закапывать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
 			span_notice("Вы начинаете закапывать [declent_ru(ACCUSATIVE)]..."),
 		)
 		I.play_tool_sound(src, 100)
@@ -747,7 +817,7 @@
 			return ATTACK_CHAIN_PROCEED
 		I.play_tool_sound(src, 100)
 		user.visible_message(
-			span_notice("[user] закопал[genderize_ru(user.gender,"","а","о","и")] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] закопал[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
 			span_notice("Вы закопали [declent_ru(ACCUSATIVE)]."),
 		)
 		qdel(src)
@@ -843,3 +913,8 @@
 		qdel(src)
 		if(prob(50))
 			new /obj/item/stack/sheet/cardboard(T)
+
+#undef STASH_CHOICE
+#undef DISCONNECT_CHOICE
+#undef CONNECT_CHOICE
+#undef ROTATE_CHOICE

@@ -30,14 +30,13 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = DENY_UI_BLOCKED
 	slot_flags = ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_BELT
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
 
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
-	light_power = 1
 
 	//Main variables
 	var/owner = null
@@ -95,7 +94,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	var/obj/item/pda/chameleon_skin
 	/// Custom job name used in chameleon PDA.
 	var/fakejob
-	/// Custom PDA name used in update_name()
+	/// Custom PDA name used in update_appearance(UPDATE_NAME)
 	var/custom_name
 	/// Current PDA case
 	var/obj/item/pda_case/current_case
@@ -276,7 +275,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(issilicon(usr))
 		return
 
-	if( can_use(usr) )
+	if(can_use(usr))
 		if(id)
 			remove_id(usr)
 		else
@@ -542,12 +541,12 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
+		M.show_message(span_danger("Your [src] explodes!"), 1)
 
 	if(T)
 		T.hotspot_expose(700,125)
 
-		explosion(T, -1, -1, 2, 3, cause = src)
+		explosion(T, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, cause = src)
 	qdel(src)
 	return
 
@@ -566,8 +565,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	else
 		sound = 'sound/machines/twobeep_high.ogg'
 	playsound(loc, sound, 50, TRUE)
-	for(var/mob/O in hearers(3, loc))
-		O.show_message(text("[bicon(src)] *[ttone]*"))
+	audible_message("[icon2html(src, hearers(3, loc))] *[ttone]*", hearing_distance = 3)
 
 /obj/item/pda/proc/set_ringtone(mob/user)
 	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
@@ -589,5 +587,5 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 /obj/item/pda/extinguish_light(force = FALSE)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
-	if(FL && FL.fon)
+	if(FL?.fon)
 		FL.start()

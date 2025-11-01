@@ -4,7 +4,7 @@
 /// An element for atoms that, when dragged and dropped onto a mob, opens a strip panel.
 /datum/element/strippable
 	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH_ON_HOST_DESTROY
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 
 	/// An assoc list of keys to /datum/strippable_item
 	var/list/items
@@ -71,7 +71,7 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
-	if(HAS_TRAIT(equipping, TRAIT_NODROP) )
+	if(HAS_TRAIT(equipping, TRAIT_NODROP))
 		to_chat(user, span_warning("Вы не можете надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)] – предмет прилип к вашей руке!"))
 		return FALSE
 
@@ -84,8 +84,8 @@
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
 	source.visible_message(
-		span_notice("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)]."),
-		span_notice("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся надеть на вас [equipping.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] пыта[PLUR_ET_YUT(user)]ся надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] пыта[PLUR_ET_YUT(user)]ся надеть на вас [equipping.declent_ru(ACCUSATIVE)]."),
 	)
 	if(ishuman(source))
 		var/mob/living/carbon/human/victim_human = source
@@ -95,7 +95,7 @@
 	if(!do_after(user, equipping.put_on_delay, source))
 		return FALSE
 
-	if(QDELETED(equipping) || !user.Adjacent(source) || HAS_TRAIT(equipping, TRAIT_NODROP) )
+	if(QDELETED(equipping) || !user.Adjacent(source) || HAS_TRAIT(equipping, TRAIT_NODROP))
 		return FALSE
 
 	return TRUE
@@ -132,8 +132,8 @@
 
 	if(!in_thief_mode(user))
 		source.visible_message(
-			span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся снять [item.declent_ru(ACCUSATIVE)] с [source.declent_ru(GENITIVE)]."),
-			span_userdanger("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся снять с вас [item.declent_ru(ACCUSATIVE)]!"),
+			span_warning("[user] пыта[PLUR_ET_YUT(user)]ся снять [item.declent_ru(ACCUSATIVE)] с [source.declent_ru(GENITIVE)]."),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся снять с вас [item.declent_ru(ACCUSATIVE)]!"),
 			"Слышно шуршание."
 		)
 

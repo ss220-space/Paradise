@@ -22,8 +22,8 @@ SUBSYSTEM_DEF(fires)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 
-	while(currentrun.len)
-		var/obj/O = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/O = currentrun[length(currentrun)]
 		currentrun.len--
 		if(!O || QDELETED(O))
 			processing -= O
@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(fires)
 
 		if(O.resistance_flags & ON_FIRE) //in case an object is extinguished while still in currentrun
 			if(!(O.resistance_flags & FIRE_PROOF))
-				O.take_damage(20, BURN, "fire", 0)
+				O.take_damage(20, BURN, FIRE, 0)
 			else
 				O.extinguish()
 

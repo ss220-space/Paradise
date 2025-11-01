@@ -15,12 +15,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	icon_screen = "id"
 	req_access = list(ACCESS_CHANGE_IDS)
 	circuit = /obj/item/circuitboard/card
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_BLUE
 	var/obj/item/card/id/scan = null
 	var/obj/item/card/id/modify = null
 	var/mode = IDCOMPUTER_SCREEN_TRANSFER
 	var/target_dept = 0 //Which department this computer has access to. 0=all departments
-	var/obj/item/radio/Radio
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -34,7 +33,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/ntspecops,
 		/datum/job/ntspecops/solgovspecops,
 		/datum/job/civilian,
+		/datum/job/civilian/prisoner,
 		/datum/job/syndicateofficer,
+		/datum/job/civilian/team3,
+		/datum/job/civilian/team2,
+		/datum/job/civilian/team1,
 		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
 	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
@@ -57,6 +60,18 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/chaplain,
 		/datum/job/officer,
 	)
+
+	var/static/list/law_levels  = list(
+		"Минимальные" = LAW_LEVEL_BASE,
+		"Офицер СБ" = LAW_LEVEL_SEC,
+		"Варден" = LAW_LEVEL_WARDEN,
+		"ГСБ" = LAW_LEVEL_HOS,
+		"Капитан" = LAW_LEVEL_CAPTAIN,
+		"Магистрат" = LAW_LEVEL_MAGISTRATE,
+		"ОБР" = LAW_LEVEL_RESPONSE_TEAM,
+		"Офицер ЦК" = LAW_LEVEL_CENTCOMM,
+	)
+	var/max_law_level = LAW_LEVEL_MAGISTRATE
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
 
@@ -64,22 +79,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	//Assoc array: "JobName" = (int)<Opened Positions>
 	var/list/opened_positions = list()
 
-
-/obj/machinery/computer/card/Initialize()
-	. = ..()
-	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
-	Radio.config(list(COMM_FREQ_NAME = 0))
-	Radio.follow_target = src
-
-/obj/machinery/computer/card/Destroy()
-	QDEL_NULL(Radio)
-	return ..()
-
 /obj/machinery/computer/card/proc/is_centcom()
 	return FALSE
 
-/obj/machinery/computer/card/proc/is_authenticated(var/mob/user)
+/obj/machinery/computer/card/proc/is_authenticated(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
 	if(scan)
@@ -189,7 +192,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(!job_in_department(job, FALSE))
 			return FALSE
-		if((job.total_positions > GLOB.player_list.len * (max_relative_positions / 100)))
+		if((job.total_positions > length(GLOB.player_list) * (max_relative_positions / 100)))
 			return FALSE
 		if(opened_positions[job.title] < 0)
 			return TRUE
@@ -226,7 +229,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(job in SSjobs.prioritized_jobs)
 			return TRUE // because this also lets us un-prioritize the job
-		if(SSjobs.prioritized_jobs.len >= 3)
+		if(length(SSjobs.prioritized_jobs) >= 3)
 			return FALSE
 		if(job.total_positions <= job.current_positions)
 			return FALSE
@@ -234,7 +237,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return FALSE
 
 /obj/machinery/computer/card/proc/has_idchange_access()
-	return scan && scan.access && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
+	return scan?.access && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
 
 /obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = TRUE)
 	if(!scan || !scan.access)
@@ -297,7 +300,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 	return FALSE
 
-/obj/machinery/computer/card/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/card/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/computer/card/attack_hand(mob/user as mob)
@@ -314,14 +317,29 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		ui = new(user, src, "CardComputer", name)
 		ui.open()
 
+/obj/machinery/computer/card/ui_static_data(mob/user)
+	var/list/data = list()
+	data["law_levels"] = law_levels
+	data["possible_law_levels"] = list()
+	data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
+	var/possible_laws = data["possible_law_levels"]
+
+	for(var/level in law_levels)
+		var/current_level = law_levels[level]
+		if(current_level > max_law_level)
+			continue
+		possible_laws += level
+
+	return data
+
 /obj/machinery/computer/card/ui_data(mob/user)
 	var/list/data = list()
 	data["mode"] = mode
 	data["modify_name"] = modify ? modify.name : FALSE
-	data["modify_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
+	data["modify_owner"] = modify?.registered_name ? modify.registered_name : "-----"
 	data["modify_rank"] = modify?.rank ? modify.rank : FALSE
 	data["modify_assignment"] = modify?.assignment ? modify.assignment : "Unassigned"
-	data["modify_lastlog"] = modify && modify.lastlog ? modify.lastlog : FALSE
+	data["modify_lastlog"] = modify?.lastlog ? modify.lastlog : FALSE
 	data["scan_name"] = scan ? scan.name : FALSE
 	data["scan_rank"] = scan ? scan.rank : FALSE
 
@@ -330,6 +348,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	data["target_dept"] = target_dept
 	data["iscentcom"] = is_centcom()
 	data["isadmin"] = user.can_admin_interact()
+
+	data["law_level"] = modify ? modify.law_level : LAW_LEVEL_BASE
 
 	switch(mode)
 		if(IDCOMPUTER_SCREEN_TRANSFER) // JOB TRANSFER
@@ -373,7 +393,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(IDCOMPUTER_SCREEN_ACCESS) // ACCESS CHANGES
 			if(modify)
 				data["selectedAccess"] = modify.access
-				data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
 		if(IDCOMPUTER_SCREEN_RECORDS) // RECORDS
 			if(is_authenticated(user))
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
@@ -385,7 +404,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
 	if(modify)
-		modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
+		modify.name = "[modify.registered_name]’s ID Card ([modify.assignment])"
 
 /obj/machinery/computer/card/ui_act(action, params)
 	if(..())
@@ -480,6 +499,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
 			else
 				var/list/access = list()
+				var/law_level = modify.law_level
 				if(is_centcom() && islist(get_centcom_access(t1)))
 					access = get_centcom_access(t1)
 				else
@@ -503,6 +523,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							return
 
 					access = jobdatum.get_access()
+					law_level = jobdatum.law_level
 
 				var/jobnamedata = modify.getRankAndAssignment()
 				add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", usr)
@@ -528,6 +549,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				modify.access = access
 				modify.rank = t1
 				modify.assignment = assignment
+				modify.law_level = law_level
 				SSjobs.account_job_transfer(modify.registered_name, t1)
 
 			regenerate_id_name()
@@ -644,7 +666,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if(R.fields["id"] == E.fields["id"])
 							if(status_valid_for_demotion(R.fields["criminal"]))
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
-								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, COMM_FREQ_NAME)
+								radio_announce("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, COMM_FREQ, src)
 								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: \"[reason]\"")
 								add_game_logs("([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", usr)
 								investigate_log("[key_name_log(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", INVESTIGATE_RECORDS)
@@ -716,6 +738,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("grant_all")
 			modify.access |= get_all_accesses()
 			return
+		if("set_law_level")
+			var/level = params["level"]
+			modify.law_level = level
+			return
 
 		// JOB SLOT MANAGEMENT functions
 
@@ -764,6 +790,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	change_position_cooldown = -1
 	blacklisted_full = list()
 	blacklisted_partial = list()
+	max_law_level = LAW_LEVEL_CENTCOMM
 
 /obj/machinery/computer/card/centcom/is_centcom()
 	return TRUE
@@ -779,7 +806,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "security management console"
 	target_dept = TARGET_DEPT_SEC
 	icon_screen = "idhos"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 	req_access = list(ACCESS_HOS)
 	circuit = /obj/item/circuitboard/card/minor/hos
 
@@ -787,7 +814,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "supply management console"
 	target_dept = TARGET_DEPT_SUP
 	icon_screen = "idqm"
-	light_color = COLOR_BROWN_ORANGE
+	light_color = COLOR_DARK_MODERATE_ORANGE
 	req_access = list(ACCESS_QM)
 	circuit = /obj/item/circuitboard/card/minor/qm
 

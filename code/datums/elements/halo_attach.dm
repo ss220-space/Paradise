@@ -1,7 +1,7 @@
 /// bespoke halo attach element (for cult and his grace)
 /datum/element/halo_attach
 	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH_ON_HOST_DESTROY
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	var/mutable_appearance/halo_overlay
 	// check for valid halo owner
 	var/datum/callback/proc_callback
@@ -21,8 +21,8 @@
 
 /datum/element/halo_attach/Detach(mob/living/carbon/target)
 	. = ..()
-
-	target.remove_overlay(HALO_LAYER)
+	if(iscarbon(target))
+		target.remove_overlay(HALO_LAYER)
 	UnregisterSignal(target, COMSIG_MOB_HALO_GAINED)
 
 

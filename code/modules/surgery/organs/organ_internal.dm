@@ -2,7 +2,6 @@
 	origin_tech = "biotech=3"
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	/// Unique slot this organ occupies. See [combat.dm] for defines. DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/slot = NONE
 	/// Whether it shows up as an option to remove during surgery.
@@ -21,12 +20,12 @@
 	. = ..()
 
 	if(iscarbon(loc))
-		insert(loc)
+		insert(loc, ORGAN_MANIPULATION_INITIALIZE)
 
 
 // user = who operates on target. Optional for fail_message, can be null(silent check)
 // target = the carbon we're testing for suitability
-// fail_message = message that user will recieve if the checks failed. FALSE make it quiet even with "user"
+// fail_message = message that user will receive if the checks failed. FALSE make it quiet even with "user"
 /obj/item/organ/internal/proc/can_insert(mob/living/user, mob/living/carbon/target, fail_message = "Данное существо не способно принять этот орган!")
 	if(!LAZYLEN(species_restrictions))
 		return TRUE
@@ -136,13 +135,13 @@
 
 	switch(severity)
 		if(1)
-			internal_receive_damage(20, silent = TRUE)
+			internal_receive_damage(20 * owner.emp_damage_multiplier_internal, silent = TRUE)
 		if(2)
-			internal_receive_damage(7, silent = TRUE)
+			internal_receive_damage(7 * owner.emp_damage_multiplier_internal, silent = TRUE)
 
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
-    insert(target)
+	insert(target)
 
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user, datum/action/action)
@@ -159,7 +158,7 @@
 
 //abstract proc called by carbon/death()
 /obj/item/organ/internal/proc/on_owner_death()
- 	return
+	return
 
 
 /obj/item/organ/internal/proc/prepare_eat()
@@ -189,41 +188,6 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-
-/obj/item/reagent_containers/food/snacks/organ
-	name = "appendix"
-	desc = "Придаток слепой кишки. Является рудиментарным органом, поэтому не несёт полезной функции для организма."
-	ru_names = list(
-		NOMINATIVE = "аппендикс",
-		GENITIVE = "аппендикса",
-		DATIVE = "аппендиксу",
-		ACCUSATIVE = "аппендикс",
-		INSTRUMENTAL = "аппендиксом",
-		PREPOSITIONAL = "аппендиксе"
-	)
-	icon_state = "appendix"
-	icon = 'icons/obj/surgery.dmi'
-	list_reagents = list("nutriment" = 5)
-
-/obj/item/reagent_containers/food/snacks/organ/update_icon_state()
-	return
-
-/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(target != user || !ishuman(target) || !user.can_unEquip(src))
-		return ..()
-
-	var/obj/item/reagent_containers/food/snacks/snack = prepare_eat()
-
-	if(!snack)
-		return ATTACK_CHAIN_PROCEED
-
-	user.temporarily_remove_item_from_inventory(src)
-	target.put_in_active_hand(snack, silent = TRUE)
-	snack.attack(target, target, params)
-	qdel(src)
-	return ATTACK_CHAIN_BLOCKED_ALL
-
-
 /****************************************************
 				INTERNAL ORGANS DEFINES
 ****************************************************/
@@ -252,7 +216,13 @@
 /obj/item/organ/internal/appendix
 	name = "appendix"
 	desc = "Придаток слепой кишки. Является рудиментарным органом, поэтому не несёт полезной функции для организма."
-	ru_names = list(
+	icon_state = "appendix"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	slot = INTERNAL_ORGAN_APPENDIX
+	var/inflamed = FALSE
+
+/obj/item/organ/internal/appendix/get_ru_names()
+	return list(
 		NOMINATIVE = "аппендикс",
 		GENITIVE = "аппендикса",
 		DATIVE = "аппендиксу",
@@ -260,11 +230,6 @@
 		INSTRUMENTAL = "аппендиксом",
 		PREPOSITIONAL = "аппендиксе"
 	)
-	icon_state = "appendix"
-	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
-	slot = INTERNAL_ORGAN_APPENDIX
-	var/inflamed = FALSE
-
 
 /obj/item/organ/internal/appendix/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	for(var/datum/disease/appendicitis/A in M.diseases)
@@ -296,14 +261,6 @@
 /obj/item/organ/internal/shadowtumor
 	name = "black tumor"
 	desc = "Небольшой чёрный сгусток с тянущимися щупальцами красного цвета. При воздействии на него света он сморщивается и сворачивается."
-	ru_names = list(
-		NOMINATIVE = "чёрная опухоль",
-		GENITIVE = "чёрной опухоли",
-		DATIVE = "чёрной опухоли",
-		ACCUSATIVE = "чёрную опухоль",
-		INSTRUMENTAL = "чёрной опухолью",
-		PREPOSITIONAL = "чёрной опухоли"
-	)
 	gender = FEMALE
 	icon_state = "blacktumor"
 	origin_tech = "biotech=5"
@@ -312,6 +269,15 @@
 	slot = INTERNAL_ORGAN_BRAIN_TUMOR
 	max_integrity = 3
 
+/obj/item/organ/internal/shadowtumor/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрная опухоль",
+		GENITIVE = "чёрной опухоли",
+		DATIVE = "чёрной опухоли",
+		ACCUSATIVE = "чёрную опухоль",
+		INSTRUMENTAL = "чёрной опухолью",
+		PREPOSITIONAL = "чёрной опухоли"
+	)
 
 /obj/item/organ/internal/shadowtumor/New()
 	..()
@@ -343,14 +309,6 @@
 /obj/item/organ/internal/honktumor
 	name = "banana tumor"
 	desc = "Небольшой жёлтый сгусток, по форме напоминающий... банан?"
-	ru_names = list(
-		NOMINATIVE = "банановая опухоль",
-		GENITIVE = "банановой опухоли",
-		DATIVE = "банановой опухоли",
-		ACCUSATIVE = "банановую опухоль",
-		INSTRUMENTAL = "банановой опухолью",
-		PREPOSITIONAL = "банановой опухоли"
-	)
 	gender = FEMALE
 	icon_state = "honktumor"
 	origin_tech = "biotech=1"
@@ -361,6 +319,15 @@
 	var/suffering_delay = 900
 	var/datum/component/squeak
 
+/obj/item/organ/internal/honktumor/get_ru_names()
+	return list(
+		NOMINATIVE = "банановая опухоль",
+		GENITIVE = "банановой опухоли",
+		DATIVE = "банановой опухоли",
+		ACCUSATIVE = "банановую опухоль",
+		INSTRUMENTAL = "банановой опухолью",
+		PREPOSITIONAL = "банановой опухоли"
+	)
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
@@ -400,10 +367,10 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_ground(H.shoes))
-					SSmove_manager.move_away(thingy, H, 15, 2)
+					GLOB.move_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							SSmove_manager.stop_looping(thingy)
+							GLOB.move_manager.stop_looping(thingy)
 
 
 /obj/item/organ/internal/honktumor/cursed
@@ -421,14 +388,6 @@
 /obj/item/organ/internal/honkbladder
 	name = "honk bladder"
 	desc = "Наполненный воздухом мешок, который издаёт звуки, напоминающие велосипедный гудок."
-	ru_names = list(
-		NOMINATIVE = "гудящий пузырь",
-		GENITIVE = "гудящего пузыря",
-		DATIVE = "гудящему пузырю",
-		ACCUSATIVE = "гудящий пузырь",
-		INSTRUMENTAL = "гудящим пузырём",
-		PREPOSITIONAL = "гудящем пузыре"
-	)
 	icon_state = "honktumor"//Not making a new icon
 	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY
@@ -436,6 +395,15 @@
 	slot = INTERNAL_ORGAN_HONK_BLADDER
 	var/datum/component/squeak
 
+/obj/item/organ/internal/honkbladder/get_ru_names()
+	return list(
+		NOMINATIVE = "гудящий пузырь",
+		GENITIVE = "гудящего пузыря",
+		DATIVE = "гудящему пузырю",
+		ACCUSATIVE = "гудящий пузырь",
+		INSTRUMENTAL = "гудящим пузырём",
+		PREPOSITIONAL = "гудящем пузыре"
+	)
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20)
@@ -451,7 +419,14 @@
 /obj/item/organ/internal/beard
 	name = "beard organ"
 	desc = "Пусть те, кто достоин, носят бороду Торбьёрнсдоттир."
-	ru_names = list(
+	icon_state = "liver"
+	origin_tech = "biotech=1"
+	w_class = WEIGHT_CLASS_TINY
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_HAIR
+
+/obj/item/organ/internal/beard/get_ru_names()
+	return list(
 		NOMINATIVE = "бородатый орган",
 		GENITIVE = "бородатого органа",
 		DATIVE = "бородатому органу",
@@ -459,12 +434,6 @@
 		INSTRUMENTAL = "бородатым органом",
 		PREPOSITIONAL = "бородатом органе"
 	)
-	icon_state = "liver"
-	origin_tech = "biotech=1"
-	w_class = WEIGHT_CLASS_TINY
-	parent_organ_zone = BODY_ZONE_HEAD
-	slot = INTERNAL_ORGAN_HAIR
-
 
 /obj/item/organ/internal/beard/on_life()
 

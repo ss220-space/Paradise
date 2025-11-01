@@ -14,7 +14,7 @@
 	/// If `FALSE` ninja will get random name.
 	var/allow_rename = TRUE
 	/// Warning message when ninja tries to use ranged weapon.
-	var/no_guns_message = "Технологии моего клана - гордость и счастье нашего будущего! Я не буду пользоваться этим мусором!"
+	var/no_guns_message = "Технологии моего клана — гордость и счастье нашего будущего! Я не буду пользоваться этим мусором!"
 	/// If `FALSE` additional minor antags will not be generated. Traitors, changelings and vampires currently.
 	var/generate_antags = TRUE
 	/// To check if we already generate minor antags.
@@ -244,7 +244,7 @@
 		creeping_widow = owner.martial_art
 		hud.ninja_focus_display = new /atom/movable/screen()
 		hud.ninja_focus_display.name = "Концентрация"
-		hud.ninja_focus_display.screen_loc = "EAST:-6,CENTER-2:15"
+		hud.ninja_focus_display.screen_loc = "EAST:-6,CENTER-4:0"
 		hud.infodisplay += hud.ninja_focus_display
 		hud.show_hud(hud.hud_version)
 		hud.hidden_inventory_update()

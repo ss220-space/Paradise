@@ -275,16 +275,6 @@
 /obj/structure/closet/sechammercabinet
 	name = "tactical sledgehammer cabinet"
 	desc = "Стойка, предназначенная для хранения тактической кувалды. Надпись гласит: \"Для особых случаев\"."
-	ru_names = list(
-		NOMINATIVE = "стойка для тактической кувалды",
-		GENITIVE = "стойки для тактической кувалды",
-		DATIVE = "стойке для тактической кувалды",
-		ACCUSATIVE = "стойку для тактической кувалды",
-		INSTRUMENTAL = "стойкой для тактической кувалды",
-		PREPOSITIONAL = "стойке для тактической кувалды"
-	)
-	gender = MALE
-	icon = 'icons/obj/closet.dmi'
 	icon_state = "sechammer_full"
 	anchored = TRUE
 	density = FALSE
@@ -292,6 +282,16 @@
 	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 90, ACID = 50)
 	var/obj/item/twohanded/sechammer/sledgehammer
 	opened = TRUE
+
+/obj/structure/closet/sechammercabinet/get_ru_names()
+	return list(
+		NOMINATIVE = "стойка для тактической кувалды",
+		GENITIVE = "стойки для тактической кувалды",
+		DATIVE = "стойке для тактической кувалды",
+		ACCUSATIVE = "стойку для тактической кувалды",
+		INSTRUMENTAL = "стойкой для тактической кувалды",
+		PREPOSITIONAL = "стойке для тактической кувалды"
+	)
 
 
 /obj/structure/closet/sechammercabinet/Destroy()
@@ -306,7 +306,7 @@
 
 /obj/structure/closet/sechammercabinet/populate_contents()
 	sledgehammer = new(src)
-	update_icon_state()	// So its initial icon doesn't show it without the fireaxe
+	update_icon(UPDATE_ICON_STATE)	// So its initial icon doesn't show it without the fireaxe
 
 
 /obj/structure/closet/sechammercabinet/attackby(obj/item/I, mob/living/user, params)
@@ -319,7 +319,7 @@
 			return ..()
 		balloon_alert(user, "кувалда закреплена")
 		sledgehammer = hammer
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -334,7 +334,7 @@
 	user.put_in_hands(sledgehammer, ignore_anim = FALSE)
 	balloon_alert(user, "кувалда извлечена")
 	sledgehammer = null
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/structure/closet/sechammercabinet/blob_act(obj/structure/blob/B)

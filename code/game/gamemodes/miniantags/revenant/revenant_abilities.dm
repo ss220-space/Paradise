@@ -6,19 +6,20 @@
 		return
 
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"])
+
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		MiddleClickOn(A)
 		return
 
-	if(modifiers["shift"])
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
 		return
 
-	if(modifiers["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		AltClickOn(A)
 		return
 
-	if(modifiers["ctrl"])
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
 
@@ -42,7 +43,7 @@
 		return
 
 	var/mob_UID = target.UID()
-	if(mob_UID in drained_mobs)
+	if(LAZYIN(drained_mobs, mob_UID))
 		to_chat(src, span_revenwarning("Душа [target] мертва и пуста."))
 		return
 
@@ -90,7 +91,7 @@
 
 				reveal(27)
 				stun(27)
-				target.visible_message(span_warning("[target] внезапно слегка поднима[pluralize_ru(target.gender,"ет","ют")]ся в воздух, [genderize_ru(target.gender,"его","её","его","их")] кожа становится пепельно-серой."))
+				target.visible_message(span_warning("[target] внезапно слегка поднима[PLUR_ET_YUT(target)]ся в воздух, [GEND_HIS_HER(target)] кожа становится пепельно-серой."))
 				target.Beam(src,icon_state="drain_life",icon='icons/effects/effects.dmi',time=26)
 
 				if(do_after(src, 3 SECONDS, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
@@ -100,8 +101,8 @@
 						perfectsouls += 1
 						to_chat(src, span_revenboldnotice("Совершенство души [target] увеличило ваш максимальный уровень эссенции. Ваш новый максимум эссенции: [essence_regen_cap]."))
 					to_chat(src, span_revennotice("Душа [target] значительно ослабла и больше не даст эссенции в ближайшее время."))
-					target.visible_message(span_warning("[target] пада[pluralize_ru(target.gender,"ет","ют")] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, приближаясь..."))
-					drained_mobs.Add(mob_UID)
+					target.visible_message(span_warning("[target] пада[PLUR_ET_YUT(target)] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, приближаясь..."))
+					LAZYADD(drained_mobs, mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
 					target.death()
 				else
@@ -109,7 +110,7 @@
 					draining = 0
 					essence_drained = 0
 					if(target) //Wait, target is WHERE NOW?
-						target.visible_message(span_warning("[target] пада[pluralize_ru(target.gender,"ет","ют")] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, отдаляясь..."))
+						target.visible_message(span_warning("[target] пада[PLUR_ET_YUT(target)] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, отдаляясь..."))
 					return
 			else
 				to_chat(src, span_revenwarning("Вы недостаточно близко, чтобы вытягивать эссенцию [target ? "души [target]":"их души"]. Связь разорвана."))
@@ -163,7 +164,6 @@
 
 
 /obj/effect/proc_holder/spell/aoe/revenant
-	name = "Spell"
 	clothes_req = FALSE
 	human_req = FALSE
 	action_background_icon_state = "bg_revenant"
@@ -270,7 +270,7 @@
 		return
 
 	L.visible_message(span_boldwarning("[capitalize(L.declent_ru(NOMINATIVE))] внезапно вспыхивает и начинает искрить!"))
-	do_sparks(4, 0, L)
+	do_sparks(4, FALSE, L)
 	new /obj/effect/temp_visual/revenant(L.loc)
 	sleep(2 SECONDS)
 	if(!L.on) //wait, wait, don't shock me
@@ -282,9 +282,9 @@
 			continue
 
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
-		M.electrocute_act(shock_damage, "настенной лампы", flags = SHOCK_NOGLOVES)
+		M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
 
-		do_sparks(4, 0, M)
+		do_sparks(4, FALSE, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
 
@@ -357,10 +357,8 @@
 	action_icon_state = "r_haunt"
 	base_cooldown = 60 SECONDS
 	unlock_amount = 150
-	cast_amount = 50
 	stun = 3 SECONDS
 	reveal = 10 SECONDS
-	aoe_range = 7
 	/// The maximum number of objects to haunt
 	var/max_targets = 7
 	/// Self explanatory

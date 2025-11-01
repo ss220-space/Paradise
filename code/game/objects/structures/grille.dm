@@ -1,7 +1,6 @@
 /obj/structure/grille
 	desc = "A flimsy framework of metal rods."
 	name = "grille"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
 	pass_flags_self = PASSGRILLE
 	density = TRUE
@@ -10,7 +9,7 @@
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	level = 3
-	armor = list("melee" = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
 	var/rods_type = /obj/item/stack/rods
@@ -27,11 +26,11 @@
 	. = ..()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
+			bound_width = width * ICON_SIZE_X
+			bound_height = ICON_SIZE_Y
 		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
+			bound_width = ICON_SIZE_X
+			bound_height = width * ICON_SIZE_Y
 
 /obj/structure/grille/fence/east_west
 	//width=80
@@ -97,7 +96,7 @@
 	. = ..()
 	for(var/atom/movable/hit_object as anything in falling_movables)
 		Bumped(hit_object)
-	take_damage(25) //second time turn into broken
+	take_damage(25 * levels) //second time turn into broken
 	. &= ~(FALL_INTERCEPTED | FALL_NO_MESSAGE | FALL_RETAIN_PULL)
 
 
@@ -112,7 +111,7 @@
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
 	if(. && !QDELETED(src) && !shock(user, 70))
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/attack_hand(mob/living/carbon/human/user)
 	. = ..()
@@ -127,12 +126,12 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
-	take_damage(rand(5,10), BRUTE, "melee", 1)
+	take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/attack_alien(mob/living/carbon/alien/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
+	user.visible_message(span_warning("[user] mangles [src]."))
 	if(!shock(user, 70))
 		take_damage(user.obj_damage, BRUTE, MELEE, 1, armour_penetration = user.armour_penetration)
 
@@ -154,6 +153,10 @@
 
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
+	var/obj/structure/window/window = locate() in loc
+	if(window?.fulltile && window.anchored)
+		return ATTACK_CHAIN_BLOCKED_ALL// don't attack grilles through windows, that's weird and causes too many problems
+
 	if(user.a_intent == INTENT_HARM)
 		// shards help prisoners to escape safely
 		// some day this will move on CONDUCT flag
@@ -210,24 +213,24 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	set_anchored(!anchored)
-	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
-							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
+	user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
+							span_notice("You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor."))
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
 	var/dir_to_set = NORTH
 	if(!istype(S) || !user)
 		return
 	if(broken)
-		to_chat(user, "<span class='warning'>You must repair or replace [src] first!</span>")
+		to_chat(user, span_warning("You must repair or replace [src] first!"))
 		return
 	if(S.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need at least one sheet of glass for that!</span>")
+		to_chat(user, span_warning("You need at least one sheet of glass for that!"))
 		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
+		to_chat(user, span_warning("[src] needs to be fastened to the floor first!"))
 		return
 	if(!getRelativeDirection(src, user) && (user.loc != loc))	//essentially a cardinal direction adjacent or sharing same loc check
-		to_chat(user, "<span class='warning'>You can't reach.</span>")
+		to_chat(user, span_warning("You can't reach."))
 		return
 	if(loc == user.loc)
 		dir_to_set = user.dir
@@ -244,15 +247,15 @@
 				dir_to_set = EAST
 	for(var/obj/structure/window/WINDOW in loc)
 		if(WINDOW.dir == dir_to_set)
-			to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
+			to_chat(user, span_notice("There is already a window facing this way there."))
 			return
-	to_chat(user, "<span class='notice'>You start placing the window...</span>")
+	to_chat(user, span_notice("You start placing the window..."))
 	if(do_after(user, 2 SECONDS, src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc)
 			if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
-				to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
+				to_chat(user, span_notice("There is already a window facing this way there."))
 				return
 		var/obj/structure/window/W = new S.created_window(get_turf(src))
 		S.use(1)
@@ -260,7 +263,7 @@
 		W.ini_dir = dir_to_set
 		W.set_anchored(FALSE)
 		W.state = WINDOW_OUT_OF_FRAME
-		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
+		to_chat(user, span_notice("You place the [W] on [src]."))
 		W.update_nearby_icons()
 
 
@@ -304,7 +307,7 @@
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
 		if(electrocute_mob(user, C, src, 1, TRUE))
-			do_sparks(3, 1, src)
+			do_sparks(3, TRUE, src)
 			return TRUE
 		else
 			return FALSE
@@ -316,17 +319,19 @@
 		if(exposed_temperature > T0C + 1500)
 			take_damage(1, BURN, 0, 0)
 
-/obj/structure/grille/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isobj(AM))
+/obj/structure/grille/hitby(atom/movable/atom_movable, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(isobj(atom_movable))
 		if(prob(50) && anchored && !broken)
-			var/obj/O = AM
-			if(O.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
-				var/turf/T = get_turf(src)
-				var/obj/structure/cable/C = T.get_cable_node()
-				if(C)
+			var/obj/obj = atom_movable
+			if(obj.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
+				var/turf/turf = get_turf(src)
+				if(turf.intact)
+					return FALSE
+				var/obj/structure/cable/cable = turf.get_cable_node()
+				if(cable)
 					playsound(src, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-					tesla_zap(src, 3, C.newavail() * 0.01) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
-					C.add_delayedload(C.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
+					tesla_zap(source = src, zap_range = 3, power = cable.newavail() * 0.01, cutoff = 1e3, zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+					cable.add_delayedload(cable.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	return ..()
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement

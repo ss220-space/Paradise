@@ -1,42 +1,3 @@
-/proc/is_level_reachable(z)
-	return check_level_trait(z, REACHABLE)
-
-/proc/is_station_level(z)
-	return check_level_trait(z, STATION_LEVEL)
-
-/proc/is_station_contact(z)
-	return check_level_trait(z, STATION_CONTACT)
-
-/proc/is_teleport_allowed(z)
-	return !check_level_trait(z, BLOCK_TELEPORT)
-
-/proc/is_admin_level(z)
-	return check_level_trait(z, ADMIN_LEVEL)
-
-/proc/is_reserved_level(z)
-	return check_level_trait(z, RESERVED_LEVEL)
-
-/proc/is_away_level(z)
-	return check_level_trait(z, AWAY_LEVEL)
-
-/proc/is_mining_level(z)
-	return check_level_trait(z, ORE_LEVEL)
-
-/proc/is_ai_allowed(z)
-	return check_level_trait(z, AI_OK)
-
-/proc/level_blocks_magic(z)
-	return check_level_trait(z, IMPEDES_MAGIC)
-
-/proc/level_boosts_signal(z)
-	return check_level_trait(z, BOOSTS_SIGNAL)
-
-/proc/is_explorable_space(z)
-	return check_level_trait(z, SPAWN_RUINS)
-
-/proc/is_taipan(z)
-	return check_level_trait(z, TAIPAN)
-
 // Used for the nuke disk, or for checking if players survived through xenos
 /proc/is_secure_level(z)
 	var/secure = check_level_trait(z, STATION_LEVEL)
@@ -74,11 +35,11 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 	return S.zpos
 
 /**
-  * Proc to get a list of all the linked-together Z-Levels
-  *
-  * Returns a list of zlevel numbers which can be accessed from travelling space naturally
-  * ignores Taipan tho
-  */
+ * Proc to get a list of all the linked-together Z-Levels
+ *
+ * Returns a list of zlevel numbers which can be accessed from travelling space naturally
+ * ignores Taipan tho
+ */
 /proc/get_all_linked_levels_zpos()
 	var/list/znums = list()
 	for(var/i in GLOB.space_manager.z_list)

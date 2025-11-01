@@ -142,7 +142,6 @@
 	id = "blooddrunk"
 	description = "A strange arrangement of stone tiles and an insane, beastly miner contemplating them."
 	suffix = "lavaland_surface_blooddrunk1.dmm"
-	cost = 0
 	allow_duplicates = FALSE //will only spawn one variant of the ruin
 
 /datum/map_template/ruin/lavaland/blood_drunk_miner/guidance
@@ -324,10 +323,4 @@
 	id = "lavalake"
 	description = "Огромное лавовое озеро, которое не подвержено стандартным изменениям Лазиса."
 	suffix = "lavaland_surface_lavalake.dmm"
-	allow_duplicates = FALSE
-
-/datum/map_template/ruin/lavaland/lavalake/check_specials()
-	if(SSmapping.lavaland_theme.lavaland_type != LAVALAND_TYPE_LAVA)
-		always_place = TRUE
-	else
-		unpickable = TRUE
+	unpickable = TRUE

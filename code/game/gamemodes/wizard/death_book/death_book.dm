@@ -1,14 +1,6 @@
 /obj/item/death_book
 	name = "Летопись вашей погибели"
 	desc = "Странная книга с мерцающими страницами. Кажется, её корешок выполнен из человеческой кожи..."
-	ru_names = list(
-		NOMINATIVE = "летопись вашей погибели",
-		GENITIVE = "летописи вашей погибели",
-		DATIVE = "летописе вашей погибели",
-		ACCUSATIVE = "летопись вашей погибели",
-		INSTRUMENTAL = "летописью вашей погибели",
-		PREPOSITIONAL = "летописе вашей погибели",
-	)
 	icon = 'icons/obj/death_book.dmi'
 	icon_state = "close_death_book"
 	lefthand_file = 'icons/mob/inhands/death_book_lefthand.dmi'
@@ -18,11 +10,23 @@
 	var/datum/dynamic_outfit/temp_outfit_storage = null
 	var/static/list/cached_outfit = list()
 
+/obj/item/death_book/get_ru_names()
+	return list(
+		NOMINATIVE = "летопись вашей погибели",
+		GENITIVE = "летописи вашей погибели",
+		DATIVE = "летописе вашей погибели",
+		ACCUSATIVE = "летопись вашей погибели",
+		INSTRUMENTAL = "летописью вашей погибели",
+		PREPOSITIONAL = "летописе вашей погибели",
+	)
+
+
 /obj/item/death_book/Initialize(mapload)
 	. = ..()
 
 	if(length(cached_outfit)) //О майн год это что какой-то там паттерн???!?
 		return
+
 	for(var/prom_outfit in subtypesof(/datum/outfit/radial_outfit/death_book))
 		var/datum/outfit/radial_outfit/death_book/prom_obj = new prom_outfit()
 		cached_outfit += prom_obj

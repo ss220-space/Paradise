@@ -108,50 +108,54 @@
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
-			var/list/s1 = list("Я [pick("ПОНИ","ЯЩЕР","ТАЯРА","КОТЁНОК","ВУЛЬП","ДРАСК","ПТИЧКА","ВОКСИК","МАШИНА","БОЕВОЙ МЕХ","РАКЕТА")] [pick("НЬЕЕЕЕЕЕЕЕЕЕ","СКРЭЭЭЭЭЭЭЭЭ","МЯУ","НЯ~","РАВР","ГАВ-ГАВ","ХИССССС","ВРУУУМ-ВРУУУУМ","ПИУ-ПИУ","ЧУ-ЧУ")]!",
-							   "Без кислорода блоб не распространяется?",
-							   "КАПИТАН - КОМДОН",
-							   "[pick("", "Этот чёртов маньяк,")] [pick("Жордж", "Джордж", "Горж", "Грудж")] [pick("Меленс", "Мэлонс", "Мвырлнс")] убивает меня ПАМА;ГИТЕ!!!",
-							   "Можишь пж дать [pick("теликенез","халга","эпелепсию")]?",
-							   "ООООО МОЯ ОБОРОНА",
-							   "Джонни, эти синдикатовцы даже в СБ!",
-							   "Блоп в турбине",
-							   "не бей пж!11!",
-							   "АХАХААХАХАХАХАХАХХАХХАХАХ!",
-							   "ПАМАГИТЕ ЩЕТКУРИТИ",
-							   "ВОКсЫ нЕ мОГут ЛюБИТь",
-							   "Мой папа владеет этой станцией",
-							   "Повар добавил [pick("ПРОТЕИН", "туолетную воду", "муравьёв", "энзимы","акулу","виТамины","РеАктивный МутАген","ТеСлиум","сКрэКтониум")] в [pick("мой суп","мою шОверму","мой рЭйнбургер","мой зеЛёный Сольент","мои СушИ","мой борш")]!",
-							   "У ОБЕЗЬЯН ТАЗЕРЫ!",
-							   "кМ потраТел мои ;поенты на [pick("бОевые дробавики","ризИновые перЧатке","кУчу херни!")]",
-							   "EI'NATH!",
-							   "ПОДЪЁМ ХРЮШКИ!",
-							   "эта [pick("был мой младшей брат!!","была мая невеста","был мой осТавшЕйся друк","был Мой деДдом","былА мая люБов","была моя жена","был мой муж","маИ малЕнькие ДеТи","МаЯ разУмнАя коШка","быЛ мой косЯк")]!!!")
+			var/list/s1 = list(
+				"Я [pick("ПОНИ","ЯЩЕР","ТАЯРА","КОТЁНОК","ВУЛЬП","ДРАСК","ПТИЧКА","ВОКСИК","МАШИНА","БОЕВОЙ МЕХ","РАКЕТА")] [pick("НЬЕЕЕЕЕЕЕЕЕЕ","СКРЭЭЭЭЭЭЭЭЭ","МЯУ","НЯ~","РАВР","ГАВ-ГАВ","ХИССССС","ВРУУУМ-ВРУУУУМ","ПИУ-ПИУ","ЧУ-ЧУ")]!",
+				"Без кислорода блоб не распространяется?",
+				"КАПИТАН — КОМДОН",
+				"[pick("", "Этот чёртов маньяк,")] [pick("Жордж", "Джордж", "Горж", "Грудж")] [pick("Меленс", "Мэлонс", "Мвырлнс")] убивает меня ПАМА;ГИТЕ!!!",
+				"Можишь пж дать [pick("теликенез","халга","эпелепсию")]?",
+				"ООООО МОЯ ОБОРОНА",
+				"Джонни, эти синдикатовцы даже в СБ!",
+				"Блоп в турбине",
+				"не бей пж!11!",
+				"АХАХААХАХАХАХАХАХХАХХАХАХ!",
+				"ПАМАГИТЕ ЩЕТКУРИТИ",
+				"ВОКсЫ нЕ мОГут ЛюБИТь",
+				"Мой папа владеет этой станцией",
+				"Повар добавил [pick("ПРОТЕИН", "туолетную воду", "муравьёв", "энзимы","акулу","виТамины","РеАктивный МутАген","ТеСлиум","сКрэКтониум")] в [pick("мой суп","мою шОверму","мой рЭйнбургер","мой зеЛёный Сольент","мои СушИ","мой борш")]!",
+				"У ОБЕЗЬЯН ТАЗЕРЫ!",
+				"кМ потраТел мои ;поенты на [pick("бОевые дробавики","ризИновые перЧатке","кУчу херни!")]",
+				"EI'NATH!",
+				"ПОДЪЁМ ХРЮШКИ!",
+				"эта [pick("был мой младшей брат!!","была мая невеста","был мой осТавшЕйся друк","был Мой деДдом","былА мая люБов","была моя жена","был мой муж","маИ малЕнькие ДеТи","МаЯ разУмнАя коШка","быЛ мой косЯк")]!!!"
+			)
 
-			var/list/s2 = list("ФУС РО ДА",
-							   "Гребаные мандарины!!!",
-							   "Праверь меня",
-							   "Моё лицо!",
-							   "СПОКОЙНО БЛЯТЬ!",
-							   "ВАААААААААГХ!!!",
-							   "Папробуй догани!",
-							   "ЗА ИМПЕРАТОРА!",
-							   "У кЛоунА лиМитка!",
-							   "это всё дварфы, чел, всё дварфы",
-							   "СПЕЙС МАРИНЫ",
-							   "Мввыы ссдееллалии этво вво имя хаосса",
-							   "Фотареалистичные тикстуры",
-							   "Любоф цвятёт",
-							   "ПАКЕТЫ!!!",
-							   "[pick("ГДЕ МОЙ","МНЕ НУЖЕН","ДАЙ МНЕ МОЙ","ОКУНИ МЕНЯ В")] [pick("ДЕРМАЛИН","АЛКИЗИН","ДИЛОВИН","ИНАПРОВАЛИН","БИКАРДИН","ГИПЕРЗИН","КЕЛОТАН","ЛЕПОРАЗИН","СОЛЬ","МАННИТОЛ","КРИОКСАДОН","СПЕЙС ЛУБ","КАППУЛЕТИУМ","ЛСД")]!",
-							   "ВоИмЯФлАфИ",
-							   "У меНя еСтЬ Лююди на Цк!!!",
-							   "П-п-помогите т-т-теха",
-							   "Ани идут, ани ИДУТ! АНИ ИДУТ!!!",
-							   "КОНЕЦ БЛИЗОК!",
-							   "Помогите [pick("маг","убийца","генокрад","культ","морф","демон","нюка","вампир!","воксы!","клоун!")] [pick("в турбине","на мостике","на ЦК","в медбее","в бриге","в инженерке","на базе синдиката","на спутнике ИИ","в моей голове","в дормах")]!",
-							   "Я ГОТОВ УМЕРЕТЬ ВО ИМЯ [pick("РИТУАЛА","СВОБОДЫ","ЗАРПЛАТЫ","ОЧКОВ","ТЕХНОЛОГИЙ","СОБАКИ","СИРОПА","ПУШИСТЫХ ДРУЗЕЙ","ЛУТА ИЗ ГЕЙТА")]",
-							   "УБИЙ ИХ, [pick("ПЕТУХ","КИРА-КЛОЙН","КЛУВНИ","МИМАНЬЯК","БОМБЯЩИЯ ТАЯРА","ОФЕЦЕР","МОРФЛЕНГ","НАС-РИ")]!")
+			var/list/s2 = list(
+				"ФУС РО ДА",
+				"Гребаные мандарины!!!",
+				"Праверь меня",
+				"Моё лицо!",
+				"СПОКОЙНО БЛЯТЬ!",
+				"ВАААААААААГХ!!!",
+				"Папробуй догани!",
+				"ЗА ИМПЕРАТОРА!",
+				"У кЛоунА лиМитка!",
+				"это всё дварфы, чел, всё дварфы",
+				"СПЕЙС МАРИНЫ",
+				"Мввыы ссдееллалии этво вво имя хаосса",
+				"Фотареалистичные тикстуры",
+				"Любоф цвятёт",
+				"ПАКЕТЫ!!!",
+				"[pick("ГДЕ МОЙ","МНЕ НУЖЕН","ДАЙ МНЕ МОЙ","ОКУНИ МЕНЯ В")] [pick("ДЕРМАЛИН","АЛКИЗИН","ДИЛОВИН","ИНАПРОВАЛИН","БИКАРДИН","ГИПЕРЗИН","КЕЛОТАН","ЛЕПОРАЗИН","СОЛЬ","МАННИТОЛ","КРИОКСАДОН","СПЕЙС ЛУБ","КАППУЛЕТИУМ","ЛСД")]!",
+				"ВоИмЯФлАфИ",
+				"У меНя еСтЬ Лююди на Цк!!!",
+				"П-п-помогите т-т-теха",
+				"Ани идут, ани ИДУТ! АНИ ИДУТ!!!",
+				"КОНЕЦ БЛИЗОК!",
+				"Помогите [pick("маг","убийца","генокрад","культ","морф","демон","нюка","вампир!","воксы!","клоун!")] [pick("в турбине","на мостике","на ЦК","в медбее","в бриге","в инженерке","на базе синдиката","на спутнике ИИ","в моей голове","в дормах")]!",
+				"Я ГОТОВ УМЕРЕТЬ ВО ИМЯ [pick("РИТУАЛА","СВОБОДЫ","ЗАРПЛАТЫ","ОЧКОВ","ТЕХНОЛОГИЙ","СОБАКИ","СИРОПА","ПУШИСТЫХ ДРУЗЕЙ","ЛУТА ИЗ ГЕЙТА")]",
+				"УБИЙ ИХ, [pick("ПЕТУХ","КИРА-КЛОЙН","КЛУВНИ","МИМАНЬЯК","БОМБЯЩИЯ ТАЯРА","ОФЕЦЕР","МОРФЛЕНГ","НАС-РИ")]!"
+			)
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
@@ -184,7 +188,7 @@
 
 	if(radiation)
 		if(isnucleation(src))
-			radiation = clamp(radiation, 0, 800) // Типа кристаллы СМ лучше вбирают радиацию и поэтому у нуклей больший запас, а так - что бы эффекты снизу вообще работали
+			radiation = clamp(radiation, 0, 800) // Типа кристаллы СМ лучше вбирают радиацию и поэтому у нуклей больший запас, а так — что бы эффекты снизу вообще работали
 			switch(radiation)
 				if(1 to 399)
 					radiation = max(radiation-1, 0) // Что бы не копилась бесконечно малое кол-во, но все ещё можно было получать эффект снизу при достаточном облучении
@@ -656,7 +660,6 @@
 
 		// nutrition decrease
 		if(nutrition >= 0 && stat != DEAD)
-			handle_nutrition_alerts()
 			// THEY HUNGER
 			var/hunger_rate = is_vamp ? HUNGER_FACTOR_VAMPIRE : HUNGER_FACTOR * dna.species.hunger_drain_mod * physiology.hunger_mod
 			if(satiety > 0)
@@ -671,7 +674,7 @@
 
 			var/list/hunger_mods = list()
 			SEND_SIGNAL(src, COMSIG_GET_HUNGER_MODS, hunger_mods)
-			for(var/mod as anything in hunger_mods)
+			for(var/mod in hunger_mods)
 				hunger_rate *= mod
 
 			adjust_nutrition(-hunger_rate)
@@ -741,14 +744,15 @@
 				return
 
 		if(health <= HEALTH_THRESHOLD_CRIT)
-			if(prob(5))
-				emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
-			SetStuttering(10 SECONDS)
-			EyeBlurry(10 SECONDS)
-			if(prob(7))
-				AdjustConfused(4 SECONDS)
-			if(prob(5))
-				Paralyse(4 SECONDS)
+			if(get_perceived_trauma(shock_reduction()) <= 0)
+				if(prob(5))
+					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
+				SetStuttering(10 SECONDS)
+				EyeBlurry(10 SECONDS)
+				if(prob(7))
+					AdjustConfused(4 SECONDS)
+				if(prob(5))
+					Paralyse(4 SECONDS)
 			switch(health)
 				if(-INFINITY to -100)
 					adjustOxyLoss(1)
@@ -787,7 +791,7 @@
 						D.Contract(src)
 					if(prob(5))
 						to_chat(src, span_userdanger("Вы чувствуете [pick("себя ужасно", "себя отвратительно", "себя, как дерьмо", "боль", "онемение", "холод", "покалывание", "себя кошмарно")]!"))
-						Weaken(6 SECONDS)
+						Knockdown(6 SECONDS)
 
 
 #define BODYPART_PAIN_REDUCTION 5
@@ -854,7 +858,7 @@
 				healthdoll.cut_overlay(cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
-		if(health <= HEALTH_THRESHOLD_CRIT)
+		if(health <= HEALTH_THRESHOLD_CRIT && get_perceived_trauma(shock_reduction) < 0)
 			throw_alert("succumb", /atom/movable/screen/alert/succumb)
 		else
 			clear_alert("succumb")
@@ -862,48 +866,19 @@
 #undef BODYPART_PAIN_REDUCTION
 
 
-/mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	var/new_hunger
-	switch(nutrition)
-		if(NUTRITION_LEVEL_FULL to INFINITY)
-			new_hunger = "fat"
-		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			new_hunger = "full"
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			new_hunger = "well_fed"
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			new_hunger = "fed"
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			new_hunger = "hungry"
-		else
-			new_hunger = "starving"
-
-	if(HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
-		new_hunger = "full"
-
-	if(dna.species.hunger_type)
-		new_hunger += "/[dna.species.hunger_type]"
-
-	if(dna.species.hunger_level != new_hunger)
-		dna.species.hunger_level = new_hunger
-		throw_alert(ALERT_NUTRITION, text2path("/atom/movable/screen/alert/hunger/[new_hunger]"), icon_override = dna.species.hunger_icon)
-		med_hud_set_status()
-
 /mob/living/carbon/human/proc/handle_embedded_objects()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		for(var/obj/item/thing in bodypart.embedded_objects)
 			if(prob(thing.embedded_pain_chance))
 				apply_damage(thing.w_class * thing.embedded_pain_multiplier, def_zone = bodypart)
-				var/get_bodypart = (GLOB.body_zone[bodypart][PREPOSITIONAL] in list("хвосте", "животе", "рте")) ? "вашем" : (GLOB.body_zone[bodypart][PREPOSITIONAL] in list("крыльях" , "глазах")) ? "ваших" : "вашей"
-				to_chat(src, span_userdanger("[capitalize(thing.declent_ru(NOMINATIVE))] в [get_bodypart] [GLOB.body_zone[bodypart][PREPOSITIONAL]] причиняет боль!"))
+				to_chat(src, span_userdanger("[capitalize(thing.declent_ru(NOMINATIVE))] в ваш[GEND_EM_EI_EM_IH(bodypart)] [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]] причиняет боль!"))
 
 			if(prob(thing.embedded_fall_chance))
 				bodypart.remove_embedded_object(thing)
 				apply_damage(thing.w_class * thing.embedded_fall_pain_multiplier, def_zone = bodypart)
-				var/get_bodypart = (GLOB.body_zone[bodypart][PREPOSITIONAL] in list("хвоста", "живота", "рта")) ? "вашего" : (GLOB.body_zone[bodypart][PREPOSITIONAL] in list("крыльев", "глаз")) ? "ваших" : "вашей"
 				visible_message(
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [get_bodypart] [GLOB.body_zone[bodypart][GENITIVE]] [name]!"),
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [get_bodypart] [GLOB.body_zone[bodypart][GENITIVE]]!"),
+					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]] [name]!"),
+					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GEND_YOURS(bodypart)] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
 				)
 
 

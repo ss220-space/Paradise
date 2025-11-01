@@ -1,14 +1,6 @@
 /obj/item/storage/box/syndie_kit/contractor
 	name = "contractor kit"
 	desc = "Коробка с вещами, предназначенными Контрактникам Синдиката."
-	ru_names = list(
-		NOMINATIVE = "набор контрактника",
-		GENITIVE = "набора контрактника",
-		DATIVE = "набору контрактника",
-		ACCUSATIVE = "набор контрактника",
-		INSTRUMENTAL = "набором контрактника",
-		PREPOSITIONAL = "наборе контрактника"
-	)
 	// Settings
 	/// Amount of random items to be added to the contractor kit.
 	/// See [/obj/item/storage/box/syndie_kit/contractor/var/item_list] for the available items.
@@ -42,6 +34,16 @@
 		/obj/item/implanter/freedom,
 	)
 
+/obj/item/storage/box/syndie_kit/contractor/get_ru_names()
+	return list(
+		NOMINATIVE = "набор контрактника",
+		GENITIVE = "набора контрактника",
+		DATIVE = "набору контрактника",
+		ACCUSATIVE = "набор контрактника",
+		INSTRUMENTAL = "набором контрактника",
+		PREPOSITIONAL = "наборе контрактника"
+	)
+
 
 /obj/item/storage/box/syndie_kit/contractor/populate_contents()
 	new /obj/item/paper/contractor_guide(src)
@@ -56,7 +58,8 @@
 /obj/item/storage/box/syndie_kit/contractor_loadout
 	name = "contractor standard loadout box"
 	desc = "Стандартная коробка, входящая в комплект поставки для Контрактника."
-	ru_names = list(
+/obj/item/storage/box/syndie_kit/contractor_loadout/get_ru_names()
+	return list(
 		NOMINATIVE = "стандартный набор контрактника",
 		GENITIVE = "стандартного набора контрактника",
 		DATIVE = "стандартному набору контрактника",
@@ -80,16 +83,16 @@
 /obj/item/paper/contractor_guide
 	name = "Руководство для Контрактника"
 
-/obj/item/paper/contractor_guide/Initialize() // This translation is full of shit, it should be redone by someone who will take up the paperwork (not me)
+/obj/item/paper/contractor_guide/Initialize(mapload) // This translation is full of shit, it should be redone by someone who will take up the paperwork (not me)
 	info = {"<p>Здравствуйте, уважаемый агент! Примите наши поздравления с назначением на должность Контрактника Синдиката!
 			В дополнение к уже поставленным перед вами задачам, этот набор открывает новые горизонты и предоставляет возможность выполнять контракты,
 			за успешное завершение которых вы будете вознаграждены телекристаллами и кредитами.</p>
 			<p>Внутри вашего набора находится специализированный скафандр контрактника. Он компактнее, чем стандартные скафандры Синдиката, доступные в вашем аплинке,
 			и может влезть в ваш карман. Скафандр сделан из легких материалов и не замедляет вас. Помимо прочего, мы предоставили вам противогаз и комбинезон с функцией "Хамелеон",
-			оба этих предмета могут в любой момент менять свой внешний вид на нужный вам. Сигареты пропитаны особой смесью - они будут медленно исцелять ваши травмы с течением времени.</p>
+			оба этих предмета могут в любой момент менять свой внешний вид на нужный вам. Сигареты пропитаны особой смесью — они будут медленно исцелять ваши травмы с течением времени.</p>
 			<p>Дополнительно вам в набор будет выделено три случайных предмета, что были у нас под рукой. Мы надеемся, что они помогут вам в вашей задаче.</p>
 			<p>Хаб контрактника, доступный в вашем специализированном аплинке, предоставляет доступ к уникальным предметам и возможностям.
-			Покупка осуществляется с помощью особой валюты - репутации, которая предоставляется в двух условных единицах после каждого успешного завершения контракта.</p>
+			Покупка осуществляется с помощью особой валюты — репутации, которая предоставляется в двух условных единицах после каждого успешного завершения контракта.</p>
 			<h3>Использование аплинка Контрактника</h3>
 			<ol>
 				<li>Возьмите в руки аплинк, лежащий в вашем наборе, и запустите его.</li>

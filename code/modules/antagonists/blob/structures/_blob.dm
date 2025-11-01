@@ -4,13 +4,12 @@
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
 	desc = "Толстая стена извивающихся щупалец."
-	density = FALSE
 	opacity = TRUE
 	anchored = TRUE
 	pass_flags_self = PASSBLOB
 	layer = BELOW_MOB_LAYER
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	creates_cover = TRUE
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP // stops blob mobs from falling on multiz.
 	max_integrity = BLOB_REGULAR_MAX_HP
@@ -165,7 +164,7 @@
 /obj/structure/blob/proc/expand(turf/T = null, controller = null, expand_reaction = 1)
 	if(!T)
 		var/list/dirs = (is_there_multiz())? GLOB.cardinals_multiz.Copy() : GLOB.cardinal.Copy()
-		for(var/i = 1 to dirs.len)
+		for(var/i = 1 to length(dirs))
 			var/dirn = pick(dirs)
 			dirs.Remove(dirn)
 			T = get_step_multiz(src, dirn)
@@ -260,7 +259,7 @@
 			new /obj/effect/temp_visual/emp(get_turf(src))
 
 
-/obj/structure/blob/tesla_act(power)
+/obj/structure/blob/zap_act(power, zap_flags)
 	if(overmind)
 		if(overmind.blobstrain.tesla_reaction(src, power))
 			take_damage(power * 1.25e-3, BURN, ENERGY)
@@ -380,7 +379,7 @@
 /obj/structure/blob/examine(mob/user)
 	. = ..()
 	var/datum/atom_hud/hud_to_check = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	if(user.research_scanner || hud_to_check.hudusers[user])
+	if(user.research_scanner || hud_to_check.hud_users[user])
 		. += "<b>Ваш HUD отображает обширный отчет...</b><br>"
 		if(overmind)
 			. += overmind.blobstrain.examine(user)

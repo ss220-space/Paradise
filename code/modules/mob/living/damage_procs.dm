@@ -288,12 +288,16 @@
 			Jitter(effect * blocked)
 		if(KNOCKDOWN)
 			Knockdown(effect * blocked)
+		if(CONFUSED)
+			AdjustConfused(effect * blocked)
+
+
 	updatehealth("apply effect")
 	return TRUE
 
 
 /// Applies multiple status effects at once via [apply_effect][/mob/living/proc/apply_effect]
-/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0)
+/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0, confused = 0)
 	if(blocked >= 100)
 		return FALSE
 	if(stun)
@@ -318,6 +322,8 @@
 		apply_effect(jitter, JITTER, blocked)
 	if(knockdown)
 		apply_effect(knockdown, KNOCKDOWN, blocked)
+	if(confused)
+		apply_effect(confused, CONFUSED, blocked)
 	return TRUE
 
 
@@ -796,6 +802,20 @@
 		updatehealth("setStaminaLoss")
 
 
+/// Returns the maximum stamina of the mob with bonuses affecting it
+/mob/living/proc/get_max_stamina()
+	return max_stamina
+
+
+/// Max stamina MUST be lower than MAX_STAMINA_LOSS otherwise everything will explode
+/mob/living/proc/set_max_stamina(amount)
+	if(amount > MAX_STAMINA_LOSS)
+		max_stamina = MAX_STAMINA_LOSS
+		return
+
+	max_stamina = max(0, amount)
+
+
 /// Maxhealth var getter
 /mob/living/proc/getMaxHealth()
 	return maxHealth
@@ -988,7 +1008,7 @@
 
 /// Emagged slotmachine default lose effect, return TRUE to destroy slotmachine
 /mob/living/proc/adjust_slot_machine_lose_effect()
-	if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
+	if(prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
 		to_chat(src, span_warningbig("Критическая неудача!<br>Неизвестная сила разрывает ваше тело изнутри."))
 		src.gib()
 		return TRUE

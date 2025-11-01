@@ -22,4 +22,7 @@
 	become_uncliented()
 	update_morgue()
 
+	if(client)
+		clear_important_client_contents(client)
+
 	return TRUE

@@ -9,7 +9,12 @@
 /obj/item/dna_upgrader
 	name = "dna upgrader"
 	desc = "Кто-то мог бы сказать, что для такой сильной модификации необходимо выполнить цель станции... Дураки!"
-	ru_names = list(
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "dnaupgrader"
+	var/used = FALSE
+
+/obj/item/dna_upgrader/get_ru_names()
+	return list(
 		NOMINATIVE = "модификатор ДНК",
 		GENITIVE = "модификатора ДНК",
 		DATIVE = "модификатору ДНК",
@@ -17,9 +22,6 @@
 		INSTRUMENTAL = "модификатором ДНК",
 		PREPOSITIONAL = "модификаторе ДНК"
 	)
-	icon = 'icons/obj/hypo.dmi'
-	icon_state = "dnaupgrader"
-	var/used = FALSE
 
 /obj/item/dna_upgrader/update_icon_state()
 	icon_state = "dnaupgrader[used ? "0" : ""]"
@@ -40,7 +42,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(HAS_TRAIT(H, TRAIT_NO_DNA))
-		balloon_alert(H, "ДНК не обнаружена!")
+		balloon_alert(H, UNLINT("ДНК не обнаружена!"))
 		return
 	switch(choosen_mod)
 		if(VAULT_TOXIN)

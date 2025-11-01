@@ -2,6 +2,7 @@
 	icon = 'icons/hud/blob.dmi'
 
 /atom/movable/screen/blob/MouseEntered(location,control,params)
+	. = ..()
 	openToolTip(usr,src,params,title = name,content = desc, theme = "blob")
 
 /atom/movable/screen/blob/MouseExited()
@@ -33,10 +34,10 @@
 	desc = "Перемещает вашу камеру к вашему ядру."
 
 /atom/movable/screen/blob/JumpToCore/MouseEntered(location,control,params)
-	if(hud && hud.mymob && isovermind(hud.mymob))
+	if(hud?.mymob && isovermind(hud.mymob))
 		name = initial(name)
 		desc = initial(desc)
-	..()
+	return ..()
 
 /atom/movable/screen/blob/JumpToCore/Click()
 	if(isovermind(usr))
@@ -126,12 +127,12 @@
 	desc = "Позволяет вам выбрать новый штамм из случайных вариантов за Error ресурсов."
 
 /atom/movable/screen/blob/ReadaptStrain/MouseEntered(location,control,params)
-	if(hud && hud.mymob && isovermind(hud.mymob))
+	if(hud?.mymob && isovermind(hud.mymob))
 		var/mob/camera/blob/B = hud.mymob
 		var/cost = (B.free_strain_rerolls)? "FREE" : BLOB_POWER_REROLL_COST
 		name = "[initial(name)] ([cost])"
 		desc = "Позволяет вам выбрать новый штамм из [BLOB_POWER_REROLL_CHOICES] случайных вариантов за [cost] ресурсов."
-	..()
+	return ..()
 
 /atom/movable/screen/blob/ReadaptStrain/Click()
 	if(isovermind(usr))

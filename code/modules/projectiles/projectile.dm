@@ -2,7 +2,6 @@
 	name = "projectile"
 	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "bullet"
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	pass_flags = PASSTABLE
@@ -52,9 +51,9 @@
 	/// How much stamina damage should be decremented as the bullet moves.
 	var/tile_dropoff_s = 0
 	/// How much armour penetration should be decremented as the bullet moves.
-	var/tile_dropoff_penetration
+	var/tile_dropoff_penetration = 0
 	/// How much forcedodge should be decremented as the bullet moves.
-	var/tile_dropoff_forcedodge
+	var/tile_dropoff_forcedodge = 0
 	/// BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here.
 	var/damage_type = BRUTE
 	/// Determines if the projectile will skip any damage inflictions.
@@ -82,9 +81,11 @@
 	var/slur = 0
 	var/eyeblur = 0
 	var/drowsy = 0
+	var/min_stamina = 0
 	var/stamina = 0
 	var/jitter = 0
 	var/knockdown = 0
+	var/confused = 0
 
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
@@ -134,10 +135,10 @@
 	if(damage && tile_dropoff)
 		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
 	if(stamina && tile_dropoff_s)
-		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
-	if(armour_penetration && tile_dropoff_penetration)
-		armour_penetration = max(0, armour_penetration - tile_dropoff_penetration) // as above, but with armour penetration
-	if(forcedodge && tile_dropoff_forcedodge)
+		stamina = max(min_stamina, stamina - tile_dropoff_s) // as above, but with stamina
+	if(tile_dropoff_penetration)
+		armour_penetration = clamp(armour_penetration - tile_dropoff_penetration, -100, 100)
+	if(tile_dropoff_forcedodge)
 		forcedodge = max(0, forcedodge - tile_dropoff_forcedodge) // as above, but with forcedodge
 	if(range <= 0 && loc)
 		on_range()
@@ -186,13 +187,13 @@
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
 		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
-			var/splatter_dir = dir
+			var/splatter_dir = Angle
 			if(starting)
-				splatter_dir = get_dir(starting, target_loca)
+				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)
 			if(isalien(L) || isfacehugger(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
-				var/blood_color = "#C80000"
+				var/blood_color = BLOOD_COLOR_RED
 				if(ishuman(target))
 					H = target
 					blood_color = H.dna.species.blood_color
@@ -204,7 +205,7 @@
 
 				if(step_over)
 					if(get_splatter_blockage(step_over, target, splatter_dir, target_loca)) //If you can't cross the tile or any of its relevant obstacles...
-						shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
+						shift = pixel_shift_dir(angle2dir_cardinal(splatter_dir)) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
 					else
 						target_loca = step_over
 					L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
@@ -216,20 +217,20 @@
 
 		else if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
-		if(L.has_limbs)
+		if(L.has_limbs && def_zone)
 			organ_hit_text = "в [GLOB.body_zone[def_zone][ACCUSATIVE]]!"
 
 		if(suppressed)
-			playsound(loc, hitsound, 5, 1, -1)
-			to_chat(L, span_userdanger("Вы стреляете из [declent_ru(ACCUSATIVE)] [organ_hit_text]"))
+			playsound(loc, hitsound, 5, TRUE, -1)
+			to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] попадает вам [organ_hit_text]"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1, -1)
-			var/hit_text = pick("получа[pluralize_ru(L.gender,"ет","ют")] попадание",
-								"ранен[genderize_ru(L.gender,"","а","о","ы")]",
-								"получа[pluralize_ru(L.gender,"ет","ют")] ранение",
-								"поражён[genderize_ru(L.gender,"","а","о","ы")]",
+				playsound(loc, hitsound, volume, TRUE, -1)
+			var/hit_text = pick("получа[PLUR_ET_YUT(L)] попадание",
+								"ранен[GEND_A_O_Y(L)]",
+								"получа[PLUR_ET_YUT(L)] ранение",
+								"поражён[GEND_A_O_Y(L)]",
 								"прошибает")
 			L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] [hit_text] [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
 								span_userdanger("В вас попали [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
@@ -240,7 +241,7 @@
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-	var/were_affects_applied = L.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown)
+	var/were_affects_applied = apply_effect_on_hit(L, blocked, def_zone)
 
 	if(!log_override && firer && original)
 		add_attack_logs(firer, L, "Shot [organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
@@ -248,11 +249,16 @@
 	return were_affects_applied
 
 
+
+/obj/projectile/proc/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
+	return target.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused)
+
+
 /**
  * Checks whether the place we want to splatter blood is blocked (i.e. by windows).
  */
 /obj/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca)
-	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
+	var/turf/step_cardinal = !(splatter_dir in GLOB.cardinal) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
 	if(step_over.density && !step_over.CanPass(target, get_dir(step_over, target))) //Preliminary simple check.
 		return TRUE
@@ -287,15 +293,16 @@
 	var/distance = get_dist(bumped_turf, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
 	if(!forced_accuracy)
 		if(get_dist(bumped_atom, original) <= 1)
-			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+			var/hit_chance = calculate_randomize_def_zone_chance(src, distance)
+			def_zone = ran_zone(def_zone, hit_chance)
 		else
-			def_zone = pick(list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)) // If we were aiming at one target but another one got hit, no accuracy is applied
+			def_zone = ran_zone(def_zone, probability = 0) // If we were aiming at one target but another one got hit, no accuracy is applied
 
 	if(isturf(bumped_atom) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
-		playsound(loc, hitsound_wall, volume, 1, -1)
+		playsound(loc, hitsound_wall, volume, TRUE, -1)
 	else if(ishuman(bumped_atom))
 		var/mob/living/carbon/human/bumped_human = bumped_atom
 		var/obj/item/organ/external/organ = bumped_human.get_organ(check_zone(def_zone))
@@ -309,7 +316,7 @@
 	prehit(bumped_atom)
 
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
-	if(permutation == -1 || forcedodge >= 1) // the bullet passes through a dense object!
+	if(permutation == -1 || forcedodge == -1 ||forcedodge >= 1) // the bullet passes through a dense object!
 		if(forcedodge >= 1)
 			forcedodge -= 1
 		loc = bumped_turf
@@ -317,11 +324,11 @@
 			LAZYADD(permutated, bumped_atom)
 		return FALSE
 	else
-		if(bumped_atom && bumped_atom.density && !ismob(bumped_atom) && !(bumped_atom.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
+		if(bumped_atom?.density && !ismob(bumped_atom) && !(bumped_atom.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
 			var/list/mobs_list = list()
 			for(var/mob/living/mob in bumped_turf)
 				mobs_list += mob
-			if(mobs_list.len)
+			if(length(mobs_list))
 				var/mob/living/picked_mob = pick(mobs_list)
 				prehit(picked_mob)
 				picked_mob.bullet_act(src, def_zone)
@@ -382,7 +389,7 @@
 			forcemoved = TRUE
 		else if(T != loc)
 			step_towards(src, T)
-		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original)
 	if(QDELETED(src)) //deleted on last move
@@ -400,7 +407,7 @@
 
 	if(!log_override && firer && original)
 		fire_log_text += "Projectile: <small>'[type]'</small> | Harm: [nodamage ? "<small>NO DAMAGE</small>" : "<small>[uppertext(damage_type)] = </small>[damage]"]"
-		if(reagents && reagents.reagent_list)
+		if(reagents?.reagent_list)
 			var/reagent_note
 			var/list/temp = reagents.reagent_list.Copy()
 			for(var/datum/reagent/R in temp)
@@ -418,8 +425,8 @@
 		Angle = round(get_angle(src, current))
 	if(spread)
 		Angle += (rand() - 0.5) * spread
-	if(firer && ismob(firer))
-		hit_crawling_mobs_chance = firer.a_intent == INTENT_HELP ? 0 : 100
+	if(firer && ismob(firer) && firer.a_intent != INTENT_HELP)
+		hit_crawling_mobs_chance =  100
 	// Turn right away
 	var/matrix/M = new
 	M.Turn(Angle)
@@ -487,10 +494,10 @@
 
 
 /obj/projectile/proc/check_ricochet_flag(atom/A)
-	if((flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
+	if((flag == ENERGY || flag == LASER) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
-	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
+	if((flag == BOMB || flag == BULLET) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
 	return FALSE

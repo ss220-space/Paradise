@@ -8,32 +8,31 @@
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "coil_red"
-	belt_icon = "cable_coil"
+	belt_icon = "coil_red"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
-	color = WIRE_COLOR_RED
+	color = CABLE_HEX_COLOR_RED
 	desc = "A coil of power cable."
 	w_class = WEIGHT_CLASS_SMALL
 	full_w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("хлестнул", "стегнул", "проучил", "выпорол")
 	usesound = 'sound/items/deconstruct.ogg'
-	toolspeed = 1
+	toolbox_radial_menu_compatibility = TRUE
 
 	var/static/list/wire_colors = list(
-		WIRE_COLOR_BLUE = "blue",
-		WIRE_COLOR_CYAN = "cyan",
-		WIRE_COLOR_GREEN = "green",
-		WIRE_COLOR_ORANGE = "orange",
-		WIRE_COLOR_PINK = "pink",
-		WIRE_COLOR_RED = "red",
-		WIRE_COLOR_WHITE = "white",
-		WIRE_COLOR_YELLOW = "yellow"
+		CABLE_HEX_COLOR_BLUE = "blue",
+		CABLE_HEX_COLOR_CYAN = "cyan",
+		CABLE_HEX_COLOR_GREEN = "green",
+		CABLE_HEX_COLOR_ORANGE = "orange",
+		CABLE_HEX_COLOR_PINK = "pink",
+		CABLE_HEX_COLOR_RED = "red",
+		CABLE_HEX_COLOR_WHITE = "white",
+		CABLE_HEX_COLOR_YELLOW = "yellow"
 	)
 
 
@@ -63,14 +62,15 @@
 
 /obj/item/stack/cable_coil/update_icon_state()
 	if(!color)
-		color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_ORANGE, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+		color = pick(CABLE_HEX_COLOR_RED, CABLE_HEX_COLOR_BLUE, CABLE_HEX_COLOR_GREEN, CABLE_HEX_COLOR_ORANGE, CABLE_HEX_COLOR_WHITE, CABLE_HEX_COLOR_PINK, CABLE_HEX_COLOR_YELLOW, CABLE_HEX_COLOR_CYAN)
 	if(amount == 1)
 		icon_state = "coil1"
 	else if(amount == 2)
 		icon_state = "coil2"
 	else
 		icon_state = "coil"
-	item_state = wire_colors[color]
+	item_state = "coil_[wire_colors[color]]"
+	belt_icon = "coil_[wire_colors[color]]"
 
 /obj/item/stack/cable_coil/update_weight()
 	if(amount == 1)
@@ -93,9 +93,9 @@
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/chair/stool) in user.loc)
-		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message(span_suicide("[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	else
-		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
 
@@ -121,19 +121,19 @@
 				var/obj/item/restraints/handcuffs/cable/cablecuff = new(T)
 				var/text_color
 				switch(color)
-					if(WIRE_COLOR_BLUE)
+					if(CABLE_HEX_COLOR_BLUE)
 						text_color = "blue"
-					if(WIRE_COLOR_CYAN)
+					if(CABLE_HEX_COLOR_CYAN)
 						text_color = "cyan"
-					if(WIRE_COLOR_GREEN)
+					if(CABLE_HEX_COLOR_GREEN)
 						text_color = "green"
-					if(WIRE_COLOR_ORANGE)
+					if(CABLE_HEX_COLOR_ORANGE)
 						text_color = "orange"
-					if(WIRE_COLOR_PINK)
+					if(CABLE_HEX_COLOR_PINK)
 						text_color = "pink"
-					if(WIRE_COLOR_RED)
+					if(CABLE_HEX_COLOR_RED)
 						text_color = "red"
-					if(WIRE_COLOR_YELLOW)
+					if(CABLE_HEX_COLOR_YELLOW)
 						text_color = "yellow"
 					else
 						text_color = "white"
@@ -167,6 +167,10 @@
 	if(!ishuman(target))
 		return ..()
 
+	if(HAS_TRAIT(target, TRAIT_REPAIRING_LIMB))
+		balloon_alert(user, "уже ремонтируется!")
+		return ATTACK_CHAIN_PROCEED
+
 	var/obj/item/organ/external/target_organ = target.get_organ(check_zone(user.zone_selected))
 	if(!target_organ || !target_organ.is_robotic() || user.a_intent != INTENT_HELP || target_organ.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
@@ -181,7 +185,9 @@
 		to_chat(user, span_notice("Nothing to fix!"))
 		return .
 
-	if(target == user && !do_after(user, 1 SECONDS, target, NONE))
+	ADD_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	if(target == user && !do_after(user, target.robotic_limb_repair_time, target, NONE))
+		REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
@@ -218,6 +224,7 @@
 		target.updatehealth("cable repair")
 	if(update_damage_icon)
 		target.UpdateDamageIcon()
+	REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
 
 /obj/item/stack/cable_coil/attackby(obj/item/I, mob/user, params)
@@ -246,15 +253,15 @@
 		return
 
 	if(!isturf(T) || !T.can_lay_cable())
-		to_chat(user, "<span class='warning'>You can only lay cables on catwalks and plating!</span>")
+		to_chat(user, span_warning("You can only lay cables on catwalks and plating!"))
 		return
 
 	if(get_amount() < 1) // Out of cable
-		to_chat(user, "<span class='warning'>There is no cable left!</span>")
+		to_chat(user, span_warning("There is no cable left!"))
 		return
 
 	if(get_dist(T,user.loc) > 1) // Too far
-		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
+		to_chat(user, span_warning("You can't lay cable at a place that far away!"))
 		return
 
 	var/dirn
@@ -268,7 +275,7 @@
 
 	for(var/obj/structure/cable/LC in T)
 		if(LC.d2 == dirn && LC.d1 == 0)
-			to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+			to_chat(user, span_warning("There's already a cable at that position!"))
 			return
 
 	var/obj/structure/cable/C = get_new_cable(T)
@@ -314,7 +321,7 @@
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
-		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
+		to_chat(user, span_warning("You can't lay cable at a place that far away!"))
 		return
 
 
@@ -328,7 +335,7 @@
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == dirn || C.d2 == dirn)
 		if(U.intact || (U.transparent_floor == TURF_TRANSPARENT))						// can't place a cable if the floor is complete
-			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
+			to_chat(user, span_warning("You can't lay cable there unless the floor tiles are removed!"))
 			return
 		// cable is pointing at us, we're standing on an open tile
 		// so create a stub pointing at the clicked cable on our tile
@@ -337,7 +344,7 @@
 
 		for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
 			if(LC.d1 == fdirn || LC.d2 == fdirn)
-				to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+				to_chat(user, span_warning("There's already a cable at that position!"))
 				return
 
 		var/obj/structure/cable/NC = get_new_cable (U)
@@ -379,8 +386,8 @@
 		for(var/obj/structure/cable/LC in T)		// check to make sure there's no matching cable
 			if(LC == C)			// skip the cable we're interacting with
 				continue
-			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1) )	// make sure no cable matches either direction
-				to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1))	// make sure no cable matches either direction
+				to_chat(user, span_warning("There's already a cable at that position!"))
 				return
 
 
@@ -424,49 +431,48 @@
 	. = ..(mapload, rand(1,2), merge, cable_color)
 
 /obj/item/stack/cable_coil/yellow
-	color = WIRE_COLOR_YELLOW
+	color = CABLE_HEX_COLOR_YELLOW
 
 /obj/item/stack/cable_coil/blue
-	color = WIRE_COLOR_BLUE
+	color = CABLE_HEX_COLOR_BLUE
 
 /obj/item/stack/cable_coil/green
-	color = WIRE_COLOR_GREEN
+	color = CABLE_HEX_COLOR_GREEN
 
 /obj/item/stack/cable_coil/pink
-	color = WIRE_COLOR_PINK
+	color = CABLE_HEX_COLOR_PINK
 
 /obj/item/stack/cable_coil/orange
-	color = WIRE_COLOR_ORANGE
+	color = CABLE_HEX_COLOR_ORANGE
 
 /obj/item/stack/cable_coil/cyan
-	color = WIRE_COLOR_CYAN
+	color = CABLE_HEX_COLOR_CYAN
 
 /obj/item/stack/cable_coil/white
-	color = WIRE_COLOR_WHITE
+	color = CABLE_HEX_COLOR_WHITE
 
 /obj/item/stack/cable_coil/random/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
-	var/random_color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	var/random_color = pick(CABLE_HEX_COLOR_RED, CABLE_HEX_COLOR_BLUE, CABLE_HEX_COLOR_GREEN, CABLE_HEX_COLOR_WHITE, CABLE_HEX_COLOR_PINK, CABLE_HEX_COLOR_YELLOW, CABLE_HEX_COLOR_CYAN)
 	. = ..(mapload, new_amount, merge, random_color)
 
 /obj/item/stack/cable_coil/proc/cable_color(colorC)
 	if(!colorC)
-		color = WIRE_COLOR_RED
+		color = CABLE_HEX_COLOR_RED
 	else if(colorC == "rainbow")
 		color = color_rainbow()
 	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
-		color = WIRE_COLOR_ORANGE
+		color = CABLE_HEX_COLOR_ORANGE
 	else
 		color = colorC
 
 /obj/item/stack/cable_coil/proc/color_rainbow()
-	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	color = pick(CABLE_HEX_COLOR_RED, CABLE_HEX_COLOR_BLUE, CABLE_HEX_COLOR_GREEN, CABLE_HEX_COLOR_PINK, CABLE_HEX_COLOR_YELLOW, CABLE_HEX_COLOR_CYAN)
 	return color
 
 /obj/item/stack/cable_coil/cyborg
 	name = "cyborg cable coil"
 	is_cyborg = TRUE
 	energy_type = /datum/robot_energy_storage/wire
-	cost = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
 	var/cablecolor = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("red", "yellow", "green", "blue", "pink", "orange", "cyan", "white"))

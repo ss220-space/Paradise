@@ -113,7 +113,7 @@
 		for(var/allowed in first_step.allowed_tools)
 			if(ispath(allowed) && istype(tool, allowed) || (tool && istype(tool) && tool.tool_behaviour == allowed))
 				next_surgery = S
-			if(allowed in starting_tools && !(allowed in overriding_tools))
+			if((allowed in starting_tools) && !(allowed in overriding_tools))
 				CRASH("[src] was provided with multiple branches that start with tool [allowed].")
 			else
 				starting_tools.Add(allowed)
@@ -191,11 +191,11 @@
 /**
  * Test the next step, but don't fully commit to it unless it completes successfully.
  * If the next step doesn't fully complete (such as being interrupted or failing), we'll insert ourselves again to bring us back
- * 	to the "base" state.
+ *	to the "base" state.
  * If it does, we'll add the subsequent steps to the surgery and continue down the expected branch. If you complete the surgery step, it
- * 	means you've committed to what comes next.
+ *	means you've committed to what comes next.
  * Part of the motivation behind this is that I don't want to mutate a surgery retroactively. We can insert, but we shouldn't be changing anything
- * 	behind us.
+ *	behind us.
  *
  * Arguments:
  * * next_surgery_steps - the steps for the branching surgery to add to the current surgery. If there's no branching surgery (or this would continue the main surgery) ignore this.
@@ -251,7 +251,7 @@
 // Some intermediate surgeries
 /datum/surgery/intermediate/bleeding
 	// don't worry about these names, they won't appear anywhere.
-	name = "Внутреннее кровотечение – абстрактное"
+	name = "Внутреннее кровотечение — абстрактное"
 	desc = "Промежуточная операция для лечения внутреннего кровотечения, пока над пациентом проводится другая операция."
 	steps = list(/datum/surgery_step/fix_vein)
 	possible_locs = list(
@@ -284,7 +284,7 @@
 	return FALSE
 
 /datum/surgery/intermediate/mendbone
-	name = "Сращивание костей – абстрактное"
+	name = "Сращивание костей — абстрактное"
 	desc = "Промежуточная операция для восстановления повреждённых костей, пока над пациентом проводится другая операция."
 	steps = list(/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone)
 	possible_locs = list(
@@ -327,14 +327,14 @@
 /// Proxy surgery step to allow healing bleeding and mending bones.
 /// Should be added into surgeries just after the first three standard steps.
 /datum/surgery_step/proxy/open_organ
-	name = "заживление повреждённых костей или сосудов – прокси"
+	name = "заживление повреждённых костей или сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone
 	)
 
 /datum/surgery_step/proxy/open_organ/plasma
-	name = "заживление повреждённых костей (Плазмолюд) или сосудов – прокси"
+	name = "заживление повреждённых костей (Плазмолюд) или сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone/plasma
@@ -342,14 +342,14 @@
 
 /// Mend IB without healing bones
 /datum/surgery_step/proxy/ib
-	name = "заживление повреждённых сосудов – прокси"
+	name = "заживление повреждённых сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding
 	)
 
 /// The robotic equivalent
 /datum/surgery_step/proxy/robotics/repair_limb
-	name = "ремонт конечности – прокси"
+	name = "ремонт конечности — прокси"
 	branches = list(
 		/datum/surgery/intermediate/robotics/repair/burn,
 		/datum/surgery/intermediate/robotics/repair/brute

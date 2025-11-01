@@ -76,7 +76,7 @@
 		// he will become the alien but if he doesn't then we will set the stage
 		// to 2, so we don't do a process heavy check everytime.
 
-		if(candidates.len)
+		if(length(candidates))
 			C = pick(candidates)
 		else if(owner.client)
 			C = owner.client
@@ -90,7 +90,7 @@
 
 		spawn(6)
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
-			new_xeno.key = C.key
+			new_xeno.possess_by_player(C.key)
 			new_xeno.mind.name = new_xeno.name
 			new_xeno.update_datum()
 			SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))//To get the player's attention

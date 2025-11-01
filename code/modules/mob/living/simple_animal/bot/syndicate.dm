@@ -2,14 +2,6 @@
 /mob/living/simple_animal/bot/ed209/syndicate
 	name = "Syndicate Sentry Bot"
 	desc = "Охранный робот Синдиката."
-	ru_names = list(
-		NOMINATIVE = "робот-часовой Синдиката",
-		GENITIVE = "робота-часового Синдиката",
-		DATIVE = "роботу-часовому Синдиката",
-		ACCUSATIVE = "робота-часового Синдиката",
-		INSTRUMENTAL = "роботом-часовым Синдиката",
-		PREPOSITIONAL = "роботе-часовом Синдиката",
-	)
 	model = "Guardian"
 	icon = 'icons/obj/mecha/mecha.dmi'
 	icon_state = "darkgygax"
@@ -33,6 +25,16 @@
 	var/pathing_failed = FALSE
 	var/turf/spawn_turf
 
+
+/mob/living/simple_animal/bot/ed209/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "робот-часовой Синдиката",
+		GENITIVE = "робота-часового Синдиката",
+		DATIVE = "роботу-часовому Синдиката",
+		ACCUSATIVE = "робота-часового Синдиката",
+		INSTRUMENTAL = "роботом-часовым Синдиката",
+		PREPOSITIONAL = "роботе-часовом Синдиката",
+	)
 
 /mob/living/simple_animal/bot/ed209/syndicate/Initialize(mapload)
 	. = ..()
@@ -102,14 +104,14 @@
 	saved_turf = current_turf
 	switch(mode)
 		if(BOT_IDLE)
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
 			if(frustration >= 8)
-				SSmove_manager.stop_looping(src)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 			if(target)
@@ -119,7 +121,7 @@
 						return
 				shootAt(target)
 				var/turf/olddist = get_dist(src, target)
-				SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
+				GLOB.move_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 				if((get_dist(src, target)) >= (olddist))
 					frustration++
 				else
@@ -190,9 +192,9 @@
 	if(!QDELETED(src))
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
-		SSmove_manager.stop_looping(src)
+		GLOB.move_manager.stop_looping(src)
 		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)
 		wreck.name = "sentry bot wreckage"

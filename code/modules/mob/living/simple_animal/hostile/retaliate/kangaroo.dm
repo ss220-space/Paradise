@@ -1,7 +1,6 @@
 /mob/living/simple_animal/hostile/retaliate/kangaroo
 	name = "Kangaroo"
 	real_name = "Kangaroo"
-	voice_name = "неизвестный голос"
 	desc = "A large marsupial herbivore. It has powerful hind legs, with nails that resemble long claws."
 	icon_state = "kangaroo" // Credit: FoS
 	icon_living = "kangaroo"
@@ -12,7 +11,6 @@
 	emote_hear = list("bark")
 	maxHealth = 150
 	health = 150
-	harm_intent_damage = 3
 	melee_damage_lower = 5 // avg damage 12.5 without kick, (12.5+12.5+60)/3=25 with kick
 	melee_damage_upper = 20
 	attacktext = "пинает"
@@ -56,7 +54,7 @@
 
 	var/rookick_dir = get_dir(src, L)
 	var/turf/general_direction = get_edge_target_turf(L, rookick_dir)
-	L.visible_message("<span class='danger'>[L] сильно пинает!</span>", "<span class='userdanger'>Пинок [name] посылает вас в полёт!</span>")
+	L.visible_message(span_danger("[L] сильно пинает!"), span_userdanger("Пинок [name] посылает вас в полёт!"))
 	L.throw_at(general_direction, 10, 2)
 
 	attacktext = initial(attacktext)

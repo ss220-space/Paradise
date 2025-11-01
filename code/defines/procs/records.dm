@@ -5,19 +5,19 @@
 	var/icon/side = new(get_id_photo(dummy), dir = WEST)
 	var/datum/data/record/G = new /datum/data/record()
 	G.fields["name"] = "New Record"
-	G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7), 2), 6))
-	G.fields["rank"] = "Unassigned"
-	G.fields["real_rank"] = "Unassigned"
+	G.fields["id"] = text("[]", add_zero(num2hex(rand(1, SHORT_REAL_LIMIT), 2), 6))
+	G.fields["rank"] = NOJOB_STATUS_RUS
+	G.fields["real_rank"] = NOJOB_STATUS_RUS
 	G.fields["sex"] = "Male"
-	G.fields["age"] = "Unknown"
-	G.fields["fingerprint"] = "Unknown"
+	G.fields["age"] = UNKNOWN_STATUS_RUS
+	G.fields["fingerprint"] = UNKNOWN_STATUS_RUS
 	G.fields["p_stat"] = "Active"
 	G.fields["m_stat"] = "Stable"
 	G.fields["species"] = SPECIES_HUMAN
-	G.fields["home_system"]	= "Unknown"
-	G.fields["citizenship"]	= "Unknown"
-	G.fields["faction"]		= "Unknown"
-	G.fields["religion"]	= "Unknown"
+	G.fields["home_system"]	= UNKNOWN_STATUS_RUS
+	G.fields["citizenship"]	= UNKNOWN_STATUS_RUS
+	G.fields["faction"]		= UNKNOWN_STATUS_RUS
+	G.fields["religion"]	= UNKNOWN_STATUS_RUS
 	G.fields["photo_front"]	= front
 	G.fields["photo_side"]	= side
 	GLOB.data_core.general += G
@@ -25,7 +25,7 @@
 	qdel(dummy)
 	return G
 
-/proc/CreateSecurityRecord(var/name as text, var/id as text)
+/proc/CreateSecurityRecord(name as text, id as text)
 	var/datum/data/record/R = new /datum/data/record()
 	R.fields["name"] = name
 	R.fields["id"] = id
@@ -36,6 +36,7 @@
 	R.fields["ma_crim"] = "None"
 	R.fields["ma_crim_d"] = "No major crime convictions."
 	R.fields["notes"] = "No notes."
+	LAZYINITLIST(R.fields["comments"])
 	GLOB.data_core.security += R
 	return R
 

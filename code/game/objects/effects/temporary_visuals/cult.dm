@@ -2,7 +2,6 @@
 /obj/effect/temp_visual/cult
 	icon = 'icons/effects/cult_effects.dmi'
 	randomdir = FALSE
-	duration = 10
 
 /obj/effect/temp_visual/cult/sparks
 	randomdir = TRUE
@@ -44,6 +43,7 @@
 	icon_state = "space"
 	duration = 600
 	layer = ABOVE_OBJ_LAYER
+	invisibility = INVISIBILITY_RUNES
 	var/from_lava = FALSE
 
 
@@ -63,6 +63,7 @@
 /obj/effect/temp_visual/cult/rune_spawn
 	icon_state = "runeouter"
 	alpha = 0
+	invisibility = INVISIBILITY_RUNES
 	var/turnedness = 179 //179 turns counterclockwise, 181 turns clockwise
 
 /obj/effect/temp_visual/cult/rune_spawn/Initialize(mapload, set_duration, set_color)

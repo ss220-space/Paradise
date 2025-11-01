@@ -6,7 +6,6 @@
 
 	volume = 105
 
-	dir = SOUTH
 	initialize_directions = EAST|NORTH|WEST
 
 	var/obj/machinery/atmospherics/node1
@@ -165,7 +164,6 @@
 /obj/machinery/atmospherics/pipe/manifold/visible
 	icon_state = "map"
 	level = 2
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers
@@ -202,13 +200,10 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"
-	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
-	plane = GAME_PLANE
-	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers
-	name="Scrubbers pipe manifold"
+	name = "Scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map-scrubbers"
 	connect_types = list(3)
@@ -218,7 +213,7 @@
 	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
-	name="Air supply pipe manifold"
+	name = "Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map-supply"
 	connect_types = list(2)

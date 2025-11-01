@@ -41,8 +41,8 @@
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = 1
 
-/obj/machinery/computer/cryopod/New()
-	..()
+/obj/machinery/computer/cryopod/Initialize(mapload)
+	. = ..()
 	for(var/T in GLOB.potential_theft_objectives + GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives_medium /*+ GLOB.potential_theft_objectives_collect*/)
 		theft_cache += new T
 
@@ -152,12 +152,12 @@
 
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(!objective_items.len)
+	if(!length(objective_items))
 		visible_message(span_warning("The console buzzes in an annoyed manner."))
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	visible_message(span_warning("The console sparks, and some items fall out!"))
-	do_sparks(5, 1, src)
+	do_sparks(5, TRUE, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
 
@@ -199,14 +199,6 @@
 /obj/machinery/cryopod
 	name = "cryogenic freezer"
 	desc = "A man-sized pod for entering suspended animation."
-	ru_names = list(
-		NOMINATIVE = "криогенный морозильник",
-		GENITIVE = "криогенного морозильника",
-		DATIVE = "криогенному морозильнику",
-		ACCUSATIVE = "криогенный морозильник",
-		INSTRUMENTAL = "криогенным морозильником",
-		PREPOSITIONAL = "криогенном морозильнике"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
@@ -219,21 +211,19 @@
 	var/on_store_name = "Система криохранения"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
-	var/disallow_occupant_types = list()
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	// 15 minutes-ish safe period before being despawned.
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
-	var/obj/item/radio/intercom/announce
 	var/syndicate = FALSE // Silent
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
 
 	// These items are preserved when the process() despawn proc occurs.
-	var/list/preserve_items = list(
+	var/static/list/preserve_items = list(
 		/obj/item/hand_tele,
 		/obj/item/card/id/captains_spare,
 		/obj/item/aicard,
@@ -261,9 +251,20 @@
 		/obj/item/qm_quest_tablet
 	)
 	// These items will NOT be preserved
-	var/list/do_not_preserve_items = list (
+	var/static/list/do_not_preserve_items = list (
 		/obj/item/mmi/robotic_brain
 	)
+
+/obj/machinery/cryopod/get_ru_names()
+	return list(
+		NOMINATIVE = "криогенный морозильник",
+		GENITIVE = "криогенного морозильника",
+		DATIVE = "криогенному морозильнику",
+		ACCUSATIVE = "криогенный морозильник",
+		INSTRUMENTAL = "криогенным морозильником",
+		PREPOSITIONAL = "криогенном морозильнике"
+	)
+
 
 //////
 //Syndie cryopod.
@@ -278,10 +279,8 @@
 
 /obj/machinery/cryopod/Initialize(mapload)
 	. = ..()
-	announce = new /obj/item/radio/intercom(src)
-	announce.follow_target = src
 	icon_state = base_icon_state
-	set_light(1, 1, COLOR_LIGHT_GREEN)
+	set_light(1, 1, COLOR_GREEN)
 	find_control_computer()
 
 
@@ -316,10 +315,6 @@
 			break
 
 	if(!correct_type) return 0
-
-	for(var/type in disallow_occupant_types)
-		if(istype(M, type))
-			return 0
 
 	return 1
 
@@ -380,7 +375,6 @@
 	//Delete all items not on the preservation list.
 	var/list/items = contents
 	items -= occupant // Don't delete the occupant
-	items -= announce // or the autosay radio.
 
 	for(var/obj/item/I in items)
 		if(is_pda(I))
@@ -392,7 +386,7 @@
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
-		else if(control_computer && control_computer.allow_items)
+		else if(control_computer?.allow_items)
 			control_computer.freeze_item(I, preserve)
 		else
 			I.forceMove(loc)
@@ -427,7 +421,7 @@
 
 		SSjobs.FreeRole(job)
 
-		if(occupant.mind.objectives.len)
+		if(length(occupant.mind.objectives))
 			occupant.mind.objectives.Cut()
 			occupant.mind.special_role = null
 
@@ -437,13 +431,13 @@
 	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 	for(var/datum/data/record/R in GLOB.data_core.medical)
-		if((R.fields["name"] == occupant.real_name))
+		if(R.fields["name"] == occupant.real_name)
 			qdel(R)
 	for(var/datum/data/record/T in GLOB.data_core.security)
-		if((T.fields["name"] == occupant.real_name))
+		if(T.fields["name"] == occupant.real_name)
 			qdel(T)
 	for(var/datum/data/record/G in GLOB.data_core.general)
-		if((G.fields["name"] == occupant.real_name))
+		if(G.fields["name"] == occupant.real_name)
 			announce_rank = G.fields["rank"]
 			qdel(G)
 
@@ -473,9 +467,9 @@
 				announcer.say(";[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]")
 		else
 			if(announce_rank)
-				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
+				radio_announce("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]", PUB_FREQ, follow_target_override = src)
 			else
-				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]")
+				radio_announce("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]", PUB_FREQ, follow_target_override = src)
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] с характерным жужжанием и шипением перемещает [occupant.real_name] в хранилище."))
 
 	SEND_SIGNAL(SSshuttle, COMSIG_CRYOPOD_DESPAWN, src, occupant)
@@ -610,7 +604,7 @@
 			to_chat(user, span_notice("You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]"))
 
 
-/obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
+/obj/machinery/cryopod/proc/take_occupant(mob/living/carbon/E, willing_factor = 1)
 	if(occupant)
 		return
 	if(!E)
@@ -650,8 +644,6 @@
 	var/list/items = contents
 	if(occupant)
 		items -= occupant
-	if(announce)
-		items -= announce
 
 	for(var/obj/item/I in items)
 		I.forceMove(get_turf(src))
@@ -739,7 +731,6 @@
 	on_store_name = "Robotic Storage Oversight"
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)
-	disallow_occupant_types = list()
 
 
 /obj/machinery/cryopod/robot/despawn_occupant()
@@ -760,7 +751,7 @@
 	return ..()
 
 
-/proc/cryo_ssd(var/mob/living/carbon/person_to_cryo)
+/proc/cryo_ssd(mob/living/carbon/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
 	if(isobj(person_to_cryo.loc))
@@ -774,7 +765,7 @@
 		else if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
-	if(free_cryopods.len)
+	if(length(free_cryopods))
 		if(person_to_cryo.find_taipan_hud_number_by_job()) //Если вернёт хоть что то значит тайпановец. Иначе вернёт null
 			target_cryopod = safepick(free_syndie_cryopods)
 		else
@@ -787,7 +778,7 @@
 			return 1
 	return 0
 
-/proc/force_cryo_human(var/mob/living/carbon/person_to_cryo)
+/proc/force_cryo_human(mob/living/carbon/person_to_cryo)
 	if(!istype(person_to_cryo))
 		return
 	if(!istype(person_to_cryo.loc, /obj/machinery/cryopod))

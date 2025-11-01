@@ -103,25 +103,28 @@
 	return FALSE
 
 /datum/team/xenomorph/proc/announce()
-	GLOB.major_announcement.announce("Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg',
-									new_sound2 = 'sound/AI/outbreak_xeno.ogg'
+	GLOB.major_announcement.announce(
+		message = "Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg',
+		new_sound2 = 'sound/AI/outbreak_xeno.ogg'
 	)
 	SSticker?.mode?.special_directive()
 	SSshuttle?.emergency.cancel()
 	SSshuttle?.add_hostile_environment(current_queen.current)
 
 /datum/team/xenomorph/proc/evolve_announce(area/loc)
-	GLOB.major_announcement.announce("Зафиксировано изменение организации улья, указывающее на начало трансформации в Императрицу Ксеноморфов. Обнаружено значительное скопление биоугрозы в [loc.name]. Уничтожте огранизм до окончания трансформации любой ценой.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg'
+	GLOB.major_announcement.announce(
+		message = "Зафиксировано изменение организации улья, указывающее на начало трансформации в Императрицу Ксеноморфов. Обнаружено значительное скопление биоугрозы в [loc.name]. Уничтожьте организм до окончания трансформации любой ценой.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg'
 	)
 
 /datum/team/xenomorph/proc/win_announce()
-	GLOB.major_announcement.announce("Подтверждено наличие Императрицы Ксеноморфов на борту [station_name()]. Обнаружено загрязнение систем жизнеобеспечения. Станция переклассифицирована в гнездо биоугрозы 4-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
-									"Отчёт об объекте [station_name()].",
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Подтверждено наличие Императрицы Ксеноморфов на борту [station_name()]. Обнаружено загрязнение систем жизнеобеспечения. Станция переклассифицирована в гнездо биоугрозы 4-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
+		new_title = "Отчёт об объекте [station_name()].",
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 
@@ -203,18 +206,18 @@
 
 
 /datum/team/xenomorph/declare_completion()
-	if(members.len)
+	if(length(members))
 		var/list/text = declare_results()
-		if(queens?.len)
-			text += "<br/><span style='font-size: 2;'><b>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</b></span>"
+		if(length(queens))
+			text += span_fontsize2("<br/><b>Королев[(length(queens) > 1 ? "ами были" : "ой была")]:</b>")
 			for(var/datum/mind/queen in queens)
 				text += "<br/><b>[queen.key]</b> был <b>[queen.name]</b>"
-		text += "<br/><span style='font-size: 2;'><b>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</b></span>"
+		text += span_fontsize2("<br/><b>Ксеноморф[(length(members) > 1 ? "ами были" : "ом был")]:</b>")
 		for(var/datum/mind/alien in members)
 			if(alien in facehuggers)
 				continue
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
-		text += "<br/><span style='font-size: 2;'><b>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</b></span>"
+		text += span_fontsize2("<br/><b>Лицехват[(length(members) > 1 ? "ами были" : "ом был")]:</b>")
 		for(var/datum/mind/alien in facehuggers)
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
 		return text.Join("")
@@ -262,7 +265,7 @@
 			GLOB.respawnable_list -= C
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.evolution_points += (0.75 * new_xeno.max_evolution_points)	//event spawned larva start off almost ready to evolve.
-			new_xeno.key = C.key
+			new_xeno.possess_by_player(C.key)
 			new_xeno.move_into_vent(vent, FALSE)
 			if(first_spawn)
 				new_xeno.queen_maximum++
@@ -284,7 +287,7 @@
 			GLOB.respawnable_list -= C
 			var/mob/living/carbon/alien/humanoid/hunter/vector/new_xeno = new(vent.loc)
 			new_xeno.move_into_vent(vent, FALSE)
-			new_xeno.key = C.key
+			new_xeno.possess_by_player(C.key)
 			if(first_spawn)
 				new_xeno.queen_maximum++
 				first_spawn = FALSE

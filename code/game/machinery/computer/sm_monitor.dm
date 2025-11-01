@@ -4,7 +4,7 @@
 	icon_keyboard = "power_key"
 	icon_screen = "smmon_0"
 	circuit = /obj/item/circuitboard/sm_monitor
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	/// Cache-list of all supermatter shards
 	var/list/supermatters
 	/// Last status of the active supermatter for caching purposes
@@ -93,10 +93,10 @@
 	return data
 
 /**
-  * Supermatter List Refresher
-  *
-  * This proc loops through the list of supermatters in the atmos SS and adds them to this console's cache list
-  */
+ * Supermatter List Refresher
+ *
+ * This proc loops through the list of supermatters in the atmos SS and adds them to this console's cache list
+ */
 /obj/machinery/computer/sm_monitor/proc/refresh()
 	supermatters = list()
 	var/turf/T = get_turf(ui_host()) // Get the UI host incase this ever turned into a supermatter monitoring module for AIs to use or something

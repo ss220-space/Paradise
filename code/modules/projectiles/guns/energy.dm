@@ -4,7 +4,6 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/weapons/energy.dmi'
 	fire_sound_text = "laser blast"
-	gun_light_overlay = "flight"
 	ammo_x_offset = 2
 
 	var/obj/item/stock_parts/cell/cell	//What type of power cell this uses
@@ -29,6 +28,7 @@
 
 	var/can_add_sibyl_system = TRUE	//if a sibyl system's mod can be added or removed if it already has one
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
+	var/isclockwork = FALSE
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
@@ -135,8 +135,8 @@
 		sibyl_mod.unlock()
 		if(user)
 			user.visible_message(span_warning("От [src] летят искры!"), span_notice("Вы взломали [src], что привело к выключению болтов предохранителя."))
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 30, 1)
-		do_sparks(5, 1, src)
+		playsound(loc, 'sound/effects/sparks4.ogg', 30, TRUE)
+		do_sparks(5, TRUE, src)
 		return
 
 /obj/item/gun/energy/emp_act(severity)
@@ -167,7 +167,7 @@
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
-	for(var/i = 1, i <= ammo_type.len, i++)
+	for(var/i = 1, i <= length(ammo_type), i++)
 		var/shottype = ammo_type[i]
 		shot = new shottype(src)
 		ammo_type[i] = shot
@@ -243,7 +243,7 @@
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	if(!user)	// If it's called by something, but not human (Security level changing), drop firemode to non-lethal.
 		select = 1
-	else if(++select > ammo_type.len)
+	else if(++select > length(ammo_type))
 		select = 1
 	else
 		if(sibyl_mod && !sibyl_mod.check_select(select))
@@ -252,7 +252,7 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if(!isnull(user) && (shot.select_name || shot.fluff_select_name))
-		var/static/gun_modes_ru = list( //about 2/3 of them will never be shown in game, but better save, than sorry
+		var/static/gun_modes_ru = list(//about 2/3 of them will never be shown in game, but better save, than sorry
 			"practice" = "режим практики",
 			"kill" = "летальный режим",
 			"shuriken" = "метатель сюрикенов",
@@ -331,7 +331,11 @@
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
+	if(isclockwork)
+		return
 	var/overlay_name = overlay_set ? overlay_set : icon_state
+	if(!length(ammo_type))
+		return
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += "[overlay_name]_[shot.select_name]"
@@ -343,17 +347,9 @@
 				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i - 1))
 		else
 			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
-	if(gun_light && gun_light_overlay)
-		var/iconF = gun_light_overlay
-		if(gun_light.on)
-			iconF = "[gun_light_overlay]_on"
-		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(bayonet && bayonet_overlay)
 		. += bayonet_overlay
 
-
-/obj/item/gun/energy/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
 
 
 /obj/item/gun/energy/suicide_act(mob/user)
@@ -391,9 +387,9 @@
 		return
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell)
+		if(R?.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
-			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
+			if(R.cell.use(shot.e_cost))		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
 
 

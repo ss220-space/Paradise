@@ -64,6 +64,22 @@
 		PREPOSITIONAL = "капсуле снабжения Центрального командования"
 	)
 
+/datum/pod_style/contractor
+	name = "contractor supply pod"
+	ui_name = "Контрактника"
+	desc = "Устрашающая капсула снабжения, покрытая золотыми знаками Синдиката. Наверное, лучше держаться подальше."
+	icon_state = "darkpod"
+	decal_icon = "contractor"
+	id = "contractor"
+	ru_names = list(
+		NOMINATIVE = "капсула снабжения контрактника",
+		GENITIVE = "капсулы снабжения контрактника",
+		DATIVE = "капсуле снабжения контрактника",
+		ACCUSATIVE = "капсулу снабжения контрактника",
+		INSTRUMENTAL = "капсулой снабжения контрактника",
+		PREPOSITIONAL = "капсуле снабжения контрактника"
+	)
+
 /datum/pod_style/syndicate
 	name = "blood-red supply pod"
 	ui_name = "Синдиката"

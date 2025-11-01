@@ -48,9 +48,9 @@
 
 	//table data:
 	//-----------
-	//aft maintenance: 		24 items, 18 spots 2 extra (28/08/2014)
-	//asmaint: 				16 items, 11 spots 0 extra (08/08/2014)
-	//asmaint2:			 	36 items, 26 spots 2 extra (28/08/2014)
+	//aft maintenance:		24 items, 18 spots 2 extra (28/08/2014)
+	//asmaint:				16 items, 11 spots 0 extra (08/08/2014)
+	//asmaint2:				36 items, 26 spots 2 extra (28/08/2014)
 	//fpmaint:				5  items,  4 spots 0 extra (08/08/2014)
 	//fpmaint2:				12 items, 11 spots 2 extra (28/08/2014)
 	//fsmaint:				0  items,  0 spots 0 extra (08/08/2014)
@@ -144,7 +144,7 @@
 				/obj/item/soap/syndie = 7,
 				/obj/item/stack/tape_roll/thick = 7,
 				/obj/item/gun/syringe/syndicate = 2,
-				/obj/item/suppressor = 4,
+				/obj/item/gun_module/muzzle/suppressor = 4,
 				/obj/item/clothing/under/chameleon = 2,
 				/obj/item/stamp/chameleon = 2,
 				/obj/item/clothing/shoes/chameleon/noslip = 5,
@@ -178,7 +178,6 @@
 /obj/effect/spawner/lootdrop/trade_sol/
 	name = "trader item spawner"
 	lootcount = 6
-	lootdoubles = TRUE
 	color = "#00FFFF"
 
 //У нас не используется
@@ -449,7 +448,6 @@
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "weaver"
 	lootdoubles = FALSE
-	lootcount = 1
 	loot = list(/mob/living/simple_animal/hostile/asteroid/marrowweaver = 40,
 	/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 20,
 	"" = 40)

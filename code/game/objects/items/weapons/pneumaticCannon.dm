@@ -14,7 +14,7 @@
 	item_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
 	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
@@ -45,9 +45,9 @@
 	else
 		. += span_notice("Use a <b>wrench</b> to change the pressure level. Current output level is <b>[pressure_setting_to_text(pressure_setting)]</b>.")
 		if(tank)
-			. += span_notice("[bicon(tank)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
+			. += span_notice("[icon2html(tank, user)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
 		for(var/obj/item/I in loadedItems)
-			. += span_notice("[bicon(I)] It has \a [I] loaded.")
+			. += span_notice("[icon2html(I, user)] It has \a [I] loaded.")
 
 
 /obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
@@ -132,7 +132,7 @@
 	Fire(user, target)
 
 
-/obj/item/pneumatic_cannon/proc/Fire(var/mob/living/carbon/human/user, var/atom/target)
+/obj/item/pneumatic_cannon/proc/Fire(mob/living/carbon/human/user, atom/target)
 	if(!istype(user) && !target)
 		return
 	var/discharge = 0

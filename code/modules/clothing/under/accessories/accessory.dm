@@ -5,9 +5,9 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	slot_flags = ITEM_SLOT_ACCESSORY
-	w_class = WEIGHT_CLASS_SMALL
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
+	gender = MALE
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the tie may be attached to
 	var/obj/item/clothing/under/has_suit
@@ -56,7 +56,7 @@
 
 	if(ismob(has_suit.loc))
 		var/mob/wearer = has_suit.loc
-		wearer.update_inv_w_uniform()
+		wearer.update_worn_undersuit()
 		for(var/datum/action/action as anything in actions)
 			action.Grant(wearer)
 
@@ -92,7 +92,7 @@
 
 	if(ismob(has_suit.loc))
 		var/mob/wearer = has_suit.loc
-		wearer.update_inv_w_uniform()
+		wearer.update_worn_undersuit()
 		for(var/datum/action/action as anything in actions)
 			action.Remove(wearer)
 
@@ -118,6 +118,7 @@
 
 	var/obj/item/clothing/under/uniform = target.w_uniform
 	if(uniform_check(target, user, uniform))
+		to_chat(user, span_warning("На [uniform.declent_ru(PREPOSITIONAL)] может быть только одна нашивка!"))
 		return .
 
 	user.visible_message(
@@ -139,7 +140,7 @@
 
 /obj/item/clothing/accessory/proc/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
 	SHOULD_CALL_PARENT(TRUE)
-	if(target.w_uniform != uniform)
+	if(target && (target.w_uniform != uniform))
 		return FALSE
 	return TRUE
 
@@ -161,13 +162,12 @@
 
 
 /// Additional info when examine accessory on the suit
-/obj/item/clothing/accessory/proc/attached_examine(mob/user)
-	return span_notice("К нему прикреплен [bicon(src)] [declent_ru(NOMINATIVE)].")
+/obj/item/clothing/accessory/proc/attached_examine(mob/user, obj/item/clothing/under/uniform)
+	return span_notice("К н[GEND_HIM_HER(uniform)] прикреплен[GEND_A_O_Y(src)] [icon2html(src, user)] [declent_ru(NOMINATIVE)].")
 
 
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
-	icon_state = "bluetie"
 
 /obj/item/clothing/accessory/red
 	name = "red tie"
@@ -298,7 +298,7 @@
 
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
-	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
+	desc = "An extremely rare golden medal awarded only by CentComm. To receive such a medal is the highest honor and as such, very few exist."
 	icon_state = "ion"
 
 // SILVER (awarded by Captain)
@@ -372,7 +372,7 @@
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 10) //Technically twice as much plasma as it should spawn but a little more never hurt anyone.
-	visible_message("<span class='warning'>[src] bursts into flame!</span>")
+	visible_message(span_warning("[src] bursts into flame!"))
 	qdel(src)
 
 // Alloy, for the vetus speculator, or abductors I guess.
@@ -638,7 +638,13 @@
 /obj/item/clothing/accessory/necklace/skullcodpiece
 	name = "skull codpiece"
 	desc = "Украшение в виде черепа, которое предназначено для защиты самого важного в жизни."
-	ru_names = list(
+	icon_state = "skull"
+	item_state = "skull"
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	allow_duplicates = FALSE
+
+/obj/item/clothing/accessory/necklace/skullcodpiece/get_ru_names()
+	return list(
 		NOMINATIVE = "костяной гульфик",
 		GENITIVE = "костяного гульфика",
 		DATIVE = "костяному гульфику",
@@ -646,15 +652,17 @@
 		INSTRUMENTAL = "костяным гульфиком",
 		PREPOSITIONAL = "костяном гульфике"
 	)
-	icon_state = "skull"
-	item_state = "skull"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
-	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
 	name = "bone talisman"
-	desc = "Талисман охотника – многие верят, что он дарует защиту от старых богов тем, кто его носит."
-	ru_names = list(
+	desc = "Талисман охотника — многие верят, что он дарует защиту от старых богов тем, кто его носит."
+	icon_state = "talisman"
+	item_state = "talisman"
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	allow_duplicates = FALSE
+
+/obj/item/clothing/accessory/necklace/talisman/get_ru_names()
+	return list(
 		NOMINATIVE = "костяной талисман",
 		GENITIVE = "костяного талисмана",
 		DATIVE = "костяному талисману",
@@ -662,10 +670,6 @@
 		INSTRUMENTAL = "костяным талисманом",
 		PREPOSITIONAL = "костяном талисмане"
 	)
-	icon_state = "talisman"
-	item_state = "talisman"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
-	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
@@ -980,7 +984,7 @@
 /obj/item/clothing/accessory/petcollar/examine(mob/user)
 	. = ..()
 	if(access_id)
-		. += span_notice("There is [bicon(access_id)] \a [access_id] clipped onto it.")
+		. += span_notice("There is [icon2html(access_id, user)] \a [access_id] clipped onto it.")
 
 
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user, slot, initial = FALSE)
@@ -1001,7 +1005,6 @@
 		return
 	var/announce_channel = PUB_FREQ			// Channel toggler for mobs, who dies in specific locations.
 	var/area/t = get_area(M)
-	var/obj/item/radio/headset/all_channels/a = new /obj/item/radio/headset/all_channels(src)
 	if(M.z == level_name_to_num(RAMSS_TAIPAN))
 		announce_channel = SYND_TAIPAN_FREQ		// Taipan channel for Руж.
 	else if(istype(t, /area/centcom))
@@ -1013,12 +1016,10 @@
 	else if(istype(t, /area/ussp_centcom))
 		announce_channel = SOV_FREQ			// MISHA, FU!
 	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
-		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
-		qdel(a)
+		radio_announce("[M] has been vandalized in Space!", "[M]'s Death Alarm", PUB_FREQ, src)	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
 		STOP_PROCESSING(SSobj, src)
 		return
-	a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm", announce_channel)
-	qdel(a)
+	radio_announce("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm", announce_channel, src)
 	STOP_PROCESSING(SSobj, src)
 
 
@@ -1046,6 +1047,7 @@
 	desc = "Плотно сшитая круглая нашивка из синего бархата с позолотой, по центру красуется логотип корпорации Nanotrasen прошитый золотыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся управление станцией."
 	icon_state = "capstrip"
 	item_state = "capstrip"
+	gender = FEMALE
 	var/strip_bubble_icon = "CAP"
 	var/cached_bubble_icon = null
 
@@ -1067,25 +1069,43 @@
 /obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
 	. = ..()
 	if(. && locate(/obj/item/clothing/accessory/head_strip, uniform.contents))
-		to_chat(user, span_warning("You can have only one strip attached to this uniform!"))
 		return FALSE
+
+
+/obj/item/clothing/accessory/head_strip/attached_equip(mob/user)
+	update_bubble_icon(user, attached = TRUE)
+
+
+/obj/item/clothing/accessory/head_strip/attached_unequip(mob/user)
+	update_bubble_icon(user, attached = FALSE)
 
 
 /obj/item/clothing/accessory/head_strip/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
-	if(. && ismob(has_suit.loc))
-		var/mob/wearer = has_suit.loc
-		cached_bubble_icon = wearer.bubble_icon
-		wearer.bubble_icon = strip_bubble_icon
+	var/mob/wearer = has_suit.loc
+	if(!. || !ismob(wearer))
+		return
+
+	update_bubble_icon(wearer, attached = TRUE)
 
 
 /obj/item/clothing/accessory/head_strip/on_removed(mob/detacher)
 	. = ..()
-	if(.)
-		var/obj/item/clothing/under/old_suit = .
-		if(ismob(old_suit.loc))
-			var/mob/wearer = old_suit.loc
-			wearer.bubble_icon = cached_bubble_icon
+	var/obj/item/clothing/under/old_suit = .
+	var/mob/wearer = old_suit.loc
+	if(!. || !ismob(wearer))
+		return
+
+	update_bubble_icon(wearer, attached = FALSE)
+
+
+/obj/item/clothing/accessory/head_strip/proc/update_bubble_icon(mob/wearer, attached)
+	if(!attached)
+		wearer.bubble_icon = cached_bubble_icon
+		return
+
+	cached_bubble_icon = wearer.bubble_icon
+	wearer.bubble_icon = strip_bubble_icon
 
 
 /obj/item/clothing/accessory/head_strip/rd
@@ -1145,7 +1165,7 @@
 	strip_bubble_icon = "BS"
 
 /obj/item/clothing/accessory/head_strip/ntr
-	name = "NanoTrasen Representative's strip"
+	name = "Nanotrasen Representative's strip"
 	desc = "Плотно сшитая круглая нашивка из чёрного бархата с золотистой окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся заслуги при службе на корпорацию."
 	icon_state = "ntrstrip"
 	item_state = "ntrstrip"
@@ -1175,7 +1195,12 @@
 /obj/item/clothing/accessory/head_strip/greytide
 	name = "GreyTide strip"
 	desc = "Плотно сшитая круглая нашивка серого цвета с расположенным в центре противогазом."
-	ru_names = list(
+	icon_state = "greytstrip"
+	item_state = "greytstrip"
+	strip_bubble_icon = "greyt"
+
+/obj/item/clothing/accessory/head_strip/greytide/get_ru_names()
+	return list(
 		NOMINATIVE = "нашивка \"GreyTide\"",
 		GENITIVE = "нашивки \"GreyTide\"",
 		DATIVE = "нашивке \"GreyTide\"",
@@ -1183,9 +1208,6 @@
 		INSTRUMENTAL = "нашивкой \"GreyTide\"",
 		PREPOSITIONAL = "нашивке \"GreyTide\""
 	)
-	icon_state = "greytstrip"
-	item_state = "greytstrip"
-	strip_bubble_icon = "greyt"
 
 /obj/item/clothing/accessory/head_strip/lawyers_badge
 	name = "attorney's badge"
@@ -1193,7 +1215,7 @@
 	icon_state = "lawyerbadge"
 	item_state = "lawyerbadge"
 	strip_bubble_icon = "lawyer"
-
+	gender = MALE
 
 /obj/item/clothing/accessory/head_strip/lawyers_badge/fluff_attack_self_action(mob/user)
 	if(prob(1))
@@ -1206,6 +1228,7 @@
 	icon_state = "cheesebadge"
 	item_state = "cheesebadge"
 	strip_bubble_icon = "cheese"
+	gender = MALE
 
 /obj/item/clothing/accessory/head_strip/cheese_badge/fluff_attack_self_action(mob/user)
 	if(prob(1))
@@ -1217,6 +1240,91 @@
 	icon_state = "clownstrip"
 	item_state = "clownstrip"
 	strip_bubble_icon = "clown"
+
+/obj/item/clothing/accessory/head_strip/deathsquad
+	name = "deathsquad's strip"
+	desc = "Плотно сшитая круглая нашивка из чёрного бархата с красными вставками. По центру красуется шлем бойца Эскадрона Смерти, которые являются \[ОТРЕДАКТИРОВАНО\]."
+	icon_state = "deathsquadstrip"
+	item_state = "deathsquadstrip"
+	strip_bubble_icon = "deathsquad"
+
+/obj/item/clothing/accessory/head_strip/deathsquad/get_ru_names()
+	return list(
+		NOMINATIVE = "нашивка \"Эскадрон Смерти\"",
+		GENITIVE = "нашивки \"Эскадрон Смерти\"",
+		DATIVE = "нашивке \"Эскадрон Смерти\"",
+		ACCUSATIVE = "нашивку \"Эскадрон Смерти\"",
+		INSTRUMENTAL = "нашивкой \"Эскадрон Смерти\"",
+		PREPOSITIONAL = "нашивке \"Эскадрон Смерти\""
+	)
+
+/obj/item/clothing/accessory/head_strip/triforce
+	name = "triforce strip"
+	desc = "Круглая нашивка из твёрдого пластика жёлтого цвета с чёрной окантовкой, по центру расположены три светящихся треугольника голубого цвета. Треугольники явно расположены неправильно."
+	icon_state = "triforcestrip"
+	item_state = "triforcestrip"
+	strip_bubble_icon = "triforce"
+
+/obj/item/clothing/accessory/head_strip/triforce/get_ru_names()
+	return list(
+		NOMINATIVE = "нашивка \"Трифорс\"",
+		GENITIVE = "нашивки \"Трифорс\"",
+		DATIVE = "нашивке \"Трифорс\"",
+		ACCUSATIVE = "нашивку \"Трифорс\"",
+		INSTRUMENTAL = "нашивкой \"Трифорс\"",
+		PREPOSITIONAL = "нашивке \"Трифорс\""
+	)
+
+/obj/item/clothing/accessory/head_strip/black_cat
+	name = "black cat strip"
+	desc = "Плотно сшитая нашивка из чёрного бархата в форме головы кота, по центру прошиты глаза и мордочка, выглядит замурчательно."
+	icon_state = "blackcatstrip"
+	item_state = "blackcatstrip"
+	strip_bubble_icon = "blackcat"
+
+/obj/item/clothing/accessory/head_strip/black_cat/get_ru_names()
+	return list(
+		NOMINATIVE = "нашивка \"Чёрный кот\"",
+		GENITIVE = "нашивки \"Чёрный кот\"",
+		DATIVE = "нашивке \"Чёрный кот\"",
+		ACCUSATIVE = "нашивку \"Чёрный кот\"",
+		INSTRUMENTAL = "нашивкой \"Чёрный кот\"",
+		PREPOSITIONAL = "нашивке \"Чёрный кот\""
+	)
+
+/obj/item/clothing/accessory/head_strip/fox
+	name = "fox strip"
+	desc = "Плотно сшитая нашивка из оранжевых нитей в форме головы лисы, в центре прошиты глаза и носик, выглядит достаточно мило."
+	icon_state = "foxstrip"
+	item_state = "foxstrip"
+	strip_bubble_icon = "fox"
+
+/obj/item/clothing/accessory/head_strip/fox/get_ru_names()
+	return list(
+		NOMINATIVE = "нашивка \"Лиса\"",
+		GENITIVE = "нашивки \"Лиса\"",
+		DATIVE = "нашивке \"Лиса\"",
+		ACCUSATIVE = "нашивку \"Лиса\"",
+		INSTRUMENTAL = "нашивкой \"Лиса\"",
+		PREPOSITIONAL = "нашивке \"Лиса\""
+	)
+
+/obj/item/clothing/accessory/head_strip/frog
+	name = "frog strip"
+	desc = "Плотно сшитая нашивка из зелёного бархата в форме весёлой лягушки, по центру прошит рот и белый животик. Сделано для истинных почитателей лягушек."
+	icon_state = "frogstrip"
+	item_state = "frogstrip"
+	strip_bubble_icon = "frog"
+
+/obj/item/clothing/accessory/head_strip/frog/get_ru_names()
+	return list(
+		NOMINATIVE = "нашивка \"Лягушка\"",
+		GENITIVE = "нашивки \"Лягушка\"",
+		DATIVE = "нашивке \"Лягушка\"",
+		ACCUSATIVE = "нашивку \"Лягушка\"",
+		INSTRUMENTAL = "нашивкой \"Лягушка\"",
+		PREPOSITIONAL = "нашивке \"Лягушка\""
+	)
 
 /obj/item/clothing/accessory/medal/smile
 	name = "smiling pin"

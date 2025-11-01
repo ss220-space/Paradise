@@ -94,14 +94,14 @@
 	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/cucumberslice
- 	name = "cucumber slice"
- 	desc = "A slice from a cucumber."
- 	icon_state = "cucumberslice"
- 	filling_color = "#00DB00"
- 	bitesize = 6
- 	list_reagents = list("kelotane" = 1)
- 	tastes = list("cucumber" = 1)
- 	foodtype = VEGETABLES
+	name = "cucumber slice"
+	desc = "A slice from a cucumber."
+	icon_state = "cucumberslice"
+	filling_color = "#00DB00"
+	bitesize = 6
+	list_reagents = list("kelotane" = 1)
+	tastes = list("cucumber" = 1)
+	foodtype = VEGETABLES
 
 
 /obj/item/reagent_containers/food/snacks/cucumberslice/attackby(obj/item/I, mob/user, params)
@@ -349,9 +349,7 @@
 
 
 /obj/item/reagent_containers/food/snacks/rawcookies/chocochips
-	name = "raw cookies"
 	desc = "Ready for oven! They have little pieces of chocolate all over them"
-	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies_choco"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "chocolate" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "chocolate" = 1)

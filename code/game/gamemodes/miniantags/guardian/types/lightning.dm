@@ -1,6 +1,4 @@
 /mob/living/simple_animal/hostile/guardian/beam
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 	attacktext = "бьёт током"
 	melee_damage_type = BURN
 	attack_sound = 'sound/machines/defib_zap.ogg'
@@ -26,7 +24,7 @@
 	..()
 	AddSpell(new /obj/effect/proc_holder/spell/charge_up/bounce/lightning/guardian)
 
-/mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //You are lightning, you should not be hurt by such things.
 
 /mob/living/simple_animal/hostile/guardian/beam/Manifest()
@@ -48,7 +46,7 @@
 /mob/living/simple_animal/hostile/guardian/beam/proc/cleardeletedchains()
 	if(summonerchain && QDELETED(summonerchain))
 		summonerchain = null
-	if(enemychains.len)
+	if(length(enemychains))
 		for(var/chain in enemychains)
 			var/datum/cd = chain
 			if(!chain || QDELETED(cd))
@@ -61,14 +59,14 @@
 		if(!summonerchain)
 			summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/chain, layer = LYING_MOB_LAYER)
 		. += chainshock(summonerchain)
-	if(enemychains.len)
+	if(length(enemychains))
 		for(var/chain in enemychains)
 			. += chainshock(chain)
 
 /mob/living/simple_animal/hostile/guardian/beam/proc/removechains()
 	if(summonerchain)
 		QDEL_NULL(summonerchain)
-	if(enemychains.len)
+	if(length(enemychains))
 		for(var/chain in enemychains)
 			qdel(chain)
 		enemychains = list()
@@ -78,11 +76,11 @@
 	var/list/turfs = list()
 	for(var/E in B.elements)
 		var/obj/effect/ebeam/chainpart = E
-		if(chainpart && chainpart.x && chainpart.y && chainpart.z)
+		if(chainpart?.x && chainpart.y && chainpart.z)
 			var/turf/T = get_turf_pixel(chainpart)
 			turfs |= T
 			if(T != get_turf(B.origin) && T != get_turf(B.target))
-				for(var/turf/TU in circlerange(T, 1))
+				for(var/turf/TU in circle_range(T, 1))
 					turfs |= TU
 	for(var/turf in turfs)
 		var/turf/T = turf
@@ -93,7 +91,7 @@
 					continue
 				if(successfulshocks > 4)
 					L.visible_message(
-						span_danger("[L] был[genderize_ru(L.gender,"","а","о","и")] пораж[genderize_ru(L.gender,"ён","ена","ено","ены")] цепью молний!"), \
+						span_danger("[L] был[GEND_A_O_I(L)] поражен[GEND_A_O_Y(L)] цепью молний!"), \
 						span_userdanger("Вас ударила цепь молний!"), \
 						span_italics("Вы слышите громкий электрический треск.") \
 					)
@@ -101,6 +99,6 @@
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)
-    if(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE))
-        REMOVE_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
-    return ..()
+	if(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE))
+		REMOVE_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
+	return ..()

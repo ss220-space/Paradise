@@ -1,13 +1,8 @@
-/datum/game_mode
-	var/list/datum/mind/sintouched = list()
-	var/list/datum/mind/devils = list()
-
-
 /datum/game_mode/proc/auto_declare_completion_devil()
 	if(!length(devils))
 		return
 
-	var/list/text = list(span_fontsize2(span_bold("Дьявол[declension_ru(devils.len, "ом", "ами", "ами")]:")))
+	var/list/text = list(span_fontsize2(span_bold("Дьявол[declension_ru(length(devils), "ом", "ами", "ами")]:")))
 	for(var/datum/mind/devil in devils)
 		var/datum/antagonist/devil_datum = devil.has_antag_datum(/datum/antagonist/devil)
 		if(!devil_datum)
@@ -19,7 +14,7 @@
 	if(!length(devils))
 		return
 
-	var/list/text = list(span_fontsize2(span_bold("Грешник[declension_ru(devils.len, "ом", "ами", "ами")]:")))
+	var/list/text = list(span_fontsize2(span_bold("Грешник[declension_ru(length(devils), "ом", "ами", "ами")]:")))
 	for(var/datum/mind/devil in devils)
 		var/datum/antagonist/sintouched_datum = devil.has_antag_datum(/datum/antagonist/sintouched)
 		if(!sintouched_datum)

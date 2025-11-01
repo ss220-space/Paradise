@@ -1,5 +1,6 @@
 #define FREQUENCY_SALARY 5 MINUTES
 #define EXTRA_MONEY 10000
+
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
 	ss_id = "capitalism_subsystem"
@@ -10,20 +11,20 @@ SUBSYSTEM_DEF(capitalism)
 	flags = SS_BACKGROUND
 
 	//This separation is necessary for tests and in general so that it is pleasant
-	var/datum/money_account/base_account 	= null //the account that receives money for orders and vending machines
+	var/datum/money_account/base_account	= null //the account that receives money for orders and vending machines
 	var/datum/money_account/payment_account = null //The account from which the salary is deducted badguy
 
 	//Attention. Statistics for greentext
 	//And why did I make tabs?...
-	var/total_salary_payment = 0 	//How much money was spent on salaries
-	var/total_station_bounty = 0 	//How much money did the money from the cargo bring to the station account
-	var/total_cargo_bounty 	= 0 	//How much money was credited to the cargo account from the tasks
-	var/total_personal_bounty = 0 	//How much money was distributed to the beggars
-	var/income_vedromat = 0 		//Income from vending machines
-	var/default_counter = 0 		//The counter for the number of defaults, I definitely won't make a joke
+	var/total_salary_payment = 0	//How much money was spent on salaries
+	var/total_station_bounty = 0	//How much money did the money from the cargo bring to the station account
+	var/total_cargo_bounty	= 0	//How much money was credited to the cargo account from the tasks
+	var/total_personal_bounty = 0	//How much money was distributed to the beggars
+	var/income_vedromat = 0		//Income from vending machines
+	var/default_counter = 0		//The counter for the number of defaults, I definitely won't make a joke
 
-	var/list/complited_goals = list() 	//It is necessary not to pay again for the goal, gagaga
-	var/default_status = FALSE 			//TRUE if the default is in effect at the station, you can do it in the future, for example, as a cargo modifier
+	var/list/complited_goals = list()	//It is necessary not to pay again for the goal, gagaga
+	var/default_status = FALSE			//TRUE if the default is in effect at the station, you can do it in the future, for example, as a cargo modifier
 
 /datum/controller/subsystem/capitalism/Initialize()
 	accounts_init()
@@ -31,11 +32,6 @@ SUBSYSTEM_DEF(capitalism)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/capitalism/fire()
-
-	//if(default_counter > 300)
-	//	GLOB.major_announcement.announce("Станция признана убыточным объектом. Хорошего дня.", "Расторжение контрактов.", 'sound/AI/commandreport.ogg')
-	//	SSsecurity_level.set_level(SEC_LEVEL_EPSILON)
-
 	//If there is enough money to pay salaries at least twice before the default is lifted
 	if(default_status && (payment_account.money > (potential_salary_payments() + EXTRA_MONEY)))
 		default_status = FALSE
@@ -61,21 +57,23 @@ SUBSYSTEM_DEF(capitalism)
 			complited_goals += goal
 
 	if(total_station_goal_bounty)
-		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития НаноТрейзен", base_account.owner_name)
+		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития Нанотрейзен", base_account.owner_name)
 		smart_job_payment(s_ex_personal_bounry)
 
 //status - TRUE/FALSE
 /datum/controller/subsystem/capitalism/proc/default_annonce()
 	if(default_status)
-		/* Both announcements are Minor because it happens all the time, because the system of capitalism is shit. */
-		GLOB.minor_announcement.announce("На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
-										ANNOUNCE_CAPITAL_DEFOLT_RU,
-										'sound/AI/commandreport.ogg'
+		// Both announcements are Minor because it happens all the time, because the system of capitalism is shit.
+		GLOB.minor_announcement.announce(
+			message = "На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
+			new_title = ANNOUNCE_CAPITAL_DEFOLT_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 	else
-		GLOB.minor_announcement.announce("На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
-										ANNOUNCE_CAPITAL_REPAY_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.minor_announcement.announce(
+			message = "На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
+			new_title = ANNOUNCE_CAPITAL_REPAY_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 
 /datum/controller/subsystem/capitalism/proc/potential_salary_payments()
@@ -92,13 +90,13 @@ SUBSYSTEM_DEF(capitalism)
 	if(!GLOB.station_account)
 		create_station_account()
 
-	if(GLOB.department_accounts.len == 0)
+	if(length(GLOB.department_accounts) == 0)
 		for(var/department in GLOB.station_departments)
 			create_department_account(department)
 
 /datum/controller/subsystem/capitalism/proc/salary_account_init()
 	base_account = GLOB.station_account		//The account that the bounty goes to, the money for the goal and the money from the machines.
-	payment_account = GLOB.station_account 	//GLOB.CC_account 	//This is the account from which money is debited for salary. Made for catsmile tests
+	payment_account = GLOB.station_account	//GLOB.CC_account	//This is the account from which money is debited for salary. Made for catsmile tests
 
 	if(!GLOB.vendor_account)
 		GLOB.vendor_account = base_account //:catsmile:
@@ -113,7 +111,7 @@ SUBSYSTEM_DEF(capitalism)
 			else
 				return FALSE
 
-/datum/controller/subsystem/capitalism/proc/smart_bounty_payment(var/list/jobs_payment, var/money)
+/datum/controller/subsystem/capitalism/proc/smart_bounty_payment(list/jobs_payment, money)
 	. = FALSE //If nothing is paid to anyone
 	var/list_payment_account = list() //which people should I pay
 	var/bounty = 0 //What kind of money for each person
@@ -132,7 +130,7 @@ SUBSYSTEM_DEF(capitalism)
 			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно Ответить)", FALSE)
 	return
 
-/datum/controller/subsystem/capitalism/proc/smart_job_payment(var/list/jobs_payment)
+/datum/controller/subsystem/capitalism/proc/smart_job_payment(list/jobs_payment)
 	. = FALSE //If nothing is paid to anyone
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
@@ -143,10 +141,10 @@ SUBSYSTEM_DEF(capitalism)
 	return
 
 // In short, as for beggars, but for departments
-/datum/controller/subsystem/capitalism/proc/smart_departament_payment(var/list/keys_departament, var/money)
-	. = FALSE 							//If nothing is paid to anyone
-	var/list_payment_account = list() 	//which people should I pay
-	var/bounty = 0 						//What kind of money for each department
+/datum/controller/subsystem/capitalism/proc/smart_departament_payment(list/keys_departament, money)
+	. = FALSE							//If nothing is paid to anyone
+	var/list_payment_account = list()	//which people should I pay
+	var/bounty = 0						//What kind of money for each department
 	total_personal_bounty += money
 	var/datum/money_account/account = base_account
 
@@ -165,3 +163,6 @@ SUBSYSTEM_DEF(capitalism)
 	for(var/datum/money_account/account_pay in list_payment_account)
 		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
 	return
+
+#undef FREQUENCY_SALARY
+#undef EXTRA_MONEY

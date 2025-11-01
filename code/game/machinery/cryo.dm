@@ -1,32 +1,21 @@
-#define AUTO_EJECT_DEAD		(1<<0)
-#define AUTO_EJECT_HEALTHY	(1<<1)
+#define AUTO_EJECT_DEAD (1<<0)
+#define AUTO_EJECT_HEALTHY (1<<1)
 #define OCCUPANT_PIXEL_BOUNCE_HIGH 28
 #define OCCUPANT_PIXEL_BOUNCE_LOW 22
 
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	desc = "Медицинское устройство, представляющее из себя высокую капсулу, напичканную датчиками и сканерами. Судя по всему, она понижает температуру тела субъекта внутри."
-	ru_names = list(
-		NOMINATIVE = "криогенная капсула",
-		GENITIVE = "криогенной капсулы",
-		DATIVE = "криогенной капсуле",
-		ACCUSATIVE = "криогенную капсулу",
-		INSTRUMENTAL = "криогенной капсулой",
-		PREPOSITIONAL = "криогенной капсуле"
-	)
 	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
 	density = TRUE
-	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
-	plane = GAME_PLANE
 	resistance_flags = null
 	interact_offline = 1
 	max_integrity = 350
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
-	on = FALSE
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
 	vent_movement = VENTCRAWL_CAN_SEE
-	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	flags = PREVENT_CLICK_UNDER | IGNORE_TURF_PIXEL_OFFSET
 	var/temperature_archived
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
@@ -42,7 +31,16 @@
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
-	light_color = LIGHT_COLOR_WHITE
+
+/obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
+	return list(
+		NOMINATIVE = "криогенная капсула",
+		GENITIVE = "криогенной капсулы",
+		DATIVE = "криогенной капсуле",
+		ACCUSATIVE = "криогенную капсулу",
+		INSTRUMENTAL = "криогенной капсулой",
+		PREPOSITIONAL = "криогенной капсуле"
+	)
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change(forced = FALSE)
@@ -57,15 +55,15 @@
 	. = ..()
 	if(occupant)
 		if(occupant.is_dead())
-			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
+			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [GEND_HE_SHE_CAP(occupant)] мертв[GEND_A_O_Y(occupant)]!")
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
 		. += span_notice("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
@@ -77,8 +75,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -113,12 +111,12 @@
 	QDEL_NULL(occupant_overlay)
 	return ..()
 
-/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)
+/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
+		occupant.ex_act(severity, target)
 	if(beaker)
-		beaker.ex_act(severity)
-	..()
+		beaker.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/handle_atom_del(atom/A)
 	..()
@@ -162,14 +160,14 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return TRUE
 	. = TRUE
 	if(put_mob(L))
 		if(L == user)
-			visible_message("[user] начинает[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начинает[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 		else
-			visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [L] в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [L] в [declent_ru(ACCUSATIVE)].")
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
@@ -271,7 +269,7 @@
 	data["beakerVolume"] = 0
 	if(beaker)
 		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
-		if(beaker.reagents && beaker.reagents.reagent_list.len)
+		if(beaker.reagents && length(beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
@@ -334,7 +332,7 @@
 			return ..()
 		beaker = glass
 		add_attack_logs(user, null, "Added [glass] containing [glass.reagents.log_list()] to a cryo cell at [COORD(src)]")
-		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [glass] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [glass] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -353,7 +351,7 @@
 		balloon_alert(grabber, "внутри кто-то есть!")
 		return .
 	if(grabbed_thing.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[grabbed_thing] не помест[pluralize_ru(grabbed_thing.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(grabbed_thing.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[grabbed_thing] не помест[PLUR_IT_YAT(grabbed_thing)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(grabbed_thing)] сидит слайм!"))
 		return .
 	if(put_mob(grabbed_thing))
 		return
@@ -491,9 +489,9 @@
 
 	add_fingerprint(usr)
 	if(M == usr)
-		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[usr] начина[PLUR_ET_YUT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[usr] начина[PLUR_ET_YUT(usr)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(usr, 2 SECONDS, M))
 		return
@@ -540,7 +538,7 @@
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/machinery/atmospherics/unary/cryo_cell/ratvar_act()
 	go_out()

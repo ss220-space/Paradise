@@ -283,7 +283,7 @@
 
 	var/list/destinations = list()
 
-	for(var/obj/item/radio/beacon/beacon in GLOB.global_radios)
+	for(var/obj/item/beacon/beacon as anything in GLOB.beacons)
 		LAZYADD(destinations, get_turf(beacon))
 
 	human.forceMove(safepick(destinations))
@@ -1016,7 +1016,7 @@
 		return RITUAL_FAILED_ON_PROCEED // no mercy guys. But you got friendly creature
 
 	var/mob/mob = pick(candidates)
-	animal.key = mob.key
+	animal.possess_by_player(mob.ckey)
 	animal.universal_speak = 1
 	animal.sentience_act()
 	animal.can_collar = 1
@@ -1024,8 +1024,8 @@
 	animal.del_on_death = FALSE
 	animal.master_commander = invoker
 
-	animal.mind.store_memory("<b>Мой хозяин - [invoker.name], выполню [genderize_ru(invoker.gender, "его", "её", "его", "их")] цели любой ценой!</b>")
-	to_chat(animal, chat_box_green("Вы - раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
+	animal.mind.store_memory("<b>Мой хозяин - [invoker.name], выполню [GEND_HIS_HER(invoker)] цели любой ценой!</b>")
+	to_chat(animal, chat_box_green("Вы — раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
 	add_game_logs("стал питомцем игрока [key_name(invoker)]", animal)
 
 	return RITUAL_SUCCESSFUL
@@ -1048,3 +1048,66 @@
 	new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(get_turf(ritual_object))
 
 	return
+
+/datum/ritual/ashwalker/coldresist
+	name = "Ритуал Согревания"
+	description = "Проведение данного ритуала сделает всех его участников невосприимчивыми к холоду. \
+					Катастрофическая неудача приведёт к ужасающим ожогам всех участников ритуала."
+	disaster_prob = 100
+	fail_chance = 25
+	charges = 3
+	cooldown_after_cast = 180 SECONDS
+	cast_time = 25 SECONDS
+	extra_invokers = 1
+	fluff_tgui_dye = "Киноварная краска"
+	needed_dye = "Cinnabar Dyes"
+	totem_dye = "cinnabar"
+	required_things = list(
+		/obj/item/gem/magma = 1
+	)
+
+/datum/ritual/ashwalker/coldresist/del_things(list/used_things)
+	var/obj/item/gem/magma/magmagem = locate() in used_things
+	qdel(magmagem)
+
+	for(var/mob/living/living in used_things)
+		living.gib()
+
+	return
+
+/datum/ritual/ashwalker/coldresist/check_contents(mob/living/carbon/invoker, list/used_things)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
+	for(var/mob/living/living in used_things)
+		if(living.stat == DEAD)
+			continue
+		invoker.balloon_alert(invoker, "существа должны быть мертвы!")
+		return FALSE
+
+	return TRUE
+
+/datum/ritual/ashwalker/coldresist/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
+	LAZYADD(invokers, invoker)
+
+	for(var/mob/living/carbon/human/human in invokers)
+		if(HAS_TRAIT(invoker, TRAIT_RESIST_COLD))
+			continue
+		ADD_TRAIT(invoker, TRAIT_RESIST_COLD, name)
+
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/coldresist/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human) || !prob(disaster_prob))
+			continue
+
+		if(!isturf(human.loc))
+			continue
+
+		human.SetKnockdown(10 SECONDS)
+		var/turf/turf = human.loc
+		new /obj/effect/hotspot(turf)
+		turf.hotspot_expose(700, 50, 1)

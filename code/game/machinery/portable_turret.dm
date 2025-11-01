@@ -16,11 +16,8 @@
 	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "turretCover"
 	anchored = TRUE
-	density = FALSE
-	use_power = IDLE_POWER_USE				//this turret uses and requires power
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
-	power_channel = EQUIP	//drains power from the EQUIPMENT channel
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 
@@ -49,9 +46,9 @@
 	var/check_weapons = FALSE	//checks if it can shoot people that have a weapon they aren't authorized to have
 	var/check_access = TRUE	//if this is active, the turret shoots everything that does not meet the access requirements
 	var/check_anomalies = TRUE	//checks if it can shoot at unidentified lifeforms (ie xenos)
-	var/check_synth	 = FALSE 	//if active, will shoot at anything not an AI or cyborg
+	var/check_synth	 = FALSE	//if active, will shoot at anything not an AI or cyborg
 	var/check_borgs = FALSE //if TRUE, target all cyborgs.
-	var/ailock = FALSE 			// if TRUE, AI cannot use this
+	var/ailock = FALSE			// if TRUE, AI cannot use this
 
 	var/attacked = FALSE		//if set to 1, the turret gets pissed off and shoots at people nearby (unless they have sec access!)
 
@@ -60,7 +57,7 @@
 	var/lethal_is_configurable = TRUE // if false, its lethal setting cannot be changed
 	var/disabled = FALSE
 
-	var/shot_sound 			//what sound should play when the turret fires
+	var/shot_sound			//what sound should play when the turret fires
 	var/eshot_sound			//what sound should play when the emagged turret fires
 
 	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
@@ -95,7 +92,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	AddComponent(/datum/component/proximity_monitor, scan_range, TRUE)
+	proximity_monitor = new(src, scan_range)
 	setup()
 
 
@@ -116,6 +113,7 @@
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
+	QDEL_NULL(proximity_monitor)
 	return ..()
 
 /obj/machinery/porta_turret/proc/setup()
@@ -130,7 +128,7 @@
 
 	weapon_setup(installation)
 
-/obj/machinery/porta_turret/proc/weapon_setup(var/guntype)
+/obj/machinery/porta_turret/proc/weapon_setup(guntype)
 	switch(guntype)
 		if(/obj/item/gun/energy/laser/practice)
 			iconholder = 1
@@ -200,7 +198,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
-	return A && A.turret_controls.len > 0
+	return A && length(A.turret_controls) > 0
 
 /obj/machinery/porta_turret/proc/access_is_configurable()
 	return targetting_is_configurable && !HasController()
@@ -271,7 +269,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return data
 
 /obj/machinery/porta_turret/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(isLocked(usr))
 		return
@@ -466,7 +464,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	..()
 
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+	if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
 		take_damage(Proj.damage)
 
 /obj/machinery/porta_turret/emp_act(severity)
@@ -486,18 +484,18 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!enabled)
 				enabled = TRUE
 
-	..()
+	return ..()
 
-/obj/machinery/porta_turret/ex_act(severity)
+/obj/machinery/porta_turret/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			qdel(src)
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(25))
 				qdel(src)
 			else
 				take_damage(initial(health) * 8) //should instakill most turrets
-		if(3)
+		if(EXPLODE_LIGHT)
 			take_damage(initial(health) * 8 / 3)
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
@@ -603,7 +601,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(in_faction(L))
 		return TURRET_NOT_TARGET
 
-	if("syndicate" in L.faction && istype(L.get_id_card(), /obj/item/card/id/syndicate))
+	if(("syndicate" in L.faction) && istype(L.get_id_card(), /obj/item/card/id/syndicate))
 		return TURRET_NOT_TARGET
 
 	if(lethal && locate(/mob/living/silicon/ai) in get_turf(L))		//don't accidentally kill the AI!
@@ -636,10 +634,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!targets)
 		return FALSE
 
-	if(targets.len && last_target && (last_target in targets) && target(last_target))
+	if(length(targets) && last_target && (last_target in targets) && target(last_target))
 		return TRUE
 
-	while(targets.len)
+	while(length(targets))
 		var/mob/living/M = pick(targets)
 		targets -= M
 		if(target(M))
@@ -654,7 +652,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		return
 	set_raised_raising(raised, TRUE)
-	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
+	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
@@ -675,7 +673,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		return
 	set_raised_raising(raised, TRUE)
-	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
+	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
@@ -694,7 +692,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return ..()
 
-/obj/machinery/porta_turret/proc/set_raised_raising(var/is_raised, var/is_raising)
+/obj/machinery/porta_turret/proc/set_raised_raising(is_raised, is_raising)
 	raised = is_raised
 	raising = is_raising
 	density = is_raised || is_raising
@@ -732,11 +730,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(emagged || lethal)
 		if(eprojectile)
 			A = new eprojectile(loc)
-			playsound(loc, eshot_sound, 75, 1)
+			playsound(loc, eshot_sound, 75, TRUE)
 	else
 		if(projectile)
 			A = new projectile(loc)
-			playsound(loc, shot_sound, 75, 1)
+			playsound(loc, shot_sound, 75, TRUE)
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
@@ -756,12 +754,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	name = "Centcom Turret"
 	enabled = FALSE
 	ailock = TRUE
-	check_synth	 = FALSE
-	check_access = TRUE
-	check_arrest = TRUE
-	check_records = TRUE
 	check_weapons = TRUE
-	check_anomalies = TRUE
 	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
 	req_access = list(ACCESS_CENT_SPECOPS)
 
@@ -786,7 +779,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/check_borgs
 	var/ailock
 
-/obj/machinery/porta_turret/proc/setState(var/datum/turret_checks/TC)
+/obj/machinery/porta_turret/proc/setState(datum/turret_checks/TC)
 	if(controllock)
 		return
 	enabled = TC.enabled
@@ -1062,9 +1055,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	targetting_is_configurable = FALSE
 	check_arrest = FALSE
 	check_records = FALSE
-	check_weapons = FALSE
 	check_access = FALSE
-	check_anomalies = TRUE
 	check_synth	= TRUE
 	ailock = TRUE
 	req_access = list(ACCESS_SYNDICATE)
@@ -1111,8 +1102,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/syndicate/exterior
 	name = "machine gun turret (7.62)"
 	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
-	projectile = /obj/projectile/bullet
-	eprojectile = /obj/projectile/bullet
 
 /obj/machinery/porta_turret/syndicate/grenade
 	name = "mounted grenade launcher (40mm)"
@@ -1120,7 +1109,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	icon_state = "syndieturret01"
 	icon_state_initial = "syndieturret01"
 	icon_state_active = "syndieturret01"
-	icon_state_destroyed = "syndieturret2"
 	projectile = /obj/projectile/bullet/a40mm
 	eprojectile = /obj/projectile/bullet/a40mm
 

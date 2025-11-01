@@ -1,7 +1,3 @@
-#define TTS_TRAIT_PITCH_WHISPER (1<<1)
-#define TTS_TRAIT_RATE_FASTER (1<<2)
-#define TTS_TRAIT_RATE_MEDIUM (1<<3)
-
 SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
 	init_order = INIT_ORDER_DEFAULT
@@ -67,6 +63,8 @@ SUBSYSTEM_DEF(tts)
 		"businessman" = "Бизнэсмэн",
 		"trader" = "Торговец",
 		"assistant" = "Ассистент",
+		"prisoner" = "Заключённый",
+		"arrestee" = "Арестант",
 		"chief engineer" = "Главный Инженер",
 		"station engineer" = "Станционный инженер",
 		"trainee engineer" = "Инженер-стажер",
@@ -221,13 +219,13 @@ SUBSYSTEM_DEF(tts)
 	tts_rrps_counter = 0
 
 	tts_rps_list += tts_rps
-	if(tts_rps_list.len > 15)
+	if(length(tts_rps_list) > 15)
 		tts_rps_list.Cut(1,2)
 
 	var/rps_sum = 0
 	for(var/rps in tts_rps_list)
 		rps_sum += rps
-	tts_sma_rps = round(rps_sum / tts_rps_list.len, 0.1)
+	tts_sma_rps = round(rps_sum / length(tts_rps_list), 0.1)
 
 	var/free_rps = clamp(tts_rps_limit - tts_rps, 0, tts_rps_limit)
 	var/requests = tts_requests_queue.Copy(1, clamp(LAZYLEN(tts_requests_queue), 0, free_rps) + 1)
@@ -338,14 +336,14 @@ SUBSYSTEM_DEF(tts)
 	if(response.errored)
 		provider.failed_requests++
 		// if(provider.failed_requests >= provider.failed_requests_limit)
-		// 	provider.is_enabled = FALSE
+		//	provider.is_enabled = FALSE
 		log_debug(span_warning("Error connecting to [provider.name] TTS API. Please inform a maintainer or server host."))
 		return
 
 	if(response.status_code != 200)
 		provider.failed_requests++
 		// if(provider.failed_requests >= provider.failed_requests_limit)
-		// 	provider.is_enabled = FALSE
+		//	provider.is_enabled = FALSE
 		log_debug(span_warning("Error performing [provider.name] TTS API request (Code: [response.status_code])"))
 		tts_request_failed++
 		if(response.status_code)
@@ -439,7 +437,7 @@ SUBSYSTEM_DEF(tts)
 	if(preSFX)
 		play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
 
-	output = listener.playsound_local(turf_source, output, volume, sound = output, wait = TRUE, channel = channel)
+	output = listener.playsound_local(turf_source, output, volume, sound_to_use = output, wait = TRUE, channel = channel)
 
 	if(!output || output.volume <= 0)
 		return
@@ -584,7 +582,7 @@ SUBSYSTEM_DEF(tts)
 			"сс" = "Эс Эс",
 			"тесла" = "тэсла",
 			"трейзен" = "трэйзэн",
-			"нанотрейзен" = "нанотрэйзэн",
+			UNLINT("нанотрейзен") = "нанотрэйзэн",
 			"мед" = "м ед",
 			"кз" = "Кэ Зэ",
 			"днк" = "дэ эн ка",

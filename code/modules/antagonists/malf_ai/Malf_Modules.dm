@@ -156,7 +156,7 @@
 		return
 
 	for(var/datum/AI_Module/AM in possible_modules)
-		if (href_list[AM.mod_pick_name])
+		if(href_list[AM.mod_pick_name])
 
 			// Cost check
 			if(AM.cost > processing_time)
@@ -248,9 +248,10 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, span_notice("Nuclear device armed."))
-	GLOB.major_announcement.announce("Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
-									ANNOUNCE_ANOMALY_RU,
-									'sound/AI/aimalf.ogg'
+	GLOB.major_announcement.announce(
+		message = "Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
+		new_title = ANNOUNCE_ANOMALY_RU,
+		new_sound = 'sound/AI/aimalf.ogg'
 	)
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	owner_AI.nuking = TRUE
@@ -295,9 +296,10 @@
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
-		GLOB.major_announcement.announce("УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.",
-										ANNOUNCE_MALF_RU,
-										'sound/misc/notice1.ogg'
+		GLOB.major_announcement.announce(
+			message = "УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.",
+			new_title = ANNOUNCE_MALF_RU,
+			new_sound = 'sound/misc/notice1.ogg'
 		)
 		SSshuttle.remove_hostile_environment(src, 'sound/AI/eshuttle_dock.ogg')
 		qdel(src)
@@ -311,10 +313,10 @@
 		qdel(src)
 	else
 		if(!(sec_left % 60) && !announced)
-			var/message = "[sec_left] СЕКУНД ДО АКТИВАЦИИ УСТРОЙСТВА СУДНОГО ДНЯ!"
-			GLOB.major_announcement.announce(message,
-											ANNOUNCE_MALF_RU,
-											'sound/misc/notice1.ogg'
+			GLOB.major_announcement.announce(
+				message = "[sec_left] СЕКУНД ДО АКТИВАЦИИ УСТРОЙСТВА СУДНОГО ДНЯ!",
+				new_title = ANNOUNCE_MALF_RU,
+				new_sound = 'sound/misc/notice1.ogg'
 			)
 			announced = 10
 		announced = max(0, announced-1)
@@ -480,12 +482,11 @@
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0,1,1,0, cause = "AI Machine Overload")
+		explosion(get_turf(M), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 1, flash_range = 0, cause = "AI Machine Overload")
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
 /obj/effect/proc_holder/ranged_ai/overload_machine
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
 	enable_text = span_notice("You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.")
 	disable_text = span_notice("You release your hold on the powernet.")
@@ -503,9 +504,9 @@
 		to_chat(ranged_ability_user, span_warning("That machine can't be overloaded!"))
 		return
 
-	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
+	ranged_ability_user.playsound_local(ranged_ability_user, SFX_SPARKS, 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
-	if(attached_action && attached_action.uses)
+	if(attached_action?.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message(span_italics("You hear a loud electrical buzzing sound coming from [target]!"))
@@ -540,7 +541,6 @@
 		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner, 1)
 
 /obj/effect/proc_holder/ranged_ai/override_machine
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/override_machine_target.dmi'
 	enable_text = span_notice("You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.")
 	disable_text = span_notice("You release your hold on the powernet.")
@@ -560,7 +560,7 @@
 
 	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
-	if(attached_action && attached_action.uses)
+	if(attached_action?.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [target]!"))
@@ -672,7 +672,7 @@
 		else
 			apc.overload++
 	to_chat(owner, span_notice("Overcurrent applied to the powernet."))
-	owner.playsound_local(owner, "sparks", 50, FALSE, use_reverb = FALSE)
+	owner.playsound_local(owner, SFX_SPARKS, 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1)
 	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		desc = "[initial(desc)] It has [uses] use\s remaining."

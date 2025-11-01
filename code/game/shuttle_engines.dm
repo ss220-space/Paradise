@@ -4,6 +4,9 @@
 	max_integrity = 500
 	armor = list(melee = 100, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70) //default + ignores melee
 
+/obj/structure/shuttle/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_SPARKS, -40, 8, 1)
+
 /obj/structure/shuttle/shuttleRotate(rotation)
 	return // This override is needed to properly rotate the object when on a shuttle that is rotated.
 
@@ -12,7 +15,7 @@
 	icon = 'icons/turf/shuttle/misc.dmi'
 	density = TRUE
 	anchored = TRUE
-	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль - бред
+	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль — бред
 	var/list/obj/structure/fillers = list()		// Для коллизии более больших двигателей
 	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS
 
@@ -48,7 +51,6 @@
 
 // Engines
 /obj/structure/shuttle/engine/large
-	name = "engine"
 	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
@@ -57,7 +59,7 @@
 //	bound_height = 64
 	appearance_flags = LONG_GLIDE
 
-/obj/structure/shuttle/engine/large/Initialize()
+/obj/structure/shuttle/engine/large/Initialize(mapload)
 	. = ..()
 	var/list/occupied = list()
 	for(var/direct in list(EAST,NORTH,NORTHEAST))
@@ -69,7 +71,6 @@
 		fillers += F
 
 /obj/structure/shuttle/engine/huge
-	name = "engine"
 	opacity = TRUE
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"
@@ -80,7 +81,7 @@
 //	bound_height = 96
 	appearance_flags = LONG_GLIDE
 
-/obj/structure/shuttle/engine/huge/Initialize()
+/obj/structure/shuttle/engine/huge/Initialize(mapload)
 	. = ..()
 	var/list/occupied = list()
 	for(var/direct in list(EAST,WEST,NORTH,SOUTH,SOUTHEAST,SOUTHWEST,NORTHEAST,NORTHWEST))

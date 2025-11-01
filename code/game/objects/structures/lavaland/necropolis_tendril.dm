@@ -2,14 +2,6 @@
 /obj/structure/spawner/lavaland
 	name = "necropolis tendril"
 	desc = "Мерзкий отросток скверны, проросший из глубин. Из него выползают чудовища."
-	ru_names = list(
-		NOMINATIVE = "щупальце некрополя",
-		GENITIVE = "щупальца некрополя",
-		DATIVE = "щупальцу некрополя",
-		ACCUSATIVE = "щупальце некрополя",
-		INSTRUMENTAL = "щупальцем некрополя",
-		PREPOSITIONAL = "щупальце некрополя"
-	)
 
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "tendril"
@@ -23,13 +15,22 @@
 	)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
-	anchored = TRUE
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
 	var/obj/effect/light_emitter/tendril/emitted_light
 	scanner_taggable = TRUE
 	mob_gps_id = "WT"
 	spawner_gps_id = "Necropolis Tendril"
+
+/obj/structure/spawner/lavaland/get_ru_names()
+	return list(
+		NOMINATIVE = "щупальце некрополя",
+		GENITIVE = "щупальца некрополя",
+		DATIVE = "щупальцу некрополя",
+		ACCUSATIVE = "щупальце некрополя",
+		INSTRUMENTAL = "щупальцем некрополя",
+		PREPOSITIONAL = "щупальце некрополя"
+	)
 
 /obj/structure/spawner/lavaland/goliath
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
@@ -88,21 +89,29 @@ GLOBAL_LIST_EMPTY(tendrils)
 	return ..()
 
 
-/obj/structure/spawner/lavaland/Destroy()
-	var/last_tendril = TRUE
-	if(GLOB.tendrils.len>1)
-		last_tendril = FALSE
-
-	if(last_tendril && !(flags & ADMIN_SPAWNED))
-		if(SSmedals.hub_enabled)
-			for(var/mob/living/L in view(7,src))
-				if(L.stat || !L.client)
-					continue
-				SSmedals.UnlockMedal("[BOSS_MEDAL_TENDRIL] [ALL_KILL_MEDAL]", L.client)
-				SSmedals.SetScore(TENDRIL_CLEAR_SCORE, L.client, 1)
+/obj/structure/spawner/lavaland/Destroy(force)
+	give_awards()
 	GLOB.tendrils -= src
 	QDEL_NULL(emitted_light)
 	return ..()
+
+/obj/structure/spawner/lavaland/proc/give_awards()
+	var/last_tendril = TRUE
+	if(length(GLOB.tendrils) > 1)
+		last_tendril = FALSE
+
+	if(!last_tendril || (flags & ADMIN_SPAWNED))
+		return
+
+	if(!SSachievements.achievements_enabled)
+		return
+
+	for(var/mob/living/mob in view(7, src))
+		if(mob.stat || !mob.client)
+			continue
+
+		mob.client.give_award(/datum/award/achievement/boss/tendril_exterminator, mob)
+		mob.client.give_award(/datum/award/score/tendril_score, mob) //Progresses score by one
 
 /obj/effect/light_emitter/tendril
 	light_range = 4
@@ -112,7 +121,14 @@ GLOBAL_LIST_EMPTY(tendrils)
 /obj/effect/collapse
 	name = "collapsing necropolis tendril"
 	desc = "Отойди подальше!"
-	ru_names = list(
+	layer = TABLE_LAYER
+	icon = 'icons/mob/nest.dmi'
+	icon_state = "tendril"
+	density = TRUE
+	var/obj/effect/light_emitter/tendril/emitted_light
+
+/obj/effect/collapse/get_ru_names()
+	return list(
 		NOMINATIVE = "разрушающееся щупальце некрополя",
 		GENITIVE = "разрушающегося щупальца некрополя",
 		DATIVE = "разрушающемуся щупальцу некрополя",
@@ -120,12 +136,6 @@ GLOBAL_LIST_EMPTY(tendrils)
 		INSTRUMENTAL = "разрушающимся щупальцем некрополя",
 		PREPOSITIONAL = "разрушающемся щупальце некрополя"
 	)
-	layer = TABLE_LAYER
-	icon = 'icons/mob/nest.dmi'
-	icon_state = "tendril"
-	anchored = TRUE
-	density = TRUE
-	var/obj/effect/light_emitter/tendril/emitted_light
 
 /obj/effect/collapse/Initialize(mapload)
 	. = ..()

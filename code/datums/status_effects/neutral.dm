@@ -2,8 +2,6 @@
 
 /datum/status_effect/crusher_damage //tracks the damage dealt to this mob by kinetic crushers
 	id = "crusher_damage"
-	duration = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/total_damage = 0
 
@@ -46,7 +44,6 @@
 /datum/status_effect/staring
 	id = "staring"
 	alert_type = null
-	status_type = STATUS_EFFECT_UNIQUE
 	var/mob/living/target
 	var/target_gender
 	var/target_species
@@ -63,8 +60,8 @@
 
 /datum/status_effect/staring/proc/catch_look(mob/living/opponent)
 	if(target == opponent)
-		to_chat(owner, span_notice("[opponent.name] лов[pluralize_ru(owner.gender, "ит", "ят")] ваш взгляд!"))
-		to_chat(opponent, span_notice("[owner.name] лов[pluralize_ru(owner.gender, "ит", "ят")] ваш взгляд!"))
+		to_chat(owner, span_notice("[opponent.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
+		to_chat(opponent, span_notice("[owner.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
 		var/list/loved_ones = list(MALE, FEMALE)
 		if(!ishuman(owner) || !(target_gender in loved_ones) || !(owner.gender in loved_ones))
 			return
@@ -114,7 +111,7 @@
 			user.visible_message(span_biggerdanger("<b>[user.name]</b> и <b>[check.name]</b> [critical_success]"))
 			ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 			ADD_TRAIT(check, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
-			explosion(get_turf(user), 5, 2, 1, 3, cause = id)
+			explosion(get_turf(user), devastation_range = 5, heavy_impact_range = 2, light_impact_range = 1, flash_range = 3, cause = id)
 			// explosions have a spawn so this makes sure that we don't get gibbed
 			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, check), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
 			add_attack_logs(user, check, "caused a wizard [id] explosion")
@@ -143,7 +140,7 @@
 		"перемещает свою руку прямо ко лбу от стыда.",
 		"даёт пять в воздух.",
 		"стыдливо хлопает себя по другой руке, прежде чем смахнуть слезу.",
-		"пытается пожать руку, затем ударить кулаками, прежде чем отдернуть руку...? <i>Что [pluralize_ru(owner.gender, "он", "они")] дела[pluralize_ru(owner.gender, "ет", "ют")]?</i>"
+		"пытается пожать руку, затем ударить кулаками, прежде чем отдернуть руку...? <i>Что [GEND_HE_SHE(owner)] дела[PLUR_ET_YUT(owner)]?</i>"
 	)
 	return pick(missed_highfive_messages)
 
@@ -171,9 +168,9 @@
 
 /datum/status_effect/high_five/handshake/get_missed_message()
 	var/list/missed_messages = list(
-		"стыдливо опуска[pluralize_ru(owner.gender, "ет", "ют")] руку.",
-		"хвата[pluralize_ru(owner.gender, "ет", "ют")] свою протянутую руку другой рукой и пожима[pluralize_ru(owner.gender, "ет", "ют")] её, будто здорова[pluralize_ru(owner.gender, "ется", "ются")] сам[genderize_ru(owner.gender, "", "а", "о", "и")] с собой.",
-		"сжима[pluralize_ru(owner.gender, "ет", "ют")] руку в кулак, медленно убирая её."
+		"стыдливо опуска[PLUR_ET_YUT(owner)] руку.",
+		"хвата[PLUR_ET_YUT(owner)] свою протянутую руку другой рукой и пожима[PLUR_ET_YUT(owner)] её, будто здорова[PLUR_ET_YUT(owner)]ся сам[GEND_A_O_I(owner)] с собой.",
+		"сжима[PLUR_ET_YUT(owner)] руку в кулак, медленно убирая её."
 	)
 	return pick(missed_messages)
 
@@ -242,7 +239,7 @@
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id)) // they're kinda busy!
 
 	owner.visible_message(
-		span_danger("[owner] ката[pluralize_ru(owner.gender, "ет", "ют")]ся по полу, пытаясь потушить себя!"),
+		span_danger("[owner] ката[PLUR_ET_YUT(owner)]ся по полу, пытаясь потушить себя!"),
 		span_notice("Вы останавливаетесь, падаете и катаетесь!"),
 	)
 	// Start with one weaker roll
@@ -273,7 +270,7 @@
 		return
 
 	owner.visible_message(
-		span_danger("[owner] успешно туш[pluralize_ru(owner.gender, "ит", "ат")] себя!"),
+		span_danger("[owner] успешно туш[PLUR_IT_AT(owner)] себя!"),
 		span_notice("Вы тушите себя."),
 	)
 	qdel(src)
@@ -382,9 +379,7 @@
 
 /datum/status_effect/leaning
 	id = "leaning"
-	duration = -1
 	tick_interval = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/leaning
 
 /datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)

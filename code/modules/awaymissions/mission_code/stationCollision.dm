@@ -18,22 +18,22 @@
 /*
  * Areas
  */
- //Gateroom gets its own APC specifically for the gate
+//Gateroom gets its own APC specifically for the gate
 /area/awaymission/gateroom
 
- //Library, medbay, storage room
+//Library, medbay, storage room
 /area/awaymission/southblock
 
- //Arrivals, security, hydroponics, shuttles (since they dont move, they dont need specific areas)
+//Arrivals, security, hydroponics, shuttles (since they dont move, they dont need specific areas)
 /area/awaymission/arrivalblock
 
- //Crew quarters, cafeteria, chapel
+//Crew quarters, cafeteria, chapel
 /area/awaymission/midblock
 
- //engineering, bridge (not really north but it doesnt really need its own APC)
+//engineering, bridge (not really north but it doesnt really need its own APC)
 /area/awaymission/northblock
 
- //That massive research room
+//That massive research room
 /area/awaymission/research
 
 //Syndicate shuttle
@@ -88,7 +88,6 @@
 /obj/item/gun/energy/laser/practice/sc_laser
 	name = "Old laser"
 	desc = "A once potent weapon, years of dust have collected in the chamber and lens of this weapon, weakening the beam significantly."
-	clumsy_check = 0
 
 /*
  * Safe code hints
@@ -134,7 +133,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 			<br>
 			Our on-board spy has learned the code and has hidden away a few copies of the code around the station. Unfortunatly he has been captured by security
 			Your objective is to split up, locate any of the papers containing the captain's safe code, open the safe and
-			secure anything found inside. If possible, recover the imprisioned syndicate operative and recieve the code from him.<br>
+			secure anything found inside. If possible, recover the imprisioned syndicate operative and receive the code from him.<br>
 			<br>
 			<u>As always, eliminate anyone who gets in the way.</u><br>
 			<br>
@@ -188,7 +187,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 		L.gib()
 	else if(istype(A,/obj/))
 		var/obj/O = A
-		O.ex_act(1)
+		O.ex_act(EXPLODE_DEVASTATE)
 		if(O) qdel(O)
 	else if(isturf(A))
 		var/turf/T = A

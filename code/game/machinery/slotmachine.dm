@@ -1,10 +1,4 @@
-#define EMAGGED_SLOT_MACHINE_PRIZE_MOD 5
-#define EMAGGED_SLOT_MACHINE_GIB_CHANCE 10
-#define EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE 20
-
-
 GLOBAL_LIST_EMPTY(slotmachine_prizes)
-
 
 /datum/slotmachine_prize
 	/// Unique prize identifier
@@ -35,7 +29,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	return credits
 
 /datum/slotmachine_prize/proc/apply_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user, prize_credits)
-	//Do nothing by default
+	return
 
 /datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	if(!length(available_prizes))
@@ -63,7 +57,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	new /obj/item/stack/sheet/metal(location, 5)
 	new /obj/item/shard(location)
 	new /obj/item/shard(location)
-	explosion(location, 0, 0, 1, cause = "Emagged slotmachine self-destroy")
+	explosion(location, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, adminlog = TRUE, cause = "Emagged slotmachine self-destroy")
 
 
 /datum/slotmachine_prize/minimal
@@ -132,7 +126,10 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	sound = 'sound/goonstation/misc/airraid_loop.ogg'
 
 /datum/slotmachine_prize/jackpot/apply_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user, prize_credits)
-	GLOB.minor_announcement.announce("Поздравляем [user.name] с выигрышем джекпота в [prize_credits] кредитов!", "Обладатель джекпота!")
+	GLOB.minor_announcement.announce(
+		message = "Поздравляем [user.name] с выигрышем джекпота в [prize_credits] кредитов!",
+		new_title = "Обладатель джекпота!"
+	)
 
 /datum/slotmachine_prize/jackpot/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	slotmachine.give_custom_prize(user, /obj/item/radio/uplink)
@@ -144,8 +141,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"
-	anchored = TRUE
-	density = TRUE
 	circuit = /obj/item/circuitboard/arcade/slotmachine
 	var/plays = 0
 	var/working = 0
@@ -193,6 +188,9 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 /obj/machinery/computer/slot_machine/ui_act(action, params)
 	if(..())
 		return
+	if(issilicon(usr))
+		to_chat(usr, span_warning("Обнаружен искусственный интеллект. Согласно регуляции Нанотрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		return
 	add_fingerprint(usr)
 
 	if(action == "spin")
@@ -234,12 +232,12 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 		atom_say("Ошибка!")
 		return
 	var/credits = prizedatum.get_credits(emagged)
-	if (prizedatum.custom_result)
+	if(prizedatum.custom_result)
 		result = prizedatum.custom_result
 	else
 		result = "[prizedatum.custom_result_prefix] Вы выиграли [credits] кредитов!"
 	resultlvl = prizedatum.resultlvl
-	if (prizedatum.say_phrase)
+	if(prizedatum.say_phrase)
 		atom_say("[prizedatum.say_phrase] Игрок [user.name] выиграл [credits] кредитов!")
 	if(credits > 0)
 		win_money(credits, prizedatum.sound)
@@ -258,7 +256,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	for(var/prize_id in GLOB.slotmachine_prizes)
 		var/datum/slotmachine_prize/prize = GLOB.slotmachine_prizes[prize_id]
 		current += prize.chance
-		if (roll <= current)
+		if(roll <= current)
 			return prize
 	// if any other cases
 	return GLOB.slotmachine_prizes["lose"]
@@ -295,7 +293,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 
 /obj/machinery/computer/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
-		playsound(loc, sound, 55, 1)
+		playsound(loc, sound, 55, TRUE)
 	if(!account)
 		return
 	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)

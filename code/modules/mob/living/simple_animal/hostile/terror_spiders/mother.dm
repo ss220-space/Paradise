@@ -11,15 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/mother
 	name = "Mother of Terror"
 	desc = "Огромный паук. По нему ползают крошечные паучки. Их маленькие глазки-бусинки смотрят на вас. Ужас!"
-	ru_names = list(
-		NOMINATIVE = "Мать Ужаса",
-		GENITIVE = "Матери Ужаса",
-		DATIVE = "Матери Ужаса",
-		ACCUSATIVE = "Мать Ужаса",
-		INSTRUMENTAL = "Матерью Ужаса",
-		PREPOSITIONAL = "Матери Ужаса",
-	)
-	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"
 	icon_dead = "terror_mother_dead"
@@ -33,10 +24,20 @@
 	spider_opens_doors = 2
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/conjure/build/terror_jelly,
 							/obj/effect/proc_holder/spell/aoe/terror_healing/greater)
-	spider_intro_text = "Будучи Матерью Ужаса, ваша задача - массовое исцеление пауков. Вы пассивно исцеляете всех пауков вокруг вас и наносите наносите урон гуманоидам. Вы также можете создавать желе, употребив которое, пауки быстро исцеляются. Ваша вторая способность действует аналогично желе, но работает по области для всех пауков в радиусе вашей видимости!"
+	spider_intro_text = "Будучи Матерью Ужаса, ваша задача — массовое исцеление пауков. Вы пассивно исцеляете всех пауков вокруг вас и наносите наносите урон гуманоидам. Вы также можете создавать желе, употребив которое, пауки быстро исцеляются. Ваша вторая способность действует аналогично желе, но работает по области для всех пауков в радиусе вашей видимости!"
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	tts_seed = "Deathwhisper"
+
+/mob/living/simple_animal/hostile/poison/terror_spider/mother/get_ru_names()
+	return list(
+		NOMINATIVE = "Мать Ужаса",
+		GENITIVE = "Матери Ужаса",
+		DATIVE = "Матери Ужаса",
+		ACCUSATIVE = "Мать Ужаса",
+		INSTRUMENTAL = "Матерью Ужаса",
+		PREPOSITIONAL = "Матери Ужаса",
+	)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/New()
 	..()

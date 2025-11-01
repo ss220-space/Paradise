@@ -9,10 +9,8 @@
 
 	pixel_x = -89
 	pixel_y = -85
-	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
-	contained = FALSE
+	current_size = 9 // It moves/eats like a max-size singulo, aside from range. --NEO
 	dissipate = FALSE
-	move_self = TRUE
 	grav_pull = 5
 	consume_range = 6
 	gender = FEMALE
@@ -30,7 +28,6 @@
 	pixel_x = -236
 	pixel_y = -256
 	current_size = 12
-	move_self = TRUE //Do we move on our own?
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 
@@ -61,10 +58,10 @@
 	if(gamemode)
 		gamemode.cult_objs.narsie_death()
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
-			if(cult_mind && cult_mind.current)
-				to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
-				to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
-	..()
+			if(cult_mind?.current)
+				to_chat(cult_mind.current, span_cultlarge("RETRIBUTION!"))
+				to_chat(cult_mind.current, span_cult("Current goal: Slaughter the heretics!"))
+	return ..()
 
 /obj/singularity/god/narsie/large/attack_ghost(mob/dead/observer/user)
 	make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE)
@@ -93,7 +90,7 @@
 /obj/singularity/god/narsie/proc/godsmack(atom/A)
 	if(istype(A,/obj/))
 		var/obj/O = A
-		O.ex_act(1)
+		O.ex_act(EXPLODE_DEVASTATE)
 		if(O) qdel(O)
 
 	else if(isturf(A))
@@ -104,7 +101,7 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
 			if(!iscultist(M))
-				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
+				to_chat(M, span_warning("You feel your sanity crumble away in an instant as you gaze upon [src.name]..."))
 				M.Stun(6 SECONDS)
 
 
@@ -156,7 +153,7 @@
 		return
 	if(!target)
 		return
-	to_chat(target, "<span class='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
+	to_chat(target, span_cultlarge("[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU"))
 	target = food
 	if(ishuman(target))
 		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HUNGERS FOR YOUR SOUL</span>")

@@ -36,7 +36,7 @@
 /datum/station_goal/bluespace_tap/print_result()
 	..()
 	var/highscore = get_highscore()
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceooc'>"][highscore]</span>")
+	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce(highscore)]": "[span_boldannounceooc(highscore)]"]")
 
 
 //needed for the vending part of it
@@ -61,7 +61,6 @@
 
 /obj/effect/spawner/lootdrop/bluespace_tap
 	name = "bluespace harvester reward spawner"
-	lootcount = 1
 
 /obj/effect/spawner/lootdrop/bluespace_tap/hat
 	name = "exotic hat"
@@ -195,32 +194,24 @@
 #define GW MW *1000
 
 /**
-  * # Bluespace Harvester
-  *
-  * A station goal that consumes enormous amounts of power to generate (mostly fluff) rewards
-  *
-  * A machine that takes power each tick, generates points based on it
-  * and lets you spend those points on rewards. A certain amount of points
-  * has to be generated for the station goal to count as completed.
-  */
+ * # Bluespace Harvester
+ *
+ * A station goal that consumes enormous amounts of power to generate (mostly fluff) rewards
+ *
+ * A machine that takes power each tick, generates points based on it
+ * and lets you spend those points on rewards. A certain amount of points
+ * has to be generated for the station goal to count as completed.
+ */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
-	ru_names = list(
-		NOMINATIVE = "блюспейс сборщик",
-		GENITIVE = "блюспейс сборщика",
-		DATIVE = "блюспейс сборщику",
-		ACCUSATIVE = "блюспейс сборщик",
-		INSTRUMENTAL = "блюспейс сборщиком",
-		PREPOSITIONAL = "блюспейс сборщике"
-	)
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -64
+	plane = BELOW_GAME_PLANE
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -260,9 +251,18 @@
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
 
+/obj/machinery/power/bluespace_tap/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс сборщик",
+		GENITIVE = "блюспейс сборщика",
+		DATIVE = "блюспейс сборщику",
+		ACCUSATIVE = "блюспейс сборщик",
+		INSTRUMENTAL = "блюспейс сборщиком",
+		PREPOSITIONAL = "блюспейс сборщике"
+	)
 
-/obj/machinery/power/bluespace_tap/New()
-	..()
+/obj/machinery/power/bluespace_tap/Initialize(mapload)
+	. = ..()
 	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
@@ -288,37 +288,37 @@
 	return ..()
 
 /**
-  * Increases the desired mining level
-  *
-  * Increases the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT increase the actual mining level directly.
-  */
+ * Increases the desired mining level
+ *
+ * Increases the desired mining level, that
+ * the machine tries to reach if there
+ * is enough power for it. Note that it does
+ * NOT increase the actual mining level directly.
+ */
 /obj/machinery/power/bluespace_tap/proc/increase_level()
 	if(desired_level < max_level)
 		desired_level++
 /**
-  * Decreases the desired mining level
-  *
-  * Decreases the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT decrease the actual mining level directly.
-  */
+ * Decreases the desired mining level
+ *
+ * Decreases the desired mining level, that
+ * the machine tries to reach if there
+ * is enough power for it. Note that it does
+ * NOT decrease the actual mining level directly.
+ */
 /obj/machinery/power/bluespace_tap/proc/decrease_level()
 	if(desired_level > 0)
 		desired_level--
 
 /**
-  * Sets the desired mining level
-  *
-  * Sets the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT change the actual mining level directly.
-  * Arguments:
-  * * t_level - The level we try to set it at, between 0 and max_level
+ * Sets the desired mining level
+ *
+ * Sets the desired mining level, that
+ * the machine tries to reach if there
+ * is enough power for it. Note that it does
+ * NOT change the actual mining level directly.
+ * Arguments:
+ * * t_level - The level we try to set it at, between 0 and max_level
  */
 /obj/machinery/power/bluespace_tap/proc/set_level(t_level)
 	if(t_level < 0)
@@ -328,12 +328,12 @@
 	desired_level = t_level
 
 /**
-  * Gets the amount of power at a set input level
-  *
-  * Gets the amount of power (in W) a set input level needs.
-  * Note that this is not necessarily the current power use.
-  * * i_level - The hypothetical input level for which we want to know the power use.
-  */
+ * Gets the amount of power at a set input level
+ *
+ * Gets the amount of power (in W) a set input level needs.
+ * Note that this is not necessarily the current power use.
+ * * i_level - The hypothetical input level for which we want to know the power use.
+ */
 /obj/machinery/power/bluespace_tap/proc/get_power_use(i_level)
 	if(!i_level)
 		return 0
@@ -355,9 +355,10 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.major_announcement.announce("Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
-										ANNOUNCE_BLUESPACETAP_RU,
-										'sound/AI/harvester.ogg'
+		GLOB.major_announcement.announce(
+			message = "Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
+			new_title = ANNOUNCE_BLUESPACETAP_RU,
+			new_sound = 'sound/AI/harvester.ogg'
 		)
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
@@ -408,8 +409,8 @@
 	ui_interact(user)
 
 /**
-  * Produces the product with the desired key and increases product cost accordingly
-  */
+ * Produces the product with the desired key and increases product cost accordingly
+ */
 /obj/machinery/power/bluespace_tap/proc/produce(key)
 	if(key <= 0 || key > length(product_list))	//invalid key
 		return
@@ -457,7 +458,7 @@
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message(span_warning("[user] переписыва[pluralize_ru(user.gender,"ет","ют")] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
+		user.visible_message(span_warning("[user] переписыва[PLUR_ET_YUT(user)] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

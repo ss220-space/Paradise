@@ -16,12 +16,11 @@
 	icon_state = "ninja_boots"
 	item_state = "ninja_boots"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 15, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 20,ENERGY = 15, BOMB = 30, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	permeability_coefficient = 1
 	strip_delay = 120
-	slowdown = 0
 	clothing_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER)

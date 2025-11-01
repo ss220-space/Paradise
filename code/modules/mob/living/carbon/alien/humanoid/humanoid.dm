@@ -1,5 +1,4 @@
 /mob/living/carbon/alien/humanoid
-	name = "alien"
 	icon_state = "alien_s"
 	pass_flags = PASSTABLE
 	max_grab = GRAB_KILL
@@ -44,33 +43,30 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	return TRUE
 
 
-///mob/living/carbon/alien/humanoid/bullet_act(var/obj/projectile/Proj) taken care of in living
+///mob/living/carbon/alien/humanoid/bullet_act(obj/projectile/Proj)// taken care of in living
 
 /mob/living/carbon/alien/humanoid/emp_act(severity)
 	if(r_store) r_store.emp_act(severity)
 	if(l_store) l_store.emp_act(severity)
 	..()
 
-/mob/living/carbon/alien/humanoid/ex_act(severity)
-	..()
+/mob/living/carbon/alien/humanoid/ex_act(severity, target)
+	. = ..()
 
 	var/shielded = 0
-
 	var/b_loss = null
 	var/f_loss = null
+
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			gib()
 			return
-
-		if(2.0)
+		if(EXPLODE_HEAVY)
 			if(!shielded)
 				b_loss += 60
-
 			f_loss += 60
-
 			AdjustDeaf(120 SECONDS)
-		if(3.0)
+		if(EXPLODE_LIGHT)
 			b_loss += 30
 			if(prob(50) && !shielded)
 				Paralyse(2 SECONDS)
@@ -107,14 +103,14 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			. += span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!")
+			. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(handcuffed, user)] restrained with zipties!")
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			. += span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!")
+			. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(handcuffed, user)] restrained with cable!")
 		else
-			. += span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!")
+			. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(handcuffed, user)] handcuffed!")
 
 	if(legcuffed)
-		. += span_warning("[p_they(TRUE)] [p_are()] [bicon(legcuffed)] restrained with [legcuffed]!")
+		. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(legcuffed, user)] restrained with [legcuffed]!")
 
 
 /mob/living/carbon/alien/humanoid/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)

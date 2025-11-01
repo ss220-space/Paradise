@@ -4,6 +4,8 @@
 //
 //
 */
+#define BLOOD_ANTIGEN_A (1 << 0)
+#define BLOOD_ANTIGEN_B (1 << 1)
 
 GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			"blood",
@@ -96,9 +98,10 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	M.clean_blood()
+	SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, 1)
 
 /datum/reagent/blood
-	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
+	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"=BLOOD_COLOR_RED,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	name = "Кровь"
 	id = "blood"
 	reagent_state = LIQUID
@@ -109,6 +112,50 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_desc = "Стоп, а это точно томатный сок?"
 	taste_description = "крови"
 	taste_mult = 1.3
+
+/datum/reagent/blood/proc/get_antigens(blood_type)
+	var/antigens = null
+
+	if(findtext(blood_type, "AB"))
+		antigens = (BLOOD_ANTIGEN_A | BLOOD_ANTIGEN_B)
+	else if(findtext(blood_type, "A"))
+		antigens = BLOOD_ANTIGEN_A
+	else if(findtext(blood_type, "B"))
+		antigens = BLOOD_ANTIGEN_B
+
+	return antigens
+
+/datum/reagent/blood/proc/mix_blood_type(list/mix_data)
+	var/blood_type = null
+	var/antigens = get_antigens(data["blood_type"])
+	var/antigens2 = get_antigens(mix_data["blood_type"])
+	var/rh = (findtext(data["blood_type"], "+") > 0)
+	var/rh2 = (findtext(mix_data["blood_type"], "+") > 0)
+
+	var/combined_antigens = antigens | antigens2
+	var/combined_rh = rh || rh2
+
+	if(!combined_antigens)
+		blood_type = "O"
+	else if(combined_antigens == (BLOOD_ANTIGEN_A | BLOOD_ANTIGEN_B))
+		blood_type = "AB"
+	else if(combined_antigens & BLOOD_ANTIGEN_A)
+		blood_type = "A"
+	else if(combined_antigens & BLOOD_ANTIGEN_B)
+		blood_type = "B"
+
+	blood_type += combined_rh ? "+" : "-"
+	return blood_type
+
+/datum/reagent/blood/proc/merge_type_and_species(list/mix_data)
+	if(!data || !mix_data)
+		return FALSE
+
+	if(data["blood_type"] != mix_data["blood_type"])
+		data["blood_type"] = mix_blood_type(mix_data)
+
+	if(data["blood_species"] != mix_data["blood_species"])
+		data["blood_species"] = "Unsorted"
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
@@ -136,11 +183,17 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 /datum/reagent/blood/on_merge(list/mix_data)
 	merge_diseases_data(mix_data)
-	if(data && mix_data)
-		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
-		if(mix_data["blood_color"])
-			color = mix_data["blood_color"]
-	return 1
+
+	if(!data || !mix_data)
+		return TRUE
+
+	merge_type_and_species(mix_data)
+
+	data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
+	if(mix_data["blood_color"])
+		color = mix_data["blood_color"]
+
+	return TRUE
 
 /datum/reagent/blood/on_update(atom/A)
 	if(data["blood_color"])
@@ -260,8 +313,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Вода из унитаза"
 	id = "toiletwater"
 	description = "Грязная вода, которую взяли из унитаза. Абсолютно отвратительно."
-	reagent_state = LIQUID
-	color = "#757547"
 	taste_description = "жидкого дерьма"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
@@ -302,7 +353,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
-			M.visible_message(span_biggerdanger("[M] отшатыва[pluralize_ru(M.gender, "ет", "ют")]ся, [genderize_ru(M.gender, "его", "её", "его", "их")] кожа окрашивается в яркий цвет, [genderize_ru(M.gender, "он", "она", "оно", "они")] вновь обрета[pluralize_ru(M.gender, "ет", "ют")] чувство контроля над собой!"))
+			M.visible_message(span_biggerdanger("[M] отшатыва[PLUR_ET_YUT(M)]ся, [GEND_HIS_HER(M)] кожа окрашивается в яркий цвет, [GEND_HE_SHE(M)] вновь обрета[PLUR_ET_YUT(M)] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -368,7 +419,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 						M.emote("scream")
 					vamp.base_nullification()
 				if(13 to INFINITY)
-					M.visible_message(span_danger("[M] внезапно вспыхива[pluralize_ru(M.gender, "ет", "ют")]!"),
+					M.visible_message(span_danger("[M] внезапно вспыхива[PLUR_ET_YUT(M)]!"),
 									span_danger("Внезапно святая вода внутри вас начинает гореть!"))
 					M.fire_stacks = min(5, M.fire_stacks + 3)
 					M.IgniteMob()
@@ -416,8 +467,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Нечестивая вода"
 	id = "unholywater"
-	description = "Что-то, не должно существовать в этой реальности."
-	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
+	description = "Что-то, что не должно существовать в этой реальности."
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	taste_description = "серы"
 
@@ -428,6 +478,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)
 		M.AdjustWeakened(-4 SECONDS)
+		M.AdjustKnockdown(-4 SECONDS)
 		update_flags |= M.adjustToxLoss(-2, FALSE)
 		update_flags |= M.adjustFireLoss(-2, FALSE)
 		update_flags |= M.adjustOxyLoss(-2, FALSE)
@@ -499,7 +550,50 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
 
 
-/datum/reagent/steroids
+/datum/reagent/status_effect
+	id = "status_effect"
+	metabolization_rate = REAGENTS_METABOLISM / 4
+	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
+	var/status_effect_type
+
+
+/datum/reagent/status_effect/on_mob_add(mob/living/user)
+	. = ..()
+	user.apply_status_effect(status_effect_type)
+
+
+/datum/reagent/status_effect/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_status_effect(status_effect_type)
+
+
+/datum/reagent/status_effect/creatine
+	name = "Креатин"
+	id = "creatine"
+	description = "Вещество участвующее в энергетическом обмене в мышечных и нервных клетках."
+	color = "#dcbf00"
+	taste_description = "соды"
+	status_effect_type = /datum/status_effect/sport_reagents/creatine
+
+
+/datum/reagent/status_effect/creatine/liquid
+	name = "Разбавленный креатин"
+	id = "creatine_liquid"
+	description = "Смесь воды и креатина."
+	reagent_state = LIQUID
+	status_effect_type = /datum/status_effect/sport_reagents/creatine/liquid
+
+
+/datum/reagent/status_effect/guarana
+	name = "Экстракт гуараны"
+	id = "guarana"
+	description = "Вещество временно стимулирующее мышечную активность."
+	color = "#dc3b00"
+	taste_description = "горечи"
+	status_effect_type = /datum/status_effect/sport_reagents/guarana
+
+
+/datum/reagent/status_effect/steroids
 	name = "Стероиды"
 	id = "steroids"
 	description = "Используется для ускоренного развития мышц. \
@@ -507,10 +601,11 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	reagent_state = LIQUID
 	color = "#c2ff34"
 	taste_description = "силы"
+	status_effect_type = /datum/status_effect/sport_reagents/steroids
 
 
-/datum/reagent/steroids/on_mob_life(mob/living/target)
-	..()
+/datum/reagent/status_effect/steroids/on_mob_life(mob/living/target)
+	. = ..()
 	if(!ishuman(target))
 		return
 
@@ -531,3 +626,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	human.update_hair()
 	human.update_fhair()
 	ADD_TRAIT(human, TRAIT_BALD, id)
+
+#undef BLOOD_ANTIGEN_A
+#undef BLOOD_ANTIGEN_B
+

@@ -55,3 +55,13 @@ GLOBAL_LIST_EMPTY(spawntypes)
 /datum/spawnpoint/cyborg/New()
 	..()
 	turfs = GLOB.latejoin_cyborg
+
+/datum/spawnpoint/prisoner
+	display_name = "Permabrig"
+	msg = "очнулся от криогенного сна в пермабриге"
+	restrict_job = list(JOB_TITLE_PRISONER)
+
+/datum/spawnpoint/prisoner/New()
+	..()
+	turfs = GLOB.latejoin_prisoner
+

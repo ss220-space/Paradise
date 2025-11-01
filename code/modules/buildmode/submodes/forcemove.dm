@@ -6,16 +6,18 @@
 	var/image/selected_overlay			// Overlay for the selected atom only visible for the build mode user
 
 /datum/buildmode_mode/forcemove/show_help(mob/user)
-	to_chat(user, span_notice("***********************************************************"))
-	to_chat(user, span_notice("ЛКМ на obj/mob = Выбрать точку назначения"))
-	to_chat(user, span_notice("ПКМ на obj/mob = Выбрать атом для перемещения"))
-	to_chat(user, span_notice("<b>Замечание:</b> Сначала вам нужно выбрать атом, который может быть перемещён, а затем щёлкнуть левой кнопкой мыши по месту назначения."))
-	to_chat(user, span_notice("***********************************************************"))
+	to_chat(user, span_purple(chat_box_examine(
+		"[span_bold("Выбрать точку назначения")] -> ЛКМ на obj/mob\n\
+		[span_bold("Выбрать атом для перемещения")] -> ПКМ на obj/mob\n\
+		\n\
+		Сначала вам нужно выбрать атом, который может быть перемещён, а затем щёлкнуть левой кнопкой мыши по месту назначения."))
+	)
 
 /datum/buildmode_mode/forcemove/handle_click(mob/user, params, atom/A)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	var/right_click = pa.Find("right")
+	var/list/modifiers = params2list(params)
+
+	var/left_click = LAZYACCESS(modifiers, LEFT_CLICK)
+	var/right_click = LAZYACCESS(modifiers, RIGHT_CLICK)
 
 	// Selecting the atom to move
 	if(right_click)
@@ -39,7 +41,7 @@
 		selected_overlay.color = "#15d12d"
 		user.client.images += selected_overlay
 
-		to_chat(user, span_notice("'[capitalize(selected_atom.declent_ru(NOMINATIVE))]' [genderize_ru(selected_atom.gender, "выбран", "выбрана", "выбрано", "выбраны")] для перемещения."))
+		to_chat(user, span_notice("\"[capitalize(selected_atom.declent_ru(NOMINATIVE))]\" выбран[GEND_A_O_Y(selected_atom)] для перемещения."))
 		return
 
 	// Selecting the destination to move to
@@ -59,7 +61,7 @@
 
 	selected_atom.forceMove(destination)
 
-	to_chat(user, span_notice("'[capitalize(selected_atom.declent_ru(NOMINATIVE))]' [genderize_ru(selected_atom.gender, "перемещён", "перемещена", "перемещено", "перемещены")] '[destination.declent_ru(ACCUSATIVE)]'."))
+	to_chat(user, span_notice("\"[capitalize(selected_atom.declent_ru(NOMINATIVE))]\" перемещен[GEND_A_O_Y(selected_atom)] \"[destination.declent_ru(ACCUSATIVE)]\"."))
 	log_admin("Build Mode: [key_name(user)] forcemoved [selected_atom] to [destination] at ([destination.x],[destination.y],[destination.z]).")
 
 	UnregisterSignal(selected_atom, COMSIG_QDELETING)

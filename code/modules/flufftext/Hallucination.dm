@@ -11,24 +11,17 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 */
 
-#define SCREWYHUD_NONE 0
-#define SCREWYHUD_CRIT 1
-#define SCREWYHUD_DEAD 2
-#define SCREWYHUD_HEALTHY 3
-
 GLOBAL_LIST_INIT(minor_hallutinations, list("sounds"=25,"bolts_minor"=5,"whispers"=15,"message"=10,"hudscrew"=15))
 GLOBAL_LIST_INIT(medium_hallutinations, list("fake_alert"=15,"items"=10,"items_other"=10,"dangerflash"=10,"bolts"=5,"flood"=5,"husks"=10,"battle"=15,"self_delusion"=10))
 GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"singulo"=10,"borer"=10,"delusion"=20,"koolaid"=10))
 
-/mob/living
-	var/image/halimage
-	var/image/halbody
-	var/obj/halitem
-	var/hal_screwyhud = SCREWYHUD_NONE
-
 /obj/effect/hallucination
 	invisibility = INVISIBILITY_OBSERVER
 	var/mob/living/carbon/target = null
+
+/obj/effect/hallucination/Destroy(force)
+	target = null
+	. = ..()
 
 /obj/effect/hallucination/singularity_pull()
 	return
@@ -56,6 +49,14 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	current_image = GetImage()
 	if(target.client)
 		target.client.images |= current_image
+
+
+/obj/effect/hallucination/simple/Destroy()
+	if(target.client)
+		target.client.images.Remove(current_image)
+	current_image = null
+	active = FALSE
+	return ..()
 
 /obj/effect/hallucination/simple/proc/GetImage()
 	var/image/I = image(image_icon, src, image_state, image_layer, dir = dir)
@@ -87,12 +88,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/simple/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	Show()
-
-/obj/effect/hallucination/simple/Destroy()
-	if(target.client)
-		target.client.images.Remove(current_image)
-	active = FALSE
-	return ..()
 
 #define FAKE_FLOOD_EXPAND_TIME 20
 #define FAKE_FLOOD_MAX_RADIUS 10
@@ -136,6 +131,9 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			target.hallucinate_living("fake_alert", ALERT_TOO_MUCH_TOX)
 		next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 
+#undef FAKE_FLOOD_EXPAND_TIME
+#undef FAKE_FLOOD_MAX_RADIUS
+
 /obj/effect/hallucination/fake_flood/proc/Expand()
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinal)
@@ -152,15 +150,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	flood_turfs.Cut()
 	if(target.client)
 		target.client.images.Remove(flood_images)
-	target = null
 	QDEL_LIST(flood_images)
 	return ..()
 
 /obj/effect/hallucination/simple/xeno
-	image_icon = 'icons/mob/alien.dmi'
-	image_state = "alienh_pounce"
 
-/obj/effect/hallucination/simple/xeno/New(loc,var/mob/living/carbon/T)
+/obj/effect/hallucination/simple/xeno/New(loc, mob/living/carbon/T)
 	..()
 	name = "alien hunter ([rand(1, 1000)])"
 
@@ -168,12 +163,18 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	update_state("alienh_pounce")
 	if(A == target)
 		target.Weaken(10 SECONDS)
-		target.visible_message("<span class='danger'>[target] flails around wildly.</span>","<span class ='userdanger'>[name] pounces on you!</span>")
+		target.visible_message(span_danger("[target] flails around wildly."),"<span class ='userdanger'>[name] pounces on you!</span>")
 
 /obj/effect/hallucination/xeno_attack
 	//Xeno crawls from nearby vent,jumps at you, and goes back in
 	var/obj/machinery/atmospherics/unary/vent_pump/pump = null
 	var/obj/effect/hallucination/simple/xeno/xeno = null
+
+/obj/effect/hallucination/xeno_attack/Destroy(force)
+	pump = null
+	if(xeno)
+		QDEL_NULL(xeno)
+	. = ..()
 
 /obj/effect/hallucination/xeno_attack/New(loc, mob/living/carbon/T)
 	. = ..()
@@ -195,12 +196,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(!xeno)
 			return
 	var/xeno_name = xeno.name
-	to_chat(target, "<span class='notice'>[xeno_name] begins climbing into the ventilation system...</span>")
+	to_chat(target, span_notice("[xeno_name] begins climbing into the ventilation system..."))
 	sleep(10)
 	if(!xeno)
 		return
-	qdel(xeno)
-	to_chat(target, "<span class='notice'>[xeno_name] scrambles into the ventilation ducts!</span>")
+	QDEL_NULL(xeno)
+	to_chat(target, span_notice("[xeno_name] scrambles into the ventilation ducts!"))
 	qdel(src)
 
 /obj/effect/hallucination/simple/clown
@@ -225,6 +226,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	var/obj/machinery/atmospherics/unary/vent_pump/pump = null
 	var/obj/effect/hallucination/simple/borer/borer = null
 
+/obj/effect/hallucination/borer/Destroy(force)
+	pump = null
+	if(borer)
+		QDEL_NULL(borer)
+	. = ..()
+
 /obj/effect/hallucination/borer/New(loc, mob/living/carbon/T)
 	..()
 	target = T
@@ -235,18 +242,18 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(pump)
 		borer = new(pump.loc,target)
 		for(var/i in 0 to 10)
-			SSmove_manager.move_to(borer, T, 1, rand(2, 4))
+			GLOB.move_manager.move_to(borer, T, 1, rand(2, 4))
 			if(borer.Adjacent(T))
-				to_chat(T, "<span class='userdanger'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
+				to_chat(T, span_userdanger("You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing."))
 				T.Stun(8 SECONDS)
 				sleep(50)
-				qdel(borer)
+				QDEL_NULL(borer)
 				sleep(rand(60, 90))
 				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Привет.","Приветик!","Ты теперь мой раб!","Не пытайся избавиться от меня…")]</span>")
 				break
 			sleep(4)
 		if(!QDELETED(borer))
-			qdel(borer)
+			QDEL_NULL(borer)
 	qdel(src)
 
 /obj/effect/hallucination/simple/bubblegum
@@ -259,6 +266,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	var/obj/effect/hallucination/simple/bubblegum/bubblegum
 	var/image/fakebroken
 	var/image/fakerune
+
 
 /obj/effect/hallucination/oh_yeah/New(loc, mob/living/carbon/C)
 	set waitfor = FALSE
@@ -299,7 +307,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			target.apply_damage(40, STAMINA)
 			step_away(target, bubblegum)
 			shake_camera(target, 4, 3)
-			target.visible_message("<span class='warning'>[target] jumps backwards, falling on the ground!</span>", "<span class='userdanger'>[bubblegum] slams into you!</span>")
+			target.visible_message(span_warning("[target] jumps backwards, falling on the ground!"), span_userdanger("[bubblegum] slams into you!"))
 		sleep(2)
 	sleep(30)
 	qdel(src)
@@ -318,6 +326,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	//todo Hide where it moved with fake space images
 	var/obj/effect/hallucination/simple/singularity/s = null
 
+/obj/effect/hallucination/singularity_scare/Destroy(force)
+	if(s)
+		QDEL_NULL(s)
+	. = ..()
+
+
 /obj/effect/hallucination/singularity_scare/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
@@ -332,7 +346,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		s.Show()
 		s.Eat()
 		addtimer(CALLBACK(src, PROC_REF(wake_and_restore)), rand(50, 100))
-	qdel(s)
+	QDEL_NULL(s)
 
 /obj/effect/hallucination/simple/singularity
 	image_icon = 'icons/effects/224x224.dmi'
@@ -358,30 +372,30 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			for(var/i in 0 to hits)
 				target.playsound_local(null, 'sound/weapons/laser.ogg', 25, TRUE)
 				if(prob(75))
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/sear.ogg', 25, 1), rand(10,20))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/sear.ogg', 25, TRUE), rand(10,20))
 				else
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/effects/searwall.ogg', 25, 1), rand(10,20))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/effects/searwall.ogg', 25, TRUE), rand(10,20))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
-			target.playsound_local(null, get_sfx("bodyfall"), 25)
+			target.playsound_local(null, get_sfx(SFX_BODYFALL), 25)
 		if(2) //Esword fight
 			target.playsound_local(null, 'sound/weapons/saberon.ogg', 15, TRUE)
 			for(var/i in 0 to hits)
 				target.playsound_local(null, 'sound/weapons/blade1.ogg', 25, TRUE)
 				sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 8))
-			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
+			target.playsound_local(null, get_sfx(SFX_BODYFALL), 25, TRUE)
 			target.playsound_local(null, 'sound/weapons/saberoff.ogg', 15, TRUE)
 		if(3) //Gun fight
 			for(var/i in 0 to hits)
-				target.playsound_local(null, get_sfx("gunshot"), 25)
+				target.playsound_local(null, get_sfx(SFX_GUNSHOT), 25)
 				if(prob(75))
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/pierce.ogg', 25, 1), rand(10,20))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/pierce.ogg', 25, TRUE), rand(10,20))
 				else
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, "ricochet", 25, 1), rand(10,20))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, SFX_RICOCHET, 25, TRUE), rand(10,20))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
-			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
+			target.playsound_local(null, get_sfx(SFX_BODYFALL), 25, TRUE)
 		if(4) //Stunprod + cablecuff
 			target.playsound_local(null, 'sound/weapons/egloves.ogg', 40, TRUE)
-			target.playsound_local(null, get_sfx("bodyfall"), 25, TRUE)
+			target.playsound_local(null, get_sfx(SFX_BODYFALL), 25, TRUE)
 			sleep(20)
 			target.playsound_local(null, 'sound/weapons/cablecuff.ogg', 15, TRUE)
 		if(5) // Tick Tock
@@ -540,7 +554,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			A = image(custom_icon_file, target, custom_icon)
 	A.override = 1
 	if(target.client)
-		to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
+		to_chat(target, span_italics("...wabbajack...wabbajack..."))
 		target.playsound_local(target,'sound/magic/staff_change.ogg', 50, TRUE, -1)
 		delusion = A
 		target.client.images |= A
@@ -595,9 +609,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	icon_state = null
 	name = ""
 	desc = ""
-	density = FALSE
-	anchored = TRUE
-	opacity = FALSE
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null
 	var/obj/item/weap = null
@@ -614,7 +625,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 	var/health = 100
 
-
 /obj/effect/fake_attacker/Initialize(mapload, mob/living/carbon/my_target)
 	. = ..()
 	src.my_target = my_target
@@ -625,6 +635,28 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/fake_attacker/Destroy(force)
+	my_target = null
+	if(!QDELETED(weap))
+		QDEL_NULL(weap)
+	if(!QDELETED(stand_icon))
+		QDEL_NULL(stand_icon)
+	if(!QDELETED(currentimage))
+		QDEL_NULL(currentimage)
+	if(!QDELETED(base))
+		QDEL_NULL(base)
+	if(!QDELETED(clone))
+		QDEL_NULL(clone)
+	if(!QDELETED(left))
+		QDEL_NULL(left)
+	if(!QDELETED(right))
+		QDEL_NULL(right)
+	if(!QDELETED(up))
+		QDEL_NULL(up)
+	if(!QDELETED(down))
+		QDEL_NULL(down)
+	. = ..()
 
 
 /obj/effect/fake_attacker/attackby(obj/item/I, mob/user, params)
@@ -657,26 +689,26 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 //	qdel(src.currentimage)
 	switch(dir)
 		if(NORTH)
-			qdel(src.currentimage)
+			qdel(currentimage)
 			currentimage = new /image(up, src)
 		if(SOUTH)
-			qdel(src.currentimage)
+			qdel(currentimage)
 			currentimage = new /image(down, src)
 		if(EAST)
-			qdel(src.currentimage)
+			qdel(currentimage)
 			currentimage = new /image(right, src)
 		if(WEST)
-			qdel(src.currentimage)
+			qdel(currentimage)
 			currentimage = new /image(left, src)
 	my_target << currentimage
 
 
 /obj/effect/fake_attacker/proc/attack_loop()
 	while(1)
-		sleep(rand(5,10))
-		if(src.health < 0 || my_target.stat)
+		sleep(rand(5, 10))
+		if(src.health < 0 || !my_target || my_target.stat)
 			collapse()
-			continue
+			break
 		if(get_dist(src,my_target) > 1)
 			src.dir = get_dir(src,my_target)
 			step_towards(src,my_target)
@@ -686,7 +718,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				do_attack_animation(my_target, ATTACK_EFFECT_PUNCH)
 				if(weapon_name)
 					my_target.playsound_local(my_target, weap.hitsound, 1)
-					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
+					my_target.show_message(span_danger("[src.name] has attacked [my_target] with [weapon_name]!"), 1)
 					my_target.apply_damage(30, STAMINA)
 					if(prob(20))
 						my_target.AdjustEyeBlurry(6 SECONDS)
@@ -695,7 +727,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 							fake_blood(my_target)
 				else
 					my_target.playsound_local(my_target, pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg'), 25, TRUE, -1)
-					my_target.show_message("<span class='userdanger'>[src.name] has punched [my_target]!</span>", 1)
+					my_target.show_message(span_userdanger("[src.name] has punched [my_target]!"), 1)
 					my_target.apply_damage(30, STAMINA)
 					if(prob(33))
 						if(!locate(/obj/effect/overlay) in my_target.loc)
@@ -759,9 +791,14 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		sleep(rand(6,12))
 	qdel(src)
 
+/obj/effect/hallucination/bolts/Destroy(force)
+	QDEL_LIST(doors)
+	. = ..()
+
+
 /obj/effect/hallucination/whispers
 
-/obj/effect/hallucination/whispers/New(loc,var/mob/living/carbon/T)
+/obj/effect/hallucination/whispers/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
 	var/speak_messages = list("Я слежу за тобой…","[target.name]!","Уйди!","Ты слышал это?","Что ты натворил?","Почему?","Отдай!","Хонк!","ПОМОГИТЕ!!","БЕГИТЕ!!","УБЕЙТЕ МЕНЯ!","О бидай набора се'сма!","EI NATH!!","Kchck-Chkck? Kchchck!")
@@ -798,30 +835,30 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 
 /obj/effect/hallucination/message
 
-/obj/effect/hallucination/message/New(loc,var/mob/living/carbon/T)
+/obj/effect/hallucination/message/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
-	var/chosen = pick("<span class='userdanger'>The light burns you!</span>",
-		"<span class='danger'>You don't feel like yourself.</span>",
-		"<span class='userdanger'>Unknown has punched [target]!</span>",
-		"<span class='notice'>You hear something squeezing through the ducts...</span>",
-		"<span class='notice'>You hear a distant scream.</span>",
-		"<span class='notice'>You feel invincible, nothing can hurt you!</span>",
-		"<span class='warning'>You feel a tiny prick!</span>",
+	var/chosen = pick(span_userdanger("The light burns you!"),
+		span_danger("You don't feel like yourself."),
+		span_userdanger("Unknown has punched [target]!"),
+		span_notice("You hear something squeezing through the ducts..."),
+		span_notice("You hear a distant scream."),
+		span_notice("You feel invincible, nothing can hurt you!"),
+		span_warning("You feel a tiny prick!"),
 		"<b>[target]</b> sneezes.",
-		"<span class='warning'>You feel faint.</span>",
-		"<span class='noticealien'>You hear a strange, alien voice in your head...</span> [pick("Hiss","Ssss")]",
-		"<span class='notice'>You can see...everything!</span>")
+		span_warning("You feel faint."),
+		"[span_noticealien("You hear a strange, alien voice in your head...")] [pick("Hiss","Ssss")]",
+		span_notice("You can see...everything!"))
 	to_chat(target, chosen)
 	qdel(src)
 
 /**
-  * Spawns an hallucination for the mob.
-  *
-  * Arguments:
-  * * H - The name of the hallucination. "xeno", etc.
-  * * specific - used to specify a particular hallucination
-  */
+ * Spawns an hallucination for the mob.
+ *
+ * Arguments:
+ * * H - The name of the hallucination. "xeno", etc.
+ * * specific - used to specify a particular hallucination
+ */
 /mob/living/proc/hallucinate_living(hal_type, specific) // specific is used to specify a particular hallucination
 	investigate_log("was afflicted with a hallucination of type [hal_type] by [last_hallucinator_log ? last_hallucinator_log : "Unknown source"].", INVESTIGATE_HALLUCINATIONS)
 	switch(hal_type)
@@ -884,7 +921,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					playsound_local(null, 'sound/weapons/gunshots/gunshot.ogg', 25, TRUE)
 					var/timer_pause = rand(10,30)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/gunshots/gunshot.ogg', 25, 1), timer_pause)
-					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx(SFX_BODYFALL), 25), 25, 1), timer_pause+rand(5,10))
 				if(10)
 					playsound_local(null, 'sound/effects/pray_chaplain.ogg', 50)
 				if(11)
@@ -892,7 +929,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					playsound_local(null, 'sound/weapons/taser.ogg', 25, TRUE)
 					var/timer_pause = rand(10,30)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/taser.ogg', 25, 1), timer_pause)
-					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx(SFX_BODYFALL), 25), 25, 1), timer_pause+rand(5,10))
 			//Rare audio
 				if(12)
 			//These sounds are (mostly) taken from Hidden: Source
@@ -903,10 +940,10 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
 					playsound_local(null, pick(creepyasssounds), 50, TRUE)
 				if(13)
-					to_chat(src, "<span class='warning'>Вы ощущаете лёгкое покалывание!</span>")
+					to_chat(src, span_warning("Вы ощущаете лёгкое покалывание!"))
 				if(14)
 					to_chat(src, "<h1 class='alert'>Приоритетное объявление</h1>")
-					to_chat(src, "<br><br><span class='alert'>Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.</span><br><br>")
+					to_chat(src, "<br><br>[span_alert("Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.")]<br><br>")
 					playsound_local(null, 'sound/AI/eshuttle_dock.ogg', 100)
 				if(15)
 					playsound_local(null, 'sound/items/welder.ogg', 15, TRUE)
@@ -925,7 +962,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					playsound_local(null, 'sound/weapons/saberon.ogg', 35, TRUE)
 				if(18)
 					to_chat(src, "<h1 class='alert'>Биологическая угроза</h1>")
-					to_chat(src, "<br><br><span class='alert'>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!.</span><br><br>")
+					to_chat(src, "<br><br>[span_alert("Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!.")]<br><br>")
 					playsound_local(null, 'sound/AI/outbreak5.ogg')
 				if(19) //Tesla loose!
 					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, TRUE)
@@ -934,7 +971,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						playsound_local(null, 'sound/magic/lightningbolt.ogg', 65+(35*(i-1)), TRUE)	//65%, then 100% volume.
 				if(20) //AI is doomsdaying!
 					to_chat(src, "<h1 class='alert'>Аномалия</h1>")
-					to_chat(src, "<br><br><span class='alert'>Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.</span><br><br>")
+					to_chat(src, "<br><br>[span_alert("Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.")]<br><br>")
 					playsound_local(null, 'sound/AI/aimalf.ogg')
 		if("hudscrew")
 			//Screwy HUD
@@ -958,11 +995,6 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox, override = TRUE)
 				if(ALERT_TOO_MUCH_CO2)
 					throw_alert(ALERT_TOO_MUCH_CO2, /atom/movable/screen/alert/too_much_co2, override = TRUE)
-				if("nutrition")
-					if(prob(50))
-						throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hunger/fat, override = TRUE, icon_override = dna.species.hunger_icon)
-					else
-						throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hunger/starving, override = TRUE, icon_override = dna.species.hunger_icon)
 				if("weightless")
 					throw_alert("weightless", /atom/movable/screen/alert/weightless, override = TRUE)
 				if("fire")
@@ -1006,7 +1038,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						slots_free += ui_storage1
 					if(!H.r_store)
 						slots_free += ui_storage2
-				if(slots_free.len)
+				if(length(slots_free))
 					halitem.screen_loc = pick(slots_free)
 					halitem.layer = 50
 					halitem.plane = HUD_PLANE
@@ -1037,8 +1069,12 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 							halitem.icon = 'icons/obj/weapons/grenade.dmi'
 							halitem.icon_state = "flashbang1"
 							halitem.name = "Flashbang"
-					if(client) client.screen += halitem
-					addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, halitem), rand(100,250))
+
+					if(client)
+						client.screen += halitem
+
+					addtimer(CALLBACK(src, PROC_REF(clear_halitem)), rand(100, 250))
+
 		if("dangerflash")
 			//Flashes of danger
 			if(!halimage)
@@ -1046,7 +1082,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				var/list/actual_view = client ? view(client) : view(src)
 				for(var/turf/simulated/floor/F in actual_view)
 					possible_points += F
-				if(possible_points.len)
+				if(length(possible_points))
 					var/turf/simulated/floor/target = pick(possible_points)
 
 					switch(rand(1,4))
@@ -1061,10 +1097,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 
 					if(client)
 						client.images += halimage
-					sleep(rand(40,60)) //Only seen for a brief moment.
-					if(client)
-						client.images -= halimage
-					halimage = null
+					addtimer(CALLBACK(src, PROC_REF(clear_halimage), rand(40, 60)))
+
 		if("death")
 			hal_screwyhud = SCREWYHUD_DEAD
 			SetSleeping(40 SECONDS)
@@ -1080,13 +1114,14 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			sleep(rand(50,70))
 			hal_screwyhud = SCREWYHUD_NONE
 			SetSleeping(0)
+
 		if("husks")
 			if(!halbody)
 				var/list/possible_points = list()
 				var/list/actual_view = client ? view(client) : view(src)
 				for(var/turf/simulated/floor/F in actual_view)
 					possible_points += F
-				if(possible_points.len)
+				if(length(possible_points))
 					var/turf/simulated/floor/target = pick(possible_points)
 					switch(rand(1,4))
 						if(1)
@@ -1102,7 +1137,28 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 
 					if(client)
 						client.images += halbody
-					spawn(rand(30,50)) //Only seen for a brief moment.
-						if(client)
-							client.images -= halbody
-						halbody = null
+					addtimer(CALLBACK(src, PROC_REF(clear_halbody), rand(30, 50)))
+
+
+/mob/living/proc/clear_halbody()
+	if(!halbody)
+		return
+	if(client)
+		client.images -= halbody
+	QDEL_NULL(halbody)
+
+
+/mob/living/proc/clear_halimage()
+	if(!halimage)
+		return
+	if(client)
+		client.images -= halimage
+	QDEL_NULL(halimage)
+
+
+/mob/living/proc/clear_halitem()
+	if(!halitem)
+		return
+	if(client)
+		client.images -= halitem
+	QDEL_NULL(halitem)

@@ -28,14 +28,12 @@
 	icon_state = "scanner"
 	pixel_x = -32
 	pixel_y = -32
-	anchored = TRUE
 	density = TRUE
 	luminosity = 1
 	max_integrity = 500
 	integrity_failure = 100
 
 	// Power consumption from cables is handled in `process()`
-	use_power = NO_POWER_USE
 	// That's per second
 	idle_power_usage = 6000
 	active_power_usage = 10000
@@ -154,13 +152,7 @@
 		playsound(loc, alarm_sound, 100)
 	else
 		obj_break()
-		explosion(
-			loc,
-			light_impact_range = failure_force,
-			flash_range = 2 * failure_force,
-			flame_range =  2 * failure_force,
-			cause = "[src] was working too long within critical range of a rift."
-		)
+		explosion(loc, light_impact_range = failure_force, flash_range = 2 * failure_force, flame_range =  (2 * failure_force), cause = "[src] was working too long within critical range of a rift.")
 
 /obj/machinery/power/brs_stationary_scanner/update_icon_state()
 	var/prefix = initial(icon_state)
@@ -205,7 +197,7 @@
 
 	// It's a large machine, add a delay
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] [panel_open ? "за" : "от"]кручивать панель [src].",
+		"[user] начина[PLUR_ET_YUT(user)] [panel_open ? "за" : "от"]кручивать панель [src].",
 		"Вы начинаете [panel_open ? "за" : "от"]кручивать панель [src]."
 	)
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
@@ -218,11 +210,11 @@
 	. = TRUE
 
 	if((scanning_status != SCAN_OFF) && cable_powered)
-		to_chat(user, "<span class='warning'>Панель заблокирована протоколом безопасности. Выключите сканер.</span>")
+		to_chat(user, span_warning("Панель заблокирована протоколом безопасности. Выключите сканер."))
 		return
 
 	// It's a large machine, add a delay
-	user.visible_message("[user] начина[pluralize_ru(user.gender, "ет", "ют")] разбирать [src].", "Вы начинаете разбирать [src].")
+	user.visible_message("[user] начина[PLUR_ET_YUT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 

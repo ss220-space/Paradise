@@ -1,27 +1,25 @@
-///////////////////////////////
-//CABLE STRUCTURE
-///////////////////////////////
+/**
+ * # Cable directions (d1 and d2)
+ *
+ * 9   1   5
+ *   \ | /
+ * 8 - 0 - 4
+ *   / | \
+ * 10  2   6
+ *
+ * If d1 = 0 and d2 = 0, there's no cable
+ * If d1 = 0 and d2 = dir, it's a O-X cable, getting from the center of the tile to dir (knot cable)
+ * If d1 = dir1 and d2 = dir2, it's a full X-X cable, getting from dir1 to dir2
+ * By design, d1 is the smallest direction and d2 is the highest
+ */
 
-
-////////////////////////////////
-// Definitions
-////////////////////////////////
-
-/* Cable directions (d1 and d2)
-
-
-  9   1   5
-	\ | /
-  8 - 0 - 4
-	/ | \
-  10  2   6
-
-If d1 = 0 and d2 = 0, there's no cable
-If d1 = 0 and d2 = dir, it's a O-X cable, getting from the center of the tile to dir (knot cable)
-If d1 = dir1 and d2 = dir2, it's a full X-X cable, getting from dir1 to dir2
-By design, d1 is the smallest direction and d2 is the highest
-*/
-
+/**
+ * # /obj/structure/cable
+ *
+ * The red wire thingies you see on the ground all over the station in maintenance
+ * the d1 and d2 vars deal with the "directions" of the cables, since all instances of this cable structure are
+ * just lines, they have two endpoints (d1 and d2).
+ */
 /obj/structure/cable
 	level = 1
 	anchored = TRUE
@@ -33,30 +31,29 @@ By design, d1 is the smallest direction and d2 is the highest
 	icon_state = "0-1"
 	var/d1 = 0
 	var/d2 = 1
-	plane = GAME_PLANE
 	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
-	color = WIRE_COLOR_RED
+	color = CABLE_HEX_COLOR_RED
 
 /obj/structure/cable/yellow
-	color = WIRE_COLOR_YELLOW
+	color = CABLE_HEX_COLOR_YELLOW
 
 /obj/structure/cable/green
-	color = WIRE_COLOR_GREEN
+	color = CABLE_HEX_COLOR_GREEN
 
 /obj/structure/cable/blue
-	color = WIRE_COLOR_BLUE
+	color = CABLE_HEX_COLOR_BLUE
 
 /obj/structure/cable/pink
-	color = WIRE_COLOR_PINK
+	color = CABLE_HEX_COLOR_PINK
 
 /obj/structure/cable/orange
-	color = WIRE_COLOR_ORANGE
+	color = CABLE_HEX_COLOR_ORANGE
 
 /obj/structure/cable/cyan
-	color = WIRE_COLOR_CYAN
+	color = CABLE_HEX_COLOR_CYAN
 
 /obj/structure/cable/white
-	color = WIRE_COLOR_WHITE
+	color = CABLE_HEX_COLOR_WHITE
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
@@ -226,13 +223,13 @@ By design, d1 is the smallest direction and d2 is the highest
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if((T.transparent_floor == TURF_TRANSPARENT) || T.intact)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(shock(user, 50))
 		return
-	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
+	user.visible_message("[user] cuts the cable.", span_notice("You cut the cable."))
 	investigate_log("was cut by [key_name_log(usr)] at [COORD(T)]", INVESTIGATE_WIRES)
 	deconstruct()
 
@@ -241,7 +238,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!prob(prb))
 		return FALSE
 	if(electrocute_mob(user, powernet, src, siemens_coeff))
-		do_sparks(5, 1, src)
+		do_sparks(5, TRUE, src)
 		return TRUE
 	else
 		return FALSE
@@ -253,16 +250,16 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/cable_color(colorC)
 	if(!colorC)
-		color = WIRE_COLOR_RED
+		color = CABLE_HEX_COLOR_RED
 	else if(colorC == "rainbow")
 		color = color_rainbow()
 	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
-		color = WIRE_COLOR_ORANGE
+		color = CABLE_HEX_COLOR_ORANGE
 	else
 		color = colorC
 
 /obj/structure/cable/proc/color_rainbow()
-	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	color = pick(CABLE_HEX_COLOR_RED, CABLE_HEX_COLOR_BLUE, CABLE_HEX_COLOR_GREEN, CABLE_HEX_COLOR_PINK, CABLE_HEX_COLOR_YELLOW, CABLE_HEX_COLOR_CYAN)
 	return color
 
 /////////////////////////////////////////////////
@@ -442,7 +439,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 
 	var/list/powerlist = power_list(T1,src,0,0) //find the other cables that ended in the centre of the turf, with or without a powernet
-	if(powerlist.len>0)
+	if(length(powerlist)>0)
 		var/datum/powernet/PN = new()
 		propagate_network(powerlist[1],PN) //propagates the new powernet beginning at the source cable
 
@@ -462,7 +459,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	P_list += power_list(loc, src, d1, 0, cable_only = 1)//... and on turf
 
 
-	if(P_list.len == 0)//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
+	if(length(P_list) == 0)//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
 		powernet.remove_cable(src)
 
 		for(var/obj/machinery/power/P in T1)//check if it was powering a machine

@@ -3,12 +3,15 @@
 	desc = "A small electronic device able to record a voice sample, and send a signal when that sample is repeated."
 	icon_state = "voice"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
-	origin_tech = "magnets=1;engineering=1"
 	var/listening = FALSE
 	var/recorded = null	//the activation message
 	var/recorded_type = 0 // 0 for say, 1 for emote
 
 	bomb_name = "voice-activated bomb"
+
+/obj/item/assembly/voice/Initialize(mapload)
+	. = ..()
+	become_hearing_sensitive(ROUNDSTART_TRAIT)
 
 
 /obj/item/assembly/voice/examine(mob/user)
@@ -30,6 +33,8 @@
 /obj/item/assembly/voice/proc/hear_input(mob/living/M, msg, type)
 	if(!isliving(M))
 		return
+
+	var/turf/T = get_turf(src) // Otherwise it won't work in hand
 	if(listening)
 		if(findtext(msg, "</span>"))
 			recorded = strip_html_properly(msg)
@@ -38,11 +43,9 @@
 		recorded = msg
 		recorded_type = type
 		listening = FALSE
-		var/turf/T = get_turf(src)	//otherwise it won't work in hand
-		T.visible_message("[bicon(src)] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
+		T.audible_message("[icon2html(src, hearers(T))] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
 	else if(findtext(msg, recorded) && type == recorded_type)
-		var/turf/T = get_turf(src)  //otherwise it won't work in hand
-		T.visible_message(span_warning("[bicon(src)] beeps!"))
+		T.visible_message(span_warning("[icon2html(src, viewers(T))] beeps!"))
 		pulse(0, M)
 
 
@@ -56,7 +59,7 @@
 
 	listening = !listening
 	var/turf/T = get_turf(src)
-	T.visible_message("[bicon(src)] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
+	T.audible_message("[icon2html(src, hearers(T))] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
 	return TRUE
 
 
@@ -68,9 +71,7 @@
 /obj/item/assembly/voice/noise
 	name = "noise sensor"
 	desc = "A simple noise sensor that triggers on vocalizations other than speech."
-	icon_state = "voice"
 	materials = list(MAT_METAL=100, MAT_GLASS=10)
-	origin_tech = "magnets=1;engineering=1"
 	bomb_name = "noise-activated bomb"
 
 
@@ -90,5 +91,5 @@
 /obj/item/assembly/voice/noise/hear_message(mob/living/M, msg)
 	pulse(0, M)
 	var/turf/T = get_turf(src)  //otherwise it won't work in hand
-	T.visible_message(span_warning("[bicon(src)] beeps!"))
+	T.visible_message(span_warning("[icon2html(src, viewers(T))] beeps!"))
 

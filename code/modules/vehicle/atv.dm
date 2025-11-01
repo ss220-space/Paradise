@@ -4,7 +4,7 @@
 	icon = 'icons/obj/vehicles/4wheeler.dmi'
 	icon_state = "atv"
 	max_integrity = 150
-	armor = list("melee" = 50, "bullet" = 25, "laser" = 20, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
+	armor = list(MELEE = 50, BULLET = 25, LASER = 20, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 60, ACID = 60)
 	key_type = /obj/item/key/atv
 	integrity_failure = 0.5
 	var/static/mutable_appearance/atvcover
@@ -90,7 +90,6 @@
 
 /obj/machinery/porta_turret/syndicate/vehicle_turret
 	name = "mounted turret"
-	animate_movement = SLIDE_STEPS
 	scan_range = 7
 	emp_vulnerable = TRUE
 	density = FALSE
@@ -98,8 +97,8 @@
 
 
 /obj/machinery/porta_turret/syndicate/vehicle_turret/fast
-	projectile = /obj/projectile/bullet/weakbullet4/c9mmte
-	eprojectile = /obj/projectile/bullet/weakbullet4/c9mmte
+	projectile = /obj/projectile/bullet/weakbullet4/c45nr
+	eprojectile = /obj/projectile/bullet/weakbullet4/c45nr
 	shot_delay = 0.2 SECONDS
 
 

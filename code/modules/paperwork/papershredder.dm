@@ -1,6 +1,6 @@
 /obj/machinery/papershredder
 	name = "paper shredder"
-	desc = "For those documents you don't want seen."
+	desc = "Устройство для тех документов, которых вы не хотите видеть."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
 	density = TRUE
@@ -18,6 +18,15 @@
 		/obj/item/book = 5
 		)
 
+/obj/machinery/papershredder/get_ru_names()
+	return list(
+		NOMINATIVE = "измельчитель бумаги",
+		GENITIVE = "измельчителя бумаги",
+		DATIVE = "измельчителю бумаги",
+		ACCUSATIVE = "измельчитель бумаги",
+		INSTRUMENTAL = "измельчителем бумаги",
+		PREPOSITIONAL = "измельчителе бумаги"
+	)
 
 /obj/machinery/papershredder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -37,19 +46,19 @@
 
 	add_fingerprint(user)
 	if(paperamount == max_paper)
-		to_chat(user, span_warning("The [name] is full; please empty it before you continue."))
+		balloon_alert(user, "нет места!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return ..()
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
-	to_chat(user, span_notice("The [I.name] was succesfully destroyed."))
+	balloon_alert(user, "помещено внутрь")
 	qdel(I)
 	paperamount += paper_result
 	playsound(loc, 'sound/items/pshred.ogg', 75, TRUE)
 	if(paperamount > max_paper)
-		to_chat(user, span_danger("The [name] was too full, and shredded paper goes everywhere!"))
+		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] переполняется и куски бумаги разлетаются повсюду!"))
 		var/atom/drop_loc = drop_location()
 		var/turf/throw_to = get_edge_target_turf(src, pick(GLOB.alldirs))
 		for(var/i = 1 to (paperamount - max_paper))
@@ -77,7 +86,7 @@
 		return
 
 	if(!paperamount)
-		to_chat(usr, span_notice("\The [src] is empty."))
+		balloon_alert(usr, "пусто!")
 		return
 
 	empty_bin(usr)
@@ -88,8 +97,8 @@
 	if(empty_into && !istype(empty_into))
 		empty_into = null
 
-	if(empty_into && empty_into.contents.len >= empty_into.storage_slots)
-		to_chat(user, span_notice("\The [empty_into] is full."))
+	if(empty_into && length(empty_into.contents) >= empty_into.storage_slots)
+		balloon_alert(user, "нет места!")
 		return
 
 	var/atom/drop_loc = drop_location()
@@ -99,16 +108,15 @@
 			break
 		if(empty_into)
 			empty_into.handle_item_insertion(SP)
-			if(empty_into.contents.len >= empty_into.storage_slots)
+			if(length(empty_into.contents) >= empty_into.storage_slots)
 				break
 	if(empty_into)
 		if(paperamount)
-			to_chat(user, span_notice("You fill \the [empty_into] with as much shredded paper as it will carry."))
+			to_chat(user, span_notice("Вы заполняете [empty_into.declent_ru(ACCUSATIVE)] стольким количеством растерзанной бумаги, сколько [GEND_HE_SHE(empty_into)] мо[PLUR_JET_GUT(empty_into)] вместить."))
 		else
-			to_chat(user, span_notice("You empty \the [src] into \the [empty_into]."))
-
+			to_chat(user, span_notice("Вы опустошаете [declent_ru(ACCUSATIVE)] в [empty_into.declent_ru(ACCUSATIVE)]."))
 	else
-		to_chat(user, span_notice("You empty \the [src]."))
+		to_chat(user, span_notice("Вы опустошаете [declent_ru(ACCUSATIVE)]."))
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -133,8 +141,8 @@
 		add_fingerprint(user)
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
-				span_warning("[user] accidentally ignites [user.p_them()]self!"),
-				span_userdanger("You miss shredded paper and accidentally light yourself on fire!"),
+				span_warning("[user] случайно поджигает себя!"),
+				span_userdanger("Вы промахиваетесь по куче разорванной бумаги и случайно поджигаете себя!")
 			)
 			user.drop_item_ground(I)
 			user.adjust_fire_stacks(1)
@@ -154,16 +162,26 @@
 
 /obj/item/shredded_paper
 	name = "shredded paper"
+	desc = "Куча разорванной бумаги."
+	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "shredded_paper"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	layer = 4
 	max_integrity = 25
 	throw_range = 3
-	throw_speed = 2
 
-/obj/item/shredded_paper/Initialize()
+/obj/item/shredded_paper/get_ru_names()
+	return list(
+		NOMINATIVE = "измельчённая бумага",
+		GENITIVE = "измельчённой бумаги",
+		DATIVE = "измельчённой бумаге",
+		ACCUSATIVE = "измельчённую бумагу",
+		INSTRUMENTAL = "измельчонной бумагой",
+		PREPOSITIONAL = "измельчённой бумаге"
+	)
+
+/obj/item/shredded_paper/Initialize(mapload)
 	. = ..()
 	if(prob(65)) color = pick("#7c7c7c","#e7e4e4", "#aeacc9")

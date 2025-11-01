@@ -2,7 +2,6 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/construct/lesser
 	base_cooldown = 3 MINUTES
-	action_icon_state = "artificer"
 	action_background_icon_state = "bg_cult"
 	human_req = FALSE
 
@@ -15,6 +14,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build
 	aoe_range = 0
+	one_per_turf = TRUE
 
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/floor
@@ -45,7 +45,6 @@
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
@@ -64,12 +63,8 @@
 /obj/effect/proc_holder/spell/aoe/conjure/build/wall/reinforced
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall"
-	school = "conjuration"
 	base_cooldown = 30 SECONDS
 	delay = 5 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	//holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	summon_type = list(/turf/simulated/wall/r_wall)
 
@@ -84,6 +79,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
+	one_per_turf = FALSE
 	summon_type = list(/obj/item/soulstone)
 
 
@@ -139,7 +135,7 @@
 	name = "eldritch wall"
 	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "m_shield_cult"
-	light_color = LIGHT_COLOR_PURE_RED
+	light_color = LIGHT_COLOR_INTENSE_RED
 
 
 /obj/effect/forcefield/holy
@@ -188,9 +184,7 @@
 
 /obj/effect/proc_holder/spell/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
-	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 	action_background_icon_state = "bg_cult"
-	school = "evocation"
 	base_cooldown = 40 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
@@ -203,34 +197,11 @@
 /obj/effect/proc_holder/spell/inflict_handler/magic_missile/lesser
 	amt_weakened = 4 SECONDS
 
-
 /obj/effect/proc_holder/spell/smoke/disable
 	name = "Paralysing Smoke"
 	desc = "This spell spawns a cloud of paralysing smoke."
 	action_icon_state = "parasmoke"
 	action_background_icon_state = "bg_cult"
-	school = "conjuration"
 	base_cooldown = 20 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	//holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
-	cooldown_min = 2 SECONDS //25 deciseconds reduction per rank
-	smoke_type = SMOKE_SLEEPING
-	smoke_amt = 10
-
-
-/obj/effect/proc_holder/spell/smoke/disable
-	name = "Paralysing Smoke"
-	desc = "This spell spawns a cloud of paralysing smoke."
-	action_icon_state = "parasmoke"
-	action_background_icon_state = "bg_cult"
-	school = "conjuration"
-	base_cooldown = 20 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
-	cooldown_min = 2 SECONDS //25 deciseconds reduction per rank
-
 	smoke_type = SMOKE_SLEEPING
-	smoke_amt = 10
-

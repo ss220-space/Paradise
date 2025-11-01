@@ -9,7 +9,9 @@
 	/// If set to `TRUE`, adds dense tiles to possible spawn places.
 	var/summon_ignore_density = FALSE
 	/// If set to `TRUE`, each new object is summoned on a new spawn point.
-	var/summon_ignore_prev_spawn_points = 0
+	var/summon_ignore_prev_spawn_points = FALSE
+	/// If set to 'TRUE', would not let you build more than one thing from summon_type in the same turf
+	var/one_per_turf = FALSE
 
 	/// Vars of the summoned objects will be replaced with those where they meet. Should have format of list("emagged" = 1,"name" = "Wizard's Justicebot"), for example.
 	var/list/newVars = list()
@@ -26,10 +28,24 @@
 	T.range = aoe_range
 	return T
 
+/obj/effect/proc_holder/spell/aoe/conjure/can_cast(mob/user, charge_check, show_message)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(!one_per_turf)
+		return TRUE
+
+	var/turf/caster_turf = get_turf(user)
+	for(var/summon_thing in summon_type)
+		if(locate(summon_thing) in caster_turf)
+			return FALSE
+
+	return TRUE
 
 /obj/effect/proc_holder/spell/aoe/conjure/cast(list/targets,mob/living/user = usr)
 	var/list/what_conjure_summoned = list()
-	playsound(get_turf(user), cast_sound, 50,1)
+	playsound(get_turf(user), cast_sound, 50, TRUE)
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
 			targets -= T
@@ -38,7 +54,7 @@
 	var/timed_action_flags = can_use_stunned ? DEFAULT_DOAFTER_IGNORE|DA_IGNORE_INCAPACITATED : DEFAULT_DOAFTER_IGNORE
 	if(do_after(user, delay, user, timed_action_flags))
 		for(var/i=0,i<summon_amt,i++)
-			if(!targets.len)
+			if(!length(targets))
 				break
 			var/summoned_object_type = pick(summon_type)
 			var/spawn_place = pick(targets)
@@ -46,7 +62,7 @@
 				targets -= spawn_place
 			if(ispath(summoned_object_type,/turf))
 				if(istype(get_turf(user), /turf/simulated/floor/shuttle) || istype(get_turf(user), /turf/simulated/wall/shuttle))
-					to_chat(user, "<span class='warning'>You can't build things on shuttles!</span>")
+					to_chat(user, span_warning("You can't build things on shuttles!"))
 					break
 				var/turf/O = spawn_place
 				var/N = summoned_object_type

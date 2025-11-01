@@ -2,7 +2,6 @@
 	name = "frag grenade"
 	desc = "Fire in the hole."
 	icon_state = "frag"
-	item_state = "flashbang"
 	origin_tech = "materials=3;magnets=4"
 	det_time = 3 SECONDS
 	var/range = 5
@@ -18,7 +17,7 @@
 		if(H.body_position == LYING_DOWN) //grenade is jumped on but get real fucked up
 			embed_shrapnel(H, max_shrapnel)
 			range = 1
-	explosion(loc, 0, 1, range, breach = FALSE, cause = src)
+	explosion(loc, devastation_range = 0, heavy_impact_range = 1, light_impact_range = range, breach = FALSE, cause = src)
 	for(var/turf/T in view(range, loc))
 		for(var/mob/living/carbon/human/H in T)
 			var/shrapnel_amount = max_shrapnel - T.Distance(epicenter)
@@ -35,4 +34,4 @@
 			S.throw_speed = 1
 			S.sharp = FALSE
 		else
-			to_chat(H, "<span class='warning'>Shrapnel bounces off your armor!</span>")
+			to_chat(H, span_warning("Shrapnel bounces off your armor!"))

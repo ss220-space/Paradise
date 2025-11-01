@@ -73,7 +73,7 @@
 
 	if(length(contents))
 		I.play_tool_sound(src)
-		user.visible_message("<span class='notice'>[user] pries [src] open.</span>")
+		user.visible_message(span_notice("[user] pries [src] open."))
 		empty_pod()
 
 /obj/structure/transit_tube_pod/process()
@@ -94,7 +94,7 @@
 	var/list/savedcontents = contents.Copy()
 	var/saveddir = dir
 	var/turf/destination = get_edge_target_turf(src, saveddir)
-	visible_message("<span class='warning'>[src] ejects its insides out!</span>")
+	visible_message(span_warning("[src] ejects its insides out!"))
 	for(var/i in savedcontents)
 		var/atom/movable/AM = i
 		AM.throw_at(destination, rand(1, 3), 5)

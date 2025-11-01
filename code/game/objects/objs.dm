@@ -7,6 +7,9 @@
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/force = 0
+	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
+	// which would be converted to armor datum during initialization.
+	// Setting `armor` to a list on an *existing* object would inevitably runtime. Use `getArmor()` instead.
 	var/datum/armor/armor
 	var/obj_integrity	//defaults to max_integrity
 	var/max_integrity = 500
@@ -32,12 +35,12 @@
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
 
+	var/list/req_access
+	var/check_one_access = TRUE
 
-/obj/New()
-	..()
-	if(on_blueprints && isturf(loc))
-		var/turf/T = loc
-		T.add_blueprints_preround(src)
+	/// Icon to use as a 32x32 preview in crafting menus and such
+	var/icon_preview
+	var/icon_state_preview
 
 /obj/Initialize(mapload)
 	. = ..()
@@ -51,6 +54,12 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+
+	if(on_blueprints && isturf(loc))
+		var/turf/T = loc
+		T.add_blueprints_preround(src)
+
+	add_debris_element()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -72,6 +81,7 @@
 
 /obj/proc/CouldNotUseTopic(mob/user)
 	// Nada
+	return
 
 /obj/Destroy(force)
 	if(!ismachinery(src))
@@ -131,7 +141,7 @@
 		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
 		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
@@ -156,7 +166,7 @@
 		var/list/nearby = viewers(1, src)
 		var/is_in_use = FALSE
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.interact(M)
 		var/ai_in_use = AutoUpdateAI(src)
@@ -202,11 +212,12 @@
 	return
 
 /obj/proc/hear_message(mob/M, text)
+	return
 
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
 	add_fingerprint(user)
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		to_chat(user, span_notice("[src] does not need repairs."))
 		return
 	if(I.tool_behaviour != TOOL_WELDER)
 		return
@@ -223,16 +234,16 @@
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	add_fingerprint(user)
 	if(!anchored && !isfloorturf(loc))
-		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+		user.visible_message(span_warning("A floor must be present to secure [src]!"))
 		return FALSE
 	if(I.tool_behaviour != TOOL_WRENCH)
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
 	if(!(obj_flags & NODECONSTRUCT))
-		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
+		to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
+			to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
 			set_anchored(!anchored)
 		return TRUE
 	return FALSE
@@ -328,12 +339,12 @@
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
 	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	C.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
-	C.Weaken(3 SECONDS)
+	C.Knockdown(3 SECONDS)
 
 #undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER

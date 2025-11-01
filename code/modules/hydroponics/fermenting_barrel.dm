@@ -1,7 +1,17 @@
 /obj/structure/fermenting_barrel
 	name = "wooden barrel"
 	desc = "Большая дубовая бочка. Можно использовать для брожения фруктов или просто хранения жидкостей."
-	ru_names = list(
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "barrel"
+	density = TRUE
+	anchored = TRUE
+	container_type = DRAINABLE | AMOUNT_VISIBLE
+	pressure_resistance = 2 * ONE_ATMOSPHERE
+	var/open = FALSE
+	var/speed_multiplier = 1 //How fast it distills. Defaults to 100% (1.0). Lower is better.
+
+/obj/structure/fermenting_barrel/get_ru_names()
+	return list(
 		NOMINATIVE = "деревянная бочка",
 		GENITIVE = "деревянной бочки",
 		DATIVE = "деревянной бочке",
@@ -9,23 +19,17 @@
 		INSTRUMENTAL = "деревянной бочкой",
 		PREPOSITIONAL = "деревянной бочке"
 	)
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "barrel"
-	density = TRUE
-	anchored = TRUE
-	container_type = DRAINABLE | AMOUNT_VISIBLE
-	pressure_resistance = 2 * ONE_ATMOSPHERE
-	max_integrity = 300
-	var/open = FALSE
-	var/speed_multiplier = 1 //How fast it distills. Defaults to 100% (1.0). Lower is better.
 
-/obj/structure/fermenting_barrel/Initialize()
-	create_reagents(300) //Bluespace beakers, but without the portability or efficiency in circuits.
+/obj/structure/fermenting_barrel/Initialize(mapload)
 	. = ..()
+	create_reagents(300) //Bluespace beakers, but without the portability or efficiency in circuits.
+
+/obj/structure/fermenting_barrel/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /obj/structure/fermenting_barrel/examine(mob/user)
 	. = ..()
-	. += span_notice("Сейчас бочка [open ? "открыта – можно наливать жидкости." : "закрыта - можно набирать жидкость через кран."]")
+	. += span_notice("Сейчас бочка [open ? "открыта — можно наливать жидкости." : "закрыта — можно набирать жидкость через кран."]")
 
 /obj/structure/fermenting_barrel/proc/makeWine(obj/item/reagent_containers/food/snacks/grown/G)
 	if(G.reagents)

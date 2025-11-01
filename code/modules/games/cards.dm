@@ -18,8 +18,6 @@
 	icon = 'icons/obj/playing_cards.dmi'
 	throw_speed = 3
 	throw_range = 10
-	throwforce = 0
-	force = 0
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
 	var/list/cards = list()
 	/// Decks default to a single pack, setting it higher will multiply them by that number
@@ -190,7 +188,7 @@
 	cardhand.update_values()
 	cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message(
-		span_notice("[user] тян[pluralize_ru(user.gender, "ет", "ут")] карту из колоды."),
+		span_notice("[user] тян[PLUR_ET_UT(user)] карту из колоды."),
 		span_notice("Вы тянете карту из колоды. Это <b>[play_card]</b>.")
 	)
 
@@ -270,12 +268,12 @@
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] себе <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] себе <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
 			span_notice("Вы раздаёте себе <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] [target] <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] [target] <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
 			span_notice("Вы раздаёте [target] <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
 		)
 	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
@@ -297,7 +295,7 @@
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
 	cards = shuffle(cards)
 	user.visible_message(
-		span_notice("[user] тасу[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] тасу[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы тасуете [declent_ru(ACCUSATIVE)]."),
 	)
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
@@ -315,7 +313,7 @@
 	if(user.put_in_hands(src, ignore_anim = FALSE))
 		add_fingerprint(user)
 		user.visible_message(
-			span_notice("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
 		)
 		return TRUE
@@ -350,22 +348,12 @@
 /obj/item/cardhand
 	name = "hand of cards"
 	desc = "Несколько игральных карт."
-	ru_names = list(
-		NOMINATIVE = "игральные карты",
-		GENITIVE = "игральных карт",
-		DATIVE = "игральным картам",
-		ACCUSATIVE = "игральные карты",
-		INSTRUMENTAL = "игральными картами",
-		PREPOSITIONAL = "игральных картах"
-	)
 	gender = PLURAL
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 20
-	throwforce = 0
-	force = 0
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
@@ -378,6 +366,15 @@
 	/// The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
 	var/pickedcard
 
+/obj/item/cardhand/get_ru_names()
+	return list(
+		NOMINATIVE = "игральные карты",
+		GENITIVE = "игральных карт",
+		DATIVE = "игральным картам",
+		ACCUSATIVE = "игральные карты",
+		INSTRUMENTAL = "игральными картами",
+		PREPOSITIONAL = "игральных картах"
+	)
 
 /obj/item/cardhand/proc/update_values()
 	if(!parentdeck)
@@ -435,7 +432,7 @@
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message(
-		span_notice("[user] [concealed ? "скрыва" : "показыва"][pluralize_ru(user.gender, "ет", "ют")] свою руку с картами."),
+		span_notice("[user] [concealed ? "скрыва" : "показыва"][PLUR_ET_YUT(user)] свою руку с картами."),
 		span_notice("Вы [concealed ? "скрыва" : "показыва"]ете свою руку с картами.")
 	)
 
@@ -540,7 +537,7 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] тян[pluralize_ru(user.gender, "ет", "ют")] карту из своей руки."),
+		span_notice("[user] тян[PLUR_ET_YUT(user)] карту из своей руки."),
 		span_notice("Вы тянете [pickedcard] из своей руки."),
 	)
 	pickedcard = null
@@ -600,7 +597,7 @@
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(LAZYLEN(cardhand.cards))
 			user.visible_message(
-				span_notice("[user] клад[pluralize_ru(user.gender, "ёт", "ют")] [discarding]."),,
+				span_notice("[user] клад[PLUR_YOT_YUT(user)] [discarding]."),,
 				span_notice("Вы кладёте [discarding]."),
 			)
 		cardhand.loc = get_step(user, user.dir)
@@ -615,7 +612,7 @@
 	if(LAZYLEN(cards) <= 2)
 		for(var/datum/action/action as anything in actions)
 			action.UpdateButtonIcon()
-	..()
+	return ..()
 
 
 /obj/item/cardhand/update_name(updates = ALL)
@@ -626,7 +623,7 @@
 			NOMINATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "а", "ы", "")]",
 			GENITIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ы", "", "")]",
 			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
-			ACCUSATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "у", "ы", "")]",
+			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_SEC_MIN(LAZYLEN(cards))]",
 			INSTRUMENTAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ой", "ами", "ами")]",
 			PREPOSITIONAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ах", "ах")]"
 		)
@@ -640,7 +637,7 @@
 			INSTRUMENTAL = "игральной картой",
 			PREPOSITIONAL = "игральной карте"
 		)
-	. = ..()
+	return ..()
 
 
 /obj/item/cardhand/update_desc(updates = ALL)

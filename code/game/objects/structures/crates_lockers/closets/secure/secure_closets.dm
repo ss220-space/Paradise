@@ -1,19 +1,14 @@
-#define CLOSET_BREAKOUT_TIME (2 MINUTES)
+#define CLOSET_BREAKOUT_TIME 2 MINUTES
 
 /obj/structure/closet/secure_closet
 	name = "secure locker"
 	desc = "It's an immobile card-locked storage unit."
-	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
-	density = TRUE
-	opened = FALSE
 	locked = TRUE
-	broken = FALSE
 	can_be_emaged = TRUE
 	max_integrity = 250
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
-	wall_mounted = FALSE //never solid (You can always pass over it)
 
 /obj/structure/closet/secure_closet/can_open()
 	if(locked)
@@ -35,7 +30,7 @@
 
 	if(prob(50 / severity))
 		locked = !locked
-		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
 
@@ -52,7 +47,7 @@
 		add_attack_logs(user, src, "emagged")
 		broken = TRUE
 		locked = FALSE
-		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
 		if(user)
@@ -159,7 +154,7 @@
 		return
 
 	//Well then break it!
-	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 	broken = TRUE
 	locked = FALSE
@@ -228,3 +223,5 @@
 				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
+
+#undef CLOSET_BREAKOUT_TIME

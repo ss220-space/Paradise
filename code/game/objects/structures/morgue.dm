@@ -20,14 +20,6 @@
 /obj/structure/morgue
 	name = "morgue"
 	desc = "Холодильная камера, предназначенная для хранения мертвецов. Предотвращает процессы разложения."
-	ru_names = list(
-		NOMINATIVE = "холодильник для трупов",
-		GENITIVE = "холодильника для трупов",
-		DATIVE = "холодильнику для трупов",
-		ACCUSATIVE = "холодильник для трупов",
-		INSTRUMENTAL = "холодильником для трупов",
-		PREPOSITIONAL = "холодильнике для трупов"
-	)
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue"
 	density = TRUE
@@ -45,6 +37,16 @@
 	)
 	var/toggle_sound = 'sound/items/deconstruct.ogg'
 	var/status
+
+/obj/structure/morgue/get_ru_names()
+	return list(
+		NOMINATIVE = "холодильник для трупов",
+		GENITIVE = "холодильника для трупов",
+		DATIVE = "холодильнику для трупов",
+		ACCUSATIVE = "холодильник для трупов",
+		INSTRUMENTAL = "холодильником для трупов",
+		PREPOSITIONAL = "холодильнике для трупов"
+	)
 
 
 /obj/structure/morgue/Initialize(mapload)
@@ -229,13 +231,13 @@
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 
-/obj/structure/morgue/ex_act(severity)
+/obj/structure/morgue/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ex_act_effect(severity)
-		if(2)
+		if(EXPLODE_HEAVY)
 			ex_act_effect(severity, 50)
-		if(3)
+		if(EXPLODE_LIGHT)
 			ex_act_effect(severity, 5)
 
 
@@ -262,14 +264,6 @@
 /obj/structure/m_tray
 	name = "morgue tray"
 	desc = "Поместить тело, задвинуть, закрыть крышку. Всё просто."
-	ru_names = list(
-		NOMINATIVE = "поддон холодильника для трупов",
-		GENITIVE = "поддона холодильника для трупов",
-		DATIVE = "поддону холодильника для трупов",
-		ACCUSATIVE = "поддон холодильника для трупов",
-		INSTRUMENTAL = "поддоном холодильника для трупов",
-		PREPOSITIONAL = "поддоне холодильника для трупов"
-	)
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue_tray"
 	density = TRUE
@@ -278,6 +272,16 @@
 	layer = BELOW_OBJ_LAYER
 	max_integrity = 350
 	var/obj/structure/morgue/morgue
+
+/obj/structure/m_tray/get_ru_names()
+	return list(
+		NOMINATIVE = "поддон холодильника для трупов",
+		GENITIVE = "поддона холодильника для трупов",
+		DATIVE = "поддону холодильника для трупов",
+		ACCUSATIVE = "поддон холодильника для трупов",
+		INSTRUMENTAL = "поддоном холодильника для трупов",
+		PREPOSITIONAL = "поддоне холодильника для трупов"
+	)
 
 
 /obj/structure/m_tray/Destroy()
@@ -324,7 +328,7 @@
 	dropping.forceMove(loc)
 
 	if(user != dropping)
-		user.visible_message(span_warning("[user] помеща[pluralize_ru(user.gender, "ет", "ют")] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
+		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
 	return TRUE
 
 
@@ -369,15 +373,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crematorium
 	name = "crematorium"
 	desc = "Печь, предназначенная для кремации тел. Интересно, шашлык в таком можно приготовить?"
-	ru_names = list(
-		NOMINATIVE = "крематорий",
-		GENITIVE = "крематория",
-		DATIVE = "крематорию",
-		ACCUSATIVE = "крематорий",
-		INSTRUMENTAL = "крематорием",
-		PREPOSITIONAL = "крематории"
-	)
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema"
 	max_integrity = 1000
 	anchored = TRUE
@@ -389,6 +384,15 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	var/id = 1
 	var/toggle_sound = 'sound/items/deconstruct.ogg'
 
+/obj/machinery/crematorium/get_ru_names()
+	return list(
+		NOMINATIVE = "крематорий",
+		GENITIVE = "крематория",
+		DATIVE = "крематорию",
+		ACCUSATIVE = "крематорий",
+		INSTRUMENTAL = "крематорием",
+		PREPOSITIONAL = "крематории"
+	)
 
 /obj/machinery/crematorium/Initialize(mapload)
 	. = ..()
@@ -618,6 +622,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(user)
 			add_attack_logs(user, entity, "Cremated")
 
+		SEND_SIGNAL(entity, COMSIG_LIVING_CREMATED)
+
 		entity.death(gibbed = TRUE)
 
 		if(QDELETED(entity))
@@ -658,13 +664,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		new /obj/effect/decal/cleanable/ash(drop_loc)
 
 
-/obj/machinery/crematorium/ex_act(severity)
+/obj/machinery/crematorium/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ex_act_effect(severity)
-		if(2)
+		if(EXPLODE_HEAVY)
 			ex_act_effect(severity, 50)
-		if(3)
+		if(EXPLODE_LIGHT)
 			ex_act_effect(severity, 5)
 
 
@@ -704,14 +710,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/structure/c_tray
 	name = "crematorium tray"
 	desc = "Поместить тело, задвинуть, закрыть крышку. Всё просто."
-	ru_names = list(
-		NOMINATIVE = "поддон крематория",
-		GENITIVE = "поддона крематория",
-		DATIVE = "поддону крематория",
-		ACCUSATIVE = "поддон крематория",
-		INSTRUMENTAL = "поддоном крематория",
-		PREPOSITIONAL = "поддоне крематория"
-	)
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema_tray"
 	density = TRUE
@@ -720,6 +718,16 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	layer = BELOW_OBJ_LAYER
 	max_integrity = 350
 	var/obj/machinery/crematorium/crematorium
+
+/obj/structure/c_tray/get_ru_names()
+	return list(
+		NOMINATIVE = "поддон крематория",
+		GENITIVE = "поддона крематория",
+		DATIVE = "поддону крематория",
+		ACCUSATIVE = "поддон крематория",
+		INSTRUMENTAL = "поддоном крематория",
+		PREPOSITIONAL = "поддоне крематория"
+	)
 
 
 /obj/structure/c_tray/Destroy()
@@ -774,7 +782,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	dropping.forceMove(loc)
 
 	if(user != dropping)
-		user.visible_message(span_warning("[user] помеща[pluralize_ru(user.gender, "ет", "ют")] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
+		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
 	return TRUE
 
 
@@ -786,7 +794,16 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crema_switch
 	name = "crematorium igniter"
 	desc = "Жги, детка!"
-	ru_names = list(
+	icon = 'icons/obj/engines_and_power/power.dmi'
+	icon_state = "crema_switch"
+	anchored = TRUE
+	req_access = list(ACCESS_CREMATORIUM)
+	/// ID of the crematorium to hook into
+	var/id = 1
+
+
+/obj/machinery/crema_switch/get_ru_names()
+	return list(
 		NOMINATIVE = "активатор крематория",
 		GENITIVE = "активатора крематория",
 		DATIVE = "активатору крематория",
@@ -794,12 +811,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		INSTRUMENTAL = "активатором крематория",
 		PREPOSITIONAL = "активаторе крематория"
 	)
-	icon = 'icons/obj/engines_and_power/power.dmi'
-	icon_state = "crema_switch"
-	anchored = TRUE
-	req_access = list(ACCESS_CREMATORIUM)
-	/// ID of the crematorium to hook into
-	var/id = 1
 
 
 /obj/machinery/crema_switch/attack_ghost(mob/user)

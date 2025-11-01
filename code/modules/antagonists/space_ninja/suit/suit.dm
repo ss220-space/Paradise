@@ -19,10 +19,9 @@
 		/obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank,
 		/obj/item/stock_parts/cell, /obj/item/grenade/plastic/c4/ninja)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 30, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 20,ENERGY = 30, BOMB = 30, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	strip_delay = 12
 	permeability_coefficient = 1
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEGLOVES|HIDEJUMPSUIT
 	actions = list()
@@ -78,7 +77,7 @@
 	/// The space ninja's headset
 	var/obj/item/radio/headset/ninja/n_headset
 	/// The space ninja's backpack
-	var/obj/item/radio/headset/ninja/n_backpack
+	var/obj/item/storage/backpack/ninja/n_backpack
 	/// The space ninja's chameleon id card
 	/// used only to fake sechuds while using chameleon
 	var/obj/item/card/id/ninja/n_id_card
@@ -104,7 +103,7 @@
 	jetpack_upgradable = TRUE
 
 	/// UI stuff ///
-	/// Флаги отвечающие за то - показываем мы или нет интерфейс заряда и концентрации ниндзя
+	/// Флаги отвечающие за то — показываем мы или нет интерфейс заряда и концентрации ниндзя
 	var/show_concentration_UI = TRUE
 	var/show_charge_UI = TRUE
 	/// Флаг отвечающий за то, можно ли сейчас купить ещё абилку.
@@ -182,8 +181,8 @@
 		"Успех.",
 		"Статус основных систем...	ONLINE",
 		"Статус резервных систем...	ONLINE",
-		"Текущий запас энергии: ",	//Кодом должно дописаться - сколько энергии
-		"Все системы в норме. Добро пожаловать в SpiderOS, ",//Кодом должно дописаться - имя пользователя костюма
+		"Текущий запас энергии: ",	//Кодом должно дописаться — сколько энергии
+		"Все системы в норме. Добро пожаловать в SpiderOS, ",//Кодом должно дописаться — имя пользователя костюма
 		)
 
 	// Сообщения при выключении костюма
@@ -590,6 +589,9 @@
 	if(!istype(ninja.wear_mask, /obj/item/clothing/mask/gas/space_ninja))
 		to_chat(ninja, "[span_userdanger("ERROR")]: 110223 UNABLE TO LOCATE NINJA MASK\nABORTING...")
 		return FALSE
+	if(!istype(ninja.back, /obj/item/storage/backpack/ninja))
+		to_chat(ninja, "[span_userdanger("ERROR")]: 110223 UNABLE TO LOCATE NINJA BACKPACK\nABORTING...")
+		return FALSE
 	toggle_ninja_nodrop(src)
 	n_hood = ninja.head
 	toggle_ninja_nodrop(n_hood)
@@ -597,6 +599,8 @@
 	toggle_ninja_nodrop(n_shoes)
 	n_gloves = ninja.gloves
 	toggle_ninja_nodrop(n_gloves)
+	n_backpack = ninja.back
+	toggle_ninja_nodrop(n_backpack)
 	n_mask = ninja.wear_mask
 	//Записываем маску к очкам, чтобы менять ей визуал, вместе с режимами очков
 	var/obj/item/clothing/glasses/ninja/wear_glasses = ninja.glasses
@@ -617,6 +621,8 @@
 	if(n_gloves)
 		toggle_ninja_nodrop(n_gloves)
 		n_gloves.draining = FALSE
+	if(n_backpack)
+		toggle_ninja_nodrop(n_backpack)
 	if(n_mask)
 		toggle_ninja_nodrop(n_mask)
 
@@ -656,7 +662,7 @@
 	current_initialisation_text = "[prev_has ? "Разблокировка" : "Блокировка"]: [ninja_clothing.name]... Успех"
 	playsound(ninja_clothing.loc, 'sound/items/piston.ogg', 10, TRUE)
 	sleep(10)
-//	to_chat(ninja_clothing.loc, "<span class='notice'>Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"].</span>")
+//	to_chat(ninja_clothing.loc, span_notice("Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"]."))
 
 //Необходимо дабы костюм "Защищал" от ЕМП взрывов(особенно от своих же) протезы/импланты игрока
 /proc/toggle_emp_proof(list/bodyparts, toggle_to)
@@ -695,13 +701,10 @@
 			"Крысы в техах шумят что ле...?")
 		switch(rand(1,3))
 			if(1)
-				if(stealth_ambient_chance >= 15)
-					spark_system.start()
-				else
-					for(var/mob/living/carbon/other_mob in view(7,ninja))
-						if(other_mob == ninja)
-							continue
-						to_chat(other_mob, span_notice(random_subtle_text))
+				for(var/mob/living/carbon/other_mob in view(7, ninja))
+					if(other_mob == ninja)
+						continue
+					to_chat(other_mob, span_notice(random_subtle_text))
 			if(2)
 				if(stealth_ambient_chance >= 40)
 					for(var/mob/living/carbon/other_mob in view(7,ninja))
@@ -724,4 +727,5 @@
 	QDEL_NULL(n_shoes)
 	QDEL_NULL(n_mask)
 	QDEL_NULL(n_scarf)
+	QDEL_NULL(n_backpack)
 	QDEL_NULL(src)

@@ -9,14 +9,6 @@
 /mob/living/simple_animal/revenant
 	name = "revenant"
 	desc = "Злобный дух."
-	ru_names = list(
-		NOMINATIVE = "ревенант",
-		GENITIVE = "ревенанта",
-		DATIVE = "ревенанту",
-		ACCUSATIVE = "ревенанта",
-		INSTRUMENTAL = "ревенантом",
-		PREPOSITIONAL = "ревенанте"
-	)
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "revenant_idle"
 	var/icon_idle = "revenant_idle"
@@ -30,7 +22,6 @@
 	maxHealth =  INFINITY
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	universal_understand = 1
 	response_help   = "passes through"
 	response_disarm = "swings at"
 	response_harm   = "punches"
@@ -43,7 +34,6 @@
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	speed = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	tts_seed = "Sylvanas"
@@ -59,9 +49,18 @@
 	var/inhibited = 0 //If the revenant's abilities are blocked by a chaplain's power.
 	var/essence_drained = 0 //How much essence the revenant has drained.
 	var/draining = 0 //If the revenant is draining someone.
-	var/list/drained_mobs = list() //Cannot harvest the same mob twice
+	var/list/drained_mobs //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
 
+/mob/living/simple_animal/revenant/get_ru_names()
+	return list(
+		NOMINATIVE = "ревенант",
+		GENITIVE = "ревенанта",
+		DATIVE = "ревенанту",
+		ACCUSATIVE = "ревенанта",
+		INSTRUMENTAL = "ревенантом",
+		PREPOSITIONAL = "ревенанте"
+	)
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
@@ -97,8 +96,8 @@
 /mob/living/simple_animal/revenant/can_perform_action(atom/target, action_bitflags)
 	return FALSE
 
-/mob/living/simple_animal/revenant/ex_act(severity)
-	return 1 //Immune to the effects of explosions.
+/mob/living/simple_animal/revenant/ex_act(severity, target)
+	return //Immune to the effects of explosions.
 
 /mob/living/simple_animal/revenant/blob_act(obj/structure/blob/B)
 	return //blah blah blobs aren't in tune with the spirit world, or something.
@@ -112,7 +111,7 @@
 /mob/living/simple_animal/revenant/ratvar_act()
 	return
 
-/mob/living/simple_animal/revenant/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/revenant/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
 
@@ -184,7 +183,7 @@
 	else
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Ревенанта?", poll_time = 15 SECONDS, source = /mob/living/simple_animal/revenant)
 		var/mob/dead/observer/theghost = null
-		if(candidates.len)
+		if(length(candidates))
 			theghost = pick(candidates)
 			key = theghost.key
 			message_admins("[key_name_admin(src)] has taken control of a revenant created without a mind")
@@ -271,7 +270,7 @@
 	if(istype(I, /obj/item/nullrod))
 		visible_message(
 			span_warning("[src] дёргается в конвульсиях!"),
-			span_revendanger("Когда [I.declent_ru(NOMINATIVE)] проход[pluralize_ru(I.gender,"ит","ят")] сквозь вас, вы чувствуете, как ваша эссенция утекает!"),
+			span_revendanger("Когда [I.declent_ru(NOMINATIVE)] проход[PLUR_IT_YAT(I)] сквозь вас, вы чувствуете, как ваша эссенция утекает!"),
 		)
 		apply_damage(25) //hella effective
 		inhibited = TRUE
@@ -386,20 +385,22 @@
 
 
 /datum/objective/revenantFluff/New()
-	var/list/explanationTexts = list("Помогайте существующим угрозам и усугубляйте их в критические моменты.", \
-									 "Вызовите как можно больше хаоса и гнева, не будучи убитыми.", \
-									 "Повредите и сделайте как можно большую часть станции разрушеной и непригодной для использования.", \
-									 "Отключите как можно больше машин и вызовите сбои в их работе.", \
-									 "Убедитесь, что любое святое оружие приведено в негодность.", \
-									 "Мешайте экипажу, пытаясь остаться незамеченным..", \
-									 "Сделайте экипаж как можно более несчастным.", \
-									 "Сделайте клоуна как можно более несчастным.", \
-									 "Сделайте капитана как можно более несчастным.", \
-									 "Сделайте ИИ как можно более несчастным.", \
-									 "Раздражайте тех, кто вас больше всего оскорбляет.", \
-									 "Шепчите шутки о призраках в головы людей.", \
-									 "Помогайте экипажу в критических ситуациях, но принимайте оплату в душах.", \
-									 "По возможности предотвращайте применение энергетического оружия.")
+	var/list/explanationTexts = list(
+		"Помогайте существующим угрозам и усугубляйте их в критические моменты.", \
+		"Вызовите как можно больше хаоса и гнева, не будучи убитыми.", \
+		"Повредите и сделайте как можно большую часть станции разрушеной и непригодной для использования.", \
+		"Отключите как можно больше машин и вызовите сбои в их работе.", \
+		"Убедитесь, что любое святое оружие приведено в негодность.", \
+		"Мешайте экипажу, пытаясь остаться незамеченным..", \
+		"Сделайте экипаж как можно более несчастным.", \
+		"Сделайте клоуна как можно более несчастным.", \
+		"Сделайте капитана как можно более несчастным.", \
+		"Сделайте ИИ как можно более несчастным.", \
+		"Раздражайте тех, кто вас больше всего оскорбляет.", \
+		"Шепчите шутки о призраках в головы людей.", \
+		"Помогайте экипажу в критических ситуациях, но принимайте оплату в душах.", \
+		"По возможности предотвращайте применение энергетического оружия."
+	)
 	explanation_text = pick(explanationTexts)
 	..()
 
@@ -411,14 +412,6 @@
 /obj/item/ectoplasm/revenant
 	name = "glimmering residue"
 	desc = "Куча мелкой синей пыли. Вокруг неё вьются тонкие фиолетовые туманные завитки."
-	ru_names = list(
-		NOMINATIVE = "фантомная пыль",
-		GENITIVE = "фантомной пыли",
-		DATIVE = "фантомной пыли",
-		ACCUSATIVE = "фантомную пыль",
-		INSTRUMENTAL = "фантомной пылью",
-		PREPOSITIONAL = "фантомной пыли"
-	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "revenantEctoplasm"
 	w_class = WEIGHT_CLASS_SMALL
@@ -428,6 +421,15 @@
 	var/inert = FALSE
 	var/client/client_to_revive
 
+/obj/item/ectoplasm/revenant/get_ru_names()
+	return list(
+		NOMINATIVE = "фантомная пыль",
+		GENITIVE = "фантомной пыли",
+		DATIVE = "фантомной пыли",
+		ACCUSATIVE = "фантомную пыль",
+		INSTRUMENTAL = "фантомной пылью",
+		PREPOSITIONAL = "фантомной пыли"
+	)
 
 /obj/item/ectoplasm/revenant/New()
 	..()
@@ -442,8 +444,10 @@
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
 		return ..()
-	user.visible_message(span_notice("[user] рассыпает [declent_ru(NOMINATIVE)] во всех направлениях."), \
-						 span_notice("Вы рассыпаете [declent_ru(NOMINATIVE)] по области. Частицы медленно исчезают."))
+	user.visible_message(
+		span_notice("[user] рассыпает [declent_ru(NOMINATIVE)] во всех направлениях."), \
+		span_notice("Вы рассыпаете [declent_ru(NOMINATIVE)] по области. Частицы медленно исчезают.")
+	)
 	user.drop_from_active_hand()
 	qdel(src)
 
@@ -512,10 +516,13 @@
 	player_mind.current = new_revenant
 	new_revenant.essence = essence
 	new_revenant.mind = player_mind
-	new_revenant.key = player_mind.key
+	new_revenant.possess_by_player(player_mind.key)
 
 	visible_message(span_revenboldnotice("[capitalize(src.declent_ru(NOMINATIVE))] внезапно поднимается в воздух, а затем исчезает."))
 	message_admins("[key_name_admin(new_revenant)] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
 	add_game_logs("was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.", new_revenant)
 
 	qdel(src)
+
+#undef INVISIBILITY_REVENANT
+#undef REVENANT_NAME_FILE

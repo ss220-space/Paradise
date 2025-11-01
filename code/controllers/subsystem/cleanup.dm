@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(cleanup)
 	for(var/L in lists_to_clean)
 		var/list/_list = L
 		var/prev_length = length(_list)
-		listclearnulls(_list)
+		list_clear_nulls(_list)
 
 		if(length(_list) < prev_length)
 			stack_trace("Found a null value in GLOB.[lists_to_clean[_list]]!")

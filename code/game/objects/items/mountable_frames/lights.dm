@@ -8,7 +8,7 @@
 
 /obj/item/mounted/frame/light_fixture/do_build(turf/on_wall, mob/user)
 	to_chat(user, "You begin attaching [src] to \the [on_wall].")
-	playsound(get_turf(src), 'sound/machines/click.ogg', 75, 1)
+	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 	var/constrdir = user.dir
 	var/constrloc = get_turf(user)
 	if(!do_after(user, 3 SECONDS, on_wall))
@@ -33,7 +33,6 @@
 /obj/item/mounted/frame/light_fixture/small
 	name = "small light fixture frame"
 	desc = "Used for building small lights."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-item"
 	fixture_type = "bulb"
 	sheets_refunded = 1

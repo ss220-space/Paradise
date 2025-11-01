@@ -41,7 +41,7 @@
 		H.equip_to_slot_or_del(new /obj/item/pinpointer(H.loc), ITEM_SLOT_POCKET_LEFT)
 
 		var/obj/item/card/id/W = new(H)
-		W.name = "[H.real_name]'s ID Card"
+		W.name = "[H.real_name]’s ID Card"
 		W.icon_state = "centcom"
 		W.access = get_all_accesses()
 		W.access += get_all_centcom_access()

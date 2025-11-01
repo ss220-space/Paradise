@@ -2,7 +2,6 @@
 	name = "Instant Summons"
 	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
 	school = "transmutation"
-	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
@@ -36,7 +35,7 @@
 						continue
 				if(HAS_TRAIT(item, TRAIT_NODROP))
 					message += "This feels very redundant, but you go through with it anyway.<br>"
-				marked_item = 		item
+				marked_item =		item
 				message += "You mark [item] for recall.</span>"
 				name = "Recall [item]"
 				break
@@ -50,12 +49,12 @@
 		else if(marked_item && (marked_item in hand_items)) //unlinking item to the spell
 			message = span_notice("You remove the mark on [marked_item] to use elsewhere.")
 			name = "Instant Summons"
-			marked_item = 		null
+			marked_item =		null
 
 		else if(marked_item && !marked_item.loc) //the item was destroyed at some point
 			message = span_warning("You sense your marked item has been destroyed!")
 			name = "Instant Summons"
-			marked_item = 		null
+			marked_item =		null
 
 		else	//Getting previously marked item
 			var/obj/item_to_retrieve = marked_item

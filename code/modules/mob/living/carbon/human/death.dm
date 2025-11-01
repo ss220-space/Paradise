@@ -41,7 +41,7 @@
 		hgibs(loc, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 	QDEL_IN(animation, 15)
 	QDEL_IN(src, 0)
 	return TRUE
@@ -92,7 +92,7 @@
 		//Handle species-specific deaths.
 		dna.species.handle_death(gibbed, src)
 
-	if(SSticker && SSticker.mode)
+	if(SSticker?.mode)
 		SSblackbox.ReportDeath(src)
 
 

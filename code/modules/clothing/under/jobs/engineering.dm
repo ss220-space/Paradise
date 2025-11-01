@@ -2,10 +2,9 @@
 /obj/item/clothing/under/rank/chief_engineer
 	desc = "It's a high visibility jumpsuit given to those engineers insane enough to achieve the rank of \"Chief engineer\". It has minor radiation shielding."
 	name = "chief engineer's jumpsuit"
-	icon_state = "chiefengineer"
+	icon_state = "chief"
 	item_state = "chief"
-	item_color = "chief"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 80, "acid" = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/chief_engineer/skirt
@@ -47,7 +46,7 @@
 	icon_state = "engine"
 	item_state = "engi_suit"
 	item_color = "engine"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 60, "acid" = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 60, ACID = 20)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineer/sensor
@@ -56,23 +55,23 @@
 
 /obj/item/clothing/under/rank/engineer/trainee
 	name = "engineer trainee jumpsuit"
-	icon_state = "trainee_s"
+	icon_state = "trainee"
 	item_color = "trainee"
 
 /obj/item/clothing/under/rank/engineer/trainee/skirt
 	name = "engineer trainee jumpskirt"
-	icon_state = "traineef_s"
+	icon_state = "traineef"
 	item_color = "traineef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/engineer/trainee/assistant
 	name = "engineer assistant jumpsuit"
-	icon_state = "eng_ass_s"
+	icon_state = "eng_ass"
 	item_color = "eng_ass"
 
 /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
 	name = "engineer assistant jumpskirt"
-	icon_state = "eng_ass_f_s"
+	icon_state = "eng_ass_f"
 	item_color = "eng_ass_f"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 

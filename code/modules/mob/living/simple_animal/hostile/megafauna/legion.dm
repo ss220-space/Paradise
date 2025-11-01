@@ -18,14 +18,6 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion
 	name = "Legion"
-	ru_names = list(
-		NOMINATIVE = "Легион",
-		GENITIVE = "Легиона",
-		DATIVE = "Легиону",
-		ACCUSATIVE = "Легион",
-		INSTRUMENTAL = "Легионом",
-		PREPOSITIONAL = "Легионе"
-	)
 	health = 2500
 	maxHealth = 2500
 	icon_state = "mega_legion"
@@ -53,9 +45,9 @@ Difficulty: Medium
 	ranged_cooldown_time = 20
 	var/charging = FALSE
 	var/firing_laser = FALSE
-	internal_type = /obj/item/gps/internal/legion
-	medal_type = BOSS_MEDAL_LEGION
-	score_type = LEGION_SCORE
+	achievement_type = /datum/award/achievement/boss/legion_kill
+	crusher_achievement_type = /datum/award/achievement/boss/legion_crusher
+	score_achievement_type = /datum/award/score/legion_score
 	loot = list(/obj/item/storm_staff)
 	crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
@@ -65,6 +57,15 @@ Difficulty: Medium
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 
+/mob/living/simple_animal/hostile/megafauna/legion/get_ru_names()
+	return list(
+		NOMINATIVE = "Легион",
+		GENITIVE = "Легиона",
+		DATIVE = "Легиону",
+		ACCUSATIVE = "Легион",
+		INSTRUMENTAL = "Легионом",
+		PREPOSITIONAL = "Легионе"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
 	. = ..()
@@ -245,10 +246,3 @@ Difficulty: Medium
 		A.GiveTarget(target)
 		A.friends = friends
 		A.faction = faction
-
-
-/obj/item/gps/internal/legion
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "The message repeats."
-	invisibility = INVISIBILITY_ABSTRACT

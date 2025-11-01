@@ -15,7 +15,6 @@
 /obj/item/reagent_containers/food/snacks/soup/meatballsoup
 	name = "meatball soup"
 	desc = "You've got balls kid, BALLS!"
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "meatballsoup"
 	filling_color = "#785210"
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
@@ -25,7 +24,6 @@
 /obj/item/reagent_containers/food/snacks/soup/slimesoup
 	name = "slime soup"
 	desc = "If no water is available, you may substitute tears."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "slimesoup"
 	filling_color = "#C4DBA0"
 	list_reagents = list("nutriment" = 5, "slimejelly" = 5, "water" = 5, "vitamin" = 4)
@@ -35,7 +33,6 @@
 /obj/item/reagent_containers/food/snacks/soup/bloodsoup
 	name = "tomato soup"
 	desc = "Smells like copper."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "tomatosoup"
 	filling_color = "#FF0000"
 	list_reagents = list("nutriment" = 2, "blood" = 10, "water" = 5, "vitamin" = 4)
@@ -45,7 +42,6 @@
 /obj/item/reagent_containers/food/snacks/soup/clownstears
 	name = "clown's tears"
 	desc = "Not very funny."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "clownstears"
 	filling_color = "#C4FBFF"
 	list_reagents = list("nutriment" = 4, "banana" = 5, "water" = 5, "vitamin" = 8)
@@ -54,7 +50,6 @@
 /obj/item/reagent_containers/food/snacks/soup/vegetablesoup
 	name = "vegetable soup"
 	desc = "A true vegan meal."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "vegetablesoup"
 	filling_color = "#AFC4B5"
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
@@ -64,7 +59,6 @@
 /obj/item/reagent_containers/food/snacks/soup/nettlesoup
 	name = "nettle soup"
 	desc = "To think, the botanist would've beaten you to death with one of these."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "nettlesoup"
 	filling_color = "#AFC4B5"
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
@@ -74,7 +68,6 @@
 /obj/item/reagent_containers/food/snacks/soup/mysterysoup
 	name = "mystery soup"
 	desc = "The mystery is, why aren't you eating it?"
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "mysterysoup"
 	var/extra_reagent = null
 	list_reagents = list("nutriment" = 6)
@@ -88,7 +81,6 @@
 /obj/item/reagent_containers/food/snacks/soup/wishsoup
 	name = "wish soup"
 	desc = "I wish this was soup."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "wishsoup"
 	filling_color = "#D1F4FF"
 	list_reagents = list("water" = 10)
@@ -104,7 +96,6 @@
 /obj/item/reagent_containers/food/snacks/soup/tomatosoup
 	name = "tomato soup"
 	desc = "Drinking this feels like being a vampire! A tomato vampire..."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "tomatosoup"
 	filling_color = "#D92929"
 	list_reagents = list("nutriment" = 5, "tomatojuice" = 10, "vitamin" = 3)
@@ -114,7 +105,6 @@
 /obj/item/reagent_containers/food/snacks/soup/misosoup
 	name = "miso soup"
 	desc = "The universe's best soup! Yum!!!"
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "misosoup"
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
 	foodtype = VEGETABLES
@@ -123,7 +113,6 @@
 /obj/item/reagent_containers/food/snacks/soup/mushroomsoup
 	name = "chantrelle soup"
 	desc = "A delicious and hearty mushroom soup."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "mushroomsoup"
 	filling_color = "#E386BF"
 	list_reagents = list("nutriment" = 8, "vitamin" = 4)
@@ -133,7 +122,6 @@
 /obj/item/reagent_containers/food/snacks/soup/beetsoup
 	name = "beet soup"
 	desc = "Wait, how do you spell it again..?"
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "beetsoup"
 	filling_color = "#FAC9FF"
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
@@ -147,7 +135,6 @@
 /obj/item/reagent_containers/food/snacks/soup/rassolnik
 	name = "pickle soup"
 	desc = "Quite popular in USSP."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "rassolnik"
 	filling_color = "#F1FC72"
 	list_reagents = list("nutriment" = 6, "kelotane" = 1, "vitamin" = 2)
@@ -157,7 +144,6 @@
 /obj/item/reagent_containers/food/snacks/soup/shavelsoup
 	name = "shavel soup"
 	desc = "Light soup with fresh shavel and vegetables."
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "shavelsoup"
 	filling_color = "#135f13"
 	list_reagents = list("nutriment" = 4, "water" = 5, "vitamin" = 5)
@@ -180,7 +166,6 @@
 /obj/item/reagent_containers/food/snacks/soup/stewedsoymeat
 	name = "stewed soy meat"
 	desc = "Even non-vegetarians will LOVE this!"
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "stewedsoymeat"
 	trash = /obj/item/trash/plate
 	list_reagents = list("nutriment" = 8)
@@ -194,7 +179,6 @@
 /obj/item/reagent_containers/food/snacks/soup/hotchili
 	name = "hot chili"
 	desc = "A five alarm Texan Chili!"
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "hotchili"
 	filling_color = "#FF3C00"
 	list_reagents = list("nutriment" = 5, "capsaicin" = 1, "tomatojuice" = 2, "vitamin" = 2)
@@ -204,7 +188,6 @@
 /obj/item/reagent_containers/food/snacks/soup/coldchili
 	name = "cold chili"
 	desc = "This slush is barely a liquid!"
-	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "coldchili"
 	filling_color = "#2B00FF"
 	list_reagents = list("nutriment" = 5, "frostoil" = 1, "tomatojuice" = 2, "vitamin" = 2)

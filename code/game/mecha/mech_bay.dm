@@ -22,8 +22,8 @@
 	var/on = 0
 	var/turf/recharging_turf = null
 
-/obj/machinery/mech_bay_recharge_port/New()
-	..()
+/obj/machinery/mech_bay_recharge_port/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mech_recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -38,8 +38,8 @@
 /obj/machinery/mech_bay_recharge_port/proc/update_recharge_turf()
 	recharging_turf = get_step(loc, dir)
 
-/obj/machinery/mech_bay_recharge_port/upgraded/New()
-	..()
+/obj/machinery/mech_bay_recharge_port/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mech_recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
@@ -54,7 +54,7 @@
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated/process()
 	if(!recharging_mecha)
 		recharging_mecha = locate(/obj/mecha) in recharging_turf
-	if(recharging_mecha && recharging_mecha.cell)
+	if(recharging_mecha?.cell)
 		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
 			recharging_mecha.give_power(delta)
@@ -102,7 +102,7 @@
 		recharging_mecha = locate(/obj/mecha) in recharging_turf
 		if(recharging_mecha)
 			recharge_console.update_icon()
-	if(recharging_mecha && recharging_mecha.cell)
+	if(recharging_mecha?.cell)
 		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
 			recharging_mecha.give_power(delta)
@@ -116,12 +116,9 @@
 
 /obj/machinery/computer/mech_bay_power_console
 	name = "mech bay power control console"
-	density = TRUE
-	anchored = TRUE
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "recharge_comp"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	circuit = /obj/item/circuitboard/mech_bay_power_console
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
 
@@ -199,7 +196,7 @@
 				)
 	return data
 
-/obj/machinery/computer/mech_bay_power_console/Initialize()
+/obj/machinery/computer/mech_bay_power_console/Initialize(mapload)
 	reconnect()
 	update_icon()
 	return ..()

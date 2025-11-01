@@ -672,10 +672,6 @@
 	name = "Overeye Long"
 	icon_state = "longovereye"
 
-/datum/sprite_accessory/hair/father
-	name = "Father"
-	icon_state = "father"
-
 /datum/sprite_accessory/hair/bun4 // Due to a vulp hairstyle called bun
 	name = "Bun 4"
 	icon_state = "bun4"
@@ -1003,3 +999,10 @@
 /datum/sprite_accessory/hair/dolly
 	name = "Dolly"
 	icon_state = "dolly"
+
+/datum/sprite_accessory/hair/chadcut
+	name = "Chad"
+	icon_state = "chadcut"
+	unsuitable_gender = FEMALE
+	species_allowed = list(SPECIES_HUMAN)
+	glasses_over = 1

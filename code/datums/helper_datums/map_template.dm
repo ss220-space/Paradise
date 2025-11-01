@@ -67,7 +67,6 @@
 
 	SSicon_smooth.remove_halt_source(src)
 	GLOB.space_manager.remove_dirt(placement.z)
-
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
 
@@ -114,7 +113,7 @@
 			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 			GLOB.map_templates[T.name] = T
 
-	if(!CONFIG_GET(flag/disable_space_ruins)) // so we don't unnecessarily clutter start-up
+	if(!CONFIG_GET(flag/disable_space_ruins) && !(SSmapping.map_datum.disables & DISABLE_SPACE_RUINS)) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()

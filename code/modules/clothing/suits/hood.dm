@@ -105,7 +105,7 @@
 	suit_adjusted = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(wearer, span_notice("You adjust the hood on [src]."))
-	wearer.update_inv_wear_suit()
+	wearer.update_worn_oversuit()
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 
@@ -129,7 +129,7 @@
 		hood.forceMove(src)
 		return
 	wearer.transfer_item_to_loc(hood, src, force = TRUE)
-	wearer.update_inv_wear_suit()
+	wearer.update_worn_oversuit()
 
 
 /obj/item/clothing/head/hooded

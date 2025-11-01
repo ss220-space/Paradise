@@ -3,21 +3,13 @@
 #define SCREEN_PAGE_LAST 2
 
 /**
-  * # Newspaper
-  *
-  * A newspaper displaying the stories of all channels contained within.
-  */
+ * # Newspaper
+ *
+ * A newspaper displaying the stories of all channels contained within.
+ */
 /obj/item/newspaper
 	name = "newspaper"
-	desc = "Выпуск газеты \"Грифон\", распространяемой на объектах НаноТрейзен."
-	ru_names = list(
-        NOMINATIVE = "газета",
-        GENITIVE = "газеты",
-        DATIVE = "газете",
-        ACCUSATIVE = "газету",
-        INSTRUMENTAL = "газетой",
-        PREPOSITIONAL = "газете"
-	)
+	desc = "Выпуск газеты \"Грифон\", распространяемой на объектах Нанотрейзен."
 	gender = FEMALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "newspaper"
@@ -41,22 +33,35 @@
 	var/list/stories = list()
 
 	/// Possible advertising post
-	var/list/adsList = list("Wetskrell.nt — лучший сайт для проведения мужского досуга! Только здесь вы найдёте по настоящему эксклюзивный контент!",
+	var/list/adsList = list(
+		"Wetskrell.nt — лучший сайт для проведения мужского досуга! Только здесь вы найдёте по настоящему эксклюзивный контент!",
 		"На Wetskrell.nt стартовала акция — 3 месяца подписки по цене двух! Только для настоящих ценителей культуры!",
 		"Онлайн Казино МегаСтавка: Мы не чешем колоду, гарантируем честную раздачу! Наши колоды заряжены не в киосках, как у конкурентов!",
 		"Космический бар \"Гравитация\": Лучшие коктейли в системе Тау Кита! Приходите и попробуйте наш фирменный \"Блюспейс Бум\"!",
 		"Клуб \"Синдикатская Тень\": Только для избранных. Лучшие вечеринки, эксклюзивные напитки и никаких вопросов.",
 		"Магазин \"КиберЛом\": Продажа и покупка б/у кибернетических имплантов. Дешевле, чем у конкурентов, и с гарантией!",
 		"Галактический такси-сервис \"Метеор\": Быстро, надёжно, без лишних вопросов. Довезём вас куда угодно!",
-		"Продам гараж – анонимный рекламодатель.",
+		"Продам гараж — анонимный рекламодатель.",
 		"Хотите улучшить свои навыки? Запишитесь на курсы по вольной борьбе! Скидка 20% для сотрудников службы безопасности.",
-		"Пиво и раки от мистера Ченга – большие раки по 5 кредитов, маленькие по 3!",
+		"Пиво и раки от мистера Ченга — большие раки по 5 кредитов, маленькие по 3!",
 		"Waffle Corporation: Вафли, которые заряжают энергией на весь день! Теперь с добавлением блюспейс-кристаллов!",
 		"Одинокий вульпканин в 300 метрах от Вас! Установите наше приложение себе на КПК и напишите ему!",
 		"Скучаете на смене? Закажите пиццу с плазмой от \"Пицца-Экспресс\"! Доставка в любую точку станции за 15 минут!",
 		"Ресторан \"Звёздный Вкус\": Блюда, которые вы никогда не пробовали! И, возможно, никогда не захотите попробовать снова.",
 		"Клуб \"Нулевая Гравитация\": Танцуйте до тех пор, пока не упадёте! Или пока вас не выбросит за борт.",
-		"Офицеры дуреют от этой кожуры! Самые скользкие кожурки во всей система Тау Кита...")
+		"Офицеры дуреют от этой кожуры! Самые скользкие кожурки во всей система Тау Кита..."
+	)
+
+/obj/item/newspaper/get_ru_names()
+	return list(
+		NOMINATIVE = "газета",
+		GENITIVE = "газеты",
+		DATIVE = "газете",
+		ACCUSATIVE = "газету",
+		INSTRUMENTAL = "газетой",
+		PREPOSITIONAL = "газете"
+	)
+
 
 /obj/item/newspaper/Initialize(mapload)
 	. = ..()
@@ -123,7 +128,7 @@
 		else
 			return TRUE
 	SStgui.update_uis(src)
-	playsound(loc, "pageturn", 50, TRUE)
+	playsound(loc, SFX_PAGE_TURN, 50, TRUE)
 	return TRUE
 
 /obj/item/newspaper/ui_data(mob/user)
@@ -162,7 +167,7 @@
 			text = new_scribble
 		))
 		user.visible_message(
-			span_notice("[user] дела[pluralize_ru(user.gender, "ет", "ют")] пометку в газете."),
+			span_notice("[user] дела[PLUR_ET_YUT(user)] пометку в газете."),
 			span_notice("Вы делаете пометку на [current_page] странице [declent_ru(GENITIVE)]."),
 		)
 		attack_self(user)
@@ -174,16 +179,16 @@
 	rolled = !rolled
 	icon_state = "newspaper[rolled ? "_rolled" : ""]"
 	update_icon()
-	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),\
+	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),\
 							span_notice("Вы [rolled ? "с" : "раз"]ворачиваете [declent_ru(ACCUSATIVE)]."))
 	name = "[rolled ? "rolled" : ""] [initial(name)]"
 	ru_names = list(
-        NOMINATIVE = "[rolled ? "свёрнутая " : ""]газета",
-        GENITIVE = "[rolled ? "свёрнутой " : ""]газеты",
-        DATIVE = "[rolled ? "свёрнутой " : ""]газете",
-        ACCUSATIVE = "[rolled ? "свёрнутую" : ""]газету",
-        INSTRUMENTAL = "[rolled ? "свёрнутой " : ""]газетой",
-        PREPOSITIONAL = "[rolled ? "свёрнутой " : ""]газете"
+		NOMINATIVE = "[rolled ? "свёрнутая " : ""]газета",
+		GENITIVE = "[rolled ? "свёрнутой " : ""]газеты",
+		DATIVE = "[rolled ? "свёрнутой " : ""]газете",
+		ACCUSATIVE = "[rolled ? "свёрнутую" : ""]газету",
+		INSTRUMENTAL = "[rolled ? "свёрнутой " : ""]газетой",
+		PREPOSITIONAL = "[rolled ? "свёрнутой " : ""]газете"
 	)
 	return CLICK_ACTION_SUCCESS
 

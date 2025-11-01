@@ -22,6 +22,7 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 	taste_description = "онемения во рту"
+	chemdesc = "Очень сильное болеутоляющее средство."
 
 /datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
 	var/update_flags = STATUS_UPDATE_HEALTH
@@ -74,7 +75,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 1)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 3)
 			M.emote(pick("groan","moan"))
@@ -82,10 +83,10 @@
 			update_flags |= M.adjustToxLoss(1, FALSE)
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] пошатыва[pluralize_ru(M.gender, "ет", "ют")]ся и пуска[pluralize_ru(M.gender, "ет", "ют")] слюни. Из [genderize_ru(M.gender, "его", "её", "его", "их")] глаз течёт кровь!"))
+			M.visible_message(span_warning("[M] пошатыва[PLUR_ET_YUT(M)]ся и пуска[PLUR_ET_YUT(M)] слюни. Из [GEND_HIS_HER(M)] глаз течёт кровь!"))
 			M.Dizzy(16 SECONDS)
 			M.Weaken(8 SECONDS)
 		if(effect <= 15)
@@ -98,7 +99,7 @@
 	description = "Специализированный препарат, стимулирующий митохондрии клеток для заживления внутренних органов."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	taste_description = "горечи"
+	chemdesc = "Исцеляет повреждения внутренних органов."
 
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -120,7 +121,7 @@
 	data = list("diseases" = null)
 	name = "Криоксадон"
 	id = "cryoxadone"
-	description = "Плазменная смесь, обладающая почти магической целительной силой. Его главное ограничение - температура тела субъекта должна быть ниже 265 К, чтобы он мог правильно метаболизироваться."
+	description = "Плазменная смесь, обладающая почти магической целительной силой. Его главное ограничение — температура тела субъекта должна быть ниже 265 К, чтобы он мог правильно метаболизироваться."
 	reagent_state = LIQUID
 	color = "#0000C8" // rgb: 200, 165, 220
 	heart_rate_decrease = 1
@@ -171,7 +172,6 @@
 	name = "Резадон"
 	id = "rezadone"
 	description = "Порошок, полученный из рыбьего токсина. Резадон может эффективно лечить генетические повреждения, а также восстанавливать мелкие раны. Передозировка вызывает сильную тошноту и отравление."
-	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
 	overdose_threshold = 30
 	harmless = FALSE
@@ -203,6 +203,7 @@
 	color = "#0AB478"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "антибиотиков"
+	chemdesc = "Замедляет развитие заболеваний и помогает бороться с инфекциями."
 
 /datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/M)
 	var/list/organs_list = list()
@@ -276,6 +277,92 @@
 				to_chat(M, span_warning("Вас подташнивает..."))
 	..()
 
+/datum/reagent/medicine/traneksam_acid
+	name = "Транексамовая кислота"
+	id = "traneksam_acid"
+	description = "лекарственное средство, которое применяют для лечения или предотвращения чрезмерной потери крови от травмы и хирургического вмешательства."
+	reagent_state = LIQUID
+	overdose_threshold = 20
+	color = "#b9645e"
+	penetrates_skin = TRUE
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	taste_description = "кислоты"
+
+/datum/reagent/medicine/traneksam_acid/on_mob_life(mob/living/user)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!ishuman(user))
+		return ..()
+	var/mob/living/carbon/human/human = user
+	var/heal_internal_bleed = prob(1) ? TRUE : FALSE  // 1% to heal one internal bleeding
+	for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
+		if(heal_internal_bleed && bodypart.has_internal_bleeding())
+			heal_internal_bleed = FALSE
+			bodypart.stop_internal_bleeding()
+		if(bodypart.bleeding_amount <= 0)
+			continue
+		bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - 0.025)
+		update_flags |= STATUS_UPDATE_HEALTH
+	return ..() | update_flags
+
+/datum/reagent/medicine/traneksam_acid/overdose_process(mob/living/living, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= living.adjustOxyLoss(5, FALSE)
+	update_flags |= living.adjustToxLoss(1, FALSE)
+	if(prob(5))
+		var/datum/disease/critical/heart_failure/disease = new
+		disease.Contract(living)
+	if(ishuman(living))
+		var/mob/living/carbon/human/human = living
+		if(prob(5) && !human.undergoing_cardiac_arrest())
+			human.set_heartattack(TRUE)
+	return list(0, update_flags)
+
+
+/datum/reagent/medicine/traneksam_acid/reaction_mob(mob/living/user, method=REAGENT_TOUCH, volume, show_message = TRUE)
+	if(volume < 10)
+		return ..()
+	if(method != REAGENT_TOUCH)
+		return ..()
+	if(!ishuman(user))
+		return ..()
+	var/mob/living/carbon/human/human = user
+	var/bleeding_stop = FALSE
+	for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
+		if(bodypart.bleeding_amount <= 0)
+			continue
+		bodypart.bleeding_amount = 0
+		bleeding_stop = TRUE
+	if(bleeding_stop && show_message)
+		to_chat(user, span_notice("Ваши кровотечения останавливаются из-за транексамовой кислоты."))
+	..()
+
+/datum/reagent/medicine/neuromatin
+	name = "Нейроматин"
+	id = "neuromatin"
+	description = "Иммунодепрессант, предназначенный для противодействия последствиям трансплантации мозга. Имеет ряд побочных эффектов."
+	reagent_state = LIQUID
+	overdose_threshold = 30
+	color = "#5010a3"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	taste_description = "антибиотиков"
+
+
+/datum/reagent/medicine/neuromatin/on_mob_life(mob/living/user)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(user.getBrainLoss() > 0)
+		update_flags |= user.adjustBrainLoss(-0.5, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/neuromatin/overdose_process(mob/living/living, severity)
+	. = list(0, STATUS_UPDATE_NONE)
+	if(!prob(10))
+		return
+	living.Confused(15 SECONDS)
+	if(!iscarbon(living))
+		return
+	var/mob/living/carbon/affected_carbon = living
+	affected_carbon.vomit()
+
 /datum/reagent/medicine/salglu_solution
 	name = "Физиологический раствор"
 	id = "salglu_solution"
@@ -285,6 +372,7 @@
 	penetrates_skin = TRUE
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	taste_description = "солёной воды"
+	chemdesc = "Медленно исцеляет физичекие и термические повреждения, а также медленно восстанавливает кровь."
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -329,7 +417,6 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 3
 	color = "#fab9b9"
-	taste_description = "горечи"
 
 /datum/reagent/medicine/ab_stimulant/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -359,8 +446,8 @@
 	id = "charcoal"
 	description = "Активированный уголь поглощает токсины."
 	reagent_state = LIQUID
-	color = "#000000"
 	taste_description = "пыли"
+	chemdesc = "Медленно лечит от отравления, а также медленно выводит другие химические вещества."
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -377,7 +464,6 @@
 	description = "Экстракт, полученный из угледрева. Выводит из организма вредные токсины, но имеет ряд побочных эффектов."
 	reagent_state = LIQUID
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
-	color = "#000000"
 	taste_description = "пепла"
 
 /datum/reagent/medicine/coaltree_extract/on_mob_life(mob/living/M)
@@ -395,7 +481,7 @@
 /datum/reagent/medicine/omnizine
 	name = "Омнизин"
 	id = "omnizine"
-	description = "Омнизин - это высокоэффективный лечебный препарат, который можно использовать для лечения широкого спектра травм."
+	description = "Омнизин — это высокоэффективный лечебный препарат, который можно использовать для лечения широкого спектра травм."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
@@ -424,30 +510,30 @@
 	if(severity == 1) //lesser
 		M.AdjustStuttering(2 SECONDS)
 		if(effect <= 1)
-			M.visible_message(span_warning("[M] хвата[pluralize_ru(M.gender, "ет", "ют")]ся за живот от боли!"))
+			M.visible_message(span_warning("[M] хвата[PLUR_ET_YUT(M)]ся за живот от боли!"))
 			M.emote("scream")
 			M.Weaken(8 SECONDS)
 		else if(effect <= 3)
-			M.visible_message(span_warning("[M] на мгновение теря[pluralize_ru(M.gender, "ет", "ют")] сознание!"))
+			M.visible_message(span_warning("[M] на мгновение теря[PLUR_ET_YUT(M)] сознание!"))
 			M.AdjustConfused(30 SECONDS)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] спотыка[pluralize_ru(M.gender, "ет", "ют")]ся и едва не падает!"))
+			M.visible_message(span_warning("[M] спотыка[PLUR_ET_YUT(M)]ся и едва не падает!"))
 			M.Dizzy(10 SECONDS)
 			M.Weaken(6 SECONDS)
 		else if(effect <= 7)
-			M.visible_message(span_warning("[M] тряс[pluralize_ru(M.gender, "ёт", "ют")]ся!"))
+			M.visible_message(span_warning("[M] тряс[PLUR_YOT_YUT(M)]ся!"))
 			M.Jitter(60 SECONDS)
 	else if(severity == 2) // greater
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] хвата[pluralize_ru(M.gender, "ет", "ют")]ся за живот от боли!"))
+			M.visible_message(span_warning("[M] хвата[PLUR_ET_YUT(M)]ся за живот от боли!"))
 			M.emote("scream")
 			M.Weaken(14 SECONDS)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] резко дёрга[pluralize_ru(M.gender, "ет", "ют")]ся и падает!"))
+			M.visible_message(span_warning("[M] резко дёрга[PLUR_ET_YUT(M)]ся и падает!"))
 			M.Paralyse(10 SECONDS)
 			M.Weaken(8 SECONDS)
 		else if(effect <= 8)
-			M.visible_message(span_warning("[M] пошатыва[pluralize_ru(M.gender, "ет", "ют")]ся из стороны в сторону!"))
+			M.visible_message(span_warning("[M] пошатыва[PLUR_ET_YUT(M)]ся из стороны в сторону!"))
 			M.Dizzy(10 SECONDS)
 			M.Weaken(6 SECONDS)
 	return list(effect, update_flags)
@@ -476,7 +562,7 @@
 /datum/reagent/medicine/potass_iodide
 	name = "Йодид калия"
 	id = "potass_iodide"
-	description = "Йодид калия - лекарственный препарат, используемый для борьбы с последствиями радиационного отравления."
+	description = "Йодид калия — лекарственный препарат, используемый для борьбы с последствиями радиационного отравления."
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "очищения"
@@ -553,10 +639,11 @@
 /datum/reagent/medicine/salbutamol
 	name = "Сальбутамол"
 	id = "salbutamol"
-	description = "Сальбутамол - распространенное бронхорасширяющее лекарство для астматиков. Он может помочь и при других проблемах с дыханием."
+	description = "Сальбутамол — распространенное бронхорасширяющее лекарство для астматиков. Он может помочь и при других проблемах с дыханием."
 	reagent_state = LIQUID
 	color = "#00FFFF"
 	taste_description = "свежего воздуха"
+	chemdesc = "Лечит повреждения от удушья."
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -590,7 +677,7 @@
 /datum/reagent/medicine/ephedrine
 	name = "Эфедрин"
 	id = "ephedrine"
-	description = "Эфедрин - это стимулятор растительного происхождения."
+	description = "Эфедрин — это стимулятор растительного происхождения."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
@@ -600,6 +687,7 @@
 	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "стимуляции"
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -623,7 +711,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 1)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 3)
 			M.emote(pick("groan","moan"))
@@ -631,10 +719,10 @@
 			M.emote("collapse")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] пошатыва[pluralize_ru(M.gender, "ет", "ют")]ся и пуска[pluralize_ru(M.gender, "ет", "ют")] слюни. Из [genderize_ru(M.gender, "его", "её", "его", "их")] глаз течёт кровь!"))
+			M.visible_message(span_warning("[M] пошатыва[PLUR_ET_YUT(M)]ся и пуска[PLUR_ET_YUT(M)] слюни. Из [GEND_HIS_HER(M)] глаз течёт кровь!"))
 			M.Dizzy(4 SECONDS)
 			M.Weaken(6 SECONDS)
 		if(effect <= 15)
@@ -661,7 +749,7 @@
 	if(prob(3))
 
 		M.AdjustDrowsy(2 SECONDS)
-		M.visible_message(span_notice("[M] выгляд[pluralize_ru(M.gender, "ит вялым", "ят вялыми")]."))
+		M.visible_message(span_notice("[M] выгляд[PLUR_IT_YAT(M)] вялым[PLUR_I(M)]."))
 	return ..()
 
 /datum/reagent/medicine/morphine
@@ -710,7 +798,7 @@
 /datum/reagent/medicine/oculine
 	name = "Окулин"
 	id = "oculine"
-	description = "Окулин - это солевой глазной препарат с мидриатическим и антибиотическим действием."
+	description = "Окулин — это солевой глазной препарат с мидриатическим и антибиотическим действием."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "ясности"
@@ -735,9 +823,8 @@
 /datum/reagent/medicine/atropine
 	name = "Атропин"
 	id = "atropine"
-	description = "Атропин - мощный сердечный реаниматор, но он может вызвать спутанность сознания, головокружение и гипертермию."
+	description = "Атропин — мощный сердечный реаниматор, но он может вызвать спутанность сознания, головокружение и гипертермию."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	harmless = FALSE
@@ -764,13 +851,15 @@
 /datum/reagent/medicine/epinephrine
 	name = "Эпинефрин"
 	id = "epinephrine"
-	description = "Эпинефрин - мощный нейротрансмиттер, используемый в экстренных медицинских ситуациях для купирования анафилактического шока и предотвращения остановки сердца."
+	description = "Эпинефрин — мощный нейротрансмиттер, используемый в экстренных медицинских ситуациях для купирования анафилактического шока и предотвращения остановки сердца."
 	reagent_state = LIQUID
 	color = "#96B1AE"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 20
 	harmless = FALSE
 	taste_description = "выигранного времени"
+	tags = REAGENT_TAG_ANTI_STUN
+	chemdesc = "Стабилизирует критическое состояние и медленно исцеляет повреждения от удушья."
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -801,7 +890,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 1)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 3)
 			M.emote(pick("groan","moan"))
@@ -809,10 +898,10 @@
 			M.emote("collapse")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] блю[pluralize_ru(M.gender, "ёт", "ют")]!"))
+			M.visible_message(span_warning("[M] блю[PLUR_YOT_YUT(M)]!"))
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message(span_warning("[M] пошатыва[pluralize_ru(M.gender, "ет", "ют")]ся и пуска[pluralize_ru(M.gender, "ет", "ют")] слюни. Из [genderize_ru(M.gender, "его", "её", "его", "их")] глаз течёт кровь!"))
+			M.visible_message(span_warning("[M] пошатыва[PLUR_ET_YUT(M)]ся и пуска[PLUR_ET_YUT(M)] слюни. Из [GEND_HIS_HER(M)] глаз течёт кровь!"))
 			M.Dizzy(4 SECONDS)
 			M.Weaken(6 SECONDS)
 		if(effect <= 15)
@@ -837,49 +926,52 @@
 		update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/mob, method = REAGENT_TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
-	if(isanimal(M) && method == REAGENT_TOUCH)
-		var/mob/living/simple_animal/SM = M
-		if(SM.sentience_type != revive_type) // No reviving Ash Drakes for you
+
+	if(isanimal(mob) && method == REAGENT_TOUCH)
+		var/mob/living/simple_animal/animal = mob
+		if(animal.sentience_type != revive_type) // No reviving Ash Drakes for you
 			return
-		if(SM.stat == DEAD)
-			SM.revive()
-			SM.loot.Cut() //no abusing strange reagent for farming unlimited resources
-			SM.visible_message(span_warning("[SM] ожива[pluralize_ru(SM.gender, "ет", "ют")]!"))
+		if(animal.stat == DEAD)
+			animal.revive()
+			animal.loot.Cut() //no abusing strange reagent for farming unlimited resources
+			animal.visible_message(span_warning("[animal] ожива[PLUR_ET_YUT(animal)]!"))
 
-	if(iscarbon(M))
-		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
-			if(M.stat == DEAD)
-				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					add_attack_logs(M, M, "delay gib by [name]")
-					M.delayed_gib()
-					return
-				if(!M.ghost_can_reenter())
-					M.visible_message(span_warning("[M] слегка вздрагива[pluralize_ru(M.gender, "ет", "ют")], но в остальном не реагиру[pluralize_ru(M.gender, "ет", "ют")]!"))
-					return
-				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_NO_CLONE) && (!M.mind || M.mind?.is_revivable()))
-					var/time_dead = world.time - M.timeofdeath
-					M.visible_message(span_warning("[M] ожива[pluralize_ru(M.gender, "ет", "ют")]!"))
-					var/update = NONE
-					update |= M.take_overall_damage(rand(0, 15), rand(0, 15), updating_health = FALSE)
-					update |= M.apply_damages(tox = rand(0, 15), clone = 50, updating_health = FALSE)
-					update |= M.setOxyLoss(0, updating_health = FALSE)
-					if(update)
-						M.updatehealth()
-					if(ishuman(M))
-						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						// Per non-vital body part:
-						// 0% chance of necrosis within 1 minute of death
-						// 40% chance of necrosis after 20 minutes of death
-						necrotize_body(M, necrosis_prob)
-
-					M.update_revive(TRUE, TRUE)
-					M.grab_ghost()
-					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
+	if(iscarbon(mob))
+		if(!((method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25))) && mob.stat == DEAD))
+			return ..()
+		if(mob.getBruteLoss() + mob.getFireLoss() + mob.getCloneLoss() >= 150)
+			add_attack_logs(mob, mob, "delay gib by [name]")
+			mob.delayed_gib()
+			return
+		if(!mob.ghost_can_reenter())
+			mob.visible_message(span_warning("[mob] слегка вздрагива[PLUR_ET_YUT(mob)], но в остальном не реагиру[PLUR_ET_YUT(mob)]!"))
+			return
+		if(!mob.suiciding && !HAS_TRAIT(mob, TRAIT_NO_CLONE) && (!mob.mind || mob.mind?.is_revivable()))
+			var/time_dead = world.time - mob.timeofdeath
+			mob.visible_message(span_warning("[mob] ожива[PLUR_ET_YUT(mob)]!"))
+			var/update = NONE
+			update |= mob.take_overall_damage(rand(0, 15), rand(0, 15), updating_health = FALSE)
+			update |= mob.apply_damages(tox = rand(0, 15), clone = 50, updating_health = FALSE)
+			update |= mob.setOxyLoss(0, updating_health = FALSE)
+			if(update)
+				mob.updatehealth()
+			if(ishuman(mob))
+				var/mob/living/carbon/human/human = mob
+				human.special_check_for_transplantation()
+				var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
+				// Per non-vital body part:
+				// 0% chance of necrosis within 1 minute of death
+				// 40% chance of necrosis after 20 minutes of death
+				necrotize_body(mob, necrosis_prob)
+			mob.update_revive(TRUE, TRUE)
+			mob.grab_ghost()
+			add_attack_logs(mob, mob, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
+
 /proc/necrotize_body(mob/living/carbon/human/human, necrosis_prob)
 	for(var/obj/item/organ/organ as anything in (human.bodyparts|human.internal_organs))
 		if(organ.vital || !prob(necrosis_prob))
@@ -895,9 +987,10 @@
 /datum/reagent/medicine/mannitol
 	name = "Маннитол"
 	id = "mannitol"
-	description = "Маннитол - это сахарный спирт, который может восстановить повреждённые ткани мозга."
+	description = "Маннитол — это сахарный спирт, который может восстановить повреждённые ткани мозга."
 	color = "#D1D1F1"
 	taste_description = "сладкого спирта"
+	chemdesc = "Исцеляет повреждения мозга."
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -920,7 +1013,7 @@
 /datum/reagent/medicine/mutadone
 	name = "Мутадон"
 	id = "mutadone"
-	description = "Мутадон - это экспериментальный бромид, который может лечить генетические аномалии."
+	description = "Мутадон — это экспериментальный бромид, который может лечить генетические аномалии."
 	color = "#5096C8"
 	taste_description = "очищения"
 
@@ -1012,6 +1105,7 @@
 	overdose_threshold = 60
 	harmless = FALSE
 	can_synth = FALSE
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1086,7 +1180,7 @@
 			M.AdjustBlood(-rand(1, 2))
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] тряс[pluralize_ru(M.gender, "ёт", "ют")]ся, кровь хлещет прямо из [genderize_ru(M.gender, "его", "её", "его", "их")] пор!"))
+			M.visible_message(span_warning("[M] тряс[PLUR_YOT_YUT(M)]ся, кровь хлещет прямо из [GEND_HIS_HER(M)] пор!"))
 			M.bleed(rand(10, 20))
 		else if(effect <= 4)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
@@ -1123,7 +1217,7 @@
 /datum/reagent/medicine/haloperidol
 	name = "Галоперидол"
 	id = "haloperidol"
-	description = "Галоперидол - мощный антипсихотик и седативное средство. Помогает справиться с психическими проблемами, но может вызвать повреждение мозга."
+	description = "Галоперидол — мощный антипсихотик и седативное средство. Помогает справиться с психическими проблемами, но может вызвать повреждение мозга."
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "стабильности и успокоения"
@@ -1176,7 +1270,6 @@
 	name = "Восстановительные наниты"
 	id = "syndicate_nanites"
 	description = "Миниатюрные медицинские роботы, которые быстро восстанавливают повреждения тела. Могут начать атаковать клетки своего хозяина в больших количествах."
-	reagent_state = SOLID
 	color = "#555555"
 	overdose_threshold = 100
 	can_synth = FALSE
@@ -1453,10 +1546,10 @@
 				for(var/obj/item/organ/external/bodypart as anything in M.bodyparts)
 					if(prob(50)) // Each tick has a 50% chance of repearing a bone.
 						if(bodypart.has_fracture()) //I can't just check for !E.status
-							to_chat(M, span_notice("Вы чувствуете жжение в ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как [genderize_ru(bodypart.gender, "он", "она", "оно", "они")] применяют правильную форму!"))
+							to_chat(M, span_notice("Вы чувствуете жжение в ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как [GEND_HE_SHE(bodypart)] применяют правильную форму!"))
 							bodypart.mend_fracture()
 						if(bodypart.has_internal_bleeding())
-							to_chat(M, span_notice("Вы чувствуете жжение в ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как сосуды в [genderize_ru(bodypart.gender, "нём", "ней", "нём", "них")] восстанавливаются!"))
+							to_chat(M, span_notice("Вы чувствуете жжение в ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как сосуды в [GEND_ON_IN_HIM(bodypart)] восстанавливаются!"))
 							bodypart.stop_internal_bleeding()
 
 				if(ishuman(M))
@@ -1508,7 +1601,6 @@
 	description = "Природное химическое вещество, вырабатываемое в кровотоке унатхов."
 	reagent_state = LIQUID
 	color = "#00ff15"
-	metabolization_rate = REAGENTS_METABOLISM
 	shock_reduction = 20
 	taste_description = "благословления"
 	can_synth = FALSE
@@ -1525,7 +1617,6 @@
 	description = "Продукт метаболизма плазмаменов, отвечающий за восстановление тканей и противодействие болевому шоку. Чрезвычайно токсичен."
 	reagent_state = LIQUID
 	color = "#b521c2"
-	metabolization_rate = REAGENTS_METABOLISM
 	shock_reduction = 20
 	taste_description = "превосходства"
 	can_synth = FALSE
@@ -1572,8 +1663,8 @@
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
 	overdose_threshold = 3.1
 	shock_reduction = 100
-	harmless = TRUE
 	can_synth = FALSE
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/adrenaline/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1589,8 +1680,8 @@
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
 	overdose_threshold = 2.1
 	shock_reduction = 80
-	harmless = TRUE
 	can_synth = FALSE
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/noradrenaline/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

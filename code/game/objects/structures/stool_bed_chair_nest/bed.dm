@@ -1,6 +1,6 @@
 /* Beds... get your mind out of the gutter, they're for sleeping!
  * Contains:
- * 		Beds
+ *		Beds
  *		Roller beds
  *		Dog Beds
  */
@@ -57,7 +57,13 @@
 /obj/structure/bed/wicker
 	name = "wicker bed"
 	desc = "Большая кровать, сотканная из чего-то, напоминающего ткань. Выглядит достаточно удобно."
-	ru_names = list(
+	icon_state = "wicker_bed"
+	comfort = 1.5
+	buildstacktype = /obj/item/stack/sheet/cloth
+	buildstackamount = 5
+
+/obj/structure/bed/wicker/get_ru_names()
+	return list(
 		NOMINATIVE = "плетёная кровать",
 		GENITIVE = "плетёной кровати",
 		DATIVE = "плетёной кровати",
@@ -65,15 +71,16 @@
 		INSTRUMENTAL = "плетёной кроватью",
 		PREPOSITIONAL = "плетёной кровати"
 	)
-	icon_state = "wicker_bed"
-	comfort = 1.5
-	buildstacktype = /obj/item/stack/sheet/cloth
-	buildstackamount = 5
 
 /obj/structure/bed/leather
 	name = "leather bed"
 	desc = "Куски кожи, грубо сшитые друг с другом и прикреплённые к деревянной раме. Не самое удобное место для лежания."
-	ru_names = list(
+	icon_state = "leather_bed"
+	comfort = 1.2
+	buildstacktype = /obj/item/stack/sheet/leather
+
+/obj/structure/bed/leather/get_ru_names()
+	return list(
 		NOMINATIVE = "кровать из кожи",
 		GENITIVE = "кровати из кожи",
 		DATIVE = "кровати из кожи",
@@ -81,15 +88,17 @@
 		INSTRUMENTAL = "кроватью из кожи",
 		PREPOSITIONAL = "кровати из кожи"
 	)
-	icon_state = "leather_bed"
-	comfort = 1.2
-	buildstacktype = /obj/item/stack/sheet/leather
-	buildstackamount = 2
 
 /obj/structure/bed/wooden
 	name = "wooden bed"
 	desc = "Кровать, сделанная из качественной древесины. Выглядит очень мило и уютно."
-	ru_names = list(
+	icon_state = "wooden_bed"
+	comfort = 2.5
+	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
+
+/obj/structure/bed/wooden/get_ru_names()
+	return list(
 		NOMINATIVE = "деревянная кровать",
 		GENITIVE = "деревянной кровати",
 		DATIVE = "деревянной кровати",
@@ -97,10 +106,6 @@
 		INSTRUMENTAL = "деревянной кроватью",
 		PREPOSITIONAL = "деревянной кровати"
 	)
-	icon_state = "wooden_bed"
-	comfort = 2.5
-	buildstacktype = /obj/item/stack/sheet/wood
-	buildstackamount = 5
 
 /obj/structure/bed/proc/handle_rotation()
 	return
@@ -108,7 +113,7 @@
 /obj/structure/bed/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+		to_chat(user, span_warning("You can't figure out how to deconstruct [src]!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

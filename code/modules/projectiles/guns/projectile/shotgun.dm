@@ -5,7 +5,6 @@
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
-	flags = CONDUCT
 	can_holster = FALSE
 	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "combat=4;materials=2"
@@ -14,6 +13,8 @@
 	weapon_weight = WEAPON_HEAVY
 	pb_knockback = 2
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
+	accuracy = GUN_ACCURACY_SHOTGUN
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
@@ -42,7 +43,7 @@
 	return (chambered.BB ? TRUE : FALSE)
 
 
-/obj/item/gun/projectile/shotgun/attack_self(mob/living/user)
+/obj/item/gun/projectile/shotgun/unload_act(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
 	COOLDOWN_START(src, last_pump, 1 SECONDS)
@@ -50,7 +51,7 @@
 
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, 1)
+	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
 	pump_unload(M)
 	pump_reload(M)
 	update_icon() //I.E. fix the desc
@@ -60,7 +61,7 @@
 	if(chambered)//We have a shell in the chamber
 		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
-		playsound(src, chambered.casing_drop_sound, 60, 1)
+		playsound(src, chambered.casing_drop_sound, 60, TRUE)
 		chambered = null
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
@@ -85,24 +86,12 @@
 	icon_state = "riotshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
-	sawn_state = SAWN_INTACT
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
-	can_flashlight = TRUE
-	gun_light_overlay = "riotshotgun_light"
-
-/obj/item/gun/projectile/shotgun/riot/update_overlays()
-	. = ..()
-	if(gun_light && gun_light_overlay)
-		var/iconF = gun_light_overlay
-		if(gun_light.on)
-			iconF = "[gun_light_overlay]_on"
-		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
-
-/obj/item/gun/projectile/shotgun/riot/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(istype(action, /datum/action/item_action/toggle_gunlight))
-		toggle_gunlight()
-		return TRUE
-
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
+	)
 
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
@@ -178,6 +167,7 @@
 	slot_flags &= ~ITEM_SLOT_BACK    //you can't sling it on your back
 	slot_flags |= ITEM_SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
+	accuracy = GUN_ACCURACY_MINIMAL
 	magazine.max_ammo = 3
 	update_icon()
 
@@ -232,6 +222,8 @@
 
 /obj/item/gun/projectile/shotgun/riot/short
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
+	accuracy = GUN_ACCURACY_MINIMAL
+	recoil = GUN_RECOIL_MEGA
 
 /obj/item/gun/projectile/shotgun/riot/short/Initialize(mapload)
 	. = ..()
@@ -253,14 +245,19 @@
 	slot_flags = NONE //no ITEM_SLOT_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/1rifle.ogg'
-	bolt_open = FALSE
 	can_bayonet = TRUE
 	bayonet_x_offset = 27
 	bayonet_y_offset = 13
 	pb_knockback = 0
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 4)
+	)
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
+	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, TRUE)
 	if(bolt_open)
 		pump_reload(M)
 	else
@@ -276,7 +273,7 @@
 
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
 	. = 0
-	if(chambered && chambered.BB)
+	if(chambered?.BB)
 		process_fire(user, user,0)
 		. = 1
 
@@ -340,7 +337,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)
 	var/f_name = "\a [src]."
-	. = list("[bicon(src)] That's [f_name]")
+	. = list("[icon2html(src, user)] That's [f_name]")
 	. += desc // Override since magical hand lasers don't have chambers or bolts
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)
@@ -352,7 +349,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()
-	pump(user)
+	addtimer(CALLBACK(src, PROC_REF(pump), user), 1)
 
 /obj/item/gun/projectile/shotgun/automatic/combat
 	name = "combat shotgun"
@@ -362,6 +359,13 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -4)
+	)
+	recoil = GUN_RECOIL_HIGH
 
 //Dual Feed Shotgun
 
@@ -369,20 +373,25 @@
 	name = "cycler shotgun"
 	desc = "An advanced shotgun with two separate magazine tubes, allowing you to quickly toggle between ammo types."
 	icon_state = "cycler"
-	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
+	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7)
+	)
+	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()
 	if(!alternate_magazine)
 		alternate_magazine = new mag_type(src)
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/attack_self(mob/living/user)
-	if(!chambered && magazine.contents.len)
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/unload_act(mob/user)
+	if(!chambered && length(magazine.contents))
 		pump()
 	else
 		toggle_tube(user)
@@ -402,5 +411,9 @@
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	pump()
 	return CLICK_ACTION_SUCCESS
+
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/AltShiftClick(mob/user)
+	. = ..()
+	try_detach_gun_module(user)
 
 // DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in revolver.dm

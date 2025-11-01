@@ -8,11 +8,11 @@
 	if(CONFIG_GET(flag/log_access))
 		for(var/mob/M in GLOB.player_list)
 			if(M == src)	continue
-			if( M.key && (M.key != key) )
+			if(M.key && (M.key != key))
 				var/matches
-				if( (M.lastKnownIP == client.address) )
+				if(M.lastKnownIP == client.address)
 					matches += "IP ([client.address])"
-				if( (M.computer_id == client.computer_id) )
+				if(M.computer_id == client.computer_id)
 					if(matches)	matches += " and "
 					matches += "ID ([client.computer_id])"
 					if(!CONFIG_GET(flag/disable_cid_warn_popup))
@@ -30,7 +30,9 @@
 		return FALSE
 
 	canon_client = client
-	
+
+	client.persistent_client.set_mob(src)
+
 	add_to_player_list()
 	GLOB.left_player_list -= src
 
@@ -40,8 +42,6 @@
 
 	client.images = list()				//remove the images such as AIs being unable to see runes
 	client.screen = list()				//remove hud items just in case
-	if(client.click_intercept)
-		client.click_intercept.quit() // Let's not keep any old click_intercepts
 
 	if(!hud_used)
 		create_mob_hud()	 // creating a hud will add it to the client's screen, which can process a disconnect
@@ -74,7 +74,7 @@
 	reset_perspective(loc)
 
 
-	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
+	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors) || (ckey in GLOB.de_devs))
 		add_verb(src, /client/proc/readmin)
 
 	//Clear ability list and update from mob.
@@ -88,13 +88,25 @@
 
 	add_click_catcher()
 
-	if(viewing_alternate_appearances && viewing_alternate_appearances.len)
+	if(viewing_alternate_appearances && length(viewing_alternate_appearances))
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.display_to(list(src))
 
 	update_client_colour(0)
 	update_morgue()
 	client.init_verbs()
+
+	for(var/datum/action/action as anything in persistent_client.player_actions)
+		action.Grant(src)
+
+	for(var/datum/callback/callback as anything in persistent_client.post_login_callbacks)
+		callback.Invoke()
+
+	if(client.click_intercept)
+		client.click_intercept.quit() // Let's not keep any old click_intercepts
+
+	clear_important_client_contents(client)
+	enable_client_mobs_in_contents(client)
 
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)

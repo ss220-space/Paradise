@@ -43,8 +43,7 @@
 	name = "Теневая ловушка"
 	desc = "Вы вызываете ловушку на земле. Когда её пересекут, она ослепит цель, погасит все имеющиеся у неё источники света и захватит её в капкан."
 	gain_desc = "Вы получили способность вызывать ловушку, которая ослепит, захватит в капкан и выключит свет любому, кто пересечет ее."
-	base_cooldown = 10 SECONDS
-	required_blood = 20
+	required_blood = 15
 	action_icon_state = "shadow_snare"
 	need_active_overlay = TRUE
 
@@ -64,20 +63,21 @@
 /obj/item/restraints/legcuffs/beartrap/shadow_snare
 	name = "shadow snare"
 	desc = "Почти прозрачная ловушка, которая тает в тени."
-	ru_names = list(
-        NOMINATIVE = "теневая ловушка",
-        GENITIVE = "теневой ловушки",
-        DATIVE = "теневой ловушке",
-        ACCUSATIVE = "теневую ловушку",
-        INSTRUMENTAL = "теневой ловушкой",
-        PREPOSITIONAL = "теневой ловушке"
-    )
 	alpha = 60
 	armed = TRUE
 	anchored = TRUE
 	breakout_time = 5 SECONDS
 	item_flags = DROPDEL
 
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/get_ru_names()
+	return list(
+			NOMINATIVE = "теневая ловушка",
+			GENITIVE = "теневой ловушки",
+			DATIVE = "теневой ловушке",
+			ACCUSATIVE = "теневую ловушку",
+			INSTRUMENTAL = "теневой ловушкой",
+			PREPOSITIONAL = "теневой ловушке"
+		)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Initialize(mapload)
 	. = ..()
@@ -138,7 +138,7 @@
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	user.do_attack_animation(src)
 	user.visible_message(
-		span_danger("[user] навод[pluralize_ru(user.gender, "ит", "ят")] [I] на [declent_ru(ACCUSATIVE)], и она исчезает!"),
+		span_danger("[user] навод[PLUR_IT_YAT(user)] [I] на [declent_ru(ACCUSATIVE)], и она исчезает!"),
 		span_danger("Наведите [I] на [declent_ru(ACCUSATIVE)], и она исчезнет!"),
 	)
 	qdel(src)
@@ -148,7 +148,7 @@
 	name = "Теневой якорь"
 	desc = "Вы вызываете затемнённый якорь после задержки, повторное заклинание телепортирует вас обратно к якорю. Вы будете вынуждены вернуться назад через 2 минуты, если не произнесли повторное заклинание."
 	gain_desc = "Вы получили способность сохранять точку в пространстве и телепортироваться к ней по своему желанию. Если в течение 2 минут вы самостоятельно не телепортируетесь обратно в эту точку, вас телепортирует автоматически."
-	required_blood = 30
+	required_blood = 20
 	centcom_cancast = FALSE
 	base_cooldown = 130 SECONDS
 	action_icon_state = "shadow_anchor"
@@ -231,30 +231,30 @@
 /obj/structure/shadow_anchor
 	name = "shadow anchor"
 	desc = "При взгляде на эту штуку вам становится не по себе..."
-	ru_names = list(
-        NOMINATIVE = "теневой якорь",
-        GENITIVE = "теневого якоря",
-        DATIVE = "теневому якорю",
-        ACCUSATIVE = "теневой якорь",
-        INSTRUMENTAL = "теневым якорем",
-        PREPOSITIONAL = "теневом якоре"
-    )
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "pylon"
 	alpha = 120
 	color = "#545454"
 	density = TRUE
-	opacity = FALSE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
+/obj/structure/shadow_anchor/get_ru_names()
+	return list(
+			NOMINATIVE = "теневой якорь",
+			GENITIVE = "теневого якоря",
+			DATIVE = "теневому якорю",
+			ACCUSATIVE = "теневой якорь",
+			INSTRUMENTAL = "теневым якорем",
+			PREPOSITIONAL = "теневом якоре"
+		)
 
 /obj/effect/proc_holder/spell/vampire/dark_passage
 	name = "Шаг в тень"
 	desc = "Вы телепортируетесь на указанную площадку."
 	gain_desc = "Вы получили способность совершать молниеносный бросок на небольшое расстояние в сторону указанной площадки."
 	base_cooldown = 15 SECONDS
-	required_blood = 30
+	required_blood = 20
 	centcom_cancast = FALSE
 	action_icon_state = "dark_passage"
 	sound = 'sound/magic/teleport_app.ogg'
@@ -282,7 +282,6 @@
 
 
 /obj/effect/temp_visual/vamp_mist_in
-	duration = 1 SECONDS
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "mist_reappear"
 
@@ -315,7 +314,7 @@
 	gain_desc = "Теперь вы можете заставить свою тень сражаться бок о бок с вами."
 	base_cooldown = 30 SECONDS
 	action_icon_state = "shadow_boxing"
-	required_blood = 50
+	required_blood = 30
 	need_active_overlay = TRUE
 	var/target_UID
 
@@ -337,7 +336,6 @@
 	name = "Вечная тьма"
 	desc = "При включении вы окутываете пространство вокруг себя темнотой и медленно понижаете температуру тела находящихся рядом гуманоидов."
 	gain_desc = "Вы обрели способность окутывать всё вокруг себя тьмой. Только сильнейший свет сможет пронзить вашу нечестивую силу."
-	base_cooldown = 10 SECONDS
 	action_icon_state = "eternal_darkness"
 	required_blood = 5
 	var/shroud_power = -4
@@ -348,7 +346,7 @@
 	var/mob/target = targets[1]
 	if(!V.get_ability(/datum/vampire_passive/eternal_darkness))
 		V.force_add_ability(/datum/vampire_passive/eternal_darkness)
-		target.set_light(6, shroud_power, "#AAD84B")
+		target.set_light(6, shroud_power, COLOR_VOID_PURPLE)
 	else
 		for(var/datum/vampire_passive/eternal_darkness/E in V.powers)
 			V.remove_ability(E)
@@ -375,6 +373,11 @@
 	for(var/mob/living/L in view(6, owner))
 		if(L.affects_vampire(owner))
 			L.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT)
+
+	for(var/turf/turf as anything in RANGE_TURFS(4, get_turf(owner)))
+		turf.extinguish_light()
+		for(var/atom/atom as anything in turf.contents)
+			atom.extinguish_light()
 
 	V.bloodusable = max(V.bloodusable - 5, 0)
 

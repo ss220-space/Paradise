@@ -1,8 +1,8 @@
 //OTHER DEBUFFS
 
+// MARK: his_wrath
 /datum/status_effect/his_wrath //does minor damage over time unless holding His Grace
 	id = "his_wrath"
-	duration = -1
 	tick_interval = 0.4 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/his_wrath
 
@@ -24,15 +24,16 @@
 		return
 	owner.updatehealth()
 
+// MARK: cultghost
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
 	id = "cult_ghost"
-	duration = -1
 	alert_type = null
 
 /datum/status_effect/cultghost/tick(seconds_between_ticks)
 	if(owner.reagents)
 		owner.reagents.del_reagent("holywater") //can't be deconverted
 
+// MARK: crusher_mark
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
 	duration = 300 //if you leave for 30 seconds you lose the mark, deal with it
@@ -66,12 +67,29 @@
 	owner.underlays -= marked_underlay //if this is being called, we should have an owner at this point.
 	..()
 
-
+// MARK: pacifism
 /datum/status_effect/pacifism
 	id = "pacifism_debuff"
 	alert_type = null
 	duration = 40 SECONDS
+	var/datum/atom_hud/pacifism/hud
 
+/datum/status_effect/pacifism/on_creation(mob/living/new_owner, mob/mob_to_inform)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(!mob_to_inform)
+		return TRUE
+
+	hud = new
+	hud.add_atom_to_hud(new_owner)
+	hud.show_to(mob_to_inform)
+	var/image/holder = new_owner.hud_list[PACIFISM_HUD]
+	if(holder)
+		holder.icon_state = "hudpacifism"
+
+	return TRUE
 
 /datum/status_effect/pacifism/on_apply()
 	ADD_TRAIT(owner, TRAIT_PACIFISM, id)
@@ -81,6 +99,10 @@
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
+	if(hud)
+		QDEL_NULL(hud)
+
+// MARK: fang_exhaust
 /datum/status_effect/fang_exhaust
 	id = "fang_exhaust"
 	alert_type = null
@@ -116,6 +138,7 @@
 
 	return ..()
 
+// MARK: shadow_boxing
 /datum/status_effect/shadow_boxing
 	id = "shadow barrage"
 	alert_type = null
@@ -133,14 +156,17 @@
 /datum/status_effect/shadow_boxing/tick(seconds_between_ticks)
 	var/mob/living/attacker = locateUID(source_UID)
 	if(attacker in view(owner, 2))
+		var/turf/attacker_turf = get_turf(attacker)
+		var/turf/owner_turf = get_turf(owner)
 		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
 		owner.apply_damage(damage, BRUTE)
-		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+		playsound(owner_turf, SFX_PUNCH, 30, TRUE, -1)
+		shadow_to_animation(attacker_turf, owner_turf, attacker)
 
 
+// MARK: saw_bleed
 /datum/status_effect/saw_bleed
 	id = "saw_bleed"
-	duration = -1 //removed under specific conditions
 	tick_interval = 6
 	alert_type = null
 	var/mutable_appearance/bleed_overlay
@@ -164,13 +190,12 @@
 		return FALSE
 	bleed_overlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
 	bleed_underlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	var/icon_height = I.Height()
+	var/icon_height = owner.get_cached_height()
 	bleed_overlay.pixel_x = -owner.pixel_x
 	bleed_overlay.pixel_y = FLOOR(icon_height * 0.25, 1)
-	bleed_overlay.transform = matrix() * (icon_height/world.icon_size) //scale the bleed overlay's size based on the target's icon size
+	bleed_overlay.transform = matrix() * (icon_height / ICON_SIZE_Y) //scale the bleed overlay's size based on the target's icon size
 	bleed_underlay.pixel_x = -owner.pixel_x
-	bleed_underlay.transform = matrix() * (icon_height/world.icon_size) * 3
+	bleed_underlay.transform = matrix() * (icon_height / ICON_SIZE_Y) * 3
 	bleed_underlay.alpha = 40
 	owner.add_overlay(bleed_overlay)
 	owner.underlays += bleed_underlay
@@ -206,7 +231,7 @@
 		new /obj/effect/temp_visual/bleed/explode(T)
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, "desceration", 200, TRUE, -1)
+		playsound(T, SFX_DESECRATION, 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
@@ -217,6 +242,7 @@
 	bleed_damage = 25 //Seems weak (it is) but it also works on humans and bypasses armor SOOOO
 	bleed_amount = 6
 
+// MARK: stamina_dot
 /datum/status_effect/stamina_dot
 	id = "stamina_dot"
 	duration = 130
@@ -225,6 +251,7 @@
 /datum/status_effect/stamina_dot/tick(seconds_between_ticks)
 	owner.adjustStaminaLoss(10)
 
+// MARK: bluespace_slowdown
 /datum/status_effect/bluespace_slowdown
 	id = "bluespace_slowdown"
 	duration = 150
@@ -238,13 +265,10 @@
 	owner.next_move_modifier *= 0.5
 
 
-/**
- * Vampire mark.
- */
+// MARK: Vampire mark_prey
 /datum/status_effect/mark_prey
 	id = "mark_prey"
 	duration = 5 SECONDS
-	tick_interval = 1 SECONDS
 	alert_type = null
 	var/mutable_appearance/marked_overlay
 	var/datum/antagonist/vampire/vamp
@@ -372,6 +396,7 @@
 
 // start of `living` level status procs.
 
+// MARK: Confusion
 /**
  * # Confusion
  *
@@ -448,6 +473,7 @@
 	owner.add_overlay(overlay)
 
 
+// MARK: Disoriented
 /**
  * # Disoriented
  *
@@ -469,6 +495,7 @@
 			qdel(src)
 			return FALSE
 
+// MARK: Dizziness
 /**
  * # Dizziness
  *
@@ -500,6 +527,7 @@
 /datum/status_effect/transient/dizziness/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
+// MARK: Drowsiness
 /**
  * # Drowsiness
  *
@@ -550,6 +578,7 @@
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
 
+// MARK: Drukenness
 /**
  * # Drukenness
  *
@@ -622,7 +651,7 @@
 		owner.AdjustConfused(6 SECONDS, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
 	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(0.5))
-		do_sparks(3, 1, owner)
+		do_sparks(3, TRUE, owner)
 	// THRESHOLD_VOMIT (120 SECONDS)
 	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.2))
 		owner.fakevomit()
@@ -632,7 +661,7 @@
 	// THRESHOLD_COLLAPSE (150 SECONDS)
 	if(actual_strength >= THRESHOLD_COLLAPSE && prob(0.2))
 		owner.emote("collapse")
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 	// THRESHOLD_FAINT (180 SECONDS)
 	if(actual_strength >= THRESHOLD_FAINT && prob(0.2))
 		owner.Paralyse(10 SECONDS)
@@ -663,12 +692,14 @@
 			return 0
 	return -0.2 SECONDS
 
+// MARK: Cult sluring
 /datum/status_effect/transient/cult_slurring
 	id = "cult_slurring"
 
 /datum/status_effect/transient/clock_cult_slurring
 	id = "clock_cult_slurring"
 
+// MARK: Incapacitating
 /datum/status_effect/incapacitating
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REPLACE
@@ -708,6 +739,7 @@
 	return set_duration
 
 
+// MARK: Stun
 //STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"
@@ -720,6 +752,7 @@
 	return ..()
 
 
+// MARK: Knockdown
 //KNOCKDOWN - force victim to lying down position
 /datum/status_effect/incapacitating/knockdown
 	id = "knockdown"
@@ -732,12 +765,14 @@
 		. *= new_owner.physiology.knockdown_mod
 
 
+// MARK: Immobilized
 //IMMOBILIZED - prevents movement, victim can still stand and act
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
 	traits_to_apply = list(TRAIT_IMMOBILIZED)
 
 
+// MARK: Weakened
 //WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
@@ -750,6 +785,20 @@
 	return ..()
 
 
+// MARK: Unconscious
+//UNCONSCIOUS
+/datum/status_effect/incapacitating/unconscious
+	id = "unconscious"
+	needs_update_stat = TRUE
+	traits_to_apply = list(TRAIT_KNOCKEDOUT)
+
+
+/datum/status_effect/incapacitating/unconscious/tick(seconds_between_ticks)
+	if(owner.getStaminaLoss())
+		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
+
+
+// MARK: Paralyzed
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
@@ -761,6 +810,7 @@
 	return set_duration
 
 
+// MARK: Sleeping
 //SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
@@ -816,6 +866,7 @@
 
 #define DEFAULT_SLOWED_DELAY 10
 
+// MARK: Slowed
 //SLOWED - slows down the victim for a duration and a given slowdown value.
 /datum/status_effect/incapacitating/slowed
 	id = "slowed"
@@ -844,6 +895,7 @@
 #undef DEFAULT_SLOWED_DELAY
 
 
+// MARK: Silence
 /datum/status_effect/transient/silence
 	id = "silenced"
 
@@ -858,6 +910,7 @@
 /datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
 	id = "abssilenced"
 
+// MARK: Jittery
 /datum/status_effect/transient/jittery
 	id = "jittering"
 
@@ -878,11 +931,11 @@
 /datum/status_effect/transient/jittery/get_examine_text()
 	switch(strength)
 		if(600 SECONDS to INFINITY)
-			return span_warning("<b>[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] бь[pluralize_ru(owner.gender,"ётся","ются")] в судорогах!</b>")
+			return span_warning("<b>[GEND_HE_SHE_CAP(owner)] бь[PLUR_YOT_YUT(owner)]ся в судорогах!</b>")
 		if(400 SECONDS to 600 SECONDS)
-			return span_warning("[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] крайне нервнича[pluralize_ru(owner.gender,"ет","ют")].")
+			return span_warning("[GEND_HE_SHE_CAP(owner)] крайне нервнича[PLUR_ET_YUT(owner)].")
 		if(200 SECONDS to 400 SECONDS)
-			return span_warning("[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] слегка дёрга[pluralize_ru(owner.gender,"ется","ются")].")
+			return span_warning("[GEND_HE_SHE_CAP(owner)] слегка дёрга[PLUR_ET_YUT(owner)]ся.")
 
 
 /datum/status_effect/transient/stammering
@@ -905,6 +958,7 @@
 #define HALLUCINATE_MODERATE_WEIGHT 25
 #define HALLUCINATE_MAJOR_WEIGHT 15
 
+// MARK: Hallucination
 /datum/status_effect/transient/hallucination
 	id = "hallucination"
 	var/next_hallucination = 0
@@ -945,6 +999,7 @@
 #undef HALLUCINATE_MAJOR_WEIGHT
 
 
+// MARK: Eye blurry
 /datum/status_effect/transient/eye_blurry
 	id = "eye_blurry"
 
@@ -1019,6 +1074,7 @@
 	return ..() //default decay rate
 
 
+// MARK: Blindness
 /datum/status_effect/transient/blindness
 	id = "blindness"
 
@@ -1047,6 +1103,7 @@
 
 	return ..() //default decay rate
 
+// MARK: Drugged
 /datum/status_effect/transient/drugged
 	id = "drugged"
 
@@ -1059,6 +1116,7 @@
 /datum/status_effect/transient/drugged/on_remove()
 	owner.update_druggy_effects()
 
+// MARK: Disgust
 /datum/status_effect/transient/disgust
 	id = "disgust"
 	tick_interval = 2 SECONDS
@@ -1104,6 +1162,7 @@
 /datum/status_effect/transient/disgust/calc_decay()
 	return -1 * initial(tick_interval)
 
+// MARK: Deaf
 /datum/status_effect/transient/deaf
 	id = "deafened"
 
@@ -1115,10 +1174,9 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
 
-// lavaland flowers stuff
+// MARK: Lavaland flowers stuff
 /datum/status_effect/taming
 	id = "taming"
-	duration = -1
 	tick_interval = 6
 	alert_type = null
 	var/tame_amount = 1
@@ -1166,8 +1224,6 @@
 /datum/status_effect/bubblegum_curse
 	id = "bubblegum curse"
 	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse
-	duration = -1 //Kill it. There is no other option.
-	tick_interval = 1 SECONDS
 	/// The damage the status effect does per tick.
 	var/damage = 0.75
 	var/source_UID
@@ -1300,6 +1356,7 @@
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
 
+// MARK: Tox vomit
 /datum/status_effect/tox_vomit
 	id = "vomitting_from_toxins"
 	alert_type = null
@@ -1331,8 +1388,128 @@
 	carbon.adjustToxLoss(-3)
 
 
+// MARK: Judo armbar
 /datum/status_effect/judo_armbar
 	id = "armbar"
 	duration = 5 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
+
+
+// MARK: Temperature
+/datum/status_effect/transient/temperature
+	id = "temperature"
+	duration = 10 SECONDS  // max delta 500 K
+	var/temp_step = 50 // K per seconds
+	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/transient/temperature/tick(seconds_between_ticks)
+	if(QDELETED(src) || QDELETED(owner))
+		return FALSE
+	if(owner.stat == DEAD || HAS_TRAIT(owner, TRAIT_GODMODE))
+		qdel(src)
+		return FALSE
+
+	var/temp_delta = clamp(strength - owner.bodytemperature, -temp_step * seconds_between_ticks, temp_step * seconds_between_ticks)
+	owner.adjust_bodytemperature(temp_delta)
+	if(owner.bodytemperature != strength)
+		return TRUE
+	qdel(src)
+	return FALSE
+
+/datum/status_effect/transient/temperature/calc_decay()
+	return 0
+
+/// Applies a curse with various possible effects
+/mob/living/proc/apply_necropolis_curse(set_curse)
+	var/datum/status_effect/necropolis_curse/curse = has_status_effect(/datum/status_effect/necropolis_curse)
+
+	if(!set_curse)
+		set_curse = pick(CURSE_BLINDING, CURSE_WASTING, CURSE_GRASPING)
+
+	if(QDELETED(curse))
+		apply_status_effect(/datum/status_effect/necropolis_curse, set_curse)
+		return curse
+
+	curse.apply_curse(set_curse)
+	curse.duration += 5 MINUTES //time added by additional curses
+	return curse
+
+/// A curse that does up to three nasty things to you
+/datum/status_effect/necropolis_curse
+	id = "necrocurse"
+	duration = 10 MINUTES //you're cursed for 10 minutes have fun
+	tick_interval = 5 SECONDS
+	alert_type = null
+	/// Which nasty things are we doing? [CURSE_BLINDING / CURSE_WASTING / CURSE_GRASPING]]
+	var/curse_flags = NONE
+	/// When should we next throw hands?
+	var/effect_next_activation = 0
+	/// How long between throwing hands?
+	var/effect_cooldown = 10 SECONDS
+	/// Visuals for the wasting effect
+	var/obj/effect/temp_visual/curse/wasting_effect
+
+/datum/status_effect/necropolis_curse/on_creation(mob/living/new_owner, set_curse)
+	. = ..()
+
+	if(!.)
+		return
+
+	apply_curse(set_curse)
+
+/datum/status_effect/necropolis_curse/Destroy()
+	if(!QDELETED(wasting_effect))
+		qdel(wasting_effect)
+		wasting_effect = null
+
+	return ..()
+
+/datum/status_effect/necropolis_curse/on_remove()
+	remove_curse(curse_flags)
+
+/datum/status_effect/necropolis_curse/proc/apply_curse(set_curse)
+	curse_flags |= set_curse
+
+	if(curse_flags & CURSE_BLINDING)
+		owner.overlay_fullscreen("curse", /atom/movable/screen/fullscreen/curse, 1)
+
+	if(curse_flags & CURSE_WASTING && !wasting_effect)
+		wasting_effect = new
+
+/datum/status_effect/necropolis_curse/proc/remove_curse(remove_curse)
+	if(remove_curse & CURSE_BLINDING)
+		owner.clear_fullscreen("curse", 50)
+
+	curse_flags &= ~remove_curse
+
+/datum/status_effect/necropolis_curse/tick(seconds_between_ticks)
+	if(owner.stat == DEAD)
+		return
+
+	if(!(curse_flags & CURSE_WASTING))
+		return
+
+	wasting_effect.forceMove(owner.loc)
+	wasting_effect.setDir(owner.dir)
+	wasting_effect.transform = owner.transform //if the owner has been stunned the overlay should inherit that position
+	wasting_effect.alpha = 255
+	animate(wasting_effect, alpha = 0, time = 32)
+	playsound(owner, 'sound/effects/curse5.ogg', 20, TRUE, -1)
+	owner.adjustFireLoss(0.75)
+
+	//TODO uncomment after heretic
+	/*
+	if(curse_flags & CURSE_GRASPING)
+		if(effect_next_activation > world.time)
+			return
+		effect_next_activation = world.time + effect_cooldown
+		fire_curse_hand(owner, range = 5, projectile_type = /obj/projectile/curse_hand) // This one stuns people
+	*/
+
+/obj/effect/temp_visual/curse
+	icon_state = "curse"
+
+/obj/effect/temp_visual/curse/Initialize(mapload)
+	. = ..()
+	deltimer(timerid)

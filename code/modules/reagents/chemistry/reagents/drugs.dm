@@ -2,7 +2,6 @@
 	name = "Литий"
 	id = "lithium"
 	description = "Химический элемент."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "металла"
 
@@ -112,13 +111,13 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[pluralize_ru(M.gender, "ит", "ят")] нервн[genderize_ru(M.gender, "ым", "ой", "ым", "ыми")]!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] нервн[GEND_YM_OI_YM_YMI(M)]!"))
 			M.AdjustConfused(30 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			M.Jitter(20 SECONDS)
 			M.emote("twitch_s")
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] [genderize_ru(M.gender, "весь", "вся", "всё", "все")] в поту!"))
+			M.visible_message(span_warning("[M] в поту!"))
 			M.adjust_bodytemperature(rand(15,30))
 			update_flags |= M.adjustToxLoss(3, FALSE)
 		else if(effect <= 7)
@@ -168,7 +167,6 @@
 	addiction_chance = 20
 	addiction_threshold = 15
 	shock_reduction = 30
-	harmless = FALSE
 	minor_addiction = TRUE
 	heart_rate_increase = 1
 	taste_description = "мятного онемения во рту"
@@ -196,13 +194,13 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[pluralize_ru(M.gender, "ит", "ят")] нервн[genderize_ru(M.gender, "ым", "ой", "ым", "ыми")]!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] нервн[GEND_YM_OI_YM_YMI(M)]!"))
 			M.AdjustConfused(35 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			M.Jitter(20 SECONDS)
 			M.emote("twitch_s")
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] [genderize_ru(M.gender, "весь", "вся", "всё", "все")] в поту!"))
+			M.visible_message(span_warning("[M] в поту!"))
 			M.adjust_bodytemperature(rand(15,30))
 			update_flags |= M.adjustToxLoss(3, FALSE)
 		else if(effect <= 7)
@@ -268,12 +266,12 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[pluralize_ru(M.gender, "ет", "ют")] потерянно!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_ET_YUT(M)] потерянно!"))
 			M.AdjustConfused(40 SECONDS)
 			M.Jitter(40 SECONDS)
 			M.emote("scream")
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] [genderize_ru(M.gender, "весь", "вся", "всё", "все")] в поту!"))
+			M.visible_message(span_warning("[M] в поту!"))
 			M.adjust_bodytemperature(rand(5,30))
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			update_flags |= M.adjustToxLoss(1, FALSE)
@@ -283,12 +281,12 @@
 			M.emote("grumble")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] поте[pluralize_ru(M.gender, "ет", "ют")] как свинья!"))
+			M.visible_message(span_warning("[M] поте[PLUR_ET_YUT(M)] как свинья!"))
 			M.adjust_bodytemperature(rand(20,100))
 			update_flags |= M.adjustToxLoss(5, FALSE)
 			M.Stun(6 SECONDS)
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] тряс[pluralize_ru(M.gender, "ёт", "ют")]ся как эпилептик!"))
+			M.visible_message(span_warning("[M] тряс[PLUR_YOT_YUT(M)]ся как эпилептик!"))
 			M.Jitter(200 SECONDS)
 			update_flags |= M.adjustToxLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(8, FALSE)
@@ -298,7 +296,7 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 7)
 			M.emote("scream")
-			M.visible_message(span_warning("[M] нервно скреб[pluralize_ru(M.gender, "ёт", "ют")] свою кожу!"))
+			M.visible_message(span_warning("[M] нервно скреб[PLUR_YOT_YUT(M)] свою кожу!"))
 			M.Jitter(20 SECONDS)
 			update_flags |= M.adjustBruteLoss(5, FALSE)
 			M.emote("twitch_s")
@@ -345,7 +343,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] выгляд[pluralize_ru(M.gender, "ит", "ят")] потерянно!"))
+			M.visible_message(span_warning("[M] выгляд[PLUR_IT_YAT(M)] потерянно!"))
 			M.Stun(6 SECONDS)
 			M.emote("drool")
 		else if(effect <= 4)
@@ -359,7 +357,7 @@
 			M.emote("cry")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] кача[pluralize_ru(M.gender, "ет", "ют")]ся и вал[pluralize_ru(M.gender, "ит", "ят")]ся на землю!"))
+			M.visible_message(span_warning("[M] кача[PLUR_ET_YUT(M)]ся и вал[PLUR_IT_YAT(M)]ся на землю!"))
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
 			M.Weaken(16 SECONDS)
@@ -389,7 +387,9 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	heart_rate_increase = 1
 	taste_description = "бодрости"
-
+	tags = REAGENT_TAG_ANTI_STUN
+	chemdesc = "Ускоряет передвижение, бодрит и помогает легче справляться с оглушениями разного рода. Повреждает мозг."
+	chemuse = 50
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/user)
 	. = ..()
@@ -438,18 +438,18 @@
 			M.AdjustConfused(40 SECONDS)
 			M.Weaken(8 SECONDS)
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+			M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 7)
 			M.emote("laugh")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+			M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] кача[pluralize_ru(M.gender, "ет", "ют")]ся и вал[pluralize_ru(M.gender, "ит", "ят")]ся на землю!"))
+			M.visible_message(span_warning("[M] кача[PLUR_ET_YUT(M)]ся и вал[PLUR_IT_YAT(M)]ся на землю!"))
 			M.Jitter(20 SECONDS)
 			M.Weaken(20 SECONDS)
 		else if(effect <= 7)
@@ -460,7 +460,6 @@
 	name = "Соль для ванн"
 	id = "bath_salts"
 	description = "На самом деле это не соли для купания в ванной, а синтетические наркотики, которые часто маскируют под соли для ванн и прочие бытовые вещества, чтобы упроситить распространение."
-	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_chance = 15
@@ -468,6 +467,7 @@
 	shock_reduction = 60
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "нереальной бодрости"
+	tags = REAGENT_TAG_ANTI_STUN
 
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/carbon/human/user)
@@ -494,7 +494,7 @@
 			head_organ.f_style = "Very Long Beard"
 			H.update_hair()
 			H.update_fhair()
-			H.visible_message(span_warning("[H] выгляд[pluralize_ru(H.gender, "ит", "ят")] ДИКО!"))
+			H.visible_message(span_warning("[H] выгляд[PLUR_IT_YAT(H)] ДИКО!"))
 	if(check < 30)
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
 		M.Druggy(30 SECONDS)
@@ -537,7 +537,7 @@
 /datum/reagent/jenkem
 	name = "Дженкем"
 	id = "jenkem"
-	description = "Дженкем - это тюремный наркотик, изготовленный путем брожения фекалий в растворе мочи. Крайне отвратительно."
+	description = "Дженкем — это тюремный наркотик, изготовленный путем брожения фекалий в растворе мочи. Крайне отвратительно."
 	reagent_state = LIQUID
 	color = "#644600"
 	addiction_chance = 5
@@ -637,6 +637,8 @@
 	addiction_chance_additional = 20
 	addiction_threshold = 10
 	taste_description = "кувырков"
+	chemdesc = "Вызывает неконтролируемое вращение."
+	chemuse = 50
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -684,18 +686,18 @@
 			M.AdjustConfused(66 SECONDS)
 			M.Weaken(4 SECONDS)
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+			M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 7)
 			M.emote("laugh")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+			M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 			M.drop_l_hand()
 			M.drop_r_hand()
 		else if(effect <= 4)
-			M.visible_message(span_warning("[M] кача[pluralize_ru(M.gender, "ет", "ют")]ся и вал[pluralize_ru(M.gender, "ит", "ят")]ся на землю!"))
+			M.visible_message(span_warning("[M] кача[PLUR_ET_YUT(M)]ся и вал[PLUR_IT_YAT(M)]ся на землю!"))
 			M.Jitter(10 SECONDS)
 			M.Weaken(10 SECONDS)
 		else if(effect <= 7)
@@ -745,9 +747,7 @@
 	addiction_threshold = 20
 	color = "#FF4DD2"
 	taste_description = "смеха"
-	can_synth = TRUE
 	reagent_state = LIQUID
-	harmless = TRUE
 
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -845,7 +845,7 @@
 			update_flags |= M.adjustBrainLoss(rand(1, 7))
 		if(151 to 200)
 			to_chat(M, span_warning("Ваш живот ужасно болит..."))
-			M.visible_message(span_warning("[M] складыва[pluralize_ru(M.gender, "ет", "ют")]ся пополам от боли!"))
+			M.visible_message(span_warning("[M] складыва[PLUR_ET_YUT(M)]ся пополам от боли!"))
 			M.Weaken(6 SECONDS)
 		if(201 to 280)
 			M.emote(pick("twitch", "glare", "cry", "groan"))
@@ -871,8 +871,7 @@
 /datum/reagent/lube/ultra
 	name = "Ультра-смазка"
 	id = "ultralube"
-	description = "Ультра-смазка - это улучшенная смазка, которая вызывает у синтетиков эффект, подобный метамфетамину, за счет резкого снижения внутреннего трения и повышения охлаждающей способности."
-	reagent_state = LIQUID
+	description = "Ультра-смазка — это улучшенная смазка, которая вызывает у синтетиков эффект, подобный метамфетамину, за счет резкого снижения внутреннего трения и повышения охлаждающей способности."
 	color = "#1BB1FF"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
@@ -920,7 +919,7 @@
 	if(prob(20))
 		M.emote("ping")
 	if(prob(33))
-		M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+		M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_from_active_hand()
@@ -962,7 +961,7 @@
 	M.Stuttering(10 SECONDS)
 	if(prob(10))
 		to_chat(M, span_danger("Ваши процессоры перегружаются, вызывая короткое замыкание!"))
-		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)
+		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, TRUE)
 		//Lightning effect for electrical discharge visualization
 		var/icon/I=new('icons/obj/zap.dmi',"lightningend")
 		I.Turn(-135)
@@ -1029,7 +1028,7 @@
 /datum/reagent/lube/combat
 	name = "Боевая смазка"
 	id = "combatlube"
-	description = "Боевая смазка - это улучшенная смазка, которая вызывает у синтетиков эффекты, многократно превосходящие аналогичные у \"Ультра-смазки\" за счёт резкого снижения внутреннего трения и повышения охлаждающей способности."
+	description = "Боевая смазка — это улучшенная смазка, которая вызывает у синтетиков эффекты, многократно превосходящие аналогичные у \"Ультра-смазки\" за счёт резкого снижения внутреннего трения и повышения охлаждающей способности."
 	process_flags = SYNTHETIC
 	overdose_threshold = 30
 	addiction_chance = 1
@@ -1068,7 +1067,7 @@
 	if(prob(20))
 		M.emote("ping")
 	if(prob(33))
-		M.visible_message(span_warning("[M] маш[pluralize_ru(M.gender, "ет", "ут")] руками во все стороны, роняя предметы в руках!"))
+		M.visible_message(span_warning("[M] маш[PLUR_ET_UT(M)] руками во все стороны, роняя предметы в руках!"))
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_from_active_hand()
@@ -1088,6 +1087,7 @@
 	taste_description = "неприятной горечи с примесью бедности"
 	shock_reduction = 100
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/crack/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1127,6 +1127,7 @@
 	taste_description = "легкой горечи, переходящей в чувство онемения"
 	shock_reduction = 140
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/cocaine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

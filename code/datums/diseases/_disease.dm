@@ -4,7 +4,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 /datum/disease
 	//Fluff
 	var/form = "Болезнь"
-	var/name = "Неизвестно"
+	var/name = UNKNOWN_STATUS_RUS
 	var/desc = ""
 	var/agent = "какие-то микробы"
 	var/cure_text = null
@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	for(var/C_id in cures)
 		if(!affected_mob.reagents?.has_reagent(C_id))
 			.--
-	if(. <= 0 || (needs_all_cures && . < cures.len))
+	if(. <= 0 || (needs_all_cures && . < length(cures)))
 		return 0
 
 

@@ -15,7 +15,7 @@
 /area/lavaland/surface/outdoors)
 "d" = (
 /turf/simulated/wall/mineral/titanium/survival/pod,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "e" = (
 /obj/structure/sign/mining/survival{
 	dir = 4;
@@ -27,16 +27,16 @@
 "f" = (
 /obj/structure/fans,
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "g" = (
 /obj/machinery/smartfridge/survival_pod/empty,
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "h" = (
 /obj/item/gps/computer,
 /obj/structure/tubes,
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "i" = (
 /obj/structure/sign/mining/survival{
 	dir = 8;
@@ -53,12 +53,12 @@
 "k" = (
 /obj/machinery/sleeper/survival_pod,
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "l" = (
 /obj/item/pickaxe,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "m" = (
 /obj/structure/bed/pod,
 /obj/item/bedsheet/black,
@@ -67,7 +67,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "n" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mapping_helpers/no_lava,
@@ -88,7 +88,7 @@
 /obj/structure/table/survival_pod,
 /obj/item/kitchen/knife/combat/survival,
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "q" = (
 /obj/effect/mob_spawn/human/miner/explorer{
 	brute_damage = 150;
@@ -98,14 +98,14 @@
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "r" = (
 /obj/structure/tubes,
 /obj/item/crowbar,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "s" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mapping_helpers/no_lava,
@@ -116,7 +116,7 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/powered/lavaland)
 "v" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood,

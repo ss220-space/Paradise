@@ -1,7 +1,9 @@
 //STRIKE TEAMS
 
 #define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
+
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
+
 /client/proc/syndicate_strike_team()
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Заспавнить Ударный Отряд Синдиката"
@@ -41,7 +43,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	// Find ghosts willing to be SST
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
 	var/list/commando_ghosts = pick_candidates_all_types(src, SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду Синдиката?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, I, "Ударный Отряд Синдиката", input)
-	if(!commando_ghosts.len)
+	if(!length(commando_ghosts))
 		to_chat(src, span_userdanger("Никто не присоединился к SST."))
 		return
 
@@ -54,7 +56,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 		if(L.name == "Syndicate-Commando")
 
-			if(!commando_ghosts.len)
+			if(!length(commando_ghosts))
 				break
 
 			var/mob/ghost_mob = pick(commando_ghosts)
@@ -68,7 +70,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			if(!new_syndicate_commando)
 				continue
 
-			new_syndicate_commando.key = ghost_mob.key
+			new_syndicate_commando.possess_by_player(ghost_mob.key)
 			new_syndicate_commando.internal = new_syndicate_commando.s_store
 			new_syndicate_commando.update_action_buttons_icon()
 
@@ -88,13 +90,13 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	message_admins(span_notice("[key_name_admin(usr)] has spawned a Syndicate strike squad."))
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send SST") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Send SST")
 
 /client/proc/create_syndicate_death_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
 	var/syndicate_commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
 	var/syndicate_commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
-	var/syndicate_commando_name = pick(GLOB.last_names)
+	var/syndicate_commando_name = pick(GLOB.last_names_male)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(is_leader)
@@ -119,3 +121,5 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		new_syndicate_commando.equipOutfit(/datum/outfit/admin/syndicate_strike_team)
 	qdel(spawn_location)
 	return new_syndicate_commando
+
+#undef SYNDICATE_COMMANDOS_POSSIBLE

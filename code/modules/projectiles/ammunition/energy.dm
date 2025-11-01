@@ -15,7 +15,7 @@
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/projectile/beam/laser
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/light
@@ -27,7 +27,7 @@
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/projectile/beam/laser
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED
 	e_cost = 65
 	select_name = "kill"
 
@@ -56,7 +56,7 @@
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse
-	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	e_cost = 200
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
@@ -84,7 +84,6 @@
 	projectile_type = /obj/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	delay = 11
-	e_cost = 100
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 
 /obj/item/ammo_casing/energy/immolator
@@ -117,8 +116,7 @@
 	muzzle_flash_color = "#FFFF00"
 	select_name = "stun"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
-	e_cost = 100
-	delay = 15
+	delay = 2 SECONDS
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/electrode/advanced //admin-bus only, k? dont give this thing to 100 year old Charlie crew or other ghost role
@@ -126,17 +124,15 @@
 
 /obj/item/ammo_casing/energy/electrode/gun
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	e_cost = 100
 
 /obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 100
 
 /obj/item/ammo_casing/energy/electrode/blueshield
 	e_cost = 150
 
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/projectile/ion
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 	delay = 0.4 SECONDS
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
@@ -210,7 +206,7 @@
 
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/projectile/beam/disabler
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 	select_name  = "disable"
 	e_cost = 50
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
@@ -243,7 +239,6 @@
 
 /obj/item/ammo_casing/energy/plasma/shotgun
 	projectile_type = /obj/projectile/plasma/shotgun
-	delay = 15
 	e_cost = 75 //20 shots
 	pellets = 5
 	variance = 35
@@ -256,7 +251,6 @@
 	projectile_type = /obj/projectile/beam/wormhole
 	muzzle_flash_color = "#33CCFF"
 	delay = 10
-	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	select_name = "blue"
 	harmful = FALSE
@@ -287,7 +281,6 @@
 	icon_state = "bluespace"
 	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
 	damage = 60
-	damage_type = BURN
 	range = 9
 	weaken  = 8 SECONDS //This is going to knock you off your feet
 	eyeblur = 20 SECONDS
@@ -359,36 +352,36 @@
 
 /obj/item/ammo_casing/energy/instakill/blue
 	projectile_type = /obj/projectile/beam/instakill/blue
-	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/item/ammo_casing/energy/instakill/red
 	projectile_type = /obj/projectile/beam/instakill/red
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED
 
 /obj/item/ammo_casing/energy/shock_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	e_cost = 200
 	select_name = "lightning beam"
-	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	muzzle_flash_color = LIGHT_COLOR_LAVENDER
 	projectile_type = /obj/projectile/energy/shock_revolver
 
 /obj/item/ammo_casing/energy/toxplasma
 	projectile_type = /obj/projectile/energy/toxplasma
-	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	muzzle_flash_color = LIGHT_COLOR_LAVENDER
 	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = "plasma dart"
 
 /obj/item/ammo_casing/energy/weak_plasma
 	projectile_type = /obj/projectile/energy/weak_plasma
 	e_cost = 60 // With no charging, 500 damage from 25 shots.
-	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	muzzle_flash_color = LIGHT_COLOR_LAVENDER
 	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
 
 /obj/item/ammo_casing/energy/charged_plasma
 	projectile_type = /obj/projectile/energy/charged_plasma
 	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
-	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	muzzle_flash_color = LIGHT_COLOR_LAVENDER
 	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention
 	select_name = null
 
@@ -400,7 +393,7 @@
 
 /obj/item/ammo_casing/energy/bsg
 	projectile_type = /obj/projectile/energy/bsg
-	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	fire_sound = 'sound/weapons/wave.ogg'
@@ -417,15 +410,14 @@
 
 /obj/item/ammo_casing/energy/podsniper/disabler
 	projectile_type = /obj/projectile/beam/podsniper/disabler
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 	fire_sound = 'sound/weapons/LSR-39_disabler.ogg'
 	delay = 3 SECONDS
-	e_cost = 100
 	select_name = "disable"
 
 /obj/item/ammo_casing/energy/podsniper/laser
 	projectile_type = /obj/projectile/beam/podsniper/laser
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED
 	fire_sound = 'sound/weapons/LSR-39_kill.ogg'
 	delay = 3 SECONDS
 	e_cost = 150
@@ -433,7 +425,7 @@
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/projectile/energy/teleport
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 	fire_sound = 'sound/weapons/wave.ogg'
 	e_cost = 250
 	select_name = "teleport beam"
@@ -462,34 +454,32 @@
 
 /obj/item/ammo_casing/energy/dominator/stun
 	projectile_type = /obj/projectile/energy/electrode/dominator
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 	select_name = "taser"
 	fluff_select_name = "stun"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	e_cost = 250
-	delay = 15
+	delay = 2 SECONDS
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/dominator/paralyzer
 	projectile_type = /obj/projectile/beam/dominator/paralyzer
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 	select_name = "disable"
 	fluff_select_name  = "non-lethal paralyzer"
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
-	e_cost = 100
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/dominator/eliminator
 	projectile_type = /obj/projectile/beam/dominator/eliminator
-	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	select_name = "lethal"
 	fluff_select_name = "lethal-eliminator"
-	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	e_cost = 200
 
 /obj/item/ammo_casing/energy/dominator/slaughter
 	projectile_type = /obj/projectile/beam/dominator/slaughter
-	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	select_name = "destroy"
 	fluff_select_name  = "execution-slaughter"
 	fire_sound = 'sound/weapons/marauder.ogg'
@@ -516,7 +506,6 @@
 	fire_sound = 'sound/weapons/emitter.ogg'
 	select_name  = "emitter"
 	delay = 0.4
-	e_cost = 100
 	harmful = FALSE
 	projectile_type = /obj/projectile/beam/anomaly
 	muzzle_flash_color = LIGHT_COLOR_GREEN
@@ -527,4 +516,90 @@
 
 /obj/item/ammo_casing/energy/anomaly/destabilizer
 	projectile_type = /obj/projectile/beam/anomaly/destabilizer
-	muzzle_flash_color = LIGHT_COLOR_RED
+	muzzle_flash_color = COLOR_SOFT_RED
+
+/obj/item/ammo_casing/energy/specter/laser
+	caliber = CALIBER_SPECTER
+	materials = list(MAT_METAL = 1000)
+	projectile_type = /obj/projectile/beam/specter/laser
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_color = COLOR_SOFT_RED
+	select_name = "kill"
+	e_cost = 900
+	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
+
+/obj/item/ammo_casing/energy/specter/disable
+	caliber = CALIBER_SPECTER
+	materials = list(MAT_METAL = 800)
+	projectile_type = /obj/projectile/beam/specter/disabler
+	muzzle_flash_color = LIGHT_COLOR_BLUE
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
+	e_cost = 450
+	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
+
+/obj/item/ammo_casing/energy/rat
+	name = "mechanical energy module"
+	desc = "Несколько шестерней, запитывающих оружие энергией Ратвара."
+	caliber = "ratvar"
+	projectile_type = /obj/projectile/energy/rat
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	e_cost = 1
+
+/obj/item/ammo_casing/energy/rat/get_ru_names()
+	return list(
+		NOMINATIVE = "механическая энергоячейка",
+		GENITIVE = "механической энергоячейки",
+		DATIVE = "механической энергоячейке",
+		ACCUSATIVE = "механическую энергоячейку",
+		INSTRUMENTAL = "механичекой энергоячейкой",
+		PREPOSITIONAL = "механической энергоячейке"
+	)
+
+/obj/item/ammo_casing/energy/rat/slug
+	projectile_type = /obj/projectile/energy/rat/slug
+
+/obj/item/ammo_casing/energy/rat/slug/emp
+	projectile_type = /obj/projectile/energy/rat/slug/emp
+
+/obj/item/ammo_casing/energy/rat/slug/heal
+	projectile_type = /obj/projectile/energy/rat/slug/heal
+	fire_sound = 'sound/magic/staff_healing.ogg'
+
+/obj/item/ammo_casing/energy/rat/slug/stun
+	projectile_type = /obj/projectile/energy/rat/slug/stun
+	fire_sound =  'sound/weapons/gunshots/gunshot_mg.ogg'
+
+/obj/item/ammo_casing/energy/rat/snipe
+	projectile_type = /obj/projectile/energy/rat/snipe
+	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
+
+/obj/item/ammo_casing/energy/rat/snipe/emp
+	projectile_type = /obj/projectile/energy/rat/snipe/emp
+
+/obj/item/ammo_casing/energy/rat/snipe/heal
+	projectile_type = /obj/projectile/energy/rat/snipe/heal
+	fire_sound = 'sound/magic/staff_healing.ogg'
+
+/obj/item/ammo_casing/energy/rat/snipe/stun
+	projectile_type = /obj/projectile/energy/rat/snipe/stun
+	fire_sound =  'sound/weapons/gunshots/gunshot_mg.ogg'
+
+/obj/item/ammo_casing/energy/laser/light/rat
+	projectile_type = /obj/projectile/beam/laser/light/rat
+	e_cost = 1
+	color = COLOR_TANGERINE_YELLOW
+	muzzle_flash_color = COLOR_TANGERINE_YELLOW
+
+/obj/item/ammo_casing/energy/rat_sphere
+	projectile_type = /obj/projectile/energy/sphere
+	e_cost = 0
+	color = COLOR_YELLOW
+
+/obj/item/ammo_casing/energy/rat_sphere/attack
+	projectile_type = /obj/projectile/energy/sphere/attack
+	muzzle_flash_color = COLOR_DARK_MODERATE_ORANGE
+
+/obj/item/ammo_casing/energy/rat_sphere/heal
+	projectile_type = /obj/projectile/energy/sphere/heal
+	muzzle_flash_color = LIGHT_COLOR_VIVID_GREEN

@@ -7,14 +7,6 @@
 /obj/machinery/sleeper
 	name = "Sleeper"
 	desc = "Медицинское устройство, предназначеное для стабилизации пациентов. Позволяет вводить ограниченный набор веществ в организм субъекта."
-	ru_names = list(
-		NOMINATIVE = "слипер",
-		GENITIVE = "слипера",
-		DATIVE = "слиперу",
-		ACCUSATIVE = "слипер",
-		INSTRUMENTAL = "слипером",
-		PREPOSITIONAL = "слипере"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
@@ -38,9 +30,19 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
+/obj/machinery/sleeper/get_ru_names()
+	return list(
+		NOMINATIVE = "слипер",
+		GENITIVE = "слипера",
+		DATIVE = "слиперу",
+		ACCUSATIVE = "слипер",
+		INSTRUMENTAL = "слипером",
+		PREPOSITIONAL = "слипере"
+	)
 
-/obj/machinery/sleeper/New()
-	..()
+
+/obj/machinery/sleeper/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -50,8 +52,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/sleeper/upgraded/New()
-	..()
+/obj/machinery/sleeper/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -99,7 +101,7 @@
 	. = ..()
 	if(occupant)
 		if(occupant.is_dead())
-			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
+			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [GEND_HE_SHE_CAP(occupant)] мертв[GEND_A_O_Y(occupant)]!")
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
@@ -259,7 +261,7 @@
 			if(crisis && !(temp.id in emergency_chems))
 				injectable = 0
 
-			if(occupant && occupant.reagents)
+			if(occupant?.reagents)
 				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
 				// If they're mashing the highest concentration, they get one warning
 				if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
@@ -330,7 +332,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -353,10 +355,10 @@
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
 
-	visible_message("[grabber] начина[pluralize_ru(grabber.gender,"ет","ют")] укладывать [target] в [declent_ru(ACCUSATIVE)].")
+	visible_message("[grabber] начина[PLUR_ET_YUT(grabber)] укладывать [target] в [declent_ru(ACCUSATIVE)].")
 	if(!do_after(grabber, 2 SECONDS, target) || panel_open || !target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
 		return .
 
@@ -394,12 +396,12 @@
 	setDir(turn(dir, -90))
 
 
-/obj/machinery/sleeper/ex_act(severity)
+/obj/machinery/sleeper/ex_act(severity, target)
 	if(filtering)
 		toggle_filter()
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/sleeper/handle_atom_del(atom/A)
 	..()
@@ -534,12 +536,12 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return TRUE
 	if(L == user)
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [L.name] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [L.name] в [declent_ru(ACCUSATIVE)].")
 	. = TRUE
 	INVOKE_ASYNC(src, PROC_REF(put_in), L, user)
 
@@ -580,7 +582,7 @@
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
 		return
-	visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+	visible_message("[usr] начина[PLUR_ET_YUT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
 	put_in(usr, usr)
 
 
@@ -591,10 +593,10 @@
 	emergency_chems = list("epinephrine")
 	controls_inside = TRUE
 
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = COLOR_SOFT_RED
 
-/obj/machinery/sleeper/syndie/New()
-	..()
+/obj/machinery/sleeper/syndie/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/syndicate(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

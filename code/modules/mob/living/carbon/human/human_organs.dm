@@ -1,10 +1,3 @@
-/mob/living/carbon/human
-	/// All external organs in src.
-	var/list/bodyparts = list()
-	/// Map organ zones to external organs.
-	var/list/bodyparts_by_name = list()
-
-
 /mob/living/carbon/human/proc/update_eyes(update_body = TRUE)
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
@@ -54,15 +47,15 @@
 				if(!drop_item_ground(r_hand))
 					continue
 
-			var/emote_scream = pick("крич[pluralize_ru(gender,"ит","ат")] от боли и ", "изда[pluralize_ru(gender,"ёт","ют")] резкий крик и ", "вскрикива[pluralize_ru(gender,"ет","ют")] и ")
+			var/emote_scream = pick("крич[PLUR_IT_AT(src)] от боли и ", "изда[PLUR_YOT_YUT(src)] резкий крик и ", "вскрикива[PLUR_ET_YUT(src)] и ")
 			if(!bodypart.properly_attached && has_pain())
 				visible_message(
-					span_warning("[src] [emote_scream]броса[pluralize_ru(gender,"ет","ют")] предмет, который держал[genderize_ru(gender,"","а","о","и")] в [bodypart.declent_ru(PREPOSITIONAL)]!"),
+					span_warning("[src] [emote_scream]броса[PLUR_ET_YUT(src)] предмет, который держал[GEND_A_O_I(src)] в [bodypart.declent_ru(PREPOSITIONAL)]!"),
 					span_userdanger("Вы чувствуете острую боль, пронизывающую [bodypart.name], которая лишь немного прикреплена к [bodypart.amputation_point], вам нужно прикрепить [bodypart.declent_ru(GENITIVE)] хирургическим путем, прежде чем вы сможете что-либо держать!")
 				)
 				continue
 
-			custom_emote(EMOTE_VISIBLE, "[(has_pain()) ? emote_scream :  "" ]броса[pluralize_ru(gender,"ет","ют")] предмет, который держал[genderize_ru(gender,"","а","о","и")] в [bodypart.declent_ru(PREPOSITIONAL)]!")
+			custom_emote(EMOTE_VISIBLE, "[(has_pain()) ? emote_scream :  "" ]броса[PLUR_ET_YUT(src)] предмет, который держал[GEND_A_O_I(src)] в [bodypart.declent_ru(PREPOSITIONAL)]!")
 
 		else if(bodypart.is_malfunctioning())
 
@@ -77,7 +70,7 @@
 				if(!drop_item_ground(r_hand))
 					continue
 
-			custom_emote(EMOTE_VISIBLE, "броса[pluralize_ru(gender,"ет","ют")] предмет, который держал[genderize_ru(gender,"","а","о","и")] держали, [genderize_ru(gender,"его","её","его","их")] [bodypart.declent_ru(NOMINATIVE)] выход[pluralize_ru(bodypart.gender,"ит","ят")] из строя!")
+			custom_emote(EMOTE_VISIBLE, "броса[PLUR_ET_YUT(src)] предмет, который держал[GEND_A_O_I(src)], [GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] выход[PLUR_IT_YAT(bodypart)] из строя!")
 
 			do_sparks(5, FALSE, src)
 

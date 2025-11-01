@@ -16,7 +16,14 @@
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"
 	desc = "Серые беспалые перчатки, сделанные из шкуры мёртвого паукообразного, найденного на Лазисе. Лёгкие и удобные, они позволяют владельцу драться эффективнее в рукопашном бою."
-	ru_names = list(
+	icon_state = "weaver_chitin"
+	item_state = "weaver_chitin"
+	extra_knock_chance = 20
+	var/stamdamage_low = 10
+	var/stamdamage_high = 15
+
+/obj/item/clothing/gloves/fingerless/weaver/get_ru_names()
+	return list(
 		NOMINATIVE = "перчатки из хитина ткача",
 		GENITIVE = "перчаток из хитина ткача",
 		DATIVE = "перчаткам из хитина ткача",
@@ -24,11 +31,6 @@
 		INSTRUMENTAL = "перчатками из хитина ткача",
 		PREPOSITIONAL = "перчатках из хитина ткача"
 	)
-	icon_state = "weaver_chitin"
-	item_state = "weaver_chitin"
-	extra_knock_chance = 20
-	var/stamdamage_low = 10
-	var/stamdamage_high = 15
 
 /obj/item/clothing/gloves/fingerless/weaver/Touch(atom/A, proximity)
 	. = FALSE
@@ -51,7 +53,7 @@
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		add_attack_logs(user, target, "Melee attacked with weaver gloves")
 
-		target.visible_message(span_danger("[user] сокруша[pluralize_ru(user.gender, "ет", "ют")] [target] [declent_ru(INSTRUMENTAL)]!"))
+		target.visible_message(span_danger("[user] сокруша[PLUR_ET_YUT(user)] [target] [declent_ru(INSTRUMENTAL)]!"))
 
 		target.apply_damage(damage, BRUTE, affecting)
 		target.apply_damage(stamindamage, STAMINA, affecting)
@@ -69,7 +71,6 @@
 	desc = "These high-tech gloves don't leave any material traces on objects they touch. Perfect for leaving crime scenes undisturbed...both before and after the crime."
 	icon_state = "forensics"
 	can_leave_fibers = FALSE
-	transfer_prints = FALSE
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
@@ -84,7 +85,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 25, "bullet" = 5, "laser" = 5, "energy" = 10, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 70)
+	armor = list(MELEE = 25, BULLET = 5, LASER = 5, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 70)
 
 /obj/item/clothing/gloves/combat/riot
 	name = "riot gloves"
@@ -104,14 +105,6 @@
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
 	desc = "На случай, если вы ожидаете удара в руку. Обеспечивает достаточную защиту для ваших рук."
-	ru_names = list(
-		NOMINATIVE = "костяные наручи",
-		GENITIVE = "костяных наручей",
-		DATIVE = "костяным наручам",
-		ACCUSATIVE = "костяные наручи",
-		INSTRUMENTAL = "костяными наручами",
-		PREPOSITIONAL = "костяных наручах"
-	)
 	icon_state = "bracers"
 	item_state = "bracers"
 	item_color = null	//So they don't wash.
@@ -122,7 +115,17 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 25, "bullet" = 30, "laser" = 20, "energy" = 25, "bomb" = 35, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 25, BULLET = 30, LASER = 20, ENERGY = 25, BOMB = 35, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+
+/obj/item/clothing/gloves/bracer/get_ru_names()
+	return list(
+		NOMINATIVE = "костяные наручи",
+		GENITIVE = "костяных наручей",
+		DATIVE = "костяным наручам",
+		ACCUSATIVE = "костяные наручи",
+		INSTRUMENTAL = "костяными наручами",
+		PREPOSITIONAL = "костяных наручах"
+	)
 
 /obj/item/clothing/gloves/botanic_leather
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
@@ -135,14 +138,14 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
 
 /obj/item/clothing/gloves/batmangloves
 	desc = "Used for handling all things bat related."
 	name = "batgloves"
 	icon_state = "bmgloves"
 	item_state = "bmgloves"
-	item_color="bmgloves"
+	item_color = "bmgloves"
 
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
@@ -159,7 +162,12 @@
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
 	desc = "Эти перчатки не защитят ваших врагов от электрического удара."
-	ru_names = list(
+	var/obj/item/stock_parts/cell/cell = null
+	var/stun_strength = 2 SECONDS
+	var/stun_cost = 1500
+
+/obj/item/clothing/gloves/color/yellow/stun/get_ru_names()
+	return list(
 		NOMINATIVE = "оглушающие перчатки",
 		GENITIVE = "оглушающих перчаток",
 		DATIVE = "оглушающим перчаткам",
@@ -167,10 +175,6 @@
 		INSTRUMENTAL = "оглушающими перчатками",
 		PREPOSITIONAL = "оглушающих перчатках"
 	)
-	gender = PLURAL
-	var/obj/item/stock_parts/cell/cell = null
-	var/stun_strength = 2 SECONDS
-	var/stun_cost = 1500
 
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
 	return cell
@@ -195,10 +199,10 @@
 		if(H.a_intent == INTENT_HARM)
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
-				do_sparks(5, 0, loc)
+				do_sparks(5, FALSE, loc)
 				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
-				visible_message(span_danger("[H] дотрагива[pluralize_ru(H.gender, "ет", "ют")]ся [declent_ru(INSTRUMENTAL)] до [C]!"))
+				visible_message(span_danger("[H] дотрагива[PLUR_ET_YUT(H)]ся [declent_ru(INSTRUMENTAL)] до [C]!"))
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
@@ -339,10 +343,10 @@
 		var/mob/living/carbon/human/target = A
 		add_attack_logs(user, target, "Melee attacked with razor gloves")
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/armor_block = target.run_armor_check(affecting, "melee")
+		var/armor_block = target.run_armor_check(affecting, MELEE)
 		playsound(target.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 
-		target.visible_message("<span class='danger'>[user] cuts [target] with razor gloves!</span>")
+		target.visible_message(span_danger("[user] cuts [target] with razor gloves!"))
 
 		var/all_objectives = user?.mind?.get_all_objectives()
 		if(target.mind && all_objectives)
@@ -357,7 +361,7 @@
 		user.do_attack_animation(A, "claw")
 		var/mob/living/living = A
 		playsound(living.loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
-		living.visible_message("<span class='danger'>[user] cuts [living] with razor gloves!</span>")
+		living.visible_message(span_danger("[user] cuts [living] with razor gloves!"))
 		living.apply_damage(damage, BRUTE)
 		return TRUE
 
@@ -365,8 +369,8 @@
 		var/obj/obj = A
 		user.do_attack_animation(A, "claw")
 		user.changeNext_move(CLICK_CD_MELEE)
-		user.visible_message("<span class='danger'>[user] has hit [obj] with razor gloves!</span>", "<span class='danger'>You hit [obj] with razor gloves!</span>")
-		obj.take_damage(damage, BRUTE, "melee", 1, get_dir(src, user))
+		user.visible_message(span_danger("[user] has hit [obj] with razor gloves!"), span_danger("You hit [obj] with razor gloves!"))
+		obj.take_damage(damage, BRUTE, MELEE, 1, get_dir(src, user))
 		return TRUE
 
 /obj/item/clothing/gloves/knuckles
@@ -374,12 +378,11 @@
 	desc = "The choice of the professional to beat the shit out of some jerk!"
 	icon_state = "knuckles"
 	item_state = "knuckles"
-	sharp = FALSE
 	extra_knock_chance = 15 //20% overall
 	var/knuckle_damage = 5 //additional fists damage
 	var/knock_damage_low = 5 // stamina damage
 	var/knock_damage_high = 10 // min and max
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi')
@@ -406,7 +409,7 @@
 		add_attack_logs(user, target, "Melee attacked with knuckles")
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 
-		target.visible_message("<span class='danger'>[user] smash [target] with knuckles!</span>")
+		target.visible_message(span_danger("[user] smash [target] with knuckles!"))
 
 		var/all_objectives = user?.mind?.get_all_objectives()
 		if(target.mind && all_objectives)
@@ -422,7 +425,7 @@
 		var/mob/living/living = A
 		user.do_attack_animation(A, "kick")
 		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		living.visible_message("<span class='danger'>[user] smash [living] with knuckles!</span>")
+		living.visible_message(span_danger("[user] smash [living] with knuckles!"))
 		living.apply_damage(damage, BRUTE)
 		return TRUE
 
@@ -430,8 +433,8 @@
 		var/obj/obj = A
 		user.do_attack_animation(A, "kick")
 		user.changeNext_move(CLICK_CD_MELEE)
-		user.visible_message("<span class='danger'>[user] has hit [obj] with knuckles!</span>", "<span class='danger'>You hit [obj] with knuckles!</span>")
-		obj.take_damage(knobj_damage, BRUTE, "melee", 1, get_dir(src, user))
+		user.visible_message(span_danger("[user] has hit [obj] with knuckles!"), span_danger("You hit [obj] with knuckles!"))
+		obj.take_damage(knobj_damage, BRUTE, MELEE, 1, get_dir(src, user))
 		return TRUE
 
 /obj/item/clothing/gloves/brown_short_gloves
@@ -455,7 +458,7 @@
 	name = "SWAT gloves"
 	icon_state = "swat_gloves"
 	item_state = "nt_swat_gl"
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 75)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -477,17 +480,9 @@
 /obj/item/clothing/gloves/reflector
 	name = "reflector gloves"
 	desc = "Высокотехнологичные перчатки, изготовленные из светоотражающего материала, предназначены для отражения энергетических лучей. Носить их — настоящее испытание для рук!"
-	ru_names = list(
-		NOMINATIVE = "рефлекторные перчатки",
-		GENITIVE = "рефлекторных перчаток",
-		DATIVE = "рефлекторнным перчаткам",
-		ACCUSATIVE = "рефлекторнные перчатки",
-		INSTRUMENTAL = "рефлекторными перчатками",
-		PREPOSITIONAL = "рефлекторных перчатках"
-	)
 	icon_state = "reflector"
 	item_state = "reflector"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -502,6 +497,16 @@
 	var/list/reflect_zones = list(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 	var/hit_reflect_chance = 50
 
+/obj/item/clothing/gloves/reflector/get_ru_names()
+	return list(
+		NOMINATIVE = "рефлекторные перчатки",
+		GENITIVE = "рефлекторных перчаток",
+		DATIVE = "рефлекторнным перчаткам",
+		ACCUSATIVE = "рефлекторнные перчатки",
+		INSTRUMENTAL = "рефлекторными перчатками",
+		PREPOSITIONAL = "рефлекторных перчатках"
+	)
+
 /obj/item/clothing/gloves/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))
 		return FALSE
@@ -511,20 +516,12 @@
 /obj/item/clothing/head/helmet/reflector
 	name = "reflector hat"
 	desc = "Высокотехнологичная шляпа, изготовленная из светоотражающего материала, предназначена для отражения энергетических лучей. В неё встроен защитный визор, который обладает повышенной устойчивостью к кислотам."
-	ru_names = list(
-		NOMINATIVE = "рефлекторная шляпа",
-		GENITIVE = "рефлекторную шляпу",
-		DATIVE = "рефлекторной шляпе",
-		ACCUSATIVE = "рефлекторную шляпу",
-		INSTRUMENTAL = "рефлекторной шляпой",
-		PREPOSITIONAL = "рефлекторной шляпе"
-	)
 	icon_state = "reflector"
 	item_state = "reflector"
 	flags_inv = HIDEHEADSETS
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	dog_fashion = null
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 60, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 100)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 60, ENERGY = 60, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
@@ -545,6 +542,16 @@
 	var/list/reflect_zones = list(BODY_ZONE_HEAD)
 	var/hit_reflect_chance = 50
 
+/obj/item/clothing/head/helmet/reflector/get_ru_names()
+	return list(
+		NOMINATIVE = "рефлекторная шляпа",
+		GENITIVE = "рефлекторную шляпу",
+		DATIVE = "рефлекторной шляпе",
+		ACCUSATIVE = "рефлекторную шляпу",
+		INSTRUMENTAL = "рефлекторной шляпой",
+		PREPOSITIONAL = "рефлекторной шляпе"
+	)
+
 /obj/item/clothing/head/helmet/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))
 		return FALSE
@@ -554,17 +561,9 @@
 /obj/item/clothing/shoes/reflector
 	name = "reflector boots"
 	desc = "Высокотехнологичные ботинки, изготовленные из светоотражающего материала, предназначены для отражения энергетических лучей. Довольно лёгкая, но не очень удобная обувь."
-	ru_names = list(
-		NOMINATIVE = "рефлекторные ботинки",
-		GENITIVE = "рефлекторных ботинок",
-		DATIVE = "рефлекторным ботинкам",
-		ACCUSATIVE = "рефлекторные ботинки",
-		INSTRUMENTAL = "рефлекторными ботинками",
-		PREPOSITIONAL = "рефлекторных ботинках"
-	)
 	icon_state = "reflector"
 	item_state = "reflector"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
@@ -581,6 +580,16 @@
 		)
 	var/list/reflect_zones = list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	var/hit_reflect_chance = 50
+
+/obj/item/clothing/shoes/reflector/get_ru_names()
+	return list(
+		NOMINATIVE = "рефлекторные ботинки",
+		GENITIVE = "рефлекторных ботинок",
+		DATIVE = "рефлекторным ботинкам",
+		ACCUSATIVE = "рефлекторные ботинки",
+		INSTRUMENTAL = "рефлекторными ботинками",
+		PREPOSITIONAL = "рефлекторных ботинках"
+	)
 
 /obj/item/clothing/shoes/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))

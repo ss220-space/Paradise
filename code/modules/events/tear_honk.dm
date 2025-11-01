@@ -1,28 +1,39 @@
 /datum/event/tear/honk
-	var/obj/effect/tear/honk/HE //i could just inherit but its being finicky.
+	name = "honkmensional tear"
+	notify_title = "Хонкомысленный разрыв"
+	notify_image = "clowngoblin"
+
+	var/obj/effect/tear/honk/HE
+
+/datum/event/tear/honk/spawn_tear(location)
+	HE = new /obj/effect/tear/honk(location)
 
 /datum/event/tear/honk/announce()
-	GLOB.minor_announcement.announce("На борту станции зафиксирована Хонканомалия. Предполагаемая локация: [impact_area.name].",
-									"Хонканомалия.",
-									'sound/items/airhorn.ogg'
+	GLOB.minor_announcement.announce(
+		message = "На борту станции зафиксирована Хонканомалия. Предполагаемая локация: [impact_area.name].",
+		new_title = ANNOUNCE_HONKANOMALY_RU,
+		new_sound = 'sound/items/airhorn.ogg'
 	)
-
-/datum/event/tear/honk/start()
-	var/turf/T = pick(get_area_turfs(impact_area))
-	if(T)
-		HE = new /obj/effect/tear/honk(T.loc)
 
 /datum/event/tear/honk/end()
 	if(HE)
 		qdel(HE)
 
 /obj/effect/tear/honk
-	name = "Honkmensional Tear"
-	desc = "A tear in the dimensional fabric of sanity."
+	name = "honkmensional tear"
+	desc = "Пространственно-здравомысленный разрыв."
+	leader = /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne
+	possible_mobs = list(
+		/mob/living/simple_animal/hostile/retaliate/clown,
+		/mob/living/simple_animal/hostile/retaliate/clown/goblin
+	)
 
-/obj/effect/tear/honk/spew_critters()
-	for(var/i in 1 to 6)
-		var/mob/living/simple_animal/hostile/retaliate/clown/goblin/G = new(get_turf(src))
-		if(prob(50))
-			for(var/j = 1, j <= rand(1, 3), j++)
-				step(G, pick(NORTH, SOUTH, EAST, WEST))
+/obj/effect/tear/honk/get_ru_names()
+	return list(
+		NOMINATIVE = "хонкомысленный разрыв",
+		GENITIVE = "хонкомысленного разрыва",
+		DATIVE = "хонкомысленному разрыву",
+		ACCUSATIVE = "хонкомысленный разрыв",
+		INSTRUMENTAL = "хонкомысленным разрывом",
+		PREPOSITIONAL = "хонкомысленном разрыве"
+	)

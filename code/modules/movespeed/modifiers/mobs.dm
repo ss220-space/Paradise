@@ -5,6 +5,7 @@
 
 
 /datum/movespeed_modifier/config_walk_run/proc/sync()
+	return
 
 
 /datum/movespeed_modifier/config_walk_run/walk/sync()
@@ -229,13 +230,30 @@
 	multiplicative_slowdown = HUMAN_CARRY_SLOWDOWN
 	blacklisted_movetypes = FLOATING
 
+/datum/movespeed_modifier/sight_mode
+	multiplicative_slowdown = 1.5
+	blacklisted_movetypes = FLOATING
+
+/datum/movespeed_modifier/sight_mode/New(slowdown = 1.5)
+	. = ..()
+	multiplicative_slowdown = slowdown
+
+
 /datum/movespeed_modifier/temperature
 	variable = TRUE
 	movetypes = GROUND
 	blacklisted_movetypes = (FLYING)
 
+
 /datum/movespeed_modifier/temperature/cold
 	multiplicative_slowdown = -0.2
 
+
 /datum/movespeed_modifier/temperature/hot
 	multiplicative_slowdown = 0.5
+
+
+/datum/movespeed_modifier/afterswing_slowdown
+	variable = TRUE
+	movetypes = GROUND
+	blacklisted_movetypes = (FLOATING|FLYING)

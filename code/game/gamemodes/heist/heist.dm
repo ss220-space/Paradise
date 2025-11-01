@@ -4,10 +4,6 @@ VOX HEIST ROUNDTYPE
 GLOBAL_LIST_EMPTY(raider_spawn)
 GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
 
-/datum/game_mode
-	var/list/datum/mind/raiders = list()  //Antags.
-	var/list/raid_objectives = list()     //Raid objectives
-
 /datum/game_mode/heist
 	name = "heist"
 	config_tag = "heist"
@@ -33,9 +29,9 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	var/raider_num = 0
 
 	//Check that we have enough vox.
-	if(candidates.len < required_enemies)
+	if(length(candidates) < required_enemies)
 		return FALSE
-	else if(candidates.len < recommended_enemies)
+	else if(length(candidates) < recommended_enemies)
 		raider_num = candidates.len
 	else
 		raider_num = recommended_enemies
@@ -65,7 +61,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	//Spawn the vox!
 	for(var/datum/mind/raider in raiders)
 
-		if(index > GLOB.raider_spawn.len)
+		if(index > length(GLOB.raider_spawn))
 			index = 1
 
 		raider.current.loc = GLOB.raider_spawn[index]
@@ -79,7 +75,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 	return ..()
 
-/datum/game_mode/proc/create_vox(var/datum/mind/newraider)
+/datum/game_mode/proc/create_vox(datum/mind/newraider)
 
 	var/sounds = rand(2,8)
 	var/i = 0
@@ -129,7 +125,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	vox.regenerate_icons()
 
 /datum/game_mode/proc/is_raider_crew_safe()
-	if(GLOB.cortical_stacks.len == 0)
+	if(length(GLOB.cortical_stacks) == 0)
 		return 0
 
 	for(var/obj/stack in GLOB.cortical_stacks)
@@ -167,7 +163,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	objs += new /datum/objective/heist/inviolate_death
 	return objs
 
-/datum/game_mode/proc/greet_vox(var/datum/mind/raider)
+/datum/game_mode/proc/greet_vox(datum/mind/raider)
 	to_chat(raider.current, span_boldnotice("You are a Vox Raider, fresh from the Shoal!"))
 	to_chat(raider.current, span_notice("The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both."))
 	to_chat(raider.current, span_notice("Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious."))
@@ -178,7 +174,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /datum/game_mode/heist/declare_completion()
 	//No objectives, go straight to the feedback.
-	if(!(raid_objectives.len)) return ..()
+	if(!(length(raid_objectives))) return ..()
 
 	var/win_type = "Major"
 	var/win_group = "Crew"
@@ -191,7 +187,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		if(!(O.check_completion())) success--
 
 	//Set result by objectives.
-	if(success == raid_objectives.len)
+	if(success == length(raid_objectives))
 		win_type = "Major"
 		win_group = "Vox"
 	else if(success > 2)
@@ -243,7 +239,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	..()
 
 /datum/game_mode/proc/auto_declare_completion_heist()
-	if(raiders.len)
+	if(length(raiders))
 		var/check_return = 0
 		if(GAMEMODE_IS_HEIST)
 			check_return = 1
@@ -291,7 +287,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)
 	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round
-		to_chat(user, "<span class='warning'>\The [src] does not appear to have a connection.</span>")
+		to_chat(user, span_warning("\The [src] does not appear to have a connection."))
 		return 0
 
 	if(alert(user, "Warning: This will end the round. Are you sure you wish to end the round?", "Vox End", "Yes", "No") == "No")

@@ -1,17 +1,5 @@
-/datum/game_mode
-	/// A list of all demon minds spawned via event or wizard artefact.
-	var/list/datum/mind/demons = list()
-
 /mob/living/simple_animal/demon
 	name = "a generic demon"
-	ru_names = list(
-		NOMINATIVE = "обычный демон",
-		GENITIVE = "обычного демона",
-		DATIVE = "обычному демону",
-		ACCUSATIVE = "обычного демона",
-		INSTRUMENTAL = "обычным демоном",
-		PREPOSITIONAL = "обычном демоне"
-	)
 	desc = "Если вы это видите, составьте баг-репорт в Discord."
 	speak_emote = list("клокочет", "урчит", "булькает")
 	emote_hear = list("визжит", "воет")
@@ -19,10 +7,8 @@
 	response_help  = "решает не трогать"
 	response_disarm = "машет в сторону"
 	response_harm   = "бьёт"
-	speed = 1
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
-	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -43,6 +29,15 @@
 	var/playstyle_string
 	var/datum/action/innate/demon/whisper/whisper_action
 
+/mob/living/simple_animal/demon/get_ru_names()
+	return list(
+		NOMINATIVE = "обычный демон",
+		GENITIVE = "обычного демона",
+		DATIVE = "обычному демону",
+		ACCUSATIVE = "обычного демона",
+		INSTRUMENTAL = "обычным демоном",
+		PREPOSITIONAL = "обычном демоне"
+	)
 
 /mob/living/simple_animal/demon/Initialize(mapload)
 	. = ..()
@@ -75,7 +70,7 @@
 /datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
 	var/list/validtargets = list()
 	for(var/mob/living/target in (view(user.client.view, get_turf(user)) - user))
-		if(target && target.mind && target.stat != DEAD)
+		if(target?.mind && target.stat != DEAD)
 			validtargets += target
 
 	if(!length(validtargets))
@@ -104,7 +99,12 @@
 
 /obj/item/organ/internal/heart/demon
 	name = "demon heart"
-	ru_names = list(
+	desc = "Оно всё ещё яростно бьётся, излучая ауру абсолютной ненависти."
+	icon_state = "demon_heart"
+	origin_tech = "combat=5;biotech=7"
+
+/obj/item/organ/internal/heart/demon/get_ru_names()
+	return list(
 		NOMINATIVE = "демоническое сердце",
 		GENITIVE = "демонического сердца",
 		DATIVE = "демоническому сердцу",
@@ -112,10 +112,6 @@
 		INSTRUMENTAL = "демоническим сердцем",
 		PREPOSITIONAL = "демоническом сердце"
 	)
-	desc = "Оно всё ещё яростно бьётся, излучая ауру абсолютной ненависти."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "demon_heart"
-	origin_tech = "combat=5;biotech=7"
 
 
 /obj/item/organ/internal/heart/demon/update_icon_state()
@@ -131,8 +127,10 @@
 
 
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
-	user.visible_message(span_warning("[user] поднимает [declent_ru(ACCUSATIVE)] ко рту и вгрызается в него зубами!"), \
-						 span_danger("Неестественный голод охватывает вас. Вы поднимаете [declent_ru(ACCUSATIVE)] ко рту и пожираете его!"))
+	user.visible_message(
+		span_warning("[user] поднимает [declent_ru(ACCUSATIVE)] ко рту и вгрызается в него зубами!"), \
+		span_danger("Неестественный голод охватывает вас. Вы поднимаете [declent_ru(ACCUSATIVE)] ко рту и пожираете его!")
+	)
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 
 

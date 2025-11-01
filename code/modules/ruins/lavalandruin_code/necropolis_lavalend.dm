@@ -8,8 +8,8 @@
 	icon = 'icons/misc/Testing/turf_analysis.dmi'
 	icon_state = "arrow"
 
-/obj/effect/landmark/map_loader/lavaland_room/Initialize()
-	..()
+/obj/effect/landmark/map_loader/lavaland_room/Initialize(mapload)
+	. = ..()
 	// load and randomly assign rooms
 	var/global/list/south_necropolisroom_templates = list()
 	var/global/list/north_necropolisroom_templates = list()
@@ -82,10 +82,10 @@
 	switch(animation)
 		if("opening")
 			flick("necropening", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 		if("closing")
 			flick("necrclosing", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/update_icon_state()
 	if(density)
@@ -95,10 +95,10 @@
 	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/try_to_activate_door(mob/user)
- 	return
+	return
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/try_to_crowbar(mob/user, obj/item/I)
-		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
 /mob/living/simple_animal/hostile/megafauna/legion/proc/UnlockBlastDoors(target_id_tag)
 	for(var/obj/machinery/door/poddoor/impassable/necropolisdoor/P in GLOB.airlocks)
@@ -152,10 +152,10 @@
 	switch(animation)
 		if("opening")
 			flick("blocked_passage", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 		if("closing")
 			flick("blocked_passage", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor/update_icon_state()
 	if(density)

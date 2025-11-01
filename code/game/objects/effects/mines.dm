@@ -1,8 +1,6 @@
 /obj/effect/mine
 	name = "dummy mine"
 	desc = "I Better stay away from that thing."
-	density = FALSE
-	anchored = TRUE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
 	var/triggered = 0
@@ -39,13 +37,13 @@
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
 		return
-	visible_message(span_danger("[victim] sets off [bicon(src)] [src]!"))
-	do_sparks(3, 1, src)
+	visible_message(span_danger("[victim] sets off [icon2html(src, viewers(src))] [src]!"))
+	do_sparks(3, TRUE, src)
 	mineEffect(victim)
 	triggered = 1
 	qdel(src)
 
-/obj/effect/mine/ex_act(severity)
+/obj/effect/mine/ex_act(severity, target)
 	// Necessary because, as effects, they have infinite health, and wouldn't be destroyed otherwise.
 	// Also, they're pressure-sensitive mines, it makes sense that an explosion (wave of pressure) triggers/destroys them.
 	qdel(src)
@@ -59,7 +57,7 @@
 
 /obj/effect/mine/explosive/mineEffect(mob/living/victim)
 	add_attack_logs(victim, src, "Stepped on")
-	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
+	explosion(loc, devastation_range = range_devastation, heavy_impact_range = range_heavy, light_impact_range = range_light, flash_range = range_flash)
 
 /obj/effect/mine/stun
 	name = "stun mine"
@@ -76,7 +74,7 @@
 	var/area/syndicate_depot/core/depotarea = get_area(src)
 	if(istype(depotarea))
 		if(depotarea.mine_triggered(victim))
-			explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched
+			explosion(loc, devastation_range = 1, heavy_impact_range = 0, light_impact_range = 0, flash_range = 1) // devastate the tile you are on, but leave everything else untouched
 
 /obj/effect/mine/dnascramble
 	name = "Radiation Mine"
@@ -121,7 +119,6 @@
 	desc = "pick me up"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
-	density = FALSE
 	var/duration = 0
 
 /obj/effect/mine/pickup/New()
@@ -154,7 +151,7 @@
 	spawn(0)
 		new /obj/effect/hallucination/delusion(victim.loc, victim, force_kind = "demon", duration = duration, skip_nearby = 0)
 
-	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw = new(victim.loc)
+	var/obj/item/twohanded/chainsaw_handmade/doomslayer/chainsaw = new(victim.loc)
 	ADD_TRAIT(chainsaw, TRAIT_NODROP, CURSED_ITEM_TRAIT(chainsaw.type))
 	chainsaw.item_flags |= DROPDEL
 	victim.drop_l_hand()

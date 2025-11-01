@@ -6,7 +6,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/meat
 	name = "meatbread loaf"
 	desc = "The culinary base of every self-respecting eloquen/tg/entleman."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "meatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/meatbreadslice
 	slices_num = 5
@@ -27,7 +26,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/xeno
 	name = "xenomeatbread loaf"
 	desc = "The culinary base of every self-respecting eloquent gentleman. Extra Heretical."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "xenomeatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
 	slices_num = 5
@@ -48,7 +46,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/spider
 	name = "spider meat loaf"
 	desc = "Reassuringly green meatloaf made from spider meat."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "spidermeatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	slices_num = 5
@@ -68,7 +65,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/banana
 	name = "banana-nut bread"
 	desc = "A heavenly and filling treat."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bananabread"
 	slice_path = /obj/item/reagent_containers/food/snacks/bananabreadslice
 	slices_num = 5
@@ -90,7 +86,6 @@
 /obj/item/reagent_containers/food/snacks/sliceable/bread/tofu
 	name = "tofubread"
 	icon_state = "Like meatbread but for vegetarians. Not guaranteed to give superpowers."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "tofubread"
 	slice_path = /obj/item/reagent_containers/food/snacks/tofubreadslice
 	slices_num = 5
@@ -137,13 +132,43 @@
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
 
+
+/obj/item/reagent_containers/food/snacks/breadslice/stale
+	name = "stale bread"
+	desc = "Похоже, ваши похитители позаботились о вашем питании."
+	gender = MALE
+	trash = null
+	list_reagents = list("nutriment" = 7, "bread" = 5)
+
+/obj/item/reagent_containers/food/snacks/breadslice/stale/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрствый хлеб",
+		GENITIVE = "чёрствого хлеба",
+		DATIVE = "чёрствому хлебу",
+		ACCUSATIVE = "чёрствый хлеб",
+		INSTRUMENTAL = "чёрствым хлебом",
+		PREPOSITIONAL = "чёрством хлебе"
+	)
+
+/obj/item/reagent_containers/food/snacks/breadslice/moldy
+	name = "moldy bread"
+	gender = MALE
+	trash = null
+	list_reagents = list("nutriment" = 2, "bread" = 5, "fungus" = 1)
+
+/obj/item/reagent_containers/food/snacks/breadslice/moldy/get_ru_names()
+	return list(
+			NOMINATIVE = "заплесневелый хлеб",
+			GENITIVE = "заплесневелого хлеба",
+			DATIVE = "заплесневелому хлебу",
+			ACCUSATIVE = "заплесневелый хлеб",
+			INSTRUMENTAL = "заплесневелым хлебом",
+			PREPOSITIONAL = "заплесневелом хлебе"
+		)
+
 /obj/item/reagent_containers/food/snacks/breadslice/burned
 	name = "burned bread slice"
 	desc = "A slice of slightly burned bread. Probably it's not the best idea to eat this..."
-	w_class = WEIGHT_CLASS_SMALL
-	icon_state = "breadslice"
-	trash = /obj/item/trash/plate
-	filling_color = "#D27332"
 	list_reagents = list("nutriment" = 2, "bread" = 5, "????" = 2)
 	tastes = list("bread" = 10)
 	foodtype = GRAIN | TOXIC
@@ -191,7 +216,6 @@
 	icon_state = "bunbun"
 	list_reagents = list("nutriment" = 2)
 	tastes = list("bun" = 2)
-	bitesize = 2
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/flatbread
@@ -208,14 +232,6 @@
 	name = "baguette"
 	desc = "Bon appetit!"
 	w_class = WEIGHT_CLASS_NORMAL
-	ru_names = list(
-		NOMINATIVE = "багет",
-		GENITIVE = "багета",
-		DATIVE = "багету",
-		ACCUSATIVE = "багет",
-		INSTRUMENTAL = "багетом",
-		PREPOSITIONAL = "багете"
-	)
 	icon_state = "baguette"
 	item_state = "baguette"
 	filling_color = "#E3D796"
@@ -224,6 +240,16 @@
 	tastes = list("bread" = 2)
 	foodtype = GRAIN
 	slot_flags = ITEM_SLOT_BELT
+
+/obj/item/reagent_containers/food/snacks/baguette/get_ru_names()
+	return list(
+		NOMINATIVE = "багет",
+		GENITIVE = "багета",
+		DATIVE = "багету",
+		ACCUSATIVE = "багет",
+		INSTRUMENTAL = "багетом",
+		PREPOSITIONAL = "багете"
+	)
 
 /obj/item/reagent_containers/food/snacks/baguette/combat
 	sharp = TRUE

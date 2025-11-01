@@ -18,14 +18,14 @@
 	var/datum/action/innate/tail_cut/implant_ability = new
 	var/biological = FALSE								// Used in examine
 	var/activated = FALSE
-	var/slash_strength = 35 							// Implant damage
+	var/slash_strength = 35							// Implant damage
 	var/stamina_damage = 0								// Stamina damage to others
 	var/self_stamina_damage = 5							// Stamina damage to self
 	var/damage_type = BRUTE								// BRUTE or BURN
 	var/slash_sound = 'sound/weapons/bladeslice.ogg'	// A sound plays when you hit someone with tail_cut
 	sound_on = 'sound/weapons/blade_dark_unsheath.ogg'	// Activation sound
 	sound_off = 'sound/weapons/blade_dark_sheath.ogg'	// Deactivation sound
-	icon_state = "tailimplant_blade" 					// All tailblades sprites by @baldek
+	icon_state = "tailimplant_blade"					// All tailblades sprites by @baldek
 	origin_tech = "materials=6;combat=5;biotech=5;programming=3;syndicate=3;"
 
 // NT tail laserblade
@@ -51,10 +51,6 @@
 	slash_strength = 25
 	stamina_damage = 20
 	self_stamina_damage = 5
-	damage_type = BURN
-	slash_sound = 'sound/weapons/blade1.ogg'
-	sound_on = 'sound/weapons/saberon.ogg'
-	sound_off = 'sound/weapons/saberoff.ogg'
 	icon_state = "tailimplant_laserred"
 	origin_tech = "materials=6;combat=5;biotech=5;powerstorage=3;syndicate=2;"
 
@@ -69,7 +65,7 @@
 
 	if(owner)
 		to_chat(owner, span_warning("Имплант лезвия отключился от воздействия ЭМИ!"))
-		do_sparks(3, 0, owner)
+		do_sparks(3, FALSE, owner)
 		owner.update_action_buttons()
 
 	implant_emp_downtime = TRUE
@@ -124,14 +120,6 @@
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade
 	name = "tail tumour"
 	desc = "Небольшая странноватая опухоль, находящаяся в хвосте. На удивление, не делает ничего страшного, но значительно увеличивает мощность удара хвостом."
-	ru_names = list(
-		NOMINATIVE = "хвостовая опухоль",
-		GENITIVE = "хвостовой опухоли",
-		DATIVE = "хвостовой опухоли",
-		ACCUSATIVE = "хвостовую опухоль",
-		INSTRUMENTAL = "хвостовой опухолью",
-		PREPOSITIONAL = "хвостовом сгустке"
-	)
 	icon_state = "roro core"
 	slash_strength = 0
 	stamina_damage = 24
@@ -141,12 +129,21 @@
 	slash_sound = 'sound/weapons/slash.ogg'
 	biological = TRUE
 
+/obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/get_ru_names()
+	return list(
+		NOMINATIVE = "хвостовая опухоль",
+		GENITIVE = "хвостовой опухоли",
+		DATIVE = "хвостовой опухоли",
+		ACCUSATIVE = "хвостовую опухоль",
+		INSTRUMENTAL = "хвостовой опухолью",
+		PREPOSITIONAL = "хвостовом сгустке"
+	)
+
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/update_icon_state()
 	return
 
 /datum/action/innate/tail_cut
 	name = "Взмах хвостом"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "tail_cut"
 	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE
 
@@ -162,7 +159,7 @@
 	var/type_of_damage = BRUTE // I did it only because I need attacklogs without exception
 	var/damage_deal = 5 * user.physiology.tail_strength_mod
 
-	if(implant && implant.activated) // Prevents exception if you dont have the implant, but unathi
+	if(implant?.activated) // Prevents exception if you dont have the implant, but unathi
 		active_implant = TRUE
 
 	if(active_implant)
@@ -186,8 +183,10 @@
 				var/target_armor = C.run_armor_check(E, MELEE)
 				C.apply_damage(damage_deal, type_of_damage, E, target_armor, TRUE)
 				C.apply_damage(active_implant ? implant.stamina_damage : 0, STAMINA)
-				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
-					 span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
+				user.visible_message(
+					span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
+					span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!")
+				)
 
 				var/all_objectives = user?.mind?.get_all_objectives()
 				if(C.mind && all_objectives)
@@ -204,8 +203,10 @@
 
 		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
-			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), \
-								 span_danger("Вы теряете равновесие!"))
+			user.visible_message(
+				span_danger("[user.declent_ru(NOMINATIVE)] теря[PLUR_ET_YUT(user)] равновесие!"),
+				span_danger("Вы теряете равновесие!")
+			)
 			return
 
 		if(user.getStaminaLoss() >= 60)
@@ -225,7 +226,7 @@
 		return FALSE
 
 	var/active_implant = FALSE
-	if(implant && implant.activated)
+	if(implant?.activated)
 		active_implant = TRUE
 
 	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi) && !active_implant)

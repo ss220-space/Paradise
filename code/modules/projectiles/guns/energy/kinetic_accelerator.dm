@@ -1,8 +1,7 @@
-#define COMPATIBILITY_STANDART	(1<<0)
-#define COMPATIBILITY_CYBORG	(1<<1)
-#define COMPATIBILITY_MINEBOT	(1<<2)
-#define COMPATIBILITY_UNIVERSAL	(~0)
-
+#define COMPATIBILITY_STANDART (1<<0)
+#define COMPATIBILITY_CYBORG (1<<1)
+#define COMPATIBILITY_MINEBOT (1<<2)
+#define COMPATIBILITY_UNIVERSAL ALL
 
 /**
  * ACCELERATORS
@@ -16,9 +15,6 @@
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	can_flashlight = TRUE
-	flight_x_offset = 15
-	flight_y_offset = 9
 	can_bayonet = TRUE
 	bayonet_x_offset = 20
 	bayonet_y_offset = 12
@@ -40,6 +36,11 @@
 	var/empty_state = "kineticgun_empty"
 	/// Saved timer that can be overrided by modkits after hitting target.
 	var/recharge_timerid
+	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+	)
 
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
@@ -145,7 +146,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	. = ..()
-	attempt_reload()
+	addtimer(CALLBACK(src, PROC_REF(attempt_reload)), 1)
 
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)
@@ -260,9 +261,8 @@
 	name = "kinetic force"
 	icon_state = null
 	damage = 40
-	hitsound = "bullet"
-	damage_type = BRUTE
-	flag = "bomb"
+	hitsound = SFX_BULLET
+	flag = BOMB
 	range = 3
 	/// How many `hardness` it takes from mineral turfs.
 	var/power = 1
@@ -424,21 +424,26 @@
 
 
 /obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/projectile/kinetic/K)
+	return
 
 
 /// Use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure.
 /obj/item/borg/upgrade/modkit/proc/projectile_prehit(obj/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	return
+
 /// Use this one for effects you want to trigger before mods that do damage.
 /obj/item/borg/upgrade/modkit/proc/projectile_strike_predamage(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	return
+
 /// Use this one for things that don't need to trigger before other damage-dealing mods.
 /obj/item/borg/upgrade/modkit/proc/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	return
 
 
 // Range
 /obj/item/borg/upgrade/modkit/range
 	name = "range increase"
 	desc = "Increases the range of a kinetic accelerator when installed."
-	modifier = 1
 	cost = 24 // So you can fit four plus a tracer cosmetic.
 
 
@@ -563,7 +568,7 @@
 /obj/item/borg/upgrade/modkit/aoe/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(stats_stolen)
 		return
-	new /obj/effect/temp_visual/explosion/fast(target_turf)
+	new /obj/effect/temp_visual/pka_explosion(target_turf)
 	if(turf_aoe)
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
 			if(ismineralturf(T) && !isancientturf(T))
@@ -614,7 +619,6 @@
 	name = "hardness increase"
 	desc = "Increases the maximum piercing power of a kinetic accelerator when installed."
 	denied_type = /obj/item/borg/upgrade/modkit/hardness
-	cost = 30
 
 
 /obj/item/borg/upgrade/modkit/hardness/modify_projectile(obj/projectile/kinetic/K)
@@ -630,7 +634,6 @@
 	name = "resonator blast"
 	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
-	cost = 30
 	modifier = 0.25 // A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/borg
@@ -672,7 +675,6 @@
 	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
 	denied_type = /obj/item/borg/upgrade/modkit/bounty
 	modifier = 1.25
-	cost = 30
 	/// Max number of "bonus damage" stacks for one type of mob.
 	var/maximum_bounty = 25
 	/// Associative lazylist of "bonus damage" stacks.
@@ -716,7 +718,13 @@
 /obj/item/borg/upgrade/modkit/indoors
 	name = "decrease pressure penalty"
 	desc = "Специальный модкит, который позволяет повысить урон, наносимый кинетическим акселератором в условиях повышенного давления."
-	ru_names = list(
+	modifier = 2
+	denied_type = /obj/item/borg/upgrade/modkit/indoors
+	maximum_of_type = 2
+	cost = 35
+
+/obj/item/borg/upgrade/modkit/indoors/get_ru_names()
+	return list(
 		NOMINATIVE = "уменьшение штрафа от давления",
 		GENITIVE = "уменьшения штрафа от давления",
 		DATIVE = "уменьшению штрафа от давления",
@@ -724,10 +732,6 @@
 		INSTRUMENTAL = "уменьшением штрафа от давления",
 		PREPOSITIONAL = "уменьшении штрафа от давления"
 	)
-	modifier = 2
-	denied_type = /obj/item/borg/upgrade/modkit/indoors
-	maximum_of_type = 2
-	cost = 35
 
 
 /obj/item/borg/upgrade/modkit/indoors/modify_projectile(obj/projectile/kinetic/K)

@@ -6,9 +6,8 @@
 	var/useGrille = 1
 	var/window_to_spawn_regular = /obj/structure/window/basic
 	var/window_to_spawn_full = /obj/structure/window/full/basic
-	anchored = TRUE // No sliding out while you prime
 
-/obj/effect/spawner/window/Initialize()
+/obj/effect/spawner/window/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	for(var/obj/structure/grille/G in get_turf(src))
@@ -77,7 +76,6 @@
 	name = "shuttle window spawner"
 	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
 	icon_state = "shuttle_window"
-	useFull = TRUE
 	window_to_spawn_regular = null
 	window_to_spawn_full = /obj/structure/window/full/shuttle
 

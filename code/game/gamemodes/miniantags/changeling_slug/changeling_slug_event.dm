@@ -13,9 +13,10 @@
 
 /datum/event/headslug_infestation/announce(false_alarm)
 	if(successSpawn || false_alarm)
-		GLOB.major_announcement.announce("Обнаружены неопознанные формы жизни на борту [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.",
-										ANNOUNCE_UNID_LIFEFORMS_RU,
-										'sound/AI/aliens.ogg'
+		GLOB.major_announcement.announce(
+			message = "Обнаружены неопознанные формы жизни на борту [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.",
+			new_title = ANNOUNCE_UNID_LIFEFORMS_RU,
+			new_sound = 'sound/AI/aliens.ogg'
 		)
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Headslug Infestation")
@@ -39,7 +40,7 @@
 		if(C)
 			GLOB.respawnable_list -= C
 			var/mob/living/simple_animal/hostile/headslug/evented/new_slug = new(vent.loc)
-			new_slug.key = C.key
+			new_slug.possess_by_player(C.key)
 			new_slug.make_slug_antag() //give objective and plays coolsound
 			new_slug.move_into_vent(vent, FALSE)
 			spawncount--

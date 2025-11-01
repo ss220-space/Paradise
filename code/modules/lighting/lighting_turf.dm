@@ -14,7 +14,7 @@
 	if(lighting_object)
 		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
 
-	new/atom/movable/lighting_object(src)
+	new /atom/movable/lighting_object(src)
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount(minlum = 0, maxlum = 1)
@@ -24,16 +24,16 @@
 	var/totallums = 0
 	var/datum/lighting_corner/L
 	L = lighting_corner_NE
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 	L = lighting_corner_SE
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 	L = lighting_corner_SW
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 	L = lighting_corner_NW
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 
 	totallums /= 12 // 4 corners, each with 3 channels, get the average.
@@ -58,6 +58,11 @@
 /turf/proc/change_area(area/old_area, area/new_area)
 
 	old_area.contents -= src
+
+	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, z, list())
+	LISTASSERTLEN(new_area.turfs_by_zlevel, z, list())
+	old_area.turfs_to_uncontain_by_zlevel[z] += src
+	new_area.turfs_by_zlevel[z] += src
 	new_area.contents += src
 
 	var/old_force_no_grav = force_no_gravity

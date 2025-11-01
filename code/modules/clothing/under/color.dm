@@ -89,9 +89,14 @@
 	item_state = "o_suit"
 	item_color = "orange"
 
-/obj/item/clothing/under/color/orange/prison 
+/obj/item/clothing/under/color/orange/prison
 	name = "old prison jumpsuit"
-	ru_names = list(
+	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
+	has_sensor = 2
+	sensor_mode = 3
+
+/obj/item/clothing/under/color/orange/prison/get_ru_names()
+	return list(
 		NOMINATIVE = "старый тюремный комбинезон",
 		GENITIVE = "старый тюремный комбинезон",
 		DATIVE = "старому тюремному комбинезону",
@@ -99,16 +104,18 @@
 		INSTRUMENTAL = "старым тюремным комбинезоном",
 		PREPOSITIONAL = "старом тюремном комбинезоне"
 	)
-	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания." 
-	icon_state = "orange"
-	item_state = "o_suit"
-	item_color = "orange"
-	has_sensor = 2
-	sensor_mode = 3
 
 /obj/item/clothing/under/prison
 	name = "prison jumpsuit"
-	ru_names = list(
+	desc = "Cтандартная одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
+	icon_state = "prison"
+	item_state = "prison"
+	item_color = "prison"
+	has_sensor = 2
+	sensor_mode = 3
+
+/obj/item/clothing/under/prison/get_ru_names()
+	return list(
 		NOMINATIVE = "тюремный комбинезон",
 		GENITIVE = "тюремный комбинезон",
 		DATIVE = "тюремному комбинезону",
@@ -116,12 +123,6 @@
 		INSTRUMENTAL = "тюремным комбинезоном",
 		PREPOSITIONAL = "тюремном комбинезоне"
 	)
-	desc = "Cтандартная одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
-	icon_state = "prison"
-	item_state = "prison"
-	item_color = "prison"
-	has_sensor = 2
-	sensor_mode = 3
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
@@ -201,11 +202,6 @@
 	icon_state = "lightgreen"
 	item_color = "lightgreen"
 
-/obj/item/clothing/under/color/lightblue
-	name = "light blue jumpsuit"
-	icon_state = "lightblue"
-	item_color = "lightblue"
-
 /obj/item/clothing/under/color/lightbrown
 	name = "light brown jumpsuit"
 	icon_state = "lightbrown"
@@ -240,12 +236,10 @@
 	name = "red team jersey"
 	desc = "The jersey of the Nanotrasen Phi-ghters!"
 	icon_state = "redjersey"
-	item_state = "r_suit"
 	item_color = "redjersey"
 
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
 	desc = "The jersey of the Nanotrasen Pi-rates!"
 	icon_state = "bluejersey"
-	item_state = "b_suit"
 	item_color = "bluejersey"

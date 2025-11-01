@@ -19,7 +19,18 @@
 
 /obj/item/storage/belt/security/judobelt
 	name = "Пояс Корпоративного Дзюдо"
-	ru_names = list(
+	desc = "Позволяет вам использовать Корпоративное Дзюдо. \
+			По статистике собранной независимым исследователем, \
+			владеющие этим поясом на 40% чаще покупают продукцию Мистера Чанга."
+	icon_state = "judobelt"
+	item_state = "judo"
+	w_class = WEIGHT_CLASS_BULKY
+	storage_slots = 3
+	max_combined_w_class = 7
+	var/datum/martial_art/judo/style
+
+/obj/item/storage/belt/security/judobelt/get_ru_names()
+	return list(
 		NOMINATIVE = "Пояс Корпоративного Дзюдо",
 		GENITIVE = "Пояса Корпоративного Дзюдо",
 		DATIVE = "Поясу Корпоративного Дзюдо",
@@ -27,20 +38,6 @@
 		INSTRUMENTAL = "Поясом Корпоративного Дзюдо",
 		PREPOSITIONAL = "Поясе Корпоративного Дзюдо",
 	)
-	desc = "Позволяет вам использовать Корпоративное Дзюдо. \
-			По статистике собранной независимым исследователем, \
-			владеющие этим поясом на 40% чаще покупают продукцию Мистера Чанга."
-	icon = 'icons/obj/clothing/belts.dmi'
-	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
-	icon_state = "judobelt"
-	item_state = "judo"
-	gender = MALE
-	w_class = WEIGHT_CLASS_BULKY
-	storage_slots = 3
-	max_combined_w_class = 7
-	var/datum/martial_art/judo/style
-
 
 /obj/item/storage/belt/security/judobelt/Initialize(mapload)
 	. = ..()

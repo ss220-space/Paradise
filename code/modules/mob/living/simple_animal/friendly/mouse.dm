@@ -37,9 +37,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	mob_size = MOB_SIZE_TINY
-	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	universal_speak = FALSE
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	holder_type = /obj/item/holder/mouse
@@ -177,9 +175,11 @@
 		return FALSE
 
 	jetpack = item_to_add
-	user.visible_message(span_notice("[user] put something on [src]."),
+	user.visible_message(
+		span_notice("[user] put something on [src]."),
 		span_notice("You equip [src] with a cool jetpack! Sick!"),
-		span_italics("You hear the roar of a small engine."))
+		span_italics("You hear the roar of a small engine.")
+	)
 
 	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back))
 	update_icons()
@@ -274,7 +274,7 @@
 
 /mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[bicon(src)] Squeek!"))
+		to_chat(arrived, span_notice("[icon2html(src, arrived)] Squeek!"))
 
 
 /mob/living/simple_animal/mouse/ratvar_act()
@@ -409,8 +409,6 @@
 /mob/living/simple_animal/mouse/brown/Tom
 	name = "Tom"
 	desc = "Jerry the cat is not amused."
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -466,9 +464,6 @@
 	icon_living = "mouse_clockwork"
 	icon_dead = "mouse_clockwork_dead"
 	icon_resting = "mouse_clockwork_sleep"
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "stamps on"
 	gold_core_spawnable = NO_SPAWN
 	can_collar = FALSE
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
@@ -491,10 +486,10 @@
 	real_name = "rat"
 	desc = "Серая крыса. Не самый яркий представитель своего вида."
 	squeak_sound = 'sound/creatures/rat_squeak.ogg'
-	icon_state 		= "rat_gray"
-	icon_living 	= "rat_gray"
-	icon_dead 		= "rat_gray_dead"
-	icon_resting 	= "rat_gray_sleep"
+	icon_state		= "rat_gray"
+	icon_living	= "rat_gray"
+	icon_dead		= "rat_gray_dead"
+	icon_resting	= "rat_gray_sleep"
 	maxHealth = 15
 	health = 15
 	mob_size = MOB_SIZE_SMALL
@@ -504,25 +499,24 @@
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"
 	real_name = "gray rat"
-	desc = "Серая крыса. Не самый яркий представитель своего вида."
 
 /mob/living/simple_animal/mouse/rat/white
 	name = "white rat"
 	real_name = "white rat"
 	desc = "Типичный представитель лабораторных крыс."
-	icon_state 		= "rat_white"
-	icon_living 	= "rat_white"
-	icon_dead 		= "rat_white_dead"
-	icon_resting 	= "rat_white_sleep"
+	icon_state		= "rat_white"
+	icon_living	= "rat_white"
+	icon_dead		= "rat_white_dead"
+	icon_resting	= "rat_white_sleep"
 
 /mob/living/simple_animal/mouse/rat/irish
 	name = "irish rat"		//Да, я знаю что это вид. Это каламбурчик.
 	real_name = "irish rat"
 	desc = "Ирландская крыса. На космической станции?! На этот раз им точно некуда бежать!"
-	icon_state 		= "rat_irish"
-	icon_living 	= "rat_irish"
-	icon_dead 		= "rat_irish_dead"
-	icon_resting 	= "rat_irish_sleep"
+	icon_state		= "rat_irish"
+	icon_living	= "rat_irish"
+	icon_dead		= "rat_irish_dead"
+	icon_resting	= "rat_irish_sleep"
 
 #define MAX_WOOLY_MOUSE 50
 GLOBAL_VAR_INIT(wooly_mouse_count, 0)
@@ -536,13 +530,10 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 	icon_dead = "wooly_mouse_dead"
 	icon_resting = "wooly_mouse_rest"
 	gender = MALE
-	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	speak_chance = 0
 	childtype = list(/mob/living/simple_animal/mouse/wooly/baby)
 	animal_species = /mob/living/simple_animal/mouse/wooly
 	holder_type = /obj/item/holder/wooly_mouse
-	gold_core_spawnable = FRIENDLY_SPAWN
-	tts_seed = "Gyro"
 	maxHealth = 10
 	health = 10 // kokok
 
@@ -591,7 +582,6 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 	maxHealth = 3
 	var/amount_grown = 0
 	can_collar = FALSE
-	holder_type = /obj/item/holder/wooly_mouse
 
 
 /mob/living/simple_animal/mouse/wooly/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
@@ -617,11 +607,11 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 
 /mob/living/simple_animal/mouse/wooly/baby/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[bicon(src)] раздавл[genderize_ru(gender, "ен", "на", "но")]!"))
+		to_chat(arrived, span_notice("[icon2html(src, arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
 		death()
 		splat(user = arrived)
 
-
+#undef MAX_WOOLY_MOUSE
 
 #undef SNIFF
 #undef SHAKE

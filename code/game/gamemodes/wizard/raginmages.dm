@@ -1,8 +1,6 @@
 /datum/game_mode/wizard/raginmages
 	name = "ragin' mages"
 	config_tag = "raginmages"
-	required_players = 20
-	use_huds = 1
 	but_wait_theres_more = 1
 	var/max_mages = 0
 	var/making_mage = FALSE
@@ -16,7 +14,7 @@
 	to_chat(world, "<b>The current game mode is - Ragin' Mages!</b>")
 	to_chat(world, "<b>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</b>")
 
-/datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+/datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
 	var/list/messages = list()
 	if(you_are)
 		messages.Add(span_danger("You are the Space Wizard!"))
@@ -79,7 +77,7 @@
 			time_checked = world.time
 			make_more_mages()
 	else
-		if(wizards.len >= wizard_cap)
+		if(length(wizards) >= wizard_cap)
 			finished = 1
 			return 1
 		else
@@ -87,7 +85,7 @@
 	return ..()
 
 // To silence all struggles within the wizard's lair
-/datum/game_mode/wizard/raginmages/proc/end_squabble(var/area/wizard_station/A)
+/datum/game_mode/wizard/raginmages/proc/end_squabble(area/wizard_station/A)
 	if(!istype(A)) return // You could probably do mean things with this otherwise
 	var/list/marked_for_death = list()
 	for(var/mob/living/L in A) // To hit non-wizard griefers
@@ -107,7 +105,7 @@
 			var/mob/living/carbon/brain/B = L
 			if(isitem(B.loc))
 				qdel(B.loc)
-			if(B && B.container)
+			if(B?.container)
 				qdel(B.container)
 		if(L)
 			qdel(L)
@@ -125,7 +123,7 @@
 	var/mob/dead/observer/harry = null
 	message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
 
-	if(!candidates.len)
+	if(!length(candidates))
 		message_admins("This is awkward, sleeping until another mage check..")
 		making_mage = FALSE
 		sleep(300)
@@ -146,12 +144,12 @@
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS
 // Lemme know if this causes species to mess up spectacularly or anything
-/datum/game_mode/wizard/raginmages/proc/makeBody(var/mob/dead/observer/G)
+/datum/game_mode/wizard/raginmages/proc/makeBody(mob/dead/observer/G)
 	if(!G || !G.key)
 		return // Let's not steal someone's soul here
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))
 	G.client.prefs.copy_to(new_character)
-	new_character.key = G.key
+	new_character.possess_by_player(G.key)
 	return new_character
 
 /datum/game_mode/wizard/raginmages/declare_completion()

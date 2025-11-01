@@ -22,57 +22,7 @@
 
 	borg_source.remove_from_head(user)
 
-/mob/living/silicon
-	var/obj/item/inventory_head
-	var/list/strippable_inventory_slots = list()
-
-	var/hat_offset_y = -3
-	var/isCentered = FALSE //центрирован ли синтетик. Если нет, то шляпа будет растянута
-
-	var/list/blacklisted_hats = list( //Запрещённые шляпы на ношение для боргов с большими головами
-		/obj/item/clothing/head/helmet,
-		/obj/item/clothing/head/welding,
-		/obj/item/clothing/head/snowman,
-		/obj/item/clothing/head/bio_hood,
-		/obj/item/clothing/head/bomb_hood,
-		/obj/item/clothing/head/blob,
-		/obj/item/clothing/head/chicken,
-		/obj/item/clothing/head/corgi,
-		/obj/item/clothing/head/cueball,
-		/obj/item/clothing/head/hardhat/pumpkinhead,
-		/obj/item/clothing/head/radiation,
-		/obj/item/clothing/head/papersack,
-		/obj/item/clothing/head/human_head,
-		/obj/item/clothing/head/kitty,
-		/obj/item/clothing/head/hardhat/reindeer,
-		/obj/item/clothing/head/cardborg
-	)
-
-	var/hat_icon_file
-	var/hat_icon_state
-	var/hat_alpha
-	var/hat_color
-
-	var/canBeHatted = FALSE
-	var/canWearBlacklistedHats = FALSE
-
-/mob/living/silicon/robot/drone
-	hat_offset_y = -15
-	isCentered = TRUE
-	canBeHatted = TRUE
-	canWearBlacklistedHats = TRUE
-
-/mob/living/silicon/robot/cogscarab
-	hat_offset_y = -15
-	isCentered = TRUE
-	canBeHatted = TRUE
-
-/mob/living/silicon/ai
-	hat_offset_y = 3
-	isCentered = TRUE
-	canBeHatted = TRUE
-
-/mob/living/silicon/robot/proc/robot_module_hat_offset(var/module)
+/mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
 		//хуманоидные броботы с шляпами
 		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
@@ -139,10 +89,10 @@
 			hat_offset_y = -6
 
 	if(inventory_head)
-		if (!canBeHatted)
+		if(!canBeHatted)
 			remove_from_head(usr)
 			return
-		if (!canWearBlacklistedHats && is_type_in_list(inventory_head, blacklisted_hats))
+		if(!canWearBlacklistedHats && is_type_in_list(inventory_head, blacklisted_hats))
 			remove_from_head(usr)
 			return
 
@@ -162,7 +112,7 @@
 		borgI.alpha = hat_alpha
 		borgI.color = hat_color
 		borgI.pixel_y = hat_offset_y
-		if (!isCentered)
+		if(!isCentered)
 			borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 		return borgI
 
@@ -217,17 +167,17 @@
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(inventory_head)
 		if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
-			to_chat(user, "<span class='warning'>[inventory_head.name] застрял на голове [src]! Его невозможно снять!</span>")
+			to_chat(user, span_warning("[inventory_head.name] застрял на голове [src]! Его невозможно снять!"))
 			return TRUE
 
-		to_chat(user, "<span class='warning'>Вы сняли [inventory_head.name] с головы [src].</span>")
+		to_chat(user, span_warning("Вы сняли [inventory_head.name] с головы [src]."))
 		user.put_in_hands(inventory_head)
 
 		null_hat()
 
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>На голове [src] нет головного убора!</span>")
+		to_chat(user, span_warning("На голове [src] нет головного убора!"))
 		return FALSE
 
 	return TRUE

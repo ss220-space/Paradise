@@ -6,12 +6,9 @@
 /obj/item/decorations/sticky_decorations
 	w_class = WEIGHT_CLASS_TINY
 
-
-/obj/item/decorations/sticky_decorations/New()
+/obj/item/decorations/sticky_decorations/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/ducttape, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
-
-
 
 /obj/item/decorations/sticky_decorations/flammable
 	resistance_flags = FLAMMABLE
@@ -227,7 +224,6 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 
 /obj/structure/decorative_structures/fireplace
@@ -248,7 +244,6 @@
 /obj/structure/decorative_structures/garland
 	density = FALSE
 	anchored = TRUE
-	max_integrity = 100
 	icon_state = "xmaslights"
 
 /obj/structure/decorative_structures/garland/Initialize(mapload)
@@ -318,12 +313,12 @@
 	max_integrity = 5
 	var/bloodtiles = 8  // number of tiles with blood while pulling
 
-/obj/structure/decorative_structures/corpse/Initialize()
+/obj/structure/decorative_structures/corpse/Initialize(mapload)
 	START_PROCESSING(SSobj, src)
 	. = ..()
 
 /obj/structure/decorative_structures/corpse/Destroy()
-	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, 0)
+	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, FALSE)
 	var/turf/T = get_turf(src)
 	new /obj/effect/particle_effect/fluid/smoke/vomiting(T)
 	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
@@ -335,7 +330,7 @@
 	..()
 
 /obj/structure/decorative_structures/corpse/attack_hand(mob/living/user)
-	take_damage(pick(2,3), BRUTE, "melee")
+	take_damage(pick(2,3), BRUTE, MELEE)
 	playsound(src, (pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')), 20, 0)
 	user.visible_message(span_danger("You punched something viscous! You hear a slimy sound."))
 
@@ -363,11 +358,10 @@
 			H.fakevomit()
 
 ///// jumping meat for body explotion effect
-
-/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping/Initialize(var/turf/T)
-	T = get_offset_target_turf(src.loc, rand(2)-rand(2), rand(2)-rand(2))
-	src.throw_at(T, 2, 1)
-	..()
+/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping/Initialize(mapload, turf/T)
+	. = ..()
+	T = get_offset_target_turf(loc, rand(2)-rand(2), rand(2)-rand(2))
+	throw_at(T, 2, 1)
 
 ////// Bouquets
 
@@ -423,7 +417,7 @@
 	..()
 
 /obj/structure/decorative_structures/cult_crystal/Destroy()
-	playsound(src, 'sound/effects/glassbr3.ogg', 30, 0)
+	playsound(src, 'sound/effects/glassbr3.ogg', 30, FALSE)
 	var/turf/T = get_turf(src)
 	var/mob/living/simple_animal/crystal_soul = new /mob/living/simple_animal/hostile/construct/armoured/hostile(T)
 	crystal_soul.loot = list(pick(

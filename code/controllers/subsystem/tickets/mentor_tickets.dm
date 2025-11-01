@@ -8,8 +8,8 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 /datum/controller/subsystem/tickets/mentor_tickets
 	name = "Mentor Tickets"
 	offline_implications = "Mentor tickets will no longer be marked as stale. No immediate action is needed."
-	ticket_system_name = "Запросы менторов"
-	ticket_name = "Запрос менторов"
+	ticket_system_name = MENTORHELP_SYSTEM_NAME
+	ticket_name = MENTORHELP_TICKET_NAME
 	span_class = "mentorhelp"
 	anchor_link_extra = ";is_mhelp=1"
 	ticket_help_type = MENTORHELP
@@ -29,7 +29,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	message_mentorTicket(chat_box_mhelp(msg), important)
 
 /datum/controller/subsystem/tickets/mentor_tickets/create_other_system_ticket(datum/ticket/T)
-	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.content, T.title)
+	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.first_raw_response, T.title)
 
 /datum/controller/subsystem/tickets/mentor_tickets/autoRespond(N)
 	return

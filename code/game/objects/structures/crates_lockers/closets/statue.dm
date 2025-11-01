@@ -3,11 +3,10 @@
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
-	density = TRUE
 	anchored = TRUE
-	max_integrity = 0 //destroying the statue kills the mob within
+	max_integrity = 100 //destroying the statue kills the mob within
 	no_overlays = TRUE
-	var/intialTox = 0 	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
+	var/intialTox = 0	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
 	var/intialFire = 0	//it's a little sloppy I know but it was this or the GODMODE flag. Lesser of two evils.
 	var/intialBrute = 0
 	var/intialOxy = 0
@@ -15,30 +14,30 @@
 
 /obj/structure/closet/statue/Initialize(mapload, mob/living/L)
 	. = ..()
-	if(ishuman(L) || iscorgi(L))
-		L.buckled?.unbuckle_mob(L, force = TRUE)
-		L.forceMove(src)
-		ADD_TRAIT(L, TRAIT_MUTE, "statue")
-		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
-		intialTox = L.getToxLoss()
-		intialFire = L.getFireLoss()
-		intialBrute = L.getBruteLoss()
-		intialOxy = L.getOxyLoss()
-		if(is_monkeybasic(L))
-			name = "statue of a monkey"
-			icon_state = "monkey"
-		else if(ishuman(L))
-			name = "statue of [L.name]"
-			if(L.gender == "female")
-				icon_state = "human_female"
-		else if(iscorgi(L))
-			name = "statue of a corgi"
-			icon_state = "corgi"
-			desc = "If it takes forever, I will wait for you..."
-
-	if(max_integrity == 0) //meaning if the statue didn't find a valid target
+	if(!ishuman(L) && !iscorgi(L))
 		qdel(src)
 		return
+
+	L.buckled?.unbuckle_mob(L, force = TRUE)
+	L.forceMove(src)
+	ADD_TRAIT(L, TRAIT_MUTE, "statue")
+	max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
+	update_integrity(max_integrity)
+	intialTox = L.getToxLoss()
+	intialFire = L.getFireLoss()
+	intialBrute = L.getBruteLoss()
+	intialOxy = L.getOxyLoss()
+	if(is_monkeybasic(L))
+		name = "statue of a monkey"
+		icon_state = "monkey"
+	else if(ishuman(L))
+		name = "statue of [L.name]"
+		if(L.gender == "female")
+			icon_state = "human_female"
+	else if(iscorgi(L))
+		name = "statue of a corgi"
+		icon_state = "corgi"
+		desc = "If it takes forever, I will wait for you..."
 
 	START_PROCESSING(SSobj, src)
 
@@ -78,10 +77,6 @@
 /obj/structure/closet/statue/open()
 	return
 
-/obj/structure/closet/statue/open()
-	return
-
-
 /obj/structure/closet/statue/close()
 	return
 
@@ -118,4 +113,4 @@
 	if(user)
 		user.dust()
 	dump_contents()
-	visible_message("<span class='warning'>[src] shatters!</span>")
+	visible_message(span_warning("[src] shatters!"))

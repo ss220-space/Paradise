@@ -49,6 +49,8 @@
 	var/list/datum/plane_master_group/master_groups = list()
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
+	///UI for screentips that appear when you mouse over things
+	var/atom/movable/screen/screentip/screentip_text
 
 	/// Think of multiz as a stack of z levels. Each index in that stack has its own group of plane masters
 	/// This variable is the plane offset our mob/client is currently "on"
@@ -59,6 +61,8 @@
 	/// The BYOND version of the client that was last logged into this mob.
 	/// Currently used to rebuild all plane master groups when going between 515<->516.
 	var/last_byond_version
+
+	var/atom/movable/screen/holomap/holomap
 
 /datum/hud/New(mob/owner)
 	mymob = owner
@@ -74,10 +78,13 @@
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
 		plane_master_controllers[controller_instance.name] = controller_instance
 
+	screentip_text = new(null, src)
+	static_inventory += screentip_text
+
 	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(on_plane_increase))
 	RegisterSignal(mymob, COMSIG_MOB_LOGIN, PROC_REF(client_refresh))
 	RegisterSignal(mymob, COMSIG_MOB_LOGOUT, PROC_REF(clear_client))
-	RegisterSignal(mymob, COMSIG_MOB_SIGHT_CHANGE, PROC_REF(update_sightflags))
+	RegisterSignal(mymob, COMSIG_MOB_SIGHT_CHANGE, PROC_REF(update_sightflags), override = TRUE)
 	update_sightflags(mymob, mymob.sight, NONE)
 
 /datum/hud/proc/client_refresh(datum/source)
@@ -89,7 +96,7 @@
 	#endif
 	if(!isnull(last_byond_version) && new_byond_version != last_byond_version)
 		var/new_relay_loc = (new_byond_version > 515) ? "1,1" : "CENTER"
-		for(var/group_key as anything in master_groups)
+		for(var/group_key in master_groups)
 			var/datum/plane_master_group/group = master_groups[group_key]
 			group.relay_loc = new_relay_loc
 			group.rebuild_hud()
@@ -118,7 +125,7 @@
 	if(should_sight_scale(new_sight) == should_sight_scale(old_sight))
 		return
 
-	for(var/group_key as anything in master_groups)
+	for(var/group_key in master_groups)
 		var/datum/plane_master_group/group = master_groups[group_key]
 		group.build_planes_offset(src, current_plane_offset)
 
@@ -131,7 +138,11 @@
 /datum/hud/proc/eye_z_changed(atom/eye)
 	SIGNAL_HANDLER
 	update_parallax_pref() // If your eye changes z level, so should your parallax prefs
-	var/turf/eye_turf = get_turf(eye)
+
+	var/turf/eye_turf = eye && get_turf(eye)
+	if(!eye_turf)
+		return
+	SEND_SIGNAL(src, COMSIG_HUD_Z_CHANGED, eye_turf.z)
 	var/new_offset = GET_TURF_PLANE_OFFSET(eye_turf)
 	if(current_plane_offset == new_offset)
 		return
@@ -139,7 +150,7 @@
 	current_plane_offset = new_offset
 
 	SEND_SIGNAL(src, COMSIG_HUD_OFFSET_CHANGED, old_offset, new_offset)
-	for(var/group_key as anything in master_groups)
+	for(var/group_key in master_groups)
 		var/datum/plane_master_group/group = master_groups[group_key]
 		group.build_planes_offset(src, new_offset)
 
@@ -171,6 +182,7 @@
 	mymob.healthdoll = null
 	mymob.pullin = null
 	mymob.stamina_bar = null
+	mymob.nutrition_bar = null
 
 	//clear the rest of our reload_fullscreen
 	lingchemdisplay = null
@@ -183,11 +195,13 @@
 	wind_up_timer = null
 	nightvisionicon = null
 	devilsouldisplay = null
+	combo_display = null
 
 	QDEL_LIST_ASSOC_VAL(master_groups)
 	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
 
 	mymob = null
+	QDEL_NULL(screentip_text)
 	return ..()
 
 /datum/hud/proc/on_plane_increase(datum/source, old_max_offset, new_max_offset)
@@ -249,13 +263,13 @@
 	switch(display_hud_version)
 		if(HUD_STYLE_STANDARD)	//Default HUD
 			hud_shown = TRUE	//Governs behavior of other procs
-			if(static_inventory.len)
+			if(length(static_inventory))
 				screenmob.client.screen += static_inventory
-			if(toggleable_inventory.len && screenmob.hud_used && screenmob.hud_used.inventory_shown)
+			if(length(toggleable_inventory) && screenmob.hud_used && screenmob.hud_used.inventory_shown)
 				screenmob.client.screen += toggleable_inventory
-			if(hotkeybuttons.len && !hotkey_ui_hidden)
+			if(length(hotkeybuttons) && !hotkey_ui_hidden)
 				screenmob.client.screen += hotkeybuttons
-			if(infodisplay.len)
+			if(length(infodisplay))
 				screenmob.client.screen += infodisplay
 
 			screenmob.client.screen += hide_actions_toggle
@@ -266,13 +280,13 @@
 
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
 			hud_shown = FALSE	//Governs behavior of other procs
-			if(static_inventory.len)
+			if(length(static_inventory))
 				screenmob.client.screen -= static_inventory
-			if(toggleable_inventory.len)
+			if(length(toggleable_inventory))
 				screenmob.client.screen -= toggleable_inventory
-			if(hotkeybuttons.len)
+			if(length(hotkeybuttons))
 				screenmob.client.screen -= hotkeybuttons
-			if(infodisplay.len)
+			if(length(infodisplay))
 				screenmob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
@@ -285,13 +299,13 @@
 
 		if(HUD_STYLE_NOHUD)	//No HUD
 			hud_shown = FALSE	//Governs behavior of other procs
-			if(static_inventory.len)
+			if(length(static_inventory))
 				screenmob.client.screen -= static_inventory
-			if(toggleable_inventory.len)
+			if(length(toggleable_inventory))
 				screenmob.client.screen -= toggleable_inventory
-			if(hotkeybuttons.len)
+			if(length(hotkeybuttons))
 				screenmob.client.screen -= hotkeybuttons
-			if(infodisplay.len)
+			if(length(infodisplay))
 				screenmob.client.screen -= infodisplay
 			. = FALSE
 
@@ -346,7 +360,7 @@
 
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, span_notice("Изменён режим HUD. Переключение – клавиша F12."))
+		to_chat(usr, span_notice("Изменён режим HUD. Переключение — клавиша F12."))
 	else
 		to_chat(usr, span_warning("У этого типа существ нет HUD."))
 

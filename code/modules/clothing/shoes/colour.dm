@@ -25,6 +25,7 @@
 	name = "brown shoes"
 	desc = "A pair of brown shoes."
 	icon_state = "brown"
+	item_state = "brown"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/brown/captain
@@ -69,12 +70,6 @@
 	item_color = "purple"
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/brown
-	name = "brown shoes"
-	icon_state = "brown"
-	item_color = "brown"
-	dying_key = DYE_REGISTRY_SHOES
-
 /obj/item/clothing/shoes/red
 	name = "red shoes"
 	desc = "Stylish red shoes."
@@ -85,8 +80,8 @@
 /obj/item/clothing/shoes/white
 	name = "white shoes"
 	icon_state = "white"
+	item_state = "white"
 	permeability_coefficient = 0.01
-	item_color = "white"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/leather
@@ -158,7 +153,11 @@
 /obj/item/clothing/shoes/prison
 	name = "prison boots"
 	desc = "Твердая и неудобная обувь, сделанная другими заключенными."
-	ru_names = list(
+	icon_state = "prison_boots"
+	item_state = "prison_boots"
+
+/obj/item/clothing/shoes/prison/get_ru_names()
+	return list(
 		NOMINATIVE = "тюремные башмаки",
 		GENITIVE = "тюремные башмаки",
 		DATIVE = "тюремным башмакам",
@@ -166,14 +165,15 @@
 		INSTRUMENTAL = "тюремныим башмаками",
 		PREPOSITIONAL = "тюремных башмаках"
 	)
-	icon_state = "prison_boots"
-	item_state = "prison_boots"
-	
-	
+
 /obj/item/clothing/shoes/convers
 	name = "black convers"
 	desc = "Пара высоких чёрных кед, сделанных по последнему писку моды. Выглядят просто отпадно."
-	ru_names = list(
+	icon_state = "blackconvers"
+	item_state = "blackconvers"
+
+/obj/item/clothing/shoes/convers/get_ru_names()
+	return list(
 		NOMINATIVE = "чёрные высокие кеды",
 		GENITIVE = "чёрных высоких кедов",
 		DATIVE = "чёрным высоким кедам",
@@ -181,13 +181,15 @@
 		INSTRUMENTAL = "чёрными высокими кедами",
 		PREPOSITIONAL = "чёрных высоких кедах"
 	)
-	icon_state = "blackconvers"
-	item_state = "blackconvers"
 
 /obj/item/clothing/shoes/convers/red
 	name = "red convers"
 	desc = "Пара высоких красных кед, сделанных по последнему писку моды. Выглядят просто отпадно."
-	ru_names = list(
+	icon_state = "redconvers"
+	item_state = "redconvers"
+
+/obj/item/clothing/shoes/convers/red/get_ru_names()
+	return list(
 		NOMINATIVE = "красные высокие кеды",
 		GENITIVE = "красных высоких кедов",
 		DATIVE = "красным высоким кедам",
@@ -195,7 +197,3 @@
 		INSTRUMENTAL = "красными высокими кедами",
 		PREPOSITIONAL = "красных высоких кедах"
 	)
-	icon_state = "redconvers"
-	item_state = "redconvers"
-
-

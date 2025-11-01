@@ -1,5 +1,4 @@
 /turf/simulated/wall/shuttle
-	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 	icon_state = "shuttle-0"
@@ -12,6 +11,9 @@
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 
+/turf/simulated/wall/shuttle/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_SPARKS, -40, 8, 1)
+
 /turf/simulated/wall/shuttle/dismantle_wall(devastated = 0, explode = 0)
 	return
 
@@ -21,7 +23,7 @@
 /turf/simulated/wall/shuttle/welder_act()
 	return
 
-/turf/simulated/wall/shuttle/ex_act(severity)
+/turf/simulated/wall/shuttle/ex_act(severity, target)
 	return
 
 /turf/simulated/wall/shuttle/blob_act(obj/structure/blob/B)
@@ -68,7 +70,7 @@
 /turf/simulated/wall/shuttle/nodiagonal
 	icon_state = "shuttle-15"
 
-/turf/simulated/wall/shuttle/nodiagonal/Initialize()
+/turf/simulated/wall/shuttle/nodiagonal/Initialize(mapload)
 	. = ..()
 	icon_state = "shuttle"
 
@@ -76,14 +78,14 @@
 	icon_state = "shuttle_ns"
 	smooth = NONE
 
-/turf/simulated/wall/shuttle/nosmooth/Initialize()
+/turf/simulated/wall/shuttle/nosmooth/Initialize(mapload)
 	. = ..()
 	icon_state = "shuttle"
 
 /turf/simulated/wall/shuttle/onlyselfsmooth
 	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS
 
-/turf/simulated/wall/shuttle/onlyselfsmooth/Initialize()
+/turf/simulated/wall/shuttle/onlyselfsmooth/Initialize(mapload)
 	. = ..()
 	icon_state = "shuttle"
 
@@ -94,7 +96,7 @@
 	icon_state = "overspace"
 	fixed_underlay = list("space"=1)
 
-/turf/simulated/wall/shuttle/overspace/Initialize()
+/turf/simulated/wall/shuttle/overspace/Initialize(mapload)
 	. = ..()
 	icon_state = "shuttle"
 
@@ -119,7 +121,7 @@
 	var/underlay_floor_icon_state = null
 	var/underlay_floor_dir = 2
 
-/turf/simulated/wall/shuttle/nosmooth/interior/Initialize()
+/turf/simulated/wall/shuttle/nosmooth/interior/Initialize(mapload)
 	. = ..()
 	if(underlay_floor_icon && underlay_floor_icon_state)
 		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state,,underlay_floor_dir)
@@ -129,7 +131,7 @@
 /turf/simulated/wall/shuttle/nosmooth/interior/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type)
-		if(underlays.len)
+		if(length(underlays))
 			T.underlays = underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state
@@ -145,13 +147,8 @@
 //ПОЛЫ//
 
 /turf/simulated/floor/shuttle
-	name = "floor"
 	icon = 'icons/turf/shuttle/floors.dmi'
 	icon_state = "floor"
-	footstep = FOOTSTEP_FLOOR
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 
 /turf/simulated/floor/shuttle/attackby(obj/item/I, mob/user, params)
@@ -176,9 +173,6 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "plating"
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/shuttle/plating/vox	//Vox skipjack plating
 	oxygen = 0
@@ -189,7 +183,7 @@
 	transparent_floor = TURF_TRANSPARENT
 	smoothing_groups = SMOOTH_GROUP_TRANSPARENT_FLOOR
 
-/turf/simulated/floor/shuttle/transparent_floor/Initialize()
+/turf/simulated/floor/shuttle/transparent_floor/Initialize(mapload)
 	. = ..()
 	var/obj/O
 	O = new()
@@ -203,12 +197,8 @@
 
 //Оно даже не наследовалось от стандартного пола... Какой ужас...
 /turf/simulated/floor/shuttle/objective_check		// Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
-	name = "brig floor"        						// Also added it into the 2x3 brig area of the shuttle.
+	name = "brig floor"       						// Also added it into the 2x3 brig area of the shuttle.
 	icon_state = "floor4"
-	footstep = FOOTSTEP_FLOOR
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/shuttle/objective_check/vox	//Vox skipjack floors
 	name = "skipjack floor"

@@ -38,11 +38,11 @@
 		spirited = !spirited
 		animate(ninja, color ="#00ff00", time = 6)
 		if(!stealth)
-			animate(ninja, alpha = NINJA_ALPHA_SPIRIT_FORM, time = 6) //Трогаем альфу - только если мы не в стелсе
+			animate(ninja, alpha = NINJA_ALPHA_SPIRIT_FORM, time = 6) //Трогаем альфу — только если мы не в стелсе
 			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_SPIRIT_FORM), ALPHA_SOURCE_NINJA)
 			ninja.visible_message(span_warning("[ninja.name] looks very unstable and strange!"), span_notice("You now can pass almost through everything.")) //Если мы не в стелсе, пишем текст того, что видят другие
 		else
-			to_chat(ninja, span_notice("You now can pass almost through everything."))	// Если же невидимы - пишем только себе
+			to_chat(ninja, span_notice("You now can pass almost through everything."))	// Если же невидимы — пишем только себе
 		ninja.pass_flags |= PASSEVERYTHING
 		drop_restraints()
 		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
@@ -71,8 +71,8 @@
 			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_NORMAL), ALPHA_SOURCE_NINJA)
 			ninja.visible_message(span_warning("[ninja.name] becomes stable again!"), span_notice("You lose your ability to pass the corporeal...")) //Если мы не в стелсе, пишем текст того, что видят другие
 		else
-			to_chat(ninja, span_notice("You lose your ability to pass the corporeal...")) // Если же невидимы - пишем только себе
-		ninja.pass_flags = 0 	//Отнимать этот флаг - "PASS_EVERYTHING" по нормальному он не хочет, значит сделаем полный сброс.
+			to_chat(ninja, span_notice("You lose your ability to pass the corporeal...")) // Если же невидимы — пишем только себе
+		ninja.pass_flags = 0	//Отнимать этот флаг - "PASS_EVERYTHING" по нормальному он не хочет, значит сделаем полный сброс.
 		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
 			ninja_action.action_ready = FALSE
 			ninja_action.toggle_button_on_off()
@@ -85,14 +85,14 @@
 	var/obj/restraint
 	if(ninja.handcuffed)
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
-		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
+		restraint.visible_message(span_warning("[restraint] falls from the [ninja] when he becomes unstable!"))
 	if(ninja.legcuffed)
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
-		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
+		restraint.visible_message(span_warning("[restraint] falls from the [ninja] when he becomes unstable!"))
 	ninja.uncuff()
 	if(istype(ninja.loc, /obj/structure/closet))
 		var/obj/structure/closet/restraint_closet = ninja.loc
 		if(!istype(restraint_closet))
 			return FALSE
 		ninja.forceMove(get_turf(restraint_closet))
-		ninja.visible_message("<span class='warning'>[ninja] goes right through the [restraint_closet] after he becomes unstable!</span>")
+		ninja.visible_message(span_warning("[ninja] goes right through the [restraint_closet] after he becomes unstable!"))

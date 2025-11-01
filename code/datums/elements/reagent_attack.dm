@@ -1,6 +1,6 @@
 /datum/element/reagent_attack
 	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH_ON_HOST_DESTROY
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	/// Which reagent we will inject
 	var/reagent_id
 	/// How much reagent we will inject
@@ -13,11 +13,11 @@
 	var/list/allowed_zones
 
 /datum/element/reagent_attack/Attach(
-	atom/source, 
-	reagent_id, 
-	reagent_amount, 
-	piercing, 
-	reagent_limit, 
+	atom/source,
+	reagent_id,
+	reagent_amount,
+	piercing,
+	reagent_limit,
 	list/allowed_zones
 )
 	. = ..()
@@ -25,11 +25,16 @@
 	if(!isliving(source))
 		return ELEMENT_INCOMPATIBLE
 
-	src.reagent_id = reagent_id
-	src.reagent_amount = reagent_amount
-	src.piercing = piercing
-	src.reagent_limit = reagent_limit
-	src.allowed_zones = allowed_zones
+	if(!isnull(reagent_id))
+		src.reagent_id = reagent_id
+	if(!isnull(reagent_amount))
+		src.reagent_amount = reagent_amount
+	if(!isnull(piercing))
+		src.piercing = piercing
+	if(!isnull(reagent_limit))
+		src.reagent_limit = reagent_limit
+	if(!isnull(allowed_zones))
+		src.allowed_zones = allowed_zones
 
 	RegisterSignal(source, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(mob_attack))
 
@@ -44,7 +49,7 @@
 
 	if(!proximity_flag && mob.a_intent != INTENT_HARM)
 		return
-		
+
 	var/picked_zone = allowed_zones ? pick(allowed_zones) : mob.zone_selected
 
 	if(!can_inject(target, picked_zone))
@@ -53,7 +58,7 @@
 	INVOKE_ASYNC(src, PROC_REF(pre_inject), mob, target, picked_zone)
 
 /datum/element/reagent_attack/proc/can_inject(mob/living/carbon/target, target_zone)
-	if(!istype(target)) 
+	if(!istype(target))
 		return FALSE
 
 	if(!target.reagents)
@@ -68,22 +73,22 @@
 	return TRUE
 
 /datum/element/reagent_attack/proc/pre_inject(
-	mob/source, 
-	mob/living/carbon/target, 
+	mob/source,
+	mob/living/carbon/target,
 	target_zone,
 	reagent_id,
 	reagent_amount
 	)
 
-	if(!inject(source, target, target_zone))
+	if(!inject(source, target, target_zone, reagent_id, reagent_amount))
 		return FALSE
 
 	SEND_SIGNAL(source, COMSIG_REAGENT_INJECTED, target, reagent_id, reagent_amount, target_zone)
 	return TRUE
 
 /datum/element/reagent_attack/proc/inject(
-	mob/source, 
-	mob/living/carbon/target, 
+	mob/source,
+	mob/living/carbon/target,
 	target_zone,
 	reagent_id,
 	reagent_amount
@@ -94,12 +99,10 @@
 	return FALSE
 
 /datum/element/reagent_attack/bee
-	reagent_id = "beetoxin"
-	reagent_amount = 5
 
 /datum/element/reagent_attack/bee/pre_inject(
-	mob/source, 
-	mob/living/carbon/target, 
+	mob/source,
+	mob/living/carbon/target,
 	target_zone,
 	reagent_id,
 	reagent_amount
@@ -109,7 +112,7 @@
 	if(!bee.beegent)
 		return ..()
 
-	reagent_id = bee.beegent.id // Set parameters and send them into parent without initial() 
+	reagent_id = bee.beegent.id // Set parameters and send them into parent without initial()
 	reagent_amount = rand(1, 5)
 
 	if(!..())
@@ -125,8 +128,8 @@
 	allowed_zones = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
 /datum/element/reagent_attack/widow/pre_inject(
-	mob/source, 
-	mob/living/carbon/target, 
+	mob/source,
+	mob/living/carbon/target,
 	target_zone,
 	reagent_id,
 	reagent_amount
@@ -136,7 +139,7 @@
 		return ..()
 
 	reagent_amount = 33
-	
+
 	if(!..())
 		return FALSE
 

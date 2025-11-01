@@ -17,14 +17,6 @@ effective or pretty fucking useless.
 /obj/item/batterer
 	name = "mind batterer"
 	desc = "Странное устройство с двумя антеннами."
-	ru_names = list(
-		NOMINATIVE = "подавитель разума",
-		GENITIVE = "подавителя разума",
-		DATIVE = "подавителю разума",
-		ACCUSATIVE = "подавитель разума",
-		INSTRUMENTAL = "подавителем разума",
-		PREPOSITIONAL = "подавителе разума"
-	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "batterer"
 	throwforce = 5
@@ -37,10 +29,20 @@ effective or pretty fucking useless.
 
 	var/charges = 3
 
+/obj/item/batterer/get_ru_names()
+	return list(
+		NOMINATIVE = "подавитель разума",
+		GENITIVE = "подавителя разума",
+		DATIVE = "подавителю разума",
+		ACCUSATIVE = "подавитель разума",
+		INSTRUMENTAL = "подавителем разума",
+		PREPOSITIONAL = "подавителе разума"
+	)
+
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
-	. += span_notice("У [declent_ru(GENITIVE)] осталось [charges] заряд[declension_ru(charges, "", "а", "ов")].")
+	. += span_notice("У [declent_ru(GENITIVE)] осталось [charges] заряд[DECL_CREDIT(charges)].")
 
 
 /obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
@@ -63,7 +65,7 @@ effective or pretty fucking useless.
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, TRUE)
 	charges--
-	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[declension_ru(charges, "", "а", "ов")]."))
+	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[DECL_CREDIT(charges)]."))
 	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
 
 
@@ -87,14 +89,6 @@ effective or pretty fucking useless.
 /obj/item/rad_laser
 	name = "Health Analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта. К концу сканера прикреплён необычный микролазер."
-	ru_names = list(
-		NOMINATIVE = "анализатор здоровья",
-		GENITIVE = "анализатора здоровья",
-		DATIVE = "анализатору здоровья",
-		ACCUSATIVE = "анализатор здоровья",
-		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
-	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health2"
 	item_state = "healthanalyzer"
@@ -104,12 +98,21 @@ effective or pretty fucking useless.
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=400)
 	origin_tech = "magnets=3;biotech=5;syndicate=1"
 	var/intensity = 5 // how much damage the radiation does
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
 	var/used = 0 // is it cooling down?
+
+/obj/item/rad_laser/get_ru_names()
+	return list(
+		NOMINATIVE = "анализатор здоровья",
+		GENITIVE = "анализатора здоровья",
+		DATIVE = "анализатору здоровья",
+		ACCUSATIVE = "анализатор здоровья",
+		INSTRUMENTAL = "анализатором здоровья",
+		PREPOSITIONAL = "анализаторе здоровья"
+	)
 
 
 /obj/item/rad_laser/update_icon_state()
@@ -123,7 +126,7 @@ effective or pretty fucking useless.
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "Irradiated by [src]")
-	user.visible_message(span_notice("[user] анализиру[pluralize_ru(user.gender, "ет", "ют")] жизненные показатели [target]."))
+	user.visible_message(span_notice("[user] анализиру[PLUR_ET_YUT(user)] жизненные показатели [target]."))
 	var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 	used = TRUE
 	update_icon(UPDATE_ICON_STATE)
@@ -330,9 +333,9 @@ effective or pretty fucking useless.
 		var/turf/fragging_location = destination
 		telefrag(fragging_location, user)
 		user.forceMove(destination)
-		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 	else if(EMP_D == FALSE && !(length(bagholding) && !flawless)) // This is where the fun begins
 		var/direction = get_dir(user, destination)
@@ -393,21 +396,21 @@ effective or pretty fucking useless.
 	var/turf/fragging_location = new_destination
 	telefrag(fragging_location, user)
 	user.forceMove(new_destination)
-	playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
-	playsound(new_destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(new_destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
 	user.forceMove(destination)
-	playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
-	destination.ex_act(rand(1,2))
+	playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(destination, 'sound/magic/disintegrate.ogg', 50, TRUE)
+	destination.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
 	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)
@@ -424,7 +427,6 @@ effective or pretty fucking useless.
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
-	icon_state = "paper"
 	info = {"<b>Instructions on your new prototype syndicate teleporter</b><br>
 	<br>
 	This teleporter will teleport the user 4-8 meters in the direction they are facing. Unlike the cult veil shifter, you can not drag people with you.<br>
@@ -462,8 +464,8 @@ effective or pretty fucking useless.
 	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
 
 
-#define ION_CALLER_AI_TARGETING		"AI targeting"
-#define ION_CALLER_COMMS_TARGETING	"Telecomms targeting"
+#define ION_CALLER_AI_TARGETING "AI targeting"
+#define ION_CALLER_COMMS_TARGETING "Telecomms targeting"
 
 /obj/item/ion_caller
 	name = "low-orbit ion cannon remote"
@@ -550,7 +552,7 @@ effective or pretty fucking useless.
 	if(usability_check(area_check = FALSE, satellite_check = ION_CALLER_COMMS_TARGETING, silent = TRUE))
 		choices[ION_CALLER_COMMS_TARGETING] = mutable_appearance(icon = src.icon, icon_state = "ISD_tele_prev")
 
-	if(choices.len <= 1)
+	if(length(choices) <= 1)
 		to_chat(user, span_notice("It is not ready to be used yet."))
 		return
 

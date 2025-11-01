@@ -65,7 +65,6 @@
 
 /obj/item/clothing/head/soft/yellow
 	name = "yellow cap"
-	desc = "It's a baseball hat in a tasteless yellow colour."
 	icon_state = "yellowsoft"
 	item_color = "yellow"
 	dog_fashion = null
@@ -132,7 +131,8 @@
 	desc = "It's baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	item_color = "sec"
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	item_state = "secsoft"
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	dog_fashion = null
 
@@ -141,6 +141,8 @@
 	desc = "It's a baseball hat in corporate colours."
 	icon_state = "corpsoft"
 	item_color = "corp"
+	item_state = "corpsoft"
+	dog_fashion = null
 
 /obj/item/clothing/head/soft/solgov
 	name = "Trans-Solar Federation marine cap"
@@ -152,14 +154,14 @@
 /obj/item/clothing/head/soft/solgov/elite
 	name = "Trans-Solar Federation Specops marine cap"
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division."
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	icon_state = "solgovelitesoft_flipped"
 	item_color = "solgovelite"
 
 /obj/item/clothing/head/soft/solgov/command
 	name = "Trans-Solar Federation Lieutenant's cap"
 	desc = "A soft cap worn by marines of the Sol Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor= list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor= list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	icon_state = "solgovcsoft"
 	item_color = "solgovc"
 	dog_fashion = null
@@ -169,3 +171,39 @@
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "solgovcelitesoft"
 	item_color = "solgovcelite"
+
+/obj/item/clothing/head/tchaikowsky
+	species_restricted = list(SPECIES_HUMAN)
+	dog_fashion = null
+	var/flipped = TRUE
+
+/obj/item/clothing/head/tchaikowsky/baseballcap
+	name = "baseball cap (blue)"
+	desc = "Бейсболка синего цвета. Мерч команды \"Нанотрейзен Лейкерс\"."
+	icon_state = "baseball_blue"
+	item_state = "baseball_blue"
+
+/obj/item/clothing/head/tchaikowsky/baseballcap/get_ru_names()
+	return list(
+		NOMINATIVE = "синяя бейсболка",
+		GENITIVE = "синей бейсболки",
+		DATIVE = "синей бейсболке",
+		ACCUSATIVE = "синюю бейсболку",
+		INSTRUMENTAL = "синей бейсболкой",
+		PREPOSITIONAL = "синей бейсболке"
+	)
+/obj/item/clothing/head/tchaikowsky/baseballcap/brown
+	name = "baseball cap (brown)"
+	desc = "Бейсболка коричневого цвета. Мерч команды \"Киберсан Инд\"."
+	icon_state = "baseball_brown"
+	item_state = "baseball_brown"
+
+/obj/item/clothing/head/tchaikowsky/baseballcap/brown/get_ru_names()
+	return list(
+		NOMINATIVE = "коричневая бейсболка",
+		GENITIVE = "коричневой бейсболки",
+		DATIVE = "коричневой бейсболке",
+		ACCUSATIVE = "коричневую бейсболку",
+		INSTRUMENTAL = "коричневой бейсболкой",
+		PREPOSITIONAL = "коричневой бейсболке"
+	)

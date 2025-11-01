@@ -7,9 +7,7 @@
 	attack_verb = list("огрел", "ударил", "с силой ударил")
 	force = 12
 	throwforce = 10
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=5;powerstorage=3;syndicate=1"
 	var/click_delay = 1.5
@@ -19,7 +17,7 @@
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/datum/effect_system/spark_spread/spark_system
 
-/obj/item/melee/powerfist/Initialize()
+/obj/item/melee/powerfist/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
@@ -35,9 +33,9 @@
 	. = ..()
 	if(in_range(user, src))
 		if(tank)
-			. += span_notice("[bicon(tank)] It has [tank] mounted onto it.")
+			. += span_notice("[icon2html(tank, user)] It has [tank] mounted onto it.")
 		if(cell)
-			. += span_notice("[bicon(cell)]The fist is charged for [cell.charge] W")
+			. += span_notice("[icon2html(cell, user)]The fist is charged for [cell.charge] W")
 	else
 		. += span_notice("You'll need to get closer to see any more.")
 
@@ -143,7 +141,7 @@
 			mobtarget.emp_act(1)
 			spark_system.start()
 			if(cell.charge >= 15000)
-				mobtarget.electrocute_act(cell.charge/1250, "силового кулака")
+				mobtarget.electrocute_act(cell.charge / 1250, src)
 			cell.use(cell.maxcharge)
 			to_chat(user, "[src] sparkles violently")
 	else

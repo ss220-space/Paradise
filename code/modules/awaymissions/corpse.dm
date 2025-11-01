@@ -4,10 +4,11 @@
 
 //To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
 
+GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
+
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
-	anchored = TRUE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	var/mob_type = null
@@ -51,6 +52,8 @@
 	var/mob/dead/observer/O = user
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
+	if(GLOB.off_mob_spawns)
+		return 
 	if(!uses)
 		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
@@ -192,7 +195,7 @@
 	equip(mob, use_prefs = prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
 
 	if(plr)
-		mob.ckey = plr.ckey
+		mob.possess_by_player(plr.ckey)
 		if(flavour)
 
 			to_chat(mob, chat_box_green(flavour_text))
@@ -224,11 +227,6 @@
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
 	mob_species = null		//Set species
-	allow_species_pick = FALSE
-	allow_prefs_prompt = FALSE
-	allow_gender_pick = FALSE
-	allow_name_pick = FALSE
-	allow_tts_pick = TRUE
 	var/list/pickable_species = list(SPECIES_HUMAN, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_SKRELL, SPECIES_DIONA)
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
@@ -267,7 +265,7 @@
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
-/obj/effect/mob_spawn/human/Initialize()
+/obj/effect/mob_spawn/human/Initialize(mapload)
 	if(ispath(outfit))
 		outfit = new outfit()
 	if(!outfit)
@@ -450,7 +448,7 @@
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
 	mob_name = "space mouse"
-	mob_type = 	/mob/living/simple_animal/mouse
+	mob_type =	/mob/living/simple_animal/mouse
 	death = FALSE
 	roundstart = FALSE
 	icon = 'icons/obj/machines/cryogenic2.dmi'
@@ -460,7 +458,7 @@
 /obj/effect/mob_spawn/cow
 	name = "sleeper"
 	mob_name = "space cow"
-	mob_type = 	/mob/living/simple_animal/cow
+	mob_type =	/mob/living/simple_animal/cow
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
@@ -538,17 +536,11 @@
 	outfit = /datum/outfit/job/engineer/suit
 
 /datum/outfit/job/engineer/suit
-	name = "Station Engineer"
 	toggle_helmet = TRUE
-	uniform = /obj/item/clothing/under/rank/engineer
 	belt = /obj/item/storage/belt/utility/full
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
-	shoes = /obj/item/clothing/shoes/workboots
 	mask = /obj/item/clothing/mask/breath
-	id = /obj/item/card/id/engineering
-	l_pocket = /obj/item/t_scanner
 
-	backpack = /obj/item/storage/backpack/industrial
 
 
 /obj/effect/mob_spawn/human/clown
@@ -557,7 +549,7 @@
 	id_job = "Clown"
 	outfit = /datum/outfit/job/clown
 
-/obj/effect/mob_spawn/human/clown/Initialize()
+/obj/effect/mob_spawn/human/clown/Initialize(mapload)
 	mob_name = pick(GLOB.clown_names)
 	return ..()
 
@@ -565,7 +557,7 @@
 	name = "Clown Soldier"
 	outfit = /datum/outfit/clownsoldier
 
-/obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
+/obj/effect/mob_spawn/human/corpse/clownmili/Initialize(mapload)
 	mob_name = "Officer [pick(GLOB.clown_names)]"
 	return ..()
 
@@ -573,7 +565,7 @@
 	name = "Clown Officer"
 	outfit = /datum/outfit/clownofficer
 
-/obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
+/obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
 	return ..()
 
@@ -606,7 +598,7 @@
 	id_job = "Mime"
 	outfit = /datum/outfit/job/mime
 
-/obj/effect/mob_spawn/human/mime/Initialize()
+/obj/effect/mob_spawn/human/mime/Initialize(mapload)
 	mob_name = pick(GLOB.mime_names)
 	return ..()
 
@@ -641,14 +633,11 @@
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	name = "Shaft Miner"
 	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	id = /obj/item/card/id/supply
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
@@ -728,7 +717,6 @@
 
 /datum/outfit/beachbum/female
 	name = "Beach Bum (female)"
-	glasses = /obj/item/clothing/glasses/sunglasses
 	uniform = /obj/item/clothing/under/swimsuit/red
 
 /////////////////Spooky Undead//////////////////////
@@ -742,8 +730,6 @@
 /obj/effect/mob_spawn/human/skeleton/alive
 	death = FALSE
 	roundstart = FALSE
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "remains"
 	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
@@ -808,7 +794,7 @@
 	assignedrole = "Space Bar Patron"
 
 /obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
-	var/despawn = tgui_alert("Вернуться в криосон? (Внимание, ваш персонаж будет удалён!)", "Выход", list("Да", "Нет"))
+	var/despawn = tgui_alert(usr, "Вернуться в криосон? (Внимание, ваш персонаж будет удалён!)", "Выход", list("Да", "Нет"))
 	if(despawn == "Нет" || !loc || !Adjacent(user))
 		return
 	user.visible_message(span_notice("[user.name] возвращается в криокамеру..."))
@@ -826,21 +812,18 @@
 
 /obj/effect/mob_spawn/carp
 	mob_type = /mob/living/simple_animal/hostile/carp
-	death = TRUE
 	name = "Dead carp"
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "base_dead"
 
 /obj/effect/mob_spawn/mousedead
 	mob_type = /mob/living/simple_animal/mouse
-	death = TRUE
 	name = "Dead mouse"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_brown_splat"
 
 /obj/effect/mob_spawn/ratdead
 	mob_type = /mob/living/simple_animal/mouse/rat
-	death = TRUE
 	name = "Dead rat"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "rat_white_splat"
@@ -848,14 +831,11 @@
 //For black market packers gate
 
 /obj/effect/mob_spawn/human/corpse/tacticool
-	mob_type = /mob/living/carbon/human
 	name = "Tacticool corpse"
 	icon = 'icons/mob/clothing/uniform.dmi'
 	icon_state = "tactifool_s"
-	mob_name = "Unknown"
+	mob_name = UNKNOWN_NAME_RUS
 	random = TRUE
-	death = TRUE
-	disable_sensors = TRUE
 	outfit = /datum/outfit/packercorpse
 
 /datum/outfit/packercorpse
@@ -867,7 +847,7 @@
 	l_ear = /obj/item/radio/headset
 	gloves = /obj/item/clothing/gloves/color/black
 
-/obj/effect/mob_spawn/human/corpse/tacticool/Initialize()
+/obj/effect/mob_spawn/human/corpse/tacticool/Initialize(mapload)
 	brute_damage = rand(0, 400)
 	burn_damage = rand(0, 400)
 	return ..()
@@ -877,7 +857,6 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "secure"
 	random = TRUE
-	disable_sensors = TRUE
 	outfit = /datum/outfit/syndicatetrader
 
 /datum/outfit/syndicatetrader
@@ -889,7 +868,7 @@
 	mask = /obj/item/clothing/mask/balaclava
 	suit = /obj/item/clothing/suit/armor/vest/combat
 
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader/Initialize()
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader/Initialize(mapload)
 	brute_damage = rand(150, 500)
 	burn_damage = rand(100, 300)
 	return ..()

@@ -4,6 +4,7 @@
 	icon_state = "echair0"
 	item_chair = null
 	anchored = TRUE
+	flip_on_buckled_move = FALSE
 	var/obj/item/assembly/shock_kit/part
 	var/last_time = 0
 	var/delay_time = 5 SECONDS
@@ -79,6 +80,8 @@
 	set name = "Вкл/выкл эл. стул"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	shock(usr)
 
@@ -105,15 +108,15 @@
 
 	shocking = TRUE
 	update_icon()
-	do_sparks(12, 1, src)
+	do_sparks(12, TRUE, src)
 	visible_message(span_danger("The electric chair went off!"))
 	addtimer(CALLBACK(src, PROC_REF(reset_echair)), delay_time, TIMER_DELETE_ME)
 
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
-			buckled_mob.electrocute_act(110, "электрического стула")
+			buckled_mob.electrocute_act(110, src)
 			to_chat(buckled_mob, span_userdanger("You feel a deep shock course through your body!"))
-			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, "электрического стула"), 0.1 SECONDS, TIMER_DELETE_ME)
+			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, src), 0.1 SECONDS, TIMER_DELETE_ME)
 
 
 /obj/structure/chair/e_chair/proc/reset_echair()

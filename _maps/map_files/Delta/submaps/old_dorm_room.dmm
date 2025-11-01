@@ -1,0 +1,641 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ao" = (
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -26
+	},
+/obj/structure/table/wood,
+/obj/item/folder/red,
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"bs" = (
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"bO" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"ca" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"dl" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ds" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed,
+/obj/item/bedsheet/medical{
+	level = 1.4
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/template_noop)
+"dM" = (
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "cabinM";
+	name = "Door Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_y = 24;
+	specialfunctions = 4
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
+	},
+/obj/structure/dresser,
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"fs" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/suit/storage/browntrenchcoat,
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"fv" = (
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"gb" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/emergency/old,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"gz" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall,
+/area/template_noop)
+"hj" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"hT" = (
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"jm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/rods{
+	amount = 4
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"kC" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"lo" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/turf/simulated/wall,
+/area/template_noop)
+"lt" = (
+/turf/template_noop,
+/area/template_noop)
+"pi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/iv_drip{
+	layer = 3.5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue"
+	},
+/area/template_noop)
+"pr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/template_noop)
+"rT" = (
+/turf/simulated/wall,
+/area/crew_quarters/sleep)
+"sp" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
+	id_tag = "cabin3";
+	name = "Cabin"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/sleep)
+"tI" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/template_noop)
+"uo" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/template_noop)
+"xs" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_doorm_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_doorm_room/working,
+/turf/simulated/wall,
+/area/crew_quarters/sleep)
+"yP" = (
+/turf/simulated/floor/plating,
+/area/template_noop)
+"zP" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/template_noop)
+"CX" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/table/wood,
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -26
+	},
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"Di" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"DU" = (
+/turf/simulated/wall,
+/area/template_noop)
+"Ed" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/template_noop)
+"Eh" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_doorm_room,
+/turf/template_noop,
+/area/template_noop)
+"Gx" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/bottle/morphine{
+	pixel_x = 8;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/bottle/saline{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/obj/item/storage/pill_bottle/painkillers{
+	pixel_x = -2;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/template_noop)
+"GS" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall,
+/area/crew_quarters/sleep)
+"Hn" = (
+/obj/effect/decal/cleanable/glass,
+/obj/item/stack/rods{
+	amount = 4
+	},
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = -7;
+	pixel_y = -10
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"IP" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/table/wood,
+/obj/machinery/light,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"Lo" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"MU" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Nh" = (
+/obj/structure/chair/comfy/teal{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"OS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"OW" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/template_noop)
+"Qt" = (
+/obj/item/mounted/frame/apc_frame,
+/obj/structure/closet/crate,
+/obj/item/apc_electronics,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Rg" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"RO" = (
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"RP" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/template_noop)
+"SF" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"Tl" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"TN" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_doorm_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_doorm_room/medical,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"TQ" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/crew_quarters/sleep)
+"Ui" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/template_noop)
+"Ux" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/crew_quarters/sleep)
+"Vj" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/template_noop)
+"Vs" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/wood/fancy/birch,
+/area/crew_quarters/sleep)
+"Wf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/template_noop)
+"XI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_doorm_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_doorm_room/passage,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/template_noop)
+"XU" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ZS" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access = list(12)
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+"}
+(2,1,1) = {"
+lt
+SF
+lt
+lt
+lt
+lt
+Eh
+lt
+GS
+rT
+rT
+rT
+rT
+xs
+lt
+"}
+(3,1,1) = {"
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+rT
+dM
+bs
+ao
+CX
+rT
+lt
+"}
+(4,1,1) = {"
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+sp
+OS
+OS
+Vs
+IP
+rT
+lt
+"}
+(5,1,1) = {"
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+rT
+fs
+RO
+fv
+hj
+rT
+lt
+"}
+(6,1,1) = {"
+lt
+bO
+lt
+lt
+lt
+lt
+kC
+lt
+Ux
+rT
+rT
+rT
+rT
+TQ
+lt
+"}
+(7,1,1) = {"
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+"}
+(8,1,1) = {"
+lt
+uo
+DU
+MU
+jm
+yP
+TN
+lt
+gz
+Di
+Rg
+Ed
+MU
+XI
+lt
+"}
+(9,1,1) = {"
+lt
+DU
+Gx
+Hn
+Wf
+yP
+Ui
+lt
+DU
+gb
+Rg
+pr
+tI
+hT
+lt
+"}
+(10,1,1) = {"
+lt
+DU
+yP
+Ui
+yP
+Ui
+hT
+lt
+ZS
+Vj
+ca
+dl
+yP
+DU
+lt
+"}
+(11,1,1) = {"
+lt
+DU
+pi
+ds
+Nh
+OW
+DU
+lt
+DU
+Lo
+Tl
+XU
+Qt
+MU
+lt
+"}
+(12,1,1) = {"
+lt
+zP
+DU
+DU
+DU
+DU
+lo
+lt
+zP
+DU
+DU
+DU
+DU
+RP
+lt
+"}
+(13,1,1) = {"
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+lt
+"}

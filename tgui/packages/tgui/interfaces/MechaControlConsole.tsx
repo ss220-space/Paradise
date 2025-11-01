@@ -1,6 +1,5 @@
 import { useBackend } from '../backend';
 import {
-  Box,
   Button,
   LabeledList,
   ProgressBar,
@@ -8,11 +7,10 @@ import {
   NoticeBox,
 } from '../components';
 import { Window } from '../layouts';
-import { toTitleCase, decodeHtmlEntities } from 'common/string';
+import { toTitleCase } from 'common/string';
 
 type MechaControlData = {
   beacons: Beakon[];
-  stored_data: StoredData[];
 };
 
 type Beakon = {
@@ -31,36 +29,10 @@ type Beakon = {
   cargoUsed: number;
 };
 
-type StoredData = {
-  time: string;
-  message: string;
-};
-
 export const MechaControlConsole = (props: unknown) => {
   const { act, data } = useBackend<MechaControlData>();
-  const { beacons, stored_data } = data;
+  const { beacons } = data;
 
-  if (stored_data.length) {
-    return (
-      <Window width={420} height={500}>
-        <Window.Content scrollable>
-          <Section
-            title="Log"
-            buttons={
-              <Button icon="window-close" onClick={() => act('clear_log')} />
-            }
-          >
-            {stored_data.map((data) => (
-              <Box key={data.time}>
-                <Box color="label">({data.time})</Box>
-                <Box>{decodeHtmlEntities(data.message)}</Box>
-              </Box>
-            ))}
-          </Section>
-        </Window.Content>
-      </Window>
-    );
-  }
   return (
     <Window width={420} height={500}>
       <Window.Content scrollable>
@@ -76,12 +48,6 @@ export const MechaControlConsole = (props: unknown) => {
                     onClick={() => act('send_message', { mt: beacon.uid })}
                   >
                     Message
-                  </Button>
-                  <Button
-                    icon="eye"
-                    onClick={() => act('get_log', { mt: beacon.uid })}
-                  >
-                    View Log
                   </Button>
                   <Button.Confirm
                     color="red"

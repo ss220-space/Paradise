@@ -34,7 +34,7 @@
 	/// Override for the visual attack effect shown on 'do_attack_animation()'.
 	var/attack_vis_effect
 	///Played when someone punches the creature.
-	var/attacked_sound = "punch" //This should be an element
+	var/attacked_sound = SFX_PUNCH //This should be an element
 
 	///What kind of objects this mob can smash.
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
@@ -174,7 +174,7 @@
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
 	// if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
-	// 	return FALSE //but more importantly return before attack_animal called
+	//	return FALSE //but more importantly return before attack_animal called
 	var/result = target.attack_basic_mob(src)
 	// SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result) //Bee edit: We don't have pre_attackingtarget nor hostile simplemobs, so I'll just leave these here for anyone who stumbles upon this down the line
 	return result
@@ -193,5 +193,5 @@
 /mob/living/basic/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += span_deadsay("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] мёртв[genderize_ru(user.gender,"ым","ой","ым","ыми")].")
+		. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] мёртв[GEND_YM_OI_YM_YMI(user)].")
 		return

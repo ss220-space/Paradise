@@ -104,7 +104,6 @@
 	icon_state = "default"
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please"
-	mouse_opacity = MOUSE_OPACITY_ICON
 	var/timeout = 0 //If set to a number, this alert will clear itself after that many deciseconds
 	var/severity = 0
 	var/alerttooltipstyle = ""
@@ -136,14 +135,14 @@
 	icon_state = "too_much_oxy"
 
 /atom/movable/screen/alert/not_enough_nitro
-    name = "Удушье (Недостаток N)"
-    desc = "Вам не хватает азота.<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
-    icon_state = "not_enough_nitro"
+	name = "Удушье (Недостаток N)"
+	desc = "Вам не хватает азота.<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
+	icon_state = "not_enough_nitro"
 
 /atom/movable/screen/alert/too_much_nitro
-    name = "Удушье (Избыток N)"
-    desc = "Слишком много азота в воздухе!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
-    icon_state = "too_much_nitro"
+	name = "Удушье (Избыток N)"
+	desc = "Слишком много азота в воздухе!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
+	icon_state = "too_much_nitro"
 
 /atom/movable/screen/alert/not_enough_co2
 	name = "Удушье (Недостаток CO2)"
@@ -181,116 +180,30 @@
 	desc = "АБСОЛЮТНАЯ МЕРЗОСТЬ!"
 	icon_state = "gross3"
 
-// Hunger alerts
-
-/atom/movable/screen/alert/hunger
-	icon = 'icons/mob/screen_hunger.dmi'
-
-/atom/movable/screen/alert/hunger/fat
-	name = "Переедание"
-	desc = "Вы объелись. Бегайте по станции и сбрасывайте вес."
-	icon_state = "fat"
-
-/atom/movable/screen/alert/hunger/full
-	name = "Сытость"
-	desc = "Вы сыты и довольны, но лучше больше не есть."
-	icon_state = "full"
-
-/atom/movable/screen/alert/hunger/well_fed
-	name = "Полное насыщение"
-	desc = "Вы вполне сыты, но ещё немного влезет."
-	icon_state = "well_fed"
-
-/atom/movable/screen/alert/hunger/fed
-	name = "Насыщение"
-	desc = "Вы умеренно сыты, но перекусить не помешает."
-	icon_state = "fed"
-
-/atom/movable/screen/alert/hunger/hungry
-	name = "Лёгкий голод"
-	desc = "Сейчас бы перекусить..."
-	icon_state = "hungry"
-
-/atom/movable/screen/alert/hunger/starving
-	name = "Сильный голод"
-	desc = "Вы истощены. Голодная слабость затрудняет движение."
-	icon_state = "starving"
-
-/// Machine "hunger"
-
-/atom/movable/screen/alert/hunger/fat/machine
-	name = "Перезаряд"
-	desc = "Ваша батарея перезаряжена из-за ударов током. Побегай по станции, потрать энергию."
-
-/atom/movable/screen/alert/hunger/full/machine
-	name = "Полный заряд"
-	desc = "Батарея полностью заряжена. Возможно, стоит отойти от ЛКП."
-
-/atom/movable/screen/alert/hunger/well_fed/machine
-	name = "Высокий заряд"
-	desc = "Вы почти полностью заряжены, но ещё чуть-чуть можно подзарядиться..."
-
-/atom/movable/screen/alert/hunger/fed/machine
-	name = "Половина заряда"
-	desc = "Заряд на половине. Не помешало бы подзарядиться."
-
-/atom/movable/screen/alert/hunger/hungry/machine
-	name = "Низкий заряд"
-	desc = "Пора бы подзарядиться."
-
-/atom/movable/screen/alert/hunger/starving/machine
-	name = "Почти разряжен"
-	desc = "Вы почти разряжены. Без энергии двигаться тяжело."
-
-
-/// Vampire "hunger"
-
-/atom/movable/screen/alert/hunger/fat/vampire
-	name = "Ожирение"
-	desc = "Вы выпили столько крови, что пузо уже не влезает в штаны.<br>Бегайте теперь по станции кругами, чтобы похудеть."
-
-/atom/movable/screen/alert/hunger/full/vampire
-	name = "Пресыщение"
-	desc = "Вы чувствуете спокойствие и приятную насыщенность.<br>Но жажда крови обязательно вернётся…"
-
-/atom/movable/screen/alert/hunger/well_fed/vampire
-	name = "Сытость"
-	desc = "Вы вполне сыты, но могли бы выпить ещё немного крови."
-
-/atom/movable/screen/alert/hunger/fed/vampire
-	name = "Удовлетворённость"
-	desc = "Вы не голодны, но испить ещё немного крови не помешало бы."
-
-/atom/movable/screen/alert/hunger/hungry/vampire
-	name = "Недоедание"
-	desc = "Вы жаждете отведать свежей крови."
-
-/atom/movable/screen/alert/hunger/starving/vampire
-	name = "Жажда"
-	desc = "Вас наполняет жажда. Она приносит физическую боль.<br>Вам тяжело передвигаться."
-
-/// End of Vampire "hunger"
-
-
 /atom/movable/screen/alert/hot
 	name = "Перегрев"
 	desc = "Вам обжигающе жарко! Найдите прохладное место и снимите изолирующую одежду, например, противопожарный костюм."
 	icon_state = "hot"
 
 /atom/movable/screen/alert/hot/robot
-    desc = "Воздух вокруг вас слишком горячий для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
+	desc = "Воздух вокруг вас слишком горячий для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
 
 /atom/movable/screen/alert/cold
 	name = "Переохлаждение"
 	desc = "Вы ужасно замёрзли! Найдите место потеплее и снимите изолирующую одежду, например, скафандр."
 	icon_state = "cold"
 
+/atom/movable/screen/alert/bleeding
+	name = "Кровотечение"
+	desc = "У вас кровотечение! Проверьте свое тело и побыстрее остановите кровотечение чтобы не умереть."
+	icon_state = "bleeding"
+
 /atom/movable/screen/alert/cold/drask
-    name = "Холод"
-    desc = "Вы вдыхаете переохлаждённый газ! Это ускоряет метаболизм и заживление."
+	name = "Холод"
+	desc = "Вы вдыхаете переохлаждённый газ! Это ускоряет метаболизм и заживление."
 
 /atom/movable/screen/alert/cold/robot
-    desc = "Воздух вокруг вас слишком холодный для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
+	desc = "Воздух вокруг вас слишком холодный для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
 
 /atom/movable/screen/alert/lowpressure
 	name = "Низкое давление"
@@ -846,12 +759,12 @@
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
 /datum/hud/proc/reorganize_alerts()
-	var/list/alerts = mymob.alerts
+	var/list/alerts = mymob?.alerts
 	if(!alerts)
 		return FALSE
 	var/icon_pref
 	if(!hud_shown)
-		for(var/i in 1 to alerts.len)
+		for(var/i in 1 to length(alerts))
 			mymob.client.screen -= alerts[alerts[i]]
 			for(var/mob/dead/observer/observe in mymob.inventory_observers)
 				if(!observe.client)
@@ -859,7 +772,7 @@
 					continue
 				observe.client.screen -= alerts[alerts[i]]
 		return TRUE
-	for(var/i in 1 to alerts.len)
+	for(var/i in 1 to length(alerts))
 		var/atom/movable/screen/alert/alert = alerts[alerts[i]]
 		if(alert.icon_state == "template")
 			if(!icon_pref)
@@ -891,8 +804,8 @@
 	if(!usr || !usr.client || HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return FALSE
 
-	var/paramslist = params2list(params)
-	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "[span_boldnotice(name)] – [span_notice(desc)]")
 		return FALSE
 

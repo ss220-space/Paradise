@@ -1,14 +1,14 @@
 /**
-  * # Contractor antagonist datum
-  *
-  * A variant of the Traitor, Contractors rely on kidnapping crew members to earn TC.
-  *
-  * Contractors are supplied with some unique items
-  * and three random low cost contraband items to help kickstart their contracts.
-  * A Traitor may become a Contractor if given the chance (random).
-  * They will forfeit all their initial TC and receive the above items.
-  * The opportunity to become a Contractor goes away after some time or if the traitor spends any initial TC.
-  */
+ * # Contractor antagonist datum
+ *
+ * A variant of the Traitor, Contractors rely on kidnapping crew members to earn TC.
+ *
+ * Contractors are supplied with some unique items
+ * and three random low cost contraband items to help kickstart their contracts.
+ * A Traitor may become a Contractor if given the chance (random).
+ * They will forfeit all their initial TC and receive the above items.
+ * The opportunity to become a Contractor goes away after some time or if the traitor spends any initial TC.
+ */
 /datum/antagonist/contractor
 	name = "Contractor"
 	job_rank = ROLE_TRAITOR

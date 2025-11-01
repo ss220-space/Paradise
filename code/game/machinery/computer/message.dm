@@ -15,7 +15,7 @@
 	var/defaultmsg = span_notice("Welcome. Please select an option.")
 	var/rebootmsg = span_warning("%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!")
 	//Computer properties
-	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
+	var/screen = 0		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
 	var/emag = 0		// When it is emagged.
 	var/message = span_notice("System bootup complete. Please select an option.")	// The message that shows on the main menu.
@@ -25,9 +25,7 @@
 	var/customsender = "System Administrator"
 	var/obj/item/pda/customrecepient = null
 	var/customjob		= "Admin"
-	var/custommessage 	= "This is a test, please ignore."
-
-	light_color = LIGHT_COLOR_DARKGREEN
+	var/custommessage	= "This is a test, please ignore."
 
 /obj/machinery/computer/message_monitor/laptop
 	name = "message monitor laptop"
@@ -51,7 +49,7 @@
 			icon_screen = hack_icon // An error screen I made in the computers.dmi
 			emag = 1
 			screen = 2
-			do_sparks(5, 0, src)
+			do_sparks(5, FALSE, src)
 			var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
 			MK.loc = src.loc
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
@@ -74,15 +72,15 @@
 	..()
 
 
-/obj/machinery/computer/message_monitor/Initialize()
+/obj/machinery/computer/message_monitor/Initialize(mapload)
 	. = ..()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)
-		if(GLOB.message_servers && GLOB.message_servers.len > 0)
+		if(GLOB.message_servers && length(GLOB.message_servers) > 0)
 			linkedServer = GLOB.message_servers[1]
 	return
 
-/obj/machinery/computer/message_monitor/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/message_monitor/attack_hand(mob/user as mob)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -221,7 +219,7 @@
 		if(4)
 
 			var/index = 0
-			/* 	data_rc_msg
+			/*	data_rc_msg
 				X												 - 5%
 				var/rec_dpt = "Unspecified" //name of the person - 15%
 				var/send_dpt = "Unspecified" //name of the sender- 15%
@@ -267,10 +265,10 @@
 	src.emag = 0
 
 /obj/machinery/computer/message_monitor/proc/ResetMessage()
-	customsender 	= "System Administrator"
+	customsender	= "System Administrator"
 	customrecepient = null
-	custommessage 	= "This is a test, please ignore."
-	customjob 		= "Admin"
+	custommessage	= "This is a test, please ignore."
+	customjob		= "Admin"
 
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
 	if(..(href, href_list))
@@ -294,10 +292,10 @@
 			if(auth) linkedServer.active = !linkedServer.active
 		//Find a server
 		if(href_list["find"])
-			if(GLOB.message_servers && GLOB.message_servers.len > 1)
+			if(GLOB.message_servers && length(GLOB.message_servers) > 1)
 				src.linkedServer = tgui_input_list(usr, "Please select a server.", "Select a server.", GLOB.message_servers, null)
 				message = span_alert("NOTICE: Server selected.")
-			else if(GLOB.message_servers && GLOB.message_servers.len > 0)
+			else if(GLOB.message_servers && length(GLOB.message_servers) > 0)
 				linkedServer = GLOB.message_servers[1]
 				message = span_notice("NOTICE: Only Single Server Detected - Server selected.")
 			else
@@ -355,7 +353,7 @@
 				src.icon_screen = hack_icon
 				//Time it takes to bruteforce is dependant on the password length.
 				spawn(100*length(src.linkedServer.decryptkey))
-					if(src && src.linkedServer && usr)
+					if(src?.linkedServer && usr)
 						BruteForce(usr)
 		//Delete the log.
 		if(href_list["delete"])
@@ -396,7 +394,7 @@
 
 					//Select Your Name
 					if("Sender")
-						customsender 	= tgui_input_text(usr, "Please enter the sender's name.")
+						customsender	= tgui_input_text(usr, "Please enter the sender's name.")
 
 					//Select Receiver
 					if("Recepient")
@@ -408,14 +406,14 @@
 							if(!PM || !PM.can_receive())
 								continue
 							sendPDAs += P
-						if(GLOB.PDAs && GLOB.PDAs.len > 0)
+						if(GLOB.PDAs && length(GLOB.PDAs) > 0)
 							customrecepient = tgui_input_list(usr, "Select a PDA from the list.", items = sortAtom(sendPDAs))
 						else
 							customrecepient = null
 
 					//Enter custom job
 					if("RecJob")
-						customjob	 	= tgui_input_text(usr, "Please enter the sender's job.")
+						customjob		= tgui_input_text(usr, "Please enter the sender's job.")
 
 					//Enter message
 					if("Message")

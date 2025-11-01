@@ -17,7 +17,7 @@
 	for(var/mob/living/target in loc)
 		target.forceMove(teleport_target)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
-		to_chat(target, "<span class='warning'>The instability of the warp leaves you disoriented!</span>")
+		to_chat(target, span_warning("The instability of the warp leaves you disoriented!"))
 		target.Stun(6 SECONDS)
 
 /obj/machinery/abductor/pad/proc/Retrieve(mob/living/target)
@@ -46,6 +46,7 @@
 	icon_state = "teleport"
 	duration = 80
 
-/obj/effect/temp_visual/teleport_abductor/New()
-	do_sparks(10, 0, loc)
-	..()
+/obj/effect/temp_visual/teleport_abductor/Initialize(mapload)
+	. = ..()
+	do_sparks(10, FALSE, loc)
+

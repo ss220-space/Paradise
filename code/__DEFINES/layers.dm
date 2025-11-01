@@ -21,14 +21,20 @@
 #define FLOOR_PLANE -10
 
 #define WALL_PLANE -9
-#define GAME_PLANE -8
+#define BELOW_GAME_PLANE -8
+#define GAME_PLANE -7
 
 #define ABOVE_GAME_PLANE -2
+
+/// Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees
+#define SEETHROUGH_PLANE -2
+
 
 #define RENDER_PLANE_GAME_WORLD -1
 
 #define DEFAULT_PLANE 0 //Marks out the default plane, even if we don't use it
 
+#define WEATHER_PLANE 1
 #define AREA_PLANE 2
 #define MASSIVE_OBJ_PLANE 3
 #define GHOST_PLANE 4
@@ -131,7 +137,7 @@
 /// A value of /datum/preference/numeric/multiz_performance that disables the option
 #define MULTIZ_PERFORMANCE_DISABLE -1
 /// We expect at most 3 layers of multiz
-/// Increment this define if you make a huge map. We unit test for it too just to make it easy for you
+/// Increment this define if you make a huge map. We game test for it too just to make it easy for you
 /// If you modify this, you'll need to modify the tsx file too
 #define MAX_EXPECTED_Z_DEPTH 2
 
@@ -246,6 +252,7 @@
 #define CURSE_LAYER 30.5
 
 #define HUD_LAYER 31
+#define BUILDMOD_LAYER 31.1
 #define ABOVE_HUD_LAYER 32
 
 #define SPLASHSCREEN_LAYER 33

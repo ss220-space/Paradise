@@ -2,14 +2,6 @@
 /mob/living/simple_animal/hostile/retaliate/goat
 	name = "goat"
 	desc = "Не отличаются приятным нравом."
-	ru_names = list(
-		NOMINATIVE = "козёл",
-		GENITIVE = "козла",
-		DATIVE = "козлу",
-		ACCUSATIVE = "козла",
-		INSTRUMENTAL = "козлом",
-		PREPOSITIONAL = "козле"
-	)
 	icon_state = "goat"
 	icon_living = "goat"
 	icon_resting = "goat_rest"
@@ -42,6 +34,17 @@
 	var/obj/item/udder/udder = null
 	footstep_type = FOOTSTEP_MOB_SHOE
 
+/mob/living/simple_animal/hostile/retaliate/goat/get_ru_names()
+	return list(
+		NOMINATIVE = "козёл",
+		GENITIVE = "козла",
+		DATIVE = "козлу",
+		ACCUSATIVE = "козла",
+		INSTRUMENTAL = "козлом",
+		PREPOSITIONAL = "козле"
+	)
+
+
 /mob/living/simple_animal/hostile/retaliate/goat/New()
 	udder = new()
 	. = ..()
@@ -53,10 +56,10 @@
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
 	. = ..()
 	//chance to go crazy and start wacking stuff
-	if(!enemies.len && prob(1))
+	if(!length(enemies) && prob(1))
 		Retaliate()
 
-	if(enemies.len && prob(10))
+	if(length(enemies) && prob(10))
 		enemies = list()
 		lose_target()
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] успокаивается."))
@@ -129,14 +132,6 @@
 /mob/living/simple_animal/cow
 	name = "cow"
 	desc = "Известны своим молоком. Только не опрокидывайте их."
-	ru_names = list(
-		NOMINATIVE = "корова",
-		GENITIVE = "коровы",
-		DATIVE = "корове",
-		ACCUSATIVE = "корову",
-		INSTRUMENTAL = "коровой",
-		PREPOSITIONAL = "корове"
-	)
 	gender = FEMALE
 	icon_state = "cow_black"
 	icon_living = "cow_black"
@@ -175,6 +170,16 @@
 	var/list/validColors = list("black", "brown", "white")
 	COOLDOWN_DECLARE(feeded_cow)
 
+/mob/living/simple_animal/cow/get_ru_names()
+	return list(
+		NOMINATIVE = "корова",
+		GENITIVE = "коровы",
+		DATIVE = "корове",
+		ACCUSATIVE = "корову",
+		INSTRUMENTAL = "коровой",
+		PREPOSITIONAL = "корове"
+	)
+
 /mob/living/simple_animal/cow/New()
 	..()
 	if(!body_color)
@@ -188,7 +193,7 @@
 	..()
 	icon_state = "[icon_prefix]_[body_color]"
 
-/mob/living/simple_animal/cow/Initialize()
+/mob/living/simple_animal/cow/Initialize(mapload)
 	udder = new()
 	. = ..()
 
@@ -205,16 +210,16 @@
 	if(is_type_in_list(I, food_type))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[genderize_ru(src, "", "а", "о", "ы")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[GEND_A_O_Y(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(COOLDOWN_TIMELEFT(src, feeded_cow) > 40 SECONDS) //starting milk mini-factory
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[genderize_ru(src, "ен", "на", "но", "ны")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[GEND_EN_NA_NO_NY(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] пшеницу [declent_ru(DATIVE)]! [genderize_ru(src, "Он", "Она", "Оно", "Они")] [pick(feedMessages)]."),
-			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]! [genderize_ru(src, "Он", "Она", "Оно", "Они")] [pick(feedMessages)].")
+			span_notice("[user] скармлива[PLUR_ET_YUT(user)] пшеницу [declent_ru(DATIVE)]! [GEND_HE_SHE_CAP(src)] [pick(feedMessages)]."),
+			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]! [GEND_HE_SHE_CAP(src)] [pick(feedMessages)].")
 		)
 		COOLDOWN_START(src, feeded_cow, 60 SECONDS)
 		udder.feeded = TRUE
@@ -242,17 +247,19 @@
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		M.visible_message(span_warning("[M] опрокидыва[pluralize_ru(M.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]!"), \
+		M.visible_message(span_warning("[M] опрокидыва[PLUR_ET_YUT(M)] [declent_ru(ACCUSATIVE)]!"), \
 								span_notice("Вы опрокидываете [declent_ru(ACCUSATIVE)]."))
 		Weaken(60 SECONDS)
 		icon_state = icon_dead
 		spawn(rand(20,50))
 			if(!stat && M)
 				icon_state = icon_living
-				var/list/responses = list(	" смотрит на вас умоляюще.",
-											" смотрит на вас удручённо.",
-											" смотрит на вас с покорностью в глазах.",
-											", кажется, смирилась со своей участью.")
+				var/list/responses = list(
+					" смотрит на вас умоляюще.",
+					" смотрит на вас удручённо.",
+					" смотрит на вас с покорностью в глазах.",
+					", кажется, смирилась со своей участью."
+				)
 				to_chat(M, span_notice("[capitalize(declent_ru(NOMINATIVE))][pick(responses)]"))
 	else
 		..()
@@ -260,14 +267,6 @@
 /mob/living/simple_animal/chick
 	name = "chick"
 	desc = "Прелесть! Но они такие шумные."
-	ru_names = list(
-		NOMINATIVE = "цыплёнок",
-		GENITIVE = "цыплёнка",
-		DATIVE = "цыплёнку",
-		ACCUSATIVE = "цыплёнка",
-		INSTRUMENTAL = "цыплёнком",
-		PREPOSITIONAL = "цыплёнке"
-	)
 	icon_state = "chick"
 	icon_living = "chick"
 	icon_resting = "chick_rest"
@@ -301,6 +300,16 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	holder_type = /obj/item/holder/chick
 
+/mob/living/simple_animal/chick/get_ru_names()
+	return list(
+		NOMINATIVE = "цыплёнок",
+		GENITIVE = "цыплёнка",
+		DATIVE = "цыплёнку",
+		ACCUSATIVE = "цыплёнка",
+		INSTRUMENTAL = "цыплёнком",
+		PREPOSITIONAL = "цыплёнке"
+	)
+
 /mob/living/simple_animal/chick/New()
 	..()
 	pixel_x = rand(-6, 6)
@@ -326,14 +335,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /mob/living/simple_animal/chicken
 	name = "chicken"
 	desc = "Надеюсь, в этом году яйца уродятся."
-	ru_names = list(
-		NOMINATIVE = "курица",
-		GENITIVE = "курицы",
-		DATIVE = "курице",
-		ACCUSATIVE = "курицу",
-		INSTRUMENTAL = "курицей",
-		PREPOSITIONAL = "курице"
-	)
 	gender = FEMALE
 	icon_state = "chicken_white"
 	icon_living = "chicken_white"
@@ -375,6 +376,16 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_CLAW
 	holder_type = /obj/item/holder/chicken
 
+/mob/living/simple_animal/chicken/get_ru_names()
+	return list(
+		NOMINATIVE = "курица",
+		GENITIVE = "курицы",
+		DATIVE = "курице",
+		ACCUSATIVE = "курицу",
+		INSTRUMENTAL = "курицей",
+		PREPOSITIONAL = "курице"
+	)
+
 /mob/living/simple_animal/chicken/New()
 	..()
 	if(!body_color)
@@ -401,16 +412,16 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	if(is_type_in_list(I, food_type)) //feedin' dem chickens
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[genderize_ru(src, "", "а", "о", "ы")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[GEND_A_O_Y(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(eggsleft >= 8)
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[genderize_ru(src, "ен", "на", "но", "ны")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[GEND_EN_NA_NO_NY(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] пшеницу [declent_ru(DATIVE)]. [genderize_ru(src, "Он", "Она", "Оно", "Они")] радостно [pick(speak_emote)]."),
-			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]. [genderize_ru(src, "Он", "Она", "Оно", "Они")] радостно [pick(speak_emote)]."),
+			span_notice("[user] скармлива[PLUR_ET_YUT(user)] пшеницу [declent_ru(DATIVE)]. [GEND_HE_SHE_CAP(src)] радостно [pick(speak_emote)]."),
+			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]. [GEND_HE_SHE_CAP(src)] радостно [pick(speak_emote)]."),
 		)
 		eggsleft += rand(1, 4)
 		qdel(I)
@@ -431,7 +442,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
 				START_PROCESSING(SSobj, E)
 
-/obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
+#undef MAX_CHICKENS
+
 /obj/item/reagent_containers/food/snacks/egg/process()
 	if(isturf(loc))
 		amount_grown += rand(1,2)
@@ -446,15 +458,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /mob/living/simple_animal/cock
 	name = "Петух"
 	desc = "Гордый и важный вид."
-	ru_names = list(
-		NOMINATIVE = "петух",
-		GENITIVE = "петуха",
-		DATIVE = "петуху",
-		ACCUSATIVE = "петуха",
-		INSTRUMENTAL = "петухом",
-		PREPOSITIONAL = "петухе"
-	)
-	gender = MALE
 	icon_state = "cock"
 	icon_resting = "cock_rest"
 	icon_living = "cock"
@@ -490,17 +493,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_CLAW
 	holder_type = /obj/item/holder/cock
 
+/mob/living/simple_animal/cock/get_ru_names()
+	return list(
+		NOMINATIVE = "петух",
+		GENITIVE = "петуха",
+		DATIVE = "петуху",
+		ACCUSATIVE = "петуха",
+		INSTRUMENTAL = "петухом",
+		PREPOSITIONAL = "петухе"
+	)
+
 /mob/living/simple_animal/pig
 	name = "pig"
 	desc = "Хрю-хрю!"
-	ru_names = list(
-		NOMINATIVE = "свинья",
-		GENITIVE = "свиньи",
-		DATIVE = "свинье",
-		ACCUSATIVE = "свинью",
-		INSTRUMENTAL = "свиньёй",
-		PREPOSITIONAL = "свинье"
-	)
 	gender = FEMALE
 	icon_state = "pig"
 	icon_living = "pig"
@@ -529,17 +534,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
+/mob/living/simple_animal/pig/get_ru_names()
+	return list(
+		NOMINATIVE = "свинья",
+		GENITIVE = "свиньи",
+		DATIVE = "свинье",
+		ACCUSATIVE = "свинью",
+		INSTRUMENTAL = "свиньёй",
+		PREPOSITIONAL = "свинье"
+	)
+
 /mob/living/simple_animal/turkey
 	name = "turkey"
 	desc = "Бенджамин Франклин мог бы гордиться."
-	ru_names = list(
-		NOMINATIVE = "индейка",
-		GENITIVE = "индейки",
-		DATIVE = "индейке",
-		ACCUSATIVE = "индейку",
-		INSTRUMENTAL = "индейкой",
-		PREPOSITIONAL = "индейке"
-	)
 	gender = FEMALE
 	icon_state = "turkey"
 	icon_living = "turkey"
@@ -564,17 +571,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_SHOE
 
+/mob/living/simple_animal/turkey/get_ru_names()
+	return list(
+		NOMINATIVE = "индейка",
+		GENITIVE = "индейки",
+		DATIVE = "индейке",
+		ACCUSATIVE = "индейку",
+		INSTRUMENTAL = "индейкой",
+		PREPOSITIONAL = "индейке"
+	)
+
 /mob/living/simple_animal/goose
 	name = "goose"
 	desc = "Прекрасная птица для набива подушек и страха детишек."
-	ru_names = list(
-		NOMINATIVE = "гусь",
-		GENITIVE = "гуся",
-		DATIVE = "гусю",
-		ACCUSATIVE = "гуся",
-		INSTRUMENTAL = "гусём",
-		PREPOSITIONAL = "гусе"
-	)
 	icon_state = "goose"
 	icon_living = "goose"
 	icon_dead = "goose_dead"
@@ -605,17 +614,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+/mob/living/simple_animal/goose/get_ru_names()
+	return list(
+		NOMINATIVE = "гусь",
+		GENITIVE = "гуся",
+		DATIVE = "гусю",
+		ACCUSATIVE = "гуся",
+		INSTRUMENTAL = "гусём",
+		PREPOSITIONAL = "гусе"
+	)
+
 /mob/living/simple_animal/goose/gosling
 	name = "gosling"
 	desc = "Симпатичный гусёнок. Скоро он станет грозой всей станции."
-	ru_names = list(
-		NOMINATIVE = "гусёнок",
-		GENITIVE = "гусёнка",
-		DATIVE = "гусёнку",
-		ACCUSATIVE = "гусёнка",
-		INSTRUMENTAL = "гусёнком",
-		PREPOSITIONAL = "гусёнке"
-	)
 	icon_state = "gosling"
 	icon_living = "gosling"
 	icon_dead = "gosling_dead"
@@ -626,17 +637,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	health = 20
 	maxHealth = 20
 
+/mob/living/simple_animal/goose/gosling/get_ru_names()
+	return list(
+		NOMINATIVE = "гусёнок",
+		GENITIVE = "гусёнка",
+		DATIVE = "гусёнку",
+		ACCUSATIVE = "гусёнка",
+		INSTRUMENTAL = "гусёнком",
+		PREPOSITIONAL = "гусёнке"
+	)
+
 /mob/living/simple_animal/seal
 	name = "white seal"
 	desc = "Красивый белый белёк."
-	ru_names = list(
-		NOMINATIVE = "белёк",
-		GENITIVE = "белька",
-		DATIVE = "бельку",
-		ACCUSATIVE = "белька",
-		INSTRUMENTAL = "бельком",
-		PREPOSITIONAL = "бельке"
-	)
 	icon_state = "seal"
 	icon_living = "seal"
 	icon_dead = "seal_dead"
@@ -661,17 +674,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	blood_volume = BLOOD_VOLUME_NORMAL
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+/mob/living/simple_animal/seal/get_ru_names()
+	return list(
+		NOMINATIVE = "белёк",
+		GENITIVE = "белька",
+		DATIVE = "бельку",
+		ACCUSATIVE = "белька",
+		INSTRUMENTAL = "бельком",
+		PREPOSITIONAL = "бельке"
+	)
+
 /mob/living/simple_animal/walrus
 	name = "walrus"
 	desc = "Большой коричневый морж."
-	ru_names = list(
-		NOMINATIVE = "морж",
-		GENITIVE = "моржа",
-		DATIVE = "моржу",
-		ACCUSATIVE = "моржа",
-		INSTRUMENTAL = "моржом",
-		PREPOSITIONAL = "морже"
-	)
 	icon_state = "walrus"
 	icon_living = "walrus"
 	icon_dead = "walrus_dead"
@@ -694,6 +709,16 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
+
+/mob/living/simple_animal/walrus/get_ru_names()
+	return list(
+		NOMINATIVE = "морж",
+		GENITIVE = "моржа",
+		DATIVE = "моржу",
+		ACCUSATIVE = "моржа",
+		INSTRUMENTAL = "моржом",
+		PREPOSITIONAL = "морже"
+	)
 
 /obj/item/udder
 	name = "udder"
@@ -725,7 +750,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		balloon_alert(user, "вымя сухое!")
 		return FALSE
 	user.visible_message(
-		span_notice("[user] до[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] до[PLUR_IT_YAT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы доите [declent_ru(ACCUSATIVE)]."),
 	)
 	return TRUE
@@ -733,7 +758,12 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /mob/living/simple_animal/hostile/retaliate/goat/hump
 	name = "humpback goat"
 	desc = "Очень злой и горбатый козёл. Он, кажется, привык к тесному ящику."
-	ru_names = list(
+	icon_state = "goat_hump"
+	icon_living = "goat_hump"
+	icon_resting = "goat_hump_rest"
+
+/mob/living/simple_animal/hostile/retaliate/goat/hump/get_ru_names()
+	return list(
 		NOMINATIVE = "горбатый козёл",
 		GENITIVE = "горбатого козла",
 		DATIVE = "горбатому козлу",
@@ -741,15 +771,17 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		INSTRUMENTAL = "горбатым козлом",
 		PREPOSITIONAL = "горбатом козле"
 	)
-	icon_state = "goat_hump"
-	icon_living = "goat_hump"
-	icon_resting = "goat_hump_rest"
-	icon_dead = "goat_dead"
 
 /mob/living/simple_animal/cock/cool
 	name = "cool cock"
 	desc = "Крутой петух в крутых очках и больших модных кедах. По всей видимости, он украл чью-то одежду."
-	ru_names = list(
+	icon_state = "cool_cock"
+	icon_living = "cool_cock"
+	icon_resting = "cool_cock_rest"
+	icon_dead = "cool_cock_dead"
+
+/mob/living/simple_animal/cock/cool/get_ru_names()
+	return list(
 		NOMINATIVE = "крутой петух",
 		GENITIVE = "крутого петуха",
 		DATIVE = "крутому петуху",
@@ -757,7 +789,3 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		INSTRUMENTAL = "крутым петухом",
 		PREPOSITIONAL = "крутом петухе"
 	)
-	icon_state = "cool_cock"
-	icon_living = "cool_cock"
-	icon_resting = "cool_cock_rest"
-	icon_dead = "cool_cock_dead"

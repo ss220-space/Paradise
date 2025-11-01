@@ -2,7 +2,6 @@
 	name = "Emergency Blink"
 	desc = "Teleports user to a random nearby location. Consumes a big amount of energy. Use wisely. Energy cost: 1500"
 	check_flags = NONE
-	charge_type = ADV_ACTION_TYPE_RECHARGE
 	charge_max = 3 SECONDS
 	use_itemicon = FALSE
 	button_icon_state = "emergency_blink"
@@ -22,7 +21,7 @@
 		if(auto_smoke)
 			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
 				prime_smoke(lowcost = TRUE)
-		do_teleport(ninja, T, 8, asoundin = 'sound/effects/phasein.ogg')
+		do_teleport(ninja, T, 8, asoundin = 'sound/effects/phasein.ogg', ignore_bluespace_interference = TRUE)
 		add_attack_logs(ninja, null, "Emergency blinked from [COORD(T)] to [COORD(ninja)].")
 		investigate_log("[key_name_log(ninja)] Emergency blinked from [COORD(T)] to [COORD(ninja)].", INVESTIGATE_TELEPORTATION)
 		for(var/datum/action/item_action/advanced/ninja/ninja_emergency_blink/ninja_action in actions)

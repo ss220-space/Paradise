@@ -34,9 +34,7 @@
 	icon_state = "corncob"
 	item_state = "corncob"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 
 
 /obj/item/grown/corncob/attackby(obj/item/I, mob/user, params)
@@ -71,9 +69,7 @@
 	icon_state = "snapcorn"
 	item_state = "corncob"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	var/snap_pops = 1
 
 /obj/item/grown/snapcorn/add_juice()
@@ -82,7 +78,7 @@
 
 /obj/item/grown/snapcorn/attack_self(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You pick a snap pop from the cob.</span>")
+	to_chat(user, span_notice("You pick a snap pop from the cob."))
 	var/obj/item/toy/snappop/S = new /obj/item/toy/snappop(user.loc)
 	if(ishuman(user))
 		user.put_in_hands(S)

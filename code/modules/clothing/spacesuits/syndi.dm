@@ -5,7 +5,7 @@
 	icon_state = "syndicate"
 	item_state = "syndicate"
 	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 25, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30,ENERGY = 25, BOMB = 30, BIO = 30, RAD = 30, FIRE = 80, ACID = 85)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -24,7 +24,7 @@
 	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 25, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30,ENERGY = 25, BOMB = 30, BIO = 30, RAD = 30, FIRE = 80, ACID = 85)
 	sprite_sheets = list(
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -109,7 +109,6 @@
 
 //Black-green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/green
-	name = "Black Space Helmet"
 	icon_state = "syndicate-helm-black-green"
 	item_state = "syndicate-helm-black-green"
 
@@ -121,7 +120,6 @@
 
 //Black-blue syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/blue
-	name = "Black Space Helmet"
 	icon_state = "syndicate-helm-black-blue"
 	item_state = "syndicate-helm-black-blue"
 
@@ -133,31 +131,24 @@
 
 //Black medical syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/med
-	name = "Black Space Helmet"
 	icon_state = "syndicate-helm-black-med"
-	item_state = "syndicate-helm-black"
 
 /obj/item/clothing/suit/space/syndicate/black/med
 	name = "Green Space Suit"
 	icon_state = "syndicate-black-med"
-	item_state = "syndicate-black"
 
 
 //Black-orange syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/orange
-	name = "Black Space Helmet"
 	icon_state = "syndicate-helm-black-orange"
-	item_state = "syndicate-helm-black"
 
 /obj/item/clothing/suit/space/syndicate/black/orange
 	name = "Black and Orange Space Suit"
 	icon_state = "syndicate-black-orange"
-	item_state = "syndicate-black"
 
 
 //Black-red syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/red
-	name = "Black Space Helmet"
 	icon_state = "syndicate-helm-black-red"
 	item_state = "syndicate-helm-black-red"
 
@@ -183,14 +174,11 @@
 
 //Black with yellow/red engineering syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/engie
-	name = "Black Space Helmet"
 	icon_state = "syndicate-helm-black-engie"
-	item_state = "syndicate-helm-black"
 
 /obj/item/clothing/suit/space/syndicate/black/engie
 	name = "Black Engineering Space Suit"
 	icon_state = "syndicate-black-engie"
-	item_state = "syndicate-black"
 
 /obj/item/clothing/head/helmet/space/syndicate/contractor
 	name = "contractor helmet"

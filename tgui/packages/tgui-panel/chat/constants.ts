@@ -5,8 +5,8 @@
  */
 
 export const MAX_VISIBLE_MESSAGES = 2500;
-export const MAX_PERSISTED_MESSAGES = 500;
-export const MESSAGE_SAVE_INTERVAL = 60000;
+export const MAX_PERSISTED_MESSAGES = 1000;
+export const MESSAGE_SAVE_INTERVAL = 10000;
 export const MESSAGE_PRUNE_INTERVAL = 60000;
 export const COMBINE_MAX_TIME_WINDOW = 5000;
 export const COMBINE_MAX_MESSAGES = 5;
@@ -61,13 +61,13 @@ export const MESSAGE_TYPES = [
     name: 'Радио',
     description: 'All departments of radio messages',
     selector:
-      '.alert, .syndradio, .centradio, .airadio, .entradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .supradio, .srvradio, .expradio, .radio, .deptradio, .newscaster, .taipan, .sovradio, .spider_clan',
+      '.alert, .syndradio, .centradio, .airadio, .entradio, .comradio, .secradio, .prisradio, .engradio, .medradio, .sciradio, .supradio, .srvradio, .expradio, .radio, .deptradio, .newscaster, .taipan, .sovradio, .spider_clan',
   },
   {
     type: MESSAGE_TYPE_INFO,
     name: 'Info',
     description: 'Non-urgent messages from the game and items',
-    selector: '.notice:not(.pm), .adminnotice, .info, .sinister, .cult',
+    selector: '.notice:not(.pm), .adminnotice, .sinister, .cult',
   },
   {
     type: MESSAGE_TYPE_WARNING,

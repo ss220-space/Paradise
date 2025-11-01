@@ -42,12 +42,16 @@ SUBSYSTEM_DEF(debugview)
 
 	// Do some parsing to format it properly
 	var/out_text = entries.Join("\n")
-	var/mty = 480 - 9 * length(entries)
+	/*
+		480 - standart highest Y position
+		10 = 8(font_size) + 2(gap between lines)
+	*/
+	var/mty = 480 - 10 * length(entries)
 
 	// And update the clients
 	for(var/client/C as anything in processing)
 		C.debug_text_overlay.maptext_y = mty
-		C.debug_text_overlay.maptext = "<span class='maptext' style='background-color: #272727;'>[out_text]</span>"
+		C.debug_text_overlay.maptext = MAPTEXT("<span style='background-color: #272727;'>[out_text]</span>")
 
 
 /datum/controller/subsystem/debugview/proc/start_processing(client/C)

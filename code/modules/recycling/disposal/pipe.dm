@@ -5,11 +5,9 @@
 	desc = "An underfloor disposal pipe."
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	anchored = TRUE
-	density = FALSE
 	dir = NONE // dir will contain dominant direction for junction pipes
 	max_integrity = 200
 	on_blueprints = TRUE
-	plane = GAME_PLANE
 	layer = DISPOSAL_PIPE_LAYER // slightly lower than wires and other pipes
 	level = 1	// underfloor only
 	damage_deflection = 10
@@ -167,7 +165,7 @@
 
 
 // pipe affected by explosion
-/obj/structure/disposalpipe/ex_act(severity)
+/obj/structure/disposalpipe/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			deconstruct(disassembled = FALSE)
@@ -287,7 +285,7 @@
 	name = "disposal trunk"
 	icon_state = "pipe-t"
 	base_icon_state = "pipe-t"
-	var/obj/linked 	// the linked obj/machinery/disposal or obj/disposaloutlet
+	var/obj/linked	// the linked obj/machinery/disposal or obj/disposaloutlet
 
 
 /obj/structure/disposalpipe/trunk/Initialize(mapload)

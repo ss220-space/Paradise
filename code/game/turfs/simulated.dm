@@ -1,5 +1,6 @@
 /turf/simulated
 	name = "station"
+	flags = NO_SCREENTIPS
 	var/wet = 0
 	var/image/wet_overlay = null
 	var/mutable_appearance/melting_olay
@@ -9,6 +10,37 @@
 	nitrogen = MOLES_N2STANDARD
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+
+	// LINDA
+	var/datum/excited_group/excited_group
+	var/excited = 0
+	var/recently_active = 0
+	var/datum/gas_mixture/air
+	var/archived_cycle = 0
+	var/current_cycle = 0
+	var/icy = 0
+	var/icyoverlay
+	var/obj/effect/hotspot/active_hotspot
+	var/planetary_atmos = FALSE //air will revert to its initial mix over time
+
+	var/temperature_archived //USED ONLY FOR SOLIDS
+
+	var/atmos_overlay_type = null //current active overlay
+
+/turf/simulated/Initialize(mapload)
+	. = ..()
+	add_debris_element()
+	if(!is_station_level(z))
+		return
+	GLOB.station_turfs += src
+
+/turf/simulated/Destroy(force)
+	if(is_station_level(z))
+		GLOB.station_turfs -= src
+	return ..()
+
+/turf/simulated/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
 
 /turf/simulated/proc/break_tile()
 	return
@@ -44,9 +76,9 @@
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 		if(istype(arrived, /mob/living/simple_animal/hulk/clown_hulk))
 			if(Hulk.body_position != LYING_DOWN)
-				playsound(src, "clownstep", CHANNEL_BUZZ)
+				playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 	if(istype(arrived, /mob/living/simple_animal/hostile/shitcur_goblin))
-		playsound(src, "clownstep", CHANNEL_BUZZ)
+		playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 
 
 /turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)
@@ -59,7 +91,7 @@
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
 	. = ..()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/simulated/AfterChange(flags, oldType)
 	..()
@@ -170,7 +202,7 @@
 
 	if(!(lube_flags & SLIDE_ICE))
 		// Ice slides are intended to be combo'd so don't give the feedback
-		to_chat(slipper, span_notice("[pluralize_ru(slipper.gender,"Ты","Вы")] поскользнул[genderize_ru(slipper.gender,"ся","ась","ся","ись")][slippable ? " на [slippable.declent_ru(PREPOSITIONAL)]" : ""]!"))
+		to_chat(slipper, span_notice("Вы поскользнул[GEND_SYA_AS_OS_IS(slipper)][slippable ? " на [slippable.declent_ru(PREPOSITIONAL)]" : ""]!"))
 		playsound(slipper.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)

@@ -2,12 +2,12 @@
  * Library Computer
  */
 /obj/machinery/computer/library/checkout
-	name = "Check-In/Out Computer"
+	name = "Library Computer"
 	var/arcanecheckout = 0
 	//var/screenstate = 0 // 0 - Main Menu, 1 - Inventory, 2 - Checked Out, 3 - Check Out a Book
 	var/buffer_book
 	var/buffer_mob
-	var/upload_category = "Fiction"
+	var/upload_category = "Художественная"
 	var/list/checkouts = list()
 	var/list/inventory = list()
 	var/checkoutperiod = 5 // In minutes
@@ -16,12 +16,22 @@
 	var/bibledelay = 0 // LOL NO SPAM (1 minute delay) -- Doohl
 	var/booklist
 
-/obj/machinery/computer/library/checkout/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/library/checkout/get_ru_names()
+	return list(
+		NOMINATIVE = "библиотечный компьютер",
+		GENITIVE = "библиотечного компьютера",
+		DATIVE = "библиотечному компьютеру",
+		ACCUSATIVE = "библиотечный компьютер",
+		INSTRUMENTAL = "библиотечным компьютером",
+		PREPOSITIONAL = "библиотечном компьютере"
+	)
+
+/obj/machinery/computer/library/checkout/attack_hand(mob/user)
 	if(..())
 		return
 	interact(user)
 
-/obj/machinery/computer/library/checkout/interact(var/mob/user)
+/obj/machinery/computer/library/checkout/interact(mob/user)
 	if(interact_check(user))
 		return
 
@@ -44,7 +54,7 @@
 
 			if(src.arcanecheckout)
 				new /obj/item/melee/cultblade/dagger(src.loc)
-				to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange looking dagger sitting on the desk. You don't really remember where it came from.</span>")
+				to_chat(user, span_warning("Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange looking dagger sitting on the desk. You don't really remember where it came from."))
 				user.visible_message("[user] stares at the blank screen for a few moments, [user.p_their()] expression frozen in fear. When [user.p_they()] finally awaken[user.p_s()] from it, [user.p_they()] look[user.p_s()] a lot older.", 2)
 				src.arcanecheckout = 0
 		if(1)
@@ -195,7 +205,8 @@
 	if(density && !emagged)
 		emagged = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
+			to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
+			balloon_alert(user, "взломано")
 
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)
@@ -206,8 +217,8 @@
 		add_fingerprint(user)
 		var/obj/item/barcodescanner/scanner = I
 		scanner.computer = src
-		to_chat(user, span_notice("The [scanner.name]'s associated machine has been set to [src]."))
-		audible_message("The [name] lets out a low, short blip.", hearing_distance = 2)
+		atom_say("Сканер был успешно привязан.", FALSE)
+		playsound(src, 'sound/machines/ping.ogg', 20)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -237,7 +248,7 @@
 		else
 			page_num = clamp(text2num(href_list["page"]), 1, num_pages)
 	if(href_list["settitle"])
-		var/newtitle = tgui_input_text("Enter a title to search for:")
+		var/newtitle = tgui_input_text(usr, "Enter a title to search for:")
 		if(newtitle)
 			query.title = sanitize(newtitle)
 		else
@@ -293,7 +304,7 @@
 				return
 
 			if(query.affected == 0)
-				to_chat(usr, "<span class='danger'>Unable to find any matching rows.</span>")
+				to_chat(usr, span_danger("Unable to find any matching rows."))
 				qdel(query)
 				return
 			qdel(query)
@@ -331,7 +342,7 @@
 				if(!bibledelay)
 
 					var/obj/item/storage/bible/B = new /obj/item/storage/bible(src.loc)
-					if(SSticker && ( SSticker.Bible_icon_state && SSticker.Bible_item_state) )
+					if(SSticker && ( SSticker.Bible_icon_state && SSticker.Bible_item_state))
 						B.icon_state = SSticker.Bible_icon_state
 						B.item_state = SSticker.Bible_item_state
 						B.name = SSticker.Bible_name
@@ -467,7 +478,7 @@
  * Library Scanner
  */
 
-/obj/machinery/computer/library/checkout/proc/make_external_book(var/datum/cachedbook/newbook)
+/obj/machinery/computer/library/checkout/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook || !newbook.id)
 		return
 	var/obj/item/book/B = new newbook.path(loc)

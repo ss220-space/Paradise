@@ -24,7 +24,7 @@
 	team_objective.team = src
 	objectives += team_objective
 	syndicate_name = create_syndicate_name()
-	var/obj/effect/landmark/nuke_spawn = locate(/obj/effect/landmark/nuclear_bomb)
+	var/obj/effect/landmark/nuke_spawn = locate(/obj/effect/landmark/spawner/nuclear_bomb)
 	nuke_code = GLOB.nuke_codes[/obj/machinery/nuclearbomb/syndicate]
 	if(!nuke_spawn)
 		return
@@ -38,7 +38,7 @@
 	total_tc += danger * NUKESCALINGMODIFIER
 
 /datum/team/nuclear_team/proc/scale_challange()
-	total_tc = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS) / CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
+	total_tc = CHALLENGE_TELECRYSTALS + round((((length(GLOB.player_list) - CHALLENGE_MIN_PLAYERS) / CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
 
 /datum/team/nuclear_team/add_member(datum/mind/new_member, add_objectives)
 	if(!leader)
@@ -91,7 +91,7 @@
 
 	var/list/uplinks = get_uplinks()
 
-	player_tc = round(total_tc / uplinks.len)
+	player_tc = round(total_tc / length(uplinks))
 	remainder = total_tc % uplinks.len
 
 	for(var/obj/item/uplink/uplink as anything in uplinks)
@@ -203,7 +203,7 @@
 	text += "<br>"
 
 	if(TC_uses == 0 && station_was_nuked && !is_operatives_are_dead())
-		text += span_fontsize4(bicon(icon('icons/misc/badass.dmi', "badass")))
+		text += span_fontsize4(icon2html(icon('icons/misc/badass.dmi', "badass"), world))
 
 	return text.Join("")
 
@@ -334,12 +334,12 @@
 		while(!isturf(disk_loc))
 			if(ismob(disk_loc))
 				var/mob/M = disk_loc
-				diskdat += "у [M.real_name] "
+				diskdat += " у [M.real_name]"
 			if(isobj(disk_loc))
 				var/obj/O = disk_loc
-				diskdat += "в [O.declent_ru(DATIVE)]"
+				diskdat += " в [O.declent_ru(DATIVE)]"
 			disk_loc = disk_loc.loc
-		diskdat += "в [disk_loc.loc?.declent_ru(DATIVE)]"
+		diskdat += " в [disk_loc.loc?.declent_ru(DATIVE)]"
 
 
 	if(!diskdat)
@@ -352,7 +352,7 @@
 	dat += "<b>Число выжившего экипажа:</b> [crewcount]<br>"
 
 	dat += "<b>Местоположение ядерной боеголовки:</b> [bombdat]<br>"
-	dat += "<bЮМестоположение диска ядерной аутентификации:</b> [diskdat]<br>"
+	dat += "<b>Местоположение диска ядерной аутентификации:</b> [diskdat]<br>"
 
 	dat += "<br>"
 	var/score_arrested_points = scoreboard.score_arrested * 1000

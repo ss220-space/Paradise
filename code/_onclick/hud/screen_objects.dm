@@ -17,6 +17,7 @@
 	VAR_PRIVATE/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
 	interaction_flags_click = BYPASS_ADJACENCY
+	flags = NO_SCREENTIPS
 	/**
 	 * Map name assigned to this object.
 	 * Automatically set by /client/proc/add_obj_to_map.
@@ -75,6 +76,7 @@
 	name = "close"
 	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
+	icon_state = "backpack_close"
 
 /atom/movable/screen/close/Click()
 	if(master)
@@ -100,8 +102,8 @@
 
 /atom/movable/screen/act_intent/Click(location, control, params)
 	if(ishuman(usr) || isdevil(usr))
-		var/_x = text2num(params2list(params)["icon-x"])
-		var/_y = text2num(params2list(params)["icon-y"])
+		var/_x = text2num(LAZYACCESS(params2list(params), ICON_X))
+		var/_y = text2num(LAZYACCESS(params2list(params), ICON_Y))
 		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
 		else if(_x<=16 && _y>=17)
@@ -115,11 +117,9 @@
 
 /atom/movable/screen/act_intent/alien
 	icon = 'icons/mob/screen_alien.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/robot
 	icon = 'icons/mob/screen_robot.dmi'
-	screen_loc = ui_borg_intents
 
 /atom/movable/screen/act_intent/robot/AI
 	screen_loc = "SOUTH+1:6,EAST-1:32"
@@ -138,11 +138,9 @@
 
 /atom/movable/screen/act_intent/simple_animal
 	icon = 'icons/mob/screen_simplemob.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/guardian
 	icon = 'icons/mob/guardian.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/mov_intent/Click()
 	usr.toggle_move_intent()
@@ -243,7 +241,7 @@
 		return FALSE
 
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
-		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
+		if(S.contents[length(S.contents)] == I) // No point moving them at the end if they're already there!
 			return FALSE
 
 		var/list/new_contents = S.contents.Copy()
@@ -268,6 +266,8 @@
 		I.melee_attack_chain(user, S, params)
 	return TRUE
 
+/atom/movable/screen/storage/space_box
+	screen_loc = "7,7 to 10,8"
 
 /atom/movable/screen/zone_sel
 	name = "damage zone"
@@ -304,14 +304,14 @@
 	if(isobserver(usr))
 		return FALSE
 
-	var/list/PL = params2list(params)
-	var/icon_x = text2num(PL["icon-x"])
-	var/icon_y = text2num(PL["icon-y"])
+	var/list/modifiers = params2list(params)
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
 	var/choice = get_zone_at(icon_x, icon_y)
 	if(!choice)
 		return TRUE
 
-	if(PL["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		click_alt(usr, choice)
 		return
 
@@ -335,6 +335,7 @@
 
 
 /atom/movable/screen/zone_sel/MouseEntered(location, control, params)
+	. = ..()
 	MouseMove(location, control, params)
 
 
@@ -342,8 +343,10 @@
 	if(isobserver(usr))
 		return
 
-	var/list/PL = params2list(params)
-	var/choice = get_zone_at(text2num(PL["icon-x"]), text2num(PL["icon-y"]))
+	var/list/modifiers = params2list(params)
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
+	var/choice = get_zone_at(icon_x, icon_y)
 
 	if(!choice)
 		cut_overlay(hover_overlays_cache[hovering])
@@ -493,7 +496,7 @@
 	var/image/object_overlay
 
 /atom/movable/screen/inventory/MouseEntered(location, control, params)
-	..()
+	. = ..()
 	add_overlays()
 
 /atom/movable/screen/inventory/MouseExited(location, control, params)
@@ -546,7 +549,7 @@
 			return inv_item.Click(location, control, params)
 
 	if(usr.attack_ui(slot_id, params))
-		usr.update_inv_hands()
+		usr.update_held_items()
 
 	return TRUE
 
@@ -739,6 +742,12 @@
 	icon_state = "stamina0"
 	screen_loc = ui_stamina
 
+/atom/movable/screen/nutrition_bar
+	name = "nutrition"
+	icon = 'icons/hud/screen_hunger.dmi'
+	icon_state = "default_full"
+	screen_loc = ui_nutrition
+
 /atom/movable/screen/healths/alien
 	icon = 'icons/mob/screen_alien.dmi'
 	screen_loc = ui_alien_health
@@ -776,7 +785,6 @@
 	name = "summoner health"
 	icon = 'icons/mob/guardian.dmi'
 	icon_state = "base"
-	screen_loc = ui_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healthdoll

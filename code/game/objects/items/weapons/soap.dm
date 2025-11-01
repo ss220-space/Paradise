@@ -1,15 +1,6 @@
 /obj/item/soap
 	name = "soap"
 	desc = "Дешёвый кусок мыла. Он даже ничем не пахнет."
-	ru_names = list(
-		NOMINATIVE = "мыло",
-		GENITIVE = "мыла",
-		DATIVE = "мылу",
-		ACCUSATIVE = "мыло",
-		INSTRUMENTAL = "мылом",
-		PREPOSITIONAL = "мыле"
-	)
-	gender = NEUTER
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "soap"
 	belt_icon = "soap"
@@ -17,11 +8,20 @@
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
 	item_flags = SKIP_ATTACK_MESSAGE
 	var/cleanspeed = 50 //slower than mop
+
+/obj/item/soap/get_ru_names()
+	return list(
+		NOMINATIVE = "мыло",
+		GENITIVE = "мыла",
+		DATIVE = "мылу",
+		ACCUSATIVE = "мыло",
+		INSTRUMENTAL = "мылом",
+		PREPOSITIONAL = "мыле"
+	)
 
 /obj/item/soap/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
@@ -53,18 +53,20 @@
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)
 			target.clean_blood()
+			SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, 5)
 
 /obj/item/soap/proc/clean_turf(turf/simulated/T)
 	T.clean_blood()
 	for(var/obj/effect/O in T)
 		if(O.is_cleanable())
 			qdel(O)
+	SEND_SIGNAL(T, COMSIG_COMPONENT_CLEAN_ACT, 5)
 
 
 /obj/item/soap/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		user.visible_message(
-			span_warning("[user] мо[pluralize_ru(user.gender, "ет", "ют")] рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
+			span_warning("[user] мо[PLUR_ET_YUT(user)] рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
 			span_notice("Вы моете рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -72,7 +74,7 @@
 
 
 /obj/item/soap/nanotrasen
-	desc = "Именное мыло НаноТрейзен. Обладает игривым запахом плазмы."
+	desc = "Именное мыло Нанотрейзен. Обладает игривым запахом плазмы."
 	icon_state = "soapnt"
 	item_state = "soapnt"
 
@@ -216,7 +218,11 @@
 /obj/item/soap/ducttape
 	name = "duct-taped soap"
 	desc = "Домашний кусок мыла. Он похож на заклееные изолентой ошмётки... Оно точно сможет что-то отмыть?"
-	ru_names = list(
+	icon_state = "soapgibs"
+	item_state = "soapgibs"
+
+/obj/item/soap/ducttape/get_ru_names()
+	return list(
 		NOMINATIVE = "мыло в изоленте",
 		GENITIVE = "мыла в изоленте",
 		DATIVE = "мылу в изоленте",
@@ -224,8 +230,6 @@
 		INSTRUMENTAL = "мылом в изоленте",
 		PREPOSITIONAL = "мыле в изоленте"
 	)
-	icon_state = "soapgibs"
-	item_state = "soapgibs"
 
 /obj/item/soap/ducttape/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity) return
@@ -233,7 +237,7 @@
 	if(user.client && (target in user.client.screen))
 		user.balloon_alert(user, "снимите это с себя!")
 	else
-		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] возить [src.declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
+		user.visible_message(span_warning("[user] начина[PLUR_ET_YUT(user)] возить [src.declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
 		if(do_after(user, cleanspeed, target))
 			to_chat(user, span_notice("Вы \"моете\" [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."))
 			if(issimulatedturf(target))

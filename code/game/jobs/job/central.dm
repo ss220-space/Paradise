@@ -9,6 +9,7 @@
 	supervisors = "the admins"
 	selection_color = "#6865B3"
 	access = list()
+	law_level = LAW_LEVEL_CENTCOMM
 	minimal_access = list()
 	admin_only = 1
 	outfit = /datum/outfit/job/ntnavyofficer
@@ -72,6 +73,7 @@
 	supervisors = "the admins"
 	selection_color = "#6865B3"
 	access = list()
+	law_level = LAW_LEVEL_CENTCOMM
 	minimal_access = list()
 	admin_only = 1
 	spawn_ert = 1

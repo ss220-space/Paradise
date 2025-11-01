@@ -17,7 +17,7 @@
 		if(O.CanAtmosPass(T, vertical))
 			continue
 		can_pass = FALSE
-		if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
+		if(O.BlockSuperconductivity())	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
 			atmos_supeconductivity |= direction
 			T.atmos_supeconductivity |= reverse_direction
 			return FALSE				//no need to keep going, we got all we asked
@@ -141,10 +141,10 @@
 	if(SSair)
 		SSair.add_to_active(src, command)
 
-/atom/movable/proc/move_update_air(var/turf/T)
-    if(istype(T,/turf))
-        T.air_update_turf(1)
-    air_update_turf(1)
+/atom/movable/proc/move_update_air(turf/T)
+	if(istype(T,/turf))
+		T.air_update_turf(1)
+	air_update_turf(1)
 
 
 

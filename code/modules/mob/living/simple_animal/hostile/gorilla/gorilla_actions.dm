@@ -10,34 +10,6 @@
 #define BANANAS_TO_ENLIGHTEN 50
 
 
-/mob/living/simple_animal/hostile/gorilla
-	description_info = "<b>Руководство по работе с гориллами для самых маленьких:</b>\nВсе гориллы любят бананы и наверняка захотят поработать, если Вы предоставите им несколько этих замечательных фруктов.\nЕсли горилла уже работает на Вас, используйте указатель (средняя кнопка мышки), чтобы отдать животному команду на перемещение или подбор/сброс ящиков в указанную точку.\nДо тех пор пока горилла не нашла себе друга она будет отзываться по имени.\nТакже животное способно понимать дополнительные голосовые приказы, если их использовать в одном предложении с именем животного.\n<b>Команды:</b>\n- \"сидеть\", \"опустись\", \"сядь\", \"садись\", \"сесть\"\n- \"встать\", \"встань\", \"поднимись\", \"стоять\", \"стой\", \"выпрямись\"\n- \"пошли\", \"идём\", \"за мной\" \n- \"жди\", \"ожидай\", \"ждать\" \n- \"брось\", \"выброси\", \"урони\"\n- \"носи ящики\", \"хватай ящики\"\n- \"толкай ящики\", \"двигай ящики\""
-	/// Сan gorilla have a master?
-	var/can_befriend = TRUE
-	/// What speech pieces make gorilla excited (turn off AI and make it follow the speaker). Works only without master and client.
-	var/list/attention_phrases = list("goril", "banana", "monkey", "горил", "банан", "обезьян")
-	/// Current gorilla master.
-	var/mob/living/carbon/human/master
-	/// Amount of bananas eaten.
-	var/bananas_eaten = 0
-	/// Timer used in befriend and excitement manipulations.
-	var/befriend_timer
-	/// Whether gorilla is currently waiting and will not follow its master.
-	var/is_waiting = FALSE
-	/// List of initial factions, gorilla has before befriend. We need this since initial value of a list is an empty list.
-	var/list/initial_faction
-	/// Associative list with key = user.UID(), value = bananas fed to gorilla. Used in befriending.
-	var/list/friend2bananas
-	/// Notify player about new powers.
-	var/enlighten_message_done = FALSE
-	/// Original target atom gorrilla's master pointed at.
-	var/atom/point_target
-	/// Turf adjacent to point_target, used in point movement manipulations.
-	var/turf/target_turf
-	/// Cooldown stamp used for various gorilla actions.
-	COOLDOWN_DECLARE(gorilla_actions_cooldown)
-
-
 /mob/living/simple_animal/hostile/gorilla/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
@@ -59,16 +31,16 @@
 
 	if(client)
 		if(is_on_cooldown())
-			to_chat(user, span_warning("[user == src ? "Вы не можете" : "[capitalize(name)] не мож[pluralize_ru(gender, "ет", "гут")]"] настолько быстро поедать бананы!"))
+			to_chat(user, span_warning("[user == src ? "Вы не можете" : "[capitalize(name)] не мо[PLUR_JET_GUT(src)]"] настолько быстро поедать бананы!"))
 			return ..()
 		start_action_cooldown()
 		eat_banana(I)
-		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [genderize_ru(gender, "он", "она", "оно", "они")] не мо[pluralize_ru(gender, "жет", "гут")] устоять перед искушением!"))
-		to_chat(src, span_notice("[user] покорм[genderize_ru(user.gender, "ил", "ила", "ило", "или")] Вас, возможно стоит [genderize_ru(user.gender, "его", "её", "его", "их")] отблагодарить..."))
+		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [GEND_HE_SHE(src)] не мо[PLUR_JET_GUT(src)] устоять перед искушением!"))
+		to_chat(src, span_notice("[user] покормил[GEND_A_O_I(user)] Вас, возможно стоит [GEND_HIS_HER(user)] отблагодарить..."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(is_on_cooldown())
-		to_chat(user, span_warning("[capitalize(name)] сейчас занят[genderize_ru(gender, "", "а", "о", "ы")]."))
+		to_chat(user, span_warning("[capitalize(name)] сейчас занят[GEND_A_O_Y(src)]."))
 		return ..()
 
 	start_action_cooldown()
@@ -182,7 +154,7 @@
 	else if(find_phrase(full_message, list("жди", "ожидай", "ждать")))
 		if(!is_waiting)
 			is_waiting = TRUE
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			oogaooga(100)
 			if(is_bipedal)
 				if(LAZYLEN(crates_in_hand))
@@ -281,7 +253,7 @@
 		return
 
 	if(is_on_cooldown())
-		to_chat(master, span_warning("[capitalize(name)] сейчас занят[genderize_ru(gender, "", "а", "о", "ы")]."))
+		to_chat(master, span_warning("[capitalize(name)] сейчас занят[GEND_A_O_Y(src)]."))
 		return
 
 	if(incapacitated())
@@ -530,7 +502,7 @@
  */
 /mob/living/simple_animal/hostile/gorilla/proc/reset_behavior(play_emote = TRUE, end_of_excitement = FALSE)
 	check_buckled_gorilla()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	toggle_ai(AI_ON)
 	if(play_emote)
 		oogaooga(100, 200)

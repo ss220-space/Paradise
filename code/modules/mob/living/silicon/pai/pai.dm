@@ -270,8 +270,8 @@
 		if(3)
 			to_chat(src, span_warning("<font color=green> Вы чувствуете, как электрический разряд проходит сквозь ваши микросхемы и осознаёте, как сильно вам повезло, что вы вообще можете ещё чувствовать что-либо...</font>"))
 
-/mob/living/silicon/pai/ex_act(severity)
-	..()
+/mob/living/silicon/pai/ex_act(severity, target)
+	. = ..()
 
 	if(stat == DEAD)
 		return
@@ -370,10 +370,10 @@
 		for(var/line in lines)
 		// split & clean up
 			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
+			for(var/i = 1 to length(Entry))
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
+			if(length(Entry) < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
 				continue
 
 			if(Entry[2] == ckey)							//They're in the list? Custom sprite time, var and icon change required
@@ -381,7 +381,7 @@
 				my_choices["Custom"] = "[ckey]-pai"
 
 	my_choices = base_possible_chassis.Copy()
-	for(var/i = 1, i<=special_possible_chassis.len, i++)
+	for(var/i = 1, i<=length(special_possible_chassis), i++)
 		if(female_chassis && (special_possible_chassis[i] == "Female" || special_possible_chassis[i] == "Red Female"))
 			my_choices += special_possible_chassis.Copy(i, i+1)
 		if((syndipai || snake_chassis) && special_possible_chassis[i] == "Snake")
@@ -413,8 +413,8 @@
 
 	var/list/sayverbs = possible_say_verbs[choice]
 	speak_statement = sayverbs[1]
-	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
-	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
+	speak_exclamation = sayverbs[(length(sayverbs)>1 ? 2 : length(sayverbs))]
+	speak_query = sayverbs[(length(sayverbs)>2 ? 3 : length(sayverbs))]
 
 	remove_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
 
@@ -442,7 +442,7 @@
 /mob/living/silicon/pai/verb/pAI_suicide()
 	set category = STATPANEL_PAICOMMANDS
 	set name = "Выгрузить личность"
-	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
+	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt.)"
 
 	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Выгрузка личности", list("Выгрузиться", "Нет")) == "Выгрузиться")
 		do_suicide()
@@ -515,8 +515,8 @@
 	if(!I.force)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
 		visible_message(
-			span_warning("[user] бережно стука[pluralize_ru(user.gender, "ет", "ют")] по [name] [I.declent_ru(INSTRUMENTAL)]."),
-			span_warning("[user] бережно стука[pluralize_ru(user.gender, "ет", "ют")] вас [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] бережно стука[PLUR_ET_YUT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] бережно стука[PLUR_ET_YUT(user)] вас [I.declent_ru(INSTRUMENTAL)]."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -524,8 +524,8 @@
 		playsound(loc, I.hitsound, I.get_clamped_volume(), TRUE, -1)
 	add_attack_logs(user, src, "Attacked with [I.name] ([uppertext(user.a_intent)]) ([uppertext(I.damtype)]), DMG: [I.force])", (ckey && I.force > 0 && I.damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 	visible_message(
-		span_danger("[user] сильно бь[pluralize_ru(user.gender, "ёт", "ют")] по [name] [I.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] сильно бь[pluralize_ru(user.gender, "ёт", "ют")] вас [I.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] сильно бь[PLUR_YOT_YUT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] сильно бь[PLUR_YOT_YUT(user)] вас [I.declent_ru(INSTRUMENTAL)]!"),
 	)
 
 	var/damage_type = I.damtype
@@ -596,7 +596,7 @@
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='notice'>"
+	var/msg = ""
 
 	switch(stat)
 		if(CONSCIOUS)
@@ -608,17 +608,16 @@
 			msg += span_deadsay("Оно явно не подлежит восстановлению...\n")
 
 	if(print_flavor_text())
-		msg += "[print_flavor_text()]\n"
+		msg += span_notice("[print_flavor_text()]\n")
 
 	if(pose)
-		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
+		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "It is [pose]"
-	msg += "</span>"
+		msg += span_notice("It is [pose]")
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(obj/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)
@@ -649,8 +648,7 @@
 	else
 		H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
-	grabber.update_inv_l_hand()
-	grabber.update_inv_r_hand()
+	grabber.update_held_items()
 
 	return H
 
@@ -667,7 +665,7 @@
 					to_chat(src, span_warning("Вам нужно подойти поближе."))
 
 			if("Нет")
-				to_chat(src, span_warning("[user] не хо[pluralize_ru(user.gender,"чет","тят")] вас подбирать..."))
+				to_chat(src, span_warning("[user] не хо[PLUR_CHET_TYAT(user)] вас подбирать..."))
 	else
 		if(Adjacent(user))
 			get_scooped(user)

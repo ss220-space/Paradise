@@ -19,6 +19,20 @@
 		if(istype(checked_atom, type))
 			. += checked_atom
 
+///Like get_all_contents_type, but uses a typecache list as argument
+/atom/proc/get_all_contents_ignoring(list/ignore_typecache)
+	if(!length(ignore_typecache))
+		return get_all_contents()
+	var/list/processing = list(src)
+	. = list()
+	var/i = 0
+	while(i < length(processing))
+		var/atom/checked_atom = processing[++i]
+		if(ignore_typecache[checked_atom.type])
+			continue
+		processing += checked_atom.contents
+		. += checked_atom
+
 
 ///Returns true if the src countain the atom target
 /atom/proc/contains(atom/target)
@@ -94,7 +108,7 @@
 			atoms |= check.collect_all_atoms_of_type(path, blacklist)
 	return atoms
 /**
- * 	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
+ *	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
  */
 /proc/is_location_within_transition_boundaries(atom/loc)
 	return (loc.x > TRANSITION_BORDER_WEST) \
@@ -105,14 +119,14 @@
 
 /// Returns an x and y value require to reverse the transformations made to center an oversized icon
 /atom/proc/get_oversized_icon_offsets()
-	if (pixel_x == 0 && pixel_y == 0)
+	if(pixel_x == 0 && pixel_y == 0)
 		return list("x" = 0, "y" = 0)
 	var/list/icon_dimensions = get_icon_dimensions(icon)
 	var/icon_width = icon_dimensions["width"]
 	var/icon_height = icon_dimensions["height"]
 	return list(
-		"x" = icon_width > world.icon_size && pixel_x != 0 ? (icon_width - world.icon_size) * 0.5 : 0,
-		"y" = icon_height > world.icon_size && pixel_y != 0 ? (icon_height - world.icon_size) * 0.5 : 0,
+		"x" = icon_width > ICON_SIZE_X && pixel_x != 0 ? (icon_width - ICON_SIZE_X) * 0.5 : 0,
+		"y" = icon_height > ICON_SIZE_Y && pixel_y != 0 ? (icon_height - ICON_SIZE_Y) * 0.5 : 0,
 	)
 
 
@@ -143,3 +157,7 @@
 		location = location.loc
 	if(our_turf && include_turf) //At this point, only the turf is left, provided it exists.
 		. += our_turf
+
+/// Adds the debris element for projectile impacts.
+/atom/proc/add_debris_element()
+	return

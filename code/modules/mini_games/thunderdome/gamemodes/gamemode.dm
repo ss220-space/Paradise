@@ -1,7 +1,3 @@
-#define CQC_ARENA_RADIUS	6 //how much tiles away from a center players will spawn
-#define RANGED_ARENA_RADIUS	10
-
-
 /**
  * This datum is designed to determine special settings for thunderdome battle.
  */
@@ -17,7 +13,6 @@
 /datum/thunderdome_gamemode/melee
 	name = "Thunderdome Melee Challenge"
 	arena_radius = CQC_ARENA_RADIUS
-	preview_icon = "thunderman_preview_CqC"
 	brawler_type = /obj/effect/mob_spawn/human/thunderdome/cqc
 	random_items_count = 2
 	item_pool = list(
@@ -55,7 +50,7 @@
 		/obj/item/storage/box/syndie_kit/dangertray = 1,
 		/obj/item/gun/magic/hook = 1,
 		/obj/item/twohanded/bamboospear = 1,
-		/obj/item/twohanded/required/chainsaw = 1,
+		/obj/item/twohanded/chainsaw_handmade = 1,
 		/obj/item/kitchen/knife/butcher/meatcleaver = 1,
 		/obj/item/rune_scimmy = 1,
 		/obj/item/twohanded/spear/bonespear/chitinspear = 1,
@@ -224,7 +219,7 @@
 		/obj/item/gun/energy/laser/scatter = 1,
 		/obj/item/gun/energy/bsg/prebuilt = 1,
 		/obj/item/twohanded/bamboospear = 1,
-		/obj/item/twohanded/required/chainsaw = 1,
+		/obj/item/twohanded/chainsaw_handmade = 1,
 		/obj/item/kitchen/knife/butcher/meatcleaver = 1,
 		/obj/item/rune_scimmy = 1,
 		/obj/item/twohanded/spear/bonespear/chitinspear = 1,

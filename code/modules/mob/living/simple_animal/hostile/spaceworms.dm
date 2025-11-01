@@ -3,7 +3,6 @@
 /mob/living/simple_animal/hostile/spaceWorm
 	name = "space worm segment"
 	desc = "A part of a space worm."
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "spaceworm"
 	icon_living = "spaceworm"
 	icon_dead = "spacewormdead"
@@ -26,9 +25,7 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	a_intent = INTENT_HARM //so they don't get pushed around
 
-	environment_smash = 1
 
 	speed = -1
 
@@ -69,7 +66,6 @@
 	name = "space worm head"
 	icon_state = "spacewormhead"
 	icon_living = "spacewormhead"
-	icon_dead = "spacewormdead"
 
 	//Stronger than normal segments
 	maxHealth = 125
@@ -93,7 +89,7 @@
 	var/catastrophicDeathProb = 15 //15% chance for the death of the head to kill the whole thing
 
 
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/New(var/location, var/segments = spawnWithSegments)
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/New(location, segments = spawnWithSegments)
 	..()
 
 	if(!src)//This is to prevent a runtime.
@@ -139,7 +135,7 @@
 	attemptToEat(bumped_atom)
 
 //Attempt to eat things, only the head can eat
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/proc/attemptToEat(var/atom/noms)
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/proc/attemptToEat(atom/noms)
 
 
 	if(currentlyEating == noms) //currentlyEating is always undefined at the end, so don't eat the same thing twice
@@ -173,7 +169,7 @@
 
 	var/ufnomDelay = nomDelay * 0.1
 
-	src.visible_message("<span class='userdanger'>\the [src] starts to eat \the [noms]!</span>","<span class='notice'>You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
+	src.visible_message(span_userdanger("\the [src] starts to eat \the [noms]!"),span_notice("You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)"),span_userdanger("You hear gnashing.")) //inform everyone what the fucking worm is doing.
 
 	if(do_after(src, nomDelay, noms, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		if(noms && Adjacent(noms) && (currentlyEating == noms))//It exists, were next to it, and it's still the thing were eating
@@ -181,11 +177,11 @@
 				W.ChangeTurf(/turf/simulated/floor/plating)
 				new /obj/item/stack/sheet/metal(src, plasmaPoopPotential)
 				currentlyEating = null //ffs, unstore this
-				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
+				src.visible_message(span_userdanger("\the [src] eats \the [noms]!"),span_notice("You eat \the [noms]!"),span_userdanger("You hear gnashing.")) //inform everyone what the fucking worm is doing.
 			else
 				currentlyEating = null
 				contents += noms
-				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
+				src.visible_message(span_userdanger("\the [src] eats \the [noms]!"),span_notice("You eat \the [noms]!"),span_userdanger("You hear gnashing.")) //inform everyone what the fucking worm is doing.
 				if(ismob(noms))
 					var/mob/M = noms //typecast because noms isn't movable
 					M.forceMove(src) //because just setting a mob loc to null breaks the camera and such
@@ -257,7 +253,7 @@
 
 
 //Add a new worm segment
-/mob/living/simple_animal/hostile/spaceWorm/proc/Attach(var/mob/living/simple_animal/hostile/spaceWorm/toAttach)
+/mob/living/simple_animal/hostile/spaceWorm/proc/Attach(mob/living/simple_animal/hostile/spaceWorm/toAttach)
 	if(!toAttach)
 		return
 
@@ -289,7 +285,7 @@
 
 
 //Remove a worm segment
-/mob/living/simple_animal/hostile/spaceWorm/proc/Detach(var/die = 0)
+/mob/living/simple_animal/hostile/spaceWorm/proc/Detach(die = 0)
 	var/mob/living/simple_animal/hostile/spaceWorm/wormHead/newHead = new /mob/living/simple_animal/hostile/spaceWorm/wormHead(loc,0)
 	var/mob/living/simple_animal/hostile/spaceWorm/newHeadPrev
 

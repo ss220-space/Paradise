@@ -2,21 +2,12 @@
 	name = "стабилизатор аномалий"
 	desc = "Продвинутое устройство, предназначенное для стабилизации аномалий. \
 			Имеет две ячейки для ядер аномалий."
-	ru_names = list(
-		NOMINATIVE = "стабилизатор аномалий", \
-		GENITIVE = "стабилизатора аномалий", \
-		DATIVE = "стабилизатору аномалий", \
-		ACCUSATIVE = "стабилизатор аномалий", \
-		INSTRUMENTAL = "стабилизатором аномалий", \
-		PREPOSITIONAL = "стабилизаторе аномалий"
-	)
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	icon_state = "pistol_base_item"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "pistol_base"
 	gender = MALE
-	gun_light_overlay = "flight"
 	can_add_sibyl_system = FALSE
 	origin_tech = "programming=3;magnets=3"
 	cell_type = /obj/item/stock_parts/cell/high
@@ -44,6 +35,16 @@
 	/// If true, tgui will show more info about this anomaly_stabilizer.
 	var/full_info = FALSE
 
+/obj/item/gun/energy/anomaly_stabilizer/get_ru_names()
+	return list(
+		NOMINATIVE = "стабилизатор аномалий", \
+		GENITIVE = "стабилизатора аномалий", \
+		DATIVE = "стабилизатору аномалий", \
+		ACCUSATIVE = "стабилизатор аномалий", \
+		INSTRUMENTAL = "стабилизатором аномалий", \
+		PREPOSITIONAL = "стабилизаторе аномалий"
+	)
+
 /obj/item/gun/energy/anomaly_stabilizer/Initialize(mapload, ...)
 	. = ..()
 	update_stability_delta(1)
@@ -53,7 +54,7 @@
 	ui_interact(user)
 
 /obj/item/gun/energy/anomaly_stabilizer/newshot()
-	if(!cell)
+	if(!cell || cell.charge < get_req_ecost())
 		return
 
 	chambered = new cur_ammo_type
@@ -61,7 +62,7 @@
 		chambered.newshot()
 
 	var/obj/item/ammo_casing/energy/anomaly/en_chambered = chambered
-	en_chambered.e_cost *= max(1, stability_delta * stability_delta)
+	en_chambered.e_cost = get_req_ecost()
 
 	var/obj/projectile/beam/anomaly/shot = chambered.BB
 	shot.stability_delta = stability_delta
@@ -99,7 +100,7 @@
 		balloon_alert(user, "ядро пустое!")
 		return ATTACK_CHAIN_PROCEED
 
-	if(cores.len >= 2)
+	if(length(cores) >= 2)
 		balloon_alert(user, "ячейки для ядер заняты!")
 		return ATTACK_CHAIN_PROCEED
 
@@ -184,10 +185,10 @@
 	data["full_info"] = full_info
 	data["core1_name"] = null
 	data["core2_name"] = null
-	if(cores.len > 0)
+	if(length(cores) > 0)
 		data["core1_name"] = cores[1].name
 
-	if(cores.len > 1)
+	if(length(cores) > 1)
 		data["core2_name"] = cores[2].name
 
 	data["possible_stability"] = stability_range
@@ -231,13 +232,20 @@
 
 /obj/item/gun/energy/anomaly_stabilizer/examine(mob/user)
 	. = ..()
-	var/shots = round(cell.charge / (/obj/item/ammo_casing/energy/anomaly::e_cost) / stability_delta / stability_delta)
+	var/shots = round(cell.charge / get_req_ecost())
 	. += span_notice("Индикатор заряда сообщает: [cell.charge]\\[cell.maxcharge].")
 	. += span_notice("Этого хватит на [shots] [declension_ru(shots, "выстрел", "выстрела", "выстрелов")] и изменение стабильности аномалии на [shots * stability_delta] [declension_ru(shots * stability_delta, "единицу", "единицы", "единиц")] при текущих настройках.")
 
+
+/obj/item/gun/energy/anomaly_stabilizer/proc/get_req_ecost()
+	var/cost = /obj/item/ammo_casing/energy/anomaly::e_cost
+	cost *= max(1, stability_delta * stability_delta)
+	return cost
+
+
 /obj/item/gun/energy/anomaly_stabilizer/update_overlays()
 	. = list()
-	if(cell.charge < /obj/item/ammo_casing/energy/anomaly::e_cost)
+	if(cell.charge < get_req_ecost())
 		return
 
 	if(stability_delta < 0)

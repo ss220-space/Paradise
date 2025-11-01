@@ -3,19 +3,18 @@
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
 	icon_state = "lasergun"
 	item_state = null
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	can_flashlight = TRUE
-	gun_light_overlay = "lasergun_light"
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5)
+	)
 
-/obj/item/gun/energy/laser/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(istype(action, /datum/action/item_action/toggle_gunlight))
-		toggle_gunlight()
-		return TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -26,6 +25,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
 	needs_permit = FALSE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"
@@ -33,6 +34,8 @@
 	item_state = "laser"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
@@ -46,6 +49,8 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	unique_reskin = TRUE
 	var/high_risk = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
 	. = ..()
@@ -67,6 +72,7 @@
 	shaded_charge = FALSE
 	unique_reskin = FALSE
 	high_risk = FALSE
+	accuracy = GUN_ACCURACY_SHOTGUN
 
 
 /obj/item/gun/energy/laser/cyborg
@@ -74,6 +80,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
 	can_charge = FALSE
 	origin_tech = null
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/cyborg/newshot()
 	..()
@@ -86,6 +94,11 @@
 	name = "scatter laser gun"
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
+	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5)
+	)
 
 ///Laser Cannon
 
@@ -97,12 +110,17 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	force = 10
-	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	can_holster = FALSE
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7)
+	)
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/projectile/beam/laser/accelerator
@@ -118,15 +136,18 @@
 	damage = 8
 	armour_penetration = -50
 	speed = 1
+	tile_dropoff_penetration = -5
+	tile_dropoff_forcedodge = -0.2
 
 /obj/projectile/beam/laser/accelerator/Range()
 	..()
 	damage = min(damage + 4, 80)
-	armour_penetration = min(armour_penetration + 5, 50)
-	forcedodge = min(forcedodge + 0.2, 20)
+	armour_penetration = min(armour_penetration, 50)
+	forcedodge = min(forcedodge, 20)
 
 
 /obj/item/gun/energy/lasercannon/cyborg
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/lasercannon/cyborg/newshot()
 	..()
@@ -141,6 +162,12 @@
 	icon_state = "xray"
 	origin_tech = "combat=6;materials=4;magnets=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7)
+	)
 
 /obj/item/gun/energy/immolator
 	name = "Immolator laser gun"
@@ -150,6 +177,12 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = TRUE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7)
+	)
 
 /obj/item/gun/energy/immolator/multi
 	name = "multi lens immolator cannon"
@@ -157,6 +190,7 @@
 	icon_state = "multilensimmolator"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 
 /obj/item/gun/energy/immolator/multi/update_overlays()
@@ -169,6 +203,7 @@
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 ////////Laser Tag////////////////////
@@ -183,9 +218,10 @@
 	needs_permit = FALSE
 	ammo_x_offset = 2
 	selfcharge = TRUE
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/tag/blue
-	icon_state = "bluetag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
 
 /obj/item/gun/energy/laser/tag/red

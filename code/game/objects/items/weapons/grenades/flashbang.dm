@@ -1,11 +1,9 @@
 /obj/item/grenade/flashbang
 	name = "flashbang"
 	icon_state = "flashbang"
-	item_state = "flashbang"
 	belt_icon = "flashbang"
 	origin_tech = "materials=2;combat=3"
 	light_power = 10
-	light_color = LIGHT_COLOR_WHITE
 
 	var/light_time = 0.2 SECONDS // The duration the area is illuminated
 	var/range = 7 // The range in tiles of the flashbang
@@ -20,7 +18,7 @@
 		playsound(T, 'sound/effects/bang.ogg', 100, TRUE)
 		new /obj/effect/dummy/lighting_obj(T, range + 2, light_power, light_color, light_time)
 		// Blob damage
-		for(var/obj/structure/blob/B in hear(range + 1, T))
+		for(var/obj/structure/blob/B in get_hear(range + 1, T))
 			var/damage = round(30 / (get_dist(B, T) + 1))
 			B.take_damage(damage * power, BURN, MELEE, FALSE)
 
@@ -29,17 +27,16 @@
 	qdel(src)
 
 /**
-  * Creates a flashing effect that blinds and deafens mobs within range
-  *
-  * Arguments:
-  * * T - The turf to flash
-  * * A - The flashing atom
-  * * range - The range in tiles of the flash
-  * * flash - Whether to flash (blind)
-  * * bang - Whether to bang (deafen)
-  */
-/proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE)
-
+ * Creates a flashing effect that blinds and deafens mobs within range
+ *
+ * Arguments:
+ * * T - The turf to flash
+ * * A - The flashing atom
+ * * range - The range in tiles of the flash
+ * * flash - Whether to flash (blind)
+ * * bang - Whether to bang (deafen)
+ */
+/proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE, direct_bang = TRUE)
 	// Flashing mechanic
 	var/source_turf = get_turf(A)
 	for(var/mob/living/M in hearers(range, T))
@@ -67,7 +64,7 @@
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
-			if(source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
+			if(direct_bang && source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
 				M.Weaken(10 SECONDS)
 			if(!ear_safety)
 				M.apply_damage(15, STAMINA)
@@ -77,6 +74,8 @@
 					var/mob/living/carbon/C = M
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 					if(istype(ears))
+						if(HAS_TRAIT(M, TRAIT_WEAK_EARS))
+							ears.internal_receive_damage(10)
 						ears.internal_receive_damage(5)
 						if(ears.damage >= 15)
 							to_chat(M, span_warning("Your ears start to ring badly!"))

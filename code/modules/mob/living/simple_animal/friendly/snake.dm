@@ -18,8 +18,6 @@
 	icon_dead = "snake_dead"
 	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
-	health = 20
-	maxHealth = 20
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	death_sound = 'sound/creatures/snake_death.ogg'
@@ -70,9 +68,7 @@
 	name = "Руж"
 	desc = "Уникальная трёхголовая змея Офицера Телекоммуникаций синдиката. Выращена в лаборатории. У каждой головы свой характер!"
 	icon = 'icons/mob/pets.dmi'
-	mob_size = MOB_SIZE_SMALL
 	blood_volume = BLOOD_VOLUME_NORMAL
-	can_collar = TRUE
 	gender = FEMALE
 	icon_state = "rouge"
 	icon_living = "rouge"
@@ -83,16 +79,7 @@
 	speak_emote = list("шипит")
 	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
 	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
-	tts_seed = "Ladyvashj"
-	health = 20
-	maxHealth = 20
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	attacktext = "кусает"
-	melee_damage_lower = 5
-	melee_damage_upper = 6
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "steps on"
 	var/obj/item/inventory_head
 	var/list/strippable_inventory_slots = list()
 	faction = list("neutral", "syndicate")
@@ -200,9 +187,11 @@
 		if(health <= 0)
 			to_chat(user, span_notice("Безжизненный взгляд в глазах [real_name] никак не меняется, когда вы надеваете [item_to_add] на неё."))
 		else if(user)
-			user.visible_message(span_notice("[user] надевает [item_to_add] на центральную голову [real_name]. [src] смотрит на [user] и довольно шипит."),
+			user.visible_message(
+				span_notice("[user] надевает [item_to_add] на центральную голову [real_name]. [src] смотрит на [user] и довольно шипит."),
 				span_notice("Вы надеваете [item_to_add] на голову [real_name]. [src] озадачено смотрит на вас, пока другие головы смотрят на центральную с завистью."),
-				span_italics("Вы слышите дружелюбное шипение."))
+				span_italics("Вы слышите дружелюбное шипение.")
+			)
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_snek_fluff()
@@ -256,3 +245,27 @@
 			head_icon = SF.get_overlay()
 
 		add_overlay(head_icon)
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha
+	name = "Доктор Рираха"
+	desc = "Оранжевая змея в шапочке медсестры, от которой исходит аромат медицинской марихуаны."
+	icon_state = "riraha"
+	icon_living = "riraha"
+	icon_dead = "riraha_dead"
+	speak_emote = list("шипит")
+	tts_seed = "Xenia"
+	melee_damage_lower = 1
+	melee_damage_upper = 3
+	faction = list("neutral")
+	unique_pet = TRUE
+
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha/get_ru_names()
+	return list(
+		NOMINATIVE = "доктор Рираха",
+		GENITIVE = "доктора Рираха",
+		DATIVE = "доктору Рираху",
+		ACCUSATIVE = "доктора Рираха",
+		INSTRUMENTAL = "доктором Рирахой",
+		PREPOSITIONAL = "докторе Рирахе"
+		)

@@ -1,12 +1,11 @@
 /obj/structure/blob/special/resource
 	name = "resource blob"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
 	desc = "Тонкий шпиль слегка покачивающихся щупалец."
 	max_integrity = BLOB_RESOURCE_MAX_HP
 	point_return = BLOB_REFUND_RESOURCE_COST
 	resistance_flags = LAVA_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 25, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 25, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	var/resource_delay = 0
 	var/point_rate = BLOB_RESOURCE_POINT_RATE
 
@@ -30,6 +29,6 @@
 	if(overmind)
 		overmind.add_points(point_rate)
 		balloon_alert(overmind, "+[point_rate] resource\s")
-		resource_delay = world.time + BLOB_RESOURCE_GATHER_DELAY + overmind.resource_blobs.len * BLOB_RESOURCE_GATHER_ADDED_DELAY //4 seconds plus a quarter second for each resource blob the overmind has
+		resource_delay = world.time + BLOB_RESOURCE_GATHER_DELAY + length(overmind.resource_blobs) * BLOB_RESOURCE_GATHER_ADDED_DELAY //4 seconds plus a quarter second for each resource blob the overmind has
 	else
 		resource_delay = world.time + BLOB_RESOURCE_GATHER_DELAY

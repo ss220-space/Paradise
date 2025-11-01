@@ -17,14 +17,12 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "Разлом, позвляющий космическим карпам перемещаться на огромные расстояния."
-	armor = list("melee" = 30, "bullet" = 40, "laser" = 20, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
-	max_integrity = 300
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	light_color = LIGHT_COLOR_PURPLE
 	light_range = 8
 	anchored = TRUE
-	density = FALSE
 	plane = OBJ_LAYER
 	/// The amount of time the rift has charged for.
 	var/time_charged = 0
@@ -107,7 +105,7 @@
 			newcarp.faction = dragon.owner.current.faction.Copy()
 		if(SPT_PROB(1.5, seconds_per_tick))
 			var/rand_dir = pick(GLOB.cardinal)
-			SSmove_manager.move_to(src, get_step(src, rand_dir), 1)
+			GLOB.move_manager.move_to(src, get_step(src, rand_dir), 1)
 		return
 
 	// Increase time trackers and check for any updated states.
@@ -150,14 +148,15 @@
 	if(time_charged >= max_charge)
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
-		GLOB.major_announcement.announce("Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
-										ANNOUNCE_WILDNATURE_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.major_announcement.announce(
+			message = "Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
+			new_title = ANNOUNCE_WILDNATURE_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 		max_integrity = INFINITY
 		update_integrity(INFINITY)
 		update_icon(UPDATE_ICON_STATE)
-		light_color = LIGHT_COLOR_YELLOW
+		light_color = LIGHT_COLOR_DIM_YELLOW
 		update_light()
 		armor = armor.setRating(melee_value = 100, bullet_value = 100, laser_value = 100, energy_value = 100, bomb_value = 100, bio_value = 100, rad_value = 100, fire_value = 100, acid_value = 100)
 		resistance_flags = INDESTRUCTIBLE
@@ -177,9 +176,10 @@
 		charge_state = CHARGE_FINALWARNING
 		var/area/A = get_area(src)
 
-		GLOB.major_announcement.announce("Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
-										ANNOUNCE_WILDNATURE_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.major_announcement.announce(
+			message = "Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
+			new_title = ANNOUNCE_WILDNATURE_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 
 
@@ -215,7 +215,7 @@
 
 	if(!is_listed)
 		ckey_list += user.ckey
-	newcarp.key = user.key
+	newcarp.possess_by_player(user.key)
 	newcarp.name = "carp ([rand(1, 1000)])"
 	var/datum/antagonist/space_carp/carp_antag = new(src)
 	newcarp.mind.add_antag_datum(carp_antag)

@@ -51,7 +51,9 @@
 
 #define ATAN2(x, y) ( !(x) && !(y) ? 0 : (y) >= 0 ? arccos((x) / sqrt((x)*(x) + (y)*(y))) : -arccos((x) / sqrt((x)*(x) + (y)*(y))) )
 
-#define HYPOTENUSE(Ax, Ay, Bx, By)	(sqrt(((Ax) - (Bx))**2 + ((Ay) - (By))**2))
+// We used to use linear regression to approximate the answer, but Mloc realized this was actually faster.
+// And lo and behold, it is, and it's more accurate to boot.
+#define CHEAP_HYPOTENUSE(Ax, Ay, Bx, By) (sqrt((Ax - Bx) ** 2 + (Ay - By) ** 2)) //A squared + B squared = C squared
 
 // Greatest Common Divisor - Euclid's algorithm
 /proc/Gcd(a, b)
@@ -125,3 +127,6 @@
 
 /// The number of cells in a taxicab circle (rasterized diamond) of radius X.
 #define DIAMOND_AREA(X) (1 + 2*(X)*((X)+1))
+
+/// rand() but for floats, returns a random floating point number between L and H
+#define randfloat(L, H) ((L) + rand() * ((H) - (L)))

@@ -4,13 +4,11 @@
 	name = "Синдром лояльности"
 	agent = "Халомонас миномай"
 	desc = "Болезнь, вызывающая острую массовую одержимость определённым человеком, а также различные навязчивые идеи."
-	max_stages = 5
 	spread_flags = CONTACT
 	permeability_mod = 0.8
 	can_immunity = FALSE
 	cure_text = "Галоперидол"
 	cures = list("haloperidol")
-	cure_prob = 8
 	visibility_flags = HIDDEN_HUD
 	severity = DANGEROUS
 	var/is_master = FALSE
@@ -23,7 +21,7 @@
 	var/need_meating_message = FALSE
 	var/need_master_death_message = FALSE
 
-/datum/disease/virus/loyalty/New(var/mob/living/carbon/human/new_master)
+/datum/disease/virus/loyalty/New(mob/living/carbon/human/new_master)
 	..()
 	if(new_master)
 		master = new_master
@@ -64,7 +62,7 @@
 
 		if(master.stat == DEAD)
 			if(need_master_death_message)
-				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master.real_name] мертв[genderize_ru(master.gender, "", "а", "о", "ы")]!")]"))
+				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master.real_name] мертв[GEND_A_O_Y(master)]!")]"))
 			return FALSE
 		else
 			need_master_death_message = TRUE
@@ -95,7 +93,7 @@
 				else
 					if(prob(say_prob))
 						to_chat(affected_mob, span_notice(pick("Мне не следует отдаляться от [master.real_name]...", \
-							"Я долж[genderize_ru(affected_mob.gender, "ен", "на", "но", "ны")] вернуться, пока не поздно!")))
+							"Я долж[GEND_EN_NA_NO_NY(affected_mob)] вернуться, пока не поздно!")))
 
 			if((STAGE_TIME + 1) to (2 * STAGE_TIME))
 				if(need_meating_message && see_master)
@@ -111,7 +109,7 @@
 
 			if((2 * STAGE_TIME + 1) to (4 * STAGE_TIME))
 				if(need_meating_message && see_master)
-					message = pick("[genderize_ru(affected_mob.gender, "Я нашёл", "Я нашла", "Я нашло", "Мы нашли")] вас, [master.real_name]!")
+					message = pick("Я на[GEND_SHEL(affected_mob)] вас, [master.real_name]!")
 					need_meating_message = FALSE
 
 				if(!see_master)
@@ -123,7 +121,7 @@
 
 			if((4 * STAGE_TIME + 1) to INFINITY)
 				if(need_meating_message && see_master)
-					message = pick("Наконец то [genderize_ru(affected_mob.gender, "я снова обрёл", "я снова обрёла", "я снова обрёло", "мы снова обрёли")] вас, [master.real_name]!")
+					message = pick("Наконец то я снова обрёл[GEND_A_O_I(affected_mob)] вас, [master.real_name]!")
 					need_meating_message = FALSE
 
 				if(!see_master)
@@ -147,7 +145,7 @@
 			say_timer = 0
 	return
 
-/datum/disease/virus/loyalty/proc/get_direction(var/begin="", var/ending = "")
+/datum/disease/virus/loyalty/proc/get_direction(begin="", ending = "")
 	if(affected_mob.z == master.z)
 		. = begin
 		. += dir2rustext(get_dir(affected_mob.loc, master.loc))

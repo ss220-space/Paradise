@@ -12,17 +12,19 @@
 	list_reagents = list("honey" = 5)
 	var/honey_color = ""
 
-/obj/item/reagent_containers/honeycomb/New()
-	..()
+/obj/item/reagent_containers/honeycomb/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(8,-8)
 	pixel_y = rand(8,-8)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/honeycomb/set_APTFT()
 	set hidden = TRUE
+	return
 
 /obj/item/reagent_containers/honeycomb/empty()
 	set hidden = TRUE
+	return
 
 
 /obj/item/reagent_containers/honeycomb/update_overlays()

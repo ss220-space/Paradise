@@ -40,7 +40,6 @@
 	icon_state = "chameleon_device"
 	item_state = ""
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = NONE
 	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/ninja_chameleon/my_action = null
@@ -114,7 +113,7 @@
 		var/obj/effect/temp_visual/holo_scan/my_scan_effect = new(get_turf(src), color_choice, "alpha", TRUE)
 		if(!s_busy)
 			s_busy = TRUE
-			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM) )
+			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 				to_chat(ninja, span_warning("Вы прервали маскировку!"))
 				s_busy = FALSE
 				do_sparks(3, FALSE, ninja)
@@ -149,7 +148,7 @@
 			qdel(n_id_card)
 			n_id_card = null
 		//Sparks
-		playsound(ninja, "sparks", 75, TRUE)
+		playsound(ninja, SFX_SPARKS, 75, TRUE)
 		spark_system.start()
 		//Log and info
 		ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы маскируете свою внешность становясь [ninja]."), "Вы слышите странный электрический звук!")
@@ -204,7 +203,7 @@
 	qdel(n_id_card)
 	n_id_card = null
 	//Sparks
-	playsound(ninja, "sparks", 150, TRUE)
+	playsound(ninja, SFX_SPARKS, 150, TRUE)
 	spark_system.start()
 	//Info
 	ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы возвращаете себе свою внешность."), "Вы слышите странный электрический звук!")

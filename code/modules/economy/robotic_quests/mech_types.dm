@@ -1,6 +1,3 @@
-#define WORKING_MECH	1
-#define MEDICAL_MECH	2
-#define COMBAT_MECH 	3
 /datum/quest_mech
 	/// Original name of Mecha
 	var/name
@@ -23,7 +20,6 @@
 	name = "APLU MK-II \"Ripley\""
 	mech_type = /obj/mecha/working/ripley
 	mech_class = WORKING_MECH
-	mech_icon = "ripley-open"
 	max_modules = 6
 	cash_reward = 500
 	wanted_modules = list(
@@ -33,8 +29,6 @@
 		/obj/item/mecha_parts/mecha_equipment/rcd,
 		/obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module,
 		/obj/item/mecha_parts/mecha_equipment/cargo_upgrade,
-		/obj/item/mecha_parts/mecha_equipment/teleporter,
-		/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator,
 		/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system,
 		/obj/item/mecha_parts/mecha_equipment/eng_toolset,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma,
@@ -56,8 +50,6 @@
 		/obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module,
 		/obj/item/mecha_parts/mecha_equipment/cargo_upgrade,
 		/obj/item/mecha_parts/mecha_equipment/teleporter,
-		/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator,
-		/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system,
 		/obj/item/mecha_parts/mecha_equipment/eng_toolset,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun,
@@ -77,8 +69,6 @@
 		/obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module,
 		/obj/item/mecha_parts/mecha_equipment/cargo_upgrade,
 		/obj/item/mecha_parts/mecha_equipment/teleporter,
-		/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator,
-		/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system,
 		/obj/item/mecha_parts/mecha_equipment/eng_toolset,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun,
@@ -96,8 +86,6 @@
 		/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun,
 		/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw,
 		/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade, //You can't put this without syringe gun
-		/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator,
-		/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system,
 		/obj/item/mecha_parts/mecha_equipment/medical/beamgun,
 	)
 	related_modules = list(

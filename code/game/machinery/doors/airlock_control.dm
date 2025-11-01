@@ -1,11 +1,5 @@
 #define AIRLOCK_CONTROL_RANGE 22
 
-// This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
-/obj/machinery/door/airlock
-	var/id_tag
-	var/shockedby = list()
-	var/cur_command = null	//the command the door is currently attempting to complete
-
 /obj/machinery/door/airlock/process()
 	if(arePowerSystemsOn() && cur_command)
 		execute_current_command()
@@ -191,14 +185,9 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/airlock_sensor/Initialize()
+/obj/machinery/airlock_sensor/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
-
-/obj/machinery/airlock_sensor/New()
-	..()
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/airlock_sensor/Destroy()
 	if(SSradio)
@@ -280,15 +269,9 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/access_button/Initialize()
+/obj/machinery/access_button/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
-
-/obj/machinery/access_button/New()
-	..()
-
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/access_button/Destroy()
 	if(SSradio)
@@ -303,3 +286,5 @@
 /obj/machinery/access_button/airlock_exterior
 	frequency = 1379
 	command = "cycle_exterior"
+
+#undef AIRLOCK_CONTROL_RANGE

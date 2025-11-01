@@ -128,7 +128,6 @@
 	return
 
 
-
 /// Called whenever the buff expires or is removed (qdeleted)
 /// Note that at the point this is called, it is out of the owner's status_effects list, but owner is not yet null
 /datum/status_effect/proc/on_remove()
@@ -137,6 +136,7 @@
 
 /// Called specifically whenever the status effect expires.
 /datum/status_effect/proc/on_timeout()
+	return
 
 
 /// Called instead of on_remove when a status effect
@@ -310,11 +310,9 @@
 
 /datum/status_effect/stacking
 	id = "stacking_base"
-	duration = -1 //removed under specific conditions
 	alert_type = null
 	var/stacks = 0 //how many stacks are accumulated, also is # of stacks that target will have when first applied
 	var/delay_before_decay //deciseconds until ticks start occuring, which removes stacks (first stack will be removed at this time plus tick_interval)
-	tick_interval = 10 //deciseconds between decays once decay starts
 	var/stack_decay = 1 //how many stacks are lost per tick (decay trigger)
 	var/stack_threshold //special effects trigger when stacks reach this amount
 	var/max_stacks //stacks cannot exceed this amount
@@ -329,12 +327,16 @@
 	var/mutable_appearance/status_underlay
 
 /datum/status_effect/stacking/proc/threshold_cross_effect() //what happens when threshold is crossed
+	return
 
 /datum/status_effect/stacking/proc/stacks_consumed_effect() //runs if status is deleted due to threshold being crossed
+	return
 
 /datum/status_effect/stacking/proc/fadeout_effect() //runs if status is deleted due to being under one stack
+	return
 
 /datum/status_effect/stacking/proc/stack_decay_effect() //runs every time tick() causes stacks to decay
+	return
 
 /datum/status_effect/stacking/proc/on_threshold_cross()
 	threshold_cross_effect()
@@ -343,6 +345,7 @@
 		qdel(src)
 
 /datum/status_effect/stacking/proc/on_threshold_drop()
+	return
 
 /datum/status_effect/stacking/proc/can_have_status()
 	return owner.stat != DEAD
@@ -393,13 +396,12 @@
 		return FALSE
 	status_overlay = mutable_appearance(overlay_file, "[overlay_state][stacks]")
 	status_underlay = mutable_appearance(underlay_file, "[underlay_state][stacks]")
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	var/icon_height = I.Height()
+	var/icon_height = owner.get_cached_height()
 	status_overlay.pixel_x = -owner.pixel_x
 	status_overlay.pixel_y = FLOOR(icon_height * 0.25, 1)
-	status_overlay.transform = matrix() * (icon_height/world.icon_size) //scale the status's overlay size based on the target's icon size
+	status_overlay.transform = matrix() * (icon_height / ICON_SIZE_Y) //scale the status's overlay size based on the target's icon size
 	status_underlay.pixel_x = -owner.pixel_x
-	status_underlay.transform = matrix() * (icon_height/world.icon_size) * 3
+	status_underlay.transform = matrix() * (icon_height / ICON_SIZE_Y) * 3
 	status_underlay.alpha = 40
 	owner.add_overlay(status_overlay)
 	owner.underlays += status_underlay

@@ -25,8 +25,6 @@
 	if(length(activation_message))
 		var/msg = pick(activation_message)
 		to_chat(mutant, span_warning("[msg]"))
-	else
-		testing("[name] has no activation message.")
 
 
 /datum/dna/gene/disability/deactivate(mob/living/mutant, flags)
@@ -34,8 +32,6 @@
 	if(length(deactivation_message))
 		var/msg = pick(deactivation_message)
 		to_chat(mutant, span_warning("[msg]"))
-	else
-		testing("[name] has no deactivation message.")
 
 
 /datum/dna/gene/disability/hallucinate
@@ -70,7 +66,7 @@
 
 /datum/dna/gene/disability/epilepsy/OnMobLife(mob/living/carbon/human/H)
 	if((prob(1) && H.AmountParalyzed() < 2 SECONDS))
-		H.visible_message(span_danger("[H] начина[pluralize_ru(H.gender, "ет", "ют")] биться в припадке!"), span_alert("У вас припадок!"))
+		H.visible_message(span_danger("[H] начина[PLUR_ET_YUT(H)] биться в припадке!"), span_alert("У вас припадок!"))
 		H.Paralyse(20 SECONDS)
 		H.Jitter(2000 SECONDS)
 
@@ -387,9 +383,9 @@
 	message,
 	verb,
 	ignore_speech_problems,
-    ignore_atmospherics,
-    ignore_languages,
-    datum/multilingual_say_piece/lang_piece,
+	ignore_atmospherics,
+	ignore_languages,
+	datum/multilingual_say_piece/lang_piece,
 )
 	SIGNAL_HANDLER
 
@@ -402,3 +398,37 @@
 	to_chat(source, span_notice("Вы пытаетесь что-то сказать, но не можете произнести ни слова на этом языке."))
 
 	return COMPONENT_PREVENT_SPEAKING
+
+/datum/dna/gene/disability/catears
+	name = "Кошачьи уши"
+	desc = "Вызывает рост кошачьих ушей у вас из головы."
+	activation_message = list("Из вашей головы вырастают кошачьи уши.")
+	deactivation_message = list("Ваши кошачьи уши отпадают.")
+
+/datum/dna/gene/disability/catears/New()
+	. = ..()
+	block = GLOB.cat_earsblock
+
+/datum/dna/gene/disability/catears/activate(mob/living/carbon/human/mutant, flags)
+	. = ..()
+	ADD_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	mutant.update_mutant_ears()
+	mutant.update_body(TRUE)
+
+/datum/dna/gene/disability/catears/deactivate(mob/living/carbon/human/mutant, flags)
+	. = ..()
+	REMOVE_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	mutant.update_mutant_ears()
+	mutant.update_body(TRUE)
+
+// /datum/dna/gene/disability/catears/OnDrawUnderlays(mob/M, g)
+//	return "catears_s"
+
+/datum/dna/gene/disability/catears/proc/paint_felinide_ears(mob/living/carbon/human/human)
+	var/inner_state = "catearsinner"
+	var/outer_state = "catears_s"
+	var/obj/item/organ/external/head/head_organ = human.get_organ(BODY_ZONE_HEAD)
+	var/icon/new_look = icon('icons/effects/genetics.dmi', outer_state)
+	new_look.Blend(head_organ.hair_colour, ICON_ADD)
+	new_look.Blend(icon('icons/effects/genetics.dmi', inner_state), ICON_OVERLAY)
+	return new_look
