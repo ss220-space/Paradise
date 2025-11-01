@@ -145,18 +145,20 @@
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	unique_reskin = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
 
-/obj/item/gun/projectile/revolver/detective/update_gun_skins()
-	add_skin("The Original", "detective")
-	add_skin("Leopard Spots", "detective_leopard")
-	add_skin("Black Panther", "detective_panther")
-	add_skin("White Gold", "detective_gold")
-	add_skin("Gold Wood", "detective_gold_alt")
-	add_skin("The Peacemaker", "detective_peacemaker")
-	add_skin("Silver", "detective_silver")
+/obj/item/gun/projectile/revolver/detective/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/item_skins, skins = list(
+		new /datum/item_skin_data(name = "The Original", icon_state = "detective"),
+		new /datum/item_skin_data(name = "Leopard Spots", icon_state = "detective_leopard"),
+		new /datum/item_skin_data(name = "Black Panther", icon_state = "detective_panther"),
+		new /datum/item_skin_data(name = "White Gold", icon_state = "detective_gold"),
+		new /datum/item_skin_data(name = "Gold Wood", icon_state = "detective_gold_alt"),
+		new /datum/item_skin_data(name = "The Peacemaker", icon_state = "detective_peacemaker"),
+		new /datum/item_skin_data(name = "Silver", icon_state = "detective_silver"),
+	))
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "finger gun"
@@ -525,20 +527,22 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
-	unique_reskin = TRUE
 	pb_knockback = 3
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	can_air_shoot = FALSE
 
-/obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
-	add_skin("Default", "dshotgun")
-	add_skin("Dark Red Finish", "dshotgun-d")
-	add_skin("Ash", "dshotgun-f")
-	add_skin("Faded Grey", "dshotgun-g")
-	add_skin("Maple", "dshotgun-l")
-	add_skin("Rosewood", "dshotgun-p")
+/obj/item/gun/projectile/revolver/doublebarrel/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/item_skins, skins = list(
+		new /datum/item_skin_data(name = "Default", icon_state = "dshotgun"),
+		new /datum/item_skin_data(name = "Dark Red Finish", icon_state = "dshotgun-d"),
+		new /datum/item_skin_data(name = "Ash", icon_state = "dshotgun-f"),
+		new /datum/item_skin_data(name = "Faded Grey", icon_state = "dshotgun-g"),
+		new /datum/item_skin_data(name = "Maple", icon_state = "dshotgun-l"),
+		new /datum/item_skin_data(name = "Rosewood", icon_state = "dshotgun-p"),
+	))
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
@@ -593,11 +597,14 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = FALSE
-	unique_reskin = FALSE
 	pb_knockback = 0
 	var/slung = FALSE
 	accuracy = GUN_ACCURACY_MINIMAL
 	recoil = GUN_RECOIL_MEGA
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/item_skins, skins = list())
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)
 	if(iscoil(I))

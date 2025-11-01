@@ -4,7 +4,7 @@
  * Add skins feature to /obj/item by alt_click.
  */
 /datum/component/item_skins
-	var/list/datum/item_skin_data/skins
+	var/list/skins
 
 
 /datum/item_skin_data
@@ -28,14 +28,10 @@
 	src.donation_tier = donation_tier
 
 
-/datum/component/item_skins/Initialize(list/datum/item_skin_data/skins)
+/datum/component/item_skins/Initialize(list/skins = list())
 	. = ..()
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-	if(!length(skins))
-		return COMPONENT_INCOMPATIBLE
-	// if(istype(skins))
-	// 	return COMPONENT_INCOMPATIBLE
 
 	src.skins = skins
 
@@ -49,6 +45,8 @@
 
 /datum/component/item_skins/proc/check_altclicked(datum/source, mob/living/carbon/human/user)
 	if(source != parent)
+		return
+	if(!length(skins))
 		return
 	if(!istype(user)) //only humans use skins
 		return

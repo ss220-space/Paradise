@@ -48,7 +48,6 @@
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
-	unique_reskin = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
@@ -70,16 +69,18 @@
 		PREPOSITIONAL = "Блюстителе"
 	)
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
-	add_skin("Grey slide", "enforcer_grey")
-	add_skin("Red slide", "enforcer_red")
-	add_skin("Green slide", "enforcer_green")
-	add_skin("Tan slide", "enforcer_tan")
-	add_skin("Black slide", "enforcer_black")
-	add_skin("Green Handle", "enforcer_greengrip")
-	add_skin("Tan Handle", "enforcer_tangrip")
-	add_skin("Red Handle", "enforcer_redgrip")
-
+/obj/item/gun/projectile/automatic/pistol/enforcer/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/item_skins, skins = list(
+		new /datum/item_skin_data(name = "Grey slide", icon_state = "enforcer_grey"),
+		new /datum/item_skin_data(name = "Red slide", icon_state = "enforcer_red"),
+		new /datum/item_skin_data(name = "Green slide", icon_state = "enforcer_green"),
+		new /datum/item_skin_data(name = "Tan slide", icon_state = "enforcer_tan"),
+		new /datum/item_skin_data(name = "Black slide", icon_state = "enforcer_black"),
+		new /datum/item_skin_data(name = "Green Handle", icon_state = "enforcer_greengrip"),
+		new /datum/item_skin_data(name = "Tan Handle", icon_state = "enforcer_tangrip"),
+		new /datum/item_skin_data(name = "Red Handle", icon_state = "enforcer_redgrip"),
+	))
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
 	if(current_skin)
@@ -110,7 +111,6 @@
 	mag_type = /obj/item/ammo_box/magazine/sp8
 	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
 	origin_tech = "combat=5;materials=2"
-	unique_reskin = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
@@ -121,13 +121,16 @@
 	)
 
 
-/obj/item/gun/projectile/automatic/pistol/sp8/update_gun_skins()
-	add_skin("Black", "sp8_black")
-	add_skin("Red", "sp8_red")
-	add_skin("Green", "sp8_green")
-	add_skin("Olive", "sp8_olive")
-	add_skin("Yellow", "sp8_yellow")
-	add_skin("White", "sp8_white")
+/obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/item_skins, skins = list(
+		new /datum/item_skin_data(name = "Black", icon_state = "sp8_black"),
+		new /datum/item_skin_data(name = "Red", icon_state = "sp8_red"),
+		new /datum/item_skin_data(name = "Green", icon_state = "sp8_green"),
+		new /datum/item_skin_data(name = "Olive", icon_state = "sp8_olive"),
+		new /datum/item_skin_data(name = "Yellow", icon_state = "sp8_yellow"),
+		new /datum/item_skin_data(name = "White", icon_state = "sp8_white"),
+	))
 
 
 /obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
@@ -149,18 +152,18 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
 	)
 
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8t/update_gun_skins()
-	add_skin("Dust", "sp8t_dust")
-	add_skin("Sea", "sp8t_sea")
-
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8t/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/item_skins, skins = list(
+		new /datum/item_skin_data(name = "Dust", icon_state = "sp8t_dust"),
+		new /datum/item_skin_data(name = "Sea", icon_state = "sp8t_sea"),
+	))
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
 	name = "SP-8-AR"
 	desc = "Пистолет сил защиты активов оснащённый ДТК."
 	icon_state = "sp8ar"
 	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
-	unique_reskin = FALSE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),

@@ -764,7 +764,6 @@
 	origin_tech = "combat=4;materials=2"
 	cell_type = /obj/item/stock_parts/cell/specter
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
-	unique_reskin = TRUE
 	materials = list(MAT_METAL = 1000)
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MIN
@@ -788,15 +787,15 @@
 /obj/item/gun/energy/specter/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
-
-/obj/item/gun/energy/specter/update_gun_skins()
-	add_skin("Grey slide", "specter")
-	add_skin("Red slide", "specter_red")
-	add_skin("Green slide", "specter_green")
-	add_skin("Tan slide", "specter_tan")
-	add_skin("Green Handle", "specter_greengrip")
-	add_skin("Tan Handle", "specter_tangrip")
-	add_skin("Red Handle", "specter_redgrip")
+	AddComponent(/datum/component/item_skins, skins = list(
+		new /datum/item_skin_data(name = "Grey slide", icon_state = "specter"),
+		new /datum/item_skin_data(name = "Red slide", icon_state = "specter_red"),
+		new /datum/item_skin_data(name = "Green slide", icon_state = "specter_green"),
+		new /datum/item_skin_data(name = "Tan slide", icon_state = "specter_tan"),
+		new /datum/item_skin_data(name = "Green Handle", icon_state = "specter_greengrip"),
+		new /datum/item_skin_data(name = "Tan Handle", icon_state = "specter_tangrip"),
+		new /datum/item_skin_data(name = "Red Handle", icon_state = "specter_redgrip"),
+	))
 
 /obj/item/gun/energy/specter/update_icon_state()
 	if(current_skin)

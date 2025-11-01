@@ -387,6 +387,12 @@
 		return list()
 	return islist(components) ? components : list(components)
 
+/datum/proc/ExistsComponent(c_type)
+	var/list/components = datum_components?[c_type]
+	if(!components)
+		return FALSE
+	return TRUE
+
 /**
  * Creates an instance of `new_type` in the datum and attaches to it as parent
  *

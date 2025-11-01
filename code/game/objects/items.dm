@@ -390,6 +390,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				. += span_notice("Обнаружено запечатанное заклинание \"[S.name]\" внутри.<br>")
 				break
 
+	if(ExistsComponent(/datum/component/item_skins))
+		. += span_notice("Используйте Alt-click чтобы выбрать скин.")
+
 
 /obj/item/burn()
 	if(!QDELETED(src))
