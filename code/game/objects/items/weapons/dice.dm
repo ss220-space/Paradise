@@ -457,7 +457,7 @@
 			create_smoke(2)
 		if(19)
 			//Instrinct Resistance
-			T.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT] очень крепко!"))
+			T.visible_message(span_userdanger("[user] выгляд[PLUR_IT_YAT(user)] очень крепко!"))
 			user.physiology.brute_mod *= 0.5
 			user.physiology.burn_mod *= 0.5
 
