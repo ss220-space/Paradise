@@ -4,8 +4,7 @@
 /obj/item/holotool
 	name = "experimental holotool"
 	desc = "Экспериментальный прибор, использующий технологии твёрдого света для \
-			проецирования голограмм инженерных инструментов \
-			Произведено \"Нанотрейзен\"."
+			проецирования голограмм инженерных инструментов. Произведено \"Нанотрейзен\"."
 	icon = 'icons/obj/holotool.dmi'
 	icon_state = "holotool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -120,6 +119,7 @@
 	if(emagged)
 		return
 	balloon_alert(user, "протоколы безопасности взломаны")
+	balloon_alert_to_viewers("искрит и жужжит!", "протоколы безопасности взломаны")
 	do_sparks(5, FALSE, src)
 	emagged = TRUE
 

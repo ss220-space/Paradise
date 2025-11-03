@@ -63,6 +63,7 @@
 
 /obj/item/multitool/multitool_check_buffer(user, silent = FALSE)
 	return TRUE
+
 /// Loads a machine into memory, returns TRUE if it does
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)
 	if(!ismachinery(M))
