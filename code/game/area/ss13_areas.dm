@@ -238,22 +238,22 @@ This applies to all STANDARD station areas
 	icon_state = "shuttlered2"
 
 /area/shuttle/syndicate_elite
-	name = "Элитный шаттл Синдиката"
+	name = "Элитный шаттл \"Синдиката\""
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
 	parallax_movedir = SOUTH
 	area_flags = NONE
 
 /area/shuttle/syndicate_elite/mothership
-	name = "Элитный шаттл Синдиката"
+	name = "Элитный шаттл \"Синдиката\""
 	icon_state = "shuttlered"
 
 /area/shuttle/syndicate_elite/station
-	name = "Элитный шаттл Синдиката"
+	name = "Элитный шаттл \"Синдиката\""
 	icon_state = "shuttlered2"
 
 /area/shuttle/syndicate_sit
-	name = "Шаттл Диверсионного отряда Синдиката"
+	name = "Шаттл Диверсионного отряда \"Синдиката\""
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
 	parallax_movedir = SOUTH
@@ -268,17 +268,17 @@ This applies to all STANDARD station areas
 	icon_state = "shuttle"
 
 /area/shuttle/administration
-	name = "Судно Нанотрезйен"
+	name = "Судно \"Нанотрезйен\""
 	icon_state = "shuttlered"
 	parallax_movedir = WEST
 	area_flags = NONE
 
 /area/shuttle/administration/centcom
-	name = "Судно Нанотрезйен (Центком)"
+	name = "Судно \"Нанотрезйен\" (Центком)"
 	icon_state = "shuttlered"
 
 /area/shuttle/administration/station
-	name = "Судно Нанотрезйен"
+	name = "Судно \"Нанотрезйен\""
 	icon_state = "shuttlered2"
 
 /area/shuttle/thunderdome
@@ -406,7 +406,7 @@ This applies to all STANDARD station areas
 	area_flags = NONE
 
 /area/shuttle/syndicate
-	name = "Шаттл отряда \"Атом\" Синдиката"
+	name = "Шаттл отряда \"Атом\" \"Синдиката\""
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 	area_flags = NONE
@@ -572,7 +572,7 @@ This applies to all STANDARD station areas
  */
 
 /area/syndicate_mothership
-	name = "ПБ Синдиката"
+	name = "ПБ \"Синдиката\""
 	icon_state = "syndie-ship"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
@@ -584,30 +584,30 @@ This applies to all STANDARD station areas
 	area_flags = NONE
 
 /area/syndicate_mothership/outside
-	name = "ПБ Синдиката — внешняя территория"
+	name = "ПБ \"Синдиката\" — внешняя территория"
 	static_lighting = FALSE
 	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 	icon_state = "syndie-outside"
 
 /area/syndicate_mothership/control
-	name = "ПБ Синдиката — комната управления"
+	name = "ПБ \"Синдиката\" — комната управления"
 	icon_state = "syndie-control"
 
 /area/syndicate_mothership/elite_squad
-	name = "ПБ Синдиката — крыло Элитного отряда"
+	name = "ПБ \"Синдиката\" — крыло Элитного отряда"
 	icon_state = "syndie-elite"
 
 /area/syndicate_mothership/infteam
-	name = "ПБ Синдиката — крыло Лазутчиков"
+	name = "ПБ \"Синдиката\" — крыло Лазутчиков"
 	icon_state = "syndie-infiltrator"
 
 /area/syndicate_mothership/jail
-	name = "ПБ Синдиката — тюрьма"
+	name = "ПБ \"Синдиката\" — тюрьма"
 	icon_state = "syndie-jail"
 
 /area/syndicate_mothership/cargo
-	name = "ПБ Синдиката — отдел снабжения"
+	name = "ПБ \"Синдиката\" — отдел снабжения"
 	icon_state = "syndie-cargo"
 
 /**
@@ -1633,7 +1633,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/library/game_zone
-	name = "Игровая библиотеки"
+	name = "Библиотека — игровая"
 	icon_state = "library"
 
 /area/chapel
@@ -1673,7 +1673,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/clownoffice
-	name = "Офис клоуна"
+	name = "Офис Клоуна"
 	icon_state = "clown_office"
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
@@ -2364,7 +2364,7 @@ This applies to all STANDARD station areas
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/engineering
-	name = "Служба безопасности — охранный пост Инженерноо отдела"
+	name = "Служба безопасности — охранный пост Инженерного отдела"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/medical
@@ -2399,7 +2399,7 @@ This applies to all STANDARD station areas
 	icon_state = "quartoffice"
 
 /area/quartermaster/storage
-	name = "Отдел снабжения — ангар для грузов"
+	name = "Отдел снабжения — грузовой ангар"
 	icon_state = "quartstorage"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
@@ -2964,7 +2964,7 @@ This applies to all STANDARD station areas
 	area_flags = NONE
 
 /area/moonoutpost19/syndicateoutpost
-	name = "Лунный аванпост Синдиката"
+	name = "Лунный аванпост \"Синдиката\""
 	icon_state = "awaycontent4"
 
 /area/moonoutpost19/hive
@@ -3286,7 +3286,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "awaycontent23"
 
 /**
- * MARK: Malta event map
+ * MARK: Malta — НЕ ПЕРЕВЕДЕНО
  */
 
 /area/ruin/unpowered/coldcolony_outside
