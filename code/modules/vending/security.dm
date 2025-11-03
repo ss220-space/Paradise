@@ -155,7 +155,8 @@
 		/obj/item/flash = 5,
 		/obj/item/storage/box/evidence = 5,
 		/obj/item/storage/box/swabs = 5,
-		/obj/item/storage/box/fingerprints = 5)
+		/obj/item/storage/box/fingerprints = 5,
+	)
 	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/security/ert/get_ru_names()

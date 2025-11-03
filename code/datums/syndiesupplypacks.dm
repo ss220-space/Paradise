@@ -1951,18 +1951,18 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Lavatory Crate"
 	cost = 100
 	contains = list(
-					/obj/item/bathroom_parts,
-					/obj/item/bathroom_parts/urinal
-					)
+		/obj/item/bathroom_parts,
+		/obj/item/bathroom_parts/urinal,
+	)
 	containername = "lavatory crate"
 
 /datum/syndie_supply_packs/misc/hygiene
 	name = "Hygiene Station Crate"
 	cost = 100
 	contains = list(
-					/obj/item/bathroom_parts/sink,
-					/obj/item/mounted/shower
-					)
+		/obj/item/bathroom_parts/sink,
+		/obj/item/mounted/shower,
+	)
 	containername = "hygiene station crate"
 
 //////////////////////////////////////////////////////////////////////////////

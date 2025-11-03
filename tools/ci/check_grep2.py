@@ -403,7 +403,7 @@ def check_long_list_formatting(lines, filename):
     return run_multiline_check(lines, filename, LONG_LIST_PATTERNS, strip_comments=True)
 
 MULTI_LINE_CHECKS = [
-#    check_long_list_formatting,
+    check_long_list_formatting,
 ]
 
 NEW_DEFINITION_RE = re.compile(r'^\s*/?(obj|mob|turf|area|atom)/?.*/New\(')

@@ -960,7 +960,6 @@
 
 	fix_modules()
 
-
 /obj/item/robot_module/combat
 	name = "Combat"
 	module_type = "Malf"
@@ -976,7 +975,7 @@
 			/datum/robot_skin/seek/mnr,
 			/datum/robot_skin/mech/mnr,
 			/datum/robot_skin/mrgutsy,
-		)
+	)
 	has_transform_animation = TRUE
 
 /obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)

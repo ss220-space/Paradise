@@ -493,7 +493,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
-		)
+	)
 	var/list/reflect_zones = list(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 	var/hit_reflect_chance = 50
 
@@ -538,7 +538,7 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		)
+	)
 	var/list/reflect_zones = list(BODY_ZONE_HEAD)
 	var/hit_reflect_chance = 50
 
@@ -577,7 +577,7 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		)
+	)
 	var/list/reflect_zones = list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	var/hit_reflect_chance = 50
 

@@ -50,11 +50,12 @@
 		/obj/item/tank/internals/plasmaman/belt/full = 5,
 		/obj/item/clothing/mask/breath = 5,
 		/obj/item/tank/internals/emergency_oxygen/double/vox = 5,
-		/obj/item/clothing/mask/breath/vox = 5)
+		/obj/item/clothing/mask/breath/vox = 5,
+	)
 	contraband = list(
 		/obj/item/reagent_containers/glass/bottle/wizarditis = 1,
 	)
-	
+
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 	tiltable = FALSE

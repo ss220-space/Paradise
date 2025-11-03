@@ -225,9 +225,9 @@
 	icon_state = "floorsafe-open"
 	lootdoubles = FALSE
 	loot = list(
-				/obj/structure/safe/floor/random_documents,
-				/obj/structure/safe/floor/random_researchnotes_MatBioProg
-				)
+		/obj/structure/safe/floor/random_documents,
+		/obj/structure/safe/floor/random_researchnotes_MatBioProg,
+	)
 
 /obj/item/paper/researchnotes/mat_bio_prog
 

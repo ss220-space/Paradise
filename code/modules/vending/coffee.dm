@@ -35,10 +35,10 @@
 		/obj/item/reagent_containers/food/drinks/chicken_soup = 10,
 		/obj/item/reagent_containers/food/drinks/weightloss = 10,
 		/obj/item/reagent_containers/food/drinks/mug = 15,
-		/obj/item/reagent_containers/food/drinks/mug/novelty = 5
+		/obj/item/reagent_containers/food/drinks/mug/novelty = 5,
 	)
 	contraband = list(
-		/obj/item/reagent_containers/food/drinks/ice = 10
+		/obj/item/reagent_containers/food/drinks/ice = 10,
 	)
 	prices = list(
 		/obj/item/reagent_containers/food/drinks/coffee = 19,
@@ -49,7 +49,7 @@
 		/obj/item/reagent_containers/food/drinks/weightloss = 49,
 		/obj/item/reagent_containers/food/drinks/mug = 49,
 		/obj/item/reagent_containers/food/drinks/mug/novelty = 99,
-		/obj/item/reagent_containers/food/drinks/ice = 39
+		/obj/item/reagent_containers/food/drinks/ice = 39,
 	)
 
 /obj/machinery/vending/coffee/get_ru_names()

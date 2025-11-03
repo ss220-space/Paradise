@@ -56,8 +56,9 @@
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
-							/obj/item/stock_parts/capacitor/quadratic = 5,//Probably okay, right?
-							/obj/item/stack/ore/bluespace_crystal = 5)
+		/obj/item/stock_parts/capacitor/quadratic = 5, //Probably okay, right?
+		/obj/item/stack/ore/bluespace_crystal = 5,
+	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap
 	name = "bluespace harvester reward spawner"

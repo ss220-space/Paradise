@@ -5,7 +5,7 @@
 		"Я не встр+ечал ник+ого умн+ее пул+и!",
 		"К+огда я ск+ажу 3, то б+уду стр+елять! 3!",
 		"6 выстр+елов, б+олее чем дост+аточно, чт+обы уб+ить всё, что движ+ется!",
-		"Офиц+ер! Я не могу дыш+ать!"
+		"Офиц+ер! Я не могу дыш+ать!",
 	)
 	icon_state = "ammovend_off"
 	panel_overlay = "ammovend_panel"
@@ -48,7 +48,7 @@
 			),
 		),
 	)
-	
+
 	contraband = list(
 		/obj/item/storage/box/flashbangs = 2,
 		/obj/item/storage/box/barrier = 2,

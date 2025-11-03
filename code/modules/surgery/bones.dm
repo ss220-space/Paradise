@@ -151,11 +151,9 @@
 
 /datum/surgery_step/glue_bone/plasma
 	name = "сращивание костей (Плазмолюд)"
-
 	allowed_tools = list(
-	/obj/item/stack/sheet/mineral/plasma = 100
+		/obj/item/stack/sheet/mineral/plasma = 100,
 	)
-
 	time = 1 SECONDS
 
 /datum/surgery_step/glue_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

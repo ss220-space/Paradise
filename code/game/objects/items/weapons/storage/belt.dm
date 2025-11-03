@@ -1204,7 +1204,7 @@
 		/obj/item/shovel/spade/wooden,
 		/obj/item/hatchet/wooden,
 		/obj/item/cultivator/wooden,
-		)
+	)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()
 	return list(
@@ -1213,7 +1213,7 @@
 		DATIVE = "охотничьему поясу",
 		ACCUSATIVE = "охотничий пояс",
 		INSTRUMENTAL = "охотничьим поясом",
-		PREPOSITIONAL = "охотничьем поясе"
+		PREPOSITIONAL = "охотничьем поясе",
 	)
 
 /obj/item/storage/belt/chef
@@ -1241,7 +1241,8 @@
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/condiment,
 		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/chef/artist
 	name = "delicate apron"

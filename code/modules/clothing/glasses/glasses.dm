@@ -867,7 +867,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
-		)
+	)
 
 /obj/item/clothing/glasses/heart/Initialize(mapload)
 	. = ..()

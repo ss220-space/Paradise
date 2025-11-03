@@ -97,7 +97,7 @@
 		DATIVE = "снаряжению синего кода",
 		ACCUSATIVE = "снаряжение синего кода",
 		INSTRUMENTAL = "снаряжением синего кода",
-		PREPOSITIONAL = "снаряжении синего кода"
+		PREPOSITIONAL = "снаряжении синего кода",
 	)
 	modules_spawn_chance = 20
 	open_time = 7 SECONDS

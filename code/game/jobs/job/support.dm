@@ -37,7 +37,7 @@
 	pda = /obj/item/pda/quartermaster
 	backpack = /obj/item/storage/backpack/cargo
 	backpack_contents = list(
-	/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 	head = /obj/item/clothing/head/cowboyhat/tan
 

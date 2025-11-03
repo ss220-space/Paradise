@@ -1891,10 +1891,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	limited_modules = list(
-				"Engineering" = /obj/item/robot_module/engineering,
-				"Medical" = /obj/item/robot_module/medical,
-				"Security" = /obj/item/robot_module/security
-			)
+		"Engineering" = /obj/item/robot_module/engineering,
+		"Medical" = /obj/item/robot_module/medical,
+		"Security" = /obj/item/robot_module/security,
+	)
 	allow_rename = FALSE
 	weapons_unlock = TRUE
 	can_lock_cover = TRUE

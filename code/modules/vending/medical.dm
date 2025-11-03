@@ -185,7 +185,7 @@
 		"Т+олько л+учшие +яды!",
 		"Ненатур+альные химик+аты!",
 		"+Эта шт+ука обрыв+ает ж+изни!",
-		"М+ожет с+ами пр+имете?"
+		"М+ожет с+ами пр+имете?",
 	)
 
 	req_access = list(ACCESS_SYNDICATE)
@@ -194,12 +194,13 @@
 		/obj/item/stack/medical/ointment = 2,
 		/obj/item/stack/medical/suture = 4,
 		/obj/item/reagent_containers/hypospray/autoinjector = 4,
-		/obj/item/healthanalyzer = 1
+		/obj/item/healthanalyzer = 1,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/syringe/charcoal = 4,
 		/obj/item/reagent_containers/syringe/antiviral = 4,
-		/obj/item/reagent_containers/food/pill/tox = 1)
+		/obj/item/reagent_containers/food/pill/tox = 1,
+	)
 
 /obj/machinery/vending/wallmed/syndicate/get_ru_names()
 	return list(

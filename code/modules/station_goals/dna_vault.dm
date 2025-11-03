@@ -143,9 +143,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	build_path = /obj/machinery/dna_vault
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
-							/obj/item/stock_parts/capacitor/super = 5,
-							/obj/item/stock_parts/manipulator/pico = 5,
-							/obj/item/stack/cable_coil = 2)
+		/obj/item/stock_parts/capacitor/super = 5,
+		/obj/item/stock_parts/manipulator/pico = 5,
+		/obj/item/stack/cable_coil = 2,
+	)
 
 /obj/structure/filler
 	name = "big machinery part"

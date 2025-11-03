@@ -243,7 +243,7 @@
 	allowed_tools = list(
 		/obj/item/translator_chip = 100,
 		/obj/item/translator_upgrade = 100,
-		)
+	)
 	time = 5 SECONDS
 
 

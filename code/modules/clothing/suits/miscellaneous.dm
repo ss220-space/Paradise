@@ -1702,8 +1702,8 @@
 		SPECIES_DRACONOID,
 		SPECIES_VOX,
 		SPECIES_VULPKANIN,
-		SPECIES_WRYN
-		)
+		SPECIES_WRYN,
+	)
 	hoodtype = /obj/item/clothing/head/hooded/penguin_hood
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -1711,7 +1711,7 @@
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		)
+	)
 
 /obj/item/clothing/suit/hooded/penguin_costume/get_ru_names()
 	return list(

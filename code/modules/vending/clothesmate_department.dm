@@ -763,7 +763,6 @@
 			"icon" = "hat-cowboy",
 			"products" = list(
 				/obj/item/clothing/head/flatcap = 2,
-
 			),
 		),
 		list(
