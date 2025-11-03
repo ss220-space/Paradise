@@ -79,7 +79,7 @@ Difficulty: Medium
 		DATIVE = "пепельному дрейку",
 		ACCUSATIVE = "пепельного дрейка",
 		INSTRUMENTAL = "пепельным дрейком",
-		PREPOSITIONAL = "пепельном дрейке"
+		PREPOSITIONAL = "пепельном дрейке",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/Initialize(mapload)
@@ -500,7 +500,7 @@ Difficulty: Medium
 		DATIVE = "огненному барьеру",
 		ACCUSATIVE = "огненный барьер",
 		INSTRUMENTAL = "огненным барьером",
-		PREPOSITIONAL = "огненном барьере"
+		PREPOSITIONAL = "огненном барьере",
 	)
 
 /obj/effect/temp_visual/drakewall/CanAtmosPass(turf/T, vertical)
@@ -530,7 +530,7 @@ Difficulty: Medium
 		DATIVE = "неизбежной смерти",
 		ACCUSATIVE = "неизбежную смерть",
 		INSTRUMENTAL = "неизбежной смертью",
-		PREPOSITIONAL = "неизбежной смерти"
+		PREPOSITIONAL = "неизбежной смерти",
 	)
 
 /obj/effect/temp_visual/dragon_flight
@@ -584,7 +584,7 @@ Difficulty: Medium
 		DATIVE = "огненному шару",
 		ACCUSATIVE = "огненный шар",
 		INSTRUMENTAL = "огненным шаром",
-		PREPOSITIONAL = "огненном шаре"
+		PREPOSITIONAL = "огненном шаре",
 	)
 
 /obj/effect/temp_visual/fireball/Initialize(mapload)
@@ -648,7 +648,7 @@ Difficulty: Medium
 		DATIVE = "младшему пепельному дрейку",
 		ACCUSATIVE = "младший пепельный дрейк",
 		INSTRUMENTAL = "младшим пепельным дрейком",
-		PREPOSITIONAL = "младшем пепельном дрейке"
+		PREPOSITIONAL = "младшем пепельном дрейке",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/AltClickOn(atom/movable/A)
@@ -697,7 +697,7 @@ Difficulty: Medium
 		DATIVE = "космическому дракону",
 		ACCUSATIVE = "космический дракон",
 		INSTRUMENTAL = "космическим драконом",
-		PREPOSITIONAL = "космическом драконе"
+		PREPOSITIONAL = "космическом драконе",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/grant_achievement(medaltype, scoretype)

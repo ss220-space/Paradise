@@ -67,7 +67,7 @@
 		DATIVE = "Блюстителю",
 		ACCUSATIVE = "Блюститель",
 		INSTRUMENTAL = "Блюстителем",
-		PREPOSITIONAL = "Блюстителе"
+		PREPOSITIONAL = "Блюстителе",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()

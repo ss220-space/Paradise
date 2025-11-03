@@ -386,7 +386,7 @@
 		DATIVE = "лягушачьей шапке",
 		ACCUSATIVE = "лягушачью шапку",
 		INSTRUMENTAL = "лягушачьей шапкой",
-		PREPOSITIONAL = "лягушачьей шапке"
+		PREPOSITIONAL = "лягушачьей шапке",
 	)
 
 /obj/item/clothing/head/carp_hat
@@ -413,5 +413,5 @@
 		DATIVE = "карповой шапке",
 		ACCUSATIVE = "капровую шапку",
 		INSTRUMENTAL = "карповой шапкой",
-		PREPOSITIONAL = "карповой шапке"
+		PREPOSITIONAL = "карповой шапке",
 	)

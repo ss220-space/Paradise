@@ -163,7 +163,7 @@
 		DATIVE = "высоким берцам",
 		ACCUSATIVE = "высокие берцы",
 		INSTRUMENTAL = "высокими берцами",
-		PREPOSITIONAL = "высоких берцах"
+		PREPOSITIONAL = "высоких берцах",
 	)
 
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
@@ -473,7 +473,7 @@
 		DATIVE = "обмоткам из шкуры голиафа",
 		ACCUSATIVE = "обмотки из шкуры голиафа",
 		INSTRUMENTAL = "обмотками из шкуры голиафа",
-		PREPOSITIONAL = "обмотках из шкуры голиафа"
+		PREPOSITIONAL = "обмотках из шкуры голиафа",
 	)
 
 /obj/item/clothing/shoes/footwraps/dragon
@@ -492,7 +492,7 @@
 		DATIVE = "обмоткам из шкуры пепельного дракона",
 		ACCUSATIVE = "обмотки из шкуры пепельного дракона",
 		INSTRUMENTAL = "обмотками из шкуры пепельного дракона",
-		PREPOSITIONAL = "обмотках из шкуры пепельного дракона"
+		PREPOSITIONAL = "обмотках из шкуры пепельного дракона",
 	)
 
 /obj/item/clothing/shoes/bhop
@@ -573,7 +573,7 @@
 		DATIVE = "клоунским башмакам",
 		ACCUSATIVE = "клоунские башмаки",
 		INSTRUMENTAL = "клоунскими башмаками",
-		PREPOSITIONAL = "клоунских башмаках"
+		PREPOSITIONAL = "клоунских башмаках",
 	)
 
 /obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -674,5 +674,5 @@
 		DATIVE = "сапогу Гигачада",
 		ACCUSATIVE = "сапоги Гигачада",
 		INSTRUMENTAL = "сапогами Гигачада",
-		PREPOSITIONAL = "сапогах Гигачада"
+		PREPOSITIONAL = "сапогах Гигачада",
 	)

@@ -585,7 +585,7 @@
 		DATIVE = "хирургическому фартуку",
 		ACCUSATIVE = "хирургический фартук",
 		INSTRUMENTAL = "хирургическим фартуком",
-		PREPOSITIONAL = "хирургическом фартуке"
+		PREPOSITIONAL = "хирургическом фартуке",
 	)
 
 /obj/item/clothing/suit/hop_jacket

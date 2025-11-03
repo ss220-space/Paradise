@@ -190,7 +190,7 @@
 		DATIVE = "банке колы",
 		ACCUSATIVE = "банку колы",
 		INSTRUMENTAL = "банкой колы",
-		PREPOSITIONAL = "банке колы"
+		PREPOSITIONAL = "банке колы",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/energy
@@ -275,7 +275,7 @@
 		DATIVE = "бутылке пива",
 		ACCUSATIVE = "бутылку пива",
 		INSTRUMENTAL = "бутылкой пива",
-		PREPOSITIONAL = "бутылке пива"
+		PREPOSITIONAL = "бутылке пива",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer
@@ -291,7 +291,7 @@
 		DATIVE = "бутылке безалкогольного пива",
 		ACCUSATIVE = "бутылку безалкогольного пива",
 		INSTRUMENTAL = "бутылкой безалкогольного пива",
-		PREPOSITIONAL = "бутылке безалкогольного пива"
+		PREPOSITIONAL = "бутылке безалкогольного пива",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/adminbooze
@@ -519,7 +519,7 @@
 		DATIVE = "банке содовой",
 		ACCUSATIVE = "банку содовой",
 		INSTRUMENTAL = "банкой содовой",
-		PREPOSITIONAL = "банке содовой"
+		PREPOSITIONAL = "банке содовой",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/synthanol
@@ -550,7 +550,7 @@
 		DATIVE = "ёмкости для стандартного напитка",
 		ACCUSATIVE = "ёмкость для стандартного напитка",
 		INSTRUMENTAL = "ёмкостью для стандартного напитка",
-		PREPOSITIONAL = "ёмкости для стандартного напитка"
+		PREPOSITIONAL = "ёмкости для стандартного напитка",
 	)
 
 
@@ -593,7 +593,7 @@
 		DATIVE = "стеклянной бутылке",
 		ACCUSATIVE = "стеклянную бутылку",
 		INSTRUMENTAL = "стеклянной бутылкой",
-		PREPOSITIONAL = "стеклянной бутылке"
+		PREPOSITIONAL = "стеклянной бутылке",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/plastic_bottle
@@ -609,7 +609,7 @@
 		DATIVE = "пластиковой бутылке",
 		ACCUSATIVE = "пластиковую бутылку",
 		INSTRUMENTAL = "пластиковой бутылкой",
-		PREPOSITIONAL = "пластиковой бутылке"
+		PREPOSITIONAL = "пластиковой бутылке",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/metal_can
@@ -624,5 +624,5 @@
 		DATIVE = "металлической банке",
 		ACCUSATIVE = "металлическую банку",
 		INSTRUMENTAL = "металлической банкой",
-		PREPOSITIONAL = "металлической банке"
+		PREPOSITIONAL = "металлической банке",
 	)

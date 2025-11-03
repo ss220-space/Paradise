@@ -53,7 +53,7 @@
 		DATIVE = "торговому автомату ModTech",
 		ACCUSATIVE = "торговый автомат ModTech",
 		INSTRUMENTAL = "торговым автоматом ModTech",
-		PREPOSITIONAL = "торговом автомате ModTech"
+		PREPOSITIONAL = "торговом автомате ModTech",
 	)
 
 /obj/machinery/vending/gun_mods/free

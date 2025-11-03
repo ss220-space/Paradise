@@ -205,7 +205,7 @@
 		DATIVE = "комплекту модификаций для инвалидной коляски",
 		ACCUSATIVE = "комплект модификаций для инвалидной коляски",
 		INSTRUMENTAL = "комплектом модификаций для инвалидной коляски",
-		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски"
+		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски",
 	)
 
 /obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)

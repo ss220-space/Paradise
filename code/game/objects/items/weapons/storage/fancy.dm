@@ -250,7 +250,7 @@
 		DATIVE = "пачке сигарет",
 		ACCUSATIVE = "пачку сигарет",
 		INSTRUMENTAL = "пачкой сигарет",
-		PREPOSITIONAL = "пачке сигарет"
+		PREPOSITIONAL = "пачке сигарет",
 	)
 
 /obj/item/storage/fancy/cigarettes/Initialize(mapload)
@@ -348,7 +348,7 @@
 		DATIVE = "пачке сигарет Синдиката",
 		ACCUSATIVE = "пачку сигарет Синдиката",
 		INSTRUMENTAL = "пачкой сигарет Синдиката",
-		PREPOSITIONAL = "пачке сигарет Синдиката"
+		PREPOSITIONAL = "пачке сигарет Синдиката",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
@@ -529,7 +529,7 @@
 		DATIVE = "упаковке рулонной бумаги",
 		ACCUSATIVE = "упаковку рулонной бумаги",
 		INSTRUMENTAL = "упаковкой рулонной бумаги",
-		PREPOSITIONAL = "упаковке рулонной бумаги"
+		PREPOSITIONAL = "упаковке рулонной бумаги",
 	)
 
 /obj/item/storage/fancy/rollingpapers/populate_contents()
@@ -565,7 +565,7 @@
 		DATIVE = "портсигару",
 		ACCUSATIVE = "портсигар",
 		INSTRUMENTAL = "портсигаром",
-		PREPOSITIONAL = "портсигаре"
+		PREPOSITIONAL = "портсигаре",
 	)
 
 /obj/item/storage/fancy/cigcase/update_icon_state()
@@ -635,7 +635,7 @@
 		DATIVE = "набору для ухода за аквариумом",
 		ACCUSATIVE = "набор для ухода за аквариумом",
 		INSTRUMENTAL = "набором для ухода за аквариумом",
-		PREPOSITIONAL = "наборе для ухода за аквариумом"
+		PREPOSITIONAL = "наборе для ухода за аквариумом",
 	)
 
 /obj/item/storage/firstaid/aquatic_kit/full/populate_contents()

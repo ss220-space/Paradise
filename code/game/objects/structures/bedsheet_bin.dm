@@ -99,7 +99,7 @@ LINEN BINS
 		DATIVE = "амбассадору Зазе",
 		ACCUSATIVE = "амбассадора Зазу",
 		INSTRUMENTAL = "амбассадором Зазой",
-		PREPOSITIONAL = "амбассадоре Зазе"
+		PREPOSITIONAL = "амбассадоре Зазе",
 	)
 
 /obj/item/bedsheet/rainbow

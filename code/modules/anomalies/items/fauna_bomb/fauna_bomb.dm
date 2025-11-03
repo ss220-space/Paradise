@@ -51,7 +51,7 @@
 		DATIVE = "фаунной бомбе", \
 		ACCUSATIVE = "фаунную бомбу", \
 		INSTRUMENTAL = "фаунной бомбой", \
-		PREPOSITIONAL = "фаунной бомбе"
+		PREPOSITIONAL = "фаунной бомбе",
 	)
 
 /obj/item/fauna_bomb/Destroy()

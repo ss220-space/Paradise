@@ -259,7 +259,7 @@
 		DATIVE = "блюспейс сборщику",
 		ACCUSATIVE = "блюспейс сборщик",
 		INSTRUMENTAL = "блюспейс сборщиком",
-		PREPOSITIONAL = "блюспейс сборщике"
+		PREPOSITIONAL = "блюспейс сборщике",
 	)
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)

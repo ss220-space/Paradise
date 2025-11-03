@@ -30,7 +30,7 @@
 		DATIVE = "планшету генетика",
 		ACCUSATIVE = "планшет генетика",
 		INSTRUMENTAL = "планшетом генетика",
-		PREPOSITIONAL = "планшете генетика"
+		PREPOSITIONAL = "планшете генетика",
 	)
 
 /obj/item/dna_notepad/Initialize(mapload)

@@ -41,7 +41,7 @@
 		DATIVE = "настраеваемому аномальному телепортеру", \
 		ACCUSATIVE = "настраеваемый аномальный телепортер", \
 		INSTRUMENTAL = "настраеваемым аномальным телепортером", \
-		PREPOSITIONAL = "настраеваемом аномальном телепортере"
+		PREPOSITIONAL = "настраеваемом аномальном телепортере",
 	)
 
 /obj/item/assembly/tuned_anomalous_teleporter/Initialize(mapload)

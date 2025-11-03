@@ -43,7 +43,7 @@
 		DATIVE = "камню",
 		ACCUSATIVE = "камень",
 		INSTRUMENTAL = "камнем",
-		PREPOSITIONAL = "камне"
+		PREPOSITIONAL = "камне",
 	)
 
 
@@ -241,7 +241,7 @@
 		DATIVE = "древнему камню",
 		ACCUSATIVE = "древний камень",
 		INSTRUMENTAL = "древним камнем",
-		PREPOSITIONAL = "древнем камне"
+		PREPOSITIONAL = "древнем камне",
 	)
 
 
@@ -289,7 +289,7 @@
 		DATIVE = "холодному древнему камню",
 		ACCUSATIVE = "холодный древний камень",
 		INSTRUMENTAL = "холодным древним камнем",
-		PREPOSITIONAL = "холодном древнем камне"
+		PREPOSITIONAL = "холодном древнем камне",
 	)
 
 
@@ -423,7 +423,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/random/volcanic/hard/double
@@ -447,7 +447,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/random/volcanic/hard/double/high_chance
@@ -487,7 +487,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/iron/volcanic/hard/double
@@ -503,7 +503,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/uranium
@@ -534,7 +534,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/uranium/volcanic/hard/double
@@ -550,7 +550,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/diamond
@@ -580,7 +580,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/diamond/volcanic/hard/double
@@ -596,7 +596,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/gold
@@ -627,7 +627,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/gold/volcanic/hard/double
@@ -643,7 +643,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/silver
@@ -674,7 +674,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/silver/volcanic/hard/double
@@ -690,7 +690,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/titanium
@@ -721,7 +721,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/titanium/volcanic/hard/double
@@ -737,7 +737,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/plasma
@@ -768,7 +768,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/plasma/volcanic/hard/double
@@ -784,7 +784,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/clown
@@ -814,7 +814,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/clown/volcanic/hard/double
@@ -830,7 +830,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/mime
@@ -860,7 +860,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/mime/volcanic/hard/double
@@ -876,7 +876,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/bscrystal
@@ -905,7 +905,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/bscrystal/volcanic/hard/double
@@ -922,7 +922,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/gem
@@ -951,7 +951,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/gem/volcanic/hard/double
@@ -967,7 +967,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 /turf/simulated/mineral/volcanic
@@ -995,7 +995,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/volcanic/lava_land_surface/hard/double
@@ -1011,7 +1011,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 // Gibtonite
@@ -1139,7 +1139,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/gibtonite/volcanic/hard/double
@@ -1155,7 +1155,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 #undef GIBTONITE_UNSTRUCK
@@ -1195,7 +1195,7 @@
 		DATIVE = "закалённому базальту",
 		ACCUSATIVE = "закалённый базальт",
 		INSTRUMENTAL = "закалённым базальтом",
-		PREPOSITIONAL = "закалённом базальте"
+		PREPOSITIONAL = "закалённом базальте",
 	)
 
 /turf/simulated/mineral/magmite/volcanic/hard/double
@@ -1211,7 +1211,7 @@
 		DATIVE = "закалённому вулканическому базальту",
 		ACCUSATIVE = "закалённый вулканический базальт",
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
-		PREPOSITIONAL = "закалённом вулканическом базальте"
+		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
 
 #undef MINERAL_TYPE_BASE

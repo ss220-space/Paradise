@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		DATIVE = "устройству телекоммуникаций",
 		ACCUSATIVE = "устройство телекоммуникаций",
 		INSTRUMENTAL = "устройством телекоммуникаций",
-		PREPOSITIONAL = "устройстве телекоммуникаций"
+		PREPOSITIONAL = "устройстве телекоммуникаций",
 	)
 
 /**

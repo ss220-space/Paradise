@@ -254,7 +254,7 @@
 		DATIVE = "медицинскому поясу",
 		ACCUSATIVE = "медицинский пояс",
 		INSTRUMENTAL = "медицинским поясом",
-		PREPOSITIONAL = "медицинском поясе"
+		PREPOSITIONAL = "медицинском поясе",
 	)
 
 /obj/item/storage/belt/medical/surgery
@@ -286,7 +286,7 @@
 		DATIVE = "хирургическому поясу",
 		ACCUSATIVE = "хирургический пояс",
 		INSTRUMENTAL = "хирургическим поясом",
-		PREPOSITIONAL = "хирургическом поясе"
+		PREPOSITIONAL = "хирургическом поясе",
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
@@ -339,7 +339,7 @@
 		DATIVE = "инопланетному хирургическому поясу",
 		ACCUSATIVE = "инопланетный хирургический пояс",
 		INSTRUMENTAL = "инопланетным хирургическим поясом",
-		PREPOSITIONAL = "инопланетном хирургическом поясе"
+		PREPOSITIONAL = "инопланетном хирургическом поясе",
 	)
 
 /obj/item/storage/belt/medical/surgery/abductor/loaded/populate_contents()
@@ -604,7 +604,7 @@
 		DATIVE = "поясу с ракетами",
 		ACCUSATIVE = "пояс с ракетами",
 		INSTRUMENTAL = "поясом с ракетами",
-		PREPOSITIONAL = "поясе с ракетами"
+		PREPOSITIONAL = "поясе с ракетами",
 	)
 
 /obj/item/storage/belt/rocketman/populate_contents()
@@ -731,7 +731,7 @@
 		DATIVE = "поясу тренера",
 		ACCUSATIVE = "пояс тренера",
 		INSTRUMENTAL = "поясом тренера",
-		PREPOSITIONAL = "поясе тренера"
+		PREPOSITIONAL = "поясе тренера",
 	)
 
 /obj/item/storage/belt/lazarus/Initialize(mapload)
@@ -766,7 +766,7 @@
 		DATIVE = "патронташу",
 		ACCUSATIVE = "патронташ",
 		INSTRUMENTAL = "патронташем",
-		PREPOSITIONAL = "патронташе"
+		PREPOSITIONAL = "патронташе",
 	)
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
@@ -1155,7 +1155,7 @@
 		DATIVE = "разгрузке исследователя",
 		ACCUSATIVE = "разгрузку исследователя",
 		INSTRUMENTAL = "разгрузкой исследователя",
-		PREPOSITIONAL = "разгрузке исследователя"
+		PREPOSITIONAL = "разгрузке исследователя",
 	)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)

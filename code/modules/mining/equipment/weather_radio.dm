@@ -30,7 +30,7 @@
 		DATIVE = "метеорологическому радио",
 		ACCUSATIVE = "метеорологическое радио",
 		INSTRUMENTAL = "метеорологическим радио",
-		PREPOSITIONAL = "метеорологическом радио"
+		PREPOSITIONAL = "метеорологическом радио",
 	)
 
 /obj/item/radio/weather_monitor/Initialize(mapload)

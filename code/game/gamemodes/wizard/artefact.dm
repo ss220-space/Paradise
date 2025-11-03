@@ -686,7 +686,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		DATIVE = "плетёной кукле",
 		ACCUSATIVE = "плетёную куклу",
 		INSTRUMENTAL = "плетёной куклой",
-		PREPOSITIONAL = "плетёной кукле"
+		PREPOSITIONAL = "плетёной кукле",
 	)
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)

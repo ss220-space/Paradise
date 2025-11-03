@@ -321,7 +321,7 @@
 		DATIVE = "абляционному бронежилету",
 		ACCUSATIVE = "абляционный бронежилет",
 		INSTRUMENTAL = "абляционным бронежилетом",
-		PREPOSITIONAL = "абляционном бронежилете"
+		PREPOSITIONAL = "абляционном бронежилете",
 	)
 
 /obj/item/clothing/suit/armor/reflector
@@ -357,7 +357,7 @@
 		DATIVE = "рефлекторному пальто",
 		ACCUSATIVE = "рефлекторное пальто",
 		INSTRUMENTAL = "рефлекторным пальто",
-		PREPOSITIONAL = "рефлекторном пальто"
+		PREPOSITIONAL = "рефлекторном пальто",
 	)
 
 /obj/item/clothing/suit/armor/reflector/IsReflect(def_zone)
@@ -688,7 +688,7 @@
 		DATIVE = "доспеху из дрейка",
 		ACCUSATIVE = "доспех из дрейка",
 		INSTRUMENTAL = "доспехом из дрейка",
-		PREPOSITIONAL = "доспехе из дрейка"
+		PREPOSITIONAL = "доспехе из дрейка",
 	)
 
 /obj/item/clothing/head/hooded/drake
@@ -709,7 +709,7 @@
 		DATIVE = "шлему из дрейка",
 		ACCUSATIVE = "шлем из дрейка",
 		INSTRUMENTAL = "шлемом из дрейка",
-		PREPOSITIONAL = "шлеме из дрейка"
+		PREPOSITIONAL = "шлеме из дрейка",
 	)
 
 /obj/item/clothing/suit/hooded/goliath
@@ -729,7 +729,7 @@
 		DATIVE = "накидке из голиафа",
 		ACCUSATIVE = "накидку из голиафа",
 		INSTRUMENTAL = "накидкой из голиафа",
-		PREPOSITIONAL = "накидке из голиафа"
+		PREPOSITIONAL = "накидке из голиафа",
 	)
 
 /obj/item/clothing/head/hooded/goliath
@@ -747,7 +747,7 @@
 		DATIVE = "капюшону накидки из голиафа",
 		ACCUSATIVE = "капюшон накидки из голиафа",
 		INSTRUMENTAL = "капюшоном накидки из голиафа",
-		PREPOSITIONAL = "капюшоне накидки из голиафа"
+		PREPOSITIONAL = "капюшоне накидки из голиафа",
 	)
 
 /obj/item/clothing/suit/hooded/goliath/wizard
@@ -771,7 +771,7 @@
 		DATIVE = "черепу шамана",
 		ACCUSATIVE = "череп шамана",
 		INSTRUMENTAL = "черепом шамана",
-		PREPOSITIONAL = "черепе шамана"
+		PREPOSITIONAL = "черепе шамана",
 	)
 
 //mob_size using for crusher mark
@@ -811,7 +811,7 @@
 		DATIVE = "костяной броне",
 		ACCUSATIVE = "костяную броню",
 		INSTRUMENTAL = "костяной броней",
-		PREPOSITIONAL = "костяной броне"
+		PREPOSITIONAL = "костяной броне",
 	)
 
 /obj/item/clothing/suit/armor/makeshift_armor
@@ -864,7 +864,7 @@
 		DATIVE = "броне из хрящевых пластин",
 		ACCUSATIVE = "броню из хрящевых пластин",
 		INSTRUMENTAL = "броней из хрящевых пластин",
-		PREPOSITIONAL = "броне из хрящевых пластин"
+		PREPOSITIONAL = "броне из хрящевых пластин",
 	)
 
 
@@ -883,7 +883,7 @@
 		DATIVE = "наплечникам из хрящевых пластин",
 		ACCUSATIVE = "наплечники из хрящевых пластин",
 		INSTRUMENTAL = "наплечниками из хрящевых пластин",
-		PREPOSITIONAL = "наплечниках из хрящевых пластин"
+		PREPOSITIONAL = "наплечниках из хрящевых пластин",
 	)
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_pads/attackby(obj/item/I, mob/user, params)
@@ -915,7 +915,7 @@
 		DATIVE = "поножам из хрящевых пластин",
 		ACCUSATIVE = "поножи из хрящевых пластин",
 		INSTRUMENTAL = "поножами из хрящевых пластин",
-		PREPOSITIONAL = "поножах из хрящевых пластин"
+		PREPOSITIONAL = "поножах из хрящевых пластин",
 	)
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_greaves/attackby(obj/item/I, mob/user, params)

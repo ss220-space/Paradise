@@ -18,7 +18,7 @@
 		DATIVE = "аномальному маячку",
 		ACCUSATIVE = "аномальный маячок",
 		INSTRUMENTAL = "аномальным маячком",
-		PREPOSITIONAL = "аномальном маячке"
+		PREPOSITIONAL = "аномальном маячке",
 	)
 
 /obj/item/assembly/anomaly_beacon/activate()

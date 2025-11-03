@@ -140,7 +140,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аварийного оборудования",
 		ACCUSATIVE = "ящик аварийного оборудования",
 		INSTRUMENTAL = "ящиком аварийного оборудования",
-		PREPOSITIONAL = "ящике аварийного оборудования"
+		PREPOSITIONAL = "ящике аварийного оборудования",
 	)
 
 /datum/supply_packs/emergency/firefighting
@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противопожарного оборудования",
 		ACCUSATIVE = "ящик противопожарного оборудования",
 		INSTRUMENTAL = "ящиком противопожарного оборудования",
-		PREPOSITIONAL = "ящике противопожарного оборудования"
+		PREPOSITIONAL = "ящике противопожарного оборудования",
 	)
 
 /datum/supply_packs/emergency/atmostank
@@ -181,7 +181,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с противопожарным ранцем",
 		ACCUSATIVE = "ящик с противопожарным ранцем",
 		INSTRUMENTAL = "ящиком с противопожарным ранцем",
-		PREPOSITIONAL = "ящике с противопожарным ранцем"
+		PREPOSITIONAL = "ящике с противопожарным ранцем",
 	)
 
 
@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противосорнякового оборудования",
 		ACCUSATIVE = "ящик противосорнякового оборудования",
 		INSTRUMENTAL = "ящиком противосорнякового оборудования",
-		PREPOSITIONAL = "ящике противосорнякового оборудования"
+		PREPOSITIONAL = "ящике противосорнякового оборудования",
 	)
 	access = ACCESS_HYDROPONICS
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
@@ -220,7 +220,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оборудования для жизнеобеспечения воксов",
 		ACCUSATIVE = "ящик оборудования для жизнеобеспечения воксов",
 		INSTRUMENTAL = "ящиком оборудования для жизнеобеспечения воксов",
-		PREPOSITIONAL = "ящике оборудования для жизнеобеспечения воксов"
+		PREPOSITIONAL = "ящике оборудования для жизнеобеспечения воксов",
 	)
 
 /datum/supply_packs/emergency/plasmamansupport
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оборудования для жизнеобспечения плазмолюдов",
 		ACCUSATIVE = "ящик оборудования для жизнеобспечения плазмолюдов",
 		INSTRUMENTAL = "ящиком оборудования для жизнеобспечения плазмолюдов",
-		PREPOSITIONAL = "ящике оборудования для жизнеобспечения плазмолюдов"
+		PREPOSITIONAL = "ящике оборудования для жизнеобспечения плазмолюдов",
 	)
 	access = ACCESS_CARGO
 
@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику костюмов для ВКД",
 		ACCUSATIVE = "ящик костюмов для ВКД",
 		INSTRUMENTAL = "ящиком костюмов для ВКД",
-		PREPOSITIONAL = "ящике костюмов для ВКД"
+		PREPOSITIONAL = "ящике костюмов для ВКД",
 	)
 
 
@@ -301,7 +301,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с очистителем воздуха",
 		ACCUSATIVE = "ящик с очистителем воздуха",
 		INSTRUMENTAL = "ящиком с очистителем воздуха",
-		PREPOSITIONAL = "ящике с очистителем воздуха"
+		PREPOSITIONAL = "ящике с очистителем воздуха",
 	)
 	access = ACCESS_ATMOSPHERICS
 
@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с воздушным насосом",
 		ACCUSATIVE = "ящик с воздушным насосом",
 		INSTRUMENTAL = "ящиком с воздушным насосом",
-		PREPOSITIONAL = "ящике с воздушным насосом"
+		PREPOSITIONAL = "ящике с воздушным насосом",
 	)
 	access = ACCESS_ATMOSPHERICS
 
@@ -355,7 +355,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противоэпидемического снаряжения",
 		ACCUSATIVE = "ящик противоэпидемического снаряжения",
 		INSTRUMENTAL = "ящиком противоэпидемического снаряжения",
-		PREPOSITIONAL = "ящике противоэпидемического снаряжения"
+		PREPOSITIONAL = "ящике противоэпидемического снаряжения",
 	)
 
 /datum/supply_packs/emergency/specialops
@@ -375,7 +375,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику c набором для спецопераций",
 		ACCUSATIVE = "ящик c набором для спецопераций",
 		INSTRUMENTAL = "ящиком c набором для спецопераций",
-		PREPOSITIONAL = "ящике c набором для спецопераций"
+		PREPOSITIONAL = "ящике c набором для спецопераций",
 	)
 	hidden = TRUE
 
@@ -393,7 +393,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику",
 		ACCUSATIVE = "ящик",
 		INSTRUMENTAL = "ящиком",
-		PREPOSITIONAL = "ящике"
+		PREPOSITIONAL = "ящике",
 	)
 	hidden = TRUE
 
@@ -408,7 +408,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику особо важного снаряжения",
 		ACCUSATIVE = "ящик особо важного снаряжения",
 		INSTRUMENTAL = "ящиком особо важного снаряжения",
-		PREPOSITIONAL = "ящике особо важного снаряжения"
+		PREPOSITIONAL = "ящике особо важного снаряжения",
 	)
 	access = ACCESS_CAPTAIN
 
@@ -479,7 +479,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику реактивных ранцев",
 		ACCUSATIVE = "ящик реактивных ранцев",
 		INSTRUMENTAL = "ящиком реактивных ранцев",
-		PREPOSITIONAL = "ящике реактивных ранцев"
+		PREPOSITIONAL = "ящике реактивных ранцев",
 	)
 
 /datum/supply_packs/emergency/jetpack_upgrade
@@ -496,7 +496,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику модулей реактивного ранца",
 		ACCUSATIVE = "ящик модулей реактивного ранца",
 		INSTRUMENTAL = "ящиком модулей реактивного ранца",
-		PREPOSITIONAL = "ящике модулей реактивного ранца"
+		PREPOSITIONAL = "ящике модулей реактивного ранца",
 	)
 
 /datum/supply_packs/emergency/jetpack_mini
@@ -512,7 +512,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику реактивных ранцев для мышей",
 		ACCUSATIVE = "ящик реактивных ранцев для мышей",
 		INSTRUMENTAL = "ящиком реактивных ранцев для мышей",
-		PREPOSITIONAL = "ящике реактивных ранцев для мышей"
+		PREPOSITIONAL = "ящике реактивных ранцев для мышей",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -541,7 +541,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику ИКС службы безопасности",
 		ACCUSATIVE = "ящик ИКС службы безопасности",
 		INSTRUMENTAL = "ящиком ИКС службы безопасности",
-		PREPOSITIONAL = "ящике ИКС службы безопасности"
+		PREPOSITIONAL = "ящике ИКС службы безопасности",
 	)
 	access = ACCESS_ARMORY
 
@@ -559,7 +559,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику нелетального снаряжения СБ",
 		ACCUSATIVE = "ящик нелетального снаряжения СБ",
 		INSTRUMENTAL = "ящиком нелетального снаряжения СБ",
-		PREPOSITIONAL = "ящике нелетального снаряжения СБ"
+		PREPOSITIONAL = "ящике нелетального снаряжения СБ",
 	)
 
 /datum/supply_packs/security/vending/security
@@ -573,7 +573,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения SecTech",
 		ACCUSATIVE = "ящик с набором пополнения SecTech",
 		INSTRUMENTAL = "ящиком с набором пополнения SecTech",
-		PREPOSITIONAL = "ящике с набором пополнения SecTech"
+		PREPOSITIONAL = "ящике с набором пополнения SecTech",
 	)
 
 /datum/supply_packs/security/vending/security_mods
@@ -598,7 +598,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для исполнения правосудия",
 		ACCUSATIVE = "ящик с набором для исполнения правосудия",
 		INSTRUMENTAL = "ящиком с набором для исполнения правосудия",
-		PREPOSITIONAL = "ящике с набором для исполнения правосудия"
+		PREPOSITIONAL = "ящике с набором для исполнения правосудия",
 	)
 
 /datum/supply_packs/security/armor
@@ -617,7 +617,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со стандартной бронёй СБ",
 		ACCUSATIVE = "ящик со стандартной бронёй СБ",
 		INSTRUMENTAL = "ящиком со стандартной бронёй СБ",
-		PREPOSITIONAL = "ящике со стандартной бронёй СБ"
+		PREPOSITIONAL = "ящике со стандартной бронёй СБ",
 	)
 
 ////// Weapons: Basic
@@ -635,7 +635,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оглушающих дубинок",
 		ACCUSATIVE = "ящик оглушающих дубинок",
 		INSTRUMENTAL = "ящиком оглушающих дубинок",
-		PREPOSITIONAL = "ящике оглушающих дубинок"
+		PREPOSITIONAL = "ящике оглушающих дубинок",
 	)
 
 /datum/supply_packs/security/laser
@@ -651,7 +651,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику лазерных карабинов",
 		ACCUSATIVE = "ящик лазерных карабинов",
 		INSTRUMENTAL = "ящиком лазерных карабинов",
-		PREPOSITIONAL = "ящике лазерных карабинов"
+		PREPOSITIONAL = "ящике лазерных карабинов",
 	)
 
 /datum/supply_packs/security/taser
@@ -670,7 +670,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику нелетального энергетического оружия",
 		ACCUSATIVE = "ящик нелетального энергетического оружия",
 		INSTRUMENTAL = "ящиком нелетального энергетического оружия",
-		PREPOSITIONAL = "ящике нелетального энергетического оружия"
+		PREPOSITIONAL = "ящике нелетального энергетического оружия",
 	)
 
 /datum/supply_packs/security/enforcer
@@ -685,7 +685,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику Блюстителей",
 		ACCUSATIVE = "ящик Блюстителей",
 		INSTRUMENTAL = "ящиком Блюстителей",
-		PREPOSITIONAL = "ящике Блюстителей"
+		PREPOSITIONAL = "ящике Блюстителей",
 	)
 
 /datum/supply_packs/security/forensics
@@ -706,7 +706,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику криминалистического снаряжения",
 		ACCUSATIVE = "ящик криминалистического снаряжения",
 		INSTRUMENTAL = "ящиком криминалистического снаряжения",
-		PREPOSITIONAL = "ящике криминалистического снаряжения"
+		PREPOSITIONAL = "ящике криминалистического снаряжения",
 	)
 
 /datum/supply_packs/security/telescopic
@@ -721,7 +721,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику телескопических дубинок",
 		ACCUSATIVE = "ящик телескопических дубинок",
 		INSTRUMENTAL = "ящиком телескопических дубинок",
-		PREPOSITIONAL = "ящике телескопических дубинок"
+		PREPOSITIONAL = "ящике телескопических дубинок",
 	)
 
 ///// Armory stuff
@@ -749,7 +749,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противоударной брони",
 		ACCUSATIVE = "ящик противоударной брони",
 		INSTRUMENTAL = "ящиком противоударной брони",
-		PREPOSITIONAL = "ящике противоударной брони"
+		PREPOSITIONAL = "ящике противоударной брони",
 	)
 
 /datum/supply_packs/security/armory/bulletarmor
@@ -765,7 +765,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противопульной брони",
 		ACCUSATIVE = "ящик противопульной брони",
 		INSTRUMENTAL = "ящиком противопульной брони",
-		PREPOSITIONAL = "ящике противопульной брони"
+		PREPOSITIONAL = "ящике противопульной брони",
 	)
 
 /datum/supply_packs/security/armory/webbing
@@ -781,7 +781,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику тактических разгрузок",
 		ACCUSATIVE = "ящик тактических разгрузок",
 		INSTRUMENTAL = "ящиком тактических разгрузок",
-		PREPOSITIONAL = "ящике тактических разгрузок"
+		PREPOSITIONAL = "ящике тактических разгрузок",
 	)
 
 /datum/supply_packs/security/armory/combat_webbing
@@ -797,7 +797,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику боевых разгрузок",
 		ACCUSATIVE = "ящик боевых разгрузок",
 		INSTRUMENTAL = "ящиком боевых разгрузок",
-		PREPOSITIONAL = "ящике боевых разгрузок"
+		PREPOSITIONAL = "ящике боевых разгрузок",
 	)
 
 /datum/supply_packs/security/armory/vest
@@ -814,7 +814,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику разгрузочных жилетов",
 		ACCUSATIVE = "ящик разгрузочных жилетов",
 		INSTRUMENTAL = "ящиком разгрузочных жилетов",
-		PREPOSITIONAL = "ящике разгрузочных жилетов"
+		PREPOSITIONAL = "ящике разгрузочных жилетов",
 	)
 
 /datum/supply_packs/security/armory/swat
@@ -837,7 +837,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику снаряжения SWAT",
 		ACCUSATIVE = "ящик снаряжения SWAT",
 		INSTRUMENTAL = "ящиком снаряжения SWAT",
-		PREPOSITIONAL = "ящике снаряжения SWAT"
+		PREPOSITIONAL = "ящике снаряжения SWAT",
 	)
 
 /datum/supply_packs/security/armory/laserarmor
@@ -853,7 +853,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противолазерной брони",
 		ACCUSATIVE = "ящик противолазерной брони",
 		INSTRUMENTAL = "ящиком противолазерной брони",
-		PREPOSITIONAL = "ящике противолазерной брони"
+		PREPOSITIONAL = "ящике противолазерной брони",
 	)
 	required_tech = list("bluespace" = 4, "combat" = 4)
 
@@ -885,7 +885,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику подсумков для магазинов",
 		ACCUSATIVE = "ящик подсумков для магазинов",
 		INSTRUMENTAL = "ящиком подсумков для магазинов",
-		PREPOSITIONAL = "ящике подсумков для магазинов"
+		PREPOSITIONAL = "ящике подсумков для магазинов",
 	)
 
 /////// Weapons: Specialist
@@ -906,7 +906,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику служебных дробовиков",
 		ACCUSATIVE = "ящик служебных дробовиков",
 		INSTRUMENTAL = "ящиком служебных дробовиков",
-		PREPOSITIONAL = "ящике служебных дробовиков"
+		PREPOSITIONAL = "ящике служебных дробовиков",
 	)
 
 /datum/supply_packs/security/armory/ballisticauto
@@ -925,7 +925,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику боевых дробовиков",
 		ACCUSATIVE = "ящик боевых дробовиков",
 		INSTRUMENTAL = "ящиком боевых дробовиков",
-		PREPOSITIONAL = "ящике боевых дробовиков"
+		PREPOSITIONAL = "ящике боевых дробовиков",
 	)
 
 /datum/supply_packs/security/armory/buckshotammo
@@ -944,7 +944,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику снарядов с картечью",
 		ACCUSATIVE = "ящик снарядов с картечью",
 		INSTRUMENTAL = "ящиком снарядов с картечью",
-		PREPOSITIONAL = "ящике снарядов с картечью"
+		PREPOSITIONAL = "ящике снарядов с картечью",
 	)
 
 /datum/supply_packs/security/armory/slugammo
@@ -963,7 +963,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику ружейных пуль",
 		ACCUSATIVE = "ящик ружейных пуль",
 		INSTRUMENTAL = "ящиком ружейных пуль",
-		PREPOSITIONAL = "ящике ружейных пуль"
+		PREPOSITIONAL = "ящике ружейных пуль",
 	)
 
 /datum/supply_packs/security/armory/expenergy
@@ -980,7 +980,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику энергетических карабинов",
 		ACCUSATIVE = "ящик энергетических карабинов",
 		INSTRUMENTAL = "ящиком энергетических карабинов",
-		PREPOSITIONAL = "ящике энергетических карабинов"
+		PREPOSITIONAL = "ящике энергетических карабинов",
 	)
 
 /datum/supply_packs/security/armory/epistol	// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
@@ -997,7 +997,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику энергетических пистолетов",
 		ACCUSATIVE = "ящик энергетических пистолетов",
 		INSTRUMENTAL = "ящиком энергетических пистолетов",
-		PREPOSITIONAL = "ящике энергетических пистолетов"
+		PREPOSITIONAL = "ящике энергетических пистолетов",
 	)
 
 /datum/supply_packs/security/armory/eweapons
@@ -1018,7 +1018,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику зажигательного вооружения",
 		ACCUSATIVE = "ящик зажигательного вооружения",
 		INSTRUMENTAL = "ящиком зажигательного вооружения",
-		PREPOSITIONAL = "ящике зажигательного вооружения"
+		PREPOSITIONAL = "ящике зажигательного вооружения",
 	)
 	access = ACCESS_HEADS
 
@@ -1034,7 +1034,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику WT-550",
 		ACCUSATIVE = "ящик WT-550",
 		INSTRUMENTAL = "ящиком WT-550",
-		PREPOSITIONAL = "ящике WT-550"
+		PREPOSITIONAL = "ящике WT-550",
 	)
 
 /datum/supply_packs/security/armory/ga12
@@ -1049,7 +1049,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику Tkach Ya-Sui GA 12",
 		ACCUSATIVE = "ящик Tkach Ya-Sui GA 12",
 		INSTRUMENTAL = "ящиком Tkach Ya-Sui GA 12",
-		PREPOSITIONAL = "ящике Tkach Ya-Sui GA 12"
+		PREPOSITIONAL = "ящике Tkach Ya-Sui GA 12",
 	)
 	required_tech = list("combat" = 5, "materials" = 3)
 
@@ -1073,7 +1073,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику LR-30",
 		ACCUSATIVE = "ящик LR-30",
 		INSTRUMENTAL = "ящиком LR-30",
-		PREPOSITIONAL = "ящике LR-30"
+		PREPOSITIONAL = "ящике LR-30",
 	)
 
 /datum/supply_packs/security/armory/wt550ammo
@@ -1098,7 +1098,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику боеприпасов для WT-550",
 		ACCUSATIVE = "ящик боеприпасов для WT-550",
 		INSTRUMENTAL = "ящиком боеприпасов для WT-550",
-		PREPOSITIONAL = "ящике боеприпасов для WT-550"
+		PREPOSITIONAL = "ящике боеприпасов для WT-550",
 	)
 
 /datum/supply_packs/security/armory/wt550apammo
@@ -1123,7 +1123,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику бронебойных боеприпасов для WT-550",
 		ACCUSATIVE = "ящик бронебойных боеприпасов для WT-550",
 		INSTRUMENTAL = "ящиком бронебойных боеприпасов для WT-550",
-		PREPOSITIONAL = "ящике бронебойных боеприпасов для WT-550"
+		PREPOSITIONAL = "ящике бронебойных боеприпасов для WT-550",
 	)
 	required_tech = list("combat" = 5, "materials" = 3)
 
@@ -1142,7 +1142,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оружейных ваучеров",
 		ACCUSATIVE = "ящик оружейных ваучеров",
 		INSTRUMENTAL = "ящиком оружейных ваучеров",
-		PREPOSITIONAL = "ящике оружейных ваучеров"
+		PREPOSITIONAL = "ящике оружейных ваучеров",
 	)
 
 /datum/supply_packs/security/armory/m79
@@ -1157,7 +1157,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с гранатометами М79",
 		ACCUSATIVE = "ящик с гранатометами М79",
 		INSTRUMENTAL = "ящиком с гранатометами М79",
-		PREPOSITIONAL = "ящике с гранатометами М79"
+		PREPOSITIONAL = "ящике с гранатометами М79",
 	)
 	required_tech = list("combat" = 6, "materials" = 3)
 
@@ -1178,7 +1178,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с 40-мм нелетальными гранатами",
 		ACCUSATIVE = "ящик с 40-мм нелетальными гранатами",
 		INSTRUMENTAL = "ящиком с 40-мм нелетальными гранатами",
-		PREPOSITIONAL = "ящике с 40-мм нелетальными гранатами"
+		PREPOSITIONAL = "ящике с 40-мм нелетальными гранатами",
 	)
 	required_tech = list("combat" = 5, "materials" = 3)
 
@@ -1210,7 +1210,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с имплантом слежения",
 		ACCUSATIVE = "ящик с имплантом слежения",
 		INSTRUMENTAL = "ящиком с имплантом слежения",
-		PREPOSITIONAL = "ящике с имплантом слежения"
+		PREPOSITIONAL = "ящике с имплантом слежения",
 	)
 	required_tech = list("materials" = 2, "biotech" = 2, "programming" = 2, "magnets" = 2)
 
@@ -1225,7 +1225,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с химическим имплантом",
 		ACCUSATIVE = "ящик с химическим имплантом",
 		INSTRUMENTAL = "ящиком с химическим имплантом",
-		PREPOSITIONAL = "ящике с химическим имплантом"
+		PREPOSITIONAL = "ящике с химическим имплантом",
 	)
 	required_tech = list("materials" = 3, "biotech" = 4)
 
@@ -1240,7 +1240,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с имплантом изгнания",
 		ACCUSATIVE = "ящик с имплантом изгнания",
 		INSTRUMENTAL = "ящиком с имплантом изгнания",
-		PREPOSITIONAL = "ящике с имплантом изгнания"
+		PREPOSITIONAL = "ящике с имплантом изгнания",
 	)
 	required_tech = list("materials" = 2, "biotech" = 4, "programming" = 6)
 
@@ -1260,7 +1260,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику ионных карабинов",
 		ACCUSATIVE = "ящик ионных карабинов",
 		INSTRUMENTAL = "ящиком ионных карабинов",
-		PREPOSITIONAL = "ящике ионных карабинов"
+		PREPOSITIONAL = "ящике ионных карабинов",
 	)
 	required_tech = list("combat" = 5, "magnets" = 4)
 
@@ -1279,7 +1279,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику телескопических щитов",
 		ACCUSATIVE = "ящик телескопических щитов",
 		INSTRUMENTAL = "ящиком телескопических щитов",
-		PREPOSITIONAL = "ящике телескопических щитов"
+		PREPOSITIONAL = "ящике телескопических щитов",
 	)
 	required_tech = list("combat" = 4, "engineering" = 4, "materials" = 3)
 
@@ -1300,7 +1300,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику боеприпасов 12-го калибра",
 		ACCUSATIVE = "ящик боеприпасов 12-го калибра",
 		INSTRUMENTAL = "ящиком боеприпасов 12-го калибра",
-		PREPOSITIONAL = "ящике боеприпасов 12-го калибра"
+		PREPOSITIONAL = "ящике боеприпасов 12-го калибра",
 	)
 	required_tech = list("powerstorage" = 4, "combat" = 4, "magnets" = 4, "materials" = 4)
 
@@ -1318,7 +1318,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику охранных барьеров",
 		ACCUSATIVE = "ящик охранных барьеров",
 		INSTRUMENTAL = "ящиком охранных барьеров",
-		PREPOSITIONAL = "ящике охранных барьеров"
+		PREPOSITIONAL = "ящике охранных барьеров",
 	)
 
 /datum/supply_packs/security/securityclothes
@@ -1339,7 +1339,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику униформы СБ",
 		ACCUSATIVE = "ящик униформы СБ",
 		INSTRUMENTAL = "ящиком униформы СБ",
-		PREPOSITIONAL = "ящике униформы СБ"
+		PREPOSITIONAL = "ящике униформы СБ",
 	)
 
 /datum/supply_packs/security/officerpack // Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
@@ -1365,7 +1365,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику снаряжения офицера СБ",
 		ACCUSATIVE = "ящик снаряжения офицера СБ",
 		INSTRUMENTAL = "ящиком снаряжения офицера СБ",
-		PREPOSITIONAL = "ящике снаряжения офицера СБ"
+		PREPOSITIONAL = "ящике снаряжения офицера СБ",
 	)
 
 
@@ -1395,7 +1395,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику инженерных ИКС",
 		ACCUSATIVE = "ящик инженерных ИКС",
 		INSTRUMENTAL = "ящиком инженерных ИКС",
-		PREPOSITIONAL = "ящике инженерных ИКС"
+		PREPOSITIONAL = "ящике инженерных ИКС",
 	)
 	access = ACCESS_ENGINE_EQUIP
 
@@ -1413,7 +1413,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику атмосферных ИКС",
 		ACCUSATIVE = "ящик атмосферных ИКС",
 		INSTRUMENTAL = "ящиком атмосферных ИКС",
-		PREPOSITIONAL = "ящике атмосферных ИКС"
+		PREPOSITIONAL = "ящике атмосферных ИКС",
 	)
 	access = ACCESS_ATMOSPHERICS
 
@@ -1429,7 +1429,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с баком сварочного топлива",
 		ACCUSATIVE = "ящик с баком сварочного топлива",
 		INSTRUMENTAL = "ящиком с баком сварочного топлива",
-		PREPOSITIONAL = "ящике с баком сварочного топлива"
+		PREPOSITIONAL = "ящике с баком сварочного топлива",
 	)
 
 /datum/supply_packs/engineering/tools
@@ -1448,7 +1448,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором ящиков для инструментов",
 		ACCUSATIVE = "ящик с набором ящиков для инструментов",
 		INSTRUMENTAL = "ящиком с набором ящиков для инструментов",
-		PREPOSITIONAL = "ящике с набором ящиков для инструментов"
+		PREPOSITIONAL = "ящике с набором ящиков для инструментов",
 	)
 
 /datum/supply_packs/vending/engivend
@@ -1463,7 +1463,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику наборов пополнения инженерных торгоматов",
 		ACCUSATIVE = "ящик наборов пополнения инженерных торгоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения инженерных торгоматов",
-		PREPOSITIONAL = "ящике наборов пополнения инженерных торгоматов"
+		PREPOSITIONAL = "ящике наборов пополнения инженерных торгоматов",
 	)
 
 /datum/supply_packs/engineering/powergamermitts
@@ -1479,7 +1479,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику изоляционных перчаток",
 		ACCUSATIVE = "ящик изоляционных перчаток",
 		INSTRUMENTAL = "ящиком изоляционных перчаток",
-		PREPOSITIONAL = "ящике изоляционных перчаток"
+		PREPOSITIONAL = "ящике изоляционных перчаток",
 	)
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -1496,7 +1496,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику батарей АА",
 		ACCUSATIVE = "ящик батарей АА",
 		INSTRUMENTAL = "ящиком батарей АА",
-		PREPOSITIONAL = "ящике батарей АА"
+		PREPOSITIONAL = "ящике батарей АА",
 	)
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -1522,7 +1522,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику инженерного снаряжения",
 		ACCUSATIVE = "ящик инженерного снаряжения",
 		INSTRUMENTAL = "ящиком инженерного снаряжения",
-		PREPOSITIONAL = "ящике инженерного снаряжения"
+		PREPOSITIONAL = "ящике инженерного снаряжения",
 	)
 
 /datum/supply_packs/engineering/solar
@@ -1559,7 +1559,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором солнечных панелей",
 		ACCUSATIVE = "ящик с набором солнечных панелей",
 		INSTRUMENTAL = "ящиком с набором солнечных панелей",
-		PREPOSITIONAL = "ящике с набором солнечных панелей"
+		PREPOSITIONAL = "ящике с набором солнечных панелей",
 	)
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -1575,7 +1575,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику излучателей",
 		ACCUSATIVE = "ящик излучателей",
 		INSTRUMENTAL = "ящиком излучателей",
-		PREPOSITIONAL = "ящике излучателей"
+		PREPOSITIONAL = "ящике излучателей",
 	)
 	access = ACCESS_CONSTRUCTION
 	containertype = /obj/structure/closet/crate/secure/engineering
@@ -1592,7 +1592,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику генераторов силового поля",
 		ACCUSATIVE = "ящик генераторов силового поля",
 		INSTRUMENTAL = "ящиком генераторов силового поля",
-		PREPOSITIONAL = "ящике генераторов силового поля"
+		PREPOSITIONAL = "ящике генераторов силового поля",
 	)
 
 /datum/supply_packs/engineering/engine/sing_gen
@@ -1606,7 +1606,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с генератором сингулярности",
 		ACCUSATIVE = "ящик с генератором сингулярности",
 		INSTRUMENTAL = "ящиком с генератором сингулярности",
-		PREPOSITIONAL = "ящике с генератором сингулярности"
+		PREPOSITIONAL = "ящике с генератором сингулярности",
 	)
 	access = ACCESS_CE
 	required_tech = list("powerstorage" = 6, "engineering" = 7)
@@ -1622,7 +1622,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с тесла-генератором",
 		ACCUSATIVE = "ящик с тесла-генератором",
 		INSTRUMENTAL = "ящиком с тесла-генератором",
-		PREPOSITIONAL = "ящике с тесла-генератором"
+		PREPOSITIONAL = "ящике с тесла-генератором",
 	)
 	access = ACCESS_CE
 	required_tech = list("powerstorage" = 7, "magnets" = 5)
@@ -1640,7 +1640,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику тесла-катушек",
 		ACCUSATIVE = "ящик тесла-катушек",
 		INSTRUMENTAL = "ящиком тесла-катушек",
-		PREPOSITIONAL = "ящике тесла-катушек"
+		PREPOSITIONAL = "ящике тесла-катушек",
 	)
 
 /datum/supply_packs/engineering/engine/grounding
@@ -1655,7 +1655,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику заземлителей",
 		ACCUSATIVE = "ящик заземлителей",
 		INSTRUMENTAL = "ящиком заземлителей",
-		PREPOSITIONAL = "ящике заземлителей"
+		PREPOSITIONAL = "ящике заземлителей",
 	)
 
 /datum/supply_packs/engineering/engine/collector
@@ -1671,7 +1671,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику радиационных накопителей",
 		ACCUSATIVE = "ящик радиационных накопителей",
 		INSTRUMENTAL = "ящиком радиационных накопителей",
-		PREPOSITIONAL = "ящике радиационных накопителей"
+		PREPOSITIONAL = "ящике радиационных накопителей",
 	)
 
 /datum/supply_packs/engineering/engine/PA
@@ -1691,7 +1691,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с деталями ускорителя частиц",
 		ACCUSATIVE = "ящик с деталями ускорителя частиц",
 		INSTRUMENTAL = "ящиком с деталями ускорителя частиц",
-		PREPOSITIONAL = "ящике с деталями ускорителя частиц"
+		PREPOSITIONAL = "ящике с деталями ускорителя частиц",
 	)
 	access = ACCESS_CE
 	required_tech = list("powerstorage" = 4, "magnets" = 4, "materials" = 3)
@@ -1709,7 +1709,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику надувных заграждений",
 		ACCUSATIVE = "ящик надувных заграждений",
 		INSTRUMENTAL = "ящиком надувных заграждений",
-		PREPOSITIONAL = "ящике надувных заграждений"
+		PREPOSITIONAL = "ящике надувных заграждений",
 	)
 
 /datum/supply_packs/engineering/engine/supermatter_shard
@@ -1723,7 +1723,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с осколком суперматерии",
 		ACCUSATIVE = "ящик с осколком суперматерии",
 		INSTRUMENTAL = "ящиком с осколком суперматерии",
-		PREPOSITIONAL = "ящике с осколком суперматерии"
+		PREPOSITIONAL = "ящике с осколком суперматерии",
 	)
 	access = ACCESS_CE
 	required_tech = list("materials" = 7)
@@ -1742,7 +1742,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей термоэлектрического генератора",
 		ACCUSATIVE = "ящик деталей термоэлектрического генератора",
 		INSTRUMENTAL = "ящиком деталей термоэлектрического генератора",
-		PREPOSITIONAL = "ящике деталей термоэлектрического генератора"
+		PREPOSITIONAL = "ящике деталей термоэлектрического генератора",
 	)
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
@@ -1766,7 +1766,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей конвейерной ленты",
 		ACCUSATIVE = "ящик деталей конвейерной ленты",
 		INSTRUMENTAL = "ящиком деталей конвейерной ленты",
-		PREPOSITIONAL = "ящике деталей конвейерной ленты"
+		PREPOSITIONAL = "ящике деталей конвейерной ленты",
 	)
 
 /datum/supply_packs/engineering/engine/magboots
@@ -1781,7 +1781,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику магбутсов",
 		ACCUSATIVE = "ящик магбутсов",
 		INSTRUMENTAL = "ящиком магбутсов",
-		PREPOSITIONAL = "ящике магбутсов"
+		PREPOSITIONAL = "ящике магбутсов",
 	)
 	required_tech = list("magnets" = 4, "engineering" = 4)
 
@@ -1797,7 +1797,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с разрешением на строительство",
 		ACCUSATIVE = "ящик с разрешением на строительство",
 		INSTRUMENTAL = "ящиком с разрешением на строительство",
-		PREPOSITIONAL = "ящике с разрешением на строительство"
+		PREPOSITIONAL = "ящике с разрешением на строительство",
 	)
 	access = ACCESS_CE
 
@@ -1814,7 +1814,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "пустому ящику с задачей смены",
 		ACCUSATIVE = "пустой ящик с задачей смены",
 		INSTRUMENTAL = "пустым ящиком с задачей смены",
-		PREPOSITIONAL = "пустом ящике с задачей смены"
+		PREPOSITIONAL = "пустом ящике с задачей смены",
 	)
 	containertype = /obj/structure/closet/crate/engineering
 
@@ -1832,7 +1832,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей блюспейс-артиллерии",
 		ACCUSATIVE = "ящик деталей блюспейс-артиллерии",
 		INSTRUMENTAL = "ящиком деталей блюспейс-артиллерии",
-		PREPOSITIONAL = "ящике деталей блюспейс-артиллерии"
+		PREPOSITIONAL = "ящике деталей блюспейс-артиллерии",
 	)
 	required_tech = list("powerstorage" = 6, "engineering" = 4, "combat" = 6, "bluespace" = 7)
 
@@ -1848,7 +1848,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей блюспейс-сборщика",
 		ACCUSATIVE = "ящик деталей блюспейс-сборщика",
 		INSTRUMENTAL = "ящиком деталей блюспейс-сборщика",
-		PREPOSITIONAL = "ящике деталей блюспейс-сборщика"
+		PREPOSITIONAL = "ящике деталей блюспейс-сборщика",
 	)
 	required_tech = list("powerstorage" = 7, "engineering" = 4, "magnets" = 6, "bluespace" = 5)
 
@@ -1863,7 +1863,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей хранилища ДНК",
 		ACCUSATIVE = "ящик деталей хранилища ДНК",
 		INSTRUMENTAL = "ящиком деталей хранилища ДНК",
-		PREPOSITIONAL = "ящике деталей хранилища ДНК"
+		PREPOSITIONAL = "ящике деталей хранилища ДНК",
 	)
 	required_tech = list("engineering" = 4, "programming" = 7, "bluespace" = 3)
 
@@ -1882,7 +1882,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику сэмплеров ДНК",
 		ACCUSATIVE = "ящик сэмплеров ДНК",
 		INSTRUMENTAL = "ящиком сэмплеров ДНК",
-		PREPOSITIONAL = "ящике сэмплеров ДНК"
+		PREPOSITIONAL = "ящике сэмплеров ДНК",
 	)
 	required_tech = list("biotech" = 6, "programming" = 5)
 
@@ -1900,7 +1900,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику метеоритных щитов",
 		ACCUSATIVE = "ящик метеоритных щитов",
 		INSTRUMENTAL = "ящиком метеоритных щитов",
-		PREPOSITIONAL = "ящике метеоритных щитов"
+		PREPOSITIONAL = "ящике метеоритных щитов",
 	)
 	required_tech = list("combat" = 6, "programming" = 3)
 
@@ -1915,7 +1915,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с консолами обработки метеоритными щитами",
 		ACCUSATIVE = "ящик с консолами обработки метеоритными щитами",
 		INSTRUMENTAL = "ящиком с консолами обработки метеоритными щитами",
-		PREPOSITIONAL = "ящике с консолами обработки метеоритными щитами"
+		PREPOSITIONAL = "ящике с консолами обработки метеоритными щитами",
 	)
 	required_tech = list("powerstorage" = 4, "programming" = 5, "magnets" = 4)
 
@@ -1931,7 +1931,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей ОБЛ",
 		ACCUSATIVE = "ящик деталей ОБЛ",
 		INSTRUMENTAL = "ящиком деталей ОБЛ",
-		PREPOSITIONAL = "ящике деталей ОБЛ"
+		PREPOSITIONAL = "ящике деталей ОБЛ",
 	)
 	required_tech = list("engineering" = 5, "powerstorage" = 4, "bluespace" = 6, "plasmatech" = 6)
 
@@ -1946,7 +1946,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с линзой ОБЛ",
 		ACCUSATIVE = "ящик с линзой ОБЛ",
 		INSTRUMENTAL = "ящиком с линзой ОБЛ",
-		PREPOSITIONAL = "ящике с линзой ОБЛ"
+		PREPOSITIONAL = "ящике с линзой ОБЛ",
 	)
 	required_tech = list("materials" = 7, "bluespace" = 4)
 
@@ -1975,7 +1975,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с наградой за постройку ОБЛ",
 		ACCUSATIVE = "ящик с наградой за постройку ОБЛ",
 		INSTRUMENTAL = "ящиком с наградой за постройку ОБЛ",
-		PREPOSITIONAL = "ящике с наградой за постройку ОБЛ"
+		PREPOSITIONAL = "ящике с наградой за постройку ОБЛ",
 	)
 
 /datum/supply_packs/misc/station_goal/bluespace_rift
@@ -1993,7 +1993,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором сканирования БС-разлома",
 		ACCUSATIVE = "ящик с набором сканирования БС-разлома",
 		INSTRUMENTAL = "ящиком с набором сканирования БС-разлома",
-		PREPOSITIONAL = "ящике с набором сканирования БС-разлома"
+		PREPOSITIONAL = "ящике с набором сканирования БС-разлома",
 	)
 	containertype = /obj/structure/closet/crate/sci
 	required_tech = list("engineering" = 3, "programming" = 6, "bluespace" = 7)
@@ -2012,7 +2012,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с дискетой технологий",
 		ACCUSATIVE = "ящик с дискетой технологий",
 		INSTRUMENTAL = "ящиком с дискетой технологий",
-		PREPOSITIONAL = "ящике с дискетой технологий"
+		PREPOSITIONAL = "ящике с дискетой технологий",
 	)
 	containertype = /obj/structure/closet/crate/secure/scisec
 	access = ACCESS_RESEARCH
@@ -2083,7 +2083,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику медицинских ИКС",
 		ACCUSATIVE = "ящик медицинских ИКС",
 		INSTRUMENTAL = "ящиком медицинских ИКС",
-		PREPOSITIONAL = "ящике медицинских ИКС"
+		PREPOSITIONAL = "ящике медицинских ИКС",
 	)
 	access = ACCESS_MEDICAL
 
@@ -2116,7 +2116,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику медицинского снабжения",
 		ACCUSATIVE = "ящик медицинского снабжения",
 		INSTRUMENTAL = "ящиком медицинского снабжения",
-		PREPOSITIONAL = "ящике медицинского снабжения"
+		PREPOSITIONAL = "ящике медицинского снабжения",
 	)
 	access = ACCESS_MEDICAL
 
@@ -2134,7 +2134,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи",
 		ACCUSATIVE = "ящик аптечек первой помощи",
 		INSTRUMENTAL = "ящиком аптечек первой помощи",
-		PREPOSITIONAL = "ящике аптечек первой помощи"
+		PREPOSITIONAL = "ящике аптечек первой помощи",
 	)
 
 /datum/supply_packs/medical/firstaidadv
@@ -2151,7 +2151,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику продвинутых аптечек первой помощи",
 		ACCUSATIVE = "ящик продвинутых аптечек первой помощи",
 		INSTRUMENTAL = "ящиком продвинутых аптечек первой помощи",
-		PREPOSITIONAL = "ящике продвинутых аптечек первой помощи"
+		PREPOSITIONAL = "ящике продвинутых аптечек первой помощи",
 	)
 	access = ACCESS_MEDICAL
 	containertype = /obj/structure/closet/crate/secure
@@ -2170,7 +2170,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи (Мех.)",
 		ACCUSATIVE = "ящик аптечек первой помощи (Мех.)",
 		INSTRUMENTAL = "ящиком аптечек первой помощи (Мех.)",
-		PREPOSITIONAL = "ящике аптечек первой помощи (Мех.)"
+		PREPOSITIONAL = "ящике аптечек первой помощи (Мех.)",
 	)
 	access = ACCESS_MEDICAL
 	containertype = /obj/structure/closet/crate/secure
@@ -2188,7 +2188,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи (Терм.)",
 		ACCUSATIVE = "ящик аптечек первой помощи (Терм.)",
 		INSTRUMENTAL = "ящиком аптечек первой помощи (Терм.)",
-		PREPOSITIONAL = "ящике аптечек первой помощи (Терм.)"
+		PREPOSITIONAL = "ящике аптечек первой помощи (Терм.)",
 	)
 	access = ACCESS_MEDICAL
 	containertype = /obj/structure/closet/crate/secure
@@ -2206,7 +2206,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи (Отравления)",
 		ACCUSATIVE = "ящик аптечек первой помощи (Отравления)",
 		INSTRUMENTAL = "ящиком аптечек первой помощи (Отравления)",
-		PREPOSITIONAL = "ящике аптечек первой помощи (Отравления)"
+		PREPOSITIONAL = "ящике аптечек первой помощи (Отравления)",
 	)
 
 /datum/supply_packs/medical/firstaidoxygen
@@ -2222,7 +2222,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи (Удушье)",
 		ACCUSATIVE = "ящик аптечек первой помощи (Удушье)",
 		INSTRUMENTAL = "ящиком аптечек первой помощи (Удушье)",
-		PREPOSITIONAL = "ящике аптечек первой помощи (Удушье)"
+		PREPOSITIONAL = "ящике аптечек первой помощи (Удушье)",
 	)
 
 /datum/supply_packs/medical/straightjacket
@@ -2236,7 +2236,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со смирительной рубашкой",
 		ACCUSATIVE = "ящик со смирительной рубашкой",
 		INSTRUMENTAL = "ящиком со смирительной рубашкой",
-		PREPOSITIONAL = "ящике со смирительной рубашкой"
+		PREPOSITIONAL = "ящике со смирительной рубашкой",
 	)
 
 /datum/supply_packs/medical/virus
@@ -2266,7 +2266,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с вирусными образцами",
 		ACCUSATIVE = "ящик с вирусными образцами",
 		INSTRUMENTAL = "ящиком с вирусными образцами",
-		PREPOSITIONAL = "ящике с вирусными образцами"
+		PREPOSITIONAL = "ящике с вирусными образцами",
 	)
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
@@ -2285,7 +2285,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с платами клонировальной машины",
 		ACCUSATIVE = "ящик с платами клонировальной машины",
 		INSTRUMENTAL = "ящиком с платами клонировальной машины",
-		PREPOSITIONAL = "ящике с платами клонировальной машины"
+		PREPOSITIONAL = "ящике с платами клонировальной машины",
 	)
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Chief Medical Officer's Desk"))
@@ -2302,7 +2302,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику наборов пополнения медицинских торгоматов",
 		ACCUSATIVE = "ящик наборов пополнения медицинских торгоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения медицинских торгоматов",
-		PREPOSITIONAL = "ящике наборов пополнения медицинских торгоматов"
+		PREPOSITIONAL = "ящике наборов пополнения медицинских торгоматов",
 	)
 	containertype = /obj/structure/closet/crate/secure
 	access = ACCESS_MEDICAL
@@ -2323,7 +2323,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику синетической крови (Кислород)",
 		ACCUSATIVE = "ящик синетической крови (Кислород)",
 		INSTRUMENTAL = "ящиком синетической крови (Кислород)",
-		PREPOSITIONAL = "ящике синетической крови (Кислород)"
+		PREPOSITIONAL = "ящике синетической крови (Кислород)",
 	)
 	access = ACCESS_MEDICAL
 	required_tech = list("biotech" = 6, "toxins" = 3)
@@ -2343,7 +2343,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику синтетической крови (Азот)",
 		ACCUSATIVE = "ящик синтетической крови (Азот)",
 		INSTRUMENTAL = "ящиком синтетической крови (Азот)",
-		PREPOSITIONAL = "ящике синтетической крови (Азот)"
+		PREPOSITIONAL = "ящике синтетической крови (Азот)",
 	)
 	access = ACCESS_MEDICAL
 	required_tech = list("biotech" = 6, "toxins" = 3)
@@ -2367,7 +2367,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику пакетов крови (Человек)",
 		ACCUSATIVE = "ящик пакетов крови (Человек)",
 		INSTRUMENTAL = "ящиком пакетов крови (Человек)",
-		PREPOSITIONAL = "ящике пакетов крови (Человек)"
+		PREPOSITIONAL = "ящике пакетов крови (Человек)",
 	)
 	access = ACCESS_MEDICAL
 	required_tech = list("biotech" = 3)
@@ -2392,7 +2392,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику пакетов крови (Ксеносы)",
 		ACCUSATIVE = "ящик пакетов крови (Ксеносы)",
 		INSTRUMENTAL = "ящиком пакетов крови (Ксеносы)",
-		PREPOSITIONAL = "ящике пакетов крови (Ксеносы)"
+		PREPOSITIONAL = "ящике пакетов крови (Ксеносы)",
 	)
 	required_tech = list("biotech" = 3)
 
@@ -2464,7 +2464,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со стойкой для капельнцы",
 		ACCUSATIVE = "ящик со стойкой для капельнцы",
 		INSTRUMENTAL = "ящиком со стойкой для капельнцы",
-		PREPOSITIONAL = "ящике со стойкой для капельнцы"
+		PREPOSITIONAL = "ящике со стойкой для капельнцы",
 	)
 	access = ACCESS_MEDICAL
 
@@ -2490,7 +2490,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с хирургическим оборудованием",
 		ACCUSATIVE = "ящик с хирургическим оборудованием",
 		INSTRUMENTAL = "ящиком с хирургическим оборудованием",
-		PREPOSITIONAL = "ящике с хирургическим оборудованием"
+		PREPOSITIONAL = "ящике с хирургическим оборудованием",
 	)
 	access = ACCESS_MEDICAL
 
@@ -2503,7 +2503,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с системами обработки надрезами",
 		ACCUSATIVE = "ящик с системами обработки надрезами",
 		INSTRUMENTAL = "ящиком с системами обработки надрезами",
-		PREPOSITIONAL = "ящике с системами обработки надрезами"
+		PREPOSITIONAL = "ящике с системами обработки надрезами",
 	)
 	cost = 180
 	contains = list(
@@ -2542,7 +2542,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику робототехнических деталей",
 		ACCUSATIVE = "ящик робототехнических деталей",
 		INSTRUMENTAL = "ящиком робототехнических деталей",
-		PREPOSITIONAL = "ящике робототехнических деталей"
+		PREPOSITIONAL = "ящике робототехнических деталей",
 	)
 	access = ACCESS_ROBOTICS
 	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
@@ -2576,7 +2576,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором плат (Одиссей)",
 		ACCUSATIVE = "ящик с набором плат (Одиссей)",
 		INSTRUMENTAL = "ящиком с набором плат (Одиссей)",
-		PREPOSITIONAL = "ящике с набором плат (Одиссей)"
+		PREPOSITIONAL = "ящике с набором плат (Одиссей)",
 	)
 
 /datum/supply_packs/science/firstaidmachine
@@ -2592,7 +2592,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику ремонтных наборов (Синт.)",
 		ACCUSATIVE = "ящик ремонтных наборов (Синт.)",
 		INSTRUMENTAL = "ящиком ремонтных наборов (Синт.)",
-		PREPOSITIONAL = "ящике ремонтных наборов (Синт.)"
+		PREPOSITIONAL = "ящике ремонтных наборов (Синт.)",
 	)
 
 /datum/supply_packs/science/plasma
@@ -2618,7 +2618,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей плазменных бомб",
 		ACCUSATIVE = "ящик деталей плазменных бомб",
 		INSTRUMENTAL = "ящиком деталей плазменных бомб",
-		PREPOSITIONAL = "ящике деталей плазменных бомб"
+		PREPOSITIONAL = "ящике деталей плазменных бомб",
 	)
 	access = ACCESS_TOX_STORAGE
 
@@ -2637,7 +2637,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику генераторов силового поля",
 		ACCUSATIVE = "ящик генераторов силового поля",
 		INSTRUMENTAL = "ящиком генераторов силового поля",
-		PREPOSITIONAL = "ящике генераторов силового поля"
+		PREPOSITIONAL = "ящике генераторов силового поля",
 	)
 	access = ACCESS_TELEPORTER
 	required_tech = list("engineering" = 3, "powerstorage" = 3)
@@ -2655,7 +2655,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику запорных клапанов",
 		ACCUSATIVE = "ящик запорных клапанов",
 		INSTRUMENTAL = "ящиком запорных клапанов",
-		PREPOSITIONAL = "ящике запорных клапанов"
+		PREPOSITIONAL = "ящике запорных клапанов",
 	)
 	access = ACCESS_RD
 	required_tech = list("engineering" = 2, "toxins" = 3)
@@ -2672,7 +2672,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с прототипом машины",
 		ACCUSATIVE = "ящик с прототипом машины",
 		INSTRUMENTAL = "ящиком с прототипом машины",
-		PREPOSITIONAL = "ящике с прототипом машины"
+		PREPOSITIONAL = "ящике с прототипом машины",
 	)
 	access = ACCESS_RESEARCH
 	required_tech = list("engineering" = 4, "magnets" = 2)
@@ -2690,7 +2690,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с ботаническим ранцем для масла",
 		ACCUSATIVE = "ящик с ботаническим ранцем для масла",
 		INSTRUMENTAL = "ящиком с ботаническим ранцем для масла",
-		PREPOSITIONAL = "ящике с ботаническим ранцем для масла"
+		PREPOSITIONAL = "ящике с ботаническим ранцем для масла",
 	)
 
 /datum/supply_packs/science/dis_borg
@@ -2711,7 +2711,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей робота",
 		ACCUSATIVE = "ящик деталей робота",
 		INSTRUMENTAL = "ящиком деталей робота",
-		PREPOSITIONAL = "ящике деталей робота"
+		PREPOSITIONAL = "ящике деталей робота",
 	)
 	access = ACCESS_ROBOTICS
 
@@ -2729,7 +2729,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику радиационных костюмов",
 		ACCUSATIVE = "ящик радиационных костюмов",
 		INSTRUMENTAL = "ящиком радиационных костюмов",
-		PREPOSITIONAL = "ящике радиационных костюмов"
+		PREPOSITIONAL = "ящике радиационных костюмов",
 	)
 	required_tech = list("biotech" = 3, "materials" = 2)
 
@@ -2748,7 +2748,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс-ранцев",
 		ACCUSATIVE = "ящик блюспейс-ранцев",
 		INSTRUMENTAL = "ящиком блюспейс-ранцев",
-		PREPOSITIONAL = "ящике блюспейс-ранцев"
+		PREPOSITIONAL = "ящике блюспейс-ранцев",
 	)
 	required_tech = list("plasmatech" = 6, "engineering" = 5, "bluespace" = 6, "materials" = 5)
 
@@ -2761,7 +2761,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс-поясов",
 		ACCUSATIVE = "ящик блюспейс-поясов",
 		INSTRUMENTAL = "ящиком блюспейс-поясов",
-		PREPOSITIONAL = "ящике блюспейс-поясов"
+		PREPOSITIONAL = "ящике блюспейс-поясов",
 	)
 	cost = 220
 	contains = list(
@@ -2780,7 +2780,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс-сумок для руды",
 		ACCUSATIVE = "ящик блюспейс-сумок для руды",
 		INSTRUMENTAL = "ящиком блюспейс-сумок для руды",
-		PREPOSITIONAL = "ящике блюспейс-сумок для руды"
+		PREPOSITIONAL = "ящике блюспейс-сумок для руды",
 	)
 	cost = 200
 	contains = list(
@@ -2799,7 +2799,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику продвинутых плазменных резаков",
 		ACCUSATIVE = "ящик продвинутых плазменных резаков",
 		INSTRUMENTAL = "ящиком продвинутых плазменных резаков",
-		PREPOSITIONAL = "ящике продвинутых плазменных резаков"
+		PREPOSITIONAL = "ящике продвинутых плазменных резаков",
 	)
 	cost = 220
 	contains = list(
@@ -2818,7 +2818,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику плазменных дробовиков",
 		ACCUSATIVE = "ящик плазменных дробовиков",
 		INSTRUMENTAL = "ящиком плазменных дробовиков",
-		PREPOSITIONAL = "ящике плазменных дробовиков"
+		PREPOSITIONAL = "ящике плазменных дробовиков",
 	)
 	cost = 320
 	contains = list(
@@ -2837,7 +2837,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику экспериментальных кинетических акселераторов",
 		ACCUSATIVE = "ящик экспериментальных кинетических акселераторов",
 		INSTRUMENTAL = "ящиком экспериментальных кинетических акселераторов",
-		PREPOSITIONAL = "ящике экспериментальных кинетических акселераторов"
+		PREPOSITIONAL = "ящике экспериментальных кинетических акселераторов",
 	)
 	cost = 270
 	contains = list(
@@ -2856,7 +2856,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику огнеупорных прутов",
 		ACCUSATIVE = "ящик огнеупорных прутов",
 		INSTRUMENTAL = "ящиком огнеупорных прутов",
-		PREPOSITIONAL = "ящике огнеупорных прутов"
+		PREPOSITIONAL = "ящике огнеупорных прутов",
 	)
 	cost = 150
 	contains = list(/obj/item/stack/fireproof_rods/twentyfive)
@@ -2871,7 +2871,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику батарей ААА",
 		ACCUSATIVE = "ящик батарей ААА",
 		INSTRUMENTAL = "ящиком батарей ААА",
-		PREPOSITIONAL = "ящике батарей ААА"
+		PREPOSITIONAL = "ящике батарей ААА",
 	)
 	cost = 100
 	contains = list(
@@ -2893,7 +2893,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс-батарей",
 		ACCUSATIVE = "ящик блюспейс-батарей",
 		INSTRUMENTAL = "ящиком блюспейс-батарей",
-		PREPOSITIONAL = "ящике блюспейс-батарей"
+		PREPOSITIONAL = "ящике блюспейс-батарей",
 	)
 	cost = 200
 	contains = list(
@@ -2915,7 +2915,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику продвинутых инструментов",
 		ACCUSATIVE = "ящик продвинутых инструментов",
 		INSTRUMENTAL = "ящиком продвинутых инструментов",
-		PREPOSITIONAL = "ящике продвинутых инструментов"
+		PREPOSITIONAL = "ящике продвинутых инструментов",
 	)
 	cost = 200
 	contains = list(
@@ -2939,7 +2939,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику УБС",
 		ACCUSATIVE = "ящик УБС",
 		INSTRUMENTAL = "ящиком УБС",
-		PREPOSITIONAL = "ящике УБС"
+		PREPOSITIONAL = "ящике УБС",
 	)
 	cost = 200
 	contains = list(
@@ -2958,7 +2958,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс мерных стаканов",
 		ACCUSATIVE = "ящик блюспейс мерных стаканов",
 		INSTRUMENTAL = "ящиком блюспейс мерных стаканов",
-		PREPOSITIONAL = "ящике блюспейс мерных стаканов"
+		PREPOSITIONAL = "ящике блюспейс мерных стаканов",
 	)
 	cost = 150
 	contains = list(
@@ -2976,7 +2976,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику компонентов 4-го поколения",
 		ACCUSATIVE = "ящик компонентов 4-го поколения",
 		INSTRUMENTAL = "ящиком компонентов 4-го поколения",
-		PREPOSITIONAL = "ящике компонентов 4-го поколения"
+		PREPOSITIONAL = "ящике компонентов 4-го поколения",
 	)
 	cost = 180
 	contains = list(
@@ -2994,7 +2994,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику улучшений для роботов",
 		ACCUSATIVE = "ящик улучшений для роботов",
 		INSTRUMENTAL = "ящиком улучшений для роботов",
-		PREPOSITIONAL = "ящике улучшений для роботов"
+		PREPOSITIONAL = "ящике улучшений для роботов",
 	)
 	cost = 250
 	contains = list(
@@ -3016,7 +3016,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику гражданских имплантов",
 		ACCUSATIVE = "ящик гражданских имплантов",
 		INSTRUMENTAL = "ящиком гражданских имплантов",
-		PREPOSITIONAL = "ящике гражданских имплантов"
+		PREPOSITIONAL = "ящике гражданских имплантов",
 	)
 	cost = 160
 	contains = list(
@@ -3041,7 +3041,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с хвостовым лазерным лезвием",
 		ACCUSATIVE = "ящик с хвостовым лазерным лезвием",
 		INSTRUMENTAL = "ящиком с хвостовым лазерным лезвием",
-		PREPOSITIONAL = "ящике с хвостовым лазерным лезвием"
+		PREPOSITIONAL = "ящике с хвостовым лазерным лезвием",
 	)
 	containertype = /obj/structure/closet/crate/secure/scisec
 	access = ACCESS_RESEARCH
@@ -3084,7 +3084,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику пищевых продуктов",
 		ACCUSATIVE = "ящик пищевых продуктов",
 		INSTRUMENTAL = "ящиком пищевых продуктов",
-		PREPOSITIONAL = "ящике пищевых продуктов"
+		PREPOSITIONAL = "ящике пищевых продуктов",
 	)
 	announce_beacons = list("Kitchen" = list("Kitchen"))
 
@@ -3103,7 +3103,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику пиццы",
 		ACCUSATIVE = "ящик пиццы",
 		INSTRUMENTAL = "ящиком пиццы",
-		PREPOSITIONAL = "ящике пиццы"
+		PREPOSITIONAL = "ящике пиццы",
 	)
 
 /datum/supply_packs/organic/monkey
@@ -3117,7 +3117,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику шимпанзе",
 		ACCUSATIVE = "ящик шимпанзе",
 		INSTRUMENTAL = "ящиком шимпанзе",
-		PREPOSITIONAL = "ящике шимпанзе"
+		PREPOSITIONAL = "ящике шимпанзе",
 	)
 
 /datum/supply_packs/organic/farwa
@@ -3131,7 +3131,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику фарв",
 		ACCUSATIVE = "ящик фарв",
 		INSTRUMENTAL = "ящиком фарв",
-		PREPOSITIONAL = "ящике фарв"
+		PREPOSITIONAL = "ящике фарв",
 	)
 
 
@@ -3146,7 +3146,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику вульпинов",
 		ACCUSATIVE = "ящик вульпинов",
 		INSTRUMENTAL = "ящиком вульпинов",
-		PREPOSITIONAL = "ящике вульпинов"
+		PREPOSITIONAL = "ящике вульпинов",
 	)
 
 
@@ -3161,7 +3161,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику неар",
 		ACCUSATIVE = "ящик неар",
 		INSTRUMENTAL = "ящиком неар",
-		PREPOSITIONAL = "ящике неар"
+		PREPOSITIONAL = "ящике неар",
 	)
 
 /datum/supply_packs/organic/stok
@@ -3175,7 +3175,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику стоков",
 		ACCUSATIVE = "ящик стоков",
 		INSTRUMENTAL = "ящиком стоков",
-		PREPOSITIONAL = "ящике стоков"
+		PREPOSITIONAL = "ящике стоков",
 	)
 
 /datum/supply_packs/organic/party
@@ -3200,7 +3200,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для вечеринки",
 		ACCUSATIVE = "ящик с набором для вечеринки",
 		INSTRUMENTAL = "ящиком с набором для вечеринки",
-		PREPOSITIONAL = "ящике с набором для вечеринки"
+		PREPOSITIONAL = "ящике с набором для вечеринки",
 	)
 	announce_beacons = list("Bar" = list("Bar"))
 
@@ -3217,7 +3217,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для создания бара",
 		ACCUSATIVE = "ящик с набором для создания бара",
 		INSTRUMENTAL = "ящиком с набором для создания бара",
-		PREPOSITIONAL = "ящике с набором для создания бара"
+		PREPOSITIONAL = "ящике с набором для создания бара",
 	)
 	announce_beacons = list("Bar" = list("Bar"))
 
@@ -3233,7 +3233,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с коровой",
 		ACCUSATIVE = "ящик с коровой",
 		INSTRUMENTAL = "ящиком с коровой",
-		PREPOSITIONAL = "ящике с коровой"
+		PREPOSITIONAL = "ящике с коровой",
 	)
 
 /datum/supply_packs/organic/pig
@@ -3247,7 +3247,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со свиньёй",
 		ACCUSATIVE = "ящик со свиньёй",
 		INSTRUMENTAL = "ящиком со свиньёй",
-		PREPOSITIONAL = "ящике со свиньёй"
+		PREPOSITIONAL = "ящике со свиньёй",
 	)
 
 /datum/supply_packs/organic/goat
@@ -3261,7 +3261,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с козлом",
 		ACCUSATIVE = "ящик с козлом",
 		INSTRUMENTAL = "ящиком с козлом",
-		PREPOSITIONAL = "ящике с козлом"
+		PREPOSITIONAL = "ящике с козлом",
 	)
 
 /datum/supply_packs/organic/chicken
@@ -3275,7 +3275,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с курицей",
 		ACCUSATIVE = "ящик с курицей",
 		INSTRUMENTAL = "ящиком с курицей",
-		PREPOSITIONAL = "ящике с курицей"
+		PREPOSITIONAL = "ящике с курицей",
 	)
 
 /datum/supply_packs/organic/turkey
@@ -3289,7 +3289,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с индейкой",
 		ACCUSATIVE = "ящик с индейкой",
 		INSTRUMENTAL = "ящиком с индейкой",
-		PREPOSITIONAL = "ящике с индейкой"
+		PREPOSITIONAL = "ящике с индейкой",
 	)
 /datum/supply_packs/organic/corgi
 	name = "Корги"
@@ -3303,7 +3303,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с корги",
 		ACCUSATIVE = "ящик с корги",
 		INSTRUMENTAL = "ящиком с корги",
-		PREPOSITIONAL = "ящике с корги"
+		PREPOSITIONAL = "ящике с корги",
 	)
 
 /datum/supply_packs/organic/dog_pug
@@ -3318,7 +3318,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с мопсом",
 		ACCUSATIVE = "ящик с мопсом",
 		INSTRUMENTAL = "ящиком с мопсом",
-		PREPOSITIONAL = "ящике с мопсом"
+		PREPOSITIONAL = "ящике с мопсом",
 	)
 
 /datum/supply_packs/organic/dog_bullterrier
@@ -3333,7 +3333,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с бультерьером",
 		ACCUSATIVE = "ящик с бультерьером",
 		INSTRUMENTAL = "ящиком с бультерьером",
-		PREPOSITIONAL = "ящике с бультерьером"
+		PREPOSITIONAL = "ящике с бультерьером",
 	)
 
 /datum/supply_packs/organic/dog_tamaskan
@@ -3348,7 +3348,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с тамасканской собакой",
 		ACCUSATIVE = "ящик с тамасканской собакой",
 		INSTRUMENTAL = "ящиком с тамасканской собакой",
-		PREPOSITIONAL = "ящике с тамасканской собакой"
+		PREPOSITIONAL = "ящике с тамасканской собакой",
 	)
 
 /datum/supply_packs/organic/dog_german
@@ -3363,7 +3363,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с немецкой овчаркой",
 		ACCUSATIVE = "ящик с немецкой овчаркой",
 		INSTRUMENTAL = "ящиком с немецкой овчаркой",
-		PREPOSITIONAL = "ящике с немецкой овчаркой"
+		PREPOSITIONAL = "ящике с немецкой овчаркой",
 	)
 
 /datum/supply_packs/organic/dog_brittany
@@ -3378,7 +3378,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с бретонским эпаньолем",
 		ACCUSATIVE = "ящик с бретонским эпаньолем",
 		INSTRUMENTAL = "ящиком с бретонским эпаньолем",
-		PREPOSITIONAL = "ящике с бретонским эпаньолем"
+		PREPOSITIONAL = "ящике с бретонским эпаньолем",
 	)
 
 /datum/supply_packs/organic/cat
@@ -3394,7 +3394,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с кошкой",
 		ACCUSATIVE = "ящик с кошкой",
 		INSTRUMENTAL = "ящиком с кошкой",
-		PREPOSITIONAL = "ящике с кошкой"
+		PREPOSITIONAL = "ящике с кошкой",
 	)
 
 /datum/supply_packs/organic/cat/white
@@ -3406,7 +3406,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с белой кошкой",
 		ACCUSATIVE = "ящик с белой кошкой",
 		INSTRUMENTAL = "ящиком с белой кошкой",
-		PREPOSITIONAL = "ящике с белой кошкой"
+		PREPOSITIONAL = "ящике с белой кошкой",
 	)
 	containertype = /obj/structure/closet/critter/cat_white
 
@@ -3419,7 +3419,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с бирманской кошкой",
 		ACCUSATIVE = "ящик с бирманской кошкой",
 		INSTRUMENTAL = "ящиком с бирманской кошкой",
-		PREPOSITIONAL = "ящике с бирманской кошкой"
+		PREPOSITIONAL = "ящике с бирманской кошкой",
 	)
 	containertype = /obj/structure/closet/critter/cat_birman
 
@@ -3435,7 +3435,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с лисой",
 		ACCUSATIVE = "ящик с лисой",
 		INSTRUMENTAL = "ящиком с лисой",
-		PREPOSITIONAL = "ящике с лисой"
+		PREPOSITIONAL = "ящике с лисой",
 	)
 
 /datum/supply_packs/organic/fennec
@@ -3450,7 +3450,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с феньком",
 		ACCUSATIVE = "ящик с феньком",
 		INSTRUMENTAL = "ящиком с феньком",
-		PREPOSITIONAL = "ящике с феньком"
+		PREPOSITIONAL = "ящике с феньком",
 	)
 /datum/supply_packs/organic/butterfly
 	name = "Бабочка"
@@ -3463,7 +3463,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с бабочкой",
 		ACCUSATIVE = "ящик с бабочкой",
 		INSTRUMENTAL = "ящиком с бабочкой",
-		PREPOSITIONAL = "ящике с бабочкой"
+		PREPOSITIONAL = "ящике с бабочкой",
 	)
 
 /datum/supply_packs/organic/deer
@@ -3477,7 +3477,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с оленем",
 		ACCUSATIVE = "ящик с оленем",
 		INSTRUMENTAL = "ящиком с оленем",
-		PREPOSITIONAL = "ящике с оленем"
+		PREPOSITIONAL = "ящике с оленем",
 	)
 
 /datum/supply_packs/organic/sloth
@@ -3492,7 +3492,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с ленивцем",
 		ACCUSATIVE = "ящик с ленивцем",
 		INSTRUMENTAL = "ящиком с ленивцем",
-		PREPOSITIONAL = "ящике с ленивцем"
+		PREPOSITIONAL = "ящике с ленивцем",
 	)
 
 /datum/supply_packs/organic/goose
@@ -3506,7 +3506,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с гусём",
 		ACCUSATIVE = "ящик с гусём",
 		INSTRUMENTAL = "ящиком с гусём",
-		PREPOSITIONAL = "ящике с гусём"
+		PREPOSITIONAL = "ящике с гусём",
 	)
 
 /datum/supply_packs/organic/gosling
@@ -3520,7 +3520,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с гусёнком",
 		ACCUSATIVE = "ящик с гусёнком",
 		INSTRUMENTAL = "ящиком с гусёнком",
-		PREPOSITIONAL = "ящике с гусёнком"
+		PREPOSITIONAL = "ящике с гусёнком",
 	)
 
 /datum/supply_packs/organic/wooly_mouse
@@ -3534,7 +3534,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с лохматой мышью",
 		ACCUSATIVE = "ящик с лохматой мышью",
 		INSTRUMENTAL = "ящиком с лохматой мышью",
-		PREPOSITIONAL = "ящике с лохматой мышью"
+		PREPOSITIONAL = "ящике с лохматой мышью",
 	)
 
 /datum/supply_packs/organic/frog
@@ -3548,7 +3548,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с лягушкой",
 		ACCUSATIVE = "ящик с лягушкой",
 		INSTRUMENTAL = "ящиком с лягушкой",
-		PREPOSITIONAL = "ящике с лягушкой"
+		PREPOSITIONAL = "ящике с лягушкой",
 	)
 
 /datum/supply_packs/organic/frog/toxic
@@ -3562,7 +3562,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с токсичной лягушкой",
 		ACCUSATIVE = "ящик с токсичной лягушкой",
 		INSTRUMENTAL = "ящиком с токсичной лягушкой",
-		PREPOSITIONAL = "ящике с токсичной лягушкой"
+		PREPOSITIONAL = "ящике с токсичной лягушкой",
 	)
 	hidden = TRUE
 
@@ -3577,7 +3577,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с черепахой",
 		ACCUSATIVE = "ящик с черепахой",
 		INSTRUMENTAL = "ящиком с черепахой",
-		PREPOSITIONAL = "ящике с черепахой"
+		PREPOSITIONAL = "ящике с черепахой",
 	)
 
 /datum/supply_packs/organic/iguana
@@ -3591,7 +3591,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с игуаной",
 		ACCUSATIVE = "ящик с игуаной",
 		INSTRUMENTAL = "ящиком с игуаной",
-		PREPOSITIONAL = "ящике с игуаной"
+		PREPOSITIONAL = "ящике с игуаной",
 	)
 
 /datum/supply_packs/organic/gator
@@ -3605,7 +3605,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с аллигатором",
 		ACCUSATIVE = "ящик с аллигатором",
 		INSTRUMENTAL = "ящиком с аллигатором",
-		PREPOSITIONAL = "ящике с аллигатором"
+		PREPOSITIONAL = "ящике с аллигатором",
 	)
 
 /datum/supply_packs/organic/croco
@@ -3619,7 +3619,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с крокодилом",
 		ACCUSATIVE = "ящик с крокодилом",
 		INSTRUMENTAL = "ящиком с крокодилом",
-		PREPOSITIONAL = "ящике с крокодилом"
+		PREPOSITIONAL = "ящике с крокодилом",
 	)
 
 /datum/supply_packs/organic/snake
@@ -3633,7 +3633,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со змеёй",
 		ACCUSATIVE = "ящик со змеёй",
 		INSTRUMENTAL = "ящиком со змеёй",
-		PREPOSITIONAL = "ящике со змеёй"
+		PREPOSITIONAL = "ящике со змеёй",
 	)
 
 /datum/supply_packs/organic/slime
@@ -3647,7 +3647,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со слаймом",
 		ACCUSATIVE = "ящик со слаймом",
 		INSTRUMENTAL = "ящиком со слаймом",
-		PREPOSITIONAL = "ящике со слаймом"
+		PREPOSITIONAL = "ящике со слаймом",
 	)
 
 /datum/supply_packs/organic/barthender_rare
@@ -3659,7 +3659,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для опытных барменов",
 		ACCUSATIVE = "ящик с набором для опытных барменов",
 		INSTRUMENTAL = "ящиком с набором для опытных барменов",
-		PREPOSITIONAL = "ящике с набором для опытных барменов"
+		PREPOSITIONAL = "ящике с набором для опытных барменов",
 	)
 	cost = 60
 	contains = list(
@@ -3675,7 +3675,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для опытных поваров",
 		ACCUSATIVE = "ящик с набором для опытных поваров",
 		INSTRUMENTAL = "ящиком с набором для опытных поваров",
-		PREPOSITIONAL = "ящике с набором для опытных поваров"
+		PREPOSITIONAL = "ящике с набором для опытных поваров",
 	)
 	cost = 40
 	contains = list(
@@ -3692,7 +3692,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со странными семенами",
 		ACCUSATIVE = "ящик со странными семенами",
 		INSTRUMENTAL = "ящиком со странными семенами",
-		PREPOSITIONAL = "ящике со странными семенами"
+		PREPOSITIONAL = "ящике со странными семенами",
 	)
 	cost = 300
 	contains = list(
@@ -3720,7 +3720,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с гориллой",
 		ACCUSATIVE = "ящик с гориллой",
 		INSTRUMENTAL = "ящиком с гориллой",
-		PREPOSITIONAL = "ящике с гориллой"
+		PREPOSITIONAL = "ящике с гориллой",
 	)
 
 /datum/supply_packs/organic/cargororilla
@@ -3734,7 +3734,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с каргориллой",
 		ACCUSATIVE = "ящик с каргориллой",
 		INSTRUMENTAL = "ящиком с каргориллой",
-		PREPOSITIONAL = "ящике с каргориллой"
+		PREPOSITIONAL = "ящике с каргориллой",
 	)
 
 ////// hippy gear
@@ -3759,7 +3759,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику ботанического снабжения",
 		ACCUSATIVE = "ящик ботанического снабжения",
 		INSTRUMENTAL = "ящиком ботанического снабжения",
-		PREPOSITIONAL = "ящике ботанического снабжения"
+		PREPOSITIONAL = "ящике ботанического снабжения",
 	)
 
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
@@ -3776,7 +3776,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с ботаническим ранцем для воды",
 		ACCUSATIVE = "ящик с ботаническим ранцем для воды",
 		INSTRUMENTAL = "ящиком с ботаническим ранцем для воды",
-		PREPOSITIONAL = "ящике с ботаническим ранцем для воды"
+		PREPOSITIONAL = "ящике с ботаническим ранцем для воды",
 	)
 	access = ACCESS_HYDROPONICS
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
@@ -3794,7 +3794,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с наборами пополнения ботанических торгоматов",
 		ACCUSATIVE = "ящик с наборами пополнения ботанических торгоматов",
 		INSTRUMENTAL = "ящиком с наборами пополнения ботанических торгоматов",
-		PREPOSITIONAL = "ящике с наборами пополнения ботанических торгоматов"
+		PREPOSITIONAL = "ящике с наборами пополнения ботанических торгоматов",
 	)
 
 /datum/supply_packs/organic/hydroponics/exoticseeds
@@ -3822,7 +3822,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику экзотических семян",
 		ACCUSATIVE = "ящик экзотических семян",
 		INSTRUMENTAL = "ящиком экзотических семян",
-		PREPOSITIONAL = "ящике экзотических семян"
+		PREPOSITIONAL = "ящике экзотических семян",
 	)
 
 /datum/supply_packs/organic/hydroponics/beekeeping_fullkit
@@ -3842,7 +3842,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с оборудованием для плеловодства",
 		ACCUSATIVE = "ящик с оборудованием для плеловодства",
 		INSTRUMENTAL = "ящиком с оборудованием для плеловодства",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства"
+		PREPOSITIONAL = "ящике с оборудованием для плеловодства",
 	)
 
 /datum/supply_packs/organic/hydroponics/beekeeping_suits
@@ -3859,7 +3859,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с костюмами плеловода",
 		ACCUSATIVE = "ящик с костюмами плеловода",
 		INSTRUMENTAL = "ящиком с костюмами плеловода",
-		PREPOSITIONAL = "ящике с костюмами плеловода"
+		PREPOSITIONAL = "ящике с костюмами плеловода",
 	)
 
 //Bottler
@@ -3875,7 +3875,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с аппаратом для разлива",
 		ACCUSATIVE = "ящик с аппаратом для разлива",
 		INSTRUMENTAL = "ящиком с аппаратом для разлива",
-		PREPOSITIONAL = "ящике с аппаратом для разлива"
+		PREPOSITIONAL = "ящике с аппаратом для разлива",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -3900,7 +3900,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами металла",
 		ACCUSATIVE = "ящик с листами металла",
 		INSTRUMENTAL = "ящиком с листами металла",
-		PREPOSITIONAL = "ящике с листами металла"
+		PREPOSITIONAL = "ящике с листами металла",
 	)
 
 /datum/supply_packs/materials/plasteel20
@@ -3915,7 +3915,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами пластали",
 		ACCUSATIVE = "ящик с листами пластали",
 		INSTRUMENTAL = "ящиком с листами пластали",
-		PREPOSITIONAL = "ящике с листами пластали"
+		PREPOSITIONAL = "ящике с листами пластали",
 	)
 
 /datum/supply_packs/materials/plasteel50
@@ -3930,7 +3930,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами пластали",
 		ACCUSATIVE = "ящик с листами пластали",
 		INSTRUMENTAL = "ящиком с листами пластали",
-		PREPOSITIONAL = "ящике с листами пластали"
+		PREPOSITIONAL = "ящике с листами пластали",
 	)
 
 /datum/supply_packs/materials/glass50
@@ -3945,7 +3945,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами стекла",
 		ACCUSATIVE = "ящик с листами стекла",
 		INSTRUMENTAL = "ящиком с листами стекла",
-		PREPOSITIONAL = "ящике с листами стекла"
+		PREPOSITIONAL = "ящике с листами стекла",
 	)
 
 /datum/supply_packs/materials/wood30
@@ -3960,7 +3960,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с деревянными досками",
 		ACCUSATIVE = "ящик с деревянными досками",
 		INSTRUMENTAL = "ящиком с деревянными досками",
-		PREPOSITIONAL = "ящике с деревянными досками"
+		PREPOSITIONAL = "ящике с деревянными досками",
 	)
 
 /datum/supply_packs/materials/cardboard50
@@ -3975,7 +3975,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами картона",
 		ACCUSATIVE = "ящик с листами картона",
 		INSTRUMENTAL = "ящиком с листами картона",
-		PREPOSITIONAL = "ящике с листами картона"
+		PREPOSITIONAL = "ящике с листами картона",
 	)
 
 /datum/supply_packs/materials/sandstone30
@@ -3990,7 +3990,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с кирпичами из песчаника",
 		ACCUSATIVE = "ящик с кирпичами из песчаника",
 		INSTRUMENTAL = "ящиком с кирпичами из песчаника",
-		PREPOSITIONAL = "ящике с кирпичами из песчаника"
+		PREPOSITIONAL = "ящике с кирпичами из песчаника",
 	)
 
 
@@ -4006,7 +4006,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами пластика",
 		ACCUSATIVE = "ящик с листами пластика",
 		INSTRUMENTAL = "ящиком с листами пластика",
-		PREPOSITIONAL = "ящике с листами пластика"
+		PREPOSITIONAL = "ящике с листами пластика",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -4028,7 +4028,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с МУЛботом",
 		ACCUSATIVE = "ящик с МУЛботом",
 		INSTRUMENTAL = "ящиком с МУЛботом",
-		PREPOSITIONAL = "ящике с МУЛботом"
+		PREPOSITIONAL = "ящике с МУЛботом",
 	)
 
 /datum/supply_packs/misc/cargo_mon
@@ -4044,7 +4044,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с планшетами для заказов",
 		ACCUSATIVE = "ящик с планшетами для заказов",
 		INSTRUMENTAL = "ящиком с планшетами для заказов",
-		PREPOSITIONAL = "ящике с планшетами для заказов"
+		PREPOSITIONAL = "ящике с планшетами для заказов",
 	)
 
 /datum/supply_packs/misc/watertank
@@ -4059,7 +4059,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с баком воды",
 		ACCUSATIVE = "ящик с баком воды",
 		INSTRUMENTAL = "ящиком с баком воды",
-		PREPOSITIONAL = "ящике с баком воды"
+		PREPOSITIONAL = "ящике с баком воды",
 	)
 
 /datum/supply_packs/misc/hightank
@@ -4074,7 +4074,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с баком воды повышенной ёмкости",
 		ACCUSATIVE = "ящик с баком воды повышенной ёмкости",
 		INSTRUMENTAL = "ящиком с баком воды повышенной ёмкости",
-		PREPOSITIONAL = "ящике с баком воды повышенной ёмкости"
+		PREPOSITIONAL = "ящике с баком воды повышенной ёмкости",
 	)
 
 /datum/supply_packs/misc/lasertag
@@ -4101,7 +4101,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со снаряжением для лазертага",
 		ACCUSATIVE = "ящик со снаряжением для лазертага",
 		INSTRUMENTAL = "ящиком со снаряжением для лазертага",
-		PREPOSITIONAL = "ящике со снаряжением для лазертага"
+		PREPOSITIONAL = "ящике со снаряжением для лазертага",
 	)
 
 /datum/supply_packs/misc/plasmavendor
@@ -4116,7 +4116,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором PlasmaMate",
 		ACCUSATIVE = "ящик с набором PlasmaMate",
 		INSTRUMENTAL = "ящиком с набором PlasmaMate",
-		PREPOSITIONAL = "ящике с набором PlasmaMate"
+		PREPOSITIONAL = "ящике с набором PlasmaMate",
 	)
 	required_tech = list("toxins" = 5, "plasmatech" = 6)
 
@@ -4138,7 +4138,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику религиозного снабжения",
 		ACCUSATIVE = "ящик религиозного снабжения",
 		INSTRUMENTAL = "ящиком религиозного снабжения",
-		PREPOSITIONAL = "ящике религиозного снабжения"
+		PREPOSITIONAL = "ящике религиозного снабжения",
 	)
 
 /datum/supply_packs/misc/minerkit
@@ -4154,7 +4154,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с шахтёрским снаряжением",
 		ACCUSATIVE = "ящик с шахтёрским снаряжением",
 		INSTRUMENTAL = "ящиком с шахтёрским снаряжением",
-		PREPOSITIONAL = "ящике с шахтёрским снаряжением"
+		PREPOSITIONAL = "ящике с шахтёрским снаряжением",
 	)
 
 /datum/supply_packs/misc/barber_kit
@@ -4172,7 +4172,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со снаряжением барбера",
 		ACCUSATIVE = "ящик со снаряжением барбера",
 		INSTRUMENTAL = "ящиком со снаряжением барбера",
-		PREPOSITIONAL = "ящике со снаряжением барбера"
+		PREPOSITIONAL = "ящике со снаряжением барбера",
 	)
 
 /datum/supply_packs/misc/patriotic
@@ -4204,7 +4204,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором патриота НТ",
 		ACCUSATIVE = "ящик с набором патриота НТ",
 		INSTRUMENTAL = "ящиком с набором патриота НТ",
-		PREPOSITIONAL = "ящике с набором патриота НТ"
+		PREPOSITIONAL = "ящике с набором патриота НТ",
 	)
 
 /datum/supply_packs/misc/golden_toilet
@@ -4218,7 +4218,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с золотым унитазом",
 		ACCUSATIVE = "ящик с золотым унитазом",
 		INSTRUMENTAL = "ящиком с золотым унитазом",
-		PREPOSITIONAL = "ящике с золотым унитазом"
+		PREPOSITIONAL = "ящике с золотым унитазом",
 	)
 
 
@@ -4251,7 +4251,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику бюрократического снабжения",
 		ACCUSATIVE = "ящик бюрократического снабжения",
 		INSTRUMENTAL = "ящиком бюрократического снабжения",
-		PREPOSITIONAL = "ящике бюрократического снабжения"
+		PREPOSITIONAL = "ящике бюрократического снабжения",
 	)
 
 /datum/supply_packs/misc/book_crate
@@ -4265,7 +4265,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с Кодекс Гигас",
 		ACCUSATIVE = "ящик с Кодекс Гигас",
 		INSTRUMENTAL = "ящиком с Кодекс Гигас",
-		PREPOSITIONAL = "ящике с Кодекс Гигас"
+		PREPOSITIONAL = "ящике с Кодекс Гигас",
 	)
 
 /datum/supply_packs/misc/book_crate/New()
@@ -4288,7 +4288,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со скотчем",
 		ACCUSATIVE = "ящик со скотчем",
 		INSTRUMENTAL = "ящиком со скотчем",
-		PREPOSITIONAL = "ящике со скотчем"
+		PREPOSITIONAL = "ящике со скотчем",
 	)
 	containertype = /obj/structure/closet/crate/tape
 
@@ -4308,7 +4308,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику тонер-картриджей",
 		ACCUSATIVE = "ящик тонер-картриджей",
 		INSTRUMENTAL = "ящиком тонер-картриджей",
-		PREPOSITIONAL = "ящике тонер-картриджей"
+		PREPOSITIONAL = "ящике тонер-картриджей",
 	)
 
 /datum/supply_packs/misc/artscrafts
@@ -4339,7 +4339,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику художественного снабжения",
 		ACCUSATIVE = "ящик художественного снабжения",
 		INSTRUMENTAL = "ящиком художественного снабжения",
-		PREPOSITIONAL = "ящике художественного снабжения"
+		PREPOSITIONAL = "ящике художественного снабжения",
 	)
 
 /datum/supply_packs/misc/posters
@@ -4357,7 +4357,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику корпоративных постеров",
 		ACCUSATIVE = "ящик корпоративных постеров",
 		INSTRUMENTAL = "ящиком корпоративных постеров",
-		PREPOSITIONAL = "ящике корпоративных постеров"
+		PREPOSITIONAL = "ящике корпоративных постеров",
 	)
 
 ///////////// Janitor Supplies
@@ -4385,7 +4385,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику уборочного снабжения",
 		ACCUSATIVE = "ящик уборочного снабжения",
 		INSTRUMENTAL = "ящиком уборочного снабжения",
-		PREPOSITIONAL = "ящике уборочного снабжения"
+		PREPOSITIONAL = "ящике уборочного снабжения",
 	)
 	announce_beacons = list("Janitor" = list("Janitorial"))
 
@@ -4401,7 +4401,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с тележкой и галошами уборщика",
 		ACCUSATIVE = "ящик с тележкой и галошами уборщика",
 		INSTRUMENTAL = "ящиком с тележкой и галошами уборщика",
-		PREPOSITIONAL = "ящике с тележкой и галошами уборщика"
+		PREPOSITIONAL = "ящике с тележкой и галошами уборщика",
 	)
 
 /datum/supply_packs/misc/janitor/janitank
@@ -4415,7 +4415,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с уборочным ранцем для воды",
 		ACCUSATIVE = "ящик с уборочным ранцем для воды",
 		INSTRUMENTAL = "ящиком с уборочным ранцем для воды",
-		PREPOSITIONAL = "ящике с уборочным ранцем для воды"
+		PREPOSITIONAL = "ящике с уборочным ранцем для воды",
 	)
 	access = ACCESS_JANITOR
 
@@ -4431,7 +4431,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику лампочек",
 		ACCUSATIVE = "ящик лампочек",
 		INSTRUMENTAL = "ящиком лампочек",
-		PREPOSITIONAL = "ящике лампочек"
+		PREPOSITIONAL = "ящике лампочек",
 	)
 
 /datum/supply_packs/misc/noslipfloor
@@ -4445,7 +4445,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику нескользящих плиток пола",
 		ACCUSATIVE = "ящик нескользящих плиток пола",
 		INSTRUMENTAL = "ящиком нескользящих плиток пола",
-		PREPOSITIONAL = "ящике нескользящих плиток пола"
+		PREPOSITIONAL = "ящике нескользящих плиток пола",
 	)
 
 ///////////// Costumes
@@ -4475,7 +4475,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику актёрских костюмов",
 		ACCUSATIVE = "ящик актёрских костюмов",
 		INSTRUMENTAL = "ящиком актёрских костюмов",
-		PREPOSITIONAL = "ящике актёрских костюмов"
+		PREPOSITIONAL = "ящике актёрских костюмов",
 	)
 	access = ACCESS_THEATRE
 
@@ -4493,7 +4493,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с костюмом мага",
 		ACCUSATIVE = "ящик с костюмом мага",
 		INSTRUMENTAL = "ящиком с костюмом мага",
-		PREPOSITIONAL = "ящике с костюмом мага"
+		PREPOSITIONAL = "ящике с костюмом мага",
 	)
 
 /datum/supply_packs/misc/mafia
@@ -4519,7 +4519,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со снаряжением мафиози",
 		ACCUSATIVE = "ящик со снаряжением мафиози",
 		INSTRUMENTAL = "ящиком со снаряжением мафиози",
-		PREPOSITIONAL = "ящике со снаряжением мафиози"
+		PREPOSITIONAL = "ящике со снаряжением мафиози",
 	)
 
 /datum/supply_packs/misc/sunglasses
@@ -4535,7 +4535,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику солнечных очков",
 		ACCUSATIVE = "ящик солнечных очков",
 		INSTRUMENTAL = "ящиком солнечных очков",
-		PREPOSITIONAL = "ящике солнечных очков"
+		PREPOSITIONAL = "ящике солнечных очков",
 	)
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
@@ -4569,7 +4569,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику коллекционных шляп",
 		ACCUSATIVE = "ящик коллекционных шляп",
 		INSTRUMENTAL = "ящиком коллекционных шляп",
-		PREPOSITIONAL = "ящике коллекционных шляп"
+		PREPOSITIONAL = "ящике коллекционных шляп",
 	)
 
 /datum/supply_packs/misc/randomised/New()
@@ -4595,7 +4595,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику игрушечных дробовиков",
 		ACCUSATIVE = "ящик игрушечных дробовиков",
 		INSTRUMENTAL = "ящиком игрушечных дробовиков",
-		PREPOSITIONAL = "ящике игрушечных дробовиков"
+		PREPOSITIONAL = "ящике игрушечных дробовиков",
 	)
 
 /datum/supply_packs/misc/bigband
@@ -4620,7 +4620,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику музыкальных инструментов",
 		ACCUSATIVE = "ящик музыкальных инструментов",
 		INSTRUMENTAL = "ящиком музыкальных инструментов",
-		PREPOSITIONAL = "ящике музыкальных инструментов"
+		PREPOSITIONAL = "ящике музыкальных инструментов",
 	)
 
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
@@ -4660,7 +4660,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику официальной одежды",
 		ACCUSATIVE = "ящик официальной одежды",
 		INSTRUMENTAL = "ящиком официальной одежды",
-		PREPOSITIONAL = "ящике официальной одежды"
+		PREPOSITIONAL = "ящике официальной одежды",
 	)
 
 /datum/supply_packs/misc/teamcolors		//For team sports like space polo
@@ -4683,7 +4683,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику командных маек",
 		ACCUSATIVE = "ящик командных маек",
 		INSTRUMENTAL = "ящиком командных маек",
-		PREPOSITIONAL = "ящике командных маек"
+		PREPOSITIONAL = "ящике командных маек",
 	)
 
 /datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
@@ -4710,7 +4710,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для поло",
 		ACCUSATIVE = "ящик с набором для поло",
 		INSTRUMENTAL = "ящиком с набором для поло",
-		PREPOSITIONAL = "ящике с набором для поло"
+		PREPOSITIONAL = "ящике с набором для поло",
 	)
 
 /datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
@@ -4728,7 +4728,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с боксёрским снаряжением",
 		ACCUSATIVE = "ящик с боксёрским снаряжением",
 		INSTRUMENTAL = "ящиком с боксёрским снаряжением",
-		PREPOSITIONAL = "ящике с боксёрским снаряжением"
+		PREPOSITIONAL = "ящике с боксёрским снаряжением",
 	)
 
 ///////////// Bathroom Fixtures
@@ -4745,7 +4745,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оборудования для уборной",
 		ACCUSATIVE = "ящик оборудования для уборной",
 		INSTRUMENTAL = "ящиком оборудования для уборной",
-		PREPOSITIONAL = "ящике оборудования для уборной"
+		PREPOSITIONAL = "ящике оборудования для уборной",
 	)
 /datum/supply_packs/misc/hygiene
 	name = "Оборудование для гигиены"
@@ -4759,7 +4759,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оборудования для гигиены",
 		ACCUSATIVE = "ящик оборудования для гигиены",
 		INSTRUMENTAL = "ящиком оборудования для гигиены",
-		PREPOSITIONAL = "ящике оборудования для гигиены"
+		PREPOSITIONAL = "ящике оборудования для гигиены",
 	)
 
 /datum/supply_packs/misc/snow_machine
@@ -4773,7 +4773,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со снегогенератором",
 		ACCUSATIVE = "ящик со снегогенератором",
 		INSTRUMENTAL = "ящиком со снегогенератором",
-		PREPOSITIONAL = "ящике со снегогенератором"
+		PREPOSITIONAL = "ящике со снегогенератором",
 	)
 	special = TRUE
 
@@ -4792,7 +4792,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей крематория",
 		ACCUSATIVE = "ящик деталей крематория",
 		INSTRUMENTAL = "ящиком деталей крематория",
-		PREPOSITIONAL = "ящике деталей крематория"
+		PREPOSITIONAL = "ящике деталей крематория",
 	)
 
 
@@ -4815,7 +4815,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Autodrobe",
 		ACCUSATIVE = "ящик с набором пополнения Autodrobe",
 		INSTRUMENTAL = "ящиком с набором пополнения Autodrobe",
-		PREPOSITIONAL = "ящике с набором пополнения Autodrobe"
+		PREPOSITIONAL = "ящике с набором пополнения Autodrobe",
 	)
 
 /datum/supply_packs/vending/clothes
@@ -4829,7 +4829,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/security
@@ -4843,7 +4843,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Security Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Security Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Security Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Security Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Security Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/engineering
@@ -4857,7 +4857,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Engineering Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Engineering Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Engineering Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Engineering Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Engineering Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/medical
@@ -4871,7 +4871,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Medical Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Medical Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Medical Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Medical Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Medical Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/science
@@ -4885,7 +4885,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Science Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Science Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Science Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Science Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Science Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/cargo
@@ -4899,7 +4899,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Cargo Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Cargo Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Cargo Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Cargo Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Cargo Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/law
@@ -4913,7 +4913,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Law Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Law Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Law Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Law Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Law Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/service/botanical
@@ -4927,7 +4927,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Service Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Service Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Service Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Service Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Service Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/service/chaplain
@@ -4941,7 +4941,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Departament Service ClothesMate Chaplain",
 		ACCUSATIVE = "ящик с набором пополнения Departament Service ClothesMate Chaplain",
 		INSTRUMENTAL = "ящиком с набором пополнения Departament Service ClothesMate Chaplain",
-		PREPOSITIONAL = "ящике с набором пополнения Departament Service ClothesMate Chaplain"
+		PREPOSITIONAL = "ящике с набором пополнения Departament Service ClothesMate Chaplain",
 	)
 
 /datum/supply_packs/vending/suit
@@ -4955,7 +4955,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Suitlord",
 		ACCUSATIVE = "ящик с набором пополнения Suitlord",
 		INSTRUMENTAL = "ящиком с набором пополнения Suitlord",
-		PREPOSITIONAL = "ящике с набором пополнения Suitlord"
+		PREPOSITIONAL = "ящике с набором пополнения Suitlord",
 	)
 
 /datum/supply_packs/vending/hat
@@ -4969,7 +4969,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Hatlord",
 		ACCUSATIVE = "ящик с набором пополнения Hatlord",
 		INSTRUMENTAL = "ящиком с набором пополнения Hatlord",
-		PREPOSITIONAL = "ящике с набором пополнения Hatlord"
+		PREPOSITIONAL = "ящике с набором пополнения Hatlord",
 	)
 
 /datum/supply_packs/vending/shoes
@@ -4983,7 +4983,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Shoelord",
 		ACCUSATIVE = "ящик с набором пополнения Shoelord",
 		INSTRUMENTAL = "ящиком с набором пополнения Shoelord",
-		PREPOSITIONAL = "ящике с набором пополнения Shoelord"
+		PREPOSITIONAL = "ящике с набором пополнения Shoelord",
 	)
 
 /datum/supply_packs/vending/pets
@@ -4997,7 +4997,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения CritterCare",
 		ACCUSATIVE = "ящик с набором пополнения CritterCare",
 		INSTRUMENTAL = "ящиком с набором пополнения CritterCare",
-		PREPOSITIONAL = "ящике с набором пополнения CritterCare"
+		PREPOSITIONAL = "ящике с набором пополнения CritterCare",
 	)
 
 /datum/supply_packs/vending/bartending
@@ -5012,7 +5012,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
 		ACCUSATIVE = "ящик с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
 		INSTRUMENTAL = "ящиком с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
-		PREPOSITIONAL = "ящике с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks"
+		PREPOSITIONAL = "ящике с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
 	)
 	announce_beacons = list("Bar" = list("Bar"))
 
@@ -5027,7 +5027,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения ShadyCigs Deluxe",
 		ACCUSATIVE = "ящик с набором пополнения ShadyCigs Deluxe",
 		INSTRUMENTAL = "ящиком с набором пополнения ShadyCigs Deluxe",
-		PREPOSITIONAL = "ящике с набором пополнения ShadyCigs Deluxe"
+		PREPOSITIONAL = "ящике с набором пополнения ShadyCigs Deluxe",
 	)
 
 /datum/supply_packs/vending/dinnerware
@@ -5041,7 +5041,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Plasteel Chef's Dinnerware",
 		ACCUSATIVE = "ящик с набором пополнения Plasteel Chef's Dinnerware",
 		INSTRUMENTAL = "ящиком с набором пополнения Plasteel Chef's Dinnerware",
-		PREPOSITIONAL = "ящике с набором пополнения Plasteel Chef's Dinnerware"
+		PREPOSITIONAL = "ящике с набором пополнения Plasteel Chef's Dinnerware",
 	)
 
 /datum/supply_packs/vending/imported
@@ -5058,7 +5058,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику наборов пополнения импортированных торгоматов",
 		ACCUSATIVE = "ящик наборов пополнения импортированных торгоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения импортированных торгоматов",
-		PREPOSITIONAL = "ящике наборов пополнения импортированных торгоматов"
+		PREPOSITIONAL = "ящике наборов пополнения импортированных торгоматов",
 	)
 
 /datum/supply_packs/vending/ptech
@@ -5072,7 +5072,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения PTech",
 		ACCUSATIVE = "ящик с набором пополнения PTech",
 		INSTRUMENTAL = "ящиком с набором пополнения PTech",
-		PREPOSITIONAL = "ящике с набором пополнения PTech"
+		PREPOSITIONAL = "ящике с набором пополнения PTech",
 	)
 
 /datum/supply_packs/vending/snack
@@ -5086,7 +5086,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Getmore Chocolate Corp",
 		ACCUSATIVE = "ящик с набором пополнения Getmore Chocolate Corp",
 		INSTRUMENTAL = "ящиком с набором пополнения Getmore Chocolate Corp",
-		PREPOSITIONAL = "ящике с набором пополнения Getmore Chocolate Corp"
+		PREPOSITIONAL = "ящике с набором пополнения Getmore Chocolate Corp",
 	)
 
 /datum/supply_packs/vending/cola
@@ -5100,7 +5100,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Robust Softdrinks",
 		ACCUSATIVE = "ящик с набором пополнения Robust Softdrinks",
 		INSTRUMENTAL = "ящиком с набором пополнения Robust Softdrinks",
-		PREPOSITIONAL = "ящике с набором пополнения Robust Softdrinks"
+		PREPOSITIONAL = "ящике с набором пополнения Robust Softdrinks",
 	)
 
 /datum/supply_packs/vending/vendomat
@@ -5114,7 +5114,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Assistomate",
 		ACCUSATIVE = "ящик с набором пополнения Assistomate",
 		INSTRUMENTAL = "ящиком с набором пополнения Assistomate",
-		PREPOSITIONAL = "ящике с набором пополнения Assistomate"
+		PREPOSITIONAL = "ящике с набором пополнения Assistomate",
 	)
 
 /datum/supply_packs/vending/chinese
@@ -5128,7 +5128,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Mr. Chang",
 		ACCUSATIVE = "ящик с набором пополнения Mr. Chang",
 		INSTRUMENTAL = "ящиком с набором пополнения Mr. Chang",
-		PREPOSITIONAL = "ящике с набором пополнения Mr. Chang"
+		PREPOSITIONAL = "ящике с набором пополнения Mr. Chang",
 	)
 
 /datum/supply_packs/vending/protein
@@ -5149,7 +5149,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику наборов пополнения Кастоматов",
 		ACCUSATIVE = "ящик наборов пополнения Кастоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения Кастоматов",
-		PREPOSITIONAL = "ящике наборов пополнения Кастоматов"
+		PREPOSITIONAL = "ящике наборов пополнения Кастоматов",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -5180,7 +5180,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику винтовок Мосина",
 		ACCUSATIVE = "ящик винтовок Мосина",
 		INSTRUMENTAL = "ящиком винтовок Мосина",
-		PREPOSITIONAL = "ящике винтовок Мосина"
+		PREPOSITIONAL = "ящике винтовок Мосина",
 	)
 
 /datum/supply_packs/contraband/ammobox_mosin
@@ -5195,7 +5195,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 7,62x54 мм",
 		ACCUSATIVE = "ящик патронов 7,62x54 мм",
 		INSTRUMENTAL = "ящиком патронов 7,62x54 мм",
-		PREPOSITIONAL = "ящике патронов 7,62x54 мм"
+		PREPOSITIONAL = "ящике патронов 7,62x54 мм",
 	)
 
 /datum/supply_packs/contraband/ammobox556
@@ -5210,7 +5210,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 5,56",
 		ACCUSATIVE = "ящик патронов 5,56",
 		INSTRUMENTAL = "ящиком патронов 5,56",
-		PREPOSITIONAL = "ящике патронов 5,56"
+		PREPOSITIONAL = "ящике патронов 5,56",
 	)
 
 /datum/supply_packs/contraband/ammobox45
@@ -5225,7 +5225,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов .45",
 		ACCUSATIVE = "ящик патронов .45",
 		INSTRUMENTAL = "ящиком патронов .45",
-		PREPOSITIONAL = "ящике патронов .45"
+		PREPOSITIONAL = "ящике патронов .45",
 	)
 
 /datum/supply_packs/contraband/ammobox45rubber
@@ -5240,7 +5240,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов .45 (Резина)",
 		ACCUSATIVE = "ящик патронов .45 (Резина)",
 		INSTRUMENTAL = "ящиком патронов .45 (Резина)",
-		PREPOSITIONAL = "ящике патронов .45 (Резина)"
+		PREPOSITIONAL = "ящике патронов .45 (Резина)",
 	)
 
 /datum/supply_packs/contraband/ammoboxstechkinAP
@@ -5255,7 +5255,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 10 мм (Бронебойные)",
 		ACCUSATIVE = "ящик патронов 10 мм (Бронебойные)",
 		INSTRUMENTAL = "ящиком патронов 10 мм (Бронебойные)",
-		PREPOSITIONAL = "ящике патронов 10 мм (Бронебойные)"
+		PREPOSITIONAL = "ящике патронов 10 мм (Бронебойные)",
 	)
 
 /datum/supply_packs/contraband/ammoboxstechkinHP
@@ -5270,7 +5270,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 10 мм (Экспансивные)",
 		ACCUSATIVE = "ящик патронов 10 мм (Экспансивные)",
 		INSTRUMENTAL = "ящиком патронов 10 мм (Экспансивные)",
-		PREPOSITIONAL = "ящике патронов 10 мм (Экспансивные)"
+		PREPOSITIONAL = "ящике патронов 10 мм (Экспансивные)",
 	)
 
 /datum/supply_packs/contraband/ammoboxstechkinincendiary
@@ -5285,7 +5285,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 10 мм (Зажигательные)",
 		ACCUSATIVE = "ящик патронов 10 мм (Зажигательные)",
 		INSTRUMENTAL = "ящиком патронов 10 мм (Зажигательные)",
-		PREPOSITIONAL = "ящике патронов 10 мм (Зажигательные)"
+		PREPOSITIONAL = "ящике патронов 10 мм (Зажигательные)",
 	)
 
 /datum/supply_packs/contraband/compact
@@ -5330,7 +5330,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 7,62x38 мм",
 		ACCUSATIVE = "ящик патронов 7,62x38 мм",
 		INSTRUMENTAL = "ящиком патронов 7,62x38 мм",
-		PREPOSITIONAL = "ящике патронов 7,62x38 мм"
+		PREPOSITIONAL = "ящике патронов 7,62x38 мм",
 	)
 
 /datum/supply_packs/contraband/ammobox545
@@ -5345,7 +5345,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 5,45x39 мм",
 		ACCUSATIVE = "ящик патронов 5,45x39 мм",
 		INSTRUMENTAL = "ящиком патронов 5,45x39 мм",
-		PREPOSITIONAL = "ящике патронов 5,45x39 мм"
+		PREPOSITIONAL = "ящике патронов 5,45x39 мм",
 	)
 
 /datum/supply_packs/contraband/rpg
@@ -5361,7 +5361,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику фугасных ракет",
 		ACCUSATIVE = "ящик фугасных ракет",
 		INSTRUMENTAL = "ящиком фугасных ракет",
-		PREPOSITIONAL = "ящике фугасных ракет"
+		PREPOSITIONAL = "ящике фугасных ракет",
 	)
 
 /datum/supply_packs/contraband/grenades
@@ -5375,7 +5375,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику 40 мм гранат",
 		ACCUSATIVE = "ящик 40 мм гранат",
 		INSTRUMENTAL = "ящиком 40 мм гранат",
-		PREPOSITIONAL = "ящике 40 мм гранат"
+		PREPOSITIONAL = "ящике 40 мм гранат",
 	)
 
 /datum/supply_packs/contraband/bombard_grenades
@@ -5391,7 +5391,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику самодельных 40 мм гранат",
 		ACCUSATIVE = "ящик самодельных 40 мм гранат",
 		INSTRUMENTAL = "ящиком самодельных 40 мм гранат",
-		PREPOSITIONAL = "ящике самодельных 40 мм гранат"
+		PREPOSITIONAL = "ящике самодельных 40 мм гранат",
 	)
 
 /datum/supply_packs/contraband/randomised/contraband
@@ -5409,7 +5409,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику",
 		ACCUSATIVE = "ящик",
 		INSTRUMENTAL = "ящиком",
-		PREPOSITIONAL = "ящике"
+		PREPOSITIONAL = "ящике",
 	)
 
 /datum/supply_packs/contraband/randomised/contraband/New()
@@ -5430,7 +5430,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику игрушечных пистолетов",
 		ACCUSATIVE = "ящик игрушечных пистолетов",
 		INSTRUMENTAL = "ящиком игрушечных пистолетов",
-		PREPOSITIONAL = "ящике игрушечных пистолетов"
+		PREPOSITIONAL = "ящике игрушечных пистолетов",
 	)
 
 #undef SUPPLY_EMERGENCY

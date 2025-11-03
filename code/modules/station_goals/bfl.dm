@@ -301,7 +301,7 @@
 		DATIVE = "приёмнику BFL",
 		ACCUSATIVE = "приёмник BFL",
 		INSTRUMENTAL = "приёмником BFL",
-		PREPOSITIONAL = "приёмнике BFL"
+		PREPOSITIONAL = "приёмнике BFL",
 	)
 
 /obj/machinery/bfl_receiver/Initialize(mapload)
@@ -468,7 +468,7 @@
 		DATIVE = "высокоточной линзе",
 		ACCUSATIVE = "высокоточную линзу",
 		INSTRUMENTAL = "высокоточной линзой",
-		PREPOSITIONAL = "высокоточной линзе"
+		PREPOSITIONAL = "высокоточной линзе",
 	)
 
 /obj/machinery/bfl_lens/update_icon_state()
@@ -622,7 +622,7 @@
 		DATIVE = "лучу мегалазера",
 		ACCUSATIVE = "луч мегалазера",
 		INSTRUMENTAL = "лучом мегалазера",
-		PREPOSITIONAL = "луче мегалазера"
+		PREPOSITIONAL = "луче мегалазера",
 	)
 
 /obj/effect/bfl_laser/Initialize(mapload)

@@ -46,7 +46,7 @@
 		DATIVE = "магнитному захвату",
 		ACCUSATIVE = "магнитный захват",
 		INSTRUMENTAL = "магнитным захватом",
-		PREPOSITIONAL = "магнитном захвате"
+		PREPOSITIONAL = "магнитном захвате",
 	)
 
 /obj/item/gripper/medical
@@ -69,7 +69,7 @@
 		DATIVE = "медицинскому захвату",
 		ACCUSATIVE = "медицинский захват",
 		INSTRUMENTAL = "медицинским захватом",
-		PREPOSITIONAL = "медицинском захвате"
+		PREPOSITIONAL = "медицинском захвате",
 	)
 
 /obj/item/gripper/medical/attack_self(mob/user)
@@ -116,7 +116,7 @@
 		DATIVE = "карточному захвату",
 		ACCUSATIVE = "карточный захват",
 		INSTRUMENTAL = "карточным захватом",
-		PREPOSITIONAL = "карточном захвате"
+		PREPOSITIONAL = "карточном захвате",
 	)
 
 /obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, params)
@@ -135,7 +135,7 @@
 		DATIVE = "древнему захвату",
 		ACCUSATIVE = "древний захват",
 		INSTRUMENTAL = "древним захватом",
-		PREPOSITIONAL = "древнем захвате"
+		PREPOSITIONAL = "древнем захвате",
 	)
 
 /obj/item/gripper/cogscarab/New()
@@ -203,7 +203,7 @@
 		DATIVE = "универсальному захвату",
 		ACCUSATIVE = "универсальный захват",
 		INSTRUMENTAL = "универсальным захватом",
-		PREPOSITIONAL = "универсальном захвате"
+		PREPOSITIONAL = "универсальном захвате",
 	)
 
 /obj/item/gripper/nuclear
@@ -219,7 +219,7 @@
 		DATIVE = "ядерному захвату",
 		ACCUSATIVE = "ядерный захват",
 		INSTRUMENTAL = "ядерным захватом",
-		PREPOSITIONAL = "ядерном захвате"
+		PREPOSITIONAL = "ядерном захвате",
 	)
 
 /obj/item/gripper/New()
@@ -368,7 +368,7 @@
 		DATIVE = "декомпилятору материи",
 		ACCUSATIVE = "декомпилятор материи",
 		INSTRUMENTAL = "декомпилятором материи",
-		PREPOSITIONAL = "декомпиляторе материи"
+		PREPOSITIONAL = "декомпиляторе материи",
 	)
 
 /obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

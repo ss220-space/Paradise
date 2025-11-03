@@ -30,7 +30,7 @@
 		DATIVE = "снаряжению зеленого кода",
 		ACCUSATIVE = "снаряжение зеленого кода",
 		INSTRUMENTAL = "снаряжением зеленого кода",
-		PREPOSITIONAL = "снаряжении зеленого кода"
+		PREPOSITIONAL = "снаряжении зеленого кода",
 	)
 	modules_spawn_chance = 1
 	loot_count = 3
@@ -245,7 +245,7 @@
 		DATIVE = "снаряжению красного кода",
 		ACCUSATIVE = "снаряжение красного кода",
 		INSTRUMENTAL = "снаряжением красного кода",
-		PREPOSITIONAL = "снаряжении красного кода"
+		PREPOSITIONAL = "снаряжении красного кода",
 	)
 	modules_spawn_chance = 30
 	open_time = 15 SECONDS
@@ -464,7 +464,7 @@
 		DATIVE = "снаряжению кода ГАММА",
 		ACCUSATIVE = "снаряжение кода ГАММА",
 		INSTRUMENTAL = "снаряжением кода ГАММА",
-		PREPOSITIONAL = "снаряжении кода ГАММА"
+		PREPOSITIONAL = "снаряжении кода ГАММА",
 	)
 	modules_spawn_chance = 40
 	open_time = 20 SECONDS
@@ -591,7 +591,7 @@
 		DATIVE = "снаряжению кода ЭПСИЛОН",
 		ACCUSATIVE = "снаряжение кода ЭПСИЛОН",
 		INSTRUMENTAL = "снаряжением кода ЭПСИЛОН",
-		PREPOSITIONAL = "снаряжении кода ЭПСИЛОН"
+		PREPOSITIONAL = "снаряжении кода ЭПСИЛОН",
 	)
 	modules_spawn_chance = 70
 	open_time = 30 SECONDS
@@ -651,7 +651,7 @@
 		DATIVE = "патронам",
 		ACCUSATIVE = "патроны",
 		INSTRUMENTAL = "патронами",
-		PREPOSITIONAL = "патронах"
+		PREPOSITIONAL = "патронах",
 	)
 	loot_count = 6
 	loot_list = list(
@@ -802,7 +802,7 @@
 		DATIVE = "медикаментам",
 		ACCUSATIVE = "медикаменты",
 		INSTRUMENTAL = "медикаментами",
-		PREPOSITIONAL = "медикаментах"
+		PREPOSITIONAL = "медикаментах",
 	)
 	loot_count = 8
 	loot_list = list(

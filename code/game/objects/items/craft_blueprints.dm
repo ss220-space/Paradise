@@ -33,7 +33,7 @@
 		DATIVE = "чертежам для крафта",
 		ACCUSATIVE = "чертежи для крафта",
 		INSTRUMENTAL = "чертежами для крафта",
-		PREPOSITIONAL = "чертежах для крафта"
+		PREPOSITIONAL = "чертежах для крафта",
 	)
 
 /obj/item/craft_blueprints/copy

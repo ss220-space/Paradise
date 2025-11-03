@@ -105,7 +105,7 @@
 		DATIVE = "попугаю",
 		ACCUSATIVE = "попугая",
 		INSTRUMENTAL = "попугаем",
-		PREPOSITIONAL = "попугае"
+		PREPOSITIONAL = "попугае",
 	)
 
 

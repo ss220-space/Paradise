@@ -59,7 +59,7 @@
 		DATIVE = "торговому автомату Solar's Best Hot Drinks",
 		ACCUSATIVE = "торговый автомат Solar's Best Hot Drinks",
 		INSTRUMENTAL = "торговым автоматом Solar's Best Hot Drinks",
-		PREPOSITIONAL = "торговом автомате Solar's Best Hot Drinks"
+		PREPOSITIONAL = "торговом автомате Solar's Best Hot Drinks",
 	)
 
 /obj/machinery/vending/coffee/free

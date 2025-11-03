@@ -98,7 +98,7 @@
 		DATIVE = "торговому автомату Booze-O-Mat",
 		ACCUSATIVE = "торговый автомат Booze-O-Mat",
 		INSTRUMENTAL = "торговым автоматом Booze-O-Mat",
-		PREPOSITIONAL = "торговом автомате Booze-O-Mat"
+		PREPOSITIONAL = "торговом автомате Booze-O-Mat",
 	)
 
 /obj/machinery/vending/boozeomat/syndicate_access

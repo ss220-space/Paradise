@@ -1634,7 +1634,7 @@
 		DATIVE = "чёрному балахону",
 		ACCUSATIVE = "чёрный балахон",
 		INSTRUMENTAL = "чёрным балахоном",
-		PREPOSITIONAL = "чёрном балахоне"
+		PREPOSITIONAL = "чёрном балахоне",
 	)
 
 /obj/item/clothing/suit/hooded/update_icon_state()
@@ -1659,7 +1659,7 @@
 		DATIVE = "чёрному капюшону",
 		ACCUSATIVE = "чёрный капюшон",
 		INSTRUMENTAL = "чёрным капюшоном",
-		PREPOSITIONAL = "чёрном капюшоне"
+		PREPOSITIONAL = "чёрном капюшоне",
 	)
 
 /obj/item/clothing/head/hooded/ghostface/true
@@ -1677,7 +1677,7 @@
 		DATIVE = "кроваво-чёрному балахону",
 		ACCUSATIVE = "кроваво-чёрный балахон",
 		INSTRUMENTAL = "кроваво-чёрным балахоном",
-		PREPOSITIONAL = "кроваво-чёрном балахоне"
+		PREPOSITIONAL = "кроваво-чёрном балахоне",
 	)
 
 
@@ -1720,7 +1720,7 @@
 		DATIVE = "костюму пингвина",
 		ACCUSATIVE = "костюм пингвина",
 		INSTRUMENTAL = "костюмом пингвина",
-		PREPOSITIONAL = "костюме пингвина"
+		PREPOSITIONAL = "костюме пингвина",
 	)
 
 /obj/item/clothing/head/hooded/penguin_hood
@@ -1744,7 +1744,7 @@
 		DATIVE = "капюшону костюма пингвина",
 		ACCUSATIVE = "капюшон костюма пингвина",
 		INSTRUMENTAL = "капюшоном костюмома пингвина",
-		PREPOSITIONAL = "капюшоне костюма пингвина"
+		PREPOSITIONAL = "капюшоне костюма пингвина",
 	)
 
 
@@ -1771,7 +1771,7 @@
 		DATIVE = "толстовке",
 		ACCUSATIVE = "толстовку",
 		INSTRUMENTAL = "толстовкой",
-		PREPOSITIONAL = "толстовке"
+		PREPOSITIONAL = "толстовке",
 	)
 
 /obj/item/clothing/suit/storage/zazalord
@@ -1787,7 +1787,7 @@
 		DATIVE = "заза-лорд бомберу",
 		ACCUSATIVE = "заза-лорд бомбера",
 		INSTRUMENTAL = "заза-лорд бомбером",
-		PREPOSITIONAL = "заза-лорд бомбере"
+		PREPOSITIONAL = "заза-лорд бомбере",
 	)
 
 /obj/item/clothing/under/chad
@@ -1806,5 +1806,5 @@
 		DATIVE = "костюму Гигачада",
 		ACCUSATIVE = "костюм Гигачада",
 		INSTRUMENTAL = "костюмом Гигачада",
-		PREPOSITIONAL = "костюме Гигачада"
+		PREPOSITIONAL = "костюме Гигачада",
 	)

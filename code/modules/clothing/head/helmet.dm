@@ -333,7 +333,7 @@
 		DATIVE = "костяному шлему",
 		ACCUSATIVE = "костяной шлем",
 		INSTRUMENTAL = "костяным шлемом",
-		PREPOSITIONAL = "костяном шлеме"
+		PREPOSITIONAL = "костяном шлеме",
 	)
 
 /obj/item/clothing/head/helmet/skull/Yorick
@@ -513,5 +513,5 @@
 		DATIVE = "мотоциклетному шлему",
 		ACCUSATIVE = "мотоциклетный шлем",
 		INSTRUMENTAL = "мотоциклетным шлемом",
-		PREPOSITIONAL = "мотоциклетном шлеме"
+		PREPOSITIONAL = "мотоциклетном шлеме",
 	)

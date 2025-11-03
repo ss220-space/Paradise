@@ -18,7 +18,7 @@
 		DATIVE = "рюмке",
 		ACCUSATIVE = "рюмку",
 		INSTRUMENTAL = "рюмкой",
-		PREPOSITIONAL = "рюмке"
+		PREPOSITIONAL = "рюмке",
 	)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
@@ -56,7 +56,7 @@
 			DATIVE = "рюмке",
 			ACCUSATIVE = "рюмку",
 			INSTRUMENTAL = "рюмкой",
-			PREPOSITIONAL = "рюмке"
+			PREPOSITIONAL = "рюмке",
 		)
 
 

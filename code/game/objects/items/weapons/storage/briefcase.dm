@@ -112,7 +112,7 @@
 		DATIVE = "чемодану с бипками",
 		ACCUSATIVE = "чемодан с бипками",
 		INSTRUMENTAL = "чемоданом с бипками",
-		PREPOSITIONAL = "чемодане с бипками"
+		PREPOSITIONAL = "чемодане с бипками",
 	)
 
 /obj/item/case_with_bipki/attack_self(mob/user)

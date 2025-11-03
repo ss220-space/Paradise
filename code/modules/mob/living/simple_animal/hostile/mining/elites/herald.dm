@@ -57,7 +57,7 @@
 		DATIVE = "вестнику",
 		ACCUSATIVE = "вестника",
 		INSTRUMENTAL = "вестником",
-		PREPOSITIONAL = "вестнике"
+		PREPOSITIONAL = "вестнике",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/death(gibbed)
@@ -230,7 +230,7 @@
 		DATIVE = "зеркалу вестника",
 		ACCUSATIVE = "зеркало вестника",
 		INSTRUMENTAL = "зеркалом вестника",
-		PREPOSITIONAL = "зеркале вестника"
+		PREPOSITIONAL = "зеркале вестника",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize(mapload)
@@ -257,7 +257,7 @@
 		DATIVE = "смертоносному заряду",
 		ACCUSATIVE = "смертоносный заряд",
 		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде"
+		PREPOSITIONAL = "смертоносном заряде",
 	)
 
 /obj/projectile/herald/teleshot
@@ -272,7 +272,7 @@
 		DATIVE = "золотому заряду",
 		ACCUSATIVE = "золотой заряд",
 		INSTRUMENTAL = "золотым зарядом",
-		PREPOSITIONAL = "золотом заряде"
+		PREPOSITIONAL = "золотом заряде",
 	)
 
 /obj/projectile/herald/prehit(atom/target)
@@ -316,7 +316,7 @@
 		DATIVE = "плащу пророка",
 		ACCUSATIVE = "плащ пророка",
 		INSTRUMENTAL = "плащом пророка",
-		PREPOSITIONAL = "плаще пророка"
+		PREPOSITIONAL = "плаще пророка",
 	)
 
 /obj/item/clothing/accessory/necklace/herald_cloak/attack_self()

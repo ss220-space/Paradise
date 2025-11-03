@@ -29,7 +29,7 @@
 		DATIVE = "деревянному луку",
 		ACCUSATIVE = "деревянный лук",
 		INSTRUMENTAL = "деревянным луком",
-		PREPOSITIONAL = "деревянном луке"
+		PREPOSITIONAL = "деревянном луке",
 	)
 
 /obj/item/gun/projectile/bow/ashen //better than wooden
@@ -55,7 +55,7 @@
 		DATIVE = "костяному луку",
 		ACCUSATIVE = "костяной лук",
 		INSTRUMENTAL = "костяным луком",
-		PREPOSITIONAL = "костяном луке"
+		PREPOSITIONAL = "костяном луке",
 	)
 
 /obj/item/gun/projectile/bow/proc/update_state()
@@ -199,7 +199,7 @@
 		DATIVE = "деревянной стреле",
 		ACCUSATIVE = "деревянную стрелу",
 		INSTRUMENTAL = "деревянной стрелой",
-		PREPOSITIONAL = "деревянной стреле"
+		PREPOSITIONAL = "деревянной стреле",
 	)
 
 /obj/item/ammo_casing/caseless/arrow/bone_tipped
@@ -217,7 +217,7 @@
 		DATIVE = "костяной стреле",
 		ACCUSATIVE = "костяную стрелу",
 		INSTRUMENTAL = "костяной стрелой",
-		PREPOSITIONAL = "костяной стреле"
+		PREPOSITIONAL = "костяной стреле",
 	)
 
 /obj/item/ammo_casing/caseless/arrow/jagged
@@ -257,7 +257,7 @@
 		DATIVE = "колчану",
 		ACCUSATIVE = "колчан",
 		INSTRUMENTAL = "колчаном",
-		PREPOSITIONAL = "колчане"
+		PREPOSITIONAL = "колчане",
 	)
 
 /obj/item/storage/backpack/quiver/full/populate_contents()
@@ -291,7 +291,7 @@
 		DATIVE = "колчану из хитина ткача",
 		ACCUSATIVE = "колчан из хитина ткача",
 		INSTRUMENTAL = "колчаном из хитина ткача",
-		PREPOSITIONAL = "колчане из хитина ткача"
+		PREPOSITIONAL = "колчане из хитина ткача",
 	)
 
 /obj/item/storage/belt/quiver_weaver/full/populate_contents()

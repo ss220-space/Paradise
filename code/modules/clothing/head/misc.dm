@@ -607,7 +607,7 @@
 		DATIVE = "обожжённому черепу",
 		ACCUSATIVE = "обожжённый череп",
 		INSTRUMENTAL = "обожжённым черепом",
-		PREPOSITIONAL = "обожжённом черепе"
+		PREPOSITIONAL = "обожжённом черепе",
 	)
 
 
@@ -637,7 +637,7 @@
 		DATIVE = "роучу",
 		ACCUSATIVE = "роуч",
 		INSTRUMENTAL = "роучем",
-		PREPOSITIONAL = "роуче"
+		PREPOSITIONAL = "роуче",
 	)
 
 /obj/item/clothing/head/mr_chang_band

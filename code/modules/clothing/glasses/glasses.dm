@@ -170,7 +170,7 @@
 		DATIVE = "мезонному оптическому визору",
 		ACCUSATIVE = "мезонный оптический визор",
 		INSTRUMENTAL = "мезонным оптическим визором",
-		PREPOSITIONAL = "мезонном оптическом визоре"
+		PREPOSITIONAL = "мезонном оптическом визоре",
 	)
 
 /obj/item/clothing/glasses/meson/monocle
@@ -235,7 +235,7 @@
 		DATIVE = "научному оптическому визору",
 		ACCUSATIVE = "научный оптический визор",
 		INSTRUMENTAL = "научным оптическим визором",
-		PREPOSITIONAL = "научном оптическом визоре"
+		PREPOSITIONAL = "научном оптическом визоре",
 	)
 
 /obj/item/clothing/glasses/science/monocle

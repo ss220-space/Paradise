@@ -43,5 +43,5 @@
 		DATIVE = "торговому автомату NutriMax",
 		ACCUSATIVE = "торговый автомат NutriMax",
 		INSTRUMENTAL = "торговым автоматом NutriMax",
-		PREPOSITIONAL = "торговом автомате NutriMax"
+		PREPOSITIONAL = "торговом автомате NutriMax",
 	)

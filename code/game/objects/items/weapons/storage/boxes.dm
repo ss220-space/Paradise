@@ -47,7 +47,7 @@
 		DATIVE = "большой коробке",
 		ACCUSATIVE = "большую коробку",
 		INSTRUMENTAL = "большой коробкой",
-		PREPOSITIONAL = "большой коробке"
+		PREPOSITIONAL = "большой коробке",
 	)
 
 /obj/item/storage/box/survival
@@ -400,7 +400,7 @@
 		DATIVE = "коробке с Донк-покетами",
 		ACCUSATIVE = "коробку с Донк-покетами",
 		INSTRUMENTAL = "коробкой с Донк-покетами",
-		PREPOSITIONAL = "коробке с Донк-покетами"
+		PREPOSITIONAL = "коробке с Донк-покетами",
 	)
 
 /obj/item/storage/box/donkpockets/populate_contents()
@@ -419,7 +419,7 @@
 		DATIVE = "коробке с Донк-покетами",
 		ACCUSATIVE = "коробку с Донк-покетами",
 		INSTRUMENTAL = "коробкой с Донк-покетами",
-		PREPOSITIONAL = "коробке с Донк-покетами"
+		PREPOSITIONAL = "коробке с Донк-покетами",
 	)
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
@@ -713,7 +713,7 @@
 		DATIVE = "коробку спичек",
 		ACCUSATIVE = "коробок спичек",
 		INSTRUMENTAL = "коробком спичек",
-		PREPOSITIONAL = "коробке спичек"
+		PREPOSITIONAL = "коробке спичек",
 	)
 
 /obj/item/storage/box/matches/populate_contents()
@@ -1516,7 +1516,7 @@
 		DATIVE = "набору Спектр",
 		ACCUSATIVE = "набор Спектр",
 		INSTRUMENTAL = "набором Спектр",
-		PREPOSITIONAL = "наборе Спектр"
+		PREPOSITIONAL = "наборе Спектр",
 	)
 
 /obj/item/storage/box/specter_kit/populate_contents()

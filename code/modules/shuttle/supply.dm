@@ -11,7 +11,7 @@
 		DATIVE = "манифесту снабжения",
 		ACCUSATIVE = "манифест снабжения",
 		INSTRUMENTAL = "манифестом снабжения",
-		PREPOSITIONAL = "манифесте снабжения"
+		PREPOSITIONAL = "манифесте снабжения",
 	)
 
 /obj/docking_port/mobile/supply
@@ -432,7 +432,7 @@
 		DATIVE = "консоли оформления заказов",
 		ACCUSATIVE = "консоль оформления заказов",
 		INSTRUMENTAL = "консолью оформления заказов",
-		PREPOSITIONAL = "консоли оформления заказов"
+		PREPOSITIONAL = "консоли оформления заказов",
 	)
 
 /obj/machinery/computer/supplycomp/public
@@ -450,7 +450,7 @@
 		DATIVE = "публичной консоли оформления заказов",
 		ACCUSATIVE = "публичную консоль оформления заказов",
 		INSTRUMENTAL = "публичной консолью оформления заказов",
-		PREPOSITIONAL = "публичной консоли оформления заказов"
+		PREPOSITIONAL = "публичной консоли оформления заказов",
 	)
 
 /obj/machinery/computer/supplycomp/Initialize(mapload, obj/structure/computerframe/frame)

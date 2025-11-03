@@ -35,7 +35,7 @@
 		DATIVE = "удочке",
 		ACCUSATIVE = "удочку",
 		INSTRUMENTAL = "удочкой",
-		PREPOSITIONAL = "удочке"
+		PREPOSITIONAL = "удочке",
 	)
 
 /obj/item/twohanded/fishing_rod/tribal
@@ -52,7 +52,7 @@
 		DATIVE = "примитивной удочке",
 		ACCUSATIVE = "примитивную удочку",
 		INSTRUMENTAL = "примитивной удочкой",
-		PREPOSITIONAL = "примитивной удочке"
+		PREPOSITIONAL = "примитивной удочке",
 	)
 
 /obj/item/twohanded/fishing_rod/Destroy()

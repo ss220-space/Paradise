@@ -172,7 +172,7 @@
 		DATIVE = "руке-клинку",
 		ACCUSATIVE = "руку-клинок",
 		INSTRUMENTAL = "рукой-клинком",
-		PREPOSITIONAL = "руке-клинке"
+		PREPOSITIONAL = "руке-клинке",
 	)
 
 
@@ -279,7 +279,7 @@
 		DATIVE = "молоту из плоти",
 		ACCUSATIVE = "молот из плоти",
 		INSTRUMENTAL = "молотом из плоти",
-		PREPOSITIONAL = "молоте из плоти"
+		PREPOSITIONAL = "молоте из плоти",
 	)
 
 /obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)

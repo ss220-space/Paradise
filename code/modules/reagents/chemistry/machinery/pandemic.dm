@@ -18,7 +18,7 @@
 		DATIVE = "Панд.Е.М.И.К 220",
 		ACCUSATIVE = "Панд.Е.М.И.К 220",
 		INSTRUMENTAL = "Панд.Е.М.И.К 220",
-		PREPOSITIONAL = "Панд.Е.М.И.К 220"
+		PREPOSITIONAL = "Панд.Е.М.И.К 220",
 	)
 
 /obj/machinery/computer/pandemic/examine(mob/user)
@@ -112,7 +112,7 @@
 						DATIVE = "вакцине [capitalize(vaccine_name)]",
 						ACCUSATIVE = "вакцину [capitalize(vaccine_name)]",
 						INSTRUMENTAL = "вакциной [capitalize(vaccine_name)]",
-						PREPOSITIONAL = "вакцине [capitalize(vaccine_name)]"
+						PREPOSITIONAL = "вакцине [capitalize(vaccine_name)]",
 					)
 					B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
 					replicator_cooldown(200)
@@ -148,7 +148,7 @@
 				DATIVE = "культуре [capitalize(name)]",
 				ACCUSATIVE = "культуру [capitalize(name)]",
 				INSTRUMENTAL = "культурой [capitalize(name)]",
-				PREPOSITIONAL = "культуре [capitalize(name)]"
+				PREPOSITIONAL = "культуре [capitalize(name)]",
 			)
 			B.desc = "Небольшая бутылка. Содержит синтетическую кровь, заражённую культурой [capitalize(copy.agent)]."
 			B.reagents.add_reagent("blood",20,data)

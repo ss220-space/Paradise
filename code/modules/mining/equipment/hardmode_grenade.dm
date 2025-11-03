@@ -11,7 +11,7 @@
 		DATIVE = "сканирующей гранате HRD-MDE",
 		ACCUSATIVE = "сканирующую гранату HRD-MDE",
 		INSTRUMENTAL = "сканирующей гранатой HRD-MDE",
-		PREPOSITIONAL = "сканирующей гранате HRD-MDE"
+		PREPOSITIONAL = "сканирующей гранате HRD-MDE",
 	)
 
 /obj/item/grenade/megafauna_hardmode/prime()
@@ -52,7 +52,7 @@
 		DATIVE = "пустому диску проекта HRD-MDE",
 		ACCUSATIVE = "пустой диск проекта HRD-MDE",
 		INSTRUMENTAL = "пустым диском проекта HRD-MDE",
-		PREPOSITIONAL = "пустом диске проекта HRD-MDE"
+		PREPOSITIONAL = "пустом диске проекта HRD-MDE",
 	)
 
 /obj/item/disk/fauna_research/Initialize(mapload)

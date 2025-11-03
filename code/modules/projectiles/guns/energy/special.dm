@@ -204,7 +204,7 @@
 		DATIVE = "плазменному резаку",
 		ACCUSATIVE = "плазменный резак",
 		INSTRUMENTAL = "плазменным резаком",
-		PREPOSITIONAL = "плазменном резаке"
+		PREPOSITIONAL = "плазменном резаке",
 	)
 
 
@@ -268,7 +268,7 @@
 		DATIVE = "продвинутому плазменному резаку",
 		ACCUSATIVE = "продвинутый плазменный резак",
 		INSTRUMENTAL = "продвинутым плазменным резаком",
-		PREPOSITIONAL = "продвинутом плазменном резаке"
+		PREPOSITIONAL = "продвинутом плазменном резаке",
 	)
 
 /obj/item/gun/energy/plasmacutter/adv/mega
@@ -286,7 +286,7 @@
 		DATIVE = "магмитовому плазменному резаку",
 		ACCUSATIVE = "магмитовый плазменный резак",
 		INSTRUMENTAL = "магмитовым плазменным резаком",
-		PREPOSITIONAL = "магмитовом плазменном резаке"
+		PREPOSITIONAL = "магмитовом плазменном резаке",
 	)
 
 /obj/item/gun/energy/plasmacutter/shotgun
@@ -306,7 +306,7 @@
 		DATIVE = "плазменному дробовику",
 		ACCUSATIVE = "плазменный дробовик",
 		INSTRUMENTAL = "плазменным дробовиком",
-		PREPOSITIONAL = "плазменном дробовике"
+		PREPOSITIONAL = "плазменном дробовике",
 	)
 
 /obj/item/gun/energy/plasmacutter/shotgun/mega
@@ -324,7 +324,7 @@
 		DATIVE = "магмитовому плазменному дробовику",
 		ACCUSATIVE = "магмитовый плазменный дробовик",
 		INSTRUMENTAL = "магмитовым плазменным дробовиком",
-		PREPOSITIONAL = "магмитовом плазменном дробовике"
+		PREPOSITIONAL = "магмитовом плазменном дробовике",
 	)
 
 // Wormhole Projectors //
@@ -782,7 +782,7 @@
 		DATIVE = "Спектру",
 		ACCUSATIVE = "Спектр",
 		INSTRUMENTAL = "Спектром",
-		PREPOSITIONAL = "Спектре"
+		PREPOSITIONAL = "Спектре",
 	)
 
 /obj/item/gun/energy/specter/ComponentInitialize()

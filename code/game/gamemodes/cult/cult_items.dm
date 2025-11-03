@@ -105,7 +105,7 @@
 		DATIVE = "рунической боле",
 		ACCUSATIVE = "руническую болу",
 		INSTRUMENTAL = "рунической болой",
-		PREPOSITIONAL = "рунической боле"
+		PREPOSITIONAL = "рунической боле",
 	)
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)

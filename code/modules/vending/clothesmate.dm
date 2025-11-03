@@ -156,5 +156,5 @@
 		DATIVE = "торговому автомату ClothesMate",
 		ACCUSATIVE = "торговый автомат ClothesMate",
 		INSTRUMENTAL = "торговым автоматом ClothesMate",
-		PREPOSITIONAL = "торговом автомате ClothesMate"
+		PREPOSITIONAL = "торговом автомате ClothesMate",
 	)

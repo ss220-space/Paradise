@@ -658,7 +658,7 @@
 		DATIVE = "трости",
 		ACCUSATIVE = "трость",
 		INSTRUMENTAL = "тростью",
-		PREPOSITIONAL = "трости"
+		PREPOSITIONAL = "трости",
 	)
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()

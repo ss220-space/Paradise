@@ -225,7 +225,7 @@
 		DATIVE = "элитарному соусу шефа",
 		ACCUSATIVE = "элитарный соус шефа",
 		INSTRUMENTAL = "элитарным соусом шефа",
-		PREPOSITIONAL = "элитарном соусе шефа"
+		PREPOSITIONAL = "элитарном соусе шефа",
 	)
 
 //Tomato sauce

@@ -59,7 +59,7 @@
 		DATIVE = "кровавому пути",
 		ACCUSATIVE = "кровавый путь",
 		INSTRUMENTAL = "кровавым путём",
-		PREPOSITIONAL = "кровавом пути"
+		PREPOSITIONAL = "кровавом пути",
 	)
 
 /obj/item/bloodcrawl/Initialize(mapload)
@@ -80,7 +80,7 @@
 		DATIVE = "странной крови",
 		ACCUSATIVE = "странную кровь",
 		INSTRUMENTAL = "странной кровью",
-		PREPOSITIONAL = "странной крови"
+		PREPOSITIONAL = "странной крови",
 	)
 
 /obj/effect/dummy/slaughter/relaymove(mob/user, direction)

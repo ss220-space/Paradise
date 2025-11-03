@@ -183,7 +183,7 @@ MEDICAL
 		DATIVE = "медицинскому оптическому визору",
 		ACCUSATIVE = "медицинский оптический визор",
 		INSTRUMENTAL = "медицинским оптическим визором",
-		PREPOSITIONAL = "медицинском оптическом визоре"
+		PREPOSITIONAL = "медицинском оптическом визоре",
 	)
 
 /obj/item/clothing/glasses/hud/health/meson
@@ -286,7 +286,7 @@ DIAGNOSTIC
 		DATIVE = "диагностическому оптическому визору",
 		ACCUSATIVE = "диагностический оптический визор",
 		INSTRUMENTAL = "диагностическим оптическим визором",
-		PREPOSITIONAL = "диагностическом оптическом визоре"
+		PREPOSITIONAL = "диагностическом оптическом визоре",
 	)
 
 /obj/item/clothing/glasses/hud/diagnostic/monocle
@@ -455,7 +455,7 @@ SECURITY
 		DATIVE = "охранному оптическому визору",
 		ACCUSATIVE = "охранный оптический визор",
 		INSTRUMENTAL = "охранным оптическим визором",
-		PREPOSITIONAL = "охранном оптическом визоре"
+		PREPOSITIONAL = "охранном оптическом визоре",
 	)
 
 /obj/item/clothing/glasses/hud/security/monocle
@@ -550,7 +550,7 @@ HYDROPONIC
 		DATIVE = "ботаническому оптическому визору",
 		ACCUSATIVE = "ботанический оптический визор",
 		INSTRUMENTAL = "ботаническим оптическим визором",
-		PREPOSITIONAL = "ботаническом оптическом визоре"
+		PREPOSITIONAL = "ботаническом оптическом визоре",
 	)
 
 /obj/item/clothing/glasses/hud/hydroponic/monocle
@@ -651,7 +651,7 @@ SKILLS
 		DATIVE = "много-режимным HUD-очкам",
 		ACCUSATIVE = "много-режимные HUD-очки",
 		INSTRUMENTAL = "много-режимными HUD-очками",
-		PREPOSITIONAL = "много-режимных HUD-очках"
+		PREPOSITIONAL = "много-режимных HUD-очках",
 	)
 
 /obj/item/clothing/glasses/hud/blueshield/cap
@@ -677,7 +677,7 @@ SKILLS
 		DATIVE = "золотым много-режимным ИЛС-очкам",
 		ACCUSATIVE = "золотые много-режимные ИЛС-очки",
 		INSTRUMENTAL = "золотыми много-режимными ИЛС-очками",
-		PREPOSITIONAL = "золотых много-режимных ИЛС-очках"
+		PREPOSITIONAL = "золотых много-режимных ИЛС-очках",
 	)
 
 /obj/item/clothing/glasses/hud/blueshield/attack_self(mob/user)
@@ -696,7 +696,7 @@ SKILLS
 		DATIVE = "оптическому визору навыков",
 		ACCUSATIVE = "оптический визор навыков",
 		INSTRUMENTAL = "оптическим визором навыков",
-		PREPOSITIONAL = "оптическом визоре навыков"
+		PREPOSITIONAL = "оптическом визоре навыков",
 	)
 
 /obj/item/clothing/glasses/hud/skills/monocle

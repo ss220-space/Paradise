@@ -58,7 +58,7 @@
 		DATIVE = "пандоре",
 		ACCUSATIVE = "пандору",
 		INSTRUMENTAL = "пандорой",
-		PREPOSITIONAL = "пандоре"
+		PREPOSITIONAL = "пандоре",
 	)
 
 /datum/action/innate/elite_attack/chaser_burst
@@ -230,7 +230,7 @@
 		DATIVE = "надежде",
 		ACCUSATIVE = "надежду",
 		INSTRUMENTAL = "надеждой",
-		PREPOSITIONAL = "надежде"
+		PREPOSITIONAL = "надежде",
 	)
 
 

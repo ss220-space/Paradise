@@ -163,7 +163,7 @@
 		DATIVE = "разбитой бутылке",
 		ACCUSATIVE = "разбитую бутылку",
 		INSTRUMENTAL = "разбитой бутылкой",
-		PREPOSITIONAL = "разбитой бутылке"
+		PREPOSITIONAL = "разбитой бутылке",
 	)
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -280,7 +280,7 @@
 		DATIVE = "кувшину бананового сока",
 		ACCUSATIVE = "кувшин бананового сока",
 		INSTRUMENTAL = "кувшином бананового сока",
-		PREPOSITIONAL = "кувшине бананового сока"
+		PREPOSITIONAL = "кувшине бананового сока",
 	)
 
 /obj/item/reagent_containers/food/drinks/bottle/patron
@@ -328,7 +328,7 @@
 		DATIVE = "кувшину святой воды",
 		ACCUSATIVE = "кувшин святой воды",
 		INSTRUMENTAL = "кувшином святой воды",
-		PREPOSITIONAL = "кувшине святой воды"
+		PREPOSITIONAL = "кувшине святой воды",
 	)
 
 /obj/item/reagent_containers/food/drinks/bottle/holywater/hell
@@ -642,7 +642,7 @@
 		DATIVE = "пачке апельсинового сока",
 		ACCUSATIVE = "пачку апельсинового сока",
 		INSTRUMENTAL = "пачкой апельсинового сока",
-		PREPOSITIONAL = "пачке апельсинового сока"
+		PREPOSITIONAL = "пачке апельсинового сока",
 	)
 
 /obj/item/reagent_containers/food/drinks/bottle/cream
@@ -661,7 +661,7 @@
 		DATIVE = "пачке сливок",
 		ACCUSATIVE = "пачку сливок",
 		INSTRUMENTAL = "пачкой сливок",
-		PREPOSITIONAL = "пачке сливок"
+		PREPOSITIONAL = "пачке сливок",
 	)
 
 /obj/item/reagent_containers/food/drinks/bottle/tomatojuice
@@ -680,7 +680,7 @@
 		DATIVE = "пачке томатного сока",
 		ACCUSATIVE = "пачку томатного сока",
 		INSTRUMENTAL = "пачкой томатного сока",
-		PREPOSITIONAL = "пачке томатного сока"
+		PREPOSITIONAL = "пачке томатного сока",
 	)
 
 /obj/item/reagent_containers/food/drinks/bottle/limejuice
@@ -699,7 +699,7 @@
 		DATIVE = "пачке лаймового сока",
 		ACCUSATIVE = "пачку лаймового сока",
 		INSTRUMENTAL = "пачкой лаймового сока",
-		PREPOSITIONAL = "пачке лаймового сока"
+		PREPOSITIONAL = "пачке лаймового сока",
 	)
 
 /obj/item/reagent_containers/food/drinks/bottle/milk
@@ -718,7 +718,7 @@
 		DATIVE = "пачке молока",
 		ACCUSATIVE = "пачку молока",
 		INSTRUMENTAL = "пачкой молока",
-		PREPOSITIONAL = "пачке молока"
+		PREPOSITIONAL = "пачке молока",
 	)
 
 ////////////////////////// MOLOTOV ///////////////////////
@@ -746,7 +746,7 @@
 		DATIVE = "коктейлю Молотова",
 		ACCUSATIVE = "коктейль Молотова",
 		INSTRUMENTAL = "коктейлем Молотова",
-		PREPOSITIONAL = "коктейле Молотова"
+		PREPOSITIONAL = "коктейле Молотова",
 	)
 
 

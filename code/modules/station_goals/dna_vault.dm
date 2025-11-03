@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 		DATIVE = "ДНК-семплеру",
 		ACCUSATIVE = "ДНК-семплер",
 		INSTRUMENTAL = "ДНК-семплером",
-		PREPOSITIONAL = "ДНК-семплере"
+		PREPOSITIONAL = "ДНК-семплере",
 	)
 
 /obj/item/dna_probe/proc/clear_data()
@@ -195,7 +195,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		DATIVE = "ДНК хранилищу",
 		ACCUSATIVE = "ДНК хранилище",
 		INSTRUMENTAL = "ДНК хранилищем",
-		PREPOSITIONAL = "ДНК хранилище"
+		PREPOSITIONAL = "ДНК хранилище",
 	)
 
 /obj/machinery/dna_vault/Initialize(mapload)

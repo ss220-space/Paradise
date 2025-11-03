@@ -19,7 +19,7 @@
 		DATIVE = "Сане",
 		ACCUSATIVE = "Саню",
 		INSTRUMENTAL = "Саней",
-		PREPOSITIONAL = "Сане"
+		PREPOSITIONAL = "Сане",
 	)
 
 /mob/living/simple_animal/cow/Betsy
@@ -36,7 +36,7 @@
 		DATIVE = "Бетси",
 		ACCUSATIVE = "Бетси",
 		INSTRUMENTAL = "Бетси",
-		PREPOSITIONAL = "Бетси"
+		PREPOSITIONAL = "Бетси",
 	)
 
 /mob/living/simple_animal/chicken/Wife
@@ -54,7 +54,7 @@
 		DATIVE = "Гале",
 		ACCUSATIVE = "Галю",
 		INSTRUMENTAL = "Галей",
-		PREPOSITIONAL = "Гале"
+		PREPOSITIONAL = "Гале",
 	)
 
 /mob/living/simple_animal/cock/Commandor
@@ -72,7 +72,7 @@
 		DATIVE = "Коммандору Клакки",
 		ACCUSATIVE = "Коммандора Клакки",
 		INSTRUMENTAL = "Коммандором Клакки",
-		PREPOSITIONAL = "Коммандоре Клакки"
+		PREPOSITIONAL = "Коммандоре Клакки",
 	)
 
 /mob/living/simple_animal/goose/Scientist
@@ -96,7 +96,7 @@
 		DATIVE = "Гусару",
 		ACCUSATIVE = "Гусара",
 		INSTRUMENTAL = "Гусаром",
-		PREPOSITIONAL = "Гусаре"
+		PREPOSITIONAL = "Гусаре",
 	)
 
 /mob/living/simple_animal/pet/cat/fat/Iriska
@@ -112,7 +112,7 @@
 		DATIVE = "Ириске",
 		ACCUSATIVE = "Ириску",
 		INSTRUMENTAL = "Ириской",
-		PREPOSITIONAL = "Ириске"
+		PREPOSITIONAL = "Ириске",
 	)
 
 /mob/living/simple_animal/pet/cat/white/Penny
@@ -132,7 +132,7 @@
 		DATIVE = "Копейке",
 		ACCUSATIVE = "Копейку",
 		INSTRUMENTAL = "Копейкой",
-		PREPOSITIONAL = "Копейке"
+		PREPOSITIONAL = "Копейке",
 	)
 
 /mob/living/simple_animal/pet/cat/birman/Crusher
@@ -149,7 +149,7 @@
 		DATIVE = "Бедокуру",
 		ACCUSATIVE = "Бедокура",
 		INSTRUMENTAL = "Бедокуром",
-		PREPOSITIONAL = "Бедокуре"
+		PREPOSITIONAL = "Бедокуре",
 	)
 
 /mob/living/simple_animal/mouse/wooly/rep
@@ -173,7 +173,7 @@
 		DATIVE = "Господину Мышкину",
 		ACCUSATIVE = "Господина Мышкина",
 		INSTRUMENTAL = "Господином Мышкином",
-		PREPOSITIONAL = "Господине Мышкине"
+		PREPOSITIONAL = "Господине Мышкине",
 	)
 
 /mob/living/simple_animal/mouse/wooly/rep/update_icons()
@@ -231,7 +231,7 @@
 		DATIVE = "сычу Славе",
 		ACCUSATIVE = "сыча Славу",
 		INSTRUMENTAL = "сычом Славой",
-		PREPOSITIONAL = "сыче Славе"
+		PREPOSITIONAL = "сыче Славе",
 	)
 
 /mob/living/simple_animal/pet/library_owl/can_use_machinery(obj/machinery/mas)
@@ -275,7 +275,7 @@
 		DATIVE = "Брейну",
 		ACCUSATIVE = "Брейна",
 		INSTRUMENTAL = "Брейном",
-		PREPOSITIONAL = "Брейне"
+		PREPOSITIONAL = "Брейне",
 	)
 
 /obj/effect/decal/remains/mouse/Pinkie
@@ -291,7 +291,7 @@
 		DATIVE = "Пинки",
 		ACCUSATIVE = "Пинки",
 		INSTRUMENTAL = "Пинки",
-		PREPOSITIONAL = "Пинки"
+		PREPOSITIONAL = "Пинки",
 	)
 
 /mob/living/simple_animal/mouse/rat/Ratatui
@@ -311,7 +311,7 @@
 		DATIVE = "Рататую",
 		ACCUSATIVE = "Рататуя",
 		INSTRUMENTAL = "Рататуем",
-		PREPOSITIONAL = "Рататуе"
+		PREPOSITIONAL = "Рататуе",
 	)
 
 /mob/living/simple_animal/mouse/rat/irish/Remi
@@ -332,7 +332,7 @@
 		DATIVE = "Реми",
 		ACCUSATIVE = "Реми",
 		INSTRUMENTAL = "Реми",
-		PREPOSITIONAL = "Реми"
+		PREPOSITIONAL = "Реми",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya
@@ -349,7 +349,7 @@
 		DATIVE = "Фене",
 		ACCUSATIVE = "Феню",
 		INSTRUMENTAL = "Феней",
-		PREPOSITIONAL = "Фене"
+		PREPOSITIONAL = "Фене",
 	)
 
 /mob/living/simple_animal/pet/dog/brittany/Psycho
@@ -367,7 +367,7 @@
 		DATIVE = "Перрито",
 		ACCUSATIVE = "Перрито",
 		INSTRUMENTAL = "Перрито",
-		PREPOSITIONAL = "Перрито"
+		PREPOSITIONAL = "Перрито",
 	)
 
 /mob/living/simple_animal/pet/dog/pug/Frank
@@ -385,5 +385,5 @@
 		DATIVE = "Фрэнку",
 		ACCUSATIVE = "Фрэнка",
 		INSTRUMENTAL = "Фрэнком",
-		PREPOSITIONAL = "Френке"
+		PREPOSITIONAL = "Френке",
 	)

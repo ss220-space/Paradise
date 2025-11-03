@@ -58,7 +58,7 @@
 		DATIVE = "торговому автомату Robust Softdrinks",
 		ACCUSATIVE = "торговый автомат Robust Softdrinks",
 		INSTRUMENTAL = "торговым автоматом Robust Softdrinks",
-		PREPOSITIONAL = "торговом автомате Robust Softdrinks"
+		PREPOSITIONAL = "торговом автомате Robust Softdrinks",
 	)
 
 /obj/machinery/vending/cola/free

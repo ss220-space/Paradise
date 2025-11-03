@@ -35,7 +35,7 @@
 		DATIVE = "огнетушителю",
 		ACCUSATIVE = "огнетушитель",
 		INSTRUMENTAL = "огнетушителем",
-		PREPOSITIONAL = "огнетушителе"
+		PREPOSITIONAL = "огнетушителе",
 	)
 
 /obj/item/extinguisher/mini
@@ -61,7 +61,7 @@
 		DATIVE = "карманному огнетушителю",
 		ACCUSATIVE = "карманный огнетушитель",
 		INSTRUMENTAL = "карманным огнетушителем",
-		PREPOSITIONAL = "карманном огнетушителе"
+		PREPOSITIONAL = "карманном огнетушителе",
 	)
 
 

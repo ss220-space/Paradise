@@ -170,7 +170,7 @@
 		DATIVE = "пистолет-пулемету C-20rm",
 		ACCUSATIVE = "пистолет-пулемету C-20rm",
 		INSTRUMENTAL = "пистолет-пулеметом C-20rm",
-		PREPOSITIONAL = "пистолет-пулемете C-20rm"
+		PREPOSITIONAL = "пистолет-пулемете C-20rm",
 	)
 
 

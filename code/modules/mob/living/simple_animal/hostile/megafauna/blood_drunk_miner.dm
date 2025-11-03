@@ -68,7 +68,7 @@ Difficulty: Medium
 		DATIVE = "кровожадному шахтёру",
 		ACCUSATIVE = "кровожадного шахтёра",
 		INSTRUMENTAL = "кровожадным шахтёром",
-		PREPOSITIONAL = "кровожадном шахтёре"
+		PREPOSITIONAL = "кровожадном шахтёре",
 	)
 
 /* New costume */
@@ -87,7 +87,7 @@ Difficulty: Medium
 		DATIVE = "усиленному костюму исследователя",
 		ACCUSATIVE = "усиленный костюм исследователя",
 		INSTRUMENTAL = "усиленным костюмом исследователя",
-		PREPOSITIONAL = "усиленном костюме исследователя"
+		PREPOSITIONAL = "усиленном костюме исследователя",
 	)
 
 /obj/item/clothing/head/hooded/explorer/blood
@@ -102,7 +102,7 @@ Difficulty: Medium
 		DATIVE = "усиленному капюшону исследователя",
 		ACCUSATIVE = "усиленный капюшон исследователя",
 		INSTRUMENTAL = "усиленным капюшоном исследователя",
-		PREPOSITIONAL = "усиленном капюшоне исследователя"
+		PREPOSITIONAL = "усиленном капюшоне исследователя",
 	)
 
 /obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)

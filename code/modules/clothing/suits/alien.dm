@@ -24,7 +24,7 @@
 		DATIVE = "грубошерстным одеяниям",
 		ACCUSATIVE = "грубошерстные одеяния",
 		INSTRUMENTAL = "грубошерстными одеяниями",
-		PREPOSITIONAL = "грубошерстных одеяниях"
+		PREPOSITIONAL = "грубошерстных одеяниях",
 	)
 
 /obj/item/clothing/neck/mantle/unathi
@@ -48,5 +48,5 @@
 		DATIVE = "накидке из шкур",
 		ACCUSATIVE = "накидку из шкур",
 		INSTRUMENTAL = "накидкой из шкур",
-		PREPOSITIONAL = "накидке из шкур"
+		PREPOSITIONAL = "накидке из шкур",
 	)

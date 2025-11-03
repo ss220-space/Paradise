@@ -56,7 +56,7 @@
 			DATIVE = "новостнику",
 			ACCUSATIVE = "новостник",
 			INSTRUMENTAL = "новостником",
-			PREPOSITIONAL = "новостнике"
+			PREPOSITIONAL = "новостнике",
 	)
 
 /obj/machinery/newscaster/security_unit
@@ -72,7 +72,7 @@
 			DATIVE = "новостнику службы безопасности",
 			ACCUSATIVE = "новостник службы безопасности",
 			INSTRUMENTAL = "новостником службы безопасности",
-			PREPOSITIONAL = "новостнике службы безопасности"
+			PREPOSITIONAL = "новостнике службы безопасности",
 	)
 
 /obj/machinery/newscaster/Initialize(mapload)

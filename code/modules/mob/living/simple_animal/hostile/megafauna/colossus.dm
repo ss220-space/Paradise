@@ -72,7 +72,7 @@ Difficulty: Very Hard
 		DATIVE = "Колоссу",
 		ACCUSATIVE = "Колосса",
 		INSTRUMENTAL = "Колоссом",
-		PREPOSITIONAL = "Колоссе"
+		PREPOSITIONAL = "Колоссе",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
@@ -363,7 +363,7 @@ Difficulty: Very Hard
 		DATIVE = "смертоносному заряду",
 		ACCUSATIVE = "смертоносный заряд",
 		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде"
+		PREPOSITIONAL = "смертоносном заряде",
 	)
 
 /obj/projectile/colossus/on_hit(atom/target, blocked = 0)

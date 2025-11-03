@@ -163,7 +163,7 @@
 		DATIVE = "Гатлинг-лазеру",
 		ACCUSATIVE = "Гатлинг-лазер",
 		INSTRUMENTAL = "Гатлинг-лазером",
-		PREPOSITIONAL = "Гатлинг-лазере"
+		PREPOSITIONAL = "Гатлинг-лазере",
 	)
 
 /obj/item/gun/energy/gun/minigun/Initialize(mapload)
@@ -209,5 +209,5 @@
 		DATIVE = "Гатлинг-пульсеру",
 		ACCUSATIVE = "Гатлинг-пульсер",
 		INSTRUMENTAL = "Гатлинг-пульсером",
-		PREPOSITIONAL = "Гатлинг-пульсере"
+		PREPOSITIONAL = "Гатлинг-пульсере",
 	)

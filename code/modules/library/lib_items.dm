@@ -39,7 +39,7 @@
 		DATIVE = "книжному шкафу",
 		ACCUSATIVE = "книжный шкаф",
 		INSTRUMENTAL = "книжным шкафом",
-		PREPOSITIONAL = "книжном шкафе"
+		PREPOSITIONAL = "книжном шкафе",
 	)
 
 /obj/structure/bookcase/Initialize(mapload)
@@ -260,7 +260,7 @@
 		DATIVE = "книге",
 		ACCUSATIVE = "книгу",
 		INSTRUMENTAL = "книгой",
-		PREPOSITIONAL = "книге"
+		PREPOSITIONAL = "книге",
 	)
 
 /obj/item/book/Initialize(mapload)
@@ -448,7 +448,7 @@
 		DATIVE = "сканнеру штрих-кодов",
 		ACCUSATIVE = "сканнер штрих-кодов",
 		INSTRUMENTAL = "сканнером штрих-кодов",
-		PREPOSITIONAL = "сканнере штрих-кодов"
+		PREPOSITIONAL = "сканнере штрих-кодов",
 	)
 
 /obj/item/barcodescanner/attack_self(mob/user)

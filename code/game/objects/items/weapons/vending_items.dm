@@ -28,7 +28,7 @@
 		DATIVE = "набору пополнения",
 		ACCUSATIVE = "набор пополнения",
 		INSTRUMENTAL = "набором пополнения",
-		PREPOSITIONAL = "наборе пополнения"
+		PREPOSITIONAL = "наборе пополнения",
 	)
 
 

@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "генератору блюспейс-артиллерии",
 		ACCUSATIVE = "генератор блюспейс-артиллерии",
 		INSTRUMENTAL = "генератором блюспейс-артиллерии",
-		PREPOSITIONAL = "генераторе блюспейс-артиллерии"
+		PREPOSITIONAL = "генераторе блюспейс-артиллерии",
 	)
 
 /obj/machinery/bsa/back/wrench_act(mob/living/user, obj/item/I)
@@ -181,7 +181,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "ускорителю блюспейс-артиллерии",
 		ACCUSATIVE = "ускоритель блюспейс-артиллерии",
 		INSTRUMENTAL = "ускорителем блюспейс-артиллерии",
-		PREPOSITIONAL = "ускорителе блюспейс-артиллерии"
+		PREPOSITIONAL = "ускорителе блюспейс-артиллерии",
 	)
 
 /obj/machinery/bsa/front/wrench_act(mob/living/user, obj/item/I)
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "фузору блюспейс-артиллерии",
 		ACCUSATIVE = "фузор блюспейс-артиллерии",
 		INSTRUMENTAL = "фузором блюспейс-артиллерии",
-		PREPOSITIONAL = "фузоре блюспейс-артиллерии"
+		PREPOSITIONAL = "фузоре блюспейс-артиллерии",
 	)
 
 /obj/machinery/bsa/middle/wrench_act(mob/living/user, obj/item/I)
@@ -301,7 +301,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "блюспейс-артиллерии",
 		ACCUSATIVE = "блюспейс-артиллерию",
 		INSTRUMENTAL = "блюспейс-артиллерией",
-		PREPOSITIONAL = "блюспейс-артиллерии"
+		PREPOSITIONAL = "блюспейс-артиллерии",
 	)
 
 /obj/machinery/bsa/full/Destroy()
@@ -494,7 +494,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "консоли управления БСА",
 		ACCUSATIVE = "консоль управления БСА",
 		INSTRUMENTAL = "консолью управления БСА",
-		PREPOSITIONAL = "консоли управления БСА"
+		PREPOSITIONAL = "консоли управления БСА",
 	)
 
 /obj/machinery/computer/bsa_control/Initialize(mapload)

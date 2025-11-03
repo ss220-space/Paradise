@@ -261,7 +261,7 @@
 		DATIVE = "стерильной маске",
 		ACCUSATIVE = "стерильную маску",
 		INSTRUMENTAL = "стерильной маской",
-		PREPOSITIONAL = "стерильной маске"
+		PREPOSITIONAL = "стерильной маске",
 	)
 
 /obj/item/clothing/mask/surgical/attack_self(mob/user)
@@ -507,7 +507,7 @@
 		DATIVE = "Маске Сладкоежки",
 		ACCUSATIVE = "Маску Сладкоежки",
 		INSTRUMENTAL = "Маской Сладкоежки",
-		PREPOSITIONAL = "Маске Сладкоежки"
+		PREPOSITIONAL = "Маске Сладкоежки",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rockso

@@ -30,7 +30,7 @@
 		DATIVE = "сохранившемуся террариуму",
 		ACCUSATIVE = "сохранившийся террариум",
 		INSTRUMENTAL = "сохранившимся террариумом",
-		PREPOSITIONAL = "сохранившемся террариуме"
+		PREPOSITIONAL = "сохранившемся террариуме",
 	)
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)

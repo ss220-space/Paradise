@@ -29,7 +29,7 @@
 		DATIVE = "перчаткам из хитина ткача",
 		ACCUSATIVE = "перчатки из хитина ткача",
 		INSTRUMENTAL = "перчатками из хитина ткача",
-		PREPOSITIONAL = "перчатках из хитина ткача"
+		PREPOSITIONAL = "перчатках из хитина ткача",
 	)
 
 /obj/item/clothing/gloves/fingerless/weaver/Touch(atom/A, proximity)
@@ -124,7 +124,7 @@
 		DATIVE = "костяным наручам",
 		ACCUSATIVE = "костяные наручи",
 		INSTRUMENTAL = "костяными наручами",
-		PREPOSITIONAL = "костяных наручах"
+		PREPOSITIONAL = "костяных наручах",
 	)
 
 /obj/item/clothing/gloves/botanic_leather
@@ -173,7 +173,7 @@
 		DATIVE = "оглушающим перчаткам",
 		ACCUSATIVE = "оглушающие перчатки",
 		INSTRUMENTAL = "оглушающими перчатками",
-		PREPOSITIONAL = "оглушающих перчатках"
+		PREPOSITIONAL = "оглушающих перчатках",
 	)
 
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
@@ -504,7 +504,7 @@
 		DATIVE = "рефлекторнным перчаткам",
 		ACCUSATIVE = "рефлекторнные перчатки",
 		INSTRUMENTAL = "рефлекторными перчатками",
-		PREPOSITIONAL = "рефлекторных перчатках"
+		PREPOSITIONAL = "рефлекторных перчатках",
 	)
 
 /obj/item/clothing/gloves/reflector/IsReflect(def_zone)
@@ -549,7 +549,7 @@
 		DATIVE = "рефлекторной шляпе",
 		ACCUSATIVE = "рефлекторную шляпу",
 		INSTRUMENTAL = "рефлекторной шляпой",
-		PREPOSITIONAL = "рефлекторной шляпе"
+		PREPOSITIONAL = "рефлекторной шляпе",
 	)
 
 /obj/item/clothing/head/helmet/reflector/IsReflect(def_zone)
@@ -588,7 +588,7 @@
 		DATIVE = "рефлекторным ботинкам",
 		ACCUSATIVE = "рефлекторные ботинки",
 		INSTRUMENTAL = "рефлекторными ботинками",
-		PREPOSITIONAL = "рефлекторных ботинках"
+		PREPOSITIONAL = "рефлекторных ботинках",
 	)
 
 /obj/item/clothing/shoes/reflector/IsReflect(def_zone)

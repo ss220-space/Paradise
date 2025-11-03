@@ -59,7 +59,7 @@
 		DATIVE = "газете",
 		ACCUSATIVE = "газету",
 		INSTRUMENTAL = "газетой",
-		PREPOSITIONAL = "газете"
+		PREPOSITIONAL = "газете",
 	)
 
 

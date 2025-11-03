@@ -59,7 +59,7 @@
 		DATIVE = "бумаге",
 		ACCUSATIVE = "бумагу",
 		INSTRUMENTAL = "бумагой",
-		PREPOSITIONAL = "бумаге"
+		PREPOSITIONAL = "бумаге",
 	)
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!

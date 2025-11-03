@@ -26,7 +26,7 @@
 		DATIVE = "капельнице",
 		ACCUSATIVE = "капельницу",
 		INSTRUMENTAL = "капельницей",
-		PREPOSITIONAL = "капельнице"
+		PREPOSITIONAL = "капельнице",
 	)
 
 /obj/item/reagent_containers/iv_bag/empty()
@@ -222,7 +222,7 @@
 		DATIVE = "капельнице (Физраствор)",
 		ACCUSATIVE = "капельницу (Физраствор)",
 		INSTRUMENTAL = "капельницей (Физраствор)",
-		PREPOSITIONAL = "капельнице (Физраствор)"
+		PREPOSITIONAL = "капельнице (Физраствор)",
 	)
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
@@ -257,7 +257,7 @@
 			DATIVE = "капельнице - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
 			ACCUSATIVE = "капельницу - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
 			INSTRUMENTAL = "капельницей - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			PREPOSITIONAL = "капельнице - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])"
+			PREPOSITIONAL = "капельнице - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
 		)
 
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
@@ -345,7 +345,7 @@
 			DATIVE = "капельнице — Синтетическая кровь (Кислород)",
 			ACCUSATIVE = "капельницу — Синтетическая кровь (Кислород)",
 			INSTRUMENTAL = "капельницей — Синтетическая кровь (Кислород)",
-			PREPOSITIONAL = "капельнице — Синтетическая кровь (Кислород)"
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Кислород)",
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
@@ -365,7 +365,7 @@
 			DATIVE = "капельнице — Синтетическая кровь (Азот)",
 			ACCUSATIVE = "капельницу — Синтетическая кровь (Азот)",
 			INSTRUMENTAL = "капельницей — Синтетическая кровь (Азот)",
-			PREPOSITIONAL = "капельнице — Синтетическая кровь (Азот)"
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Азот)",
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
@@ -385,7 +385,7 @@
 		DATIVE = "капельнице — Слаймовое желе",
 		ACCUSATIVE = "капельницу — Слаймовое желе",
 		INSTRUMENTAL = "капельницей — Слаймовое желе",
-		PREPOSITIONAL = "капельнице — Слаймовое желе"
+		PREPOSITIONAL = "капельнице — Слаймовое желе",
 	)
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)

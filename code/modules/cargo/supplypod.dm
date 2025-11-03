@@ -63,7 +63,7 @@
 		DATIVE = "капсуле снабжения",
 		ACCUSATIVE = "капсулу снабжения",
 		INSTRUMENTAL = "капсулой снабжения",
-		PREPOSITIONAL = "капсуле снабжения"
+		PREPOSITIONAL = "капсуле снабжения",
 	)
 
 
@@ -119,7 +119,7 @@
 		DATIVE = "капсуле эвакуации Синдиката",
 		ACCUSATIVE = "капсулу эвакуации Синдиката",
 		INSTRUMENTAL = "капсулой эвакуации Синдиката",
-		PREPOSITIONAL = "капсуле эвакуации Синдиката"
+		PREPOSITIONAL = "капсуле эвакуации Синдиката",
 	)
 
 /obj/structure/closet/supplypod/centcompod
@@ -211,7 +211,7 @@
 		DATIVE = "кроваво-красной капсуле снабжения",
 		ACCUSATIVE = "кроваво-красную капсулу снабжения",
 		INSTRUMENTAL = "кроваво-красной капсулой снабжения",
-		PREPOSITIONAL = "кроваво-красной капсуле снабжения"
+		PREPOSITIONAL = "кроваво-красной капсуле снабжения",
 	)
 
 /obj/structure/closet/supplypod/deadmatch_missile
@@ -231,7 +231,7 @@
 		DATIVE = "крылатой ракете",
 		ACCUSATIVE = "крылатую ракету",
 		INSTRUMENTAL = "крылатой ракете",
-		PREPOSITIONAL = "крылатой ракетой"
+		PREPOSITIONAL = "крылатой ракетой",
 	)
 
 /obj/structure/closet/supplypod/deadmatch_missile/endgame
@@ -754,7 +754,7 @@
 		DATIVE = "обломкам",
 		ACCUSATIVE = "обломки",
 		INSTRUMENTAL = "обломками",
-		PREPOSITIONAL = "обломках"
+		PREPOSITIONAL = "обломках",
 	)
 
 /obj/effect/supplypod_rubble/proc/getForeground(obj/structure/closet/supplypod/pod)
@@ -815,7 +815,7 @@
 		DATIVE = "индикатору зоны приземления",
 		ACCUSATIVE = "индикатор зоны приземления",
 		INSTRUMENTAL = "индикатором зоны приземления",
-		PREPOSITIONAL = "индикаторе зоны приземления"
+		PREPOSITIONAL = "индикаторе зоны приземления",
 	)
 
 /obj/effect/pod_landingzone/Initialize(mapload, podParam, single_order = null, clientman)

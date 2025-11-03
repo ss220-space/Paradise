@@ -74,7 +74,7 @@
 		DATIVE = "торговому автомату NT Ammunition",
 		ACCUSATIVE = "торговый автомат NT Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT Ammunition",
-		PREPOSITIONAL = "торговом автомате NT Ammunition"
+		PREPOSITIONAL = "торговом автомате NT Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory
@@ -146,7 +146,7 @@
 		DATIVE = "торговому автомату NT ERT Medium Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT ERT Medium Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT ERT Medium Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT ERT Medium Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT ERT Medium Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/red
@@ -190,7 +190,7 @@
 		DATIVE = "торговому автомату NT ERT Heavy Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT ERT Heavy Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT ERT Heavy Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT ERT Heavy Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT ERT Heavy Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/green
@@ -237,7 +237,7 @@
 		DATIVE = "торговому автомату NT ERT Light Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT ERT Light Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT ERT Light Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT ERT Light Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT ERT Light Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/green/cc_jail
@@ -272,7 +272,7 @@
 		DATIVE = "торговому автомату NT CentComm prison guards' Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT CentComm prison guards' Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT CentComm prison guards' Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT CentComm prison guards' Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT CentComm prison guards' Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/yellow
@@ -317,7 +317,7 @@
 		DATIVE = "торговому автомату NT ERT Death Wish Gear & Ammunition",
 		ACCUSATIVE = "торговый автомат NT ERT Death Wish Gear & Ammunition",
 		INSTRUMENTAL = "торговым автоматом NT ERT Death Wish Gear & Ammunition",
-		PREPOSITIONAL = "торговом автомате NT ERT Death Wish Gear & Ammunition"
+		PREPOSITIONAL = "торговом автомате NT ERT Death Wish Gear & Ammunition",
 	)
 
 /obj/machinery/vending/nta/ertarmory/medical
@@ -366,7 +366,7 @@
 		DATIVE = "торговому автомату NT ERT Medical Gear",
 		ACCUSATIVE = "торговый автомат NT ERT Medical Gear",
 		INSTRUMENTAL = "торговым автоматом NT ERT Medical Gear",
-		PREPOSITIONAL = "торговом автомате NT ERT Medical Gear"
+		PREPOSITIONAL = "торговом автомате NT ERT Medical Gear",
 	)
 
 /obj/machinery/vending/nta/ertarmory/engineer
@@ -409,7 +409,7 @@
 		DATIVE = "торговому автомату NT ERT Engineer Gear",
 		ACCUSATIVE = "торговый автомат NT ERT Engineer Gear",
 		INSTRUMENTAL = "торговым автоматом NT ERT Engineer Gear",
-		PREPOSITIONAL = "торговом автомате NT ERT Engineer Gear"
+		PREPOSITIONAL = "торговом автомате NT ERT Engineer Gear",
 	)
 
 /obj/machinery/vending/nta/ertarmory/janitor
@@ -452,7 +452,7 @@
 		DATIVE = "торговому автомату NT ERT Janitor Gear",
 		ACCUSATIVE = "торговый автомат NT ERT Janitor Gear",
 		INSTRUMENTAL = "торговым автоматом NT ERT Janitor Gear",
-		PREPOSITIONAL = "торговом автомате NT ERT Janitor Gear"
+		PREPOSITIONAL = "торговом автомате NT ERT Janitor Gear",
 	)
 
 #undef FLICK_NONE

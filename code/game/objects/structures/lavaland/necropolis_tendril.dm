@@ -29,7 +29,7 @@
 		DATIVE = "щупальцу некрополя",
 		ACCUSATIVE = "щупальце некрополя",
 		INSTRUMENTAL = "щупальцем некрополя",
-		PREPOSITIONAL = "щупальце некрополя"
+		PREPOSITIONAL = "щупальце некрополя",
 	)
 
 /obj/structure/spawner/lavaland/goliath
@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 		DATIVE = "разрушающемуся щупальцу некрополя",
 		ACCUSATIVE = "разрушающееся щупальце некрополя",
 		INSTRUMENTAL = "разрушающимся щупальцем некрополя",
-		PREPOSITIONAL = "разрушающемся щупальце некрополя"
+		PREPOSITIONAL = "разрушающемся щупальце некрополя",
 	)
 
 /obj/effect/collapse/Initialize(mapload)

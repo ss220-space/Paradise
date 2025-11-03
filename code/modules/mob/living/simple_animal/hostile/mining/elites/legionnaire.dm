@@ -60,7 +60,7 @@
 		DATIVE = "легионеру",
 		ACCUSATIVE = "легионера",
 		INSTRUMENTAL = "легионером",
-		PREPOSITIONAL = "легионере"
+		PREPOSITIONAL = "легионере",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
@@ -283,7 +283,7 @@
 		DATIVE = "голове легионера",
 		ACCUSATIVE = "голову легионера",
 		INSTRUMENTAL = "головой легионера",
-		PREPOSITIONAL = "голове легионера"
+		PREPOSITIONAL = "голове легионера",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/death(gibbed)
@@ -311,7 +311,7 @@
 		DATIVE = "груде костей",
 		ACCUSATIVE = "груду костей",
 		INSTRUMENTAL = "грудой костей",
-		PREPOSITIONAL = "груде костей"
+		PREPOSITIONAL = "груде костей",
 	)
 
 /obj/structure/legionnaire_bonfire/Initialize(mapload)
@@ -354,7 +354,7 @@
 		DATIVE = "кости",
 		ACCUSATIVE = "кость",
 		INSTRUMENTAL = "костью",
-		PREPOSITIONAL = "кости"
+		PREPOSITIONAL = "кости",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/shoot_projectile(turf/marker)
@@ -394,7 +394,7 @@
 		DATIVE = "позвоночнику легионера",
 		ACCUSATIVE = "позвоночник легионера",
 		INSTRUMENTAL = "позвоночником легионера",
-		PREPOSITIONAL = "позвоночнике легионера"
+		PREPOSITIONAL = "позвоночнике легионера",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire

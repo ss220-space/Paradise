@@ -650,7 +650,7 @@
 		DATIVE = "костяному гульфику",
 		ACCUSATIVE = "костяной гульфик",
 		INSTRUMENTAL = "костяным гульфиком",
-		PREPOSITIONAL = "костяном гульфике"
+		PREPOSITIONAL = "костяном гульфике",
 	)
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -668,7 +668,7 @@
 		DATIVE = "костяному талисману",
 		ACCUSATIVE = "костяной талисман",
 		INSTRUMENTAL = "костяным талисманом",
-		PREPOSITIONAL = "костяном талисмане"
+		PREPOSITIONAL = "костяном талисмане",
 	)
 
 /obj/item/clothing/accessory/necklace/locket

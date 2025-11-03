@@ -35,7 +35,7 @@
 		DATIVE = "системе быстрой доставки (RCS)",
 		ACCUSATIVE = "систему быстрой доставки (RCS)",
 		INSTRUMENTAL = "системой быстрой доставки (RCS)",
-		PREPOSITIONAL = "системе быстрой доставки (RCS)"
+		PREPOSITIONAL = "системе быстрой доставки (RCS)",
 	)
 
 /obj/item/rcs/get_cell()

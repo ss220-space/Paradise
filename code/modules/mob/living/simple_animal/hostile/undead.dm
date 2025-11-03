@@ -107,7 +107,7 @@
 		DATIVE = "ожившему скелету",
 		ACCUSATIVE = "ожившего скелета",
 		INSTRUMENTAL = "ожившим скелетом",
-		PREPOSITIONAL = "ожившем скелете"
+		PREPOSITIONAL = "ожившем скелете",
 	)
 
 /mob/living/simple_animal/hostile/skeleton/ComponentInitialize()

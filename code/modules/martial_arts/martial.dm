@@ -485,7 +485,7 @@
 		DATIVE = "старому руководству",
 		ACCUSATIVE = "старое руководство",
 		INSTRUMENTAL = "старым руководством",
-		PREPOSITIONAL = "старом руководстве"
+		PREPOSITIONAL = "старом руководстве",
 	)
 
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
@@ -527,7 +527,7 @@
 		DATIVE = "импланту улучшения CQC",
 		ACCUSATIVE = "имплант улучшения CQC",
 		INSTRUMENTAL = "имплантом улучшения CQC",
-		PREPOSITIONAL = "импланте улучшения CQC"
+		PREPOSITIONAL = "импланте улучшения CQC",
 	)
 
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)

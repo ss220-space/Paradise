@@ -16,7 +16,7 @@
 		DATIVE = "наручам",
 		ACCUSATIVE = "наручи",
 		INSTRUMENTAL = "наручами",
-		PREPOSITIONAL = "наручах"
+		PREPOSITIONAL = "наручах",
 	)
 
 /obj/item/clothing/accessory/armguard/syndicate
@@ -149,7 +149,7 @@
 		DATIVE = "скрытому клинку",
 		ACCUSATIVE = "скрытый клинок",
 		INSTRUMENTAL = "скрытым клинком",
-		PREPOSITIONAL = "скрытом клинке"
+		PREPOSITIONAL = "скрытом клинке",
 	)
 
 /obj/item/kitchen/knife/hidden_blade/Initialize(mapload, obj/item/clothing/accessory/armguard/syndicate/parent_armguard)

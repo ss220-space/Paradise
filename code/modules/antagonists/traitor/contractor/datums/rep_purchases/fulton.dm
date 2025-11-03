@@ -36,7 +36,7 @@
 		DATIVE = "набору для эвакуации Фултон",
 		ACCUSATIVE = "набор для эвакуации Фултон",
 		INSTRUMENTAL = "набором для эвакуации Фултон",
-		PREPOSITIONAL = "наборе для эвакуации Фултон"
+		PREPOSITIONAL = "наборе для эвакуации Фултон",
 	)
 
 /obj/item/storage/box/contractor/fulton_kit/populate_contents()

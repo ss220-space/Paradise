@@ -73,7 +73,7 @@
 		DATIVE = "торговому автомату NanoMed Plus",
 		ACCUSATIVE = "торговый автомат NanoMed Plus",
 		INSTRUMENTAL = "торговым автоматом NanoMed Plus",
-		PREPOSITIONAL = "торговом автомате NanoMed Plus"
+		PREPOSITIONAL = "торговом автомате NanoMed Plus",
 	)
 
 /obj/machinery/vending/medical/syndicate_access
@@ -92,7 +92,7 @@
 		DATIVE = "торговому автомату SyndiMed Plus",
 		ACCUSATIVE = "торговый автомат SyndiMed Plus",
 		INSTRUMENTAL = "торговым автоматом SyndiMed Plus",
-		PREPOSITIONAL = "торговом автомате SyndiMed Plus"
+		PREPOSITIONAL = "торговом автомате SyndiMed Plus",
 	)
 
 /obj/machinery/vending/medical/syndicate_access/beamgun
@@ -119,7 +119,7 @@
 		DATIVE = "торговому автомату Toximate 3000",
 		ACCUSATIVE = "торговый автомат Toximate 3000",
 		INSTRUMENTAL = "торговым автоматом Toximate 3000",
-		PREPOSITIONAL = "торговом автомате Toximate 3000"
+		PREPOSITIONAL = "торговом автомате Toximate 3000",
 	)
 
 /obj/machinery/vending/wallmed
@@ -169,7 +169,7 @@
 		DATIVE = "торговому автомату NanoMed",
 		ACCUSATIVE = "торговый автомат NanoMed",
 		INSTRUMENTAL = "торговым автоматом NanoMed",
-		PREPOSITIONAL = "торговом автомате NanoMed"
+		PREPOSITIONAL = "торговом автомате NanoMed",
 	)
 
 /obj/machinery/vending/wallmed/syndicate
@@ -209,5 +209,5 @@
 		DATIVE = "торговому автомату SyndiWallMed",
 		ACCUSATIVE = "торговый автомат SyndiWallMed",
 		INSTRUMENTAL = "торговым автоматом SyndiWallMed",
-		PREPOSITIONAL = "торговом автомате SyndiWallMed"
+		PREPOSITIONAL = "торговом автомате SyndiWallMed",
 	)

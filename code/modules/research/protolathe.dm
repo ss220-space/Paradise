@@ -36,7 +36,7 @@ Note: Must be placed west/left of and R&D console to function.
 		DATIVE = "протолату",
 		ACCUSATIVE = "протолат",
 		INSTRUMENTAL = "протолатом",
-		PREPOSITIONAL = "протолате"
+		PREPOSITIONAL = "протолате",
 	)
 
 

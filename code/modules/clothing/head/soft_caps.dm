@@ -190,7 +190,7 @@
 		DATIVE = "синей бейсболке",
 		ACCUSATIVE = "синюю бейсболку",
 		INSTRUMENTAL = "синей бейсболкой",
-		PREPOSITIONAL = "синей бейсболке"
+		PREPOSITIONAL = "синей бейсболке",
 	)
 /obj/item/clothing/head/tchaikowsky/baseballcap/brown
 	name = "baseball cap (brown)"
@@ -205,5 +205,5 @@
 		DATIVE = "коричневой бейсболке",
 		ACCUSATIVE = "коричневую бейсболку",
 		INSTRUMENTAL = "коричневой бейсболкой",
-		PREPOSITIONAL = "коричневой бейсболке"
+		PREPOSITIONAL = "коричневой бейсболке",
 	)

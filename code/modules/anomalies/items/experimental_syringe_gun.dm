@@ -30,7 +30,7 @@
 		DATIVE = "экспериментальному шприцемёту", \
 		ACCUSATIVE = "экспериментальный шприцемёт", \
 		INSTRUMENTAL = "экспериментальным шприцемётом", \
-		PREPOSITIONAL = "экспериментальном шприцемёте"
+		PREPOSITIONAL = "экспериментальном шприцемёте",
 	)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/Initialize(mapload)

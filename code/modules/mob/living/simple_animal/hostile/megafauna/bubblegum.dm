@@ -86,7 +86,7 @@ Difficulty: Hard
 		DATIVE = "Бубльгуму",
 		ACCUSATIVE = "Бубльгума",
 		INSTRUMENTAL = "Бубльгумом",
-		PREPOSITIONAL = "Бубльгуме"
+		PREPOSITIONAL = "Бубльгуме",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
@@ -556,7 +556,7 @@ Difficulty: Hard
 		DATIVE = "густой крови",
 		ACCUSATIVE = "густую кровь",
 		INSTRUMENTAL = "густой кровью",
-		PREPOSITIONAL = "густой крови"
+		PREPOSITIONAL = "густой крови",
 	)
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
@@ -685,7 +685,7 @@ Difficulty: Hard
 		DATIVE = "галлюцинации Бубльгума",
 		ACCUSATIVE = "галлюцинацию Бубльгума",
 		INSTRUMENTAL = "галлюцинацией Бубльгума",
-		PREPOSITIONAL = "галлюцинации Бубльгума"
+		PREPOSITIONAL = "галлюцинации Бубльгума",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)

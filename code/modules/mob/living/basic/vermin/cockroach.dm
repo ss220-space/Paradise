@@ -35,7 +35,7 @@
 		DATIVE = "таракану",
 		ACCUSATIVE = "таракана",
 		INSTRUMENTAL = "тараканом",
-		PREPOSITIONAL = "таракане"
+		PREPOSITIONAL = "таракане",
 	)
 
 /mob/living/basic/cockroach/Initialize(mapload)
@@ -78,7 +78,7 @@
 		DATIVE = "гильзе 0.9 мм",
 		ACCUSATIVE = "гильзу 0.9 мм",
 		INSTRUMENTAL = "гильзой 0.9 мм",
-		PREPOSITIONAL = "гильзе 0.9 мм"
+		PREPOSITIONAL = "гильзе 0.9 мм",
 	)
 
 /mob/living/basic/cockroach/glockroach
@@ -97,7 +97,7 @@
 		DATIVE = "таракану с пушкой",
 		ACCUSATIVE = "таракана с пушкой",
 		INSTRUMENTAL = "тараканом с пушкой",
-		PREPOSITIONAL = "таракане с пушкой"
+		PREPOSITIONAL = "таракане с пушкой",
 	)
 
 /mob/living/basic/cockroach/glockroach/Initialize(mapload)
@@ -138,7 +138,7 @@
 		DATIVE = "таракану-солдату",
 		ACCUSATIVE = "таракана-солдата",
 		INSTRUMENTAL = "тараканом-солдатом",
-		PREPOSITIONAL = "таракане-солдате"
+		PREPOSITIONAL = "таракане-солдате",
 	)
 
 /mob/living/basic/cockroach/hauberoach/Initialize(mapload)

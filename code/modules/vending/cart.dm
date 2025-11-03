@@ -15,7 +15,7 @@
 	broken_lightmask_overlay = "cart_broken_lightmask"
 	deny_overlay = "cart_deny"
 	refill_canister = /obj/item/vending_refill/cart
-	
+
 	products = list(
 		/obj/item/pda = 10,
 		/obj/item/eftpos = 6,
@@ -50,7 +50,7 @@
 		DATIVE = "торговому автомату PTech",
 		ACCUSATIVE = "торговый автомат PTech",
 		INSTRUMENTAL = "торговым автоматом PTech",
-		PREPOSITIONAL = "торговом автомате PTech"
+		PREPOSITIONAL = "торговом автомате PTech",
 	)
 
 /obj/machinery/vending/cart/free

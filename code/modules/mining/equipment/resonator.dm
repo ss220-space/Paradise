@@ -29,7 +29,7 @@
 		DATIVE = "резонатору",
 		ACCUSATIVE = "резонатор",
 		INSTRUMENTAL = "резонатором",
-		PREPOSITIONAL = "резонаторе"
+		PREPOSITIONAL = "резонаторе",
 	)
 
 /obj/item/resonator/attack_self(mob/user)
@@ -89,7 +89,7 @@
 		DATIVE = "резонансному полю",
 		ACCUSATIVE = "резонансное поле",
 		INSTRUMENTAL = "резонансным полем",
-		PREPOSITIONAL = "резонансном поле"
+		PREPOSITIONAL = "резонансном поле",
 	)
 
 
@@ -189,7 +189,7 @@
 		DATIVE = "улучшенному резонатору",
 		ACCUSATIVE = "улучшенный резонатор",
 		INSTRUMENTAL = "улучшенным резонатором",
-		PREPOSITIONAL = "улучшенном резонаторе"
+		PREPOSITIONAL = "улучшенном резонаторе",
 	)
 
 /obj/item/resonator/upgraded/attack_self(mob/user)

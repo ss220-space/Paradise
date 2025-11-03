@@ -168,7 +168,7 @@
 		DATIVE = "грузоблочному тренажёру",
 		ACCUSATIVE = "грузоблочный тренажёр",
 		INSTRUMENTAL = "грузоблочным тренажёром",
-		PREPOSITIONAL = "грузоблочном тренажёре"
+		PREPOSITIONAL = "грузоблочном тренажёре",
 	)
 
 /obj/structure/weightmachine/stacklifter/AnimateMachine(mob/living/carbon/human/user)
@@ -201,7 +201,7 @@
 		DATIVE = "скамье для жима",
 		ACCUSATIVE = "скамью для жима",
 		INSTRUMENTAL = "скамьёй для жима",
-		PREPOSITIONAL = "скамье для жима"
+		PREPOSITIONAL = "скамье для жима",
 	)
 
 /obj/structure/weightmachine/weightlifter/AnimateMachine(mob/living/carbon/human/user)

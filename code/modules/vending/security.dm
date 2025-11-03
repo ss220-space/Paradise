@@ -69,7 +69,7 @@
 		DATIVE = "торговому автомату SecTech",
 		ACCUSATIVE = "торговый автомат SecTech",
 		INSTRUMENTAL = "торговым автоматом SecTech",
-		PREPOSITIONAL = "торговом автомате SecTech"
+		PREPOSITIONAL = "торговом автомате SecTech",
 	)
 
 /obj/machinery/vending/security/training
@@ -102,7 +102,7 @@
 		DATIVE = "торговому автомату SecTech Training",
 		ACCUSATIVE = "торговый автомат SecTech Training",
 		INSTRUMENTAL = "торговым автоматом SecTech Training",
-		PREPOSITIONAL = "торговом автомате SecTech Training"
+		PREPOSITIONAL = "торговом автомате SecTech Training",
 	)
 
 
@@ -166,7 +166,7 @@
 		DATIVE = "торговому автомату NT ERT Consumables Gear",
 		ACCUSATIVE = "торговый автомат NT ERT Consumables Gear",
 		INSTRUMENTAL = "торговым автоматом NT ERT Consumables Gear",
-		PREPOSITIONAL = "торговом автомате NT ERT Consumables Gear"
+		PREPOSITIONAL = "торговом автомате NT ERT Consumables Gear",
 	)
 
 /obj/item/security_voucher
@@ -183,5 +183,5 @@
 		DATIVE = "ваучеру",
 		ACCUSATIVE = "ваучер",
 		INSTRUMENTAL = "ваучером",
-		PREPOSITIONAL = "ваучере"
+		PREPOSITIONAL = "ваучере",
 	)

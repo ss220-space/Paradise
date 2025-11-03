@@ -70,5 +70,5 @@
 		DATIVE = "торговому автомату Liberty",
 		ACCUSATIVE = "торговый автомат Liberty",
 		INSTRUMENTAL = "торговым автоматом Liberty",
-		PREPOSITIONAL = "торговом автомате Liberty"
+		PREPOSITIONAL = "торговом автомате Liberty",
 	)

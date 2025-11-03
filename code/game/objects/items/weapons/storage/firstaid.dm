@@ -33,7 +33,7 @@
 		DATIVE = "аптечке первой помощи",
 		ACCUSATIVE = "аптечку первой помощи",
 		INSTRUMENTAL = "аптечкой первой помощи",
-		PREPOSITIONAL = "аптечке первой помощи"
+		PREPOSITIONAL = "аптечке первой помощи",
 	)
 
 
@@ -51,7 +51,7 @@
 		DATIVE = "аптечке первой помощи (Терм.)",
 		ACCUSATIVE = "аптечку первой помощи (Терм.)",
 		INSTRUMENTAL = "аптечкой первой помощи (Терм.)",
-		PREPOSITIONAL = "аптечке первой помощи (Терм.)"
+		PREPOSITIONAL = "аптечке первой помощи (Терм.)",
 	)
 
 /obj/item/storage/firstaid/fire/New()
@@ -78,7 +78,7 @@
 		DATIVE = "аптечке первой помощи (Общая)",
 		ACCUSATIVE = "аптечку первой помощи (Общая)",
 		INSTRUMENTAL = "аптечкой первой помощи (Общая)",
-		PREPOSITIONAL = "аптечке первой помощи (Общая)"
+		PREPOSITIONAL = "аптечке первой помощи (Общая)",
 	)
 
 /obj/item/storage/firstaid/regular/populate_contents()
@@ -103,7 +103,7 @@
 		DATIVE = "аптечке первой помощи (Общая+)",
 		ACCUSATIVE = "аптечку первой помощи (Общая+)",
 		INSTRUMENTAL = "аптечкой первой помощи (Общая+)",
-		PREPOSITIONAL = "аптечке первой помощи (Общая+)"
+		PREPOSITIONAL = "аптечке первой помощи (Общая+)",
 	)
 
 /obj/item/storage/firstaid/doctor/populate_contents()
@@ -132,7 +132,7 @@
 		DATIVE = "аптечке первой помощи (Отравления)",
 		ACCUSATIVE = "аптечку первой помощи (Отравления)",
 		INSTRUMENTAL = "аптечкой первой помощи (Отравления)",
-		PREPOSITIONAL = "аптечке первой помощи (Отравления)"
+		PREPOSITIONAL = "аптечке первой помощи (Отравления)",
 	)
 
 /obj/item/storage/firstaid/toxin/Initialize(mapload)
@@ -165,7 +165,7 @@
 		DATIVE = "аптечке первой помощи (Удушье)",
 		ACCUSATIVE = "аптечку первой помощи (Удушье)",
 		INSTRUMENTAL = "аптечкой первой помощи (Удушье)",
-		PREPOSITIONAL = "аптечке первой помощи (Удушье)"
+		PREPOSITIONAL = "аптечке первой помощи (Удушье)",
 	)
 
 /obj/item/storage/firstaid/o2/populate_contents()
@@ -192,7 +192,7 @@
 		DATIVE = "аптечке первой помощи (Мех.)",
 		ACCUSATIVE = "аптечку первой помощи (Мех.)",
 		INSTRUMENTAL = "аптечкой первой помощи (Мех.)",
-		PREPOSITIONAL = "аптечке первой помощи (Мех.)"
+		PREPOSITIONAL = "аптечке первой помощи (Мех.)",
 	)
 
 /obj/item/storage/firstaid/brute/New()
@@ -224,7 +224,7 @@
 		DATIVE = "аптечке первой помощи (Продвинутая)",
 		ACCUSATIVE = "аптечку первой помощи (Продвинутая)",
 		INSTRUMENTAL = "аптечкой первой помощи (Продвинутая)",
-		PREPOSITIONAL = "аптечке первой помощи (Продвинутая)"
+		PREPOSITIONAL = "аптечке первой помощи (Продвинутая)",
 	)
 
 /obj/item/storage/firstaid/adv/populate_contents()
@@ -253,7 +253,7 @@
 		DATIVE = "аптечке первой помощи (Парамедик)",
 		ACCUSATIVE = "аптечку первой помощи (Парамедик)",
 		INSTRUMENTAL = "аптечкой первой помощи (Парамедик)",
-		PREPOSITIONAL = "аптечке первой помощи (Парамедик)"
+		PREPOSITIONAL = "аптечке первой помощи (Парамедик)",
 	)
 
 /obj/item/storage/firstaid/paramed/populate_contents()
@@ -284,7 +284,7 @@
 		DATIVE = "ремонтному набору (Синт.)",
 		ACCUSATIVE = "ремонтный набор (Синт.)",
 		INSTRUMENTAL = "ремонтным набором (Синт.)",
-		PREPOSITIONAL = "ремонтном наборе (Синт.)"
+		PREPOSITIONAL = "ремонтном наборе (Синт.)",
 	)
 
 /obj/item/storage/firstaid/machine/populate_contents()
@@ -316,7 +316,7 @@
 		DATIVE = "тактической аптечке НТ",
 		ACCUSATIVE = "тактическую аптечку НТ",
 		INSTRUMENTAL = "тактической аптечкой НТ",
-		PREPOSITIONAL = "тактической аптечке НТ"
+		PREPOSITIONAL = "тактической аптечке НТ",
 	)
 
 /obj/item/storage/firstaid/tactical/sst
@@ -330,7 +330,7 @@
 		DATIVE = "продвинутой тактической аптечке",
 		ACCUSATIVE = "продвинутую тактическую аптечку",
 		INSTRUMENTAL = "продвинутой тактической аптечкой",
-		PREPOSITIONAL = "продвинутой тактической аптечке"
+		PREPOSITIONAL = "продвинутой тактической аптечке",
 	)
 
 /obj/item/storage/firstaid/tactical/populate_contents()
@@ -361,7 +361,7 @@
 		DATIVE = "продвинутой тактической аптечке НТ",
 		ACCUSATIVE = "продвинутую тактическую аптечку НТ",
 		INSTRUMENTAL = "продвинутой тактической аптечкой НТ",
-		PREPOSITIONAL = "продвинутой тактической аптечке НТ"
+		PREPOSITIONAL = "продвинутой тактической аптечке НТ",
 	)
 
 /obj/item/storage/firstaid/ertm/populate_contents()
@@ -394,7 +394,7 @@
 		DATIVE = "тактической аптечке",
 		ACCUSATIVE = "тактическую аптечку",
 		INSTRUMENTAL = "тактической аптечкой",
-		PREPOSITIONAL = "тактической аптечке"
+		PREPOSITIONAL = "тактической аптечке",
 	)
 
 /obj/item/storage/firstaid/syndie/populate_contents()
@@ -430,7 +430,7 @@
 		DATIVE = "набору полевой хирургии",
 		ACCUSATIVE = "набор полевой хирургии",
 		INSTRUMENTAL = "набором полевой хирургии",
-		PREPOSITIONAL = "наборе полевой хирургии"
+		PREPOSITIONAL = "наборе полевой хирургии",
 	)
 
 /obj/item/storage/firstaid/surgery/populate_contents()
@@ -465,7 +465,7 @@
 		DATIVE = "экстренной аптечке",
 		ACCUSATIVE = "экстренную аптечку",
 		INSTRUMENTAL = "экстренной аптечкой",
-		PREPOSITIONAL = "экстренной аптечке"
+		PREPOSITIONAL = "экстренной аптечке",
 	)
 
 /obj/item/storage/firstaid/crew/populate_contents()
@@ -488,7 +488,7 @@
 		DATIVE = "экстренной аптечке (Нуклеация)",
 		ACCUSATIVE = "экстренную аптечку (Нуклеация)",
 		INSTRUMENTAL = "экстренной аптечкой (Нуклеация)",
-		PREPOSITIONAL = "экстренной аптечке (Нуклеация)"
+		PREPOSITIONAL = "экстренной аптечке (Нуклеация)",
 	)
 
 /obj/item/storage/firstaid/crew/nucleation/populate_contents()
@@ -513,7 +513,7 @@
 		DATIVE = "аптечке первой помощи (Шахтёрский Врач)",
 		ACCUSATIVE = "аптечку первой помощи (Шахтёрский Врач)",
 		INSTRUMENTAL = "аптечкой первой помощи (Шахтёрский Врач)",
-		PREPOSITIONAL = "аптечке первой помощи (Шахтёрский Врач)"
+		PREPOSITIONAL = "аптечке первой помощи (Шахтёрский Врач)",
 	)
 
 /*
@@ -556,7 +556,7 @@
 		DATIVE = "пузырьку для таблеток",
 		ACCUSATIVE = "пузырёк для таблеток",
 		INSTRUMENTAL = "пузырьком для таблеток",
-		PREPOSITIONAL = "пузырьке для таблеток"
+		PREPOSITIONAL = "пузырьке для таблеток",
 	)
 
 /obj/item/storage/pill_bottle/Initialize(mapload)
@@ -645,7 +645,7 @@
 		DATIVE = "коробку для пластырей",
 		ACCUSATIVE = "коробок для пластырей",
 		INSTRUMENTAL = "коробком для пластырей",
-		PREPOSITIONAL = "коробке для пластырей"
+		PREPOSITIONAL = "коробке для пластырей",
 	)
 
 /obj/item/storage/pill_bottle/patch_pack/filled/populate_contents()
@@ -694,7 +694,7 @@
 		DATIVE = "блюспейс-хранилищу для лекарств",
 		ACCUSATIVE = "блюспейс-хранилище для лекарств",
 		INSTRUMENTAL = "блюспейс-хранилищем для лекарств",
-		PREPOSITIONAL = "блюспейс-хранилище для лекарств"
+		PREPOSITIONAL = "блюспейс-хранилище для лекарств",
 	)
 
 /obj/item/storage/pill_bottle/charcoal
@@ -709,7 +709,7 @@
 		DATIVE = "пузырьку для таблеток (Активированный уголь)",
 		ACCUSATIVE = "пузырёк для таблеток (Активированный уголь)",
 		INSTRUMENTAL = "пузырьком для таблеток (Активированный уголь)",
-		PREPOSITIONAL = "пузырьке для таблеток (Активированный уголь)"
+		PREPOSITIONAL = "пузырьке для таблеток (Активированный уголь)",
 	)
 
 /obj/item/storage/pill_bottle/charcoal/populate_contents()
@@ -728,7 +728,7 @@
 		DATIVE = "пузырьку для таблеток (Салициловая кислота)",
 		ACCUSATIVE = "пузырёк для таблеток (Салициловая кислота)",
 		INSTRUMENTAL = "пузырьком для таблеток (Салициловая кислота)",
-		PREPOSITIONAL = "пузырьке для таблеток (Салициловая кислота)"
+		PREPOSITIONAL = "пузырьке для таблеток (Салициловая кислота)",
 	)
 
 /obj/item/storage/pill_bottle/painkillers/populate_contents()

@@ -43,7 +43,7 @@
 		DATIVE = "поваренной книге анархиста",
 		ACCUSATIVE = "поваренную книгу анархиста",
 		INSTRUMENTAL = "поваренной книгой анархиста",
-		PREPOSITIONAL = "поваренной книге анархиста"
+		PREPOSITIONAL = "поваренной книге анархиста",
 	)
 
 /obj/item/book/granter/crafting_recipe/combat_baking/recoil(mob/living/user)

@@ -102,7 +102,7 @@
 		DATIVE = "старому тюремному комбинезону",
 		ACCUSATIVE = "старый тюремный комбинезон",
 		INSTRUMENTAL = "старым тюремным комбинезоном",
-		PREPOSITIONAL = "старом тюремном комбинезоне"
+		PREPOSITIONAL = "старом тюремном комбинезоне",
 	)
 
 /obj/item/clothing/under/prison
@@ -121,7 +121,7 @@
 		DATIVE = "тюремному комбинезону",
 		ACCUSATIVE = "тюремный комбинезон",
 		INSTRUMENTAL = "тюремным комбинезоном",
-		PREPOSITIONAL = "тюремном комбинезоне"
+		PREPOSITIONAL = "тюремном комбинезоне",
 	)
 
 /obj/item/clothing/under/color/pink

@@ -65,7 +65,7 @@
 		DATIVE = "дрону",
 		ACCUSATIVE = "дрона",
 		INSTRUMENTAL = "дроном",
-		PREPOSITIONAL = "дроне"
+		PREPOSITIONAL = "дроне",
 	)
 
 /mob/living/silicon/robot/drone/New()
