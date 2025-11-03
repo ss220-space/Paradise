@@ -10,164 +10,158 @@
 	var/static/list/forbidden_jobs = list(
 		JOB_TITLE_CAPTAIN,
 	)
-	/// Static whitelist of area names that can be used as an extraction zone, structured by difficulty.
+	/// Whitelist of /area types that can be used as extraction zones, grouped by difficulty.
 	/// An area's difficulty should be measured in how crowded it generally is, how out of the way it is and so on.
 	/// Outdoor or invalid areas are filtered out.
-	/// Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) => list(<area name>)
-	var/static/list/possible_zone_names = list(
+	/// Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) => list(/area/type/path)
+	var/static/list/possible_zone_types = list(
 		EXTRACTION_DIFFICULTY_EASY = list(
 			// Rooms
-			"Arrival Commercial West Hallway",
-			"Arrival Additional West Hallway", //the most unvisited hallways, used only for explorers and if traders arrives
-			"Alternate Construction Area",
-			"Barber Shop",
-			"Trading area",
-			"Abandoned Casino",
-			"Abandoned Banya",
-			"Hangar Expedition",
-			"Abandoned Tradiders Room",
-			"Old Restaurant",
-			"Abandoned Detective's Office",
-			"Escape Shuttle Hallway Podbay",
-			"Theatre",
-			"Garden",
-			"Old Garden",
-			"Incinerator",
-			"Locker Room",
-			"Locker Toilets",
-			"Maintenance Bar",
-			"Medical Secondary Storage",
-			"Mechanic Workshop",
-			"West Emergency Storage",
-			"Psych Room",
-			"Toxins Launch Room",
-			"Toxins Mixing Room",
-			"Turbine",
-			"Virology",
-			"Waste Disposal",
-			"Abandoned Escape Shuttle Hallway",
-			"Abandoned Library",
-			"RnD Restroom",
-			"Abandoned Teleporter",
+			/area/civilian/barber,
+			/area/crew_quarters/trading,
+			/area/maintenance/casino,
+			/area/maintenance/banya,
+			/area/engineering/mechanic_workshop/expedition,
+			/area/crew_quarters/trading,
+			/area/maintenance/kitchen,
+			/area/maintenance/detectives_office,
+			/area/hallway/secondary/exit,
+			/area/hallway/secondary/garden,
+			/area/maintenance/garden,
+			/area/maintenance/incinerator,
+			/area/crew_quarters/locker,
+			/area/crew_quarters/locker/locker_toilet,
+			/area/maintenance/bar,
+			/area/medical/biostorage,
+			/area/engineering/mechanic_workshop,
+			/area/storage/emergency2,
+			/area/medical/psych,
+			/area/toxins/launch,
+			/area/toxins/mixing,
+			/area/maintenance/turbine,
+			/area/medical/virology,
+			/area/maintenance/disposal,
+			/area/hallway/secondary/exit/maint,
+			/area/maintenance/library,
+			/area/medical/research/restroom,
+			/area/teleporter/abandoned,
 			// Maintenance
-			"South-West Solar Maintenance",
-			"South-East Solar Maintenance",
-			"Arrivals North Maintenance",
-			"Bar Maintenance",
-			"Cargo Maintenance",
-			"Dormitory Maintenance",
-			"Electrical Maintenance",
-			"EVA Maintenance",
-			"Engineering Maintenance",
-			"North-West Maintenance",
-			"North-West Solar Maintenance",
-			"North-East Solar Maintenance",
-			"Genetics Maintenance",
-			"Locker Room Maintenance",
-			"Medbay Maintenance",
-			"Science Maintenance",
-			"North Maintenance",
-			"East Maintenance",
-			"Virology Maintenance",
-			"Virology Maintenance Construction Area",
-			"Research Maintenance",
+			/area/maintenance/west_solars,
+			/area/maintenance/starboardsolar,
+			/area/maintenance/asmaint5,
+			/area/maintenance/fsmaint2,
+			/area/maintenance/apmaint,
+			/area/maintenance/fsmaint,
+			/area/maintenance/electrical,
+			/area/maintenance/electrical_shop,
+			/area/maintenance/engineering,
+			/area/maintenance/port,
+			/area/maintenance/auxsolarstarboard,
+			/area/maintenance/starboardaux,
+			/area/maintenance/genetics,
+			/area/maintenance/asmaint,
+			/area/maintenance/asmaint,
+			/area/maintenance/asmaint2,
+			/area/maintenance/maintcentral,
+			/area/maintenance/starboard,
+			/area/maintenance/asmaint4,
+			/area/maintenance/consarea_virology,
+			/area/maintenance/asmaint2,
 		),
 		EXTRACTION_DIFFICULTY_MEDIUM = list(
 			// Rooms
-			"Mr Chang's", //new location on delta makes it unvisited enough
-			"Research Testing Chamber",
-			"Custodial Closet",
-			"South Primary Hallway",
-			"Atmospherics",
-			"Hangаr Bay",
-			"Arcade",
-			"Assembly Line",
-			"Auxiliary Tool Storage",
-			"Break Room",
-			"Blueshield's Office",
-			"Cargo Bay",
-			"Chapel",
-			"Chapel Office",
-			"Clown's Office",
-			"Construction Area",
-			"Courtroom",
-			"Dormitory Toilets",
-			"Engineering",
-			"Engineering Control Room",
-			"Escape Shuttle Hallway",
-			"Experimentation Lab",
-			"Holodeck Alpha",
-			"Hydroponics",
-			"Library",
-			"Mime's Office",
-			"Mining Dock",
-			"Morgue",
-			"Office Supplies",
-			"Pet Store",
-			"Primary Tool Storage",
-			"Research Division",
-			"Security Checkpoint",
-			"Technical Storage",
-			"Teleporter",
-			"Toxins Storage",
-			"Vacant Office",
-			"Research Testing Lab",
-			"Xenobiology Lab",
+			/area/crew_quarters/mrchangs,
+			/area/toxins/test_chamber,
+			/area/janitor,
+			/area/hallway/primary/aft,
+			/area/atmos,
+			/area/engineering/mechanic_workshop/hangar,
+			/area/crew_quarters/arcade,
+			/area/assembly/assembly_line,
+			/area/storage/tools,
+			/area/crew_quarters/cafeteria,
+			/area/blueshield,
+			/area/quartermaster/storage,
+			/area/chapel/main,
+			/area/chapel/office,
+			/area/clownoffice,
+			/area/construction,
+			/area/crew_quarters/courtroom,
+			/area/crew_quarters/toilet,
+			/area/engineering,
+			/area/engineering/controlroom,
+			/area/hallway/secondary/exit,
+			/area/toxins/explab_chamber,
+			/area/holodeck/alphadeck,
+			/area/hydroponics,
+			/area/library,
+			/area/mimeoffice,
+			/area/quartermaster/miningdock,
+			/area/medical/morgue,
+			/area/storage/office,
+			/area/civilian/pet_store,
+			/area/storage/primary,
+			/area/toxins/lab,
+			/area/security/checkpoint,
+			/area/storage/tech,
+			/area/teleporter,
+			/area/toxins/storage,
+			/area/civilian/vacantoffice,
+			/area/toxins/misc_lab,
+			/area/toxins/xenobiology,
 			// Maintenance
-			"Atmospherics Maintenance",
-			"Bridge Maintenance",
+			/area/maintenance/atmospherics,
+			/area/maintenance/maintcentral,
 		),
 		EXTRACTION_DIFFICULTY_HARD = list(
-			// No AI Chamber because I'm not that sadistic.
-			// Most Bridge areas are excluded because of they'd be basically impossible. So are Brig areas.
-			"AI Satellite Antechamber",
-			"AI Satellite Atmospherics",
-			"AI Satellite Service",
-			"AI Satellite Hallway",
-			"Bar",
-			"Cargo Delivery",
-			"Delivery Office",
-			"Cargo Office",
-			"Central Primary Hallway",
-			"Chemistry",
-			"Chief Engineer's office",
-			"Chief Medical Officer's office",
-			"Cloning Lab",
-			"Cryogenics",
-			"Dorms",
-			"Engineering Equipment Storage",
-			"Engineering Foyer",
-			"EVA Storage",
-			"Gateway",
-			"Genetics Lab",
-			"Gravity Generator",
-			"Head of Personnel's Office",
-			"Heads of Staff Meeting Room",
-			"Kitchen", // Chef CQC is no joke.
-			"Mech Bay",
-			"Medbay",
-			"Medbay Reception",
-			"Medical Storage",
-			"Medical Treatment Center",
-			"Medbay Patient Ward",
-			"Messaging Server Room",
-			"Server Room",
-			"Nanotrasen Representative's Office",
-			"Paramedic",
-			"West Primary Hallway",
-			"Quartermaster's Office",
-			"Research Director's Office",
-			"Research and Development",
-			"Robotics Lab",
-			"Surgery 1",
-			"Surgery 2",
-			"Telecoms Central Compartment",
-			"Secure Storage",
-			"Arrivals Lounge",
-			"Atrium",
-			"Service Yard",
-			"RnD North Hallway",
-			"Engineering Hardsuit Storage",
+			/area/turret_protected/aisat_interior,
+			/area/aisat/atmospherics,
+			/area/turret_protected/aisat_interior/secondary,
+			/area/aisat/aihallway,
+			/area/crew_quarters/bar,
+			/area/quartermaster/delivery,
+			/area/quartermaster/delivery,
+			/area/quartermaster/office,
+			/area/hallway/primary/central,
+			/area/medical/chemistry,
+			/area/crew_quarters/chief,
+			/area/medical/cmo,
+			/area/medical/cloning,
+			/area/medical/cryo,
+			/area/crew_quarters/dorms,
+			/area/engineering/equipmentstorage,
+			/area/engineering/break_room,
+			/area/storage/eva,
+			/area/gateway,
+			/area/medical/genetics,
+			/area/engineering/gravitygenerator,
+			/area/crew_quarters/heads,
+			/area/bridge/meeting_room,
+			/area/crew_quarters/kitchen,
+			/area/assembly/chargebay,
+			/area/medical/medbay,
+			/area/medical/reception,
+			/area/medical/biostorage,
+			/area/medical/sleeper,
+			/area/medical/ward,
+			/area/server,
+			/area/comms,
+			/area/ntrep,
+			/area/medical/paramedic,
+			/area/hallway/primary/port,
+			/area/quartermaster/qm,
+			/area/toxins/rdoffice,
+			/area/toxins/lab,
+			/area/assembly/robotics,
+			/area/medical/surgery/north,
+			/area/medical/surgery/south,
+			/area/comms,
+			/area/storage/secure,
+			/area/hallway/secondary/entry/lounge,
+			/area/crew_quarters/bar/atrium,
+			/area/crew_quarters/serviceyard,
+			/area/medical/research/nhallway,
+			/area/engineering/hardsuitstorage,
 		),
 	)
 	// Variables
@@ -180,38 +174,15 @@
 	var/list/area/candidate_zones = null
 	/// List of people who cannot be selected as contract target.
 	var/list/datum/mind/target_blacklist = null
-	/// Static list that is basically [/datum/objective/contract/var/possible_zone_names] but with area names replaced by /area objects if available.
-	var/static/list/possible_zones = null
 	/// The owning [/datum/syndicatce_contract].
 	var/datum/syndicate_contract/owning_contract = null
-	/// Name fixer regex because area names have rogue characters sometimes.
-	var/static/regex/name_fixer = regex("(\[a-z0-9 \\'\]+)$", "ig")
 
 /datum/objective/contract/New(contract)
 	owning_contract = contract
-	// Init static variable
-	if(!possible_zones)
-		// Compute the list of all zones by their name first
-		var/list/all_areas_by_name = list()
-		for(var/area/A in GLOB.areas)
-			if(A.outdoors || !is_station_level(A.z))
-				continue
-			var/i = findtext(A.map_name, name_fixer)
-			if(i)
-				var/clean_name = copytext(A.map_name, i)
-				clean_name = replacetext(clean_name, "\\", "")
-				all_areas_by_name[clean_name] = A
 
-		possible_zones = list()
-		for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
-			var/list/difficulty_areas = list()
-			for(var/area_name in possible_zone_names[difficulty])
-				var/area/A = all_areas_by_name[area_name]
-				if(!A)
-					continue
-				difficulty_areas += A
-			possible_zones += list(difficulty_areas)
-	// Select zones
+	if(!candidate_zones)
+		candidate_zones = list(null, null, null)
+
 	for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
 		pick_candidate_zone(difficulty)
 	return ..()
@@ -234,9 +205,22 @@
  * * difficulty - The difficulty to assign.
  */
 /datum/objective/contract/proc/pick_candidate_zone(difficulty = EXTRACTION_DIFFICULTY_EASY)
-	if(!candidate_zones)
-		candidate_zones = list(null, null, null)
-	candidate_zones[difficulty] = pick(possible_zones[difficulty])
+	var/list/allowed_types = possible_zone_types[difficulty]
+	if(!allowed_types || !allowed_types.len)
+		return
+
+	var/area_type = pick(allowed_types)
+
+	// Находим реальную зону этого типа на станции (любую)
+	var/area/real_zone = locate(area_type) in GLOB.areas
+	if(!real_zone)
+		// Если такой зоны нет на карте — попробуем найти подтип
+		for(var/area/A in GLOB.areas)
+			if(istype(A, area_type) && !A.outdoors && is_station_level(A.z))
+				real_zone = A
+				break
+
+	candidate_zones[difficulty] = real_zone
 
 /**
  * Updates the objective's information with the given difficulty.
@@ -251,6 +235,9 @@
 		return
 
 	var/area/A = candidate_zones[difficulty]
+	if(!A)
+		return FALSE
+
 	extraction_zone = A
 	chosen_difficulty = difficulty
 	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[A.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[DECL_CREDIT(S.reward_tc[difficulty])] и [S.reward_credits] кредит[DECL_CREDIT(S.reward_credits)]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
