@@ -564,7 +564,7 @@
 	reqs = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/grenade/plastic/c4 = 1,
-		/obj/item/grenade/chem_grenade = 2
+		/obj/item/grenade/chem_grenade = 2,
 	)
 	parts = list(/obj/item/stock_parts/matter_bin = 1, /obj/item/grenade/chem_grenade = 2)
 	category = CAT_WEAPONRY
@@ -577,7 +577,7 @@
 	reqs = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/twohanded/required/gibtonite = 1,
-		/obj/item/grenade/chem_grenade = 2
+		/obj/item/grenade/chem_grenade = 2,
 	)
 	parts = list(/obj/item/stock_parts/matter_bin = 1, /obj/item/grenade/chem_grenade = 2)
 	time = 50
@@ -591,7 +591,7 @@
 	reqs = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/assembly/signaler = 1,
-		/obj/item/stack/sheet/metal = 2
+		/obj/item/stack/sheet/metal = 2,
 	)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -609,7 +609,7 @@
 	time = 20
 	reqs = list(
 		/obj/item/stack/sheet/bone = 2,
-		/obj/item/stack/sheet/sinew = 1
+		/obj/item/stack/sheet/sinew = 1,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
@@ -620,7 +620,7 @@
 	time = 20
 	reqs = list(
 		/obj/item/stack/sheet/bone = 2,
-		/obj/item/stack/sheet/animalhide/goliath_hide = 1
+		/obj/item/stack/sheet/animalhide/goliath_hide = 1,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
@@ -631,7 +631,7 @@
 	time = 20
 	reqs = list(
 		/obj/item/stack/sheet/bone = 2,
-		/obj/item/stack/sheet/sinew = 1
+		/obj/item/stack/sheet/sinew = 1,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
@@ -795,7 +795,7 @@
 	name = "Primitive surgical kit"
 	reqs = list(
 		/obj/item/stack/sheet/bone = 6,
-		/obj/item/stack/sheet/sinew = 3
+		/obj/item/stack/sheet/sinew = 3,
 	)
 	result = list(/obj/item/storage/toolbox/surgery/ashwalker)
 	category = CAT_PRIMAL
@@ -832,7 +832,7 @@
 	result = /obj/item/twohanded/spear/bonespear
 	reqs = list(
 		/obj/item/stack/sheet/bone = 4,
-		/obj/item/stack/sheet/sinew = 1
+		/obj/item/stack/sheet/sinew = 1,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
@@ -866,7 +866,7 @@
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
 		/obj/item/stack/sheet/sinew = 2,
-		/obj/item/stack/sheet/animalhide/goliath_hide = 1
+		/obj/item/stack/sheet/animalhide/goliath_hide = 1,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
@@ -891,7 +891,7 @@
 	time = 20
 	reqs = list(
 		/obj/item/stack/sheet/bone = 1,
-		/obj/item/stack/sheet/wood = 1
+		/obj/item/stack/sheet/wood = 1,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
@@ -928,7 +928,7 @@
 	result = /obj/item/storage/backpack/quiver
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
-		/obj/item/stack/sheet/sinew = 1
+		/obj/item/stack/sheet/sinew = 1,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
@@ -956,7 +956,7 @@
 	time = 50
 	reqs = list(
 		/obj/item/stack/sheet/bone = 6,
-		/obj/item/stack/sheet/sinew = 3
+		/obj/item/stack/sheet/sinew = 3,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
@@ -1006,7 +1006,7 @@
 	reqs = list(
 		/obj/item/stack/sheet/plasteel = 3,
 		/obj/item/stack/sheet/wood = 20,
-		/obj/item/stack/cable_coil = 10
+		/obj/item/stack/cable_coil = 10,
 	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
@@ -1025,7 +1025,7 @@
 	reqs = list(
 		/obj/item/reagent_containers/syringe = 1,
 		/obj/item/stack/sheet/plastic = 1,
-		/obj/item/stack/sheet/metal = 1
+		/obj/item/stack/sheet/metal = 1,
 	)
 	category = CAT_MISC
 
@@ -1038,7 +1038,7 @@
 		/obj/item/mecha_parts/mecha_equipment/drill = 1,
 		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/rods = 2,
-		/obj/item/assembly/timer = 1
+		/obj/item/assembly/timer = 1,
 	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
@@ -1052,7 +1052,7 @@
 		/obj/item/surgicaldrill = 1,
 		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/rods = 2,
-		/obj/item/assembly/timer = 1
+		/obj/item/assembly/timer = 1,
 	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
@@ -1066,7 +1066,7 @@
 		/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
 		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/rods = 2,
-		/obj/item/assembly/prox_sensor = 1
+		/obj/item/assembly/prox_sensor = 1,
 	) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
@@ -1668,7 +1668,7 @@
 	name = "Throwing croissant"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/croissant = 1,
-		/obj/item/stack/rods = 1
+		/obj/item/stack/rods = 1,
 	)
 	result = list(/obj/item/reagent_containers/food/snacks/croissant/throwing)
 	category = CAT_WEAPONRY
@@ -1679,7 +1679,7 @@
 	name = "Iron pickaxe"
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
-		/obj/item/stack/sheet/metal = 5
+		/obj/item/stack/sheet/metal = 5,
 	)
 	result = list(/obj/item/pickaxe)
 	category = CAT_PRIMAL
@@ -1689,7 +1689,7 @@
 	name = "Silver pickaxe"
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
-		/obj/item/stack/sheet/mineral/silver = 5
+		/obj/item/stack/sheet/mineral/silver = 5,
 	)
 	result = list(/obj/item/pickaxe/silver)
 
@@ -1697,7 +1697,7 @@
 	name = "Golden pickaxe"
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
-		/obj/item/stack/sheet/mineral/gold = 5
+		/obj/item/stack/sheet/mineral/gold = 5,
 	)
 	result = list(/obj/item/pickaxe/gold)
 
@@ -1705,7 +1705,7 @@
 	name = "Diamond pickaxe"
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
-		/obj/item/stack/sheet/mineral/diamond = 5
+		/obj/item/stack/sheet/mineral/diamond = 5,
 	)
 	result = list(/obj/item/pickaxe/diamond)
 
@@ -1713,11 +1713,11 @@
 	name = "Inactive Drone"
 	result = list(/obj/item/inactive_drone)
 	reqs = list(
-			/obj/item/stack/sheet/plasteel = 10,
-			/obj/item/stack/sheet/glass = 5,
-			/obj/item/stack/rods = 25,
-			/obj/item/stack/cable_coil = 5,
-			/obj/item/stock_parts/cell = 2
+		/obj/item/stack/sheet/plasteel = 10,
+		/obj/item/stack/sheet/glass = 5,
+		/obj/item/stack/rods = 25,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/cell = 2,
 	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	category = CAT_ROBOT
@@ -1728,10 +1728,10 @@
 	name = "Combat drone Basic Control Module"
 	result = list(/obj/item/drone_modules/drone_BCM)
 	reqs = list(
-			/obj/item/stack/sheet/plasteel = 2,
-			/obj/item/stack/sheet/glass = 1,
-			/obj/item/stack/sheet/mineral/gold = 1,
-			/obj/item/airlock_electronics = 1
+		/obj/item/stack/sheet/plasteel = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stack/sheet/mineral/gold = 1,
+		/obj/item/airlock_electronics = 1,
 	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	always_availible = FALSE
@@ -1746,7 +1746,7 @@
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/airlock_electronics = 1,
 		/obj/item/stack/sheet/mineral/gold = 2,
-		/obj/item/stack/sheet/bluespace_crystal = 1
+		/obj/item/stack/sheet/bluespace_crystal = 1,
 	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	always_availible = FALSE
@@ -1757,11 +1757,11 @@
 	name = "Combat drone AI Control Module"
 	result = list(/obj/item/drone_modules/drone_AI)
 	reqs = list(
-			/obj/item/stack/sheet/plasteel = 2,
-			/obj/item/stack/sheet/glass = 1,
-			/obj/item/stack/sheet/mineral/gold = 1,
-			/obj/item/stack/sheet/mineral/diamond = 5,
-			/obj/item/mmi/robotic_brain = 1
+		/obj/item/stack/sheet/plasteel = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stack/sheet/mineral/gold = 1,
+		/obj/item/stack/sheet/mineral/diamond = 5,
+		/obj/item/mmi/robotic_brain = 1,
 	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	category = CAT_ROBOT

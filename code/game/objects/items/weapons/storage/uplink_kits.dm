@@ -176,7 +176,7 @@
 		DATIVE = "набору шприцов \"Биотеррор\"",
 		ACCUSATIVE = "набор шприцов \"Биотеррор\"",
 		INSTRUMENTAL = "набором шприцов \"Биотеррор\"",
-		PREPOSITIONAL = "наборе шприцов \"Биотеррор\""
+		PREPOSITIONAL = "наборе шприцов \"Биотеррор\"",
 	)
 
 /obj/item/storage/box/syndie_kit/bioterror/populate_contents()
@@ -357,7 +357,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору одежды \"Хамелеон\"",
 		ACCUSATIVE = "набор одежды \"Хамелеон\"",
 		INSTRUMENTAL = "набором одежды \"Хамелеон\"",
-		PREPOSITIONAL = "наборе одежды \"Хамелеон\""
+		PREPOSITIONAL = "наборе одежды \"Хамелеон\"",
 	)
 
 /obj/item/storage/box/syndie_kit/chameleon/populate_contents()
@@ -386,7 +386,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору одежды \"Хамелеон\" для плазмолюдов",
 		ACCUSATIVE = "набор одежды \"Хамелеон\" для плазмолюдов",
 		INSTRUMENTAL = "набором одежды \"Хамелеон\" для плазмолюдов",
-		PREPOSITIONAL = "наборе одежды \"Хамелеон\" для плазмолюдов"
+		PREPOSITIONAL = "наборе одежды \"Хамелеон\" для плазмолюдов",
 	)
 
 /obj/item/storage/box/syndie_kit/plasma_chameleon/populate_contents()
@@ -560,7 +560,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору фальсификаторов \"Хамелеон\"",
 		ACCUSATIVE = "набор фальсификаторов \"Хамелеон\"",
 		INSTRUMENTAL = "набором фальсификаторов \"Хамелеон\"",
-		PREPOSITIONAL = "наборе фальсификаторов \"Хамелеон\""
+		PREPOSITIONAL = "наборе фальсификаторов \"Хамелеон\"",
 	)
 
 /obj/item/storage/box/syndie_kit/chameleon_counter/populate_contents()
@@ -764,7 +764,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору \"Гоустфейс\"",
 		ACCUSATIVE = "набор \"Гоустфейс\"",
 		INSTRUMENTAL = "набором \"Гоустфейс\"",
-		PREPOSITIONAL = "наборе \"Гоустфейс\""
+		PREPOSITIONAL = "наборе \"Гоустфейс\"",
 	)
 
 /obj/item/storage/box/syndie_kit/ghostface_kit/populate_contents()
@@ -783,7 +783,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору \"Дьявольский Гоустфейс\"",
 		ACCUSATIVE = "набор \"Дьявольский Гоустфейс\"",
 		INSTRUMENTAL = "набором \"Дьявольский Гоустфейс\"",
-		PREPOSITIONAL = "наборе \"Дьявольский Гоустфейс\""
+		PREPOSITIONAL = "наборе \"Дьявольский Гоустфейс\"",
 	)
 
 /obj/item/storage/box/syndie_kit/devil_ghostface_kit/populate_contents()
@@ -838,7 +838,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору \"Компактная снайперская винтовка\"",
 		ACCUSATIVE = "набор \"Компактная снайперская винтовка\"",
 		INSTRUMENTAL = "набором \"Компактная снайперская винтовка\"",
-		PREPOSITIONAL = "наборе \"Компактная снайперская винтовка\""
+		PREPOSITIONAL = "наборе \"Компактная снайперская винтовка\"",
 	)
 
 /obj/item/storage/box/syndie_kit/compact_sniper/populate_contents()
@@ -857,7 +857,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору \"Револьвер Оцелот\"",
 		ACCUSATIVE = "набор \"Револьвер Оцелот\"",
 		INSTRUMENTAL = "набором \"Револьвер Оцелот\"",
-		PREPOSITIONAL = "наборе \"Револьвер Оцелот\""
+		PREPOSITIONAL = "наборе \"Револьвер Оцелот\"",
 	)
 
 /obj/item/storage/box/syndie_kit/revolver/populate_contents()
@@ -877,7 +877,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору \"Пустынный Орёл\"",
 		ACCUSATIVE = "набор \"Пустынный Орёл\"",
 		INSTRUMENTAL = "набором \"Пустынный Орёл\"",
-		PREPOSITIONAL = "наборе \"Пустынный Орёл\""
+		PREPOSITIONAL = "наборе \"Пустынный Орёл\"",
 	)
 
 /obj/item/storage/box/syndie_kit/desert_eagle/populate_contents()
@@ -899,7 +899,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору \"золотой Пустынный Орёл\"",
 		ACCUSATIVE = "набор \"золотой Пустынный Орёл\"",
 		INSTRUMENTAL = "набором \"золотой Пустынный Орёл\"",
-		PREPOSITIONAL = "наборе \"золотой Пустынный Орёл\""
+		PREPOSITIONAL = "наборе \"золотой Пустынный Орёл\"",
 	)
 
 /obj/item/storage/box/syndie_kit/desert_eagle_gold/populate_contents()
@@ -921,7 +921,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		DATIVE = "набору \"FK-69 Стечкин\"",
 		ACCUSATIVE = "набор \"FK-69 Стечкин\"",
 		INSTRUMENTAL = "набором \"FK-69 Стечкин\"",
-		PREPOSITIONAL = "наборе \"FK-69 Стечкин\""
+		PREPOSITIONAL = "наборе \"FK-69 Стечкин\"",
 	)
 
 /obj/item/storage/box/syndie_kit/stechkin_pistol/populate_contents()

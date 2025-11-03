@@ -25,7 +25,7 @@
 		/obj/item/gun/projectile/automatic/pistol = 8,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 5,
 		/obj/item/gun/projectile/revolver/mateba,
-		/obj/item/gun/projectile/automatic/pistol/deagle
+		/obj/item/gun/projectile/automatic/pistol/deagle,
 	)
 
 /obj/effect/spawner/lootdrop/maintenance
@@ -448,7 +448,7 @@
 		/obj/item/toy/desk/dippingbird,
 		/obj/item/toy/desk/newtoncradle,
 		/obj/item/toy/desk/fan,
-		/obj/item/hourglass
+		/obj/item/hourglass,
 	)
 
 /obj/effect/spawner/lootdrop/marrow_weaver

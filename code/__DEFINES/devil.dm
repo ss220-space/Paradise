@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(whiteness, list(
 	/obj/item/clothing/under/mafia/white = 1,
 	/obj/item/clothing/under/noble_clothes = 1,
 	/obj/item/clothing/under/sl_suit = 1,
-	/obj/item/clothing/under/burial = 1
+	/obj/item/clothing/under/burial = 1,
 ))
 
 #define ENRAGED_THRESHOLD 3

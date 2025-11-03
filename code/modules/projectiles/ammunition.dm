@@ -153,7 +153,7 @@
 			DATIVE = "пуле \"[label_text]\"",
 			ACCUSATIVE = "пулю \"[label_text]\"",
 			INSTRUMENTAL = "пулей \"[label_text]\"",
-			PREPOSITIONAL = "пуле \"[label_text]\""
+			PREPOSITIONAL = "пуле \"[label_text]\"",
 		)
 
 

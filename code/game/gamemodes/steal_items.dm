@@ -805,7 +805,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/encryptionkey/heads/blueshield,
 		/obj/item/encryptionkey/headset_cargo,
 		/obj/item/encryptionkey/headset_service,
-		/obj/item/encryptionkey/headset_mining_medic
+		/obj/item/encryptionkey/headset_mining_medic,
 	)
 
 

@@ -51,7 +51,7 @@
 		/mob/living/silicon/proc/subsystem_open_gps,
 		/mob/living/silicon/robot/proc/self_diagnosis,
 		/mob/living/silicon/proc/subsystem_law_manager,
-		/mob/living/silicon/proc/subsystem_power_monitor
+		/mob/living/silicon/proc/subsystem_power_monitor,
 	)
 	hat_offset_y = -15
 	isCentered = TRUE

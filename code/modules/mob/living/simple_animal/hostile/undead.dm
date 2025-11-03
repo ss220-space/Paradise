@@ -257,5 +257,5 @@
 		/obj/effect/decal/cleanable/blood/gibs,
 		/obj/effect/particle_effect/fluid/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
-		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 	)

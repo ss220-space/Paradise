@@ -73,7 +73,7 @@
 		DATIVE = "диску проекта HRD-MDE \"Кровожадный Шахтёр\"",
 		ACCUSATIVE = "диск проекта HRD-MDE \"Кровожадный Шахтёр\"",
 		INSTRUMENTAL = "диском проекта HRD-MDE \"Кровожадный Шахтёр\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE \"Кровожадный Шахтёр\""
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Кровожадный Шахтёр\"",
 	)
 
 /obj/item/disk/fauna_research/hierophant
@@ -88,7 +88,7 @@
 		DATIVE = "диску проекта HRD-MDE \"Иерофант\"",
 		ACCUSATIVE = "диск проекта HRD-MDE \"Иерофант\"",
 		INSTRUMENTAL = "диском проекта HRD-MDE \"Иерофант\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE \"Иерофант\""
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Иерофант\"",
 	)
 
 /obj/item/disk/fauna_research/ash_drake
@@ -103,7 +103,7 @@
 		DATIVE = "диску проекта HRD-MDE \"Пепельный Дрейк\"",
 		ACCUSATIVE = "диск проекта HRD-MDE \"Пепельный Дрейк\"",
 		INSTRUMENTAL = "диском проекта HRD-MDE \"Пепельный Дрейк\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE \"Пепельный Дрейк\""
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Пепельный Дрейк\"",
 	)
 
 /obj/item/disk/fauna_research/vetus
@@ -118,7 +118,7 @@
 		DATIVE = "диску проекта HRD-MDE \"Ветус Спекулятор\"",
 		ACCUSATIVE = "диск проекта HRD-MDE \"Ветус Спекулятор\"",
 		INSTRUMENTAL = "диском проекта HRD-MDE \"Ветус Спекулятор\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE \"Ветус Спекулятор\""
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Ветус Спекулятор\"",
 	)
 
 /obj/item/disk/fauna_research/colossus
@@ -133,7 +133,7 @@
 		DATIVE = "диску проекта HRD-MDE \"Колосс\"",
 		ACCUSATIVE = "диск проекта HRD-MDE \"Колосс\"",
 		INSTRUMENTAL = "диском проекта HRD-MDE \"Колосс\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE \"Колосс\""
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Колосс\"",
 	)
 
 /obj/item/disk/fauna_research/legion
@@ -148,7 +148,7 @@
 		DATIVE = "диску проекта HRD-MDE \"Легион\"",
 		ACCUSATIVE = "диск проекта HRD-MDE \"Легион\"",
 		INSTRUMENTAL = "диском проекта HRD-MDE \"Легион\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE \"Легион\""
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Легион\"",
 	)
 
 /obj/item/disk/fauna_research/bubblegum
@@ -163,5 +163,5 @@
 		DATIVE = "диску проекта HRD-MDE \"Бубльгум\"",
 		ACCUSATIVE = "диск проекта HRD-MDE \"Бубльгум\"",
 		INSTRUMENTAL = "диском проекта HRD-MDE \"Бубльгум\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE \"Бубльгум\""
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Бубльгум\"",
 	) //I hate this so much

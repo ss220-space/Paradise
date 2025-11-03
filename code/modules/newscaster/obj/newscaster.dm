@@ -102,7 +102,7 @@
 			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
 			/datum/job/civilian/prisoner,
-			/datum/job/syndicateofficer
+			/datum/job/syndicateofficer,
 		)
 
 /obj/machinery/newscaster/Destroy()

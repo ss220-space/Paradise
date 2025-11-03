@@ -76,7 +76,7 @@ Difficulty: Hard
 		/datum/action/innate/megafauna_attack/triple_charge,
 		/datum/action/innate/megafauna_attack/hallucination_charge,
 		/datum/action/innate/megafauna_attack/hallucination_surround,
-		/datum/action/innate/megafauna_attack/blood_warp
+		/datum/action/innate/megafauna_attack/blood_warp,
 	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/get_ru_names()

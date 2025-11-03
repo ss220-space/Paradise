@@ -55,7 +55,7 @@
 	silicon_subsystems = list(
 		/mob/living/silicon/proc/subsystem_open_gps,
 		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager
+		/mob/living/silicon/proc/subsystem_law_manager,
 	)
 
 	hat_offset_y = -15

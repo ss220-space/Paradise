@@ -86,8 +86,7 @@
 		/obj/item/clothing/suit/armor/vest/warden/alt,
 		/obj/item/clothing/suit/armor/vest/det_suit,
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
-
-		)
+	)
 
 /datum/loot_tier/second
 	name = "снаряжение синего кода"
@@ -780,7 +779,7 @@
 			/obj/item/mortar_shell/frag,
 			/obj/item/mortar_shell/incendiary,
 			/obj/item/mortar_shell/flare,
-		)
+		),
 	)
 
 /datum/loot_tier/ammo/on_start_open(mob/user, obj/structure/crate, list/current_loot = loot_list)

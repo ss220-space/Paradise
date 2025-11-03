@@ -8,7 +8,7 @@
 	has_sensor = FALSE
 	displays_id = FALSE
 	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_INNER_STRING = NONE
+		ITEM_SLOT_CLOTH_INNER_STRING = NONE,
 	)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -27,7 +27,7 @@
 	cold_protection = FULL_BODY
 	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT
 	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_OUTER_STRING = NONE
+		ITEM_SLOT_CLOTH_OUTER_STRING = NONE,
 	)
 	slowdown = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -49,7 +49,7 @@
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_shoes"
 	onmob_sheets = list(
-		ITEM_SLOT_FEET_STRING = NONE
+		ITEM_SLOT_FEET_STRING = NONE,
 	)
 
 	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
@@ -68,7 +68,7 @@
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_mask"
 	onmob_sheets = list(
-		ITEM_SLOT_MASK_STRING = NONE
+		ITEM_SLOT_MASK_STRING = NONE,
 	)
 	origin_tech = null
 	siemens_coefficient = 0
@@ -88,7 +88,7 @@
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_gloves"
 	onmob_sheets = list(
-		ITEM_SLOT_GLOVES_STRING = NONE
+		ITEM_SLOT_GLOVES_STRING = NONE,
 	)
 	origin_tech = null
 	siemens_coefficient = 0
@@ -107,7 +107,7 @@
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_helmet"
 	onmob_sheets = list(
-		ITEM_SLOT_HEAD_STRING = NONE
+		ITEM_SLOT_HEAD_STRING = NONE,
 	)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -131,7 +131,7 @@
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_glasses"
 	onmob_sheets = list(
-		ITEM_SLOT_EYES_STRING = NONE
+		ITEM_SLOT_EYES_STRING = NONE,
 	)
 	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF

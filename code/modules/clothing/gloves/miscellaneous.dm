@@ -99,7 +99,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
 	)
 
 /obj/item/clothing/gloves/bracer
@@ -450,8 +450,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
+	)
 
 /obj/item/clothing/gloves/combat/swat
 	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Such gloves cost a fortune, you can say that wearing them, you literally have golden hands!"
@@ -467,8 +467,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
+	)
 
 
 /obj/item/clothing/gloves/combat/swat/syndicate

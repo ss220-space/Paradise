@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	silicon_subsystems = list(
 		/mob/living/silicon/proc/subsystem_open_gps,
 		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager
+		/mob/living/silicon/proc/subsystem_law_manager,
 	)
 
 /mob/living/silicon/robot/get_cell()

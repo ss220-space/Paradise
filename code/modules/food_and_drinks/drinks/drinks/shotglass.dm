@@ -37,7 +37,7 @@
 			DATIVE = "рюмке — " + reagents.get_master_reagent_name(),
 			ACCUSATIVE = "рюмку — " + reagents.get_master_reagent_name(),
 			INSTRUMENTAL = "рюмкой — " + reagents.get_master_reagent_name(),
-			PREPOSITIONAL = "рюмке — " +reagents.get_master_reagent_name()
+			PREPOSITIONAL = "рюмке — " + reagents.get_master_reagent_name(),
 		)
 		if(resistance_flags & ON_FIRE)
 			name = "flaming [name]"

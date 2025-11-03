@@ -149,7 +149,7 @@ Almost every mining medic related stuff
 	storage_slots =  12
 	max_combined_w_class = INFINITY
 	can_hold = list(
-		/obj/item/clothing/accessory/camera
+		/obj/item/clothing/accessory/camera,
 	)
 
 /obj/item/storage/box/mining_cameras/get_ru_names()

@@ -69,7 +69,7 @@ Difficulty: Hard
 		/datum/action/innate/megafauna_attack/blink,
 		/datum/action/innate/megafauna_attack/chaser_swarm,
 		/datum/action/innate/megafauna_attack/cross_blasts,
-		/datum/action/innate/megafauna_attack/blink_spam
+		/datum/action/innate/megafauna_attack/blink_spam,
 	)
 
 	var/burst_range = 3 //range on burst aoe

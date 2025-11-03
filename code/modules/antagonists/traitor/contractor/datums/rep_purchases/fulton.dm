@@ -21,7 +21,7 @@
 		DATIVE = "системе эвакуации \"Фултон\"",
 		ACCUSATIVE = "систему эвакуации \"Фултон\"",
 		INSTRUMENTAL = "системой эвакуации \"Фултон\"",
-		PREPOSITIONAL = "системе эвакуации \"Фултон\""
+		PREPOSITIONAL = "системе эвакуации \"Фултон\"",
 	)
 
 /obj/item/storage/box/contractor/fulton_kit

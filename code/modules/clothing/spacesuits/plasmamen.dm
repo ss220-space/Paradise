@@ -754,7 +754,7 @@
 		DATIVE = "защитному шлему офицера \"Синий Щит\"",
 		ACCUSATIVE = "защитный шлем офицера \"Синий Щит\"",
 		INSTRUMENTAL = "защитным шлемом офицера \"Синий Щит\"",
-		PREPOSITIONAL = "защитном шлеме офицера \"Синий Щит\""
+		PREPOSITIONAL = "защитном шлеме офицера \"Синий Щит\"",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/wizard

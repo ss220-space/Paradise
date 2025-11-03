@@ -88,7 +88,7 @@
 
 	contraband = list(
 		/obj/item/reagent_containers/food/drinks/tea = 10,
-		/obj/item/reagent_containers/food/drinks/bottle/fernet = 5
+		/obj/item/reagent_containers/food/drinks/bottle/fernet = 5,
 	)
 
 /obj/machinery/vending/boozeomat/get_ru_names()

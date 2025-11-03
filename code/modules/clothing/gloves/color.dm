@@ -173,8 +173,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
+	)
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"

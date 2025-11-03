@@ -35,7 +35,7 @@
 		/obj/item/stock_parts/scanning_module = 5,
 		/obj/item/stock_parts/micro_laser = 5,
 		/obj/item/stock_parts/matter_bin = 5,
-		/obj/item/stock_parts/manipulator = 5
+		/obj/item/stock_parts/manipulator = 5,
 	)
 
 /obj/machinery/vending/engineering/get_ru_names()

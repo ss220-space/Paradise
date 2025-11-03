@@ -167,7 +167,7 @@
 		/obj/item/robotanalyzer,
 		/obj/item/clothing/gloves,
 		/obj/item/rcd,
-		/obj/item/rpd
+		/obj/item/rpd,
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -517,7 +517,7 @@
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
-		/obj/item/multitool
+		/obj/item/multitool,
 	)
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
@@ -985,7 +985,7 @@
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
-		/obj/item/multitool
+		/obj/item/multitool,
 	)
 
 /obj/item/storage/belt/bluespace/owlman

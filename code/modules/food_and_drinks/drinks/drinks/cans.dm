@@ -207,7 +207,7 @@
 		DATIVE = "банке энергетика \"Сердечный Приступ\"",
 		ACCUSATIVE = "банку энергетика \"Сердечный Приступ\"",
 		INSTRUMENTAL = "банкой энергетика \"Сердечный Приступ\"",
-		PREPOSITIONAL = "банке энергетика \"Сердечный Приступ\""
+		PREPOSITIONAL = "банке энергетика \"Сердечный Приступ\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/energy/trop
@@ -224,7 +224,7 @@
 		DATIVE = "банке энергетика \"Тропический Спазм\"",
 		ACCUSATIVE = "банку энергетика \"Тропический Спазм\"",
 		INSTRUMENTAL = "банкой энергетика \"Тропический Спазм\"",
-		PREPOSITIONAL = "банке энергетика \"Тропический Спазм\""
+		PREPOSITIONAL = "банке энергетика \"Тропический Спазм\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/energy/milk
@@ -241,7 +241,7 @@
 		DATIVE = "банке энергетика \"Молочный Удар\"",
 		ACCUSATIVE = "банку энергетика \"Молочный Удар\"",
 		INSTRUMENTAL = "банкой энергетика \"Молочный Удар\"",
-		PREPOSITIONAL = "банке энергетика \"Молочный Удар\""
+		PREPOSITIONAL = "банке энергетика \"Молочный Удар\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/energy/grey
@@ -258,7 +258,7 @@
 		DATIVE = "банке энергетика \"Грей Энерджи\"",
 		ACCUSATIVE = "банку энергетика \"Грей Энерджи\"",
 		INSTRUMENTAL = "банкой энергетика \"Грей Энерджи\"",
-		PREPOSITIONAL = "банке энергетика \"Грей Энерджи\""
+		PREPOSITIONAL = "банке энергетика \"Грей Энерджи\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/beer
@@ -308,7 +308,7 @@
 		DATIVE = "бутылке настойки \"Админово Пойло\"",
 		ACCUSATIVE = "бутылку настойки \"Админово Пойло\"",
 		INSTRUMENTAL = "бутылкой настойки \"Админово Пойло\"",
-		PREPOSITIONAL = "бутылке настойки \"Админово Пойло\""
+		PREPOSITIONAL = "бутылке настойки \"Админово Пойло\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/madminmalt
@@ -325,7 +325,7 @@
 		DATIVE = "бутылке настойки \"Ярость Админа\"",
 		ACCUSATIVE = "бутылку настойки \"Ярость Админа\"",
 		INSTRUMENTAL = "бутылкой настойки \"Ярость Админа\"",
-		PREPOSITIONAL = "бутылке настойки \"Ярость Админа\""
+		PREPOSITIONAL = "бутылке настойки \"Ярость Админа\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/badminbrew
@@ -342,7 +342,7 @@
 		DATIVE = "бутылке настойки \"Плохой Админ\"",
 		ACCUSATIVE = "бутылку настойки \"Плохой Админ\"",
 		INSTRUMENTAL = "бутылкой настойки \"Плохой Админ\"",
-		PREPOSITIONAL = "бутылке настойки \"Плохой Админ\""
+		PREPOSITIONAL = "бутылке настойки \"Плохой Админ\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/ale
@@ -360,7 +360,7 @@
 		DATIVE = "бутылке эля \"Хвостатые Истории\"",
 		ACCUSATIVE = "бутылку эля \"Хвостатые Истории\"",
 		INSTRUMENTAL = "бутылкой эля \"Хвостатые Истории\"",
-		PREPOSITIONAL = "бутылке эля \"Хвостатые Истории\""
+		PREPOSITIONAL = "бутылке эля \"Хвостатые Истории\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind
@@ -376,7 +376,7 @@
 		DATIVE = "банке газировки \"Космический Маунтин Винд\"",
 		ACCUSATIVE = "банку газировки \"Космический Маунтин Винд\"",
 		INSTRUMENTAL = "банкой газировки \"Космический Маунтин Винд\"",
-		PREPOSITIONAL = "банке газировки \"Космический Маунтин Винд\""
+		PREPOSITIONAL = "банке газировки \"Космический Маунтин Винд\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/thirteenloko
@@ -392,7 +392,7 @@
 		DATIVE = "банке алкогольной газировки \"Тринадцатый Локо\"",
 		ACCUSATIVE = "банку алкогольной газировки \"Тринадцатый Локо\"",
 		INSTRUMENTAL = "банкой алкогольной газировки \"Тринадцатый Локо\"",
-		PREPOSITIONAL = "банке алкогольной газировки \"Тринадцатый Локо\""
+		PREPOSITIONAL = "банке алкогольной газировки \"Тринадцатый Локо\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/dr_gibb
@@ -408,7 +408,7 @@
 		DATIVE = "банке газировки \"Доктор Гибб\"",
 		ACCUSATIVE = "банку газировки \"Доктор Гибб\"",
 		INSTRUMENTAL = "банкой газировки \"Доктор Гибб\"",
-		PREPOSITIONAL = "банке газировки \"Доктор Гибб\""
+		PREPOSITIONAL = "банке газировки \"Доктор Гибб\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/starkist
@@ -424,7 +424,7 @@
 		DATIVE = "банке газировки \"Стар-Кист\"",
 		ACCUSATIVE = "банку газировки \"Стар-Кист\"",
 		INSTRUMENTAL = "банкой газировки \"Стар-Кист\"",
-		PREPOSITIONAL = "банке газировки \"Стар-Кист\""
+		PREPOSITIONAL = "банке газировки \"Стар-Кист\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/space_up
@@ -440,7 +440,7 @@
 		DATIVE = "банке газировки \"Спейс-Ап\"",
 		ACCUSATIVE = "банку газировки \"Спейс-Ап\"",
 		INSTRUMENTAL = "банкой газировки \"Спейс-Ап\"",
-		PREPOSITIONAL = "банке газировки \"Спейс-Ап\""
+		PREPOSITIONAL = "банке газировки \"Спейс-Ап\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/lemon_lime
@@ -456,7 +456,7 @@
 		DATIVE = "банке газировки \"Лимон-Лайм\"",
 		ACCUSATIVE = "банку газировки \"Лимон-Лайм\"",
 		INSTRUMENTAL = "банкой газировки \"Лимон-Лайм\"",
-		PREPOSITIONAL = "банке газировки \"Лимон-Лайм\""
+		PREPOSITIONAL = "банке газировки \"Лимон-Лайм\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/iced_tea
@@ -472,7 +472,7 @@
 		DATIVE = "банке чая со льдом \"Вриск Секретный\"",
 		ACCUSATIVE = "банку чая со льдом \"Вриск Секретный\"",
 		INSTRUMENTAL = "банкой чая со льдом \"Вриск Секретный\"",
-		PREPOSITIONAL = "банке чая со льдом \"Вриск Секретный\""
+		PREPOSITIONAL = "банке чая со льдом \"Вриск Секретный\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/grape_juice
@@ -487,7 +487,7 @@
 		DATIVE = "банке виноградного сока \"Освежающе-Фиолетовый\"",
 		ACCUSATIVE = "банку виноградного сока \"Освежающе-Фиолетовый\"",
 		INSTRUMENTAL = "банкой виноградного сока \"Освежающе-Фиолетовый\"",
-		PREPOSITIONAL = "банке виноградного сока \"Освежающе-Фиолетовый\""
+		PREPOSITIONAL = "банке виноградного сока \"Освежающе-Фиолетовый\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/tonic
@@ -503,7 +503,7 @@
 		DATIVE = "банке тоника \"Т-Борг\"",
 		ACCUSATIVE = "банку тоника \"Т-Борг\"",
 		INSTRUMENTAL = "банкой тоника \"Т-Борг\"",
-		PREPOSITIONAL = "банке тоника \"Т-Борг\""
+		PREPOSITIONAL = "банке тоника \"Т-Борг\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/sodawater
@@ -535,7 +535,7 @@
 		DATIVE = "банке синтанола \"Биб Классический\"",
 		ACCUSATIVE = "банку синтанола \"Биб Классический\"",
 		INSTRUMENTAL = "банкой синтанола \"Биб Классический\"",
-		PREPOSITIONAL = "банке синтанола \"Биб Классический\""
+		PREPOSITIONAL = "банке синтанола \"Биб Классический\"",
 	)
 
 /obj/item/reagent_containers/food/drinks/cans/bottler

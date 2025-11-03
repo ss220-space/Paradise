@@ -390,7 +390,7 @@
 	severity = 3
 	var/drop_rate = 40
 	var/list/mineral_results = list(
-	/obj/item/stack/sheet/metal = 1
+		/obj/item/stack/sheet/metal = 1,
 	)
 
 /datum/spacevine_mutation/mineral/on_death(obj/structure/spacevine/holder)

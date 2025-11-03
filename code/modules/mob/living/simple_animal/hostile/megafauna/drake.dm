@@ -69,7 +69,7 @@ Difficulty: Medium
 		/datum/action/innate/megafauna_attack/fire_cone,
 		/datum/action/innate/megafauna_attack/fire_cone_meteors,
 		/datum/action/innate/megafauna_attack/mass_fire,
-		/datum/action/innate/megafauna_attack/lava_swoop
+		/datum/action/innate/megafauna_attack/lava_swoop,
 	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/get_ru_names()

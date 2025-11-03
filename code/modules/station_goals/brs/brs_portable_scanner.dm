@@ -19,7 +19,7 @@
 		/obj/item/stock_parts/capacitor/super = 2,
 		/obj/item/stock_parts/micro_laser/ultra = 1,
 		/obj/item/stock_parts/scanning_module/phasic = 5,
-		/obj/item/stack/ore/bluespace_crystal = 1
+		/obj/item/stack/ore/bluespace_crystal = 1,
 	)
 
 /obj/machinery/brs_portable_scanner

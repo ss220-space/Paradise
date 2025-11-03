@@ -60,7 +60,7 @@ Difficulty: Very Hard
 		/datum/action/innate/megafauna_attack/spiral_attack,
 		/datum/action/innate/megafauna_attack/aoe_attack,
 		/datum/action/innate/megafauna_attack/shotgun,
-		/datum/action/innate/megafauna_attack/alternating_cardinals
+		/datum/action/innate/megafauna_attack/alternating_cardinals,
 	)
 	/// Have we used our final attack yet?
 	var/final_available = TRUE

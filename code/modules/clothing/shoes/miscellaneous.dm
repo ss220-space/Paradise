@@ -33,7 +33,7 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi'
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
 	)
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
@@ -202,8 +202,8 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
+	)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
@@ -357,7 +357,7 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_shoes"
 	onmob_sheets = list(
-		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi'
+		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi',
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
@@ -376,7 +376,7 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_shoes"
 	onmob_sheets = list(
-		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi'
+		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi',
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
@@ -657,8 +657,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+	)
 
 /obj/item/clothing/shoes/chad
 	name = "Chad shoes"

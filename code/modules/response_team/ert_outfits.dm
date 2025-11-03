@@ -304,7 +304,7 @@
 	)
 	implants = list(
 		/obj/item/implant/mindshield/ert,
-		/obj/item/implant/death_alarm
+		/obj/item/implant/death_alarm,
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/gamma

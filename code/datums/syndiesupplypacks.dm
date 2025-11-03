@@ -2106,7 +2106,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 		/obj/item/flashlight/emp,
 		/obj/item/clothing/glasses/hud/security/chameleon,
-		/obj/item/chameleon
+		/obj/item/chameleon,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2124,7 +2124,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/card/id/syndicate,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/backpack/satchel_flat,
-		/obj/item/encryptionkey/syndicate
+		/obj/item/encryptionkey/syndicate,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2148,7 +2148,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/encryptionkey/syndicate,
 		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,
 		/obj/item/storage/box/syndie_kit/emp,
-		/obj/item/CQC_manual
+		/obj/item/CQC_manual,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2169,7 +2169,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/grenade/syndieminibomb,
 		/obj/item/grenade/clusterbuster/n2o,
 		/obj/item/storage/box/syndie_kit/space,
-		/obj/item/encryptionkey/syndicate
+		/obj/item/encryptionkey/syndicate,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2191,7 +2191,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/gloves/color/latex/nitrile,
 		/obj/item/clothing/mask/gas/clown_hat,
 		/obj/item/thermal_drill/diamond_drill/syndicate,
-		/obj/item/encryptionkey/syndicate
+		/obj/item/encryptionkey/syndicate,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2207,7 +2207,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/implanter/adrenalin,
 		/obj/item/implanter/explosive,
 		/obj/item/implanter/storage,
-		/obj/item/encryptionkey/syndicate
+		/obj/item/encryptionkey/syndicate,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2230,7 +2230,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/ai_module/toy_ai,
 		/obj/item/storage/belt/military/traitor/hacker,
 		/obj/item/clothing/gloves/combat,
-		/obj/item/flashlight/emp
+		/obj/item/flashlight/emp,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2247,7 +2247,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/card/id/syndicate,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/clothing/mask/chameleon,
-		/obj/item/encryptionkey/syndicate
+		/obj/item/encryptionkey/syndicate,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2267,7 +2267,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/under/suit_jacket/really_black,
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
 		/obj/item/pen/edagger,
-		/obj/item/encryptionkey/syndicate
+		/obj/item/encryptionkey/syndicate,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2288,7 +2288,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/ammo_box/magazine/m10mm/ap,
 		/obj/item/ammo_box/magazine/m10mm/fire,
 		/obj/item/ammo_box/magazine/m10mm/hp,
-		/obj/item/storage/box/sec
+		/obj/item/storage/box/sec,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2306,7 +2306,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/grenade/plastic/c4,
 		/obj/item/grenade/plastic/c4,
 		/obj/item/card/emag,
-		/obj/item/encryptionkey/syndicate
+		/obj/item/encryptionkey/syndicate,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2323,7 +2323,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/rcd/preloaded,
 		/obj/item/storage/box/syndie_kit/space,
 		/obj/item/autoimplanter/oneuse/meson,
-		/obj/item/encryptionkey/syndicate
+		/obj/item/encryptionkey/syndicate,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
@@ -2343,7 +2343,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/storage/box/syndie_kit/hardsuit,
 		/obj/item/clothing/gloves/combat,
 		/obj/item/card/id/syndicate,
-		/obj/item/encryptionkey/syndicate
+		/obj/item/encryptionkey/syndicate,
 	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate

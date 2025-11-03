@@ -28,7 +28,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/get_ru_names()
@@ -101,7 +101,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/explorer/get_ru_names()
@@ -306,7 +306,7 @@
 	item_state = "rainbow"
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rainbow/get_ru_names()

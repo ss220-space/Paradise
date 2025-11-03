@@ -15,8 +15,8 @@
 		/obj/item/card/id = 3,
 		/obj/item/paper_bundle = 3,
 		/obj/item/folder = 4,
-		/obj/item/book = 5
-		)
+		/obj/item/book = 5,
+	)
 
 /obj/machinery/papershredder/get_ru_names()
 	return list(

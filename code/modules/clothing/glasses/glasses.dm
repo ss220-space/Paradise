@@ -102,8 +102,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/meson/sunglasses
 	name = "Meson Sunglasses"
@@ -181,7 +181,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 
 /obj/item/clothing/glasses/science
@@ -201,8 +201,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot, mob/user, datum/action/action)
@@ -246,7 +246,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 
 /obj/item/clothing/glasses/janitor
@@ -261,8 +261,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/night
 	name = "Night Vision Goggles"
@@ -281,8 +281,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/eyepatch
 	name = "eyepatch"
@@ -298,8 +298,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/monocle
 	name = "monocle"
@@ -316,8 +316,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/material
 	name = "Optical Material Scanner"
@@ -335,8 +335,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/material/cyber
 	name = "Eye Replacement Implant"
@@ -379,8 +379,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/regular/hipster
 	desc = "Made by Uncool. Co."
@@ -401,8 +401,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/gglasses
 	name = "Green Glasses"
@@ -418,8 +418,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/sunglasses
@@ -440,8 +440,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/sunglasses_fake
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
@@ -456,8 +456,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/sunglasses_fake/holo
 	desc = "Protects against the holographic UV rays of the holographic sun."
@@ -527,8 +527,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/sunglasses/lasers
 	desc = "A peculiar set of sunglasses; they have various chips and other panels attached to the sides of the frames."
@@ -642,8 +642,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
 	if(ishuman(loc))
@@ -679,7 +679,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 
 /obj/item/clothing/glasses/thermal/eyepatch
@@ -727,8 +727,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 
 /obj/item/clothing/glasses/hud/godeye/Initialize(mapload)
@@ -780,8 +780,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/tajblind/eng
 	name = "industrial veil"

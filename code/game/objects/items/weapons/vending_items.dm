@@ -42,7 +42,7 @@
 		DATIVE = "набору пополнения \"[machine_name]\"",
 		ACCUSATIVE = "набор пополнения \"[machine_name]\"",
 		INSTRUMENTAL = "набором пополнения \"[machine_name]\"",
-		PREPOSITIONAL = "наборе пополнения \"[machine_name]\""
+		PREPOSITIONAL = "наборе пополнения \"[machine_name]\"",
 	)
 
 /obj/item/vending_refill/examine(mob/user)

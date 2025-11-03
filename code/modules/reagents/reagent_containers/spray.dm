@@ -389,5 +389,5 @@
 		DATIVE = "распылителю гербицидов \"Plant-B-Gone\"",
 		ACCUSATIVE = "распылитель гербицидов \"Plant-B-Gone\"",
 		INSTRUMENTAL = "распылителем гербицидов \"Plant-B-Gone\"",
-		PREPOSITIONAL = "распылителе гербицидов \"Plant-B-Gone\""
+		PREPOSITIONAL = "распылителе гербицидов \"Plant-B-Gone\"",
 	)

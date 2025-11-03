@@ -4,7 +4,7 @@
 	slogan_list = list(
 		"Не заб+удьте закуп+ить п+ару к+артриджей!",
 		"К+артриджы и КПК! КПК и к+артриджи!",
-		"Как портат+ивно! Как уд+обно!"
+		"Как портат+ивно! Как уд+обно!",
 	)
 
 	icon_state = "cart_off"
@@ -25,11 +25,11 @@
 		/obj/item/cartridge/atmos = 10,
 		/obj/item/cartridge/janitor = 10,
 		/obj/item/cartridge/signal/toxins = 10,
-		/obj/item/cartridge/signal = 10
+		/obj/item/cartridge/signal = 10,
 	)
 	contraband = list(
 		/obj/item/cartridge/clown = 1,
-		/obj/item/cartridge/mime = 1
+		/obj/item/cartridge/mime = 1,
 	)
 	prices = list(
 		/obj/item/pda = 299,
@@ -40,7 +40,7 @@
 		/obj/item/cartridge/atmos = 69,
 		/obj/item/cartridge/janitor = 99,
 		/obj/item/cartridge/signal/toxins = 149,
-		/obj/item/cartridge/signal = 69
+		/obj/item/cartridge/signal = 69,
 	)
 
 /obj/machinery/vending/cart/get_ru_names()

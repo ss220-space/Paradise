@@ -682,7 +682,7 @@
 		/datum/species/unathi,
 		/datum/species/vulpkanin,
 		/datum/species/tajaran,
-		/datum/species/vox
+		/datum/species/vox,
 	)
 
 

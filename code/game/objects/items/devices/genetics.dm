@@ -59,7 +59,7 @@
 		current_dna_detail_data = list(
 			num = "[block]",
 			name = "[name]",
-			color = "[color]"
+			color = "[color]",
 		)
 		dna_data += list(current_dna_detail_data)
 	current_dna_detail_data["name"] = "[name]"

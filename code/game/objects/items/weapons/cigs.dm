@@ -52,7 +52,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
 
 /obj/item/clothing/mask/cigarette/get_ru_names()
@@ -248,7 +248,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "[lit ? "прикуренной " : ""]" + ru_names[DATIVE],
 		ACCUSATIVE = "[lit ? "прикуренную " : ""]" + ru_names[ACCUSATIVE],
 		INSTRUMENTAL = "[lit ? "прикуренной " : ""]" + ru_names[INSTRUMENTAL],
-		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL]
+		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL],
 	)
 
 /obj/item/clothing/mask/cigarette/get_heat()

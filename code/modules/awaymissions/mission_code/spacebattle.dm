@@ -575,20 +575,20 @@
 			suit_store = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
-				/obj/item/ammo_box/magazine/enforcer/lethal = 1
-				)
+				/obj/item/ammo_box/magazine/enforcer/lethal = 1,
+			)
 		if(8 to 9) //20%
 			suit_store = /obj/item/gun/projectile/automatic/wt550
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
-				/obj/item/ammo_box/magazine/wt550m9 = 1
-				)
+				/obj/item/ammo_box/magazine/wt550m9 = 1,
+			)
 		if(10) //10%
 			suit_store = /obj/item/gun/projectile/shotgun/riot/buckshot
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
-				/obj/item/ammo_box/shotgun/buck = 1
-				)
+				/obj/item/ammo_box/shotgun/buck = 1,
+			)
 	return ..()
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer

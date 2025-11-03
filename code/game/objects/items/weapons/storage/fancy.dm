@@ -331,7 +331,7 @@
 		DATIVE = "пачке \"Марсианский Табак\"",
 		ACCUSATIVE = "пачку \"Марсианский Табак\"",
 		INSTRUMENTAL = "пачкой \"Марсианский Табак\"",
-		PREPOSITIONAL = "пачке \"Марсианский Табак\""
+		PREPOSITIONAL = "пачке \"Марсианский Табак\"",
 	)
 
 
@@ -371,7 +371,7 @@
 		DATIVE = "пачке сигарет \"Доктор Денчиго\"",
 		ACCUSATIVE = "пачку сигарет \"Доктор Денчиго\"",
 		INSTRUMENTAL = "пачкой сигарет \"Доктор Денчиго\"",
-		PREPOSITIONAL = "пачке сигарет \"Доктор Денчиго\""
+		PREPOSITIONAL = "пачке сигарет \"Доктор Денчиго\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
@@ -388,7 +388,7 @@
 		DATIVE = "пачке сигарет \"Лёгкие на подъём\"",
 		ACCUSATIVE = "пачку сигарет \"Лёгкие на подъём\"",
 		INSTRUMENTAL = "пачкой сигарет \"Лёгкие на подъём\"",
-		PREPOSITIONAL = "пачке сигарет \"Лёгкие на подъём\""
+		PREPOSITIONAL = "пачке сигарет \"Лёгкие на подъём\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard
@@ -403,7 +403,7 @@
 		DATIVE = "пачке сигарет \"Ричард и Компания\"",
 		ACCUSATIVE = "пачку сигарет \"Ричард и Компания\"",
 		INSTRUMENTAL = "пачкой сигарет \"Ричард и Компания\"",
-		PREPOSITIONAL = "пачке сигарет \"Ричард и Компания\""
+		PREPOSITIONAL = "пачке сигарет \"Ричард и Компания\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
@@ -419,7 +419,7 @@
 		DATIVE = "пачке сигарет \"Робаст\"",
 		ACCUSATIVE = "пачку сигарет \"Робаст\"",
 		INSTRUMENTAL = "пачкой сигарет \"Робаст\"",
-		PREPOSITIONAL = "пачке сигарет \"Робаст\""
+		PREPOSITIONAL = "пачке сигарет \"Робаст\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
@@ -437,7 +437,7 @@
 		DATIVE = "пачке сигарет \"Золотой Робаст\"",
 		ACCUSATIVE = "пачку сигарет \"Золотой Робаст\"",
 		INSTRUMENTAL = "пачкой сигарет \"Золотой Робаст\"",
-		PREPOSITIONAL = "пачке сигарет \"Золотой Робаст\""
+		PREPOSITIONAL = "пачке сигарет \"Золотой Робаст\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
@@ -453,7 +453,7 @@
 		DATIVE = "пачке сигарет \"Дымящий Карп\"",
 		ACCUSATIVE = "пачку сигарет \"Дымящий Карп\"",
 		INSTRUMENTAL = "пачкой сигарет\"Дымящий Карп\"",
-		PREPOSITIONAL = "пачке сигарет \"Дымящий Карп\""
+		PREPOSITIONAL = "пачке сигарет \"Дымящий Карп\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
@@ -469,7 +469,7 @@
 		DATIVE = "пачке сигарет \"Табак Мидори\"",
 		ACCUSATIVE = "пачку сигарет \"Табак Мидори\"",
 		INSTRUMENTAL = "пачкой сигарет \"Табак Мидори\"",
-		PREPOSITIONAL = "пачке сигарет \"Табак Мидори\""
+		PREPOSITIONAL = "пачке сигарет \"Табак Мидори\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
@@ -490,7 +490,7 @@
 		DATIVE = "пачке сигарет \"от Шейди Джима\"",
 		ACCUSATIVE = "пачку сигарет \"от Шейди Джима\"",
 		INSTRUMENTAL = "пачкой сигарет \"от Шейди Джима\"",
-		PREPOSITIONAL = "пачке сигарет \"от Шейди Джима\""
+		PREPOSITIONAL = "пачке сигарет \"от Шейди Джима\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
@@ -507,7 +507,7 @@
 		DATIVE = "пачке сигарет \"Энигма\"",
 		ACCUSATIVE = "пачку сигарет \"Энигма\"",
 		INSTRUMENTAL = "пачкой сигарет \"Энигма\"",
-		PREPOSITIONAL = "пачке сигарет \"Энигма\""
+		PREPOSITIONAL = "пачке сигарет \"Энигма\"",
 	)
 
 /obj/item/storage/fancy/rollingpapers

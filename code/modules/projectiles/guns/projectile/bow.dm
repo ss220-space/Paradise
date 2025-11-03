@@ -124,19 +124,19 @@
 	start_empty = TRUE
 	replacing_sound = list(
 		'sound/weapons/bows/arrow_insert1.ogg',
-		'sound/weapons/bows/arrow_insert2.ogg'
+		'sound/weapons/bows/arrow_insert2.ogg',
 	)
 	remove_sound = list(
 		'sound/weapons/bows/arrow_remove1.ogg',
-		'sound/weapons/bows/arrow_remove2.ogg'
+		'sound/weapons/bows/arrow_remove2.ogg',
 	)
 	insert_sound = list(
 		'sound/weapons/bows/arrow_insert1.ogg',
-		'sound/weapons/bows/arrow_insert2.ogg'
+		'sound/weapons/bows/arrow_insert2.ogg',
 	)
 	load_sound = list(
 		'sound/weapons/bows/arrow_remove1.ogg',
-		'sound/weapons/bows/arrow_remove2.ogg'
+		'sound/weapons/bows/arrow_remove2.ogg',
 	) //all these sounds are too good to be true
 
 /obj/projectile/bullet/reusable/arrow //only for wooden bow!
@@ -247,7 +247,7 @@
 	max_combined_w_class = INFINITY
 	display_contents_with_number = TRUE
 	can_hold = list(
-		/obj/item/ammo_casing/caseless/arrow
+		/obj/item/ammo_casing/caseless/arrow,
 	)
 
 /obj/item/storage/backpack/quiver/get_ru_names()
@@ -280,7 +280,7 @@
 	max_combined_w_class = INFINITY
 	display_contents_with_number = TRUE
 	can_hold = list(
-		/obj/item/ammo_casing/caseless/arrow
+		/obj/item/ammo_casing/caseless/arrow,
 	)
 	resistance_flags = FIRE_PROOF
 

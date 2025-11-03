@@ -34,7 +34,7 @@
 		DATIVE = "патрону \"Погремушка\"",
 		ACCUSATIVE = "патрон \"Погремушка\"",
 		INSTRUMENTAL = "патроном \"Погремушка\"",
-		PREPOSITIONAL = "патроне \"Погремушка\""
+		PREPOSITIONAL = "патроне \"Погремушка\"",
 	)
 
 /obj/projectile/bullet/weakbullet/booze
@@ -379,7 +379,7 @@
 		DATIVE = "пуле \"Дыхание дракона\"",
 		ACCUSATIVE = "пулю \"Дыхание дракона\"",
 		INSTRUMENTAL = "пулей \"Дыхание дракона\"",
-		PREPOSITIONAL = "пуле \"Дыхание дракона\""
+		PREPOSITIONAL = "пуле \"Дыхание дракона\"",
 	)
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
@@ -398,7 +398,7 @@
 		DATIVE = "пуле \"жидкая лава\"",
 		ACCUSATIVE = "пулю \"жидкая лава\"",
 		INSTRUMENTAL = "пулей \"жидкая лава\"",
-		PREPOSITIONAL = "пуле \"жидкая лава\""
+		PREPOSITIONAL = "пуле \"жидкая лава\"",
 	)
 
 /obj/projectile/bullet/meteorshot

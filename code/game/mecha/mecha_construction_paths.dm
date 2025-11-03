@@ -55,7 +55,7 @@
 		list("key"=/obj/item/mecha_parts/part/ripley_left_arm),//2
 		list("key"=/obj/item/mecha_parts/part/ripley_right_arm),//3
 		list("key"=/obj/item/mecha_parts/part/ripley_left_leg),//4
-		list("key"=/obj/item/mecha_parts/part/ripley_right_leg)//5
+		list("key"=/obj/item/mecha_parts/part/ripley_right_leg),//5
 	)
 
 /datum/construction/mecha/ripley_chassis/custom_action(step, atom/used_atom, mob/user)
@@ -87,85 +87,85 @@
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="External armor is wrenched."
+			"desc"="External armor is wrenched.",
 		),
 		//2
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is installed."
+			"desc"="External armor is installed.",
 		),
 		//3
 		list(
 			"key"=/obj/item/stack/sheet/plasteel,
 			"backkey"=TOOL_WELDER,
-			"desc"="Internal armor is welded."
+			"desc"="Internal armor is welded.",
 		),
 		//4
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="Internal armor is wrenched."
+			"desc"="Internal armor is wrenched.",
 		),
 		//5
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Internal armor is installed."
+			"desc"="Internal armor is installed.",
 		),
 		//6
 		list(
 			"key"=/obj/item/stack/sheet/metal,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Peripherals control module is secured."
+			"desc"="Peripherals control module is secured.",
 		),
 		//7
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Peripherals control module is installed."
+			"desc"="Peripherals control module is installed.",
 		),
 		//8
 		list(
 			"key"=/obj/item/circuitboard/mecha/ripley/peripherals,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Central control module is secured."
+			"desc"="Central control module is secured.",
 		),
 		//9
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Central control module is installed."
+			"desc"="Central control module is installed.",
 		),
 		//10
 		list(
 			"key"=/obj/item/circuitboard/mecha/ripley/main,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is adjusted."
+			"desc"="The wiring is adjusted.",
 		),
 		//11
 		list(
 			"key"=TOOL_WIRECUTTER,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is added."
+			"desc"="The wiring is added.",
 		),
 		//12
 		list(
 			"key"=/obj/item/stack/cable_coil,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The hydraulic systems are active."
+			"desc"="The hydraulic systems are active.",
 		),
 		//13
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are connected."
+			"desc"="The hydraulic systems are connected.",
 		),
 		//14
 		list(
 			"key"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are disconnected."
-		)
+			"desc"="The hydraulic systems are disconnected.",
+		),
 	)
 
 /datum/construction/reversible/mecha/ripley/action(atom/used_atom,mob/user as mob)
@@ -286,7 +286,7 @@
 		list("key"=/obj/item/mecha_parts/part/gygax_right_arm),//3
 		list("key"=/obj/item/mecha_parts/part/gygax_left_leg),//4
 		list("key"=/obj/item/mecha_parts/part/gygax_right_leg),//5
-		list("key"=/obj/item/mecha_parts/part/gygax_head)//6
+		list("key"=/obj/item/mecha_parts/part/gygax_head),//6
 	)
 
 /datum/construction/mecha/gygax_chassis/custom_action(step, atom/used_atom, mob/user)
@@ -316,121 +316,121 @@
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="External armor is wrenched."
+			"desc"="External armor is wrenched.",
 		),
 		//2
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is installed."
+			"desc"="External armor is installed.",
 		),
 		//3
 		list(
 			"key"=/obj/item/mecha_parts/part/gygax_armour,
 			"backkey"=TOOL_WELDER,
-			"desc"="Internal armor is welded."
+			"desc"="Internal armor is welded.",
 		),
 		//4
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="Internal armor is wrenched."
+			"desc"="Internal armor is wrenched.",
 		),
 		//5
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Internal armor is installed."
+			"desc"="Internal armor is installed.",
 		),
 		//6
 		list(
 			"key"=/obj/item/stack/sheet/metal,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Advanced capacitor is secured."
+			"desc"="Advanced capacitor is secured.",
 		),
 		//7
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Advanced capacitor is installed."
+			"desc"="Advanced capacitor is installed.",
 		),
 		//8
 		list(
 			"key"=/obj/item/stock_parts/capacitor/adv,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Advanced scanner module is secured."
+			"desc"="Advanced scanner module is secured.",
 		),
 		//9
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Advanced scanner module is installed."
+			"desc"="Advanced scanner module is installed.",
 		),
 		//10
 		list(
 			"key"=/obj/item/stock_parts/scanning_module/adv,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Scanning module is secured."
+			"desc"="Scanning module is secured.",
 		),
 		//11
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Scanning module is installed."
+			"desc"="Scanning module is installed.",
 		),
 		//12
 		list(
 			"key"=/obj/item/circuitboard/mecha/gygax/targeting,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Peripherals control module is secured."
+			"desc"="Peripherals control module is secured.",
 		),
 		//13
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Peripherals control module is installed."
+			"desc"="Peripherals control module is installed.",
 		),
 		//14
 		list(
 			"key"=/obj/item/circuitboard/mecha/gygax/peripherals,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Central control module is secured."
+			"desc"="Central control module is secured.",
 		),
 		//15
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Central control module is installed."
+			"desc"="Central control module is installed.",
 		),
 		//16
 		list(
 			"key"=/obj/item/circuitboard/mecha/gygax/main,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is adjusted."
+			"desc"="The wiring is adjusted.",
 		),
 		//17
 		list(
 			"key"=TOOL_WIRECUTTER,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is added."
+			"desc"="The wiring is added.",
 		),
 		//18
 		list(
 			"key"=/obj/item/stack/cable_coil,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The hydraulic systems are active."
+			"desc"="The hydraulic systems are active.",
 		),
 		//19
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are connected."
+			"desc"="The hydraulic systems are connected.",
 		),
 		//20
 		list(
 			"key"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are disconnected."
-		)
+			"desc"="The hydraulic systems are disconnected.",
+		),
 	)
 
 /datum/construction/reversible/mecha/gygax/action(atom/used_atom,mob/user as mob)
@@ -600,7 +600,7 @@
 		list("key"=/obj/item/mecha_parts/part/ripley_right_arm),//3
 		list("key"=/obj/item/mecha_parts/part/ripley_left_leg),//4
 		list("key"=/obj/item/mecha_parts/part/ripley_right_leg),//5
-		list("key"=/obj/item/clothing/suit/fire)//6
+		list("key"=/obj/item/clothing/suit/fire),//6
 	)
 
 /datum/construction/mecha/firefighter_chassis/custom_action(step, atom/used_atom, mob/user)
@@ -631,91 +631,91 @@
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="External armor is wrenched."
+			"desc"="External armor is wrenched.",
 		),
 		//2
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is installed."
+			"desc"="External armor is installed.",
 		),
 		//3
 		list(
 			"key"=/obj/item/stack/sheet/plasteel,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is being installed."
+			"desc"="External armor is being installed.",
 		),
 		//4
 		list(
 			"key"=/obj/item/stack/sheet/plasteel,
 			"backkey"=TOOL_WELDER,
-			"desc"="Internal armor is welded."
+			"desc"="Internal armor is welded.",
 		),
 		//5
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="Internal armor is wrenched."
+			"desc"="Internal armor is wrenched.",
 		),
 		//6
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Internal armor is installed."
+			"desc"="Internal armor is installed.",
 		),
 		//7
 		list(
 			"key"=/obj/item/stack/sheet/plasteel,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Peripherals control module is secured."
+			"desc"="Peripherals control module is secured.",
 		),
 		//8
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Peripherals control module is installed."
+			"desc"="Peripherals control module is installed.",
 		),
 		//9
 		list(
 			"key"=/obj/item/circuitboard/mecha/ripley/peripherals,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Central control module is secured."
+			"desc"="Central control module is secured.",
 		),
 		//10
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Central control module is installed."
+			"desc"="Central control module is installed.",
 		),
 		//11
 		list(
 			"key"=/obj/item/circuitboard/mecha/ripley/main,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is adjusted."
+			"desc"="The wiring is adjusted.",
 		),
 		//12
 		list(
 			"key"=TOOL_WIRECUTTER,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is added."
+			"desc"="The wiring is added.",
 		),
 		//13
 		list(
 			"key"=/obj/item/stack/cable_coil,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The hydraulic systems are active."
+			"desc"="The hydraulic systems are active.",
 		),
 		//14
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are connected."
+			"desc"="The hydraulic systems are connected.",
 		),
 		//15
 		list(
 			"key"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are disconnected."
-		)
+			"desc"="The hydraulic systems are disconnected.",
+		),
 	)
 
 /datum/construction/reversible/mecha/firefighter/action(atom/used_atom,mob/user as mob)
@@ -845,7 +845,7 @@
 		list("key"=/obj/item/mecha_parts/part/honker_right_arm),//3
 		list("key"=/obj/item/mecha_parts/part/honker_left_leg),//4
 		list("key"=/obj/item/mecha_parts/part/honker_right_leg),//5
-		list("key"=/obj/item/mecha_parts/part/honker_head)
+		list("key"=/obj/item/mecha_parts/part/honker_head),
 	)
 
 /datum/construction/mecha/honker_chassis/action(atom/used_atom,mob/user as mob)
@@ -919,7 +919,7 @@
 		list("key"=/obj/item/mecha_parts/part/reticence_right_arm),//3
 		list("key"=/obj/item/mecha_parts/part/reticence_left_leg),//4
 		list("key"=/obj/item/mecha_parts/part/reticence_right_leg),//5
-		list("key"=/obj/item/mecha_parts/part/reticence_head)
+		list("key"=/obj/item/mecha_parts/part/reticence_head),
 	)
 
 /datum/construction/mecha/reticence_chassis/action(atom/used_atom,mob/user as mob)
@@ -995,7 +995,7 @@
 		list("key"=/obj/item/mecha_parts/part/durand_right_arm),//3
 		list("key"=/obj/item/mecha_parts/part/durand_left_leg),//4
 		list("key"=/obj/item/mecha_parts/part/durand_right_leg),//5
-		list("key"=/obj/item/mecha_parts/part/durand_head)
+		list("key"=/obj/item/mecha_parts/part/durand_head),
 	)
 
 /datum/construction/mecha/durand_chassis/custom_action(step, atom/used_atom, mob/user)
@@ -1024,121 +1024,121 @@
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="External armor is wrenched."
+			"desc"="External armor is wrenched.",
 		),
 		//2
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is installed."
+			"desc"="External armor is installed.",
 		),
 		//3
 		list(
 			"key"=/obj/item/mecha_parts/part/durand_armor,
 			"backkey"=TOOL_WELDER,
-			"desc"="Internal armor is welded."
+			"desc"="Internal armor is welded.",
 		),
 		//4
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="Internal armor is wrenched."
+			"desc"="Internal armor is wrenched.",
 		),
 		//5
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Internal armor is installed."
+			"desc"="Internal armor is installed.",
 		),
 		//6
 		list(
 			"key"=/obj/item/stack/sheet/metal,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Super capacitor is secured."
+			"desc"="Super capacitor is secured.",
 		),
 		//7
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Super capacitor is installed."
+			"desc"="Super capacitor is installed.",
 		),
 		//8
 		list(
 			"key"=/obj/item/stock_parts/capacitor/super,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Phasic scanner module is secured."
+			"desc"="Phasic scanner module is secured.",
 		),
 		//9
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Phasic scanner module is installed."
+			"desc"="Phasic scanner module is installed.",
 		),
 		//10
 		list(
 			"key"=/obj/item/stock_parts/scanning_module/phasic,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Scanning module is secured."
+			"desc"="Scanning module is secured.",
 		),
 		//11
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Scanning module is installed."
+			"desc"="Scanning module is installed.",
 		),
 		//12
 		list(
 			"key"=/obj/item/circuitboard/mecha/durand/targeting,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Peripherals control module is secured."
+			"desc"="Peripherals control module is secured.",
 		),
 		//13
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Peripherals control module is installed."
+			"desc"="Peripherals control module is installed.",
 		),
 		//14
 		list(
 			"key"=/obj/item/circuitboard/mecha/durand/peripherals,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Central control module is secured."
+			"desc"="Central control module is secured.",
 		),
 		//15
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Central control module is installed."
+			"desc"="Central control module is installed.",
 		),
 		//16
 		list(
 			"key"=/obj/item/circuitboard/mecha/durand/main,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is adjusted."
+			"desc"="The wiring is adjusted.",
 		),
 		//17
 		list(
 			"key"=TOOL_WIRECUTTER,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is added."
+			"desc"="The wiring is added.",
 		),
 		//18
 		list(
 			"key"=/obj/item/stack/cable_coil,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The hydraulic systems are active."
+			"desc"="The hydraulic systems are active.",
 		),
 		//19
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are connected."
+			"desc"="The hydraulic systems are connected.",
 		),
 		//20
 		list(
 			"key"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are disconnected."
-		)
+			"desc"="The hydraulic systems are disconnected.",
+		),
 	)
 
 
@@ -1312,7 +1312,7 @@
 		list("key"=/obj/item/mecha_parts/part/phazon_right_arm),//3
 		list("key"=/obj/item/mecha_parts/part/phazon_left_leg),//4
 		list("key"=/obj/item/mecha_parts/part/phazon_right_leg),//5
-		list("key"=/obj/item/mecha_parts/part/phazon_head)
+		list("key"=/obj/item/mecha_parts/part/phazon_head),
 	)
 
 /datum/construction/mecha/phazon_chassis/custom_action(step, atom/used_atom, mob/user)
@@ -1341,143 +1341,143 @@
 		list(
 			"key" = /obj/item/assembly/signaler/core/bluespace,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Anomaly core socket is open and awaiting connection."
+			"desc"="Anomaly core socket is open and awaiting connection.",
 		),
 		//2
 		list(
 			"key" = TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="External armor is wrenched."
+			"desc"="External armor is wrenched.",
 		),
 		//3
 		list(
 			"key" = TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is installed."
+			"desc"="External armor is installed.",
 		),
 		//4
 		list(
 			"key" = /obj/item/mecha_parts/part/phazon_armor,
 			"backkey"=TOOL_WELDER,
-			"desc"="Phase armor is welded."
+			"desc"="Phase armor is welded.",
 		),
 		//5
 		list("key" = TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="Phase armor is wrenched."
+			"desc"="Phase armor is wrenched.",
 		),
 		//6
 		list(
 			"key" = TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Phase armor is installed."
+			"desc"="Phase armor is installed.",
 		),
 		//7
 		list(
 			"key" = /obj/item/stack/sheet/plasteel,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The bluespace crystal is engaged."
+			"desc"="The bluespace crystal is engaged.",
 		),
 		//8
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WIRECUTTER,
-			"desc"="The bluespace crystal is connected."
+			"desc"="The bluespace crystal is connected.",
 		),
 		//9
 		list(
 			"key" = /obj/item/stack/cable_coil,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="The bluespace crystal is installed."
+			"desc"="The bluespace crystal is installed.",
 		),
 		//10
 		list(
 			"key" = /obj/item/stack/ore/bluespace_crystal,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Super capacitor is secured."
+			"desc"="Super capacitor is secured.",
 		),
 		//11
 		list("key" = TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Super capacitor is installed."
+			"desc"="Super capacitor is installed.",
 		),
 		//12
 		list(
 			"key" = /obj/item/stock_parts/capacitor/super,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Phasic scanner module is secured."
+			"desc"="Phasic scanner module is secured.",
 		),
 		//13
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Phasic scanner module is installed."
+			"desc"="Phasic scanner module is installed.",
 		),
 		//14
 		list(
 			"key" = /obj/item/stock_parts/scanning_module/phasic,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Scanning module is secured."
+			"desc"="Scanning module is secured.",
 		),
 		//15
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Scanning module is installed."
+			"desc"="Scanning module is installed.",
 		),
 		//16
 		list(
 			"key" = /obj/item/circuitboard/mecha/phazon/targeting,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Peripherals control module is secured."
+			"desc"="Peripherals control module is secured.",
 		),
 		//17
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Peripherals control module is installed"
+			"desc"="Peripherals control module is installed",
 		),
 		//18
 		list(
 			"key" = /obj/item/circuitboard/mecha/phazon/peripherals,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Central control module is secured."
+			"desc"="Central control module is secured.",
 		),
 		//19
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Central control module is installed."
+			"desc"="Central control module is installed.",
 		),
 		//20
 		list(
 			"key" = /obj/item/circuitboard/mecha/phazon/main,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is adjusted."
+			"desc"="The wiring is adjusted.",
 		),
 		//21
 		list(
 			"key" = TOOL_WIRECUTTER,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is added."
+			"desc"="The wiring is added.",
 		),
 		//22
 		list(
 			"key" = /obj/item/stack/cable_coil,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The hydraulic systems are active."
+			"desc"="The hydraulic systems are active.",
 		),
 		//23
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are connected."
+			"desc"="The hydraulic systems are connected.",
 		),
 		//24
 		list(
 			"key" = TOOL_WRENCH,
-			"desc"="The hydraulic systems are disconnected."
-		)
+			"desc"="The hydraulic systems are disconnected.",
+		),
 	)
 
 	/// Inserted bluespace anomaly core.
@@ -1693,7 +1693,7 @@
 		list("key"=/obj/item/mecha_parts/part/odysseus_left_arm),//3
 		list("key"=/obj/item/mecha_parts/part/odysseus_right_arm),//4
 		list("key"=/obj/item/mecha_parts/part/odysseus_left_leg),//5
-		list("key"=/obj/item/mecha_parts/part/odysseus_right_leg)//6
+		list("key"=/obj/item/mecha_parts/part/odysseus_right_leg),//6
 	)
 
 /datum/construction/mecha/odysseus_chassis/custom_action(step, atom/used_atom, mob/user)
@@ -1723,85 +1723,85 @@
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="External armor is wrenched."
+			"desc"="External armor is wrenched.",
 		),
 		//2
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is installed."
+			"desc"="External armor is installed.",
 		),
 		//3
 		list(
 			"key"=/obj/item/stack/sheet/plasteel,
 			"backkey"=TOOL_WELDER,
-			"desc"="Internal armor is welded."
+			"desc"="Internal armor is welded.",
 		),
 		//4
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="Internal armor is wrenched."
+			"desc"="Internal armor is wrenched.",
 		),
 		//5
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Internal armor is installed."
+			"desc"="Internal armor is installed.",
 		),
 		//6
 		list(
 			"key"=/obj/item/stack/sheet/metal,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Peripherals control module is secured."
+			"desc"="Peripherals control module is secured.",
 		),
 		//7
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Peripherals control module is installed."
+			"desc"="Peripherals control module is installed.",
 		),
 		//8
 		list(
 			"key"=/obj/item/circuitboard/mecha/odysseus/peripherals,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Central control module is secured."
+			"desc"="Central control module is secured.",
 		),
 		//9
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Central control module is installed."
+			"desc"="Central control module is installed.",
 		),
 		//10
 		list(
 			"key"=/obj/item/circuitboard/mecha/odysseus/main,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is adjusted."
+			"desc"="The wiring is adjusted.",
 		),
 		//11
 		list(
 			"key"=TOOL_WIRECUTTER,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is added."
+			"desc"="The wiring is added.",
 		),
 		//12
 		list(
 			"key"=/obj/item/stack/cable_coil,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The hydraulic systems are active."
+			"desc"="The hydraulic systems are active.",
 		),
 		//13
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are connected."
+			"desc"="The hydraulic systems are connected.",
 		),
 		//14
 		list(
 			"key"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are disconnected."
-		)
+			"desc"="The hydraulic systems are disconnected.",
+		),
 	)
 
 /datum/construction/reversible/mecha/odysseus/action(atom/used_atom,mob/user as mob)
@@ -1927,7 +1927,7 @@
 		list("key"=/obj/item/mecha_parts/part/clarke_right_arm),//4
 		list("key"=/obj/item/mecha_parts/part/clarke_left_leg),//5
 		list("key"=/obj/item/mecha_parts/part/clarke_right_leg),//6
-		list("key"=/obj/item/clothing/suit/space/hardsuit/mining)//7
+		list("key"=/obj/item/clothing/suit/space/hardsuit/mining),//7
 	)
 
 /datum/construction/mecha/clarke_chassis/custom_action(step, atom/used_atom, mob/user)
@@ -1957,85 +1957,85 @@
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="External armor is wrenched."
+			"desc"="External armor is wrenched.",
 		),
 		//2
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is installed."
+			"desc"="External armor is installed.",
 		),
 		//3
 		list(
 			"key"=/obj/item/stack/sheet/plasteel,
 			"backkey"=TOOL_WELDER,
-			"desc"="Internal armor is welded."
+			"desc"="Internal armor is welded.",
 		),
 		//4
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="Internal armor is wrenched."
+			"desc"="Internal armor is wrenched.",
 		),
 		//5
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Internal armor is installed."
+			"desc"="Internal armor is installed.",
 		),
 		//6
 		list(
 			"key"=/obj/item/stack/sheet/metal,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Peripherals control module is secured."
+			"desc"="Peripherals control module is secured.",
 		),
 		//7
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Peripherals control module is installed."
+			"desc"="Peripherals control module is installed.",
 		),
 		//8
 		list(
 			"key"=/obj/item/circuitboard/mecha/clarke/peripherals,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Central control module is secured."
+			"desc"="Central control module is secured.",
 		),
 		//9
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Central control module is installed."
+			"desc"="Central control module is installed.",
 		),
 		//10
 		list(
 			"key"=/obj/item/circuitboard/mecha/clarke/main,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is adjusted."
+			"desc"="The wiring is adjusted.",
 		),
 		//11
 		list(
 			"key"=TOOL_WIRECUTTER,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is added."
+			"desc"="The wiring is added.",
 		),
 		//12
 		list(
 			"key"=/obj/item/stack/cable_coil,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The hydraulic systems are active."
+			"desc"="The hydraulic systems are active.",
 		),
 		//13
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are connected."
+			"desc"="The hydraulic systems are connected.",
 		),
 		//14
 		list(
 			"key"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are disconnected."
-		)
+			"desc"="The hydraulic systems are disconnected.",
+		),
 	)
 
 /datum/construction/reversible/mecha/clarke/action(atom/used_atom,mob/user as mob)
@@ -2159,7 +2159,7 @@
 		list("key"=/obj/item/mecha_parts/part/rover_right_arm),//3
 		list("key"=/obj/item/mecha_parts/part/rover_left_leg),//4
 		list("key"=/obj/item/mecha_parts/part/rover_right_leg),//5
-		list("key"=/obj/item/mecha_parts/part/rover_head)
+		list("key"=/obj/item/mecha_parts/part/rover_head),
 	)
 
 /datum/construction/mecha/rover_chassis/custom_action(step, atom/used_atom, mob/user)
@@ -2188,121 +2188,121 @@
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="External armor is wrenched."
+			"desc"="External armor is wrenched.",
 		),
 		//2
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is installed."
+			"desc"="External armor is installed.",
 		),
 		//3
 		list(
 			"key"=/obj/item/mecha_parts/part/rover_armor,
 			"backkey"=TOOL_WELDER,
-			"desc"="Internal armor is welded."
+			"desc"="Internal armor is welded.",
 		),
 		//4
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="Internal armor is wrenched."
+			"desc"="Internal armor is wrenched.",
 		),
 		//5
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Internal armor is installed."
+			"desc"="Internal armor is installed.",
 		),
 		//6
 		list(
 			"key"=/obj/item/stack/sheet/metal,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Super capacitor is secured."
+			"desc"="Super capacitor is secured.",
 		),
 		//7
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Super capacitor is installed."
+			"desc"="Super capacitor is installed.",
 		),
 		//8
 		list(
 			"key"=/obj/item/stock_parts/capacitor/super,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Phasic scanner module is secured."
+			"desc"="Phasic scanner module is secured.",
 		),
 		//9
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Phasic scanner module is installed."
+			"desc"="Phasic scanner module is installed.",
 		),
 		//10
 		list(
 			"key"=/obj/item/stock_parts/scanning_module/phasic,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Scanning module is secured."
+			"desc"="Scanning module is secured.",
 		),
 		//11
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Scanning module is installed."
+			"desc"="Scanning module is installed.",
 		),
 		//12
 		list(
 			"key"=/obj/item/circuitboard/mecha/durand/targeting,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Peripherals control module is secured."
+			"desc"="Peripherals control module is secured.",
 		),
 		//13
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Peripherals control module is installed."
+			"desc"="Peripherals control module is installed.",
 		),
 		//14
 		list(
 			"key"=/obj/item/circuitboard/mecha/durand/peripherals,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Central control module is secured."
+			"desc"="Central control module is secured.",
 		),
 		//15
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Central control module is installed."
+			"desc"="Central control module is installed.",
 		),
 		//16
 		list(
 			"key"=/obj/item/circuitboard/mecha/durand/main,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is adjusted."
+			"desc"="The wiring is adjusted.",
 		),
 		//17
 		list(
 			"key"=TOOL_WIRECUTTER,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is added."
+			"desc"="The wiring is added.",
 		),
 		//18
 		list(
 			"key"=/obj/item/stack/cable_coil,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The hydraulic systems are active."
+			"desc"="The hydraulic systems are active.",
 		),
 		//19
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are connected."
+			"desc"="The hydraulic systems are connected.",
 		),
 		//20
 		list(
 			"key"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are disconnected."
-		)
+			"desc"="The hydraulic systems are disconnected.",
+		),
 	)
 
 
@@ -2474,7 +2474,7 @@
 		list("key"=/obj/item/mecha_parts/part/darkgygax_right_arm),//3
 		list("key"=/obj/item/mecha_parts/part/darkgygax_left_leg),//4
 		list("key"=/obj/item/mecha_parts/part/darkgygax_right_leg),//5
-		list("key"=/obj/item/mecha_parts/part/darkgygax_head)
+		list("key"=/obj/item/mecha_parts/part/darkgygax_head),
 	)
 
 /datum/construction/mecha/darkgygax_chassis/custom_action(step, atom/used_atom, mob/user)
@@ -2504,121 +2504,121 @@
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="External armor is wrenched."
+			"desc"="External armor is wrenched.",
 		),
 		//2
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="External armor is installed."
+			"desc"="External armor is installed.",
 		),
 		//3
 		list(
 			"key"=/obj/item/mecha_parts/part/darkgygax_armour,
 			"backkey"=TOOL_WELDER,
-			"desc"="Internal armor is welded."
+			"desc"="Internal armor is welded.",
 		),
 		//4
 		list(
 			"key"=TOOL_WELDER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="Internal armor is wrenched."
+			"desc"="Internal armor is wrenched.",
 		),
 		//5
 		list(
 			"key"=TOOL_WRENCH,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Internal armor is installed."
+			"desc"="Internal armor is installed.",
 		),
 		//6
 		list(
 			"key"=/obj/item/stack/sheet/metal,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Advanced capacitor is secured."
+			"desc"="Advanced capacitor is secured.",
 		),
 		//7
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Advanced capacitor is installed."
+			"desc"="Advanced capacitor is installed.",
 		),
 		//8
 		list(
 			"key"=/obj/item/stock_parts/capacitor/adv,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Advanced scanner module is secured."
+			"desc"="Advanced scanner module is secured.",
 		),
 		//9
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Advanced scanner module is installed."
+			"desc"="Advanced scanner module is installed.",
 		),
 		//10
 		list(
 			"key"=/obj/item/stock_parts/scanning_module/adv,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Scanning module is secured."
+			"desc"="Scanning module is secured.",
 		),
 		//11
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Scanning module is installed."
+			"desc"="Scanning module is installed.",
 		),
 		//12
 		list(
 			"key"=/obj/item/circuitboard/mecha/gygax/targeting,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Peripherals control module is secured."
+			"desc"="Peripherals control module is secured.",
 		),
 		//13
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Peripherals control module is installed."
+			"desc"="Peripherals control module is installed.",
 		),
 		//14
 		list(
 			"key"=/obj/item/circuitboard/mecha/gygax/peripherals,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="Central control module is secured."
+			"desc"="Central control module is secured.",
 		),
 		//15
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_CROWBAR,
-			"desc"="Central control module is installed."
+			"desc"="Central control module is installed.",
 		),
 		//16
 		list(
 			"key"=/obj/item/circuitboard/mecha/gygax/main,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is adjusted."
+			"desc"="The wiring is adjusted.",
 		),
 		//17
 		list(
 			"key"=TOOL_WIRECUTTER,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The wiring is added."
+			"desc"="The wiring is added.",
 		),
 		//18
 		list(
 			"key"=/obj/item/stack/cable_coil,
 			"backkey"=TOOL_SCREWDRIVER,
-			"desc"="The hydraulic systems are active."
+			"desc"="The hydraulic systems are active.",
 		),
 		//19
 		list(
 			"key"=TOOL_SCREWDRIVER,
 			"backkey"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are connected."
+			"desc"="The hydraulic systems are connected.",
 		),
 		//20
 		list(
 			"key"=TOOL_WRENCH,
-			"desc"="The hydraulic systems are disconnected."
-		)
+			"desc"="The hydraulic systems are disconnected.",
+		),
 	)
 
 /datum/construction/reversible/mecha/darkgygax/action(atom/used_atom,mob/user as mob)

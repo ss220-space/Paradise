@@ -13,7 +13,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/ears.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/ears.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ears.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ears.dmi',
 	) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
@@ -969,7 +969,7 @@
 		DATIVE = "радиочастотной гарнитуры Офицера \"Синий Щит\"",
 		ACCUSATIVE = "радиочастотную гарнитуру Офицера \"Синий Щит\"",
 		INSTRUMENTAL = "радиочастотной гарнитурой Офицера \"Синий Щит\"",
-		PREPOSITIONAL = "радиочастотной гарнитуре Офицера \"Синий Щит\""
+		PREPOSITIONAL = "радиочастотной гарнитуре Офицера \"Синий Щит\"",
 	)
 
 
@@ -993,7 +993,7 @@
 		DATIVE = "тактической гарнитуры Офицера \"Синий Щит\"",
 		ACCUSATIVE = "тактическую гарнитуру Офицера \"Синий Щит\"",
 		INSTRUMENTAL = "тактической гарнитурой Офицера \"Синий Щит\"",
-		PREPOSITIONAL = "тактической гарнитуре Офицера \"Синий Щит\""
+		PREPOSITIONAL = "тактической гарнитуре Офицера \"Синий Щит\"",
 	)
 
 /obj/item/radio/headset/ert

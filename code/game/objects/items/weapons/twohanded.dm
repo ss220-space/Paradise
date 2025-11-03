@@ -548,7 +548,7 @@
 		DATIVE = "копью \"Её Обжигающие Объятия\"",
 		ACCUSATIVE = "копьё \"Её Обжигающие Объятия\"",
 		INSTRUMENTAL = "копьём \"Её Обжигающие Объятия\"",
-		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\""
+		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\"",
 	)
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)

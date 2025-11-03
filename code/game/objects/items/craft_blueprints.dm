@@ -170,5 +170,5 @@
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
 	components = list(
 		/obj/item/stack/sheet/metal = 5,
-		/obj/item/stack/rods = 1
+		/obj/item/stack/rods = 1,
 	)

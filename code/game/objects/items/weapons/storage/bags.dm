@@ -590,7 +590,7 @@
 		/obj/item/stock_parts/cell,
 		/obj/item/stock_parts,
 		/obj/item/camera_assembly,
-		/obj/item/access_control
+		/obj/item/access_control,
 	)
 	resistance_flags = FLAMMABLE
 

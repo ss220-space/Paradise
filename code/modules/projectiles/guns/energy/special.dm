@@ -468,7 +468,7 @@
 	icon_state = "LSR-39"
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/podsniper/disabler,
-		/obj/item/ammo_casing/energy/podsniper/laser
+		/obj/item/ammo_casing/energy/podsniper/laser,
 	)
 	item_state = null
 	weapon_weight = WEAPON_MEDIUM

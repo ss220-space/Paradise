@@ -48,7 +48,7 @@
 		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril = 26,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 26,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 1,
-		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 20
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 20,
 	)
 	max_mobs = 5
 	spawn_time = 250 //they spawn a little faster
@@ -63,7 +63,7 @@
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 12,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 12,
 		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 12,
-		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril = 14
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril = 14,
 	)
 	mob_gps_id = "CHAOS"
 	max_mobs = 7
