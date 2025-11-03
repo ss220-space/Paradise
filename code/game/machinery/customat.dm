@@ -40,7 +40,6 @@
 	desc = "Торговый автомат с кастомным содержимым."
 	icon = 'icons/obj/machines/customat.dmi'
 	icon_state = "custommate-off"
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 600 // base vending integrity * 2
@@ -74,7 +73,6 @@
 	var/flick_sequence = FLICK_NONE
 
 	// Power
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	/// Power used for one vend
 	var/vend_power_usage = 150
@@ -128,7 +126,6 @@
 
 	// Things that can go wrong
 	/// Makes all prices 0
-	emagged = 0
 
 	/// blocks further flickering while true
 	var/flickering = FALSE
@@ -634,7 +631,7 @@
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
 				paid = FALSE
 				var/left = currently_vending.price
-				for(var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
+				for(var/ind = 1; ind <= length(canister.linked_accounts); ++ind)
 					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
 					pay_now = min(pay_now, left)
 					left -= pay_now
@@ -643,7 +640,7 @@
 				var/datum/money_account/customer_account = get_card_account(usr)
 				paid = FALSE
 				var/left = currently_vending.price
-				for(var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
+				for(var/ind = 1; ind <= length(canister.linked_accounts); ++ind)
 					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
 					pay_now = min(pay_now, left)
 					left -= pay_now

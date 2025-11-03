@@ -2,7 +2,7 @@
 //Bartender
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	desc = "Этот колпак обычно носят повара для того, чтобы избежать попадания волос в еду. Судя по состоянию кухни, волосы в еде - меньшая из ваших проблем."
+	desc = "Этот колпак обычно носят повара для того, чтобы избежать попадания волос в еду. Судя по состоянию кухни, волосы в еде — меньшая из ваших проблем."
 	icon_state = "chef"
 	item_state = "chef"
 	strip_delay = 10
@@ -198,8 +198,6 @@
 
 /obj/item/clothing/head/hooded/chaplain_hood/no_name
 	name = "dark robe's hood"
-	desc = "Капюшон, покрывающий голову. Позволяет сохранить тепло во время космической зимы."
-	icon_state = "chaplain_hood"
 	flags_inv = parent_type::flags_inv|HIDENAME
 
 /obj/item/clothing/head/hooded/chaplain_hood/no_name/get_ru_names()
@@ -427,7 +425,7 @@
 
 /obj/item/clothing/head/officer
 	name = "officer's cap"
-	desc = "Красная кепка с классическим полицейским значком, призванная продемонстрировать, что вы тут - закон."
+	desc = "Красная кепка с классическим полицейским значком, призванная продемонстрировать, что вы тут — закон."
 	gender = FEMALE
 	icon_state = "customshelm"
 	item_state = "customshelm"
@@ -590,6 +588,7 @@
 	desc = "Стильный берет, выдаваемый главному врачу. От него исходит легкий запах антисептика."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "elo-beret"
+	item_state = "elo-beret"
 
 /obj/item/clothing/head/beret/elo/get_ru_names()
 	return list(
@@ -644,7 +643,6 @@
 /obj/item/clothing/head/surgery/blue
 	name = "blue surgical cap"
 	desc = "Голубая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
-	icon_state = "surgcap_blue"
 
 /obj/item/clothing/head/surgery/blue/get_ru_names()
 	return list(
@@ -704,7 +702,7 @@
 //SolGov
 /obj/item/clothing/head/beret/solgov/command
 	name = "Trans-Solar Federation Lieutenant's beret"
-	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель - лейтенант."
+	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель — лейтенант."
 	icon_state = "solgov_beret"
 	dog_fashion = null
 	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
@@ -739,7 +737,7 @@
 //Culinary Artist
 /obj/item/clothing/head/chefcap
 	name = "chef's red cap"
-	desc = "Этот красный колпак обычно носят повара для того, чтобы избежать попадания волос в еду. Судя по состоянию кухни, волосы в еде - меньшая из ваших проблем."
+	desc = "Этот красный колпак обычно носят повара для того, чтобы избежать попадания волос в еду. Судя по состоянию кухни, волосы в еде — меньшая из ваших проблем."
 	item_state = "redchefcap"
 	icon_state = "redchefcap"
 

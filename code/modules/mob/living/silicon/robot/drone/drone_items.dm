@@ -87,8 +87,8 @@
 				H.set_resting(FALSE, instant = TRUE)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			user.visible_message( \
-				span_notice("[user] тряс[pluralize_ru(user.gender,"ет","ут")] [H] пытаясь поднять [genderize_ru(H.gender,"его","её","его","их")]!"),\
-				span_notice("Вы трясёте [H] пытаясь поднять [genderize_ru(H.gender,"его","её","его","их")]!"),\
+				span_notice("[user] тряс[PLUR_ET_UT(user)] [H] пытаясь поднять [GEND_HIS_HER(H)]!"),\
+				span_notice("Вы трясёте [H] пытаясь поднять [GEND_HIS_HER(H)]!"),\
 				)
 			user.changeNext_move(CLICK_CD_MELEE)
 		return
@@ -126,7 +126,6 @@
 /obj/item/gripper/cogscarab
 	name = "ancient gripper"
 	desc = "Латунный захватывающий инструмент для поддержки коллег."
-	icon = 'icons/obj/device.dmi'
 	icon_state = "clock_gripper"
 
 /obj/item/gripper/cogscarab/get_ru_names()
@@ -302,9 +301,9 @@
 			gripped_item.afterattack(target, user, TRUE, params)
 
 		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
-		if(!gripped_item && contents.len)
+		if(!gripped_item && length(contents))
 			gripped_item = contents[1]
-		else if(gripped_item && !contents.len)
+		else if(gripped_item && !length(contents))
 			gripped_item = null
 
 	else if(isitem(target)) //Check that we're not pocketing a mob.

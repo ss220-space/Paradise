@@ -15,14 +15,6 @@
 /obj/machinery/disposal
 	name = "disposal unit"
 	desc = "Пневматическая система утилизации отходов."
-	ru_names = list(
-		NOMINATIVE = "мусоропровод",
-		GENITIVE = "мусоропровода",
-		DATIVE = "мусоропроводу",
-		ACCUSATIVE = "мусоропровод",
-		INSTRUMENTAL = "мусоропроводом",
-		PREPOSITIONAL = "мусоропроводе"
-	)
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	icon_state = "disposal"
 	base_icon_state = "disposal"
@@ -30,7 +22,6 @@
 	density = TRUE
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
-	max_integrity = 200
 	resistance_flags = FIRE_PROOF
 	active_power_usage = 600
 	idle_power_usage = 100
@@ -54,6 +45,15 @@
 	var/max_combined_w_class = 50
 	COOLDOWN_DECLARE(eject_effects_cd)
 
+/obj/machinery/disposal/get_ru_names()
+	return list(
+		NOMINATIVE = "мусоропровод",
+		GENITIVE = "мусоропровода",
+		DATIVE = "мусоропроводу",
+		ACCUSATIVE = "мусоропровод",
+		INSTRUMENTAL = "мусоропроводом",
+		PREPOSITIONAL = "мусоропроводе"
+	)
 
 /obj/machinery/disposal/Initialize(mapload, obj/structure/disposalconstruct/made_from)
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
@@ -125,7 +125,7 @@
 
 	if(loc == W)
 		return FALSE //Means the item is already in the storage item
-	if(contents.len >= storage_slots)
+	if(length(contents) >= storage_slots)
 		if(!stop_messages)
 			to_chat(usr, span_warning("[capitalize(W.declent_ru(NOMINATIVE))] не помещается в [declent_ru(ACCUSATIVE)], освободите место!"))
 		return FALSE //Storage item is full
@@ -166,12 +166,12 @@
 				item.add_fingerprint(user)
 			if(length(storage))
 				user.visible_message(
-					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] выгружа[pluralize_ru(user.gender,"ет","ют")] предметы из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] выгружа[PLUR_ET_YUT(user)] предметы из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 					span_notice("Вы выгружаете предметы из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)].")
 				)
 			else
 				user.visible_message(
-					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] опустоша[pluralize_ru(user.gender,"ет","ют")] [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] опустоша[PLUR_ET_YUT(user)] [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 					span_notice("Вы опустошаете [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)].")
 				)
 			update()
@@ -183,7 +183,7 @@
 	SEND_SIGNAL(I, COMSIG_DISPOSAL_INJECT, src)
 
 	user.visible_message(
-		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] помеща[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] помеща[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
 	)
 	update()
@@ -212,7 +212,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		to_chat(user, "Сначала извлеките предметы!")
 		return
 	if(mode == OFF) // It's off but still not unscrewed
@@ -244,13 +244,13 @@
 
 /obj/machinery/disposal/shove_impact(mob/living/target, mob/living/attacker)
 	target.visible_message(
-		span_warning("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[pluralize_ru(attacker.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"),
-		span_userdanger("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[pluralize_ru(attacker.gender,"ет","ют")] вас в [declent_ru(ACCUSATIVE)]!"),
+		span_warning("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[PLUR_ET_YUT(attacker)] [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[PLUR_ET_YUT(attacker)] вас в [declent_ru(ACCUSATIVE)]!"),
 		span_warning("Слышен звук чего-то, брошенного в мусорку.")
 	)
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals")
-	playsound(src, "sound/effects/bang.ogg", 30)
+	playsound(src, 'sound/effects/bang.ogg', 30)
 	update()
 	return TRUE
 
@@ -269,9 +269,9 @@
 	add_fingerprint(user)
 	for(var/mob/viewer in viewers(user))
 		if(target == user)
-			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] залезать в мусоропровод.", 3)
+			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] залезать в мусоропровод.", 3)
 		else
-			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] заталкивать [target.declent_ru(ACCUSATIVE)] в мусоропровод.", 3)
+			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] заталкивать [target.declent_ru(ACCUSATIVE)] в мусоропровод.", 3)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
 	return TRUE
 
@@ -285,10 +285,10 @@
 		return
 	if(target == user && !user.incapacitated())	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
-		msg = "[capitalize(user.declent_ru(NOMINATIVE))] залеза[pluralize_ru(user.gender,"ет","ют")] в [declent_ru(ACCUSATIVE)]."
+		msg = "[capitalize(user.declent_ru(NOMINATIVE))] залеза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)]."
 		to_chat(user, "Вы залезаете в [declent_ru(ACCUSATIVE)].")
 	else if(target != user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		msg = "[capitalize(user.declent_ru(NOMINATIVE))] заталкива[pluralize_ru(user.gender,"ет","ют")] [target.name] в [declent_ru(ACCUSATIVE)]!"
+		msg = "[capitalize(user.declent_ru(NOMINATIVE))] заталкива[PLUR_ET_YUT(user)] [target.name] в [declent_ru(ACCUSATIVE)]!"
 		to_chat(user, "Вы заталкиваете [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!")
 		if(!iscarbon(user))
 			target.LAssailant = null
@@ -321,18 +321,18 @@
 		return
 	add_fingerprint(user)
 	if(user == target)
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] забираться в [declent_ru(ACCUSATIVE)]."), span_notice("Вы начинаете забираться в [declent_ru(ACCUSATIVE)]..."))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] забираться в [declent_ru(ACCUSATIVE)]."), span_notice("Вы начинаете забираться в [declent_ru(ACCUSATIVE)]..."))
 	else
-		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] запихивать [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] начинает запихивать вас в [declent_ru(ACCUSATIVE)]!"))
+		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] запихивать [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] начинает запихивать вас в [declent_ru(ACCUSATIVE)]!"))
 	if(do_after(user, 2 SECONDS, target))
 		if(!loc)
 			return
 		target.forceMove(src)
 	if(user == target)
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]."), span_notice("Вы забираетесь [declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[PLUR_ET_YUT(user)]ся в [declent_ru(ACCUSATIVE)]."), span_notice("Вы забираетесь [declent_ru(ACCUSATIVE)]."))
 		. = TRUE
 	else
-		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] запихива[pluralize_ru(user.gender,"ет","ют")] [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] запихивает вас в [declent_ru(ACCUSATIVE)]."))
+		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] запихива[PLUR_ET_YUT(user)] [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] запихивает вас в [declent_ru(ACCUSATIVE)]."))
 		add_attack_logs(user, target, "Disposal'ed")
 		. = TRUE
 	update()
@@ -444,14 +444,14 @@
 
 /obj/machinery/disposal/click_alt(mob/user)
 	user.visible_message(
-		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] пыта[pluralize_ru(user.gender,"ет","ют")]ся вручную извлечь содержимое [declent_ru(GENITIVE)]."),
+		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] пыта[PLUR_ET_YUT(user)]ся вручную извлечь содержимое [declent_ru(GENITIVE)]."),
 		span_notice("Вы активируете ручной рычаг извлечения [src].")
 	)
 	if(!do_after(user, 5 SECONDS, src))
 		return CLICK_ACTION_BLOCKING
 
 	user.visible_message(
-		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] извлека[pluralize_ru(user.gender,"ет","ют")] содержимое [declent_ru(GENITIVE)]."),
+		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] извлека[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)]."),
 		span_notice("Вы извлекаете содержимое [src].")
 	)
 	eject()
@@ -633,7 +633,13 @@
 /obj/machinery/disposal/deliveryChute
 	name = "Delivery chute"
 	desc = "Люк для транспортировки как больших, так и маленьких грузов!"
-	ru_names = list(
+	icon_state = "intake"
+	base_icon_state = "intake"
+	/// Whether this chute directs all items into the cargo waste sorting area
+	var/to_waste = TRUE
+
+/obj/machinery/disposal/deliveryChute/get_ru_names()
+	return list(
 		NOMINATIVE = "грузовой люк",
 		GENITIVE = "грузового люка",
 		DATIVE = "грузовому люку",
@@ -641,12 +647,6 @@
 		INSTRUMENTAL = "грузовым люком",
 		PREPOSITIONAL = "грузовом люке"
 	)
-	density = TRUE
-	icon_state = "intake"
-	base_icon_state = "intake"
-	/// Whether this chute directs all items into the cargo waste sorting area
-	var/to_waste = TRUE
-
 
 /obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

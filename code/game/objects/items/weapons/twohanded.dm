@@ -71,6 +71,7 @@
  * Parameters actually useless since you can use `src` and `usr` already.
  */
 /obj/item/twohanded/proc/wield(obj/item/source, mob/living/carbon/user)
+	return
 
 
 /**
@@ -79,6 +80,7 @@
  * Parameters actually useless since you can use `src` and `usr` already.
  */
 /obj/item/twohanded/proc/unwield(obj/item/source, mob/living/carbon/user)
+	return
 
 
 ///////////Two hand required objects///////////////
@@ -114,7 +116,6 @@
 	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
@@ -258,7 +259,7 @@
 	charge = 0
 	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
 	user.visible_message(
-		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[pluralize_ru(user.gender,"ет","ют")] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[PLUR_ET_YUT(user)] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы со всей мощи вгоняете заряженный топор в [target.declent_ru(ACCUSATIVE)]!")
 	)
 	do_sparks(1, TRUE, src)
@@ -292,7 +293,6 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
@@ -439,7 +439,6 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
@@ -574,13 +573,10 @@
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
-	icon_state = "spearglass0"
 	name = "Grey Tide"
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
 	force_unwielded = 15
 	force_wielded = 25
-	throwforce = 20
-	throw_speed = 4
 
 /obj/item/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity, params)
 	..()
@@ -607,7 +603,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		user.visible_message(
-			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] насажива[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
+			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] насажива[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
 			span_notice("Вы насаживаете [I.declent_ru(ACCUSATIVE)] на копьё и устанавливаете его вертикально.")
 		)
 		var/obj/structure/headspear/trophy = new(get_turf(src))
@@ -631,7 +627,6 @@
 	name = "head on a spear"
 	desc = "Какое варварство."
 	icon_state = "headspear"
-	density = FALSE
 	anchored = TRUE
 	var/obj/item/organ/external/head/mounted_head = null
 	var/obj/item/twohanded/spear/contained_spear = null
@@ -657,7 +652,7 @@
 
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message(
-		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] ногой!"),
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] ногой!"),
 		span_danger("Вы с пинаете [declent_ru(ACCUSATIVE)], опрокидывая его!")
 	)
 	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
@@ -682,7 +677,6 @@
 	force_unwielded = 13
 	force_wielded = 24
 	throwforce = 13
-	throw_speed = 2
 	throw_range = 4
 	materials = list(MAT_METAL = 13000)
 	origin_tech = "materials=3;engineering=4;combat=2"
@@ -692,7 +686,6 @@
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	actions_types = list(/datum/action/item_action/startchainsaw)
-	wielded = FALSE
 	var/datum/looping_sound/chainsaw/soundloop
 
 
@@ -774,7 +767,6 @@
 	sharp = TRUE
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
-	wielded = FALSE
 	var/datum/looping_sound/chainsaw/soundloop
 
 /obj/item/twohanded/chainsaw/get_ru_names()
@@ -951,7 +943,6 @@
 	force_unwielded = 5
 	force_wielded = 25
 	throwforce = 30
-	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
 	//var/charged = 5
 	origin_tech = "combat=4;powerstorage=7"
@@ -974,7 +965,7 @@
 	target.Stun(4 SECONDS)
 	do_sparks(5, TRUE, target.loc)
 	target.visible_message(
-		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[genderize_ru(target.gender,"", "а", "о", "ы")] разрядом [declent_ru(GENITIVE)]!"),
+		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[GEND_A_O_Y(target)] разрядом [declent_ru(GENITIVE)]!"),
 		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
 		span_italics("Раздаётся оглушительный электрический треск!")
 	)
@@ -1053,7 +1044,7 @@
 			var/mob/living/Z = A
 			if(Z.health >= 1)
 				Z.visible_message(
-					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[genderize_ru(Z.gender,"", "а", "о", "ы")] сокрушительным ударом [declent_ru(GENITIVE)]!"),
+					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[GEND_A_O_Y(Z)] сокрушительным ударом [declent_ru(GENITIVE)]!"),
 					span_userdanger("Мощный удар разрывает ваше тело и отшвыривает вас!"),
 					span_danger("Слышен глухой удар и хлюпающий звук разрыва плоти!")
 				)
@@ -1062,7 +1053,7 @@
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
 				Z.visible_message(
-					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[pluralize_ru(Z.gender,"ет","ют")]ся на куски силой [declent_ru(GENITIVE)]!"),
+					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[PLUR_ET_YUT(Z)]ся на куски силой [declent_ru(GENITIVE)]!"),
 					span_userdanger("Вы чувствуете, как ваше тело разрывается на куски!"),
 					span_danger("Слышен мощный удар и звук разрывающейся плоти!")
 				)
@@ -1091,7 +1082,6 @@
 	force_wielded = 15
 	attack_verb = list("атаковал", "пронзил", "проколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
@@ -1137,7 +1127,7 @@
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[pluralize_ru(user.gender, "ет", "ют")] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] пытается покончить с собой..."))
+	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[PLUR_ET_YUT(user)] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой..."))
 	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
@@ -1150,7 +1140,7 @@
 	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || living_user.mind.soulOwner != living_user.mind) //Burn hands unless they are a devil or have sold their soul
 		return
 
-	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[pluralize_ru(living_user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)], [genderize_ru(living_user.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
+	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[PLUR_ET_YUT(living_user)] [declent_ru(ACCUSATIVE)], [GEND_HIS_HER(living_user)] руки на мгновение загораются."), \
 					span_warning("Когда вы поднимаете [declent_ru(ACCUSATIVE)], ваши руки воспламеняются, напоминая вам обо всех ваших прошлых грехах."))
 
 	if(!ishuman(living_user))
@@ -1228,7 +1218,6 @@
 	force_wielded = 35
 	armour_penetration = 40
 	attack_verb = list("атаковал", "ударил", "шибанул", "долбанул", "припечатал")
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	item_flags = SLOWS_WHILE_IN_HAND

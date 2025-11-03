@@ -1,7 +1,13 @@
 /obj/item/organ/internal/kidneys
 	name = "kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали человеку."
-	ru_names = list(
+	icon_state = "kidneys"
+	gender = PLURAL
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	slot = INTERNAL_ORGAN_KIDNEYS
+
+/obj/item/organ/internal/kidneys/get_ru_names()
+	return list(
 		NOMINATIVE = "почки человека",
 		GENITIVE = "почек человека",
 		DATIVE = "почкам человека",
@@ -9,10 +15,6 @@
 		INSTRUMENTAL = "почками человека",
 		PREPOSITIONAL = "почках человека"
 	)
-	icon_state = "kidneys"
-	gender = PLURAL
-	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
-	slot = INTERNAL_ORGAN_KIDNEYS
 
 /obj/item/organ/internal/kidneys/on_life()
 	// Coffee is really bad for you with busted kidneys.
@@ -30,7 +32,14 @@
 /obj/item/organ/internal/kidneys/cybernetic
 	name = "cybernetic kidneys"
 	desc = "Электронное устройство, имитирующее работу органических почек. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
-	ru_names = list(
+	icon_state = "kidneys-c"
+	origin_tech = "biotech=4"
+	status = ORGAN_ROBOT
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
+
+/obj/item/organ/internal/kidneys/cybernetic/get_ru_names()
+	return list(
 		NOMINATIVE = "кибернетические почки",
 		GENITIVE = "кибернетических почек",
 		DATIVE = "кибернетическим почкам",
@@ -38,8 +47,3 @@
 		INSTRUMENTAL = "кибернетическими почками",
 		PREPOSITIONAL = "кибернетических почках"
 	)
-	icon_state = "kidneys-c"
-	origin_tech = "biotech=4"
-	status = ORGAN_ROBOT
-	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/component_drop.ogg'

@@ -7,7 +7,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	var/heal_brute = 0
@@ -55,7 +54,7 @@
 
 		if(human_target == user && !unique_handling)
 			user.visible_message(
-				span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
+				span_notice("[human_target] начина[PLUR_ET_YUT(human_target)] применять [declension_ru(NOMINATIVE)] на себе."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на себе..."),
 			)
 			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
@@ -75,7 +74,7 @@
 				return .
 		else
 			user.visible_message(
-				span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [human_target]."),
+				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [human_target]."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
 			)
 			if(use_duration && !do_after(user, use_duration, human_target))
@@ -97,7 +96,7 @@
 			return .
 		critter.heal_organ_damage(heal_brute, heal_burn)
 		user.visible_message(
-			span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
+			span_green("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
 			span_green("Вы применяете [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]."),
 		)
 
@@ -108,7 +107,7 @@
 
 	target.heal_organ_damage(heal_brute, heal_burn)
 	user.visible_message(
-		span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] к [target]."),
+		span_green("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] к [target]."),
 		span_green("Вы применяете [declent_ru(NOMINATIVE)] к [target]."),
 	)
 	return .|ATTACK_CHAIN_SUCCESS
@@ -117,7 +116,7 @@
 /obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/target, mob/user)
 	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
 	user.visible_message(
-		span_green("[user] использу[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
+		span_green("[user] использу[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
 		span_green("Вы используете [declent_ru(NOMINATIVE)] на [affecting.declent_ru(ACCUSATIVE)] [target]."),
 	)
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
@@ -158,7 +157,7 @@
 		rembrute = nrembrute
 		remburn = nremburn
 		user.visible_message(
-			span_green("[user] обрабатыва[pluralize_ru(user.gender,"ет","ют")] раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
+			span_green("[user] обрабатыва[PLUR_ET_YUT(user)] раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
 			span_green("Вы обрабатываете раны на [organ.declent_ru(ACCUSATIVE)] [target] остатками медикаментов."),
 		)
 	if(should_update_health)
@@ -181,15 +180,11 @@
 	icon_state = "gauze_3"
 	item_state = "gauze"
 	origin_tech = "biotech=2"
-	amount = 6
-	max_amount = 6
 	heal_brute = 5
 	bleedsuppress = 5
 	stop_bleeding = 180 SECONDS
-	self_delay = 2 SECONDS
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
-	cost = 1
 	merge_type = /obj/item/stack/medical/bruise_pack
 
 /obj/item/stack/medical/bruise_pack/syndicate
@@ -256,17 +251,11 @@
 	singular_name = "emergency bandage"
 	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
 	icon_state = "bandage"
-	item_state = "gauze"
 	origin_tech = "biotech=2;combat=1"
 	amount = 1
 	max_amount = 1
 	heal_brute = 0
-	bleedsuppress = 5
 	stop_bleeding = 300 SECONDS
-	energy_type = /datum/robot_energy_storage/medical
-	cost = 1
-	self_delay = 2 SECONDS
-	use_duration = 2 SECONDS
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -319,7 +308,6 @@
 	amount = 4
 	max_amount = 4
 	stop_bleeding = 0
-	self_delay = 2 SECONDS
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 
@@ -361,11 +349,7 @@
 	origin_tech = "biotech=2"
 	healverb = "salve"
 	heal_burn = 10
-	amount = 6
-	max_amount = 6
-	self_delay = 2 SECONDS
 	use_duration = 2 SECONDS
-	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/ointment
 
@@ -449,8 +433,6 @@
 	color = "#378C61"
 	stop_bleeding = 0
 	heal_brute = 12
-	self_delay = 2 SECONDS
-	use_duration = 2 SECONDS
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
@@ -469,8 +451,6 @@
 	icon_state = "aloe"
 	color = "#4CC5C7"
 	heal_burn = 12
-	self_delay = 2 SECONDS
-	use_duration = 2 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/aloe
 	var/max_heal = 40
 
@@ -487,9 +467,7 @@
 	item_state = "splint"
 	unique_handling = TRUE
 	self_delay = 10 SECONDS
-	use_duration = 3 SECONDS
 	energy_type = /datum/robot_energy_storage/splint
-	cost = 1
 	var/static/list/available_splint_zones = list(
 		BODY_ZONE_L_ARM,
 		BODY_ZONE_R_ARM,
@@ -588,15 +566,10 @@
 	icon_state = "suture_3"
 	item_state = "suture"
 	origin_tech = "biotech=3"
-	amount = 6
-	max_amount = 6
-	heal_brute = 0
-	stop_bleeding = 0
 	var/bleeding_heal = 5
 	var/damage = 10
 	self_delay = 3 SECONDS
 	use_duration = 2 SECONDS
-	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
 
@@ -660,7 +633,6 @@
 	amount = 10
 	max_amount = 10
 	heal_brute = 10
-	stop_bleeding = 0
 	bleeding_heal = 10
 	damage = 0
 	self_delay = 2 SECONDS
@@ -695,7 +667,6 @@
 	amount = 4
 	max_amount = 4
 	stop_bleeding = 0
-	self_delay = 2 SECONDS
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
 

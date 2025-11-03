@@ -10,7 +10,6 @@
 
 	school = "conjuration"
 	clothes_req = FALSE
-	base_cooldown = 10 SECONDS
 	cooldown_min = 1 SECONDS
 	action_icon_state = "moneybag"
 
@@ -119,7 +118,7 @@
 /obj/effect/proc_holder/spell/summon_friend/cast(list/targets, mob/user = usr)
 	if(!QDELETED(friend))
 		to_chat(friend, span_userdanger("Твой хозяин посчитал тебя плохим другом. Тебе пора обратно в ад."))
-		to_chat(user, span_notice("Вы изгоняете вашего друга туда, откуда [genderize_ru(friend.gender, "он пришел", "она пришла", "оно пришло", "они пришли")]."))
+		to_chat(user, span_notice("Вы изгоняете вашего друга туда, откуда [GEND_HE_SHE(friend)] при[GEND_SHEL(friend)]."))
 		friend.dust()
 		QDEL_NULL(friendShell)
 		return

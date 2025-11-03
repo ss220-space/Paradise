@@ -10,9 +10,7 @@
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
 	status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPUSH
-	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
-	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	move_to_delay = 10
 	health = 125
@@ -92,11 +90,11 @@
 	. = ..()
 	if(health < maxHealth)
 		if(health >= maxHealth * 0.5)
-			. += span_warning("[genderize_ru(gender,"Он","Она","Оно","Они")] выгляд[pluralize_ru(gender,"ит","ят")] слегка помято.")
+			. += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] слегка помято.")
 		else
-			. += span_boldwarning("[genderize_ru(gender,"Он","Она","Оно","Они")] выгляд[pluralize_ru(gender,"ит","ят")] серьёзно повреждённо!")
-	. += "[span_notice("Использование сканера на [genderize_ru(gender,"нём","нем","нём","них")] заставит [genderize_ru(gender,"его","её","его","их")] выгрузить руду. <b>[max(0, LAZYLEN(contents) - 1)] ед. руды.</b>")]"
-	if(stored_gun && stored_gun.max_mod_capacity)
+			. += span_boldwarning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] серьёзно повреждённо!")
+	. += "[span_notice("Использование сканера на [GEND_EM_EI_EM_IH(src)] заставит [GEND_HIS_HER(src)] выгрузить руду. <b>[max(0, LAZYLEN(contents) - 1)] ед. руды.</b>")]"
+	if(stored_gun?.max_mod_capacity)
 		. += "<b>[stored_gun.get_remaining_mod_capacity()]%</b> свободного места для модификации."
 		for(var/A in stored_gun.get_modkits())
 			var/obj/item/borg/upgrade/modkit/M = A
@@ -215,7 +213,7 @@
 		O.forceMove(src)
 
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
-	if(!contents.len)
+	if(!length(contents))
 		if(message)
 			to_chat(src, span_warning("Попытка выгрузки руды: хранилище пусто."))
 		return
@@ -248,7 +246,6 @@
 
 /datum/action/innate/minedrone
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light
 	name = "Переключить фонарик"

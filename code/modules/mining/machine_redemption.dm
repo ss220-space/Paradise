@@ -16,11 +16,8 @@
 	icon_state = "ore_redemption"
 	density = TRUE
 	anchored = TRUE
-	input_dir = NORTH
-	output_dir = SOUTH
 	req_access = list(ACCESS_MINERAL_STOREROOM)
 	speed_process = TRUE
-	layer = BELOW_OBJ_LAYER
 	// Settings
 	/// The access number required to claim points from the machine.
 	var/req_access_claim = ACCESS_MINING_STATION
@@ -406,7 +403,7 @@
 				inserted_id.forceMove_turf()
 				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
 				usr.visible_message(
-					span_notice("[usr] извлека[pluralize_ru(usr.gender,"ет","ют")] [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
+					span_notice("[usr] извлека[PLUR_ET_YUT(usr)] [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
 					span_notice("Вы извлекаете [inserted_id.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
 				)
 			else
@@ -419,7 +416,7 @@
 				inserted_disk.forceMove_turf()
 				usr.put_in_hands(inserted_disk, ignore_anim = FALSE)
 				usr.visible_message(
-					span_notice("[usr] извлека[pluralize_ru(usr.gender,"ет","ют")] [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
+					span_notice("[usr] извлека[PLUR_ET_YUT(usr)] [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."),
 					span_notice("Вы извлекаете [inserted_disk.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)].")
 				)
 			else

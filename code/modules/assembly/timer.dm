@@ -3,7 +3,6 @@
 	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock."
 	icon_state = "timer"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
-	origin_tech = "magnets=1;engineering=1"
 
 	secured = FALSE
 
@@ -48,15 +47,14 @@
 
 
 /obj/item/assembly/timer/proc/timer_end()
-	if(!secured || cooldown > 0)
+	if(!secured || !COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
-	cooldown = 2
+
+	COOLDOWN_START(src, cooldown, cooldown_time)
 	pulse(FALSE, user)
 	update_icon()
-	if(loc)
-		loc.visible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
-		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
+	audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*")
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
 
 /obj/item/assembly/timer/process()

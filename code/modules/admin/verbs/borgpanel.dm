@@ -9,7 +9,7 @@
 	if(!isrobot(borgo))
 		borgo = tgui_input_list(usr, "Select a borg", "Select a borg", GLOB.silicon_mob_list, null)
 	if(!isrobot(borgo))
-		to_chat(usr, "<span class='warning'>Borg is required for borgpanel</span>")
+		to_chat(usr, span_warning("Borg is required for borgpanel"))
 		return
 
 	var/datum/borgpanel/borgpanel = new(usr, borgo)
@@ -181,7 +181,7 @@
 				if(channel == SYND_FREQ_NAME)
 					borg.radio.keyslot.syndie = TRUE
 				log_and_message_admins("added the [channel] radio channel to [key_name(borg)].")
-			borg.radio.recalculateChannels()
+			borg.radio.recalculate_channels()
 		if("setmodule")
 			var/new_module = params["module"]
 			if(borg.module)
@@ -218,7 +218,7 @@
 			if(!borg?.mmi)
 				return
 
-			var/permissions = borg?.mmi?.skin_permissions?.len? borg?.mmi?.skin_permissions : GLOB.all_skin_permissions
+			var/permissions = length(borg?.mmi?.skin_permissions)? borg?.mmi?.skin_permissions : GLOB.all_skin_permissions
 
 			var/new_permissions = tgui_input_checkbox_list(usr, "Выберите разрешенные скины", "Разрешенные скины", permissions) || list()
 

@@ -13,7 +13,6 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
-	a_intent = INTENT_HARM
 	can_change_intents = 0
 	stop_automated_movement = 1
 	universal_speak = TRUE
@@ -23,7 +22,6 @@
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
-	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	move_resist = MOVE_FORCE_STRONG
@@ -105,7 +103,7 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метр[declension_ru(range,"","а","ов")] от [summoner.real_name]!"))
+			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метр[DECL_CREDIT(range)] от [summoner.real_name]!"))
 			visible_message(span_danger("[src] вернулся к носителю."))
 			if(iseffect(summoner.loc))
 				Recall(TRUE)
@@ -238,7 +236,7 @@
 
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
-		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
+		if(M?.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, span_alien("<i>Сообщение Стража <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
 
@@ -258,7 +256,7 @@
 
 /obj/item/guardiancreator
 	name = "колода карт Таро"
-	desc = "Зачарованная колода карт, по слухам - источник невероятной силы. "
+	desc = "Зачарованная колода карт, по слухам — источник невероятной силы. "
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	var/used = FALSE
@@ -324,7 +322,7 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть за [mob_name] ([guardian_type]) у [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
 	var/mob/dead/observer/theghost = null
 
-	if(candidates.len)
+	if(length(candidates))
 		theghost = pick(candidates)
 		log_game("[user](ckey: [user.key]) has successfully spawned [guardian_type] type guardian(ckey: [theghost.key])")
 		spawn_guardian(user, theghost.key, guardian_type)
@@ -371,11 +369,11 @@
 
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user, user)
 	G.summoned = TRUE
-	G.key = key
+	G.possess_by_player(key)
 	SSticker.mode.guardians |= G.mind
 	to_chat(G, "Вы [mob_name], обязанный служить [user.real_name].")
 	to_chat(G, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")
-	to_chat(G, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [genderize_ru(user.gender,"он","она","оно","они")] погибн[pluralize_ru(user.gender,"ет","ут")] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [genderize_ru(user.gender,"ему","ей","ему","им")], так как вы существуете за счёт [genderize_ru(user.gender,"его","её","его","их")] жизненной силы.")
+	to_chat(G, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [GEND_HE_SHE(user)] погибн[PLUR_ET_UT(user)] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [GEND_HIM_HER(user)], так как вы существуете за счёт [GEND_HIS_HER(user)] жизненной силы.")
 	to_chat(G, "[G.playstyle_string]")
 	G.faction = user.faction
 
@@ -394,7 +392,6 @@
 	to_chat(user, "[G.magic_fluff_string].")
 
 /obj/item/guardiancreator/choose
-	random = FALSE
 
 /obj/item/guardiancreator/tech
 	name = "инъектор голопаразитов"
@@ -444,7 +441,6 @@
 	return !used
 
 /obj/item/guardiancreator/tech/choose
-	random = FALSE
 
 /obj/item/guardiancreator/biological
 	name = "скопление яиц скарабеев"
@@ -491,7 +487,6 @@
 	G.speak_emote = list("щебечет")
 
 /obj/item/guardiancreator/biological/choose
-	random = FALSE
 
 
 /obj/item/paper/guardian

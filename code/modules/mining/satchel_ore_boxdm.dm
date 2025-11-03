@@ -41,7 +41,7 @@
 			storage.remove_from_storage(ore, src) //This will move the item to this item's contents
 			CHECK_TICK
 		if(!loaded)
-			to_chat(user, span_warning("[capitalize(storage.declent_ru(NOMINATIVE))] пуст - здесь нет руды."))
+			to_chat(user, span_warning("[capitalize(storage.declent_ru(NOMINATIVE))] пуст — здесь нет руды."))
 			return ATTACK_CHAIN_PROCEED
 		storage.update_appearance()	// just in case
 		to_chat(user, span_notice("Вы пересыпали руду из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
@@ -55,7 +55,7 @@
 	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return .
 	user.visible_message(
-		span_notice("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] разбира[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы разбираете [declent_ru(ACCUSATIVE)]."),
 		span_italics("Слышен треск дерева."),
 	)
@@ -125,7 +125,7 @@
 
 	add_fingerprint(usr)
 
-	if(contents.len < 1)
+	if(length(contents) < 1)
 		balloon_alert(usr, "груз отсутствует")
 		return
 

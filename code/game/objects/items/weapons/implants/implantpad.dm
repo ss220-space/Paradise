@@ -68,7 +68,7 @@
 /obj/item/implantpad/ui_data(mob/user)
 	var/list/data = list()
 	data["contains_case"] = case ? TRUE : FALSE
-	if(case && case.imp)
+	if(case?.imp)
 		var/datum/implant_fluff/implant_data = case.imp.implant_data
 		data["implant"] = list(
 			"name" = implant_data.name,

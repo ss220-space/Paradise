@@ -15,7 +15,6 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
-	resistance_flags = NONE
 	max_integrity = 300
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
@@ -40,15 +39,15 @@
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
-			. += "<span class='notice'> [src] is empty.</span>"
+			. += span_notice(" [src] is empty.")
 		else if(space_used <= max_combined_w_class*0.6)
-			. += "<span class='notice'> [src] still has plenty of remaining space.</span>"
+			. += span_notice(" [src] still has plenty of remaining space.")
 		else if(space_used <= max_combined_w_class*0.8)
-			. += "<span class='notice'> [src] is beginning to run out of space.</span>"
+			. += span_notice(" [src] is beginning to run out of space.")
 		else if(space_used < max_combined_w_class)
-			. += "<span class='notice'> [src] doesn't have much space left.</span>"
+			. += span_notice(" [src] doesn't have much space left.")
 		else
-			. += "<span class='notice'> [src] is full.</span>"
+			. += span_notice(" [src] is full.")
 
 /*
  * Backpack Types
@@ -129,8 +128,6 @@
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
 
 
@@ -469,7 +466,7 @@
 	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_back()
+		H.update_worn_back()
 
 
 /obj/item/storage/backpack/satchel/withwallet/populate_contents()
@@ -889,7 +886,6 @@ TODO Use this name and desc for localisation*/
 	name = "emergency response team backpack"
 	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ert_commander"
-	item_state = "backpack"
 	max_combined_w_class = 30
 	resistance_flags = FIRE_PROOF
 
@@ -934,7 +930,6 @@ TODO Use this name and desc for localisation*/
 	icon_state = "guitarbag"
 	item_state = "guitarbag"
 	resistance_flags = FLAMMABLE
-	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
 	min_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 4

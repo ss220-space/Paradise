@@ -129,7 +129,6 @@
 	gain_desc = "Вы получили способность вызывать кровавые щупальца, чтобы замедлять людей в выбранной вами области."
 	required_blood = 10
 
-	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_tendrils"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
@@ -162,7 +161,7 @@
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
 			L.apply_damage(33, TOX)
-			L.visible_message(span_warning("[L] опутыва[pluralize_ru(L.gender, "ет", "ют")]ся кровавыми щупальцами, которые ограничивают [genderize_ru(L.gender, "его", "её", "его", "их")] движение!"))
+			L.visible_message(span_warning("[L] опутыва[PLUR_ET_YUT(L)]ся кровавыми щупальцами, которые ограничивают [GEND_HIS_HER(L)] движение!"))
 			var/turf/target_turf = get_turf(L)
 			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
 			new /obj/effect/decal/cleanable/blood(target_turf)
@@ -172,7 +171,6 @@
 /obj/effect/temp_visual/blood_tendril
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "blood_tendril"
-	duration = 1 SECONDS
 
 
 /obj/effect/temp_visual/blood_tendril/long
@@ -279,7 +277,6 @@
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
-	opacity = FALSE
 
 /obj/structure/blood_barrier/get_ru_names()
 	return list(
@@ -365,7 +362,6 @@
 	desc = "Выслеживайте свою добычу, здесь ей негде спрятаться... На короткое время оглушает её, если она окажется в вашем поле зрения."
 	gain_desc = "Ваши чувства обострились, теперь никто не сможет от вас спрятаться."
 	action_icon_state = "predator_sense"
-	base_cooldown = 10 SECONDS
 	create_attack_logs = FALSE
 
 
@@ -390,7 +386,7 @@
 		return
 
 	var/mob/living/carbon/human/target = targets_by_name[target_name]
-	var/message = "[target_name] наход[pluralize_ru(target_name, "ит", "ят")]ся в локации [get_area(target)], на [dir2rustext(get_dir(user, target))]е от вас."
+	var/message = "[target_name] наход[PLUR_IT_YAT(target)]ся в локации [get_area(target)], на [dir2rustext(get_dir(user, target))]е от вас."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
 		message += "<i> Цель ранена...</i>"
 	to_chat(user, span_cultlarge("[message]"))
@@ -435,7 +431,7 @@
 		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
 		L.Stun(3 SECONDS)
-		L.visible_message(span_warning("<b>[L] пронзен[genderize_ru(L.gender, "", "а", "о", "ы")] шипом живой крови!</b>"))
+		L.visible_message(span_warning("<b>[L] пронзен[GEND_A_O_Y(L)] шипом живой крови!</b>"))
 
 
 /obj/effect/temp_visual/blood_spike
@@ -448,7 +444,6 @@
 	name = "Кровавый обряд"
 	desc = "При переключении все вокруг начнут обильно кровоточить. Вы будете поглощать их кровь и напитываться силой."
 	gain_desc = "Вы обрели способность извлекать жизненную силу из гуманоидов и поглощать её, исцеляя себя."
-	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 

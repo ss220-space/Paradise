@@ -4,10 +4,8 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-old"
 	density = TRUE
-	opacity = FALSE
 	anchored = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	max_integrity = 200
 
 /obj/machinery/shield/Initialize(mapload)
 	. = ..()
@@ -127,8 +125,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
 	density = TRUE
-	opacity = FALSE
-	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
 	var/const/max_health = 100
@@ -170,7 +166,7 @@
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
-		if(deployed_shields.len && prob(5))
+		if(length(deployed_shields) && prob(5))
 			qdel(pick(deployed_shields))
 
 	return
@@ -220,15 +216,15 @@
 
 	if(active)
 		add_fingerprint(user)
-		user.visible_message(span_notice("[bicon(src)] [user] deactivated the shield generator."), \
-			span_notice("[bicon(src)] You deactivate the shield generator."), \
+		user.visible_message(span_notice("[icon2html(src, viewers(src))] [user] deactivated the shield generator."), \
+			span_notice("[icon2html(src, user)] You deactivate the shield generator."), \
 			"You hear heavy droning fade out.")
 		shields_down()
 	else
 		if(anchored)
 			add_fingerprint(user)
-			user.visible_message(span_notice("[bicon(src)] [user] activated the shield generator."), \
-				span_notice("[bicon(src)] You activate the shield generator."), \
+			user.visible_message(span_notice("[icon2html(src, viewers(src))] [user] activated the shield generator."), \
+				span_notice("[icon2html(src, user)] You activate the shield generator."), \
 				"You hear heavy droning.")
 			shields_up()
 		else
@@ -318,9 +314,7 @@
 /obj/machinery/shieldwallgen
 	name = "Shield Generator"
 	desc = "A shield generator."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "shieldgen"
-	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
 	var/active = 0

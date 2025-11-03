@@ -91,10 +91,7 @@
 /datum/job/doctor/intern
 	title = JOB_TITLE_INTERN
 	flag = JOB_FLAG_INTERN
-	total_positions = 5
-	spawn_positions = 3
 	department_head = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR)
-	selection_color = "#d1eeff"
 	alt_titles = list("Student Medical Doctor", "Medical Assistant")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -104,8 +101,6 @@
 	outfit = /datum/outfit/job/doctor/intern
 
 	salary = 130
-	min_start_money = 200
-	max_start_money = 400
 
 /datum/outfit/job/doctor/intern
 	name = JOB_TITLE_INTERN
@@ -387,7 +382,6 @@
 	jobtype = /datum/job/paramedic
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/soft/paramedic
 	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med

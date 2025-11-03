@@ -133,7 +133,7 @@
 	"Реакция на вызов", "Движению в локацию доставки", "Движение в домашнюю локацию", \
 	"Препятствие на маршруте", "Расчёт навигационного маршрута", "Запрос сети радиомаячков", "Точка маршрута недоступна")
 
-	var/datum/atom_hud/data/bot_path/path_hud = new /datum/atom_hud/data/bot_path()
+	var/datum/atom_hud/data/bot_path/path_hud
 	var/path_image_icon = 'icons/obj/aibots.dmi'
 	var/path_image_icon_state = "path_indicator"
 	var/path_image_color = "#FFFFFF"
@@ -150,18 +150,20 @@
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
-	canhear_range = 0
 
+/obj/item/radio/headset/bot/get_base_channels()
+	var/mob/living/simple_animal/bot/bot = loc
 
-/obj/item/radio/headset/bot/recalculateChannels()
-	var/mob/living/simple_animal/bot/B = loc
-	if(istype(B))
-		if(!B.radio_config)
-			B.radio_config = list(AI_FREQ_NAME = 1)
-			if(!(B.radio_channel in B.radio_config)) // put it first so it's the :h channel
-				B.radio_config.Insert(1, "[B.radio_channel]")
-				B.radio_config["[B.radio_channel]"] = 1
-		config(B.radio_config)
+	if(!istype(bot))
+		return
+
+	if(!bot.radio_config)
+		bot.radio_config = list(AI_FREQ_NAME = 1)
+
+	if((bot.radio_channel in bot.radio_config)) // put it first so it's the :h channel
+		return
+
+	bot.radio_config["[bot.radio_channel]"] = 1
 
 
 /mob/living/simple_animal/bot/proc/get_mode()
@@ -203,13 +205,15 @@
 	. = ..()
 
 	GLOB.bots_list += src
+	path_hud = new()
+	for(var/hud in path_hud.hud_icons) // You get to see your own path
+		set_hud_image_active(hud, exclusive_hud = path_hud)
 	icon_living = icon_state
 	icon_dead = icon_state
 	access_card = new /obj/item/card/id(src)
 	access_card.access += ACCESS_ROBOTICS	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
-	Radio.follow_target = src
 	add_language(LANGUAGE_GALACTIC_COMMON, TRUE)
 	add_language(LANGUAGE_SOL_COMMON, TRUE)
 	add_language(LANGUAGE_TRADER, TRUE)
@@ -224,15 +228,15 @@
 
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
-		diag_hud.add_hud_to(src)
+		diag_hud.add_atom_to_hud(src)
+		diag_hud.show_to(src)
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 	// give us the hud too!
 	if(path_hud)
-		path_hud.add_to_hud(src)
-		path_hud.add_hud_to(src)
+		path_hud.add_atom_to_hud(src)
+		path_hud.show_to(src)
 
 
 
@@ -373,7 +377,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	apply_damage(user.attack_damage, BRUTE)
-	visible_message(span_danger("[user] руб[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(GENITIVE)]!"))
+	visible_message(span_danger("[user] руб[PLUR_IT_YAT(user)] [declent_ru(GENITIVE)]!"))
 	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
@@ -453,7 +457,7 @@
 			return ..()
 		paicard = card
 		user.visible_message(
-			span_notice("[user] помести[genderize_ru(user.gender, "л", "ла", "ло", "ли")] [card] в [declent_ru(GENITIVE)]."),
+			span_notice("[user] поместил[GEND_A_O_I(user)] [card] в [declent_ru(GENITIVE)]."),
 			span_notice("Вы поместили [card] в [declent_ru(GENITIVE)]."),
 		)
 		paicard.pai.mind.transfer_to(src)
@@ -477,7 +481,7 @@
 			return ATTACK_CHAIN_PROCEED
 		balloon_alert(user, UNLINT("ПИИ извлечён"))
 		visible_message(
-			span_notice("[user] вытащи[genderize_ru(user.gender, "л", "ла", "ло", "ли")] [paicard] из [declent_ru(GENITIVE)]!"),
+			span_notice("[user] вытащил[GEND_A_O_I(user)] [paicard] из [declent_ru(GENITIVE)]!"),
 			span_notice("Вы вытащили [paicard] из [declent_ru(GENITIVE)]."),
 		)
 		ejectpai(user)
@@ -516,7 +520,7 @@
 	adjustBruteLoss(-10)
 	add_fingerprint(user)
 	user.visible_message(
-		span_notice("[user] ремонтиру[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(GENITIVE)]."),
+		span_notice("[user] ремонтиру[PLUR_ET_YUT(user)] [declent_ru(GENITIVE)]."),
 		span_notice("Вы ремонтируете [declent_ru(GENITIVE)].")
 	)
 
@@ -592,7 +596,7 @@
 	if(!on || !message)
 		return
 	if(channel)
-		Radio.autosay(message, name, channel == HEADSET_MODE ? null : channel)
+		radio_announce(message, name, channel == HEADSET_MODE ? PUB_FREQ : channel, src)
 	else
 		say(message)
 
@@ -633,7 +637,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 
 /mob/living/simple_animal/bot/proc/add_to_ignore(atom/subject)
-	if(ignore_list.len < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
+	if(length(ignore_list) < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
 		ignore_list += subject.UID()
 	else  //If the list is full, insert newest, delete oldest.
 		ignore_list.Cut(1, 2)
@@ -713,7 +717,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			reset_access_timer_id = addtimer(CALLBACK(src, PROC_REF(bot_reset)), 60 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, span_notice("[span_big("Приоритетный маршрут установлен [calling_ai] <b>[requester]</b>. Проследуйте в локацию <b>[end_area.name]</b>.")]<br>[path.len-1]</br> метров до точки назначения. Вам выдан неограниченный доступ к шлюзам на следующие 60 секунд."))
 		if(message)
-			to_chat(calling_ai, span_notice("[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] вызван в локацию [end_area.name]. [length(path)-1] метров до точки назначения."))
+			to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [capitalize(declent_ru(NOMINATIVE))] вызван в локацию [end_area.name]. [length(path)-1] метров до точки назначения."))
 		pathset = TRUE
 		mode = BOT_RESPONDING
 		tries = 0
@@ -730,7 +734,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/success = bot_move(ai_waypoint, 3)
 	if(!success)
 		if(calling_ai)
-			to_chat(calling_ai, "[bicon(src)] [get_turf(src) == ai_waypoint ? span_notice("[capitalize(declent_ru(NOMINATIVE))] прибыл в точку назначения.") : span_danger("[capitalize(declent_ru(NOMINATIVE))] не смог добраться до точки назначения.")]")
+			to_chat(calling_ai, "[icon2html(src, calling_ai)] [get_turf(src) == ai_waypoint ? span_notice("[capitalize(declent_ru(NOMINATIVE))] прибыл в точку назначения.") : span_danger("[capitalize(declent_ru(NOMINATIVE))] не смог добраться до точки назначения.")]")
 			calling_ai = null
 		bot_reset()
 
@@ -1204,7 +1208,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		if(mind && paicard.pai)
 			mind.transfer_to(paicard.pai)
 		else if(paicard.pai)
-			paicard.pai.key = key
+			paicard.pai.possess_by_player(key)
 		else
 			ghostize(0) // The pAI card that just got ejected was dead.
 		key = null
@@ -1233,7 +1237,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
 	if(data_hud)
-		data_hud.add_hud_to(src)
+		data_hud.show_to(src)
 
 	diag_hud_set_botmode()
 	show_laws()
@@ -1267,17 +1271,17 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	set category = STATPANEL_IC
 
 	to_chat(src, "<b>Набор законов:</b>")
-	if(paicard && paicard.pai && paicard.pai.master && paicard.pai.pai_law0)
-		to_chat(src, span_warning("Приказы вашего мастера, [paicard.pai.master], стоят выше любых других законов. Следование этим приказам - ваша первоочередная задача."))
+	if(paicard?.pai && paicard.pai.master && paicard.pai.pai_law0)
+		to_chat(src, span_warning("Приказы вашего мастера, [paicard.pai.master], стоят выше любых других законов. Следование этим приказам — ваша первоочередная задача."))
 		to_chat(src, "0. [paicard.pai.pai_law0]")
 	if(emagged >= 2)
 		to_chat(src, span_danger("1. #$!@#$32K#$"))
 	else
-		to_chat(src, "1. Вы - машина, созданная для служения экипажу станции и ИИ.")
+		to_chat(src, "1. Вы — машина, созданная для служения экипажу станции и ИИ.")
 		to_chat(src, "2. Ваше задача - [bot_purpose].")
 		to_chat(src, "3. Вы не сможете выполнять свою задачу, если будете сломаны.")
 		to_chat(src, "4. Выполняйте свою функцию в меру своих возможностей.")
-	if(paicard && paicard.pai && paicard.pai.pai_laws)
+	if(paicard?.pai && paicard.pai.pai_laws)
 		to_chat(src, "<b>Дополнительные законы(s):</b>")
 		to_chat(src, "[paicard.pai.pai_laws]")
 
@@ -1321,14 +1325,13 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/list/path_huds_watching_me = list(GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED])
 	if(path_hud)
 		path_huds_watching_me += path_hud
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.remove_from_hud(src)
+	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
+		hud.remove_atom_from_hud(src)
 
-	var/list/path_images = hud_list[DIAG_PATH_HUD]
+	var/list/path_images = active_hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
 	if(newpath)
-		for(var/i in 1 to newpath.len)
+		for(var/i in 1 to length(newpath))
 			var/turf/T = newpath[i]
 			var/direction = NORTH
 			if(i > 1)
@@ -1353,7 +1356,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			MA.icon = path_image_icon
 			MA.icon_state = path_image_icon_state
 			MA.layer = ABOVE_OPEN_TURF_LAYER
-			MA.plane = 0
+			MA.plane = DEFAULT_PLANE
 			MA.appearance_flags = RESET_COLOR|RESET_TRANSFORM
 			MA.color = path_image_color
 			MA.dir = direction
@@ -1363,9 +1366,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			path[T] = I
 			path_images += I
 
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.add_to_hud(src)
+	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
+		hud.add_atom_to_hud(src)
 
 
 /mob/living/simple_animal/bot/proc/increment_path()
@@ -1406,7 +1408,3 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 	set_varspeed(initial(speed))
 	balloon_alert(src, "вы замедляетесь")
-
-/obj/machinery/bot_core/syndicate
-	req_access = list(ACCESS_SYNDICATE)
-

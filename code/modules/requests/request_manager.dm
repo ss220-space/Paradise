@@ -141,7 +141,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 			if(tgui_alert(usr, "Accept or Deny ERT request?", "CentComm Response", list("Accept", "Deny")) == "No")
 				var/mob/living/carbon/human/H = request.owner?.mob
 				if(!istype(H))
-					to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
+					to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"))
 					return
 
 				var/reason = tgui_input_text(usr, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm", multiline = TRUE, encode = FALSE)
@@ -152,8 +152,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				log_admin("[usr] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
 				if(announce_to_crew)
-					GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
-												ANNOUNCE_ERT_UNAVAIL_RU
+					GLOB.major_announcement.announce(
+						message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
+						new_title = ANNOUNCE_ERT_UNAVAIL_RU
 					)
 					return
 
@@ -170,7 +171,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 
 		if("getcode")
 			if(request.req_type != REQUEST_NUKE)
-				to_chat(usr, "<span class='warning'>Warning! That this is a non-nuke-code-request request!</span>")
+				to_chat(usr, span_warning("Warning! That this is a non-nuke-code-request request!"))
 			to_chat(usr, "<b>The nuke code is: [get_nuke_code()]!</b>")
 			return TRUE
 

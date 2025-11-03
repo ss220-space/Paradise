@@ -28,7 +28,7 @@
 
 /obj/effect/mob_spawn/human/demonic_friend/special(mob/living/L)
 	if(!QDELETED(owner.current) && owner.current.stat != DEAD)
-		L.real_name = "[owner.name]'s best friend"
+		L.real_name = "[owner.name]’s best friend"
 		L.name = L.real_name
 		soullink(/datum/soullink/oneway/devilfriend, owner.current, L)
 		spell.friend = L
@@ -39,9 +39,9 @@
 		var/obj/item/card/id/id = worn.GetID()
 		id.registered_name = L.real_name
 		id.update_label()
-		to_chat(owner.current, "<span class='notice'>Your friend has arrived!</span>")
+		to_chat(owner.current, span_notice("Your friend has arrived!"))
 	else
-		to_chat(L, "<span class='userdanger'>Your owner is already dead! You will soon perish.</span>")
+		to_chat(L, span_userdanger("Your owner is already dead! You will soon perish."))
 		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob, dust)), 150) //Give em a few seconds as a mercy.
 
 /datum/outfit/demonic_friend

@@ -8,7 +8,6 @@
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
 	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/book_pickup.ogg'
@@ -48,7 +47,7 @@
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] смотр[pluralize_ru(user.gender, "ит", "ят")] в [declent_ru(ACCUSATIVE)] и пыта[pluralize_ru(user.gender, "ет", "ют")]ся превзойти собственное понимание Вселенной!"))
+	user.visible_message(span_suicide("[user] смотр[PLUR_IT_YAT(user)] в [declent_ru(ACCUSATIVE)] и пыта[PLUR_ET_YUT(user)]ся превзойти собственное понимание Вселенной!"))
 	user.dust()
 	return OBLITERATION
 
@@ -56,7 +55,7 @@
 /obj/item/storage/bible/fart_act(mob/living/user)
 	if(QDELETED(user) || user.stat == DEAD)
 		return FALSE
-	user.visible_message(span_danger("[user] перд[pluralize_ru(user.gender, "ит", "ят")] на [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_danger("[user] перд[PLUR_IT_YAT(user)] на [declent_ru(ACCUSATIVE)]!"))
 	user.visible_message(span_userdanger("Загадочная сила поражает [user]!"))
 	user.suiciding = TRUE
 	do_sparks(3, TRUE, user)
@@ -65,9 +64,6 @@
 
 
 /obj/item/storage/bible/booze
-	name = "bible"
-	desc = "Многократно прислоняйте к голове."
-	icon_state ="bible"
 
 /obj/item/storage/bible/booze/get_ru_names()
 	return list(
@@ -143,7 +139,7 @@
 
 	if(target.stat == DEAD)
 		target.visible_message(
-			span_danger("[user] ударя[pluralize_ru(user.gender, "ет", "ют")]  безжизненное тело [target] [declent_ru(INSTRUMENTAL)]."),
+			span_danger("[user] ударя[PLUR_ET_YUT(user)]  безжизненное тело [target] [declent_ru(INSTRUMENTAL)]."),
 			span_warning("Вы ударяете безжизненное тело [target].")
 		)
 		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
@@ -158,12 +154,12 @@
 		bless(target)
 		if(user == target)
 			target.visible_message(
-				span_danger("[user] излечива[pluralize_ru(user.gender, "ет", "ют")] себя с силой Бога \"[deity_name]\"!"),
+				span_danger("[user] излечива[PLUR_ET_YUT(user)] себя с силой Бога \"[deity_name]\"!"),
 				span_danger("Да поможет вам Бог \"[deity_name]\", да побудит он вас к исцелению!"),
 			)
 		else
 			target.visible_message(
-				span_danger("[user] излечива[pluralize_ru(user.gender, "ет", "ют")] [target] с силой Бога \"[deity_name]\"!"),
+				span_danger("[user] излечива[PLUR_ET_YUT(user)] [target] с силой Бога \"[deity_name]\"!"),
 				span_danger("Да поможет вам Бог \"[deity_name]\", да побудит он вас к исцелению!"),
 			)
 		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
@@ -173,12 +169,12 @@
 			to_chat(target, span_warning("Вы ощущаете себя глупее, чем раньше."))
 		if(user == target)
 			target.visible_message(
-				span_danger("[user] огрева[pluralize_ru(user.gender, "ет", "ют")] себя [declent_ru(INSTRUMENTAL)] по голове!"),
+				span_danger("[user] огрева[PLUR_ET_YUT(user)] себя [declent_ru(INSTRUMENTAL)] по голове!"),
 				span_danger("Вы огреваете себя [declent_ru(INSTRUMENTAL)] по голове!"),
 			)
 		else
 			target.visible_message(
-				span_danger("[user] огрева[pluralize_ru(user.gender, "ет", "ют")] [target] [declent_ru(INSTRUMENTAL)] по голове!"),
+				span_danger("[user] огрева[PLUR_ET_YUT(user)] [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 				span_danger("Вы огреваете [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 			)
 		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
@@ -189,7 +185,7 @@
 	if(god_punishment == 5)
 		to_chat(user, span_danger("<h1>Вы злоупотребляете покровительством Бога \"[deity_name]\", остановитесь и подумайте.</h1>"))
 	else if(god_punishment > 5) //lets apply punishment AFTER heal
-		user.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
+		user.electrocute_act(5, src, flags = SHOCK_NOGLOVES)
 		user.apply_damage(65, BURN)
 		user.Knockdown(10 SECONDS)
 		to_chat(user, span_userdanger("Вы злоупотребили волей Бога и были за это наказаны!"))

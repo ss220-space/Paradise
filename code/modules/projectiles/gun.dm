@@ -8,7 +8,6 @@
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -53,6 +52,9 @@
 
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+
+	/// Guns can be placed on racks
+	var/on_rack = FALSE
 
 /*
  * Gun modules
@@ -179,7 +181,7 @@
 		. += span_notice("К цевью прикреплен [attachments_by_slot[ATTACHMENT_SLOT_UNDER].declent_ru(NOMINATIVE)].")
 	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_UNDER)
 		. += span_notice("Имеет маленькую планку на цевье для крепление пистолетного фонаря.")
-	else if(attachable_allowed & GUN_MODULE_CLASS_RIFLE_UNDER | attachable_allowed & GUN_MODULE_CLASS_SHOTGUN_UNDER)
+	else if(attachable_allowed & (GUN_MODULE_CLASS_RIFLE_UNDER|GUN_MODULE_CLASS_SHOTGUN_UNDER))
 		. += span_notice("Имеет большую планку на цевье для крепление большого фонаря или рукоятки.")
 
 	if(unique_reskin)
@@ -265,14 +267,14 @@
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
-				user.visible_message(span_danger("[user] стреля[pluralize_ru(user.gender,"ет","ют")] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("[pluralize_ru(user.gender,"Ты стреляешь","Вы стреляете")] из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите \a [fire_sound_text]!"), projectile_message = TRUE)
+				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
 				if(pb_knockback > 0 && isliving(target))
 					var/mob/living/living_target = target
 					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
 						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
 						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
-				user.visible_message(span_danger("[user] стреля[pluralize_ru(user.gender,"ет","ют")] из [declent_ru(GENITIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты стреляешь","Вы стреляете")] из [declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
+				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
@@ -287,6 +289,7 @@
 		O.emp_act(severity)
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
+	. = ..()
 	if(firing_burst)
 		return
 	if(flag) //It's adjacent, is the user, or is on the user's person
@@ -303,7 +306,7 @@
 	if(flag)
 		if(user.zone_selected == "mouth")
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message(span_danger("[user] сдул[genderize_ru(user.gender,"","а","о","и")] дым с дула [declent_ru(GENITIVE )]. Как же [genderize_ru(user.gender,"он хорош","она хороша","оно хорошо","они хороши")]!"))
+				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
 			else
 				handle_suicide(user, target, params)
 			return
@@ -316,7 +319,7 @@
 		user.drop_from_active_hand()
 		return
 
-	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE )] нужны две свободные руки!"))
 		return
 
@@ -326,7 +329,7 @@
 	if(ishuman(user) && user.a_intent == INTENT_HARM)
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/gun/G in get_both_hands(H))
-			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
+			if(G == src || (!HAS_TRAIT(user, TRAIT_BADASS) && G.weapon_weight >= WEAPON_MEDIUM))
 				continue
 			else if(G.can_trigger_gun(user))
 				if(!HAS_TRAIT(user, TRAIT_BADASS))
@@ -345,7 +348,7 @@
 		if(!user.can_use_guns(src))
 			return FALSE
 
-		if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] несовместим с вашей биологией!"))
 			return FALSE
 
@@ -379,7 +382,7 @@
 		rotate_to_target(target)
 
 	if(burst_size > 1)
-		if(chambered && chambered.harmful)
+		if(chambered?.harmful)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
@@ -392,9 +395,9 @@
 					break
 			if(chambered)
 				if(randomspread)
-					sprd = accuracy.randomize_spread(bonus_spread)
+					sprd = accuracy.randomize_spread(user, bonus_spread)
 				else
-					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(bonus_spread))
+					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
 				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 					shoot_with_empty_chamber(user)
 					break
@@ -418,7 +421,7 @@
 				if(chambered.harmful) // Is the bullet chambered harmful?
 					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
-			sprd = accuracy.randomize_spread(bonus_spread)
+			sprd = accuracy.randomize_spread(user, bonus_spread)
 			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 				shoot_with_empty_chamber(user)
 				return
@@ -439,10 +442,7 @@
 			semicd = 0
 
 	if(user)
-		if(user.hand)
-			user.update_inv_l_hand()
-		else
-			user.update_inv_r_hand()
+		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 	if(rusted_weapon)
@@ -694,7 +694,7 @@
 
 	if(choice && reskin_radial_check(user) && !current_skin)
 		current_skin = skin_options[choice]
-		to_chat(user, "Теперь [pluralize_ru(user.gender,"твое","ваше")] оружие имеет облик [choice]. Познакомь[pluralize_ru(user.gender,"ся","тесь")] с новым дизайном.")
+		to_chat(user, "Теперь ваше оружие имеет облик [choice]. Познакомьтесь с новым дизайном.")
 		update_icon()
 		update_equipped_item(update_speedmods = FALSE)
 
@@ -714,10 +714,10 @@
 
 	if(user == target)
 		target.visible_message(span_warning("[user] вставляет ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."), \
-							span_userdanger("[pluralize_ru(user.gender,"Ты вставляешь","Вы вставляеете")] ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."))
+							span_userdanger("Вы вставляеете ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."))
 	else
 		target.visible_message(span_warning("[user] направляет [declent_ru(ACCUSATIVE)] в голову [target], готовясь выстрелить..."), \
-							span_userdanger("[user] направляет [declent_ru(ACCUSATIVE)] [pluralize_ru(target.gender,"тебе","вам")] в голову, готовясь выстрелить!"))
+							span_userdanger("[user] направляет [declent_ru(ACCUSATIVE)] вам в голову, готовясь выстрелить!"))
 
 	semicd = 1
 
@@ -726,7 +726,7 @@
 			if(user == target)
 				user.visible_message(span_notice("[user] решает, что жить всё-таки хочется."))
 			else if(target && target.Adjacent(user))
-				target.visible_message(span_notice("[user] решает пощадить [target]."), span_notice("[user] решает оставить [pluralize_ru(target.gender,"тебя","вас")] в живых!"))
+				target.visible_message(span_notice("[user] решает пощадить [target]."), span_notice("[user] решает оставить вас в живых!"))
 		semicd = 0
 		return
 
@@ -734,7 +734,7 @@
 
 	target.visible_message(span_warning("[user] нажимает на спусковой крючок!"), span_userdanger("[user] нажимает на спусковой крючок!"))
 
-	if(chambered && chambered.BB)
+	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
 	process_fire(target, user, 1, params)
@@ -852,10 +852,6 @@
 
 	// The gun is equipped in their hands, give them the zoom ability.
 	azoom.Grant(user)
-
-//Guns can be placed on racks
-/obj/item/gun
-	var/on_rack = FALSE
 
 /obj/item/gun/proc/place_on_rack()
 	on_rack = TRUE

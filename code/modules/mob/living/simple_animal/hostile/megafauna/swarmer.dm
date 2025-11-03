@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	LAZYINITLIST(GLOB.AISwarmersByType)
 	for(var/t in shuffle(swarmerTypes))
 		var/list/amount = GLOB.AISwarmersByType[t]
-		if(!amount || amount.len <  GLOB.AISwarmerCapsByType[t])
+		if(!amount || length(amount) <  GLOB.AISwarmerCapsByType[t])
 			return t
 
 
@@ -48,8 +48,9 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	health = 750
 	maxHealth = 750 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
 	internal_type = /obj/item/gps/internal/swarmer_beacon
-	medal_type = BOSS_MEDAL_SWARMERS
-	score_type = SWARMER_BEACON_SCORE
+	achievement_type = /datum/award/achievement/boss/swarmer_beacon_kill
+	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
+	score_achievement_type = /datum/award/score/swarmer_beacon_score
 	faction = list("mining", "boss", "swarmer")
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	stop_automated_movement = TRUE
@@ -82,7 +83,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	. = ..()
 	if(.)
 		var/createtype = GetUncappedAISwarmerType()
-		if(createtype && world.time > swarmer_spawn_cooldown && GLOB.AISwarmers.len < (GetTotalAISwarmerCap()*0.5))
+		if(createtype && world.time > swarmer_spawn_cooldown && length(GLOB.AISwarmers) < (GetTotalAISwarmerCap()*0.5))
 			swarmer_spawn_cooldown = world.time + swarmer_spawn_cooldown_amt
 			new createtype(loc)
 
@@ -107,7 +108,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	icon_state = null
 	gpstag = "Hungry Signal"
 	desc = "Transmitted over the signal is a strange message repeated in every language you know of, and some you don't too..." //the message is "nom nom nom"
-	invisibility = INVISIBILITY_ABSTRACT
 
 //SWARMER AI
 //AI versions of the swarmer mini-antag
@@ -228,7 +228,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	. = ..()
 	if(.)
 		if(!stop_automated_movement)
-			if(GLOB.AISwarmers.len < GetTotalAISwarmerCap() && resources >= 50)
+			if(length(GLOB.AISwarmers) < GetTotalAISwarmerCap() && resources >= 50)
 				StartAction(100) //so they'll actually sit still and use the verbs
 				CreateSwarmer()
 				return
@@ -290,7 +290,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		else
 			var/mob/living/L = target
 			L.attack_animal(src)
-			L.electrocute_act(10, "свармера", flags = SHOCK_NOGLOVES) // SHOCK_NOGLOVES means we don't check gloves... Ok?
+			L.electrocute_act(10, src, flags = SHOCK_NOGLOVES) // SHOCK_NOGLOVES means we don't check gloves... Ok?
 		return TRUE
 	else
 		return ..()

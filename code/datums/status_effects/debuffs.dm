@@ -3,7 +3,6 @@
 // MARK: his_wrath
 /datum/status_effect/his_wrath //does minor damage over time unless holding His Grace
 	id = "his_wrath"
-	duration = -1
 	tick_interval = 0.4 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/his_wrath
 
@@ -28,7 +27,6 @@
 // MARK: cultghost
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
 	id = "cult_ghost"
-	duration = -1
 	alert_type = null
 
 /datum/status_effect/cultghost/tick(seconds_between_ticks)
@@ -85,8 +83,8 @@
 		return TRUE
 
 	hud = new
-	hud.add_to_hud(new_owner)
-	hud.add_hud_to(mob_to_inform)
+	hud.add_atom_to_hud(new_owner)
+	hud.show_to(mob_to_inform)
 	var/image/holder = new_owner.hud_list[PACIFISM_HUD]
 	if(holder)
 		holder.icon_state = "hudpacifism"
@@ -169,7 +167,6 @@
 // MARK: saw_bleed
 /datum/status_effect/saw_bleed
 	id = "saw_bleed"
-	duration = -1 //removed under specific conditions
 	tick_interval = 6
 	alert_type = null
 	var/mutable_appearance/bleed_overlay
@@ -272,7 +269,6 @@
 /datum/status_effect/mark_prey
 	id = "mark_prey"
 	duration = 5 SECONDS
-	tick_interval = 1 SECONDS
 	alert_type = null
 	var/mutable_appearance/marked_overlay
 	var/datum/antagonist/vampire/vamp
@@ -935,11 +931,11 @@
 /datum/status_effect/transient/jittery/get_examine_text()
 	switch(strength)
 		if(600 SECONDS to INFINITY)
-			return span_warning("<b>[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] бь[pluralize_ru(owner.gender,"ётся","ются")] в судорогах!</b>")
+			return span_warning("<b>[GEND_HE_SHE_CAP(owner)] бь[PLUR_YOT_YUT(owner)]ся в судорогах!</b>")
 		if(400 SECONDS to 600 SECONDS)
-			return span_warning("[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] крайне нервнича[pluralize_ru(owner.gender,"ет","ют")].")
+			return span_warning("[GEND_HE_SHE_CAP(owner)] крайне нервнича[PLUR_ET_YUT(owner)].")
 		if(200 SECONDS to 400 SECONDS)
-			return span_warning("[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] слегка дёрга[pluralize_ru(owner.gender,"ется","ются")].")
+			return span_warning("[GEND_HE_SHE_CAP(owner)] слегка дёрга[PLUR_ET_YUT(owner)]ся.")
 
 
 /datum/status_effect/transient/stammering
@@ -1181,7 +1177,6 @@
 // MARK: Lavaland flowers stuff
 /datum/status_effect/taming
 	id = "taming"
-	duration = -1
 	tick_interval = 6
 	alert_type = null
 	var/tame_amount = 1
@@ -1229,8 +1224,6 @@
 /datum/status_effect/bubblegum_curse
 	id = "bubblegum curse"
 	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse
-	duration = -1 //Kill it. There is no other option.
-	tick_interval = 1 SECONDS
 	/// The damage the status effect does per tick.
 	var/damage = 0.75
 	var/source_UID
@@ -1426,3 +1419,97 @@
 
 /datum/status_effect/transient/temperature/calc_decay()
 	return 0
+
+/// Applies a curse with various possible effects
+/mob/living/proc/apply_necropolis_curse(set_curse)
+	var/datum/status_effect/necropolis_curse/curse = has_status_effect(/datum/status_effect/necropolis_curse)
+
+	if(!set_curse)
+		set_curse = pick(CURSE_BLINDING, CURSE_WASTING, CURSE_GRASPING)
+
+	if(QDELETED(curse))
+		apply_status_effect(/datum/status_effect/necropolis_curse, set_curse)
+		return curse
+
+	curse.apply_curse(set_curse)
+	curse.duration += 5 MINUTES //time added by additional curses
+	return curse
+
+/// A curse that does up to three nasty things to you
+/datum/status_effect/necropolis_curse
+	id = "necrocurse"
+	duration = 10 MINUTES //you're cursed for 10 minutes have fun
+	tick_interval = 5 SECONDS
+	alert_type = null
+	/// Which nasty things are we doing? [CURSE_BLINDING / CURSE_WASTING / CURSE_GRASPING]]
+	var/curse_flags = NONE
+	/// When should we next throw hands?
+	var/effect_next_activation = 0
+	/// How long between throwing hands?
+	var/effect_cooldown = 10 SECONDS
+	/// Visuals for the wasting effect
+	var/obj/effect/temp_visual/curse/wasting_effect
+
+/datum/status_effect/necropolis_curse/on_creation(mob/living/new_owner, set_curse)
+	. = ..()
+
+	if(!.)
+		return
+
+	apply_curse(set_curse)
+
+/datum/status_effect/necropolis_curse/Destroy()
+	if(!QDELETED(wasting_effect))
+		qdel(wasting_effect)
+		wasting_effect = null
+
+	return ..()
+
+/datum/status_effect/necropolis_curse/on_remove()
+	remove_curse(curse_flags)
+
+/datum/status_effect/necropolis_curse/proc/apply_curse(set_curse)
+	curse_flags |= set_curse
+
+	if(curse_flags & CURSE_BLINDING)
+		owner.overlay_fullscreen("curse", /atom/movable/screen/fullscreen/curse, 1)
+
+	if(curse_flags & CURSE_WASTING && !wasting_effect)
+		wasting_effect = new
+
+/datum/status_effect/necropolis_curse/proc/remove_curse(remove_curse)
+	if(remove_curse & CURSE_BLINDING)
+		owner.clear_fullscreen("curse", 50)
+
+	curse_flags &= ~remove_curse
+
+/datum/status_effect/necropolis_curse/tick(seconds_between_ticks)
+	if(owner.stat == DEAD)
+		return
+
+	if(!(curse_flags & CURSE_WASTING))
+		return
+
+	wasting_effect.forceMove(owner.loc)
+	wasting_effect.setDir(owner.dir)
+	wasting_effect.transform = owner.transform //if the owner has been stunned the overlay should inherit that position
+	wasting_effect.alpha = 255
+	animate(wasting_effect, alpha = 0, time = 32)
+	playsound(owner, 'sound/effects/curse5.ogg', 20, TRUE, -1)
+	owner.adjustFireLoss(0.75)
+
+	//TODO uncomment after heretic
+	/*
+	if(curse_flags & CURSE_GRASPING)
+		if(effect_next_activation > world.time)
+			return
+		effect_next_activation = world.time + effect_cooldown
+		fire_curse_hand(owner, range = 5, projectile_type = /obj/projectile/curse_hand) // This one stuns people
+	*/
+
+/obj/effect/temp_visual/curse
+	icon_state = "curse"
+
+/obj/effect/temp_visual/curse/Initialize(mapload)
+	. = ..()
+	deltimer(timerid)

@@ -3,7 +3,6 @@
  * Designed to cancel off xray/meson/thermal vision effects.
  * Special for spooky secret areas and gates. :D
  */
-
 /area/vision_change_area
 	area_flags = NONE
 

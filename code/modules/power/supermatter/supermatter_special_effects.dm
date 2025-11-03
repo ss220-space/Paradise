@@ -164,7 +164,7 @@
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)
-	monke.key = SG.key
+	monke.possess_by_player(SG.key)
 	monke.health = monke.maxHealth
 	greet_sentient(monke)
 
@@ -174,7 +174,7 @@
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)
-	animal.key = SG.key
+	animal.possess_by_player(SG.ckey)
 	animal.universal_speak = 1
 	animal.sentience_act()
 	animal.can_collar = 1
@@ -185,7 +185,7 @@
 
 
 /datum/supermatter_explosive_effects/proc/greet_sentient(mob/M)
-	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained human level intelligence and the ability to speak and understand human language!</span>"))
+	to_chat(M, chat_box_green("[span_userdanger("Hello world!")]<br>[span_warning("Due to freak radiation, you have gained human level intelligence and the ability to speak and understand human language!")]"))
 
 //All seeds in sector will become strange-like
 /datum/supermatter_explosive_effects/proc/handle_seeds_mutation()

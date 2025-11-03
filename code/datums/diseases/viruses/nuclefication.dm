@@ -2,8 +2,6 @@
 	name = "Синдром дисплазии суперматерии"
 	agent = "Мутировавшие клетки мозга"
 	desc = "О нет..."
-	max_stages = 5
-	spread_flags = NON_CONTAGIOUS
 	cures = list()              // YOU
 	virus_heal_resistant = TRUE // CAN'T
 	can_immunity = FALSE		// ESCAPE
@@ -62,7 +60,7 @@
 			radiate(H, 6, 93)
 
 		if(5)
-			H.visible_message(span_danger("[H.declent_ru(NOMINATIVE)] превраща[pluralize_ru(affected_mob.gender,"ется","ются")] в нуклеацию!"), span_userdanger("ВЫ ПРЕВРАЩАЕТЕСЬ В НУКЛЕАЦИЮ. ОПЯТЬ!"))
+			H.visible_message(span_danger("[H.declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(affected_mob)]ся в нуклеацию!"), span_userdanger("ВЫ ПРЕВРАЩАЕТЕСЬ В НУКЛЕАЦИЮ. ОПЯТЬ!"))
 			H.setOxyLoss(0)
 			H.SetJitter(0)
 			var/mob/living/carbon/human/nucleat = H

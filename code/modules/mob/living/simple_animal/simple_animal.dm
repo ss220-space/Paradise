@@ -6,7 +6,6 @@
 	gender = MALE // Placeholder.
 
 	universal_understand = 1
-	universal_speak = 0
 	status_flags = CANPUSH
 
 	hud_type = /datum/hud/simple_animal
@@ -230,10 +229,10 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += span_deadsay("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] мёртв[genderize_ru(user.gender,"ым","ой","ым","ыми")].")
+		. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] мёртв[GEND_YM_OI_YM_YMI(user)].")
 		return
 	if(IsSleeping())
-		. += span_notice("При ближайшем рассмотрении, [genderize_ru(user.gender,"он","она","оно","они")] выгляд[pluralize_ru(user.gender,"ит","ят")] спящ[genderize_ru(user.gender,"им","ей","им","ими")].")
+		. += span_notice("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] спящ[GEND_IM_EI_IM_IMI(user)].")
 
 
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
@@ -318,33 +317,33 @@
 	set waitfor = FALSE
 	if(speak_chance)
 		if(prob(speak_chance) || override)
-			if(speak && speak.len)
-				if((emote_hear && emote_hear.len) || (emote_see && emote_see.len))
+			if(speak && length(speak))
+				if((emote_hear && length(emote_hear)) || (emote_see && length(emote_see)))
 					var/length = speak.len
-					if(emote_hear && emote_hear.len)
+					if(emote_hear && length(emote_hear))
 						length += emote_hear.len
-					if(emote_see && emote_see.len)
+					if(emote_see && length(emote_see))
 						length += emote_see.len
 					var/randomValue = rand(1,length)
-					if(randomValue <= speak.len)
+					if(randomValue <= length(speak))
 						say(pick(speak))
 					else
 						randomValue -= speak.len
-						if(emote_see && randomValue <= emote_see.len)
+						if(emote_see && randomValue <= length(emote_see))
 							custom_emote(EMOTE_VISIBLE, pick(emote_see))
 						else
 							custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
-				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
+				if(!(emote_hear && length(emote_hear)) && (emote_see && length(emote_see)))
 					custom_emote(EMOTE_VISIBLE, pick(emote_see))
-				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
+				if((emote_hear && length(emote_hear)) && !(emote_see && length(emote_see)))
 					custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
-				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					var/length = emote_hear.len + emote_see.len
+				if((emote_hear && length(emote_hear)) && (emote_see && length(emote_see)))
+					var/length = length(emote_hear) + emote_see.len
 					var/pick = rand(1,length)
-					if(pick <= emote_see.len)
+					if(pick <= length(emote_see))
 						custom_emote(EMOTE_VISIBLE, pick(emote_see))
 					else
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
@@ -415,7 +414,7 @@
 
 
 /mob/living/simple_animal/say_quote(message)
-	if(speak_emote?.len)
+	if(length(speak_emote))
 		return get_verb(speak_emote)
 	return ..()
 
@@ -438,7 +437,7 @@
 	status_tab_data[++status_tab_data.len] = list("Здоровье:", "[round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/proc/drop_loot()
-	if(loot.len)
+	if(length(loot))
 		for(var/i in loot)
 			new i(loc)
 
@@ -706,7 +705,7 @@
 	if(user)
 		visible_message(
 			span_warning(span_notice("Вы надеваете [P.declent_ru(ACCUSATIVE)] на шею [src.declent_ru(GENITIVE)].")),
-			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[pluralize_ru(user.gender,"ет","ют")] [P.declent_ru(ACCUSATIVE)] вам на шею [src.declent_ru(GENITIVE)]."))
+			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[PLUR_ET_YUT(user)] [P.declent_ru(ACCUSATIVE)] вам на шею [src.declent_ru(GENITIVE)]."))
 		)
 	if(P.tagname && !unique_pet)
 		name = P.tagname
@@ -742,7 +741,7 @@
 
 /mob/living/simple_animal/Login()
 	..()
-	SSmove_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
+	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 	toggle_ai(AI_OFF)
 
 /mob/living/simple_animal/Logout()
@@ -763,7 +762,7 @@
 			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить вас [item.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_danger("Это оружие неэффективно - оно не наносит урона!"))
+		to_chat(user, span_danger("Это оружие неэффективно — оно не наносит урона!"))
 		return ATTACK_CHAIN_BLOCKED
 
 	. = ..()

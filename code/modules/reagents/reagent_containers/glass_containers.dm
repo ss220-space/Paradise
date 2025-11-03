@@ -5,7 +5,6 @@
 	name = " "
 	var/base_name = " "
 	desc = " "
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "null"
 	item_state = "null"
 	amount_per_transfer_from_this = 10
@@ -47,8 +46,8 @@
 
 	if(user.a_intent == INTENT_HARM)
 		target.visible_message(
-			span_danger("[user] вылива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на [target]!"),
-			span_userdanger("[user] вылива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на вас!")
+			span_danger("[user] вылива[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)] на [target]!"),
+			span_userdanger("[user] вылива[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)] на вас!")
 		)
 		add_attack_logs(user, target, "Splashed with [name] containing [contained]")
 		make_splashes(target)
@@ -67,14 +66,14 @@
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся напоить содержимым [declent_ru(GENITIVE)] [target]!"),
-			span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся напоить вас содержимым [declent_ru(GENITIVE)]!"),
+			span_danger("[user] пыта[PLUR_ET_YUT(user)]ся напоить содержимым [declent_ru(GENITIVE)] [target]!"),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся напоить вас содержимым [declent_ru(GENITIVE)]!"),
 		)
 		if(!do_after(user, 3 SECONDS, target, NONE) || !reagents || !reagents.total_volume)
 			return .
 		target.visible_message(
-			span_danger("[user] напоил[genderize_ru(user.gender, "", "а", "о", "и")] [target] содержимым [declent_ru(GENITIVE)]!"),
-			span_userdanger("[user] напоил[genderize_ru(user.gender, "", "а", "о", "и")] вас содержимым [declent_ru(GENITIVE)]!"),
+			span_danger("[user] напоил[GEND_A_O_I(user)] [target] содержимым [declent_ru(GENITIVE)]!"),
+			span_userdanger("[user] напоил[GEND_A_O_I(user)] вас содержимым [declent_ru(GENITIVE)]!"),
 		)
 		add_attack_logs(user, target, "Fed with [name] containing [contained]")
 	else
@@ -105,7 +104,7 @@
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		after_transfer(target)
-		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)
@@ -121,7 +120,7 @@
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
-			user.visible_message(span_danger("[user] облива[pluralize_ru(user, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
+			user.visible_message(span_danger("[user] облива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
 								("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"))
 			make_splashes(target)
 
@@ -138,7 +137,6 @@
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
 	desc = "Простой стеклянный стакан. На его стенках обозначены деления для измерения объёма содержимого."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
 	belt_icon = "beaker"
@@ -167,7 +165,7 @@
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
-		. += span_notice("К нему прикрепл[genderize_ru(assembly.gender, "ён", "ена", "ено", "ены")] [assembly]. Открутите [genderize_ru(assembly.gender, "его", "её", "его", "их")] чем-нибудь, чтобы отсоединить.")
+		. += span_notice("К нему прикреплен[GEND_A_O_Y(assembly)] [assembly]. Открутите [GEND_HIS_HER(assembly)] чем-нибудь, чтобы отсоединить.")
 
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
@@ -219,7 +217,6 @@
 		assembly.forceMove_turf()
 		usr.put_in_hands(assembly, ignore_anim = FALSE)
 		assembly = null
-		qdel(GetComponent(/datum/component/proximity_monitor))
 		update_icon(UPDATE_OVERLAYS)
 	else
 		balloon_alert(usr, "нечего отсоединять!")
@@ -242,8 +239,6 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		balloon_alert(user, "заготовка прикреплена")
-		if(assembly.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
 		assembly = I
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -282,9 +277,7 @@
 	belt_icon = "large_beaker"
 	materials = list(MAT_GLASS=2500)
 	volume = 100
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
-	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/beaker/large/get_ru_names()
 	return list(
@@ -303,9 +296,7 @@
 	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
 	volume = 25
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25)
-	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/vial/get_ru_names()
@@ -325,7 +316,6 @@
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = null
 	volume = 10
-	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/drugs/get_ru_names()
@@ -345,7 +335,6 @@
 	amount_per_transfer_from_this = 25
 	possible_transfer_amounts = null
 	volume = 25
-	container_type = OPENCONTAINER
 	can_assembly = 0
 	list_reagents = list("thermite" = 25)
 
@@ -364,10 +353,7 @@
 	desc = "Криостазисная мензурка, позволяющий хранить химические вещества в таком состоянии, при котором они не вступают в реакцию друг с другом."
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
-	volume = 50
-	amount_per_transfer_from_this = 10
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
-	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/item/reagent_containers/glass/beaker/noreact/get_ru_names()
@@ -390,9 +376,7 @@
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
-	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
@@ -424,7 +408,6 @@
 /obj/item/reagent_containers/glass/bucket
 	name = "bucket"
 	desc = "Металлическое ведро. Можете налить туда что-то или надеть себе на голову, никто не запрещает."
-	gender = NEUTER
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
 	item_state = "bucket"
@@ -437,7 +420,6 @@
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
-	container_type = OPENCONTAINER
 	var/paintable = TRUE
 
 /obj/item/reagent_containers/glass/bucket/get_ru_names()
@@ -552,8 +534,6 @@
 	item_state = "bottle"
 	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
 	materials = list(MAT_GLASS = 0)
-	volume = 50
-	amount_per_transfer_from_this = 10
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/get_ru_names()
 	return list(

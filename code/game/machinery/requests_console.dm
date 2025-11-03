@@ -41,16 +41,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
-	var/obj/item/radio/Radio
-	var/radiochannel = ""
+	var/radiochannel = PUB_FREQ
 	var/list/connected_apps = list()
 
 
 /obj/machinery/requests_console/Initialize(mapload)
-	Radio = new /obj/item/radio(src)
-	Radio.listening = TRUE
-	Radio.config(list(ENG_FREQ_NAME, MED_FREQ_NAME, SUP_FREQ_NAME, COMM_FREQ_NAME, SCI_FREQ_NAME, SRV_FREQ_NAME, SEC_FREQ_NAME, AI_FREQ_NAME = FALSE))
-	Radio.follow_target = src
 	. = ..()
 
 	announcer.config.default_title = "[department] объявление."
@@ -82,7 +77,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			GLOB.req_console_supplies -= department
 		if(departmentType & RC_INFO)
 			GLOB.req_console_information -= department
-	QDEL_NULL(Radio)
 	for(var/datum/data/pda/app/request_console/app as anything in connected_apps)
 		app.on_rc_destroyed(src)
 	return ..()
@@ -204,23 +198,23 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(pass)
 				screen = RCS_SENTPASS
 				if(recipient in ENGI_ROLES)
-					radiochannel = ENG_FREQ_NAME
+					radiochannel = ENG_FREQ
 				else if(recipient in SEC_ROLES)
-					radiochannel = SEC_FREQ_NAME
+					radiochannel = SEC_FREQ
 				else if(recipient in MISC_ROLES)
-					radiochannel = SRV_FREQ_NAME
+					radiochannel = SRV_FREQ
 				else if(recipient in MED_ROLES)
-					radiochannel = MED_FREQ_NAME
+					radiochannel = MED_FREQ
 				else if(recipient in COM_ROLES)
-					radiochannel = COMM_FREQ_NAME
+					radiochannel = COMM_FREQ
 				else if(recipient in SCI_ROLES)
-					radiochannel = SCI_FREQ_NAME
+					radiochannel = SCI_FREQ
 				else if(recipient == RC_AI)
-					radiochannel = AI_FREQ_NAME
+					radiochannel = AI_FREQ
 				else if(recipient == RC_CARGO_BAY)
-					radiochannel = SUP_FREQ_NAME
+					radiochannel = SUP_FREQ
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
-				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
+				radio_announce("Alert; a new requests console message received for [recipient] from [department]", null, radiochannel, src)
 			else
 				atom_say("Сервер не обнаружен!")
 
@@ -341,7 +335,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/rendered_message
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			rendered_message = "Высокий приоритет - От: [linkedSender] - [message]"
+			rendered_message = "Высокий приоритет — От: [linkedSender] - [message]"
 		else // Normal
 			rendered_message = "От: [linkedSender] - [message]"
 
@@ -351,7 +345,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console/proc/write_to_message_log(message, ore_message = FALSE)
 	for(var/datum/data/pda/app/request_console/app as anything in connected_apps)
-		app.on_rc_message_recieved(src, message, ore_message)
+		app.on_rc_message_received(src, message, ore_message)
 	message_log = list(message) + message_log
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)

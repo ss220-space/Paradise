@@ -6,7 +6,6 @@
 	base_icon_state = "pdapainter"
 	density = TRUE
 	anchored = TRUE
-	max_integrity = 200
 	var/obj/item/pda/storedpda = null
 	var/static/list/colorlist
 	var/statusLabel

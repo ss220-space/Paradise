@@ -87,9 +87,7 @@
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
-	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin_wall-0"
-	base_icon_state = "resin_wall"
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
@@ -340,7 +338,6 @@
 	name = "resin floor"
 	desc = "A thick resin surface covers the floor."
 	anchored = TRUE
-	density = FALSE
 	layer = ABOVE_ICYOVERLAY_LAYER
 	plane = FLOOR_PLANE
 	icon_state = "weeds"
@@ -401,7 +398,7 @@
 
 	cut_overlays()
 
-	if(!weedImageCache || !weedImageCache.len)
+	if(!weedImageCache || !length(weedImageCache))
 		weedImageCache = list()
 		weedImageCache.len = 4
 		weedImageCache[WEED_NORTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_n", layer=2.11, pixel_y = -32)
@@ -468,12 +465,11 @@
 	name = "egg"
 	desc = "A large mottled egg."
 	icon_state = "egg_growing"
-	density = FALSE
 	anchored = TRUE
-	max_integrity = 100
 	integrity_failure = 5
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
+
 
 /obj/structure/alien/egg/grown
 	status = GROWN
@@ -495,9 +491,14 @@
 		if(GROWN)
 			var/mob/living/simple_animal/hostile/facehugger/hugger = new(src)
 			hugger.lose_target()
-			AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
+			proximity_monitor = new(src, PROXIMITY_RADIUS)
 		if(BURST)
 			update_integrity(integrity_failure)
+
+
+/obj/structure/alien/egg/Destroy(force)
+	. = ..()
+	QDEL_NULL(proximity_monitor)
 
 
 /obj/structure/alien/egg/update_icon_state()
@@ -518,19 +519,19 @@
 	if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 		switch(status)
 			if(BURST)
-				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
+				to_chat(user, span_notice("You clear the hatched egg."))
 				playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
 				qdel(src)
 				return
 			if(GROWING)
-				to_chat(user, "<span class='notice'>The child is not developed yet.</span>")
+				to_chat(user, span_notice("The child is not developed yet."))
 				return
 			if(GROWN)
-				to_chat(user, "<span class='notice'>You retrieve the child.</span>")
+				to_chat(user, span_notice("You retrieve the child."))
 				Burst(kill = FALSE)
 				return
 	else
-		to_chat(user, "<span class='notice'>It feels slimy.</span>")
+		to_chat(user, span_notice("It feels slimy."))
 		user.changeNext_move(CLICK_CD_MELEE)
 
 
@@ -541,7 +542,7 @@
 /obj/structure/alien/egg/proc/Grow()
 	status = GROWN
 	update_icon(UPDATE_ICON_STATE)
-	AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
+	proximity_monitor = new(src, PROXIMITY_RADIUS)
 
 ///Need to carry the kill from Burst() to Hatch(), this section handles the alien opening the egg
 /obj/structure/alien/egg/proc/Burst(kill = TRUE, atom/movable/trigger)	//drops and kills the hugger if any is remaining
@@ -549,7 +550,7 @@
 		playsound(get_turf(src), 'sound/creatures/alien/xeno_egg_crack.ogg', 50)
 		flick("egg_opening", src)
 		status = BURSTING
-		qdel(GetComponent(/datum/component/proximity_monitor))
+		QDEL_NULL(proximity_monitor)
 		addtimer(CALLBACK(src, PROC_REF(Hatch), kill, trigger), 1.5 SECONDS)
 
 

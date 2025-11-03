@@ -100,6 +100,16 @@
 		JOB_MIN_AGE_COMMAND = 22,
 	)
 
+	autohiss_basic_map = list(
+			"s" = list("ss", "sss", "ssss"),
+			"с" = list("сс", "ссс", "сссс")
+		)
+	autohiss_extra_map = list(
+			"x" = list("ks", "kss", "ksss"),
+			"ш" = list("шш", "шшш", "шшшш"),
+			"ч" = list("щ", "щщ", "щщщ")
+		)
+	autohiss_exempt = list("Синт'Унати")
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -165,7 +175,6 @@
 	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
 	Они бродят по пустошам Лазиса, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
 
-	language = LANGUAGE_UNATHI
 	default_language = LANGUAGE_UNATHI
 	brute_mod = 0.9
 	speed_mod = -0.50
@@ -312,8 +321,8 @@ They're basically just lizards with all-around marginally better stats and fire 
 	head_organ?.ha_style = "Drake"
 	owner.change_eye_color("#A02720")
 	owner.update_dna()
-	owner.update_inv_head()
-	owner.update_inv_wear_suit() //update sprites for digi legs
+	owner.update_worn_head()
+	owner.update_worn_oversuit() //update sprites for digi legs
 	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(!fire)
 		fire = new
@@ -322,8 +331,8 @@ They're basically just lizards with all-around marginally better stats and fire 
 
 /datum/species/unathi/draconid/on_species_loss(mob/living/carbon/owner)
 	. = ..()
-	owner.update_inv_head()
-	owner.update_inv_wear_suit()
+	owner.update_worn_head()
+	owner.update_worn_oversuit()
 	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	fire?.Remove(owner)
 
@@ -341,7 +350,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 /datum/action/innate/ignite_unathi/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(world.time <= cooldown)
-		to_chat(user, span_warning("Ваша пасть болит из-за прошлой попытки. Подождите [round((cooldown - world.time) / 10)] секунд[declension_ru(round((cooldown - world.time) / 10), "у", "ы", "")] и попробуйте ещё раз"))
+		to_chat(user, span_warning("Ваша пасть болит из-за прошлой попытки. Подождите [round((cooldown - world.time) / 10)] секунд[DECL_SEC_MIN(round((cooldown - world.time) / 10))] и попробуйте ещё раз"))
 		return
 	if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
 		user.balloon_alert(user, "ваша пасть закрыта!")

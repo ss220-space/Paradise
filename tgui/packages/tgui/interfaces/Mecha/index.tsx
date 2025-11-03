@@ -97,6 +97,7 @@ export const Content = (props) => {
                             tooltip="Редактировать доступы"
                             tooltipPosition="top"
                             icon="id-card-o"
+                            disabled={!regions}
                             onClick={() => editAccess(!edit_access)}
                             selected={edit_access}
                           />
@@ -122,7 +123,7 @@ export const Content = (props) => {
         </Stack>
       </Stack.Item>
       <Stack.Item grow={2}>
-        {edit_access ? (
+        {edit_access && !!regions ? (
           <AccessList
             accesses={regions}
             selectedList={accesses}

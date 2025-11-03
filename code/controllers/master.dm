@@ -89,7 +89,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/New()
 
 	if(!random_seed)
-		#ifdef UNIT_TESTS
+		#ifdef TEST_RUNNER
 		random_seed = 29051994
 		#else
 		random_seed = rand(1, 1e9)
@@ -317,7 +317,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		SS_INIT_NO_MESSAGE,
 	)
 
-	if(subsystem.flags & SS_NO_INIT || subsystem.initialized) //Don't init SSs with the corresponding flag or if they already are initialized
+	if((subsystem.flags & SS_NO_INIT) || subsystem.initialized) //Don't init SSs with the corresponding flag or if they already are initialized
+		subsystem.initialized = TRUE // set initialized to TRUE, because the value of initialized may still be checked on SS_NO_INIT subsystems as an "is this ready" check
 		return
 
 	current_initializing_subsystem = subsystem
@@ -445,9 +446,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 		var/ss_runlevels = SS.runlevels
 		var/added_to_any = FALSE
-		for(var/I in 1 to GLOB.bitflags.len)
+		for(var/I in 1 to length(GLOB.bitflags))
 			if(ss_runlevels & GLOB.bitflags[I])
-				while(runlevel_sorted_subsystems.len < I)
+				while(length(runlevel_sorted_subsystems) < I)
 					runlevel_sorted_subsystems += list(list())
 				runlevel_sorted_subsystems[I] += SS
 				added_to_any = TRUE

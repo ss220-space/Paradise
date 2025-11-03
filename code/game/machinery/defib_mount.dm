@@ -6,11 +6,8 @@
 	desc = "Станция для хранения и зарядки дефибрилляторов. Вы можете использовать использовать дефибриллятор прямо отсюда, если оный имеется."
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
-	density = FALSE
-	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	idle_power_usage = 1
-	power_channel = EQUIP
 	req_access = list(ACCESS_MEDICAL, ACCESS_HEADS) //used to control clamps
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
@@ -63,7 +60,7 @@
 			. += span_notice("Вы можете активировать систему блокировки, использовав свою ID-карту.")
 
 /obj/machinery/defibrillator_mount/process()
-	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
+	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
 		use_power(200)
 		defib.cell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
 		update_icon(UPDATE_OVERLAYS)
@@ -108,7 +105,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		visible_message(span_notice("[user] прикрепил[genderize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
+		visible_message(span_notice("[user] прикрепил[GEND_A_O_I(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 		balloon_alert(user, "дефибриллятор установлен")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
@@ -162,7 +159,7 @@
 		return CLICK_ACTION_BLOCKING
 	defib.forceMove_turf()
 	user.put_in_hands(defib, ignore_anim = FALSE)
-	visible_message(span_notice("[user] вынима[pluralize_ru(user.gender, "ет", "ют")] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
+	visible_message(span_notice("[user] вынима[PLUR_ET_YUT(user)] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	balloon_alert(user, "дефибриллятор извлечён")
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	defib = null

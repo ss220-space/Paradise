@@ -17,7 +17,6 @@
 		/datum/surgery_step/proxy/robotics/repair_limb,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	requires_organic_bodypart = FALSE
 	possible_locs = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
@@ -108,7 +107,6 @@
 // Intermediate repair surgeries, for fixing up internal maladies mid-surgery.
 
 /datum/surgery/intermediate/robotics
-	requires_bodypart = TRUE
 	requires_organic_bodypart = FALSE
 
 /datum/surgery/intermediate/robotics/repair
@@ -150,11 +148,10 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery_step/robotics
-	can_infect = 0
 
 /datum/surgery_step/robotics/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	. = ..()
-	if(tool && tool.tool_behaviour)
+	if(tool?.tool_behaviour)
 		tool.play_tool_sound(user, 30)
 
 /datum/surgery_step/robotics/external
@@ -173,7 +170,7 @@
 /datum/surgery_step/robotics/external/unscrew_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] развинчивать крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] развинчивать крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете развинчивать крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -182,7 +179,7 @@
 /datum/surgery_step/robotics/external/unscrew_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] развинчива[pluralize_ru(user.gender, "ет", "ют")] крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] развинчива[PLUR_ET_YUT(user)] крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы развинчиваете крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -192,7 +189,7 @@
 /datum/surgery_step/robotics/external/unscrew_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, безуспешно пытаясь развинтить крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, безуспешно пытаясь развинтить крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы дёргаете рукой, безуспешно пытаясь развинтить крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -211,7 +208,7 @@
 /datum/surgery_step/robotics/external/open_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] открывать крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] открывать крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете открывать крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -220,7 +217,7 @@
 /datum/surgery_step/robotics/external/open_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] открыва[pluralize_ru(user.gender, "ет", "ют")] крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] открыва[PLUR_ET_YUT(user)] крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы открываете крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -230,7 +227,7 @@
 /datum/surgery_step/robotics/external/open_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, безуспешно пытаясь открыть крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, безуспешно пытаясь открыть крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы дёргаете рукой, безуспешно пытаясь открыть крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -249,7 +246,7 @@
 /datum/surgery_step/robotics/external/close_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] отключать и отсоединять [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] отключать и отсоединять [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете отключать и отсоединять [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -258,7 +255,7 @@
 /datum/surgery_step/robotics/external/close_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] закрыва[pluralize_ru(user.gender, "ет", "ют")] и закрепля[pluralize_ru(user.gender, "ет", "ют")] крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] закрыва[PLUR_ET_YUT(user)] и закрепля[PLUR_ET_YUT(user)] крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы закрываете и закрепляете крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -269,7 +266,7 @@
 /datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, безуспешно пытаясь закрыть и закрепить крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, безуспешно пытаясь закрыть и закрепить крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы дёргаете рукой, безуспешно пытаясь закрыть и закрепить крышку технической панели на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -281,7 +278,7 @@
 /datum/surgery_step/robotics/external/close_hatch/premature/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] отключать и отсоединять [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] отключать и отсоединять [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		// give a little heads up to the surgeon that they're stopping the surgery prematurely in case that wasn't the intention.
 		span_notice("Вы прерываете текущую операцию, начиная отключать и отсоединять [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
@@ -312,7 +309,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 	C.use(3)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] заменять сгоревшие провода на новые в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] заменять сгоревшие провода на новые в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 		span_notice("Вы начинаете заменять сгоревшие провода на новые в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -323,7 +320,7 @@
 /datum/surgery_step/robotics/external/repair/burn/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] заменя[pluralize_ru(user.gender, "ет", "ют")] сгоревшие провода на новые в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+		span_notice("[user] заменя[PLUR_ET_YUT(user)] сгоревшие провода на новые в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 		span_notice("Вы заменяете сгоревшие провода на новые в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -336,7 +333,7 @@
 /datum/surgery_step/robotics/external/repair/burn/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, вызывая короткое замыкание проводки в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, вызывая короткое замыкание проводки в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		span_warning("Вы дёргаете рукой, вызывая короткое замыкание проводки в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -359,7 +356,7 @@
 		if(!tool.use(1))
 			return SURGERY_BEGINSTEP_SKIP
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] ремонтировать повреждённый корпус [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] ремонтировать повреждённый корпус [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете ремонтировать повреждённый корпус [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -369,7 +366,7 @@
 /datum/surgery_step/robotics/external/repair/brute/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] устраня[pluralize_ru(user.gender, "ет", "ют")] повреждения корпуса [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] устраня[PLUR_ET_YUT(user)] повреждения корпуса [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы устраняете повреждения корпуса [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -384,7 +381,7 @@
 /datum/surgery_step/robotics/external/repair/brute/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] внутренние компоненты [affected.declent_ru(GENITIVE)] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] внутренние компоненты [affected.declent_ru(GENITIVE)] [target]!"),
 		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] внутренние компоненты [affected.declent_ru(GENITIVE)] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -392,7 +389,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/proxy/robotics/manipulate_organs
-	name = "манипуляция с внутренними компонентами – прокси"
+	name = "манипуляция с внутренними компонентами — прокси"
 
 	branches = list(
 		/datum/surgery/intermediate/robotics/manipulate_organs/extract,
@@ -425,7 +422,7 @@
 	for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
 		if(organ.has_damage() && organ.is_robotic())
 			user.visible_message(
-				span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] начина[PLUR_ET_YUT(user)] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы начинаете восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 				chat_message_type = MESSAGE_TYPE_COMBAT
 			)
@@ -435,7 +432,7 @@
 		user.balloon_alert(user, "органы в норме!")
 		return SURGERY_BEGINSTEP_SKIP
 
-	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+	target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
 
 
@@ -446,7 +443,7 @@
 	for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
 		if(organ.damage && organ.is_robotic())
 			user.visible_message(
-				span_notice("[user] восстанавлива[pluralize_ru(user.gender, "ет", "ют")] [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] восстанавлива[PLUR_ET_YUT(user)] [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы восстаналиваете [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 				chat_message_type = MESSAGE_TYPE_COMBAT
 			)
@@ -458,7 +455,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] компоненты в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] компоненты в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] компоненты в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -497,12 +494,12 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] устанавливать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] устанавливать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		span_notice("Вы начинаете устанавливать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	if(affected)
-		target.custom_pain("Кто-то копается в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)]!")
+		target.custom_pain("Кто-то копается в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -514,9 +511,9 @@
 		return SURGERY_STEP_INCOMPLETE
 
 	user.drop_from_active_hand()
-	I.insert(target)
+	I.insert(target, ORGAN_MANIPULATION_TRANSPLANTATE)
 	user.visible_message(
-		span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
+		span_notice("[user] устанавлива[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		span_notice("Вы устанавливаете [I.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -524,7 +521,7 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, прерывая установку [tool.declent_ru(GENITIVE)]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, прерывая установку [tool.declent_ru(GENITIVE)]!"),
 		span_warning("Вы дёргаете рукой, прерывая установку [tool.declent_ru(GENITIVE)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -558,7 +555,7 @@
 			if(!I)
 				return SURGERY_BEGINSTEP_SKIP
 			user.visible_message(
-				span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] отсоединять и извлекать [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] начина[PLUR_ET_YUT(user)] отсоединять и извлекать [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы начинаете отсоединять и извлекать [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 				chat_message_type = MESSAGE_TYPE_COMBAT
 			)
@@ -573,14 +570,14 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!I || I.owner != target)
 		user.visible_message(
-			span_notice("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] [tool.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], ничего не извлекая."),
+			span_notice("[user] доста[PLUR_YOT_YUT(user)] [tool.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], ничего не извлекая."),
 			span_notice("Вы достаёте [tool.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], ничего не извлекая."),,
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 		return SURGERY_STEP_CONTINUE
 
 	user.visible_message(
-		span_notice("[user] отсоединя[pluralize_ru(user.gender, "ет", "ют")] и извлека[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] отсоединя[PLUR_ET_YUT(user)] и извлека[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы отсоединяете и извлекаете [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -599,7 +596,7 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, прерывая извлечение [tool.declent_ru(GENITIVE)]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, прерывая извлечение [tool.declent_ru(GENITIVE)]!"),
 		span_warning("Вы дёргаете рукой, прерывая извлечение [tool.declent_ru(GENITIVE)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -647,7 +644,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] устанавливать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] устанавливать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		span_notice("Вы начинаете устанавливать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -657,7 +654,7 @@
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-			span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
+			span_notice("[user] устанавлива[PLUR_ET_YUT(user)] [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 			span_notice("Вы устанавливаете [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -670,7 +667,7 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, прерывая установку [tool.declent_ru(GENITIVE)]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, прерывая установку [tool.declent_ru(GENITIVE)]!"),
 		span_warning("Вы дёргаете рукой, прерывая установку [tool.declent_ru(GENITIVE)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -688,7 +685,7 @@
 /datum/surgery_step/robotics/external/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] отключать и отсоединять [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] отключать и отсоединять [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете отключать и отсоединять [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -698,7 +695,7 @@
 /datum/surgery_step/robotics/external/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] отключа[pluralize_ru(user.gender, "ет", "ют")] и отсоединя[pluralize_ru(user.gender, "ет", "ют")] [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] отключа[PLUR_ET_YUT(user)] и отсоединя[PLUR_ET_YUT(user)] [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы отключаете и отсоединяете [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -716,7 +713,7 @@
 /datum/surgery_step/robotics/external/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, прерывая отсоединение [affected.declent_ru(GENITIVE)]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, прерывая отсоединение [affected.declent_ru(GENITIVE)]!"),
 		span_warning("Вы дёргаете рукой, прерывая отсоединение [affected.declent_ru(GENITIVE)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -730,7 +727,7 @@
 /datum/surgery_step/robotics/external/customize_appearance/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] кастомизировать внешний вид [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] кастомизировать внешний вид [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете кастомизировать внешний вид [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -750,7 +747,7 @@
 	target.updatehealth()
 	target.UpdateDamageIcon()
 	user.visible_message(
-		span_notice("[user] изменя[pluralize_ru(user.gender, "ет", "ют")] внешний вид [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] изменя[PLUR_ET_YUT(user)] внешний вид [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы изменяете внешний вид [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -760,7 +757,7 @@
 /datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, прерывая кастомизацию [affected.declent_ru(GENITIVE)]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, прерывая кастомизацию [affected.declent_ru(GENITIVE)]!"),
 		span_warning("Вы дёргаете рукой, прерывая кастомизацию [affected.declent_ru(GENITIVE)]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)

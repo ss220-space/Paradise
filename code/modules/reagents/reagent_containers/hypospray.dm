@@ -4,13 +4,11 @@
 
 /obj/item/reagent_containers/hypospray
 	name = "hypospray"
-	desc = "Гипоспрей - это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
+	desc = "Гипоспрей — это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "hypo"
 	belt_icon = "hypospray"
-	amount_per_transfer_from_this = 5
-	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
@@ -57,10 +55,10 @@
 	var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 
 	if(safety_hypo)
-		visible_message(span_warning("[user] вкалыва[pluralize_ru(user.gender, "ет", "ют")] [target] <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества \"[primary_reagent_name]\"."))
+		visible_message(span_warning("[user] вкалыва[PLUR_ET_YUT(user)] [target] <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества \"[primary_reagent_name]\"."))
 		playsound(loc, 'sound/goonstation/items/hypo.ogg', 80)
 
-	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")]."))
+	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")]."))
 	add_attack_logs(user, target, "Injected with [src] containing ([english_list(injected)])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 
@@ -265,7 +263,6 @@
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/pentic_acid
-	amount_per_transfer_from_this = 5
 	name = "Pentic acid combat stimulant injector"
 	icon_state = "hypocombat-dtpa"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит пентетовую кислоту."
@@ -282,7 +279,6 @@
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/epinephrine
-	amount_per_transfer_from_this = 5
 	name = "Epinephrine combat stimulant injector"
 	icon_state = "hypocombat-epi"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит эпинефрин."
@@ -299,7 +295,6 @@
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/mannitol
-	amount_per_transfer_from_this = 5
 	name = "Mannitol combat stimulant injector"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит маннитол."
 	icon_state = "hypocombat-mani"
@@ -316,7 +311,6 @@
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/oculine
-	amount_per_transfer_from_this = 5
 	name = "Oculine combat stimulant injector"
 	icon_state = "hypocombat-ocu"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит окулин."
@@ -475,6 +469,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/empty()
 	set hidden = TRUE
+	return
 
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -493,7 +488,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
-	if(reagents && reagents.reagent_list.len)
+	if(reagents && length(reagents.reagent_list))
 		. += span_notice("Не использовано.")
 	else
 		. += span_notice("Использовано.")
@@ -570,6 +565,24 @@
 		ACCUSATIVE = "автоинъектор (Транексамовая кислота)",
 		INSTRUMENTAL = "автоинъектором (Транексамовая кислота)",
 		PREPOSITIONAL = "автоинъекторе (Транексамовая кислота)"
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/neuromatin
+	name = "neuromatin autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу нейроматина. Мощный иммунодепрессант."
+	icon_state = "violetinjector"
+	volume = 15
+	amount_per_transfer_from_this = 15
+	list_reagents = list("neuromatin" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/neuromatin/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Нейроматин)",
+		GENITIVE = "автоинъектора (Нейроматин)",
+		DATIVE = "автоинъектору (Нейроматин)",
+		ACCUSATIVE = "автоинъектор (Нейроматин)",
+		INSTRUMENTAL = "автоинъектором (Нейроматин)",
+		PREPOSITIONAL = "автоинъекторе (Нейроматин)"
 	)
 
 

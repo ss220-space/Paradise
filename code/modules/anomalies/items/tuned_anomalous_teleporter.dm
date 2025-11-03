@@ -8,8 +8,6 @@
 	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	item_state = "teleport"
 	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000)
 	origin_tech = "magnets=3;bluespace=4"
@@ -201,7 +199,7 @@ Ranges with core charge 50-100:
 	if(!can_teleport()) // Without massages.
 		return ..()
 
-	user.visible_message(span_suicide("[user] перенастраива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] случайным образом и пыта[pluralize_ru(user.gender,"ет","ют")]ся телепортироваться! Выглядит, будто он[genderize_ru(gender, "", "а", "о", "и")] хо[genderize_ru(gender, "чет", "чет", "чет", "тят")] убить себя!"))
+	user.visible_message(span_suicide("[user] перенастраива[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] случайным образом и пыта[PLUR_ET_YUT(user)]ся телепортироваться! Выглядит, будто он[GEND_A_O_I(src)] хо[PLUR_CHET_TYAT(src)] убить себя!"))
 	if(!do_after(user, 1 SECONDS, user))
 		return ..()
 

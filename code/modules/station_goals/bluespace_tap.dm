@@ -36,7 +36,7 @@
 /datum/station_goal/bluespace_tap/print_result()
 	..()
 	var/highscore = get_highscore()
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceooc'>"][highscore]</span>")
+	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce(highscore)]": "[span_boldannounceooc(highscore)]"]")
 
 
 //needed for the vending part of it
@@ -61,7 +61,6 @@
 
 /obj/effect/spawner/lootdrop/bluespace_tap
 	name = "bluespace harvester reward spawner"
-	lootcount = 1
 
 /obj/effect/spawner/lootdrop/bluespace_tap/hat
 	name = "exotic hat"
@@ -205,14 +204,6 @@
  */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
-	ru_names = list(
-		NOMINATIVE = "блюспейс сборщик",
-		GENITIVE = "блюспейс сборщика",
-		DATIVE = "блюспейс сборщику",
-		ACCUSATIVE = "блюспейс сборщик",
-		INSTRUMENTAL = "блюспейс сборщиком",
-		PREPOSITIONAL = "блюспейс сборщике"
-	)
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward
 	max_integrity = 300
@@ -221,7 +212,6 @@
 	plane = BELOW_GAME_PLANE
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -261,6 +251,15 @@
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
 
+/obj/machinery/power/bluespace_tap/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс сборщик",
+		GENITIVE = "блюспейс сборщика",
+		DATIVE = "блюспейс сборщику",
+		ACCUSATIVE = "блюспейс сборщик",
+		INSTRUMENTAL = "блюспейс сборщиком",
+		PREPOSITIONAL = "блюспейс сборщике"
+	)
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
@@ -356,9 +355,10 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.major_announcement.announce("Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
-										ANNOUNCE_BLUESPACETAP_RU,
-										'sound/AI/harvester.ogg'
+		GLOB.major_announcement.announce(
+			message = "Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
+			new_title = ANNOUNCE_BLUESPACETAP_RU,
+			new_sound = 'sound/AI/harvester.ogg'
 		)
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
@@ -458,7 +458,7 @@
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message(span_warning("[user] переписыва[pluralize_ru(user.gender,"ет","ют")] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
+		user.visible_message(span_warning("[user] переписыва[PLUR_ET_YUT(user)] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

@@ -13,9 +13,9 @@
 #define ACTIVE_POWER_USE 2
 
 //APC charging
-/// APC is not recieving power
+/// APC is not receiving power
 #define APC_NOT_CHARGING 0
-/// APC is currently recieving power and storing it
+/// APC is currently receiving power and storing it
 #define APC_IS_CHARGING 1
 /// APC battery is at 100%
 #define APC_FULLY_CHARGED 2

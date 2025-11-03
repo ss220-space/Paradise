@@ -5,34 +5,36 @@
 	#define UNAFFECTED 0
 // Attributes (In text for the convenience of those using VV)
 	#define BLOCK_TELEPORT "Blocks Teleport"
-	// Impedes with the casting of some spells
+	/// Impedes with the casting of some spells
 	#define IMPEDES_MAGIC "Impedes Magic"
-	// A level that indicates a main station level. Optimally on telecomms z-level.
+	/// A level that indicates a main station level. Optimally on telecomms z-level.
 	#define MAIN_STATION "Main Station"
-	// A level the station exists on
+	/// A level the station exists on
 	#define STATION_LEVEL "Station Level"
-	// A level affected by Code Red announcements, cargo telepads, or similar
+	/// A level affected by Code Red announcements, cargo telepads, or similar
 	#define STATION_CONTACT "Station Contact"
-	// A level dedicated to admin use
+	/// A level dedicated to admin use
 	#define ADMIN_LEVEL "Admin Level"
-	// A level that can be navigated to through space
+	/// A level that can be navigated to through space
 	#define REACHABLE "Reachable"
-	// For away missions - used by some consoles
+	/// For away missions - used by some consoles
 	#define AWAY_LEVEL "Away"
-	// Allows weather
+	/// Allows weather
 	#define HAS_WEATHER "Weather"
-	// Enhances telecomms signals
+	/// Enhances telecomms signals
 	#define BOOSTS_SIGNAL "Boosts signals"
-	// Currently used for determining mining score
+	/// Currently used for determining mining score
 	#define ORE_LEVEL "Mining"
-	// Levels the AI can control bots on
+	/// Levels the AI can control bots on
 	#define AI_OK "AI Allowed"
 	/// Ruins will spawn on this z-level
 	#define SPAWN_RUINS "Spawn Ruins"
-	// Ghost role Taipan z-level.
+	/// Ghost role Taipan z-level.
 	#define TAIPAN "RaMSS Taipan"
-	// Reserved z-level used only by shuttles
+	/// Reserved z-level used only by shuttles
 	#define RESERVED_LEVEL "Transit/Reserved"
+	/// A level used for spawning map areas in tests
+	#define GAME_TEST_LEVEL "Game Test Level"
 
 // Level names
 	#define CENTCOMM "CentComm"

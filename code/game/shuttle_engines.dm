@@ -15,7 +15,7 @@
 	icon = 'icons/turf/shuttle/misc.dmi'
 	density = TRUE
 	anchored = TRUE
-	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль - бред
+	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль — бред
 	var/list/obj/structure/fillers = list()		// Для коллизии более больших двигателей
 	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS
 
@@ -51,7 +51,6 @@
 
 // Engines
 /obj/structure/shuttle/engine/large
-	name = "engine"
 	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
@@ -72,7 +71,6 @@
 		fillers += F
 
 /obj/structure/shuttle/engine/huge
-	name = "engine"
 	opacity = TRUE
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"

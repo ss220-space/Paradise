@@ -8,13 +8,11 @@
 	deflect_chance = 60
 	internal_damage_threshold = 60
 	armor = list(MELEE = -20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
-	max_temperature = 25000
 	infra_luminosity = 5
 	maint_access = TRUE
 	operation_req_access = list(ACCESS_CLOWN)
 	wreckage = /obj/structure/mecha_wreckage/honker
 	id_lock_on = FALSE
-	max_equip = 3
 	starting_voice = /obj/item/mecha_modkit/voice/honk
 	var/squeak = 0
 	ui_theme = "honker"
@@ -22,8 +20,8 @@
 
 	mech_type = MECH_TYPE_HONKER
 
-/obj/mecha/combat/honker/loaded/New()
-	..()
+/obj/mecha/combat/honker/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/honker
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar

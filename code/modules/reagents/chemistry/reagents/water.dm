@@ -313,8 +313,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Вода из унитаза"
 	id = "toiletwater"
 	description = "Грязная вода, которую взяли из унитаза. Абсолютно отвратительно."
-	reagent_state = LIQUID
-	color = "#757547"
 	taste_description = "жидкого дерьма"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
@@ -355,7 +353,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
-			M.visible_message(span_biggerdanger("[M] отшатыва[pluralize_ru(M.gender, "ет", "ют")]ся, [genderize_ru(M.gender, "его", "её", "его", "их")] кожа окрашивается в яркий цвет, [genderize_ru(M.gender, "он", "она", "оно", "они")] вновь обрета[pluralize_ru(M.gender, "ет", "ют")] чувство контроля над собой!"))
+			M.visible_message(span_biggerdanger("[M] отшатыва[PLUR_ET_YUT(M)]ся, [GEND_HIS_HER(M)] кожа окрашивается в яркий цвет, [GEND_HE_SHE(M)] вновь обрета[PLUR_ET_YUT(M)] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -421,7 +419,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 						M.emote("scream")
 					vamp.base_nullification()
 				if(13 to INFINITY)
-					M.visible_message(span_danger("[M] внезапно вспыхива[pluralize_ru(M.gender, "ет", "ют")]!"),
+					M.visible_message(span_danger("[M] внезапно вспыхива[PLUR_ET_YUT(M)]!"),
 									span_danger("Внезапно святая вода внутри вас начинает гореть!"))
 					M.fire_stacks = min(5, M.fire_stacks + 3)
 					M.IgniteMob()
@@ -470,7 +468,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Нечестивая вода"
 	id = "unholywater"
 	description = "Что-то, что не должно существовать в этой реальности."
-	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	taste_description = "серы"
 
@@ -574,7 +571,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Креатин"
 	id = "creatine"
 	description = "Вещество участвующее в энергетическом обмене в мышечных и нервных клетках."
-	reagent_state = SOLID
 	color = "#dcbf00"
 	taste_description = "соды"
 	status_effect_type = /datum/status_effect/sport_reagents/creatine
@@ -592,7 +588,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Экстракт гуараны"
 	id = "guarana"
 	description = "Вещество временно стимулирующее мышечную активность."
-	reagent_state = SOLID
 	color = "#dc3b00"
 	taste_description = "горечи"
 	status_effect_type = /datum/status_effect/sport_reagents/guarana

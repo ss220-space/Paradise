@@ -36,7 +36,7 @@
 
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
 	var/list/newcards = list()
-	while(cards.len)
+	while(length(cards))
 		var/datum/playingcard/card = pick_n_take(cards)
 		card.name = replacetext(card.name," перевёрнутая", "")
 		if(prob(50))
@@ -45,7 +45,7 @@
 	cards = newcards
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 	user.visible_message(
-		span_notice("[user] тасу[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] тасу[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы тасуете [declent_ru(ACCUSATIVE)].")
 	)
 

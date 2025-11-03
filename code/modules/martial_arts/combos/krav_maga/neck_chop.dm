@@ -3,8 +3,8 @@
 	explaination_text = "Injures the neck, stopping the victim from speaking for a while."
 
 /datum/martial_combo/krav_maga/neck_chop/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='warning'>[user] karate chops [target]'s neck!</span>", \
-		"<span class='userdanger'>[user] karate chops your neck, rendering you unable to speak for a short time!</span>")
+	target.visible_message(span_warning("[user] karate chops [target]'s neck!"), \
+		span_userdanger("[user] karate chops your neck, rendering you unable to speak for a short time!"))
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	target.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 	objective_damage(user, target, 5, BRUTE)

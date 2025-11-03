@@ -6,9 +6,6 @@
 	icon_state = "solar_panel_base"
 	var/broken_state = list("solar_panel_broken", "solar_panel_broken_alt")
 	density = TRUE
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 50
 	var/id = 0
@@ -71,12 +68,12 @@
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 	balloon_alert(user, "демонтаж...")
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] снимать стекло с [declent_ru(GENITIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] снимать стекло с [declent_ru(GENITIVE)]."),
 		span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
 	)
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		user.visible_message(
-			span_notice("[user] снима[pluralize_ru(user.gender, "ет", "ют")] стекло с [declent_ru(GENITIVE)]."),
+			span_notice("[user] снима[PLUR_ET_YUT(user)] стекло с [declent_ru(GENITIVE)]."),
 			span_notice("Вы снимаете стекло с [declent_ru(GENITIVE)].")
 		)
 		deconstruct(TRUE)
@@ -122,7 +119,7 @@
 		. +=  image('icons/obj/engines_and_power/solar_panels.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
 		dir = angle2dir(adir)
 
-//calculates the fraction of the sunlight that the panel recieves
+///calculates the fraction of the sunlight that the panel receives
 /obj/machinery/power/solar/proc/update_solar_exposure()
 	if(obscured)
 		sunfrac = 0
@@ -206,7 +203,6 @@
 	icon_state = "solar_panel_base"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	anchored = FALSE
 	var/tracker = FALSE
 	var/glass_type = null
 
@@ -233,11 +229,11 @@
 
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
-	. += span_notice("Похоже, что [genderize_ru(gender, "он", "она", "оно", "они")] <b>[anchored ? "прикручен[genderize_ru(gender, "", "а", "о", "ы")]" : "не прикручен[genderize_ru(gender, "", "а", "о", "ы")]"]</b>.")
+	. += span_notice("Похоже, что [GEND_HE_SHE(src)] <b>[anchored ? "прикручен[GEND_A_O_Y(src)]" : "не прикручен[GEND_A_O_Y(src)]"]</b>.")
 	if(tracker)
-		. += span_notice("В [genderize_ru(gender, "нём", "ней", "нём", "них")] видно плату солнечного датчика. <b>Её можно достать</b>.")
+		. += span_notice("В [GEND_ON_IN_HIM(src)] видно плату солнечного датчика. <b>Её можно достать</b>.")
 	else
-		. += span_notice("В [genderize_ru(gender, "нём", "ней", "нём", "них")] видно отсек под плату <i>датчика<i>.")
+		. += span_notice("В [GEND_ON_IN_HIM(src)] видно отсек под плату <i>датчика<i>.")
 	if(anchored)
 		.+= span_notice("Чтобы завершить сборку —  установите <b><i>стекло</i></b>.")
 
@@ -255,7 +251,7 @@
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, cached_sound, 50, TRUE)
 		user.visible_message(
-			span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] стеклянные панели на солнечной батарее."),
+			span_notice("[user] устанавлива[PLUR_ET_YUT(user)] стеклянные панели на солнечной батарее."),
 			span_notice("Вы устанавливаете стеклянные панели на солнечной батарее."),
 		)
 		glass_type = glass.merge_type
@@ -281,7 +277,7 @@
 		tracker = TRUE
 		balloon_alert(user, "установлено")
 		user.visible_message(
-			span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] плату трекера в солнечную батарею."),
+			span_notice("[user] вставля[PLUR_ET_YUT(user)] плату трекера в солнечную батарею."),
 			span_notice("Вы вставляете плату трекера в солнечную батарею."),
 		)
 		qdel(I)
@@ -302,13 +298,13 @@
 	if(anchored)
 		balloon_alert(user, "прикручено")
 		user.visible_message(
-			span_notice("[user] прикручива[pluralize_ru(user.gender, "ет", "ют")] солнечную батарею к полу."),
+			span_notice("[user] прикручива[PLUR_ET_YUT(user)] солнечную батарею к полу."),
 			span_notice("Вы прикручиваете солнечную батарею к полу."),
 		)
 	else
 		balloon_alert(user, "откручено")
 		user.visible_message(
-			span_notice("[user] откручива[pluralize_ru(user.gender, "ет", "ют")] солнечную батарею от пола."),
+			span_notice("[user] откручива[PLUR_ET_YUT(user)] солнечную батарею от пола."),
 			span_notice("Вы откручиваете солнечную батарею от пола."),
 		)
 
@@ -325,7 +321,7 @@
 	tracker = FALSE
 	balloon_alert(user, "плата извлечена")
 	user.visible_message(
-		span_notice("[user] доста[pluralize_ru(user.gender, "ет", "ют")] плату солнечного датчика из [declent_ru(GENITIVE)]."),
+		span_notice("[user] доста[PLUR_ET_YUT(user)] плату солнечного датчика из [declent_ru(GENITIVE)]."),
 		span_notice("Вы достаёте плату трекера из [declent_ru(GENITIVE)]."),
 	)
 
@@ -338,11 +334,9 @@
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "computer"
-	anchored = TRUE
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
-	max_integrity = 200
 	integrity_failure = 100
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"
@@ -470,7 +464,7 @@
 /obj/machinery/power/solar_control/ui_data(mob/user)
 	var/list/data = list()
 	data["generated"] = round(lastgen) //generated power by all connected panels
-	data["generated_ratio"] = data["generated"] / round(max(connected_panels.len, 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
+	data["generated_ratio"] = data["generated"] / round(max(length(connected_panels), 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
 	data["direction"] = angle2text(cdir)	//current orientation of the panels
 	data["cdir"] = cdir	//current orientation of the of the panels in degrees
 	data["tracking_state"] = track	//tracker status: TRACKER_OFF, TRACKER_TIMED, TRACKER_AUTO
@@ -528,12 +522,12 @@
 	for(var/obj/C in src)
 		C.forceMove(loc)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+		to_chat(user, span_notice("The broken glass falls out."))
 		A.state = 4	// STATE_WIRES
 		var/obj/item/shard/shard = new(drop_location())
 		shard.add_fingerprint(user)
 	else
-		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+		to_chat(user, span_notice("You disconnect the monitor."))
 		A.state = 5	// STATE_GLASS
 	A.dir = dir
 	A.circuit = M

@@ -30,7 +30,7 @@
 		return ..()
 	if(transforming)
 		return ..()
-	visible_message(span_notice("[user] прикаса[pluralize_ru(user.gender)]ся рукой к руне."))
+	visible_message(span_notice("[user] прикаса[PLUR_ET_YUT(user)]ся рукой к руне."))
 	transforming = TRUE
 	var/obj/effect/rune_animation_landmark/our_landmark = locate() in orange(3, src)
 	if(!our_landmark)
@@ -70,7 +70,6 @@
 	icon = 'icons/effects/ash_runes.dmi'
 	icon_state = "runaash_2"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = TRUE
 	plane = FLOOR_PLANE
 	layer = TURF_DECAL_LAYER
 
@@ -100,7 +99,6 @@
 	icon = 'icons/effects/ashwalker_rune.dmi'
 	icon_state = "AshRun"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = TRUE
 	plane = FLOOR_PLANE
 	layer = TURF_DECAL_LAYER
 

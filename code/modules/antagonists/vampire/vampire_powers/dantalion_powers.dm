@@ -29,7 +29,7 @@
 /obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/target = targets[1]
-	user.visible_message(span_warning("[user] куса[pluralize_ru(user.gender, "ет", "ют")] [target] за шею!"), \
+	user.visible_message(span_warning("[user] куса[PLUR_ET_YUT(user)] [target] за шею!"), \
 						span_warning("Вы кусаете [target] за шею и впускаете поток силы."))
 	to_chat(target, span_warning("Вы чувствуете, как в ваш разум проникают потоки нечистой силы."))
 	if(do_after(user, 15 SECONDS, target, NONE))
@@ -65,12 +65,12 @@
 		return
 
 	if(ismindshielded(C) || isvampire(C) || isvampirethrall(C) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
-		C.visible_message(span_warning("Похоже, [C] сопротивля[pluralize_ru(user.gender, "ет", "ют")]ся захвату!"), \
+		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_YUT(user)]ся захвату!"), \
 						span_notice("Вы чувствуете знакомое ощущение в черепе, которое быстро проходит."))
 		return
 
 	if(C.mind.isholy)
-		C.visible_message(span_warning("Похоже, [C] сопротивля[pluralize_ru(user.gender, "ет", "ют")]ся захвату!"), \
+		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_YUT(user)]ся захвату!"), \
 						span_notice("Ваша вера в [SSticker.Bible_deity_name] сохранила ваш разум чистым от всякого зла."))
 		return
 
@@ -139,14 +139,14 @@
 
 	// if admins give this to a non vampire/thrall it is not my problem
 	var/is_thrall = isvampirethrall(user)
-	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : "<span class='dantalion'><font size='3'>(Мастер Вампир) [user.real_name]</font></span>"
-	var/message = is_thrall ? "<span class='dantalion'>[input]</span>" : "<span class='dantalion'><font size='3'><b>[input]</b></font></span>"
+	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : span_dantalion(span_fontsize3("(Мастер Вампир) [user.real_name]"))
+	var/message = is_thrall ? span_dantalion("[input]") : span_dantalion(span_fontsize3(span_bold("[input]")))
 
 	for(var/mob/player in targets)
-		to_chat(player, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> телепатезирует, [message]</span><i>")
+		to_chat(player, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] телепатезирует, [message]<i>"))
 
 	for(var/mob/ghost in GLOB.dead_mob_list)
-		to_chat(ghost, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> ([ghost_follow_link(user, ghost)]) телепатезирует, [message]</span><i>")
+		to_chat(ghost, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] ([ghost_follow_link(user, ghost)]) телепатезирует, [message]<i>"))
 
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
@@ -157,7 +157,6 @@
 	desc = "Временно умиротворяет цель, делая её неспособной причинить вред. Возможно использовать сквозь стены."
 	gain_desc = "Вы обрели способность умиротворять агрессивные порывы гуманоида, не позволяя ему причинить кому-либо физический вред."
 	action_icon_state = "pacify"
-	base_cooldown = 10 SECONDS
 	required_blood = 10
 	need_active_overlay = TRUE
 
@@ -176,6 +175,10 @@
 	sound.volume = 30
 	SEND_SOUND(user, sound)
 	for(var/mob/living/carbon/human/target as anything in targets)
+		if(!target.affects_vampire(user))
+			to_chat(user, span_warning("Вы чувствуете, что ваша способность не произвела никакого эффекта!"))
+			return
+
 		to_chat(target, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
 		SEND_SOUND(target, sound('sound/hallucinations/i_see_you1.ogg'))
 		target.apply_status_effect(STATUS_EFFECT_PACIFIED, user) // we wont to see, whom we already pacify

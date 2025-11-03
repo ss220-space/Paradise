@@ -19,6 +19,8 @@
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/storage/garmentbag/captains(src)
+	new /obj/item/clothing/accessory/holster(src)
+
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
 	req_access = list(ACCESS_HOP)
@@ -37,6 +39,7 @@
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/garmentbag/hop(src)
+	new /obj/item/clothing/accessory/holster(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
@@ -404,7 +407,6 @@
 	name = "wall locker"
 	req_access = list(ACCESS_SECURITY)
 	icon_state = "wall-locker"
-	density = TRUE
 
 	//too small to put a man in
 	large = FALSE

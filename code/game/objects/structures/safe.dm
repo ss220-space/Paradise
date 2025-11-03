@@ -21,7 +21,6 @@ GLOBAL_LIST_EMPTY(safes)
 	name = "safe"
 	desc = "Огромный кусок металла со встроенным в него циферблатом. Мелким шрифтом на циферблате написано: \"Сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
 	gender = MALE
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
 	anchored = TRUE
 	density = TRUE
@@ -487,7 +486,7 @@ GLOBAL_LIST_EMPTY(safes)
  */
 /obj/item/safe_internals
 	name = "safe internals"
-	desc = "Механизм и запирающие ригели для тумблерного сейфа \"Скарборо Армс - 2\"."
+	desc = "Механизм и запирающие ригели для тумблерного сейфа \"Скарборо Армс – \"."
 	icon_state = "safe_internals"
 
 /obj/item/safe_internals/get_ru_names()
@@ -522,7 +521,7 @@ GLOBAL_LIST_EMPTY(safes)
 	)
 
 /obj/item/paper/safe_code/Initialize(mapload)
-	..()
+	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/safe_code/LateInitialize(mapload)

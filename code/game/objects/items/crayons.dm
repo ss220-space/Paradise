@@ -10,7 +10,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
 	attack_verb = list("атаковал", "тыкнул")
-	toolspeed = 1
 	var/colour = COLOR_RED
 	var/drawtype = "rune"
 	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid","arrowleft","arrowright","arrowup","arrowdown","chicken","hailcrab","brokenheart","peace","scribble","scribble2","scribble3","skrek","squish","tunnelsnake","yip","youaredead")
@@ -131,9 +130,6 @@
 
 /obj/item/toy/crayon/red
 	name = "red crayon"
-	icon_state = "crayonred"
-	colour = COLOR_RED
-	colourName = "red"
 	dye_color = DYE_RED
 
 /obj/item/toy/crayon/orange

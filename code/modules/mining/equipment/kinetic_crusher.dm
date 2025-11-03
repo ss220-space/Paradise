@@ -6,10 +6,8 @@
 	name = "proto-kinetic crusher"
 	desc = "Ранняя версия Кинетического Акселератора, по сути являющаяся кучей шахтёрских инструментов прибитых друг к другу в форму топора. Эффективен, но опасен в использовании, особенно для неопытных шахтеров."
 	gender = MALE
-	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	force_unwielded = 0
 	force_wielded = 20
 	throwforce = 5
 	throw_speed = 4
@@ -40,7 +38,7 @@
 			INSTRUMENTAL = "прото-кинетическим крушителем",
 			PREPOSITIONAL = "прото-кинетическом крушителе"
 	)
-	
+
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -49,13 +47,13 @@
 /obj/item/twohanded/kinetic_crusher/examine(mob/living/user)
 	. = ..()
 	. += span_notice("Требуется две руки. Выстрел разрушает породу и накладывает на фауну дестабилизирующее поле.")
-	. += span_notice("Удары по отмеченной фауне наносят <b>[force + detonation_damage]</b> единиц[declension_ru(force + detonation_damage, "у", "ы", "")] урона.")
-	. += span_notice("Наносит <b>[force + detonation_damage + backstab_bonus]</b> единиц[declension_ru(force + detonation_damage + backstab_bonus, "у", "ы", "")] урона при ударе в спину.\n")
-	if(trophies.len != 0)
+	. += span_notice("Удары по отмеченной фауне наносят <b>[force + detonation_damage]</b> единиц[DECL_SEC_MIN(force + detonation_damage)] урона.")
+	. += span_notice("Наносит <b>[force + detonation_damage + backstab_bonus]</b> единиц[DECL_SEC_MIN(force + detonation_damage + backstab_bonus)] урона при ударе в спину.\n")
+	if(length(trophies) != 0)
 		. += span_notice("<b>К Крушителю прикреплены следующие трофеи</b>:")
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
-			. += span_notice("[bicon(t)] <b>[capitalize(T.declent_ru(NOMINATIVE))]</b>: [T.effect_desc()].")
+			. += span_notice("[icon2html(t, user)] <b>[capitalize(T.declent_ru(NOMINATIVE))]</b>: [T.effect_desc()].")
 
 
 /obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/user, params)
@@ -118,7 +116,7 @@
 	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
 		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
 			playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-			user.visible_message(span_warning("[user] соверша[pluralize_ru(user, "ет", "ют")] рывок!"))
+			user.visible_message(span_warning("[user] соверша[PLUR_ET_YUT(user)] рывок!"))
 		else
 			to_chat(user, span_warning("Что-то не даёт вам совершить рывок!"))
 		user.remove_status_effect(STATUS_EFFECT_DASH)
@@ -206,7 +204,6 @@
 	icon_state = "pulse1"
 	nodamage = TRUE
 	damage = 0 //We're just here to mark people. This is still a melee weapon.
-	damage_type = BRUTE
 	flag = "bomb"
 	range = 6
 	log_override = TRUE
@@ -301,18 +298,21 @@
 	return TRUE
 
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
+	return
 
 /obj/item/crusher_trophy/proc/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
+	return
 
 /obj/item/crusher_trophy/proc/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark) //the target, the mark applied, and if the target had a mark before
+	return
 
 /obj/item/crusher_trophy/proc/on_mark_detonation(mob/living/target, mob/living/user) //the target and the user
+	return
 
 //goliath
 /obj/item/crusher_trophy/goliath_tentacle
 	name = "goliath tentacle"
 	desc = "Отрубленное щупальце голиафа. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "goliath_tentacle"
 	denied_type = /obj/item/crusher_trophy/goliath_tentacle
 	bonus_value = 2
@@ -330,7 +330,7 @@
 	)
 
 /obj/item/crusher_trophy/goliath_tentacle/effect_desc()
-	return "Взрыв метки наносит <b>[bonus_value]</b> едениц[declension_ru(bonus_value, "у", "ы", "")] дополнительного урона за каждые <b>[missing_health_desc]</b> единиц[declension_ru(missing_health_desc, "у", "ы", "")] недостающего у вас здоровья"
+	return "Взрыв метки наносит <b>[bonus_value]</b> едениц[DECL_SEC_MIN(bonus_value)] дополнительного урона за каждые <b>[missing_health_desc]</b> единиц[DECL_SEC_MIN(missing_health_desc)] недостающего у вас здоровья"
 
 /obj/item/crusher_trophy/goliath_tentacle/on_mark_detonation(mob/living/target, mob/living/user)
 	var/missing_health = user.health - user.maxHealth
@@ -343,7 +343,6 @@
 /obj/item/crusher_trophy/watcher_wing
 	name = "watcher wing"
 	desc = "Оторванное крыло наблюдателя. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "watcher_wing"
 	denied_type = /obj/item/crusher_trophy/watcher_wing
 	bonus_value = 5
@@ -389,7 +388,7 @@
 	)
 
 /obj/item/crusher_trophy/blaster_tubes/magma_wing/effect_desc()
-	return "Следующий за взрывом метки заряд дестабилизатора наносит <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] урона"
+	return "Следующий за взрывом метки заряд дестабилизатора наносит <b>[bonus_value]</b> единиц[DECL_SEC_MIN(bonus_value)] урона"
 
 /obj/item/crusher_trophy/blaster_tubes/magma_wing/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
@@ -403,7 +402,6 @@
 /obj/item/crusher_trophy/watcher_wing/ice_wing
 	name = "icewing watcher wing"
 	desc = "Хрупкое, замороженное крыло ледяного наблюдателя. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "ice_wing"
 	bonus_value = 8
 
@@ -437,7 +435,7 @@
 	)
 
 /obj/item/crusher_trophy/legion_skull/effect_desc()
-	return "Перезарядка дестабилизатора ускорена на <b>[bonus_value * 0.1]</b> секунд[declension_ru(bonus_value * 0.1, "у", "ы", "")]"
+	return "Перезарядка дестабилизатора ускорена на <b>[bonus_value * 0.1]</b> секунд[DECL_SEC_MIN(bonus_value * 0.1)]"
 
 /obj/item/crusher_trophy/legion_skull/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	. = ..()
@@ -453,7 +451,6 @@
 /obj/item/crusher_trophy/eyed_tentacle
 	name = "Massive eyed tentacle"
 	desc = "Большое и глазастое щупальце древнего голиафа. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "ancient_goliath_tentacle"
 	denied_type = /obj/item/crusher_trophy/eyed_tentacle
 	bonus_value = 1
@@ -524,7 +521,7 @@
 		ACCUSATIVE = "морозную железу",
 		INSTRUMENTAL = "морозной железой",
 		PREPOSITIONAL = "морозной железе"
-	)	
+	)
 
 /obj/item/crusher_trophy/gland/effect_desc()
 	return "Отмеченная дестабилизатором фауна наносит на <b>10%</b> меньше урона"
@@ -588,7 +585,7 @@
 	)
 
 /obj/item/crusher_trophy/tail_spike/effect_desc()
-	return "Взрыв метки отталкивает врага и наносит близлежащим существам <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] урона"
+	return "Взрыв метки отталкивает врага и наносит близлежащим существам <b>[bonus_value]</b> единиц[DECL_SEC_MIN(bonus_value)] урона"
 
 /obj/item/crusher_trophy/tail_spike/on_mark_detonation(mob/living/target, mob/living/user)
 	for(var/mob/living/L in oview(2, user))
@@ -610,7 +607,6 @@
 	icon_state = "demon_claws"
 	gender = PLURAL
 	denied_type = /obj/item/crusher_trophy/demon_claws
-	bonus_value = 10
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 /obj/item/crusher_trophy/demon_claws/get_ru_names()
@@ -624,7 +620,7 @@
 	)
 
 /obj/item/crusher_trophy/demon_claws/effect_desc()
-	return "Ваши удары наносят <b>[bonus_value * 0.2]</b> бонусного урона и восстанавливают вам <b>[bonus_value * 0.1]</b> единиц[declension_ru(bonus_value * 0.1, "у", "ы", "")] здоровья. При взрыве метки сила эффекта увеличена в 5 раз"
+	return "Ваши удары наносят <b>[bonus_value * 0.2]</b> бонусного урона и восстанавливают вам <b>[bonus_value * 0.1]</b> единиц[DECL_SEC_MIN(bonus_value * 0.1)] здоровья. При взрыве метки сила эффекта увеличена в 5 раз"
 
 /obj/item/crusher_trophy/demon_claws/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	. = ..()
@@ -670,7 +666,7 @@
 	)
 
 /obj/item/crusher_trophy/blaster_tubes/effect_desc()
-	return "После взрыва метки, заменяет дестабилизатор медленным снарядом, наносящим <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] урона"
+	return "После взрыва метки, заменяет дестабилизатор медленным снарядом, наносящим <b>[bonus_value]</b> единиц[DECL_SEC_MIN(bonus_value)] урона"
 
 /obj/item/crusher_trophy/blaster_tubes/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
@@ -720,7 +716,6 @@
 /obj/item/crusher_trophy/adaptive_intelligence_core
 	name = "adaptive intelligence core"
 	desc = "Кажется, это одно из ядер огромного робота. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "adaptive_core"
 	denied_type = /obj/item/crusher_trophy/adaptive_intelligence_core
 	bonus_value = 2
@@ -736,7 +731,7 @@
 	)
 
 /obj/item/crusher_trophy/adaptive_intelligence_core/effect_desc()
-	return "Увеличивает ваш урон на <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] с каждой атакой, до максимума в <b>[bonus_value * 10]</b> единиц[declension_ru(bonus_value, "у", "ы", "")]"
+	return "Увеличивает ваш урон на <b>[bonus_value]</b> единиц[DECL_SEC_MIN(bonus_value)] с каждой атакой, до максимума в <b>[bonus_value * 10]</b> единиц[DECL_SEC_MIN(bonus_value)]"
 
 /obj/item/crusher_trophy/adaptive_intelligence_core/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	. = ..()
@@ -780,7 +775,6 @@
 	item_state = "magmite_crusher0"
 	name = "magmite proto-kinetic crusher"
 	desc = "Ранняя версия Кинетического Акселератора, по сути высокотехнологичный топор улучшенный магмитом. Улучшенный дестабилизатор пробивает породу, как плазменный резак."
-	gender = MALE
 	destab = /obj/projectile/destabilizer/mega
 	upgraded = TRUE
 

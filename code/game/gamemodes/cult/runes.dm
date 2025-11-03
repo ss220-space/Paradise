@@ -20,7 +20,6 @@ To draw a rune, use a ritual dagger.
 	desc = "An odd collection of symbols drawn in what seems to be blood."
 	/// Description that cultists see
 	var/cultist_desc = "a basic rune with no function." //This is shown to cultists who examine the rune in order to determine its true purpose.
-	anchored = TRUE
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -259,9 +258,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "offering"
 	color = RUNE_COLOR_OFFER
-	req_cultists = 1
 	allow_excess_invokers = TRUE
-	rune_in_use = FALSE
 
 /obj/effect/rune/convert/invoke(list/invokers)
 	if(rune_in_use)
@@ -287,7 +284,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/obj/item/organ/internal/brain/brain = O
 			b_mob = brain.brainmob
 
-		if(b_mob && b_mob.mind && (!iscultist(b_mob) || is_sacrifice_target(b_mob.mind)))
+		if(b_mob?.mind && (!iscultist(b_mob) || is_sacrifice_target(b_mob.mind)))
 			offer_targets += b_mob
 			O.invisibility = INVISIBILITY_MAXIMUM // So that it can't be moved around. This gets qdeleted later
 
@@ -348,11 +345,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 				// Heal 90% of all damage, including robotic limbs
 				H.heal_overall_damage(brutedamage * 0.9, burndamage * 0.9, affect_robotic = TRUE)
 				if(ismachineperson(H))
-					H.visible_message(span_warning("A dark force repairs [convertee]!"),
-					span_cultitalic("Your damage has been repaired. Now spread the blood to others."))
+					H.visible_message(
+						span_warning("A dark force repairs [convertee]!"),
+						span_cultitalic("Your damage has been repaired. Now spread the blood to others.")
+					)
 				else
-					H.visible_message(span_warning("[convertee]'s wounds heal and close!"),
-					span_cultitalic("Your wounds have been healed. Now spread the blood to others."))
+					H.visible_message(
+						span_warning("[convertee]'s wounds heal and close!"),
+						span_cultitalic("Your wounds have been healed. Now spread the blood to others.")
+					)
 					for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 						bodypart.mend_fracture()
 						bodypart.stop_internal_bleeding()
@@ -497,8 +498,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 			actual_selected_rune.handle_portal("lava")
 		else if(!is_station_level(z) || istype(get_area(src), /area/space))
 			actual_selected_rune.handle_portal("space", rune_turf)
-		user.visible_message(span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"),
-							span_cult("You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"]."))
+		user.visible_message(
+			span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"),
+			span_cult("You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].")
+		)
 		if(moveuser)
 			user.forceMove(target)
 	else
@@ -614,7 +617,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			to_chat(mob_to_revive, span_biggerdanger("Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form."))
 			message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(mob_to_revive)]) to replace an AFK player.")
 			mob_to_revive.ghostize(FALSE)
-			mob_to_revive.key = C.key
+			mob_to_revive.possess_by_player(C.key)
 		else
 			fail_invoke()
 			return
@@ -756,7 +759,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invoke_damage = 15
 	construct_invoke = FALSE
 	var/tick_damage = 10 // 30 burn damage total + damage taken by being on fire/overheating
-	rune_in_use = FALSE
 
 /obj/effect/rune/blood_boil/invoke(list/invokers)
 	if(rune_in_use)
@@ -845,7 +847,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		. += "<b>Amount of ghosts summoned:</b> [span_cultitalic("[ghosts]")]"
 		. += "<b>Maximum amount of ghosts:</b> [span_cultitalic("[clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]")]"
 		. += "Lowers to a minimum of [minimum_ghost_limit] for each objective accomplished."
-		. += "<b>Всего доступно призывов:</b><span class='cultitalic'> [SSticker.mode.ghost_summons]</span>"
+		. += "<b>Всего доступно призывов:</b>[span_cultitalic(" [SSticker.mode.ghost_summons]")]"
 
 /obj/effect/rune/manifest/invoke(list/invokers)
 	. = ..()
@@ -897,14 +899,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
 	var/mob/living/carbon/human/new_human = new(T)
 	new_human.real_name = ghost_to_spawn.real_name
-	new_human.key = ghost_to_spawn.key
+	new_human.possess_by_player(ghost_to_spawn.key)
 	new_human.alpha = 150 //Makes them translucent
 	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts, also lets you see actual ghosts
 	ghosts++
 	playsound(src, 'sound/misc/exit_blood.ogg', 50, TRUE)
-	user.visible_message(span_warning("A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo" : ""]man."),
-						span_cultitalic("Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely..."))
+	user.visible_message(
+		span_warning("A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo" : ""]man."),
+		span_cultitalic("Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...")
+	)
 
 	var/obj/machinery/shield/cult/weak/shield = new(T)
 	SSticker.mode.add_cultist(new_human.mind, 0)
@@ -940,8 +944,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/manifest/proc/ghostify(mob/living/user, turf/T)
 	user.add_atom_colour(RUNE_COLOR_DARKRED, ADMIN_COLOUR_PRIORITY)
-	user.visible_message(span_warning("[user] freezes statue-still, glowing an unearthly red."),
-					span_cult("You see what lies beyond. All is revealed. In this form you find that your voice booms above all others."))
+	user.visible_message(
+		span_warning("[user] freezes statue-still, glowing an unearthly red."),
+		span_cult("You see what lies beyond. All is revealed. In this form you find that your voice booms above all others.")
+	)
 	ghost = user.ghostize(TRUE)
 	var/datum/action/innate/cult/comm/spirit/CM = new
 	var/datum/action/innate/cult/check_progress/V = new

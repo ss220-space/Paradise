@@ -14,7 +14,6 @@
 	maint_access = TRUE
 	id_lock_on = FALSE
 	internal_damage_threshold = 60
-	max_equip = 3
 	step_energy_drain = 3
 	normal_step_energy_drain = 3
 	stepsound = null
@@ -25,8 +24,8 @@
 
 	ui_theme = "ntos_lightmode"
 
-/obj/mecha/combat/reticence/loaded/New()
-	..()
+/obj/mecha/combat/reticence/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/mimercd //HAHA IT MAKES WALLS GET IT

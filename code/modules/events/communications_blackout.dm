@@ -19,7 +19,9 @@
 		to_chat(AI, "<br>[span_warning(alert_text)]<br>")
 
 	if(syndicate || false_alarm || prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
-		GLOB.minor_announcement.announce(alert_text)
+		GLOB.minor_announcement.announce(
+			message = alert_text
+		)
 
 
 /datum/event/communications_blackout/start()

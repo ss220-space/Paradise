@@ -41,7 +41,7 @@
 	if(msg == "")
 		. = ""
 		return
-	
+
 	SEND_SIGNAL(src, COMSIG_COMBINE_MESSAGE_FOR_HEARER, &msg)
 
 	return trim(msg)
@@ -156,7 +156,7 @@
 		if(speaker == src)
 			to_chat(src, span_warning("Вы не слышите собственной речи!"))
 		else
-			to_chat(src, "[span_name(speaker.name)] что-то говор[pluralize_ru(speaker.gender, "ит", "ят")], но вы ничего не слышите!")
+			to_chat(src, "[span_name(speaker.name)] что-то говор[PLUR_IT_YAT(speaker)], но вы ничего не слышите!")
 	else
 		to_chat(src, span_gamesay("[span_name(speaker_name)][speaker.GetAltName()] [track][verb_message(message_pieces, message, speaker, genderize_decode(speaker, verb))]"))
 
@@ -261,8 +261,8 @@
 		message = strip_html_properly(message)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
-		if(messages.len > 0)
-			var/R = rand(1, messages.len)
+		if(length(messages) > 0)
+			var/R = rand(1, length(messages))
 			var/heardword = messages[R]
 			if(copytext(heardword,1, 1) in punctuation)
 				heardword = copytext(heardword,2)

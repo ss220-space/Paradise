@@ -21,12 +21,14 @@ import sys
 INCLUDER_FILES = [
     'paradise.dme',
     'code/modules/tgs/includes.dm',
-    'code/modules/unit_tests/_unit_tests.dm',
+    'code/tests/game_tests.dm',
 ]
 
 IGNORE_FILES = {
     # Included directly in the function /datum/tgs_api/v5#ApiVersion
-    'code/modules/tgs/v5/v5_interop_version.dm'
+    'code/modules/tgs/v5/v5_interop_version.dm',
+    # Included as part of OD lints
+    'tools/ci/od_lints.dm'
 }
 
 def get_unticked_files(root:Path):

@@ -25,7 +25,7 @@
 /obj/structure/mopbucket/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += span_notice("[bicon(src)] [src] contains [reagents.total_volume] units of water left.")
+		. += span_notice("[icon2html(src, user)] [src] contains [reagents.total_volume] units of water left.")
 
 
 /obj/structure/mopbucket/attackby(obj/item/I, mob/user, params)
@@ -95,7 +95,7 @@
 	if(mymop)
 		mymop.forceMove_turf()
 		user.put_in_hands(mymop, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
+		to_chat(user, span_notice("You take [mymop] from [src]."))
 		mymop = null
 		update_icon(UPDATE_OVERLAYS)
 

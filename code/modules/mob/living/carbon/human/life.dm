@@ -111,7 +111,7 @@
 			var/list/s1 = list(
 				"Я [pick("ПОНИ","ЯЩЕР","ТАЯРА","КОТЁНОК","ВУЛЬП","ДРАСК","ПТИЧКА","ВОКСИК","МАШИНА","БОЕВОЙ МЕХ","РАКЕТА")] [pick("НЬЕЕЕЕЕЕЕЕЕЕ","СКРЭЭЭЭЭЭЭЭЭ","МЯУ","НЯ~","РАВР","ГАВ-ГАВ","ХИССССС","ВРУУУМ-ВРУУУУМ","ПИУ-ПИУ","ЧУ-ЧУ")]!",
 				"Без кислорода блоб не распространяется?",
-				"КАПИТАН - КОМДОН",
+				"КАПИТАН — КОМДОН",
 				"[pick("", "Этот чёртов маньяк,")] [pick("Жордж", "Джордж", "Горж", "Грудж")] [pick("Меленс", "Мэлонс", "Мвырлнс")] убивает меня ПАМА;ГИТЕ!!!",
 				"Можишь пж дать [pick("теликенез","халга","эпелепсию")]?",
 				"ООООО МОЯ ОБОРОНА",
@@ -188,7 +188,7 @@
 
 	if(radiation)
 		if(isnucleation(src))
-			radiation = clamp(radiation, 0, 800) // Типа кристаллы СМ лучше вбирают радиацию и поэтому у нуклей больший запас, а так - что бы эффекты снизу вообще работали
+			radiation = clamp(radiation, 0, 800) // Типа кристаллы СМ лучше вбирают радиацию и поэтому у нуклей больший запас, а так — что бы эффекты снизу вообще работали
 			switch(radiation)
 				if(1 to 399)
 					radiation = max(radiation-1, 0) // Что бы не копилась бесконечно малое кол-во, но все ещё можно было получать эффект снизу при достаточном облучении
@@ -674,7 +674,7 @@
 
 			var/list/hunger_mods = list()
 			SEND_SIGNAL(src, COMSIG_GET_HUNGER_MODS, hunger_mods)
-			for(var/mod as anything in hunger_mods)
+			for(var/mod in hunger_mods)
 				hunger_rate *= mod
 
 			adjust_nutrition(-hunger_rate)
@@ -871,16 +871,14 @@
 		for(var/obj/item/thing in bodypart.embedded_objects)
 			if(prob(thing.embedded_pain_chance))
 				apply_damage(thing.w_class * thing.embedded_pain_multiplier, def_zone = bodypart)
-				var/get_bodypart = (GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL] in list("хвосте", "животе", "рте")) ? "вашем" : (GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL] in list("крыльях" , "глазах")) ? "ваших" : "вашей"
-				to_chat(src, span_userdanger("[capitalize(thing.declent_ru(NOMINATIVE))] в [get_bodypart] [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]] причиняет боль!"))
+				to_chat(src, span_userdanger("[capitalize(thing.declent_ru(NOMINATIVE))] в ваш[GEND_EM_EI_EM_IH(bodypart)] [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]] причиняет боль!"))
 
 			if(prob(thing.embedded_fall_chance))
 				bodypart.remove_embedded_object(thing)
 				apply_damage(thing.w_class * thing.embedded_fall_pain_multiplier, def_zone = bodypart)
-				var/get_bodypart = (GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL] in list("хвоста", "живота", "рта")) ? "вашего" : (GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL] in list("крыльев", "глаз")) ? "ваших" : "вашей"
 				visible_message(
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [get_bodypart] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]] [name]!"),
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [get_bodypart] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]] [name]!"),
+					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GEND_YOURS(bodypart)] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
 				)
 
 

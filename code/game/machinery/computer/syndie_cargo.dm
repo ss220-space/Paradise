@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	slip.ordernumber = ordernum
 
 	var/stationName = "Syndicate RaMSS 'Taipan' Supply Mannifest"
-	var/packagesAmt = data_storage?.shoppinglist?.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
+	var/packagesAmt = length(data_storage?.shoppinglist) + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
 
@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
 		else
-			var/lostAmt = max(round(crate.contents.len/10), 1)
+			var/lostAmt = max(round(length(crate.contents)/10), 1)
 			//lose some of the items
 			while(--lostAmt >= 0)
 				qdel(pick(crate.contents))
@@ -294,9 +294,9 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		return
 
 	var/list/spawnTurfs = list()
-	var/list/recievingPads = data_storage.receiving_pads
-	for(var/j in 1 to length(recievingPads))
-		spawnTurfs += get_turf(recievingPads[j])
+	var/list/receivingPads = data_storage.receiving_pads
+	for(var/j in 1 to length(receivingPads))
+		spawnTurfs += get_turf(receivingPads[j])
 
 	for(var/datum/syndie_supply_order/SO in data_storage.shoppinglist)
 		if(!SO.object)
@@ -304,10 +304,10 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			continue
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
-		for(var/obj/machinery/syndiepad/recieving_pad as anything in recievingPads)
-			recieving_pad.use_power(10000 / recieving_pad.power_efficiency)
-			flick("[initial(recieving_pad.icon_state)]-beam", recieving_pad)
-			playsound(get_turf(recieving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
+		for(var/obj/machinery/syndiepad/receiving_pad as anything in receivingPads)
+			receiving_pad.use_power(10000 / receiving_pad.power_efficiency)
+			flick("[initial(receiving_pad.icon_state)]-beam", receiving_pad)
+			playsound(get_turf(receiving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 		if(!T)
 			data_storage.shoppinglist.Cut(1, data_storage.shoppinglist.Find(SO))
@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			// Must be in a crate (or a critter crate)!
 			if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
 				data_storage.sold_atoms += ":"
-				if(!MA.contents.len)
+				if(!length(MA.contents))
 					data_storage.sold_atoms += " (empty)"
 				++crate_count
 

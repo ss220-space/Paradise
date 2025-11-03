@@ -26,7 +26,7 @@
 		var/mob/living/living = hit_atom
 		var/datum/reagents/reagents_list = new (50)
 		reagents_list.add_reagent("facid", 40)
-		living.visible_message(span_danger("Кислотный пузырек разрывается при попадании на [living], разбрызгивая кислоту по [genderize_ru(living.gender, "его", "её", "его", "их")] телу!"))
+		living.visible_message(span_danger("Кислотный пузырек разрывается при попадании на [living], разбрызгивая кислоту по [GEND_HIS_HER(living)] телу!"))
 		reagents_list.reaction(living, REAGENT_TOUCH)
 		reagents_list.clear_reagents()
 	else if(iswallturf(hit_atom))
@@ -140,7 +140,6 @@
 	desc = "Массивный каменный столб с прикреплённым к нему черепом убитого зверя. Кажется, вы зашли в охотничьи угодья пеплоходцев."
 	icon = 'icons/obj/lavaland/grace_of_lazis.dmi'
 	icon_state = "totem_stone"
-	anchored = TRUE
 	density = TRUE
 	deconstructible = FALSE
 	/// Used in shaman spell. Perfect for finding stuff ic
@@ -204,7 +203,6 @@
 /obj/structure/ash_totem/wooden
 	name = "wooden totem"
 	desc = "Массивная статуя, сделанная из цельного куска древесины. Рисунок на статуе отдалённо напоминает человеческое лицо, искаженное в гримасе ужаса."
-	icon_state = "totem_wooden"
 
 /obj/structure/ash_totem/wooden/get_ru_names()
 	return list(
@@ -267,7 +265,6 @@
 	name = "wooden stool"
 	desc = "Деревянная табуретка. Достаточно удобная, чтобы держать её в руках."
 	gender = FEMALE
-	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wooden_stool_toppled"
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'

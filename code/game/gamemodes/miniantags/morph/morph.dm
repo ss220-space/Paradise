@@ -8,14 +8,11 @@
 	desc = "Отвратительная пульсирующая масса плоти."
 	speak_emote = list("булькает", "клокочет")
 	emote_hear = list("булькает", "клокочет")
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
 	speed = 1.5
-	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
@@ -25,7 +22,6 @@
 
 	maxHealth = 150
 	health = 150
-	environment_smash = 1
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -61,6 +57,8 @@
 	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell
 	/// The spell the morph uses to pass through airlocks
 	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
+	/// The spell the morph uses to open vent when crawling in them
+	var/obj/effect/proc_holder/spell/morph_spell/open_vent/open_vent_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
@@ -77,10 +75,11 @@
 
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
-		GLOB.major_announcement.announce("Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
-										ANNOUNCE_BIOHAZARD_RU,
-										'sound/AI/commandreport.ogg',
-										new_sound2 = 'sound/effects/siren-spooky.ogg'
+		GLOB.major_announcement.announce(
+			message = "Зафиксированы множественные биоугрозы 6-го уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
+			new_title = ANNOUNCE_BIOHAZARD_RU,
+			new_sound = 'sound/AI/commandreport.ogg',
+			new_sound2 = 'sound/effects/siren-spooky.ogg'
 		)
 		GLOB.morphs_announced = TRUE
 		SSshuttle.emergency.cancel()
@@ -92,11 +91,24 @@
 	AddSpell(mimic_spell)
 	ambush_spell = new
 	AddSpell(ambush_spell)
-	AddSpell(new /obj/effect/proc_holder/spell/morph_spell/open_vent)
+	open_vent_spell = new
+	AddSpell(open_vent_spell)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
+
+/mob/living/simple_animal/hostile/morph/Destroy()
+	RemoveSpell(mimic_spell)
+	mimic_spell = null
+	RemoveSpell(ambush_spell)
+	ambush_spell = null
+	RemoveSpell(open_vent_spell)
+	open_vent_spell = null
+	RemoveSpell(pass_airlock_spell)
+	pass_airlock_spell = null
+	return ..()
+
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
 	AddComponent( \
@@ -348,7 +360,7 @@
 	dumbass.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, dumbass, "morph ambush attacked")
 	do_attack_animation(dumbass, ATTACK_EFFECT_BITE)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass.declent_ru(ACCUSATIVE)]!"), span_warning("Вы атакуете [dumbass.declent_ru(ACCUSATIVE)], когда [genderize_ru(dumbass.gender,"он","она","оно","они")] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass.declent_ru(ACCUSATIVE)]!"), span_warning("Вы атакуете [dumbass.declent_ru(ACCUSATIVE)], когда [GEND_HE_SHE(dumbass)] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
 
 	restore_form()
 

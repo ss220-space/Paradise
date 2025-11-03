@@ -56,10 +56,10 @@
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
 	. = ..()
 	//chance to go crazy and start wacking stuff
-	if(!enemies.len && prob(1))
+	if(!length(enemies) && prob(1))
 		Retaliate()
 
-	if(enemies.len && prob(10))
+	if(length(enemies) && prob(10))
 		enemies = list()
 		lose_target()
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] успокаивается."))
@@ -210,16 +210,16 @@
 	if(is_type_in_list(I, food_type))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[genderize_ru(src, "", "а", "о", "ы")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[GEND_A_O_Y(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(COOLDOWN_TIMELEFT(src, feeded_cow) > 40 SECONDS) //starting milk mini-factory
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[genderize_ru(src, "ен", "на", "но", "ны")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[GEND_EN_NA_NO_NY(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] пшеницу [declent_ru(DATIVE)]! [genderize_ru(src, "Он", "Она", "Оно", "Они")] [pick(feedMessages)]."),
-			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]! [genderize_ru(src, "Он", "Она", "Оно", "Они")] [pick(feedMessages)].")
+			span_notice("[user] скармлива[PLUR_ET_YUT(user)] пшеницу [declent_ru(DATIVE)]! [GEND_HE_SHE_CAP(src)] [pick(feedMessages)]."),
+			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]! [GEND_HE_SHE_CAP(src)] [pick(feedMessages)].")
 		)
 		COOLDOWN_START(src, feeded_cow, 60 SECONDS)
 		udder.feeded = TRUE
@@ -247,7 +247,7 @@
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		M.visible_message(span_warning("[M] опрокидыва[pluralize_ru(M.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]!"), \
+		M.visible_message(span_warning("[M] опрокидыва[PLUR_ET_YUT(M)] [declent_ru(ACCUSATIVE)]!"), \
 								span_notice("Вы опрокидываете [declent_ru(ACCUSATIVE)]."))
 		Weaken(60 SECONDS)
 		icon_state = icon_dead
@@ -412,16 +412,16 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	if(is_type_in_list(I, food_type)) //feedin' dem chickens
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[genderize_ru(src, "", "а", "о", "ы")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[GEND_A_O_Y(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(eggsleft >= 8)
-			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[genderize_ru(src, "ен", "на", "но", "ны")]")
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[GEND_EN_NA_NO_NY(src)]")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] пшеницу [declent_ru(DATIVE)]. [genderize_ru(src, "Он", "Она", "Оно", "Они")] радостно [pick(speak_emote)]."),
-			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]. [genderize_ru(src, "Он", "Она", "Оно", "Они")] радостно [pick(speak_emote)]."),
+			span_notice("[user] скармлива[PLUR_ET_YUT(user)] пшеницу [declent_ru(DATIVE)]. [GEND_HE_SHE_CAP(src)] радостно [pick(speak_emote)]."),
+			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]. [GEND_HE_SHE_CAP(src)] радостно [pick(speak_emote)]."),
 		)
 		eggsleft += rand(1, 4)
 		qdel(I)
@@ -458,7 +458,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /mob/living/simple_animal/cock
 	name = "Петух"
 	desc = "Гордый и важный вид."
-	gender = MALE
 	icon_state = "cock"
 	icon_resting = "cock_rest"
 	icon_living = "cock"
@@ -751,7 +750,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		balloon_alert(user, "вымя сухое!")
 		return FALSE
 	user.visible_message(
-		span_notice("[user] до[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] до[PLUR_IT_YAT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы доите [declent_ru(ACCUSATIVE)]."),
 	)
 	return TRUE
@@ -762,7 +761,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_state = "goat_hump"
 	icon_living = "goat_hump"
 	icon_resting = "goat_hump_rest"
-	icon_dead = "goat_dead"
 
 /mob/living/simple_animal/hostile/retaliate/goat/hump/get_ru_names()
 	return list(

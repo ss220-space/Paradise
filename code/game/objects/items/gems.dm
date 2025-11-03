@@ -99,7 +99,6 @@
 	name = "ruperium crystal"
 	desc = "Крайне радиоактивное кристаллическое соединение, которое можно найти во внутренностях златожора. Хоть вы и можете преобразовать кристалл в урановую руду, его истинная ценность заключается в его резонирующих свойствах."
 	light_color = "#5ECC38"
-	icon_state = "rupee"
 	materials = list(MAT_URANIUM = 60000)
 	sheet_type = /obj/item/stack/sheet/mineral/uranium{amount = 30}
 	point_value = 500
@@ -381,7 +380,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	teleport(H)
-	H.visible_message(span_notice("[H] сжима[pluralize_ru(H.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] в руках!"))
+	H.visible_message(span_notice("[H] сжима[PLUR_ET_YUT(H)] [declent_ru(ACCUSATIVE)] в руках!"))
 	cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)),cooldown_time)
 
@@ -429,11 +428,11 @@
 /obj/item/gem/bloodstone/attack_self(mob/user)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(vampire && !used)
-		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] сжимать [declent_ru(ACCUSATIVE)] в своих руках!"), \
+		user.visible_message(span_warning("[user] начина[PLUR_ET_YUT(user)] сжимать [declent_ru(ACCUSATIVE)] в своих руках!"), \
 							span_notice("вы сжимаете [declent_ru(ACCUSATIVE)] в ваших руках."))
 		if(!do_after(user, 10 SECONDS, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Вы ослабили хватку.")))
 			return
-		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] впитывать в себя содержимое [declent_ru(GENITIVE)]!"), \
+		user.visible_message(span_warning("[user] начина[PLUR_ET_YUT(user)] впитывать в себя содержимое [declent_ru(GENITIVE)]!"), \
 						span_notice("Вы пожираете содержимое [declent_ru(GENITIVE)]. Энергия от кристалла насыщает вас."))
 		vampire.bloodusable += blood
 		used = TRUE
@@ -492,7 +491,6 @@
 /obj/item/gem/ruby
 	name = "ruby"
 	icon_state = "ruby"
-	point_value = 100
 	simple = TRUE
 	light_color = "#C72414"
 	sell_multiplier = 0.5
@@ -510,7 +508,6 @@
 /obj/item/gem/sapphire
 	name = "sapphire"
 	icon_state = "sapphire"
-	point_value = 100
 	simple = TRUE
 	light_color = "#1726BF"
 	sell_multiplier = 0.5
@@ -528,7 +525,6 @@
 /obj/item/gem/emerald
 	name = "emerald"
 	icon_state = "emerald"
-	point_value = 100
 	simple = TRUE
 	light_color = "#14A73C"
 	sell_multiplier = 0.5
@@ -546,7 +542,6 @@
 /obj/item/gem/topaz
 	name = "topaz"
 	icon_state = "topaz"
-	point_value = 100
 	simple = TRUE
 	light_color = "#C73914"
 	sell_multiplier = 0.5

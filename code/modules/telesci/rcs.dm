@@ -8,23 +8,13 @@
 /obj/item/rcs
 	name = "rapid-crate-sender (RCS)"
 	desc = "Устройство для телепортации ящиков и шкафов на телепады карго."
-	ru_names = list(
-		NOMINATIVE = "система быстрой доставки (RCS)",
-		GENITIVE = "системы быстрой доставки (RCS)",
-		DATIVE = "системе быстрой доставки (RCS)",
-		ACCUSATIVE = "систему быстрой доставки (RCS)",
-		INSTRUMENTAL = "системой быстрой доставки (RCS)",
-		PREPOSITIONAL = "системе быстрой доставки (RCS)"
-	)
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
 	item_state = "rcd"
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
-	throw_speed = 2
 	throw_range = 5
-	toolspeed = 1
 	usesound = 'sound/machines/click.ogg'
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
@@ -38,6 +28,16 @@
 	/// Is emagged?
 	var/emagged = FALSE
 
+/obj/item/rcs/get_ru_names()
+	return list(
+		NOMINATIVE = "система быстрой доставки (RCS)",
+		GENITIVE = "системы быстрой доставки (RCS)",
+		DATIVE = "системе быстрой доставки (RCS)",
+		ACCUSATIVE = "систему быстрой доставки (RCS)",
+		INSTRUMENTAL = "системой быстрой доставки (RCS)",
+		PREPOSITIONAL = "системе быстрой доставки (RCS)"
+	)
+
 /obj/item/rcs/get_cell()
 	return rcell
 
@@ -47,7 +47,7 @@
 
 /obj/item/rcs/examine(mob/user)
 	. = ..()
-	. += to_chat(user, span_notice("Осталось [round(rcell.charge/chargecost)] заряд[declension_ru(round(rcell.charge/chargecost),"","а","ов")]."))
+	. += to_chat(user, span_notice("Осталось [round(rcell.charge/chargecost)] заряд[DECL_CREDIT(round(rcell.charge/chargecost))]."))
 
 /obj/item/rcs/Destroy()
 	QDEL_NULL(rcell)
@@ -156,4 +156,4 @@
 	rcell.use(chargecost)
 	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
-	to_chat(user, span_notice("Телепортация успешна. Осталось [round(rcell.charge/chargecost)] заряд[declension_ru(round(rcell.charge/chargecost),"","а","ов")]."))
+	to_chat(user, span_notice("Телепортация успешна. Осталось [round(rcell.charge/chargecost)] заряд[DECL_CREDIT(round(rcell.charge/chargecost))]."))

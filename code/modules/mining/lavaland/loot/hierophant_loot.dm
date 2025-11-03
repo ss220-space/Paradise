@@ -43,10 +43,10 @@
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")
-	user.visible_message(span_suicide("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] в воздух! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] собира[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой!"))
+	user.visible_message(span_suicide("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] в воздух! Похоже, [GEND_HE_SHE(user)] собира[PLUR_ET_YUT(user)]ся покончить с собой!"))
 	new/obj/effect/temp_visual/hierophant/telegraph(get_turf(user))
 	playsound(user,'sound/machines/airlock_open.ogg', 75, TRUE)
-	user.visible_message(span_hierophant_warning("[user] растворя[pluralize_ru(user.gender,"ет","ют")]ся в воздухе, оставляя свои вещи!"))
+	user.visible_message(span_hierophant_warning("[user] растворя[PLUR_ET_YUT(user)]ся в воздухе, оставляя свои вещи!"))
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.drop_item_ground(I)
@@ -148,7 +148,7 @@
 	if(!beacon || QDELETED(beacon))
 		if(isturf(user.loc))
 			user.visible_message(
-				span_hierophant_warning("[user] воз[pluralize_ru(user.gender,"ит","ят")]ся с навершием [declent_ru(GENITIVE)]..."),
+				span_hierophant_warning("[user] воз[PLUR_IT_YAT(user)]ся с навершием [declent_ru(GENITIVE)]..."),
 				span_notice("Вы начинаете отсоединять маяк Иерофанта...")
 			)
 			timer = world.time + 51
@@ -160,7 +160,7 @@
 				beacon = new/obj/effect/hierophant(T)
 				beacon.add_fingerprint(user)
 				user.update_action_buttons_icon()
-				user.visible_message(span_hierophant_warning("[user] размеща[pluralize_ru(user.gender,"ет","ют")] странный механизм у своих ног!"), "[span_hierophant("Вы отсоединяете маяк Иерофанта, позволяя телепортироваться к нему в любой момент!")]\n[span_notice("Можете ударить посохом, чтобы забрать его.")]")
+				user.visible_message(span_hierophant_warning("[user] размеща[PLUR_ET_YUT(user)] странный механизм у своих ног!"), "[span_hierophant("Вы отсоединяете маяк Иерофанта, позволяя телепортироваться к нему в любой момент!")]\n[span_notice("Можете ударить посохом, чтобы забрать его.")]")
 			else
 				timer = world.time
 				INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -175,14 +175,14 @@
 		return
 	var/turf/beacon_turf = get_turf(beacon)
 	if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
-		to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+		to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 		return
 	if(!isturf(user.loc))
 		to_chat(user, span_warning("Здесь недостаточно места для телепортации!"))
 		return
 	teleporting = TRUE //start channel
 	user.update_action_buttons_icon()
-	user.visible_message(span_hierophant_warning("[user] начина[pluralize_ru(user.gender,"ет","ют")] слабо светиться..."))
+	user.visible_message(span_hierophant_warning("[user] начина[PLUR_ET_YUT(user)] слабо светиться..."))
 	timer = world.time + 50
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 	beacon.teleporting = TRUE
@@ -193,7 +193,7 @@
 		var/turf/source = get_turf(user)
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+			to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -216,7 +216,7 @@
 			return
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
-			to_chat(user, span_warning("Телепортация невозможна – маяк заблокирован!"))
+			to_chat(user, span_warning("Телепортация невозможна — маяк заблокирован!"))
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -360,7 +360,7 @@
 	if(length(candidates))
 		theghost = pick(candidates)
 		slave = new(src)
-		slave.ckey = theghost.ckey
+		slave.possess_by_player(theghost.ckey)
 		slave.master = user.ckey
 		name = "Talisman of warding"
 		ru_names = list(
@@ -510,7 +510,6 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	should_recharge_after_cast = TRUE
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_message"
 	action_background_icon_state = "bg_hierophant_talisman"

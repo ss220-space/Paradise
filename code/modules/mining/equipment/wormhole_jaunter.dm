@@ -2,10 +2,8 @@
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
 	desc = "Одноразовое устройство, использующее устаревшую технологию червоточин. Нанотрейзен переключилась на блюспейс для более точной телепортации. Перемещение через создаваемые им червоточины, мягко говоря, некомфортно.\nБлагодаря модификациям Свободных Големов, этот генератор червоточин обеспечивает защиту от пропастей."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "Jaunter"
 	item_state = "electronic"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
@@ -24,7 +22,7 @@
 	)
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
-	user.visible_message(span_notice("[user.name] активиру[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_notice("[user.name] активиру[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]!"))
 	SSblackbox.record_feedback("tally", "jaunter", 1, "User") // user activated
 	activate(user, TRUE)
 
@@ -43,7 +41,7 @@
 
 /obj/item/wormhole_jaunter/proc/get_destinations()
 	. = list()
-	for(var/obj/item/radio/beacon/beacon in GLOB.global_radios)
+	for(var/obj/item/beacon/beacon as anything in GLOB.beacons)
 		var/turf/beacon_turf = get_turf(beacon)
 		if(is_station_level(beacon_turf.z))
 			. += beacon
@@ -166,7 +164,7 @@
 	update_mob()
 
 	var/list/destinations = list()
-	for(var/obj/item/radio/beacon/beacon in GLOB.global_radios)
+	for(var/obj/item/beacon/beacon as anything in GLOB.beacons)
 		var/turf/beacon_turf = get_turf(beacon)
 		if(is_station_level(beacon_turf.z))
 			destinations += beacon_turf
@@ -194,7 +192,7 @@
 		return
 
 	var/list/portal_turfs = list()
-	for(var/turf/turf as anything in circleviewturfs(our_turf, 3))
+	for(var/turf/turf as anything in circle_view_turfs(our_turf, 3))
 		if(!turf.density)
 			portal_turfs += turf
 	playsound(our_turf, 'sound/magic/lightningbolt.ogg', 100, TRUE)

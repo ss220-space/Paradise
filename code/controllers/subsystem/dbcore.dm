@@ -106,8 +106,8 @@ SUBSYSTEM_DEF(dbcore)
  */
 /datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
 	if(CONFIG_GET(flag/sql_enabled))
-		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
-		#ifndef UNIT_TESTS
+		// The game tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running game tests
+		#ifndef GAME_TESTS
 		if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/db_version) != SQL_VERSION)
 			CONFIG_SET(flag/sql_enabled, FALSE)
 			schema_valid = FALSE
@@ -301,7 +301,7 @@ SUBSYSTEM_DEF(dbcore)
 			if(has_col)
 				query_parts += ", "
 			if(has_question_mark[column])
-				var/name = "p[arguments.len]"
+				var/name = "p[length(arguments)]"
 				query_parts += replacetext(columns[column], "?", ":[name]")
 				arguments[name] = row[column]
 			else
@@ -364,7 +364,7 @@ SUBSYSTEM_DEF(dbcore)
 			query = querys[thing]
 		else
 			query = thing
-		UNTIL(!query.in_progress)
+		query.sync()
 		if(qdel)
 			qdel(query)
 
@@ -558,6 +558,11 @@ SUBSYSTEM_DEF(dbcore)
 	rows = null
 	item = null
 
+/// Sleeps until execution of the query has finished.
+/datum/db_query/proc/sync()
+	while(in_progress)
+		stoplag()
+
 // Verb that lets admins force reconnect the DB
 /client/proc/reestablish_db_connection()
 	set category = "Debug"
@@ -588,3 +593,4 @@ SUBSYSTEM_DEF(dbcore)
 		message_admins("Database connection failed: [SSdbcore.ErrorMsg()]")
 	else
 		message_admins("Database connection re-established")
+

@@ -80,8 +80,6 @@
 	var/aw_emerg = FALSE
 	var/aw_delam = FALSE
 
-	var/obj/item/radio/radio
-
 	//for logging
 	var/has_been_powered = 0
 	var/has_reached_emergency = 0
@@ -107,9 +105,6 @@
 	//Added to the atmos_machine process as the SM is highly coupled with the atmospherics system.
 	//Having the SM run at a different rate then atmospherics causes odd behavior.
 	SSair.atmos_machinery += src
-	radio = new(src)
-	radio.listening = FALSE
-	radio.follow_target = src
 	investigate_log("has been created.", INVESTIGATE_ENGINE)
 	supermatter_explosive_effects = new()
 	supermatter_explosive_effects.z = src.z
@@ -143,7 +138,6 @@
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINE)
 	if(damage > emergency_point)
 		emergency_lighting(0)
-	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	SSair.atmos_machinery -= src
 	return ..()
@@ -172,7 +166,7 @@
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Дестабилизация: [stability]%", name, null)
+				radio_announce("[emergency_alert] Дестабилизация: [stability]%", name, PUB_FREQ, src)
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINE)
@@ -180,11 +174,11 @@
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Дестабилизация: [stability]%", name)
+				radio_announce("[warning_alert] Дестабилизация: [stability]%", name, PUB_FREQ, src)
 				lastwarning = world.timeofday - 150
 
 			else                                                 // Phew, we're safe
-				radio.autosay("[safe_alert]", name)
+				radio_announce(safe_alert, name, PUB_FREQ, src)
 				emergency_lighting(0)
 				lastwarning = world.timeofday
 
@@ -300,8 +294,6 @@
 	handle_admin_warnings()
 
 	return 1
-
-/obj/machinery/power/supermatter_shard
 
 /obj/machinery/power/supermatter_shard/bullet_act(obj/projectile/Proj)
 	var/turf/L = loc
@@ -622,8 +614,6 @@
 		to_chat(user, span_userdanger("The wave of warm energy is overwhelming you. You feel calm."))
 
 /obj/effect/warp_effect/supermatter
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
 	icon = 'icons/effects/light_overlays/light_352.dmi'
 	icon_state = "light"
 	pixel_x = -176

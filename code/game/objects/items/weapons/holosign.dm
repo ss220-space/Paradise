@@ -4,13 +4,11 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
 	item_state = "signmaker"
-	force = 0
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	origin_tech = "magnets=1;programming=3"
 	item_flags = NOBLUDGEON
+	toolbox_radial_menu_compatibility = TRUE
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.
@@ -35,7 +33,7 @@
 				if(holocreator_busy)
 					balloon_alert(user, "уже в работе!")
 					return
-				if(signs.len < max_signs)
+				if(length(signs) < max_signs)
 					playsound(src.loc, 'sound/machines/click.ogg', 20, TRUE)
 					if(creation_time)
 						holocreator_busy = TRUE
@@ -43,7 +41,7 @@
 							holocreator_busy = FALSE
 							return
 						holocreator_busy = FALSE
-						if(signs.len >= max_signs)
+						if(length(signs) >= max_signs)
 							return
 						if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
@@ -59,7 +57,7 @@
 
 
 /obj/item/holosign_creator/attack_self(mob/user)
-	if(signs.len)
+	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
 		balloon_alert(user, "голограммы удалены")
@@ -71,7 +69,6 @@
 	name = "Janitorial Holosign projector"
 	desc = "Удобный голографический проектор, отображающий знак уборщика."
 	belt_icon = "sign_projector"
-	holosign_type = /obj/structure/holosign/wetsign
 	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/get_ru_names()
@@ -152,7 +149,6 @@
 	icon_state = "signmaker_engi"
 	item_state = "signmaker_engi"
 	holosign_type = /obj/structure/holosign/barrier/atmos
-	creation_time = 0
 	max_signs = 3
 
 /obj/item/holosign_creator/atmos/get_ru_names()
@@ -191,7 +187,7 @@
 			balloon_alert(user, "голограммы удалены")
 			holosign_type = /obj/structure/holosign/barrier/cyborg
 			creation_time = 5
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 			shock = 0
@@ -200,17 +196,17 @@
 			balloon_alert(user, "голограммы удалены")
 			holosign_type = /obj/structure/holosign/barrier/cyborg/hacked
 			creation_time = 30
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 			shock = 1
 			return
 		else
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 				balloon_alert(user, "голограммы удалены")
-	if(signs.len)
+	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
 		balloon_alert(user, "голограммы удалены")

@@ -16,7 +16,6 @@
 	emote_hear = list("вибрирует", "шипит")
 	speak_emote = list("трещит", "потрёскивает", "шипит")
 
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "pulsedem"
 	icon_living = "pulsedem"
 	icon_dead = "pulsedem"
@@ -33,16 +32,13 @@
 	speed = -0.5
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
-	del_on_death = TRUE
 	light_system = MOVABLE_LIGHT
 	attacktext = "electrocutes"
 	attack_sound = SFX_SPARKS
-	a_intent = INTENT_HARM
 	harm_intent_damage = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	pass_flags = PASSDOOR
-	stop_automated_movement = TRUE
 	has_unlimited_silicon_privilege = TRUE
 	can_buckle_to = FALSE
 	// this makes the demon able to speak through holopads, due to the overriden say, PD cannot speak normally regardless
@@ -618,7 +614,7 @@
 	else if(istype(loc, /obj/machinery/hologram/holopad))
 		var/obj/machinery/hologram/holopad/H = loc
 		name = "[H]"
-		for(var/mob/M in get_mobs_in_view(7, H))
+		for(var/mob/M in get_hearers_in_view(7, H))
 			M.hear_say(message_pieces, verb, FALSE, src)
 		name = real_name
 		return TRUE
@@ -628,7 +624,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
-	for(var/mob/mob in get_mobs_in_view(7, src))
+	for(var/mob/mob in get_hearers_in_view(7, src))
 		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
 		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
@@ -698,11 +694,11 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_shock_mob(mob/living/L, siemens_coeff = 1)
 	var/dealt = 0
-	if(current_cable && current_cable.powernet && current_cable.powernet.avail)
+	if(current_cable?.powernet && current_cable.powernet.avail)
 		// returns used energy, not damage dealt, but ez conversion with /20
 		dealt = electrocute_mob(L, current_cable.powernet, src, siemens_coeff) / 20
 	else if(charge >= 1000)
-		dealt = L.electrocute_act(30, "пульс-демона", siemens_coeff)
+		dealt = L.electrocute_act(30, src, siemens_coeff)
 		adjust_charge(-1000)
 	if(dealt > 0)
 		do_sparks(rand(2, 4), FALSE, src)
@@ -827,7 +823,7 @@
 		return ..()
 	visible_message(span_warning("[proj] goes right through [src]!"), projectile_message = TRUE)
 
-/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
 /mob/living/simple_animal/demon/pulse_demon/blob_act(obj/structure/blob/B)

@@ -160,7 +160,6 @@
 	endurance = 30
 	maturation = 5
 	yield = 1
-	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	mutatelist = list()
 	reagents_add = list("vitamin" = 0.05, "nutriment" = 0.15)
 	rarity = 30
@@ -185,7 +184,7 @@
 	M.move_to_delay -= round(seed.production / 50)
 	M.health = M.maxHealth
 	qdel(src)
-	to_chat(user, "<span class='notice'>You plant the walking mushroom.</span>")
+	to_chat(user, span_notice("You plant the walking mushroom."))
 
 
 // Chanterelle
@@ -228,7 +227,6 @@
 	endurance = 30
 	maturation = 15
 	production = 1
-	yield = 3 //-> spread
 	potency = 30 //-> brightness
 	growthstages = 4
 	rarity = 20
@@ -253,7 +251,7 @@
 	if(isspaceturf(user.loc))
 		return FALSE
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")
+		to_chat(user, span_warning("You need more space to plant [src]."))
 		return FALSE
 	var/count = 0
 	var/maxcount = 1
@@ -264,11 +262,11 @@
 	for(var/obj/structure/glowshroom/G in user.loc)
 		count++
 	if(count >= maxcount)
-		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
+		to_chat(user, span_warning("There are too many shrooms here to plant [src]."))
 		return FALSE
 	new effect_path(user.loc, seed)
 	investigate_log("was planted by [key_name_log(user)] at [COORD(user)]", INVESTIGATE_BOTANY)
-	to_chat(user, "<span class='notice'>You plant [src].</span>")
+	to_chat(user, span_notice("You plant [src]."))
 	qdel(src)
 	return TRUE
 
@@ -292,7 +290,6 @@
 	name = "glowcap cluster"
 	desc = "<i>Mycena Ruthenia</i>: This species of mushroom glows in the dark, but isn't actually bioluminescent. They're warm to the touch..."
 	icon_state = "glowcap"
-	filling_color = "#00FA9A"
 	effect_path = /obj/structure/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"

@@ -494,7 +494,7 @@
 		smoke.start()
 
 	C.faction |= "\ref[user]"
-	C.key = target.key
+	C.possess_by_player(target.key)
 	if(user && iscultist(user) || cult_override)
 		SSticker.mode.add_cultist(C.mind)
 		SSticker.mode.update_cult_icons_added(C.mind)
@@ -510,7 +510,7 @@
 
 	S.name = "Shade of [M.real_name]"
 	S.real_name = "Shade of [M.real_name]"
-	S.key = M.key
+	S.possess_by_player(M.key)
 	S.cancel_camera()
 
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
@@ -575,6 +575,6 @@
 		return FALSE
 	if(length(contents)) //If they used the soulstone on someone else in the meantime
 		return FALSE
-	M.ckey = chosen_ghost.ckey
+	M.possess_by_player(chosen_ghost.ckey)
 	init_shade(M, user)
 	return TRUE

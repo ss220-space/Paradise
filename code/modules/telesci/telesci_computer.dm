@@ -1,14 +1,6 @@
 /obj/machinery/computer/telescience
 	name = "telepad control console"
 	desc = "Используется для телепортации объектов на телепад и обратно."
-	ru_names = list(
-		NOMINATIVE = "консоль управления телепадом",
-		GENITIVE = "консоли управления телепадом",
-		DATIVE = "консоли управления телепадом",
-		ACCUSATIVE = "консоль управления телепадом",
-		INSTRUMENTAL = "консолью управления телепадом",
-		PREPOSITIONAL = "консоли управления телепадом"
-	)
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console
@@ -38,6 +30,16 @@
 	var/max_crystals = 4
 	var/obj/item/gps/inserted_gps
 
+/obj/machinery/computer/telescience/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления телепадом",
+		GENITIVE = "консоли управления телепадом",
+		DATIVE = "консоли управления телепадом",
+		ACCUSATIVE = "консоль управления телепадом",
+		INSTRUMENTAL = "консолью управления телепадом",
+		PREPOSITIONAL = "консоли управления телепадом"
+	)
+
 /obj/machinery/computer/telescience/Initialize(mapload)
 	. = ..()
 	recalibrate()
@@ -51,7 +53,7 @@
 
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
-	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[declension_ru(crystals,"","а","ов")]" : "нет кристаллов"] блюспейса.")
+	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[DECL_CREDIT(crystals)]" : "нет кристаллов"] блюспейса.")
 
 
 /obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, params)
@@ -70,7 +72,7 @@
 		crystals++
 		updateUsrDialog()
 		user.visible_message(
-			span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [crystal.singular_name] в слот для кристаллов [src]."),
+			span_notice("[user] вставля[PLUR_ET_YUT(user)] [crystal.singular_name] в слот для кристаллов [src]."),
 			span_notice("Вы вставляете [crystal.singular_name] в слот для кристаллов [src].")
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -140,22 +142,22 @@
 			t += "<a href='byond://?src=[UID()];ejectGPS=1'>Eject GPS</a>"
 			t += "<a href='byond://?src=[UID()];setMemory=1'>Set GPS memory</a>"
 		else
-			t += "<span class='linkOff'>Eject GPS</span>"
-			t += "<span class='linkOff'>Set GPS memory</span>"
+			t += span_linkoff("Eject GPS")
+			t += span_linkoff("Set GPS memory")
 		t += "<div class='statusDisplay'>[temp_msg]</div><br>"
 		t += "<a href='byond://?src=[UID()];setrotation=1'>Set Bearing</a>"
 		t += "<div class='statusDisplay'>[rotation] degrees</div>"
 		t += "<a href='byond://?src=[UID()];setangle=1'>Set Elevation</a>"
 		t += "<div class='statusDisplay'>[angle] degrees</div>"
-		t += "<span class='linkOn'>Set Power</span>"
+		t += span_linkon("Set Power")
 		t += "<div class='statusDisplay'>"
 
-		for(var/i = 1; i <= power_options.len; i++)
+		for(var/i = 1; i <= length(power_options); i++)
 			if(crystals + telepad.efficiency < i)
-				t += "<span class='linkOff'>[power_options[i]]</span>"
+				t += span_linkoff("[power_options[i]]")
 				continue
 			if(power == power_options[i])
-				t += "<span class='linkOn'>[power_options[i]]</span>"
+				t += span_linkon("[power_options[i]]")
 				continue
 			t += "<a href='byond://?src=[UID()];setpower=[i]'>[power_options[i]]</a>"
 		t += "</div>"
@@ -317,13 +319,12 @@
 		telefail()
 		temp_msg = "ОШИБКА!<br>Угол меньше 1 или больше 90."
 		return
-	if(z_co == 2 || z_co < 1 || z_co > 6)
-		if(z_co == 7 & emagged == 1)
-		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
-		else
-			telefail()
-			temp_msg = "ОШИБКА! Сектор меньше 1, <br>больше [src.emagged ? "7" : "6"], или равен 2."
-			return
+	// THIS FUCKING THING USES ZLEVEL NUMBERS WHY
+	var/cc_z = level_name_to_num(CENTCOMM)
+	if(z_co == cc_z || z_co < cc_z + 1 || cc_z > world.maxz)
+		telefail()
+		temp_msg = "ERROR! Sector must be greater than or equal to 2, and less than or equal to [world.maxz]."
+		return
 
 
 	var/truePower = clamp(power + power_off, 1, 1000)

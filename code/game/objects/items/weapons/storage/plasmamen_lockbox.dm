@@ -3,7 +3,6 @@
 	desc = "Ящик с замком, что содержит набор снаряжения для плазмаменов. Сомнительно, что любое разумное существо будет способно уложить содержимое столь же плотно."
 	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_SMALL
-	storage_slots = 4
 
 /obj/item/storage/lockbox/plasma/get_ru_names()
 	return list(
@@ -471,7 +470,7 @@
 		PREPOSITIONAL = "ящике снаряжения для плазмаменов (Scientist)"
 	)
 
-/obj/item/storage/lockbox/plasma/scientist/populate_contents(src)
+/obj/item/storage/lockbox/plasma/scientist/populate_contents()
 	new /obj/item/clothing/head/helmet/space/plasmaman/science/xeno(src)
 	new /obj/item/clothing/under/plasmaman/science(src)
 	new /obj/item/tank/internals/plasmaman/belt/full(src)

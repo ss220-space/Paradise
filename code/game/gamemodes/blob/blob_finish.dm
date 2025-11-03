@@ -7,9 +7,10 @@
 	if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 		return
 	update_blob_objective()
-	GLOB.major_announcement.announce("Объект потерян. Причина: распространение биологической угрозы 5-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным из-за высокого уровня заражения. Активация протоколов изоляции.",
-									"Отчёт об объекте [station_name()].",
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Объект потерян. Причина: распространение биологической угрозы 5-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным из-за высокого уровня заражения. Активация протоколов изоляции.",
+		new_title = "Отчёт об объекте [station_name()].",
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	blob_stage = (delay_blob_end)? BLOB_STAGE_POST_END : BLOB_STAGE_END
 	if(blob_stage == BLOB_STAGE_END)
@@ -37,7 +38,7 @@
 		to_chat(world, span_fontsize3("<br><b>Полная победа блоба!</b>"))
 		to_chat(world, "<b>Блоб захватил станцию!</b>")
 		to_chat(world, "<b>Вся станция была поглощена блобом.</b>")
-	else if(!GLOB.blob_cores.len)
+	else if(!length(GLOB.blob_cores))
 		if(GAMEMODE_IS_BLOB)
 			add_game_logs("Blob mode completed with a crew victory.")
 			SSticker.mode_result = "blob loss - blob eliminated"
@@ -65,20 +66,20 @@
 	var/list/blob_infected = blobs["infected"]
 	var/list/blob_offsprings = blobs["offsprings"]
 	var/list/minions = blobs["minions"]
-	if(blob_infected?.len)
+	if(length(blob_infected))
 		declare_blob_completion()
-		var/list/text = list("<br/><span style='font-size: 2;'><b>Блоб[(blob_infected.len > 1 ? "ами были" : "ом был")]:</b></pan>")
+		var/list/text = list("<br/><span style='font-size: 2;'><b>Блоб[(length(blob_infected) > 1 ? "ами были" : "ом был")]:</b></pan>")
 
 		for(var/datum/mind/blob in blob_infected)
 			text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
-		if(blob_offsprings?.len)
-			text += "<br/><br/><span style='font-size: 2;'><b>Потомк[(blob_offsprings.len > 1 ? "ами блоба были" : "ом блоба был")]:</b></span>"
+		if(length(blob_offsprings))
+			text += "<br/><br/><span style='font-size: 2;'><b>Потомк[(length(blob_offsprings) > 1 ? "ами блоба были" : "ом блоба был")]:</b></span>"
 			for(var/datum/mind/blob in blob_offsprings)
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
-		if(minions?.len)
-			text += "<br/><br/><span style='font-size: 2;'><b>Миньoн[(minions.len > 1 ? "ами были" : "ом был")]:</b></span>"
+		if(length(minions))
+			text += "<br/><br/><span style='font-size: 2;'><b>Миньoн[(length(minions) > 1 ? "ами были" : "ом был")]:</b></span>"
 			for(var/datum/mind/blob in minions)
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 

@@ -31,7 +31,6 @@
 	max_integrity = 350
 	integrity_failure = 150
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 4000
 	active_power_usage = 12000
 
@@ -203,7 +202,7 @@
 	. = TRUE
 
 	// Add a delay, as server's points will be lost after disassembly
-	user.visible_message("[user] начина[pluralize_ru(user.gender, "ет", "ют")] разбирать [src].", "Вы начинаете разбирать [src].")
+	user.visible_message("[user] начина[PLUR_ET_YUT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 

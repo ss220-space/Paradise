@@ -92,8 +92,10 @@
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	return
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
+	return
 
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE)
 	if(!H)
@@ -148,13 +150,13 @@
 	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	var/list/slightly_prohibited_disabilities = list(DISABILITY_FLAG_PARAPLEGIA)
 
-	for(var/i = 1, i <= prohibited_disabilities.len, i++)
+	for(var/i = 1, i <= length(prohibited_disabilities), i++)
 		var/this_disability = prohibited_disabilities[i]
 		if(C.prefs.disabilities & this_disability)
 			return 1
 
 	if(!disabilities_allowed_slightly)
-		for(var/i = 1, i <= slightly_prohibited_disabilities.len, i++)
+		for(var/i = 1, i <= length(slightly_prohibited_disabilities), i++)
 			var/this_disability = slightly_prohibited_disabilities[i]
 			if(C.prefs.disabilities & this_disability)
 				return 1
@@ -249,6 +251,8 @@
 					gear_leftovers += G
 			else
 				gear_leftovers += G
+		
+	H.dna.species.job_pre_equip(H)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -260,7 +264,7 @@
 
 	imprint_pda(H)
 
-	if(gear_leftovers.len)
+	if(length(gear_leftovers))
 		for(var/datum/gear/G in gear_leftovers)
 			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
 			if(placed_in.equip_to_best_slot(H))
@@ -294,7 +298,7 @@
 		C.assignment = alt_title ? alt_title : J.title
 		C.sex = capitalize(H.gender)
 		C.age = H.age
-		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
+		C.name = "[C.registered_name]’s ID Card ([C.assignment])"
 		C.photo = get_id_photo(H)
 
 		if(H.mind && H.mind.initial_account)

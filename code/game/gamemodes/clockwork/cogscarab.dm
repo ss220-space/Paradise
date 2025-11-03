@@ -26,7 +26,6 @@
 	lawupdate = FALSE
 	scrambledcodes = TRUE
 	has_camera = FALSE
-	viewalerts = FALSE
 	modules_break = FALSE
 
 	req_access = list(ACCESS_CENT_COMMANDER) //I dare you to try
@@ -52,6 +51,16 @@
 	var/wind_up_icon_segment = CLOCK_MAX_WIND_UP_TIMER / 5
 	var/warn_wind_up = WINDUP_STATE_NONE
 	var/obj/structure/clockwork/functional/cogscarab_fabricator/fabr
+
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
+
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
 
 /mob/living/silicon/robot/cogscarab/Initialize(mapload)
 	. = ..()
@@ -172,7 +181,7 @@
 	H.attack_hand(grabber)
 
 	to_chat(grabber, span_notice("Вы подняли [src.name]."))
-	to_chat(src, span_notice("[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас."))
+	to_chat(src, span_notice("[grabber.name] поднял[GEND_A_O_I(grabber)] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	return H

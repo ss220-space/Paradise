@@ -101,12 +101,12 @@
 		if(block)
 			if(GetState() && block == GLOB.monkeyblock)
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] [span_warning("(MONKEY)")]")
 
 		else
 			if(GetState(GLOB.monkeyblock))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] [span_warning("(MONKEY)")]")
 
 	if(target != user)
 		target.visible_message(
@@ -607,28 +607,6 @@
 
 /obj/item/dnainjector/antiblind/Initialize(mapload)
 	block = GLOB.blindblock
-	return ..()
-
-/obj/item/dnainjector/telemut
-	name = "DNA-Injector (Tele.)"
-	desc = "Super brain man!"
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/telemut/Initialize(mapload)
-	block = GLOB.teleblock
-	return ..()
-
-/obj/item/dnainjector/antitele
-	name = "DNA-Injector (Anti-Tele.)"
-	desc = "Will make you not able to control your mind."
-	datatype = DNA2_BUF_SE
-	value = 0x001
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/antitele/Initialize(mapload)
-	block = GLOB.teleblock
 	return ..()
 
 /obj/item/dnainjector/deafmut

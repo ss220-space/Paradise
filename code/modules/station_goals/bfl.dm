@@ -82,9 +82,7 @@
 	name = "BFL Emitter"
 	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
-	anchored = TRUE
 	density = TRUE
-	use_power = NO_POWER_USE
 	idle_power_usage = 100000
 	active_power_usage = 500000
 
@@ -271,14 +269,6 @@
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
 	desc = "Кнопка активации выглядит подозрительно. Возможно, следует открыть шахту вручную с помощью лома."
-	ru_names = list(
-		NOMINATIVE = "приёмник BFL",
-		GENITIVE = "приёмника BFL",
-		DATIVE = "приёмнику BFL",
-		ACCUSATIVE = "приёмник BFL",
-		INSTRUMENTAL = "приёмником BFL",
-		PREPOSITIONAL = "приёмнике BFL"
-	)
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
@@ -302,6 +292,15 @@
 	///Used for storing last icon update for receiver lights on borders of receiver
 	var/last_light_state_number = 0
 
+/obj/machinery/bfl_receiver/get_ru_names()
+	return list(
+		NOMINATIVE = "приёмник BFL",
+		GENITIVE = "приёмника BFL",
+		DATIVE = "приёмнику BFL",
+		ACCUSATIVE = "приёмник BFL",
+		INSTRUMENTAL = "приёмником BFL",
+		PREPOSITIONAL = "приёмнике BFL"
+	)
 
 /obj/machinery/bfl_receiver/Initialize(mapload)
 	. = ..()
@@ -348,7 +347,7 @@
 			to_chat(user, span_warning("Нет питания.<br>Попробуйте открыть шахту вручную с помощью лома."))
 		if("Очистить хранилище руды")
 			if(lens)
-				to_chat(user, span_warning("Линза создаёт помехи - невозможно получить руду из хранилища."))
+				to_chat(user, span_warning("Линза создаёт помехи — невозможно получить руду из хранилища."))
 				return
 			if(state && (user.ckey != last_user_ckey))
 				to_chat(user, span_warning("Внутренний голос подсказывает, что сначала нужно закрыть шахту."))
@@ -451,14 +450,6 @@
 /obj/machinery/bfl_lens
 	name = "High-precision lens"
 	desc = "Чрезвычайно хрупкая, обращайтесь осторожно."
-	ru_names = list(
-		NOMINATIVE = "высокоточная линза",
-		GENITIVE = "высокоточной линзы",
-		DATIVE = "высокоточной линзе",
-		ACCUSATIVE = "высокоточную линзу",
-		INSTRUMENTAL = "высокоточной линзой",
-		PREPOSITIONAL = "высокоточной линзе"
-	)
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Lens_Pull"
 	max_integrity = 40
@@ -467,6 +458,16 @@
 
 	var/step_count = 0
 	var/state = FALSE
+
+/obj/machinery/bfl_lens/get_ru_names()
+	return list(
+		NOMINATIVE = "высокоточная линза",
+		GENITIVE = "высокоточной линзы",
+		DATIVE = "высокоточной линзе",
+		ACCUSATIVE = "высокоточную линзу",
+		INSTRUMENTAL = "высокоточной линзой",
+		PREPOSITIONAL = "высокоточной линзе"
+	)
 
 /obj/machinery/bfl_lens/update_icon_state()
 	if(state)
@@ -609,7 +610,11 @@
 /obj/effect/bfl_laser
 	name = "big laser beam"
 	desc = "Огромный сияющий луч, бьющий сверху вниз. Лучше не касаться."
-	ru_names = list(
+	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
+	icon_state = "laser"
+
+/obj/effect/bfl_laser/get_ru_names()
+	return list(
 		NOMINATIVE = "луч мегалазера",
 		GENITIVE = "луча мегалазера",
 		DATIVE = "лучу мегалазера",
@@ -617,8 +622,6 @@
 		INSTRUMENTAL = "лучом мегалазера",
 		PREPOSITIONAL = "луче мегалазера"
 	)
-	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
-	icon_state = "laser"
 
 /obj/effect/bfl_laser/Initialize(mapload)
 	. = ..()

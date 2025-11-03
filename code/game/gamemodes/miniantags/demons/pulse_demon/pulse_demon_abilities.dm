@@ -20,7 +20,6 @@
 	var/upgrade_cost = 1 KW
 	var/requires_area = FALSE
 	base_cooldown = 20 SECONDS
-	level_max = 4
 
 /obj/effect/proc_holder/spell/pulse_demon/New()
 	. = ..()

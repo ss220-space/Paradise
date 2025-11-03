@@ -8,7 +8,6 @@
 	var/sight_timer = null
 	var/atom/sight_target = null
 
-
 /datum/component/laser_sight/Initialize()
 	. = ..()
 	if(!isgun(parent))
@@ -35,7 +34,6 @@
 		deltimer(sight_timer)
 		sight_timer = null
 	return ..()
-
 
 /datum/component/laser_sight/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
@@ -164,7 +162,7 @@
 		return
 	var/target_x = rand(-move_range, move_range)
 	var/target_y = rand(-move_range, move_range)
-	var/duration = rand(animation_speed * 0.5, animation_speed * 1.5)
+	var/duration = randfloat(animation_speed * 0.5, animation_speed * 1.5)
 	animate(point,
 		pixel_x = target_x,
 		pixel_y = target_y,
@@ -274,11 +272,9 @@
 
 /obj/effect/overlay/laser_sight_dot
 	name = "laser sight dot"
-	anchored = TRUE
 	light_range = 1
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_ALL_MOB_LAYER
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "laser_dot"
 
 /obj/effect/overlay/laser_sight_dot/invisible
@@ -286,7 +282,6 @@
 
 /obj/effect/overlay/laser_sight_line
 	name = "laser sight ray"
-	layer = OBJ_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "laser_sight"

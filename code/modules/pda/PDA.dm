@@ -37,7 +37,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
-	light_power = 1
 
 	//Main variables
 	var/owner = null
@@ -542,7 +541,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
+		M.show_message(span_danger("Your [src] explodes!"), 1)
 
 	if(T)
 		T.hotspot_expose(700,125)
@@ -566,8 +565,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	else
 		sound = 'sound/machines/twobeep_high.ogg'
 	playsound(loc, sound, 50, TRUE)
-	for(var/mob/O in hearers(3, loc))
-		O.show_message(text("[bicon(src)] *[ttone]*"))
+	audible_message("[icon2html(src, hearers(3, loc))] *[ttone]*", hearing_distance = 3)
 
 /obj/item/pda/proc/set_ringtone(mob/user)
 	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
@@ -589,5 +587,5 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 /obj/item/pda/extinguish_light(force = FALSE)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
-	if(FL && FL.fon)
+	if(FL?.fon)
 		FL.start()

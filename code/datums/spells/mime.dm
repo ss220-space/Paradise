@@ -9,18 +9,17 @@
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	cast_sound = null
-	human_req = TRUE
 
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
 
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall/Click()
-	if(usr && usr.mind)
+	if(usr?.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
-		invocation = "<b>[usr]</b> выглядит так, как будто бы перед [genderize_ru(usr.gender, "ним", "ней", "ним", "ними")] находится стена."
+		invocation = "<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(usr)] находится стена."
 	else
 		invocation_type ="none"
 	..()
@@ -36,7 +35,6 @@
 	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
-	human_req = TRUE
 
 	action_icon_state = "mime_silence"
 	action_background_icon_state = "bg_mime"
@@ -89,7 +87,6 @@
 	invocation_emote_self = span_notice("Вы создаёте стену перед cобой.")
 	base_cooldown = 60 SECONDS
 	sound =  null
-	clothes_req = FALSE
 
 	action_icon_state = "mime_bigwall"
 	action_background_icon_state = "bg_mime"
@@ -97,11 +94,11 @@
 
 
 /obj/effect/proc_holder/spell/forcewall/mime/Click()
-	if(usr && usr.mind)
+	if(usr?.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
-		invocation = "<b>[usr]</b> выглядит так, как будто бы перед [genderize_ru(usr.gender, "ним", "ней", "ним", "ними")] находится стена."
+		invocation = "<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(usr)] находится стена."
 	else
 		invocation_type ="none"
 	..()
@@ -113,7 +110,6 @@
 	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
-	human_req = TRUE
 
 	action_icon_state = "fingergun"
 	action_background_icon_state = "bg_mime"

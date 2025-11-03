@@ -60,7 +60,6 @@
 	name = "Калий"
 	id = "potassium"
 	description = "Мягкий, легко плавящийся твердый материал, который легко режется ножом. Бурно реагирует с водой."
-	reagent_state = SOLID
 	color = "#A0A0A0" // rgb: 160, 160, 160
 	taste_description = "плохих мыслей"
 
@@ -68,7 +67,6 @@
 	name = "Сера"
 	id = "sulfur"
 	description = "Химический элемент."
-	reagent_state = SOLID
 	color = "#BF8C00" // rgb: 191, 140, 0
 	taste_description = "импульсивных решений"
 
@@ -76,7 +74,6 @@
 	name = "Натрий"
 	id = "sodium"
 	description = "Химический элемент."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "ужасных суждений"
 
@@ -84,7 +81,6 @@
 	name = "Фосфор"
 	id = "phosphorus"
 	description = "Химический элемент."
-	reagent_state = SOLID
 	color = "#832828" // rgb: 131, 40, 40
 	taste_description = "неправильных выборов"
 
@@ -92,7 +88,6 @@
 	name = "Углерод"
 	id = "carbon"
 	description = "Химический элемент."
-	reagent_state = SOLID
 	color = "#1C1300" // rgb: 30, 20, 0
 	taste_description = "пишущей части карандаша"
 
@@ -103,8 +98,7 @@
 /datum/reagent/gold
 	name = "Золото"
 	id = "gold"
-	description = "Золото - плотный, мягкий, блестящий металл, самый податливый и вязкий из всех известных металлов."
-	reagent_state = SOLID
+	description = "Золото — плотный, мягкий, блестящий металл, самый податливый и вязкий из всех известных металлов."
 	color = "#F7C430" // rgb: 247, 196, 48
 
 
@@ -112,7 +106,6 @@
 	name = "Серебро"
 	id = "silver"
 	description = "Блестящий металлический элемент, считающийся одним из драгоценных металлов."
-	reagent_state = SOLID
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "серебра"
 
@@ -120,7 +113,6 @@
 	name = "Алюминий"
 	id = "aluminum"
 	description = "Серебристо-белый и ковкий представитель группы химических элементов бора."
-	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "алюминия"
 
@@ -128,7 +120,6 @@
 	name = "Кремний"
 	id = "silicon"
 	description = "Являясь четырёхвалентным металлоидом, кремний менее реакционноспособен, чем его химический аналог углерод."
-	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "микросхем"
 
@@ -150,8 +141,7 @@
 /datum/reagent/iron
 	name = "Железо"
 	id = "iron"
-	description = "Чистое железо - это металл."
-	reagent_state = SOLID
+	description = "Чистое железо — это металл."
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "железа"
 
@@ -435,7 +425,7 @@
 /datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
 	name = "Шутостерон"
 	id = "jestosterone"
-	description = "Джестостерон - странное химическое соединение, вызывающее у обычного человека целый ряд раздражающих побочных эффектов. Он также вызывает лёгкое опьянение и токсичен для мимов."
+	description = "Джестостерон — странное химическое соединение, вызывающее у обычного человека целый ряд раздражающих побочных эффектов. Он также вызывает лёгкое опьянение и токсичен для мимов."
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
 	taste_description = "смеха и шуток"
 	var/datum/component/squeak
@@ -575,7 +565,6 @@
 	name = "Растительные питательные вещества"
 	id = "plantnutriment"
 	description = "Какое-то питательное вещество. Невозможно определить, что это такое. Возможно, вам следует сообщить о нём и о том, как вы его получили, в соответствующие органы."
-	color = "#000000" // RBG: 0, 0, 0
 	var/tox_prob = 0
 	taste_description = "puke"
 
@@ -683,13 +672,13 @@
 		set_skin_color(N)
 		if(prob(7))
 			if(N.w_uniform)
-				M.visible_message(span_notice(pick("Воротник [M] приподнимается без предупреждения.", "[M] игра[pluralize_ru(M.gender, "ет", "ют")] своими бицепсами.")))
+				M.visible_message(span_notice(pick("Воротник [M] приподнимается без предупреждения.", "[M] игра[PLUR_ET_YUT(M)] своими бицепсами.")))
 			else
-				M.visible_message(span_notice("[M] игра[pluralize_ru(M.gender, "ет", "ют")] своими бицепсами."))
+				M.visible_message(span_notice("[M] игра[PLUR_ET_YUT(M)] своими бицепсами."))
 	if(prob(10))
 		M.say(pick(
 			"Это было ПРОСТО ОХУИТЕЛЬНО.",
-			"Вы - зло этого мира.",
+			"Вы — зло этого мира.",
 			"А каким спортом вы занимаетесь кроме дрочки на голых анимешных тянок?",
 			"Не стесняйтесь, покажите мне на что вы способны.",
 			"Меня зовут Джон и я всех вас ненавижу.",
@@ -709,7 +698,6 @@
 	name = "Обезьяний язык"
 	id = "monkeylanguage"
 	description = "Эээ..."
-	reagent_state = SOLID
 	color = "#f0d18f" // rgb: 128, 128, 128
 	taste_description = "чего-то странного"
 

@@ -35,9 +35,11 @@
 	if(isancientturf(target))
 		visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
 		return FALSE
-	target.visible_message(span_warning("[chassis] starts to drill [target]."),
-						span_userdanger("[chassis] starts to drill [target]..."),
-						span_italics("You hear drilling."))
+	target.visible_message(
+		span_warning("[chassis] starts to drill [target]."),
+		span_userdanger("[chassis] starts to drill [target]..."),
+		span_italics("You hear drilling.")
+	)
 	if(do_after_cooldown(target))
 		set_ready_state(FALSE)
 		if(isturf(target))
@@ -96,8 +98,10 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
-	target.visible_message(span_danger("[chassis] is drilling [target] with [src]!"),
-						span_userdanger("[chassis] is drilling you with [src]!"))
+	target.visible_message(
+		span_danger("[chassis] is drilling [target] with [src]!"),
+		span_userdanger("[chassis] is drilling you with [src]!")
+	)
 	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")

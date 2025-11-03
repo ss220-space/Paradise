@@ -1,7 +1,5 @@
 /area/awaymission/UO71
 	name = "UO71"
-	icon_state = "away"
-	report_alerts = FALSE
 	tele_proof = TRUE
 
 
@@ -49,39 +47,31 @@
 	icon_state = "awaycontent21"
 	fire = TRUE
 	requires_power = FALSE
-	tele_proof = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/UO71/queen
 	name = "UO71 Queen Lair"
 	icon_state = "awaycontent9"
 	fire = TRUE
 	requires_power = FALSE
-	tele_proof = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/UO71/prince
 	name = "UO71 Prince Containment"
 	icon_state = "awaycontent10"
 	fire = TRUE
 	requires_power = FALSE
-	tele_proof = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/UO71/loot
 	name = "UO71 Loot Vault"
 	icon_state = "awaycontent11"
 	requires_power = FALSE
-	tele_proof = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /obj/item/paper/terrorspiders1
 	name = "paper - 'Sealed Facility'"
@@ -192,12 +182,12 @@
 /obj/item/gun/energy/laser/awaymission_aeg/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = FALSE)
 	if(is_away_level(new_turf?.z))
 		if(ismob(loc))
-			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
+			to_chat(loc, span_notice("Your [src] activates, starting to draw power from a nearby wireless power source."))
 		selfcharge = TRUE
 	else
 		if(selfcharge)
 			if(ismob(loc))
-				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
+				to_chat(loc, span_danger("Your [src] deactivates, as it is out of range from its power source."))
 			cell.charge = 0
 			selfcharge = FALSE
 			update_icon()

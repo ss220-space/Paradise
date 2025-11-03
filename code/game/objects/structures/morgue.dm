@@ -328,7 +328,7 @@
 	dropping.forceMove(loc)
 
 	if(user != dropping)
-		user.visible_message(span_warning("[user] помеща[pluralize_ru(user.gender, "ет", "ют")] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
+		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
 	return TRUE
 
 
@@ -373,7 +373,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crematorium
 	name = "crematorium"
 	desc = "Печь, предназначенная для кремации тел. Интересно, шашлык в таком можно приготовить?"
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema"
 	max_integrity = 1000
 	anchored = TRUE
@@ -783,7 +782,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	dropping.forceMove(loc)
 
 	if(user != dropping)
-		user.visible_message(span_warning("[user] помеща[pluralize_ru(user.gender, "ет", "ют")] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
+		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
 	return TRUE
 
 

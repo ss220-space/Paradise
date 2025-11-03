@@ -8,7 +8,6 @@
 	var/list/part = null
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
-	dir = SOUTH
 
 /obj/item/robot_parts/New(newloc, model)
 	..(newloc)
@@ -32,7 +31,7 @@
 	if(loc != user)
 		return
 	model_info = choice
-	to_chat(usr, "<span class='notice'>You change the company limb model to [choice].</span>")
+	to_chat(usr, span_notice("You change the company limb model to [choice]."))
 
 /obj/item/robot_parts/l_arm
 	name = "left arm"
@@ -352,7 +351,7 @@
 
 	SSticker?.score?.save_silicon_laws(new_borg, user, "robot construction", log_all_laws = TRUE)
 
-	if(!new_borg.mmi.greet(new_borg) && new_borg.mind?.special_role)
+	if(!new_mmi.greet(new_borg) && new_borg.mind?.special_role)
 		new_borg.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 		to_chat(new_borg, span_userdanger("You have been robotized!"))
 		to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
@@ -403,7 +402,7 @@
 		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(item_in_hand.tool_behaviour != TOOL_MULTITOOL)
-		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")
+		to_chat(living_user, span_warning("You need a multitool!"))
 		return
 
 	if(href_list["Name"])
@@ -419,7 +418,7 @@
 		if(!sabotaged)
 			forced_ai = select_active_ai(usr)
 		if(!forced_ai)
-			to_chat(usr, "<span class='error'>No active AIs detected.</span>")
+			to_chat(usr, span_error("No active AIs detected."))
 
 	else if(href_list["Law"])
 		lawsync = !lawsync
@@ -498,9 +497,9 @@
 /obj/item/robot_parts/emag_act(mob/user)
 	if(sabotaged)
 		if(user)
-			to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
+			to_chat(user, span_warning("[src] is already sabotaged!"))
 	else
 		add_attack_logs(user, src, "emagged")
 		if(user)
-			to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
+			to_chat(user, span_warning("You slide the emag into the dataport on [src] and short out the safeties."))
 		sabotaged = 1

@@ -55,9 +55,7 @@
 
 /obj/item/clothing/under/rank/mailman/skirt
 	name = "mailman's jumpskirt"
-	desc = "<i>'Special delivery!'</i>"
 	icon_state = "mail_skirt"
-	item_state = "b_suit"
 	item_color = "mail_skirt"
 
 /obj/item/clothing/under/rank/vice
@@ -69,41 +67,112 @@
 
 /obj/item/clothing/under/solgov
 	name = "Sol Federation marine uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces."
+	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерациии."
 	icon_state = "solgov"
-	item_state = "ro_suit"
+	item_state = "solgov"
 	item_color = "solgov"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/solgov/forest
+	desc = "Комфортный и удобный лесной камуфляж Транс-Солнечной Федерациии."
+	icon_state = "solgov_forest"
+	item_state = "solgov_forest"
+	item_color = "solgov_forest"
+
+/obj/item/clothing/under/solgov/urban
+	desc = "Комфортный и удобный городской камуфляж Транс-Солнечной Федерациии."
+	icon_state = "solgov_urban"
+	item_state = "solgov_urban"
+	item_color = "solgov_urban"
+
+/obj/item/clothing/under/solgov/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа ВМС ТСФ",
+		GENITIVE = "униформы ВМС ТСФ",
+		DATIVE = "униформе ВМС ТСФ",
+		ACCUSATIVE = "униформу ВМС ТСФ",
+		INSTRUMENTAL = "униформой ВМС ТСФ",
+		PREPOSITIONAL = "униформе ВМС ТСФ"
+	)
+
 /obj/item/clothing/under/solgov/civ
-	desc = "Комфортная, воссоздающая военную униформу, одежда. Не похоже, что бы она защищала."
+	desc = "Комфортная, воссоздающая военную униформу, одежда. Не похоже, чтобы она защищала."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
+/obj/item/clothing/under/solgov/forest/civ
+	desc = "Комфортная, воссоздающая лесной камуфляж, одежда. Не похоже, чтобы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
+/obj/item/clothing/under/solgov/urban/civ
+	desc = "Комфортная, воссоздающая городской камуфляж, одежда. Не похоже, чтобы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
 
 /obj/item/clothing/under/solgov/elite
 	name = "Trans-Solar Federation Specops marine uniform"
-	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
+	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерациии."
 	icon_state = "solgovelite"
 	item_color = "solgovelite"
 
+/obj/item/clothing/under/solgov/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа спецназа ВМС ТСФ",
+		GENITIVE = "униформы спецназа ВМС ТСФ",
+		DATIVE = "униформе спецназа ВМС ТСФ",
+		ACCUSATIVE = "униформу спецназа ВМС ТСФ",
+		INSTRUMENTAL = "униформой спецназа ВМС ТСФ",
+		PREPOSITIONAL = "униформе спецназа ВМС ТСФ"
+	)
+
 /obj/item/clothing/under/solgov/command
 	name = "Sol Federation Lieutenant's uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
+	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерациии. Имеет дополнительные погоны на плечах."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
+/obj/item/clothing/under/solgov/command/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа лейтенанта ВМС ТСФ",
+		GENITIVE = "униформы лейтенанта ВМС ТСФ",
+		DATIVE = "униформе лейтенанта ВМС ТСФ",
+		ACCUSATIVE = "униформу лейтенанта ВМС ТСФ",
+		INSTRUMENTAL = "униформой лейтенанта ВМС ТСФ",
+		PREPOSITIONAL = "униформе лейтенанта ВМС ТСФ"
+	)
+
 /obj/item/clothing/under/solgov/command/elite
 	name = "Trans-Solar Federation Specops Lieutenant's uniform"
-	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces. This one has additional insignia on its shoulders and cuffs."
+	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерациии. Имеет дополнительные погоны на плечах и манжеты на рукавах."
 	icon_state = "solgovcelite"
 	item_color = "solgovcelite"
 
+/obj/item/clothing/under/solgov/command/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа лейтенанта спецназа ВМС ТСФ",
+		GENITIVE = "униформы лейтенанта спецназа ВМС ТСФ",
+		DATIVE = "униформе лейтенанта спецназа ВМС ТСФ",
+		ACCUSATIVE = "униформу лейтенанта спецназа ВМС ТСФ",
+		INSTRUMENTAL = "униформой лейтенанта спецназа ВМС ТСФ",
+		PREPOSITIONAL = "униформе лейтенанта спецназа ВМС ТСФ"
+	)
+
 /obj/item/clothing/under/solgov/rep
 	name = "Sol Federation representative's uniform"
-	desc = "A formal uniform worn by the diplomatic representatives of the Sol Federation."
+	desc = "Официальная форма для дипломатических встреч Транс-Солнечной Федерации."
 	icon_state = "solgovr"
 	item_color = "solgovr"
+
+/obj/item/clothing/under/solgov/rep/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа представителя ТСФ",
+		GENITIVE = "униформы представителя ТСФ",
+		DATIVE = "униформе представителя ТСФ",
+		ACCUSATIVE = "униформу представителя ТСФ",
+		INSTRUMENTAL = "униформой представителя ТСФ",
+		PREPOSITIONAL = "униформе представителя ТСФ"
+	)
 
 /obj/item/clothing/under/rank/centcom_officer
 	desc = "It's a jumpsuit worn by CentComm Officers."
@@ -329,11 +398,10 @@
 	name = "executive suit"
 	desc = "A formal black suit and red tie, intended for the station's finest."
 	icon_state = "really_black_suit"
-	item_state = "bl_suit"
 	item_color = "really_black_suit"
 
 /obj/item/clothing/under/suit_jacket/female
-	name = "executive suit"
+	name = "women\'s executive suit"
 	desc = "A formal trouser suit for women, intended for the station's finest."
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
@@ -350,7 +418,6 @@
 	name = "red jumpskirt"
 	desc = "A red jumpskirt and blue tie. Somewhat formal."
 	icon_state = "red_suitf"
-	item_state = "r_suit"
 	item_color = "red_suitf"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -782,14 +849,6 @@
 	item_state = "bane"
 	item_color = "bane"
 
-/obj/item/clothing/under/vox
-	name = "Ripped Jumpsuit"
-	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
-	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
-	icon_state = "vgrey"
-	item_state = "vgrey"
-	item_color = "vgrey"
-
 /obj/item/clothing/under/psyjump
 	name = "Psychic Amp Jumpsuit"
 	desc = "A suit made of strange materials."
@@ -987,7 +1046,6 @@
 	icon_state = "victorianreddress"
 	item_state = "victorianreddress"
 	item_color = "victorianreddress"
-	over_shoes = TRUE
 
 /obj/item/clothing/under/victsuit
 	name = "victorian suit"
@@ -1015,7 +1073,6 @@
 			Изготовлен из лёгкой ткани с минимальной защитой от биологических загрязнений. \
 			Застёжки на спине слабые и не застёгиваются должным образом, \
 			что делает этот халат не самым популярным выбором среди остальной униформы."
-	gender = MALE
 	icon_state = "medicalgown"
 	item_state = "medicalgown"
 	item_color = "medicalgown"
@@ -1267,7 +1324,6 @@
 	name = "satanic clothes"
 	desc = "Костюм, который обычно носят сатанисты."
 	over_shoes = TRUE
-	can_adjust = TRUE
 	icon_state = "satan"
 	item_state = "satan"
 	item_color = "satan"
@@ -1296,7 +1352,6 @@
 /obj/item/clothing/under/martialsuit/masterli
 	name = "Master Li clothes"
 	desc = "Одеяние великого воина — жаль, что это всего лишь копия. Оригинал хранится в одном из дворцов династии Чанг."
-	over_shoes = FALSE
 	can_adjust = FALSE
 	icon_state = "masterli"
 	item_state = "masterli"
@@ -1399,7 +1454,6 @@
 	icon_state = "high_waist_sec"
 	item_state = "high_waist_sec"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
-	can_adjust = TRUE
 
 /obj/item/clothing/under/tchaikowsky/sechighwaist/get_ru_names()
 	return list(
@@ -1416,7 +1470,6 @@
 	desc = "Синее платье, которое обычно носят секретарши важных представителей корпораций."
 	icon_state = "formal_dress_blue"
 	item_state = "formal_dress_blue"
-	can_adjust = TRUE
 
 /obj/item/clothing/under/tchaikowsky/dress/get_ru_names()
 	return list(
@@ -1433,7 +1486,6 @@
 	desc = "Чёрное платье, которое обычно носят секретарши важных представителей корпораций."
 	icon_state = "formal_dress_black"
 	item_state = "formal_dress_black"
-	can_adjust = TRUE
 
 /obj/item/clothing/under/tchaikowsky/dress/black/get_ru_names()
 	return list(

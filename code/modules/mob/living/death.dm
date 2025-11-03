@@ -55,9 +55,9 @@
 		return FALSE
 
 	set_stat(DEAD)
+	timeofdeath = world.time
 	..()
 	INVOKE_ASYNC(src, PROC_REF(burst_blob_on_die))
-	timeofdeath = world.time
 	var/gib_pref = ""
 	if(client)
 		gib_pref = " Разрешение на гиб без цели в" + (client.prefs.toggles2 & PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE ? "" : "ы") + "ключено."

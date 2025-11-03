@@ -37,7 +37,6 @@
 	throw_message = "не наносит вреда"
 	speed = 1.4
 	move_to_delay = 10
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/misc/demon_dies.ogg'
 	deathmessage = "начинает дрожать и становится прозрачным..."
 	loot_drop = /obj/item/clothing/accessory/necklace/herald_cloak
@@ -360,14 +359,14 @@
 	var/obj/chosen = mirrors_to_use[input_mirror]
 	if(chosen == null)
 		return
-	usr.visible_message(span_warning("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
+	usr.visible_message(span_warning("[usr] начина[PLUR_ET_YUT(usr)] пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 	if(do_after(usr, 2 SECONDS, usr))
 		var/turf/destination = get_turf(chosen)
 		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return
-		usr.visible_message(span_warning("[usr] пролеза[pluralize_ru(usr.gender,"ет","ют")] в [starting_mirror.declent_ru(ACCUSATIVE)], и исчеза[pluralize_ru(usr.gender,"ет","ют")] в нём!"), span_notice("Вы пролезаете в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
+		usr.visible_message(span_warning("[usr] пролеза[PLUR_ET_YUT(usr)] в [starting_mirror.declent_ru(ACCUSATIVE)], и исчеза[PLUR_ET_YUT(usr)] в нём!"), span_notice("Вы пролезаете в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 		usr.forceMove(destination)
-		usr.visible_message(span_warning("[usr] вылеза[pluralize_ru(usr.gender,"ет","ют")] из [chosen.declent_ru(ACCUSATIVE)], разбивая его!"), span_warning("Вы вылезаете из собственного отражения, разбивая зеркало!"))
+		usr.visible_message(span_warning("[usr] вылеза[PLUR_ET_YUT(usr)] из [chosen.declent_ru(ACCUSATIVE)], разбивая его!"), span_warning("Вы вылезаете из собственного отражения, разбивая зеркало!"))
 		if(istype(chosen, /obj/structure/mirror))
 			var/obj/structure/mirror/M = chosen
 			M.obj_break("brute")

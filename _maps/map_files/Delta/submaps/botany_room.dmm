@@ -231,7 +231,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "ji" = (
@@ -493,7 +493,7 @@
 	},
 /area/maintenance/garden)
 "wh" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -525,7 +525,7 @@
 /area/maintenance/garden)
 "xb" = (
 /obj/structure/grille/broken,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -542,7 +542,7 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -614,7 +614,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -637,7 +637,7 @@
 	},
 /area/maintenance/garden)
 "BQ" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "Cj" = (
@@ -742,7 +742,7 @@
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "Ig" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -770,7 +770,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "IC" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/maintenance/garden)
 "IY" = (
@@ -887,7 +887,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "MX" = (
@@ -905,7 +905,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/garden)
 "Oh" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "OT" = (
@@ -915,8 +915,8 @@
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "PG" = (
@@ -1041,7 +1041,7 @@
 	},
 /area/maintenance/garden)
 "Yd" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)

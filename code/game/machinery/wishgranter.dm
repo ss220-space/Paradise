@@ -67,7 +67,7 @@
 		types += supname
 
 	var/wish
-	if(types.len == 1)
+	if(length(types) == 1)
 		wish = pick(types)
 	else
 		wish = tgui_input_list(user, "You want to become...", "Wish", types)

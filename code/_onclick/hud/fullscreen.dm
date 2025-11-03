@@ -1,6 +1,3 @@
-/mob
-	var/list/screens = list()
-
 /mob/proc/overlay_fullscreen(category, type, severity)
 	var/atom/movable/screen/fullscreen/screen = screens[category]
 	if(!screen || screen.type != type)
@@ -160,8 +157,6 @@
 	icon_state = "flash"
 
 /atom/movable/screen/fullscreen/flash/noise
-	icon = 'icons/mob/screen_gen.dmi'
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "noise"
 
 /atom/movable/screen/fullscreen/high
@@ -194,6 +189,10 @@
 	blend_mode = BLEND_OVERLAY
 	show_when_dead = TRUE
 	needs_offsetting = FALSE
+
+/atom/movable/screen/fullscreen/curse
+	icon_state = "curse"
+	layer = CURSE_LAYER
 
 //Provides darkness to the back of the lighting plane
 /atom/movable/screen/fullscreen/lighting_backdrop/lit

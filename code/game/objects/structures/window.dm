@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window
 	name = "window"
-	desc = "Иногда окно – это просто окно."
+	desc = "Иногда окно — это просто окно."
 	icon_state = "window"
 	density = TRUE
 	pass_flags_self = PASSGLASS
@@ -265,8 +265,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	switch(grabber.grab_state)
 		if(GRAB_AGGRESSIVE)
 			victim.visible_message(
-				span_warning("[grabber] стука[pluralize_ru(grabber.gender,"ет","ют")] [victim] в [declent_ru(ACCUSATIVE)]!"),
-				span_warning("[grabber] стука[pluralize_ru(grabber.gender,"ет","ют")] вас в [declent_ru(ACCUSATIVE)]!")
+				span_warning("[grabber] стука[PLUR_ET_YUT(grabber)] [victim] в [declent_ru(ACCUSATIVE)]!"),
+				span_warning("[grabber] стука[PLUR_ET_YUT(grabber)] вас в [declent_ru(ACCUSATIVE)]!")
 			)
 			if(prob(25))
 				victim.Knockdown(2 SECONDS)
@@ -274,16 +274,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			take_damage(10)
 		if(GRAB_NECK)
 			victim.visible_message(
-				span_warning("[grabber] бь[pluralize_ru(grabber.gender,"ёт","ют")] [victim] о [declent_ru(ACCUSATIVE)]!"),
-				span_warning("[grabber] бь[pluralize_ru(grabber.gender,"ет","ют")] вас о [declent_ru(ACCUSATIVE)]!")
+				span_warning("[grabber] бь[PLUR_YOT_YUT(grabber)] [victim] о [declent_ru(ACCUSATIVE)]!"),
+				span_warning("[grabber] бь[PLUR_ET_YUT(grabber)] вас о [declent_ru(ACCUSATIVE)]!")
 			)
 			victim.Knockdown(4 SECONDS)
 			victim.apply_damage(10)
 			take_damage(25)
 		if(GRAB_KILL)
 			victim.visible_message(
-				span_warning("[grabber] с размаху бь[pluralize_ru(grabber.gender,"ёт","ют")] [victim] к [declent_ru(DATIVE)]!"),
-				span_warning("[grabber] с размаху бь[pluralize_ru(grabber.gender,"ёт","ют")] вас к [declent_ru(DATIVE)]!")
+				span_warning("[grabber] с размаху бь[PLUR_YOT_YUT(grabber)] [victim] к [declent_ru(DATIVE)]!"),
+				span_warning("[grabber] с размаху бь[PLUR_YOT_YUT(grabber)] вас к [declent_ru(DATIVE)]!")
 			)
 			victim.Knockdown(6 SECONDS)
 			victim.apply_damage(20)
@@ -479,7 +479,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/proc/update_nearby_icons()
 	update_icon(UPDATE_OVERLAYS)
 	if(smooth)
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/structure/window/update_overlays()
 	. = ..()
@@ -489,7 +489,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/ratio = obj_integrity / max_integrity
 	ratio = CEILING(ratio * 4, 1) * 25
 	if(smooth)
-		queue_smooth(src)
+		QUEUE_SMOOTH(src)
 	if(ratio > 75)
 		return
 
@@ -742,7 +742,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "alien window"
 	desc = "Окно из инопланетного сплава. Похоже, способно восстанавливать любые повреждения."
 	icon_state = "alwindow"
-	shardtype = /obj/item/shard
 	glass_type = /obj/item/stack/sheet/abductorglass
 	heat_resistance = 1600
 	max_integrity = 150
@@ -777,9 +776,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	return FALSE
 
 /obj/structure/window/full/basic
-	desc = "Выглядит тонким и хрупким. Несколько ударов чем угодно – и оно разобьётся."
+	desc = "Выглядит тонким и хрупким. Несколько ударов чем угодно — и оно разобьётся."
 	icon = 'icons/obj/smooth_structures/window.dmi'
-	icon_state = "window"
 	base_icon_state = "window"
 	max_integrity = 50
 	smooth = SMOOTH_BITMASK
@@ -823,7 +821,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_PAPERFRAME
 	canSmoothWith = SMOOTH_GROUP_PAPERFRAME
-	cancolor = FALSE
 
 /obj/structure/window/full/paperframe/get_ru_names()
 	return list(
@@ -954,7 +951,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/smooth_structures/alien_window.dmi'
 	icon_state = "al_window"
 	base_icon_state = "alien_window"
-	shardtype = /obj/item/shard
 	glass_type = /obj/item/stack/sheet/abductorglass
 	heat_resistance = 1600
 	max_integrity = 300
@@ -1010,8 +1006,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	opacity = TRUE
 
 /obj/structure/window/full/shuttle/gray
-	name = "shuttle window"
-	desc = "Укреплённое окно с системой герметизации."
 	icon = 'icons/obj/smooth_structures/shuttle_window_gray.dmi'
 	icon_state = "shuttle_window_gray"
 	base_icon_state = "shuttle_window_gray"

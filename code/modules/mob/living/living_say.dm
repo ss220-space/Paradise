@@ -156,29 +156,29 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		if(HAS_TRAIT(src, TRAIT_HULK) && health >= 25)
 			S.message = "[uppertext(S.message)]!!!"
-			verb = pick("крич[pluralize_ru(gender, "ит", "ат")]", "рыч[pluralize_ru(gender, "ит", "ат")]", "воп[pluralize_ru(gender, "ит", "ят")]")
+			verb = pick("крич[PLUR_IT_AT(src)]", "рыч[PLUR_IT_AT(src)]", "воп[PLUR_IT_YAT(src)]")
 
 		if(AmountSluring())
 			if(robot)
 				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"))
 			else
 				S.message = slur(S.message)
-			verb = "бормоч[pluralize_ru(gender, "ет", "ут")]"
+			verb = "бормоч[PLUR_ET_UT(src)]"
 
 		if(AmountStuttering())
 			if(robot)
 				S.message = robostutter(S.message)
 			else
 				S.message = stutter(S.message)
-			verb = "заика[pluralize_ru(gender, "ет", "ют")]ся"
+			verb = "заика[PLUR_ET_YUT(src)]ся"
 
 		if(AmountCultSlurring())
 			S.message = cultslur(S.message)
-			verb = "бормоч[pluralize_ru(gender, "ет", "ут")]"
+			verb = "бормоч[PLUR_ET_UT(src)]"
 
 		if(AmountClockSlurring())
 			S.message = clockslur(S.message)
-			verb = "бормоч[pluralize_ru(gender, "ет", "ут")]"
+			verb = "бормоч[PLUR_ET_UT(src)]"
 
 		if(!IsVocal())
 			S.message = ""
@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return returns
 
 
-/mob/living/say(message, verb = "говор[pluralize_ru(gender, "ит", "ят")]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
 		client.check_say_flood(5)
 		if(check_mute(client.ckey, MUTE_IC))
@@ -333,7 +333,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		var/msg
 		if((!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG)) && client)
-			msg = span_notice("[src] говор[pluralize_ru(src.gender,"ит","ят")] в [used_radios[1]]")
+			msg = span_notice("[src] говор[PLUR_IT_YAT(src)] в [used_radios[1]]")
 			var/static/list/special_radio_channels = list(SYND_FREQ_NAME, SYNDTEAM_FREQ_NAME, SEC_FREQ_NAME, PROC_FREQ_NAME, COMM_FREQ_NAME, ERT_FREQ_NAME, DTH_FREQ_NAME, NINJA_FREQ_NAME, SYND_TAIPAN_FREQ_NAME, SOV_FREQ_NAME)
 			if(message_mode in special_radio_channels)
 				SEND_SOUND(src, sound('sound/items/radio_security.ogg', volume = rand(4, 16) * 5 * client.prefs.get_channel_volume(CHANNEL_RADIO_NOISE), channel = CHANNEL_RADIO_NOISE))
@@ -363,7 +363,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				italics = TRUE
 				sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
 
-		var/list/hear = hear(message_range, T)
+		var/list/hear = get_hear(message_range, T)
 		var/list/hearturfs = list()
 
 		for(var/I in hear)
@@ -423,9 +423,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(O) //It's possible that it could be deleted in the meantime.
 				if(isradio(O))
 					var/obj/item/radio/radio = O
-					if(radio.broadcasting && get_dist(radio, M) <= radio.canhear_range && !(radio.frequency in transmited_channels))
+					if(radio.get_broadcasting() && get_dist(radio, M) <= radio.canhear_range && !(radio.get_frequency() in transmited_channels))
 						if(radio.talk_into(M, message_pieces, null, verbage))
-							transmited_channels += radio.frequency
+							transmited_channels += radio.get_frequency()
 				else
 					O.hear_talk(M, message_pieces, verbage)
 
@@ -509,7 +509,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		verb = "[adverb] [genderize_decode(src, verb)]"
 
 	var/atom/whisper_loc = get_whisper_loc()
-	var/list/listening = hear(message_range, whisper_loc)
+	var/list/listening = get_hear(message_range, whisper_loc)
 	listening |= src
 
 	var/list/hearturfs = list()
@@ -566,7 +566,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
-	if(eavesdropping.len)
+	if(length(eavesdropping))
 		stars_all(message_pieces) //hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
 			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)

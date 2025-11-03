@@ -31,7 +31,6 @@
 	desc = "The compressor stage of a gas turbine generator."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "compressor"
-	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/power/turbine/turbine
@@ -51,7 +50,6 @@
 	desc = "A gas turbine used for backup power generation."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "turbine"
-	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	var/opened = 0
@@ -403,7 +401,7 @@
 /obj/machinery/computer/turbine_computer/interact(mob/user)
 
 	var/dat = ""
-	if(compressor && compressor.turbine)
+	if(compressor?.turbine)
 		dat += "<br><b>Gas turbine remote control system</b><hr>"
 		if(compressor.stat || compressor.turbine.stat)
 			dat += "[compressor.stat ? "<b>Compressor is inoperable</b><br>" : "<b>Turbine is inoperable</b>"]"
@@ -431,7 +429,7 @@
 		return
 
 	else if(href_list["str"])
-		if(compressor && compressor.turbine)
+		if(compressor?.turbine)
 			compressor.starter = !compressor.starter
 	else if(href_list["close"])
 		close_window(usr, "turbinecomputer")

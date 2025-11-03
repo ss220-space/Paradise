@@ -6,8 +6,8 @@
 	materials = list(MAT_METAL=400, MAT_GLASS=120)
 	origin_tech = "magnets=1;bluespace=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
+	toolbox_radial_menu_compatibility = TRUE
 
-	secured = TRUE
 	var/receiving = FALSE
 
 	bomb_name = "remote-control bomb"
@@ -56,10 +56,8 @@
 
 
 /obj/item/assembly/signaler/activate()
-	if(cooldown > 0)
+	if(!..())
 		return FALSE
-	cooldown = 2
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
 	signal()
 	return TRUE
@@ -159,9 +157,8 @@
 		return FALSE
 	pulse(1, signal.user)
 
-	for(var/mob/hearer in hearers(1, loc))
-		hearer.show_message("[bicon(src)] *beep* *beep* *beep*", 3, "*beep* *beep* *beep*", 2)
-		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	audible_message("[icon2html(src, hearers(1, loc))] *beep* *beep* *beep*")
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
 
 

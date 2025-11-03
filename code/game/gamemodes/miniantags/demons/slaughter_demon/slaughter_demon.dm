@@ -16,8 +16,8 @@
 	var/cooldown = 0
 	var/gorecooldown = 0
 
-	playstyle_string = "<b><span class='userdanger'>Вы – Демон Резни!</span></b><br> \
-						<b>Вы - ужасное существо из иного измерения. У вас одна цель: убивать.</b><br> \
+	playstyle_string = "<b><span class='userdanger'>Вы — Демон Резни!</span></b><br> \
+						<b>Вы — ужасное существо из иного измерения. У вас одна цель: убивать.</b><br> \
 						<b>Вы можете использовать способность \"Кровавый путь\" на лужах крови, чтобы перемещаться через них, появляясь и исчезая на станции по своему желанию.</b><br> \
 						<b>Если вы тащите мёртвое или находящееся в критическом состоянии существо, когда входите в лужу крови, он последует за вами, что позволит вам поглотить его.</b><br> \
 						<b>Вы двигаетесь быстро, покидая лужу крови, но материальный мир скоро лишит вас сил и сделает медлительным.</b>"
@@ -135,7 +135,6 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	human_req = FALSE
-	cooldown_min = 0
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"
@@ -157,14 +156,14 @@
 	if(!A)
 		to_chat(user, span_warning("Вы не смогли найти разумных еретиков для Резни."))
 		return
-	to_chat(user, span_danger("Вы чувствуете испуганную душу в [A.declent_ru(PREPOSITIONAL)]. <b>Покажите [genderize_ru(victim.gender,"ему","ей","ему","им")] ошибку [genderize_ru(victim.gender,"его","её","его","их")] пути.</b>"))
+	to_chat(user, span_danger("Вы чувствуете испуганную душу в [A.declent_ru(PREPOSITIONAL)]. <b>Покажите [GEND_HIM_HER(victim)] ошибку [GEND_HIS_HER(victim)] пути.</b>"))
 
 
 /mob/living/simple_animal/demon/slaughter/cult/Initialize(mapload)
 	. = ..()
 	spawn(0.5 SECONDS)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Хотите сыграть за демона резни?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
-		if(!demon_candidates.len)
+		if(!length(demon_candidates))
 			log_game("[src] has failed to spawn, because no one enrolled.")
 			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает во вспышке красного света!"))
 			qdel(src)
@@ -178,7 +177,7 @@
 			return
 		var/client/C = M.client
 
-		S.key = C.key
+		S.possess_by_player(C.key)
 		S.mind.assigned_role = "Harbinger of the Slaughter"
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
@@ -263,7 +262,7 @@
 	playstyle_string = "<font color='#FF69B4'><b><span class='userdanger'>Вы — Демон Смеха!</span></b></font><br> \
 						<font color='#FF69B4'><b>Вы — очаровательное, и слегка пугающее, существо, которое обожает объятия и смех. Ваша цель — распространять радость, веселье и... немного хаоса!</b></font><br> \
 						<font color='#FF69B4'><b>Вы можете использовать способность \"Кровавый путь\", чтобы перемещаться через милые лужи крови, появляясь и исчезая по своему желанию.</b></font><br> \
-						<font color='#FF69B4'><b>Если вы тащите кого-то в лужу крови – они получат порцию вашего веселья и обнимашек. Вы быстро двигаетесь и восстанавливаетесь в лужах крови, но будьте осторожны: слишком много серьёзности может ослабить вас!</b></font><br> \
+						<font color='#FF69B4'><b>Если вы тащите кого-то в лужу крови — они получат порцию вашего веселья и обнимашек. Вы быстро двигаетесь и восстанавливаетесь в лужах крови, но будьте осторожны: слишком много серьёзности может ослабить вас!</b></font><br> \
 						<font color='#FF69B4'><b>Помните: смех — это ваше оружие, а объятия — ваш стиль. ДЕЛАЙТЕ МИР ЯРЧЕ И СМЕШНЕЕ!</b></font>"
 
 /mob/living/simple_animal/demon/slaughter/laughter/get_ru_names()

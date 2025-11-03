@@ -5,12 +5,13 @@ import sys
 import time
 from collections import namedtuple
 from concurrent.futures import ProcessPoolExecutor
+
 Failure = namedtuple("Failure", ["filename", "lineno", "message"])
 
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
 BLUE = "\033[0;34m"
-NC = "\033[0m"  # No Color
+NC = "\033[0m" # No Color
 
 def print_error(message: str, filename: str, line_number: int):
     if os.getenv("GITHUB_ACTIONS") == "true": # We're on github, output in a special format.
@@ -24,8 +25,7 @@ def check_515_proc_syntax(idx, line):
     if CHECK_515_PROC_MARKER_RE.search(line):
         return [(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")]
 
-
-CHECK_SPACE_INDENTATION_RE = re.compile(r"^ {2,}[^\*]")
+CHECK_SPACE_INDENTATION_RE = re.compile(r"^( {2})|(^ [^ *])|(^ {4,})")
 def check_space_indentation(idx, line):
     """
     Check specifically for space-significant indentation. Excludes dmdoc
@@ -34,15 +34,24 @@ def check_space_indentation(idx, line):
 
     >>> bool(check_space_indentation(["  foo"]))
     True
+    >>> bool(check_space_indentation(["  * foo"]))
+    True
+    >>> bool(check_space_indentation([" x"]))
+    True
+    >>> bool(check_space_indentation(["    foo"]))
+    True
+    >>> bool(check_space_indentation(["  "]))
+    True
 
     >>> bool(check_space_indentation(["\\tfoo"]))
     False
-    >>> bool(check_space_indentation(["  * foo"]))
+    >>> bool(check_space_indentation([" * foo"]))
+    False
+    >>> bool(check_space_indentation(["   foo"]))
     False
     """
     if CHECK_SPACE_INDENTATION_RE.match(line):
         return [(idx + 1, "Space indentation detected, please use tab indentation.")]
-
 
 CHECK_MIXED_INDENTATION_RE = re.compile(r"^(\t+ | +\t)\s*[^\s\*]")
 def check_mixed_indentation(idx, line):
@@ -72,35 +81,33 @@ def check_mixed_indentation(idx, line):
     if CHECK_MIXED_INDENTATION_RE.match(line):
         return [(idx + 1, "Mixed <tab><space> indentation detected, please stick to tab indentation.")]
 
-
 GLOBAL_VARS_RE = re.compile(r"^/*var/")
 def check_global_vars(idx, line):
     if GLOBAL_VARS_RE.match(line):
         return [(idx + 1, "Unmanaged global var use detected in code, please use the helpers.")]
-
 
 TOPLEVEL_VARDECLS_RE = re.compile(r"^(/[^\*(\/\/)].*/var/(list/)?\w+)")
 def check_toplevel_vardecls(idx, line):
     if match := TOPLEVEL_VARDECLS_RE.match(line):
         return [(idx + 1, f"Top-level var {match.group(0)} found, please move to type declaration.")]
 
-
 PROC_ARGS_WITH_VAR_PREFIX_RE = re.compile(r"^/[\w/]\S+\((var/)?.*(, ?var/.*).*\)")
 def check_proc_args_with_var_prefix(idx, line):
     if PROC_ARGS_WITH_VAR_PREFIX_RE.match(line):
         return [(idx + 1, "Changed files contains a proc argument starting with 'var'.")]
 
-NANOTRASEN_CAMEL_CASE_EN = re.compile(r"NanoTrasen")
-NANOTRASEN_CAMEL_CASE_RU = re.compile(r"НаноТрейзен")
-NANOTRASEN_MISSPELLING_N_RU = re.compile(r"нанотрейзен")
+NANOTRASEN_CAMEL_CASE_EN = re.compile(r"(NanoTrasen)")
+NANOTRASEN_CAMEL_CASE_RU = re.compile(r"(НаноТрейзен)")
+NANOTRASEN_MISSPELLING_N_RU = re.compile(r"(нанотрейзен)")
 def check_nanotrasen_style(idx, line):
     failures = []
-    if NANOTRASEN_CAMEL_CASE_EN.search(line):
-        failures.append((idx + 1, "'Nanotrasen' should not be spelled in the camel case form."))
-    if NANOTRASEN_CAMEL_CASE_RU.search(line):
-        failures.append((idx + 1, "'Нанотрейзен' should not be spelled in the camel case form."))
-    if NANOTRASEN_MISSPELLING_N_RU.search(line):
-        failures.append((idx + 1, "'Нанотрейзен' should not be written with a lowercase letter."))
+    if match := NANOTRASEN_CAMEL_CASE_EN.search(line):
+        failures.append((idx + 1, f"Found camel case '{match.group(1)}', should be 'Nanotrasen'."))
+    if match := NANOTRASEN_CAMEL_CASE_RU.search(line):
+        failures.append((idx + 1, f"Found camel case '{match.group(1)}', should be 'Нанотрейзен'."))
+    if match := NANOTRASEN_MISSPELLING_N_RU.search(line):
+        if 'UNLINT' not in line:
+            failures.append((idx + 1, f"Found lowercase '{match.group(1)}', should be 'Нанотрейзен'."))
     return failures
 
 TO_CHAT_WITH_NO_USER_ARG_RE = re.compile(r"to_chat\(\"")
@@ -124,7 +131,6 @@ def check_conditional_spacing(idx, line):
         failures.append((idx + 1, "Found a conditional statement matching the format \"if(thing )\" (irregular spacing), please use \"if(thing)\" instead."))
     if CONDITIONAL_DOUBLE_PARENTHESIS.search(line):
         failures.append((idx + 1, "Found a conditional statement matching the format \"if((thing))\" (unnecessary outer parentheses), please use \"if(thing)\" instead."))
-
     return failures
 
 # makes sure that no global list inits have an empty list in them without using the helper
@@ -132,10 +138,8 @@ GLOBAL_LIST_EMPTY = re.compile(r"(?<!#define GLOBAL_LIST_EMPTY\(X\) )GLOBAL_LIST
 # This uses a negative look behind to make sure its not the global list definition
 # An easy regex replacement for this is GLOBAL_LIST_EMPTY$1
 def check_global_list_empty(idx, line):
-    failures = []
     if GLOBAL_LIST_EMPTY.search(line):
-        failures.append((idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead."))
-    return failures
+        return [(idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead.")]
 
 # makes sure arguments contained within "ui = new" are valid
 TGUI_UI_NEW = re.compile(r"ui = new\(((?:(?!,\s*).)+,\s*){1,3}(?:(?!,\s*).)+\)")
@@ -161,9 +165,7 @@ def check_href_styles(idx, line):
     if HREF_OLD_STYLE.search(line):
         return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
 
-INITIALIZE_MISSING_MAPLOAD = re.compile(
-    r"^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)"
-)
+INITIALIZE_MISSING_MAPLOAD = re.compile(r"^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)")
 def check_initialize_missing_mapload(idx, line):
     if INITIALIZE_MISSING_MAPLOAD.search(line):
         return [(idx + 1, "Initialize override without 'mapload' argument.")]
@@ -194,25 +196,25 @@ def check_istype_src(idx, line):
 CAMEL_CASE_TYPE_NAMES = re.compile(r"^/[\w]\S+/{1}([a-zA-Z]+([A-Z][a-z]+)+|([A-Z]+[a-z]+))$")
 def check_camel_case_type_names(idx, line):
     if result := CAMEL_CASE_TYPE_NAMES.search(line):
-        type_result = result.group(0)
-        return [(idx + 1, f"name of type {type_result} is not in snake_case format.")]
+        return [(idx + 1, f"name of type {result.group(0)} is not in snake_case format.")]
 
-UID_WITH_PARAMETER = re.compile(r"\bUID\(\w+\)")
+UID_WITH_PARAMETER = re.compile(r"(\bUID\(\w+\))")
 def check_uid_parameters(idx, line):
     if result := UID_WITH_PARAMETER.search(line):
-        return [(idx + 1, "UID() does not take arguments. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
+        return [(idx + 1, f"UID() does not take arguments. Found: '{result.group(1)}'. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
 
-BALLOON_ALERT_WITHOUT_USER = re.compile(r'balloon_alert\(["\']')
-BALLOON_ALERT_WITH_SPAN = re.compile(r'balloon_alert\(.*span_')
-BALLOON_ALERT_CAPITALIZED = re.compile(r'balloon_alert\(.*?,\s*["\'][A-Z|А-Я]')
+BALLOON_ALERT_WITHOUT_USER = re.compile(r'(balloon_alert\(["\'])')
+BALLOON_ALERT_WITH_SPAN = re.compile(r'(balloon_alert\(.*?span_)')
+BALLOON_ALERT_CAPITALIZED = re.compile(r'(balloon_alert\(.*?,\s*["\'][A-ZА-Я])')
 def check_balloon_alert(idx, line):
     failures = []
-    if BALLOON_ALERT_WITHOUT_USER.search(line):
-        failures.append((idx + 1, "balloon_alert called with a string literal without a user argument."))
-    if BALLOON_ALERT_WITH_SPAN.search(line):
-        failures.append((idx + 1, "Balloon alerts should never contain spans."))
-    if BALLOON_ALERT_CAPITALIZED.search(line) and 'UNLINT' not in line:
-        failures.append((idx + 1, "Balloon alerts should not start with capital letters. This includes text like 'AI'. If this is a false positive, wrap the text in UNLINT()."))
+    if match := BALLOON_ALERT_WITHOUT_USER.search(line):
+        failures.append((idx + 1, f"balloon_alert called with a string literal without a user argument: '{match.group(1)}'"))
+    if match := BALLOON_ALERT_WITH_SPAN.search(line):
+        failures.append((idx + 1, f"Balloon alerts should never contain spans: '{match.group(1)}'"))
+    if match := BALLOON_ALERT_CAPITALIZED.search(line):
+        if 'UNLINT' not in line:
+            failures.append((idx + 1, f"Balloon alerts should not start with capital letters: '{match.group(1)}'. Includes text like 'AI'. Wrap the text in UNLINT() if needed."))
     return failures
 
 TRAIT_SINGLE_SRC = re.compile(r'(add_trait|remove_trait)\(.+,\s*.+,\s*src\)', re.IGNORECASE)
@@ -225,7 +227,7 @@ def check_trait_sources(idx, line):
         failures.append((idx + 1, "Using 'src' as trait sources. Source must be a string key - don't use references to datums as sources, perhaps use 'ref(src)'."))
     return failures
 
-STATIC_LIST_IMPROPER_PATH = re.compile(r'var/list/static/', re.IGNORECASE)
+STATIC_LIST_IMPROPER_PATH = re.compile(r'var/list/static/')
 def check_static_list_path(idx, line):
     if STATIC_LIST_IMPROPER_PATH.search(line):
         return [(idx + 1, "Found incorrect static list definition 'var/list/static/', it should be 'var/static/list/' instead.")]
@@ -240,6 +242,83 @@ FAST_LOAD_DEFINE = re.compile(r'#define FAST_LOAD')
 def check_fast_load_define(idx, line):
     if FAST_LOAD_DEFINE.match(line):
         return [(idx + 1, "Commiting uncommented FAST_LOAD define!")]
+
+FORCE_MOVE_TWO_ARGS = re.compile(r'forceMove\(\s*(\w+\(\)|\w+)\s*,\s*(\w+\(\)|\w+)\s*\)')
+def check_force_move_syntax(idx, line):
+    if FORCE_MOVE_TWO_ARGS.search(line):
+        return [(idx + 1, "forceMove() call with two arguments - this is not how forceMove() is invoked! It's x.forceMove(y), not forceMove(x, y).")]
+
+CAN_PERFORM_ACTION_IMPROPER = re.compile(r'can_perform_action\(\s*\)')
+def check_can_perform_action(idx, line):
+    if CAN_PERFORM_ACTION_IMPROPER.search(line):
+        return [(idx + 1, "Found a can_perform_action() proc with improper arguments.")]
+
+AS_ANYTHING_TYPELESS = re.compile(r'var/[^/]+ as anything')
+AS_ANYTHING_INTERNAL = re.compile(r'var\/(turf|mob|obj|atom\/movable).+ as anything in o?(view|range|hearers)\(')
+def check_as_anything(idx, line):
+    failures = []
+    if AS_ANYTHING_TYPELESS.search(line):
+        failures.append((idx + 1, "'as anything' used in a typeless for loop. This doesn't do anything and should be removed."))
+    if AS_ANYTHING_INTERNAL.search(line):
+        failures.append((idx + 1, "'as anything' typed for loop over an internal function. These functions have some internal optimization that relies on the loop not having 'as anything' in it."))
+    return failures
+
+IE_TYPO_RE = re.compile(r'eciev', re.IGNORECASE)
+def check_ie_typo(idx, line):
+    if IE_TYPO_RE.search(line):
+        return [(idx + 1, "Common I-before-E typo detected in code (found 'eciev', did you mean 'receive'?).")]
+
+DEFINE_SPACING_RE = re.compile(r'^\s*#define\s+\S+\s{2,}\S')
+def check_define_formatting(idx, line):
+    if DEFINE_SPACING_RE.match(line):
+        return [(idx + 1, "Invalid #define spacing. Use exactly one space between macro name and value.")]
+
+DUPLICATE_SPANS_RE = re.compile(r'span_(\w+)\(\s*span_\1\(')
+def check_duplicate_spans(idx, line):
+    if match := DUPLICATE_SPANS_RE.search(line):
+        return [(idx + 1, f"Found nested identical span macros: 'span_{match.group(1)}' inside another 'span_{match.group(1)}'.")]
+
+HTML_TAGS_UPPERCASE_RE = re.compile(r'</?[A-Z][A-Z0-9]*\b[^>]*/?>')
+def check_html_tags_case(idx, line):
+    if match := HTML_TAGS_UPPERCASE_RE.search(line):
+        return [(idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase.")]
+
+HYPHEN_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) - (?=[а-яё])|(?<=[а-яё]) - \d+|\d+ - (?=[а-яё]))', re.IGNORECASE)
+EN_DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) – (?=[а-яё])|(?<=[а-яё]) – \d+|\d+ – (?=[а-яё]))', re.IGNORECASE)
+def check_dash_usage(idx, line):
+    failures = []
+    if HYPHEN_USAGE_RE.search(line):
+        failures.append((idx + 1, f"A hyphen was found, which should be replaced with a dash (—)."))
+    if EN_DASH_USAGE_RE.search(line):
+        failures.append((idx + 1, f"A en dash was found, which should be replaced with a dash (—)."))
+    return failures
+
+PLAYSOUND_IMPROPER_CALL = re.compile(r'playsound\(([^,]*), "(sound\/[^\[]+)"')
+def check_playsound_improper_call(idx, line):
+    if match := PLAYSOUND_IMPROPER_CALL.search(line):
+        return [(idx + 1, f"Improper playsound call detected: \"{match.group(2)}\", it should be '{match.group(2)}' instead.")]
+
+APOSTROPHE_NAME = re.compile(r'name\s*=\s*"[^"]*\[[^]]*\]\'s')
+def check_apostrophe_name(idx, line):
+    if APOSTROPHE_NAME.search(line):
+        return [(idx + 1, f"Using an apostrophe in a name like \"[mob]'s brain\" may cause Byond to get confused between the two objects, such as click verbs, etc. Please use ’ (U+2019) instead.")]
+
+RAND_FLOATING_POINT_NUMBERS = re.compile(r'rand\([^)]*[0-9]\.')
+def check_rand_floating_point(idx, line):
+    if RAND_FLOATING_POINT_NUMBERS.search(line):
+        return [(idx + 1, "rand() does not support floating point numbers, use randfloat() instead.")]
+
+BITWISE_AMBIGUOUS_RE = re.compile(r'&[ \t]*\w+[ \t]*\|[ \t]*\w+')
+def check_bitwise_operator_order(idx, line):
+    if BITWISE_AMBIGUOUS_RE.search(line):
+        return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
+
+IGNORE_LOCALIZATION_FILE = ["localization.dm"]
+MACROED_PROCS = re.compile(r'genderize_ru|pluralize_ru')
+def check_localization_macro_usage(idx, line):
+    if MACROED_PROCS.search(line):
+        if 'UNLINT' not in line:
+            return [(idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -263,7 +342,39 @@ CODE_CHECKS = [
     check_trait_sources,
     check_static_list_path,
     check_timer_flags,
+    check_force_move_syntax,
+    check_can_perform_action,
+    check_as_anything,
+    check_ie_typo,
+    check_define_formatting,
+    check_duplicate_spans,
+    check_html_tags_case,
+    check_dash_usage,
+    check_playsound_improper_call,
+    check_apostrophe_name,
+    check_rand_floating_point,
+    check_bitwise_operator_order,
 ]
+
+def check_updatepaths_validity():
+    updatepaths_dir = "tools/UpdatePaths/Scripts/"
+    if not os.path.isdir(updatepaths_dir):
+        return []
+
+    failures = []
+    try:
+        for entry in os.scandir(updatepaths_dir):
+            if not entry.is_file():
+                continue
+            filename = entry.name
+            path = entry.path
+            if not filename.endswith('.txt'):
+                failures.append(Failure(path, 0, "UpdatePaths file missing .txt extension."))
+            if filename and not filename[0].isdigit():
+                failures.append(Failure(path, 0, "UpdatePaths file missing PR number prefix."))
+    except OSError:
+        pass
+    return failures
 
 def lint_file(code_filepath: str) -> list[Failure]:
     all_failures = []
@@ -277,6 +388,8 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
+        if filename not in IGNORE_LOCALIZATION_FILE:
+            extra_checks.append(check_localization_macro_usage)
 
         last_line = None
         for idx, line in enumerate(code):
@@ -304,6 +417,7 @@ if __name__ == "__main__":
     with ProcessPoolExecutor() as executor:
         for failures in executor.map(lint_file, dm_files):
             all_failures += failures
+    all_failures += check_updatepaths_validity()
 
     if all_failures:
         exit_code = 1

@@ -8,15 +8,11 @@
 	icon_aggro = "Goldgrub_alert"
 	icon_dead = "Goldgrub_dead"
 	icon_gib = "syndicate_gib"
-	vision_range = 2
-	aggro_vision_range = 9
 	move_to_delay = 5
 	friendly = "безвредно перекатывается в"
 	maxHealth = 45
 	health = 45
 	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attacktext = "давит"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HELP
@@ -55,7 +51,7 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub/GiveTarget(new_target)
 	add_target(new_target)
 	if(!QDELETED(target))
-		if(wanted_objects[target.type] && loot.len < max_loot)
+		if(wanted_objects[target.type] && length(loot) < max_loot)
 			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] смотрит на [target.declent_ru(ACCUSATIVE)] голодными глазами."))
 		else if(iscarbon(target) || issilicon(target))
 			Aggro()

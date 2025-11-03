@@ -1,7 +1,6 @@
 /area/ruin/space/graveyard
 	poweralm = FALSE
 	report_alerts = FALSE
-	requires_power = TRUE
 
 /area/ruin/space/graveyard/church
 	name = "Space Graveyard Church"
@@ -63,7 +62,6 @@
 	icon = 'icons/obj/decorations.dmi'
 	item_state = "funeral_urn"
 	max_integrity = 60
-	w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/effect/decal/cleanable/ash,
 		/obj/item/paper,
@@ -91,7 +89,7 @@
 
 /obj/item/storage/funeral_urn/afterattack(atom/A, mob/user, proximity, params)
 	if(istype(A,/obj/effect/decal/cleanable/ash))
-		if(src.contents.len < storage_slots)
+		if(length(src.contents) < storage_slots)
 			var/obj/effect/decal/cleanable/ash/ash = A
 			new /obj/item/ash_holder(src, ash)
 			qdel(ash)
@@ -170,16 +168,10 @@
 	desc = "A round piece of metal standing on column. It can not move."
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "socle"
-	density = TRUE
-	anchored = TRUE
-	layer = TABLE_LAYER
 	pass_flags = LETPASSTHROW
 	can_be_flipped = FALSE
 	climbable = FALSE
-	max_integrity = 100
-	integrity_failure = 30
 	smooth = NONE
-
 
 /obj/effect/spawner/graveyard_statues
 	name = "Statues"
@@ -235,7 +227,6 @@
 
 ////// Grave with loot spawner and evil soul
 /obj/structure/pit/closed/graveyard_loot
-	icon_state = "pit0"
 	var/ever_opened = FALSE
 
 /obj/structure/pit/closed/graveyard_loot/open()
@@ -243,7 +234,7 @@
 	if(!ever_opened)
 		ever_opened = TRUE
 		if(prob(10))
-			to_chat(usr, "<span class='danger'> HOW DARE YOU DISTURB THE DEAD?! </span>")
+			to_chat(usr, span_danger(" HOW DARE YOU DISTURB THE DEAD?! "))
 			new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 			new /mob/living/simple_animal/hostile/carp/lostsoul(get_turf(src))
 

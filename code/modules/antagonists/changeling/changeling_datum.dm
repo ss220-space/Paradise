@@ -137,7 +137,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			power.Grant(user)
 
 	// Else, this is their first time gaining the datum, or they're transfering from a headslug into a monkey.
-	if(!acquired_powers.len && ishuman(user))
+	if(!length(acquired_powers) && ishuman(user))
 		for(var/power_type in innate_powers)
 			give_power(new power_type, user)
 
@@ -499,7 +499,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  * Clears the most "stale" DNA from the `absorbed_dna` list.
  */
 /datum/antagonist/changeling/proc/trim_dna()
-	listclearnulls(absorbed_dna)
+	list_clear_nulls(absorbed_dna)
 	if(length(absorbed_dna) > dna_max)
 		absorbed_dna.Cut(1, 2)
 

@@ -14,13 +14,9 @@
 	desc = "Зловещий на вид красный паук c восемью красными глазами-бусинками и ужасными, большими, заострёнными клыками! Похоже, у него порочная полоса шириной в милю."
 	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
-	icon_state = "terror_red"
-	icon_living = "terror_red"
-	icon_dead = "terror_red_dead"
 	maxHealth = 220
 	health = 220
 	damage_coeff = list(BRUTE = 0.6, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
-	melee_damage_lower = 15
 	melee_damage_upper = 15
 	obj_damage = 60
 	environment_smash = ENVIRONMENT_SMASH_WALLS
@@ -32,7 +28,7 @@
 	spider_opens_doors = 2
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	web_type = /obj/structure/spider/terrorweb/knight
-	spider_intro_text = "Будучи Рыцарем Ужаса, ваша задача - создавать места для прорыва, или же оборонять гнездо. Несмотря на медлительность, вы живучи и опасны вблизи, используйте свою силу и выносливость, чтобы другие пауки могли выполнять свои функции! Ваши способности позволяют вам переключаться между режимом атаки и обороны, первый - увеличивает скорость, а также наносимый и получаемый урон, второй - уменьшает скорость, получаемый и наносимый урон."
+	spider_intro_text = "Будучи Рыцарем Ужаса, ваша задача — создавать места для прорыва, или же оборонять гнездо. Несмотря на медлительность, вы живучи и опасны вблизи, используйте свою силу и выносливость, чтобы другие пауки могли выполнять свои функции! Ваши способности позволяют вам переключаться между режимом атаки и обороны, первый — увеличивает скорость, а также наносимый и получаемый урон, второй — уменьшает скорость, получаемый и наносимый урон."
 	tts_seed = "Chu"
 	var/last_attack_mode = 0
 	var/last_defence_mode = 0
@@ -75,8 +71,8 @@
 			if(world.time > (last_defence_mode + mode_cooldown))
 				defence_mode_av = 1
 
-//MODE CHANGING. Knight has 3 modes, first - default, always active. Second - attack, grants increased speed and damage, but also increases damage you recieve.
-//Third - defence, grants even slower movement speed then default, but you recieve much less damage.
+//MODE CHANGING. Knight has 3 modes, first - default, always active. Second - attack, grants increased speed and damage, but also increases damage you receive.
+//Third - defence, grants even slower movement speed then default, but you receive much less damage.
 //Both attack and defence mod lasts for 10 seconds and has a cd of 30. When you are out of non default modes your mode is set to default.
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/proc/activate_mode(n)
 	var/t = world.time

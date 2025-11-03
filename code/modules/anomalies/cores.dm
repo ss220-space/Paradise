@@ -2,7 +2,6 @@
 /obj/item/assembly/signaler/core
 	name = "anomaly core"
 	desc = "Нейтрализованное ядро ​​аномалии. Вероятно, оно пригодится для исследований."
-	gender = NEUTER
 	icon_state = "core_bluespace_t2"
 	item_state = "electronic"
 	resistance_flags = FIRE_PROOF
@@ -28,7 +27,7 @@
 	)
 
 /obj/item/assembly/signaler/core/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] засовыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] себе в рот. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся убить себя!"))
+	user.visible_message(span_suicide("[user] засовыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] себе в рот. Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся убить себя!"))
 	return OXYLOSS | BRUTELOSS
 
 /obj/item/assembly/signaler/core/examine(mob/user)
@@ -241,7 +240,6 @@
 /obj/item/assembly/signaler/core/bluespace/tier2
 	name = "bluespace anomaly core"
 	desc = "Стабилизированное ядро ​​блюспейс аномалии. Оно то появляется, то исчезает из виду. Вероятно, оно пригодится для исследований."
-	icon_state = "core_bluespace_t2"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	origin_tech = "bluespace=7"
 	tier = 2
@@ -377,7 +375,7 @@
 
 /obj/item/assembly/signaler/core/gravitational/tier3/suicide_act(mob/user)
 	..()
-	user.visible_message(span_suicide("[user] взрыва[pluralize_ru(user.gender,"ет","ют")]ся из-за возникшего гравитационного колодца!"), \
+	user.visible_message(span_suicide("[user] взрыва[PLUR_ET_YUT(user)]ся из-за возникшего гравитационного колодца!"), \
 						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
 						span_suicide("Вы слышите громкий хлопок!"))
 	user.gib()
@@ -434,16 +432,16 @@
 
 /obj/item/assembly/signaler/core/energetic/tier3/suicide_act(mob/living/user)
 	..()
-	user.electrocute_act(600, "[declent_ru(GENITIVE)]")
+	user.electrocute_act(600, src)
 	return FIRELOSS
 
 /obj/item/assembly/signaler/core/energetic/tier3/proc/try_shock(atom/target)
 	if(!iscarbon(target))
 		return FALSE
 
-	visible_message(span_warning("[declent_ru(NOMINATIVE)] внезапно испустил[genderize_ru(gender, "", "а", "о", "и")] электрический разряд!"))
+	visible_message(span_warning("[declent_ru(NOMINATIVE)] внезапно испустил[GEND_A_O_I(src)] электрический разряд!"))
 	var/mob/living/carbon/human/H = target
-	if(H.electrocute_act(charge, "[declent_ru(GENITIVE)]"))
+	if(H.electrocute_act(charge, src))
 		do_sparks(max(1, charge / 20), FALSE, src)
 		return TRUE
 
@@ -457,7 +455,7 @@
 
 /obj/item/assembly/signaler/core/bluespace/tier3
 	name = "ядро большой ​​блюспейс аномалии"
-	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. Пространство вокруг него постоянно искревляется."
+	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. Пространство вокруг него постоянно искривляется."
 	icon_state = "core_bluespace_t3"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	origin_tech = "bluespace=8"
@@ -526,7 +524,6 @@
 	name = "пустое ядро колоссальной аномалии"
 	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
 			Вероятно, его можно как-то зарядить. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_empty_t3"
 	anomaly_type = null
 	origin_tech = "materials=10" // Sorry, not clonable by experimentor
 	tier = 4
@@ -544,7 +541,6 @@
 /obj/item/assembly/signaler/core/atmospheric/tier3/tier4
 	name = "ядро колоссальной атмосферной аномалии"
 	desc = "Стабилизированное ядро колоссальной атмосферной аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_atmos_t3"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier4
 	origin_tech = "plasmatech=11"
 	tier = 4
@@ -562,7 +558,6 @@
 /obj/item/assembly/signaler/core/gravitational/tier3/tier4
 	name = "ядро колоссальной гравитационной аномалии"
 	desc = "Нейтрализованное ядро колоссальной ​​гравитационной аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_grav_t3"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier4
 	origin_tech = "magnets=11"
 	tier = 4
@@ -580,7 +575,6 @@
 /obj/item/assembly/signaler/core/energetic/tier3/tier4
 	name = "ядро колоссальной ​​энергетической аномалии"
 	desc = "Стабилизированное ядро колоссальной ​​энергетической аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_energ_t3"
 	anomaly_type = /obj/effect/anomaly/energetic/tier4
 	origin_tech = "powerstorage=11"
 	tier = 4
@@ -598,7 +592,6 @@
 /obj/item/assembly/signaler/core/bluespace/tier3/tier4
 	name = "ядро колоссальной ​​блюспейс аномалии"
 	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_bluespace_t3"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier4
 	origin_tech = "bluespace=11"
 	tier = 4
@@ -616,7 +609,6 @@
 /obj/item/assembly/signaler/core/vortex/tier3/tier4
 	name = "ядро колоссальной вихревой аномалии"
 	desc = "Стабилизированное ядро колоссальной ​​вихревой аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_vortex_t3"
 	anomaly_type = /obj/effect/anomaly/vortex/tier4
 	origin_tech = "engineering=11"
 	tier = 4

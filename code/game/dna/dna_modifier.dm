@@ -56,7 +56,6 @@
 	icon_state = "scanner_open"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	active_power_usage = 300
 	interact_offline = 1
@@ -174,7 +173,7 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return TRUE
 	put_in(L, user)
 	return TRUE
@@ -195,7 +194,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -218,7 +217,7 @@
 		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
 		return .
 	put_in(target, grabber)
 	add_fingerprint(grabber)
@@ -245,9 +244,9 @@
 /obj/machinery/dna_scannernew/proc/put_in(mob/M, mob/living/user)
 	add_fingerprint(user)
 	if(M == user)
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(user, 2 SECONDS, M))
 		return
@@ -262,7 +261,7 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return
 
 	M.forceMove(src)
@@ -324,10 +323,8 @@
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier access console"
 	desc = "Консоль для работы с ДНК-модификатором."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
-	density = TRUE
 	circuit = /obj/item/circuitboard/scan_consolenew
 	var/selected_ui_block = 1.0
 	var/selected_ui_subblock = 1.0
@@ -343,8 +340,6 @@
 	var/obj/machinery/dna_scannernew/connected = null
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
-	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 400
 
@@ -367,7 +362,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		disk = I
-		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "дискета вставлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -391,7 +386,7 @@
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(list/buffer)
 	var/list/arr = list()
-	for(var/i = 1, i <= buffer.len, i++)
+	for(var/i = 1, i <= length(buffer), i++)
 		arr += "[i]:[EncodeDNABlock(buffer[i])]"
 	return arr
 
@@ -508,7 +503,7 @@
 	data["beakerVolume"] = 0
 	if(connected.beaker)
 		data["beakerLabel"] = connected.beaker.label_text ? connected.beaker.label_text : null
-		if(connected.beaker.reagents && connected.beaker.reagents.reagent_list.len)
+		if(connected.beaker.reagents && length(connected.beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in connected.beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
@@ -542,7 +537,7 @@
 				return
 			selected_menu_key = key
 		if("toggleLock")
-			if(connected && connected.occupant)
+			if(connected?.occupant)
 				connected.locked = !(connected.locked)
 		if("pulseRadiation")
 			irradiating = radiation_duration

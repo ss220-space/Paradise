@@ -2,7 +2,6 @@
 /datum/disease/virus/rhumba_beat
 	name = "Румба-бит"
 	agent = UNKNOWN_STATUS_RUS
-	max_stages = 5
 	spread_flags = CONTACT
 	cure_text = "Чики-чики БУМ!"
 	cures = list("plasma")
@@ -11,10 +10,6 @@
 /datum/disease/virus/rhumba_beat/stage_act()
 	if(!..())
 		return FALSE
-
-	if(affected_mob.ckey == "rosham")
-		cure()
-		return
 
 	switch(stage)
 		if(2)

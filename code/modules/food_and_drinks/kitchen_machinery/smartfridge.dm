@@ -8,10 +8,8 @@
 	desc = "Это холодильник. Он умный. Просто удивительно, да?"
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "smartfridge"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	/// The maximum number of items the fridge can hold. Multiplicated by the matter bin component's rating.
@@ -227,7 +225,7 @@
 
 	if(load(I, user))
 		user.visible_message(
-			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] загрузил[GEND_A_O_I(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы загрузили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 		)
 		balloon_alert(user, "загружено внутрь")
@@ -244,7 +242,7 @@
 				items_loaded++
 		if(items_loaded)
 			user.visible_message(
-				span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] загрузил[GEND_A_O_I(user)] содержимое [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы загрузили содержимое [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 			)
 			balloon_alert(user, "содержимое загружено")
@@ -252,7 +250,7 @@
 			update_icon(UPDATE_OVERLAYS)
 		var/failed = length(storage.contents)
 		if(failed)
-			to_chat(user, span_notice("[failed] предмет[declension_ru(failed, "", "а", "ов")] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
+			to_chat(user, span_notice("[failed] предмет[DECL_CREDIT(failed)] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	balloon_alert(user, "не подходит!")
@@ -293,13 +291,13 @@
 			items_loaded++
 	if(items_loaded)
 		user.visible_message(
-			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] загрузил[GEND_A_O_I(user)] содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы загрузили содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "содержимое загружено")
 		update_icon(UPDATE_OVERLAYS)
 	var/failed = length(P.contents)
 	if(failed)
-		to_chat(user, span_notice("[failed] предмет[declension_ru(failed, "", "а", "ов")] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
+		to_chat(user, span_notice("[failed] предмет[DECL_CREDIT(failed)] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
 	return TRUE
 
 /obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui = null)
@@ -498,7 +496,6 @@
 /obj/machinery/smartfridge/seeds
 	name = "Seed Storage"
 	desc = "Это холодильник, предназначенный для растений и их плодов."
-	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "seeds_off"
 	base_icon_state = "seeds"
 
@@ -549,7 +546,6 @@
 /obj/machinery/smartfridge/medbay
 	name = "Refrigerated Medicine Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 
 /obj/machinery/smartfridge/medbay/get_ru_names()
 	return list(
@@ -614,7 +610,6 @@
  * Secure, Medical variant of the [Smart Fridge][/obj/machinery/smartfridge].
  */
 /obj/machinery/smartfridge/secure/medbay
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	req_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/medbay/Initialize(mapload)
@@ -640,7 +635,6 @@
 /obj/machinery/smartfridge/secure/chemistry
 	name = "Smart Chemical Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/chemistry/get_ru_names()
@@ -773,7 +767,6 @@
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "Smart Virus Storage"
 	desc = "Это холодильник, предназначенный для хранения образцов вирусов."
-	icon_state = "smartfridge"
 	req_access = list(ACCESS_VIROLOGY)
 	icon_addon = "smartfridge-viro-overlay"
 
@@ -895,8 +888,6 @@
 	desc = "Деревянная стойка, предназначенная для просушки растительных продуктов, еды и кожи."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying-rack_off"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
 	active_power_usage = 200
 	can_dry = TRUE
 	visible_contents = FALSE

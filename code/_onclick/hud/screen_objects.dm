@@ -76,6 +76,7 @@
 	name = "close"
 	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
+	icon_state = "backpack_close"
 
 /atom/movable/screen/close/Click()
 	if(master)
@@ -116,11 +117,9 @@
 
 /atom/movable/screen/act_intent/alien
 	icon = 'icons/mob/screen_alien.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/robot
 	icon = 'icons/mob/screen_robot.dmi'
-	screen_loc = ui_borg_intents
 
 /atom/movable/screen/act_intent/robot/AI
 	screen_loc = "SOUTH+1:6,EAST-1:32"
@@ -139,11 +138,9 @@
 
 /atom/movable/screen/act_intent/simple_animal
 	icon = 'icons/mob/screen_simplemob.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/guardian
 	icon = 'icons/mob/guardian.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/mov_intent/Click()
 	usr.toggle_move_intent()
@@ -244,7 +241,7 @@
 		return FALSE
 
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
-		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
+		if(S.contents[length(S.contents)] == I) // No point moving them at the end if they're already there!
 			return FALSE
 
 		var/list/new_contents = S.contents.Copy()
@@ -269,6 +266,8 @@
 		I.melee_attack_chain(user, S, params)
 	return TRUE
 
+/atom/movable/screen/storage/space_box
+	screen_loc = "7,7 to 10,8"
 
 /atom/movable/screen/zone_sel
 	name = "damage zone"
@@ -372,7 +371,6 @@
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
 		hovering = null
-	return ..()
 
 
 /atom/movable/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
@@ -551,7 +549,7 @@
 			return inv_item.Click(location, control, params)
 
 	if(usr.attack_ui(slot_id, params))
-		usr.update_inv_hands()
+		usr.update_held_items()
 
 	return TRUE
 
@@ -787,7 +785,6 @@
 	name = "summoner health"
 	icon = 'icons/mob/guardian.dmi'
 	icon_state = "base"
-	screen_loc = ui_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healthdoll

@@ -25,8 +25,6 @@
 	if(length(activation_message))
 		var/msg = pick(activation_message)
 		to_chat(mutant, span_warning("[msg]"))
-	else
-		testing("[name] has no activation message.")
 
 
 /datum/dna/gene/disability/deactivate(mob/living/mutant, flags)
@@ -34,8 +32,6 @@
 	if(length(deactivation_message))
 		var/msg = pick(deactivation_message)
 		to_chat(mutant, span_warning("[msg]"))
-	else
-		testing("[name] has no deactivation message.")
 
 
 /datum/dna/gene/disability/hallucinate
@@ -70,7 +66,7 @@
 
 /datum/dna/gene/disability/epilepsy/OnMobLife(mob/living/carbon/human/H)
 	if((prob(1) && H.AmountParalyzed() < 2 SECONDS))
-		H.visible_message(span_danger("[H] начина[pluralize_ru(H.gender, "ет", "ют")] биться в припадке!"), span_alert("У вас припадок!"))
+		H.visible_message(span_danger("[H] начина[PLUR_ET_YUT(H)] биться в припадке!"), span_alert("У вас припадок!"))
 		H.Paralyse(20 SECONDS)
 		H.Jitter(2000 SECONDS)
 

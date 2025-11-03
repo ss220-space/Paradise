@@ -22,7 +22,6 @@
 	maxHealth =  INFINITY
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	universal_understand = 1
 	response_help   = "passes through"
 	response_disarm = "swings at"
 	response_harm   = "punches"
@@ -35,7 +34,6 @@
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	speed = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	tts_seed = "Sylvanas"
@@ -113,7 +111,7 @@
 /mob/living/simple_animal/revenant/ratvar_act()
 	return
 
-/mob/living/simple_animal/revenant/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/revenant/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
 
@@ -185,7 +183,7 @@
 	else
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Ревенанта?", poll_time = 15 SECONDS, source = /mob/living/simple_animal/revenant)
 		var/mob/dead/observer/theghost = null
-		if(candidates.len)
+		if(length(candidates))
 			theghost = pick(candidates)
 			key = theghost.key
 			message_admins("[key_name_admin(src)] has taken control of a revenant created without a mind")
@@ -272,7 +270,7 @@
 	if(istype(I, /obj/item/nullrod))
 		visible_message(
 			span_warning("[src] дёргается в конвульсиях!"),
-			span_revendanger("Когда [I.declent_ru(NOMINATIVE)] проход[pluralize_ru(I.gender,"ит","ят")] сквозь вас, вы чувствуете, как ваша эссенция утекает!"),
+			span_revendanger("Когда [I.declent_ru(NOMINATIVE)] проход[PLUR_IT_YAT(I)] сквозь вас, вы чувствуете, как ваша эссенция утекает!"),
 		)
 		apply_damage(25) //hella effective
 		inhibited = TRUE
@@ -518,7 +516,7 @@
 	player_mind.current = new_revenant
 	new_revenant.essence = essence
 	new_revenant.mind = player_mind
-	new_revenant.key = player_mind.key
+	new_revenant.possess_by_player(player_mind.key)
 
 	visible_message(span_revenboldnotice("[capitalize(src.declent_ru(NOMINATIVE))] внезапно поднимается в воздух, а затем исчезает."))
 	message_admins("[key_name_admin(new_revenant)] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")

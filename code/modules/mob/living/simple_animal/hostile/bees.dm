@@ -97,7 +97,7 @@
 /mob/living/simple_animal/hostile/poison/bees/examine(mob/user)
 	. = ..()
 	if(!bee_syndicate && !beehome)
-		. += "<span class='warning'>This bee is homeless!</span>"
+		. += span_warning("This bee is homeless!")
 
 
 /mob/living/simple_animal/hostile/poison/bees/ListTargets() // Bee processing is expessive, so we override them finding targets here.
@@ -112,7 +112,7 @@
 	..()
 
 	var/col = BEE_DEFAULT_COLOUR
-	if(beegent && beegent.color)
+	if(beegent?.color)
 		col = beegent.color
 
 	var/image/greyscale
@@ -219,7 +219,7 @@
 						target = beehome
 		if(!beehome) //add ourselves to a beebox (of the same reagent) if we have no home
 			for(var/obj/structure/beebox/BB in view(vision_range, src))
-				if(reagent_incompatible(BB.queen_bee) || BB.bees.len >= BB.get_max_bees())
+				if(reagent_incompatible(BB.queen_bee) || length(BB.bees) >= BB.get_max_bees())
 					continue
 				BB.bees |= src
 				beehome = BB

@@ -59,9 +59,7 @@
 	icon_state = "adv_mining0"
 	base_icon_state = "adv_mining"
 	item_state = "analyzer"
-	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT
 	var/cooldown = 1 SECONDS
 	var/current_cooldown = 0
 	var/range = 9
@@ -86,7 +84,6 @@
 	to_chat(user, span_notice("Вы переключаете режим работы динамика [declent_ru(GENITIVE)] на [speaker ? "<b>ВКЛ</b>" : "<b>ВЫКЛ</b>"]."))
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg
-	flags = CONDUCT
 	speaker = FALSE //you know...
 
 
@@ -97,9 +94,6 @@
 
 /obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"
-	desc = "Устройство, которое автоматически сканирует окружающие породы на наличие полезных минералов, также может быть использовано для предотвращения взрыва залежей гибтонита. \
-			Для достижения наилучших результатов рекомендуется применять мезонные очки. \
-			Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш \"<b>Alt+ЛКМ</b>\""
 	icon_state = "mining0"
 	base_icon_state = "mining"
 	range = 4
@@ -117,7 +111,6 @@
 
 /obj/item/mining_scanner/cyborg
 	cooldown = 50
-	flags = CONDUCT
 	speaker = FALSE
 
 

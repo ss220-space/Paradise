@@ -30,7 +30,6 @@
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	name = "upgraded teleporter"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view. This is the high-precision, energy-efficient version."
-	origin_tech = "bluespace=7"
 	energy_drain = 1000
 	tele_precision = 1
 
@@ -52,7 +51,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
-	if(!theareas.len)
+	if(!length(theareas))
 		return FALSE
 	var/area/thearea = pick(theareas)
 	var/list/L = list()
@@ -66,7 +65,7 @@
 					break
 			if(clear)
 				L+=T
-	if(!L.len)
+	if(!length(L))
 		return FALSE
 	var/turf/target_turf = pick(L)
 	if(!target_turf)
@@ -270,7 +269,6 @@
 	desc = "An exosuit module that wirelessly drains energy from any available power channel in area. The performance index is quite low."
 	icon_state = "tesla"
 	origin_tech = "magnets=4;powerstorage=4;engineering=4"
-	energy_drain = 0
 	range = 0
 	var/coeff = 100
 	var/list/use_channels = list(EQUIP, ENVIRON, LIGHT)
@@ -341,7 +339,6 @@
 	desc = "An exosuit module that generates power using solid plasma as fuel. Pollutes the environment."
 	icon_state = "tesla"
 	origin_tech = "plasmatech=2;powerstorage=2;engineering=2"
-	range = MECHA_MELEE
 	var/coeff = 100
 	var/fuel_type = MAT_PLASMA
 	var/max_fuel = 150000
@@ -476,12 +473,10 @@
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear
 	name = "exonuclear reactor"
 	desc = "An exosuit module that generates power using uranium as fuel. Pollutes the environment."
-	icon_state = "tesla"
 	origin_tech = "powerstorage=4;engineering=4"
 	fuel_name = "uranium" // Our fuel name as a string
 	fuel_type = MAT_URANIUM
 	max_fuel = 50000
-	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 30
 	power_per_cycle = 50
 	var/rad_per_cycle = 0.3
@@ -536,7 +531,6 @@
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
 	name = "improved exosuit control system"
 	desc = "Equipment for exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
-	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "move_plating"
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20
@@ -590,9 +584,7 @@
 	origin_tech = "combat=6;materials=5"
 	equip_cooldown = 3 SECONDS
 	energy_drain = 500
-	range = MECHA_MELEE
 	salvageable = FALSE
-	harmful = FALSE
 	alert_category = "mecha_cage"
 
 	var/mob/living/carbon/prisoner
@@ -670,7 +662,7 @@
 		insert_action(target)
 		return TRUE
 
-	occupant_message(span_notice("[target] не мо[pluralize_ru(target.gender, "жет", "гут")] быть удержа[genderize_ru(target.gender, "н", "на", "но", "ны")], так как [target] не наход[pluralize_ru(target.gender, "ит", "ят")]ся в критическом состоянии."))
+	occupant_message(span_notice("[target] не мо[PLUR_JET_GUT(target)] быть удержан[GEND_A_O_Y(target)], так как [target] не наход[PLUR_IT_YAT(target)]ся в критическом состоянии."))
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress_action(mob/living/carbon/target)
@@ -680,7 +672,7 @@
 		stop_supressing(holding)
 	else
 		occupant_message(span_notice("Вы начинаете удерживать [target]..."))
-		chassis.visible_message(span_warning(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target].")))
+		chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target]."))
 
 	set_supress_effect(target)
 	if(!do_after_cooldown(target))
@@ -725,7 +717,7 @@
 	stop_supressing(target)
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_escape))
-	occupant_message(span_notice("[target] успешно помещ[genderize_ru(target.gender, "ён", "ена", "ено", "ены")] в клетку."))
+	occupant_message(span_notice("[target] успешно помещен[GEND_A_O_Y(target)] в клетку."))
 	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] поместил [target] в клетку."))
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
@@ -754,7 +746,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/on_escape(mob/living/carbon/target)
 	SIGNAL_HANDLER
-	occupant_message(span_warning("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки."))
+	occupant_message(span_warning("[prisoner] сбежал[GEND_A_O_I(prisoner)] из клетки."))
 	prisoner = null
 	if(holding)
 		if(holding.handcuffed)
@@ -788,10 +780,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
-		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, так как [target] прикова[genderize_ru(target.gender, "н", "на", "но", "ны")] к [target.buckled.declent_ru(DATIVE)]!"))
+		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, так как [target] прикован[GEND_A_O_Y(target)] к [target.buckled.declent_ru(DATIVE)]!"))
 		return FALSE
 	if(target.has_buckled_mobs())
-		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] висит слайм!"))
+		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, пока на [GEND_ON_IN_HIM(target)] висит слайм!"))
 		return FALSE
 	if(prisoner)
 		occupant_message(span_warning("Клетка уже занята!"))
@@ -813,9 +805,9 @@
 	UnregisterSignal(prisoner, COMSIG_MOVABLE_MOVED)
 	prisoner.forceMove(get_turf(src))
 	if(!force)
-		occupant_message("[prisoner] извлеч[genderize_ru(prisoner.gender, "ён", "ена", "ено", "ены")].")
+		occupant_message("[prisoner] извлечен[GEND_A_O_Y(prisoner)].")
 	else
-		occupant_message("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки.")
+		occupant_message("[prisoner] сбежал[GEND_A_O_I(prisoner)] из клетки.")
 	prisoner = null
 	change_state("mecha_cage")
 
@@ -859,7 +851,6 @@
 	desc = "Пара мощных механических клешней. Такие могут запросто схватить гуманоида, не дав ему возможности выбраться."
 	icon = 'icons/misc/supress_effect.dmi'
 	icon_state = "effect_on_doll"
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = ABOVE_GAME_PLANE
 

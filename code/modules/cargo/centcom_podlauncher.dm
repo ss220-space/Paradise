@@ -67,6 +67,8 @@
 	var/renderLighting = FALSE
 	var/static/list/pod_style_info
 	var/static/list/pod_style_lookup
+	/// If it is smite, write reason for target.
+	var/reason
 
 /datum/centcom_podlauncher/New(user) //user can either be a client or a mob
 	if(user) //Prevents runtimes on datums being made without clients
@@ -618,6 +620,10 @@
 				bouttaDie.Add(target_mob)
 			if(holder.holder)
 				supplypod_punish_log(bouttaDie)
+
+			if(reason && ismob(specificTarget))
+				to_chat(specificTarget, span_warning("Это кара за [reason]!"))
+
 			if(!effectBurst) //If we're not using burst mode, just launch normally.
 				launch(target)
 			else
@@ -787,7 +793,7 @@
 	bayNumber = dataToLoad["bayNumber"]
 	customDropoff = dataToLoad["customDropoff"]
 	var/list/cords = dataToLoad["reverse_dropoff_coords"]
-	if(cords?.len)
+	if(length(cords))
 		var/turf/dropoff =locate(cords[1], cords[2], cords[3])
 		setDropoff(dropoff)
 	renderLighting = dataToLoad["renderLighting"]

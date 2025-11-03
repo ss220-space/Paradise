@@ -56,7 +56,7 @@
 // instead be flagged to update the next time an AI Eye moves near it.
 
 /datum/camerachunk/proc/hasChanged(update_now = 0, update_delay_buffer = UPDATE_BUFFER)
-	if(seenby.len || update_now)
+	if(length(seenby) || update_now)
 		addtimer(CALLBACK(src, PROC_REF(update)), update_delay_buffer, TIMER_UNIQUE)
 	else
 		changed = TRUE

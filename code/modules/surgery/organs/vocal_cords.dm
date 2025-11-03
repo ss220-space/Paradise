@@ -37,7 +37,13 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 
 /obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x channel
 	name = "vocal cords"
-	ru_names = list(
+	icon_state = "appendix"
+	slot = INTERNAL_ORGAN_VOCALCORDS
+	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
+	var/spans = null
+
+/obj/item/organ/internal/vocal_cords/get_ru_names()
+	return list(
 		NOMINATIVE = "голосовые связки",
 		GENITIVE = "голосовых связок",
 		DATIVE = "голосовым связкам",
@@ -45,10 +51,6 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		INSTRUMENTAL = "голосовыми связками",
 		PREPOSITIONAL = "голосовых связках"
 	)
-	icon_state = "appendix"
-	slot = INTERNAL_ORGAN_VOCALCORDS
-	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
-	var/spans = null
 
 /obj/item/organ/internal/vocal_cords/proc/can_speak_with() //if there is any limitation to speaking with these cords
 	return TRUE
@@ -62,7 +64,12 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 /obj/item/organ/internal/adamantine_resonator
 	name = "adamantine resonator"
 	desc = "Частицы адамантина присутствуют во всех големах, унаследованные от их магической природы. Позволяют \"слышать\" послания своих создателей."
-	ru_names = list(
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_RESONATOR
+	icon_state = "adamantine_resonator"
+
+/obj/item/organ/internal/adamantine_resonator/get_ru_names()
+	return list(
 		NOMINATIVE = "адамантиновый резонатор",
 		GENITIVE = "адамантинового резонатора",
 		DATIVE = "адамантиновому резонатору",
@@ -70,14 +77,15 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		INSTRUMENTAL = "адамантиновым резонатором",
 		PREPOSITIONAL = "адамантиновом резонаторе"
 	)
-	parent_organ_zone = BODY_ZONE_HEAD
-	slot = INTERNAL_ORGAN_RESONATOR
-	icon_state = "adamantine_resonator"
 
 /obj/item/organ/internal/vocal_cords/adamantine
 	name = "adamantine vocal cords"
 	desc = "При резонансе адамантина все ближайшие частицы входят в синхронизацию. Големы используют это для передачи сообщений сородичам."
-	ru_names = list(
+	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
+	icon_state = "adamantine_cords"
+
+/obj/item/organ/internal/vocal_cords/adamantine/get_ru_names()
+	return list(
 		NOMINATIVE = "адамантиновые голосовые связки",
 		GENITIVE = "адамантиновых голосовых связок",
 		DATIVE = "адамантиновым голосовым связкам",
@@ -85,8 +93,6 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		INSTRUMENTAL = "адамантиновыми голосовыми связками",
 		PREPOSITIONAL = "адамантиновых голосовых связках"
 	)
-	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
-	icon_state = "adamantine_cords"
 
 /datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(left_click = TRUE)
 	if(!IsAvailable())
@@ -108,14 +114,6 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 /obj/item/organ/internal/vocal_cords/colossus
 	name = "divine vocal cords"
 	desc = "Они несут глас древнего бога."
-	ru_names = list(
-		NOMINATIVE = "связки бога",
-		GENITIVE = "связок бога",
-		DATIVE = "связкам бога",
-		ACCUSATIVE = "связки бога",
-		INSTRUMENTAL = "связками бога",
-		PREPOSITIONAL = "связках бога"
-	)
 	icon_state = "voice_of_god"
 	actions_types = list(/datum/action/item_action/organ_action/colossus)
 	var/next_command = 0
@@ -125,6 +123,16 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	var/cooldown_none = 150
 	var/base_multiplier = 1
 	spans = "colossus yell"
+
+/obj/item/organ/internal/vocal_cords/colossus/get_ru_names()
+	return list(
+		NOMINATIVE = "связки бога",
+		GENITIVE = "связок бога",
+		DATIVE = "связкам бога",
+		ACCUSATIVE = "связки бога",
+		INSTRUMENTAL = "связками бога",
+		PREPOSITIONAL = "связках бога"
+	)
 
 /datum/action/item_action/organ_action/colossus
 	name = "Глас Божий"
@@ -161,7 +169,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 
 /obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд[declension_ru((next_command - world.time)/10, "у", "ы", "")] перед следующим Словом."))
+		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд[DECL_SEC_MIN((next_command - world.time)/10)] перед следующим Словом."))
 		return FALSE
 	if(!owner)
 		return FALSE
@@ -183,7 +191,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, TRUE, 5)
 
 	var/list/mob/living/listeners = list()
-	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE, FALSE))
+	for(var/mob/living/L in get_hearers_in_view(8, owner))
 		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
@@ -191,7 +199,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 					continue
 			listeners += L
 
-	if(!listeners.len)
+	if(!length(listeners))
 		next_command = world.time + cooldown_none
 		return
 
@@ -237,9 +245,9 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 			//Cut out the job so it doesn't trigger commands
 			found_string = L.mind.assigned_role
 
-	if(specific_listeners.len)
+	if(length(specific_listeners))
 		listeners = specific_listeners
-		power_multiplier *= (1 + (1/specific_listeners.len)) //2x on a single guy, 1.5x on two and so on
+		power_multiplier *= (1 + (1/length(specific_listeners))) //2x on a single guy, 1.5x on two and so on
 		message = copytext(message, 0, 1)+copytext(message, 1 + length(found_string), length(message) + 1)
 
 	//STUN

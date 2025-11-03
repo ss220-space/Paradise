@@ -20,7 +20,6 @@
 	)
 
 /obj/item/clothing/accessory/armguard/syndicate
-	slot = ACCESSORY_SLOT_ARMBAND
 	var/datum/action/armguard_hidden_blade/blade_action = new
 	var/weapon_type = /obj/item/kitchen/knife/hidden_blade
 	var/state_flags = ARMGUARD_BLADE_READY_FLAG
@@ -91,7 +90,7 @@
 	user.balloon_alert(user, "клинок появился")
 	var/obj/item/weapon = new weapon_type(user, src)
 	user.put_in_hands(weapon)
-	playsound(user, "sound/items/unsheath.ogg", 50, TRUE)
+	playsound(user, 'sound/items/unsheath.ogg', 50, TRUE)
 	blade_action.set_reload_mode()
 
 
@@ -128,7 +127,6 @@
 	icon_state = "armguard_hidden_blade"
 	item_state = "knife"
 	item_flags = DROPDEL|NOSHARPENING|CONDUCT|IGNORE_SLOWDOWN
-	slot_flags = NONE
 	w_class = WEIGHT_CLASS_TINY
 	force = 15
 	throwforce = 50

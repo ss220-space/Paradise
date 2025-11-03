@@ -8,7 +8,6 @@
 	name = "Codex Gigas"
 	icon_state = "demonomicon"
 	item_state = "demonomicon"
-	throw_speed = 1
 	throw_range = 10
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	author = "Силы, находящиеся за пределами вашего понимания"
@@ -48,7 +47,7 @@
 		correctness = 100
 		willpower = 100
 
-	if(human.job in list(JOB_TITLE_CHAPLAIN) || human.mind.isholy) // the librarian is both faster, and more accurate than normal crew members at research
+	if((human.job in list(JOB_TITLE_CHAPLAIN)) || human.mind.isholy) // the librarian is both faster, and more accurate than normal crew members at research
 		speed = 30 SECONDS
 		correctness = 100
 
@@ -60,7 +59,7 @@
 
 	correctness -= human.getBrainLoss() * 0.5 //Brain damage makes researching hard.
 	speed += human.getBrainLoss() * 0.3 SECONDS
-	human.visible_message("[human.declent_ru(NOMINATIVE)] открыва[pluralize_ru(human.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и начина[pluralize_ru(human.gender, "ет", "ют")] усердно читать.")
+	human.visible_message("[human.declent_ru(NOMINATIVE)] открыва[PLUR_ET_YUT(human)] [declent_ru(ACCUSATIVE)] и начина[PLUR_ET_YUT(human)] усердно читать.")
 
 	if(!do_after(human, speed, human, DEFAULT_DOAFTER_IGNORE | DA_IGNORE_HELD_ITEM))
 		is_used = FALSE

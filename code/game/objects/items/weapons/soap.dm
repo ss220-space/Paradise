@@ -1,7 +1,6 @@
 /obj/item/soap
 	name = "soap"
 	desc = "Дешёвый кусок мыла. Он даже ничем не пахнет."
-	gender = NEUTER
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "soap"
 	belt_icon = "soap"
@@ -9,7 +8,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
 	item_flags = SKIP_ATTACK_MESSAGE
@@ -68,7 +66,7 @@
 /obj/item/soap/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		user.visible_message(
-			span_warning("[user] мо[pluralize_ru(user.gender, "ет", "ют")] рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
+			span_warning("[user] мо[PLUR_ET_YUT(user)] рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
 			span_notice("Вы моете рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -239,7 +237,7 @@
 	if(user.client && (target in user.client.screen))
 		user.balloon_alert(user, "снимите это с себя!")
 	else
-		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] возить [src.declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
+		user.visible_message(span_warning("[user] начина[PLUR_ET_YUT(user)] возить [src.declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
 		if(do_after(user, cleanspeed, target))
 			to_chat(user, span_notice("Вы \"моете\" [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."))
 			if(issimulatedturf(target))

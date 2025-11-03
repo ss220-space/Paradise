@@ -17,8 +17,8 @@
 	..()
 	if(smooth)
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
-			queue_smooth(src)
-			queue_smooth_neighbors(src)
+			QUEUE_SMOOTH(src)
+			QUEUE_SMOOTH_NEIGHBORS(src)
 		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
@@ -38,7 +38,7 @@
 	if(smooth)
 		var/turf/T = get_turf(src)
 		spawn(0)
-			queue_smooth_neighbors(T)
+			QUEUE_SMOOTH_NEIGHBORS(T)
 	if(creates_cover && isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	if(isprocessing)
@@ -117,7 +117,7 @@
 	if(!T || !istype(T))
 		return FALSE
 
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] забираться на [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] забираться на [declent_ru(ACCUSATIVE)]!"))
 	climber = user
 	if(!do_after(user, 5 SECONDS, src))
 		climber = null
@@ -129,7 +129,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся на [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)]!"))
 
 	clumse_stuff(climber)
 
@@ -163,7 +163,7 @@
 			if(!AM.anchored && !isliving(AM))
 				if(prob(slopchance))
 					thrownatoms += AM
-					if(thrownatoms.len >= max_throws_count)
+					if(length(thrownatoms) >= max_throws_count)
 						break
 
 	var/atom/throwtarget
@@ -239,7 +239,7 @@
 	return TRUE
 
 /obj/structure/proc/get_climb_text()
-	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на н[GEND_HIS_HER(src)].")
 
 /obj/structure/examine(mob/user)
 	. = ..()

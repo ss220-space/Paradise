@@ -359,7 +359,7 @@
 	if(owner && parent_organ_zone && amount > 0)
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ_zone)
 		if(parent && !silent)
-			owner.custom_pain("Что-то внутри ваш[genderize_ru(parent.gender, "его", "ей", "его", "их")] [parent.declent_ru(GENITIVE)] отдаётся резкой болью.")
+			owner.custom_pain("Что-то внутри [GEND_YOURS(parent)] [parent.declent_ru(GENITIVE)] отдаётся резкой болью.")
 
 	//check if we've hit max_damage
 	if(damage >= max_damage)

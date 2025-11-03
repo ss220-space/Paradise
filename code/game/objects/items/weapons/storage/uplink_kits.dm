@@ -14,7 +14,6 @@
 
 /obj/item/storage/box/syndie_kit
 	name = "Box"
-	desc = "Это обычная коробка."
 	gender = MALE
 	icon_state = "box_of_doom"
 
@@ -33,7 +32,7 @@
 	desc = "Коробка, содержащая 2 клинка богомола."
 	max_w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/box/syndie_kit/mantisblad/get_ru_names()
+/obj/item/storage/box/syndie_kit/mantisblade/get_ru_names()
 	return list(
 		NOMINATIVE = "набор клинков богомола",
 		GENITIVE = "набора клинков богомола",
@@ -426,7 +425,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/nuke
 	name = "box"  // Stealth, because you will spawn with a box.
-	desc = "Это обычная коробка."
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/nuke/get_ru_names()
@@ -446,7 +444,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/supermatter
 	name = "box"  // Stealth, because you will spawn with a box.
-	desc = "Это обычная коробка."
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/supermatter/get_ru_names()
@@ -540,7 +537,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 <font size = "4">1. Возьмите Cyborg Analyzer, проведите им по роботу.<br>
 2. Запомните сломанные компоненты, которые вывел Cyborg Analyzer.<br>
-3. Если робот закрыт (будет визуально заметно), то попросите его открыться. Если он уничтожен - проведите ЕМАГом для открытия.<br>
+3. Если робот закрыт (будет визуально заметно), то попросите его открыться. Если он уничтожен — проведите ЕМАГом для открытия.<br>
 4. Монтировкой откройте крышку робота.<br>
 5. Руками вытащите батарейку у робота.<br>
 6. Монтировкой снимите сломанные компоненты из пункта 2.<br>
@@ -818,7 +815,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/gun_module/rail/scope/x4(src)
 	new /obj/item/gun_module/under/hand/simple(src)
 	new /obj/item/gun_module/under/hand/angle(src)
-	new /obj/item/gun_module/under/laser/ray(src)
 	new /obj/item/gun_module/under/laser/point(src)
 
 /obj/item/storage/box/syndie_kit/gun_mods/super/populate_contents()
@@ -829,7 +825,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/gun_module/rail/hud/security(src)
 	new /obj/item/gun_module/rail/scope/x16(src)
 	new /obj/item/gun_module/rail/scope/x8(src)
-	new /obj/item/gun_module/under/laser/ray(src)
 	new /obj/item/gun_module/under/laser/point(src)
 
 /obj/item/storage/box/syndie_kit/compact_sniper
@@ -934,3 +929,22 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
+
+/obj/item/storage/box/syndie_kit/combat_exoframe
+	name = "combat exoframe kit"
+	desc = "Коробка, содержащая боевой модуль экзоскелета и автоимплантер."
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/syndie_kit/combat_exoframe/get_ru_names()
+	return list(
+		NOMINATIVE = "набор боевого экзоскелета",
+		GENITIVE = "набора боевого экзоскелета",
+		DATIVE = "набору боевого экзоскелета",
+		ACCUSATIVE = "набор боевого экзоскелета",
+		INSTRUMENTAL = "набором боевого экзоскелета",
+		PREPOSITIONAL = "наборе боевого экзоскелета"
+	)
+
+/obj/item/storage/box/syndie_kit/combat_exoframe/populate_contents()
+	new /obj/item/organ/internal/cyberimp/chest/exoframe/combat(src)
+	new /obj/item/autoimplanter/oneuse(src)

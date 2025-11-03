@@ -45,7 +45,7 @@
 
 	user.set_machine(src)
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-	dat += "<b>Ремонтные дроны</B><br>"
+	dat += "<b>Ремонтные дроны</b><br>"
 
 	for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 		dat += "<br>[D.real_name] ([D.stat == 2 ? "<font color='red'>НЕАКТИВЕН" : "<font color='green'>АКТИВЕН"]</font>)"
@@ -53,11 +53,11 @@
 		dat += "<br>Текущее местоположение: [get_area(D)]."
 		dat += "<br><a href='byond://?src=[UID()];resync=\ref[D]'>Синхронизировать</a> | <a href='byond://?src=[UID()];shutdown=\ref[D]'>Отключить</a>"
 
-	dat += "<br><b><a href='byond://?src=[UID()];request_help=1'>Запросить нового дрона</a></B>"
+	dat += "<br><b><a href='byond://?src=[UID()];request_help=1'>Запросить нового дрона</a></b>"
 
-	dat += "<br><br><b>Запросить присутствие дрона в зоне:</B> <a href='byond://?src=[UID()];setarea=1'>[drone_call_area]</a> (<a href='byond://?src=[UID()];ping=1'>Отправить пинг</a>)"
+	dat += "<br><br><b>Запросить присутствие дрона в зоне:</b> <a href='byond://?src=[UID()];setarea=1'>[drone_call_area]</a> (<a href='byond://?src=[UID()];ping=1'>Отправить пинг</a>)"
 
-	dat += "<br><br><b>Фабрикатор дронов</B>: "
+	dat += "<br><br><b>Фабрикатор дронов</b>: "
 	dat += "[dronefab ? "<a href='byond://?src=[UID()];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "АКТИВЕН" : "НЕАКТИВЕН"]</a>" : "<font color='red'><b>ФАБРИКАТОР НЕ ОБНАРУЖЕН.</b></font> (<a href='byond://?src=[UID()];search_fab=1'>Поиск</a>)"]"
 	user << browse(dat, "window=computer;size=400x500")
 	onclose(user, "computer")

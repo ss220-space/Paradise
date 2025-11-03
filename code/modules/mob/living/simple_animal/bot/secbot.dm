@@ -4,10 +4,8 @@
 /mob/living/simple_animal/bot/secbot
 	name = "Securitron"
 	desc = "Маленький охранный робот. Он выглядит абсолютно спокойным."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -66,8 +64,6 @@
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "Это Офицер Бипски! Работает с помощью картофеля и рюмки виски."
-	idcheck = FALSE
-	weaponscheck = FALSE
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/get_ru_names()
@@ -107,7 +103,6 @@
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
 	desc = "Это Офицер Тюремски! Работает с помощью крови, пота и слёз заключённых."
-	idcheck = FALSE
 	weaponscheck = TRUE
 	auto_patrol = TRUE
 
@@ -187,7 +182,7 @@
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -210,7 +205,7 @@
 	target = null
 	oldtarget_name = null
 	set_anchored(FALSE)
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 
@@ -433,7 +428,7 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			SSmove_manager.stop_looping(src)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
@@ -442,7 +437,7 @@
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				SSmove_manager.stop_looping(src)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -458,7 +453,7 @@
 
 				else								// not next to perp
 					var/turf/olddist = get_dist(src, target)
-					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
+					GLOB.move_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -558,13 +553,13 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/check_for_weapons(obj/item/slot_item)
-	if(slot_item && slot_item.needs_permit)
+	if(slot_item?.needs_permit)
 		return TRUE
 	return FALSE
 
 
 /mob/living/simple_animal/bot/secbot/explode()
-	SSmove_manager.stop_looping(src)
+	GLOB.move_manager.stop_looping(src)
 	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
@@ -598,11 +593,11 @@
 		return
 
 	arrived.visible_message(span_warning("[pick( \
-						"[arrived] спотыка[pluralize_ru(arrived.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
-						"[arrived] опрокидыва[pluralize_ru(arrived.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
-						"[arrived] отлета[pluralize_ru(arrived.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
+						"[arrived] спотыка[PLUR_ET_YUT(arrived)]ся об [declent_ru(GENITIVE)]!", \
+						"[arrived] опрокидыва[PLUR_ET_YUT(arrived)]ся на [declent_ru(GENITIVE)]!", \
+						"[arrived] отлета[PLUR_ET_YUT(arrived)] с пути [declent_ru(GENITIVE)]!", \
 						"[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
-						"[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [genderize_ru(arrived.gender, "его", "её", "его", "их")] упасть!", \
+						"[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [GEND_HIS_HER(arrived)] упасть!", \
 						"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]"))
 	arrived.Weaken(4 SECONDS)
 

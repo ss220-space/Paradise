@@ -159,7 +159,7 @@
 
 	SStgui.update_uis(src)
 	recipient_messenger.notify("[span_bold("Новое сообщение! Отправитель: [pda.owner][pda.ownjob ? " ([pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[recipient_messenger.UID()];choice=Message;target=[pda.UID()]'>Ответить</a>)")
-	to_chat(sender, "[bicon(pda)] [span_bold("Новое сообщение. Получатель: [recipient_pda.owner][recipient_pda.ownjob ? " ([recipient_pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=[recipient_pda.UID()]'>Отправить ещё сообщение</a>)")
+	to_chat(sender, "[icon2html(pda, sender)] [span_bold("Новое сообщение. Получатель: [recipient_pda.owner][recipient_pda.ownjob ? " ([recipient_pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=[recipient_pda.UID()]'>Отправить ещё сообщение</a>)")
 
 	log_pda_message(message, sender, pda, recipient_pda)
 	if(pda.silent)

@@ -185,7 +185,6 @@
 /obj/effect/ebeam
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_ALL_MOB_LAYER
-	anchored = TRUE
 	var/emissive = FALSE
 	var/datum/beam/owner
 
@@ -334,7 +333,7 @@
 
 /obj/effect/ebeam/vetus/Destroy()
 	for(var/mob/living/mob in get_turf(src))
-		mob.electrocute_act(20, "электрической дуги", flags = SHOCK_NOGLOVES)
+		mob.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 	return ..()
 
 /obj/effect/ebeam/vetus_leg

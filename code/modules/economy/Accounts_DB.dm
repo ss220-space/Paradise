@@ -197,7 +197,7 @@ GLOBAL_VAR(current_date_string)
 			"}
 
 			P.info = text
-			visible_message("<span class='notice'>[src] prints out a report.</span>")
+			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
 
 		if("print_account_details")
@@ -215,7 +215,7 @@ GLOBAL_VAR(current_date_string)
 				<u>Holder:</u> [detailed_account_view.owner_name]<br>
 				<u>Balance:</u> $[detailed_account_view.money]<br>
 				<u>Status:</u> [detailed_account_view.suspended ? "Suspended" : "Active"]<br>
-				<u>Transactions:</u> ([detailed_account_view.transaction_log.len])<br>
+				<u>Transactions:</u> ([length(detailed_account_view.transaction_log)])<br>
 				<table>
 					<thead>
 						<tr>
@@ -246,7 +246,7 @@ GLOBAL_VAR(current_date_string)
 				"}
 
 			P.info = text
-			visible_message("<span class='notice'>[src] prints out a report.</span>")
+			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
 
 #undef AUT_ACCLST

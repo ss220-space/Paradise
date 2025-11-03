@@ -2,13 +2,10 @@
 	name = "drone"
 	real_name = "drone"
 	desc = "Крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта Нанотрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
-	icon = 'icons/mob/robots.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
 	bubble_icon = "machine"
-	universal_speak = 0
-	universal_understand = 1
 	gender = MALE
 	pass_flags = PASSTABLE
 	braintype = "Robot"
@@ -49,7 +46,17 @@
 	)
 
 	holder_type = /obj/item/holder/drone
-//	var/sprite[0]
+
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor
+	)
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
+	canWearBlacklistedHats = TRUE
 
 /mob/living/silicon/robot/drone/get_ru_names()
 	return list(
@@ -98,7 +105,7 @@
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list(ENG_FREQ_NAME = 1)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 
 	//Grab stacks.
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
@@ -205,10 +212,10 @@
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
 				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(user, span_warning("Система перезагрузки в настоящее время отключена. Пожалуйста, подождите ещё [cooldown_time] секунд[declension_ru(cooldown_time, "у", "ы", "")]."))
+				to_chat(user, span_warning("Система перезагрузки в настоящее время отключена. Пожалуйста, подождите ещё [cooldown_time] секунд[DECL_SEC_MIN(cooldown_time)]."))
 				return ATTACK_CHAIN_PROCEED
 			user.visible_message(
-				span_warning("[user] провёл[genderize_ru(user.gender,"","а","о","и")] ID-картой по [declent_ru(DATIVE)], пытаясь перезагрузить его."),
+				span_warning("[user] провёл[GEND_A_O_I(user)] ID-картой по [declent_ru(DATIVE)], пытаясь перезагрузить его."),
 				span_notice("Вы провели своей ID-картой по [declent_ru(DATIVE)], пытаясь перезагрузить его."),
 			)
 			last_reboot = world.time / 10
@@ -230,7 +237,7 @@
 		if(confirm != "Да" || !Adjacent(user) || QDELETED(I) || I.loc != user)
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_warning("[user] провёл[genderize_ru(user.gender,"","а","о","и")] ID-картой по [declent_ru(DATIVE)], пытаясь выключить его."),
+			span_warning("[user] провёл[GEND_A_O_I(user)] ID-картой по [declent_ru(DATIVE)], пытаясь выключить его."),
 			span_notice("Вы провели своей ID-картой по [declent_ru(DATIVE)], пытаясь выключить его."),
 		)
 		shut_down()
@@ -257,7 +264,7 @@
 	var/mob/living/carbon/human/H = user
 
 	if(emagged)
-		to_chat(src, span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
+		to_chat(src, span_warning("[user] пыта[PLUR_ET_YUT(user)]ся загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
 		to_chat(user, span_warning("Вы пытаетесь подчинить [declent_ru(GENITIVE)], но секвенсор не оказывает эффекта."))
 		return
 
@@ -303,7 +310,7 @@
 			SSticker.mode.add_clocker(mind)
 			mind.transfer_to(cog)
 		else
-			cog.key = client.key
+			cog.possess_by_player(client.key)
 	spawn_dust()
 	gib()
 

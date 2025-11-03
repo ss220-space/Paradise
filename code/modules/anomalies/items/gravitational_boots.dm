@@ -4,7 +4,6 @@
 	name = "gravitational boots"
 	desc = "Эти экспериментальные магбутсы обходят замедление обычных, за счёт миниатюрных гравитационных в подошвах. \
 			К сожалению, для работы им необходимо ядро гравитационной аномалии."
-	gender = PLURAL
 	icon_state = "gravboots0"
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //combination of magboots and jumpboots
 	strip_delay = 10 SECONDS
@@ -261,8 +260,8 @@
 	if(!cell || !core)
 		return ..()
 
-	user.visible_message(span_suicide("[user] прижима[pluralize_ru(user.gender,"ет","ют")] подошвы [declent_ru(GENITIVE)] к своему торсу с двух сторон и активиру[pluralize_ru(user.gender,"ет","ют")]. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender,"ет","ют")]тся убить себя!"))
-	user.visible_message(span_suicide("[user] взрыва[pluralize_ru(user.gender,"ет","ют")]ся из-за возникшего гравитационного колодца!"), \
+	user.visible_message(span_suicide("[user] прижима[PLUR_ET_YUT(user)] подошвы [declent_ru(GENITIVE)] к своему торсу с двух сторон и активиру[PLUR_ET_YUT(user)]. Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]тся убить себя!"))
+	user.visible_message(span_suicide("[user] взрыва[PLUR_ET_YUT(user)]ся из-за возникшего гравитационного колодца!"), \
 						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
 						span_suicide("Вы слышите громкий хлопок!"))
 	user.gib()

@@ -9,7 +9,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=2;biotech=3"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
-	toolspeed = 1
 	/// Path thats will be transformed into object on Initialize()
 	var/obj/item/implant/imp
 
@@ -56,7 +55,7 @@
 		return .
 
 	if(target != user)
-		target.visible_message(span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся имплантировать био-чип в [target]."))
+		target.visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся имплантировать био-чип в [target]."))
 		if(!do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL) || QDELETED(user) || QDELETED(target) || QDELETED(src) || QDELETED(imp))
 			return .
 
@@ -68,8 +67,8 @@
 		to_chat(user, span_notice("Вы имплантировали био-чип."))
 	else
 		target.visible_message(
-			span_warning("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] био-чип в [target]."),
-			span_notice("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] вам био-чип."),
+			span_warning("[user] имплантировал[GEND_A_O_I(user)] био-чип в [target]."),
+			span_notice("[user] имплантировал[GEND_A_O_I(user)] вам био-чип."),
 		)
 	imp = null
 	update_state()

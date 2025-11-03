@@ -36,7 +36,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant
 	name = "hierophant"
-	desc = "Массивный металлический клуб, зависающий в воздухе будто в ожидании. Он заставит вас танцевать под свой ритм."
+	desc = "Массивный металлический посох, зависающий в воздухе будто в ожидании. Он заставит вас танцевать под свой ритм."
 	health = 2500
 	maxHealth = 2500
 	attacktext = "качает"
@@ -58,8 +58,9 @@ Difficulty: Hard
 	loot = list(/obj/item/hierophant_club, /obj/item/gem/purple)
 	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman, /obj/item/gem/purple)
 	wander = FALSE
-	medal_type = BOSS_MEDAL_HIEROPHANT
-	score_type = HIEROPHANT_SCORE
+	achievement_type = /datum/award/achievement/boss/hierophant_kill
+	crusher_achievement_type = /datum/award/achievement/boss/hierophant_crusher
+	score_achievement_type = /datum/award/score/hierophant_score
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
@@ -192,7 +193,7 @@ Difficulty: Hard
 				possibilities = list("chaser_swarm")
 			else
 				possibilities += "chaser_swarm"
-		if(possibilities.len)
+		if(length(possibilities))
 			switch(pick(possibilities))
 				if("blink_spam") //blink either once or multiple times.
 					blink_spam(blink_counter, target_slowness, cross_counter)
@@ -294,9 +295,9 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(src, 6)
 	var/list/targets = ListTargets()
 	var/list/cardinal_copy = GLOB.cardinal.Copy()
-	while(targets.len && cardinal_copy.len)
+	while(length(targets) && length(cardinal_copy))
 		var/mob/living/pickedtarget = pick(targets)
-		if(targets.len >= cardinal_copy.len)
+		if(length(targets) >= length(cardinal_copy))
 			pickedtarget = pick_n_take(targets)
 		if(!istype(pickedtarget) || pickedtarget.stat == DEAD)
 			pickedtarget = target
@@ -619,11 +620,11 @@ Difficulty: Hard
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
 	. = ..()
-	queue_smooth_neighbors(src)
-	queue_smooth(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /obj/effect/temp_visual/hierophant/wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 
@@ -827,7 +828,6 @@ Difficulty: Hard
 	icon_state = "hierophant_tele_off"
 	light_range = 2
 	layer = LOW_OBJ_LAYER
-	anchored = TRUE
 	var/teleporting = FALSE
 
 /obj/effect/hierophant/get_ru_names()
@@ -857,10 +857,10 @@ Difficulty: Hard
 		add_fingerprint(user)
 		var/obj/item/hierophant_club/club = I
 		if(club.timer > world.time)
-			to_chat(user, span_hierophant_warning("Клуб перезаряжается."))
+			to_chat(user, span_hierophant_warning("Посох перезаряжается."))
 			return ATTACK_CHAIN_PROCEED
 		if(club.beacon != src)
-			to_chat(user, span_hierophant_warning("Вы касаетесь маяка клубом, но ничего не происходит."))
+			to_chat(user, span_hierophant_warning("Вы касаетесь маяка посохом, но ничего не происходит."))
 			return ATTACK_CHAIN_PROCEED
 		club.timer = world.time + 5.1 SECONDS
 		to_chat(user, span_notice("Вы начинаете извлекать маяк иерофанта..."))
@@ -871,7 +871,7 @@ Difficulty: Hard
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, 'sound/magic/blind.ogg', 200, TRUE, -4)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(loc, user)
-		to_chat(user, span_hierophant_warning("Вы собираете [declent_ru(ACCUSATIVE)], возвращая его к клубу!"))
+		to_chat(user, span_hierophant_warning("Вы собираете [declent_ru(ACCUSATIVE)], возвращая его к посоху!"))
 		club.beacon = null
 		user.update_action_buttons_icon()
 		qdel(src)

@@ -1,9 +1,6 @@
 /obj/machinery/atmospherics/trinary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH|WEST
-	use_power = IDLE_POWER_USE
 
-	on = FALSE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
 	layer_offset = GAS_FILTER_OFFSET
 

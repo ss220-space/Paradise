@@ -22,9 +22,13 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 /datum/station_goal/dna_vault/New()
 	..()
 	animal_count = rand(15, 20) //might be too few given ~15 roundstart stationside ones
-	human_count = rand(round(0.75 * SSticker.mode.num_players_started()), SSticker.mode.num_players_started()) // 75%+ roundstart population.
+	var/min_rand_human_count = round(0.75 * SSticker.mode.num_players_started())
+	var/max_rand_human_count = SSticker.mode.num_players_started()
+	human_count = rand(min_rand_human_count, max_rand_human_count) // 75%+ roundstart population.
 	var/non_standard_plants = non_standard_plants_count()
-	plant_count = rand(round(0.5 * non_standard_plants),round(0.7 * non_standard_plants))
+	var/min_rand_plant_count = round(0.5 * non_standard_plants)
+	var/max_rand_plant_count = round(0.7 * non_standard_plants)
+	plant_count = rand(min_rand_plant_count, max_rand_plant_count)
 
 /datum/station_goal/dna_vault/proc/non_standard_plants_count()
 	. = 0
@@ -65,14 +69,6 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 /obj/item/dna_probe
 	name = "DNA Sampler"
 	desc = "Может использоваться для взятия химических и генетических образцов практически любого объекта."
-	ru_names = list(
-		NOMINATIVE = "ДНК-семплер",
-		GENITIVE = "ДНК-семплера",
-		DATIVE = "ДНК-семплеру",
-		ACCUSATIVE = "ДНК-семплер",
-		INSTRUMENTAL = "ДНК-семплером",
-		PREPOSITIONAL = "ДНК-семплере"
-	)
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "sampler_hypo"
 	icon_state = "sampler_hypo"
@@ -80,6 +76,16 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 	var/list/animals = list()
 	var/list/plants = list()
 	var/list/dna = list()
+
+/obj/item/dna_probe/get_ru_names()
+	return list(
+		NOMINATIVE = "ДНК-семплер",
+		GENITIVE = "ДНК-семплера",
+		DATIVE = "ДНК-семплеру",
+		ACCUSATIVE = "ДНК-семплер",
+		INSTRUMENTAL = "ДНК-семплером",
+		PREPOSITIONAL = "ДНК-семплере"
+	)
 
 /obj/item/dna_probe/proc/clear_data()
 	animals = list()
@@ -159,14 +165,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 /obj/machinery/dna_vault
 	name = "DNA Vault"
 	desc = "Разбейте стекло в случае апокалипсиса."
-	ru_names = list(
-		NOMINATIVE = "ДНК хранилище",
-		GENITIVE = "ДНК хранилища",
-		DATIVE = "ДНК хранилищу",
-		ACCUSATIVE = "ДНК хранилище",
-		INSTRUMENTAL = "ДНК хранилищем",
-		PREPOSITIONAL = "ДНК хранилище"
-	)
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
 	density = TRUE
@@ -188,6 +186,16 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	var/static/list/power_lottery = list()
 
 	var/list/obj/structure/fillers = list()
+
+/obj/machinery/dna_vault/get_ru_names()
+	return list(
+		NOMINATIVE = "ДНК хранилище",
+		GENITIVE = "ДНК хранилища",
+		DATIVE = "ДНК хранилищу",
+		ACCUSATIVE = "ДНК хранилище",
+		INSTRUMENTAL = "ДНК хранилищем",
+		PREPOSITIONAL = "ДНК хранилище"
+	)
 
 /obj/machinery/dna_vault/Initialize(mapload)
 	. = ..()
@@ -287,7 +295,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			return TRUE
 
 /obj/machinery/dna_vault/proc/check_goal()
-	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
+	if(length(plants) >= plants_max && length(animals) >= animals_max && length(dna) >= dna_max)
 		completed = TRUE
 
 

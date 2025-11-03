@@ -5,7 +5,6 @@
 	has_gravity = STANDARD_GRAVITY
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /obj/item/survivalcapsule
 	name = "bluespace shelter capsule"
@@ -250,14 +249,12 @@
 //Table
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "table"
 	smooth = NONE
 	can_be_flipped = FALSE
 
 //Sleeper
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "sleeper-open"
 	density = FALSE
 
 /obj/machinery/sleeper/survival_pod/Initialize(mapload)
@@ -308,7 +305,7 @@
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_warning("[user] разбира[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
 		span_italics("Слышны стук и лязг."),
 	)
@@ -329,7 +326,6 @@
 //Bed
 /obj/structure/bed/pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "bed"
 
 //Survival Storage Unit
 /obj/machinery/smartfridge/survival_pod
@@ -412,7 +408,7 @@
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_warning("[user] разбира[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
 		span_italics("Слышны стук и лязг."),
 	)
@@ -458,10 +454,10 @@
 		INSTRUMENTAL = "знаком шахтёрского корпуса НТ",
 		PREPOSITIONAL = "знаке шахтёрского корпуса НТ"
 	)
+
 /obj/structure/sign/mining/survival
 	name = "shelter sign"
 	desc = "Яркий знак, обозначающий безопасное укрытие."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "survival"
 
 /obj/structure/sign/mining/survival/get_ru_names()
@@ -481,13 +477,11 @@
 	name = "tubes"
 	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = FALSE
-
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
+		span_warning("[user] разбира[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
 		span_italics("Слышны стук и лязг."),
 	)

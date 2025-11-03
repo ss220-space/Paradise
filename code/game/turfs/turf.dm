@@ -41,10 +41,6 @@
 	// Optimization, not for setting outside of initialize
 	var/init_air = TRUE
 
-	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
-
-	flags = 0
-
 	var/changing_turf = FALSE
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
@@ -81,6 +77,14 @@
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
+
+	var/pressure_difference = 0
+	var/pressure_direction = 0
+	var/list/atmos_adjacent_turfs = list()
+	var/atmos_supeconductivity = 0
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -111,7 +115,7 @@
 
 	levelupdate()
 	if(smooth)
-		queue_smooth(src)
+		QUEUE_SMOOTH(src)
 
 	for(var/atom/movable/content as anything in src)
 		Entered(content)
@@ -636,26 +640,23 @@
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
-/turf/proc/empty(turf_type = /turf/space)
-	// Remove all atoms except observers, landmarks, docking ports, and (un)`simulated` atoms (lighting overlays)
-	var/turf/T0 = src
-	for(var/X in T0.GetAllContents())
-		var/atom/A = X
-		if(!A.simulated)
-			continue
-		if(istype(A, /mob/dead))
-			continue
-		if(istype(A, /obj/effect/landmark))
-			continue
-		if(istype(A, /obj/docking_port))
-			continue
-		qdel(A, force = TRUE)
+/turf/proc/empty(turf_type=/turf/space, list/ignore_typecache, flags)
+	// Remove all atoms except observers, landmarks, docking ports
+	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port))
+	var/list/allowed_contents = typecache_filter_list_reverse(get_all_contents_ignoring(ignore_typecache), ignored_atoms)
+	allowed_contents -= src
+	for(var/i in 1 to allowed_contents.len)
+		var/thing = allowed_contents[i]
+		qdel(thing, force=TRUE)
 
-	T0.ChangeTurf(turf_type)
+	if(!turf_type)
+		return
 
-	SSair.remove_from_active(T0)
-	T0.CalculateAdjacentTurfs()
-	SSair.add_to_active(T0, TRUE)
+	var/turf/new_turf = ChangeTurf(turf_type, after_flags = flags)
+	SSair.remove_from_active(new_turf)
+	new_turf.CalculateAdjacentTurfs()
+	SSair.add_to_active(new_turf, TRUE)
+
 
 /turf/AllowDrop()
 	return TRUE
@@ -796,7 +797,7 @@
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	C.take_organ_damage(damage)

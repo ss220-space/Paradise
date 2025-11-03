@@ -12,8 +12,6 @@
 	opacity = TRUE
 	plane = ABOVE_GAME_PLANE
 	layer = FLY_LAYER
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	animate_movement = FALSE
 	/// How long the smoke sticks around before it dissipates.
 	var/lifetime = 5 SMOKE_TICK_TO_SECONDS

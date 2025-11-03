@@ -6,7 +6,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "tome"
 	item_state = "book"
-	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -93,7 +92,6 @@
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "Тяжёлая бола, наполненная тёмной магией. При попадании она опрокинет и замедлит вашу цель, но не повлияет на других культистов."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakout_time = 4 SECONDS
@@ -174,7 +172,6 @@
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
-	slowdown = 1
 	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEJUMPSUIT
@@ -192,7 +189,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60)
 	flags_inv_transparent = HIDEGLOVES
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	species_restricted = null
@@ -205,7 +201,6 @@
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list(MELEE = 40, BULLET = 30, LASER = 40,ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
-	body_parts_covered = HEAD
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
@@ -236,7 +231,6 @@
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list(MELEE = -50, BULLET = -50, LASER = -50,ENERGY = -50, BOMB = -50, BIO = -50, RAD = -50, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -294,7 +288,6 @@
 	increment = 5
 	max = 40
 	claws_increment = 4
-	gender = MALE
 	prefix = "Потемневшее"
 
 /obj/item/whetstone/cult/update_icon_state()
@@ -329,7 +322,6 @@
 	desc = "May the master guide you through the darkness and shield you from the light."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
@@ -345,12 +337,22 @@
 		user.Knockdown(10 SECONDS)
 		user.EyeBlind(60 SECONDS)
 
+///how many times can the shuttle be cursed?
+#define MAX_SHUTTLE_CURSES 3
+///if the max number of shuttle curses are used within this duration, the entire cult gets an achievement
+#define SHUTTLE_CURSE_OMFG_TIMESPAN (10 SECONDS)
+
 /obj/item/shuttle_curse
 	name = "cursed orb"
 	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shuttlecurse"
-	var/global/curselimit = 0
+	///how many times has the shuttle been cursed so far?
+	var/static/totalcurses = 0
+	///when was the first shuttle curse?
+	var/static/first_curse_time
+	///curse messages that have already been used
+	var/static/list/remaining_curses
 
 /obj/item/shuttle_curse/attack_self(mob/living/user)
 	if(!iscultist(user))
@@ -358,27 +360,87 @@
 		user.Knockdown(10 SECONDS)
 		to_chat(user, span_warning("A powerful force shoves you away from [src]!"))
 		return
-	if(curselimit > 1)
-		to_chat(user, span_notice("We have exhausted our ability to curse the shuttle."))
+
+	if(totalcurses >= MAX_SHUTTLE_CURSES)
+		to_chat(user, span_warning("Вы пытаетесь разбить сферу, но она остаётся твёрдой, как камень!"))
+		to_chat(user, span_danger(span_big("Похоже, что культ крови исчерпал свои силы для наложения проклятий на эвакуационный шаттл. Создавать новые проклятые сферы или продолжать пытаться разбить эту — неразумно.")))
 		return
+
 	if(locate(/obj/singularity/god/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, span_danger("Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things."))
 		return
 
-	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
-		var/cursetime = 3 MINUTES
-		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
-		SSshuttle.emergency.setTimer(timer)
-		to_chat(user,span_danger("You shatter the orb! A dark essence spirals into the air, then disappears."))
-		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
-		curselimit++
-		var/message = pick(CULT_CURSES)
-		var/curse_delay = cursetime / 600
-		GLOB.major_announcement.announce("[message] Шаттл задерживается на [curse_delay] минут[declension_ru(curse_delay, "у", "ы", "")].",
-										ANNOUNCE_SYSERROR_RU,
-										'sound/misc/notice1.ogg'
-		)
-		qdel(src)
+	if(SSshuttle.emergency.mode != SHUTTLE_CALL)
+		return
+
+	var/cursetime = 3 MINUTES
+	var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
+	var/security_num = SSsecurity_level.get_current_level_as_number()
+	var/set_coefficient = 1
+
+	if(totalcurses == 0)
+		first_curse_time = world.time
+
+	switch(security_num)
+		if(SEC_LEVEL_GREEN)
+			set_coefficient = 2
+		if(SEC_LEVEL_BLUE)
+			set_coefficient = 1
+		else
+			set_coefficient = 0.5
+
+	var/surplus = timer - (SSshuttle.emergencyCallTime * set_coefficient)
+	SSshuttle.emergency.setTimer(timer)
+
+	if(surplus > 0)
+		SSshuttle.block_recall(surplus)
+
+	totalcurses++
+	to_chat(user, span_danger("Вы разбиваете сферу! Тёмная сущность взвивается в воздух и исчезает."))
+	playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
+
+	if(!remaining_curses)
+		remaining_curses = strings(CULT_SHUTTLE_CURSE, "curse_announce")
+
+	var/curse_message = pick_n_take(remaining_curses) || "Что-то пошло ужасающе неправильно..."
+	var/curse_delay = cursetime / 600
+	curse_message += " Шаттл задерживается на [curse_delay] минут[DECL_SEC_MIN(curse_delay)]."
+
+	GLOB.major_announcement.announce(
+		message = curse_message,
+		new_title = ANNOUNCE_SYSERROR_RU,
+		new_sound = 'sound/misc/notice1.ogg'
+	)
+
+	if((MAX_SHUTTLE_CURSES - totalcurses) <= 0)
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл больше нельзя проклясть. Создавать новые проклятые сферы было бы неразумно."))
+
+	else if((MAX_SHUTTLE_CURSES - totalcurses) == 1)
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё лишь один раз."))
+
+	else
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё только [MAX_SHUTTLE_CURSES - totalcurses] раз[declension_ru(MAX_SHUTTLE_CURSES - totalcurses, "", "а", "")]."))
+
+	if(totalcurses >= MAX_SHUTTLE_CURSES && (world.time < first_curse_time + SHUTTLE_CURSE_OMFG_TIMESPAN))
+		var/omfg_message = pick_list(CULT_SHUTTLE_CURSE, "omfg_announce") || "ОСТАВЬТЕ НАС В ПОКОЕ!"
+		addtimer(CALLBACK(src, PROC_REF(omfg_announce), omfg_message), rand(2 SECONDS, 6 SECONDS))
+		for(var/mob/iter_player as anything in GLOB.player_list)
+			if(!iscultist(iter_player))
+				continue
+
+			iter_player.client?.give_award(/datum/award/achievement/misc/cult_shuttle_omfg, iter_player)
+	qdel(src)
+
+/obj/item/shuttle_curse/proc/omfg_announce(omfg_message)
+	GLOB.major_announcement.announce(
+		message = omfg_message,
+		new_title = ANNOUNCE_TITLE_CCDT,
+		new_subtitle = ANNOUNCE_PRIORITY_RU,
+		new_sound = 'sound/misc/notice1.ogg'
+	)
+
+#undef MAX_SHUTTLE_CURSES
+#undef SHUTTLE_CURSE_OMFG_TIMESPAN
 
 /obj/item/cult_shift
 	name = "veil shifter"
@@ -486,7 +548,6 @@
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	name = "ghostly cult robes"
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	item_flags = DROPDEL
@@ -659,7 +720,6 @@
 	force_unwielded = 17
 	force_wielded = 24
 	throwforce = 40
-	throw_speed = 2
 	armour_penetration = 30
 	block_chance = 30
 	attack_verb = list("атаковал", "пронзил", "уколол", "поранил", "пронзил")
@@ -733,7 +793,6 @@
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
-	background_icon_state = "bg_cult"
 	button_icon_state = "bloodspear"
 	var/obj/item/twohanded/cult_spear/spear
 	var/cooldown = 0
@@ -782,7 +841,6 @@
 	name = "blood bolt"
 	icon_state = "blood_bolt"
 	damage_type = BRUTE
-	damage = 20
 	impact_effect_type = /obj/effect/temp_visual/cult/sparks
 	hitsound = 'sound/effects/splat.ogg'
 

@@ -32,12 +32,12 @@
 	if(reagents.total_volume)
 		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
 		ru_names = list(
-			NOMINATIVE = "рюмка - " + reagents.get_master_reagent_name(),
-			GENITIVE = "рюмки - " + reagents.get_master_reagent_name(),
-			DATIVE = "рюмке - " + reagents.get_master_reagent_name(),
-			ACCUSATIVE = "рюмку - " + reagents.get_master_reagent_name(),
-			INSTRUMENTAL = "рюмкой - " + reagents.get_master_reagent_name(),
-			PREPOSITIONAL = "рюмке - " +reagents.get_master_reagent_name()
+			NOMINATIVE = "рюмка — " + reagents.get_master_reagent_name(),
+			GENITIVE = "рюмки — " + reagents.get_master_reagent_name(),
+			DATIVE = "рюмке — " + reagents.get_master_reagent_name(),
+			ACCUSATIVE = "рюмку — " + reagents.get_master_reagent_name(),
+			INSTRUMENTAL = "рюмкой — " + reagents.get_master_reagent_name(),
+			PREPOSITIONAL = "рюмке — " +reagents.get_master_reagent_name()
 		)
 		if(resistance_flags & ON_FIRE)
 			name = "flaming [name]"
@@ -81,7 +81,7 @@
 	if(!(resistance_flags & ON_FIRE))
 		return ATTACK_CHAIN_PROCEED
 	user.visible_message(
-		span_warning("[user] пролива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на себя!"),
+		span_warning("[user] пролива[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)] на себя!"),
 		span_danger("Вы проливаете содержимое [declent_ru(GENITIVE)] на себя!"),
 		span_italics("Вы слышите \"Ух!\" и последующее шипение."),
 	)
@@ -142,7 +142,7 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		clumsilyDrink(user)
 	else
-		user.visible_message(span_notice("[user] накрыва[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"),
+		user.visible_message(span_notice("[user] накрыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"),
 								span_notice("Вы накрываете [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"))
 		extinguish()
 

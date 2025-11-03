@@ -3,7 +3,6 @@
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
 	icon_state = "pistol"
 	origin_tech = "combat=2;materials=2"
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1000)
 	recoil = GUN_RECOIL_LOW
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
@@ -176,7 +175,7 @@
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
 	var/ammo_num = get_ammo()
-	. += span_notice("Остал[declension_ru(ammo_num, "ся", "ось", "ось")] [ammo_num] патрон[declension_ru(ammo_num, "", "а", "ов")].")
+	. += span_notice("Остал[declension_ru(ammo_num, "ся", "ось", "ось")] [ammo_num] патрон[DECL_CREDIT(ammo_num)].")
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = TRUE, countempties = TRUE)
 	var/boolets = 0 //mature var names for mature people
@@ -187,7 +186,7 @@
 	return boolets
 
 /obj/item/gun/projectile/suicide_act(mob/user)
-	if(chambered && chambered.BB && !chambered.BB.nodamage)
+	if(chambered?.BB && !chambered.BB.nodamage)
 		user.visible_message(span_suicide("[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide."))
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)

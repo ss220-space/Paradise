@@ -2,7 +2,8 @@
 //------------------------------------SUPPLY POD-------------------------------------//
 /obj/structure/closet/supplypod
 	name = "supply pod" //Names and descriptions are normally created with the setStyle() proc during initialization, but we have these default values here as a failsafe
-	desc = "Капсула снабжения Nanotrasen."
+	desc = "Капсула снабжения Нанотрейзен."
+	gender = FEMALE
 	icon = 'icons/obj/supplypods.dmi'
 	icon_state = "pod" //This is a common base sprite shared by a number of pods
 	pixel_x = SUPPLYPOD_X_OFFSET //2x2 sprite
@@ -97,7 +98,7 @@
 
 /obj/structure/closet/supplypod/extractionpod
 	name = "Syndicate Extraction Pod"
-	desc = "Специализированная капсула кроваво-красного цвета для эвакуации ценных целей из зон активных задач. <b>Для правильной доставки цели необходимо вручную поместить в капсулу.</b>"
+	desc = "Специализированная капсула кроваво-красного цвета для эвакуации ценных целей из зон активных задач. <b>Для правильной доставки цель должна быть помещена в капсулу вручную.</b>"
 	specialised = TRUE
 	style = /datum/pod_style/contractor
 	bluespace = TRUE
@@ -215,7 +216,7 @@
 
 /obj/structure/closet/supplypod/deadmatch_missile
 	name = "cruise missile"
-	desc = "Огромная ракета, вероятно, запущенная из какой-то далекой ракетной шахты в дальнем космосе"
+	desc = "Огромная ракета, вероятно, запущенная из какой-то далёкой ракетной шахты в дальнем космосе."
 	style = /datum/pod_style/missile/syndicate
 	explosionSize = list(0,1,2,2)
 	effectShrapnel = TRUE
@@ -392,13 +393,13 @@
 ///Called by the drop pods that return captured crewmembers from the ninja den.
 /obj/structure/closet/supplypod/proc/return_from_capture(mob/living/victim, turf/destination = get_safe_random_station_turf())
 	if(isnull(destination)) //Uuuuh, something went wrong. This is gonna hurt.
-		to_chat(victim, span_holoparasite("Миллион голосов эхом звучит в твоей голове... «Похоже, там, куда тебя отправили, не могут справиться с нашей капсулой...\
+		to_chat(victim, span_holoparasite("Миллион голосов эхом звучит в вашей голове... «Похоже, там, куда вас отправили, не могут справиться с нашей капсулой...\
 		как будто мы хотели, чтобы пассажир выжил. Держись, корпоративная собака»"))
 		explosionSize = list(0, 1, 1, 1)
 		destination = get_random_station_turf()
 
 	do_sparks(8, FALSE, victim)
-	victim.visible_message(span_notice("[victim] исчезает..."))
+	victim.visible_message(span_notice("[victim] исчеза[PLUR_ET_YUT(victim)]..."))
 
 	victim.forceMove(src)
 
@@ -409,7 +410,10 @@
 	bluespace = TRUE //Make it so that the pod doesn't stay in centcom forever
 	pod_flags &= ~FIRST_SOUNDS //Make it so we play sounds now
 	if(!effectQuiet && !ispath(style, /datum/pod_style/seethrough))
-		audible_message(span_notice("Капсула шипит, закрываясь и улетая прочь от станции."), span_notice("Земля вибрирует, и вы слышите звук работающих двигателей."))
+		audible_message(
+			span_notice("[capitalize(declent_ru(NOMINATIVE))] шипит, закрываясь и улетая прочь от станции."),
+			span_notice("Земля вибрирует, и вы слышите звук работающих двигателей.")
+		)
 	stay_after_drop = FALSE
 	holder.pixel_z = initial(holder.pixel_z)
 	holder.alpha = initial(holder.alpha)
@@ -443,7 +447,7 @@
 					if(bodypart.limb_zone != BODY_ZONE_HEAD && bodypart.limb_zone != BODY_ZONE_CHEST \
 						&& bodypart.limb_zone != BODY_ZONE_PRECISE_GROIN && !(bodypart.cannot_amputate))//we dont want to kill him, just teach em a lesson!
 						possible_organs |= bp
-				if(possible_organs.len)
+				if(length(possible_organs))
 					bodypart = pick(possible_organs)
 					bodypart.droplimb()
 
@@ -724,7 +728,6 @@
 	layer = GASFIRE_LAYER
 	plane = ABOVE_GAME_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	alpha = 255
 
 /obj/effect/engineglow/proc/fadeAway(leaveTime)
 	var/duration = min(leaveTime, 25)
@@ -740,7 +743,6 @@
 	icon = 'icons/obj/supplypods.dmi'
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER // We want this to go right below the layer of supplypods and supplypod_rubble's forground.
 	icon_state = "rubble_bg"
-	anchored = TRUE
 	pixel_x = SUPPLYPOD_X_OFFSET
 	var/foreground = "rubble_fg"
 	var/verticle_offset = 0
@@ -801,7 +803,6 @@
 	icon_state = "LZ"
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	light_range = 2
-	anchored = TRUE
 	alpha = 0
 	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this pod_landingzone
 	var/obj/effect/pod_landingzone_effect/helper
