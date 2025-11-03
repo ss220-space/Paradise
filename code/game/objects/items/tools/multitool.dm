@@ -69,7 +69,7 @@
 		balloon_alert(user, "неподходящий объект!")
 		return
 	buffer = M
-	balloon_alert(user, "данные загружены в буфер.")
+	balloon_alert(user, "данные загружены в буфер")
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)

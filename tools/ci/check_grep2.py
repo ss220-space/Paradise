@@ -25,6 +25,11 @@ def check_515_proc_syntax(idx, line):
     if CHECK_515_PROC_MARKER_RE.search(line):
         return [(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")]
 
+CHECK_516_HREF_STYLE = re.compile(r"href[\s='\"\\\\]*\?")
+def check_516_href_style(idx, line):
+    if CHECK_516_HREF_STYLE.search(line):
+        return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
+
 CHECK_SPACE_INDENTATION_RE = re.compile(r"^( {2})|(^ [^ *])|(^ {4,})")
 def check_space_indentation(idx, line):
     """
@@ -204,8 +209,9 @@ def check_uid_parameters(idx, line):
         return [(idx + 1, f"UID() does not take arguments. Found: '{result.group(1)}'. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
 
 BALLOON_ALERT_WITHOUT_USER = re.compile(r'(balloon_alert\(["\'])')
-BALLOON_ALERT_WITH_SPAN = re.compile(r'(balloon_alert\(.*?span_)')
-BALLOON_ALERT_CAPITALIZED = re.compile(r'(balloon_alert\(.*?,\s*["\'][A-ZА-Я])')
+BALLOON_ALERT_WITH_SPAN = re.compile(r'(balloon_alert(_to_viewers)?\(.*?span_)')
+BALLOON_ALERT_CAPITALIZED = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*["\'][A-ZА-Я])')
+BALLOON_ALERT_ENDS_WITH_PERIOD = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*"[^"]*[^\.]\.(?!\.)")')
 def check_balloon_alert(idx, line):
     failures = []
     if match := BALLOON_ALERT_WITHOUT_USER.search(line):
@@ -215,6 +221,11 @@ def check_balloon_alert(idx, line):
     if match := BALLOON_ALERT_CAPITALIZED.search(line):
         if 'UNLINT' not in line:
             failures.append((idx + 1, f"Balloon alerts should not start with capital letters: '{match.group(1)}'. Includes text like 'AI'. Wrap the text in UNLINT() if needed."))
+    if match := BALLOON_ALERT_ENDS_WITH_PERIOD.search(line):
+        if 'UNLINT' not in line:
+            text_part = match.group(0)
+            if text_part.endswith('."') or text_part.endswith('.")'):
+                failures.append((idx + 1, f"Balloon alerts should not end with a period: '{match.group(1)}'. If this is a false positive, wrap the text in UNLINT()."))
     return failures
 
 TRAIT_SINGLE_SRC = re.compile(r'(add_trait|remove_trait)\(.+,\s*.+,\s*src\)', re.IGNORECASE)
@@ -354,6 +365,7 @@ CODE_CHECKS = [
     check_apostrophe_name,
     check_rand_floating_point,
     check_bitwise_operator_order,
+    check_516_href_style,
 ]
 
 def run_multiline_check(lines, filename, patterns, strip_comments=False):
