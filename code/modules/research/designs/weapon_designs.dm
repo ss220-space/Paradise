@@ -505,7 +505,7 @@
 
 /datum/design/encryptionkey_syndicate
 	name = "Syndicate Encryptionkey"
-	desc = "An encyption key for a radio headset. Contains syndicate cypherkeys." // "Ключ шифрования синдиката, позволяющий перехватывать другие зашифрованные радиоволны."
+	desc = "An encyption key for a radio headset. Contains syndicate cypherkeys."
 	id = "syndicatekey"
 	req_tech = list("engineering" = 4, "syndicate" = 3, "programming" = 4,"materials" = 3)
 	build_type = PROTOLATHE

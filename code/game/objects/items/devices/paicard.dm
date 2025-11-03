@@ -248,7 +248,7 @@
 	if(upgrade && istype(upgrade, /obj/item/paicard_upgrade/protolate))
 		welcome_message.Add(span_warning("<b>Будучи СпИИ, вы имеете доступ к особым программам.</b>"))
 	else if(upgrade)
-		welcome_message.Add(span_warning("<b>Будучи СпИИ, вы имеете доступ к особым программам, а так же доступ к зашифрованному каналу связи Синдиката — :t</b>"))
+		welcome_message.Add(span_warning("<b>Будучи СпИИ, вы имеете доступ к особым программам, а так же доступ к зашифрованному каналу связи \"Синдиката\" — :t</b>"))
 
 	to_chat(pai, chat_box_notice(welcome_message.Join("<br>")))
 

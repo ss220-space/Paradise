@@ -160,7 +160,7 @@ SUBSYSTEM_DEF(tts)
 		"beautician" = "Косметолог",
 		"explorer" = "Исследователь",
 		"chaplain" = "Священник",
-		"syndicate officer" = "Офицер синдиката",
+		"syndicate officer" = "Офицер \"Синдиката\"",
 		"visitor" = "посетитель",
 		"mining medic" = "Шахтёрский врач",
 		"lavaland health officer" = "Медицинский работник Лазиса",

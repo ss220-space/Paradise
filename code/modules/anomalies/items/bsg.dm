@@ -1,6 +1,6 @@
 /obj/item/gun/energy/bsg
 	name = "Б.С.П."
-	desc = "Большая С*** Пушка. Использует ядро энергетической аномалии и блюспейс кристалл для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
+	desc = "Большая С*** Пушка. Использует ядро энергетической аномалии и блюспейс кристалл для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА \"Нанотрейзен\"."
 	icon_state = "bsg"
 	item_state = "bsg"
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.

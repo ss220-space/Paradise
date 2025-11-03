@@ -102,7 +102,7 @@
 //Syndi fox
 /mob/living/simple_animal/pet/dog/fox/Syndifox
 	name = "Syndifox"
-	desc = "Синдилис, очень уважаемый маскот Синдиката."
+	desc = "Синдилис, очень уважаемый маскот \"Синдиката\"."
 	icon_state = "Syndifox"
 	icon_living = "Syndifox"
 	icon_dead = "Syndifox_dead"

@@ -20,7 +20,7 @@
 	english_station_name = "NSS Turrim"
 	station_short = "Туррим"
 	dock_name = "АКН Трурль"
-	company_name = "Нанотрейзен"
+	company_name = "\"Нанотрейзен\""
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	admin_only = TRUE
@@ -34,7 +34,7 @@
 	english_station_name = "NSS Kerberos"
 	station_short = "Керберос"
 	dock_name = "АКН Трурль"
-	company_name = "Нанотрейзен"
+	company_name = "\"Нанотрейзен\""
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	admin_only = TRUE
@@ -49,7 +49,7 @@
 	english_station_name = "NMC Malta"
 	station_short = "Мальта"
 	dock_name = "АКН Трурль"
-	company_name = "Нанотрейзен"
+	company_name = "\"Нанотрейзен\""
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	admin_only = TRUE
