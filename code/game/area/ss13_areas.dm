@@ -268,7 +268,6 @@ This applies to all STANDARD station areas
 
 /area/shuttle/administration/centcom
 	name = "Судно \"Нанотрейзен\" (Центком)"
-	icon_state = "shuttlered"
 
 /area/shuttle/administration/station
 	icon_state = "shuttlered2"
@@ -1484,7 +1483,7 @@ This applies to all STANDARD station areas
 	icon_state = "toilet"
 
 /area/crew_quarters/sleep_female
-	name = "Женская уборная"
+	name = "Жилая каюта — женская"
 
 /area/crew_quarters/sleep_female/toilet_female
 	name = "Женская уборная"
@@ -1503,7 +1502,6 @@ This applies to all STANDARD station areas
 	icon_state = "fitness"
 
 /area/crew_quarters/dorms
-	name = "Дормитории"
 	icon_state = "dorms"
 
 /area/crew_quarters/trading
@@ -2909,7 +2907,6 @@ This applies to all STANDARD station areas
  */
 
 /area/awaycontent
-	name = "Космос"
 	report_alerts = FALSE
 	has_gravity = STANDARD_GRAVITY
 	area_flags = NONE
