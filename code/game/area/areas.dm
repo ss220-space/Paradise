@@ -1,9 +1,11 @@
 /area
 	var/fire = null
-	var/area_emergency_mode = FALSE // When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
+	/// When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
+	var/area_emergency_mode = FALSE
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = TRUE
-	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
+	/// Should atmos alerts notify the AI/computers
+	var/report_alerts = TRUE
 	level = null
 	name = "Космос"
 	icon = 'icons/turf/areas.dmi'
@@ -24,13 +26,16 @@
 	/// This uses the same nested list format as turfs_by_zlevel
 	var/list/list/turf/turfs_to_uncontain_by_zlevel = list()
 
-	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
-	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
+	/// Used for cult summoning areas on station zlevel
+	var/valid_territory = TRUE
+	/// Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
+	var/map_name
 	var/lightswitch = TRUE
 
 	var/debug = FALSE
 	var/requires_power = TRUE
-	var/always_unpowered = FALSE	//this gets overriden to 1 for space in area/New()
+	/// This gets overriden to 1 for space in area/New()
+	var/always_unpowered = FALSE
 
 	var/power_equip = TRUE
 	var/power_light = TRUE
@@ -55,9 +60,12 @@
 	var/tele_proof = FALSE
 	var/no_teleportlocs = FALSE
 
-	var/outdoors = FALSE //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
-	var/xenobiology_compatible = FALSE //Can the Xenobio management console transverse this area by default?
-	var/nad_allowed = FALSE //is the station NAD allowed on this area?
+	/// For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
+	var/outdoors = FALSE
+	/// Can the Xenobio management console transverse this area by default?
+	var/xenobiology_compatible = FALSE
+	/// Is the station NAD allowed on this area?
+	var/nad_allowed = FALSE
 
 	var/global/global_uid = 0
 	var/uid
@@ -68,33 +76,34 @@
 	var/list/cameras
 	var/list/firealarms
 
-	///Used for performance in light manipulation operations
+	/// Used for performance in light manipulation operations
 	var/list/lights_cache
 
-	///Used for perfomance in machinery manipulation operations
+	/// Used for perfomance in machinery manipulation operations
 	var/list/machinery_cache
 
 	var/firedoors_last_closed_on = 0
 
 	var/fast_despawn = FALSE
 	var/can_get_auto_cryod = TRUE
-	var/hide_attacklogs = FALSE // For areas such as thunderdome, lavaland syndiebase, etc which generate a lot of spammy attacklogs. Reduces log priority.
+	/// For areas such as thunderdome, lavaland syndiebase, etc which generate a lot of spammy attacklogs. Reduces log priority.
+	var/hide_attacklogs = FALSE
 
-	///Used by shuttle to move space visually. It is set by docking_port/mobile.preferred_direction
+	/// Used by shuttle to move space visually. It is set by docking_port/mobile.preferred_direction
 	var/parallax_movedir = 0
-	///Sets if area/shuttle is in move or not
+	/// Sets if area/shuttle is in move or not
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
-	///Used to decide what kind of reverb the area makes sound have
+	/// Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
-	///Used to decide what the minimum time between ambience is
+	/// Used to decide what the minimum time between ambience is
 	var/min_ambience_cooldown = 30 SECONDS
-	///Used to decide what the maximum time between ambience is
+	/// Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
 
-	///This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
+	/// This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
 	var/datum/map_generator/cave_generator/map_generator
 
 	var/area_flags = BLOBS_ALLOWED
@@ -510,7 +519,7 @@
 		light.fire_mode = TRUE
 		light.update()
 
-///unset the fire alarm visual affects in an area
+/// Unset the fire alarm visual affects in an area
 /area/proc/unset_fire_alarm_effects()
 	fire = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -537,7 +546,8 @@
 /area/space/update_icon_state()
 	icon_state = null
 
-/area/proc/powered(chan)		// return true if the area has power to given channel
+/// Return true if the area has power to given channel
+/area/proc/powered(chan)
 	if(!requires_power)
 		return TRUE
 	if(always_unpowered)
@@ -656,8 +666,8 @@
 /area/drop_location()
 	CRASH("Bad op: area/drop_location() called")
 
-// Calculate area center turf, center = (x=minx+(maxx - minx), y=miny+(maxy-miny), z = firstz)
-// Warning: for multi-z area can be return random z
+/// Calculate area center turf, center = (x=minx+(maxx - minx), y=miny+(maxy-miny), z = firstz)
+/// Warning: for multi-z area can be return random z
 /area/proc/get_center_turf()
 	var/list/area_turfs = get_area_turfs(src)
 	var/min_x = 1000
