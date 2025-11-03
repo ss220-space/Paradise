@@ -1905,17 +1905,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list("combat" = 6, "programming" = 3)
 
 /datum/supply_packs/misc/station_goal/shield_sat_control
-	name = "Плата консоами обработки метеоритными щитами"
+	name = "Плата консоли управления метеоритными щитами"
 	cost = 60
 	contains = list(/obj/item/circuitboard/computer/sat_control)
-	containername = "ящик с консолами обработки метеоритными щитами"
+	containername = "ящик с консолью управления метеоритными щитами"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с консолами обработки метеоритными щитами",
-		GENITIVE = "ящика с консолами обработки метеоритными щитами",
-		DATIVE = "ящику с консолами обработки метеоритными щитами",
-		ACCUSATIVE = "ящик с консолами обработки метеоритными щитами",
-		INSTRUMENTAL = "ящиком с консолами обработки метеоритными щитами",
-		PREPOSITIONAL = "ящике с консолами обработки метеоритными щитами"
+		NOMINATIVE = "ящик с консолью управления метеоритными щитами",
+		GENITIVE = "ящика с консолью управления метеоритными щитами",
+		DATIVE = "ящику с консолью управления метеоритными щитами",
+		ACCUSATIVE = "ящик с консолью управления метеоритными щитами",
+		INSTRUMENTAL = "ящиком с консолью управления метеоритными щитами",
+		PREPOSITIONAL = "ящике с консолью управления метеоритными щитами"
 	)
 	required_tech = list("powerstorage" = 4, "programming" = 5, "magnets" = 4)
 
@@ -2496,14 +2496,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/incision
 	name = "Системы обработки надрезов"
-	containername = "ящик с системами обработки надрезами"
+	containername = "ящик с системами обработки надрезов"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с системами обработки надрезами",
-		GENITIVE = "ящика с системами обработки надрезами",
-		DATIVE = "ящику с системами обработки надрезами",
-		ACCUSATIVE = "ящик с системами обработки надрезами",
-		INSTRUMENTAL = "ящиком с системами обработки надрезами",
-		PREPOSITIONAL = "ящике с системами обработки надрезами"
+		NOMINATIVE = "ящик с системами обработки надрезов",
+		GENITIVE = "ящика с системами обработки надрезов",
+		DATIVE = "ящику с системами обработки надрезов",
+		ACCUSATIVE = "ящик с системами обработки надрезов",
+		INSTRUMENTAL = "ящиком с системами обработки надрезов",
+		PREPOSITIONAL = "ящике с системами обработки надрезов"
 	)
 	cost = 180
 	contains = list(
