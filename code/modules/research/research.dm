@@ -226,7 +226,8 @@ research holder datum.
 **	Includes all the various technoliges and what they make.  **
 ***************************************************************/
 
-/datum/tech	/// Datum of individual technologies.
+/// Datum of individual technologies.
+/datum/tech
 	/// Name of the technology.
 	var/name = "name"
 	/// General description of what it does and what it makes.
@@ -346,12 +347,12 @@ research holder datum.
 	return cost
 
 /obj/item/disk/tech_disk
-	name = "Technology Disk"
+	name = "technology disk"
 	desc = "Переносной носитель данных, специализированный для хранения научной информации."
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/tech/stored
-	var/default_name = "Technology Disk"
+	var/default_name = "technology disk"
 	var/default_desc = "Переносной носитель данных, специализированный для хранения научной информации."
 	var/default_ru_names = list(
 		NOMINATIVE = "дискета технологий",
@@ -377,16 +378,16 @@ research holder datum.
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 
-/obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
-	name = "[default_name] \[[T]\]"
-	desc = T.desc + " <b>Уровень: \"[T.level]\"</b>."
+/obj/item/disk/tech_disk/proc/load_tech(datum/tech/tech_tree)
+	name = "[default_name] \[[tech_tree]\]"
+	desc = tech_tree.desc + " <b>Уровень: \"[tech_tree.level]\"</b>."
 	var/list/names = get_ru_names_cached()
 	ru_names = names ? names.Copy() : new /list(6)
 	for(var/i = 1; i <= 6; i++)
-		ru_names[i] = "[names ? names[i] : initial(name)] \[[T]\]"
+		ru_names[i] = "[names ? names[i] : initial(name)] \[[tech_tree]\]"
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
-	stored = T
+	stored = tech_tree
 
 /obj/item/disk/tech_disk/proc/wipe_tech()
 	name = default_name

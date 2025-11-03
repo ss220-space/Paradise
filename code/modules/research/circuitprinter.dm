@@ -5,9 +5,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 */
 /obj/machinery/r_n_d/circuit_imprinter
-	name = "circuit Imprinter"
-	desc = "Машина, предназначенное для печати плат различных устройств."
-	desc = "Оборудование, предназначенное для печати электрических схем \
+	name = "circuit imprinter"
+	desc = "Оборудование, предназначенное для создания печатных плат \
 			на основе шаблонов для печати для последующей установки в различное оборудование. \
 			Управление происходит с помощью подключаемой консоли."
 	icon_state = "circuit_imprinter"
@@ -31,12 +30,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/get_ru_names()
 	return list(
-		NOMINATIVE = "принтер электросхем",
-		GENITIVE = "принтера электросхем",
-		DATIVE = "принтеру электросхем",
-		ACCUSATIVE = "принтер электросхем",
-		INSTRUMENTAL = "принтером электросхем",
-		PREPOSITIONAL = "принтере электросхем",
+		NOMINATIVE = "принтер плат",
+		GENITIVE = "принтера плат",
+		DATIVE = "принтеру плат",
+		ACCUSATIVE = "принтер плат",
+		INSTRUMENTAL = "принтером плат",
+		PREPOSITIONAL = "принтере плат",
 	)
 
 /obj/machinery/r_n_d/circuit_imprinter/Initialize(mapload)

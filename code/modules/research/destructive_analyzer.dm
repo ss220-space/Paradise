@@ -78,7 +78,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		balloon_alert(user, "отключено!")
 		return ATTACK_CHAIN_PROCEED
 	if(!linked_console)
-		balloon_alert(user, UNLINT("не подключено к консоли НИО!"))
+		balloon_alert(user, "не подключено к консоли НИО!")
 		return ATTACK_CHAIN_PROCEED
 	if(busy)
 		balloon_alert(user, "в процессе разборки!")

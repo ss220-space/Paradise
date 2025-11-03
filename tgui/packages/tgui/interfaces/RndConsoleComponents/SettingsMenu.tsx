@@ -107,7 +107,7 @@ export const SettingsMenu = (properties) => {
               )}
 
               {linked_imprinter ? (
-                <LabeledList.Item label="- Принтер электросхем">
+                <LabeledList.Item label="- Принтер плат">
                   <Button
                     icon="unlink"
                     onClick={() => act('disconnect', { item: 'imprinter' })}
@@ -116,7 +116,7 @@ export const SettingsMenu = (properties) => {
                   </Button>
                 </LabeledList.Item>
               ) : (
-                <LabeledList.Item label="- Принтер электросхем (ОТКЛЮЧЕНО)" />
+                <LabeledList.Item label="- Принтер плат (ОТКЛЮЧЕНО)" />
               )}
             </LabeledList>
           </Section>

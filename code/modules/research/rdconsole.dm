@@ -78,7 +78,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null
 
 	/// Which screen is currently showing.
-	var/screen = 1.0
+	var/screen = 1
 
 	var/menu = MENU_MAIN
 	var/submenu = SUBMENU_MAIN
@@ -246,7 +246,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list()
 		emagged = TRUE
 		if(user)
-			balloon_alert(user, "протоколы безопасности взломаны")
+			balloon_alert_to_viewers("искрит и жужжит!", "протоколы безопасности взломаны")
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -458,7 +458,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
 	else
-		add_wait_message("Печать электросхемы. Ожидайте...", time_to_construct)
+		add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
 
 	machine.busy = TRUE
@@ -471,12 +471,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/enough_materials = TRUE
 
 	if(!machine.materials.has_materials(efficient_mats, amount))
-		atom_say("Недостаточно материалов для завершения печати!")
+		balloon_alert_to_viewers("недостаточно материала для печати!")
 		enough_materials = FALSE
 	else
 		for(var/R in being_built.reagents_list)
 			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
-				atom_say("Недостаточно реагентов для завершения печати!")
+				balloon_alert_to_viewers("недостаточно реагентов для печати!")
 				enough_materials = FALSE
 
 	if(enough_materials)
@@ -517,12 +517,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					lockbox.name += " ([real_item.name])"
 					var/real_item_ru_name = capitalize(real_item.declent_ru(NOMINATIVE))
 					lockbox.ru_names = list(
-						NOMINATIVE = "защищённый кейс \[[real_item_ru_name]\]",
-						GENITIVE = "защищённого кейса \[[real_item_ru_name]\]",
-						DATIVE = "защищённому кейсу \[[real_item_ru_name]\]",
-						ACCUSATIVE = "защищённый кейс \[[real_item_ru_name]\]",
-						INSTRUMENTAL = "защищённым кейсом \[[real_item_ru_name]\]",
-						PREPOSITIONAL = "защищённом кейсе \[[real_item_ru_name]\]"
+						NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
+						GENITIVE = "защищённого кейса ([real_item_ru_name])",
+						DATIVE = "защищённому кейсу ([real_item_ru_name])",
+						ACCUSATIVE = "защищённый кейс ([real_item_ru_name])",
+						INSTRUMENTAL = "защищённым кейсом ([real_item_ru_name])",
+						PREPOSITIONAL = "защищённом кейсе ([real_item_ru_name])"
 					)
 					lockbox.origin_tech = real_item.origin_tech
 					lockbox.req_access = being_built.access_requirement
@@ -611,14 +611,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
 				var/datum/tech/new_known = known.copyTech()
-				t_disk.name = "[t_disk.default_name] \[[new_known]\]"
+				t_disk.name = "[t_disk.default_name] ([new_known])"
 				t_disk.ru_names = list(
-					NOMINATIVE = "дискета технологий \[[new_known]\]",
-					GENITIVE = "дискеты технологий \[[new_known]\]",
-					DATIVE = "дискете технологий \[[new_known]\]",
-					ACCUSATIVE = "дискету технологий \[[new_known]\]",
-					INSTRUMENTAL = "дискетой технологий \[[new_known]\]",
-					PREPOSITIONAL = "дискете технологий \[[new_known]\]"
+					NOMINATIVE = "дискета технологий ([new_known])",
+					GENITIVE = "дискеты технологий ([new_known])",
+					DATIVE = "дискете технологий ([new_known])",
+					ACCUSATIVE = "дискету технологий ([new_known])",
+					INSTRUMENTAL = "дискетой технологий ([new_known])",
+					PREPOSITIONAL = "дискете технологий ([new_known])"
 				)
 				t_disk.desc = new_known.desc + " <b>Уровень: \"[new_known.level]\"</b>."
 				t_disk.stored = new_known
@@ -942,7 +942,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/list/lathe_types = list()
 			disk_data["lathe_types"] = lathe_types
 			if(b_type)
-				if(b_type & IMPRINTER) lathe_types += "Принтер электросхем"
+				if(b_type & IMPRINTER) lathe_types += "Принтер плат"
 				if(b_type & PROTOLATHE) lathe_types += "Протолат"
 				if(b_type & AUTOLATHE) lathe_types += "Автолат"
 				if(b_type & MECHFAB) lathe_types += "Фабрикатор экзоскелетов"

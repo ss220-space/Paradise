@@ -150,7 +150,7 @@
 #define PROTOLATHE_CATEGORY_MEDICAL "Медицина"
 #define PROTOLATHE_CATEGORY_POWER "Электроэнергия"
 #define PROTOLATHE_CATEGORY_MISC "Разное"
-#define PROTOLATHE_CATEGORY_ILLEGAL "КОНТРАБАНДА"
+#define PROTOLATHE_CATEGORY_ILLEGAL "Контрабанда"
 
 // Circuit Imprinter categories
 #define CIRCUIT_IMPRINTER_CATEGORY_AI "Станционный ИИ"

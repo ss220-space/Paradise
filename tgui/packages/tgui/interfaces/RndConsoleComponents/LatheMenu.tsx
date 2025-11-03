@@ -19,7 +19,7 @@ export const LatheMenu = (properties) => {
   }
 
   if (menu === 5 && !linked_imprinter) {
-    return <Box>ПРИНТЕР ЭЛЕКТРОСХЕМ НЕ ПОДКЛЮЧЁН</Box>;
+    return <Box>ПРИНТЕР ПЛАТ НЕ ПОДКЛЮЧЁН</Box>;
   }
 
   return (

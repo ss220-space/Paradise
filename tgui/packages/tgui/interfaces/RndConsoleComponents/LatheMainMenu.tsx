@@ -9,7 +9,7 @@ export const LatheMainMenu = (properties) => {
 
   const { menu, categories } = data;
 
-  const label = menu === 4 ? 'Меню протолата' : 'Меню принтера электросхем';
+  const label = menu === 4 ? 'Меню протолата' : 'Меню принтера плат';
 
   return (
     <Section title={label}>

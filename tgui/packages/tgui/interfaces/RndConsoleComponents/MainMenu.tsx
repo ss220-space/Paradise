@@ -52,7 +52,7 @@ export const MainMenu = (properties) => {
           submenu={SUBMENU.MAIN}
           icon="print"
         >
-          Принтер электросхем
+          Принтер плат
         </RndNavButton>
         <RndNavButton menu={MENU.SETTINGS} submenu={SUBMENU.MAIN} icon="cog">
           Настройки

@@ -256,9 +256,11 @@
 		for(var/list/L in queue)
 			var/datum/design/D = L[1]
 			var/list/LL = get_design_cost_as_list(D, L[2])
-			data_queue[++data_queue.len] = list("name" = initial(D.name), "can_build" = can_build(D, L[2], temp_metal, temp_glass), "multiplier" = L[2])
+			var/obj/design_item = new D
+			data_queue[++data_queue.len] = list("name" = capitalize(design_item.declent_ru(NOMINATIVE)), "can_build" = can_build(D, L[2], temp_metal, temp_glass), "multiplier" = L[2])
 			temp_metal = max(temp_metal - LL[1], 1)
 			temp_glass = max(temp_glass - LL[2], 1)
+			qdel(design_item)
 		data["queue"] = data_queue
 		data["queue_len"] = data_queue.len
 	else
@@ -281,8 +283,6 @@
 	if(istype(I, /obj/item/disk))
 		add_fingerprint(user)
 		if(!istype(I, /obj/item/disk/design_disk))
-			// So that people who are bad at computers don't shred their disks
-			to_chat(user, span_warning("This is not the correct type of disk for the autolathe!"))
 			balloon_alert(user, "неверный тип дискеты!")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/disk/design_disk/disk = I
@@ -297,7 +297,7 @@
 			balloon_alert(user, "шаблон несовместим с автолатом!")
 			return ATTACK_CHAIN_PROCEED
 		balloon_alert_to_viewers("загружа[PLUR_ET_YUT(user)] дискету с шаблоном...", "загрузка дискеты с шаблоном...")
-		user.visible_message(blind_message = "Вы слышите жужжание дисковода.")
+		user.visible_message(blind_message = "Вы слышите жужжание дискетовода.")
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 		busy = TRUE
 		if(!do_after(user, 1.4 SECONDS, src))
@@ -447,16 +447,14 @@
 	var/obj/design_item = new D
 	var/multiplier = being_built[2]
 	var/is_stack = (multiplier>1)
-	var/output = "ПЕЧАТЬ: [capitalize(design_item.declent_ru(NOMINATIVE))][is_stack?" (x[multiplier])":null]"
+	var/output = "Печать: [capitalize(design_item.declent_ru(NOMINATIVE))][is_stack?" (x[multiplier])":null]"
 	return output
 
 /obj/machinery/autolathe/proc/add_to_queue(D, multiplier)
-	var/obj/design_item = D
 	if(!istype(queue))
 		queue = list()
 	if(D)
 		queue.Add(list(list(D,multiplier)))
-	qdel(design_item)
 	return queue.len
 
 /obj/machinery/autolathe/proc/remove_from_queue(index)
@@ -479,7 +477,7 @@
 			being_built = new /list()
 			return 0
 		if(!can_build(D, multiplier))
-			atom_say("Недостаточно материала для печати! Очередь печати очищена.")
+			balloon_alert_to_viewers("недостаточно материала для печати!")
 			queue = list()
 			being_built = new /list()
 			return 0
@@ -517,9 +515,8 @@
 		disabled = FALSE
 
 /obj/machinery/autolathe/security
-	name = "Security Autolathe"
+	name = "security autolathe"
 	desc = "Оборудование, предназначенное для печати изделий базового уровня сложности \
-			на основе шаблонов для печати. Использует металл и стекло в качестве сырья. \
 			Специализированная модель для силовых структур, поставляемая с дополнительными шаблонами."
 	icon = 'icons/obj/machines/sec_autolathe.dmi'
 

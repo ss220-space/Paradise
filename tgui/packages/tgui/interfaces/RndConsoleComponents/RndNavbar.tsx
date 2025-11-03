@@ -40,7 +40,7 @@ export const RndNavbar = () => (
             menu={MENU.IMPRINTER}
             render={() => (
               <RndNavButton submenu={SUBMENU.MAIN} icon="reply">
-                Принтер электросхем
+                Принтер плат
               </RndNavButton>
             )}
           />
