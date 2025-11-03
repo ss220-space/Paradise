@@ -286,7 +286,7 @@ This applies to all STANDARD station areas
 	area_flags = NONE
 
 /area/shuttle/thunderdome/grnshuttle
-	name = "Тандердом – ЗЛН шаттл"
+	name = "Тандердом — ЗЛН шаттл"
 	icon_state = "green"
 
 /area/shuttle/thunderdome/grnshuttle/dome
@@ -298,7 +298,7 @@ This applies to all STANDARD station areas
 	icon_state = "shuttlegrn2"
 
 /area/shuttle/thunderdome/redshuttle
-	name = "Тандердом – КРС шаттл"
+	name = "Тандердом — КРС шаттл"
 	icon_state = "red"
 
 /area/shuttle/thunderdome/redshuttle/dome
@@ -468,62 +468,62 @@ This applies to all STANDARD station areas
 
 // New CC
 /area/centcom/bridge
-	name = "Центком – мостик"
+	name = "Центком — мостик"
 	icon_state = "centcom_bridge"
 
 /area/centcom/court
-	name = "Центком – зал суда"
+	name = "Центком — зал суда"
 	icon_state = "centcom_court"
 
 /area/centcom/ferry
-	name = "Центком – Ferry Shuttle"
+	name = "Центком — Ferry Shuttle"
 	icon_state = "centcom_ferry"
 
 /area/centcom/gamma
-	name = "Центком – арсенал \"Гамма\""
+	name = "Центком — арсенал \"Гамма\""
 	icon_state = "centcom_gamma"
 
 /area/centcom/supply
-	name = "Центком – шаттл снабжения"
+	name = "Центком — шаттл снабжения"
 	icon_state = "centcom_supply"
 
 /area/centcom/jail
-	name = "Центком – тюрьма"
+	name = "Центком — тюрьма"
 	icon_state = "centcom_jail"
 
 /area/centcom/zone3
-	name = "Центком – зона 3"
+	name = "Центком — зона 3"
 	icon_state = "centcom_zone3"
 
 /area/centcom/zone2
-	name = "Центком – зона 2"
+	name = "Центком — зона 2"
 	icon_state = "centcom_zone2"
 
 /area/centcom/zone1
-	name = "Центком – зона 1"
+	name = "Центком — зона 1"
 	icon_state = "centcom_zone1"
 
 /area/centcom/evac
-	name = "Центком – эвакуационный шаттл"
+	name = "Центком — эвакуационный шаттл"
 	icon_state = "centcom_evac"
 	static_lighting = FALSE
 	base_lighting_alpha = 255
 	base_lighting_color = COLOR_WHITE
 
 /area/centcom/specops
-	name = "Центком – крыло Сил специального назначения"
+	name = "Центком — крыло Сил специального назначения"
 	icon_state = "centcom_specops"
 
 /area/centcom/srtops
-	name = "Центком – крыло Отряда специального реагирования"
+	name = "Центком — крыло Отряда специального реагирования"
 	icon_state = "centcom_srtops"
 
 /area/centcom/blops
-	name = "Центком – крыло Отряда теневых операций"
+	name = "Центком — крыло Отряда теневых операций"
 	icon_state = "centcom_blops"
 
 /area/centcom/shuttle
-	name = "Центком – шаттл администрации"
+	name = "Центком — шаттл администрации"
 
 /area/centcom/supplypod/supplypod_temp_holding
 	name = "Пункт отправки капсул снабжения"
@@ -548,23 +548,23 @@ This applies to all STANDARD station areas
 	GLOB.supplypod_loading_bays[loading_id] = src
 
 /area/centcom/supplypod/loading/one
-	name = "Центком – ангар №1"
+	name = "Центком — ангар №1"
 	loading_id = "1"
 
 /area/centcom/supplypod/loading/two
-	name = "Центком – ангар №2"
+	name = "Центком — ангар №2"
 	loading_id = "2"
 
 /area/centcom/supplypod/loading/three
-	name = "Центком – ангар №3"
+	name = "Центком — ангар №3"
 	loading_id = "3"
 
 /area/centcom/supplypod/loading/four
-	name = "Центком – ангар №4"
+	name = "Центком — ангар №4"
 	loading_id = "4"
 
 /area/centcom/supplypod/loading/ert
-	name = "Центком – ангар ОБР"
+	name = "Центком — ангар ОБР"
 	loading_id = "5"
 
 /**
@@ -584,30 +584,30 @@ This applies to all STANDARD station areas
 	area_flags = NONE
 
 /area/syndicate_mothership/outside
-	name = "ПБ Синдиката – внешняя территория"
+	name = "ПБ Синдиката — внешняя территория"
 	static_lighting = FALSE
 	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 	icon_state = "syndie-outside"
 
 /area/syndicate_mothership/control
-	name = "ПБ Синдиката – комната управления"
+	name = "ПБ Синдиката — комната управления"
 	icon_state = "syndie-control"
 
 /area/syndicate_mothership/elite_squad
-	name = "ПБ Синдиката – крыло Элитного отряда"
+	name = "ПБ Синдиката — крыло Элитного отряда"
 	icon_state = "syndie-elite"
 
 /area/syndicate_mothership/infteam
-	name = "ПБ Синдиката – крыло Лазутчиков"
+	name = "ПБ Синдиката — крыло Лазутчиков"
 	icon_state = "syndie-infiltrator"
 
 /area/syndicate_mothership/jail
-	name = "ПБ Синдиката – тюрьма"
+	name = "ПБ Синдиката — тюрьма"
 	icon_state = "syndie-jail"
 
 /area/syndicate_mothership/cargo
-	name = "ПБ Синдиката – отдел снабжения"
+	name = "ПБ Синдиката — отдел снабжения"
 	icon_state = "syndie-cargo"
 
 /**
@@ -663,7 +663,7 @@ This applies to all STANDARD station areas
 	ambientsounds = MINING_SOUNDS
 
 /area/asteroid/cave
-	name = "Астероид – подземелье"
+	name = "Астероид — подземелье"
 	icon_state = "cave"
 	requires_power = FALSE
 	outdoors = TRUE
@@ -671,7 +671,7 @@ This applies to all STANDARD station areas
 	max_ambience_cooldown = 220 SECONDS
 
 /area/asteroid/artifactroom
-	name = "Астероид – артефакт"
+	name = "Астероид — артефакт"
 	icon_state = "cave"
 
 /**
@@ -691,35 +691,35 @@ This applies to all STANDARD station areas
 
 
 /area/tdome/arena_source
-	name = "Тандедом – шаблон арены"
+	name = "Тандедом — шаблон арены"
 	icon_state = "thunder"
 
 /area/tdome/arena
-	name = "Тандедом – арена"
+	name = "Тандедом — арена"
 	icon_state = "thunder"
 
 /area/tdome/tdome1
-	name = "Тандедом – команда 1"
+	name = "Тандедом — команда 1"
 	icon_state = "green"
 
 /area/tdome/tdome2
-	name = "Тандедом – команда 2"
+	name = "Тандедом — команда 2"
 	icon_state = "yellow"
 
 /area/tdome/tdomeadmin
-	name = "Тандедом – администрация"
+	name = "Тандедом — администрация"
 	icon_state = "purple"
 
 /area/tdome/tdomeobserve
-	name = "Тандедом – зрители"
+	name = "Тандедом — зрители"
 	icon_state = "purple"
 
 /area/tdome/newtdome
-	name = "Тандедом – новая арена"
+	name = "Тандедом — новая арена"
 	icon_state = "thunder"
 
 /area/tdome/newtdome/CQC
-	name = "Тандедом – новая арена (ближний бой)"
+	name = "Тандедом — новая арена (ближний бой)"
 	icon_state = "thunderCQC"
 
 /area/exploration/methlab
@@ -750,7 +750,7 @@ This applies to all STANDARD station areas
 	base_lighting_color = COLOR_WHITE
 
 /area/ninja
-	name = "Клан Паука – родитель для зон"
+	name = "Клан Паука — родитель для зон"
 	icon_state = "ninjabase"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
@@ -763,16 +763,16 @@ This applies to all STANDARD station areas
 	area_flags = NONE
 
 /area/ninja/outpost
-	name = "Клан Паука – додзё"
+	name = "Клан Паука — додзё"
 	icon_state = "ninja_dojo"
 
 /area/ninja/holding
-	name = "Клан Паука – пункт содержания"
+	name = "Клан Паука — пункт содержания"
 	icon_state = "ninja_holding"
 	ambientsounds = list('sound/ambience/ambifailure.ogg', 'sound/ambience/ambigen4.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimystery.ogg', 'sound/ambience/ambitech2.ogg')
 
 /area/ninja/outside
-	name = "Клан Паука – внешняя территория"
+	name = "Клан Паука — внешняя территория"
 	icon_state = "ninja_outside"
 	static_lighting = FALSE
 	base_lighting_color = COLOR_WHITE
@@ -825,7 +825,7 @@ This applies to all STANDARD station areas
 	icon_state = "brig"
 
 /area/mine/laborcamp/security
-	name = "Трудовой лагерь – пункт охраны"
+	name = "Трудовой лагерь — пункт охраны"
 	icon_state = "security"
 
 /**
@@ -839,16 +839,16 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/atmos/control
-	name = "Атмосферный отсек – комната управления"
+	name = "Атмосферный отсек — комната управления"
 	icon_state = "atmos"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/atmos/distribution
-	name = "Атмосферный отсек – распределительный контур"
+	name = "Атмосферный отсек — распределительный контур"
 	icon_state = "atmos"
 
 /area/atmos/break_room
-	name = "Атмосферный отсек – фойе"
+	name = "Атмосферный отсек — фойе"
 	icon_state = "atmos"
 
 /**
@@ -862,115 +862,115 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/maintenance/ai
-	name = "Технические тоннели – спутник ИИ"
+	name = "Технические тоннели — спутник ИИ"
 	icon_state = "green"
 
 /area/maintenance/fore //should be refactored
-	name = "Технические тоннели – северные"
+	name = "Технические тоннели — северные"
 	icon_state = "fmaint"
 
 /area/maintenance/fore2
-	name = "Технические тоннели – северные вторичные"
+	name = "Технические тоннели — северные вторичные"
 	icon_state = "fmaint"
 
 /area/maintenance/aft
-	name = "Технические тоннели – западные"
+	name = "Технические тоннели — западные"
 	icon_state = "amaint"
 
 /area/maintenance/aft2
-	name = "Технические тоннели – западные вторичные"
+	name = "Технические тоннели — западные вторичные"
 	icon_state = "amaint"
 
 /area/maintenance/fpmaint
-	name = "Технические тоннели – северо-западные"
+	name = "Технические тоннели — северо-западные"
 	icon_state = "fpmaint"
 
 /area/maintenance/fsmaint
-	name = "Технические тоннели – дормитории"
+	name = "Технические тоннели — дормитории"
 	icon_state = "fsmaint"
 
 /area/maintenance/fsmaint2
-	name = "Технические тоннели – бар"
+	name = "Технические тоннели — бар"
 	icon_state = "fsmaint"
 
 /area/maintenance/fsmaint3
-	name = "Технические тоннели – восток Отдела снабжения"
+	name = "Технические тоннели — восток Отдела снабжения"
 	icon_state = "fsmaint"
 
 /area/maintenance/fsmaint4
-	name = "Технические тоннели – север Отдела снабжения"
+	name = "Технические тоннели — север Отдела снабжения"
 	icon_state = "fsmaint"
 
 /area/maintenance/tourist
-	name = "Технические тоннели – туристическая зона"
+	name = "Технические тоннели — туристическая зона"
 	icon_state = "fsmaint"
 
 /area/maintenance/asmaint
-	name = "Технические тоннели – Медицинский отдел"
+	name = "Технические тоннели — Медицинский отдел"
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint2
-	name = "Технические тоннели – НИО"
+	name = "Технические тоннели — НИО"
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint3
-	name = "Технические тоннели – НИО вторичные"
+	name = "Технические тоннели — НИО вторичные"
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint4
-	name = "Технические тоннели – вирусология"
+	name = "Технические тоннели — вирусология"
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint5
-	name = "Технические тоннели – пункт прибытия"
+	name = "Технические тоннели — пункт прибытия"
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint6
-	name = "Технические тоннели – комната отдыха НИО"
+	name = "Технические тоннели — комната отдыха НИО"
 	icon_state = "asmaint"
 
 /area/maintenance/apmaint
-	name = "Технические тоннели – Отдел снабжения"
+	name = "Технические тоннели — Отдел снабжения"
 	icon_state = "apmaint"
 
 /area/maintenance/apmaint2
-	name = "Технические тоннели – юго-западные"
+	name = "Технические тоннели — юго-западные"
 	icon_state = "apmaint"
 
 /area/maintenance/maintcentral
-	name = "Технические тоннели – мостик"
+	name = "Технические тоннели — мостик"
 	icon_state = "central"
 
 /area/maintenance/maintcentral2
-	name = "Технические тоннели – центральные вторичные"
+	name = "Технические тоннели — центральные вторичные"
 	icon_state = "maintcentral"
 
 /area/maintenance/starboard
-	name = "Технические тоннели – восточные"
+	name = "Технические тоннели — восточные"
 	icon_state = "smaint"
 
 /area/maintenance/starboard2
-	name = "Технические тоннели – восточные вторичные"
+	name = "Технические тоннели — восточные вторичные"
 	icon_state = "smaint"
 
 /area/maintenance/port
-	name = "Технические тоннели – западные"
+	name = "Технические тоннели — западные"
 	icon_state = "pmaint"
 
 /area/maintenance/port2
-	name = "Технические тоннели – западные вторичные"
+	name = "Технические тоннели — западные вторичные"
 	icon_state = "pmaint"
 
 /area/maintenance/brig
-	name = "Технические тоннели – бриг"
+	name = "Технические тоннели — бриг"
 	icon_state = "pmaint"
 
 /area/maintenance/perma
-	name = "Технические тоннели – пермабриг"
+	name = "Технические тоннели — пермабриг"
 	icon_state = "green"
 
 /area/maintenance/atmospherics
-	name = "Технические тоннели – атмосферный отсек"
+	name = "Технические тоннели — атмосферный отсек"
 	icon_state = "green"
 
 /area/maintenance/incinerator
@@ -986,55 +986,55 @@ This applies to all STANDARD station areas
 	icon_state = "disposal"
 
 /area/maintenance/disposal/southwest
-	name = "Опечатанная комната – юго-западная"
+	name = "Опечатанная комната — юго-западная"
 
 /area/maintenance/disposal/south
-	name = "Опечатанная комната – южная"
+	name = "Опечатанная комната — южная"
 
 /area/maintenance/disposal/east
-	name = "Опечатанная комната – восточная"
+	name = "Опечатанная комната — восточная"
 
 /area/maintenance/disposal/northeast
-	name = "Опечатанная комната – северо-восточная"
+	name = "Опечатанная комната — северо-восточная"
 
 /area/maintenance/disposal/north
-	name = "Опечатанная комната – северная"
+	name = "Опечатанная комната — северная"
 
 /area/maintenance/disposal/northwest
-	name = "Опечатанная комната – северо-западная"
+	name = "Опечатанная комната — северо-западная"
 
 /area/maintenance/disposal/west
-	name = "Опечатанная комната – западная"
+	name = "Опечатанная комната — западная"
 
 /area/maintenance/disposal/westalt
-	name = "Опечатанная комната – западная вторичная"
+	name = "Опечатанная комната — западная вторичная"
 
 /area/maintenance/disposal/external/southwest
-	name = "Внешний мусоропровод – юго-запад"
+	name = "Внешний мусоропровод — юго-запад"
 
 /area/maintenance/disposal/external/southeast
-	name = "Внешний мусоропровод – юго-восток"
+	name = "Внешний мусоропровод — юго-восток"
 
 /area/maintenance/disposal/external/east
-	name = "Внешний мусоропровод – восток"
+	name = "Внешний мусоропровод — восток"
 
 /area/maintenance/disposal/external/north
-	name = "Внешний мусоропровод – север"
+	name = "Внешний мусоропровод — север"
 
 /area/maintenance/genetics
-	name = "Технические тоннели – генетика"
+	name = "Технические тоннели — генетика"
 	icon_state = "asmaint"
 
 /area/maintenance/electrical
-	name = "Технические тоннели – отсек электрики"
+	name = "Технические тоннели — отсек электрики"
 	icon_state = "elec"
 
 /area/maintenance/engineering
-	name = "Технические тоннели – инженерия"
+	name = "Технические тоннели — инженерия"
 	icon_state = "green"
 
 /area/maintenance/bar
-	name = "Технические тоннели – заброшенный бар"
+	name = "Технические тоннели — заброшенный бар"
 	icon_state = "oldbar"
 	power_equip = FALSE
 	power_light = FALSE
@@ -1057,7 +1057,7 @@ This applies to all STANDARD station areas
 	icon_state = "yellow"
 
 /area/maintenance/consarea
-	name = "Строительная зона – альтернативная"
+	name = "Строительная зона — альтернативная"
 	icon_state = "construction"
 
 /area/maintenance/consarea_virology
@@ -1121,7 +1121,7 @@ This applies to all STANDARD station areas
 	icon_state = "yellow"
 
 /area/maintenance/backstage
-	name = "Технические тоннели – Закулисье"
+	name = "Технические тоннели — Закулисье"
 	icon_state = "yellow"
 
 /area/maintenance/trading
@@ -1153,22 +1153,22 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/maintenance/cele/command
-	name = "Технические тоннели (цокольный этаж) – Командование"
+	name = "Технические тоннели (цокольный этаж) — Командование"
 
 /area/maintenance/cele/cargo
-	name = "Технические тоннели (цокольный этаж) – Отдел снабжения"
+	name = "Технические тоннели (цокольный этаж) — Отдел снабжения"
 
 /area/maintenance/cele/medbay
-	name = "Технические тоннели (цокольный этаж) – Медицинский отдел"
+	name = "Технические тоннели (цокольный этаж) — Медицинский отдел"
 
 /area/maintenance/cele/servise
-	name = "Технические тоннели (цокольный этаж) – Отдел обслуживания"
+	name = "Технические тоннели (цокольный этаж) — Отдел обслуживания"
 
 /area/maintenance/cele/engineering
-	name = "Технические тоннели (цокольный этаж) – Инженерный отдел"
+	name = "Технические тоннели (цокольный этаж) — Инженерный отдел"
 
 /area/maintenance/cele/arrival
-	name = "Технические тоннели (цокольный этаж) – пункт прибытия"
+	name = "Технические тоннели (цокольный этаж) — пункт прибытия"
 
 /**
  * MARK: HALLWAY
@@ -1258,7 +1258,7 @@ This applies to all STANDARD station areas
 /area/hallway/primary/central/se
 
 /area/hallway/primary/command
-	name = "Основной проход – командование"
+	name = "Основной проход — командование"
 	icon_state = "hallC"
 
 /area/hallway/primary/command/north
@@ -1269,7 +1269,7 @@ This applies to all STANDARD station areas
 /area/hallway/primary/command/ne
 
 /area/hallway/primary/central/second
-	name = "Основной центральный проход – второй этаж"
+	name = "Основной центральный проход — второй этаж"
 	icon_state = "hallC"
 
 /area/hallway/primary/central/second/north
@@ -1286,43 +1286,43 @@ This applies to all STANDARD station areas
 	icon_state = "hall_space"
 
 /area/hallway/spacebridge/dockmed
-	name = "Мост – стыковка-медотсек"
+	name = "Мост — стыковка-медотсек"
 
 /area/hallway/spacebridge/scidock
-	name = "Мост – НИО-стыковка"
+	name = "Мост — НИО-стыковка"
 
 /area/hallway/spacebridge/somsec
-	name = "Мост – командование-СБ"
+	name = "Мост — командование-СБ"
 
 /area/hallway/spacebridge/sersec
-	name = "Мост – обслуживание-СБ"
+	name = "Мост — обслуживание-СБ"
 
 /area/hallway/spacebridge/engdock
-	name = "Мост – инженерия-стыковка"
+	name = "Мост — инженерия-стыковка"
 
 /area/hallway/spacebridge/servsci
-	name = "Мост – обслуживание-НИО"
+	name = "Мост — обслуживание-НИО"
 
 /area/hallway/spacebridge/serveng
-	name = "Мост – НИО-инженерия"
+	name = "Мост — НИО-инженерия"
 
 /area/hallway/spacebridge/engmed
-	name = "Мост – инженерия-медотсек"
+	name = "Мост — инженерия-медотсек"
 
 /area/hallway/spacebridge/medcargo
-	name = "Мост – медотсек-снабжение"
+	name = "Мост — медотсек-снабжение"
 
 /area/hallway/spacebridge/cargocom
-	name = "Мост – снабжение-ИИ-командование"
+	name = "Мост — снабжение-ИИ-командование"
 
 /area/hallway/spacebridge/sercom
-	name = "Мост – командование-обслуживание"
+	name = "Мост — командование-обслуживание"
 
 /area/hallway/spacebridge/comeng
-	name = "Мост – командование-инженерия"
+	name = "Мост — командование-инженерия"
 
 /area/hallway/spacebridge/comcar
-	name = "Мост – командование-снабжение"
+	name = "Мост — командование-снабжение"
 
 /area/hallway/secondary/exit
 	name = "Проход к эвакуационному шаттлу"
@@ -1349,16 +1349,16 @@ This applies to all STANDARD station areas
 
 
 /area/hallway/secondary/entry/eastarrival
-	name = "Проход к пункту прибытия – восточный"
+	name = "Проход к пункту прибытия — восточный"
 
 /area/hallway/secondary/entry/westarrival
-	name = "Проход к пункту прибытия – западный"
+	name = "Проход к пункту прибытия — западный"
 
 /area/hallway/secondary/entry/additional
-	name = "Проход к пункту прибытия – западный дополнительный"
+	name = "Проход к пункту прибытия — западный дополнительный"
 
 /area/hallway/secondary/entry/commercial
-	name = "Проход к пункту прибытия – западный торговый"
+	name = "Проход к пункту прибытия — западный торговый"
 
 /area/hallway/secondary/entry/north
 
@@ -1481,7 +1481,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/centcomdocks
-	name = "Центком – доки"
+	name = "Центком — доки"
 	icon_state = "centcom"
 
 /area/bridge/checkpoint
@@ -1490,11 +1490,11 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/bridge/checkpoint/north
-	name = "КПП командования – северный"
+	name = "КПП командования — северный"
 	icon_state = "bridge"
 
 /area/bridge/checkpoint/south
-	name = "КПП командования – южный"
+	name = "КПП командования — южный"
 	icon_state = "bridge"
 
 
@@ -1525,22 +1525,22 @@ This applies to all STANDARD station areas
 	name = "Жилая каюта №4"
 
 /area/crew_quarters/toilet
-	name = "Уборная – дормитории"
+	name = "Уборная — дормитории"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/toilet2
-	name = "Уборная – западная"
+	name = "Уборная — западная"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/toilet3
-	name = "Уборная – театр"
+	name = "Уборная — театр"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/toilet4
-	name = "Уборная – пункт прибытия"
+	name = "Уборная — пункт прибытия"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	holomap_color = HOLOMAP_AREACOLOR_ARRIVALS
@@ -1551,11 +1551,11 @@ This applies to all STANDARD station areas
 	valid_territory = FALSE
 
 /area/crew_quarters/sleep/secondary
-	name = "Дормитории – вторичные"
+	name = "Дормитории — вторичные"
 	icon_state = "Sleep"
 
 /area/crew_quarters/sleep_male
-	name = "Жилая каюта – мужская"
+	name = "Жилая каюта — мужская"
 	icon_state = "Sleep"
 
 /area/crew_quarters/sleep_male/toilet_male
@@ -1575,7 +1575,7 @@ This applies to all STANDARD station areas
 	icon_state = "locker"
 
 /area/crew_quarters/locker/locker_toilet
-	name = "Уборная – раздевалка"
+	name = "Уборная — раздевалка"
 	icon_state = "toilet"
 
 /area/crew_quarters/fitness
@@ -1646,17 +1646,17 @@ This applies to all STANDARD station areas
 	name = "Церковь"
 
 /area/chapel/office
-	name = "Церковь – офис Священника"
+	name = "Церковь — офис Священника"
 	icon_state = "chapeloffice"
 
 /area/chapel/morgue
-	name = "Церковь – морг"
+	name = "Церковь — морг"
 
 /area/chapel/massdriver
-	name = "Церковь – ускоритель частиц"
+	name = "Церковь — ускоритель частиц"
 
 /area/escapepodbay
-	name = "Проход к эвакуационному шаттлу – ангар для челноков"
+	name = "Проход к эвакуационному шаттлу — ангар для челноков"
 	icon_state = "escape"
 	holomap_color = HOLOMAP_AREACOLOR_HANGAR
 
@@ -1728,51 +1728,51 @@ This applies to all STANDARD station areas
 
 
 /area/holodeck/source_plating
-	name = "Голопалуба – неактивная"
+	name = "Голопалуба — неактивная"
 	icon_state = "Holodeck"
 
 /area/holodeck/source_emptycourt
-	name = "Голопалуба – пустая комната"
+	name = "Голопалуба — пустая комната"
 
 /area/holodeck/source_boxingcourt
-	name = "Голопалуба – бойцовский ринг"
+	name = "Голопалуба — бойцовский ринг"
 
 /area/holodeck/source_basketball
-	name = "Голопалуба – баскетбольная площадка"
+	name = "Голопалуба — баскетбольная площадка"
 
 /area/holodeck/source_thunderdomecourt
-	name = "Голопалуба – тандердом"
+	name = "Голопалуба — тандердом"
 
 /area/holodeck/source_beach
-	name = "Голопалуба – пляж"
+	name = "Голопалуба — пляж"
 	icon_state = "Holodeck"
 
 /area/holodeck/source_burntest
-	name = "Голопалуба – отсек атмосферного тестирования"
+	name = "Голопалуба — отсек атмосферного тестирования"
 
 /area/holodeck/source_wildlife
-	name = "Голопалуба – симуляция пожара"
+	name = "Голопалуба — симуляция пожара"
 
 /area/holodeck/source_meetinghall
-	name = "Голопалуба – конференц-зал"
+	name = "Голопалуба — конференц-зал"
 
 /area/holodeck/source_theatre
-	name = "Голопалуба – театр"
+	name = "Голопалуба — театр"
 
 /area/holodeck/source_picnicarea
-	name = "Голопалуба – место для пикника"
+	name = "Голопалуба — место для пикника"
 
 /area/holodeck/source_snowfield
-	name = "Голопалуба – снежное поле"
+	name = "Голопалуба — снежное поле"
 
 /area/holodeck/source_desert
-	name = "Голопалуба – пустыня"
+	name = "Голопалуба — пустыня"
 
 /area/holodeck/source_space
-	name = "Голопалуба – космос"
+	name = "Голопалуба — космос"
 
 /area/holodeck/source_knightarena
-	name = "Голопалуба – рыцарская арена"
+	name = "Голопалуба — рыцарская арена"
 
 /**
  * MARK: ENGINEERING
@@ -1784,41 +1784,41 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/engineering/engine/smes
-	name = "Инженерный отдел – СКАН'ы"
+	name = "Инженерный отдел — СКАН'ы"
 	icon_state = "engine_smes"
 
 /area/engineering/engine
-	name = "Инженерный отдел – двигательный отсек"
+	name = "Инженерный отдел — двигательный отсек"
 	icon_state = "engine_smes"
 
 /area/engineering/engine/monitor
-	name = "Инженерный отдел – комната слежения за двигателем"
+	name = "Инженерный отдел — комната слежения за двигателем"
 	icon_state = "engine_control"
 
 /area/engineering/break_room
-	name = "Инженерный отдел – фойе"
+	name = "Инженерный отдел — фойе"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/engineering/aienter
-	name = "Инженерный отдел – проход на спутник ИИ"
+	name = "Инженерный отдел — проход на спутник ИИ"
 	icon_state = "engine"
 
 /area/engineering/equipmentstorage
-	name = "Инженерный отдел – склад снаряжения"
+	name = "Инженерный отдел — склад снаряжения"
 	icon_state = "storage"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/engineering/hardsuitstorage
-	name = "Инженерный отдел – склад ИКС"
+	name = "Инженерный отдел — склад ИКС"
 	icon_state = "storage"
 
 /area/engineering/controlroom
-	name = "Инженерный отдел – комната слежения"
+	name = "Инженерный отдел — комната слежения"
 	icon_state = "engine_control"
 
 /area/engineering/gravitygenerator
-	name = "Инженерный отдел – генератор гравитации"
+	name = "Инженерный отдел — генератор гравитации"
 	icon_state = "engine"
 
 /area/engineering/chiefs_office
@@ -1857,70 +1857,70 @@ This applies to all STANDARD station areas
 	base_lighting_alpha = 255
 
 /area/solar/auxport
-	name = "Солнечная батарея – северо-запад"
+	name = "Солнечная батарея — северо-запад"
 	icon_state = "panelsA"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/solar/auxstarboard
-	name = "Солнечная батарея – северо-восток"
+	name = "Солнечная батарея — северо-восток"
 	icon_state = "panelsA"
 
 /area/solar/fore
-	name = "Солнечная батарея – север"
+	name = "Солнечная батарея — север"
 	icon_state = "yellow"
 
 /area/solar/aft
-	name = "Солнечная батарея – юг"
+	name = "Солнечная батарея — юг"
 	icon_state = "aft"
 
 /area/solar/starboardaux
-	name = "Солнечная батарея – восток"
+	name = "Солнечная батарея — восток"
 	icon_state = "panelsS"
 
 /area/solar/starboard
-	name = "Солнечная батарея – юго-восток"
+	name = "Солнечная батарея — юго-восток"
 	icon_state = "panelsS"
 
 /area/solar/west
-	name = "Солнечная батарея – запад"
+	name = "Солнечная батарея — запад"
 	icon_state = "panelsS"
 
 /area/solar/port
-	name = "Солнечная батарея – юго-запад"
+	name = "Солнечная батарея — юго-запад"
 	icon_state = "panelsP"
 
 /area/maintenance/auxsolarport
-	name = "Технические тоннели у солнечной батареи – северо-запад"
+	name = "Технические тоннели у солнечной батареи — северо-запад"
 	icon_state = "SolarcontrolA"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/north_solars
-	name = "Технические тоннели у солнечной батареи – север"
+	name = "Технические тоннели у солнечной батареи — север"
 	icon_state = "SolarcontrolA"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/starboardaux
-	name = "Технические тоннели у солнечной батареи – восток"
+	name = "Технические тоннели у солнечной батареи — восток"
 	icon_state = "SolarcontrolS"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/starboardsolar
-	name = "Технические тоннели у солнечной батареи – юго-восток"
+	name = "Технические тоннели у солнечной батареи — юго-восток"
 	icon_state = "SolarcontrolS"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/portsolar
-	name = "Технические тоннели у солнечной батареи – юго-запад"
+	name = "Технические тоннели у солнечной батареи — юго-запад"
 	icon_state = "SolarcontrolP"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/auxsolarstarboard
-	name = "Технические тоннели у солнечной батареи – северо-восток"
+	name = "Технические тоннели у солнечной батареи — северо-восток"
 	icon_state = "SolarcontrolA"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/west_solars
-	name = "Технические тоннели у солнечной батареи – запад"
+	name = "Технические тоннели у солнечной батареи — запад"
 	icon_state = "SolarcontrolA"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
@@ -1932,7 +1932,7 @@ This applies to all STANDARD station areas
 	icon_state = "mechbay"
 
 /area/assembly/showroom
-	name = "Робототехника – демонстрационный зал"
+	name = "Робототехника — демонстрационный зал"
 	icon_state = "showroom"
 
 /area/assembly/robotics
@@ -1957,7 +1957,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/teleporter/research
-	name = "Робототехника – телепортерная"
+	name = "Робототехника — телепортерная"
 
 /area/teleporter/abandoned
 	name = "Заброшенная телепортерная"
@@ -1969,28 +1969,28 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
 /area/teleporter/quantum/security
-	name = "Телепортерная – Служба безопасности"
+	name = "Телепортерная — Служба безопасности"
 
 /area/teleporter/quantum/docking
-	name = "Телепортерная – стыковочный пункт"
+	name = "Телепортерная — стыковочный пункт"
 
 /area/teleporter/quantum/science
-	name = "Телепортерная – НИО"
+	name = "Телепортерная — НИО"
 
 /area/teleporter/quantum/cargo
-	name = "Телепортерная – Отдел снабжения"
+	name = "Телепортерная — Отдел снабжения"
 
 /area/teleporter/quantum/comand
-	name = "Телепортерная – Командование"
+	name = "Телепортерная — Командование"
 
 /area/teleporter/quantum/service
-	name = "Телепортерная – Отдел обслуживания"
+	name = "Телепортерная — Отдел обслуживания"
 
 /area/teleporter/quantum/medbay
-	name = "Телепортерная – Медицинский отдел"
+	name = "Телепортерная — Медицинский отдел"
 
 /area/teleporter/quantum/engi
-	name = "Телепортерная – инженерия"
+	name = "Телепортерная — инженерия"
 
 /area/gateway
 	name = "Врата"
@@ -1999,7 +1999,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/AIsattele
-	name = "Телепортер – спутник ИИ"
+	name = "Телепортер — спутник ИИ"
 	icon_state = "teleporter"
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
 	area_flags = UNIQUE_AREA
@@ -2029,44 +2029,44 @@ This applies to all STANDARD station areas
 
 
 /area/medical/biostorage
-	name = "Медицинский отдел – склад снаряжения"
+	name = "Медицинский отдел — склад снаряжения"
 	icon_state = "medbaysecstorage"
 
 /area/medical/reception
-	name = "Медицинский отдел – приёмная"
+	name = "Медицинский отдел — приёмная"
 	icon_state = "medbay"
 
 /area/medical/psych
-	name = "Медицинский отдел – кабинет Психиатра"
+	name = "Медицинский отдел — кабинет Психиатра"
 	icon_state = "medbaypsych"
 
 /area/medical/medbreak
-	name = "Медицинский отдел – комната отдыха"
+	name = "Медицинский отдел — комната отдыха"
 	icon_state = "medbaybreak"
 
 /area/medical/medrest
-	name = "Медицинский отдел – комната отдыха"
+	name = "Медицинский отдел — комната отдыха"
 	icon_state = "medbaybreak"
 
 /area/medical/patients_rooms
-	name = "Медицинский отдел – палаты пациентов"
+	name = "Медицинский отдел — палаты пациентов"
 	icon_state = "patients"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/medical/ward
-	name = "Медицинский отдел – крыло пациентов"
+	name = "Медицинский отдел — крыло пациентов"
 	icon_state = "patientsward"
 
 /area/medical/patient_a
-	name = "Медицинский отдел – изолятор №1"
+	name = "Медицинский отдел — изолятор №1"
 	icon_state = "medbayisoa"
 
 /area/medical/patient_b
-	name = "Медицинский отдел – изолятор №2"
+	name = "Медицинский отдел — изолятор №2"
 	icon_state = "medbayisob"
 
 /area/medical/patient_c
-	name = "Медицинский отдел – изолятор №3"
+	name = "Медицинский отдел — изолятор №3"
 	icon_state = "medbayisoc"
 
 /area/medical/iso_access
@@ -2078,7 +2078,7 @@ This applies to all STANDARD station areas
 	icon_state = "CMO"
 
 /area/medical/cmostore
-	name = "Медицинский отдел – вторичный склад снаряжения"
+	name = "Медицинский отдел — вторичный склад снаряжения"
 	icon_state = "medbaysecstorage"
 
 /area/medical/robotics //why
@@ -2091,78 +2091,78 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/medical/research/nhallway
-	name = "НИО – северный коридор"
+	name = "НИО — северный коридор"
 	icon_state = "research"
 
 /area/medical/research/shallway
-	name = "НИО – южный коридор"
+	name = "НИО — южный коридор"
 	icon_state = "research"
 
 /area/medical/research/restroom
-	name = "НИО – Restroom"
+	name = "НИО — Restroom"
 	icon_state = "research"
 
 /area/medical/virology
-	name = "Медицинский отдел – вирусология"
+	name = "Медицинский отдел — вирусология"
 	icon_state = "virology"
 
 /area/medical/virology/lab
-	name = "Медицинский отдел – лаборатория вирусологии"
+	name = "Медицинский отдел — лаборатория вирусологии"
 	icon_state = "virology"
 
 /area/medical/morgue
-	name = "Медицинский отдел – морг"
+	name = "Медицинский отдел — морг"
 	icon_state = "morgue"
 	ambientsounds = SPOOKY_SOUNDS
 	is_haunted = TRUE
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/medical/chemistry
-	name = "Медицинский отдел – химическая лаборатория"
+	name = "Медицинский отдел — химическая лаборатория"
 	icon_state = "chem"
 
 /area/medical/surgery
-	name = "Медицинский отдел – операционная"
+	name = "Медицинский отдел — операционная"
 	icon_state = "surgery"
 
 /area/medical/surgery/north
-	name = "Медицинский отдел – операционная №1"
+	name = "Медицинский отдел — операционная №1"
 	icon_state = "surgery1"
 
 /area/medical/surgery/south
-	name = "Медицинский отдел – операционная №2"
+	name = "Медицинский отдел — операционная №2"
 	icon_state = "surgery2"
 
 /area/medical/surgery/theatre
-	name = "Медицинский отдел – операционный театр"
+	name = "Медицинский отдел — операционный театр"
 	icon_state = "surgery_theatre"
 
 /area/medical/surgeryobs
-	name = "Медицинский отдел – пункт наблюдения за операционными"
+	name = "Медицинский отдел — пункт наблюдения за операционными"
 	icon_state = "surgery"
 
 /area/medical/cryo
-	name = "Медицинский отдел – отсек криогеники"
+	name = "Медицинский отдел — отсек криогеники"
 	icon_state = "cryo"
 
 /area/medical/exam_room
-	name = "Медицинский отдел – смотровой кабинет"
+	name = "Медицинский отдел — смотровой кабинет"
 	icon_state = "exam_room"
 
 /area/medical/genetics
-	name = "Медицинский отдел – лаборатория генетики"
+	name = "Медицинский отдел — лаборатория генетики"
 	icon_state = "genetics"
 
 /area/medical/cloning
-	name = "Медицинский отдел – отсек клонирования"
+	name = "Медицинский отдел — отсек клонирования"
 	icon_state = "cloning"
 
 /area/medical/sleeper
-	name = "Медицинский отдел – центр медицинской помощи"
+	name = "Медицинский отдел — центр медицинской помощи"
 	icon_state = "exam_room"
 
 /area/medical/paramedic
-	name = "Медицинский отдел – кабинет Парамедика"
+	name = "Медицинский отдел — кабинет Парамедика"
 	icon_state = "medbay"
 
 /**
@@ -2175,15 +2175,15 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/security/main
-	name = "Служба безопасности – главный офис"
+	name = "Служба безопасности — главный офис"
 	icon_state = "securityoffice"
 
 /area/security/lobby
-	name = "Служба безопасности – вестибюль"
+	name = "Служба безопасности — вестибюль"
 	icon_state = "securitylobby"
 
 /area/security/brig
-	name = "Служба безопасности – бриг"
+	name = "Служба безопасности — бриг"
 	icon_state = "brig"
 
 /area/security/brig/prison_break()
@@ -2195,13 +2195,13 @@ This applies to all STANDARD station areas
 	..()
 
 /area/security/permabrig
-	name = "Служба безопасности – пермабриг"
+	name = "Служба безопасности — пермабриг"
 	icon_state = "sec_prison_perma"
 	fast_despawn = TRUE
 	can_get_auto_cryod = FALSE
 
 /area/security/prison
-	name = "Служба безопасности – пермабриг"
+	name = "Служба безопасности — пермабриг"
 	icon_state = "sec_prison"
 	can_get_auto_cryod = FALSE
 
@@ -2214,89 +2214,89 @@ This applies to all STANDARD station areas
 	..()
 
 /area/security/prison/cell_block
-	name = "Служба безопасности – камера заключения"
+	name = "Служба безопасности — камера заключения"
 	icon_state = "brig"
 
 /area/security/prison/cell_block/A
-	name = "Служба безопасности – камера заключения №1"
+	name = "Служба безопасности — камера заключения №1"
 	icon_state = "brigcella"
 
 /area/security/prison/cell_block/B
-	name = "Служба безопасности – камера заключения №2"
+	name = "Служба безопасности — камера заключения №2"
 	icon_state = "brigcellb"
 
 /area/security/prison/cell_block/C
-	name = "Служба безопасности – камера заключения №3"
+	name = "Служба безопасности — камера заключения №3"
 	icon_state = "brig"
 
 /area/security/reception
-	name = "Служба безопасности – приёмная"
+	name = "Служба безопасности — приёмная"
 	icon_state = "brig"
 
 /area/security/execution
-	name = "Служба безопасности – комната казни"
+	name = "Служба безопасности — комната казни"
 	icon_state = "execution"
 	can_get_auto_cryod = FALSE
 
 /area/security/permahallway
-	name = "Служба безопасности – проход к пермабрига"
+	name = "Служба безопасности — проход к пермабрига"
 	icon_state = "sec_prison_perma"
 
 /area/security/processing
-	name = "Служба безопасности – обработка заключённых"
+	name = "Служба безопасности — обработка заключённых"
 	icon_state = "prisonerprocessing"
 	can_get_auto_cryod = FALSE
 
 /area/security/holding_cell
-	name = "Служба безопасности – пункт временного удержания"
+	name = "Служба безопасности — пункт временного удержания"
 	icon_state = "holdingcell"
 
 /area/security/interrogation
-	name = "Служба безопасности – допросная"
+	name = "Служба безопасности — допросная"
 	icon_state = "interrogation"
 	can_get_auto_cryod = FALSE
 
 /area/security/seceqstorage
-	name = "Служба безопасности – склад снаряжения"
+	name = "Служба безопасности — склад снаряжения"
 	icon_state = "securityequipmentstorage"
 
 /area/security/brigstaff
-	name = "Служба безопасности – комната отдыха"
+	name = "Служба безопасности — комната отдыха"
 	icon_state = "brig"
 
 /area/security/interrogationhallway
-	name = "Служба безопасности – проход к допросной"
+	name = "Служба безопасности — проход к допросной"
 	icon_state = "interrogationhall"
 
 /area/security/courtroomdandp
-	name = "Зал суда – защита и обвинение"
+	name = "Зал суда — защита и обвинение"
 	icon_state = "seccourt"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/security/interrogationobs
-	name = "Служба безопасности – наблюдение за допросной"
+	name = "Служба безопасности — наблюдение за допросной"
 	icon_state = "security"
 	can_get_auto_cryod = FALSE
 
 /area/security/evidence
-	name = "Служба безопасности – комната хранения улик"
+	name = "Служба безопасности — комната хранения улик"
 	icon_state = "evidence"
 
 /area/security/visiting_room
-	name = "Служба безопасности – комната для свиданий"
+	name = "Служба безопасности — комната для свиданий"
 	icon_state = "visiting-room"
 
 /area/security/prisonlockers
-	name = "PСлужба безопасности – шкафчики заключённых"
+	name = "PСлужба безопасности — шкафчики заключённых"
 	icon_state = "sec_prison_lockers"
 	can_get_auto_cryod = FALSE
 
 /area/security/medbay
-	name = "Служба безопасности – лазарет"
+	name = "Служба безопасности — лазарет"
 	icon_state = "security_medbay"
 
 /area/security/prisonershuttle
-	name = "Служба безопасности – шаттл трудового лагеря"
+	name = "Служба безопасности — шаттл трудового лагеря"
 	icon_state = "security"
 	can_get_auto_cryod = FALSE
 
@@ -2306,15 +2306,15 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/security/armory
-	name = "Служба безопасности – арсенал"
+	name = "Служба безопасности — арсенал"
 	icon_state = "armory"
 
 /area/security/securearmory
-	name = "Служба безопасности – защищённый арсенал"
+	name = "Служба безопасности — защищённый арсенал"
 	icon_state = "secarmory"
 
 /area/security/securehallway
-	name = "Служба безопасности – защищённый проход"
+	name = "Служба безопасности — защищённый проход"
 	icon_state = "securehall"
 
 /area/security/hos
@@ -2322,7 +2322,7 @@ This applies to all STANDARD station areas
 	icon_state = "sec_hos"
 
 /area/security/podbay
-	name = "Служба безопасности – ангар для челнока"
+	name = "Служба безопасности — ангар для челнока"
 	icon_state = "securitypodbay"
 
 /area/security/detectives_office
@@ -2331,7 +2331,7 @@ This applies to all STANDARD station areas
 	ambientsounds = list('sound/ambience/ambidet1.ogg', 'sound/ambience/ambidet2.ogg')
 
 /area/security/range
-	name = "Служба безопасности – стрельбище"
+	name = "Служба безопасности — стрельбище"
 	icon_state = "firingrange"
 
 /area/security/nuke_storage
@@ -2348,31 +2348,31 @@ This applies to all STANDARD station areas
 	icon_state = "security"
 
 /area/security/checkpoint
-	name = "Служба безопасности – КПП"
+	name = "Служба безопасности — КПП"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint2
-	name = "Служба безопасности – КПП"
+	name = "Служба безопасности — КПП"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/south
-	name = "Служба безопасности – КПП пункта отбытия"
+	name = "Служба безопасности — КПП пункта отбытия"
 	icon_state = "security"
 
 /area/security/checkpoint/supply
-	name = "Служба безопасности – охранный пост Отдела снабжения"
+	name = "Служба безопасности — охранный пост Отдела снабжения"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/engineering
-	name = "Служба безопасности – охранный пост Инженерноо отдела"
+	name = "Служба безопасности — охранный пост Инженерноо отдела"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/medical
-	name = "Служба безопасности – охранный пост Медицинского отдела"
+	name = "Служба безопасности — охранный пост Медицинского отдела"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/science
-	name = "Служба безопасности – охранный пост НИО"
+	name = "Служба безопасности — охранный пост НИО"
 	icon_state = "checkpoint1"
 
 /area/quartermaster
@@ -2382,24 +2382,24 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_CARGO
 
 /area/quartermaster/sorting
-	name = "Отдел снабжения – распределительный центр"
+	name = "Отдел снабжения — распределительный центр"
 	icon_state = "quartstorage"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/quartermaster/office
-	name = "Отдел снабжения – офис"
+	name = "Отдел снабжения — офис"
 	icon_state = "quartoffice"
 
 /area/quartermaster/lobby
-	name = "Отдел снабжения – вестибюль"
+	name = "Отдел снабжения — вестибюль"
 	icon_state = "quartoffice"
 
 /area/quartermaster/delivery
-	name = "Отдел снабжения – пункт отправки"
+	name = "Отдел снабжения — пункт отправки"
 	icon_state = "quartoffice"
 
 /area/quartermaster/storage
-	name = "Отдел снабжения – ангар для грузов"
+	name = "Отдел снабжения — ангар для грузов"
 	icon_state = "quartstorage"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
@@ -2408,15 +2408,15 @@ This applies to all STANDARD station areas
 	icon_state = "quart"
 
 /area/quartermaster/miningdock
-	name = "Отдел снабжения – шахтёрский пункт"
+	name = "Отдел снабжения — шахтёрский пункт"
 	icon_state = "mining"
 
 /area/quartermaster/miningstorage
-	name = "Отдел снабжения – шахтёрский склад"
+	name = "Отдел снабжения — шахтёрский склад"
 	icon_state = "green"
 
 /area/quartermaster/mechbay
-	name = "Отдел снабжения – ангар для экзоскелетов"
+	name = "Отдел снабжения — ангар для экзоскелетов"
 	icon_state = "yellow"
 
 /area/janitor
@@ -2439,7 +2439,7 @@ This applies to all STANDARD station areas
 	power_environ = FALSE
 
 /area/maintenance/garden/north
-	name = "Старый сад – северный"
+	name = "Старый сад — северный"
 	icon_state = "hydro"
 	power_equip = FALSE
 	power_light = FALSE
@@ -2465,7 +2465,7 @@ This applies to all STANDARD station areas
 	icon_state = "toxlab"
 
 /area/toxins/hallway
-	name = "НИО – лаборатория"
+	name = "НИО — лаборатория"
 	icon_state = "toxlab"
 
 /area/toxins/rdoffice
@@ -2473,62 +2473,62 @@ This applies to all STANDARD station areas
 	icon_state = "head_quarters"
 
 /area/toxins/xenobiology
-	name = "НИО – лаборатория ксенобиологии"
+	name = "НИО — лаборатория ксенобиологии"
 	icon_state = "toxmix"
 	xenobiology_compatible = TRUE
 
 /area/toxins/xenobiology/xenoflora_storage
-	name = "НИО – хранилище ксенофлоры"
+	name = "НИО — хранилище ксенофлоры"
 	icon_state = "toxlab"
 
 /area/toxins/xenobiology/xenoflora
-	name = "НИО – хранилище ксенофлоры"
+	name = "НИО — хранилище ксенофлоры"
 	icon_state = "toxlab"
 
 /area/toxins/storage
-	name = "НИО – хранилище токсинов"
+	name = "НИО — хранилище токсинов"
 	icon_state = "toxstorage"
 
 /area/toxins/test_area
-	name = "НИО – отсек тестирования токсинов"
+	name = "НИО — отсек тестирования токсинов"
 	icon_state = "toxtest"
 	valid_territory = FALSE
 
 /area/toxins/mixing
-	name = "НИО – смеситель токсинов"
+	name = "НИО — смеситель токсинов"
 	icon_state = "toxmix"
 
 /area/toxins/launch
-	name = "НИО – комната отправки токсинных бомб"
+	name = "НИО — комната отправки токсинных бомб"
 	icon_state = "toxlaunch"
 
 /area/toxins/misc_lab
-	name = "НИО – пункт тестирования токсинов"
+	name = "НИО — пункт тестирования токсинов"
 	icon_state = "toxmisc"
 
 /area/toxins/test_chamber
-	name = "НИО – камера исследования токсинов"
+	name = "НИО — камера исследования токсинов"
 	icon_state = "toxtest"
 
 /area/toxins/server
-	name = "НИО – серверная"
+	name = "НИО — серверная"
 	icon_state = "server"
 
 /area/toxins/server_coldroom
-	name = "НИО – отсек охлаждения серверной"
+	name = "НИО — отсек охлаждения серверной"
 	icon_state = "servercold"
 
 /area/toxins/explab
-	name = "НИО – экспериментационная лаборатория"
+	name = "НИО — экспериментационная лаборатория"
 	icon_state = "toxmisc"
 
 /area/toxins/sm_test_chamber
-	name = "НИО – лаборатория исследования Суперматерии"
+	name = "НИО — лаборатория исследования Суперматерии"
 	icon_state = "toxtest"
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/toxins/explab_chamber
-	name = "НИО – камера \"Э.К.С.П.Е.Р.И-МЕНТОР\"'а"
+	name = "НИО — камера \"Э.К.С.П.Е.Р.И-МЕНТОР\"'а"
 	icon_state = "toxmisc"
 
 /**
@@ -2572,12 +2572,12 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/storage/emergency
-	name = "Аварийное хранилище – восточное"
+	name = "Аварийное хранилище — восточное"
 	icon_state = "emergencystorage"
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/storage/emergency2
-	name = "Аварийное хранилище – западное"
+	name = "Аварийное хранилище — западное"
 	icon_state = "emergencystorage"
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
@@ -2602,7 +2602,7 @@ This applies to all STANDARD station areas
 	has_gravity = STANDARD_GRAVITY
 
 /area/djstation/solars
-	name = "Диджей-станция СССП – солнечная батарея"
+	name = "Диджей-станция СССП — солнечная батарея"
 	icon_state = "DJ"
 
 /**
@@ -2615,118 +2615,118 @@ This applies to all STANDARD station areas
 	has_gravity = STANDARD_GRAVITY
 
 /area/derelict/hallway/primary
-	name = "Заброшенная станция – основной коридор"
+	name = "Заброшенная станция — основной коридор"
 	icon_state = "hallP"
 
 /area/derelict/hallway/secondary
-	name = "Заброшенная станция – дополнительный коридор"
+	name = "Заброшенная станция — дополнительный коридор"
 	icon_state = "hallS"
 
 /area/derelict/arrival
-	name = "Заброшенная станция – пункт прибытия"
+	name = "Заброшенная станция — пункт прибытия"
 	icon_state = "yellow"
 
 /area/derelict/church
-	name = "Заброшенная станция – церковь"
+	name = "Заброшенная станция — церковь"
 	icon_state = "chapel"
 
 /area/derelict/common
-	name = "Заброшенная станция – стандартная зона"
+	name = "Заброшенная станция — стандартная зона"
 	icon_state = "crew_quarters"
 
 /area/derelict/asteroidbelt
-	name = "Заброшенная станция – астероиды"
+	name = "Заброшенная станция — астероиды"
 	icon_state = "mining"
 	requires_power = FALSE
 	has_gravity = FALSE
 
 /area/derelict/med
-	name = "Заброшенная станция – медотсек"
+	name = "Заброшенная станция — медотсек"
 	icon_state = "medbay"
 
 /area/derelict/garden
-	name = "Заброшенная станция – гидропоника"
+	name = "Заброшенная станция — гидропоника"
 	icon_state = "hydro"
 
 /area/derelict/dining
-	name = "Заброшенная станция – обеденная комната"
+	name = "Заброшенная станция — обеденная комната"
 	icon_state = "kitchen"
 
 /area/derelict/dock
-	name = "Заброшенная станция – пункт стыковки"
+	name = "Заброшенная станция — пункт стыковки"
 	icon_state = "ntrep"
 
 /area/derelict/security
-	name = "Заброшенная станция – служба безопасности"
+	name = "Заброшенная станция — служба безопасности"
 	icon_state = "blue"
 
 /area/derelict/rnd
-	name = "Заброшенная станция – НИО"
+	name = "Заброшенная станция — НИО"
 	icon_state = "purple"
 
 /area/derelict/engineer_area
-	name = "Заброшенная станция – инженерия"
+	name = "Заброшенная станция — инженерия"
 	icon_state = "engine_control"
 
 /area/derelict/storage/equipment
-	name = "Заброшенная станция – склад снаряжения"
+	name = "Заброшенная станция — склад снаряжения"
 
 /area/derelict/storage/storage_access
-	name = "Заброшенная станция – пункт доступа к складу"
+	name = "Заброшенная станция — пункт доступа к складу"
 
 /area/derelict/storage/engine_storage
-	name = "Заброшенная станция – хранилище для двигателя"
+	name = "Заброшенная станция — хранилище для двигателя"
 	icon_state = "green"
 
 /area/derelict/bridge
-	name = "Заброшенная станция – комната управления"
+	name = "Заброшенная станция — комната управления"
 	icon_state = "bridge"
 
 /area/derelict/secret
-	name = "Заброшенная станция – секретная комната"
+	name = "Заброшенная станция — секретная комната"
 	icon_state = "library"
 
 /area/derelict/bridge/access
-	name = "Заброшенная станция – пункт доступа к комнате управления"
+	name = "Заброшенная станция — пункт доступа к комнате управления"
 	icon_state = "auxstorage"
 
 /area/derelict/bridge/ai_upload
-	name = "Заброшенная станция – ядро ИИ"
+	name = "Заброшенная станция — ядро ИИ"
 	icon_state = "ai"
 
 /area/derelict/solar_control
-	name = "Заброшенная станция – пункт управления солнечной батареей"
+	name = "Заброшенная станция — пункт управления солнечной батареей"
 	icon_state = "engine"
 
 /area/derelict/se_solar
-	name = "Заброшенная станция – юго-восточная солнечная батарея"
+	name = "Заброшенная станция — юго-восточная солнечная батарея"
 	icon_state = "engine"
 
 /area/derelict/crew_quarters
-	name = "Заброшенная станция – жилой модуль"
+	name = "Заброшенная станция — жилой модуль"
 	icon_state = "fitness"
 
 /area/derelict/medical
-	name = "Заброшенная станция – медотсек"
+	name = "Заброшенная станция — медотсек"
 	icon_state = "medbay"
 
 /area/derelict/medical/morgue
-	name = "Заброшенная станция – морг"
+	name = "Заброшенная станция — морг"
 	icon_state = "morgue"
 	is_haunted = TRUE
 
 /area/derelict/medical/chapel
-	name = "Заброшенная станция – церковь"
+	name = "Заброшенная станция — церковь"
 	icon_state = "chapel"
 	is_haunted = TRUE
 
 /area/derelict/teleporter
-	name = "Заброшенная станция – телепортационная"
+	name = "Заброшенная станция — телепортационная"
 	icon_state = "teleporter"
 	area_flags = UNIQUE_AREA
 
 /area/derelict/annex
-	name = "Заброшенная станция – пристройка"
+	name = "Заброшенная станция — пристройка"
 	icon_state = "eva"
 
 /area/shuttle/derelict/ship/start
@@ -2746,23 +2746,23 @@ This applies to all STANDARD station areas
 	icon_state = "yellow"
 
 /area/solar/derelict_starboard
-	name = "Заброшенная станция – восточная солнечная батарея"
+	name = "Заброшенная станция — восточная солнечная батарея"
 	icon_state = "panelsS"
 
 /area/solar/derelict_aft
-	name = "Заброшенная станция – южная солнечная батарея"
+	name = "Заброшенная станция — южная солнечная батарея"
 	icon_state = "aft"
 
 /area/derelict/singularity_engine
-	name = "Заброшенная станция – сингулярный двигатель"
+	name = "Заброшенная станция — сингулярный двигатель"
 	icon_state = "engine"
 
 /area/derelict/gravity_generator
-	name = "Заброшенная станция – отсек генератора гравитации"
+	name = "Заброшенная станция — отсек генератора гравитации"
 	icon_state = "red"
 
 /area/derelict/atmospherics
-	name = "Заброшенная станция – атмосферный отсек"
+	name = "Заброшенная станция — атмосферный отсек"
 	icon_state = "red"
 /**
  * MARK: Construction
@@ -2780,7 +2780,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/construction/solars
-	name = "Строительная площадка – солнечная батарея"
+	name = "Строительная площадка — солнечная батарея"
 	icon_state = "yellow"
 
 /**
@@ -2830,24 +2830,24 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/aisat/entrance
-	name = "Спутник ИИ – вход"
+	name = "Спутник ИИ — вход"
 	icon_state = "ai_foyer"
 
 /area/aisat/maintenance
-	name = "Спутник ИИ – пункт технического обслуживания"
+	name = "Спутник ИИ — пункт технического обслуживания"
 	icon_state = "storage"
 
 /area/aisat/atmospherics
-	name = "Спутник ИИ – атмосферный отсек"
+	name = "Спутник ИИ — атмосферный отсек"
 	icon_state = "storage"
 
 /area/turret_protected/aisat_interior
-	name = "Спутник ИИ – вестибюль"
+	name = "Спутник ИИ — вестибюль"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/turret_protected/aisat_interior/secondary
-	name = "Спутник ИИ – вторичный вестибюль"
+	name = "Спутник ИИ — вторичный вестибюль"
 
 /**
  * MARK: Telecommunications Satellite
@@ -2859,7 +2859,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/tcommsat/chamber
-	name = "Телекоммуникационный спутник – основной отсек"
+	name = "Телекоммуникационный спутник — основной отсек"
 	icon_state = "tcomms"
 
 // These areas are needed for MetaStation's AI sat
@@ -2869,35 +2869,35 @@ This applies to all STANDARD station areas
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomfoyer
-	name = "Телекоммуникационный спутник – фойе"
+	name = "Телекоммуникационный спутник — фойе"
 	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomwest
-	name = "Телекоммуникационный спутник – западное крыло"
+	name = "Телекоммуникационный спутник — западное крыло"
 	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomeast
-	name = "Телекоммуникационный спутник – восточное крыло"
+	name = "Телекоммуникационный спутник — восточное крыло"
 	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/tcommsat/computer
-	name = "Телекоммуникационный спутник – комната управления"
+	name = "Телекоммуникационный спутник — комната управления"
 	icon_state = "tcomms"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
 /area/tcommsat/server
-	name = "Телекоммуникационный спутник – серверная"
+	name = "Телекоммуникационный спутник — серверная"
 	icon_state = "tcomms"
 
 /area/tcommsat/lounge
-	name = "Телекоммуникационный спутник – зона отдыха"
+	name = "Телекоммуникационный спутник — зона отдыха"
 	icon_state = "tcomms"
 
 /area/tcommsat/powercontrol
-	name = "Телекоммуникационный спутник – пункт энергоуправления"
+	name = "Телекоммуникационный спутник — пункт энергоуправления"
 	icon_state = "tcomms"
 
 /**
@@ -2944,11 +2944,11 @@ This applies to all STANDARD station areas
 	holomap_should_draw = FALSE
 
 /area/moonoutpost19/mo19arrivals
-	name = "Лунный аванпост №19 – пункт прибытия"
+	name = "Лунный аванпост №19 — пункт прибытия"
 	icon_state = "awaycontent1"
 
 /area/moonoutpost19/mo19research
-	name = "Лунный аванпост №19 – НИО"
+	name = "Лунный аванпост №19 — НИО"
 	icon_state = "awaycontent2"
 
 /area/moonoutpost19/khonsu19
@@ -2968,7 +2968,7 @@ This applies to all STANDARD station areas
 	icon_state = "awaycontent4"
 
 /area/moonoutpost19/hive
-	name = "Лунный аванпост №19 – улей"
+	name = "Лунный аванпост №19 — улей"
 	icon_state = "awaycontent5"
 	always_unpowered = TRUE
 	power_environ = FALSE
@@ -2977,7 +2977,7 @@ This applies to all STANDARD station areas
 	poweralm = FALSE
 
 /area/moonoutpost19/mo19utilityroom
-	name = "Лунный аванпост №19 – подсобное помещение"
+	name = "Лунный аванпост №19 — подсобное помещение"
 	icon_state = "awaycontent6"
 
 //area for AWAY "aeterna13"
@@ -3154,23 +3154,23 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	holomap_should_draw = FALSE
 
 /area/special_event/alpha
-	name = "Специальная ивент-зона – Альфа"
+	name = "Специальная ивент-зона — Альфа"
 	icon_state = "away1"
 
 /area/special_event/beta
-	name = "Специальная ивент-зона – Бета"
+	name = "Специальная ивент-зона — Бета"
 	icon_state = "away2"
 
 /area/special_event/gamma
-	name = "Специальная ивент-зона – Гамма"
+	name = "Специальная ивент-зона — Гамма"
 	icon_state = "away3"
 
 /area/special_event/delta
-	name = "Специальная ивент-зона – Дельта"
+	name = "Специальная ивент-зона — Дельта"
 	icon_state = "away4"
 
 /area/special_event/epsilon
-	name = "Специальная ивент-зона – Эпсилон"
+	name = "Специальная ивент-зона — Эпсилон"
 	icon_state = "away5"
 
 /**
@@ -3194,95 +3194,95 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "unknown"
 
 /area/ruin/space/pirate_base/arrivals
-	name = "Пиратская база – пунк прибытия"
+	name = "Пиратская база — пункт прибытия"
 	icon_state = "awaycontent1"
 
 /area/ruin/space/pirate_base/atrium
-	name = "Пиратская база – тюремный атриум"
+	name = "Пиратская база — тюремный атриум"
 	icon_state = "awaycontent2"
 
 /area/ruin/space/pirate_base/kitchen
-	name = "Пиратская база – тюремная кухня"
+	name = "Пиратская база — тюремная кухня"
 	icon_state = "awaycontent3"
 
 /area/ruin/space/pirate_base/mining
-	name = "Пиратская база – тюремный шахтёрский пункт"
+	name = "Пиратская база — тюремный шахтёрский пункт"
 	icon_state = "awaycontent4"
 
 /area/ruin/space/pirate_base/prison_maint
-	name = "Пиратская база – технические тоннели тюрьмы"
+	name = "Пиратская база — технические тоннели тюрьмы"
 	icon_state = "awaycontent5"
 
 /area/ruin/space/pirate_base/entertainment
-	name = "Пиратская база – тюремный развлекательный центр"
+	name = "Пиратская база — тюремный развлекательный центр"
 	icon_state = "awaycontent6"
 
 /area/ruin/space/pirate_base/security_atrium
-	name = "Служба безопасности – Atrium"
+	name = "Пиратская база — атриум СБ"
 	icon_state = "awaycontent7"
 
 /area/ruin/space/pirate_base/security_maint
-	name = "Technical Security zone"
+	name = "Пиратская база — технические тоннели СБ"
 	icon_state = "awaycontent8"
 
 /area/ruin/space/pirate_base/security_medical
-	name = "Medical and Storage"
+	name = "Пиратская база — лазарет СБ"
 	icon_state = "awaycontent9"
 
 /area/ruin/space/pirate_base/observ
-	name = "Observation Point"
+	name = "Пиратская база — наблюдательный пункт"
 	icon_state = "awaycontent10"
 
 /area/ruin/space/pirate_base/lab_sec
-	name = "Laboratory Security"
+	name = "Пиратская база — СБ лаборатории"
 	icon_state = "awaycontent11"
 
 /area/ruin/space/pirate_base/lab_hall
-	name = "Laboratory проход"
+	name = "Пиратская база — проход к лаборатории"
 	icon_state = "awaycontent12"
 
 /area/ruin/space/pirate_base/laboratory
-	name = "Laboratory"
+	name = "Пиратская база — лаборатория"
 	icon_state = "awaycontent13"
 
 /area/ruin/space/pirate_base/lab_medical
-	name = "Medical Bay"
+	name = "Пиратская база — медпункт лаборатории"
 	icon_state = "awaycontent14"
 
 /area/ruin/space/pirate_base/lab_maint
-	name = "Laboratory Технические тоннели – "
+	name = "Пиратская база — технические тоннели лаборатории"
 	icon_state = "awaycontent15"
 
 /area/ruin/space/pirate_base/atmos
-	name = "Prison Atmos"
+	name = "Пиратская база — атмосферный отсек тюрьмы"
 	icon_state = "awaycontent16"
 
 /area/ruin/space/pirate_base/xeno_lab
-	name = "Xeno Lab"
+	name = "Пиратская база — лаборатория ксенобиологии"
 	icon_state = "awaycontent17"
 
 /area/ruin/space/pirate_base/virus_lab
-	name = "Virus TestLab"
+	name = "Пиратская база — лаборатория вирусологии"
 	icon_state = "awaycontent18"
 
 /area/ruin/space/pirate_base/virology
-	name = "LP7 Virology"
+	name = "Пиратская база — \"Отсек вирусологии ЛП7\""
 	icon_state = "awaycontent19"
 
 /area/ruin/space/pirate_base/prison_solar
-	name = "Prison Solar"
+	name = "Пиратская база — солчечная батарея тюрьмы"
 	icon_state = "awaycontent20"
 
 /area/ruin/space/pirate_base/lab_solar
-	name = "Labor Solar"
+	name = "Пиратская база — солнечная батарея лаборатории"
 	icon_state = "awaycontent21"
 
 /area/ruin/space/pirate_base/telecomms
-	name = "Telecomms"
+	name = "Пиратская база — пункт телекоммуникации"
 	icon_state = "awaycontent22"
 
 /area/ruin/space/pirate_base/black_market
-	name = "Black Market"
+	name = "Пиратская база — чёрный рынок"
 	icon_state = "awaycontent23"
 
 /**
@@ -3311,7 +3311,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "research"
 
 /area/coldcolony/ruin/sm_maintenance
-	name = "Заброшенный SM Технические тоннели – "
+	name = "Заброшенный SM Технические тоннели — "
 	icon_state = "asmaint"
 
 /area/coldcolony/ruin/sm_lab
@@ -3412,11 +3412,11 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "Chapel"
 
 /area/coldcolony/malta/chapel/office
-	name = "Церковь – Office"
+	name = "Церковь — Office"
 	icon_state = "chapeloffice"
 
 /area/coldcolony/malta/escape_toilet
-	name = "Arrivals Уборная – "
+	name = "Arrivals Уборная — "
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	holomap_color = HOLOMAP_AREACOLOR_ARRIVALS
@@ -3469,7 +3469,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "locker"
 
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet
-	name = "Locker Уборная – "
+	name = "Locker Уборная — "
 	icon_state = "toilet"
 
 /area/coldcolony/malta/resid_serv/crew_quarters/barber
@@ -3612,11 +3612,11 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "fmaint"
 
 /area/coldcolony/malta/maintenance/dormitory
-	name = "Dormitory Технические тоннели – "
+	name = "Dormitory Технические тоннели — "
 	icon_state = "fmaint"
 
 /area/coldcolony/malta/maintenance/bar
-	name = "Bar Технические тоннели – "
+	name = "Bar Технические тоннели — "
 	icon_state = "fmaint"
 
 /area/coldcolony/malta/maintenance/casino
@@ -3624,35 +3624,35 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "yellow"
 
 /area/coldcolony/malta/maintenance/brig
-	name = "Brig Технические тоннели – "
+	name = "Brig Технические тоннели — "
 	icon_state = "pmaint"
 
 /area/coldcolony/malta/maintenance/medbay
-	name = "Medbay Технические тоннели – "
+	name = "Medbay Технические тоннели — "
 	icon_state = "asmaint"
 
 /area/coldcolony/malta/maintenance/bridge
-	name = "Bridge Технические тоннели – "
+	name = "Bridge Технические тоннели — "
 	icon_state = "central"
 
 /area/coldcolony/malta/maintenance/cargo
-	name = "Cargo Технические тоннели – "
+	name = "Cargo Технические тоннели — "
 	icon_state = "apmaint"
 
 /area/coldcolony/malta/maintenance/research
-	name = "Research Технические тоннели – "
+	name = "Research Технические тоннели — "
 	icon_state = "asmaint"
 
 /area/coldcolony/malta/maintenance/science
-	name = "Science Технические тоннели – "
+	name = "Science Технические тоннели — "
 	icon_state = "asmaint"
 
 /area/coldcolony/malta/maintenance/engineering
-	name = "Инженерный отдел – Технические тоннели – "
+	name = "Инженерный отдел — Технические тоннели — "
 	icon_state = "green"
 
 /area/coldcolony/malta/maintenance/perma
-	name = "Prison Технические тоннели – "
+	name = "Prison Технические тоннели — "
 	icon_state = "green"
 
 /**
@@ -3699,23 +3699,23 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "chem"
 
 /area/coldcolony/malta/medical/surgery
-	name = "Медицинский отдел – операционная"
+	name = "Медицинский отдел — операционная"
 	icon_state = "surgery"
 
 /area/coldcolony/malta/medical/surgery/west
-	name = "Медицинский отдел – операционная 1"
+	name = "Медицинский отдел — операционная 1"
 	icon_state = "surgery1"
 
 /area/coldcolony/malta/medical/surgery/east
-	name = "Медицинский отдел – операционная 2"
+	name = "Медицинский отдел — операционная 2"
 	icon_state = "surgery2"
 
 /area/coldcolony/malta/medical/biostorage
-	name = "Медицинский отдел – склад медицины"
+	name = "Медицинский отдел — склад медицины"
 	icon_state = "medbaysecstorage"
 
 /area/coldcolony/malta/medical/genetics
-	name = "Медицинский отдел – ла"
+	name = "Медицинский отдел — ла"
 	icon_state = "genetics"
 
 /area/coldcolony/malta/medical/virology
@@ -3732,7 +3732,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/coldcolony/malta/security/lobby
-	name = "Служба безопасности – Lobby"
+	name = "Служба безопасности — Lobby"
 	icon_state = "securitylobby"
 
 /area/coldcolony/malta/security/magistrateoffice
@@ -3749,7 +3749,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "brig"
 
 /area/coldcolony/malta/security/prison
-	name = "Служба безопасности – "
+	name = "Служба безопасности — "
 	icon_state = "sec_prison"
 	can_get_auto_cryod = FALSE
 
@@ -3762,7 +3762,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	..()
 
 /area/coldcolony/malta/security/prison/cell_block/A
-	name = "Служба безопасности – камера заключения A"
+	name = "Служба безопасности — камера заключения A"
 	icon_state = "brigcella"
 
 /area/coldcolony/malta/security/customs
@@ -3784,7 +3784,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "brig"
 
 /area/coldcolony/malta/security/medbay
-	name = "Служба безопасности – Medbay"
+	name = "Служба безопасности — Medbay"
 	icon_state = "security_medbay"
 
 /area/coldcolony/malta/security/evidence
@@ -3796,7 +3796,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "sec_hos"
 
 /area/coldcolony/malta/security/main
-	name = "Служба безопасности – Office"
+	name = "Служба безопасности — Office"
 	icon_state = "securityoffice"
 
 /area/coldcolony/malta/security/securehallway
@@ -3822,13 +3822,13 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "sec_prison_perma"
 
 /area/coldcolony/malta/security/permabrig
-	name = "Служба безопасности – "
+	name = "Служба безопасности — "
 	icon_state = "sec_prison_perma"
 	fast_despawn = TRUE
 	can_get_auto_cryod = FALSE
 
 /area/coldcolony/malta/security/checkpoint
-	name = "Служба безопасности – Checkpoint"
+	name = "Служба безопасности — Checkpoint"
 	icon_state = "checkpoint1"
 
 /**
@@ -3928,7 +3928,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "mechbay"
 
 /area/coldcolony/malta/research/hallway
-	name = "НИО – проход"
+	name = "НИО — проход"
 	icon_state = "research"
 
 /area/coldcolony/malta/research/robotics
@@ -3940,7 +3940,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "server"
 
 /area/coldcolony/malta/research/shallway
-	name = "НИО – South проход"
+	name = "НИО — South проход"
 	icon_state = "research"
 
 /area/coldcolony/malta/research/explab
@@ -3970,21 +3970,21 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/coldcolony/malta/engineering/break_room
-	name = "Инженерный отдел – Foyer"
+	name = "Инженерный отдел — Foyer"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/coldcolony/malta/engineering/control
-	name = "Атмосферный отсек – Control Room"
+	name = "Атмосферный отсек — Control Room"
 	icon_state = "atmos"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/coldcolony/malta/engineering/monitor
-	name = "Инженерный отдел – Monitoring Room"
+	name = "Инженерный отдел — Monitoring Room"
 	icon_state = "engine_control"
 
 /area/coldcolony/malta/engineering/engine
-	name = "Инженерный отдел – SMES"
+	name = "Инженерный отдел — SMES"
 	icon_state = "engine_smes"
 
 /area/coldcolony/malta/engineering/atmos
@@ -4001,5 +4001,5 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "head_quarters"
 
 /area/coldcolony/malta/engineering/teg
-	name = "Инженерный отдел – Thermo Generator"
+	name = "Инженерный отдел — Thermo Generator"
 	icon_state = "engine"
