@@ -502,6 +502,10 @@ This applies to all STANDARD station areas
 	icon_state = "supplypod_flight"
 	area_flags = UNIQUE_AREA
 
+/area/centcom/supplypod
+	name = "Отсек капсул снабжения"
+	icon_state = "supplypod"
+
 /area/centcom/supplypod/pod_storage
 	name = "Хранилище капсул снабжения"
 	icon_state = "supplypod_holding"
@@ -2416,6 +2420,10 @@ This applies to all STANDARD station areas
 	name = "НИО — лаборатория исследования Суперматерии"
 	icon_state = "toxtest"
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
+
+/area/toxins/explab
+	name = "НИО — лаборатория \"Э.К.С.П.Е.Р.И-МЕНТОР\"'а"
+	icon_state = "toxmisc"
 
 /area/toxins/explab_chamber
 	name = "НИО — камера \"Э.К.С.П.Е.Р.И-МЕНТОР\"'а"
