@@ -7,7 +7,7 @@
 	area_flags = NONE
 
 /area/mine/explored
-	name = "Mine"
+	name = "Шахта"
 	icon_state = "explored"
 	always_unpowered = TRUE
 	poweralm = FALSE
@@ -20,10 +20,10 @@
 	max_ambience_cooldown = 220 SECONDS
 
 /area/mine/dangerous/explored/golem
-	name = "Small Asteroid"
+	name = "Малый астероид"
 
 /area/mine/unexplored
-	name = "Mine"
+	name = "Шахта"
 	icon_state = "unexplored"
 	always_unpowered = TRUE
 	poweralm = FALSE
@@ -41,80 +41,80 @@
 	ignore_gravgen = TRUE
 
 /area/mine/unexplored/cere/ai
-	name = "AI Asteroid"
+	name = "Астероид ИИ"
 
 /area/mine/unexplored/cere/cargo
-	name = "Cargo Asteroid"
+	name = "Грузовой астероид"
 
 /area/mine/unexplored/cere/civilian
-	name = "Civilian Asteroid"
+	name = "Гражданский астероид"
 
 /area/mine/unexplored/cere/command
-	name = "Command Asteroid"
+	name = "Командный астероид"
 
 /area/mine/unexplored/cere/docking
-	name = "Docking Asteroid"
+	name = "Стыковочный астероид"
 
 /area/mine/unexplored/cere/engineering
-	name = "Engineering Asteroid"
+	name = "Инженерный астероид"
 
 /area/mine/unexplored/cere/medical
-	name = "Medical Asteroid"
+	name = "Медицинский астероид"
 
 /area/mine/unexplored/cere/research
-	name = "Research Asteroid"
+	name = "Исследовательский астероид"
 
 /area/mine/unexplored/cere/orbiting
-	name = "Near Station Asteroids"
+	name = "Астероиды у станции"
 
 /area/mine/lobby
-	name = "Mining Station"
+	name = "Шахтёрский аванпост"
 
 /area/mine/storage
-	name = "Mining Station Storage"
+	name = "Склад шахтёрского аванпоста"
 
 /area/mine/production
-	name = "Mining Station Production Wing"
+	name = "Производственный сектор шахтёрского аванпоста"
 	icon_state = "mining_production"
 
 /area/mine/abandoned
-	name = "Abandoned Mining Station"
+	name = "Заброшенный шахтёрский аванпост"
 
 /area/mine/living_quarters
-	name = "Mining Station Living Wing"
+	name = "Жилой сектор шахтёрского аванпоста"
 	icon_state = "mining_living"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/mine/eva
-	name = "Mining Station EVA"
+	name = "Отсек ВКД шахтёрского аванпоста"
 	icon_state = "mining_eva"
 
 /area/mine/maintenance
-	name = "Mining Station Communications"
+	name = "Пункт связи шахтёрского аванпоста"
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/mine/cafeteria
-	name = "Mining station Cafeteria"
+	name = "Столовая шахтёрского аванпоста"
 
 /area/mine/hydroponics
-	name = "Mining station Hydroponics"
+	name = "Гидропоника шахтёрского аванпоста"
 
 /area/mine/sleeper
-	name = "Mining station Emergency Sleeper"
+	name = "Аварийные капсулы шахтёрского аванпоста"
 
 /area/mine/north_outpost
-	name = "North Mining Outpost"
+	name = "Северное крыло шахтёрского аванпоста"
 
 /area/mine/west_outpost
-	name = "West Mining Outpost"
+	name = "Западное крыло шахтёрского аванпоста"
 
 /area/mine/laborcamp/security
-	name = "Labor Camp Security"
+	name = "Охрана трудового лагеря"
 	icon_state = "security"
 	ambientsounds = HIGHSEC_SOUNDS
 
 /area/mine/podbay
-	name = "Mining Podbay"
+	name = "Ангар шахтёрских капсул"
 
 
 
@@ -127,7 +127,7 @@
 	area_flags = FLORA_ALLOWED
 
 /area/lavaland/surface
-	name = "Lavaland"
+	name = "Лазис"
 	icon_state = "explored"
 	always_unpowered = TRUE
 	poweralm = FALSE
@@ -141,7 +141,7 @@
 	holomap_should_draw = FALSE
 
 /area/lavaland/underground
-	name = "Lavaland Caves"
+	name = "Пещеры Лазиса"
 	icon_state = "unexplored"
 	always_unpowered = TRUE
 	poweralm = FALSE
@@ -153,7 +153,7 @@
 	max_ambience_cooldown = 220 SECONDS
 
 /area/lavaland/surface/outdoors
-	name = "Lavaland Wastes"
+	name = "Пустоши Лазиса"
 	outdoors = TRUE
 	area_flags = FLORA_ALLOWED | BLOBS_ALLOWED
 
@@ -166,11 +166,11 @@
 	map_generator = /datum/map_generator/cave_generator/lavaland
 
 /area/lavaland/surface/outdoors/explored
-	name = "Lavaland Labor Camp"
+	name = "Трудовой лагерь Лазиса"
 	area_flags = NONE
 
 /area/lavaland/surface/outdoors/necropolis
-	name = "Necropolis"
+	name = "Некрополис"
 	icon_state = "unexplored"
 	tele_proof = TRUE
 	area_flags = NONE
