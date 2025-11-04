@@ -5,6 +5,7 @@ on:
 
 jobs:
   linters:
+    name: Linters
     runs-on: ubuntu-22.04
     timeout-minutes: 10
 
@@ -39,13 +40,9 @@ jobs:
           bash tools/ci/install_dreamchecker.sh
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.1
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 9.x
-
-      - name: Install OpenDream
-        run: |
-          bash tools/ci/setup_od.sh
 
       - name: Give Linters A Go
         id: linter-setup
@@ -102,9 +99,18 @@ jobs:
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
 
+      # Do not raise the OD installation higher, otherwise check_grep and unticked_files will check it! :/
+      - name: Install OpenDream
+        uses: robinraju/release-downloader@v1.12
+        with:
+          repository: "OpenDreamProject/OpenDream"
+          tag: "latest"
+          fileName: "DMCompiler_linux-x64.tar.gz"
+          extract: true
+
       - name: Run OpenDream
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: bash tools/ci/run_od.sh | bash tools/ci/annotate_od.sh
+        run: ./DMCompiler_linux-x64/DMCompiler paradise.dme --suppress-unimplemented --define=CIBUILDING | bash tools/ci/annotate_od.sh
 
       - name: Run Map Lint
         if: steps.linter-setup.conclusion == 'success' && !cancelled()

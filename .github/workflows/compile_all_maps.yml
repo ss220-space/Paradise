@@ -2,10 +2,6 @@ name: Compile All Maps
 
 on:
   workflow_call:
-    inputs:
-      max_required_byond_client:
-        required: true
-        type: string
 
 jobs:
   compile_all_stations:
@@ -15,10 +11,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          cache-dependency-path: ./tgui/yarn.lock
+
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
           release: 'STABLE'
+
       - name: Compile All Maps
         run: |
           tools/ci/install_byond.sh

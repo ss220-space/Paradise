@@ -48,27 +48,23 @@ jobs:
     name: Compile Maps
     needs: collect_data
     uses: ./.github/workflows/compile_all_maps.yml
-    with:
-      max_required_byond_client: ${{ needs.collect_data.outputs.max_required_byond_client }}
 
   setup_build_artifacts:
     name: Setup build artifacts
     needs: collect_data
     uses: ./.github/workflows/setup_build_artifacts.yml
-    with:
-      build_versions: ${{ needs.collect_data.outputs.required_build_versions }}
 
   station_mapload_tests:
-    name: Station Mapload Tests
+    name: Station Tests
     needs: [collect_data, setup_build_artifacts]
     uses: ./.github/workflows/perform_station_tests.yml
     with:
       stations: ${{ needs.collect_data.outputs.stations }}
 
-  sql_valid_and_tests:
-    name: SQL Validation + Tests
+  game_tests:
+    name: SQL Validation + Game Tests
     needs: [collect_data, setup_build_artifacts]
-    uses: ./.github/workflows/perform_sql_valid_and_tests.yml
+    uses: ./.github/workflows/run_game_tests.yml
 
   completion_gate:
     if: always() && !cancelled()
@@ -76,8 +72,9 @@ jobs:
     needs:
       [
         run_linters,
+        compile_all_maps,
         station_mapload_tests,
-        sql_valid_and_tests,
+        game_tests,
       ]
     runs-on: ubuntu-latest
     steps:

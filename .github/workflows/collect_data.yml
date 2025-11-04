@@ -6,9 +6,6 @@ on:
       stations:
         description: "The stations that were found"
         value: ${{ jobs.collect_data.outputs.stations }}
-      required_build_versions:
-        description: "Build versions that need to be precompiled"
-        value: ${{ jobs.collect_data.outputs.required_build_versions }}
 
 jobs:
   collect_data:
@@ -16,7 +13,6 @@ jobs:
     timeout-minutes: 5
     outputs:
       stations: ${{ steps.station_finder.outputs.stations }}
-      required_build_versions: ${{ steps.setup_required_build_versions.outputs.required_build_versions }}
 
     steps:
       - uses: actions/checkout@v4
@@ -26,9 +22,3 @@ jobs:
         run: |
           STATIONS='["cyberiad", "delta", "cerestation", "celestation", "nova"]'
           echo "stations=$STATIONS" >> $GITHUB_OUTPUT
-
-      - name: Set up required build versions
-        id: setup_required_build_versions
-        run: |
-          REQUIRED_BUILD_VERSIONS='[{"major": "${{ env.BYOND_MAJOR }}","minor": "${{ env.BYOND_MINOR }}"}]'
-          echo "required_build_versions=$REQUIRED_BUILD_VERSIONS" >> $GITHUB_OUTPUT

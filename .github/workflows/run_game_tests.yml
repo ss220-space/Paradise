@@ -1,25 +1,29 @@
-name: Run SQL Validation and Tests
+name: Run SQL Validation + Game Tests
 
 on:
   workflow_call:
 
 jobs:
-  sql_valid_and_tests:
-    name: SQL Validation + Tests
-    runs-on: ubuntu-22.04
+  game_tests:
+    name: Run SQL Validation + Game Tests
+    runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
 
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
-          release: 'STABLE'
+          release: ${{ matrix.byondtype }}
 
       - name: Download build outputs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
-          name: build-artifact-515-1627
+          name: build-artifact-game
           path: ./
 
       - name: Setup & Validate DB
@@ -28,7 +32,7 @@ jobs:
           python3 tools/ci/generate_sql_scripts.py
           tools/ci/validate_sql.sh
 
-      - name: Install RUST_G Deps
+      - name: Install RUST_G
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update || true
@@ -40,7 +44,7 @@ jobs:
           sudo apt install libncurses6:i386
           bash tools/ci/install_dmjit.sh
 
-      - name: Run Tests
+      - name: Run Game Tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           mkdir -p data
