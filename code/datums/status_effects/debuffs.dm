@@ -1538,8 +1538,8 @@
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/leg_sweep)
 
 /atom/movable/screen/alert/status_effect/lung_punch
-	name = "Удар по лёгким"
-	desc = "Вам трудно дышать. Регенерация вашей стамины замедлена и вы получаете больше урона по ней."
+	name = "Удар под дых"
+	desc = "Вам трудно дышать! Регенерация вашей выносливости замедлена и вы получаете больше урона по ней."
 	icon_state = "lungpunch"
 
 /datum/status_effect/krav_maga/lung_punch
@@ -1566,7 +1566,7 @@
 
 /atom/movable/screen/alert/status_effect/neck_chop
 	name = "Удар по шее"
-	desc = "Вас ослепили ударом по шее. Некоторое время ваши атаки будут иметь шанс промаха."
+	desc = "Вас ослепили ударом по шее! Некоторое время ваши атаки будут иметь шанс промаха."
 	icon_state = "neckchop"
 
 /datum/status_effect/krav_maga/neck_chop

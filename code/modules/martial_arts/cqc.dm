@@ -84,13 +84,13 @@
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 	D.visible_message(
 		span_danger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] [D.declent_ru(ACCUSATIVE)]!"), \
-		span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] Вас!")
+		span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] вас!")
 	)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(A.resting && !D.stat && D.body_position != LYING_DOWN)
 		D.visible_message(
 			span_warning("[capitalize(A.declent_ru(NOMINATIVE))] дела[PLUR_ET_YUT(A)] подсечку [D.declent_ru(ACCUSATIVE)]!"), \
-			span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] дела[PLUR_ET_YUT(A)] Вам подсечку!")
+			span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] дела[PLUR_ET_YUT(A)] вам подсечку!")
 		)
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 		D.apply_damage(10, BRUTE)
@@ -103,7 +103,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	if(restraining && A.pulling && A.pulling == D)
 		D.visible_message(span_danger("[capitalize(A.declent_ru(NOMINATIVE))] усыпля[PLUR_ET_YUT(A)] [D.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] усыпля[PLUR_ET_YUT(A)] Вас!"))
+							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] усыпля[PLUR_ET_YUT(A)] вас!"))
 		D.SetSleeping(5 SECONDS)
 		restraining = FALSE
 		if(A.grab_state < GRAB_NECK)
@@ -114,13 +114,13 @@
 
 	if(!IS_HORIZONTAL(D) && !restraining)
 		D.visible_message(span_warning("[capitalize(A.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(A)] [D.declent_ru(ACCUSATIVE)] прямо в челюсть!"), \
-							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(A)] Вам прямо в челюсть"))
+							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(A)] вам прямо в челюсть"))
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 		D.SetSlur(4 SECONDS)
 		D.apply_damage(8, STAMINA)
 	else
 		D.visible_message(span_danger("[capitalize(A.declent_ru(NOMINATIVE))] попытал[GEND_SYA_AS_OS_IS(A)] обезоружить [D.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] попытал[GEND_SYA_AS_OS_IS(A)] обезоружить Вас!"))
+							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] попытал[GEND_SYA_AS_OS_IS(A)] обезоружить вас!"))
 		playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, TRUE, -1)
 
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
@@ -128,7 +128,7 @@
 	return TRUE
 
 /datum/martial_art/cqc/explaination_header(user)
-	to_chat(user, "<b><i>Ты пытаешься вспомнить некоторые основы рукопашного боя.</i></b>")
+	to_chat(user, "<b><i>Вы пытаетесь вспомнить некоторые основы рукопашного боя.</i></b>")
 
 /datum/martial_art/cqc/explaination_footer(user)
-	to_chat(user, "<b><i>В дополнение, ты можешь блокировать удары с активным режимом броска.</i></b>")
+	to_chat(user, "<b><i>В дополнение, вы можете блокировать удары с активным режимом броска.</i></b>")

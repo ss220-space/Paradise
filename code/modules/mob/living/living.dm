@@ -528,11 +528,11 @@
 	// DEAD mobs are fine to skip if they are not dense or lying
 	if(stat == DEAD && projectile.original != src)
 		return !density || body_position == LYING_DOWN
-	if(ishuman(projectile.firer))
-		if(HAS_TRAIT(projectile.firer, TRAIT_HIGH_MISS_CHANCE))
-			var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-			var/miss_chance = def_zone_hit_chance * 0.4
-			return !prob(miss_chance)
+	// projectiles pass through if the firer has a special trait
+	if(ishuman(projectile.firer) && HAS_TRAIT(projectile.firer, TRAIT_HIGH_MISS_CHANCE))
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		var/miss_chance = def_zone_hit_chance * 0.4
+		return !prob(miss_chance)
 	// always hitting dense/standing mobs
 	if(density || body_position == STANDING_UP)
 		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)

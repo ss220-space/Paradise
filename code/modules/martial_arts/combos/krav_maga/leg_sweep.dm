@@ -1,6 +1,6 @@
 /datum/martial_combo/krav_maga/leg_sweep
 	name = "Подсечка"
-	explaination_text = "Сильный удар по ноге оппонента, замедляет его на некоторое время."
+	explaination_text = "Сильный удар по ноге цели, замедляет её на некоторое время."
 
 /datum/martial_combo/krav_maga/leg_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.stat || IS_HORIZONTAL(target) || user.a_intent == INTENT_HELP)
@@ -9,7 +9,7 @@
 		return FALSE
 	target.visible_message(
 		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(user)] по ноге [target.declent_ru(ACCUSATIVE)]!"), \
-		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(user)] по Вашей ноге!")
+		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(user)] по вашей ноге!")
 	)
 	var/affecting_leg = pick(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)

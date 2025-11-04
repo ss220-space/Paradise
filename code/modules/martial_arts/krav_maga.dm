@@ -16,26 +16,26 @@
 /datum/action/neutral_stance/Trigger(left_click = TRUE)
 	var/mob/living/carbon/human/H = owner
 	if(!H.mind.martial_art.in_stance)
-		to_chat(owner, "<b><i>Вы не можете отменить неактивный приём!</i></b>")
+		owner.balloon_alert(owner, "нельзя отменить неактивный приём")
 		return
-	to_chat(owner, "<b><i>Вы отменили активный приём.</i></b>")
-	owner.visible_message(span_danger(" [owner] расслабля[PLUR_ET_YUT(owner)] свою стойку."))
+	owner.balloon_alert(owner, "вы расслабили стойку")
+	owner.visible_message(span_danger("[owner] расслабля[PLUR_ET_YUT(owner)] свою стойку."))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.in_stance = FALSE
 
 /datum/action/neck_chop
-	name = "Удар по шее — травмирует и ослепляет оппонента, от чего он будет некоторое время промахиваться при попытке атаковать."
+	name = "Удар по шее — травмирует и ослепляет цель, от чего она будет некоторое время промахиваться при попытке атаковать."
 	button_icon_state = "neckchop"
 
 /datum/action/neck_chop/Trigger(left_click = TRUE)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
-		to_chat(owner, span_warning("Вы не знаете как это сделать."))
+		owner.balloon_alert(owner, "вы не знаете как это сделать")
 		return
 	if(owner.incapacitated())
-		to_chat(owner, span_warning("Вы не можете использовать Крав-мага будучи оглушённым."))
+		owner.balloon_alert(owner, "вы не можете провести приём в данный момент")
 		return
-	to_chat(owner, "<b><i>Вашей следующей атакой будет удар по шее.</i></b>")
+	owner.balloon_alert(owner, "со следующей атакой вы ударите по шее")
 	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы ударить по шее!"))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
@@ -43,18 +43,18 @@
 	H.mind.martial_art.in_stance = TRUE
 
 /datum/action/leg_sweep
-	name = "Подсечка — травмирует ногу оппонента, ненадолго замедляя его движение."
+	name = "Подсечка — травмирует ногу цели, ненадолго замедляя её движение."
 	button_icon_state = "legsweep"
 
 /datum/action/leg_sweep/Trigger(left_click = TRUE)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
-		to_chat(owner, span_warning("Вы не знаете как это сделать."))
+		owner.balloon_alert(owner, "вы не знаете как это сделать")
 		return
 	if(owner.incapacitated())
-		to_chat(owner, span_warning("Вы не можете использовать Крав-мага будучи оглушённым."))
+		owner.balloon_alert(owner, "вы не можете провести приём в данный момент")
 		return
-	to_chat(owner, "<b><i>Вашей следующей атакой будет Подсечка.</i></b>")
+	owner.balloon_alert(owner, "со следующей атакой вы сделаете подсечку")
 	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы провести подсечку!"))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
@@ -62,19 +62,19 @@
 	H.mind.martial_art.in_stance = TRUE
 
 /datum/action/lung_punch//referred to internally as 'quick choke'
-	name = "Удар по лёгким — сильный удар по торсу оппонента, на некоторое время восстановление его выносливости будет замедлено."
+	name = "Удар по лёгким — сильный удар по торсу цели, на некоторое время восстановление её выносливости будет замедлено."
 	button_icon_state = "lungpunch"
 
 /datum/action/lung_punch/Trigger(left_click = TRUE)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
-		to_chat(owner, span_warning("Вы не знаете как это сделать."))
+		owner.balloon_alert(owner, "вы не знаете как это сделать")
 		return
 	if(owner.incapacitated())
-		to_chat(owner, span_warning("Вы не можете использовать Крав-мага будучи оглушённым."))
+		owner.balloon_alert(owner, "вы не можете провести приём в данный момент")
 		return
-	to_chat(owner, "<b><i>Вашей следующей атакой будет удар по лёгким.</i></b>")
-	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы ударить по лёгким!"))
+	owner.balloon_alert(owner, "со следующей атакой вы ударите под дых")
+	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы ударить под дых!"))
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
@@ -83,7 +83,7 @@
 /datum/martial_art/krav_maga/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
-		to_chat(H, span_warning("Техники Крав-мага отдаются пустым эхом в Вашей голове, мысль об их жестокости отвратительна Вам!"))
+		to_chat(H, span_warning("Техники Крав-мага отдаются пустым эхом в вашей голове, мысль об их жестокости отвратительна вам!"))
 		return
 	to_chat(H, span_userdanger("Вы узнали техники Крав-мага!"))
 	to_chat(H, span_danger("Наведите курсор на приём наверху экрана, чтобы узнать что он делает."))
@@ -120,7 +120,7 @@
 		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	D.visible_message(
 		span_danger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] [D.declent_ru(ACCUSATIVE)]!"), \
-		span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] Вас!")
+		span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] [picked_hit_type] вас!")
 	)
 	return TRUE
 
@@ -155,6 +155,6 @@
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec//more obviously named, given to sec
 	name = "перчатки крав-мага"
-	desc = "Эти перчатки могут обучить тебя техникам Крав-мага с помощью наночипов."
+	desc = "Особые наночипы в этих перчатках позволят вам использовать техники Крав-мага."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"

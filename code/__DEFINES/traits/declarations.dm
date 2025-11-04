@@ -65,7 +65,9 @@
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 /// Are we immune to wet effect
 #define TRAIT_WET_IMMUNITY "wet_immunity"
+/// Attacks have a chance to miss. Specify the chance separately
 #define TRAIT_HIGH_MISS_CHANCE "high_miss_chance"
+/// The owner has a debuff from the krav maga
 #define TRAIT_KRAVMAGA_DEBUFF "kravmaga_debuff"
 
 /// We place people into a fireman carry quicker than standard

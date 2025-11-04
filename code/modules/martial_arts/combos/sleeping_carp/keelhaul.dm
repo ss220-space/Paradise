@@ -1,7 +1,7 @@
 /datum/martial_combo/sleeping_carp/keelhaul
 	name = "Килхаул"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Вы прибиваете оппонента к полу, дополнительно нанося урон по стамине!"
+	explaination_text = "Вы прибиваете цель к полу, дополнительно нанося урон по стамине."
 
 /datum/martial_combo/sleeping_carp/keelhaul/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target == user)
@@ -19,7 +19,7 @@
 		objective_damage(user, target, 5, BRUTE)
 		target.drop_l_hand()
 		target.drop_r_hand()
-		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(user)] [target.declent_ru(ACCUSATIVE)] в голову, оставляя корчиться от боли!"),
+		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(user)] [target.declent_ru(ACCUSATIVE)] в голову!"),
 							span_userdanger("Вы корчитесь от боли из-за пинка в голову!"))
 	target.apply_damage(60, STAMINA)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Keelhaul", ATKLOG_ALL)

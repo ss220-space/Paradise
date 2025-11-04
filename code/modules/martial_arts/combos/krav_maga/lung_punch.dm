@@ -1,6 +1,6 @@
 /datum/martial_combo/krav_maga/lung_punch
-	name = "Удар по лёгким"
-	explaination_text = "Сильный удар по торсу оппонента, на некоторое время восстановление его выносливости будет замедлено."
+	name = "Удар под дых"
+	explaination_text = "Сильный удар по торсу цели, на некоторое время восстановление её выносливости будет замедлено."
 
 /datum/martial_combo/krav_maga/lung_punch/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(user.a_intent == INTENT_HELP)
@@ -8,8 +8,8 @@
 	if(HAS_TRAIT(target, TRAIT_KRAVMAGA_DEBUFF))
 		return FALSE
 	target.visible_message(
-		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сильно бь[PLUR_YOT_YUT(user)] [target.declent_ru(ACCUSATIVE)] по торсу!"), \
-		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] сильно бь[PLUR_YOT_YUT(user)] Вас по торсу! Вы не можете дышать!")
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сильно бь[PLUR_YOT_YUT(user)] [target.declent_ru(ACCUSATIVE)] в солнечное сплетение!"), \
+		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] сильно бь[PLUR_YOT_YUT(user)] вас в солнечное сплетение! Вы не можете дышать!")
 	)
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	target.apply_damage(10, OXY)

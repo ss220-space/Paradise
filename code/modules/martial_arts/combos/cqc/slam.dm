@@ -1,14 +1,14 @@
 /datum/martial_combo/cqc/slam
 	name = "Слэм"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Вы кидаете оппонента на землю, после чего он некоторое время не сможет встать и ходить прямо."
+	explaination_text = "Вы кидаете цель на землю, после чего она некоторое время не сможет встать и ходить прямо."
 
 /datum/martial_combo/cqc/slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL
 	target.visible_message(
 		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] кида[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] на землю!"), \
-		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] кида[PLUR_ET_YUT(user)] Вас на землю!")
+		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] кида[PLUR_ET_YUT(user)] вас на землю!")
 	)
 	playsound(get_turf(user), 'sound/weapons/slam.ogg', 50, TRUE, -1)
 	target.apply_damage(10, BRUTE)
