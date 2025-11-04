@@ -149,6 +149,29 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		? STRIPPABLE_OBSCURING_NONE \
 		: STRIPPABLE_OBSCURING_HIDDEN
 
+/datum/strippable_item/mob_item_slot/pda/start_unequip(atom/source, mob/user)
+	var/obj/item/item = get_item(source)
+	if(isnull(item))
+		return FALSE
+
+	if(!in_thief_mode(user))
+		source.visible_message(
+			span_warning("[user] пыта[PLUR_ET_YUT(user)]ся снять PDA с [source.declent_ru(GENITIVE)]."),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся снять с вас [item.declent_ru(ACCUSATIVE)]!"),
+			"Слышно шуршание."
+		)
+
+	to_chat(user, span_danger("Вы пытаетесь снять PDA с [source.declent_ru(GENITIVE)]..."))
+	add_attack_logs(user, source, "Attempting stripping of [item]")
+	item.add_fingerprint(user)
+
+	if(ishuman(source))
+		var/mob/living/carbon/human/victim_human = source
+		if(!victim_human.has_vision())
+			to_chat(source, span_userdanger("Вы чувствуете, как кто-то копается в ваших вещах."))
+
+	return start_unequip_mob(get_item(source), source, user)
+
 /datum/strippable_item/mob_item_slot/belt
 	key = STRIPPABLE_ITEM_BELT
 	item_slot = ITEM_SLOT_BELT
