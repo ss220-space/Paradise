@@ -1,0 +1,48 @@
+name: Run SQL Validation and Tests
+
+on:
+  workflow_call:
+
+jobs:
+  sql_valid_and_tests:
+    name: SQL Validation + Tests
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
+        with:
+          release: 'STABLE'
+
+      - name: Download build outputs
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact-515-1627
+          path: ./
+
+      - name: Setup & Validate DB
+        run: |
+          sudo systemctl start mysql
+          python3 tools/ci/generate_sql_scripts.py
+          tools/ci/validate_sql.sh
+
+      - name: Install RUST_G Deps
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update || true
+          sudo apt install libgcc-s1:i386
+          bash tools/ci/install_rustg.sh
+
+      - name: Install DMJIT
+        run: |
+          sudo apt install libncurses6:i386
+          bash tools/ci/install_dmjit.sh
+
+      - name: Run Tests
+        run: |
+          source $HOME/BYOND/byond/bin/byondsetup
+          mkdir -p data
+          echo '/datum/map/test_tiny' > data/next_map.txt
+          tools/ci/run_server.sh

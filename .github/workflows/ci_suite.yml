@@ -1,0 +1,87 @@
+name: CI Suite
+
+on:
+  push:
+    branches:
+      - master220
+      - whitelist220
+      - testmerge
+      - tutorial
+      - dev
+  pull_request:
+    branches:
+      - master220
+      - whitelist220
+      - tutorial
+  merge_group:
+    branches:
+      - master220
+  workflow_call:
+  workflow_run:
+    workflows: ["Build and verify Rust library"]
+    types: [completed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  start_gate:
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
+    name: Start Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mandatory Empty Step
+        run: exit 0
+
+  collect_data:
+    name: Collect data and setup caches for other tasks
+    needs: start_gate
+    uses: ./.github/workflows/collect_data.yml
+
+  run_linters:
+    name: Run Linters
+    needs: start_gate
+    uses: ./.github/workflows/run_linters.yml
+
+  compile_all_maps:
+    name: Compile Maps
+    needs: collect_data
+    uses: ./.github/workflows/compile_all_maps.yml
+    with:
+      max_required_byond_client: ${{ needs.collect_data.outputs.max_required_byond_client }}
+
+  setup_build_artifacts:
+    name: Setup build artifacts
+    needs: collect_data
+    uses: ./.github/workflows/setup_build_artifacts.yml
+    with:
+      build_versions: ${{ needs.collect_data.outputs.required_build_versions }}
+
+  station_mapload_tests:
+    name: Station Mapload Tests
+    needs: [collect_data, setup_build_artifacts]
+    uses: ./.github/workflows/perform_station_tests.yml
+    with:
+      stations: ${{ needs.collect_data.outputs.stations }}
+
+  sql_valid_and_tests:
+    name: SQL Validation + Tests
+    needs: [collect_data, setup_build_artifacts]
+    uses: ./.github/workflows/perform_sql_valid_and_tests.yml
+
+  completion_gate:
+    if: always() && !cancelled()
+    name: Completion Gate
+    needs:
+      [
+        run_linters,
+        station_mapload_tests,
+        sql_valid_and_tests,
+      ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decide whether the needed jobs succeeded or failed
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}

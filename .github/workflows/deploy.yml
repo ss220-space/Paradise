@@ -53,7 +53,7 @@ jobs:
 
   CI:
     needs: [check]
-    uses: ./.github/workflows/ci.yml # use the callable tests job to run tests
+    uses: ./.github/workflows/ci_suite.yml # use the callable tests job to run tests
     if: ${{ inputs.ci_required }}
 
   update-isp-lists:
