@@ -48,11 +48,13 @@
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red,
-					/obj/item/clothing/head/helmet/space/syndicate/black/red,
-					/obj/item/tank/internals/emergency_oxygen/engi/syndi,
-					/obj/item/clothing/mask/gas/syndicate,
-					/obj/item/tank/jetpack/oxygen/harness)
+	can_hold = list(
+		/obj/item/clothing/suit/space/syndicate/black/red,
+		/obj/item/clothing/head/helmet/space/syndicate/black/red,
+		/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+		/obj/item/clothing/mask/gas/syndicate,
+		/obj/item/tank/jetpack/oxygen/harness,
+	)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/space/populate_contents()
@@ -78,9 +80,11 @@
 	description_antag = "Высокотехнологичная коробка, содержащая набор хардсьюта-хамелеона, искусно скрытая под аптечку первой оксигенной помощи. Можно разобрать на картон, на самом деле это просто качественная краска."
 	icon_state = "o2"
 	item_state = "firstaid-o2"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent,
-					/obj/item/tank/internals/emergency_oxygen/engi/syndi,
-					/obj/item/clothing/mask/gas/syndicate)
+	can_hold = list(
+		/obj/item/clothing/suit/space/hardsuit/contractor/agent,
+		/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+		/obj/item/clothing/mask/gas/syndicate,
+	)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle
@@ -136,8 +140,10 @@
 
 /obj/item/storage/box/syndie_kit/throwing_weapons
 	name = "boxed throwing kit"
-	can_hold = list(/obj/item/throwing_star,
-					/obj/item/restraints/legcuffs/bola/tactical)
+	can_hold = list(
+		/obj/item/throwing_star,
+		/obj/item/restraints/legcuffs/bola/tactical,
+	)
 	max_combined_w_class = 16
 	max_w_class = WEIGHT_CLASS_NORMAL
 

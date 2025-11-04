@@ -41,10 +41,12 @@
 	loot_drop = /obj/item/clothing/accessory/necklace/pandora_hope
 	tts_seed = "Zyra"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/chaser_burst,
-								/datum/action/innate/elite_attack/magic_box,
-								/datum/action/innate/elite_attack/pandora_teleport,
-								/datum/action/innate/elite_attack/aoe_squares)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/chaser_burst,
+		/datum/action/innate/elite_attack/magic_box,
+		/datum/action/innate/elite_attack/pandora_teleport,
+		/datum/action/innate/elite_attack/aoe_squares,
+	)
 
 	var/sing_shot_length = 8
 	var/cooldown_time = 2 SECONDS

@@ -408,7 +408,8 @@
 		/obj/item/roller/holo,
 		/obj/item/stack/nanopaste,
 		/obj/item/healthanalyzer,
-		/obj/item/robotanalyzer)
+		/obj/item/robotanalyzer,
+	)
 
 /obj/item/storage/toolbox/surgery/get_ru_names()
 	return list(

@@ -8,7 +8,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 4)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 4),
 	)
 	can_air_shoot = TRUE
 	/// If TRUE will show empty casing on examine

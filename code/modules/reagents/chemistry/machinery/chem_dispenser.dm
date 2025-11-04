@@ -96,7 +96,8 @@
 		"cryoxadone",
 		"ammonia",
 		"ash",
-		"diethylamine")
+		"diethylamine",
+	)
 	upgrade_reagents = list()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/get_ru_names()
@@ -785,7 +786,8 @@
 		"cryoxadone",
 		"ammonia",
 		"ash",
-		"diethylamine")
+		"diethylamine",
+	)
 
 /obj/item/handheld_chem_dispenser/botanical/get_ru_names()
 	return list(
@@ -804,7 +806,8 @@
 		"sodiumchloride",
 		"blackpepper",
 		"ketchup",
-		"herbsmix")
+		"herbsmix",
+	)
 
 /obj/item/handheld_chem_dispenser/cooking/get_ru_names()
 	return list(

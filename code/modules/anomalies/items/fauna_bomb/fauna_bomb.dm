@@ -352,9 +352,11 @@
 	name = "Fauna bomb"
 	result = /obj/item/fauna_bomb
 	tools = list(TOOL_SCREWDRIVER)
-	reqs = list(/obj/item/relict_production/pet_spray = 1,
-				/obj/item/grenade/chem_grenade/adv_release = 1,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(
+		/obj/item/relict_production/pet_spray = 1,
+		/obj/item/grenade/chem_grenade/adv_release = 1,
+		/obj/item/stack/cable_coil = 5,
+	)
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

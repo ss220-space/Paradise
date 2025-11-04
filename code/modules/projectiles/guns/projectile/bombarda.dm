@@ -284,12 +284,14 @@
 /datum/crafting_recipe/bombarda
 	name = "Bombarda"
 	result = /obj/item/gun/projectile/bombarda
-	reqs = list(/obj/item/restraints/handcuffs/cable = 2,
-				/obj/item/stack/tape_roll = 10,
-				/obj/item/pipe = 1,
-				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/stack/sheet/metal = 2,
-				/obj/item/weaponcrafting/stock = 1)
+	reqs = list(
+		/obj/item/restraints/handcuffs/cable = 2,
+		/obj/item/stack/tape_roll = 10,
+		/obj/item/pipe = 1,
+		/obj/item/weaponcrafting/receiver = 1,
+		/obj/item/stack/sheet/metal = 2,
+		/obj/item/weaponcrafting/stock = 1,
+	)
 	time = 6 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -315,11 +317,13 @@
 /datum/crafting_recipe/explosion_shell
 	name = "Improvised explosive shell"
 	result = /obj/item/ammo_casing/a40mm/improvised/exp_shell
-	reqs = list(/datum/reagent/blackpowder = 20,
-				/obj/item/grenade/iedcasing = 1,
-				/obj/item/grenade/chem_grenade = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/assembly/prox_sensor = 1)
+	reqs = list(
+		/datum/reagent/blackpowder = 20,
+		/obj/item/grenade/iedcasing = 1,
+		/obj/item/grenade/chem_grenade = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/assembly/prox_sensor = 1,
+	)
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -333,13 +337,15 @@
 /datum/crafting_recipe/flame_shell
 	name = "Improvised flame shell"
 	result = /obj/item/ammo_casing/a40mm/improvised/flame_shell
-	reqs = list(/obj/item/grenade/chem_grenade = 1,
-					/obj/item/stack/cable_coil = 5,
-					/obj/item/stack/sheet/metal = 1,
-					/obj/item/assembly/igniter = 1,
-					/datum/reagent/fuel = 20,
-					/datum/reagent/consumable/sugar = 10,
-					/datum/reagent/plasma_dust = 10)
+	reqs = list(
+		/obj/item/grenade/chem_grenade = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/metal = 1,
+		/obj/item/assembly/igniter = 1,
+		/datum/reagent/fuel = 20,
+		/datum/reagent/consumable/sugar = 10,
+		/datum/reagent/plasma_dust = 10,
+	)
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -353,12 +359,14 @@
 /datum/crafting_recipe/smoke_shell
 	name = "Improvised smoke shell"
 	result = /obj/item/ammo_casing/a40mm/improvised/smoke_shell
-	reqs = list(/obj/item/grenade/chem_grenade = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/stack/sheet/metal = 1,
-				/datum/reagent/consumable/sugar = 10,
-				/datum/reagent/phosphorus = 10,
-				/obj/item/reagent_containers/spray/pestspray = 1)
+	reqs = list(
+		/obj/item/grenade/chem_grenade = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/metal = 1,
+		/datum/reagent/consumable/sugar = 10,
+		/datum/reagent/phosphorus = 10,
+		/obj/item/reagent_containers/spray/pestspray = 1,
+	)
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO

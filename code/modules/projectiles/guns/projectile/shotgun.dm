@@ -90,7 +90,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
 
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
@@ -252,7 +252,7 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 4)
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 4),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
@@ -363,7 +363,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -4)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -4),
 	)
 	recoil = GUN_RECOIL_HIGH
 
@@ -381,7 +381,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
 	)
 	recoil = GUN_RECOIL_HIGH
 

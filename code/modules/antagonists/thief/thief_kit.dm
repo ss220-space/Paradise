@@ -254,8 +254,8 @@
 	desc = "Контроль камер и базы данных служб безопасности"
 	item_list = list(
 		/obj/item/clothing/glasses/hud/security/chameleon,
-		/obj/item/camera_bug
-		)
+		/obj/item/camera_bug,
+	)
 
 /datum/thief_kit/gas
 	name = "Набор Газовика"
@@ -325,16 +325,15 @@
 	name = "Набор Мистера Ченга"
 	desc = "Этот набор был любезно предоставлен нам корпорацией мистера Ченга. Он содержит обширный набор средств для наиболее эффективного продвижения продукции в условиях свободного рынка."
 	item_list = list(
-		/obj/item/storage/box/syndie_kit/mr_chang_technique
-		)
+		/obj/item/storage/box/syndie_kit/mr_chang_technique,
+	)
 
 /datum/thief_kit/spai_kit
 	name = "Набор ПИИ"
 	desc = "Украденная технология персонального ИИ синдиката, которая была перепрошита под нужды гильдии воров."
 	item_list = list(
-		/obj/item/storage/box/syndie_kit/pai
-		)
-
+		/obj/item/storage/box/syndie_kit/pai,
+	)
 /datum/thief_kit/donksoft_kit
 	name = "Набор Donksoft SMG"
 	desc = "В набор включен пистолет-пулемёт, стреляющий пенными дротиками, которые при попадании снижают выносливость противника. Благодаря мягкому материалу пуль, удары безопасны для здоровья и не оставляют синяков."

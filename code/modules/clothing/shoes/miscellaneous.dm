@@ -443,7 +443,8 @@
 	icon_state = "lizardboots_green"
 	loot = list(
 		/obj/item/clothing/shoes/cowboy/lizard = 7,
-		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1)
+		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1,
+	)
 
 /obj/item/clothing/shoes/footwraps
 	name = "cloth footwraps"

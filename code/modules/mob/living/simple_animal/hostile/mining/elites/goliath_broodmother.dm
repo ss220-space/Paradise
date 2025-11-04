@@ -39,10 +39,12 @@
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
 	tts_seed = "Azalina"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
-								/datum/action/innate/elite_attack/spawn_children,
-								/datum/action/innate/elite_attack/rage,
-								/datum/action/innate/elite_attack/call_children)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/tentacle_patch,
+		/datum/action/innate/elite_attack/spawn_children,
+		/datum/action/innate/elite_attack/rage,
+		/datum/action/innate/elite_attack/call_children,
+	)
 
 	var/rand_tent = 0
 	var/list/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/children_list = list()

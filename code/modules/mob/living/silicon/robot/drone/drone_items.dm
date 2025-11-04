@@ -52,15 +52,17 @@
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "Захватывающий инструмент, используемый для удержания органов и помощи пациентам после завершения операции."
-	can_hold = list(/obj/item/organ,
-					/obj/item/reagent_containers/iv_bag,
-					/obj/item/robot_parts/head,
-					/obj/item/robot_parts/l_arm,
-					/obj/item/robot_parts/r_arm,
-					/obj/item/robot_parts/l_leg,
-					/obj/item/robot_parts/r_leg,
-					/obj/item/robot_parts/chest,
-					/obj/item/stack/sheet/mineral/plasma) //for repair plasmamans
+	can_hold = list(
+		/obj/item/organ,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/robot_parts/head,
+		/obj/item/robot_parts/l_arm,
+		/obj/item/robot_parts/r_arm,
+		/obj/item/robot_parts/l_leg,
+		/obj/item/robot_parts/r_leg,
+		/obj/item/robot_parts/chest,
+		/obj/item/stack/sheet/mineral/plasma,
+	) //for repair plasmamans
 
 /obj/item/gripper/medical/get_ru_names()
 	return list(
@@ -100,14 +102,16 @@
 /obj/item/gripper/service
 	name = "Card gripper"
 	desc = "Захватывающий инструмент, используемый для изъятия ID-карт, для уплаты налогов, и пробуждения пьяных членов экипажа."
-	can_hold = list(/obj/item/card,
-					/obj/item/camera_film,
-					/obj/item/paper,
-					/obj/item/photo,
-					/obj/item/toy/plushie,
-					/obj/item/reagent_containers/food,
-					/obj/item/seeds,
-					/obj/item/disk/plantgene)
+	can_hold = list(
+		/obj/item/card,
+		/obj/item/camera_film,
+		/obj/item/paper,
+		/obj/item/photo,
+		/obj/item/toy/plushie,
+		/obj/item/reagent_containers/food,
+		/obj/item/seeds,
+		/obj/item/disk/plantgene,
+	)
 
 /obj/item/gripper/service/get_ru_names()
 	return list(
@@ -152,7 +156,8 @@
 	name = "Universal gripper"
 	desc = "Универсальный захватывающий инструмент, используемый для выполнения сверх секретных заданий клана паука."
 	icon_state = "diskgripper"
-	can_hold = list(/obj/item/firealarm_electronics,
+	can_hold = list(
+		/obj/item/firealarm_electronics,
 		/obj/item/airalarm_electronics,
 		/obj/item/airlock_electronics,
 		/obj/item/firelock_electronics,
@@ -194,7 +199,8 @@
 		/obj/item/toy/plushie,
 		/obj/item/reagent_containers/food,
 		/obj/item/seeds,
-		/obj/item/disk/plantgene)
+		/obj/item/disk/plantgene,
+	)
 
 /obj/item/gripper/universal/get_ru_names()
 	return list(

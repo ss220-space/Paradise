@@ -57,9 +57,11 @@ Difficulty: Medium
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/blood_drunk_miner
 	enraged_unique_loot = /obj/item/clothing/suit/hooded/explorer/blood
-	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
-							/datum/action/innate/megafauna_attack/kinetic_accelerator,
-							/datum/action/innate/megafauna_attack/transform_weapon)
+	attack_action_types = list(
+		/datum/action/innate/megafauna_attack/dash,
+		/datum/action/innate/megafauna_attack/kinetic_accelerator,
+		/datum/action/innate/megafauna_attack/transform_weapon,
+	)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/get_ru_names()
 	return list(

@@ -189,9 +189,11 @@
 	name = "Experemintal syringe gun"
 	result = /obj/item/gun/syringe/rapidsyringe/experimental
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
-	reqs = list(/obj/item/relict_production/perfect_mix = 1,
-				/obj/item/gun/syringe/rapidsyringe = 1,
-				/obj/item/stock_parts/matter_bin = 1)
+	reqs = list(
+		/obj/item/relict_production/perfect_mix = 1,
+		/obj/item/gun/syringe/rapidsyringe = 1,
+		/obj/item/stock_parts/matter_bin = 1,
+	)
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

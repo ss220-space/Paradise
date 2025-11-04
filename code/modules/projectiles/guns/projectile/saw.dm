@@ -19,7 +19,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 

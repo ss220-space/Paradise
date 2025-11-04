@@ -39,7 +39,7 @@
 	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
 	)
 
 

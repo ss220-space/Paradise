@@ -297,13 +297,13 @@
 		/obj/item/stack/sheet/mineral/diamond = list("reward" = 100, "amount" = 10),
 		/obj/item/stack/sheet/plasteel = list("reward" = 90, "amount" = 30),
 		/obj/item/stack/sheet/mineral/plasma = list("reward" = 120, "amount" = 40),
-		/obj/item/stack/sheet/mineral/silver = list("reward" = 90, "amount" = 25)
+		/obj/item/stack/sheet/mineral/silver = list("reward" = 90, "amount" = 25),
 	)
 	hard_items = list(
 		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 220, "amount" = 7),
 		/obj/item/stack/sheet/mineral/bananium = list("reward" = 340, "amount" = 4),
 		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 440, "amount" = 4),
-		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 600, "amount" = 5)
+		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 600, "amount" = 5),
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 

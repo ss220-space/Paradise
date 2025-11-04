@@ -215,7 +215,6 @@
 /*
  * MARK: Cig Pack
  */
-
 /obj/item/storage/fancy/cigarettes
 	name = "cigarette packet"
 	desc = "Самый популярный бренд Космических Сигарет, спонсор Космо-олимпийских игр."
@@ -230,18 +229,24 @@
 	storage_slots = 20
 	max_combined_w_class = 20
 	display_contents_with_number = 1
-	can_hold = list(/obj/item/clothing/mask/cigarette,
+	can_hold = list(
+		/obj/item/clothing/mask/cigarette,
 		/obj/item/lighter,
-		/obj/item/match)
-	cant_hold = list(/obj/item/clothing/mask/cigarette/cigar,
+		/obj/item/match,
+	)
+	cant_hold = list(
+		/obj/item/clothing/mask/cigarette/cigar,
 		/obj/item/clothing/mask/cigarette/pipe,
-		/obj/item/lighter/zippo)
+		/obj/item/lighter/zippo,
+	)
 	icon_type = "cigarette"
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
-	var/static/list/cigpack_diseases = list("недоношенность", "онкозаболевания", "пародонтоз",\
-					"преждевременное старение", "ампутация", "зависимость",\
-					"импотенция", "мертворождение", "смерть в агонии",\
-					"туберкулёз", "отмирание органов")
+	var/static/list/cigpack_diseases = list(
+		"недоношенность", "онкозаболевания", "пародонтоз",
+		"преждевременное старение", "ампутация", "зависимость",
+		"импотенция", "мертворождение", "смерть в агонии",
+		"туберкулёз", "отмирание органов",
+	)
 
 /obj/item/storage/fancy/cigarettes/get_ru_names()
 	return list(
@@ -333,7 +338,6 @@
 		INSTRUMENTAL = "пачкой \"Марсианский Табак\"",
 		PREPOSITIONAL = "пачке \"Марсианский Табак\"",
 	)
-
 
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "Syndicate Cigarettes"

@@ -244,7 +244,8 @@
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
 		/obj/item/reagent_containers/applicator,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 	use_to_pickup = 1 //Allow medical belt to pick up medicine
 
 /obj/item/storage/belt/medical/get_ru_names()
@@ -277,7 +278,8 @@
 		/obj/item/cautery,
 		/obj/item/radio,
 		/obj/item/clothing/gloves/color/latex,
-		/obj/item/reagent_containers/spray/cleaner)
+		/obj/item/reagent_containers/spray/cleaner,
+	)
 
 /obj/item/storage/belt/medical/surgery/get_ru_names()
 	return list(
@@ -330,7 +332,8 @@
 		/obj/item/radio,
 		/obj/item/clothing/gloves/color/latex,
 		/obj/item/reagent_containers/applicator,
-		/obj/item/reagent_containers/spray/cleaner)
+		/obj/item/reagent_containers/spray/cleaner,
+	)
 
 /obj/item/storage/belt/medical/surgery/abductor/get_ru_names()
 	return list(
@@ -375,7 +378,8 @@
 		/obj/item/wrench,
 		/obj/item/reagent_containers/spray/weedspray,
 		/obj/item/reagent_containers/spray/pestspray,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -407,7 +411,8 @@
 		/obj/item/forensics/sample_kit,
 		/obj/item/eftpos/sec,
 		/obj/item/stock_parts/cell/specter,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/security/sec/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
@@ -475,8 +480,8 @@
 	storage_slots = 6
 	use_item_overlays = TRUE
 	can_hold = list(
-		"/obj/item/soulstone"
-		)
+		"/obj/item/soulstone",
+	)
 
 /obj/item/storage/belt/soulstone/full/populate_contents()
 	for(var/I in 1 to 7)
@@ -547,8 +552,8 @@
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov
-		)
+		/obj/item/reagent_containers/food/drinks/bottle/molotov,
+	)
 
 /obj/item/storage/belt/grenade/full/populate_contents()
 	for(var/I in 1 to 4)// Four of each
@@ -692,7 +697,8 @@
 		/obj/item/soap,
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/lightreplacer(src)
@@ -722,7 +728,8 @@
 	storage_slots = 6
 	can_hold = list(
 		/obj/item/mobcapsule,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/lazarus/get_ru_names()
 	return list(
@@ -809,8 +816,8 @@
 	can_hold = list(
 		/obj/item/gun/projectile/automatic/pistol,
 		/obj/item/gun/projectile/revolver/detective,
-		/obj/item/gun/projectile/automatic/toy/pistol
-		)
+		/obj/item/gun/projectile/automatic/toy/pistol,
+	)
 
 /obj/item/storage/belt/wands
 	name = "wand belt"
@@ -820,8 +827,8 @@
 	storage_slots = 6
 	use_item_overlays = TRUE
 	can_hold = list(
-		/obj/item/gun/magic/wand
-		)
+		/obj/item/gun/magic/wand,
+	)
 
 /obj/item/storage/belt/wands/full/populate_contents()
 	new /obj/item/gun/magic/wand/death(src)
@@ -999,8 +1006,8 @@
 	allow_quick_empty = 1
 	can_hold = list(
 		/obj/item/grenade/smokebomb,
-		/obj/item/restraints/legcuffs/bola
-		)
+		/obj/item/restraints/legcuffs/bola,
+	)
 
 	var/smokecount = 0
 	var/bolacount = 0
@@ -1146,7 +1153,8 @@
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
 		/obj/item/stack/marker_beacon,
-		/obj/item/gem)
+		/obj/item/gem,
+	)
 
 /obj/item/storage/belt/mining/get_ru_names()
 	return list(

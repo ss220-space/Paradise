@@ -281,8 +281,10 @@
 	name = "Турник"
 	result = /obj/structure/weightmachine/horizontalbar
 	tools = list(TOOL_WELDER)
-	reqs = list(/obj/item/stack/rods = 5,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(
+		/obj/item/stack/rods = 5,
+		/obj/item/stack/cable_coil = 5,
+	)
 	time = 6 SECONDS
 	category = CAT_MISC
 
@@ -290,8 +292,10 @@
 	name = "Турник (Высокий)"
 	result = /obj/structure/weightmachine/horizontalbar/high
 	tools = list(TOOL_WELDER)
-	reqs = list(/obj/item/stack/rods = 7,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(
+		/obj/item/stack/rods = 7,
+		/obj/item/stack/cable_coil = 5,
+	)
 	time = 6 SECONDS
 	category = CAT_MISC
 

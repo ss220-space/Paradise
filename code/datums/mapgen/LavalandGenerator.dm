@@ -21,7 +21,8 @@
 		/obj/structure/spawner/lavaland/random_threat/dangerous = 1,
 	)
 
-	weighted_flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2,
+	weighted_flora_spawn_list = list(
+		/obj/structure/flora/ash/leaf_shroom = 2,
 		/obj/structure/flora/ash/cap_shroom = 2,
 		/obj/structure/flora/ash/stem_shroom = 2,
 		/obj/structure/flora/ash/cacti = 1,

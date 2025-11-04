@@ -274,11 +274,13 @@
 	desc = "Настенный диспенсер медицинского оборудования. Этот кажется чуть меньше обычного."
 	req_access = list()
 
-	products = list(/obj/item/stack/medical/splint = 2,
-					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 2,
-					/obj/item/reagent_containers/food/pill/patch/styptic = 2,
-					/obj/item/reagent_containers/hypospray/autoinjector = 1,
-					/obj/item/healthanalyzer = 1)
+	products = list(
+		/obj/item/stack/medical/splint = 2,
+		/obj/item/reagent_containers/food/pill/patch/silver_sulf = 2,
+		/obj/item/reagent_containers/food/pill/patch/styptic = 2,
+		/obj/item/reagent_containers/hypospray/autoinjector = 1,
+		/obj/item/healthanalyzer = 1,
+	)
 	contraband = list()
 
 /obj/machinery/vending/wallmed/survival_pod/get_ru_names()

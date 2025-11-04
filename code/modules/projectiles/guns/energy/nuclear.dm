@@ -9,7 +9,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
 	)
 
 /obj/item/gun/energy/gun/cyborg
@@ -54,7 +54,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 10),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -10)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -10),
 	)
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
@@ -127,7 +127,7 @@
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
 
 /obj/item/gun/energy/gun/minigun

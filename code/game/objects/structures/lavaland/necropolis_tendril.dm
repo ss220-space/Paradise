@@ -9,9 +9,10 @@
 	faction = list("mining")
 	max_mobs = 3
 	max_integrity = 300
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 90,
+	mob_types = list(
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 90,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 5,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 5
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 5,
 	)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it

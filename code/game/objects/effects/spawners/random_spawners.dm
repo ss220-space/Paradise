@@ -265,7 +265,8 @@
 	icon_state = "trapped documents"
 	result = list(
 		/obj/item/documents/syndicate/yellow = 1,
-		/obj/item/documents/syndicate/yellow/trapped = 1)
+		/obj/item/documents/syndicate/yellow/trapped = 1,
+	)
 
 // Loot
 /obj/effect/spawner/random_spawners/syndicate/loot

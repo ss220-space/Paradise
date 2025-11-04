@@ -667,7 +667,8 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=1"
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+	)
 	var/static/list/fridge_names_paths = list(
 		"SmartFridge" = /obj/machinery/smartfridge,
 		"Seed Storage" = /obj/machinery/smartfridge/seeds,
