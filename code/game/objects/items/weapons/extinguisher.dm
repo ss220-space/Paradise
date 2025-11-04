@@ -147,10 +147,10 @@
 		var/movementdirection = REVERSE_DIR(direction)
 		addtimer(CALLBACK(src, PROC_REF(move_chair), user.buckled, movementdirection), 0.1 SECONDS)
 		if(prob(20))
-			var/mob/living/carbon/human/human = user
 			user.buckled.unbuckle_mob(user)
-			if(istype(human))
-				human.Knockdown(1 SECONDS)
+			var/mob/living/living = user
+			if(istype(living))
+				living.Knockdown(1 SECONDS)
 	else
 		user.newtonian_move(REVERSE_DIR(direction))
 
