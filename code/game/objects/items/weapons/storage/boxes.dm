@@ -59,6 +59,15 @@
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
+/obj/item/storage/box/survival_unathi
+	icon_state = "box_civ"
+
+/obj/item/storage/box/survival_unathi/populate_contents()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/storage/firstaid/crew/unathi(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
+
 /obj/item/storage/box/survival/brigphys
 	icon_state = "box_brigphys"
 

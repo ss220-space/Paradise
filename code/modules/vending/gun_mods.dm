@@ -30,6 +30,7 @@
 	)
 	contraband = list(
 		/obj/item/gun_module/muzzle/suppressor = 3,
+		/obj/item/gun_module/muzzle/suppressor/shotgun = 2,
 		/obj/item/gun_module/rail/scope/x4 = 2,
 	)
 	prices = list(
@@ -43,6 +44,7 @@
 		/obj/item/gun_module/under/hand/angle = 299,
 		/obj/item/ammo_box/magazine/enforcer/extended = 149,
 		/obj/item/gun_module/muzzle/suppressor = 399,
+		/obj/item/gun_module/muzzle/suppressor/shotgun = 799,
 		/obj/item/gun_module/rail/scope/x4 = 2499,
 	)
 
@@ -75,6 +77,8 @@
 		/obj/item/gun_module/under/hand/simple = 5,
 		/obj/item/gun_module/under/hand/angle = 5,
 		/obj/item/gun_module/muzzle/suppressor = 5,
+		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
+		/obj/item/gun_module/muzzle/suppressor/heavy = 2,
 		/obj/item/gun_module/rail/scope/x8 = 5,
 		/obj/item/gun_module/rail/scope/x16 = 3,
 	)

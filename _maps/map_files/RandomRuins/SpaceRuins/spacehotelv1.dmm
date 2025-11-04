@@ -2459,10 +2459,6 @@
 /area/ruin/space/spacehotelv1/aftmaints)
 "sD" = (
 /obj/structure/table/wood,
-/obj/item/paper/deltainfo{
-	info = "<center><b>The Twin Nexus Hotel</center></b><br><center><i>A place of Sanctuary</i></center><br><br><center>Welcome to The Twin-Nexus Hotel, \[insert name here]! The loyal staff strive to their best effort to cater for the best possible experience for all space(wo)men! If you have any questions or comments, please ask one of our on-board staff for more information.</center>";
-	name = "Hotel pamphlet"
-	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/reception)
 "sF" = (
@@ -5538,10 +5534,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/glass,
-/obj/item/paper/deltainfo{
-	info = "<center><b>The Twin Nexus Hotel</center></b><br><center><i>A place of Sanctuary</i></center><br><br><center>Welcome to The Twin-Nexus Hotel, \[insert name here]! The loyal staff strive to their best effort to cater for the best possible experience for all space(wo)men! If you have any questions or comments, please ask one of our on-board staff for more information.</center>";
-	name = "Hotel pamphlet"
-	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "NQ" = (
@@ -6712,10 +6704,6 @@
 /area/ruin/space/spacehotelv1/bar)
 "VH" = (
 /obj/structure/table/wood,
-/obj/item/paper/deltainfo{
-	info = "<center><b>The Twin Nexus Hotel</center></b><br><center><i>A place of Sanctuary</i></center><br><br><center>Welcome to The Twin-Nexus Hotel, \[insert name here]! The loyal staff strive to their best effort to cater for the best possible experience for all space(wo)men! If you have any questions or comments, please ask one of our on-board staff for more information.</center>";
-	name = "Hotel pamphlet"
-	},
 /obj/item/pen,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/reception)
