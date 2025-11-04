@@ -817,7 +817,7 @@
 	cell = item
 	cell_type = item.type
 	balloon_alert(user, "батарейка заменена")
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
 	if(cell.charge > 0)
 		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
 
