@@ -21,7 +21,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 26, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 12, "y" = -4)
+		ATTACHMENT_SLOT_UNDER = list("x" = 12, "y" = -4),
 	)
 	recoil = GUN_RECOIL_MEGA
 	fire_modes = GUN_MODE_SINGLE_ONLY
@@ -55,7 +55,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 12, "y" = -4)
+		ATTACHMENT_SLOT_UNDER = list("x" = 12, "y" = -4),
 	)
 
 //Normal Boolets

@@ -177,7 +177,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
 	update_icon()
 
@@ -228,7 +228,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
 	update_icon()
 

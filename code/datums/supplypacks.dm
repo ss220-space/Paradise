@@ -2759,7 +2759,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с системами обработки надрезов",
 		ACCUSATIVE = "ящик с системами обработки надрезов",
 		INSTRUMENTAL = "ящиком с системами обработки надрезов",
-		PREPOSITIONAL = "ящике с системами обработки надрезов"
+		PREPOSITIONAL = "ящике с системами обработки надрезов",
 	)
 	cost = 180
 	contains = list(
