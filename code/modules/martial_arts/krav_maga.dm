@@ -19,7 +19,7 @@
 		owner.balloon_alert(owner, "нельзя отменить неактивный приём")
 		return
 	owner.balloon_alert(owner, "вы расслабили стойку")
-	owner.visible_message(span_danger("[owner] расслабля[PLUR_ET_YUT(owner)] свою стойку."))
+	owner.balloon_alert_to_viewers(owner, "расслабля[PLUR_ET_YUT(owner)] боевую стойку")
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.in_stance = FALSE
 
@@ -33,10 +33,10 @@
 		owner.balloon_alert(owner, "вы не знаете как это сделать")
 		return
 	if(owner.incapacitated())
-		owner.balloon_alert(owner, "вы не можете провести приём в данный момент")
+		owner.balloon_alert(owner, "нельзя провести приём")
 		return
-	owner.balloon_alert(owner, "со следующей атакой вы ударите по шее")
-	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы ударить по шее!"))
+	owner.balloon_alert(owner, "вы приняли стойку")
+	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку")
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.mind.martial_art.reset_combos()
@@ -52,10 +52,10 @@
 		owner.balloon_alert(owner, "вы не знаете как это сделать")
 		return
 	if(owner.incapacitated())
-		owner.balloon_alert(owner, "вы не можете провести приём в данный момент")
+		owner.balloon_alert(owner, "нельзя провести приём")
 		return
-	owner.balloon_alert(owner, "со следующей атакой вы сделаете подсечку")
-	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы провести подсечку!"))
+	owner.balloon_alert(owner, "вы приняли стойку")
+	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку")
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.mind.martial_art.reset_combos()
@@ -71,10 +71,10 @@
 		owner.balloon_alert(owner, "вы не знаете как это сделать")
 		return
 	if(owner.incapacitated())
-		owner.balloon_alert(owner, "вы не можете провести приём в данный момент")
+		owner.balloon_alert(owner, "нельзя провести приём")
 		return
-	owner.balloon_alert(owner, "со следующей атакой вы ударите под дых")
-	owner.visible_message(span_danger("[owner] принима[PLUR_ET_YUT(owner)] стойку, чтобы ударить под дых!"))
+	owner.balloon_alert(owner, "вы приняли стойку")
+	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку")
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
