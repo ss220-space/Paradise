@@ -27,7 +27,7 @@
 	icon_state = "stunbaton_tg"
 	donation_tier = 1
 
-/datum/item_skin_data/security_baton/classic
+/datum/item_skin_data/security_baton/future
 	name = "Футуристический"
 	icon_state = "desolate_baton"
 	donation_tier = 2
