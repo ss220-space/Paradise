@@ -54,7 +54,7 @@
 		to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord сообществе."))
 		return
 
-	var/choice = show_radial_menu(user, item, skin_options, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), item, user), require_near = TRUE)
+	var/choice = show_radial_menu(user, item, skin_options, radius = 40, require_near = TRUE)
 
 	if(!choice || !reskin_radial_check(item, user) || item.current_skin)
 		return
