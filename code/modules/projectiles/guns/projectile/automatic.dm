@@ -244,7 +244,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
 	)
 	starting_attachment_types = list(/obj/item/gun_module/muzzle/suppressor/integrated)
 	recoil = GUN_RECOIL_MEDIUM
