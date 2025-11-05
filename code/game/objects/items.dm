@@ -242,6 +242,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	var/embed_disarm = FALSE
 
+	/// Available skins list (empty for default)
+	var/list/skins = null
 	/// The skin choice if we had a reskin
 	var/current_skin
 	/// Exists change skin

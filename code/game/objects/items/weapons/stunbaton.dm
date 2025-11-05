@@ -37,11 +37,7 @@
 
 /obj/item/melee/baton/security/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/item_skins, skins = list(
-		new /datum/item_skin_data(name = "Стандартный", icon_state = "stunbaton", donation_tier = 1),
-		new /datum/item_skin_data(name = "Классический", icon_state = "stunbaton_tg", donation_tier = 1),
-		new /datum/item_skin_data(name = "Футуристический", icon_state = "desolate_baton", donation_tier = 2),
-	))
+	AddElement(/datum/element/item_skins, item_path = /obj/item/melee/baton/security)
 
 /obj/item/melee/baton/security/loaded
 	cell = /obj/item/stock_parts/cell/high

@@ -150,15 +150,7 @@
 
 /obj/item/gun/projectile/revolver/detective/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/item_skins, skins = list(
-		new /datum/item_skin_data(name = "The Original", icon_state = "detective"),
-		new /datum/item_skin_data(name = "Leopard Spots", icon_state = "detective_leopard"),
-		new /datum/item_skin_data(name = "Black Panther", icon_state = "detective_panther"),
-		new /datum/item_skin_data(name = "White Gold", icon_state = "detective_gold"),
-		new /datum/item_skin_data(name = "Gold Wood", icon_state = "detective_gold_alt"),
-		new /datum/item_skin_data(name = "The Peacemaker", icon_state = "detective_peacemaker"),
-		new /datum/item_skin_data(name = "Silver", icon_state = "detective_silver"),
-	))
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "finger gun"
@@ -535,14 +527,7 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/item_skins, skins = list(
-		new /datum/item_skin_data(name = "Default", icon_state = "dshotgun"),
-		new /datum/item_skin_data(name = "Dark Red Finish", icon_state = "dshotgun-d"),
-		new /datum/item_skin_data(name = "Ash", icon_state = "dshotgun-f"),
-		new /datum/item_skin_data(name = "Faded Grey", icon_state = "dshotgun-g"),
-		new /datum/item_skin_data(name = "Maple", icon_state = "dshotgun-l"),
-		new /datum/item_skin_data(name = "Rosewood", icon_state = "dshotgun-p"),
-	))
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
@@ -601,10 +586,6 @@
 	var/slung = FALSE
 	accuracy = GUN_ACCURACY_MINIMAL
 	recoil = GUN_RECOIL_MEGA
-
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/item_skins, skins = list())
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)
 	if(iscoil(I))

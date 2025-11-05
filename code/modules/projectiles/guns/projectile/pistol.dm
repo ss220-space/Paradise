@@ -71,16 +71,7 @@
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/item_skins, skins = list(
-		new /datum/item_skin_data(name = "Grey slide", icon_state = "enforcer_grey"),
-		new /datum/item_skin_data(name = "Red slide", icon_state = "enforcer_red"),
-		new /datum/item_skin_data(name = "Green slide", icon_state = "enforcer_green"),
-		new /datum/item_skin_data(name = "Tan slide", icon_state = "enforcer_tan"),
-		new /datum/item_skin_data(name = "Black slide", icon_state = "enforcer_black"),
-		new /datum/item_skin_data(name = "Green Handle", icon_state = "enforcer_greengrip"),
-		new /datum/item_skin_data(name = "Tan Handle", icon_state = "enforcer_tangrip"),
-		new /datum/item_skin_data(name = "Red Handle", icon_state = "enforcer_redgrip"),
-	))
+	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/projectile/automatic/pistol/enforcer)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
 	if(current_skin)
@@ -123,14 +114,7 @@
 
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/item_skins, skins = list(
-		new /datum/item_skin_data(name = "Black", icon_state = "sp8_black"),
-		new /datum/item_skin_data(name = "Red", icon_state = "sp8_red"),
-		new /datum/item_skin_data(name = "Green", icon_state = "sp8_green"),
-		new /datum/item_skin_data(name = "Olive", icon_state = "sp8_olive"),
-		new /datum/item_skin_data(name = "Yellow", icon_state = "sp8_yellow"),
-		new /datum/item_skin_data(name = "White", icon_state = "sp8_white"),
-	))
+	AddElement(/datum/element/item_skins)
 
 
 /obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
@@ -154,10 +138,7 @@
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/item_skins, skins = list(
-		new /datum/item_skin_data(name = "Dust", icon_state = "sp8t_dust"),
-		new /datum/item_skin_data(name = "Sea", icon_state = "sp8t_sea"),
-	))
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
 	name = "SP-8-AR"

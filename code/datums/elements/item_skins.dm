@@ -1,43 +1,25 @@
-
-
-/datum/item_skin_data
-	/// Name of skin (shown on radial menu)
-	var/name
-	/// Skin icon dmi (if null - use default item dmi)
-	var/icon = null
-	/// Skin icon_state
-	var/icon_state
-	/// Icon for radial menu (if null - use icon_state)
-	var/menu_icon_state = null
-	/// Minimal donater tier (0 for allow all players)
-	var/donation_tier = 0
-
-/datum/item_skin_data/New(name, icon_state, icon = null, menu_icon_state = null, donation_tier = 0)
-	. = ..()
-	src.name = name
-	src.icon_state = icon_state
-	src.icon = icon
-	src.menu_icon_state = menu_icon_state
-	src.donation_tier = donation_tier
-
-
 /**
  * Items skins component.
  *
  * Add skins feature to /obj/item by alt_click.
  */
 /datum/element/item_skins
-	var/list/skins
 
-
-/datum/element/item_skins/Attach(datum/target, list/skins = list())
+/datum/element/item_skins/Attach(datum/target, item_path = null)
 	. = ..()
 	if(!isitem(target))
 		return ELEMENT_INCOMPATIBLE
 
-	src.skins = skins
-	RegisterSignal(target, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
 	var/obj/item/item_target = target
+	if(item_path == null)
+		item_path = target.type
+
+	item_target.skins = GLOB.item_skins[item_path]
+	if(!item_target.skins)
+		item_target.skins = null
+		return
+
+	RegisterSignal(target, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
 	item_target.exists_skin_change = TRUE
 
 
@@ -47,11 +29,13 @@
 
 
 /datum/element/item_skins/proc/check_altclicked(datum/source, mob/living/carbon/human/user)
-	if(!length(skins))
+	var/obj/item/item = source
+	if(!istype(item))
+		return
+	if(!item.skins || !length(item.skins))
 		return
 	if(!istype(user)) //only humans use skins
 		return
-	var/obj/item/item = source
 	if(item.current_skin) //already exists skin, no reskin allowed
 		return
 
@@ -61,7 +45,7 @@
 
 /datum/element/item_skins/proc/show_select_skins_radial_menu(obj/item/item, mob/living/carbon/human/user)
 	var/list/skin_options = list()
-	for(var/datum/item_skin_data/skin as anything in skins)
+	for(var/datum/item_skin_data/skin as anything in item.skins)
 		if(skin.donation_tier > user.client.donator_level)
 			continue
 		skin_options[skin.name] = image(icon = (skin.icon ? skin.icon : item.icon), icon_state = (skin.menu_icon_state ? skin.menu_icon_state : skin.icon_state) )
@@ -77,12 +61,13 @@
 
 	var/datum/item_skin_data/skin = skin_options[choice]
 	item.current_skin = skin.icon_state
-	to_chat(user, "[capitalize(item.declent_ru(NOMINATIVE))] теперь имеет скин '[skin.name]'.")
+	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин '[skin.name]'.")
 	if(skin.icon != null)
 		item.icon = skin.icon
 	item.base_icon_state = skin.icon_state
 	item.icon_state = skin.icon_state
 	item.exists_skin_change = FALSE
+	item.skins = null
 	item.update_icon()
 	item.update_equipped_item()
 

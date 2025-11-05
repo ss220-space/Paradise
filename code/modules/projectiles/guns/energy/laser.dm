@@ -58,11 +58,7 @@
 
 /obj/item/gun/energy/laser/captain/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/item_skins, skins = list(
-		new /datum/item_skin_data(name = "The Original", icon_state = "caplaser"),
-		new /datum/item_skin_data(name = "Restored", icon_state = "caplaser_new"),
-		new /datum/item_skin_data(name = "Alternative", icon_state = "caplaser_newer"),
-	))
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -74,10 +70,6 @@
 	shaded_charge = FALSE
 	high_risk = FALSE
 	accuracy = GUN_ACCURACY_SHOTGUN
-
-/obj/item/gun/energy/laser/captain/scattershot/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/item_skins, skins = list())
 
 /obj/item/gun/energy/laser/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
