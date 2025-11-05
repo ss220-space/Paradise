@@ -18,8 +18,7 @@
 	if(!H.mind.martial_art.in_stance)
 		owner.balloon_alert(owner, "нельзя отменить неактивный приём")
 		return
-	owner.balloon_alert(owner, "вы расслабили стойку")
-	owner.balloon_alert_to_viewers("расслабля[PLUR_ET_YUT(owner)] боевую стойку", "вы расслабили стойку", COMBAT_MESSAGE_RANGE)
+	owner.balloon_alert_to_viewers("расслабля[PLUR_ET_YUT(owner)] боевую стойку", "приём отменен", COMBAT_MESSAGE_RANGE)
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.in_stance = FALSE
 
@@ -30,12 +29,12 @@
 /datum/action/neck_chop/Trigger(left_click = TRUE)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
-		owner.balloon_alert(owner, "вы не знаете как это сделать")
+		owner.balloon_alert(owner, "приём недоступен")
 		return
 	if(owner.incapacitated())
 		owner.balloon_alert(owner, "нельзя провести приём")
 		return
-	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку", "вы приняли стойку", COMBAT_MESSAGE_RANGE)
+	owner.balloon_alert_to_viewers("принима[PLUR_ET_YUT(owner)] боевую стойку", "приём подготовлен", COMBAT_MESSAGE_RANGE)
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.mind.martial_art.reset_combos()
@@ -48,12 +47,12 @@
 /datum/action/leg_sweep/Trigger(left_click = TRUE)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
-		owner.balloon_alert(owner, "вы не знаете как это сделать")
+		owner.balloon_alert(owner, "приём недоступен")
 		return
 	if(owner.incapacitated())
 		owner.balloon_alert(owner, "нельзя провести приём")
 		return
-	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку", "вы приняли стойку", COMBAT_MESSAGE_RANGE)
+	owner.balloon_alert_to_viewers("принима[PLUR_ET_YUT(owner)] боевую стойку", "приём подготовлен", COMBAT_MESSAGE_RANGE)
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.mind.martial_art.reset_combos()
@@ -66,12 +65,12 @@
 /datum/action/lung_punch/Trigger(left_click = TRUE)
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
-		owner.balloon_alert(owner, "вы не знаете как это сделать")
+		owner.balloon_alert(owner, "приём недоступен")
 		return
 	if(owner.incapacitated())
 		owner.balloon_alert(owner, "нельзя провести приём")
 		return
-	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку", "вы приняли стойку", COMBAT_MESSAGE_RANGE)
+	owner.balloon_alert_to_viewers("принима[PLUR_ET_YUT(owner)] боевую стойку", "приём подготовлен", COMBAT_MESSAGE_RANGE)
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
