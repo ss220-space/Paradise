@@ -10,7 +10,7 @@
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
 		/obj/item/gun/magic/wand/resurrection/debug = 1,
 		/obj/item/gun/magic/wand/death/debug = 1,
-		/obj/item/debug/human_spawner = 1
+		/obj/item/debug/human_spawner = 1,
 	)
 	belt = /obj/item/storage/belt/military/abductor/full
 	l_ear = /obj/item/radio/headset/centcom/debug
@@ -30,7 +30,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/advanced,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
-		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 	)
 
 

@@ -14,7 +14,7 @@
 		DATIVE = "шифратору ДНК",
 		ACCUSATIVE = "шифратор ДНК",
 		INSTRUMENTAL = "шифратором ДНК",
-		PREPOSITIONAL = "шифраторе ДНК"
+		PREPOSITIONAL = "шифраторе ДНК",
 	)
 
 /obj/item/dnascrambler/update_icon_state()

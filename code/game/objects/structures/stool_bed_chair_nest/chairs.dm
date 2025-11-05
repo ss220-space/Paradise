@@ -598,7 +598,7 @@
 		DATIVE = "креслу господина Мышкина",
 		ACCUSATIVE = "кресло господина Мышкина",
 		INSTRUMENTAL = "креслом господина Мышкина",
-		PREPOSITIONAL = "кресле господина Мышкина"
+		PREPOSITIONAL = "кресле господина Мышкина",
 	)
 
 /obj/structure/chair/comfy/mouse/GetArmrest()

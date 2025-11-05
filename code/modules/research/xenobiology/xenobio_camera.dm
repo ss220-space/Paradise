@@ -61,7 +61,7 @@
 		DATIVE = "консоли управления слаймами",
 		ACCUSATIVE = "консоль управления слаймами",
 		INSTRUMENTAL = "консолью управления слаймами",
-		PREPOSITIONAL = "консоли управления слаймами"
+		PREPOSITIONAL = "консоли управления слаймами",
 	)
 
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)

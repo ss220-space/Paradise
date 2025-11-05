@@ -1894,6 +1894,9 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "si" = (
@@ -3208,6 +3211,15 @@
 	icon_state = "barber"
 	},
 /area/maintenance/medroom)
+"DZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard{
+	pixel_y = -3;
+	pixel_x = -5
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "Ei" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dust,
@@ -3419,6 +3431,13 @@
 	icon_state = "Dark"
 	},
 /area/maintenance/medroom)
+"Gp" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "Gt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/blood/tracks,
@@ -4889,12 +4908,6 @@
 /area/maintenance/apmaint)
 "UV" = (
 /obj/machinery/shieldgen,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
@@ -7207,7 +7220,7 @@ ag
 cU
 ag
 cU
-ag
+Gp
 cU
 ag
 vj
@@ -7261,7 +7274,7 @@ tU
 Vx
 DQ
 Py
-tU
+DZ
 NH
 ag
 vj

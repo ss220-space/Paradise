@@ -15,7 +15,7 @@
 		DATIVE = "игровому автомату",
 		ACCUSATIVE = "игровой автомат",
 		INSTRUMENTAL = "игровым автоматом",
-		PREPOSITIONAL = "игровом автомате"
+		PREPOSITIONAL = "игровом автомате",
 	)
 
 
@@ -99,7 +99,7 @@
 		DATIVE = "игровому автомату [name]",
 		ACCUSATIVE = "игровой автомат [name]",
 		INSTRUMENTAL = "игровым автоматом [name]",
-		PREPOSITIONAL = "игровом автомате [name]"
+		PREPOSITIONAL = "игровом автомате [name]",
 	)
 
 /obj/machinery/computer/arcade/battle/attack_hand(mob/user as mob)
@@ -342,7 +342,7 @@
 		DATIVE = "игровому автомату The Orion Trail",
 		ACCUSATIVE = "игровой автомат The Orion Trail",
 		INSTRUMENTAL = "игровым автоматом The Orion Trail",
-		PREPOSITIONAL = "игровом автомате The Orion Trail"
+		PREPOSITIONAL = "игровом автомате The Orion Trail",
 	)
 
 /obj/machinery/computer/arcade/orion_trail/Reset()
@@ -459,7 +459,7 @@
 				DATIVE = "игровому автомату The Orion Trail",
 				ACCUSATIVE = "игровой автомат The Orion Trail",
 				INSTRUMENTAL = "игровым автоматом The Orion Trail",
-				PREPOSITIONAL = "игровом автомате The Orion Trail"
+				PREPOSITIONAL = "игровом автомате The Orion Trail",
 			)
 			desc = "Узнайте, как наши предки добрались до Ориона, и повеселитесь в процессе!"
 
@@ -1052,7 +1052,7 @@
 			DATIVE = "игровому автомату The Orion Trail: Realism Edition",
 			ACCUSATIVE = "игровой автомат The Orion Trail: Realism Edition",
 			INSTRUMENTAL = "игровым автоматом The Orion Trail: Realism Edition",
-			PREPOSITIONAL = "игровом автомате The Orion Trail: Realism Edition"
+			PREPOSITIONAL = "игровом автомате The Orion Trail: Realism Edition",
 		)
 		desc = "Узнайте, как наши предки добрались до Ориона, и постарайтесь не сдохнуть в процессе!"
 		newgame()
@@ -1071,7 +1071,7 @@
 		DATIVE = "охране космопорта",
 		ACCUSATIVE = "охрану космопорта",
 		INSTRUMENTAL = "охраной космопорта",
-		PREPOSITIONAL = "охране космопорта"
+		PREPOSITIONAL = "охране космопорта",
 	)
 
 
@@ -1090,7 +1090,7 @@
 		DATIVE = "модели корабля колонистов",
 		ACCUSATIVE = "модель корабля колонистов",
 		INSTRUMENTAL = "моделью корабля колонистов",
-		PREPOSITIONAL = "модели корабля колонистов"
+		PREPOSITIONAL = "модели корабля колонистов",
 	)
 
 /obj/item/orion_ship/examine(mob/user)

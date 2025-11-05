@@ -22,7 +22,7 @@
 		DATIVE = "химическому нагревателю",
 		ACCUSATIVE = "химический нагреватель",
 		INSTRUMENTAL = "химическим нагревателем",
-		PREPOSITIONAL = "химическом нагревателе"
+		PREPOSITIONAL = "химическом нагревателе",
 	)
 
 /obj/machinery/chem_heater/Initialize(mapload)

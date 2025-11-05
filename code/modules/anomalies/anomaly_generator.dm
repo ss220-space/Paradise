@@ -57,7 +57,7 @@
 		DATIVE = "генератору аномалий", \
 		ACCUSATIVE = "генератор аномалий", \
 		INSTRUMENTAL = "генератором аномалий", \
-		PREPOSITIONAL = "генераторе аномалий"
+		PREPOSITIONAL = "генераторе аномалий",
 	)
 
 /obj/machinery/power/anomaly_generator/Initialize(mapload)

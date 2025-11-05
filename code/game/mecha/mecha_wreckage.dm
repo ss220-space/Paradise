@@ -110,13 +110,13 @@
 	name = "Gygax wreckage"
 	icon_state = "gygax-broken"
 	parts = list(
-				/obj/item/mecha_parts/part/gygax_torso,
-				/obj/item/mecha_parts/part/gygax_head,
-				/obj/item/mecha_parts/part/gygax_left_arm,
-				/obj/item/mecha_parts/part/gygax_right_arm,
-				/obj/item/mecha_parts/part/gygax_left_leg,
-				/obj/item/mecha_parts/part/gygax_right_leg
-				)
+		/obj/item/mecha_parts/part/gygax_torso,
+		/obj/item/mecha_parts/part/gygax_head,
+		/obj/item/mecha_parts/part/gygax_left_arm,
+		/obj/item/mecha_parts/part/gygax_right_arm,
+		/obj/item/mecha_parts/part/gygax_left_leg,
+		/obj/item/mecha_parts/part/gygax_right_leg,
+	)
 
 /obj/structure/mecha_wreckage/gygax/dark
 	name = "Dark Gygax wreckage"
@@ -148,11 +148,13 @@
 /obj/structure/mecha_wreckage/ripley
 	name = "Ripley wreckage"
 	icon_state = "ripley-broken"
-	parts = list(/obj/item/mecha_parts/part/ripley_torso,
-				/obj/item/mecha_parts/part/ripley_left_arm,
-				/obj/item/mecha_parts/part/ripley_right_arm,
-				/obj/item/mecha_parts/part/ripley_left_leg,
-				/obj/item/mecha_parts/part/ripley_right_leg)
+	parts = list(
+		/obj/item/mecha_parts/part/ripley_torso,
+		/obj/item/mecha_parts/part/ripley_left_arm,
+		/obj/item/mecha_parts/part/ripley_right_arm,
+		/obj/item/mecha_parts/part/ripley_left_leg,
+		/obj/item/mecha_parts/part/ripley_right_leg,
+	)
 
 /obj/structure/mecha_wreckage/ripley/mkii
 	name = "Ripley MK-II wreckage"
@@ -161,12 +163,14 @@
 /obj/structure/mecha_wreckage/ripley/firefighter
 	name = "Firefighter wreckage"
 	icon_state = "firefighter-broken"
-	parts = list(/obj/item/mecha_parts/part/ripley_torso,
-				/obj/item/mecha_parts/part/ripley_left_arm,
-				/obj/item/mecha_parts/part/ripley_right_arm,
-				/obj/item/mecha_parts/part/ripley_left_leg,
-				/obj/item/mecha_parts/part/ripley_right_leg,
-				/obj/item/clothing/suit/fire)
+	parts = list(
+		/obj/item/mecha_parts/part/ripley_torso,
+		/obj/item/mecha_parts/part/ripley_left_arm,
+		/obj/item/mecha_parts/part/ripley_right_arm,
+		/obj/item/mecha_parts/part/ripley_left_leg,
+		/obj/item/mecha_parts/part/ripley_right_leg,
+		/obj/item/clothing/suit/fire,
+	)
 
 /obj/structure/mecha_wreckage/ripley/deathripley
 	name = "Death-Ripley wreckage"
@@ -176,35 +180,39 @@
 /obj/structure/mecha_wreckage/clarke
 	name = "Clarke wreckage"
 	icon_state = "clarke-broken"
-	parts = list(/obj/item/mecha_parts/part/clarke_torso,
-				/obj/item/mecha_parts/part/clarke_left_arm,
-				/obj/item/mecha_parts/part/clarke_right_arm,
-				/obj/item/mecha_parts/part/clarke_left_leg,
-				/obj/item/mecha_parts/part/clarke_right_leg)
+	parts = list(
+		/obj/item/mecha_parts/part/clarke_torso,
+		/obj/item/mecha_parts/part/clarke_left_arm,
+		/obj/item/mecha_parts/part/clarke_right_arm,
+		/obj/item/mecha_parts/part/clarke_left_leg,
+		/obj/item/mecha_parts/part/clarke_right_leg,
+	)
 
 /obj/structure/mecha_wreckage/honker
 	name = "H.O.N.K wreckage"
 	icon_state = "honker-broken"
 	desc = "All is right in the universe."
 	parts = list(
-				/obj/item/mecha_parts/chassis/honker,
-				/obj/item/mecha_parts/part/honker_torso,
-				/obj/item/mecha_parts/part/honker_head,
-				/obj/item/mecha_parts/part/honker_left_arm,
-				/obj/item/mecha_parts/part/honker_right_arm,
-				/obj/item/mecha_parts/part/honker_left_leg,
-				/obj/item/mecha_parts/part/honker_right_leg)
+		/obj/item/mecha_parts/chassis/honker,
+		/obj/item/mecha_parts/part/honker_torso,
+		/obj/item/mecha_parts/part/honker_head,
+		/obj/item/mecha_parts/part/honker_left_arm,
+		/obj/item/mecha_parts/part/honker_right_arm,
+		/obj/item/mecha_parts/part/honker_left_leg,
+		/obj/item/mecha_parts/part/honker_right_leg,
+	)
 
 /obj/structure/mecha_wreckage/durand
 	name = "Durand wreckage"
 	icon_state = "durand-broken"
 	parts = list(
-			/obj/item/mecha_parts/part/durand_torso,
-			/obj/item/mecha_parts/part/durand_head,
-			/obj/item/mecha_parts/part/durand_left_arm,
-			/obj/item/mecha_parts/part/durand_right_arm,
-			/obj/item/mecha_parts/part/durand_left_leg,
-			/obj/item/mecha_parts/part/durand_right_leg)
+		/obj/item/mecha_parts/part/durand_torso,
+		/obj/item/mecha_parts/part/durand_head,
+		/obj/item/mecha_parts/part/durand_left_arm,
+		/obj/item/mecha_parts/part/durand_right_arm,
+		/obj/item/mecha_parts/part/durand_left_leg,
+		/obj/item/mecha_parts/part/durand_right_leg,
+	)
 
 /obj/structure/mecha_wreckage/durand/old
 	icon_state = "old_durand-broken"
@@ -221,12 +229,13 @@
 	name = "Odysseus wreckage"
 	icon_state = "odysseus-broken"
 	parts = list(
-			/obj/item/mecha_parts/part/odysseus_torso,
-			/obj/item/mecha_parts/part/odysseus_head,
-			/obj/item/mecha_parts/part/odysseus_left_arm,
-			/obj/item/mecha_parts/part/odysseus_right_arm,
-			/obj/item/mecha_parts/part/odysseus_left_leg,
-			/obj/item/mecha_parts/part/odysseus_right_leg)
+		/obj/item/mecha_parts/part/odysseus_torso,
+		/obj/item/mecha_parts/part/odysseus_head,
+		/obj/item/mecha_parts/part/odysseus_left_arm,
+		/obj/item/mecha_parts/part/odysseus_right_arm,
+		/obj/item/mecha_parts/part/odysseus_left_leg,
+		/obj/item/mecha_parts/part/odysseus_right_leg,
+	)
 
 /obj/structure/mecha_wreckage/sidewinder
 	name = "Обломки Сайдвиндера"

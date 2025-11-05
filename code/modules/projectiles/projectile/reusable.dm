@@ -12,7 +12,7 @@
 		DATIVE = "многоразовой пуле",
 		ACCUSATIVE = "многоразовую пулю",
 		INSTRUMENTAL = "многоразовой пулей",
-		PREPOSITIONAL = "многоразовой пуле"
+		PREPOSITIONAL = "многоразовой пуле",
 	)
 
 /obj/projectile/bullet/reusable/on_hit(atom/target, blocked = 0)
@@ -43,7 +43,7 @@
 		DATIVE = "магнитному копью",
 		ACCUSATIVE = "магнитное копье",
 		INSTRUMENTAL = "магнитным копьем",
-		PREPOSITIONAL = "магнитном копье"
+		PREPOSITIONAL = "магнитном копье",
 	)
 
 /obj/projectile/bullet/reusable/foam_dart
@@ -68,7 +68,7 @@
 		DATIVE = "пенному дротику",
 		ACCUSATIVE = "пенный дротик",
 		INSTRUMENTAL = "пенным дротиком",
-		PREPOSITIONAL = "пенном дротике"
+		PREPOSITIONAL = "пенном дротике",
 	)
 
 /obj/projectile/bullet/reusable/foam_dart/handle_drop()
@@ -106,7 +106,7 @@
 		DATIVE = "усиленному пенному дротику",
 		ACCUSATIVE = "усиленный пенный дротик",
 		INSTRUMENTAL = "усиленным пенным дротиком",
-		PREPOSITIONAL = "усиленном пенном дротике"
+		PREPOSITIONAL = "усиленном пенном дротике",
 	)
 
 /obj/projectile/bullet/reusable/foam_dart/sniper
@@ -122,7 +122,7 @@
 		DATIVE = "пенному снайперскому дротику",
 		ACCUSATIVE = "пенный снайперский дротик",
 		INSTRUMENTAL = "пенным снайперским дротиком",
-		PREPOSITIONAL = "пенном снайперском дротике"
+		PREPOSITIONAL = "пенном снайперском дротике",
 	)
 
 /obj/projectile/bullet/reusable/foam_dart/sniper/riot
@@ -139,5 +139,5 @@
 		DATIVE = "усиленному пенному снайперскому дротику",
 		ACCUSATIVE = "усиленный пенный снайперский дротик",
 		INSTRUMENTAL = "усиленным пенным снайперским дротиком",
-		PREPOSITIONAL = "усиленном пенном снайперском дротике"
+		PREPOSITIONAL = "усиленном пенном снайперском дротике",
 	)

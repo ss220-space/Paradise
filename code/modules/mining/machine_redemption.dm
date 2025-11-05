@@ -64,7 +64,7 @@
 		DATIVE = "печи для руды",
 		ACCUSATIVE = "печь для руды",
 		INSTRUMENTAL = "печью для руды",
-		PREPOSITIONAL = "печи для руды"
+		PREPOSITIONAL = "печи для руды",
 	)
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
@@ -136,7 +136,7 @@
 		DATIVE = "каторжной печи для руды",
 		ACCUSATIVE = "каторжную печь для руды",
 		INSTRUMENTAL = "каторжной печью для руды",
-		PREPOSITIONAL = "каторжной печи для руды"
+		PREPOSITIONAL = "каторжной печи для руды",
 	)
 
 /obj/machinery/mineral/ore_redemption/labor/Initialize(mapload)

@@ -71,7 +71,7 @@
 		DATIVE = "гильзе от пули",
 		ACCUSATIVE = "гильзу от пули",
 		INSTRUMENTAL = "гильзой от пули",
-		PREPOSITIONAL = "гильзе от пули"
+		PREPOSITIONAL = "гильзе от пули",
 	)
 
 /obj/item/ammo_casing/update_icon_state()
@@ -153,7 +153,7 @@
 			DATIVE = "пуле \"[label_text]\"",
 			ACCUSATIVE = "пулю \"[label_text]\"",
 			INSTRUMENTAL = "пулей \"[label_text]\"",
-			PREPOSITIONAL = "пуле \"[label_text]\""
+			PREPOSITIONAL = "пуле \"[label_text]\"",
 		)
 
 

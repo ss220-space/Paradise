@@ -28,7 +28,7 @@
 		DATIVE = "истинному Дьяволу",
 		ACCUSATIVE = "истинного Дьявола",
 		INSTRUMENTAL = "истинным Дьяволом",
-		PREPOSITIONAL = "истинном Дьяволе"
+		PREPOSITIONAL = "истинном Дьяволе",
 	)
 
 

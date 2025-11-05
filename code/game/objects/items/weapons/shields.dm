@@ -99,7 +99,7 @@
 		DATIVE = "щиту из пластин голиафа",
 		ACCUSATIVE = "щит из пластин голиафа",
 		INSTRUMENTAL = "щитом из пластин голиафа",
-		PREPOSITIONAL = "щите из пластин голиафа"
+		PREPOSITIONAL = "щите из пластин голиафа",
 	)
 
 /obj/item/shield/energy

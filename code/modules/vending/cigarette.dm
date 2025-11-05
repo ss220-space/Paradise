@@ -84,7 +84,7 @@
 		DATIVE = "торговому автомату ShadyCigs Deluxe",
 		ACCUSATIVE = "торговый автомат ShadyCigs Deluxe",
 		INSTRUMENTAL = "торговым автоматом ShadyCigs Deluxe",
-		PREPOSITIONAL = "торговом автомате ShadyCigs Deluxe"
+		PREPOSITIONAL = "торговом автомате ShadyCigs Deluxe",
 	)
 
 /obj/machinery/vending/cigarette/free
@@ -179,5 +179,5 @@
 		DATIVE = "торговому автомату ShadyCigs Ultra",
 		ACCUSATIVE = "торговый автомат ShadyCigs Ultra",
 		INSTRUMENTAL = "торговым автоматом ShadyCigs Ultra",
-		PREPOSITIONAL = "торговом автомате ShadyCigs Ultra"
+		PREPOSITIONAL = "торговом автомате ShadyCigs Ultra",
 	)

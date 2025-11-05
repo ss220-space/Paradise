@@ -390,7 +390,7 @@
 	severity = 3
 	var/drop_rate = 40
 	var/list/mineral_results = list(
-	/obj/item/stack/sheet/metal = 1
+		/obj/item/stack/sheet/metal = 1,
 	)
 
 /datum/spacevine_mutation/mineral/on_death(obj/structure/spacevine/holder)
@@ -405,30 +405,30 @@
 	hue = "#888800"
 	drop_rate = 20
 	mineral_results = list(
-	/obj/item/stack/sheet/mineral/silver = 4,
-	/obj/item/stack/sheet/mineral/gold = 2,
-	/obj/item/stack/sheet/mineral/diamond = 1
+		/obj/item/stack/sheet/mineral/silver = 4,
+		/obj/item/stack/sheet/mineral/gold = 2,
+		/obj/item/stack/sheet/mineral/diamond = 1,
 	)
 
 /datum/spacevine_mutation/mineral/glass
 	name = "glassy"
 	hue = "#8888FF"
 	mineral_results = list(
-	/obj/item/stack/sheet/glass = 1
+		/obj/item/stack/sheet/glass = 1,
 	)
 
 /datum/spacevine_mutation/mineral/plastic
 	name = "plasticine"
 	hue = "#222288"
 	mineral_results = list(
-	/obj/item/stack/sheet/plastic = 1
+		/obj/item/stack/sheet/plastic = 1,
 	)
 
 /datum/spacevine_mutation/mineral/wood
 	name = "wooden"
 	hue = "#442200"
 	mineral_results = list(
-	/obj/item/stack/sheet/wood = 1
+		/obj/item/stack/sheet/wood = 1,
 	)
 
 // SPACE VINES (Note that this code is very similar to Biomass code)

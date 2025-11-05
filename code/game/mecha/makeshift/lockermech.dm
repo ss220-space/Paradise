@@ -24,7 +24,7 @@
 		DATIVE = "Шкафомеху",
 		ACCUSATIVE = "Шкафомеха",
 		INSTRUMENTAL = "Шкафомехом",
-		PREPOSITIONAL = "Шкафомехе"
+		PREPOSITIONAL = "Шкафомехе",
 	)
 
 
@@ -58,7 +58,7 @@
 		DATIVE = "Синди-Шкафомеху",
 		ACCUSATIVE = "Синди-Шкафомеха",
 		INSTRUMENTAL = "Синди-Шкафомехом",
-		PREPOSITIONAL = "Синди-Шкафомехе"
+		PREPOSITIONAL = "Синди-Шкафомехе",
 	)
 
 /obj/mecha/combat/lockersyndie/add_cell()
@@ -102,7 +102,7 @@
 		DATIVE = "инструменту для доставки меха",
 		ACCUSATIVE = "инструмент для доставки меха",
 		INSTRUMENTAL = "инструментом для доставки меха",
-		PREPOSITIONAL = "инструменте для доставки меха"
+		PREPOSITIONAL = "инструменте для доставки меха",
 	)
 
 /obj/item/mecha_drop/Initialize(mapload)

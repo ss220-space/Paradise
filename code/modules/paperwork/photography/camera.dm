@@ -27,8 +27,8 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
-		)
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi',
+	)
 
 
 /obj/item/camera/examine(mob/user)

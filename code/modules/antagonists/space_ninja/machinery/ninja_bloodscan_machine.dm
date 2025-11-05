@@ -173,9 +173,10 @@
 				return
 		objective.completed = TRUE
 		scan_state = list(
-		NINJA_BLOODSCAN_NOT_DONE,
-		NINJA_BLOODSCAN_NOT_DONE,
-		NINJA_BLOODSCAN_NOT_DONE) // initial() for some reason fully clears the list
+			NINJA_BLOODSCAN_NOT_DONE,
+			NINJA_BLOODSCAN_NOT_DONE,
+			NINJA_BLOODSCAN_NOT_DONE,
+		) // initial() for some reason fully clears the list
 		update_state_icon(BSM_CORRECT_STATE)
 		addtimer(CALLBACK(src, PROC_REF(update_state_icon), BSM_DEACTIVATION_STATE), 3 SECONDS)
 		addtimer(CALLBACK(src, PROC_REF(clear_important_vars), FALSE, TRUE), 8 SECONDS)

@@ -105,7 +105,7 @@
 		DATIVE = "попугаю",
 		ACCUSATIVE = "попугая",
 		INSTRUMENTAL = "попугаем",
-		PREPOSITIONAL = "попугае"
+		PREPOSITIONAL = "попугае",
 	)
 
 
@@ -145,13 +145,13 @@
 	GLOB.hear_radio_list -= src
 	return ..()
 
-
 /mob/living/simple_animal/parrot/proc/generate_ears_speak()
-	clean_speak = list("Хай!",
-						"Привет!",
-						"Крекер?",
-						"БВАААК! Джордж Меллонс меня обижает!")
-
+	clean_speak = list(
+		"Хай!",
+		"Привет!",
+		"Крекер?",
+		"БВАААК! Джордж Меллонс меня обижает!",
+	)
 
 /mob/living/simple_animal/parrot/death(gibbed)
 	if(can_die())
@@ -161,12 +161,10 @@
 		GLOB.move_manager.stop_looping(src)
 	return ..()
 
-
 /mob/living/simple_animal/parrot/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Held Item", held_item)
-
 
 /*
  * Attack responces

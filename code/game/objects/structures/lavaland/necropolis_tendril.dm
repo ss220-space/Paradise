@@ -9,9 +9,10 @@
 	faction = list("mining")
 	max_mobs = 3
 	max_integrity = 300
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 90,
+	mob_types = list(
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 90,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 5,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 5
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 5,
 	)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
@@ -29,7 +30,7 @@
 		DATIVE = "щупальцу некрополя",
 		ACCUSATIVE = "щупальце некрополя",
 		INSTRUMENTAL = "щупальцем некрополя",
-		PREPOSITIONAL = "щупальце некрополя"
+		PREPOSITIONAL = "щупальце некрополя",
 	)
 
 /obj/structure/spawner/lavaland/goliath
@@ -48,7 +49,7 @@
 		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril = 26,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 26,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 1,
-		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 20
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 20,
 	)
 	max_mobs = 5
 	spawn_time = 250 //they spawn a little faster
@@ -63,7 +64,7 @@
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 12,
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 12,
 		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 12,
-		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril = 14
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril = 14,
 	)
 	mob_gps_id = "CHAOS"
 	max_mobs = 7
@@ -134,7 +135,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 		DATIVE = "разрушающемуся щупальцу некрополя",
 		ACCUSATIVE = "разрушающееся щупальце некрополя",
 		INSTRUMENTAL = "разрушающимся щупальцем некрополя",
-		PREPOSITIONAL = "разрушающемся щупальце некрополя"
+		PREPOSITIONAL = "разрушающемся щупальце некрополя",
 	)
 
 /obj/effect/collapse/Initialize(mapload)

@@ -30,7 +30,7 @@
 		DATIVE = "дешёвой зажигалке",
 		ACCUSATIVE = "дешёвую зажигалку",
 		INSTRUMENTAL = "дешёвой зажигалкой",
-		PREPOSITIONAL = "дешёвой зажигалке"
+		PREPOSITIONAL = "дешёвой зажигалке",
 	)
 
 /obj/item/lighter/random/New()
@@ -160,7 +160,7 @@
 		DATIVE = "зажигалке Зиппо",
 		ACCUSATIVE = "зажигалку Зиппо",
 		INSTRUMENTAL = "зажигалкой Зиппо",
-		PREPOSITIONAL = "зажигалке Зиппо"
+		PREPOSITIONAL = "зажигалке Зиппо",
 	)
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
@@ -210,7 +210,7 @@
 		DATIVE = "золотой зажигалке Зиппо",
 		ACCUSATIVE = "золотую зажигалку Зиппо",
 		INSTRUMENTAL = "золотой зажигалкой Зиппо",
-		PREPOSITIONAL = "золотой зажигалке Зиппо"
+		PREPOSITIONAL = "золотой зажигалке Зиппо",
 	)
 
 /obj/item/lighter/zippo/blue
@@ -228,7 +228,7 @@
 		DATIVE = "синей зажигалке Зиппо",
 		ACCUSATIVE = "синюю зажигалку Зиппо",
 		INSTRUMENTAL = "синей зажигалкой Зиппо",
-		PREPOSITIONAL = "синей зажигалке Зиппо"
+		PREPOSITIONAL = "синей зажигалке Зиппо",
 	)
 
 /obj/item/lighter/zippo/black
@@ -246,7 +246,7 @@
 		DATIVE = "чёрной зажигалке Зиппо",
 		ACCUSATIVE = "чёрную зажигалку Зиппо",
 		INSTRUMENTAL = "чёрной зажигалкой Зиппо",
-		PREPOSITIONAL = "чёрной зажигалке Зиппо"
+		PREPOSITIONAL = "чёрной зажигалке Зиппо",
 	)
 
 /obj/item/lighter/zippo/engraved
@@ -264,7 +264,7 @@
 		DATIVE = "гравированной зажигалке Зиппо",
 		ACCUSATIVE = "гравированную зажигалку Зиппо",
 		INSTRUMENTAL = "гравированной зажигалкой Зиппо",
-		PREPOSITIONAL = "гравированной зажигалке Зиппо"
+		PREPOSITIONAL = "гравированной зажигалке Зиппо",
 	)
 
 /obj/item/lighter/zippo/gonzofist
@@ -282,7 +282,7 @@
 		DATIVE = "зажигалке Зиппо с кулаком Гонзо",
 		ACCUSATIVE = "зажигалку Зиппо с кулаком Гонзо",
 		INSTRUMENTAL = "зажигалкой Зиппо с кулаком Гонзо",
-		PREPOSITIONAL = "зажигалке Зиппо с кулаком Гонзо"
+		PREPOSITIONAL = "зажигалке Зиппо с кулаком Гонзо",
 	)
 
 /obj/item/lighter/zippo/cap
@@ -300,7 +300,7 @@
 		DATIVE = "зажигалке Зиппо Капитана",
 		ACCUSATIVE = "зажигалку Зиппо Капитана",
 		INSTRUMENTAL = "зажигалкой Зиппо Капитана",
-		PREPOSITIONAL = "зажигалке Зиппо Капитана"
+		PREPOSITIONAL = "зажигалке Зиппо Капитана",
 	)
 
 /obj/item/lighter/zippo/hop
@@ -318,7 +318,7 @@
 		DATIVE = "зажигалке Зиппо Главы Персонала",
 		ACCUSATIVE = "зажигалку Зиппо Главы Персонала",
 		INSTRUMENTAL = "зажигалкой Зиппо Главы Персонала",
-		PREPOSITIONAL = "зажигалке Зиппо Главы Персонала"
+		PREPOSITIONAL = "зажигалке Зиппо Главы Персонала",
 	)
 
 
@@ -337,7 +337,7 @@
 		DATIVE = "зажигалке Зиппо Главы Службы Безопасности",
 		ACCUSATIVE = "зажигалку Зиппо Главы Службы Безопасности",
 		INSTRUMENTAL = "зажигалкой Зиппо Главы Службы Безопасности",
-		PREPOSITIONAL = "зажигалке Зиппо Главы Службы Безопасности"
+		PREPOSITIONAL = "зажигалке Зиппо Главы Службы Безопасности",
 	)
 
 /obj/item/lighter/zippo/cmo
@@ -355,7 +355,7 @@
 		DATIVE = "зажигалке Зиппо Главного Врача",
 		ACCUSATIVE = "зажигалку Зиппо Главного Врача",
 		INSTRUMENTAL = "зажигалкой Зиппо Главного Врача",
-		PREPOSITIONAL = "зажигалке Зиппо Главного Врача"
+		PREPOSITIONAL = "зажигалке Зиппо Главного Врача",
 	)
 
 /obj/item/lighter/zippo/ce
@@ -373,7 +373,7 @@
 		DATIVE = "зажигалке Зиппо Старшего Инженера",
 		ACCUSATIVE = "зажигалку Зиппо Старшего Инженера",
 		INSTRUMENTAL = "зажигалкой Зиппо Старшего Инженера",
-		PREPOSITIONAL = "зажигалке Зиппо Старшего Инженера"
+		PREPOSITIONAL = "зажигалке Зиппо Старшего Инженера",
 	)
 
 /obj/item/lighter/zippo/rd
@@ -391,7 +391,7 @@
 		DATIVE = "зажигалке Зиппо Научного Руководителя",
 		ACCUSATIVE = "зажигалку Зиппо Научного Руководителя",
 		INSTRUMENTAL = "зажигалкой Зиппо Научного Руководителя",
-		PREPOSITIONAL = "зажигалке Зиппо Научного Руководителя"
+		PREPOSITIONAL = "зажигалке Зиппо Научного Руководителя",
 	)
 
 /obj/item/lighter/zippo/qm
@@ -409,7 +409,7 @@
 		DATIVE = "зажигалке Зиппо Квартирмейстера",
 		ACCUSATIVE = "зажигалку Зиппо Квартирмейстера",
 		INSTRUMENTAL = "зажигалкой Зиппо Квартирмейстера",
-		PREPOSITIONAL = "зажигалке Зиппо Квартирмейстера"
+		PREPOSITIONAL = "зажигалке Зиппо Квартирмейстера",
 	)
 
 /obj/item/lighter/zippo/detective
@@ -427,7 +427,7 @@
 		DATIVE = "зажигалке Зиппо детектива",
 		ACCUSATIVE = "зажигалку Зиппо детектива",
 		INSTRUMENTAL = "зажигалкой Зиппо детектива",
-		PREPOSITIONAL = "зажигалке Зиппо детектива"
+		PREPOSITIONAL = "зажигалке Зиппо детектива",
 	)
 
 /obj/item/lighter/zippo/contractor
@@ -445,7 +445,7 @@
 		DATIVE = "зажигалке Зиппо контрактора",
 		ACCUSATIVE = "зажигалку Зиппо контрактора",
 		INSTRUMENTAL = "зажигалкой Зиппо контрактора",
-		PREPOSITIONAL = "зажигалке Зиппо контрактора"
+		PREPOSITIONAL = "зажигалке Зиппо контрактора",
 	)
 
 //Ninja-Zippo//
@@ -467,7 +467,7 @@
 		DATIVE = "зажигалке Зиппо \"Шиноби в рисовом поле\"",
 		ACCUSATIVE = "зажигалку Зиппо \"Шиноби в рисовом поле\"",
 		INSTRUMENTAL = "зажигалкой Зиппо \"Шиноби в рисовом поле\"",
-		PREPOSITIONAL = "зажигалке Зиппо \"Шиноби в рисовом поле\""
+		PREPOSITIONAL = "зажигалке Зиппо \"Шиноби в рисовом поле\"",
 	)
 
 ///////////
@@ -496,7 +496,7 @@
 		DATIVE = "спичке",
 		ACCUSATIVE = "спичку",
 		INSTRUMENTAL = "спичкой",
-		PREPOSITIONAL = "спичке"
+		PREPOSITIONAL = "спичке",
 	)
 
 
@@ -648,7 +648,7 @@
 		DATIVE = "лучине",
 		ACCUSATIVE = "лучину",
 		INSTRUMENTAL = "лучиной",
-		PREPOSITIONAL = "лучине"
+		PREPOSITIONAL = "лучине",
 	)
 
 /obj/item/match/firebrand/Initialize(mapload)
@@ -673,7 +673,7 @@
 		DATIVE = "маленькому пламени",
 		ACCUSATIVE = "маленькое пламея",
 		INSTRUMENTAL = "маленьким пламенем",
-		PREPOSITIONAL = "маленьком плами"
+		PREPOSITIONAL = "маленьком плами",
 	)
 
 

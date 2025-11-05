@@ -22,7 +22,7 @@
 		DATIVE = "аплинку контрактнику",
 		ACCUSATIVE = "аплинк контрактника",
 		INSTRUMENTAL = "аплинком контрактником",
-		PREPOSITIONAL = "аплинке контрактнике"
+		PREPOSITIONAL = "аплинке контрактнике",
 	)
 
 /obj/item/contractor_uplink/Destroy()

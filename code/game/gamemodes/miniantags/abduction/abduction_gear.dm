@@ -835,7 +835,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетному авто-мендеру",
 		ACCUSATIVE = "инопланетный авто-мендер",
 		INSTRUMENTAL = "инопланетным авто-мендером",
-		PREPOSITIONAL = "инопланетном авто-мендере"
+		PREPOSITIONAL = "инопланетном авто-мендере",
 	)
 
 /obj/item/reagent_containers/applicator/abductor/update_icon_state()
@@ -860,7 +860,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетному авто-мендеру (Мех. Повреждения)",
 		ACCUSATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
 		INSTRUMENTAL = "инопланетным авто-мендером (Мех. Повреждения)",
-		PREPOSITIONAL = "инопланетном авто-мендере (Мех. Повреждения)"
+		PREPOSITIONAL = "инопланетном авто-мендере (Мех. Повреждения)",
 	)
 
 /obj/item/reagent_containers/applicator/abductor/burn
@@ -876,7 +876,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетному авто-мендеру (Терм. Повреждения)",
 		ACCUSATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
 		INSTRUMENTAL = "инопланетным авто-мендером (Терм. Повреждения)",
-		PREPOSITIONAL = "инопланетном авто-мендере (Терм. Повреждения)"
+		PREPOSITIONAL = "инопланетном авто-мендере (Терм. Повреждения)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/abductor
@@ -895,7 +895,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетной бутылке",
 		ACCUSATIVE = "инопланетную бутылку",
 		INSTRUMENTAL = "инопланетной бутылкой",
-		PREPOSITIONAL = "инопланетной бутылке"
+		PREPOSITIONAL = "инопланетной бутылке",
 	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/rezadone
@@ -909,7 +909,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетной бутылке (Резадон)",
 		ACCUSATIVE = "инопланетную бутылку (Резадон)",
 		INSTRUMENTAL = "инопланетной бутылкой (Резадон)",
-		PREPOSITIONAL = "инопланетной бутылке (Резадон)"
+		PREPOSITIONAL = "инопланетной бутылке (Резадон)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/epinephrine
@@ -923,7 +923,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетной бутылке (Эпинефрин)",
 		ACCUSATIVE = "инопланетную бутылку (Эпинефрин)",
 		INSTRUMENTAL = "инопланетной бутылкой (Эпинефрин)",
-		PREPOSITIONAL = "инопланетной бутылке (Эпинефрин)"
+		PREPOSITIONAL = "инопланетной бутылке (Эпинефрин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/salgu
@@ -937,7 +937,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетной бутылке (Физиологический раствор)",
 		ACCUSATIVE = "инопланетную бутылку (Физиологический раствор)",
 		INSTRUMENTAL = "инопланетной бутылкой (Физиологический раствор)",
-		PREPOSITIONAL = "инопланетной бутылке (Физиологический раствор)"
+		PREPOSITIONAL = "инопланетной бутылке (Физиологический раствор)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/oculine
@@ -951,7 +951,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетной бутылке (Окулин)",
 		ACCUSATIVE = "инопланетную бутылку (Окулин)",
 		INSTRUMENTAL = "инопланетной бутылкой (Окулин)",
-		PREPOSITIONAL = "инопланетной бутылке (Окулин)"
+		PREPOSITIONAL = "инопланетной бутылке (Окулин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/abductor/pen_acid
@@ -965,7 +965,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетной бутылке (Пентетовая кислота)",
 		ACCUSATIVE = "инопланетную бутылку (Пентетовая кислота)",
 		INSTRUMENTAL = "инопланетной бутылкой (Пентетовая кислота)",
-		PREPOSITIONAL = "инопланетной бутылке (Пентетовая кислота)"
+		PREPOSITIONAL = "инопланетной бутылке (Пентетовая кислота)",
 	)
 
 /obj/item/healthanalyzer/abductor
@@ -985,7 +985,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		DATIVE = "инопланетному анализатору здоровья",
 		ACCUSATIVE = "инопланетный анализатор здоровья",
 		INSTRUMENTAL = "инопланетным анализатором здоровья",
-		PREPOSITIONAL = "инопланетном анализаторе здоровья"
+		PREPOSITIONAL = "инопланетном анализаторе здоровья",
 	)
 
 /obj/item/storage/firstaid_abductor

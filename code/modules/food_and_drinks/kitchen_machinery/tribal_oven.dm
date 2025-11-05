@@ -22,7 +22,7 @@
 		DATIVE = "каменной печи",
 		ACCUSATIVE = "каменную печь",
 		INSTRUMENTAL = "каменной печью",
-		PREPOSITIONAL = "каменной печи"
+		PREPOSITIONAL = "каменной печи",
 	)
 
 /obj/machinery/kitchen_machine/tribal_oven/screwdriver_act()

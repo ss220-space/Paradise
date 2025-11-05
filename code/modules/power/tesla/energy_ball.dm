@@ -47,7 +47,7 @@
 		DATIVE = "энергетическому шару",
 		ACCUSATIVE = "энергетический шар",
 		INSTRUMENTAL = "энергетическим шаром",
-		PREPOSITIONAL = "энергетическом шаре"
+		PREPOSITIONAL = "энергетическом шаре",
 	)
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)

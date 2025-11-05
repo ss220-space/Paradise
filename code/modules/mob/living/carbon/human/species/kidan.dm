@@ -101,15 +101,15 @@
 	)
 
 	autohiss_basic_map = list(
-			"z" = list("zz", "zzz", "zzzz"),
-			"v" = list("vv", "vvv", "vvvv"),
-			"з" = list("зз", "ззз", "зззз"),
-			"в" = list("вв", "ввв", "вввв")
-		)
+		"z" = list("zz", "zzz", "zzzz"),
+		"v" = list("vv", "vvv", "vvvv"),
+		"з" = list("зз", "ззз", "зззз"),
+		"в" = list("вв", "ввв", "вввв"),
+	)
 	autohiss_extra_map = list(
-			"s" = list("z", "zs", "zzz", "zzsz"),
-			"с" = list("з", "зс", "ззз", "ззсз")
-		)
+		"s" = list("z", "zs", "zzz", "zzsz"),
+		"с" = list("з", "зс", "ззз", "ззсз"),
+	)
 	autohiss_exempt = list("Хитин")
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)

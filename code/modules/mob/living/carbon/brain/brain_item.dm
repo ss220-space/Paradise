@@ -29,7 +29,7 @@
 		DATIVE = "мозгу человека",
 		ACCUSATIVE = "мозг человека",
 		INSTRUMENTAL = "мозгом человека",
-		PREPOSITIONAL = "мозге человека"
+		PREPOSITIONAL = "мозге человека",
 	)
 
 /obj/item/organ/internal/brain/Destroy()
@@ -159,7 +159,7 @@
 		DATIVE = "руническому разуму",
 		ACCUSATIVE = "рунический разум",
 		INSTRUMENTAL = "руническим разумом",
-		PREPOSITIONAL = "руническом разуме"
+		PREPOSITIONAL = "руническом разуме",
 	)
 
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.

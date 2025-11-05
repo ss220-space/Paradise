@@ -22,7 +22,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/neck.dmi',
 		SPECIES_DRACONOID =  'icons/mob/clothing/species/unathi/neck.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi',
 	)
 
 /obj/item/clothing/neck/poncho/update_icon_state()

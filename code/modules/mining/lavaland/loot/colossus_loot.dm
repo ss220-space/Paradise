@@ -9,7 +9,7 @@
 		DATIVE = "сундуку колосса",
 		ACCUSATIVE = "сундук колосса",
 		INSTRUMENTAL = "сундуком колосса",
-		PREPOSITIONAL = "сундуке колосса"
+		PREPOSITIONAL = "сундуке колосса",
 	)
 
 /obj/structure/closet/crate/necropolis/colossus/populate_contents()
@@ -29,7 +29,7 @@
 		DATIVE = "ангельскому сундуку колосса",
 		ACCUSATIVE = "ангельский сундук колосса",
 		INSTRUMENTAL = "ангельским сундуком колосса",
-		PREPOSITIONAL = "ангельском сундуке колосса"
+		PREPOSITIONAL = "ангельском сундуке колосса",
 	)
 
 /obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
@@ -62,7 +62,7 @@
 		DATIVE = "аномальному кристаллу",
 		ACCUSATIVE = "аномальный кристалл",
 		INSTRUMENTAL = "аномальным кристаллом",
-		PREPOSITIONAL = "аномальном кристалле"
+		PREPOSITIONAL = "аномальном кристалле",
 	)
 
 /obj/machinery/anomalous_crystal/Initialize(mapload)
@@ -319,7 +319,7 @@
 		DATIVE = "духу света",
 		ACCUSATIVE = "духа света",
 		INSTRUMENTAL = "духом света",
-		PREPOSITIONAL = "духе света"
+		PREPOSITIONAL = "духе света",
 	)
 
 /mob/living/simple_animal/hostile/lightgeist/Initialize(mapload)
@@ -414,7 +414,7 @@
 		DATIVE = "квантовому стазисному полю",
 		ACCUSATIVE = "квантовое стазисное поле",
 		INSTRUMENTAL = "квантовым стазисным полем",
-		PREPOSITIONAL = "квантовом стазисном поле"
+		PREPOSITIONAL = "квантовом стазисном поле",
 	)
 
 /obj/structure/closet/stasis/process()
