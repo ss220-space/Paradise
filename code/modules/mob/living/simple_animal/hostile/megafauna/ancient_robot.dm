@@ -100,7 +100,7 @@ Difficulty: Very Hard
 		DATIVE = "Ветус Спекулятору",
 		ACCUSATIVE = "Ветус Спекулятора",
 		INSTRUMENTAL = "Ветус Спекулятором",
-		PREPOSITIONAL = "Ветус Спекуляторе"
+		PREPOSITIONAL = "Ветус Спекуляторе",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Initialize(mapload, mob/living/ancient) //We spawn and move them to clear out area for the legs, rather than risk the legs getting put in a wall
@@ -655,7 +655,7 @@ Difficulty: Very Hard
 		DATIVE = "опоре",
 		ACCUSATIVE = "опору",
 		INSTRUMENTAL = "опорой",
-		PREPOSITIONAL = "опоре"
+		PREPOSITIONAL = "опоре",
 	)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient, who)
@@ -803,7 +803,7 @@ Difficulty: Very Hard
 		DATIVE = "брошенному камню",
 		ACCUSATIVE = "брошенный камень",
 		INSTRUMENTAL = "брошенным камнем",
-		PREPOSITIONAL = "брошенном камне"
+		PREPOSITIONAL = "брошенном камне",
 	)
 
 /obj/effect/temp_visual/rock
@@ -820,7 +820,7 @@ Difficulty: Very Hard
 		DATIVE = "парящему камню",
 		ACCUSATIVE = "парящий камень",
 		INSTRUMENTAL = "парящим камнем",
-		PREPOSITIONAL = "парящем камне"
+		PREPOSITIONAL = "парящем камне",
 	)
 
 /obj/projectile/energy/shock_revolver/ancient

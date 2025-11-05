@@ -95,7 +95,7 @@
 		"Exosuit Equipment",
 		"Cyborg Upgrade Modules",
 		"Medical",
-		"Misc"
+		"Misc",
 	)
 
 /obj/machinery/mecha_part_fabricator/Destroy()
@@ -527,7 +527,7 @@
 		"Pod_Cargo",
 		"Pod_Parts",
 		"Pod_Frame",
-		"Misc"
+		"Misc",
 	)
 
 /**
@@ -579,7 +579,7 @@
 		"Cyborg Upgrade Modules",
 		"Medical",
 		"Misc",
-		"Syndicate"
+		"Syndicate",
 	)
 
 

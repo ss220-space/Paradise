@@ -43,7 +43,7 @@
 		DATIVE = "мозгу человека",
 		ACCUSATIVE = "мозг человека",
 		INSTRUMENTAL = "мозгом человека",
-		PREPOSITIONAL = "мозге человека"
+		PREPOSITIONAL = "мозге человека",
 	)
 
 /obj/item/organ/internal/xenos/plasmavessel
@@ -75,7 +75,7 @@
 		DATIVE = "плазменной железе ксеноморфа",
 		ACCUSATIVE = "плазменную железу ксеноморфа",
 		INSTRUMENTAL = "плазменной железой ксеноморфа",
-		PREPOSITIONAL = "плазменной железе ксеноморфа"
+		PREPOSITIONAL = "плазменной железе ксеноморфа",
 	)
 
 /obj/item/organ/internal/xenos/plasmavessel/queen
@@ -95,7 +95,7 @@
 		DATIVE = "плазменной железе королевы ксеноморфов",
 		ACCUSATIVE = "плазменную железу королевы ксеноморфов",
 		INSTRUMENTAL = "плазменной железой королевы ксеноморфов",
-		PREPOSITIONAL = "плазменной железе королевы ксеноморфов"
+		PREPOSITIONAL = "плазменной железе королевы ксеноморфов",
 	)
 
 /obj/item/organ/internal/xenos/plasmavessel/praetorian
@@ -113,7 +113,7 @@
 		DATIVE = "плазменной железе преторианца",
 		ACCUSATIVE = "плазменную железу преторианца",
 		INSTRUMENTAL = "плазменной железой преторианца",
-		PREPOSITIONAL = "плазменной железе преторианца"
+		PREPOSITIONAL = "плазменной железе преторианца",
 	)
 
 /obj/item/organ/internal/xenos/plasmavessel/drone
@@ -131,7 +131,7 @@
 		DATIVE = "плазменной железе преторианца",
 		ACCUSATIVE = "плазменную железу рабочего",
 		INSTRUMENTAL = "плазменной железой рабочего",
-		PREPOSITIONAL = "плазменной железе рабочего"
+		PREPOSITIONAL = "плазменной железе рабочего",
 	)
 
 /obj/item/organ/internal/xenos/plasmavessel/sentinel
@@ -148,7 +148,7 @@
 		DATIVE = "плазменной железе часового",
 		ACCUSATIVE = "плазменную железу часового",
 		INSTRUMENTAL = "плазменной железой часового",
-		PREPOSITIONAL = "плазменной железе часового"
+		PREPOSITIONAL = "плазменной железе часового",
 	)
 
 /obj/item/organ/internal/xenos/plasmavessel/hunter
@@ -165,7 +165,7 @@
 		DATIVE = "плазменной железе охотника",
 		ACCUSATIVE = "плазменную железу охотника",
 		INSTRUMENTAL = "плазменной железой охотника",
-		PREPOSITIONAL = "плазменной железе охотника"
+		PREPOSITIONAL = "плазменной железе охотника",
 	)
 
 /obj/item/organ/internal/xenos/plasmavessel/larva
@@ -182,7 +182,7 @@
 		DATIVE = "плазменной железе лярвы",
 		ACCUSATIVE = "плазменную железу лярвы",
 		INSTRUMENTAL = "плазменной железой лярвы",
-		PREPOSITIONAL = "плазменной железе лярвы"
+		PREPOSITIONAL = "плазменной железе лярвы",
 	)
 
 /obj/item/organ/internal/xenos/plasmavessel/prepare_eat()
@@ -244,7 +244,7 @@
 		DATIVE = "кислотной железе",
 		ACCUSATIVE = "кислотную железу",
 		INSTRUMENTAL = "кислотной железой",
-		PREPOSITIONAL = "кислотной железе"
+		PREPOSITIONAL = "кислотной железе",
 	)
 
 /obj/item/organ/internal/xenos/acidgland/sentinel
@@ -259,7 +259,7 @@
 		DATIVE = "кислотной железе часового",
 		ACCUSATIVE = "кислотную железу часового",
 		INSTRUMENTAL = "кислотной железой часового",
-		PREPOSITIONAL = "кислотной железе часового"
+		PREPOSITIONAL = "кислотной железе часового",
 	)
 
 /obj/item/organ/internal/xenos/acidgland/praetorian
@@ -274,7 +274,7 @@
 		DATIVE = "кислотной железе преторианца",
 		ACCUSATIVE = "кислотную железу преторианца",
 		INSTRUMENTAL = "кислотной железой преторианца",
-		PREPOSITIONAL = "кислотной железе преторианца"
+		PREPOSITIONAL = "кислотной железе преторианца",
 	)
 
 /obj/item/organ/internal/xenos/acidgland/queen
@@ -289,7 +289,7 @@
 		DATIVE = "кислотной железе королевы ксеноморфов",
 		ACCUSATIVE = "кислотную железу королевы ксеноморфов",
 		INSTRUMENTAL = "кислотной железой королевы ксеноморфов",
-		PREPOSITIONAL = "кислотной железе королевы ксеноморфов"
+		PREPOSITIONAL = "кислотной железе королевы ксеноморфов",
 	)
 
 /obj/item/organ/internal/xenos/hivenode
@@ -309,7 +309,7 @@
 		DATIVE = "узел улья ксеноморфов",
 		ACCUSATIVE = "узел улья ксеноморфов",
 		INSTRUMENTAL = "узел улья ксеноморфов",
-		PREPOSITIONAL = "узел улья ксеноорфов"
+		PREPOSITIONAL = "узел улья ксеноорфов",
 	)
 
 /obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -341,7 +341,7 @@
 		DATIVE = "железе нейротоксина",
 		ACCUSATIVE = "железу нейротоксина",
 		INSTRUMENTAL = "железой нейротоксина",
-		PREPOSITIONAL = "железе нейротоксина"
+		PREPOSITIONAL = "железе нейротоксина",
 	)
 
 /obj/item/organ/internal/xenos/neurotoxin/sentinel
@@ -356,7 +356,7 @@
 		DATIVE = "железе нейротоксина стража",
 		ACCUSATIVE = "железу нейротоксина стража",
 		INSTRUMENTAL = "железой нейротоксина стража",
-		PREPOSITIONAL = "железе нейротоксина стража"
+		PREPOSITIONAL = "железе нейротоксина стража",
 	)
 
 /obj/item/organ/internal/xenos/resinspinner
@@ -376,7 +376,7 @@
 		DATIVE = "смоляной железе",
 		ACCUSATIVE = "смоляную железу",
 		INSTRUMENTAL = "смоляной железой",
-		PREPOSITIONAL = "смоляной железе"
+		PREPOSITIONAL = "смоляной железе",
 	)
 
 /obj/item/organ/internal/xenos/eggsac
@@ -396,5 +396,5 @@
 		DATIVE = "яйцевоу мешку ксеноморфов",
 		ACCUSATIVE = "яйцевой мешок ксеноморфов",
 		INSTRUMENTAL = "яйцевым мешком ксеноморфов",
-		PREPOSITIONAL = "яйцевом мешке ксеноморфов"
+		PREPOSITIONAL = "яйцевом мешке ксеноморфов",
 	)

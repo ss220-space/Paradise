@@ -17,7 +17,7 @@
 		DATIVE = "сердцу человека",
 		ACCUSATIVE = "сердце человека",
 		INSTRUMENTAL = "сердцем человека",
-		PREPOSITIONAL = "сердце человека"
+		PREPOSITIONAL = "сердце человека",
 	)
 
 /obj/item/organ/internal/heart/update_icon_state()
@@ -107,7 +107,7 @@
 		DATIVE = "проклятому сердцу",
 		ACCUSATIVE = "проклятое сердце",
 		INSTRUMENTAL = "проклятое сердцем",
-		PREPOSITIONAL = "проклятое сердце"
+		PREPOSITIONAL = "проклятое сердце",
 	)
 
 /obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -195,7 +195,7 @@
 		DATIVE = "кибернетическому сердцу",
 		ACCUSATIVE = "кибернетическое сердце",
 		INSTRUMENTAL = "кибернетическим сердцем",
-		PREPOSITIONAL = "кибернетическом сердце"
+		PREPOSITIONAL = "кибернетическом сердце",
 	)
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
@@ -214,7 +214,7 @@
 		DATIVE = "улучшенному кибернетическому сердцу",
 		ACCUSATIVE = "улучшенное кибернетическое сердце",
 		INSTRUMENTAL = "улучшенным кибернетическим сердцем",
-		PREPOSITIONAL = "улучшенном кибернетическом сердце"
+		PREPOSITIONAL = "улучшенном кибернетическом сердце",
 	)
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/target, special)

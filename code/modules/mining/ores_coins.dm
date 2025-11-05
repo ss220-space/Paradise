@@ -22,7 +22,7 @@
 		DATIVE = "камню",
 		ACCUSATIVE = "камень",
 		INSTRUMENTAL = "камнем",
-		PREPOSITIONAL = "камне"
+		PREPOSITIONAL = "камне",
 	)
 
 
@@ -121,7 +121,7 @@
 		DATIVE = "урановой руде",
 		ACCUSATIVE = "урановую руду",
 		INSTRUMENTAL = "урановой рудой",
-		PREPOSITIONAL = "урановой руде"
+		PREPOSITIONAL = "урановой руде",
 	)
 
 /obj/item/stack/ore/iron
@@ -139,7 +139,7 @@
 		DATIVE = "железной руде",
 		ACCUSATIVE = "железную руду",
 		INSTRUMENTAL = "железной рудой",
-		PREPOSITIONAL = "железной руде"
+		PREPOSITIONAL = "железной руде",
 	)
 
 /obj/item/stack/ore/glass
@@ -157,7 +157,7 @@
 		DATIVE = "песку",
 		ACCUSATIVE = "песок",
 		INSTRUMENTAL = "песком",
-		PREPOSITIONAL = "песке"
+		PREPOSITIONAL = "песке",
 	)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
@@ -209,7 +209,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "вулканическому пеплу",
 		ACCUSATIVE = "вулканический пепел",
 		INSTRUMENTAL = "вулканическим пеплом",
-		PREPOSITIONAL = "вулканическом пепле"
+		PREPOSITIONAL = "вулканическом пепле",
 	)
 
 /obj/item/stack/ore/glass/basalt/ancient
@@ -224,7 +224,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "древнему песку",
 		ACCUSATIVE = "древний песок",
 		INSTRUMENTAL = "древним песком",
-		PREPOSITIONAL = "древнем песке"
+		PREPOSITIONAL = "древнем песке",
 	)
 
 /obj/item/stack/ore/plasma
@@ -243,7 +243,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "плазменной руде",
 		ACCUSATIVE = "плазменную руду",
 		INSTRUMENTAL = "плазменной рудой",
-		PREPOSITIONAL = "плазменной руде"
+		PREPOSITIONAL = "плазменной руде",
 	)
 
 /obj/item/stack/ore/silver
@@ -262,7 +262,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "серебряной руде",
 		ACCUSATIVE = "серебряную руду",
 		INSTRUMENTAL = "серебряной рудой",
-		PREPOSITIONAL = "серебряной руде"
+		PREPOSITIONAL = "серебряной руде",
 	)
 
 /obj/item/stack/ore/gold
@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "золотой руде",
 		ACCUSATIVE = "золотую руду",
 		INSTRUMENTAL = "золотой рудой",
-		PREPOSITIONAL = "золотой руде"
+		PREPOSITIONAL = "золотой руде",
 	)
 
 /obj/item/stack/ore/diamond
@@ -300,7 +300,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "алмазной руде",
 		ACCUSATIVE = "алмазную руду",
 		INSTRUMENTAL = "алмазной рудой",
-		PREPOSITIONAL = "алмазной руде"
+		PREPOSITIONAL = "алмазной руде",
 	)
 
 /obj/item/stack/ore/bananium
@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "бананиумной руде",
 		ACCUSATIVE = "бананиумную руду",
 		INSTRUMENTAL = "бананиумной рудой",
-		PREPOSITIONAL = "бананиумной руде"
+		PREPOSITIONAL = "бананиумной руде",
 	)
 
 /obj/item/stack/ore/tranquillite
@@ -338,7 +338,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "транквиллитовой руде",
 		ACCUSATIVE = "транквиллитовую руду",
 		INSTRUMENTAL = "транквиллитовой рудой",
-		PREPOSITIONAL = "транквиллитовой руде"
+		PREPOSITIONAL = "транквиллитовой руде",
 	)
 
 /obj/item/stack/ore/titanium
@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "титановой руде",
 		ACCUSATIVE = "титановую руду",
 		INSTRUMENTAL = "титановой рудой",
-		PREPOSITIONAL = "титановой руде"
+		PREPOSITIONAL = "титановой руде",
 	)
 
 /obj/item/stack/ore/slag
@@ -372,7 +372,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "шлаку",
 		ACCUSATIVE = "шлак",
 		INSTRUMENTAL = "шлаком",
-		PREPOSITIONAL = "шлаке"
+		PREPOSITIONAL = "шлаке",
 	)
 
 /obj/item/twohanded/required/gibtonite
@@ -396,7 +396,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "гибтониту",
 		ACCUSATIVE = "гибтонит",
 		INSTRUMENTAL = "гибтонитом",
-		PREPOSITIONAL = "гибтоните"
+		PREPOSITIONAL = "гибтоните",
 	)
 
 
@@ -590,7 +590,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "монете",
 		ACCUSATIVE = "монету",
 		INSTRUMENTAL = "монетой",
-		PREPOSITIONAL = "монете"
+		PREPOSITIONAL = "монете",
 	)
 
 /obj/item/coin/New()
@@ -681,7 +681,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "монете Гильдии Воров",
 		ACCUSATIVE = "монету Гильдии Воров",
 		INSTRUMENTAL = "монетой Гильдии Воров",
-		PREPOSITIONAL = "монете Гильдии Воров"
+		PREPOSITIONAL = "монете Гильдии Воров",
 	)
 
 /obj/item/coin/antagtoken
@@ -700,7 +700,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "антаг токену",
 		ACCUSATIVE = "антаг токен",
 		INSTRUMENTAL = "антаг токеном",
-		PREPOSITIONAL = "антаг токене"
+		PREPOSITIONAL = "антаг токене",
 	)
 
 /obj/item/coin/antagtoken/syndicate
@@ -714,7 +714,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		DATIVE = "монете Синдиката",
 		ACCUSATIVE = "монету Синдиката",
 		INSTRUMENTAL = "монетой Синдиката",
-		PREPOSITIONAL = "монете Синдиката"
+		PREPOSITIONAL = "монете Синдиката",
 	)
 
 

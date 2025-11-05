@@ -18,7 +18,7 @@
 		DATIVE = "разгрузочной машине",
 		ACCUSATIVE = "разгрузочную машину",
 		INSTRUMENTAL = "разгрузочной машиной",
-		PREPOSITIONAL = "разгрузочной машине"
+		PREPOSITIONAL = "разгрузочной машине",
 	)
 
 /obj/machinery/mineral/unloading_machine/process()

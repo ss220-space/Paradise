@@ -184,9 +184,11 @@
 	name = "Pneumatic Cannon"
 	result = /obj/item/pneumatic_cannon/ghetto
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
-	reqs = list(/obj/item/stack/sheet/metal = 4,
-				/obj/item/stack/packageWrap = 8,
-				/obj/item/pipe = 2)
+	reqs = list(
+		/obj/item/stack/sheet/metal = 4,
+		/obj/item/stack/packageWrap = 8,
+		/obj/item/pipe = 2,
+	)
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

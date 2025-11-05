@@ -30,7 +30,7 @@
 		DATIVE = "снаряжению зеленого кода",
 		ACCUSATIVE = "снаряжение зеленого кода",
 		INSTRUMENTAL = "снаряжением зеленого кода",
-		PREPOSITIONAL = "снаряжении зеленого кода"
+		PREPOSITIONAL = "снаряжении зеленого кода",
 	)
 	modules_spawn_chance = 1
 	loot_count = 3
@@ -86,8 +86,7 @@
 		/obj/item/clothing/suit/armor/vest/warden/alt,
 		/obj/item/clothing/suit/armor/vest/det_suit,
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
-
-		)
+	)
 
 /datum/loot_tier/second
 	name = "снаряжение синего кода"
@@ -97,7 +96,7 @@
 		DATIVE = "снаряжению синего кода",
 		ACCUSATIVE = "снаряжение синего кода",
 		INSTRUMENTAL = "снаряжением синего кода",
-		PREPOSITIONAL = "снаряжении синего кода"
+		PREPOSITIONAL = "снаряжении синего кода",
 	)
 	modules_spawn_chance = 20
 	open_time = 7 SECONDS
@@ -245,7 +244,7 @@
 		DATIVE = "снаряжению красного кода",
 		ACCUSATIVE = "снаряжение красного кода",
 		INSTRUMENTAL = "снаряжением красного кода",
-		PREPOSITIONAL = "снаряжении красного кода"
+		PREPOSITIONAL = "снаряжении красного кода",
 	)
 	modules_spawn_chance = 30
 	open_time = 15 SECONDS
@@ -464,7 +463,7 @@
 		DATIVE = "снаряжению кода ГАММА",
 		ACCUSATIVE = "снаряжение кода ГАММА",
 		INSTRUMENTAL = "снаряжением кода ГАММА",
-		PREPOSITIONAL = "снаряжении кода ГАММА"
+		PREPOSITIONAL = "снаряжении кода ГАММА",
 	)
 	modules_spawn_chance = 40
 	open_time = 20 SECONDS
@@ -591,7 +590,7 @@
 		DATIVE = "снаряжению кода ЭПСИЛОН",
 		ACCUSATIVE = "снаряжение кода ЭПСИЛОН",
 		INSTRUMENTAL = "снаряжением кода ЭПСИЛОН",
-		PREPOSITIONAL = "снаряжении кода ЭПСИЛОН"
+		PREPOSITIONAL = "снаряжении кода ЭПСИЛОН",
 	)
 	modules_spawn_chance = 70
 	open_time = 30 SECONDS
@@ -651,7 +650,7 @@
 		DATIVE = "патронам",
 		ACCUSATIVE = "патроны",
 		INSTRUMENTAL = "патронами",
-		PREPOSITIONAL = "патронах"
+		PREPOSITIONAL = "патронах",
 	)
 	loot_count = 6
 	loot_list = list(
@@ -780,7 +779,7 @@
 			/obj/item/mortar_shell/frag,
 			/obj/item/mortar_shell/incendiary,
 			/obj/item/mortar_shell/flare,
-		)
+		),
 	)
 
 /datum/loot_tier/ammo/on_start_open(mob/user, obj/structure/crate, list/current_loot = loot_list)
@@ -802,7 +801,7 @@
 		DATIVE = "медикаментам",
 		ACCUSATIVE = "медикаменты",
 		INSTRUMENTAL = "медикаментами",
-		PREPOSITIONAL = "медикаментах"
+		PREPOSITIONAL = "медикаментах",
 	)
 	loot_count = 8
 	loot_list = list(

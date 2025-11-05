@@ -45,7 +45,7 @@
 		DATIVE = "сломанному торговому автомату Departament ClothesMate",
 		ACCUSATIVE = "сломанный торговый автомат Departament ClothesMate",
 		INSTRUMENTAL = "сломанным торговым автоматом Departament ClothesMate",
-		PREPOSITIONAL = "сломанном торговом автомате Departament ClothesMate"
+		PREPOSITIONAL = "сломанном торговом автомате Departament ClothesMate",
 	)
 
 /obj/machinery/vending/department_clothesmate/security
@@ -158,7 +158,7 @@
 		DATIVE = "торговому автомату Departament Security ClothesMate",
 		ACCUSATIVE = "торговый автомат Departament Security ClothesMate",
 		INSTRUMENTAL = "торговым автоматом Departament Security ClothesMate",
-		PREPOSITIONAL = "торговом автомате Departament Security ClothesMate"
+		PREPOSITIONAL = "торговом автомате Departament Security ClothesMate",
 	)
 
 /obj/machinery/vending/department_clothesmate/medical
@@ -291,7 +291,7 @@
 		DATIVE = "торговому автомату Departament Medical ClothesMate",
 		ACCUSATIVE = "торговый автомат Departament Medical ClothesMate",
 		INSTRUMENTAL = "торговым автоматом Departament Medical ClothesMate",
-		PREPOSITIONAL = "торговом автомате Departament Medical ClothesMate"
+		PREPOSITIONAL = "торговом автомате Departament Medical ClothesMate",
 	)
 
 /obj/machinery/vending/department_clothesmate/engineering
@@ -387,7 +387,7 @@
 		DATIVE = "торговому автомату Departament Engineering ClothesMat",
 		ACCUSATIVE = "торговый автомат Departament Engineering ClothesMat",
 		INSTRUMENTAL = "торговым автоматом Departament Engineering ClothesMat",
-		PREPOSITIONAL = "торговом автомате Departament Engineering ClothesMat"
+		PREPOSITIONAL = "торговом автомате Departament Engineering ClothesMat",
 	)
 
 /obj/machinery/vending/department_clothesmate/science
@@ -475,7 +475,7 @@
 		DATIVE = "торговому автомату Departament Science ClothesMate",
 		ACCUSATIVE = "торговый автомат Departament Science ClothesMate",
 		INSTRUMENTAL = "торговым автоматом Departament Science ClothesMate",
-		PREPOSITIONAL = "торговом автомате Departament Science ClothesMate"
+		PREPOSITIONAL = "торговом автомате Departament Science ClothesMate",
 	)
 
 /obj/machinery/vending/department_clothesmate/cargo
@@ -567,7 +567,7 @@
 		DATIVE = "торговому автомату Departament Cargo ClothesMate",
 		ACCUSATIVE = "торговый автомат Departament Cargo ClothesMate",
 		INSTRUMENTAL = "торговым автоматом Departament Cargo ClothesMate",
-		PREPOSITIONAL = "торговом автомате Departament Cargo ClothesMate"
+		PREPOSITIONAL = "торговом автомате Departament Cargo ClothesMate",
 	)
 
 /obj/machinery/vending/department_clothesmate/law
@@ -652,7 +652,7 @@
 		DATIVE = "торговому автомату Departament Law ClothesMate",
 		ACCUSATIVE = "торговый автомат Departament Law ClothesMate",
 		INSTRUMENTAL = "торговым автоматом Departament Law ClothesMate",
-		PREPOSITIONAL = "торговом автомате Departament Law ClothesMate"
+		PREPOSITIONAL = "торговом автомате Departament Law ClothesMate",
 	)
 
 /obj/machinery/vending/department_clothesmate/service
@@ -669,7 +669,7 @@
 		DATIVE = "торговому автомату Departament Service ClothesMate",
 		ACCUSATIVE = "торговый автомат Departament Service ClothesMate",
 		INSTRUMENTAL = "торговым автоматом Departament Service ClothesMate",
-		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate"
+		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate",
 	)
 
 /obj/machinery/vending/department_clothesmate/service/chaplain
@@ -747,7 +747,7 @@
 		DATIVE = "торговому автомату Departament Service ClothesMate Chaplain",
 		ACCUSATIVE = "торговый автомат Departament Service ClothesMate Chaplain",
 		INSTRUMENTAL = "торговым автоматом Departament Service ClothesMate Chaplain",
-		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate Chaplain"
+		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate Chaplain",
 	)
 
 
@@ -763,7 +763,6 @@
 			"icon" = "hat-cowboy",
 			"products" = list(
 				/obj/item/clothing/head/flatcap = 2,
-
 			),
 		),
 		list(
@@ -829,5 +828,5 @@
 		DATIVE = "торговому автомату Departament Service ClothesMate Botanical",
 		ACCUSATIVE = "торговый автомат Departament Service ClothesMate Botanical",
 		INSTRUMENTAL = "торговым автоматом Departament Service ClothesMate Botanical",
-		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate Botanical"
+		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate Botanical",
 	)

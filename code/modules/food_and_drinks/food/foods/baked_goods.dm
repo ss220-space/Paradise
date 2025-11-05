@@ -887,7 +887,7 @@
 		DATIVE = "круассану",
 		ACCUSATIVE = "круассан",
 		INSTRUMENTAL = "круассаном",
-		PREPOSITIONAL = "круассане"
+		PREPOSITIONAL = "круассане",
 	)
 
 /obj/item/reagent_containers/food/snacks/croissant/throwing

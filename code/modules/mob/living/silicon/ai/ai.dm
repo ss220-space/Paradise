@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		/mob/living/silicon/proc/subsystem_atmos_control,
 		/mob/living/silicon/proc/subsystem_crew_monitor,
 		/mob/living/silicon/proc/subsystem_law_manager,
-		/mob/living/silicon/proc/subsystem_power_monitor
+		/mob/living/silicon/proc/subsystem_power_monitor,
 	)
 
 	hat_offset_y = 3

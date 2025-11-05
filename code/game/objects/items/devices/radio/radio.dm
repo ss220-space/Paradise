@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "коротковолновой рации",
 		ACCUSATIVE = "коротковолновую рацию",
 		INSTRUMENTAL = "коротковолновой рацией",
-		PREPOSITIONAL = "коротковолновой рации"
+		PREPOSITIONAL = "коротковолновой рации",
 	)
 
 
@@ -427,7 +427,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "коротковолновой рации СБ",
 		ACCUSATIVE = "коротковолновую рацию СБ",
 		INSTRUMENTAL = "коротковолновой рацией СБ",
-		PREPOSITIONAL = "коротковолновой рации СБ"
+		PREPOSITIONAL = "коротковолновой рации СБ",
 	)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
@@ -800,7 +800,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "рации робота",
 		ACCUSATIVE = "рацию робота",
 		INSTRUMENTAL = "рацией робота",
-		PREPOSITIONAL = "рации робота"
+		PREPOSITIONAL = "рации робота",
 	)
 
 /obj/item/radio/borg/syndicate
@@ -912,7 +912,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "сломанной рации",
 		ACCUSATIVE = "сломанную рацию",
 		INSTRUMENTAL = "сломанной рацией",
-		PREPOSITIONAL = "сломанной рации"
+		PREPOSITIONAL = "сломанной рации",
 	)
 
 /obj/item/radio/borg/interact(mob/user)
@@ -940,7 +940,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "телефону",
 		ACCUSATIVE = "телефон",
 		INSTRUMENTAL = "телефоном",
-		PREPOSITIONAL = "телефоне"
+		PREPOSITIONAL = "телефоне",
 	)
 
 /obj/item/radio/phone/medbay
@@ -955,7 +955,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "медицинскому телефону",
 		ACCUSATIVE = "медицинский телефон",
 		INSTRUMENTAL = "медицинским телефоном",
-		PREPOSITIONAL = "медицинском телефоне"
+		PREPOSITIONAL = "медицинском телефоне",
 	)
 
 /obj/item/radio/phone/medbay/get_internal_channels()
@@ -977,5 +977,5 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		DATIVE = "красному телефону",
 		ACCUSATIVE = "красный телефон",
 		INSTRUMENTAL = "красным телефоном",
-		PREPOSITIONAL = "красном телефоне"
+		PREPOSITIONAL = "красном телефоне",
 	)

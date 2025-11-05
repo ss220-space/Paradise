@@ -98,5 +98,5 @@
 		DATIVE = "торговому автомату MegaSeed Servitor",
 		ACCUSATIVE = "торговый автомат MegaSeed Servitor",
 		INSTRUMENTAL = "торговым автоматом MegaSeed Servitor",
-		PREPOSITIONAL = "торговом автомате MegaSeed Servitor"
+		PREPOSITIONAL = "торговом автомате MegaSeed Servitor",
 	)

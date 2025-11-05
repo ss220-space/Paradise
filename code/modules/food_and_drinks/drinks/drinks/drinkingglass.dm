@@ -21,7 +21,7 @@
 		DATIVE = "стакану",
 		ACCUSATIVE = "стакан",
 		INSTRUMENTAL = "стаканом",
-		PREPOSITIONAL = "стакане"
+		PREPOSITIONAL = "стакане",
 	)
 
 /obj/item/reagent_containers/food/drinks/set_APTFT()

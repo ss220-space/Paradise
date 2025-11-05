@@ -19,7 +19,7 @@
 		/obj/effect/proc_holder/spell/vampire/goon/self/jaunt = 300,
 		/obj/effect/proc_holder/spell/vampire/goon/targetted/enthrall = 300,
 		/datum/vampire_passive/xray = 500,
-		/datum/vampire_passive/full = 500
+		/datum/vampire_passive/full = 500,
 	)
 
 

@@ -145,7 +145,7 @@
 		DATIVE = "базальтовой катане",
 		ACCUSATIVE = "базальтовую катану",
 		INSTRUMENTAL = "базальтовой катаной",
-		PREPOSITIONAL = "базальтовой катане"
+		PREPOSITIONAL = "базальтовой катане",
 	)
 
 
@@ -485,7 +485,7 @@
 		DATIVE = "костяному мечу",
 		ACCUSATIVE = "костяной меч",
 		INSTRUMENTAL = "костяным мечом",
-		PREPOSITIONAL = "костяном мече"
+		PREPOSITIONAL = "костяном мече",
 	)
 
 /obj/item/melee/claymore/bone/ComponentInitialize()
@@ -518,7 +518,7 @@
 		DATIVE = "колотушке",
 		ACCUSATIVE = "колотушку",
 		INSTRUMENTAL = "колотушкой",
-		PREPOSITIONAL = "колотушке"
+		PREPOSITIONAL = "колотушке",
 	)
 
 /obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)

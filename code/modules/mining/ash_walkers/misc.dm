@@ -17,7 +17,7 @@
 		DATIVE = "кислотному мешочку",
 		ACCUSATIVE = "кислотный мешочек",
 		INSTRUMENTAL = "кислотным мешочком",
-		PREPOSITIONAL = "кислотном мешочке"
+		PREPOSITIONAL = "кислотном мешочке",
 	)
 
 /obj/item/acid_bladder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -57,7 +57,7 @@
 		DATIVE = "лезвию дисковой пилы",
 		ACCUSATIVE = "лезвие дисковой пилы",
 		INSTRUMENTAL = "лезвием дисковой пилы",
-		PREPOSITIONAL = "лезвии дисковой пилы"
+		PREPOSITIONAL = "лезвии дисковой пилы",
 	)
 
 //**********Grace of Lazis **********//
@@ -79,7 +79,7 @@
 		DATIVE = "благодати Лазис Ардакса",
 		ACCUSATIVE = "благодать Лазис Ардакса",
 		INSTRUMENTAL = "благодатью Лазис Ардакса",
-		PREPOSITIONAL = "благодати Лазис Ардакса"
+		PREPOSITIONAL = "благодати Лазис Ардакса",
 	)
 
 /obj/structure/grace_of_lazis/attackby(obj/item/I, mob/user, params)
@@ -132,7 +132,7 @@
 		DATIVE = "свитку готовки",
 		ACCUSATIVE = "свиток готовки",
 		INSTRUMENTAL = "свитком готовки",
-		PREPOSITIONAL = "свитке готовки"
+		PREPOSITIONAL = "свитке готовки",
 	)
 
 /obj/structure/fluff/ash_statue //used to mark point of interest
@@ -152,7 +152,7 @@
 		DATIVE = "пепельному тотему",
 		ACCUSATIVE = "пепельный тотем",
 		INSTRUMENTAL = "пепельным тотемом",
-		PREPOSITIONAL = "пепельном тотеме"
+		PREPOSITIONAL = "пепельном тотеме",
 	)
 
 /obj/structure/fluff/ash_statue/Initialize(mapload)
@@ -184,7 +184,7 @@
 		DATIVE = "тотему",
 		ACCUSATIVE = "тотем",
 		INSTRUMENTAL = "тотемом",
-		PREPOSITIONAL = "тотеме"
+		PREPOSITIONAL = "тотеме",
 	)
 
 /obj/structure/ash_totem/examine(mob/user)
@@ -211,7 +211,7 @@
 		DATIVE = "деревянному тотему",
 		ACCUSATIVE = "деревянный тотем",
 		INSTRUMENTAL = "деревянным тотемом",
-		PREPOSITIONAL = "деревянном тотеме"
+		PREPOSITIONAL = "деревянном тотеме",
 	)
 
 /obj/structure/ash_totem/stone
@@ -226,7 +226,7 @@
 		DATIVE = "каменному тотему",
 		ACCUSATIVE = "каменный тотем",
 		INSTRUMENTAL = "каменным тотемом",
-		PREPOSITIONAL = "каменном тотеме"
+		PREPOSITIONAL = "каменном тотеме",
 	)
 
 /obj/structure/ash_totem/bone
@@ -241,7 +241,7 @@
 		DATIVE = "костяному тотему",
 		ACCUSATIVE = "костяной тотем",
 		INSTRUMENTAL = "костяным тотемом",
-		PREPOSITIONAL = "костяном тотеме"
+		PREPOSITIONAL = "костяном тотеме",
 	)
 
 /obj/structure/chair/stool/wooden
@@ -258,7 +258,7 @@
 		DATIVE = "деревянной табуретке",
 		ACCUSATIVE = "деревянную табуретку",
 		INSTRUMENTAL = "деревянной табуреткой",
-		PREPOSITIONAL = "деревянной табуретке"
+		PREPOSITIONAL = "деревянной табуретке",
 	)
 
 /obj/item/chair/stool/wooden
@@ -280,7 +280,7 @@
 		DATIVE = "деревянной табуретке",
 		ACCUSATIVE = "деревянную табуретку",
 		INSTRUMENTAL = "деревянной табуреткой",
-		PREPOSITIONAL = "деревянной табуретке"
+		PREPOSITIONAL = "деревянной табуретке",
 	)
 
 /obj/structure/rack/wooden
@@ -297,7 +297,7 @@
 		DATIVE = "деревянному стеллажу",
 		ACCUSATIVE = "деревянный стеллаж",
 		INSTRUMENTAL = "деревянным стеллажом",
-		PREPOSITIONAL = "деревянном стеллаже"
+		PREPOSITIONAL = "деревянном стеллаже",
 	)
 
 /obj/structure/rack/wooden/Initialize(mapload)

@@ -18,9 +18,11 @@
 		/obj/item/cigbutt,
 		/obj/item/clothing/mask/cigarette,
 		/obj/item/match,
-		/obj/item/rollingpaper)
+		/obj/item/rollingpaper,
+	)
 	cant_hold = list(
-		/obj/item/clothing/mask/cigarette/pipe)
+		/obj/item/clothing/mask/cigarette/pipe,
+	)
 
 /obj/item/storage/ashtray/bronze
 	name = "bronze ashtray"

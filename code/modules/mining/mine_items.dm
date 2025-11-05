@@ -13,7 +13,7 @@
 		DATIVE = "световому излучателю",
 		ACCUSATIVE = "световой излучатель",
 		INSTRUMENTAL = "световым излучателем",
-		PREPOSITIONAL = "световом излучателе"
+		PREPOSITIONAL = "световом излучателе",
 	)
 
 /obj/effect/light_emitter/Initialize(mapload)
@@ -40,7 +40,7 @@
 		DATIVE = "шахтёрскому гардеробу",
 		ACCUSATIVE = "шахтёрский гардероб",
 		INSTRUMENTAL = "шахтёрским гардеробом",
-		PREPOSITIONAL = "шахтёрском гардеробе"
+		PREPOSITIONAL = "шахтёрском гардеробе",
 	)
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
@@ -73,9 +73,9 @@
 		DATIVE = "снаряжению шахтёра",
 		ACCUSATIVE = "снаряжение шахтёра",
 		INSTRUMENTAL = "снаряжением шахтёра",
-		PREPOSITIONAL = "снаряжении шахтёра"
+		PREPOSITIONAL = "снаряжении шахтёра",
 	)
-	
+
 /obj/structure/closet/secure_closet/miner/populate_contents()
 	new /obj/item/stack/sheet/mineral/sandbags(src, 5)
 	new /obj/item/shovel(src)
@@ -102,7 +102,7 @@
 		DATIVE = "снаряжению шахтёрского медика",
 		ACCUSATIVE = "снаряжение шахтёрского медика",
 		INSTRUMENTAL = "снаряжением шахтёрского медика",
-		PREPOSITIONAL = "снаряжении шахтёрского медика"
+		PREPOSITIONAL = "снаряжении шахтёрского медика",
 	)
 
 /obj/structure/closet/secure_closet/mining_medic/populate_contents()
@@ -138,7 +138,7 @@
 		DATIVE = "консоли управления шахтёрским шаттлом",
 		ACCUSATIVE = "консоль управления шахтёрским шаттлом",
 		INSTRUMENTAL = "консолью управления шахтёрским шаттлом",
-		PREPOSITIONAL = "консоли управления шахтёрским шаттлом"
+		PREPOSITIONAL = "консоли управления шахтёрским шаттлом",
 	)
 
 /******************************Lantern*******************************/
@@ -163,7 +163,7 @@
 		DATIVE = "лампе",
 		ACCUSATIVE = "лампу",
 		INSTRUMENTAL = "лампой",
-		PREPOSITIONAL = "лампе"
+		PREPOSITIONAL = "лампе",
 	)
 
 /obj/item/flashlight/lantern/Initialize(mapload)
@@ -245,5 +245,5 @@
 		DATIVE = "вагонетке",
 		ACCUSATIVE = "вагонетку",
 		INSTRUMENTAL = "вагонеткой",
-		PREPOSITIONAL = "вагонетке"
+		PREPOSITIONAL = "вагонетке",
 	)

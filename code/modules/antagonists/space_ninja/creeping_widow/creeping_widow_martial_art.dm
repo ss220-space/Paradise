@@ -46,7 +46,7 @@
 		/datum/martial_combo/ninja_martial_art/energy_tornado,
 		/datum/martial_combo/ninja_martial_art/palm_strike,
 		/datum/martial_combo/ninja_martial_art/wrench_wrist,
-		/datum/martial_combo/ninja_martial_art/neck_slice
+		/datum/martial_combo/ninja_martial_art/neck_slice,
 	)
 	has_explaination_verb = TRUE
 	can_reflect = TRUE

@@ -17,12 +17,11 @@
 		/obj/effect/proc_holder/spell/vampire/goon/shadowstep = 250,
 		/obj/effect/proc_holder/spell/vampire/goon/self/jaunt = 300,
 		/datum/vampire_passive/xray = 500,
-		/datum/vampire_passive/full = 500
+		/datum/vampire_passive/full = 500,
 	)
 
 /datum/antagonist/vampire/devil_vampire/add_owner_to_gamemode()
 	SSticker.mode.vampires += owner
-
 
 /datum/antagonist/vampire/devil_vampire/remove_owner_from_gamemode()
 	SSticker.mode.vampires -= owner

@@ -33,5 +33,5 @@
 		DATIVE = "торговому автомату Suspicious Cigarette Machine",
 		ACCUSATIVE = "торговый автомат Suspicious Cigarette Machine",
 		INSTRUMENTAL = "торговым автоматом Suspicious Cigarette Machine",
-		PREPOSITIONAL = "торговом автомате Suspicious Cigarette Machine"
+		PREPOSITIONAL = "торговом автомате Suspicious Cigarette Machine",
 	)

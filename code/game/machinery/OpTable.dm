@@ -23,7 +23,7 @@
 		DATIVE = "операционному столу",
 		ACCUSATIVE = "операционный стол",
 		INSTRUMENTAL = "операционным столом",
-		PREPOSITIONAL = "операционном столе"
+		PREPOSITIONAL = "операционном столе",
 	)
 
 /obj/machinery/optable/Initialize(mapload)
