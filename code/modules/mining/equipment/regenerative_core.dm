@@ -15,7 +15,7 @@
 		DATIVE = "стабилизатору ядра",
 		ACCUSATIVE = "стабилизатор ядра",
 		INSTRUMENTAL = "стабилизатором ядра",
-		PREPOSITIONAL = "стабилизаторе ядра"
+		PREPOSITIONAL = "стабилизаторе ядра",
 	)
 
 
@@ -40,7 +40,7 @@
 		DATIVE = "сплавленному сгустку",
 		ACCUSATIVE = "сплавленный сгусток",
 		INSTRUMENTAL = "сплавленным сгустком",
-		PREPOSITIONAL = "сплавленном сгустке"
+		PREPOSITIONAL = "сплавленном сгустке",
 	)
 
 /obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user, proximity, params)
@@ -75,7 +75,7 @@
 		DATIVE = "регенеративному ядру",
 		ACCUSATIVE = "регенеративное ядро",
 		INSTRUMENTAL = "регенеративным ядром",
-		PREPOSITIONAL = "регенеративном ядре"
+		PREPOSITIONAL = "регенеративном ядре",
 	)
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
@@ -108,7 +108,7 @@
 		DATIVE = "сгнившему регенеративному ядру",
 		ACCUSATIVE = "сгнившее регенеративное ядро",
 		INSTRUMENTAL = "сгнившим регенеративным ядром",
-		PREPOSITIONAL = "сгнившем регенеративном ядре"
+		PREPOSITIONAL = "сгнившем регенеративном ядре",
 	)
 	SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "inert"))
 	update_icon()
@@ -265,7 +265,7 @@
 		DATIVE = "опухоли легиона",
 		ACCUSATIVE = "опухоль легиона",
 		INSTRUMENTAL = "опухолью легиона",
-		PREPOSITIONAL = "опухоли легиона"
+		PREPOSITIONAL = "опухоли легиона",
 	)
 
 /obj/item/organ/internal/legion_tumour/insert(mob/living/carbon/egg_owner, special)

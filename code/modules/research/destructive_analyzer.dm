@@ -19,7 +19,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		DATIVE = "деструктивному анализатору",
 		ACCUSATIVE = "деструктивный анализатор",
 		INSTRUMENTAL = "деструктивным анализатором",
-		PREPOSITIONAL = "деструктивном анализаторе"
+		PREPOSITIONAL = "деструктивном анализаторе",
 	)
 
 

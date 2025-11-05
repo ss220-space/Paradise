@@ -39,10 +39,12 @@
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
 	tts_seed = "Azalina"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
-								/datum/action/innate/elite_attack/spawn_children,
-								/datum/action/innate/elite_attack/rage,
-								/datum/action/innate/elite_attack/call_children)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/tentacle_patch,
+		/datum/action/innate/elite_attack/spawn_children,
+		/datum/action/innate/elite_attack/rage,
+		/datum/action/innate/elite_attack/call_children,
+	)
 
 	var/rand_tent = 0
 	var/list/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/children_list = list()
@@ -54,7 +56,7 @@
 		DATIVE = "матке голиафов",
 		ACCUSATIVE = "матку голиафов",
 		INSTRUMENTAL = "маткой голиафов",
-		PREPOSITIONAL = "матке голиафов"
+		PREPOSITIONAL = "матке голиафов",
 	)
 
 
@@ -234,7 +236,7 @@
 		DATIVE = "детёнышу голиафа",
 		ACCUSATIVE = "детёныша голиафа",
 		INSTRUMENTAL = "детёнышем голиафа",
-		PREPOSITIONAL = "детёныше голиафа"
+		PREPOSITIONAL = "детёныше голиафа",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/Destroy()
@@ -315,7 +317,7 @@
 		DATIVE = "материнскому языку",
 		ACCUSATIVE = "материнский язык",
 		INSTRUMENTAL = "материнским языком",
-		PREPOSITIONAL = "материнском языке"
+		PREPOSITIONAL = "материнском языке",
 	)
 
 /obj/item/crusher_trophy/broodmother_tongue/effect_desc()

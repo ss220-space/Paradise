@@ -33,7 +33,7 @@
 		TOOL_SCALPEL = 100,
 		/obj/item/melee/energy/sword = 75,
 		/obj/item/kitchen/knife = 65,
-		/obj/item/shard = 45
+		/obj/item/shard = 45,
 	)
 	time = 1.6 SECONDS
 

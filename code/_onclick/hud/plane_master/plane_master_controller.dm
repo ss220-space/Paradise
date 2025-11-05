@@ -85,6 +85,6 @@
 /atom/movable/plane_master_controller/game
 	name = PLANE_MASTERS_GAME
 	controlled_planes = list(
-		RENDER_PLANE_GAME
+		RENDER_PLANE_GAME,
 	)
 

@@ -107,7 +107,7 @@
 			/obj/machinery/door/airlock/external/glass = "External (Glass)",
 			/obj/machinery/door/airlock/hatch = "Airtight Hatch",
 			/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch",
-			/obj/machinery/door/airlock/freezer = "Freezer"
+			/obj/machinery/door/airlock/freezer = "Freezer",
 		)
 	if(!length(door_types_ui_list))
 		for(var/type in rcd_door_types)

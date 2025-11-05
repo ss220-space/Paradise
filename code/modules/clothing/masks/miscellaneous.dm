@@ -19,7 +19,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 // Clumsy folks can't take the mask off themselves.
@@ -88,8 +88,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+	)
 
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user, slot, silent = FALSE)
@@ -135,8 +135,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+	)
 
 /obj/item/clothing/mask/muzzle/safety/shock
 	name = "shock muzzle"
@@ -251,8 +251,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
-		)
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
+	)
 
 /obj/item/clothing/mask/surgical/get_ru_names()
 	return list(
@@ -261,7 +261,7 @@
 		DATIVE = "стерильной маске",
 		ACCUSATIVE = "стерильную маску",
 		INSTRUMENTAL = "стерильной маской",
-		PREPOSITIONAL = "стерильной маске"
+		PREPOSITIONAL = "стерильной маске",
 	)
 
 /obj/item/clothing/mask/surgical/attack_self(mob/user)
@@ -289,8 +289,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+	)
 
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
 	pontificate(user)
@@ -355,7 +355,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
 
 /obj/item/clothing/mask/horsehead/equipped(mob/user, slot, initial)
@@ -398,7 +398,7 @@
 	icon_state = "rat"
 	item_state = "rat"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/mask/face/fox
@@ -407,7 +407,7 @@
 	icon_state = "fox"
 	item_state = "fox"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/mask/face/bee
@@ -416,7 +416,7 @@
 	icon_state = "bee"
 	item_state = "bee"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/mask/face/bear
@@ -425,7 +425,7 @@
 	icon_state = "bear"
 	item_state = "bear"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/mask/face/bat
@@ -434,7 +434,7 @@
 	icon_state = "bat"
 	item_state = "bat"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/mask/face/raven
@@ -443,7 +443,7 @@
 	icon_state = "raven"
 	item_state = "raven"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/mask/face/jackal
@@ -452,7 +452,7 @@
 	icon_state = "jackal"
 	item_state = "jackal"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/mask/face/tribal
@@ -461,7 +461,7 @@
 	icon_state = "bumba"
 	item_state = "bumba"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/mask/face/fawkes
@@ -470,7 +470,7 @@
 	icon_state = "fawkes"
 	item_state = "fawkes"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
@@ -480,7 +480,7 @@
 	item_state = "pennywise_mask"
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/sweettooth
@@ -497,7 +497,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/mask.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/sweettooth/get_ru_names()
@@ -507,7 +507,7 @@
 		DATIVE = "Маске Сладкоежки",
 		ACCUSATIVE = "Маску Сладкоежки",
 		INSTRUMENTAL = "Маской Сладкоежки",
-		PREPOSITIONAL = "Маске Сладкоежки"
+		PREPOSITIONAL = "Маске Сладкоежки",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rockso
@@ -524,7 +524,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/mask.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 
@@ -552,8 +552,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+	)
 	actions_types = list(/datum/action/item_action/adjust)
 	dying_key = DYE_REGISTRY_BANDANA
 
@@ -631,7 +631,7 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_hat"
 	onmob_sheets = list(
-		ITEM_SLOT_MASK_STRING = 'icons/goonstation/mob/clothing/mask.dmi'
+		ITEM_SLOT_MASK_STRING = 'icons/goonstation/mob/clothing/mask.dmi',
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
@@ -646,7 +646,7 @@
 	item_state = "cclown_hat"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	onmob_sheets = list(
-		ITEM_SLOT_MASK_STRING = 'icons/goonstation/mob/clothing/mask.dmi'
+		ITEM_SLOT_MASK_STRING = 'icons/goonstation/mob/clothing/mask.dmi',
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
@@ -725,7 +725,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
 
 /obj/item/clothing/mask/secscarf/attack_self(mob/user)

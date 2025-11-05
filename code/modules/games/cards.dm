@@ -373,7 +373,7 @@
 		DATIVE = "игральным картам",
 		ACCUSATIVE = "игральные карты",
 		INSTRUMENTAL = "игральными картами",
-		PREPOSITIONAL = "игральных картах"
+		PREPOSITIONAL = "игральных картах",
 	)
 
 /obj/item/cardhand/proc/update_values()
@@ -635,7 +635,7 @@
 			DATIVE = "игральной карте",
 			ACCUSATIVE = "игральную карту",
 			INSTRUMENTAL = "игральной картой",
-			PREPOSITIONAL = "игральной карте"
+			PREPOSITIONAL = "игральной карте",
 		)
 	return ..()
 

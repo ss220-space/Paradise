@@ -17,7 +17,7 @@
 		DATIVE = "самодельной взрывчатке",
 		ACCUSATIVE = "самодельную взрывчатку",
 		INSTRUMENTAL = "самодельной взрывчаткой",
-		PREPOSITIONAL = "самодельной взрывчатке"
+		PREPOSITIONAL = "самодельной взрывчатке",
 	)
 
 /obj/item/grenade/iedcasing/New()

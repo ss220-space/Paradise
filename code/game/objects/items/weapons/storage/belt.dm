@@ -167,7 +167,7 @@
 		/obj/item/robotanalyzer,
 		/obj/item/clothing/gloves,
 		/obj/item/rcd,
-		/obj/item/rpd
+		/obj/item/rpd,
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -244,7 +244,8 @@
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
 		/obj/item/reagent_containers/applicator,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 	use_to_pickup = 1 //Allow medical belt to pick up medicine
 
 /obj/item/storage/belt/medical/get_ru_names()
@@ -254,7 +255,7 @@
 		DATIVE = "медицинскому поясу",
 		ACCUSATIVE = "медицинский пояс",
 		INSTRUMENTAL = "медицинским поясом",
-		PREPOSITIONAL = "медицинском поясе"
+		PREPOSITIONAL = "медицинском поясе",
 	)
 
 /obj/item/storage/belt/medical/surgery
@@ -277,7 +278,8 @@
 		/obj/item/cautery,
 		/obj/item/radio,
 		/obj/item/clothing/gloves/color/latex,
-		/obj/item/reagent_containers/spray/cleaner)
+		/obj/item/reagent_containers/spray/cleaner,
+	)
 
 /obj/item/storage/belt/medical/surgery/get_ru_names()
 	return list(
@@ -286,7 +288,7 @@
 		DATIVE = "хирургическому поясу",
 		ACCUSATIVE = "хирургический пояс",
 		INSTRUMENTAL = "хирургическим поясом",
-		PREPOSITIONAL = "хирургическом поясе"
+		PREPOSITIONAL = "хирургическом поясе",
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
@@ -330,7 +332,8 @@
 		/obj/item/radio,
 		/obj/item/clothing/gloves/color/latex,
 		/obj/item/reagent_containers/applicator,
-		/obj/item/reagent_containers/spray/cleaner)
+		/obj/item/reagent_containers/spray/cleaner,
+	)
 
 /obj/item/storage/belt/medical/surgery/abductor/get_ru_names()
 	return list(
@@ -339,7 +342,7 @@
 		DATIVE = "инопланетному хирургическому поясу",
 		ACCUSATIVE = "инопланетный хирургический пояс",
 		INSTRUMENTAL = "инопланетным хирургическим поясом",
-		PREPOSITIONAL = "инопланетном хирургическом поясе"
+		PREPOSITIONAL = "инопланетном хирургическом поясе",
 	)
 
 /obj/item/storage/belt/medical/surgery/abductor/loaded/populate_contents()
@@ -375,7 +378,8 @@
 		/obj/item/wrench,
 		/obj/item/reagent_containers/spray/weedspray,
 		/obj/item/reagent_containers/spray/pestspray,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -407,7 +411,8 @@
 		/obj/item/forensics/sample_kit,
 		/obj/item/eftpos/sec,
 		/obj/item/stock_parts/cell/specter,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/security/sec/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
@@ -475,8 +480,8 @@
 	storage_slots = 6
 	use_item_overlays = TRUE
 	can_hold = list(
-		"/obj/item/soulstone"
-		)
+		"/obj/item/soulstone",
+	)
 
 /obj/item/storage/belt/soulstone/full/populate_contents()
 	for(var/I in 1 to 7)
@@ -517,7 +522,7 @@
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
-		/obj/item/multitool
+		/obj/item/multitool,
 	)
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
@@ -547,8 +552,8 @@
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov
-		)
+		/obj/item/reagent_containers/food/drinks/bottle/molotov,
+	)
 
 /obj/item/storage/belt/grenade/full/populate_contents()
 	for(var/I in 1 to 4)// Four of each
@@ -604,7 +609,7 @@
 		DATIVE = "поясу с ракетами",
 		ACCUSATIVE = "пояс с ракетами",
 		INSTRUMENTAL = "поясом с ракетами",
-		PREPOSITIONAL = "поясе с ракетами"
+		PREPOSITIONAL = "поясе с ракетами",
 	)
 
 /obj/item/storage/belt/rocketman/populate_contents()
@@ -692,7 +697,8 @@
 		/obj/item/soap,
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/lightreplacer(src)
@@ -722,7 +728,8 @@
 	storage_slots = 6
 	can_hold = list(
 		/obj/item/mobcapsule,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/lazarus/get_ru_names()
 	return list(
@@ -731,7 +738,7 @@
 		DATIVE = "поясу тренера",
 		ACCUSATIVE = "пояс тренера",
 		INSTRUMENTAL = "поясом тренера",
-		PREPOSITIONAL = "поясе тренера"
+		PREPOSITIONAL = "поясе тренера",
 	)
 
 /obj/item/storage/belt/lazarus/Initialize(mapload)
@@ -766,7 +773,7 @@
 		DATIVE = "патронташу",
 		ACCUSATIVE = "патронташ",
 		INSTRUMENTAL = "патронташем",
-		PREPOSITIONAL = "патронташе"
+		PREPOSITIONAL = "патронташе",
 	)
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
@@ -809,8 +816,8 @@
 	can_hold = list(
 		/obj/item/gun/projectile/automatic/pistol,
 		/obj/item/gun/projectile/revolver/detective,
-		/obj/item/gun/projectile/automatic/toy/pistol
-		)
+		/obj/item/gun/projectile/automatic/toy/pistol,
+	)
 
 /obj/item/storage/belt/wands
 	name = "wand belt"
@@ -820,8 +827,8 @@
 	storage_slots = 6
 	use_item_overlays = TRUE
 	can_hold = list(
-		/obj/item/gun/magic/wand
-		)
+		/obj/item/gun/magic/wand,
+	)
 
 /obj/item/storage/belt/wands/full/populate_contents()
 	new /obj/item/gun/magic/wand/death(src)
@@ -985,7 +992,7 @@
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
-		/obj/item/multitool
+		/obj/item/multitool,
 	)
 
 /obj/item/storage/belt/bluespace/owlman
@@ -999,8 +1006,8 @@
 	allow_quick_empty = 1
 	can_hold = list(
 		/obj/item/grenade/smokebomb,
-		/obj/item/restraints/legcuffs/bola
-		)
+		/obj/item/restraints/legcuffs/bola,
+	)
 
 	var/smokecount = 0
 	var/bolacount = 0
@@ -1146,7 +1153,8 @@
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
 		/obj/item/stack/marker_beacon,
-		/obj/item/gem)
+		/obj/item/gem,
+	)
 
 /obj/item/storage/belt/mining/get_ru_names()
 	return list(
@@ -1155,7 +1163,7 @@
 		DATIVE = "разгрузке исследователя",
 		ACCUSATIVE = "разгрузку исследователя",
 		INSTRUMENTAL = "разгрузкой исследователя",
-		PREPOSITIONAL = "разгрузке исследователя"
+		PREPOSITIONAL = "разгрузке исследователя",
 	)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
@@ -1204,7 +1212,7 @@
 		/obj/item/shovel/spade/wooden,
 		/obj/item/hatchet/wooden,
 		/obj/item/cultivator/wooden,
-		)
+	)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()
 	return list(
@@ -1213,7 +1221,7 @@
 		DATIVE = "охотничьему поясу",
 		ACCUSATIVE = "охотничий пояс",
 		INSTRUMENTAL = "охотничьим поясом",
-		PREPOSITIONAL = "охотничьем поясе"
+		PREPOSITIONAL = "охотничьем поясе",
 	)
 
 /obj/item/storage/belt/chef
@@ -1241,7 +1249,8 @@
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/condiment,
 		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/radio)
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/chef/artist
 	name = "delicate apron"

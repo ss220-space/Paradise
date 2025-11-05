@@ -266,7 +266,7 @@
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
 		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,
-		/obj/item/reagent_containers/food/snacks/meat/slab = 2
+		/obj/item/reagent_containers/food/snacks/meat/slab = 2,
 	)
 	response_harm = "takes a bite out of"
 	attacked_sound = "sound/items/eatfood.ogg"

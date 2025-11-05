@@ -603,7 +603,7 @@
 		DATIVE = "заражённому черепу",
 		ACCUSATIVE = "заражённый череп",
 		INSTRUMENTAL = "заражённым черепом",
-		PREPOSITIONAL = "заражённом черепе"
+		PREPOSITIONAL = "заражённом черепе",
 	)
 
 /obj/item/gun/magic/skull_gun/Initialize(mapload, spell)
@@ -641,7 +641,7 @@
 		DATIVE = "гильзе для черепного пистолета",
 		ACCUSATIVE = "гильзу для черепного пистолета",
 		INSTRUMENTAL = "гильзой для черепного пистолета",
-		PREPOSITIONAL = "гильзе для черепного пистолета"
+		PREPOSITIONAL = "гильзе для черепного пистолета",
 	)
 
 /obj/projectile/skull_projectile
@@ -662,7 +662,7 @@
 		DATIVE = "заражённому черепу",
 		ACCUSATIVE = "заражённый череп",
 		INSTRUMENTAL = "заражённым черепом",
-		PREPOSITIONAL = "заражённом черепе"
+		PREPOSITIONAL = "заражённом черепе",
 	)
 
 
@@ -1490,7 +1490,7 @@
 		DATIVE = "таинственному гробу",
 		ACCUSATIVE = "таинственный гроб",
 		INSTRUMENTAL = "таинственным гробом",
-		PREPOSITIONAL = "таинственном гробе"
+		PREPOSITIONAL = "таинственном гробе",
 	)
 
 

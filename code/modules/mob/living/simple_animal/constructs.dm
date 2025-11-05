@@ -229,13 +229,15 @@
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_type = "builder"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone)
+	construct_spells = list(
+		/obj/effect/proc_holder/spell/night_vision,
+		/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
+		/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone,
+	)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -292,13 +294,15 @@
 	icon_state = "holy_artificer"
 	icon_living = "holy_artificer"
 	holy = TRUE
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser/holy,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall/holy,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor/holy,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/pylon/holy,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone/holy)
+	construct_spells = list(
+		/obj/effect/proc_holder/spell/night_vision,
+		/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
+		/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser/holy,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/wall/holy,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/floor/holy,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/pylon/holy,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone/holy,
+	)
 
 /////////////////////////////Behemoth/////////////////////////
 
@@ -349,10 +353,12 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-							/obj/effect/proc_holder/spell/smoke/disable)
+	construct_spells = list(
+		/obj/effect/proc_holder/spell/night_vision,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+		/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
+		/obj/effect/proc_holder/spell/smoke/disable,
+	)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<b>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</b>"

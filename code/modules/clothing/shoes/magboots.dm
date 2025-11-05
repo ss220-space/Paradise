@@ -126,7 +126,7 @@
 		DATIVE = "клоунским башмакам",
 		ACCUSATIVE = "клоунские башмаки",
 		INSTRUMENTAL = "клоунскими башмаками",
-		PREPOSITIONAL = "клоунских башмаках"
+		PREPOSITIONAL = "клоунских башмаках",
 	)
 
 /obj/item/clothing/shoes/magboots/clown/Initialize(mapload)

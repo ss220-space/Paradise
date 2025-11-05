@@ -39,5 +39,5 @@
 		DATIVE = "торговому автомату Syndie Robo-Deluxe",
 		ACCUSATIVE = "торговый автомат Syndie Robo-Deluxe",
 		INSTRUMENTAL = "торговым автоматом Syndie Robo-Deluxe",
-		PREPOSITIONAL = "торговом автомате Syndie Robo-Deluxe"
+		PREPOSITIONAL = "торговом автомате Syndie Robo-Deluxe",
 	)

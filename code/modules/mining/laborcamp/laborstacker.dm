@@ -20,7 +20,7 @@
 		DATIVE = "консоли учета добытой руды",
 		ACCUSATIVE = "консоль учета добытой руды",
 		INSTRUMENTAL = "консолью учета добытой руды",
-		PREPOSITIONAL = "консоли учета добытой руды"
+		PREPOSITIONAL = "консоли учета добытой руды",
 	)
 
 /obj/machinery/mineral/labor_claim_console/Initialize(mapload)
@@ -183,7 +183,7 @@
 		DATIVE = "консоли проверки очков",
 		ACCUSATIVE = "консоль проверки очков",
 		INSTRUMENTAL = "консолью проверки очков",
-		PREPOSITIONAL = "консоли проверки очков"
+		PREPOSITIONAL = "консоли проверки очков",
 	)
 
 /obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)

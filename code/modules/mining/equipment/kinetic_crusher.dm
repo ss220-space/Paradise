@@ -36,7 +36,7 @@
 			DATIVE = "прото-кинетическому крушителю",
 			ACCUSATIVE = "прото-кинетический крушитель",
 			INSTRUMENTAL = "прото-кинетическим крушителем",
-			PREPOSITIONAL = "прото-кинетическом крушителе"
+			PREPOSITIONAL = "прото-кинетическом крушителе",
 	)
 
 
@@ -216,7 +216,7 @@
 		DATIVE = "дестабилизирующему заряду",
 		ACCUSATIVE = "дестабилизирующий заряд",
 		INSTRUMENTAL = "дестабилизирующим зарядом",
-		PREPOSITIONAL = "дестабилизирующем заряде"
+		PREPOSITIONAL = "дестабилизирующем заряде",
 	)
 
 /obj/projectile/destabilizer/Destroy()
@@ -258,7 +258,7 @@
 		DATIVE = "хвостовому шипу",
 		ACCUSATIVE = "хвостовой шип",
 		INSTRUMENTAL = "хвостовым шипом",
-		PREPOSITIONAL = "хвостовом шипе"
+		PREPOSITIONAL = "хвостовом шипе",
 	)
 
 /obj/item/crusher_trophy/examine(mob/living/user)
@@ -326,7 +326,7 @@
 			DATIVE = "щупальцу голиафа",
 			ACCUSATIVE = "щупальце голиафа",
 			INSTRUMENTAL = "щупальцем голиафа",
-			PREPOSITIONAL = "щупальце голиафа"
+			PREPOSITIONAL = "щупальце голиафа",
 	)
 
 /obj/item/crusher_trophy/goliath_tentacle/effect_desc()
@@ -354,7 +354,7 @@
 			DATIVE = "крылу наблюдателя",
 			ACCUSATIVE = "крыло наблюдателя",
 			INSTRUMENTAL = "крылом наблюдателя",
-			PREPOSITIONAL = "крыле наблюдателя"
+			PREPOSITIONAL = "крыле наблюдателя",
 	)
 
 /obj/item/crusher_trophy/watcher_wing/effect_desc()
@@ -384,7 +384,7 @@
 			DATIVE = "крылу магмового наблюдателя",
 			ACCUSATIVE = "крыло магмового наблюдателя",
 			INSTRUMENTAL = "крылом магмового наблюдателя",
-			PREPOSITIONAL = "крыле магмового наблюдателя"
+			PREPOSITIONAL = "крыле магмового наблюдателя",
 	)
 
 /obj/item/crusher_trophy/blaster_tubes/magma_wing/effect_desc()
@@ -412,7 +412,7 @@
 			DATIVE = "крылу ледяного наблюдателя",
 			ACCUSATIVE = "крыло ледяного наблюдателя",
 			INSTRUMENTAL = "крылом ледяного наблюдателя",
-			PREPOSITIONAL = "крыле ледяного наблюдателя"
+			PREPOSITIONAL = "крыле ледяного наблюдателя",
 	)
 
 //legion
@@ -431,7 +431,7 @@
 		DATIVE = "черепу легиона",
 		ACCUSATIVE = "череп легиона",
 		INSTRUMENTAL = "черепом легиона",
-		PREPOSITIONAL = "черепе легиона"
+		PREPOSITIONAL = "черепе легиона",
 	)
 
 /obj/item/crusher_trophy/legion_skull/effect_desc()
@@ -462,7 +462,7 @@
 		DATIVE = "огромному щупальцу голиафа",
 		ACCUSATIVE = "огромное щупальце голиафа",
 		INSTRUMENTAL = "огромным щупальцем голиафа",
-		PREPOSITIONAL = "огромном щупальце голиафа"
+		PREPOSITIONAL = "огромном щупальце голиафа",
 	)
 
 /obj/item/crusher_trophy/eyed_tentacle/effect_desc()
@@ -495,7 +495,7 @@
 		DATIVE = "ядовитому клыку",
 		ACCUSATIVE = "ядовитый клык",
 		INSTRUMENTAL = "ядовитым клыком",
-		PREPOSITIONAL = "ядовытом клыке"
+		PREPOSITIONAL = "ядовытом клыке",
 	)
 
 /obj/item/crusher_trophy/fang/effect_desc()
@@ -520,7 +520,7 @@
 		DATIVE = "морозной железе",
 		ACCUSATIVE = "морозную железу",
 		INSTRUMENTAL = "морозной железой",
-		PREPOSITIONAL = "морозной железе"
+		PREPOSITIONAL = "морозной железе",
 	)
 
 /obj/item/crusher_trophy/gland/effect_desc()
@@ -558,7 +558,7 @@
 		DATIVE = "глазу кровожадного шахтёра",
 		ACCUSATIVE = "глаз кровожадного шахтёра",
 		INSTRUMENTAL = "глазом кровожадного шахтёра",
-		PREPOSITIONAL = "глазе кровожадного шахтёра"
+		PREPOSITIONAL = "глазе кровожадного шахтёра",
 	)
 
 /obj/item/crusher_trophy/miner_eye/effect_desc()
@@ -581,7 +581,7 @@
 		DATIVE = "хвостовому шипу",
 		ACCUSATIVE = "хвостовой шип",
 		INSTRUMENTAL = "хвостовым шипом",
-		PREPOSITIONAL = "хвостовом шипе"
+		PREPOSITIONAL = "хвостовом шипе",
 	)
 
 /obj/item/crusher_trophy/tail_spike/effect_desc()
@@ -616,7 +616,7 @@
 		DATIVE = "демоническим когтям",
 		ACCUSATIVE = "демонические когти",
 		INSTRUMENTAL = "демоническими когтями",
-		PREPOSITIONAL = "демонических когтях"
+		PREPOSITIONAL = "демонических когтях",
 	)
 
 /obj/item/crusher_trophy/demon_claws/effect_desc()
@@ -662,7 +662,7 @@
 		DATIVE = "бластерным трубкам",
 		ACCUSATIVE = "бластерные трубки",
 		INSTRUMENTAL = "бластерными трубками",
-		PREPOSITIONAL = "бластерных трубках"
+		PREPOSITIONAL = "бластерных трубках",
 	)
 
 /obj/item/crusher_trophy/blaster_tubes/effect_desc()
@@ -699,7 +699,7 @@
 		DATIVE = "талисману вихря",
 		ACCUSATIVE = "талисман вихря",
 		INSTRUMENTAL = "талисманом вихря",
-		PREPOSITIONAL = "талисмане вихря"
+		PREPOSITIONAL = "талисмане вихря",
 	)
 
 /obj/item/crusher_trophy/vortex_talisman/effect_desc()
@@ -727,7 +727,7 @@
 		DATIVE = "адаптивному ядру ИИ",
 		ACCUSATIVE = "адаптивное ядро ИИ",
 		INSTRUMENTAL = "адаптивным ядром ИИ",
-		PREPOSITIONAL = "адаптивном ядре ИИ"
+		PREPOSITIONAL = "адаптивном ядре ИИ",
 	)
 
 /obj/item/crusher_trophy/adaptive_intelligence_core/effect_desc()
@@ -759,7 +759,7 @@
 		DATIVE = "усиленному черепу легиона",
 		ACCUSATIVE = "усиленный череп легиона",
 		INSTRUMENTAL = "усиленным черепом легиона",
-		PREPOSITIONAL = "усиленном черепе легиона"
+		PREPOSITIONAL = "усиленном черепе легиона",
 	)
 
 /obj/item/crusher_trophy/empowered_legion_skull/effect_desc()
@@ -785,7 +785,7 @@
 		DATIVE = "магмитовому прото-кинетическому крушителю",
 		ACCUSATIVE = "магмитовый прото-кинетический крушитель",
 		INSTRUMENTAL = "магмитовым прото-кинетическим крушителем",
-		PREPOSITIONAL = "магмитовом прото-кинетическом крушителе"
+		PREPOSITIONAL = "магмитовом прото-кинетическом крушителе",
 	)
 
 /obj/projectile/destabilizer/mega

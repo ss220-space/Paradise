@@ -23,7 +23,7 @@
 		DATIVE = "солнечному датчику",
 		ACCUSATIVE = "солнечный датчик",
 		INSTRUMENTAL = "солнечным датчиком",
-		PREPOSITIONAL = "солнечном датчке"
+		PREPOSITIONAL = "солнечном датчке",
 	)
 
 /obj/machinery/power/tracker/Initialize(mapload, obj/item/solar_assembly/S)

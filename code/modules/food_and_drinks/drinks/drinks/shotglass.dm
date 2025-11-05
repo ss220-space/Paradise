@@ -18,7 +18,7 @@
 		DATIVE = "рюмке",
 		ACCUSATIVE = "рюмку",
 		INSTRUMENTAL = "рюмкой",
-		PREPOSITIONAL = "рюмке"
+		PREPOSITIONAL = "рюмке",
 	)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
@@ -37,7 +37,7 @@
 			DATIVE = "рюмке — " + reagents.get_master_reagent_name(),
 			ACCUSATIVE = "рюмку — " + reagents.get_master_reagent_name(),
 			INSTRUMENTAL = "рюмкой — " + reagents.get_master_reagent_name(),
-			PREPOSITIONAL = "рюмке — " +reagents.get_master_reagent_name()
+			PREPOSITIONAL = "рюмке — " + reagents.get_master_reagent_name(),
 		)
 		if(resistance_flags & ON_FIRE)
 			name = "flaming [name]"
@@ -56,7 +56,7 @@
 			DATIVE = "рюмке",
 			ACCUSATIVE = "рюмку",
 			INSTRUMENTAL = "рюмкой",
-			PREPOSITIONAL = "рюмке"
+			PREPOSITIONAL = "рюмке",
 		)
 
 

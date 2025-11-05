@@ -23,7 +23,7 @@
 		DATIVE = "лазеру",
 		ACCUSATIVE = "лазер",
 		INSTRUMENTAL = "лазером",
-		PREPOSITIONAL = "лазере"
+		PREPOSITIONAL = "лазере",
 	)
 
 /obj/projectile/beam/laser
@@ -44,7 +44,7 @@
 		DATIVE = "мощному лазеру",
 		ACCUSATIVE = "мощный лазер",
 		INSTRUMENTAL = "мощным лазером",
-		PREPOSITIONAL = "мощном лазере"
+		PREPOSITIONAL = "мощном лазере",
 	)
 
 /obj/projectile/beam/laser/slug
@@ -59,7 +59,7 @@
 		DATIVE = "лазерному импульсу",
 		ACCUSATIVE = "лазерный импульс",
 		INSTRUMENTAL = "лазерным импульсом",
-		PREPOSITIONAL = "лазерном импульсе"
+		PREPOSITIONAL = "лазерном импульсе",
 	)
 
 /obj/projectile/beam/laser/shot
@@ -74,7 +74,7 @@
 		DATIVE = "лазерной дроби",
 		ACCUSATIVE = "лазерную дробь",
 		INSTRUMENTAL = "лазерной дробью",
-		PREPOSITIONAL = "лазерной дроби"
+		PREPOSITIONAL = "лазерной дроби",
 	)
 
 /obj/projectile/beam/practice
@@ -91,7 +91,7 @@
 		DATIVE = "безвредному лазеру",
 		ACCUSATIVE = "безвредный лазер",
 		INSTRUMENTAL = "безвредным лазером",
-		PREPOSITIONAL = "безвредном лазере"
+		PREPOSITIONAL = "безвредном лазере",
 	)
 
 /obj/projectile/beam/scatter
@@ -106,7 +106,7 @@
 		DATIVE = "лазерной грануле",
 		ACCUSATIVE = "лазерную гранулу",
 		INSTRUMENTAL = "лазерной гранулой",
-		PREPOSITIONAL = "лазерной грануле"
+		PREPOSITIONAL = "лазерной грануле",
 	)
 
 /obj/projectile/beam/xray
@@ -128,7 +128,7 @@
 		DATIVE = "рентгеновскому лучу",
 		ACCUSATIVE = "рентгеновский луч",
 		INSTRUMENTAL = "рентгеновским лучом",
-		PREPOSITIONAL = "рентгеновском луче"
+		PREPOSITIONAL = "рентгеновском луче",
 	)
 
 /obj/projectile/beam/disabler
@@ -150,7 +150,7 @@
 		DATIVE = "дизейблеру",
 		ACCUSATIVE = "дизейблер",
 		INSTRUMENTAL = "дизейблером",
-		PREPOSITIONAL = "дизейблере"
+		PREPOSITIONAL = "дизейблере",
 	)
 
 /obj/projectile/beam/specter/laser
@@ -187,7 +187,7 @@
 		DATIVE = "импульсному заряду",
 		ACCUSATIVE = "импульсный заряд",
 		INSTRUMENTAL = "импульсным зарядом",
-		PREPOSITIONAL = "импульсном заряде"
+		PREPOSITIONAL = "импульсном заряде",
 	)
 
 /obj/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
@@ -222,7 +222,7 @@
 		DATIVE = "импульсу излучателя",
 		ACCUSATIVE = "импульс излучателя",
 		INSTRUMENTAL = "импульсом излучателя",
-		PREPOSITIONAL = "импульсе излучателя"
+		PREPOSITIONAL = "импульсе излучателя",
 	)
 
 /obj/projectile/beam/emitter/singularity_pull()
@@ -247,7 +247,7 @@
 		DATIVE = "лазертагу",
 		ACCUSATIVE = "лазертаг",
 		INSTRUMENTAL = "лазертагом",
-		PREPOSITIONAL = "лазертаге"
+		PREPOSITIONAL = "лазертаге",
 	)
 
 /obj/projectile/beam/lasertag/on_hit(atom/target, blocked = 0)
@@ -268,7 +268,7 @@
 		DATIVE = "лазертагу",
 		ACCUSATIVE = "лазертаг",
 		INSTRUMENTAL = "лазертагом",
-		PREPOSITIONAL = "лазертаге"
+		PREPOSITIONAL = "лазертаге",
 	)
 
 /obj/projectile/beam/lasertag/redtag
@@ -302,7 +302,7 @@
 		DATIVE = "снайперскому лучу",
 		ACCUSATIVE = "снайперский луч",
 		INSTRUMENTAL = "снайперским лучом",
-		PREPOSITIONAL = "снайперском луче"
+		PREPOSITIONAL = "снайперском луче",
 	)
 
 /obj/projectile/beam/podsniper/disabler
@@ -323,7 +323,7 @@
 		DATIVE = "лучу снайперского дизейблера",
 		ACCUSATIVE = "луч снайперского дизейблера",
 		INSTRUMENTAL = "лучом снайперского дизейблера",
-		PREPOSITIONAL = "луче снайперского дизейблера"
+		PREPOSITIONAL = "луче снайперского дизейблера",
 	)
 
 /obj/projectile/beam/podsniper/laser
@@ -339,7 +339,7 @@
 		DATIVE = "снайперскому лазеру",
 		ACCUSATIVE = "снайперский лазер",
 		INSTRUMENTAL = "снайперским лазером",
-		PREPOSITIONAL = "снайперском лазере"
+		PREPOSITIONAL = "снайперском лазере",
 	)
 
 /obj/projectile/beam/immolator
@@ -353,7 +353,7 @@
 		DATIVE = "импульсу иммолятора",
 		ACCUSATIVE = "импульс иммолятора",
 		INSTRUMENTAL = "импульсом иммолятора",
-		PREPOSITIONAL = "импульсе иммолятора"
+		PREPOSITIONAL = "импульсе иммолятора",
 	)
 
 /obj/projectile/beam/immolator/strong
@@ -368,7 +368,7 @@
 		DATIVE = "мощному импульсу иммолятора",
 		ACCUSATIVE = "мощный импульс иммолятора",
 		INSTRUMENTAL = "мощным импульсом иммолятора",
-		PREPOSITIONAL = "мощном импульсе иммолятора"
+		PREPOSITIONAL = "мощном импульсе иммолятора",
 	)
 
 /obj/projectile/beam/immolator/weak
@@ -383,7 +383,7 @@
 		DATIVE = "лёгкому импульсу иммолятора",
 		ACCUSATIVE = "лёгкий импульс иммолятора",
 		INSTRUMENTAL = "лёгким импульсом иммолятора",
-		PREPOSITIONAL = "лёгком импульсе иммолятора"
+		PREPOSITIONAL = "лёгком импульсе иммолятора",
 	)
 
 /obj/projectile/beam/immolator/mech
@@ -397,7 +397,7 @@
 		DATIVE = "импульсу иммолятора меха",
 		ACCUSATIVE = "импульс иммолятора меха",
 		INSTRUMENTAL = "импульсом иммолятора меха",
-		PREPOSITIONAL = "импульсе иммолятора меха"
+		PREPOSITIONAL = "импульсе иммолятора меха",
 	)
 
 /obj/projectile/beam/immolator/on_hit(atom/target, blocked = 0)
@@ -422,7 +422,7 @@
 		DATIVE = "инстагиб лазеру",
 		ACCUSATIVE = "инстагиб лазер",
 		INSTRUMENTAL = "инстагиб лазером",
-		PREPOSITIONAL = "инстагиб лазере"
+		PREPOSITIONAL = "инстагиб лазере",
 	)
 
 /obj/projectile/beam/instakill/blue
@@ -464,7 +464,7 @@
 		DATIVE = "лучу казни",
 		ACCUSATIVE = "луч казни",
 		INSTRUMENTAL = "лучом казни",
-		PREPOSITIONAL = "луче казни"
+		PREPOSITIONAL = "луче казни",
 	)
 
 /obj/projectile/beam/dominator/paralyzer
@@ -487,7 +487,7 @@
 		DATIVE = "дизейблеру",
 		ACCUSATIVE = "дизейблер",
 		INSTRUMENTAL = "дизейблером",
-		PREPOSITIONAL = "дизейблере"
+		PREPOSITIONAL = "дизейблере",
 	)
 
 /obj/projectile/beam/anomaly
@@ -517,7 +517,7 @@
 		DATIVE = "лучу стабилизатора аномалий",
 		ACCUSATIVE = "луч стабилизатора аномалий",
 		INSTRUMENTAL = "лучом стабилизатора аномалий",
-		PREPOSITIONAL = "луче стабилизатора аномалий"
+		PREPOSITIONAL = "луче стабилизатора аномалий",
 	)
 
 /obj/projectile/beam/anomaly/on_hit(atom/target, blocked, hit_zone)
@@ -551,7 +551,7 @@
 		DATIVE = "стабилизирующему лучу",
 		ACCUSATIVE = "стабилизирующий луч",
 		INSTRUMENTAL = "стабилизирующим лучом",
-		PREPOSITIONAL = "стабилизирующем луче"
+		PREPOSITIONAL = "стабилизирующем луче",
 	)
 
 /obj/projectile/beam/anomaly/destabilizer
@@ -567,7 +567,7 @@
 		DATIVE = "дестабилизирующему лучу",
 		ACCUSATIVE = "дестабилизирующий луч",
 		INSTRUMENTAL = "дестабилизирующим лучом",
-		PREPOSITIONAL = "дестабилизирующем луче"
+		PREPOSITIONAL = "дестабилизирующем луче",
 	)
 
 /obj/projectile/beam/laser/light/rat
@@ -582,7 +582,7 @@
 		DATIVE = "лазеру часовой энергии",
 		ACCUSATIVE = "лазер часовой энергии",
 		INSTRUMENTAL = "лазером часовой энергии",
-		PREPOSITIONAL = "лазере часовой энергии"
+		PREPOSITIONAL = "лазере часовой энергии",
 	)
 
 /obj/projectile/beam/laser/light/rat/prehit(atom/target)

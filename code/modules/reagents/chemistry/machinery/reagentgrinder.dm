@@ -102,7 +102,7 @@
 		DATIVE = "универсальному блендеру",
 		ACCUSATIVE = "универсальный блендер",
 		INSTRUMENTAL = "универсальным блендером",
-		PREPOSITIONAL = "универсальном блендере"
+		PREPOSITIONAL = "универсальном блендере",
 	)
 
 /obj/machinery/reagentgrinder/examine(mob/user)

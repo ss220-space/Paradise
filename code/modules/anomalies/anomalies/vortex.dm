@@ -133,7 +133,7 @@
 		DATIVE = "малой вихревой аномалии", \
 		ACCUSATIVE = "малую вихревую аномалию", \
 		INSTRUMENTAL = "малой вихревой аномалией", \
-		PREPOSITIONAL = "малой вихревой аномалии"
+		PREPOSITIONAL = "малой вихревой аномалии",
 	)
 
 /obj/effect/anomaly/vortex/tier2
@@ -159,7 +159,7 @@
 		DATIVE = "вихревой аномалии", \
 		ACCUSATIVE = "вихревую аномалию", \
 		INSTRUMENTAL = "вихревой аномалией", \
-		PREPOSITIONAL = "вихревой аномалии"
+		PREPOSITIONAL = "вихревой аномалии",
 	)
 
 
@@ -186,7 +186,7 @@
 		DATIVE = "большой вихревой аномалии", \
 		ACCUSATIVE = "большую вихревую аномалию", \
 		INSTRUMENTAL = "большой вихревой аномалией", \
-		PREPOSITIONAL = "большой вихревой аномалии"
+		PREPOSITIONAL = "большой вихревой аномалии",
 	)
 
 /obj/effect/anomaly/vortex/tier3/New()
@@ -227,7 +227,7 @@
 		DATIVE = "колоссальной вихревой аномалии", \
 		ACCUSATIVE = "колоссальную вихревую аномалию", \
 		INSTRUMENTAL = "колоссальной вихревой аномалией", \
-		PREPOSITIONAL = "колоссальной вихревой аномалии"
+		PREPOSITIONAL = "колоссальной вихревой аномалии",
 	)
 
 /obj/effect/anomaly/vortex/tier4/New()

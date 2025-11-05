@@ -30,7 +30,7 @@
 		DATIVE = "одержимой штуке",
 		ACCUSATIVE = "одержимую штуку",
 		INSTRUMENTAL = "одержимой штукой",
-		PREPOSITIONAL = "одержимой штуке"
+		PREPOSITIONAL = "одержимой штуке",
 	)
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)

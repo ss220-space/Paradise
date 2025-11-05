@@ -43,7 +43,7 @@
 		DATIVE = "Библии",
 		ACCUSATIVE = "Библию",
 		INSTRUMENTAL = "Библией",
-		PREPOSITIONAL = "Библии"
+		PREPOSITIONAL = "Библии",
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
@@ -72,7 +72,7 @@
 		DATIVE = "Библии",
 		ACCUSATIVE = "Библию",
 		INSTRUMENTAL = "Библией",
-		PREPOSITIONAL = "Библии"
+		PREPOSITIONAL = "Библии",
 	)
 
 /obj/item/storage/bible/booze/populate_contents()

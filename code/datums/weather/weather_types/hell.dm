@@ -199,7 +199,7 @@
 		DATIVE = "адскому разлому",
 		ACCUSATIVE = "адский разлом",
 		INSTRUMENTAL = "адским разломом",
-		PREPOSITIONAL = "адском разломе"
+		PREPOSITIONAL = "адском разломе",
 	)
 
 /obj/structure/hell_rift/ComponentInitialize()

@@ -46,21 +46,23 @@
 		DATIVE = "магнитному захвату",
 		ACCUSATIVE = "магнитный захват",
 		INSTRUMENTAL = "магнитным захватом",
-		PREPOSITIONAL = "магнитном захвате"
+		PREPOSITIONAL = "магнитном захвате",
 	)
 
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "Захватывающий инструмент, используемый для удержания органов и помощи пациентам после завершения операции."
-	can_hold = list(/obj/item/organ,
-					/obj/item/reagent_containers/iv_bag,
-					/obj/item/robot_parts/head,
-					/obj/item/robot_parts/l_arm,
-					/obj/item/robot_parts/r_arm,
-					/obj/item/robot_parts/l_leg,
-					/obj/item/robot_parts/r_leg,
-					/obj/item/robot_parts/chest,
-					/obj/item/stack/sheet/mineral/plasma) //for repair plasmamans
+	can_hold = list(
+		/obj/item/organ,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/robot_parts/head,
+		/obj/item/robot_parts/l_arm,
+		/obj/item/robot_parts/r_arm,
+		/obj/item/robot_parts/l_leg,
+		/obj/item/robot_parts/r_leg,
+		/obj/item/robot_parts/chest,
+		/obj/item/stack/sheet/mineral/plasma,
+	) //for repair plasmamans
 
 /obj/item/gripper/medical/get_ru_names()
 	return list(
@@ -69,7 +71,7 @@
 		DATIVE = "медицинскому захвату",
 		ACCUSATIVE = "медицинский захват",
 		INSTRUMENTAL = "медицинским захватом",
-		PREPOSITIONAL = "медицинском захвате"
+		PREPOSITIONAL = "медицинском захвате",
 	)
 
 /obj/item/gripper/medical/attack_self(mob/user)
@@ -100,14 +102,16 @@
 /obj/item/gripper/service
 	name = "Card gripper"
 	desc = "Захватывающий инструмент, используемый для изъятия ID-карт, для уплаты налогов, и пробуждения пьяных членов экипажа."
-	can_hold = list(/obj/item/card,
-					/obj/item/camera_film,
-					/obj/item/paper,
-					/obj/item/photo,
-					/obj/item/toy/plushie,
-					/obj/item/reagent_containers/food,
-					/obj/item/seeds,
-					/obj/item/disk/plantgene)
+	can_hold = list(
+		/obj/item/card,
+		/obj/item/camera_film,
+		/obj/item/paper,
+		/obj/item/photo,
+		/obj/item/toy/plushie,
+		/obj/item/reagent_containers/food,
+		/obj/item/seeds,
+		/obj/item/disk/plantgene,
+	)
 
 /obj/item/gripper/service/get_ru_names()
 	return list(
@@ -116,7 +120,7 @@
 		DATIVE = "карточному захвату",
 		ACCUSATIVE = "карточный захват",
 		INSTRUMENTAL = "карточным захватом",
-		PREPOSITIONAL = "карточном захвате"
+		PREPOSITIONAL = "карточном захвате",
 	)
 
 /obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, params)
@@ -135,7 +139,7 @@
 		DATIVE = "древнему захвату",
 		ACCUSATIVE = "древний захват",
 		INSTRUMENTAL = "древним захватом",
-		PREPOSITIONAL = "древнем захвате"
+		PREPOSITIONAL = "древнем захвате",
 	)
 
 /obj/item/gripper/cogscarab/New()
@@ -152,7 +156,8 @@
 	name = "Universal gripper"
 	desc = "Универсальный захватывающий инструмент, используемый для выполнения сверх секретных заданий клана паука."
 	icon_state = "diskgripper"
-	can_hold = list(/obj/item/firealarm_electronics,
+	can_hold = list(
+		/obj/item/firealarm_electronics,
 		/obj/item/airalarm_electronics,
 		/obj/item/airlock_electronics,
 		/obj/item/firelock_electronics,
@@ -194,7 +199,8 @@
 		/obj/item/toy/plushie,
 		/obj/item/reagent_containers/food,
 		/obj/item/seeds,
-		/obj/item/disk/plantgene)
+		/obj/item/disk/plantgene,
+	)
 
 /obj/item/gripper/universal/get_ru_names()
 	return list(
@@ -203,7 +209,7 @@
 		DATIVE = "универсальному захвату",
 		ACCUSATIVE = "универсальный захват",
 		INSTRUMENTAL = "универсальным захватом",
-		PREPOSITIONAL = "универсальном захвате"
+		PREPOSITIONAL = "универсальном захвате",
 	)
 
 /obj/item/gripper/nuclear
@@ -219,7 +225,7 @@
 		DATIVE = "ядерному захвату",
 		ACCUSATIVE = "ядерный захват",
 		INSTRUMENTAL = "ядерным захватом",
-		PREPOSITIONAL = "ядерном захвате"
+		PREPOSITIONAL = "ядерном захвате",
 	)
 
 /obj/item/gripper/New()
@@ -368,7 +374,7 @@
 		DATIVE = "декомпилятору материи",
 		ACCUSATIVE = "декомпилятор материи",
 		INSTRUMENTAL = "декомпилятором материи",
-		PREPOSITIONAL = "декомпиляторе материи"
+		PREPOSITIONAL = "декомпиляторе материи",
 	)
 
 /obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

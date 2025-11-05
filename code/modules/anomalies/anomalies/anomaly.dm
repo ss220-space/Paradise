@@ -51,7 +51,7 @@
 		DATIVE = "аномалии", \
 		ACCUSATIVE = "аномалию", \
 		INSTRUMENTAL = "аномалией", \
-		PREPOSITIONAL = "аномалии"
+		PREPOSITIONAL = "аномалии",
 	)
 
 /obj/effect/anomaly/proc/size_by_strength(cur_strength)
