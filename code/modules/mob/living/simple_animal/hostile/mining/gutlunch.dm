@@ -46,7 +46,7 @@
 		DATIVE = "кишкожору",
 		ACCUSATIVE = "кишкожора",
 		INSTRUMENTAL = "кишкожором",
-		PREPOSITIONAL = "кишкожоре"
+		PREPOSITIONAL = "кишкожоре",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
@@ -132,7 +132,7 @@
 		DATIVE = "питательному мешку",
 		ACCUSATIVE = "питательный мешок",
 		INSTRUMENTAL = "питательным мешком",
-		PREPOSITIONAL = "питательном мешке"
+		PREPOSITIONAL = "питательном мешке",
 	)
 
 /obj/item/udder/gutlunch/Initialize(mapload)
@@ -155,7 +155,7 @@
 		DATIVE = "жирохрюну",
 		ACCUSATIVE = "жирохрюна",
 		INSTRUMENTAL = "жирохрюном",
-		PREPOSITIONAL = "жирохрюне"
+		PREPOSITIONAL = "жирохрюне",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
@@ -175,7 +175,7 @@
 		DATIVE = "квохтуну",
 		ACCUSATIVE = "квохтуна",
 		INSTRUMENTAL = "квохтуном",
-		PREPOSITIONAL = "квохтуне"
+		PREPOSITIONAL = "квохтуне",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
@@ -202,7 +202,7 @@
 		DATIVE = "червожору",
 		ACCUSATIVE = "червожора",
 		INSTRUMENTAL = "червожором",
-		PREPOSITIONAL = "червожоре"
+		PREPOSITIONAL = "червожоре",
 	)
 
 //Baby gutlunch

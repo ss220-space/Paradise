@@ -33,7 +33,7 @@
 		DATIVE = "крабу",
 		ACCUSATIVE = "краба",
 		INSTRUMENTAL = "крабом",
-		PREPOSITIONAL = "крабе"
+		PREPOSITIONAL = "крабе",
 	)
 
 /mob/living/simple_animal/crab/royal
@@ -56,7 +56,7 @@
 		DATIVE = "королевскому крабу",
 		ACCUSATIVE = "королевского краба",
 		INSTRUMENTAL = "королевским крабом",
-		PREPOSITIONAL = "королевском крабе"
+		PREPOSITIONAL = "королевском крабе",
 	)
 
 //COFFEE! SQUEEEEEEEEE!
@@ -74,7 +74,7 @@
 		DATIVE = "Коффи",
 		ACCUSATIVE = "Коффи",
 		INSTRUMENTAL = "Коффи",
-		PREPOSITIONAL = "Коффи"
+		PREPOSITIONAL = "Коффи",
 	)
 
 // Billy Crabbington, MASTER OF THE GYM
@@ -98,7 +98,7 @@
 		DATIVE = "Билли Крабингтону",
 		ACCUSATIVE = "Билли Крабингтона",
 		INSTRUMENTAL = "Билли Крабингтоном",
-		PREPOSITIONAL = "Билли Крабингтоне"
+		PREPOSITIONAL = "Билли Крабингтоне",
 	)
 
 /mob/living/simple_animal/crab/evil
@@ -118,5 +118,5 @@
 		DATIVE = "злому крабу",
 		ACCUSATIVE = "злого краба",
 		INSTRUMENTAL = "злым крабом",
-		PREPOSITIONAL = "злом крабе"
+		PREPOSITIONAL = "злом крабе",
 	)

@@ -13,7 +13,7 @@
 		DATIVE = "могиле с катаной",
 		ACCUSATIVE = "могилу с катаной",
 		INSTRUMENTAL = "могилой с катаной",
-		PREPOSITIONAL = "могиле с катаной"
+		PREPOSITIONAL = "могиле с катаной",
 	)
 
 /obj/structure/katana_grave/attack_hand(mob/user)

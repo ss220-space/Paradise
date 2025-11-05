@@ -58,7 +58,7 @@
 		DATIVE = "холодильнику SmartFridge",
 		ACCUSATIVE = "холодильник SmartFridge",
 		INSTRUMENTAL = "холодильником SmartFridge",
-		PREPOSITIONAL = "холодильнике SmartFridge"
+		PREPOSITIONAL = "холодильнике SmartFridge",
 	)
 
 /obj/machinery/smartfridge/Initialize(mapload)
@@ -465,7 +465,7 @@
 		DATIVE = "подозрительному холодильнику SmartFridge",
 		ACCUSATIVE = "подозрительный холодильник SmartFridge",
 		INSTRUMENTAL = "подозрительным холодильником SmartFridge",
-		PREPOSITIONAL = "подозрительном холодильнике SmartFridge"
+		PREPOSITIONAL = "подозрительном холодильнике SmartFridge",
 	)
 
 /**
@@ -506,7 +506,7 @@
 		DATIVE = "ботаническому холодильнику",
 		ACCUSATIVE = "ботанический холодильник",
 		INSTRUMENTAL = "ботаническим холодильником",
-		PREPOSITIONAL = "ботаническом холодильнике"
+		PREPOSITIONAL = "ботаническом холодильнике",
 	)
 
 
@@ -554,7 +554,7 @@
 		DATIVE = "медицинскому холодильнику",
 		ACCUSATIVE = "медицинский холодильник",
 		INSTRUMENTAL = "медицинским холодильником",
-		PREPOSITIONAL = "медицинском холодильнике"
+		PREPOSITIONAL = "медицинском холодильнике",
 	)
 
 /obj/machinery/smartfridge/medbay/Initialize(mapload)
@@ -589,7 +589,7 @@
 		DATIVE = "холодильнику для слаймовых экстрактов",
 		ACCUSATIVE = "холодильник для слаймовых экстрактов",
 		INSTRUMENTAL = "холодильником для слаймовых экстрактов",
-		PREPOSITIONAL = "холодильнике для слаймовых экстрактов"
+		PREPOSITIONAL = "холодильнике для слаймовых экстрактов",
 	)
 
 /obj/machinery/smartfridge/secure/extract/syndie
@@ -644,7 +644,7 @@
 		DATIVE = "химическому холодильнику",
 		ACCUSATIVE = "химический холодильник",
 		INSTRUMENTAL = "химическим холодильником",
-		PREPOSITIONAL = "химическом холодильнике"
+		PREPOSITIONAL = "химическом холодильнике",
 	)
 
 /obj/machinery/smartfridge/secure/chemistry/Initialize(mapload)
@@ -698,7 +698,7 @@
 		DATIVE = "холодильнику для органов",
 		ACCUSATIVE = "холодильник для органов",
 		INSTRUMENTAL = "холодильником для органов",
-		PREPOSITIONAL = "холодильнике для органов"
+		PREPOSITIONAL = "холодильнике для органов",
 	)
 
 /obj/machinery/smartfridge/secure/medbay/organ/Initialize(mapload)
@@ -734,7 +734,7 @@
 		DATIVE = "хранилищу для дискет",
 		ACCUSATIVE = "хранилище для дискет",
 		INSTRUMENTAL = "хранилищем для дискет",
-		PREPOSITIONAL = "хранилище для дискет"
+		PREPOSITIONAL = "хранилище для дискет",
 	)
 
 /obj/machinery/smartfridge/disks/Initialize(mapload)
@@ -777,7 +777,7 @@
 		DATIVE = "холодильнику для вирусных образцов",
 		ACCUSATIVE = "холодильник для вирусных образцов",
 		INSTRUMENTAL = "холодильником для вирусных образцов",
-		PREPOSITIONAL = "холодильнике для вирусных образцов"
+		PREPOSITIONAL = "холодильнике для вирусных образцов",
 	)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
@@ -806,7 +806,7 @@
 		/obj/item/reagent_containers/glass/bottle/cough = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
-		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
+		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1,
 	)
 	. = ..()
 
@@ -837,7 +837,7 @@
 		DATIVE = "холодильнику для напитков",
 		ACCUSATIVE = "холодильник для напитков",
 		INSTRUMENTAL = "холодильником для напитков",
-		PREPOSITIONAL = "холодильнике для напитков"
+		PREPOSITIONAL = "холодильнике для напитков",
 	)
 
 /obj/machinery/smartfridge/drinks/Initialize(mapload)
@@ -864,7 +864,7 @@
 		DATIVE = "холодильнику для еды",
 		ACCUSATIVE = "холодильник для еды",
 		INSTRUMENTAL = "холодильником для еды",
-		PREPOSITIONAL = "холодильнике для еды"
+		PREPOSITIONAL = "холодильнике для еды",
 	)
 
 /obj/machinery/smartfridge/dish/Initialize(mapload)
@@ -902,7 +902,7 @@
 		DATIVE = "сушильной стойке",
 		ACCUSATIVE = "сушильную стойку",
 		INSTRUMENTAL = "сушильной стойкой",
-		PREPOSITIONAL = "сушильной стойке"
+		PREPOSITIONAL = "сушильной стойке",
 	)
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)

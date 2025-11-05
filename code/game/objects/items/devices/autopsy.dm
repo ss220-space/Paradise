@@ -24,7 +24,7 @@
 		DATIVE = "сканеру аутопсии",
 		ACCUSATIVE = "сканер аутопсии",
 		INSTRUMENTAL = "сканером аутопсии",
-		PREPOSITIONAL = "сканере аутопсии"
+		PREPOSITIONAL = "сканере аутопсии",
 	)
 
 /obj/item/autopsy_scanner/Destroy()

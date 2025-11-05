@@ -26,7 +26,7 @@
 		DATIVE = "точильному камню",
 		ACCUSATIVE = "точильный камень",
 		INSTRUMENTAL = "точильным камнем",
-		PREPOSITIONAL = "точильном камне"
+		PREPOSITIONAL = "точильном камне",
 	)
 
 
@@ -117,7 +117,7 @@
 		DATIVE = "суперточильному блоку",
 		ACCUSATIVE = "суперточильный блок",
 		INSTRUMENTAL = "суперточильным блоком",
-		PREPOSITIONAL = "суперточильном блоке"
+		PREPOSITIONAL = "суперточильном блоке",
 	)
 
 /obj/item/whetstone/crab_shell
@@ -139,7 +139,7 @@
 		DATIVE = "панцирю пепельного рака",
 		ACCUSATIVE = "панцирь пепельного рака",
 		INSTRUMENTAL = "панцирем пепельного рака",
-		PREPOSITIONAL = "панцире пепельного рака"
+		PREPOSITIONAL = "панцире пепельного рака",
 	)
 
 

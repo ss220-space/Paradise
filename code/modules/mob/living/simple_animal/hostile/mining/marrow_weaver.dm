@@ -42,7 +42,7 @@
 		DATIVE = "костномозговому ткачу",
 		ACCUSATIVE = "костномозгового ткача",
 		INSTRUMENTAL = "костномозговым ткачом",
-		PREPOSITIONAL = "костномозговом ткаче"
+		PREPOSITIONAL = "костномозговом ткаче",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(
@@ -130,7 +130,7 @@
 		DATIVE = "хитину ткача",
 		ACCUSATIVE = "хитин ткача",
 		INSTRUMENTAL = "хитином ткача",
-		PREPOSITIONAL = "хитине ткача"
+		PREPOSITIONAL = "хитине ткача",
 	)
 
 /obj/item/stack/sheet/animalhide/weaver_chitin/five
@@ -176,7 +176,7 @@
 		DATIVE = "морозному костномозговому ткачу",
 		ACCUSATIVE = "морозного костномозгового ткача",
 		INSTRUMENTAL = "морозным костномозговым ткачом",
-		PREPOSITIONAL = "морозном костномозговом ткаче"
+		PREPOSITIONAL = "морозном костномозговом ткаче",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril

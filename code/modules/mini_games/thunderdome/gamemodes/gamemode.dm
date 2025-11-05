@@ -60,7 +60,7 @@
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		/obj/item/his_grace/no_sound = 1,
-		)
+	)
 
 
 /datum/thunderdome_gamemode/ranged
@@ -126,7 +126,7 @@
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		/obj/item/spellbook/oneuse/forcewall = 1,
-		)
+	)
 
 /datum/thunderdome_gamemode/mixed
 	name = "Thunderdome Mixed Challenge"
@@ -230,4 +230,4 @@
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		/obj/item/spellbook/oneuse/forcewall = 1,
 		/obj/item/his_grace/no_sound = 1,
-		)
+	)

@@ -38,7 +38,7 @@
 		DATIVE = "златожору",
 		ACCUSATIVE = "златожора",
 		INSTRUMENTAL = "златожором",
-		PREPOSITIONAL = "златожоре"
+		PREPOSITIONAL = "златожоре",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)

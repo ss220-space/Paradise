@@ -496,7 +496,7 @@
 		DATIVE = "стандартному каркасу экзоскелета",
 		ACCUSATIVE = "стандартный каркас экзоскелета",
 		INSTRUMENTAL = "стандартным каркасом экзоскелета",
-		PREPOSITIONAL = "стандартном каркасе экзоскелета"
+		PREPOSITIONAL = "стандартном каркасе экзоскелета",
 	)
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/insert(mob/living/carbon/human/target)
@@ -552,10 +552,10 @@
 	if(crit_fail && owner)
 		to_chat(owner, span_notice("Приводы вашего экзоскелета вновь активны."))
 	crit_fail = FALSE
-	
+
 	if(!ishuman(owner))
 		return
-		
+
 	var/mob/living/carbon/human/human = owner
 	human.add_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
 	human.maxHealth += given_health
@@ -581,7 +581,7 @@
 			DATIVE = "укрепленному каркасу экзоскелета",
 			ACCUSATIVE = "укрепленный каркас экзоскелета",
 			INSTRUMENTAL = "укрепленным каркасом экзоскелета",
-			PREPOSITIONAL = "укрепленном каркасе экзоскелета"
+			PREPOSITIONAL = "укрепленном каркасе экзоскелета",
 		)
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/industrial
@@ -603,7 +603,7 @@
 		DATIVE = "промышленному каркасу экзоскелета",
 		ACCUSATIVE = "промышленный каркас экзоскелета",
 		INSTRUMENTAL = "промышленным каркасом экзоскелета",
-		PREPOSITIONAL = "промышленном каркасе экзоскелета"
+		PREPOSITIONAL = "промышленном каркасе экзоскелета",
 	)
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat
@@ -628,7 +628,7 @@
 		DATIVE = "боевому каркасу экзоскелета",
 		ACCUSATIVE = "боевой каркас экзоскелета",
 		INSTRUMENTAL = "боевым каркасом экзоскелета",
-		PREPOSITIONAL = "боевом каркасе экзоскелета"
+		PREPOSITIONAL = "боевом каркасе экзоскелета",
 	)
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/remove(mob/living/carbon/human/target)
@@ -645,7 +645,7 @@
 	if(crit_fail)
 		owner.balloon_alert(owner, "каркас не отвечает!")
 		return
-	
+
 	if(active)
 		to_chat(owner, span_notice("Ваши движения замедляются!"))
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/increaserun)

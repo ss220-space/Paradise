@@ -57,7 +57,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		DATIVE = "капсуле клонирования",
 		ACCUSATIVE = "капсулу клонирования",
 		INSTRUMENTAL = "капсулой клонирования",
-		PREPOSITIONAL = "капсуле клонирования"
+		PREPOSITIONAL = "капсуле клонирования",
 	)
 
 
@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		DATIVE = "ДНК-дискете",
 		ACCUSATIVE = "ДНК-дискету",
 		INSTRUMENTAL = "ДНК-дискетой",
-		PREPOSITIONAL = "ДНК-дискете"
+		PREPOSITIONAL = "ДНК-дискете",
 	)
 
 /obj/item/disk/data/proc/initialize()
@@ -716,7 +716,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		DATIVE = "коробке с дискетами",
 		ACCUSATIVE = "коробку с дискетами",
 		INSTRUMENTAL = "коробкой с дискетами",
-		PREPOSITIONAL = "коробке с дискетами"
+		PREPOSITIONAL = "коробке с дискетами",
 	)
 
 /obj/item/storage/box/disks/populate_contents()

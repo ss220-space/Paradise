@@ -173,7 +173,7 @@
 		/datum/robot_skin/noble_h/std,
 		/datum/robot_skin/mech/std,
 		/datum/robot_skin/heavy/std,
-		/datum/robot_skin/android
+		/datum/robot_skin/android,
 	)
 	has_transform_animation = TRUE
 
@@ -249,7 +249,7 @@
 		/datum/robot_skin/surgeon,
 		/datum/robot_skin/chiefbot,
 		/datum/robot_skin/droid_medical,
-		/datum/robot_skin/basic/needles
+		/datum/robot_skin/basic/needles,
 	)
 	has_transform_animation = TRUE
 
@@ -358,7 +358,7 @@
 		/datum/robot_skin/handy_eng,
 		/datum/robot_skin/basic/antique,
 		/datum/robot_skin/landmate,
-		/datum/robot_skin/chiefmate
+		/datum/robot_skin/chiefmate,
 	)
 	has_transform_animation = TRUE
 
@@ -441,7 +441,7 @@
 		/datum/robot_skin/securitron,
 		/datum/robot_skin/redknight,
 		/datum/robot_skin/blackknight,
-		/datum/robot_skin/bloodhound
+		/datum/robot_skin/bloodhound,
 	)
 	has_transform_animation = TRUE
 
@@ -509,7 +509,7 @@
 		/datum/robot_skin/mech/jan,
 		/datum/robot_skin/heavy/jan,
 		/datum/robot_skin/basic/mopbot,
-		/datum/robot_skin/mopgearrex
+		/datum/robot_skin/mopgearrex,
 	)
 	has_transform_animation = TRUE
 
@@ -534,7 +534,7 @@
 	name = "Service"
 	module_type = "Service"
 	module_actions = list(
-		/datum/action/innate/robot_sight_hydro
+		/datum/action/innate/robot_sight_hydro,
 	)
 	channels = list(SRV_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/default
@@ -562,7 +562,7 @@
 		/datum/robot_skin/basic/waitress,
 		/datum/robot_skin/basic/bro,
 		/datum/robot_skin/toiletbot,
-		/datum/robot_skin/maximillion
+		/datum/robot_skin/maximillion,
 	)
 	has_transform_animation = TRUE
 
@@ -690,7 +690,7 @@
 		/datum/robot_skin/walle,
 		/datum/robot_skin/droid_miner,
 		/datum/robot_skin/treadhead,
-		/datum/robot_skin/lavaland
+		/datum/robot_skin/lavaland,
 	)
 	has_transform_animation = TRUE
 
@@ -960,23 +960,22 @@
 
 	fix_modules()
 
-
 /obj/item/robot_module/combat
 	name = "Combat"
 	module_type = "Malf"
 	module_actions = list()
 	default_skin = /datum/robot_skin/ertgamma
 	borg_skins = list(
-			/datum/robot_skin/ertgamma,
-			/datum/robot_skin/protectron/combat,
-			/datum/robot_skin/coffin/combat,
-			/datum/robot_skin/burger/combat,
-			/datum/robot_skin/raptor/combat,
-			/datum/robot_skin/buddy/combat,
-			/datum/robot_skin/seek/mnr,
-			/datum/robot_skin/mech/mnr,
-			/datum/robot_skin/mrgutsy,
-		)
+		/datum/robot_skin/ertgamma,
+		/datum/robot_skin/protectron/combat,
+		/datum/robot_skin/coffin/combat,
+		/datum/robot_skin/burger/combat,
+		/datum/robot_skin/raptor/combat,
+		/datum/robot_skin/buddy/combat,
+		/datum/robot_skin/seek/mnr,
+		/datum/robot_skin/mech/mnr,
+		/datum/robot_skin/mrgutsy,
+	)
 	has_transform_animation = TRUE
 
 /obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)
@@ -1193,7 +1192,7 @@
 		/datum/robot_skin/spider/ninja,
 		/datum/robot_skin/ninja_sec,
 		/datum/robot_skin/ninja_engi,
-		/datum/robot_skin/ninja_medical
+		/datum/robot_skin/ninja_medical,
 	)
 
 /obj/item/robot_module/ninja/on_apply(mob/living/silicon/robot/robot)

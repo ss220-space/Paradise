@@ -88,7 +88,7 @@
 
 	contraband = list(
 		/obj/item/reagent_containers/food/drinks/tea = 10,
-		/obj/item/reagent_containers/food/drinks/bottle/fernet = 5
+		/obj/item/reagent_containers/food/drinks/bottle/fernet = 5,
 	)
 
 /obj/machinery/vending/boozeomat/get_ru_names()
@@ -98,7 +98,7 @@
 		DATIVE = "торговому автомату Booze-O-Mat",
 		ACCUSATIVE = "торговый автомат Booze-O-Mat",
 		INSTRUMENTAL = "торговым автоматом Booze-O-Mat",
-		PREPOSITIONAL = "торговом автомате Booze-O-Mat"
+		PREPOSITIONAL = "торговом автомате Booze-O-Mat",
 	)
 
 /obj/machinery/vending/boozeomat/syndicate_access

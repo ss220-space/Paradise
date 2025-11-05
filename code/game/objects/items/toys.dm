@@ -1581,7 +1581,7 @@
 		DATIVE = "мокрой сове",
 		ACCUSATIVE = "мокрую сову",
 		INSTRUMENTAL = "мокрой совой",
-		PREPOSITIONAL = "мокрой сове"
+		PREPOSITIONAL = "мокрой сове",
 	)
 
 /obj/item/toy/plushie/wet_owl/water_act(volume, temperature, source, method)
@@ -2050,7 +2050,7 @@
 		DATIVE = "револьверу .357 калибра",
 		ACCUSATIVE = "револьвер .357 калибра",
 		INSTRUMENTAL = "револьвером .357 калибра",
-		PREPOSITIONAL = "револьвере .357 калибра"
+		PREPOSITIONAL = "револьвере .357 калибра",
 	)
 
 /obj/item/toy/russian_revolver/trick_revolver/New()

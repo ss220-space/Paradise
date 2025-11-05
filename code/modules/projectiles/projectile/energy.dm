@@ -14,7 +14,7 @@
 		DATIVE = "энергии",
 		ACCUSATIVE = "энергию",
 		INSTRUMENTAL = "энергией",
-		PREPOSITIONAL = "энергии"
+		PREPOSITIONAL = "энергии",
 	)
 
 /obj/projectile/energy/electrode
@@ -38,7 +38,7 @@
 		DATIVE = "электроду",
 		ACCUSATIVE = "электрод",
 		INSTRUMENTAL = "электродом",
-		PREPOSITIONAL = "электроде"
+		PREPOSITIONAL = "электроде",
 	)
 
 /obj/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
@@ -98,7 +98,7 @@
 		DATIVE = "деклонеру",
 		ACCUSATIVE = "деклонер",
 		INSTRUMENTAL = "деклонером",
-		PREPOSITIONAL = "деклонере"
+		PREPOSITIONAL = "деклонере",
 	)
 
 /obj/projectile/energy/dart
@@ -118,7 +118,7 @@
 		DATIVE = "дротику",
 		ACCUSATIVE = "дротик",
 		INSTRUMENTAL = "дротиком",
-		PREPOSITIONAL = "дротике"
+		PREPOSITIONAL = "дротике",
 	)
 
 /obj/projectile/energy/bolt
@@ -139,7 +139,7 @@
 		DATIVE = "болту",
 		ACCUSATIVE = "болт",
 		INSTRUMENTAL = "болтом",
-		PREPOSITIONAL = "болте"
+		PREPOSITIONAL = "болте",
 	)
 
 /obj/projectile/energy/bolt/on_hit(atom/target)
@@ -170,7 +170,7 @@
 		DATIVE = "игрушечному болту",
 		ACCUSATIVE = "игрушечный болт",
 		INSTRUMENTAL = "игрушечным болтом",
-		PREPOSITIONAL = "игрушечном болте"
+		PREPOSITIONAL = "игрушечном болте",
 	)
 
 /obj/projectile/energy/shock_revolver
@@ -189,7 +189,7 @@
 		DATIVE = "шоковому заряду",
 		ACCUSATIVE = "шоковый заряд",
 		INSTRUMENTAL = "шоковым зарядом",
-		PREPOSITIONAL = "шоковом заряде"
+		PREPOSITIONAL = "шоковом заряде",
 	)
 
 /obj/item/ammo_casing/energy/shock_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
@@ -222,7 +222,7 @@
 		DATIVE = "токсичному заряду",
 		ACCUSATIVE = "токсичный заряд",
 		INSTRUMENTAL = "токсичным зарядом",
-		PREPOSITIONAL = "токсичном заряде"
+		PREPOSITIONAL = "токсичном заряде",
 	)
 
 /obj/projectile/energy/weak_plasma
@@ -237,7 +237,7 @@
 		DATIVE = "плазменному импульсу",
 		ACCUSATIVE = "плазменный импульс",
 		INSTRUMENTAL = "плазменным импульсом",
-		PREPOSITIONAL = "плазменном импульсе"
+		PREPOSITIONAL = "плазменном импульсе",
 	)
 
 /obj/projectile/energy/charged_plasma
@@ -255,7 +255,7 @@
 		DATIVE = "заряженному плазменному импульсу",
 		ACCUSATIVE = "заряженный плазменный импульс",
 		INSTRUMENTAL = "заряженным плазменным импульсом",
-		PREPOSITIONAL = "заряженном плазменном импульсе"
+		PREPOSITIONAL = "заряженном плазменном импульсе",
 	)
 
 /obj/projectile/energy/rat

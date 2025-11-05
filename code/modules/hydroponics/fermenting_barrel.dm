@@ -17,7 +17,7 @@
 		DATIVE = "деревянной бочке",
 		ACCUSATIVE = "деревянную бочку",
 		INSTRUMENTAL = "деревянной бочкой",
-		PREPOSITIONAL = "деревянной бочке"
+		PREPOSITIONAL = "деревянной бочке",
 	)
 
 /obj/structure/fermenting_barrel/Initialize(mapload)

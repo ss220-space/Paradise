@@ -29,7 +29,7 @@
 		DATIVE = "гравитационным ботинкам", \
 		ACCUSATIVE = "гравитационные ботинки", \
 		INSTRUMENTAL = "гравитационными ботинками", \
-		PREPOSITIONAL = "гравитационных ботинках"
+		PREPOSITIONAL = "гравитационных ботинках",
 	)
 
 /obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)

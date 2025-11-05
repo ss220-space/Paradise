@@ -147,7 +147,7 @@
 		DATIVE = "мозговому червю",
 		ACCUSATIVE = "мозгового червя",
 		INSTRUMENTAL = "мозговым червём",
-		PREPOSITIONAL = "мозговом черве"
+		PREPOSITIONAL = "мозговом черве",
 	)
 
 

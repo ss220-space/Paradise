@@ -187,7 +187,7 @@
 		DATIVE = "ящику с траурной одеждой",
 		ACCUSATIVE = "ящик с траурной одеждой",
 		INSTRUMENTAL = "ящиком с траурной одеждой",
-		PREPOSITIONAL = "ящике с траурной одеждой"
+		PREPOSITIONAL = "ящике с траурной одеждой",
 	)
 
 /obj/structure/closet/burial/populate_contents()

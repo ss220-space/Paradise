@@ -485,7 +485,7 @@
 		DATIVE = "старому руководству",
 		ACCUSATIVE = "старое руководство",
 		INSTRUMENTAL = "старым руководством",
-		PREPOSITIONAL = "старом руководстве"
+		PREPOSITIONAL = "старом руководстве",
 	)
 
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
@@ -527,7 +527,7 @@
 		DATIVE = "импланту улучшения CQC",
 		ACCUSATIVE = "имплант улучшения CQC",
 		INSTRUMENTAL = "имплантом улучшения CQC",
-		PREPOSITIONAL = "импланте улучшения CQC"
+		PREPOSITIONAL = "импланте улучшения CQC",
 	)
 
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
@@ -584,7 +584,7 @@
 		DATIVE = "журналу \"Техника Агрессивного Маркетинга\"",
 		ACCUSATIVE = "журнал \"Техника Агрессивного Маркетинга\"",
 		INSTRUMENTAL = "журналом \"Техника Агрессивного Маркетинга\"",
-		PREPOSITIONAL = "журнале \"Техника Агрессивного Маркетинга\""
+		PREPOSITIONAL = "журнале \"Техника Агрессивного Маркетинга\"",
 	)
 
 /obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
@@ -614,7 +614,7 @@
 		DATIVE = "мануалу \"Курс Техники метания ножей молодого Десантника\"",
 		ACCUSATIVE = "мануал \"Курс Техники метания ножей молодого Десантника\"",
 		INSTRUMENTAL = "Мануалом \"Курс Техники метания ножей молодого Десантника\"",
-		PREPOSITIONAL = "Мануале \"Курс Техники метания ножей молодого Десантника\""
+		PREPOSITIONAL = "Мануале \"Курс Техники метания ножей молодого Десантника\"",
 	)
 
 /obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
