@@ -647,7 +647,7 @@
 		return
 	var/choice = choices[1]
 	if(length(choices) > 1)
-		choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
+		choice = show_radial_menu(user, src, choices, require_near = TRUE)
 	if(!choice)
 		return FALSE
 	for(var/slot in attachments_by_slot)
