@@ -45,7 +45,7 @@
 		DATIVE = "холодильнику для трупов",
 		ACCUSATIVE = "холодильник для трупов",
 		INSTRUMENTAL = "холодильником для трупов",
-		PREPOSITIONAL = "холодильнике для трупов"
+		PREPOSITIONAL = "холодильнике для трупов",
 	)
 
 
@@ -280,7 +280,7 @@
 		DATIVE = "поддону холодильника для трупов",
 		ACCUSATIVE = "поддон холодильника для трупов",
 		INSTRUMENTAL = "поддоном холодильника для трупов",
-		PREPOSITIONAL = "поддоне холодильника для трупов"
+		PREPOSITIONAL = "поддоне холодильника для трупов",
 	)
 
 
@@ -391,7 +391,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		DATIVE = "крематорию",
 		ACCUSATIVE = "крематорий",
 		INSTRUMENTAL = "крематорием",
-		PREPOSITIONAL = "крематории"
+		PREPOSITIONAL = "крематории",
 	)
 
 /obj/machinery/crematorium/Initialize(mapload)
@@ -726,7 +726,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		DATIVE = "поддону крематория",
 		ACCUSATIVE = "поддон крематория",
 		INSTRUMENTAL = "поддоном крематория",
-		PREPOSITIONAL = "поддоне крематория"
+		PREPOSITIONAL = "поддоне крематория",
 	)
 
 
@@ -809,7 +809,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		DATIVE = "активатору крематория",
 		ACCUSATIVE = "активатор крематория",
 		INSTRUMENTAL = "активатором крематория",
-		PREPOSITIONAL = "активаторе крематория"
+		PREPOSITIONAL = "активаторе крематория",
 	)
 
 

@@ -50,7 +50,7 @@
 		DATIVE = "Духу-Хранителю",
 		ACCUSATIVE = "Духа-Хранителя",
 		INSTRUMENTAL = "Духом-Хранителем",
-		PREPOSITIONAL = "Духе-Хранителе"
+		PREPOSITIONAL = "Духе-Хранителе",
 	)
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
@@ -285,7 +285,7 @@
 		DATIVE = "колоде карт Таро",
 		ACCUSATIVE = "колоду карт Таро",
 		INSTRUMENTAL = "колодой карт Таро",
-		PREPOSITIONAL = "колоде карт Таро"
+		PREPOSITIONAL = "колоде карт Таро",
 	)
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
@@ -425,7 +425,7 @@
 		DATIVE = "инъектору голопаразитов",
 		ACCUSATIVE = "инъектор голопаразитов",
 		INSTRUMENTAL = "инъектором голопаразитов",
-		PREPOSITIONAL = "инъекторе голопаразитов"
+		PREPOSITIONAL = "инъекторе голопаразитов",
 	)
 
 /obj/item/guardiancreator/tech/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
@@ -473,7 +473,7 @@
 		DATIVE = "скоплению яиц скарабеев",
 		ACCUSATIVE = "скопление яиц скарабеев",
 		INSTRUMENTAL = "скоплением яиц скарабеев",
-		PREPOSITIONAL = "скоплении яиц скарабеев"
+		PREPOSITIONAL = "скоплении яиц скарабеев",
 	)
 
 /obj/item/guardiancreator/biological/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)

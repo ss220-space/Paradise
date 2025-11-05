@@ -34,7 +34,7 @@
 		DATIVE = "неверующему",
 		ACCUSATIVE = "неверующего",
 		INSTRUMENTAL = "неверующим",
-		PREPOSITIONAL = "неверующем"
+		PREPOSITIONAL = "неверующем",
 	)
 
 /mob/living/simple_animal/hostile/faithless/ComponentInitialize()

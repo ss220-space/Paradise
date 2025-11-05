@@ -36,7 +36,7 @@
 		DATIVE = "базилиску",
 		ACCUSATIVE = "базилиска",
 		INSTRUMENTAL = "базилиском",
-		PREPOSITIONAL = "базилиске"
+		PREPOSITIONAL = "базилиске",
 	)
 
 /obj/projectile/temp/basilisk
@@ -86,7 +86,7 @@
 		DATIVE = "наблюдателю",
 		ACCUSATIVE = "наблюдателя",
 		INSTRUMENTAL = "наблюдателем",
-		PREPOSITIONAL = "наблюдателе"
+		PREPOSITIONAL = "наблюдателе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/Initialize(mapload)
@@ -118,7 +118,7 @@
 		DATIVE = "магмовому наблюдателю",
 		ACCUSATIVE = "магмового наблюдателя",
 		INSTRUMENTAL = "магмовым наблюдателем",
-		PREPOSITIONAL = "магмовом наблюдателе"
+		PREPOSITIONAL = "магмовом наблюдателе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
@@ -143,7 +143,7 @@
 		DATIVE = "ледяному наблюдателю",
 		ACCUSATIVE = "ледяного наблюдателя",
 		INSTRUMENTAL = "ледяным наблюдателем",
-		PREPOSITIONAL = "ледяном наблюдателе"
+		PREPOSITIONAL = "ледяном наблюдателе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
@@ -177,7 +177,7 @@
 		DATIVE = "оглушающему выбросу",
 		ACCUSATIVE = "оглушающий выброс",
 		INSTRUMENTAL = "оглушающим выбросом",
-		PREPOSITIONAL = "оглушающем выбросе"
+		PREPOSITIONAL = "оглушающем выбросе",
 	)
 
 /obj/projectile/watcher/on_hit(atom/target, blocked = FALSE)
@@ -205,7 +205,7 @@
 		DATIVE = "опаляющему выбросу",
 		ACCUSATIVE = "опаляющий выброс",
 		INSTRUMENTAL = "опаляющим выбросом",
-		PREPOSITIONAL = "опаляющем выбросе"
+		PREPOSITIONAL = "опаляющем выбросе",
 	)
 
 /obj/projectile/temp/basilisk/magmawing/on_hit(atom/target, blocked = FALSE)

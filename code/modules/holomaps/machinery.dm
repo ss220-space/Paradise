@@ -38,7 +38,7 @@
 		DATIVE = "голокарте станции",
 		ACCUSATIVE = "голокарту станции",
 		INSTRUMENTAL = "голокартой станции",
-		PREPOSITIONAL = "голокарте станции"
+		PREPOSITIONAL = "голокарте станции",
 	)
 
 /obj/machinery/station_map/Initialize(mapload)

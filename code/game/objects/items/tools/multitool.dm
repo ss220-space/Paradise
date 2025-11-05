@@ -39,7 +39,7 @@
 		DATIVE = "мультиметру",
 		ACCUSATIVE = "мультиметр",
 		INSTRUMENTAL = "мультиметром",
-		PREPOSITIONAL = "мультиметре"
+		PREPOSITIONAL = "мультиметре",
 	)
 
 /obj/item/multitool/Initialize(mapload)
@@ -100,7 +100,7 @@
 		DATIVE = "сломанному мультиметру",
 		ACCUSATIVE = "сломанный мультиметр",
 		INSTRUMENTAL = "сломанным мультиметром",
-		PREPOSITIONAL = "сломанном мультиметре"
+		PREPOSITIONAL = "сломанном мультиметре",
 	)
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
@@ -232,7 +232,7 @@
 		DATIVE = "старому мультиметру",
 		ACCUSATIVE = "старый мультиметр",
 		INSTRUMENTAL = "старым мультиметром",
-		PREPOSITIONAL = "старом мультиметре"
+		PREPOSITIONAL = "старом мультиметре",
 	)
 
 #undef PROXIMITY_NONE

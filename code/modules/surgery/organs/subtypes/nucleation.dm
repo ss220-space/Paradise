@@ -17,7 +17,7 @@
 		DATIVE = "резонантному кристаллу",
 		ACCUSATIVE = "резонантный кристалл",
 		INSTRUMENTAL = "резонантным кристаллом",
-		PREPOSITIONAL = "резонантном кристалле"
+		PREPOSITIONAL = "резонантном кристалле",
 	)
 
 /obj/item/organ/internal/nucleation/strange_crystal
@@ -33,7 +33,7 @@
 		DATIVE = "странному кристаллу",
 		ACCUSATIVE = "странный кристалл",
 		INSTRUMENTAL = "странным кристаллом",
-		PREPOSITIONAL = "странном кристалле"
+		PREPOSITIONAL = "странном кристалле",
 	)
 
 /obj/item/organ/internal/eyes/luminescent_crystal
@@ -51,7 +51,7 @@
 		DATIVE = "люминесцентным глазам",
 		ACCUSATIVE = "люминесцентные глаза",
 		INSTRUMENTAL = "люминесцентными глазами",
-		PREPOSITIONAL = "люминесцентных глазах"
+		PREPOSITIONAL = "люминесцентных глазах",
 	)
 
 /obj/item/organ/internal/brain/crystal
@@ -67,7 +67,7 @@
 		DATIVE = "кристаллизированному мозгу",
 		ACCUSATIVE = "кристаллизированный мозг",
 		INSTRUMENTAL = "кристаллизированным мозгом",
-		PREPOSITIONAL = "кристаллизированном мозге"
+		PREPOSITIONAL = "кристаллизированном мозге",
 	)
 
 /obj/item/organ/internal/brain/crystal/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)

@@ -8,7 +8,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 4)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 4),
 	)
 	can_air_shoot = TRUE
 	/// If TRUE will show empty casing on examine
@@ -645,7 +645,6 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "Прошу прощения, но зачем вы распилили свою трость?"
 	attack_verb = list("огрел", "проучил")
-	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....
 	accuracy = GUN_ACCURACY_SHOTGUN
@@ -658,7 +657,7 @@
 		DATIVE = "трости",
 		ACCUSATIVE = "трость",
 		INSTRUMENTAL = "тростью",
-		PREPOSITIONAL = "трости"
+		PREPOSITIONAL = "трости",
 	)
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()

@@ -25,7 +25,7 @@
 		DATIVE = "существу",
 		ACCUSATIVE = "существо",
 		INSTRUMENTAL = "существом",
-		PREPOSITIONAL = "существе"
+		PREPOSITIONAL = "существе",
 	)
 
 /mob/living/simple_animal/hostile/netherworld/ComponentInitialize()
@@ -54,7 +54,7 @@
 		DATIVE = "ми-го",
 		ACCUSATIVE = "ми-го",
 		INSTRUMENTAL = "ми-го",
-		PREPOSITIONAL = "ми-го"
+		PREPOSITIONAL = "ми-го",
 	)
 
 /mob/living/simple_animal/hostile/netherworld/migo/Initialize(mapload)

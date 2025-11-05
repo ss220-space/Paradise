@@ -88,9 +88,9 @@
 	)
 
 	autohiss_basic_map = list(
-			"r" = list("rr", "rrr", "rrrr"),
-			"р" = list("рр", "ррр", "рррр")
-		)
+		"r" = list("rr", "rrr", "rrrr"),
+		"р" = list("рр", "ррр", "рррр"),
+	)
 	autohiss_exempt = list("Сик'таир")
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)

@@ -44,7 +44,7 @@
 		DATIVE = "самоцвету",
 		ACCUSATIVE = "самоцвет",
 		INSTRUMENTAL = "самоцветом",
-		PREPOSITIONAL = "самоцвете"
+		PREPOSITIONAL = "самоцвете",
 	)
 
 /obj/item/gem/Destroy()
@@ -111,7 +111,7 @@
 		DATIVE = "кристаллу рупериума",
 		ACCUSATIVE = "кристалл рупериума",
 		INSTRUMENTAL = "кристаллом рупериума",
-		PREPOSITIONAL = "кристалле рупериума"
+		PREPOSITIONAL = "кристалле рупериума",
 	)
 
 
@@ -174,7 +174,7 @@
 		DATIVE = "окаменелому ауриту",
 		ACCUSATIVE = "окаменелый аурит",
 		INSTRUMENTAL = "окаменелым ауритом",
-		PREPOSITIONAL = "окаменелом аурите"
+		PREPOSITIONAL = "окаменелом аурите",
 	)
 
 /obj/item/gem/magma/examine(mob/user)
@@ -223,7 +223,7 @@
 		DATIVE = "морозному бриллианту",
 		ACCUSATIVE = "морозный бриллиант",
 		INSTRUMENTAL = "морозным бриллиантом",
-		PREPOSITIONAL = "морозном бриллианте"
+		PREPOSITIONAL = "морозном бриллианте",
 	)
 
 
@@ -273,7 +273,7 @@
 		DATIVE = "стабилизированному бароксильдиуму",
 		ACCUSATIVE = "стабилизированный бароксильдиум",
 		INSTRUMENTAL = "стабилизированным бароксильдиумом",
-		PREPOSITIONAL = "стабилизированном бароксильдиуме"
+		PREPOSITIONAL = "стабилизированном бароксильдиуме",
 	)
 
 //hierophant gem
@@ -298,7 +298,7 @@
 		DATIVE = "уплотненному дилитиуму",
 		ACCUSATIVE = "уплотненный дилитиум",
 		INSTRUMENTAL = "уплотненным дилитиумом",
-		PREPOSITIONAL = "уплотненном дилитиуме"
+		PREPOSITIONAL = "уплотненном дилитиуме",
 	)
 
 /obj/item/gem/purple/Initialize(mapload)
@@ -337,7 +337,7 @@
 		DATIVE = "драконьему жемчугу",
 		ACCUSATIVE = "драконий жемчуг",
 		INSTRUMENTAL = "драконим жемчугом",
-		PREPOSITIONAL = "драконем жемчуге"
+		PREPOSITIONAL = "драконем жемчуге",
 	)
 
 //colossus gem
@@ -362,7 +362,7 @@
 		DATIVE = "пустотному кристаллу",
 		ACCUSATIVE = "пустотный кристалл",
 		INSTRUMENTAL = "пустотным кристаллом",
-		PREPOSITIONAL = "пустотном кристалле"
+		PREPOSITIONAL = "пустотном кристалле",
 	)
 
 /obj/item/gem/void/attack_self_tk(mob/user)
@@ -415,7 +415,7 @@
 		DATIVE = "кровавому ихору",
 		ACCUSATIVE = "кровавый ихор",
 		INSTRUMENTAL = "кровавым ихором",
-		PREPOSITIONAL = "кровавом ихоре"
+		PREPOSITIONAL = "кровавом ихоре",
 	)
 
 /obj/item/gem/bloodstone/examine(mob/user)
@@ -471,7 +471,7 @@
 		DATIVE = "блюспейс кристаллу данных",
 		ACCUSATIVE = "блюспейс кристалл данных",
 		INSTRUMENTAL = "блюспейс кристаллом данных",
-		PREPOSITIONAL = "блюспейс кристалле данных"
+		PREPOSITIONAL = "блюспейс кристалле данных",
 	)
 
 //mining gems
@@ -502,7 +502,7 @@
 		DATIVE = "рубину",
 		ACCUSATIVE = "рубин",
 		INSTRUMENTAL = "рубином",
-		PREPOSITIONAL = "рубине"
+		PREPOSITIONAL = "рубине",
 	)
 
 /obj/item/gem/sapphire
@@ -519,7 +519,7 @@
 		DATIVE = "сапфиру",
 		ACCUSATIVE = "сапфир",
 		INSTRUMENTAL = "сапфиром",
-		PREPOSITIONAL = "сапфире"
+		PREPOSITIONAL = "сапфире",
 	)
 
 /obj/item/gem/emerald
@@ -536,7 +536,7 @@
 		DATIVE = "изумруду",
 		ACCUSATIVE = "изумруд",
 		INSTRUMENTAL = "изумрудом",
-		PREPOSITIONAL = "изумруд"
+		PREPOSITIONAL = "изумруд",
 	)
 
 /obj/item/gem/topaz
@@ -553,5 +553,5 @@
 		DATIVE = "топазу",
 		ACCUSATIVE = "топаз",
 		INSTRUMENTAL = "топазом",
-		PREPOSITIONAL = "топазе"
+		PREPOSITIONAL = "топазе",
 	)

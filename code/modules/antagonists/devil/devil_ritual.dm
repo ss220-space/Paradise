@@ -11,7 +11,7 @@
 		/obj/item/wirecutters = 3,
 		/obj/item/organ/internal/kidneys = 2,
 		/obj/item/organ/internal/heart = 1,
-		/obj/effect/decal/cleanable/vomit = 2
+		/obj/effect/decal/cleanable/vomit = 2,
 	)
 	var/ritual_lock = FALSE
 
@@ -57,7 +57,7 @@
 	description = "Позволяет вам принести нужного вам гуманоида в жертву и получить его душу."
 	ritual_should_del_things = FALSE
 	required_things = list(
-		/mob/living/carbon/human = 1
+		/mob/living/carbon/human = 1,
 	)
 
 /datum/ritual/devil/sacrifice/get_ui_things()
@@ -108,7 +108,7 @@
 	description = "Представляет собой улучшенный ритуал жертвоприношения, необходимый дьяволу, чтобы возвыситься до Архидьявола."
 	ritual_should_del_things = FALSE
 	required_things = list(
-		/mob/living/carbon/human = 2
+		/mob/living/carbon/human = 2,
 	)
 	var/static/list/timers_list = list(
 		FIRST_DEVIL_ASCEND_STAGE = 10 SECONDS,
@@ -276,7 +276,7 @@
 		/obj/item/clothing/head/helmet = 1,
 		/obj/item/organ/internal/heart = 1,
 		/obj/item/bikehorn = 1,
-		/obj/item/clothing/shoes/clown_shoes= 1
+		/obj/item/clothing/shoes/clown_shoes= 1,
 	)
 	charges = 3
 	var/static/sound/honk_sound = sound('sound/items/AirHorn.ogg')

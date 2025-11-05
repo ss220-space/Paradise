@@ -16,7 +16,7 @@
 		DATIVE = "консоли наблюдения за экипажем",
 		ACCUSATIVE = "консоль наблюдения за экипажем",
 		INSTRUMENTAL = "консолью наблюдения за экипажем",
-		PREPOSITIONAL = "консоли наблюдения за экипажем"
+		PREPOSITIONAL = "консоли наблюдения за экипажем",
 	)
 
 /obj/machinery/computer/crew/Initialize(mapload)

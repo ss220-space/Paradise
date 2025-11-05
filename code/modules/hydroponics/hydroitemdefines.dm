@@ -32,7 +32,7 @@
 		DATIVE = "распылителю средства от сорняков",
 		ACCUSATIVE = "распылитель средства от сорняков",
 		INSTRUMENTAL = "распылителем средства от сорняков",
-		PREPOSITIONAL = "распылителе средства от сорняков"
+		PREPOSITIONAL = "распылителе средства от сорняков",
 	)
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
@@ -56,7 +56,7 @@
 		DATIVE = "распылителю пестицидов",
 		ACCUSATIVE = "распылитель пестицидов",
 		INSTRUMENTAL = "распылителем пестицидов",
-		PREPOSITIONAL = "распылителе пестицидов"
+		PREPOSITIONAL = "распылителе пестицидов",
 	)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
@@ -100,7 +100,7 @@
 		DATIVE = "граблям",
 		ACCUSATIVE = "грабли",
 		INSTRUMENTAL = "граблями",
-		PREPOSITIONAL = "граблях"
+		PREPOSITIONAL = "граблях",
 	)
 
 /obj/item/cultivator/wooden
@@ -280,7 +280,7 @@
 		DATIVE = "канистре",
 		ACCUSATIVE = "канистру",
 		INSTRUMENTAL = "канистрой",
-		PREPOSITIONAL = "канистре"
+		PREPOSITIONAL = "канистре",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/New()
@@ -342,7 +342,7 @@
 		DATIVE = "канистре (И-ЗИ-Нутриент)",
 		ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
 		INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
-		PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
+		PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
@@ -358,7 +358,7 @@
 		DATIVE = "канистре (Лефт-Фо-Зед)",
 		ACCUSATIVE = "канистру (Лефт-Фо-Зед)",
 		INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
-		PREPOSITIONAL = "канистре (Лефт-Фо-Зед)"
+		PREPOSITIONAL = "канистре (Лефт-Фо-Зед)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
@@ -374,7 +374,7 @@
 		DATIVE = "канистре (Робаст-Харвест)",
 		ACCUSATIVE = "канистру (Робаст-Харвест)",
 		INSTRUMENTAL = "канистрой (Робаст-Харвест)",
-		PREPOSITIONAL = "канистре (Робаст-Харвест)"
+		PREPOSITIONAL = "канистре (Робаст-Харвест)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
@@ -400,7 +400,7 @@
 		DATIVE = "канистре (Атразин)",
 		ACCUSATIVE = "канистру (Атразин)",
 		INSTRUMENTAL = "канистрой (Атразин)",
-		PREPOSITIONAL = "канистре (Атразин)"
+		PREPOSITIONAL = "канистре (Атразин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
@@ -416,7 +416,7 @@
 		DATIVE = "канистре (Пестициды)",
 		ACCUSATIVE = "канистру (Пестициды)",
 		INSTRUMENTAL = "канистрой (Пестициды)",
-		PREPOSITIONAL = "канистре (Пестициды)"
+		PREPOSITIONAL = "канистре (Пестициды)",
 	)
 
 /obj/item/conductive_organ

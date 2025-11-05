@@ -239,7 +239,7 @@
 		DATIVE = "мясницкому тесаку",
 		ACCUSATIVE = "мясницкий тесак",
 		INSTRUMENTAL = "мясницким тесаком",
-		PREPOSITIONAL = "мясницком тесаке"
+		PREPOSITIONAL = "мясницком тесаке",
 	)
 
 /obj/item/kitchen/knife/butcher/ComponentInitialize()
@@ -272,7 +272,7 @@
 		DATIVE = "тесаку для мяса",
 		ACCUSATIVE = "тесак для мяса",
 		INSTRUMENTAL = "тесаком для мяса",
-		PREPOSITIONAL = "тесаке для мяса"
+		PREPOSITIONAL = "тесаке для мяса",
 	)
 
 /obj/item/kitchen/knife/butcher/meatcleaver/ComponentInitialize()
@@ -323,7 +323,7 @@
 		DATIVE = "ножу для выживания",
 		ACCUSATIVE = "нож для выживания",
 		INSTRUMENTAL = "ножом для выживания",
-		PREPOSITIONAL = "ноже для выживания"
+		PREPOSITIONAL = "ноже для выживания",
 	)
 
 /obj/item/kitchen/knife/combat/throwing
@@ -352,7 +352,7 @@
 		DATIVE = "костяному кинжалу",
 		ACCUSATIVE = "костяной кинжал",
 		INSTRUMENTAL = "костяным кинжалом",
-		PREPOSITIONAL = "костяном кинжале"
+		PREPOSITIONAL = "костяном кинжале",
 	)
 
 /obj/item/kitchen/knife/combat/survival/bone/eel
@@ -372,7 +372,7 @@
 		DATIVE = "хвосту донного угря",
 		ACCUSATIVE = "хвост донного угря",
 		INSTRUMENTAL = "хвостом донного угря",
-		PREPOSITIONAL = "хвосте донного угря"
+		PREPOSITIONAL = "хвосте донного угря",
 	)
 
 /obj/item/kitchen/knife/combat/cyborg
@@ -460,7 +460,7 @@
 		DATIVE = "старому ножу",
 		ACCUSATIVE = "старый нож",
 		INSTRUMENTAL = "старым ножом",
-		PREPOSITIONAL = "старом ноже"
+		PREPOSITIONAL = "старом ноже",
 	)
 
 /obj/item/kitchen/knife/ghostface_knife/ComponentInitialize()
@@ -485,7 +485,7 @@
 		DATIVE = "старому ржавому ножу",
 		ACCUSATIVE = "старый ржавый нож",
 		INSTRUMENTAL = "старым ржавым ножом",
-		PREPOSITIONAL = "старом ржавом ноже"
+		PREPOSITIONAL = "старом ржавом ноже",
 	)
 
 

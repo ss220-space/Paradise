@@ -9,7 +9,7 @@
 		"М+ожет с+ами пр+имете?",
 		"С+амые зел+ёные кн+опки на св+ете.",
 		"Мы л+юбим больш+ие раст+ения.",
-		"М+ягкая п+очва…"
+		"М+ягкая п+очва…",
 	)
 	icon_state = "nutri_off"
 	panel_overlay = "nutri_panel"
@@ -43,5 +43,5 @@
 		DATIVE = "торговому автомату NutriMax",
 		ACCUSATIVE = "торговый автомат NutriMax",
 		INSTRUMENTAL = "торговым автоматом NutriMax",
-		PREPOSITIONAL = "торговом автомате NutriMax"
+		PREPOSITIONAL = "торговом автомате NutriMax",
 	)

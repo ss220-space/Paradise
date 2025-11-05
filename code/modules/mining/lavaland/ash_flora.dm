@@ -30,7 +30,7 @@
 		DATIVE = "крупным грибам",
 		ACCUSATIVE = "крупные грибы",
 		INSTRUMENTAL = "крупными грибами",
-		PREPOSITIONAL = "крупных грибах"
+		PREPOSITIONAL = "крупных грибах",
 	)
 
 /obj/structure/flora/ash/Initialize(mapload)
@@ -128,7 +128,7 @@
 		DATIVE = "лиственным грибам",
 		ACCUSATIVE = "лиственные грибы",
 		INSTRUMENTAL = "лиственными грибами",
-		PREPOSITIONAL = "лиственных грибах"
+		PREPOSITIONAL = "лиственных грибах",
 	)
 
 /obj/structure/flora/ash/cap_shroom
@@ -154,7 +154,7 @@
 		DATIVE = "высоким грибам",
 		ACCUSATIVE = "высокие грибы",
 		INSTRUMENTAL = "высокими грибами",
-		PREPOSITIONAL = "высоких грибах"
+		PREPOSITIONAL = "высоких грибах",
 	)
 
 /obj/structure/flora/ash/stem_shroom
@@ -183,7 +183,7 @@
 		DATIVE = "скоплению грибов",
 		ACCUSATIVE = "скопление грибов",
 		INSTRUMENTAL = "скоплением грибов",
-		PREPOSITIONAL = "скоплении грибов"
+		PREPOSITIONAL = "скоплении грибов",
 	)
 
 /obj/structure/flora/ash/cacti
@@ -209,7 +209,7 @@
 		DATIVE = "фруктовому кактусу",
 		ACCUSATIVE = "фруктовый кактус",
 		INSTRUMENTAL = "фруктовым кактусом",
-		PREPOSITIONAL = "фруктовом кактусе"
+		PREPOSITIONAL = "фруктовом кактусе",
 	)
 
 /obj/structure/flora/ash/cacti/Initialize(mapload)
@@ -243,7 +243,7 @@
 		DATIVE = "огнецвету",
 		ACCUSATIVE = "огнецвет",
 		INSTRUMENTAL = "огнецветом",
-		PREPOSITIONAL = "огнецвете"
+		PREPOSITIONAL = "огнецвете",
 	)
 
 /obj/structure/flora/ash/coaltree
@@ -270,7 +270,7 @@
 		DATIVE = "угледреву",
 		ACCUSATIVE = "угледрево",
 		INSTRUMENTAL = "угледревом",
-		PREPOSITIONAL = "угледреве"
+		PREPOSITIONAL = "угледреве",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora
@@ -289,7 +289,7 @@
 		DATIVE = "грибной стружке",
 		ACCUSATIVE = "грибную стружку",
 		INSTRUMENTAL = "грибной стружкой",
-		PREPOSITIONAL = "грибной стружке"
+		PREPOSITIONAL = "грибной стружке",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/Initialize(mapload)
@@ -313,7 +313,7 @@
 		DATIVE = "грибному листу",
 		ACCUSATIVE = "грибной лист",
 		INSTRUMENTAL = "грибным листом",
-		PREPOSITIONAL = "грибном листе"
+		PREPOSITIONAL = "грибном листе",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
@@ -330,7 +330,7 @@
 		DATIVE = "грибной шляпке",
 		ACCUSATIVE = "грибную шляпку",
 		INSTRUMENTAL = "грибной шляпкой",
-		PREPOSITIONAL = "грибной шляпке"
+		PREPOSITIONAL = "грибной шляпке",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem
@@ -347,7 +347,7 @@
 		DATIVE = "грибной ножке",
 		ACCUSATIVE = "грибную ножку",
 		INSTRUMENTAL = "грибной ножкой",
-		PREPOSITIONAL = "грибной ножке"
+		PREPOSITIONAL = "грибной ножке",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit
@@ -364,7 +364,7 @@
 		DATIVE = "плоду кактуса",
 		ACCUSATIVE = "плод кактуса",
 		INSTRUMENTAL = "плодом кактуса",
-		PREPOSITIONAL = "плоде кактуса"
+		PREPOSITIONAL = "плоде кактуса",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
@@ -382,7 +382,7 @@
 		DATIVE = "цветку огнецвета",
 		ACCUSATIVE = "цветок огнецвета",
 		INSTRUMENTAL = "цветком огнецвета",
-		PREPOSITIONAL = "цветке огнецвета"
+		PREPOSITIONAL = "цветке огнецвета",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
@@ -404,7 +404,7 @@
 		DATIVE = "бревну угледрева",
 		ACCUSATIVE = "бревно угледрева",
 		INSTRUMENTAL = "бревном угледрева",
-		PREPOSITIONAL = "бревне угледрева"
+		PREPOSITIONAL = "бревне угледрева",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/attackby(obj/item/I, mob/user, params)
@@ -526,7 +526,7 @@
 		DATIVE = "пачке семян угледрева",
 		ACCUSATIVE = "пачку семян угледрева",
 		INSTRUMENTAL = "пачкой семян угледрева",
-		PREPOSITIONAL = "пачке семян угледрева"
+		PREPOSITIONAL = "пачке семян угледрева",
 	)
 
 //CRAFTING
@@ -553,7 +553,7 @@
 		DATIVE = "грибной чаше",
 		ACCUSATIVE = "грибную чашу",
 		INSTRUMENTAL = "грибной чашей",
-		PREPOSITIONAL = "грибной чаше"
+		PREPOSITIONAL = "грибной чаше",
 	)
 
 /obj/item/reagent_containers/food/drinks/mushroom_bowl/attackby(obj/item/I, mob/user, params)

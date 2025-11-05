@@ -18,7 +18,7 @@
 		DATIVE = "телекристаллу",
 		ACCUSATIVE = "телекристалл",
 		INSTRUMENTAL = "телекристаллом",
-		PREPOSITIONAL = "телекристалле"
+		PREPOSITIONAL = "телекристалле",
 	)
 
 /obj/item/stack/telecrystal/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

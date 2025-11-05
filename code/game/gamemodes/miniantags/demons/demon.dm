@@ -36,7 +36,7 @@
 		DATIVE = "обычному демону",
 		ACCUSATIVE = "обычного демона",
 		INSTRUMENTAL = "обычным демоном",
-		PREPOSITIONAL = "обычном демоне"
+		PREPOSITIONAL = "обычном демоне",
 	)
 
 /mob/living/simple_animal/demon/Initialize(mapload)
@@ -110,7 +110,7 @@
 		DATIVE = "демоническому сердцу",
 		ACCUSATIVE = "демоническое сердце",
 		INSTRUMENTAL = "демоническим сердцем",
-		PREPOSITIONAL = "демоническом сердце"
+		PREPOSITIONAL = "демоническом сердце",
 	)
 
 

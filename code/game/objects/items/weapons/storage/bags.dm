@@ -146,7 +146,7 @@
 		DATIVE = "шахтёрской сумке",
 		ACCUSATIVE = "шахтёрскую сумку",
 		INSTRUMENTAL = "шахтёрской сумкой",
-		PREPOSITIONAL = "шахтёрской сумке"
+		PREPOSITIONAL = "шахтёрской сумке",
 	)
 
 /obj/item/storage/bag/ore/bigger
@@ -162,7 +162,7 @@
 		DATIVE = "промышленной шахтёрской сумке",
 		ACCUSATIVE = "промышленную шахтёрскую сумку",
 		INSTRUMENTAL = "промышленной шахтёрской сумкой",
-		PREPOSITIONAL = "промышленной шахтёрской сумке"
+		PREPOSITIONAL = "промышленной шахтёрской сумке",
 	)
 
 /obj/item/storage/bag/ore/cyborg
@@ -189,7 +189,7 @@
 		DATIVE = "шахтёрской сумке хранения",
 		ACCUSATIVE = "шахтёрскую сумку хранения",
 		INSTRUMENTAL = "шахтёрской сумкой хранения",
-		PREPOSITIONAL = "шахтёрской сумке хранения"
+		PREPOSITIONAL = "шахтёрской сумке хранения",
 	)
 
 /obj/item/storage/bag/ore/holding/cyborg
@@ -219,7 +219,7 @@
 		DATIVE = "сумке для самоцветов",
 		ACCUSATIVE = "сумку для самоцветов",
 		INSTRUMENTAL = "сумкой для самоцветов",
-		PREPOSITIONAL = "сумке для самоцветов"
+		PREPOSITIONAL = "сумке для самоцветов",
 	)
 
 /obj/item/storage/bag/gem/cyborg
@@ -256,7 +256,7 @@
 		DATIVE = "Системе Размещения Зарядов",
 		ACCUSATIVE = "Систему Размещения Зарядов",
 		INSTRUMENTAL = "Системой Размещения Зарядов",
-		PREPOSITIONAL = "Системе Размещения Зарядов"
+		PREPOSITIONAL = "Системе Размещения Зарядов",
 	)
 
 /obj/item/storage/bag/kaboom/proc/bombradialmenu(mob/user)
@@ -562,7 +562,7 @@
 		DATIVE = "книжной сумке",
 		ACCUSATIVE = "книжную сумку",
 		INSTRUMENTAL = "книжной сумкой",
-		PREPOSITIONAL = "книжной сумке"
+		PREPOSITIONAL = "книжной сумке",
 	)
 
 ////////////////////////////////////////
@@ -590,7 +590,7 @@
 		/obj/item/stock_parts/cell,
 		/obj/item/stock_parts,
 		/obj/item/camera_assembly,
-		/obj/item/access_control
+		/obj/item/access_control,
 	)
 	resistance_flags = FLAMMABLE
 
@@ -721,7 +721,7 @@
 		DATIVE = "подносу",
 		ACCUSATIVE = "поднос",
 		INSTRUMENTAL = "подносом",
-		PREPOSITIONAL = "подносе"
+		PREPOSITIONAL = "подносе",
 	)
 
 
@@ -791,13 +791,14 @@
 	icon_state = "pouch_ash"
 	storage_slots = 40
 	max_combined_w_class = 200
-	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,
-					/obj/item/stack/medical,
-					/obj/item/reagent_containers/food/snacks/bait,
-					/obj/item/reagent_containers/food/snacks/charred_krill,
-					/obj/item/stack/sheet/cartilage_plate,
-					/obj/item/stack/sheet/razor_sharp_teeth,
-			)
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/stack/medical,
+		/obj/item/reagent_containers/food/snacks/bait,
+		/obj/item/reagent_containers/food/snacks/charred_krill,
+		/obj/item/stack/sheet/cartilage_plate,
+		/obj/item/stack/sheet/razor_sharp_teeth,
+	)
 
 /obj/item/storage/bag/medpouch/get_ru_names()
 	return list(
@@ -806,18 +807,19 @@
 		DATIVE = "лекарственному мешочку",
 		ACCUSATIVE = "лекарственный мешочек",
 		INSTRUMENTAL = "лекарственным мешочком",
-		PREPOSITIONAL = "лекарственном мешочке"
+		PREPOSITIONAL = "лекарственном мешочке",
 	)
 
 /obj/item/storage/bag/medpouch/fishing
 	name = "fishing pouch"
 	desc = "Небольшой мешочек для хранения различной наживки и частей рыб."
 	icon_state = "fishpouch_ash"
-	can_hold = list(/obj/item/reagent_containers/food/snacks/bait,
-					/obj/item/reagent_containers/food/snacks/charred_krill,
-					/obj/item/stack/sheet/cartilage_plate,
-					/obj/item/stack/sheet/razor_sharp_teeth,
-			)
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/bait,
+		/obj/item/reagent_containers/food/snacks/charred_krill,
+		/obj/item/stack/sheet/cartilage_plate,
+		/obj/item/stack/sheet/razor_sharp_teeth,
+	)
 
 /obj/item/storage/bag/medpouch/fishing/get_ru_names()
 	return list(
@@ -826,5 +828,5 @@
 		DATIVE = "рыболовному мешочку",
 		ACCUSATIVE = "рыболовный мешочек",
 		INSTRUMENTAL = "рыболовным мешочком",
-		PREPOSITIONAL = "рыболовном мешочке"
+		PREPOSITIONAL = "рыболовном мешочке",
 	)

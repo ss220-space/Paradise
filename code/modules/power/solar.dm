@@ -23,7 +23,7 @@
 		DATIVE = "солнечной панели",
 		ACCUSATIVE = "солнечную панель",
 		INSTRUMENTAL = "солнечной панелью",
-		PREPOSITIONAL = "солнечной панели"
+		PREPOSITIONAL = "солнечной панели",
 	)
 
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
@@ -213,7 +213,7 @@
 		DATIVE = "заготовке солнечной панели",
 		ACCUSATIVE = "заготовку солнечной панели",
 		INSTRUMENTAL = "заготовкой солнечной панели",
-		PREPOSITIONAL = "заготовке солнечной панели"
+		PREPOSITIONAL = "заготовке солнечной панели",
 	)
 
 /obj/item/solar_assembly/attack_hand(mob/user)

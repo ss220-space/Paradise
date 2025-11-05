@@ -229,7 +229,7 @@
 		DATIVE = "торговому автомату",
 		ACCUSATIVE = "торговый автомат",
 		INSTRUMENTAL = "торговым автоматом",
-		PREPOSITIONAL = "торговом автомате"
+		PREPOSITIONAL = "торговом автомате",
 	)
 
 /obj/machinery/vending/Initialize(mapload)

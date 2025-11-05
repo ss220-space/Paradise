@@ -1,15 +1,17 @@
 /datum/holiday
-	var/name = "Bugsgiving"
-	//Right now, only holidays that take place on a certain day or within a time period are supported
-	//It would be nice to support things like "the second monday in march" or "the first sunday after the second sunday in june"
+	var/name = "День багодарения"
+	// Right now, only holidays that take place on a certain day or within a time period are supported.
+	// It would be nice to support things like "the second monday in march" or "the first sunday after the second sunday in june"
 	var/begin_day = 1
 	var/begin_month = 0
-	var/end_day = 0 // Default of 0 means the holiday lasts a single day
+	/// Default of 0 means the holiday lasts a single day
+	var/end_day = 0
 	var/end_month = 0
 	var/eventChance = 0
-	var/list/lobby_music = null // list of youtube URLs for lobby music to use during this holiday
+	/// List of youtube URLs for lobby music to use during this holiday
+	var/list/lobby_music = null
 
-/**
+/*
  * NOTE FOR EVERYONE TRYING TO DO STUFF WHICH REQUIRES MAPPING, PLACING OBJECTS, ETC:
  * Holiday subsystem is loaded before mapping subsystem init, which means you can't place stuff before roundstart.
  * BUT:
@@ -30,7 +32,7 @@
 
 /// When the round starts, this proc is ran to get a text message to display to everyone to wish them a happy holiday
 /datum/holiday/proc/greet()
-	return "Have a happy [name]!"
+	return "Сегодняшний праздник — [name]!"
 
 /// Returns special prefixes for the station name on certain days. You wind up with names like "Christmas Object Epsilon". See new_station_name()
 /datum/holiday/proc/getStationPrefix()
@@ -92,7 +94,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	GLOB.new_year_celebration = TRUE
 
 /datum/holiday/groundhog
-	name = "Groundhog Day"
+	name = "День сурка"
 	begin_day = 2
 	begin_month = FEBRUARY
 
@@ -103,20 +105,20 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	end_day = 15 //1 day extra
 
 /datum/holiday/random_kindness
-	name = "Random Acts of Kindness Day"
+	name = "День случайных добрых дел"
 	begin_day = 17
 	begin_month = FEBRUARY
 
 /datum/holiday/random_kindness/greet()
-	return "Go do some random acts of kindness for a stranger!" //haha yeah right
+	return "Сделайте кому-нибудь приятно!"
 
 /datum/holiday/pi
-	name = "Pi Day"
+	name = "День числа Пи"
 	begin_day = 14
 	begin_month = MARCH
 
 /datum/holiday/no_this_is_patrick
-	name = "St. Patrick's Day"
+	name = "День Святого Патрика"
 	begin_day = 17
 	begin_month = MARCH
 
@@ -126,81 +128,81 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	end_day = 8 //7 days extra so everyone can enjoy the festivities
 
 /datum/holiday/fourtwenty
-	name = "Four-Twenty"
+	name = "4/20"
 	begin_day = 20
 	begin_month = APRIL
 
 /datum/holiday/earth
-	name = "Earth Day"
+	name = "День Земли"
 	begin_day = 22
 	begin_month = APRIL
 
 /datum/holiday/labor
-	name = "Labor Day"
+	name = "День труда"
 	begin_month = MAY
 
 /datum/holiday/firefighter
-	name = "Firefighter's Day"
+	name = "День пожарного"
 	begin_day = 4
 	begin_month = MAY
 
 // No holidays in June :'(
 
 /datum/holiday/doctor
-	name = "Doctor's Day"
+	name = "День врача"
 	begin_month = JULY
 
 /datum/holiday/UFO
-	name = "UFO Day"
+	name = "День НЛО"
 	begin_day = 2
 	begin_month = JULY
 
 /datum/holiday/writer
-	name = "Writer's Day"
+	name = "День писателя"
 	begin_day = 8
 	begin_month = JULY
 
 /datum/holiday/friendship
-	name = "Friendship Day"
+	name = "День дружбы"
 	begin_day = 30
 	begin_month = JULY
 
 /datum/holiday/friendship/greet()
-	return "Have a magical [name]!"
+	return "Пусть ваш [name] будет волшебным!"
 
 /datum/holiday/beer
-	name = "Beer Day"
+	name = "День пива"
 	begin_day = 5
 	begin_month = AUGUST
 
 /datum/holiday/pirate
-	name = "Talk-Like-a-Pirate Day"
+	name = "Международный день \"Говори как пират\""
 	begin_day = 19
 	begin_month = SEPTEMBER
 
 /datum/holiday/pirate/greet()
-	return "Ye be talkin' like a pirate today or else ye'r walkin' tha plank, matey!"
+	return "Сегодня ты, салага, будешь говорить как настоящий морской волк, а иначе пройдёшься по доске прямо за борт, якорь мне в бухту!"
 
 /datum/holiday/questions
-	name = "Stupid-Questions Day"
+	name = "День глупых вопросов"
 	begin_day = 28
 	begin_month = SEPTEMBER
 
 /datum/holiday/questions/greet()
-	return "Are you having a happy [name]?"
+	return "Вам нравится сегодняшний [name]?"
 
 /datum/holiday/animal
-	name = "Animal's Day"
+	name = "День животных"
 	begin_day = 4
 	begin_month = OCTOBER
 
 /datum/holiday/smile
-	name = "Smiling Day"
+	name = "День улыбки"
 	begin_day = 7
 	begin_month = OCTOBER
 
 /datum/holiday/boss
-	name = "Boss' Day"
+	name = "День босса"
 	begin_day = 16
 	begin_month = OCTOBER
 
@@ -212,37 +214,37 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	end_month = NOVEMBER
 
 /datum/holiday/halloween/greet()
-	return "Have a spooky Halloween!"
+	return "Жутко весёлого Хэллоуина!"
 
 /datum/holiday/vegan
-	name = "Vegan Day"
+	name = "День вегана"
 	begin_month = NOVEMBER
 
 /datum/holiday/kindness
-	name = "Kindness Day"
+	name = "День доброты"
 	begin_day = 13
 	begin_month = NOVEMBER
 
 /datum/holiday/flowers
-	name = "Flowers Day"
+	name = "День цветов"
 	begin_day = 19
 	begin_month = NOVEMBER
 
 /datum/holiday/hello
-	name = "Saying-'Hello' Day"
+	name = "День \"Привет\""
 	begin_day = 21
 	begin_month = NOVEMBER
 
 /datum/holiday/hello/greet()
-	return "[pick(list("Aloha", "Bonjour", "Hello", "Hi", "Greetings", "Salutations", "Bienvenidos", "Hola", "Howdy"))]! " + ..()
+	return "[pick(list("Алоха", "Чао", "Бонжур", "Коничива", "Привет", "Здравствуйте", "Приветствую", "Салют", "Ола", "Хауди", "Здарова", "Здравия желаю"))]! " + ..()
 
 /datum/holiday/human_rights
-	name = "Human-Rights Day"
+	name = "День прав человека"
 	begin_day = 10
 	begin_month = DECEMBER
 
 /datum/holiday/monkey
-	name = "Monkey Day"
+	name = "День обезьяны"
 	begin_day = 14
 	begin_month = DECEMBER
 
@@ -255,18 +257,18 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	eventChance = 20
 
 /datum/holiday/xmas/greet()
-	var/greeting = "Have a merry Christmas!"
+	var/greeting = "Счастливого Рождества!"
 	if(prob(30))
-		greeting += "<br><br>To celebrate, choose a random crewmate on the Manifest and give them a gift!"
+		greeting += "<br><br>В честь праздника выберите случайного члена экипажа из манифеста объекта и подарите ему подарок!"
 	return greeting
 
 /datum/holiday/boxing
-	name = "Boxing Day"
+	name = "День подарков"
 	begin_day = 26
 	begin_month = DECEMBER
 
 /datum/holiday/friday_thirteenth
-	name = "Friday the 13th"
+	name = "Пятница, 13-е"
 
 /datum/holiday/friday_thirteenth/shouldCelebrate(dd, mm, yy)
 	if(dd == 13)
@@ -275,7 +277,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	return 0
 
 /datum/holiday/friday_thirteenth/getStationPrefix()
-	return pick("Mike","Friday","Evil","Myers","Murder","Deathly","Stabby")
+	return pick("Майк", "Пятница", "Злая", "Майерс", "Убийственная", "Смертельная")
 
 /datum/holiday/easter
 	name = EASTER
@@ -348,20 +350,20 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 
 /client/proc/Set_Holiday(T as text|null)
-	set name = "Set Holiday"
+	set name = "Задать праздник"
 	set category = STATPANEL_ADMIN_EVENT
-	set desc = "Force-set the Holiday variable to make the game think it's a certain day."
+	set desc = "Принудительно задать переменную \"Праздник\", чтобы игра считала, что сегодня определённый день."
 	if(!check_rights(R_SERVER))	return
 
 	var/list/choice = list()
 	for(var/H in subtypesof(/datum/holiday))
 		choice += "[H]"
 
-	choice += "--CANCEL--"
+	choice += "ОТМЕНА"
 
-	var/selected = tgui_input_list(usr, "What holiday would you like to force?", "Holiday Forcing", choice, "--CANCEL--")
+	var/selected = tgui_input_list(usr, "Какой праздник вы хотите зафорсить?", "Форс праздника", choice, "ОТМЕНА")
 
-	if(selected == "--CANCEL--")
+	if(selected == "ОТМЕНА")
 		return
 
 	var/selected2path = text2path(selected)

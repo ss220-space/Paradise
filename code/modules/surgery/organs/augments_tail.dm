@@ -136,7 +136,7 @@
 		DATIVE = "хвостовой опухоли",
 		ACCUSATIVE = "хвостовую опухоль",
 		INSTRUMENTAL = "хвостовой опухолью",
-		PREPOSITIONAL = "хвостовом сгустке"
+		PREPOSITIONAL = "хвостовом сгустке",
 	)
 
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/update_icon_state()

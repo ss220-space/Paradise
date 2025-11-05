@@ -12,7 +12,7 @@
 		DATIVE = "колоде карт UNUM",
 		ACCUSATIVE = "колоду карт UNUM",
 		INSTRUMENTAL = "колодой карт UNUM",
-		PREPOSITIONAL = "колоде карт UNUM"
+		PREPOSITIONAL = "колоде карт UNUM",
 	)
 
 /obj/item/deck/unum/build_deck()

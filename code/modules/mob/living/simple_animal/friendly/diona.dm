@@ -57,7 +57,7 @@
 		DATIVE = "нимфе дионы",
 		ACCUSATIVE = "нимфу дионы",
 		INSTRUMENTAL = "нимфой дионы",
-		PREPOSITIONAL = "нимфе дионы"
+		PREPOSITIONAL = "нимфе дионы",
 	)
 
 /mob/living/simple_animal/diona/ComponentInitialize()

@@ -49,7 +49,7 @@
 		DATIVE = "голиафу",
 		ACCUSATIVE = "голиафа",
 		INSTRUMENTAL = "голиафом",
-		PREPOSITIONAL = "голиафе"
+		PREPOSITIONAL = "голиафе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(obj/projectile/P)
@@ -236,7 +236,7 @@
 		DATIVE = "голиафу",
 		ACCUSATIVE = "голиафа",
 		INSTRUMENTAL = "голиафом",
-		PREPOSITIONAL = "голиафе"
+		PREPOSITIONAL = "голиафе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
@@ -273,7 +273,7 @@
 		DATIVE = "древнему голиафу",
 		ACCUSATIVE = "древнего голиафа",
 		INSTRUMENTAL = "древним голиафом",
-		PREPOSITIONAL = "древнем голиафе"
+		PREPOSITIONAL = "древнем голиафе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Life()
@@ -312,7 +312,7 @@
 		DATIVE = "щупальцу голиафа",
 		ACCUSATIVE = "щупальце голиафа",
 		INSTRUMENTAL = "щупальцем голиафа",
-		PREPOSITIONAL = "щупальце голиафа"
+		PREPOSITIONAL = "щупальце голиафа",
 	)
 
 /obj/effect/temp_visual/goliath_tentacle/Initialize(mapload, mob/living/new_spawner)

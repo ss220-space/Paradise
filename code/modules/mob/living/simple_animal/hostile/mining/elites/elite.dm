@@ -46,7 +46,7 @@
 		DATIVE = "элите",
 		ACCUSATIVE = "элиту",
 		INSTRUMENTAL = "элитой",
-		PREPOSITIONAL = "элите"
+		PREPOSITIONAL = "элите",
 	)
 
 //Gives player-controlled variants the ability to swap attacks
@@ -241,7 +241,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		DATIVE = "пульсирующей опухоли",
 		ACCUSATIVE = "пульсирующую опухоль",
 		INSTRUMENTAL = "пульсирующей опухолью",
-		PREPOSITIONAL = "пульсирующей опухоли"
+		PREPOSITIONAL = "пульсирующей опухоли",
 	)
 
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
@@ -505,7 +505,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		DATIVE = "осколку опухоли",
 		ACCUSATIVE = "осколок опухоли",
 		INSTRUMENTAL = "осколком опухоли",
-		PREPOSITIONAL = "осколке опухоли"
+		PREPOSITIONAL = "осколке опухоли",
 	)
 
 /obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, params)
@@ -559,7 +559,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		DATIVE = "магической стене",
 		ACCUSATIVE = "магическую стену",
 		INSTRUMENTAL = "магической стеной",
-		PREPOSITIONAL = "магической стене"
+		PREPOSITIONAL = "магической стене",
 	)
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)

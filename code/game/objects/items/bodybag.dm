@@ -17,7 +17,7 @@
 		DATIVE = "мешку для трупов",
 		ACCUSATIVE = "мешок для трупов",
 		INSTRUMENTAL = "мешком для трупов",
-		PREPOSITIONAL = "мешке для трупов"
+		PREPOSITIONAL = "мешке для трупов",
 	)
 
 /obj/item/bodybag/attack_self(mob/user)
@@ -82,7 +82,7 @@
 		DATIVE = "мешку для трупов",
 		ACCUSATIVE = "мешок для трупов",
 		INSTRUMENTAL = "мешком для трупов",
-		PREPOSITIONAL = "мешке для трупов"
+		PREPOSITIONAL = "мешке для трупов",
 	)
 
 
@@ -190,7 +190,7 @@
 		DATIVE = "мешку для инфицированных трупов",
 		ACCUSATIVE = "мешок для инфицированных трупов",
 		INSTRUMENTAL = "мешком для инфицированных трупов",
-		PREPOSITIONAL = "мешке для инфицированных трупов"
+		PREPOSITIONAL = "мешке для инфицированных трупов",
 	)
 
 /obj/structure/closet/body_bag/biohazard
@@ -209,7 +209,7 @@
 		DATIVE = "мешку для инфицированных трупов",
 		ACCUSATIVE = "мешок для инфицированных трупов",
 		INSTRUMENTAL = "мешком для инфицированных трупов",
-		PREPOSITIONAL = "мешке для инфицированных трупов"
+		PREPOSITIONAL = "мешке для инфицированных трупов",
 	)
 
 /obj/item/bodybag/bluespace
@@ -226,7 +226,7 @@
 		DATIVE = "блюспейс мешку для трупов",
 		ACCUSATIVE = "блюспейс мешок для трупов",
 		INSTRUMENTAL = "блюспейс мешком для трупов",
-		PREPOSITIONAL = "блюспейс мешке для трупов"
+		PREPOSITIONAL = "блюспейс мешке для трупов",
 	)
 
 
@@ -293,7 +293,7 @@
 		DATIVE = "блюспейс мешку для трупов",
 		ACCUSATIVE = "блюспейс мешок для трупов",
 		INSTRUMENTAL = "блюспейс мешком для трупов",
-		PREPOSITIONAL = "блюспейс мешке для трупов"
+		PREPOSITIONAL = "блюспейс мешке для трупов",
 	)
 
 

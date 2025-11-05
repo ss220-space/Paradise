@@ -330,21 +330,21 @@
 	name = "заживление повреждённых костей или сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
-		/datum/surgery/intermediate/mendbone
+		/datum/surgery/intermediate/mendbone,
 	)
 
 /datum/surgery_step/proxy/open_organ/plasma
 	name = "заживление повреждённых костей (Плазмолюд) или сосудов — прокси"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
-		/datum/surgery/intermediate/mendbone/plasma
+		/datum/surgery/intermediate/mendbone/plasma,
 	)
 
 /// Mend IB without healing bones
 /datum/surgery_step/proxy/ib
 	name = "заживление повреждённых сосудов — прокси"
 	branches = list(
-		/datum/surgery/intermediate/bleeding
+		/datum/surgery/intermediate/bleeding,
 	)
 
 /// The robotic equivalent
@@ -352,7 +352,7 @@
 	name = "ремонт конечности — прокси"
 	branches = list(
 		/datum/surgery/intermediate/robotics/repair/burn,
-		/datum/surgery/intermediate/robotics/repair/brute
+		/datum/surgery/intermediate/robotics/repair/brute,
 	)
 
 #undef SURGERY_TOOL_ANY

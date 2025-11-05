@@ -31,7 +31,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
@@ -52,7 +52,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 5)
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 5),
 	)
 	recoil = GUN_RECOIL_HIGH
 
