@@ -37,7 +37,7 @@
 
 /obj/item/melee/baton/security/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/item_skins, skins = list(
+	AddElement(/datum/element/item_skins, skins = list(
 		new /datum/item_skin_data(name = "Стандартный", icon_state = "stunbaton", donation_tier = 1),
 		new /datum/item_skin_data(name = "Классический", icon_state = "stunbaton_tg", donation_tier = 1),
 		new /datum/item_skin_data(name = "Футуристический", icon_state = "desolate_baton", donation_tier = 2),

@@ -71,7 +71,7 @@
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/item_skins, skins = list(
+	AddElement(/datum/element/item_skins, skins = list(
 		new /datum/item_skin_data(name = "Grey slide", icon_state = "enforcer_grey"),
 		new /datum/item_skin_data(name = "Red slide", icon_state = "enforcer_red"),
 		new /datum/item_skin_data(name = "Green slide", icon_state = "enforcer_green"),
@@ -123,7 +123,7 @@
 
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/item_skins, skins = list(
+	AddElement(/datum/element/item_skins, skins = list(
 		new /datum/item_skin_data(name = "Black", icon_state = "sp8_black"),
 		new /datum/item_skin_data(name = "Red", icon_state = "sp8_red"),
 		new /datum/item_skin_data(name = "Green", icon_state = "sp8_green"),
@@ -154,7 +154,7 @@
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/item_skins, skins = list(
+	AddElement(/datum/element/item_skins, skins = list(
 		new /datum/item_skin_data(name = "Dust", icon_state = "sp8t_dust"),
 		new /datum/item_skin_data(name = "Sea", icon_state = "sp8t_sea"),
 	))

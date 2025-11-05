@@ -244,6 +244,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	/// The skin choice if we had a reskin
 	var/current_skin
+	/// Exists change skin
+	var/exists_skin_change = FALSE
 
 /obj/item/Initialize(mapload)
 	. = ..()
@@ -390,8 +392,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				. += span_notice("Обнаружено запечатанное заклинание \"[S.name]\" внутри.<br>")
 				break
 
-	if(ExistsComponent(/datum/component/item_skins))
-		. += span_notice("Используйте Alt-click чтобы выбрать скин.")
+	if(exists_skin_change)
+		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы выбрать скин.")
 
 
 /obj/item/burn()

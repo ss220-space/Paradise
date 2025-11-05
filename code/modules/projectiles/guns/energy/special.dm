@@ -787,7 +787,7 @@
 /obj/item/gun/energy/specter/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
-	AddComponent(/datum/component/item_skins, skins = list(
+	AddElement(/datum/element/item_skins, skins = list(
 		new /datum/item_skin_data(name = "Grey slide", icon_state = "specter"),
 		new /datum/item_skin_data(name = "Red slide", icon_state = "specter_red"),
 		new /datum/item_skin_data(name = "Green slide", icon_state = "specter_green"),

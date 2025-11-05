@@ -1,10 +1,3 @@
-/**
- * Items skins component.
- *
- * Add skins feature to /obj/item by alt_click.
- */
-/datum/component/item_skins
-	var/list/skins
 
 
 /datum/item_skin_data
@@ -28,38 +21,45 @@
 	src.donation_tier = donation_tier
 
 
-/datum/component/item_skins/Initialize(list/skins = list())
+/**
+ * Items skins component.
+ *
+ * Add skins feature to /obj/item by alt_click.
+ */
+/datum/element/item_skins
+	var/list/skins
+
+
+/datum/element/item_skins/Attach(datum/target, list/skins = list())
 	. = ..()
-	if(!isitem(parent))
-		return COMPONENT_INCOMPATIBLE
+	if(!isitem(target))
+		return ELEMENT_INCOMPATIBLE
 
 	src.skins = skins
+	RegisterSignal(target, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
+	var/obj/item/item_target = target
+	item_target.exists_skin_change = TRUE
 
 
-/datum/component/item_skins/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
-
-/datum/component/item_skins/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_CLICK_ALT)
+/datum/element/item_skins/Detach(datum/target)
+	. = ..()
+	UnregisterSignal(target, COMSIG_CLICK_ALT)
 
 
-/datum/component/item_skins/proc/check_altclicked(datum/source, mob/living/carbon/human/user)
-	if(source != parent)
-		return
+/datum/element/item_skins/proc/check_altclicked(datum/source, mob/living/carbon/human/user)
 	if(!length(skins))
 		return
 	if(!istype(user)) //only humans use skins
 		return
-	var/obj/item/item = parent
+	var/obj/item/item = source
 	if(item.current_skin) //already exists skin, no reskin allowed
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(show_select_skins_radial_menu), user)
+	INVOKE_ASYNC(src, PROC_REF(show_select_skins_radial_menu), item, user)
 	return CLICK_ACTION_SUCCESS
 
 
-/datum/component/item_skins/proc/show_select_skins_radial_menu(mob/living/carbon/human/user)
-	var/obj/item/item = parent
+/datum/element/item_skins/proc/show_select_skins_radial_menu(obj/item/item, mob/living/carbon/human/user)
 	var/list/skin_options = list()
 	for(var/datum/item_skin_data/skin as anything in skins)
 		if(skin.donation_tier > user.client.donator_level)
@@ -70,22 +70,23 @@
 		to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord сообществе."))
 		return
 
-	var/choice = show_radial_menu(user, item, skin_options, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
+	var/choice = show_radial_menu(user, item, skin_options, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), item, user), require_near = TRUE)
 
-	if(!choice || !reskin_radial_check(user) || item.current_skin)
+	if(!choice || !reskin_radial_check(item, user) || item.current_skin)
 		return
 
 	var/datum/item_skin_data/skin = skin_options[choice]
 	item.current_skin = skin.icon_state
-	to_chat(user, "Теперь [item.declent_ru(NOMINATIVE)] имеет облик '[skin.name]'. Познакомьтесь с новым дизайном.")
+	to_chat(user, "[capitalize(item.declent_ru(NOMINATIVE))] теперь имеет скин '[skin.name]'.")
 	if(skin.icon != null)
 		item.icon = skin.icon
 	item.base_icon_state = skin.icon_state
 	item.icon_state = skin.icon_state
+	item.exists_skin_change = FALSE
 	item.update_icon()
 	item.update_equipped_item()
 
-/datum/component/item_skins/proc/reskin_radial_check(mob/living/carbon/human/user)
-	if(!ishuman(user) || QDELETED(parent) || !user.is_in_hands(parent) || user.incapacitated())
+/datum/element/item_skins/proc/reskin_radial_check(obj/item/item, mob/living/carbon/human/user)
+	if(!ishuman(user) || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated())
 		return FALSE
 	return TRUE

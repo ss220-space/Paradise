@@ -150,7 +150,7 @@
 
 /obj/item/gun/projectile/revolver/detective/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/item_skins, skins = list(
+	AddElement(/datum/element/item_skins, skins = list(
 		new /datum/item_skin_data(name = "The Original", icon_state = "detective"),
 		new /datum/item_skin_data(name = "Leopard Spots", icon_state = "detective_leopard"),
 		new /datum/item_skin_data(name = "Black Panther", icon_state = "detective_panther"),
@@ -535,7 +535,7 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/item_skins, skins = list(
+	AddElement(/datum/element/item_skins, skins = list(
 		new /datum/item_skin_data(name = "Default", icon_state = "dshotgun"),
 		new /datum/item_skin_data(name = "Dark Red Finish", icon_state = "dshotgun-d"),
 		new /datum/item_skin_data(name = "Ash", icon_state = "dshotgun-f"),
@@ -604,7 +604,7 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/item_skins, skins = list())
+	AddElement(/datum/element/item_skins, skins = list())
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)
 	if(iscoil(I))
