@@ -74,6 +74,7 @@
 #include "code\__DEFINES\dmjit.dm"
 #include "code\__DEFINES\dna.dm"
 #include "code\__DEFINES\do_afters.dm"
+#include "code\__DEFINES\donat.dm"
 #include "code\__DEFINES\dye_keys.dm"
 #include "code\__DEFINES\economy.dm"
 #include "code\__DEFINES\emotes_defines.dm"
