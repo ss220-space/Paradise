@@ -51,7 +51,7 @@
 		DATIVE = "торговому автомату \"Мистер Чанг\"",
 		ACCUSATIVE = "торговый автомат \"Мистер Чанг\"",
 		INSTRUMENTAL = "торговым автоматом \"Мистер Чанг\"",
-		PREPOSITIONAL = "торговом автомате \"Мистер Чанг\""
+		PREPOSITIONAL = "торговом автомате \"Мистер Чанг\"",
 	)
 
 /obj/machinery/vending/chinese/free

@@ -167,7 +167,7 @@
 		DATIVE = "паутине Ужаса",
 		ACCUSATIVE = "паутину Ужаса",
 		INSTRUMENTAL = "паутиной Ужаса",
-		PREPOSITIONAL = "паутине Ужаса"
+		PREPOSITIONAL = "паутине Ужаса",
 	)
 
 /obj/structure/spider/terrorweb/Initialize(mapload)

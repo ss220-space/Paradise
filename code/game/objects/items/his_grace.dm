@@ -37,7 +37,7 @@
 		DATIVE = "артистическому ящику для инструментов",
 		ACCUSATIVE = "артистический ящик для инструментов",
 		INSTRUMENTAL = "артистическим ящиком для инструментов",
-		PREPOSITIONAL = "артистическом ящике для инструментов"
+		PREPOSITIONAL = "артистическом ящике для инструментов",
 	)
 
 /obj/item/his_grace/ui_action_click(mob/user, datum/action/action, leftclick)

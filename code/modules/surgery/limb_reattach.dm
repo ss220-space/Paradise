@@ -118,7 +118,7 @@
 	name = "установка робо-конечности — прокси"
 	branches = list(
 		/datum/surgery/robo_attach,
-		/datum/surgery/reattach_synth
+		/datum/surgery/reattach_synth,
 	)
 	insert_self_after = FALSE
 
@@ -126,7 +126,7 @@
 	name = "Установка кибернетической конечности"
 	requires_bodypart = FALSE
 	steps = list(
-		/datum/surgery_step/proxy/robo_limb_attach
+		/datum/surgery_step/proxy/robo_limb_attach,
 	)
 	cancel_on_organ_change = FALSE
 	possible_locs = list(
@@ -260,7 +260,7 @@
 		TOOL_HEMOSTAT = 100,
 		/obj/item/stack/cable_coil = 90,
 		/obj/item/stack/sheet/sinew = 90,
-		/obj/item/assembly/mousetrap = 25
+		/obj/item/assembly/mousetrap = 25,
 	)
 	can_infect = TRUE
 

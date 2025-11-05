@@ -38,10 +38,10 @@
 		/obj/item/ammo_box/magazine/m50 = 2,
 		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
 		/obj/item/lighter/zippo/gonzofist = 1,
-		/obj/item/storage/box/matches = 1
+		/obj/item/storage/box/matches = 1,
 	)
 	implants = list(
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 	)
 
 /datum/outfit/job/syndicateofficer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

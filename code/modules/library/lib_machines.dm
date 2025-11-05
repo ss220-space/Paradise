@@ -153,7 +153,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		DATIVE = "сканеру",
 		ACCUSATIVE = "сканер",
 		INSTRUMENTAL = "сканером",
-		PREPOSITIONAL = "сканере"
+		PREPOSITIONAL = "сканере",
 	)
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user, params)
@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		DATIVE = "брошюратору",
 		ACCUSATIVE = "брошюратор",
 		INSTRUMENTAL = "брошюратором",
-		PREPOSITIONAL = "брошюраторе"
+		PREPOSITIONAL = "брошюраторе",
 	)
 
 /obj/machinery/bookbinder/attackby(obj/item/I, mob/user, params)
@@ -272,7 +272,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		DATIVE = "печатному изданию №[rand(100, 999)]",
 		ACCUSATIVE = "печатное издание №[rand(100, 999)]",
 		INSTRUMENTAL = "печатным изданием №[rand(100, 999)]",
-		PREPOSITIONAL = "печатном издании №[rand(100, 999)]"
+		PREPOSITIONAL = "печатном издании №[rand(100, 999)]",
 	)
 	new_book.icon_state = "book[rand(1,16)]"
 	new_book.item_state = new_book.icon_state

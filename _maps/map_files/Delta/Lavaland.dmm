@@ -1608,10 +1608,6 @@
 	pixel_x = 28;
 	pixel_y = -4
 	},
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull";
 	tag = "icon-whitebluefull"
@@ -2293,7 +2289,6 @@
 /area/mine/living_quarters)
 "iF" = (
 /obj/structure/table,
-/obj/item/paper/deltainfo,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},

@@ -10,7 +10,7 @@
 		"36"='sound/instruments/synthesis_samples/brass/crisis_brass/c2.ogg',
 		"48"='sound/instruments/synthesis_samples/brass/crisis_brass/c3.ogg',
 		"60"='sound/instruments/synthesis_samples/brass/crisis_brass/c4.ogg',
-		"72"='sound/instruments/synthesis_samples/brass/crisis_brass/c5.ogg'
+		"72"='sound/instruments/synthesis_samples/brass/crisis_brass/c5.ogg',
 	)
 
 /datum/instrument/brass/crisis_trombone
@@ -20,7 +20,7 @@
 		"36"='sound/instruments/synthesis_samples/brass/crisis_trombone/c2.ogg',
 		"48"='sound/instruments/synthesis_samples/brass/crisis_trombone/c3.ogg',
 		"60"='sound/instruments/synthesis_samples/brass/crisis_trombone/c4.ogg',
-		"72"='sound/instruments/synthesis_samples/brass/crisis_trombone/c5.ogg'
+		"72"='sound/instruments/synthesis_samples/brass/crisis_trombone/c5.ogg',
 	)
 
 /datum/instrument/brass/crisis_trumpet
@@ -28,5 +28,5 @@
 	id = "crtrumpet"
 	real_samples = list(
 		"60"='sound/instruments/synthesis_samples/brass/crisis_trumpet/c4.ogg',
-		"72"='sound/instruments/synthesis_samples/brass/crisis_trumpet/c5.ogg'
+		"72"='sound/instruments/synthesis_samples/brass/crisis_trumpet/c5.ogg',
 	)

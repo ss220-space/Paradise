@@ -760,7 +760,7 @@
 		DATIVE = "книге заклинаний",
 		ACCUSATIVE = "книгу заклинаний",
 		INSTRUMENTAL = "книгой заклинаний",
-		PREPOSITIONAL = "книге заклинаний"
+		PREPOSITIONAL = "книге заклинаний",
 	)
 
 /obj/item/spellbook/proc/initialize()
@@ -1027,7 +1027,7 @@
 		DATIVE = "гримуару [spellname_ru]",
 		ACCUSATIVE = "гримуар [spellname_ru]",
 		INSTRUMENTAL = "гримуаром [spellname_ru]",
-		PREPOSITIONAL = "гримуаре [spellname_ru]"
+		PREPOSITIONAL = "гримуаре [spellname_ru]",
 	)
 
 /obj/item/spellbook/oneuse/magic_charge_act(mob/user)

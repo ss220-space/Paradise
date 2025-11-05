@@ -73,7 +73,7 @@
 		DATIVE = "вампирическим когтям",
 		ACCUSATIVE = "вампирические когти",
 		INSTRUMENTAL = "вампирическими когтями",
-		PREPOSITIONAL = "вампирических когтях"
+		PREPOSITIONAL = "вампирических когтях",
 	)
 
 /obj/item/twohanded/required/vamp_claws/Initialize(mapload, new_parent_spell)
@@ -285,7 +285,7 @@
 		DATIVE = "кровавому барьеру",
 		ACCUSATIVE = "кровавый барьер",
 		INSTRUMENTAL = "кровавым барьером",
-		PREPOSITIONAL = "о кровавом барьере"
+		PREPOSITIONAL = "о кровавом барьере",
 	)
 
 

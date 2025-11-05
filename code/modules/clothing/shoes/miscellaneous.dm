@@ -33,7 +33,7 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi'
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
 	)
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
@@ -163,7 +163,7 @@
 		DATIVE = "высоким берцам",
 		ACCUSATIVE = "высокие берцы",
 		INSTRUMENTAL = "высокими берцами",
-		PREPOSITIONAL = "высоких берцах"
+		PREPOSITIONAL = "высоких берцах",
 	)
 
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
@@ -202,8 +202,8 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
+	)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
@@ -357,7 +357,7 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_shoes"
 	onmob_sheets = list(
-		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi'
+		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi',
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
@@ -376,7 +376,7 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_shoes"
 	onmob_sheets = list(
-		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi'
+		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi',
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
@@ -443,7 +443,8 @@
 	icon_state = "lizardboots_green"
 	loot = list(
 		/obj/item/clothing/shoes/cowboy/lizard = 7,
-		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1)
+		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1,
+	)
 
 /obj/item/clothing/shoes/footwraps
 	name = "cloth footwraps"
@@ -473,7 +474,7 @@
 		DATIVE = "обмоткам из шкуры голиафа",
 		ACCUSATIVE = "обмотки из шкуры голиафа",
 		INSTRUMENTAL = "обмотками из шкуры голиафа",
-		PREPOSITIONAL = "обмотках из шкуры голиафа"
+		PREPOSITIONAL = "обмотках из шкуры голиафа",
 	)
 
 /obj/item/clothing/shoes/footwraps/dragon
@@ -492,7 +493,7 @@
 		DATIVE = "обмоткам из шкуры пепельного дракона",
 		ACCUSATIVE = "обмотки из шкуры пепельного дракона",
 		INSTRUMENTAL = "обмотками из шкуры пепельного дракона",
-		PREPOSITIONAL = "обмотках из шкуры пепельного дракона"
+		PREPOSITIONAL = "обмотках из шкуры пепельного дракона",
 	)
 
 /obj/item/clothing/shoes/bhop
@@ -573,7 +574,7 @@
 		DATIVE = "клоунским башмакам",
 		ACCUSATIVE = "клоунские башмаки",
 		INSTRUMENTAL = "клоунскими башмаками",
-		PREPOSITIONAL = "клоунских башмаках"
+		PREPOSITIONAL = "клоунских башмаках",
 	)
 
 /obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -657,8 +658,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+	)
 
 /obj/item/clothing/shoes/chad
 	name = "Chad shoes"
@@ -674,5 +675,5 @@
 		DATIVE = "сапогу Гигачада",
 		ACCUSATIVE = "сапоги Гигачада",
 		INSTRUMENTAL = "сапогами Гигачада",
-		PREPOSITIONAL = "сапогах Гигачада"
+		PREPOSITIONAL = "сапогах Гигачада",
 	)

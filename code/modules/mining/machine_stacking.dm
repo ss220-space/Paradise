@@ -16,7 +16,7 @@
 		DATIVE = "консоли упаковочной машины",
 		ACCUSATIVE = "консоль упаковочной машины",
 		INSTRUMENTAL = "консолью упаковочной машины",
-		PREPOSITIONAL = "консоли упаковочной машины"
+		PREPOSITIONAL = "консоли упаковочной машины",
 	)
 
 /obj/machinery/mineral/stacking_unit_console/Initialize(mapload)
@@ -91,7 +91,7 @@
 		DATIVE = "упаковочной машине",
 		ACCUSATIVE = "упаковочную машину",
 		INSTRUMENTAL = "упаковочной машиной",
-		PREPOSITIONAL = "упаковочной машине"
+		PREPOSITIONAL = "упаковочной машине",
 	)
 
 /obj/machinery/mineral/stacking_machine/process()

@@ -14,7 +14,7 @@
 		DATIVE = "органу драска",
 		ACCUSATIVE = "орган драска",
 		INSTRUMENTAL = "органом драска",
-		PREPOSITIONAL = "органе драска"
+		PREPOSITIONAL = "органе драска",
 	)
 
 /obj/item/organ/internal/heart/drask
@@ -33,7 +33,7 @@
 		DATIVE = "сердцу драска",
 		ACCUSATIVE = "сердце драска",
 		INSTRUMENTAL = "сердцем драска",
-		PREPOSITIONAL = "сердце драска"
+		PREPOSITIONAL = "сердце драска",
 	)
 
 /obj/item/organ/internal/liver/drask
@@ -53,7 +53,7 @@
 		DATIVE = "метаболическому фильтру",
 		ACCUSATIVE = "метаболический фильтр",
 		INSTRUMENTAL = "метаболическим фильтром",
-		PREPOSITIONAL = "метаболическом фильтре"
+		PREPOSITIONAL = "метаболическом фильтре",
 	)
 
 /obj/item/organ/internal/brain/drask
@@ -70,7 +70,7 @@
 		DATIVE = "мозгу драска",
 		ACCUSATIVE = "мозг драска",
 		INSTRUMENTAL = "мозгом драска",
-		PREPOSITIONAL = "мозге драска"
+		PREPOSITIONAL = "мозге драска",
 	)
 
 /obj/item/organ/internal/eyes/drask
@@ -88,7 +88,7 @@
 		DATIVE = "глазам драска",
 		ACCUSATIVE = "глаза драска",
 		INSTRUMENTAL = "глазами драска",
-		PREPOSITIONAL = "глазах драска"
+		PREPOSITIONAL = "глазах драска",
 	)
 
 /obj/item/organ/internal/ears/drask
@@ -103,7 +103,7 @@
 		DATIVE = "ушам драска",
 		ACCUSATIVE = "уши драска",
 		INSTRUMENTAL = "ушами драска",
-		PREPOSITIONAL = "ушах драска"
+		PREPOSITIONAL = "ушах драска",
 	)
 
 /obj/item/organ/internal/lungs/drask
@@ -127,7 +127,7 @@
 		DATIVE = "лёгким драска",
 		ACCUSATIVE = "лёгкие драска",
 		INSTRUMENTAL = "лёгкими драска",
-		PREPOSITIONAL = "лёгких драска"
+		PREPOSITIONAL = "лёгких драска",
 	)
 
 /obj/item/organ/internal/lungs/drask/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)

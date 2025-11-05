@@ -24,7 +24,7 @@
 		DATIVE = "пропасти",
 		ACCUSATIVE = "пропасть",
 		INSTRUMENTAL = "пропастью",
-		PREPOSITIONAL = "пропасти"
+		PREPOSITIONAL = "пропасти",
 	)
 
 

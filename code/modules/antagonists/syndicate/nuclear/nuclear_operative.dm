@@ -97,7 +97,7 @@
 	race_equipment = list(
 		SPECIES_PLASMAMAN = /datum/outfit/admin/syndicate/operative/nuclear/leader/plasmaman,
 		SPECIES_VOX = /datum/outfit/admin/syndicate/operative/nuclear/leader/vox,
-		SPECIES_OTHER = /datum/outfit/admin/syndicate/operative/nuclear/leader
+		SPECIES_OTHER = /datum/outfit/admin/syndicate/operative/nuclear/leader,
 	)
 
 /datum/antagonist/nuclear_operative/leader/rename()
@@ -116,7 +116,7 @@
 
 /datum/antagonist/nuclear_operative/reinf
 	race_equipment = list(
-		SPECIES_OTHER = /datum/outfit/admin/syndicate/operative/nuclear/reinf
+		SPECIES_OTHER = /datum/outfit/admin/syndicate/operative/nuclear/reinf,
 	)
 
 /datum/antagonist/nuclear_operative/cyborg
@@ -143,7 +143,7 @@
 	show_in_roundend = TRUE
 	show_in_orbit = TRUE
 	race_equipment = list(
-		SPECIES_OTHER = /datum/outfit/admin/syndicate/operative/loneop
+		SPECIES_OTHER = /datum/outfit/admin/syndicate/operative/loneop,
 	)
 
 /datum/antagonist/nuclear_operative/loneop/rename()

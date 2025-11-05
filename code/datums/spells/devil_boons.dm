@@ -157,7 +157,7 @@
 		DATIVE = "воскрешающему касанию",
 		ACCUSATIVE = "воскрешающее касание",
 		INSTRUMENTAL = "воскрешающим касанием",
-		PREPOSITIONAL = "воскрешающем касании"
+		PREPOSITIONAL = "воскрешающем касании",
 	)
 
 /obj/item/melee/touch_attack/revive_touch/afterattack(atom/target, mob/living/carbon/user, proximity, params)

@@ -34,7 +34,7 @@
 		DATIVE = "ящерице",
 		ACCUSATIVE = "ящерицу",
 		INSTRUMENTAL = "ящерицей",
-		PREPOSITIONAL = "ящерице"
+		PREPOSITIONAL = "ящерице",
 	)
 
 /mob/living/simple_animal/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -63,5 +63,5 @@
 		DATIVE = "аксолотлю",
 		ACCUSATIVE = "аксолотля",
 		INSTRUMENTAL = "аксолотлем",
-		PREPOSITIONAL = "аксолотле"
+		PREPOSITIONAL = "аксолотле",
 	)

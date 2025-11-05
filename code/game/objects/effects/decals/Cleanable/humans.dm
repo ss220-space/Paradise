@@ -30,14 +30,14 @@
 		DATIVE = "засохшей крови",
 		ACCUSATIVE = "засохшую кровь",
 		INSTRUMENTAL = "засохшей кровью",
-		PREPOSITIONAL = "засохшей крови"
+		PREPOSITIONAL = "засохшей крови",
 	): list(
 		NOMINATIVE = "кровь",
 		GENITIVE = "крови",
 		DATIVE = "крови",
 		ACCUSATIVE = "кровь",
 		INSTRUMENTAL = "кровью",
-		PREPOSITIONAL = "крови"
+		PREPOSITIONAL = "крови",
 	)
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
@@ -185,7 +185,7 @@
 		DATIVE = "каплям крови",
 		ACCUSATIVE = "капли крови",
 		INSTRUMENTAL = "каплями крови",
-		PREPOSITIONAL = "каплях крови"
+		PREPOSITIONAL = "каплях крови",
 	)
 
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
@@ -208,7 +208,7 @@
 		DATIVE = "крови",
 		ACCUSATIVE = "кровь",
 		INSTRUMENTAL = "кровью",
-		PREPOSITIONAL = "крови"
+		PREPOSITIONAL = "крови",
 	)
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
@@ -256,7 +256,7 @@
 		DATIVE = "кровавому месиву",
 		ACCUSATIVE = "кровавое месиво",
 		INSTRUMENTAL = "кровавым месивом",
-		PREPOSITIONAL = "кровавом месиве"
+		PREPOSITIONAL = "кровавом месиве",
 	)
 
 

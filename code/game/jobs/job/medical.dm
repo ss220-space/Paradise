@@ -40,7 +40,7 @@
 	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/heads/cmo
 	backpack_contents = list(
-		/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/medic
@@ -111,7 +111,7 @@
 	l_hand = /obj/item/storage/firstaid/o2
 	backpack_contents = list(
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/clothing/gloves/color/latex = 1
+		/obj/item/clothing/gloves/color/latex = 1,
 	)
 
 /datum/outfit/job/doctor/intern/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -168,10 +168,11 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 	backpack_contents = list(
-					/obj/item/clothing/head/surgery/black = 1,
-					/obj/item/autopsy_scanner = 1,
-					/obj/item/reagent_scanner = 1,
-					/obj/item/storage/box/bodybags = 1)
+		/obj/item/clothing/head/surgery/black = 1,
+		/obj/item/autopsy_scanner = 1,
+		/obj/item/reagent_scanner = 1,
+		/obj/item/storage/box/bodybags = 1,
+	)
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -390,7 +391,7 @@
 	l_pocket = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 	backpack_contents = list(
-		/obj/item/healthanalyzer = 1
+		/obj/item/healthanalyzer = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/medic

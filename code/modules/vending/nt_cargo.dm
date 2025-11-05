@@ -74,7 +74,7 @@
 		DATIVE = "торговому автомату NT Cargo Encouragement",
 		ACCUSATIVE = "торговый автомат NT Cargo Encouragement",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Encouragement",
-		PREPOSITIONAL = "торговом автомате NT Cargo Encouragement"
+		PREPOSITIONAL = "торговом автомате NT Cargo Encouragement",
 	)
 
 /obj/machinery/vending/ntc/medical
@@ -102,7 +102,7 @@
 		DATIVE = "торговому автомату NT Cargo Medical Gear",
 		ACCUSATIVE = "торговый автомат NT Cargo Medical Gear",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Medical Gear",
-		PREPOSITIONAL = "торговом автомате NT Cargo Medical Gear"
+		PREPOSITIONAL = "торговом автомате NT Cargo Medical Gear",
 	)
 
 /obj/machinery/vending/ntc/engineering
@@ -129,7 +129,7 @@
 		DATIVE = "торговому автомату NT Cargo Engineering Gear",
 		ACCUSATIVE = "торговый автомат NT Cargo Engineering Gear",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Engineering Gear",
-		PREPOSITIONAL = "торговом автомате NT Cargo Engineering Gear"
+		PREPOSITIONAL = "торговом автомате NT Cargo Engineering Gear",
 	)
 
 /obj/machinery/vending/ntc/janitor
@@ -161,7 +161,7 @@
 		DATIVE = "торговому автомату NT Cargo Janitor Gear",
 		ACCUSATIVE = "торговый автомат NT Cargo Janitor Gear",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Janitor Gear",
-		PREPOSITIONAL = "торговом автомате NT Cargo Janitor Gear"
+		PREPOSITIONAL = "торговом автомате NT Cargo Janitor Gear",
 	)
 
 /obj/machinery/vending/ntcrates
@@ -195,7 +195,7 @@
 		DATIVE = "торговому автомату NT Cargo Preset Gear",
 		ACCUSATIVE = "торговый автомат NT Cargo Preset Gear",
 		INSTRUMENTAL = "торговым автоматом NT Cargo Preset Gear",
-		PREPOSITIONAL = "торговом автомате NT Cargo Preset Gear"
+		PREPOSITIONAL = "торговом автомате NT Cargo Preset Gear",
 	)
 
 /obj/machinery/vending/ntc/ert
@@ -224,7 +224,7 @@
 		DATIVE = "торговому автомату NT Response Team Base Gear",
 		ACCUSATIVE = "торговый автомат NT Response Team Base Gear",
 		INSTRUMENTAL = "торговым автоматом NT Response Team Base Gear",
-		PREPOSITIONAL = "торговом автомате NT Response Team Base Gear"
+		PREPOSITIONAL = "торговом автомате NT Response Team Base Gear",
 	)
 
 /obj/machinery/vending/ntc_resources
@@ -265,7 +265,7 @@
 		DATIVE = "торговому автомату NT Matter Сompression Vendor",
 		ACCUSATIVE = "торговый автомат NT Matter Сompression Vendor",
 		INSTRUMENTAL = "торговым автоматом NT Matter Сompression Vendor",
-		PREPOSITIONAL = "торговом автомате NT Matter Сompression Vendor"
+		PREPOSITIONAL = "торговом автомате NT Matter Сompression Vendor",
 	)
 
 /obj/machinery/vending/mech/ntc
@@ -295,7 +295,7 @@
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
 		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
-		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter",
 	)
 
 /obj/machinery/vending/mech/ntc/equipment
@@ -324,7 +324,7 @@
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
 		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
-		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter",
 	)
 
 /obj/machinery/vending/mech/ntc/weapon
@@ -358,7 +358,7 @@
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
 		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
-		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter",
 	)
 
 /obj/machinery/vending/mech/ntc/tools
@@ -390,7 +390,7 @@
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
 		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
-		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter",
 	)
 
 #undef FLICK_NONE

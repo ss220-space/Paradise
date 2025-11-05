@@ -31,10 +31,8 @@ LINEN BINS
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi'
-		)
-
-
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi',
+	)
 
 /obj/item/bedsheet/attack_self(mob/user)
 	user.drop_from_active_hand()
@@ -44,7 +42,6 @@ LINEN BINS
 		layer = initial(layer)
 	add_fingerprint(user)
 	return
-
 
 /obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
@@ -58,7 +55,6 @@ LINEN BINS
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/bedsheet/blue
 	icon_state = "sheetblue"
@@ -99,7 +95,7 @@ LINEN BINS
 		DATIVE = "амбассадору Зазе",
 		ACCUSATIVE = "амбассадора Зазу",
 		INSTRUMENTAL = "амбассадором Зазой",
-		PREPOSITIONAL = "амбассадоре Зазе"
+		PREPOSITIONAL = "амбассадоре Зазе",
 	)
 
 /obj/item/bedsheet/rainbow

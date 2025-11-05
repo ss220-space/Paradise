@@ -35,7 +35,7 @@
 		DATIVE = "таракану",
 		ACCUSATIVE = "таракана",
 		INSTRUMENTAL = "тараканом",
-		PREPOSITIONAL = "таракане"
+		PREPOSITIONAL = "таракане",
 	)
 
 /mob/living/basic/cockroach/Initialize(mapload)
@@ -53,7 +53,7 @@
 
 /datum/ai_controller/basic_controller/cockroach
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic()
+		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic(),
 	)
 	ai_traits = STOP_MOVING_WHEN_PULLED
 	ai_movement = /datum/ai_movement/basic_avoidance
@@ -78,7 +78,7 @@
 		DATIVE = "гильзе 0.9 мм",
 		ACCUSATIVE = "гильзу 0.9 мм",
 		INSTRUMENTAL = "гильзой 0.9 мм",
-		PREPOSITIONAL = "гильзе 0.9 мм"
+		PREPOSITIONAL = "гильзе 0.9 мм",
 	)
 
 /mob/living/basic/cockroach/glockroach
@@ -97,7 +97,7 @@
 		DATIVE = "таракану с пушкой",
 		ACCUSATIVE = "таракана с пушкой",
 		INSTRUMENTAL = "тараканом с пушкой",
-		PREPOSITIONAL = "таракане с пушкой"
+		PREPOSITIONAL = "таракане с пушкой",
 	)
 
 /mob/living/basic/cockroach/glockroach/Initialize(mapload)
@@ -109,7 +109,7 @@
 		/datum/ai_planning_subtree/random_speech/cockroach,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_ranged_attack_subtree/glockroach, //If we are attacking someone, this will prevent us from hunting
-		/datum/ai_planning_subtree/find_and_hunt_target/cockroach
+		/datum/ai_planning_subtree/find_and_hunt_target/cockroach,
 	)
 
 /datum/ai_planning_subtree/basic_ranged_attack_subtree/glockroach
@@ -138,7 +138,7 @@
 		DATIVE = "таракану-солдату",
 		ACCUSATIVE = "таракана-солдата",
 		INSTRUMENTAL = "тараканом-солдатом",
-		PREPOSITIONAL = "таракане-солдате"
+		PREPOSITIONAL = "таракане-солдате",
 	)
 
 /mob/living/basic/cockroach/hauberoach/Initialize(mapload)

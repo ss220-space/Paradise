@@ -11,7 +11,7 @@
 		DATIVE = "манифесту снабжения",
 		ACCUSATIVE = "манифест снабжения",
 		INSTRUMENTAL = "манифестом снабжения",
-		PREPOSITIONAL = "манифесте снабжения"
+		PREPOSITIONAL = "манифесте снабжения",
 	)
 
 /obj/docking_port/mobile/supply
@@ -294,7 +294,7 @@
 		DATIVE = "запросу на поставку – [crates] \"[object.name]\" для [orderedby]",
 		ACCUSATIVE = "запрос на поставку – [crates] \"[object.name]\" для [orderedby]",
 		INSTRUMENTAL = "запросом на поставку – [crates] \"[object.name]\" для [orderedby]",
-		PREPOSITIONAL = "запросе на поставку – [crates] \"[object.name]\" для [orderedby]"
+		PREPOSITIONAL = "запросе на поставку – [crates] \"[object.name]\" для [orderedby]",
 	)
 	reqform.info += "<h3>[station_name()] – запрос на поставку грузов</h3><hr>"
 	reqform.info += "ИНДЕКС: №[SSshuttle.ordernum]<br>"
@@ -346,7 +346,7 @@
 		DATIVE = "манифесту поставки – \"[object.name]\" для [orderedby]",
 		ACCUSATIVE = "манифест поставки – \"[object.name]\" для [orderedby]",
 		INSTRUMENTAL = "манифестом поставки – \"[object.name]\" для [orderedby]",
-		PREPOSITIONAL = "манифесте поставки – \"[object.name]\" для [orderedby]"
+		PREPOSITIONAL = "манифесте поставки – \"[object.name]\" для [orderedby]",
 	)
 	slip.info = "<h3>[command_name()] Манифест поставки</h3><hr><br>"
 	slip.info +="Заказ: №[ordernum]<br>"
@@ -432,7 +432,7 @@
 		DATIVE = "консоли оформления заказов",
 		ACCUSATIVE = "консоль оформления заказов",
 		INSTRUMENTAL = "консолью оформления заказов",
-		PREPOSITIONAL = "консоли оформления заказов"
+		PREPOSITIONAL = "консоли оформления заказов",
 	)
 
 /obj/machinery/computer/supplycomp/public
@@ -450,7 +450,7 @@
 		DATIVE = "публичной консоли оформления заказов",
 		ACCUSATIVE = "публичную консоль оформления заказов",
 		INSTRUMENTAL = "публичной консолью оформления заказов",
-		PREPOSITIONAL = "публичной консоли оформления заказов"
+		PREPOSITIONAL = "публичной консоли оформления заказов",
 	)
 
 /obj/machinery/computer/supplycomp/Initialize(mapload, obj/structure/computerframe/frame)

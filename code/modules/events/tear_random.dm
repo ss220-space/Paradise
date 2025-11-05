@@ -33,7 +33,7 @@
 		DATIVE = "рандомысленному разрыву",
 		ACCUSATIVE = "рандомысленный разрыв",
 		INSTRUMENTAL = "рандомысленным разрывом",
-		PREPOSITIONAL = "рандомысленном разрыве"
+		PREPOSITIONAL = "рандомысленном разрыве",
 	)
 
 /obj/effect/tear/random/Initialize(mapload)

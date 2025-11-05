@@ -136,7 +136,7 @@
 		DATIVE = "малой энергетической аномалии", \
 		ACCUSATIVE = "малую энергетическую аномалию", \
 		INSTRUMENTAL = "малой энергетической аномалией", \
-		PREPOSITIONAL = "малой энергетической аномалии"
+		PREPOSITIONAL = "малой энергетической аномалии",
 	)
 
 /obj/effect/anomaly/energetic/tier2
@@ -169,7 +169,7 @@
 		DATIVE = "энергетической аномалии", \
 		ACCUSATIVE = "энергетическую аномалию", \
 		INSTRUMENTAL = "энергетической аномалией", \
-		PREPOSITIONAL = "энергетической аномалии"
+		PREPOSITIONAL = "энергетической аномалии",
 	)
 
 /obj/effect/anomaly/energetic/tier3
@@ -201,7 +201,7 @@
 		DATIVE = "большой энергетической аномалии", \
 		ACCUSATIVE = "большую энергетическую аномалию", \
 		INSTRUMENTAL = "большой энергетической аномалией", \
-		PREPOSITIONAL = "большой энергетической аномалии"
+		PREPOSITIONAL = "большой энергетической аномалии",
 	)
 
 /obj/effect/anomaly/energetic/tier3/New()
@@ -239,7 +239,7 @@
 		DATIVE = "энергетическому шару", \
 		ACCUSATIVE = "энергетический шар", \
 		INSTRUMENTAL = "энергетическим шаром", \
-		PREPOSITIONAL = "энергетическом шаре"
+		PREPOSITIONAL = "энергетическом шаре",
 	)
 
 /obj/effect/energy_ball/New(loc, owner)
@@ -344,7 +344,7 @@
 		DATIVE = "колоссальной энергетической аномалии", \
 		ACCUSATIVE = "колоссальную энергетическую аномалию", \
 		INSTRUMENTAL = "колоссальной энергетической аномалией", \
-		PREPOSITIONAL = "колоссальной энергетической аномалии"
+		PREPOSITIONAL = "колоссальной энергетической аномалии",
 	)
 
 /obj/effect/anomaly/energetic/tier4/New()

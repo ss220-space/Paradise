@@ -102,7 +102,7 @@
 		DATIVE = "челюстям жизни",
 		ACCUSATIVE = "челюсти жизни",
 		INSTRUMENTAL = "челюстями жизни",
-		PREPOSITIONAL = "челюстях жизни"
+		PREPOSITIONAL = "челюстях жизни",
 	)
 
 /obj/item/crowbar/power/Initialize(mapload)

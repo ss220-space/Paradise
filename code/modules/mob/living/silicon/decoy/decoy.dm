@@ -5,7 +5,7 @@
 	anchored = TRUE // -- TLE
 	a_intent = INTENT_HARM // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
 	silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_law_manager
+		/mob/living/silicon/proc/subsystem_law_manager,
 	)
 
 /mob/living/silicon/decoy/attackby(obj/item/I, mob/user, params)

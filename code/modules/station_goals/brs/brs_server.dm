@@ -18,7 +18,7 @@
 		/obj/item/stack/sheet/glass = 5,
 		/obj/item/stock_parts/capacitor/super = 10,
 		/obj/item/stock_parts/scanning_module/phasic = 2,
-		/obj/item/stack/cable_coil = 20
+		/obj/item/stack/cable_coil = 20,
 	)
 
 /obj/machinery/brs_server

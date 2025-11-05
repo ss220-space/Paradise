@@ -14,7 +14,7 @@
 		DATIVE = "печени человека",
 		ACCUSATIVE = "печень человека",
 		INSTRUMENTAL = "печенью человека",
-		PREPOSITIONAL = "печени человека"
+		PREPOSITIONAL = "печени человека",
 	)
 
 /obj/item/organ/internal/liver/on_life()
@@ -77,5 +77,5 @@
 		DATIVE = "кибернетической печени",
 		ACCUSATIVE = "кибернетическую печень",
 		INSTRUMENTAL = "кибернетической печенью",
-		PREPOSITIONAL = "кибернетической печени"
+		PREPOSITIONAL = "кибернетической печени",
 	)

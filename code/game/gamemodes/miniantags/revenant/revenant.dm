@@ -59,7 +59,7 @@
 		DATIVE = "ревенанту",
 		ACCUSATIVE = "ревенанта",
 		INSTRUMENTAL = "ревенантом",
-		PREPOSITIONAL = "ревенанте"
+		PREPOSITIONAL = "ревенанте",
 	)
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
@@ -428,7 +428,7 @@
 		DATIVE = "фантомной пыли",
 		ACCUSATIVE = "фантомную пыль",
 		INSTRUMENTAL = "фантомной пылью",
-		PREPOSITIONAL = "фантомной пыли"
+		PREPOSITIONAL = "фантомной пыли",
 	)
 
 /obj/item/ectoplasm/revenant/New()

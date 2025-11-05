@@ -165,11 +165,13 @@
 	name = "Pneumatic Rifle"
 	result = /obj/item/gun/pneumatic_rifle
 	tools = list(TOOL_SCREWDRIVER)
-	reqs = list(/obj/item/c_tube = 3,
-				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/weaponcrafting/stock = 1,
-				/obj/item/stack/tape_roll = 15,
-				/obj/item/stack/sheet/metal = 2)
+	reqs = list(
+		/obj/item/c_tube = 3,
+		/obj/item/weaponcrafting/receiver = 1,
+		/obj/item/weaponcrafting/stock = 1,
+		/obj/item/stack/tape_roll = 15,
+		/obj/item/stack/sheet/metal = 2,
+	)
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

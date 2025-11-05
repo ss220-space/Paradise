@@ -267,5 +267,5 @@
 		DATIVE = "доктору Рираху",
 		ACCUSATIVE = "доктора Рираха",
 		INSTRUMENTAL = "доктором Рирахой",
-		PREPOSITIONAL = "докторе Рирахе"
+		PREPOSITIONAL = "докторе Рирахе",
 		)

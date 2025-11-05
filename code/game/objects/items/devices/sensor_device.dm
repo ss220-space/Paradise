@@ -16,7 +16,7 @@
 		DATIVE = "ручному монитору экипажа",
 		ACCUSATIVE = "ручной монитор экипажа",
 		INSTRUMENTAL = "ручным монитором экипажа",
-		PREPOSITIONAL = "ручном мониторе экипажа"
+		PREPOSITIONAL = "ручном мониторе экипажа",
 	)
 
 /obj/item/sensor_device/Initialize(mapload)
@@ -65,7 +65,7 @@
 		DATIVE = "командному монитору экипажа",
 		ACCUSATIVE = "командный монитор экипажа",
 		INSTRUMENTAL = "командным монитором экипажа",
-		PREPOSITIONAL = "командном мониторе экипажа"
+		PREPOSITIONAL = "командном мониторе экипажа",
 	)
 
 /obj/item/sensor_device/advanced/command/Initialize(mapload)
@@ -85,7 +85,7 @@
 		DATIVE = "охранному монитору экипажа",
 		ACCUSATIVE = "охранный монитор экипажа",
 		INSTRUMENTAL = "охранным монитором экипажа",
-		PREPOSITIONAL = "охранном мониторе экипажа"
+		PREPOSITIONAL = "охранном мониторе экипажа",
 	)
 
 /obj/item/sensor_device/advanced/security/Initialize(mapload)
@@ -107,7 +107,7 @@
 		DATIVE = "шахтёрскому монитору экипажа",
 		ACCUSATIVE = "шахтёрский монитор экипажа",
 		INSTRUMENTAL = "шахтёрским монитором экипажа",
-		PREPOSITIONAL = "шахтёрском мониторе экипажа"
+		PREPOSITIONAL = "шахтёрском мониторе экипажа",
 	)
 
 /obj/item/sensor_device/advanced/mining/Initialize(mapload)

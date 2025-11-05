@@ -194,8 +194,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/stethoscope
 	name = "stethoscope"
@@ -650,7 +650,7 @@
 		DATIVE = "костяному гульфику",
 		ACCUSATIVE = "костяной гульфик",
 		INSTRUMENTAL = "костяным гульфиком",
-		PREPOSITIONAL = "костяном гульфике"
+		PREPOSITIONAL = "костяном гульфике",
 	)
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -668,7 +668,7 @@
 		DATIVE = "костяному талисману",
 		ACCUSATIVE = "костяной талисман",
 		INSTRUMENTAL = "костяным талисманом",
-		PREPOSITIONAL = "костяном талисмане"
+		PREPOSITIONAL = "костяном талисмане",
 	)
 
 /obj/item/clothing/accessory/necklace/locket
@@ -738,8 +738,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt
@@ -754,8 +754,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
 	name = "shortsleeved black cowboy shirt"
@@ -769,8 +769,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/cowboyshirt/white
 	name = "white cowboy shirt"
@@ -784,8 +784,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 	name = "short sleeved white cowboy shirt"
@@ -799,8 +799,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/cowboyshirt/pink
 	name = "pink cowboy shirt"
@@ -814,8 +814,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
 	name = "short sleeved pink cowboy shirt"
@@ -829,8 +829,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/cowboyshirt/navy
 	name = "navy cowboy shirt"
@@ -844,8 +844,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 	name = "short sleeved navy cowboy shirt"
@@ -859,8 +859,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/cowboyshirt/red
 	name = "red cowboy shirt"
@@ -874,8 +874,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
 	name = "short sleeved red cowboy shirt"
@@ -891,8 +891,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/accessory/corset
 	name = "black corset"
@@ -1206,7 +1206,7 @@
 		DATIVE = "нашивке \"GreyTide\"",
 		ACCUSATIVE = "нашивку \"GreyTide\"",
 		INSTRUMENTAL = "нашивкой \"GreyTide\"",
-		PREPOSITIONAL = "нашивке \"GreyTide\""
+		PREPOSITIONAL = "нашивке \"GreyTide\"",
 	)
 
 /obj/item/clothing/accessory/head_strip/lawyers_badge
@@ -1255,7 +1255,7 @@
 		DATIVE = "нашивке \"Эскадрон Смерти\"",
 		ACCUSATIVE = "нашивку \"Эскадрон Смерти\"",
 		INSTRUMENTAL = "нашивкой \"Эскадрон Смерти\"",
-		PREPOSITIONAL = "нашивке \"Эскадрон Смерти\""
+		PREPOSITIONAL = "нашивке \"Эскадрон Смерти\"",
 	)
 
 /obj/item/clothing/accessory/head_strip/triforce
@@ -1272,7 +1272,7 @@
 		DATIVE = "нашивке \"Трифорс\"",
 		ACCUSATIVE = "нашивку \"Трифорс\"",
 		INSTRUMENTAL = "нашивкой \"Трифорс\"",
-		PREPOSITIONAL = "нашивке \"Трифорс\""
+		PREPOSITIONAL = "нашивке \"Трифорс\"",
 	)
 
 /obj/item/clothing/accessory/head_strip/black_cat
@@ -1289,7 +1289,7 @@
 		DATIVE = "нашивке \"Чёрный кот\"",
 		ACCUSATIVE = "нашивку \"Чёрный кот\"",
 		INSTRUMENTAL = "нашивкой \"Чёрный кот\"",
-		PREPOSITIONAL = "нашивке \"Чёрный кот\""
+		PREPOSITIONAL = "нашивке \"Чёрный кот\"",
 	)
 
 /obj/item/clothing/accessory/head_strip/fox
@@ -1306,7 +1306,7 @@
 		DATIVE = "нашивке \"Лиса\"",
 		ACCUSATIVE = "нашивку \"Лиса\"",
 		INSTRUMENTAL = "нашивкой \"Лиса\"",
-		PREPOSITIONAL = "нашивке \"Лиса\""
+		PREPOSITIONAL = "нашивке \"Лиса\"",
 	)
 
 /obj/item/clothing/accessory/head_strip/frog
@@ -1323,7 +1323,7 @@
 		DATIVE = "нашивке \"Лягушка\"",
 		ACCUSATIVE = "нашивку \"Лягушка\"",
 		INSTRUMENTAL = "нашивкой \"Лягушка\"",
-		PREPOSITIONAL = "нашивке \"Лягушка\""
+		PREPOSITIONAL = "нашивке \"Лягушка\"",
 	)
 
 /obj/item/clothing/accessory/medal/smile

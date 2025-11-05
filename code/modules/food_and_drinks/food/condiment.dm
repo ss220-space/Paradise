@@ -225,7 +225,7 @@
 		DATIVE = "элитарному соусу шефа",
 		ACCUSATIVE = "элитарный соус шефа",
 		INSTRUMENTAL = "элитарным соусом шефа",
-		PREPOSITIONAL = "элитарном соусе шефа"
+		PREPOSITIONAL = "элитарном соусе шефа",
 	)
 
 //Tomato sauce
@@ -302,7 +302,7 @@
 		"blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
 		"cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
 		"oliveoil" = list("condi_oliveoil", "Olive Oil", "A delicious oil used in cooking. Made from olives"),
-		"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!")
+		"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
 	)
 
 

@@ -46,8 +46,8 @@
 	backpack_contents = list(
 		/obj/item/melee/baton/abductor = 1,
 		/obj/item/gun/energy/alien = 1,
-		/obj/item/abductor/silencer = 1
-		)
+		/obj/item/abductor/silencer = 1,
+	)
 
 /datum/outfit/abductor/scientist
 	name = "Abductor Scientist"
@@ -55,8 +55,8 @@
 	belt = /obj/item/storage/belt/medical/surgery/abductor/loaded
 
 	backpack_contents = list(
-		/obj/item/abductor/gizmo = 1
-		)
+		/obj/item/abductor/gizmo = 1,
+	)
 
 /datum/outfit/abductor/scientist/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
