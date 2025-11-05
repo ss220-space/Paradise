@@ -156,12 +156,12 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 	if(!in_thief_mode(user))
 		source.visible_message(
-			span_warning("[user] пыта[PLUR_ET_YUT(user)]ся снять PDA с [source.declent_ru(GENITIVE)]."),
+			span_warning("[user] пыта[PLUR_ET_YUT(user)]ся снять КПК с [source.declent_ru(GENITIVE)]."),
 			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся снять с вас [item.declent_ru(ACCUSATIVE)]!"),
 			"Слышно шуршание."
 		)
 
-	to_chat(user, span_danger("Вы пытаетесь снять PDA с [source.declent_ru(GENITIVE)]..."))
+	to_chat(user, span_danger("Вы пытаетесь снять КПК с [source.declent_ru(GENITIVE)]..."))
 	add_attack_logs(user, source, "Attempting stripping of [item]")
 	item.add_fingerprint(user)
 
