@@ -56,12 +56,12 @@
 
 	var/choice = show_radial_menu(user, item, skin_options, radius = 40, require_near = TRUE)
 
-	if(!choice || !reskin_radial_check(item, user) || item.current_skin)
+	if(!choice || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated() || item.current_skin)
 		return
 
 	var/datum/item_skin_data/skin = skin_options[choice]
 	item.current_skin = skin.icon_state
-	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин '[skin.name]'.")
+	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин '[choice]'.")
 	if(skin.icon != null)
 		item.icon = skin.icon
 	item.base_icon_state = skin.icon_state
@@ -70,8 +70,3 @@
 	item.skins = null
 	item.update_icon()
 	item.update_equipped_item()
-
-/datum/element/item_skins/proc/reskin_radial_check(obj/item/item, mob/living/carbon/human/user)
-	if(!ishuman(user) || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated())
-		return FALSE
-	return TRUE
