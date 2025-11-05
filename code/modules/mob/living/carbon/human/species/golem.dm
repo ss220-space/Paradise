@@ -1088,8 +1088,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	special_names = list(
 		MALE = null,
 		FEMALE = null,
-		NEUTER = null
-		)
+		NEUTER = null,
+	)
 	unarmed_type = /datum/unarmed_attack/golem/bananium
 	default_genes = list(/datum/dna/gene/disability/comic)
 
@@ -1194,8 +1194,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	special_names = list(
 		MALE = null,
 		FEMALE = null,
-		NEUTER = null
-		)
+		NEUTER = null,
+	)
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/tranquillite
 	info_text = "Будучи <span class='danger'>транквилитовым големом</span>, вы можете создавать невидимые стены и регенерировать, выпивая бутылки с ничем."
@@ -1245,7 +1245,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	special_names = list(
 		MALE = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
 		FEMALE = list("Дева"),
-		NEUTER = null
+		NEUTER = null,
 	)
 	speed_mod = 0
 	chance_name_male = 70

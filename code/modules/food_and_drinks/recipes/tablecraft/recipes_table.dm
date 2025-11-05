@@ -74,7 +74,7 @@
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/grown/cucumber = 3,
 		/datum/reagent/water = 10,
-		/datum/reagent/consumable/sodiumchloride = 10
+		/datum/reagent/consumable/sodiumchloride = 10,
 	)
 	result = /obj/item/reagent_containers/food/snacks/pickles
 	category = CAT_FOOD

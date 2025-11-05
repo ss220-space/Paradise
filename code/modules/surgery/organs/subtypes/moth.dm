@@ -11,7 +11,7 @@
 		DATIVE = "глазам луам",
 		ACCUSATIVE = "глаза луам",
 		INSTRUMENTAL = "глазами луам",
-		PREPOSITIONAL = "глазах луам"
+		PREPOSITIONAL = "глазах луам",
 	)
 
 /obj/item/organ/internal/ears/nian
@@ -25,7 +25,7 @@
 		DATIVE = "ушам луам",
 		ACCUSATIVE = "уши луам",
 		INSTRUMENTAL = "ушами луам",
-		PREPOSITIONAL = "ушах луам"
+		PREPOSITIONAL = "ушах луам",
 	)
 
 /obj/item/organ/internal/liver/nian
@@ -41,7 +41,7 @@
 		DATIVE = "печени луам",
 		ACCUSATIVE = "печень луам",
 		INSTRUMENTAL = "печенью луам",
-		PREPOSITIONAL = "печени луам"
+		PREPOSITIONAL = "печени луам",
 	)
 
 /obj/item/organ/internal/heart/nian
@@ -58,7 +58,7 @@
 		DATIVE = "сердцу луам",
 		ACCUSATIVE = "сердце луам",
 		INSTRUMENTAL = "сердцем луам",
-		PREPOSITIONAL = "сердце луам"
+		PREPOSITIONAL = "сердце луам",
 	)
 
 /obj/item/organ/internal/brain/nian
@@ -74,7 +74,7 @@
 		DATIVE = "мозгу луам",
 		ACCUSATIVE = "мозг луам",
 		INSTRUMENTAL = "мозгом луам",
-		PREPOSITIONAL = "мозге луам"
+		PREPOSITIONAL = "мозге луам",
 	)
 
 /obj/item/organ/internal/lungs/nian
@@ -90,7 +90,7 @@
 		DATIVE = "лёгким луам",
 		ACCUSATIVE = "лёгкие луам",
 		INSTRUMENTAL = "лёгкими луам",
-		PREPOSITIONAL = "лёгких луам"
+		PREPOSITIONAL = "лёгких луам",
 	)
 
 /obj/item/organ/internal/kidneys/nian
@@ -106,7 +106,7 @@
 		DATIVE = "почкам луам",
 		ACCUSATIVE = "почки луам",
 		INSTRUMENTAL = "почками луам",
-		PREPOSITIONAL = "почках луам"
+		PREPOSITIONAL = "почках луам",
 	)
 
 /obj/item/organ/external/wing/nian
@@ -121,5 +121,5 @@
 		DATIVE = "крыльям луам",
 		ACCUSATIVE = "крылья луам",
 		INSTRUMENTAL = "крыльями луам",
-		PREPOSITIONAL = "крыльях луам"
+		PREPOSITIONAL = "крыльях луам",
 	)

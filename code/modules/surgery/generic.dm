@@ -64,7 +64,7 @@
 		/obj/item/scalpel/laser = 100,
 		/obj/item/stack/cable_coil = 90,
 		/obj/item/stack/sheet/sinew = 90,
-		/obj/item/assembly/mousetrap = 25
+		/obj/item/assembly/mousetrap = 25,
 	)
 
 	time = 2.4 SECONDS
@@ -114,7 +114,7 @@
 		/obj/item/clothing/mask/cigarette = 75,
 		/obj/item/lighter = 60,
 		TOOL_WELDER = 30,
-		/obj/item/flashlight/flare/torch = 30
+		/obj/item/flashlight/flare/torch = 30,
 	)
 	time = 3 SECONDS
 
@@ -160,7 +160,7 @@
 		/obj/item/scalpel/laser/manager = 100,
 		/obj/item/retractor = 100,
 		/obj/item/crowbar = 90,
-		/obj/item/kitchen/utensil/fork = 60
+		/obj/item/kitchen/utensil/fork = 60,
 	)
 
 	time = 2.4 SECONDS
@@ -218,7 +218,7 @@
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
 		TOOL_WELDER = 30,
-		/obj/item/flashlight/flare/torch = 30
+		/obj/item/flashlight/flare/torch = 30,
 	)
 
 	time = 2.4 SECONDS
@@ -279,7 +279,7 @@
 		/obj/item/screwdriver/power = 80,
 		/obj/item/pickaxe/drill = 60,
 		/obj/item/mecha_parts/mecha_equipment/drill = 60,
-		/obj/item/screwdriver = 20
+		/obj/item/screwdriver = 20,
 	)
 	time = 3 SECONDS
 
@@ -327,7 +327,7 @@
 		/obj/item/primitive_saw = 100,
 		/obj/item/hatchet = 90,
 		/obj/item/circular_saw_blade = 80,
-		/obj/item/melee/changeling/arm_blade = 75
+		/obj/item/melee/changeling/arm_blade = 75,
 	)
 
 	time = 10 SECONDS

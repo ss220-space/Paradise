@@ -1,4 +1,3 @@
-
 // /datum/recipe/grill
 
 /datum/recipe/grill/bacon
@@ -10,7 +9,7 @@
 /datum/recipe/grill/telebacon
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/assembly/signaler
+		/obj/item/assembly/signaler,
 	)
 	result = /obj/item/reagent_containers/food/snacks/telebacon
 
@@ -18,42 +17,42 @@
 /datum/recipe/grill/syntitelebacon
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,
-		/obj/item/assembly/signaler
+		/obj/item/assembly/signaler,
 	)
 	result = /obj/item/reagent_containers/food/snacks/telebacon
 
 /datum/recipe/grill/friedegg
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/egg
+		/obj/item/reagent_containers/food/snacks/egg,
 	)
 	result = /obj/item/reagent_containers/food/snacks/friedegg
 
 /datum/recipe/grill/birdsteak
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/meat/bird
+		/obj/item/reagent_containers/food/snacks/meat/bird,
 	)
 	result = /obj/item/reagent_containers/food/snacks/birdsteak
 
 /datum/recipe/grill/meatsteak
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/meat
+		/obj/item/reagent_containers/food/snacks/meat,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak
 
 /datum/recipe/grill/salmonsteak
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/salmonmeat
+		/obj/item/reagent_containers/food/snacks/salmonmeat,
 	)
 	result = /obj/item/reagent_containers/food/snacks/salmonsteak
 
 /datum/recipe/grill/syntisteak
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/meat/syntiflesh
+		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak
 
@@ -61,7 +60,7 @@
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "herbsmix" = 5, "oliveoil" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
-		/obj/item/reagent_containers/food/snacks/grown/eggplant
+		/obj/item/reagent_containers/food/snacks/grown/eggplant,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/human
 
@@ -70,7 +69,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/vulpkanin,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle
+		/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin
 
@@ -78,7 +77,7 @@
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "sodawater" = 5, "oliveoil" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/tajaran,
-		/obj/item/grown/nettle/basic
+		/obj/item/grown/nettle/basic,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/tajaran
 
@@ -86,7 +85,7 @@
 	reagents = list("sodiumchloride" = 5, "blackpepper" = 5, "herbsmix" = 5, "tomatojuice" = 5, "oliveoil" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/unathi,
-		/obj/item/reagent_containers/food/snacks/grown/harebell
+		/obj/item/reagent_containers/food/snacks/grown/harebell,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/unathi
 
@@ -98,7 +97,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/chili,
 		/obj/item/reagent_containers/food/snacks/grown/berries,
 		/obj/item/reagent_containers/food/snacks/grown/berries,
-		/obj/item/reagent_containers/food/snacks/grown/berries
+		/obj/item/reagent_containers/food/snacks/grown/berries,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/drask
 
@@ -107,7 +106,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/grey,
 		/obj/item/reagent_containers/food/snacks/grown/garlic,
-		/obj/item/reagent_containers/food/snacks/grown/cabbage
+		/obj/item/reagent_containers/food/snacks/grown/cabbage,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/grey
 
@@ -115,7 +114,7 @@
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 5, "tomatojuice" = 5, "oliveoil" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/skrell,
-		/obj/item/reagent_containers/food/snacks/grown/banana
+		/obj/item/reagent_containers/food/snacks/grown/banana,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/skrell
 
@@ -125,7 +124,7 @@
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/vox,
 		/obj/item/reagent_containers/food/snacks/grown/garlic,
 		/obj/item/reagent_containers/food/snacks/grown/potato/sweet,
-		/obj/item/reagent_containers/food/snacks/grown/potato/sweet
+		/obj/item/reagent_containers/food/snacks/grown/potato/sweet,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/vox
 
@@ -133,7 +132,7 @@
 	reagents = list("sodiumchloride" = 10, "sugar" = 5, "herbsmix" = 5, "lemonjuice" = 5, "oliveoil" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/slime,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris
+		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/slime
 
@@ -142,7 +141,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/wryn,
 		/obj/item/reagent_containers/food/snacks/grown/potato,
-		/obj/item/reagent_containers/food/snacks/grown/potato
+		/obj/item/reagent_containers/food/snacks/grown/potato,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/wryn
 
@@ -153,7 +152,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/garlic,
 		/obj/item/reagent_containers/food/snacks/grown/olive,
 		/obj/item/reagent_containers/food/snacks/grown/olive,
-		/obj/item/reagent_containers/food/snacks/grown/olive
+		/obj/item/reagent_containers/food/snacks/grown/olive,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/kidan
 
@@ -161,7 +160,7 @@
 	reagents = list("sodiumchloride" = 5, "sugar" = 5, "herbsmix" = 5, "lemonjuice" = 5, "oliveoil" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/nian,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/orange
+		/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/nian
 
@@ -170,7 +169,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/diona,
 		/obj/item/reagent_containers/food/snacks/grown/garlic,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon
+		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/diona
 
@@ -180,7 +179,7 @@
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 		/obj/item/reagent_containers/food/snacks/grown/chili,
 		/obj/item/reagent_containers/food/snacks/grown/chili,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon
+		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/monkey
 
@@ -189,7 +188,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/farwa,
 		/obj/item/reagent_containers/food/snacks/grown/poppy,
-		/obj/item/reagent_containers/food/snacks/grown/poppy
+		/obj/item/reagent_containers/food/snacks/grown/poppy,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/farwa
 
@@ -198,7 +197,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin,
 		/obj/item/reagent_containers/food/snacks/onion_slice/red,
-		/obj/item/reagent_containers/food/snacks/onion_slice/red
+		/obj/item/reagent_containers/food/snacks/onion_slice/red,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/wolpin
 
@@ -207,7 +206,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/neara,
 		/obj/item/reagent_containers/food/snacks/grown/soybeans,
-		/obj/item/reagent_containers/food/snacks/grown/soybeans
+		/obj/item/reagent_containers/food/snacks/grown/soybeans,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/neara
 
@@ -216,7 +215,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/stok,
 		/obj/item/reagent_containers/food/snacks/cucumberslice,
-		/obj/item/reagent_containers/food/snacks/cucumberslice
+		/obj/item/reagent_containers/food/snacks/cucumberslice,
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak/stok
 
@@ -224,7 +223,7 @@
 	reagents = list("sugar" = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/reagent_containers/food/snacks/dough
+		/obj/item/reagent_containers/food/snacks/dough,
 	)
 	result = /obj/item/reagent_containers/food/snacks/waffles
 
@@ -266,7 +265,7 @@
 
 /datum/recipe/grill/cutlet
 	items = list(
-		/obj/item/reagent_containers/food/snacks/rawcutlet
+		/obj/item/reagent_containers/food/snacks/rawcutlet,
 	)
 	result = /obj/item/reagent_containers/food/snacks/cutlet
 
@@ -282,7 +281,7 @@
 /datum/recipe/grill/wingfangchu
 	reagents = list("soysauce" = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
 	)
 	result = /obj/item/reagent_containers/food/snacks/wingfangchu
 
@@ -422,28 +421,28 @@
 
 /datum/recipe/grill/pancake
 	items = list(
-		/obj/item/reagent_containers/food/snacks/cookiedough
+		/obj/item/reagent_containers/food/snacks/cookiedough,
 	)
 	result = /obj/item/reagent_containers/food/snacks/pancake
 
 /datum/recipe/grill/berry_pancake
 	items = list(
 		/obj/item/reagent_containers/food/snacks/cookiedough,
-		/obj/item/reagent_containers/food/snacks/grown/berries
+		/obj/item/reagent_containers/food/snacks/grown/berries,
 	)
 	result = /obj/item/reagent_containers/food/snacks/pancake/berry_pancake
 
 /datum/recipe/grill/choc_chip_pancake
 	items = list(
 		/obj/item/reagent_containers/food/snacks/cookiedough,
-		/obj/item/reagent_containers/food/snacks/choc_pile
+		/obj/item/reagent_containers/food/snacks/choc_pile,
 	)
 	result = /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
 
 /datum/recipe/grill/unathi
 	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "tsauce" = 1)
 	items = list(
-		/obj/item/organ/external/tail/unathi
+		/obj/item/organ/external/tail/unathi,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/lizard
 
@@ -453,6 +452,6 @@
 		/obj/item/reagent_containers/food/snacks/onion_slice,
 		/obj/item/reagent_containers/food/snacks/grown/carrot,
 		/obj/item/reagent_containers/food/snacks/rawcutlet,
-		/obj/item/reagent_containers/food/snacks/grown/garlic
+		/obj/item/reagent_containers/food/snacks/grown/garlic,
 	)
 	result = /obj/item/reagent_containers/food/snacks/plov

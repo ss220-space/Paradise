@@ -24,7 +24,7 @@
 		DATIVE = "гнезду некрополя",
 		ACCUSATIVE = "гнездо некрополя",
 		INSTRUMENTAL = "гнездом некрополя",
-		PREPOSITIONAL = "гнезде некрополя"
+		PREPOSITIONAL = "гнезде некрополя",
 	)
 
 /obj/structure/lavaland/ash_walker/Initialize(mapload)
@@ -124,7 +124,7 @@
 		DATIVE = "яйцу пеплоходца",
 		ACCUSATIVE = "яйцо пеплоходца",
 		INSTRUMENTAL = "яйцом пеплоходца",
-		PREPOSITIONAL = "яйце пеплоходца"
+		PREPOSITIONAL = "яйце пеплоходца",
 	)
 
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)
@@ -157,7 +157,7 @@
 		DATIVE = "яйцу шамана пеплоходцев",
 		ACCUSATIVE = "яйцо шамана пеплоходцев",
 		INSTRUMENTAL = "яйцом шамана пеплоходцев",
-		PREPOSITIONAL = "яйце шамана пеплоходцев"
+		PREPOSITIONAL = "яйце шамана пеплоходцев",
 	)
 
 /datum/outfit/ashwalker

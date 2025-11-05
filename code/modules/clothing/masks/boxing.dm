@@ -24,8 +24,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
-		)
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
+	)
 
 
 /obj/item/clothing/mask/balaclava/attack_self(mob/user)
@@ -54,8 +54,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
-		)
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
+	)
 
 /obj/item/clothing/mask/luchador/tecnicos
 	name = "Tecnicos Mask"

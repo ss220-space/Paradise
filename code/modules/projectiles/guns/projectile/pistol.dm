@@ -15,7 +15,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
-		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7),
 	)
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
@@ -35,7 +35,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 6),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -1)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -1),
 	)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_LOW
@@ -55,7 +55,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 4),
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3),
 	)
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
@@ -67,7 +67,7 @@
 		DATIVE = "Блюстителю",
 		ACCUSATIVE = "Блюститель",
 		INSTRUMENTAL = "Блюстителем",
-		PREPOSITIONAL = "Блюстителе"
+		PREPOSITIONAL = "Блюстителе",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
@@ -117,7 +117,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 5),
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
+		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
 
 
@@ -146,7 +146,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
+		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
 
 
@@ -164,7 +164,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2)
+		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
 
 
@@ -183,7 +183,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 4),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -2)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -2),
 	)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_HIGH
@@ -216,6 +216,6 @@
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 5),
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8)
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8),
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO

@@ -78,7 +78,7 @@
 		DATIVE = "голо-проектору уборщика",
 		ACCUSATIVE = "голо-проектор уборщика",
 		INSTRUMENTAL = "голо-проектором уборщика",
-		PREPOSITIONAL = "голо-проекторе уборщика"
+		PREPOSITIONAL = "голо-проекторе уборщика",
 	)
 
 /obj/item/holosign_creator/janitor/click_alt(mob/living/user)
@@ -121,7 +121,7 @@
 		DATIVE = "голо-проектору службы безопасности",
 		ACCUSATIVE = "голо-проектор службы безопасности",
 		INSTRUMENTAL = "голо-проектором службы безопасности",
-		PREPOSITIONAL = "голо-проекторе службы безопасности"
+		PREPOSITIONAL = "голо-проекторе службы безопасности",
 	)
 
 /obj/item/holosign_creator/engineering
@@ -140,7 +140,7 @@
 		DATIVE = "инженерному голо-проектору",
 		ACCUSATIVE = "инженерный голо-проектор",
 		INSTRUMENTAL = "инженерным голо-проектором",
-		PREPOSITIONAL = "инженерном голо-проекторе"
+		PREPOSITIONAL = "инженерном голо-проекторе",
 	)
 
 /obj/item/holosign_creator/atmos
@@ -158,7 +158,7 @@
 		DATIVE = "атмосферному голо-проектору",
 		ACCUSATIVE = "атмосферный голо-проектор",
 		INSTRUMENTAL = "атмосферным голо-проектором",
-		PREPOSITIONAL = "атмосферном голо-проекторе"
+		PREPOSITIONAL = "атмосферном голо-проекторе",
 	)
 
 /obj/item/holosign_creator/cyborg
@@ -176,7 +176,7 @@
 		DATIVE = "проектору энерго-барьера",
 		ACCUSATIVE = "проектор энерго-барьера",
 		INSTRUMENTAL = "проектором энерго-барьера",
-		PREPOSITIONAL = "проекторе энерго-барьера"
+		PREPOSITIONAL = "проекторе энерго-барьера",
 	)
 
 /obj/item/holosign_creator/cyborg/attack_self(mob/user)

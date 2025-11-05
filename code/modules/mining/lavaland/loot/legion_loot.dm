@@ -24,7 +24,7 @@
 		DATIVE = "посоху бурь",
 		ACCUSATIVE = "посох бурь",
 		INSTRUMENTAL = "посохом бурь",
-		PREPOSITIONAL = "посохе бурь"
+		PREPOSITIONAL = "посохе бурь",
 	)
 
 /obj/item/storm_staff/Destroy()

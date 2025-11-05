@@ -21,8 +21,8 @@ GLOBAL_LIST_INIT(see_through_maps, list(
 	// X
 	// A
 	SEE_THROUGH_MAP_DEFAULT = list(
-	/*----------------*/list(0, 1, 0),
-	/*----------------*/list(0, 0, 0)
+		/*------------*/list(0, 1, 0),
+		/*------------*/list(0, 0, 0),
 	),
 
 	// XXX
@@ -32,16 +32,16 @@ GLOBAL_LIST_INIT(see_through_maps, list(
 	SEE_THROUGH_MAP_THREE_X_THREE = list(
 		list(-1, 3, 0), list(0, 3, 0), list(1, 3, 0),
 		list(-1, 2, 0), list(0, 2, 0), list(1, 2, 0),
-		list(-1, 1, 0), list(0, 1, 0), list(1, 1, 0)
+		list(-1, 1, 0), list(0, 1, 0), list(1, 1, 0),
 	),
 
 	// X
 	// X
 	// A
 	SEE_THROUGH_MAP_DEFAULT_TWO_TALL = list(
-	/*----------------*/list(0, 2, 0),
-	/*----------------*/list(0, 1, 0),
-	/*----------------*/list(0, 0, 0)
+		/*------------*/list(0, 2, 0),
+		/*------------*/list(0, 1, 0),
+		/*------------*/list(0, 0, 0),
 	),
 
 	// XXX

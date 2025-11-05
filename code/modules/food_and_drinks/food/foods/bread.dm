@@ -147,7 +147,7 @@
 		DATIVE = "чёрствому хлебу",
 		ACCUSATIVE = "чёрствый хлеб",
 		INSTRUMENTAL = "чёрствым хлебом",
-		PREPOSITIONAL = "чёрством хлебе"
+		PREPOSITIONAL = "чёрством хлебе",
 	)
 
 /obj/item/reagent_containers/food/snacks/breadslice/moldy
@@ -163,7 +163,7 @@
 			DATIVE = "заплесневелому хлебу",
 			ACCUSATIVE = "заплесневелый хлеб",
 			INSTRUMENTAL = "заплесневелым хлебом",
-			PREPOSITIONAL = "заплесневелом хлебе"
+			PREPOSITIONAL = "заплесневелом хлебе",
 		)
 
 /obj/item/reagent_containers/food/snacks/breadslice/burned
@@ -248,7 +248,7 @@
 		DATIVE = "багету",
 		ACCUSATIVE = "багет",
 		INSTRUMENTAL = "багетом",
-		PREPOSITIONAL = "багете"
+		PREPOSITIONAL = "багете",
 	)
 
 /obj/item/reagent_containers/food/snacks/baguette/combat

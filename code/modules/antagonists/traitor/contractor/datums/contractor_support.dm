@@ -21,7 +21,6 @@
 	traitorhud.join_hud(owner.current, null)
 	set_antag_hud(owner.current, "hudsupport")
 
-
 /datum/outfit/contractor_partner
 	name = "Агент поддержки Контрактника"
 
@@ -42,8 +41,9 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter = 1,
 		/obj/item/melee/baton/security/cattleprod = 1,
-		/obj/item/stock_parts/cell/super = 1
+		/obj/item/stock_parts/cell/super = 1,
 	)
+
 /datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/partner, visualsOnly)
 	. = ..()
 	var/obj/item/clothing/mask/cigarette/syndicate/cig = partner.get_item_by_slot(ITEM_SLOT_MASK)
@@ -52,6 +52,3 @@
 	var/obj/item/card/id/I = partner.wear_id
 	if(istype(I))
 		apply_to_card(I, partner, get_syndicate_access("Syndicate Agent"), name)
-
-
-

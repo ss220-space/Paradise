@@ -40,7 +40,7 @@ Almost every mining medic related stuff
 		DATIVE = "шахтёрской видеокамере",
 		ACCUSATIVE = "шахтёрскую видеокамеру",
 		INSTRUMENTAL = "шахтёрской видеокамерой",
-		PREPOSITIONAL = "шахтёрской видеокамере"
+		PREPOSITIONAL = "шахтёрской видеокамере",
 	)
 
 /obj/item/clothing/accessory/camera/Destroy()
@@ -139,7 +139,7 @@ Almost every mining medic related stuff
 		DATIVE = "нагрудной видеокамере",
 		ACCUSATIVE = "нагрудную видеокамеру",
 		INSTRUMENTAL = "нагрудной видеокамерой",
-		PREPOSITIONAL = "нагрудной видеокамере"
+		PREPOSITIONAL = "нагрудной видеокамере",
 	)
 
 /obj/item/storage/box/mining_cameras
@@ -149,7 +149,7 @@ Almost every mining medic related stuff
 	storage_slots =  12
 	max_combined_w_class = INFINITY
 	can_hold = list(
-		/obj/item/clothing/accessory/camera
+		/obj/item/clothing/accessory/camera,
 	)
 
 /obj/item/storage/box/mining_cameras/get_ru_names()
@@ -159,7 +159,7 @@ Almost every mining medic related stuff
 		DATIVE = "коробке с шахтёрскими видеокамерами",
 		ACCUSATIVE = "коробку с шахтёрскими видеокамерами",
 		INSTRUMENTAL = "коробкой с шахтёрскими видеокамерами",
-		PREPOSITIONAL = "коробке с шахтёрскими видеокамерами"
+		PREPOSITIONAL = "коробке с шахтёрскими видеокамерами",
 	)
 
 /obj/item/storage/box/mining_cameras/populate_contents()
@@ -178,7 +178,7 @@ Almost every mining medic related stuff
 		DATIVE = "коробке с нагрудными видеокамерами",
 		ACCUSATIVE = "коробку с нагрудными видеокамерами",
 		INSTRUMENTAL = "коробкой с нагрудными видеокамерами",
-		PREPOSITIONAL = "коробке с нагрудными видеокамерами"
+		PREPOSITIONAL = "коробке с нагрудными видеокамерами",
 	)
 
 /obj/item/storage/box/sec_cameras/populate_contents()
@@ -201,7 +201,7 @@ Almost every mining medic related stuff
 		DATIVE = "шахтёрскому монитору видеокамер",
 		ACCUSATIVE = "шахтёрский монитор видеокамер",
 		INSTRUMENTAL = "шахтёрским монитором видеокамер",
-		PREPOSITIONAL = "шахтёрском мониторе видеокамер"
+		PREPOSITIONAL = "шахтёрском мониторе видеокамер",
 	)
 
 /obj/item/camera_bug/mining/Initialize(mapload)
@@ -224,7 +224,7 @@ Almost every mining medic related stuff
 		DATIVE = "офицерскому монитору видеокамер",
 		ACCUSATIVE = "офицерский монитор видеокамер",
 		INSTRUMENTAL = "офицерским монитором видеокамер",
-		PREPOSITIONAL = "офицерском мониторе видеокамер"
+		PREPOSITIONAL = "офицерском мониторе видеокамер",
 	)
 
 /obj/item/camera_bug/security/Initialize(mapload)

@@ -36,7 +36,7 @@ effective or pretty fucking useless.
 		DATIVE = "подавителю разума",
 		ACCUSATIVE = "подавитель разума",
 		INSTRUMENTAL = "подавителем разума",
-		PREPOSITIONAL = "подавителе разума"
+		PREPOSITIONAL = "подавителе разума",
 	)
 
 
@@ -111,7 +111,7 @@ effective or pretty fucking useless.
 		DATIVE = "анализатору здоровья",
 		ACCUSATIVE = "анализатор здоровья",
 		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
+		PREPOSITIONAL = "анализаторе здоровья",
 	)
 
 

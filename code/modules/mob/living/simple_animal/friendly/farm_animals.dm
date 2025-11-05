@@ -41,7 +41,7 @@
 		DATIVE = "козлу",
 		ACCUSATIVE = "козла",
 		INSTRUMENTAL = "козлом",
-		PREPOSITIONAL = "козле"
+		PREPOSITIONAL = "козле",
 	)
 
 
@@ -177,7 +177,7 @@
 		DATIVE = "корове",
 		ACCUSATIVE = "корову",
 		INSTRUMENTAL = "коровой",
-		PREPOSITIONAL = "корове"
+		PREPOSITIONAL = "корове",
 	)
 
 /mob/living/simple_animal/cow/New()
@@ -307,7 +307,7 @@
 		DATIVE = "цыплёнку",
 		ACCUSATIVE = "цыплёнка",
 		INSTRUMENTAL = "цыплёнком",
-		PREPOSITIONAL = "цыплёнке"
+		PREPOSITIONAL = "цыплёнке",
 	)
 
 /mob/living/simple_animal/chick/New()
@@ -383,7 +383,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "курице",
 		ACCUSATIVE = "курицу",
 		INSTRUMENTAL = "курицей",
-		PREPOSITIONAL = "курице"
+		PREPOSITIONAL = "курице",
 	)
 
 /mob/living/simple_animal/chicken/New()
@@ -500,7 +500,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "петуху",
 		ACCUSATIVE = "петуха",
 		INSTRUMENTAL = "петухом",
-		PREPOSITIONAL = "петухе"
+		PREPOSITIONAL = "петухе",
 	)
 
 /mob/living/simple_animal/pig
@@ -541,7 +541,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "свинье",
 		ACCUSATIVE = "свинью",
 		INSTRUMENTAL = "свиньёй",
-		PREPOSITIONAL = "свинье"
+		PREPOSITIONAL = "свинье",
 	)
 
 /mob/living/simple_animal/turkey
@@ -578,7 +578,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "индейке",
 		ACCUSATIVE = "индейку",
 		INSTRUMENTAL = "индейкой",
-		PREPOSITIONAL = "индейке"
+		PREPOSITIONAL = "индейке",
 	)
 
 /mob/living/simple_animal/goose
@@ -621,7 +621,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "гусю",
 		ACCUSATIVE = "гуся",
 		INSTRUMENTAL = "гусём",
-		PREPOSITIONAL = "гусе"
+		PREPOSITIONAL = "гусе",
 	)
 
 /mob/living/simple_animal/goose/gosling
@@ -644,7 +644,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "гусёнку",
 		ACCUSATIVE = "гусёнка",
 		INSTRUMENTAL = "гусёнком",
-		PREPOSITIONAL = "гусёнке"
+		PREPOSITIONAL = "гусёнке",
 	)
 
 /mob/living/simple_animal/seal
@@ -681,7 +681,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "бельку",
 		ACCUSATIVE = "белька",
 		INSTRUMENTAL = "бельком",
-		PREPOSITIONAL = "бельке"
+		PREPOSITIONAL = "бельке",
 	)
 
 /mob/living/simple_animal/walrus
@@ -717,7 +717,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "моржу",
 		ACCUSATIVE = "моржа",
 		INSTRUMENTAL = "моржом",
-		PREPOSITIONAL = "морже"
+		PREPOSITIONAL = "морже",
 	)
 
 /obj/item/udder
@@ -769,7 +769,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "горбатому козлу",
 		ACCUSATIVE = "горбатого козла",
 		INSTRUMENTAL = "горбатым козлом",
-		PREPOSITIONAL = "горбатом козле"
+		PREPOSITIONAL = "горбатом козле",
 	)
 
 /mob/living/simple_animal/cock/cool
@@ -787,5 +787,5 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		DATIVE = "крутому петуху",
 		ACCUSATIVE = "крутого петуха",
 		INSTRUMENTAL = "крутым петухом",
-		PREPOSITIONAL = "крутом петухе"
+		PREPOSITIONAL = "крутом петухе",
 	)

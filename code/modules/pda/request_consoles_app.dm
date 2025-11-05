@@ -130,180 +130,181 @@
 
 /datum/data/pda/app/request_console/medical
 	department_list = list(
-							RC_MEDBAY,
-							RC_MORGUE
-						)
+		RC_MEDBAY,
+		RC_MORGUE,
+	)
 
 /datum/data/pda/app/request_console/viro
 	department_list = list(
-							RC_MEDBAY,
-							RC_VIROLOGY,
-							RC_MORGUE
-						)
+		RC_MEDBAY,
+		RC_VIROLOGY,
+		RC_MORGUE,
+	)
 
 /datum/data/pda/app/request_console/engineering
 	department_list = list(
-							RC_TECH_STORAGE,
-							RC_ENGINEERING,
-							RC_ATMOSPHERICS,
-							RC_MECHANIC
-						)
+		RC_TECH_STORAGE,
+		RC_ENGINEERING,
+		RC_ATMOSPHERICS,
+		RC_MECHANIC,
+	)
 	ore_message_reciver_dep = RC_MECHANIC
 
 
 /datum/data/pda/app/request_console/detective
 	department_list = list(
-							RC_SECURITY,
-							RC_DETECTIVE
-						)
+		RC_SECURITY,
+		RC_DETECTIVE,
+	)
 
 /datum/data/pda/app/request_console/warden
 	department_list = list(
-							RC_SECURITY,
-							RC_WARDEN,
-							RC_LABOR_CAMP
-						)
+		RC_SECURITY,
+		RC_WARDEN,
+		RC_LABOR_CAMP,
+	)
 
 /datum/data/pda/app/request_console/toxins
 	department_list = list(
-							RC_SCIENCE,
-							RC_ROBOTICS,
-							RC_RESEARCH,
-							RC_XENOBIOLOGY
-						)
+		RC_SCIENCE,
+		RC_ROBOTICS,
+		RC_RESEARCH,
+		RC_XENOBIOLOGY,
+	)
 	ore_message_reciver_dep = RC_RESEARCH
 
 /datum/data/pda/app/request_console/hop
 	department_list = list(
-							RC_BAR,
-							RC_KITCHEN,
-							RC_HEAD_OF_PERSONNEL_DESK,
-							RC_BRIDGE,
-							RC_HYDROPONICS,
-							RC_JANITORIAL,
-							RC_CHAPEL
-						)
+		RC_BAR,
+		RC_KITCHEN,
+		RC_HEAD_OF_PERSONNEL_DESK,
+		RC_BRIDGE,
+		RC_HYDROPONICS,
+		RC_JANITORIAL,
+		RC_CHAPEL,
+	)
 
 /datum/data/pda/app/request_console/hos
 	department_list =	list(RC_SECURITY,
-							RC_WARDEN,
-							RC_LABOR_CAMP,
-							RC_HEAD_OF_SECURITY_DESK,
-							RC_BRIDGE,
-							RC_DETECTIVE)
+		RC_WARDEN,
+		RC_LABOR_CAMP,
+		RC_HEAD_OF_SECURITY_DESK,
+		RC_BRIDGE,
+		RC_DETECTIVE,
+	)
 
 /datum/data/pda/app/request_console/ce
 	department_list = list(
-							RC_TECH_STORAGE,
-							RC_ENGINEERING,
-							RC_ATMOSPHERICS,
-							RC_MECHANIC,
-							RC_BRIDGE,
-							RC_AI,
-							RC_CHIEF_ENGINEER_DESK
-						)
+		RC_TECH_STORAGE,
+		RC_ENGINEERING,
+		RC_ATMOSPHERICS,
+		RC_MECHANIC,
+		RC_BRIDGE,
+		RC_AI,
+		RC_CHIEF_ENGINEER_DESK,
+	)
 	ore_message_reciver_dep = RC_MECHANIC
 
 /datum/data/pda/app/request_console/cmo
 	department_list = list(
-							RC_MEDBAY,
-							RC_VIROLOGY,
-							RC_MORGUE,
-							RC_GENETICS,
-							RC_BRIDGE,
-							RC_CHEMISTRY,
-							RC_CHIEF_MEDICAL_OFFICER_DESK
-						)
+		RC_MEDBAY,
+		RC_VIROLOGY,
+		RC_MORGUE,
+		RC_GENETICS,
+		RC_BRIDGE,
+		RC_CHEMISTRY,
+		RC_CHIEF_MEDICAL_OFFICER_DESK,
+	)
 
 /datum/data/pda/app/request_console/rd
 	department_list = list(
-							RC_SCIENCE,
-							RC_ROBOTICS,
-							RC_RESEARCH,
-							RC_XENOBIOLOGY,
-							RC_GENETICS,
-							RC_BRIDGE,
-							RC_AI,
-							RC_RESEARCH_DIRECTOR_DESK
-						)
+		RC_SCIENCE,
+		RC_ROBOTICS,
+		RC_RESEARCH,
+		RC_XENOBIOLOGY,
+		RC_GENETICS,
+		RC_BRIDGE,
+		RC_AI,
+		RC_RESEARCH_DIRECTOR_DESK,
+	)
 	ore_message_reciver_dep = RC_RESEARCH
 
 /datum/data/pda/app/request_console/captain
 	department_list = list(
-							RC_CHIEF_ENGINEER_DESK,
-							RC_CHIEF_MEDICAL_OFFICER_DESK,
-							RC_HEAD_OF_PERSONNEL_DESK,
-							RC_HEAD_OF_SECURITY_DESK,
-							RC_BRIDGE,
-							RC_QUARTERMASTER_DESK,
-							RC_AI,
-							RC_CAPTAIN_DESK,
-							RC_RESEARCH_DIRECTOR_DESK
-						)
+		RC_CHIEF_ENGINEER_DESK,
+		RC_CHIEF_MEDICAL_OFFICER_DESK,
+		RC_HEAD_OF_PERSONNEL_DESK,
+		RC_HEAD_OF_SECURITY_DESK,
+		RC_BRIDGE,
+		RC_QUARTERMASTER_DESK,
+		RC_AI,
+		RC_CAPTAIN_DESK,
+		RC_RESEARCH_DIRECTOR_DESK,
+	)
 	ore_message_reciver_dep = RC_RESEARCH_DIRECTOR_DESK
 
 /datum/data/pda/app/request_console/ntrep
 	department_list = list(
-							RC_NT_REPRESENTATIVE,
-							RC_BLUESHIELD,
-							RC_INTERNAL_AFFAIRS_OFFICE,
-							RC_BRIDGE
-						)
+		RC_NT_REPRESENTATIVE,
+		RC_BLUESHIELD,
+		RC_INTERNAL_AFFAIRS_OFFICE,
+		RC_BRIDGE,
+	)
 
 /datum/data/pda/app/request_console/magistrate
 	department_list = list(
-							RC_INTERNAL_AFFAIRS_OFFICE,
-							RC_BRIDGE
-						)
+		RC_INTERNAL_AFFAIRS_OFFICE,
+		RC_BRIDGE,
+	)
 
 /datum/data/pda/app/request_console/blueshield
 	department_list = list(
-							RC_BLUESHIELD,
-							RC_BRIDGE
-						)
+		RC_BLUESHIELD,
+		RC_BRIDGE,
+	)
 
 /datum/data/pda/app/request_console/quartermaster
 	department_list = list(
-							RC_CARGO_BAY,
-							RC_QUARTERMASTER_DESK,
-							RC_BRIDGE
-						)
+		RC_CARGO_BAY,
+		RC_QUARTERMASTER_DESK,
+		RC_BRIDGE,
+	)
 
 /datum/data/pda/app/request_console/roboticist
 	department_list = list(
-							RC_RESEARCH,
-							RC_SCIENCE,
-							RC_ROBOTICS
-						)
+		RC_RESEARCH,
+		RC_SCIENCE,
+		RC_ROBOTICS,
+	)
 	ore_message_reciver_dep = RC_ROBOTICS
 
 /datum/data/pda/app/request_console/atmos
 	department_list = list(
-							RC_TECH_STORAGE,
-							RC_ATMOSPHERICS,
-							RC_ENGINEERING
-						)
+		RC_TECH_STORAGE,
+		RC_ATMOSPHERICS,
+		RC_ENGINEERING,
+	)
 	ore_message_reciver_dep = RC_ATMOSPHERICS
 
 /datum/data/pda/app/request_console/chemist
 	department_list = list(
-							RC_CHEMISTRY,
-							RC_MEDBAY
-						)
+		RC_CHEMISTRY,
+		RC_MEDBAY,
+	)
 
 /datum/data/pda/app/request_console/geneticist
 	department_list = list(
-							RC_GENETICS,
-							RC_MEDBAY
-						)
+		RC_GENETICS,
+		RC_MEDBAY,
+	)
 
 /datum/data/pda/app/request_console/centcom
 	department_list = list(
-							RC_BRIDGE,
-							RC_AI,
-							RC_BLUESHIELD,
-							RC_INTERNAL_AFFAIRS_OFFICE,
-							RC_NT_REPRESENTATIVE,
-							RC_CENTRAL_COMMAND,
-							RC_CAPTAIN_DESK
-						)
+		RC_BRIDGE,
+		RC_AI,
+		RC_BLUESHIELD,
+		RC_INTERNAL_AFFAIRS_OFFICE,
+		RC_NT_REPRESENTATIVE,
+		RC_CENTRAL_COMMAND,
+		RC_CAPTAIN_DESK,
+	)

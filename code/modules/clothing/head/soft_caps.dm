@@ -14,8 +14,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 
 
 /obj/item/clothing/head/soft/update_icon_state()
@@ -190,7 +190,7 @@
 		DATIVE = "синей бейсболке",
 		ACCUSATIVE = "синюю бейсболку",
 		INSTRUMENTAL = "синей бейсболкой",
-		PREPOSITIONAL = "синей бейсболке"
+		PREPOSITIONAL = "синей бейсболке",
 	)
 /obj/item/clothing/head/tchaikowsky/baseballcap/brown
 	name = "baseball cap (brown)"
@@ -205,5 +205,5 @@
 		DATIVE = "коричневой бейсболке",
 		ACCUSATIVE = "коричневую бейсболку",
 		INSTRUMENTAL = "коричневой бейсболкой",
-		PREPOSITIONAL = "коричневой бейсболке"
+		PREPOSITIONAL = "коричневой бейсболке",
 	)

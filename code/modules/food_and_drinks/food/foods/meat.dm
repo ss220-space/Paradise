@@ -22,7 +22,7 @@
 		DATIVE = "куску мяса",
 		ACCUSATIVE = "кусок мяса",
 		INSTRUMENTAL = "куском мяса",
-		PREPOSITIONAL = "куске мяса"
+		PREPOSITIONAL = "куске мяса",
 	)
 
 
@@ -93,7 +93,7 @@
 		DATIVE = "жаренному мясу",
 		ACCUSATIVE = "жаренное мясо",
 		INSTRUMENTAL = "жаренным мясом",
-		PREPOSITIONAL = "жаренном мясе"
+		PREPOSITIONAL = "жаренном мясе",
 	)
 
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh
@@ -465,7 +465,7 @@
 		DATIVE = "паучьей лапке",
 		ACCUSATIVE = "паучью лапку",
 		INSTRUMENTAL = "паучьей лапкой",
-		PREPOSITIONAL = "паучьей лапке"
+		PREPOSITIONAL = "паучьей лапке",
 	)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/burn()
@@ -503,7 +503,7 @@
 		DATIVE = "мясу голиафа",
 		ACCUSATIVE = "мясо голиафа",
 		INSTRUMENTAL = "мясом голиафа",
-		PREPOSITIONAL = "мясе голиафа"
+		PREPOSITIONAL = "мясе голиафа",
 	)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath/burn()
@@ -525,7 +525,7 @@
 		DATIVE = "мясу златожору",
 		ACCUSATIVE = "мясо златожора",
 		INSTRUMENTAL = "мясом златожором",
-		PREPOSITIONAL = "мясе златожора"
+		PREPOSITIONAL = "мясе златожора",
 	)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/burn()
@@ -788,7 +788,7 @@
 		DATIVE = "стейку из мяса голиафа",
 		ACCUSATIVE = "стейк из мяса голиафа",
 		INSTRUMENTAL = "стейком из мяса голиафа",
-		PREPOSITIONAL = "стейке из мяса голиафа"
+		PREPOSITIONAL = "стейке из мяса голиафа",
 	)
 
 /obj/item/reagent_containers/food/snacks/roasted_spiderleg
@@ -810,7 +810,7 @@
 		DATIVE = "жаренной паучьей лапке",
 		ACCUSATIVE = "жаренную паучью лапку",
 		INSTRUMENTAL = "жаренной паучьей лапкой",
-		PREPOSITIONAL = "жаренной паучьей лапке"
+		PREPOSITIONAL = "жаренной паучьей лапке",
 	)
 
 /obj/item/reagent_containers/food/snacks/goldgrubmeat

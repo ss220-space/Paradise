@@ -87,15 +87,15 @@
 	)
 
 	autohiss_basic_map = list(
-			"o" = list ("oo", "ooo"),
-			"u" = list ("uu", "uuu"),
-			"о" = list ("оо", "ооо"),
-			"у" = list ("уу", "ууу")
-		)
+		"o" = list ("oo", "ooo"),
+		"u" = list ("uu", "uuu"),
+		"о" = list ("оо", "ооо"),
+		"у" = list ("уу", "ууу"),
+	)
 	autohiss_extra_map = list(
-			"m" = list ("mm", "mmm"),
-			"м" = list ("мм", "ммм")
-		)
+		"m" = list ("mm", "mmm"),
+		"м" = list ("мм", "ммм"),
+	)
 	autohiss_exempt = list("Орлуум")
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)

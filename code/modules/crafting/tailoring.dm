@@ -1,16 +1,20 @@
 /datum/crafting_recipe/durathread_vest
 	name = "Durathread Vest"
 	result = /obj/item/clothing/suit/armor/vest/durathread
-	reqs = list(/obj/item/stack/sheet/durathread = 5,
-				/obj/item/stack/sheet/leather = 4)
+	reqs = list(
+		/obj/item/stack/sheet/durathread = 5,
+		/obj/item/stack/sheet/leather = 4,
+	)
 	time = 50
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/durathread_helmet
 	name = "Durathread Helmet"
 	result = /obj/item/clothing/head/helmet/durathread
-	reqs = list(/obj/item/stack/sheet/durathread = 4,
-				/obj/item/stack/sheet/leather = 5)
+	reqs = list(
+		/obj/item/stack/sheet/durathread = 4,
+		/obj/item/stack/sheet/leather = 5,
+	)
 	time = 40
 	category = CAT_CLOTHING
 
@@ -54,7 +58,7 @@
 	result = /obj/item/storage/belt/fannypack
 	reqs = list(
 		/obj/item/stack/sheet/cloth = 2,
-		/obj/item/stack/sheet/leather = 1
+		/obj/item/stack/sheet/leather = 1,
 	)
 	time = 20
 	category = CAT_CLOTHING
@@ -67,12 +71,12 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/security = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	blacklist = list(
 		/obj/item/clothing/glasses/hud/security/read_only,
 		/obj/item/clothing/glasses/hud/security/sunglasses/read_only,
-		/obj/item/clothing/glasses/hud/security/sunglasses/tajblind
+		/obj/item/clothing/glasses/hud/security/sunglasses/tajblind,
 	)
 	category = CAT_CLOTHING
 
@@ -84,7 +88,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/security/read_only = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -104,7 +108,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/health = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -124,7 +128,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/health/tajblind = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -136,7 +140,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/hydroponic/tajblind = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -148,7 +152,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/diagnostic/tajblind = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -160,7 +164,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/skills/tajblind = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -172,7 +176,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/diagnostic = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -192,7 +196,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/skills = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -212,7 +216,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/meson = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -224,7 +228,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/tajblind/cargo = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -236,7 +240,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/tajblind/eng = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -256,7 +260,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/hydroponic = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -276,7 +280,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -296,7 +300,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/science = 1,
 		/obj/item/clothing/glasses/sunglasses = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -334,8 +338,10 @@
 	name = "Rubber Ducky Shoes"
 	result = /obj/item/clothing/shoes/ducky
 	time = 45
-	reqs = list(/obj/item/bikehorn/rubberducky = 2,
-				/obj/item/clothing/shoes/sandal = 1)
+	reqs = list(
+		/obj/item/bikehorn/rubberducky = 2,
+		/obj/item/clothing/shoes/sandal = 1,
+	)
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
 
@@ -343,8 +349,10 @@
 	name = "Salmon Suit"
 	result = /obj/item/clothing/suit/hooded/salmon_costume
 	time = 60
-	reqs = list(/obj/item/fish/salmon = 20,
-				/obj/item/stack/tape_roll = 5)
+	reqs = list(
+		/obj/item/fish/salmon = 20,
+		/obj/item/stack/tape_roll = 5,
+	)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/kitchen/knife)
 	category = CAT_CLOTHING
@@ -353,8 +361,10 @@
 	name = "Makeshift armor"
 	result = /obj/item/clothing/suit/armor/makeshift_armor
 	time = 6 SECONDS
-	reqs = list(/obj/item/caution = 1,
-				/obj/item/stack/tape_roll = 10)
+	reqs = list(
+		/obj/item/caution = 1,
+		/obj/item/stack/tape_roll = 10,
+	)
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
 
@@ -370,9 +380,11 @@
 	name = "Guitar Bag"
 	result = /obj/item/storage/backpack/guitarbag
 	time = 6 SECONDS
-	reqs = list(/obj/item/bodybag = 1,
-				/obj/item/stack/tape_roll = 10,
-				/obj/item/stack/sheet/cardboard = 2)
+	reqs = list(
+		/obj/item/bodybag = 1,
+		/obj/item/stack/tape_roll = 10,
+		/obj/item/stack/sheet/cardboard = 2,
+	)
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
 
@@ -384,7 +396,7 @@
 	reqs = list(
 		/obj/item/clothing/mask/gas = 1,
 		/obj/item/assembly/voice = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	category = CAT_CLOTHING
 
@@ -392,8 +404,10 @@
 	name = "Gem Necklace"
 	result = list(/obj/item/clothing/accessory/necklace/gem)
 	time = 60
-	reqs = list(/obj/item/stack/sheet/mineral/gold = 10,
-				/obj/item/stack/sheet/leather = 1)
+	reqs = list(
+		/obj/item/stack/sheet/mineral/gold = 10,
+		/obj/item/stack/sheet/leather = 1,
+	)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/gem_bracers
@@ -406,10 +420,11 @@
 /datum/crafting_recipe/flower_crown
 	name = "Flower Crown"
 	result = list(/obj/item/clothing/head/flower_crown)
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/poppy = 3,
-					/obj/item/reagent_containers/food/snacks/grown/lily = 3,
-					/obj/item/grown/sunflower = 3
-					)
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/grown/poppy = 3,
+		/obj/item/reagent_containers/food/snacks/grown/lily = 3,
+		/obj/item/grown/sunflower = 3,
+	)
 	time = 2 SECONDS
 	category = CAT_CLOTHING
 
@@ -441,14 +456,13 @@
 	time = 2 SECONDS
 	category = CAT_CLOTHING
 
-
 /datum/crafting_recipe/hudsunsec/monocle
 	name = "Security HUD Monocle"
 	result = /obj/item/clothing/glasses/hud/security/monocle
 	reqs = list(
 		/obj/item/clothing/glasses/hud/security = 1,
 		/obj/item/clothing/glasses/monocle = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 
 /datum/crafting_recipe/hudsunmed/monocle
@@ -457,7 +471,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/health = 1,
 		/obj/item/clothing/glasses/monocle = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 
 /datum/crafting_recipe/hudsunskills/monocle
@@ -466,7 +480,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/skills = 1,
 		/obj/item/clothing/glasses/monocle = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 
 /datum/crafting_recipe/hudsunhydroponic/monocle
@@ -475,7 +489,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/hydroponic = 1,
 		/obj/item/clothing/glasses/monocle = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 
 /datum/crafting_recipe/hudsundiag/monocle
@@ -484,7 +498,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/hud/diagnostic = 1,
 		/obj/item/clothing/glasses/monocle = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 
 /datum/crafting_recipe/hudsundiag/monoclesci
@@ -493,7 +507,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/science = 1,
 		/obj/item/clothing/glasses/monocle = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 
 /datum/crafting_recipe/hudsunmeson/monocle
@@ -502,7 +516,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/meson = 1,
 		/obj/item/clothing/glasses/monocle = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 
 /datum/crafting_recipe/hudsunthermal/monocle
@@ -511,7 +525,7 @@
 	reqs = list(
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/clothing/glasses/monocle = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 
 /datum/crafting_recipe/hudsunsecremoval/monocle

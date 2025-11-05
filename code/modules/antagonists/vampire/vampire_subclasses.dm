@@ -51,15 +51,19 @@
 /datum/vampire_subclass/umbrae
 	name = "umbrae"
 	antag_menu_addition = "умбра"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/cloak = 100,
-							/obj/effect/proc_holder/spell/vampire/shadow_snare = 200,
-							/obj/effect/proc_holder/spell/vampire/soul_anchor = 200,
-							/obj/effect/proc_holder/spell/vampire/dark_passage = 300,
-							/datum/vampire_passive/xray = 300,
-							/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 400,
-							/obj/effect/proc_holder/spell/vampire/shadow_boxing = 600)
-	fully_powered_abilities = list(/datum/vampire_passive/full,
-								/obj/effect/proc_holder/spell/vampire/self/eternal_darkness)
+	standard_powers = list(
+		/obj/effect/proc_holder/spell/vampire/self/cloak = 100,
+		/obj/effect/proc_holder/spell/vampire/shadow_snare = 200,
+		/obj/effect/proc_holder/spell/vampire/soul_anchor = 200,
+		/obj/effect/proc_holder/spell/vampire/dark_passage = 300,
+		/datum/vampire_passive/xray = 300,
+		/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 400,
+		/obj/effect/proc_holder/spell/vampire/shadow_boxing = 600,
+	)
+	fully_powered_abilities = list(
+		/datum/vampire_passive/full,
+		/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
+	)
 
 /datum/vampire_subclass/umbrae/on_blood_sucking(mob/living/carbon/human/H)
 	var/list/lights = list()
@@ -73,14 +77,18 @@
 /datum/vampire_subclass/hemomancer
 	name = "hemomancer"
 	antag_menu_addition = "гемомансер"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/vamp_claws = 100,
-							/obj/effect/proc_holder/spell/vampire/blood_tendrils = 200,
-							/obj/effect/proc_holder/spell/vampire/blood_barrier = 200,
-							/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool = 300,
-							/obj/effect/proc_holder/spell/vampire/predator_senses = 400,
-							/obj/effect/proc_holder/spell/vampire/blood_eruption = 600)
-	fully_powered_abilities = list(/datum/vampire_passive/full,
-								/obj/effect/proc_holder/spell/vampire/self/blood_spill)
+	standard_powers = list(
+		/obj/effect/proc_holder/spell/vampire/self/vamp_claws = 100,
+		/obj/effect/proc_holder/spell/vampire/blood_tendrils = 200,
+		/obj/effect/proc_holder/spell/vampire/blood_barrier = 200,
+		/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool = 300,
+		/obj/effect/proc_holder/spell/vampire/predator_senses = 400,
+		/obj/effect/proc_holder/spell/vampire/blood_eruption = 600,
+	)
+	fully_powered_abilities = list(
+		/datum/vampire_passive/full,
+		/obj/effect/proc_holder/spell/vampire/self/blood_spill,
+	)
 
 /datum/vampire_subclass/hemomancer/on_blood_sucking(mob/living/carbon/human/H)
 	H.setBlood(min(H.blood_volume + 5, BLOOD_VOLUME_NORMAL))
@@ -88,14 +96,18 @@
 /datum/vampire_subclass/gargantua
 	name = "gargantua"
 	antag_menu_addition = "гаргантюа"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/blood_swell = 100,
-							/obj/effect/proc_holder/spell/vampire/self/blood_rush = 200,
-							/obj/effect/proc_holder/spell/vampire/self/stomp = 200,
-							/datum/vampire_passive/blood_swell_upgrade = 300,
-							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 400,
-							/obj/effect/proc_holder/spell/fireball/demonic_grasp = 600)
-	fully_powered_abilities = list(/datum/vampire_passive/full,
-								/obj/effect/proc_holder/spell/vampire/charge)
+	standard_powers = list(
+		/obj/effect/proc_holder/spell/vampire/self/blood_swell = 100,
+		/obj/effect/proc_holder/spell/vampire/self/blood_rush = 200,
+		/obj/effect/proc_holder/spell/vampire/self/stomp = 200,
+		/datum/vampire_passive/blood_swell_upgrade = 300,
+		/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 400,
+		/obj/effect/proc_holder/spell/fireball/demonic_grasp = 600,
+	)
+	fully_powered_abilities = list(
+		/datum/vampire_passive/full,
+		/obj/effect/proc_holder/spell/vampire/charge,
+	)
 	improved_rejuv_healing = TRUE
 
 /datum/vampire_subclass/gargantua/on_blood_sucking(mob/living/carbon/human/H)
@@ -105,18 +117,22 @@
 /datum/vampire_subclass/dantalion
 	name = "dantalion"
 	antag_menu_addition = "данталион"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/enthrall = 100,
-							/obj/effect/proc_holder/spell/vampire/thrall_commune = 100,
-							/obj/effect/proc_holder/spell/vampire/pacify = 200,
-							/obj/effect/proc_holder/spell/vampire/switch_places = 200,
-							/obj/effect/proc_holder/spell/vampire/self/decoy = 300,
-							/datum/vampire_passive/increment_thrall_cap = 300,
-							/obj/effect/proc_holder/spell/vampire/rally_thralls = 400,
-							/datum/vampire_passive/increment_thrall_cap/two = 400,
-							/obj/effect/proc_holder/spell/vampire/self/share_damage = 600)
-	fully_powered_abilities = list(/datum/vampire_passive/full,
-								/obj/effect/proc_holder/spell/vampire/hysteria,
-								/datum/vampire_passive/increment_thrall_cap/three)
+	standard_powers = list(
+		/obj/effect/proc_holder/spell/vampire/enthrall = 100,
+		/obj/effect/proc_holder/spell/vampire/thrall_commune = 100,
+		/obj/effect/proc_holder/spell/vampire/pacify = 200,
+		/obj/effect/proc_holder/spell/vampire/switch_places = 200,
+		/obj/effect/proc_holder/spell/vampire/self/decoy = 300,
+		/datum/vampire_passive/increment_thrall_cap = 300,
+		/obj/effect/proc_holder/spell/vampire/rally_thralls = 400,
+		/datum/vampire_passive/increment_thrall_cap/two = 400,
+		/obj/effect/proc_holder/spell/vampire/self/share_damage = 600,
+	)
+	fully_powered_abilities = list(
+		/datum/vampire_passive/full,
+		/obj/effect/proc_holder/spell/vampire/hysteria,
+		/datum/vampire_passive/increment_thrall_cap/three,
+	)
 
 /datum/vampire_subclass/dantalion/on_blood_sucking(mob/living/carbon/human/H)
 	for(var/datum/mind/thrall in H?.mind?.som?.serv)
@@ -124,33 +140,34 @@
 		thrall.current?.adjustFireLoss(-3)
 		thrall.current?.adjustOxyLoss(-5)
 
-
 /datum/vampire_subclass/gargantua/add_subclass_ability(datum/antagonist/vampire/vamp)
 	. = ..()
 	ADD_TRAIT(vamp.owner.current, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
 	SEND_SIGNAL(vamp.owner.current, COMSIG_STRENGTH_LEVEL_UP, 5)
 
-
 /datum/vampire_subclass/gargantua/on_remove(datum/antagonist/vampire/vamp)
 	REMOVE_TRAIT(vamp.owner.current, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
-
 
 /datum/vampire_subclass/bestia
 	name = "bestia"
 	antag_menu_addition = "бестия"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/dissect_info = 100,
-							/obj/effect/proc_holder/spell/vampire/self/dissect = 100,
-							/obj/effect/proc_holder/spell/vampire/self/infected_trophy = 100,
-							/obj/effect/proc_holder/spell/vampire/lunge = 200,
-							/obj/effect/proc_holder/spell/vampire/mark = 200,
-							/obj/effect/proc_holder/spell/vampire/metamorphosis/bats = 300,
-							/obj/effect/proc_holder/spell/vampire/self/anabiosis = 400,
-							/datum/vampire_passive/dissection_cap = 400,
-							/obj/effect/proc_holder/spell/vampire/self/bats_spawn = 600,
-							/datum/vampire_passive/upgraded_grab = 600)
-	fully_powered_abilities = list(/datum/vampire_passive/full,
-								/obj/effect/proc_holder/spell/vampire/metamorphosis/hound,
-								/datum/vampire_passive/dissection_cap/two)
+	standard_powers = list(
+		/obj/effect/proc_holder/spell/vampire/self/dissect_info = 100,
+		/obj/effect/proc_holder/spell/vampire/self/dissect = 100,
+		/obj/effect/proc_holder/spell/vampire/self/infected_trophy = 100,
+		/obj/effect/proc_holder/spell/vampire/lunge = 200,
+		/obj/effect/proc_holder/spell/vampire/mark = 200,
+		/obj/effect/proc_holder/spell/vampire/metamorphosis/bats = 300,
+		/obj/effect/proc_holder/spell/vampire/self/anabiosis = 400,
+		/datum/vampire_passive/dissection_cap = 400,
+		/obj/effect/proc_holder/spell/vampire/self/bats_spawn = 600,
+		/datum/vampire_passive/upgraded_grab = 600,
+	)
+	fully_powered_abilities = list(
+		/datum/vampire_passive/full,
+		/obj/effect/proc_holder/spell/vampire/metamorphosis/hound,
+		/datum/vampire_passive/dissection_cap/two,
+	)
 	improved_rejuv_healing = TRUE
 
 /datum/vampire_subclass/bestia/on_blood_sucking(mob/living/carbon/human/H)
@@ -159,50 +176,51 @@
 
 /datum/vampire_subclass/ancient
 	name = "ancient"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/dissect_info,
-							/obj/effect/proc_holder/spell/vampire/self/dissect,
-							/obj/effect/proc_holder/spell/vampire/self/infected_trophy,
-							/obj/effect/proc_holder/spell/vampire/self/vamp_claws,
-							/obj/effect/proc_holder/spell/vampire/self/blood_swell,
-							/obj/effect/proc_holder/spell/vampire/self/cloak,
-							/obj/effect/proc_holder/spell/vampire/enthrall,
-							/obj/effect/proc_holder/spell/vampire/thrall_commune,
-							/obj/effect/proc_holder/spell/vampire/lunge,
-							/obj/effect/proc_holder/spell/vampire/mark,
-							/obj/effect/proc_holder/spell/vampire/blood_tendrils,
-							/obj/effect/proc_holder/spell/vampire/blood_barrier,
-							/obj/effect/proc_holder/spell/vampire/self/blood_rush,
-							/obj/effect/proc_holder/spell/vampire/self/stomp,
-							/obj/effect/proc_holder/spell/vampire/shadow_snare,
-							/obj/effect/proc_holder/spell/vampire/soul_anchor,
-							/obj/effect/proc_holder/spell/vampire/pacify,
-							/obj/effect/proc_holder/spell/vampire/switch_places,
-							/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool,
-							/obj/effect/proc_holder/spell/vampire/metamorphosis/bats,
-							/datum/vampire_passive/blood_swell_upgrade,
-							/obj/effect/proc_holder/spell/vampire/dark_passage,
-							/obj/effect/proc_holder/spell/vampire/self/decoy,
-							/obj/effect/proc_holder/spell/vampire/blood_eruption,
-							/obj/effect/proc_holder/spell/vampire/self/anabiosis,
-							/obj/effect/proc_holder/spell/vampire/predator_senses,
-							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force,
-							/obj/effect/proc_holder/spell/vampire/vamp_extinguish,
-							/obj/effect/proc_holder/spell/vampire/rally_thralls,
-							/obj/effect/proc_holder/spell/vampire/self/share_damage,
-							/obj/effect/proc_holder/spell/fireball/demonic_grasp,
-							/obj/effect/proc_holder/spell/vampire/shadow_boxing,
-							/obj/effect/proc_holder/spell/vampire/self/bats_spawn,
-							/datum/vampire_passive/upgraded_grab,
-							/datum/vampire_passive/full,
-							/obj/effect/proc_holder/spell/vampire/metamorphosis/hound,
-							/obj/effect/proc_holder/spell/vampire/self/blood_spill,
-							/obj/effect/proc_holder/spell/vampire/charge,
-							/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
-							/obj/effect/proc_holder/spell/vampire/hysteria,
-							/obj/effect/proc_holder/spell/vampire/raise_vampires,
-							/datum/vampire_passive/xray)
+	standard_powers = list(
+		/obj/effect/proc_holder/spell/vampire/self/dissect_info,
+		/obj/effect/proc_holder/spell/vampire/self/dissect,
+		/obj/effect/proc_holder/spell/vampire/self/infected_trophy,
+		/obj/effect/proc_holder/spell/vampire/self/vamp_claws,
+		/obj/effect/proc_holder/spell/vampire/self/blood_swell,
+		/obj/effect/proc_holder/spell/vampire/self/cloak,
+		/obj/effect/proc_holder/spell/vampire/enthrall,
+		/obj/effect/proc_holder/spell/vampire/thrall_commune,
+		/obj/effect/proc_holder/spell/vampire/lunge,
+		/obj/effect/proc_holder/spell/vampire/mark,
+		/obj/effect/proc_holder/spell/vampire/blood_tendrils,
+		/obj/effect/proc_holder/spell/vampire/blood_barrier,
+		/obj/effect/proc_holder/spell/vampire/self/blood_rush,
+		/obj/effect/proc_holder/spell/vampire/self/stomp,
+		/obj/effect/proc_holder/spell/vampire/shadow_snare,
+		/obj/effect/proc_holder/spell/vampire/soul_anchor,
+		/obj/effect/proc_holder/spell/vampire/pacify,
+		/obj/effect/proc_holder/spell/vampire/switch_places,
+		/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool,
+		/obj/effect/proc_holder/spell/vampire/metamorphosis/bats,
+		/datum/vampire_passive/blood_swell_upgrade,
+		/obj/effect/proc_holder/spell/vampire/dark_passage,
+		/obj/effect/proc_holder/spell/vampire/self/decoy,
+		/obj/effect/proc_holder/spell/vampire/blood_eruption,
+		/obj/effect/proc_holder/spell/vampire/self/anabiosis,
+		/obj/effect/proc_holder/spell/vampire/predator_senses,
+		/obj/effect/proc_holder/spell/vampire/self/overwhelming_force,
+		/obj/effect/proc_holder/spell/vampire/vamp_extinguish,
+		/obj/effect/proc_holder/spell/vampire/rally_thralls,
+		/obj/effect/proc_holder/spell/vampire/self/share_damage,
+		/obj/effect/proc_holder/spell/fireball/demonic_grasp,
+		/obj/effect/proc_holder/spell/vampire/shadow_boxing,
+		/obj/effect/proc_holder/spell/vampire/self/bats_spawn,
+		/datum/vampire_passive/upgraded_grab,
+		/datum/vampire_passive/full,
+		/obj/effect/proc_holder/spell/vampire/metamorphosis/hound,
+		/obj/effect/proc_holder/spell/vampire/self/blood_spill,
+		/obj/effect/proc_holder/spell/vampire/charge,
+		/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
+		/obj/effect/proc_holder/spell/vampire/hysteria,
+		/obj/effect/proc_holder/spell/vampire/raise_vampires,
+		/datum/vampire_passive/xray,
+	)
 	improved_rejuv_healing = TRUE
 	thrall_cap = 150 // can thrall high pop
 	dissect_cap = 6
 	crit_organ_cap = 6
-

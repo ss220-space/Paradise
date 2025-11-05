@@ -62,13 +62,13 @@
 #define DECEMBER 12
 
 //Select holiday names -- If you test for a holiday in the code, make the holiday's name a define and test for that instead
-#define NEW_YEAR "New Year"
-#define VALENTINES "Valentine's Day"
-#define APRIL_FOOLS "April Fool's Day"
-#define EASTER "Easter"
-#define HALLOWEEN "Halloween"
-#define CHRISTMAS "Christmas"
-#define FRIDAY_13TH "Friday the 13th"
+#define NEW_YEAR "Новый год"
+#define VALENTINES "День святого Валентина"
+#define APRIL_FOOLS "День дурака"
+#define EASTER "Пасха"
+#define HALLOWEEN "Хэллоуин"
+#define CHRISTMAS "Рождество"
+#define FRIDAY_13TH "Пятница, 13-е"
 
 #define RESIZE_DEFAULT_SIZE 1
 

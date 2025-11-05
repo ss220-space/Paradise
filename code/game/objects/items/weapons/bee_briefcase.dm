@@ -25,7 +25,7 @@
 		DATIVE = "портфелю",
 		ACCUSATIVE = "портфель",
 		INSTRUMENTAL = "портфелем",
-		PREPOSITIONAL = "портфеле"
+		PREPOSITIONAL = "портфеле",
 	)
 
 /obj/item/bee_briefcase/Destroy()
