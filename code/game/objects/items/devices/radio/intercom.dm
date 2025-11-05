@@ -26,7 +26,7 @@
 		DATIVE = "станционному интеркому (Общий)",
 		ACCUSATIVE = "станционный интерком (Общий)",
 		INSTRUMENTAL = "станционным интеркомом (Общий)",
-		PREPOSITIONAL = "станционном интеркоме (Общий)"
+		PREPOSITIONAL = "станционном интеркоме (Общий)",
 	)
 
 /obj/item/radio/intercom/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
@@ -211,7 +211,7 @@
 		DATIVE = "станционному интеркому (Персонализированный)",
 		ACCUSATIVE = "станционный интерком (Персонализированный)",
 		INSTRUMENTAL = "станционным интеркомом (Персонализированный)",
-		PREPOSITIONAL = "станционном интеркоме (Персонализированный)"
+		PREPOSITIONAL = "станционном интеркоме (Персонализированный)",
 	)
 
 /obj/item/radio/intercom/interrogation
@@ -229,7 +229,7 @@
 		DATIVE = "станционному интеркому (Допросный)",
 		ACCUSATIVE = "станционный интерком (Допросный)",
 		INSTRUMENTAL = "станционным интеркомом (Допросный)",
-		PREPOSITIONAL = "станционном интеркоме (Допросный)"
+		PREPOSITIONAL = "станционном интеркоме (Допросный)",
 	)
 
 /obj/item/radio/intercom/private
@@ -247,7 +247,7 @@
 		DATIVE = "станционному интеркому (Приватный)",
 		ACCUSATIVE = "станционный интерком (Приватный)",
 		INSTRUMENTAL = "станционным интеркомом (Приватный)",
-		PREPOSITIONAL = "станционном интеркоме (Приватный)"
+		PREPOSITIONAL = "станционном интеркоме (Приватный)",
 	)
 
 /obj/item/radio/intercom/command
@@ -265,7 +265,7 @@
 		DATIVE = "станционному интеркому (Командный)",
 		ACCUSATIVE = "станционный интерком (Командный)",
 		INSTRUMENTAL = "станционным интеркомом (Командный)",
-		PREPOSITIONAL = "станционном интеркоме (Командный)"
+		PREPOSITIONAL = "станционном интеркоме (Командный)",
 	)
 
 /obj/item/radio/intercom/specops
@@ -283,7 +283,7 @@
 		DATIVE = "интеркому спецопераций",
 		ACCUSATIVE = "интерком спецопераций",
 		INSTRUMENTAL = "интеркомом спецопераций",
-		PREPOSITIONAL = "интеркоме спецопераций"
+		PREPOSITIONAL = "интеркоме спецопераций",
 	)
 
 /obj/item/radio/intercom/department
@@ -304,7 +304,7 @@
 		DATIVE = "станционному интеркому (Медицинский)",
 		ACCUSATIVE = "станционный интерком (Медицинский)",
 		INSTRUMENTAL = "станционным интеркомом (Медицинский)",
-		PREPOSITIONAL = "станционном интеркоме (Медицинский)"
+		PREPOSITIONAL = "станционном интеркоме (Медицинский)",
 	)
 
 /obj/item/radio/intercom/department/security
@@ -322,7 +322,7 @@
 		DATIVE = "станционному интеркому (Служба безопасности)",
 		ACCUSATIVE = "станционный интерком (Служба безопасности)",
 		INSTRUMENTAL = "станционным интеркомом (Служба безопасности)",
-		PREPOSITIONAL = "станционном интеркоме (Служба безопасности)"
+		PREPOSITIONAL = "станционном интеркоме (Служба безопасности)",
 	)
 
 /obj/item/radio/intercom/department/medbay/get_internal_channels()
@@ -347,7 +347,7 @@
 		DATIVE = "нелегальному интеркому",
 		ACCUSATIVE = "нелегальный интерком",
 		INSTRUMENTAL = "нелегальным интеркомом",
-		PREPOSITIONAL = "нелегальном интеркоме"
+		PREPOSITIONAL = "нелегальном интеркоме",
 	)
 
 /obj/item/radio/intercom/syndicate/get_internal_channels()
@@ -366,7 +366,7 @@
 		DATIVE = "пиратскому интеркому",
 		ACCUSATIVE = "пиратский интерком",
 		INSTRUMENTAL = "пиратским интеркомом",
-		PREPOSITIONAL = "пиратском интеркоме"
+		PREPOSITIONAL = "пиратском интеркоме",
 	)
 
 /obj/item/radio/intercom/pirate/get_internal_channels()
@@ -392,7 +392,7 @@
 		DATIVE = "печатной плате интеркома",
 		ACCUSATIVE = "печатную плату интеркома",
 		INSTRUMENTAL = "печатной платой интеркома",
-		PREPOSITIONAL = "печатной плате интеркома"
+		PREPOSITIONAL = "печатной плате интеркома",
 	)
 
 /obj/item/radio/intercom/locked
@@ -413,7 +413,7 @@
 		DATIVE = "интеркому ИИ",
 		ACCUSATIVE = "интерком ИИ",
 		INSTRUMENTAL = "интеркомом ИИ",
-		PREPOSITIONAL = "интеркоме ИИ"
+		PREPOSITIONAL = "интеркоме ИИ",
 	)
 
 /obj/item/radio/intercom/locked/confessional
@@ -431,7 +431,7 @@
 		DATIVE = "исповедальному интеркому",
 		ACCUSATIVE = "исповедальный интерком",
 		INSTRUMENTAL = "исповедальным интеркомом",
-		PREPOSITIONAL = "исповедальном интеркоме"
+		PREPOSITIONAL = "исповедальном интеркоме",
 	)
 
 /obj/item/radio/intercom/locked/prison
@@ -447,7 +447,7 @@
 		DATIVE = "тюремному интеркому",
 		ACCUSATIVE = "тюремный интерком",
 		INSTRUMENTAL = "тюремным интеркомом",
-		PREPOSITIONAL = "тюремном интеркоме"
+		PREPOSITIONAL = "тюремном интеркоме",
 	)
 
 /obj/item/radio/intercom/locked/prison/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)

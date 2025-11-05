@@ -123,7 +123,7 @@
 		/obj/item/reagent_containers/applicator/burn = 1,
 		/obj/item/reagent_containers/hypospray/safety = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/reagent_containers/glass/bottle/charcoal = 1
+		/obj/item/reagent_containers/glass/bottle/charcoal = 1,
 	)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/botanist
@@ -223,7 +223,7 @@
 	backpack_contents = list(
 		/obj/item/paper/monitorkey = 1, // message console does NOT spawn with this
 		/obj/item/paper/syndicate/code_words = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/ammo_box/magazine/m50 = 3,
 	)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/rd
@@ -246,7 +246,7 @@
 	back = /obj/item/storage/backpack/fluff/syndiesatchel
 	id = /obj/item/card/id/syndicate/research_director
 	backpack_contents = list(
-		/obj/item/gun/energy/telegun = 1
+		/obj/item/gun/energy/telegun = 1,
 	)
 
 //Прок вызываемый для выдачи Тайпан Худа

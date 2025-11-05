@@ -48,7 +48,7 @@
 		DATIVE = "лицехвату",
 		ACCUSATIVE = "лицехвата",
 		INSTRUMENTAL = "лицехватом",
-		PREPOSITIONAL = "лицехвате"
+		PREPOSITIONAL = "лицехвате",
 	)
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload, mob/hugger)
@@ -399,7 +399,7 @@
 		DATIVE = "ламарр",
 		ACCUSATIVE = "ламарр",
 		INSTRUMENTAL = "ламарр",
-		PREPOSITIONAL = "ламарр"
+		PREPOSITIONAL = "ламарр",
 	)
 
 /obj/item/clothing/mask/facehugger/lamarr/Initialize(mapload, hugger)

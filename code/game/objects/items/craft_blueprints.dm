@@ -33,7 +33,7 @@
 		DATIVE = "чертежам для крафта",
 		ACCUSATIVE = "чертежи для крафта",
 		INSTRUMENTAL = "чертежами для крафта",
-		PREPOSITIONAL = "чертежах для крафта"
+		PREPOSITIONAL = "чертежах для крафта",
 	)
 
 /obj/item/craft_blueprints/copy
@@ -170,5 +170,5 @@
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
 	components = list(
 		/obj/item/stack/sheet/metal = 5,
-		/obj/item/stack/rods = 1
+		/obj/item/stack/rods = 1,
 	)

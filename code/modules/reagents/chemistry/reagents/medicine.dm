@@ -1397,7 +1397,7 @@
 	id = "bicaridine"
 	description = "Залечивает травмы. При передозировке вызывает их появление."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#f02c2c"
 	overdose_threshold = 30
 	harmless = FALSE
 	taste_description = "восстановления ран"
@@ -1417,7 +1417,7 @@
 	id = "kelotane"
 	description = "Залечивает ожоги. При передозировке вызывает их появление."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#f7a132"
 	overdose_threshold = 30
 	harmless = FALSE
 	taste_description = "восстановления ожогов"

@@ -4,7 +4,7 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/reshape_face_robotics,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	possible_locs = list(BODY_ZONE_HEAD)
 	requires_organic_bodypart = FALSE

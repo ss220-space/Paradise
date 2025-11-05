@@ -41,7 +41,7 @@
 		/obj/item/clothing/under/patriotsuit = 1,
 		/obj/item/bedsheet/patriot = 3,
 	)
-	
+
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -52,7 +52,7 @@
 		DATIVE = "торговому автомату Liberation Station",
 		ACCUSATIVE = "торговый автомат Liberation Station",
 		INSTRUMENTAL = "торговым автоматом Liberation Station",
-		PREPOSITIONAL = "торговом автомате Liberation Station"
+		PREPOSITIONAL = "торговом автомате Liberation Station",
 	)
 
 
@@ -108,5 +108,5 @@
 		DATIVE = "торговому автомату Syndicate Donksoft Toy Vendor",
 		ACCUSATIVE = "торговый автомат Syndicate Donksoft Toy Vendor",
 		INSTRUMENTAL = "торговым автоматом Syndicate Donksoft Toy Vendor",
-		PREPOSITIONAL = "торговом автомате Syndicate Donksoft Toy Vendor"
+		PREPOSITIONAL = "торговом автомате Syndicate Donksoft Toy Vendor",
 	)

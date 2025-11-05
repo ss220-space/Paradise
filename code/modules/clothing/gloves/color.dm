@@ -19,7 +19,7 @@
 		DATIVE = "изоляционным перчаткам",
 		ACCUSATIVE = "изоляционные перчатки",
 		INSTRUMENTAL = "изоляционными перчатками",
-		PREPOSITIONAL = "изоляционных перчатках"
+		PREPOSITIONAL = "изоляционных перчатках",
 	)
 
 /obj/item/clothing/gloves/color/yellow/power
@@ -156,7 +156,7 @@
 		DATIVE = "перчаткам из шкуры голиафа",
 		ACCUSATIVE = "перчатки из шкуры голиафа",
 		INSTRUMENTAL = "перчатками из шкуры голиафа",
-		PREPOSITIONAL = "перчатках из шкуры голиафа"
+		PREPOSITIONAL = "перчатках из шкуры голиафа",
 	)
 
 /obj/item/clothing/gloves/color/black/ballistic
@@ -173,8 +173,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
+	)
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
@@ -280,7 +280,7 @@
 		DATIVE = "латексным перчаткам",
 		ACCUSATIVE = "латексные перчатки",
 		INSTRUMENTAL = "латексными перчатками",
-		PREPOSITIONAL = "латексных перчатках"
+		PREPOSITIONAL = "латексных перчатках",
 	)
 
 /obj/item/clothing/gloves/color/latex/nitrile
@@ -301,7 +301,7 @@
 		DATIVE = "нитриловым перчаткам",
 		ACCUSATIVE = "нитриловые перчатки",
 		INSTRUMENTAL = "нитриловыми перчатками",
-		PREPOSITIONAL = "нитриловых перчатках"
+		PREPOSITIONAL = "нитриловых перчатках",
 	)
 
 /obj/item/clothing/gloves/color/latex/modified
@@ -321,7 +321,7 @@
 		DATIVE = "модифицированным медицинским перчаткам",
 		ACCUSATIVE = "модифицированные медицинские перчатки",
 		INSTRUMENTAL = "модифицированными медицинскими перчатками",
-		PREPOSITIONAL = "модифицированных медицинских перчатках"
+		PREPOSITIONAL = "модифицированных медицинских перчатках",
 	)
 
 /obj/item/clothing/gloves/color/latex/inugami

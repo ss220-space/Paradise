@@ -62,7 +62,7 @@
 		DATIVE = "адскому контракту [contract.contract_subject]",
 		ACCUSATIVE = "адский контракт [contract.contract_subject]",
 		INSTRUMENTAL = "адским контрактом [contract.contract_subject]",
-		PREPOSITIONAL = "адском контракте [contract.contract_subject]"
+		PREPOSITIONAL = "адском контракте [contract.contract_subject]",
 	)
 	update_text()
 

@@ -308,7 +308,7 @@
 		DATIVE = "странному руководству",
 		ACCUSATIVE = "странное руководство",
 		INSTRUMENTAL = "странным руководством",
-		PREPOSITIONAL = "странном руководстве"
+		PREPOSITIONAL = "странном руководстве",
 	)
 
 /obj/item/drone_manual/attack_self(mob/user)

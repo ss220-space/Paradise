@@ -37,8 +37,8 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
+	)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
 	name = "NT breacher helmet"
@@ -54,8 +54,8 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
 	name = "NT breacher chassis"
@@ -89,7 +89,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi',
-		)
+	)
 
 /obj/item/clothing/head/helmet/space/vox
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)
@@ -100,7 +100,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/head.dmi',
-		)
+	)
 
 /obj/item/clothing/head/helmet/space/vox/pressure
 	name = "alien helmet"
@@ -158,8 +158,8 @@
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list(SPECIES_VOX)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi'
-		)
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+	)
 
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	icon_state = "vgrey"
@@ -197,7 +197,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/gloves.dmi',
-		)
+	)
 
 /obj/item/clothing/shoes/magboots/vox
 	desc = "A pair of heavy, jagged armoured foot pieces, seemingly suitable for a velociraptor."

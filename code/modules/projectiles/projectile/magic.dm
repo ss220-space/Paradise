@@ -16,7 +16,7 @@
 		DATIVE = "разряду пустоты",
 		ACCUSATIVE = "разряд пустоты",
 		INSTRUMENTAL = "разрядом пустоты",
-		PREPOSITIONAL = "разряде пустоты"
+		PREPOSITIONAL = "разряде пустоты",
 	)
 
 /obj/projectile/magic/death
@@ -30,7 +30,7 @@
 		DATIVE = "заряду смерти",
 		ACCUSATIVE = "заряд смерти",
 		INSTRUMENTAL = "зарядом смерти",
-		PREPOSITIONAL = "заряде смерти"
+		PREPOSITIONAL = "заряде смерти",
 	)
 
 /obj/projectile/magic/fireball
@@ -54,7 +54,7 @@
 		DATIVE = "огненному шару",
 		ACCUSATIVE = "огненный шар",
 		INSTRUMENTAL = "огненным шаром",
-		PREPOSITIONAL = "огненном шаре"
+		PREPOSITIONAL = "огненном шаре",
 	)
 
 /obj/projectile/magic/death/on_hit(mob/living/carbon/C)
@@ -110,7 +110,7 @@
 		DATIVE = "адскому фаерболу",
 		ACCUSATIVE = "адский фаербол",
 		INSTRUMENTAL = "адским фаерболом",
-		PREPOSITIONAL = "адском фаерболе"
+		PREPOSITIONAL = "адском фаерболе",
 	)
 
 /obj/projectile/magic/fireball/infernal/acsend
@@ -134,7 +134,7 @@
 		DATIVE = "воскрешающему заряду",
 		ACCUSATIVE = "воскрешающий заряд",
 		INSTRUMENTAL = "воскрешающим зарядом",
-		PREPOSITIONAL = "воскрешающем заряде"
+		PREPOSITIONAL = "воскрешающем заряде",
 	)
 
 /obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
@@ -168,7 +168,7 @@
 		DATIVE = "телепортационному импульсу",
 		ACCUSATIVE = "телепортационный импульс",
 		INSTRUMENTAL = "телепортационным импульсом",
-		PREPOSITIONAL = "телепортационном импульсе"
+		PREPOSITIONAL = "телепортационном импульсе",
 	)
 
 /obj/projectile/magic/teleport/on_hit(mob/target)
@@ -198,7 +198,7 @@
 		DATIVE = "заряду создания дверей",
 		ACCUSATIVE = "заряд создания дверей",
 		INSTRUMENTAL = "зарядом создания дверей",
-		PREPOSITIONAL = "заряде создания дверей"
+		PREPOSITIONAL = "заряде создания дверей",
 	)
 
 /obj/projectile/magic/door/on_hit(atom/target)
@@ -242,7 +242,7 @@
 		DATIVE = "заряду полиморфа",
 		ACCUSATIVE = "заряд полиморфа",
 		INSTRUMENTAL = "зарядом полиморфа",
-		PREPOSITIONAL = "заряде полиморфа"
+		PREPOSITIONAL = "заряде полиморфа",
 	)
 
 /obj/projectile/magic/change/on_hit(atom/change)
@@ -413,7 +413,7 @@
 		DATIVE = "анимационному заряду",
 		ACCUSATIVE = "анимационный заряд",
 		INSTRUMENTAL = "анимационным зарядом",
-		PREPOSITIONAL = "анимационном заряде"
+		PREPOSITIONAL = "анимационном заряде",
 	)
 
 /obj/projectile/magic/animate/on_hit(atom/target, blocked = 0, hit_zone)
@@ -462,7 +462,7 @@
 		DATIVE = "энергии лезвия",
 		ACCUSATIVE = "энергию лезвия",
 		INSTRUMENTAL = "энергией лезвия",
-		PREPOSITIONAL = "энергии лезвия"
+		PREPOSITIONAL = "энергии лезвия",
 	)
 
 /obj/projectile/magic/slipping
@@ -479,7 +479,7 @@
 		DATIVE = "волшебному банану",
 		ACCUSATIVE = "волшебный банан",
 		INSTRUMENTAL = "волшебным бананом",
-		PREPOSITIONAL = "волшебном банане"
+		PREPOSITIONAL = "волшебном банане",
 	)
 
 /obj/projectile/magic/slipping/New()
@@ -520,5 +520,5 @@
 		DATIVE = "тайному заряду",
 		ACCUSATIVE = "тайный заряд",
 		INSTRUMENTAL = "тайным зарядом",
-		PREPOSITIONAL = "тайном заряде"
+		PREPOSITIONAL = "тайном заряде",
 	)

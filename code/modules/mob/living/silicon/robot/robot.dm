@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	silicon_subsystems = list(
 		/mob/living/silicon/proc/subsystem_open_gps,
 		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager
+		/mob/living/silicon/proc/subsystem_law_manager,
 	)
 
 /mob/living/silicon/robot/get_cell()
@@ -1891,10 +1891,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	limited_modules = list(
-				"Engineering" = /obj/item/robot_module/engineering,
-				"Medical" = /obj/item/robot_module/medical,
-				"Security" = /obj/item/robot_module/security
-			)
+		"Engineering" = /obj/item/robot_module/engineering,
+		"Medical" = /obj/item/robot_module/medical,
+		"Security" = /obj/item/robot_module/security,
+	)
 	allow_rename = FALSE
 	weapons_unlock = TRUE
 	can_lock_cover = TRUE

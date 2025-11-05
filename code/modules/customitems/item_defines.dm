@@ -205,7 +205,7 @@
 		DATIVE = "комплекту модификаций для инвалидной коляски",
 		ACCUSATIVE = "комплект модификаций для инвалидной коляски",
 		INSTRUMENTAL = "комплектом модификаций для инвалидной коляски",
-		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски"
+		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски",
 	)
 
 /obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
@@ -363,7 +363,7 @@
 			SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 			SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 			SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-			SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+			SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 			)
 		user.update_icons()
 		qdel(src)
@@ -949,8 +949,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 	actions_types = list(/datum/action/item_action/toggle)
 
 
@@ -1182,7 +1182,7 @@
 	desc = "This TurtleNeck belongs to the IPC E.L.O. And has her name sown into the upper left breast, a very wooly jumper."
 	icon = 'icons/obj/custom_items.dmi' // for the floor sprite
 	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/obj/custom_items.dmi' // for the mob sprite
+		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/obj/custom_items.dmi', // for the mob sprite
 	)
 	icon_state = "eloturtleneckfloor"
 	item_color = "eloturtleneck"

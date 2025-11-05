@@ -22,7 +22,7 @@
 		DATIVE = "\"Хамелеон\"-проектору",
 		ACCUSATIVE = "\"Хамелеон\"-проектор",
 		INSTRUMENTAL = "\"Хамелеон\"-проектором",
-		PREPOSITIONAL = "\"Хамелеон\"-проекторе"
+		PREPOSITIONAL = "\"Хамелеон\"-проекторе",
 	)
 
 /obj/item/chameleon/Initialize(mapload)

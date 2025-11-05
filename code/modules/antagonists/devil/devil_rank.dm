@@ -61,7 +61,7 @@
 		/obj/effect/proc_holder/spell/devil_panel,
 		/obj/effect/proc_holder/spell/sacrifice_circle,
 		/obj/effect/proc_holder/spell/summon_contract,
-		/obj/effect/proc_holder/spell/return_soul
+		/obj/effect/proc_holder/spell/return_soul,
 	)
 
 /datum/devil_rank/enraged_devil
@@ -80,7 +80,7 @@
 		/obj/effect/proc_holder/spell/return_soul,
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/dark_conversion
+		/obj/effect/proc_holder/spell/dark_conversion,
 	)
 
 /datum/devil_rank/blood_lizard
@@ -102,7 +102,7 @@
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/dark_conversion
+		/obj/effect/proc_holder/spell/dark_conversion,
 	)
 
 /datum/devil_rank/blood_lizard/apply_rank()
@@ -141,7 +141,7 @@
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
 		/obj/effect/proc_holder/spell/sintouch,
-		/obj/effect/proc_holder/spell/dark_conversion
+		/obj/effect/proc_holder/spell/dark_conversion,
 	)
 
 /datum/devil_rank/true_devil/apply_rank()
@@ -166,7 +166,7 @@
 		/obj/effect/proc_holder/spell/fireball/hellish/acsend,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/devil_broadcast
+		/obj/effect/proc_holder/spell/devil_broadcast,
 	)
 
 /datum/devil_rank/ascend/apply_rank()

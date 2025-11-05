@@ -18,7 +18,7 @@
 		DATIVE = "генератору червоточин",
 		ACCUSATIVE = "генератор червоточин",
 		INSTRUMENTAL = "генератором червоточин",
-		PREPOSITIONAL = "генераторе червоточин"
+		PREPOSITIONAL = "генераторе червоточин",
 	)
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
@@ -109,7 +109,7 @@
 		DATIVE = "стабильной червоточине",
 		ACCUSATIVE = "стабильную червоточину",
 		INSTRUMENTAL = "стабильной червоточиной",
-		PREPOSITIONAL = "стабильной червоточине"
+		PREPOSITIONAL = "стабильной червоточине",
 	)
 
 /obj/effect/portal/jaunt_tunnel/update_overlays()
@@ -147,7 +147,7 @@
 		DATIVE = "гранате спасения из пропасти",
 		ACCUSATIVE = "гранату спасения из пропасти",
 		INSTRUMENTAL = "гранатой спасения из пропасти",
-		PREPOSITIONAL = "гранате спасения из пропасти"
+		PREPOSITIONAL = "гранате спасения из пропасти",
 	)
 
 /obj/item/grenade/jaunter_grenade/Destroy()

@@ -32,7 +32,7 @@
 		DATIVE = "консоли медицинских записей",
 		ACCUSATIVE = "консоль медицинских записей",
 		INSTRUMENTAL = "консолью медицинских записей",
-		PREPOSITIONAL = "консоли медицинских записей"
+		PREPOSITIONAL = "консоли медицинских записей",
 	)
 
 /obj/machinery/computer/med_data/Initialize(mapload)
@@ -484,7 +484,7 @@
 		DATIVE = "медицинскому ноутбуку",
 		ACCUSATIVE = "медицинский ноутбук",
 		INSTRUMENTAL = "медицинским ноутбуком",
-		PREPOSITIONAL = "медицинском ноутбуке"
+		PREPOSITIONAL = "медицинском ноутбуке",
 	)
 
 #undef MED_DATA_R_LIST

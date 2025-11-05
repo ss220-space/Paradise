@@ -18,7 +18,7 @@
 		DATIVE = "свёрнутому постеру",
 		ACCUSATIVE = "свёрнутый постер",
 		INSTRUMENTAL = "свёрнутым постером",
-		PREPOSITIONAL = "свёрнутом постере"
+		PREPOSITIONAL = "свёрнутом постере",
 	)
 
 /obj/item/poster/Initialize(mapload, obj/structure/sign/poster/new_poster_structure)
@@ -84,7 +84,7 @@
 		DATIVE = "постеру",
 		ACCUSATIVE = "постер",
 		INSTRUMENTAL = "постером",
-		PREPOSITIONAL = "постере"
+		PREPOSITIONAL = "постере",
 	)
 
 /obj/structure/sign/poster/Initialize(mapload)
@@ -222,7 +222,7 @@
 		DATIVE = "порванному постеру",
 		ACCUSATIVE = "порванный постер",
 		INSTRUMENTAL = "порванным постером",
-		PREPOSITIONAL = "порванном постере"
+		PREPOSITIONAL = "порванном постере",
 	)
 
 /obj/structure/sign/poster/random
@@ -243,7 +243,7 @@
 		DATIVE = "контрабандному постеру",
 		ACCUSATIVE = "контрабандный постер",
 		INSTRUMENTAL = "контрабандным постером",
-		PREPOSITIONAL = "контрабандном постере"
+		PREPOSITIONAL = "контрабандном постере",
 	)
 
 /obj/structure/sign/poster/contraband/random
@@ -560,7 +560,7 @@
 		DATIVE = "мотивационному постеру",
 		ACCUSATIVE = "мотивационный постер",
 		INSTRUMENTAL = "мотивационным постером",
-		PREPOSITIONAL = "мотивационном постере"
+		PREPOSITIONAL = "мотивационном постере",
 	)
 
 /obj/structure/sign/poster/official/random
@@ -852,7 +852,7 @@
 		DATIVE = "секретному постеру",
 		ACCUSATIVE = "секретный постер",
 		INSTRUMENTAL = "секретным постером",
-		PREPOSITIONAL = "секретном постере"
+		PREPOSITIONAL = "секретном постере",
 	)
 
 /obj/structure/sign/poster/secret/lady

@@ -205,7 +205,7 @@
 		/obj/item/kitchen/knife/combat/throwing,
 		/obj/item/kitchen/knife/carrotshiv,
 		/obj/item/kitchen/knife/glassshiv,
-		/obj/item/kitchen/knife/glassshiv/plasma
+		/obj/item/kitchen/knife/glassshiv/plasma,
 	)
 	max_content = 7
 	sound_holster = 'sound/weapons/knife_holster/knife_holster.ogg'

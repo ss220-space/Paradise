@@ -10,7 +10,7 @@
 	allow_duplicates = FALSE
 	var/obj/item/gem/gem = null
 	onmob_sheets = list(
-		ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/jewelry.dmi'
+		ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/jewelry.dmi',
 	)
 	var/dragon_power = FALSE //user get additional bonuses for using draconic amber
 	light_on = FALSE
@@ -193,7 +193,7 @@
 	icon_state = "gem_bracers"
 	item_state = "gem_bracers"
 	onmob_sheets = list(
-		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/jewelry.dmi'
+		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/jewelry.dmi',
 	)
 	var/obj/item/gem/gem = null
 	transfer_prints = TRUE

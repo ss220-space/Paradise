@@ -25,7 +25,7 @@
 		DATIVE = "капсуле блюспейс-убежища",
 		ACCUSATIVE = "капсулу блюспейс-убежища",
 		INSTRUMENTAL = "капсулой блюспейс-убежища",
-		PREPOSITIONAL = "капсуле блюспейс-убежища"
+		PREPOSITIONAL = "капсуле блюспейс-убежища",
 	)
 
 /obj/item/survivalcapsule/emag_act(mob/user)
@@ -149,7 +149,7 @@
 		DATIVE = "капсуле роскошного блюспейс-убежища",
 		ACCUSATIVE = "капсулу роскошного блюспейс-убежища",
 		INSTRUMENTAL = "капсулой роскошного блюспейс-убежища",
-		PREPOSITIONAL = "капсуле роскошного блюспейс-убежища"
+		PREPOSITIONAL = "капсуле роскошного блюспейс-убежища",
 	)
 /obj/item/survivalcapsule/luxuryelite
 	name = "luxury elite bar capsule"
@@ -163,7 +163,7 @@
 		DATIVE = "капсуле элитного бара",
 		ACCUSATIVE = "капсулу элитного бара",
 		INSTRUMENTAL = "капсулой элитного бара",
-		PREPOSITIONAL = "капсуле элитного бара"
+		PREPOSITIONAL = "капсуле элитного бара",
 	)
 
 //Pod turfs and objects
@@ -274,11 +274,13 @@
 	desc = "Настенный диспенсер медицинского оборудования. Этот кажется чуть меньше обычного."
 	req_access = list()
 
-	products = list(/obj/item/stack/medical/splint = 2,
-					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 2,
-					/obj/item/reagent_containers/food/pill/patch/styptic = 2,
-					/obj/item/reagent_containers/hypospray/autoinjector = 1,
-					/obj/item/healthanalyzer = 1)
+	products = list(
+		/obj/item/stack/medical/splint = 2,
+		/obj/item/reagent_containers/food/pill/patch/silver_sulf = 2,
+		/obj/item/reagent_containers/food/pill/patch/styptic = 2,
+		/obj/item/reagent_containers/hypospray/autoinjector = 1,
+		/obj/item/healthanalyzer = 1,
+	)
 	contraband = list()
 
 /obj/machinery/vending/wallmed/survival_pod/get_ru_names()
@@ -288,7 +290,7 @@
 		DATIVE = "медицинскому модулю аварийного убежища",
 		ACCUSATIVE = "медицинский модуль аварийного убежища",
 		INSTRUMENTAL = "медицинским модулем аварийного убежища",
-		PREPOSITIONAL = "медицинском модуле аварийного убежища"
+		PREPOSITIONAL = "медицинском модуле аварийного убежища",
 	)
 
 //Computer
@@ -432,7 +434,7 @@
 		DATIVE = "системе контроля среды",
 		ACCUSATIVE = "систему контроля среды",
 		INSTRUMENTAL = "системой контроля среды",
-		PREPOSITIONAL = "системе контроля среды"
+		PREPOSITIONAL = "системе контроля среды",
 	)
 /obj/structure/fans/tiny/invisible
 	name = "air flow blocker"
@@ -452,7 +454,7 @@
 		DATIVE = "знаку шахтёрского корпуса НТ",
 		ACCUSATIVE = "знак шахтёрского корпуса НТ",
 		INSTRUMENTAL = "знаком шахтёрского корпуса НТ",
-		PREPOSITIONAL = "знаке шахтёрского корпуса НТ"
+		PREPOSITIONAL = "знаке шахтёрского корпуса НТ",
 	)
 
 /obj/structure/sign/mining/survival
@@ -467,7 +469,7 @@
 		DATIVE = "знаку убежища",
 		ACCUSATIVE = "знак убежища",
 		INSTRUMENTAL = "знаком убежища",
-		PREPOSITIONAL = "знаке убежища"
+		PREPOSITIONAL = "знаке убежища",
 	)
 
 //Fluff

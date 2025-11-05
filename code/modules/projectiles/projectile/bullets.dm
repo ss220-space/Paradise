@@ -12,7 +12,7 @@
 		DATIVE = "пуле",
 		ACCUSATIVE = "пулю",
 		INSTRUMENTAL = "пулей",
-		PREPOSITIONAL = "пуле"
+		PREPOSITIONAL = "пуле",
 	)
 
 /obj/projectile/bullet/slug
@@ -34,7 +34,7 @@
 		DATIVE = "патрону \"Погремушка\"",
 		ACCUSATIVE = "патрон \"Погремушка\"",
 		INSTRUMENTAL = "патроном \"Погремушка\"",
-		PREPOSITIONAL = "патроне \"Погремушка\""
+		PREPOSITIONAL = "патроне \"Погремушка\"",
 	)
 
 /obj/projectile/bullet/weakbullet/booze
@@ -70,7 +70,7 @@
 		DATIVE = "резиновой пуле",
 		ACCUSATIVE = "резиновую пулю",
 		INSTRUMENTAL = "резиновой пулей",
-		PREPOSITIONAL = "резиновой пуле"
+		PREPOSITIONAL = "резиновой пуле",
 	)
 
 /obj/projectile/bullet/hp38 //Detective hollow-point
@@ -97,7 +97,7 @@
 		DATIVE = "невидимой пуле",
 		ACCUSATIVE = "невидимую пулю",
 		INSTRUMENTAL = "невидимой пулей",
-		PREPOSITIONAL = "невидимой пуле"
+		PREPOSITIONAL = "невидимой пуле",
 	)
 
 /obj/projectile/bullet/weakbullet2/invisible/fake
@@ -132,7 +132,7 @@
 		DATIVE = "пуле",
 		ACCUSATIVE = "пулю",
 		INSTRUMENTAL = "пулей",
-		PREPOSITIONAL = "пуле"
+		PREPOSITIONAL = "пуле",
 	)
 
 /obj/projectile/bullet/weakbullet4
@@ -148,7 +148,7 @@
 		DATIVE = "резиновой пуле",
 		ACCUSATIVE = "резиновую пулю",
 		INSTRUMENTAL = "резиновой пулей",
-		PREPOSITIONAL = "резиновой пуле"
+		PREPOSITIONAL = "резиновой пуле",
 	)
 
 /obj/projectile/bullet/weakbullet4/c45nr
@@ -194,7 +194,7 @@
 		DATIVE = "грануле",
 		ACCUSATIVE = "гранулу",
 		INSTRUMENTAL = "гранулой",
-		PREPOSITIONAL = "грануле"
+		PREPOSITIONAL = "грануле",
 	)
 
 /obj/projectile/bullet/pellet/magnum
@@ -225,7 +225,7 @@
 		DATIVE = "флешетте",
 		ACCUSATIVE = "флешетту",
 		INSTRUMENTAL = "флешеттой",
-		PREPOSITIONAL = "флешетте"
+		PREPOSITIONAL = "флешетте",
 	)
 
 /obj/projectile/bullet/pellet/rubber
@@ -241,7 +241,7 @@
 		DATIVE = "резиновому шарику",
 		ACCUSATIVE = "резиновый шарик",
 		INSTRUMENTAL = "резиновым шариком",
-		PREPOSITIONAL = "резиновом шарике"
+		PREPOSITIONAL = "резиновом шарике",
 	)
 
 /obj/projectile/bullet/pellet/weak
@@ -339,7 +339,7 @@
 		DATIVE = "оглушающей пуле",
 		ACCUSATIVE = "оглушающую пулю",
 		INSTRUMENTAL = "оглушающей пулей",
-		PREPOSITIONAL = "оглушающей пуле"
+		PREPOSITIONAL = "оглушающей пуле",
 	)
 
 /obj/projectile/bullet/incendiary/shell
@@ -353,7 +353,7 @@
 		DATIVE = "зажигательной пуле",
 		ACCUSATIVE = "зажигательную пулю",
 		INSTRUMENTAL = "зажигательной пулей",
-		PREPOSITIONAL = "зажигательной пуле"
+		PREPOSITIONAL = "зажигательной пуле",
 	)
 
 /obj/projectile/bullet/incendiary/shell/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -379,7 +379,7 @@
 		DATIVE = "пуле \"Дыхание дракона\"",
 		ACCUSATIVE = "пулю \"Дыхание дракона\"",
 		INSTRUMENTAL = "пулей \"Дыхание дракона\"",
-		PREPOSITIONAL = "пуле \"Дыхание дракона\""
+		PREPOSITIONAL = "пуле \"Дыхание дракона\"",
 	)
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
@@ -398,7 +398,7 @@
 		DATIVE = "пуле \"жидкая лава\"",
 		ACCUSATIVE = "пулю \"жидкая лава\"",
 		INSTRUMENTAL = "пулей \"жидкая лава\"",
-		PREPOSITIONAL = "пуле \"жидкая лава\""
+		PREPOSITIONAL = "пуле \"жидкая лава\"",
 	)
 
 /obj/projectile/bullet/meteorshot
@@ -416,7 +416,7 @@
 		DATIVE = "метеору",
 		ACCUSATIVE = "метеор",
 		INSTRUMENTAL = "метеором",
-		PREPOSITIONAL = "метеоре"
+		PREPOSITIONAL = "метеоре",
 	)
 
 /obj/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
@@ -469,7 +469,7 @@
 		DATIVE = "дротику",
 		ACCUSATIVE = "дротик",
 		INSTRUMENTAL = "дротиком",
-		PREPOSITIONAL = "дротике"
+		PREPOSITIONAL = "дротике",
 	)
 
 /obj/projectile/bullet/dart/New()
@@ -517,7 +517,7 @@
 		DATIVE = "шприцу",
 		ACCUSATIVE = "шприц",
 		INSTRUMENTAL = "шприцем",
-		PREPOSITIONAL = "шприце"
+		PREPOSITIONAL = "шприце",
 	)
 
 /obj/projectile/bullet/dart/syringe/tranquilizer
@@ -540,7 +540,7 @@
 		DATIVE = "слюне с нейротоксином",
 		ACCUSATIVE = "слюну с нейротоксином",
 		INSTRUMENTAL = "слюной с нейротоксином",
-		PREPOSITIONAL = "слюне с нейротоксином"
+		PREPOSITIONAL = "слюне с нейротоксином",
 	)
 
 /obj/projectile/bullet/neurotoxin/prehit(atom/target)
@@ -572,7 +572,7 @@
 		DATIVE = "старой пуле FMJ 5.45",
 		ACCUSATIVE = "старую пулю FMJ 5.45",
 		INSTRUMENTAL = "старой пулей FMJ 5.45",
-		PREPOSITIONAL = "старой пуле FMJ 5.45"
+		PREPOSITIONAL = "старой пуле FMJ 5.45",
 	)
 
 /obj/projectile/bullet/ftt762 // Rusted PPSh
@@ -588,7 +588,7 @@
 		DATIVE = "старой пуле FMJ 7.62 TT",
 		ACCUSATIVE = "старую пулю FMJ 7.62 TT",
 		INSTRUMENTAL = "старой пулей FMJ 7.62 TT",
-		PREPOSITIONAL = "старой пуле FMJ 7.62 TT"
+		PREPOSITIONAL = "старой пуле FMJ 7.62 TT",
 	)
 
 /obj/projectile/bullet/weakbullet3/c257

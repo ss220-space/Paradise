@@ -242,7 +242,7 @@
 		DATIVE = "стаканчику льда",
 		ACCUSATIVE = "стаканчик льда",
 		INSTRUMENTAL = "стаканчиком льда",
-		PREPOSITIONAL = "стаканчике льда"
+		PREPOSITIONAL = "стаканчике льда",
 	)
 
 /obj/item/reagent_containers/food/drinks/tea

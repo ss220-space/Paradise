@@ -30,7 +30,7 @@
 		DATIVE = "лисе",
 		ACCUSATIVE = "лису",
 		INSTRUMENTAL = "лисой",
-		PREPOSITIONAL = "лисе"
+		PREPOSITIONAL = "лисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/update_icons()
@@ -68,7 +68,7 @@
 		DATIVE = "дикой лисе",
 		ACCUSATIVE = "дикую лису",
 		INSTRUMENTAL = "дикой лисой",
-		PREPOSITIONAL = "дикой лисе"
+		PREPOSITIONAL = "дикой лисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/forest/winter
@@ -96,7 +96,7 @@
 		DATIVE = "ренальду",
 		ACCUSATIVE = "ренальда",
 		INSTRUMENTAL = "ренальдом",
-		PREPOSITIONAL = "ренальде"
+		PREPOSITIONAL = "ренальде",
 	)
 
 //Syndi fox
@@ -122,7 +122,7 @@
 		DATIVE = "Синдилису",
 		ACCUSATIVE = "Синдилиса",
 		INSTRUMENTAL = "Синдилисом",
-		PREPOSITIONAL = "Синдилисе"
+		PREPOSITIONAL = "Синдилисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/SyndiFox/ComponentInitialize()
@@ -159,7 +159,7 @@
 		DATIVE = "Алисе",
 		ACCUSATIVE = "Алису",
 		INSTRUMENTAL = "Алисой",
-		PREPOSITIONAL = "Алисе"
+		PREPOSITIONAL = "Алисе",
 	)
 
 /mob/living/simple_animal/pet/dog/fox/alisa/ComponentInitialize()
@@ -192,5 +192,5 @@
 		DATIVE = "фенеку",
 		ACCUSATIVE = "фенека",
 		INSTRUMENTAL = "фенеком",
-		PREPOSITIONAL = "фенеке"
+		PREPOSITIONAL = "фенеке",
 	)

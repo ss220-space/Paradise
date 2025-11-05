@@ -16,7 +16,7 @@
 		DATIVE = "ящику для руды",
 		ACCUSATIVE = "ящик для руды",
 		INSTRUMENTAL = "ящиком для руды",
-		PREPOSITIONAL = "ящике для руды"
+		PREPOSITIONAL = "ящике для руды",
 	)
 
 

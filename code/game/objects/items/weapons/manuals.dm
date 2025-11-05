@@ -30,7 +30,7 @@
 		DATIVE = "руководству \"[manual_title_ru]\"",
 		ACCUSATIVE = "руководство \"[manual_title_ru]\"",
 		INSTRUMENTAL = "руководством \"[manual_title_ru]\"",
-		PREPOSITIONAL = "руководстве \"[manual_title_ru]\""
+		PREPOSITIONAL = "руководстве \"[manual_title_ru]\"",
 	)
 
 /obj/item/book/manual/Initialize(mapload)

@@ -20,8 +20,10 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	unsuitable_atmos_damage = 15
 	faction = list("russian")
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian,
-			/obj/item/kitchen/knife)
+	loot = list(
+		/obj/effect/mob_spawn/human/corpse/russian,
+		/obj/item/kitchen/knife,
+	)
 	del_on_death = 1
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
@@ -35,9 +37,14 @@
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/a357
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged, /obj/item/gun/projectile/revolver/mateba)
+	loot = list(
+		/obj/effect/mob_spawn/human/corpse/russian/ranged,
+		/obj/item/gun/projectile/revolver/mateba,
+	)
 
 /mob/living/simple_animal/hostile/russian/ranged/mosin
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged,
-				/obj/item/gun/projectile/shotgun/boltaction)
+	loot = list(
+		/obj/effect/mob_spawn/human/corpse/russian/ranged,
+		/obj/item/gun/projectile/shotgun/boltaction,
+	)
 	casingtype = /obj/item/ammo_casing/a762

@@ -30,7 +30,7 @@
 		DATIVE = "робо-гипоспрею",
 		ACCUSATIVE = "робо-гипоспрей",
 		INSTRUMENTAL = "робо-гипоспреем",
-		PREPOSITIONAL = "робо-гипоспрее"
+		PREPOSITIONAL = "робо-гипоспрее",
 	)
 
 /obj/item/reagent_containers/borghypo/syndicate
@@ -55,7 +55,7 @@
 		DATIVE = "Синди-робо-гипоспрею",
 		ACCUSATIVE = "Синди-робо-гипоспрей",
 		INSTRUMENTAL = "Синди-робо-гипоспреем",
-		PREPOSITIONAL = "Синди-робо-гипоспрее"
+		PREPOSITIONAL = "Синди-робо-гипоспрее",
 	)
 
 /obj/item/reagent_containers/borghypo/upgraded
@@ -80,7 +80,7 @@
 		DATIVE = "улучшенному робо-гипоспрею",
 		ACCUSATIVE = "улучшенный робо-гипоспрей",
 		INSTRUMENTAL = "улучшенным робо-гипоспреем",
-		PREPOSITIONAL = "улучшенном робо-гипоспрее"
+		PREPOSITIONAL = "улучшенном робо-гипоспрее",
 	)
 
 /obj/item/reagent_containers/borghypo/upgraded/super
@@ -228,7 +228,7 @@
 		DATIVE = "стандартному медицинскому гипоспрею",
 		ACCUSATIVE = "стандартный медицинский гипоспрей",
 		INSTRUMENTAL = "стандартным медицинским гипоспреем",
-		PREPOSITIONAL = "стандартном медицинском гипоспрее"
+		PREPOSITIONAL = "стандартном медицинском гипоспрее",
 	)
 
 /obj/item/reagent_containers/borghypo/basic/upgraded
@@ -249,7 +249,7 @@
 		DATIVE = "улучшенному медицинскому гипоспрею",
 		ACCUSATIVE = "улучшенный медицинский гипоспрей",
 		INSTRUMENTAL = "улучшенным медицинским гипоспреем",
-		PREPOSITIONAL = "улучшенном медицинском гипоспрее"
+		PREPOSITIONAL = "улучшенном медицинском гипоспрее",
 	)
 
 /obj/item/reagent_containers/borghypo/emagged
@@ -274,7 +274,7 @@
 		DATIVE = "0ШNBK4_IИБ3KT0Я",
 		ACCUSATIVE = "0ШNBK4_IИБ3KT0Я",
 		INSTRUMENTAL = "0ШNBK4_IИБ3KT0Я",
-		PREPOSITIONAL = "0ШNBK4_IИБ3KT0Я"
+		PREPOSITIONAL = "0ШNBK4_IИБ3KT0Я",
 	)
 
 #undef BORGHYPO_REFILL_VALUE

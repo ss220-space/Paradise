@@ -43,7 +43,7 @@
 		DATIVE = "торговому автомату Sustenance Vendor",
 		ACCUSATIVE = "торговый автомат Sustenance Vendor",
 		INSTRUMENTAL = "торговым автоматом Sustenance Vendor",
-		PREPOSITIONAL = "торговом автомате Sustenance Vendor"
+		PREPOSITIONAL = "торговом автомате Sustenance Vendor",
 	)
 
 /obj/machinery/vending/sustenance/additional

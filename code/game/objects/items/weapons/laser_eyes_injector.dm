@@ -12,7 +12,7 @@
 		DATIVE = "инъектору лазерных глаз",
 		ACCUSATIVE = "инъектор лазерных глаз",
 		INSTRUMENTAL = "инъектором лазерных глаз",
-		PREPOSITIONAL = "инъекторе лазерных глаз"
+		PREPOSITIONAL = "инъекторе лазерных глаз",
 	)
 
 /obj/item/laser_eyes_injector/update_icon_state()

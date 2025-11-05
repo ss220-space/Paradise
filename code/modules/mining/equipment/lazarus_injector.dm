@@ -20,7 +20,7 @@
 		DATIVE = "инъектору Лазаря",
 		ACCUSATIVE = "инъектор Лазаря",
 		INSTRUMENTAL = "инъектором Лазаря",
-		PREPOSITIONAL = "инъекторе Лазаря"
+		PREPOSITIONAL = "инъекторе Лазаря",
 	)
 
 /obj/item/lazarus_injector/update_icon_state()
@@ -99,7 +99,7 @@
 		DATIVE = "капсуле Лазаря",
 		ACCUSATIVE = "капсулу Лазаря",
 		INSTRUMENTAL = "капсулой Лазаря",
-		PREPOSITIONAL = "капсуле Лазаря"
+		PREPOSITIONAL = "капсуле Лазаря",
 	)
 
 /obj/item/mobcapsule/Destroy()

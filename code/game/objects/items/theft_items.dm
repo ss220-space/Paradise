@@ -21,7 +21,7 @@
 		DATIVE = "плутониевому ядру",
 		ACCUSATIVE = "плутониевое ядро",
 		INSTRUMENTAL = "плутониевым ядром",
-		PREPOSITIONAL = "плутониевом ядре"
+		PREPOSITIONAL = "плутониевом ядре",
 	)
 
 /obj/item/nuke_core/Initialize(mapload)
@@ -76,7 +76,7 @@
 		DATIVE = "контейнеру для ядерного ядра",
 		ACCUSATIVE = "контейнер для ядерного ядра",
 		INSTRUMENTAL = "контейнером для ядерного ядра",
-		PREPOSITIONAL = "контейнере для ядерного ядра"
+		PREPOSITIONAL = "контейнере для ядерного ядра",
 	)
 
 /obj/item/nuke_core_container/Destroy()
@@ -229,7 +229,7 @@
 		DATIVE = "осколку суперматерии",
 		ACCUSATIVE = "осколок суперматерии",
 		INSTRUMENTAL = "осколком суперматерии",
-		PREPOSITIONAL = "осколке суперматерии"
+		PREPOSITIONAL = "осколке суперматерии",
 	)
 
 /obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
@@ -330,7 +330,7 @@
 		DATIVE = "контейнеру для суперматерии",
 		ACCUSATIVE = "контейнер для суперматерии",
 		INSTRUMENTAL = "контейнером для суперматерии",
-		PREPOSITIONAL = "контейнере для суперматерии"
+		PREPOSITIONAL = "контейнере для суперматерии",
 	)
 
 /obj/item/nuke_core_container/supermatter/Destroy()
@@ -348,7 +348,7 @@
 			DATIVE = "разбитому контейнеру для суперматерии",
 			ACCUSATIVE = "разбитый контейнер для суперматерии",
 			INSTRUMENTAL = "разбитым контейнером для суперматерии",
-			PREPOSITIONAL = "разбитом контейнере для суперматерии"
+			PREPOSITIONAL = "разбитом контейнере для суперматерии",
 		)
 
 
@@ -456,7 +456,7 @@
 		DATIVE = "скальпелю для суперматерии",
 		ACCUSATIVE = "скальпель для суперматерии",
 		INSTRUMENTAL = "скальпелем для суперматерии",
-		PREPOSITIONAL = "скальпеле для суперматерии"
+		PREPOSITIONAL = "скальпеле для суперматерии",
 	)
 
 /obj/item/scalpel/supermatter/Initialize(mapload)
@@ -480,7 +480,7 @@
 		DATIVE = "щипцам для суперматерии",
 		ACCUSATIVE = "щипцы для суперматерии",
 		INSTRUMENTAL = "щипцами для суперматерии",
-		PREPOSITIONAL = "щипцах для суперматерии"
+		PREPOSITIONAL = "щипцах для суперматерии",
 	)
 
 /obj/item/retractor/supermatter/Destroy()

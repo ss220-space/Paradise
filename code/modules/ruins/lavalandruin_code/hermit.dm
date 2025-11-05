@@ -25,7 +25,7 @@
 		DATIVE = "неисправной криокапсуле",
 		ACCUSATIVE = "неисправную криокапсулу",
 		INSTRUMENTAL = "неисправной криокапсулой",
-		PREPOSITIONAL = "неисправной криокапсуле"
+		PREPOSITIONAL = "неисправной криокапсуле",
 	)
 
 /datum/outfit/hermit
