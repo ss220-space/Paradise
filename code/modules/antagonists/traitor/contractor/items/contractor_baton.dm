@@ -35,10 +35,6 @@
 		PREPOSITIONAL = "дубинке контрактника"
 	)
 
-/obj/item/melee/baton/telescopic/contractor/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/item_skins, skins = list())
-
 /obj/item/melee/baton/telescopic/contractor/examine(mob/user)
 	. = ..()
 	if(has_upgrade(UPGRADE_CUFFS))

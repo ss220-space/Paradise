@@ -787,15 +787,7 @@
 /obj/item/gun/energy/specter/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
-	AddComponent(/datum/component/item_skins, skins = list(
-		new /datum/item_skin_data(name = "Grey slide", icon_state = "specter"),
-		new /datum/item_skin_data(name = "Red slide", icon_state = "specter_red"),
-		new /datum/item_skin_data(name = "Green slide", icon_state = "specter_green"),
-		new /datum/item_skin_data(name = "Tan slide", icon_state = "specter_tan"),
-		new /datum/item_skin_data(name = "Green Handle", icon_state = "specter_greengrip"),
-		new /datum/item_skin_data(name = "Tan Handle", icon_state = "specter_tangrip"),
-		new /datum/item_skin_data(name = "Red Handle", icon_state = "specter_redgrip"),
-	))
+	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/energy/specter)
 
 /obj/item/gun/energy/specter/update_icon_state()
 	if(current_skin)

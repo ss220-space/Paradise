@@ -300,15 +300,7 @@
 
 /obj/item/melee/baton/telescopic/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/item_skins, skins = list(
-		new /datum/item_skin_data(name = "Классическая телескопическая дубинка", icon_state = "telebaton_tg", menu_icon_state = "telebaton_tg_on", donation_tier = 1),
-		new /datum/item_skin_data(name = "Бронзовая телескопическая дубинка", icon_state = "telebaton_bronze", menu_icon_state = "telebaton_bronze_on", donation_tier = 1),
-		new /datum/item_skin_data(name = "Классическая бронзовая телескопическая дубинка", icon_state = "telebaton_tg_bronze", menu_icon_state = "telebaton_tg_bronze_on", donation_tier = 1),
-		new /datum/item_skin_data(name = "Серебрянная телескопическая дубинка", icon_state = "telebaton_silver", menu_icon_state = "telebaton_silver_on", donation_tier = 2),
-		new /datum/item_skin_data(name = "Классическая серебрянная телескопическая дубинка", icon_state = "telebaton_tg_silver", menu_icon_state = "telebaton_tg_silver_on", donation_tier = 2),
-		new /datum/item_skin_data(name = "Золотая телескопическая дубинка", icon_state = "telebaton_gold", menu_icon_state = "telebaton_gold_on", donation_tier = 3),
-		new /datum/item_skin_data(name = "Классическая золотая телескопическая дубинка", icon_state = "telebaton_tg_gold", menu_icon_state = "telebaton_tg_gold_on", donation_tier = 3),
-	))
+	AddElement(/datum/element/item_skins)
 	AddComponent( \
 		/datum/component/transforming, \
 		force_on = src.extend_force, \
