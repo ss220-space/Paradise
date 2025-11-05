@@ -274,7 +274,7 @@
 	name = "axmc sniper rifle"
 	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний \"Нанотрейзен\". Обладает схожими со снайперской винтовкой \"Синдиката\" характеристиками."
 	icon = 'icons/obj/weapons/projectile.dmi'
-  icon_state = "AXMC"
+	icon_state = "AXMC"
 	item_state = "AXMC"
 	mag_type = /obj/item/ammo_box/magazine/a338
 	fire_delay = 5.5 SECONDS
