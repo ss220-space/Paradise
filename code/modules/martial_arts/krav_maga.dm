@@ -19,7 +19,7 @@
 		owner.balloon_alert(owner, "нельзя отменить неактивный приём")
 		return
 	owner.balloon_alert(owner, "вы расслабили стойку")
-	owner.balloon_alert_to_viewers(owner, "расслабля[PLUR_ET_YUT(owner)] боевую стойку")
+	owner.balloon_alert_to_viewers("расслабля[PLUR_ET_YUT(owner)] боевую стойку", "вы расслабили стойку", COMBAT_MESSAGE_RANGE)
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.in_stance = FALSE
 
@@ -35,8 +35,7 @@
 	if(owner.incapacitated())
 		owner.balloon_alert(owner, "нельзя провести приём")
 		return
-	owner.balloon_alert(owner, "вы приняли стойку")
-	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку")
+	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку", "вы приняли стойку", COMBAT_MESSAGE_RANGE)
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.mind.martial_art.reset_combos()
@@ -54,8 +53,7 @@
 	if(owner.incapacitated())
 		owner.balloon_alert(owner, "нельзя провести приём")
 		return
-	owner.balloon_alert(owner, "вы приняли стойку")
-	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку")
+	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку", "вы приняли стойку", COMBAT_MESSAGE_RANGE)
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.mind.martial_art.reset_combos()
@@ -73,8 +71,7 @@
 	if(owner.incapacitated())
 		owner.balloon_alert(owner, "нельзя провести приём")
 		return
-	owner.balloon_alert(owner, "вы приняли стойку")
-	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку")
+	owner.balloon_alert_to_viewers(owner, "принима[PLUR_ET_YUT(owner)] боевую стойку", "вы приняли стойку", COMBAT_MESSAGE_RANGE)
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
