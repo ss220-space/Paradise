@@ -454,7 +454,7 @@
 	req_tech = list("biotech" = 7, "programming" = 7, "syndicate" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_DIAMOND = 1500)
-	reagents_list = list("stable_mutagen" = 20)
+	reagents_list = list("mutagen" = 20)
 	build_path = /obj/item/dnascrambler
 	locked = TRUE
 	category = list("ILLEGAL")

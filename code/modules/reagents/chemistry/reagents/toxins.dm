@@ -270,48 +270,6 @@
 		M.check_genes()
 	return ..()
 
-
-/datum/reagent/stable_mutagen
-	name = "Стабильный мутаген"
-	id = "stable_mutagen"
-	description = "Обычное, скучное мутагенное соединение. Действует совершенно предсказуемо."
-	reagent_state = LIQUID
-	color = "#7DFF00"
-	taste_description = "желе"
-
-
-/datum/reagent/stable_mutagen/on_new(data)
-	..()
-	START_PROCESSING(SSprocessing, src)
-
-
-/datum/reagent/stable_mutagen/Destroy()
-	STOP_PROCESSING(SSprocessing, src)
-	return ..()
-
-
-/datum/reagent/stable_mutagen/on_mob_life(mob/living/carbon/human/target)
-	if(isnucleation(target))
-		return ..()
-	target.apply_effect(1, IRRADIATE, negate_armor = TRUE)
-	if(current_cycle != 10 || !ishuman(target) || !target.dna || !islist(data) || !istype(data["dna"], /datum/dna))
-		return ..()
-	var/datum/dna/reagent_dna = data["dna"]
-	if(!reagent_dna.species.is_monkeybasic)
-		target.change_dna(reagent_dna, TRUE, TRUE)
-		target.special_post_clone_handling()
-	return ..()
-
-
-/datum/reagent/stable_mutagen/process()
-	. = ..()
-	if(data)
-		return .
-	var/datum/reagent/blood/blood = locate() in holder.reagent_list
-	if(blood && islist(blood.data))
-		data = blood.data.Copy()
-
-
 /datum/reagent/uranium
 	name ="Уран"
 	id = "uranium"
