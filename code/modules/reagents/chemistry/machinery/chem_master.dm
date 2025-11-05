@@ -60,7 +60,7 @@
 		DATIVE = "ХимМастеру 3000",
 		ACCUSATIVE = "ХимМастер 3000",
 		INSTRUMENTAL = "ХимМастером 3000",
-		PREPOSITIONAL = "ХимМастере 3000"
+		PREPOSITIONAL = "ХимМастере 3000",
 	)
 
 /obj/machinery/chem_master/Initialize(mapload)
@@ -548,7 +548,7 @@
 		DATIVE = "КондиМастеру 3000",
 		ACCUSATIVE = "КондиМастер 3000",
 		INSTRUMENTAL = "КондиМастером 3000",
-		PREPOSITIONAL = "КондиМастере 3000"
+		PREPOSITIONAL = "КондиМастере 3000",
 	)
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)

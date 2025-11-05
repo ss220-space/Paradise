@@ -73,7 +73,7 @@
 		DATIVE = "статуе дрейка",
 		ACCUSATIVE = "статую дрейка",
 		INSTRUMENTAL = "статуей дрейка",
-		PREPOSITIONAL = "статуе дрейка"
+		PREPOSITIONAL = "статуе дрейка",
 	)
 
 /obj/structure/fluff/drake_statue/falling //A variety of statue in disrepair; parts are broken off and a gemstone is missing
@@ -114,5 +114,5 @@
 		DATIVE = "пустой могиле",
 		ACCUSATIVE = "пустую могилу",
 		INSTRUMENTAL = "пустой могилой",
-		PREPOSITIONAL = "пустой могиле"
+		PREPOSITIONAL = "пустой могиле",
 	)

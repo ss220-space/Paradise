@@ -32,7 +32,7 @@
 		DATIVE = "дубинке контрактника",
 		ACCUSATIVE = "дубинку контрактника",
 		INSTRUMENTAL = "дубинкой контрактника",
-		PREPOSITIONAL = "дубинке контрактника"
+		PREPOSITIONAL = "дубинке контрактника",
 	)
 
 
@@ -172,7 +172,7 @@
 		DATIVE = "модулю \"Стяжки\"",
 		ACCUSATIVE = "модуль \"Стяжки\"",
 		INSTRUMENTAL = "модулем \"Стяжки\"",
-		PREPOSITIONAL = "модуле \"Стяжки\""
+		PREPOSITIONAL = "модуле \"Стяжки\"",
 	)
 
 
@@ -189,7 +189,7 @@
 		DATIVE = "модулю \"Безмолвие\"",
 		ACCUSATIVE = "модуль \"Безмолвие\"",
 		INSTRUMENTAL = "модулем \"Безмолвие\"",
-		PREPOSITIONAL = "модуле \"Безмолвие\""
+		PREPOSITIONAL = "модуле \"Безмолвие\"",
 	)
 
 /obj/item/baton_upgrade/focus
@@ -205,7 +205,7 @@
 		DATIVE = "модулю \"Фокусировка\"",
 		ACCUSATIVE = "модуль \"Фокусировка\"",
 		INSTRUMENTAL = "модулем \"Фокусировка\"",
-		PREPOSITIONAL = "модуле \"Фокусировка\""
+		PREPOSITIONAL = "модуле \"Фокусировка\"",
 	)
 
 /obj/item/baton_upgrade/antidrop
@@ -221,7 +221,7 @@
 		DATIVE = "модулю \"Защита от выпадения\"",
 		ACCUSATIVE = "модуль \"Защита от выпадения\"",
 		INSTRUMENTAL = "модулем \"Защита от выпадения\"",
-		PREPOSITIONAL = "модуле \"Защита от выпадения\""
+		PREPOSITIONAL = "модуле \"Защита от выпадения\"",
 	)
 
 #undef UPGRADE_MUTE

@@ -32,8 +32,8 @@
 	shoes = /obj/item/clothing/shoes/black
 	box = /obj/item/storage/box/survival
 	backpack_contents = list(
-		/obj/item/implanter/dust = 1
-		)
+		/obj/item/implanter/dust = 1,
+	)
 
 /datum/outfit/admin/observer/plasmaman
 	name = "Наблюдатель (Плазмамен)"
@@ -66,7 +66,7 @@
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/card/emag = 1,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1
+		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 	)
 
 	var/id_access = SYNDICATE_AGENT
@@ -118,7 +118,7 @@
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/gun/projectile/revolver = 1,
-		/obj/item/ammo_box/speedloader/a357 = 1
+		/obj/item/ammo_box/speedloader/a357 = 1,
 	)
 	implants = list(/obj/item/implant/dust)
 	can_be_admin_equipped = FALSE
@@ -159,7 +159,7 @@
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/gun/projectile/revolver = 1,
-		/obj/item/ammo_box/speedloader/a357 = 1
+		/obj/item/ammo_box/speedloader/a357 = 1,
 	)
 
 /datum/outfit/admin/syndicate/spy
@@ -169,7 +169,7 @@
 	uplink_uses = 200
 
 	implants = list(
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 	)
 
 
@@ -185,7 +185,7 @@
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1
+		/obj/item/storage/box/engineer = 1,
 	)
 
 /datum/outfit/admin/nt_vip/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -224,15 +224,15 @@
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/CQC_manual = 1,
-		/obj/item/storage/box/responseteam = 1
+		/obj/item/storage/box/responseteam = 1,
 	)
 
 	accessories = list(
-		/obj/item/clothing/accessory/holster
+		/obj/item/clothing/accessory/holster,
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield/ert
+		/obj/item/implant/mindshield/ert,
 	)
 
 /datum/outfit/admin/special_reaction_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -273,11 +273,11 @@
 	backpack_contents = list(
 		/obj/item/storage/box/centcomofficer = 1,
 		/obj/item/gun/energy/pulse/pistol = 1,
-		/obj/item/implanter/death_alarm = 1
+		/obj/item/implanter/death_alarm = 1,
 	)
 	implants = list(
 		/obj/item/implant/mindshield/ert,
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 	)
 
 /datum/outfit/admin/nt_navy_captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -309,7 +309,7 @@
 	)
 	implants = list(
 		/obj/item/implant/mindshield/ert,
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 	)
 
 /datum/outfit/admin/nt_diplomat/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -337,10 +337,10 @@
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/pinpointer/crew = 1
+		/obj/item/pinpointer/crew = 1,
 	)
 	implants = list(
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/shield,
@@ -348,7 +348,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/xray,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/arm/combat/centcom
+		/obj/item/organ/internal/cyberimp/arm/combat/centcom,
 	)
 
 /datum/outfit/admin/nt_undercover/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -392,7 +392,7 @@
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/grenade/plastic/x4 = 1,
-		/obj/item/ammo_box/speedloader/a357 = 1
+		/obj/item/ammo_box/speedloader/a357 = 1,
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
@@ -435,7 +435,7 @@
 	r_hand = /obj/item/melee/energy/sword/pirate
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
 	)
 
 /datum/outfit/admin/pirate/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -477,7 +477,7 @@
 		/obj/item/flashlight = 1,
 		/obj/item/restraints/handcuffs/cable/zipties = 1,
 		/obj/item/flash = 1,
-		/obj/item/gun/energy/noisecannon = 1
+		/obj/item/gun/energy/noisecannon = 1,
 	)
 
 /datum/outfit/admin/vox/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -519,7 +519,7 @@
 		/obj/item/grenade/clown_grenade = 1,
 		/obj/item/melee/baton/security/cattleprod = 1,
 		/obj/item/stock_parts/cell/super = 1,
-		/obj/item/bikehorn/rubberducky = 1
+		/obj/item/bikehorn/rubberducky = 1,
 	)
 
 /datum/outfit/admin/tunnel_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -556,7 +556,7 @@
 		/obj/item/card/emag = 1,
 		/obj/item/radio/uplink = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
 	)
 
 /datum/outfit/admin/mime_assassin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -594,7 +594,7 @@
 	r_hand = /obj/item/flag/grey
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
 	)
 
 /datum/outfit/admin/greytide/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -615,7 +615,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/clothing/head/welding = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
 	)
 
 /datum/outfit/admin/greytide/leader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -643,7 +643,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/clothing/head/welding = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
 	)
 
 /datum/outfit/admin/greytide/xeno/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -676,7 +676,7 @@
 		/obj/item/instrument/accordion = 1,
 		/obj/item/instrument/saxophone = 1,
 		/obj/item/instrument/trombone = 1,
-		/obj/item/instrument/harmonica = 1
+		/obj/item/instrument/harmonica = 1,
 	)
 
 /datum/outfit/admin/musician/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -733,7 +733,7 @@
 	belt = /obj/item/gun/projectile/revolver/nagant
 
 	backpack_contents = list(
-		/obj/item/ammo_box/speedloader/a762 = 4
+		/obj/item/ammo_box/speedloader/a762 = 4,
 	)
 
 /datum/outfit/admin/soviet/soldier
@@ -747,7 +747,7 @@
 	backpack_contents = list(
 		/obj/item/lighter = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_robust = 1,
-		/obj/item/ammo_box/magazine/pistolm9mm = 2
+		/obj/item/ammo_box/magazine/pistolm9mm = 2,
 	)
 
 /datum/outfit/admin/soviet/officer
@@ -764,7 +764,7 @@
 	backpack_contents = list(
 		/obj/item/lighter/zippo = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/ammo_box/speedloader/a357 = 2
+		/obj/item/ammo_box/speedloader/a357 = 2,
 	)
 
 /datum/outfit/admin/soviet/marine
@@ -785,7 +785,7 @@
 		/obj/item/gun/projectile/automatic/pistol/APS = 1,
 		/obj/item/ammo_box/magazine/pistolm9mm = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo = 1
+		/obj/item/lighter/zippo = 1,
 	)
 
 /datum/outfit/admin/soviet/marine/captain
@@ -798,7 +798,7 @@
 		/obj/item/gun/projectile/revolver/mateba = 1,
 		/obj/item/ammo_box/speedloader/a357 = 2,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo = 1
+		/obj/item/lighter/zippo = 1,
 	)
 
 /datum/outfit/admin/soviet/admiral
@@ -812,7 +812,7 @@
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	l_pocket = /obj/item/melee/baton/telescopic
 	backpack_contents = list(
-		/obj/item/ammo_box/speedloader/a357 = 3
+		/obj/item/ammo_box/speedloader/a357 = 3,
 	)
 
 /datum/outfit/admin/solgov_rep
@@ -872,7 +872,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 	)
 	var/is_tsf_lieutenant = FALSE
 
@@ -894,14 +894,14 @@
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/gun/projectile/automatic/pistol/m1911 = 1
+		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash,
-		/obj/item/organ/internal/cyberimp/eyes/shield
+		/obj/item/organ/internal/cyberimp/eyes/shield,
 	)
 
 /datum/outfit/admin/solgov/elite/lieutenant
@@ -919,7 +919,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/ammo_box/magazine/m50 = 3,
 	)
 	is_tsf_lieutenant = TRUE
 
@@ -953,7 +953,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/hand_labeler = 1,
-		/obj/item/hand_labeler_refill = 1
+		/obj/item/hand_labeler_refill = 1,
 	)
 
 /datum/outfit/admin/sol_trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1118,7 +1118,7 @@
 	l_hand = /obj/item/reagent_containers/glass/bucket
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/cleaner = 2,
-		/obj/item/stack/tile/plasteel = 7
+		/obj/item/stack/tile/plasteel = 7,
 	)
 
 /datum/outfit/admin/tournament_janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1140,7 +1140,7 @@
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1
+		/obj/item/storage/box/survival = 1,
 	)
 
 /datum/outfit/admin/survivor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1175,7 +1175,7 @@
 	r_hand = /obj/item/twohanded/fireaxe
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
 	)
 
 /datum/outfit/admin/masked_killer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1209,7 +1209,7 @@
 	suit_store = /obj/item/tank/internals/oxygen
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
 	)
 
 /datum/outfit/admin/singuloth_knight/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1265,7 +1265,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/clothing/under/color/black = 1
+		/obj/item/clothing/under/color/black = 1,
 	)
 
 
@@ -1315,7 +1315,7 @@
 	l_hand = /obj/item/twohanded/staff
 	r_hand = /obj/item/spellbook
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1
+		/obj/item/storage/box/engineer = 1,
 	)
 
 /datum/outfit/admin/wizard/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1353,7 +1353,7 @@
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
 		/obj/item/clothing/suit/wizrobe/red = 1,
-		/obj/item/clothing/head/wizard/red = 1
+		/obj/item/clothing/head/wizard/red = 1,
 	)
 
 /datum/outfit/admin/wizard/arch/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1385,7 +1385,7 @@
 		/obj/item/flashlight = 1,
 	)
 	implants = list(
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 	)
 
 /datum/outfit/admin/dark_priest/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

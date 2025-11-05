@@ -37,7 +37,7 @@
 	pda = /obj/item/pda/quartermaster
 	backpack = /obj/item/storage/backpack/cargo
 	backpack_contents = list(
-	/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 	head = /obj/item/clothing/head/cowboyhat/tan
 
@@ -111,7 +111,7 @@
 		/obj/item/mining_voucher = 1,
 		/obj/item/stack/marker_beacon/ten = 1,
 		/obj/item/wormhole_jaunter = 1,
-		/obj/item/survivalcapsule = 1
+		/obj/item/survivalcapsule = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
@@ -131,7 +131,7 @@
 		/obj/item/mining_voucher = 1,
 		/obj/item/t_scanner/adv_mining_scanner/lesser = 1,
 		/obj/item/gun/energy/kinetic_accelerator = 1,
-		/obj/item/stack/marker_beacon/ten = 1
+		/obj/item/stack/marker_beacon/ten = 1,
 	)
 
 /datum/outfit/job/miner/equipped/hardsuit
@@ -214,7 +214,7 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	pda = /obj/item/pda/bar
 	backpack_contents = list(
-		/obj/item/toy/russian_revolver = 1
+		/obj/item/toy/russian_revolver = 1,
 	)
 
 /datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -353,7 +353,7 @@
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1,
-		/obj/item/clown_recorder = 1
+		/obj/item/clown_recorder = 1,
 	)
 
 	implants = list(/obj/item/implant/sad_trombone)
@@ -566,7 +566,7 @@
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
-		/obj/item/cane = 1
+		/obj/item/cane = 1,
 	)
 	backpack = /obj/item/storage/backpack/mime
 	satchel = /obj/item/storage/backpack/satchel_mime
@@ -648,7 +648,8 @@
 	l_hand = /obj/item/storage/bag/books
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam = 1)
+		/obj/item/videocam = 1,
+	)
 
 /datum/job/explorer
 	title = JOB_TITLE_EXPLORER

@@ -11,7 +11,7 @@
 		DATIVE = "силовому импульсу",
 		ACCUSATIVE = "силовой импульс",
 		INSTRUMENTAL = "силовым импульсом",
-		PREPOSITIONAL = "силовом импульсе"
+		PREPOSITIONAL = "силовом импульсе",
 	)
 
 /obj/projectile/forcebolt/strong

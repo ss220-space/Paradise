@@ -74,7 +74,7 @@
 		DATIVE = "ДНК-модификатору",
 		ACCUSATIVE = "ДНК-модификатор",
 		INSTRUMENTAL = "ДНК-модификатором",
-		PREPOSITIONAL = "ДНК-модификаторе"
+		PREPOSITIONAL = "ДНК-модификаторе",
 	)
 
 /obj/machinery/dna_scannernew/Initialize(mapload)
@@ -350,7 +350,7 @@
 		DATIVE = "консоли управления ДНК-модификатором",
 		ACCUSATIVE = "консоль управления ДНК-модификатором",
 		INSTRUMENTAL = "консолью управления ДНК-модификатором",
-		PREPOSITIONAL = "консоли управления ДНК-модификатором"
+		PREPOSITIONAL = "консоли управления ДНК-модификатором",
 	)
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)

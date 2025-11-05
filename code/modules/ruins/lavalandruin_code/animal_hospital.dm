@@ -24,7 +24,7 @@
 		DATIVE = "слиперу",
 		ACCUSATIVE = "слипер",
 		INSTRUMENTAL = "слипером",
-		PREPOSITIONAL = "слипере"
+		PREPOSITIONAL = "слипере",
 	)
 
 /datum/outfit/job/doctor/alive/lavaland

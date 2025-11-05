@@ -21,7 +21,7 @@
 		/obj/item/primitive_saw = 100,
 		/obj/item/hatchet = 90,
 		/obj/item/circular_saw_blade = 80,
-		TOOL_WIRECUTTER = 70
+		TOOL_WIRECUTTER = 70,
 	)
 
 	time = 5.4 SECONDS
@@ -71,7 +71,7 @@
 	allowed_tools = list(
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
-		TOOL_CROWBAR = 90
+		TOOL_CROWBAR = 90,
 	)
 
 	time = 2.4 SECONDS
@@ -123,7 +123,7 @@
 	allowed_tools = list(
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
-		TOOL_CROWBAR = 90
+		TOOL_CROWBAR = 90,
 	)
 
 	time = 2.4 SECONDS
@@ -171,7 +171,7 @@
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_BONEGEL = 100,
-		TOOL_SCREWDRIVER = 90
+		TOOL_SCREWDRIVER = 90,
 	)
 
 	time = 2.4 SECONDS

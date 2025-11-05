@@ -23,7 +23,7 @@
 		DATIVE = "библиотечному компьютеру",
 		ACCUSATIVE = "библиотечный компьютер",
 		INSTRUMENTAL = "библиотечным компьютером",
-		PREPOSITIONAL = "библиотечном компьютере"
+		PREPOSITIONAL = "библиотечном компьютере",
 	)
 
 /obj/machinery/computer/library/checkout/attack_hand(mob/user)

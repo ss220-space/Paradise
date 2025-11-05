@@ -12,7 +12,7 @@
 		DATIVE = "защитному костюму грузчика",
 		ACCUSATIVE = "защитный костюм грузчика",
 		INSTRUMENTAL = "защитным костюмом грузчика",
-		PREPOSITIONAL = "защитном костюме грузчика"
+		PREPOSITIONAL = "защитном костюме грузчика",
 	)
 
 /obj/item/clothing/under/plasmaman/mining
@@ -29,7 +29,7 @@
 		DATIVE = "защитному костюму шахтёра",
 		ACCUSATIVE = "защитный костюм шахтёра",
 		INSTRUMENTAL = "защитным костюмом шахтёра",
-		PREPOSITIONAL = "защитном костюме шахтёра"
+		PREPOSITIONAL = "защитном костюме шахтёра",
 	)
 
 /obj/item/clothing/under/plasmaman/qm
@@ -46,7 +46,7 @@
 		DATIVE = "защитному костюму Квартирмейстера",
 		ACCUSATIVE = "защитный костюм Квартирмейстера",
 		INSTRUMENTAL = "защитным костюмом Квартирмейстера",
-		PREPOSITIONAL = "защитном костюме Квартирмейстера"
+		PREPOSITIONAL = "защитном костюме Квартирмейстера",
 	)
 
 /obj/item/clothing/under/plasmaman/chef
@@ -63,7 +63,7 @@
 		DATIVE = "защитному костюму повара",
 		ACCUSATIVE = "защитный костюм повара",
 		INSTRUMENTAL = "защитным костюмом повара",
-		PREPOSITIONAL = "защитном костюме повара"
+		PREPOSITIONAL = "защитном костюме повара",
 	)
 
 /obj/item/clothing/under/plasmaman/nt
@@ -80,7 +80,7 @@
 		DATIVE = "защитному костюму представителя Нанотрейзен",
 		ACCUSATIVE = "защитный костюм представителя Нанотрейзен",
 		INSTRUMENTAL = "защитным костюмом представителя Нанотрейзен",
-		PREPOSITIONAL = "защитном костюме представителя Нанотрейзен"
+		PREPOSITIONAL = "защитном костюме представителя Нанотрейзен",
 	)
 
 /obj/item/clothing/under/plasmaman/enviroslacks
@@ -98,7 +98,7 @@
 		DATIVE = "защитному официальному костюму плазмолюда",
 		ACCUSATIVE = "защитный официальный костюм плазмолюда",
 		INSTRUMENTAL = "защитным официальным костюмом плазмолюда",
-		PREPOSITIONAL = "защитном официальном костюме плазмолюда"
+		PREPOSITIONAL = "защитном официальном костюме плазмолюда",
 	)
 
 /obj/item/clothing/under/plasmaman/chaplain
@@ -115,7 +115,7 @@
 		DATIVE = "защитному костюму священника",
 		ACCUSATIVE = "защитный костюм священника",
 		INSTRUMENTAL = "защитным костюмом священника",
-		PREPOSITIONAL = "защитном костюме священника"
+		PREPOSITIONAL = "защитном костюме священника",
 	)
 
 /obj/item/clothing/under/plasmaman/librarian
@@ -132,7 +132,7 @@
 		DATIVE = "защитному костюму библиотекаря",
 		ACCUSATIVE = "защитный костюм библиотекаря",
 		INSTRUMENTAL = "защитным костюмом библиотекаря",
-		PREPOSITIONAL = "защитном костюме библиотекаря"
+		PREPOSITIONAL = "защитном костюме библиотекаря",
 	)
 
 /obj/item/clothing/under/plasmaman/janitor
@@ -149,7 +149,7 @@
 		DATIVE = "защитному костюму уборщика",
 		ACCUSATIVE = "защитный костюм уборщика",
 		INSTRUMENTAL = "защитным костюмом уборщика",
-		PREPOSITIONAL = "защитном костюме уборщика"
+		PREPOSITIONAL = "защитном костюме уборщика",
 	)
 
 /obj/item/clothing/under/plasmaman/botany
@@ -166,7 +166,7 @@
 		DATIVE = "защитному костюму ботаника",
 		ACCUSATIVE = "защитный костюм ботаника",
 		INSTRUMENTAL = "защитным костюмом ботаника",
-		PREPOSITIONAL = "защитном костюме ботаника"
+		PREPOSITIONAL = "защитном костюме ботаника",
 	)
 
 
@@ -184,7 +184,7 @@
 		DATIVE = "защитному костюму мима",
 		ACCUSATIVE = "защитный костюм мима",
 		INSTRUMENTAL = "защитным костюмом мима",
-		PREPOSITIONAL = "защитном костюме мима"
+		PREPOSITIONAL = "защитном костюме мима",
 	)
 
 /obj/item/clothing/under/plasmaman/clown
@@ -201,7 +201,7 @@
 		DATIVE = "защитному костюму клоуна",
 		ACCUSATIVE = "защитный костюм клоуна",
 		INSTRUMENTAL = "защитным костюмом клоуна",
-		PREPOSITIONAL = "защитном костюме клоуна"
+		PREPOSITIONAL = "защитном костюме клоуна",
 	)
 
 /obj/item/clothing/under/plasmaman/clown/Extinguish(mob/living/carbon/human/H)
@@ -238,7 +238,7 @@
 		DATIVE = "защитному костюму главы персонала",
 		ACCUSATIVE = "защитный костюм главы персонала",
 		INSTRUMENTAL = "защитным костюмом главы персонала",
-		PREPOSITIONAL = "защитном костюме главы персонала"
+		PREPOSITIONAL = "защитном костюме главы персонала",
 	)
 
 /obj/item/clothing/under/plasmaman/captain
@@ -256,7 +256,7 @@
 		DATIVE = "защитному костюму капитана",
 		ACCUSATIVE = "защитный костюм капитана",
 		INSTRUMENTAL = "защитным костюмом капитана",
-		PREPOSITIONAL = "защитном костюме капитана"
+		PREPOSITIONAL = "защитном костюме капитана",
 	)
 
 /obj/item/clothing/under/plasmaman/blueshield
@@ -274,5 +274,5 @@
 		DATIVE = "защитному костюму офицера \"Синий Щит\"",
 		ACCUSATIVE = "защитный костюм офицера \"Синий Щит\"",
 		INSTRUMENTAL = "защитным костюмом офицера \"Синий Щит\"",
-		PREPOSITIONAL = "защитном костюме офицера \"Синий Щит\""
+		PREPOSITIONAL = "защитном костюме офицера \"Синий Щит\"",
 	)

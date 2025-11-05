@@ -64,7 +64,7 @@ Difficulty: Medium
 		DATIVE = "Легиону",
 		ACCUSATIVE = "Легион",
 		INSTRUMENTAL = "Легионом",
-		PREPOSITIONAL = "Легионе"
+		PREPOSITIONAL = "Легионе",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)

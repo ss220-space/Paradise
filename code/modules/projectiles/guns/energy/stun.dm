@@ -27,7 +27,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
 
 /obj/item/gun/energy/gun/advtaser/cyborg

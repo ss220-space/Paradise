@@ -788,7 +788,7 @@
 		DATIVE = "мопсу",
 		ACCUSATIVE = "мопса",
 		INSTRUMENTAL = "мопсом",
-		PREPOSITIONAL = "мопсе"
+		PREPOSITIONAL = "мопсе",
 	)
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()

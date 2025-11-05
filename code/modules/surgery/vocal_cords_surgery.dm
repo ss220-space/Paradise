@@ -10,7 +10,7 @@
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/tune_vocal_cords,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 
 	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
@@ -63,7 +63,7 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/tune_vocal_cords/ipc,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	requires_organic_bodypart = FALSE
 

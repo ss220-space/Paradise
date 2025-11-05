@@ -36,7 +36,7 @@
 		DATIVE = "торговому автомату Robotech Deluxe",
 		ACCUSATIVE = "торговый автомат Robotech Deluxe",
 		INSTRUMENTAL = "торговым автоматом Robotech Deluxe",
-		PREPOSITIONAL = "торговом автомате Robotech Deluxe"
+		PREPOSITIONAL = "торговом автомате Robotech Deluxe",
 	)
 
 /obj/machinery/vending/robotics/nt

@@ -136,7 +136,7 @@
 		DATIVE = "фонарику",
 		ACCUSATIVE = "фонарик",
 		INSTRUMENTAL = "фонариком",
-		PREPOSITIONAL = "фонарике"
+		PREPOSITIONAL = "фонарике",
 	)
 
 /obj/item/flashlight/sectaclight

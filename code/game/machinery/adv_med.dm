@@ -21,7 +21,7 @@
 		DATIVE = "медицинскому сканеру",
 		ACCUSATIVE = "медицинский сканер",
 		INSTRUMENTAL = "медицинским сканером",
-		PREPOSITIONAL = "медицинском сканере"
+		PREPOSITIONAL = "медицинском сканере",
 	)
 
 /obj/machinery/bodyscanner/Destroy()

@@ -44,7 +44,7 @@
 		DATIVE = "опоссуму",
 		ACCUSATIVE = "опоссума",
 		INSTRUMENTAL = "опоссумом",
-		PREPOSITIONAL = "опоссуме"
+		PREPOSITIONAL = "опоссуме",
 	)
 
 /mob/living/simple_animal/possum/attack_hand(mob/user)
@@ -93,5 +93,5 @@
 		DATIVE = "Ключику",
 		ACCUSATIVE = "Ключика",
 		INSTRUMENTAL = "Ключиком",
-		PREPOSITIONAL = "Ключике"
+		PREPOSITIONAL = "Ключике",
 	)

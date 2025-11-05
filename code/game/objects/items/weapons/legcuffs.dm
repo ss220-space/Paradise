@@ -18,7 +18,7 @@
 		DATIVE = "кандалам",
 		ACCUSATIVE = "кандалы",
 		INSTRUMENTAL = "кандалами",
-		PREPOSITIONAL = "кандалах"
+		PREPOSITIONAL = "кандалах",
 	)
 
 
@@ -43,7 +43,7 @@
 		DATIVE = "капкану",
 		ACCUSATIVE = "капкан",
 		INSTRUMENTAL = "капканом",
-		PREPOSITIONAL = "капкане"
+		PREPOSITIONAL = "капкане",
 	)
 
 
@@ -238,7 +238,7 @@
 		DATIVE = "боле",
 		ACCUSATIVE = "болу",
 		INSTRUMENTAL = "болой",
-		PREPOSITIONAL = "боле"
+		PREPOSITIONAL = "боле",
 	)
 
 
@@ -387,7 +387,7 @@
 		DATIVE = "укрёпленной боле",
 		ACCUSATIVE = "укреплённую болу",
 		INSTRUMENTAL = "укреплённой болой",
-		PREPOSITIONAL = "укреплённой боле"
+		PREPOSITIONAL = "укреплённой боле",
 	)
 
 
@@ -409,7 +409,7 @@
 		DATIVE = "энергетической боле",
 		ACCUSATIVE = "энергетическую болу",
 		INSTRUMENTAL = "энергетической болой",
-		PREPOSITIONAL = "энергетической боле"
+		PREPOSITIONAL = "энергетической боле",
 	)
 
 
@@ -427,7 +427,7 @@
 		DATIVE = "боле из черепов",
 		ACCUSATIVE = "болу из черепов",
 		INSTRUMENTAL = "болой из черепов",
-		PREPOSITIONAL = "боле из черепов"
+		PREPOSITIONAL = "боле из черепов",
 	)
 
 /obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/carbon/user, slot, silent = FALSE)

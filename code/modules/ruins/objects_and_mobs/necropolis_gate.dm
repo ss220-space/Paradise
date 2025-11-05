@@ -30,7 +30,7 @@
 		DATIVE = "вратам Некрополя",
 		ACCUSATIVE = "врата Некрополя",
 		INSTRUMENTAL = "вратами Некрополя",
-		PREPOSITIONAL = "вратах Некрополя"
+		PREPOSITIONAL = "вратах Некрополя",
 	)
 
 /obj/structure/necropolis_gate/Initialize(mapload)
@@ -269,7 +269,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "арке Некрополя",
 		ACCUSATIVE = "арку Некрополя",
 		INSTRUMENTAL = "аркой Некрополя",
-		PREPOSITIONAL = "арке Некрополя"
+		PREPOSITIONAL = "арке Некрополя",
 	)
 
 /obj/structure/necropolis_arch/Initialize(mapload)
@@ -314,7 +314,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "каменной плитке",
 		ACCUSATIVE = "каменную плитку",
 		INSTRUMENTAL = "каменной плиткой",
-		PREPOSITIONAL = "каменной плитке"
+		PREPOSITIONAL = "каменной плитке",
 	)
 
 /obj/structure/stone_tile/Initialize(mapload)
@@ -417,7 +417,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "каменному блоку",
 		ACCUSATIVE = "каменный блок",
 		INSTRUMENTAL = "каменным блоком",
-		PREPOSITIONAL = "каменном блоке"
+		PREPOSITIONAL = "каменном блоке",
 	)
 
 /obj/structure/stone_tile/slab
@@ -433,7 +433,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "каменной плите",
 		ACCUSATIVE = "каменную плиту",
 		INSTRUMENTAL = "каменной плитой",
-		PREPOSITIONAL = "каменной плите"
+		PREPOSITIONAL = "каменной плите",
 	)
 
 /obj/structure/stone_tile/slab/bone
@@ -450,7 +450,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "костяной каменной плите",
 		ACCUSATIVE = "костяную каменную плиту",
 		INSTRUMENTAL = "костяной каменной плитой",
-		PREPOSITIONAL = "костяной каменной плите"
+		PREPOSITIONAL = "костяной каменной плите",
 	)
 
 /obj/structure/stone_tile/center
@@ -466,7 +466,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "центральной каменной плитке",
 		ACCUSATIVE = "центральную каменную плитку",
 		INSTRUMENTAL = "центральной каменной плиткой",
-		PREPOSITIONAL = "центральной каменной плитке"
+		PREPOSITIONAL = "центральной каменной плитке",
 	)
 
 /obj/structure/stone_tile/surrounding
@@ -482,7 +482,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "окаймляющей каменной плите",
 		ACCUSATIVE = "окаймляющую каменную плиту",
 		INSTRUMENTAL = "окаймляющей каменной плитой",
-		PREPOSITIONAL = "окаймляющей каменной плите"
+		PREPOSITIONAL = "окаймляющей каменной плите",
 	)
 
 /obj/structure/stone_tile/surrounding_tile
@@ -498,7 +498,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "окаймляющей каменной плитке",
 		ACCUSATIVE = "окаймляющую каменную плитку",
 		INSTRUMENTAL = "окаймляющей каменной плиткой",
-		PREPOSITIONAL = "окаймляющей каменной плитке"
+		PREPOSITIONAL = "окаймляющей каменной плитке",
 	)
 
 //cracked stone tiles
@@ -514,7 +514,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "треснувшей каменной плитке",
 		ACCUSATIVE = "треснувшую каменную плитку",
 		INSTRUMENTAL = "треснувшей каменной плиткой",
-		PREPOSITIONAL = "треснувшей каменной плитке"
+		PREPOSITIONAL = "треснувшей каменной плитке",
 	)
 
 /obj/structure/stone_tile/block/cracked
@@ -529,7 +529,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "треснувшему каменному блоку",
 		ACCUSATIVE = "треснувший каменный блок",
 		INSTRUMENTAL = "треснувшим каменным блоком",
-		PREPOSITIONAL = "треснувшем каменном блоке"
+		PREPOSITIONAL = "треснувшем каменном блоке",
 	)
 
 /obj/structure/stone_tile/slab/cracked
@@ -545,7 +545,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "треснувшей каменной плите",
 		ACCUSATIVE = "треснувшую каменную плиту",
 		INSTRUMENTAL = "треснувшей каменной плитой",
-		PREPOSITIONAL = "треснувшей каменной плите"
+		PREPOSITIONAL = "треснувшей каменной плите",
 	)
 
 /obj/structure/stone_tile/center/cracked
@@ -560,7 +560,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "треснувшей центральной плитке",
 		ACCUSATIVE = "треснувшую центральную плитку",
 		INSTRUMENTAL = "треснувшей центральной плиткой",
-		PREPOSITIONAL = "треснувшей центральной плитке"
+		PREPOSITIONAL = "треснувшей центральной плитке",
 	)
 
 /obj/structure/stone_tile/surrounding/cracked
@@ -576,7 +576,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "треснувшей окаймляющей плите",
 		ACCUSATIVE = "треснувшую окаймляющую плиту",
 		INSTRUMENTAL = "треснувшей окаймляющей плитой",
-		PREPOSITIONAL = "треснувшей окаймляющей плите"
+		PREPOSITIONAL = "треснувшей окаймляющей плите",
 	)
 
 /obj/structure/stone_tile/surrounding_tile/cracked
@@ -591,7 +591,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "треснувшей окаймляющей плитке",
 		ACCUSATIVE = "треснувшую окаймляющую плитку",
 		INSTRUMENTAL = "треснувшей окаймляющей плиткой",
-		PREPOSITIONAL = "треснувшей окаймляющей плитке"
+		PREPOSITIONAL = "треснувшей окаймляющей плитке",
 	)
 
 //burnt stone tiles
@@ -607,7 +607,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "обугленной каменной плитке",
 		ACCUSATIVE = "обугленную каменную плитку",
 		INSTRUMENTAL = "обугленной каменной плиткой",
-		PREPOSITIONAL = "обугленной каменной плитке"
+		PREPOSITIONAL = "обугленной каменной плитке",
 	)
 
 /obj/structure/stone_tile/block/burnt
@@ -622,7 +622,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "обугленному каменному блоку",
 		ACCUSATIVE = "обугленный каменный блок",
 		INSTRUMENTAL = "обугленным каменным блоком",
-		PREPOSITIONAL = "обугленном каменном блоке"
+		PREPOSITIONAL = "обугленном каменном блоке",
 	)
 
 /obj/structure/stone_tile/slab/burnt
@@ -637,7 +637,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "обугленной каменной плите",
 		ACCUSATIVE = "обугленную каменную плиту",
 		INSTRUMENTAL = "обугленной каменной плитой",
-		PREPOSITIONAL = "обугленной каменной плите"
+		PREPOSITIONAL = "обугленной каменной плите",
 	)
 
 /obj/structure/stone_tile/center/burnt
@@ -652,7 +652,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "обугленной центральной плитке",
 		ACCUSATIVE = "обугленную центральную плитку",
 		INSTRUMENTAL = "обугленной центральной плиткой",
-		PREPOSITIONAL = "обугленной центральной плитке"
+		PREPOSITIONAL = "обугленной центральной плитке",
 	)
 
 /obj/structure/stone_tile/surrounding/burnt
@@ -667,7 +667,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "обугленной окаймляющей плите",
 		ACCUSATIVE = "обугленную окаймляющую плиту",
 		INSTRUMENTAL = "обугленной окаймляющей плитой",
-		PREPOSITIONAL = "обугленной окаймляющей плите"
+		PREPOSITIONAL = "обугленной окаймляющей плите",
 	)
 
 /obj/structure/stone_tile/surrounding_tile/burnt
@@ -682,7 +682,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		DATIVE = "обугленной окаймляющей плитке",
 		ACCUSATIVE = "обугленную окаймляющую плитку",
 		INSTRUMENTAL = "обугленной окаймляющей плиткой",
-		PREPOSITIONAL = "обугленной окаймляющей плитке"
+		PREPOSITIONAL = "обугленной окаймляющей плитке",
 	)
 
 /obj/structure/stone_tile/bone

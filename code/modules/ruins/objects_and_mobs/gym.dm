@@ -168,7 +168,7 @@
 		DATIVE = "грузоблочному тренажёру",
 		ACCUSATIVE = "грузоблочный тренажёр",
 		INSTRUMENTAL = "грузоблочным тренажёром",
-		PREPOSITIONAL = "грузоблочном тренажёре"
+		PREPOSITIONAL = "грузоблочном тренажёре",
 	)
 
 /obj/structure/weightmachine/stacklifter/AnimateMachine(mob/living/carbon/human/user)
@@ -201,7 +201,7 @@
 		DATIVE = "скамье для жима",
 		ACCUSATIVE = "скамью для жима",
 		INSTRUMENTAL = "скамьёй для жима",
-		PREPOSITIONAL = "скамье для жима"
+		PREPOSITIONAL = "скамье для жима",
 	)
 
 /obj/structure/weightmachine/weightlifter/AnimateMachine(mob/living/carbon/human/user)
@@ -281,8 +281,10 @@
 	name = "Турник"
 	result = /obj/structure/weightmachine/horizontalbar
 	tools = list(TOOL_WELDER)
-	reqs = list(/obj/item/stack/rods = 5,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(
+		/obj/item/stack/rods = 5,
+		/obj/item/stack/cable_coil = 5,
+	)
 	time = 6 SECONDS
 	category = CAT_MISC
 
@@ -290,8 +292,10 @@
 	name = "Турник (Высокий)"
 	result = /obj/structure/weightmachine/horizontalbar/high
 	tools = list(TOOL_WELDER)
-	reqs = list(/obj/item/stack/rods = 7,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(
+		/obj/item/stack/rods = 7,
+		/obj/item/stack/cable_coil = 5,
+	)
 	time = 6 SECONDS
 	category = CAT_MISC
 

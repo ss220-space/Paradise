@@ -63,7 +63,7 @@
 		DATIVE = "лицехвату",
 		ACCUSATIVE = "лицехвата",
 		INSTRUMENTAL = "лицехватом",
-		PREPOSITIONAL = "лицехвате"
+		PREPOSITIONAL = "лицехвате",
 	)
 
 /mob/living/simple_animal/hostile/facehugger/ComponentInitialize()
@@ -372,5 +372,5 @@
 		DATIVE = "ламарр",
 		ACCUSATIVE = "ламарр",
 		INSTRUMENTAL = "ламарр",
-		PREPOSITIONAL = "ламарр"
+		PREPOSITIONAL = "ламарр",
 	)

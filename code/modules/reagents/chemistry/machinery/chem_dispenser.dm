@@ -35,7 +35,7 @@
 		DATIVE = "химическому раздатчику",
 		ACCUSATIVE = "химический раздатчик",
 		INSTRUMENTAL = "химическим раздатчиком",
-		PREPOSITIONAL = "химическом раздатчике"
+		PREPOSITIONAL = "химическом раздатчике",
 	)
 
 /obj/machinery/chem_dispenser/get_cell()
@@ -96,7 +96,8 @@
 		"cryoxadone",
 		"ammonia",
 		"ash",
-		"diethylamine")
+		"diethylamine",
+	)
 	upgrade_reagents = list()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/get_ru_names()
@@ -106,7 +107,7 @@
 		DATIVE = "ботаническому раздатчику",
 		ACCUSATIVE = "ботанический раздатчик",
 		INSTRUMENTAL = "ботаническим раздатчиком",
-		PREPOSITIONAL = "ботаническом раздатчике"
+		PREPOSITIONAL = "ботаническом раздатчике",
 	)
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
@@ -398,7 +399,7 @@
 		DATIVE = "раздатчику напитков",
 		ACCUSATIVE = "раздатчик напитков",
 		INSTRUMENTAL = "раздатчиком напитков",
-		PREPOSITIONAL = "раздатчике напитков"
+		PREPOSITIONAL = "раздатчике напитков",
 	)
 
 /obj/machinery/chem_dispenser/soda/Initialize(mapload)
@@ -455,7 +456,7 @@
 		DATIVE = "раздатчику алкоголя",
 		ACCUSATIVE = "раздатчик алкоголя",
 		INSTRUMENTAL = "раздатчиком алкоголя",
-		PREPOSITIONAL = "раздатчике алкоголя"
+		PREPOSITIONAL = "раздатчике алкоголя",
 	)
 
 /obj/machinery/chem_dispenser/beer/Initialize(mapload)
@@ -497,7 +498,7 @@
 		DATIVE = "ботаническому раздатчику",
 		ACCUSATIVE = "ботанический раздатчик",
 		INSTRUMENTAL = "ботаническим раздатчиком",
-		PREPOSITIONAL = "ботаническом раздатчике"
+		PREPOSITIONAL = "ботаническом раздатчике",
 	)
 
 /obj/machinery/chem_dispenser/botanical/Initialize(mapload)
@@ -550,7 +551,7 @@
 		DATIVE = "ручному химическому раздатчику",
 		ACCUSATIVE = "ручной химический раздатчик",
 		INSTRUMENTAL = "ручным химическим раздатчиком",
-		PREPOSITIONAL = "ручном химическом раздатчике"
+		PREPOSITIONAL = "ручном химическом раздатчике",
 	)
 
 /obj/item/handheld_chem_dispenser/Initialize(mapload)
@@ -746,7 +747,7 @@
 		DATIVE = "ручному алкогольному раздатчику",
 		ACCUSATIVE = "ручной алкогольный раздатчик",
 		INSTRUMENTAL = "ручным алкогольным раздатчиком",
-		PREPOSITIONAL = "ручном алкогольном раздатчике"
+		PREPOSITIONAL = "ручном алкогольном раздатчике",
 	)
 
 /obj/item/handheld_chem_dispenser/soda
@@ -767,7 +768,7 @@
 		DATIVE = "ручному раздатчику напитков",
 		ACCUSATIVE = "ручной раздатчик напитков",
 		INSTRUMENTAL = "ручным раздатчиком напитков",
-		PREPOSITIONAL = "ручном раздатчике напитков"
+		PREPOSITIONAL = "ручном раздатчике напитков",
 	)
 
 /obj/item/handheld_chem_dispenser/botanical
@@ -785,7 +786,8 @@
 		"cryoxadone",
 		"ammonia",
 		"ash",
-		"diethylamine")
+		"diethylamine",
+	)
 
 /obj/item/handheld_chem_dispenser/botanical/get_ru_names()
 	return list(
@@ -794,7 +796,7 @@
 		DATIVE = "компактному кухонному раздатчику",
 		ACCUSATIVE = "компактный кухонный раздатчик",
 		INSTRUMENTAL = "компактным кухонным раздатчиком",
-		PREPOSITIONAL = "компактном кухонном раздатчике"
+		PREPOSITIONAL = "компактном кухонном раздатчике",
 	)
 
 /obj/item/handheld_chem_dispenser/cooking
@@ -804,7 +806,8 @@
 		"sodiumchloride",
 		"blackpepper",
 		"ketchup",
-		"herbsmix")
+		"herbsmix",
+	)
 
 /obj/item/handheld_chem_dispenser/cooking/get_ru_names()
 	return list(
@@ -813,7 +816,7 @@
 		DATIVE = "компактному кухонному раздатчику",
 		ACCUSATIVE = "компактный кухонный раздатчик",
 		INSTRUMENTAL = "компактным кухонным раздатчиком",
-		PREPOSITIONAL = "компактном кухонном раздатчике"
+		PREPOSITIONAL = "компактном кухонном раздатчике",
 	)
 
 #undef UPDATE_TYPE_HACK

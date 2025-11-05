@@ -12,7 +12,7 @@
 		DATIVE = "печени плазмолюда",
 		ACCUSATIVE = "печень плазмолюда",
 		INSTRUMENTAL = "печенью плазмолюда",
-		PREPOSITIONAL = "печени плазмолюда"
+		PREPOSITIONAL = "печени плазмолюда",
 	)
 
 /obj/item/organ/internal/eyes/plasmaman
@@ -29,7 +29,7 @@
 		DATIVE = "глазам плазмолюда",
 		ACCUSATIVE = "глаза плазмолюда",
 		INSTRUMENTAL = "глазами плазмолюда",
-		PREPOSITIONAL = "глазах плазмолюда"
+		PREPOSITIONAL = "глазах плазмолюда",
 	)
 
 /obj/item/organ/internal/ears/plasmaman
@@ -44,7 +44,7 @@
 		DATIVE = "ушам плазмолюда",
 		ACCUSATIVE = "уши плазмолюда",
 		INSTRUMENTAL = "ушами плазмолюда",
-		PREPOSITIONAL = "ушах плазмолюда"
+		PREPOSITIONAL = "ушах плазмолюда",
 	)
 
 /obj/item/organ/internal/heart/plasmaman
@@ -62,7 +62,7 @@
 		DATIVE = "сердцу плазмолюда",
 		ACCUSATIVE = "сердце плазмолюда",
 		INSTRUMENTAL = "сердцем плазмолюда",
-		PREPOSITIONAL = "сердце плазмолюда"
+		PREPOSITIONAL = "сердце плазмолюда",
 	)
 
 /obj/item/organ/internal/brain/plasmaman
@@ -79,7 +79,7 @@
 		DATIVE = "мозгу плазмолюда",
 		ACCUSATIVE = "мозг плазмолюда",
 		INSTRUMENTAL = "мозгом плазмолюда",
-		PREPOSITIONAL = "мозге плазмолюда"
+		PREPOSITIONAL = "мозге плазмолюда",
 	)
 
 /obj/item/organ/internal/kidneys/plasmaman
@@ -96,7 +96,7 @@
 		DATIVE = "почкам плазмолюда",
 		ACCUSATIVE = "почки плазмолюда",
 		INSTRUMENTAL = "почками плазмолюда",
-		PREPOSITIONAL = "почках плазмолюда"
+		PREPOSITIONAL = "почках плазмолюда",
 	)
 
 /obj/item/organ/internal/lungs/plasmaman
@@ -115,5 +115,5 @@
 		DATIVE = "лёгким плазмолюда",
 		ACCUSATIVE = "лёгкие плазмолюда",
 		INSTRUMENTAL = "лёгкими плазмолюда",
-		PREPOSITIONAL = "лёгких плазмолюда"
+		PREPOSITIONAL = "лёгких плазмолюда",
 	)

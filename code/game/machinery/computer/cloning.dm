@@ -32,7 +32,7 @@
 		DATIVE = "консоли капсулы клонирования",
 		ACCUSATIVE = "консоль капсулы клонирования",
 		INSTRUMENTAL = "консолью капсулы клонирования",
-		PREPOSITIONAL = "консоли капсулы клонирования"
+		PREPOSITIONAL = "консоли капсулы клонирования",
 	)
 
 /obj/machinery/computer/cloning/Initialize(mapload)

@@ -20,7 +20,7 @@
 		DATIVE = "переносному монитору",
 		ACCUSATIVE = "переносной монитор",
 		INSTRUMENTAL = "переносным монитором",
-		PREPOSITIONAL = "переносном мониторе"
+		PREPOSITIONAL = "переносном мониторе",
 	)
 
 /obj/machinery/computer/security/camera_bug

@@ -19,7 +19,7 @@
 		DATIVE = "пипетке",
 		ACCUSATIVE = "пипетку",
 		INSTRUMENTAL = "пипеткой",
-		PREPOSITIONAL = "пипетке"
+		PREPOSITIONAL = "пипетке",
 	)
 
 /obj/item/reagent_containers/dropper/update_overlays()
@@ -146,7 +146,7 @@
 		DATIVE = "промышленной пипетке",
 		ACCUSATIVE = "промышленную пипетку",
 		INSTRUMENTAL = "промышленной пипеткой",
-		PREPOSITIONAL = "промышленной пипетке"
+		PREPOSITIONAL = "промышленной пипетке",
 	)
 
 /obj/item/reagent_containers/dropper/precision
@@ -170,7 +170,7 @@
 		DATIVE = "микропипетке",
 		ACCUSATIVE = "микропипетку",
 		INSTRUMENTAL = "микропипеткой",
-		PREPOSITIONAL = "микропипетке"
+		PREPOSITIONAL = "микропипетке",
 	)
 
 //Syndicate item. Virus transmitting mini hypospray

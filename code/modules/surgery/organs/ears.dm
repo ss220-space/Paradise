@@ -13,7 +13,7 @@
 		DATIVE = "ушам человека",
 		ACCUSATIVE = "уши человека",
 		INSTRUMENTAL = "ушами человека",
-		PREPOSITIONAL = "ушах человека"
+		PREPOSITIONAL = "ушах человека",
 	)
 
 /obj/item/organ/internal/ears/invincible/internal_receive_damage(amount, silent)
@@ -73,7 +73,7 @@
 		DATIVE = "кибернетическим ушам",
 		ACCUSATIVE = "кибернетические уши",
 		INSTRUMENTAL = "кибернетическими ушами",
-		PREPOSITIONAL = "кибернетических ушах"
+		PREPOSITIONAL = "кибернетических ушах",
 	)
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)

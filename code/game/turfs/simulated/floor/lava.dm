@@ -38,7 +38,7 @@
 		DATIVE = "лаве",
 		ACCUSATIVE = "лаву",
 		INSTRUMENTAL = "лавой",
-		PREPOSITIONAL = "лаве"
+		PREPOSITIONAL = "лаве",
 	)
 
 /turf/simulated/floor/lava/ex_act()
@@ -330,7 +330,7 @@
 		DATIVE = "жидкой плазме",
 		ACCUSATIVE = "жидкую плазму",
 		INSTRUMENTAL = "жидкой плазмой",
-		PREPOSITIONAL = "жидкой плазме"
+		PREPOSITIONAL = "жидкой плазме",
 	)
 
 

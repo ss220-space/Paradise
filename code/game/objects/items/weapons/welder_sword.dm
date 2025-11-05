@@ -26,7 +26,7 @@
 		DATIVE = "сварочному мечу",
 		ACCUSATIVE = "сварочный меч",
 		INSTRUMENTAL = "сварочным мечом",
-		PREPOSITIONAL = "сварочном мече"
+		PREPOSITIONAL = "сварочном мече",
 	)
 
 
@@ -103,7 +103,7 @@
 		DATIVE = "двойному сварочному мечу",
 		ACCUSATIVE = "двойной сварочный меч",
 		INSTRUMENTAL = "двойным сварочным мечом",
-		PREPOSITIONAL = "двойном сварочном мече"
+		PREPOSITIONAL = "двойном сварочном мече",
 	)
 
 /obj/item/weldingtool/sword/double/ComponentInitialize()

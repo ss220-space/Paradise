@@ -553,7 +553,7 @@
 		DATIVE = "механической энергоячейке",
 		ACCUSATIVE = "механическую энергоячейку",
 		INSTRUMENTAL = "механичекой энергоячейкой",
-		PREPOSITIONAL = "механической энергоячейке"
+		PREPOSITIONAL = "механической энергоячейке",
 	)
 
 /obj/item/ammo_casing/energy/rat/slug

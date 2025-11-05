@@ -18,7 +18,7 @@
 		DATIVE = "колоде карт",
 		ACCUSATIVE = "колоду карт",
 		INSTRUMENTAL = "колодой карт",
-		PREPOSITIONAL = "колоде карт"
+		PREPOSITIONAL = "колоде карт",
 	)
 
 /obj/item/deck/cards/build_deck()
@@ -93,7 +93,7 @@
 		DATIVE = "двойной колоде карт",
 		ACCUSATIVE = "двойную колоду карт",
 		INSTRUMENTAL = "двойной колодой карт",
-		PREPOSITIONAL = "двойной колоде карт"
+		PREPOSITIONAL = "двойной колоде карт",
 	)
 
 
@@ -117,7 +117,7 @@
 		DATIVE = "подозрительной колоде карт",
 		ACCUSATIVE = "подозрительную колоду карт",
 		INSTRUMENTAL = "подозрительной колодой карт",
-		PREPOSITIONAL = "подозрительной колоде карт"
+		PREPOSITIONAL = "подозрительной колоде карт",
 	)
 
 /obj/item/deck/cards/syndicate/sharpen_act(obj/item/whetstone/whetstone, mob/user)
@@ -151,7 +151,7 @@
 		DATIVE = "колоде миниатюрных карт",
 		ACCUSATIVE = "колоду миниатюрных карт",
 		INSTRUMENTAL = "колодой миниатюрных карт",
-		PREPOSITIONAL = "колоде миниатюрных карт"
+		PREPOSITIONAL = "колоде миниатюрных карт",
 	)
 
 /obj/item/deck/cards/tiny/update_icon_state()
@@ -171,5 +171,5 @@
 		DATIVE = "двойной колоде миниатюрных карт",
 		ACCUSATIVE = "двойную колоду миниатюрных карт",
 		INSTRUMENTAL = "двойной колодой миниатюрных карт",
-		PREPOSITIONAL = "двойной колоде миниатюрных карт"
+		PREPOSITIONAL = "двойной колоде миниатюрных карт",
 	)

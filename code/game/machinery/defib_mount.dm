@@ -19,7 +19,7 @@
 		DATIVE = "креплению для дефибриллятора",
 		ACCUSATIVE = "крепление для дефибриллятора",
 		INSTRUMENTAL = "креплением для дефибриллятора",
-		PREPOSITIONAL = "креплении для дефибриллятора"
+		PREPOSITIONAL = "креплении для дефибриллятора",
 	)
 
 /obj/machinery/defibrillator_mount/attack_ai()
@@ -184,7 +184,7 @@
 		DATIVE = "разобранному креплению для дефибриллятора",
 		ACCUSATIVE = "разобранное крепление для дефибриллятора",
 		INSTRUMENTAL = "разобранным креплением для дефибриллятора",
-		PREPOSITIONAL = "разобранном креплении для дефибриллятора"
+		PREPOSITIONAL = "разобранном креплении для дефибриллятора",
 	)
 
 /obj/item/mounted/frame/defib_mount/do_build(turf/on_wall, mob/user)

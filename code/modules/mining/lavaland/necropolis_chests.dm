@@ -15,7 +15,7 @@
 		DATIVE = "сундуку некрополя",
 		ACCUSATIVE = "сундук некрополя",
 		INSTRUMENTAL = "сундуком некрополя",
-		PREPOSITIONAL = "сундуке некрополя"
+		PREPOSITIONAL = "сундуке некрополя",
 	)
 
 /obj/structure/closet/crate/necropolis/tendril
@@ -131,7 +131,7 @@
 		DATIVE = "загадочному сундуку",
 		ACCUSATIVE = "загадочный сундук",
 		INSTRUMENTAL = "загадочным сундуком",
-		PREPOSITIONAL = "загадочном сундуке"
+		PREPOSITIONAL = "загадочном сундуке",
 	)
 
 /obj/structure/closet/crate/necropolis/puzzle/populate_contents()
@@ -228,7 +228,7 @@
 		DATIVE = "посоху асклепия",
 		ACCUSATIVE = "посох асклепия",
 		INSTRUMENTAL = "посохом асклепия",
-		PREPOSITIONAL = "посохе асклепия"
+		PREPOSITIONAL = "посохе асклепия",
 	)
 
 /obj/item/rod_of_asclepius/attack_self(mob/user)
@@ -313,7 +313,7 @@
 		DATIVE = "зачарованным цветам",
 		ACCUSATIVE = "зачарованные цветы",
 		INSTRUMENTAL = "зачарованными цветами",
-		PREPOSITIONAL = "зачарованных цветах"
+		PREPOSITIONAL = "зачарованных цветах",
 	)
 
 #define COOLDOWN_SUMMON 1 MINUTES
@@ -390,7 +390,7 @@
 		DATIVE = "руническому ятагану",
 		ACCUSATIVE = "рунический ятаган",
 		INSTRUMENTAL = "руническим ятаганом",
-		PREPOSITIONAL = "руническом ятагане"
+		PREPOSITIONAL = "руническом ятагане",
 	)
 
 /obj/item/rune_scimmy/ComponentInitialize()
@@ -416,7 +416,7 @@
 		DATIVE = "тёмному осколку",
 		ACCUSATIVE = "тёмный осколок",
 		INSTRUMENTAL = "тёмным осколком",
-		PREPOSITIONAL = "тёмном осколке"
+		PREPOSITIONAL = "тёмном осколке",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/katana/prepare_eat()
@@ -508,7 +508,7 @@
 		DATIVE = "проклятой катане",
 		ACCUSATIVE = "проклятую катану",
 		INSTRUMENTAL = "проклятой катаной",
-		PREPOSITIONAL = "проклятой катане"
+		PREPOSITIONAL = "проклятой катане",
 	)
 
 /obj/item/cursed_katana/ComponentInitialize()

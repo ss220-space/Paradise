@@ -24,7 +24,7 @@
 		DATIVE = "инвалидной коляске",
 		ACCUSATIVE = "инвалидную коляску",
 		INSTRUMENTAL = "инвалидной коляской",
-		PREPOSITIONAL = "инвалидной коляске"
+		PREPOSITIONAL = "инвалидной коляске",
 	)
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
