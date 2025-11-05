@@ -7,7 +7,8 @@
 		return FALSE
 	if(HAS_TRAIT(target, TRAIT_KRAVMAGA_DEBUFF))
 		return FALSE
-	target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] руб[PLUR_IT_YAT(user)] ладонью шею [target.declent_ru(ACCUSATIVE)]!"), \
+	target.visible_message(
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] руб[PLUR_IT_YAT(user)] ладонью шею [target.declent_ru(ACCUSATIVE)]!"), \
 		span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] сильно ударил[GEND_A_O_I(user)] по вашей шее, ослепляя вас!"))
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	target.apply_damage(5, BRUTE, BODY_ZONE_HEAD)

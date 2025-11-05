@@ -102,8 +102,9 @@
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	if(restraining && A.pulling && A.pulling == D)
-		D.visible_message(span_danger("[capitalize(A.declent_ru(NOMINATIVE))] усыпля[PLUR_ET_YUT(A)] [D.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] усыпля[PLUR_ET_YUT(A)] вас!"))
+		D.visible_message(
+			span_danger("[capitalize(A.declent_ru(NOMINATIVE))] усыпля[PLUR_ET_YUT(A)] [D.declent_ru(ACCUSATIVE)]!"), \
+			span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] усыпля[PLUR_ET_YUT(A)] вас!"))
 		D.SetSleeping(5 SECONDS)
 		restraining = FALSE
 		if(A.grab_state < GRAB_NECK)
@@ -113,14 +114,16 @@
 		drop_restraining()
 
 	if(!IS_HORIZONTAL(D) && !restraining)
-		D.visible_message(span_warning("[capitalize(A.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(A)] [D.declent_ru(ACCUSATIVE)] прямо в челюсть!"), \
-							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(A)] вам прямо в челюсть"))
+		D.visible_message(
+			span_warning("[capitalize(A.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(A)] [D.declent_ru(ACCUSATIVE)] прямо в челюсть!"), \
+			span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(A)] вам прямо в челюсть!"))
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 		D.SetSlur(4 SECONDS)
 		D.apply_damage(8, STAMINA)
 	else
-		D.visible_message(span_danger("[capitalize(A.declent_ru(NOMINATIVE))] попытал[GEND_SYA_AS_OS_IS(A)] обезоружить [D.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] попытал[GEND_SYA_AS_OS_IS(A)] обезоружить вас!"))
+		D.visible_message(
+			span_danger("[capitalize(A.declent_ru(NOMINATIVE))] попытал[GEND_SYA_AS_OS_IS(A)] обезоружить [D.declent_ru(ACCUSATIVE)]!"), \
+			span_userdanger("[capitalize(A.declent_ru(NOMINATIVE))] попытал[GEND_SYA_AS_OS_IS(A)] обезоружить вас!"))
 		playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, TRUE, -1)
 
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
