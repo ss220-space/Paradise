@@ -29,7 +29,7 @@
 		DATIVE = "консоли производственного аппарата",
 		ACCUSATIVE = "консоль производственного аппарата",
 		INSTRUMENTAL = "консолью производственного аппарата",
-		PREPOSITIONAL = "консоли производственного аппарата"
+		PREPOSITIONAL = "консоли производственного аппарата",
 	)
 
 /obj/machinery/mineral/processing_unit_console/Initialize(mapload)
@@ -106,7 +106,7 @@
 		DATIVE = "плавильной печи",
 		ACCUSATIVE = "плавильную печь",
 		INSTRUMENTAL = "плавильной печью",
-		PREPOSITIONAL = "плавильной печи"
+		PREPOSITIONAL = "плавильной печи",
 	)
 
 /obj/machinery/mineral/processing_unit/Initialize(mapload)

@@ -13,8 +13,8 @@
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi'
-		)
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
+	)
 
 	/// If the paddles are currently attached to the unit.
 	var/paddles_on_defib = TRUE
@@ -42,7 +42,7 @@
 		DATIVE = "дефибриллятору",
 		ACCUSATIVE = "дефибриллятор",
 		INSTRUMENTAL = "дефибриллятором",
-		PREPOSITIONAL = "дефибрилляторе"
+		PREPOSITIONAL = "дефибрилляторе",
 	)
 
 
@@ -281,7 +281,7 @@
 		DATIVE = "компактному дефибриллятору",
 		ACCUSATIVE = "компактный дефибриллятор",
 		INSTRUMENTAL = "компактным дефибриллятором",
-		PREPOSITIONAL = "компактном дефибрилляторе"
+		PREPOSITIONAL = "компактном дефибрилляторе",
 	)
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user, datum/action/action)
@@ -309,7 +309,7 @@
 		DATIVE = "боевому дефибриллятору",
 		ACCUSATIVE = "боевой дефибриллятор",
 		INSTRUMENTAL = "боевым дефибриллятором",
-		PREPOSITIONAL = "боевом дефибрилляторе"
+		PREPOSITIONAL = "боевом дефибрилляторе",
 	)
 
 /obj/item/defibrillator/compact/combat/loaded/Initialize(mapload)
@@ -335,7 +335,7 @@
 		DATIVE = "продвинутому компактному дефибриллятору",
 		ACCUSATIVE = "продвинутый компактный дефибриллятор",
 		INSTRUMENTAL = "продвинутым компактным дефибриллятором",
-		PREPOSITIONAL = "продвинутом компактном дефибрилляторе"
+		PREPOSITIONAL = "продвинутом компактном дефибрилляторе",
 	)
 
 /obj/item/defibrillator/compact/advanced/Initialize(mapload)
@@ -379,7 +379,7 @@
 		DATIVE = "электродам дефибриллятора",
 		ACCUSATIVE = "электроды дефибриллятора",
 		INSTRUMENTAL = "электродами дефибриллятора",
-		PREPOSITIONAL = "электродах дефибриллятора"
+		PREPOSITIONAL = "электродах дефибриллятора",
 	)
 
 /obj/item/twohanded/shockpaddles/advanced
@@ -395,7 +395,7 @@
 		DATIVE = "электродам продвинутого дефибриллятора",
 		ACCUSATIVE = "электроды продвинутого дефибриллятора",
 		INSTRUMENTAL = "электродами продвинутого дефибриллятора",
-		PREPOSITIONAL = "электродах продвинутого дефибриллятора"
+		PREPOSITIONAL = "электродах продвинутого дефибриллятора",
 	)
 
 /obj/item/twohanded/shockpaddles/syndicate
@@ -412,7 +412,7 @@
 		DATIVE = "электродам боевого дефибриллятора",
 		ACCUSATIVE = "электроды боевого дефибриллятора",
 		INSTRUMENTAL = "электродами боевого дефибриллятора",
-		PREPOSITIONAL = "электродах боевого дефибриллятора"
+		PREPOSITIONAL = "электродах боевого дефибриллятора",
 	)
 
 /obj/item/twohanded/shockpaddles/New(mainunit)

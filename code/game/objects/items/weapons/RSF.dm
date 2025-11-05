@@ -44,7 +44,7 @@ RSF
 		list("Tofu burger", 3000, /obj/item/reagent_containers/food/snacks/tofuburger),
 		list("Admiral Yamomoto's carp", 3000, /obj/item/reagent_containers/food/snacks/chinese/tao),
 		list("Chimichanga", 3000, /obj/item/reagent_containers/food/snacks/chimichanga),
-		list("Ikura sushi", 3000, /obj/item/reagent_containers/food/snacks/sushi_Ikura)
+		list("Ikura sushi", 3000, /obj/item/reagent_containers/food/snacks/sushi_Ikura),
 	)
 	update_appearance(UPDATE_DESC)
 

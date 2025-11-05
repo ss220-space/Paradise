@@ -20,7 +20,7 @@
 		DATIVE = "сканеру аномалий", \
 		ACCUSATIVE = "сканер аномалий", \
 		INSTRUMENTAL = "сканером аномалий", \
-		PREPOSITIONAL = "сканере аномалий"
+		PREPOSITIONAL = "сканере аномалий",
 	)
 
 /obj/effect/anomaly/proc/get_data()

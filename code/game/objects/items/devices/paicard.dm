@@ -29,7 +29,7 @@
 		DATIVE = "интелкарте пИИ",
 		ACCUSATIVE = "интелкарту пИИ",
 		INSTRUMENTAL = "интелкартой пИИ",
-		PREPOSITIONAL = "интелкарте пИИ"
+		PREPOSITIONAL = "интелкарте пИИ",
 	)
 
 /obj/item/paicard/syndicate // Only seems that it is syndicard

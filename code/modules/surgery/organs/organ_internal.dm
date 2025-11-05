@@ -228,7 +228,7 @@
 		DATIVE = "аппендиксу",
 		ACCUSATIVE = "аппендикс",
 		INSTRUMENTAL = "аппендиксом",
-		PREPOSITIONAL = "аппендиксе"
+		PREPOSITIONAL = "аппендиксе",
 	)
 
 /obj/item/organ/internal/appendix/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -276,7 +276,7 @@
 		DATIVE = "чёрной опухоли",
 		ACCUSATIVE = "чёрную опухоль",
 		INSTRUMENTAL = "чёрной опухолью",
-		PREPOSITIONAL = "чёрной опухоли"
+		PREPOSITIONAL = "чёрной опухоли",
 	)
 
 /obj/item/organ/internal/shadowtumor/New()
@@ -326,7 +326,7 @@
 		DATIVE = "банановой опухоли",
 		ACCUSATIVE = "банановую опухоль",
 		INSTRUMENTAL = "банановой опухолью",
-		PREPOSITIONAL = "банановой опухоли"
+		PREPOSITIONAL = "банановой опухоли",
 	)
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -402,7 +402,7 @@
 		DATIVE = "гудящему пузырю",
 		ACCUSATIVE = "гудящий пузырь",
 		INSTRUMENTAL = "гудящим пузырём",
-		PREPOSITIONAL = "гудящем пузыре"
+		PREPOSITIONAL = "гудящем пузыре",
 	)
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -432,7 +432,7 @@
 		DATIVE = "бородатому органу",
 		ACCUSATIVE = "бородатый орган",
 		INSTRUMENTAL = "бородатым органом",
-		PREPOSITIONAL = "бородатом органе"
+		PREPOSITIONAL = "бородатом органе",
 	)
 
 /obj/item/organ/internal/beard/on_life()

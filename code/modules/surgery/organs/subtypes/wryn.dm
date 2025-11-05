@@ -18,7 +18,7 @@
 		DATIVE = "антенне",
 		ACCUSATIVE = "антенну",
 		INSTRUMENTAL = "антенной",
-		PREPOSITIONAL = "антенне"
+		PREPOSITIONAL = "антенне",
 	)
 
 /obj/item/organ/internal/wryn/hivenode/New(mob/living/carbon/carbon)
@@ -67,7 +67,7 @@
 		DATIVE = "восковым железам",
 		ACCUSATIVE = "восковые железы",
 		INSTRUMENTAL = "восковыми железами",
-		PREPOSITIONAL = "восковых железах"
+		PREPOSITIONAL = "восковых железах",
 	)
 
 /obj/item/organ/internal/wryn/glands/on_life()
@@ -135,7 +135,7 @@
 		DATIVE = "мозгу врина",
 		ACCUSATIVE = "мозг врина",
 		INSTRUMENTAL = "мозгом врина",
-		PREPOSITIONAL = "мозге врина"
+		PREPOSITIONAL = "мозге врина",
 	)
 
 /obj/item/organ/internal/heart/wryn
@@ -153,7 +153,7 @@
 		DATIVE = "сердцу врина",
 		ACCUSATIVE = "сердце врина",
 		INSTRUMENTAL = "сердцем врина",
-		PREPOSITIONAL = "сердце врина"
+		PREPOSITIONAL = "сердце врина",
 	)
 
 /obj/item/organ/internal/eyes/wryn
@@ -171,7 +171,7 @@
 		DATIVE = "глазам врина",
 		ACCUSATIVE = "глаза врина",
 		INSTRUMENTAL = "глазами врина",
-		PREPOSITIONAL = "глазах врина"
+		PREPOSITIONAL = "глазах врина",
 	)
 
 /obj/item/organ/internal/ears/wryn
@@ -186,7 +186,7 @@
 		DATIVE = "ушам врина",
 		ACCUSATIVE = "уши врина",
 		INSTRUMENTAL = "ушами врина",
-		PREPOSITIONAL = "ушах врина"
+		PREPOSITIONAL = "ушах врина",
 	)
 
 /obj/item/organ/external/tail/wryn
@@ -204,7 +204,7 @@
 		DATIVE = "хвосту врина",
 		ACCUSATIVE = "хвост врина",
 		INSTRUMENTAL = "хвостом врина",
-		PREPOSITIONAL = "хвосте врина"
+		PREPOSITIONAL = "хвосте врина",
 	)
 
 /obj/item/organ/external/chest/wryn

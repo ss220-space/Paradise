@@ -8,7 +8,7 @@
 		/datum/martial_combo/judo/judothrow,
 		/datum/martial_combo/judo/armbar,
 		/datum/martial_combo/judo/wheelthrow,
-		/datum/martial_combo/judo/goldenblast
+		/datum/martial_combo/judo/goldenblast,
 	)
 	weight = 8
 	no_baton_reason = span_warning("Из-за занятий дзюдо у вас не получается крепко держать дубинку!")

@@ -28,7 +28,7 @@
 		/obj/item/grenade/plastic/c4 = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/clothing/shoes/combat = 1
+		/obj/item/clothing/shoes/combat = 1,
 	)
 
 /datum/outfit/admin/syndicate/operative/loneop
@@ -52,7 +52,7 @@
 		/obj/item/grenade/plastic/c4 = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/clothing/shoes/combat = 1
+		/obj/item/clothing/shoes/combat = 1,
 	)
 
 /datum/outfit/admin/syndicate/operative/nuclear/reinf
@@ -88,7 +88,7 @@
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/clothing/shoes/combat = 1,
-		/obj/item/extinguisher_refill = 2
+		/obj/item/extinguisher_refill = 2,
 	)
 
 /datum/outfit/admin/syndicate/operative/nuclear/leader/plasmaman
@@ -105,7 +105,7 @@
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/clothing/shoes/combat = 1,
-		/obj/item/extinguisher_refill = 2
+		/obj/item/extinguisher_refill = 2,
 	)
 
 /datum/outfit/admin/syndicate/operative/freedom

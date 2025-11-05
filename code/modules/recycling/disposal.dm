@@ -52,7 +52,7 @@
 		DATIVE = "мусоропроводу",
 		ACCUSATIVE = "мусоропровод",
 		INSTRUMENTAL = "мусоропроводом",
-		PREPOSITIONAL = "мусоропроводе"
+		PREPOSITIONAL = "мусоропроводе",
 	)
 
 /obj/machinery/disposal/Initialize(mapload, obj/structure/disposalconstruct/made_from)
@@ -645,7 +645,7 @@
 		DATIVE = "грузовому люку",
 		ACCUSATIVE = "грузовой люк",
 		INSTRUMENTAL = "грузовым люком",
-		PREPOSITIONAL = "грузовом люке"
+		PREPOSITIONAL = "грузовом люке",
 	)
 
 /obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)

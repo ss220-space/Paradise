@@ -17,7 +17,7 @@
 		DATIVE = "пепельному сигилу",
 		ACCUSATIVE = "пепельный сигил",
 		INSTRUMENTAL = "пепельным сигилом",
-		PREPOSITIONAL = "пепельном сигиле"
+		PREPOSITIONAL = "пепельном сигиле",
 	)
 
 /obj/effect/decal/ash_rune_centre/Initialize(mapload)
@@ -55,7 +55,7 @@
 		DATIVE = "пепельной руне",
 		ACCUSATIVE = "пепельную руну",
 		INSTRUMENTAL = "пепельной руной",
-		PREPOSITIONAL = "пепельной руне"
+		PREPOSITIONAL = "пепельной руне",
 	)
 	AddComponent( \
 		/datum/component/ritual_object, \
@@ -80,7 +80,7 @@
 		DATIVE = "пепельной руне",
 		ACCUSATIVE = "пепельную руну",
 		INSTRUMENTAL = "пепельной руной",
-		PREPOSITIONAL = "пепельной руне"
+		PREPOSITIONAL = "пепельной руне",
 	)
 
 /obj/effect/rune_fluff_marks/Initialize(mapload)
@@ -109,7 +109,7 @@
 		DATIVE = "пепельной руне",
 		ACCUSATIVE = "пепельную руну",
 		INSTRUMENTAL = "пепельной руной",
-		PREPOSITIONAL = "пепельной руне"
+		PREPOSITIONAL = "пепельной руне",
 	)
 
 /obj/effect/rune_animation_landmark/Initialize(mapload)

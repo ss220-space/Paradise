@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(safes)
 		DATIVE = "сейфу",
 		ACCUSATIVE = "сейф",
 		INSTRUMENTAL = "сейфом",
-		PREPOSITIONAL = "сейфе"
+		PREPOSITIONAL = "сейфе",
 	)
 
 /obj/structure/safe/Initialize(mapload)
@@ -467,7 +467,7 @@ GLOBAL_LIST_EMPTY(safes)
 		DATIVE = "напольному сейфу",
 		ACCUSATIVE = "напольный сейф",
 		INSTRUMENTAL = "напольным сейфом",
-		PREPOSITIONAL = "напольном сейфе"
+		PREPOSITIONAL = "напольном сейфе",
 	)
 
 /obj/structure/safe/floor/Initialize(mapload)
@@ -496,7 +496,7 @@ GLOBAL_LIST_EMPTY(safes)
 		DATIVE = "внутренностям сейфа",
 		ACCUSATIVE = "внутренности сейфа",
 		INSTRUMENTAL = "внутренностями сейфа",
-		PREPOSITIONAL = "внутренностях сейфа"
+		PREPOSITIONAL = "внутренностях сейфа",
 	)
 
 /**
@@ -517,7 +517,7 @@ GLOBAL_LIST_EMPTY(safes)
 		DATIVE = "кодам от сейфа",
 		ACCUSATIVE = "коды от сейфа",
 		INSTRUMENTAL = "кодами от сейфа",
-		PREPOSITIONAL = "кодах от сейфа"
+		PREPOSITIONAL = "кодах от сейфа",
 	)
 
 /obj/item/paper/safe_code/Initialize(mapload)

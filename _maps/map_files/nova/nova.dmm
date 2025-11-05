@@ -18491,7 +18491,7 @@
 	},
 /area/security/permabrig)
 "cGZ" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 8
 	},
 /turf/simulated/floor/glass,
@@ -22870,6 +22870,9 @@
 	dir = 1;
 	in_use = 1
 	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -24864,8 +24867,11 @@
 	},
 /area/medical/research)
 "dEP" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 6
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 2
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -39624,7 +39630,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin2)
 "fMb" = (
-/obj/effect/turf_decal/siding/white/end,
+/obj/effect/turf_decal/siding/thinplating/end,
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
 "fMe" = (
@@ -42901,11 +42907,11 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
 	},
 /turf/simulated/floor/glass,
 /area/medical/reception)
@@ -45995,10 +46001,6 @@
 /obj/machinery/shower{
 	pixel_x = -3;
 	pixel_y = 3
-	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 32;
-	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -52113,8 +52115,11 @@
 	},
 /area/bridge/checkpoint/south)
 "hFD" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 10
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 2
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -53833,7 +53838,7 @@
 	},
 /area/maintenance/trading)
 "hUC" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 4
 	},
 /turf/simulated/floor/glass,
@@ -59149,8 +59154,13 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "iIv" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 5
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 4;
+	pixel_y = -4
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 1;
+	pixel_x = -1
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -77855,11 +77865,11 @@
 	},
 /area/crew_quarters/serviceyard)
 "lAQ" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/thinplating/corner{
 	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 4
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -83887,10 +83897,10 @@
 /turf/simulated/floor/redgrid,
 /area/turret_protected/ai)
 "mvV" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/thinplating/corner{
 	dir = 4
 	},
 /turf/simulated/floor/glass,
@@ -94139,11 +94149,11 @@
 	},
 /area/turret_protected/aisat)
 "nUq" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
 	},
 /turf/simulated/floor/glass,
 /area/medical/reception)
@@ -106930,9 +106940,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "pNR" = (
@@ -116644,8 +116651,12 @@
 /turf/simulated/floor/carpet/blue,
 /area/medical/cmo)
 "rlb" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 9
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 1;
+	pixel_x = 1
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
@@ -135824,10 +135835,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "tUe" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/white/corner{
+/obj/effect/turf_decal/siding/thinplating/corner{
 	dir = 8
 	},
 /turf/simulated/floor/glass,
@@ -147146,7 +147157,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/teleporter)
 "vFj" = (
-/obj/effect/turf_decal/siding/white/end{
+/obj/effect/turf_decal/siding/thinplating/end{
 	dir = 1
 	},
 /turf/simulated/floor/glass,
@@ -161793,7 +161804,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/xenozoo)
 "xNM" = (
-/obj/effect/turf_decal/siding/white/end,
+/obj/effect/turf_decal/siding/thinplating/end,
 /turf/simulated/floor/glass,
 /area/medical/reception)
 "xNP" = (
@@ -164890,10 +164901,10 @@
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "yiq" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/white/corner,
+/obj/effect/turf_decal/siding/thinplating/corner,
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
 "yiv" = (

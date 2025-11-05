@@ -93,7 +93,7 @@
 		DATIVE = "униформе ВМС ТСФ",
 		ACCUSATIVE = "униформу ВМС ТСФ",
 		INSTRUMENTAL = "униформой ВМС ТСФ",
-		PREPOSITIONAL = "униформе ВМС ТСФ"
+		PREPOSITIONAL = "униформе ВМС ТСФ",
 	)
 
 /obj/item/clothing/under/solgov/civ
@@ -122,7 +122,7 @@
 		DATIVE = "униформе спецназа ВМС ТСФ",
 		ACCUSATIVE = "униформу спецназа ВМС ТСФ",
 		INSTRUMENTAL = "униформой спецназа ВМС ТСФ",
-		PREPOSITIONAL = "униформе спецназа ВМС ТСФ"
+		PREPOSITIONAL = "униформе спецназа ВМС ТСФ",
 	)
 
 /obj/item/clothing/under/solgov/command
@@ -139,7 +139,7 @@
 		DATIVE = "униформе лейтенанта ВМС ТСФ",
 		ACCUSATIVE = "униформу лейтенанта ВМС ТСФ",
 		INSTRUMENTAL = "униформой лейтенанта ВМС ТСФ",
-		PREPOSITIONAL = "униформе лейтенанта ВМС ТСФ"
+		PREPOSITIONAL = "униформе лейтенанта ВМС ТСФ",
 	)
 
 /obj/item/clothing/under/solgov/command/elite
@@ -155,7 +155,7 @@
 		DATIVE = "униформе лейтенанта спецназа ВМС ТСФ",
 		ACCUSATIVE = "униформу лейтенанта спецназа ВМС ТСФ",
 		INSTRUMENTAL = "униформой лейтенанта спецназа ВМС ТСФ",
-		PREPOSITIONAL = "униформе лейтенанта спецназа ВМС ТСФ"
+		PREPOSITIONAL = "униформе лейтенанта спецназа ВМС ТСФ",
 	)
 
 /obj/item/clothing/under/solgov/rep
@@ -171,7 +171,7 @@
 		DATIVE = "униформе представителя ТСФ",
 		ACCUSATIVE = "униформу представителя ТСФ",
 		INSTRUMENTAL = "униформой представителя ТСФ",
-		PREPOSITIONAL = "униформе представителя ТСФ"
+		PREPOSITIONAL = "униформе представителя ТСФ",
 	)
 
 /obj/item/clothing/under/rank/centcom_officer
@@ -216,8 +216,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
@@ -422,8 +422,8 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
-		)
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
@@ -575,7 +575,7 @@
 		DATIVE = "одеянию пеплоходца",
 		ACCUSATIVE = "одеяние пеплоходца",
 		INSTRUMENTAL = "одеянием пеплоходца",
-		PREPOSITIONAL = "одеянии пеплоходца"
+		PREPOSITIONAL = "одеянии пеплоходца",
 	)
 
 /obj/item/clothing/under/ash_walker_shaman
@@ -594,7 +594,7 @@
 		DATIVE = "лохмотьям шамана",
 		ACCUSATIVE = "лохмотья шамана",
 		INSTRUMENTAL = "лохмотьями шамана",
-		PREPOSITIONAL = "лохмотьях шамана"
+		PREPOSITIONAL = "лохмотьях шамана",
 	)
 
 //dress
@@ -897,7 +897,7 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
 /obj/item/clothing/under/sweettooth/get_ru_names()
@@ -907,7 +907,7 @@
 		DATIVE = "Костюму Сладкоежки",
 		ACCUSATIVE = "Костюм Сладкоежки",
 		INSTRUMENTAL = "Костюмом Сладкоежки",
-		PREPOSITIONAL = "Костюме Сладкоежки"
+		PREPOSITIONAL = "Костюме Сладкоежки",
 	)
 
 /obj/item/clothing/under/rockso
@@ -922,7 +922,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/uniform.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/uniform.dmi',
 	)
 
 /obj/item/clothing/under/assistantformal
@@ -1019,7 +1019,7 @@
 	item_state = "cclown_uniform"
 	item_color = "cursedclown"
 	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/goonstation/mob/clothing/uniform.dmi'
+		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/goonstation/mob/clothing/uniform.dmi',
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
@@ -1085,7 +1085,7 @@
 		DATIVE = "медицинскому халату",
 		ACCUSATIVE = "медицинский халат",
 		INSTRUMENTAL = "медицинским халатом",
-		PREPOSITIONAL = "медицинском халате"
+		PREPOSITIONAL = "медицинском халате",
 	)
 
 /obj/item/clothing/under/burial
@@ -1192,8 +1192,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
@@ -1280,8 +1280,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/dress50s
 	name = "old Soviet dress"
@@ -1299,8 +1299,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/maid/short
 	name = "short maid costume"
@@ -1317,8 +1317,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/satan
 	name = "satanic clothes"
@@ -1336,8 +1336,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/satan/get_ru_names()
 	return list(
@@ -1346,7 +1346,7 @@
 		DATIVE = "сатанинским одеяниям",
 		ACCUSATIVE = "сатанинские одеяния",
 		INSTRUMENTAL = "сатанинскими одеяниями",
-		PREPOSITIONAL = "сатанинских одеяниях"
+		PREPOSITIONAL = "сатанинских одеяниях",
 	)
 
 /obj/item/clothing/under/martialsuit/masterli
@@ -1364,7 +1364,7 @@
 		DATIVE = "костюму Мастера Ли",
 		ACCUSATIVE = "костюм Мастера Ли",
 		INSTRUMENTAL = "костюмом Мастера Ли",
-		PREPOSITIONAL = "костюме Мастера Ли"
+		PREPOSITIONAL = "костюме Мастера Ли",
 	)
 
 /obj/item/clothing/under/martialsuit/masterdragon
@@ -1383,7 +1383,7 @@
 		DATIVE = "костюму мастера Золотого дракона",
 		ACCUSATIVE = "костюм мастера Золотого дракона",
 		INSTRUMENTAL = "костюмом мастера Золотого дракона",
-		PREPOSITIONAL = "костюме мастера Золотого дракона"
+		PREPOSITIONAL = "костюме мастера Золотого дракона",
 	)
 
 /obj/item/clothing/under/martialsuit/redkunoichi
@@ -1402,7 +1402,7 @@
 		DATIVE = "красному костюму Куноичи",
 		ACCUSATIVE = "красный костюм Куноичи",
 		INSTRUMENTAL = "красным костюмом Куноичи",
-		PREPOSITIONAL = "красном костюме Куноичи"
+		PREPOSITIONAL = "красном костюме Куноичи",
 	)
 
 /obj/item/clothing/under/martialsuit/bluekunoichi
@@ -1421,7 +1421,7 @@
 		DATIVE = "голубому костюму Куноичи",
 		ACCUSATIVE = "голубой костюм Куноичи",
 		INSTRUMENTAL = "голубым костюмом Куноичи",
-		PREPOSITIONAL = "голубом костюме Куноичи"
+		PREPOSITIONAL = "голубом костюме Куноичи",
 	)
 
 /obj/item/clothing/under/martialsuit/random
@@ -1435,7 +1435,7 @@
 		DATIVE = "случайному костюму боевых искусств",
 		ACCUSATIVE = "случайный костюм боевых искусств",
 		INSTRUMENTAL = "случайным костюмом боевых искусств",
-		PREPOSITIONAL = "случайном костюме боевых искусств"
+		PREPOSITIONAL = "случайном костюме боевых искусств",
 	)
 
 /obj/item/clothing/under/martialsuit/random/Initialize(mapload)
@@ -1462,7 +1462,7 @@
 		DATIVE = "униформе с завышенной талией",
 		ACCUSATIVE = "униформу с завышенной талией",
 		INSTRUMENTAL = "униформой с завышенной талией",
-		PREPOSITIONAL = "униформе с завышенной талией"
+		PREPOSITIONAL = "униформе с завышенной талией",
 	)
 
 /obj/item/clothing/under/tchaikowsky/dress
@@ -1478,7 +1478,7 @@
 		DATIVE = "синему платью",
 		ACCUSATIVE = "синее платье",
 		INSTRUMENTAL = "синим платьем",
-		PREPOSITIONAL = "синем платье"
+		PREPOSITIONAL = "синем платье",
 	)
 
 /obj/item/clothing/under/tchaikowsky/dress/black
@@ -1494,7 +1494,7 @@
 		DATIVE = "чёрному платью",
 		ACCUSATIVE = "чёрное платье",
 		INSTRUMENTAL = "чёрным платьем",
-		PREPOSITIONAL = "чёрном платье"
+		PREPOSITIONAL = "чёрном платье",
 	)
 
 /obj/item/clothing/under/tchaikowsky/highwaistpants
@@ -1510,7 +1510,7 @@
 		DATIVE = "штанам с завышенной талией",
 		ACCUSATIVE = "штаны с завышенной талией	",
 		INSTRUMENTAL = "штанами с завышенной талией",
-		PREPOSITIONAL = "штанах с завышенной талией"
+		PREPOSITIONAL = "штанах с завышенной талией",
 	)
 
 /obj/item/clothing/under/tchaikowsky/evening_dress
@@ -1526,7 +1526,7 @@
 		DATIVE = "чёрному платью",
 		ACCUSATIVE = "чёрное платье",
 		INSTRUMENTAL = "чёрным платьем",
-		PREPOSITIONAL = "чёрном платье"
+		PREPOSITIONAL = "чёрном платье",
 	)
 
 /obj/item/clothing/under/tchaikowsky/evening_dress/cyan
@@ -1541,7 +1541,7 @@
 		DATIVE = "сине-зелёному платью",
 		ACCUSATIVE = "сине-зелёное платье",
 		INSTRUMENTAL = "сине-зелёным платьем",
-		PREPOSITIONAL = "сине-зелёном платье"
+		PREPOSITIONAL = "сине-зелёном платье",
 	)
 
 /obj/item/clothing/under/tchaikowsky/baseball
@@ -1557,7 +1557,7 @@
 		DATIVE = "синей бейсбольной униформе",
 		ACCUSATIVE = "синюю бейсбольную униформу",
 		INSTRUMENTAL = "синей бейсбольной униформой",
-		PREPOSITIONAL = "синей бейсбольной униформе"
+		PREPOSITIONAL = "синей бейсбольной униформе",
 	)
 
 /obj/item/clothing/under/tchaikowsky/baseball/brown
@@ -1573,5 +1573,5 @@
 		DATIVE = "коричневой бейсбольной униформе",
 		ACCUSATIVE = "коричневую бейсбольную униформу",
 		INSTRUMENTAL = "коричневой бейсбольной униформой",
-		PREPOSITIONAL = "коричневой бейсбольной униформе"
+		PREPOSITIONAL = "коричневой бейсбольной униформе",
 	)

@@ -42,7 +42,7 @@
 		DATIVE = "стабилизатору аномалий", \
 		ACCUSATIVE = "стабилизатор аномалий", \
 		INSTRUMENTAL = "стабилизатором аномалий", \
-		PREPOSITIONAL = "стабилизаторе аномалий"
+		PREPOSITIONAL = "стабилизаторе аномалий",
 	)
 
 /obj/item/gun/energy/anomaly_stabilizer/Initialize(mapload, ...)

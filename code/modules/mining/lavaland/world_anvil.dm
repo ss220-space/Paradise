@@ -21,7 +21,7 @@
 		DATIVE = "Мировой Кузне",
 		ACCUSATIVE = "Мировую Кузню",
 		INSTRUMENTAL = "Мировой Кузней",
-		PREPOSITIONAL = "Мировой Кузне"
+		PREPOSITIONAL = "Мировой Кузне",
 	)
 
 /obj/item/gps/internal/world_anvil

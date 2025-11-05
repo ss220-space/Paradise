@@ -377,9 +377,11 @@
 	name = "ATMOS module"
 	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
 	icon_state = "mecha_atmos"
-	modules = list(/obj/item/mecha_parts/mecha_equipment/cable_layer,
-					/obj/item/mecha_parts/mecha_equipment/extinguisher,
-					/obj/item/mecha_parts/mecha_equipment/holowall)
+	modules = list(
+		/obj/item/mecha_parts/mecha_equipment/cable_layer,
+		/obj/item/mecha_parts/mecha_equipment/extinguisher,
+		/obj/item/mecha_parts/mecha_equipment/holowall,
+	)
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer
 	name = "cable layer"

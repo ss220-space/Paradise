@@ -14,7 +14,7 @@
 		DATIVE = "сердцу слаймолюда",
 		ACCUSATIVE = "сердце слаймолюда",
 		INSTRUMENTAL = "сердцем слаймолюда",
-		PREPOSITIONAL = "сердце слаймолюда"
+		PREPOSITIONAL = "сердце слаймолюда",
 	)
 
 /obj/item/organ/internal/heart/slime/update_icon_state()
@@ -34,7 +34,7 @@
 		DATIVE = "лёгким слаймолюда",
 		ACCUSATIVE = "лёгкие слаймолюда",
 		INSTRUMENTAL = "лёгкими слаймолюда",
-		PREPOSITIONAL = "лёгких слаймолюда"
+		PREPOSITIONAL = "лёгких слаймолюда",
 	)
 
 /obj/item/organ/internal/brain/slime
@@ -53,5 +53,5 @@
 		DATIVE = "ядру слаймолюда",
 		ACCUSATIVE = "ядро слаймолюда",
 		INSTRUMENTAL = "ядром слаймолюда",
-		PREPOSITIONAL = "ядре слаймолюда"
+		PREPOSITIONAL = "ядре слаймолюда",
 	)

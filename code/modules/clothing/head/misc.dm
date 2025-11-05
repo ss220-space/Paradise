@@ -84,7 +84,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 
@@ -102,7 +102,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/snowman
@@ -120,7 +120,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/greenbandana
@@ -248,7 +248,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/fedora/attack_self(mob/user)
@@ -291,7 +291,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/corgi
@@ -348,7 +348,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/fedora/brownfedora
@@ -361,7 +361,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/stalhelm
@@ -471,7 +471,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi',
 	)
 
 /obj/item/clothing/head/rice_hat
@@ -494,7 +494,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 	actions_types = list(/datum/action/item_action/caw)
 
@@ -533,7 +533,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/papersack/smiley
@@ -547,7 +547,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/crown
@@ -597,8 +597,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 
 /obj/item/clothing/head/scorched_skull/get_ru_names()
 	return list(
@@ -607,7 +607,7 @@
 		DATIVE = "обожжённому черепу",
 		ACCUSATIVE = "обожжённый череп",
 		INSTRUMENTAL = "обожжённым черепом",
-		PREPOSITIONAL = "обожжённом черепе"
+		PREPOSITIONAL = "обожжённом черепе",
 	)
 
 
@@ -637,7 +637,7 @@
 		DATIVE = "роучу",
 		ACCUSATIVE = "роуч",
 		INSTRUMENTAL = "роучем",
-		PREPOSITIONAL = "роуче"
+		PREPOSITIONAL = "роуче",
 	)
 
 /obj/item/clothing/head/mr_chang_band
@@ -662,8 +662,8 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+	)
 
 /obj/item/clothing/head/sunflower_crown
 	name = "sunflower crown"
@@ -673,8 +673,8 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+	)
 
 /obj/item/clothing/head/poppy_crown
 	name = "poppy crown"
@@ -684,8 +684,8 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+	)
 
 /obj/item/clothing/head/lily_crown
 	name = "lily crown"
@@ -695,8 +695,8 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+	)
 
 /obj/item/clothing/head/geranium_crown
 	name = "geranium crown"
@@ -706,5 +706,5 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+	)

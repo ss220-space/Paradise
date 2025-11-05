@@ -11,7 +11,7 @@
 		DATIVE = "коробке ватных палочек",
 		ACCUSATIVE = "коробку ватных палочек",
 		INSTRUMENTAL = "коробкой ватных палочек",
-		PREPOSITIONAL = "коробке ватных палочек"
+		PREPOSITIONAL = "коробке ватных палочек",
 	)
 
 /obj/item/storage/box/swabs/New()
@@ -36,7 +36,7 @@
 		DATIVE = "коробке карт отпечатков пальцев",
 		ACCUSATIVE = "коробку карт отпечатков пальцев",
 		INSTRUMENTAL = "коробкой карт отпечатков пальцев",
-		PREPOSITIONAL = "коробке карт отпечатков пальцев"
+		PREPOSITIONAL = "коробке карт отпечатков пальцев",
 	)
 
 /obj/item/storage/box/fingerprints/New()
