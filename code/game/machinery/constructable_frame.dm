@@ -313,15 +313,16 @@
 
 /obj/machinery/constructable_frame/machine_frame/proc/apply_parts_from_construction_bag(obj/item/storage/bag/construction/bag, mob/user, count = 0)
 	for(var/path in req_components)
-		if(req_components[path] > 0 && (locate(path) in bag))
-			if(!do_after(user, 0.7 SECONDS, src, interaction_key = bag, max_interact_count = 1))
-				return FALSE
-			var/obj/item/part = (locate(path) in bag)
-			bag.remove_from_storage(part, src)
-			req_components[path]--
-			components += part
-			to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставлен[GEND_A_O_Y(part)]."))
-			return apply_parts_from_construction_bag(bag, user, count + 1)
+		if(req_components[path] <= 0 || !(locate(path) in bag))
+			continue
+		if(!do_after(user, 0.7 SECONDS, src, interaction_key = bag, max_interact_count = 1))
+			return FALSE
+		var/obj/item/part = (locate(path) in bag)
+		bag.remove_from_storage(part, src)
+		req_components[path]--
+		components += part
+		to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставлен[GEND_A_O_Y(part)]."))
+		return apply_parts_from_construction_bag(bag, user, count + 1)
 	balloon_alert(user, "вставлен[declension_ru(count, "а", "о", "о")] [count] детал[declension_ru(count, "ь", "и", "ей")]")
 	return TRUE
 
