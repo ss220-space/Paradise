@@ -12,7 +12,7 @@
 		DATIVE = "защитному костюму инженера",
 		ACCUSATIVE = "защитный костюм инженера",
 		INSTRUMENTAL = "защитным костюмом инженера",
-		PREPOSITIONAL = "защитном костюме инженера"
+		PREPOSITIONAL = "защитном костюме инженера",
 	)
 
 /obj/item/clothing/under/plasmaman/engineering/ce
@@ -29,8 +29,8 @@
 		DATIVE = "защитному костюму старшего инженера",
 		ACCUSATIVE = "защитный костюм старшего инженера",
 		INSTRUMENTAL = "защитным костюмом старшего инженера",
-		PREPOSITIONAL = "защитном костюме старшего инженера"
-	) 
+		PREPOSITIONAL = "защитном костюме старшего инженера",
+	)
 
 /obj/item/clothing/under/plasmaman/atmospherics
 	name = "atmospherics plasma envirosuit"
@@ -46,7 +46,7 @@
 		DATIVE = "защитному костюму атмосферного техника",
 		ACCUSATIVE = "защитный костюм атмосферного техника",
 		INSTRUMENTAL = "защитным костюмом атмосферного техника",
-		PREPOSITIONAL = "защитном костюме атмосферного техника"
+		PREPOSITIONAL = "защитном костюме атмосферного техника",
 	)
 
 /obj/item/clothing/under/plasmaman/mechanic
@@ -63,5 +63,5 @@
 		DATIVE = "защитному костюму механика",
 		ACCUSATIVE = "защитный костюм механика",
 		INSTRUMENTAL = "защитным костюмом механика",
-		PREPOSITIONAL = "защитном костюме механика"
+		PREPOSITIONAL = "защитном костюме механика",
 	)

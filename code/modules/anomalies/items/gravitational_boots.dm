@@ -29,7 +29,7 @@
 		DATIVE = "гравитационным ботинкам", \
 		ACCUSATIVE = "гравитационные ботинки", \
 		INSTRUMENTAL = "гравитационными ботинками", \
-		PREPOSITIONAL = "гравитационных ботинках"
+		PREPOSITIONAL = "гравитационных ботинках",
 	)
 
 /obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)
@@ -260,8 +260,8 @@
 	if(!cell || !core)
 		return ..()
 
-	user.visible_message(span_suicide("[user] прижима[PLUR_ET_UT(user)] подошвы [declent_ru(GENITIVE)] к своему торсу с двух сторон и активиру[PLUR_ET_UT(user)]. Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]тся убить себя!"))
-	user.visible_message(span_suicide("[user] взрыва[PLUR_ET_UT(user)]ся из-за возникшего гравитационного колодца!"), \
+	user.visible_message(span_suicide("[user] прижима[PLUR_ET_YUT(user)] подошвы [declent_ru(GENITIVE)] к своему торсу с двух сторон и активиру[PLUR_ET_YUT(user)]. Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]тся убить себя!"))
+	user.visible_message(span_suicide("[user] взрыва[PLUR_ET_YUT(user)]ся из-за возникшего гравитационного колодца!"), \
 						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
 						span_suicide("Вы слышите громкий хлопок!"))
 	user.gib()

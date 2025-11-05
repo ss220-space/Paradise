@@ -23,7 +23,7 @@
 		DATIVE = "солнечному датчику",
 		ACCUSATIVE = "солнечный датчик",
 		INSTRUMENTAL = "солнечным датчиком",
-		PREPOSITIONAL = "солнечном датчке"
+		PREPOSITIONAL = "солнечном датчке",
 	)
 
 /obj/machinery/power/tracker/Initialize(mapload, obj/item/solar_assembly/S)
@@ -75,12 +75,12 @@
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 	balloon_alert(user, "демонтаж...")
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] снимать стекло с [declent_ru(GENITIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] снимать стекло с [declent_ru(GENITIVE)]."),
 		span_notice("Вы начинаете снимать стекло с [declent_ru(GENITIVE)]...")
 	)
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		user.visible_message(
-			span_notice("[user] снима[PLUR_ET_UT(user)] стекло с [declent_ru(GENITIVE)]."),
+			span_notice("[user] снима[PLUR_ET_YUT(user)] стекло с [declent_ru(GENITIVE)]."),
 			span_notice("Вы снимаете стекло с [declent_ru(GENITIVE)].")
 		)
 		deconstruct(TRUE)

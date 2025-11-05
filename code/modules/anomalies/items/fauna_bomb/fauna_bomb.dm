@@ -51,7 +51,7 @@
 		DATIVE = "фаунной бомбе", \
 		ACCUSATIVE = "фаунную бомбу", \
 		INSTRUMENTAL = "фаунной бомбой", \
-		PREPOSITIONAL = "фаунной бомбе"
+		PREPOSITIONAL = "фаунной бомбе",
 	)
 
 /obj/item/fauna_bomb/Destroy()
@@ -160,8 +160,8 @@
 	. += span_notice("Проецируется существ: [length(created_mobs) != MAX_CREATED_MOBS ? length(created_mobs) : span_boldnotice("[length(created_mobs)]")]/[MAX_CREATED_MOBS]")
 
 /obj/item/fauna_bomb/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] направля[PLUR_ET_UT(user)] проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
-						выкручива[PLUR_ET_UT(user)] на максимальную мощность и активиру[PLUR_ET_UT(user)]."), \
+	user.visible_message(span_suicide("[user] направля[PLUR_ET_YUT(user)] проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
+						выкручива[PLUR_ET_YUT(user)] на максимальную мощность и активиру[PLUR_ET_YUT(user)]."), \
 						span_suicide("Вы направляете проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
 						выкручиваете на максимальную мощность и активируете."),
 						span_warning("Вы слышите громкий хлопок!"))
@@ -352,9 +352,11 @@
 	name = "Fauna bomb"
 	result = /obj/item/fauna_bomb
 	tools = list(TOOL_SCREWDRIVER)
-	reqs = list(/obj/item/relict_production/pet_spray = 1,
-				/obj/item/grenade/chem_grenade/adv_release = 1,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(
+		/obj/item/relict_production/pet_spray = 1,
+		/obj/item/grenade/chem_grenade/adv_release = 1,
+		/obj/item/stack/cable_coil = 5,
+	)
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

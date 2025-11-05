@@ -18,7 +18,7 @@
 		/obj/item/stack/sheet/glass = 5,
 		/obj/item/stock_parts/capacitor/super = 10,
 		/obj/item/stock_parts/scanning_module/phasic = 2,
-		/obj/item/stack/cable_coil = 20
+		/obj/item/stack/cable_coil = 20,
 	)
 
 /obj/machinery/brs_server
@@ -202,7 +202,7 @@
 	. = TRUE
 
 	// Add a delay, as server's points will be lost after disassembly
-	user.visible_message("[user] начина[PLUR_ET_UT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
+	user.visible_message("[user] начина[PLUR_ET_YUT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 

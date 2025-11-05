@@ -73,7 +73,7 @@
 		DATIVE = "вампирическим когтям",
 		ACCUSATIVE = "вампирические когти",
 		INSTRUMENTAL = "вампирическими когтями",
-		PREPOSITIONAL = "вампирических когтях"
+		PREPOSITIONAL = "вампирических когтях",
 	)
 
 /obj/item/twohanded/required/vamp_claws/Initialize(mapload, new_parent_spell)
@@ -161,7 +161,7 @@
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
 			L.apply_damage(33, TOX)
-			L.visible_message(span_warning("[L] опутыва[PLUR_ET_UT(L)]ся кровавыми щупальцами, которые ограничивают [GEND_HIS_HER(L)] движение!"))
+			L.visible_message(span_warning("[L] опутыва[PLUR_ET_YUT(L)]ся кровавыми щупальцами, которые ограничивают [GEND_HIS_HER(L)] движение!"))
 			var/turf/target_turf = get_turf(L)
 			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
 			new /obj/effect/decal/cleanable/blood(target_turf)
@@ -285,7 +285,7 @@
 		DATIVE = "кровавому барьеру",
 		ACCUSATIVE = "кровавый барьер",
 		INSTRUMENTAL = "кровавым барьером",
-		PREPOSITIONAL = "о кровавом барьере"
+		PREPOSITIONAL = "о кровавом барьере",
 	)
 
 

@@ -682,7 +682,7 @@
 		/datum/species/unathi,
 		/datum/species/vulpkanin,
 		/datum/species/tajaran,
-		/datum/species/vox
+		/datum/species/vox,
 	)
 
 
@@ -934,7 +934,7 @@
 /datum/emote/living/carbon/human/kidan/can_run_emote(mob/living/carbon/human/user, status_check = TRUE, intentional = FALSE)
 	. = ..()
 	if(. && head_required && !user.get_organ(BODY_ZONE_HEAD))
-		user.custom_emote(EMOTE_VISIBLE, "отчаянно дёрга[PLUR_ET_UT(user)]ся!")
+		user.custom_emote(EMOTE_VISIBLE, "отчаянно дёрга[PLUR_ET_YUT(user)]ся!")
 		return FALSE
 
 

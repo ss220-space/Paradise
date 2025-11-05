@@ -59,7 +59,7 @@
 		DATIVE = "газете",
 		ACCUSATIVE = "газету",
 		INSTRUMENTAL = "газетой",
-		PREPOSITIONAL = "газете"
+		PREPOSITIONAL = "газете",
 	)
 
 
@@ -167,7 +167,7 @@
 			text = new_scribble
 		))
 		user.visible_message(
-			span_notice("[user] дела[PLUR_ET_UT(user)] пометку в газете."),
+			span_notice("[user] дела[PLUR_ET_YUT(user)] пометку в газете."),
 			span_notice("Вы делаете пометку на [current_page] странице [declent_ru(GENITIVE)]."),
 		)
 		attack_self(user)
@@ -179,7 +179,7 @@
 	rolled = !rolled
 	icon_state = "newspaper[rolled ? "_rolled" : ""]"
 	update_icon()
-	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)]."),\
+	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),\
 							span_notice("Вы [rolled ? "с" : "раз"]ворачиваете [declent_ru(ACCUSATIVE)]."))
 	name = "[rolled ? "rolled" : ""] [initial(name)]"
 	ru_names = list(
@@ -188,7 +188,7 @@
 		DATIVE = "[rolled ? "свёрнутой " : ""]газете",
 		ACCUSATIVE = "[rolled ? "свёрнутую" : ""]газету",
 		INSTRUMENTAL = "[rolled ? "свёрнутой " : ""]газетой",
-		PREPOSITIONAL = "[rolled ? "свёрнутой " : ""]газете"
+		PREPOSITIONAL = "[rolled ? "свёрнутой " : ""]газете",
 	)
 	return CLICK_ACTION_SUCCESS
 

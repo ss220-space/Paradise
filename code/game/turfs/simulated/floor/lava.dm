@@ -38,7 +38,7 @@
 		DATIVE = "лаве",
 		ACCUSATIVE = "лаву",
 		INSTRUMENTAL = "лавой",
-		PREPOSITIONAL = "лаве"
+		PREPOSITIONAL = "лаве",
 	)
 
 /turf/simulated/floor/lava/ex_act()
@@ -276,7 +276,7 @@
 	var/obj/item/reagent_containers/food/snacks/charred_krill/krill = AM //yourself
 	krill.in_lava = TRUE
 	krill.anchored = TRUE	//no closet kidnaping
-	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[PLUR_ET_YT(krill)] в лаве!"))
+	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[PLUR_ET_UT(krill)] в лаве!"))
 	sleep(5 SECONDS)
 	qdel(krill)
 	if(!can_be_fished_on)
@@ -330,7 +330,7 @@
 		DATIVE = "жидкой плазме",
 		ACCUSATIVE = "жидкую плазму",
 		INSTRUMENTAL = "жидкой плазмой",
-		PREPOSITIONAL = "жидкой плазме"
+		PREPOSITIONAL = "жидкой плазме",
 	)
 
 

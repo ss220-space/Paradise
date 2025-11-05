@@ -255,8 +255,8 @@
 	victim.Weaken(4 SECONDS)
 	item_placed(victim)
 	victim.visible_message(
-		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] толка[PLUR_ET_UT(user)] [victim.declent_ru(GENITIVE)] на [src.declent_ru(ACCUSATIVE)]."),
-		span_userdanger("[user] толка[PLUR_ET_UT(user)] вас на [src.declent_ru(ACCUSATIVE)]."),
+		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] толка[PLUR_ET_YUT(user)] [victim.declent_ru(GENITIVE)] на [src.declent_ru(ACCUSATIVE)]."),
+		span_userdanger("[user] толка[PLUR_ET_YUT(user)] вас на [src.declent_ru(ACCUSATIVE)]."),
 	)
 	add_attack_logs(user, victim, "Pushed onto a table")
 	return TRUE
@@ -868,7 +868,7 @@
 		DATIVE = "стеллажу",
 		ACCUSATIVE = "стеллаж",
 		INSTRUMENTAL = "стеллажом",
-		PREPOSITIONAL = "стеллаже"
+		PREPOSITIONAL = "стеллаже",
 	)
 
 /obj/structure/rack/examine(mob/user)
@@ -1089,7 +1089,7 @@
 		DATIVE = "деталям стеллажа",
 		ACCUSATIVE = "детали стеллажа",
 		INSTRUMENTAL = "деталями стеллажа",
-		PREPOSITIONAL = "деталях стеллажа"
+		PREPOSITIONAL = "деталях стеллажа",
 	)
 
 /obj/item/rack_parts/wrench_act(mob/user, obj/item/I)

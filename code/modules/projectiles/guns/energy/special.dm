@@ -33,7 +33,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4),
 	)
 
 // Decloner //
@@ -204,7 +204,7 @@
 		DATIVE = "плазменному резаку",
 		ACCUSATIVE = "плазменный резак",
 		INSTRUMENTAL = "плазменным резаком",
-		PREPOSITIONAL = "плазменном резаке"
+		PREPOSITIONAL = "плазменном резаке",
 	)
 
 
@@ -268,7 +268,7 @@
 		DATIVE = "продвинутому плазменному резаку",
 		ACCUSATIVE = "продвинутый плазменный резак",
 		INSTRUMENTAL = "продвинутым плазменным резаком",
-		PREPOSITIONAL = "продвинутом плазменном резаке"
+		PREPOSITIONAL = "продвинутом плазменном резаке",
 	)
 
 /obj/item/gun/energy/plasmacutter/adv/mega
@@ -286,7 +286,7 @@
 		DATIVE = "магмитовому плазменному резаку",
 		ACCUSATIVE = "магмитовый плазменный резак",
 		INSTRUMENTAL = "магмитовым плазменным резаком",
-		PREPOSITIONAL = "магмитовом плазменном резаке"
+		PREPOSITIONAL = "магмитовом плазменном резаке",
 	)
 
 /obj/item/gun/energy/plasmacutter/shotgun
@@ -306,7 +306,7 @@
 		DATIVE = "плазменному дробовику",
 		ACCUSATIVE = "плазменный дробовик",
 		INSTRUMENTAL = "плазменным дробовиком",
-		PREPOSITIONAL = "плазменном дробовике"
+		PREPOSITIONAL = "плазменном дробовике",
 	)
 
 /obj/item/gun/energy/plasmacutter/shotgun/mega
@@ -324,7 +324,7 @@
 		DATIVE = "магмитовому плазменному дробовику",
 		ACCUSATIVE = "магмитовый плазменный дробовик",
 		INSTRUMENTAL = "магмитовым плазменным дробовиком",
-		PREPOSITIONAL = "магмитовом плазменном дробовике"
+		PREPOSITIONAL = "магмитовом плазменном дробовике",
 	)
 
 // Wormhole Projectors //
@@ -468,7 +468,7 @@
 	icon_state = "LSR-39"
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/podsniper/disabler,
-		/obj/item/ammo_casing/energy/podsniper/laser
+		/obj/item/ammo_casing/energy/podsniper/laser,
 	)
 	item_state = null
 	weapon_weight = WEAPON_MEDIUM
@@ -723,7 +723,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
 
 
@@ -758,14 +758,6 @@
 /obj/item/gun/energy/specter
 	name = "Specter"
 	desc = "Современный пистолет \"Спектр\", работающий на съёмных аккумуляторах, имеет магнитные приводы для быстрой перезарядки. Поставляется только силовым структурам Нанотрейзен."
-	ru_names = list(
-		NOMINATIVE = "Спектр",
-		GENITIVE = "Спектра",
-		DATIVE = "Спектру",
-		ACCUSATIVE = "Спектр",
-		INSTRUMENTAL = "Спектром",
-		PREPOSITIONAL = "Спектре"
-	)
 	icon_state = "specter"
 	item_state = "specter"
 	force = 10
@@ -779,9 +771,19 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3),
 	)
 	ammo_x_offset = 0
+
+/obj/item/gun/energy/specter/get_ru_names()
+	return list(
+		NOMINATIVE = "Спектр",
+		GENITIVE = "Спектра",
+		DATIVE = "Спектру",
+		ACCUSATIVE = "Спектр",
+		INSTRUMENTAL = "Спектром",
+		PREPOSITIONAL = "Спектре",
+	)
 
 /obj/item/gun/energy/specter/ComponentInitialize()
 	. = ..()
@@ -795,7 +797,6 @@
 	add_skin("Green Handle", "specter_greengrip")
 	add_skin("Tan Handle", "specter_tangrip")
 	add_skin("Red Handle", "specter_redgrip")
-
 
 /obj/item/gun/energy/specter/update_icon_state()
 	if(current_skin)
@@ -836,7 +837,7 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
 	)
 
 // Shield breaker //

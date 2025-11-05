@@ -1,19 +1,21 @@
 /obj/item/organ/internal/liver
 	name = "liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала человеку."
-	ru_names = list(
-		NOMINATIVE = "печень человека",
-		GENITIVE = "печени человека",
-		DATIVE = "печени человека",
-		ACCUSATIVE = "печень человека",
-		INSTRUMENTAL = "печенью человека",
-		PREPOSITIONAL = "печени человека"
-	)
 	gender = FEMALE
 	icon_state = "liver"
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 	slot = INTERNAL_ORGAN_LIVER
 	var/alcohol_intensity = 1
+
+/obj/item/organ/internal/liver/get_ru_names()
+	return list(
+		NOMINATIVE = "печень человека",
+		GENITIVE = "печени человека",
+		DATIVE = "печени человека",
+		ACCUSATIVE = "печень человека",
+		INSTRUMENTAL = "печенью человека",
+		PREPOSITIONAL = "печени человека",
+	)
 
 /obj/item/organ/internal/liver/on_life()
 	if(germ_level > INFECTION_LEVEL_ONE)
@@ -62,16 +64,18 @@
 /obj/item/organ/internal/liver/cybernetic
 	name = "cybernetic liver"
 	desc = "Электронное устройство, имитирующее работу органической печени. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
-	ru_names = list(
-		NOMINATIVE = "кибернетическая печень",
-		GENITIVE = "кибернетической печени",
-		DATIVE = "кибернетической печени",
-		ACCUSATIVE = "кибернетическую печень",
-		INSTRUMENTAL = "кибернетической печенью",
-		PREPOSITIONAL = "кибернетической печени"
-	)
 	icon_state = "liver-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
+
+/obj/item/organ/internal/liver/cybernetic/get_ru_names()
+	return list(
+		NOMINATIVE = "кибернетическая печень",
+		GENITIVE = "кибернетической печени",
+		DATIVE = "кибернетической печени",
+		ACCUSATIVE = "кибернетическую печень",
+		INSTRUMENTAL = "кибернетической печенью",
+		PREPOSITIONAL = "кибернетической печени",
+	)

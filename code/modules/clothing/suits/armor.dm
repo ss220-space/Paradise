@@ -17,8 +17,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 	w_class = WEIGHT_CLASS_NORMAL
 	undyeable = TRUE
 
@@ -52,7 +52,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
@@ -220,8 +220,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -232,32 +232,32 @@
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight/red
 	icon_state = "knight_red"
 	item_state = "knight_red"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot/knight/templar
 	name = "crusader armour"
@@ -268,8 +268,8 @@
 	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/vest/durathread
 	name = "durathread vest"
@@ -287,7 +287,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 45, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 70
 	put_on_delay = 50
 	sprite_sheets = list(
@@ -301,8 +301,8 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
@@ -321,7 +321,7 @@
 		DATIVE = "абляционному бронежилету",
 		ACCUSATIVE = "абляционный бронежилет",
 		INSTRUMENTAL = "абляционным бронежилетом",
-		PREPOSITIONAL = "абляционном бронежилете"
+		PREPOSITIONAL = "абляционном бронежилете",
 	)
 
 /obj/item/clothing/suit/armor/reflector
@@ -346,7 +346,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		)
+	)
 	var/static/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/hit_reflect_chance = 50
 
@@ -357,7 +357,7 @@
 		DATIVE = "рефлекторному пальто",
 		ACCUSATIVE = "рефлекторное пальто",
 		INSTRUMENTAL = "рефлекторным пальто",
-		PREPOSITIONAL = "рефлекторном пальто"
+		PREPOSITIONAL = "рефлекторном пальто",
 	)
 
 /obj/item/clothing/suit/armor/reflector/IsReflect(def_zone)
@@ -565,7 +565,7 @@
 	hide_tail_by_species = list(SPECIES_VOX)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
 /obj/item/clothing/suit/armor/tdome
@@ -584,7 +584,7 @@
 	item_state = "tdred"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
 /obj/item/clothing/suit/armor/tdome/green
@@ -594,7 +594,7 @@
 	item_state = "tdgreen"
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
 //Non-hardsuit ERT armor.
@@ -625,8 +625,8 @@
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
-		)
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
 
 //Engineer
 /obj/item/clothing/suit/armor/vest/ert/engineer
@@ -677,8 +677,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/hooded/drake/get_ru_names()
@@ -688,7 +688,7 @@
 		DATIVE = "доспеху из дрейка",
 		ACCUSATIVE = "доспех из дрейка",
 		INSTRUMENTAL = "доспехом из дрейка",
-		PREPOSITIONAL = "доспехе из дрейка"
+		PREPOSITIONAL = "доспехе из дрейка",
 	)
 
 /obj/item/clothing/head/hooded/drake
@@ -709,7 +709,7 @@
 		DATIVE = "шлему из дрейка",
 		ACCUSATIVE = "шлем из дрейка",
 		INSTRUMENTAL = "шлемом из дрейка",
-		PREPOSITIONAL = "шлеме из дрейка"
+		PREPOSITIONAL = "шлеме из дрейка",
 	)
 
 /obj/item/clothing/suit/hooded/goliath
@@ -729,7 +729,7 @@
 		DATIVE = "накидке из голиафа",
 		ACCUSATIVE = "накидку из голиафа",
 		INSTRUMENTAL = "накидкой из голиафа",
-		PREPOSITIONAL = "накидке из голиафа"
+		PREPOSITIONAL = "накидке из голиафа",
 	)
 
 /obj/item/clothing/head/hooded/goliath
@@ -747,7 +747,7 @@
 		DATIVE = "капюшону накидки из голиафа",
 		ACCUSATIVE = "капюшон накидки из голиафа",
 		INSTRUMENTAL = "капюшоном накидки из голиафа",
-		PREPOSITIONAL = "капюшоне накидки из голиафа"
+		PREPOSITIONAL = "капюшоне накидки из голиафа",
 	)
 
 /obj/item/clothing/suit/hooded/goliath/wizard
@@ -771,7 +771,7 @@
 		DATIVE = "черепу шамана",
 		ACCUSATIVE = "череп шамана",
 		INSTRUMENTAL = "черепом шамана",
-		PREPOSITIONAL = "черепе шамана"
+		PREPOSITIONAL = "черепе шамана",
 	)
 
 //mob_size using for crusher mark
@@ -800,8 +800,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/armor/bone/get_ru_names()
@@ -811,7 +811,7 @@
 		DATIVE = "костяной броне",
 		ACCUSATIVE = "костяную броню",
 		INSTRUMENTAL = "костяной броней",
-		PREPOSITIONAL = "костяной броне"
+		PREPOSITIONAL = "костяной броне",
 	)
 
 /obj/item/clothing/suit/armor/makeshift_armor
@@ -831,7 +831,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
-		)
+	)
 
 /obj/item/clothing/suit/armor/cartilage //parent type, used in order not to copy-paste same lines in 3 same armors
 	name = "cartilage armor"
@@ -854,8 +854,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/cartilage/get_ru_names()
 	return list(
@@ -864,7 +864,7 @@
 		DATIVE = "броне из хрящевых пластин",
 		ACCUSATIVE = "броню из хрящевых пластин",
 		INSTRUMENTAL = "броней из хрящевых пластин",
-		PREPOSITIONAL = "броне из хрящевых пластин"
+		PREPOSITIONAL = "броне из хрящевых пластин",
 	)
 
 
@@ -883,7 +883,7 @@
 		DATIVE = "наплечникам из хрящевых пластин",
 		ACCUSATIVE = "наплечники из хрящевых пластин",
 		INSTRUMENTAL = "наплечниками из хрящевых пластин",
-		PREPOSITIONAL = "наплечниках из хрящевых пластин"
+		PREPOSITIONAL = "наплечниках из хрящевых пластин",
 	)
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_pads/attackby(obj/item/I, mob/user, params)
@@ -915,7 +915,7 @@
 		DATIVE = "поножам из хрящевых пластин",
 		ACCUSATIVE = "поножи из хрящевых пластин",
 		INSTRUMENTAL = "поножами из хрящевых пластин",
-		PREPOSITIONAL = "поножах из хрящевых пластин"
+		PREPOSITIONAL = "поножах из хрящевых пластин",
 	)
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_greaves/attackby(obj/item/I, mob/user, params)

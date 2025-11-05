@@ -36,7 +36,7 @@ effective or pretty fucking useless.
 		DATIVE = "подавителю разума",
 		ACCUSATIVE = "подавитель разума",
 		INSTRUMENTAL = "подавителем разума",
-		PREPOSITIONAL = "подавителе разума"
+		PREPOSITIONAL = "подавителе разума",
 	)
 
 
@@ -111,7 +111,7 @@ effective or pretty fucking useless.
 		DATIVE = "анализатору здоровья",
 		ACCUSATIVE = "анализатор здоровья",
 		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
+		PREPOSITIONAL = "анализаторе здоровья",
 	)
 
 
@@ -126,7 +126,7 @@ effective or pretty fucking useless.
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "Irradiated by [src]")
-	user.visible_message(span_notice("[user] анализиру[PLUR_ET_UT(user)] жизненные показатели [target]."))
+	user.visible_message(span_notice("[user] анализиру[PLUR_ET_YUT(user)] жизненные показатели [target]."))
 	var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 	used = TRUE
 	update_icon(UPDATE_ICON_STATE)

@@ -16,7 +16,7 @@
 		DATIVE = "незавершённой оболочке свободного голема",
 		ACCUSATIVE = "незавершённую оболочку свободного голема",
 		INSTRUMENTAL = "незавершённой оболочкой свободного голема",
-		PREPOSITIONAL = "незавершённой оболочке свободного голема"
+		PREPOSITIONAL = "незавершённой оболочке свободного голема",
 	)
 
 /obj/item/golem_shell/servant
@@ -30,7 +30,7 @@
 		DATIVE = "незавершённой оболочке голема-слуги",
 		ACCUSATIVE = "незавершённую оболочку голема-слуги",
 		INSTRUMENTAL = "незавершённой оболочкой голема-слуги",
-		PREPOSITIONAL = "незавершённой оболочке голема-слуги"
+		PREPOSITIONAL = "незавершённой оболочке голема-слуги",
 	)
 
 /obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
@@ -107,7 +107,7 @@
 		DATIVE = "инертной оболочке свободного голема",
 		ACCUSATIVE = "инертную оболочку свободного голема",
 		INSTRUMENTAL = "инертной оболочкой свободного голема",
-		PREPOSITIONAL = "инертной оболочке свободного голема"
+		PREPOSITIONAL = "инертной оболочке свободного голема",
 	)
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
@@ -182,7 +182,7 @@
 		DATIVE = "инертной оболочке голема-слуги",
 		ACCUSATIVE = "инертную оболочку голема-слуги",
 		INSTRUMENTAL = "инертной оболочкой голема-слуги",
-		PREPOSITIONAL = "инертной оболочке голема-слуги"
+		PREPOSITIONAL = "инертной оболочке голема-слуги",
 	)
 
 /obj/effect/mob_spawn/human/golem/adamantine
@@ -197,7 +197,7 @@
 		DATIVE = "покрытой пылью оболочке свободного голема",
 		ACCUSATIVE = "покрытую пылью оболочку свободного голема",
 		INSTRUMENTAL = "покрытой пылью оболочкой свободного голема",
-		PREPOSITIONAL = "покрытой пылью оболочке свободного голема"
+		PREPOSITIONAL = "покрытой пылью оболочке свободного голема",
 	)
 
 /obj/effect/mob_spawn/human/golem/clockwork
@@ -220,7 +220,7 @@
 		DATIVE = "оболочке голема из плоти",
 		ACCUSATIVE = "оболочку голема из плоти",
 		INSTRUMENTAL = "оболочкой голема из плоти",
-		PREPOSITIONAL = "оболочке голема из плоти"
+		PREPOSITIONAL = "оболочке голема из плоти",
 	)
 
 /obj/effect/mob_spawn/human/golem/clockwork/special(mob/living/new_spawn, name)

@@ -76,7 +76,7 @@
 			DATIVE = "теневой ловушке",
 			ACCUSATIVE = "теневую ловушку",
 			INSTRUMENTAL = "теневой ловушкой",
-			PREPOSITIONAL = "теневой ловушке"
+			PREPOSITIONAL = "теневой ловушке",
 		)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Initialize(mapload)
@@ -246,7 +246,7 @@
 			DATIVE = "теневому якорю",
 			ACCUSATIVE = "теневой якорь",
 			INSTRUMENTAL = "теневым якорем",
-			PREPOSITIONAL = "теневом якоре"
+			PREPOSITIONAL = "теневом якоре",
 		)
 
 /obj/effect/proc_holder/spell/vampire/dark_passage

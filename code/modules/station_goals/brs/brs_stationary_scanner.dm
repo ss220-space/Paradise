@@ -19,7 +19,7 @@
 		/obj/item/stock_parts/capacitor/super = 8,
 		/obj/item/stock_parts/micro_laser/ultra = 2,
 		/obj/item/stock_parts/scanning_module/phasic = 10,
-		/obj/item/stack/ore/bluespace_crystal = 4
+		/obj/item/stack/ore/bluespace_crystal = 4,
 	)
 
 /obj/machinery/power/brs_stationary_scanner
@@ -197,7 +197,7 @@
 
 	// It's a large machine, add a delay
 	user.visible_message(
-		"[user] начина[PLUR_ET_UT(user)] [panel_open ? "за" : "от"]кручивать панель [src].",
+		"[user] начина[PLUR_ET_YUT(user)] [panel_open ? "за" : "от"]кручивать панель [src].",
 		"Вы начинаете [panel_open ? "за" : "от"]кручивать панель [src]."
 	)
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
@@ -214,7 +214,7 @@
 		return
 
 	// It's a large machine, add a delay
-	user.visible_message("[user] начина[PLUR_ET_UT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
+	user.visible_message("[user] начина[PLUR_ET_YUT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 

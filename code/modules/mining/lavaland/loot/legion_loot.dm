@@ -24,7 +24,7 @@
 		DATIVE = "посоху бурь",
 		ACCUSATIVE = "посох бурь",
 		INSTRUMENTAL = "посохом бурь",
-		PREPOSITIONAL = "посохе бурь"
+		PREPOSITIONAL = "посохе бурь",
 	)
 
 /obj/item/storm_staff/Destroy()
@@ -57,7 +57,7 @@
 				to_chat(user, span_warning("Буря уже стихает! Использовать посох сейчас было бы расточительством."))
 				return
 			user.visible_message(
-				span_warning("[user] поднима[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
+				span_warning("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
 				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] к небу, рассеивая бурю!")
 			)
 			playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)

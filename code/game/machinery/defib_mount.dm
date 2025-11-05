@@ -19,7 +19,7 @@
 		DATIVE = "креплению для дефибриллятора",
 		ACCUSATIVE = "крепление для дефибриллятора",
 		INSTRUMENTAL = "креплением для дефибриллятора",
-		PREPOSITIONAL = "креплении для дефибриллятора"
+		PREPOSITIONAL = "креплении для дефибриллятора",
 	)
 
 /obj/machinery/defibrillator_mount/attack_ai()
@@ -159,7 +159,7 @@
 		return CLICK_ACTION_BLOCKING
 	defib.forceMove_turf()
 	user.put_in_hands(defib, ignore_anim = FALSE)
-	visible_message(span_notice("[user] вынима[PLUR_ET_UT(user)] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
+	visible_message(span_notice("[user] вынима[PLUR_ET_YUT(user)] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	balloon_alert(user, "дефибриллятор извлечён")
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	defib = null
@@ -184,7 +184,7 @@
 		DATIVE = "разобранному креплению для дефибриллятора",
 		ACCUSATIVE = "разобранное крепление для дефибриллятора",
 		INSTRUMENTAL = "разобранным креплением для дефибриллятора",
-		PREPOSITIONAL = "разобранном креплении для дефибриллятора"
+		PREPOSITIONAL = "разобранном креплении для дефибриллятора",
 	)
 
 /obj/item/mounted/frame/defib_mount/do_build(turf/on_wall, mob/user)

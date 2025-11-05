@@ -10,7 +10,7 @@
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ,
 		/datum/surgery_step/extract_implant,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
 	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn, /datum/species/plasmaman)
@@ -23,7 +23,7 @@
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ/plasma,
 		/datum/surgery_step/extract_implant,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	target_speciestypes = list(/datum/species/plasmaman)
 	restricted_speciestypes = null
@@ -42,7 +42,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	target_speciestypes = list(/datum/species/kidan, /datum/species/wryn)
 	restricted_speciestypes = null
@@ -54,7 +54,7 @@
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/proxy/robotics/repair_limb,
 		/datum/surgery_step/extract_implant/synth,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	requires_organic_bodypart = FALSE
 
@@ -77,7 +77,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(times_repeated >= max_times_to_check)
 		user.visible_message(
-				span_notice("[user] переста[PLUR_YOT_UT(user)] искать инородные тела в теле [target]."),
+				span_notice("[user] переста[PLUR_YOT_YUT(user)] искать инородные тела в теле [target]."),
 				span_notice("Вы перестаёте искать инородные тела в теле [target], там совершенно точно ничего нет."),
 				chat_message_type = MESSAGE_TYPE_COMBAT
 		)
@@ -85,7 +85,7 @@
 
 	I = locate(/obj/item/implant) in target
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] искать инородные тела в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] искать инородные тела в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете искать инородные тела в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -97,7 +97,7 @@
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] ошибочно хвата[PLUR_ET_UT(user)]ся [tool.declent_ru(INSTRUMENTAL)] за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], повреждая внутренние ткани!"),
+		span_warning("[user] ошибочно хвата[PLUR_ET_YUT(user)]ся [tool.declent_ru(INSTRUMENTAL)] за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], повреждая внутренние ткани!"),
 		span_warning("Вы ошибочно хватаетесь [tool.declent_ru(INSTRUMENTAL)] за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], повреждая внутренние ткани!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -109,7 +109,7 @@
 	I = locate(/obj/item/implant) in target
 	if(I && prob(80)) //implant removal only works on the chest.
 		user.visible_message(
-			span_notice("[user] вынима[PLUR_ET_UT(user)] [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] вынима[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы вынимаете [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
@@ -130,14 +130,14 @@
 			I.forceMove(case)
 			case.update_icon()
 			user.visible_message(
-				span_notice("[user] помеща[PLUR_ET_UT(user)] [I.declent_ru(ACCUSATIVE)] в [case.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] помеща[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [case.declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [case.declent_ru(ACCUSATIVE)].")
 			)
 		else
 			qdel(I)
 	else
 		user.visible_message(
-			span_notice("[user] ничего не наход[PLUR_IT_YAT(user)] в [affected.declent_ru(PREPOSITIONAL)] [target] и доста[PLUR_YOT_UT(user)] [tool.declent_ru(ACCUSATIVE)] оттуда."),
+			span_notice("[user] ничего не наход[PLUR_IT_YAT(user)] в [affected.declent_ru(PREPOSITIONAL)] [target] и доста[PLUR_YOT_YUT(user)] [tool.declent_ru(ACCUSATIVE)] оттуда."),
 			span_notice("Вы ничего не находите в [affected.declent_ru(PREPOSITIONAL)] [target] и достаёте [tool.declent_ru(ACCUSATIVE)] оттуда."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)

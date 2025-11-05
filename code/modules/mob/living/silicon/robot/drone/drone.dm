@@ -51,7 +51,7 @@
 		/mob/living/silicon/proc/subsystem_open_gps,
 		/mob/living/silicon/robot/proc/self_diagnosis,
 		/mob/living/silicon/proc/subsystem_law_manager,
-		/mob/living/silicon/proc/subsystem_power_monitor
+		/mob/living/silicon/proc/subsystem_power_monitor,
 	)
 	hat_offset_y = -15
 	isCentered = TRUE
@@ -65,7 +65,7 @@
 		DATIVE = "дрону",
 		ACCUSATIVE = "дрона",
 		INSTRUMENTAL = "дроном",
-		PREPOSITIONAL = "дроне"
+		PREPOSITIONAL = "дроне",
 	)
 
 /mob/living/silicon/robot/drone/New()
@@ -264,7 +264,7 @@
 	var/mob/living/carbon/human/H = user
 
 	if(emagged)
-		to_chat(src, span_warning("[user] пыта[PLUR_ET_UT(user)]ся загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
+		to_chat(src, span_warning("[user] пыта[PLUR_ET_YUT(user)]ся загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
 		to_chat(user, span_warning("Вы пытаетесь подчинить [declent_ru(GENITIVE)], но секвенсор не оказывает эффекта."))
 		return
 

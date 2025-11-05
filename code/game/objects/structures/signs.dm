@@ -66,7 +66,7 @@
 		DATIVE = "табличке",
 		ACCUSATIVE = "табличку",
 		INSTRUMENTAL = "табличкой",
-		PREPOSITIONAL = "табличке"
+		PREPOSITIONAL = "табличке",
 	)
 
 
@@ -112,7 +112,7 @@
 		DATIVE = "карте станции",
 		ACCUSATIVE = "карту станции",
 		INSTRUMENTAL = "картой станции",
-		PREPOSITIONAL = "карте станции"
+		PREPOSITIONAL = "карте станции",
 	)
 
 /obj/structure/sign/double/map/left

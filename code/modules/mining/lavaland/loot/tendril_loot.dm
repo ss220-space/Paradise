@@ -14,7 +14,7 @@
 		DATIVE = "парадоксальной сумке",
 		ACCUSATIVE = "парадоксальную сумку",
 		INSTRUMENTAL = "парадоксальной сумкой",
-		PREPOSITIONAL = "парадоксальной сумке"
+		PREPOSITIONAL = "парадоксальной сумке",
 	)
 
 /obj/item/storage/backpack/shared/can_be_inserted(obj/item/shared_storage/I, stop_messages = FALSE)
@@ -46,7 +46,7 @@
 		DATIVE = "парадоксальной сумке",
 		ACCUSATIVE = "парадоксальную сумку",
 		INSTRUMENTAL = "парадоксальной сумкой",
-		PREPOSITIONAL = "парадоксальной сумке"
+		PREPOSITIONAL = "парадоксальной сумке",
 	)
 
 /obj/item/shared_storage/Initialize(mapload, twin_storage_init = FALSE)
@@ -140,13 +140,13 @@
 		DATIVE = "Вавилонской книге",
 		ACCUSATIVE = "Вавилонскую книгу",
 		INSTRUMENTAL = "Вавилонской книгой",
-		PREPOSITIONAL = "Вавилонской книге"
+		PREPOSITIONAL = "Вавилонской книге",
 	)
 
 /obj/item/book_of_babel/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_NO_BABEL))
 		user.visible_message(
-			span_notice("[user] внезапно останавлива[PLUR_ET_UT(user)]ся, недоумённо глядя на [declent_ru(GENITIVE)]."),
+			span_notice("[user] внезапно останавлива[PLUR_ET_YUT(user)]ся, недоумённо глядя на [declent_ru(GENITIVE)]."),
 			span_warning("Вы понятия не имеете, что это такое и что с этим делать.")
 		)
 
@@ -177,7 +177,7 @@
 		DATIVE = "странному эликсиру",
 		ACCUSATIVE = "странный эликсир",
 		INSTRUMENTAL = "странным эликсиром",
-		PREPOSITIONAL = "странном эликсире"
+		PREPOSITIONAL = "странном эликсире",
 	)
 
 /obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
@@ -222,7 +222,7 @@
 		DATIVE = "лестнице Иакова",
 		ACCUSATIVE = "лестницу Иакова",
 		INSTRUMENTAL = "лестницей Иакова",
-		PREPOSITIONAL = "лестнице Иакова"
+		PREPOSITIONAL = "лестнице Иакова",
 	)
 
 /obj/item/jacobs_ladder/attack_self(mob/user)
@@ -253,7 +253,7 @@
 		DATIVE = "лестнице Иакова",
 		ACCUSATIVE = "лестницу Иакова",
 		INSTRUMENTAL = "лестницей Иакова",
-		PREPOSITIONAL = "лестнице Иакова"
+		PREPOSITIONAL = "лестнице Иакова",
 	)
 
 //Wisp Lantern
@@ -277,7 +277,7 @@
 		DATIVE = "жуткой лампе",
 		ACCUSATIVE = "жуткую лампу",
 		INSTRUMENTAL = "жуткой лампой",
-		PREPOSITIONAL = "жуткой лампе"
+		PREPOSITIONAL = "жуткой лампе",
 	)
 
 
@@ -352,7 +352,7 @@
 		DATIVE = "дружелюбному духу",
 		ACCUSATIVE = "дружелюбного духа",
 		INSTRUMENTAL = "дружелюбным духом",
-		PREPOSITIONAL = "дружелюбном духе"
+		PREPOSITIONAL = "дружелюбном духе",
 	)
 
 //Red/Blue Cubes
@@ -370,7 +370,7 @@
 		DATIVE = "синему кубу",
 		ACCUSATIVE = "синий куб",
 		INSTRUMENTAL = "синим кубом",
-		PREPOSITIONAL = "синем кубе"
+		PREPOSITIONAL = "синем кубе",
 	)
 
 /obj/item/warp_cube/Destroy()
@@ -414,7 +414,7 @@
 		DATIVE = "красному кубу",
 		ACCUSATIVE = "красный куб",
 		INSTRUMENTAL = "красным кубом",
-		PREPOSITIONAL = "красном кубе"
+		PREPOSITIONAL = "красном кубе",
 	)
 
 /obj/item/warp_cube/red/New()
@@ -444,7 +444,7 @@
 		DATIVE = "мясному крюку",
 		ACCUSATIVE = "мясной крюк",
 		INSTRUMENTAL = "мясным крюком",
-		PREPOSITIONAL = "мясном крюке"
+		PREPOSITIONAL = "мясном крюке",
 	)
 
 /obj/item/ammo_casing/magic/hook
@@ -462,7 +462,7 @@
 		DATIVE = "крюку",
 		ACCUSATIVE = "крюк",
 		INSTRUMENTAL = "крюком",
-		PREPOSITIONAL = "крюке"
+		PREPOSITIONAL = "крюке",
 	)
 
 /obj/projectile/hook
@@ -481,7 +481,7 @@
 		DATIVE = "крюку",
 		ACCUSATIVE = "крюк",
 		INSTRUMENTAL = "крюком",
-		PREPOSITIONAL = "крюке"
+		PREPOSITIONAL = "крюке",
 	)
 
 /obj/projectile/hook/fire(setAngle)
@@ -496,7 +496,7 @@
 		var/turf/firer_turf = get_turf(firer)
 		var/mob/living/L = target
 		if(!L.anchored && L.loc)
-			L.visible_message(span_danger("[firer] зацепля[PLUR_ET_UT(firer)] [L.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
+			L.visible_message(span_danger("[firer] зацепля[PLUR_ET_YUT(firer)] [L.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
 			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src)) // Ensures the hook does not hit the target multiple times
 			L.forceMove(firer_turf)
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
@@ -523,7 +523,7 @@
 		DATIVE = "талисману бессмертия",
 		ACCUSATIVE = "талисман бессмертия",
 		INSTRUMENTAL = "талисманом бессмертия",
-		PREPOSITIONAL = "талисмане бессмертия"
+		PREPOSITIONAL = "талисмане бессмертия",
 	)
 
 /datum/action/item_action/immortality
@@ -548,7 +548,7 @@
 
 	COOLDOWN_START(src, last_used_immortality_talisman, 60 SECONDS)
 	SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1)
-	user.visible_message(span_danger("[user] исчеза[PLUR_ET_UT(user)] из реальности, оставляя после себя дыру в пространстве!"))
+	user.visible_message(span_danger("[user] исчеза[PLUR_ET_YUT(user)] из реальности, оставляя после себя дыру в пространстве!"))
 
 	var/obj/effect/immortality_talisman/effect = new(source_turf)
 	effect.name = "дыра в пространстве"
@@ -571,7 +571,7 @@
 
 	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(effect_turf)
-	user.visible_message(span_danger("[user] материализу[PLUR_ET_UT(user)]ся в пространстве, вновь возвращаясь в нашу реальность!"))
+	user.visible_message(span_danger("[user] материализу[PLUR_ET_YUT(user)]ся в пространстве, вновь возвращаясь в нашу реальность!"))
 	effect.can_destroy = TRUE
 
 	if(length(effect.contents))

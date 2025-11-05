@@ -19,7 +19,7 @@
 		DATIVE = "пипетке",
 		ACCUSATIVE = "пипетку",
 		INSTRUMENTAL = "пипеткой",
-		PREPOSITIONAL = "пипетке"
+		PREPOSITIONAL = "пипетке",
 	)
 
 /obj/item/reagent_containers/dropper/update_overlays()
@@ -62,7 +62,7 @@
 		if(!reagents.total_volume)
 			return
 		if(user != C)
-			user.visible_message(span_danger("[user] начина[PLUR_ET_UT(user)] капать что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_danger("[user] начина[PLUR_ET_YUT(user)] капать что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
 			if(!do_after(user, 3 SECONDS, C, NONE))
 				return
 		if(ishuman(target))
@@ -79,7 +79,7 @@
 					safe_thing = H.head
 
 			if(safe_thing)
-				user.visible_message(span_danger("[user] пыта[PLUR_ET_UT(user)]ся капнуть что-то в глаза [C], используя [declent_ru(ACCUSATIVE)], но [GEND_HIM_HER(user)] не удаётся!"))
+				user.visible_message(span_danger("[user] пыта[PLUR_ET_YUT(user)]ся капнуть что-то в глаза [C], используя [declent_ru(ACCUSATIVE)], но [GEND_HIM_HER(user)] не удаётся!"))
 
 				reagents.reaction(safe_thing, REAGENT_TOUCH)
 				to_transfer = reagents.remove_any(amount_per_transfer_from_this)
@@ -87,7 +87,7 @@
 				to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_SEC_MIN(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
 				return
 
-		user.visible_message(span_danger("[user] закапыва[PLUR_ET_UT(user)] что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_danger("[user] закапыва[PLUR_ET_YUT(user)] что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
 		reagents.reaction(C, REAGENT_TOUCH)
 
 		var/list/injected = list()
@@ -146,7 +146,7 @@
 		DATIVE = "промышленной пипетке",
 		ACCUSATIVE = "промышленную пипетку",
 		INSTRUMENTAL = "промышленной пипеткой",
-		PREPOSITIONAL = "промышленной пипетке"
+		PREPOSITIONAL = "промышленной пипетке",
 	)
 
 /obj/item/reagent_containers/dropper/precision
@@ -170,7 +170,7 @@
 		DATIVE = "микропипетке",
 		ACCUSATIVE = "микропипетку",
 		INSTRUMENTAL = "микропипеткой",
-		PREPOSITIONAL = "микропипетке"
+		PREPOSITIONAL = "микропипетке",
 	)
 
 //Syndicate item. Virus transmitting mini hypospray

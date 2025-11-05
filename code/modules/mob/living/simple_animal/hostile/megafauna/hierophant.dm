@@ -69,7 +69,7 @@ Difficulty: Hard
 		/datum/action/innate/megafauna_attack/blink,
 		/datum/action/innate/megafauna_attack/chaser_swarm,
 		/datum/action/innate/megafauna_attack/cross_blasts,
-		/datum/action/innate/megafauna_attack/blink_spam
+		/datum/action/innate/megafauna_attack/blink_spam,
 	)
 
 	var/burst_range = 3 //range on burst aoe
@@ -95,7 +95,7 @@ Difficulty: Hard
 		DATIVE = "Иерофанту",
 		ACCUSATIVE = "Иерофанта",
 		INSTRUMENTAL = "Иерофантом",
-		PREPOSITIONAL = "Иерофанте"
+		PREPOSITIONAL = "Иерофанте",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
@@ -577,7 +577,7 @@ Difficulty: Hard
 		DATIVE = "энергии вортекса",
 		ACCUSATIVE = "энергию вортекса",
 		INSTRUMENTAL = "энергией вортекса",
-		PREPOSITIONAL = "энергии вортекса"
+		PREPOSITIONAL = "энергии вортекса",
 	)
 
 /obj/effect/temp_visual/hierophant/Initialize(mapload, new_caster)
@@ -615,7 +615,7 @@ Difficulty: Hard
 		DATIVE = "стене вортекса",
 		ACCUSATIVE = "стену вортекса",
 		INSTRUMENTAL = "стеной вортекса",
-		PREPOSITIONAL = "стене вортекса"
+		PREPOSITIONAL = "стене вортекса",
 	)
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
@@ -749,7 +749,7 @@ Difficulty: Hard
 		DATIVE = "взрыву вортекса",
 		ACCUSATIVE = "взрыв вортекса",
 		INSTRUMENTAL = "взрывом вортекса",
-		PREPOSITIONAL = "взрыве вортекса"
+		PREPOSITIONAL = "взрыве вортекса",
 	)
 
 /obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire)
@@ -837,7 +837,7 @@ Difficulty: Hard
 		DATIVE = "маяку иерофанта",
 		ACCUSATIVE = "маяк иерофанта",
 		INSTRUMENTAL = "маяком иерофанта",
-		PREPOSITIONAL = "маяке иерофанта"
+		PREPOSITIONAL = "маяке иерофанта",
 	)
 
 /obj/effect/hierophant/update_icon_state()

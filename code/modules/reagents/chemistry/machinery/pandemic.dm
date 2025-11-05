@@ -1,14 +1,6 @@
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 220"
 	desc = "Высокотехнологичная машина, предназначенная для исследования и работы с вирусными культурами. Лучший друг вирусолога!"
-	ru_names = list(
-		NOMINATIVE = "Панд.Е.М.И.К 220",
-		GENITIVE = "Панд.Е.М.И.К 220",
-		DATIVE = "Панд.Е.М.И.К 220",
-		ACCUSATIVE = "Панд.Е.М.И.К 220",
-		INSTRUMENTAL = "Панд.Е.М.И.К 220",
-		PREPOSITIONAL = "Панд.Е.М.И.К 220"
-	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	circuit = /obj/item/circuitboard/pandemic
@@ -18,6 +10,16 @@
 	var/printing = null
 	var/wait = null
 	var/obj/item/reagent_containers/beaker = null
+
+/obj/machinery/computer/pandemic/get_ru_names()
+	return list(
+		NOMINATIVE = "Панд.Е.М.И.К 220",
+		GENITIVE = "Панд.Е.М.И.К 220",
+		DATIVE = "Панд.Е.М.И.К 220",
+		ACCUSATIVE = "Панд.Е.М.И.К 220",
+		INSTRUMENTAL = "Панд.Е.М.И.К 220",
+		PREPOSITIONAL = "Панд.Е.М.И.К 220",
+	)
 
 /obj/machinery/computer/pandemic/examine(mob/user)
 	. = ..()
@@ -110,7 +112,7 @@
 						DATIVE = "вакцине [capitalize(vaccine_name)]",
 						ACCUSATIVE = "вакцину [capitalize(vaccine_name)]",
 						INSTRUMENTAL = "вакциной [capitalize(vaccine_name)]",
-						PREPOSITIONAL = "вакцине [capitalize(vaccine_name)]"
+						PREPOSITIONAL = "вакцине [capitalize(vaccine_name)]",
 					)
 					B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
 					replicator_cooldown(200)
@@ -146,7 +148,7 @@
 				DATIVE = "культуре [capitalize(name)]",
 				ACCUSATIVE = "культуру [capitalize(name)]",
 				INSTRUMENTAL = "культурой [capitalize(name)]",
-				PREPOSITIONAL = "культуре [capitalize(name)]"
+				PREPOSITIONAL = "культуре [capitalize(name)]",
 			)
 			B.desc = "Небольшая бутылка. Содержит синтетическую кровь, заражённую культурой [capitalize(copy.agent)]."
 			B.reagents.add_reagent("blood",20,data)

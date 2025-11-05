@@ -50,7 +50,7 @@
 		DATIVE = "Духу-Хранителю",
 		ACCUSATIVE = "Духа-Хранителя",
 		INSTRUMENTAL = "Духом-Хранителем",
-		PREPOSITIONAL = "Духе-Хранителе"
+		PREPOSITIONAL = "Духе-Хранителе",
 	)
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
@@ -285,7 +285,7 @@
 		DATIVE = "колоде карт Таро",
 		ACCUSATIVE = "колоду карт Таро",
 		INSTRUMENTAL = "колодой карт Таро",
-		PREPOSITIONAL = "колоде карт Таро"
+		PREPOSITIONAL = "колоде карт Таро",
 	)
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
@@ -373,7 +373,7 @@
 	SSticker.mode.guardians |= G.mind
 	to_chat(G, "Вы [mob_name], обязанный служить [user.real_name].")
 	to_chat(G, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")
-	to_chat(G, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [GEND_HE_SHE(user)] погибн[PLUR_ET_YT(user)] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [GEND_HIM_HER(user)], так как вы существуете за счёт [GEND_HIS_HER(user)] жизненной силы.")
+	to_chat(G, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [GEND_HE_SHE(user)] погибн[PLUR_ET_UT(user)] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [GEND_HIM_HER(user)], так как вы существуете за счёт [GEND_HIS_HER(user)] жизненной силы.")
 	to_chat(G, "[G.playstyle_string]")
 	G.faction = user.faction
 
@@ -425,7 +425,7 @@
 		DATIVE = "инъектору голопаразитов",
 		ACCUSATIVE = "инъектор голопаразитов",
 		INSTRUMENTAL = "инъектором голопаразитов",
-		PREPOSITIONAL = "инъекторе голопаразитов"
+		PREPOSITIONAL = "инъекторе голопаразитов",
 	)
 
 /obj/item/guardiancreator/tech/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
@@ -473,7 +473,7 @@
 		DATIVE = "скоплению яиц скарабеев",
 		ACCUSATIVE = "скопление яиц скарабеев",
 		INSTRUMENTAL = "скоплением яиц скарабеев",
-		PREPOSITIONAL = "скоплении яиц скарабеев"
+		PREPOSITIONAL = "скоплении яиц скарабеев",
 	)
 
 /obj/item/guardiancreator/biological/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)

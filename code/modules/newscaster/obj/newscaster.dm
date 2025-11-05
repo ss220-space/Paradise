@@ -56,7 +56,7 @@
 			DATIVE = "новостнику",
 			ACCUSATIVE = "новостник",
 			INSTRUMENTAL = "новостником",
-			PREPOSITIONAL = "новостнике"
+			PREPOSITIONAL = "новостнике",
 	)
 
 /obj/machinery/newscaster/security_unit
@@ -72,7 +72,7 @@
 			DATIVE = "новостнику службы безопасности",
 			ACCUSATIVE = "новостник службы безопасности",
 			INSTRUMENTAL = "новостником службы безопасности",
-			PREPOSITIONAL = "новостнике службы безопасности"
+			PREPOSITIONAL = "новостнике службы безопасности",
 	)
 
 /obj/machinery/newscaster/Initialize(mapload)
@@ -102,7 +102,7 @@
 			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
 			/datum/job/civilian/prisoner,
-			/datum/job/syndicateofficer
+			/datum/job/syndicateofficer,
 		)
 
 /obj/machinery/newscaster/Destroy()
@@ -393,7 +393,7 @@
 				var/obj/item/photo/P = usr.get_active_hand()
 				if(istype(P) && usr.drop_transfer_item_to_loc(P, src))
 					photo = P
-					usr.visible_message(span_notice("[usr] вставля[PLUR_ET_UT(usr)] [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."), \
+					usr.visible_message(span_notice("[usr] вставля[PLUR_ET_YUT(usr)] [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."), \
 					span_notice("Вы вставляете [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."))
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))

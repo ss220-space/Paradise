@@ -515,8 +515,8 @@
 	if(!I.force)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
 		visible_message(
-			span_warning("[user] бережно стука[PLUR_ET_UT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]."),
-			span_warning("[user] бережно стука[PLUR_ET_UT(user)] вас [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] бережно стука[PLUR_ET_YUT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] бережно стука[PLUR_ET_YUT(user)] вас [I.declent_ru(INSTRUMENTAL)]."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -524,8 +524,8 @@
 		playsound(loc, I.hitsound, I.get_clamped_volume(), TRUE, -1)
 	add_attack_logs(user, src, "Attacked with [I.name] ([uppertext(user.a_intent)]) ([uppertext(I.damtype)]), DMG: [I.force])", (ckey && I.force > 0 && I.damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 	visible_message(
-		span_danger("[user] сильно бь[PLUR_YOT_UT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] сильно бь[PLUR_YOT_UT(user)] вас [I.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] сильно бь[PLUR_YOT_YUT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] сильно бь[PLUR_YOT_YUT(user)] вас [I.declent_ru(INSTRUMENTAL)]!"),
 	)
 
 	var/damage_type = I.damtype

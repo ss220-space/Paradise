@@ -53,7 +53,7 @@
 /mob/living/carbon/alien/humanoid/resist_grab(moving_resist = FALSE)
 	if(pulledby.grab_state)
 		visible_message(
-			span_danger("[name] легко вырыва[PLUR_ET_UT(src)]ся из захвата [pulledby.name]!"),
+			span_danger("[name] легко вырыва[PLUR_ET_YUT(src)]ся из захвата [pulledby.name]!"),
 			span_danger("Вы легко вырываетесь из захвата [pulledby.name]!"),
 			ignored_mobs = pulledby,
 		)

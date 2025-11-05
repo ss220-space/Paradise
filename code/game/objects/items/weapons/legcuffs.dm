@@ -18,7 +18,7 @@
 		DATIVE = "кандалам",
 		ACCUSATIVE = "кандалы",
 		INSTRUMENTAL = "кандалами",
-		PREPOSITIONAL = "кандалах"
+		PREPOSITIONAL = "кандалах",
 	)
 
 
@@ -43,7 +43,7 @@
 		DATIVE = "капкану",
 		ACCUSATIVE = "капкан",
 		INSTRUMENTAL = "капканом",
-		PREPOSITIONAL = "капкане"
+		PREPOSITIONAL = "капкане",
 	)
 
 
@@ -63,7 +63,7 @@
 
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] засовыва[PLUR_ET_UT(user)] свою голову в [declent_ru(NOMINATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся совершить самоубийство!"))
+	user.visible_message(span_suicide("[user] засовыва[PLUR_ET_YUT(user)] свою голову в [declent_ru(NOMINATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
@@ -165,7 +165,7 @@
 	armed = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	playsound(src.loc, 'sound/effects/snap.ogg', 50, TRUE)
-	moving_thing.visible_message(span_danger("[moving_thing] активиру[PLUR_ET_UT(moving_thing)] [declent_ru(ACCUSATIVE)]."),
+	moving_thing.visible_message(span_danger("[moving_thing] активиру[PLUR_ET_YUT(moving_thing)] [declent_ru(ACCUSATIVE)]."),
 								span_userdanger("Вы активируете [declent_ru(ACCUSATIVE)]!"))
 
 	if(IED)
@@ -238,7 +238,7 @@
 		DATIVE = "боле",
 		ACCUSATIVE = "болу",
 		INSTRUMENTAL = "болой",
-		PREPOSITIONAL = "боле"
+		PREPOSITIONAL = "боле",
 	)
 
 
@@ -346,18 +346,18 @@
 	if(vamp && HAS_TRAIT_FROM(target, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT))
 		if(vamp.bloodusable)
 			vamp.bloodusable = max(vamp.bloodusable - 10, 0)
-			target.visible_message(span_danger("[target] отража[PLUR_ET_UT(target)] [declent_ru(ACCUSATIVE)]!"),
+			target.visible_message(span_danger("[target] отража[PLUR_ET_YUT(target)] [declent_ru(ACCUSATIVE)]!"),
 									span_notice("Вы отражаете [declent_ru(ACCUSATIVE)], это стоит вам 10 крови."))
 			return TRUE
 
 		REMOVE_TRAIT(target, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT)
 
 	if(HAS_TRAIT(target, TRAIT_DEFLECT_BOLAS))
-		target.visible_message(span_danger("[target] отража[PLUR_ET_UT(target)] [declent_ru(ACCUSATIVE)]!"))
+		target.visible_message(span_danger("[target] отража[PLUR_ET_YUT(target)] [declent_ru(ACCUSATIVE)]!"))
 		return TRUE
 
-	target.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сковыва[PLUR_ET_UT(target)] ноги [target.declent_ru(GENITIVE)]!"))
-	to_chat(target, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] сковыва[PLUR_ET_UT(target)] ваши ноги!"))
+	target.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сковыва[PLUR_ET_YUT(target)] ноги [target.declent_ru(GENITIVE)]!"))
+	to_chat(target, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] сковыва[PLUR_ET_YUT(target)] ваши ноги!"))
 	target.apply_restraints(src, ITEM_SLOT_LEGCUFFED)
 	if(weaken_amt)
 		target.Weaken(weaken_amt)
@@ -387,7 +387,7 @@
 		DATIVE = "укрёпленной боле",
 		ACCUSATIVE = "укреплённую болу",
 		INSTRUMENTAL = "укреплённой болой",
-		PREPOSITIONAL = "укреплённой боле"
+		PREPOSITIONAL = "укреплённой боле",
 	)
 
 
@@ -409,7 +409,7 @@
 		DATIVE = "энергетической боле",
 		ACCUSATIVE = "энергетическую болу",
 		INSTRUMENTAL = "энергетической болой",
-		PREPOSITIONAL = "энергетической боле"
+		PREPOSITIONAL = "энергетической боле",
 	)
 
 
@@ -427,7 +427,7 @@
 		DATIVE = "боле из черепов",
 		ACCUSATIVE = "болу из черепов",
 		INSTRUMENTAL = "болой из черепов",
-		PREPOSITIONAL = "боле из черепов"
+		PREPOSITIONAL = "боле из черепов",
 	)
 
 /obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/carbon/user, slot, silent = FALSE)

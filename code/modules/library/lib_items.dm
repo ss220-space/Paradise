@@ -39,7 +39,7 @@
 		DATIVE = "книжному шкафу",
 		ACCUSATIVE = "книжный шкаф",
 		INSTRUMENTAL = "книжным шкафом",
-		PREPOSITIONAL = "книжном шкафе"
+		PREPOSITIONAL = "книжном шкафе",
 	)
 
 /obj/structure/bookcase/Initialize(mapload)
@@ -260,7 +260,7 @@
 		DATIVE = "книге",
 		ACCUSATIVE = "книгу",
 		INSTRUMENTAL = "книгой",
-		PREPOSITIONAL = "книге"
+		PREPOSITIONAL = "книге",
 	)
 
 /obj/item/book/Initialize(mapload)
@@ -280,7 +280,7 @@
 /obj/item/book/attack_self(mob/user)
 	if(carved)
 		if(store)
-			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпада[PLUR_ET_UT(store)] из \"[title]\"!"))
+			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпада[PLUR_ET_YUT(store)] из \"[title]\"!"))
 			store.forceMove(get_turf(loc))
 			store = null
 			return
@@ -293,7 +293,7 @@
 		popup.set_content("<tt><i>Автор — [author].</i></tt><br>" + "[dat]")
 		popup.open(TRUE)
 		if(!isobserver(user))
-			user.visible_message("[user] открыва[PLUR_ET_UT(user)] книгу под заголовком \"[title]\" и начина[PLUR_ET_UT(user)] внимательно её читать.")
+			user.visible_message("[user] открыва[PLUR_ET_YUT(user)] книгу под заголовком \"[title]\" и начина[PLUR_ET_YUT(user)] внимательно её читать.")
 		onclose(user, "book")
 	else
 		to_chat(user, "Эта книга полностью пуста!")
@@ -448,7 +448,7 @@
 		DATIVE = "сканнеру штрих-кодов",
 		ACCUSATIVE = "сканнер штрих-кодов",
 		INSTRUMENTAL = "сканнером штрих-кодов",
-		PREPOSITIONAL = "сканнере штрих-кодов"
+		PREPOSITIONAL = "сканнере штрих-кодов",
 	)
 
 /obj/item/barcodescanner/attack_self(mob/user)

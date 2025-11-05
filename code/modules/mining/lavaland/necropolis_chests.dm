@@ -15,7 +15,7 @@
 		DATIVE = "сундуку некрополя",
 		ACCUSATIVE = "сундук некрополя",
 		INSTRUMENTAL = "сундуком некрополя",
-		PREPOSITIONAL = "сундуке некрополя"
+		PREPOSITIONAL = "сундуке некрополя",
 	)
 
 /obj/structure/closet/crate/necropolis/tendril
@@ -131,7 +131,7 @@
 		DATIVE = "загадочному сундуку",
 		ACCUSATIVE = "загадочный сундук",
 		INSTRUMENTAL = "загадочным сундуком",
-		PREPOSITIONAL = "загадочном сундуке"
+		PREPOSITIONAL = "загадочном сундуке",
 	)
 
 /obj/structure/closet/crate/necropolis/puzzle/populate_contents()
@@ -228,7 +228,7 @@
 		DATIVE = "посоху асклепия",
 		ACCUSATIVE = "посох асклепия",
 		INSTRUMENTAL = "посохом асклепия",
-		PREPOSITIONAL = "посохе асклепия"
+		PREPOSITIONAL = "посохе асклепия",
 	)
 
 /obj/item/rod_of_asclepius/attack_self(mob/user)
@@ -313,7 +313,7 @@
 		DATIVE = "зачарованным цветам",
 		ACCUSATIVE = "зачарованные цветы",
 		INSTRUMENTAL = "зачарованными цветами",
-		PREPOSITIONAL = "зачарованных цветах"
+		PREPOSITIONAL = "зачарованных цветах",
 	)
 
 #define COOLDOWN_SUMMON 1 MINUTES
@@ -390,7 +390,7 @@
 		DATIVE = "руническому ятагану",
 		ACCUSATIVE = "рунический ятаган",
 		INSTRUMENTAL = "руническим ятаганом",
-		PREPOSITIONAL = "руническом ятагане"
+		PREPOSITIONAL = "руническом ятагане",
 	)
 
 /obj/item/rune_scimmy/ComponentInitialize()
@@ -416,7 +416,7 @@
 		DATIVE = "тёмному осколку",
 		ACCUSATIVE = "тёмный осколок",
 		INSTRUMENTAL = "тёмным осколком",
-		PREPOSITIONAL = "тёмном осколке"
+		PREPOSITIONAL = "тёмном осколке",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/katana/prepare_eat()
@@ -508,7 +508,7 @@
 		DATIVE = "проклятой катане",
 		ACCUSATIVE = "проклятую катану",
 		INSTRUMENTAL = "проклятой катаной",
-		PREPOSITIONAL = "проклятой катане"
+		PREPOSITIONAL = "проклятой катане",
 	)
 
 /obj/item/cursed_katana/ComponentInitialize()
@@ -545,7 +545,7 @@
 
 /obj/item/cursed_katana/proc/strike(mob/living/target, mob/user)
 	user.visible_message(
-		span_warning("[user] бь[PLUR_YOT_UT(user)] [target.declent_ru(ACCUSATIVE)] рукоятью [declent_ru(GENITIVE)]!"),
+		span_warning("[user] бь[PLUR_YOT_YUT(user)] [target.declent_ru(ACCUSATIVE)] рукоятью [declent_ru(GENITIVE)]!"),
 		span_notice("Вы бьёте рукоятью по [target.declent_ru(DATIVE)]!")
 	)
 	to_chat(target, span_userdanger("[user] ударил вас рукоятью!"))
@@ -572,7 +572,7 @@
 
 /obj/item/cursed_katana/proc/slice(mob/living/target, mob/user)
 	user.visible_message(
-		span_warning("[user] соверша[PLUR_ET_UT(user)] широкий взмах!"),
+		span_warning("[user] соверша[PLUR_ET_YUT(user)] широкий взмах!"),
 		span_notice("Вы совершаете широкий взмах!")
 	)
 	playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
@@ -590,7 +590,7 @@
 
 /obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
 	user.visible_message(
-		span_warning("[user] позволя[PLUR_ET_UT(user)] [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)]!"),
+		span_warning("[user] позволя[PLUR_ET_YUT(user)] [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)]!"),
 		span_warning("Вы позволяете [declent_ru(DATIVE)] насытиться кровью [target.declent_ru(GENITIVE)], исцеляя себя ценой его жизни!")
 	)
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
@@ -598,7 +598,7 @@
 
 /obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
 	user.visible_message(
-		span_warning("[user] подреза[PLUR_ET_UT(user)] сухожилия [target.declent_ru(GENITIVE)]!"),
+		span_warning("[user] подреза[PLUR_ET_YUT(user)] сухожилия [target.declent_ru(GENITIVE)]!"),
 		span_notice("Вы подрезаете сухожилия [target.declent_ru(GENITIVE)]!")
 	)
 	to_chat(target, span_userdanger("[user] подрезал[PLUR_I(user)] ваши сухожилия!"))
@@ -619,10 +619,10 @@
 		to_chat(user, span_userdanger("Сюда невозможно совершить рывок!"))
 		return
 	user.visible_message(
-		span_warning("[user] стремительно пронза[PLUR_ET_UT(user)] [target.declent_ru(ACCUSATIVE)]!"),
+		span_warning("[user] стремительно пронза[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"),
 		span_notice("Вы стремительно пронзаете [target.declent_ru(ACCUSATIVE)]!")
 	)
-	to_chat(target, span_userdanger("[user] пронза[PLUR_ET_UT(user)] вас!"))
+	to_chat(target, span_userdanger("[user] пронза[PLUR_ET_YUT(user)] вас!"))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
 	for(var/distance in 1 to 9)

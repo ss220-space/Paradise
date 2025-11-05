@@ -55,7 +55,7 @@
 		return .
 
 	if(target != user)
-		target.visible_message(span_warning("[user] пыта[PLUR_ET_UT(user)]ся имплантировать био-чип в [target]."))
+		target.visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся имплантировать био-чип в [target]."))
 		if(!do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL) || QDELETED(user) || QDELETED(target) || QDELETED(src) || QDELETED(imp))
 			return .
 

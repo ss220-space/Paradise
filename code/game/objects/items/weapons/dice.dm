@@ -13,7 +13,7 @@
 		DATIVE = "мешку игральных костей",
 		ACCUSATIVE = "мешок игральных костей",
 		INSTRUMENTAL = "мешком игральных костей",
-		PREPOSITIONAL = "мешке игральных костей"
+		PREPOSITIONAL = "мешке игральных костей",
 	)
 
 /obj/item/storage/pill_bottle/dice/populate_contents()
@@ -52,7 +52,7 @@
 
 
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] игра[PLUR_ET_UT(user)] со смертью! Похоже, он[GEND_A_O_I(user)] пыта[PLUR_ET_UT(user)]ся покончить жизнь самоубийством!"))
+	user.visible_message(span_suicide("[user] игра[PLUR_ET_YUT(user)] со смертью! Похоже, он[GEND_A_O_I(user)] пыта[PLUR_ET_YUT(user)]ся покончить жизнь самоубийством!"))
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
@@ -77,7 +77,7 @@
 		DATIVE = "игральной кости",
 		ACCUSATIVE = "игральную кость",
 		INSTRUMENTAL = "игральной костью",
-		PREPOSITIONAL = "игральной кости"
+		PREPOSITIONAL = "игральной кости",
 	)
 
 
@@ -203,7 +203,7 @@
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
 		user.visible_message(
-			"[user] броса[PLUR_ET_UT(user)] [src.name]. На [src.name] выпадает [result]. [comment]",
+			"[user] броса[PLUR_ET_YUT(user)] [src.name]. На [src.name] выпадает [result]. [comment]",
 			span_notice("Вы бросили [src.name] и выпало [result]. [comment]"),
 			span_italics("Вы слышите как катится [src.name], звучит как [fake_result].")
 		)

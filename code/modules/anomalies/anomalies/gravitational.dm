@@ -77,7 +77,7 @@
 		DATIVE = "малой гравитационной аномалии", \
 		ACCUSATIVE = "малую гравитационную аномалию", \
 		INSTRUMENTAL = "малой гравитационной аномалией", \
-		PREPOSITIONAL = "малой гравитационной аномалии"
+		PREPOSITIONAL = "малой гравитационной аномалии",
 	)
 
 /obj/effect/anomaly/gravitational/tier2
@@ -102,7 +102,7 @@
 		DATIVE = "гравитационной аномалии", \
 		ACCUSATIVE = "гравитационную аномалию", \
 		INSTRUMENTAL = "гравитационной аномалией", \
-		PREPOSITIONAL = "гравитационной аномалии"
+		PREPOSITIONAL = "гравитационной аномалии",
 	)
 
 /obj/effect/anomaly/gravitational/tier3
@@ -127,7 +127,7 @@
 		DATIVE = "большой гравитационной аномалии", \
 		ACCUSATIVE = "большую гравитационную аномалию", \
 		INSTRUMENTAL = "большой гравитационной аномалией", \
-		PREPOSITIONAL = "большой гравитационной аномалии"
+		PREPOSITIONAL = "большой гравитационной аномалии",
 	)
 
 /obj/effect/anomaly/gravitational/tier3/New()
@@ -176,7 +176,7 @@
 		DATIVE = "колоссальной гравитационной аномалии", \
 		ACCUSATIVE = "колоссальную гравитационную аномалию", \
 		INSTRUMENTAL = "колоссальной гравитационной аномалией", \
-		PREPOSITIONAL = "колоссальной гравитационной аномалии"
+		PREPOSITIONAL = "колоссальной гравитационной аномалии",
 	)
 
 /obj/effect/anomaly/gravitational/tier4/New()

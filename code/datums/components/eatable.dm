@@ -121,7 +121,7 @@
 			else if(target == user)
 				chat_message_to_user = "Вы откусили от [item.declent_ru(ACCUSATIVE)]. Вкуснятина!"
 		if(INTENT_HARM)
-			chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет. Но [target == user ? "вы" : user] насильно запихива[target == user ? "ете" : PLUR_ET_UT(user)] [item.declent_ru(ACCUSATIVE)] в рот!"
+			chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет. Но [target == user ? "вы" : user] насильно запихива[target == user ? "ете" : PLUR_ET_YUT(user)] [item.declent_ru(ACCUSATIVE)] в рот!"
 			if(target != user)
 				chat_message_to_target = "В ваш рот насильно запихивают [item.declent_ru(ACCUSATIVE)]!"
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
@@ -167,7 +167,7 @@
 	var/obj/item/item = parent
 
 	if(!instant_application)
-		item.visible_message(span_warning("[user] пыта[PLUR_ET_UT(user)]ся накормить [target], запихивая в рот [item.declent_ru(ACCUSATIVE)]."))
+		item.visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся накормить [target], запихивая в рот [item.declent_ru(ACCUSATIVE)]."))
 		if(!do_after(user, target, 2 SECONDS, NONE))
 			return FALSE
 

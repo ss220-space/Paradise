@@ -17,7 +17,7 @@
 		DATIVE = "мешку для трупов",
 		ACCUSATIVE = "мешок для трупов",
 		INSTRUMENTAL = "мешком для трупов",
-		PREPOSITIONAL = "мешке для трупов"
+		PREPOSITIONAL = "мешке для трупов",
 	)
 
 /obj/item/bodybag/attack_self(mob/user)
@@ -49,7 +49,7 @@
 
 /obj/item/bodybag/suicide_act(mob/living/user)
 	if(isfloorturf(user.loc))
-		user.visible_message(span_suicide("[user] заполза[PLUR_ET_UT(user)] в [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_UT(user)]ся совершить самоубийство!"))
+		user.visible_message(span_suicide("[user] заполза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 		var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
 		R.add_fingerprint(user)
 		qdel(src)
@@ -82,7 +82,7 @@
 		DATIVE = "мешку для трупов",
 		ACCUSATIVE = "мешок для трупов",
 		INSTRUMENTAL = "мешком для трупов",
-		PREPOSITIONAL = "мешке для трупов"
+		PREPOSITIONAL = "мешке для трупов",
 	)
 
 
@@ -190,7 +190,7 @@
 		DATIVE = "мешку для инфицированных трупов",
 		ACCUSATIVE = "мешок для инфицированных трупов",
 		INSTRUMENTAL = "мешком для инфицированных трупов",
-		PREPOSITIONAL = "мешке для инфицированных трупов"
+		PREPOSITIONAL = "мешке для инфицированных трупов",
 	)
 
 /obj/structure/closet/body_bag/biohazard
@@ -209,7 +209,7 @@
 		DATIVE = "мешку для инфицированных трупов",
 		ACCUSATIVE = "мешок для инфицированных трупов",
 		INSTRUMENTAL = "мешком для инфицированных трупов",
-		PREPOSITIONAL = "мешке для инфицированных трупов"
+		PREPOSITIONAL = "мешке для инфицированных трупов",
 	)
 
 /obj/item/bodybag/bluespace
@@ -226,7 +226,7 @@
 		DATIVE = "блюспейс мешку для трупов",
 		ACCUSATIVE = "блюспейс мешок для трупов",
 		INSTRUMENTAL = "блюспейс мешком для трупов",
-		PREPOSITIONAL = "блюспейс мешке для трупов"
+		PREPOSITIONAL = "блюспейс мешке для трупов",
 	)
 
 
@@ -293,7 +293,7 @@
 		DATIVE = "блюспейс мешку для трупов",
 		ACCUSATIVE = "блюспейс мешок для трупов",
 		INSTRUMENTAL = "блюспейс мешком для трупов",
-		PREPOSITIONAL = "блюспейс мешке для трупов"
+		PREPOSITIONAL = "блюспейс мешке для трупов",
 	)
 
 

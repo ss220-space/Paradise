@@ -24,7 +24,7 @@
 		DATIVE = "набору ИКС Контрактника",
 		ACCUSATIVE = "набор ИКС Контрактника",
 		INSTRUMENTAL = "набором ИКС Контрактника",
-		PREPOSITIONAL = "наборе ИКС Контрактника"
+		PREPOSITIONAL = "наборе ИКС Контрактника",
 	)
 
 /obj/item/storage/box/contractor/hardsuit/populate_contents()

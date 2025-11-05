@@ -128,7 +128,7 @@
 		DATIVE = "шкафу гранатомета GL-06",
 		ACCUSATIVE = "шкаф гранатомета GL-06",
 		INSTRUMENTAL = "шкафом гранатомета GL-06",
-		PREPOSITIONAL = "шкафе гранатомета GL-06"
+		PREPOSITIONAL = "шкафе гранатомета GL-06",
 	)
 
 /obj/structure/closet/secure_closet/security_grenade_launcher/populate_contents()
@@ -175,7 +175,7 @@
 		DATIVE = "шкафу пистолет пулемётов WT-550",
 		ACCUSATIVE = "шкаф пистолет пулемётов WT-550",
 		INSTRUMENTAL = "шкафом пистолет пулемётов WT-550",
-		PREPOSITIONAL = "шкафе пистолет пулемётов WT-550"
+		PREPOSITIONAL = "шкафе пистолет пулемётов WT-550",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
@@ -197,7 +197,7 @@
 		DATIVE = "шкафу пистолет пулемётов SP-91-RC",
 		ACCUSATIVE = "шкаф пистолет пулемётов SP-91-RC",
 		INSTRUMENTAL = "шкафом пистолет пулемётов SP-91-RC",
-		PREPOSITIONAL = "шкафе пистолет пулемётов SP-91-RC"
+		PREPOSITIONAL = "шкафе пистолет пулемётов SP-91-RC",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
@@ -219,7 +219,7 @@
 		DATIVE = "шкафу лазерных винтовок",
 		ACCUSATIVE = "шкаф лазерных винтовок",
 		INSTRUMENTAL = "шкафом лазерных винтовок",
-		PREPOSITIONAL = "шкафе лазерных винтовок"
+		PREPOSITIONAL = "шкафе лазерных винтовок",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
@@ -241,7 +241,7 @@
 		DATIVE = "шкафу лазерных винтовок LR-30",
 		ACCUSATIVE = "шкаф лазерных винтовок LR-30",
 		INSTRUMENTAL = "шкафом лазерных винтовок LR-30",
-		PREPOSITIONAL = "шкафе лазерных винтовок LR-30"
+		PREPOSITIONAL = "шкафе лазерных винтовок LR-30",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30/populate_contents()

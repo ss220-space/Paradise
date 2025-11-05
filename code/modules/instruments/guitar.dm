@@ -10,7 +10,7 @@
 		"36"='sound/instruments/synthesis_samples/guitar/crisis_steel/c2.ogg',
 		"48"='sound/instruments/synthesis_samples/guitar/crisis_steel/c3.ogg',
 		"60"='sound/instruments/synthesis_samples/guitar/crisis_steel/c4.ogg',
-		"72"='sound/instruments/synthesis_samples/guitar/crisis_steel/c5.ogg'
+		"72"='sound/instruments/synthesis_samples/guitar/crisis_steel/c5.ogg',
 	)
 
 /datum/instrument/guitar/nylon_crisis
@@ -20,7 +20,7 @@
 		"36"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c2.ogg',
 		"48"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c3.ogg',
 		"60"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c4.ogg',
-		"72"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c5.ogg'
+		"72"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c5.ogg',
 	)
 
 /datum/instrument/guitar/clean_crisis
@@ -30,7 +30,7 @@
 		"36"='sound/instruments/synthesis_samples/guitar/crisis_clean/c2.ogg',
 		"48"='sound/instruments/synthesis_samples/guitar/crisis_clean/c3.ogg',
 		"60"='sound/instruments/synthesis_samples/guitar/crisis_clean/c4.ogg',
-		"72"='sound/instruments/synthesis_samples/guitar/crisis_clean/c5.ogg'
+		"72"='sound/instruments/synthesis_samples/guitar/crisis_clean/c5.ogg',
 	)
 
 /datum/instrument/guitar/muted_crisis
@@ -40,7 +40,7 @@
 		"36"='sound/instruments/synthesis_samples/guitar/crisis_muted/c2.ogg',
 		"48"='sound/instruments/synthesis_samples/guitar/crisis_muted/c3.ogg',
 		"60"='sound/instruments/synthesis_samples/guitar/crisis_muted/c4.ogg',
-		"72"='sound/instruments/synthesis_samples/guitar/crisis_muted/c5.ogg'
+		"72"='sound/instruments/synthesis_samples/guitar/crisis_muted/c5.ogg',
 	)
 
 // A synth version of legacy for efficiency. Better for crowded scores.
@@ -51,7 +51,7 @@
 		"36"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn3.ogg',
 		"48"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn4.ogg',
 		"60"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn5.ogg',
-		"72"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn6.ogg'
+		"72"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn6.ogg',
 	)
 
 /datum/instrument/guitar/pgm_clean
@@ -62,5 +62,5 @@
 		"48"='sound/instruments/synthesis_samples/guitar/pgm_clean/c4.ogg',
 		"60"='sound/instruments/synthesis_samples/guitar/pgm_clean/c5.ogg',
 		"72"='sound/instruments/synthesis_samples/guitar/pgm_clean/c6.ogg',
-		"84"='sound/instruments/synthesis_samples/guitar/pgm_clean/c7.ogg'
+		"84"='sound/instruments/synthesis_samples/guitar/pgm_clean/c7.ogg',
 	)

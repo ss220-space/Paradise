@@ -59,11 +59,12 @@
 	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
-					/obj/item/stack/sheet/plasteel = 10,
-					/obj/item/stack/sheet/plasmaglass = 4,
-					/obj/item/stock_parts/capacitor/quadratic = 5,
-					/obj/item/stock_parts/micro_laser/quadultra = 10,
-					/obj/item/stack/sheet/mineral/diamond = 2)
+		/obj/item/stack/sheet/plasteel = 10,
+		/obj/item/stack/sheet/plasmaglass = 4,
+		/obj/item/stock_parts/capacitor/quadratic = 5,
+		/obj/item/stock_parts/micro_laser/quadultra = 10,
+		/obj/item/stack/sheet/mineral/diamond = 2,
+	)
 
 /obj/item/circuitboard/machine/bfl_receiver
 	board_name = "BFL Receiver"
@@ -71,9 +72,10 @@
 	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
-					/obj/item/stack/sheet/metal = 20,
-					/obj/item/stack/sheet/plasteel = 10,
-					/obj/item/stack/sheet/plasmaglass = 20)
+		/obj/item/stack/sheet/metal = 20,
+		/obj/item/stack/sheet/plasteel = 10,
+		/obj/item/stack/sheet/plasmaglass = 20,
+	)
 
 ///////////
 //Emitter//
@@ -269,14 +271,6 @@
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
 	desc = "Кнопка активации выглядит подозрительно. Возможно, следует открыть шахту вручную с помощью лома."
-	ru_names = list(
-		NOMINATIVE = "приёмник BFL",
-		GENITIVE = "приёмника BFL",
-		DATIVE = "приёмнику BFL",
-		ACCUSATIVE = "приёмник BFL",
-		INSTRUMENTAL = "приёмником BFL",
-		PREPOSITIONAL = "приёмнике BFL"
-	)
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
@@ -300,6 +294,15 @@
 	///Used for storing last icon update for receiver lights on borders of receiver
 	var/last_light_state_number = 0
 
+/obj/machinery/bfl_receiver/get_ru_names()
+	return list(
+		NOMINATIVE = "приёмник BFL",
+		GENITIVE = "приёмника BFL",
+		DATIVE = "приёмнику BFL",
+		ACCUSATIVE = "приёмник BFL",
+		INSTRUMENTAL = "приёмником BFL",
+		PREPOSITIONAL = "приёмнике BFL",
+	)
 
 /obj/machinery/bfl_receiver/Initialize(mapload)
 	. = ..()
@@ -449,14 +452,6 @@
 /obj/machinery/bfl_lens
 	name = "High-precision lens"
 	desc = "Чрезвычайно хрупкая, обращайтесь осторожно."
-	ru_names = list(
-		NOMINATIVE = "высокоточная линза",
-		GENITIVE = "высокоточной линзы",
-		DATIVE = "высокоточной линзе",
-		ACCUSATIVE = "высокоточную линзу",
-		INSTRUMENTAL = "высокоточной линзой",
-		PREPOSITIONAL = "высокоточной линзе"
-	)
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Lens_Pull"
 	max_integrity = 40
@@ -465,6 +460,16 @@
 
 	var/step_count = 0
 	var/state = FALSE
+
+/obj/machinery/bfl_lens/get_ru_names()
+	return list(
+		NOMINATIVE = "высокоточная линза",
+		GENITIVE = "высокоточной линзы",
+		DATIVE = "высокоточной линзе",
+		ACCUSATIVE = "высокоточную линзу",
+		INSTRUMENTAL = "высокоточной линзой",
+		PREPOSITIONAL = "высокоточной линзе",
+	)
 
 /obj/machinery/bfl_lens/update_icon_state()
 	if(state)
@@ -607,16 +612,18 @@
 /obj/effect/bfl_laser
 	name = "big laser beam"
 	desc = "Огромный сияющий луч, бьющий сверху вниз. Лучше не касаться."
-	ru_names = list(
+	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
+	icon_state = "laser"
+
+/obj/effect/bfl_laser/get_ru_names()
+	return list(
 		NOMINATIVE = "луч мегалазера",
 		GENITIVE = "луча мегалазера",
 		DATIVE = "лучу мегалазера",
 		ACCUSATIVE = "луч мегалазера",
 		INSTRUMENTAL = "лучом мегалазера",
-		PREPOSITIONAL = "луче мегалазера"
+		PREPOSITIONAL = "луче мегалазера",
 	)
-	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
-	icon_state = "laser"
 
 /obj/effect/bfl_laser/Initialize(mapload)
 	. = ..()

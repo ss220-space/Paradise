@@ -6,9 +6,9 @@
 	map_path = "_maps/map_files/celestation/celestation.dmm"
 	lavaland_path = "_maps/map_files/celestation/Lavaland.dmm"
 	traits = list(
-	list(MAIN_STATION, STATION_LEVEL = "Basement Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP),
-	list(STATION_LEVEL = "Main Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace),
-	list(STATION_LEVEL = "Second Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace)
+		list(MAIN_STATION, STATION_LEVEL = "Basement Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP),
+		list(STATION_LEVEL = "Main Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace),
+		list(STATION_LEVEL = "Second Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace),
 	)
 	space_ruins_levels = 0
 	station_name = "ИСН Селестион"

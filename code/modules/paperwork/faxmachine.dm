@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		DATIVE = "факсу",
 		ACCUSATIVE = "факс",
 		INSTRUMENTAL = "факсом",
-		PREPOSITIONAL = "факсе"
+		PREPOSITIONAL = "факсе",
 	)
 
 /obj/machinery/photocopier/faxmachine/New()

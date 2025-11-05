@@ -17,7 +17,7 @@
 		DATIVE = "автоимплантеру",
 		ACCUSATIVE = "автоимплантер",
 		INSTRUMENTAL = "автоимплантером",
-		PREPOSITIONAL = "автоимплантере"
+		PREPOSITIONAL = "автоимплантере",
 	)
 
 /obj/item/autoimplanter/old
@@ -49,7 +49,7 @@
 
 	storedorgan.insert(user, ORGAN_MANIPULATION_TRANSPLANTATE)//insert stored organ into the user
 	user.visible_message(
-		span_notice("[user] активиру[PLUR_ET_UT(user)] автоимплантер и вы слышите недолгий механический шум."),
+		span_notice("[user] активиру[PLUR_ET_YUT(user)] автоимплантер и вы слышите недолгий механический шум."),
 		span_notice("Вы чувствуете острое жжение, когда автоимплантер приступает к работе."),
 	)
 	playsound(get_turf(user), usesound, 50, TRUE)
@@ -154,7 +154,7 @@
 		DATIVE = "автоимплантеру с охранным ИЛС",
 		ACCUSATIVE = "автоимплантер с охранным ИЛС",
 		INSTRUMENTAL = "автоимплантером с охранным ИЛС",
-		PREPOSITIONAL = "автоимплантере с охранным ИЛС"
+		PREPOSITIONAL = "автоимплантере с охранным ИЛС",
 	)
 
 /obj/item/autoimplanter/oneuse/med_hud
@@ -170,7 +170,7 @@
 		DATIVE = "автоимплантеру с медицинским ИЛС",
 		ACCUSATIVE = "автоимплантер с медицинским ИЛС",
 		INSTRUMENTAL = "автоимплантером с медицинским ИЛС",
-		PREPOSITIONAL = "автоимплантере с медицинским ИЛС"
+		PREPOSITIONAL = "автоимплантере с медицинским ИЛС",
 	)
 
 /obj/item/autoimplanter/oneuse/diagnostic_hud
@@ -186,7 +186,7 @@
 		DATIVE = "автоимплантеру с диагностическим ИЛС",
 		ACCUSATIVE = "автоимплантер с диагностическим ИЛС",
 		INSTRUMENTAL = "автоимплантером с диагностическим ИЛС",
-		PREPOSITIONAL = "автоимплантере с диагностическим ИЛС"
+		PREPOSITIONAL = "автоимплантере с диагностическим ИЛС",
 	)
 
 /obj/item/autoimplanter/oneuse/meson_eyes
@@ -202,7 +202,7 @@
 		DATIVE = "автоимплантеру с мезонным ИЛС",
 		ACCUSATIVE = "автоимплантер с мезонным ИЛС",
 		INSTRUMENTAL = "автоимплантером с мезонным ИЛС",
-		PREPOSITIONAL = "автоимплантере с мезонным ИЛС"
+		PREPOSITIONAL = "автоимплантере с мезонным ИЛС",
 	)
 
 

@@ -30,7 +30,7 @@
 		DATIVE = "демону резни",
 		ACCUSATIVE = "демона резни",
 		INSTRUMENTAL = "демоном резни",
-		PREPOSITIONAL = "демоне резни"
+		PREPOSITIONAL = "демоне резни",
 	)
 
 /mob/living/simple_animal/demon/slaughter/Initialize(mapload)
@@ -92,7 +92,7 @@
 		DATIVE = "кровавому месиву",
 		ACCUSATIVE = "кровавое месиво",
 		INSTRUMENTAL = "кровавым месивом",
-		PREPOSITIONAL = "кровавом месиве"
+		PREPOSITIONAL = "кровавом месиве",
 	)
 
 /mob/living/simple_animal/demon/slaughter/proc/release_consumed(mob/living/consumed)
@@ -122,7 +122,7 @@
 		DATIVE = "вестнику резни",
 		ACCUSATIVE = "вестника резни",
 		INSTRUMENTAL = "вестником резни",
-		PREPOSITIONAL = "вестнике резни"
+		PREPOSITIONAL = "вестнике резни",
 	)
 
 /mob/living/simple_animal/demon/slaughter/cult/attempt_objectives()
@@ -272,7 +272,7 @@
 		DATIVE = "демону смеха",
 		ACCUSATIVE = "демона смеха",
 		INSTRUMENTAL = "демоном смеха",
-		PREPOSITIONAL = "демоне смеха"
+		PREPOSITIONAL = "демоне смеха",
 	)
 
 

@@ -301,7 +301,7 @@ BODY SCANNERS
 		DATIVE = "анализатору здоровья",
 		ACCUSATIVE = "анализатор здоровья",
 		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
+		PREPOSITIONAL = "анализаторе здоровья",
 	)
 
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -560,7 +560,7 @@ BODY SCANNERS
 
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message(
-			span_warning("[user] анализиру[PLUR_ET_UT(user)] жизненные показатели пола!"),
+			span_warning("[user] анализиру[PLUR_ET_YUT(user)] жизненные показатели пола!"),
 			span_notice("Вы по глупости проанализировали жизненные показатели пола!")
 		)
 		var/list/data = list()
@@ -597,12 +597,12 @@ BODY SCANNERS
 
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] сканиру[PLUR_ET_UT(user)] себя с помощью [declent_ru(GENITIVE)]."),
+			span_notice("[user] сканиру[PLUR_ET_YUT(user)] себя с помощью [declent_ru(GENITIVE)]."),
 			span_notice("Вы сканируете себя с помощью [declent_ru(GENITIVE)].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] сканиру[PLUR_ET_UT(user)] [target] с помощью [declent_ru(GENITIVE)]."),
+			span_notice("[user] сканиру[PLUR_ET_YUT(user)] [target] с помощью [declent_ru(GENITIVE)]."),
 			span_notice("Вы сканируете [target] с помощью [declent_ru(GENITIVE)].")
 		)
 	var/mob/living/carbon/human/H = target
@@ -1057,7 +1057,7 @@ BODY SCANNERS
 		DATIVE = "модулю улучшения анализатора здоровья",
 		ACCUSATIVE = "модуль улучшения анализатора здоровья",
 		INSTRUMENTAL = "модулем улучшения анализатора здоровья",
-		PREPOSITIONAL = "модуле улучшения анализатора здоровья"
+		PREPOSITIONAL = "модуле улучшения анализатора здоровья",
 	)
 
 /obj/item/healthanalyzer/gem_analyzer
@@ -1074,7 +1074,7 @@ BODY SCANNERS
 		DATIVE = "глазу здоровья",
 		ACCUSATIVE = "глаз здоровья",
 		INSTRUMENTAL = "глазом здоровья",
-		PREPOSITIONAL = "глазе здоровья"
+		PREPOSITIONAL = "глазе здоровья",
 	)
 
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)

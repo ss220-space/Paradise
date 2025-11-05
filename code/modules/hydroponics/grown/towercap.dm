@@ -173,7 +173,7 @@
 		DATIVE = "костру",
 		ACCUSATIVE = "костёр",
 		INSTRUMENTAL = "костром",
-		PREPOSITIONAL = "костре"
+		PREPOSITIONAL = "костре",
 	)
 
 /obj/structure/bonfire/dense
@@ -218,7 +218,7 @@
 			to_chat(user, span_warning("Для этого вам потребуется как минимум один стержень."))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] устанавлива[PLUR_ET_UT(user)] центральный стержень внутри [declent_ru(GENITIVE)]."),
+			span_notice("[user] устанавлива[PLUR_ET_YUT(user)] центральный стержень внутри [declent_ru(GENITIVE)]."),
 			span_notice("Вы установили металлический стержень внутри [declent_ru(GENITIVE)]."),
 		)
 		rod_installed = TRUE

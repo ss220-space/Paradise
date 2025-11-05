@@ -42,10 +42,12 @@
 	loot_drop = /obj/item/clothing/accessory/necklace/herald_cloak
 	tts_seed = "Abathur"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/herald_trishot,
-								/datum/action/innate/elite_attack/herald_directionalshot,
-								/datum/action/innate/elite_attack/herald_teleshot,
-								/datum/action/innate/elite_attack/herald_mirror)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/herald_trishot,
+		/datum/action/innate/elite_attack/herald_directionalshot,
+		/datum/action/innate/elite_attack/herald_teleshot,
+		/datum/action/innate/elite_attack/herald_mirror,
+	)
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/my_mirror = null
 	var/is_mirror = FALSE
@@ -57,7 +59,7 @@
 		DATIVE = "вестнику",
 		ACCUSATIVE = "вестника",
 		INSTRUMENTAL = "вестником",
-		PREPOSITIONAL = "вестнике"
+		PREPOSITIONAL = "вестнике",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/death(gibbed)
@@ -230,7 +232,7 @@
 		DATIVE = "зеркалу вестника",
 		ACCUSATIVE = "зеркало вестника",
 		INSTRUMENTAL = "зеркалом вестника",
-		PREPOSITIONAL = "зеркале вестника"
+		PREPOSITIONAL = "зеркале вестника",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize(mapload)
@@ -257,7 +259,7 @@
 		DATIVE = "смертоносному заряду",
 		ACCUSATIVE = "смертоносный заряд",
 		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде"
+		PREPOSITIONAL = "смертоносном заряде",
 	)
 
 /obj/projectile/herald/teleshot
@@ -272,7 +274,7 @@
 		DATIVE = "золотому заряду",
 		ACCUSATIVE = "золотой заряд",
 		INSTRUMENTAL = "золотым зарядом",
-		PREPOSITIONAL = "золотом заряде"
+		PREPOSITIONAL = "золотом заряде",
 	)
 
 /obj/projectile/herald/prehit(atom/target)
@@ -316,7 +318,7 @@
 		DATIVE = "плащу пророка",
 		ACCUSATIVE = "плащ пророка",
 		INSTRUMENTAL = "плащом пророка",
-		PREPOSITIONAL = "плаще пророка"
+		PREPOSITIONAL = "плаще пророка",
 	)
 
 /obj/item/clothing/accessory/necklace/herald_cloak/attack_self()
@@ -359,14 +361,14 @@
 	var/obj/chosen = mirrors_to_use[input_mirror]
 	if(chosen == null)
 		return
-	usr.visible_message(span_warning("[usr] начина[PLUR_ET_UT(usr)] пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
+	usr.visible_message(span_warning("[usr] начина[PLUR_ET_YUT(usr)] пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 	if(do_after(usr, 2 SECONDS, usr))
 		var/turf/destination = get_turf(chosen)
 		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return
-		usr.visible_message(span_warning("[usr] пролеза[PLUR_ET_UT(usr)] в [starting_mirror.declent_ru(ACCUSATIVE)], и исчеза[PLUR_ET_UT(usr)] в нём!"), span_notice("Вы пролезаете в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
+		usr.visible_message(span_warning("[usr] пролеза[PLUR_ET_YUT(usr)] в [starting_mirror.declent_ru(ACCUSATIVE)], и исчеза[PLUR_ET_YUT(usr)] в нём!"), span_notice("Вы пролезаете в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 		usr.forceMove(destination)
-		usr.visible_message(span_warning("[usr] вылеза[PLUR_ET_UT(usr)] из [chosen.declent_ru(ACCUSATIVE)], разбивая его!"), span_warning("Вы вылезаете из собственного отражения, разбивая зеркало!"))
+		usr.visible_message(span_warning("[usr] вылеза[PLUR_ET_YUT(usr)] из [chosen.declent_ru(ACCUSATIVE)], разбивая его!"), span_warning("Вы вылезаете из собственного отражения, разбивая зеркало!"))
 		if(istype(chosen, /obj/structure/mirror))
 			var/obj/structure/mirror/M = chosen
 			M.obj_break("brute")

@@ -59,7 +59,7 @@
 		DATIVE = "кровавому пути",
 		ACCUSATIVE = "кровавый путь",
 		INSTRUMENTAL = "кровавым путём",
-		PREPOSITIONAL = "кровавом пути"
+		PREPOSITIONAL = "кровавом пути",
 	)
 
 /obj/item/bloodcrawl/Initialize(mapload)
@@ -80,7 +80,7 @@
 		DATIVE = "странной крови",
 		ACCUSATIVE = "странную кровь",
 		INSTRUMENTAL = "странной кровью",
-		PREPOSITIONAL = "странной крови"
+		PREPOSITIONAL = "странной крови",
 	)
 
 /obj/effect/dummy/slaughter/relaymove(mob/user, direction)
@@ -127,7 +127,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/sink_animation(atom/enter_point, mob/living/user)
 	var/turf/mob_loc = get_turf(user)
-	visible_message(span_danger("[user] погружа[PLUR_ET_UT(user)]ся в [enter_point.declent_ru(ACCUSATIVE)]."))
+	visible_message(span_danger("[user] погружа[PLUR_ET_YUT(user)]ся в [enter_point.declent_ru(ACCUSATIVE)]."))
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, user.dir, "jaunt")
 
@@ -140,13 +140,13 @@
 		return
 
 	if(victim.stat == CONSCIOUS)
-		enter_point.visible_message(span_warning("[victim] вырыва[PLUR_ET_UT(victim)]ся из [enter_point.declent_ru(GENITIVE)] в последний момент!"))
+		enter_point.visible_message(span_warning("[victim] вырыва[PLUR_ET_YUT(victim)]ся из [enter_point.declent_ru(GENITIVE)] в последний момент!"))
 		user.stop_pulling()
 		return
 
 	victim.emote("scream")
 	victim.forceMove(holder)
-	enter_point.visible_message(span_warning("<b>[user] затягива[PLUR_ET_UT(user)] [victim] в [enter_point.declent_ru(ACCUSATIVE)]!</b>"))
+	enter_point.visible_message(span_warning("<b>[user] затягива[PLUR_ET_YUT(user)] [victim] в [enter_point.declent_ru(ACCUSATIVE)]!</b>"))
 	if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
 		to_chat(user, "<b>Вы хватаете [victim.declent_ru(ACCUSATIVE)] и начинаете безжалостную щекотку! Вы не можете двигаться, пока делаете это.</b>")
 		enter_point.visible_message(span_clown("<b>Из крови доносятся крики и дикий хохот...</b>"))

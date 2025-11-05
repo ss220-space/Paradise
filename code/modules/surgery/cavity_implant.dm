@@ -14,7 +14,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -34,7 +34,7 @@
 		/datum/surgery_step/cavity/make_space,
 		/datum/surgery_step/proxy/cavity_manipulation,
 		/datum/surgery_step/cavity/close_space,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
@@ -55,7 +55,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	target_speciestypes = list(/datum/species/kidan, /datum/species/wryn)
 	restricted_speciestypes = null
@@ -79,7 +79,7 @@
 		/datum/surgery_step/cavity/close_space,
 		/datum/surgery_step/open_encased/close,
 		/datum/surgery_step/glue_bone/plasma,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -98,7 +98,7 @@
 		/datum/surgery_step/cavity/make_space,
 		/datum/surgery_step/proxy/cavity_manipulation,
 		/datum/surgery_step/cavity/close_space,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
 
@@ -110,7 +110,7 @@
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/proxy/cavity_manipulation/robotic,
 		/datum/surgery_step/cavity/close_space,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -123,7 +123,7 @@
 	branches = list(
 		/datum/surgery/intermediate/open_cavity/implant,
 		/datum/surgery/intermediate/open_cavity/extract,
-		/datum/surgery/intermediate/bleeding
+		/datum/surgery/intermediate/bleeding,
 	)
 
 
@@ -131,7 +131,7 @@
 	name = "Полостная манипуляция (Синтетик) – прокси"
 	branches = list(
 		/datum/surgery/intermediate/open_cavity/implant/robotic,
-		/datum/surgery/intermediate/open_cavity/extract/robotic
+		/datum/surgery/intermediate/open_cavity/extract/robotic,
 	)
 
 /datum/surgery/intermediate/open_cavity
@@ -140,13 +140,13 @@
 /datum/surgery/intermediate/open_cavity/implant
 	name = "имплантировать объект"
 	steps = list(
-		/datum/surgery_step/cavity/place_item
+		/datum/surgery_step/cavity/place_item,
 	)
 
 /datum/surgery/intermediate/open_cavity/extract
 	name = "извлечь объект"
 	steps = list(
-		/datum/surgery_step/cavity/remove_item
+		/datum/surgery_step/cavity/remove_item,
 	)
 
 /datum/surgery/intermediate/open_cavity/implant/robotic
@@ -190,7 +190,7 @@
 /datum/surgery_step/cavity/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[PLUR_ET_UT(user)] рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		span_warning("Вы дёргаете рукой, со всей силы засовывая [tool.declent_ru(ACCUSATIVE)] глубоко в рану на [affected.declent_ru(PREPOSITIONAL)] [target]!")
 	)
 	target.apply_damage(20, def_zone = affected)
@@ -203,7 +203,7 @@
 		TOOL_DRILL = 100,
 		/obj/item/screwdriver/power = 90,
 		/obj/item/pen = 90,
-		/obj/item/stack/rods = 60
+		/obj/item/stack/rods = 60,
 	)
 
 	time = 5.4 SECONDS
@@ -211,7 +211,7 @@
 /datum/surgery_step/cavity/make_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] создавать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] создавать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете создавать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	target.custom_pain("Вы чувствуете острую боль в [affected.declent_ru(PREPOSITIONAL)]!")
@@ -220,7 +220,7 @@
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] созда[PLUR_YOT_UT(user)] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] созда[PLUR_YOT_YUT(user)] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы создаёте [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 
@@ -235,7 +235,7 @@
 		TOOL_CAUTERY = 100,
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
-		TOOL_WELDER = 30
+		TOOL_WELDER = 30,
 	)
 
 	time = 2.4 SECONDS
@@ -243,7 +243,7 @@
 /datum/surgery_step/cavity/close_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] закрывать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] закрывать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете закрывать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	target.custom_pain("Вы чувствуете жгучую боль в [affected.declent_ru(PREPOSITIONAL)]!")
@@ -252,7 +252,7 @@
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] закрыва[PLUR_ET_UT(user)] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] закрыва[PLUR_ET_YUT(user)] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы закрываете [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 
@@ -269,7 +269,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	// Check even if there isn't anything inside
 	user.visible_message(
-		span_notice("[user] проверя[PLUR_ET_UT(user)] полость в [affected.declent_ru(GENITIVE)] [target] на наличие чужеродных объектов."),
+		span_notice("[user] проверя[PLUR_ET_YUT(user)] полость в [affected.declent_ru(GENITIVE)] [target] на наличие чужеродных объектов."),
 		span_notice("Вы проверяете полость в [affected.declent_ru(GENITIVE)] [target] на наличие чужеродных объектов.")
 	)
 	return ..()
@@ -290,7 +290,7 @@
 		to_chat(user, span_warning("Вы ничего не находите в [affected.declent_ru(GENITIVE)] [target]."))
 		return SURGERY_STEP_CONTINUE
 	user.visible_message(
-		span_notice("[user] доста[PLUR_YOT_UT(user)] [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target]!"),
+		span_notice("[user] доста[PLUR_YOT_YUT(user)] [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target]!"),
 		span_notice("Вы достаёте [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target]!")
 	)
 	user.put_in_hands(extracting, ignore_anim = FALSE)
@@ -300,7 +300,7 @@
 /datum/surgery_step/cavity/remove_item/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] по ошибке хвата[PLUR_ET_UT(user)]ся рукой за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], нанося серьёзные повреждения!"),
+		span_warning("[user] по ошибке хвата[PLUR_ET_YUT(user)]ся рукой за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], нанося серьёзные повреждения!"),
 		span_warning("Вы по ошибке хватаетесь рукой за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], нанося серьёзные повреждения!")
 	)
 	target.apply_damage(rand(3,7), def_zone = affected)
@@ -350,7 +350,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."),
 		span_notice("Вы начинаете помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target].")
 	)
 	target.custom_pain("Вы чувствуете сильную боль в [affected.declent_ru(GENITIVE)]!")
@@ -363,12 +363,12 @@
 		return SURGERY_STEP_CONTINUE
 
 	user.visible_message(
-		span_notice("[user] помеща[PLUR_ET_UT(user)] [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."),
+		span_notice("[user] помеща[PLUR_ET_YUT(user)] [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."),
 		span_notice("Вы помещаете [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target].")
 	)
 	if((tool.w_class > get_max_wclass(affected) / 2 && prob(50) && !affected.is_robotic()))
 		user.visible_message(
-			span_warning("[user] разрыва[PLUR_ET_UT(user)] кровеносные сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], пытаясь засунуть [tool.declent_ru(ACCUSATIVE)] в полость!"),
+			span_warning("[user] разрыва[PLUR_ET_YUT(user)] кровеносные сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], пытаясь засунуть [tool.declent_ru(ACCUSATIVE)] в полость!"),
 			span_danger("Вы разрываете кровеносные сосуды в [affected.declent_ru(PREPOSITIONAL)] [target], пытаясь засунуть [tool.declent_ru(ACCUSATIVE)] в полость!"),
 			span_warning("Вы слышите тихий звук, напоминающий разрыв чего-то."))
 		affected.internal_bleeding()

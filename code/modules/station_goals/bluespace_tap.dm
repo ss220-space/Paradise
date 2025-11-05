@@ -56,8 +56,9 @@
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
-							/obj/item/stock_parts/capacitor/quadratic = 5,//Probably okay, right?
-							/obj/item/stack/ore/bluespace_crystal = 5)
+		/obj/item/stock_parts/capacitor/quadratic = 5, //Probably okay, right?
+		/obj/item/stack/ore/bluespace_crystal = 5,
+	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap
 	name = "bluespace harvester reward spawner"
@@ -65,27 +66,27 @@
 /obj/effect/spawner/lootdrop/bluespace_tap/hat
 	name = "exotic hat"
 	loot = list(
-			/obj/item/clothing/head/collectable/chef,	//same weighing on all of them
-			/obj/item/clothing/head/collectable/paper,
-			/obj/item/clothing/head/collectable/tophat,
-			/obj/item/clothing/head/collectable/captain,
-			/obj/item/clothing/head/collectable/beret,
-			/obj/item/clothing/head/collectable/welding,
-			/obj/item/clothing/head/collectable/flatcap,
-			/obj/item/clothing/head/collectable/pirate,
-			/obj/item/clothing/head/collectable/kitty,
-			/obj/item/clothing/head/crown/fancy,
-			/obj/item/clothing/head/collectable/rabbitears,
-			/obj/item/clothing/head/collectable/wizard,
-			/obj/item/clothing/head/collectable/hardhat,
-			/obj/item/clothing/head/collectable/HoS,
-			/obj/item/clothing/head/collectable/thunderdome,
-			/obj/item/clothing/head/collectable/swat,
-			/obj/item/clothing/head/collectable/slime,
-			/obj/item/clothing/head/collectable/police,
-			/obj/item/clothing/head/collectable/slime,
-			/obj/item/clothing/head/collectable/xenom,
-			/obj/item/clothing/head/collectable/petehat
+		/obj/item/clothing/head/collectable/chef,	//same weighing on all of them
+		/obj/item/clothing/head/collectable/paper,
+		/obj/item/clothing/head/collectable/tophat,
+		/obj/item/clothing/head/collectable/captain,
+		/obj/item/clothing/head/collectable/beret,
+		/obj/item/clothing/head/collectable/welding,
+		/obj/item/clothing/head/collectable/flatcap,
+		/obj/item/clothing/head/collectable/pirate,
+		/obj/item/clothing/head/collectable/kitty,
+		/obj/item/clothing/head/crown/fancy,
+		/obj/item/clothing/head/collectable/rabbitears,
+		/obj/item/clothing/head/collectable/wizard,
+		/obj/item/clothing/head/collectable/hardhat,
+		/obj/item/clothing/head/collectable/HoS,
+		/obj/item/clothing/head/collectable/thunderdome,
+		/obj/item/clothing/head/collectable/swat,
+		/obj/item/clothing/head/collectable/slime,
+		/obj/item/clothing/head/collectable/police,
+		/obj/item/clothing/head/collectable/slime,
+		/obj/item/clothing/head/collectable/xenom,
+		/obj/item/clothing/head/collectable/petehat,
 	)
 
 
@@ -124,7 +125,7 @@
 		/obj/item/bedsheet/wiz = 2,
 		/obj/item/stack/sheet/mineral/tranquillite/fifty = 3,
 		/obj/item/clothing/gloves/combat = 5,
-		/obj/item/melee/bigiron = 5
+		/obj/item/melee/bigiron = 5,
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
@@ -161,7 +162,7 @@
 		/obj/item/storage/box/monkeycubes = 5,
 		/obj/item/stack/tile/carpet/twenty = 10,
 		/obj/item/stack/tile/carpet/black/twenty = 10,
-		/obj/item/soap/deluxe = 5
+		/obj/item/soap/deluxe = 5,
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/food
@@ -186,7 +187,7 @@
 		/obj/item/reagent_containers/food/snacks/fishandchips,
 		/obj/item/reagent_containers/food/snacks/meatpie,
 		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
-		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno //maybe add some dangerous/special food here, ie robobuger?
+		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno, //maybe add some dangerous/special food here, ie robobuger?
 	)
 
 #define kW *1000
@@ -204,14 +205,6 @@
  */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
-	ru_names = list(
-		NOMINATIVE = "блюспейс сборщик",
-		GENITIVE = "блюспейс сборщика",
-		DATIVE = "блюспейс сборщику",
-		ACCUSATIVE = "блюспейс сборщик",
-		INSTRUMENTAL = "блюспейс сборщиком",
-		PREPOSITIONAL = "блюспейс сборщике"
-	)
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward
 	max_integrity = 300
@@ -259,6 +252,15 @@
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
 
+/obj/machinery/power/bluespace_tap/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс сборщик",
+		GENITIVE = "блюспейс сборщика",
+		DATIVE = "блюспейс сборщику",
+		ACCUSATIVE = "блюспейс сборщик",
+		INSTRUMENTAL = "блюспейс сборщиком",
+		PREPOSITIONAL = "блюспейс сборщике",
+	)
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
@@ -457,7 +459,7 @@
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message(span_warning("[user] переписыва[PLUR_ET_UT(user)] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
+		user.visible_message(span_warning("[user] переписыва[PLUR_ET_YUT(user)] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

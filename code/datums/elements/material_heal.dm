@@ -220,7 +220,7 @@
 /datum/element/material_heal/proc/self_stack_heal(obj/item/stack/item, obj/item/organ/external/bodypart, mob/living/user, params)
 	user.balloon_alert(user, "лечение...")
 	user.visible_message(
-		span_notice("[user] начина[PLUR_ET_UT(user)] лечить свои раны на [GEND_HIS_HER(user)] [bodypart.declent_ru(PREPOSITIONAL)], используя [item.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[PLUR_ET_YUT(user)] лечить свои раны на [GEND_HIS_HER(user)] [bodypart.declent_ru(PREPOSITIONAL)], используя [item.declent_ru(ACCUSATIVE)]."),
 		ignored_mobs = user
 	)
 
@@ -237,10 +237,10 @@
  */
 /datum/element/material_heal/proc/heal_message(mob/living/carbon/target, mob/living/user, obj/item/organ/external/bodypart, obj/item/item)
 	if(user == target)
-		user.visible_message(span_green("[user] залечива[PLUR_ET_UT(user)] раны на [GEND_HIS_HER(target)] [bodypart.declent_ru(PREPOSITIONAL)], используя [item.declent_ru(ACCUSATIVE)]."), \
+		user.visible_message(span_green("[user] залечива[PLUR_ET_YUT(user)] раны на [GEND_HIS_HER(target)] [bodypart.declent_ru(PREPOSITIONAL)], используя [item.declent_ru(ACCUSATIVE)]."), \
 							ignored_mobs = user)
 	else
-		user.visible_message(span_green("[user] залечива[PLUR_ET_UT(user)] раны [target] на [GEND_HIS_HER(target)] [bodypart.declent_ru(PREPOSITIONAL)], используя [item.declent_ru(ACCUSATIVE)]."), \
+		user.visible_message(span_green("[user] залечива[PLUR_ET_YUT(user)] раны [target] на [GEND_HIS_HER(target)] [bodypart.declent_ru(PREPOSITIONAL)], используя [item.declent_ru(ACCUSATIVE)]."), \
 							ignored_mobs = user)
 
 /// Signal proc. Shows on self examine that we can get healed by certain materials

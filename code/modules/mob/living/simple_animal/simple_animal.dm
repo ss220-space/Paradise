@@ -705,7 +705,7 @@
 	if(user)
 		visible_message(
 			span_warning(span_notice("Вы надеваете [P.declent_ru(ACCUSATIVE)] на шею [src.declent_ru(GENITIVE)].")),
-			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[PLUR_ET_UT(user)] [P.declent_ru(ACCUSATIVE)] вам на шею [src.declent_ru(GENITIVE)]."))
+			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[PLUR_ET_YUT(user)] [P.declent_ru(ACCUSATIVE)] вам на шею [src.declent_ru(GENITIVE)]."))
 		)
 	if(P.tagname && !unique_pet)
 		name = P.tagname

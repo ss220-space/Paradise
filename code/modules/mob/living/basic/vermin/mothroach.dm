@@ -35,7 +35,7 @@
 		DATIVE = "мотыльку",
 		ACCUSATIVE = "мотылька",
 		INSTRUMENTAL = "мотыльком",
-		PREPOSITIONAL = "мотыльке"
+		PREPOSITIONAL = "мотыльке",
 	)
 
 /mob/living/basic/mothroach/Initialize(mapload)
