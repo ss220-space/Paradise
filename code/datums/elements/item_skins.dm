@@ -19,7 +19,7 @@
 		item_target.skins = null
 		return
 
-	RegisterSignal(target, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
+	RegisterSignal(target, COMSIG_CLICK_ALT, PROC_REF(check_altclicked), override = TRUE)
 	item_target.exists_skin_change = TRUE
 
 
