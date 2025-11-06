@@ -3,6 +3,7 @@
 	antag_menu_name = "Дрейфующий Контрактник"
 	show_in_roundend = TRUE
 	show_in_orbit = TRUE
+	midround_type = TRUE
 	var/our_outfit = /datum/outfit/admin/syndicate/drifting_contractor
 	give_objectives = TRUE
 
@@ -39,7 +40,7 @@
 	implants = list(/obj/item/implant/uplink/contractor, /obj/item/implant/explosive)
 	r_pocket = /obj/item/melee/baton/telescopic/contractor
 	l_pocket = /obj/item/pinpointer/crew/contractor
-
+	suit_store = /obj/item/tank/internals/emergency_oxygen/engi/syndi
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
 	internals_slot = ITEM_SLOT_SUITSTORE
 
