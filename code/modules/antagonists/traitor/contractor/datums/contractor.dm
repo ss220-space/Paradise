@@ -17,8 +17,6 @@
 	antag_menu_name = "Контрактник"
 	/// The associated contractor uplink. Only present if the offer was accepted.
 	var/obj/item/contractor_uplink/contractor_uplink = null
-	/// Is our contractor spawned from event?
-	var/midround_type = FALSE
 
 
 /datum/antagonist/contractor/Destroy(force)
@@ -30,8 +28,6 @@
 
 
 /datum/antagonist/contractor/add_antag_hud(mob/living/antag_mob)
-	if(midround_type)
-		antag_hud_name = "hudcontractor"
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		antag_hud_name = contractor_uplink ? "hudhijackcontractor" : "hudhijack"
 	else

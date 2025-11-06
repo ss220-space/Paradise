@@ -3,12 +3,18 @@
 	antag_menu_name = "Дрейфующий Контрактник"
 	show_in_roundend = TRUE
 	show_in_orbit = TRUE
-	midround_type = TRUE
 	var/our_outfit = /datum/outfit/admin/syndicate/drifting_contractor
 	give_objectives = TRUE
+	antag_hud_name = "hudcontractor"
 
 /datum/antagonist/contractor/drifting_contractor/give_objectives()
 	add_objective(/datum/objective/contractor_kidnap)
+
+/datum/antagonist/contractor/proc/become_contractor(mob/living/carbon/human/our_contractor)
+	var/obj/item/contractor_uplink/uplink = new
+	our_contractor.put_in_hands(uplink)
+	contractor_uplink = uplink
+	uplink.hub = new(src, contractor_uplink)
 
 /datum/antagonist/contractor/drifting_contractor/greet()
 	var/list/messages = list()
@@ -28,9 +34,10 @@
 		qdel(item)
 
 	human.equipOutfit(our_outfit)
+	become_contractor(human)
 
 /datum/outfit/admin/syndicate/drifting_contractor
-	name = "Syndicate Drifting Contractor (hardsuit)"
+	name = "Contractor"
 	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/space/hardsuit/contractor
 	mask = /obj/item/clothing/mask/gas/syndicate
@@ -48,17 +55,18 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/survival_syndi = 1,
-		/obj/item/paper/contractor_guide/midround = 1,
-		/obj/item/contractor_uplink = 1,
-		/obj/item/ammo_box/magazine/m10mm = 1,
+		/obj/item/paper/contractor_guide_midround = 1,
 		/obj/item/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,
 	)
 
 /obj/item/implant/uplink/contractor/get_uses_amount()
-	return 0
+	return 10
 
-/obj/item/paper/contractor_guide/midround/Initialize(mapload)
+/obj/item/paper/contractor_guide_midround
+	name = "Руководство для Контрактника"
+
+/obj/item/paper/contractor_guide_midround/Initialize(mapload)
 	info = {"<p>Внимание, агент, вы приближаетесь к намеченной нами станции.</p>
 			<p>Скорее всего вы имеете при себе МЭК Контрактника. Однако, если вы до сих пор используете старые ИКСы, то ничего страшного.
 			Оба устройства предоставляют вам технологию активной маскировки, позволяющую принимать внешний вид наиболее популярных на станции МЭКов и ИКСов соответственно.
