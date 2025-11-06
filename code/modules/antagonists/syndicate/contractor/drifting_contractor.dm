@@ -1,11 +1,7 @@
 /datum/antagonist/contractor/drifting_contractor
 	name = "Дрейфующий Контрактник"
 	antag_menu_name = "Дрейфующий Контрактник"
-	show_in_roundend = TRUE
-	show_in_orbit = TRUE
 	var/our_outfit = /datum/outfit/admin/syndicate/drifting_contractor
-	give_objectives = TRUE
-	antag_hud_name = "hudcontractor"
 
 /datum/antagonist/contractor/drifting_contractor/give_objectives()
 	add_objective(/datum/objective/contractor_kidnap)
