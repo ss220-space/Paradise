@@ -45,9 +45,9 @@
 	armor = list(melee = 25, bullet = 20, laser = 25, energy = 15, bomb = 20, bio = 0, rad = 0, fire = 70, acid = 60)
 	internal_damage_threshold = 30
 	deflect_chance = 25
-	force = 35
+	force = 20
 	mech_enter_time = 20
-	max_equip = 5
+	max_equip = 4
 	wreckage = null
 	ui_theme = "syndicate"
 
