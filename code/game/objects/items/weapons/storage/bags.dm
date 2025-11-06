@@ -570,7 +570,7 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/construction
 	name = "construction bag"
-	desc = "A bag for construction stuff."
+	desc = "Вместительная сумка, оснащённая множеством карманов и отделений для систематизации и переноски деталей."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "construction_bag"
 	storage_slots = 50
@@ -593,6 +593,16 @@
 		/obj/item/access_control,
 	)
 	resistance_flags = FLAMMABLE
+
+/obj/item/storage/bag/construction/get_ru_names()
+	return list(
+		NOMINATIVE = "строительная сумка",
+		GENITIVE = "строительной сумки",
+		DATIVE = "строительной сумке",
+		ACCUSATIVE = "строительную сумку",
+		INSTRUMENTAL = "строительной сумкой",
+		PREPOSITIONAL = "строительной сумке"
+	)
 
 ////////////////////////////////////////
 // MARK:	Tray
