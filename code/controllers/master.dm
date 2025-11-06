@@ -170,7 +170,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(isnull(ui))
-		ui = new /datum/tgui(user, src, "ControllerOverview")
+		ui = new(user, src, "ControllerOverview", "Controller Overview")
 		ui.open()
 		use_rolling_usage = TRUE
 
