@@ -1,12 +1,10 @@
 /datum/antagonist/contractor/drifting_contractor
 	name = "Дрейфующий Контрактник"
 	antag_menu_name = "Дрейфующий Контрактник"
-	greet_name = "Дрейфующий Контрактник"
 	show_in_roundend = TRUE
 	show_in_orbit = TRUE
-	race_equipment = list(
-		SPECIES_OTHER = /datum/outfit/admin/syndicate/drifting_contractor
-	)
+	var/our_outfit = /datum/outfit/admin/syndicate/drifting_contractor
+	give_objectives = TRUE
 
 /datum/antagonist/contractor/drifting_contractor/give_objectives()
 	add_objective(/datum/objective/contractor_kidnap)
@@ -17,6 +15,18 @@
 	messages.Add(span_notice("Вы прибыли на станцию для выполнения контрактов по похищению людей в обмен на репутацию, телекристаллы и, конечно же, деньги."))
 	messages.Add(span_notice("Вы в праве помогать другим агентам Синдиката, однако вашей первостепенной задачей является выполнение контрактов."))
 	return messages
+
+/datum/antagonist/contractor/drifting_contractor/proc/equip()
+	var/mob/living/carbon/human/human = owner.current
+	if(!istype(human))
+		return
+	if(!our_outfit)
+		return
+
+	for(var/obj/item/item in human.get_equipped_items(TRUE, TRUE))
+		qdel(item)
+
+	human.equipOutfit(our_outfit)
 
 /datum/outfit/admin/syndicate/drifting_contractor
 	name = "Syndicate Drifting Contractor (hardsuit)"
@@ -80,3 +90,20 @@
 	return ..()
 
 /datum/objective/contractor_kidnap
+	name = "Kidnap Targets"
+	explanation_text = "Выполните по меньшей мере три контракта в вашем апплинке."
+	needs_target = FALSE
+	var/needed_contracts = 3
+
+/datum/objective/contractor_kidnap/check_completion()
+	var/completed_contracts = null
+
+	for(var/datum/antagonist/contractor/antag_datum in owner.antag_datums)
+		completed_contracts = antag_datum?.contractor_uplink?.hub?.completed_contracts
+
+	if(isnull(completed_contracts))
+		return FALSE
+
+	if(completed_contracts >= needed_contracts)
+		return TRUE
+

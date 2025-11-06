@@ -1999,6 +1999,7 @@
 #include "code\modules\antagonists\space_ninja\suit\ninja_equipment_actions\ninja_suit_initialisation.dm"
 #include "code\modules\antagonists\space_ninja\suit\ninja_equipment_actions\ninja_sword_recall.dm"
 #include "code\modules\antagonists\survivalist\survivalist.dm"
+#include "code\modules\antagonists\syndicate\contractor\drifting_contractor.dm"
 #include "code\modules\antagonists\syndicate\nuclear\nuclear_challenge.dm"
 #include "code\modules\antagonists\syndicate\nuclear\nuclear_operative.dm"
 #include "code\modules\antagonists\syndicate\nuclear\nuclear_team.dm"
