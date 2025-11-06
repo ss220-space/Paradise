@@ -3,12 +3,10 @@
 
 /datum/event/drifting_contractor/start()
 	processing = 0
-	/*
 	var/list/check_list = GLOB.player_list - GLOB.new_player_mobs
 	if(length(check_list) < 20)
 		message_admins("[name] event failed to start. Not enough players.")
 		return
-	*/
 	if(!get_contractor())
 		message_admins("[name] event failed to find players. Retrying in 30s.")
 		addtimer(CALLBACK(src, PROC_REF(get_contractor)), 30 SECONDS)
