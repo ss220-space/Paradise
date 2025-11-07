@@ -330,7 +330,7 @@
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 
 	if(!recycler)
-		to_chat(owner, span_notice("Нет подключенного утилизатора мартышек. Используйте мультитул для привязки."))
+		to_chat(owner, span_notice("Нет подключенного утилизатора мартышек. Используйте мультиметр для привязки."))
 		return
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
@@ -532,7 +532,7 @@
 	var/area/mobarea = get_area(M.loc)
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 	if(!recycler)
-		to_chat(user, span_notice("Нет подключенного утилизатора мартышек. Используйте мультитул для связи."))
+		to_chat(user, span_notice("Нет подключенного утилизатора мартышек. Используйте мультиметр для связи."))
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(is_monkeybasic(M) && M.stat)

@@ -220,7 +220,7 @@
 	var/list/parts = list()
 	var/datum/objective/summon_carp/S = locate() in objectives
 	if(S.check_completion())
-		parts += span_redtext("<big>[name] - успех! Космические карпы вернули контроль над территорией расположения станции!</big>")
+		parts += span_redtext("<big>[name] — успех! Космические карпы вернули контроль над территорией расположения станции!</big>")
 	parts += printplayer(owner)
 	var/objectives_complete = TRUE
 	if(length(objectives))

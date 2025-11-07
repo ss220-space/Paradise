@@ -72,7 +72,7 @@
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
 	if(HAS_TRAIT(equipping, TRAIT_NODROP))
-		to_chat(user, span_warning("Вы не можете надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)] – предмет прилип к вашей руке!"))
+		to_chat(user, span_warning("Вы не можете надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)] — предмет прилип к вашей руке!"))
 		return FALSE
 
 	if(equipping.item_flags & ABSTRACT)

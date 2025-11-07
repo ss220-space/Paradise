@@ -444,7 +444,7 @@
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
 	if(on)
-		to_chat(user, span_userdanger("Вы активировали [name] - время для правосудия!"))
+		to_chat(user, span_userdanger("Вы активировали [name] — время для правосудия!"))
 	else
 		to_chat(user, span_notice("Вы деактивировали [name]."))
 

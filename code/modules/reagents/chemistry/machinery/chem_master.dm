@@ -251,7 +251,7 @@
 			else
 				P.info += "<b>Описание:</b> [R.description]"
 			P.info += "<br><br><b>Заметки:</b><br>"
-			P.name = "Химический анализ - [R.name]"
+			P.name = "Химический анализ — [R.name]"
 			spawn(50)
 				printing = FALSE
 

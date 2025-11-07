@@ -533,6 +533,31 @@
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(), 5)]"
 
+/obj/item/ammo_box/magazine/sparkle_a12
+	name = "Sparkle-A12 magazine (9mm)"
+	desc = "Магазин пистолет пулемета А9 \"Искра\", заряженный патронами калибра 9 мм."
+	icon_state = "sparkle_a12"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = CALIBER_9MM
+	max_ammo = 24
+
+/obj/item/ammo_box/magazine/sparkle_a12/empty
+	start_empty = TRUE
+
+/obj/item/ammo_box/magazine/sparkle_a12/get_ru_names()
+	return list(
+		NOMINATIVE = "магазин пистолет-пулемета А9 \"Искра\" (9 мм)",
+		GENITIVE = "магазина пистолет-пулемета А9 \"Искра\" (9 мм)",
+		DATIVE = "магазину пистолет-пулемета А9 \"Искра\" (9 мм)",
+		ACCUSATIVE = "магазин пистолет-пулемета А9 \"Искра\" (9 мм)",
+		INSTRUMENTAL = "магазином пистолет-пулемета А9 \"Искра\" (9 мм)",
+		PREPOSITIONAL = "магазине пистолет-пулемета А9 \"Искра\" (9 мм)"
+	)
+
+/obj/item/ammo_box/magazine/sparkle_a12/update_icon_state()
+	icon_state = "[initial(icon_state)][ammo_count() > 0 ? "" : "-e"]"
+
+
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
 	desc = "Магазин пистолет-пулемета \"UZI\", заряженный патронами калибра 9 мм."

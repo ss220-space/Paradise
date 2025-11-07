@@ -24,7 +24,7 @@
 	var/datum/contractor_pending/contractor_pending
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
-	var/antag_sound = "sound/ambience/antag/tatoralert.ogg"
+	var/antag_sound = 'sound/ambience/antag/tatoralert.ogg'
 
 
 /datum/antagonist/traitor/on_gain()

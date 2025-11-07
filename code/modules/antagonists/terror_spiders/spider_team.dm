@@ -292,7 +292,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		for(var/obj/structure/spider/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
 			if(!L.stillborn && is_station_level(L.z))
 				count_spiderlings += 1
-		. += "<table cellspacing='5'><tr><td>Растущие ПУ на станции: яйца - [count_eggs], спайдерлинги - [count_spiderlings], зараженные гуманоиды - [length(terror_infections)]. </td></tr></table>"
+		. += "<table cellspacing='5'><tr><td>Растущие ПУ на станции: яйца — [count_eggs], спайдерлинги — [count_spiderlings], зараженные гуманоиды — [length(terror_infections)]. </td></tr></table>"
 
 /datum/team/terror_spiders/admin_topic(comand)
 	if(comand == "delay_terror_end")

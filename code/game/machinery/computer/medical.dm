@@ -377,7 +377,7 @@
 					if(!length(answer) || !istype(active2) || !length(state.name))
 						return
 					active2.fields["comments"] += list(list(
-						header = "Создатель записи - [state.name] ([state.rank]). Запись создана [GLOB.current_date_string] [station_time_timestamp()].",
+						header = "Создатель записи — [state.name] ([state.rank]). Запись создана [GLOB.current_date_string] [station_time_timestamp()].",
 						text = answer
 					))
 				else
