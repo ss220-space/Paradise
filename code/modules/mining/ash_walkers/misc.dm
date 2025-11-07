@@ -156,7 +156,7 @@
 	)
 
 /obj/structure/fluff/ash_statue/Initialize(mapload)
-	name = "тотем - [special_name]"
+	name = "тотем — [special_name]"
 	GLOB.lavaland_points_of_interest += src
 	. = ..()
 

@@ -110,7 +110,7 @@
 		return FALSE
 	var/blocking_object = density_check(user)
 	if(blocking_object)
-		to_chat(user, span_warning("Вы не можете забраться на [declent_ru(ACCUSATIVE)] - путь блокирует [blocking_object]!"))
+		to_chat(user, span_warning("Вы не можете забраться на [declent_ru(ACCUSATIVE)] — путь блокирует [blocking_object]!"))
 		return FALSE
 
 	var/turf/T = src.loc

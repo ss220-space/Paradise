@@ -294,15 +294,11 @@ def check_html_tags_case(idx, line):
     if match := HTML_TAGS_UPPERCASE_RE.search(line):
         return [(idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase.")]
 
-HYPHEN_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) - (?=[а-яё])|(?<=[а-яё]) - \d+|\d+ - (?=[а-яё]))', re.IGNORECASE)
-EN_DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) – (?=[а-яё])|(?<=[а-яё]) – \d+|\d+ – (?=[а-яё]))', re.IGNORECASE)
+DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) [–-] (?=[а-яё])|(?<=[а-яё]) [–-] \d|\d [–-] (?=[а-яё])|(?<=[а-яё]) [–-] [\]\[]|[\]\[] [–-] (?=[а-яё]))', re.IGNORECASE)
 def check_dash_usage(idx, line):
-    failures = []
-    if HYPHEN_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A hyphen was found, which should be replaced with a dash (—)."))
-    if EN_DASH_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A en dash was found, which should be replaced with a dash (—)."))
-    return failures
+    if DASH_USAGE_RE.search(line):
+        if 'UNLINT' not in line:
+            return [(idx + 1, "Found hyphen or en dash, which should be replaced with em dash (—).")]
 
 PLAYSOUND_IMPROPER_CALL = re.compile(r'playsound\(([^,]*), "(sound\/[^\[]+)"')
 SOUND_IMPROPER_PATH = re.compile(r'"(sound\/[^\[]+)(.ogg)"')

@@ -421,11 +421,11 @@
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
 			var/name = occupant ? occupant.name : UNKNOWN_NAME_RUS
-			P.info = "<center><b>Отчёт по сканированию пациента - [name]</b></center><br>"
+			P.info = "<center><b>Отчёт по сканированию пациента — [name]</b></center><br>"
 			P.info += "<b>Время сканирования</b> [station_time_timestamp()]<br><br>"
 			P.info += "[generate_printing_text()]"
 			P.info += "<br><br><b>Заметки:</b><br>"
-			P.name = "Отчёт по сканированию пациента - [name]"
+			P.name = "Отчёт по сканированию пациента — [name]"
 			isPrinting = FALSE
 		if("insurance")
 			do_insurance_collection(usr, occupant, inserted_id ? inserted_id.associated_account_number : null)
