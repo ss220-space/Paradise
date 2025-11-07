@@ -511,7 +511,7 @@
 		PREPOSITIONAL = "батарее охранного робота",
 	)
 
-/obj/item/stock_parts/cell/secborg/empty/Initialize()
+/obj/item/stock_parts/cell/secborg/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
 	update_icon(UPDATE_OVERLAYS)
