@@ -166,7 +166,7 @@
 		DATIVE = "руководству по пантомимам",
 		ACCUSATIVE = "руководство по пантомимам",
 		INSTRUMENTAL = "руководством по пантомимам",
-		PREPOSITIONAL = "руководстве по пантомимам"
+		PREPOSITIONAL = "руководстве по пантомимам",
 	)
 
 /obj/item/spellbook/oneuse/mime/attack_self(mob/user)

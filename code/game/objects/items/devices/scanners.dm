@@ -301,7 +301,7 @@ BODY SCANNERS
 		DATIVE = "анализатору здоровья",
 		ACCUSATIVE = "анализатор здоровья",
 		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
+		PREPOSITIONAL = "анализаторе здоровья",
 	)
 
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -486,7 +486,7 @@ BODY SCANNERS
 			P.header += "&emsp;[implant]<br>"
 
 	P.header += "<hr>"
-	P.header += "Тип страховки - [scan_data["insuranceType"]].<br>"
+	P.header += "Тип страховки — [scan_data["insuranceType"]].<br>"
 	P.header += "Требуемое количество очков страховки: [scan_data["reqInsurance"]].<br>"
 	if(scan_data["insurance"])
 		P.header += "Текущее количество очков страховки: [scan_data["insurance"]].<br>"
@@ -970,7 +970,7 @@ BODY SCANNERS
 
 	var/datum/money_account/acc = get_insurance_account(H)
 	if(acc)
-		scan_data += "Тип страховки - [acc.insurance_type]."
+		scan_data += "Тип страховки — [acc.insurance_type]."
 	else
 		scan_data += "Аккаунт не обнаружен."
 	scan_data += "Требуемое количество очков страховки: [get_req_insurance(H)]."
@@ -1057,7 +1057,7 @@ BODY SCANNERS
 		DATIVE = "модулю улучшения анализатора здоровья",
 		ACCUSATIVE = "модуль улучшения анализатора здоровья",
 		INSTRUMENTAL = "модулем улучшения анализатора здоровья",
-		PREPOSITIONAL = "модуле улучшения анализатора здоровья"
+		PREPOSITIONAL = "модуле улучшения анализатора здоровья",
 	)
 
 /obj/item/healthanalyzer/gem_analyzer
@@ -1074,7 +1074,7 @@ BODY SCANNERS
 		DATIVE = "глазу здоровья",
 		ACCUSATIVE = "глаз здоровья",
 		INSTRUMENTAL = "глазом здоровья",
-		PREPOSITIONAL = "глазе здоровья"
+		PREPOSITIONAL = "глазе здоровья",
 	)
 
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)

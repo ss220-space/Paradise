@@ -41,6 +41,9 @@
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
+
+	speciesbox = /obj/item/storage/box/survival_unathi
+
 	//Default styles for created mobs.
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
@@ -101,14 +104,14 @@
 	)
 
 	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss"),
-			"с" = list("сс", "ссс", "сссс")
-		)
+		"s" = list("ss", "sss", "ssss"),
+		"с" = list("сс", "ссс", "сссс"),
+	)
 	autohiss_extra_map = list(
-			"x" = list("ks", "kss", "ksss"),
-			"ш" = list("шш", "шшш", "шшшш"),
-			"ч" = list("щ", "щщ", "щщщ")
-		)
+		"x" = list("ks", "kss", "ksss"),
+		"ш" = list("шш", "шшш", "шшшш"),
+		"ч" = list("щ", "щщ", "щщщ"),
+	)
 	autohiss_exempt = list("Синт'Унати")
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)

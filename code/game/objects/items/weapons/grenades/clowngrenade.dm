@@ -15,7 +15,7 @@
 		DATIVE = "банановой гранате",
 		ACCUSATIVE = "банановую гранату",
 		INSTRUMENTAL = "банановой гранатой",
-		PREPOSITIONAL = "банановой гранате"
+		PREPOSITIONAL = "банановой гранате",
 	)
 
 /obj/item/grenade/clown_grenade/prime()

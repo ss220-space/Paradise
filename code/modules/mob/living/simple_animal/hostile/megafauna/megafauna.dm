@@ -53,7 +53,7 @@
 		DATIVE = "мегафауне",
 		ACCUSATIVE = "мегафауну",
 		INSTRUMENTAL = "мегафауной",
-		PREPOSITIONAL = "мегафауне"
+		PREPOSITIONAL = "мегафауне",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)

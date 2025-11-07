@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "генератору блюспейс-артиллерии",
 		ACCUSATIVE = "генератор блюспейс-артиллерии",
 		INSTRUMENTAL = "генератором блюспейс-артиллерии",
-		PREPOSITIONAL = "генераторе блюспейс-артиллерии"
+		PREPOSITIONAL = "генераторе блюспейс-артиллерии",
 	)
 
 /obj/machinery/bsa/back/wrench_act(mob/living/user, obj/item/I)
@@ -181,7 +181,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "ускорителю блюспейс-артиллерии",
 		ACCUSATIVE = "ускоритель блюспейс-артиллерии",
 		INSTRUMENTAL = "ускорителем блюспейс-артиллерии",
-		PREPOSITIONAL = "ускорителе блюспейс-артиллерии"
+		PREPOSITIONAL = "ускорителе блюспейс-артиллерии",
 	)
 
 /obj/machinery/bsa/front/wrench_act(mob/living/user, obj/item/I)
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "фузору блюспейс-артиллерии",
 		ACCUSATIVE = "фузор блюспейс-артиллерии",
 		INSTRUMENTAL = "фузором блюспейс-артиллерии",
-		PREPOSITIONAL = "фузоре блюспейс-артиллерии"
+		PREPOSITIONAL = "фузоре блюспейс-артиллерии",
 	)
 
 /obj/machinery/bsa/middle/wrench_act(mob/living/user, obj/item/I)
@@ -301,7 +301,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "блюспейс-артиллерии",
 		ACCUSATIVE = "блюспейс-артиллерию",
 		INSTRUMENTAL = "блюспейс-артиллерией",
-		PREPOSITIONAL = "блюспейс-артиллерии"
+		PREPOSITIONAL = "блюспейс-артиллерии",
 	)
 
 /obj/machinery/bsa/full/Destroy()
@@ -430,24 +430,27 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	build_path = /obj/machinery/bsa/back
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
-							/obj/item/stock_parts/capacitor/quadratic = 5,
-							/obj/item/stack/cable_coil = 2)
+		/obj/item/stock_parts/capacitor/quadratic = 5,
+		/obj/item/stack/cable_coil = 2,
+	)
 
 /obj/item/circuitboard/machine/bsa/middle
 	board_name = "Bluespace Artillery Fusor"
 	build_path = /obj/machinery/bsa/middle
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
-							/obj/item/stack/ore/bluespace_crystal = 20,
-							/obj/item/stack/cable_coil = 2)
+		/obj/item/stack/ore/bluespace_crystal = 20,
+		/obj/item/stack/cable_coil = 2,
+	)
 
 /obj/item/circuitboard/machine/bsa/front
 	board_name = "Bluespace Artillery Bore"
 	build_path = /obj/machinery/bsa/front
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
-							/obj/item/stock_parts/manipulator/femto = 5,
-							/obj/item/stack/cable_coil = 2)
+		/obj/item/stock_parts/manipulator/femto = 5,
+		/obj/item/stack/cable_coil = 2,
+	)
 
 /obj/item/circuitboard/computer/bsa_control
 	board_name = "Bluespace Artillery Controls"
@@ -491,7 +494,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		DATIVE = "консоли управления БСА",
 		ACCUSATIVE = "консоль управления БСА",
 		INSTRUMENTAL = "консолью управления БСА",
-		PREPOSITIONAL = "консоли управления БСА"
+		PREPOSITIONAL = "консоли управления БСА",
 	)
 
 /obj/machinery/computer/bsa_control/Initialize(mapload)

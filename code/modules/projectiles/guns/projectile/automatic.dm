@@ -109,7 +109,7 @@
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
 	)
 
 /obj/item/gun/projectile/automatic/proto/rubber
@@ -135,7 +135,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 6)
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 6),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
@@ -170,7 +170,7 @@
 		DATIVE = "пистолет-пулемету C-20rm",
 		ACCUSATIVE = "пистолет-пулемету C-20rm",
 		INSTRUMENTAL = "пистолет-пулеметом C-20rm",
-		PREPOSITIONAL = "пистолет-пулемете C-20rm"
+		PREPOSITIONAL = "пистолет-пулемете C-20rm",
 	)
 
 
@@ -193,7 +193,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
@@ -218,7 +218,7 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
@@ -245,7 +245,7 @@ TODO Use this name and desc for localisation*/
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 14, "y" = 7),
-		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 12)
+		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 12),
 	)
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
@@ -269,7 +269,7 @@ TODO Use this name and desc for localisation*/
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 12, "y" = 7)
+		ATTACHMENT_SLOT_RAIL = list("x" = 12, "y" = 7),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
@@ -366,7 +366,7 @@ TODO Use this name and desc for localisation*/
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
@@ -391,7 +391,7 @@ TODO Use this name and desc for localisation*/
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6),
-		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
@@ -404,6 +404,7 @@ TODO Use this name and desc for localisation*/
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_size = 1
@@ -411,9 +412,9 @@ TODO Use this name and desc for localisation*/
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6)
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6),
 	)
 	recoil = GUN_RECOIL_HIGH
 	fire_modes = GUN_MODE_SINGLE_ONLY
@@ -468,15 +469,16 @@ TODO Use this name and desc for localisation*/
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/gunshots/minotaur.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
 	fire_delay = 1.5
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5),
 	)
 	recoil = GUN_RECOIL_HIGH
 
@@ -498,12 +500,13 @@ TODO Use this name and desc for localisation*/
 	mag_type = /obj/item/ammo_box/magazine/cats12g
 	fire_delay = 0
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	burst_size = 2
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6)
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
 	)
 	recoil = GUN_RECOIL_HIGH
 
@@ -536,7 +539,7 @@ TODO Use this name and desc for localisation*/
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4),
 	)
 	recoil = GUN_RECOIL_MIN
 
@@ -558,7 +561,7 @@ TODO Use this name and desc for localisation*/
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -2)
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -2),
 	)
 	recoil = GUN_RECOIL_MIN
 	fire_modes = GUN_MODE_SINGLE_ONLY
@@ -579,7 +582,7 @@ TODO Use this name and desc for localisation*/
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
@@ -602,7 +605,7 @@ TODO Use this name and desc for localisation*/
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7)
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 

@@ -281,7 +281,7 @@
 		DATIVE = "яйцам [ru_prefix]",
 		ACCUSATIVE = "яйца [ru_prefix]",
 		INSTRUMENTAL = "яйцами [ru_prefix]",
-		PREPOSITIONAL = "яйцах [ru_prefix]"
+		PREPOSITIONAL = "яйцах [ru_prefix]",
 	)
 
 /obj/structure/spider/eggcluster/terror_eggcluster/Destroy()

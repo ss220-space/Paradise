@@ -22,7 +22,7 @@
 		DATIVE = "теневому демону",
 		ACCUSATIVE = "теневого демона",
 		INSTRUMENTAL = "теневым демоном",
-		PREPOSITIONAL = "теневом демоне"
+		PREPOSITIONAL = "теневом демоне",
 	)
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
@@ -134,7 +134,7 @@
 		DATIVE = "теневому кокону",
 		ACCUSATIVE = "теневой кокон",
 		INSTRUMENTAL = "теневым коконом",
-		PREPOSITIONAL = "теневом коконе"
+		PREPOSITIONAL = "теневом коконе",
 	)
 
 /obj/structure/shadowcocoon/Initialize(mapload)
@@ -234,7 +234,7 @@
 		DATIVE = "теневой руке",
 		ACCUSATIVE = "теневую руку",
 		INSTRUMENTAL = "теневой рукой",
-		PREPOSITIONAL = "теневой руке"
+		PREPOSITIONAL = "теневой руке",
 	)
 
 
@@ -273,7 +273,7 @@
 		DATIVE = "сердцу тьмы",
 		ACCUSATIVE = "сердце тьмы",
 		INSTRUMENTAL = "сердцем тьмы",
-		PREPOSITIONAL = "сердце тьмы"
+		PREPOSITIONAL = "сердце тьмы",
 	)
 
 

@@ -56,100 +56,113 @@
 	name = "blood maybe"
 	icon_state = "blood"
 	result = list(
-	/datum/nothing = 20,
-	/obj/effect/decal/cleanable/blood/splatter = 1)
+		/datum/nothing = 20,
+		/obj/effect/decal/cleanable/blood/splatter = 1,
+	)
 
 /obj/effect/spawner/random_spawners/blood_20
 	name = "blood often"
 	icon_state = "blood"
 	result = list(
-	/datum/nothing = 5,
-	/obj/effect/decal/cleanable/blood/splatter = 1)
+		/datum/nothing = 5,
+		/obj/effect/decal/cleanable/blood/splatter = 1,
+	)
 
 /obj/effect/spawner/random_spawners/oil_5
 	name = "oil maybe"
 	icon_state = "oil"
 	result = list(
-	/datum/nothing = 20,
-	/obj/effect/decal/cleanable/blood/oil = 1)
+		/datum/nothing = 20,
+		/obj/effect/decal/cleanable/blood/oil = 1,
+	)
 
 /obj/effect/spawner/random_spawners/oil_20
 	name = "oil often"
 	icon_state = "oil"
 	result = list(
-	/datum/nothing = 5,
-	/obj/effect/decal/cleanable/blood/oil = 1)
+		/datum/nothing = 5,
+		/obj/effect/decal/cleanable/blood/oil = 1,
+	)
 
 /obj/effect/spawner/random_spawners/wall_rusted_70
 	name = "rusted wall probably"
 	icon_state = "rusted"
 	result = list(
-	/turf/simulated/wall = 3,
-	/turf/simulated/wall/rust = 7)
+		/turf/simulated/wall = 3,
+		/turf/simulated/wall/rust = 7,
+	)
 
 /obj/effect/spawner/random_spawners/wall_rusted_30
 	name = "rusted wall maybe"
 	icon_state = "rusted"
 	result = list(
-	/turf/simulated/wall = 7,
-	/turf/simulated/wall/rust = 3)
+		/turf/simulated/wall = 7,
+		/turf/simulated/wall/rust = 3,
+	)
 
 /obj/effect/spawner/random_spawners/cobweb_left_frequent
 	name = "cobweb left frequent"
 	icon_state = "coweb"
 	result = list(
-	/datum/nothing = 1,
-	/obj/effect/decal/cleanable/cobweb = 1)
+		/datum/nothing = 1,
+		/obj/effect/decal/cleanable/cobweb = 1,
+	)
 
 /obj/effect/spawner/random_spawners/cobweb_right_frequent
 	name = "cobweb right frequent"
 	icon_state = "coweb1"
 	result = list(
-	/datum/nothing = 1,
-	/obj/effect/decal/cleanable/cobweb2 = 1)
+		/datum/nothing = 1,
+		/obj/effect/decal/cleanable/cobweb2 = 1,
+	)
 
 /obj/effect/spawner/random_spawners/cobweb_left_rare
 	name = "cobweb left rare"
 	icon_state = "coweb"
 	result = list(
-	/datum/nothing = 10,
-	/obj/effect/decal/cleanable/cobweb = 1)
+		/datum/nothing = 10,
+		/obj/effect/decal/cleanable/cobweb = 1,
+	)
 
 /obj/effect/spawner/random_spawners/cobweb_right_rare
 	name = "cobweb right rare"
 	icon_state = "coweb1"
 	result = list(
-	/datum/nothing = 10,
-	/obj/effect/decal/cleanable/cobweb2 = 1)
+		/datum/nothing = 10,
+		/obj/effect/decal/cleanable/cobweb2 = 1,
+	)
 
 /obj/effect/spawner/random_spawners/dirt_50
 	name = "dirt frequent"
 	icon_state = "dirt"
 	result = list(
-	/datum/nothing = 1,
-	/obj/effect/decal/cleanable/dirt = 1)
+		/datum/nothing = 1,
+		/obj/effect/decal/cleanable/dirt = 1,
+	)
 
 /obj/effect/spawner/random_spawners/dirt_10
 	name = "dirt rare"
 	icon_state = "dirt"
 	result = list(
-	/datum/nothing = 10,
-	/obj/effect/decal/cleanable/dirt = 1)
+		/datum/nothing = 10,
+		/obj/effect/decal/cleanable/dirt = 1,
+	)
 
 /obj/effect/spawner/random_spawners/fungus_30
 	name = "rusted wall maybe"
 	icon_state = "fungus"
 	result = list(
-	/turf/simulated/wall = 7,
-	/obj/effect/decal/cleanable/fungus = 3)
+		/turf/simulated/wall = 7,
+		/obj/effect/decal/cleanable/fungus = 3,
+	)
 
 /obj/effect/spawner/random_spawners/fungus_70
 	name = "rusted wall maybe"
 	icon_state = "fungus"
 	result = list(
-	/turf/simulated/wall = 3,
-	/obj/effect/decal/cleanable/fungus = 7)
-
+		/turf/simulated/wall = 3,
+		/obj/effect/decal/cleanable/fungus = 7,
+	)
 
 /obj/effect/spawner/random_spawners/rodent
 	name = "33pc mouse 33pc rat 33pc cockroach"
@@ -174,88 +187,94 @@
 		/mob/living/simple_animal/mouse/rat/irish = 1,
 	)
 
-
 /obj/effect/spawner/random_spawners/crate_spawner // for ruins
 	name = "lootcrate spawner"
 	icon_state = "lootcrate"
 	result = list(
-				/obj/structure/closet/crate/secure/loot = 20,
-				/datum/nothing = 80,
-				)
-
+		/obj/structure/closet/crate/secure/loot = 20,
+		/datum/nothing = 80,
+	)
 
 // z6 DEPOT SPAWNERS
-
 /obj/effect/spawner/random_spawners/syndicate
 
 // Turrets
-
 /obj/effect/spawner/random_spawners/syndicate/turret
 	name = "50pc int turret"
 	icon_state = "turret"
-	result = list(/datum/nothing = 1,
-		/obj/machinery/porta_turret/syndicate/interior = 1)
+	result = list(
+		/datum/nothing = 1,
+		/obj/machinery/porta_turret/syndicate/interior = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/turret/external
 	name = "50pc ext turret"
-	result = list(/datum/nothing = 1,
-		/obj/machinery/porta_turret/syndicate/exterior = 1)
+	result = list(
+		/datum/nothing = 1,
+		/obj/machinery/porta_turret/syndicate/exterior = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/turret/grenade
 	name = "66pc grenade turret"
 	icon_state = "grenade turret"
-	result = list(/datum/nothing = 1,
-		/obj/machinery/porta_turret/syndicate/grenade = 2)
+	result = list(
+		/datum/nothing = 1,
+		/obj/machinery/porta_turret/syndicate/grenade = 2,
+	)
 
 // Mobs
-
 /obj/effect/spawner/random_spawners/syndicate/mob
 	name = "50pc melee syndimob"
 	icon_state = "syndicate_swordonly"
-	result = list(/datum/nothing = 1,
-		/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot = 1)
-
+	result = list(
+		/datum/nothing = 1,
+		/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot = 1,
+	)
 
 // Traps
-
 /obj/effect/spawner/random_spawners/syndicate/trap
 	icon_state = "trap"
 
 /obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb
 	name = "50pc trap pizza"
 	icon_state = "trap pizza"
-	result = list(/obj/item/pizzabox/meat = 1,
+	result = list(
+		/obj/item/pizzabox/meat = 1,
 		/obj/item/pizzabox/hawaiian = 1,
-		/obj/item/pizza_bomb/autoarm = 1)
+		/obj/item/pizza_bomb/autoarm = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/medbot
 	name = "50pc trap medibot"
 	icon_state = "trap medibot"
-	result = list(/datum/nothing = 1,
-		/mob/living/simple_animal/bot/medbot/syndicate/emagged = 1)
+	result = list(
+		/datum/nothing = 1,
+		/mob/living/simple_animal/bot/medbot/syndicate/emagged = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/mine
 	name = "50pc trap landmine"
 	icon_state = "trap landmine"
-	result = list(/datum/nothing = 1,
-		/obj/effect/mine/depot = 1)
+	result = list(
+		/datum/nothing = 1,
+		/obj/effect/mine/depot = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/documents
 	name = "66pc trapped documents"
 	icon_state = "trapped documents"
-	result = list(/obj/item/documents/syndicate/yellow = 1,
-		/obj/item/documents/syndicate/yellow/trapped = 1)
-
-
-
+	result = list(
+		/obj/item/documents/syndicate/yellow = 1,
+		/obj/item/documents/syndicate/yellow/trapped = 1,
+	)
 
 // Loot
-
 /obj/effect/spawner/random_spawners/syndicate/loot
 	name = "common loot"
 	icon_state = "common"
 	// Loot schema: costumes, toys, useless gimmick items
-	result = list(/datum/nothing = 13,
+	result = list(
+		/datum/nothing = 13,
 		/obj/item/storage/toolbox/syndicate = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/deck/cards/syndicate = 1,
@@ -267,23 +286,27 @@
 		/obj/item/clothing/mask/gas/syndicate = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
-		/obj/item/storage/box/syndie_kit/cutouts = 1)
+		/obj/item/storage/box/syndie_kit/cutouts = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin
 	name = "20pc stetchkin"
 	icon_state = "stetchkin"
 	spawn_inside = null
-	result = list(/datum/nothing = 1,
+	result = list(
+		/datum/nothing = 1,
 		/obj/item/wrench = 1,
 		/obj/item/reagent_containers/food/snacks/syndicake = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1)
+		/obj/item/gun/projectile/automatic/pistol = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level2
 	name = "rare loot"
 	icon_state = "rare"
 	// Loot schema: space gear, basic armor, basic ammo (10mm, rcd), drugs, more dangerous/useful gimmick items, lower-value minerals
-	result = list(/datum/nothing = 27,
+	result = list(
+		/datum/nothing = 27,
 		/obj/item/storage/box/syndie_kit/space = 1,
 		/obj/item/storage/box/syndie_kit/hardsuit = 1,
 		/obj/item/clothing/shoes/magboots/syndie = 1,
@@ -309,13 +332,15 @@
 		/obj/item/pen/edagger = 1,
 		/obj/item/stack/sheet/mineral/plasma{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/silver{amount = 20} = 1,
-		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1)
+		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
 	name = "officer loot"
 	icon_state = "officer"
 	// Loot schema: medkits, very useful devices (jammer, illegal upgrade, RCD), better quality ammo (AP, fire), basic weapons (pistol, empgrenade), high value ores (diamond, uranium)
-	result = list(/datum/nothing = 25,
+	result = list(
+		/datum/nothing = 25,
 		/obj/item/jammer = 1,
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/box/syndie_kit/bonerepair = 1,
@@ -340,13 +365,15 @@
 		/obj/item/storage/box/syndie_kit/emp = 1,
 		/obj/item/batterer = 1,
 		/obj/item/toy/carpplushie/dehy_carp = 1,
-		/obj/item/clothing/glasses/hud/security/chameleon = 1)
+		/obj/item/clothing/glasses/hud/security/chameleon = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
 	icon_state = "armory"
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
-	result = list(/obj/item/gun/projectile/automatic/c20r = 1,
+	result = list(
+		/obj/item/gun/projectile/automatic/c20r = 1,
 		/obj/item/gun/projectile/automatic/m90 = 1,
 		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate = 1,
 		/obj/item/melee/energy/sword/saber = 1,
@@ -359,31 +386,35 @@
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-		/obj/item/grenade/plastic/x4 = 1)
-
+		/obj/item/grenade/plastic/x4 = 1,
+	)
 
 // Layout-affecting spawns
-
 /obj/effect/spawner/random_spawners/syndicate/layout
 	icon_state = "wall"
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door
 	name = "50pc door 25pc falsewall 25pc wall"
-	result = list(/obj/machinery/door/airlock/hatch/syndicate = 6,
+	result = list(
+		/obj/machinery/door/airlock/hatch/syndicate = 6,
 		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2,
-		/obj/structure/falsewall/plastitanium = 2)
+		/obj/structure/falsewall/plastitanium = 2,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault
 	name = "80pc vaultdoor 20pc wall"
-	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
-		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1)
-
+	result = list(
+		/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
+		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1,
+	)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod
 	name = "50pc loot spacepod"
 	icon_state = "spacepod"
-	result = list(/obj/spacepod/syndi = 1,
-		/obj/spacepod/syndi/unlocked = 1)
+	result = list(
+		/obj/spacepod/syndi = 1,
+		/obj/spacepod/syndi/unlocked = 1,
+	)
 
 //random lavaland loot
 /obj/effect/spawner/random_spawners/lavaland_random_loot //terraria fishing vibes
@@ -397,14 +428,14 @@
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 3,
 		/obj/item/kitchen/knife/combat/survival/bone = 1,
 		/obj/item/gem/random = 5,
-		/obj/item/clothing/accessory/necklace/gem = 1
+		/obj/item/clothing/accessory/necklace/gem = 1,
 	)
 
 /obj/effect/spawner/random_spawners/forty_pc_skull
 	name = "40pc scorched_skull"
 	result = list(
 		/datum/nothing = 60,
-		/obj/item/clothing/head/scorched_skull = 40
+		/obj/item/clothing/head/scorched_skull = 40,
 	)
 
 // Security armory random guns
@@ -412,14 +443,14 @@
 	name = "lasers closet spawner"
 	icon_state = "guncabinet_laser"
 	result = list(
-				/obj/structure/closet/secure_closet/guncabinet/lasergun = 50,
-				/obj/structure/closet/secure_closet/guncabinet/lr30 = 50,
-				)
+		/obj/structure/closet/secure_closet/guncabinet/lasergun = 50,
+		/obj/structure/closet/secure_closet/guncabinet/lr30 = 50,
+	)
 
 /obj/effect/spawner/random_spawners/security_ballistics
 	name = "ballistics closet spawner"
 	icon_state = "guncabinet_ballistic"
 	result = list(
-				/obj/structure/closet/secure_closet/guncabinet/sp91 = 50,
-				/obj/structure/closet/secure_closet/guncabinet/wt550 = 50,
-				)
+		/obj/structure/closet/secure_closet/guncabinet/sp91 = 50,
+		/obj/structure/closet/secure_closet/guncabinet/wt550 = 50,
+	)

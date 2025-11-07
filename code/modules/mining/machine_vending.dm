@@ -29,7 +29,7 @@
 		DATIVE = "раздатчику шахтёрского снаряжения",
 		ACCUSATIVE = "раздатчик шахтёрского снаряжения",
 		INSTRUMENTAL = "раздатчиком шахтёрского снаряжения",
-		PREPOSITIONAL = "раздатчике шахтёрского снаряжения"
+		PREPOSITIONAL = "раздатчике шахтёрского снаряжения",
 	)
 
 /obj/machinery/mineral/equipment_vendor/Initialize(mapload)
@@ -275,7 +275,7 @@
 		DATIVE = "раздатчику снаряжения големов",
 		ACCUSATIVE = "раздатчик снаряжения големов",
 		INSTRUMENTAL = "раздатчиком снаряжения големов",
-		PREPOSITIONAL = "раздатчике снаряжения големов"
+		PREPOSITIONAL = "раздатчике снаряжения големов",
 	)
 
 /obj/machinery/mineral/equipment_vendor/golem/Initialize(mapload)
@@ -306,7 +306,7 @@
 		DATIVE = "раздатчику снаряжения каторги",
 		ACCUSATIVE = "раздатчик снаряжения каторги",
 		INSTRUMENTAL = "раздатчиком снаряжения каторги",
-		PREPOSITIONAL = "раздатчике снаряжения каторги"
+		PREPOSITIONAL = "раздатчике снаряжения каторги",
 	)
 
 /obj/machinery/mineral/equipment_vendor/labor/Initialize(mapload)
@@ -347,7 +347,7 @@
 		DATIVE = "шахтёрскому ваучеру",
 		ACCUSATIVE = "шахтёрский ваучер",
 		INSTRUMENTAL = "шахтёрским ваучером",
-		PREPOSITIONAL = "шахтёрском ваучере"
+		PREPOSITIONAL = "шахтёрском ваучере",
 	)
 
 /**********************Mining Point Card**********************/
@@ -365,7 +365,7 @@
 		DATIVE = "карте шахтёрских очков",
 		ACCUSATIVE = "карту шахтёрских очков",
 		INSTRUMENTAL = "картой шахтёрских очков",
-		PREPOSITIONAL = "карте шахтёрских очков"
+		PREPOSITIONAL = "карте шахтёрских очков",
 	)
 
 /obj/item/card/mining_point_card/thousand
@@ -408,7 +408,7 @@
 		DATIVE = "коробке с имплантами прыжковых ботинок",
 		ACCUSATIVE = "коробку с имплантами прыжковых ботинок",
 		INSTRUMENTAL = "коробкой с имплантами прыжковых ботинок",
-		PREPOSITIONAL = "коробке с имплантами прыжковых ботинок"
+		PREPOSITIONAL = "коробке с имплантами прыжковых ботинок",
 	)
 
 /obj/item/storage/box/jumpbootimplant/populate_contents()
@@ -428,7 +428,7 @@
 		DATIVE = "карте доступа шахтёра",
 		ACCUSATIVE = "карту доступа шахтёра",
 		INSTRUMENTAL = "картой доступа шахтёра",
-		PREPOSITIONAL = "карте доступа шахтёра"
+		PREPOSITIONAL = "карте доступа шахтёра",
 	)
 
 /obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity, params)

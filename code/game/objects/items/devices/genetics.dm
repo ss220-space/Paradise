@@ -30,7 +30,7 @@
 		DATIVE = "планшету генетика",
 		ACCUSATIVE = "планшет генетика",
 		INSTRUMENTAL = "планшетом генетика",
-		PREPOSITIONAL = "планшете генетика"
+		PREPOSITIONAL = "планшете генетика",
 	)
 
 /obj/item/dna_notepad/Initialize(mapload)
@@ -59,7 +59,7 @@
 		current_dna_detail_data = list(
 			num = "[block]",
 			name = "[name]",
-			color = "[color]"
+			color = "[color]",
 		)
 		dna_data += list(current_dna_detail_data)
 	current_dna_detail_data["name"] = "[name]"

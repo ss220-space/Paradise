@@ -16,14 +16,15 @@
 	move_to_delay = 6
 	del_on_death = TRUE
 	universal_speak = TRUE
-	loot = list(/obj/structure/flora/tree/pine/xmas,
-				/obj/item/reagent_containers/food/snacks/gingercookie/ball,
-				/obj/item/reagent_containers/food/snacks/gingercookie/ball,
-				/obj/item/reagent_containers/food/snacks/gingercookie/ball,
-				/obj/item/toy/pet_rock/naughty_coal,
-				/obj/item/toy/pet_rock/naughty_coal,
-				/obj/item/pizzabox/mushroom,
-				)
+	loot = list(
+		/obj/structure/flora/tree/pine/xmas,
+		/obj/item/reagent_containers/food/snacks/gingercookie/ball,
+		/obj/item/reagent_containers/food/snacks/gingercookie/ball,
+		/obj/item/reagent_containers/food/snacks/gingercookie/ball,
+		/obj/item/toy/pet_rock/naughty_coal,
+		/obj/item/toy/pet_rock/naughty_coal,
+		/obj/item/pizzabox/mushroom,
+	)
 	deathmessage = "Grrrrraaaaa!"
 	death_sound = 'sound/misc/demon_dies.ogg'
 

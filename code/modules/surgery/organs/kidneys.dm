@@ -13,7 +13,7 @@
 		DATIVE = "почкам человека",
 		ACCUSATIVE = "почки человека",
 		INSTRUMENTAL = "почками человека",
-		PREPOSITIONAL = "почках человека"
+		PREPOSITIONAL = "почках человека",
 	)
 
 /obj/item/organ/internal/kidneys/on_life()
@@ -45,5 +45,5 @@
 		DATIVE = "кибернетическим почкам",
 		ACCUSATIVE = "кибернетические почки",
 		INSTRUMENTAL = "кибернетическими почками",
-		PREPOSITIONAL = "кибернетических почках"
+		PREPOSITIONAL = "кибернетических почках",
 	)

@@ -34,7 +34,7 @@
 		DATIVE = "посоху Иерофанта",
 		ACCUSATIVE = "посох Иерофанта",
 		INSTRUMENTAL = "посохом Иерофанта",
-		PREPOSITIONAL = "посохе Иерофанта"
+		PREPOSITIONAL = "посохе Иерофанта",
 	)
 
 /obj/item/hierophant_club/examine(mob/user)
@@ -332,7 +332,7 @@
 		DATIVE = "дремлющему защитному талисману",
 		ACCUSATIVE = "дремлющий защитный талисман",
 		INSTRUMENTAL = "дремлющим защитным талисманом",
-		PREPOSITIONAL = "дремлющем защитном талисмане"
+		PREPOSITIONAL = "дремлющем защитном талисмане",
 	)
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attack_self(mob/living/user)
@@ -369,7 +369,7 @@
 			DATIVE = "защитному талисману",
 			ACCUSATIVE = "защитный талисман",
 			INSTRUMENTAL = "защитным талисманом",
-			PREPOSITIONAL = "защитном талисмане"
+			PREPOSITIONAL = "защитном талисмане",
 		)
 		slave.real_name = name
 		slave.name = name

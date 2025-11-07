@@ -41,7 +41,7 @@
 		DATIVE = "бесу",
 		ACCUSATIVE = "беса",
 		INSTRUMENTAL = "бесом",
-		PREPOSITIONAL = "бесе"
+		PREPOSITIONAL = "бесе",
 	)
 
 /mob/living/simple_animal/imp/ritual

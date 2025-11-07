@@ -26,7 +26,7 @@
 		DATIVE = "заброшенному ящику",
 		ACCUSATIVE = "заброшенный ящик",
 		INSTRUMENTAL = "заброшенным ящиком",
-		PREPOSITIONAL = "заброшенном ящике"
+		PREPOSITIONAL = "заброшенном ящике",
 	)
 
 /obj/structure/closet/crate/secure/loot/Initialize(mapload)

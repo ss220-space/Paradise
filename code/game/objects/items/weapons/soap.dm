@@ -20,7 +20,7 @@
 		DATIVE = "мылу",
 		ACCUSATIVE = "мыло",
 		INSTRUMENTAL = "мылом",
-		PREPOSITIONAL = "мыле"
+		PREPOSITIONAL = "мыле",
 	)
 
 /obj/item/soap/ComponentInitialize()
@@ -228,7 +228,7 @@
 		DATIVE = "мылу в изоленте",
 		ACCUSATIVE = "мыло в изоленте",
 		INSTRUMENTAL = "мылом в изоленте",
-		PREPOSITIONAL = "мыле в изоленте"
+		PREPOSITIONAL = "мыле в изоленте",
 	)
 
 /obj/item/soap/ducttape/afterattack(atom/target, mob/user, proximity, params)

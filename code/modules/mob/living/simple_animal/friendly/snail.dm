@@ -36,7 +36,7 @@
 		DATIVE = "космо-улитке",
 		ACCUSATIVE = "космо-улитку",
 		INSTRUMENTAL = "космо-улиткой",
-		PREPOSITIONAL = "космо-улитке"
+		PREPOSITIONAL = "космо-улитке",
 	)
 
 /mob/living/simple_animal/hostile/snail/ComponentInitialize()
@@ -104,5 +104,5 @@
 		DATIVE = "черепахе",
 		ACCUSATIVE = "черепаху",
 		INSTRUMENTAL = "черепахой",
-		PREPOSITIONAL = "черепахе"
+		PREPOSITIONAL = "черепахе",
 	)
