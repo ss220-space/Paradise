@@ -511,8 +511,8 @@
 		PREPOSITIONAL = "батарее охранного робота"
 	)
 
-/obj/item/stock_parts/cell/secborg/empty/New()
-	..()
+/obj/item/stock_parts/cell/secborg/empty/Initialize()
+	. = ..()
 	charge = 0
 	update_icon(UPDATE_OVERLAYS)
 
@@ -668,7 +668,7 @@
 	var/obj/item/stock_parts/cell/internal_cell = new /obj/item/stock_parts/cell/laser
 
 /obj/item/weapon_cell/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/weapon_cell/proc/is_available_shot(shot_energy_cost)
