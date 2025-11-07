@@ -15,7 +15,7 @@ jobs:
       stations: ${{ steps.station_finder.outputs.stations }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Find Stations
         id: station_finder
