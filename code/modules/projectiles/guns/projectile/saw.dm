@@ -74,6 +74,7 @@
 
 /obj/projectile/bullet/saw/weak
 	damage = 30
+	ricochet_chance = 10
 
 /obj/projectile/bullet/saw/bleeding
 	damage = 20
@@ -88,6 +89,7 @@
 /obj/projectile/bullet/saw/hollow
 	damage = 60
 	armour_penetration = -10
+	ricochets_max = 0
 
 /obj/projectile/bullet/saw/ap
 	damage = 40

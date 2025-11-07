@@ -146,6 +146,7 @@
 	stun = 6 SECONDS
 	dismemberment = 0
 	weaken = 6 SECONDS
+	ricochets_max = 0
 
 /obj/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))

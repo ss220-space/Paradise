@@ -229,6 +229,43 @@
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 
+// MARK: Sparkle-A12
+/obj/item/gun/projectile/automatic/sparkle_a12
+	name = "A9 \"Sparkle\""
+	desc = "Пистолет-пулемёт под калибр 9x19 мм, произведённый концерном \"Скарборо\". Штатно используется силовыми структурами \"Нанотрейзен\". Отличается надёжностью, высокой точностью и малыми габаритами. Предназначен для ближнего боя в условиях ограниченного пространства."
+	icon_state = "sparkle-a12"
+	item_state = "sparkle-a12"
+	mag_type = /obj/item/ammo_box/magazine/sparkle_a12
+	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+	)
+	starting_attachment_types = list(/obj/item/gun_module/muzzle/suppressor/integrated)
+	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
+	fire_delay = 1
+	damage_mod = 0.7
+
+/obj/item/gun/projectile/automatic/sparkle_a12/get_ru_names()
+	return list(
+		NOMINATIVE = "А9 \"Искра\"",
+		GENITIVE = "А9 \"Искра\"",
+		DATIVE = "А9 \"Искра\"",
+		ACCUSATIVE = "А9 \"Искра\"",
+		INSTRUMENTAL = "А9 \"Искра\"",
+		PREPOSITIONAL = "А9 \"Искра\""
+	)
+
+/obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
+	icon_state = "sparkle-a12[magazine ? "" : "-e"]"
+
+
 /*Type-U3 Uzi
 name = "Пистолет-пулемёт Uzi"
 desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм.

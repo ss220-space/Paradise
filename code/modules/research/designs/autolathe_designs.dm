@@ -816,6 +816,14 @@
 	build_path = /obj/item/ammo_box/magazine/sp91rc/empty
 	category = list("hacked", "Security")
 
+/datum/design/sparkle_a12_mag
+	name = "Sparkle-A12 magazine (9mm)"
+	id = "sparkle-a12-9mm"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/sp91rc/empty
+	category = list("hacked", "Security")
+
 /datum/design/buckshot_shell
 	name = "Buckshot shell"
 	id = "buckshot_shell"

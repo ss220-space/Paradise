@@ -43,7 +43,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// The click cooldown given after attacking. Lower numbers means faster attacks
 	var/attack_speed = CLICK_CD_MELEE
 
-	/// Used in attackby() to say how something was attacked "[x] [z.attack_verb][GEND_A_O_Y(x)] [y.declent_ru(ACCUSATIVE)], используя [z.declent_ru(ACCUSATIVE)]".
+	/// Used in attackby() to say how something was attacked "[x] [z.attack_verb][GEND_A_O_Y(x)] [y.declent_ru(ACCUSATIVE)], используя [z.declent_ru(ACCUSATIVE)]."
 	var/list/attack_verb
 	/// Sound played when you hit something with the item.
 	var/hitsound

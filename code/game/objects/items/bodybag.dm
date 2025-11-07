@@ -39,7 +39,7 @@
  */
 /obj/item/bodybag/proc/deploy_bodybag(mob/user, atom/location)
 	var/obj/structure/closet/body_bag/item_bag = new unfoldedbag_path(location)
-	item_bag.balloon_alert_to_viewers("мешок разложен")
+	item_bag.balloon_alert_to_viewers("раскладыва[PLUR_ET_YUT(user)] мешок", "мешок разложен")
 	item_bag.open(user)
 	item_bag.add_fingerprint(user)
 	item_bag.foldedbag_instance = src
@@ -142,7 +142,7 @@
 /obj/structure/closet/body_bag/proc/perform_fold(mob/living/carbon/human/the_folder)
 	var/turf/turf = get_turf(src)
 	var/obj/item/folding_bodybag = new foldedbag_path(turf)
-	turf.balloon_alert_to_viewers("мешок сложен")
+	turf.balloon_alert_to_viewers("складыва[PLUR_ET_YUT(the_folder)] мешок", "мешок сложен")
 	the_folder.put_in_hands(folding_bodybag)
 
 
@@ -245,7 +245,7 @@
 
 /obj/item/bodybag/bluespace/deploy_bodybag(mob/user, atom/location)
 	var/obj/structure/closet/body_bag/item_bag = new unfoldedbag_path(location)
-	item_bag.balloon_alert_to_viewers("мешок разложен")
+	item_bag.balloon_alert_to_viewers("раскладыва[PLUR_ET_YUT(user)] мешок", "мешок разложен")
 	for(var/atom/movable/inside in contents)
 		inside.forceMove(item_bag)
 		if(isliving(inside))
@@ -323,7 +323,7 @@
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
 	var/turf/turf = get_turf(src)
 	var/obj/item/folding_bodybag = new foldedbag_path(turf)
-	turf.balloon_alert_to_viewers("мешок сложен")
+	turf.balloon_alert_to_viewers("складыва[PLUR_ET_YUT(the_folder)] мешок", "мешок сложен")
 	var/max_weight_of_contents = initial(folding_bodybag.w_class)
 	for(var/atom/movable/content as anything in contents)
 		content.forceMove(folding_bodybag)

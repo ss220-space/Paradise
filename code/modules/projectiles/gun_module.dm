@@ -17,6 +17,8 @@
 	var/buffered_overlay = null
 	//attached state variables
 	var/obj/item/gun/gun = null
+	/// Is module can detached
+	var/can_detach = TRUE
 
 /obj/item/gun_module/Destroy()
 	. = ..()
@@ -108,6 +110,9 @@
 		INSTRUMENTAL = "универсальным глушителем",
 		PREPOSITIONAL = "универсальном глушителе",
 	)
+
+/obj/item/gun_module/muzzle/suppressor/integrated
+	can_detach = FALSE
 
 /obj/item/gun_module/muzzle/suppressor/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = TRUE

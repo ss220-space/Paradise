@@ -1,12 +1,10 @@
-/*
-Holotool. All instruments in one object
-*/
 /datum/action/item_action/change_ht_color
-	name = "Change Holotool Color"
+	name = "Сменить цвет голотула"
 
 /obj/item/holotool
 	name = "experimental holotool"
-	desc = "A highly experimental holographic tool projector."
+	desc = "Экспериментальный прибор, использующий технологии твёрдого света для \
+			проецирования голограмм инженерных инструментов. Произведено \"Нанотрейзен\"."
 	icon = 'icons/obj/holotool.dmi'
 	icon_state = "holotool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -21,15 +19,28 @@ Holotool. All instruments in one object
 	var/list/available_modes
 	var/list/mode_names
 	var/list/radial_modes
-	item_state_color = "#48D1CC" //mediumturquoise
+	item_state_color = "#48D1CC" // mediumturquoise
 	var/emagged = FALSE
+
+/obj/item/holotool/get_ru_names()
+	return list(
+		NOMINATIVE = "экспериментальный голотул",
+		GENITIVE = "экспериментального голотула",
+		DATIVE = "экспериментальному голотулу",
+		ACCUSATIVE = "экспериментальный голотул",
+		INSTRUMENTAL = "экспериментальным голотулом",
+		PREPOSITIONAL = "экспериментальном голотуле"
+	)
 
 /obj/item/holotool/examine(mob/user)
 	. = ..()
-	. += span_notice("It is currently set to [current_tool ? current_tool.name : "'off'"] mode.")
+	if(current_tool)
+		. += span_notice("Текущий режим: <b>[current_tool.name]</b>.")
+	else
+		. += span_notice("Текущий режим: <b>выключено</b>.")
 
 /obj/item/holotool/ui_action_click(mob/user, datum/action/action)
-	var/C = tgui_input_color(user, "Select Color", "Select color", "#48D1CC")
+	var/C = tgui_input_color(user, "Выберите цвет:", "Выбор цвета голотула", "#48D1CC")
 	if(!C || QDELETED(src))
 		return
 	item_state_color = C
@@ -43,6 +54,7 @@ Holotool. All instruments in one object
 	current_tool = mode
 	current_tool.on_set(src)
 	playsound(loc, 'sound/items/pshoom.ogg', get_clamped_volume(), TRUE, -1)
+	balloon_alert(user, "режим — [mode.name]")
 	update_state(user)
 
 /obj/item/holotool/proc/update_state(mob/user)
@@ -106,7 +118,8 @@ Holotool. All instruments in one object
 /obj/item/holotool/emag_act(mob/user)
 	if(emagged)
 		return
-	to_chat(user, span_danger("ZZT- ILLEGAL BLUEPRINT UNLOCKED- CONTACT !#$@^%$# NANOTRASEN SUPPORT-@*%$^%!"))
+	balloon_alert(user, "протоколы безопасности взломаны")
+	balloon_alert_to_viewers("искрит и жужжит!", "протоколы безопасности взломаны")
 	do_sparks(5, FALSE, src)
 	emagged = TRUE
 
@@ -116,13 +129,14 @@ Holotool. All instruments in one object
 	var/name = "???"
 	var/sound
 	var/behavior
-	var/speed = 0.5 //upgraded instruments are 0.25 speed
+	/// Upgraded instruments are 0.25 speed
+	var/speed = 0.5
 
 /datum/holotool_mode/proc/can_be_used(obj/item/holotool/H)
 	return TRUE
 
 /datum/holotool_mode/proc/on_set(obj/item/holotool/H)
-	H.usesound = sound ? sound :  'sound/items/pshoom.ogg'
+	H.usesound = sound ? sound : 'sound/items/pshoom.ogg'
 	H.toolspeed = speed ? speed : 1
 	H.tool_behaviour = behavior ? behavior : null
 
@@ -133,43 +147,43 @@ Holotool. All instruments in one object
 
 ////////////////////////////////////////////////
 
-/datum/holotool_mode/screwdriver //чек
-	name = "holo-screwdriver"
+/datum/holotool_mode/screwdriver
+	name = "отвёртка"
 	sound = 'sound/items/pshoom.ogg'
 	behavior = TOOL_SCREWDRIVER
 
-/datum/holotool_mode/crowbar //чек
-	name = "holo-crowbar"
+/datum/holotool_mode/crowbar
+	name = "монтировка"
 	sound = 'sound/weapons/sonic_jackhammer.ogg'
 	behavior = TOOL_CROWBAR
 
-/datum/holotool_mode/multitool //чек
-	name = "holo-multitool"
+/datum/holotool_mode/multitool
+	name = "мультиметр"
 	sound = 'sound/weapons/tap.ogg'
 	behavior = TOOL_MULTITOOL
 
 /datum/holotool_mode/wrench
-	name = "holo-wrench"
-	sound ='sound/effects/empulse.ogg'
+	name = "гаечный ключ"
+	sound = 'sound/effects/empulse.ogg'
 	behavior = TOOL_WRENCH
 
-/datum/holotool_mode/wirecutters //чек
-	name = "holo-wirecutters"
+/datum/holotool_mode/wirecutters
+	name = "кусачки"
 	sound = 'sound/items/jaws_cut.ogg'
 	behavior = TOOL_WIRECUTTER
 
 /datum/holotool_mode/welder
-	name = "holo-welder"
-	sound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')//so it actually gives the expected feedback from welding
+	name = "сварочный аппарат"
+	sound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	behavior = TOOL_WELDER
 
 /datum/holotool_mode/knife
-	name = "holo-knife"
+	name = "нож"
 	sound = 'sound/weapons/blade1.ogg'
 
 /datum/holotool_mode/off
-	name = "off"
-	sound =  'sound/items/jaws_cut.ogg'
+	name = "выключено"
+	sound = 'sound/items/jaws_cut.ogg'
 
 /datum/holotool_mode/knife/can_be_used(obj/item/holotool/H)
 	return H.emagged
