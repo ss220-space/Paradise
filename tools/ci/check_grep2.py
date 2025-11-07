@@ -209,6 +209,7 @@ def check_uid_parameters(idx, line):
         return [(idx + 1, f"UID() does not take arguments. Found: '{result.group(1)}'. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
 
 BALLOON_ALERT_WITHOUT_USER = re.compile(r'(balloon_alert\(["\'])')
+BALLOON_ALERT_TO_VIEWERS_WRONG_FIRST_ARG = re.compile(r'(balloon_alert_to_viewers\((?!\s*message\s*,)[^"\'])')
 BALLOON_ALERT_WITH_SPAN = re.compile(r'(balloon_alert(_to_viewers)?\(.*?span_)')
 BALLOON_ALERT_CAPITALIZED = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*["\'][A-ZА-Я])')
 BALLOON_ALERT_ENDS_WITH_PERIOD = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*"[^"]*[^\.]\.(?!\.)")')
@@ -226,6 +227,8 @@ def check_balloon_alert(idx, line):
             text_part = match.group(0)
             if text_part.endswith('."') or text_part.endswith('.")'):
                 failures.append((idx + 1, f"Balloon alerts should not end with a period: '{match.group(1)}'. If this is a false positive, wrap the text in UNLINT()."))
+    if match := BALLOON_ALERT_TO_VIEWERS_WRONG_FIRST_ARG.search(line):
+        failures.append((idx + 1, f"balloon_alert_to_viewers called with non-string first argument. First argument should be a message string."))
     return failures
 
 TRAIT_SINGLE_SRC = re.compile(r'(add_trait|remove_trait)\(.+,\s*.+,\s*src\)', re.IGNORECASE)
