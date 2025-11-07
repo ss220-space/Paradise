@@ -200,6 +200,8 @@
 		return
 	if(IS_HORIZONTAL(user))
 		return
+	if(HAS_TRAIT(user, TRAIT_IMMOBILIZED) || HAS_TRAIT(user, TRAIT_INCAPACITATED))
+		return
 
 	user.apply_status_effect(STATUS_EFFECT_LUNGING)
 	user.throw_at(clicked_turf, 4, 5, src, FALSE, TRUE, callback = CALLBACK(user, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_LUNGING))
@@ -207,9 +209,10 @@
 	addtimer(CALLBACK(src, PROC_REF(allow_lunge), user), 6 SECONDS)
 
 /obj/item/melee/mantisblade/proc/allow_lunge(mob/living/user)
-	if(HAS_TRAIT_FROM(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT))
-		REMOVE_TRAIT(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT)
-		user.balloon_alert(user, "выпад доступен")
+	if(!HAS_TRAIT_FROM(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT))
+		return
+	REMOVE_TRAIT(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT)
+	user.balloon_alert(user, "выпад доступен")
 
 /obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity)
 	. = ..()
