@@ -63,7 +63,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ env.BASE_BRANCH }}
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11.6'
           cache: 'pip'
