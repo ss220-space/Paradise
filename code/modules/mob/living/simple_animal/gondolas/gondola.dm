@@ -36,7 +36,7 @@
 		DATIVE = "гандоле",
 		ACCUSATIVE = "гандолу",
 		INSTRUMENTAL = "гандолой",
-		PREPOSITIONAL = "гандоле"
+		PREPOSITIONAL = "гандоле",
 	)
 
 /mob/living/simple_animal/pet/gondola/Initialize(mapload)

@@ -10,7 +10,7 @@
 		DATIVE = "сердцу абдуктора",
 		ACCUSATIVE = "сердце абдуктора",
 		INSTRUMENTAL = "сердцем абдуктора",
-		PREPOSITIONAL = "сердце абдуктора"
+		PREPOSITIONAL = "сердце абдуктора",
 	)
 
 /obj/item/organ/internal/liver/grey/abductor
@@ -25,7 +25,7 @@
 		DATIVE = "печени абдуктора",
 		ACCUSATIVE = "печень абдуктора",
 		INSTRUMENTAL = "печенью абдуктора",
-		PREPOSITIONAL = "печени абдуктора"
+		PREPOSITIONAL = "печени абдуктора",
 	)
 
 /obj/item/organ/internal/kidneys/grey/abductor
@@ -40,7 +40,7 @@
 		DATIVE = "почкам абдуктора",
 		ACCUSATIVE = "почки абдуктора",
 		INSTRUMENTAL = "почками абдуктора",
-		PREPOSITIONAL = "почках абдуктора"
+		PREPOSITIONAL = "почках абдуктора",
 	)
 
 /obj/item/organ/internal/brain/abductor
@@ -57,7 +57,7 @@
 		DATIVE = "мозгу абдуктора",
 		ACCUSATIVE = "мозг абдуктора",
 		INSTRUMENTAL = "мозгом абдуктора",
-		PREPOSITIONAL = "мозге абдуктора"
+		PREPOSITIONAL = "мозге абдуктора",
 	)
 
 /obj/item/organ/internal/eyes/grey/abductor
@@ -71,7 +71,7 @@
 		DATIVE = "глазам абдуктора",
 		ACCUSATIVE = "глаза абдуктора",
 		INSTRUMENTAL = "глазами абдуктора",
-		PREPOSITIONAL = "глазах абдуктора"
+		PREPOSITIONAL = "глазах абдуктора",
 	)
 
 /obj/item/organ/internal/ears/grey/abductor
@@ -86,5 +86,5 @@
 		DATIVE = "ушам абдуктора",
 		ACCUSATIVE = "уши абдуктора",
 		INSTRUMENTAL = "ушами абдуктора",
-		PREPOSITIONAL = "ушах абдуктора"
+		PREPOSITIONAL = "ушах абдуктора",
 	)

@@ -10,7 +10,7 @@
 		DATIVE = "сердцу тенелинга",
 		ACCUSATIVE = "сердце тенелинга",
 		INSTRUMENTAL = "сердцем тенелинга",
-		PREPOSITIONAL = "сердце тенелинга"
+		PREPOSITIONAL = "сердце тенелинга",
 	)
 
 /obj/item/organ/internal/brain/shadowling
@@ -24,7 +24,7 @@
 		DATIVE = "мозгу тенелинга",
 		ACCUSATIVE = "мозг тенелинга",
 		INSTRUMENTAL = "мозгом тенелинга",
-		PREPOSITIONAL = "мозге тенелинга"
+		PREPOSITIONAL = "мозге тенелинга",
 	)
 
 /obj/item/organ/internal/eyes/shadowling
@@ -40,7 +40,7 @@
 		DATIVE = "глазам тенелинга",
 		ACCUSATIVE = "глаза тенелинга",
 		INSTRUMENTAL = "глазами тенелинга",
-		PREPOSITIONAL = "глазах тенелинга"
+		PREPOSITIONAL = "глазах тенелинга",
 	)
 
 /obj/item/organ/internal/ears/shadowling
@@ -55,5 +55,5 @@
 		DATIVE = "ушам тенелинга",
 		ACCUSATIVE = "уши тенелинга",
 		INSTRUMENTAL = "ушами тенелинга",
-		PREPOSITIONAL = "ушах тенелинга"
+		PREPOSITIONAL = "ушах тенелинга",
 	)

@@ -34,7 +34,7 @@
 		DATIVE = "батарее А",
 		ACCUSATIVE = "батарею А",
 		INSTRUMENTAL = "батареей А",
-		PREPOSITIONAL = "батарее А"
+		PREPOSITIONAL = "батарее А",
 	)
 
 /obj/item/stock_parts/cell/New()
@@ -239,7 +239,7 @@
 		DATIVE = "батарее А+",
 		ACCUSATIVE = "батарею А+",
 		INSTRUMENTAL = "батареей А+",
-		PREPOSITIONAL = "батарее А+"
+		PREPOSITIONAL = "батарее А+",
 	)
 
 /obj/item/stock_parts/cell/upgraded/plus
@@ -253,7 +253,7 @@
 		DATIVE = "батарее А++",
 		ACCUSATIVE = "батарею А++",
 		INSTRUMENTAL = "батареей А++",
-		PREPOSITIONAL = "батарее А++"
+		PREPOSITIONAL = "батарее А++",
 	)
 
 /obj/item/stock_parts/cell/high
@@ -272,7 +272,7 @@
 		DATIVE = "батарее АА",
 		ACCUSATIVE = "батарею АА",
 		INSTRUMENTAL = "батареей АА",
-		PREPOSITIONAL = "батарее АА"
+		PREPOSITIONAL = "батарее АА",
 	)
 
 /obj/item/stock_parts/cell/high/plus
@@ -287,7 +287,7 @@
 		DATIVE = "батарее АА+",
 		ACCUSATIVE = "батарею АА+",
 		INSTRUMENTAL = "батареей АА+",
-		PREPOSITIONAL = "батарее АА+"
+		PREPOSITIONAL = "батарее АА+",
 	)
 
 /obj/item/stock_parts/cell/high/empty/New()
@@ -311,7 +311,7 @@
 		DATIVE = "батарее ААА",
 		ACCUSATIVE = "батарею ААА",
 		INSTRUMENTAL = "батареей ААА",
-		PREPOSITIONAL = "батарее ААА"
+		PREPOSITIONAL = "батарее ААА",
 	)
 
 /obj/item/stock_parts/cell/super/empty/New()
@@ -335,7 +335,7 @@
 		DATIVE = "батарее АААА",
 		ACCUSATIVE = "батарею АААА",
 		INSTRUMENTAL = "батареей АААА",
-		PREPOSITIONAL = "батарее АААА"
+		PREPOSITIONAL = "батарее АААА",
 	)
 
 /obj/item/stock_parts/cell/hyper/empty/New()
@@ -361,7 +361,7 @@
 		DATIVE = "блюспейс-батарее",
 		ACCUSATIVE = "блюспейс-батарею",
 		INSTRUMENTAL = "блюспейс-батареей",
-		PREPOSITIONAL = "блюспейс-батарее"
+		PREPOSITIONAL = "блюспейс-батарее",
 	)
 
 /obj/item/stock_parts/cell/bluespace/empty/New()
@@ -385,7 +385,7 @@
 		DATIVE = "бесконечной батарее",
 		ACCUSATIVE = "бесконечную батарею",
 		INSTRUMENTAL = "бесконечной батареей",
-		PREPOSITIONAL = "бесконечной батарее"
+		PREPOSITIONAL = "бесконечной батарее",
 	)
 
 /obj/item/stock_parts/cell/infinite/use()
@@ -407,7 +407,7 @@
 		DATIVE = "пустотному ядру",
 		ACCUSATIVE = "пустотное ядро",
 		INSTRUMENTAL = "пустотным ядром",
-		PREPOSITIONAL = "пустотном ядре"
+		PREPOSITIONAL = "пустотном ядре",
 	)
 
 /obj/item/stock_parts/cell/infinite/abductor/update_overlays()
@@ -431,7 +431,7 @@
 		DATIVE = "картофельной батарее",
 		ACCUSATIVE = "картофельную батарею",
 		INSTRUMENTAL = "картофельной батареей",
-		PREPOSITIONAL = "картофельной батарее"
+		PREPOSITIONAL = "картофельной батарее",
 	)
 
 /obj/item/stock_parts/cell/high/slime
@@ -452,7 +452,7 @@
 		DATIVE = "заряженному ядру слайма",
 		ACCUSATIVE = "заряженное ядро слайма",
 		INSTRUMENTAL = "заряженным ядром слайма",
-		PREPOSITIONAL = "заряженном ядре слайма"
+		PREPOSITIONAL = "заряженном ядре слайма",
 	)
 
 /obj/item/stock_parts/cell/emproof
@@ -469,7 +469,7 @@
 		DATIVE = "ЭМИ-защищённой батарее А",
 		ACCUSATIVE = "ЭМИ-защищённую батарею А",
 		INSTRUMENTAL = "ЭМИ-защищённой батареей А",
-		PREPOSITIONAL = "ЭМИ-защищённой батарее А"
+		PREPOSITIONAL = "ЭМИ-защищённой батарее А",
 	)
 
 /obj/item/stock_parts/cell/emproof/empty/New()
@@ -508,7 +508,7 @@
 		DATIVE = "батарее охранного робота",
 		ACCUSATIVE = "батарею охранного робота",
 		INSTRUMENTAL = "батареей охранного робота",
-		PREPOSITIONAL = "батарее охранного робота"
+		PREPOSITIONAL = "батарее охранного робота",
 	)
 
 /obj/item/stock_parts/cell/secborg/empty/Initialize()
@@ -529,7 +529,7 @@
 		DATIVE = "батарее пульсовой винтовки",
 		ACCUSATIVE = "батарею пульсовой винтовки",
 		INSTRUMENTAL = "батареей пульсовой винтовки",
-		PREPOSITIONAL = "батарее пульсовой винтовки"
+		PREPOSITIONAL = "батарее пульсовой винтовки",
 	)
 
 /obj/item/stock_parts/cell/pulse/prise
@@ -546,7 +546,7 @@
 		DATIVE = "батарее пульсового карабина",
 		ACCUSATIVE = "батарею пульсового карабина",
 		INSTRUMENTAL = "батареей пульсового карабина",
-		PREPOSITIONAL = "батарее пульсового карабина"
+		PREPOSITIONAL = "батарее пульсового карабина",
 	)
 
 /obj/item/stock_parts/cell/pulse/pistol //13 pulse shots
@@ -560,7 +560,7 @@
 		DATIVE = "батарее пульсового пистолета",
 		ACCUSATIVE = "батарею пульсового пистолета",
 		INSTRUMENTAL = "батареей пульсового пистолета",
-		PREPOSITIONAL = "батарее пульсового пистолета"
+		PREPOSITIONAL = "батарее пульсового пистолета",
 	)
 
 /obj/item/stock_parts/cell/dominator
@@ -576,7 +576,7 @@
 		DATIVE = "батарее Доминатора",
 		ACCUSATIVE = "батарею Доминатора",
 		INSTRUMENTAL = "батареей Доминатора",
-		PREPOSITIONAL = "батарее Доминатора"
+		PREPOSITIONAL = "батарее Доминатора",
 	)
 
 /obj/item/stock_parts/cell/bsg
@@ -591,7 +591,7 @@
 		DATIVE = "батарее Б.С.П.",
 		ACCUSATIVE = "батарею Б.С.П.",
 		INSTRUMENTAL = "батареей Б.С.П.",
-		PREPOSITIONAL = "батарее Б.С.П."
+		PREPOSITIONAL = "батарее Б.С.П.",
 	)
 
 /obj/item/stock_parts/cell/emittergun // 11 emitter shots
@@ -605,7 +605,7 @@
 		DATIVE = "батарее эмитерной пушки",
 		ACCUSATIVE = "батарею эмитерной пушки",
 		INSTRUMENTAL = "батареей эмитерной пушки",
-		PREPOSITIONAL = "батарее эмитерной пушки"
+		PREPOSITIONAL = "батарее эмитерной пушки",
 	)
 
 /obj/item/stock_parts/cell/degraded
@@ -620,7 +620,7 @@
 		DATIVE = "батарее А-",
 		ACCUSATIVE = "батарею А-",
 		INSTRUMENTAL = "батареей А-",
-		PREPOSITIONAL = "батарее А-"
+		PREPOSITIONAL = "батарее А-",
 	)
 
 // MARK: Clock cells
@@ -635,7 +635,7 @@
 		DATIVE = "латунной батарейке",
 		ACCUSATIVE = "латунную батарейку",
 		INSTRUMENTAL = "латунной батарейкой",
-		PREPOSITIONAL = "латунной батарейке"
+		PREPOSITIONAL = "латунной батарейке",
 	)
 
 /obj/item/stock_parts/cell/clock/shotgun
@@ -705,7 +705,7 @@
 		DATIVE = "аккумулятору Спектра",
 		ACCUSATIVE = "аккумулятор Спектра",
 		INSTRUMENTAL = "аккумулятором Спектра",
-		PREPOSITIONAL = "аккумуляторе Спектра"
+		PREPOSITIONAL = "аккумуляторе Спектра",
 	)
 
 /obj/item/weapon_cell/specter/update_overlays()

@@ -54,7 +54,7 @@
 		DATIVE = "шахтёрскому боту",
 		ACCUSATIVE = "шахтёрский бот",
 		INSTRUMENTAL = "шахтёрским ботом",
-		PREPOSITIONAL = "шахтёрском боте"
+		PREPOSITIONAL = "шахтёрском боте",
 	)
 
 /mob/living/simple_animal/hostile/mining_drone/New()
@@ -315,7 +315,7 @@
 		DATIVE = "модулю ближнего боя для шахтёрского бота",
 		ACCUSATIVE = "модуль ближнего боя для шахтёрского бота",
 		INSTRUMENTAL = "модулем ближнего боя для шахтёрского бота",
-		PREPOSITIONAL = "модуле ближнего боя для шахтёрского бота"
+		PREPOSITIONAL = "модуле ближнего боя для шахтёрского бота",
 	)
 
 /obj/item/mine_bot_upgrade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity, params)
@@ -344,7 +344,7 @@
 		DATIVE = "модулю брони для шахтёрского бота",
 		ACCUSATIVE = "модуль брони для шахтёрского бота",
 		INSTRUMENTAL = "модулем брони для шахтёрского бота",
-		PREPOSITIONAL = "модуле брони для шахтёрского бота"
+		PREPOSITIONAL = "модуле брони для шахтёрского бота",
 	)
 
 /obj/item/mine_bot_upgrade/health/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
@@ -376,7 +376,7 @@
 		DATIVE = "модулю ИИ для шахтёрского бота",
 		ACCUSATIVE = "модуль ИИ для шахтёрского бота",
 		INSTRUMENTAL = "модулем ИИ для шахтёрского бота",
-		PREPOSITIONAL = "модуле ИИ для шахтёрского бота"
+		PREPOSITIONAL = "модуле ИИ для шахтёрского бота",
 	)
 
 /obj/item/slimepotion/sentience/mining/after_success(mob/living/user, mob/living/simple_animal/SM)
@@ -408,7 +408,7 @@
 		DATIVE = "кубу шахтёрского бота",
 		ACCUSATIVE = "куб шахтёрского бота",
 		INSTRUMENTAL = "кубом шахтёрского бота",
-		PREPOSITIONAL = "кубе шахтёрского бота"
+		PREPOSITIONAL = "кубе шахтёрского бота",
 	)
 
 /obj/item/mining_drone_cube/attack_self(mob/user)

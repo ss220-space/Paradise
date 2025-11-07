@@ -29,7 +29,7 @@
 	reagents = list("sugar" = 5, "milk" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/chocolatebar, /obj/item/reagent_containers/food/snacks/grown/peanuts,
-		/obj/item/reagent_containers/food/snacks/grown/peanuts, /obj/item/reagent_containers/food/snacks/grown/peanuts
+		/obj/item/reagent_containers/food/snacks/grown/peanuts, /obj/item/reagent_containers/food/snacks/grown/peanuts,
 	)
 	result = /obj/item/reagent_containers/food/snacks/candy/fudge/peanut
 
@@ -37,25 +37,25 @@
 	reagents = list("sugar" = 5, "milk" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/chocolatebar, /obj/item/reagent_containers/food/snacks/grown/cherries,
-		/obj/item/reagent_containers/food/snacks/grown/cherries, /obj/item/reagent_containers/food/snacks/grown/cherries
+		/obj/item/reagent_containers/food/snacks/grown/cherries, /obj/item/reagent_containers/food/snacks/grown/cherries,
 	)
 	result = /obj/item/reagent_containers/food/snacks/candy/fudge/cherry
 
 /datum/recipe/candy/fudge_cookies_n_cream
 	reagents = list("sugar" = 5, "milk" = 5, "cream" = 5)
 	items = list(
-				/obj/item/reagent_containers/food/snacks/chocolatebar,
-				/obj/item/reagent_containers/food/snacks/cookie,
-				)
+		/obj/item/reagent_containers/food/snacks/chocolatebar,
+		/obj/item/reagent_containers/food/snacks/cookie,
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/fudge/cookies_n_cream
 
 /datum/recipe/candy/fudge_turtle
 	reagents = list("sugar" = 5, "milk" = 5)
 	items = list(
-				/obj/item/reagent_containers/food/snacks/chocolatebar,
-				/obj/item/reagent_containers/food/snacks/candy/caramel,
-				/obj/item/reagent_containers/food/snacks/grown/peanuts
-				)
+		/obj/item/reagent_containers/food/snacks/chocolatebar,
+		/obj/item/reagent_containers/food/snacks/candy/caramel,
+		/obj/item/reagent_containers/food/snacks/grown/peanuts,
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/fudge/turtle
 
 /datum/recipe/candy/fudge
@@ -95,14 +95,14 @@
 	reagents = list("sugar" = 15)
 	items = list(
 		/obj/item/c_tube,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton
 
 /datum/recipe/candy/gummybear
 	reagents = list("sugar" = 5, "water" = 5, "cornoil" = 5)
 	items = list(
 		/obj/item/kitchen/mould/bear,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummybear
 	byproduct = /obj/item/kitchen/mould/bear
 
@@ -110,7 +110,7 @@
 	reagents = list("sugar" = 5, "water" = 5, "cornoil" = 5)
 	items = list(
 		/obj/item/kitchen/mould/worm,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummyworm
 	byproduct = /obj/item/kitchen/mould/worm
 
@@ -118,7 +118,7 @@
 	reagents = list("sugar" = 5, "water" = 5, "cornoil" = 5)
 	items = list(
 		/obj/item/kitchen/mould/bean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean
 	byproduct = /obj/item/kitchen/mould/bean
 
@@ -126,7 +126,7 @@
 	reagents = list("sugar" = 10, "cornoil" = 5)
 	items = list(
 		/obj/item/kitchen/mould/ball,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jawbreaker
 	byproduct = /obj/item/kitchen/mould/ball
 
@@ -135,7 +135,7 @@
 	items = list(
 		/obj/item/kitchen/mould/cane,
 		/obj/item/reagent_containers/food/snacks/mint,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/candycane
 	byproduct = /obj/item/kitchen/mould/cane
 
@@ -148,14 +148,14 @@
 	reagents = list("sugar" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/chocolatebar,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/candybar
 
 /datum/recipe/candy/cash
 	items = list(
 		/obj/item/kitchen/mould/cash,
 		/obj/item/reagent_containers/food/snacks/chocolatebar,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cash
 	byproduct = /obj/item/kitchen/mould/cash
 
@@ -163,7 +163,7 @@
 	items = list(
 		/obj/item/kitchen/mould/coin,
 		/obj/item/reagent_containers/food/snacks/chocolatebar,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/coin
 	byproduct = /obj/item/kitchen/mould/coin
 
@@ -171,7 +171,7 @@
 	reagents = list("sugar" = 10, "cornoil" = 5)
 	items = list(
 		/obj/item/kitchen/mould/loli,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/sucker
 	byproduct = /obj/item/kitchen/mould/loli
 
@@ -183,56 +183,56 @@
 	reagents = list("cherryjelly" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/cotton,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/red
 
 /datum/recipe/candy/cottoncandy_blue
 	reagents = list("berryjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/cotton,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/blue
 
 /datum/recipe/candy/cottoncandy_poison
 	reagents = list("poisonberryjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/cotton,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/poison
 
 /datum/recipe/candy/cottoncandy_green
 	reagents = list("limejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/cotton,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/green
 
 /datum/recipe/candy/cottoncandy_yellow
 	reagents = list("lemonjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/cotton,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/yellow
 
 /datum/recipe/candy/cottoncandy_orange
 	reagents = list("orangejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/cotton,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/orange
 
 /datum/recipe/candy/cottoncandy_purple
 	reagents = list("grapejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/cotton,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/purple
 
 /datum/recipe/candy/cottoncandy_pink
 	reagents = list("watermelonjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/cotton,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/pink
 
 /datum/recipe/candy/cottoncandy_rainbow
@@ -245,7 +245,7 @@
 		/obj/item/reagent_containers/food/snacks/candy/cotton/orange,
 		/obj/item/reagent_containers/food/snacks/candy/cotton/purple,
 		/obj/item/reagent_containers/food/snacks/candy/cotton/pink,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/rainbow
 
 /datum/recipe/candy/cottoncandy_rainbow2
@@ -258,7 +258,7 @@
 		/obj/item/reagent_containers/food/snacks/candy/cotton/orange,
 		/obj/item/reagent_containers/food/snacks/candy/cotton/purple,
 		/obj/item/reagent_containers/food/snacks/candy/cotton/pink,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/cotton/bad_rainbow
 
 // ***********************************************************
@@ -269,56 +269,56 @@
 	reagents = list("cherryjelly" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummybear,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummybear/red
 
 /datum/recipe/candy/gummybear_blue
 	reagents = list("berryjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummybear,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummybear/blue
 
 /datum/recipe/candy/gummybear_poison
 	reagents = list("poisonberryjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummybear,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummybear/poison
 
 /datum/recipe/candy/gummybear_green
 	reagents = list("limejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummybear,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummybear/green
 
 /datum/recipe/candy/gummybear_yellow
 	reagents = list("lemonjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummybear,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummybear/yellow
 
 /datum/recipe/candy/gummybear_orange
 	reagents = list("orangejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummybear,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummybear/orange
 
 /datum/recipe/candy/gummybear_purple
 	reagents = list("grapejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummybear,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummybear/purple
 
 /datum/recipe/candy/gummybear_wtf
 	reagents = list("space_drugs" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummybear,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummybear/wtf
 
 /datum/recipe/candy/gummybear_wtf2
@@ -334,56 +334,56 @@
 	reagents = list("cherryjelly" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummyworm,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummyworm/red
 
 /datum/recipe/candy/gummyworm_blue
 	reagents = list("berryjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummyworm,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummyworm/blue
 
 /datum/recipe/candy/gummyworm_poison
 	reagents = list("poisonberryjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummyworm,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummyworm/poison
 
 /datum/recipe/candy/gummyworm_green
 	reagents = list("limejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummyworm,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummyworm/green
 
 /datum/recipe/candy/gummyworm_yellow
 	reagents = list("lemonjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummyworm,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummyworm/yellow
 
 /datum/recipe/candy/gummyworm_orange
 	reagents = list("orangejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummyworm,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummyworm/orange
 
 /datum/recipe/candy/gummyworm_purple
 	reagents = list("grapejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummyworm,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummyworm/purple
 
 /datum/recipe/candy/gummyworm_wtf
 	reagents = list("space_drugs" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/gummyworm,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/gummyworm/wtf
 
 /datum/recipe/candy/gummyworm_wtf2
@@ -398,49 +398,49 @@
 	reagents = list("cherryjelly" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/red
 
 /datum/recipe/candy/jellybean_blue
 	reagents = list("berryjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/blue
 
 /datum/recipe/candy/jellybean_poison
 	reagents = list("poisonberryjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/poison
 
 /datum/recipe/candy/jellybean_green
 	reagents = list("limejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/green
 
 /datum/recipe/candy/jellybean_yellow
 	reagents = list("lemonjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/yellow
 
 /datum/recipe/candy/jellybean_orange
 	reagents = list("orangejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/orange
 
 /datum/recipe/candy/jellybean_purple
 	reagents = list("grapejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/purple
 
 /datum/recipe/candy/jellybean_chocolate
@@ -448,14 +448,14 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
 		/obj/item/reagent_containers/food/snacks/chocolatebar,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/chocolate
 
 /datum/recipe/candy/jellybean_cola
 	reagents = list("cola" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/cola
 
 /datum/recipe/candy/jellybean_popcorn
@@ -463,28 +463,28 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/popcorn,
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/popcorn
 
 /datum/recipe/candy/jellybean_coffee
 	reagents = list("coffee" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/cola
 
 /datum/recipe/candy/jellybean_drgibb
 	reagents = list("dr_gibb" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/cola
 
 /datum/recipe/candy/jellybean_wtf
 	reagents = list("space_drugs" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jellybean,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf
 
 /datum/recipe/candy/jellybean_wtf2
@@ -500,7 +500,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/reagent_containers/food/snacks/candy/caramel,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/confectionery/caramel
 
 /datum/recipe/candy/toolerone
@@ -508,7 +508,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/reagent_containers/food/snacks/candy/nougat,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/confectionery/nougat
 
 /datum/recipe/candy/yumbaton
@@ -516,14 +516,14 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/reagent_containers/food/snacks/candy/toffee,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/confectionery/toffee
 
 /datum/recipe/candy/crunch
 	reagents = list("rice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/candy/candybar,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/confectionery/rice
 
 /datum/recipe/candy/toxinstest
@@ -532,5 +532,5 @@
 		/obj/item/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/reagent_containers/food/snacks/candy/caramel,
 		/obj/item/reagent_containers/food/snacks/candy/nougat,
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/candy/confectionery/caramel_nougat

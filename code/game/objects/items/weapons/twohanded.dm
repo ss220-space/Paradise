@@ -159,7 +159,7 @@
 		DATIVE = "костяному топору",
 		ACCUSATIVE = "костяной топор",
 		INSTRUMENTAL = "костяным топором",
-		PREPOSITIONAL = "костяном топоре"
+		PREPOSITIONAL = "костяном топоре",
 	)
 
 
@@ -186,7 +186,7 @@
 		DATIVE = "гильотине",
 		ACCUSATIVE = "гильотину",
 		INSTRUMENTAL = "гильотиной",
-		PREPOSITIONAL = "гильотине"
+		PREPOSITIONAL = "гильотине",
 	)
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/ComponentInitialize()
@@ -450,7 +450,7 @@
 		DATIVE = "копью",
 		ACCUSATIVE = "копьё",
 		INSTRUMENTAL = "копьём",
-		PREPOSITIONAL = "копье"
+		PREPOSITIONAL = "копье",
 	)
 
 
@@ -506,7 +506,7 @@
 		DATIVE = "костяному копью",
 		ACCUSATIVE = "костяное копьё",
 		INSTRUMENTAL = "костяным копьём",
-		PREPOSITIONAL = "костяном копье"
+		PREPOSITIONAL = "костяном копье",
 	)
 
 /obj/item/twohanded/spear/bonespear/chitinspear //like a mix of a bone spear and bone axe, but more like a bone spear. And better.
@@ -526,7 +526,7 @@
 		DATIVE = "хитиновому копью",
 		ACCUSATIVE = "хитиновое копьё",
 		INSTRUMENTAL = "хитиновым копьём",
-		PREPOSITIONAL = "хитиновом копье"
+		PREPOSITIONAL = "хитиновом копье",
 	)
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace
@@ -548,7 +548,7 @@
 		DATIVE = "копью \"Её Обжигающие Объятия\"",
 		ACCUSATIVE = "копьё \"Её Обжигающие Объятия\"",
 		INSTRUMENTAL = "копьём \"Её Обжигающие Объятия\"",
-		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\""
+		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\"",
 	)
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
@@ -638,7 +638,7 @@
 		DATIVE = "голове на копье",
 		ACCUSATIVE = "голову на копье",
 		INSTRUMENTAL = "головой на копье",
-		PREPOSITIONAL = "голове на копье"
+		PREPOSITIONAL = "голове на копье",
 	)
 
 /obj/structure/headspear/Destroy()
@@ -776,7 +776,7 @@
 		DATIVE = "бензопиле",
 		ACCUSATIVE = "бензопилу",
 		INSTRUMENTAL = "бензопилой",
-		PREPOSITIONAL = "бензопиле"
+		PREPOSITIONAL = "бензопиле",
 	)
 
 /obj/item/twohanded/chainsaw/Initialize(mapload)
@@ -1108,7 +1108,7 @@
 		DATIVE = "демоническим вилам",
 		ACCUSATIVE = "демонические вилы",
 		INSTRUMENTAL = "демоническими вилами",
-		PREPOSITIONAL = "демонических вилах"
+		PREPOSITIONAL = "демонических вилах",
 	)
 
 /obj/item/twohanded/pitchfork/demonic/greater
@@ -1236,7 +1236,7 @@
 		DATIVE = "тактической кувалде",
 		ACCUSATIVE = "тактическую кувалду",
 		INSTRUMENTAL = "тактической кувалдой",
-		PREPOSITIONAL = "тактической кувалде"
+		PREPOSITIONAL = "тактической кувалде",
 	)
 
 /obj/item/twohanded/sechammer/ComponentInitialize()

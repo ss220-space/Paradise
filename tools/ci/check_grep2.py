@@ -25,6 +25,11 @@ def check_515_proc_syntax(idx, line):
     if CHECK_515_PROC_MARKER_RE.search(line):
         return [(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")]
 
+CHECK_516_HREF_STYLE = re.compile(r"href[\s='\"\\\\]*\?")
+def check_516_href_style(idx, line):
+    if CHECK_516_HREF_STYLE.search(line):
+        return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
+
 CHECK_SPACE_INDENTATION_RE = re.compile(r"^( {2})|(^ [^ *])|(^ {4,})")
 def check_space_indentation(idx, line):
     """
@@ -204,8 +209,9 @@ def check_uid_parameters(idx, line):
         return [(idx + 1, f"UID() does not take arguments. Found: '{result.group(1)}'. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
 
 BALLOON_ALERT_WITHOUT_USER = re.compile(r'(balloon_alert\(["\'])')
-BALLOON_ALERT_WITH_SPAN = re.compile(r'(balloon_alert\(.*?span_)')
-BALLOON_ALERT_CAPITALIZED = re.compile(r'(balloon_alert\(.*?,\s*["\'][A-ZА-Я])')
+BALLOON_ALERT_WITH_SPAN = re.compile(r'(balloon_alert(_to_viewers)?\(.*?span_)')
+BALLOON_ALERT_CAPITALIZED = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*["\'][A-ZА-Я])')
+BALLOON_ALERT_ENDS_WITH_PERIOD = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*"[^"]*[^\.]\.(?!\.)")')
 def check_balloon_alert(idx, line):
     failures = []
     if match := BALLOON_ALERT_WITHOUT_USER.search(line):
@@ -215,6 +221,11 @@ def check_balloon_alert(idx, line):
     if match := BALLOON_ALERT_CAPITALIZED.search(line):
         if 'UNLINT' not in line:
             failures.append((idx + 1, f"Balloon alerts should not start with capital letters: '{match.group(1)}'. Includes text like 'AI'. Wrap the text in UNLINT() if needed."))
+    if match := BALLOON_ALERT_ENDS_WITH_PERIOD.search(line):
+        if 'UNLINT' not in line:
+            text_part = match.group(0)
+            if text_part.endswith('."') or text_part.endswith('.")'):
+                failures.append((idx + 1, f"Balloon alerts should not end with a period: '{match.group(1)}'. If this is a false positive, wrap the text in UNLINT()."))
     return failures
 
 TRAIT_SINGLE_SRC = re.compile(r'(add_trait|remove_trait)\(.+,\s*.+,\s*src\)', re.IGNORECASE)
@@ -313,7 +324,7 @@ def check_bitwise_operator_order(idx, line):
     if BITWISE_AMBIGUOUS_RE.search(line):
         return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
 
-IGNORE_LOCALIZATION_FILE = ["localization.dm"]
+IGNORE_LOCALIZATION_FILE = "localization.dm"
 MACROED_PROCS = re.compile(r'genderize_ru|pluralize_ru')
 def check_localization_macro_usage(idx, line):
     if MACROED_PROCS.search(line):
@@ -354,6 +365,70 @@ CODE_CHECKS = [
     check_apostrophe_name,
     check_rand_floating_point,
     check_bitwise_operator_order,
+    check_516_href_style,
+]
+
+def run_multiline_check(lines, filename, patterns, strip_comments=False):
+    if strip_comments:
+        clean_lines = []
+        for line in lines:
+            clean_line = line.split('//')[0].rstrip()
+            clean_lines.append(clean_line + '\n')
+        content = ''.join(clean_lines)
+    else:
+        content = ''.join(lines)
+
+    failures = []
+    for pattern, message in patterns:
+        for match in pattern.finditer(content):
+            line_no = content[:match.start()].count('\n') + 1
+            failures.append(Failure(filename, line_no, message))
+    return failures
+
+LONG_LIST_PATTERNS = [
+    (re.compile(r'^(\t)[\w_]+ = list\(\n\1\t{2,}', re.MULTILINE),
+    "Long list overindented, should be exactly two tabs."),
+    (re.compile(r'^(\t)[\w_]+ = list\(\n\1\S', re.MULTILINE),
+    "Long list underindented, should be exactly two tabs."),
+    (re.compile(r'^(\t)[\w_]+ = list\([^\s)]+( ?= ?[\w\d]+)?,\n', re.MULTILINE),
+    "First item in a long list should be on the next line with proper indentation."),
+    (re.compile(r'^(\t)[\w_]+ = list\(\n(?:\1\t(?:[^,\n]|list\([^)]*\))+,\n)*\1\t(?:[^,\n]|list\([^)]*\))+\s*\n\1\)', re.MULTILINE),
+    "Last item in a long list should have a comma."),
+    (re.compile(r'^(\t)[\w_]+ = list\(\n(\1\t[^\s)]+( ?= ?[\w\d]+)?,\n)*\1\t[^\s)]+( ?= ?[\w\d]+)?\)', re.MULTILINE),
+    "The ) in a long list should be on a new line without comma."),
+    (re.compile(r'^(\t)[\w_]+ = list\(\n(\1\t[^\s)]+( ?= ?[\w\d]+)?,\n)+\1\t\)', re.MULTILINE),
+    "The ) in a long list should match indentation of the opening list line."),
+]
+def check_long_list_formatting(lines, filename):
+    return run_multiline_check(lines, filename, LONG_LIST_PATTERNS, strip_comments=True)
+
+MULTI_LINE_CHECKS = [
+    check_long_list_formatting,
+]
+
+NEW_DEFINITION_RE = re.compile(r'^\s*/?(obj|mob|turf|area|atom)/?.*/New\(')
+LIMIT_NEW_DEFINITION = 2
+IGNORE_NEW_DEFINITION_FILES = [
+#    "labubu.dm",
+]
+def check_new_definitions_count(lines, filename):
+    if filename in IGNORE_NEW_DEFINITION_FILES:
+        return []
+
+    failures = []
+    new_line_numbers = []
+
+    for idx, line in enumerate(lines):
+        if NEW_DEFINITION_RE.match(line):
+            new_line_numbers.append(idx + 1)
+
+    if len(new_line_numbers) > LIMIT_NEW_DEFINITION:
+        for line_no in new_line_numbers:
+            failures.append(Failure(filename, line_no, f"Found excessive New() definition. It should be replaced with Initialize(mapload)."))
+    return failures
+
+FILE_CHECKS = [
+#    check_new_definitions_count,
 ]
 
 def check_updatepaths_validity():
@@ -380,6 +455,7 @@ def lint_file(code_filepath: str) -> list[Failure]:
     all_failures = []
     with open(code_filepath, encoding="UTF-8") as code:
         filename = code_filepath.split(os.path.sep)[-1]
+        lines = code.readlines()
 
         extra_checks = []
         if filename != IGNORE_515_PROC_MARKER_FILENAME:
@@ -388,18 +464,20 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
-        if filename not in IGNORE_LOCALIZATION_FILE:
+        if filename != IGNORE_LOCALIZATION_FILE:
             extra_checks.append(check_localization_macro_usage)
 
-        last_line = None
-        for idx, line in enumerate(code):
+        for idx, line in enumerate(lines):
             for check in CODE_CHECKS + extra_checks:
                 if failures := check(idx, line):
                     all_failures += [Failure(code_filepath, lineno, message) for lineno, message in failures]
-            last_line = line
 
-        if last_line and last_line[-1] != '\n':
-            all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline."))
+        for check in MULTI_LINE_CHECKS + FILE_CHECKS:
+            all_failures.extend(check(lines, code_filepath))
+
+        if lines and not lines[-1].endswith('\n'):
+            all_failures.append(Failure(code_filepath, len(lines), "Missing a trailing newline."))
+
     return all_failures
 
 if __name__ == "__main__":

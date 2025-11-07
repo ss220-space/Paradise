@@ -19,7 +19,7 @@
 		DATIVE = "основному стволу",
 		ACCUSATIVE = "основной ствол",
 		INSTRUMENTAL = "основным стволом",
-		PREPOSITIONAL = "основном стволе"
+		PREPOSITIONAL = "основном стволе",
 	)
 
 /obj/item/organ/external/groin/diona
@@ -38,7 +38,7 @@
 		DATIVE = "нижнему разветвлению",
 		ACCUSATIVE = "нижнее разветвление",
 		INSTRUMENTAL = "нижним разветвлением",
-		PREPOSITIONAL = "нижнем разветвлении"
+		PREPOSITIONAL = "нижнем разветвлении",
 	)
 
 /obj/item/organ/external/arm/diona
@@ -58,7 +58,7 @@
 		DATIVE = "левому верхнему отростку",
 		ACCUSATIVE = "левый верхний отросток",
 		INSTRUMENTAL = "левым верхним отростоком",
-		PREPOSITIONAL = "левом верхнем отростке"
+		PREPOSITIONAL = "левом верхнем отростке",
 	)
 
 /obj/item/organ/external/arm/right/diona
@@ -78,7 +78,7 @@
 		DATIVE = "правому верхнему отростку",
 		ACCUSATIVE = "правый верхний отросток",
 		INSTRUMENTAL = "правым верхним отростоком",
-		PREPOSITIONAL = "правом верхнем отростке"
+		PREPOSITIONAL = "правом верхнем отростке",
 	)
 
 /obj/item/organ/external/leg/diona
@@ -98,7 +98,7 @@
 		DATIVE = "левому нижнему отростку",
 		ACCUSATIVE = "левый нижний отросток",
 		INSTRUMENTAL = "левым нижним отростоком",
-		PREPOSITIONAL = "левом нижнем отростке"
+		PREPOSITIONAL = "левом нижнем отростке",
 	)
 
 /obj/item/organ/external/leg/right/diona
@@ -118,7 +118,7 @@
 		DATIVE = "правому нижнему отростку",
 		ACCUSATIVE = "правый нижний отросток",
 		INSTRUMENTAL = "правым нижним отростоком",
-		PREPOSITIONAL = "правом нижнем отростке"
+		PREPOSITIONAL = "правом нижнем отростке",
 	)
 
 /obj/item/organ/external/foot/diona
@@ -147,7 +147,7 @@
 		DATIVE = "левому захвату",
 		ACCUSATIVE = "левый захват",
 		INSTRUMENTAL = "левым захватом",
-		PREPOSITIONAL = "левом захвате"
+		PREPOSITIONAL = "левом захвате",
 	)
 
 /obj/item/organ/external/hand/right/diona
@@ -164,7 +164,7 @@
 		DATIVE = "правому захвату",
 		ACCUSATIVE = "правый захват",
 		INSTRUMENTAL = "правым захватом",
-		PREPOSITIONAL = "правом захвате"
+		PREPOSITIONAL = "правом захвате",
 	)
 
 /obj/item/organ/external/head/diona
@@ -187,7 +187,7 @@
 		DATIVE = "верхнему ответвлению",
 		ACCUSATIVE = "верхнее ответвление",
 		INSTRUMENTAL = "верхним ответвлением",
-		PREPOSITIONAL = "верхнем ответвлении"
+		PREPOSITIONAL = "верхнем ответвлении",
 	)
 
 /obj/item/organ/diona/process()
@@ -211,7 +211,7 @@
 		DATIVE = "нейронной прослойке дионы",
 		ACCUSATIVE = "нейронную прослойку дионы",
 		INSTRUMENTAL = "нейронной прослойкой дионы",
-		PREPOSITIONAL = "нейронной прослойке дионы"
+		PREPOSITIONAL = "нейронной прослойке дионы",
 	)
 
 /obj/item/organ/internal/brain/diona/Initialize(mapload)
@@ -264,7 +264,7 @@
 		DATIVE = "фильтрационным вакуолям",
 		ACCUSATIVE = "фильтрационные вакуоли",
 		INSTRUMENTAL = "фильтрационными вакуолями",
-		PREPOSITIONAL = "фильтрационных вакуолях"
+		PREPOSITIONAL = "фильтрационных вакуолях",
 	)
 
 /obj/item/organ/internal/kidneys/diona/Initialize(mapload)
@@ -285,7 +285,7 @@
 		DATIVE = "газовым пузырям",
 		ACCUSATIVE = "газовые пузыри",
 		INSTRUMENTAL = "газовыми пузырями",
-		PREPOSITIONAL = "газовых пузырях"
+		PREPOSITIONAL = "газовых пузырях",
 	)
 
 /obj/item/organ/internal/lungs/diona/Initialize(mapload)
@@ -306,7 +306,7 @@
 		DATIVE = "сегментированному отростку",
 		ACCUSATIVE = "сегментированный отросток",
 		INSTRUMENTAL = "сегментированным отростком",
-		PREPOSITIONAL = "сегментированном отростке"
+		PREPOSITIONAL = "сегментированном отростке",
 	)
 
 /obj/item/organ/internal/appendix/diona/Initialize(mapload)
@@ -329,7 +329,7 @@
 		DATIVE = "якорной связке",
 		ACCUSATIVE = "якорную связку",
 		INSTRUMENTAL = "якорной связкой",
-		PREPOSITIONAL = "якорной связке"
+		PREPOSITIONAL = "якорной связке",
 	)
 
 /obj/item/organ/internal/heart/diona/Initialize(mapload)
@@ -355,7 +355,7 @@
 		DATIVE = "рецепторному узлу",
 		ACCUSATIVE = "рецепторный узел",
 		INSTRUMENTAL = "рецепторным узлом",
-		PREPOSITIONAL = "рецепторном узле"
+		PREPOSITIONAL = "рецепторном узле",
 	)
 
 /obj/item/organ/internal/eyes/diona/Initialize(mapload)
@@ -377,7 +377,7 @@
 		DATIVE = "питательной железе",
 		ACCUSATIVE = "питательную железа",
 		INSTRUMENTAL = "питательной железой",
-		PREPOSITIONAL = "питательной железе"
+		PREPOSITIONAL = "питательной железе",
 	)
 
 /obj/item/organ/internal/liver/diona/Initialize(mapload)
@@ -400,7 +400,7 @@
 		DATIVE = "колебательному уловителю",
 		ACCUSATIVE = "колебательный уловитель",
 		INSTRUMENTAL = "колебательным уловителем",
-		PREPOSITIONAL = "колебательном уловителе"
+		PREPOSITIONAL = "колебательном уловителе",
 	)
 
 /obj/item/organ/internal/ears/diona/Initialize(mapload)

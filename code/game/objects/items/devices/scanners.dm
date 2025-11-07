@@ -301,7 +301,7 @@ BODY SCANNERS
 		DATIVE = "анализатору здоровья",
 		ACCUSATIVE = "анализатор здоровья",
 		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
+		PREPOSITIONAL = "анализаторе здоровья",
 	)
 
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -1057,7 +1057,7 @@ BODY SCANNERS
 		DATIVE = "модулю улучшения анализатора здоровья",
 		ACCUSATIVE = "модуль улучшения анализатора здоровья",
 		INSTRUMENTAL = "модулем улучшения анализатора здоровья",
-		PREPOSITIONAL = "модуле улучшения анализатора здоровья"
+		PREPOSITIONAL = "модуле улучшения анализатора здоровья",
 	)
 
 /obj/item/healthanalyzer/gem_analyzer
@@ -1074,7 +1074,7 @@ BODY SCANNERS
 		DATIVE = "глазу здоровья",
 		ACCUSATIVE = "глаз здоровья",
 		INSTRUMENTAL = "глазом здоровья",
-		PREPOSITIONAL = "глазе здоровья"
+		PREPOSITIONAL = "глазе здоровья",
 	)
 
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)

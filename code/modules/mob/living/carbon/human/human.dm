@@ -996,6 +996,20 @@
 		balloon_alert(usr, "пульс замерен")
 
 
+/mob/living/carbon/human/verb/begin_strip()
+	set name = "Обыскать"
+	set desc = "Обыскать цель."
+	set src in view(1)
+
+	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(usr == src)
+		check_self_for_injuries()
+		return
+
+	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, usr, usr)
+
 /**
  * Set up DNA and species.
  *

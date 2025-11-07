@@ -868,7 +868,7 @@
 		DATIVE = "стеллажу",
 		ACCUSATIVE = "стеллаж",
 		INSTRUMENTAL = "стеллажом",
-		PREPOSITIONAL = "стеллаже"
+		PREPOSITIONAL = "стеллаже",
 	)
 
 /obj/structure/rack/examine(mob/user)
@@ -1089,7 +1089,7 @@
 		DATIVE = "деталям стеллажа",
 		ACCUSATIVE = "детали стеллажа",
 		INSTRUMENTAL = "деталями стеллажа",
-		PREPOSITIONAL = "деталях стеллажа"
+		PREPOSITIONAL = "деталях стеллажа",
 	)
 
 /obj/item/rack_parts/wrench_act(mob/user, obj/item/I)

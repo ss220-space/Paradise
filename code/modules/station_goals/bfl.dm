@@ -59,11 +59,12 @@
 	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
-					/obj/item/stack/sheet/plasteel = 10,
-					/obj/item/stack/sheet/plasmaglass = 4,
-					/obj/item/stock_parts/capacitor/quadratic = 5,
-					/obj/item/stock_parts/micro_laser/quadultra = 10,
-					/obj/item/stack/sheet/mineral/diamond = 2)
+		/obj/item/stack/sheet/plasteel = 10,
+		/obj/item/stack/sheet/plasmaglass = 4,
+		/obj/item/stock_parts/capacitor/quadratic = 5,
+		/obj/item/stock_parts/micro_laser/quadultra = 10,
+		/obj/item/stack/sheet/mineral/diamond = 2,
+	)
 
 /obj/item/circuitboard/machine/bfl_receiver
 	board_name = "BFL Receiver"
@@ -71,9 +72,10 @@
 	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
-					/obj/item/stack/sheet/metal = 20,
-					/obj/item/stack/sheet/plasteel = 10,
-					/obj/item/stack/sheet/plasmaglass = 20)
+		/obj/item/stack/sheet/metal = 20,
+		/obj/item/stack/sheet/plasteel = 10,
+		/obj/item/stack/sheet/plasmaglass = 20,
+	)
 
 ///////////
 //Emitter//
@@ -299,7 +301,7 @@
 		DATIVE = "приёмнику BFL",
 		ACCUSATIVE = "приёмник BFL",
 		INSTRUMENTAL = "приёмником BFL",
-		PREPOSITIONAL = "приёмнике BFL"
+		PREPOSITIONAL = "приёмнике BFL",
 	)
 
 /obj/machinery/bfl_receiver/Initialize(mapload)
@@ -466,7 +468,7 @@
 		DATIVE = "высокоточной линзе",
 		ACCUSATIVE = "высокоточную линзу",
 		INSTRUMENTAL = "высокоточной линзой",
-		PREPOSITIONAL = "высокоточной линзе"
+		PREPOSITIONAL = "высокоточной линзе",
 	)
 
 /obj/machinery/bfl_lens/update_icon_state()
@@ -620,7 +622,7 @@
 		DATIVE = "лучу мегалазера",
 		ACCUSATIVE = "луч мегалазера",
 		INSTRUMENTAL = "лучом мегалазера",
-		PREPOSITIONAL = "луче мегалазера"
+		PREPOSITIONAL = "луче мегалазера",
 	)
 
 /obj/effect/bfl_laser/Initialize(mapload)

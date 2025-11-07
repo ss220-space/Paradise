@@ -25,8 +25,10 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	web_type = /obj/structure/spider/terrorweb/widow
-	special_abillity = list(/obj/effect/proc_holder/spell/fireball/smoke_spit,
-							/obj/effect/proc_holder/spell/fireball/venom_spit)
+	special_abillity = list(
+		/obj/effect/proc_holder/spell/fireball/smoke_spit,
+		/obj/effect/proc_holder/spell/fireball/venom_spit,
+	)
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
 	tts_seed = "Karastamper"

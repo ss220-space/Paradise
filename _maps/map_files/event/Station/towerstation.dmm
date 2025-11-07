@@ -17212,13 +17212,6 @@
 	},
 /turf/simulated/floor/carpet/orange,
 /area/hallway/secondary/exit)
-"leR" = (
-/obj/structure/table/reinforced,
-/obj/item/paper/deltainfo,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "leV" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -269990,7 +269983,7 @@ rgz
 wCc
 uvM
 ryd
-leR
+mte
 wCc
 rgz
 rgz

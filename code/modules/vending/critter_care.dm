@@ -75,7 +75,7 @@
 		DATIVE = "торговому автомату CritterCare",
 		ACCUSATIVE = "торговый автомат CritterCare",
 		INSTRUMENTAL = "торговым автоматом CritterCare",
-		PREPOSITIONAL = "торговом автомате CritterCare"
+		PREPOSITIONAL = "торговом автомате CritterCare",
 	)
 
 /obj/machinery/vending/crittercare/free

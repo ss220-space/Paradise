@@ -565,7 +565,7 @@
 		DATIVE = "Медицинской Лучпушке",
 		ACCUSATIVE = "Медицинскую Лучпушку",
 		INSTRUMENTAL = "Медицинской Лучпушкой",
-		PREPOSITIONAL = "Медицинская Лучпушке"
+		PREPOSITIONAL = "Медицинская Лучпушке",
 	)
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/Initialize(mapload)

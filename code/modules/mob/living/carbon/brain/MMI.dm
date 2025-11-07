@@ -279,7 +279,7 @@
 		DATIVE = "НКИ Синдиката",
 		ACCUSATIVE = "НКИ Синдиката",
 		INSTRUMENTAL = "НКИ Синдиката",
-		PREPOSITIONAL = "НКИ Синдиката"
+		PREPOSITIONAL = "НКИ Синдиката",
 	)
 
 /obj/item/mmi/syndie/apply_effects(mob/living/silicon/robot/borg)

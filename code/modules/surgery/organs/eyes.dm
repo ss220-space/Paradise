@@ -28,7 +28,7 @@
 		DATIVE = "глазам человека",
 		ACCUSATIVE = "глаза человека",
 		INSTRUMENTAL = "глазами человека",
-		PREPOSITIONAL = "глазах человека"
+		PREPOSITIONAL = "глазах человека",
 	)
 
 /obj/item/organ/internal/eyes/proc/update_colour()
@@ -117,7 +117,7 @@
 		DATIVE = "кибернетическим глазам",
 		ACCUSATIVE = "кибернетические глаза",
 		INSTRUMENTAL = "кибернетическими глазами",
-		PREPOSITIONAL = "кибернетических глазах"
+		PREPOSITIONAL = "кибернетических глазах",
 	)
 
 /obj/item/organ/internal/eyes/on_life()

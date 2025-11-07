@@ -16,7 +16,7 @@
 		DATIVE = "сигнальной ракете контрактника",
 		ACCUSATIVE = "сигнальную ракету контрактника",
 		INSTRUMENTAL = "сигнальной ракетой контрактника",
-		PREPOSITIONAL = "сигнальной ракете контрактника"
+		PREPOSITIONAL = "сигнальной ракете контрактника",
 	)
 
 /obj/effect/contractor_flare/Initialize(mapload)

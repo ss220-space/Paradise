@@ -264,7 +264,7 @@
 		DATIVE = "военному перевязочному пакету",
 		ACCUSATIVE = "военный перевязочный пакет",
 		INSTRUMENTAL = "военным перевязочным пакетом",
-		PREPOSITIONAL = "военном перевязочном пакете"
+		PREPOSITIONAL = "военном перевязочном пакете",
 	)
 
 /obj/item/stack/medical/bruise_pack/military/attackby(obj/item/I, mob/user, params)
@@ -544,7 +544,7 @@
 		DATIVE = "племенной шине",
 		ACCUSATIVE = "племенную шину",
 		INSTRUMENTAL = "племенной шиной",
-		PREPOSITIONAL = "племенной шине"
+		PREPOSITIONAL = "племенной шине",
 	)
 
 
@@ -580,7 +580,7 @@
 		DATIVE = "набору для зашивания ран",
 		ACCUSATIVE = "набор для зашивания ран",
 		INSTRUMENTAL = "набором для зашивания ран",
-		PREPOSITIONAL = "наборе для зашивания ран"
+		PREPOSITIONAL = "наборе для зашивания ран",
 	)
 
 /obj/item/stack/medical/suture/update_icon_state()
@@ -646,7 +646,7 @@
 		DATIVE = "хирургическому набору для зашивания ран",
 		ACCUSATIVE = "хирургический набор для зашивания ран",
 		INSTRUMENTAL = "хирургическим набором для зашивания ран",
-		PREPOSITIONAL = "хирургическому наборе для зашивания ран"
+		PREPOSITIONAL = "хирургическому наборе для зашивания ран",
 	)
 
 /obj/item/stack/medical/suture/advanced/update_icon_state()

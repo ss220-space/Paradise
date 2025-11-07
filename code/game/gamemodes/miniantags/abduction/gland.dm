@@ -25,7 +25,7 @@
 		DATIVE = "мясистой массе",
 		ACCUSATIVE = "мясистую массу",
 		INSTRUMENTAL = "мясистой массой",
-		PREPOSITIONAL = "мясистой массе"
+		PREPOSITIONAL = "мясистой массе",
 	)
 
 /obj/item/organ/internal/heart/gland/update_icon_state()

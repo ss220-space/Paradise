@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "окну",
 		ACCUSATIVE = "окно",
 		INSTRUMENTAL = "окном",
-		PREPOSITIONAL = "окне"
+		PREPOSITIONAL = "окне",
 	)
 
 
@@ -554,7 +554,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "укреплённому окну",
 		ACCUSATIVE = "укреплённое окно",
 		INSTRUMENTAL = "укреплённым окном",
-		PREPOSITIONAL = "укреплённом окне"
+		PREPOSITIONAL = "укреплённом окне",
 	)
 
 /obj/structure/window/reinforced/tinted
@@ -570,7 +570,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "тонированному окну",
 		ACCUSATIVE = "тонированное окно",
 		INSTRUMENTAL = "тонированным окном",
-		PREPOSITIONAL = "тонированном окне"
+		PREPOSITIONAL = "тонированном окне",
 	)
 
 /obj/structure/window/reinforced/tinted/frosted
@@ -586,7 +586,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "матовому окну",
 		ACCUSATIVE = "матовое окно",
 		INSTRUMENTAL = "матовым окном",
-		PREPOSITIONAL = "матовом окне"
+		PREPOSITIONAL = "матовом окне",
 	)
 
 /obj/structure/window/reinforced/polarized
@@ -603,7 +603,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "электрохромному окну",
 		ACCUSATIVE = "электрохромное окно",
 		INSTRUMENTAL = "электрохромным окном",
-		PREPOSITIONAL = "электрохромном окне"
+		PREPOSITIONAL = "электрохромном окне",
 	)
 
 /obj/structure/window/reinforced/polarized/proc/toggle()
@@ -634,7 +634,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "контроллеру тонировки окон",
 		ACCUSATIVE = "контроллер тонировки окон",
 		INSTRUMENTAL = "контроллером тонировки окон",
-		PREPOSITIONAL = "контроллере тонировки окон"
+		PREPOSITIONAL = "контроллере тонировки окон",
 	)
 
 /obj/machinery/button/windowtint/attack_hand(mob/user)
@@ -703,7 +703,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "плазменному окну",
 		ACCUSATIVE = "плазменное окно",
 		INSTRUMENTAL = "плазменным окном",
-		PREPOSITIONAL = "плазменном окне"
+		PREPOSITIONAL = "плазменном окне",
 	)
 
 /obj/structure/window/plasmabasic/BlockSuperconductivity()
@@ -729,7 +729,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "укреплённому плазменному окну",
 		ACCUSATIVE = "укреплённое плазменное окно",
 		INSTRUMENTAL = "укреплённым плазменным окном",
-		PREPOSITIONAL = "укреплённом плазменном окне"
+		PREPOSITIONAL = "укреплённом плазменном окне",
 	)
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -755,7 +755,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "инопланетному окну",
 		ACCUSATIVE = "инопланетное окно",
 		INSTRUMENTAL = "инопланетным окном",
-		PREPOSITIONAL = "инопланетном окне"
+		PREPOSITIONAL = "инопланетном окне",
 	)
 
 /obj/structure/window/abductor/Initialize(mapload, direct)
@@ -808,7 +808,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "плазменному окну",
 		ACCUSATIVE = "плазменное окно",
 		INSTRUMENTAL = "плазменным окном",
-		PREPOSITIONAL = "плазменном окне"
+		PREPOSITIONAL = "плазменном окне",
 	)
 
 /obj/structure/window/full/paperframe
@@ -829,7 +829,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "окну с бумажной рамой",
 		ACCUSATIVE = "окно с бумажной рамой",
 		INSTRUMENTAL = "окном с бумажной рамой",
-		PREPOSITIONAL = "окне с бумажной рамой"
+		PREPOSITIONAL = "окне с бумажной рамой",
 	)
 
 /obj/structure/window/full/plasmareinforced
@@ -855,7 +855,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "укреплённому плазменному окну",
 		ACCUSATIVE = "укреплённое плазменное окно",
 		INSTRUMENTAL = "укреплённым плазменным окном",
-		PREPOSITIONAL = "укреплённом плазменном окне"
+		PREPOSITIONAL = "укреплённом плазменном окне",
 	)
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -888,7 +888,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "укреплённому окну",
 		ACCUSATIVE = "укреплённое окно",
 		INSTRUMENTAL = "укреплённым окном",
-		PREPOSITIONAL = "укреплённом окне"
+		PREPOSITIONAL = "укреплённом окне",
 	)
 
 
@@ -907,7 +907,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "тонированному окну",
 		ACCUSATIVE = "тонированное окно",
 		INSTRUMENTAL = "тонированным окном",
-		PREPOSITIONAL = "тонированном окне"
+		PREPOSITIONAL = "тонированном окне",
 	)
 
 /obj/structure/window/full/reinforced/polarized
@@ -924,7 +924,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "электрохромному окну",
 		ACCUSATIVE = "электрохромное окно",
 		INSTRUMENTAL = "электрохромным окном",
-		PREPOSITIONAL = "электрохромном окне"
+		PREPOSITIONAL = "электрохромном окне",
 	)
 
 /obj/structure/window/full/reinforced/polarized/proc/toggle()
@@ -967,7 +967,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "инопланетному окну",
 		ACCUSATIVE = "инопланетное окно",
 		INSTRUMENTAL = "инопланетным окном",
-		PREPOSITIONAL = "инопланетном окне"
+		PREPOSITIONAL = "инопланетном окне",
 	)
 
 /obj/structure/window/full/abductor/Initialize(mapload, direct)
@@ -997,7 +997,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "окну шаттла",
 		ACCUSATIVE = "окно шаттла",
 		INSTRUMENTAL = "окном шаттла",
-		PREPOSITIONAL = "окне шаттла"
+		PREPOSITIONAL = "окне шаттла",
 	)
 /obj/structure/window/full/shuttle/narsie_act()
 	color = "#3C3434"
@@ -1017,7 +1017,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "окну шаттла",
 		ACCUSATIVE = "окно шаттла",
 		INSTRUMENTAL = "окном шаттла",
-		PREPOSITIONAL = "окне шаттла"
+		PREPOSITIONAL = "окне шаттла",
 	)
 /obj/structure/window/full/shuttle/gray/tinted
 	opacity = TRUE
@@ -1038,7 +1038,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "высокотехнологичному окну шаттла",
 		ACCUSATIVE = "высокотехнологичное окно шаттла",
 		INSTRUMENTAL = "высокотехнологичным окном шаттла",
-		PREPOSITIONAL = "высокотехнологичном окне шаттла"
+		PREPOSITIONAL = "высокотехнологичном окне шаттла",
 	)
 /obj/structure/window/full/shuttle/ninja/tinted
 	opacity = TRUE
@@ -1071,7 +1071,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "пластитановому окну",
 		ACCUSATIVE = "пластитановое окно",
 		INSTRUMENTAL = "пластитановым окном",
-		PREPOSITIONAL = "пластитановом окне"
+		PREPOSITIONAL = "пластитановом окне",
 	)
 
 /obj/structure/window/reinforced/clockwork
@@ -1095,7 +1095,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "латунному окну",
 		ACCUSATIVE = "латунное окно",
 		INSTRUMENTAL = "латунным окном",
-		PREPOSITIONAL = "латунном окне"
+		PREPOSITIONAL = "латунном окне",
 	)
 
 /obj/structure/window/reinforced/clockworkfake
@@ -1119,7 +1119,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		DATIVE = "латунному окну",
 		ACCUSATIVE = "латунное окно",
 		INSTRUMENTAL = "латунным окном",
-		PREPOSITIONAL = "латунном окне"
+		PREPOSITIONAL = "латунном окне",
 	)
 
 /obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)

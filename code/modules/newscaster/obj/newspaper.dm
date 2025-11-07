@@ -59,7 +59,7 @@
 		DATIVE = "газете",
 		ACCUSATIVE = "газету",
 		INSTRUMENTAL = "газетой",
-		PREPOSITIONAL = "газете"
+		PREPOSITIONAL = "газете",
 	)
 
 
@@ -188,7 +188,7 @@
 		DATIVE = "[rolled ? "свёрнутой " : ""]газете",
 		ACCUSATIVE = "[rolled ? "свёрнутую" : ""]газету",
 		INSTRUMENTAL = "[rolled ? "свёрнутой " : ""]газетой",
-		PREPOSITIONAL = "[rolled ? "свёрнутой " : ""]газете"
+		PREPOSITIONAL = "[rolled ? "свёрнутой " : ""]газете",
 	)
 	return CLICK_ACTION_SUCCESS
 

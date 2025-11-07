@@ -251,9 +251,11 @@
 /datum/crafting_recipe/oiled_makeshift_rod
 	name = "Oiled makeshift rod"
 	result = /obj/item/arrow/rod/fire
-	reqs = list(/datum/reagent/fuel = 10,
-				/obj/item/stack/sheet/cloth = 1,
-				/obj/item/arrow/rod = 1)
+	reqs = list(
+		/datum/reagent/fuel = 10,
+		/obj/item/stack/sheet/cloth = 1,
+		/obj/item/arrow/rod = 1,
+	)
 	blacklist = list(/obj/item/arrow/rod/fire)
 	time = 5
 	category = CAT_WEAPONRY

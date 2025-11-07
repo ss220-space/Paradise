@@ -6,7 +6,7 @@
 	question = "Завершение смены"
 	choices = list(
 		CREW_TRANSFER_CHOICE,
-		CONTINUE_SHIFT_CHOICE
+		CONTINUE_SHIFT_CHOICE,
 	)
 	vote_type_text = "crew transfer"
 

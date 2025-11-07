@@ -66,7 +66,7 @@
 		DATIVE = "космокарпу",
 		ACCUSATIVE = "космокарпа",
 		INSTRUMENTAL = "космокарпом",
-		PREPOSITIONAL = "космокарпе"
+		PREPOSITIONAL = "космокарпе",
 	)
 
 
@@ -176,7 +176,7 @@
 		DATIVE = "мегакосмокарпу",
 		ACCUSATIVE = "мегакосмокарпа",
 		INSTRUMENTAL = "мегакосмокарпом",
-		PREPOSITIONAL = "мегакосмокарпе"
+		PREPOSITIONAL = "мегакосмокарпе",
 	)
 
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
@@ -223,7 +223,7 @@
 		DATIVE = "морскому карпу",
 		ACCUSATIVE = "морского карпа",
 		INSTRUMENTAL = "морским карпом",
-		PREPOSITIONAL = "морском карпе"
+		PREPOSITIONAL = "морском карпе",
 	)
 
 /mob/living/simple_animal/hostile/carp/sea/ComponentInitialize()
@@ -252,7 +252,7 @@
 		DATIVE = "мутирововшему карпу",
 		ACCUSATIVE = "мутировавшего карпа",
 		INSTRUMENTAL = "мутировавшим карпом",
-		PREPOSITIONAL = "мутировавшем карпе"
+		PREPOSITIONAL = "мутировавшем карпе",
 	)
 
 /mob/living/simple_animal/hostile/carp/koi
@@ -281,7 +281,7 @@
 		DATIVE = "космическому кои",
 		ACCUSATIVE = "космического кои",
 		INSTRUMENTAL = "космическим кои",
-		PREPOSITIONAL = "космическом кои"
+		PREPOSITIONAL = "космическом кои",
 	)
 
 /mob/living/simple_animal/hostile/carp/koi/Initialize(mapload)

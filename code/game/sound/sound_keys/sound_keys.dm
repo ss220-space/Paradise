@@ -28,7 +28,7 @@
 		'sound/effects/CC0/patchpack2.ogg',
 		'sound/effects/CC0/patchpack3.ogg',
 		'sound/effects/CC0/patchpack4.ogg',
-		'sound/effects/CC0/patchpack5.ogg'
+		'sound/effects/CC0/patchpack5.ogg',
 	)
 
 /datum/sound_effect/pillbottle
@@ -37,7 +37,7 @@
 		'sound/effects/CC0/pillbottle1.ogg',
 		'sound/effects/CC0/pillbottle2.ogg',
 		'sound/effects/CC0/pillbottle3.ogg',
-		'sound/effects/CC0/pillbottle4.ogg'
+		'sound/effects/CC0/pillbottle4.ogg',
 	)
 
 /datum/sound_effect/shatter
@@ -45,21 +45,21 @@
 	file_paths = list(
 		'sound/effects/glassbr1.ogg',
 		'sound/effects/glassbr2.ogg',
-		'sound/effects/glassbr3.ogg'
+		'sound/effects/glassbr3.ogg',
 	)
 
 /datum/sound_effect/explosion
 	key = SFX_EXPLOSION
 	file_paths = list(
 		'sound/effects/explosion1.ogg',
-		'sound/effects/explosion2.ogg'
+		'sound/effects/explosion2.ogg',
 	)
 
 /datum/sound_effect/explosion_creaking
 	key = SFX_EXPLOSION_CREAKING
 	file_paths = list(
 		'sound/effects/explosioncreak1.ogg',
-		'sound/effects/explosioncreak2.ogg'
+		'sound/effects/explosioncreak2.ogg',
 	)
 
 /datum/sound_effect/hull_creaking
@@ -67,7 +67,7 @@
 	file_paths = list(
 		'sound/effects/creak1.ogg',
 		'sound/effects/creak2.ogg',
-		'sound/effects/creak3.ogg'
+		'sound/effects/creak3.ogg',
 	)
 
 /datum/sound_effect/sparks
@@ -76,7 +76,7 @@
 		'sound/effects/sparks1.ogg',
 		'sound/effects/sparks2.ogg',
 		'sound/effects/sparks3.ogg',
-		'sound/effects/sparks4.ogg'
+		'sound/effects/sparks4.ogg',
 	)
 
 /datum/sound_effect/rustle
@@ -86,7 +86,7 @@
 		'sound/effects/rustle2.ogg',
 		'sound/effects/rustle3.ogg',
 		'sound/effects/rustle4.ogg',
-		'sound/effects/rustle5.ogg'
+		'sound/effects/rustle5.ogg',
 	)
 
 /datum/sound_effect/bodyfall
@@ -95,7 +95,7 @@
 		'sound/effects/bodyfall1.ogg',
 		'sound/effects/bodyfall2.ogg',
 		'sound/effects/bodyfall3.ogg',
-		'sound/effects/bodyfall4.ogg'
+		'sound/effects/bodyfall4.ogg',
 	)
 
 /datum/sound_effect/punch
@@ -104,7 +104,7 @@
 		'sound/weapons/punch1.ogg',
 		'sound/weapons/punch2.ogg',
 		'sound/weapons/punch3.ogg',
-		'sound/weapons/punch4.ogg'
+		'sound/weapons/punch4.ogg',
 	)
 
 /datum/sound_effect/swing_hit
@@ -112,7 +112,7 @@
 	file_paths = list(
 		'sound/weapons/genhit1.ogg',
 		'sound/weapons/genhit2.ogg',
-		'sound/weapons/genhit3.ogg'
+		'sound/weapons/genhit3.ogg',
 	)
 
 /datum/sound_effect/blade_scifi_swing
@@ -121,7 +121,7 @@
 		'sound/weapons/swings/blade_scifi_swing1.ogg',
 		'sound/weapons/swings/blade_scifi_swing2.ogg',
 		'sound/weapons/swings/blade_scifi_swing3.ogg',
-		'sound/weapons/swings/blade_scifi_swing4.ogg'
+		'sound/weapons/swings/blade_scifi_swing4.ogg',
 	)
 
 /datum/sound_effect/blade_swing_heavy
@@ -130,7 +130,7 @@
 		'sound/weapons/swings/blade_swing_heavy1.ogg',
 		'sound/weapons/swings/blade_swing_heavy2.ogg',
 		'sound/weapons/swings/blade_swing_heavy3.ogg',
-		'sound/weapons/swings/blade_swing_heavy4.ogg'
+		'sound/weapons/swings/blade_swing_heavy4.ogg',
 	)
 
 /datum/sound_effect/blade_swing_light
@@ -139,7 +139,7 @@
 		'sound/weapons/swings/blade_swing_light1.ogg',
 		'sound/weapons/swings/blade_swing_light2.ogg',
 		'sound/weapons/swings/blade_swing_light3.ogg',
-		'sound/weapons/swings/blade_swing_light4.ogg'
+		'sound/weapons/swings/blade_swing_light4.ogg',
 	)
 
 /datum/sound_effect/blunt_swing_heavy
@@ -148,7 +148,7 @@
 		'sound/weapons/swings/blunt_swing_heavy1.ogg',
 		'sound/weapons/swings/blunt_swing_heavy2.ogg',
 		'sound/weapons/swings/blunt_swing_heavy3.ogg',
-		'sound/weapons/swings/blunt_swing_heavy4.ogg'
+		'sound/weapons/swings/blunt_swing_heavy4.ogg',
 	)
 
 /datum/sound_effect/blunt_swing_light
@@ -157,7 +157,7 @@
 		'sound/weapons/swings/blunt_swing_light1.ogg',
 		'sound/weapons/swings/blunt_swing_light2.ogg',
 		'sound/weapons/swings/blunt_swing_light3.ogg',
-		'sound/weapons/swings/blunt_swing_light4.ogg'
+		'sound/weapons/swings/blunt_swing_light4.ogg',
 	)
 
 /datum/sound_effect/chainsaw_swing
@@ -166,7 +166,7 @@
 		'sound/weapons/swings/chainsaw_swing1.ogg',
 		'sound/weapons/swings/chainsaw_swing2.ogg',
 		'sound/weapons/swings/chainsaw_swing3.ogg',
-		'sound/weapons/swings/chainsaw_swing4.ogg'
+		'sound/weapons/swings/chainsaw_swing4.ogg',
 	)
 
 /datum/sound_effect/chop_swing_heavy
@@ -175,7 +175,7 @@
 		'sound/weapons/swings/chop_swing_heavy1.ogg',
 		'sound/weapons/swings/chop_swing_heavy2.ogg',
 		'sound/weapons/swings/chop_swing_heavy3.ogg',
-		'sound/weapons/swings/chop_swing_heavy4.ogg'
+		'sound/weapons/swings/chop_swing_heavy4.ogg',
 	)
 
 /datum/sound_effect/chop_swing_light
@@ -184,7 +184,7 @@
 		'sound/weapons/swings/chop_swing_light1.ogg',
 		'sound/weapons/swings/chop_swing_light2.ogg',
 		'sound/weapons/swings/chop_swing_light3.ogg',
-		'sound/weapons/swings/chop_swing_light4.ogg'
+		'sound/weapons/swings/chop_swing_light4.ogg',
 	)
 
 /datum/sound_effect/double_energy_swing
@@ -193,7 +193,7 @@
 		'sound/weapons/swings/double_energy_swing1.ogg',
 		'sound/weapons/swings/double_energy_swing2.ogg',
 		'sound/weapons/swings/double_energy_swing3.ogg',
-		'sound/weapons/swings/double_energy_swing4.ogg'
+		'sound/weapons/swings/double_energy_swing4.ogg',
 	)
 
 /datum/sound_effect/energy_sword_swing
@@ -202,7 +202,7 @@
 		'sound/weapons/swings/energy_sword_swing1.ogg',
 		'sound/weapons/swings/energy_sword_swing2.ogg',
 		'sound/weapons/swings/energy_sword_swing3.ogg',
-		'sound/weapons/swings/energy_sword_swing4.ogg'
+		'sound/weapons/swings/energy_sword_swing4.ogg',
 	)
 
 /datum/sound_effect/generic_swing_heavy
@@ -211,7 +211,7 @@
 		'sound/weapons/swings/generic_swing_heavy1.ogg',
 		'sound/weapons/swings/generic_swing_heavy2.ogg',
 		'sound/weapons/swings/generic_swing_heavy3.ogg',
-		'sound/weapons/swings/generic_swing_heavy4.ogg'
+		'sound/weapons/swings/generic_swing_heavy4.ogg',
 	)
 
 /datum/sound_effect/generic_swing_light
@@ -220,7 +220,7 @@
 		'sound/weapons/swings/generic_swing_light1.ogg',
 		'sound/weapons/swings/generic_swing_light2.ogg',
 		'sound/weapons/swings/generic_swing_light3.ogg',
-		'sound/weapons/swings/generic_swing_light4.ogg'
+		'sound/weapons/swings/generic_swing_light4.ogg',
 	)
 
 /datum/sound_effect/katana_swing
@@ -229,7 +229,7 @@
 		'sound/weapons/swings/katana_swing1.ogg',
 		'sound/weapons/swings/katana_swing2.ogg',
 		'sound/weapons/swings/katana_swing3.ogg',
-		'sound/weapons/swings/katana_swing4.ogg'
+		'sound/weapons/swings/katana_swing4.ogg',
 	)
 
 /datum/sound_effect/knife_swing
@@ -238,7 +238,7 @@
 		'sound/weapons/swings/knife_swing1.ogg',
 		'sound/weapons/swings/knife_swing2.ogg',
 		'sound/weapons/swings/knife_swing3.ogg',
-		'sound/weapons/swings/knife_swing4.ogg'
+		'sound/weapons/swings/knife_swing4.ogg',
 	)
 
 /datum/sound_effect/rapier_swing
@@ -247,7 +247,7 @@
 		'sound/weapons/swings/rapier_swing1.ogg',
 		'sound/weapons/swings/rapier_swing2.ogg',
 		'sound/weapons/swings/rapier_swing3.ogg',
-		'sound/weapons/swings/rapier_swing4.ogg'
+		'sound/weapons/swings/rapier_swing4.ogg',
 	)
 
 /datum/sound_effect/hiss
@@ -256,7 +256,7 @@
 		'sound/voice/hiss1.ogg',
 		'sound/voice/hiss2.ogg',
 		'sound/voice/hiss3.ogg',
-		'sound/voice/hiss4.ogg'
+		'sound/voice/hiss4.ogg',
 	)
 
 /datum/sound_effect/page_turn
@@ -264,7 +264,7 @@
 	file_paths = list(
 		'sound/effects/pageturn1.ogg',
 		'sound/effects/pageturn2.ogg',
-		'sound/effects/pageturn3.ogg'
+		'sound/effects/pageturn3.ogg',
 	)
 
 /datum/sound_effect/ricochet
@@ -274,7 +274,7 @@
 		'sound/weapons/effects/ric2.ogg',
 		'sound/weapons/effects/ric3.ogg',
 		'sound/weapons/effects/ric4.ogg',
-		'sound/weapons/effects/ric5.ogg'
+		'sound/weapons/effects/ric5.ogg',
 	)
 
 /datum/sound_effect/honkbot_e
@@ -293,14 +293,14 @@
 		'sound/machines/buzz-sigh.ogg',
 		'sound/machines/ping.ogg',
 		'sound/weapons/flashbang.ogg',
-		'sound/weapons/bladeslice.ogg'
+		'sound/weapons/bladeslice.ogg',
 	)
 
 /datum/sound_effect/clown_step
 	key = SFX_CLOWN_STEP
 	file_paths = list(
 		'sound/effects/clownstep1.ogg',
-		'sound/effects/clownstep2.ogg'
+		'sound/effects/clownstep2.ogg',
 	)
 
 /datum/sound_effect/desecration
@@ -308,7 +308,7 @@
 	file_paths = list(
 		'sound/misc/desceration-01.ogg',
 		'sound/misc/desceration-02.ogg',
-		'sound/misc/desceration-03.ogg'
+		'sound/misc/desceration-03.ogg',
 	)
 
 /datum/sound_effect/growl
@@ -316,7 +316,7 @@
 	file_paths = list(
 		'sound/goonstation/voice/growl1.ogg',
 		'sound/goonstation/voice/growl2.ogg',
-		'sound/goonstation/voice/growl3.ogg'
+		'sound/goonstation/voice/growl3.ogg',
 	)
 
 /datum/sound_effect/terminal_type
@@ -329,14 +329,14 @@
 		'sound/machines/terminal_button05.ogg',
 		'sound/machines/terminal_button06.ogg',
 		'sound/machines/terminal_button07.ogg',
-		'sound/machines/terminal_button08.ogg'
+		'sound/machines/terminal_button08.ogg',
 	)
 
 /datum/sound_effect/u_fscream
 	key = SFX_U_FSCREAM
 	file_paths = list(
 		'sound/voice/unathi/f_u_scream.ogg',
-		'sound/voice/unathi/f_u_scream2.ogg'
+		'sound/voice/unathi/f_u_scream2.ogg',
 	)
 
 /datum/sound_effect/bonebreak
@@ -347,7 +347,7 @@
 		'sound/effects/bone_break_3.ogg',
 		'sound/effects/bone_break_4.ogg',
 		'sound/effects/bone_break_5.ogg',
-		'sound/effects/bone_break_6.ogg'
+		'sound/effects/bone_break_6.ogg',
 	)
 
 /datum/sound_effect/boxing
@@ -358,7 +358,7 @@
 		'sound/weapons/boxing3.ogg',
 		'sound/weapons/boxing4.ogg',
 		'sound/weapons/boxing5.ogg',
-		'sound/weapons/boxing6.ogg'
+		'sound/weapons/boxing6.ogg',
 	)
 
 /datum/sound_effect/bullet
@@ -366,7 +366,7 @@
 	file_paths = list(
 		'sound/weapons/bullet.ogg',
 		'sound/weapons/bullet2.ogg',
-		'sound/weapons/bullet3.ogg'
+		'sound/weapons/bullet3.ogg',
 	)
 
 /datum/sound_effect/gunshot
@@ -375,7 +375,7 @@
 		'sound/weapons/gunshots/gunshot.ogg',
 		'sound/weapons/gunshots/gunshot2.ogg',
 		'sound/weapons/gunshots/gunshot3.ogg',
-		'sound/weapons/gunshots/gunshot4.ogg'
+		'sound/weapons/gunshots/gunshot4.ogg',
 	)
 
 /datum/sound_effect/casing_drop
@@ -383,7 +383,7 @@
 	file_paths = list(
 		'sound/weapons/gun_interactions/casingfall1.ogg',
 		'sound/weapons/gun_interactions/casingfall2.ogg',
-		'sound/weapons/gun_interactions/casingfall3.ogg'
+		'sound/weapons/gun_interactions/casingfall3.ogg',
 	)
 
 /datum/sound_effect/computer_ambience
@@ -391,7 +391,7 @@
 	file_paths = list(
 		'sound/goonstation/machines/ambicomp1.ogg',
 		'sound/goonstation/machines/ambicomp2.ogg',
-		'sound/goonstation/machines/ambicomp3.ogg'
+		'sound/goonstation/machines/ambicomp3.ogg',
 	)
 
 /datum/sound_effect/pick_up

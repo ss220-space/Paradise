@@ -129,7 +129,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 		DATIVE = "очищенной шкуре",
 		ACCUSATIVE = "очищенную шкуру",
 		INSTRUMENTAL = "очищенной шкурой",
-		PREPOSITIONAL = "очищенной шкуре"
+		PREPOSITIONAL = "очищенной шкуре",
 	)
 
 /obj/item/stack/sheet/wetleather
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 		DATIVE = "мокрой шкуре",
 		ACCUSATIVE = "мокрую шкуру",
 		INSTRUMENTAL = "мокрой шкурой",
-		PREPOSITIONAL = "мокрой шкуре"
+		PREPOSITIONAL = "мокрой шкуре",
 	)
 
 /obj/item/stack/sheet/leather
@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 		DATIVE = "коже",
 		ACCUSATIVE = "кожу",
 		INSTRUMENTAL = "кожей",
-		PREPOSITIONAL = "коже"
+		PREPOSITIONAL = "коже",
 	)
 
 GLOBAL_LIST_INIT(leather_recipes, list (
@@ -204,7 +204,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 		DATIVE = "сухожилиям наблюдателя",
 		ACCUSATIVE = "сухожилия наблюдателя",
 		INSTRUMENTAL = "сухожилиями наблюдателя",
-		PREPOSITIONAL = "сухожилиях наблюдателя"
+		PREPOSITIONAL = "сухожилиях наблюдателя",
 	)
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \
@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		DATIVE = "пластине шкуры голиафа",
 		ACCUSATIVE = "пластину шкуры голиафа",
 		INSTRUMENTAL = "пластиной шкуры голиафа",
-		PREPOSITIONAL = "пластине шкуры голиафа"
+		PREPOSITIONAL = "пластине шкуры голиафа",
 	)
 
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag, params)
@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		DATIVE = "толстой хрящевой пластине",
 		ACCUSATIVE = "толстую хрящевую пластину",
 		INSTRUMENTAL = "толстой хрящевой пластиной",
-		PREPOSITIONAL = "толстой хрящевой пластине"
+		PREPOSITIONAL = "толстой хрящевой пластине",
 	)
 
 /obj/item/stack/sheet/animalhide/ashdrake
@@ -366,7 +366,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		DATIVE = "шкуре пепельного дрейка",
 		ACCUSATIVE = "шкуру пепельного дрейка",
 		INSTRUMENTAL = "шкурой пепельного дрейка",
-		PREPOSITIONAL = "шкуре пепельного дрейка"
+		PREPOSITIONAL = "шкуре пепельного дрейка",
 	)
 
 //Step one - dehairing.

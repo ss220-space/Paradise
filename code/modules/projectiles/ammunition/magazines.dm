@@ -270,7 +270,7 @@
 		DATIVE = "магазину пистолета \"Стечкин\" (10 мм)",
 		ACCUSATIVE = "магазин пистолета \"Стечкин\" (10 мм)",
 		INSTRUMENTAL = "магазином пистолета \"Стечкин\" (10 мм)",
-		PREPOSITIONAL = "магазине пистолета \"Стечкин\" (10 мм)"
+		PREPOSITIONAL = "магазине пистолета \"Стечкин\" (10 мм)",
 	)
 
 /obj/item/ammo_box/magazine/m10mm/fire
@@ -286,7 +286,7 @@
 		DATIVE = "магазину пистолета \"Стечкин\" (зажигательные 10 мм)",
 		ACCUSATIVE = "магазин пистолета \"Стечкин\" (зажигательные 10 мм)",
 		INSTRUMENTAL = "магазином пистолета \"Стечкин\" (зажигательные 10 мм)",
-		PREPOSITIONAL = "магазине пистолета \"Стечкин\" (зажигательные 10 мм)"
+		PREPOSITIONAL = "магазине пистолета \"Стечкин\" (зажигательные 10 мм)",
 	)
 
 /obj/item/ammo_box/magazine/m10mm/hp
@@ -302,7 +302,7 @@
 		DATIVE = "магазину пистолета \"Стечкин\" (экспансивные 10 мм)",
 		ACCUSATIVE = "магазин пистолета \"Стечкин\" (экспансивные 10 мм)",
 		INSTRUMENTAL = "магазином пистолета \"Стечкин\" (экспансивные 10 мм)",
-		PREPOSITIONAL = "магазине пистолета \"Стечкин\" (экспансивные 10 мм)"
+		PREPOSITIONAL = "магазине пистолета \"Стечкин\" (экспансивные 10 мм)",
 	)
 
 /obj/item/ammo_box/magazine/m10mm/ap
@@ -318,7 +318,7 @@
 		DATIVE = "магазину пистолета \"Стечкин\" (бронебойные 10 мм)",
 		ACCUSATIVE = "магазин пистолета \"Стечкин\" (бронебойные 10 мм)",
 		INSTRUMENTAL = "магазином пистолета \"Стечкин\" (бронебойные 10 мм)",
-		PREPOSITIONAL = "магазине пистолета \"Стечкин\" (бронебойные 10 мм)"
+		PREPOSITIONAL = "магазине пистолета \"Стечкин\" (бронебойные 10 мм)",
 	)
 
 /obj/item/ammo_box/magazine/m10mm/update_icon_state()
@@ -340,7 +340,7 @@
 		DATIVE = "магазину пистолета \"M1911\" (.45)",
 		ACCUSATIVE = "магазин пистолета \"M1911\" (.45)",
 		INSTRUMENTAL = "магазином пистолета \"M1911\" (.45)",
-		PREPOSITIONAL = "магазине пистолета \"M1911\" (.45)"
+		PREPOSITIONAL = "магазине пистолета \"M1911\" (.45)",
 	)
 
 /obj/item/ammo_box/magazine/enforcer
@@ -362,7 +362,7 @@
 		DATIVE = "магазину пистолета \"Блюститель\" (нелетальные 9 мм)",
 		ACCUSATIVE = "магазин пистолета \"Блюститель\" (нелетальные 9 мм)",
 		INSTRUMENTAL = "магазином пистолета \"Блюститель\" (нелетальные 9 мм)",
-		PREPOSITIONAL = "магазине пистолета \"Блюститель\" (нелетальные 9 мм)"
+		PREPOSITIONAL = "магазине пистолета \"Блюститель\" (нелетальные 9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/enforcer/update_overlays()
@@ -396,7 +396,7 @@
 		DATIVE = "магазину пистолета \"Блюститель\" (9 мм)",
 		ACCUSATIVE = "магазин пистолета \"Блюститель\" (9 мм)",
 		INSTRUMENTAL = "магазином пистолета \"Блюститель\" (9 мм)",
-		PREPOSITIONAL = "магазине пистолета \"Блюститель\" (9 мм)"
+		PREPOSITIONAL = "магазине пистолета \"Блюститель\" (9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/enforcer/extended
@@ -413,7 +413,7 @@
 		DATIVE = "расширенному магазину пистолета \"Блюститель\" (9 мм)",
 		ACCUSATIVE = "расширенный магазин пистолета \"Блюститель\" (9 мм)",
 		INSTRUMENTAL = "расширенным магазином пистолета \"Блюститель\" (9 мм)",
-		PREPOSITIONAL = "расширенном магазине пистолета \"Блюститель\" (9 мм)"
+		PREPOSITIONAL = "расширенном магазине пистолета \"Блюститель\" (9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/sp8
@@ -434,7 +434,7 @@
 		DATIVE = "магазину пистолета \"SP-8\" (.40 S&W)",
 		ACCUSATIVE = "магазин пистолета \"SP-8\" (.40 S&W)",
 		INSTRUMENTAL = "магазином пистолета \"SP-8\" (.40 S&W)",
-		PREPOSITIONAL = "магазине пистолета \"SP-8\" (.40 S&W)"
+		PREPOSITIONAL = "магазине пистолета \"SP-8\" (.40 S&W)",
 	)
 
 /obj/item/ammo_box/magazine/sp8/update_icon_state()
@@ -458,7 +458,7 @@
 		DATIVE = "магазину пистолет-пулемета \"WT-550 PDW\" (4,6x30 мм)",
 		ACCUSATIVE = "магазин пистолет-пулемета \"WT-550 PDW\" (4,6x30 мм)",
 		INSTRUMENTAL = "магазином пистолет-пулемета \"WT-550 PDW\" (4,6x30 мм)",
-		PREPOSITIONAL = "магазине пистолет-пулемета \"WT-550 PDW\" (4,6x30 мм)"
+		PREPOSITIONAL = "магазине пистолет-пулемета \"WT-550 PDW\" (4,6x30 мм)",
 	)
 
 /obj/item/ammo_box/magazine/wt550m9/update_icon_state()
@@ -476,7 +476,7 @@
 		DATIVE = "магазину пистолет-пулемета \"WT-550 PDW\" (бронебойные 4,6x30 мм)",
 		ACCUSATIVE = "магазин пистолет-пулемета \"WT-550 PDW\" (бронебойные 4,6x30 мм)",
 		INSTRUMENTAL = "магазином пистолет-пулемета \"WT-550 PDW\" (бронебойные 4,6x30 мм)",
-		PREPOSITIONAL = "магазине пистолет-пулемета \"WT-550 PDW\" (бронебойные 4,6x30 мм)"
+		PREPOSITIONAL = "магазине пистолет-пулемета \"WT-550 PDW\" (бронебойные 4,6x30 мм)",
 	)
 
 /obj/item/ammo_box/magazine/wt550m9/wttx
@@ -491,7 +491,7 @@
 		DATIVE = "магазину пистолет-пулемета \"WT-550 PDW\" (токсичные 4,6x30 мм)",
 		ACCUSATIVE = "магазин пистолет-пулемета \"WT-550 PDW\" (токсичные 4,6x30 мм)",
 		INSTRUMENTAL = "магазином пистолет-пулемета \"WT-550 PDW\" (токсичные 4,6x30 мм)",
-		PREPOSITIONAL = "магазине пистолет-пулемета \"WT-550 PDW\" (токсичные 4,6x30 мм)"
+		PREPOSITIONAL = "магазине пистолет-пулемета \"WT-550 PDW\" (токсичные 4,6x30 мм)",
 	)
 
 /obj/item/ammo_box/magazine/wt550m9/wtic
@@ -506,7 +506,7 @@
 		DATIVE = "магазину пистолет-пулемета \"WT-550 PDW\" (зажигательные 4,6x30 мм)",
 		ACCUSATIVE = "магазин пистолет-пулемета \"WT-550 PDW\" (зажигательные 4,6x30 мм)",
 		INSTRUMENTAL = "магазином пистолет-пулемета \"WT-550 PDW\" (зажигательные 4,6x30 мм)",
-		PREPOSITIONAL = "магазине пистолет-пулемета \"WT-550 PDW\" (зажигательные 4,6x30 мм)"
+		PREPOSITIONAL = "магазине пистолет-пулемета \"WT-550 PDW\" (зажигательные 4,6x30 мм)",
 	)
 
 /obj/item/ammo_box/magazine/sp91rc
@@ -527,7 +527,7 @@
 		DATIVE = "магазину пистолет-пулемета \"SP-91-RC\" (45 N&R)",
 		ACCUSATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (45 N&R)",
 		INSTRUMENTAL = "магазином пистолет-пулемета \"SP-91-RC\" (45 N&R)",
-		PREPOSITIONAL = "магазине пистолет-пулемета \"SP-91-RC\" (45 N&R)"
+		PREPOSITIONAL = "магазине пистолет-пулемета \"SP-91-RC\" (45 N&R)",
 	)
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
@@ -548,7 +548,7 @@
 		DATIVE = "магазину пистолет-пулемета \"UZI\" (9 мм)",
 		ACCUSATIVE = "магазин пистолет-пулемета \"UZI\"(9 мм)",
 		INSTRUMENTAL = "магазином пистолет-пулемета \"UZI\" (9 мм)",
-		PREPOSITIONAL = "магазине пистолет-пулемета \"UZI\" (9 мм)"
+		PREPOSITIONAL = "магазине пистолет-пулемета \"UZI\" (9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/uzim9mm/update_icon_state()
@@ -569,7 +569,7 @@
 		DATIVE = "магазину SMG (9 мм)",
 		ACCUSATIVE = "магазина SMG(9 мм)",
 		INSTRUMENTAL = "магазином SMG (9 мм)",
-		PREPOSITIONAL = "магазине SMG (9 мм)"
+		PREPOSITIONAL = "магазине SMG (9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/smgm9mm/rubber
@@ -584,7 +584,7 @@
 		DATIVE = "магазину SMG (резиновый 9 мм)",
 		ACCUSATIVE = "магазина SMG (резиновый 9 мм)",
 		INSTRUMENTAL = "магазином SMG (резиновый 9 мм)",
-		PREPOSITIONAL = "магазине SMG (резиновый 9 мм)"
+		PREPOSITIONAL = "магазине SMG (резиновый 9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
@@ -599,7 +599,7 @@
 		DATIVE = "магазину SMG (бронебойный 9 мм)",
 		ACCUSATIVE = "магазина SMG (бронебойный 9 мм)",
 		INSTRUMENTAL = "магазином SMG (бронебойный 9 мм)",
-		PREPOSITIONAL = "магазине SMG (бронебойный 9 мм)"
+		PREPOSITIONAL = "магазине SMG (бронебойный 9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/smgm9mm/toxin
@@ -614,7 +614,7 @@
 		DATIVE = "магазину SMG (токсичный 9 мм)",
 		ACCUSATIVE = "магазина SMG (токсичный 9 мм)",
 		INSTRUMENTAL = "магазином SMG (токсичный 9 мм)",
-		PREPOSITIONAL = "магазине SMG (токсичный 9 мм)"
+		PREPOSITIONAL = "магазине SMG (токсичный 9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/smgm9mm/fire
@@ -629,7 +629,7 @@
 		DATIVE = "магазину SMG (зажигательный 9 мм)",
 		ACCUSATIVE = "магазина SMG (зажигательный 9 мм)",
 		INSTRUMENTAL = "магазином SMG (зажигательный 9 мм)",
-		PREPOSITIONAL = "магазине SMG (зажигательный 9 мм)"
+		PREPOSITIONAL = "магазине SMG (зажигательный 9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/smgm9mm/update_icon_state()
@@ -650,7 +650,7 @@
 		DATIVE = "магазину SFG-5 SMG (9 мм)",
 		ACCUSATIVE = "магазина SFG-5 SMG (9 мм)",
 		INSTRUMENTAL = "магазином SFG-5 SMG (9 мм)",
-		PREPOSITIONAL = "магазине SFG-5 SMG (9 мм)"
+		PREPOSITIONAL = "магазине SFG-5 SMG (9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/sfg9mm/update_icon_state()
@@ -671,7 +671,7 @@
 		DATIVE = "магазину APS (9 мм)",
 		ACCUSATIVE = "магазина APS (9 мм)",
 		INSTRUMENTAL = "магазином APS (9 мм)",
-		PREPOSITIONAL = "магазине APS (9 мм)"
+		PREPOSITIONAL = "магазине APS (9 мм)",
 	)
 
 /obj/item/ammo_box/magazine/pistolm9mm/update_icon_state()
@@ -692,7 +692,7 @@
 		DATIVE = "магазину SMG (.45)",
 		ACCUSATIVE = "магазина SMG(.45)",
 		INSTRUMENTAL = "магазином SMG (.45)",
-		PREPOSITIONAL = "магазине SMG (.45)"
+		PREPOSITIONAL = "магазине SMG (.45)",
 	)
 
 /obj/item/ammo_box/magazine/smgm45/update_icon_state()
@@ -713,7 +713,7 @@
 		DATIVE = "барабанному магазину SMG (.45)",
 		ACCUSATIVE = "барабанный магазина SMG(.45)",
 		INSTRUMENTAL = "барабанным магазином SMG (.45)",
-		PREPOSITIONAL = "барабанном магазине SMG (.45)"
+		PREPOSITIONAL = "барабанном магазине SMG (.45)",
 	)
 
 /obj/item/ammo_box/magazine/m50
@@ -731,7 +731,7 @@
 		DATIVE = "магазину Desert Eagle (.50 AE)",
 		ACCUSATIVE = "магазина Desert Eagle (.50 AE)",
 		INSTRUMENTAL = "магазином Desert Eagle (.50 AE)",
-		PREPOSITIONAL = "магазине Desert Eagle (.50 AE)"
+		PREPOSITIONAL = "магазине Desert Eagle (.50 AE)",
 	)
 
 /obj/item/ammo_box/magazine/m75
@@ -750,7 +750,7 @@
 		DATIVE = "магазину гиро-пистолета (.75)",
 		ACCUSATIVE = "магазина гиро-пистолета (.75)",
 		INSTRUMENTAL = "магазином гиро-пистолета (.75)",
-		PREPOSITIONAL = "магазине гиро-пистолета (.75)"
+		PREPOSITIONAL = "магазине гиро-пистолета (.75)",
 	)
 
 // this magazine uses for M-90gl and ARG guns
@@ -771,7 +771,7 @@
 		DATIVE = "автоматному магазину (5,56 мм)",
 		ACCUSATIVE = "автоматного магазина (5,56 мм)",
 		INSTRUMENTAL = "автоматным магазином (5,56 мм)",
-		PREPOSITIONAL = "автоматном магазине (5,56 мм)"
+		PREPOSITIONAL = "автоматном магазине (5,56 мм)",
 	)
 
 /obj/item/ammo_box/magazine/ak814
@@ -792,7 +792,7 @@
 		DATIVE = "автоматному магазину AK-814 (5,45x39 мм)",
 		ACCUSATIVE = "автоматного магазина AK-814 (5,45x39 мм)",
 		INSTRUMENTAL = "автоматным магазином AK-814 (5,45x39 мм)",
-		PREPOSITIONAL = "автоматном магазине AK-814 (5,45x39 мм)"
+		PREPOSITIONAL = "автоматном магазине AK-814 (5,45x39 мм)",
 	)
 
 /obj/item/ammo_box/magazine/aksu
@@ -812,7 +812,7 @@
 		DATIVE = "автоматному магазину AKSU (5,45x39 мм)",
 		ACCUSATIVE = "автоматного магазина AKSU (5,45x39 мм)",
 		INSTRUMENTAL = "автоматным магазином AKSU (5,45x39 мм)",
-		PREPOSITIONAL = "автоматном магазине AKSU (5,45x39 мм)"
+		PREPOSITIONAL = "автоматном магазине AKSU (5,45x39 мм)",
 	)
 
 /obj/item/ammo_box/magazine/ppsh
@@ -833,7 +833,7 @@
 		DATIVE = "магазину ППШ (7,62x25 мм)",
 		ACCUSATIVE = "магазина ППШ (7,62x25 мм)",
 		INSTRUMENTAL = "магазином ППШ (7,62x25 мм)",
-		PREPOSITIONAL = "магазине ППШ (7,62x25 мм)"
+		PREPOSITIONAL = "магазине ППШ (7,62x25 мм)",
 	)
 
 // this drum magazine uses for Buldog, Mastiff and AS-12 Minotaur shotguns
@@ -853,7 +853,7 @@
 		DATIVE = "барабанному магазину (12х70)",
 		ACCUSATIVE = "барабанный магазина (12х70)",
 		INSTRUMENTAL = "барабанным магазином (12х70)",
-		PREPOSITIONAL = "барабанном магазине (12х70)"
+		PREPOSITIONAL = "барабанном магазине (12х70)",
 	)
 
 /obj/item/ammo_box/magazine/cheap_m12g
@@ -873,7 +873,7 @@
 		DATIVE = "барабанному магазину (картечный 12х70)",
 		ACCUSATIVE = "барабанный магазина (картечный 12х70)",
 		INSTRUMENTAL = "барабанным магазином (картечный 12х70)",
-		PREPOSITIONAL = "барабанном магазине (картечный 12х70)"
+		PREPOSITIONAL = "барабанном магазине (картечный 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/slug
@@ -889,7 +889,7 @@
 		DATIVE = "барабанному магазину (12х70)",
 		ACCUSATIVE = "барабанный магазина (12х70)",
 		INSTRUMENTAL = "барабанным магазином (12х70)",
-		PREPOSITIONAL = "барабанном магазине (12х70)"
+		PREPOSITIONAL = "барабанном магазине (12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/stun
@@ -905,7 +905,7 @@
 		DATIVE = "барабанному магазину (шоковый 12х70)",
 		ACCUSATIVE = "барабанный магазина (шоковый 12х70)",
 		INSTRUMENTAL = "барабанным магазином (шоковый 12х70)",
-		PREPOSITIONAL = "барабанном магазине (шоковый 12х70)"
+		PREPOSITIONAL = "барабанном магазине (шоковый 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/dragon
@@ -921,7 +921,7 @@
 		DATIVE = "барабанному магазину (дыхание дракона 12х70)",
 		ACCUSATIVE = "барабанный магазина (дыхание дракона 12х70)",
 		INSTRUMENTAL = "барабанным магазином (дыхание дракона 12х70)",
-		PREPOSITIONAL = "барабанном магазине (дыхание дракона 12х70)"
+		PREPOSITIONAL = "барабанном магазине (дыхание дракона 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/bioterror
@@ -937,7 +937,7 @@
 		DATIVE = "барабанному магазину (биотеррор 12х70)",
 		ACCUSATIVE = "барабанный магазина (биотеррор 12х70)",
 		INSTRUMENTAL = "барабанным магазином (биотеррор 12х70)",
-		PREPOSITIONAL = "барабанном магазине (биотеррор 12х70)"
+		PREPOSITIONAL = "барабанном магазине (биотеррор 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/breach
@@ -953,7 +953,7 @@
 		DATIVE = "барабанному магазину (разрывные 12х70)",
 		ACCUSATIVE = "барабанный магазина (разрывные 12х70)",
 		INSTRUMENTAL = "барабанным магазином (разрывные 12х70)",
-		PREPOSITIONAL = "барабанном магазине (разрывные 12х70)"
+		PREPOSITIONAL = "барабанном магазине (разрывные 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/flechette
@@ -969,7 +969,7 @@
 		DATIVE = "барабанному магазину (флешетты 12х70)",
 		ACCUSATIVE = "барабанный магазина (флешетты 12х70)",
 		INSTRUMENTAL = "барабанным магазином (флешетты 12х70)",
-		PREPOSITIONAL = "барабанном магазине (флешетты 12х70)"
+		PREPOSITIONAL = "барабанном магазине (флешетты 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
@@ -986,7 +986,7 @@
 		DATIVE = "увеличенному барабанному магазину (усиленные 12х70)",
 		ACCUSATIVE = "увеличенный барабанный магазин (усиленные 12х70)",
 		INSTRUMENTAL = "увеличенным барабанным магазином (усиленные 12х70)",
-		PREPOSITIONAL = "увеличенном барабанном магазине (усиленные 12х70)"
+		PREPOSITIONAL = "увеличенном барабанном магазине (усиленные 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
@@ -1002,7 +1002,7 @@
 		DATIVE = "увеличенному барабанному магазину (флешетты 12х70)",
 		ACCUSATIVE = "увеличенный барабанный магазин (флешетты 12х70)",
 		INSTRUMENTAL = "увеличенным барабанным магазином (флешетты 12х70)",
-		PREPOSITIONAL = "увеличенном барабанном магазине (флешетты 12х70)"
+		PREPOSITIONAL = "увеличенном барабанном магазине (флешетты 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/slug
@@ -1018,7 +1018,7 @@
 		DATIVE = "увеличенному барабанному магазину (пулевой 12х70)",
 		ACCUSATIVE = "увеличенный барабанный магазин (пулевой 12х70)",
 		INSTRUMENTAL = "увеличенным барабанным магазином (пулевой 12х70)",
-		PREPOSITIONAL = "увеличенном барабанном магазине (пулевой 12х70)"
+		PREPOSITIONAL = "увеличенном барабанном магазине (пулевой 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
@@ -1034,7 +1034,7 @@
 		DATIVE = "увеличенному барабанному магазину (напалмовое дыхание дракона 12х70)",
 		ACCUSATIVE = "увеличенный барабанный магазин (напалмовое дыхание дракона 12х70)",
 		INSTRUMENTAL = "увеличенным барабанным магазином (напалмовое дыхание дракона 12х70)",
-		PREPOSITIONAL = "увеличенном барабанном магазине (напалмовое дыхание дракона 12х70)"
+		PREPOSITIONAL = "увеличенном барабанном магазине (напалмовое дыхание дракона 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/toy
@@ -1050,7 +1050,7 @@
 		DATIVE = "магазину пенных патронов",
 		ACCUSATIVE = "магазин пенных патронов",
 		INSTRUMENTAL = "магазином пенных патронов",
-		PREPOSITIONAL = "магазине пенных патронов"
+		PREPOSITIONAL = "магазине пенных патронов",
 	)
 
 /obj/item/ammo_box/magazine/toy/smg
@@ -1066,7 +1066,7 @@
 		DATIVE = "магазину SMG (пенный патрон)",
 		ACCUSATIVE = "магазин SMG (пенный патрон)",
 		INSTRUMENTAL = "магазином SMG (пенный патрон)",
-		PREPOSITIONAL = "магазине SMG (пенный патрон)"
+		PREPOSITIONAL = "магазине SMG (пенный патрон)",
 	)
 
 /obj/item/ammo_box/magazine/toy/smg/update_icon_state()
@@ -1089,7 +1089,7 @@
 		DATIVE = "магазину пистолета (пенный патрон)",
 		ACCUSATIVE = "магазин пистолета (пенный патрон)",
 		INSTRUMENTAL = "магазином пистолета (пенный патрон)",
-		PREPOSITIONAL = "магазине пистолета (пенный патрон)"
+		PREPOSITIONAL = "магазине пистолета (пенный патрон)",
 	)
 
 /obj/item/ammo_box/magazine/toy/pistol/riot
@@ -1112,7 +1112,7 @@
 		DATIVE = "магазину пистолета \"Блюститель\" (пенный патрон)",
 		ACCUSATIVE = "магазин пистолета \"Блюститель\" (пенный патрон)",
 		INSTRUMENTAL = "магазином пистолета \"Блюститель\" (пенный патрон)",
-		PREPOSITIONAL = "магазине пистолета \"Блюститель\" (пенный патрон)"
+		PREPOSITIONAL = "магазине пистолета \"Блюститель\" (пенный патрон)",
 	)
 
 
@@ -1150,7 +1150,7 @@
 		DATIVE = "магазину C-20r SMG (пенный патрон)",
 		ACCUSATIVE = "магазин C-20r SMG (пенный патрон)",
 		INSTRUMENTAL = "магазином C-20r SMG (пенный патрон)",
-		PREPOSITIONAL = "магазине C-20r SMG (пенный патрон)"
+		PREPOSITIONAL = "магазине C-20r SMG (пенный патрон)",
 	)
 
 /obj/item/ammo_box/magazine/toy/smgm45/update_icon_state()
@@ -1169,7 +1169,7 @@
 		DATIVE = "магазину L6 SAW (пенный патрон)",
 		ACCUSATIVE = "магазин L6 SAW (пенный патрон)",
 		INSTRUMENTAL = "магазином L6 SAW (пенный патрон)",
-		PREPOSITIONAL = "магазине L6 SAW (пенный патрон)"
+		PREPOSITIONAL = "магазине L6 SAW (пенный патрон)",
 	)
 
 /obj/item/ammo_box/magazine/toy/m762/update_icon_state()
@@ -1192,7 +1192,7 @@
 		DATIVE = "автоматному магазину IK-60 (лазерный)",
 		ACCUSATIVE = "автоматного магазина IK-60 (лазерный)",
 		INSTRUMENTAL = "автоматным магазином IK-60 (лазерный)",
-		PREPOSITIONAL = "автоматном магазине IK-60 (лазерный)"
+		PREPOSITIONAL = "автоматном магазине IK-60 (лазерный)",
 	)
 
 /obj/item/ammo_box/magazine/laser/update_icon_state()
@@ -1213,7 +1213,7 @@
 		DATIVE = "автоматному магазину LR-30 (лазерный)",
 		ACCUSATIVE = "автоматного магазина LR-30 (лазерный)",
 		INSTRUMENTAL = "автоматным магазином LR-30 (лазерный)",
-		PREPOSITIONAL = "автоматном магазине LR-30 (лазерный)"
+		PREPOSITIONAL = "автоматном магазине LR-30 (лазерный)",
 	)
 
 /obj/item/ammo_box/magazine/lr30mag/update_icon_state()
@@ -1238,7 +1238,7 @@
 		DATIVE = "автоматному магазину M-52 (5,56х45 мм)",
 		ACCUSATIVE = "автоматного магазина M-52 (5,56х45 мм)",
 		INSTRUMENTAL = "автоматным магазином M-52 (5,56х45 мм)",
-		PREPOSITIONAL = "автоматном магазине M-52 (5,56х45 мм)"
+		PREPOSITIONAL = "автоматном магазине M-52 (5,56х45 мм)",
 	)
 
 /obj/item/ammo_box/magazine/cats12g
@@ -1256,7 +1256,7 @@
 		DATIVE = "барабанному магазину C.A.T.S. (пулевой 12х70)",
 		ACCUSATIVE = "барабанный магазина C.A.T.S. (пулевой 12х70)",
 		INSTRUMENTAL = "барабанным магазином C.A.T.S. (пулевой 12х70)",
-		PREPOSITIONAL = "барабанном магазине C.A.T.S. (пулевой 12х70)"
+		PREPOSITIONAL = "барабанном магазине C.A.T.S. (пулевой 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/cats12g/large
@@ -1272,7 +1272,7 @@
 		DATIVE = "увеличенному барабанному магазину C.A.T.S. (пулевой 12х70)",
 		ACCUSATIVE = "увеличенный барабанный магазин C.A.T.S. (пулевой 12х70)",
 		INSTRUMENTAL = "увеличенным барабанным магазином C.A.T.S. (пулевой 12х70)",
-		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (пулевой 12х70)"
+		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (пулевой 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/cats12g/beanbang
@@ -1288,7 +1288,7 @@
 		DATIVE = "барабанному магазину C.A.T.S. (резиновая пуля 12х70)",
 		ACCUSATIVE = "барабанный магазина C.A.T.S. (резиновая пуля 12х70)",
 		INSTRUMENTAL = "барабанным магазином C.A.T.S. (резиновая пуля 12х70)",
-		PREPOSITIONAL = "барабанном магазине C.A.T.S. (резиновая пуля 12х70)"
+		PREPOSITIONAL = "барабанном магазине C.A.T.S. (резиновая пуля 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/cats12g/beanbang/large
@@ -1304,7 +1304,7 @@
 		DATIVE = "увеличенному барабанному магазину C.A.T.S. (резиновая пуля 12х70)",
 		ACCUSATIVE = "увеличенный барабанный магазин C.A.T.S. (резиновая пуля 12х70)",
 		INSTRUMENTAL = "увеличенным барабанным магазином C.A.T.S. (резиновая пуля 12х70)",
-		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (резиновая пуля 12х70)"
+		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (резиновая пуля 12х70)",
 	)
 
 /obj/item/ammo_box/magazine/cats12g/universal
@@ -1321,7 +1321,7 @@
 		DATIVE = "барабанному магазину C.A.T.S. (12х70)",
 		ACCUSATIVE = "барабанный магазина C.A.T.S. (12х70)",
 		INSTRUMENTAL = "барабанным магазином C.A.T.S. (12х70)",
-		PREPOSITIONAL = "барабанном магазине C.A.T.S. (12х70)"
+		PREPOSITIONAL = "барабанном магазине C.A.T.S. (12х70)",
 	)
 
 /obj/item/ammo_box/magazine/cats12g/universal/large
@@ -1337,5 +1337,5 @@
 		DATIVE = "увеличенному барабанному магазину C.A.T.S. (12х70)",
 		ACCUSATIVE = "увеличенный барабанный магазин C.A.T.S. (12х70)",
 		INSTRUMENTAL = "увеличенным барабанным магазином C.A.T.S. (12х70)",
-		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (12х70)"
+		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (12х70)",
 	)

@@ -785,7 +785,7 @@
 		DATIVE = "пруду",
 		ACCUSATIVE = "пруд",
 		INSTRUMENTAL = "прудом",
-		PREPOSITIONAL = "пруде"
+		PREPOSITIONAL = "пруде",
 	)
 
 /obj/structure/sink/puddle/Initialize(mapload)
