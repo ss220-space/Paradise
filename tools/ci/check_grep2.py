@@ -305,9 +305,14 @@ def check_dash_usage(idx, line):
     return failures
 
 PLAYSOUND_IMPROPER_CALL = re.compile(r'playsound\(([^,]*), "(sound\/[^\[]+)"')
+SOUND_IMPROPER_PATH = re.compile(r'"(sound\/[^\[]+)(.ogg)"')
 def check_playsound_improper_call(idx, line):
+    failures = []
     if match := PLAYSOUND_IMPROPER_CALL.search(line):
         return [(idx + 1, f"Improper playsound call detected: \"{match.group(2)}\", it should be '{match.group(2)}' instead.")]
+    if match := SOUND_IMPROPER_PATH.search(line):
+        return [(idx + 1, f"Improper sound path detected: {match.group(0)}, it should be '{match.group(1)}.ogg' instead.")]
+    return failures
 
 APOSTROPHE_NAME = re.compile(r'name\s*=\s*"[^"]*\[[^]]*\]\'s')
 def check_apostrophe_name(idx, line):
