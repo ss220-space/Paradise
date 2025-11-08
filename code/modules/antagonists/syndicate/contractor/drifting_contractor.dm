@@ -47,12 +47,11 @@
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
 	internals_slot = ITEM_SLOT_SUITSTORE
 
-	id_access = SYNDICATE_OPERATIVE
-
 	backpack_contents = list(
 		/obj/item/storage/box/survival_syndi = 1,
 		/obj/item/paper/contractor_guide_midround = 1,
-		/obj/item/crowbar/red = 1,
+		/obj/item/storage/firstaid/doctor = 1,
+		/obj/item/jammer = 1,
 		/obj/item/grenade/plastic/c4 = 1,
 	)
 
