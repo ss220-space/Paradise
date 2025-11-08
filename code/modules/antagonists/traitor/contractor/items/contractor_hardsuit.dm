@@ -260,7 +260,6 @@
 	update_suit()
 	disguise = TRUE
 
-
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/disable_chameleon()
 	src.name = initial(name)
 	src.icon_state = initial(src.icon_state)

@@ -24,7 +24,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		description = path::desc
 	update_gear_icon()
 
-
 /datum/gear/proc/update_gear_icon(color)
 	var/gear_icon = get_gear_icon(color)
 	if(!gear_icon)
@@ -78,7 +77,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		to_chat(cl, span_warning("\"[capitalize(get_display_name())]\" недоступно для вашей профессии!"))
 
 	return FALSE
-
 
 /datum/gear/proc/get_header_tips()
 	return

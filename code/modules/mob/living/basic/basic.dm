@@ -21,7 +21,6 @@
 	///Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 
-
 	///How much wounding power it has
 	// var/wound_bonus = CANT_WOUND
 	///How much bare wounding power it has

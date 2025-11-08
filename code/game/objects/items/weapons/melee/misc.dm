@@ -77,7 +77,6 @@
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
-
 /obj/item/melee/rapier/syndie
 	name = "plastitanium rapier"
 	desc = "A thin blade made of plastitanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."
@@ -88,11 +87,9 @@
 	materials = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-
 /obj/item/melee/rapier/syndie/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/after_attack/attack_effect_sleep, 45, 5 SECONDS)
-
 
 /obj/item/melee/rapier/centcomm
 	name = "centcomm plastitanium rapier"
@@ -111,7 +108,6 @@
 	. = ..()
 	AddElement(/datum/element/after_attack/attack_effect_sleep, 100, 10 SECONDS)
 
-
 /obj/item/melee/rapier/centcomm/attack_self(mob/user)
 	. = ..()
 
@@ -124,7 +120,6 @@
 	else
 		ADD_TRAIT(src, TRAIT_NODROP, CENTCOMM_RAPIER_TRAIT)
 		to_chat(usr, span_warning("Вы сжимаете рукоятку [src] со всей силы. Теперь ничто не может выбить у вас оружие из рук!"))
-
 
 /obj/item/melee/mantisblade
 	name = "Gorlex mantis blade"
@@ -178,7 +173,6 @@
 		return .
 
 	addtimer(CALLBACK(secondsword, PROC_REF(mantis_attack), target, user, params, def_zone), 0.2 SECONDS)
-
 
 /obj/item/melee/mantisblade/proc/mantis_attack(mob/living/target, mob/living/user, params, def_zone)
 	if(QDELETED(src) || QDELETED(target) || !user.is_in_hands(src) || !user.Adjacent(target))

@@ -23,13 +23,11 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 	///if a click isnt delayed at all then it counts as 0 deciseconds.
 	var/average_click_delay = 0
 
-
 /datum/controller/subsystem/verb_manager/input/Initialize()
 	setup_default_macro_sets()
 	initialized = TRUE
 	refresh_client_macro_sets()
 	return SS_INIT_SUCCESS
-
 
 // This is for when macro sets are eventualy datumized
 /datum/controller/subsystem/verb_manager/input/proc/setup_default_macro_sets()
@@ -64,13 +62,11 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 		legacy_default[key] = "\"KeyDown [key]\""
 		legacy_default["[key]+UP"] = "\"KeyUp [key]\""
 
-
 /datum/controller/subsystem/verb_manager/input/proc/refresh_client_macro_sets()
 	var/list/clients = GLOB.clients
 	for(var/i in 1 to length(clients))
 		var/client/user = clients[i]
 		user.set_macros()
-
 
 /datum/controller/subsystem/verb_manager/input/can_queue_verb(datum/callback/verb_callback/incoming_callback, control)
 	//make sure the incoming verb is actually something we specifically want to handle
@@ -84,12 +80,10 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 
 	return TRUE
 
-
 ///stupid workaround for byond not recognizing the /atom/Click typepath for the queued click callbacks
 /atom/proc/_Click(location, control, params)
 	if(usr)
 		Click(location, control, params)
-
 
 /datum/controller/subsystem/verb_manager/input/fire()
 	..()
@@ -99,7 +93,6 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 		moves_this_run += user.focus?.keyLoop(user.client)//only increments if a player moves due to their own input
 
 	movements_per_second = MC_AVG_SECONDS(movements_per_second, moves_this_run, wait TICKS)
-
 
 /datum/controller/subsystem/verb_manager/input/run_verb_queue()
 	var/deferred_clicks_this_run = 0 //acts like current_clicks but doesnt count clicks that dont get processed by SSinput
@@ -121,10 +114,8 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 	delayed_clicks_per_second = MC_AVG_SECONDS(delayed_clicks_per_second, deferred_clicks_this_run, wait SECONDS)
 	current_clicks = 0
 
-
 /datum/controller/subsystem/verb_manager/input/Recover()
 	verb_queue = SSinput.verb_queue
-
 
 /datum/controller/subsystem/verb_manager/input/get_stat_details()
 	return "M/S:[round(movements_per_second,0.01)] | C/S:[round(clicks_per_second,0.01)] ([round(delayed_clicks_per_second,0.01)] | CD: [round(average_click_delay / (1 SECONDS),0.01)])"

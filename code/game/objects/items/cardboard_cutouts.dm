@@ -52,7 +52,6 @@
 	. = ..()
 	user.remove_alt_appearance("sneaking_mission")
 
-
 /obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/toy/crayon))
@@ -202,10 +201,8 @@
 
 	return 1
 
-
 /obj/item/twohanded/cardboard_cutout/setDir(newdir)
 	return ..(SOUTH)
-
 
 /obj/item/twohanded/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
 	deceptive = TRUE

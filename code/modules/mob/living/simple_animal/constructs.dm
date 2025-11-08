@@ -29,7 +29,6 @@
 	healable = FALSE
 	light_system = MOVABLE_LIGHT
 
-
 /mob/living/simple_animal/hostile/construct/New()
 	. = ..()
 	if(cult_icon_changing)
@@ -239,7 +238,6 @@
 						and shells to place those soulstones into.</b>"
 	hud_type = /datum/hud/construct/builder
 
-
 /mob/living/simple_animal/hostile/construct/builder/Found(atom/A) //what have we found here?
 	if(isconstruct(A)) //is it a construct?
 		var/mob/living/simple_animal/hostile/construct/C = A
@@ -300,7 +298,6 @@
 
 /////////////////////////////Behemoth/////////////////////////
 
-
 /mob/living/simple_animal/hostile/construct/behemoth
 	name = "Behemoth"
 	real_name = "Behemoth"
@@ -328,7 +325,6 @@
 /mob/living/simple_animal/hostile/construct/behemoth/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
-
 
 /////////////////////////////Harvester/////////////////////////
 
@@ -358,10 +354,8 @@
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</b>"
 	hud_type = /datum/hud/construct/harvester
 
-
 /mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -390,7 +384,6 @@
 				healths.icon_state = "juggernaut_health6"
 			else
 				healths.icon_state = "juggernaut_health7"
-
 
 /mob/living/simple_animal/hostile/construct/behemoth/update_health_hud()
 	if(!client)
@@ -457,7 +450,6 @@
 				healths.icon_state = "wraith_health6"
 			else
 				healths.icon_state = "wraith_health7"
-
 
 /mob/living/simple_animal/hostile/construct/harvester/update_health_hud()
 	if(!client)

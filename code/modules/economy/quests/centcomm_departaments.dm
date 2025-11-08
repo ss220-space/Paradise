@@ -195,7 +195,6 @@
 
 	return TRUE
 
-
 /datum/quest_customer/corp/chang
 	departament_name = "Mr. Chang"
 
@@ -237,7 +236,6 @@
 
 /datum/quest_customer/corp/haakon
 	departament_name = "Haakon Group"
-
 
 #undef GROUP_EMERGENCY
 #undef GROUP_SECURITY

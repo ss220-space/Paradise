@@ -95,7 +95,6 @@
 	offer.item_UID = item_UID
 	offer.receiver_UID = receiver_UID
 
-
 /atom/movable/screen/alert/status_effect/offering_item
 	name = "Предложение предмета"
 	desc = "Вы предлагаете предмет игроку. Держите предмет в руке, чтобы он мог принять его! Нажмите чтобы отменить."
@@ -112,7 +111,6 @@
 	to_chat(giver, span_notice("Вы передумали передавать [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	to_chat(receiver, span_warning("[giver] передумал[PLUR_I(giver)] передавать вам [I.declent_ru(ACCUSATIVE)]."))
 	receiver.clear_alert("take item [item_UID]") // This cancels *everything* related to the giving/item offering.
-
 
 /**
  * # Give click intercept
@@ -136,7 +134,6 @@
 	RegisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
 	RegisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
 
-
 /datum/click_intercept/give/Destroy(force = FALSE)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	if(!item_offered)
@@ -148,7 +145,6 @@
 		UnregisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
 		giver = null
 	return ..()
-
 
 /datum/click_intercept/give/InterceptClickOn(mob/user, params, atom/object)
 	if(user == object || !iscarbon(object))
@@ -174,7 +170,6 @@
 	to_chat(user, span_notice("Вы предлагаете [item.declent_ru(ACCUSATIVE)] [receiver]."))
 	qdel(src)
 
-
 /**
  * # Take Item alert
  *
@@ -193,7 +188,6 @@
 	/// UID of the item being given.
 	var/item_UID
 
-
 /atom/movable/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/item)
 	. = ..()
 	desc = "[giver] хо[PLUR_CHET_TYAT(giver)] передать вам [item.declent_ru(ACCUSATIVE)]. Нажмите чтобы принять!"
@@ -210,7 +204,6 @@
 	RegisterSignal(item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
 	RegisterSignal(giver, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give))
 
-
 /atom/movable/screen/alert/take_item/Destroy()
 	var/mob/living/giver = locateUID(giver_UID)
 	var/obj/item/giving_item = locateUID(item_UID)
@@ -222,7 +215,6 @@
 
 	return ..()
 
-
 /atom/movable/screen/alert/take_item/proc/cancel_give()
 	SIGNAL_HANDLER
 
@@ -233,7 +225,6 @@
 	to_chat(receiver, span_warning("[giver] передумал[GEND_A_O_I(giver)] передавать вам [locateUID(item_UID)]."))
 
 	receiver.clear_alert("take item [item_UID]")
-
 
 /atom/movable/screen/alert/take_item/Click(location, control, params)
 	var/mob/living/giver = locateUID(giver_UID)
@@ -273,7 +264,6 @@
 
 	receiver.visible_message(span_notice("[giver] переда[PLUR_YOT_YUT(giver)] [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
-
 
 /atom/movable/screen/alert/take_item/do_timeout(mob/M, category)
 	var/mob/living/giver = locateUID(giver_UID)

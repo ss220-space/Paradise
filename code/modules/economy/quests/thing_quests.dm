@@ -43,7 +43,6 @@
 
 	desc += "[capitalize(object_name)]<br>"
 
-
 /datum/cargo_quest/thing/update_interface_icon()
 	if(item_for_show)
 		interface_images += path2assetID(item_for_show)
@@ -307,7 +306,6 @@
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
-
 /datum/cargo_quest/thing/minerals/add_goal(difficultly)
 	var/list/difficult_list = generate_goal_list(difficultly)
 	var/obj/item/item_path = pick(difficult_list)
@@ -436,7 +434,6 @@
 		/obj/item/seeds/lavaland/polypore = 100,
 		/obj/item/seeds/lavaland/porcini = 100,
 	)
-
 
 	very_hard_items = list(
 		/obj/item/seeds/kudzu = 460,
@@ -622,7 +619,6 @@
 	. = TRUE
 	current_list = required_blocks.Copy()
 
-
 #define REQUIRED_BLOOD_AMOUNT 10
 /datum/cargo_quest/thing/virus
 	quest_type_name = "Вирусные симптомы в пробирках (минимум 10 ед.)"
@@ -789,7 +785,6 @@
 			LAZYADD(capsules, capsule)
 			return TRUE
 	return FALSE
-
 
 /datum/cargo_quest/thing/capsule/after_check()
 	. = TRUE

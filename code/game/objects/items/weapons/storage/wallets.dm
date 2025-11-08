@@ -43,12 +43,10 @@
 	if(. && istype(I, /obj/item/card/id))
 		refresh_ID()
 
-
 /obj/item/storage/wallet/handle_item_insertion(obj/item/I, prevent_warning = FALSE)
 	. = ..()
 	if(. && istype(I, /obj/item/card/id))
 		refresh_ID()
-
 
 /obj/item/storage/wallet/swap_items(obj/item/item_1, obj/item/item_2, mob/user)
 	. = ..()
@@ -58,7 +56,6 @@
 /obj/item/storage/wallet/orient2hud(mob/user)
 	. = ..()
 	refresh_ID()
-
 
 /obj/item/storage/wallet/proc/refresh_ID()
 	// Locate the first ID in the wallet
@@ -71,7 +68,6 @@
 
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
-
 /obj/item/storage/wallet/update_overlays()
 	. = ..()
 	if(!front_id)
@@ -83,7 +79,6 @@
 		front_id_icon_state_holder = "id"
 	. += mutable_appearance('icons/obj/wallets.dmi', front_id_icon_state_holder)
 
-
 /obj/item/storage/wallet/update_name(updates = ALL)
 	. = ..()
 	if(front_id)
@@ -91,14 +86,11 @@
 	else
 		name = "[item_color] leather wallet"
 
-
 /obj/item/storage/wallet/GetID()
 	return front_id ? front_id : ..()
 
-
 /obj/item/storage/wallet/GetAccess()
 	return front_id ? front_id.GetAccess() : ..()
-
 
 /obj/item/storage/wallet/random/populate_contents()
 	var/coin = pickweight(list(
@@ -117,7 +109,6 @@
 	desc = "A cheap wallet from the arcade."
 	storage_slots = 5		//smaller storage than normal wallets
 
-
 /obj/item/storage/wallet/color/Initialize(mapload)
 	. = ..()
 	if(!item_color)
@@ -127,15 +118,12 @@
 		return
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 
-
 /obj/item/storage/wallet/color/update_icon_state()
 	icon_state = "[item_color]_wallet"
-
 
 /obj/item/storage/wallet/color/update_desc(updates = ALL)
 	. = ..()
 	desc = "[item_color] wallet made from... leather?"
-
 
 /obj/item/storage/wallet/color/blue
 	icon_state = "blue_wallet"

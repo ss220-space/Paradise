@@ -50,7 +50,6 @@
 	narsie_spawn_animation()
 	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse)), 10 SECONDS)
 
-
 /obj/singularity/god/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
 	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
@@ -74,18 +73,15 @@
 	if(prob(25))
 		mezzer()
 
-
 /obj/singularity/god/narsie/Bump(atom/bumped_atom, effect_applied = TRUE)//you dare stand before a god?!
 	. = ..()
 	if(.)
 		return .
 	godsmack(bumped_atom)
 
-
 /obj/singularity/god/narsie/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
 	. = ..()
 	godsmack(moving_atom)
-
 
 /obj/singularity/god/narsie/proc/godsmack(atom/A)
 	if(istype(A,/obj/))
@@ -103,7 +99,6 @@
 			if(!iscultist(M))
 				to_chat(M, span_warning("You feel your sanity crumble away in an instant as you gaze upon [src.name]..."))
 				M.Stun(6 SECONDS)
-
 
 /obj/singularity/god/narsie/consume(atom/A)
 	A.narsie_act(src)
@@ -147,7 +142,6 @@
 		acquire(pick(cultists))
 		return
 
-
 /obj/singularity/god/narsie/proc/acquire(mob/food)
 	if(food == target)
 		return
@@ -169,7 +163,6 @@
 		if(isturf(X) || istype(X, /atom/movable))
 			consume(X)
 	return
-
 
 /obj/singularity/god/narsie/proc/narsie_spawn_animation()
 	icon = 'icons/obj/narsie_spawn_anim.dmi'

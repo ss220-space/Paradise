@@ -9,7 +9,6 @@
 	/// Should the AI get codewords?
 	var/give_codewords = TRUE
 
-
 /datum/antagonist/malf_ai/can_be_owned(datum/mind/new_owner)
 	. = ..()
 	if(!.)
@@ -21,7 +20,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /datum/antagonist/malf_ai/Destroy(force)
 	var/mob/living/silicon/ai/malf = owner?.current
@@ -38,19 +36,15 @@
 		QDEL_NULL(malf.malf_picker)
 	return ..()
 
-
 /datum/antagonist/malf_ai/add_owner_to_gamemode()
 	SSticker.mode.traitors |= owner
-
 
 /datum/antagonist/malf_ai/remove_owner_from_gamemode()
 	SSticker.mode.traitors -= owner
 
-
 /datum/antagonist/malf_ai/give_objectives()
 	add_objective(/datum/objective/block)
 	add_objective(/datum/objective/survive)
-
 
 /datum/antagonist/malf_ai/finalize_antag()
 	add_malf_tools()
@@ -59,7 +53,6 @@
 	var/mob/living/silicon/ai/shodan = owner.current
 	shodan.show_laws()
 	return messages
-
 
 /**
  * Gives malf AIs, and their connected cyborgs, a law zero. Additionally gives the AI their choose modules action button.
@@ -74,18 +67,15 @@
 	for(var/mob/living/silicon/robot/unit in shodan.connected_robots)
 		SSticker?.score?.save_silicon_laws(unit, additional_info = "malf AI initialization, new zero law was added '[cyborg_law]'")
 
-
 /datum/antagonist/malf_ai/greet()
 	var/list/messages = list()
 	if(owner?.current && !silent)
 		messages.Add(span_userdanger("You are a [job_rank]!"))
 	return messages
 
-
 /datum/antagonist/malf_ai/farewell()
 	if(owner?.current && !silent)
 		to_chat(owner.current, span_userdanger("You are no longer a [job_rank]!"))
-
 
 /**
  * Takes any datum `source` and checks it for malf AI datum.

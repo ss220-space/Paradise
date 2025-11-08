@@ -166,7 +166,6 @@ research holder datum.
 		other.AddDesign2Known(D)
 	other.RefreshResearch()
 
-
 //Autolathe files
 /datum/research/autolathe
 
@@ -227,7 +226,6 @@ research holder datum.
 	var/max_level = 1          // Maximum level this can be at (for job objectives)
 	var/rare = 1						//How much CentCom wants to get that tech. Used in supply shuttle tech cost calculation.
 	var/list/req_tech = list()			//List of ids associated values of techs required to research this tech. "id" = #
-
 
 //Trunk Technologies (don't require any other techs and you start knowning them).
 

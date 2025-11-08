@@ -187,7 +187,6 @@
 
 	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
 
-
 /datum/job/officer
 	title = JOB_TITLE_OFFICER
 	flag = JOB_FLAG_OFFICER
@@ -299,7 +298,6 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/survival/brigphys
-
 
 /datum/job/pilot
 	title = JOB_TITLE_PILOT

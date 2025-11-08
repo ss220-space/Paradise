@@ -32,7 +32,6 @@
 	icon = icon(initial(I.icon))
 	icon_state = initial(I.icon_state)
 
-
 /obj/machinery/customat
 	name = "Customat"
 	desc = "Торговый автомат с кастомным содержимым."
@@ -84,7 +83,6 @@
 	var/vend_delay = 1 SECONDS
 	/// Item currently being bought
 	var/datum/data/customat_product/currently_vending = null
-
 
 	// Stuff relating vocalizations
 	/// List of slogans the customat will say, optional
@@ -152,7 +150,6 @@
 
 	/// Direct ref to the trunk pipe underneath us
 	var/obj/structure/disposalpipe/trunk/trunk
-
 
 /obj/machinery/customat/proc/set_up_components()
 	component_parts = list()
@@ -266,7 +263,6 @@
 	if(panel_overlay && panel_open)
 		. += panel_overlay
 
-
 /obj/machinery/customat/power_change(forced = FALSE)
 	. = ..()
 	if(stat & NOPOWER)
@@ -276,12 +272,10 @@
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/customat/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
-
 
 /obj/machinery/customat/proc/flick_vendor_overlay(flick_flag = FLICK_NONE)
 	if(flick_sequence & (FLICK_VEND|FLICK_DENY))
@@ -295,11 +289,9 @@
 	var/flick_time = (flick_flag & FLICK_VEND) ? vend_overlay_time : (flick_flag & FLICK_DENY) ? deny_overlay_time : 0
 	addtimer(CALLBACK(src, PROC_REF(flick_reset)), flick_time)
 
-
 /obj/machinery/customat/proc/flick_reset()
 	flick_sequence = FLICK_NONE
 	update_icon(UPDATE_OVERLAYS)
-
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -433,7 +425,6 @@
 		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, FALSE)
 
 	return ..()
-
 
 /obj/machinery/customat/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
@@ -574,7 +565,6 @@
 	data["speaker"] = shut_up ? FALSE : TRUE
 	return data
 
-
 /obj/machinery/customat/ui_static_data(mob/user)
 	var/list/data = list()
 	return data
@@ -691,12 +681,10 @@
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product, user), vend_delay)
 
-
 /obj/machinery/customat/proc/delayed_vend(datum/data/customat_product/product, mob/user)
 	do_vend(product, user)
 	vend_ready = TRUE
 	currently_vending = null
-
 
 /**
  * Override this proc to add handling for what to do with the vended product
@@ -729,7 +717,6 @@
 		var/slogan = pick(src.slogan_list)
 		speak(slogan)
 		COOLDOWN_START(src, slogan_cooldown, slogan_delay)
-
 
 /obj/machinery/customat/proc/speak(message)
 	if(stat & NOPOWER)

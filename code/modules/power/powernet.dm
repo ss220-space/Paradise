@@ -63,7 +63,6 @@
 	if(is_empty())//the powernet is now empty...
 		qdel(src)///... delete it
 
-
 //add a power machine to the current powernet
 //Warning : this proc DON'T check if the machine exists
 /datum/powernet/proc/add_machine(obj/machinery/power/M)

@@ -198,7 +198,6 @@
 					head_organ = owner.get_organ(BODY_ZONE_HEAD) //Update the head with the new information.
 					cut_and_generate_data()
 
-
 /datum/ui_module/appearance_changer/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

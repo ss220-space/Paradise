@@ -161,7 +161,6 @@
 		qdel(M)
 	linkedmist.Cut()
 
-
 /obj/machinery/poolcontroller/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -192,7 +191,6 @@
 
 	temperature = val
 
-
 /obj/machinery/poolcontroller/proc/str_to_temp(str)
 	switch(str)
 		if("frigid")
@@ -211,14 +209,12 @@
 	if(temp)
 		set_temp(temp)
 
-
 /obj/machinery/poolcontroller/ui_data(mob/user)
 	var/list/data = list()
 	data["currentTemp"] = temp_to_str(temperature)
 	data["emagged"] = emagged
 
 	return data
-
 
 /obj/machinery/poolcontroller/ui_act(action, list/params)
 	if(..())

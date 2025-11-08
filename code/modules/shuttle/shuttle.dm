@@ -458,7 +458,6 @@
 			qdel(i)
 		ripples.Cut()
 
-
 /obj/docking_port/mobile/proc/ripple_area(obj/docking_port/stationary/new_dock)
 	var/list/old_turfs = return_ordered_turfs(x, y, z, dir, areaInstance)
 	var/list/new_turfs = return_ordered_turfs(new_dock.x, new_dock.y, new_dock.z, new_dock.dir)
@@ -622,7 +621,6 @@
 	if(T && check_dock(T))
 		return T
 
-
 /obj/docking_port/mobile/proc/findRoundstartDock()
 	for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 		if(S.id == roundstart_move)
@@ -664,7 +662,6 @@
 		if(A.id_tag == new_dock.id)
 			if(A.locked)
 				A.unlock()
-
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
@@ -955,7 +952,6 @@
 			destination = target_destination
 			return TRUE
 
-
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
@@ -973,7 +969,6 @@
 	circuit = /obj/item/circuitboard/ferry
 	shuttleId = "ferry"
 	possible_destinations = "ferry_home;ferry_away"
-
 
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
@@ -995,7 +990,6 @@
 		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<a href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
 
-
 /obj/machinery/computer/shuttle/ruins_transport_shuttle // this shuttle made for station and listening post of ussp since they have lore connection between eachother, btw the shuttle existed before the change but was deleted for some reason.
 	name = "Transport Shuttle Console"
 	desc = "Используется для управления Транспортным шаттлом."
@@ -1014,7 +1008,6 @@
 	circuit = /obj/item/circuitboard/ruins_civil_shuttle
 	shuttleId = "ruins_civil_shuttle"
 	possible_destinations = "spacebar;spacehotelv1;ntstation"
-
 
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"

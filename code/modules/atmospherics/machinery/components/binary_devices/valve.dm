@@ -10,7 +10,6 @@
 	var/open = FALSE
 	var/animating = FALSE
 
-
 /obj/machinery/atmospherics/binary/valve/examine(mob/user)
 	. = ..()
 	. += "It is currently [open ? "open" : "closed"]."

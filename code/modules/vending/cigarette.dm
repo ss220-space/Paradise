@@ -123,7 +123,6 @@
 /obj/machinery/vending/cigarette/syndicate/free
 	prices = list()
 
-
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "ShadyCigs Ultra"
 	desc = "Теперь с дополнительными продуктами премиум-класса!"

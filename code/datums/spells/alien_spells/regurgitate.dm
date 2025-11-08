@@ -3,10 +3,8 @@
 	desc = "Empties the contents of your stomach onto the ground."
 	action_icon_state = "alien_barf"
 
-
 /obj/effect/proc_holder/spell/alien_spell/regurgitate/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/alien_spell/regurgitate/cast(list/targets, mob/living/carbon/user)
 	for(var/mob/M in user.stomach_contents)

@@ -33,7 +33,6 @@
 		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 	)
 
-
 /datum/outfit/admin/debug/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
@@ -75,7 +74,6 @@
 	. = ..()
 	for(var/channel in SSradio.radiochannels)
 		channels[channel] = TRUE // yeah, all channels, sure, probably fine
-
 
 /obj/item/clothing/mask/gas/welding/advanced
 	name = "AVD-CNED welding mask"
@@ -160,7 +158,6 @@
 
 /obj/item/clothing/glasses/hud/debug/visor_toggling(mob/living/carbon/human/user)
 	return
-
 
 /obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
 	see_in_dark = initial(see_in_dark)
@@ -419,7 +416,6 @@
 		INSTRUMENTAL = "коробкой с материалами",
 		PREPOSITIONAL = "коробке с материалами",
 	)
-
 
 /obj/item/storage/box/debug/material/populate_contents()
 	new /obj/item/stack/sheet/metal/fifty(src)

@@ -15,7 +15,6 @@
 	var/assemblyattacher
 	var/notify_admins = TRUE
 
-
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
 	image_overlay = mutable_appearance('icons/obj/weapons/grenade.dmi', "[item_state]2")
@@ -24,12 +23,10 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)
 	target = null
 	return ..()
-
 
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly_holder))
@@ -52,7 +49,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/grenade/plastic/wirecutter_act(mob/living/user, obj/item/I)
 	if(!nadeassembly)
 		return FALSE
@@ -64,11 +60,9 @@
 	nadeassembly = null
 	update_icon(UPDATE_ICON_STATE)
 
-
 //assembly stuff
 /obj/item/grenade/plastic/receive_signal()
 	prime()
-
 
 /obj/item/grenade/plastic/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -76,11 +70,9 @@
 	if(nadeassembly)
 		nadeassembly.assembly_crossed(arrived, old_loc)
 
-
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
-
 
 /obj/item/grenade/plastic/attack_self(mob/user)
 	if(nadeassembly)
@@ -96,7 +88,6 @@
 		return
 	det_time = newtime
 	to_chat(user, "Timer set for [newtime / 10] seconds.")
-
 
 /obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(!flag)
@@ -117,7 +108,6 @@
 	if(!user.drop_item_ground(src))
 		return
 	attach(AM, user)
-
 
 /obj/item/grenade/plastic/proc/attach(atom/movable/AM, mob/user, silent)
 	target = AM
@@ -167,13 +157,11 @@
 	user.gib()
 	return OBLITERATION
 
-
 /obj/item/grenade/plastic/update_icon_state()
 	if(nadeassembly)
 		icon_state = "[item_state]1"
 	else
 		icon_state = "[item_state]0"
-
 
 //////////////////////////
 ///// The Explosives /////
@@ -327,7 +315,6 @@
 		M.adjust_fire_stacks(2)
 		M.IgniteMob()
 	qdel(src)
-
 
 #undef BOMB_OVERLAY_ID
 

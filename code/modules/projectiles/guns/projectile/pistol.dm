@@ -19,10 +19,8 @@
 	)
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
 
 //M1911//
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -80,7 +78,6 @@
 	add_skin("Tan Handle", "enforcer_tangrip")
 	add_skin("Red Handle", "enforcer_redgrip")
 
-
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
@@ -93,11 +90,9 @@
 	magazine = new/obj/item/ammo_box/magazine/enforcer/lethal
 	. = ..()
 
-
 //СБшный инфорсер//
 /obj/item/gun/projectile/automatic/pistol/enforcer/security
 	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
-
 
 //SP8 Pistol OBR and Warden//
 /obj/item/gun/projectile/automatic/pistol/sp8
@@ -118,7 +113,6 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
 
-
 /obj/item/gun/projectile/automatic/pistol/sp8/update_gun_skins()
 	add_skin("Black", "sp8_black")
 	add_skin("Red", "sp8_red")
@@ -126,7 +120,6 @@
 	add_skin("Olive", "sp8_olive")
 	add_skin("Yellow", "sp8_yellow")
 	add_skin("White", "sp8_white")
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
 	if(current_skin)
@@ -145,11 +138,9 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
 
-
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t/update_gun_skins()
 	add_skin("Dust", "sp8t_dust")
 	add_skin("Sea", "sp8t_sea")
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
 	name = "SP-8-AR"
@@ -162,7 +153,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
-
 
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
@@ -184,10 +174,8 @@
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/pistol/deagle/gold
 	desc = "A gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."

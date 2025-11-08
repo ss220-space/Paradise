@@ -6,7 +6,6 @@
 	var/layer_to_change_from = MOB_LAYER
 	var/layer_to_change_to = TURF_LAYER + 0.2
 
-
 /datum/action/innate/hide/Grant(mob/user)
 	. = ..()
 	if(!.)
@@ -16,7 +15,6 @@
 		var/mob/living/simple_animal/animal = owner
 		if(animal.pass_door_while_hidden)
 			desc = "[desc] Прячась, вы можете пролезть под незаболтированными шлюзами."
-
 
 /datum/action/innate/hide/Activate()
 	active = TRUE
@@ -28,7 +26,6 @@
 	if(istype(simplemob) && simplemob.pass_door_while_hidden || isdrone(simplemob))
 		simplemob.pass_flags |= PASSDOOR
 
-
 /datum/action/innate/hide/Deactivate()
 	active = FALSE
 	update_layer()
@@ -39,25 +36,20 @@
 	if(istype(simplemob) && simplemob.pass_door_while_hidden || isdrone(simplemob))
 		simplemob.pass_flags &= ~PASSDOOR
 
-
 /datum/action/innate/hide/proc/update_layer()
 	owner.layer = active ? layer_to_change_to : layer_to_change_from
-
 
 /datum/action/innate/hide/drone
 	desc = "Позволяет прятаться под столами и некоторыми объектами. В скрытом состоянии можно пролезать под незаболтированными шлюзами."
 	button_icon_state = "repairbot"
 
-
 /datum/action/innate/hide/drone/cogscarab
 	layer_to_change_to = LOW_OBJ_LAYER
-
 
 /datum/action/innate/hide/alien_larva
 	background_icon_state = "bg_alien"
 	button_icon_state = "alien_hide"
 	layer_to_change_to = ABOVE_NORMAL_TURF_LAYER
-
 
 /datum/action/innate/drop_jetpack
 	name = "Сбросить джетпак"

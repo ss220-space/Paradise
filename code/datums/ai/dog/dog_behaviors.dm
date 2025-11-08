@@ -27,7 +27,6 @@
 		controller.blackboard[BB_FETCH_TARGET] = null
 		controller.blackboard[BB_FETCH_DELIVER_TO] = null
 
-
 /// This is simply a behaviour to pick up a fetch target
 /datum/ai_behavior/simple_equip/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
@@ -120,7 +119,6 @@
 
 	if(QDELETED(snack)) // we ate it!
 		finish_action(controller, TRUE)
-
 
 /// This behavior involves either eating a snack we can reach, or begging someone holding a snack
 /datum/ai_behavior/play_dead

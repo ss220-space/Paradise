@@ -51,7 +51,6 @@
 			filename = "[asset_cache_item.name]"
 	return base + filename
 
-
 /// webroot asset sending - does nothing unless passed legacy assets
 /datum/asset_transport/webroot/send_assets(client/client, list/asset_list)
 	. = FALSE
@@ -69,7 +68,6 @@
 			legacy_assets[asset_name] = ACI
 	if(length(legacy_assets))
 		. = ..(client, legacy_assets)
-
 
 /// webroot slow asset sending - does nothing.
 /datum/asset_transport/webroot/send_assets_slow(client/client, list/files, filerate)

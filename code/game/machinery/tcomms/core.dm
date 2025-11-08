@@ -170,7 +170,6 @@
 		if(R.active && !(R.stat & NOPOWER))
 			reachable_zlevels |= R.loc.z
 
-
 /**
  * Z-Level transit change helper
  *
@@ -329,7 +328,6 @@
 			popup.set_content(nttc.nttc_serialize())
 			popup.open(FALSE)
 
-
 		// Set network ID
 		if("network_id")
 			var/new_id = tgui_input_text(usr, "Введите новый сетевой идентификатор", "Сетевой идентификатор", network_id)
@@ -379,7 +377,6 @@
 					nttc.filtering -= name_to_remove
 					log_action(usr, "has removed [name_to_remove] from the NTTC filter list on core with ID [network_id]", TRUE)
 					to_chat(usr, span_notice("Вы удаляете пользователя <b>[name_to_remove]</b> из чёрного списка системы телекоммуникаций."))
-
 
 #undef UI_TAB_CONFIG
 #undef UI_TAB_LINKS

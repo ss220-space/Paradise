@@ -729,7 +729,6 @@
 	for(var/i in 1 to storage_slots)
 		new /obj/item/match(src)
 
-
 /obj/item/storage/box/matches/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match))
 		var/obj/item/match/match = I
@@ -741,7 +740,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/item/storage/box/matches/update_icon_state()
 	switch(length(contents))
 		if(10 to INFINITY)
@@ -752,7 +750,6 @@
 			icon_state = "[base_icon_state]_almostempty"
 		else
 			icon_state = "[base_icon_state]_e"
-
 
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
@@ -848,7 +845,6 @@
 	foldable = null
 	var/design = NODESIGN
 
-
 /obj/item/storage/box/papersack/update_desc(updates = ALL)
 	. = ..()
 	switch(design)
@@ -863,11 +859,9 @@
 		if(SMILE)
 			desc = "A paper sack with a crude smile etched onto the side."
 
-
 /obj/item/storage/box/papersack/update_icon_state()
 	item_state = "paperbag_[design]"
 	icon_state = length(contents) ? "[item_state]_closed" : "[item_state]"
-
 
 /obj/item/storage/box/papersack/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -906,7 +900,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
@@ -1311,7 +1304,6 @@
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
 
-
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
 
@@ -1449,13 +1441,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	can_hold = list(/obj/item/ammo_box/magazine)
 
-
 /obj/item/storage/pouch/fast
 	name = "fast pouch"
 	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
 	icon_state = "pouch_fast"
 	item_state = "pouch_fast"
-
 
 /obj/item/storage/pouch/fast/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun/projectile/automatic))
@@ -1476,7 +1466,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/storage/box/sec
 	name = "officer starter kit"
@@ -1558,7 +1547,6 @@
 	icon_state = "box_of_doom"
 	var/static/list/allowed_uplink_items
 
-
 /obj/item/storage/box/random_syndi/populate_contents()
 	if(!allowed_uplink_items)
 		allowed_uplink_items = list()
@@ -1573,7 +1561,6 @@
 	for(var/item_path in pick_multiple_unique(allowed_uplink_items, 3))
 		new item_path(src)
 
-
 /obj/item/storage/box/crayfish_bucket
 	name = "Mr. Chang's Spicy Lobsters"
 	desc = "Supply of lobsters from Mr. Chang. Crayfish instead of lobsters, super discount, great rating!"
@@ -1587,7 +1574,6 @@
 		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
 		/obj/item/reagent_containers/food/drinks/cans/beer,
 	)
-
 
 /obj/item/storage/box/crayfish_bucket/populate_contents()
 	var/big_ones = rand(2, 4)

@@ -336,7 +336,6 @@
 			add_attack_logs(src, M, "Hit lightly by [src]")
 			M.apply_damage(rand(1, 5) * effects_mult, BURN)
 
-
 /obj/item/ammo_casing/energy/dart
 	projectile_type = /obj/projectile/energy/dart
 	fire_sound = 'sound/weapons/genhit.ogg'

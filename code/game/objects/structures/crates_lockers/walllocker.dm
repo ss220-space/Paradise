@@ -20,7 +20,6 @@
 	icon_closed = "emerg"
 	icon_opened = "emergopen"
 
-
 /obj/structure/closet/walllocker/emerglocker/populate_contents()
 	new /obj/item/tank/internals/emergency_oxygen(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)

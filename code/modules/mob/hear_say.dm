@@ -307,7 +307,6 @@
 	var/rendered = span_gamesay("[span_name(name)] [message]")
 	to_chat(src, rendered)
 
-
 /// Gets language for runechat message.
 /// Will return first found language if more than one is present, cause I have no time to remake this for now.
 /proc/get_runechat_language(list/message_pieces)

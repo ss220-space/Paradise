@@ -8,7 +8,6 @@ SUBSYSTEM_DEF(debugview)
 	/// List of clients currently processing
 	var/list/client/processing = list()
 
-
 /datum/controller/subsystem/debugview/fire(resumed)
 	// Dont generate text if no one is there to look at it
 	if(!length(processing))
@@ -53,18 +52,15 @@ SUBSYSTEM_DEF(debugview)
 		C.debug_text_overlay.maptext_y = mty
 		C.debug_text_overlay.maptext = MAPTEXT("<span style='background-color: #272727;'>[out_text]</span>")
 
-
 /datum/controller/subsystem/debugview/proc/start_processing(client/C)
 	C.debug_text_overlay = new /atom/movable/screen/debugtextholder
 	C.screen |= C.debug_text_overlay
 	processing |= C
 
-
 /datum/controller/subsystem/debugview/proc/stop_processing(client/C)
 	processing -= C
 	C.screen -= C.debug_text_overlay
 	qdel(C.debug_text_overlay)
-
 
 /atom/movable/screen/debugtextholder
 	icon = 'icons/mob/screen_full.dmi'
@@ -73,7 +69,6 @@ SUBSYSTEM_DEF(debugview)
 	plane = HUD_PLANE_DEBUGVIEW
 	maptext_height = 480 // If we ever change view size, increase this
 	maptext_width = 480
-
 
 // Make a verb for dumping full SS stats
 /client/proc/ss_breakdown()

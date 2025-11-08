@@ -96,7 +96,6 @@
 	if(rotting)
 		. += span_warning("На [declent_ru(PREPOSITIONAL)] растет грибок.")
 
-
 /turf/simulated/wall/update_overlays()
 	. = ..()
 	if(!damage_overlays[1]) //list hasn't been populated
@@ -114,7 +113,6 @@
 		return
 
 	. += damage_overlays[overlay]
-
 
 /turf/simulated/wall/proc/generate_overlays()
 	var/alpha_inc = 256 / damage_overlays.len
@@ -148,7 +146,6 @@
 /turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
 	if(radiated_temperature > max_temperature)
 		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
-
 
 /turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
 	if(devastated)
@@ -260,7 +257,6 @@
 		return
 	return ChangeTurf(/turf/simulated/floor/plating)
 
-
 #define THERMITE_PER_SECOND 2.5
 #define DAMAGE_PER_SECOND 60
 
@@ -339,7 +335,6 @@
 #undef THERMITE_PER_SECOND
 #undef DAMAGE_PER_SECOND
 
-
 //Interactions
 
 /turf/simulated/wall/attack_animal(mob/living/simple_animal/M)
@@ -389,7 +384,6 @@
 	add_fingerprint(user)
 	return ..()
 
-
 /turf/simulated/wall/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -415,7 +409,6 @@
 	if(try_reform(I, user, params))
 		user.changeNext_move(I.attack_speed)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -581,7 +574,6 @@
 /turf/simulated/wall/ratvar_act()
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/clockwork)
-
 
 /turf/simulated/wall/acid_act(acidpwr, acid_volume)
 	if(explosion_block >= 2)

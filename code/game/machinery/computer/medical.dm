@@ -71,7 +71,6 @@
 	active2 = null
 	return ..()
 
-
 /obj/machinery/computer/med_data/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -81,7 +80,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/computer/med_data/attack_hand(mob/user)
 	if(..())

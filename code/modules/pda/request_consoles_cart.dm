@@ -59,7 +59,6 @@
 	name = "Captain Request"
 	programs = list(new /datum/data/pda/app/request_console/captain)
 
-
 /obj/item/cartridge/request_console/ntrep
 	name = "NTR Request"
 	programs = list(new /datum/data/pda/app/request_console/ntrep)

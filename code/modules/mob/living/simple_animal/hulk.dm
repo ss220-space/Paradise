@@ -143,7 +143,6 @@
 
 	..()
 
-
 /mob/living/simple_animal/hulk/death(gibbed)
 	unmutate()
 

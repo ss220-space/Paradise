@@ -115,7 +115,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		body += " \[<a href='byond://?_src_=holder;revive=[M.UID()]'>Heal</a>\] "
 
-
 	body += "<br><br>\[ "
 	body += "<a href='byond://?_src_=holder;open_logging_view=[M.UID()];'>LOGS</a> - "
 	body += "<a href='byond://?_src_=vars;Vars=[M.UID()]'>VV</a> - "
@@ -185,7 +184,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += {"
 		<a href='byond://?_src_=holder;man_up=[M.UID()]'>Man Up</a> |
 		"}
-
 
 	var/jumptoeye = ""
 	if(isAI(M))
@@ -363,7 +361,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	popup.set_content(dat)
 	popup.open(FALSE)
 
-
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))
 		return
@@ -390,7 +387,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////admins2.dm merge
 //i.e. buttons/verbs
-
 
 /datum/admins/proc/restart()
 	set category = STATPANEL_SERVER
@@ -425,7 +421,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				if(!delay)
 					return FALSE
 
-
 				// These are pasted each time so that they dont false send if reboot is cancelled
 				log_and_message_admins("has initiated a server restart of type [result]")
 				SSticker.delay_end = FALSE // We arent delayed anymore
@@ -438,7 +433,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			if("Terminate Process (Kill and restart DD)")
 				log_and_message_admins("has initiated a server restart of type [result]")
 				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
-
 
 /datum/admins/proc/end_round()
 	set category = STATPANEL_SERVER
@@ -462,7 +456,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSticker.force_ending = TRUE
 	BLACKBOX_LOG_ADMIN_VERB("End Round")
 	SSticker.mode_result = "admin ended"
-
 
 /datum/admins/proc/announce()
 	set category = STATPANEL_ADMIN_EVENT
@@ -589,7 +582,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(usr, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential=TRUE)
 		return
 
-
 /datum/admins/proc/toggleenter()
 	set category = STATPANEL_SERVER
 	set desc="People can't enter"
@@ -706,7 +698,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	return 0*/
 
-
 /**
  * A proc that return whether the mob is a "Special Character" aka Antagonist
  *
@@ -725,7 +716,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(M.mind?.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
 		return TRUE
 	return FALSE
-
 
 /**
  * A proc that return an array of capitalized strings containing name of the antag types they are
@@ -769,7 +759,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Other Antag(s)"
 	return antag_list
 
-
 /**
  * A proc that return a string containing all the singled out antags . Empty string if not antag
  *
@@ -787,7 +776,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return antag_list.Join(" &amp; ") + " " + "(May be other antag)"
 
 	return ""
-
 
 /datum/admins/proc/spawn_atom(object as text)
 	set category = STATPANEL_ADMIN_EVENT
@@ -856,7 +844,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
-
 
 /datum/admins/proc/show_traitor_panel(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_ADMIN
@@ -1007,7 +994,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		tomob.possess_by_player(frommob.ckey)
 		qdel(frommob)
 
-
 	if(isliving(tothing))
 		var/mob/living/tomob = tothing
 
@@ -1078,7 +1064,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			continue
 		result[1]++
 	return result
-
 
 /**
  * Enables an admin to upload a new titlescreen image.

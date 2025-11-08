@@ -148,7 +148,6 @@
  *	Radio Cartridge, essentially a signaler.
  */
 
-
 /obj/item/integrated_radio/signal
 	var/frequency = RSD_FREQ
 	var/code = 30.0

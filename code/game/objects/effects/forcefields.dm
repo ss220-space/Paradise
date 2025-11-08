@@ -20,7 +20,6 @@
 	. = ..()
 	wizard = summoner
 
-
 /obj/effect/forcefield/wizard/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(mover == wizard)
@@ -48,7 +47,6 @@
 	icon_state = "shield-red"
 	name = "Syndicate energy wall"
 	desc = "A slowly fading energy wall that blocks passage for every possible nanotrasen scum"
-
 
 /obj/effect/forcefield/mecha/syndicate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

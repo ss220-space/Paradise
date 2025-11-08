@@ -369,7 +369,6 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 	)
 
-
 /obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
 	name = "atmospherics hazard belt"
 	icon_state = "atmos_belt"
@@ -526,13 +525,11 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
 	)
 
-
 /obj/item/clothing/suit/suspenders/Initialize(mapload)
 	. = ..()
 	if(!color && paintable)
 		color = "#a30e22"
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/clothing/suit/suspenders/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
@@ -551,7 +548,6 @@
 
 	return ..()
 
-
 /obj/item/clothing/suit/suspenders/update_overlays()
 	. = ..()
 	if(color)
@@ -560,14 +556,11 @@
 		var/mutable_appearance/suspenders_clips = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_clips", appearance_flags = RESET_COLOR)
 		. += suspenders_clips
 
-
 /obj/item/clothing/suit/suspenders/nodrop
-
 
 /obj/item/clothing/suit/suspenders/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 // Surgeon
 /obj/item/clothing/suit/apron/surgical

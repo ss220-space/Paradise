@@ -164,7 +164,6 @@
 	GLOB.lavaland_points_of_interest -= src
 	. = ..()
 
-
 /obj/structure/ash_totem
 	name = "totem"
 	desc = "Совершенно обычный тотем! Выглядит прикольно. Вы не должны видеть это."
@@ -198,7 +197,6 @@
 	. = ..()
 	if(applied_dye)
 		. += "[icon_state]_[applied_dye]"
-
 
 /obj/structure/ash_totem/wooden
 	name = "wooden totem"

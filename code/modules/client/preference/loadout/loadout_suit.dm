@@ -162,84 +162,70 @@
 	index_name = "Suragi Jacket"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/civ
 
-
 /datum/gear/suit/suragi_jacket/sec
 	index_name = "Suragi Jacket - Security"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/sec
 	allowed_roles = list(JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
-
 
 /datum/gear/suit/suragi_jacket/cargo
 	index_name = "Suragi Jacket - Cargo"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/cargo
 	allowed_roles = list(JOB_TITLE_CARGOTECH)
 
-
 /datum/gear/suit/suragi_jacket/atmos
 	index_name = "Suragi Jacket - Atmospherics"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/atmos
 	allowed_roles = list(JOB_TITLE_ATMOSTECH)
-
 
 /datum/gear/suit/suragi_jacket/eng
 	index_name = "Suragi Jacket - Engineering"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/eng
 	allowed_roles = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC)
 
-
 /datum/gear/suit/suragi_jacket/botany
 	index_name = "Suragi Jacket - Hydroponics"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/botany
 	allowed_roles = list(JOB_TITLE_BOTANIST)
-
 
 /datum/gear/suit/suragi_jacket/medic
 	index_name = "Suragi Jacket - Medical"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/medic
 	allowed_roles = list(JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
 
-
 /datum/gear/suit/suragi_jacket/medsec
 	index_name = "Suragi Jacket - Medical Security"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/medsec
 	allowed_roles = list(JOB_TITLE_BRIGDOC)
-
 
 /datum/gear/suit/suragi_jacket/virus
 	index_name = "Suragi Jacket - Virology"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/virus
 	allowed_roles = list(JOB_TITLE_VIROLOGIST)
 
-
 /datum/gear/suit/suragi_jacket/chem
 	index_name = "Suragi Jacket - Chemistry"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/chem
 	allowed_roles = list(JOB_TITLE_CHEMIST)
-
 
 /datum/gear/suit/suragi_jacket/genetics
 	index_name = "Suragi Jacket - Genetics"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/genetics
 	allowed_roles = list(JOB_TITLE_GENETICIST)
 
-
 /datum/gear/suit/suragi_jacket/robot
 	index_name = "Suragi Jacket - Roboticist"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/robot
 	allowed_roles = list(JOB_TITLE_ROBOTICIST)
-
 
 /datum/gear/suit/suragi_jacket/sci
 	index_name = "Suragi Jacket - Science"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/sci
 	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT)
 
-
 /datum/gear/suit/suragi_jacket/janitor
 	index_name = "Suragi Jacket - Janitor"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/janitor
 	allowed_roles = list(JOB_TITLE_JANITOR)
-
 
 /datum/gear/suit/ianshirt
 	index_name = "Ian Shirt"
@@ -284,7 +270,6 @@
 /datum/gear/suit/witch
 	index_name = "witch robes"
 	path = /obj/item/clothing/suit/wizrobe/marisa/fake
-
 
 //Suspenders
 

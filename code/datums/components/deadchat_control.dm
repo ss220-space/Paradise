@@ -166,7 +166,6 @@
 	RegisterSignal(orbiter, COMSIG_MOB_AUTOMUTE_CHECK, PROC_REF(waive_automute))
 	orbiters |= orbiter
 
-
 /datum/component/deadchat_control/proc/orbit_stop(atom/source, atom/orbiter)
 	SIGNAL_HANDLER  // COMSIG_ATOM_ORBIT_STOP
 
@@ -191,7 +190,6 @@
 	if(mute_type == MUTE_DEADCHAT && inputs[lowertext(message)])
 		return WAIVE_AUTOMUTE_CHECK
 	return NONE
-
 
 /// Informs any examiners to the inputs available as part of deadchat control, as well as the current operating mode and cooldowns.
 /datum/component/deadchat_control/proc/on_examine(atom/object, mob/user, list/examine_list)
@@ -271,7 +269,6 @@
 	_inputs["вправо"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), EAST)
 
 	return ..()
-
 
 /**
  * Deadchat Moves Things

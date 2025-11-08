@@ -46,7 +46,6 @@
 
 	return .
 
-
 /datum/uplink_item
 	/// Uplink name.
 	var/name = "item name"
@@ -81,14 +80,12 @@
 	/// Associative list UID - refund cost
 	var/static/list/item_to_refund_cost
 
-
 /datum/uplink_item/Destroy(force)
 	if(force)
 		return ..()
 	else
 		// if you're deleting an uplink item something has gone wrong
 		return QDEL_HINT_LETMELIVE
-
 
 /**
  * Spawns object item contained as path in datum item variable if possible.
@@ -112,7 +109,6 @@
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
 	return new item(get_turf(buyer))
 
-
 /**
  * Actulizes datum description.
  */
@@ -122,7 +118,6 @@
 		var/obj/temp = item
 		desc = replacetext(initial(temp.desc), "\n", "<br>")
 	return desc
-
 
 /**
  * Handles buying an item, and logging.
@@ -1976,7 +1971,6 @@
 	surplus = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Детонатор Синдиката"
 	desc = "При активации детонатора все установленные бомбы Синдиката будут приведены в боевую готовность, и таймер начнет отсчитывать 5 секунд до взрыва. \
@@ -2312,7 +2306,6 @@
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
 
-
 /datum/uplink_item/badass/bandage
 	name = "Военный перевязочный пакет"
 	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
@@ -2407,7 +2400,6 @@
 	var/list/itemlog = list()
 	target_uplink.uses -= cost
 	target_uplink.used_TC = cost
-
 
 	while(remaining_TC && length(buyable_items))
 		var/datum/uplink_item/chosen_item = pick(buyable_items)

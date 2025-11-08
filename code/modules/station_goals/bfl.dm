@@ -13,7 +13,6 @@
 	<br><br>
 	-Nanotrasen Naval Command"}
 
-
 /datum/station_goal/bfl/on_report()
 	//Unlock BFL related things
 	var/datum/supply_packs/misc/station_goal/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl]"]
@@ -161,14 +160,12 @@
 			if(receiver.lens)
 				receiver.lens.deactivate_lens()
 
-
 /obj/machinery/power/bfl_emitter/proc/receiver_test()
 	if(receiver)
 		if(receiver.state && receiver.lens)
 			receiver.lens.activate_lens()
 			receiver.mining = TRUE
 		return TRUE
-
 
 /obj/machinery/power/bfl_emitter/proc/emitter_activate()
 	state = TRUE
@@ -194,7 +191,6 @@
 
 	receiver_test()
 
-
 /obj/machinery/power/bfl_emitter/proc/emitter_deactivate()
 	state = FALSE
 	update_icon(UPDATE_ICON_STATE)
@@ -215,7 +211,6 @@
 	while(state)
 		playsound(src, 'sound/BFL/emitter.ogg', 100, TRUE)
 		sleep(25)
-
 
 /obj/machinery/power/bfl_emitter/update_icon_state()
 	icon_state = "Emitter_[state ? "On" : "Off"]"
@@ -320,13 +315,11 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/machinery/bfl_receiver/Destroy()
 	QDEL_NULL(internal)
 	QDEL_NULL(receiver_light)
 	QDEL_NULL(lens)
 	return ..()
-
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user)
 	if(..())
@@ -356,7 +349,6 @@
 			ore_count = 0
 			update_state()
 
-
 /obj/machinery/bfl_receiver/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -375,7 +367,6 @@
 	last_light_state_number = light_state
 	receiver_light.update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/bfl_receiver/process()
 	if(!(mining && state))
 		return
@@ -391,10 +382,8 @@
 
 	update_state()
 
-
 /obj/machinery/bfl_receiver/update_icon_state()
 	icon_state = "Receiver_[state ? "On" : "Off"]"
-
 
 /obj/machinery/bfl_receiver/proc/receiver_activate()
 	state = TRUE
@@ -409,14 +398,12 @@
 	update_icon(UPDATE_ICON_STATE)
 	T.ChangeTurf(turf_under.type)
 
-
 /obj/machinery/bfl_receiver/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(istype(arrived, /obj/machinery/bfl_lens))
 		var/obj/machinery/bfl_lens/bfl_lens = arrived
 		bfl_lens.step_count = 0
-
 
 #undef PLASMA
 #undef SAND
@@ -431,16 +418,13 @@
 	anchored = TRUE
 	var/light_amount = 0
 
-
 /atom/movable/bfl_receiver_light/Initialize(mapload)
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
 
-
 /atom/movable/bfl_receiver_light/update_icon_state()
 	icon_state = "Receiver_Light_[light_amount]"
-
 
 ////////
 //Lens//
@@ -475,12 +459,10 @@
 	else
 		icon_state = "Lens_Pull"
 
-
 /obj/machinery/bfl_lens/update_overlays()
 	. = ..()
 	if(state)
 		. += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64, layer = GASFIRE_LAYER)
-
 
 /obj/machinery/bfl_lens/proc/activate_lens()
 	state = TRUE
@@ -488,19 +470,16 @@
 	set_light(8, l_on = TRUE)
 	working_sound()
 
-
 /obj/machinery/bfl_lens/proc/deactivate_lens()
 	state = FALSE
 	update_icon()
 	set_light_on(FALSE)
-
 
 /obj/machinery/bfl_lens/proc/working_sound()
 	set waitfor = FALSE
 	while(state)
 		playsound(src, 'sound/BFL/receiver.ogg', 100, TRUE)
 		sleep(25)
-
 
 /obj/machinery/bfl_lens/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -520,18 +499,15 @@
 
 	update_icon()
 
-
 /obj/machinery/bfl_lens/Initialize(mapload)
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
 
-
 /obj/machinery/bfl_lens/Destroy()
 	visible_message(span_danger("Линза разлетается на миллионы осколков!"))
 	playsound(src, SFX_SHATTER, 70, TRUE)
 	return ..()
-
 
 /obj/machinery/bfl_lens/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -542,7 +518,6 @@
 	step_count++
 	pixel_x = -32
 	pixel_y = -32 //Explictly stating, that pixel_x and pixel_y will ALWAYS be -32/-32 when moved, because moving objects reset their offset.
-
 
 //everything else
 /obj/bfl_crack

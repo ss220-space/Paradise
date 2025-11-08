@@ -171,7 +171,6 @@
 	/// A list of "proxy" objects used for multi-z coverage.
 	var/list/obj/effect/abstract/meteor_shield_proxy/proxies = list()
 
-
 /obj/machinery/satellite/meteor_shield/examine(mob/user)
 	. = ..()
 	if(active)

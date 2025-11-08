@@ -159,7 +159,6 @@
 
 	return data
 
-
 /obj/machinery/computer/operating/ui_act(action, params)
 	if(..())
 		return

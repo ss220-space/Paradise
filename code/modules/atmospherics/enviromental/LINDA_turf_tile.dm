@@ -282,7 +282,6 @@
 				decompression_direction = get_dir(turf, space_turf)
 			turf.consider_pressure_difference(src, difference, decompression_direction)
 
-
 /turf/simulated/proc/archive()
 	if(air) //For open space like floors
 		air.archive()
@@ -420,7 +419,6 @@
 		T.air.agent_b			= A.agent_b / turflen
 
 		T.update_visuals()
-
 
 /datum/excited_group/proc/dismantle()
 	for(var/turf/simulated/T in turf_list)

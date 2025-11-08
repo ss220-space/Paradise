@@ -84,7 +84,6 @@
 			target_suit = /obj/item/clothing/suit/bluetag
 			target_weapon = /obj/item/gun/energy/laser/tag/blue
 
-
 	if(target_suit)//Lasertag turrets target the opposing team, how great is that? -Sieve
 		if((istype(L.r_hand, target_weapon)) || (istype(L.l_hand, target_weapon)))
 			return TURRET_PRIORITY_TARGET

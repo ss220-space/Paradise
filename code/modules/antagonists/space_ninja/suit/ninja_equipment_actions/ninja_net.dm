@@ -44,23 +44,18 @@
 	my_action.use_action()
 	my_action = null
 
-
 /obj/item/ninja_net_emitter/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
-
 
 /obj/item/ninja_net_emitter/run_drop_held_item(mob/user)
 	qdel(src)
 
-
 /obj/item/ninja_net_emitter/attack_self(mob/user)
 	return
-
 
 /obj/item/ninja_net_emitter/afterattack(atom/target, mob/living/user, proximity, params)
 	var/mob/target_mob = get_mob_in_atom_without_warning(target)
 	ensnare(target_mob, user)
-
 
 /obj/item/ninja_net_emitter/proc/ensnare(mob/living/target, mob/living/ninja)
 	if(isnull(target))

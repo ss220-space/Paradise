@@ -8,7 +8,6 @@
 	var/deliveryamt = 8
 	var/spawner_type = /obj/item/grown/bananapeel
 
-
 /obj/item/grenade/bananade/prime()
 	. = ..()
 	if(spawner_type && deliveryamt)
@@ -25,18 +24,15 @@
 					step(x, pick(NORTH, SOUTH, EAST, WEST))
 	qdel(src)
 
-
 /obj/item/grenade/bananade/casing
 	name = "bananium casing"
 	desc = "A grenade casing made of bananium."
 	icon_state = "banana_casing"
 	var/fillamt = 0
 
-
 /obj/item/grenade/bananade/casing/examine(mob/user)
 	. = ..()
 	. += span_notice("Only banana peels fit in this assembly. Currently: <b>[fillamt]/9<b>.")
-
 
 /obj/item/grenade/bananade/casing/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -53,7 +49,6 @@
 	bananade.add_fingerprint(user)
 	user.put_in_hands(bananade, ignore_anim = FALSE)
 	qdel(src)
-
 
 /obj/item/grenade/bananade/casing/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grown/bananapeel))

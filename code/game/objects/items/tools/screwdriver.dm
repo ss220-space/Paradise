@@ -39,7 +39,6 @@
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
 
-
 /obj/item/screwdriver/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] вонза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] себе в [pick("висок", "сердце")]! Это похоже на попытку самоубийства!"))
 	return BRUTELOSS

@@ -6,7 +6,6 @@
 	/// The visual icons granted by wearing these glasses.
 	var/HUDType = null
 
-
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 	if(!istype(user) || !HUDType || !(slot & (ITEM_SLOT_EYES|ITEM_SLOT_HEAD)))
@@ -21,7 +20,6 @@
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
 	hud.show_to(user)
 
-
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(!istype(user) || !HUDType || !(slot & (ITEM_SLOT_EYES|ITEM_SLOT_HEAD)))
@@ -35,7 +33,6 @@
 
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
 	hud.hide_from(user)
-
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
 	if(!emagged)

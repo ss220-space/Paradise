@@ -9,7 +9,6 @@
 	if(input)
 		return 1
 
-
 	if(!input)
 		var/turf/T = get_step(src, dir)
 		if(T)
@@ -272,7 +271,6 @@
 		if(pn_input2.avail >= RELAY_POWER_TRANSFER)
 			pn_input2.load += RELAY_POWER_TRANSFER
 			pn_output.newavail += RELAY_POWER_TRANSFER
-
 
 #undef RELAY_POWER_TRANSFER
 #undef LOGIC_HIGH

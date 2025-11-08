@@ -165,7 +165,6 @@
 			return FALSE
 	add_fingerprint()
 
-
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
 		return ..()
@@ -188,10 +187,8 @@
 
 	return ..()
 
-
 /obj/machinery/mineral/equipment_vendor/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, "mining-open", "mining", I)
-
 
 /obj/machinery/mineral/equipment_vendor/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -200,7 +197,6 @@
 		return .
 	remove_id() //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 	default_deconstruction_crowbar(user, I)
-
 
 /**
  * Called when someone slaps the machine with a mining voucher
@@ -261,7 +257,6 @@
 	remove_id()
 	return ..()
 
-
 /**********************Mining Equiment Vendor (Golem)**************************/
 
 /obj/machinery/mineral/equipment_vendor/golem
@@ -319,7 +314,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-
 /**********************Mining Equipment Datum**************************/
 
 /datum/data/mining_equipment
@@ -374,7 +368,6 @@
 /obj/item/card/mining_point_card/fivethousand
 	points = 5000
 
-
 /obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
 	var/obj/item/card/id/id_card = I.GetID()
 	if(id_card)
@@ -388,7 +381,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()

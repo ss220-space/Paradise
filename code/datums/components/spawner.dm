@@ -25,7 +25,6 @@
 /datum/component/spawner/process()
 	try_spawn_mob()
 
-
 /datum/component/spawner/proc/stop_spawning(force)
 	STOP_PROCESSING(SSprocessing, src)
 	for(var/mob/living/simple_animal/L in spawned_mobs)

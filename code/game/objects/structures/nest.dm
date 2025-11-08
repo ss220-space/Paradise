@@ -41,18 +41,15 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/nest/examine(mob/user)
 	. = ..()
 	if(!spawn_is_triggered)
 		. += span_warning("Изнутри доносится хаотичная какофония рычащего храпа.")
 
-
 /obj/structure/nest/attack_animal(mob/living/simple_animal/M)
 	if(faction_check(faction, M.faction, FALSE) && !M.client)
 		return
 	..()
-
 
 /obj/structure/nest/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -64,7 +61,6 @@
 		return
 
 	try_spawn(arrived)
-
 
 /obj/structure/nest/proc/try_spawn(mob/living/L)
 	var/chosen_mob = pick(spawn_mob_options)

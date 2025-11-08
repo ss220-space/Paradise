@@ -39,7 +39,6 @@
 /datum/controller/subsystem/addition_goals/proc/set_funeral_shuttle_locked(locked)
 	funeral_shuttle.locked_move = locked
 
-
 /// Get text where shuttle docked
 /datum/controller/subsystem/addition_goals/proc/get_shuttle_location()
 	if(!shuttle)

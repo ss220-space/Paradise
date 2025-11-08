@@ -26,7 +26,6 @@
 /obj/machinery/computer/drone_control/attack_ai(mob/user)
 	return src.attack_hand(user)
 
-
 /obj/machinery/computer/drone_control/attack_hand(mob/user)
 	if(..())
 		return

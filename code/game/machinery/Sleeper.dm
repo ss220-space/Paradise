@@ -40,7 +40,6 @@
 		PREPOSITIONAL = "слипере",
 	)
 
-
 /obj/machinery/sleeper/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -63,7 +62,6 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-
 /obj/machinery/sleeper/power_change(forced = FALSE)
 	..() //we don't check parent return here because we also care about BROKEN
 	if(!(stat & (BROKEN|NOPOWER)))
@@ -71,13 +69,11 @@
 	else
 		set_light_on(FALSE)
 
-
 /obj/machinery/sleeper/update_icon_state()
 	if(occupant)
 		icon_state = base_icon
 	else
 		icon_state = "[base_icon]-open"
-
 
 /obj/machinery/sleeper/RefreshParts()
 	var/E
@@ -145,7 +141,6 @@
 
 	updateDialog()
 	return
-
 
 /obj/machinery/sleeper/attack_ai(mob/user)
 	return attack_hand(user)
@@ -221,7 +216,6 @@
 		// Blast you, imperial measurement system
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
-
 
 		crisis = (occupant.health < min_health)
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
@@ -316,7 +310,6 @@
 			return FALSE
 	add_fingerprint(usr)
 
-
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -338,7 +331,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/sleeper/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -369,7 +361,6 @@
 	add_fingerprint(grabber)
 	SStgui.update_uis(src)
 
-
 /obj/machinery/sleeper/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
@@ -380,7 +371,6 @@
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I))
 		return TRUE
-
 
 /obj/machinery/sleeper/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -394,7 +384,6 @@
 		return
 
 	setDir(turn(dir, -90))
-
 
 /obj/machinery/sleeper/ex_act(severity, target)
 	if(filtering)
@@ -488,7 +477,6 @@
 	go_out()
 	add_fingerprint(usr)
 
-
 /obj/machinery/sleeper/verb/remove_beaker()
 	set name = "Достать ёмкость"
 	set category = STATPANEL_OBJECT
@@ -504,7 +492,6 @@
 		beaker = null
 		SStgui.update_uis(src)
 	add_fingerprint(usr)
-
 
 /obj/machinery/sleeper/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
@@ -545,7 +532,6 @@
 	. = TRUE
 	INVOKE_ASYNC(src, PROC_REF(put_in), L, user)
 
-
 /obj/machinery/sleeper/proc/put_in(mob/living/L, mob/user)
 	if(!do_after(user, 2 SECONDS, L))
 		return
@@ -562,7 +548,6 @@
 	to_chat(L, span_boldnotice("Вы чувствуете, как вас окутывает холод. Вы цепенеете и расслабляетесь, внутренние процессы организма замедляются."))
 	add_fingerprint(user)
 	SStgui.update_uis(src)
-
 
 /obj/machinery/sleeper/AllowDrop()
 	return FALSE
@@ -584,7 +569,6 @@
 		return
 	visible_message("[usr] начина[PLUR_ET_YUT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
 	put_in(usr, usr)
-
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"

@@ -28,48 +28,39 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload, obj/item/clothing/suit/space/hardsuit/parent)
 	. = ..()
 	if(!istype(parent))
 		stack_trace("Investigate hardsuit helmet ([type]). Initialized without proper suit.")
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/update_icon_state()
 	icon_state = "[base_icon_state][light_on]-[item_color]"
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	toggle_light()
-
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_light(update_buttons = TRUE)
 	set_light_on(!light_on)
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_buttons)
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
-
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
 		wearer.show_message("[span_robot(span_bold(msg))]", EMOTE_AUDIBLE)
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	..()
 	display_visor_message("Зафиксирован [severity > 1 ? "слабый" : "сильный"] электромагнитный импульс!")
-
 
 /obj/item/clothing/head/helmet/space/hardsuit/extinguish_light(force = FALSE)
 	if(light_on)
 		toggle_light()
 		visible_message(span_danger("[src]'s light fades and turns off."))
-
 
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
@@ -105,12 +96,10 @@
 	. = ..()
 	MakeHelmet()
 
-
 /obj/item/clothing/suit/space/hardsuit/Destroy()
 	unequip_helmet()
 	helmet = null
 	return ..()
-
 
 /obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()
 	if(!helmettype || helmet)
@@ -122,12 +111,10 @@
 	RegisterSignal(helmet, COMSIG_ITEM_EQUIPPED, PROC_REF(on_helmet_equipped))
 	RegisterSignal(helmet, COMSIG_QDELETING, PROC_REF(on_helmet_destroyed))
 
-
 /obj/item/clothing/suit/space/hardsuit/proc/on_helmet_dropped()
 	SIGNAL_HANDLER
 
 	RemoveHelmet()
-
 
 /obj/item/clothing/suit/space/hardsuit/proc/on_helmet_equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
@@ -136,37 +123,30 @@
 		return
 	RemoveHelmet()
 
-
 /obj/item/clothing/suit/space/hardsuit/proc/on_helmet_destroyed()
 	SIGNAL_HANDLER
 
 	RemoveHelmet()
 	helmet = null
 
-
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot, initial)
 	. = ..()
 	RemoveHelmet()
-
 
 /obj/item/clothing/suit/space/hardsuit/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	RemoveHelmet()
 
-
 /obj/item/clothing/suit/space/hardsuit/ui_action_click(mob/user, datum/action/action, leftclick)
 	ToggleHelmet()
-
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_CLOTH_OUTER) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return TRUE
 
-
 /obj/item/clothing/suit/space/hardsuit/attack_self(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	..()
-
 
 /obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -206,12 +186,10 @@
 		new_shield.attach_to_suit(src)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet()
 	if(suit_adjusted)
 		return RemoveHelmet()
 	return EngageHelmet()
-
 
 /obj/item/clothing/suit/space/hardsuit/proc/EngageHelmet()
 	var/mob/living/carbon/human/wearer = loc
@@ -244,7 +222,6 @@
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 
-
 /obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet()
 	unequip_helmet()
 	if(!suit_adjusted)
@@ -256,7 +233,6 @@
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 
-
 /obj/item/clothing/suit/space/hardsuit/proc/unequip_helmet()
 	if(!helmet || helmet.loc == src)
 		return
@@ -266,7 +242,6 @@
 		return
 	wearer.transfer_item_to_loc(helmet, src, force = TRUE, silent = TRUE)
 	wearer.update_worn_oversuit()
-
 
 //Engineering hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/engine
@@ -365,29 +340,23 @@
 	var/combat_slow = 0
 	var/eva_slow = 1
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/Destroy()
 	linkedsuit = null
 	return ..()
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[item_color]"
-
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_name(updates = ALL)
 	. = ..()
 	name = "[initial(name)][on ? "" : " (combat)"]"
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_desc(updates = ALL)
 	. = ..()
 	desc = "[initial(desc)][on ? "" : alt_desc]"
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user)
 	adjust_headgear(user)
-
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/adjust_headgear(mob/living/carbon/human/user, toggle = TRUE)
 	if(user && !isturf(user.loc))
@@ -420,7 +389,6 @@
 		action.UpdateButtonIcon()
 	update_linked_hardsuit(toggle)
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/update_linked_hardsuit(toggle = TRUE)
 	if(!linkedsuit)
 		return
@@ -441,7 +409,6 @@
 
 	linkedsuit.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	linkedsuit.update_equipped_item()
-
 
 /obj/item/clothing/suit/space/hardsuit/syndi
 	name = "blood-red hardsuit"
@@ -470,26 +437,21 @@
 	our_helmet?.linkedsuit = src
 	our_helmet?.adjust_headgear(toggle = FALSE)
 
-
 /obj/item/clothing/suit/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[item_color]"
-
 
 /obj/item/clothing/suit/space/hardsuit/syndi/update_name(updates = ALL)
 	. = ..()
 	name = "[initial(name)][on ? "" : " (combat)"]"
 
-
 /obj/item/clothing/suit/space/hardsuit/syndi/update_desc(updates = ALL)
 	. = ..()
 	desc = "[initial(desc)][on ? "" : alt_desc]"
-
 
 /obj/item/clothing/suit/space/hardsuit/syndi/EngageHelmet()
 	. = ..()
 	if(. && on && !light_on)
 		helmet.toggle_light()
-
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
@@ -725,18 +687,15 @@
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	var/explosion_detection_dist = 40
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
 		GLOB.doppler_arrays += src //Needed to sense the kabooms
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
 		GLOB.doppler_arrays -= src
-
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
 		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)

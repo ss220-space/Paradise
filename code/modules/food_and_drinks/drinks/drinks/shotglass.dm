@@ -26,7 +26,6 @@
 		extinguish()
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_name()
 	. = ..()
 	if(reagents.total_volume)
@@ -59,7 +58,6 @@
 			PREPOSITIONAL = "рюмке",
 		)
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
@@ -76,7 +74,6 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
 	if(!(resistance_flags & ON_FIRE))
 		return ATTACK_CHAIN_PROCEED
@@ -90,7 +87,6 @@
 	reagents.clear_reagents()
 	user.IgniteMob()
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/isShotFlammable()
 	var/datum/reagent/R = reagents.get_master_reagent()
@@ -118,19 +114,16 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
 	return
 
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (resistance_flags & ON_FIRE))
 		return clumsilyDrink(user)
 	return ..()
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_heat())
 		fire_act()
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)
 	..()
@@ -145,7 +138,6 @@
 		user.visible_message(span_notice("[user] накрыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"),
 								span_notice("Вы накрываете [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"))
 		extinguish()
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
 	if(!ishuman(user) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

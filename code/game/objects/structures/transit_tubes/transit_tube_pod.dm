@@ -52,12 +52,10 @@
 	stop_following()
 	return ..()
 
-
 /obj/structure/transit_tube_pod/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	if(moving) //No drifting while moving in the tubes
 		return TRUE
 	return ..()
-
 
 /obj/structure/transit_tube_pod/proc/empty_pod(atom/location)
 	if(!location)
@@ -98,7 +96,6 @@
 	for(var/i in savedcontents)
 		var/atom/movable/AM = i
 		AM.throw_at(destination, rand(1, 3), 5)
-
 
 /obj/structure/transit_tube_pod/proc/move_animation(stage = MOVE_ANIMATION_STAGE_ONE)
 	if(stage == MOVE_ANIMATION_STAGE_ONE)
@@ -145,7 +142,6 @@
 	moving = FALSE
 
 	return MOVE_ANIMATION_STAGE_ONE
-
 
 /obj/structure/transit_tube_pod/proc/follow_tube(reverse_launch)
 	if(moving)
@@ -258,7 +254,6 @@
 		eject(A, direction)
 		A.Move(get_step(loc, direction), direction)
 
-
 /obj/structure/transit_tube_pod/proc/eject(atom/movable/A, direction)
 	A.forceMove(loc)
 	update_appearance()
@@ -267,13 +262,11 @@
 		var/mob/M = A
 		M.reset_perspective(null)
 
-
 /obj/structure/transit_tube_pod/dispensed
 	name = "temporary transit tube pod"
 	desc = "Gets you from here to there, and no further."
 	icon_state = "temppod"
 	occupied_icon_state = "temppod_occupied"
-
 
 /obj/structure/transit_tube_pod/dispensed/outside_tube()
 	if(!QDELETED(src))

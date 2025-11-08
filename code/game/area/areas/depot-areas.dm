@@ -39,7 +39,6 @@
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
-
 /area/syndicate_depot/core/proc/update_state()
 	if(destroyed)
 		invisibility = INVISIBILITY_MAXIMUM
@@ -55,7 +54,6 @@
 		invisibility = INVISIBILITY_MAXIMUM
 	update_icon(UPDATE_ICON_STATE)
 
-
 /area/syndicate_depot/core/update_icon_state()
 	if(invisibility == INVISIBILITY_MAXIMUM)
 		icon_state = null
@@ -68,7 +66,6 @@
 		icon_state = "red"
 	else if(local_alarm)
 		icon_state = "bluenew"
-
 
 /area/syndicate_depot/core/proc/reset_alert()
 
@@ -139,7 +136,6 @@
 			increase_alert("Thieves!")
 		if(perimeter_shield_status)
 			increase_alert("Perimeter shield breach!")
-
 
 /area/syndicate_depot/core/proc/armory_locker_looted()
 	if(!run_finished && !used_self_destruct)

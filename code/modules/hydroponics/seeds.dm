@@ -60,7 +60,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	src.nogenes = nogenes
 	GLOB.plant_seeds += src
 
-
 /obj/item/seeds/Initialize(mapload)
 	. = ..()
 	if(!nogenes) // not used on Copy()
@@ -132,7 +131,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	else
 		return ..()
 
-
 // Harvest procs
 /obj/item/seeds/proc/getYield()
 	var/return_yield = yield
@@ -145,7 +143,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 			return_yield *= (parent.yieldmod)
 
 	return return_yield
-
 
 /obj/item/seeds/proc/harvest(mob/user = usr)
 	var/obj/machinery/hydroponics/parent = loc //for ease of access
@@ -166,7 +163,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 	return result
 
-
 /obj/item/seeds/proc/prepare_result(obj/item/T)
 	if(!T.reagents)
 		CRASH("[T] has no reagents.")
@@ -184,7 +180,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 				data = grown_edible.tastes.Copy()
 
 		T.reagents.add_reagent(rid, amount, data)
-
 
 /// Setters procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)
@@ -285,7 +280,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	if(C)
 		C.value = weed_chance
 
-
 /obj/item/seeds/proc/get_analyzer_text()  //in case seeds have something special to tell to the analyzer
 	var/text = ""
 	if(!get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && !get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
@@ -340,7 +334,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/prev = variant

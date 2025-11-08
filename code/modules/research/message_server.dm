@@ -79,7 +79,6 @@ GLOBAL_LIST_EMPTY(message_servers)
 	if(prob(3))
 		playsound(loc, SFX_COMPUTER_AMBIENCE, 50, TRUE)
 
-
 /obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
 

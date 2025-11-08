@@ -3,7 +3,6 @@
 //	If he accepts there is a random chance he will be accepted, rejected, or rejected and killed
 //	Bringing certain items can help improve the chance to become a traitor
 
-
 /obj/machinery/syndicate_beacon
 	name = "ominous beacon"
 	desc = "This looks suspicious..."
@@ -97,11 +96,9 @@
 			to_chat(M, "<b>Вы вступили в ряды Синдиката и стали предателем!</b>")
 			message_admins("[key_name_admin(N)] has accepted a traitor objective from a syndicate beacon.")
 
-
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
 	return
-
 
 /obj/machinery/syndicate_beacon/proc/selfdestruct()
 	selfdestructing = TRUE
@@ -123,7 +120,6 @@
 	var/active = 0
 	var/icontype = "beacon"
 
-
 /obj/machinery/power/singularity_beacon/proc/Activate(mob/user = null)
 	if(surplus() < 1500)
 		if(user)
@@ -139,7 +135,6 @@
 	if(user)
 		to_chat(user, span_notice("You activate the beacon."))
 
-
 /obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
 	for(var/thing in GLOB.singularities)
 		var/obj/singularity/singulo = thing
@@ -150,10 +145,8 @@
 	if(user)
 		to_chat(user, span_notice("You deactivate the beacon."))
 
-
 /obj/machinery/power/singularity_beacon/attack_ai(mob/user as mob)
 	return
-
 
 /obj/machinery/power/singularity_beacon/attack_hand(mob/user as mob)
 	if(anchored)
@@ -162,7 +155,6 @@
 	else
 		to_chat(user, span_warning("You need to screw the beacon to the floor first!"))
 		return
-
 
 /obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

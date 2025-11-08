@@ -19,7 +19,6 @@
 	attacher = null
 	return ..()
 
-
 /obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank))
 		add_fingerprint(user)
@@ -63,7 +62,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/transfer_valve/HasProximity(atom/movable/AM)
 	if(!attached_device)
@@ -143,20 +141,17 @@
 		update_icon()
 		add_fingerprint(usr)
 
-
 /obj/item/transfer_valve/proc/process_activation(obj/item/D, normal = TRUE, special = TRUE, mob/user)
 	if(toggle)
 		toggle = FALSE
 		toggle_valve(user)
 		addtimer(VARSET_CALLBACK(src, toggle, TRUE), 5 SECONDS)	// To stop a signal being spammed from a proxy sensor constantly going off or whatever
 
-
 /obj/item/transfer_valve/update_icon_state()
 	if(!tank_one && !tank_two && !attached_device)
 		icon_state = "valve_1"
 	else
 		icon_state = "valve"
-
 
 /obj/item/transfer_valve/update_overlays()
 	. = ..()
@@ -171,7 +166,6 @@
 		underlays += J
 	if(attached_device)
 		. += "device"
-
 
 /obj/item/transfer_valve/proc/merge_gases()
 	tank_two.air_contents.volume += tank_one.air_contents.volume
@@ -198,7 +192,6 @@
 		valve_open = TRUE
 		var/turf/bombturf = get_turf(src)
 
-
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
 
 		investigate_log("Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher)]. Last touched by: [key_name_log(mob)][user ? ". Activated by [key_name_log(user)]" : null]", INVESTIGATE_BOMB)
@@ -214,13 +207,11 @@
 		valve_open = FALSE
 		update_icon()
 
-
 /obj/item/transfer_valve/proc/toggle_process()
 	for(var/i in 1 to 5)
 		update_icon()
 		sleep(1 SECONDS)
 	update_icon()
-
 
 /obj/item/transfer_valve/blob_vore_act(obj/structure/blob/special/core/voring_core)
 	obj_destruction(MELEE)

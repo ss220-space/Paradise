@@ -32,7 +32,6 @@ STI KALY - blind
 			if(prob(3))
 				to_chat(affected_mob, span_danger("Вы чувствуете, что [pick("вам не хватает маны", "ваши пальцы искрятся магией", "вам доступен 9-й уровень заклинаний")]."))
 
-
 		if(3)
 			if(prob(2))
 				affected_mob.say(pick("NEC CANTIO!", "CLANG!", "STI KALY!", "TARCOL MINTI ZHERI!"))
@@ -79,7 +78,6 @@ STI KALY - blind
 				H.drop_r_hand()
 				H.put_in_r_hand(new /obj/item/twohanded/staff(H))
 				return
-
 
 /datum/disease/virus/wizarditis/proc/teleport()
 	var/list/theareas = get_areas_in_range(80, affected_mob)

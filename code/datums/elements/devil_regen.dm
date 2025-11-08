@@ -230,13 +230,11 @@
 		mob.update_eyes()
 		mob.update_dna()
 
-
 /datum/action/innate/remove_hand
 	name = "Оторвать себе руку"
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/human_races/r_human.dmi'
 	button_icon_state = "l_arm"
-
 
 /datum/action/innate/remove_hand/Grant(mob/user)
 	if(!ishuman(user))
@@ -247,7 +245,6 @@
 	if(!ishuman(user))
 		return
 	. = ..()
-
 
 /datum/action/innate/remove_hand/IsAvailable()
 	. = ..()

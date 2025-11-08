@@ -235,7 +235,6 @@
 	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
 		return TRUE
 
-
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
 		temperature_reagents(M.bodytemperature - 30)
@@ -907,7 +906,6 @@
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-
 // Convenience proc to create a reagents holder for an atom
 // Max vol is maximum volume of holder
 /atom/proc/create_reagents(max_vol, temperature_minimum, temperature_maximum)
@@ -953,7 +951,6 @@
 		clothing_pen += reagent.clothing_penetration * (reagent.volume / total_volume)
 
 	return clothing_pen
-
 
 /datum/reagents/Destroy()
 	. = ..()

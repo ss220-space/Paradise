@@ -100,7 +100,6 @@
 		PREPOSITIONAL = "защитном костюме вирусолога",
 	)
 
-
 /obj/item/clothing/under/plasmaman/genetics
 	name = "genetics plasma envirosuit"
 	desc = "Защитный костюм плазмолюда, созданный специально для генетиков."

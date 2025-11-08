@@ -41,7 +41,6 @@
 	)
 	head = /obj/item/clothing/head/cowboyhat/tan
 
-
 /datum/job/cargo_tech
 	title = JOB_TITLE_CARGOTECH
 	flag = JOB_FLAG_CARGOTECH
@@ -70,7 +69,6 @@
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
 	backpack = /obj/item/storage/backpack/cargo
-
 
 /datum/job/mining
 	title = JOB_TITLE_MINER
@@ -224,7 +222,6 @@
 
 	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
 
-
 /datum/job/chef
 	title = JOB_TITLE_CHEF
 	flag = JOB_FLAG_CHEF
@@ -274,7 +271,6 @@
 				belt = /obj/item/storage/belt/chef/artistred
 				head = /obj/item/clothing/head/chefcap
 				suit = /obj/item/clothing/suit/storage/chefbluza
-
 
 /datum/job/hydro
 	title = JOB_TITLE_BOTANIST
@@ -613,7 +609,6 @@
 	uniform = /obj/item/clothing/under/rank/janitor
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
-
 
 //More or less assistants
 /datum/job/librarian

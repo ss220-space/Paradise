@@ -5,17 +5,14 @@
 	var/overlay_state = "cover_blue"
 	var/mutable_appearance/cover_overlay
 
-
 /obj/vehicle/ridden/speedbike/Initialize(mapload)
 	. = ..()
 	cover_overlay = mutable_appearance(icon, overlay_state, ABOVE_MOB_LAYER)
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/speedbike)
 
-
 /obj/vehicle/ridden/speedbike/Destroy()
 	cover_overlay = null
 	return ..()
-
 
 /obj/vehicle/ridden/speedbike/update_overlays()
 	. = ..()

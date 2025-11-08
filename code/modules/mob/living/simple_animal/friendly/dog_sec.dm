@@ -64,7 +64,6 @@
 	..(gibbed)
 	regenerate_icons()
 
-
 /mob/living/simple_animal/pet/dog/security/place_on_head(obj/item/item_to_add, mob/user)
 
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
@@ -146,7 +145,6 @@
 			DF.obj_alpha = inventory_head.alpha
 		if(!DF.obj_color)
 			DF.obj_color = inventory_head.color
-
 
 		if(icon_state == icon_resting)
 			head_icon = DF.get_overlay()

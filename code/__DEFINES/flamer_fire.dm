@@ -49,5 +49,4 @@ Fire Variant = Markers for special fire types that behave outside of chemfire co
 
 #define FLAME_REAGENT_USE_AMOUNT 1
 
-
 #define SLOWDOWN_AMT_GREENFIRE 1.5

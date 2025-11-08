@@ -9,7 +9,6 @@
 	possible_locs = list(BODY_ZONE_HEAD)
 	requires_organic_bodypart = FALSE
 
-
 /datum/surgery_step/reshape_face_robotics
 	name = "изменение/восстановление внешности"
 	allowed_tools = list(/obj/item/multitool = 100, /obj/item/screwdriver = 55, /obj/item/kitchen/knife = 20, TOOL_SCALPEL = 25)

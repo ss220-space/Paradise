@@ -38,7 +38,6 @@
 	description = "Features include a bathroom, a quality lounge for the heads, and a \
 		small gambling table."
 
-
 /datum/map_template/shuttle/emergency/cyb
 	suffix = "cyb"
 	name = "emergency shuttle (Cyberiad)"
@@ -54,7 +53,6 @@
 	name = "emergency shuttle (military)"
 	description = "Troop transport with point defense turrets."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
-
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
@@ -99,7 +97,6 @@
 	admin_notes = "Contains inactive \
 		constructs. Put players in constructs if you want them to move. \
 		Cloning pods in 'medbay' area are showcases and nonfunctional."
-
 
 /datum/map_template/shuttle/emergency/old
 	suffix = "old"

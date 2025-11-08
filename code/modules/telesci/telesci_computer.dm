@@ -55,7 +55,6 @@
 	. = ..()
 	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[DECL_CREDIT(crystals)]" : "нет кристаллов"] блюспейса.")
 
-
 /obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -94,7 +93,6 @@
 
 	return ..()
 
-
 /obj/machinery/computer/telescience/multitool_act(mob/living/user, obj/item/I)
 	if(!istype(I, /obj/item/multitool))
 		return FALSE
@@ -110,7 +108,6 @@
 	multitool.buffer = null
 	updateUsrDialog()
 	to_chat(user, span_notice("Вы загрузили данные из буфера [multitool.declent_ru(GENITIVE)]."))
-
 
 /obj/machinery/computer/telescience/emag_act(mob/user)
 	if(!emagged)
@@ -229,7 +226,6 @@
 			teleporting = 1
 			temp_msg = "Зарядка кристаллов блюспейса.<br>Подождите."
 
-
 		spawn(round(proj_data.time) * 10) // in seconds
 			if(!telepad)
 				return
@@ -325,7 +321,6 @@
 		telefail()
 		temp_msg = "ERROR! Sector must be greater than or equal to 2, and less than or equal to [world.maxz]."
 		return
-
 
 	var/truePower = clamp(power + power_off, 1, 1000)
 	var/trueRotation = rotation + rotation_off

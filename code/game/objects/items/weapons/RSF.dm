@@ -48,7 +48,6 @@ RSF
 	)
 	update_appearance(UPDATE_DESC)
 
-
 /obj/item/rsf/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rcd_ammo))
 		add_fingerprint(user)
@@ -65,7 +64,6 @@ RSF
 
 	return ..()
 
-
 /obj/item/rsf/attack_self(mob/user)
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, FALSE)
 	if(mode >= length(configured_items))
@@ -75,16 +73,13 @@ RSF
 	to_chat(user, "Changed dispensing mode to '" + configured_items[mode][1] + "'")
 	update_appearance(UPDATE_DESC)
 
-
 /obj/item/rsf/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc) + " Currently set to dispense '[configured_items[mode][1]]'."
 
-
 /obj/item/rsf/examine(mob/user)
 	. = ..()
 	. += span_notice("It currently holds <b>[matter]/30</b> fabrication-units.")
-
 
 /obj/item/rsf/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity) return

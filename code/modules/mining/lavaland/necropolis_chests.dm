@@ -295,7 +295,6 @@
 	item_state = "asclepius_active"
 	activated = TRUE
 
-
 // enchanced flowers
 /obj/item/eflowers
 	name ="enchanted flowers"
@@ -527,11 +526,9 @@
 		swing_sound = SFX_KATANA_SWING \
 	)
 
-
 /obj/item/cursed_katana/examine(mob/user)
 	. = ..()
 	. += drew_blood ? ("[span_notice("Она насытилось... пока что.")]") : (span_danger("Она не успокоится, пока не отведает крови."))
-
 
 /obj/item/cursed_katana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(can_combo_attack(user, target))
@@ -610,7 +607,6 @@
 		target.apply_status_effect(STATUS_EFFECT_BLOODLETTING)
 	else
 		A.add_bleed(6)
-
 
 /obj/item/cursed_katana/proc/dash(mob/living/target, mob/user)
 	var/turf/dash_target = get_turf(target)

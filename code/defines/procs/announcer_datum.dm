@@ -23,7 +23,6 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/language = LANGUAGE_GALACTIC_COMMON
 	var/beannounced = TRUE
 
-
 /datum/announcer/New(config_type = null)
 	config = config_type ? new config_type : new
 

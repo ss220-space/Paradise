@@ -147,7 +147,6 @@
 			for(var/datum/objective/protect/objective in apprentice.objectives)
 				objective.explanation_text = "Protect [wizard_mob.real_name], the wizard teacher."
 
-
 /datum/game_mode/proc/greet_wizard(datum/mind/wizard, you_are=1)
 	addtimer(CALLBACK(wizard.current, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	var/list/messages = list()
@@ -253,7 +252,6 @@
 	wizard_mob.update_icons()
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return TRUE
-
 
 // Checks if the game should end due to all wizards and apprentices being dead, or MMI'd/Borged
 /datum/game_mode/wizard/check_finished()
@@ -386,12 +384,10 @@
 	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mind.spell_list)
 		mind.RemoveSpell(spell_to_remove)
 
-
 //To batch-remove mob spells.
 /mob/proc/mobspellremove(mob/M)
 	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mob_spell_list)
 		RemoveSpell(spell_to_remove)
-
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/

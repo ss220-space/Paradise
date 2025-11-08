@@ -35,10 +35,8 @@
 	playsound(A, 'sound/items/handling/pickup/component_pickup.ogg', 20, TRUE)
 	labels_left--
 
-
 /obj/item/hand_labeler/update_icon_state()
 	icon_state = "labeler[mode]"
-
 
 /obj/item/hand_labeler/attack_self(mob/user)
 	mode = !mode
@@ -55,7 +53,6 @@
 	else
 		to_chat(user, span_notice("You turn off \the [src]."))
 
-
 /obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
 		add_fingerprint(user)
@@ -67,7 +64,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/hand_labeler_refill
 	name = "hand labeler paper roll"

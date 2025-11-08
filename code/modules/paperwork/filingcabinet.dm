@@ -5,7 +5,6 @@
  *		Medical Record Cabinets
  */
 
-
 /*
  * Filing Cabinets
  */
@@ -18,7 +17,6 @@
 	anchored = TRUE
 	var/opened = FALSE
 
-
 /obj/structure/filingcabinet/chestdrawer
 	name = "chest drawer"
 	icon_state = "chestdrawer"
@@ -30,17 +28,14 @@
 /obj/structure/filingcabinet/filingcabinet	//not changing the path to avoid unecessary map issues, but please don't name stuff like this in the future -Pete
 	icon_state = "tallcabinet"
 
-
 /obj/structure/filingcabinet/Initialize(mapload)
 	. = ..()
 	for(var/obj/item/I in loc)
 		if(istype(I, /obj/item/paper) || istype(I, /obj/item/folder) || istype(I, /obj/item/photo))
 			I.loc = src
 
-
 /obj/structure/filingcabinet/update_icon_state()
 	icon_state = "[initial(icon_state)][opened ? "-open" : ""]"
-
 
 /obj/structure/filingcabinet/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -68,7 +63,6 @@
 
 	to_chat(user, span_warning("You cannot put [I] into [src]!"))
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/structure/filingcabinet/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -131,13 +125,11 @@
 			opened = FALSE
 			update_icon(UPDATE_ICON_STATE)
 
-
 /*
  * Security Record Cabinets
  */
 /obj/structure/filingcabinet/security
 	var/populated = FALSE
-
 
 /obj/structure/filingcabinet/security/proc/populate()
 	if(!populated)
@@ -224,7 +216,6 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 			continue
 		if(G.fields["reference"])
 			addFile(G.fields["reference"])
-
 
 /obj/structure/filingcabinet/employment/proc/addFile(mob/living/carbon/human/employee)
 	new /obj/item/paper/contract/employment(src, employee)

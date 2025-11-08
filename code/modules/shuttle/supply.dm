@@ -103,7 +103,6 @@
 			if(is_light(A))
 				continue
 
-
 			if(istype(A, /obj/machinery/light))
 				continue //hacky but whatever, shuttles need three spots each for this shit
 			contcount++
@@ -462,7 +461,6 @@
 
 	can_order_contraband = my_circuit.contraband_enabled
 
-
 /obj/machinery/computer/supplycomp/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
@@ -607,7 +605,6 @@
 			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
 				to_chat(usr, span_warning("[P.name] is out of stock, and can no longer be ordered."))	// Unused for now (Crate limit #3056).
 				return	*/
-
 
 			var/amount = 1
 			if(params["multiple"])

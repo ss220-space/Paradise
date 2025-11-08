@@ -51,12 +51,10 @@
 		pda.notifying_programs |= src
 		pda.update_icon(UPDATE_OVERLAYS)
 
-
 /datum/data/pda/proc/unnotify()
 	if(src in pda.notifying_programs)
 		pda.notifying_programs -= src
 		pda.update_icon(UPDATE_OVERLAYS)
-
 
 // An app has a button on the home screen and its own UI
 /datum/data/pda/app
@@ -82,13 +80,11 @@
 /datum/data/pda/app/proc/update_ui(mob/user, list/data)
 	return
 
-
 // Utilities just have a button on the home screen, but custom code when clicked
 /datum/data/pda/utility
 	name = "Utility"
 	icon = "gear"
 	category = "Utilities"
-
 
 /datum/data/pda/utility/scanmode
 	var/base_name

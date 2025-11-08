@@ -44,7 +44,6 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
 	var/bypass_fake_death = FALSE
 
-
 /**
  * Changeling code relies on on_purchase to grant powers.
  * The same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec
@@ -59,11 +58,9 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	Grant(user)
 	return TRUE
 
-
 /datum/action/changeling/Remove(mob/user)
 	user?.update_action_buttons(TRUE)
 	..()
-
 
 /datum/action/changeling/Destroy(force)
 	owner?.update_action_buttons(TRUE)
@@ -71,10 +68,8 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	cling = null
 	return ..()
 
-
 /datum/action/changeling/Trigger(left_click = TRUE)
 	try_to_sting(owner)
-
 
 /datum/action/changeling/proc/try_to_sting(mob/user, mob/target)
 	user.changeNext_click(5)
@@ -85,19 +80,15 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 		sting_feedback(user, target)
 		take_chemical_cost()
 
-
 /datum/action/changeling/proc/sting_action(mob/user)
 	return FALSE
-
 
 /datum/action/changeling/proc/sting_feedback(mob/user, mob/target)
 	return FALSE
 
-
 /datum/action/changeling/proc/take_chemical_cost()
 	cling.chem_charges -= chemical_cost
 	cling.genetic_damage += genetic_damage
-
 
 /**
  * Fairly important to remember to return `TRUE` on success >.<
@@ -130,7 +121,6 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 		return FALSE
 
 	return TRUE
-
 
 /**
  * Transform the target to the chosen dna. Used in transform.dm and tiny_prick.dm (handy for changes since it's the same thing done twice)

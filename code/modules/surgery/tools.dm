@@ -300,13 +300,11 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 	AddComponent(/datum/component/surgery_initiator)
 
-
 /obj/item/scalpel/suicide_act(mob/user)
 	to_chat(viewers(user), pick(span_suicide("[user] [declent_ru(INSTRUMENTAL)] среза[PLUR_ET_YUT(user)] свою кожу! Похоже, что [GEND_HE_SHE(user)] соверша[PLUR_ET_YUT(user)] суицид!"),
 						span_suicide("[user] реж[PLUR_ET_UT(user)] своё горло с помощью [declent_ru(GENITIVE)]! Похоже, что [GEND_HE_SHE(user)] соверша[PLUR_ET_YUT(user)] суицид!"),
 						span_suicide("[user] вонза[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] в свой желудок! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить сэппуку!")))
 	return BRUTELOSS
-
 
 /obj/item/scalpel/augment
 	desc = "Миниатюрное сверхострое лезвие, которое крепится напрямую к вашей кости, обеспечивая дополнительную точность."

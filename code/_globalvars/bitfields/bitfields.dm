@@ -22,7 +22,6 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 		bitfields[bitfield.variable] = bitfield.flags
 	return bitfields
 
-
 /proc/translate_bitfield(variable_type, variable_name, variable_value)
 	if(variable_type != VV_BITFIELD)
 		return variable_value

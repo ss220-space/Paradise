@@ -27,10 +27,8 @@
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
-
 /obj/item/clothing/mask/balaclava/attack_self(mob/user)
 	adjustmask(user)
-
 
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"

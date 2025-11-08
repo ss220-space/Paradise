@@ -11,17 +11,14 @@
 	/// Time before armed
 	var/time = 10
 
-
 /obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
 	proximity_monitor = new(src, _ignore_if_not_on_turf = FALSE)
-
 
 /obj/item/assembly/prox_sensor/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(proximity_monitor)
 	return ..()
-
 
 /obj/item/assembly/prox_sensor/examine(mob/user)
 	. = ..()
@@ -30,7 +27,6 @@
 	else
 		. += span_notice("The proximity sensor is [scanning ? "armed" : "disarmed"].")
 
-
 /obj/item/assembly/prox_sensor/activate()
 	if(!..())
 		return FALSE //Cooldown check
@@ -38,11 +34,9 @@
 	update_icon()
 	return FALSE
 
-
 /obj/item/assembly/prox_sensor/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	sense(user)
-
 
 /obj/item/assembly/prox_sensor/toggle_secure()
 	secured = !secured
@@ -55,12 +49,10 @@
 	update_appearance()
 	return secured
 
-
 /obj/item/assembly/prox_sensor/HasProximity(atom/movable/movable)
 	if(iseffect(movable))
 		return
 	sense()
-
 
 /obj/item/assembly/prox_sensor/proc/sense(atom/movable/movable)
 	if(!secured || !scanning || !COOLDOWN_FINISHED(src, cooldown))
@@ -75,7 +67,6 @@
 	audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
-
 /obj/item/assembly/prox_sensor/process()
 	if(timing && (time >= 0))
 		time--
@@ -84,13 +75,11 @@
 		toggle_scan()
 		time = 10
 
-
 /obj/item/assembly/prox_sensor/proc/toggle_scan()
 	if(!secured)
 		return FALSE
 	scanning = !scanning
 	update_icon()
-
 
 /obj/item/assembly/prox_sensor/update_overlays()
 	. = ..()
@@ -102,7 +91,6 @@
 		. += "prox_scanning"
 		attached_overlays += "prox_scanning"
 	holder?.update_icon()
-
 
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
@@ -118,7 +106,6 @@
 	var/datum/browser/popup = new(user, "prox", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()

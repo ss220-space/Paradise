@@ -367,5 +367,4 @@ td, th {
 		log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ — [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ — [rights2text(removed_bits, " ")]":""]")
 		admin_permission_modification(adm_ckey, new_value )
 
-
 	edit_admin_permissions()

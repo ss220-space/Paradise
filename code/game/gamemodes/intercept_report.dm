@@ -54,7 +54,6 @@
 		"Small Prick"
 	)
 
-
 /datum/intercept_text/proc/build(mode_type, datum/mind/correct_person)
 	switch(mode_type)
 		if("revolution")
@@ -96,7 +95,6 @@
 	if(dudes.len==0)
 		return null
 	return pick(dudes)
-
 
 /datum/intercept_text/proc/pick_fingerprints()
 	var/mob/living/carbon/human/dude = src.pick_mob()

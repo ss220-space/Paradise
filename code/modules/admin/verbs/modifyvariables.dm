@@ -93,7 +93,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		if(holder?.marked_datum && .["class"] == "[VV_MARKED_DATUM] ([holder.marked_datum.type])")
 			.["class"] = VV_MARKED_DATUM
 
-
 	switch(.["class"])
 		if(VV_TEXT)
 			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = MAX_BOOK_MESSAGE_LEN, encode = FALSE, trim = FALSE) //TGUI can not comprehend 1eN, don't use scientific notation
@@ -105,7 +104,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(.["value"] == null)
 				.["class"] = null
 				return
-
 
 		if(VV_NUM)
 			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value, max_value = INFINITY, min_value = -INFINITY, round_value = FALSE)
@@ -160,7 +158,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			if(.["value"] == null)
 				.["class"] = null
 
-
 		if(VV_ATOM_REFERENCE)
 			var/type = pick_closest_path(FALSE)
 			var/subtypes = vv_subtype_prompt(type)
@@ -206,20 +203,17 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 
-
 		if(VV_FILE)
 			.["value"] = input(src, "Выберите файл:", "Файл") as null|file
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
-
 		if(VV_ICON)
 			.["value"] = input(src, "Выберите иконку:", "Иконка") as null|icon
 			if(.["value"] == null)
 				.["class"] = null
 				return
-
 
 		if(VV_MARKED_DATUM)
 			.["value"] = holder.marked_datum
@@ -242,7 +236,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["value"] = new type()
 			else
 				.["value"] = new type(arglist(arguments))
-
 
 		if(VV_NEW_DATUM)
 			var/type = pick_closest_path(FALSE, get_fancy_list_of_datum_types())
@@ -280,7 +273,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["value"] = new type()
 			else
 				.["value"] = new type(arglist(arguments))
-
 
 		if(VV_NEW_LIST)
 			.["value"] = list()
@@ -449,7 +441,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 		index = names[variable]
 
-
 	var/assoc_key
 	if(index == null)
 		return
@@ -528,7 +519,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			var/list/varsvars = vv_parse_text(O, new_var)
 			for(var/V in varsvars)
 				new_var = replacetext(new_var,"\[[V]]","[O.vars[V]]")
-
 
 	if(assoc)
 		L[assoc_key] = new_var

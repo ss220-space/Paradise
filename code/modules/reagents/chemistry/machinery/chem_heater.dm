@@ -59,7 +59,6 @@
 				if(auto_eject)
 					eject_beaker()
 
-
 /obj/machinery/chem_heater/update_icon_state()
 	icon_state = "mixer[beaker ? "1" : "0"]b"
 
@@ -73,7 +72,6 @@
 		on = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
-
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

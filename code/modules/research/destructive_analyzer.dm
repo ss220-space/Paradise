@@ -22,7 +22,6 @@ Note: Must be placed within 3 tiles of the R&D Console
 		PREPOSITIONAL = "деструктивном анализаторе",
 	)
 
-
 /obj/machinery/r_n_d/destructive_analyzer/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -53,13 +52,11 @@ Note: Must be placed within 3 tiles of the R&D Console
 		T += S.rating
 	decon_mod = T
 
-
 /obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
-
 
 /obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
@@ -106,7 +103,6 @@ Note: Must be placed within 3 tiles of the R&D Console
 	addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/r_n_d/destructive_analyzer/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -116,18 +112,15 @@ Note: Must be placed within 3 tiles of the R&D Console
 		linked_console.linked_destroy = null
 		linked_console = null
 
-
 /obj/machinery/r_n_d/destructive_analyzer/crowbar_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
 	return default_deconstruction_crowbar(user, I)
 
-
 /obj/machinery/r_n_d/destructive_analyzer/proc/reset_processing()
 	busy = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/r_n_d/destructive_analyzer/update_icon_state()
 	if(loaded_item)

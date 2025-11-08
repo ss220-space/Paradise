@@ -178,7 +178,6 @@
 	if(user.prefs.sound & ~SOUND_LOBBY)
 		usr.stop_sound_channel(CHANNEL_ADMIN)
 
-
 /datum/preference_toggle/toggle_end_of_round_sound
 	name = "Отключение звука в конце раунда"
 	description = "Отключение звука в конце раунда."
@@ -669,7 +668,6 @@
 	disable_message = "Теперь содержимое UI не маштабируется."
 	blackbox_message = "Переключение маштабирования UI"
 
-
 /datum/preference_toggle/ui_scale/set_toggles(client/user)
 	. = ..()
 	if(!istype(user))
@@ -679,7 +677,6 @@
 		INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
 		user.tgui_say?.load()
 		user.fix_title_screen()
-
 
 /datum/preference_toggle/pain_blurb
 	name = "Переключить вывод боли на экран"

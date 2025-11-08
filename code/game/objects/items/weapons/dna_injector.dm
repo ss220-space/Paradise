@@ -33,15 +33,12 @@
 	QDEL_NULL(buf)
 	return ..()
 
-
 /obj/item/dnainjector/update_icon_state()
 	icon_state = "[initial(icon_state)][used ? "0" : ""]"
-
 
 /obj/item/dnainjector/update_desc(updates = ALL)
 	. = ..()
 	desc = used ? "[initial(desc)] This one is used up." : initial(desc)
-
 
 /obj/item/dnainjector/proc/GetRealBlock(selblock)
 	if(selblock == 0)
@@ -76,7 +73,6 @@
 		return buf.dna.SetSEValue(real_block,val)
 	else
 		return buf.dna.SetUIValue(real_block,val)
-
 
 /obj/item/dnainjector/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(used)
@@ -129,7 +125,6 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 	INVOKE_ASYNC(src, PROC_REF(async_update), target)	//Some mutations have sleeps in them, like monkey
 
-
 /obj/item/dnainjector/proc/async_update(mob/living/carbon/human/target)
 	var/datum/dna/target_dna = target.dna
 	var/prev_UE = target_dna.unique_enzymes
@@ -160,7 +155,6 @@
 		target.check_genes(forcedmutation ? MUTCHK_FORCED : NONE)
 
 	target.sync_organ_dna(assimilate = FALSE, old_ue = prev_UE)
-
 
 /obj/item/dnainjector/hulkmut
 	name = "DNA-Injector (Hulk)"
@@ -264,7 +258,6 @@
 /obj/item/dnainjector/telemut/darkbundle
 	name = "DNA-injector"
 	desc = "Good. Let the hate flow through you."
-
 
 /obj/item/dnainjector/antitele
 	name = "DNA-Injector (Anti-Tele.)"
@@ -575,7 +568,6 @@
 	block = GLOB.nervousblock
 	return ..()
 
-
 /obj/item/dnainjector/antistutt
 	name = "DNA-Injector (Anti-Stutt.)"
 	desc = "Fixes that speaking impairment."
@@ -674,7 +666,6 @@
 /obj/item/dnainjector/m2h/Initialize(mapload)
 	block = GLOB.monkeyblock
 	return ..()
-
 
 /obj/item/dnainjector/comic
 	name = "DNA-Injector (Comic)"

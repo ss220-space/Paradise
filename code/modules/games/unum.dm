@@ -34,7 +34,6 @@
 		cards += new /datum/playingcard("Дикая карта", "sc_Wildcard_[card_style]", "singlecard_down_[card_style]")
 		cards += new /datum/playingcard("Дикая +4", "sc_Draw 4_[card_style]", "singlecard_down_[card_style]")
 
-
 /obj/item/deck/unum/update_icon_state()
 	if(!LAZYLEN(cards))
 		icon_state = "deck_[card_style]_empty"

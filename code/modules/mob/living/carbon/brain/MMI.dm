@@ -29,7 +29,6 @@
 
 	var/list/skin_permissions = list()
 
-
 /obj/item/mmi/update_icon_state()
 	if(held_brain)
 		icon = held_brain.mmi_icon
@@ -37,7 +36,6 @@
 	else
 		icon = initial(icon)
 		icon_state = initial(icon_state)
-
 
 /obj/item/mmi/update_name(updates = ALL)
 	. = ..()
@@ -48,7 +46,6 @@
 			name = "Man-Machine Interface: [brainmob.real_name]"
 	else
 		name = initial(name)
-
 
 /obj/item/mmi/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/organ/internal/brain)) //Time to stick a brain in it --NEO
@@ -132,7 +129,6 @@
 
 	return ..()
 
-
 /obj/item/mmi/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -153,14 +149,12 @@
 		span_notice("You uninstall the radio from [src].")
 	)
 
-
 /obj/item/mmi/attack_self(mob/user)
 	if(!brainmob)
 		to_chat(user, span_warning("You upend the MMI, but there's nothing in it."))
 	else
 		to_chat(user, span_notice("You unlock and upend the MMI, spilling the brain onto the floor."))
 		dropbrain(get_turf(user))
-
 
 /obj/item/mmi/proc/transfer_identity(mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
 	brainmob = new(src)
@@ -180,7 +174,6 @@
 	held_brain.name = "\the [brainmob.name]’s [initial(held_brain.name)]"
 	brainmob.update_sight()
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
@@ -203,7 +196,6 @@
 	held_brain.forceMove(dropspot)
 	held_brain = null
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
@@ -312,7 +304,6 @@
 		brainmob.mind.transfer_to(target)
 	holder.insert(target, ORGAN_MANIPULATION_NOEFFECT)
 	return TRUE
-
 
 // As a synthetic, the only limit on visibility is view range
 /obj/item/mmi/contents_ui_distance(src_object, mob/living/user)

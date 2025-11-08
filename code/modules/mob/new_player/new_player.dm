@@ -10,7 +10,6 @@
 	density = FALSE
 	stat = DEAD
 
-
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(flags & INITIALIZED)
@@ -39,7 +38,6 @@
 	status_tab_data[++status_tab_data.len] = list("Список игроков:", "")
 	for(var/mob/new_player/player in GLOB.player_list)
 		status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Готов)" : "(Не готов)")
-
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)
@@ -165,7 +163,6 @@
 			spawning = 1
 			// stop_sound_channel(CHANNEL_LOBBYMUSIC)
 			client?.tgui_panel?.stop_music()
-
 
 			observer.started_as_observer = 1
 			close_spawn_windows()
@@ -349,14 +346,12 @@
 		return FALSE
 	return pick(jobs_available)
 
-
 /mob/proc/move_to_spawn(list/spawn_turfs)
 	if(length(GLOB.start_override))
 		forceMove(pick(GLOB.start_override))
 		return
 
 	forceMove(pick(spawn_turfs))
-
 
 /mob/proc/spawn_equip(rank)
 	if(GLOB.start_override_outfit)
@@ -366,7 +361,6 @@
 
 	. = SSjobs.EquipRank(src, rank, 1)
 	EquipCustomItems(.)
-
 
 /mob/new_player/proc/AttemptLateSpawn(rank, spawning_at)
 	if(src != usr)
@@ -499,12 +493,10 @@
 		if(GLOB.summon_magic_triggered)
 			give_magic(character)
 
-
 	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
 
 	qdel(src)
-
 
 /mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
@@ -586,7 +578,6 @@
 			else
 				dat += " [a.title]. </span><br>"
 
-
 	var/num_jobs_available = 0
 	var/list/activePlayers = list()
 	var/list/categorizedJobs = list(
@@ -655,14 +646,12 @@
 	popup.set_content(dat)
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
-
 // If current character can't be antagonist, try to pick random character, who can.
 /mob/new_player/proc/handle_can_be_antagonist()
 	if(!mind.special_role || client.prefs.can_be_antagonist)
 		return
 
 	client.prefs.get_possible_antagonist()
-
 
 /mob/new_player/proc/create_character()
 	spawning = TRUE
@@ -684,7 +673,6 @@
 	// stop_sound_channel(CHANNEL_LOBBYMUSIC)
 	client?.tgui_panel?.stop_music()
 
-
 	if(mind)
 		mind.active = FALSE					// we wish to transfer the key manually
 
@@ -699,7 +687,6 @@
 		mind.set_original_mob(new_character)
 		mind.transfer_to(new_character)					// won't transfer key since the mind is not active
 		GLOB.human_names_list += new_character.real_name
-
 
 	new_character.possess_by_player(key)		// Manually transfer the key to log them in
 
@@ -725,17 +712,14 @@
 /mob/new_player/proc/ViewManifest()
 	GLOB.generic_crew_manifest.ui_interact(usr)
 
-
 /mob/new_player/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	return FALSE
-
 
 /mob/new_player/proc/close_spawn_windows()
 	close_window(src, "latechoices") //closes late choices window
 	close_window(src, "playersetup") //closes the player setup window
 	close_window(src, "preferences") //closes preferences
 	close_window(src, "mob_occupation") //closes job selection
-
 
 /mob/new_player/proc/has_admin_rights()
 	return check_rights(R_ADMIN, 0, src)

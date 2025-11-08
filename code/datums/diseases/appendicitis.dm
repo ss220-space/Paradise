@@ -115,7 +115,6 @@
 				H.Stun(rand(2 SECONDS, 4 SECONDS))
 				H.Jitter(10 SECONDS)
 
-
 /datum/disease/appendicitis/proc/rupture(mob/living/carbon/human/H, obj/item/organ/internal/appendix/A)
 	ruptured = TRUE
 	A.necrotize()

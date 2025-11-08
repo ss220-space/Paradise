@@ -6,7 +6,6 @@
 	required_blood = 15
 	action_icon_state = "vampire_claws"
 
-
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/cast(mob/user)
 	if(user.l_hand || user.r_hand)
 		to_chat(user, span_notice("Вы роняете то, что было у вас в руках, и из ваших пальцев вылетают огромные лезвия!"))
@@ -17,7 +16,6 @@
 	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc, src)
 	RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dispel))
 	user.put_in_hands(claws)
-
 
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/proc/dispel()
 	SIGNAL_HANDLER
@@ -38,12 +36,10 @@
 		to_chat(user, span_notice("Вы рассеиваете когти!"))
 		return COMPONENT_CANCEL_DROP
 
-
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
 	if(L.can_unEquip(L.l_hand) && L.can_unEquip(L.r_hand))
 		return ..()
-
 
 /obj/item/twohanded/required/vamp_claws
 	name = "vampiric claws"
@@ -81,14 +77,12 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	parent_spell = new_parent_spell
 
-
 /obj/item/twohanded/required/vamp_claws/Destroy()
 	if(parent_spell)
 		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 		parent_spell.action.UpdateButtonIcon()
 		parent_spell = null
 	return ..()
-
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -117,11 +111,9 @@
 			qdel(src)
 			to_chat(user, span_warning("Ваши когти сломаны!"))
 
-
 /obj/item/twohanded/required/vamp_claws/attack_self(mob/user)
 	qdel(src)
 	to_chat(user, span_notice("Вы рассеиваете когти!"))
-
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils
 	name = "Кровавые щупальца"
@@ -137,13 +129,11 @@
 	selection_activated_message		= span_notice("Вы используете магию крови, чтобы ослабить завесу блюспейса.")
 	selection_deactivated_message	= span_notice("Ваша магия ослабевает.")
 
-
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.allowed_type = /atom
 	T.try_auto_target = FALSE
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/cast(list/targets, mob/user)
 	var/turf/T = get_turf(targets[1]) // there should only ever be one entry in targets for this spell
@@ -154,7 +144,6 @@
 		new /obj/effect/temp_visual/blood_tendril(blood_turf)
 
 	addtimer(CALLBACK(src, PROC_REF(apply_slowdown), T, area_of_affect, 6 SECONDS, user), 1 SECONDS)
-
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
 	for(var/mob/living/L in range(distance, T))
@@ -167,15 +156,12 @@
 			new /obj/effect/decal/cleanable/blood(target_turf)
 			new /obj/effect/temp_visual/blood_tendril/long(target_turf)
 
-
 /obj/effect/temp_visual/blood_tendril
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "blood_tendril"
 
-
 /obj/effect/temp_visual/blood_tendril/long
 	duration = 2 SECONDS
-
 
 /obj/effect/proc_holder/spell/vampire/blood_barrier
 	name = "Кровавый барьер"
@@ -191,13 +177,11 @@
 	var/max_walls = 3
 	var/turf/start_turf = null
 
-
 /obj/effect/proc_holder/spell/vampire/blood_barrier/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.allowed_type = /atom
 	T.try_auto_target = FALSE
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/blood_barrier/remove_ranged_ability(mob/user, msg)
 	. = ..()
@@ -205,12 +189,10 @@
 		start_turf = null
 		should_recharge_after_cast = FALSE
 
-
 /obj/effect/proc_holder/spell/vampire/blood_barrier/should_remove_click_intercept()
 	if(start_turf)
 		return TRUE
 	return FALSE
-
 
 /obj/effect/proc_holder/spell/vampire/blood_barrier/cast(list/targets, mob/user)
 	// First we check if vampire clicks on himself
@@ -268,7 +250,6 @@
 	start_turf = null
 	should_recharge_after_cast = FALSE
 
-
 /obj/structure/blood_barrier
 	name = "blood barrier"
 	desc = "Гротескная структура из кристаллизованной крови. Она медленно тает..."
@@ -288,25 +269,20 @@
 		PREPOSITIONAL = "о кровавом барьере",
 	)
 
-
 /obj/structure/blood_barrier/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-
 
 /obj/structure/blood_barrier/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/structure/blood_barrier/process()
 	take_damage(8, sound_effect = FALSE)
-
 
 /obj/structure/blood_barrier/obj_destruction(damage_flag)
 	new /obj/effect/decal/cleanable/blood(loc)
 	return ..()
-
 
 /obj/structure/blood_barrier/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -327,7 +303,6 @@
 	if(is_type_in_list(V.subclass, list(SUBCLASS_HEMOMANCER, SUBCLASS_ANCIENT)))
 		return TRUE
 
-
 /obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool
 	name = "Погружение в кровь"
 	desc = "Вы превращаете свою форму в лужу крови, делая ее неуязвимой и способной перемещаться сквозь всё, что не является стеной или космосом. После этого за вами остаётся кровавый след."
@@ -346,16 +321,13 @@
 	sound_in = 'sound/misc/enter_blood.ogg'
 	sound_out = 'sound/misc/exit_blood.ogg'
 
-
 /obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool/after_spell_init()
 	update_vampire_spell_name()
-
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool/create_new_handler()
 	var/datum/spell_handler/vampire/H = new
 	H.required_blood = 20
 	return H
-
 
 /obj/effect/proc_holder/spell/vampire/predator_senses
 	name = "Чутьё хищника"
@@ -364,17 +336,14 @@
 	action_icon_state = "predator_sense"
 	create_attack_logs = FALSE
 
-
 /obj/effect/proc_holder/spell/vampire/predator_senses/create_new_targeting()
 	var/datum/spell_targeting/alive_mob_list/A = new()
 	A.allowed_type = /mob/living/carbon/human
 	A.max_targets = 300 // hopefully we never hit this number
 	return A
 
-
 /obj/effect/proc_holder/spell/vampire/predator_senses/valid_target(mob/target, mob/user)
 	return target.z == user.z && target.mind
-
 
 /obj/effect/proc_holder/spell/vampire/predator_senses/cast(list/targets, mob/user)
 	var/targets_by_name = list()
@@ -397,7 +366,6 @@
 		playsound(target_turf, 'sound/effects/splat.ogg', 50, TRUE)
 		new /obj/effect/decal/cleanable/blood(target_turf)
 
-
 /obj/effect/proc_holder/spell/vampire/blood_eruption
 	name = "Извержение крови"
 	desc = "Каждая лужа крови в 4 тайлах от вас извергается шипом живой крови, нанося урон всем, кто стоит на ней."
@@ -406,13 +374,11 @@
 	base_cooldown = 1 MINUTES
 	action_icon_state = "blood_spikes"
 
-
 /obj/effect/proc_holder/spell/vampire/blood_eruption/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
 	T.range = 4
 	T.allowed_type = /mob/living
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/blood_eruption/valid_target(mob/living/target, user)
 	var/turf/T = get_turf(target)
@@ -420,7 +386,6 @@
 		if(target.affects_vampire(user) && !isLivingSSD(target))
 			return TRUE
 	return FALSE
-
 
 /obj/effect/proc_holder/spell/vampire/blood_eruption/cast(list/targets, mob/user)
 	for(var/mob/living/L in targets)
@@ -433,12 +398,10 @@
 		L.Stun(3 SECONDS)
 		L.visible_message(span_warning("<b>[L] пронзен[GEND_A_O_Y(L)] шипом живой крови!</b>"))
 
-
 /obj/effect/temp_visual/blood_spike
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "bloodspike_white"
 	duration = 0.3 SECONDS
-
 
 /obj/effect/proc_holder/spell/vampire/self/blood_spill
 	name = "Кровавый обряд"
@@ -446,7 +409,6 @@
 	gain_desc = "Вы обрели способность извлекать жизненную силу из гуманоидов и поглощать её, исцеляя себя."
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
-
 
 /obj/effect/proc_holder/spell/vampire/self/blood_spill/cast(list/targets, mob/user)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -456,20 +418,16 @@
 		for(var/datum/vampire_passive/blood_spill/B in V.powers)
 			V.remove_ability(B)
 
-
 /datum/vampire_passive/blood_spill
 	var/max_beams = 10
-
 
 /datum/vampire_passive/blood_spill/New()
 	..()
 	START_PROCESSING(SSobj, src)
 
-
 /datum/vampire_passive/blood_spill/Destroy(force)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /datum/vampire_passive/blood_spill/process()
 	var/beam_number = 0

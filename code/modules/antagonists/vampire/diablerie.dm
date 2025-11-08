@@ -3,7 +3,6 @@
 /// Diablerie level at which our diablerie aura is shown to everyone, used only for convenience
 #define ASCENDED_AURA_LEVEL 3
 
-
 /**
  * "Diablerie" thing is entirely World of Darkness reference. In simple terms, 'diablerie' is the act of a vampire
  * killing another vampire by draining all of their blood, thereby taking their soul and becoming more powerful.
@@ -29,14 +28,12 @@
 		new /datum/diablerie_level/level_four,
 	)
 
-
 /datum/diablerie/New(datum/antagonist/vampire/vampire_datum)
 	. = ..()
 	src.vampire_datum = vampire_datum
 	vampire = vampire_datum.owner.current
 	old_unarmed = vampire.dna.species.unarmed
 	old_unarmed_type = vampire.dna.species.unarmed_type
-
 
 /datum/diablerie/Destroy(force)
 	UnregisterSignal(vampire, list(COMSIG_LIVING_DEATH, COMSIG_HUMAN_DESTROYED))
@@ -47,7 +44,6 @@
 	vampire_datum = null
 	vampire = null
 	return ..()
-
 
 /**
  * Adds [DIABLERIE_AURA_HUD] to the vampire to avoid using see_invis, only for levels below [ASCENDED_AURA_LEVEL]
@@ -63,14 +59,12 @@
 	var/mutable_appearance/mutable = mutable_appearance(icon = 'icons/effects/vampire_effects.dmi', icon_state = "diablerie_aura", layer = vampire.layer - 0.1)
 	aura.appearance = mutable
 
-
 /**
  * Removes [DIABLERIE_AURA_HUD] from the vampire
  */
 /datum/diablerie/proc/remove_diablerie_hud(mob/living/owner)
 	var/datum/atom_hud/diablerie_aura/aura_hud = GLOB.huds[DIABLERIE_AURA_HUD]
 	aura_hud.remove_atom_from_hud(owner)
-
 
 /**
  * Increases diablerie level by one
@@ -83,7 +77,6 @@
 	var/datum/diablerie_level/diablerie_level = diablerie_levels[diablerie_count]
 	diablerie_level.gain(src)
 	apply_additional_bonuses()
-
 
 /**
  * Decreases diablerie level by one
@@ -98,7 +91,6 @@
 	diablerie_count--
 
 	to_chat(vampire, span_danger("Вы ощущаете боль по всему телу, теряя драгоценную часть своей силы."))
-
 
 /**
  * Every diablerie level increases amount of blood taken from victim per cycle by [DIABLERIE_SUCKING_AMOUNT]
@@ -117,7 +109,6 @@
 	for(var/obj/effect/proc_holder/spell/power in vampire_datum.powers)
 		power.cooldown_handler.change_cooldowns(recharge_reduction = -DIABLERIE_COOLDOWN_REDUCTION)
 
-
 /**
  * Handles both cases of adding aura: just hud for vampires or the effect if we have ascended aura.
  * If 'ascended' set to 'TRUE', applies to the vampire the ascended aura seen by anyone
@@ -130,7 +121,6 @@
 	diablerie_aura = new()
 	vampire.vis_contents |= diablerie_aura
 	vampire.update_appearance()
-
 
 /**
  * Proc to transfer diablerie aura from one mob to another, when transforming or transfering bodies
@@ -153,7 +143,6 @@
 	new_body?.vis_contents += diablerie_aura
 	new_body?.update_appearance()
 
-
 /**
  * Handles both cases of removing aura: removing vampire from hud or deleting the effect if we have ascended aura
  * if 'ascended' set to 'TRUE', removes from the vampire and deletes the diablerie_aura effect
@@ -166,7 +155,6 @@
 	vampire.vis_contents -= diablerie_aura
 	vampire.update_appearance()
 	QDEL_NULL(diablerie_aura)
-
 
 /**
  * Proc to force certain diablerie level, used by traitor panel
@@ -203,7 +191,6 @@
 	log_game("Vampire [key_name(vampire)] reached [diablerie_count] diablerie level. Setting security level to GAMMA.")
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 5 SECONDS)
 
-
 /**
  * Handles vampire death announcment and changes security code to RED
  */
@@ -237,7 +224,6 @@
 /datum/diablerie_level/proc/remove(datum/diablerie/diablerie)
 	SEND_SIGNAL(diablerie.vampire_datum, SIGNAL_DIABLERIE_LEVEL_REMOVE, src)
 	return
-
 
 /**
  * Upgrades glare spells cooldown charges
@@ -339,14 +325,12 @@
 
 	to_chat(diablerie.vampire, span_boldnotice("Сила вашего \"Восстановления\" возросла, и теперь с его помощью вы можете восстанавливать внутренние кровотечения. Ваша аура теперь видна даже простым смертным. Вы всего в шаге от вершины могущества!"))
 
-
 /datum/diablerie_level/level_three/remove(datum/diablerie/diablerie)
 	. = ..()
 	diablerie.vampire_datum.remove_ability(/datum/vampire_passive/regen_bleeding)
 
 	diablerie.remove_diablerie_aura(ascended = TRUE)
 	diablerie.add_diablerie_aura()
-
 
 /**
  * Vampire gets 5 strength level, gargantua subclass has it by default, so they get claws no matter the species,
@@ -376,7 +360,6 @@
 
 	diablerie.announce_vampire_ascended(vampire)
 
-
 /datum/diablerie_level/level_four/remove(datum/diablerie/diablerie)
 	. = ..()
 	var/datum/antagonist/vampire/vampire_datum = diablerie.vampire_datum
@@ -395,13 +378,11 @@
 
 	diablerie.announce_vampire_fallen(vampire)
 
-
 /obj/effect/diablerie_aura
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "diablerie_aura"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	vis_flags = VIS_INHERIT_DIR | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_UNDERLAY
-
 
 #undef DIABLERIE_SUCKING_AMOUNT
 #undef ASCENDED_AURA_LEVEL

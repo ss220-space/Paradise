@@ -119,7 +119,6 @@
 	else
 		to_chat(user, span_notice("You stop putting [dropped_mob] into the [src]."))
 
-
 /obj/machinery/ninja_mindscan_machine/proc/scan_occupant()
 	if(!occupant)
 		return

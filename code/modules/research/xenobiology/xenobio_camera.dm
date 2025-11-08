@@ -192,7 +192,6 @@
 		return
 	return ..()
 
-
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -230,7 +229,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -540,6 +538,5 @@
 			recycler.use_power(500)
 			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 			qdel(M)
-
 
 #undef MAX_SLIME_IN_CONSOLE

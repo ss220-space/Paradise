@@ -22,10 +22,8 @@
 		/datum/vampire_passive/full = 500,
 	)
 
-
 /datum/antagonist/vampire/goon_vampire/add_owner_to_gamemode()
 	SSticker.mode.goon_vampires += owner
-
 
 /datum/antagonist/vampire/goon_vampire/remove_owner_from_gamemode()
 	SSticker.mode.goon_vampires -= owner
@@ -33,10 +31,8 @@
 /datum/antagonist/mindslave/thrall/goon_thrall/add_owner_to_gamemode()
 	SSticker.mode.goon_vampire_enthralled += owner
 
-
 /datum/antagonist/mindslave/thrall/goon_thrall/remove_owner_from_gamemode()
 	SSticker.mode.goon_vampire_enthralled -= owner
-
 
 /proc/is_goon_vampire(datum/source)
 	if(!source)

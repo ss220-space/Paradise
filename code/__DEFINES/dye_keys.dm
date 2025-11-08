@@ -7,7 +7,6 @@
 #define DYE_REGISTRY_SOFTCAP "softcap"
 #define DYE_REGISTRY_PONCHO "poncho"
 
-
 #define DYE_RED "red"
 #define DYE_ORANGE "orange"
 #define DYE_YELLOW "yellow"

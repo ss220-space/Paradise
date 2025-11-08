@@ -2,7 +2,6 @@
 	has_gravity = STANDARD_GRAVITY
 	holomap_should_draw = FALSE
 
-
 /area/syndicate/unpowered/syndicate_space_base
 	name = "Secret Space Base"
 	icon_state = "syndie-control"

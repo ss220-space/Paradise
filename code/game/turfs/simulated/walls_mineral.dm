@@ -25,7 +25,6 @@
 	smoothing_groups = SMOOTH_GROUP_GOLD_WALLS
 	smooth = SMOOTH_BITMASK
 
-
 /turf/simulated/wall/mineral/silver
 	name = "silver wall"
 	desc = "A wall with silver plating. Shiny!"
@@ -101,7 +100,6 @@
 	base_icon_state = "plasma_wall"
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
-
 
 /turf/simulated/wall/mineral/plasma/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -182,7 +180,6 @@
 			return TRUE
 		return FALSE
 	return ..()
-
 
 /turf/simulated/wall/mineral/wood/nonmetal
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."

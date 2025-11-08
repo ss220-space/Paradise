@@ -13,7 +13,6 @@
 	/// The number of players for which 1 more roundstart blob will be added.
 	var/players_per_core = BLOB_PLAYERS_PER_CORE
 
-
 /datum/game_mode/blob/pre_setup()
 
 	var/list/possible_blobs = get_players_for_role(ROLE_BLOB)
@@ -23,7 +22,6 @@
 		return FALSE
 
 	cores_to_spawn = max(round(num_players() / players_per_core, 1), 1)
-
 
 	for(var/j = 0, j < cores_to_spawn, j++)
 		if(!length(possible_blobs))
@@ -41,7 +39,6 @@
 	..()
 	return TRUE
 
-
 /datum/game_mode/blob/post_setup()
 	for(var/datum/mind/blob in blobs["infected"])
 		var/datum_type = blob.get_blob_infected_type()
@@ -53,12 +50,10 @@
 
 	return ..()
 
-
 /datum/game_mode/blob/announce()
 	to_chat(world, "<b>Текущий режим игры - <font color='green'>Блоб</font>!</b>")
 	to_chat(world, "<b>Опасный инопланетный организм стремительно распространяется по всей станции!</b>")
 	to_chat(world, "Вы должны уничтожить его, сведя к минимуму ущерб, нанесенный станции.")
-
 
 /datum/game_mode/proc/get_blob_candidates()
 	var/list/candidates = list()
@@ -79,13 +74,11 @@
 			candidates += player
 	return candidates
 
-
 /datum/game_mode/proc/get_blob_objective()
 	if(!blob_objective)
 		blob_objective = new()
 		update_blob_objective()
 	return blob_objective
-
 
 /datum/game_mode/proc/update_blob_objective()
 	if(blob_objective && !blob_objective.completed)
@@ -94,11 +87,9 @@
 		blob_objective.set_target()
 		blob_objective.owner = src
 
-
 /datum/game_mode/proc/blob_died()
 	if(!length(GLOB.blob_cores) && blob_stage >= BLOB_STAGE_FIRST && blob_stage < BLOB_STAGE_STORM)
 		addtimer(CALLBACK(src, PROC_REF(report_blob_death), BLOB_DEATH_REPORT_FIRST), TIME_TO_ANNOUNCE_BLOBS_DIE)
-
 
 /datum/game_mode/proc/get_blobs_minds()
 	var/list/blob_list = list()
@@ -109,7 +100,6 @@
 	for(var/value in blobs["minions"])
 		blob_list.Add(value)
 	return blob_list
-
 
 /datum/game_mode/proc/report_blob_death(report_number)
 	switch(report_number)
@@ -126,7 +116,6 @@
 			return
 	addtimer(CALLBACK(src, PROC_REF(report_blob_death), report_number + 1), TIME_TO_SWITCH_CODE)
 
-
 /datum/game_mode/proc/make_blobs(count, need_new_blob = FALSE)
 	var/list/candidates = get_blob_candidates()
 	var/mob/living/carbon/human/blob = null
@@ -139,7 +128,6 @@
 		blob.mind.add_antag_datum(blob_datum)
 		candidates -= blob
 	return count
-
 
 /datum/game_mode/proc/make_blobized_mouses(count)
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
@@ -168,7 +156,6 @@
 			notify_ghosts("Заражённая мышь появилась в [get_area(blob)].", source = blob, action = NOTIFY_FOLLOW)
 
 	return TRUE
-
 
 /datum/game_mode/proc/process_blob_stages()
 	if(!length(GLOB.blob_cores))
@@ -204,12 +191,10 @@
 
 	addtimer(CALLBACK(src, PROC_REF(process_blob_stages)), STAGES_CALLBACK_TIME)
 
-
 /datum/game_mode/proc/show_warning(message)
 	for(var/datum/mind/blob in (blobs["infected"] + blobs["offsprings"]))
 		if(blob.current.stat != DEAD)
 			to_chat(blob.current, span_warning("[message]"))
-
 
 /datum/game_mode/proc/burst_blobs()
 	for(var/datum/mind/blob in get_blobs_minds())

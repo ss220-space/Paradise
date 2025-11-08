@@ -55,7 +55,6 @@
 		list("category" = "Devices", "pipemode" = RPD_DEVICES),
 		list("category" = "Heat exchange", "pipemode" = RPD_HEAT_PIPING))
 
-
 /obj/item/rpd/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread()

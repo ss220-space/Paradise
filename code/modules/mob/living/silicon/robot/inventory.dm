@@ -11,7 +11,6 @@
 /mob/living/silicon/robot/get_all_slots()
 	return list(module_state_1, module_state_2, module_state_3)
 
-
 /mob/living/silicon/robot/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	. = list()
 	if(module_state_1)
@@ -20,7 +19,6 @@
 		. += module_state_2
 	if(module_state_3)
 		. += module_state_3
-
 
 /*-------TODOOOOOOOOOO--------*/
 /mob/living/silicon/robot/proc/uneq_module(obj/item/O)
@@ -100,7 +98,6 @@
 	else
 		to_chat(src, "You need to disable a module first!")
 	check_module_damage(FALSE)
-
 
 /mob/living/silicon/robot/proc/observer_screen_update(obj/item/item_to_update, add = TRUE)
 	for(var/mob/dead/observer/observe as anything in inventory_observers)
@@ -223,7 +220,6 @@
 		add_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 	update_icons()
 
-
 //deselect_module(module) - Deselects the module slot specified by "module"
 /mob/living/silicon/robot/proc/deselect_module(module) //Module is 1-3
 	if(module < 1 || module > 3)
@@ -247,7 +243,6 @@
 				module_active = null
 
 	update_icons()
-
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
 /mob/living/silicon/robot/proc/toggle_module(module) //Module is 1-3
@@ -284,12 +279,10 @@
 
 	return
 
-
 /mob/living/silicon/robot/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	if(I == module_active)
 		uneq_active(I)
 	return ..()
-
 
 /mob/living/silicon/robot/proc/update_module_icon()
 	if(!hands)

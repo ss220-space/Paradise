@@ -7,7 +7,6 @@
 	chemical_cost = 15
 	req_stat = DEAD
 
-
 /**
  * Fake our own death and fully heal. You will appear to be dead but regenerate fully after a short delay.
  */
@@ -28,13 +27,11 @@
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
-
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
 	if(!QDELETED(user) && !QDELETED(src) && ischangeling(user) && cling?.acquired_powers)
 		cling.fakedeath_delay = 0 SECONDS
 		to_chat(user, span_changeling("We are ready to regenerate."))
 		cling.give_power(new /datum/action/changeling/revive)
-
 
 /datum/action/changeling/fakedeath/can_sting(mob/user)
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH))

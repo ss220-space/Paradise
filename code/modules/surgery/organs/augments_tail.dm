@@ -151,7 +151,6 @@
 	if(IsAvailable(show_message = TRUE))
 		. = ..()
 
-
 /datum/action/innate/tail_cut/Activate()
 	var/mob/living/carbon/human/user = owner
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)

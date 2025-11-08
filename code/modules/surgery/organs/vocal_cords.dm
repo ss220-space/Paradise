@@ -142,7 +142,6 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	..()
 	cords = target
 
-
 /datum/action/item_action/organ_action/colossus/IsAvailable()
 	. = ..()
 	if(!.)
@@ -151,7 +150,6 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		return FALSE
 	if(!owner.can_speak())
 		return FALSE
-
 
 /datum/action/item_action/organ_action/colossus/Trigger(left_click = TRUE)
 	. = ..()
@@ -180,10 +178,8 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		return FALSE
 	return TRUE
 
-
 /obj/item/organ/internal/vocal_cords/colossus/handle_speech(list/message_pieces)
 	return ..(message_to_multilingual(uppertext(multilingual_to_message(message_pieces)), GLOB.all_languages[LANGUAGE_ANGEL]))
-
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
 	var/log_message = uppertext(message)

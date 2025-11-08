@@ -13,7 +13,6 @@
 	if(. && target)
 		to_chat(target, span_userdanger("Вы чувствуете неприятное шевеление в груди... Внутренний голос подсказывает, что теперь придётся дышать самостоятельно!"))
 
-
 /obj/item/organ/internal/high_rp_tumor/remove(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(. && target)
@@ -27,7 +26,6 @@
 	hrp_tumor.pump_window = delay/5
 	hrp_tumor.insert(src)
 
-
 /obj/item/organ/internal/high_rp_tumor/on_life()
 	if(world.time > (last_pump + (pump_delay - pump_window)))
 		to_chat(owner, span_userdanger("Я долж[GEND_EN_NA_NO_NY(owner)] дышать, иначе просто задохнусь!"))
@@ -40,14 +38,12 @@
 		last_pump = world.time
 		warned = FALSE
 
-
 /datum/action/item_action/organ_action/manual_breath
 	name = "Дышать"
 	use_itemicon = FALSE
 	icon_icon = 'icons/obj/surgery.dmi'
 	button_icon_state = "lungs"
 	check_flags = NONE
-
 
 /datum/action/item_action/organ_action/manual_breath/Trigger(left_click = TRUE)
 	. = ..()

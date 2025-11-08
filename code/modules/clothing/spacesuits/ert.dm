@@ -301,10 +301,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
 
-
 /obj/item/clothing/head/helmet/space/hardsuit/deathsquad/update_icon_state()
 	return
-
 
 /obj/item/clothing/suit/space/hardsuit/deathsquad
 	name = "deathsquad suit"
@@ -335,7 +333,6 @@
 
 /obj/item/clothing/suit/space/hardsuit/deathsquad/update_icon_state()
 	return
-
 
 /obj/item/clothing/suit/space/ert_eva_amber
 	name = "ERT Amber Spacesuit"

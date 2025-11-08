@@ -22,12 +22,10 @@
 	//var/obj/item/reagent_containers/food/drinks/drink5 = null
 	//var/obj/item/reagent_containers/food/drinks/drink6 = null
 
-
 /obj/structure/foodcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
-
 
 /obj/structure/foodcart/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
@@ -60,7 +58,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
 
 /obj/structure/foodcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE

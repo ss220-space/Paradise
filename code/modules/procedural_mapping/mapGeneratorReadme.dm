@@ -45,7 +45,6 @@ mapGenerator:
 		Desc: Sets the Mother variable on all mapGeneratorModules in the modules list to this mapGenerator
 		Existing Calls: initialiseModules(),generate(),generateOneTurf()
 
-
 mapGeneratorModule
 	Desc: a mapGeneratorModule has spawnableAtoms and spawnableTurfs lists
 	which it will generate on turfs in it's mother's map based on cluster variables
@@ -99,7 +98,6 @@ Option Suggestions:
 	* If your map doesn't look quite to your liking, simply jiggle with the variables on your modules and the type probabilities
 	* You can mix and map premade areas with the procedural generation, for example mapping an entire flat land but having code generate just the grass tufts
 
-
 Using the Modules list
 
 	Simply think of it like each module is a layer in a graphics editing program!
@@ -107,7 +105,6 @@ Using the Modules list
 	These are located near the bottom of mapGeneratorModule.dm
 	you would order your list left to right, top to bottom, e.g:
 	modules = list(bottomLayer,nextLayer,nextNextLayer) etc.
-
 
 Variable Breakdown (For Mappers):
 

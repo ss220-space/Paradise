@@ -161,7 +161,6 @@
 	new_mob.possess_by_player(key)
 	new_mob.a_intent = INTENT_HARM
 
-
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	qdel(src)
 

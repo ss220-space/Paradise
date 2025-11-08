@@ -10,11 +10,9 @@ SUBSYSTEM_DEF(looting)
 	/// Actively processing items
 	var/list/datum/lootpanel/processing = list()
 
-
 /datum/controller/subsystem/looting/stat_entry(msg)
 	msg = "P:[length(backlog)]"
 	return ..()
-
 
 /datum/controller/subsystem/looting/fire(resumed)
 	if(!length(backlog))

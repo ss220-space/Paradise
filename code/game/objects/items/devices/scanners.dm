@@ -159,7 +159,6 @@ BODY SCANNERS
 	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
 	origin_tech = "combat=3;magnets=5;biotech=5"
 
-
 /obj/item/t_scanner/security/Initialize(mapload)
 	. = ..()
 	//Sets up a spark system
@@ -167,13 +166,11 @@ BODY SCANNERS
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-
 /obj/item/t_scanner/security/update_icon_state()
 	if(burnt)
 		icon_state = "[base_icon_state]_burnt"
 		return
 	icon_state = "[base_icon_state][on]"
-
 
 /obj/item/t_scanner/security/update_desc(updates = ALL)
 	. = ..()
@@ -181,7 +178,6 @@ BODY SCANNERS
 		desc = initial(desc)
 		return
 	desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство сгорело, теперь можно обнаружить разве что крошки от пончика оставшиеся на нём..."
-
 
 /obj/item/t_scanner/security/attack_self(mob/user)
 	if(!burnt)
@@ -193,7 +189,6 @@ BODY SCANNERS
 	else
 		STOP_PROCESSING(SSprocessing, src)
 
-
 /obj/item/t_scanner/security/emp_act(severity)
 	. = ..()
 	if(prob(25) && !burnt)
@@ -202,7 +197,6 @@ BODY SCANNERS
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		playsound(loc, SFX_SPARKS, 50, TRUE, 5)
 		spark_system.start()
-
 
 /obj/item/t_scanner/security/scan()
 	var/mob/viewer = loc
@@ -310,7 +304,6 @@ BODY SCANNERS
 	scan_data = medical_scan_action(user, target, src, mode, advanced)
 	show_results(user)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	if(!scan_data)
@@ -761,7 +754,6 @@ BODY SCANNERS
 	data["fractureList"] = fractureList
 	data["infectedList"] = infectedList
 
-
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)
@@ -791,7 +783,6 @@ BODY SCANNERS
 		data["implantDetect"] = implant_detect
 
 	return data
-
 
 // This is the output to the chat
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
@@ -997,7 +988,6 @@ BODY SCANNERS
 	if(advanced)
 		. += "advanced"
 
-
 /obj/item/healthanalyzer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/healthupgrade))
 		add_fingerprint(user)
@@ -1032,14 +1022,12 @@ BODY SCANNERS
 
 	return ..()
 
-
 /obj/item/healthanalyzer/advanced
 	advanced = TRUE
 
 /obj/item/healthanalyzer/advanced/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/healthupgrade
 	name = "health analyzer upgrade"
@@ -1538,7 +1526,6 @@ BODY SCANNERS
 	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, FALSE)
 	update_icon()
 
-
 /obj/item/bodyanalyzer/update_icon_state()
 	if(!cell)
 		icon_state = "[base_icon_state]_0"
@@ -1548,7 +1535,6 @@ BODY SCANNERS
 	else
 		icon_state = "[base_icon_state]_2"
 
-
 /obj/item/bodyanalyzer/update_overlays()
 	. = ..()
 	var/percent = cell.percent()
@@ -1556,7 +1542,6 @@ BODY SCANNERS
 	. += "[base_icon_state]_charge[overlayid]"
 	if(printing)
 		. += "[base_icon_state]_printing"
-
 
 /obj/item/bodyanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -1576,7 +1561,6 @@ BODY SCANNERS
 		to_chat(user, span_notice("The scanner beeps angrily at you! It's out of charge!"))
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 
-
 /obj/item/bodyanalyzer/borg/attack(mob/living/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
@@ -1592,7 +1576,6 @@ BODY SCANNERS
 		mobScan(target, user)
 	else
 		to_chat(user, span_notice("You need to recharge before you can use [src]"))
-
 
 /obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
 	if(ishuman(M))

@@ -5,11 +5,9 @@
 	var/wave = 1
 	required_players = 35
 
-
 /datum/game_mode/meteor/announce()
 	to_chat(world, "<b>The current game mode is - Meteor!</b>")
 	to_chat(world, "<b>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</b>")
-
 
 /datum/game_mode/meteor/post_setup()
 	spawn(rand(waittime_l, waittime_h))

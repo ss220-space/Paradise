@@ -77,7 +77,6 @@ SUBSYSTEM_DEF(fluids)
 		// Makes effect bubbling possible with identical spread and effect waits.
 		wait = Gcd(wait, max_wait)
 
-
 /**
  * Initializes the carousel used to process fluid spreading.
  *
@@ -113,7 +112,6 @@ SUBSYSTEM_DEF(fluids)
 		effect_carousel[i] = list()
 	currently_processing = list()
 	effect_bucket_index = 1
-
 
 /datum/controller/subsystem/fluids/fire(resumed)
 	var/seconds_per_tick
@@ -234,7 +232,6 @@ SUBSYSTEM_DEF(fluids)
 
 #undef SS_PROCESSES_SPREADING
 #undef SS_PROCESSES_EFFECTS
-
 
 // Subtypes:
 

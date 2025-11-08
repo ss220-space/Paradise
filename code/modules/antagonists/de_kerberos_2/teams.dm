@@ -3,7 +3,6 @@
 	var/team_color
 	var/static/list/evacuations = list()
 
-
 /datum/team/battle_team/add_member(datum/mind/new_member, add_objectives)
 	var/mob/living/character
 	if(isnewplayer(new_member.current))
@@ -46,7 +45,6 @@
 		text += "<br>[evacuated.name]([evacuated.key])"
 
 	return text
-
 
 /datum/team/battle_team/pre_declare_completion()
 	if(!evacuations[team_role])

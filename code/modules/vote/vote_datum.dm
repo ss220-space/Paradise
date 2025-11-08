@@ -22,7 +22,6 @@
 	// Assoc list of [ckeys => choice] who have voted. We dont want to hold client refs.
 	var/list/voted = list()
 
-
 /datum/vote/New(_initiator, _question, list/_choices, _is_custom = FALSE)
 	if(SSvote.active_vote)
 		CRASH("Attempted to start another vote with one already in progress!")
@@ -63,7 +62,6 @@
 
 /datum/vote/proc/remaining()
 	return max(((started_time + CONFIG_GET(number/vote_period)) - world.time), 0)
-
 
 // Returns the result
 /datum/vote/proc/calculate_result()
@@ -124,13 +122,11 @@
 		У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[DECL_SEC_MIN(CONFIG_GET(number/vote_period) / 10)], чтобы проголосовать!")), MESSAGE_TYPE_OOC)
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
-
 /datum/vote/proc/tick()
 	if(remaining() == 0)
 		var/result = calculate_result()
 		handle_result(result)
 		qdel(src)
-
 
 /datum/vote/Destroy(force)
 	if(SSvote.active_vote == src)
@@ -140,13 +136,11 @@
 		addtimer(CALLBACK(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, on_vote_end)), 3 SECONDS)
 	return ..()
 
-
 /datum/vote/proc/handle_result(result)
 	return
 
 /datum/vote/proc/generate_choices()
 	return
-
 
 /*
 	UI STUFFS

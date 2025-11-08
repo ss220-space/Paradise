@@ -41,7 +41,6 @@ atom: (lighting_atom.dm)
 *   - proc/update_light():
 * 	  - Updates the light var on this atom, deleting or creating as needed and calling .update()
 
-
 turf: (lighting_turf.dm)
  *   - var/list/affecting_lights; list of light sources that are shining onto this turf
  *
@@ -52,7 +51,6 @@ turf: (lighting_turf.dm)
  * 	  - Delete (manual GC) all light overlays on this turf, used when changing turf to space
  *   - proc/lighting_build_overlays():
  * 	  - Create lighting overlays for this turf
-
 
 atom/movable/lighting_object: (lighting_object.dm)
  * - var/lum_r, var/lum_g, var/lum_b; lumcounts of each colour

@@ -25,7 +25,6 @@
 		return FALSE
 	return ..()
 
-
 //External
 /obj/item/shared_storage
 	name = "paradox bag"
@@ -58,7 +57,6 @@
 	twin_storage.bag = bag
 	twin_storage.twin_storage = src	// ~Xzibit
 
-
 /obj/item/shared_storage/Destroy()
 	if(!QDELETED(twin_storage))
 		bag = null
@@ -67,7 +65,6 @@
 		QDEL_NULL(bag)
 	twin_storage = null
 	return ..()
-
 
 /obj/item/shared_storage/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -82,12 +79,10 @@
 	bag.attackby(I, user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/shared_storage/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user.s_active == bag)
 		user.s_active.close(user)
-
 
 /obj/item/shared_storage/proc/open_bag(mob/user)
 	add_fingerprint(user)
@@ -101,13 +96,11 @@
 		bag.forceMove(user)
 	bag.attack_hand(user)
 
-
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
 	if(!bag || !iscarbon(user) || !user.is_in_hands(src))
 		return ..()
 
 	open_bag(user)
-
 
 /obj/item/shared_storage/click_alt(mob/user)
 	if(!bag || !iscarbon(user) || loc != user)
@@ -116,13 +109,11 @@
 	open_bag(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)
 	if(!iscarbon(user) || !bag || loc != user)
 		return ..()
 
 	open_bag(user)
-
 
 //Book of Babel
 
@@ -157,7 +148,6 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
-
 
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
@@ -280,13 +270,11 @@
 		PREPOSITIONAL = "жуткой лампе",
 	)
 
-
 /obj/item/wisp_lantern/update_icon_state()
 	if(!wisp)
 		icon_state = "lantern"
 		return
 	icon_state = "lantern[wisp.loc == src ? "-blue" : ""]"
-
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
@@ -401,7 +389,6 @@
 	else
 		balloon_alert(user, "прервано из-за движения")
 
-
 /obj/item/warp_cube/red
 	name = "red cube"
 	desc = "Мистический красный куб."
@@ -505,7 +492,6 @@
 	QDEL_NULL(chain)
 	return ..()
 
-
 //Immortality Talisman
 /obj/item/immortality_talisman
 	name = "Immortality Talisman"
@@ -529,13 +515,11 @@
 /datum/action/item_action/immortality
 	name = "Бессмертие"
 
-
 /obj/item/immortality_talisman/Destroy(force)
 	if(force)
 		. = ..()
 	else
 		return QDEL_HINT_LETMELIVE
-
 
 /obj/item/immortality_talisman/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_used_immortality_talisman))
@@ -559,7 +543,6 @@
 
 	addtimer(CALLBACK(src, PROC_REF(reappear), user, effect), 10 SECONDS)
 
-
 /obj/item/immortality_talisman/proc/reappear(mob/user, obj/effect/immortality_talisman/effect)
 	if(QDELETED(src) || QDELETED(user) || QDELETED(effect))
 		return
@@ -582,27 +565,21 @@
 
 	qdel(effect)
 
-
 /obj/effect/immortality_talisman
 	icon_state = "blank"
 	var/can_destroy = FALSE
 
-
 /obj/effect/immortality_talisman/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/effect/immortality_talisman/ex_act()
 	return
 
-
 /obj/effect/immortality_talisman/singularity_act()
 	return
 
-
 /obj/effect/immortality_talisman/singularity_pull()
 	return 0
-
 
 /obj/effect/immortality_talisman/Destroy(force)
 	if(!can_destroy && !force)

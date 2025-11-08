@@ -23,7 +23,6 @@
 		PREPOSITIONAL = "стандартном ключе-шифраторе",
 	)
 
-
 /obj/item/encryptionkey/syndicate
 	name = "syndicate encryption key"
 	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Содержит в себе лучшее хакерское ПО, доступное на чёрном рынке и позволяющее получить доступ ко всем частотам Нанотрейзен."
@@ -512,7 +511,6 @@
 	name = "Centcom Radio Encryption Key"
 	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 
-
 /obj/item/encryptionkey/centcom/get_ru_names()
 	return list(
 		NOMINATIVE = "ключ-шифратор Центрального командования",
@@ -527,7 +525,6 @@
 	desc = "Интегрированный в ядро ИИ ключ-шифратор."
 	icon_state = "cap_cypherkey"
 	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SCI_FREQ_NAME = 1, MED_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, AI_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
-
 
 /obj/item/encryptionkey/heads/ai_integrated/get_ru_names()
 	return list(
