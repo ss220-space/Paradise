@@ -339,9 +339,7 @@
 	var/turf/T = get_turf(src)
 	switch(roll)
 		if(1)
-			//Dust
-			T.visible_message(span_userdanger("[user] превраща[PLUR_ET_YUT(user)]ся в пепел!"))
-			user.dust()
+			Damnation(user)
 		if(2)
 			//Death
 			T.visible_message(span_userdanger("[user] внезапно умира[PLUR_ET_YUT(user)]!"))
@@ -466,3 +464,35 @@
 			T.visible_message(span_userdanger("Потоки магической энергии вылетают из [declent_ru(GENITIVE)] в сторону [user]!"))
 			user.mind.make_Wizard()
 
+/obj/item/dice/d20/fate/proc/Damnation(mob/living/carbon/human/damned)
+	damned.visible_message(span_colossus("Damnatio memoriae."))
+	playsound(damned, 'sound/magic/narsie_attack.ogg', 200, TRUE)
+	var/datum/data/record/damned_sec_record = find_record("name", damned.real_name, GLOB.data_core.security)
+	var/datum/data/record/damned_gen_record = find_record("name", damned.real_name, GLOB.data_core.general)
+	var/datum/data/record/damned_med_record = find_record("name", damned.real_name, GLOB.data_core.medical)
+	qdel(damned_sec_record)
+	qdel(damned_gen_record)
+	qdel(damned_med_record)
+	for(var/obj/item/paper/contract/employment/contract as anything in GLOB.employmentContracts)
+		if(contract.target != damned.mind)
+			continue
+		qdel(contract)
+	SSticker.mode.victims.Remove(damned)
+	for(var/datum/objective/obj as anything in GLOB.all_objectives)
+		if(obj.target != damned)
+			continue
+		obj.target = null
+		obj.find_target(obj.existing_targets_blacklist())
+		if(!obj.target?.current)
+			qdel(src)
+		for(var/datum/mind/user in obj.get_owners())
+			var/list/messages = list()
+			messages.Add(user.prepare_announce_objectives(FALSE))
+			to_chat(user.current, chat_box_red(messages.Join("<br>")))
+		for(var/datum/mind/owner as anything in obj.get_owners())
+			SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+			if(QDELETED(src))
+				to_chat(owner.current, span_userdanger("<br>Вам кажется, что вы что-то забыли... Точно, вам нужно убить [obj.target]"))
+				continue
+			to_chat(owner.current, span_userdanger("<br>Вам кажется, что вы что-то забыли... Наверное, это уже не важно..."))
+	damned.dust()
