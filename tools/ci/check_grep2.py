@@ -406,8 +406,16 @@ LONG_LIST_PATTERNS = [
 def check_long_list_formatting(lines, filename):
     return run_multiline_check(lines, filename, LONG_LIST_PATTERNS, strip_comments=True)
 
+EXCESSIVE_EMPTY_LINES_PATTERNS = [
+    (re.compile(r'\n\s*\n\s*\n\s*\n+'),
+    "Too many empty lines were found. Please observe the code style, there is no point in more than 1 empty line between any code."),
+]
+def check_excessive_empty_lines(lines, filename):
+    return run_multiline_check(lines, filename, EXCESSIVE_EMPTY_LINES_PATTERNS, strip_comments=False)
+
 MULTI_LINE_CHECKS = [
     check_long_list_formatting,
+    check_excessive_empty_lines,
 ]
 
 NEW_DEFINITION_RE = re.compile(r'^\s*/?(obj|mob|turf|area|atom)/?.*/New\(')
