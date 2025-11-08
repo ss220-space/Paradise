@@ -63,13 +63,13 @@
 	name = "BMP Chem Lab"
 	icon_state = "away8"
 	requires_power = TRUE
-	ambientsounds = "sound/ambience/ambifailure.ogg"
+	ambientsounds = 'sound/ambience/ambifailure.ogg'
 
 /area/awaymission/BMPship/Shelter
 	name = "BMP Shelter"
 	icon_state = "away9"
 	requires_power = TRUE
-	ambientsounds = "sound/ambience/ambifailure.ogg"
+	ambientsounds = 'sound/ambience/ambifailure.ogg'
 
 /area/awaymission/BMPship/Dormitories
 	name = "BMP Dormitories"
@@ -116,7 +116,7 @@
 	name = "BMP Trader Shuttle"
 	icon_state = "away16"
 	requires_power = TRUE
-	ambientsounds = "sound/spookoween/ghost_whisper.ogg"
+	ambientsounds = 'sound/spookoween/ghost_whisper.ogg'
 
 /area/awaymission/BMPship/Mining
 	name = "BMP Mining"

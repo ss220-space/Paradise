@@ -209,6 +209,7 @@ def check_uid_parameters(idx, line):
         return [(idx + 1, f"UID() does not take arguments. Found: '{result.group(1)}'. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
 
 BALLOON_ALERT_WITHOUT_USER = re.compile(r'(balloon_alert\(["\'])')
+BALLOON_ALERT_TO_VIEWERS_WRONG_FIRST_ARG = re.compile(r'(balloon_alert_to_viewers\((?!\s*message\s*,)[^"\'])')
 BALLOON_ALERT_WITH_SPAN = re.compile(r'(balloon_alert(_to_viewers)?\(.*?span_)')
 BALLOON_ALERT_CAPITALIZED = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*["\'][A-ZА-Я])')
 BALLOON_ALERT_ENDS_WITH_PERIOD = re.compile(r'((balloon_alert\(.*?,|balloon_alert_to_viewers\()\s*"[^"]*[^\.]\.(?!\.)")')
@@ -226,6 +227,8 @@ def check_balloon_alert(idx, line):
             text_part = match.group(0)
             if text_part.endswith('."') or text_part.endswith('.")'):
                 failures.append((idx + 1, f"Balloon alerts should not end with a period: '{match.group(1)}'. If this is a false positive, wrap the text in UNLINT()."))
+    if match := BALLOON_ALERT_TO_VIEWERS_WRONG_FIRST_ARG.search(line):
+        failures.append((idx + 1, f"balloon_alert_to_viewers called with non-string first argument. First argument should be a message string."))
     return failures
 
 TRAIT_SINGLE_SRC = re.compile(r'(add_trait|remove_trait)\(.+,\s*.+,\s*src\)', re.IGNORECASE)
@@ -294,20 +297,21 @@ def check_html_tags_case(idx, line):
     if match := HTML_TAGS_UPPERCASE_RE.search(line):
         return [(idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase.")]
 
-HYPHEN_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) - (?=[а-яё])|(?<=[а-яё]) - \d+|\d+ - (?=[а-яё]))', re.IGNORECASE)
-EN_DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) – (?=[а-яё])|(?<=[а-яё]) – \d+|\d+ – (?=[а-яё]))', re.IGNORECASE)
+DASH_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) [–-] (?=[а-яё])|(?<=[а-яё]) [–-] \d|\d [–-] (?=[а-яё])|(?<=[а-яё]) [–-] [\]\[]|[\]\[] [–-] (?=[а-яё]))', re.IGNORECASE)
 def check_dash_usage(idx, line):
-    failures = []
-    if HYPHEN_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A hyphen was found, which should be replaced with a dash (—)."))
-    if EN_DASH_USAGE_RE.search(line):
-        failures.append((idx + 1, f"A en dash was found, which should be replaced with a dash (—)."))
-    return failures
+    if DASH_USAGE_RE.search(line):
+        if 'UNLINT' not in line:
+            return [(idx + 1, "Found hyphen or en dash, which should be replaced with em dash (—).")]
 
 PLAYSOUND_IMPROPER_CALL = re.compile(r'playsound\(([^,]*), "(sound\/[^\[]+)"')
+SOUND_IMPROPER_PATH = re.compile(r'"(sound\/[^\[]+)(.ogg)"')
 def check_playsound_improper_call(idx, line):
+    failures = []
     if match := PLAYSOUND_IMPROPER_CALL.search(line):
         return [(idx + 1, f"Improper playsound call detected: \"{match.group(2)}\", it should be '{match.group(2)}' instead.")]
+    if match := SOUND_IMPROPER_PATH.search(line):
+        return [(idx + 1, f"Improper sound path detected: {match.group(0)}, it should be '{match.group(1)}.ogg' instead.")]
+    return failures
 
 APOSTROPHE_NAME = re.compile(r'name\s*=\s*"[^"]*\[[^]]*\]\'s')
 def check_apostrophe_name(idx, line):

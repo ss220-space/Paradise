@@ -160,9 +160,9 @@
 		var/area/location = get_area(src)
 		if(!spam_flag)
 			if(syndie)
-				speak("Контакт! [C] [threat] уровня угрозы, место - [location]! Сейчас нашинкую этого [("syndicate" in C.faction) ? "ублюдка!" : "прихвостня НТ!"]", radio_channel)
+				speak("Контакт! [C] [threat] уровня угрозы, место — [location]! Сейчас нашинкую этого [("syndicate" in C.faction) ? "ублюдка!" : "прихвостня НТ!"]", radio_channel)
 			else
-				speak("Контакт! [C] [threat] уровня угрозы, место - [location]! Сейчас нашинкую этого ублюдка!", radio_channel)
+				speak("Контакт! [C] [threat] уровня угрозы, место — [location]! Сейчас нашинкую этого ублюдка!", radio_channel)
 			spam_flag = TRUE
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 10 SECONDS)	//to avoid spamming comms of sec for each hit
 			visible_message("[capitalize(declent_ru(NOMINATIVE))] замахивается своими мечами и рубит [C]!")

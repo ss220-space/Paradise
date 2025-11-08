@@ -61,7 +61,7 @@
 
 	var/datum/item_skin_data/skin = skin_options[choice]
 	item.current_skin = skin.icon_state
-	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин '[choice]'.")
+	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин \"[choice]\".")
 	if(skin.icon != null)
 		item.icon = skin.icon
 	item.base_icon_state = skin.icon_state

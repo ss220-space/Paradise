@@ -51,6 +51,8 @@
 #define RICOCHET_SHINY (1<<0)
 /// If the thing can reflect matter (bullets/bomb shrapnel)
 #define RICOCHET_HARD (1<<1)
+/// If the thing can reflect ballistic bullets with low chance
+#define RICOCHET_BALLISTIC (1<<2)
 
 //Reagent flags
 #define REAGENT_NOREACT 1

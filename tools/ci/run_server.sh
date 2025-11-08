@@ -3,7 +3,7 @@ set -euo pipefail
 
 cp config/example/* config/
 
-#Apply test DB config for SQL connectivity
+# Apply test DB config for SQL connectivity
 rm config/dbconfig.txt
 cp tools/ci/dbconfig.txt config
 

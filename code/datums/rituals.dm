@@ -1024,7 +1024,7 @@
 	animal.del_on_death = FALSE
 	animal.master_commander = invoker
 
-	animal.mind.store_memory("<b>Мой хозяин - [invoker.name], выполню [GEND_HIS_HER(invoker)] цели любой ценой!</b>")
+	animal.mind.store_memory("<b>Мой хозяин — [invoker.name], выполню [GEND_HIS_HER(invoker)] цели любой ценой!</b>")
 	to_chat(animal, chat_box_green("Вы — раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
 	add_game_logs("стал питомцем игрока [key_name(invoker)]", animal)
 

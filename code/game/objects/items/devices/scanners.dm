@@ -486,7 +486,7 @@ BODY SCANNERS
 			P.header += "&emsp;[implant]<br>"
 
 	P.header += "<hr>"
-	P.header += "Тип страховки - [scan_data["insuranceType"]].<br>"
+	P.header += "Тип страховки — [scan_data["insuranceType"]].<br>"
 	P.header += "Требуемое количество очков страховки: [scan_data["reqInsurance"]].<br>"
 	if(scan_data["insurance"])
 		P.header += "Текущее количество очков страховки: [scan_data["insurance"]].<br>"
@@ -970,7 +970,7 @@ BODY SCANNERS
 
 	var/datum/money_account/acc = get_insurance_account(H)
 	if(acc)
-		scan_data += "Тип страховки - [acc.insurance_type]."
+		scan_data += "Тип страховки — [acc.insurance_type]."
 	else
 		scan_data += "Аккаунт не обнаружен."
 	scan_data += "Требуемое количество очков страховки: [get_req_insurance(H)]."

@@ -41,10 +41,10 @@
 	initial_icon = "syndielockermech"
 	lights_power = 5
 	step_in = 4
-	max_integrity = 225 //its made of scraps
-	armor = list(melee = 20, bullet = 20, laser = 20, energy = 10, bomb = 15, bio = 0, rad = 0, fire = 70, acid = 60)
+	max_integrity = 250 //its made of scraps
+	armor = list(melee = 25, bullet = 20, laser = 25, energy = 15, bomb = 20, bio = 0, rad = 0, fire = 70, acid = 60)
 	internal_damage_threshold = 30
-	deflect_chance = 20
+	deflect_chance = 25
 	force = 20
 	mech_enter_time = 20
 	max_equip = 4
@@ -141,4 +141,3 @@
 		qdel(mecha_effect)
 	else
 		balloon_alert(user, "для использования нужно стоять на полу!")
-

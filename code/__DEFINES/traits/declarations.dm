@@ -158,6 +158,8 @@
 #define TRAIT_UNDENSE "undense"
 /// Holocigar trait to make a mob BADASS
 #define TRAIT_BADASS "trait_badass"
+/// Mantis blades trait for lunging
+#define TRAIT_CANT_LUNGE "cant_lunge"
 
 /**
  * Traits for ventcrawling.

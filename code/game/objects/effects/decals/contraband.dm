@@ -93,7 +93,7 @@
 		randomise(random_basetype)
 	if(!ruined)
 		original_name = name
-		name = "Постер – [name]"
+		name = "Постер — [name]"
 		desc = "Большой лист устойчивой к космическим условиям печатной бумаги. [desc]"
 
 /obj/structure/sign/poster/proc/randomise(base_type)

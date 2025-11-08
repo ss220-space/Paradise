@@ -65,6 +65,7 @@
 	var/list/messages = list()
 	messages.Add(greet())
 	apply_innate_effects()
+	give_objectives()
 	finalize_antag()
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Contractor\">Контрактор"))
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))

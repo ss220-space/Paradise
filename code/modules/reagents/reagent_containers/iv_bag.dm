@@ -252,12 +252,12 @@
 
 /obj/item/reagent_containers/iv_bag/blood/get_ru_names()
 	return list(
-			NOMINATIVE = "капельница - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])" ,
-			GENITIVE = "капельницы - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			DATIVE = "капельнице - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			ACCUSATIVE = "капельницу - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			INSTRUMENTAL = "капельницей - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			PREPOSITIONAL = "капельнице - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			NOMINATIVE = "капельница — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])" ,
+			GENITIVE = "капельницы — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			DATIVE = "капельнице — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			ACCUSATIVE = "капельницу — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			INSTRUMENTAL = "капельницей — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			PREPOSITIONAL = "капельнице — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
 		)
 
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
