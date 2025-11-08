@@ -184,7 +184,7 @@
 			"Remove Nulls" = "byond://?_src_=vars;listnulls=[refid]",
 			"Remove Dupes" = "byond://?_src_=vars;listdupes=[refid]",
 			"Set len" = "byond://?_src_=vars;listlen=[refid]",
-			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]"
+			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]",
 		)
 	else
 		dropdownoptions = D.vv_get_dropdown()

@@ -1,6 +1,7 @@
 /obj/item/wirecutters
 	name = "wirecutters"
-	desc = "This cuts wires."
+	desc = "Инструмент, предназначенный для перекусывания различных материалов."
+	gender = PLURAL
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -18,7 +19,7 @@
 	hitsound = 'sound/items/wirecutter.ogg'
 	usesound = 'sound/items/wirecutter.ogg'
 	drop_sound = 'sound/items/handling/drop/wirecutter_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/wirecutter_pickup.ogg'
+	pickup_sound = 'sound/items/handling/pickup/wirecutter_pickup.ogg'
 	sharp = 1
 	embed_chance = 5
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -26,6 +27,16 @@
 	tool_behaviour = TOOL_WIRECUTTER
 	toolbox_radial_menu_compatibility = TRUE
 	var/random_color = TRUE
+
+/obj/item/wirecutters/get_ru_names()
+	return list(
+		NOMINATIVE = "кусачки",
+		GENITIVE = "кусачек",
+		DATIVE = "кусачкам",
+		ACCUSATIVE = "кусачки",
+		INSTRUMENTAL = "кусачками",
+		PREPOSITIONAL = "кусачках"
+	)
 
 /obj/item/wirecutters/Initialize(mapload, param_color = null)
 	. = ..()
@@ -39,33 +50,41 @@
 /obj/item/wirecutters/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(istype(target) && istype(target.handcuffed, /obj/item/restraints/handcuffs/cable))
 		var/obj/item/cuffs = target.handcuffed
-		user.visible_message(
-			span_notice("[user] cuts [target]'s restraints with [src]!"),
-			span_notice("You have cut [target]'s restraints with [src]!"),
-		)
+		target.balloon_alert_to_viewers("перекусыва[PLUR_ET_YUT(user)] стяжки", "стяжки перекусаны")
 		play_tool_sound(target, 100)
 		target.temporarily_remove_item_from_inventory(cuffs, force = TRUE)
 		qdel(cuffs)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/item/wirecutters/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(span_suicide("[user] перекусыва[PLUR_ET_YUT(user)] свою артерию, используя [declent_ru(ACCUSATIVE)]! Это похоже на попытку самоубийства!"))
 	playsound(loc, usesound, 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/brass
 	name = "brass wirecutters"
-	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
+	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
+			Ручка на ощупь ледяная."
 	icon_state = "cutters_brass"
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/wirecutters/brass/get_ru_names()
+	return list(
+		NOMINATIVE = "латунные кусачки",
+		GENITIVE = "латунных кусачек",
+		DATIVE = "латунным кусачкам",
+		ACCUSATIVE = "латунные кусачки",
+		INSTRUMENTAL = "латунными кусачками",
+		PREPOSITIONAL = "латунных кусачках"
+	)
+
 /obj/item/wirecutters/abductor
 	name = "alien wirecutters"
-	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
+	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
+			Лезвия из серебристо-зелёного металла кажутся невероятно острыми."
 	icon = 'icons/obj/abductor.dmi'
 	item_state = "cutters_alien"
 	belt_icon = "alien_wirecutters"
@@ -73,12 +92,37 @@
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
 
+/obj/item/wirecutters/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "чужеродные кусачки",
+		GENITIVE = "чужеродных кусачек",
+		DATIVE = "чужеродным кусачкам",
+		ACCUSATIVE = "чужеродные кусачки",
+		INSTRUMENTAL = "чужеродными кусачками",
+		PREPOSITIONAL = "чужеродных кусачках"
+	)
+
 /obj/item/wirecutters/cyborg
+	name = "alien wirecutters"
+	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
+			Специализированная версия для установки в роботизированные системы."
 	toolspeed = 0.5
+
+/obj/item/wirecutters/cyborg/get_ru_names()
+	return list(
+		NOMINATIVE = "автоматизированные кусачки",
+		GENITIVE = "автоматизированных кусачек",
+		DATIVE = "автоматизированным кусачкам",
+		ACCUSATIVE = "автоматизированные кусачки",
+		INSTRUMENTAL = "автоматизированными кусачками",
+		PREPOSITIONAL = "автоматизированных кусачках"
+	)
 
 /obj/item/wirecutters/power
 	name = "jaws of life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
+	desc = "Гидравлический инструмент, предназначенный для использования в качестве рычага или для перерезания материалов. \
+			Изначально использовался для спасательных работ, откуда и получил своё название, \
+			но в дальнейшем получил развитие в качестве инженерного инструмента."
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
 	belt_icon = "jaws_of_life"
@@ -89,8 +133,29 @@
 	random_color = FALSE
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/wirecutters/power/get_ru_names()
+	return list(
+		NOMINATIVE = "челюсти жизни",
+		GENITIVE = "челюстей жизни",
+		DATIVE = "челюстям жизни",
+		ACCUSATIVE = "челюсти жизни",
+		INSTRUMENTAL = "челюстями жизни",
+		PREPOSITIONAL = "челюстях жизни"
+	)
+
+/obj/item/wirecutters/power/examine(mob/user)
+	. = ..()
+	. += span_notice("Установлена <b>режущая</b> насадка.")
+
+/obj/item/wirecutters/power/attack_self(mob/user)
+	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
+	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
+	balloon_alert(user, "установлена поддевающая насадка")
+	qdel(src)
+	user.put_in_active_hand(pryjaws)
+
 /obj/item/wirecutters/power/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!"))
+	user.visible_message(span_suicide("[user] помеща[PLUR_ET_YUT(user)] свою голову между лезвиями [declent_ru(GENITIVE)]. Это похоже на попытку самоубийства!"))
 	playsound(loc, 'sound/items/jaws_cut.ogg', 50, TRUE, -1)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -99,10 +164,3 @@
 			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
 			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
-
-/obj/item/wirecutters/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
-	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
-	to_chat(user, span_notice("You attach the pry jaws to [src]."))
-	qdel(src)
-	user.put_in_active_hand(pryjaws)

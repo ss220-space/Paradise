@@ -37,7 +37,7 @@
 		DATIVE = "консоли управления телепадом",
 		ACCUSATIVE = "консоль управления телепадом",
 		INSTRUMENTAL = "консолью управления телепадом",
-		PREPOSITIONAL = "консоли управления телепадом"
+		PREPOSITIONAL = "консоли управления телепадом",
 	)
 
 /obj/machinery/computer/telescience/Initialize(mapload)

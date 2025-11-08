@@ -18,7 +18,7 @@
 		DATIVE = "фабрикатору дронов",
 		ACCUSATIVE = "фабрикатор дронов",
 		INSTRUMENTAL = "фабрикатором дронов",
-		PREPOSITIONAL = "фабрикаторе дронов"
+		PREPOSITIONAL = "фабрикаторе дронов",
 	)
 
 /obj/machinery/drone_fabricator/update_icon_state()

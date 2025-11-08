@@ -25,7 +25,7 @@
 		DATIVE = "ручному шахтёрскому сканеру",
 		ACCUSATIVE = "ручной шахтёрский сканер",
 		INSTRUMENTAL = "ручным шахтёрским сканером",
-		PREPOSITIONAL = "ручном шахтёрском сканере"
+		PREPOSITIONAL = "ручном шахтёрском сканере",
 	)
 
 /obj/item/mining_scanner/click_alt(mob/user)
@@ -76,7 +76,7 @@
 		DATIVE = "продвинутому автоматическому шахтёрскому сканеру",
 		ACCUSATIVE = "продвинутый автоматический шахтёрский сканер",
 		INSTRUMENTAL = "продвинутым автоматическим шахтёрским сканером",
-		PREPOSITIONAL = "продвинутом автоматическом шахтёрском сканере"
+		PREPOSITIONAL = "продвинутом автоматическом шахтёрском сканере",
 	)
 
 /obj/item/t_scanner/adv_mining_scanner/click_alt(mob/user)
@@ -106,7 +106,7 @@
 		DATIVE = "автоматическому шахтёрскому сканеру",
 		ACCUSATIVE = "автоматический шахтёрский сканер",
 		INSTRUMENTAL = "автоматическим шахтёрским сканером",
-		PREPOSITIONAL = "автоматическом шахтёрском сканере"
+		PREPOSITIONAL = "автоматическом шахтёрском сканере",
 	)
 
 /obj/item/mining_scanner/cyborg
@@ -179,7 +179,7 @@
 		DATIVE = "затуманенному глазу",
 		ACCUSATIVE = "затуманенный глаз",
 		INSTRUMENTAL = "затуманенным глазом",
-		PREPOSITIONAL = "затуманенном глазе"
+		PREPOSITIONAL = "затуманенном глазе",
 	)
 
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye/Initialize(mapload)

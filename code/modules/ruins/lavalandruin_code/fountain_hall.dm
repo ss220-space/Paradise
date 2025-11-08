@@ -13,7 +13,7 @@
 		DATIVE = "жертвенному алтарю",
 		ACCUSATIVE = "жертвенный алтарь",
 		INSTRUMENTAL = "жертвенным алтарем",
-		PREPOSITIONAL = "жертвенном алтаре"
+		PREPOSITIONAL = "жертвенном алтаре",
 	)
 
 /obj/structure/sacrificealtar/attack_hand(mob/living/user)
@@ -46,7 +46,7 @@
 		DATIVE = "целебному фонтану",
 		ACCUSATIVE = "целебный фонтан",
 		INSTRUMENTAL = "целебным фонтаном",
-		PREPOSITIONAL = "целебном фонтане"
+		PREPOSITIONAL = "целебном фонтане",
 	)
 
 /obj/structure/healingfountain/attack_hand(mob/living/user)

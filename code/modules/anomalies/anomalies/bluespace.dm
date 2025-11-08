@@ -83,7 +83,7 @@
 		DATIVE = "малой ​​блюспейс аномалии", \
 		ACCUSATIVE = "малую ​​блюспейс аномалию", \
 		INSTRUMENTAL = "малой ​​блюспейс аномалией", \
-		PREPOSITIONAL = "малой ​​блюспейс аномалии"
+		PREPOSITIONAL = "малой ​​блюспейс аномалии",
 	)
 
 // Moves only by /datum/anomaly_impulse/move/bs_selftp
@@ -115,7 +115,7 @@
 		DATIVE = "​​блюспейс аномалии", \
 		ACCUSATIVE = "​​блюспейс аномалию", \
 		INSTRUMENTAL = "​​блюспейс аномалией", \
-		PREPOSITIONAL = "​​блюспейс аномалии"
+		PREPOSITIONAL = "​​блюспейс аномалии",
 	)
 
 /obj/effect/anomaly/bluespace/tier3
@@ -142,7 +142,7 @@
 		DATIVE = "большой ​​блюспейс аномалии", \
 		ACCUSATIVE = "большую ​​блюспейс аномалию", \
 		INSTRUMENTAL = "большой ​​блюспейс аномалией", \
-		PREPOSITIONAL = "большой ​​блюспейс аномалии"
+		PREPOSITIONAL = "большой ​​блюспейс аномалии",
 	)
 
 /obj/effect/anomaly/bluespace/tier3/New()
@@ -191,7 +191,7 @@
 		DATIVE = "колоссальной ​​блюспейс аномалии", \
 		ACCUSATIVE = "колоссальную ​​блюспейс аномалию", \
 		INSTRUMENTAL = "колоссальной ​​блюспейс аномалией", \
-		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии"
+		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии",
 	)
 
 /obj/effect/anomaly/bluespace/tier4/New()

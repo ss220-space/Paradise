@@ -465,6 +465,9 @@
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, speed)
 	. = ..()
 
+	if(has_status_effect(STATUS_EFFECT_LUNGING))
+		return
+
 	if(has_status_effect(STATUS_EFFECT_CHARGING))
 		var/hit_something = FALSE
 		if(ismovable(hit_atom))

@@ -41,7 +41,7 @@
 		DATIVE = "артистическому ящику для инструментов",
 		ACCUSATIVE = "артистический ящик для инструментов",
 		INSTRUMENTAL = "артистическим ящиком для инструментов",
-		PREPOSITIONAL = "артистическом ящике для инструментов"
+		PREPOSITIONAL = "артистическом ящике для инструментов",
 	)
 
 /datum/grace_tier/awakened
@@ -53,7 +53,7 @@
 		DATIVE = "Его Светлости",
 		ACCUSATIVE = "Его Светлость",
 		INSTRUMENTAL = "Его Светлостью",
-		PREPOSITIONAL = "Его Светлости"
+		PREPOSITIONAL = "Его Светлости",
 	)
 
 	force_bonus = HIS_GRACE_FORCE_BONUS
@@ -71,7 +71,7 @@
 		DATIVE = "Мифическому тулбоксу трёх сил",
 		ACCUSATIVE = "Мифический тулбокс трёх сил",
 		INSTRUMENTAL = "Мифическим тулбоксом трёх сил",
-		PREPOSITIONAL = "Мифическом тулбоксе трёх сил"
+		PREPOSITIONAL = "Мифическом тулбоксе трёх сил",
 	)
 
 	force_bonus = HIS_GRACE_FORCE_BONUS

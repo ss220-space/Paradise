@@ -184,7 +184,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
-					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
+					to_chat(ui.user, span_warning("Сообщение \"[input]\" слишком короткое. Минимальное число символов — [COMM_MSGLEN_MINIMUM]."))
 					return
 				announcer.announce(input)
 				message_cooldown = world.time + 600 //One minute
@@ -268,7 +268,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
+					to_chat(ui.user, span_warning("Сообщение \"[input]\" слишком короткое. Минимальное число символов — [COMM_MSGLEN_MINIMUM]."))
 					return
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, span_notice("Запрос отправлен."))
@@ -290,7 +290,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
+					to_chat(ui.user, span_warning("Сообщение \"[input]\" слишком короткое. Минимальное число символов — [COMM_MSGLEN_MINIMUM]."))
 					return
 				Centcomm_announce(input, ui.user)
 				print_centcom_report(input, station_time_timestamp() + " Сообщение капитана")
@@ -309,7 +309,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
+					to_chat(ui.user, span_warning("Сообщение \"[input]\" слишком короткое. Минимальное число символов — [COMM_MSGLEN_MINIMUM]."))
 					return
 				Syndicate_announce(input, ui.user)
 				to_chat(ui.user, "Сообщение передано.")

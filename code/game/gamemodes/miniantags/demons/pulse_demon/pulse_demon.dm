@@ -46,9 +46,17 @@
 	loot = list(/obj/item/organ/internal/heart/demon/pulse)
 
 	/// List of sounds that is picked from when the demon speaks.
-	var/list/speech_sounds = list("sound/voice/pdvoice1.ogg", "sound/voice/pdvoice2.ogg", "sound/voice/pdvoice3.ogg")
+	var/list/speech_sounds = list(
+		'sound/voice/pdvoice1.ogg',
+		'sound/voice/pdvoice2.ogg',
+		'sound/voice/pdvoice3.ogg',
+	)
 	/// List of sounds that is picked from when the demon dies or is EMP'd.
-	var/list/hurt_sounds = list("sound/voice/pdwail1.ogg", "sound/voice/pdwail2.ogg", "sound/voice/pdwail3.ogg")
+	var/list/hurt_sounds = list(
+		'sound/voice/pdwail1.ogg',
+		'sound/voice/pdwail2.ogg',
+		'sound/voice/pdwail3.ogg',
+	)
 
 	/// Current quantity of power the demon currently holds, spent while purchasing, upgrading or using spells or upgrades. Use adjust_charge to modify this.
 	var/charge = 1000

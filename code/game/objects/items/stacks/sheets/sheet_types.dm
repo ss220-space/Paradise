@@ -677,7 +677,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 		DATIVE = "костям",
 		ACCUSATIVE = "кости",
 		INSTRUMENTAL = "костями",
-		PREPOSITIONAL = "костях"
+		PREPOSITIONAL = "костях",
 	)
 
 /obj/item/stack/sheet/razor_sharp_teeth
@@ -701,7 +701,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 		DATIVE = "бритвенно-острым зубам",
 		ACCUSATIVE = "бритвенно-острые зубы",
 		INSTRUMENTAL = "бритвенно-острыми зубами",
-		PREPOSITIONAL = "бритвенно-острых зубах"
+		PREPOSITIONAL = "бритвенно-острых зубах",
 	)
 
 /*

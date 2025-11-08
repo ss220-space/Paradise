@@ -14,7 +14,7 @@
 		DATIVE = "парадоксальной сумке",
 		ACCUSATIVE = "парадоксальную сумку",
 		INSTRUMENTAL = "парадоксальной сумкой",
-		PREPOSITIONAL = "парадоксальной сумке"
+		PREPOSITIONAL = "парадоксальной сумке",
 	)
 
 /obj/item/storage/backpack/shared/can_be_inserted(obj/item/shared_storage/I, stop_messages = FALSE)
@@ -46,7 +46,7 @@
 		DATIVE = "парадоксальной сумке",
 		ACCUSATIVE = "парадоксальную сумку",
 		INSTRUMENTAL = "парадоксальной сумкой",
-		PREPOSITIONAL = "парадоксальной сумке"
+		PREPOSITIONAL = "парадоксальной сумке",
 	)
 
 /obj/item/shared_storage/Initialize(mapload, twin_storage_init = FALSE)
@@ -140,7 +140,7 @@
 		DATIVE = "Вавилонской книге",
 		ACCUSATIVE = "Вавилонскую книгу",
 		INSTRUMENTAL = "Вавилонской книгой",
-		PREPOSITIONAL = "Вавилонской книге"
+		PREPOSITIONAL = "Вавилонской книге",
 	)
 
 /obj/item/book_of_babel/attack_self(mob/living/carbon/user)
@@ -177,7 +177,7 @@
 		DATIVE = "странному эликсиру",
 		ACCUSATIVE = "странный эликсир",
 		INSTRUMENTAL = "странным эликсиром",
-		PREPOSITIONAL = "странном эликсире"
+		PREPOSITIONAL = "странном эликсире",
 	)
 
 /obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
@@ -222,7 +222,7 @@
 		DATIVE = "лестнице Иакова",
 		ACCUSATIVE = "лестницу Иакова",
 		INSTRUMENTAL = "лестницей Иакова",
-		PREPOSITIONAL = "лестнице Иакова"
+		PREPOSITIONAL = "лестнице Иакова",
 	)
 
 /obj/item/jacobs_ladder/attack_self(mob/user)
@@ -253,7 +253,7 @@
 		DATIVE = "лестнице Иакова",
 		ACCUSATIVE = "лестницу Иакова",
 		INSTRUMENTAL = "лестницей Иакова",
-		PREPOSITIONAL = "лестнице Иакова"
+		PREPOSITIONAL = "лестнице Иакова",
 	)
 
 //Wisp Lantern
@@ -277,7 +277,7 @@
 		DATIVE = "жуткой лампе",
 		ACCUSATIVE = "жуткую лампу",
 		INSTRUMENTAL = "жуткой лампой",
-		PREPOSITIONAL = "жуткой лампе"
+		PREPOSITIONAL = "жуткой лампе",
 	)
 
 
@@ -352,7 +352,7 @@
 		DATIVE = "дружелюбному духу",
 		ACCUSATIVE = "дружелюбного духа",
 		INSTRUMENTAL = "дружелюбным духом",
-		PREPOSITIONAL = "дружелюбном духе"
+		PREPOSITIONAL = "дружелюбном духе",
 	)
 
 //Red/Blue Cubes
@@ -370,7 +370,7 @@
 		DATIVE = "синему кубу",
 		ACCUSATIVE = "синий куб",
 		INSTRUMENTAL = "синим кубом",
-		PREPOSITIONAL = "синем кубе"
+		PREPOSITIONAL = "синем кубе",
 	)
 
 /obj/item/warp_cube/Destroy()
@@ -414,7 +414,7 @@
 		DATIVE = "красному кубу",
 		ACCUSATIVE = "красный куб",
 		INSTRUMENTAL = "красным кубом",
-		PREPOSITIONAL = "красном кубе"
+		PREPOSITIONAL = "красном кубе",
 	)
 
 /obj/item/warp_cube/red/New()
@@ -444,7 +444,7 @@
 		DATIVE = "мясному крюку",
 		ACCUSATIVE = "мясной крюк",
 		INSTRUMENTAL = "мясным крюком",
-		PREPOSITIONAL = "мясном крюке"
+		PREPOSITIONAL = "мясном крюке",
 	)
 
 /obj/item/ammo_casing/magic/hook
@@ -462,7 +462,7 @@
 		DATIVE = "крюку",
 		ACCUSATIVE = "крюк",
 		INSTRUMENTAL = "крюком",
-		PREPOSITIONAL = "крюке"
+		PREPOSITIONAL = "крюке",
 	)
 
 /obj/projectile/hook
@@ -481,7 +481,7 @@
 		DATIVE = "крюку",
 		ACCUSATIVE = "крюк",
 		INSTRUMENTAL = "крюком",
-		PREPOSITIONAL = "крюке"
+		PREPOSITIONAL = "крюке",
 	)
 
 /obj/projectile/hook/fire(setAngle)
@@ -523,7 +523,7 @@
 		DATIVE = "талисману бессмертия",
 		ACCUSATIVE = "талисман бессмертия",
 		INSTRUMENTAL = "талисманом бессмертия",
-		PREPOSITIONAL = "талисмане бессмертия"
+		PREPOSITIONAL = "талисмане бессмертия",
 	)
 
 /datum/action/item_action/immortality

@@ -47,7 +47,7 @@
 	r_pocket = /obj/item/t_scanner
 	pda = /obj/item/pda/heads/ce
 	backpack_contents = list(
-		/obj/item/melee/baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/industrial
@@ -216,7 +216,7 @@
 	r_pocket = /obj/item/t_scanner
 	pda = /obj/item/pda/engineering
 	backpack_contents = list(
-		/obj/item/pod_paint_bucket = 1
+		/obj/item/pod_paint_bucket = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/industrial

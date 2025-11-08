@@ -465,7 +465,7 @@
 	var/new_ooccolor = tgui_input_color(usr, "Выберите цвет ваших сообщений в OOC-чате.", "Цвет OOC-сообщений", user.prefs.ooccolor)
 	if(!isnull(new_ooccolor))
 		user.prefs.ooccolor = new_ooccolor
-		to_chat(usr, "Выбранный цвет OOC-сообщений – [new_ooccolor].")
+		to_chat(usr, "Выбранный цвет OOC-сообщений — [new_ooccolor].")
 	else
 		user.prefs.ooccolor = initial(user.prefs.ooccolor)
 		to_chat(usr, "Цвет OOC-сообщений был сброшен.")

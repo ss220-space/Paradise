@@ -55,7 +55,7 @@
 		DATIVE = "лёгким человека",
 		ACCUSATIVE = "лёгкие человека",
 		INSTRUMENTAL = "лёгкими человека",
-		PREPOSITIONAL = "лёгких человека"
+		PREPOSITIONAL = "лёгких человека",
 	)
 
 /obj/item/organ/internal/lungs/emp_act()
@@ -333,7 +333,7 @@
 		DATIVE = "кибернетическим лёгким",
 		ACCUSATIVE = "кибернетические лёгкие",
 		INSTRUMENTAL = "кибернетическими лёгкими",
-		PREPOSITIONAL = "кибернетических лёгких"
+		PREPOSITIONAL = "кибернетических лёгких",
 	)
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
@@ -387,7 +387,7 @@
 		DATIVE = "улучшенным кибернетическим лёгким",
 		ACCUSATIVE = "улучшенные кибернетические лёгкие",
 		INSTRUMENTAL = "улучшенными кибернетическими лёгкими",
-		PREPOSITIONAL = "улучшенных кибернетических лёгких"
+		PREPOSITIONAL = "улучшенных кибернетических лёгких",
 	)
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded/insert(mob/living/carbon/human/target, special)

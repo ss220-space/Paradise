@@ -46,8 +46,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 
 /obj/item/clothing/head/wizard/fake
 	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
@@ -59,7 +59,7 @@
 	resistance_flags = FLAMMABLE
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
 /obj/item/clothing/head/wizard/marisa
@@ -88,7 +88,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi'
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
 	)
 
 /obj/item/clothing/head/wizard/necromage
@@ -103,7 +103,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi'
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
 	)
 
 /obj/item/clothing/head/wizard/artmage
@@ -114,7 +114,7 @@
 	dog_fashion = null
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 	)
 
 /obj/item/clothing/head/wizard/visionmage
@@ -125,7 +125,7 @@
 	dog_fashion = null
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 	)
 
 /obj/item/clothing/head/wizard/healmage
@@ -135,7 +135,7 @@
 	item_state = "healmage"
 	dog_fashion = null
 	sprite_sheets = list(
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 	)
 
 /obj/item/clothing/head/wizard/amp
@@ -193,8 +193,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/wizrobe/marisa
 	name = "Witch Robe"
@@ -212,8 +212,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/wizrobe/magusred
 	name = "Magus Robe"
@@ -225,8 +225,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/wizrobe/magusdefender
 	name = "Magus Robe"
@@ -235,8 +235,8 @@
 	item_state = "magusdefender"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 /obj/item/clothing/suit/wizrobe/necromage
 	name = "Necronat Robe"
@@ -245,8 +245,8 @@
 	item_state = "necromage"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 /obj/item/clothing/suit/wizrobe/artmage
 	name = "Wizard Sculptor's Apron"
@@ -255,8 +255,8 @@
 	item_state = "artmage"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 /obj/item/clothing/suit/wizrobe/visionmage
 	name = "Dark robe"
@@ -265,8 +265,8 @@
 	item_state = "visionmage"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 /obj/item/clothing/suit/wizrobe/healmage
 	name = "Healer's Robe"
@@ -276,8 +276,8 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 /obj/item/clothing/suit/wizrobe/psypurple
 	name = "purple robes"

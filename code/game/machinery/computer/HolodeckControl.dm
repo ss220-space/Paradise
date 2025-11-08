@@ -451,7 +451,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	if(active)
 		force = 30
-		hitsound = "sound/weapons/blade1.ogg"
+		hitsound = 'sound/weapons/blade1.ogg'
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 20, TRUE)
 		to_chat(user, span_notice("[src] is now active."))

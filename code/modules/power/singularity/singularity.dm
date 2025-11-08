@@ -515,11 +515,12 @@
 
 /obj/singularity/HasProximity(atom/movable/movable)
 	var/obj/projectile/projectile = movable
-	if(!istype(projectile))
+	if(!istype(projectile) || istype(projectile, /obj/projectile/beam/emitter))
 		return
 
-	var/angle_to_singulo = ATAN2(proximity_monitor.hasprox_receiver.y - y, proximity_monitor.hasprox_receiver.x - x)
-	var/distance_to_singulo = get_dist(proximity_monitor.hasprox_receiver, src)
+	var/turf/projectile_turf = get_turf(projectile)
+	var/angle_to_singulo = ATAN2(y - projectile_turf.y, x - projectile_turf.x)
+	var/distance_to_singulo = get_dist(src, projectile_turf)
 	var/projectile_angle = projectile.Angle
 
 	if(angle_to_singulo == 180)

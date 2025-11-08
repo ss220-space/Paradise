@@ -52,7 +52,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
 
 /obj/item/clothing/mask/cigarette/get_ru_names()
@@ -62,7 +62,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "сигарете",
 		ACCUSATIVE = "сигарету",
 		INSTRUMENTAL = "сигаретой",
-		PREPOSITIONAL = "сигарете"
+		PREPOSITIONAL = "сигарете",
 	)
 
 
@@ -248,7 +248,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "[lit ? "прикуренной " : ""]" + ru_names[DATIVE],
 		ACCUSATIVE = "[lit ? "прикуренную " : ""]" + ru_names[ACCUSATIVE],
 		INSTRUMENTAL = "[lit ? "прикуренной " : ""]" + ru_names[INSTRUMENTAL],
-		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL]
+		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL],
 	)
 
 /obj/item/clothing/mask/cigarette/get_heat()
@@ -403,7 +403,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "самокрутке",
 		ACCUSATIVE = "самокрутку",
 		INSTRUMENTAL = "самокруткой",
-		PREPOSITIONAL = "самокрутке"
+		PREPOSITIONAL = "самокрутке",
 	)
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
@@ -447,7 +447,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "сигаре премиум-класса",
 		ACCUSATIVE = "сигару премиум-класса",
 		INSTRUMENTAL = "сигарой премиум-класса",
-		PREPOSITIONAL = "сигаре премиум-класса"
+		PREPOSITIONAL = "сигаре премиум-класса",
 	)
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
@@ -464,7 +464,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "Сигаре Коиба Робусто",
 		ACCUSATIVE = "Сигару Коиба Робусто",
 		INSTRUMENTAL = "Сигарой Коиба Робусто",
-		PREPOSITIONAL = "Сигаре Коиба Робусто"
+		PREPOSITIONAL = "Сигаре Коиба Робусто",
 	)
 
 /obj/item/clothing/mask/cigarette/cigar/havana
@@ -484,7 +484,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "Гаванская Сигаре премиум-класса",
 		ACCUSATIVE = "Гаванская Сигару премиум-класса",
 		INSTRUMENTAL = "Гаванская Сигарой премиум-класса",
-		PREPOSITIONAL = "Гаванская Сигаре премиум-класса"
+		PREPOSITIONAL = "Гаванская Сигаре премиум-класса",
 	)
 
 /obj/item/cigbutt
@@ -504,7 +504,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "окурку",
 		ACCUSATIVE = "окурок",
 		INSTRUMENTAL = "окурком",
-		PREPOSITIONAL = "окурке"
+		PREPOSITIONAL = "окурке",
 	)
 
 /obj/item/cigbutt/Initialize(mapload)
@@ -571,7 +571,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "курительной трубке",
 		ACCUSATIVE = "курительную трубку",
 		INSTRUMENTAL = "курительной трубкой",
-		PREPOSITIONAL = "курительной трубке"
+		PREPOSITIONAL = "курительной трубке",
 	)
 
 /obj/item/clothing/mask/cigarette/pipe/light(flavor_text = null)
@@ -653,7 +653,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "кукурузной курительной трубке",
 		ACCUSATIVE = "кукурузную курительную трубку",
 		INSTRUMENTAL = "кукурузной курительной трубкой",
-		PREPOSITIONAL = "кукурузной курительной трубке"
+		PREPOSITIONAL = "кукурузной курительной трубке",
 	)
 
 /obj/item/clothing/mask/cigarette/pipe/oldpipe
@@ -671,7 +671,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "крепкой курительной трубке",
 		ACCUSATIVE = "крепкую курительную трубку",
 		INSTRUMENTAL = "крепкой курительной трубкой",
-		PREPOSITIONAL = "крепкой курительной трубке"
+		PREPOSITIONAL = "крепкой курительной трубке",
 	)
 
 ///////////
@@ -694,7 +694,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "папиросной бумаге",
 		ACCUSATIVE = "папиросная бумага",
 		INSTRUMENTAL = "папиросной бумагой",
-		PREPOSITIONAL = "папиросной бумаге"
+		PREPOSITIONAL = "папиросной бумаге",
 	)
 
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity, params)
@@ -738,7 +738,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		DATIVE = "голографической сигаре",
 		ACCUSATIVE = "голографическую сигару",
 		INSTRUMENTAL = "голографической сигарой",
-		PREPOSITIONAL = "голографической сигаре"
+		PREPOSITIONAL = "голографической сигаре",
 	)
 
 /obj/item/clothing/mask/holo_cigar/Destroy()

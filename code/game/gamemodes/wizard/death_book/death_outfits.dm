@@ -79,7 +79,7 @@
 		/obj/item/flash/cameraflash = 1,
 		/obj/item/twohanded/garrote = 1,
 		/obj/item/card/id/syndicate = 1,
-		/obj/item/gun_module/muzzle/suppressor = 1
+		/obj/item/gun_module/muzzle/suppressor = 1,
 	)
 
 /datum/outfit/radial_outfit/death_book/crusher
@@ -100,7 +100,7 @@
 		/obj/item/tank/internals/plasma = 5,
 		/obj/item/pickaxe/drill/jackhammer/phantom = 1,
 		/obj/item/grenade/clusterbuster/inferno = 1,
-		/obj/item/flamethrower/full/tank = 1
+		/obj/item/flamethrower/full/tank = 1,
 	)
 
 //I've got a bit of a problem, but this is the only way not to lose the component.
@@ -150,8 +150,8 @@
 		/obj/item/gun/syringe/rapidsyringe/syndicate = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno = 1,
-		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1
-		)
+		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
+	)
 
 /datum/outfit/radial_outfit/death_book/plague_inc/post_equip(mob/living/carbon/human/H, visualsOnly)
 	SEND_SIGNAL(H.wear_suit, COMSIG_EQUIP_HOOD)

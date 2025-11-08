@@ -60,7 +60,7 @@
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		/obj/item/his_grace/no_sound = 1,
-		)
+	)
 
 
 /datum/thunderdome_gamemode/ranged
@@ -111,6 +111,7 @@
 		/obj/item/gun/projectile/automatic/gyropistol = 2,
 		/obj/item/gun/projectile/automatic/sfg = 2,
 		/obj/item/gun/projectile/automatic/sp91rc = 2,
+		/obj/item/gun/projectile/automatic/sparkle_a12 = 2,
 		/obj/item/gun/projectile/automatic/m90 = 2,
 		/obj/item/gun/projectile/automatic/rusted/aksu = 2,
 		/obj/item/gun/projectile/automatic/rusted/ppsh = 2,
@@ -126,7 +127,7 @@
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		/obj/item/spellbook/oneuse/forcewall = 1,
-		)
+	)
 
 /datum/thunderdome_gamemode/mixed
 	name = "Thunderdome Mixed Challenge"
@@ -206,6 +207,7 @@
 		/obj/item/gun/projectile/automatic/gyropistol = 1,
 		/obj/item/gun/projectile/automatic/sfg = 1,
 		/obj/item/gun/projectile/automatic/sp91rc = 1,
+		/obj/item/gun/projectile/automatic/sparkle_a12 = 2,
 		/obj/item/gun/projectile/automatic/m90 = 1,
 		/obj/item/gun/projectile/automatic/rusted/aksu = 1,
 		/obj/item/gun/projectile/automatic/rusted/ppsh = 1,
@@ -230,4 +232,4 @@
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		/obj/item/spellbook/oneuse/forcewall = 1,
 		/obj/item/his_grace/no_sound = 1,
-		)
+	)

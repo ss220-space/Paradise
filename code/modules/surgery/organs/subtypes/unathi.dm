@@ -13,7 +13,7 @@
 		DATIVE = "печени унатха",
 		ACCUSATIVE = "печень унатха",
 		INSTRUMENTAL = "печенью унатха",
-		PREPOSITIONAL = "печени унатха"
+		PREPOSITIONAL = "печени унатха",
 	)
 
 /obj/item/organ/internal/eyes/unathi
@@ -31,7 +31,7 @@
 		DATIVE = "глазам унатха",
 		ACCUSATIVE = "глаза унатха",
 		INSTRUMENTAL = "глазами унатха",
-		PREPOSITIONAL = "глазах унатха"
+		PREPOSITIONAL = "глазах унатха",
 	)
 
 /obj/item/organ/internal/ears/unathi
@@ -46,7 +46,7 @@
 		DATIVE = "ушам унатха",
 		ACCUSATIVE = "уши унатха",
 		INSTRUMENTAL = "ушами унатха",
-		PREPOSITIONAL = "ушах унатха"
+		PREPOSITIONAL = "ушах унатха",
 	)
 
 /obj/item/organ/internal/heart/unathi
@@ -64,7 +64,7 @@
 		DATIVE = "сердцу унатха",
 		ACCUSATIVE = "сердце унатха",
 		INSTRUMENTAL = "сердцем унатха",
-		PREPOSITIONAL = "сердце унатха"
+		PREPOSITIONAL = "сердце унатха",
 	)
 
 /obj/item/organ/internal/brain/unathi
@@ -81,7 +81,7 @@
 		DATIVE = "мозгу унатха",
 		ACCUSATIVE = "мозг унатха",
 		INSTRUMENTAL = "мозгом унатха",
-		PREPOSITIONAL = "мозге унатха"
+		PREPOSITIONAL = "мозге унатха",
 	)
 
 /obj/item/organ/internal/lungs/unathi
@@ -98,7 +98,7 @@
 		DATIVE = "лёгким унатха",
 		ACCUSATIVE = "лёгкие унатха",
 		INSTRUMENTAL = "лёгкими унатха",
-		PREPOSITIONAL = "лёгких унатха"
+		PREPOSITIONAL = "лёгких унатха",
 	)
 
 /obj/item/organ/internal/kidneys/unathi
@@ -115,7 +115,7 @@
 		DATIVE = "почкам унатха",
 		ACCUSATIVE = "почки унатха",
 		INSTRUMENTAL = "почками унатха",
-		PREPOSITIONAL = "почках унатха"
+		PREPOSITIONAL = "почках унатха",
 	)
 
 /obj/item/organ/external/tail/unathi
@@ -132,7 +132,7 @@
 		DATIVE = "хвосту унатха",
 		ACCUSATIVE = "хвост унатха",
 		INSTRUMENTAL = "хвостом унатха",
-		PREPOSITIONAL = "хвосте унатха"
+		PREPOSITIONAL = "хвосте унатха",
 	)
 
 /obj/item/organ/internal/lungs/unathi/ash_walker
@@ -147,7 +147,7 @@
 		DATIVE = "лёгким пеплоходца",
 		ACCUSATIVE = "лёгкие пеплоходца",
 		INSTRUMENTAL = "лёгкими пеплоходца",
-		PREPOSITIONAL = "лёгких пеплоходца"
+		PREPOSITIONAL = "лёгких пеплоходца",
 	)
 
 /obj/item/organ/internal/eyes/unathi/ash_walker
@@ -163,7 +163,7 @@
 		DATIVE = "глазам пеплоходца",
 		ACCUSATIVE = "глаза пеплоходца",
 		INSTRUMENTAL = "глазами пеплоходца",
-		PREPOSITIONAL = "глазах пеплоходца"
+		PREPOSITIONAL = "глазах пеплоходца",
 	)
 
 /obj/item/organ/internal/eyes/unathi/ash_walker_shaman
@@ -179,7 +179,7 @@
 		DATIVE = "глазам шамана пеплоходцев",
 		ACCUSATIVE = "глаза шамана пеплоходцев",
 		INSTRUMENTAL = "глазами шамана пеплоходцев",
-		PREPOSITIONAL = "глазах шамана пеплоходцев"
+		PREPOSITIONAL = "глазах шамана пеплоходцев",
 	)
 
 /obj/item/organ/internal/eyes/unathi/ash_walker_shaman/insert(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)

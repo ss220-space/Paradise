@@ -16,7 +16,7 @@
 		DATIVE = "шрапнели",
 		ACCUSATIVE = "шрапнель",
 		INSTRUMENTAL = "шрапнелью",
-		PREPOSITIONAL = "шрапнели"
+		PREPOSITIONAL = "шрапнели",
 	)
 
 /obj/projectile/shrapnel/Initialize(mapload)
@@ -53,7 +53,7 @@
 		DATIVE = "шрапнели",
 		ACCUSATIVE = "шрапнель",
 		INSTRUMENTAL = "шрапнелью",
-		PREPOSITIONAL = "шрапнели"
+		PREPOSITIONAL = "шрапнели",
 	)
 
 /obj/item/embedded/shrapnel/Initialize(mapload)

@@ -226,7 +226,7 @@
 		to_chat(src, span_warning("Это имя некорректно, попробуйте ещё раз."))
 		dragon_name()
 		return
-	to_chat(src, span_notice("Ваше имя теперь - [span_name("[chosen_name]")], устрашающий Космический Дракон."))
+	to_chat(src, span_notice("Ваше имя теперь — [span_name("[chosen_name]")], устрашающий Космический Дракон."))
 	rename_character(null, chosen_name)
 
 

@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		DATIVE = "маркерному маячку",
 		ACCUSATIVE = "маркерный маячок",
 		INSTRUMENTAL = "маркерным маячком",
-		PREPOSITIONAL = "маркерном маячке"
+		PREPOSITIONAL = "маркерном маячке",
 	)
 
 /obj/item/stack/marker_beacon/ten //miners start with 10 of these

@@ -220,7 +220,7 @@
 			ritual_spots += summon
 		sanity++
 	explanation_text = "Призовите Сердце Ратвара, установив и укрепив свою веру.\
-	\nПризыв может быть осуществлен только в [russian_list(ritual_spots)] – где Завеса достаточно слаба, чтобы начать ритуал."
+		\nПризыв может быть осуществлен только в [russian_list(ritual_spots)] — где Завеса достаточно слаба, чтобы начать ритуал."
 
 /datum/objective/clockgod/check_completion()
 	if(killed)

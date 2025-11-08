@@ -112,11 +112,11 @@
 	)
 
 	autohiss_basic_map = list(
-			"ch" = list("ch", "chch", "chich"),
-			"k" = list("k", "kk", "kik"),
-			"ч" = list("ч", "чч", "чич"),
-			"к" = list("к", "кк", "кик")
-		)
+		"ch" = list("ch", "chch", "chich"),
+		"k" = list("k", "kk", "kik"),
+		"ч" = list("ч", "чч", "чич"),
+		"к" = list("к", "кк", "кик"),
+	)
 	autohiss_exempt = list("Вокс-пиджин")
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)

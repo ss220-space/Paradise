@@ -39,7 +39,7 @@
 		DATIVE = "криогенной капсуле",
 		ACCUSATIVE = "криогенную капсулу",
 		INSTRUMENTAL = "криогенной капсулой",
-		PREPOSITIONAL = "криогенной капсуле"
+		PREPOSITIONAL = "криогенной капсуле",
 	)
 
 

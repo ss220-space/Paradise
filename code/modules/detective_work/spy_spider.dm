@@ -12,7 +12,7 @@
 			DATIVE = "жучку",
 			ACCUSATIVE = "жучок",
 			INSTRUMENTAL = "жучком",
-			PREPOSITIONAL = "жучке"
+			PREPOSITIONAL = "жучке",
 		)
 
 /obj/item/radio/spy_spider/Initialize(mapload)

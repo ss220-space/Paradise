@@ -180,7 +180,7 @@
 	delay = 10
 	e_cost = 675
 
-/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom)
+/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	playsound(src.loc, 'sound/weapons/floragun_gamma.ogg', 75, TRUE)
 	if(!do_after(user, 0.5 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, progress = FALSE))
 		return FALSE
@@ -553,7 +553,7 @@
 		DATIVE = "механической энергоячейке",
 		ACCUSATIVE = "механическую энергоячейку",
 		INSTRUMENTAL = "механичекой энергоячейкой",
-		PREPOSITIONAL = "механической энергоячейке"
+		PREPOSITIONAL = "механической энергоячейке",
 	)
 
 /obj/item/ammo_casing/energy/rat/slug

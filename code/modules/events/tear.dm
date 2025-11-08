@@ -93,7 +93,7 @@
 		DATIVE = "пространственному разрыву",
 		ACCUSATIVE = "пространственный разрыв",
 		INSTRUMENTAL = "пространственным разрывом",
-		PREPOSITIONAL = "пространственном разрыве"
+		PREPOSITIONAL = "пространственном разрыве",
 	)
 
 /obj/effect/tear/Initialize(mapload)
