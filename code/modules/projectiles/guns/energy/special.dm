@@ -809,7 +809,7 @@
 /obj/item/gun/energy/specter/can_shoot(mob/living/user, silent)
 	if(!magazine)
 		return FALSE
-	. = ..()
+	return ..()
 
 /obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
 	if(!is_spectercell(item))
@@ -833,11 +833,11 @@
 
 /obj/item/gun/energy/specter/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_firemode))
-		if(!. && length(ammo_type) > 1)
+		if(length(ammo_type) > 1)
 			select_fire(user)
 			update_icon()
 		return TRUE
-	. = ..()
+	return ..()
 
 /obj/item/gun/energy/specter/attack_self(mob/living/user)
 	if(!magazine)
