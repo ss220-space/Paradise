@@ -10,7 +10,7 @@
 	var/obj/item/contractor_uplink/uplink = new
 	our_contractor.put_in_hands(uplink)
 	contractor_uplink = uplink
-	uplink.hub = new(src, contractor_uplink)
+	uplink.hub = new(owner, contractor_uplink)
 
 /datum/antagonist/contractor/drifting_contractor/greet()
 	var/list/messages = list()
