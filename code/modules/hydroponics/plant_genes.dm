@@ -318,8 +318,6 @@
 		if(batteries_recharged)
 			to_chat(target, span_notice("Your batteries are recharged!"))
 
-
-
 /datum/plant_gene/trait/glow
 	// Makes plant glow. Makes plant in tray glow too.
 	// Adds (20+potency)*rate light range and potency*rate light_power to products.

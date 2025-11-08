@@ -44,8 +44,6 @@
 			H.AdjustDeaf(-1 SECONDS)
 			heal_internal_damage(0.1)
 
-
-
 /obj/item/organ/internal/ears/has_damage()
 	. = ..()
 	if(.)

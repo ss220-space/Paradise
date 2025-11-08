@@ -514,8 +514,6 @@
 	if(has_vision(information_only = TRUE))
 		chemscan(src, A)
 
-
-
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
 	if(!on)
 		return

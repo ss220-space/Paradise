@@ -649,8 +649,6 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 	return ..()
 
-
-
 /obj/item/conveyor_construct/afterattack(turf/interacting_with, mob/user, proximity, params)
 	if(!proximity)
 		return

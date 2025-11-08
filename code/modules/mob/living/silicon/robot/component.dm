@@ -229,8 +229,6 @@
 	name = "camera"
 	icon_state = "camera"
 
-
-
 /obj/item/robot_parts/robot_component/diagnosis_unit
 	name = "diagnosis unit"
 	icon_state = "diagnosis_unit"

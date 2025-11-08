@@ -210,8 +210,6 @@ GLOBAL_LIST_EMPTY(overminds)
 	var/reagent_type = pick(GLOB.valid_blobstrains)
 	set_strain(reagent_type, first_select)
 
-
-
 /mob/camera/blob/proc/set_strain(datum/blobstrain/new_strain, first_select = FALSE)
 	if(!ispath(new_strain))
 		return FALSE

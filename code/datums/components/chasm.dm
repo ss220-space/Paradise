@@ -275,8 +275,6 @@
 
 	falling_atoms -= falling_ref
 
-
-
 /**
  * An abstract object which is basically just a bag that the chasm puts people inside
  */

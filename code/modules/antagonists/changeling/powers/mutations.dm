@@ -350,8 +350,6 @@
 /obj/item/melee/changeling/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
 	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
 
-
-
 /***************************************\
 |***********COMBAT TENTACLES*************|
 \***************************************/

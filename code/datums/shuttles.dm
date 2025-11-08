@@ -30,8 +30,6 @@
 	port_id = "admin"
 	name = "Base Shuttle Template (Admin)"
 
-
-
 // Shuttles start here:
 
 /datum/map_template/shuttle/emergency/bar

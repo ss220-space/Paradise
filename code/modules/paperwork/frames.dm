@@ -174,8 +174,6 @@
 	else
 		..()
 
-
-
 /obj/item/picture_frame/glass
 	icon_base = "glass"
 	icon_state = "glass-poster"
@@ -188,8 +186,6 @@
 /obj/item/picture_frame/wooden/New()
 	..()
 	new /obj/item/stack/sheet/wood(src, 1)
-
-
 
 /obj/structure/sign/picture_frame
 	icon = 'icons/obj/bureaucracy.dmi'

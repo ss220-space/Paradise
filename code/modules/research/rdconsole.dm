@@ -257,8 +257,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(desired_num_sheets)
 		machine.materials.retrieve_sheets(desired_num_sheets, material_id)
 
-
-
 /obj/machinery/computer/rdconsole/proc/update_from_disk()
 	clear_wait_message()
 	if(d_disk?.blueprint)
@@ -385,8 +383,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	menu = MENU_MAIN
 	submenu = SUBMENU_MAIN
 	SStgui.update_uis(src)
-
-
 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)

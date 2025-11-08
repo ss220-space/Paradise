@@ -158,9 +158,6 @@
 	var/paper_content = system.create_paper_content("Отчет о проведении погребения №[request_number]", report_text, "Официальный документ заверенный печатью Центрального командования Нанотрейзен")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
 
-
-
-
 ////////////////////////////////////////
 // MARK:	Misc
 ////////////////////////////////////////

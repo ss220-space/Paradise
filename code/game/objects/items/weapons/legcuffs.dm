@@ -71,8 +71,6 @@
 /obj/item/restraints/legcuffs/beartrap/update_icon_state()
 	icon_state = "[initial(icon_state)][armed]"
 
-
-
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
 	if(ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -367,8 +365,6 @@
 	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 	if(!reusable)
 		item_flags |= DROPDEL
-
-
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
 	name = "reinforced bola"

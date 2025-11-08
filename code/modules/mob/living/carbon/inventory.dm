@@ -414,8 +414,6 @@
 	. = ..()
 	update_limbless_slowdown()	// in case we get crutches
 
-
-
 /mob/living/carbon/proc/has_airtight_items()
 	if(get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 		return TRUE

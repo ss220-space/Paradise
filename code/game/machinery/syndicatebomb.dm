@@ -667,8 +667,6 @@
 	ttv.forceMove(get_turf(src))
 	ttv = null
 
-
-
 /obj/item/bombcore/toxins/proc/check_attached(obj/item/transfer_valve/ttv)
 	if(ttv?.attached_device)
 		return TRUE

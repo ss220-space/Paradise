@@ -233,8 +233,6 @@ td, th {
 	text-align:center;
 }
 
-
-
 </style>
 <div id='main'>
 <table id='searchable'>

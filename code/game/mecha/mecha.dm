@@ -637,8 +637,6 @@
 				crashing = get_distant_turf(get_turf(src), dir, 3)//don't use get_dir(src, obstacle) or the mech will stop if he bumps into a one-direction window on his tile.
 				throw_at(crashing, 50, throw_speed)
 
-
-
 ///////////////////////////////////
 ////////  Internal damage  ////////
 ///////////////////////////////////

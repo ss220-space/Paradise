@@ -350,8 +350,6 @@
 	if(bayonet && bayonet_overlay)
 		. += bayonet_overlay
 
-
-
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_trigger_gun(user))
 		user.visible_message(span_suicide("[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide."))

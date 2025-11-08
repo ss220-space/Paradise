@@ -19,8 +19,6 @@
 	if(. && target)
 		to_chat(target, span_userdanger("Вы чувствуете, что Вам более не требуется дышать самостоятельно!"))
 
-
-
 /mob/living/carbon/human/proc/curse_high_rp(delay = 30 SECONDS, oxyloss = 45)
 	var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = new
 	hrp_tumor.last_pump = world.time

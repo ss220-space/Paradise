@@ -386,8 +386,6 @@
 		return .
 	user.mob.move_down()
 
-
-
 /datum/keybinding/mob/fast_equip_from_belt
 	name = "Достать с пояса"
 	keys = list("CtrlE")

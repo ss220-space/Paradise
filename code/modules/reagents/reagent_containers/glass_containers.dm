@@ -499,8 +499,6 @@
 		reagents.reaction(user, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
-
-
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
 	desc = "Деревянное ведро. Можете налить туда что-то или надеть себе на голову, никто не запрещает."

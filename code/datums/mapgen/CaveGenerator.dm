@@ -30,8 +30,6 @@
 	///Expanded list of extra features that can spawn in the area. Reads from the weighted list
 	var/list/feature_spawn_list
 
-
-
 	///Base chance of spawning a mob
 	var/mob_spawn_chance = 3
 	///Base chance of spawning flora

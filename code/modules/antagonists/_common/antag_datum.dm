@@ -163,8 +163,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
 	return TRUE
 
-
-
 /**
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
  */
@@ -199,8 +197,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 /datum/antagonist/proc/farewell()
 	if(owner?.current && !silent)
 		to_chat(owner.current, span_userdanger("You are no longer a [special_role]!"))
-
-
 
 /**
  * Removes antagonist datum effects from the old body and applies it to the new one.

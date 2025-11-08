@@ -76,8 +76,6 @@
 	add_language(LANGUAGE_DRONE_BINARY, 1)
 	add_language(LANGUAGE_DRONE, 1)
 
-
-
 	// Disable the microphone wire on Drones
 	if(radio)
 		radio.wires.cut(WIRE_RADIO_TRANSMIT)

@@ -584,8 +584,6 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return turfs
 
-
-
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all atoms	(objs, turfs, mobs) in areas of that type of that type in the world.
 /proc/get_area_all_atoms(areatype)
@@ -721,8 +719,6 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-
-
 	if(length(toupdate))
 		for(var/turf/simulated/T1 in toupdate)
 			T1.CalculateAdjacentTurfs()
@@ -730,8 +726,6 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 	return copiedobjs
-
-
 
 /proc/get_cardinal_dir(atom/A, atom/B)
 	var/dx = abs(B.x - A.x)

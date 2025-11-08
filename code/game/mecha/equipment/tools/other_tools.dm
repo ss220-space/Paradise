@@ -573,8 +573,6 @@
 		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
 		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)
 
-
-
 // SCS-3 CAGE
 
 /obj/item/mecha_parts/mecha_equipment/cage

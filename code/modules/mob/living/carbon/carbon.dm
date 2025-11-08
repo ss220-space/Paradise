@@ -748,8 +748,6 @@
 
 	to_chat(src, span_warning("Вам не удалось себя отстегнуть."))
 
-
-
 /mob/living/carbon/resist_fire()
 	return !!apply_status_effect(STATUS_EFFECT_DROPNROLL)
 

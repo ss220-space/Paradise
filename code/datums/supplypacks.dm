@@ -41,8 +41,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		if(SUPPLY_CONTRABAND)
 			return "Контрабанда"
 
-
-
 /datum/supply_packs
 	var/name = null
 	var/list/contains = list()
@@ -1497,8 +1495,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике снаряжения офицера СБ",
 	)
 
-
-
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Engineering
 //////////////////////////////////////////////////////////////////////////////
@@ -2189,8 +2185,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	containertype = /obj/structure/closet/crate/sci
 	required_tech = list("engineering" = 3, "programming" = 6, "bluespace" = 7)
-
-
 
 ///////////// High-Tech Disks
 

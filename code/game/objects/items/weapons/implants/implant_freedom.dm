@@ -54,8 +54,6 @@
 	implant_data = /datum/implant_fluff/protofreedom
 	uses = 1
 
-
-
 /obj/item/implanter/freedom/prototype
 	name = "bio-chip implanter (proto-freedom)"
 	imp = /obj/item/implant/freedom/prototype

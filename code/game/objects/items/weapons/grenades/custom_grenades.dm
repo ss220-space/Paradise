@@ -201,9 +201,6 @@
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/infra/armed/stealth)
 
-
-
-
 // Basic EMP grenade
 /obj/item/grenade/chem_grenade/emp
 	payload_name = "EMP"

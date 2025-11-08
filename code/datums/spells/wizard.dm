@@ -311,9 +311,6 @@
 
 	starting_spells = list("/obj/effect/proc_holder/spell/inflict_handler/blind", "/obj/effect/proc_holder/spell/genetic/blind")
 
-
-
-
 /obj/effect/proc_holder/spell/trigger/blind/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
 	T.allowed_type = /mob/living

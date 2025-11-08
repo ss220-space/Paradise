@@ -126,8 +126,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	if(prob(traitmut))
 		add_random_traits(1, 1)
 
-
-
 /obj/item/seeds/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(istype(Proj, /obj/projectile/energy/florabeta))
 		on_floragun_beta_act()
@@ -368,10 +366,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	name = N + V
 	if(GetComponent(/datum/component/label))
 		GetComponent(/datum/component/label).apply_label() // Don't delete labels
-
-
-
-
 
 // Checks plants for broken tray icons. Use Advanced Proc Call to activate.
 // Maybe some day it would be used as game test.

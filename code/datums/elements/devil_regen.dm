@@ -179,8 +179,6 @@
 			organ.open = ORGAN_CLOSED
 			organ.germ_level = 0
 
-
-
 	playsound(get_turf(human), pick(sounds), 50, FALSE, 1)
 	regen_cycles_count += DEVIL_REGEN_BOOST
 	update_status(human)

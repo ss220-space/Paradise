@@ -12,9 +12,6 @@
 	shuttleId = "addition_goal"
 	possible_destinations = "graveyard_church;addition_goal_dock"
 
-
-
-
 // MARK:	System logic
 
 /// Try send shuttle to station (call shuttle)
@@ -143,8 +140,6 @@
 	var/datum/money_account/account = GLOB.station_account
 	account.credit(round(-1000), "Транспортировка важного предмета на станцию", "Дополнительная цель", account.owner_name)
 
-
-
 /datum/controller/subsystem/addition_goals/proc/teleportate_player_to_station(mob/living/user)
 	var/list/safe_turfs = get_safe_random_station_turf()
 	var/turf/teleport_target = pick(safe_turfs)
@@ -157,9 +152,6 @@
 	if(!account)
 		return
 	account.credit(round(-credits), "Транспортные расходы", "Дополнительная цель", account.owner_name)
-
-
-
 
 /// Only for test
 /datum/controller/subsystem/addition_goals/proc/toggle_shuttle(mob/user)

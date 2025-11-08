@@ -251,7 +251,7 @@
 					gear_leftovers += G
 			else
 				gear_leftovers += G
-		
+
 	H.dna.species.job_pre_equip(H)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -314,8 +314,6 @@
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
 		PDA.update_appearance(UPDATE_NAME)
-
-
 
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()

@@ -454,8 +454,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				to_chat(target, span_warning("Вы чувствуете, как ваши силы ослабевают из-за внезапного святого присутствия рядом!"))
 				vamp.adjust_nullification(5, 2)
 
-
-
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
 		return

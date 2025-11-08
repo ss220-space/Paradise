@@ -108,8 +108,6 @@
 
 /////////////////Juggernaut///////////////
 
-
-
 /mob/living/simple_animal/hostile/construct/armoured
 	name = "Juggernaut"
 	real_name = "Juggernaut"
@@ -169,8 +167,6 @@
 
 ////////////////////////Wraith/////////////////////////////////////////////
 
-
-
 /mob/living/simple_animal/hostile/construct/wraith
 	name = "Wraith"
 	real_name = "Wraith"
@@ -206,8 +202,6 @@
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/ethereal_jaunt/shift/holy)
 
 /////////////////////////////Artificer/////////////////////////
-
-
 
 /mob/living/simple_animal/hostile/construct/builder
 	name = "Artificer"
@@ -441,8 +435,6 @@
 				healths.icon_state = "artificer_health6"
 			else
 				healths.icon_state = "artificer_health7"
-
-
 
 /mob/living/simple_animal/hostile/construct/wraith/update_health_hud()
 	if(!client)

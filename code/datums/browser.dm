@@ -474,8 +474,6 @@
 
 	winset(user, windowid, "on-close=\".windowclose [param]\"")
 
-
-
 // the on-close client verb
 // called when a browser popup window is closed after registering with proc/onclose()
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"

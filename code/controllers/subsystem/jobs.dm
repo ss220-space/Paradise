@@ -788,8 +788,6 @@ SUBSYSTEM_DEF(jobs)
 			jobs_to_formats["Custom"] = "grey"
 	return jobs_to_formats
 
-
-
 /datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit, reason)
 	id_change_records["[id_change_counter]"] = list(
 		"transferee" = transferee,

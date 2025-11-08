@@ -49,8 +49,6 @@ STI KALY - blind
 				teleport()
 	return
 
-
-
 /datum/disease/virus/wizarditis/proc/spawn_wizard_clothes()
 	var/mob/living/carbon/human/H = affected_mob
 	switch(pick("head", "robe", "sandal", "staff"))

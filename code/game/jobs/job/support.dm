@@ -587,8 +587,6 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = TRUE
 
-
-
 /datum/job/janitor
 	title = JOB_TITLE_JANITOR
 	flag = JOB_FLAG_JANITOR

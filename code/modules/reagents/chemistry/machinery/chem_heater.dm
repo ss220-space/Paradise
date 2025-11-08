@@ -63,8 +63,6 @@
 /obj/machinery/chem_heater/update_icon_state()
 	icon_state = "mixer[beaker ? "1" : "0"]b"
 
-
-
 /obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
 		beaker.forceMove(get_turf(src))
@@ -99,8 +97,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
-
 
 /obj/machinery/chem_heater/wrench_act(mob/user, obj/item/I)
 	. = TRUE

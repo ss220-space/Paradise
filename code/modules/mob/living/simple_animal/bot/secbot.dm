@@ -605,7 +605,5 @@
 /obj/machinery/bot_core/secbot
 	req_access = list(ACCESS_SECURITY)
 
-
-
 #undef SPEAK_COOLDOWN
 #undef BATON_COOLDOWN

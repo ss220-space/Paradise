@@ -425,8 +425,6 @@
 		add_fingerprint(user)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-
-
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)
 	if(M.melee_damage_upper == 0)

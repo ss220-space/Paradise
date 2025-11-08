@@ -429,8 +429,6 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 
-
-
 /mob/living/simple_animal/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data

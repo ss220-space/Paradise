@@ -198,8 +198,6 @@
 
 	wizard_mob.faction = list("wizard")
 
-
-
 	to_chat(wizard_mob, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
 	to_chat(wizard_mob, "The spellbook is bound to you, and others cannot use it.")
 	to_chat(wizard_mob, "In your pockets you will find a teleport scroll. Use it as needed.")
@@ -247,8 +245,6 @@
 	wizard_mob.equip_to_slot_or_del(apprentice_book, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
-
-
 
 	to_chat(wizard_mob, span_notice("Вы найдёте набор из доступных закинаний в вашем магическом учебнике."))
 	to_chat(wizard_mob, span_notice("Магический учебник привязан к вам, другие не могут ей воспользоваться."))

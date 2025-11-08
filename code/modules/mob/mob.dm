@@ -184,8 +184,6 @@
 	else
 		show_message(self_message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, avoid_highlighting = block_self_highlight)
 
-
-
 // Show a message to all mobs in sight of this atom
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
@@ -234,8 +232,6 @@
 			continue
 
 		mob.show_message(msg, msg_type, blind_message, EMOTE_AUDIBLE)
-
-
 
 // Show a message to all mobs in earshot of this one
 // This would be for audible actions by the src mob

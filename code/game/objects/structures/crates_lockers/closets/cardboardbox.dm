@@ -241,8 +241,6 @@
 
 #undef SNAKE_ALERT_COOLDOWN
 
-
-
 /obj/structure/closet/cardboard/agent/nullspace
 	name = "блюспейс коробка"
 	desc = "Коробка пропитанная силой блюспейса, созданная лучшими учёными с планеты клоунов."

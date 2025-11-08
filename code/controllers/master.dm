@@ -916,8 +916,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	log_world("MC: SoftReset: Finished.")
 	. = 1
 
-
-
 /datum/controller/master/stat_entry(msg)
 	if(last_init_info)
 		msg += "Last Init Info: [last_init_info]"

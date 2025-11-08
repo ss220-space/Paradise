@@ -44,8 +44,6 @@
 /obj/item/grenade/iedcasing/update_overlays()
 	. = ..()
 
-
-
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
 		if(clown_check(user))

@@ -123,8 +123,6 @@ GLOBAL_LIST_EMPTY(message_servers)
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 
-
-
 /obj/machinery/message_server/update_icon_state()
 	if((stat & (BROKEN|NOPOWER)))
 		icon_state = "server_nopower"

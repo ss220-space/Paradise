@@ -146,6 +146,3 @@
 	H.SetSleeping(40 SECONDS)
 	H.Slowed(200 SECONDS, 10)
 
-
-
-

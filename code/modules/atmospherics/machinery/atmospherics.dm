@@ -43,8 +43,6 @@ Pipelines + Other Objects -> Pipe network
 	/// The image of the pipe/device used for ventcrawling
 	var/image/pipe_vision_img
 
-
-
 /obj/machinery/atmospherics/New()
 	if(!armor)
 		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)

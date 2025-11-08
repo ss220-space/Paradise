@@ -390,8 +390,6 @@
 		if(!unflip())
 			to_chat(user, span_notice("Никак не поддаётся."))
 
-
-
 /obj/structure/table/proc/flip(direction, throw_around = TRUE)
 	if(flipped)
 		return FALSE

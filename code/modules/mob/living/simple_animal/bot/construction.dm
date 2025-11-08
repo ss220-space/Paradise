@@ -50,8 +50,6 @@
 	qdel(I)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
-
 //Edbot Assembly
 
 /obj/item/ed209_assembly
@@ -107,8 +105,6 @@
 		if(8,9)
 			item_state = "[lasercolor]ed209_taser"
 			icon_state = "[lasercolor]ed209_taser"
-
-
 
 /obj/item/ed209_assembly/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -405,8 +401,6 @@
 	qdel(I)
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
-
 
 /obj/item/toolbox_tiles/sensor/update_icon_state()
 	icon_state = "[toolbox_color]toolbox_tiles_sensor"

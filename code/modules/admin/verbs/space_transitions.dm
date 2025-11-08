@@ -18,9 +18,6 @@
 
 	BLACKBOX_LOG_ADMIN_VERB("Remake Space Transitions")
 
-
-
-
 /client/proc/make_turf_space_map()
 	set name = "Make Space Map"
 	set desc = "Create a map of the space levels as turfs at your feet"

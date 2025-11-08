@@ -133,8 +133,6 @@
 	if(istype(depotarea))
 		depotarea.increase_alert(reason)
 
-
-
 // Door Control Computer
 
 /obj/machinery/computer/syndicate_depot/doors

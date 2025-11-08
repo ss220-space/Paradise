@@ -320,8 +320,6 @@
 
 // BRONZE (awarded by heads of department, except for the bronze heart)
 
-
-
 /obj/item/clothing/accessory/medal/security
 	name = "robust security medal"
 	desc = "An award issued by the HoS to security staff who excel at upholding the law."

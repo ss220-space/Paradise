@@ -145,8 +145,6 @@
 		src.text += "discovered the following set of fingerprints ([fingerprints]) on sensitive materials, and their owner should be closely observed."
 		src.text += "However, these could also belong to a current Cent. Com employee, so do not act on this without reason."
 
-
-
 /datum/intercept_text/proc/build_cult(datum/mind/correct_person)
 	var/name_1 = pick(src.org_names_1)
 	var/name_2 = pick(src.org_names_2)
@@ -164,8 +162,6 @@
 
 	src.text += "<br>However, if this information is acted on without substantial evidence, those responsible will face severe repercussions."
 
-
-
 /datum/intercept_text/proc/build_rev(datum/mind/correct_person)
 	var/name_1 = pick(src.org_names_1)
 	var/name_2 = pick(src.org_names_2)
@@ -182,8 +178,6 @@
 	src.text += "at a recent conference, and their department should be closely monitored for signs of mutiny. "
 
 	src.text += "<br>However, if this information is acted on without substantial evidence, those responsible will face severe repercussions."
-
-
 
 /datum/intercept_text/proc/build_wizard(datum/mind/correct_person)
 	var/SWF_desc = pick(SWF_names)

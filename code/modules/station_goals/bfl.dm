@@ -129,8 +129,6 @@
 			else
 				visible_message(span_warning("Ошибка: излучатель всё ещё охлаждается"))
 
-
-
 /obj/machinery/power/bfl_emitter/emag_act(mob/user)
 	. = ..()
 	if(!emag)
@@ -221,8 +219,6 @@
 
 /obj/machinery/power/bfl_emitter/update_icon_state()
 	icon_state = "Emitter_[state ? "On" : "Off"]"
-
-
 
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.

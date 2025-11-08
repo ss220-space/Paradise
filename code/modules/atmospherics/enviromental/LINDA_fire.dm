@@ -4,8 +4,6 @@
 		reagents.temperature_reagents(exposed_temperature)
 	return null
 
-
-
 /turf/proc/hotspot_expose(exposed_temperature, exposed_volume, soh = 0)
 	return
 

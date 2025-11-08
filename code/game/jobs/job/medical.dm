@@ -193,8 +193,6 @@
 				else
 					uniform = /obj/item/clothing/under/rank/medical/purple
 
-
-
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
 /datum/job/chemist
 	title = JOB_TITLE_CHEMIST

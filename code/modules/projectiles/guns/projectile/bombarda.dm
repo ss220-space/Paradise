@@ -419,8 +419,6 @@
 	ammo_type = /obj/item/ammo_casing/a40mm/secgl
 	max_ammo = 4
 
-
-
 /obj/item/ammo_casing/a40mm/secgl/solid
 	name = "40mm grenade (rubber slug)"
 	desc = "Граната калибра 40 мм с цельной резиновой пулей. Отлично подходит для нейтрализации активных митингующих из толпы нелетальным способом."

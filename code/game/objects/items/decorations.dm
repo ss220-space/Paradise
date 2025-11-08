@@ -159,8 +159,6 @@
 
 //Valentines decorations
 
-
-
 /obj/item/decorations/sticky_decorations/flammable/arrowed_heart
 	name = "paper heart"
 	desc = "A paper heart. It's been shot through and Cupid is to blame!"
@@ -211,9 +209,6 @@
 
 /obj/item/decorations/sticky_decorations/flammable/easter_egg/orange
 	icon_state = "decoration_easter_egg_orange"
-
-
-
 
 ///////
 //Decorative structures
@@ -298,8 +293,6 @@
 	name = "lava land display"
 	desc = "The tomb of many a miner and possibly a home for much worse things."
 	icon_state = "lava_land_display"
-
-
 
 ///////
 //Decorative corpses

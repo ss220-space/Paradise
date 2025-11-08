@@ -103,8 +103,6 @@
 	add_fingerprint(grabber)
 	move_into_gibber(grabber, grabbed_thing)
 
-
-
 /obj/machinery/gibber/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, "grinder_open", "grinder", I)
 
@@ -315,8 +313,6 @@
 		pixel_x = initial(pixel_x) //return to it's spot after shaking
 		operating = FALSE
 		update_icon(UPDATE_OVERLAYS)
-
-
 
 /* AUTOGIBBER */
 

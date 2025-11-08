@@ -87,8 +87,6 @@
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
-
-
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal/Initialize(mapload)
@@ -135,8 +133,6 @@
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	name = "SP-8-T"

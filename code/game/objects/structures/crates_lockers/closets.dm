@@ -406,9 +406,6 @@ GLOBAL_LIST_EMPTY(closets)
 	if(no_overlays)
 		icon_state = opened ? icon_opened : icon_closed
 
-
-
-
 /obj/structure/closet/update_overlays()
 	. = ..()
 	if(opened)

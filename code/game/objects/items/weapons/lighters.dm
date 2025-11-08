@@ -547,8 +547,6 @@
 		if(!lit && !burnt)
 			ru_names = get_ru_names_cached()
 
-
-
 /obj/item/match/update_desc(updates = ALL)
 	. = ..()
 	desc = lit ? "[capitalize(declent_ru(NOMINATIVE))], охваченная пламенем." : burnt ? "[capitalize(declent_ru(NOMINATIVE))]. Повидала всякое." : initial(desc)

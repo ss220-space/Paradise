@@ -331,8 +331,6 @@
 	else
 		revert_cast(user)
 
-
-
 /obj/effect/proc_holder/spell/vampire/goon/targetted/enthrall/proc/can_enthrall(mob/living/carbon/human/user, mob/living/carbon/target)
 
 	var/enthrall_safe = FALSE

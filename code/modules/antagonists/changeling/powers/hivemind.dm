@@ -40,8 +40,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	else
 		user.add_language(LANGUAGE_HIVE_CHANGELING)
 
-
-
 /datum/action/changeling/hivemind_pick/Remove(mob/user)
 	if(QDELETED(user))
 		return

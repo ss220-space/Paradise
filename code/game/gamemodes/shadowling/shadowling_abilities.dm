@@ -978,8 +978,6 @@
 	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 	target.add_language(LANGUAGE_HIVE_SHADOWLING)
 
-
-
 /obj/effect/proc_holder/spell/ascendant_phase_shift
 	name = "Phase Shift"
 	desc = "Перемещает тебя в пространство между мирами по твоему желанию, позволяя тебе проходить сквозь стены и становиться невидимым."

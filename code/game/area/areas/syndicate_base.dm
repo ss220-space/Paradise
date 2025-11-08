@@ -121,8 +121,6 @@
 	icon_state = "taipan_janitor"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-
-
 /area/syndicate/unpowered/syndicate_space_base/toilets
 	name = "Syndicate Space Toilets"
 	icon_state = "taipan_toilet"

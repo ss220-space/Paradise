@@ -65,8 +65,6 @@
 	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
 	return TRUE
 
-
-
 /// This behavior involves dropping off a carried item to a specified person (or place)
 /datum/ai_behavior/deliver_item
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT

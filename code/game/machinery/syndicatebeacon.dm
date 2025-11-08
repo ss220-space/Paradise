@@ -107,8 +107,6 @@
 	selfdestructing = TRUE
 	explosion(loc, devastation_range = rand(3, 8), heavy_impact_range = rand(1, 3), light_impact_range = 1, flash_range = 10)
 
-
-
 ////////////////////////////////////////
 //Singularity beacon
 ////////////////////////////////////////

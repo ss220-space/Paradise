@@ -130,8 +130,6 @@
 	human.put_in_any_hand_if_possible(src, drop_on_fail = TRUE)
 	return FALSE
 
-
-
 // MARK: Crafting mechanic
 
 /obj/item/craft_blueprints/proc/try_craft_item(mob/user)

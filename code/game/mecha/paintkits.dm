@@ -378,8 +378,6 @@
 	new_icon = "ashedlockermech"
 	allowed_types = MECH_TYPE_LOCKER
 
-
-
 // Universal paintkit
 /obj/item/universal_paintkit
 	name = "universal customisation kit"

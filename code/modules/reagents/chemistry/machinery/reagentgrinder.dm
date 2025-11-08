@@ -276,8 +276,6 @@
 	updateUsrDialog()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
-
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
 	return FALSE
 

@@ -51,8 +51,6 @@
 	. = ..()
 	update_equipped_item(update_speedmods = FALSE)
 
-
-
 /obj/item/flamethrower/update_icon_state()
 	item_state = "flamethrower_[lit]"
 

@@ -171,8 +171,6 @@
 	if(istype(mover, /obj/projectile/destabilizer))
 		return TRUE
 
-
-
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
 	mode = MINEDRONE_COLLECT
 	vision_range = 9

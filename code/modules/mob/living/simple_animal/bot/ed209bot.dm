@@ -259,8 +259,6 @@
 
 	ed209_ai()
 
-
-
 /mob/living/simple_animal/bot/ed209/proc/ed209_ai()
 	var/list/targets = list()
 	for(var/mob/living/carbon/C in view(7, src)) //Let's find us a target
@@ -639,8 +637,6 @@
 	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] оглушил [C]!"),
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] оглушил вас!"))
 
-
-
 /mob/living/simple_animal/bot/ed209/proc/start_cuffing(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
@@ -661,8 +657,6 @@
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] надел на вас стяжки!"))
 
 	back_to_idle()
-
-
 
 #undef SPEAK_COOLDOWN
 #undef BATON_COOLDOWN

@@ -144,8 +144,6 @@
 
 	post_signal(control_freq, "command", "bot_status", "active", active, s_filter = RADIO_MULEBOT)
 
-
-
 /*
  *	Radio Cartridge, essentially a signaler.
  */

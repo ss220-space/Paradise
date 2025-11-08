@@ -545,8 +545,6 @@
 			continue
 		thing.forceMove(loc)
 
-
-
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()
 	var/area/dest_area

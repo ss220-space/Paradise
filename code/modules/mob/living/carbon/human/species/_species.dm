@@ -490,8 +490,6 @@
 	if(!user.frozen) //admin freeze has no breaks
 		. = duration * stun_mod * user.physiology.stun_mod
 
-
-
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/affected, shock_damage, atom/source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 	return
 

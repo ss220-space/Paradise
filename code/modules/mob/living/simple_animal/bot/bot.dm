@@ -238,8 +238,6 @@
 		path_hud.add_atom_to_hud(src)
 		path_hud.show_to(src)
 
-
-
 /mob/living/simple_animal/bot/proc/add_bot_filter()
 	if(QDELETED(src) || !SSradio || !bot_filter)
 		return

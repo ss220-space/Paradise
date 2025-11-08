@@ -293,8 +293,6 @@
 	roller.add_fingerprint(user)
 	QDEL_NULL(held)
 
-
-
 /*
  * Dog beds
  */

@@ -271,8 +271,6 @@
 		attack_self(loc)
 		updateUsrDialog()
 
-
-
 /obj/item/paper_bundle/verb/rename()
 	set name = "Переименовать пачку"
 	set category = STATPANEL_OBJECT

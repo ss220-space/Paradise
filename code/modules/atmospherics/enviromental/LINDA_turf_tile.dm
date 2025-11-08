@@ -114,12 +114,6 @@
 		temperature -= heat/heat_capacity
 		sharer.temperature += heat/sharer.heat_capacity
 
-
-
-
-
-
-
 #define LAST_SHARE_CHECK \
 	if(air.last_share > MINIMUM_AIR_TO_SUSPEND){\
 		excited_group.reset_cooldowns();\
@@ -370,8 +364,6 @@
 		//	carbon.AdjustWeakened(6 SECONDS)
 		step(src, direction)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
-
-
 
 /datum/excited_group
 	var/list/turf_list = list()

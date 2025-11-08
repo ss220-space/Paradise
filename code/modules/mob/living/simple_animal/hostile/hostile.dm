@@ -486,8 +486,6 @@
 	if(retaliate_only && amount > 0 && stat == CONSCIOUS)
 		Retaliate()
 
-
-
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	in_melee = TRUE
 	if(!client)

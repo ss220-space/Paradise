@@ -584,8 +584,6 @@ What are the archived variables for?
 			return 0
 	return 1
 
-
-
 //Takes the amount of the gas you want to PP as an argument
 //So I don't have to do some hacky switches/defines/magic strings
 

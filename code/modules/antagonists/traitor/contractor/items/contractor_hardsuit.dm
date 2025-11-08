@@ -181,8 +181,6 @@
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 			firer.drop_item_ground(src)
 
-
-
 /obj/projectile/contractor_hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()

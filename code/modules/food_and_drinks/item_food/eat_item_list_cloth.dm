@@ -477,8 +477,6 @@
 	nutritional_value = 10, \
 	)
 
-
-
 //Full Costume
 /obj/item/clothing/head/cardborg/add_eatable_component()
 	AddComponent( \

@@ -161,8 +161,6 @@
 
 	update_worn_oversuit()
 
-
-
 /mob/living/carbon/human/can_unEquip(obj/item/I, force = FALSE, disable_messages = TRUE, atom/newloc = null, no_move = FALSE, invdrop = TRUE, silent = TRUE)
 	. = ..()
 	var/obj/item/organ/O = I

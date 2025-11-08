@@ -619,8 +619,6 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 	popup.set_content(text.Join())
 	popup.open(FALSE)
 
-
-
 /client/proc/debug_timers()
 	set name = "Debug Timers"
 	set category = "Debug"

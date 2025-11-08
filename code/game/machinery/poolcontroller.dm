@@ -148,8 +148,6 @@
 			if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
 				drownee.visible_message(span_danger("\The [drownee] flails, almost like [drownee.p_they()] [drownee.p_are()] drowning!"),span_userdanger("You're lacking air!")) //*gasp* *gasp* *gasp* *gasp* *gasp*
 
-
-
 /obj/machinery/poolcontroller/proc/miston() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles
 	if(length(linkedmist))
 		return

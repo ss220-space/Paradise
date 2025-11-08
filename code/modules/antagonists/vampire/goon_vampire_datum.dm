@@ -30,8 +30,6 @@
 /datum/antagonist/vampire/goon_vampire/remove_owner_from_gamemode()
 	SSticker.mode.goon_vampires -= owner
 
-
-
 /datum/antagonist/mindslave/thrall/goon_thrall/add_owner_to_gamemode()
 	SSticker.mode.goon_vampire_enthralled += owner
 

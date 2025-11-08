@@ -65,8 +65,6 @@
 	QDEL_LIST(alien_walls)
 	qdel(queen)
 
-
-
 /obj/structure/alien/resin/wall/empress_cocon
 	max_integrity = 700
 	explosion_block = 100

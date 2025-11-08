@@ -8,8 +8,6 @@
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
-
-
 /obj/effect/particle_effect/expl_particles/LateInitialize()
 	var/step_amt = pick(25;1,50;2,100;3,200;4)
 

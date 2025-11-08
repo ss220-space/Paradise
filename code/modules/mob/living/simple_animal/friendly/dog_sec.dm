@@ -35,8 +35,6 @@
 	icon_dead = "german_shep2_dead"
 	tts_seed = "pantheon"
 
-
-
 /mob/living/simple_animal/pet/dog/security/Initialize(mapload)
 	. = ..()
 	regenerate_icons()

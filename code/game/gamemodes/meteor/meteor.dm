@@ -22,8 +22,6 @@
 		sendmeteors()
 	..()
 
-
-
 /datum/game_mode/meteor/proc/sendmeteors()
 	var/waveduration = world.time + rand(0,1000) + text2num("[wave]000") / 2
 	var/waitduration = rand(3000,6000)

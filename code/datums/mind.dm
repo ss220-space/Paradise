@@ -2657,8 +2657,6 @@
 		current.faction = list("Station")
 		SSticker.mode.update_wiz_icons_removed(src)
 
-
-
 /datum/mind/proc/remove_changeling_role()
 	var/datum/antagonist/traitor/chan_datum = has_antag_datum(/datum/antagonist/changeling)
 	if(!chan_datum)

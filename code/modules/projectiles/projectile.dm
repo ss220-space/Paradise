@@ -248,8 +248,6 @@
 
 	return were_affects_applied
 
-
-
 /obj/projectile/proc/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
 	return target.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused)
 

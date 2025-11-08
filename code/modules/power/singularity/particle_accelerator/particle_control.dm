@@ -103,8 +103,6 @@
 		else
 			icon_state = "[reference]c"
 
-
-
 /obj/machinery/particle_accelerator/control_box/proc/strength_change()
 	for(var/obj/structure/particle_accelerator/part in connected_parts)
 		part.strength = strength

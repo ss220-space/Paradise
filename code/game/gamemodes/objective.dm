@@ -162,8 +162,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		messages.Add(user.prepare_announce_objectives(FALSE))
 		to_chat(user.current, chat_box_red(messages.Join("<br>")))
 
-
-
 /**
  * Borgs, brains, AIs, etc count as dead for traitor objectives
  */

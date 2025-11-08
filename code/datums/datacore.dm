@@ -106,8 +106,6 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		)
 	return
 
-
-
 /datum/datacore/proc/manifest()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		manifest_inject(H)

@@ -147,9 +147,6 @@ SUBSYSTEM_DEF(addition_goals)
 	if(cargopoints > 0)
 		SSshuttle.points += round(cargopoints)
 
-
-
-
 // MARK:	Console logic
 
 /datum/controller/subsystem/addition_goals/proc/print_accept_goal_details(mob/user, datum/addition_goal/goal)
@@ -178,9 +175,6 @@ SUBSYSTEM_DEF(addition_goals)
 		paper.info = message
 		if(stamp)
 			paper.stamp(/obj/item/stamp/centcom)
-
-
-
 
 // MARK:	Basic Addition Goal
 

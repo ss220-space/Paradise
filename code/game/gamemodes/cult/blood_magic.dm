@@ -366,8 +366,6 @@
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
 
-
-
 // The "magic hand" items
 /obj/item/melee/blood_magic
 	name = "magical aura"

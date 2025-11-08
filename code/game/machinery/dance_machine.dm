@@ -446,8 +446,6 @@
 		sleep(1)
 	M.lying_fix()
 
-
-
 /mob/living/proc/lying_fix()
 	animate(src, transform = null, time = 1, loop = 0)
 	lying_prev = 0
@@ -460,8 +458,6 @@
 			continue
 		L.stop_sound_channel(CHANNEL_JUKEBOX)
 	rangers = list()
-
-
 
 /obj/machinery/disco/process()
 	if(charge < 35)
@@ -493,8 +489,6 @@
 		playsound(src,'sound/machines/terminal_off.ogg',50, TRUE)
 		update_icon()
 		stop = world.time + 100
-
-
 
 /obj/machinery/disco/immobile
 	name = "radiant dance machine mark V"

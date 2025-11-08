@@ -539,8 +539,6 @@
 
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
-
-
 /mob/living/silicon/pai/welder_act()
 	return
 

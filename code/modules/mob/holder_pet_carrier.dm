@@ -229,8 +229,6 @@
 
 	try_free_content(null, usr)
 
-
-
 /obj/item/pet_carrier/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!ishuman(usr))
 		return FALSE

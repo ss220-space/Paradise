@@ -6,8 +6,6 @@
 /// Machine is currently denying wares, and will not update its icon, unless its stat change.
 #define FLICK_DENY 2
 
-
-
 /**
  *  Datum used to hold information about a product in a vending machine
  */

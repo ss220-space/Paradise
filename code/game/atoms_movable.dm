@@ -1236,8 +1236,6 @@
 	for(var/atom/movable/content as anything in src) // Notify contents of Z-transition.
 		content.on_changed_z_level(old_turf, new_turf, same_z_layer)
 
-
-
 /**
  * Called whenever an object moves and by mobs when they attempt to move themselves through space
  * And when an object or action applies a force on src, see [newtonian_move][/atom/movable/proc/newtonian_move]
@@ -1581,8 +1579,6 @@
 		AddElement(/datum/element/light_blocking)
 	else
 		RemoveElement(/datum/element/light_blocking)
-
-
 
 /// Source is devoured by living mob.
 /atom/movable/proc/devoured(mob/living/carbon/gourmet)

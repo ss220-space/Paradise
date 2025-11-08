@@ -152,9 +152,6 @@
 	log_and_message_admins("<span class='boldnotice'>directly narrated to [key_name_admin(M)]: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Direct Narrate")
 
-
-
-
 /client/proc/cmd_admin_headset_message(mob/M in GLOB.mob_list)
 	set name = "\[Admin\] Headset Message"
 

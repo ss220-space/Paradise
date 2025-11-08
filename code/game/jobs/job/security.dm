@@ -65,8 +65,6 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_security/hos
 
-
-
 /datum/job/warden
 	title = JOB_TITLE_WARDEN
 	flag = JOB_FLAG_WARDEN

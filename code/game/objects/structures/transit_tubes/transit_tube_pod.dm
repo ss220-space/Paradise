@@ -181,8 +181,6 @@
 /obj/structure/transit_tube_pod/remove_air(amount)
 	return air_contents.remove(amount)
 
-
-
 // Called when a pod arrives at, and before a pod departs from a station,
 //  giving it a chance to mix its internal air supply with the turf it is
 //  currently on.
@@ -209,8 +207,6 @@
 
 	loc.assume_air(from_int)
 	air_contents.merge(from_env)
-
-
 
 // When the player moves, check if the pos is currently stopped at a station.
 //  if it is, check the direction. If the direction matches the direction of

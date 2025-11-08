@@ -971,8 +971,6 @@
 	update_equipped_item(update_speedmods = FALSE)
 	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "on" : "off"].")
 
-
-
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
 	name = "stripped winter coat"
 	desc = "A velvety smooth black winter coat with white and red stripes on the side."
@@ -1024,8 +1022,6 @@
 
 	if(target.change_hair("Sasook Hair", 1))
 		to_chat(target, span_notice("You dump some of [src] on your head and style it around."))
-
-
 
 /obj/item/clothing/suit/hooded/wintercoat/fluff/shesi //MrSynnester : Shesi Skaklas
 	name = "custom made winter coat"

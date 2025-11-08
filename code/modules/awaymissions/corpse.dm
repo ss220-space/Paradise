@@ -53,7 +53,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(GLOB.off_mob_spawns)
-		return 
+		return
 	if(!uses)
 		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
@@ -541,8 +541,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
 	mask = /obj/item/clothing/mask/breath
 
-
-
 /obj/effect/mob_spawn/human/clown
 	name = "Clown"
 	mob_name = "Clown"
@@ -769,8 +767,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	head = /obj/item/clothing/head/beret/centcom/officer
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
-
-
 
 /obj/effect/mob_spawn/human/abductor
 	name = "abductor"

@@ -12,8 +12,6 @@
 	/// 4 - Oxygen. 8 - Toxins. 16 - Nitrogen. 32 - Carbon Dioxide. 64 - Nitrous Oxide.
 	var/output = SENSOR_SCAN_PRESSURE|SENSOR_SCAN_TEMPERATURE
 
-
-
 /obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 

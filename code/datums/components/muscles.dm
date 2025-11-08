@@ -245,8 +245,6 @@
 	deltas.Add(usable_strength_level.melee_damage_delta + \
 		(next_strength_level.melee_damage_delta - usable_strength_level.melee_damage_delta) * strength_level_part)
 
-
-
 /datum/component/muscles/proc/get_hunger_mod(user, list/modifiers)
 	SIGNAL_HANDLER
 	if(isvampire(user))

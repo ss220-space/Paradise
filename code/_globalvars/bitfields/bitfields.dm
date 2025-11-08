@@ -8,8 +8,6 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 	/// An associative list of the readable flag and its true value
 	var/list/flags
 
-
-
 /datum/bitfield/can_vv_delete()
 	return FALSE
 

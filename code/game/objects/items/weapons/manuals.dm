@@ -210,8 +210,6 @@
 
 				<p>If youve gotten this far, congratulations! You have mastered the art of cloning. Now, the real problem is how to resurrect yourself after that traitor had his way with you for cloning his target.
 
-
-
 				</body>
 				</html>
 				"}

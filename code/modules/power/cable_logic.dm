@@ -38,9 +38,6 @@
 	else
 		icon_state = "bulb0"
 
-
-
-
 //Sensors only have one output and no inputs
 /obj/machinery/logic/sensor
 	//Output is searched from the 'dir' direction
@@ -75,9 +72,6 @@
 		return
 
 	pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)
-
-
-
 
 //ONE INPUT logic elements have one input and one output
 /obj/machinery/logic/oneinput
@@ -131,14 +125,6 @@
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
-
-
-
-
-
-
-
-
 
 //TWO INPUT logic elements have two inputs and one output
 /obj/machinery/logic/twoinput

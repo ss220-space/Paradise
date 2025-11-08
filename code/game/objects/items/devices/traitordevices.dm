@@ -72,8 +72,6 @@ effective or pretty fucking useless.
 /obj/item/batterer/proc/recharge()
 	charges++
 
-
-
 /*
 		The radioactive microlaser, a device disguised as a health analyzer used to irradiate people.
 
@@ -185,8 +183,6 @@ effective or pretty fucking useless.
 
 	attack_self(usr)
 	add_fingerprint(usr)
-
-
 
 /obj/item/jammer
 	name = "radio jammer"

@@ -671,8 +671,6 @@
 	var/obj/item/slimepotion/enhancer/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
-
-
 /datum/chemical_reaction/slime_territory
 	name = "Slime Territory"
 	id = "s_territory"

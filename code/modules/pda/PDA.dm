@@ -550,8 +550,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	qdel(src)
 	return
 
-
-
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP
 /obj/item/pda/emp_act(severity)
 	for(var/atom/A in src)

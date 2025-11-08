@@ -23,8 +23,6 @@
 		return .
 	. += cover_overlay
 
-
-
 /obj/vehicle/ridden/speedbike/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(has_buckled_mobs())
 		new /obj/effect/temp_visual/dir_setting/speedbike_trail(loc, direct)

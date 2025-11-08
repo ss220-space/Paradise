@@ -563,8 +563,6 @@
 	put_mob(usr)
 	return
 
-
-
 /datum/data/function/proc/reset()
 	return
 

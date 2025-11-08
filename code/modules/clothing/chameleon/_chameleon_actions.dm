@@ -154,8 +154,6 @@
 	for(var/datum/action/item_action/chameleon/change/change_action in owner.actions)
 		change_action.apply_outfit(outfit, outfit_types)
 
-
-
 /// BASIC ITEM ACTION
 
 /datum/action/item_action/chameleon/change

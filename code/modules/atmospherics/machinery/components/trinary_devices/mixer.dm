@@ -186,8 +186,6 @@
 	)
 	return data
 
-
-
 /obj/machinery/atmospherics/trinary/mixer/ui_act(action, list/params)
 	if(..())
 		return

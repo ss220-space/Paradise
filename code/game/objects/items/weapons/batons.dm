@@ -243,8 +243,6 @@
 	.["visible"] = span_danger("[user] knocks [target] down with [src]!")
 	.["local"] = span_userdanger("[user] knocks you down with [src]!")
 
-
-
 /// Default message for stunning a cyborg.
 /obj/item/melee/baton/proc/get_cyborg_stun_description(mob/living/target, mob/living/user)
 	. = list()

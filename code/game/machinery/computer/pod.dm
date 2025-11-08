@@ -268,8 +268,6 @@
 		updateUsrDialog()
 	return
 
-
-
 /obj/machinery/computer/pod/old
 	icon_state = "oldcomp"
 	icon_screen = "library"

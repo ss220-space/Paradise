@@ -25,8 +25,6 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-
-
 	speed = -1
 
 	AIStatus = AI_OFF
@@ -249,8 +247,6 @@
 
 	else
 		icon_state = "spacewormdead"
-
-
 
 //Add a new worm segment
 /mob/living/simple_animal/hostile/spaceWorm/proc/Attach(mob/living/simple_animal/hostile/spaceWorm/toAttach)

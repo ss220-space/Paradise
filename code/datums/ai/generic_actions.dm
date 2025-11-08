@@ -259,8 +259,6 @@
 	. = ..()
 	controller.blackboard[BB_FOLLOW_TARGET] = null
 
-
-
 /datum/ai_behavior/perform_emote
 
 /datum/ai_behavior/perform_emote/perform(delta_time, datum/ai_controller/controller, emote)

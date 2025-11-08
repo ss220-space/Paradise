@@ -898,8 +898,6 @@
 		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, FALSE, 4)
 		cooldown = world.time
 
-
-
 // ********************************************************************
 
 /obj/item/clothing/mask/gas/ghostface

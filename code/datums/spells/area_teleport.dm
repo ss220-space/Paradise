@@ -37,8 +37,6 @@
 
 	selected_area = thearea
 
-
-
 /obj/effect/proc_holder/spell/area_teleport/cast(list/targets, mob/living/user)
 	if(!selected_area)
 		revert_cast(user)

@@ -28,9 +28,6 @@
 	if(living_mob.see_invisible < the_target.invisibility)//Target's invisible to us, forget it
 		return FALSE
 
-
-
-
 	if(isliving(the_target)) //Targetting vs living mobs
 		var/mob/living/L = the_target
 		var/faction_check = living_mob.faction_check_mob(L, exact_match = check_factions_exactly)

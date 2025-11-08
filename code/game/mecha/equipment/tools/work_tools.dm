@@ -81,8 +81,6 @@
 			start_cooldown()
 		return TRUE
 
-
-
 //This is pretty much just for the death-ripley
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	name = "KILL CLAMP"

@@ -115,9 +115,6 @@
 			if(!QDELETED(src) && !QDELETED(I))
 				trait.on_attackby(src, I, user)
 
-
-
-
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))

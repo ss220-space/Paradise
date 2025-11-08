@@ -200,8 +200,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				return
 			.["value"] = things[value]
 
-
-
 		if(VV_CLIENT)
 			.["value"] =  tgui_input_list(src, "Выберите клитент:", "Клиент", GLOB.clients, current_value)
 			if(.["value"] == null)
@@ -398,8 +396,6 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		var/confirm = tgui_alert(src, "The list you're trying to edit is very long, continuing may crash the server.", "Warning", list("Continue", "Abort"))
 		if(confirm != "Continue")
 			return
-
-
 
 	var/list/names = list()
 	for(var/i in 1 to length(L))

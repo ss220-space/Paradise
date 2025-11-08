@@ -472,9 +472,6 @@
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
-
-
-
 //Mergesort: Specifically for record datums in a list.
 /proc/sortRecord(list/datum/data/record/L, field = "name", order = 1)
 	if(isnull(L))
@@ -1169,8 +1166,6 @@
 	else
 		used_key_list[input_key] = 1
 	return input_key
-
-
 
 /**
  * Checks to make sure that the lists have the exact same contents, ignores the order of the contents.

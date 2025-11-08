@@ -95,8 +95,6 @@
 		return FALSE
 	return TRUE
 
-
-
 /**
  * Check if the user is the right kind of entity to be able to hack borgs
  *

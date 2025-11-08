@@ -113,8 +113,6 @@
 		else
 			observe.client.screen -= item_to_update
 
-
-
 /mob/living/silicon/robot/proc/set_actions(obj/item/I)
 	for(var/X in I.actions)
 		var/datum/action/A = X

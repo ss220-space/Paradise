@@ -133,8 +133,6 @@
 		return
 	. = ..()
 
-
-
 /obj/item/paper/contract/infernal/attackby(obj/item/I, mob/user, params)
 
 	if(istype(I, /obj/item/stamp))

@@ -51,8 +51,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
-
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
 	icon_state = "green"

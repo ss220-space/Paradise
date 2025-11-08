@@ -77,5 +77,3 @@
 	var/datum/disease/virus/nuclefication/D = new()
 	D.Contract(target, need_protection_check = FALSE)
 
-
-

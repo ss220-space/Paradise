@@ -118,8 +118,6 @@
 			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(capitalize(res))], choices were [json_encode(choices)]")
 			return null
 
-
-
 /datum/vote/proc/announce(start_text)
 	to_chat(world, chat_box_purple(span_purple("<b>[start_text]</b>\n\
 		<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос.\n\

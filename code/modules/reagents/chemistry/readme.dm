@@ -174,9 +174,6 @@ About Reagents:
 
 			A good website for color calculations: http://www.psyclops.com/tools/rgb/
 
-
-
-
 About Recipes:
 
 	Recipes are simple datums that contain a list of required reagents and a result.

@@ -33,8 +33,6 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	// no need to spam admins regarding boo casts
 	create_attack_logs = FALSE
 
-
-
 /obj/effect/proc_holder/spell/boo/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /atom

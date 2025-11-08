@@ -242,8 +242,6 @@
 	sum_of_weigths = 100
 	. = ..()
 
-
-
 /obj/item/vending_refill/custom/proc/add_account(datum/money_account/new_account, weight)
 	linked_accounts += new_account
 	accounts_weights += weight

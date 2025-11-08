@@ -382,8 +382,6 @@
 	needs_target = FALSE
 	antag_menu_name = "Задача ревенанта"
 
-
-
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list(
 		"Помогайте существующим угрозам и усугубляйте их в критические моменты.", \

@@ -116,8 +116,6 @@
 	for(var/datum/mapGeneratorModule/mod in modules)
 		mod.sync(src)
 
-
-
 ///////////////////////////
 // HERE BE DEBUG DRAGONS //
 ///////////////////////////

@@ -246,8 +246,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	ascendant.mind.RemoveSpell(src)
 	qdel(user)
 
-
-
 /**
  * Testing purpose.
  */

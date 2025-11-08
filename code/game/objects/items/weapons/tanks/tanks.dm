@@ -155,8 +155,6 @@
 	if(istype(I, /obj/item/assembly_holder) && bomb_assemble(I, user))
 		. |= ATTACK_CHAIN_SUCCESS
 
-
-
 /obj/item/tank/attack_self(mob/user as mob)
 	if(!(air_contents))
 		return

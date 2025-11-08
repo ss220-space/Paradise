@@ -348,8 +348,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/reagent_containers/food/drinks/flask/gold
 	name = "капитанскую золотую фляжку"
 
-
-
 //==========================
 //=======Medium Thief=======
 //==========================

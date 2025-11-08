@@ -52,8 +52,6 @@
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
-
-
 /**
 	For transforming humans into robots (cyborgs).
 

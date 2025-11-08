@@ -219,8 +219,6 @@
 	if(trigger)
 		trigger.hear_message(M, msg)
 
-
-
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
 	desc = "Одноразовая маска, изготовленная из стерильного материала. \

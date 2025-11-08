@@ -100,8 +100,6 @@
 	data["valve"] = valve_open
 	return data
 
-
-
 /obj/item/transfer_valve/ui_act(action, params)
 	if(..())
 		return

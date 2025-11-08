@@ -348,8 +348,6 @@
 	onclose(user, "[name]")
 	return
 
-
-
 /************************************
 *   Machine Menu Handling/Cooking	*
 ************************************/

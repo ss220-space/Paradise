@@ -699,8 +699,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-
-
 //pyjamas
 //originally intended to be pinstripes >.>
 
@@ -1558,8 +1556,6 @@
 	cloth.add_fingerprint(user)
 	to_chat(user, span_notice("You tear [src] up."))
 	qdel(src)
-
-
 
 /obj/item/clothing/suit/towel/alt
 	icon_state = "towel_long_alt"

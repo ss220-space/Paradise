@@ -21,8 +21,6 @@
 /obj/machinery/abductor/experiment/update_icon_state()
 	icon_state = "experiment[occupant ? "" : "-open"]"
 
-
-
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user, params)
 	if(stat)
 		return

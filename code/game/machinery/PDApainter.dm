@@ -135,8 +135,6 @@
 		return
 	update_icon()
 
-
-
 // TGUI Related.
 
 /obj/machinery/pdapainter/ui_interact(mob/user, datum/tgui/ui = null)

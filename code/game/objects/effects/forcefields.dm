@@ -26,8 +26,6 @@
 	if(mover == wizard)
 		return TRUE
 
-
-
 ///////////Mimewalls///////////
 
 /obj/effect/forcefield/mime

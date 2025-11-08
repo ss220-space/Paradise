@@ -36,8 +36,6 @@
 	. += span_notice("Alt-Click to change photo size.")
 	. += span_notice("Alt-Shift-Click on [src] to toggle camera flashing")
 
-
-
 /obj/item/camera/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 

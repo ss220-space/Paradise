@@ -71,8 +71,6 @@
 			set_anchored(TRUE)
 			to_chat(user, span_notice("You screw [src] to the floor."))
 
-
-
 /obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
 	if(anchored)
 		return

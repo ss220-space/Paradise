@@ -484,8 +484,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(outgoing_call && speaker == outgoing_call.user)
 		outgoing_call.hologram.atom_say(multilingual_to_message(message_pieces))
 
-
-
 /obj/machinery/hologram/holopad/proc/SetLightsAndPower()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
 	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE

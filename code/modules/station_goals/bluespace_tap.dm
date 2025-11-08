@@ -368,8 +368,6 @@
 			var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
 			new /obj/structure/spawner/nether/bluespace_tap(location)
 
-
-
 /obj/machinery/power/bluespace_tap/ui_data(mob/user)
 	var/list/data = list()
 
@@ -425,8 +423,6 @@
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
 	new A.product_path(get_turf(src))
-
-
 
 //UI stuff below
 

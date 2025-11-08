@@ -166,8 +166,6 @@
 		usr.unset_machine()
 	return
 
-
-
 /obj/machinery/space_heater/process()
 	if(on)
 		if(cell && cell.charge > 0)

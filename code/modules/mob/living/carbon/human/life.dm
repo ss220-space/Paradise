@@ -1053,8 +1053,6 @@
 	AdjustLoseBreath(40 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 	adjustOxyLoss(20)
 
-
-
 // Need this in species.
 //#undef HUMAN_MAX_OXYLOSS
 //#undef HUMAN_CRIT_MAX_OXYLOSS

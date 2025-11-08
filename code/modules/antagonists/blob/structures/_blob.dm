@@ -396,8 +396,6 @@
 /obj/structure/blob/proc/scannerreport()
 	return "Обычная плитка. Похоже, кто-то забыл переопределить этот процесс, сообщите администратору и составьте баг-репорт."
 
-
-
 /obj/structure/blob/proc/chemeffectreport(mob/user)
 	RETURN_TYPE(/list)
 	. = list()

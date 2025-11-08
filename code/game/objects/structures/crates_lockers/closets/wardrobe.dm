@@ -171,8 +171,6 @@
 	new /obj/item/clothing/head/beret/atmos(src)
 	new /obj/item/clothing/head/beret/atmos(src)
 
-
-
 /obj/structure/closet/wardrobe/engineering_yellow
 	name = "engineering wardrobe"
 	custom_door_overlay = "engineer"

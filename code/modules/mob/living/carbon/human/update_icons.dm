@@ -540,8 +540,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_unconscious_overlay()
 	SEND_SIGNAL(src, COMSIG_HUMAN_REGENERATE_ICONS)
 
-
-
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 

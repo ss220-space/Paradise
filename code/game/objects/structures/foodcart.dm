@@ -83,8 +83,6 @@
 			span_italics("You hear ratchet."),
 		)
 
-
-
 /obj/structure/foodcart/attack_hand(mob/user)
 	add_fingerprint(user)
 	user.set_machine(src)
