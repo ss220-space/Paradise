@@ -28,7 +28,6 @@
 	sign = null
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/signmaker/proc/icon_flick()
 	set waitfor = FALSE
 
@@ -38,13 +37,11 @@
 	pointer_busy = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/signmaker/update_icon_state()
 	if(pointer_busy)
 		icon_state = "signmaker_clown_on"
 		return
 	icon_state = "signmaker_clown_[sign ? "on" : "off"]"
-
 
 /obj/item/signmaker/emag_act(mob/user)
 	add_attack_logs(user, src, "emagged")
@@ -185,7 +182,6 @@
 		PREPOSITIONAL = "голографическом мыле",
 	)
 
-
 /obj/structure/holosoap/Initialize(mapload, new_projector)
 	. = ..()
 	projector = new_projector
@@ -193,7 +189,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/structure/holosoap/Destroy()
 	projector?.sign = null
@@ -203,7 +198,6 @@
 /obj/structure/holosoap/has_prints()
 	return FALSE
 
-
 /obj/structure/holosoap/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
@@ -211,12 +205,10 @@
 		if(BURN)
 			playsound(loc, 'sound/items/squeaktoy.ogg', 80, TRUE)
 
-
 /obj/structure/holosoap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	playsound(loc, 'sound/misc/slip.ogg', 80, TRUE)
-
 
 /obj/structure/holosoap/attack_hand(mob/living/user)
 	. = ..()

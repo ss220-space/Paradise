@@ -204,7 +204,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/add_strippable_element()
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
 
-
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
@@ -241,7 +240,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		mmi.brainmob.name = newname
 
 	return TRUE
-
 
 /mob/living/silicon/robot/proc/get_default_name(prefix as text)
 	if(mmi)
@@ -407,7 +405,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module?.add_subsystems_and_actions(src)
 
 	radio.recalculate_channels()
-
 
 	hands.icon_state = lowertext(module?.module_type)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
@@ -600,7 +597,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	alerts.set_content(dat_text)
 	alerts.open()
 
-
 /mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
 		return FALSE
@@ -610,7 +606,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return FALSE
 
 	return TRUE
-
 
 /mob/living/silicon/robot/proc/toggle_ionpulse(silent = FALSE)
 	if(!ionpulse)
@@ -638,7 +633,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		ion_trail.stop()
 		remove_movespeed_modifier(/datum/movespeed_modifier/robot_jetpack_upgrade)
 
-
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
 		adjustBruteLoss(30)
@@ -651,15 +645,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/show_cell_power()
 	return list("Заряд:", cell ? "[cell.charge]/[cell.maxcharge]" : "Батарея не обнаружена!")
 
-
 /mob/living/silicon/robot/proc/show_gps_coords()
 	var/turf/turf = get_turf(src)
 	return list("GPS:", "[COORD(turf)]")
 
-
 /mob/living/silicon/robot/proc/show_stack_energy(datum/robot_energy_storage/robot_energy_storage)
 	return list("[robot_energy_storage.name]:", "[robot_energy_storage.energy] / [robot_energy_storage.max_energy]")
-
 
 // update the status screen display
 /mob/living/silicon/robot/get_status_tab_items()
@@ -677,7 +668,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	for(var/datum/robot_energy_storage/robot_energy_storage in module.storages)
 		status_tab_data[++status_tab_data.len] = show_stack_energy(robot_energy_storage)
-
 
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
@@ -716,7 +706,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(stat != DEAD)
 				apply_damage(30)
 
-
 /mob/living/silicon/robot/bullet_act(obj/projectile/Proj)
 	..(Proj)
 
@@ -724,7 +713,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		spark_system.start()
 
 	return 2
-
 
 /mob/living/silicon/robot/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat
@@ -944,7 +932,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return ..()
 
-
 /mob/living/silicon/robot/wirecutter_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat
 		return FALSE
@@ -996,7 +983,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "Unable to locate a radio.")
 
 		update_icons()
-
 
 /mob/living/silicon/robot/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat
@@ -1078,7 +1064,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(was_installed == 1)
 		C.uninstall()
 
-
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat
 		return FALSE
@@ -1107,12 +1092,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	to_chat(user, span_notice("You have patched some dents on [src] with [I]."))
 
-
 /mob/living/silicon/robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && I.damtype != STAMINA && stat != DEAD)
 		spark_system.start()	//only sparks if real damage is dealt
-
 
 /mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
@@ -1259,10 +1242,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	qdel(dummy)
 	return FALSE
 
-
 /mob/living/silicon/robot/regenerate_icons()
 	return update_icons()
-
 
 /mob/living/silicon/robot/update_icons()
 	cut_overlays()
@@ -1664,7 +1645,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return
 
-
 /mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
 	if(isclocker(src))
 		return
@@ -1681,7 +1661,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	set_lockcharge(state)
 
-
 ///Reports the event of the change in value of the lockcharge variable.
 /mob/living/silicon/robot/proc/set_lockcharge(new_lockcharge)
 	if(new_lockcharge == lockcharge)
@@ -1696,7 +1675,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	else if(.)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
-
 
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins
@@ -1804,7 +1782,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return STATUS_UPDATE_NONE
 
-
 /mob/living/silicon/robot/regenerate_icons()
 	. = ..()
 	update_module_icon()
@@ -1861,11 +1838,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	see_reagents = TRUE
 	has_transform_animation = TRUE
 
-
 /mob/living/silicon/robot/deathsquad/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
-
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
@@ -1882,7 +1857,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return -1
 
 	return ..(P)
-
 
 /mob/living/silicon/robot/ert
 	designation = "ERT"
@@ -1901,7 +1875,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
 	see_reagents = TRUE
-
 
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ert_override
@@ -1928,7 +1901,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	SSticker.mode.ert += mind
 
-
 /mob/living/silicon/robot/ert/red
 	eprefix = "Red"
 	default_cell_type = /obj/item/stock_parts/cell/hyper
@@ -1939,11 +1911,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 
-
 /mob/living/silicon/robot/ert/gamma/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
-
 
 /mob/living/silicon/robot/destroyer
 	// admin-only borg, the seraph / special ops officer of borgs
@@ -1970,11 +1940,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	see_reagents = TRUE
 	drain_act_protected = TRUE
 
-
 /mob/living/silicon/robot/destroyer/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
-
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -2025,7 +1993,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			add_overlay(eyes_olay)
 
 	return
-
 
 /mob/living/silicon/robot/extinguish_light(force = FALSE)
 	..()
@@ -2127,7 +2094,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
-
 
 /mob/living/silicon/robot/verb/powerwarn()
 	set category = STATPANEL_ROBOTCOMMANDS

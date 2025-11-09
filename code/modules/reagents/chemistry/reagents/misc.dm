@@ -31,7 +31,6 @@
 				O.icon = I
 				O:silicateIcon = I */
 
-
 /datum/reagent/oxygen
 	name = "Кислород"
 	id = "oxygen"
@@ -101,7 +100,6 @@
 	description = "Золото — плотный, мягкий, блестящий металл, самый податливый и вязкий из всех известных металлов."
 	color = "#F7C430" // rgb: 247, 196, 48
 
-
 /datum/reagent/silver
 	name = "Серебро"
 	id = "silver"
@@ -122,7 +120,6 @@
 	description = "Являясь четырёхвалентным металлоидом, кремний менее реакционноспособен, чем его химический аналог углерод."
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "микросхем"
-
 
 /datum/reagent/copper
 	name = "Медь"

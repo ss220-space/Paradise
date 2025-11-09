@@ -4,7 +4,6 @@
 	action_icon_state = "acid_vent"
 	base_cooldown = 1 SECONDS
 
-
 /obj/effect/proc_holder/spell/alien_spell/break_vents/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new
 	T.selection_type = SPELL_SELECTION_RANGE
@@ -13,7 +12,6 @@
 	T.use_turf_of_user = TRUE
 	T.allowed_type = /obj/machinery/atmospherics/unary
 	return T
-
 
 /obj/effect/proc_holder/spell/alien_spell/break_vents/valid_target(target, user)
 	if(istype(target, /obj/machinery/atmospherics/unary/vent_scrubber))
@@ -25,7 +23,6 @@
 		return vent.welded
 
 	return FALSE
-
 
 /obj/effect/proc_holder/spell/alien_spell/break_vents/cast(list/targets, mob/user)
 

@@ -34,13 +34,11 @@
 	..()
 	return TRUE
 
-
 /datum/game_mode/space_ninja/post_setup()
 	var/datum/antagonist/ninja/ninja_datum = new
 	ninja_datum.change_species(pre_ninja.current)
 	pre_ninja?.add_antag_datum(ninja_datum)
 	..()
-
 
 // Checks if the game should end due to all Ninjas being dead, or MMI'd/Borged
 /datum/game_mode/space_ninja/check_finished()
@@ -61,14 +59,12 @@
 		finished = TRUE
 		return TRUE
 
-
 /datum/game_mode/space_ninja/declare_completion(ragin = FALSE)
 	if(finished && !ragin)
 		SSticker.mode_result = "ninja loss - ninja killed"
 		to_chat(world, span_warning(span_bold(span_fontsize3(" Ниндзя был[(length(space_ninjas)>1)?"и":""] убит[(length(space_ninjas)>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!"))))
 	..()
 	return TRUE
-
 
 /datum/game_mode/proc/auto_declare_completion_ninja()
 	if(!length(space_ninjas))
@@ -90,7 +86,6 @@
 			text += "Тело уничтожено"
 		text += ")"
 		text += "<br>"
-
 
 		var/datum/antagonist/ninja/ninja_datum = ninja.has_antag_datum(/datum/antagonist/ninja)
 		if(ninja_datum)

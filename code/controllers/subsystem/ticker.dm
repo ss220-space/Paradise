@@ -95,7 +95,6 @@ SUBSYSTEM_DEF(ticker)
 	memetips = world.file2list("strings/sillytips.txt")
 	return SS_INIT_SUCCESS
 
-
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
@@ -176,13 +175,11 @@ SUBSYSTEM_DEF(ticker)
 
 			SSachievements.save_achievements_to_db()
 
-
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
 		reboot_helper("Station destroyed by Nuclear Device.", "nuke")
 	else
 		reboot_helper("Round ended.", "proper completion")
-
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
@@ -324,7 +321,6 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
 
-
 	// Setup pregenerated newsfeeds
 	setup_news_feeds()
 
@@ -338,7 +334,6 @@ SUBSYSTEM_DEF(ticker)
 		GLOB.syndicate_code_phrase_regex = codeword_match
 		temp_syndicate_code_phrase = jointext(temp_syndicate_code_phrase, ", ")
 		GLOB.syndicate_code_phrase = temp_syndicate_code_phrase
-
 
 	if(!GLOB.syndicate_code_response)
 		var/list/temp_syndicate_code_response = generate_code_phrase(return_list=TRUE)
@@ -451,7 +446,6 @@ SUBSYSTEM_DEF(ticker)
 	login_music_initializated = TRUE
 	return stdout
 
-
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
 
 	auto_toggle_ooc(TRUE) // Turn it on
@@ -523,7 +517,6 @@ SUBSYSTEM_DEF(ticker)
 		ai_character.moveToAILandmark()
 		SSticker?.score?.save_silicon_laws(ai_character, additional_info = "job assignment", log_all_laws = TRUE)
 
-
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
@@ -547,7 +540,6 @@ SUBSYSTEM_DEF(ticker)
 
 		to_chat(mob, "Никто не получил роль <b>Капитана станции</b>.")
 
-
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
 	var/m
 	if(selected_tip)
@@ -560,7 +552,6 @@ SUBSYSTEM_DEF(ticker)
 
 	if(m)
 		to_chat(world, chat_box_purple(span_purple("<b>Совет раунда: </b>[html_encode(m)]")))
-
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up  past this point.
@@ -684,14 +675,11 @@ SUBSYSTEM_DEF(ticker)
 
 	return TRUE
 
-
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING
 
-
 /datum/controller/subsystem/ticker/proc/IsRoundInProgress()
 	return current_state == GAME_STATE_PLAYING
-
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
@@ -734,7 +722,6 @@ SUBSYSTEM_DEF(ticker)
 		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
 		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
 
-
 // Easy handler to make rebooting the world not a massive sleep in world/Reboot()
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
 	// Admins delayed round end. Just alert and dont bother with anything else.
@@ -775,7 +762,6 @@ SUBSYSTEM_DEF(ticker)
 
 	world.Reboot()
 
-
 // Timers invoke this async
 /datum/controller/subsystem/ticker/proc/handle_antagfishing_reporting()
 
@@ -795,7 +781,6 @@ SUBSYSTEM_DEF(ticker)
 	message_admins(log_text.Join("<br>"))
 
 	flagged_antag_rollers.Cut()
-
 
 /datum/controller/subsystem/ticker/proc/cheevo_report()
 	var/list/parts = list()

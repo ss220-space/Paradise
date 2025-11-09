@@ -194,10 +194,8 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
-
 /obj/structure/window/reinforced/survival_pod/unhittable
 	obj_flags = IGNORE_HITS
-
 
 //Floors
 /turf/simulated/floor/pod
@@ -303,7 +301,6 @@
 	pixel_y = -32
 	move_resist = MOVE_FORCE_STRONG
 
-
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
@@ -317,7 +314,6 @@
 	transfer_prints_to(gps)
 	gps.add_fingerprint(user)
 	qdel(src)
-
 
 /obj/item/gps/computer/ui_state(mob/user)
 	return GLOB.default_state
@@ -406,7 +402,6 @@
 			new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
-
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
@@ -417,7 +412,6 @@
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return .
 	deconstruct()
-
 
 /obj/structure/fans/tiny
 	name = "tiny fan"
@@ -493,7 +487,6 @@
 	transfer_prints_to(rods)
 	rods.add_fingerprint(user)
 	qdel(src)
-
 
 /obj/item/fakeartefact
 	name = "expensive forgery"

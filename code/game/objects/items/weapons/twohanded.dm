@@ -41,11 +41,9 @@
 	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
 
-
 /obj/item/twohanded/Initialize(mapload)
 	. = ..()
 	apply_twohanded_component()
-
 
 /**
  * Proc handles adding component during Initialize()
@@ -64,7 +62,6 @@
 		unwield_callback = CALLBACK(src, PROC_REF(unwield)) \
 	)
 
-
 /**
  * Generic CALLBACK when twohanded item get `wielded`. Avoid inheritance unless you know what you are doing.
  *
@@ -72,7 +69,6 @@
  */
 /obj/item/twohanded/proc/wield(obj/item/source, mob/living/carbon/user)
 	return
-
 
 /**
  * Generic CALLBACK when twohanded item get `UNwielded`. Avoid inheritance unless you know what you are doing.
@@ -82,18 +78,15 @@
 /obj/item/twohanded/proc/unwield(obj/item/source, mob/living/carbon/user)
 	return
 
-
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
 /obj/item/twohanded/required
 	w_class = WEIGHT_CLASS_HUGE
 
-
 //We are adding new parameter to old component
 /obj/item/twohanded/required/apply_twohanded_component()
 	..()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
-
 
 /*
  * Fireaxe
@@ -135,7 +128,6 @@
 /obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity, params)
 	. = ..()
 	if(!proximity)
@@ -161,7 +153,6 @@
 		INSTRUMENTAL = "костяным топором",
 		PREPOSITIONAL = "костяном топоре",
 	)
-
 
 /obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -218,13 +209,11 @@
 	var/charge = 30
 	var/max_charge = 30
 
-
 /obj/item/twohanded/fireaxe/energized/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		icon_state = "fireaxe2"
 	else
 		icon_state = "fireaxe0"
-
 
 /obj/item/twohanded/fireaxe/energized/Initialize(mapload)
 	. = ..()
@@ -246,10 +235,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/item/twohanded/fireaxe/energized/process()
 	charge = min(charge + 1, max_charge)
-
 
 /obj/item/twohanded/fireaxe/energized/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -266,7 +253,6 @@
 	target.Weaken(6 SECONDS)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 5, 1)
-
 
 /*
  * Double-Bladed Energy Swords - Cheridan
@@ -302,7 +288,6 @@
 	needs_permit = TRUE
 	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
-
 /obj/item/twohanded/dualsaber/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))	//We need to listen for item wield
@@ -325,22 +310,18 @@
 		to_chat(user, span_warning("Вам не хватает ловкости для этого!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 
-
 //Specific wield () hulk checks due to reflection chance for balance
 /obj/item/twohanded/dualsaber/wield(obj/item/source, mob/living/carbon/user)
 	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
-
 /obj/item/twohanded/dualsaber/unwield(obj/item/source, mob/living/carbon/user)
 	hitsound = "swing_hit"
 	w_class = initial(w_class)
 
-
 /obj/item/twohanded/dualsaber/IsReflect()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return TRUE
-
 
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -350,7 +331,6 @@
 	else
 		icon_state = "dualsaber0"
 		set_light_on(FALSE)
-
 
 /obj/item/twohanded/dualsaber/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -365,7 +345,6 @@
 	if(prob(50))
 		INVOKE_ASYNC(src, GLOBAL_PROC_REF(jedi_spin), user)
 
-
 /proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
 		user.setDir(i)
@@ -373,12 +352,10 @@
 			user.SpinAnimation(7, 1)
 		sleep(1)
 
-
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
 	return FALSE
-
 
 /obj/item/twohanded/dualsaber/green
 	blade_color = "green"
@@ -404,7 +381,6 @@
 /obj/item/twohanded/dualsaber/yellow
 	blade_color = "yellow"
 
-
 /obj/item/twohanded/dualsaber/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -416,7 +392,6 @@
 		update_icon()
 	else
 		to_chat(user, span_warning("Похоже на тройную радугу... хотя нет, показалось."))
-
 
 //spears
 /obj/item/twohanded/spear
@@ -453,10 +428,8 @@
 		PREPOSITIONAL = "копье",
 	)
 
-
 /obj/item/twohanded/spear/update_icon_state()
 	icon_state = "[icon_prefix][HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/spear/CheckParts(list/parts_list)
 	var/obj/item/shard/tip = locate() in parts_list
@@ -469,7 +442,6 @@
 	qdel(tip)
 	..()
 
-
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity, params)
 	if(!proximity)
 		return
@@ -480,13 +452,11 @@
 		explosive.prime()
 		qdel(src)
 
-
 /obj/item/twohanded/spear/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(explosive)
 		explosive.prime()
 		qdel(src)
-
 
 /obj/item/twohanded/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
 	icon_state = "bone_spear0"
@@ -570,7 +540,6 @@
 	throwforce = 21
 	icon_prefix = "spearplasma"
 
-
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
 	name = "Grey Tide"
@@ -593,7 +562,6 @@
 			M.attack_sound = hitsound
 			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
 			M.GiveTarget(L)
-
 
 /obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/organ/external/head))	//Putting heads on spears
@@ -621,7 +589,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/headspear
 	name = "head on a spear"
@@ -665,7 +632,6 @@
 		mounted_head = null
 	qdel(src)
 
-
 // DIY CHAINSAW
 /obj/item/twohanded/chainsaw_handmade
 	name = "chainsaw"
@@ -688,11 +654,9 @@
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/datum/looping_sound/chainsaw/soundloop
 
-
 /obj/item/twohanded/chainsaw_handmade/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src))
-
 
 /obj/item/twohanded/chainsaw_handmade/ComponentInitialize()
 	. = ..()
@@ -706,33 +670,27 @@
 		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
-
 /obj/item/twohanded/chainsaw_handmade/Destroy(force)
 	QDEL_NULL(soundloop)
 	return ..()
-
 
 /obj/item/twohanded/chainsaw_handmade/wield(obj/item/source, mob/living/carbon/user)
 	soundloop.start()
 	hitsound = 'sound/weapons/chainsaw.ogg'
 	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], вы слышите нарастающее гудение.")
 
-
 /obj/item/twohanded/chainsaw_handmade/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
 	hitsound = "swing_hit"
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 
-
 /obj/item/twohanded/chainsaw/update_icon_state()
 	icon_state = "chainsaw_handmade[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/chainsaw_handmade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
-
 
 /obj/item/twohanded/chainsaw_handmade/doomslayer
 	name = "OOOH BABY"
@@ -740,14 +698,12 @@
 	armour_penetration = 100
 	force_wielded = 30
 
-
 /obj/item/twohanded/chainsaw_handmade/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message(span_danger("Дальние атаки только сильнее злят [owner.declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return TRUE
 	return FALSE
-
 
 ///CHAINSAW///
 /obj/item/twohanded/chainsaw
@@ -783,7 +739,6 @@
 	. = ..()
 	soundloop = new(list(src))
 
-
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
 	AddComponent( \
@@ -796,11 +751,9 @@
 		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
-
 /obj/item/twohanded/chainsaw/Destroy(force)
 	QDEL_NULL(soundloop)
 	return ..()
-
 
 /obj/item/twohanded/chainsaw/wield(obj/item/source, mob/living/carbon/user)
 	soundloop.start()
@@ -808,17 +761,14 @@
 	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], вы слышите нарастающее гудение.")
 	ADD_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
-
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
 	hitsound = "swing_hit"
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
-
 /obj/item/twohanded/chainsaw/update_icon_state()
 	icon_state = "chainsaw[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -838,7 +788,6 @@
 		return
 	target_limb.droplimb()
 
-
 // SINGULOHAMMER
 /obj/item/twohanded/singularityhammer
 	name = "singularity hammer"
@@ -856,7 +805,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/charged = 5
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
-
 
 /obj/item/twohanded/singularityhammer/Initialize(mapload)
 	. = ..()
@@ -879,14 +827,12 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/item/twohanded/singularityhammer/process()
 	if(charged < 5)
 		charged++
 
 /obj/item/twohanded/singularityhammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity, params)
 	. = ..()
@@ -904,10 +850,8 @@
 	for(var/atom/pulled_thing as anything in (orange(5, target) - user))
 		pulled_thing.singularity_hammer_act(target)
 
-
 /atom/proc/singularity_hammer_act(turf/pull)
 	return
-
 
 /atom/movable/singularity_hammer_act(turf/pull)
 	if(anchored)
@@ -919,10 +863,8 @@
 		if(!step_towards(src, pull))
 			return
 
-
 /mob/dead/observer/singularity_hammer_act(turf/pull)
 	return
-
 
 /mob/living/singularity_hammer_act(turf/pull)
 	if(HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
@@ -931,7 +873,6 @@
 	buckled?.unbuckle_mob(src)
 	Weaken(2 SECONDS)
 	..()
-
 
 /obj/item/twohanded/mjollnir
 	name = "Mjolnir"
@@ -972,23 +913,19 @@
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 200, 4)
 
-
 /obj/item/twohanded/mjollnir/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 	shock(target)
 
-
 /obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(target))
 		shock(target)
 
-
 /obj/item/twohanded/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/knighthammer
 	name = "singuloth knight's hammer"
@@ -1032,7 +969,6 @@
 
 /obj/item/twohanded/knighthammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity, params)
 	. = ..()
@@ -1162,7 +1098,6 @@
 	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в ваших руках!"))
 	user.apply_damage(rand(user.health / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
-
 // It's no fun being the lord of all hell if you can't get out of a simple room
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
@@ -1257,7 +1192,6 @@
 
 /obj/item/twohanded/sechammer/wield(obj/item/source, mob/living/carbon/user)
 	slowdown = 0.5
-
 
 /obj/item/twohanded/sechammer/unwield(obj/item/source, mob/living/carbon/user)
 	slowdown = 0

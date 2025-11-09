@@ -11,11 +11,9 @@
 	var/sortTag = 0
 	var/cc_tag
 
-
 /obj/structure/bigDelivery/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
-
 
 /obj/structure/bigDelivery/Destroy(force)
 	var/turf/our_turf = get_turf(src)
@@ -26,13 +24,11 @@
 	wrapped = null
 	return ..()
 
-
 /obj/structure/bigDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER
 
 	if(!hasmob && sortTag)
 		disposal_holder.destinationTag = sortTag
-
 
 /obj/structure/bigDelivery/ex_act(severity, target)
 	for(var/atom/movable/thing as anything in contents)
@@ -40,14 +36,12 @@
 		CHECK_TICK
 	return ..()
 
-
 /obj/structure/bigDelivery/examine(mob/user)
 	. = ..()
 	if(sortTag)
 		. += span_notice("The package will be addressed to the [GLOB.TAGGERLOCATIONS[sortTag]] on [station_name()].")
 	if(cc_tag)
 		. += span_notice("The package will be addressed to the [cc_tag] on Centomm.")
-
 
 /obj/structure/bigDelivery/attack_hand(mob/user)
 	var/turf/our_turf = get_turf(src)
@@ -64,7 +58,6 @@
 		thing.forceMove(our_turf)
 	qdel(src)
 
-
 /obj/structure/bigDelivery/update_icon_state()
 	if(!wrapped)
 		icon_state = initial(icon_state)
@@ -74,7 +67,6 @@
 		icon_state = holding_crate ? "giftcrate" : "giftcloset"
 		return
 	icon_state = "delivery[holding_crate ? "crate" : "closet"][(sortTag || cc_tag) ? "_labeled" : ""]"	// label should be an overlay
-
 
 /obj/structure/bigDelivery/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -138,7 +130,6 @@
 
 	return ..()
 
-
 /obj/item/smallDelivery
 	name = "small parcel"
 	desc = "A small wrapped package."
@@ -149,16 +140,13 @@
 	var/giftwrapped = FALSE
 	var/sortTag = 0
 
-
 /obj/item/smallDelivery/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
-
 /obj/item/smallDelivery/Destroy()
 	QDEL_NULL(wrapped)
 	return ..()
-
 
 /obj/item/smallDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER
@@ -166,19 +154,16 @@
 	if(!hasmob && sortTag)
 		disposal_holder.destinationTag = sortTag
 
-
 /obj/item/smallDelivery/ex_act(severity, target)
 	for(var/atom/movable/thing as anything in contents)
 		thing.ex_act()
 		CHECK_TICK
 	return ..()
 
-
 /obj/item/smallDelivery/emp_act(severity)
 	..()
 	for(var/atom/movable/thing as anything in contents)
 		thing.emp_act(severity)
-
 
 /obj/item/smallDelivery/attack_self(mob/user)
 	if(wrapped) //sometimes items can disappear. For example, bombs. --rastaf0
@@ -187,7 +172,6 @@
 		wrapped = null
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	qdel(src)
-
 
 /obj/item/smallDelivery/update_icon_state()
 	if(!wrapped)
@@ -204,7 +188,6 @@
 		icon_state = "giftcrate[weight_number]"
 		return
 	icon_state = "deliverycrate[weight_number][sortTag ? "_labeled" : ""]"	// label should be an overlay
-
 
 /obj/item/smallDelivery/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -261,7 +244,6 @@
 
 	return ..()
 
-
 /obj/item/stack/packageWrap
 	name = "package wrapper"
 	icon_state = "deliveryPaper"
@@ -280,7 +262,6 @@
 		/obj/item/storage,
 		/obj/item/mecha_parts/chassis
 	))
-
 
 /obj/item/stack/packageWrap/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
@@ -360,7 +341,6 @@
 		var/obj/item/c_tube/tube = new(user.drop_location())
 		tube.add_fingerprint(user)
 
-
 /obj/item/destTagger
 	name = "destination tagger"
 	desc = "Used to set the destination of properly wrapped packages."
@@ -436,7 +416,6 @@
 
 	add_fingerprint(usr)
 
-
 /obj/item/shippingPackage
 	name = "Shipping package"
 	desc = "A pre-labeled package for shipping an item to coworkers."
@@ -446,23 +425,19 @@
 	var/sortTag = 0
 	var/sealed = FALSE
 
-
 /obj/item/shippingPackage/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
-
 /obj/item/shippingPackage/Destroy()
 	QDEL_NULL(wrapped)
 	return ..()
-
 
 /obj/item/shippingPackage/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER
 
 	if(!hasmob && sortTag && sealed)
 		disposal_holder.destinationTag = sortTag
-
 
 /obj/item/shippingPackage/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -499,7 +474,6 @@
 	wrapped = I
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/shippingPackage/attack_self(mob/user)
 	if(sealed)
 		wrapped.forceMove(drop_location())
@@ -528,10 +502,8 @@
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 
-
 /obj/item/shippingPackage/update_icon_state()
 	icon_state = "shippack[sealed ? "_sealed" : ""]"
-
 
 /obj/item/shippingPackage/update_desc(updates = ALL)
 	. = ..()

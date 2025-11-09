@@ -22,7 +22,6 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	holder_type = /obj/item/holder/sloth
 
-
 //Cargo Sloth
 /mob/living/simple_animal/pet/sloth/paperwork
 	name = "Paperwork"

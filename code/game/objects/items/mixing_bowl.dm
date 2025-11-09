@@ -11,11 +11,9 @@
 	var/dirty_icon = "mixing_bowl_dirty"
 	var/is_GUI_opened = FALSE
 
-
 /obj/item/mixing_bowl/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
-
 
 /obj/item/mixing_bowl/attackby(obj/item/stack/I, mob/user, params)
 	if(istype(I, /obj/item/soap))
@@ -92,7 +90,6 @@
 
 	to_chat(user, span_warning("You have no idea what you can cook with [I]."))
 	return ..()
-
 
 /obj/item/mixing_bowl/attack_self(mob/user)
 	var/dat = ""
@@ -211,7 +208,6 @@
 	ffuu.reagents.add_reagent("carbon", amount)
 	ffuu.reagents.add_reagent("????", amount/10)
 	make_dirty(75)
-
 
 /obj/item/mixing_bowl/update_icon_state()
 	icon_state = dirty ? dirty_icon : clean_icon

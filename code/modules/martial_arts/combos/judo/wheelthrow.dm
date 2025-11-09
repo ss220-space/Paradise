@@ -4,7 +4,6 @@
 	explaination_text = "Перекиньте взятого на болевой приём противника через плечо или прижмите его к полу. \
 						Если противник ранее не был взят на болевой, этот приём не сработает!"
 
-
 /datum/martial_combo/judo/wheelthrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
 	if(!IS_HORIZONTAL(target) || !target.has_status_effect(STATUS_EFFECT_ARMBAR))
 		return MARTIAL_COMBO_FAIL

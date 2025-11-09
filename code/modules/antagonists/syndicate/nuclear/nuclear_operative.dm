@@ -49,7 +49,6 @@
 	else
 		to_chat(owner.current, span_userdanger("Вам промли мозги! Вы больше не Ядерный Оперативник."))
 
-
 /datum/antagonist/nuclear_operative/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ops.ogg'))
@@ -154,7 +153,6 @@
 
 /datum/antagonist/nuclear_operative/loneop/give_objectives()
 	add_objective(/datum/objective/nuclear)
-
 
 /datum/antagonist/nuclear_operative/loneop/additional_messages()
 	var/list/messages = list()

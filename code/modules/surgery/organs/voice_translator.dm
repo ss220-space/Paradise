@@ -1,7 +1,6 @@
 #define DEFAULT_CHIP_SLOTS 1
 #define UPGRADE_SLOTS_GREY 2
 
-
 // TRANSLATORS //
 
 // Translators also fulfil the role of ‘vocal cords’ when there is a TRAIT_NO_VOCAL_CORDS in species inherent traits.
@@ -40,7 +39,6 @@
 	actions_types = list(/datum/action/item_action/organ_action/translator_select_language)
 	var/datum/action/item_action/organ_action/wingdings_decoder/decoder
 
-
 /obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator
 	name = "Psionic Voice Retranslator"
 	desc = "Необычный инопланетный имплант с маленьким экранчиком. Судя по всему, создан специально для греев."
@@ -73,13 +71,11 @@
 
 	return TRUE
 
-
 /obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/New()
 	LAZYADD(given_languages, GLOB.all_languages[LANGUAGE_GALACTIC_COMMON]) // basic galcom for greys
 	LAZYADD(given_languages_rus, "Общегалактический")
 
 	. = ..()
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/examine(mob/user)
 	. = ..()
@@ -90,7 +86,6 @@
 	message += "Установленные языки: "
 	message += english_list(given_languages_rus, nothing_text = "Отсутствуют", and_text = "и", final_comma_text = ".")
 	. += span_notice(message)
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/can_insert(mob/living/user, mob/living/carbon/target)
 	if(!..())
@@ -104,7 +99,6 @@
 
 	return FALSE
 
-
 /obj/item/organ/internal/cyberimp/mouth/translator/insert(mob/living/carbon/target, special)
 	. = ..()
 
@@ -112,7 +106,6 @@
 
 	for(var/datum/language/lang as anything in given_languages)
 		target.add_language(lang.name)
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/remove(mob/living/carbon/target, special)
 	if(!istype(target))
@@ -125,14 +118,12 @@
 
 	. = ..()
 
-
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/check_language(mob/living/carbon/C, language_name)
 	SIGNAL_HANDLER
 
 	for(var/datum/language/lang as anything in given_languages)
 		if(language_name == lang.name)
 			return COMSIG_LANG_SECURED
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/update_desc(updates)
 	. = ..()
@@ -141,7 +132,6 @@
 		desc += " Имеет установленный расширитель слотов."
 	else
 		desc = initial(desc)
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/attackby(obj/item/I, mob/user, params)
 	if((istype(I, /obj/item/translator_chip)))
@@ -154,7 +144,6 @@
 			return FALSE
 
 		return install_upgrade(user, I)
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/install_upgrade(mob/living/carbon/human/user, obj/item/translator_upgrade/upgrade)
 	if(!open)
@@ -174,7 +163,6 @@
 	user.drop_transfer_item_to_loc(upgrade, src)
 	stored_upgrade = upgrade
 	update_appearance(UPDATE_DESC)
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/attack_self(mob/user)
 	if(!open)
@@ -200,7 +188,6 @@
 
 	remove_chip(user, chip)
 
-
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/remove_chip(mob/living/carbon/human/user, obj/item/translator_chip/chip)
 	// user = who operates or who places the chip into translator
 	// chip = translator chip we are removing
@@ -218,7 +205,6 @@
 
 	LAZYREMOVE(given_languages_rus, chip.stored_language_rus)
 	chip.on_remove(owner, src)
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/install_chip(mob/living/carbon/human/user, obj/item/translator_chip/chip, silent = TRUE, ignore_lid = FALSE)
 	if(!user || !chip)
@@ -266,7 +252,6 @@
 
 	return TRUE
 
-
 /obj/item/organ/internal/cyberimp/mouth/translator/screwdriver_act(mob/living/user, obj/item/I)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER)
 		return
@@ -277,7 +262,6 @@
 	open = !open
 	balloon_alert(user, "крышка [open ? "откручена" : "закручена"]")
 
-
 /obj/item/organ/internal/cyberimp/mouth/translator/multitool_act(mob/living/user, obj/item/I)
 	// you can remove an upgrade with multitool
 	if(!open || (I.tool_behaviour != TOOL_MULTITOOL))
@@ -287,7 +271,6 @@
 		return
 
 	uninstall_upgrade(user)
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/uninstall_upgrade(mob/living/carbon/human/user)
 	if(!stored_upgrade)
@@ -303,7 +286,6 @@
 	balloon_alert(user, "улучшение извлечено")
 	stored_upgrade = null
 
-
 /obj/item/organ/internal/cyberimp/mouth/translator/emp_act(severity)
 	if(emp_proof)
 		return
@@ -313,7 +295,6 @@
 
 	turn_languages_off()
 	addtimer(CALLBACK(src, PROC_REF(turn_languages_on)), 20 SECONDS)
-
 
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/turn_languages_on()
 	active = TRUE
@@ -326,7 +307,6 @@
 
 	decoder.update_button_state()
 
-
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/turn_languages_off()
 	active = FALSE
 	can_wingdings = FALSE
@@ -337,13 +317,11 @@
 
 	decoder.update_button_state()
 
-
 	// TRANSLATOR ACTION BUTTONS //
 
 /datum/action/item_action/organ_action/translator_select_language
 	name = "Выбрать используемый язык"
 	button_icon_state = "select_language"
-
 
 /datum/action/item_action/organ_action/translator_select_language/Trigger(left_click = TRUE)
 	if(!owner)
@@ -351,12 +329,10 @@
 
 	owner.check_languages()
 
-
 /datum/action/item_action/organ_action/wingdings_decoder
 	name = "Переключить дешифратор Вингдингс"
 	button_icon_state = "wingdings_off"
 	use_itemicon = FALSE
-
 
 /datum/action/item_action/organ_action/wingdings_decoder/proc/update_button_state()
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = owner.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
@@ -371,7 +347,6 @@
 	UpdateButtonIcon()
 
 	return TRUE
-
 
 /datum/action/item_action/organ_action/wingdings_decoder/Trigger(left_click = TRUE)
 	if(!owner)
@@ -391,7 +366,6 @@
 
 	return TRUE
 
-
 /datum/action/item_action/organ_action/wingdings_decoder/IsAvailable()
 	if(!..())
 		return FALSE
@@ -406,7 +380,6 @@
 
 	return TRUE
 
-
 	// TRANSLATOR STORAGE UPGRADES //
 
 /obj/item/translator_upgrade // just adminspawn now
@@ -414,7 +387,6 @@
 	desc = "Учёные Nanotrasen ещё не поняли, как он работает. Может быть, позже..."
 	w_class = WEIGHT_CLASS_TINY
 	var/extra_slots = 1
-
 
 /obj/item/translator_upgrade/grey_retraslator
 	name = "PVR storage upgrade"
@@ -461,14 +433,11 @@
 	if(stored_language)
 		stored_language = GLOB.all_languages[stored_language]
 
-
 /obj/item/translator_chip/proc/on_install(mob/living/carbon/human/H, obj/item/organ/internal/cyberimp/mouth/translator/translator)
 	return TRUE
 
-
 /obj/item/translator_chip/proc/on_remove(mob/living/carbon/human/H, obj/item/organ/internal/cyberimp/mouth/translator/translator)
 	return TRUE
-
 
 /obj/item/translator_chip/attack_self(mob/living/user)
 	if(stored_language_rus)
@@ -489,7 +458,6 @@
 	user.put_in_hands(new_chip, silent = TRUE)
 	qdel(src)
 
-
 /obj/item/translator_chip/examine(mob/user)
 	. = ..()
 
@@ -501,7 +469,6 @@
 	else
 		. += span_notice("Судя по всему, не активирован.")
 
-
 /obj/item/translator_chip/update_icon_state()
 	for(var/obj/item/translator_chip/chip as anything in subtypesof(/obj/item/translator_chip))
 		if(stored_language_rus != chip.stored_language_rus)
@@ -509,7 +476,6 @@
 
 		icon_state = chip.icon_state
 		return
-
 
 	// CHIP SUBTYPES //
 
@@ -583,7 +549,6 @@
 	stored_language = LANGUAGE_DRASK
 	stored_language_rus = "Орлуум"
 
-
 /obj/item/translator_chip/wingdings
 	icon_state = "chip_wingdings"
 	stored_language = null
@@ -615,7 +580,6 @@
 
 	return TRUE
 
-
 /*	One day it will become a reality
 
 /obj/item/translator_chip/sintatajr
@@ -624,7 +588,6 @@
 	stored_language_rus = "Синта'Тайр"
 
 */
-
 
 #undef DEFAULT_CHIP_SLOTS
 #undef UPGRADE_SLOTS_GREY

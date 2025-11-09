@@ -26,7 +26,6 @@
 	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
 	foodtype = SUGAR | GRAIN | VEGETABLES
 
-
 /obj/item/reagent_containers/food/snacks/sliceable/braincake
 	name = "brain cake"
 	desc = "A squishy cake-thing."
@@ -337,10 +336,8 @@
 	tastes = list("cookie" = 1, "crunchy chocolate" = 1)
 	foodtype = SUGAR | GRAIN
 
-
 /obj/item/reagent_containers/food/snacks/cookie/empty
 	list_reagents = list()
-
 
 /obj/item/reagent_containers/food/snacks/fortunecookie
 	name = "fortune cookie"
@@ -546,7 +543,6 @@
 	tastes = list("pie" = 1, "meat" = 1, "acid" = 1)
 	foodtype = GRAIN | MEAT
 
-
 /obj/item/reagent_containers/food/snacks/applepie
 	name = "apple pie"
 	desc = "A pie containing sweet sweet love... or apple."
@@ -557,7 +553,6 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 	tastes = list("pie" = 1, "apple" = 1)
 	foodtype = GRAIN | FRUIT | SUGAR
-
 
 /obj/item/reagent_containers/food/snacks/cherrypie
 	name = "cherry pie"
@@ -811,7 +806,6 @@
 	tastes = list("pie" = 1, "blackberries" = 1)
 	foodtype = GRAIN | SUGAR | FRUIT
 
-
 /obj/item/reagent_containers/food/snacks/poppypretzel
 	name = "poppy pretzel"
 	desc = "A large soft pretzel full of POP! It's all twisted up!"
@@ -848,7 +842,6 @@
 	list_reagents = list("nutriment" = 8, "gold" = 5, "vitamin" = 4)
 	tastes = list("pie" = 1, "apple" = 1, "expensive metal" = 1)
 	foodtype = GRAIN | SUGAR | FRUIT
-
 
 /obj/item/reagent_containers/food/snacks/cracker
 	name = "cracker"

@@ -61,12 +61,10 @@
 	icon_state = "straight_cut3"
 	hole_size = LARGE_HOLE
 
-
 /obj/structure/fence/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(isprojectile(mover))
 		return TRUE
-
 
 /*
 	Shock user with probability prb (if all connections & power are working)
@@ -122,7 +120,6 @@
 					return
 			update_cut_status()
 
-
 /obj/structure/fence/attackby(obj/item/I, mob/user, params)
 	if(shock(user, 90))
 		add_fingerprint(user)
@@ -152,14 +149,12 @@
 
 	return  ..()
 
-
 /obj/structure/fence/Bumped(atom/movable/moving_atom)
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !ismob(moving_atom))
 		return .
 	shock(moving_atom, 70)
 	COOLDOWN_START(src, shock_cooldown, 1 SECONDS) // We do not want bump shock spam!
-
 
 /obj/structure/fence/attack_animal(mob/user)
 	. = ..()

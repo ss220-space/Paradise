@@ -23,14 +23,12 @@
 	var/list/possible_tensions = list(XBOW_TENSION_20, XBOW_TENSION_40, XBOW_TENSION_60, XBOW_TENSION_80, XBOW_TENSION_FULL)
 	accuracy = GUN_ACCURACY_RIFLE
 
-
 /obj/item/gun/throw/crossbow/get_cell()
 	return cell
 
 /obj/item/gun/throw/crossbow/emp_act(severity)
 	if(cell && severity)
 		emp_act(severity)
-
 
 /obj/item/gun/throw/crossbow/update_icon_state()
 	if(!tension)
@@ -40,7 +38,6 @@
 			icon_state = "[initial(icon_state)]-nocked"
 	else
 		icon_state = "[initial(icon_state)]-drawn"
-
 
 /obj/item/gun/throw/crossbow/update_overlays()
 	. = ..()
@@ -52,7 +49,6 @@
 	var/obj/item/arrow/bolt = to_launch
 	bolt_type += "_[bolt.overlay_prefix]"
 	. += image('icons/obj/weapons/crossbow_rod.dmi', bolt_type)
-
 
 /obj/item/gun/throw/crossbow/examine(mob/user)
 	. = ..()
@@ -115,7 +111,6 @@
 	else
 		user.visible_message("[usr] struggles to draws back the string of [src]!","[src] string is too tense to draw manually!")
 
-
 /obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
 		add_fingerprint(user)
@@ -131,7 +126,6 @@
 
 	return ..()
 
-
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
 	if(!cell)
@@ -142,12 +136,10 @@
 	balloon_alert(user, "батарейка извлечена")
 	cell = null
 
-
 /obj/item/gun/throw/crossbow/click_alt(mob/user)
 	if(src in user)
 		set_tension()
 		return CLICK_ACTION_SUCCESS
-
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Регулировка натяжения"
@@ -174,12 +166,10 @@
 
 	to_chat(usr, span_notice("You set the draw tension to <b>[choice]</b>."))
 
-
 /obj/item/gun/throw/crossbow/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	..()
 	tension = 0
 	update_icon()
-
 
 /obj/item/gun/throw/crossbow/french
 	name = "french powered crossbow"
@@ -261,7 +251,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-
 /obj/item/arrow/rod/fire/modify_arrow()
 	throwforce = 25
 	armour_penetration = 15
@@ -270,12 +259,10 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	superheated = 1
 
-
 /obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_heat())
 		fire_up()
-
 
 /obj/item/arrow/rod/fire/proc/fire_up(mob/user)
 	icon_state = "flame_rod_act"

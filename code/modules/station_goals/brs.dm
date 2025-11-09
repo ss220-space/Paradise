@@ -2,7 +2,6 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_list)
 GLOBAL_LIST_EMPTY(bluespace_rifts_server_list)
 GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 
-
 // BRS - Bluespace Rift Scan
 // The goal is to research the anomalous bluespace rift.
 /datum/station_goal/bluespace_rift

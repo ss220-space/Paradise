@@ -62,7 +62,6 @@
 		/obj/item/his_grace/no_sound = 1,
 	)
 
-
 /datum/thunderdome_gamemode/ranged
 	name = "Thunderdome Ranger Challenge"
 	arena_radius = RANGED_ARENA_RADIUS
@@ -111,6 +110,7 @@
 		/obj/item/gun/projectile/automatic/gyropistol = 2,
 		/obj/item/gun/projectile/automatic/sfg = 2,
 		/obj/item/gun/projectile/automatic/sp91rc = 2,
+		/obj/item/gun/projectile/automatic/sparkle_a12 = 2,
 		/obj/item/gun/projectile/automatic/m90 = 2,
 		/obj/item/gun/projectile/automatic/rusted/aksu = 2,
 		/obj/item/gun/projectile/automatic/rusted/ppsh = 2,
@@ -206,6 +206,7 @@
 		/obj/item/gun/projectile/automatic/gyropistol = 1,
 		/obj/item/gun/projectile/automatic/sfg = 1,
 		/obj/item/gun/projectile/automatic/sp91rc = 1,
+		/obj/item/gun/projectile/automatic/sparkle_a12 = 2,
 		/obj/item/gun/projectile/automatic/m90 = 1,
 		/obj/item/gun/projectile/automatic/rusted/aksu = 1,
 		/obj/item/gun/projectile/automatic/rusted/ppsh = 1,

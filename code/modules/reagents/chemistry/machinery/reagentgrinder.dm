@@ -51,7 +51,6 @@
 			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/moonlight = list("moonlin" = 0),
 
-
 			//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 			/obj/item/slime_extract = list(),
 			/obj/item/reagent_containers/food = list(),
@@ -170,10 +169,8 @@
 		beaker = null
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/reagentgrinder/update_icon_state()
 	icon_state = "juicer[beaker ? "1" : "0"]"
-
 
 /obj/machinery/reagentgrinder/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -199,7 +196,6 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	default_unfasten_wrench(user, I)
-
 
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -276,8 +272,6 @@
 	updateUsrDialog()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
-
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
 	return FALSE
 
@@ -312,7 +306,6 @@
 								beaker_contents += "[R.volume] - [R.name]<br>"
 						if(!anything)
 								beaker_contents += "Ничего<br>"
-
 
 				dat += {"
 		<b>Содержимое камеры:</b><br>
@@ -498,7 +491,6 @@
 										if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
 												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter")*abs(amount)*efficiency), space))
 												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
-
 
 						else
 								O.reagents.trans_id_to(beaker, r_id, min(amount, space))

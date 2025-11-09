@@ -32,7 +32,6 @@
 	min_start_money = 400
 	max_start_money = 700
 
-
 /datum/outfit/job/rd
 	name = "Research Director"
 	jobtype = /datum/job/rd
@@ -52,7 +51,6 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
-
 
 /datum/job/scientist
 	title = JOB_TITLE_SCIENTIST
@@ -94,7 +92,6 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
-
 
 /datum/job/scientist/student
 	title = JOB_TITLE_SCIENTIST_STUDENT

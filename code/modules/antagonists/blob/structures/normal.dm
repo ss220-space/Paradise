@@ -5,7 +5,6 @@
 	var/initial_integrity = BLOB_REGULAR_HP_INIT
 	brute_resist = BLOB_BRUTE_RESIST * 0.5
 
-
 /obj/structure/blob/normal/Initialize(mapload, owner_overmind)
 	. = ..()
 	update_integrity(initial_integrity)
@@ -31,7 +30,6 @@
 /obj/structure/blob/normal/update_icon_state()
 	icon_state = "blob[(compromised_integrity) ? "_damaged" : null]"
 	return ..()
-
 
 /obj/structure/blob/normal/update_state()
 	if(obj_integrity <= 15)

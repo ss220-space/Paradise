@@ -27,7 +27,6 @@
 	for(var/antag in antags)
 		prepare_antag_data(antag, cached_data, antag_name, antagonist_cache)
 
-
 /proc/prepare_nodatum_antags(list/cached_data, list/antagonist_cache)
 	var/datum/game_mode/mode = SSticker.mode
 	prepare_antag_list(mode.clockwork_cult, cached_data, "Культист Ратвара", antagonist_cache)

@@ -42,7 +42,6 @@
 	if(method == REAGENT_TOUCH)
 		M.adjust_fire_stacks(volume / 15)
 
-
 /datum/reagent/consumable/ethanol/beer
 	name = "Пиво"
 	id = "beer"
@@ -284,7 +283,6 @@
 		M.adjust_bodytemperature(-(5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.Jitter(10 SECONDS)
 	return ..()
-
 
 /////////////////////////////////////////////////////////////////cocktail entities//////////////////////////////////////////////
 

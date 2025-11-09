@@ -12,7 +12,6 @@
 	dead_icon = "soul_vessel"
 	clock = TRUE
 
-
 /obj/item/mmi/robotic_brain/clockwork/proc/get_ghost(mob/living/M, mob/user)
 	var/mob/dead/observer/chosen_ghost
 	if(M.ghost_can_reenter())
@@ -39,7 +38,6 @@
 	transfer_personality(M)
 	return TRUE
 
-
 /obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target, mob/user, obj/item/victim_brain)
 	if(ishuman(target))
 		for(var/obj/item/I in target)
@@ -54,7 +52,6 @@
 	if(victim_brain)
 		QDEL_NULL(victim_brain)
 
-
 /obj/item/mmi/robotic_brain/clockwork/transfer_personality(mob/candidate)
 	searching = FALSE
 	brainmob.possess_by_player(candidate.key)
@@ -65,7 +62,6 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	if(SSticker.mode.add_clocker(brainmob.mind))
 		brainmob.create_log(CONVERSION_LOG, "[brainmob.mind] been converted by [src.name]")
-
 
 /obj/item/mmi/robotic_brain/clockwork/proc/init_transfer(mob/living/attacker, obj/item/victim_brain, mob/living/target_body)
 	if(!isclocker(attacker))
@@ -151,7 +147,6 @@
 		return TRUE
 	return FALSE
 
-
 /obj/item/mmi/robotic_brain/clockwork/attack_self(mob/living/user)
 	if(!isclocker(user))
 		to_chat(user, span_warning("You fiddle around with [src], to no avail."))
@@ -161,7 +156,6 @@
 		do_sparks(5, TRUE, user)
 	else
 		to_chat(user, span_warning("You have to find a body or brain to fill a vessel."))
-
 
 /obj/item/mmi/robotic_brain/clockwork/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
@@ -180,7 +174,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/mmi/robotic_brain/attackby(obj/item/I, mob/user, params)
 	// capturing robotic brains
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
@@ -188,7 +181,6 @@
 		brain.init_transfer(user, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/organ/internal/brain/attackby(obj/item/I, mob/user, params)
 	// capturing organic brains
@@ -198,7 +190,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/organ/external/head/attackby(obj/item/I, mob/user, params)
 	// heads have brains too!
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
@@ -206,7 +197,6 @@
 		brain.init_transfer(user, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/mmi/robotic_brain/clockwork/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	// catching souls of dead/unconscious humans and robots

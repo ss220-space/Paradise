@@ -49,12 +49,10 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	/// Role name in antag menu
 	var/antag_menu_name
 
-
 /datum/antagonist/New()
 	GLOB.antagonists += src
 	objectives = list()
 	assigned_targets = list()
-
 
 /datum/antagonist/Destroy(force)
 	for(var/datum/objective/objective as anything in objectives)
@@ -87,7 +85,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 	return ..()
 
-
 /**
  * Loops through the owner's `antag_datums` list and determines if this one is blacklisted by any others.
  *
@@ -102,7 +99,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 		if(LAZYIN(A.antag_datum_blacklist, type))
 			return FALSE
 	return TRUE
-
 
 /**
  * Checks if the person trying to receive this datum is role banned from it.
@@ -119,7 +115,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 /datum/antagonist/proc/handle_last_instance_removal()
 	return
 
-
 /**
  * Attempts to replace the role banned antag with a ghost player.
  */
@@ -135,7 +130,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	owner.current.possess_by_player(chosen.key)
 	log_game("[owner.current.key] has taken control of ([owner.current]) to replace a jobbaned player.")
 	return TRUE
-
 
 /**
  * Proc called when the datum is given to a mind.
@@ -163,21 +157,17 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
 	return TRUE
 
-
-
 /**
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
  */
 /datum/antagonist/proc/add_owner_to_gamemode()
 	return
 
-
 /**
  * Removes the owner from their respective gamemode's list. For example `SSticker.mode.traitors -= owner`.
  */
 /datum/antagonist/proc/remove_owner_from_gamemode()
 	return
-
 
 /**
  * Displays a message and their objectives to the antag mob after the datum is added to them, i.e. "Greetings you are a traitor! etc.
@@ -190,7 +180,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	if(owner?.current && !silent)
 		messages.Add(span_userdanger("You are a [special_role]!"))
 
-
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
  *
@@ -199,8 +188,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 /datum/antagonist/proc/farewell()
 	if(owner?.current && !silent)
 		to_chat(owner.current, span_userdanger("You are no longer a [special_role]!"))
-
-
 
 /**
  * Removes antagonist datum effects from the old body and applies it to the new one.
@@ -214,7 +201,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 /datum/antagonist/proc/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	remove_innate_effects(old_body)
 	apply_innate_effects(new_body)
-
 
 /**
  * This handles the application of antag huds/special abilities.
@@ -234,7 +220,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	handle_clown_mutation(user, mob_override ? null : clown_gain_text, TRUE)
 	return user
 
-
 /**
  * This handles the removal of antag huds/special abilities.
  *
@@ -253,7 +238,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	handle_clown_mutation(user, mob_override ? null : clown_removal_text)
 	return user
 
-
 /**
  * Adds this datum's antag hud to `antag_mob`.
  *
@@ -265,7 +249,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	hud.join_hud(antag_mob)
 	set_antag_hud(antag_mob, antag_hud_name)
 
-
 /**
  * Removes this datum's antag hud from `antag_mob`.
  *
@@ -276,7 +259,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
 	hud.leave_hud(antag_mob)
 	set_antag_hud(antag_mob, null)
-
 
 /**
  * Re-sets the antag hud and `special_role` of the owner to that of the previous antag datum they had before this one was added.
@@ -293,7 +275,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	ASSERT(antag)
 	antag.add_antag_hud(owner.current) // Restore the hud of the previous antagonist datum.
 	owner.special_role = antag.special_role
-
 
 /**
  * Handles adding and removing the clumsy mutation from clown antags.
@@ -327,13 +308,11 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 		to_chat(clown, span_boldnotice(message))
 	return TRUE
 
-
 /**
  * Give the antagonist their objectives. Base proc, override as needed.
  */
 /datum/antagonist/proc/give_objectives()
 	return
-
 
 /**
  * Announces all objectives of this datum, and only this datum.
@@ -347,7 +326,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	for(var/datum/objective/objective in objectives)
 		to_chat(owner.current, span_notice("<b>Objective #[objective_num++]</b>: [objective.explanation_text]<br>"))
 	return TRUE
-
 
 /**
  * Create and add an objective of the given type.
@@ -407,7 +385,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	objectives += new_objective
 	return new_objective
 
-
 /**
  * Creates a new antagonist team.
  */
@@ -428,7 +405,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 /datum/antagonist/proc/get_team()
 	return team
 
-
 /**
  * Give the antag any final information or items.
  */
@@ -440,7 +416,6 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
  */
 /datum/antagonist/proc/get_antag_menu_name()
 	return antag_menu_name
-
 
 /**
  * Return if antag shows in antag menu
@@ -477,13 +452,11 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 	return report.Join("<br>")
 
-
 /**
  * Displayed at the start of roundend_category section, default to roundend_category header.
  */
 /datum/antagonist/proc/roundend_report_header()
 	return	span_header("The [roundend_category] were:<br>")
-
 
 /**
  * Displayed at the end of roundend_category section.

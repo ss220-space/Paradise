@@ -17,7 +17,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 
-
 //Green Kamina shades
 /obj/item/clothing/glasses/fluff/kamina/green
 	name = "Spiky Green-tinted Shades"

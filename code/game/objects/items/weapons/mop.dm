@@ -28,7 +28,6 @@
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-
 /obj/item/mop/proc/wet_mop(obj/target, mob/user)
 	if(user.a_intent == INTENT_GRAB)
 		. = FALSE
@@ -47,7 +46,6 @@
 	to_chat(user, span_notice("You wet [src] in [target]."))
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
-
 /obj/item/mop/proc/clean(turf/simulated/atom)
 	if(!reagents.has_reagent("water", 1) && !reagents.has_reagent("cleaner", 1) && !reagents.has_reagent("holywater", 1))
 		reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
@@ -64,7 +62,6 @@
 	SEND_SIGNAL(atom, COMSIG_COMPONENT_CLEAN_ACT, 5)
 	reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
-
 
 /obj/item/mop/afterattack(atom/atom, mob/user, proximity, params)
 	if(!proximity || iseffect(atom))
@@ -107,7 +104,6 @@
 
 	QDEL_LAZYLIST(bubbles)
 
-
 /obj/item/mop/proc/get_mopping_turfs(mob/user, turf/click_turf)
 	var/turf/user_turf = get_turf(user)
 	if(user_turf == click_turf)
@@ -125,7 +121,6 @@
 
 	return turfs
 
-
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
 	if(cart.mymop)
 		to_chat(user, span_notice("There is already [cart.mymop] in [cart]."))
@@ -136,7 +131,6 @@
 		cart.updateUsrDialog()
 		cart.update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/mop/proc/mopbucket_insert(mob/user, obj/structure/mopbucket/bucket)
 	if(bucket.mymop)
 		to_chat(user, span_notice("There is already [bucket.mymop] in [bucket]."))
@@ -145,7 +139,6 @@
 	if(.)
 		bucket.mymop = src
 		bucket.update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)

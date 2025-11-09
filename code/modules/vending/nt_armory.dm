@@ -105,7 +105,6 @@
 
 	underlays += emissive_appearance(icon, "nta_lightmask", src)
 
-
 /obj/machinery/vending/nta/ertarmory/blue
 	name = "NT ERT Medium Gear & Ammunition"
 	desc = "Автомат-помощник по выдаче снаряжения среднего класса."

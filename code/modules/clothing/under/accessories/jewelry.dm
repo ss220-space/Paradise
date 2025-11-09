@@ -16,14 +16,12 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 
-
 /obj/item/clothing/accessory/necklace/gem/examine(mob/user)
 	. = ..()
 	if(!gem)
 		. += span_notice("It looks like there is no gem inside.")
 	if(dragon_power)
 		. += span_notice("The necklace feels warm to touch.")
-
 
 /obj/item/clothing/accessory/necklace/gem/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -45,7 +43,6 @@
 	to_chat(user, span_notice("You have carefully inserted [new_gem] into [src]."))
 	gem = new_gem
 	update_state()
-
 
 /obj/item/clothing/accessory/necklace/gem/update_icon_state()
 	if(!gem)
@@ -78,7 +75,6 @@
 			icon_state = "amber_necklace"
 		else
 			icon_state = initial(icon_state)
-
 
 /obj/item/clothing/accessory/necklace/gem/update_name(updates = ALL)
 	. = ..()
@@ -113,7 +109,6 @@
 		else
 			name = initial(name)
 
-
 /obj/item/clothing/accessory/necklace/gem/proc/update_state()
 	if(!gem)
 		resistance_flags = initial(resistance_flags)
@@ -147,13 +142,11 @@
 			set_light_range_power_color(range = 3, power = 2, color = "#FFBF00")
 			set_light_on(TRUE)
 
-
 /obj/item/clothing/accessory/necklace/gem/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
 	if(. && dragon_power && isliving(has_suit.loc))
 		var/mob/living/wearer = has_suit.loc
 		wearer.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
-
 
 /obj/item/clothing/accessory/necklace/gem/on_removed(mob/detacher)
 	. = ..()
@@ -163,22 +156,18 @@
 			var/mob/living/wearer = old_suit.loc
 			wearer.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
-
 /obj/item/clothing/accessory/necklace/gem/attached_equip(mob/living/user)
 	if(dragon_power && isliving(user))
 		user.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
-
 
 /obj/item/clothing/accessory/necklace/gem/attached_unequip(mob/living/user)
 	if(dragon_power && isliving(user))
 		user.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
-
 /obj/item/clothing/accessory/necklace/gem/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
 	if(dragon_power && isliving(user) && slot == ITEM_SLOT_NECK)
 		user.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
-
 
 /obj/item/clothing/accessory/necklace/gem/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
@@ -199,12 +188,10 @@
 	transfer_prints = TRUE
 	cold_protection = HANDS
 
-
 /obj/item/clothing/gloves/jewelry_bracers/examine(mob/user)
 	. = ..()
 	if(!gem)
 		. += span_notice("It looks like there is no gem inside.")
-
 
 /obj/item/clothing/gloves/jewelry_bracers/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -226,7 +213,6 @@
 	to_chat(user, span_notice("You carefully insert [new_gem] into [src]."))
 	gem = new_gem
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-
 
 /obj/item/clothing/gloves/jewelry_bracers/update_icon_state()
 	if(!gem)
@@ -251,7 +237,6 @@
 			icon_state = initial(icon_state)
 			item_state = initial(item_state)
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/gloves/jewelry_bracers/update_name(updates = ALL)
 	. = ..()

@@ -19,7 +19,6 @@
 	icon_state = "NTlogo1"
 	layer = ABOVE_TRANSPARENT_TURF_LAYER
 
-
 /obj/effect/decal/novastation
 	name = "NavaStaion Logo"
 	desc = "Glory to Nanotrasen!"

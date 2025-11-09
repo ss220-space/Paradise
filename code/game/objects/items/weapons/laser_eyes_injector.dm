@@ -19,11 +19,9 @@
 	. = ..()
 	icon_state = "dnainjector[used ? "0" : ""]"
 
-
 /obj/item/laser_eyes_injector/update_name(updates = ALL)
 	. = ..()
 	name = used ? "used [initial(name)]" : initial(name)
-
 
 /obj/item/laser_eyes_injector/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -48,7 +46,6 @@
 	used = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
-
 /obj/effect/proc_holder/spell/lasereyes
 	name = "Лазеры из глаз"
 	desc = "Активация или дезактивация способности стрелять лазерами из глаз."
@@ -57,10 +54,8 @@
 	cooldown_min = 1 SECONDS
 	action_icon_state = "lazer_hulk"
 
-
 /obj/effect/proc_holder/spell/lasereyes/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/lasereyes/cast(list/targets, mob/user = usr)
 	if(HAS_TRAIT_FROM(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src)))

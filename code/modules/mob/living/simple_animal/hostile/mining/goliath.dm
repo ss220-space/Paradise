@@ -78,25 +78,21 @@
 		move_resist = MOVE_FORCE_VERY_STRONG
 		return TRUE
 
-
 /mob/living/simple_animal/hostile/asteroid/goliath/death(gibbed)
 	move_force = MOVE_FORCE_DEFAULT
 	move_resist = MOVE_RESIST_DEFAULT
 	pull_force = PULL_FORCE_DEFAULT
 	..(gibbed)
 
-
 /mob/living/simple_animal/hostile/asteroid/goliath/handle_automated_action()
 	if(charge_turf || !COOLDOWN_FINISHED(src, post_charge_delay))
 		return FALSE
 	return ..()
 
-
 /mob/living/simple_animal/hostile/asteroid/goliath/handle_automated_movement()
 	if(charge_turf || !COOLDOWN_FINISHED(src, post_charge_delay))
 		return FALSE
 	return ..()
-
 
 /mob/living/simple_animal/hostile/asteroid/goliath/AttackingTarget() //override to OpenFire close by
 	if(charge_turf)
@@ -108,7 +104,6 @@
 			if(!client && ranged && ranged_cooldown <= world.time)
 				OpenFire()
 				ranged_cooldown = world.time + ranged_cooldown_time
-
 
 /mob/living/simple_animal/hostile/asteroid/goliath/OpenFire()
 	var/tturf = get_turf(target)
@@ -122,7 +117,6 @@
 		else
 			charge()
 
-
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/melee_attack(list/dirs)
 	if(!islist(dirs))
 		dirs = GLOB.alldirs.Copy()
@@ -131,7 +125,6 @@
 		var/turf/E = get_step(src, d)
 		new /obj/effect/temp_visual/goliath_tentacle(E, src)
 	pre_attack = FALSE
-
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/ranged_attack()
 	var/tturf = get_turf(target)
@@ -142,7 +135,6 @@
 		return
 	icon_state = icon_aggro
 	pre_attack = FALSE
-
 
 #define GOLIATH_CHARGE_SPEED 0.7
 
@@ -170,7 +162,6 @@
 
 #undef GOLIATH_CHARGE_SPEED
 
-
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/on_bump(datum/source, atom/bumped_atom)
 	SIGNAL_HANDLER
 	if(ismineralturf(bumped_atom))
@@ -179,12 +170,10 @@
 			mineral.mineralAmt++
 	end_charge()
 
-
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/post_move(datum/source)
 	SIGNAL_HANDLER
 	if(get_turf(src) == charge_turf)
 		end_charge()
-
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/end_charge()
 	UnregisterSignal(src, COMSIG_MOVABLE_BUMP)
@@ -192,7 +181,6 @@
 	GLOB.move_manager.stop_looping(src)
 	INVOKE_ASYNC(src, PROC_REF(CheckAndAttack))
 	COOLDOWN_START(src, post_charge_delay, 2 SECONDS)
-
 
 /mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(
 	amount = 0,

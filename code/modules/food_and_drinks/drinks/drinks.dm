@@ -26,7 +26,6 @@
 /obj/item/reagent_containers/food/drinks/attack_self(mob/user)
 	return
 
-
 /obj/item/reagent_containers/food/drinks/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
 		return ..()
@@ -57,7 +56,6 @@
 	//Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 	if(isrobot(user) && length(transfer_data))
 		SynthesizeDrinkFromTransfer(user, transfer_data)
-
 
 /obj/item/reagent_containers/food/drinks/proc/SynthesizeDrinkFromTransfer(mob/user, list/transfer_data)
 
@@ -215,12 +213,10 @@
 	materials = list(MAT_METAL=400)
 	volume = 25
 
-
 ///////////////////////////////////////////////Drinks
 //Notes by Darem: Drinks are simply containers that start preloaded. Unlike condiments, the contents can be ingested directly
 //	rather then having to add it to something else first. They should only contain liquids. They have a default container size of 50.
 //	Formatting is the same as food.
-
 
 /obj/item/reagent_containers/food/drinks/coffee
 	name = "Robust Coffee"
@@ -315,14 +311,11 @@
 	possible_transfer_amounts = null
 	volume = 10
 
-
 /obj/item/reagent_containers/food/drinks/sillycup/update_icon_state()
 	icon_state = "water_cup[reagents.total_volume ? "" : "_e"]"
 
-
 /obj/item/reagent_containers/food/drinks/sillycup/on_reagent_change()
 	update_icon(UPDATE_ICON_STATE)
-
 
 //////////////////////////drinkingglass and shaker//
 //Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink
@@ -388,7 +381,6 @@
 	icon_state = "lithiumflask"
 	volume = 50
 
-
 /obj/item/reagent_containers/food/drinks/britcup
 	name = "cup"
 	desc = "A cup with the british flag emblazoned on it."
@@ -405,7 +397,6 @@
 /obj/item/reagent_containers/food/drinks/oilcan/full
 	list_reagents = list("oil" = 100)
 
-
 /obj/item/reagent_containers/food/drinks/zaza
 	name = "Cherry Zaza"
 	desc = "I possess Zaza!"
@@ -416,10 +407,8 @@
 	container_type = NONE
 	list_reagents = list("zaza" = 80)
 
-
 /obj/item/reagent_containers/food/drinks/zaza/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/reagent_containers/food/drinks/zaza/update_overlays()
 	. = ..()
@@ -445,7 +434,6 @@
 
 	if(!is_open_container())
 		. += "zaza_lid"
-
 
 /obj/item/reagent_containers/food/drinks/zaza/attack_self(mob/user)
 	if(!is_open_container())

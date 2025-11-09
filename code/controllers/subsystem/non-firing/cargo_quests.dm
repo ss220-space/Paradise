@@ -56,7 +56,6 @@ SUBSYSTEM_DEF(cargo_quests)
 
 	return SS_INIT_SUCCESS
 
-
 /datum/controller/subsystem/cargo_quests/proc/roll_start_quests()
 	for(var/I = 1 to NUMBER_OF_CC_QUEST)
 		create_new_quest(pick(centcomm_departaments), easy_mode = TRUE)
@@ -190,7 +189,6 @@ SUBSYSTEM_DEF(cargo_quests)
 			quest.quest_check_timer = null
 		qdel(quest)
 
-
 /datum/quest_difficulty
 	var/diff_flag
 	var/weight
@@ -236,7 +234,6 @@ SUBSYSTEM_DEF(cargo_quests)
 	min_quest_time = 30
 	max_quest_time = 60
 	bounty_for_difficulty = 1000
-
 
 #undef NUMBER_OF_CC_QUEST
 #undef NUMBER_OF_CORP_QUEST

@@ -122,7 +122,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	/// Time required to perform self-healing (2 seconds)
 	var/self_heal_delay = 2 SECONDS
 
-
 /**
  * Generates a random name for a golem
  *
@@ -212,14 +211,11 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	. = ..()
 	human.RemoveElement(/datum/element/material_heal)
 
-
 /datum/species/golem/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
 
-
 /datum/species/golem/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN
-
 
 /// Returns a list of material types required for healing
 /datum/species/golem/proc/get_heal_material_types()
@@ -238,7 +234,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		GLOB.cached_heal_materials[type] = heal_materials
 		return heal_materials
 	return
-
 
 //Random Golem
 
@@ -341,14 +336,12 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		H.adjust_fire_stacks(1)
 	..()
 
-
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/action/innate/ignite/ignite = locate() in H.actions
 	if(!ignite)
 		ignite = new
 		ignite.Grant(H)
-
 
 /datum/species/golem/plasma/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -360,7 +353,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		/obj/item/stack/ore/plasma,
 		/obj/item/stack/sheet/mineral/plasma,
 	)
-
 
 /datum/action/innate/ignite
 	name = "Поджог"
@@ -586,7 +578,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		TRAIT_LAVA_IMMUNE,
 	)
 
-
 /datum/species/golem/plastitanium/get_heal_material_types()
 	return list(
 		/obj/item/stack/ore/titanium,
@@ -623,7 +614,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	amount_required_for_heal = 1
 	self_heal_delay = 1 SECONDS
 
-
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/human)
 	var/update = NONE
@@ -633,7 +623,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	if(update)
 		human.updatehealth()
-
 
 /datum/species/golem/alloy/can_understand(mob/other) // Can understand everyone, but they can only speak over their mindlink
 	return TRUE
@@ -984,18 +973,15 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.a_intent != INTENT_HELP)
 		reactive_teleport(H)
 
-
 /datum/species/golem/bluespace/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
 	. = ..()
 	if(world.time > last_teleport + teleport_cooldown && defender != attacker && reactive_teleport(defender))
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 
-
 /datum/species/golem/bluespace/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_teleport + teleport_cooldown)
 		reactive_teleport(H)
 	return TRUE
-
 
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -1004,7 +990,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		unstable_teleport = new
 		unstable_teleport.Grant(H)
 		last_teleport = world.time
-
 
 /datum/species/golem/bluespace/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -1016,7 +1001,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/stack/sheet/bluespace_crystal,
 	)
-
 
 /datum/action/innate/unstable_teleport
 	name = "Нестабильный телепорт"
@@ -1103,7 +1087,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	amount_required_for_heal = 2
 	self_heal_delay = 1 SECONDS
 
-
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	last_banana = world.time
@@ -1112,15 +1095,12 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_POCKET_LEFT)
 	H.AddElement(/datum/element/waddling)
 
-
 /datum/species/golem/bananium/handle_dna(mob/living/carbon/human/H, remove = FALSE)
 	H.force_gene_block(GLOB.comicblock, !remove, TRUE, TRUE)
-
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.RemoveElement(/datum/element/waddling)
-
 
 /datum/species/golem/bananium/get_random_name()
 	var/clown_name = pick(GLOB.clown_names)
@@ -1133,13 +1113,11 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
-
 /datum/species/golem/bananium/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
 	. = ..()
 	if(world.time > last_banana + banana_cooldown && defender != attacker)
 		new /obj/item/grown/bananapeel/specialpeel(get_turf(defender))
 		last_banana = world.time
-
 
 /datum/species/golem/bananium/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_banana + banana_cooldown)
@@ -1227,7 +1205,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
-
 
 /**
  * Clockwork Golem - Servant of Ratvar

@@ -15,23 +15,19 @@
 	var/can_overcharge = FALSE //set this to FALSE if you don't want your flash to be overcharge capable
 	var/use_sound = 'sound/weapons/flash.ogg'
 
-
 /obj/item/memorizer/update_icon_state()
 	icon_state = "memorizer[broken ? "burnt" : ""]"
-
 
 /obj/item/memorizer/update_overlays()
 	. = ..()
 	if(overcharged)
 		. += "overcharge"
 
-
 /obj/item/memorizer/proc/clown_check(mob/user)
 	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		memorize_carbon(user, user, 15, FALSE)
 		return FALSE
 	return TRUE
-
 
 /obj/item/memorizer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -42,7 +38,6 @@
 		return .
 	battery_panel = !battery_panel
 	to_chat(user, span_notice("You [battery_panel ? "open" : "close"] the battery compartment on [src]."))
-
 
 /obj/item/memorizer/attackby(obj/item/I, mob/user, params)
 	if(!can_overcharge || !iscell(I))
@@ -62,12 +57,10 @@
 	update_icon(UPDATE_OVERLAYS)
 	qdel(I)
 
-
 /obj/item/memorizer/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	visible_message(span_notice("The [name] burns out!"))
-
 
 /obj/item/memorizer/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
@@ -79,7 +72,6 @@
 
 	last_used = world.time
 	times_used = max(0, times_used) //sanity
-
 
 /obj/item/memorizer/proc/try_use_flash(mob/user)
 	flash_recharge(user)
@@ -97,7 +89,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /obj/item/memorizer/proc/memorize_carbon(mob/living/carbon/fucking_target, mob/user, power = 10 SECONDS, targeted = TRUE)
 	if(user)
@@ -126,7 +117,6 @@
 	if(fucking_target.flash_eyes())
 		fucking_target.AdjustConfused(power)
 
-
 /obj/item/memorizer/attack(mob/living/fucking_target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(!try_use_flash(user))
@@ -149,7 +139,6 @@
 		return .|ATTACK_CHAIN_SUCCESS
 	user.visible_message(span_disarm("[user] fails to blind [fucking_target] with the [name]!"), span_warning("You fail to blind [fucking_target] with the [name]!"))
 
-
 /obj/item/memorizer/attack_self(mob/living/carbon/user, flag = 0, emp = FALSE)
 	if(!try_use_flash(user))
 		return FALSE
@@ -159,7 +148,6 @@
 	)
 	for(var/mob/living/carbon/fucking_target in oviewers(3, get_turf(src)))
 		memorize_carbon(fucking_target, user, 3, FALSE)
-
 
 /obj/item/memorizer/emp_act(severity)
 	if(!try_use_flash())

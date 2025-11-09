@@ -43,7 +43,6 @@
 	backbag = 2
 	age = get_rand_age(S)
 
-
 /datum/preferences/proc/randomize_hair_color(target = "hair")
 	if(prob (75) && target == "facial") // Chance to inherit hair color
 		f_colour = h_colour
@@ -353,13 +352,11 @@
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
 				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
 
-
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(current_species.bodyflags & NO_EYES))
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
 		eyes_s.Blend(e_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
-
 
 	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
 	if(hair_style)

@@ -65,7 +65,6 @@
 	icon_state = "black"
 	item_state = "r_hands"
 
-
 /obj/item/clothing/gloves/color/black/forensics
 	name = "forensics gloves"
 	desc = "These high-tech gloves don't leave any material traces on objects they touch. Perfect for leaving crime scenes undisturbed...both before and after the crime."
@@ -153,11 +152,9 @@
 	icon_state = "latex"
 	item_state = "lgloves"
 
-
 /obj/item/clothing/gloves/cursedclown/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
@@ -212,13 +209,11 @@
 			return TRUE
 	return FALSE
 
-
 /obj/item/clothing/gloves/color/yellow/stun/update_overlays()
 	. = ..()
 	. += "gloves_wire"
 	if(cell)
 		. += "gloves_cell"
-
 
 /obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/I, mob/living/user, params)
 	if(iscell(I))
@@ -234,7 +229,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -280,7 +274,6 @@
 	L.dirslash_enabled = !L.dirslash_enabled
 	to_chat(src, span_notice("Directrion slash is [L.dirslash_enabled? "enabled" : "disabled"] now."))
 
-
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc
 
@@ -315,7 +308,6 @@
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
 
-
 /obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	if(razor_damage_low > initial(razor_damage_low))
 		to_chat(user, span_warning("[src] has already been refined before. It cannot be sharpened further!"))
@@ -323,7 +315,6 @@
 	razor_damage_low = clamp(razor_damage_low + whetstone.increment, 0, whetstone.max)
 	razor_damage_high = clamp(razor_damage_high + whetstone.increment, 0, whetstone.max)
 	return TRUE
-
 
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE
@@ -469,7 +460,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
 	)
-
 
 /obj/item/clothing/gloves/combat/swat/syndicate
 	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Show these NT pigs on your fingers who's the boss here!"

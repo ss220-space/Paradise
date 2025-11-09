@@ -392,12 +392,10 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
 	new /obj/effect/decal/cleanable/ash(user.loc)
 
-
 /obj/structure/part_dial/Initialize(mapload)
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	GLOB.poi_list += src
 	. = ..()
-
 
 /obj/structure/part_dial/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)

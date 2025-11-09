@@ -13,7 +13,6 @@
 	info_links = info
 	update_icon()
 
-
 // Space Base Spawners. Исспользуется переделанная копия спавнеров лавалендовских.
 /obj/effect/mob_spawn/human/space_base_syndicate
 	name = "Syndicate Scientist sleeper"

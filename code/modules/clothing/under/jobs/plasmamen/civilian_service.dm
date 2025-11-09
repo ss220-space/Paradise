@@ -169,7 +169,6 @@
 		PREPOSITIONAL = "защитном костюме ботаника",
 	)
 
-
 /obj/item/clothing/under/plasmaman/mime
 	name = "mime envirosuit"
 	desc = "Защитный костюм плазмолюда, разработанный специально для мима. Цвета не самые яркие."

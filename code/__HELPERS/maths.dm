@@ -53,7 +53,6 @@
 	return (mean + stddev * R1)
 #undef ACCURACY
 
-
 /proc/get_turf_in_angle(angle, turf/starting, increments = 1)
 	var/pixel_x = 0
 	var/pixel_y = 0
@@ -97,7 +96,6 @@
 		region_y2["[i]"] = TRUE
 
 	return list(region_x1 & region_x2, region_y1 & region_y2)
-
 
 /proc/RaiseToPower(num, power)
 	if(!power)

@@ -186,7 +186,6 @@
 		var/turf/target_turf = pick(spawn_exit)
 		O.forceMove(target_turf)
 
-
 // Soulscythe
 
 #define MAX_BLOOD_LEVEL 100
@@ -287,7 +286,6 @@
 /obj/item/soulscythe/proc/on_logout(mob/source)
 	SIGNAL_HANDLER
 	source?.canon_client?.show_popup_menus = TRUE
-
 
 /obj/item/soulscythe/attack_self(mob/user, modifiers)
 	if(using || soul.ckey || soul.stat)
@@ -529,7 +527,6 @@
 		INSTRUMENTAL = "таинственным духом",
 		PREPOSITIONAL = "таинственном духе",
 	)
-
 
 /mob/living/simple_animal/soulscythe/get_status_tab_items()
 	var/list/status_tab_data = ..()

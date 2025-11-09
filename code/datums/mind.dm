@@ -91,11 +91,9 @@
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 
-
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
-
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -113,14 +111,11 @@
 	soulOwner = null
 	return ..()
 
-
 /datum/mind/proc/set_original_mob(mob/original)
 	original_mob_UID = original.UID()
 
-
 /datum/mind/proc/is_original_mob(mob/o_mob)
 	return original_mob_UID == o_mob.UID()
-
 
 // Do not use for admin related things as this can hide the mob's ckey
 /datum/mind/proc/get_display_key()
@@ -150,7 +145,6 @@
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
-
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	if(!istype(new_character))
@@ -199,14 +193,11 @@
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
-
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"
 
-
 /datum/mind/proc/wipe_memory()
 	memory = null
-
 
 /datum/mind/proc/show_memory(mob/recipient, window = TRUE)
 	if(!recipient)
@@ -240,7 +231,6 @@
 	else
 		to_chat(recipient, "<i>[output]</i>")
 
-
 /datum/mind/proc/gen_objective_text(admin = FALSE)
 	. = ""
 	var/obj_count = 1
@@ -257,7 +247,6 @@
 			. += "</a>"
 		. += "<br>"
 
-
 /**
  * Gets every objective this mind owns, including all of those from any antag datums they have, and returns them as a list.
  */
@@ -272,7 +261,6 @@
 
 	return all_objectives
 
-
 /**
  * Completely remove the given objective from the src mind and it's antag datums.
  */
@@ -283,14 +271,12 @@
 	if(qdel_on_remove)
 		qdel(objective)
 
-
 /**
  * Completely remove ALL objectives from the src mind and it's antag datums.
  */
 /datum/mind/proc/remove_all_objectives(qdel_on_remove = FALSE)
 	for(var/datum/objective/objective in get_all_objectives())
 		remove_objective(objective, qdel_on_remove)
-
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
 	. = gamemode
@@ -311,7 +297,6 @@
 	else
 		. = "Mindshield Implant:<b>No Implant</b>|<a href='byond://?src=[UID()];implant=add'>Implant [H.p_them()]!</a></br> or <a href='byond://?src=[UID()];implant=ertadd'>ERT implant [H.p_them()]!</a></br>"
 
-
 /datum/mind/proc/memory_edit_revolution(mob/living/carbon/human/H)
 	. = _memory_edit_header("revolution")
 	if(src in SSticker.mode.head_revolutionaries)
@@ -327,7 +312,6 @@
 		. += "<b>NO</b>|<a href='byond://?src=[UID()];revolution=headrev'>headrev</a>|<a href='byond://?src=[UID()];revolution=rev'>rev</a>"
 
 	. += _memory_edit_role_enabled(ROLE_REV)
-
 
 /datum/mind/proc/memory_edit_cult(mob/living/carbon/human/H)
 	. = _memory_edit_header("cult")
@@ -348,7 +332,6 @@
 		. += "<b>NO</b>|<a href='byond://?src=[UID()];clock=clocker'>clocker</a>"
 
 	. += _memory_edit_role_enabled(ROLE_CLOCKER)
-
 
 /datum/mind/proc/memory_edit_clockwork_silicon()
 	. = _memory_edit_header("clockwork")
@@ -386,7 +369,6 @@
 		. += "<b>NO</b>|<a href='byond://?src=[UID()];wizard=wizard'>wizard</a>|<a href='byond://?src=[UID()];wizard=apprentice'>apprentice</a>"
 	. += _memory_edit_role_enabled(ROLE_WIZARD)
 
-
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
 	. = _memory_edit_header("changeling", list("traitorchan", "traitorthiefchan", "thiefchan", "changelingthief"))
 	var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
@@ -402,7 +384,6 @@
 		. += "<a href='byond://?src=[UID()];changeling=changeling'>changeling</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
-
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("vampire", list("traitorvamp"))
@@ -436,7 +417,6 @@
 		. += "<b><font color='red'>THRALL</font></b>|<a href='byond://?src=[UID()];vampthrall=clear'>no</a>"
 	else
 		. += "thrall|<b>NO</b>"
-
 
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
@@ -472,7 +452,6 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
-
 /datum/mind/proc/memory_edit_ninja()
 	. = _memory_edit_header("ninja")
 	var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
@@ -485,7 +464,6 @@
 		. += "<a href='byond://?src=[UID()];ninja=ninja'>ninja</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_NINJA)
-
 
 /datum/mind/proc/memory_edit_devil(mob/living/H)
 	. = _memory_edit_header("devil", list("devilagents"))
@@ -502,7 +480,6 @@
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
-
 /datum/mind/proc/memory_edit_space_dragon()
 	. = _memory_edit_header("dragon")
 	var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
@@ -511,14 +488,12 @@
 	else
 		. += "<a href='byond://?src=[UID()];space_dragon=space_dragon'>space dragon</a>|<b>NO</b>"
 
-
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
 	if(src in SSticker.mode.eventmiscs)
 		. += "<b>YES</b>|<a href='byond://?src=[UID()];eventmisc=clear'>no</a>"
 	else
 		. += "<a href='byond://?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
-
 
 /datum/mind/proc/memory_edit_blob()
 	. = _memory_edit_header("blob")
@@ -625,7 +600,6 @@
 	else
 		. += "mindslave|<b>NO</b>"
 
-
 /datum/mind/proc/memory_edit_malf_ai()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
 	var/datum/antagonist/malf_ai/malf_datum = has_antag_datum(/datum/antagonist/malf_ai)
@@ -637,7 +611,6 @@
 		. += "<a href='byond://?src=[UID()];malf_ai=malf_ai'>malf AI</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_MALF_AI)
-
 
 /datum/mind/proc/memory_edit_thief()
 	. = _memory_edit_header("thief", list("traitorthief", "traitorthiefvamp", "traitorthiefchan", "thiefchan", "thiefvamp", "changelingthief", "vampirethief"))
@@ -652,7 +625,6 @@
 		. += "<a href='byond://?src=[UID()];thief=thief'>thief</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_THIEF)
-
 
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
@@ -673,7 +645,6 @@
 				n_e_robots++
 		. += "<br>[n_e_robots] of [length(ai.connected_robots)] slaved cyborgs are emagged. <a href='byond://?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
 
-
 /datum/mind/proc/memory_edit_uplink()
 	. = ""
 	if(ishuman(current) && ((src in SSticker.mode.head_revolutionaries) || \
@@ -692,7 +663,6 @@
 				. += ", [crystals] crystals"
 		. += "." //hiel grammar
 		//         ^ whoever left this comment is literally a grammar nazi. stalin better. in russia grammar correct you.
-
 
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
@@ -1490,7 +1460,6 @@
 					to_chat(current, span_clockitalic("Assist your new compatriots in their brass dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back."))
 					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
 
-
 	else if(href_list["wizard"])
 
 		switch(href_list["wizard"])
@@ -1561,7 +1530,6 @@
 					to_chat(usr, span_notice("The objectives for wizard apprentice [key] have been generated. You can edit them and announce manually."))
 					log_admin("[key_name(usr)] has automatically forged wizard apprentice objectives for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has automatically forged wizard apprentice objectives for [key_name_admin(current)]")
-
 
 	else if(href_list["changeling"])
 		switch(href_list["changeling"])
@@ -1839,7 +1807,6 @@
 				datum.equip()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a nuclear operative")
-
 
 	else if(href_list["space_dragon"])
 		switch(href_list["space_dragon"])
@@ -2553,7 +2520,6 @@
 
 	edit_memory()
 
-
 /**
  * Create and/or add the `datum_type_or_instance` antag datum to the src mind.
  *
@@ -2589,7 +2555,6 @@
 	antag.on_gain()
 	return antag
 
-
 /**
  * Remove the specified `datum_type` antag datum from the src mind.
  *
@@ -2604,7 +2569,6 @@
 
 	qdel(antag)
 
-
 /**
  * Removes all antag datums from the src mind.
  *
@@ -2618,7 +2582,6 @@
 	antag_datums?.Cut()
 	antag_datums = null
 
-
 /datum/mind/proc/remove_revolutionary_role()
 	if(src in SSticker.mode.revolutionaries)
 		SSticker.mode.revolutionaries -= src
@@ -2631,7 +2594,6 @@
 		to_chat(current, span_warning(span_fontsize3("<b>You have been brainwashed! You are no longer a head revolutionary!</b>")))
 		SSticker.mode.update_rev_icons_removed(src)
 		special_role = null
-
 
 /datum/mind/proc/remove_cult_role()
 	if(src in SSticker.mode.cult)
@@ -2657,8 +2619,6 @@
 		current.faction = list("Station")
 		SSticker.mode.update_wiz_icons_removed(src)
 
-
-
 /datum/mind/proc/remove_changeling_role()
 	var/datum/antagonist/traitor/chan_datum = has_antag_datum(/datum/antagonist/changeling)
 	if(!chan_datum)
@@ -2667,14 +2627,12 @@
 	chan_datum.silent = TRUE
 	remove_antag_datum(chan_datum)
 
-
 /datum/mind/proc/remove_vampire_role()
 	var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 	if(!vamp)
 		return
 
 	remove_antag_datum(vamp)
-
 
 /datum/mind/proc/remove_syndicate_role()
 	remove_antag_datum(/datum/antagonist/nuclear_operative)
@@ -2692,7 +2650,6 @@
 	else if(src in SSticker.mode.sintouched)
 		remove_antag_datum(/datum/antagonist/sintouched)
 
-
 /datum/mind/proc/remove_contractor_role()
 	var/datum/antagonist/contractor/contractor_datum = has_antag_datum(/datum/antagonist/contractor)
 	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
@@ -2705,7 +2662,6 @@
 	remove_antag_datum(/datum/antagonist/contractor)
 	traitor_datum.contractor_pending = null
 
-
 /datum/mind/proc/remove_traitor_role()
 	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor_datum)
@@ -2714,14 +2670,12 @@
 	traitor_datum.silent = TRUE
 	remove_antag_datum(traitor_datum)
 
-
 /datum/mind/proc/remove_thief_role()
 	var/datum/antagonist/thief/thief_datum = has_antag_datum(/datum/antagonist/thief)
 	if(!thief_datum)
 		return
 
 	remove_antag_datum(thief_datum)
-
 
 /datum/mind/proc/remove_shadow_role()
 	SSticker.mode.update_shadow_icons_removed(src)
@@ -2733,14 +2687,12 @@
 	else if(src in SSticker.mode.shadowling_thralls)
 		SSticker.mode.remove_thrall(src,0)
 
-
 /datum/mind/proc/remove_ninja_role()
 	var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
 	if(!ninja_datum)
 		return
 
 	remove_antag_datum(ninja_datum)
-
 
 /datum/mind/proc/remove_all_antag_roles(adminlog = TRUE) // Except abductor, because it isnt implemented in admin panel
 	remove_revolutionary_role()
@@ -2761,7 +2713,6 @@
 		message_admins("[ADMIN_LOOKUP(current)] lost all antag roles")
 		log_admin("[key_name_log(current)] lost all antag roles")
 
-
 /**
  * Returns an antag datum instance if the src mind has the specified `datum_type`. Returns `null` otherwise.
  *
@@ -2776,7 +2727,6 @@
 		else if(A.type == datum_type)
 			return A
 
-
 /datum/mind/proc/prepare_announce_objectives(title = TRUE)
 	if(!current)
 		return
@@ -2785,7 +2735,6 @@
 		text.Add(span_notice("Your current objectives:"))
 	text.Add(gen_objective_text())
 	return text
-
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
@@ -2799,7 +2748,6 @@
 	// We will return first found uplink in mob contents if its not a traitor
 	var/list/uplinks = current?.collect_all_atoms_of_type(/obj/item/uplink/hidden)
 	return length(uplinks) ? uplinks[1] : null
-
 
 /datum/mind/proc/take_uplink()
 	var/obj/item/uplink/hidden/uplink = find_syndicate_uplink()
@@ -2819,26 +2767,21 @@
 
 	qdel(uplink)
 
-
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
 		add_antag_datum(/datum/antagonist/traitor)
-
 
 /datum/mind/proc/make_goon_vampire()
 	if(!isvampire(src))
 		add_antag_datum(/datum/antagonist/vampire/goon_vampire)
 
-
 /datum/mind/proc/make_vampire()
 	if(!isvampire(src))
 		add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
-
 /datum/mind/proc/make_free_vampire()
 	if(!isvampire(src))
 		add_antag_datum(/datum/antagonist/vampire/free_vampire)
-
 
 /datum/mind/proc/make_Wizard()
 	if(!(src in SSticker.mode.wizards))
@@ -2860,7 +2803,6 @@
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
 
-
 /datum/mind/proc/make_Space_Ninja(datum/objective/custom_objective)
 	if(isninja(src))
 		return
@@ -2880,13 +2822,11 @@
 	//"generic" only, we don't want to spawn other antag's
 	ninja_datum.make_objectives_generate_antags(NINJA_TYPE_GENERIC, custom_objective)
 
-
 /datum/mind/proc/make_Rev()
 	SSticker.mode.head_revolutionaries += src
 	SSticker.mode.forge_revolutionary_objectives(src)
 	SSticker.mode.equip_revolutionary(current)
 	SSticker.mode.greet_revolutionary(src,0)
-
 
 /datum/mind/proc/make_Thief()
 	if(!has_antag_datum(/datum/antagonist/thief))
@@ -2950,7 +2890,6 @@
 	if(ishuman(current))
 		return /datum/antagonist/blob_infected/human
 
-
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/spell)
 	if(!istype(spell))
 		return
@@ -2981,7 +2920,6 @@
 
 	return TRUE
 
-
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
 	if(old_current?.actions)
 		for(var/datum/action/A in old_current.actions)
@@ -2989,11 +2927,9 @@
 				A.Grant(new_character)
 	transfer_mindbound_actions(new_character)
 
-
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
 		spell.action.Grant(new_character)
-
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
@@ -3021,7 +2957,6 @@
 	if(G)
 		G.reenter_corpse()
 
-
 /datum/mind/proc/make_zealot(mob/living/carbon/human/missionary, convert_duration = 10 MINUTES, team_color = "red")
 
 	zealot_master = missionary
@@ -3042,7 +2977,6 @@
 	add_conversion_logs(current, "became a mindslave for [convert_duration/600] minutes. Master: [key_name_log(missionary)]")
 	addtimer(CALLBACK(src, PROC_REF(remove_zealot), jumpsuit), convert_duration) //deconverts after the timer expires
 
-
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
 	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
@@ -3060,7 +2994,6 @@
 
 	to_chat(current, span_warning("<b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b>"))
 	to_chat(current, span_warning("<b>This means you don't remember who you were working for or what you were doing.</b>"))
-
 
 /datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
 	if(damnation_type)

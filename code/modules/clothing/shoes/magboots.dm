@@ -44,14 +44,11 @@
 	magpulse_name = "anchoring spikes"
 	slowdown_active = 2
 
-
 /obj/item/clothing/shoes/magboots/update_icon_state()
 	icon_state = "[base_icon_state][magpulse]"
 
-
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	toggle_magpulse(user)
-
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, silent = FALSE)
 	magpulse = !magpulse
@@ -67,7 +64,6 @@
 	if(!silent)
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	update_equipped_item()
-
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
@@ -167,7 +163,6 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_range = 2
-
 
 /obj/item/clothing/shoes/magboots/wizard/toggle_magpulse(mob/user, silent = FALSE)
 	if(!user || !user.mind)

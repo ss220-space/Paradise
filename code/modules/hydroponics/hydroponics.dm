@@ -85,7 +85,6 @@
 	QDEL_NULL(myseed)
 	return ..()
 
-
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -93,10 +92,8 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/machinery/hydroponics/constructable/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I)
-
 
 /obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
 
@@ -123,11 +120,9 @@
 
 	return connected
 
-
 /obj/machinery/hydroponics/click_alt(mob/living/user)
 	toggle_lid(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
 	if(!wrenchable || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -136,7 +131,6 @@
 	lid_closed = !lid_closed
 	to_chat(user, span_notice("You [lid_closed ? "close" : "open"] the tray's lid."))
 	update_state()
-
 
 /obj/machinery/hydroponics/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
@@ -267,7 +261,6 @@
 		if(needs_update)
 			update_state()
 
-
 /obj/machinery/hydroponics/proc/nutrimentMutation()
 	if(mutmod == 0)
 		return
@@ -285,7 +278,6 @@
 		else if(prob(50))	//12.5%
 			mutatespecie()
 
-
 /obj/machinery/hydroponics/proc/update_state()
 	//Refreshes the icon and sets the luminosity
 	if(self_sustaining)
@@ -301,7 +293,6 @@
 
 	update_icon()
 
-
 /obj/machinery/hydroponics/update_overlays()
 	. = ..()
 	if(self_sustaining && !istype(src, /obj/machinery/hydroponics/soil))
@@ -314,7 +305,6 @@
 	if(lid_closed)
 		. += image(icon='icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover", layer = LID_LAYER)
 
-
 /obj/machinery/hydroponics/update_icon_state()
 	var/n = 0
 	for(var/Dir in GLOB.cardinal)
@@ -323,7 +313,6 @@
 			n += Dir
 
 	icon_state = "hoses-[n]"
-
 
 /obj/machinery/hydroponics/proc/update_icon_plant()
 	var/image/I
@@ -340,7 +329,6 @@
 	I.layer = PLANT_LAYER
 	return I
 
-
 /obj/machinery/hydroponics/proc/update_icon_lights()
 	. = list()
 	if(waterlevel <= 10)
@@ -353,7 +341,6 @@
 		. += "over_alert3"
 	if(harvest)
 		. += "over_harvest3"
-
 
 /obj/machinery/hydroponics/examine(mob/user)
 	. = ..()
@@ -390,7 +377,6 @@
 	if(pestlevel >= 5)
 		. += span_warning("[src] is filled with tiny worms!")
 	. += "" // Empty line for readability.
-
 
 /obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
 	dead = 0
@@ -443,7 +429,6 @@
 /obj/machinery/hydroponics/proc/hardmutate()
 	mutate(4, 10, 2, 4, 50, 4, 10, 3)
 
-
 /obj/machinery/hydroponics/proc/mutatespecie() // Mutagent produced a new plant!
 	if(!myseed || dead)
 		return
@@ -455,7 +440,6 @@
 	var/mutantseed = pick(myseed.mutatelist)
 	QDEL_NULL(myseed)
 	myseed = new mutantseed
-
 
 	hardmutate()
 	age = 0
@@ -469,7 +453,6 @@
 	sleep(5) // Wait a while
 	update_state()
 	visible_message(span_warning("[oldPlantName] suddenly mutates into [myseed.plantname]!"))
-
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
 	if(weedlevel > 5)
@@ -492,7 +475,6 @@
 	else
 		to_chat(usr, span_warning("The few weeds in [src] seem to react, but only for a moment..."))
 
-
 /obj/machinery/hydroponics/proc/plantdies() // OH NOES!!!!! I put this all in one function to make things easier
 	plant_health = 0
 	harvest = 0
@@ -502,8 +484,6 @@
 		update_state()
 	plant_hud_set_health()
 	plant_hud_set_status()
-
-
 
 /obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
@@ -762,7 +742,6 @@
 			else
 				to_chat(user, span_warning("Nothing happens..."))
 
-
 /obj/machinery/hydroponics/attackby(obj/item/I, mob/user, params)
 	var/is_reagent_container = istype(I, /obj/item/reagent_containers)
 	if(user.a_intent == INTENT_HARM)
@@ -970,7 +949,6 @@
 
 	return ..()
 
-
 /obj/machinery/hydroponics/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -1119,7 +1097,6 @@
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights
 
-
 /obj/machinery/hydroponics/soil/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shovel) && !istype(I, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
 		I.play_tool_sound(src)
@@ -1127,7 +1104,6 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 #undef PLANT_LAYER
 #undef LID_LAYER

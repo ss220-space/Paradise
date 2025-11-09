@@ -283,7 +283,6 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(src, 8)
 	blinking = FALSE
 
-
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/chaser_swarm(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
 	visible_message(span_hierophant("\"Mx gerrsx lmhi.\""))
@@ -627,7 +626,6 @@ Difficulty: Hard
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
-
 /obj/effect/temp_visual/hierophant/wall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -642,7 +640,6 @@ Difficulty: Hard
 			return .
 	if(mover != caster)
 		return FALSE
-
 
 /obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
 	duration = 98
@@ -766,7 +763,6 @@ Difficulty: Hard
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -778,13 +774,11 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-
 /obj/effect/temp_visual/hierophant/blast/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(bursting)
 		INVOKE_ASYNC(src, PROC_REF(do_damage), get_turf(src))
-
 
 /obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
 	if(!damage)
@@ -843,14 +837,11 @@ Difficulty: Hard
 /obj/effect/hierophant/update_icon_state()
 	icon_state = "hierophant_tele_[teleporting ? "on" : "off"]"
 
-
 /obj/effect/hierophant/ex_act()
 	return
 
-
 /obj/effect/hierophant/has_prints()
 	return TRUE
-
 
 /obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hierophant_club))

@@ -8,7 +8,6 @@
 	dna_cost = 1
 	req_human = TRUE //Monkeys can't grab
 
-
 /datum/action/changeling/swap_form/can_sting(mob/living/carbon/user)
 	if(!..())
 		return FALSE
@@ -39,7 +38,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /datum/action/changeling/swap_form/sting_action(mob/living/carbon/user)
 	var/mob/living/carbon/human/target = user.pulling

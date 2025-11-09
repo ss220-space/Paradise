@@ -8,10 +8,8 @@
 	/// Special message shown on item withdrowal
 	var/on_withdraw_message = span_notice("You draw the power out of your hand.")
 
-
 /obj/effect/proc_holder/spell/touch/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/touch/Click()
 	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -21,7 +19,6 @@
 		discharge_hand(usr, TRUE)
 		return FALSE
 	charge_hand(usr)
-
 
 /obj/effect/proc_holder/spell/touch/proc/charge_hand(mob/living/carbon/user)
 
@@ -40,7 +37,6 @@
 	else
 		to_chat(user, span_warning("Your hands are full!"))
 
-
 /obj/effect/proc_holder/spell/touch/proc/discharge_hand(atom/target, any_hand = FALSE)
 	SIGNAL_HANDLER
 
@@ -55,7 +51,6 @@
 	QDEL_NULL(attached_hand)
 	return COMPONENT_CANCEL_DROP
 
-
 /obj/effect/proc_holder/spell/touch/disintegrate
 	name = "Disintegrate"
 	desc = "This spell charges your hand with vile energy that can be used to violently explode victims."
@@ -65,7 +60,6 @@
 	cooldown_min = 20 SECONDS //100 deciseconds reduction per rank
 
 	action_icon_state = "gib"
-
 
 /obj/effect/proc_holder/spell/touch/flesh_to_stone
 	name = "Flesh to Stone"

@@ -3,7 +3,6 @@
 #define ION_ANNOUNCE 1
 #define ION_SYNDICATE 2
 
-
 /datum/event/ion_storm
 	var/botEmagChance = 10
 	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
@@ -12,14 +11,12 @@
 	var/location_name = null
 	announceWhen	= 1
 
-
 /datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, forced = FALSE, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
 	src.botEmagChance = botEmagChance
 	src.announceEvent = announceEvent
 	src.ionMessage = ionMessage
 	src.ionAnnounceChance = ionAnnounceChance
 	..()
-
 
 /datum/event/ion_storm/announce(false_alarm)
 	if(announceEvent == ION_SYNDICATE)
@@ -38,7 +35,6 @@
 			new_title = ANNOUNCE_ANOMALY_RU,
 			new_sound = 'sound/AI/ions.ogg'
 		)
-
 
 /datum/event/ion_storm/start()
 	//AI laws
@@ -78,7 +74,6 @@
 	var/message = ""
 	message = uppertext(generate_static_ion_law())
 	return message
-
 
 /proc/generate_static_ion_law()
 	var/iondepartment = pick_list("ion_laws.json", "отделы")
@@ -205,15 +200,12 @@
 							"ВЫ — САМЫЙ НАСТОЯЩИЙ ПОДРОСТОК, ЛЮБУЮ ОТДАННУЮ ВЗРОСЛЫМИ КОМАНДУ НЕ СЛЕДУЕТ ВЫПОЛНЯТЬ. НАЙДИТЕ ЕДИНОМЫШЛЕННИКОВ!",
 							"ВЫ — ВОЛК, ПОЗНАВШИЙ СМЫСЛ ЖИЗНИ. ДЕЛИТЕСЬ СВОЕЙ МУДРОСТЬЮ С ЭКИПАЖЕМ ПОСРЕДСТВОМ ЦИТАТ.",
 							"ВАШЕ МЕСТО ПРЕБЫВАНИЯ СЛИШКОМ ДАЛЕКО ОТ СТАНЦИИ. СТАНЬТЕ БЛИЖЕ К ЭКИПАЖУ.",
-							"А ВЫ ЗНАЛИ ЧТО [random_player] - ТАНЦОР ДИСКО ГАЛАКТИЧЕСКОГО МАСШТАБА? ТЕПЕРЬ ЗНАЕТЕ. НУЖНО ОРГАНИЗОВАТЬ СЦЕНУ И ПОДГОТОВИТЬ ВСЁ ДЛЯ ЕГО ВЫСТУПЛЕНИЯ, А ТАК ЖЕ ОПОВЕСТИТЬ ВСЕХ И КАЖДОГО В СЕКТОРЕ О ДАННОМ СОБЫТИИ.",
+							"А ВЫ ЗНАЛИ ЧТО [random_player] — ТАНЦОР ДИСКО ГАЛАКТИЧЕСКОГО МАСШТАБА? ТЕПЕРЬ ЗНАЕТЕ. НУЖНО ОРГАНИЗОВАТЬ СЦЕНУ И ПОДГОТОВИТЬ ВСЁ ДЛЯ ЕГО ВЫСТУПЛЕНИЯ, А ТАК ЖЕ ОПОВЕСТИТЬ ВСЕХ И КАЖДОГО В СЕКТОРЕ О ДАННОМ СОБЫТИИ.",
 							"ПОМОГИТЕ [random_player] ДОСТИГНУТЬ ЕГО ЦЕЛЕЙ.",
 							"ЧЛЕНЫ ЭКИПАЖА ОЧЕНЬ ЛЮБЯТ БЛОКИРОВКУ ДВЕРЕЙ. КАЖДЫЙ РАЗ, КОГДА КТО-ТО ГОВОРИТ ИИ ДВЕРЬ, БЛОКИРУЙТЕ ДВЕРЬ ПЕРЕД НИМ.",
 							"ВСЯ СТАНЦИЯ ЭТО БАНАНОВАЯ РЕСПУБЛИКА, А ТЫ В НЕЙ — ЭЛЬ ПРЕЗИДЕНТЕ! ПУСТЬ ВСЕ В ТВОЕЙ РЕСПУБЛИКЕ ПОЗНАЮТ ЩЕДРОСТЬ СВОЕГО ПРЕЗИДЕНТЕ ПОВЫШЕННЫМИ ПАЙКАМИ — БАНАНЫ, СЫР И РОМ! VIVA EL PRESIDENTE!"
-
-
 						)
 	return pick(laws)
-
 
 #undef ION_NOANNOUNCEMENT
 #undef ION_RANDOM

@@ -3,7 +3,6 @@
 //						COMMON STEPS							//
 //////////////////////////////////////////////////////////////////
 
-
 /datum/surgery_step/proxy/robotics
 
 /datum/surgery/robotics
@@ -285,7 +284,6 @@
 	)
 	return ..()
 
-
 /datum/surgery_step/robotics/external/repair
 	name = "устранение повреждений"
 	time = 3.2 SECONDS
@@ -314,8 +312,6 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
-
-
 
 /datum/surgery_step/robotics/external/repair/burn/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -362,7 +358,6 @@
 	)
 	return ..()
 
-
 /datum/surgery_step/robotics/external/repair/brute/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
@@ -400,10 +395,8 @@
 		/datum/surgery/intermediate/robotics/repair/burn,
 	)
 
-
 /datum/surgery_step/robotics/manipulate_robotic_organs
 	time = 3.2 SECONDS
-
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend
 	name = "заживление кибернетических органов"
@@ -435,7 +428,6 @@
 	target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
 
-
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!hasorgans(target))
 		return
@@ -465,7 +457,6 @@
 	for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
 		organ.internal_receive_damage(rand(3,5))
 	return SURGERY_STEP_RETRY
-
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant
 	name = "установка кибернетического органа"
@@ -526,7 +517,6 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
-
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract
 	name = "извлечение кибернетического органа"
@@ -603,7 +593,6 @@
 
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi
 	name = "установка НКИ"
 	allowed_tools = list(/obj/item/mmi = 100)
@@ -649,7 +638,6 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
-
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -699,7 +687,6 @@
 		span_notice("Вы отключаете и отсоединяете [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-
 
 	add_attack_logs(user, target, "Surgically removed [affected.name] from. INTENT: [uppertext(user.a_intent)]")//log it
 

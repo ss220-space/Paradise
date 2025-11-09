@@ -239,7 +239,6 @@
 		PREPOSITIONAL = "форме запроса о поставке",
 	)
 
-
 /obj/machinery/computer/supplyquest/workers
 	name = "Supply Request Monitor"
 	desc = "Монитор, используемый для просмотра доступных запросов на поставку от различных клиентов. Оснащён функцией печати списка запросов."
@@ -336,7 +335,6 @@
 
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
 	flick_overlay_view(mutable_appearance(icon, "print_quest_overlay"), 4 SECONDS)
-
 
 /obj/item/qm_quest_tablet
 	name = "Quartermaster Tablet"

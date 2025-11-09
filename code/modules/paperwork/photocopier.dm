@@ -160,7 +160,6 @@
 	c.update_icon()
 	return c
 
-
 /**
  * Public proc for copying photo objs
  *
@@ -463,7 +462,6 @@
 	if(LAZYIN(saved_documents, document))
 		copy(document, scancopy = TRUE)
 
-
 /obj/machinery/photocopier/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -623,13 +621,11 @@
 	use_power(active_power_usage)
 	addtimer(CALLBACK(src, PROC_REF(do_print_form_paper), form), PHOTOCOPIER_DELAY)
 
-
 /obj/machinery/photocopier/proc/do_print_form_paper(obj/item/paper/form/form)
 	var/obj/item/paper/paper = new form(loc)
 	paper.pixel_x = rand(-10, 10)
 	paper.pixel_y = rand(-10, 10)
 	finish_copying()
-
 
 /obj/machinery/photocopier/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -661,7 +657,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/photocopier/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE

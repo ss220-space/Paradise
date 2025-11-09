@@ -43,7 +43,6 @@
 	icon_state = "monocle"
 	item_state = "headset"
 
-
 // Butler outfit
 /datum/outfit/butler
 	name = "Butler"

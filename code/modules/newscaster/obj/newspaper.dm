@@ -62,7 +62,6 @@
 		PREPOSITIONAL = "газете",
 	)
 
-
 /obj/item/newspaper/Initialize(mapload)
 	. = ..()
 

@@ -276,11 +276,9 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	can_be_box_inserted = FALSE
 
-
 /obj/item/ammo_casing/shotgun/dart/Initialize(mapload)
 	. = ..()
 	create_reagents(30)
-
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
@@ -382,7 +380,6 @@
 	projectile_type = /obj/projectile/beam/specter/disabler
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
-
 
 /obj/item/ammo_casing/shotgun/laserslug
 	name = "laser slug"
@@ -523,7 +520,6 @@
 	var/modified = FALSE
 	harmful = FALSE
 
-
 /obj/item/ammo_casing/caseless/foam_dart/update_icon_state()
 	if(modified)
 		icon_state = "foamdart_empty"
@@ -534,11 +530,9 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-
 /obj/item/ammo_casing/caseless/foam_dart/update_desc(updates)
 	. = ..()
 	desc = modified ? "Its nerf or nothing! ... Although, this one doesn't look too safe." : initial(desc)
-
 
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -566,7 +560,6 @@
 
 	return ..()
 
-
 /obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!BB)
@@ -582,7 +575,6 @@
 	modified = TRUE
 	BB.damage_type = BRUTE
 	update_icon()
-
 
 /obj/item/ammo_casing/caseless/foam_dart/attack_self(mob/living/user)
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
@@ -608,7 +600,6 @@
 	caliber = CALIBER_FOAM_FORCE_SNIPER
 	projectile_type = /obj/projectile/bullet/reusable/foam_dart/sniper
 
-
 /obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon_state()
 	if(modified)
 		icon_state = "foamdartsniper_empty"
@@ -619,11 +610,9 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-
 /obj/item/ammo_casing/caseless/foam_dart/sniper/update_desc(updates)
 	. = ..()
 	desc = modified ? "Its nerf or nothing! ... Although, this one doesn't look too safe." : initial(desc)
-
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	name = "riot foam sniper dart"

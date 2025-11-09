@@ -61,8 +61,6 @@
 				return
 		AttemptGrow()
 
-
-
 /obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(gib_on_success = TRUE)
 	if(!owner || polling)
 		return

@@ -39,7 +39,6 @@
 //Syndicate shuttle
 /area/awaymission/syndishuttle
 
-
 /*
  * Landmarks - Instead of spawning a new object type, I'll spawn the bible using a landmark!
  */

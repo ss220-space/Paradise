@@ -30,7 +30,6 @@
 	var/passive_mode = TRUE // if true, don't target anything.
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
-
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
 	ion_trail = new
@@ -46,7 +45,6 @@
 /mob/living/simple_animal/hostile/malf_drone/Destroy()
 	QDEL_NULL(ion_trail)
 	return ..()
-
 
 /mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
@@ -71,7 +69,6 @@
 	else
 		icon_state = "drone0"
 
-
 /mob/living/simple_animal/hostile/malf_drone/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -84,7 +81,6 @@
 		do_sparks(3, TRUE, src)
 		passive_mode = FALSE
 		update_icons()
-
 
 /mob/living/simple_animal/hostile/malf_drone/Life(seconds, times_fired)
 	. = ..()

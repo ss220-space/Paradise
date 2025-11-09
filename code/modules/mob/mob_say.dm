@@ -37,7 +37,6 @@
 
 	SSspeech_controller.queue_say_for_mob(usr, message, SPEECH_CONTROLLER_QUEUE_SAY_VERB)
 
-
 /mob/verb/me_verb(message as text)
 	set name = "Эмоция"
 	set category = STATPANEL_IC
@@ -53,7 +52,6 @@
 		custom_emote(usr.emote_type, message, intentional = TRUE)
 	else
 		SSspeech_controller.queue_say_for_mob(usr, message, SPEECH_CONTROLLER_QUEUE_EMOTE_VERB)
-
 
 /mob/proc/say_dead(message)
 	message = handleDiscordEmojis(say_emphasis(message))
@@ -124,7 +122,6 @@
 
 	return FALSE
 
-
 /mob/proc/say_quote(message, datum/language/speaking = null)
 	var/ending = copytext_char(message, -1)
 	if(speaking)
@@ -166,7 +163,6 @@
 
 	return get_turf(src)
 
-
 /proc/say_test(text)
 	var/ending = copytext(text, length(text))
 	if(ending == "?")
@@ -174,7 +170,6 @@
 	else if(ending == "!")
 		return "2"
 	return "0"
-
 
 //parses the message mode code (e.g. :h, :w) from text, such as that supplied to say.
 //returns the message mode string or null for no message mode.
@@ -189,18 +184,15 @@
 
 	return null
 
-
 /datum/multilingual_say_piece
 	var/datum/language/speaking = null
 	var/message = ""
-
 
 /datum/multilingual_say_piece/New(datum/language/new_speaking, new_message)
 	. = ..()
 	speaking = new_speaking
 	if(new_message)
 		message = new_message
-
 
 /mob/proc/find_valid_prefixes(message)
 	var/list/prefixes = list() // [["Common", start, end], ["Gutter", start, end]]
@@ -214,7 +206,6 @@
 
 	return prefixes
 
-
 /proc/strip_prefixes(message)
 	. = ""
 	var/last_index = 1
@@ -226,7 +217,6 @@
 			last_index = i + 3
 		if(i + 1 > length_char(message))
 			. += copytext_char(message, last_index)
-
 
 // this returns a structured message with language sections
 // list(/datum/multilingual_say_piece(common, "hi"), /datum/multilingual_say_piece(farwa, "squik"), /datum/multilingual_say_piece(common, "meow!"))
@@ -258,18 +248,15 @@
 			var/spoke_message = trim(copytext_char(message, current[3], next[2]))
 			. += new /datum/multilingual_say_piece(current[1], spoke_message)
 
-
 /* These are here purely because it would be hell to try to convert everything over to using the multi-lingual system at once */
 /proc/message_to_multilingual(message, datum/language/speaking = null)
 	. = list(new /datum/multilingual_say_piece(speaking, message))
-
 
 /proc/multilingual_to_message(list/message_pieces)
 	. = ""
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		. += S.message + " "
 	. = trim_right(.)
-
 
 #undef ILLEGAL_CHARACTERS_LIST
 

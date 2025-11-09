@@ -2,7 +2,6 @@
 #define NORMAL_EXTINGUISHER 1
 #define MINI_EXTINGUISHER 2
 
-
 /obj/structure/extinguisher_cabinet
 	name = "extinguisher cabinet"
 	desc = "A small wall mounted cabinet designed to hold a fire extinguisher."
@@ -55,7 +54,6 @@
 		has_extinguisher = null
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/structure/extinguisher_cabinet/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
 		return ..()
@@ -76,7 +74,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I)
 	if(has_extinguisher)

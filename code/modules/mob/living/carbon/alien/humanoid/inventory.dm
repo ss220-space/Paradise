@@ -23,7 +23,6 @@
 
 	update_equipment_speed_mods()
 
-
 /mob/living/carbon/alien/humanoid/equip_to_slot(obj/item/I, slot, initial)
 	if(!slot)
 		return
@@ -67,7 +66,6 @@
 			update_legcuffed_status()
 
 	return I.equipped(src, slot, initial)
-
 
 /mob/living/carbon/alien/humanoid/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	switch(slot)
@@ -119,7 +117,6 @@
 		if(ITEM_SLOT_LEGCUFFED)
 			return !legcuffed && (I.slot_flags & ITEM_SLOT_LEGCUFFED)
 
-
 /mob/living/carbon/alien/humanoid/get_item_by_slot(slot_flag)
 	switch(slot_flag)
 		if(ITEM_SLOT_BACK)
@@ -142,7 +139,6 @@
 			return legcuffed
 	return null
 
-
 /mob/living/carbon/alien/humanoid/get_slot_by_item(item)
 	if(item == back)
 		return ITEM_SLOT_BACK
@@ -163,7 +159,6 @@
 	if(item == legcuffed)
 		return ITEM_SLOT_LEGCUFFED
 	return NONE
-
 
 /mob/living/carbon/alien/humanoid/has_organ_for_slot(slot_flag)
 	switch(slot_flag)

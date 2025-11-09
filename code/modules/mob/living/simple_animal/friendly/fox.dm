@@ -136,7 +136,6 @@
 	add_language(LANGUAGE_GALACTIC_COMMON)
 	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
 
-
 //Central Command Fox
 /mob/living/simple_animal/pet/dog/fox/alisa
 	name = "Alisa"
@@ -171,7 +170,6 @@
 /mob/living/simple_animal/pet/dog/fox/alisa/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
-
 
 /mob/living/simple_animal/pet/dog/fox/fennec
 	name = "фенек"

@@ -7,11 +7,9 @@
 	deactivation_messages = list("Вы чувствуете, что вам не помешает крепкий напиток.")
 	traits_to_add = list(TRAIT_SOBER)
 
-
 /datum/dna/gene/basic/sober/New()
 	..()
 	block = GLOB.soberblock
-
 
 //WAS: /datum/bioEffect/psychic_resist
 /datum/dna/gene/basic/psychic_resist
@@ -21,11 +19,9 @@
 	deactivation_messages = list("Вы чувствуете себя незащищенным.")
 	traits_to_add = list(TRAIT_PSY_RESIST)
 
-
 /datum/dna/gene/basic/psychic_resist/New()
 	..()
 	block = GLOB.psyresistblock
-
 
 /////////////////////////
 // Stealth Enhancers
@@ -40,11 +36,9 @@
 	activation_prob = 25
 	instability = GENE_INSTABILITY_MODERATE
 
-
 /datum/dna/gene/basic/darkcloak/New()
 	..()
 	block = GLOB.shadowblock
-
 
 /datum/dna/gene/basic/darkcloak/OnMobLife(mob/living/mutant)
 	var/turf/simulated/T = get_turf(mutant)
@@ -69,11 +63,9 @@
 	activation_prob = 25
 	instability = GENE_INSTABILITY_MODERATE
 
-
 /datum/dna/gene/basic/chameleon/New()
 	..()
 	block = GLOB.chameleonblock
-
 
 /datum/dna/gene/basic/chameleon/OnMobLife(mob/living/mutant)
 	if((world.time - mutant.last_movement) >= 30 && (mutant.mobility_flags & MOBILITY_MOVE) && !HAS_TRAIT(mutant, TRAIT_RESTRAINED))
@@ -85,17 +77,14 @@
 	. = ..()
 	mutant.alpha_set(1, ALPHA_SOURCE_CHAMELEON)
 
-
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/dna/gene/basic/grant_spell
 	var/obj/effect/proc_holder/spell/spelltype
 
-
 /datum/dna/gene/basic/grant_spell/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.AddSpell(new spelltype(null))
-
 
 /datum/dna/gene/basic/grant_spell/deactivate(mob/living/mutant, flags)
 	. = ..()
@@ -103,20 +92,16 @@
 		if(istype(spell, spelltype))
 			mutant.RemoveSpell(spell)
 
-
 /datum/dna/gene/basic/grant_verb
 	var/verbtype
-
 
 /datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, flags)
 	. = ..()
 	add_verb(mutant, verbtype)
 
-
 /datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, flags)
 	. = ..()
 	remove_verb(mutant, verbtype)
-
 
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
@@ -127,11 +112,9 @@
 	instability = GENE_INSTABILITY_MODERATE
 	spelltype = /obj/effect/proc_holder/spell/cryokinesis
 
-
 /datum/dna/gene/basic/grant_spell/cryo/New()
 	..()
 	block = GLOB.cryoblock
-
 
 /obj/effect/proc_holder/spell/cryokinesis
 	name = "Cryokinesis"
@@ -147,7 +130,6 @@
 	action_icon_state = "genetic_cryo"
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/cryokinesis/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living/carbon
@@ -156,7 +138,6 @@
 	T.selection_type = SPELL_SELECTION_RANGE
 	T.include_user = TRUE
 	return T
-
 
 /obj/effect/proc_holder/spell/cryokinesis/cast(list/targets, mob/user = usr)
 
@@ -187,12 +168,10 @@
 		C.visible_message(span_warning("[user] распыля[PLUR_ET_YUT(user)] облако мелких ледяных кристаллов, поглощая [C]!"))
 		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
 
-
 /obj/effect/self_deleting
 	icon = null
 	desc = ""
 	//layer = 15
-
 
 /obj/effect/self_deleting/New(atom/location, icon/I, duration = 20, oname = "something")
 	. = ..()
@@ -203,7 +182,6 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-
 // WAS: /datum/bioEffect/mattereater
 /datum/dna/gene/basic/grant_spell/mattereater
 	name = "Пожиратель материи"
@@ -213,11 +191,9 @@
 	instability = GENE_INSTABILITY_MINOR
 	spelltype = /obj/effect/proc_holder/spell/eat
 
-
 /datum/dna/gene/basic/grant_spell/mattereater/New()
 	..()
 	block = GLOB.eatblock
-
 
 /obj/effect/proc_holder/spell/eat
 	name = "Eat"
@@ -229,10 +205,8 @@
 
 	action_icon_state = "genetic_eat"
 
-
 /obj/effect/proc_holder/spell/eat/create_new_targeting()
 	return new /datum/spell_targeting/matter_eater
-
 
 /obj/effect/proc_holder/spell/eat/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	. = ..()
@@ -246,7 +220,6 @@
 				balloon_alert(C, "рот чем-то закрыт!")
 			can_eat = FALSE
 	return can_eat
-
 
 /obj/effect/proc_holder/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
@@ -268,7 +241,6 @@
 			H.updatehealth("[name] heal")
 		if(update_damage_icon)
 			H.UpdateDamageIcon()
-
 
 /obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
 	if(!length(targets))
@@ -316,7 +288,6 @@
 		qdel(the_item)
 		doHeal(user)
 
-
 ////////////////////////////////////////////////////////////////////////
 
 //WAS: /datum/bioEffect/jumpy
@@ -329,11 +300,9 @@
 	instability = GENE_INSTABILITY_MINOR
 	spelltype = /obj/effect/proc_holder/spell/leap
 
-
 /datum/dna/gene/basic/grant_spell/jumpy/New()
 	..()
 	block = GLOB.jumpblock
-
 
 /obj/effect/proc_holder/spell/leap
 	name = "Jump"
@@ -345,10 +314,8 @@
 
 	action_icon_state = "genetic_jump"
 
-
 /obj/effect/proc_holder/spell/leap/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
@@ -414,7 +381,6 @@
 		container.pixel_x = 0
 		container.pixel_y = 0
 
-
 ////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/polymorphism
@@ -429,11 +395,9 @@
 	deactivation_messages = list("Вы уверены в своей идентичности.")
 	instability = GENE_INSTABILITY_MODERATE
 
-
 /datum/dna/gene/basic/grant_spell/polymorph/New()
 	..()
 	block = GLOB.polymorphblock
-
 
 /obj/effect/proc_holder/spell/polymorph
 	name = "Polymorph"
@@ -448,7 +412,6 @@
 	action_icon_state = "genetic_poly"
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/polymorph/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.try_auto_target = FALSE
@@ -456,7 +419,6 @@
 	T.range = 1
 	T.selection_type = SPELL_SELECTION_RANGE
 	return T
-
 
 /obj/effect/proc_holder/spell/polymorph/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
@@ -484,11 +446,9 @@
 	instability = GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_EMPATHY)
 
-
 /datum/dna/gene/basic/grant_spell/empath/New()
 	..()
 	block = GLOB.empathblock
-
 
 /obj/effect/proc_holder/spell/empath
 	name = "Read Mind"
@@ -498,13 +458,11 @@
 
 	action_icon_state = "genetic_empath"
 
-
 /obj/effect/proc_holder/spell/empath/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.allowed_type = /mob/living/carbon
 	T.selection_type = SPELL_SELECTION_RANGE
 	return T
-
 
 /obj/effect/proc_holder/spell/empath/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/M in targets)
@@ -584,7 +542,6 @@
 		else if(prob(5) || M.mind?.assigned_role == JOB_TITLE_CHAPLAIN)
 			to_chat(M, span_warning("Вы чувствуете, что кто-то вторгается в ваши мысли..."))
 
-
 ////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/strong
@@ -595,11 +552,9 @@
 	deactivation_messages = list("Вы чувствуете себя хилым и слабым.")
 	instability = GENE_INSTABILITY_MINOR
 
-
 /datum/dna/gene/basic/strong/New()
 	..()
 	block = GLOB.strongblock
-
 
 /datum/dna/gene/basic/strong/can_activate(mob/living/carbon/human/mutant, flags)
 	if(!ishuman(mutant))

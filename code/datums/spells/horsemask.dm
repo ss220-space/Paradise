@@ -16,12 +16,10 @@
 	sound = 'sound/magic/HorseHead_curse.ogg'
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/horsemask/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.selection_type = SPELL_SELECTION_RANGE
 	return T
-
 
 /obj/effect/proc_holder/spell/horsemask/cast(list/targets, mob/user = usr)
 	if(!length(targets))

@@ -71,20 +71,17 @@
 		else
 			codes[e] = "1"
 
-
 // called when turf state changes
 // hide the object if turf is intact
 /obj/machinery/navbeacon/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
 	update_icon(UPDATE_ICON_STATE)
 
-
 // update the icon_state
 /obj/machinery/navbeacon/update_icon_state()
 	// if invisible, set icon to faded version
 	// in case revealed by T-scanner
 	icon_state = "navbeacon[open][invisibility ? "-f" : ""]"
-
 
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
 	var/turf/our_turf = loc
@@ -109,7 +106,6 @@
 
 	return ..()
 
-
 /obj/machinery/navbeacon/screwdriver_act(mob/living/user, obj/item/I)
 	var/turf/T = get_turf(src)
 	if(T.intact)
@@ -121,7 +117,6 @@
 	)
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
-
 
 /obj/machinery/navbeacon/attack_ai(mob/user)
 	interact(user, 1)
@@ -138,7 +133,6 @@
 	if(!open && !ai)	// can't alter controls if not open, unless you're an AI
 		to_chat(user, span_warning("The beacon's control cover is closed!"))
 		return
-
 
 	var/t
 
@@ -226,7 +220,6 @@ Transponder Codes:<ul>"}
 			codes[newkey] = newval
 
 			updateDialog()
-
 
 /obj/machinery/navbeacon/invisible
 	invisibility = INVISIBILITY_ABSTRACT

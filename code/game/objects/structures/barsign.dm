@@ -84,7 +84,6 @@
 
 	return TRUE
 
-
 /obj/structure/sign/barsign/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -109,7 +108,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/structure/sign/barsign/emp_act(severity)
 	set_sign(new /datum/barsign/hiddensigns/empbarsign)

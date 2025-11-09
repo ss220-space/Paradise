@@ -6,8 +6,6 @@
 	name = "oxygen generator"
 	desc = ""
 
-
-
 	var/oxygen_content = 10
 
 /obj/machinery/atmospherics/unary/oxygen_generator/update_icon_state()

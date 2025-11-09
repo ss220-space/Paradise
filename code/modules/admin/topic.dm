@@ -271,7 +271,6 @@
 			else
 				message_admins("Ban process: [playermob.ckey] already job banned from [job]!")
 
-
 	else if(href_list["editrights"])
 		permissions_topic(task = href_list["editrights"], ckey = href_list["ckey"])
 
@@ -300,7 +299,6 @@
 						SSshuttle.emergency.cancel()
 						log_admin("[key_name(usr)] called the Emergency Shuttle")
 						message_admins(span_adminnotice("[key_name_admin(usr)] called the Emergency Shuttle to the station"))
-
 
 		href_list["check_antagonist"] = TRUE
 
@@ -435,7 +433,6 @@
 				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob, 1)
 
 		log_and_message_admins("has used rudimentary transformation on [key_name(M)]. Transforming to [href_list["simplemake"]]; deletemob=[delmob]")
-
 
 	/////////////////////////////////////new ban stuff
 	else if(href_list["unbanf"])
@@ -1124,7 +1121,6 @@
 			if("Cancel")
 				return
 
-
 	//Watchlist
 	else if(href_list["watchadd"])
 		var/target_ckey = href_list["watchadd"]
@@ -1743,7 +1739,6 @@
 		message_admins("[key_name_admin(usr)] has immediately returned [key_name_admin(M)] from the Syndicate Jail")
 		log_admin("[key_name(usr)] has immediately returned [key_name(M)] from the Syndicate Jail")
 
-
 	else if(href_list["aroomwarp"])
 		if(!check_rights(R_ADMIN))	return
 
@@ -2019,7 +2014,6 @@
 		log_admin("[key_name(usr)] has [mode.delay_blob_end? "stopped" : "returned"] stopped delayed blob win")
 		message_admins("[key_name_admin(usr)] has [mode.delay_blob_end? "stopped" : "returned"] delayed blob win")
 
-
 	else if(href_list["toggle_blob_infinity_points"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2166,7 +2160,6 @@
 					break
 
 		log_and_message_admins(message + "[new_name].")
-
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
@@ -2576,7 +2569,6 @@
 		else
 			owner.response_team()
 
-
 	else if(href_list["AdminFaxView"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2660,7 +2652,6 @@
 			for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 				if(destination != "All Departments" && F.department == destination)
 					fax = F
-
 
 		var/input = tgui_input_text(src.owner, "Please enter a message to send a fax via secure connection. Use <br> for line breaks. Both pencode and HTML work.", "Outgoing message from Centcomm", "", multiline = TRUE, encode = FALSE)
 		if(!input)
@@ -2899,12 +2890,10 @@
 			obj_dir = 2
 		var/obj_name = sanitize(href_list["object_name"])
 
-
 		var/atom/target //Where the object will be spawned
 		var/where = href_list["object_where"]
 		if(!( where in list("onfloor","frompod","inhand","inmarked")))
 			where = "onfloor"
-
 
 		switch(where)
 
@@ -3973,7 +3962,6 @@
 		else
 			thing_to_check = jointext(client.related_accounts_ip, "<br>")
 
-
 		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
 		dat += thing_to_check
 
@@ -4095,7 +4083,6 @@
 	var/sure = tgui_alert(user, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
 	return sure == "Да"
 
-
 /proc/portalAnnounce(announcement, playlightning)
 	set waitfor = FALSE
 	if(playlightning)
@@ -4148,7 +4135,6 @@
 	log_admin(msg)
 	message_admins(span_darkmblue(msg))
 	return TRUE
-
 
 /datum/admins/proc/change_lava_type()
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)

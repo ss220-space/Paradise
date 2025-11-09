@@ -82,7 +82,6 @@
 /atom/movable/screen/devil/soul_counter/proc/clear()
 	invisibility = INVISIBILITY_ABSTRACT
 
-
 /datum/hud/human
 	var/hud_alpha = 255
 
@@ -403,14 +402,12 @@
 	combo_display = new(null, src)
 	infodisplay += combo_display
 
-
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
 			inv.update_appearance()
 
 	update_locked_slots()
-
 
 /datum/hud/human/update_locked_slots()
 	if(!mymob)

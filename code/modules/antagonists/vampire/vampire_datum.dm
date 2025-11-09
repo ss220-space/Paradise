@@ -58,13 +58,11 @@
 		STAMINA = 1,
 	)
 
-
 /datum/antagonist/vampire/Destroy(force)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
 	return ..()
-
 
 /datum/antagonist/vampire/greet()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
@@ -74,7 +72,6 @@
 	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
 		Вы уязвимы перед святостью, огнём и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
 	return messages
-
 
 /datum/antagonist/vampire/farewell()
 	if(issilicon(owner.current))
@@ -94,7 +91,6 @@
 	else
 		add_objective(/datum/objective/escape)
 
-
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	if(isvampireanimal(new_body))
 		remove_innate_effects(old_body, transformation = TRUE)
@@ -107,7 +103,6 @@
 		diablerie.transfer_diablerie_aura(old_body, new_body)
 
 	old_body?.RemoveElement(/datum/element/pref_viewer)
-
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()
@@ -132,10 +127,8 @@
 		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
-
 /datum/antagonist/vampire/handle_last_instance_removal()
 	owner.current.RemoveElement(/datum/element/pref_viewer)
-
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()
@@ -163,7 +156,6 @@
 /datum/antagonist/vampire/get_antag_menu_name()
 	return "[antag_menu_name][subclass? "([subclass.antag_menu_addition])" :""]"
 
-
 /**
  * Remove the vampire's current subclass and add the specified one.
  *
@@ -176,7 +168,6 @@
 
 	clear_subclass(FALSE)
 	add_subclass(new_subclass_type, log_choice = FALSE)
-
 
 /**
  * Remove and delete the vampire's current subclass and all associated abilities.
@@ -194,7 +185,6 @@
 	subclass?.on_remove(src)
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
-
 
 /datum/antagonist/vampire/proc/adjust_blood(mob/living/carbon/human/user, blood_amount = 0)
 	if(!count_drain(user, blood_amount))
@@ -361,7 +351,6 @@
 
 	stop_sucking()
 
-
 /datum/antagonist/vampire/proc/getting_closer_animation(mob/living/carbon/human/target, stage, vampire_dir)
 	var/shift = 0
 	owner.current.layer = MOB_LAYER
@@ -405,7 +394,6 @@
 	animate(pixel_x = owner.current.pixel_x - pixel_x_diff, pixel_y = owner.current.pixel_y - pixel_y_diff, time = 7)
 	owner.current.do_item_attack_animation(target, ATTACK_EFFECT_BITE)
 
-
 /// Checks vampire's sucking target blood volume and sends a warning message if it's low. Returns FALSE if the target is drained dry
 /datum/antagonist/vampire/proc/check_blood_volume(mob/living/carbon/human/vampire, mob/living/carbon/human/target)
 	if(!target.blood_volume)
@@ -422,7 +410,6 @@
 	blood_volume_warning = target.blood_volume
 	return TRUE
 
-
 /// Mends fractures, stops internal bleedings and applies special subclass bloodsucking effects
 /datum/antagonist/vampire/proc/additional_sucking_effects(mob/living/carbon/human/vampire)
 	for(var/obj/item/organ/external/bodypart as anything in vampire.bodyparts)
@@ -436,7 +423,6 @@
 
 	if(bloodtotal >= REQ_BLOOD_FOR_SUBCLASS_ACT)
 		subclass?.on_blood_sucking(vampire)
-
 
 /datum/antagonist/vampire/proc/stop_sucking()
 	if(draining)
@@ -478,18 +464,15 @@
 	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 	return spell
 
-
 /datum/antagonist/vampire/proc/get_ability(path)
 	for(var/datum/power as anything in powers)
 		if(power.type == path)
 			return power
 	return null
 
-
 /datum/antagonist/vampire/proc/add_ability(path)
 	if(!get_ability(path))
 		force_add_ability(path)
-
 
 /datum/antagonist/vampire/proc/remove_ability(ability)
 	if(ability && (ability in powers))
@@ -503,7 +486,6 @@
 			passive.on_remove(src)
 			qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
-
 
 /**
  * Removes all of the vampire's current powers.
@@ -536,11 +518,9 @@
 	if(announce)
 		announce_new_power(old_powers)
 
-
 /datum/antagonist/vampire/proc/check_full_power_upgrade()
 	if(subclass.full_power_override || (length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT))
 		subclass.add_full_power_abilities(src)
-
 
 /datum/antagonist/vampire/proc/announce_new_power(list/old_powers)
 	for(var/p in powers)
@@ -552,7 +532,6 @@
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
 				to_chat(owner.current, span_boldnotice("[power.gain_desc]"))
-
 
 /datum/antagonist/vampire/proc/check_sun()
 	var/ax = owner.current.x
@@ -584,7 +563,6 @@
 		vamp_burn(85)
 		if(owner.current.cloneloss >= 100 && dust_in_space)
 			owner.current.dust()
-
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
 
@@ -618,7 +596,6 @@
 		owner.current.adjust_fire_stacks(5)
 		owner.current.IgniteMob()
 
-
 /datum/antagonist/vampire/proc/handle_vampire()
 	draw_HUD()
 
@@ -635,7 +612,6 @@
 		if(NEW_NULLIFICATION)
 			nullified = max(0, nullified - 2)
 
-
 /datum/antagonist/vampire/proc/draw_HUD()
 	var/datum/hud/hud = owner?.current?.hud_used
 	if(!hud)
@@ -649,7 +625,6 @@
 		hud.static_inventory += hud.vampire_blood_display
 		hud.show_hud(hud.hud_version)
 	hud.vampire_blood_display.maptext = FORMAT_BLOODUSABLE_TEXT(bloodusable)
-
 
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
 	if(!ishuman(owner.current))
@@ -681,16 +656,13 @@
 	animate(owner.current, time = 5, alpha = 204) // 255 * 0.80
 	owner.current.alpha_set(0.8, ALPHA_SOURCE_VAMPIRE)
 
-
 /datum/antagonist/vampire/vv_edit_var(var_name, var_value)
 	. = ..()
 	check_vampire_upgrade(TRUE)
 
-
 /datum/hud/proc/remove_vampire_hud()
 	static_inventory -= vampire_blood_display
 	QDEL_NULL(vampire_blood_display)
-
 
 /datum/antagonist/vampire/proc/adjust_nullification(base, extra)
 	// First hit should give full nullification, while subsequent hits increase the value slower
@@ -700,7 +672,6 @@
 
 		if(NEW_NULLIFICATION)
 			nullified = clamp(nullified + extra, base, VAMPIRE_NULLIFICATION_CAP)
-
 
 /datum/antagonist/vampire/proc/base_nullification()
 	switch(nullification)
@@ -786,7 +757,6 @@
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/vampire)
 
-
 /**
  * Takes any datum `source` and checks it for vampire thrall datum.
  */
@@ -806,7 +776,6 @@
 		return FALSE
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)
-
 
 /datum/antagonist/mindslave/thrall
 	name = "Vampire Thrall"
@@ -830,11 +799,9 @@
 	user.faction |= ROLE_VAMPIRE
 	return user
 
-
 /datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
 	user.faction -= ROLE_VAMPIRE
 	return user
-
 
 #undef FORMAT_BLOODUSABLE_TEXT

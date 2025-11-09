@@ -27,20 +27,17 @@
 		on = TRUE
 	update_brightness()
 
-
 /obj/item/flashlight/update_icon_state()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 	else
 		icon_state = "[initial(icon_state)]"
 
-
 /obj/item/flashlight/proc/update_brightness()
 	if(light_system == STATIC_LIGHT)
 		update_light()
 	set_light_on(on)
 	update_icon()
-
 
 /obj/item/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -51,7 +48,6 @@
 	update_brightness()
 	update_equipped_item(update_speedmods = FALSE)
 	return TRUE
-
 
 /obj/item/flashlight/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!on || user.zone_selected != BODY_ZONE_PRECISE_EYES)
@@ -100,7 +96,6 @@
 			else //they're okay!
 				if(human_target.flash_eyes(visual = TRUE))
 					to_chat(user, span_notice("[human_target]'s pupils narrow."))
-
 
 /obj/item/flashlight/extinguish_light(force = FALSE)
 	if(on)
@@ -165,13 +160,11 @@
 	materials = list()
 	on = TRUE
 
-
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
-
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
@@ -179,7 +172,6 @@
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
-
 
 // FLARES
 
@@ -199,16 +191,13 @@
 	var/fuel_lower = 800
 	var/fuel_upp = 1000
 
-
 /obj/item/flashlight/flare/Initialize(mapload)
 	fuel = rand(fuel_lower, fuel_upp)
 	. = ..()
 
-
 /obj/item/flashlight/flare/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/flashlight/flare/update_icon_state()
 	if(on)
@@ -220,7 +209,6 @@
 		icon_state = "[initial(icon_state)]-empty"
 		return
 	..()
-
 
 /obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
@@ -245,7 +233,6 @@
 	force = initial(force)
 	damtype = initial(damtype)
 	update_brightness()
-
 
 /obj/item/flashlight/flare/attack_self(mob/user)
 	// Usual checks
@@ -292,7 +279,6 @@
 /obj/item/flashlight/flare/on/illumination/ex_act(severity, target)
 	return //Nope
 
-
 // GLOWSTICKS
 
 /obj/item/flashlight/flare/glowstick
@@ -310,16 +296,13 @@
 	blocks_emissive = FALSE
 	var/chemglow_sprite_type = "green"
 
-
 /obj/item/flashlight/flare/glowstick/Initialize(mapload)
 	light_color = color
 	. = ..()
 
-
 /obj/item/flashlight/flare/glowstick/update_icon_state()
 	if(!fuel)
 		icon_state = "glowstick-empty"
-
 
 /obj/item/flashlight/flare/glowstick/update_overlays()
 	. = ..()
@@ -327,7 +310,6 @@
 		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
 		glowstick_overlay.color = color
 		. += glowstick_overlay
-
 
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"
@@ -375,7 +357,6 @@
 	new T(loc)
 	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
-
 /obj/item/flashlight/flare/extinguish_light(force = FALSE)
 	if(force)
 		fuel = 0
@@ -416,10 +397,8 @@
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
 
-
 /obj/item/flashlight/slime/update_icon_state()
 	return
-
 
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
@@ -438,11 +417,9 @@
 	var/emp_cur_charges = 4
 	var/charge_tick = 0
 
-
 /obj/item/flashlight/emp/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-
 
 /obj/item/flashlight/emp/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -456,12 +433,10 @@
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
 	return TRUE
 
-
 /obj/item/flashlight/emp/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(on && user.zone_selected == BODY_ZONE_PRECISE_EYES) // call original attack proc only if aiming at the eyes
 		return ..()
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/flashlight/emp/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
@@ -475,7 +450,6 @@
 		A.emp_act(1)
 	else
 		to_chat(user, span_warning("\The [src] needs time to recharge!"))
-
 
 /obj/item/flashlight/spotlight //invisible lighting source
 	name = "disco light"

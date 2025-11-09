@@ -56,7 +56,6 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
 
-
 	// Show server BYOND version
 	msg += "<b>Server BYOND Version:</b> [world.byond_version].[world.byond_build]"
 	// And the clients for good measure

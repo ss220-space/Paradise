@@ -1,6 +1,5 @@
 ///Datum Surgery Helpers//
 
-
 /datum/surgery
 	/// Name of the surgery
 	var/name
@@ -49,7 +48,6 @@
 	/// Whether this surgery should be cancelled when an organ change happens. (removed if requires bodypart, or added if doesn't require bodypart)
 	var/cancel_on_organ_change = TRUE
 
-
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(!surgery_target)
@@ -79,7 +77,6 @@
 	if(!affecting || !istype(affecting))
 		return TRUE
 	return requires_organic_bodypart && affecting.is_robotic() || !requires_organic_bodypart && !affecting.is_robotic()
-
 
 /**
  * Whether or not we can start this surgery.
@@ -170,7 +167,6 @@
 /datum/surgery/proc/on_organ_remove(mob/living/carbon/organ_owner, obj/item/organ/external/organ)
 	SIGNAL_HANDLER  // COMSIG_CARBON_LOSE_ORGAN
 	handle_organ_state_change(organ_owner, organ, FALSE)
-
 
 /* SURGERY STEPS */
 /datum/surgery_step

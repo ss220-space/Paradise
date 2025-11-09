@@ -19,7 +19,6 @@
 	var/use_duration = 3 SECONDS
 	merge_type = null // do not merge if not defined in subtype
 
-
 /obj/item/stack/medical/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
@@ -112,7 +111,6 @@
 	)
 	return .|ATTACK_CHAIN_SUCCESS
 
-
 /obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/target, mob/user)
 	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
 	user.visible_message(
@@ -164,7 +162,6 @@
 		target.updatehealth("[name] heal")
 	if(update_damage_icon)
 		target.UpdateDamageIcon()
-
 
 /obj/item/stack/medical/can_merge(obj/item/stack/check, inhand)
 	if(check.type != merge_type)
@@ -234,7 +231,6 @@
 	target.UpdateDamageIcon()
 	update_icon()
 
-
 /obj/item/stack/medical/bruise_pack/improvised
 	name = "improvised gauze"
 	singular_name = "improvised gauze"
@@ -296,7 +292,6 @@
 		update_icon()
 	return ATTACK_CHAIN_PROCEED
 
-
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
 	singular_name = "advanced trauma kit"
@@ -313,7 +308,6 @@
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
 	icon_state = "traumakit_[amount]"
-
 
 /obj/item/stack/medical/bruise_pack/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -337,7 +331,6 @@
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
 	icon_state = "extended_trauma_kit_[round_down((amount+1) / 2, 1)]"
 
-
 // MARK: Ointment
 
 /obj/item/stack/medical/ointment
@@ -355,7 +348,6 @@
 
 /obj/item/stack/medical/ointment/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
-
 
 /obj/item/stack/medical/ointment/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -383,7 +375,6 @@
 
 /obj/item/stack/medical/ointment/update_icon_state()
 	icon_state = "ointment_[amount >= 5 ? 3 : (amount >= 3 ? 2 : 1)]"
-
 
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"
@@ -421,7 +412,6 @@
 /obj/item/stack/medical/ointment/extended/update_icon_state()
 	icon_state = "extended_burn_kit_[round_down((amount+1) / 2, 1)]"
 
-
 // MARK: Medical Herbs
 
 /obj/item/stack/medical/bruise_pack/comfrey
@@ -442,7 +432,6 @@
 /obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
 	return
 
-
 /obj/item/stack/medical/ointment/aloe
 	name = "Aloe Vera leaf"
 	singular_name = "Aloe Vera leaf"
@@ -456,7 +445,6 @@
 
 /obj/item/stack/medical/ointment/aloe/update_icon_state()
 	return
-
 
 // MARK: Splints
 
@@ -530,7 +518,6 @@
 
 	bodypart.apply_splint()
 
-
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"
 	icon_state = "tribal_splint"
@@ -547,7 +534,6 @@
 		PREPOSITIONAL = "племенной шине",
 	)
 
-
 /obj/item/stack/medical/splint/makeshift
 	name = "makeshift splints"
 	desc = "Makeshift splint for fixing bones. Better than nothing and more based than others."
@@ -555,7 +541,6 @@
 	use_duration = 5 SECONDS
 	self_delay = 15 SECONDS
 	merge_type = /obj/item/stack/medical/splint/makeshift
-
 
 // MARK: Suture
 
@@ -603,12 +588,10 @@
 		to_chat(user, span_danger("Не хватает ниток!"))
 		return ATTACK_CHAIN_PROCEED
 
-
 	if(affecting.open != ORGAN_CLOSED)
 		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, это уже не сшить без помощи хирургических инструментов!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
-
 
 	if(!use(1))
 		. &= ~ATTACK_CHAIN_SUCCESS
@@ -621,7 +604,6 @@
 	user.balloon_alert(user, "зашито!")
 	target.UpdateDamageIcon()
 	update_icon()
-
 
 /obj/item/stack/medical/suture/advanced
 	name = "advanced suture kit"
@@ -651,7 +633,6 @@
 
 /obj/item/stack/medical/suture/advanced/update_icon_state()
 	icon_state = "advanced_suture[amount < max_amount ? "_open" : ""]"
-
 
 // MARK: Synthflesh kit
 

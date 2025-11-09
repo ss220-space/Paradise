@@ -31,7 +31,6 @@
 		PREPOSITIONAL = "капсуле снабжения",
 	)
 
-
 /datum/pod_style/advanced
 	name = "bluespace supply pod"
 	ui_name = "Продвинутая"
@@ -259,7 +258,6 @@
 		INSTRUMENTAL = "гандолой",
 		PREPOSITIONAL = "гандоле",
 	)
-
 
 /datum/pod_style/seethrough
 	name = null

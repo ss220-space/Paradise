@@ -17,11 +17,9 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
-
 /obj/item/clothing/head/soft/update_icon_state()
 	icon_state = flipped ? "[item_color]soft_flipped" : "[item_color]soft"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/head/soft/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -29,10 +27,8 @@
 		flipped = FALSE
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/clothing/head/soft/attack_self(mob/user)
 	flip(user)
-
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
 	flipped = !flipped

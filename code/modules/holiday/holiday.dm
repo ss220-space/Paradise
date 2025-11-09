@@ -348,7 +348,6 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 //	to_chat(world, "Easter calculates to be on [begin_day] of [begin_month] ([days_early] early) to [end_day] of [end_month] ([days_extra] extra) for 20[yy]")
 	return ..()
 
-
 /client/proc/Set_Holiday(T as text|null)
 	set name = "Задать праздник"
 	set category = STATPANEL_ADMIN_EVENT

@@ -8,16 +8,13 @@
 	implant_data = /datum/implant_fluff/storage
 	var/obj/item/storage/hidden/implant/storage
 
-
 /obj/item/implant/storage/Initialize(mapload)
 	. = ..()
 	storage = new /obj/item/storage/hidden/implant(src)
 
-
 /obj/item/implant/storage/emp_act(severity)
 	..()
 	storage.emp_act(severity)
-
 
 /obj/item/implant/storage/activate(cause)
 	if(!length(storage.mobs_viewing))
@@ -25,7 +22,6 @@
 	else
 		for(var/mob/to_close in storage.mobs_viewing)
 			storage.close(to_close)
-
 
 /obj/item/implant/storage/removed(mob/living/source)
 	. = ..()
@@ -38,7 +34,6 @@
 
 	for(var/obj/item/item in storage)
 		storage.remove_from_storage(item, drop_location())
-
 
 /obj/item/implant/storage/implant(mob/living/source, mob/user, force = FALSE)
 	var/obj/item/implant/storage/imp_e = locate(src.type) in source
@@ -57,22 +52,18 @@
 
 	return ..()
 
-
 /obj/item/implant/storage/proc/get_contents() //Used for swiftly returning a list of the implant's contents i.e. for checking a theft objective's completion.
 	if(storage?.contents)
 		return storage.contents
-
 
 /obj/item/implanter/storage
 	name = "bio-chip implanter (storage)"
 	imp = /obj/item/implant/storage
 
-
 /obj/item/implantcase/storage
 	name = "bio-chip case - 'Storage'"
 	desc = "A glass case containing a storage bio-chip."
 	imp = /obj/item/implant/storage
-
 
 /obj/item/storage/hidden/implant
 	name = "bluespace pocket"

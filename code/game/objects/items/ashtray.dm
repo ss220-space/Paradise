@@ -51,7 +51,6 @@
 	pixel_y = rand(-5, 5)
 	pixel_x = rand(-6, 6)
 
-
 /obj/item/storage/ashtray/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !can_be_inserted(I))
 		return ..()
@@ -79,7 +78,6 @@
 			visible_message("[user] places [I] in [src].")
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
-
 /obj/item/storage/ashtray/update_icon_state()
 	if(length(contents) == storage_slots)
 		icon_state = icon_full
@@ -87,7 +85,6 @@
 		icon_state = icon_half
 	else
 		icon_state = initial(icon_state)
-
 
 /obj/item/storage/ashtray/update_desc(updates = ALL)
 	. = ..()
@@ -98,19 +95,16 @@
 	else
 		desc = initial(desc)
 
-
 /obj/item/storage/ashtray/proc/empty_tray()
 	for(var/obj/item/I in contents)
 		I.forceMove(loc)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-
 
 /obj/item/storage/ashtray/deconstruct()
 	var/obj/item/trash/broken_ashtray/shards = new(get_turf(src))
 	shards.icon_state = icon_broken
 	visible_message(span_warning("Oops, [src] broke into a lot of pieces!"))
 	return ..()
-
 
 /obj/item/storage/ashtray/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(length(contents))

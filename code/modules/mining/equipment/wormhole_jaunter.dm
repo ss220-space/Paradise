@@ -26,7 +26,6 @@
 	SSblackbox.record_feedback("tally", "jaunter", 1, "User") // user activated
 	activate(user, TRUE)
 
-
 /obj/item/wormhole_jaunter/proc/turf_check()
 	var/turf/device_turf = get_turf(src)
 
@@ -38,14 +37,12 @@
 
 	return TRUE
 
-
 /obj/item/wormhole_jaunter/proc/get_destinations()
 	. = list()
 	for(var/obj/item/beacon/beacon as anything in GLOB.beacons)
 		var/turf/beacon_turf = get_turf(beacon)
 		if(is_station_level(beacon_turf.z))
 			. += beacon
-
 
 /obj/item/wormhole_jaunter/proc/activate(mob/user, adjacent, teleport)
 	var/turf_check_result = turf_check()
@@ -74,14 +71,12 @@
 	qdel(src)
 	return FALSE // used for chasm code
 
-
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
 	. = activate(user, FALSE, TRUE)
 
 	if(!.)
 		to_chat(user, span_notice("Ваш [declent_ru(NOMINATIVE)] активируется, спасая вас от пропасти!"))
 		SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
-
 
 /obj/item/wormhole_jaunter/emag_act(mob/user)
 	if(!emagged)
@@ -92,7 +87,6 @@
 		var/turf/T = get_turf(src)
 		do_sparks(5, FALSE, T)
 		playsound(T, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-
 
 /obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"
@@ -114,7 +108,6 @@
 
 /obj/effect/portal/jaunt_tunnel/update_overlays()
 	. = list()	// we need no mask here
-
 
 /obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/M, silent = FALSE)
 	if(!emagged && ismegafauna(M))
@@ -154,11 +147,9 @@
 	thrower = null
 	return ..()
 
-
 /obj/item/grenade/jaunter_grenade/attack_self(mob/user)
 	. = ..()
 	thrower = user
-
 
 /obj/item/grenade/jaunter_grenade/prime()
 	update_mob()

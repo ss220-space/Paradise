@@ -108,7 +108,6 @@
 	desc = "Комфортная, воссоздающая городской камуфляж, одежда. Не похоже, чтобы она защищала."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 
-
 /obj/item/clothing/under/solgov/elite
 	name = "Trans-Solar Federation Specops marine uniform"
 	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерациии."
@@ -249,16 +248,13 @@
 	item_color = "officer"
 	displays_id = 0
 
-
 /obj/item/clothing/under/rank/centcom/representative/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_DESC)
 
-
 /obj/item/clothing/under/rank/centcom/representative/update_desc(updates = ALL)
 	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
-
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
@@ -268,16 +264,13 @@
 	item_color = "officer"
 	displays_id = 0
 
-
 /obj/item/clothing/under/rank/centcom/magistrate/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_DESC)
 
-
 /obj/item/clothing/under/rank/centcom/magistrate/update_desc(updates = ALL)
 	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
-
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
@@ -495,7 +488,6 @@
 	icon_state = "soviet"
 	item_state = "soviet"
 	item_color = "soviet"
-
 
 /obj/item/clothing/under/sovietofficer
 	name = "Soviet officer uniform"
@@ -841,7 +833,6 @@
 	item_state = "mafiatan"
 	item_color = "mafiatan"
 
-
 /obj/item/clothing/under/bane
 	name = "Bane Harness"
 	desc = "Wear this harness to become the bane of the station."
@@ -997,7 +988,6 @@
 	resistance_flags = FIRE_PROOF
 	clothing_traits = list(TRAIT_VENTCRAWLER_ITEM_BASED)
 
-
 /// Allowed to wear: glasses, shoes, gloves, mask, ears, pockets, id, pda and jumpsuit (obviously)
 #define CONTORTIONIST_ALLOWED_SLOTS (ITEM_SLOT_CLOTH_INNER|ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_GLOVES|ITEM_SLOT_FEET|ITEM_SLOT_MASK|ITEM_SLOT_EYES|ITEM_SLOT_EARS|ITEM_SLOT_POCKETS)
 
@@ -1009,7 +999,6 @@
 	return TRUE
 
 #undef CONTORTIONIST_ALLOWED_SLOTS
-
 
 /obj/item/clothing/under/cursedclown
 	name = "cursed clown suit"
@@ -1026,11 +1015,9 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = 0 // HUNKE
 
-
 /obj/item/clothing/under/cursedclown/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/victdress
 	name = "black victorian dress"
@@ -1195,11 +1182,9 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
-
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
-
 
 /obj/item/clothing/under/ussptracksuit_red
 	name = "red track suit"
@@ -1208,7 +1193,6 @@
 	item_state = "ussptracksuit_red"
 	item_color = "ussptracksuit_red"
 
-
 /obj/item/clothing/under/ussptracksuit_blue
 	name = "blue track suit"
 	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
@@ -1216,14 +1200,12 @@
 	item_state = "ussptracksuit_blue"
 	item_color = "ussptracksuit_blue"
 
-
 /obj/item/clothing/under/ussptracksuit_black
 	name = "black track suit"
 	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
 	icon_state = "ussptracksuit_black"
 	item_state = "ussptracksuit_black"
 	item_color = "ussptracksuit_black"
-
 
 /obj/item/clothing/under/ussptracksuit_white
 	name = "white track suit"
@@ -1443,7 +1425,6 @@
 	var/suit = pick(subtypesof(/obj/item/clothing/under/martialsuit))
 	new suit(loc)
 	qdel(src)
-
 
 /obj/item/clothing/under/tchaikowsky
 	species_restricted = list(SPECIES_HUMAN)

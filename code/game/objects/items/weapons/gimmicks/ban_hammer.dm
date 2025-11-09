@@ -78,7 +78,6 @@
 		"ДЖЕК ГРЕЙ Я С КАДЕТОМ БЕГУ НЕ ВЗРВiАЙ ХРИСТА РАДИ",
 	)
 
-
 /datum/fake_administrator/shade_of
 	admin_name = "Shade of t1d"
 	fake_msgs = list(

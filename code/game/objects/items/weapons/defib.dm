@@ -45,12 +45,10 @@
 		PREPOSITIONAL = "дефибрилляторе",
 	)
 
-
 /obj/item/defibrillator/Initialize(mapload) // Base version starts without a cell for rnd
 	. = ..()
 	paddles = new paddle_type(src)
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/defibrillator/Destroy()
 	if(!paddles_on_defib)
@@ -60,26 +58,21 @@
 	QDEL_NULL(cell)
 	return ..()
 
-
 /obj/item/defibrillator/loaded/Initialize(mapload) // Loaded version starts with high-capacity cell.
 	. = ..()
 	cell = new(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/defibrillator/get_cell()
 	return cell
-
 
 /obj/item/defibrillator/update_icon(updates = ALL)
 	update_power()
 	. = ..()
 
-
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
 	. += span_notice("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять электроды.")
-
 
 /obj/item/defibrillator/proc/update_power()
 	if(cell)
@@ -89,7 +82,6 @@
 			powered = TRUE
 	else
 		powered = FALSE
-
 
 /obj/item/defibrillator/update_overlays()
 	. = ..()
@@ -106,12 +98,10 @@
 	if(!cell)
 		. += "[icon_state]-nocell"
 
-
 /obj/item/defibrillator/CheckParts(list/parts_list)
 	..()
 	cell = locate(/obj/item/stock_parts/cell) in contents
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/defibrillator/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!ishuman(user) || !Adjacent(user))
@@ -119,13 +109,11 @@
 
 	toggle_paddles(user)
 
-
 /obj/item/defibrillator/CtrlClick(mob/user)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	toggle_paddles(user)
-
 
 /obj/item/defibrillator/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
@@ -149,7 +137,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
@@ -192,7 +179,6 @@
 
 	toggle_paddles(usr)
 
-
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
 		balloon_alert(user, "электроды отсутствуют!")
@@ -205,7 +191,6 @@
 
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
-
 
 /obj/item/defibrillator/proc/dispence_paddles(mob/living/carbon/human/user)
 	if(!paddles || !paddles_on_defib || !ishuman(user) || user.incapacitated())
@@ -230,7 +215,6 @@
 	paddles.update_icon(UPDATE_ICON_STATE)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/defibrillator/proc/retrieve_paddles(mob/user)
 	if(!paddles || paddles_on_defib)
 		return
@@ -242,16 +226,13 @@
 	update_icon(UPDATE_OVERLAYS)
 	paddles.update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/defibrillator/equipped(mob/user, slot)
 	. = ..()
 	if(slot != ITEM_SLOT_BACK)
 		retrieve_paddles(user)
 
-
 /obj/item/defibrillator/item_action_slot_check(slot, mob/user, datum/action/action)
 	return slot == ITEM_SLOT_BACK
-
 
 /obj/item/defibrillator/proc/deductcharge(chrgdeductamt)
 	if(cell)
@@ -346,7 +327,6 @@
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/infinite(src)
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)
@@ -444,7 +424,6 @@
 	if(!defib.powered)
 		return COMPONENT_BLOCK_DEFIB_DEAD
 
-
 /obj/item/twohanded/shockpaddles/proc/on_cooldown_expire(obj/item/paddles)
 	SIGNAL_HANDLER  // COMSIG_DEFIB_READY
 	on_cooldown = FALSE
@@ -458,7 +437,6 @@
 		update_icon(UPDATE_ICON_STATE)
 	defib.update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/twohanded/shockpaddles/proc/after_shock()
 	SIGNAL_HANDLER  // COMSIG_DEFIB_SHOCK_APPLIED
 	on_cooldown = TRUE
@@ -470,13 +448,11 @@
 	icon_state = "[initial(icon_state)][is_wielded][on_cooldown ? "_cooldown" : ""]"
 	item_state = "[initial(icon_state)][is_wielded]"
 
-
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] поднос[PLUR_IT_YAT(user)] включенные электроды к своей груди! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	return OXYLOSS
-
 
 /obj/item/twohanded/shockpaddles/dropped(mob/user, slot, silent = FALSE)
 	. = ..()

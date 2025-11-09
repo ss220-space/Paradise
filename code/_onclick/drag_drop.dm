@@ -16,7 +16,6 @@ FALSE if not
 /atom/proc/could_be_click_lag()
 	return world.time - drag_start < 0.1 SECONDS // should be enough to lag
 
-
 /*
 	MouseDrop:
 
@@ -43,7 +42,6 @@ FALSE if not
 	if(!result && lagging)
 		usr.ClickOn(src, params) // if not, we click object
 
-
 /*
 receive a mousedrop
 called on object which was under the object you dragged and dropped
@@ -53,7 +51,6 @@ to inform the game this action was expected and its fine
 */
 /atom/proc/MouseDrop_T(atom/dropping, mob/user, params) // return TRUE if you want to prevent us click the object after it
 	return FALSE
-
 
 /client/MouseDown(datum/object, location, control, params)
 	if(QDELETED(object)) //Yep, you can click on qdeleted things before they have time to nullspace. Fun.
@@ -69,7 +66,6 @@ to inform the game this action was expected and its fine
 			Click(selected_target[1], location, control, selected_target[2])
 			sleep(delay)
 
-
 /client/MouseUp(object, location, control, params)
 	if(SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEUP, object, location, control, params) & COMPONENT_CLIENT_MOUSEUP_INTERCEPT)
 		click_intercept_time = world.time
@@ -77,10 +73,8 @@ to inform the game this action was expected and its fine
 		mouse_pointer_icon = mouse_up_icon
 	selected_target[1] = null
 
-
 /mob/proc/CanMobAutoclick(object, location, params)
 	return FALSE
-
 
 /mob/living/carbon/CanMobAutoclick(atom/object, location, params)
 	if(!object.IsAutoclickable())
@@ -89,22 +83,17 @@ to inform the game this action was expected and its fine
 	if(active_item)
 		. = active_item.CanItemAutoclick(object, location, params)
 
-
 /obj/item/proc/CanItemAutoclick(object, location, params)
 	return FALSE
-
 
 /atom/proc/IsAutoclickable()
 	return TRUE
 
-
 /atom/movable/screen/IsAutoclickable()
 	return FALSE
 
-
 /atom/movable/screen/click_catcher/IsAutoclickable()
 	return TRUE
-
 
 /client/MouseDrag(src_object, atom/over_object, src_location, turf/over_location, src_control, over_control, params)
 	var/list/modifiers = params2list(params)
@@ -119,7 +108,6 @@ to inform the game this action was expected and its fine
 		selected_target[2] = params
 	SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEDRAG, src_object, over_object, src_location, over_location, src_control, over_control, params)
 	return ..()
-
 
 /client/MouseDrop(atom/src_object, atom/over_object, atom/src_location, atom/over_location, src_control, over_control, params)
 	..()

@@ -83,7 +83,6 @@
 	card.mining_points += point_value
 	playsound(loc, 'sound/machines/ping.ogg', 15, TRUE)
 
-
 /obj/item/gem/welder_act(mob/living/user, obj/item/I) //Jank code that detects if the gem in question has a sheet_type and spawns the items specifed in it
 	if(I.use_tool(src, user, 0, volume=50))
 		if(src.sheet_type)
@@ -114,7 +113,6 @@
 		PREPOSITIONAL = "кристалле рупериума",
 	)
 
-
 /obj/item/gem/rupee/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/radioactivity, \
@@ -124,7 +122,6 @@
 	)
 	ADD_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
 
-
 /obj/item/gem/rupee/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
@@ -132,10 +129,8 @@
 	else
 		. += span_warning("Кристалл ярко горит!")
 
-
 /obj/item/gem/rupee/update_icon_state()
 	icon_state = "[HAS_TRAIT(src, TRAIT_BLOCK_RADIATION) ? "" : "broken_"]rupee"
-
 
 /obj/item/gem/rupee/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
@@ -150,7 +145,6 @@
 	user.apply_effect(50, IRRADIATE)
 	REMOVE_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
 	update_icon(UPDATE_ICON_STATE)
-
 
 //magmawing watcher gem
 /obj/item/gem/magma
@@ -225,7 +219,6 @@
 		INSTRUMENTAL = "морозным бриллиантом",
 		PREPOSITIONAL = "морозном бриллианте",
 	)
-
 
 /obj/item/gem/fdiamond/examine(mob/user)
 	. = ..()
@@ -373,7 +366,6 @@
 	if(!cooldown)
 		. += span_notice("Кристалл подрагивает и ярко светится.")
 
-
 /obj/item/gem/void/attack_self(mob/user)
 	if(cooldown)
 		to_chat(user, span_warning("Кристалл неподвижен. Может стоит немного подождать?"))
@@ -438,7 +430,6 @@
 		used = TRUE
 		set_light_range_power_color(3, 2, "#ac2626")
 
-
 /obj/item/gem/bloodstone/afterattack(obj/item/I, mob/user, proximity, params)
 	if(!proximity)
 		return
@@ -446,7 +437,6 @@
 		I.hidden_uplink.uses += charges
 		qdel(src)
 		to_chat(user, span_notice("Вы вставляете [declent_ru(ACCUSATIVE)] внутрь вашего апплинка, заряжая его."))
-
 
 //vetus gem
 /obj/item/gem/data

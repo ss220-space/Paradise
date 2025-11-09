@@ -180,7 +180,7 @@
 	delay = 10
 	e_cost = 675
 
-/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom)
+/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	playsound(src.loc, 'sound/weapons/floragun_gamma.ogg', 75, TRUE)
 	if(!do_after(user, 0.5 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, progress = FALSE))
 		return FALSE
@@ -335,7 +335,6 @@
 			to_chat(M, span_userdanger("Вы чувствуете жар от взрыва [declent_ru(GENITIVE)], но он почти не задевает вас."))
 			add_attack_logs(src, M, "Hit lightly by [src]")
 			M.apply_damage(rand(1, 5) * effects_mult, BURN)
-
 
 /obj/item/ammo_casing/energy/dart
 	projectile_type = /obj/projectile/energy/dart

@@ -135,7 +135,6 @@
 	desc = "It's a storage unit for paramedic equipment."
 	icon_state = "paramed"
 
-
 /obj/structure/closet/paramedic/populate_contents()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/clothing/under/rank/medical/paramedic(src)

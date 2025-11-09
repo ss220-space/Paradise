@@ -15,7 +15,6 @@
 	var/leader_prefix
 	var/syndicate_name
 
-
 /datum/team/nuclear_team/New(list/starting_members)
 	. = ..()
 	leader_prefix = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
@@ -29,7 +28,6 @@
 	if(!nuke_spawn)
 		return
 	new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
-
 
 /datum/team/nuclear_team/proc/scale_telecrystals()
 	var/danger = GLOB.player_list.len
@@ -233,7 +231,6 @@
 	human.regenerate_icons()
 	human.update_body()
 
-
 /datum/team/nuclear_team/get_admin_texts()
 	. = ..()
 	if(!check_rights(R_ADMIN))
@@ -242,7 +239,6 @@
 	. += "<br/><a href='byond://?_src_=holder;team_command=set_tk_nuke;team=[UID()]'>Расчитать общее количество ТК как на старте</a><br>"
 	. += "<br/><a href='byond://?_src_=holder;team_command=set_tk_war;team=[UID()]'>Расчитать общее количество ТК как при объявлении войны</a><br>"
 	. += "<br/><a href='byond://?_src_=holder;team_command=scale_tk;team=[UID()]'>Разделить ТК между оперативниками</a><br>"
-
 
 /datum/team/nuclear_team/admin_topic(comand)
 	if(comand == "set_tk")
@@ -260,7 +256,6 @@
 	if(comand == "scale_tk")
 		share_telecrystals()
 		log_and_message_admins("shared team TC")
-
 
 /datum/team/nuclear_team/set_scoreboard_vars()
 	var/datum/scoreboard/scoreboard = SSticker.score
@@ -307,7 +302,6 @@
 	if(scoreboard.nuked)
 		scoreboard.crewscore -= scoreboard.nuked_penalty
 
-
 /datum/team/nuclear_team/get_scoreboard_stats()
 	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
@@ -340,7 +334,6 @@
 				diskdat += " в [O.declent_ru(DATIVE)]"
 			disk_loc = disk_loc.loc
 		diskdat += " в [disk_loc.loc?.declent_ru(DATIVE)]"
-
 
 	if(!diskdat)
 		diskdat = "ПРЕДУПРЕЖДЕНИЕ: Nuked_penalty не может быть найдено, подробнее в [__FILE__], [__LINE__]."

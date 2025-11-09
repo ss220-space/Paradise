@@ -30,11 +30,9 @@
 			for(var/obj/structure/blob/shield/B in range(reflector_reinforce_range, src))
 				reinforce_tile(B, /obj/structure/blob/shield/reflective/core, seconds_per_tick)
 
-
 /obj/structure/blob/special/proc/reinforce_tile(obj/structure/blob/B, type, seconds_per_tick)
 	if(SPT_PROB(BLOB_REINFORCE_CHANCE, seconds_per_tick))
 		B.change_to(type, overmind, B.point_return)
-
 
 /obj/structure/blob/special/proc/pulse_area(mob/camera/blob/pulsing_overmind, claim_range = 10, pulse_range = 3, expand_range = 2)
 	if(QDELETED(pulsing_overmind))

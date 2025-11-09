@@ -45,7 +45,6 @@ SUBSYSTEM_DEF(air)
 	var/list/currentrun = list()
 	var/currentpart = SSAIR_DEFERREDPIPENETS
 
-
 /datum/controller/subsystem/air/get_stat_details()
 	var/list/msg = list()
 	msg += "C:{"
@@ -66,7 +65,6 @@ SUBSYSTEM_DEF(air)
 	msg += "AS:[length(active_super_conductivity)]|"
 	msg += "AT/MS:[round((cost ? length(active_turfs)/cost : 0),0.1)]"
 	return msg.Join("")
-
 
 /datum/controller/subsystem/air/Initialize()
 	setup_overlays() // Assign icons and such for gas-turf-overlays
@@ -94,7 +92,6 @@ SUBSYSTEM_DEF(air)
 	icon_manager = SSair.icon_manager
 	currentrun = SSair.currentrun
 	currentpart = SSair.currentpart
-
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
@@ -169,7 +166,6 @@ SUBSYSTEM_DEF(air)
 		resumed = 0
 	currentpart = SSAIR_DEFERREDPIPENETS
 
-
 /datum/controller/subsystem/air/proc/process_deferred_pipenets(resumed = 0)
 	if(!resumed)
 		src.currentrun = deferred_pipenet_rebuilds.Copy()
@@ -184,7 +180,6 @@ SUBSYSTEM_DEF(air)
 			deferred_pipenet_rebuilds.Remove(A)
 		if(MC_TICK_CHECK)
 			return
-
 
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
 	if(!resumed)
@@ -201,7 +196,6 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-
 /datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
 	if(!resumed)
 		src.currentrun = atmos_machinery.Copy()
@@ -215,7 +209,6 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-
 /datum/controller/subsystem/air/proc/process_super_conductivity(resumed = 0)
 	if(!resumed)
 		src.currentrun = active_super_conductivity.Copy()
@@ -227,7 +220,6 @@ SUBSYSTEM_DEF(air)
 		T.super_conduct()
 		if(MC_TICK_CHECK)
 			return
-
 
 /datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
 	if(!resumed)
@@ -244,7 +236,6 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-
 /datum/controller/subsystem/air/proc/process_high_pressure_delta(resumed = 0)
 	while(length(high_pressure_delta))
 		var/turf/simulated/T = high_pressure_delta[length(high_pressure_delta)]
@@ -253,7 +244,6 @@ SUBSYSTEM_DEF(air)
 		T.pressure_difference = 0
 		if(MC_TICK_CHECK)
 			return
-
 
 /datum/controller/subsystem/air/proc/process_active_turfs(resumed = 0)
 	//cache for sanic speed
@@ -269,7 +259,6 @@ SUBSYSTEM_DEF(air)
 			T.process_cell(fire_count)
 		if(MC_TICK_CHECK)
 			return
-
 
 /datum/controller/subsystem/air/proc/process_excited_groups(resumed = 0)
 	if(!resumed)
@@ -287,7 +276,6 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-
 /datum/controller/subsystem/air/proc/remove_from_active(turf/simulated/T)
 	active_turfs -= T
 	active_super_conductivity -= T // bug: if a turf is hit by ex_act 1 while processing, it can end up in super conductivity as /turf/space and cause runtimes
@@ -297,7 +285,6 @@ SUBSYSTEM_DEF(air)
 		T.excited = 0
 		if(T.excited_group)
 			T.excited_group.garbage_collect()
-
 
 /datum/controller/subsystem/air/proc/add_to_active(turf/simulated/T, blockchanges = 1)
 	if(!initialized)
@@ -320,7 +307,6 @@ SUBSYSTEM_DEF(air)
 		for(var/turf/simulated/S in T.atmos_adjacent_turfs)
 			add_to_active(S)
 
-
 /datum/controller/subsystem/air/proc/setup_allturfs()
 	// Clear active turfs - faster than removing every single turf in the world
 	// one-by-one, and Initialize_Atmos only ever adds `src` back in.
@@ -332,7 +318,6 @@ SUBSYSTEM_DEF(air)
 		T.Initialize_Atmos(time)
 		if(CHECK_TICK)
 			time--
-
 
 /turf/simulated/proc/resolve_active_graph()
 	. = list()
@@ -358,13 +343,11 @@ SUBSYSTEM_DEF(air)
 			ET.excited = 1
 			. += ET
 
-
 /datum/controller/subsystem/air/proc/setup_atmos_machinery(list/machines_to_init)
 	var/watch = start_watch()
 	log_startup_progress("Initializing atmospherics machinery...")
 	var/count = _setup_atmos_machinery(machines_to_init)
 	log_startup_progress("Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
-
 
 // this underscored variant is so that we can have a means of late initing
 // atmos machinery without a loud announcement to the world
@@ -375,7 +358,6 @@ SUBSYSTEM_DEF(air)
 		count++
 	return count
 
-
 //this can't be done with setup_atmos_machinery() because
 //	all atmos machinery has to initalize before the first
 //	pipenet can be built.
@@ -385,7 +367,6 @@ SUBSYSTEM_DEF(air)
 	var/count = _setup_pipenets(pipes)
 	log_startup_progress("Initialized [count] pipenets in [stop_watch(watch)]s.")
 
-
 // An underscored wrapper that exists for the same reason
 // the machine init wrapper does
 /datum/controller/subsystem/air/proc/_setup_pipenets(list/pipes)
@@ -394,7 +375,6 @@ SUBSYSTEM_DEF(air)
 		machine.build_network()
 		count++
 	return count
-
 
 /obj/effect/overlay/turf
 	icon = 'icons/effects/tile_effects.dmi'
@@ -409,7 +389,6 @@ SUBSYSTEM_DEF(air)
 
 /obj/effect/overlay/turf/sleeping_agent
 	icon_state = "sleeping_agent"
-
 
 /datum/controller/subsystem/air/proc/setup_overlays()
 	for(var/i in 0 to SSmapping.max_plane_offset)

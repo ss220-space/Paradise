@@ -127,7 +127,6 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/examine_status(mob/user)
 	return
 
-
 /obj/structure/safe/update_icon_state()
 	if(open)
 		if(broken)
@@ -140,7 +139,6 @@ GLOBAL_LIST_EMPTY(safes)
 		else
 			icon_state = initial(icon_state)
 
-
 /obj/structure/safe/update_overlays()
 	. = ..()
 	if(istype(drill, /obj/item/thermal_drill))
@@ -148,7 +146,6 @@ GLOBAL_LIST_EMPTY(safes)
 		var/state = "[initial(icon_state)]_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
 		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state, pixel_x = drill_x_offset, pixel_y = drill_y_offset)
 		. += drill_overlay
-
 
 /obj/structure/safe/attack_ghost(mob/user)
 	if(..() || drill)
@@ -191,7 +188,6 @@ GLOBAL_LIST_EMPTY(safes)
 		remove_drill(user)
 	else
 		ui_interact(user)
-
 
 /obj/structure/safe/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -244,7 +240,6 @@ GLOBAL_LIST_EMPTY(safes)
 
 	user.balloon_alert(user,"сейф закрыт!")
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/structure/safe/ui_state(mob/user)
 	return GLOB.physical_state

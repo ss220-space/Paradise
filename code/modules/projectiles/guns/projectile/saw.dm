@@ -29,18 +29,15 @@
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, TRUE)
 	update_icon()
 
-
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
-
 
 /obj/item/gun/projectile/automatic/l6_saw/can_shoot(mob/user)
 	if(cover_open)
 		balloon_alert(user, "крышка не закрыта!")
 		return FALSE
 	return ..()
-
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_hand(mob/user)
 	if(loc != user)
@@ -58,13 +55,11 @@
 		update_icon()
 		balloon_alert(user, "магазин вынут")
 
-
 /obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/I, mob/user, params)
 	if(istype(I, mag_type) && !cover_open)
 		balloon_alert(user, "крышка закрыта!")
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 //ammo//
 
@@ -74,6 +69,7 @@
 
 /obj/projectile/bullet/saw/weak
 	damage = 30
+	ricochet_chance = 10
 
 /obj/projectile/bullet/saw/bleeding
 	damage = 20
@@ -88,6 +84,7 @@
 /obj/projectile/bullet/saw/hollow
 	damage = 60
 	armour_penetration = -10
+	ricochets_max = 0
 
 /obj/projectile/bullet/saw/ap
 	damage = 40

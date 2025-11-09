@@ -23,12 +23,10 @@
 	QDEL_NULL(myredtoolbox)
 	return ..()
 
-
 /obj/structure/engineeringcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
-
 
 /obj/structure/engineeringcart/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
@@ -126,7 +124,6 @@
 
 	return ..()
 
-
 /obj/structure/engineeringcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(isinspace())
@@ -147,7 +144,6 @@
 			span_notice("You have loosened [name]'s casters."),
 			span_italics("You hear ratchet."),
 		)
-
 
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -221,7 +217,6 @@
 
 	update_icon(UPDATE_OVERLAYS)
 	updateUsrDialog()
-
 
 /obj/structure/engineeringcart/update_overlays()
 	. = ..()

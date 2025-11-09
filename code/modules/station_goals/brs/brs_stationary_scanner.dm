@@ -166,16 +166,13 @@
 
 	icon_state = "[prefix]-act"
 
-
 /obj/machinery/brs_stationary_scanner/update_overlays()
 	. = ..()
 	if(panel_open)
 		. += image(icon, "[initial(icon_state)]-panel")
 
-
 /obj/machinery/power/brs_stationary_scanner/power_change(forced = FALSE)
 	return
-
 
 /obj/machinery/power/brs_stationary_scanner/proc/on_power_change()
 	if(!cable_powered)

@@ -84,7 +84,6 @@ log transactions
 				linked_db = DB
 				break
 
-
 /obj/machinery/atm/update_icon_state()
 	. = ..()
 	if(stat & NOPOWER)
@@ -92,12 +91,10 @@ log transactions
 	else
 		icon_state = "atm"
 
-
 /obj/machinery/atm/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon()
-
 
 /obj/machinery/atm/update_overlays()
 	. = ..()
@@ -107,7 +104,6 @@ log transactions
 		return
 
 	underlays += emissive_appearance(icon, "atm_lightmask", src)
-
 
 /obj/machinery/atm/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
@@ -141,7 +137,6 @@ log transactions
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/atm/attack_hand(mob/user)
 	if(..())

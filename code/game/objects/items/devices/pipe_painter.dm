@@ -34,7 +34,6 @@
 	playsound(loc, usesound, 30, TRUE)
 	P.change_color(GLOB.pipe_colors[mode])
 
-
 /obj/item/pipe_painter/attack_self(mob/user as mob)
 	var/new_paint_setting = tgui_input_list(user, "Which color do you want to use?", "Pick color", modes)
 	if(!new_paint_setting)

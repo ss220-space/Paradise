@@ -192,7 +192,6 @@
 	DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 	qdel(src)
 
-
 /obj/machinery/door/airlock/plasma/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() > 300)
 		add_fingerprint(user)
@@ -202,7 +201,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/door/airlock/plasma/BlockSuperconductivity() //we don't stop the heat~
 	return 0
@@ -339,7 +337,6 @@
 		return RCD_NO_ACT
 	. = ..()
 
-
 //////////////////////////////////
 /*
 	Hatch Airlocks
@@ -383,7 +380,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	is_special = TRUE
 
-
 /obj/machinery/door/airlock/hatch/gamma/attackby(obj/item/I, mob/user, params)
 	if(!issilicon(user) && isElectrified() && shock(user, 75))
 		add_fingerprint(user)
@@ -403,7 +399,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/door/airlock/hatch/gamma/welder_act(mob/user, obj/item/I)
 	if(shock_user(user, 75))
@@ -477,7 +472,6 @@
 
 	return ..()
 
-
 /obj/machinery/door/airlock/highsecurity/red/welder_act(mob/user, obj/item/I)
 	if(shock_user(user, 75))
 		return
@@ -491,7 +485,6 @@
 					span_notice("You [welded ? null : "un"]weld [src]!"),\
 					span_italics("You hear welding."))
 	update_icon()
-
 
 //////////////////////////////////
 /*
@@ -801,7 +794,6 @@
 	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_med
 	normal_integrity = 400
 
-
 /obj/machinery/door/airlock/syndicate/medical/glass
 	opacity = FALSE
 	glass = TRUE
@@ -893,7 +885,6 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile
 	paintable = FALSE
-
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return

@@ -95,7 +95,6 @@
 
 	return ..()
 
-
 /obj/item/mounted/mirror
 	name = "mirror"
 	desc = "Some reflective glass ready to be hung on a wall. Don't break it!"
@@ -175,10 +174,8 @@
 /obj/structure/mirror/magic/ui_close(mob/user)
 	curse(user)
 
-
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return

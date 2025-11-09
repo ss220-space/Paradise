@@ -23,7 +23,6 @@ Bonus
 	transmittable = -1
 	level = 5
 
-
 /datum/symptom/blood/Activate(datum/disease/virus/advance/virus)
 	if(!prob(SYMPTOM_ACTIVATION_PROB))
 		return

@@ -4,7 +4,6 @@ GLOBAL_LIST_INIT(strippable_slugcat_items, create_strippable_list(list(
 	/datum/strippable_item/pet_collar
 )))
 
-
 /datum/strippable_item/slugcat_head
 	key = STRIPPABLE_ITEM_HEAD
 

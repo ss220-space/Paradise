@@ -209,7 +209,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		created_pump.id_tag = AIRPUMP_TAG
 		created_pump.set_frequency(radio_frequency)
 
-
 //Premade airlocks for mappers, probably won't need all of these but whatever
 /obj/effect/spawner/airlock/s_to_n
 	name = "1 by 1 airlock spawner (interior south, exterior north)"

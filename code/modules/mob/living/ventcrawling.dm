@@ -55,7 +55,6 @@
 
 	return TRUE
 
-
 /// Handles the entrance and exit on ventcrawling
 /mob/living/proc/handle_ventcrawl(obj/machinery/atmospherics/ventcrawl_target)
 	// clientless mobs can do this too! this is just stored in case the client disconnects while we sleep in do_after.
@@ -101,7 +100,6 @@
 	ventcrawl_target.flick_overlay_static(image('icons/effects/vent_indicator.dmi', "insert", ABOVE_MOB_LAYER), 1 SECONDS)
 	return move_into_vent(ventcrawl_target)
 
-
 /**
  * Moves living mob directly into the vent as a ventcrawler
  *
@@ -124,7 +122,6 @@
 	ADD_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 	update_pipe_vision()
 	return TRUE
-
 
 /**
  * Moves living mob to the turf contents and cleanse ventcrawling stuff
@@ -151,7 +148,6 @@
 			span_notice("Вы вылезли из вентиляции."),
 		)
 	return TRUE
-
 
 /**
  * Everything related to pipe vision on ventcrawling is handled by update_pipe_vision().

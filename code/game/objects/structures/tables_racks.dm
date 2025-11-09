@@ -42,7 +42,6 @@
 	/// Can this table be flipped?
 	var/can_be_flipped = TRUE
 
-
 /obj/structure/table/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -52,7 +51,6 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update_flipped_turf()
 
-
 /obj/structure/table/examine(mob/user)
 	. = ..()
 
@@ -61,15 +59,12 @@
 
 	. += deconstruction_hints(user)
 
-
 /obj/structure/table/proc/deconstruction_hints(mob/user)
 	return span_notice("Верхняя часть крепится <b>винтами</b>, но основные <b>болты</b> тоже видны.")
-
 
 /obj/structure/table/update_icon(updates = ALL)
 	. = ..()
 	update_smoothing()
-
 
 /obj/structure/table/update_icon_state()
 	if(flipped)
@@ -84,7 +79,6 @@
 
 		icon_state = "[initial(icon_state)]["flip"][type][type == 1 ? subtype : ""]"
 
-
 /obj/structure/table/proc/update_smoothing()
 	if(smooth)
 		QUEUE_SMOOTH(src)
@@ -92,7 +86,6 @@
 
 	if(flipped)
 		clear_smooth_overlays()
-
 
 /obj/structure/table/narsie_act()
 	new /obj/structure/table/wood(loc)
@@ -132,17 +125,14 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
-
 /obj/structure/table/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(table_crossed), arrived, old_loc)
 
-
 /obj/structure/table/proc/table_crossed(atom/movable/arrived, atom/old_loc)
 	if(arrived.throwing && isliving(arrived))
 		clumse_stuff(arrived)
-
 
 /obj/structure/table/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -161,14 +151,12 @@
 	if(flipped)
 		return dir != border_dir
 
-
 /obj/structure/table/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
 	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
 		return TRUE
 	return FALSE
-
 
 /obj/structure/table/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -188,7 +176,6 @@
 	if(density && dir == get_dir(leaving, newLoc))
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
-
 
 /**
  * Determines whether a projectile crossing our turf should be stopped.
@@ -217,13 +204,11 @@
 	if(prob(half_protection ? 40 : 60))
 		return FALSE // Blocked
 
-
 /obj/structure/table/can_touch(mob/living/user, flip = FALSE)
 	. = ..()
 	if(. && !flip && flipped)
 		to_chat(user, span_notice("Вы не можете забраться на перевернутый стол."))
 		return FALSE
-
 
 /obj/structure/table/MouseDrop_T(obj/dropping, mob/user, params)
 	if(..())
@@ -238,7 +223,6 @@
 		add_fingerprint(user)
 		step(dropping, get_dir(dropping, src))
 		return TRUE
-
 
 /obj/structure/table/proc/tablepush(mob/living/victim, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
@@ -261,7 +245,6 @@
 	add_attack_logs(user, victim, "Pushed onto a table")
 	return TRUE
 
-
 /obj/structure/table/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(isitem(grabbed_thing))
@@ -272,7 +255,6 @@
 		return .
 	tablepush(grabbed_thing, grabber)
 	add_fingerprint(grabber)
-
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
@@ -290,7 +272,6 @@
 	I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 	item_placed(I)
 	SEND_SIGNAL(I, COMSIG_ITEM_PLACED_ON_TABLE, user, src)
-
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
 	if(locate(/obj/structure/table) in get_turf(target))
@@ -320,7 +301,6 @@
 		deconstruct(TRUE)
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 
-
 /obj/structure/table/wrench_act(mob/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
 		return
@@ -334,7 +314,6 @@
 		deconstruct(TRUE, TRUE)
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 
-
 /obj/structure/table/deconstruct(disassembled = TRUE, wrench_disassembly = FALSE)
 	if(!(obj_flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
@@ -344,7 +323,6 @@
 		else
 			new framestack(T, framestackamount)
 	qdel(src)
-
 
 /obj/structure/table/proc/straight_table_check(direction)
 	var/obj/structure/table/check_table
@@ -359,18 +337,15 @@
 		return FALSE
 	return check_table.straight_table_check(direction)
 
-
 /obj/structure/table/verb/do_flip()
 	set name = "Flip/Unflip table"
 	set desc = "Flips or unflips a table"
 	set src in oview(1)
 	actual_flip(usr)
 
-
 /// Used to determine whether the table can be flipped over.
 /obj/structure/table/proc/flip_check()
 	return can_be_flipped
-
 
 /// Used for determine the proc of subsequent flipping/unflipping.
 /obj/structure/table/proc/actual_flip(mob/living/user)
@@ -389,8 +364,6 @@
 	else
 		if(!unflip())
 			to_chat(user, span_notice("Никак не поддаётся."))
-
-
 
 /obj/structure/table/proc/flip(direction, throw_around = TRUE)
 	if(flipped)
@@ -427,7 +400,6 @@
 
 	return TRUE
 
-
 /obj/structure/table/proc/unflip()
 	if(!flipped)
 		return FALSE
@@ -460,7 +432,6 @@
 
 	return TRUE
 
-
 /obj/structure/table/proc/update_flipped_turf()
 	var/static/list/give_turf_traits
 	if(!give_turf_traits)
@@ -469,7 +440,6 @@
 		RemoveElement(/datum/element/give_turf_traits, give_turf_traits)
 	else
 		AddElement(/datum/element/give_turf_traits, give_turf_traits)
-
 
 /*
  * MARK: Glass Tables
@@ -500,7 +470,6 @@
 		qdel(i)
 	. = ..()
 
-
 /obj/structure/table/glass/table_crossed(atom/movable/arrived, atom/old_loc)
 	. = ..()
 
@@ -516,7 +485,6 @@
 	else
 		check_break(arrived)
 
-
 /obj/structure/table/glass/proc/throw_check(mob/living/M)
 	if(M.loc == get_turf(src))
 		check_break(M)
@@ -529,11 +497,9 @@
 	if(M.get_gravity() > NO_GRAVITY && M.mob_size > MOB_SIZE_SMALL)
 		table_shatter(M)
 
-
 /obj/structure/table/glass/flip(direction, throw_around = TRUE)
 	deconstruct(FALSE)
 	return TRUE
-
 
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
 	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] разбивается!"), span_danger("Вы слышите, как бьется стекло"))
@@ -636,13 +602,11 @@
 	buildstack = /obj/item/stack/tile/carpet/black
 	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
 
-
 /obj/structure/table/wood/fancy/blue
 	icon_state = "fancy_table_blue"
 	base_icon_state = "fancy_table_blue"
 	buildstack = /obj/item/stack/tile/carpet/blue
 	icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
-
 
 /obj/structure/table/wood/fancy/cyan
 	icon_state = "fancy_table_cyan"
@@ -650,13 +614,11 @@
 	buildstack = /obj/item/stack/tile/carpet/cyan
 	icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
 
-
 /obj/structure/table/wood/fancy/green
 	icon_state = "fancy_table_green"
 	base_icon_state = "fancy_table_green"
 	buildstack = /obj/item/stack/tile/carpet/green
 	icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
-
 
 /obj/structure/table/wood/fancy/orange
 	icon_state = "fancy_table_orange"
@@ -664,13 +626,11 @@
 	buildstack = /obj/item/stack/tile/carpet/orange
 	icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
 
-
 /obj/structure/table/wood/fancy/purple
 	icon_state = "fancy_table_purple"
 	base_icon_state = "fancy_table_purple"
 	buildstack = /obj/item/stack/tile/carpet/purple
 	icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
-
 
 /obj/structure/table/wood/fancy/red
 	icon_state = "fancy_table_red"
@@ -678,20 +638,17 @@
 	buildstack = /obj/item/stack/tile/carpet/red
 	icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
 
-
 /obj/structure/table/wood/fancy/royalblack
 	icon_state = "fancy_table_royalblack"
 	base_icon_state = "fancy_table_royalblack"
 	buildstack = /obj/item/stack/tile/carpet/royalblack
 	icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
 
-
 /obj/structure/table/wood/fancy/royalblue
 	icon_state = "fancy_table_royalblue"
 	base_icon_state = "fancy_table_royalblue"
 	buildstack = /obj/item/stack/tile/carpet/royalblue
 	icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
-
 
 /*
  * MARK: Reinforced tables
@@ -709,16 +666,13 @@
 	integrity_failure = 50
 	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 
-
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
 		return span_notice("The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.")
 	return span_notice("The top cover is firmly <b>welded</b> on.")
 
-
 /obj/structure/table/reinforced/flip_check()
 	return ..() && deconstruction_ready
-
 
 /obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -728,7 +682,6 @@
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		to_chat(user, span_notice("Вы [deconstruction_ready ? "усилили" : "ослабили"] стол."))
 		deconstruction_ready = !deconstruction_ready
-
 
 /obj/structure/table/reinforced/brass
 	name = "brass table"
@@ -758,14 +711,11 @@
 		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
-
 /obj/structure/table/reinforced/brass/ratvar_act()
 	update_integrity(max_integrity)
 
-
 /obj/structure/table/reinforced/brass/fake/ratvar_act()
 	return
-
 
 /obj/structure/table/tray
 	name = "surgical tray"
@@ -812,14 +762,12 @@
 			continue
 		held.forceMove(newloc)
 
-
 /obj/structure/table/tray/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	if(loc != puller.loc)
 		held_items -= puller.UID()
 	if(isliving(puller) && (puller.UID() in held_items))
 		return FALSE
 	return ..()
-
 
 /obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
@@ -876,12 +824,10 @@
 	if(!wooden_version)
 		. += span_notice("Держится на паре [span_bold("болтов")].")
 
-
 /obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover, PASSTABLE))
 		return TRUE
-
 
 /obj/structure/rack/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
@@ -889,7 +835,6 @@
 	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
 		return TRUE
 	return FALSE
-
 
 /obj/structure/rack/MouseDrop_T(obj/item/dropping, mob/user, params)
 	. = FALSE
@@ -901,7 +846,6 @@
 		add_fingerprint(user)
 		return TRUE
 
-
 /obj/structure/rack/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
 		return ..()
@@ -909,7 +853,6 @@
 		return ..()
 	add_fingerprint(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -961,7 +904,6 @@
 	desc = "A gun rack for storing guns."
 	icon_state = "gunrack"
 
-
 /obj/structure/rack/gunrack/proc/place_gun(obj/item/gun/our_gun, mob/user, params)
 	. = FALSE
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -988,10 +930,8 @@
 		our_gun.pixel_y = 0
 		return TRUE
 
-
 /obj/structure/rack/gunrack/MouseDrop_T(obj/item/gun/our_gun, mob/user, params)
 	return place_gun(our_gun, user, params)
-
 
 /obj/structure/rack/gunrack/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -1000,13 +940,11 @@
 	place_gun(I, user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/structure/rack/gunrack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	deconstruct(TRUE)
-
 
 /obj/structure/rack/gunrack/Initialize(mapload)
 	. = ..()
@@ -1015,7 +953,6 @@
 
 	for(var/obj/item/gun/gun in loc)
 		gun.place_on_rack()
-
 
 /obj/structure/rack/gunrack/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

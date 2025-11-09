@@ -11,7 +11,6 @@
 
 	var/obj/machinery/portable_atmospherics/connected_device
 
-
 /obj/machinery/atmospherics/unary/portables_connector/Destroy()
 	if(connected_device)
 		connected_device.disconnect()
@@ -19,7 +18,6 @@
 
 /obj/machinery/atmospherics/unary/portables_connector/update_icon_state()
 	icon_state = "connector"
-
 
 /obj/machinery/atmospherics/unary/portables_connector/update_underlays()
 	if(..())
@@ -36,13 +34,11 @@
 	if(parent)
 		parent.update = 1
 
-
 /obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/I)
 	if(connected_device)
 		to_chat(user, span_warning("You cannot unwrench [src], detach [connected_device] first."))
 		return TRUE
 	return ..()
-
 
 /obj/machinery/atmospherics/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()

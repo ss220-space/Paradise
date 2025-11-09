@@ -81,10 +81,8 @@
 	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, TRUE)
 	qdel(src)
 
-
 /obj/structure/holosign/wetsign/mine
 	desc = "Слова пролетают мимо, как будто они что-то точно значат."
-
 
 /obj/structure/holosign/wetsign/mine/Initialize(mapload, source_projector)
 	. = ..()
@@ -93,20 +91,17 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/holosign/wetsign/mine/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(isliving(arrived))
 		INVOKE_ASYNC(src, PROC_REF(triggermine), arrived)
 
-
 /obj/structure/holosign/wetsign/mine/proc/triggermine(mob/living/victim)
 	empulse(src, 1, 1, TRUE, "[victim] активировал[GEND_A_O_I(victim)] [declent_ru(ACCUSATIVE)]")
 	if(ishuman(victim))
 		victim.apply_damage(100, STAMINA)
 	qdel(src)
-
 
 /obj/structure/holosign/barrier
 	name = "holo barrier"
@@ -127,7 +122,6 @@
 		PREPOSITIONAL = "голографическом барьере",
 	)
 
-
 /obj/structure/holosign/barrier/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
@@ -140,7 +134,6 @@
 		var/mob/living/silicon/silicon_mover = mover
 		if(allow_walk && (silicon_mover.m_intent == MOVE_INTENT_WALK || silicon_mover.pulledby?.m_intent == MOVE_INTENT_WALK))
 			return TRUE
-
 
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"
@@ -215,10 +208,8 @@
 		PREPOSITIONAL = "заряженном энергетическом барьере",
 	)
 
-
 /obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/projectile/P)
 	take_damage(P.damage, BRUTE, MELEE, 1)	//Yeah no this doesn't get projectile resistance.
-
 
 /obj/structure/holosign/barrier/cyborg/hacked/attack_hand(mob/living/user)
 	. = ..()
@@ -226,7 +217,6 @@
 		return
 	user.electrocute_act(15, src, flags = SHOCK_NOGLOVES)
 	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
-
 
 /obj/structure/holosign/barrier/cyborg/hacked/Bumped(mob/living/moving_living)
 	. = ..()

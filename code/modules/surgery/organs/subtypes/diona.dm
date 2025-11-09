@@ -228,7 +228,6 @@
 	if((!owner.mind) || owner.mind.suicided)
 		return FALSE
 
-
 /datum/action/item_action/organ_action/diona_brain_evacuation/Trigger(left_click = TRUE)
 	. = ..()
 	if(tgui_alert(usr, "Вы уверены, что хотите покинуть своё тело как нимфа? (Если использовать, пока вы живы, вас лишит роли антагониста!)", "Подтверждение эвакуации", list("Да", "Нет")) == "Нет")

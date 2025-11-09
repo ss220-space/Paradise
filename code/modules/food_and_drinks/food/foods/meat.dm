@@ -25,7 +25,6 @@
 		PREPOSITIONAL = "куске мяса",
 	)
 
-
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -351,7 +350,6 @@
 	list_reagents = list("protein" = 1)
 	foodtype = MEAT
 
-
 /obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -394,7 +392,6 @@
 		transfer_fingerprints_to(bacon)
 		bacon.add_fingerprint(user)
 	qdel(src)
-
 
 //////////////////////////
 //		Monster Meat	//
@@ -821,7 +818,6 @@
 	list_reagents = list("grub_juice" = 5)
 	tastes = list("meat" = 1)
 
-
 /obj/item/reagent_containers/food/snacks/smokedsausage
 	name = "Smoked sausage"
 	desc = "Piece of smoked sausage. Oh, really?"
@@ -917,7 +913,6 @@
 	name = "neaera cube"
 	monkey_type = /datum/species/monkey/skrell
 
-
 //////////////////////
 //		Eggs		//
 //////////////////////
@@ -933,7 +928,6 @@
 
 	var/amount_grown = 0
 
-
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	var/turf/T = get_turf(hit_atom)
@@ -942,10 +936,8 @@
 		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
-
 /obj/item/reagent_containers/food/snacks/egg/update_icon_state()
 	icon_state = "egg[item_color ? "-[item_color]" : ""]"
-
 
 /obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon))
@@ -961,7 +953,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/reagent_containers/food/snacks/egg/blue
 	icon_state = "egg-blue"
@@ -1051,7 +1042,6 @@
 	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
 	foodtype = EGG | GRAIN
-
 
 //////////////////////
 //		Misc		//

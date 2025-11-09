@@ -9,20 +9,17 @@
 	name = "Шаттл запроса энергии"
 	var/smes_count
 
-
 /datum/addition_goal/energy_support/setup()
 	smes_count = rand(2, 3)
 	request_number = "[rand(100, 999)]"
 	name = "Запрос энергии №[request_number]"
 	description = "Запрос энергии №[request_number]. На станцию прибудет шаттл с несколькими мобильными СКАНами. Вам необходимо зарядить их с помощью вашего двигателя и отправить обратно на шаттле."
 
-
 /datum/addition_goal/energy_support/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	for(var/i in 1 to smes_count)
 		var/turf/random_location = pick(shuttle_turfs)
 		new /obj/machinery/power/smes/portable(random_location)
 	return TRUE
-
 
 /datum/addition_goal/energy_support/format_accept_report(mob/user)
 	return {"<center><b>Запрос энергии</b></center><br>
@@ -32,7 +29,6 @@
 		Награда за выполнение:<br>
 		1. [smes_count * AGS_CREDITS_PER_SMES] кредитов на счет станции.<br>
 		2. [smes_count * AGS_CAPRGOPOINTS_PER_SMES] очков поставки в карго.<br>"}
-
 
 /datum/addition_goal/energy_support/complete_goal(datum/controller/subsystem/addition_goals/system)
 	var/shuttle_turfs = system.get_shuttle_turfs()

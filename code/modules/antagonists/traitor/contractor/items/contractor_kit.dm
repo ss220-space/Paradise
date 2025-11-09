@@ -44,7 +44,6 @@
 		PREPOSITIONAL = "наборе контрактника",
 	)
 
-
 /obj/item/storage/box/syndie_kit/contractor/populate_contents()
 	new /obj/item/paper/contractor_guide(src)
 	new /obj/item/contractor_uplink(src)

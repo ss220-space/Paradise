@@ -67,7 +67,6 @@
 		hologram.HC = null
 		QDEL_NULL(hologram)
 
-
 	for(var/obj/machinery/hologram/holopad/dialed_holopad as anything in dialed_holopads)
 		dialed_holopad.set_holocall(src, FALSE)
 	dialed_holopads.Cut()
@@ -80,7 +79,6 @@
 		connected_holopad.SetLightsAndPower()
 		connected_holopad = null
 	return ..()
-
 
 //Gracefully disconnects a holopad `H` from a call. Pads not in the call are ignored. Notifies participants of the disconnection
 /datum/holocall/proc/Disconnect(obj/machinery/hologram/holopad/H)

@@ -61,7 +61,6 @@
 	var/mob/living/silicon/robot/Robot = user
 	Robot.cell.use(250) // take energy from borg
 
-
 /obj/item/flash/cyborg/alien
 	name = "eye flash"
 	desc = "Useful for taking pictures, making friends and flash-frying chips."

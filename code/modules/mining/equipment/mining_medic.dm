@@ -4,10 +4,8 @@ Almost every mining medic related stuff
 
 /obj/machinery/camera/portable/no_ai
 
-
 /obj/machinery/camera/portable/no_ai/can_AI_see(ai)
 	return FALSE
-
 
 /obj/item/clothing/accessory/camera
 	name = "mining camera"

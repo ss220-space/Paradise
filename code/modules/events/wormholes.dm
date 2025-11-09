@@ -7,11 +7,9 @@
 	var/shift_frequency = 3
 	var/number_of_wormholes = 400
 
-
 /datum/event/wormholes/setup()
 	announceWhen = rand(0, 20)
 	endWhen = rand(40, 80)
-
 
 /datum/event/wormholes/start()
 	var/list/stations_z = levels_by_trait(STATION_LEVEL)
@@ -28,14 +26,12 @@
 		if(anomaly_turf)
 			wormholes.Add(new /obj/effect/portal/wormhole(anomaly_turf, null, null, -1, null, TRUE, wormholes))
 
-
 /datum/event/wormholes/announce()
 	GLOB.minor_announcement.announce(
 		message = "Зафиксированы пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.",
 		new_title = ANNOUNCE_ANOMALY_RU,
 		new_sound = 'sound/AI/spanomalies.ogg'
 	)
-
 
 /datum/event/wormholes/tick()
 	if(activeFor % shift_frequency == 0)
@@ -45,10 +41,8 @@
 			if(anomaly_turf)
 				wormhole.forceMove(anomaly_turf)
 
-
 /datum/event/wormholes/end()
 	QDEL_LIST(wormholes)
-
 
 /obj/effect/portal/wormhole
 	name = "wormhole"
@@ -58,22 +52,18 @@
 	failchance = 0
 	var/list/linked_portals
 
-
 /obj/effect/portal/wormhole/Initialize(mapload, turf/target, obj/creation_object = null, lifespan = 30 SECONDS, mob/creation_mob = null, create_sparks = TRUE, list/link_portals)
 	. = ..()
 	src.linked_portals = link_portals
 
-
 /obj/effect/portal/wormhole/update_overlays()
 	. = list()	// we need no mask here
-
 
 /obj/effect/portal/wormhole/can_teleport(atom/movable/M, silent = FALSE)
 	. = ..()
 
 	if(istype(M, /obj/singularity))
 		. = FALSE
-
 
 /obj/effect/portal/wormhole/teleport(atom/movable/M)
 	if(!can_teleport(M))

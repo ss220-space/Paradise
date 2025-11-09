@@ -146,7 +146,6 @@
 		return TRUE
 	return FALSE
 
-
 /datum/surgery/debridement/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
 	if(!.)
@@ -155,7 +154,6 @@
 	if(!affected.is_dead())
 		return FALSE
 	return TRUE
-
 
 /datum/surgery/suture
 	name = "Зашить кровотечения"
@@ -186,7 +184,6 @@
 		return TRUE
 	return FALSE
 
-
 /datum/surgery_step/fix_vein
 	name = "заживление кровеносных сосудов"
 	begin_sound = 'sound/surgery/fixovein1.ogg'
@@ -215,7 +212,6 @@
 	)
 	target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
-
 
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -301,9 +297,7 @@
 		/obj/item/reagent_containers/glass/bucket = 50,
 	)
 
-
 	time = 2.4 SECONDS
-
 
 /datum/surgery_step/treat_necrosis/tool_check(mob/user, obj/item/tool)
 	. = ..()
@@ -425,7 +419,6 @@
 	if(!LAZYIN(affected.internal_organs, B))
 		return FALSE
 	return TRUE
-
 
 /datum/surgery_step/internal/dethrall
 	name = "удаление опухоли"

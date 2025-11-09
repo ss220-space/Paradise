@@ -103,7 +103,6 @@
 			if(is_light(A))
 				continue
 
-
 			if(istype(A, /obj/machinery/light))
 				continue //hacky but whatever, shuttles need three spots each for this shit
 			contcount++
@@ -233,7 +232,7 @@
 								continue
 							for(var/datum/job_objective/further_research/objective in mob.mind.job_objectives)
 								objective.unit_completed(round(cost / 3))
-						msg += "[tech.name] – новые данные.<br>"
+						msg += "[tech.name] — новые данные.<br>"
 
 		if(istype(MA, /obj/structure/closet/critter/mecha))
 			var/obj/structure/closet/critter/mecha/crate = MA
@@ -286,17 +285,17 @@
 
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
-	reqform.name = "запрос на поставку – [crates] \"[object.name]\" для [orderedby]"
+	reqform.name = "запрос на поставку — [crates] \"[object.name]\" для [orderedby]"
 	reqform.ru_names = new /list(6)
 	reqform.ru_names = list(
-		NOMINATIVE = "запрос на поставку – [crates] \"[object.name]\" для [orderedby]",
-		GENITIVE = "запроса на поставку – [crates] \"[object.name]\" для [orderedby]",
-		DATIVE = "запросу на поставку – [crates] \"[object.name]\" для [orderedby]",
-		ACCUSATIVE = "запрос на поставку – [crates] \"[object.name]\" для [orderedby]",
-		INSTRUMENTAL = "запросом на поставку – [crates] \"[object.name]\" для [orderedby]",
-		PREPOSITIONAL = "запросе на поставку – [crates] \"[object.name]\" для [orderedby]",
+		NOMINATIVE = "запрос на поставку — [crates] \"[object.name]\" для [orderedby]",
+		GENITIVE = "запроса на поставку — [crates] \"[object.name]\" для [orderedby]",
+		DATIVE = "запросу на поставку — [crates] \"[object.name]\" для [orderedby]",
+		ACCUSATIVE = "запрос на поставку — [crates] \"[object.name]\" для [orderedby]",
+		INSTRUMENTAL = "запросом на поставку — [crates] \"[object.name]\" для [orderedby]",
+		PREPOSITIONAL = "запросе на поставку — [crates] \"[object.name]\" для [orderedby]",
 	)
-	reqform.info += "<h3>[station_name()] – запрос на поставку грузов</h3><hr>"
+	reqform.info += "<h3>[station_name()] — запрос на поставку грузов</h3><hr>"
 	reqform.info += "ИНДЕКС: №[SSshuttle.ordernum]<br>"
 	reqform.info += "ЗАПРОСИВШИЙ: [orderedby]<br>"
 	reqform.info += "ПРИОРИТЕТ: [orderedbyRank]<br>"
@@ -462,7 +461,6 @@
 
 	can_order_contraband = my_circuit.contraband_enabled
 
-
 /obj/machinery/computer/supplycomp/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
@@ -607,7 +605,6 @@
 			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
 				to_chat(usr, span_warning("[P.name] is out of stock, and can no longer be ordered."))	// Unused for now (Crate limit #3056).
 				return	*/
-
 
 			var/amount = 1
 			if(params["multiple"])

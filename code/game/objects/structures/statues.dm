@@ -8,7 +8,6 @@
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
-
 /obj/structure/statue/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -34,12 +33,10 @@
 
 	return ..()
 
-
 /obj/structure/statue/wrench_act(mob/living/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
 		return FALSE
 	return default_unfasten_wrench(user, I)
-
 
 /obj/structure/statue/welder_act(mob/user, obj/item/I)
 	if(anchored)
@@ -51,7 +48,6 @@
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		deconstruct(TRUE)
-
 
 /obj/structure/statue/attack_hand(mob/living/user)
 	. = ..()
@@ -99,7 +95,6 @@
 				rad_interaction_cooldown = 1.5 SECONDS \
 	)
 
-
 /obj/structure/statue/plasma
 	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
@@ -130,7 +125,6 @@
 			PlasmaBurn()
 	..()
 
-
 /obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
@@ -138,7 +132,6 @@
 		ignite(I.get_heat())
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/statue/plasma/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -250,12 +243,10 @@
 	honk()
 	. = ..()
 
-
 /obj/structure/statue/bananium/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		honk()
-
 
 /obj/structure/statue/bananium/attack_hand(mob/user)
 	honk()
@@ -455,25 +446,21 @@
 /obj/structure/statue/unknown/update_icon_state()
 	icon_state = "unknown[lit ? "_lit" : ""]"
 
-
 /obj/structure/statue/unknown/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/structure/statue/unknown/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0))
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
-
 /obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
 		light()
 	return ..()
-
 
 /obj/structure/statue/unknown/proc/light(show_message)
 	if(lit)
@@ -484,7 +471,6 @@
 		usr.visible_message(show_message)
 	set_light(CANDLE_LUM, l_on = TRUE)
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/statue/unknown/attack_hand(mob/user)
 	if(lit)
@@ -516,7 +502,6 @@
 /obj/structure/snowman/built/has_prints()
 	return FALSE
 
-
 /obj/structure/snowman/built/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -531,7 +516,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -551,12 +535,10 @@
 /obj/structure/statue/cheese
 	material_drop_type = /obj/item/stack/sheet/cheese
 
-
 /obj/structure/statue/cheese/cheesus
 	name = "statue of cheesus"
 	desc = "Cheese expertly crafted into a representation of our mighty lord and saviour."
 	icon_state = "cheesus1"
-
 
 /obj/structure/statue/cheese/cheesus/update_icon_state()
 	switch(obj_integrity)
@@ -569,12 +551,10 @@
 		else
 			icon_state = "cheesus1"
 
-
 /obj/structure/statue/cheese/cheesus/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && !QDELETED(src))
 		update_icon(UPDATE_ICON_STATE)
-
 
 //////BONES
 /obj/structure/bones

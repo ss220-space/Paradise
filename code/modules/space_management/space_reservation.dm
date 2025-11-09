@@ -177,7 +177,6 @@
 		T.turf_flags = (T.turf_flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
 		T.ChangeTurf(turf_type)
 
-
 	return TRUE
 
 /datum/turf_reservation/proc/reserve(width, height, z_size, z_reservation)

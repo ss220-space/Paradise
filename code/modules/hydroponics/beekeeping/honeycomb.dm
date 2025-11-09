@@ -26,7 +26,6 @@
 	set hidden = TRUE
 	return
 
-
 /obj/item/reagent_containers/honeycomb/update_overlays()
 	. = ..()
 	var/image/honey
@@ -36,7 +35,6 @@
 	else
 		honey = image(icon = 'icons/obj/hydroponics/harvest.dmi', icon_state = "honey")
 	. += honey
-
 
 /obj/item/reagent_containers/honeycomb/proc/set_reagent(reagent)
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent]
