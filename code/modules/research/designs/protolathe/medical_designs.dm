@@ -229,7 +229,6 @@
 	materials = list(MAT_METAL = 13000, MAT_GLASS = 10000, MAT_SILVER = 6000, MAT_GOLD = 6000)
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
-
 /datum/design/alienscalpel
 	id = "alien_scalpel"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)

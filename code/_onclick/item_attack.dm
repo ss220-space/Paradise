@@ -82,7 +82,6 @@
 	if(target.tool_act(user, src, tool_behaviour))
 		return ATTACK_CHAIN_BLOCKED
 
-
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
 	var/signal_ret = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
@@ -92,10 +91,8 @@
 		return TRUE
 	SSdemo.mark_dirty(src)
 
-
 /obj/item/attack_self_tk(mob/user)
 	attack_self(user)
-
 
 /**
  * Called on the item before it hits something
@@ -119,7 +116,6 @@
 		to_chat(user, span_notice("Вы нагрели [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]."))
 		target.reagents.temperature_reagents(temperature)
 
-
 /**
  * Called on an object being hit by an item
  *
@@ -138,7 +134,6 @@
 	if(signal_out & COMPONENT_NO_AFTERATTACK)
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 
-
 /obj/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -146,7 +141,6 @@
 	if(obj_flags & IGNORE_HITS)
 		return .
 	. |= item.attack_obj(src, user, params)
-
 
 /mob/living/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
@@ -158,7 +152,6 @@
 		new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), get_blood_color())
 	user.changeNext_move(item.attack_speed)
 	. |= item.attack(src, user, params, user.zone_selected)
-
 
 /**
  * Called from [/mob/living/proc/attackby]
@@ -212,7 +205,6 @@
 	add_fingerprint(user)
 	. |= target.proceed_attack_results(src, user, params, def_zone)
 
-
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for object targets.
 /obj/item/proc/attack_obj(obj/object, mob/living/user, params)
 	. = ATTACK_CHAIN_PROCEED
@@ -236,7 +228,6 @@
 	user.changeNext_move(attack_speed)
 	. |= object.proceed_attack_results(src, user, params)
 
-
 /**
  * Called from [/obj/item/proc/attack] and [/obj/item/proc/attack_obj]
  *
@@ -248,7 +239,6 @@
  */
 /atom/movable/proc/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/proceed_attack_results(obj/item/item, mob/living/user, params)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
@@ -265,7 +255,6 @@
 	take_damage(item.get_final_force(user), item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
 	if(QDELETED(src))	// thats a pretty common behavior with objects, when they take damage
 		return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /mob/living/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
@@ -285,7 +274,6 @@
 	if(QDELETED(src))	// rare, but better be safe
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /// Return sound volumet between 10 and 100, depending on the item weight class
 /obj/item/proc/get_clamped_volume()
 	if(!w_class)
@@ -295,7 +283,6 @@
 		return clamp((force + w_class) * 4, 30, 100)
 	// Multiply the item's weight class by 6, then clamp the value between 10 and 100
 	return clamp(w_class * 6, 10, 100)
-
 
 /// Sends a default message feedback about being attacked by other mob
 /mob/living/proc/send_item_attack_message(obj/item/item, mob/living/user, def_zone)
@@ -321,7 +308,6 @@
 		ignored_mobs = user,
 	)
 	to_chat(user, span_danger("Вы [message_verb]и [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"))
-
 
 /// Applies slowdown for a period of time after performing cleave attack, used for cleave component
 /mob/living/proc/apply_afterswing_slowdown(mob/living/user, afterswing_slowdown, slowdown_duration)

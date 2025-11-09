@@ -17,7 +17,6 @@
 	build_path = /obj/item/pickaxe/drill/diamonddrill
 	category = list(PROTOLATHE_CATEGORY_MINING)
 
-
 /datum/design/plasmacutter_adv
 	id = "plasmacutter_adv"
 	req_tech = list("materials" = 5, "plasmatech" = 6, "engineering" = 6, "combat" = 3, "magnets" = 3)

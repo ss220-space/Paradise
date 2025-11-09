@@ -103,7 +103,6 @@
 		return TRUE
 	return FALSE
 
-
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/I, mob/user, params)
 	var/current_health = health
 	. = ..()
@@ -112,7 +111,6 @@
 	var/mob/living/living_target = target
 	if(isliving(target) && living_target.stat != CONSCIOUS)
 		GiveTarget(user)
-
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "greater hellhound"

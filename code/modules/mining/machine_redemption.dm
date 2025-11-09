@@ -263,7 +263,6 @@
 
 	return ..()
 
-
 /obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE

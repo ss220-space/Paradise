@@ -300,4 +300,3 @@
 		monkey_ai.blackboard[BB_MONKEY_RECRUIT_COOLDOWN] = world.time + MONKEY_RECRUIT_COOLDOWN
 	finish_action(controller, TRUE)
 
-

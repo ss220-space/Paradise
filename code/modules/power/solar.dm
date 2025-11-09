@@ -60,7 +60,6 @@
 		update_integrity(max_integrity)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -190,7 +189,6 @@
 	obscured = FALSE		// if hit the edge or stepped 20 times, not obscured
 	update_solar_exposure()
 
-
 //
 // Solar Assembly - For construction of solar arrays.
 //
@@ -226,7 +224,6 @@
 		new glass_type(src.loc, 2)
 		glass_type = null
 
-
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
 	. += span_notice("Похоже, что [GEND_HE_SHE(src)] <b>[anchored ? "прикручен[GEND_A_O_Y(src)]" : "не прикручен[GEND_A_O_Y(src)]"]</b>.")
@@ -236,7 +233,6 @@
 		. += span_notice("В [GEND_ON_IN_HIM(src)] видно отсек под плату <i>датчика<i>.")
 	if(anchored)
 		.+= span_notice("Чтобы завершить сборку —  установите <b><i>стекло</i></b>.")
-
 
 /obj/item/solar_assembly/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/glass) || istype(I, /obj/item/stack/sheet/rglass))
@@ -285,7 +281,6 @@
 
 	return ..()
 
-
 /obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!anchored && !isturf(loc))
@@ -307,7 +302,6 @@
 			span_notice("[user] откручива[PLUR_ET_YUT(user)] солнечную батарею от пола."),
 			span_notice("Вы откручиваете солнечную батарею от пола."),
 		)
-
 
 /obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -440,7 +434,6 @@
 	if(cdir > -1)
 		. += image('icons/obj/machines/computer.dmi', icon_state = "solcon-o", layer = FLY_LAYER, dir = angle2dir(cdir))
 
-
 /obj/machinery/power/solar_control/attack_ai(mob/user as mob)
 	add_hiddenprint(user)
 	ui_interact(user)
@@ -535,7 +528,6 @@
 	A.set_anchored(TRUE)
 	qdel(src)
 
-
 /obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
@@ -580,12 +572,10 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/power/solar_control/power_change()
 	if(!..())
 		return
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/power/solar_control/proc/broken()
 	stat |= BROKEN

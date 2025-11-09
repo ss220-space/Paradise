@@ -41,7 +41,6 @@
 	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return BRUTELOSS|FIRELOSS
 
-
 /obj/item/nullrod/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 
@@ -59,7 +58,6 @@
 				vamp.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
 		return .
 
-
 /obj/item/nullrod/pickup(mob/living/user)
 	if(sanctify_force && !user.mind?.isholy)
 		user.take_overall_damage(force, sanctify_force)
@@ -72,7 +70,6 @@
 		return FALSE
 
 	return ..()
-
 
 /obj/item/nullrod/attack_self(mob/user)
 	if(user.mind?.isholy && !reskinned && reskin_selectable)
@@ -156,11 +153,9 @@
 	damtype = BURN
 	attack_verb = list("ударил", "освятил")
 
-
 /obj/item/nullrod/godhand/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-
 
 /obj/item/nullrod/staff
 	name = "red holy staff"
@@ -393,7 +388,6 @@
 	attack_verb = list("пропилил", "поранил", "порезал", "рубанул")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
-
 /obj/item/nullrod/chainsaw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
@@ -462,7 +456,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 
-
 /obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
@@ -519,7 +512,6 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	var/mob/living/carbon/wielder
 
-
 /obj/item/nullrod/tribal_knife/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
@@ -536,23 +528,19 @@
 	wielder = null
 	return ..()
 
-
 /obj/item/nullrod/tribal_knife/process()
 	slowdown = rand(-2, 2)
 	wielder?.update_equipment_speed_mods()
-
 
 /obj/item/nullrod/tribal_knife/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(slot & ITEM_SLOT_HANDS)
 		wielder = user
 
-
 /obj/item/nullrod/tribal_knife/dropped(mob/user, slot, silent = FALSE)
 	slowdown = 0
 	wielder = null
 	return ..()
-
 
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
@@ -582,7 +570,6 @@
 /obj/item/nullrod/rosary/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/nullrod/rosary/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
@@ -644,7 +631,6 @@
 	praying = FALSE
 	return .|ATTACK_CHAIN_SUCCESS
 
-
 /obj/item/nullrod/rosary/process()
 	if(!ishuman(loc))
 		return
@@ -668,7 +654,6 @@
 	throwforce = 0
 	var/ghostcall_CD = 0
 
-
 /obj/item/nullrod/salt/attack_self(mob/user)
 
 	if(!user.mind || !user.mind.isholy)
@@ -685,7 +670,6 @@
 	else
 		to_chat(user, span_notice("You need to wait before using [src] again."))
 		return
-
 
 /obj/item/nullrod/rosary/bread
 	name = "prayer bread"
@@ -704,7 +688,6 @@
 					animate_fade_grayscale(H,20)
 					if(prob(10))
 						to_chat(H, span_userdanger("Being in the presence of [holder]'s [src] is interfering with your honk!"))
-
 
 /obj/item/nullrod/missionary_staff
 	name = "holy staff"

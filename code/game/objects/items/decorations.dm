@@ -1,7 +1,6 @@
 /obj/item/decorations
 	icon = 'icons/obj/decorations.dmi'
 
-
 //duct tape decorations
 /obj/item/decorations/sticky_decorations
 	w_class = WEIGHT_CLASS_TINY
@@ -12,7 +11,6 @@
 
 /obj/item/decorations/sticky_decorations/flammable
 	resistance_flags = FLAMMABLE
-
 
 //Non-holiday decorations
 
@@ -40,7 +38,6 @@
 	name = "paper clock"
 	desc = "A paper clock. Right at least twice a day."
 	icon_state = "paper_clock"
-
 
 /obj/item/decorations/flag/soviet
 	name = "An old Soviet flag"
@@ -159,8 +156,6 @@
 
 //Valentines decorations
 
-
-
 /obj/item/decorations/sticky_decorations/flammable/arrowed_heart
 	name = "paper heart"
 	desc = "A paper heart. It's been shot through and Cupid is to blame!"
@@ -212,13 +207,9 @@
 /obj/item/decorations/sticky_decorations/flammable/easter_egg/orange
 	icon_state = "decoration_easter_egg_orange"
 
-
-
-
 ///////
 //Decorative structures
 ///////
-
 
 /obj/structure/decorative_structures
 	icon = 'icons/obj/decorations.dmi'
@@ -283,11 +274,9 @@
 	desc = "Praise be to lady Tesla!"
 	icon_state = "tesla_monument"
 
-
 /obj/structure/decorative_structures/flammable
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
-
 
 /obj/structure/decorative_structures/flammable/grandfather_clock
 	name = "grandfather clock"
@@ -299,12 +288,9 @@
 	desc = "The tomb of many a miner and possibly a home for much worse things."
 	icon_state = "lava_land_display"
 
-
-
 ///////
 //Decorative corpses
 ///////
-
 
 /obj/structure/decorative_structures/corpse
 	name = "Bloody body"
@@ -401,7 +387,6 @@
 	. = ..()
 	set_light(2, 1, COLOR_RED)
 
-
 /obj/structure/decorative_structures/cult_crystal/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -409,7 +394,6 @@
 	. |= ATTACK_CHAIN_SUCCESS
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 	to_chat(user, span_warning("When you touch it, you feel some dark energy."))
-
 
 /obj/structure/decorative_structures/cult_crystal/attack_hand(mob/living/user)
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)

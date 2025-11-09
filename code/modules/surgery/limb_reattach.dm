@@ -22,7 +22,6 @@
 	)
 	cancel_on_organ_change = FALSE
 
-
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
 	if(!.)
@@ -31,7 +30,6 @@
 	if(affected.cannot_amputate)
 		return FALSE
 	return TRUE
-
 
 /datum/surgery/reattach
 	name = "Присоединение конечности"
@@ -212,7 +210,6 @@
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/bodypart, mob/living/carbon/human/target)
 	if(bodypart.is_robotic())
 		return FALSE
@@ -228,7 +225,6 @@
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
-
 
 // This is a step that handles robotic limb attachment while skipping the "connect" step
 // THIS IS DISTINCT FROM USING A CYBORG LIMB TO CREATE A NEW LIMB ORGAN
@@ -249,7 +245,6 @@
 			H.h_style = "Bald"
 			H.f_style = "Shaved"
 			target.m_styles["head"] = "None"
-
 
 /datum/surgery_step/limb/connect
 	name = "соединение тканей конечности"
@@ -318,7 +313,6 @@
 	)
 	return ..()
 
-
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/limb = tool
 	user.visible_message(
@@ -350,7 +344,6 @@
 	qdel(tool)
 
 	return SURGERY_STEP_CONTINUE
-
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message(

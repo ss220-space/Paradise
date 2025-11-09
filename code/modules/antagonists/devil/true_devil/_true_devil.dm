@@ -31,7 +31,6 @@
 		PREPOSITIONAL = "истинном Дьяволе",
 	)
 
-
 /mob/living/carbon/true_devil/ascended
 	name = "Arch Devil"
 	desc = "Сгусток адской энергии, смутно напоминающий гуманоида. Кажется оно достигло пика своего могущества"
@@ -55,7 +54,6 @@
 
 /mob/living/carbon/true_devil/ascended/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	return FALSE
-
 
 /mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	if(dna_source)
@@ -81,11 +79,9 @@
 	name = devilinfo.info.truename
 	real_name = name
 
-
 /mob/living/carbon/true_devil/death(gibbed)
 	. = ..(gibbed)
 	drop_all_held_items()
-
 
 /mob/living/carbon/true_devil/examine(mob/user)
 	var/msg = span_notice("Это [icon2html(src, user)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
@@ -118,7 +114,6 @@
 
 	. = list(msg)
 
-
 /mob/living/carbon/true_devil/r_arm_broken()
 	return FALSE
 
@@ -137,7 +132,6 @@
 		// I am the worst
 		return atom.attack_hand(src)
 		// If the devil wants to actually attack, they have the pitchfork.
-
 
 /mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
@@ -193,7 +187,6 @@
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] обезоружил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
 			span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] обезоружил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
-
 
 /mob/living/carbon/true_devil/handle_breathing()
 	return

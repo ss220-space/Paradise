@@ -28,13 +28,11 @@
 	if(wrapped)
 		qdel(wrapped)
 
-
 	wrapped = new/obj/item/broken_device
 
 	// The thing itself isn't there anymore, but some fried remains are.
 	installed = -1
 	uninstall()
-
 
 /datum/robot_component/proc/take_damage(brute, electronics, sharp, updating_health = TRUE)
 	if(installed != 1)
@@ -65,7 +63,6 @@
 
 	SStgui.update_uis(owner.self_diagnosis)
 
-
 /datum/robot_component/proc/heal_damage(brute, electronics, updating_health = TRUE)
 	if(installed != 1)
 		// If it's not installed, can't repair it.
@@ -83,7 +80,6 @@
 			owner.updatehealth("component '[src]' heal damage")
 
 	SStgui.update_uis(owner.self_diagnosis)
-
 
 /datum/robot_component/proc/is_powered()
 	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (powered)
@@ -212,7 +208,6 @@
 	var/brute = 0
 	var/burn = 0
 
-
 /obj/item/robot_parts/robot_component/binary_communication_device
 	name = "binary communication device"
 	icon_state = "binary_translator"
@@ -228,8 +223,6 @@
 /obj/item/robot_parts/robot_component/camera
 	name = "camera"
 	icon_state = "camera"
-
-
 
 /obj/item/robot_parts/robot_component/diagnosis_unit
 	name = "diagnosis unit"
@@ -258,7 +251,6 @@
 	origin_tech = "magnets=1;biotech=1"
 	var/mode = 1
 
-
 /obj/item/robotanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
@@ -279,7 +271,6 @@
 	robot_healthscan(user, target)
 	add_fingerprint(user)
 
-
 /proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type
 	var/list/msgs = list()
@@ -290,7 +281,6 @@
 	else
 		to_chat(user, span_warning("You can't analyze non-robotic things!"))
 		return
-
 
 	switch(scan_type)
 		if("robot")

@@ -40,7 +40,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		if(SUPPLY_SYNDICATE_SPECIAL)
 			return "Syndicate Special"
 
-
 /datum/syndie_supply_packs
 	var/name = null
 	var/list/contains = list()
@@ -53,7 +52,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	var/group = SYNDIE_SUPPLY_MISC
 	var/list/ui_manifest = list()
 
-
 /datum/syndie_supply_packs/New()
 	manifest += "<ul>"
 	for(var/path in contains)
@@ -64,9 +62,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		ui_manifest += "[initial(AM.name)]"
 	manifest += "</ul>"
 
-
-
-
 ////// Use the sections to keep things tidy please /Malkevin
 
 //////////////////////////////////////////////////////////////////////////////
@@ -76,7 +71,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "HEADER"				// Use "HEADER" to denote section headers, this is needed for the supply computers to filter them
 	containertype = /obj/structure/closet/crate/internals
 	group = SYNDIE_SUPPLY_EMERGENCY
-
 
 /datum/syndie_supply_packs/emergency/evac
 	name = "Emergency Equipment Crate"
@@ -202,8 +196,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Security ////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-
-
 
 /datum/syndie_supply_packs/security
 	name = "HEADER"
@@ -635,7 +627,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	group = SYNDIE_SUPPLY_ENGINEER
 	containertype = /obj/structure/closet/crate/engineering
 
-
 /datum/syndie_supply_packs/engineering/fueltank
 	name = "Fuel Tank Crate"
 	contains = list(
@@ -874,7 +865,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/medical
 	group = SYNDIE_SUPPLY_MEDICAL
 
-
 /datum/syndie_supply_packs/medical/supplies
 	name = "Medical Supplies Crate"
 	contains = list(
@@ -1071,7 +1061,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "surgery crate"
 	access = ACCESS_MEDICAL
 
-
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1213,7 +1202,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "HEADER"
 	group = SYNDIE_SUPPLY_ORGANIC
 	containertype = /obj/structure/closet/crate/freezer
-
 
 /datum/syndie_supply_packs/organic/food
 	name = "Food Crate"
@@ -1624,7 +1612,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "HEADER"
 	group = SYNDIE_SUPPLY_MATERIALS
 
-
 /datum/syndie_supply_packs/materials/metal50
 	name = "50 Metal Sheets Crate"
 	contains = list(/obj/item/stack/sheet/metal)
@@ -1812,7 +1799,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
-
 
 ///////////// Paper Work
 
@@ -2378,7 +2364,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "special ops crate"
 
-
 /datum/syndie_supply_packs/syndicate_special/bloody_spy
 	name = "Syndicate 'Bloody Spy' Bundle"
 	contains = list(
@@ -2402,7 +2387,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
 
-
 /datum/syndie_supply_packs/syndicate_special/thief
 	name = "Syndicate 'Thief' Bundle"
 	contains = list(
@@ -2419,7 +2403,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
-
 
 /datum/syndie_supply_packs/syndicate_special/bond
 	name = "Syndicate 'Agent 007' Bundle"
@@ -2444,7 +2427,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
 
-
 /datum/syndie_supply_packs/syndicate_special/sabotage
 	name = "Syndicate 'Sabotage' Bundle"
 	contains = list(
@@ -2464,7 +2446,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
-
 
 /datum/syndie_supply_packs/syndicate_special/payday
 	name = "Syndicate 'PayDay' Bundle"
@@ -2487,7 +2468,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
 
-
 /datum/syndie_supply_packs/syndicate_special/implanter
 	name = "Syndicate 'Bio-chip' Bundle"
 	contains = list(
@@ -2502,7 +2482,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
-
 
 /datum/syndie_supply_packs/syndicate_special/hacker
 	name = "Syndicate 'Hacker' Bundle"
@@ -2526,7 +2505,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
 
-
 /datum/syndie_supply_packs/syndicate_special/darklord
 	name = "Syndicate 'Darklord' Bundle"
 	contains = list(
@@ -2542,7 +2520,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
-
 
 /datum/syndie_supply_packs/syndicate_special/professional
 	name = "Syndicate 'Professional' Bundle"
@@ -2562,7 +2539,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
-
 
 /datum/syndie_supply_packs/syndicate_special/officer
 	name = "Syndicate 'Officer' Bundle"
@@ -2584,7 +2560,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
 
-
 /datum/syndie_supply_packs/syndicate_special/operative
 	name = "Syndicate 'MetaOps' Bundle"
 	contains = list(
@@ -2602,7 +2577,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
 
-
 /datum/syndie_supply_packs/syndicate_special/infiltrator
 	name = "Syndicate 'Infiltrator' Bundle"
 	contains = list(
@@ -2618,7 +2592,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
-
 
 /datum/syndie_supply_packs/syndicate_special/grenadier
 	name = "Syndicate 'Grenadier' Bundle"
@@ -2638,7 +2611,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
-
 
 /datum/syndie_supply_packs/syndicate_special/secoff
 	name = "Syndicate 'Security Officer' Bundle"
@@ -2687,7 +2659,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 40000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
-
 
 /datum/syndie_supply_packs/syndicate_special/griefsky
 	name = "Набор \"Грифски\""

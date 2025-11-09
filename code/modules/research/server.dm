@@ -105,7 +105,6 @@
 	griefProtection()
 	return ..()
 
-
 /obj/machinery/r_n_d/server/ex_act(severity, target)
 	griefProtection()
 	return ..()
@@ -140,7 +139,6 @@
 				env.merge(removed)
 				air_update_turf()
 
-
 /obj/machinery/r_n_d/server/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -154,13 +152,11 @@
 
 	return ..()
 
-
 /obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
 	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
-
 
 /obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -173,7 +169,6 @@
 		return .
 	griefProtection()
 	default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user)
 	if(..())
@@ -248,7 +243,6 @@
 
 /obj/machinery/r_n_d/server/centcom/process()
 	return PROCESS_KILL	//don't need process()
-
 
 /obj/machinery/computer/rdservercontrol
 	name = "R&D server controller"

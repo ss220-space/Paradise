@@ -56,7 +56,6 @@
 
 	return data
 
-
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_act(action, params)
 	if(..())
 		return
@@ -68,7 +67,6 @@
 		program.receive_user_command(action)
 
 	return TRUE
-
 
 //Access controller for door control - used in virology and the like
 /obj/machinery/embedded_controller/radio/airlock/access_controller

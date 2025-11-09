@@ -76,7 +76,6 @@
 	else
 		balloon_alert(H, "нужно держать в руке!")
 
-
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!canopened)
 		balloon_alert(user, "сначала откройте!")
@@ -90,7 +89,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash/cyborg))
 		user.visible_message(
@@ -101,7 +99,6 @@
 		can.attackby(I, user, params)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/reagent_containers/food/drinks/cans/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
@@ -553,10 +550,8 @@
 		PREPOSITIONAL = "ёмкости для стандартного напитка",
 	)
 
-
 /obj/item/reagent_containers/food/drinks/cans/bottler/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/update_overlays()
 	. = ..()
@@ -579,7 +574,6 @@
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
-
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle
 	name = "glass bottle"

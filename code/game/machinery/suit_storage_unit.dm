@@ -40,7 +40,6 @@
 	var/list/occupant_typecache //if set, turned into typecache in Initialize, other wise, defaults to mob/living typecache
 	var/atom/movable/occupant = null
 
-
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type    = /obj/item/clothing/suit/space/eva
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva
@@ -273,7 +272,6 @@
 	. = ..()
 	. += " There's a warning label dangling from the control pad that reads:<br>[span_danger("\"BIOLOGICAL SUBJECTS ARE STRICTLY PROHIBITED IN THE CONFINES OF THE UNIT.\"")]"
 
-
 /obj/machinery/suit_storage_unit/update_overlays()
 	. = ..()
 
@@ -300,7 +298,6 @@
 	if(!locked)
 		. += "[icon_state]_unlocked"
 
-
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 100))
 		add_fingerprint(user)
@@ -324,7 +321,6 @@
 
 	return ..()
 
-
 /obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
@@ -333,7 +329,6 @@
 		if(shock(user, 100))
 			return
 	default_deconstruction_screwdriver(user, "[icon_state]_panel", "[initial(icon_state)]", I)
-
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
@@ -360,14 +355,12 @@
 		if(.)
 			storage = I
 
-
 /obj/machinery/suit_storage_unit/power_change(forced = FALSE)
 	..() //we don't check parent return here because `is_operational` cares about other flags in stat
 	if(!is_operational() && state_open)
 		open_machine()
 		dump_contents()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/suit_storage_unit/proc/dump_contents()
 	dropContents()
@@ -417,7 +410,6 @@
 		target.visible_message(span_warning("[user] pushes [target] into [src] and shuts its door!"), span_userdanger("[user] shoves you into [src] and shuts the door!"))
 	close_machine(target)
 	add_fingerprint(user)
-
 
 /obj/machinery/suit_storage_unit/proc/cook()
 	if(uv_cycles)

@@ -33,7 +33,6 @@
 /obj/item/reagent_containers/food/pill/attack_self(mob/user)
 	return
 
-
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(!iscarbon(target))
@@ -52,7 +51,6 @@
 	user.drop_transfer_item_to_loc(src, target)
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)

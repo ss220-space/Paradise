@@ -5,25 +5,20 @@
 	var/overlay_state = "cover_blue"
 	var/mutable_appearance/cover_overlay
 
-
 /obj/vehicle/ridden/speedbike/Initialize(mapload)
 	. = ..()
 	cover_overlay = mutable_appearance(icon, overlay_state, ABOVE_MOB_LAYER)
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/speedbike)
 
-
 /obj/vehicle/ridden/speedbike/Destroy()
 	cover_overlay = null
 	return ..()
-
 
 /obj/vehicle/ridden/speedbike/update_overlays()
 	. = ..()
 	if(!has_buckled_mobs())
 		return .
 	. += cover_overlay
-
-
 
 /obj/vehicle/ridden/speedbike/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(has_buckled_mobs())

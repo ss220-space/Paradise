@@ -14,11 +14,9 @@
 	pre_changelings.Cut()
 	return ..()
 
-
 /datum/game_mode/changeling/announce()
 	to_chat(world, "<b>The current game mode is - Changeling!</b>")
 	to_chat(world, "<b>There are alien changelings on the station. Do not let the changelings succeed!</b>")
-
 
 /datum/game_mode/changeling/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -45,13 +43,11 @@
 
 	return TRUE
 
-
 /datum/game_mode/changeling/post_setup()
 	for(var/datum/mind/changeling as anything in pre_changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
 		pre_changelings -= changeling
 	..()
-
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
 	if(length(changelings))

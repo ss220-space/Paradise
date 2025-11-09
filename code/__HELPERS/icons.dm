@@ -600,7 +600,6 @@ world
 	hue += round(hue / 255)
 	return hue
 
-
 // positive angle rotates forward through red->green->blue
 /proc/RotateHue(hsv, angle)
 	var/list/HSV = ReadHSV(hsv)
@@ -639,7 +638,6 @@ world
 
 	if(gray <= tone_gray) return BlendRGB("#000000", tone, gray/(tone_gray || 1))
 	else return BlendRGB(tone, "#ffffff", (gray-tone_gray)/((255-tone_gray) || 1))
-
 
 /*
 Get flat icon by DarkCampainger. As it says on the tin, will return an icon with all the overlays
@@ -948,10 +946,8 @@ The _flatIcons list is a cache for generated icon files.
 		main.AddAlphaMask(mask) //Make the pixels in the main icon that are in the transparent zone of the mask icon also vanish (fully transparent).
 		return main
 
-
 /// Cache of the width and height of icon files, to avoid repeating the same expensive operation
 GLOBAL_LIST_EMPTY(icon_dimensions)
-
 
 /// Returns a list containing the width and height of an icon file
 /proc/get_icon_dimensions(icon_path)
@@ -965,7 +961,6 @@ GLOBAL_LIST_EMPTY(icon_dimensions)
 		var/icon/my_icon = icon(icon_path)
 		GLOB.icon_dimensions[icon_path] = list("width" = my_icon.Width(), "height" = my_icon.Height())
 	return GLOB.icon_dimensions[icon_path]
-
 
 ///Flickers an overlay on an atom
 /atom/proc/flick_overlay_static(overlay_image, duration)

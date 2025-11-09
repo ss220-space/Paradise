@@ -28,23 +28,19 @@
 		icon_state = "[icon_base]-off"
 		item_state = "[item_base]-off"
 
-
 /obj/item/organ/internal/heart/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 12 SECONDS)
 	. = ..()
-
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(!is_robotic() || emp_proof)
 		return
 	Stop()
 
-
 /obj/item/organ/internal/heart/necrotize(silent = FALSE)
 	if(..())
 		Stop()
-
 
 /obj/item/organ/internal/heart/attack_self(mob/user)
 	..()
@@ -55,34 +51,28 @@
 		Restart()
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
-
 /obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
 	Restart()
 	..()
 
-
 /obj/item/organ/internal/heart/proc/stop_if_unowned()
 	if(!owner)
 		Stop()
-
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = FALSE
 	update_icon()
 	return TRUE
 
-
 /obj/item/organ/internal/heart/proc/Restart()
 	beating = TRUE
 	update_icon()
 	return TRUE
 
-
 /obj/item/organ/internal/heart/prepare_eat()
 	var/obj/S = ..()
 	S.icon_state = dead_icon
 	return S
-
 
 /obj/item/organ/internal/heart/cursed
 	name = "cursed heart"
@@ -125,7 +115,6 @@
 	insert(user, ORGAN_MANIPULATION_TRANSPLANTATE)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/organ/internal/heart/cursed/on_life()
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
@@ -138,16 +127,13 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-
 /obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(owner)
 		to_chat(owner, span_userdanger("Ваше сердце было заменено на проклятое! Вам придётся качать его вручную, иначе вы умрёте!"))
 
-
 /datum/action/item_action/organ_action/cursed_heart
 	name = "Подкачка крови"
-
 
 //You are now brea- pumping blood manually
 /datum/action/item_action/organ_action/cursed_heart/Trigger(left_click = TRUE)
@@ -176,7 +162,6 @@
 			update |= H.heal_damage_type(cursed_heart.heal_oxy, OXY, updating_health = FALSE)
 			if(update)
 				H.updatehealth()
-
 
 /obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"
@@ -224,14 +209,12 @@
 		target.stam_regen_start_modifier *= 0.5
 		ADD_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
 
-
 /obj/item/organ/internal/heart/cybernetic/upgraded/remove(mob/living/carbon/human/target, special)
 	if(HAS_TRAIT_FROM(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src)))
 		target.stam_regen_start_modifier /= 0.5
 		REMOVE_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
 
 	. = ..()
-
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/on_life()
 	if(!ishuman(owner))
@@ -288,14 +271,11 @@
 		owner.SetSleeping(0)
 		owner.adjustStaminaLoss(-7 * boost)
 
-
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/message_to_owner(mob/M, message)
 	to_chat(M, message)
 
-
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/recharge()
 	attempted_restart = FALSE
-
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/emag_act(mob/user)
 	if(!emagged)
@@ -309,7 +289,6 @@
 			balloon_alert(user, "протоколы безопасности восстановлены")
 		emagged = FALSE
 
-
 /obj/item/organ/internal/heart/cybernetic/upgraded/emp_act(severity)
 	..()
 
@@ -320,7 +299,6 @@
 		Stop()
 	else
 		necrotize()
-
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/shock_organ(intensity)
 	if(!ishuman(owner))

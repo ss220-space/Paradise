@@ -179,7 +179,6 @@
 
 	cam_screen.show_camera(visible_turfs, size_x, size_y)
 
-
 /obj/machinery/computer/security/ui_close(mob/user)
 	. = ..()
 	var/user_ref = user.UID()
@@ -209,7 +208,6 @@
 		return
 
 	ui_interact(user)
-
 
 /atom/movable/screen/map_view/camera
 	/// All the plane masters that need to be applied.
@@ -249,7 +247,6 @@
 	density = FALSE
 	circuit = /obj/item/circuitboard/camera/telescreen
 
-
 /obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -268,7 +265,6 @@
 			pixel_y = -32
 		if("West")
 			pixel_x = -32
-
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"

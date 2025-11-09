@@ -10,7 +10,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	obj_flags = NODECONSTRUCT
 
-
 /obj/machinery/computer/camera_advanced/shuttle_docker/ninja
 	name = "Spider Clan \"Ombra\" shuttle navigation computer"
 	desc = "Используется, чтобы указать точное местоположение для отправки шаттла \"Ombra\"."

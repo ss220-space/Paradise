@@ -3,7 +3,6 @@
 	name = "Bluespace Harvester"
 	var/goal = 25000
 
-
 /datum/station_goal/bluespace_tap/get_report()
 	return {"<b>Bluespace Harvester Experiment</b><br>
 	Another research station has developed a device called a Bluespace Harvester.
@@ -15,12 +14,10 @@
 	<br>
 	Nanotrasen Science Directorate"}
 
-
 /datum/station_goal/bluespace_tap/on_report()
 	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
 	P.special_enabled = TRUE
 	supply_list.Add(P)
-
 
 /datum/station_goal/bluespace_tap/proc/get_highscore()
 	. = 0
@@ -28,23 +25,19 @@
 	for(var/obj/machinery/power/bluespace_tap/harvester in SSmachines.get_by_type(/obj/machinery/power/bluespace_tap))
 		. = max(., harvester.total_points)
 
-
 /datum/station_goal/bluespace_tap/check_completion()
 	return ..() || get_highscore() >= goal
-
 
 /datum/station_goal/bluespace_tap/print_result()
 	..()
 	var/highscore = get_highscore()
 	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce(highscore)]": "[span_boldannounceooc(highscore)]"]")
 
-
 //needed for the vending part of it
 /datum/data/bluespace_tap_product
 	var/product_name = "generic"
 	var/product_path = null
 	var/product_cost = 100	//cost in mining points to generate
-
 
 /datum/data/bluespace_tap_product/New(name, path, cost)
 	product_name = name
@@ -88,7 +81,6 @@
 		/obj/item/clothing/head/collectable/xenom,
 		/obj/item/clothing/head/collectable/petehat,
 	)
-
 
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural
 	name = "cultural artifacts"
@@ -242,7 +234,6 @@
 	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
 
-
 	// Tweak these and active_power_usage to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached
@@ -368,8 +359,6 @@
 			var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
 			new /obj/structure/spawner/nether/bluespace_tap(location)
 
-
-
 /obj/machinery/power/bluespace_tap/ui_data(mob/user)
 	var/list/data = list()
 
@@ -394,7 +383,6 @@
 				"price" = A.product_cost)
 	data["product"] = listed_items
 	return data
-
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
 	if(..())
@@ -425,8 +413,6 @@
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
 	new A.product_path(get_turf(src))
-
-
 
 //UI stuff below
 

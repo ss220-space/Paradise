@@ -201,7 +201,6 @@
 		/obj/item/clothing/mask/holo_cigar = 50,
 	)
 
-
 /obj/effect/spawner/lootdrop/trade_sol/serv
 	name = "1. Service gear"
 	lootcount = 8

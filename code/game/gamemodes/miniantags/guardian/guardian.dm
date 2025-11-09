@@ -136,7 +136,6 @@
 	to_chat(summoner, span_danger("Ваш [name] как-то умер!"))
 	summoner.death()
 
-
 /mob/living/simple_animal/hostile/guardian/update_health_hud()
 	if(summoner)
 		var/resulthealth
@@ -239,10 +238,8 @@
 		if(M?.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, span_alien("<i>Сообщение Стража <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
-
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, span_danger("У вас нет другого режима!"))
-
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	set_light_on(!light_on)
@@ -250,7 +247,6 @@
 		to_chat(src, span_notice("Вы активировали свет."))
 	else
 		to_chat(src, span_notice("Вы выключили свет."))
-
 
 ////////Creation
 
@@ -488,7 +484,6 @@
 
 /obj/item/guardiancreator/biological/choose
 
-
 /obj/item/paper/guardian
 	name = "Справочник по голопаразитам"
 	icon_state = "paper_words"
@@ -516,7 +511,6 @@
 
 /obj/item/paper/guardian/update_icon_state()
 	return
-
 
 /obj/item/storage/box/syndie_kit/guardian
 	name = "Набор инжектора голопаразита"

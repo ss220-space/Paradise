@@ -39,14 +39,12 @@
 	teleport_speed = max(initial(teleport_speed) - (E*10), 0)
 	teleport_cooldown = max(initial(teleport_cooldown) - (E * 100), 0)
 
-
 /obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -190,7 +188,6 @@
 	else
 		desc = "This leads to nowhere."
 
-
 //cere only
 /obj/machinery/quantumpad/cere/science_arrivals
 	preset_target = /obj/machinery/quantumpad/cere/arrivals_science
@@ -224,7 +221,6 @@
 	preset_target = /obj/machinery/quantumpad/cere/cargo_science
 /obj/machinery/quantumpad/cere/science_cargo2
 	preset_target = /obj/machinery/quantumpad/cere/cargo_science2
-
 
 /obj/machinery/quantumpad/cere/cargo_servise
 	preset_target = /obj/machinery/quantumpad/cere/servise_cargo

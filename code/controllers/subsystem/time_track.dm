@@ -19,7 +19,6 @@ SUBSYSTEM_DEF(time_track)
 
 	//var/update_gliding = FALSE
 
-
 /datum/controller/subsystem/time_track/fire()
 	var/current_realtime = REALTIMEOFDAY
 	var/current_byondtime = world.time
@@ -40,7 +39,6 @@ SUBSYSTEM_DEF(time_track)
 	last_tick_realtime = current_realtime
 	last_tick_byond_time = current_byondtime
 	last_tick_tickcount = current_tickcount
-
 
 /datum/controller/subsystem/time_track/get_metrics()
 	. = ..()

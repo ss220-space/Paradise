@@ -59,7 +59,6 @@
 	air1.volume = 1000
 	air2.volume = 1000
 
-
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_overlays()
 	. = ..()
 
@@ -82,7 +81,6 @@
 
 	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
 	update_pipe_image()
-
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_underlays()
 	if(..())

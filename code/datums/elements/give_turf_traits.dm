@@ -7,7 +7,6 @@
 	///List of sources we are using to reapply traits when turf changes
 	var/list/trait_sources = list()
 
-
 /datum/element/give_turf_traits/Attach(atom/movable/target, list/traits)
 	. = ..()
 	if(!istype(target))
@@ -19,13 +18,11 @@
 	if(isturf(target.loc))
 		add_to_occupied_turfs(target.loc, target)
 
-
 /datum/element/give_turf_traits/Detach(atom/movable/source)
 	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 	if(isturf(source.loc))
 		remove_from_occupied_turfs(source.loc, source)
 	return ..()
-
 
 /// Removes the trait from the old turf and adds it to the new one.
 /datum/element/give_turf_traits/proc/on_moved(atom/movable/source, atom/old_loc)
@@ -35,7 +32,6 @@
 
 	if(isturf(source.loc))
 		add_to_occupied_turfs(source.loc, source)
-
 
 /**
  * Registers the turf signals if it was previously unoccupied and adds it to the list of occupied turfs.
@@ -54,7 +50,6 @@
 		for(var/mob/living/living in location)
 			living.update_turf_movespeed(location)
 
-
 /**
  * Unregisters the turf signals if it's no longer unoccupied and removes it from the list of occupied turfs.
  * Otherwise, it just removes the movable from the assoc value of lists occupying the turf.
@@ -72,13 +67,11 @@
 		for(var/mob/living/living in location)
 			living.update_turf_movespeed(location)
 
-
 /// Signals and components are carried over when the turf is changed, so they've to be readded post-change.
 /datum/element/give_turf_traits/proc/pre_change_turf(turf/changed, path, list/post_change_callbacks)
 	SIGNAL_HANDLER
 
 	post_change_callbacks += CALLBACK(src, PROC_REF(reoccupy_turf))
-
 
 /// Reapply turf traits to the provided turf
 /datum/element/give_turf_traits/proc/reoccupy_turf(turf/changed)

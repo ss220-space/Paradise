@@ -71,7 +71,6 @@
 		return
 	ui_interact(user)
 
-
 /obj/machinery/ninja_bloodscan_machine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/reagent_containers/glass/beaker))
 		return ..()
@@ -112,7 +111,6 @@
 	update_state_icon()
 	to_chat(user, span_notice("You place [blood_vial] in the machine."))
 	return  ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/machinery/ninja_bloodscan_machine/proc/start_scan()
 	if(!blood_samples || !vials)

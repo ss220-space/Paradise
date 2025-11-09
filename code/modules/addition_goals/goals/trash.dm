@@ -8,13 +8,11 @@
 	name = "Шаттл с утилизацией мусора"
 	var/trash_count
 
-
 /datum/addition_goal/trash/setup()
 	trash_count = rand(30, 40)
 	request_number = "[rand(100, 999)]"
 	name = "Запрос утилизации мусора №[request_number]"
 	description = "Запрос утилизации мусора №[request_number]. На станцию прибудет шаттл с мусором, необходимо разгрузить мусор с шаттла и вернуть его обратно. Дальнейшая судьба мусора нас не интересует."
-
 
 /datum/addition_goal/trash/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	var/list/available_trash = subtypesof(/obj/item/trash)
@@ -24,7 +22,6 @@
 		new trash_type(trash_location)
 	return TRUE
 
-
 /datum/addition_goal/trash/format_accept_report(mob/user)
 	return {"<center><b>Запрос на утилизацию мусора</b></center><br>
 		В ваш адрес напревлен шаттл с мусором. Необходимо выгрузить весь мусор с шаттла и отправить его обратно.<br>
@@ -32,7 +29,6 @@
 		Награда за выполнение:<br>
 		1. [trash_count * AGS_CREDITS_PER_TRASH] кредитов на счет станции.<br>
 		2. [trash_count * AGS_CAPRGOPOINTS_PER_TRASH] очков поставки в карго.<br>"}
-
 
 /datum/addition_goal/trash/complete_goal(datum/controller/subsystem/addition_goals/system)
 	var/shuttle_turfs = system.get_shuttle_turfs()

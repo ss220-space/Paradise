@@ -63,7 +63,6 @@
 		var/mob/living/simple_animal/hostile/swarmer/S = usr
 		S.ContactSwarmers()
 
-
 /datum/hud/swarmer/New(mob/owner)
 	..()
 	var/atom/movable/screen/using

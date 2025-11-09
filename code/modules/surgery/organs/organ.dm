@@ -55,7 +55,6 @@
 	/// Will it skip pain messages?
 	var/hidden_pain = FALSE
 
-
 /obj/item/organ/Initialize(mapload)
 	. = ..()
 
@@ -69,7 +68,6 @@
 
 	update_DNA(update_blood = FALSE, randomize = TRUE)
 
-
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
 
@@ -82,7 +80,6 @@
 		QDEL_NULL(dna)
 
 	return ..()
-
 
 /obj/item/organ/proc/update_DNA(datum/dna/new_dna, update_blood = TRUE, use_species_type = TRUE, randomize = FALSE)
 	if(dna)
@@ -125,17 +122,14 @@
 	if(update_blood)
 		update_blood()
 
-
 /obj/item/organ/proc/update_blood()
 	if(!dna || (TRAIT_NO_BLOOD in dna.species.inherent_traits))
 		return
 
 	LAZYSET(blood_DNA, dna.unique_enzymes, dna.blood_type)
 
-
 /obj/item/organ/proc/update_health()
 	return
-
 
 /obj/item/organ/proc/necrotize(silent = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
@@ -154,10 +148,8 @@
 
 	return TRUE
 
-
 /obj/item/organ/proc/is_dead()
 	return (status & ORGAN_DEAD)
-
 
 /obj/item/organ/proc/unnecrotize()
 	if(!is_dead())
@@ -165,7 +157,6 @@
 
 	status &= ~ORGAN_DEAD
 	return TRUE
-
 
 /obj/item/organ/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/nanopaste))
@@ -185,7 +176,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/organ/process()
 
@@ -220,7 +210,6 @@
 		if(germ_level)
 			handle_germs()
 		return TRUE
-
 
 /obj/item/organ/proc/is_preserved()
 	var/static/list/preserved_holders = list(
@@ -260,7 +249,6 @@
 	// You can do your cool location temperature organ preserving effects here!
 	return FALSE
 
-
 /obj/item/organ/examine(mob/user)
 	. = ..()
 	if(is_dead())
@@ -268,7 +256,6 @@
 			. += span_notice("В процессе разложения.")
 		else
 			. += span_notice("Серьёзно повреждено.")
-
 
 /obj/item/organ/proc/handle_germs()
 	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
@@ -294,7 +281,6 @@
 		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
 			parent.germ_level += germs_amount
 
-
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
@@ -306,18 +292,14 @@
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
-
 /obj/item/organ/proc/is_damaged()
 	return damage > 0
-
 
 /obj/item/organ/proc/is_bruised()
 	return damage >= min_bruised_damage
 
-
 /obj/item/organ/proc/is_traumatized()
 	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
-
 
 //Adds autopsy data for used_weapon.
 /obj/item/organ/proc/add_autopsy_data(used_weapon = UNKNOWN_STATUS_RUS, damage)
@@ -332,7 +314,6 @@
 	weapon_data.hits++
 	weapon_data.damage += damage
 	weapon_data.time_inflicted = world.time
-
 
 /**
  * Adjusts internal organ damage value.
@@ -365,22 +346,18 @@
 	if(damage >= max_damage)
 		necrotize(silent)
 
-
 /obj/item/organ/proc/heal_internal_damage(amount, robo_repair = FALSE)
 	if(is_robotic() && !robo_repair)
 		return
 
 	damage = max(damage - amount, 0)
 
-
 /obj/item/organ/proc/robotize(make_tough = FALSE) //Being used to make robutt hearts, etc
 	status &= ~ORGAN_BROKEN
 	status |= ORGAN_ROBOT
 
-
 /obj/item/organ/proc/shock_organ(intensity)
 	return
-
 
 /obj/item/organ/proc/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!istype(owner))
@@ -404,16 +381,13 @@
 	owner = null
 	return src
 
-
 /obj/item/organ/proc/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	return
-
 
 // A version of `replaced` that "flattens" the process of insertion, making organs "Plug'n'play"
 // (Particularly the heart, which stops beating when removed)
 /obj/item/organ/proc/safe_replace(mob/living/carbon/human/target)
 	replaced(target)
-
 
 /obj/item/organ/proc/surgeryize()
 	return
@@ -431,7 +405,6 @@
 /obj/item/organ/proc/is_robotic()
 	return (status & ORGAN_ROBOT)
 
-
 /obj/item/organ/serialize()
 	var/data = ..()
 
@@ -444,7 +417,6 @@
 		data["dna"] = dna.serialize()
 
 	return data
-
 
 /obj/item/organ/deserialize(data)
 	if(isnum(data["status"]))

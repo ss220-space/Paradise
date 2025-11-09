@@ -176,7 +176,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /obj/machinery/libraryscanner/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
 
-
 /obj/machinery/libraryscanner/attack_hand(mob/user)
 	if(istype(user,/mob/dead))
 		to_chat(user, span_danger("Фигу видишь?"))
@@ -216,7 +215,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
 	return
-
 
 /*
  * Book binder
@@ -259,7 +257,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 
 	return ..()
 
-
 /obj/machinery/bookbinder/proc/finalize_printing(obj/item/paper/paper)
 	if(QDELETED(paper) || paper.loc != src)
 		return
@@ -279,7 +276,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	atom_say("Печать книги успешно завершена.", FALSE)
 	playsound(loc, 'sound/machines/ping.ogg', 20, TRUE)
 	qdel(paper)
-
 
 /obj/machinery/libraryscanner/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)

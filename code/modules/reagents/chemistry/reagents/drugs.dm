@@ -313,7 +313,6 @@
 	addiction_threshold = 10
 	taste_description = "дешёвой советской дури"
 
-
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-80 SECONDS)
@@ -396,7 +395,6 @@
 	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
 
-
 /datum/reagent/methamphetamine/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(5))
@@ -414,7 +412,6 @@
 	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
 	return ..() | update_flags
-
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/user)
 	. = ..()
@@ -469,13 +466,11 @@
 	taste_description = "нереальной бодрости"
 	tags = REAGENT_TAG_ANTI_STUN
 
-
 /datum/reagent/bath_salts/on_mob_add(mob/living/carbon/human/user)
 	. = ..()
 	if(ishuman(user))
 		user.physiology.punch_damage_low += 5
 		user.physiology.punch_damage_high += 5
-
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
 	var/check = rand(0,100)
@@ -506,13 +501,11 @@
 		to_chat(M, span_userdanger("ОНИ УЖЕ БЛИЗКО!!!"))
 	return ..() | update_flags
 
-
 /datum/reagent/bath_salts/on_mob_delete(mob/living/carbon/human/user)
 	. = ..()
 	if(ishuman(user))
 		user.physiology.punch_damage_low -= 5
 		user.physiology.punch_damage_high -= 5
-
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -623,7 +616,6 @@
 		update_flags |= M.adjustFireLoss(-2, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
-
 /datum/reagent/fliptonium
 	name = "Крутений"
 	id = "fliptonium"
@@ -704,7 +696,6 @@
 			M.emote("laugh")
 	return list(effect, update_flags)
 
-
 /datum/reagent/rotatium //Rotatium. Fucks up your rotation and is hilarious
 	name = "Ротатий"
 	id = "rotatium"
@@ -713,7 +704,6 @@
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
 	taste_description = "spinning"
-
 
 /datum/reagent/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
@@ -725,14 +715,12 @@
 				animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING)
 	return ..()
 
-
 /datum/reagent/rotatium/on_mob_delete(mob/living/M)
 	if(M?.hud_used)
 		var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 		for(var/key in pm_controller.controlled_planes)
 			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
-
 
 //////////////////////////////
 //		   laughter         //
@@ -880,12 +868,10 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "стекломоя"
 
-
 /datum/reagent/lube/ultra/on_mob_add(mob/living/user)
 	. = ..()
 	if(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
-
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -906,11 +892,9 @@
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
 	return ..() | update_flags
 
-
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
-
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -940,7 +924,6 @@
 	addiction_chance = 10
 	addiction_threshold = 5
 	taste_description = "силикона"
-
 
 /datum/reagent/surge/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1034,12 +1017,10 @@
 	addiction_chance = 1
 	addiction_chance_additional = 20
 
-
 /datum/reagent/lube/combat/on_mob_add(mob/living/user)
 	. = ..()
 	if(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
-
 
 /datum/reagent/lube/combat/on_mob_life(mob/living/user)
 	user.SetSleeping(0)
@@ -1054,11 +1035,9 @@
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
 	return ..()
 
-
 /datum/reagent/lube/combat/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
-
 
 /datum/reagent/lube/combat/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()

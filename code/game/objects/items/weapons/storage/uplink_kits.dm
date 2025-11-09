@@ -261,7 +261,6 @@
 	new /obj/item/grenade/clusterbuster/n2o(src)
 	new /obj/item/grenade/clusterbuster/n2o(src)
 
-
 /obj/item/storage/box/syndie_kit/atmosfiregrenades
 	name = "plasma fire grenades kit"
 	desc = "Коробка, содержащая 2 кластерные гранаты наполненные газообразной плазмой."
@@ -302,7 +301,6 @@
 		B.deity_name = "Success"
 		B.icon_state = "bible_greentext"
 		B.item_state = "greentext"
-
 
 /obj/item/storage/box/syndie_kit/cutouts
 	name = "adaptive cardboard figure kit"
@@ -727,7 +725,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		INSTRUMENTAL = "набором для секретных операций",
 		PREPOSITIONAL = "наборе для секретных операций",
 	)
-
 
 /obj/item/storage/box/syndie_kit/blackops_kit/populate_contents()
 	new /obj/item/clothing/under/syndicate/blackops(src)

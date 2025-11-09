@@ -28,7 +28,6 @@
 	new /obj/effect/decal/cleanable/ash(loc)
 	return ..()
 
-
 /obj/effect/contractor_flare/attackby(obj/item/clothing/mask/cigarette/cigarette, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(cigarette) || cigarette.lit)
@@ -36,7 +35,6 @@
 	. |= ATTACK_CHAIN_SUCCESS
 	cigarette.light(span_rose("[user] привычным движением прикурива[PLUR_ET_YUT(user)] заслуженную \
 					[GEND_IM_EI_IM_IMI(user)] [cigarette.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. В воздухе запахло телекристаллами."))
-
 
 /**
  * # Prisoner Belongings Closet
@@ -58,7 +56,6 @@
 	. = ..()
 	if(!GLOB.prisoner_belongings)
 		GLOB.prisoner_belongings = src
-
 
 /obj/structure/closet/secure_closet/contractor/Destroy()
 	if(GLOB.prisoner_belongings == src)

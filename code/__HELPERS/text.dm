@@ -8,7 +8,6 @@
  *			Misc
  */
 
-
 /proc/format_table_name(table as text)
 	return CONFIG_GET(string/feedback_tableprefix) + table
 
@@ -94,7 +93,6 @@
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
 /proc/adminscrub(t, limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
-
 
 //Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length=512)
@@ -354,7 +352,6 @@
 		return message
 	return copytext(message, 1, length + 1)
 
-
 /proc/stringmerge(text,compare,replace = "*")
 //This proc fills in all spaces with the "replace" var (* by default) with whatever
 //is in the other string at the same spot (assuming it is not a replace char).
@@ -471,7 +468,6 @@
 			index = findtext(text, char)
 	return text
 
-
 /proc/dmm_decode(text)
 	// Replace what we extracted above
 	var/list/repl_chars = list("#?qt;" = "\"", "#?lbr;" = "{", "#?rbr;" = "}")
@@ -496,7 +492,6 @@
 		if(findtextEx(haystack, needle, start, end))
 			return 1
 	return 0
-
 
 // Pencode
 /proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT, no_font = FALSE)
@@ -710,7 +705,6 @@
 
 	// return the split html object to the caller
 	return s
-
 
 // Returns the rot13'ed text
 /proc/rot13(text = "")

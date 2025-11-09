@@ -4,11 +4,8 @@
 		reagents.temperature_reagents(exposed_temperature)
 	return null
 
-
-
 /turf/proc/hotspot_expose(exposed_temperature, exposed_volume, soh = 0)
 	return
-
 
 /turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 	var/datum/gas_mixture/air_contents = return_air()
@@ -60,7 +57,6 @@
 	var/fake = FALSE
 	var/burn_time = 0
 
-
 /obj/effect/hotspot/Initialize(mapload)
 	. = ..()
 	if(!fake)
@@ -73,7 +69,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/effect/hotspot/Destroy()
 	set_light_on(FALSE)
 	SSair.hotspots -= src
@@ -83,7 +78,6 @@
 	if(!fake)
 		DestroyTurf()
 	return ..()
-
 
 /obj/effect/hotspot/proc/perform_exposure()
 	var/turf/simulated/location = loc
@@ -115,7 +109,6 @@
 	color = heat2color(temperature)
 	set_light(l_color = color)
 	return FALSE
-
 
 /obj/effect/hotspot/process()
 	if(just_spawned)
@@ -173,7 +166,6 @@
 			return 0*/
 	return 1
 
-
 /obj/effect/hotspot/proc/DestroyTurf()
 
 	if(issimulatedturf(loc))
@@ -190,13 +182,11 @@
 				T.to_be_destroyed = 0
 				T.max_fire_temperature_sustained = 0
 
-
 /obj/effect/hotspot/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(isliving(arrived))
 		arrived.fire_act()
-
 
 /obj/effect/hotspot/singularity_pull()
 	return
@@ -242,7 +232,6 @@
 			L.adjust_fire_stacks(3)
 			L.IgniteMob()
 			L.adjust_bodytemperature((temp - L.bodytemperature) / 3)
-
 
 /proc/fireflash_s(atom/center, radius, temp, falloff)
 	if(temp < T0C + 60)

@@ -54,7 +54,6 @@
 
 	var/fire_variant = FIRE_VARIANT_DEFAULT
 
-
 /obj/flamer_fire/ComponentInitialize()
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -97,7 +96,6 @@
 	firelevel = reagent.durationfire + fuel_pressure * reagent.durationmod
 	burnlevel = reagent.intensityfire
 
-
 	update_flame()
 
 	addtimer(CALLBACK(src, PROC_REF(un_burst_flame)), 0.5 SECONDS)
@@ -135,7 +133,6 @@
 		ignited_morb.apply_damage(firedamage, BURN)
 		animation_flash_color(ignited_morb, tied_reagent.burncolor) //pain hit flicker
 
-
 	var/turf/current_turf = get_turf(src)
 
 	if(!isopenspaceturf(current_turf))
@@ -163,7 +160,6 @@
 
 	entered.handle_flamer_fire_crossed(src)
 
-
 /obj/flamer_fire/proc/set_on_fire(mob/living/mob)
 	if(!istype(mob))
 		return
@@ -177,10 +173,8 @@
 	if(!tied_reagent.fire_penetrating)
 		burn_damage = max(burn_damage * (100 - fire_intensity_resistance) / 100, 0)
 
-
 	mob.adjust_fire_stacks(tied_reagent.durationfire)
 	mob.IgniteMob()
-
 
 	mob.apply_damage(burn_damage, BURN) //This makes fire stronk.
 
@@ -315,7 +309,6 @@
 		if(!has_pass)
 			return
 		fire_spread_recur(picked_turf, spread_power, direction, fire_lvl, burn_lvl, f_color, burn_sprite)
-
 
 //Flashes a color, then goes back to regular.
 /proc/animation_flash_color(atom/animation_atom, flash_color = COLOR_RED, speed = 3) //Flashes red on default.

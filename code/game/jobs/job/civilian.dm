@@ -18,13 +18,11 @@
 	min_start_money = 100
 	max_start_money = 300
 
-
 /datum/outfit/job/assistant
 	name = "Civilian"
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random
-
 
 /datum/job/civilian/prisoner
 	title = JOB_TITLE_PRISONER
@@ -54,7 +52,6 @@
 	box = null
 	allow_backbag_choice = FALSE
 	back = null
-
 
 /datum/job/civilian/prisoner/after_spawn(mob/living/carbon/human/human)
 	. = ..()

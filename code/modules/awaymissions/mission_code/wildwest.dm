@@ -118,9 +118,7 @@
 				for(var/mob/living/simple_animal/hostile/faithless/F in GLOB.mob_living_list)
 					F.death()
 
-
 ///////////////Meatgrinder//////////////
-
 
 /obj/effect/meatgrinder
 	name = "Meat Grinder"
@@ -130,7 +128,6 @@
 	icon_state = "blobpod"
 	var/triggered = FALSE
 
-
 /obj/effect/meatgrinder/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -138,17 +135,14 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/effect/meatgrinder/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(collide), arrived)
 
-
 /obj/effect/meatgrinder/Bumped(atom/movable/moving_atom)
 	. = ..()
 	collide(moving_atom)
-
 
 /obj/effect/meatgrinder/proc/collide(atom/movable/moving_atom)
 	if(triggered || !ishuman(moving_atom))
@@ -158,7 +152,6 @@
 	do_sparks(3, TRUE, src)
 	explosion(src, devastation_range = 1, heavy_impact_range = 0, light_impact_range = 0, flash_range = 0)
 	qdel(src)
-
 
 /////For the Wishgranter///////////
 
@@ -184,7 +177,6 @@
 	user.visible_message(span_warning("[user] appears to wake from the dead, having healed all wounds."))
 	return 1
 
-
 /obj/item/wildwest_communicator
 	name = "Syndicate Comms Device"
 	icon = 'icons/obj/device.dmi'
@@ -192,7 +184,6 @@
 	item_state = "walkietalkie"
 	desc = "Use to communicate with the syndicate base commander."
 	var/used = FALSE
-
 
 /obj/item/wildwest_communicator/attack_self(mob/living/user)
 
@@ -239,11 +230,9 @@
 			stand_down()
 	used = TRUE
 
-
 /obj/item/wildwest_communicator/proc/stand_down()
 	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.alive_mob_list)
 		W.on_alert = FALSE
-
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest
 	var/on_alert = TRUE

@@ -22,7 +22,6 @@
 						<b>Если вы тащите мёртвое или находящееся в критическом состоянии существо, когда входите в лужу крови, он последует за вами, что позволит вам поглотить его.</b><br> \
 						<b>Вы двигаетесь быстро, покидая лужу крови, но материальный мир скоро лишит вас сил и сделает медлительным.</b>"
 
-
 /mob/living/simple_animal/demon/slaughter/get_ru_names()
 	return list(
 		NOMINATIVE = "демон резни",
@@ -43,7 +42,6 @@
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = TRUE
 
-
 /mob/living/simple_animal/demon/slaughter/Destroy()
 	// Only execute the below if we successfully died
 
@@ -53,7 +51,6 @@
 	for(var/mob/living/mob as anything in consumed_mobs)
 		release_consumed(mob)
 	. = ..()
-
 
 /mob/living/simple_animal/demon/slaughter/attempt_objectives()
 	if(!..())
@@ -76,8 +73,6 @@
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Slaughter_Demon\">Демон резни</a>"))
 	to_chat(src, chat_box_red(messages.Join("<br>")))
-
-
 
 /obj/effect/decal/cleanable/blood/innards
 	icon = 'icons/obj/surgery.dmi'
@@ -128,7 +123,6 @@
 /mob/living/simple_animal/demon/slaughter/cult/attempt_objectives()
 	return
 
-
 /obj/effect/proc_holder/spell/sense_victims
 	name = "Охота за душами"
 	desc = "Определите местоположение еретиков."
@@ -139,14 +133,11 @@
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"
 
-
 /obj/effect/proc_holder/spell/sense_victims/create_new_targeting()
 	return new /datum/spell_targeting/alive_mob_list
 
-
 /obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
 	return target.stat == CONSCIOUS && target.key && !iscultist(target) // Only conscious, non cultist players
-
 
 /obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
@@ -157,7 +148,6 @@
 		to_chat(user, span_warning("Вы не смогли найти разумных еретиков для Резни."))
 		return
 	to_chat(user, span_danger("Вы чувствуете испуганную душу в [A.declent_ru(PREPOSITIONAL)]. <b>Покажите [GEND_HIM_HER(victim)] ошибку [GEND_HIS_HER(victim)] пути.</b>"))
-
 
 /mob/living/simple_animal/demon/slaughter/cult/Initialize(mapload)
 	. = ..()
@@ -192,7 +182,6 @@
 		to_chat(S, chat_box_red(messages.Join("<br>")))
 		log_game("[S.key] has become Slaughter demon.")
 
-
 /**
  * The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl.
  */
@@ -218,11 +207,9 @@
 	to_chat(user, span_warning("...и вы не чувствуете никаких изменений."))
 	qdel(src)
 
-
 /obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	M?.mind?.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
-
 
 /obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(M.mind)
@@ -230,7 +217,6 @@
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
 	. = ..()
-
 
 /**
  * LAUGHTER DEMON
@@ -275,14 +261,12 @@
 		PREPOSITIONAL = "демоне смеха",
 	)
 
-
 /mob/living/simple_animal/demon/slaughter/laughter/release_consumed(mob/living/M)
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
 		playsound(get_turf(src), feast_sound, 50, TRUE, -1)
 		to_chat(M, span_clown("Вы покидаете тёплые объятия [declent_ru(GENITIVE)] и чувствуете себя готовым покорить мир."))
 	..(M)
-
 
 //Objectives and helpers.
 
@@ -292,12 +276,10 @@
 	antag_menu_name = "Поглотить смертных"
 	var/targetKill = 10
 
-
 /datum/objective/slaughter/New()
 	targetKill = rand(10,20)
 	explanation_text = "Поглотить [targetKill] смертн[declension_ru(targetKill, "ого", "ых", "ых")]."
 	..()
-
 
 /datum/objective/slaughter/check_completion()
 	var/kill_count = 0
@@ -313,10 +295,8 @@
 
 	return FALSE
 
-
 /datum/objective/demonFluff
 	needs_target = FALSE
-
 
 /datum/objective/demonFluff/New()
 	find_target()
@@ -340,7 +320,6 @@
 	target = null
 	explanation_text = pick(explanation_texts)
 	..()
-
 
 /datum/objective/demonFluff/check_completion()
 	return TRUE

@@ -14,7 +14,6 @@
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 	return ..()
 
-
 /mob/living/silicon/decoy/welder_act()
 	return
 

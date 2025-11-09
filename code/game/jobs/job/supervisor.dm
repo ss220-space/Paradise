@@ -57,13 +57,11 @@
 	satchel = /obj/item/storage/backpack/satchel_cap
 	dufflebag = /obj/item/storage/backpack/duffel/captain
 
-
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H?.w_uniform)
 		var/obj/item/clothing/accessory/medal/gold/captain/medal = new(H.w_uniform)
 		medal.on_attached(H.w_uniform)
-
 
 /datum/job/hop
 	title = JOB_TITLE_HOP
@@ -122,8 +120,6 @@
 	)
 
 	implants = list()
-
-
 
 /datum/job/nanotrasenrep
 	title = JOB_TITLE_REPRESENTATIVE
@@ -300,8 +296,6 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_laws/magisraka
-
-
 
 //GLOBAL_VAR_INIT(lawyer, 0) //Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds. | This was deprecated back in 2014, and its now 2020
 /datum/job/lawyer

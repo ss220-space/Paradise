@@ -9,7 +9,6 @@
 	if(!isemptylist(bombs)) // You're fucked.
 		..(severity)
 
-
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
 	req_access = list(ACCESS_KITCHEN)
@@ -20,7 +19,6 @@
 		new /obj/item/reagent_containers/food/condiment/flour(src)
 	new /obj/item/reagent_containers/food/condiment/rice(src)
 	new /obj/item/reagent_containers/food/condiment/sugar(src)
-
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
@@ -81,7 +79,6 @@
 	icon_state = "vault"
 	desc = "It's a card-locked storage unit. This one is lead-lined."
 	req_access = list(ACCESS_HEADS_VAULT)
-
 
 /obj/structure/closet/secure_closet/freezer/vault/populate_contents()
 	for(var/i in 1 to 3)

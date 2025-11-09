@@ -20,7 +20,6 @@
 		transfer_fingerprints_to(S)
 		if(src) qdel(src)
 
-
 /obj/machinery/the_singularitygen/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))

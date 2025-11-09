@@ -33,13 +33,11 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
-
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	. = ..()
 	set_gun_light(new /obj/item/flashlight/seclite(src))
 	cell.maxcharge = 600
 	cell.charge = 600
-
 
 /obj/item/gun/energy/gun/hos
 	name = "X-01 MultiPhase Energy Gun"

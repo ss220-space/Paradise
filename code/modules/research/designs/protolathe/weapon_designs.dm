@@ -114,7 +114,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/empty
-	category = list(PROTOLATHE_CATEGORY_WEAPON, "hacked", "Security")
+	category = list(PROTOLATHE_CATEGORY_WEAPON, PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/box_oldsmg
 	id = "box_oldsmg"
@@ -122,7 +122,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 36000)
 	build_path = /obj/item/ammo_box/c46x30mm
-	category = list(PROTOLATHE_CATEGORY_WEAPON, "hacked", "Security")
+	category = list(PROTOLATHE_CATEGORY_WEAPON, PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/box_oldsmg/ap_box
 	id = "box_oldsmg_ap"
@@ -143,9 +143,9 @@
 	id = "lmag"
 	build_type = PROTOLATHE | AUTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000)
-	build_path = /obj/item/ammo_box/magazine/lr30mag
-	category = list(PROTOLATHE_CATEGORY_WEAPON, "hacked", "Security")
+	materials = list(MAT_METAL = 2000)
+	build_path = /obj/item/ammo_box/magazine/lr30mag/empty
+	category = list(PROTOLATHE_CATEGORY_WEAPON, PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/lmag_box
 	id = "lmag_box"
@@ -153,7 +153,7 @@
 	req_tech = list("combat" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL = 30000, MAT_GLASS = 6000)
 	build_path = /obj/item/ammo_box/laserammobox
-	category = list(PROTOLATHE_CATEGORY_WEAPON, "hacked", "Security")
+	category = list(PROTOLATHE_CATEGORY_WEAPON, PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/rapidsyringe
 	id = "rapidsyringe"
@@ -241,7 +241,6 @@
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
-
 // Gun modules
 
 /datum/design/gun_mod/coll_med
@@ -267,7 +266,6 @@
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, MAT_GOLD = 750, MAT_URANIUM = 500)
 	build_path = /obj/item/gun_module/rail/scope/x8
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
-
 
 /////////////////////////////////////////
 ////////////////ILLEGAL//////////////////

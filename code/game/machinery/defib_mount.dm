@@ -65,7 +65,6 @@
 		defib.cell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/defibrillator_mount/update_overlays()
 	. = ..()
 	if(defib)
@@ -77,7 +76,6 @@
 			. += "charge[ratio]"
 		if(clamps_locked)
 			. += "clamps"
-
 
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/carbon/human/user = usr)
@@ -92,7 +90,6 @@
 
 	defib.dispence_paddles(user)
 	add_fingerprint(user)
-
 
 /obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -132,7 +129,6 @@
 
 	return ..()
 
-
 /obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(defib)
@@ -143,7 +139,6 @@
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new /obj/item/mounted/frame/defib_mount(get_turf(user))
 	qdel(src)
-
 
 /obj/machinery/defibrillator_mount/click_alt(mob/living/carbon/human/user)
 	if(!defib)
@@ -165,7 +160,6 @@
 	defib = null
 	update_icon(UPDATE_OVERLAYS)
 	return CLICK_ACTION_SUCCESS
-
 
 //wallframe, for attaching the mounts easily
 /obj/item/mounted/frame/defib_mount

@@ -69,7 +69,6 @@
 		if(my_mirror)
 			QDEL_NULL(my_mirror)
 
-
 /mob/living/simple_animal/hostile/asteroid/elite/herald/Destroy()
 	if(my_mirror)
 		QDEL_NULL(my_mirror)
@@ -297,7 +296,6 @@
 	. = ..()
 	if(!istype(target, /mob/living/simple_animal/hostile/asteroid/elite/herald))
 		firer.forceMove(get_turf(src))
-
 
 //Herald's loot: Cloak of the Prophet
 

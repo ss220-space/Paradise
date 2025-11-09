@@ -28,7 +28,6 @@
 			if(prob(5))
 				affected_mob.say(pick(list("ХОНК!", "Хонк!", "Хонк.", "Хонк?", "Хонк!!", "Хонк?!", "Хонк...")))
 
-
 /datum/disease/virus/pierrot_throat/advanced
 	name = "Улучшенный \"Горло Пьеро\""
 	agent = "H0NI<42.B4n4 Virus"

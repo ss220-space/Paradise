@@ -38,7 +38,6 @@
 		muhtar.color = obj_color
 		return muhtar
 
-
 /datum/muhtar_fashion/head
 	icon_file = 'icons/mob/muhtar_accessories.dmi'
 
@@ -52,7 +51,6 @@
 
 /datum/muhtar_fashion/mask/cigar
 	obj_icon_state = "cigar"
-
 
 /datum/muhtar_fashion/head/beret
 	name = "Лейтенант REAL_NAME"

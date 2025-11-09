@@ -69,14 +69,12 @@
 		if(0 to 25)
 			. +=  span_warning("Да [GEND_HE_SHE(src)] развалива[PLUR_ET_YUT(src)][GEND_SYA_AS_OS_IS(src)] на глазах!")
 
-
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return FALSE
 	// Done as such to not break chameleon gear since you can't rely on initial states
 	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 	return TRUE
-
 
 /obj/item/clothing/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/radio/spy_spider))
@@ -128,7 +126,6 @@
 
 	return FALSE
 
-
 /obj/item/clothing/proc/visor_toggling(mob/user) //handles all the actual toggling of flags
 	if(!can_toggle)
 		return FALSE
@@ -145,18 +142,15 @@
 		tint = up ? tint_up : initial(tint)
 	update_icon(UPDATE_ICON_STATE)
 
-
 // Aurora forensics port.
 /obj/item/clothing/clean_blood()
 	. = ..()
 	gunshot_residue = null
 
-
 /obj/item/clothing/proc/can_use(mob/user)
 	if(isliving(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return TRUE
 	return FALSE
-
 
 /obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	. = ..()
@@ -168,7 +162,6 @@
 		if(!disable_warning)
 			to_chat(M, span_warning("[src] не могут использовать такие как Вы."))
 		return FALSE
-
 
 /obj/item/clothing/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
@@ -253,20 +246,17 @@
 	if(!QDELETED(original_ear))
 		user.drop_item_ground(original_ear, force = TRUE)
 
-
 /obj/item/clothing/ears/offear/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	var/obj/item/original_ear = locateUID(original_ear_UID)
 	if(!original_ear)
 		CRASH("No original_ear found.")
 	return original_ear.MouseDrop(over_object, src_location, over_location, src_control, over_control, params)
 
-
 /obj/item/clothing/ears/offear/attack_hand(mob/user, pickupfireoverride)
 	var/obj/item/original_ear = locateUID(original_ear_UID)
 	if(!original_ear)
 		CRASH("No original_ear found.")
 	return original_ear.attack_hand(user, pickupfireoverride)
-
 
 //Glasses
 /obj/item/clothing/glasses
@@ -312,11 +302,9 @@
  * BLIND     // can't see anything
  */
 
-
 /obj/item/clothing/glasses/update_icon_state()
 	if(..())
 		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
-
 
 /obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
 	set name = "Подогнать очки"
@@ -389,7 +377,6 @@
 	if(toolspeedmod)
 		user.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/work_gloves, multiplicative_slowdown = toolspeedmod)
 
-
 /obj/item/clothing/gloves/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
@@ -398,7 +385,6 @@
 		user.remove_actionspeed_modifier(/datum/actionspeed_modifier/surgical_gloves)
 	if(toolspeedmod)
 		user.remove_actionspeed_modifier(/datum/actionspeed_modifier/work_gloves)
-
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
@@ -421,7 +407,6 @@
 
 	return FALSE // return TRUE to cancel attack_hand()
 
-
 /obj/item/clothing/gloves/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(clipped)
@@ -439,16 +424,13 @@
 	clipped = TRUE
 	update_appearance()
 
-
 /obj/item/clothing/gloves/update_name(updates = ALL)
 	. = ..()
 	name = clipped ? "mangled [initial(name)]" : initial(name)
 
-
 /obj/item/clothing/gloves/update_desc(updates = ALL)
 	. = ..()
 	desc = clipped ? "[initial(desc)] They have had the fingertips cut off of them." : initial(desc)
-
 
 /obj/item/clothing/gloves/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
 	. = ..()
@@ -468,7 +450,6 @@
 		blood_overlay = get_blood_overlay("glove_r")
 		if(blood_overlay)
 			. += blood_overlay
-
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -532,7 +513,6 @@
 	set src in usr
 	set_sensors(usr)
 
-
 /obj/item/clothing/under/GetID()
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 		var/accessory_id = accessory.GetID()
@@ -540,12 +520,10 @@
 			return accessory_id
 	return ..()
 
-
 /obj/item/clothing/under/GetAccess()
 	. = ..()
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 		. |= accessory.GetAccess()
-
 
 //Head
 /obj/item/clothing/head
@@ -569,15 +547,12 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
-
 /obj/item/clothing/head/update_icon_state()
 	if(..())
 		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
 
-
 /obj/item/clothing/head/attack_self(mob/user)
 	adjust_headgear(user)
-
 
 /obj/item/clothing/head/proc/adjust_headgear(mob/living/carbon/human/user)
 	if(!can_toggle || user.incapacitated() || world.time < cooldown + toggle_cooldown)
@@ -606,14 +581,12 @@
 	if(toggle_sound)
 		playsound(loc, toggle_sound, 100, FALSE, 4)
 
-
 /obj/item/clothing/head/proc/headgear_loop_sound()
 	set waitfor = FALSE
 
 	while(up)
 		playsound(loc, active_sound, active_sound_volume, FALSE, 4)
 		sleep(1.5 SECONDS)
-
 
 /obj/item/clothing/head/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
 	. = ..()
@@ -623,7 +596,6 @@
 	var/blood_overlay = get_blood_overlay("helmet")
 	if(blood_overlay)
 		. += blood_overlay
-
 
 //Mask
 /obj/item/clothing/mask
@@ -644,7 +616,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
-
 
 /// Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(mob/living/carbon/human/user)
@@ -706,7 +677,6 @@
 	if(!user.equip_to_slot_if_possible(src, slot_flags))
 		user.put_in_hands(src)
 
-
 /obj/item/clothing/mask/proc/force_adjust_mask()
 	up = TRUE
 	update_icon(UPDATE_ICON_STATE)
@@ -723,11 +693,9 @@
 	if(clothing_flags & AIRTIGHT)
 		clothing_flags &= ~AIRTIGHT
 
-
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
 	return
-
 
 /obj/item/clothing/mask/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
 	. = ..()
@@ -737,7 +705,6 @@
 	var/blood_overlay = get_blood_overlay("mask")
 	if(blood_overlay)
 		. += blood_overlay
-
 
 //Shoes
 /obj/item/clothing/shoes
@@ -773,7 +740,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
 	)
 
-
 /obj/item/clothing/shoes/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!can_cut_open)
@@ -793,7 +759,6 @@
 	)
 	cut_open = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
@@ -826,7 +791,6 @@
 
 	return ..()
 
-
 /obj/item/clothing/shoes/update_name()
 	. = ..()
 	if(!cut_open)
@@ -834,14 +798,12 @@
 		return
 	name = "mangled [initial(name)]"
 
-
 /obj/item/clothing/shoes/update_desc()
 	. = ..()
 	if(!cut_open)
 		desc = initial(desc)
 		return
 	desc = "[initial(desc)] They have had their toes opened up."
-
 
 /obj/item/clothing/shoes/update_icon_state()
 	var/base_icon_state = replacetext("[icon_state]", "_opentoe", "")
@@ -853,7 +815,6 @@
 		icon_state = base_icon_state
 		item_state = base_item_state
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/shoes/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
 	. = ..()
@@ -883,7 +844,6 @@
 		if(blood_overlay)
 			. += blood_overlay
 		return
-
 
 //Suit
 /obj/item/clothing/suit
@@ -968,7 +928,6 @@
 			flavour = "[adjust_flavour]"
 		to_chat(user, "You [flavour] [src].")
 
-
 /obj/item/clothing/suit/update_icon_state()
 	// Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will
 	// end up with a suffix of _open_open if adjusted twice, since their initial state is _open
@@ -981,7 +940,6 @@
 		icon_state = "[base_icon_state]_open"
 		item_state = "[base_item_state]_open"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 // Proc used to check if suit storage is limited by item weight
 // Allows any suit to have their own weight limit for items that can be equipped into suit storage
@@ -1007,7 +965,6 @@
 	else
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
-
 /obj/item/clothing/suit/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
 	. = ..()
 	if(isinhands)
@@ -1016,7 +973,6 @@
 	var/blood_overlay = get_blood_overlay(blood_overlay_type)
 	if(blood_overlay)
 		. += blood_overlay
-
 
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
@@ -1041,7 +997,6 @@
 	dog_fashion = null
 	/// List of things added to examine text, like security or medical records.
 	var/examine_extensions = EXAMINE_HUD_NONE
-
 
 /obj/item/clothing/suit/space
 	name = "Space suit"
@@ -1071,18 +1026,15 @@
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	var/jetpack_upgradable = FALSE
 
-
 /obj/item/clothing/suit/space/Initialize(mapload)
 	. = ..()
 	if(jetpack && ispath(jetpack))
 		jetpack = new jetpack(src)
 		jetpack.our_suit = src
 
-
 /obj/item/clothing/suit/space/Destroy()
 	QDEL_NULL(jetpack)
 	return ..()
-
 
 /obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1100,13 +1052,11 @@
 	jetpack = null
 	to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
 
-
 /obj/item/clothing/suit/space/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(jetpack && slot == ITEM_SLOT_CLOTH_OUTER)
 		for(var/datum/action/action as anything in jetpack.actions)
 			action.Grant(user)
-
 
 /obj/item/clothing/suit/space/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -1114,7 +1064,6 @@
 		for(var/datum/action/action as anything in jetpack.actions)
 			action.Remove(user)
 		jetpack.turn_off(user)
-
 
 /obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
@@ -1136,7 +1085,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 // Under clothing
 /obj/item/clothing/under
@@ -1184,21 +1132,17 @@
 	/// If true, it's rolled down.
 	var/rolled_down = FALSE
 
-
 /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
-
 
 /obj/item/clothing/under/rank/Initialize(mapload)
 	. = ..()
 	if(random_sensor)
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
 
-
 /obj/item/clothing/under/Destroy()
 	QDEL_LIST(accessories)
 	return ..()
-
 
 /obj/item/clothing/under/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -1208,7 +1152,6 @@
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 		accessory.attached_unequip(user)
 
-
 /obj/item/clothing/under/equipped(mob/user, slot, initial)
 	. = ..()
 
@@ -1217,7 +1160,6 @@
 
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 		accessory.attached_equip(user)
-
 
 /obj/item/clothing/under/update_overlays()
 	. = ..()
@@ -1229,7 +1171,6 @@
 		if(accessory.acc_overlay)
 			. += accessory.acc_overlay
 
-
 /obj/item/clothing/under/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
 	. = ..()
 	if(isinhands)
@@ -1238,7 +1179,6 @@
 	var/blood_overlay = get_blood_overlay("uniform")
 	if(blood_overlay)
 		. += blood_overlay
-
 
 /*
  * # can_attach_accessory
@@ -1266,7 +1206,6 @@
 
 	return TRUE
 
-
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
 		if(attach_accessory(I, user, unequip = TRUE))
@@ -1279,7 +1218,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/accessory, mob/user, unequip = FALSE)
 	if(!can_attach_accessory(accessory, user))
@@ -1294,19 +1232,16 @@
 		to_chat(user, span_notice("Вы прикрепили [accessory.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
 	return TRUE
 
-
 /obj/item/clothing/under/verb/removetie()
 	set name = "Убрать аксессуар"
 	set category = STATPANEL_OBJECT
 	set src in usr
 	handle_accessories_removal(usr)
 
-
 /obj/item/clothing/under/click_alt(mob/user)
 	if(handle_accessories_removal(user))
 		return CLICK_ACTION_SUCCESS
 	return CLICK_ACTION_BLOCKING
-
 
 /obj/item/clothing/under/proc/handle_accessories_removal(mob/user)
 	var/accessories_len = LAZYLEN(accessories)
@@ -1327,7 +1262,6 @@
 		accessory.forceMove_turf()
 	return TRUE
 
-
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
 	if(has_sensor)
@@ -1343,7 +1277,6 @@
 
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 		. += accessory.attached_examine(user, src)
-
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Сменить стиль униформы"
@@ -1373,12 +1306,10 @@
 	rolled_down = !rolled_down
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/clothing/under/emp_act(severity)
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 		accessory.emp_act(severity)
 	..()
-
 
 /obj/item/clothing/obj_destruction(damage_flag)
 	if(damage_flag == BOMB || damage_flag == MELEE)
@@ -1406,7 +1337,6 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
-
 /obj/item/clothing/neck/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
 	. = ..()
 	if(isinhands || !(body_parts_covered & HEAD))
@@ -1415,7 +1345,6 @@
 	var/blood_overlay = get_blood_overlay("mask")
 	if(blood_overlay)
 		. += blood_overlay
-
 
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!teleportation)
@@ -1443,7 +1372,6 @@
 		return 1
 	return ..()
 
-
 /**
  * Inserts a trait (or multiple traits) into the clothing traits list
  *
@@ -1461,7 +1389,6 @@
 		for(var/new_trait in trait_or_traits)
 			ADD_CLOTHING_TRAIT(wearer, src, new_trait)
 
-
 /**
  * Removes a trait (or multiple traits) from the clothing traits list
  *
@@ -1478,7 +1405,6 @@
 	if(istype(wearer))
 		for(var/new_trait in trait_or_traits)
 			REMOVE_CLOTHING_TRAIT(wearer, src, new_trait)
-
 
 /// Returns a list of overlays with our blood, if we're bloodied
 /obj/item/clothing/proc/get_blood_overlay(blood_state)

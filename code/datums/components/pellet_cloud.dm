@@ -53,7 +53,6 @@
 	/// for if we're an ammo casing being fired
 	var/mob/living/shooter
 
-
 /datum/component/pellet_cloud/Initialize(projectile_type=/obj/projectile/shrapnel, magnitude=5)
 	if(!isammocasing(parent) && !isgrenade(parent) && !issupplypod(parent) && !ismortarcasing(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -68,7 +67,6 @@
 		num_pellets = magnitude
 	else if(isgrenade(parent) || issupplypod(parent) || ismortarcasing(parent))
 		radius = magnitude
-
 
 /datum/component/pellet_cloud/Destroy(force)
 	purple_hearts = null
@@ -324,7 +322,6 @@
 	targets_hit -= target
 	LAZYREMOVE(bodies, target)
 	LAZYREMOVE(purple_hearts, target)
-
 
 #undef CLOUD_POSITION_DAMAGE
 #undef CLOUD_POSITION_W_BONUS

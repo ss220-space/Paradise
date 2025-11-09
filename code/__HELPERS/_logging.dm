@@ -208,7 +208,6 @@ GLOBAL_PROTECT(log_end)
 			to_chat(C, "GC DEBUG: [text]")
 #endif
 
-
 /proc/log_sql(text)
 	WRITE_LOG(GLOB.sql_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text) // Redirect it to DD too
@@ -241,7 +240,6 @@ GLOBAL_PROTECT(log_end)
 	var/mob/m = d
 	return "[m] ([m.ckey]) ([m.type])"
 
-
 /proc/atom_loc_line(atom/A)
 	if(!istype(A))
 		return "(INVALID LOCATION)"
@@ -254,7 +252,6 @@ GLOBAL_PROTECT(log_end)
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
-
 
 /mob/proc/simple_info_line()
 	return "[key_name(src)] ([x],[y],[z])"

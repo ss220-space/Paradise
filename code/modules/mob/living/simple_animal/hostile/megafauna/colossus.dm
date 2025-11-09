@@ -319,7 +319,6 @@ Difficulty: Very Hard
 	icon_state = initial(icon_state)
 	ranged_cooldown = world.time + 4 SECONDS
 
-
 /mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
 	visible_message(span_colossus("[declent_ru(NOMINATIVE)] дезинтегрирует [L.declent_ru(ACCUSATIVE)]!"))
 	L.dust()
@@ -347,7 +346,6 @@ Difficulty: Very Hard
 		var/random_y = rand(0, 72)
 		AT.pixel_y += random_y
 	return ..()
-
 
 /obj/projectile/colossus
 	name = "смертоносный заряд"

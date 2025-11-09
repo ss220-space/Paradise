@@ -128,7 +128,6 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 		blob_mob.maxHealth /= max_mob_health_multiplier
 		blob_mob.health /= max_mob_health_multiplier
 
-
 /datum/blobstrain/proc/on_sporedeath(mob/living/spore)
 	return
 

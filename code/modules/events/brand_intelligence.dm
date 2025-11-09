@@ -98,7 +98,6 @@
 	vendingMachines.Cut()
 	. = ..()
 
-
 /datum/event/brand_intelligence/proc/vendor_destroyed(obj/machinery/vending/V, force)
 	infectedMachines -= V
 	vendingMachines -= V

@@ -198,7 +198,6 @@
 		T.create_reagents(volume)
 	T.reagents.add_reagent("plasma", volume)
 
-
 /datum/reagent/thermite
 	name = "Термит"
 	id = "thermite"

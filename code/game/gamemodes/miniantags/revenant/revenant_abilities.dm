@@ -33,7 +33,6 @@
 
 		Harvest(A)
 
-
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
 	if(!castcheck(0))
 		return
@@ -121,7 +120,6 @@
 	draining = FALSE
 	essence_drained = 0
 
-
 /**
  * Toggle night vision: lets the revenant toggle its night vision
  */
@@ -130,7 +128,6 @@
 	message = span_revennotice("Вы переключаете ночное зрение.")
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
-
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /obj/effect/proc_holder/spell/revenant_transmit
@@ -142,12 +139,10 @@
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
 
-
 /obj/effect/proc_holder/spell/revenant_transmit/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.allowed_type = /mob/living
 	return T
-
 
 /obj/effect/proc_holder/spell/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
@@ -161,7 +156,6 @@
 			log_say("(REVENANT to [key_name(M)]) [msg]", user)
 			to_chat(user, "[span_revenboldnotice("Вы передаёте [M]:")] [span_revennotice(msg)]")
 			to_chat(M, "[span_revenboldnotice("Голос из ниоткуда раздаётся вокруг...")] [span_italics(msg)]")
-
 
 /obj/effect/proc_holder/spell/aoe/revenant
 	clothes_req = FALSE
@@ -178,7 +172,6 @@
 	/// How much essence it costs to use
 	var/cast_amount = 50
 
-
 /obj/effect/proc_holder/spell/aoe/revenant/New()
 	..()
 	if(locked)
@@ -186,13 +179,11 @@
 	else
 		name = "[initial(name)] ([cast_amount]E)"
 
-
 /obj/effect/proc_holder/spell/aoe/revenant/revert_cast(mob/user)
 	. = ..()
 	to_chat(user, span_revennotice("Ваша способность дрогнула и исчезла!"))
 	var/mob/living/simple_animal/revenant/R = user
 	R?.essence += cast_amount //refund the spell and reset
-
 
 /obj/effect/proc_holder/spell/aoe/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.inhibited)
@@ -209,7 +200,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /obj/effect/proc_holder/spell/aoe/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
 	if(locked)
@@ -238,7 +228,6 @@
 
 	return TRUE
 
-
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
 /obj/effect/proc_holder/spell/aoe/revenant/overload
 	name = "Перегрузить сеть"
@@ -251,19 +240,16 @@
 	action_icon_state = "r_overload_lights"
 	aoe_range = 5
 
-
 /obj/effect/proc_holder/spell/aoe/revenant/overload/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
 	T.range = aoe_range
 	T.allowed_type = /obj/machinery/light
 	return T
 
-
 /obj/effect/proc_holder/spell/aoe/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/obj/machinery/light/L as anything in targets)
 			INVOKE_ASYNC(src, PROC_REF(shock_lights), L, user)
-
 
 /obj/effect/proc_holder/spell/aoe/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/simple_animal/revenant/user)
 	if(!L.on)
@@ -287,7 +273,6 @@
 		do_sparks(4, FALSE, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
-
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
 /obj/effect/proc_holder/spell/aoe/revenant/defile
 	name = "Осквернить"
@@ -299,7 +284,6 @@
 	cast_amount = 30
 	action_icon_state = "r_defile"
 	aoe_range = 4
-
 
 /obj/effect/proc_holder/spell/aoe/revenant/defile/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
@@ -316,7 +300,6 @@
 		for(var/atom/A in T.contents)
 			A.defile()
 
-
 //Malfunction: Makes bad stuff happen to robots and machines.
 /obj/effect/proc_holder/spell/aoe/revenant/malfunction
 	name = "Вызвать сбой"
@@ -327,12 +310,10 @@
 	action_icon_state = "r_malfunction"
 	aoe_range = 2
 
-
 /obj/effect/proc_holder/spell/aoe/revenant/malfunction/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	T.range = aoe_range
 	return T
-
 
 //A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
 /obj/effect/proc_holder/spell/aoe/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
@@ -340,13 +321,11 @@
 		for(var/turf/T in targets)
 			INVOKE_ASYNC(src, PROC_REF(effect), user, T)
 
-
 /obj/effect/proc_holder/spell/aoe/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
 	T.rev_malfunction(TRUE)
 
 	for(var/atom/A in T.contents)
 		A.rev_malfunction(TRUE)
-
 
 /**
  * Makes objects be haunted and then throws them at conscious people to do damage, spooky!
@@ -366,13 +345,11 @@
 	/// A list of all attack timers started by this spell being cast
 	var/list/attack_timers = list()
 
-
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
 	T.range = aoe_range
 	T.allowed_type = /obj/item
 	return T
-
 
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
@@ -409,7 +386,6 @@
 	// Stop the looping attacks after 20 SECONDS, roughly 4-5 attack cycles depending on lag
 	addtimer(CALLBACK(src, PROC_REF(stop_timers)), haunt_time, TIMER_UNIQUE)
 
-
 /**
  * Handles making an object haunted and setting it up to attack.
  */
@@ -425,7 +401,6 @@
 	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
 	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
 	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/simple_animal/possessed_object, death)), haunt_time + 4 SECONDS, TIMER_UNIQUE) // De-haunt the object
-
 
 /**
  * Handles finding a valid target and throwing us at it.
@@ -450,7 +425,6 @@
 	var/mob/living/carbon/victim = pick(potential_victims)
 	possessed_object.throw_at(victim, aoe_range, 2, user)
 
-
 /**
  * Sets the glow on the haunted object, scales up based on throwforce.
  */
@@ -459,14 +433,12 @@
 	var/outline_size = min((possessed_object.possessed_item.throwforce / 15) * 3, 3)
 	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = outline_size)) // Give it spooky purple outline
 
-
 /**
  * Stop all attack timers cast by the previous spell use.
  */
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/stop_timers()
 	for(var/I in attack_timers)
 		deltimer(I)
-
 
 /**
  * Gives everyone in a 7 tile radius 2 minutes of hallucinations
@@ -481,13 +453,11 @@
 	stun = 1 SECONDS
 	reveal = 3 SECONDS
 
-
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
 	T.range = aoe_range
 	T.allowed_type = /mob/living/carbon
 	return T
-
 
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
@@ -616,7 +586,6 @@
 
 /turf/simulated/floor/plating/defile()
 	return
-
 
 /**
  * Malfunctioning atoms.

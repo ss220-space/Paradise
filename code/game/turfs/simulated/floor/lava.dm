@@ -94,7 +94,6 @@
 		return TRUE
 	return FALSE
 
-
 ///Generic return value of the can_burn_stuff() proc. Does nothing.
 #define LAVA_BE_IGNORING 0
 /// Another. Won't burn the target but will make the turf start processing.
@@ -118,7 +117,6 @@
 				if(!do_burn(burn_target))
 					continue
 		. = TRUE
-
 
 /turf/simulated/floor/lava/proc/can_burn_stuff(atom/movable/burn_target)
 	if(QDELETED(burn_target))
@@ -161,7 +159,6 @@
 #undef LAVA_BE_PROCESSING
 #undef LAVA_BE_BURNING
 
-
 /turf/simulated/floor/lava/proc/do_burn(atom/movable/burn_target)
 	if(QDELETED(burn_target))
 		return FALSE
@@ -188,12 +185,10 @@
 
 	return FALSE
 
-
 /turf/simulated/floor/lava/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 		return TRUE
 	return FALSE
-
 
 /turf/simulated/floor/lava/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -224,7 +219,6 @@
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
 
-
 /turf/simulated/floor/lava/screwdriver_act()
 	return
 
@@ -246,7 +240,6 @@
 	/// Check for plasma river, subtype of lava, prevents simple fishing
 	var/can_be_fished_on = TRUE
 
-
 /turf/simulated/floor/lava/lava_land_surface/Initialize(mapload)
 	. = ..()
 	add_to_lazis_primary()
@@ -256,11 +249,9 @@
 /turf/simulated/floor/lava/lava_land_surface/proc/add_to_lazis_primary()
 	GLOB.lazis_primary_turfs |= src
 
-
 /turf/simulated/floor/lava/lava_land_surface/Destroy()
 	GLOB.lazis_primary_turfs -= src
 	. = ..()
-
 
 /turf/simulated/floor/lava/lava_land_surface/proc/calculate_deep()
 	if(locate(/turf/simulated/floor/plating/asteroid/basalt) in range(3, src))
@@ -333,11 +324,9 @@
 		PREPOSITIONAL = "жидкой плазме",
 	)
 
-
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
 	. += span_notice("Можно зачерпнуть <b>жидкую плазму</b> с помощью <b>ёмкости</b>.")
-
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -350,7 +339,6 @@
 		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] уже заполнен[GEND_A_O_Y(I)] до краёв."))
 		return .
 	to_chat(user, span_notice("Вы черпаете лаву из [declent_ru(GENITIVE)] используя [I.declent_ru(ACCUSATIVE)]."))
-
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/do_burn(atom/movable/burn_target)
 	if(QDELETED(burn_target))
@@ -386,7 +374,6 @@
 		return TRUE
 
 	return FALSE
-
 
 // It's not the liquid itself. It's the atmos over it. Don't wanna spend resources on simulating over snow and lava.
 /turf/simulated/floor/lava/lava_land_surface/plasma/cold

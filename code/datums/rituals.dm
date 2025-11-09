@@ -67,7 +67,6 @@
 	params["Удаление предметов:"] = ritual_should_del_things? "Да" : (ritual_should_del_things_on_fail)? "При провале" : "Нет"
 	return params
 
-
 /datum/ritual/proc/get_ui_things()
 	var/list/things = list()
 	for(var/atom/item as anything in required_things)
@@ -1024,7 +1023,7 @@
 	animal.del_on_death = FALSE
 	animal.master_commander = invoker
 
-	animal.mind.store_memory("<b>Мой хозяин - [invoker.name], выполню [GEND_HIS_HER(invoker)] цели любой ценой!</b>")
+	animal.mind.store_memory("<b>Мой хозяин — [invoker.name], выполню [GEND_HIS_HER(invoker)] цели любой ценой!</b>")
 	to_chat(animal, chat_box_green("Вы — раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
 	add_game_logs("стал питомцем игрока [key_name(invoker)]", animal)
 

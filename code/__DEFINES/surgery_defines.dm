@@ -1,6 +1,5 @@
 /// Defines for surgery and other stuff.
 
-
 // Used in surgery step to determine how blood should be spread to the doc
 /// Don't splash any blood.
 #define SURGERY_BLOODSPREAD_NONE 0
@@ -54,7 +53,6 @@
 /// This surgery step will be conditionally retried, so long as the surgery step's can_repeat() proc returns TRUE.
 /// Otherwise, it'll behave just like SURGERY_STEP_INCOMPLETE.
 #define SURGERY_STEP_RETRY 3
-
 
 // Return values for surgery_step.initiate().
 // Before you ask, yes, we need another definition for surgery steps here, since these control how we will act on the attack-chain

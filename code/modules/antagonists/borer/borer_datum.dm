@@ -145,7 +145,7 @@
 
 	reproductions -= borer_rank.required_reproductions
 	borer_rank = new borer_rank.next_rank_type(user)
-	to_chat(user.controlling ? user.host : user, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
+	to_chat(user.controlling ? user.host : user, span_notice("Вы эволюционировали. Ваш текущий ранг — [borer_rank.rankname]."))
 
 	return TRUE
 

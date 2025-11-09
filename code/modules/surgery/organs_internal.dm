@@ -153,7 +153,6 @@
 		/datum/surgery_step/generic/seal_carapace,
 	)
 
-
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
 	if(!.)
@@ -196,7 +195,6 @@
 
 	return TRUE
 
-
 /datum/surgery_step/screwdriver_use
 	name = "откручивание/закручивание импланта-переводчика"
 	allowed_tools = list(TOOL_SCREWDRIVER = 100)
@@ -221,7 +219,6 @@
 
 	return SURGERY_STEP_CONTINUE
 
-
 /datum/surgery_step/proxy/manipulate_translator
 	name = "манипуляция с имплантом-переводчиком — прокси"
 	branches = list(
@@ -229,14 +226,11 @@
 		/datum/surgery/intermediate/manipulate_translator/uninstall,
 	)
 
-
 /datum/surgery/intermediate/manipulate_translator
 	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
 
-
 /datum/surgery/intermediate/manipulate_translator/install
 	steps = list(/datum/surgery_step/internal/manipulate_translator/install)
-
 
 /datum/surgery_step/internal/manipulate_translator/install
 	name = "установка чипа/улучшения"
@@ -246,7 +240,6 @@
 	)
 	time = 5 SECONDS
 
-
 /datum/surgery_step/internal/manipulate_translator/install/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
 		span_notice("[user] начина[PLUR_ET_YUT(user)] устанавливать [tool.declent_ru(ACCUSATIVE)] в слот импланта-переводчика [target]."),
@@ -254,7 +247,6 @@
 	)
 
 	return ..()
-
 
 /datum/surgery_step/internal/manipulate_translator/install/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
@@ -290,16 +282,13 @@
 
 	return SURGERY_STEP_CONTINUE
 
-
 /datum/surgery/intermediate/manipulate_translator/uninstall
 	steps = list(/datum/surgery_step/internal/manipulate_translator/uninstall)
-
 
 /datum/surgery_step/internal/manipulate_translator/uninstall
 	name = "извлечение чипа/улучшения"
 	allowed_tools = list(TOOL_MULTITOOL = 100)
 	time = 0
-
 
 /datum/surgery_step/internal/manipulate_translator/uninstall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
@@ -356,7 +345,6 @@
 	)
 
 	return ..()
-
 
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
@@ -429,7 +417,6 @@
 		/datum/surgery/intermediate/manipulate/mend/xeno,
 		/datum/surgery/intermediate/manipulate/clean/xeno,
 	)
-
 
 // Internal surgeries.
 /datum/surgery_step/internal
@@ -769,7 +756,6 @@
 
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/internal/manipulate_organs/clean
 	name = "дезинфекция"
 	begin_sound = 'sound/surgery/bonegel.ogg'
@@ -822,7 +808,6 @@
 	var/spaceacillin = 0 //how much actual antibiotic is in the thing
 	var/mito_tot = 0 // same for mito, thanks farie
 
-
 	if(length(R.reagent_list))
 		for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
 			ethanol += alcohol.alcohol_perc * 300
@@ -830,7 +815,6 @@
 
 		mito_tot = R.get_reagent_amount("mitocholide")
 		spaceacillin = R.get_reagent_amount("spaceacillin")
-
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
 		if(organ.germ_level < INFECTION_LEVEL_ONE / 2 && !(organ.is_dead()))  // not dead, don't need to inject mito either
@@ -888,7 +872,6 @@
 				user.balloon_alert(user, "недостаточно митоколида!")
 
 	return SURGERY_STEP_CONTINUE
-
 
 /datum/surgery_step/internal/manipulate_organs/clean/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!istype(tool, /obj/item/reagent_containers))

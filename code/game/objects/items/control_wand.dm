@@ -218,10 +218,8 @@
 	var/hack_speed = 1 SECONDS
 	var/busy = FALSE
 
-
 /obj/item/door_remote/omni/access_tuner/update_icon_state()
 	icon_state = "hacktool[busy ? "-g" : ""]"
-
 
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user, proximity, params)
 	if(!istype(D))
@@ -239,7 +237,6 @@
 		. = ..()
 	busy = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 #undef WAND_OPEN
 #undef WAND_BOLT

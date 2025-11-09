@@ -1,6 +1,5 @@
 //All devices that link into the R&D console fall into thise type for easy identification and some shared procs.
 
-
 /obj/machinery/r_n_d
 	name = "R&D Device"
 	icon = 'icons/obj/machines/research.dmi'
@@ -64,7 +63,6 @@
 		popup.set_content(dat.Join(""))
 		popup.open(FALSE)
 	return
-
 
 /obj/machinery/r_n_d/Topic(href, href_list)
 	if(..())
@@ -139,7 +137,6 @@
 		use_power(min(1000, (amount_inserted / 100)))
 	stack_name = S.protolathe_name
 	flick_overlay_view(mutable_appearance(icon, "[base_icon_state]_[stack_name]"), 1.5 SECONDS)
-
 
 /obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, M)
 	return 0 // number of copies of design beign_built you can make with material M

@@ -184,7 +184,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	return M
 
-
 /datum/response_team
 	var/list/slots = list(
 		ERT_ROLE_COMMANDER = 0,

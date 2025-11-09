@@ -258,7 +258,6 @@
 					ADD_TRAIT(H, TRAIT_NO_CLONE, ANOMALOUS_CRYSTAL_TRAIT)
 					H.grab_ghost(force = TRUE)
 
-
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
 	var/ready_to_deploy = 0
 
@@ -367,7 +366,6 @@
 	. = ..()
 	banned_items_typecache = typecacheof(banned_items_typecache)
 
-
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
 	if(..())
 		var/list/L = list()
@@ -430,7 +428,6 @@
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
 
-
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(isliving(arrived) && holder_animal)
@@ -438,7 +435,6 @@
 		mob.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		mob.mind.transfer_to(holder_animal)
 		holder_animal.mind.AddSpell(new /obj/effect/proc_holder/spell/exit_possession)
-
 
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
@@ -457,7 +453,6 @@
 /obj/structure/closet/stasis/ex_act()
 	return
 
-
 /obj/effect/proc_holder/spell/exit_possession
 	name = "Exit Possession"
 	desc = "Покинуть тело, которым вы овладели"
@@ -466,10 +461,8 @@
 	human_req = FALSE
 	action_icon_state = "exit_possession"
 
-
 /obj/effect/proc_holder/spell/exit_possession/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/exit_possession/cast(list/targets, mob/user = usr)
 	if(!isfloorturf(user.loc))

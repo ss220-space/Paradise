@@ -41,8 +41,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		if(SUPPLY_CONTRABAND)
 			return "Контрабанда"
 
-
-
 /datum/supply_packs
 	var/name = null
 	var/list/contains = list()
@@ -73,7 +71,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/list/ui_manifest = list()
 
 	var/list/required_tech
-
 
 /datum/supply_packs/New()
 	manifest += "<ul>"
@@ -112,7 +109,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "HEADER"				// Use "HEADER" to denote section headers, this is needed for the supply computers to filter them
 	containertype = /obj/structure/closet/crate/internals
 	group = SUPPLY_EMERGENCY
-
 
 /datum/supply_packs/emergency/evac
 	name = "Аварийное оборудование"
@@ -189,7 +185,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с противопожарным ранцем",
 		PREPOSITIONAL = "ящике с противопожарным ранцем",
 	)
-
 
 /datum/supply_packs/emergency/weedcontrol
 	name = "Противосорняковое оборудование"
@@ -304,7 +299,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике костюмов для ВКД",
 	)
 
-
 /datum/supply_packs/emergency/scrubbercrate
 	name = "Очиститель воздуха"
 	contains = list(
@@ -403,7 +397,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	hidden = TRUE
 
-
 /datum/supply_packs/emergency/syndicate
 	name = "ОШИБКА_ПУСТАЯ_ЗАПИСЬ"
 	contains = list(
@@ -422,7 +415,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике",
 	)
 	hidden = TRUE
-
 
 /datum/supply_packs/emergency/highrisk
 	cost = 450
@@ -503,7 +495,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/reagent_containers/hypospray/CMO/empty,
 	)
 	required_tech = list("materials" = 7, "biotech" = 8)
-
 
 /datum/supply_packs/emergency/jetpack
 	name = "Реактивные ранцы"
@@ -1367,7 +1358,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list("materials" = 2, "biotech" = 4, "programming" = 6)
 
-
 /datum/supply_packs/security/armory/ion_carbine
 	name = "Ионные карабины"
 	cost = 120
@@ -1496,8 +1486,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком снаряжения офицера СБ",
 		PREPOSITIONAL = "ящике снаряжения офицера СБ",
 	)
-
-
 
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Engineering
@@ -2190,8 +2178,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/sci
 	required_tech = list("engineering" = 3, "programming" = 6, "bluespace" = 7)
 
-
-
 ///////////// High-Tech Disks
 
 /datum/supply_packs/misc/htdisk
@@ -2280,7 +2266,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике медицинских ИКС",
 	)
 	access = ACCESS_MEDICAL
-
 
 /datum/supply_packs/medical/supplies
 	name = "Медицинское снабжение"
@@ -2683,7 +2668,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "xenos blood pack crate"
 	required_tech = list("biotech" = 3)
 
-
 /datum/supply_packs/medical/iv_drip
 	name = "Стойка для капельницы"
 	contains = list(
@@ -2749,7 +2733,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
 
-
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Science
 //////////////////////////////////////////////////////////////////////////////
@@ -2784,7 +2767,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	access = ACCESS_ROBOTICS
 	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
-
 
 /datum/supply_packs/science/robotics/mecha_ripley
 	name = "Набор плат (АТМЕ \"Рипли\")"
@@ -3309,7 +3291,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_RESEARCH
 	required_tech = list("materials" = 6, "combat" = 6, "biotech" = 6, "powerstorage" = 5)
 
-
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Organic
 //////////////////////////////////////////////////////////////////////////////
@@ -3318,7 +3299,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "HEADER"
 	group = SUPPLY_ORGANIC
 	containertype = /obj/structure/closet/crate/freezer
-
 
 /datum/supply_packs/organic/food
 	name = "Пищевые продукты"
@@ -3402,7 +3382,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике фарв",
 	)
 
-
 /datum/supply_packs/organic/wolpin
 	name = "Вульпины"
 	contains = list (/obj/item/storage/box/monkeycubes/wolpincubes,
@@ -3417,7 +3396,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком вульпинов",
 		PREPOSITIONAL = "ящике вульпинов",
 	)
-
 
 /datum/supply_packs/organic/skrell
 	name = "Неары"
@@ -4196,7 +4174,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	group = SUPPLY_MATERIALS
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk", "Atmospherics"))
 
-
 /datum/supply_packs/materials/metal50
 	name = "50 листов металла"
 	contains = list(
@@ -4315,7 +4292,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с кирпичами из песчаника",
 		PREPOSITIONAL = "ящике с кирпичами из песчаника",
 	)
-
 
 /datum/supply_packs/materials/plastic30
 	name = "30 листами пластика"
@@ -4567,7 +4543,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с золотым унитазом",
 		PREPOSITIONAL = "ящике с золотым унитазом",
 	)
-
 
 ///////////// Paper Work
 
@@ -4955,7 +4930,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	manifest += "Содержит [num_contained] люб[declension_ru(num_contained, "ой предмет", "ых предмета", "ых предметов")] из списка:"
 	..()
 
-
 /datum/supply_packs/misc/foamforce
 	name = "Игрушечные дробовики"
 	contains = list(
@@ -5174,7 +5148,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	special = TRUE
 
-
 /datum/supply_packs/misc/crematorium
 	name = "Детали крем"
 	cost = 15
@@ -5191,7 +5164,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком деталей крематория",
 		PREPOSITIONAL = "ящике деталей крематория",
 	)
-
 
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Vending

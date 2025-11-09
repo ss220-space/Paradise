@@ -144,7 +144,6 @@
 		// as a result of player input and not because they were pulled or any other magic.
 		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED, direct, old_dir)
 
-
 /**
  * Checks to see if you're being grabbed and if so attempts to break it
  *
@@ -163,7 +162,6 @@
 		to_chat(mob, span_warning("Вы скованы и не можете пошевелиться!"))
 		return TRUE
 	return mob.resist_grab(moving_resist = TRUE)
-
 
 /**
  * Allows mobs to ignore density and phase through objects
@@ -242,7 +240,6 @@
 			L.setDir(direct)
 	return TRUE
 
-
 /**
  * Handles mob/living movement in space (or no gravity)
  *
@@ -279,7 +276,6 @@
 		to_chat(src, span_notice("Вы отталкиваетесь от [backup.name] для продолжения движения."))
 
 	return TRUE
-
 
 /mob/get_spacemove_backup(moving_direction, continuous_move)
 	for(var/atom/pushover as anything in range(1, get_turf(src)))
@@ -324,19 +320,16 @@
 			continue
 		return rebound
 
-
 /mob/get_gravity(turf/gravity_turf)
 	if(!isnull(GLOB.gravity_is_on))	// global admin override.
 		return GLOB.gravity_is_on
 	return mob_negates_gravity() || ..()
-
 
 /**
  * Does this mob ignore gravity
  */
 /mob/proc/mob_negates_gravity()
 	return FALSE
-
 
 /client/proc/check_has_body_select()
 	return mob?.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /atom/movable/screen/zone_sel)
@@ -466,7 +459,6 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-
 /client/verb/toggle_throw_mode()
 	set hidden = 1
 	if(iscarbon(mob))
@@ -474,7 +466,6 @@
 		C.toggle_throw_mode()
 	else
 		to_chat(usr, span_danger("Это существо не может бросать предметы"))
-
 
 /mob/proc/toggle_move_intent(new_move_intent)
 	return

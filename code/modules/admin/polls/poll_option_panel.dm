@@ -51,7 +51,6 @@
 	option_list["desc_max_text"] = option ? option.desc_max : ""
 	.["option"] = option_list
 
-
 /datum/ui_module/poll_option_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)

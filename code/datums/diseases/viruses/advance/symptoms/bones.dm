@@ -51,11 +51,9 @@ Fragile Bones Syndrome
 					M.physiology.bone_fragility *= bonefragility_multiplier
 					done = TRUE
 
-
 /datum/symptom/bones/End(datum/disease/virus/advance/A)
 	var/mob/living/carbon/human/M = A.affected_mob
 	M.physiology.bone_fragility /= bonefragility_multiplier
-
 
 /mob/living/proc/get_bones_symptom_prob()
 	. = 0

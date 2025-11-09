@@ -26,10 +26,8 @@ SUBSYSTEM_DEF(dbcore)
 
 	offline_implications = "The server will no longer check for undeleted SQL Queries. No immediate action is needed."
 
-
 /datum/controller/subsystem/dbcore/get_stat_details()
 	return "A: [length(active_queries)]"
-
 
 // This is in Initialize() so that its actually seen in chat
 /datum/controller/subsystem/dbcore/Initialize()
@@ -217,7 +215,6 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 	return json_decode(rustg_sql_connected(connection))["status"] == "online"
 
-
 /**
  * Error Message Helper
  *
@@ -239,7 +236,6 @@ SUBSYSTEM_DEF(dbcore)
  */
 /datum/controller/subsystem/dbcore/proc/ReportError(error)
 	last_error = error
-
 
 /**
  * New Query Invoker
@@ -429,7 +425,6 @@ SUBSYSTEM_DEF(dbcore)
 	// go away
 	return FALSE
 
-
 /**
  * Activity Update Handler
  *
@@ -532,7 +527,6 @@ SUBSYSTEM_DEF(dbcore)
 // Just tells the admins if a query timed out, and asks if the server hung to help error reporting
 /datum/db_query/proc/slow_query_check()
 	message_admins("HEY! A database query timed out. Did the server just hang? <a href='byond://?_src_=holder;slowquery=yes'>\[YES\]</a>|<a href='byond://?_src_=holder;slowquery=no'>\[NO\]</a>")
-
 
 /**
  * Proc to get the next row in a DB query

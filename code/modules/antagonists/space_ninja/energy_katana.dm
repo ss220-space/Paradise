@@ -68,7 +68,6 @@
 				to_chat(user, span_userdanger("That was a bad idea."))
 				H.emote("scream")
 
-
 /obj/item/melee/energy_katana/pickup(mob/living/user)
 	. = ..()
 	if(user?.client)
@@ -82,14 +81,12 @@
 		to_chat(user, span_userdanger("Oh fuck, it hurts!."))
 		playsound(user, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-
 /obj/item/melee/energy_katana/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user?.client)
 		jaunt.Remove(user)
 		user.client.mouse_pointer_icon = initial(user.client.mouse_pointer_icon)
 		user.update_icons()
-
 
 /obj/item/melee/energy_katana/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isninja(user) && !isrobot(user) && ishuman(user))
@@ -101,7 +98,6 @@
 				user.emote("scream")
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 //If we hit the Ninja who owns this Katana, they catch it.
 //Works for if the Ninja throws it or it throws itself(nope) or someone tries

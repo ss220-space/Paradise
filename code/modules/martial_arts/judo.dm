@@ -43,7 +43,6 @@
 	. = ..()
 	style = new()
 
-
 /obj/item/storage/belt/security/judobelt/equipped(mob/user, slot)
 	. = ..()
 	if(!ishuman(user))
@@ -61,7 +60,6 @@
 	to_chat(human, span_userdanger("Наниты в поясе наделяют вас навыками Корпоративного Дзюдо!"))
 	to_chat(human, span_danger("Вы можете найти комбинации во вкладке \"Боевые искусства\"."))
 
-
 /obj/item/storage/belt/security/judobelt/dropped(mob/user)
 	..()
 	if(!ishuman(user))
@@ -73,7 +71,6 @@
 
 	style.remove(human)
 	to_chat(user, span_sciradio("Вы внезапно осознаете, что не знаете как использовать Корпоративное Дзюдо..."))
-
 
 //Increased harm damage
 /datum/martial_art/judo/harm_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
@@ -87,10 +84,8 @@
 	add_attack_logs(attacker, defender, "Melee attacked with [src]")
 	return TRUE
 
-
 /datum/martial_art/judo/explaination_header(user)
 	to_chat(user, "<b><i>Вы знаете Корпоративное Дзюдо.</i></b>")
-
 
 /datum/martial_art/judo/explaination_footer(user)
 	to_chat(user, "<b>Ваши удары руками в среднем примерно в два раза сильнее, чем у обычных представителей вашей расы.</b>")

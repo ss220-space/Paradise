@@ -2,7 +2,6 @@
 #define ARMGUARD_BLADE_EXISTS_FLAG (1<<1)
 #define ARMGUARD_SILENCE_FLAG (1<<2)
 
-
 /obj/item/clothing/accessory/armguard
 	name = "armguard"
 	desc = "Красивые наручи, только для красоты."
@@ -93,7 +92,6 @@
 	playsound(user, 'sound/items/unsheath.ogg', 50, TRUE)
 	blade_action.set_reload_mode()
 
-
 /obj/item/clothing/accessory/armguard/syndicate/proc/start_create_new_blade(mob/user)
 	if(istype(user))
 		user.balloon_alert(user, "клинок отрелян")
@@ -116,7 +114,6 @@
 	if(item_in_hands)
 		return
 	INVOKE_ASYNC(src, PROC_REF(appear_blade), user)
-
 
 ///Hidden blade
 
@@ -228,11 +225,9 @@
 	button_icon_state = activate_icon
 	UpdateButtonIcon()
 
-
 /datum/action/armguard_hidden_blade/proc/set_reload_mode()
 	button_icon_state = reload_icon
 	UpdateButtonIcon()
-
 
 #undef ARMGUARD_BLADE_READY_FLAG
 #undef ARMGUARD_BLADE_EXISTS_FLAG

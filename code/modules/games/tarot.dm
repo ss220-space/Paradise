@@ -29,7 +29,6 @@
 		for(var/number in list("Туз", "Двойка", "Тройка", "Четвёрка", "Пятёрка", "Шестёрка", "Семёрка", "Восьмёрка", "Девятка", "Десятка", "Паж", "Рыцарь", "Королева", "Король"))
 			cards += new /datum/playingcard("[number] [ru_suit[suit]]", "tarot_[suit]", "card_back_tarot")
 
-
 /obj/item/deck/tarot/deckshuffle(mob/user)
 	if(!COOLDOWN_FINISHED(src, shuffle_cooldown) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return

@@ -167,7 +167,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	icon_state = "sandbag"
 	w_class = WEIGHT_CLASS_TINY
 
-
 /obj/item/emptysandbag/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/ore/glass))
 		add_fingerprint(user)
@@ -184,7 +183,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
@@ -250,13 +248,11 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 		log_and_set_aflame(user, I)
 	return TRUE
 
-
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat())
 		log_and_set_aflame(user, I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/stack/sheet/mineral/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
 	add_attack_logs(user, src, "Ignited [amount] amount, using [I]", ATKLOG_FEW)
@@ -367,7 +363,6 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 
 /obj/item/stack/sheet/mineral/titanium/fifty
 	amount = 50
-
 
 /*
  * Plastitanium

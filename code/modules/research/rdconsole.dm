@@ -26,7 +26,6 @@ cause a ton of data to be lost, an admin can go send it back.
 it's entirety. You can then take the disk to any R&D console and upload it's data to it. This method is a lot more secure (since it
 won't update every console in existence) but it's more of a hassle to do. Also, the disks can be stolen.
 
-
 */
 
 #define TECH_UPDATE_DELAY 50
@@ -103,7 +102,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	/// Тема интерфейса
 	var/ui_theme = "Nanotrasen"
-
 
 /// A simple helper proc to find the name of a tech with a given ID.
 /proc/CallTechName(ID)
@@ -238,7 +236,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	return ..()
 
-
 /obj/machinery/computer/rdconsole/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
@@ -277,8 +274,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	desired_num_sheets = max(0, round(desired_num_sheets)) // If you input too high of a number, the mineral datum will take care of it either way
 	if(desired_num_sheets)
 		machine.materials.retrieve_sheets(desired_num_sheets, material_id)
-
-
 
 /obj/machinery/computer/rdconsole/proc/update_from_disk()
 	clear_wait_message()
@@ -385,7 +380,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		send_mats()
 		linked_destroy.loaded_item = null
 
-
 	for(var/obj/I in linked_destroy.contents)
 		for(var/mob/M in I.contents)
 			M.death()
@@ -406,8 +400,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	menu = MENU_MAIN
 	submenu = SUBMENU_MAIN
 	SStgui.update_uis(src)
-
-
 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
@@ -494,7 +486,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(istype(S, /obj/machinery/r_n_d/server/core) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			S.add_usage_log(usr, being_built, machine)
 
-
 /obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
 	if(machine)
 		if(enough_materials && being_built)
@@ -540,7 +531,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-
 /obj/machinery/computer/rdconsole/ui_act(action, list/params)
 	if(..())
 		return
@@ -549,7 +539,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	add_fingerprint(usr)
-
 
 	switch(action)
 		if("nav") //Switches menu screens. Converts a sent text string into a number. Saves a LOT of code.
@@ -743,7 +732,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/query = params["to_search"]
 			var/compare
 
-
 			if(menu == MENU_LATHE)
 				compare = PROTOLATHE
 			else if(menu == MENU_IMPRINTER)
@@ -767,7 +755,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			selected_category = "Результаты поиска по запросу \"[query]\""
 
 	return TRUE // update uis
-
 
 /obj/machinery/computer/rdconsole/attack_hand(mob/user)
 	if(..())
@@ -864,7 +851,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			loaded_chemical["name"] = R.name
 			loaded_chemical["volume"] = R.volume
 			loaded_chemical["id"] = R.id
-
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
 	if(D)
@@ -1020,7 +1006,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		deltimer(wait_message_timer)
 		wait_message_timer = null
 	SStgui.update_uis(src)
-
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"

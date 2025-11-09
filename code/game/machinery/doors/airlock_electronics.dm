@@ -16,12 +16,10 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
-
 /obj/item/airlock_electronics/examine(mob/user)
 	. = ..()
 	if(access_electronics)
 		. += span_notice("It has [access_electronics] attached. Use <b>screwdriver</b> to remove it.")
-
 
 /obj/item/airlock_electronics/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -43,7 +41,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/airlock_electronics/screwdriver_act(mob/living/user, obj/item/I)
 	if(!access_electronics)

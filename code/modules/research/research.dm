@@ -73,8 +73,8 @@ research holder datum.
 
 
 
-/// Checks to see if tech has all the required pre-reqs.
-/// Input: datum/tech; Output: 0/1 (false/true)
+//Checks to see if tech has all the required pre-reqs.
+//Input: datum/tech; Output: 0/1 (false/true)
 /datum/research/proc/TechHasReqs(datum/tech/T)
 	if(length(T.req_tech) == 0)
 		return TRUE
@@ -173,7 +173,6 @@ research holder datum.
 		other.AddDesign2Known(D)
 	other.RefreshResearch()
 
-
 //Autolathe files
 /datum/research/autolathe
 
@@ -242,9 +241,8 @@ research holder datum.
 	var/rare = 1
 	/// List of ids associated values of techs required to research this tech. "id" = #
 
-	var/list/req_tech = list()
 
-// Trunk Technologies (don't require any other techs and you start knowning them).
+//Trunk Technologies (don't require any other techs and you start knowning them).
 
 /datum/tech/materials
 	name = RESEARCH_TREE_MATERIALS

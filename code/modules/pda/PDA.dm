@@ -133,7 +133,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
-
 /obj/item/pda/Destroy()
 	GLOB.PDAs -= src
 	remove_from_authorization_log()
@@ -151,7 +150,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	current_painting?.Cut()
 	return ..()
 
-
 /obj/item/pda/proc/can_use(mob/user)
 	if(loc != user)
 		return FALSE
@@ -160,7 +158,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		return FALSE
 
 	return TRUE
-
 
 /obj/item/pda/GetAccess()
 	if(id)
@@ -171,7 +168,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 /obj/item/pda/GetID()
 	return id ? id : ..()
 
-
 /obj/item/pda/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 
@@ -181,7 +177,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	attack_self(user)
 	return TRUE
-
 
 /obj/item/pda/attack_self(mob/user as mob)
 	user.set_machine(src)
@@ -241,7 +236,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 			to_chat(user, span_warning("This PDA does not have an ID in it!"))
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/item/pda/CtrlClick(mob/user)
 	..()
 	if(issilicon(user))
@@ -249,7 +243,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	if(can_use(user))
 		remove_pen(user)
-
 
 /obj/item/pda/proc/remove_id(mob/user)
 	if(!id)
@@ -265,7 +258,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	cartridge?.on_id_updated()
 	request_cartridge?.on_id_updated()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/pda/verb/verb_remove_id()
 	set category = STATPANEL_OBJECT
@@ -309,7 +301,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 			to_chat(user, span_warning("This PDA does not have a pen in it."))
 	else
 		to_chat(user, span_notice("You cannot do this while restrained."))
-
 
 /obj/item/pda/proc/id_check(mob/user, in_pda_usage)
 	if(in_pda_usage)
@@ -364,11 +355,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	else
 		desc = initial(desc)
 
-
 /obj/item/pda/update_icon(updates = ALL)
 	. = ..()
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/pda/update_icon_state()
 	if(chameleon_skin)
@@ -388,7 +377,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		item_state = current_painting["icon"]
 	else
 		item_state = initial(item_state)
-
 
 /obj/item/pda/update_overlays()
 	. = ..()
@@ -413,7 +401,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	var/datum/data/pda/utility/flashlight/flight = locate() in programs
 	if(flight?.fon)
 		. += pda_light_overlay
-
 
 /obj/item/pda/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pda_case))
@@ -522,13 +509,11 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	return ..()
 
-
 /obj/item/pda/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(scanmode && iscarbon(target))
 		. |= ATTACK_CHAIN_SUCCESS
 		scanmode.scan_mob(target, user)
-
 
 /obj/item/pda/afterattack(atom/A, mob/user, proximity, params)
 	if(proximity && scanmode)
@@ -549,8 +534,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		explosion(T, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, cause = src)
 	qdel(src)
 	return
-
-
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP
 /obj/item/pda/emp_act(severity)

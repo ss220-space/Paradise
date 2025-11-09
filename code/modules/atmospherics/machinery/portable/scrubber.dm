@@ -25,10 +25,8 @@
 
 	..(severity)
 
-
 /obj/machinery/portable_atmospherics/scrubber/update_icon_state()
 	icon_state = "pscrubber:[on]"
-
 
 /obj/machinery/portable_atmospherics/scrubber/update_overlays()
 	. = ..()
@@ -36,7 +34,6 @@
 		. += "scrubber-open"
 	if(connected_port)
 		. += "scrubber-connector"
-
 
 /obj/machinery/portable_atmospherics/scrubber/process_atmos()
 	..()
@@ -70,7 +67,6 @@
 		var/datum/gas_mixture/filtered_out = new
 
 		filtered_out.temperature = removed.temperature
-
 
 		filtered_out.toxins = removed.toxins
 		removed.toxins = 0
@@ -180,14 +176,11 @@
 /obj/machinery/portable_atmospherics/scrubber/huge/attack_hand(mob/user)
 	to_chat(usr, span_warning("You can't directly interact with this machine. Use the area atmos computer."))
 
-
 /obj/machinery/portable_atmospherics/scrubber/huge/update_icon_state()
 	icon_state = "scrubber:[on]"
 
-
 /obj/machinery/portable_atmospherics/scrubber/huge/update_overlays()
 	. = list()
-
 
 /obj/machinery/portable_atmospherics/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE

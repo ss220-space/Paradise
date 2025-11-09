@@ -166,7 +166,6 @@
 	used = TRUE
 	do_sparks(rand(1,6), TRUE, loc)
 
-
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/item, mob/user, params)
 	if(!iscoreatmos(item))
 		return ..()

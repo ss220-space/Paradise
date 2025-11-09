@@ -25,7 +25,6 @@
 	mind = null
 	return ..()
 
-
 /obj/item/seeds/replicapod/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		add_fingerprint(user)
@@ -63,13 +62,11 @@
 
 	return ..()
 
-
 /obj/item/seeds/replicapod/get_analyzer_text()
 	var/text = ..()
 	if(contains_sample)
 		text += "\n It contains a blood sample!"
 	return text
-
 
 /obj/item/seeds/replicapod/harvest(mob/user = usr) //now that one is fun -- Urist
 	var/obj/machinery/hydroponics/parent = loc

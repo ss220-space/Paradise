@@ -9,7 +9,6 @@
 	build_path = /obj/item/stack/sheet/plasteel
 	category = list(PRINTER_CATEGORY_INITIAL)
 
-
 /datum/design/smelter/plastitanium_alloy
 	id = "plastitanium"
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)

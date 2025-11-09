@@ -38,7 +38,6 @@
 				else
 					post_status(params["statdisp"])
 
-
 /datum/data/pda/app/signaller
 	name = "Signaler System"
 	icon = "rss"
@@ -298,7 +297,6 @@
 
 		else
 			muleData["botstatus"] = list("loca" = null, "mode" = -1,"home"=null,"powr" = null,"retn" =null, "pick"=null, "load" = null, "dest" = null)
-
 
 		var/mulebotsCount=0
 		for(var/mob/living/simple_animal/bot/B in QC.botlist)

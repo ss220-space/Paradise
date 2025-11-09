@@ -68,7 +68,6 @@ SUBSYSTEM_DEF(mapping)
 	/// Maps played in previous rounds, stores typepaths
 	var/list/previous_maps
 
-
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
 	. = ..()
@@ -92,7 +91,6 @@ SUBSYSTEM_DEF(mapping)
 	if(next_map) // Save map for next round
 		var/F = file("data/next_map.txt")
 		F << next_map.type
-
 
 /datum/controller/subsystem/mapping/proc/convert_map_datums()
 	var/list/map_subtypes = subtypesof(/datum/map)
@@ -234,9 +232,7 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.english_station_name = english_station_name()
 	update_world_name()
 
-
 	return SS_INIT_SUCCESS
-
 
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed
@@ -398,7 +394,6 @@ SUBSYSTEM_DEF(mapping)
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
 
-
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name
 
@@ -421,7 +416,6 @@ SUBSYSTEM_DEF(mapping)
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = UNAFFECTED, traits = trait_list)
 	GLOB.maploader.load_map(file(map_datum.lavaland_path), z_offset = lavaland_z_level)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
-
 
 /datum/controller/subsystem/mapping/proc/loadTaipan()
 	var/watch = start_watch()
@@ -571,7 +565,6 @@ SUBSYSTEM_DEF(mapping)
 	var/new_res_z = GLOB.space_manager.add_new_zlevel(RESERVED_ZONE+" #[num_of_res_levels]", linkage = UNAFFECTED, traits = list(ADMIN_LEVEL, BLOCK_TELEPORT, RESERVED_LEVEL))
 	return new_res_z
 
-
 /// Requests a /datum/turf_reservation based on the given width, height, and z_size. You can specify a z_reservation to use a specific z level, or leave it null to use any z level.
 /datum/controller/subsystem/mapping/proc/request_turf_block_reservation(
 	width,
@@ -682,7 +675,6 @@ SUBSYSTEM_DEF(mapping)
 	multiz_levels[z_level] = new /list(LARGEST_Z_LEVEL_INDEX)
 	multiz_levels[z_level][Z_LEVEL_UP] = !!z_above
 	multiz_levels[z_level][Z_LEVEL_DOWN] = !!z_below
-
 
 /// Takes a z level datum, and tells the mapping subsystem to manage it
 /// Also handles things like plane offset generation, and other things that happen on a z level to z level basis

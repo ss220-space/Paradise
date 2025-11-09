@@ -11,16 +11,13 @@
 	var/authenticated = FALSE
 	var/inserted_id_uid
 
-
 /obj/machinery/computer/prisoner/Initialize(mapload)
 	. = ..()
 	GLOB.prisoncomputer_list += src
 
-
 /obj/machinery/computer/prisoner/Destroy()
 	GLOB.prisoncomputer_list -= src
 	return ..()
-
 
 /obj/machinery/computer/prisoner/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -41,17 +38,14 @@
 
 	return ..()
 
-
 /obj/machinery/computer/prisoner/attack_ai(mob/user)
 	ui_interact(user)
-
 
 /obj/machinery/computer/prisoner/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	add_fingerprint(user)
 	ui_interact(user)
-
 
 /obj/machinery/computer/prisoner/proc/check_implant(obj/item/implant/checked_imp)
 	var/turf/implant_location = get_turf(checked_imp)
@@ -61,13 +55,11 @@
 		return FALSE
 	return TRUE
 
-
 /obj/machinery/computer/prisoner/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PrisonerImplantManager", name)
 		ui.open()
-
 
 /obj/machinery/computer/prisoner/ui_data(mob/user)
 	var/list/data = list()
@@ -118,7 +110,6 @@
 
 	return data
 
-
 /obj/machinery/computer/prisoner/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
@@ -154,7 +145,6 @@
 		if("reset_points")
 			if(inserted_id)
 				inserted_id.mining_points = 0
-
 
 /obj/machinery/computer/prisoner/proc/ui_act_modal(action, list/params, datum/tgui/ui)
 	if(!ui_login_get().logged_in)
@@ -199,7 +189,6 @@
 					inserted_id?.goal = max(text2num(answer), 0)
 
 	return FALSE
-
 
 #undef IMPLANT_WARN_COOLDOWN
 

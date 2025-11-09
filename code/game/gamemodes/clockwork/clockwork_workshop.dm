@@ -27,7 +27,6 @@
 	var/build_end = 0
 	canbehidden = TRUE
 
-
 // CLOCK_DESIGN(NAME, PATH, BRASS_AMOUNT, POWER_AMOUNT, TIME),
 // and remember brass is in 2000x not 1x
 /obj/structure/clockwork/functional/workshop/Initialize(mapload)
@@ -86,7 +85,6 @@
 /obj/structure/clockwork/functional/workshop/attack_ghost(mob/user)
 	ui_interact(user)
 
-
 /obj/structure/clockwork/functional/workshop/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/brass) && isclocker(user))
 		add_fingerprint(user)
@@ -99,7 +97,6 @@
 		flick("workshop_b", src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/clockwork/functional/workshop/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -220,7 +217,6 @@
 	build_end = 0
 	desc = initial(desc)
 	SStgui.update_uis(src)
-
 
 // DATUM OF CLOCK DESIGN AAAAAAAAAAAAAAAAAAA
 /datum/clockwork_design

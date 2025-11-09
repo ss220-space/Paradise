@@ -121,12 +121,9 @@
 
 /obj/item/clothing/under/rank/clown/nodrop
 
-
 /obj/item/clothing/under/rank/clown/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
-
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
@@ -214,7 +211,6 @@
 	item_color = "janitor"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
-
 /obj/item/clothing/under/lawyer
 	name = "Lawyer suit"
 	desc = "Slick threads."
@@ -264,7 +260,6 @@
 	item_color = "oldman"
 	dying_key = DYE_REGISTRY_UNDER
 
-
 /obj/item/clothing/under/librarian
 	name = "sensible suit"
 	desc = "It's very... sensible."
@@ -282,11 +277,9 @@
 
 /obj/item/clothing/under/mime/nodrop
 
-
 /obj/item/clothing/under/mime/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."

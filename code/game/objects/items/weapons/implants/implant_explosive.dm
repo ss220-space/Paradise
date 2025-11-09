@@ -13,10 +13,8 @@
 	var/heavy = 0.4
 	var/delay = (0.7 SECONDS)
 
-
 /obj/item/implant/explosive/death_trigger(mob/source, gibbed)
 	activate("death")
-
 
 /obj/item/implant/explosive/activate(cause)
 	if(!cause || QDELETED(imp_in))
@@ -37,7 +35,6 @@
 		return
 
 	timed_explosion()
-
 
 /**
  * Gib the implantee and delete their destructible contents.
@@ -69,7 +66,6 @@
 	imp_in.gib()
 	qdel(src)
 
-
 /obj/item/implant/explosive/proc/timed_explosion()
 	imp_in.visible_message(span_warning("[imp_in] starts beeping ominously!"))
 	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
@@ -86,7 +82,6 @@
 	sleep(wait_delay)
 	self_destruct()
 
-
 /obj/item/implant/explosive/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
 	var/obj/item/implant/explosive/same_imp = locate(type) in source
 	if(same_imp && same_imp != src)
@@ -98,7 +93,6 @@
 		return TRUE
 	return ..()
 
-
 /obj/item/implant/explosive/macro
 	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
@@ -109,7 +103,6 @@
 	delay = (7 SECONDS)
 	implant_data = new /datum/implant_fluff/explosive_macro
 
-
 /obj/item/implant/explosive/macro/activate(cause)
 	if(!cause || QDELETED(imp_in))
 		return FALSE
@@ -117,7 +110,6 @@
 		return FALSE
 	to_chat(imp_in, span_notice("You activate your macrobomb bio-chip."))
 	timed_explosion()
-
 
 /obj/item/implant/explosive/macro/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
 	var/obj/item/implant/explosive/same_imp = locate(type) in source
@@ -132,22 +124,18 @@
 		qdel(same_imp)
 	return ..()
 
-
 /obj/item/implanter/explosive
 	name = "bio-chip implanter (micro-explosive)"
 	imp = /obj/item/implant/explosive
-
 
 /obj/item/implantcase/explosive
 	name = "bio-chip case - 'Micro Explosive'"
 	desc = "A glass case containing a micro explosive bio-chip."
 	imp = /obj/item/implant/explosive
 
-
 /obj/item/implanter/explosive_macro
 	name = "bio-chip implanter (macro-explosive)"
 	imp = /obj/item/implant/explosive/macro
-
 
 /obj/item/implantcase/explosive_macro
 	name = "bio-chip case - 'Macro Explosive'"

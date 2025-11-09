@@ -15,10 +15,8 @@
 	/// Yay, you're no longer growing 3 arms
 	var/list/deactivation_message
 
-
 /datum/dna/gene/disability/can_activate(mob/living/mutant, flags)
 	return TRUE // Always set!
-
 
 /datum/dna/gene/disability/activate(mob/living/mutant, flags)
 	. = ..()
@@ -26,13 +24,11 @@
 		var/msg = pick(activation_message)
 		to_chat(mutant, span_warning("[msg]"))
 
-
 /datum/dna/gene/disability/deactivate(mob/living/mutant, flags)
 	. = ..()
 	if(length(deactivation_message))
 		var/msg = pick(deactivation_message)
 		to_chat(mutant, span_warning("[msg]"))
-
 
 /datum/dna/gene/disability/hallucinate
 	name = "Галлюцинации"
@@ -40,17 +36,14 @@
 	deactivation_message = list("Здравомыслие возвращается. Или нет?")
 	instability = -GENE_INSTABILITY_MODERATE
 
-
 /datum/dna/gene/disability/hallucinate/New()
 	..()
 	block = GLOB.hallucinationblock
-
 
 /datum/dna/gene/disability/hallucinate/OnMobLife(mob/living/carbon/human/H)
 	if(prob(1))
 		H.AdjustHallucinate(45 SECONDS)
 		H.last_hallucinator_log = "Hallucination Gene"
-
 
 /datum/dna/gene/disability/epilepsy
 	name = "Эпилепсия"
@@ -58,11 +51,9 @@
 	deactivation_message = list("Ваша голова перестала болеть. Наконец-то!")
 	instability = -GENE_INSTABILITY_MODERATE
 
-
 /datum/dna/gene/disability/epilepsy/New()
 	..()
 	block = GLOB.epilepsyblock
-
 
 /datum/dna/gene/disability/epilepsy/OnMobLife(mob/living/carbon/human/H)
 	if((prob(1) && H.AmountParalyzed() < 2 SECONDS))
@@ -70,24 +61,20 @@
 		H.Paralyse(20 SECONDS)
 		H.Jitter(2000 SECONDS)
 
-
 /datum/dna/gene/disability/cough
 	name = "Кашель"
 	activation_message = list("Вы начинаете кашлять.")
 	deactivation_message = list("Ваше горло перестало болеть.")
 	instability = -GENE_INSTABILITY_MINOR
 
-
 /datum/dna/gene/disability/cough/New()
 	..()
 	block = GLOB.coughblock
-
 
 /datum/dna/gene/disability/cough/OnMobLife(mob/living/carbon/human/H)
 	if((prob(5) && H.AmountParalyzed() <= 2 SECONDS))
 		H.drop_from_active_hand()
 		H.emote("cough")
-
 
 /datum/dna/gene/disability/clumsy
 	name = "Неуклюжесть"
@@ -96,11 +83,9 @@
 	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_CLUMSY)
 
-
 /datum/dna/gene/disability/clumsy/New()
 	..()
 	block = GLOB.clumsyblock
-
 
 /datum/dna/gene/disability/tourettes
 	name = "Синдром Туретта"
@@ -108,11 +93,9 @@
 	deactivation_message = list("Вы чувствуете вкус мыла во рту.")
 	instability = -GENE_INSTABILITY_MODERATE
 
-
 /datum/dna/gene/disability/tourettes/New()
 	..()
 	block = GLOB.twitchblock
-
 
 /datum/dna/gene/disability/tourettes/OnMobLife(mob/living/carbon/human/H)
 	if((prob(10) && H.AmountParalyzed() <= 2 SECONDS))
@@ -129,22 +112,18 @@
 		animate(H, pixel_x = x_offset, pixel_y = y_offset, time = 1)
 		animate(H, pixel_x = x_offset_old, pixel_y = y_offset_old, time = 1)
 
-
 /datum/dna/gene/disability/nervousness
 	name = "Нервозность"
 	activation_message = list("Вы начинаете нервничать.")
 	deactivation_message = list("Вы чувствуете себя гораздо спокойнее.")
 
-
 /datum/dna/gene/disability/nervousness/New()
 	..()
 	block = GLOB.nervousblock
 
-
 /datum/dna/gene/disability/nervousness/OnMobLife(mob/living/carbon/human/H)
 	if(prob(10))
 		H.Stuttering(20 SECONDS)
-
 
 /datum/dna/gene/disability/blindness
 	name = "Слепота"
@@ -153,21 +132,17 @@
 	instability = -GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_BLIND)
 
-
 /datum/dna/gene/disability/blindness/New()
 	..()
 	block = GLOB.blindblock
-
 
 /datum/dna/gene/disability/blindness/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_blind_effects()
 
-
 /datum/dna/gene/disability/blindness/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_blind_effects()
-
 
 /datum/dna/gene/disability/colourblindness
 	name = "Дальтонизм"
@@ -176,23 +151,19 @@
 	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_COLORBLIND)
 
-
 /datum/dna/gene/disability/colourblindness/New()
 	..()
 	block = GLOB.colourblindblock
-
 
 /datum/dna/gene/disability/colourblindness/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_client_colour()	//Handle the activation of the colourblindness on the mob.
 	mutant.update_misc_effects()	//Apply eyeshine as needed.
 
-
 /datum/dna/gene/disability/colourblindness/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	mutant.update_client_colour()	//Handle the deactivation of the colourblindness on the mob.
 	mutant.update_misc_effects()	//Remove eyeshine as needed.
-
 
 /datum/dna/gene/disability/deaf
 	name = "Глухота"
@@ -201,11 +172,9 @@
 	instability = -GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_DEAF)
 
-
 /datum/dna/gene/disability/deaf/New()
 	..()
 	block = GLOB.deafblock
-
 
 /datum/dna/gene/disability/nearsighted
 	name = "Близорукость"
@@ -214,21 +183,17 @@
 	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_NEARSIGHTED)
 
-
 /datum/dna/gene/disability/nearsighted/New()
 	..()
 	block = GLOB.glassesblock
-
 
 /datum/dna/gene/disability/nearsighted/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_nearsighted_effects()
 
-
 /datum/dna/gene/disability/nearsighted/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_nearsighted_effects()
-
 
 /datum/dna/gene/disability/lisp
 	name = "Шепелявость"
@@ -236,15 +201,12 @@
 	activation_message = list("Фто-то тошно не тах.")
 	deactivation_message = list("Теперь вы можете произносить согласные.")
 
-
 /datum/dna/gene/disability/lisp/New()
 	..()
 	block = GLOB.lispblock
 
-
 /datum/dna/gene/disability/lisp/OnSay(mob/M, message)
 	return replacetext(message,"с",pick("щ","ш","ф"))
-
 
 /datum/dna/gene/disability/comic
 	name = "Комик"
@@ -253,11 +215,9 @@
 	deactivation_message = list("Слава Святой Хонкоматери, с этим покончено.")
 	traits_to_add = list(TRAIT_COMIC)
 
-
 /datum/dna/gene/disability/comic/New()
 	..()
 	block = GLOB.comicblock
-
 
 /datum/dna/gene/disability/wingdings
 	name = "Голос инопланетян"
@@ -267,11 +227,9 @@
 	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_WINGDINGS)
 
-
 /datum/dna/gene/disability/wingdings/New()
 	..()
 	block = GLOB.wingdingsblock
-
 
 /datum/dna/gene/disability/wingdings/OnSay(mob/M, message)
 	var/garbled_message = ""
@@ -295,7 +253,6 @@
 	message = garbled_message
 	return message
 
-
 /datum/dna/gene/disability/weak
 	name = "Слабость"
 	desc = "Делает мышцы субъекта более слабыми."
@@ -303,11 +260,9 @@
 	deactivation_message = list("Вы снова ощущаете силу в мышцах.")
 	instability = -GENE_INSTABILITY_MINOR
 
-
 /datum/dna/gene/disability/weak/New()
 	..()
 	block = GLOB.weakblock
-
 
 /datum/dna/gene/disability/weak/can_activate(mob/living/carbon/human/mutant, flags)
 	if(!ishuman(mutant))
@@ -321,20 +276,17 @@
 
 	return ..()
 
-
 /datum/dna/gene/disability/weak/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	ADD_TRAIT(mutant, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
 	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)
 
-
 /datum/dna/gene/disability/weak/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_WEAK_MUSCULS, DNA_TRAIT)
 	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)
-
 
 /datum/dna/gene/disability/paraplegia
 	name = "Параплегия"

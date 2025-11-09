@@ -10,7 +10,6 @@
 	slowdown = 7
 	breakout_time = 30 SECONDS
 
-
 /obj/item/restraints/legcuffs/get_ru_names()
 	return list(
 		NOMINATIVE = "кандалы",
@@ -20,7 +19,6 @@
 		INSTRUMENTAL = "кандалами",
 		PREPOSITIONAL = "кандалах",
 	)
-
 
 /obj/item/restraints/legcuffs/beartrap
 	name = "bear trap"
@@ -35,7 +33,6 @@
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
 
-
 /obj/item/restraints/legcuffs/beartrap/get_ru_names()
 	return list(
 		NOMINATIVE = "капкан",
@@ -46,7 +43,6 @@
 		PREPOSITIONAL = "капкане",
 	)
 
-
 /obj/item/restraints/legcuffs/beartrap/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
@@ -55,23 +51,18 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/item/restraints/legcuffs/beartrap/Destroy()
 	QDEL_NULL(IED)
 	QDEL_NULL(sig)
 	return ..()
-
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] засовыва[PLUR_ET_YUT(user)] свою голову в [declent_ru(NOMINATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-
 /obj/item/restraints/legcuffs/beartrap/update_icon_state()
 	icon_state = "[initial(icon_state)][armed]"
-
-
 
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
@@ -79,7 +70,6 @@
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
 		balloon_alert(user, "[armed ? "взведён" : "обезврежен"]")
-
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grenade/iedcasing))	//Let's get explosive.
@@ -115,7 +105,6 @@
 
 	return ..()
 
-
 /obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 
@@ -136,7 +125,6 @@
 		update_appearance(UPDATE_DESC)
 		return
 
-
 /obj/item/restraints/legcuffs/beartrap/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc)
@@ -150,7 +138,6 @@
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(triggered), arrived)
-
 
 /obj/item/restraints/legcuffs/beartrap/proc/triggered(mob/living/moving_thing)
 	if(!armed || !isturf(loc))
@@ -191,11 +178,9 @@
 
 	moving_thing.apply_damage(trap_damage, BRUTE)
 
-
 /obj/item/restraints/legcuffs/beartrap/proc/delayed_prime()
 	if(!QDELETED(src) && !QDELETED(IED))
 		IED.prime()
-
 
 /obj/item/restraints/legcuffs/bola
 	name = "bola"
@@ -230,7 +215,6 @@
 	/// Cyclic bola spin sound.
 	var/spin_sound = 'sound/items/bola_spin.ogg'
 
-
 /obj/item/restraints/legcuffs/bola/get_ru_names()
 	return list(
 		NOMINATIVE = "бола",
@@ -241,22 +225,18 @@
 		PREPOSITIONAL = "боле",
 	)
 
-
 /obj/item/restraints/legcuffs/bola/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_CARBON_TOGGLE_THROW, PROC_REF(spin_up_wrapper))
-
 
 /obj/item/restraints/legcuffs/bola/update_icon_state()
 	item_state = spinning ? "[initial(item_state)]_spin" : initial(item_state)
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/restraints/legcuffs/bola/proc/spin_up_wrapper(datum/source, throw_mode_state) // so that signal handler works
 	SIGNAL_HANDLER
 	if(throw_mode_state) // if we actually turned throw mode on
 		INVOKE_ASYNC(src, PROC_REF(spin_up))
-
 
 /obj/item/restraints/legcuffs/bola/proc/get_spin_time(mob/owner)
 	var/time = 1 SECONDS
@@ -266,7 +246,6 @@
 		time *= modifier
 
 	return time
-
 
 /obj/item/restraints/legcuffs/bola/proc/spin_up()
 	if(spinning)
@@ -278,7 +257,6 @@
 	spin_timer_id = addtimer(CALLBACK(src, PROC_REF(spin_loop), owner), get_spin_time(owner), TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE|TIMER_DELETE_ME)
 	do_spin_cycle(owner)
 
-
 /obj/item/restraints/legcuffs/bola/proc/spin_loop(mob/living/user)
 	if(QDELETED(src) || !spinning || !can_spin_check(user))
 		reset_values(user)
@@ -289,7 +267,6 @@
 	if(spin_cycle < max_spins)
 		do_spin_cycle(user)
 
-
 /obj/item/restraints/legcuffs/bola/proc/do_spin_cycle(mob/living/user)
 	if(do_after(user, get_spin_time(user), user, ALL, extra_checks = CALLBACK(src, PROC_REF(can_spin_check), user)))
 		throw_range += round(max_range / max_spins)
@@ -298,7 +275,6 @@
 		return
 
 	reset_values(user)
-
 
 /**
  * If it returns `FALSE`, it breaks the loop, returning `TRUE`, continues the loop.
@@ -312,10 +288,8 @@
 		return FALSE
 	return TRUE
 
-
 /obj/item/restraints/legcuffs/bola/carbon_skip_catch_check(mob/living/carbon/user)
 	return TRUE	// No one can catch a flying bola
-
 
 /obj/item/restraints/legcuffs/bola/proc/reset_values(mob/living/user)
 	throw_range = initial(throw_range)
@@ -326,11 +300,9 @@
 	if(spin_timer_id)
 		deltimer(spin_timer_id)
 
-
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback,force, dodgeable)
 	playsound(loc, 'sound/weapons/bolathrow.ogg', 50, TRUE)
 	..()
-
 
 /obj/item/restraints/legcuffs/bola/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	reset_values()
@@ -368,8 +340,6 @@
 	if(!reusable)
 		item_flags |= DROPDEL
 
-
-
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
 	name = "reinforced bola"
 	desc = "Укреплённая бола, сделанная из длинной стальной цепи. Выглядит достаточно тяжёлой, чтобы сбить цель с ног."
@@ -378,7 +348,6 @@
 	origin_tech = "engineering=4;combat=3"
 	breakout_time = 10 SECONDS
 	weaken_amt = 2 SECONDS
-
 
 /obj/item/restraints/legcuffs/bola/tactical/get_ru_names()
 	return list(
@@ -390,7 +359,6 @@
 		PREPOSITIONAL = "укреплённой боле",
 	)
 
-
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"
 	desc = "Бола из твёрдой энергии, разработанная специально для службы безопасности. Предназначена для поимки особо прытких преступников."
@@ -401,7 +369,6 @@
 	breakout_time = 4 SECONDS
 	reusable = FALSE
 
-
 /obj/item/restraints/legcuffs/bola/energy/get_ru_names()
 	return list(
 		NOMINATIVE = "энергетическая бола",
@@ -411,7 +378,6 @@
 		INSTRUMENTAL = "энергетической болой",
 		PREPOSITIONAL = "энергетической боле",
 	)
-
 
 /obj/item/restraints/legcuffs/bola/sinew
 	name = "skull bola"

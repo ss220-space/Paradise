@@ -105,7 +105,6 @@
 		ui = new(user, src, "Autolathe", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
-
 /obj/machinery/autolathe/ui_static_data(mob/user)
 	var/list/data = list()
 	data["categories"] = categories
@@ -267,7 +266,6 @@
 		data["queue"] = null
 	return data
 
-
 /obj/machinery/autolathe/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -311,7 +309,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))

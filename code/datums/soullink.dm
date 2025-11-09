@@ -60,8 +60,6 @@
 	if(S.parseArgs(arglist(args.Copy(2, 0))))
 		return S
 
-
-
 /////////////////
 // MULTISHARER //
 /////////////////
@@ -82,8 +80,6 @@
 
 /datum/soullink/multisharer/removeSoulsharer(mob/living/sharer)
 	LAZYREMOVE(soulsharers, sharer)
-
-
 
 /////////////////
 // SHARED FATE //
@@ -127,8 +123,6 @@
 /datum/soullink/sharedbody/sharerDies(gibbed, mob/living/sharer)
 	if(soulowner && soulsharer?.mind)
 		soulsharer.mind.transfer_to(soulowner)
-
-
 
 //////////////////////
 // REPLACEMENT POOL //

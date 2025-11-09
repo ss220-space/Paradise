@@ -106,7 +106,6 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
 	user.LayQueenEggs()
 
-
 // ---------- EMPRESS
 
 /datum/action/innate/terrorspider/queen/empress/empresserase
@@ -126,7 +125,6 @@
 /datum/action/innate/terrorspider/queen/empress/empresslings/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/user = owner
 	user.EmpressLings()
-
 
 // ---------- WEB
 
@@ -175,7 +173,6 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-
 /obj/structure/spider/terrorweb/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 
@@ -205,7 +202,6 @@
 
 	if(isprojectile(mover))
 		return prob(20)
-
 
 /obj/structure/spider/terrorweb/bullet_act(obj/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)

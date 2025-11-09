@@ -12,7 +12,6 @@
 /mob/proc/bee_friendly()
 	return FALSE
 
-
 /mob/living/simple_animal/hostile/poison/bees/bee_friendly()
 	return TRUE
 
@@ -24,14 +23,12 @@
 /mob/living/simple_animal/diona/bee_friendly()
 	return TRUE
 
-
 /mob/living/carbon/human/bee_friendly()
 	if(isdiona(src)) //bees pollinate plants, duh.
 		return TRUE
 	if(covered_with_thick_material(full_body_check = TRUE))
 		return TRUE
 	return FALSE
-
 
 /obj/structure/beebox
 	name = "apiary"
@@ -46,11 +43,9 @@
 	var/list/honey_frames = list()
 	var/bee_resources = 0
 
-
 /obj/structure/beebox/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-
 
 /obj/structure/beebox/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -63,11 +58,9 @@
 	QDEL_NULL(queen_bee)
 	return ..()
 
-
 //Premade apiaries can spawn with a random reagent
 /obj/structure/beebox/premade
 	var/random_reagent = FALSE
-
 
 /obj/structure/beebox/premade/Initialize(mapload)
 	. = ..()
@@ -93,7 +86,6 @@
 /obj/structure/beebox/premade/random
 	random_reagent = TRUE
 
-
 /obj/structure/beebox/process()
 	if(queen_bee)
 		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST)
@@ -116,17 +108,14 @@
 				B.assign_reagent(queen_bee.beegent)
 				bees += B
 
-
 /obj/structure/beebox/proc/get_max_honeycomb()
 	. = 0
 	for(var/hf in honey_frames)
 		var/obj/item/honey_frame/HF = hf
 		. += HF.honeycomb_capacity
 
-
 /obj/structure/beebox/proc/get_max_bees()
 	. = get_max_honeycomb() * BEES_RATIO
-
 
 /obj/structure/beebox/examine(mob/user)
 	. = ..()
@@ -148,7 +137,6 @@
 
 	if(length(honeycombs) >= get_max_honeycomb())
 		. += span_warning("there's no room for more honeycomb!")
-
 
 /obj/structure/beebox/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -203,7 +191,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/beebox/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

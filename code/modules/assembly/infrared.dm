@@ -17,12 +17,10 @@
 	var/emission_cycles = 0
 	var/emission_cap = 20
 
-
 /obj/item/assembly/infra/Initialize(mapload)
 	. = ..()
 	if(!secured)
 		toggle_secure()
-
 
 /obj/item/assembly/infra/Destroy()
 	if(first)
@@ -31,12 +29,10 @@
 		fire_location = null
 	return ..()
 
-
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += span_notice("The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"].")
 	. += span_notice("<b>Alt-Click</b> to rotate it.")
-
 
 /obj/item/assembly/infra/activate()
 	if(!..())
@@ -44,7 +40,6 @@
 	on = !on
 	update_icon()
 	return TRUE
-
 
 /obj/item/assembly/infra/toggle_secure()
 	secured = !secured
@@ -58,13 +53,11 @@
 	update_icon()
 	return secured
 
-
 /// Forces the device to arm no matter its current state.
 /obj/item/assembly/infra/proc/arm()
 	if(!secured) // Checked because arm() might be called sometime after the object is spawned.
 		toggle_secure()
 	on = TRUE
-
 
 /obj/item/assembly/infra/update_overlays()
 	. = ..()
@@ -73,7 +66,6 @@
 		. += "infrared_on"
 		attached_overlays += "infrared_on"
 	holder?.update_icon()
-
 
 /obj/item/assembly/infra/process()
 	var/turf/T = get_turf(src)
@@ -104,16 +96,13 @@
 			I.limit = 8
 			I.process()
 
-
 /obj/item/assembly/infra/attack_hand()
 	qdel(first)
 	..()
 
-
 /obj/item/assembly/infra/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	qdel(first)
-
 
 /obj/item/assembly/infra/holder_movement()
 	if(!holder)
@@ -121,16 +110,13 @@
 	qdel(first)
 	return TRUE
 
-
 /obj/item/assembly/infra/equipped(mob/user, slot, initial)
 	qdel(first)
 	return ..()
 
-
 /obj/item/assembly/infra/pickup(mob/user)
 	qdel(first)
 	return ..()
-
 
 /obj/item/assembly/infra/proc/trigger_beam(atom/movable/AM)
 	if(!secured || !on || !COOLDOWN_FINISHED(src, cooldown))
@@ -150,7 +136,6 @@
 	if(first)
 		qdel(first)
 
-
 /obj/item/assembly/infra/interact(mob/user)//TODO: change this this to the wire control panel
 	if(!secured)
 		return
@@ -165,7 +150,6 @@
 	var/datum/browser/popup = new(user, "infra", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
@@ -188,11 +172,9 @@
 	if(usr)
 		attack_self(usr)
 
-
 /obj/item/assembly/infra/click_alt(mob/user)
 	rotate(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/item/assembly/infra/verb/rotate_verb()
 	set name = "Повернуть"
@@ -200,7 +182,6 @@
 	set src in usr
 
 	rotate(usr)
-
 
 /obj/item/assembly/infra/proc/rotate(mob/living/user = usr)
 	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -214,21 +195,17 @@
 	if(first)
 		qdel(first)
 
-
 /obj/item/assembly/infra/armed/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(delayed_arm)), 0.3 SECONDS)
-
 
 /obj/item/assembly/infra/armed/proc/delayed_arm()
 	if(holder?.master)
 		dir = holder.master.dir
 	arm()
 
-
 /obj/item/assembly/infra/armed/stealth
 	visible = FALSE
-
 
 /***************************IBeam*********************************/
 
@@ -247,14 +224,12 @@
 	pass_flags_self = LETPASSTHROW
 	pass_flags = PASSTABLE|PASSGLASS|PASSGRILLE|PASSFENCE
 
-
 /obj/effect/beam/i_beam/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/effect/beam/i_beam/Destroy()
 	if(master && master.first == src)
@@ -265,21 +240,17 @@
 		master?.last = previous
 	return ..()
 
-
 /obj/effect/beam/i_beam/proc/hit(atom/movable/AM)
 	master?.trigger_beam(AM)
 	qdel(src)
-
 
 /obj/effect/beam/i_beam/proc/vis_spread(new_visibility)
 	visible = new_visibility
 	if(next)
 		next.vis_spread(new_visibility)
 
-
 /obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
-
 
 /obj/effect/beam/i_beam/process()
 	life_cycles++
@@ -309,15 +280,12 @@
 			master.last = I
 			I.process()
 
-
 /obj/effect/beam/i_beam/Bump(atom/bumped_atom)
 	qdel(src)
-
 
 /obj/effect/beam/i_beam/Bumped(atom/movable/moving_atom)
 	. = ..()
 	hit(moving_atom)
-
 
 /obj/effect/beam/i_beam/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER

@@ -76,7 +76,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Infectable mob types, that can only be carriers
 	var/list/carrier_mobtypes = list()
 
-
 /datum/disease/New()
 	if(!cure_text)
 		var/reagents = list()
@@ -90,7 +89,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	affected_mob = null
 	GLOB.active_diseases.Remove(src)
 	return ..()
-
 
 /**
  * Main disease process, that executed every tick
@@ -123,7 +121,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 			return FALSE
 	return TRUE
 
-
 /datum/disease/proc/try_increase_stage()
 	if(prob(stage_prob))
 		stage = min(stage + 1, max_stages)
@@ -147,7 +144,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(. <= 0 || (needs_all_cures && . < length(cures)))
 		return 0
 
-
 /datum/disease/proc/cure(id = type, need_immunity = TRUE)
 	if(affected_mob)
 		if(can_immunity && need_immunity)
@@ -157,7 +153,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		if(cured_message)
 			to_chat(affected_mob, span_notice(cured_message))
 	qdel(src)
-
 
 /**
  * Basic checks of the possibility of infecting a mob
@@ -208,17 +203,14 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	D.affected_mob.med_hud_set_status()
 	return D
 
-
 /datum/disease/proc/IsSame(datum/disease/D)
 	if(src.type == D.type)
 		return TRUE
 	return FALSE
 
-
 /datum/disease/proc/Copy()
 	var/datum/disease/D = new type()
 	return D
-
 
 /datum/disease/proc/GetDiseaseID()
 	return type

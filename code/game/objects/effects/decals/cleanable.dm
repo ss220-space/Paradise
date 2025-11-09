@@ -4,7 +4,6 @@
 	var/mergeable_decal = TRUE //when two of these are on a same tile or do we need to merge them into just one?
 	layer = CLEANABLES_LAYER
 
-
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
 	if(loc && isturf(loc))
@@ -19,21 +18,17 @@
 		QUEUE_SMOOTH(src)
 		QUEUE_SMOOTH_NEIGHBORS(src)
 
-
 /obj/effect/decal/cleanable/Destroy()
 	if(smooth)
 		QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
-
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
 		return TRUE
 
-
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
 	return FALSE
-
 
 /obj/effect/decal/cleanable/is_cleanable()
 	return TRUE

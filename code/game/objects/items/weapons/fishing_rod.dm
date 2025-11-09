@@ -44,7 +44,6 @@
 	icon_state = "tribal_rod"
 	item_state = "tribal_rod"
 
-
 /obj/item/twohanded/fishing_rod/tribal/get_ru_names()
 	return list(
 		NOMINATIVE = "примитивная удочка",
@@ -171,7 +170,6 @@
 	to_chat(user, span_notice("Вы насадили [worm.declent_ru(ACCUSATIVE)] на крючок."))
 	update_icon(UPDATE_OVERLAYS)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 /obj/item/twohanded/fishing_rod/click_alt(mob/user)
 	if(!bait)
