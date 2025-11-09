@@ -162,7 +162,6 @@
 		SStgui.close_uis(src)
 		interact(usr)
 
-
 /obj/item/thief_kit/proc/randomKit(kit_type)
 	var/list/possible_kits = list()
 	for(var/datum/thief_kit/kit in all_kits)
@@ -181,7 +180,6 @@
 		if("[kit.type]" == kit_type)
 			return kit
 	return FALSE
-
 
 //=============== KITS ================
 /datum/thief_kit

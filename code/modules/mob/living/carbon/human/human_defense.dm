@@ -8,7 +8,6 @@ emp_act
 
 */
 
-
 /mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone)
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
@@ -36,7 +35,6 @@ emp_act
 	if(check_shields(P, P.damage, "[P.declent_ru(ACCUSATIVE)]", PROJECTILE_ATTACK, P.armour_penetration))
 		P.on_hit(src, 100, def_zone)
 		return 2
-
 
 	if(mind?.martial_art?.can_reflect) //Some martial arts users can even reflect projectiles!
 		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
@@ -153,7 +151,6 @@ emp_act
 
 	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
-
 /mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
@@ -167,7 +164,6 @@ emp_act
 		if(P.dismember_head && istype(affecting, /obj/item/organ/external/head))
 			damtype = DROPLIMB_SHARP
 		affecting.droplimb(FALSE, damtype)
-
 
 /mob/living/carbon/human/getarmor(def_zone, attack_flag)
 	var/armorval = 0
@@ -188,7 +184,6 @@ emp_act
 
 	return (armorval/max(organnum, 1))
 
-
 /// This proc returns the armour value for a particular external organ.
 /mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, attack_flag)
 	if(!attack_flag || !def_zone)
@@ -201,7 +196,6 @@ emp_act
 	protection *= (100 - min(physiology.armor.getRating(attack_flag), 100)) * 0.01
 	return 100 - protection
 
-
 /// This proc returns the permeability protection for a particular external organ.
 /mob/living/carbon/human/proc/get_permeability_protection_organ(obj/item/organ/external/def_zone)
 	if(!def_zone)
@@ -212,7 +206,6 @@ emp_act
 		if(cloth.body_parts_covered & def_zone.limb_body_flag)
 			permeability_protection *= cloth.permeability_coefficient
 	return permeability_protection
-
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(obj/item/organ/external/def_zone)
@@ -228,7 +221,6 @@ emp_act
 
 	return siemens_coefficient
 
-
 /mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, head, shoes, gloves or wear_suit based on the reflection chance var of the object
 	var/list/reflectable_slots = list(wear_suit, head, shoes, gloves, l_hand, r_hand)
 	for(var/obj/item/slot in reflectable_slots)
@@ -237,7 +229,6 @@ emp_act
 			return reflectability
 
 	return 0
-
 
 //End Here
 
@@ -331,7 +322,6 @@ emp_act
 			if(s_store)
 				inventory_items_to_kill += s_store
 
-
 	//ARMS & HANDS//
 	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_L_ARM || bodyzone_hit == BODY_ZONE_R_ARM)
 		var/obj/item/clothing/arm_clothes = null
@@ -357,7 +347,6 @@ emp_act
 			. = get_organ(BODY_ZONE_L_ARM)
 			if(.)
 				damaged += .
-
 
 	//LEGS & FEET//
 	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_L_LEG || bodyzone_hit == BODY_ZONE_R_LEG || bodyzone_hit == "feet")
@@ -444,12 +433,10 @@ emp_act
 		affecting.sabotaged = 1
 	return 1
 
-
 /mob/living/carbon/human/grippedby(mob/living/grabber, grab_state_override)
 	. = ..()
 	if(.)
 		w_uniform?.add_fingerprint(grabber)
-
 
 /mob/living/carbon/human/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	if(QDELETED(src) || QDELETED(item) || QDELETED(user))	// tripple insurance, jesus fucking christ
@@ -580,7 +567,6 @@ emp_act
 
 	. |= dna.species.spec_proceed_attack_results(item, src, user, affecting)
 
-
 /mob/living/carbon/human/send_item_attack_message(obj/item/item, mob/living/user, def_zone)
 	if(item.item_flags & SKIP_ATTACK_MESSAGE)
 		return
@@ -608,7 +594,6 @@ emp_act
 		ignored_mobs = user,
 	)
 	to_chat(user, span_danger("Вы [message_verb]и [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)] [message_hit_area]!"))
-
 
 /**
  * This proc handles being hit by a thrown atom.
@@ -648,7 +633,6 @@ emp_act
 
 	return ..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
-
 /mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
 	if(gloves)
 		gloves.add_mob_blood(source)
@@ -681,7 +665,6 @@ emp_act
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
 			var/armor_block = run_armor_check(affecting, MELEE)
 			apply_damage(L.attack_damage, BRUTE, affecting, armor_block)
-
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(check_shields(M, 0, M.name))
@@ -837,7 +820,6 @@ emp_act
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		..()
-
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()

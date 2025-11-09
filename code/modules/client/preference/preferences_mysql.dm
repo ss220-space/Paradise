@@ -35,7 +35,6 @@
 		qdel(query)
 		return
 
-
 	//general preferences
 	while(query.NextRow())
 		ooccolor = query.item[1]
@@ -283,7 +282,6 @@
 		undershirt_color = query.item[25]
 		backbag = query.item[26]
 		b_type = query.item[27]
-
 
 		//Jobs
 		alternate_option = text2num(query.item[28])

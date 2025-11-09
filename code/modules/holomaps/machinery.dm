@@ -80,7 +80,6 @@
 
 	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays())
 
-
 	update_icon()
 
 /obj/machinery/station_map/attack_hand(mob/user)

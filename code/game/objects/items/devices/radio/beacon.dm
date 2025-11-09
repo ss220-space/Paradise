@@ -278,7 +278,6 @@
 								/obj/item/storage/toolbox/syndisuper = 1,)                                  // 8 TK
 	)
 
-
 /obj/item/beacon/syndicate/bundle/magical //for d20 dice of fate
 	used = TRUE
 	name = "suspicious 'magical' beacon"

@@ -94,7 +94,6 @@
 			owner.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
 			owner.AdjustLoseBreath(10 SECONDS)
 
-
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_GODMODE) || HAS_TRAIT(H, TRAIT_NO_BREATH))
 		return
@@ -115,7 +114,6 @@
 			H.throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 		return FALSE
 
-
 	if(H.health < HEALTH_THRESHOLD_CRIT)
 		return FALSE
 
@@ -127,7 +125,6 @@
 	var/Toxins_pp = breath.get_breath_partial_pressure(breath.toxins)
 	var/CO2_pp = breath.get_breath_partial_pressure(breath.carbon_dioxide)
 	var/SA_pp = breath.get_breath_partial_pressure(breath.sleeping_agent)
-
 
 	//-- OXY --//
 
@@ -216,7 +213,6 @@
 	breath.oxygen += gas_breathed
 	gas_breathed = 0
 
-
 	//-- TOX --//
 
 	//Too much toxins!
@@ -227,7 +223,6 @@
 			H.throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox)
 		else
 			H.clear_alert(ALERT_TOO_MUCH_TOX)
-
 
 	//Too little toxins!
 	if(safe_toxins_min)
@@ -244,7 +239,6 @@
 	breath.carbon_dioxide += gas_breathed
 	gas_breathed = 0
 
-
 	//-- TRACES --//
 
 	if(breath.sleeping_agent)	// If there's some other shit in the air lets deal with it here.
@@ -260,7 +254,6 @@
 
 	return TRUE
 
-
 /obj/item/organ/internal/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
 	. = 0
 	if(!H || !safe_breath_min) //the other args are either: Ok being 0 or Specifically handled.
@@ -274,7 +267,6 @@
 		. = true_pp*ratio/6
 	else
 		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-
 
 /obj/item/organ/internal/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
 	var/breath_temperature = breath.temperature

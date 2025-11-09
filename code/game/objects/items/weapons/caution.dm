@@ -25,7 +25,6 @@
 	var/armed = FALSE
 	var/timepassed = 0
 
-
 /obj/item/caution/proximity_sign/Destroy()
 	. = ..()
 	QDEL_NULL(proximity_monitor)

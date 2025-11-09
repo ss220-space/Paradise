@@ -103,7 +103,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 	abstract_move(T) //let ghost initialize properly, then off to spawn point
 
-
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
 	remove_the_hud(THOUGHTS_HUD)
@@ -277,7 +276,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
-
 /mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = DEFAULT_GLIDE_SIZE, update_dir = TRUE)
 	// only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own
 	if(update_dir)
@@ -306,7 +304,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		abstract_move(destination)//Get out of closets and such as a ghost
 
-
 /mob/dead/observer/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
@@ -332,7 +329,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 
 	return TRUE
-
 
 /mob/dead/observer/proc/notify_cloning(message, sound, atom/source)
 	if(message)
@@ -546,7 +542,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	to_chat(A, "Это существо не находится в игровом мире.")
 
-
 /mob/dead/observer/memory()
 	set hidden = 1
 	to_chat(src, span_warning("Вы мертвы! У вас нет разума для хранения воспоминаний!"))
@@ -554,7 +549,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/add_memory()
 	set hidden = 1
 	to_chat(src, span_warning("Вы мертвы! У вас нет разума для хранения воспоминаний!"))
-
 
 /mob/dead/observer/verb/toggle_health_scan()
 	set name = "Анализ здоровья"
@@ -597,7 +591,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = STATPANEL_GHOST
 	GLOB.generic_crew_manifest.ui_interact(usr)
 
-
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!usr || !over_object)
@@ -607,7 +600,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return FALSE
 
 	return ..()
-
 
 /proc/ghost_follow_link(atom/target, atom/ghost)
 	if((!target) || (!ghost)) return
@@ -707,13 +699,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	for(var/atom/movable/screen/alert/alert in mob_eye.alerts)
 		client.screen |= alert
 
-
 /mob/dead/observer/proc/handle_when_autoobserve_move()
 	SIGNAL_HANDLER
 
 	reset_perspective()
 	cleanup_observe()
-
 
 	hud_used?.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
 	lighting_alpha = client?.prefs.ghost_darkness_level
@@ -731,7 +721,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	do_observe_target = null
 	REMOVE_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
-
 
 /mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
 	SIGNAL_HANDLER
@@ -826,7 +815,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/incapacitated(ignore_flags)
 	return TRUE
 
-
 /**
  * This is a mob verb instead of atom for performance reasons.
  * See /mob/verb/examinate() in mob.dm for more info.
@@ -841,7 +829,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	usr.visible_message(span_deadsay("<b>[src]</b> указывает на [target][follow_link]."))
 	add_deadchat_logs(src, "point to [key_name(target)] [COORD(target)]")
 	return TRUE
-
 
 /mob/dead/observer/proc/incarnate_ghost(use_old_mind=FALSE)
 	if(!client)
@@ -871,7 +858,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		set_light_on(FALSE)
 
-
 /mob/dead/observer/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if(NAMEOF(src, invisibility))
@@ -883,7 +869,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return .
 
 	return ..()
-
 
 /proc/set_observer_default_invisibility(amount, message=null)
 	for(var/mob/dead/observer/G in GLOB.player_list)

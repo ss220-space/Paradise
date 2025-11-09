@@ -9,7 +9,6 @@
 	var/codelen = 4
 	integrity_failure = 0 //no breaking open the crate
 
-
 /obj/structure/closet/crate/secure/loot/can_close()
 	. = ..()
 	if(!.)
@@ -17,7 +16,6 @@
 
 	var/mob/living/mob = locate() in get_turf(src)
 	return !mob
-
 
 /obj/structure/closet/crate/secure/loot/get_ru_names()
 	return list(
@@ -257,7 +255,6 @@
 	else
 		return ..()
 
-
 /obj/structure/closet/crate/secure/loot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/emag))
 		if(locked)
@@ -266,7 +263,6 @@
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 	return ..()
-
 
 /obj/structure/closet/crate/secure/loot/multitool_act(mob/living/user, obj/item/I)
 	if(!locked)
@@ -296,7 +292,6 @@
 			else
 				++cows
 	to_chat(user, span_notice("В последней попытке [bulls] [declension_ru(bulls,"цифра","цифры","цифр")] на правильных позициях и [cows] [declension_ru(cows,"правильная цифра","правильные цифры","правильных цифр")] на неправильных позициях."))
-
 
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)
 	if(locked)

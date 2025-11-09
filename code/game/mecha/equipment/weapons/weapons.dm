@@ -181,7 +181,6 @@
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
 
-
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "PBT \"Pacifier\" Mounted Taser"
 	icon_state = "mecha_taser"
@@ -433,7 +432,6 @@
 	gender = FEMALE
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
-
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium/get_ru_names()
 	return list(

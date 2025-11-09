@@ -26,7 +26,6 @@
 	if(buffered_overlay)
 		QDEL_NULL(buffered_overlay)
 
-
 /// Try attach module to gun, return TRUE if success
 /obj/item/gun_module/proc/try_attach(obj/item/gun/target_gun, mob/user)
 	if(!istype(target_gun, /obj/item/gun))
@@ -82,7 +81,6 @@
 
 /obj/item/gun_module/proc/on_detach(obj/item/gun/target_gun, mob/user)
 	return
-
 
 /**
  * MARK: Muzzle
@@ -257,7 +255,6 @@
 	target_gun.recoil.strength = initial_recoil
 	initial_recoil = 0
 
-
 /**
  * MARK: Rail
  */
@@ -314,7 +311,6 @@
 	if(istype(human) && movespeed_mod)
 		human.remove_movespeed_modifier(movespeed_mod)
 		movespeed_mod = null
-
 
 /obj/item/gun_module/rail/scope/collimator
 	name = "collimator scope"
@@ -473,7 +469,6 @@
 	var/datum/atom_hud/hud = GLOB.huds[hud_type]
 	hud.hide_from(user)
 
-
 /obj/item/gun_module/rail/hud/medical
 	name = "med hud scope"
 	desc = "Коллиматорный прицел с медицинским ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами."
@@ -525,7 +520,6 @@
 /obj/item/gun_module/under/flashlight
 	var/obj/item/flashlight/seclite/internal
 	var/buffered_overlay_on
-
 
 /obj/item/gun_module/under/flashlight/Destroy()
 	. = ..()
@@ -735,7 +729,6 @@
 	gun.accuracy.add_accuracy(-bonus_accuracy)
 	gun.accuracy.max_spread += spread_decrease
 	spread_decrease = 0
-
 
 /obj/item/gun_module/under/laser/ray
 	name = "laser sight (ray)"

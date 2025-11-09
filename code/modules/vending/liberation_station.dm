@@ -55,7 +55,6 @@
 		PREPOSITIONAL = "торговом автомате Liberation Station",
 	)
 
-
 /obj/machinery/vending/toyliberationstation
 	name = "Syndicate Donksoft Toy Vendor"
 	desc = "Одобренный автомат игрушек для детей от 8 лет и старше."

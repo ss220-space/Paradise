@@ -87,7 +87,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
-
 /obj/item/clothing/head/cueball
 	name = "cueball helmet"
 	desc = "A large, featureless white orb meant to be worn on your head. How do you even see out of this thing?"
@@ -128,7 +127,6 @@
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "greenbandana"
 	item_state = "greenbandana"
-
 
 /obj/item/clothing/head/justice
 	name = "justice hat"
@@ -306,11 +304,9 @@
 	name = "super-hero corgi suit head"
 	desc = "Woof! This one seems to pulse with a strange power"
 
-
 /obj/item/clothing/head/corgi/super_hero/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/head/corgi/super_hero/en
 	name = "E-N suit head"
@@ -436,11 +432,9 @@
 	desc = "Once it's on, it never comes off."
 	dog_fashion = null
 
-
 /obj/item/clothing/head/sombrero/shamebrero/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/head/cone
 	desc = "This cone is trying to warn you of something!"
@@ -505,7 +499,6 @@
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
 		playsound(src.loc, 'sound/creatures/caw.ogg', 50, TRUE)
 		cooldown = world.time
-
 
 /obj/item/clothing/head/lordadmiralhat
 	name = "Lord Admiral's Hat"
@@ -609,7 +602,6 @@
 		INSTRUMENTAL = "обожжённым черепом",
 		PREPOSITIONAL = "обожжённом черепе",
 	)
-
 
 /obj/item/clothing/head/roach
 	name = "roach"

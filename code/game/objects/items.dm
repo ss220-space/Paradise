@@ -272,7 +272,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	add_eatable_component()
 	scatter_item()
 
-
 /obj/item/proc/add_eatable_component()
 	AddComponent(/datum/component/eatable)
 
@@ -300,7 +299,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(WEIGHT_CLASS_GIGANTIC)
 			move_resist = MOVE_FORCE_NORMAL
 
-
 /obj/item/Destroy()
 	item_flags &= ~DROPDEL	//prevent reqdels
 	QDEL_NULL(hidden_uplink)
@@ -319,13 +317,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	return ..()
 
-
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
 		return FALSE
 	else
 		return TRUE
-
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc && !QDELETED(src) && !(obj_flags & IGNORE_BLOB_ACT))
@@ -368,7 +364,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		else
 			msg += span_danger("Технологические источники не обнаружены.<br>")
 
-
 		if(length(materials))
 			msg += span_notice("Извлекаемые материалы:<br>")
 			for(var/mat in materials)
@@ -387,14 +382,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				. += span_notice("Обнаружено запечатанное заклинание \"[S.name]\" внутри.<br>")
 				break
 
-
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
 		var/obj/effect/decal/cleanable/ash/A = new(T)
 		A.desc += "\nПохоже, когда-то это было [src.declent_ru(INSTRUMENTAL)]."
 		..()
-
 
 /obj/item/acid_melt()
 	if(!QDELETED(src))
@@ -405,10 +398,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		MO.desc = "Похоже, когда-то это было [src.declent_ru(INSTRUMENTAL)]."
 		..()
 
-
 /obj/item/proc/afterattack(atom/target, mob/user, proximity, params, status)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params, status)
-
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
 	. = ..()
@@ -473,20 +464,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	add_fingerprint(user)
 
-
 /**
  * If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
  */
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
 
-
 /**
  * If xenos can manipulate with this item.
  */
 /obj/item/proc/allowed_for_alien()
 	return FALSE
-
 
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
@@ -501,7 +489,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	attack_hand(A)
 
-
 /obj/item/attack_ai(mob/user as mob)
 	if(istype(src.loc, /obj/item/robot_module))
 		//If the item is part of a cyborg module, equip it
@@ -511,7 +498,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(!R.low_power_mode) //can't equip modules with an empty cell.
 			R.activate_module(src)
 			R.hud_used.update_robot_modules_display()
-
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
@@ -572,7 +558,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	return ..()
 
-
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!block_type || !(block_type & attack_type))
 		final_block_chance = 0
@@ -582,18 +567,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return signal_result
 	return FALSE
 
-
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
 // Returns TRUE on success, FALSE on failure.
 /obj/item/proc/use(used)
 	return !used
 
-
 //Generic refill proc. Transfers something (e.g. fuel, charge) from an atom to our tool. returns TRUE if it was successful, FALSE otherwise
 //Not sure if there should be an argument that indicates what exactly is being refilled
 /obj/item/proc/refill(mob/user, atom/A, amount)
 	return FALSE
-
 
 /obj/item/proc/talk_into(mob/M, text, channel=null)
 	return
@@ -628,7 +610,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		playsound(src, chosen_sound, DROP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 	return TRUE
 
-
 /**
  * Called just as an item is picked up (loc is not yet changed)
  */
@@ -640,7 +621,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	return TRUE
 
-
 /**
  * Called when this item is removed from a storage item, which is passed on as S.
  * The loc variable is already set to the new destination before this is called.
@@ -650,14 +630,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	do_drop_animation(S)
 
-
 /**
  * Called when this item is added into a storage item, which is passed on as S.
  * The loc variable is already set to the storage item.
  */
 /obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
 	item_flags |= IN_STORAGE
-
 
 /**
  * Called to check if this item can be put into a storage item.
@@ -670,20 +648,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/can_enter_storage(obj/item/storage/S, mob/user)
 	return TRUE
 
-
 /**
  * Called when "found" in pockets and storage items. Returns 1 if the search should end.
  */
 /obj/item/proc/on_found(mob/finder as mob)
 	return
 
-
 /**
  * Called when the giver gives it to the receiver.
  */
 /obj/item/proc/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
 	return
-
 
 /**
  * Called after an item is placed in an equipment slot.
@@ -724,7 +699,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	return TRUE
 
-
 /// Gives one of our item actions to a mob, when equipped to a certain slot
 /obj/item/proc/give_item_action(slot, mob/user, datum/action/action)
 	// Some items only give their actions buttons when in a specific slot.
@@ -736,7 +710,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 	action.Grant(user)
 
-
 /**
  * Some items only give their actions buttons when in a specific slot.
  */
@@ -745,7 +718,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(slot & (ITEM_SLOT_BACKPACK|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_HANDCUFFED))
 		return FALSE
 	return TRUE
-
 
 /**
  * Returns `TRUE` if the item is equipped by a mob, `FALSE` otherwise.
@@ -761,7 +733,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		return FALSE
 
-
 /**
  * This proc is called whenever mob's client presses 'drop_held_object' hotkey
  * Not for robots since they have their own key in [keybindinds/robot.dm]
@@ -769,7 +740,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  */
 /obj/item/proc/run_drop_held_item(mob/user)
 	user.drop_from_active_hand()
-
 
 /**
 * Puts item into best inventory slot.
@@ -826,7 +796,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	return FALSE
 
-
 /**
  * Additional can equip checks when equipping is done by the user, and not by the code: [/mob/verb/quick_equip]
  */
@@ -838,7 +807,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			to_chat(user, span_warning("Неведомая сила не позволяет Вам надеть [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 	return TRUE
-
 
 /**
  * Mob 'M' is attempting to equip this item into the slot passed through as 'slot'. Return `TRUE` if it can do this and `FALSE` if it can't.
@@ -855,7 +823,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated)
 
-
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
 	set name = "Pick up"
@@ -867,7 +834,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 	usr.UnarmedAttack(src)
 
-
 /**
  * This proc is executed when someone clicks the on-screen UI button.
  * The default action is attack_self().
@@ -878,20 +844,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 	attack_self(user)
 
-
 /**
  * This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
  */
 /obj/item/proc/IsReflect(def_zone)
 	return FALSE
 
-
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
 	while(L && !istype(L, /turf/))
 		L = L.loc
 	return loc
-
 
 /obj/item/proc/eyestab(mob/living/carbon/human/target, mob/living/user)
 	. = ATTACK_CHAIN_PROCEED
@@ -959,14 +922,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		target.apply_damage(7)
 
-
 /obj/item/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FOUR)
 		throw_at(S, 14, 3, spin = 0)
 	else
 		return
-
 
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(QDELETED(hit_atom))
@@ -1005,12 +966,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		playsound(src, get_drop_sound(), YEET_SOUND_VOLUME, ignore_walls = FALSE)
 
-
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force, dodgeable)
 	thrownby = thrower?.UID()
 	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
-
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if(callback) //call the original callback
@@ -1018,10 +977,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	throw_speed = initial(throw_speed) //explosions change this.
 	item_flags &= ~IN_INVENTORY
 
-
 /obj/item/proc/pwr_drain()
 	return FALSE // Process Kill
-
 
 /// please use this if you're going to snowflake an item out of a obj/item/storage
 /obj/item/proc/remove_item_from_storage(atom/newLoc)
@@ -1032,7 +989,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		S.remove_from_storage(src,newLoc)
 		return TRUE
 	return FALSE
-
 
 /obj/item/proc/wash(mob/user, atom/source)
 	if(item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
@@ -1049,20 +1005,16 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	)
 	return TRUE
 
-
 /// Returns an effectiveness of an item as a crunch, which allow mobs to stand if they are missing a leg/foot?
 /obj/item/proc/is_crutch()
 	return 0
-
 
 // Return true if you don't want regular throw handling
 /obj/item/proc/override_throw(mob/user, atom/target)
 	return FALSE
 
-
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
-
 
 /obj/item/attack_animal(mob/living/simple_animal/M)
 	if(!(obj_flags & IGNORE_HITS))
@@ -1074,14 +1026,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return ..()
 	return FALSE
 
-
 /obj/item/mech_melee_attack(obj/mecha/M)
 	return FALSE
 
-
 /obj/item/proc/openTip(location, control, params, user)
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
-
 
 /obj/item/MouseEntered(location, control, params)
 	. = ..()
@@ -1100,12 +1049,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		else
 			apply_outline(user) //if the player's alive and well we send the command with no color set, so it uses the theme's color
 
-
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
 	remove_outline()
-
 
 /obj/item/MouseDrop_T(atom/dropping, mob/user, params)
 	if(!user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
@@ -1116,7 +1063,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		S.swap_items(src, dropping, user)
 		return TRUE
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
-
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
 	if(!(item_flags & (IN_INVENTORY|IN_STORAGE)) || QDELETED(src) || isobserver(user)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
@@ -1147,17 +1093,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	outline_filter = filter(type = "outline", size = 1, color = outline_color)
 	filters += outline_filter
 
-
 /obj/item/proc/remove_outline()
 	if(outline_filter)
 		filters -= outline_filter
 		outline_filter = null
 
-
 // Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
 /obj/item/proc/get_part_rating()
 	return 0
-
 
 /obj/item/proc/update_equipped_item(update_buttons = TRUE, update_speedmods = TRUE)
 	if(!ismob(loc) || QDELETED(src) || QDELETED(loc))
@@ -1214,7 +1157,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		for(var/datum/action/action as anything in actions)
 			action.UpdateButtonIcon()
 
-
 /obj/item/proc/update_materials_coeff(new_coeff)
 	if(new_coeff <= 1)
 		materials_coeff = new_coeff
@@ -1222,7 +1164,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		materials_coeff = 1 / new_coeff
 	for(var/material in materials)
 		materials[material] *= materials_coeff
-
 
 /obj/item/proc/deplete_spell()
 	enchant_type = NO_SPELL
@@ -1238,10 +1179,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	. = ..()
 	update_equipped_item()
 
-
 /obj/item/proc/add_tape()
 	return
-
 
 /obj/item/proc/remove_tape()
 	return
@@ -1266,13 +1205,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		CRASH("Item holder is not in turf contents.")
 	forceMove(newloc)
 
-
 /**
  * Proc that checks if item is on user
  */
 /obj/item/proc/is_on_user(mob/living/user)
 	return user = get(src, /mob/living)
-
 
 /obj/item/proc/do_pickup_animation(atom/target)
 
@@ -1311,10 +1248,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	animation_matrix.Turn(pick(-30, 30))
 	animation_matrix.Scale(0.65)
 
-
 	animate(pickup, alpha = 175, pixel_x = target_x, pixel_y = target_y, time = 0.3 SECONDS, transform = animation_matrix, easing = CUBIC_EASING)
 	animate(alpha = 0, transform = matrix().Scale(0.7), time = 0.1 SECONDS)
-
 
 /obj/item/proc/do_drop_animation(atom/moving_from)
 
@@ -1358,7 +1293,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	// This is instant on byond's end, but to our clients this looks like a quick drop
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
-
 /// Default item sharpening effect.
 /// Return `FALSE` to stop sharpening.
 /obj/item/proc/sharpen_act(obj/item/whetstone/whetstone, mob/user)
@@ -1368,15 +1302,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	set_sharpness(TRUE)
 	return TRUE
 
-
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
 /obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	stack_trace("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
 
-
 /obj/item/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	return
-
 
 /// Conditional proc that allows ventcrawling with an item, if it has trait TRAIT_VENTCRAWLER_ITEM_BASED.
 /obj/item/proc/used_for_ventcrawling(mob/living/user, provide_feedback = TRUE)

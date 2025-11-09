@@ -142,7 +142,6 @@
 		B.basecolor = color
 		B.update_icon()
 
-
 /datum/reagent/slimetoxin
 	name = "Мутационный токсин"
 	id = "mutationtoxin"
@@ -176,7 +175,6 @@
 	if(method != REAGENT_TOUCH)
 		var/datum/disease/virus/transformation/slime/D = new
 		D.Contract(M)
-
 
 /datum/reagent/mercury
 	name = "Ртуть"
@@ -286,7 +284,6 @@
 	if(volume >= 3 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/greenglow(T)
 
-
 /datum/reagent/lexorin
 	name = "Лексорин"
 	id = "lexorin"
@@ -301,7 +298,6 @@
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
-
 /datum/reagent/acid
 	name = "Серная кислота"
 	id = "sacid"
@@ -314,7 +310,6 @@
 	clothing_penetration = 1
 	var/acidpwr = 10 //the amount of protection removed from the armour
 
-
 /datum/reagent/acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 
@@ -322,7 +317,6 @@
 		update_flags |= M.adjustFireLoss(1, FALSE)
 
 	return ..() | update_flags
-
 
 /datum/reagent/acid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(!ishuman(M))
@@ -367,7 +361,6 @@
 			if(H.has_pain())
 				H.emote("scream")
 
-
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()
 		return
@@ -375,14 +368,12 @@
 	volume = round(volume, 0.1)
 	O.acid_act(acidpwr, volume)
 
-
 /datum/reagent/acid/reaction_turf(turf/T, volume)
 	if(!istype(T))
 		return
 
 	volume = round(volume, 0.1)
 	T.acid_act(acidpwr, volume)
-
 
 /datum/reagent/acid/facid
 	name = "Фторсерная кислота"
@@ -392,7 +383,6 @@
 	acidpwr = 42
 	//acid is not using permeability_coefficient to calculate protection, but armour["acid"]
 
-
 /datum/reagent/acid/facid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 
@@ -400,7 +390,6 @@
 		update_flags |= M.adjustToxLoss(0.5, FALSE)
 
 	return ..() | update_flags
-
 
 /datum/reagent/acid/facid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(!ishuman(M))
@@ -445,7 +434,6 @@
 
 	to_chat(H, span_warning("Синеватое кислотное вещество жжёт вашу кожу[volume < 5 ? ", но оно недостаточно концентрированное, чтобы нанести вам вред" : null]!"))
 
-
 /datum/reagent/acetic_acid
 	name = "Уксусная кислота"
 	id = "acetic_acid"
@@ -453,7 +441,6 @@
 	color = "#0080ff"
 	reagent_state = LIQUID
 	taste_description = "уксуса"
-
 
 /datum/reagent/acetic_acid/reaction_mob(mob/M, method = REAGENT_TOUCH, volume)
 	if(!ishuman(M))
@@ -484,7 +471,6 @@
 			H.take_overall_damage(2)
 			H.emote("scream")
 
-
 /datum/reagent/proc/acid_proof_species(mob/living/carbon/human/H)
 	if(!istype(H))
 		return FALSE // skip check
@@ -493,7 +479,6 @@
 		return TRUE // acid proof species
 
 	return FALSE
-
 
 /datum/reagent/carpotoxin
 	name = "Карпотоксин"
@@ -523,7 +508,6 @@
 	data = max(data - 1, 3)
 	return ..() | update_flags
 
-
 /datum/reagent/toxin/spore
 	name = "Споровый токсин"
 	description = "Природный токсин, вырабатываемый спорами блоба, который при попадании в организм подавляет зрение."
@@ -551,7 +535,6 @@
 	. = ..()
 	affected_mob.adjust_fire_stacks(2 * REM * seconds_per_tick)
 	affected_mob.IgniteMob()
-
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Пиво"
@@ -1154,7 +1137,6 @@
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 
-
 /datum/reagent/glyphosate/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -1167,14 +1149,12 @@
 		M.apply_damage(100)
 		..()
 
-
 /datum/reagent/glyphosate/atrazine
 	name = "Атразин"
 	id = "atrazine"
 	description = "Гербицидное соединение, используемое для уничтожения нежелательных растений."
 	color = "#773E73" //RGB: 47 24 45
 	lethality = 2 //Atrazine, however, is definitely toxic
-
 
 /datum/reagent/pestkiller // To-Do; make this more realistic.
 	name = "Пестицид"
@@ -1336,7 +1316,6 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "электричества"
 
-
 /datum/reagent/teslium/on_mob_life(mob/living/affected_mob)
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
@@ -1345,20 +1324,17 @@
 		playsound(affected_mob, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
 
-
 /datum/reagent/teslium/on_mob_add(mob/living/carbon/human/affected_mob)
 	. = ..()
 	if(!ishuman(affected_mob))
 		return .
 	affected_mob.physiology.siemens_coeff *= 2
 
-
 /datum/reagent/teslium/on_mob_delete(mob/living/carbon/human/affected_mob)
 	. = ..()
 	if(!ishuman(affected_mob))
 		return .
 	affected_mob.physiology.siemens_coeff *= 0.5
-
 
 /datum/reagent/gluttonytoxin
 	name = "Благословение Чревоугодия"

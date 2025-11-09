@@ -14,7 +14,6 @@
 	var/mover_dir = null
 	var/ini_dir = null
 
-
 /obj/structure/tribune/Initialize(mapload)
 	. = ..()
 	handle_layer()
@@ -22,7 +21,6 @@
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/structure/tribune/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -46,7 +44,6 @@
 /obj/structure/tribune/proc/after_rotation(mob/user)
 	add_fingerprint(user)
 
-
 /obj/structure/tribune/setDir(newdir)
 	. = ..()
 	handle_layer()
@@ -69,12 +66,10 @@
 	after_rotation(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/structure/tribune/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(dir != border_dir || (mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return TRUE
-
 
 /obj/structure/tribune/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -94,7 +89,6 @@
 	if(density && dir == get_dir(leaving, newLoc))
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
-
 
 /obj/structure/tribune/centcom
 	name = "CentCom tribune"

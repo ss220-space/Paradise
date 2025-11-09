@@ -3,7 +3,6 @@
 // Requires high amount of power
 // Requires high level stock parts
 
-
 /// Delay between shots in burst mode
 #define BSA_BURST_SHOT_DELAY 0.5
 /// Spread by every axis (x, y) for signal calibration
@@ -42,7 +41,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/shots_count
 	var/delay_between_shots = BSA_BURST_SHOT_DELAY
 
-
 /datum/bluespace_cannon_fire_mode/proc/fire(obj/machinery/bsa/full/cannon, mob/user, turf/target, target_signal)
 	var/turf/impact_turf = cannon.spread(target, spread)
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, TRUE)
@@ -64,7 +62,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	message_admins("[key_name_admin(user)] has launched an artillery strike with power=([power[1]],[power[2]],[power[3]]) into [ADMIN_COORDJMP(impact_turf)].")
 	log_admin("[key_name_log(user)] has launched an artillery strike with power=([power[1]],[power[2]],[power[3]]) mode into [COORD(impact_turf)].") // Line below handles logging the explosion to disk
 	explosion(impact_turf, devastation_range = power[1], heavy_impact_range = power[2], light_impact_range = power[3], cause = "Bluespace artillery strike")
-
 
 /datum/bluespace_cannon_fire_mode/power
 	name = "Мощный выстрел"
@@ -97,7 +94,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	power = list(0, 1, 5)
 	shots_count = 5
 
-
 /// BSA Cannon
 /datum/station_goal/bluespace_cannon
 	name = "Блюспейс Артиллерия"
@@ -118,7 +114,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		Основные части артиллерии должны быть доступны для заказа в отделе снабжения.
 		<br>
 		– Центральное Командование Nanotrasen"}
-
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
@@ -157,7 +152,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/bsa/back/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
 
-
 /obj/machinery/bsa/back/multitool_act(mob/living/user, obj/item/I)
 	if(!istype(I, /obj/item/multitool))
 		return FALSE
@@ -167,7 +161,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/obj/item/multitool/multitool = I
 	multitool.buffer = src
 	to_chat(user, span_notice("Вы сохранили информацию о соединении в буфере [multitool.declent_ru(GENITIVE)]."))
-
 
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
@@ -187,7 +180,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/bsa/front/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
 
-
 /obj/machinery/bsa/front/multitool_act(mob/living/user, obj/item/I)
 	if(!istype(I, /obj/item/multitool))
 		return FALSE
@@ -197,7 +189,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/obj/item/multitool/multitool = I
 	multitool.buffer = src
 	to_chat(user, span_notice("Вы сохранили информацию о соединении в буфере [multitool.declent_ru(GENITIVE)]."))
-
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
@@ -219,7 +210,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/bsa/middle/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
 
-
 /obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/I)
 	if(!istype(I, /obj/item/multitool))
 		return FALSE
@@ -239,7 +229,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		front = multitool.buffer
 		multitool.buffer = null
 		to_chat(user, span_notice("Вы соединили [src.declent_ru(ACCUSATIVE)] с [front.declent_ru(INSTRUMENTAL)]."))
-
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
@@ -660,7 +649,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	update_icon()
 	return TRUE
 
-
 /obj/machinery/computer/bsa_control/ui_close(mob/user)
 	cam_screen?.hide_from(user)
 	user.client.images -= crosshair
@@ -758,7 +746,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	qdel(centerpiece)
 	return cannon
 
-
 /obj/machinery/computer/bsa_control/proc/coord_aim(mob/user, params)
 	var/axis = params["axis"]
 	var/value = text2num(params["value"])
@@ -788,7 +775,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 	cam_screen.show_camera(visible_turfs, size_x, size_y)
-
 
 #undef BSA_BURST_SHOT_DELAY
 #undef BSA_CALIBRATION_ACCURACY

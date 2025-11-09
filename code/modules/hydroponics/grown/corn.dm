@@ -36,7 +36,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 
-
 /obj/item/grown/corncob/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
 		to_chat(user, span_notice("You have used [I] to fashion a pipe out of the corn cob."))
@@ -49,7 +48,6 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 // Snapcorn
 /obj/item/seeds/corn/snapcorn

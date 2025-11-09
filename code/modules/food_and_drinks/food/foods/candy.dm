@@ -26,7 +26,6 @@
 	filling_color = "#DB944D"
 	list_reagents = list("cream" = 2, "sugar" = 2)
 
-
 /obj/item/reagent_containers/food/snacks/candy/toffee
 	name = "toffee"
 	desc = "A hard, brittle candy with a distinctive taste."
@@ -131,7 +130,6 @@
 	list_reagents = list("nutriment" = 1, "chocolate" = 1)
 	tastes = list("chocolate" = 1)
 
-
 /obj/item/reagent_containers/food/snacks/candy/candycane
 	name = "candy cane"
 	desc = "A festive mint candy cane."
@@ -176,7 +174,6 @@
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
 	tastes = list("chocolate" = 1)
 
-
 /obj/item/reagent_containers/food/snacks/candy/coin
 	name = "chocolate coin"
 	desc = "Probably won't work in the vending machines."
@@ -185,7 +182,6 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
 	tastes = list("chocolate" = 1)
-
 
 /obj/item/reagent_containers/food/snacks/candy/gum
 	name = "bubblegum"

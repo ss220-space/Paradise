@@ -81,7 +81,6 @@
 		PREPOSITIONAL = "пустом ядре малой аномалии",
 	)
 
-
 /obj/item/assembly/signaler/core/atmospheric/tier1
 	name = "ядро малой атмосферной аномалии"
 	desc = "Стабилизированное ядро ​малой атмосферной аномалии. На ощупь прохладное. Вероятно, оно пригодится для исследований."
@@ -171,7 +170,6 @@
 		INSTRUMENTAL = "ядром малой вихревой аномалии", \
 		PREPOSITIONAL = "ядре малой вихревой аномалии",
 	)
-
 
 // ============================ Tier 2 ===================================
 /obj/item/assembly/signaler/core/tier2
@@ -272,7 +270,6 @@
 		PREPOSITIONAL = "ядре ​​вихревой аномалии",
 	)
 
-
 // ============================ Tier 3 ===================================
 /obj/item/assembly/signaler/core/tier3
 	name = "пустое ядро большой аномалии"
@@ -352,7 +349,6 @@
 	H.apply_status_effect(/datum/status_effect/freon)
 	H.ExtinguishMob()
 	H.adjust_bodytemperature(-get_strength())
-
 
 /obj/item/assembly/signaler/core/gravitational/tier3
 	name = "ядро большой гравитационной аномалии"
@@ -499,7 +495,6 @@
 	else
 		return FALSE
 
-
 /obj/item/assembly/signaler/core/vortex/tier3
 	name = "ядро большой вихревой аномалии"
 	desc = "Стабилизированное ядро большой ​​вихревой аномалии. Предметы вокруг ядра опасно подрагивают."
@@ -517,7 +512,6 @@
 		INSTRUMENTAL = "ядром большой вихревой аномалии",
 		PREPOSITIONAL = "ядре большой вихревой аномалии",
 	)
-
 
 // ============================ Tier4 (admin spawn only) ===================================
 /obj/item/assembly/signaler/core/tier3/tier4

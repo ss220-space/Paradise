@@ -53,7 +53,6 @@
 		target.clear_alert("not_enough_oxy")
 		target.clear_alert("too_much_oxy")
 
-
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
 		atmos_suitable = FALSE
 		target.throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
@@ -64,12 +63,10 @@
 		target.clear_alert("too_much_tox")
 		target.clear_alert("not_enough_tox")
 
-
 	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
 		atmos_suitable = FALSE
 	else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
 		atmos_suitable = FALSE
-
 
 	if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
 		atmos_suitable = FALSE

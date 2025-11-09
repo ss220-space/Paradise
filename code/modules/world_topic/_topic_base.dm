@@ -4,7 +4,6 @@
 	/// Set this to TRUE if the topic handler needs an authorised comms key
 	var/requires_commskey = FALSE
 
-
 /**
  * Invokes the world/Topic handler
  *

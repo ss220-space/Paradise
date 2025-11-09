@@ -29,7 +29,6 @@
 		PREPOSITIONAL = "точильном камне",
 	)
 
-
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	if(!uses)
@@ -68,16 +67,13 @@
 	uses--
 	update_appearance()
 
-
 /obj/item/whetstone/update_name(updates = ALL)
 	. = ..()
 	name = "[!uses ? "worn out " : ""][initial(name)]"
 
-
 /obj/item/whetstone/update_desc(updates = ALL)
 	. = ..()
 	desc = "[initial(desc)][!uses ? " По крайней мере, раньше мог." : ""]"
-
 
 /obj/item/whetstone/attack_self(mob/living/carbon/human/user)
 	. = ..()
@@ -99,7 +95,6 @@
 	playsound(src, usesound, 50, TRUE)
 	uses--
 	update_appearance()
-
 
 /obj/item/whetstone/super
 	name = "super whetstone block"
@@ -131,7 +126,6 @@
 	increment = 2
 	uses = 2
 
-
 /obj/item/whetstone/crab_shell/get_ru_names()
 	return list(
 		NOMINATIVE = "панцирь пепельного рака",
@@ -141,7 +135,6 @@
 		INSTRUMENTAL = "панцирем пепельного рака",
 		PREPOSITIONAL = "панцире пепельного рака",
 	)
-
 
 /obj/item/whetstone/anti
 	desc = "Каменный брусок для затупки инструментов."

@@ -21,7 +21,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/long_range_enabled = FALSE
 	req_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
 
-
 	/// ID card inserted into the machine, used to log in with
 	var/obj/item/card/id/scan = null
 
@@ -98,7 +97,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -123,7 +121,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
@@ -177,7 +174,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if(cooldown_seconds)
 			data["sendError"] = "Перенастройка через [cooldown_seconds] секунд[numeric_ending(cooldown_seconds, "", "у", "ы")]"
 	return data
-
 
 /obj/machinery/photocopier/faxmachine/ui_act(action, params)
 	if(..())
@@ -301,7 +297,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(.)
 		add_fingerprint(usr)
 
-
 /obj/machinery/photocopier/faxmachine/proc/scan(obj/item/card/id/card)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
@@ -333,7 +328,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	scan = card
 	SStgui.update_uis(src)
 	return TRUE
-
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
 	set name = "Достать ID-карту"

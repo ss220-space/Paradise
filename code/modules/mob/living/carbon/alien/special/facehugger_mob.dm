@@ -115,7 +115,6 @@
 		return
 	. = ..()
 
-
 /mob/living/simple_animal/hostile/facehugger/OpenFire(atom/A)
 	if(impregnated)
 		return
@@ -192,7 +191,6 @@
 		QDEL_NULL(hugger_holder)
 		return (M.a_intent == INTENT_GRAB)? FALSE : ..()
 	return result
-
 
 /mob/living/simple_animal/hostile/facehugger/attack_proc()
 	if(impregnated)
@@ -305,7 +303,6 @@
 /mob/living/simple_animal/hostile/facehugger/pick_up_mob(mob/living/carbon/human_to_ask)
 	var/obj/item/hugger = get_scooped(human_to_ask)
 	hugger.attack_hand(human_to_ask)
-
 
 /mob/living/simple_animal/hostile/facehugger/get_scooped(mob/living/carbon/grabber)
 	if(!holder_type)

@@ -49,7 +49,6 @@
 		for(var/obj/item/I in loadedItems)
 			. += span_notice("[icon2html(I, user)] It has \a [I] loaded.")
 
-
 /obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!tank)
@@ -63,7 +62,6 @@
 	tank = null
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/pneumatic_cannon/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -71,11 +69,9 @@
 	pressure_setting = pressure_setting >= HIGH_PRESSURE ? LOW_PRESSURE : pressure_setting + 1
 	to_chat(user, span_notice("You tweak pressure output to [pressure_setting_to_text(pressure_setting)]."))
 
-
 /obj/item/pneumatic_cannon/return_analyzable_air()
 	if(tank)
 		return tank.return_analyzable_air()
-
 
 /obj/item/pneumatic_cannon/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -120,7 +116,6 @@
 	loadedWeightClass += I.w_class
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
 	. = ..()
 	if(flag && user.a_intent == INTENT_HARM) // Melee attack
@@ -130,7 +125,6 @@
 	if(loc != user)
 		return .
 	Fire(user, target)
-
 
 /obj/item/pneumatic_cannon/proc/Fire(mob/living/carbon/human/user, atom/target)
 	if(!istype(user) && !target)
@@ -193,12 +187,10 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-
 /obj/item/pneumatic_cannon/update_overlays()
 	. = ..()
 	if(tank)
 		. += "[tank.icon_state]"
-
 
 #undef LOW_PRESSURE
 #undef MID_PRESSURE

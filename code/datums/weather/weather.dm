@@ -130,7 +130,6 @@
 	for(var/area/impacted_area as anything in impacted_areas)
 		SEND_SIGNAL(impacted_area, COMSIG_WEATHER_ENDED_IN_AREA(type), src)
 
-
 /// Can this weather impact a mob?
 /datum/weather/proc/can_weather_act(mob/living/mob_to_check)
 	var/turf/mob_turf = get_turf(mob_to_check)
@@ -160,7 +159,6 @@
 /datum/weather/proc/weather_act(mob/living/target) //What effect does this weather have on the hapless mob?
 	return
 
-
 /datum/weather/proc/update_areas()
 	var/list/new_overlay_cache = generate_overlay_cache()
 	for(var/area/impacted as anything in impacted_areas)
@@ -181,7 +179,6 @@
 		// save the old blend mode state
 		impacted_areas_blend_modes[impacted] = impacted.blend_mode
 		impacted.blend_mode = BLEND_OVERLAY
-
 
 	overlay_cache = new_overlay_cache
 

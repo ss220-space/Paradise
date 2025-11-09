@@ -132,7 +132,6 @@ SUBSYSTEM_DEF(blackbox)
 	if(!(tech in research_levels) || research_levels[tech] < level)
 		research_levels[tech] = level
 
-
 /**
  * Radio broadcast logging helper
  *
@@ -176,7 +175,6 @@ SUBSYSTEM_DEF(blackbox)
 			record_feedback("tally", "radio_usage", 1, "procedure")
 		else
 			record_feedback("tally", "radio_usage", 1, "other")
-
 
 /**
  * Helper to find and return a feeedback datum

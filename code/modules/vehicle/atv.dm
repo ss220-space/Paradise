@@ -9,7 +9,6 @@
 	integrity_failure = 0.5
 	var/static/mutable_appearance/atvcover
 
-
 /obj/vehicle/ridden/atv/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/atv)
@@ -25,7 +24,6 @@
 		cut_overlay(atvcover)
 	return ..()
 
-
 /obj/vehicle/ridden/atv/Destroy()
 	atvcover = null
 	return ..()
@@ -34,23 +32,19 @@
 /obj/vehicle/ridden/atv/turret
 	var/obj/machinery/porta_turret/syndicate/vehicle_turret/turret = /obj/machinery/porta_turret/syndicate/vehicle_turret
 
-
 /obj/vehicle/ridden/atv/turret/Initialize(mapload)
 	. = ..()
 	turret = new turret(loc)
 	RegisterSignal(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(on_glide_size_update))
 	RegisterSignal(turret, COMSIG_QDELETING, PROC_REF(on_turret_deleting))
 
-
 /obj/vehicle/ridden/atv/turret/Destroy()
 	QDEL_NULL(turret)
 	return ..()
 
-
 /obj/vehicle/ridden/atv/turret/proc/on_glide_size_update(datum/source, new_glide_size)
 	SIGNAL_HANDLER
 	turret?.set_glide_size(new_glide_size)
-
 
 /obj/vehicle/ridden/atv/turret/proc/on_turret_deleting(datum/source)
 	SIGNAL_HANDLER
@@ -83,10 +77,8 @@
 			turret.pixel_y = base_pixel_y + 4
 			turret.layer = OBJ_LAYER
 
-
 /obj/vehicle/ridden/atv/turret/fast
 	turret = /obj/machinery/porta_turret/syndicate/vehicle_turret/fast
-
 
 /obj/machinery/porta_turret/syndicate/vehicle_turret
 	name = "mounted turret"
@@ -95,12 +87,10 @@
 	density = FALSE
 	layer = OBJ_LAYER + 0.01
 
-
 /obj/machinery/porta_turret/syndicate/vehicle_turret/fast
 	projectile = /obj/projectile/bullet/weakbullet4/c45nr
 	eprojectile = /obj/projectile/bullet/weakbullet4/c45nr
 	shot_delay = 0.2 SECONDS
-
 
 /obj/machinery/porta_turret/syndicate/vehicle_turret/fast/Initialize(mapload)
 	. = ..()

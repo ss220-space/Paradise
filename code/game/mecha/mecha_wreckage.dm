@@ -2,7 +2,6 @@
 ////////  Mecha wreckage   ////////
 ///////////////////////////////////
 
-
 /obj/structure/mecha_wreckage
 	name = "exosuit wreckage"
 	desc = "Remains of some unfortunate mecha. Completely unrepairable, but perhaps something can be salvaged."
@@ -223,7 +222,6 @@
 /obj/structure/mecha_wreckage/phazon
 	name = "Phazon wreckage"
 	icon_state = "phazon-broken"
-
 
 /obj/structure/mecha_wreckage/odysseus
 	name = "Odysseus wreckage"

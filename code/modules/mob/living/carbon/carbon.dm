@@ -2,7 +2,6 @@
 	. = ..()
 	GLOB.carbon_list += src
 
-
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
@@ -18,11 +17,9 @@
 	GLOB.carbon_list -= src
 	return ..()
 
-
 /mob/living/carbon/handle_atom_del(atom/A)
 	LAZYREMOVE(processing_patches, A)
 	return ..()
-
 
 /mob/living/carbon/blob_act(obj/structure/blob/B)
 	if(stat == DEAD)
@@ -30,7 +27,6 @@
 	else
 		show_message(span_userdanger("Блоб атакует!"))
 		adjustBruteLoss(10)
-
 
 /mob/living/carbon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -69,10 +65,8 @@
 
 #undef STOMACH_ATTACK_DELAY
 
-
 /mob/living/carbon/proc/has_mutated_organs()
 	return FALSE
-
 
 /mob/living/carbon/proc/vomit(
 	lost_nutrition = VOMIT_NUTRITION_LOSS,
@@ -138,7 +132,6 @@
 
 	return FALSE
 
-
 /mob/living/carbon/gib()
 	. = death(TRUE)
 	if(!.)
@@ -200,14 +193,12 @@
 
 	return shock_damage
 
-
 /// Called slightly after electrocute act to apply a secondary stun.
 /mob/living/carbon/proc/secondary_shock(knockdown, stun_duration)
 	if(knockdown)
 		Knockdown(stun_duration)
 	else
 		Weaken(stun_duration)
-
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if(health >= HEALTH_THRESHOLD_CRIT)
@@ -277,7 +268,6 @@
 							H.wear_suit.add_fingerprint(M)
 						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
-
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
@@ -365,7 +355,6 @@
 	if((isskeleton(H) || HAS_TRAIT(H, TRAIT_SKELETON)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
-
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	. = ..()
 	var/damage = intensity - check_eye_prot()
@@ -433,14 +422,11 @@
 	if(!dna)
 		dna = new()
 
-
 /mob/living/carbon/proc/getDNA()
 	return dna
 
-
 /mob/living/carbon/proc/setDNA(datum/dna/newDNA)
 	dna = newDNA
-
 
 /mob/living/carbon/can_ventcrawl(obj/machinery/atmospherics/ventcrawl_target, provide_feedback = TRUE, entering = FALSE)
 	. = ..()
@@ -458,7 +444,6 @@
 		if(provide_feedback)
 			balloon_alert(src, "ваши предметы мешают!")
 		return FALSE
-
 
 //Throwing stuff
 
@@ -506,7 +491,6 @@
 	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
 	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
 
-
 /mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	/*
 	for(var/obj/item/twohanded/dualsaber/D in contents)
@@ -522,7 +506,6 @@
 	. = ..()
 	Weaken(3 SECONDS)
 
-
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(in_throw_mode)
 		throw_mode_off()
@@ -532,7 +515,6 @@
 	if(I)
 		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
-
 #define THROW_MODE_ICON 'icons/effects/cult_target.dmi'
 
 /mob/living/carbon/proc/throw_mode_off()
@@ -541,7 +523,6 @@
 		throw_icon.icon_state = "act_throw_off"
 	if(client?.mouse_pointer_icon == THROW_MODE_ICON)
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
-
 
 /mob/living/carbon/proc/throw_mode_on()
 	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
@@ -559,12 +540,10 @@
 
 #undef THROW_MODE_ICON
 
-
 /mob/proc/throw_item(atom/target)
 	SEND_SIGNAL(src, COMSIG_MOB_THROW, target)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CARBON_THROW_THING, src, target)
 	return TRUE
-
 
 /mob/living/carbon/proc/get_throw_speed(speed)
 	var/list/speed_mods = list()
@@ -573,7 +552,6 @@
 		speed *= mod
 
 	return speed
-
 
 /mob/living/carbon/proc/get_throw_range(range)
 	var/list/range_deltas = list()
@@ -585,7 +563,6 @@
 		range += delta
 
 	return max(0, range)
-
 
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
@@ -673,7 +650,6 @@
 	newtonian_move(get_dir(target, src))
 	thrown_thing.throw_at(target, range, speed, src, null, null, null, move_force)
 
-
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse(method)	//method 0 is for hands, 1 is for machines, more accurate
 	var/temp = 0								//see setup.dm:694
@@ -696,11 +672,9 @@
 			return method ? ">250" : "очень слабый и быстрый"
 //			output for machines^	^^^^^^^output for people^^^^^^^^^
 
-
 /mob/living/carbon/on_fall()
 	. = ..()
 	loc?.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
-
 
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
@@ -748,11 +722,8 @@
 
 	to_chat(src, span_warning("Вам не удалось себя отстегнуть."))
 
-
-
 /mob/living/carbon/resist_fire()
 	return !!apply_status_effect(STATUS_EFFECT_DROPNROLL)
-
 
 /mob/living/carbon/emp_act(severity)
 	..()
@@ -775,7 +746,6 @@
 
 	..()
 	return loc.handle_slip(src, weaken, slipped_on, lube_flags, tilesSlipped)
-
 
 /mob/living/carbon/proc/eat(obj/item/reagent_containers/food/toEat, mob/user, bitesize_override)
 	if(!istype(toEat))
@@ -806,7 +776,6 @@
 	SSticker.score.score_food_eaten++
 	return TRUE
 
-
 /mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
 		to_chat(src, span_notice("Вы [toEat.apply_method]ли [toEat.declent_ru(ACCUSATIVE)]."))
@@ -827,10 +796,8 @@
 			return FALSE
 	return TRUE
 
-
 /mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
 	return TRUE
-
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
@@ -844,7 +811,6 @@
 			return FALSE
 	visible_message(span_warning("[user] заставля[PLUR_ET_YUT(user)] [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 	return TRUE
-
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
@@ -867,7 +833,6 @@ so that different stomachs can handle things in different ways VB*/
 			toEat.reagents.reaction(src, toEat.apply_type, fraction)
 			toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
 
-
 /mob/living/carbon/proc/can_breathe_gas()
 	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return FALSE
@@ -884,7 +849,6 @@ so that different stomachs can handle things in different ways VB*/
 
 	return FALSE
 
-
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
 	if(!GLOB.tinted_weldhelh)
@@ -897,11 +861,9 @@ so that different stomachs can handle things in different ways VB*/
 	else
 		clear_fullscreen("tint", 0)
 
-
 /// Checks eye covering items for visually impairing tinting, such as welding masks. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = casual blindness.
 /mob/living/proc/get_total_tint()
 	. = 0
-
 
 /mob/living/carbon/get_total_tint()
 	. = ..()
@@ -911,18 +873,15 @@ so that different stomachs can handle things in different ways VB*/
 	if(wear_mask)
 		. += wear_mask.tint
 
-
 /mob/living/carbon/human/get_total_tint()
 	. = ..()
 	if(glasses)
 		var/obj/item/clothing/glasses/G = glasses
 		. += G.tint
 
-
 /mob/living/carbon/proc/shock_internal_organs(intensity)
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		organ.shock_organ(intensity)
-
 
 /mob/living/carbon/update_sight()
 	if(!client)
@@ -961,14 +920,12 @@ so that different stomachs can handle things in different ways VB*/
 
 	..()
 
-
 /mob/living/carbon/ExtinguishMob()
 	for(var/X in get_equipped_items())
 		var/obj/item/I = X
 		I.acid_level = 0 //washes off the acid on our clothes
 		I.extinguish() //extinguishes our clothes
 	..()
-
 
 /mob/living/carbon/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(head)
@@ -985,7 +942,6 @@ so that different stomachs can handle things in different ways VB*/
 			clean_hands = FALSE
 	..(clean_hands, clean_mask, clean_feet)
 
-
 /mob/living/carbon/proc/shock_reduction()
 	var/shock_reduction = 0
 	if(reagents)
@@ -994,7 +950,6 @@ so that different stomachs can handle things in different ways VB*/
 				shock_reduction += R.shock_reduction
 	return shock_reduction
 
-
 /mob/living/carbon/can_change_move_intent(silent = FALSE)
 	if(m_intent == MOVE_INTENT_WALK && legcuffed)
 		if(!silent)
@@ -1002,13 +957,11 @@ so that different stomachs can handle things in different ways VB*/
 		return FALSE
 	return ..()
 
-
 /mob/living/carbon/lying_angle_on_lying_down(new_lying_angle)
 	if(!new_lying_angle)
 		set_lying_angle(pick(90, 270))
 	else
 		set_lying_angle(new_lying_angle)
-
 
 /mob/living/carbon/set_body_position(new_value)
 	. = ..()
@@ -1042,12 +995,10 @@ so that different stomachs can handle things in different ways VB*/
 	if(should_vomit)
 		fakevomit()
 
-
 /mob/living/carbon/on_no_breath_trait_gain(datum/source)
 	. = ..()
 
 	co2overloadtime = 0
-
 
 /mob/living/carbon/check_smart_brain()
 	var/obj/item/organ/internal/brain/mobs_brain = get_organ_slot(INTERNAL_ORGAN_BRAIN)

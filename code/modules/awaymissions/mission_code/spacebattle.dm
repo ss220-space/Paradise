@@ -232,14 +232,12 @@
 	var/faction = null
 	var/safety_z_check = TRUE
 
-
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -263,13 +261,11 @@
 			triggered = TRUE
 	qdel(src)
 
-
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn
 	name = "spawner"
 	icon = 'icons/obj/spacebattle.dmi'
 	var/id = null
 	var/syndi_mob = null
-
 
 /mob/living/proc/spawn_alert(atom/A) // Вызывает появление восклицательного знака над головой при наступании на маркер
 	var/image/I
@@ -281,7 +277,6 @@
 	flick_overlay(I,viewing,8)
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
-
 
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/melee
 	name = "melee"
@@ -554,7 +549,6 @@
 	id = /obj/item/card/id/away/old
 	uniform = /obj/item/clothing/under/color/random
 	shoes = /obj/item/clothing/shoes/black
-
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/security
 	name = "Dead Officer"

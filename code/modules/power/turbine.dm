@@ -44,7 +44,6 @@
 	var/efficiency
 	var/rpm_threshold = NONE
 
-
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
 	desc = "A gas turbine used for backup power generation."
@@ -109,7 +108,6 @@
 		E += M.rating
 	efficiency = E / 6
 
-
 /obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -118,7 +116,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/power/compressor/wrench_act(mob/living/user, obj/item/I)
 	. = default_change_direction_wrench(user, I)
@@ -133,7 +130,6 @@
 	else
 		to_chat(user, span_warning("The turbine is not connected."))
 		stat |= BROKEN
-
 
 /obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -170,7 +166,6 @@
 
 	rpm = max(0, rpm - (rpm*rpm)/(COMPFRICTION*efficiency))
 
-
 	if(starter && !(stat & NOPOWER))
 		use_power(2800)
 		if(rpm<1000)
@@ -178,7 +173,6 @@
 	else
 		if(rpm<1000)
 			rpmtarget = 0
-
 
 	var/new_rpm_threshold
 	switch(rpm)
@@ -204,7 +198,6 @@
 	if(!rpm_threshold)
 		return
 	. += image(icon, icon_state = "comp-o[rpm_threshold]", layer = FLY_LAYER)
-
 
 // These are crucial to working of a turbine - the stats modify the power output. TurbGenQ modifies how much raw energy can you get from
 // rpms, TurbGenG modifies the shape of the curve - the lower the value the less straight the curve is.
@@ -292,14 +285,12 @@
 		return
 	. += image(icon, icon_state = "turb-o", layer = FLY_LAYER)
 
-
 /obj/machinery/power/turbine/attack_hand(mob/user)
 
 	if(..())
 		return
 
 	interact(user)
-
 
 /obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -310,10 +301,8 @@
 
 	return ..()
 
-
 /obj/machinery/power/turbine/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I)
-
 
 /obj/machinery/power/turbine/wrench_act(mob/living/user, obj/item/I)
 	. = default_change_direction_wrench(user, I)
@@ -329,10 +318,8 @@
 		to_chat(user, span_warning("The compressor is not connected."))
 		stat |= BROKEN
 
-
 /obj/machinery/power/turbine/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/power/turbine/interact(mob/user)
 
@@ -373,16 +360,10 @@
 
 	updateDialog()
 
-
-
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // COMPUTER NEEDS A SERIOUS REWRITE.
-
-
 
 /obj/machinery/computer/turbine_computer/Initialize(mapload)
 	. = ..()

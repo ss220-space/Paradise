@@ -25,7 +25,6 @@ GLOBAL_LIST_INIT(month_names, list("January", "February", "March", "April", "May
 // keep si_suffixes balanced and with a pivot in the middle!
 GLOBAL_LIST_INIT(si_suffixes, list("y", "z", "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"))
 
-
 GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"CentComm",
 	"ERT",
@@ -51,7 +50,6 @@ GLOBAL_LIST_EMPTY(ruin_landmarks)
 
 /// List of all the maps that have been cached for /proc/load_map
 GLOBAL_LIST_EMPTY(cached_maps)
-
 
 GLOBAL_LIST_INIT(round_end_sounds, list(
 		'sound/AI/newroundsexy.ogg' = 2.3 SECONDS,
@@ -82,13 +80,11 @@ GLOBAL_LIST_INIT(all_taipan_jobs, list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTA
 /// List of looping sounds
 GLOBAL_LIST_EMPTY(looping_sounds)
 
-
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
 
 /// List of cargo consoles that print reports on completed/expired orders
 GLOBAL_LIST_EMPTY(cargo_announcers)
-
 
 GLOBAL_LIST_EMPTY(devil_contracts)
 

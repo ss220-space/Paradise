@@ -55,7 +55,6 @@
 /mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	return 0
 
-
 /// As the name suggests, this should be called to apply electric shocks.
 /mob/living/proc/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags) & COMPONENT_LIVING_BLOCK_SHOCK)
@@ -97,12 +96,10 @@
 	if(stat == DEAD)
 		forceMove(voring_core)
 
-
 /mob/living/emp_act(severity)
 	..()
 	for(var/obj/O in contents)
 		O.emp_act(severity)
-
 
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
 	if(throwforce && w_class)
@@ -111,7 +108,6 @@
 		return clamp(w_class * 8, 20, 100) // Multiply the item's weight class by 8, then clamp the value between 20 and 100
 	else
 		return 0
-
 
 /**
  * This proc handles being hit by a thrown atom.
@@ -151,13 +147,11 @@
 
 	return ..()
 
-
 /**
  * Proc that checks if our mob is strong enough to prevent mecha melee attacks from pushing and paralyzing
  */
 /mob/living/proc/is_strong()
 	return FALSE
-
 
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
@@ -206,7 +200,6 @@
 		return TRUE
 	return FALSE
 
-
 /mob/living/proc/ExtinguishMob()
 	if(on_fire)
 		on_fire = FALSE
@@ -215,7 +208,6 @@
 		set_light_color(initial(light_color))
 		clear_alert("fire")
 		update_fire()
-
 
 /mob/living/proc/update_fire()
 	return
@@ -256,7 +248,6 @@
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
 	return	effect?.WetMob()
 
-
 /mob/living/proc/adjust_wet_stacks(add_wet_stacks, wet_type = /datum/status_effect/stacking/wet) //Adjusting the amount of fire_stacks we have on person
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
 	if(effect)
@@ -264,11 +255,9 @@
 	else
 		apply_status_effect(wet_type, add_wet_stacks)
 
-
 /mob/living/proc/DryMob(wet_type = /datum/status_effect/stacking/wet)
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
 	return effect?.DryMob()
-
 
 /mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -293,7 +282,6 @@
 		fire_stacks += L.fire_stacks
 		IgniteMob()
 
-
 /mob/living/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	adjust_fire_stacks(-(volume * 0.2))
@@ -316,7 +304,6 @@
 
 	return 0
 
-
 /**
  * Called when a mob is grabbing another mob.
  */
@@ -329,7 +316,6 @@
 	//	return FALSE
 	target.grabbedby(src)
 	return TRUE
-
 
 /**
  * Called when this mob is grabbed by another mob.
@@ -364,7 +350,6 @@
 		return FALSE
 
 	return grippedby(grabber)
-
 
 /// Proc to upgrade a simple pull into a more aggressive grab.
 /mob/living/proc/grippedby(mob/living/grabber, grab_state_override)
@@ -447,11 +432,9 @@
 	grabber.set_pull_offsets(src, grabber.grab_state)
 	return TRUE
 
-
 /// Addtitional checks for do_after.
 /mob/living/proc/grab_checks_callback(mob/living/grabber, old_grab_state)
 	return grabber.pulling && grabber.pulling == src && grabber.grab_state == old_grab_state && isturf(grabber.loc) && isturf(loc)
-
 
 /// Used to override grab upgrade speed.
 /mob/living/proc/get_grab_upgrade_time(mob/living/grabber)
@@ -471,7 +454,6 @@
 
 	var/normal_grab_update_time = GRAB_UPGRADE_TIME * mod
 	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time / mod : grabber.mind.martial_art.grab_speed
-
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)

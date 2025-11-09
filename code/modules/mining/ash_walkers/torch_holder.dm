@@ -254,7 +254,6 @@
 	icon_state = "torch_holder_complete"
 	ancient = TRUE
 
-
 /obj/structure/torch_holder/mapping/get_ru_names()
 	return list(
 		NOMINATIVE = "древнее крепление для факела",

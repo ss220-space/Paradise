@@ -71,14 +71,12 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	/// Check for event headslugs not to do start things in the time of popping after first pop
 	var/oncepoped = FALSE
 
-
 /datum/antagonist/changeling/New()
 	..()
 	if(!length(innate_powers))
 		innate_powers = get_powers_of_type(CHANGELING_INNATE_POWER)
 	if(!length(purchaseable_powers))
 		purchaseable_powers = get_powers_of_type(CHANGELING_PURCHASABLE_POWER)
-
 
 /datum/antagonist/changeling/on_gain()
 	SSticker.mode.changelings |= owner
@@ -99,7 +97,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	..()
 
-
 /datum/antagonist/changeling/Destroy()
 	SSticker.mode.changelings -= owner
 	chosen_sting = null
@@ -107,12 +104,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /datum/antagonist/changeling/greet()
 	..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_aler.ogg'))
 	//to_chat(owner.current, span_changeling("Remember: you get all of the absorbed DNA points from other changelings if you absorb them."))
-
 
 /datum/antagonist/changeling/farewell()
 	if(issilicon(owner.current))
@@ -120,7 +115,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(owner.current, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
 	else
 		to_chat(owner.current, span_fontsize3("<span style='color: red;'><b>You lose your powers! You are no longer a changeling and are stuck in your current form!</b></span>"))
-
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
@@ -199,7 +193,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(former_ling_brain && former_ling_brain.decoy_brain != initial(former_ling_brain.decoy_brain))
 		former_ling_brain.decoy_brain = FALSE
 
-
 /**
  * OBJECTIVES - Always absorb 5 genomes, plus random traitor objectives.
  * If they have two objectives as well as absorb, they must survive rather than escape.
@@ -239,7 +232,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		else
 			add_objective(/datum/objective/escape/escape_with_identity) // If our kill target has no genes, 30% time pick someone else to steal the identity of
 
-
 /datum/antagonist/changeling/process()
 	if(!owner || !owner.current)
 		return PROCESS_KILL
@@ -278,7 +270,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	return COMSIG_MOB_CANCEL_CLICKON
 
-
 /**
  * Respec the changeling's powers after first checking if they're able to respec.
  */
@@ -297,7 +288,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(user, span_danger("You lack the power to readapt your evolutions!"))
 		return FALSE
 
-
 /**
  * Resets a changeling to the point they were when they first became a changeling, i.e no genetic points to spend, no non-innate powers, etc.
  */
@@ -315,7 +305,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	mimicking = ""
 	tts_mimicking = ""
 
-
 /**
  * Removes a changeling's abilities.
  *
@@ -332,7 +321,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(owner?.current)
 		owner.current.update_action_buttons(TRUE)
 
-
 /**
  * Gets a list of changeling action typepaths based on the passed in `power_type`.
  *
@@ -348,7 +336,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		powers += power_path
 	return powers
 
-
 /**
  * Gives the changeling the passed in `power`. Subtracts the cost of the power from our genetic points.
  *
@@ -363,7 +350,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	acquired_powers += power
 	power.on_purchase(changeling || owner.current, src)
 
-
 /**
  * Store the languages from the `new_languages` list into the `absorbed_languages` list. Teaches the changeling the new languages.
  *
@@ -377,7 +363,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		owner.current.add_language(language.name)
 		absorbed_languages += language.UID()
 
-
 /**
  * Teach the changeling every language in the `absorbed_language` list. Already known languages will be ignored.
  */
@@ -385,7 +370,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	for(var/lang_UID in absorbed_languages)
 		var/datum/language/language = locateUID(lang_UID)
 		owner.current.add_language(language.name)
-
 
 /**
  * Removes all the languages the mob `user` has absorbed throughout their life as a changeling and should no longer have.
@@ -414,7 +398,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			continue
 		user.remove_language(language.name)
 
-
 /**
  * Absorb the the target's DNA and their languages.
  *
@@ -426,7 +409,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	store_dna(user.dna.Clone())
 	add_new_languages(user.languages)
 	absorbed_count++
-
 
 /**
  * Store the target DNA. If the DNA belongs to one of the changeling's "escape with identity" objectives, make the DNA protected.
@@ -442,7 +424,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	absorbed_dna |= new_dna
 	trim_dna()
-
 
 /**
  * Prompt the changeling with a list of names associated with their stored DNA. Return a [/datum/dna] based on the name chosen.
@@ -465,7 +446,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	return names[chosen_name]
 
-
 /**
  * Gets a [/datum/dna] that matches the passed in `tDNA`. Also used as a check to see if the changeling has this DNA already stored.
  *
@@ -476,7 +456,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	for(var/datum/dna/DNA in (absorbed_dna + protected_dna))
 		if(tDNA.unique_enzymes == DNA.unique_enzymes && tDNA.uni_identity == DNA.uni_identity && tDNA.species.type == DNA.species.type)
 			return DNA
-
 
 /**
  * Determines if the changeling's current DNA is stale.
@@ -494,7 +473,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	return FALSE
 
-
 /**
  * Clears the most "stale" DNA from the `absorbed_dna` list.
  */
@@ -502,7 +480,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	list_clear_nulls(absorbed_dna)
 	if(length(absorbed_dna) > dna_max)
 		absorbed_dna.Cut(1, 2)
-
 
 /**
  * Returns TRUE if the changeling can absorb the target mob's DNA.
@@ -539,7 +516,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	return TRUE
 
-
 /**
  * Takes path or action datum and checks if it presents on changeling powers.
  */
@@ -556,7 +532,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	return FALSE
 
-
 /datum/antagonist/changeling/proc/on_death(mob/living/user, gibbed)
 	SIGNAL_HANDLER
 	if(QDELETED(user) || gibbed)  // they were probably incinerated or gibbed, no coming back from that.
@@ -572,7 +547,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(user, span_changeling("The brain is a useless organ to us, we are able to regenerate!"))
 	else
 		to_chat(user, span_changeling("While our current form may be lifeless, this is not the end for us as we can still regenerate!"))
-
 
 /**
  * Additional stasis delay from different sources.
@@ -607,7 +581,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	fakedeath_delay += missing_limbs * 12 SECONDS
 
-
 /**
  * Removes all mutated items on owner: armblade, tentacle, chitin suit etc.
  * Global proc since we might need to delete mutated parts on any user.
@@ -622,7 +595,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		if(mutation)
 			user.temporarily_remove_item_from_inventory(mutation, force = TRUE)
 			qdel(mutation)
-
 
 /**
  * Takes any datum `source` and checks it for changeling datum.

@@ -25,7 +25,6 @@
 	target = nOwner.mind
 	update_text()
 
-
 /obj/item/paper/contract/employment/update_text()
 	name = "Документ — Трудовой договор — [target]"
 	info = "<center>Условия трудоустройства</center><br><br><br><br>Настоящий Договор заключён между [target] (в дальнейшем именуемый Раб) и корпорацией Нанотрейзен (в дальнейшем именуемой Вездесущим и полезным наблюдателем за человечеством). Договор вступает в силу с момента его подписания.\
@@ -76,7 +75,6 @@
 		return FIRELOSS
 	else
 		..()
-
 
 /obj/item/paper/contract/infernal/update_text()
 	var/datum/asset/simple/namespaced/contracts/contracts_asset = get_asset_datum(/datum/asset/simple/namespaced/contracts)
@@ -133,8 +131,6 @@
 		return
 	. = ..()
 
-
-
 /obj/item/paper/contract/infernal/attackby(obj/item/I, mob/user, params)
 
 	if(istype(I, /obj/item/stamp))
@@ -160,7 +156,6 @@
 	. = contract.on_attack(src, target, victim, user)
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
-
 
 /obj/item/paper/contract/infernal/proc/attempt_signature(mob/living/carbon/human/user, blood = 0)
 	add_fingerprint(user)
@@ -214,7 +209,6 @@
 	user.mind.soulOwner = owner
 	user.mind.damnation_type = contract.contract_type
 	devilinfo?.add_soul(user.mind)
-
 
 	update_text(user.real_name)
 	to_chat(user, span_notice("Глубокая пустота охватывает вас, когда вы теряете контроль над своей душой. Вы забываете настоящее имя того, кому продали свою душу."))

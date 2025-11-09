@@ -35,7 +35,6 @@
 	if(sibyl_mod)
 		. += span_notice("Вы видите индикаторы модуля Sibyl System.")
 
-
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/sibyl_system_mod))
 		add_fingerprint(user)
@@ -57,7 +56,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/gun/energy/proc/toggle_voice()
 	set name = "Сменить голос Sibyl System"
@@ -198,13 +196,11 @@
 /obj/item/gun/energy/proc/on_recharge()
 	newshot()
 
-
 /obj/item/gun/energy/attack_self(mob/living/user)
 	. = ..()
 	if(!. && length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
-
 
 /obj/item/gun/energy/can_shoot(mob/living/user, silent = FALSE)
 	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
@@ -215,7 +211,6 @@
 
 	if(!. && !silent)
 		sibyl_mod?.sibyl_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
-
 
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
@@ -304,11 +299,9 @@
 	newshot()
 	update_icon()
 
-
 /obj/item/gun/energy/update_icon(updates = ALL)
 	. = ..()
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/gun/energy/update_icon_state()
 	icon_state = initial(icon_state)
@@ -327,7 +320,6 @@
 		item_state = new_item_state
 	if(current_skin)
 		icon_state = current_skin
-
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
@@ -350,8 +342,6 @@
 	if(bayonet && bayonet_overlay)
 		. += bayonet_overlay
 
-
-
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_trigger_gun(user))
 		user.visible_message(span_suicide("[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide."))
@@ -371,7 +361,6 @@
 		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 
-
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(var_name == NAMEOF(src, selfcharge))
@@ -379,7 +368,6 @@
 			START_PROCESSING(SSobj, src)
 		else
 			STOP_PROCESSING(SSobj, src)
-
 
 /obj/item/gun/energy/proc/robocharge()
 	if(cell.charge == cell.maxcharge)
@@ -392,18 +380,14 @@
 			if(R.cell.use(shot.e_cost))		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
 
-
 /obj/item/gun/energy/proc/turret_check()
 	return !HAS_TRAIT(src, TRAIT_NOT_TURRET_GUN)
-
 
 /obj/item/gun/energy/proc/turret_deconstruct(list/data)
 	return
 
-
 /obj/item/gun/energy/proc/prepare_gun_data(list/data)
 	return
-
 
 /obj/item/gun/energy/proc/setup_gun_for_turret(list/data)
 	return

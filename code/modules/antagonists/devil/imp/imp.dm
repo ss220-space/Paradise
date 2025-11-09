@@ -73,7 +73,6 @@
 /mob/living/simple_animal/imp/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	return FALSE
 
-
 /datum/antagonist/imp
 	name = "Бес"
 	antag_menu_name = "Бес"
@@ -82,7 +81,6 @@
 	special_role = SPECIAL_ROLE_IMP
 	show_in_roundend = FALSE
 	russian_wiki_name = "Торговец_душ"
-
 
 /datum/antagonist/imp/give_objectives()
 	add_objective(/datum/objective/imp)

@@ -12,19 +12,16 @@
 	/// Path thats will be transformed into object on Initialize()
 	var/obj/item/implant/imp
 
-
 /obj/item/implantcase/Initialize(mapload)
 	. = ..()
 	if(ispath(imp, /obj/item/implant))
 		imp = new imp(src)
 	update_state()
 
-
 /obj/item/implantcase/Destroy()
 	if(imp)
 		QDEL_NULL(imp)
 	return ..()
-
 
 /obj/item/implantcase/proc/update_state()
 	if(imp)
@@ -37,12 +34,10 @@
 		reagents = null
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/implantcase/update_overlays()
 	. = ..()
 	if(imp)
 		. += image('icons/obj/implants.dmi', imp.implant_state)
-
 
 /obj/item/implantcase/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))

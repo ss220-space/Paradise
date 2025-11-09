@@ -24,7 +24,6 @@
 	item_color = "centcomm_envirosuit"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
 
-
 /obj/item/clothing/under/plasmaman/centcomm/get_ru_names()
 	return list(
 		NOMINATIVE = "защитный костюм офицера ЦК",

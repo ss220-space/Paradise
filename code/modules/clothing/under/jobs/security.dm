@@ -5,7 +5,6 @@
  *		Head of Security
  */
 
-
 /*
  * Security
  */
@@ -81,7 +80,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
-
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
 	desc = "A dress shirt and khakis with a security patch sewn on."
@@ -146,7 +144,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
-
 
 /obj/item/clothing/under/det/noir
 	name = "hard-worn black suit"
@@ -294,7 +291,6 @@
 	icon_state = "hos_formal"
 	item_state = "gy_suit"
 	item_color = "hos_formal"
-
 
 //Brig Physician
 /obj/item/clothing/under/rank/security/brigphys

@@ -10,7 +10,6 @@
 	var/charge_time = 100
 	var/shocking = FALSE
 
-
 /obj/item/handheld_defibrillator/update_icon_state()
 	if(shocking)
 		icon_state = "[icon_base]-shock"
@@ -68,7 +67,6 @@
 /obj/item/handheld_defibrillator/proc/short_charge()
 	shocking = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/handheld_defibrillator/proc/recharge()
 	cooldown = FALSE

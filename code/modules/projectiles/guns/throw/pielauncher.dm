@@ -13,7 +13,6 @@
 	projectile_range = 30
 	accuracy = GUN_ACCURACY_DEFAULT
 
-
 /obj/item/gun/throw/piecannon/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to max_capacity)
@@ -21,10 +20,8 @@
 		loaded_projectiles += P
 	process_chamber()
 
-
 /obj/item/gun/throw/piecannon/notify_ammo_count()
 	return "It has <b>[get_ammocount()]</b> of <b>[max_capacity]</b> pies left."
-
 
 /obj/item/gun/throw/piecannon/update_icon_state()
 	if(to_launch)
@@ -32,7 +29,6 @@
 	else
 		icon_state = "piecannon0"
 	item_state = icon_state
-
 
 /obj/item/gun/throw/piecannon/process_chamber()
 	..()

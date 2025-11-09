@@ -8,7 +8,6 @@
 	SC = null
 	return ..()
 
-
 /datum/event/spacevine/start()
 	var/player_count = num_station_players()
 	if(player_count >= SPACEVINE_SPAWN_THRESHOLD)
@@ -19,7 +18,6 @@
 	log_and_message_admins("Random event attempted to spawn a spacevine, but there were only [player_count]/[SPACEVINE_SPAWN_THRESHOLD] players.")
 	var/datum/event_container/event_container = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 	event_container.next_event_time = world.time + (60 * 10)
-
 
 /datum/event/spacevine/proc/wrapped_start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
@@ -131,10 +129,8 @@
 
 //All of this shit is useless for vines
 
-
 /turf/simulated/floor/vines/attackby(obj/item/item, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/vines/burn_tile()
 	return
@@ -372,7 +368,6 @@
 	if(prob(25))
 		holder.entangle(crosser)
 
-
 /datum/spacevine_mutation/virulent_spread
 	name = "virulently spreading"
 	hue = "#FF8080"
@@ -455,10 +450,8 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 	RegisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK, PROC_REF(on_cleave_attack))
 
-
 /obj/structure/spacevine/proc/on_cleave_attack()
 	return ATOM_ALLOW_CLEAVE_ATTACK // vines don't have density but should still be cleavable
-
 
 /obj/structure/spacevine/Destroy()
 	for(var/datum/spacevine_mutation/SM in mutations)
@@ -480,7 +473,6 @@
 	UnregisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK)
 	return ..()
 
-
 /obj/structure/spacevine/examine(mob/user)
 	. = ..()
 	var/text = "This one is a"
@@ -493,7 +485,6 @@
 	text += " vine."
 	. += span_notice("[text]")
 
-
 /obj/structure/spacevine/proc/wither()
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_death(src)
@@ -502,7 +493,6 @@
 		return
 
 	qdel(src)
-
 
 /obj/structure/spacevine/has_prints()
 	return FALSE
@@ -527,7 +517,6 @@
 		if(prob(10))
 			eater.say("Nom")
 		wither()
-
 
 /obj/structure/spacevine/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
@@ -569,7 +558,6 @@
 	if(QDELETED(src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
@@ -583,14 +571,12 @@
 /obj/structure/spacevine/obj_destruction()
 	wither()
 
-
 /obj/structure/spacevine/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(isliving(arrived))
 		for(var/datum/spacevine_mutation/mutation in mutations)
 			mutation.on_cross(src, arrived)
-
 
 /obj/structure/spacevine/attack_hand(mob/user)
 	for(var/datum/spacevine_mutation/SM in mutations)
@@ -638,7 +624,6 @@
 		spread_multiplier /= spread_value / 5
 
 	..()
-
 
 /obj/structure/spacevine_controller/ex_act() //only killing all vines will end this suffering
 	return
@@ -735,7 +720,6 @@
 			if(has_buckled_mobs())
 				break //only capture one mob at a time
 
-
 /obj/structure/spacevine/proc/entangle(mob/living/V)
 	if(!V || isvineimmune(V))
 		return
@@ -785,12 +769,10 @@
 	if(!override)
 		wither()
 
-
 /obj/structure/spacevine/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(isvineimmune(mover))
 		return TRUE
-
 
 /proc/isvineimmune(atom/A)
 	. = FALSE

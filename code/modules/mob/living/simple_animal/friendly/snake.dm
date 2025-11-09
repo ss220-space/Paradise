@@ -37,7 +37,6 @@
 	holder_type = /obj/item/holder/snake
 	can_collar = TRUE
 
-
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
 	. = oview(vision_range, targets_from) //get list of things in vision range
 	var/list/living_mobs = list()
@@ -98,7 +97,6 @@
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
 
-
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	switch(M.a_intent)
@@ -107,18 +105,15 @@
 		if(INTENT_HARM)
 			shh(-1, M)
 
-
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/post_lying_on_rest()
 	. = ..()
 	if(inventory_head)
 		regenerate_icons()
 
-
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/post_get_up()
 	. = ..()
 	if(inventory_head)
 		regenerate_icons()
-
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/shh(change, mob/M)
 	if(!M || stat)
@@ -258,7 +253,6 @@
 	melee_damage_upper = 3
 	faction = list("neutral")
 	unique_pet = TRUE
-
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/riraha/get_ru_names()
 	return list(

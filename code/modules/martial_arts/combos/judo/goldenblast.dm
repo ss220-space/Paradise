@@ -4,7 +4,6 @@
 	steps = list(MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP)
 	explaination_text = "Используя высший уровень Корпоративного Дзюдо, вы можете оглушить противника жизненной энергией или, если точнее, внезапным скачком напряжения перегруженных нанитов в поясе. Но лучше считать, что это именно жизненная энергия..."
 
-
 /datum/martial_combo/judo/goldenblast/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
 	target.visible_message(span_warning("[user] бьёт [target] чистой Золотой энергией, вбивая [GEND_HIS_HER(target)] в пол!"), \
 						span_userdanger("[user] странно жестикулирует, дико кричит и тычет вам прямо в грудь! Вы чувствуете, как гнев <b>ЗОЛОТОЙ МОЛНИИ</b> пронзает ваше тело! Вы полностью парализованы!"))

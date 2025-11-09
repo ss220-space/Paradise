@@ -94,7 +94,6 @@
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 
-
 /obj/item/clothing/suit/cyborg_suit
 	name = "cyborg suit"
 	desc = "Suit for a cyborg costume."
@@ -106,13 +105,11 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	undyeable = TRUE
 
-
 /obj/item/clothing/suit/greatcoat
 	name = "great coat"
 	desc = "A Nazi great coat."
 	icon_state = "nazi"
 	item_state = "nazi"
-
 
 /obj/item/clothing/suit/johnny_coat
 	name = "johnny~~ coat"
@@ -120,14 +117,12 @@
 	icon_state = "johnny"
 	item_state = "johnny"
 
-
 /obj/item/clothing/suit/justice
 	name = "justice suit"
 	desc = "this pretty much looks ridiculous"
 	icon_state = "justice"
 	item_state = "justice"
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-
 
 /obj/item/clothing/suit/judgerobe
 	name = "judge's robe"
@@ -137,7 +132,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/storage/fancy/cigarettes,/obj/item/stack/spacecash)
 	flags_inv = HIDEJUMPSUIT
-
 
 /obj/item/clothing/suit/wcoat
 	name = "waistcoat"
@@ -164,7 +158,6 @@
 	item_state = "overalls"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
 
-
 /obj/item/clothing/suit/syndicatefake
 	name = "black and red space suit replica"
 	icon_state = "syndicate-black-red"
@@ -176,7 +169,6 @@
 	resistance_flags = NONE
 	undyeable = TRUE
 
-
 /obj/item/clothing/suit/hastur
 	name = "Hastur's robes"
 	desc = "Robes not meant to be worn by man."
@@ -184,7 +176,6 @@
 	item_state = "hastur"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-
 
 /obj/item/clothing/suit/imperium_monk
 	name = "imperium monk"
@@ -223,11 +214,9 @@
 	name = "super-hero corgi suit"
 	desc = "A suit made long ago by the ancient empire KFC. This one pulses with a strange power."
 
-
 /obj/item/clothing/suit/corgisuit/super_hero/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/suit/corgisuit/super_hero/en
 	name = "super-hero E-N suit"
@@ -261,7 +250,6 @@
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 
-
 /obj/item/clothing/suit/holidaypriest
 	name = "holiday priest"
 	desc = "This is a nice holiday my son."
@@ -281,18 +269,15 @@
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/back
 
-
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		disguise(user)
 
-
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.remove_alt_appearance("standard_borg_disguise")
-
 
 /obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
 	if(istype(H))
@@ -699,8 +684,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-
-
 //pyjamas
 //originally intended to be pinstripes >.>
 
@@ -931,7 +914,6 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 50)
 
-
 /obj/item/clothing/suit/jacket
 	name = "bomber jacket"
 	desc = "Aviators not included."
@@ -1088,7 +1070,6 @@
 	item_state = "noble_coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-
 ///Advanced Protective Suit, AKA, God Mode in wearable form.
 
 /obj/item/clothing/suit/advanced_protective_suit
@@ -1127,7 +1108,6 @@
 		ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 		to_chat(usr, "You turn the suit's special processes on.")
 		START_PROCESSING(SSobj, src)
-
 
 /obj/item/clothing/suit/advanced_protective_suit/IsReflect()
 	return (on)
@@ -1429,7 +1409,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-
 /obj/item/clothing/suit/hoodie
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -1488,7 +1467,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-
 /obj/item/clothing/suit/towel
 	name = "towel"
 	desc = "A soft cotton towel."
@@ -1511,18 +1489,15 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 	)
 
-
 /obj/item/clothing/suit/towel/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
-
 
 /obj/item/clothing/suit/towel/attack_self(mob/living/carbon/user)
 	if(!istype(user) || !user.wetlevel)
 		return ..()
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), user, user)
-
 
 /obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity, params)
 	. = ..()
@@ -1531,7 +1506,6 @@
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), target, user)
-
 
 /obj/item/clothing/suit/towel/proc/wipe_dry(mob/living/carbon/target, mob/user)
 	user.visible_message(span_warning("[user] begins to wipe [target == user ? target.p_themselves() : target] with [src]."))
@@ -1544,7 +1518,6 @@
 
 	target.wetlevel = 0
 	to_chat(user, span_notice("You wiped [target == user ? "yourself" : target] dry."))
-
 
 /obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -1559,12 +1532,9 @@
 	to_chat(user, span_notice("You tear [src] up."))
 	qdel(src)
 
-
-
 /obj/item/clothing/suit/towel/alt
 	icon_state = "towel_long_alt"
 	item_state = "towel_alt"
-
 
 /obj/item/clothing/suit/towel/alt/equipped(mob/user, slot, initial)
 	. = ..()
@@ -1575,7 +1545,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	user.wear_suit_update(src)
 
-
 /obj/item/clothing/suit/towel/alt/update_icon_state()
 	if(ishumanbasic(loc))
 		var/mob/living/carbon/human/user = loc
@@ -1583,13 +1552,11 @@
 
 	icon_state = "[initial(icon_state)][. ? "_woman" : null]"
 
-
 /obj/item/clothing/suit/towel/short
 	icon_state = "towel"
 	drop_amount = 2
 	slot_flags = ITEM_SLOT_CLOTH_OUTER | ITEM_SLOT_HEAD
 	body_parts_covered = LOWER_TORSO
-
 
 /obj/item/clothing/suit/towel/short/equipped(mob/user, slot, initial)
 	. = ..()
@@ -1598,7 +1565,6 @@
 
 	if(slot & (ITEM_SLOT_CLOTH_OUTER | ITEM_SLOT_HEAD))
 		update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/clothing/suit/towel/short/update_icon_state()
 	if(!isliving(loc))
@@ -1680,7 +1646,6 @@
 		PREPOSITIONAL = "кроваво-чёрном балахоне",
 	)
 
-
 /obj/item/clothing/suit/hooded/ghostfacesuit/true
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	hoodtype = /obj/item/clothing/head/hooded/ghostface/true
@@ -1747,7 +1712,6 @@
 		PREPOSITIONAL = "капюшоне костюма пингвина",
 	)
 
-
 /obj/item/clothing/suit/storage/bomber
 	name = "bomber"
 	desc = "Тёплая толстовка."
@@ -1762,7 +1726,6 @@
 /obj/item/clothing/suit/storage/bomber/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
-
 
 /obj/item/clothing/suit/storage/bomber/get_ru_names()
 	return list(

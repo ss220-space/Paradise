@@ -44,7 +44,6 @@
 				continue
 			affected_turfs_list += turf
 
-
 /datum/weather/hell/proc/transform_mobs()
 	var/list/devils
 	for(var/datum/mind/mind as anything in SSticker?.mode?.devils)
@@ -79,7 +78,6 @@
 			var/mob/mob = soul.current
 			to_chat(mob, span_warning("Ваша проданная душа взывает к вам. Вы вынуждены повиноваться ее воле. Вы чувствуете серьезные изменения в своем теле."))
 			addtimer(CALLBACK(src, PROC_REF(transform_imp), mob), TELEGRAPH_TIME)
-
 
 /datum/weather/hell/proc/transform_imp(mob/mob)
 	if(QDELETED(src))
@@ -176,7 +174,6 @@
 
 	for(var/mob/player in (GLOB.player_list))
 		SEND_SOUND(player, sound(null, channel = CHANNEL_BOSS_MUSIC))
-
 
 /obj/structure/hell_rift
 	name = "hell rift"

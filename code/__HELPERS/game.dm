@@ -10,7 +10,6 @@
 #define MANUAL_PICK_TITLE "Активные игроки"
 #define VETO_PICK_TITLE "Кандидаты"
 
-
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
 	if(!A)
@@ -34,7 +33,6 @@
 		if(T.density)
 			return FALSE
 	return TRUE
-
 
 /// Will recursively loop through an atom's contents and check for mobs, then it will loop through every atom in that atom's contents.
 /// It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
@@ -161,7 +159,6 @@
 			for(var/client/C in group)
 				C.screen -= O
 
-
 /// Adds an image to a client's `.images`. Useful as a callback.
 /proc/add_image_to_client(image/image_to_remove, client/add_to)
 	add_to?.images += image_to_remove
@@ -286,7 +283,6 @@
 
 	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
 
-
 /proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
 	var/area/our_area = get_area(the_area)
@@ -330,7 +326,6 @@
 		candidate_ghosts -= this_ghost
 		selected_ghosts += this_ghost
 	return selected_ghosts
-
 
 /proc/pick_candidates_manually(client/admin_client, teamsize)
 	var/list/possible_ghosts = list()

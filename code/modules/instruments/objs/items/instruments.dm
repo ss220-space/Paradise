@@ -84,12 +84,10 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-
 /obj/item/instrument/trumpet/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/trombone/En4.mid', 100, TRUE, -1)
-
 
 /obj/item/instrument/saxophone
 	name = "saxophone"
@@ -108,12 +106,10 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-
 /obj/item/instrument/saxophone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/saxophone/En4.mid', 100, TRUE, -1)
-
 
 /obj/item/instrument/trombone
 	name = "trombone"
@@ -127,17 +123,14 @@
 	desc = "A skeleton's favorite instrument. Apply directly on the mortals."
 	force = 0
 
-
 /obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
-
 
 /obj/item/instrument/trombone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/trombone/Cn4.mid', 100, TRUE, -1)
-
 
 /obj/item/instrument/recorder
 	name = "recorder"

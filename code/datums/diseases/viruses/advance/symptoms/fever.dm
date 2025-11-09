@@ -25,7 +25,6 @@ Bonus
 	level = 2
 	severity = 2
 
-
 /datum/symptom/fever/Activate(datum/disease/virus/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))

@@ -128,10 +128,8 @@
 	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
 
-
 /datum/species/vox/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, STRENGTH_LEVEL_STRONG, can_become_stronger)
-
 
 /datum/species/vox/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -203,10 +201,8 @@
 
 	return ..()
 
-
 /datum/species/vox/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	return 1 + (0.01*rand(-tolerance,tolerance))
-
 
 /datum/species/vox/armalis
 	name = SPECIES_VOX_ARMALIS
@@ -241,7 +237,6 @@
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE
-
 
 	reagent_tag = PROCESS_ORG
 

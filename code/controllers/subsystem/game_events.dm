@@ -22,4 +22,3 @@ SUBSYSTEM_DEF(game_events)
 		if(event.process() == PROCESS_KILL)
 			processing -= event
 
-

@@ -21,7 +21,6 @@
 	var/obj/item/assembly/signaler/core/gravitational/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
-
 /obj/item/clothing/shoes/magboots/gravity/get_ru_names()
 	return list(
 		NOMINATIVE = "гравитационные ботинки", \
@@ -35,7 +34,6 @@
 /obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)
 	. = ..()
 	style = new()
-
 
 /obj/item/clothing/shoes/magboots/gravity/Destroy()
 	QDEL_NULL(style)
@@ -60,7 +58,6 @@
 
 	. += span_warning("В них не хватает ядра гравитационной аномалии и батарейки.")
 
-
 /obj/item/clothing/shoes/magboots/gravity/toggle_magpulse(mob/user, silent = FALSE)
 	if(silent && (!cell || !core || cell.charge <= power_consumption_rate && !magpulse))
 		return
@@ -78,7 +75,6 @@
 		return
 
 	return ..()
-
 
 /obj/item/clothing/shoes/magboots/gravity/process()
 	if(!cell) //There should be a cell here, but safety first
@@ -114,7 +110,6 @@
 	cell.update_icon()
 	update_icon()
 
-
 /obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/item, mob/user, params)
 	if(iscell(item))
 		add_fingerprint(user)
@@ -146,7 +141,6 @@
 	core = item
 	update_style(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/clothing/shoes/magboots/gravity/click_alt(mob/user)
 	if(!user.contains(src))
@@ -184,7 +178,6 @@
 
 	update_style(user)
 
-
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_FEET)
@@ -198,7 +191,6 @@
 		to_chat(user, span_notice("Как только вы сняли [declent_ru(NOMINATIVE)], они автоматически деактивировались."))
 
 	toggle_magpulse(user, silent = TRUE)
-
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)

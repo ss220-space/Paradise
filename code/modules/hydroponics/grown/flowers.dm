@@ -161,7 +161,6 @@
 	bitesize_mod = 3
 	distill_reagent = "vermouth"
 
-
 // Sunflower
 /obj/item/seeds/sunflower
 	name = "pack of sunflower seeds"
@@ -191,12 +190,10 @@
 	throw_speed = 1
 	throw_range = 3
 
-
 /obj/item/grown/sunflower/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	to_chat(target, "<font color='green'><b> [user] smacks you with a sunflower!</font><font color='yellow'><b>FLOWER POWER<b></font>")
 	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'>strikes [target]</font>")
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
 
 // Moonflower
 /obj/item/seeds/sunflower/moonflower
@@ -251,7 +248,6 @@
 	..()
 	force = round((5 + seed.potency / 5), 1)
 
-
 /obj/item/grown/novaflower/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
@@ -261,7 +257,6 @@
 	target.adjust_fire_stacks(seed.potency / 20)
 	if(target.IgniteMob())
 		add_attack_logs(user, target, "set on fire", ATKLOG_FEW)
-
 
 /obj/item/grown/novaflower/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)

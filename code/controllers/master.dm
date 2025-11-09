@@ -133,12 +133,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(!GLOB)
 		new /datum/controller/global_vars
 
-
 /datum/controller/master/Destroy()
 	..()
 	// Tell qdel() to Del() this object.
 	return QDEL_HINT_HARDDEL_NOW
-
 
 /datum/controller/master/Shutdown()
 	processing = FALSE
@@ -150,7 +148,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			log_world("Warning: Subsystem `[ss.name]` slept [ss.fire_sleep_count] times.")
 		ss.Shutdown()
 	log_world("Shutdown complete")
-
 
 /client/proc/cmd_controller_view_ui()
 	set name = "Controller Overview"
@@ -255,7 +252,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	PRIVATE_PROC(TRUE)
 	set waitfor = FALSE
 
-
 	if(!overview_fast_update)
 		return
 
@@ -266,12 +262,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	SStgui.update_uis(src)
 	already_updating = FALSE
 
-
 /datum/controller/master/proc/OnConfigLoad()
 	for(var/thing in subsystems)
 		var/datum/controller/subsystem/SS = thing
 		SS.OnConfigLoad()
-
 
 // Returns 1 if we created a new mc, 0 if we couldn't due to a recent restart,
 // -1 if we encountered a runtime trying to recreate it
@@ -293,7 +287,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	catch
 		return -1
 	return 1
-
 
 /datum/controller/master/Recover()
 	var/msg = "## DEBUG: [time2text(world.timeofday)] MC restarted. Reports:\n"
@@ -339,7 +332,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	else
 		to_chat(world, span_boldannounceooc("The Master Controller is having some issues, we will need to re-initialize EVERYTHING"))
 		Initialize(20, TRUE, FALSE)
-
 
 // Please don't stuff random bullshit here,
 //	Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
@@ -422,7 +414,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	initializations_finished_with_no_players_logged_in = initialized_tod < REALTIMEOFDAY - 10
 
-
 /**
  * Initialize a given subsystem and handle the results.
  *
@@ -501,7 +492,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	log_world("\[[subsystem.name]] [message]")
 
-
 /datum/controller/master/proc/SetRunLevel(new_runlevel)
 	var/old_runlevel = current_runlevel
 
@@ -511,7 +501,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(current_runlevel < 1)
 		current_runlevel = old_runlevel
 		CRASH("Attempted to set invalid runlevel: [new_runlevel]")
-
 
 // Starts the mc, and sticks around to restart it if the loop ever ends.
 /datum/controller/master/proc/StartProcessing(delay)
@@ -536,7 +525,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		log_game("Failed to recreate MC (Error code: [rtn2]), it's up to the failsafe now")
 		message_admins("Failed to recreate MC (Error code: [rtn2]), it's up to the failsafe now")
 		Failsafe.defcon = 2
-
 
 // Main loop.
 /datum/controller/master/proc/Loop(init_stage)
@@ -716,7 +704,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		check_and_perform_fast_update()
 		sleep(world.tick_lag * (processing * sleep_delta))
 
-
 // This is what decides if something should run.
 /datum/controller/master/proc/CheckQueue(list/subsystemstocheck)
 	. = 0 //so the mc knows if we runtimed
@@ -747,7 +734,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			continue
 		SS.enqueue()
 	. = 1
-
 
 /// RunQueue - Run thru the queue of subsystems to run, running them while balancing out their allocated tick precentage
 /// Returns 0 if runtimed, a negitive number for logic errors, and a positive number if the operation completed without errors
@@ -831,7 +817,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				state = SS_IDLE
 			current_tick_budget -= queue_node_priority
 
-
 			if(tick_usage < 0)
 				tick_usage = 0
 			queue_node.tick_overrun = max(0, MC_AVG_FAST_UP_SLOW_DOWN(queue_node.tick_overrun, tick_usage - tick_precentage))
@@ -871,7 +856,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	if(. == 0)
 		. = 1
-
 
 //resets the queue, and all subsystems, while filtering out the subsystem lists
 //called if any mc's queue procs runtime or exit improperly.
@@ -916,14 +900,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	log_world("MC: SoftReset: Finished.")
 	. = 1
 
-
-
 /datum/controller/master/stat_entry(msg)
 	if(last_init_info)
 		msg += "Last Init Info: [last_init_info]"
 	msg = "(TickRate:[Master.processing]) (Iteration:[Master.iteration]) (TickLimit: [round(Master.current_ticklimit, 0.1)])"
 	return ..()
-
 
 // Currently unimplemented
 /datum/controller/master/StartLoadingMap()
@@ -935,13 +916,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		SS.StartLoadingMap()
 	map_loading = TRUE
 
-
 /datum/controller/master/StopLoadingMap(bounds = null)
 	map_loading = FALSE
 	for(var/S in subsystems)
 		var/datum/controller/subsystem/SS = S
 		SS.StopLoadingMap()
-
 
 /datum/controller/master/proc/UpdateTickRate()
 	if(!processing)
@@ -951,7 +930,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		processing = CONFIG_GET(number/base_mc_tick_rate)
 	else if(client_count > CONFIG_GET(number/high_pop_mc_mode_amount))
 		processing = CONFIG_GET(number/high_pop_mc_tick_rate)
-
 
 /datum/controller/master/proc/formatcpu(cpu_var)
 	switch(cpu_var)

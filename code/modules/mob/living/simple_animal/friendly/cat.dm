@@ -113,7 +113,6 @@
 	..()
 	make_babies()
 
-
 /mob/living/simple_animal/pet/cat/verb/sit()
 	set name = "Сесть"
 	set category = STATPANEL_IC
@@ -125,16 +124,13 @@
 	sitting = TRUE
 	set_resting(TRUE)
 
-
 /mob/living/simple_animal/pet/cat/post_lying_on_rest()
 	if(sitting)
 		custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
 
-
 /mob/living/simple_animal/pet/cat/on_standing_up()
 	sitting = FALSE
 	. = ..()
-
 
 /mob/living/simple_animal/pet/cat/update_icons()
 	if(stat == DEAD)
@@ -152,7 +148,6 @@
 	else
 		icon_state = icon_living
 	regenerate_icons()
-
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)
@@ -184,7 +179,6 @@
 				custom_emote(EMOTE_VISIBLE, "подбрасыва%(ет,ют)% игрушечную мышь своей лапой!")
 				toy.cooldown = world.time + 40 SECONDS
 
-
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	. = ..()
 	if(!stat && !resting && !buckled)
@@ -205,7 +199,6 @@
 			if(movement_target)
 				stop_automated_movement = 1
 				GLOB.move_manager.move_to(src, movement_target, 1, 4)
-
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
@@ -239,7 +232,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	melee_damage_lower = 5
 	melee_damage_upper = 15
-
 
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
 	. = ..()

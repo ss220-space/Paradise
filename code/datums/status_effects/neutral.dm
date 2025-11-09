@@ -13,29 +13,24 @@
 	on_remove_on_mob_delete = TRUE
 	var/obj/item/borg/upgrade/modkit/bounty/reward_target
 
-
 /datum/status_effect/syphon_mark/on_creation(mob/living/new_owner, obj/item/borg/upgrade/modkit/bounty/new_reward_target)
 	. = ..()
 	if(.)
 		reward_target = new_reward_target
-
 
 /datum/status_effect/syphon_mark/on_apply()
 	if(owner.stat == DEAD)
 		return FALSE
 	return ..()
 
-
 /datum/status_effect/syphon_mark/proc/get_kill()
 	if(!QDELETED(reward_target))
 		reward_target.get_kill(owner)
-
 
 /datum/status_effect/syphon_mark/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		get_kill()
 		qdel(src)
-
 
 /datum/status_effect/syphon_mark/on_remove()
 	get_kill()
@@ -70,7 +65,6 @@
 			owner.emote("blush")
 			to_chat(owner, span_danger("Вы чувствуете что-то жгучее в груди..."))
 
-
 /datum/status_effect/high_five
 	id = "high_five"
 	duration = 10 SECONDS
@@ -87,14 +81,12 @@
 	/// Sound effect played when this emote is completed.
 	var/sound_effect = 'sound/weapons/slap.ogg'
 
-
 /// So we don't leave folks with god-mode
 /datum/status_effect/high_five/proc/wiz_cleanup(mob/living/carbon/user, mob/living/carbon/highfived)
 	REMOVE_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 	REMOVE_TRAIT(highfived, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 	user.remove_status_effect(type)
 	highfived.remove_status_effect(type)
-
 
 /datum/status_effect/high_five/on_apply()
 	if(!iscarbon(owner))
@@ -129,10 +121,8 @@
 	owner.custom_emote(EMOTE_VISIBLE, request)
 	//owner.create_point_bubble_from_path(item_path, FALSE)	// later
 
-
 /datum/status_effect/high_five/on_timeout()
 	owner.visible_message("[owner] [get_missed_message()]")
-
 
 /datum/status_effect/high_five/proc/get_missed_message()
 	var/list/missed_highfive_messages = list(
@@ -144,7 +134,6 @@
 	)
 	return pick(missed_highfive_messages)
 
-
 /datum/status_effect/high_five/dap
 	id = "dap"
 	critical_success = "ЭПИЧНО побратались!"
@@ -153,10 +142,8 @@
 	sound_effect = 'sound/effects/snap.ogg'
 	item_path = /obj/item/melee/touch_attack/fake_disintegrate  // EI-NATH!
 
-
 /datum/status_effect/high_five/dap/get_missed_message()
 	return "печально, вы не может найти никого, кому можно дать пятюню, и с кем бы побрататься. Стыдно."
-
 
 /datum/status_effect/high_five/handshake
 	id = "handshake"
@@ -164,7 +151,6 @@
 	success = "делают рукопожатие!"
 	request = "ищ%(ет,ут)% кому бы пожать руку..."
 	sound_effect = 'sound/weapons/thudswoosh.ogg'
-
 
 /datum/status_effect/high_five/handshake/get_missed_message()
 	var/list/missed_messages = list(
@@ -174,14 +160,12 @@
 	)
 	return pick(missed_messages)
 
-
 /datum/status_effect/adaptive_learning
 	id = "adaptive_learning"
 	duration = 300
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 	var/bonus_damage = 0
-
 
 /datum/status_effect/charging
 	id = "charging"
@@ -222,12 +206,10 @@
 	. = ..()
 	expire_proc.Invoke()
 
-
 /datum/status_effect/stop_drop_roll
 	id = "stop_drop_roll"
 	alert_type = null
 	tick_interval = 0.8 SECONDS
-
 
 /datum/status_effect/stop_drop_roll/on_apply()
 	if(!iscarbon(owner))
@@ -251,11 +233,9 @@
 	owner.adjust_fire_stacks(-0.25)
 	return TRUE
 
-
 /datum/status_effect/stop_drop_roll/on_remove()
 	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_LIVING_SET_BODY_POSITION))
 	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
-
 
 /datum/status_effect/stop_drop_roll/tick(seconds_between_ticks)
 	if(HAS_TRAIT(owner, TRAIT_IMMOBILIZED) || HAS_TRAIT(owner, TRAIT_INCAPACITATED))
@@ -279,7 +259,6 @@
 	)
 	qdel(src)
 
-
 /datum/status_effect/stop_drop_roll/proc/stop_rolling(datum/source, ...)
 	SIGNAL_HANDLER
 
@@ -287,13 +266,11 @@
 		to_chat(owner, span_notice("Вы перестаёте кататься."))
 	qdel(src)
 
-
 /datum/status_effect/stop_drop_roll/proc/body_position_changed(datum/source, new_value, old_value)
 	SIGNAL_HANDLER
 
 	if(new_value != LYING_DOWN)
 		stop_rolling()
-
 
 /datum/status_effect/recently_succumbed
 	id = "recently_succumbed"
@@ -332,7 +309,6 @@
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/lavaland_tail_o_dead
 
-
 /datum/status_effect/lavaland_vision/on_apply()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human = owner
@@ -366,7 +342,6 @@
 	if(abs(difference) > temp_effect)
 		var/current_effect = difference > 0 ? -temp_effect : temp_effect
 		owner.adjust_bodytemperature(current_effect * TEMPERATURE_DAMAGE_COEFFICIENT)
-
 
 /atom/movable/screen/alert/status_effect/leaning
 	name = "Прислонившись"

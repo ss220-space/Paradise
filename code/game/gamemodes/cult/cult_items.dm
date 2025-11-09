@@ -9,18 +9,15 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-
 /obj/item/tome/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/tome/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.tome_icon
 	else
 		icon_state = initial(icon_state)
-
 
 /obj/item/melee/cultblade
 	name = "cult blade"
@@ -36,11 +33,9 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
-
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/melee/cultblade/ComponentInitialize()
 	. = ..()
@@ -53,7 +48,6 @@
 		swing_sound = SFX_BLADE_SWING_HEAVY \
 	)
 
-
 /obj/item/melee/cultblade/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.sword_icon
@@ -61,7 +55,6 @@
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
-
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscultist(user))
@@ -74,7 +67,6 @@
 		user.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HULK))
@@ -96,7 +88,6 @@
 	item_state = "bola_cult"
 	breakout_time = 4 SECONDS
 	knockdown_amt = 2 SECONDS
-
 
 /obj/item/restraints/legcuffs/bola/cult/get_ru_names()
 	return list(
@@ -128,7 +119,6 @@
 /obj/item/clothing/head/hooded/culthood/alt
 	icon_state = "cult_hoodalt"
 	item_state = "cult_hoodalt"
-
 
 /obj/item/clothing/suit/hooded/cultrobes
 	name = "cult robes"
@@ -243,7 +233,6 @@
 	)
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
 
-
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot, initial)
 	. = ..()
 
@@ -256,11 +245,9 @@
 	else if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 
-
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	user?.remove_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
-
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
@@ -293,7 +280,6 @@
 /obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[!uses ? "_used" : ""]"
 
-
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || uses)
@@ -302,13 +288,11 @@
 	to_chat(user, span_notice("[src] crumbles to ashes."))
 	qdel(src)
 
-
 /obj/item/whetstone/cult/attack_self(mob/user)
 	. = ..()
 	if(!uses)
 		to_chat(user, span_notice("[src] crumbles to ashes."))
 		qdel(src)
-
 
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
@@ -459,10 +443,8 @@
 	else
 		. += span_cultitalic("It seems drained.")
 
-
 /obj/item/cult_shift/update_icon_state()
 	icon_state = "shifter[uses > 0 ? "" : "_drained"]"
-
 
 /obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user
@@ -531,19 +513,15 @@
 	name = "eldritch sword"
 	item_flags = DROPDEL
 
-
 /obj/item/melee/cultblade/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
 /obj/item/clothing/head/hooded/culthood/alt/ghost
-
 
 /obj/item/clothing/head/hooded/culthood/alt/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	name = "ghostly cult robes"
@@ -553,29 +531,23 @@
 	item_flags = DROPDEL
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
-
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
 /obj/item/clothing/shoes/cult/ghost
 	item_flags = DROPDEL
-
 
 /obj/item/clothing/shoes/cult/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
 /obj/item/clothing/under/color/black/ghost
 	item_flags = DROPDEL
-
 
 /obj/item/clothing/under/color/black/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /datum/outfit/ghost_cultist
 	name = "Cultist Ghost"

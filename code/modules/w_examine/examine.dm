@@ -5,7 +5,6 @@
 	This means that this file can be unchecked, along with the other examine files, and can be removed entirely with no effort.
 */
 
-
 /atom/
 	var/description_info = null //Helpful blue text.
 	var/description_fluff = null //Green text about the atom's fluff, if any exists.

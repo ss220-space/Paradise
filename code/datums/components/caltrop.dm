@@ -22,7 +22,6 @@
 	)
 	COOLDOWN_DECLARE(message_cooldown)
 
-
 /datum/component/caltrop/Initialize(min_damage = 0, max_damage = 0, probability = 100, weaken_duration = 6 SECONDS, flags = NONE, list/protected_species, soundfile, del_on_trigger = FALSE)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -40,7 +39,6 @@
 		AddComponent(/datum/component/connect_loc_behalf, parent, crossed_connections)
 	else
 		RegisterSignal(get_turf(parent), COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
-
 
 /datum/component/caltrop/InheritComponent(datum/component/caltrop/new_comp, original, min_damage, max_damage, probability, weaken_duration, flags, list/protected_species, soundfile, del_on_trigger)
 	if(!original)
@@ -60,11 +58,9 @@
 	if(!isnull(del_on_trigger))
 		src.del_on_trigger = del_on_trigger
 
-
 /datum/component/caltrop/UnregisterFromParent()
 	if(ismovable(parent))
 		qdel(GetComponent(/datum/component/connect_loc_behalf))
-
 
 /datum/component/caltrop/proc/on_entered(datum/source, mob/living/carbon/human/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER

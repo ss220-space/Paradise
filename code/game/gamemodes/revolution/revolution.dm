@@ -99,7 +99,6 @@
 
 	return TRUE
 
-
 /datum/game_mode/revolution/post_setup()
 	var/list/heads = get_living_heads()
 	var/list/sec = get_living_sec()
@@ -120,14 +119,12 @@
 		greet_revolutionary(rev_mind)
 	..()
 
-
 /datum/game_mode/revolution/process()
 	check_counter++
 	if(check_counter >= 5)
 		check_latejoin()
 		check_counter = 0
 	return FALSE
-
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
 	var/datum/objective/rev_obj = new
@@ -309,7 +306,6 @@
 		text += "<br>"
 		return text.Join("")
 
-
 /datum/game_mode/revolution/set_scoreboard_vars()
 	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
@@ -335,7 +331,6 @@
 			if(player.mind.assigned_role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO))
 				scoreboard.score_dead_command++
 
-
 	var/arrestpoints = scoreboard.score_arrested * 1000
 	var/killpoints = scoreboard.score_ops_killed * 500
 	var/comdeadpts = scoreboard.score_dead_command * 500
@@ -345,7 +340,6 @@
 	scoreboard.crewscore += arrestpoints
 	scoreboard.crewscore += killpoints
 	scoreboard.crewscore -= comdeadpts
-
 
 /datum/game_mode/revolution/get_scoreboard_stats()
 	var/datum/scoreboard/scoreboard = SSticker.score
@@ -376,7 +370,6 @@
 		if(X.stat != DEAD)
 			loycount++
 
-
 	var/dat = ""
 
 	dat += "<b><u>Mode Statistics</u></b><br>"
@@ -396,10 +389,8 @@
 
 	return dat
 
-
 /proc/is_revolutionary(mob/living/user)
 	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.revolutionaries)
-
 
 /proc/is_head_revolutionary(mob/living/user)
 	return istype(user) && user.mind && SSticker?.mode && (user.mind in SSticker.mode.head_revolutionaries)

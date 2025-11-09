@@ -39,7 +39,6 @@
 	holder_type = /obj/item/holder/diona
 	can_collar = TRUE
 
-
 	var/random_name = TRUE
 	var/gestalt_alert = "слился с гештальтом" //used in adding and clearing alert
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
@@ -328,7 +327,6 @@
 	else
 		to_chat(src, span_noticealien("Кровь проникает в вас, принося воспоминания и черты личности."))
 
-
 /mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
 	var/atom/drop_loc = drop_location()
 	I.forceMove(drop_loc)
@@ -337,7 +335,6 @@
 	I.layer = initial(I.layer)
 	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
 	I.dropped(src, NONE, silent)
-
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)
 	balloon_alert(src, "нет рук!")

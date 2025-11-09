@@ -10,7 +10,6 @@
 	density = TRUE
 	anchored = TRUE
 
-
 	/// How many coins did the machine make in total.
 	var/total_coins = 0
 	/// Is it creating coins now?
@@ -19,7 +18,6 @@
 	var/chosen_material
 	/// Inserted money bag.
 	var/obj/item/storage/bag/money/money_bag
-
 
 /obj/machinery/mineral/mint/get_ru_names()
 	return list(

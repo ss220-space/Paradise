@@ -48,7 +48,6 @@ Thus, the two variables affect pump operation are set in New():
 	set_max()
 	return ..()
 
-
 /obj/machinery/atmospherics/binary/volume_pump/proc/set_max()
 	if(powered())
 		transfer_rate = MAX_TRANSFER_RATE
@@ -102,7 +101,6 @@ Thus, the two variables affect pump operation are set in New():
 	var/datum/gas_mixture/removed = air1.remove_ratio(transfer_ratio)
 
 	air2.merge(removed)
-
 
 	parent1.update = 1
 	parent2.update = 1
@@ -217,7 +215,6 @@ Thus, the two variables affect pump operation are set in New():
 	if(!..())
 		return
 	update_icon()
-
 
 /obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/I, mob/user, params)
 	. = ..()

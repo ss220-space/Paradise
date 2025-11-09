@@ -14,7 +14,6 @@
 	/// Currently selected area.
 	var/area/selected_area
 
-
 /obj/effect/proc_holder/spell/area_teleport/before_cast(list/targets, mob/user)
 	..()
 	selected_area = null // Reset it
@@ -36,8 +35,6 @@
 		return
 
 	selected_area = thearea
-
-
 
 /obj/effect/proc_holder/spell/area_teleport/cast(list/targets, mob/living/user)
 	if(!selected_area)
@@ -85,7 +82,6 @@
 			playsound(get_turf(user), sound_out, 50, TRUE)
 
 		user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable
-
 
 /obj/effect/proc_holder/spell/area_teleport/invocation(mob/user)
 	if(!invocation_area || !selected_area)

@@ -44,7 +44,6 @@
 	tp_range_low = 5
 	tp_range_high = 11
 
-
 /datum/anomaly_impulse/bs_tp_other
 	name = "Всплеск телепортаций"
 	desc = "Аномалия мгновенно меняет местоположение окружающих объектов не прикладывая к ним силу в процессе."
@@ -73,7 +72,6 @@
 	period_high = 10 SECONDS
 	tp_range_low = 2
 	tp_range_high = 6
-
 
 /datum/anomaly_impulse/wormholes
 	name = "Генерация червоточин"
@@ -141,7 +139,6 @@
 	wormholes_num_high = 20
 	wormholes_time_low = 10 SECONDS
 	wormholes_time_high = 15 SECONDS
-
 
 // Tier 4 only
 

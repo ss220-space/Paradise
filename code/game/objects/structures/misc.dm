@@ -76,7 +76,6 @@
 	var/alert_title = "Ethereal Beacon Active!"
 	var/atom/attack_atom
 
-
 /obj/structure/ghost_beacon/Initialize(mapload)
 	. = ..()
 	last_ghost_alert = world.time

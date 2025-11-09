@@ -106,7 +106,6 @@
 	/// How loud is the audio emote?
 	var/volume = 50
 
-
 /datum/emote/New()
 	if(message_param && !param_desc)
 		CRASH("emote [src] was given a message parameter without a description.")
@@ -125,14 +124,12 @@
 	species_type_whitelist_typecache = typecacheof(species_type_whitelist_typecache)
 	species_type_blacklist_typecache = typecacheof(species_type_blacklist_typecache)
 
-
 /datum/emote/Destroy(force)
 	if(force)
 		return ..()
 	else
 		// if you're deleting an emote something has gone wrong
 		return QDEL_HINT_LETMELIVE
-
 
 /**
  * Handles the modifications and execution of emotes.
@@ -227,7 +224,6 @@
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key), src, key, emote_type, message, intentional)
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTE, key, intentional)
 
-
 /**
  * Try to run an emote, checking can_run_emote once before executing the emote itself.
  *
@@ -255,7 +251,6 @@
 	message = initial_message
 	message_param = initial(message_param)
 
-
 /**
  * Play the sound effect in an emote.
  * If you want to change the way the playsound call works, override this.
@@ -272,7 +267,6 @@
 		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch())
 	else
 		playsound(user.loc, sound_path, sound_volume, vary)
-
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.
@@ -293,7 +287,6 @@
 
 		if((isobserver(viewer) || viewer.stat == CONSCIOUS) && viewer.client?.prefs?.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			viewer.create_chat_message(user, text, list("emote"))
-
 
 /**
  * Check whether or not an emote can be used due to a cooldown.
@@ -328,7 +321,6 @@
 	user.emotes_used[src] = world.time
 	return TRUE
 
-
 /**
  * To get the sound that the emote plays, for special sound interactions depending on the mob.
  *
@@ -339,7 +331,6 @@
  */
 /datum/emote/proc/get_sound(mob/living/user)
 	return islist(sound) ? pick(sound) : sound //by default just return this var.
-
 
 /**
  * Get the volume of the audio emote to play.
@@ -353,7 +344,6 @@
  */
 /datum/emote/proc/get_volume(mob/living/user)
 	return volume
-
 
 /**
  * Selects the message type to override the message with.
@@ -383,7 +373,6 @@
 		. = islist(message_simple) ? pick(message_simple) : message_simple
 	else if(isobserver(user) && message_observer)
 		. = islist(message_observer) ? pick(message_observer) : message_observer
-
 
 /**
  * Replaces the %t in the message in message_param by params.
@@ -439,7 +428,6 @@
 
 	CRASH("Emote tried to select_param with invalid target behavior.")
 
-
 /**
  * Perform an action on the target of an emote, if one was found.
  *
@@ -451,7 +439,6 @@
  */
 /datum/emote/proc/act_on_target(mob/user, target)
 	return
-
 
 /**
  * Check to see if the user is allowed to run the emote.
@@ -522,7 +509,6 @@
 			to_chat(user, span_warning("Deadchat is globally muted."))
 			return FALSE
 
-
 /**
  * Find a target for the emote based on the message parameter fragment passed in.
  *
@@ -551,7 +537,6 @@
 
 	return target
 
-
 /**
  * Return whether a user should be able to vocalize emotes or not, due to a mask or inability to speak.
  * If this returns false, any mouth emotes will be replaced with muzzled noises.
@@ -564,7 +549,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /**
  * Check to see if the user should play a sound when performing the emote.
@@ -584,13 +568,11 @@
 		return FALSE
 	return TRUE
 
-
 /datum/emote/proc/remove_ending_punctuation(msg)
 	var/static/list/end_punctuation = list(".", "?", "!")
 	if(copytext(msg, -1) in end_punctuation)
 		msg = copytext(msg, 1, -1)
 	return msg
-
 
 /**
 * Allows the intrepid coder to send a basic emote
@@ -608,7 +590,6 @@
 
 	if(!text)
 		CRASH("Someone passed nothing to manual_emote(), fix it")
-
 
 	log_emote(text, src)
 	create_log(EMOTE_LOG, text)

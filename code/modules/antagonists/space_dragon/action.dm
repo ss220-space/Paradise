@@ -9,7 +9,6 @@
 	var/small_icon_state = "carp"
 	check_flags = AB_CHECK_CONSCIOUS
 
-
 /datum/action/innate/small_sprite_dragon/Trigger(left_click = TRUE)
 	..()
 	if(owner.stat == DEAD)
@@ -25,7 +24,6 @@
 		owner.remove_alt_appearance("smallsprite")
 		small = FALSE
 
-
 /datum/action/innate/space_dragon_gust
 	name = "Порыв ветра"
 	desc = "Эта способность отталкивает всех, кто находится рядом с вами."
@@ -34,7 +32,6 @@
 	check_flags = AB_CHECK_CONSCIOUS
 	var/mob/living/simple_animal/hostile/space_dragon/space_dragon
 
-
 /datum/action/innate/space_dragon_gust/Grant(mob/M)
 	. = ..()
 	if(!M)
@@ -42,13 +39,11 @@
 	if(istype(owner, /mob/living/simple_animal/hostile/space_dragon))
 		space_dragon = owner
 
-
 /datum/action/innate/space_dragon_gust/Remove(mob/M)
 	. = ..()
 	if(!M)
 		return
 	space_dragon = null
-
 
 /datum/action/innate/space_dragon_gust/Trigger(left_click = TRUE)
 	. = ..()
@@ -56,13 +51,11 @@
 		return
 	space_dragon?.try_gust()
 
-
 /datum/action/innate/summon_rift
 	name = "Создать разлом"
 	desc = "Открывает разлом призыва орды космических карпов."
 	button_icon_state = "carp_rift"
 	background_icon_state = "bg_alien"
-
 
 /datum/action/innate/summon_rift/Activate()
 	var/datum/antagonist/space_dragon/dragon = owner.mind?.has_antag_datum(/datum/antagonist/space_dragon)
@@ -96,7 +89,6 @@
 	ASSERT(dragon.rift_ability == src) // Badmin protection.
 	QDEL_NULL(dragon.rift_ability) // Deletes this action when used successfully, we re-gain a new one on success later.
 
-
 /datum/action/innate/lesser_carp_rift
 	name = "малый разлом карпов"
 	desc = "Открывает малый разлом карпов, который позволяет перемещаться на малое расстояние."
@@ -108,7 +100,6 @@
 	var/range = 3
 	COOLDOWN_DECLARE(rift_cooldown)
 
-
 /datum/action/innate/lesser_carp_rift/Activate()
 	if(!COOLDOWN_FINISHED(src, rift_cooldown))
 		to_chat(owner, span_warning("Способность на перезарядке! Осталось секунд: [round(COOLDOWN_TIMELEFT(src, rift_cooldown)) / 10]!"))
@@ -119,7 +110,6 @@
 		return FALSE
 	COOLDOWN_START(src, rift_cooldown, cooldown_time)
 	return TRUE
-
 
 /datum/action/innate/lesser_carp_rift/proc/make_rift(atom/target_atom)
 	var/turf/owner_turf = get_turf(owner)
@@ -145,7 +135,6 @@
 	enter.on_entered(enter, owner)
 	return TRUE
 
-
 /// If you touch the entrance you are teleported to the exit, exit doesn't do anything
 /obj/effect/temp_visual/lesser_carp_rift
 	name = "малый разлом карпов"
@@ -155,21 +144,17 @@
 	/// Holds a reference to a timer until this gets deleted
 	var/destroy_timer
 
-
 /obj/effect/temp_visual/lesser_carp_rift/Initialize(mapload)
 	destroy_timer = addtimer(CALLBACK(src, PROC_REF(animate_out)), duration - 1, TIMER_STOPPABLE)
 	return ..()
-
 
 /obj/effect/temp_visual/lesser_carp_rift/proc/animate_out()
 	var/obj/effect/temp_visual/lesser_carp_rift_dissipating/animate_out = new(loc)
 	animate_out.setup_animation(alpha)
 
-
 /obj/effect/temp_visual/lesser_carp_rift/Destroy()
 	. = ..()
 	deltimer(destroy_timer)
-
 
 /// If you touch this you are taken to the exit
 /obj/effect/temp_visual/lesser_carp_rift/entrance
@@ -178,14 +163,12 @@
 	/// Click CD to apply after teleporting
 	var/disorient_time = CLICK_CD_MELEE
 
-
 /obj/effect/temp_visual/lesser_carp_rift/entrance/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/effect/temp_visual/lesser_carp_rift/entrance/proc/on_entered(datum/source, atom/movable/entered_atom)
 	SIGNAL_HANDLER
@@ -210,18 +193,15 @@
 	playsound(src, 'sound/magic/wand_teleport.ogg', 50)
 	playsound(destination, 'sound/magic/wand_teleport.ogg', 50)
 
-
 /// Doesn't actually do anything, just a visual marker
 /obj/effect/temp_visual/lesser_carp_rift/exit
 	alpha = 125
-
 
 /// Just an animation
 /obj/effect/temp_visual/lesser_carp_rift_dissipating
 	name = "малый разлом карпов"
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
-
 
 /obj/effect/temp_visual/lesser_carp_rift_dissipating/proc/setup_animation(new_alpha)
 	alpha = new_alpha

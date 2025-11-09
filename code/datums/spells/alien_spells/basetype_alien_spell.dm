@@ -10,11 +10,9 @@
 	/// How much plasma it costs to use this
 	var/plasma_cost = 0
 
-
 /// Every single alien spell uses a "spell name + plasmacost" format
 /obj/effect/proc_holder/spell/alien_spell/after_spell_init()
 	update_alien_spell_name()
-
 
 /obj/effect/proc_holder/spell/proc/update_alien_spell_name()
 	var/datum/spell_handler/alien/handler = custom_handler
@@ -24,10 +22,8 @@
 		action?.name = new_name
 		action?.UpdateButtonIcon()
 
-
 /obj/effect/proc_holder/spell/alien_spell/write_custom_logs(list/targets, mob/user)
 	user.create_log(ATTACK_LOG, "Cast the spell [name]")
-
 
 /obj/effect/proc_holder/spell/alien_spell/create_new_handler()
 	var/datum/spell_handler/alien/H = new

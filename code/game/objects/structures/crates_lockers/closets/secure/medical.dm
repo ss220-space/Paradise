@@ -19,7 +19,6 @@
 	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
 	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
 
-
 /obj/structure/closet/secure_closet/medical2
 	name = "anesthetic locker"
 	desc = "Used to knock people out."
@@ -33,7 +32,6 @@
 	new /obj/item/clothing/mask/breath/medical(src)
 	new /obj/item/clothing/mask/breath/medical(src)
 	new /obj/item/clothing/mask/breath/medical(src)
-
 
 /obj/structure/closet/secure_closet/medical3
 	name = "medical doctor's locker"
@@ -92,7 +90,6 @@
 	new /obj/item/storage/firstaid/fire(src)
 	new /obj/item/storage/firstaid/o2(src)
 	new /obj/item/storage/firstaid/toxin(src)
-
 
 // Psychiatrist's pill bottle
 /obj/item/storage/pill_bottle/psychiatrist
@@ -174,7 +171,6 @@
 	new /obj/item/radio/electropack(src)
 	new /obj/item/radio/electropack(src)
 
-
 /obj/structure/closet/secure_closet/chemical
 	name = "chemical closet"
 	desc = "Store dangerous chemicals in here."
@@ -187,7 +183,6 @@
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/patch_packs(src)
 	new /obj/item/storage/box/patch_packs(src)
-
 
 /obj/structure/closet/secure_closet/medical_wall
 	name = "first aid closet"

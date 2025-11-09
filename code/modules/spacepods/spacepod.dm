@@ -165,7 +165,6 @@
 	ion_trail.set_up(src)
 	ion_trail.start()
 
-
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
 		equipment_system.cargo_system.removed(null)
@@ -185,11 +184,9 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/spacepod/process()
 	give_air()
 	regulate_temp()
-
 
 /obj/spacepod/proc/update_icons()
 	if(!pod_overlays)
@@ -227,7 +224,6 @@
 		add_overlay(pod_overlays[DAMAGE])
 		if(health <= round(initial(health)/4))
 			add_overlay(pod_overlays[FIRE_OLAY])
-
 
 	light_color = icon_light_color[src.icon_state]
 
@@ -318,7 +314,6 @@
 		health = min(initial(health), health + repair_amount)
 		update_icons()
 
-
 /obj/spacepod/ex_act(severity, target)
 	occupant_sanity_check()
 	switch(severity)
@@ -368,7 +363,6 @@
 		return
 	for(var/mob/M in passengers | pilot)
 		to_chat(M, mymessage)
-
 
 /obj/spacepod/attackby(obj/item/I, mob/user, params)
 	var/cached_damage = I.force
@@ -470,7 +464,6 @@
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		deal_damage(cached_damage)
 
-
 /obj/spacepod/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return
@@ -500,7 +493,6 @@
 		repair_damage(10)
 		to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [I.declent_ru(GENITIVE)]."))
 
-
 /obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
 		to_chat(user, span_warning("В слоте \"[slot]\" уже есть оборудование!"))
@@ -515,7 +507,6 @@
 	max_passengers += SPE.occupant_mod
 	cargo_hold.storage_slots += SPE.storage_mod["slots"]
 	cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
-
 
 /obj/spacepod/attack_hand(mob/user)
 	if(user.a_intent == INTENT_GRAB && unlocked)
@@ -598,7 +589,6 @@
 		if("Locator System")
 			remove_equipment(user, equipment_system.locator_system, "locator_system")
 
-
 /obj/spacepod/proc/remove_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 
 	if(length(passengers) > max_passengers - SPE.occupant_mod)
@@ -627,7 +617,6 @@
 	SPE.my_atom = null
 	equipment_system.vars[slot] = null
 
-
 /obj/spacepod/hear_talk(mob/M, list/message_pieces)
 	cargo_hold.hear_talk(M, message_pieces)
 	..()
@@ -655,7 +644,6 @@
 	icon_state = "pod_civ"
 	desc = "Стильный гражданский космический челнок."
 
-
 /obj/spacepod/civilian/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -665,7 +653,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/spacepod/random
 	icon_state = "pod_civ"
@@ -706,7 +693,6 @@
 
 /obj/spacepod/syndi/unlocked
 	unlocked = TRUE
-
 
 /obj/spacepod/sec/Initialize(mapload)
 	. = ..()
@@ -844,7 +830,6 @@
 	else if(isobj(dropping))
 		load_cargo(user, dropping)
 
-
 /obj/spacepod/proc/load_cargo(mob/user, obj/object)
 	var/obj/item/spacepod_equipment/cargo/cargo = equipment_system.cargo_system
 	if(!cargo)
@@ -869,7 +854,6 @@
 	else
 		balloon_alert(user, "нет места!")
 
-
 /obj/spacepod/proc/enter_pod(mob/user)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
@@ -893,7 +877,6 @@
 
 	move_inside(user)
 	return TRUE
-
 
 /obj/spacepod/proc/move_inside(mob/living/user)
 	if(!istype(user))
@@ -975,7 +958,6 @@
 	else
 		unlocked = !unlocked
 		to_chat(user, span_warning("Вы [unlocked ? "разблокировали" : "заблокировали"] двери."))
-
 
 /obj/spacepod/proc/toggleDoors(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -1218,11 +1200,9 @@
 				else //just delete the cabin gas, we're in space or some shit
 					qdel(removed)
 
-
 // it looks really good with default Process_Spacemove and newtonian movement actually, should make a button to turn it on/off
 /obj/spacepod/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE	// obviously
-
 
 /obj/spacepod/relaymove(mob/user, direction)
 	if(!COOLDOWN_FINISHED(src, spacepod_move_cooldown))
@@ -1272,7 +1252,6 @@
 			for(var/obj/item/item in pod_loc.contents)
 				equipment_system.cargo_system.passover(item)
 
-
 //// Damaged spacepod
 /obj/spacepod/civilian/damaged
 	desc = "Сильно поврежденный челнок."
@@ -1281,7 +1260,6 @@
 	. = ..()
 	deal_damage(200)
 	update_icon()
-
 
 #undef DAMAGE
 #undef FIRE_OLAY

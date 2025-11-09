@@ -411,7 +411,6 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	A.Refresh(update_properties = FALSE)
 	return A
 
-
 /datum/disease/virus/advance/proc/totalStageSpeed()
 	var/total_stage_speed = 0
 	for(var/i in symptoms)

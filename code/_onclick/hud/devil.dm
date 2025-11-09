@@ -1,7 +1,6 @@
 
 //Soul counter is stored with the humans, it does weird when you place it here apparently...
 
-
 /datum/hud/devil/New(mob/owner)
 	..()
 
@@ -102,7 +101,7 @@
 
 	mymob.healths = new /atom/movable/screen/healthdoll/living(null, src)
 	infodisplay += mymob.healths
-	
+
 	mymob.pullin = new /atom/movable/screen/pull(null, src)
 	mymob.pullin.icon = ui_style
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
@@ -120,7 +119,6 @@
 		if(inv.slot_id)
 			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
 			inv.update_appearance()
-
 
 /datum/hud/devil/persistent_inventory_update()
 	if(!mymob)

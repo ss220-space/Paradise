@@ -252,7 +252,6 @@
 
 	to_chat(pai, chat_box_notice(welcome_message.Join("<br>")))
 
-
 /obj/item/paicard/proc/removePersonality()
 	extinguish_light(TRUE)
 	pai = null
@@ -294,29 +293,24 @@
 			add_overlay(get_emissive_block())
 		current_emotion = emotion
 
-
 /obj/item/paicard/proc/alertUpdate()
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выводит сообщение на экран: \"Дополнительные личности доступны для загрузки.\""))
 	softping()
-
 
 /obj/item/paicard/proc/softping()
 	if(COOLDOWN_FINISHED(src, ping_cooldown))
 		playsound(get_turf(src), 'sound/items/posiping.ogg', 50, FALSE)
 		COOLDOWN_START(src, ping_cooldown, 20 SECONDS)
 
-
 /obj/item/paicard/emp_act(severity)
 	for(var/mob/M in src)
 		M.emp_act(severity)
 	..()
 
-
 /obj/item/paicard/extinguish_light(force = FALSE)
 	if(pai)
 		pai.extinguish_light()
 		set_light_on(FALSE)
-
 
 /obj/item/paicard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pai_cartridge))
@@ -392,7 +386,6 @@
 
 	return ..()
 
-
 /obj/item/paicard/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 
@@ -422,7 +415,6 @@
 		to_chat(user, span_notice("Вы извлекли ключ шифрования из [declent_ru(GENITIVE)]."))
 		I.play_tool_sound(user, I.tool_volume)
 
-
 /obj/item/paicard/attack_ghost(mob/dead/observer/user)
 	if(pai)
 		return
@@ -433,7 +425,6 @@
 		to_chat(user, span_warning("Вы не можете стать пИИ."))
 		return
 	softping()
-
 
 /obj/item/pai_cartridge
 	name = "PAI upgrade"
@@ -486,7 +477,6 @@
 
 /obj/item/paicard_upgrade/protolate
 
-
 /obj/item/paicard_upgrade/proc/set_syndie_key(obj/item/paicard/paicard)
 	if(!paicard)
 		return
@@ -502,10 +492,8 @@
 	if(paicard.pai)
 		to_chat(paicard.pai, span_notice("Обнаружены новые частоты радиосообщения, калибровка..."))
 
-
 /obj/item/paicard_upgrade/protolate/set_syndie_key(obj/item/paicard)
 	return
-
 
 /obj/item/paper/pai_upgrade
 	name = "Инструкция по применению"

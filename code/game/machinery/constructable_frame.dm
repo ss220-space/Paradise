@@ -18,7 +18,6 @@
 	var/list/req_component_names
 	var/state = STATE_EMPTY
 
-
 /obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 5)
@@ -29,10 +28,8 @@
 			circuit = null
 	return ..()
 
-
 /obj/machinery/constructable_frame/obj_break(damage_flag)
 	deconstruct()
-
 
 /obj/machinery/constructable_frame/proc/update_lists(list/circuit_components)
 	req_components = circuit_components.Copy()
@@ -41,13 +38,11 @@
 	for(var/atom/path as anything in req_components)
 		req_component_names[path] = initial(path.name)
 
-
 /obj/machinery/constructable_frame/proc/get_req_components_amt()
 	var/amt = 0
 	for(var/path in req_components)
 		amt += req_components[path]
 	return amt
-
 
 /obj/machinery/constructable_frame/proc/get_req_desc()
 	. = ""
@@ -72,7 +67,6 @@
 	else
 		. = span_notice("Does not require any more components.")
 
-
 /obj/machinery/constructable_frame/machine_frame/examine(mob/user)
 	. = ..()
 	. += span_notice("It is [anchored ? "<b>bolted</b> to the floor" : "<b>unbolted</b>"].")
@@ -86,7 +80,6 @@
 			if(required)
 				. += required
 
-
 /obj/machinery/constructable_frame/machine_frame/update_icon_state()
 	switch(state)
 		if(STATE_EMPTY)
@@ -95,7 +88,6 @@
 			icon_state = "box_1"
 		if(STATE_COMPONENTS)
 			icon_state = "box_2"
-
 
 /obj/machinery/constructable_frame/machine_frame/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -120,7 +112,6 @@
 	set_anchored(TRUE)
 	WRENCH_ANCHOR_MESSAGE
 
-
 /obj/machinery/constructable_frame/machine_frame/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	add_fingerprint(user)
@@ -134,7 +125,6 @@
 	WIRECUTTER_SNIP_MESSAGE
 	update_icon(UPDATE_ICON_STATE)
 	new /obj/item/stack/cable_coil(loc, 5)
-
 
 /obj/machinery/constructable_frame/machine_frame/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -161,7 +151,6 @@
 	req_components = null
 	components = null
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/constructable_frame/machine_frame/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -195,7 +184,6 @@
 	new_machine.RefreshParts()
 	transfer_fingerprints_to(new_machine)
 	qdel(src)
-
 
 /obj/machinery/constructable_frame/machine_frame/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -329,7 +317,6 @@
 #undef STATE_EMPTY
 #undef STATE_WIRED
 #undef STATE_COMPONENTS
-
 
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
@@ -472,7 +459,6 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 1,
 	)
-
 
 /obj/item/circuitboard/thermomachine/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -700,7 +686,6 @@ to destroy them and players will be able to make replacements.
 		"Disk Storage" = /obj/machinery/smartfridge/disks,
 		"Dish Showcase" = /obj/machinery/smartfridge/dish,
 	)
-
 
 /obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -945,7 +930,6 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stack/sheet/glass = 1,
 	)
 
-
 /obj/item/circuitboard/clonepod
 	board_name = "Experimental Biomass Pod"
 	build_path = /obj/machinery/clonepod
@@ -1014,7 +998,6 @@ to destroy them and players will be able to make replacements.
 	)
 	var/target
 
-
 /obj/item/circuitboard/teleporter_perma/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -1028,7 +1011,6 @@ to destroy them and players will be able to make replacements.
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/circuitboard/telesci_pad
 	board_name = "Telepad"
@@ -1130,7 +1112,6 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/sleeper/survival
 	board_name = "Sleeper - Survival Pod"
 	build_path = /obj/machinery/sleeper/survival_pod
-
 
 /obj/item/circuitboard/bodyscanner
 	board_name = "Body Scanner"

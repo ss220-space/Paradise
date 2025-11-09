@@ -3,7 +3,6 @@
  */
 /datum/spell_targeting/remoteview
 
-
 /datum/spell_targeting/remoteview/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
 	var/list/remoteviewers = list()
 	for(var/mob/M in GLOB.alive_mob_list)

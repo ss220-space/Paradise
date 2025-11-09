@@ -260,7 +260,6 @@
 	construction_time = 13 SECONDS
 	category = list("Clarke")
 
-
 //Odysseus
 /datum/design/odysseus_chassis
 	name = "Exosuit Chassis (\"Odysseus\")"
@@ -1014,7 +1013,6 @@
 	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
-
 /datum/design/improved_exosuit_control_system
 	name = "Exosuit Common Equipment (Control System Upgrade)"
 	id = "mech_improved_exosuit_control_system"
@@ -1685,7 +1683,6 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 20 SECONDS
 	category = list("IPC")
-
 
 /datum/design/ipc_l_leg
 	name = "IPC Left Leg"

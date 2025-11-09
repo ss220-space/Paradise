@@ -206,7 +206,6 @@
 	balloon_alert(user, "постер упал!")
 	D.roll_and_drop(temp_loc, user)
 
-
 // MARK: Poster variations
 
 /obj/structure/sign/poster/ripped

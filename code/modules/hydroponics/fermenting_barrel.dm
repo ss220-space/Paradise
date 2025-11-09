@@ -50,7 +50,6 @@
 	qdel(G)
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 
-
 /obj/structure/fermenting_barrel/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
 		add_fingerprint(user)
@@ -68,7 +67,6 @@
 		return ATTACK_CHAIN_PROCEED // To refill via afterattack proc
 
 	return ..()
-
 
 /obj/structure/fermenting_barrel/attack_hand(mob/user)
 	open = !open
@@ -100,10 +98,8 @@
 	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
 	..()
 
-
 /obj/structure/fermenting_barrel/update_icon_state()
 	icon_state = "barrel[open ? "_open" : ""]"
-
 
 /datum/crafting_recipe/fermenting_barrel
 	name = "Wooden Barrel"

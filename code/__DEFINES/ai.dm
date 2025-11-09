@@ -4,7 +4,6 @@
 #define AI_STATUS_ON 1
 #define AI_STATUS_OFF 2
 
-
 ///Monkey checks
 #define SHOULD_RESIST(source) (source.on_fire || source.buckled || HAS_TRAIT(source, TRAIT_RESTRAINED) || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
 #define IS_DEAD_OR_INCAP(source) (source.incapacitated() || source.stat)
@@ -52,7 +51,6 @@
 #define BB_MONKEY_DISPOSING "BB_monkey_disposing"
 #define BB_MONKEY_RECRUIT_COOLDOWN "BB_monkey_recruit_cooldown"
 #define BB_MONKEY_NEXT_HUNGRY "BB_monkey_next_hungry"
-
 
 ///Haunted item controller defines
 
@@ -105,7 +103,6 @@
 #define BB_CUSTOMER_CURRENT_TARGET "BB_customer_current_target"
 /// Robot customer has said their can't find seat line at least once. Used to rate limit how often they'll complain after the first time.
 #define BB_CUSTOMER_SAID_CANT_FIND_SEAT_LINE "BB_customer_said_cant_find_seat_line"
-
 
 ///Hostile AI controller blackboard keys
 #define BB_HOSTILE_ORDER_MODE "BB_HOSTILE_ORDER_MODE"
@@ -169,7 +166,6 @@
 ///bane ai
 #define BB_BANE_BATMAN "BB_bane_batman"
 //yep thats it
-
 
 //Hunting defines
 #define SUCCESSFUL_HUNT_COOLDOWN 5 SECONDS

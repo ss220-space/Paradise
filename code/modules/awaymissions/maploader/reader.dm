@@ -179,7 +179,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				CHECK_TICK
 		return bounds
 
-
 /**
  * Fill a given tile with its area/turf/objects/mobs
  * Variable model is one full map line (e.g /turf/simulated/wall{icon_state = "rock"},/area/mine/dangerous/explored)
@@ -259,7 +258,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 		modelCache[model] = list(members, members_attributes)
 
-
 	////////////////
 	// Instanciation
 	////////////////
@@ -305,7 +303,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		else
 			T = instance_atom(members[first_turf_index], members_attributes[first_turf_index], xcrd, ycrd, zcrd)
 
-
 	if(T)
 		// if others /turf are presents, simulates the underlays piling effect
 		index = first_turf_index + 1
@@ -350,7 +347,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	return instance
 
-
 // text trimming (both directions) helper proc
 // optionally removes quotes before and after the text (for variable name)
 /datum/dmm_suite/proc/trim_text(what, trim_quotes = FALSE)
@@ -358,7 +354,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		return trimQuotesRegex.Replace(what, "")
 	else
 		return trimRegex.Replace(what, "")
-
 
 // find the position of the next delimiter, skipping whatever is comprised between opening_escape and closing_escape
 // returns 0 if reached the last delimiter
@@ -373,7 +368,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		next_opening = findtext(text, opening_escape, position, 0)
 
 	return next_delimiter
-
 
 // build a list from variables in text form (e.g {var1="derp"; var2; var3=7} => list(var1="derp", var2, var3=7))
 // return the filled list
@@ -406,7 +400,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	while(delimiter_position != 0)
 
 	return to_return
-
 
 /**
  * Tries to parse the given value_text. Will fallback on the value_text as a string if it fails
@@ -445,7 +438,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	else
 		. = value_text // Assume it is a string without quotes
-
 
 /datum/dmm_suite/Destroy()
 	..()

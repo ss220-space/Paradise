@@ -206,7 +206,6 @@
 		span_notice("You have fixed the internal parts of [src]."),
 	)
 
-
 /obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	add_fingerprint(user)
@@ -232,7 +231,6 @@
 		span_notice("You have fixed the external parts of [src]."),
 	)
 
-
 /obj/machinery/kitchen_machine/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	add_fingerprint(user)
@@ -241,17 +239,14 @@
 		return .
 	return default_deconstruction_crowbar(user, I)
 
-
 /obj/machinery/kitchen_machine/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE)
 		return .
 	special_grab_attack(grabbed_thing, grabber)
 
-
 /obj/machinery/kitchen_machine/proc/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
 	to_chat(grabber, span_warning("This is ridiculous. You can not fit [grabbed_thing] in [src]."))
-
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(I.loc == user)
@@ -265,7 +260,6 @@
 		span_notice("You add [I] to [src]."),
 	)
 
-
 /obj/machinery/kitchen_machine/attack_ai(mob/user)
 	return 0
 
@@ -273,7 +267,6 @@
 	add_fingerprint(user)
 	user.set_machine(src)
 	interact(user)
-
 
 /obj/machinery/kitchen_machine/on_deconstruction()
 	dropContents()
@@ -347,8 +340,6 @@
 	popup.open(0)
 	onclose(user, "[name]")
 	return
-
-
 
 /************************************
 *   Machine Menu Handling/Cooking	*
@@ -571,7 +562,6 @@
 
 	return
 
-
 /obj/machinery/kitchen_machine/update_icon_state()
 	if(broken)
 		icon_state = broken_icon
@@ -580,7 +570,6 @@
 		icon_state = dirty_icon
 		return
 	icon_state = operating ? on_icon : off_icon
-
 
 #undef NO_DIRT
 #undef MAX_DIRT

@@ -18,7 +18,6 @@
 		PREPOSITIONAL = "игровом автомате",
 	)
 
-
 /obj/machinery/computer/arcade/proc/Reset()
 	return
 
@@ -65,7 +64,6 @@
 	for(var/i = num_of_prizes; i > 0; i--)
 		prizevend()
 	explosion(get_turf(src), devastation_range = -1, heavy_impact_range = 0, light_impact_range = (1 + num_of_prizes), flame_range = (1 + num_of_prizes))
-
 
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
@@ -264,7 +262,6 @@
 	blocked = 0
 	return
 
-
 /obj/machinery/computer/arcade/battle/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
@@ -296,7 +293,6 @@
 #define ORION_TRAIL_COLLISION "Столкновение"
 #define ORION_TRAIL_SPACEPORT "Космопорт"
 #define ORION_TRAIL_BLACKHOLE "Черная Дыра"
-
 
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"
@@ -725,7 +721,6 @@
 						var/mob/living/simple_animal/hostile/syndicate/ranged/orion/O = new/mob/living/simple_animal/hostile/syndicate/ranged/orion(get_turf(src))
 						O.GiveTarget(usr)
 
-
 		fuel += FU
 		food += FO
 		event()
@@ -760,7 +755,6 @@
 	updateUsrDialog()
 	busy = 0
 	return
-
 
 /obj/machinery/computer/arcade/orion_trail/proc/event()
 	eventdat = "<center><h1>[event]</h1></center>"
@@ -897,7 +891,6 @@
 			eventdat += "<p align='right'><a href='byond://?src=[UID()];eventclose=1'>Продолжить</a></p>"
 			eventdat += "<p align='right'><a href='byond://?src=[UID()];close=1'>Закрыть</a></p>"
 
-
 		if(ORION_TRAIL_SPACEPORT)
 			if(spaceport_raided)
 				eventdat += "Космопорт приведён в состояние повышенной готовности! Они не позволят вам причалить, так как вы пытались напасть на них!"
@@ -915,7 +908,6 @@
 				eventdat += english_list(settlers)
 				eventdat += "<br><b>Пища: </b>[food] | <b>Топливо: </b>[fuel]"
 				eventdat += "<br><b>Детали двигателя: </b>[engine] | <b>Панели корпуса: </b>[hull] | <b>Электроника: </b>[electronics]"
-
 
 				//If your crew is pathetic you can get freebies (provided you haven't already gotten one from this port)
 				if(!spaceport_freebie && (fuel < 20 || food < 20))
@@ -990,7 +982,6 @@
 
 				eventdat += "<p align='right'><a href='byond://?src=[UID()];leave_spaceport=1'>Отчалить из космопорта</a></p>"
 
-
 //Add Random/Specific crewmember
 /obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(specific = "")
 	var/newcrew = ""
@@ -1005,7 +996,6 @@
 		settlers += newcrew
 		alive++
 	return newcrew
-
 
 //Remove Random/Specific crewmember
 /obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(specific = "", dont_remove = "")
@@ -1025,7 +1015,6 @@
 		settlers -= removed
 		alive--
 	return removed
-
 
 /obj/machinery/computer/arcade/orion_trail/proc/win()
 	playing = 0
@@ -1073,7 +1062,6 @@
 		INSTRUMENTAL = "охраной космопорта",
 		PREPOSITIONAL = "охране космопорта",
 	)
-
 
 /obj/item/orion_ship
 	name = "model settler ship"

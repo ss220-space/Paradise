@@ -2,7 +2,6 @@
 	has_gravity = STANDARD_GRAVITY
 	holomap_should_draw = FALSE
 
-
 /area/syndicate/unpowered/syndicate_space_base
 	name = "Secret Space Base"
 	icon_state = "syndie-control"
@@ -120,8 +119,6 @@
 	name = "Syndicate Space Janitorial"
 	icon_state = "taipan_janitor"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-
-
 
 /area/syndicate/unpowered/syndicate_space_base/toilets
 	name = "Syndicate Space Toilets"

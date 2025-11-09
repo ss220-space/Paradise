@@ -308,7 +308,6 @@
 	update_all_mob_security_hud()
 	return TRUE
 
-
 /**
  * Timed action involving one mob user. Target is optional.
  * Checks that `user` does not move, change hands, get stunned, etc. for the given `delay`.
@@ -438,7 +437,6 @@
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
-
 /proc/is_species(A, species_datum)
 	. = FALSE
 	if(ishuman(A))
@@ -446,17 +444,14 @@
 		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
 
-
 /proc/is_monkeybasic(mob/living/carbon/human/target)
 	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
-
 
 /proc/is_evolvedslime(mob/living/carbon/human/target)
 	if(!ishuman(target) || !istype(target.dna.species, /datum/species/slime))
 		return FALSE
 	var/datum/species/slime/species = target.dna.species
 	return species.evolved_slime
-
 
 /proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
 	var/turf/T = get_turf(target)
@@ -599,7 +594,6 @@
 		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
-
 /proc/getviewsize(view)
 	if(!view) // Just to avoid any runtimes that could otherwise cause constant disconnect loops.
 		stack_trace("Missing value for 'view' in getviewsize(), defaulting to world.view!")
@@ -612,13 +606,11 @@
 		var/list/viewrangelist = splittext(view, "x")
 		return list(text2num(viewrangelist[1]), text2num(viewrangelist[2]))
 
-
 /proc/in_view_range(mob/user, atom/A)
 	var/list/view_range = getviewsize(user.client.view)
 	var/turf/source = get_turf(user)
 	var/turf/target = get_turf(A)
 	return ISINRANGE(target.x, source.x - view_range[1], source.x + view_range[1]) && ISINRANGE(target.y, source.y - view_range[1], source.y + view_range[1])
-
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)
@@ -678,7 +670,6 @@
 			if(player.stat == CONSCIOUS)
 				active++
 	return list(total, active, dead, antag)
-
 
 /**
  * Safe ckey getter

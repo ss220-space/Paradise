@@ -9,7 +9,6 @@
 	language = LANGUAGE_KIDAN
 	unarmed_type = /datum/unarmed_attack/claws
 
-
 	inherent_traits = list(
 		TRAIT_HAS_REGENERATION,
 	)
@@ -148,7 +147,6 @@
 		produce_pheromones = new
 		produce_pheromones.Grant(H)
 
-
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	remove_verb(H, list(
@@ -177,7 +175,6 @@
 	// Removing the action for creating pheromones
 	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in H.actions
 	produce_pheromones?.Remove(H)
-
 
 /// Pheromones spawnable by kida, only perceivable by other kida
 /obj/effect/kidan_pheromones

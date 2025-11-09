@@ -95,7 +95,6 @@
 	ADD_TRAIT(owner, TRAIT_PACIFISM, id)
 	return ..()
 
-
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
@@ -147,11 +146,9 @@
 	var/damage = 8
 	var/source_UID
 
-
 /datum/status_effect/shadow_boxing/on_creation(mob/living/new_owner, mob/living/source)
 	. = ..()
 	source_UID = source.UID()
-
 
 /datum/status_effect/shadow_boxing/tick(seconds_between_ticks)
 	var/mob/living/attacker = locateUID(source_UID)
@@ -162,7 +159,6 @@
 		owner.apply_damage(damage, BRUTE)
 		playsound(owner_turf, SFX_PUNCH, 30, TRUE, -1)
 		shadow_to_animation(attacker_turf, owner_turf, attacker)
-
 
 // MARK: saw_bleed
 /datum/status_effect/saw_bleed
@@ -264,7 +260,6 @@
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier *= 0.5
 
-
 // MARK: Vampire mark_prey
 /datum/status_effect/mark_prey
 	id = "mark_prey"
@@ -284,7 +279,6 @@
 									"ПРИШЕЛ ДЕНЬ РАСПЛАТЫ!!!",
 									"ЖИВОТНЫЕ НЕ ЧЛЕНЫ ЭКИПАЖА!!!")
 
-
 /datum/status_effect/mark_prey/on_creation(mob/living/new_owner, datum/antagonist/vampire/antag_datum)
 	if(antag_datum)
 		vamp = antag_datum
@@ -294,14 +288,12 @@
 		t_hearts = vamp.get_trophies(INTERNAL_ORGAN_HEART)
 	return ..()
 
-
 /datum/status_effect/mark_prey/Destroy()
 	if(owner)
 		owner.cut_overlay(marked_overlay)
 	QDEL_NULL(marked_overlay)
 	vamp = null
 	return ..()
-
 
 /datum/status_effect/mark_prey/on_apply()
 	if(owner.stat == DEAD || !vamp)
@@ -315,7 +307,6 @@
 	marked_overlay.pixel_y = 3
 	owner.add_overlay(marked_overlay)
 	return ..()
-
 
 /datum/status_effect/mark_prey/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
@@ -393,7 +384,6 @@
 			found_gun.process_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
 			found_gun.attack(owner, owner, def_zone = BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
 
-
 // start of `living` level status procs.
 
 // MARK: Confusion
@@ -406,7 +396,6 @@
 /datum/status_effect/transient/confusion
 	id = "confusion"
 	var/image/overlay
-
 
 /// The threshold in which all of our movements are fully randomized, in seconds.
 #define CONFUSION_FULL_THRESHOLD (40 SECONDS)
@@ -439,18 +428,15 @@
 #undef CONFUSION_SIDEWAYS_MOVE_COEFFICIENT
 #undef CONFUSION_DIAGONAL_MOVE_COEFFICIENT
 
-
 /datum/status_effect/transient/confusion/on_apply()
 	RegisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(on_move))
 	return TRUE
-
 
 /datum/status_effect/transient/confusion/on_remove()
 	UnregisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE)
 	owner.cut_overlay(overlay)
 	overlay = null
 	return ..()
-
 
 /datum/status_effect/transient/confusion/tick(seconds_between_ticks)
 	. = ..()
@@ -462,7 +448,6 @@
 		owner.cut_overlay(overlay)
 		overlay = null
 
-
 /datum/status_effect/transient/confusion/proc/add_overlay()
 	if(overlay)
 		return
@@ -471,7 +456,6 @@
 	overlay = image('icons/effects/effects.dmi', "confusion", pixel_y = 20)
 	overlay.transform = M
 	owner.add_overlay(overlay)
-
 
 // MARK: Disoriented
 /**
@@ -539,19 +523,16 @@
 	/// Difference between config run and walk delays
 	var/delay_diff
 
-
 /datum/status_effect/transient/drowsiness/on_apply()
 	. = ..()
 	delay_diff = CONFIG_GET(number/movedelay/walk_delay) - CONFIG_GET(number/movedelay/run_delay)
 	RegisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED, PROC_REF(on_move_intent_toggle))
 	on_move_intent_toggle()
 
-
 /datum/status_effect/transient/drowsiness/on_remove()
 	. = ..()
 	UnregisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/drowsiness)
-
 
 #define DROWSY_MULTIPLICATIVE_SLOWDOWN 6
 
@@ -563,7 +544,6 @@
 
 #undef DROWSY_MULTIPLICATIVE_SLOWDOWN
 
-
 /datum/status_effect/transient/drowsiness/tick(seconds_between_ticks)
 	. = ..()
 	if(!.)
@@ -573,10 +553,8 @@
 		owner.AdjustSleeping(2 SECONDS)
 		owner.Paralyse(10 SECONDS)
 
-
 /datum/status_effect/transient/drowsiness/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
-
 
 // MARK: Drukenness
 /**
@@ -707,14 +685,12 @@
 	var/needs_update_stat = FALSE
 	var/list/traits_to_apply
 
-
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
 	if(isnum(set_duration))
 		duration = update_duration(new_owner, set_duration)
 	if(!duration)
 		return FALSE
 	return ..()
-
 
 /datum/status_effect/incapacitating/on_apply()
 	. = ..()
@@ -723,7 +699,6 @@
 	if(needs_update_stat || issilicon(owner))
 		owner.update_stat()
 
-
 /datum/status_effect/incapacitating/on_remove()
 	if(traits_to_apply)
 		owner.remove_traits(traits_to_apply, TRAIT_STATUS_EFFECT(id))
@@ -731,13 +706,11 @@
 		owner.update_stat()
 	return ..()
 
-
 /// Proc used to correct duration of incapacitating effects
 /datum/status_effect/incapacitating/proc/update_duration(mob/living/carbon/human/new_owner, set_duration)
 	if(ishuman(new_owner))
 		return new_owner.dna.species.spec_stun(new_owner, set_duration)
 	return set_duration
-
 
 // MARK: Stun
 //STUN - prevents movement and actions, victim stays standing
@@ -745,12 +718,10 @@
 	id = "stun"
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED)
 
-
 /datum/status_effect/incapacitating/stun/on_apply()
 	if(issilicon(owner))
 		traits_to_apply |= TRAIT_KNOCKEDOUT
 	return ..()
-
 
 // MARK: Knockdown
 //KNOCKDOWN - force victim to lying down position
@@ -758,12 +729,10 @@
 	id = "knockdown"
 	traits_to_apply = list(TRAIT_FLOORED)
 
-
 /datum/status_effect/incapacitating/knockdown/update_duration(mob/living/carbon/human/new_owner, set_duration)
 	. = ..()
 	if(ishuman(new_owner))
 		. *= new_owner.physiology.knockdown_mod
-
 
 // MARK: Immobilized
 //IMMOBILIZED - prevents movement, victim can still stand and act
@@ -771,19 +740,16 @@
 	id = "immobilized"
 	traits_to_apply = list(TRAIT_IMMOBILIZED)
 
-
 // MARK: Weakened
 //WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_FLOORED)
 
-
 /datum/status_effect/incapacitating/weakened/on_apply()
 	if(issilicon(owner))
 		traits_to_apply |= TRAIT_KNOCKEDOUT
 	return ..()
-
 
 // MARK: Unconscious
 //UNCONSCIOUS
@@ -792,11 +758,9 @@
 	needs_update_stat = TRUE
 	traits_to_apply = list(TRAIT_KNOCKEDOUT)
 
-
 /datum/status_effect/incapacitating/unconscious/tick(seconds_between_ticks)
 	if(owner.getStaminaLoss())
 		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
-
 
 // MARK: Paralyzed
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
@@ -805,10 +769,8 @@
 	needs_update_stat = TRUE
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_KNOCKEDOUT)
 
-
 /datum/status_effect/incapacitating/paralyzed/update_duration(mob/living/carbon/human/new_owner, set_duration)
 	return set_duration
-
 
 // MARK: Sleeping
 //SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
@@ -818,10 +780,8 @@
 	needs_update_stat = TRUE
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_KNOCKEDOUT)
 
-
 /datum/status_effect/incapacitating/sleeping/update_duration(mob/living/carbon/human/new_owner, set_duration)
 	return set_duration
-
 
 /datum/status_effect/incapacitating/sleeping/tick(seconds_between_ticks)
 	if(!iscarbon(owner))
@@ -863,7 +823,6 @@
 	if(prob(10) && dreamer.health)
 		dreamer.emote("snore")
 
-
 #define DEFAULT_SLOWED_DELAY 10
 
 // MARK: Slowed
@@ -882,7 +841,6 @@
 	. = ..()
 	set_slowdown_value(0)
 
-
 /datum/status_effect/incapacitating/slowed/proc/set_slowdown_value(new_slowdown_value = DEFAULT_SLOWED_DELAY)
 	if(!isnum(new_slowdown_value) || slowdown_value == new_slowdown_value)
 		return
@@ -893,7 +851,6 @@
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed)
 
 #undef DEFAULT_SLOWED_DELAY
-
 
 // MARK: Silence
 /datum/status_effect/transient/silence
@@ -927,7 +884,6 @@
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
-
 /datum/status_effect/transient/jittery/get_examine_text()
 	switch(strength)
 		if(600 SECONDS to INFINITY)
@@ -936,7 +892,6 @@
 			return span_warning("[GEND_HE_SHE_CAP(owner)] крайне нервнича[PLUR_ET_YUT(owner)].")
 		if(200 SECONDS to 400 SECONDS)
 			return span_warning("[GEND_HE_SHE_CAP(owner)] слегка дёрга[PLUR_ET_YUT(owner)]ся.")
-
 
 /datum/status_effect/transient/stammering
 	id = "stammer"
@@ -998,11 +953,9 @@
 #undef HALLUCINATE_MODERATE_WEIGHT
 #undef HALLUCINATE_MAJOR_WEIGHT
 
-
 // MARK: Eye blurry
 /datum/status_effect/transient/eye_blurry
 	id = "eye_blurry"
-
 
 /datum/status_effect/transient/eye_blurry/on_apply()
 	if(!ishuman(owner))
@@ -1012,7 +965,6 @@
 	// Apply initial blur
 	update_blur()
 	return TRUE
-
 
 /datum/status_effect/transient/eye_blurry/on_remove()
 	UnregisterSignal(owner, COMSIG_MOB_LOGIN)
@@ -1057,7 +1009,6 @@
 	if(.)
 		update_blur()
 
-
 /datum/status_effect/transient/eye_blurry/calc_decay()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
@@ -1072,7 +1023,6 @@
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold)) // decays faster if you rest your eyes with a blindfold.
 			return -1 SECONDS
 	return ..() //default decay rate
-
 
 // MARK: Blindness
 /datum/status_effect/transient/blindness
@@ -1343,11 +1293,9 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-
 /atom/movable/screen/alert/status_effect/bubblegum_curse/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /atom/movable/screen/alert/status_effect/bubblegum_curse/process(seconds_per_tick)
 	var/new_filter = isnull(get_filter("ray"))
@@ -1387,14 +1335,12 @@
 
 	carbon.adjustToxLoss(-3)
 
-
 // MARK: Judo armbar
 /datum/status_effect/judo_armbar
 	id = "armbar"
 	duration = 5 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
-
 
 // MARK: Temperature
 /datum/status_effect/transient/temperature

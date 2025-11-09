@@ -42,7 +42,6 @@
 
 	qdel(src)
 
-
 /obj/item/reagent_containers/food/drinks/bottle/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM || !isGlass)
 		return ..()
@@ -122,7 +121,6 @@
 
 	//Finally, smash the bottle. This kills (qdel) the bottle.
 	smash(target, user)
-
 
 /obj/item/reagent_containers/food/drinks/bottle/proc/SplashReagents(mob/M)
 	if(reagents?.total_volume)
@@ -404,7 +402,6 @@
 	desc = "Слабая аура беспокойства и боли в заднице окружает эту бутылку."
 	icon_state = "winebottle"
 	list_reagents = list("wine" = 100)
-
 
 /obj/item/reagent_containers/food/drinks/bottle/wine/get_ru_names()
 	return list(
@@ -749,25 +746,21 @@
 		PREPOSITIONAL = "коктейле Молотова",
 	)
 
-
 /obj/item/reagent_containers/food/drinks/bottle/molotov/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc)
 	if(!isGlass)
 		desc += " Вы не уверены, что сделать это из коробки было самой удачной идеей."
 
-
 /obj/item/reagent_containers/food/drinks/bottle/molotov/update_icon_state()
 	var/obj/item/reagent_containers/food/drinks/bottle/bottle = locate() in contents
 	if(bottle)
 		icon_state = bottle.icon_state
 
-
 /obj/item/reagent_containers/food/drinks/bottle/molotov/update_overlays()
 	. = ..()
 	if(active)
 		. += GLOB.fire_overlay
-
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/CheckParts(list/parts_list)
 	..()
@@ -777,7 +770,6 @@
 		if(!bottle.isGlass)
 			isGlass = FALSE
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
-
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	var/firestarter = 0
@@ -791,7 +783,6 @@
 		target.fire_act()
 		new /obj/effect/hotspot(get_turf(target))
 	..()
-
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -816,7 +807,6 @@
 	if(!isGlass)
 		addtimer(CALLBACK(src, PROC_REF(splash_reagents), 5 SECONDS))
 
-
 /obj/item/reagent_containers/food/drinks/bottle/molotov/proc/splash_reagents()
 	if(!active)
 		return
@@ -830,7 +820,6 @@
 		SplashReagents(target)
 		target.fire_act()
 	qdel(src)
-
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attack_self(mob/user)
 	if(active)

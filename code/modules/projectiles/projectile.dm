@@ -121,14 +121,12 @@
 	/// Probability to hit lying non-dead mobs
 	var/hit_crawling_mobs_chance = 33
 
-
 /obj/projectile/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/projectile/proc/Range()
 	range--
@@ -145,17 +143,14 @@
 	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
 		on_range()
 
-
 /**
  * If we want there to be effects when they reach the end of their range
  */
 /obj/projectile/proc/on_range()
 	qdel(src)
 
-
 /obj/projectile/proc/prehit(atom/target)
 	return TRUE
-
 
 /obj/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
@@ -248,11 +243,8 @@
 
 	return were_affects_applied
 
-
-
 /obj/projectile/proc/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
 	return target.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused)
-
 
 /**
  * Checks whether the place we want to splatter blood is blocked (i.e. by windows).
@@ -266,13 +258,11 @@
 		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
 			return TRUE
 
-
 /obj/projectile/proc/vol_by_damage()
 	if(damage)
 		return clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
-
 
 /obj/projectile/Bump(atom/bumped_atom)
 	. = ..()
@@ -334,10 +324,8 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-
 /obj/projectile/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //Bullets don't drift in space
-
 
 /obj/projectile/process()
 	if(!loc || !trajectory)
@@ -357,10 +345,8 @@
 	for(var/i in 1 to required_moves)
 		pixel_move(1)
 
-
 /obj/projectile/proc/shrapnel_hit(atom/target)
 	return
-
 
 /obj/projectile/proc/pixel_move(trajectory_multiplier)
 	if(!loc || !trajectory)
@@ -400,7 +386,6 @@
 		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
 	Range()
 
-
 /obj/projectile/proc/fire(setAngle)
 	if(setAngle)
 		Angle = setAngle
@@ -437,7 +422,6 @@
 	START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)
 
-
 /obj/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
 	if(!starting)
 		return
@@ -459,13 +443,11 @@
 	hit_crawling_mobs_chance = 100
 	set_angle(get_angle(curloc, original))
 
-
 /obj/projectile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(arrived.density && !(pass_flags & PASSMOB) && isliving(arrived))
 		Bump(arrived)
-
 
 /obj/projectile/Destroy()
 	STOP_PROCESSING(SSprojectiles, src)
@@ -477,21 +459,17 @@
 	firer = null
 	return ..()
 
-
 /obj/projectile/proc/dumbfire(dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 
-
 /obj/projectile/proc/on_ricochet(atom/A)
 	return
-
 
 /obj/projectile/proc/check_ricochet(atom/A)
 	if(prob(ricochet_chance))
 		return TRUE
 	return FALSE
-
 
 /obj/projectile/proc/check_ricochet_flag(atom/A)
 	if((flag == ENERGY || flag == LASER) && (A.flags_ricochet & RICOCHET_SHINY))
@@ -505,22 +483,18 @@
 
 	return FALSE
 
-
 /obj/projectile/set_angle(new_angle)
 	..()
 	Angle = new_angle
 	trajectory.set_angle(new_angle)
-
 
 /obj/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)
 	var/list/coordinates = trajectory.return_coordinates()
 	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
 
-
 /obj/projectile/experience_pressure_difference()
 	return
-
 
 /obj/projectile/forceMove(atom/target)
 	. = ..()
@@ -528,7 +502,6 @@
 		return
 	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
 		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)
-
 
 /obj/projectile/proc/is_reflectable(desired_reflectability_level)
 	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not

@@ -80,7 +80,6 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/effect/mob_spawn/human/golem
 	name = "inert free golem shell"
 	desc = "Гуманоидная форма, пустая, безжизненная, но полная потенциала."

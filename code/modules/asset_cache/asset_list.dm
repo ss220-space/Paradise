@@ -509,7 +509,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 #undef SPRSZ_ICON
 #undef SPRSZ_STRIPPED
 
-
 /datum/asset/changelog_item
 	_abstract = /datum/asset/changelog_item
 	var/item_filename
@@ -641,23 +640,19 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/namespaced/proc/get_htmlloader(filename)
 	return URL2HTMLLOADER(SSassets.transport.get_asset_url(filename, assets[filename]))
 
-
 /// A subtype to generate a JSON file from a list
 /datum/asset/json
 	_abstract = /datum/asset/json
 	/// The filename, will be suffixed with ".json"
 	var/name
 
-
 /datum/asset/json/send(client)
 	return SSassets.transport.send_assets(client, "[name].json")
-
 
 /datum/asset/json/get_url_mappings()
 	return list(
 		"[name].json" = SSassets.transport.get_asset_url("[name].json"),
 	)
-
 
 /datum/asset/json/register()
 	var/filename = "data/[name].json"

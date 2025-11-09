@@ -62,7 +62,6 @@
 		/obj/item/his_grace/no_sound = 1,
 	)
 
-
 /datum/thunderdome_gamemode/ranged
 	name = "Thunderdome Ranger Challenge"
 	arena_radius = RANGED_ARENA_RADIUS

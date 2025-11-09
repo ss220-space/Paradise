@@ -96,7 +96,6 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 				M.set_opacity(FALSE)
 				M.update_icon()
 
-
 	while(currpoint <= points)
 		if(phi > (2 * PI))
 			break;

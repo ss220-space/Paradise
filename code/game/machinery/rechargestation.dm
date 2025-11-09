@@ -122,7 +122,6 @@
 		go_out()
 	..(severity)
 
-
 /obj/machinery/recharge_station/update_icon_state()
 	if(occupant)
 		if(stat & (NOPOWER|BROKEN))
@@ -132,14 +131,12 @@
 	else
 		icon_state = "borgcharger0"
 
-
 /obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/machinery/recharge_station/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -177,7 +174,6 @@
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
 	use_power = IDLE_POWER_USE
-
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(isrobot(occupant))
@@ -236,18 +232,15 @@
 						S.reagents.add_reagent("facid", 2 * coeff)
 						S.reagents.add_reagent("sacid", 2 * coeff)
 
-
 /obj/machinery/recharge_station/verb/move_eject()
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	go_out(usr)
 
-
 /obj/machinery/recharge_station/verb/move_inside_verb()
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	move_inside(usr)
-
 
 /obj/machinery/recharge_station/proc/move_inside(mob/user = usr)
 	set category = STATPANEL_OBJECT

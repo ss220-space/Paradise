@@ -1,6 +1,5 @@
 /datum/admins/proc/Secrets()
 
-
 	if(!check_rights(0))	return
 	var/dat = {"<center>"}
 

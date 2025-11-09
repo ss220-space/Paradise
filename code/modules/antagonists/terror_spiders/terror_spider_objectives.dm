@@ -102,7 +102,6 @@
 		return TRUE
 	return .
 
-
 /datum/objective/spider_get_power/eat_humans
 	name = "Поедать гуманоидов"
 

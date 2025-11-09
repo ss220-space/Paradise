@@ -132,7 +132,6 @@
 	H.update_hud_set()
 	H.grant_mimicking()
 
-
 //=========== security clown equipment ===========
 /obj/item/pda/clown/security
 	default_request_console_cartridge = /obj/item/cartridge/request_console/clown_security

@@ -290,7 +290,6 @@
 	spell_type = /obj/effect/proc_holder/spell/area_teleport/teleport
 	category = "Mobility"
 
-
 /datum/spellbook_entry/nullspace_box
 	name = "Призыв блюспейс коробки"
 	spell_type = /obj/effect/proc_holder/spell/nullspace_box
@@ -780,7 +779,6 @@
 	..()
 	initialize()
 
-
 /obj/item/spellbook/magic_charge_act(mob/user)
 	. = RECHARGE_SUCCESSFUL|RECHARGE_BURNOUT
 
@@ -790,7 +788,6 @@
 				"SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", \
 				"CUTE!", \
 				"YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")))
-
 
 /obj/item/spellbook/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM || skip_refunds)
@@ -854,7 +851,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/spellbook/proc/GetCategoryHeader(category)
 	var/dat = ""
@@ -1044,7 +1040,6 @@
 		user.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 		. |= RECHARGE_BURNOUT
-
 
 /obj/item/spellbook/oneuse/New()
 	..()

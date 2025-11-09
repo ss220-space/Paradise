@@ -15,7 +15,6 @@
 	var/contains_pet_color_open = "#d8d8d8ff"
 	var/contains_pet_color_close = "#949494ff"
 
-
 /obj/item/pet_carrier/normal
 	name = "переноска"
 	desc = "Переноска для небольших животных."
@@ -25,23 +24,19 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mob_size = MOB_SIZE_SMALL
 
-
 /obj/item/pet_carrier/Initialize(mapload)
 	. = ..()
 	if(!color_skin)
 		color_skin = pick(possible_skins)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/pet_carrier/Destroy()
 	free_content()
 	. = ..()
 
-
 /obj/item/pet_carrier/attack_self(mob/user)
 	..()
 	change_state()
-
 
 /obj/item/pet_carrier/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/holder))
@@ -53,22 +48,18 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /obj/item/pet_carrier/emp_act(intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
-
 
 /obj/item/pet_carrier/ex_act(intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-
 /obj/item/pet_carrier/click_alt(mob/user)
 	if(try_free_content(null, user))
 		return CLICK_ACTION_SUCCESS
 	return CLICK_ACTION_BLOCKING
-
 
 /obj/item/pet_carrier/proc/put_in_carrier(mob/living/target, mob/living/user)
 	if(!opened)
@@ -91,7 +82,6 @@
 	to_chat(target, span_notice("[user.name] поместил[GEND_A_O_I(user)] вас в [name]."))
 	return TRUE
 
-
 /obj/item/pet_carrier/proc/try_free_content(atom/new_location, mob/user)
 	add_fingerprint(user)
 	if(!opened)
@@ -100,7 +90,6 @@
 		return FALSE
 	free_content(new_location)
 	return TRUE
-
 
 /obj/item/pet_carrier/proc/free_content(atom/new_location)
 	if(isturf(loc) || length(contents))
@@ -112,11 +101,9 @@
 		return TRUE
 	return FALSE
 
-
 /obj/item/pet_carrier/proc/change_state()
 	opened = !opened
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/pet_carrier/update_name(updates = ALL)
 	. = ..()
@@ -125,7 +112,6 @@
 	if(animal)
 		name += " ([animal.name])"
 
-
 /obj/item/pet_carrier/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc)
@@ -133,7 +119,6 @@
 	if(animal)
 		desc += "\n\nВнутри [animal.name]\n"
 		desc += animal.desc
-
 
 /obj/item/pet_carrier/update_overlays()
 	. = ..()
@@ -153,16 +138,13 @@
 	if(color_skin)
 		. += image(icon, icon_state = "[icon_state]_[color_skin]")
 
-
 /obj/item/pet_carrier/emp_act(intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 
-
 /obj/item/pet_carrier/ex_act(intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
-
 
 /obj/item/pet_carrier/container_resist(mob/living/L)
 	var/breakout_time = 60 SECONDS
@@ -207,7 +189,6 @@
 			change_state()
 		return
 
-
 /obj/item/pet_carrier/verb/open_close()
 	set name = "Откр/закр переноску"
 	set desc = "Меняет состояние дверцы переноски, блокируя или разблокируя возможность достать содержимое."
@@ -218,7 +199,6 @@
 
 	change_state()
 
-
 /obj/item/pet_carrier/verb/unload_content()
 	set name = "Опустошить переноску"
 	set desc = "Вытаскивает животное из переноски."
@@ -228,8 +208,6 @@
 		return
 
 	try_free_content(null, usr)
-
-
 
 /obj/item/pet_carrier/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!ishuman(usr))

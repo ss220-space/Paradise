@@ -150,7 +150,6 @@
 
 	. = ..()
 
-
 //			 TIER 4 ADMIN SPAWN ONLY
 
 /obj/effect/anomaly/gravitational/tier4
