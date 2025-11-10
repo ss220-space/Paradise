@@ -33,7 +33,6 @@
 		SSsmoke.cancel_spread(src)
 	return ..()
 
-
 /**
  * Makes the smoke fade out and then deletes it.
  */
@@ -69,7 +68,6 @@
 		set_opacity(FALSE)
 	animate(src, time = frames, alpha = 0)
 
-
 /obj/effect/particle_effect/fluid/smoke/spread(seconds_per_tick = 0.1 SECONDS)
 	if(!group || group.total_size > group.target_size)
 		return
@@ -92,7 +90,6 @@
 
 		// the smoke spreads rapidly, but not instantly
 		SSfoam.queue_spread(spread_smoke)
-
 
 /obj/effect/particle_effect/fluid/smoke/process(seconds_per_tick)
 	lifetime -= seconds_per_tick SECONDS
@@ -265,7 +262,6 @@
 	name = "red smoke"
 	color = "#af0033"
 
-
 /obj/effect/particle_effect/fluid/smoke/bad/hell
 	name = "red smoke"
 	color = BLOOD_COLOR_RED
@@ -372,7 +368,6 @@
 	distcheck = FALSE
 	weldvents = FALSE
 
-
 /////////////////////////////////////////////
 // Sleep smoke
 /////////////////////////////////////////////
@@ -392,7 +387,6 @@
 /datum/effect_system/fluid_spread/smoke/sleeping
 	effect_type = /obj/effect/particle_effect/fluid/smoke/sleeping
 
-
 /////////////////////////////////////////////
 // Vomiting smoke
 /////////////////////////////////////////////
@@ -408,7 +402,6 @@
 	victim.drop_from_active_hand()
 	victim.vomit()
 	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
-
 
 /datum/effect_system/fluid_spread/smoke/vomiting
 	effect_type = /obj/effect/particle_effect/fluid/smoke/vomiting
@@ -466,7 +459,6 @@
 	smoke.set_up(amount = amount, holder = holder, location = location, carry = smoke_reagents, silent = TRUE)
 	smoke.start(log = log)
 
-
 /// A factory which produces clouds of chemical bearing smoke.
 /datum/effect_system/fluid_spread/smoke/chem
 	/// Evil evil hack so we have something to "hold" our reagents
@@ -480,7 +472,6 @@
 /datum/effect_system/fluid_spread/smoke/chem/Destroy()
 	QDEL_NULL(chemholder)
 	return ..()
-
 
 /datum/effect_system/fluid_spread/smoke/chem/set_up(range = 1, amount = DIAMOND_AREA(range), atom/holder, atom/location = null, datum/reagents/carry = null, silent = FALSE)
 	. = ..()

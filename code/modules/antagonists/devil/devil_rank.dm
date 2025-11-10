@@ -26,7 +26,6 @@
 /datum/devil_rank/proc/link_rank(mob/living/carbon/carbon)
 	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
-
 /datum/devil_rank/proc/remove_spells()
 	if(!devil.owner)
 		return

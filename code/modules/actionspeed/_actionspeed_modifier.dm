@@ -36,7 +36,6 @@ this spits out a final calculated value which is used as a modifer in [/proc/do_
 	/// Other modification datums this conflicts with.
 	var/conflicts_with
 
-
 /datum/actionspeed_modifier/New(init_id)
 	. = ..()
 
@@ -46,9 +45,7 @@ this spits out a final calculated value which is used as a modifer in [/proc/do_
 	if(!id)
 		id = "[type]" //We turn the path into a string.
 
-
 GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
-
 
 /// Grabs a STATIC MODIFIER datum from cache. YOU MUST NEVER EDIT THESE DATUMS, OR IT WILL AFFECT ANYTHING ELSE USING IT TOO!
 /proc/get_cached_actionspeed_modifier(modtype)
@@ -61,7 +58,6 @@ GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
 	if(!actionspeed_mod)
 		actionspeed_mod = GLOB.actionspeed_modification_cache[modtype] = new modtype
 	return actionspeed_mod
-
 
 ///Add a action speed modifier to a mob. If a variable subtype is passed in as the first argument, it will make a new datum. If ID conflicts, it will overwrite the old ID.
 /mob/proc/add_actionspeed_modifier(datum/actionspeed_modifier/type_or_datum, update = TRUE)
@@ -82,7 +78,6 @@ GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
 		update_actionspeed()
 	return TRUE
 
-
 /// Remove a action speed modifier from a mob, whether static or variable.
 /mob/proc/remove_actionspeed_modifier(datum/actionspeed_modifier/type_id_datum, update = TRUE)
 	var/key
@@ -98,7 +93,6 @@ GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
 	if(update)
 		update_actionspeed()
 	return TRUE
-
 
 /*! Used for variable slowdowns like hunger/health loss/etc, works somewhat like the old list-based modification adds. Returns the modifier datum if successful
 	How this SHOULD work is:
@@ -140,7 +134,6 @@ GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
 		update_actionspeed()
 	return final
 
-
 ///Is there a actionspeed modifier for this mob
 /mob/proc/has_actionspeed_modifier(datum/actionspeed_modifier/datum_type_id)
 	var/key
@@ -151,7 +144,6 @@ GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
 	else
 		key = datum_type_id.id
 	return LAZYACCESS(actionspeed_modification, key)
-
 
 /// Go through the list of actionspeed modifiers and calculate a final actionspeed for every category
 /mob/proc/update_actionspeed()
@@ -180,11 +172,9 @@ GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
 		.[category] = max(.[category], 0)	// negative values equals to zero mod
 	cached_multiplicative_actions_slowdown = .
 
-
 ///Adds a default action speed modifier
 /mob/proc/initialize_actionspeed()
 	add_actionspeed_modifier(/datum/actionspeed_modifier/base)
-
 
 /// Returns modifier value affected by passed category
 /mob/proc/get_actionspeed_by_category(category)
@@ -196,7 +186,6 @@ GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
 		text_cat = "[DA_CAT_ALL]"
 		stack_trace("Wrong category argument passed '[category]'. Returning base value.")
 	return cached_multiplicative_actions_slowdown[text_cat]
-
 
 /// Get the action speed modifiers list of the mob
 /mob/proc/get_actionspeed_modifiers()

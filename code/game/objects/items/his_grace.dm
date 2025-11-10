@@ -355,7 +355,6 @@
 	master.visible_message(span_his_grace("[span_big("Боги заинтересовались тобой.")]"))
 	SEND_SIGNAL(master, COMSIG_MOB_HALO_GAINED)
 
-
 //for thunderdome
 /obj/item/his_grace/no_sound
 
@@ -371,7 +370,6 @@
 	move_gracefully()
 	init_new_tier(HIS_GRACE_AWAKENED)
 	user.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["his_grace"], GLOB.halo_callbacks["his_grace"])
-
 
 /proc/is_grace_ascended(mob/living/carbon/human/user)
 	if(!istype(user))

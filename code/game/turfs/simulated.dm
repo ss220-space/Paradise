@@ -80,7 +80,6 @@
 	if(istype(arrived, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 
-
 /turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)
 	. = ..()
 	ASSERT(istype(copy_to_turf, /turf/simulated))

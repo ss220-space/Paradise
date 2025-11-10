@@ -28,7 +28,6 @@
 	target_speciestypes = list(/datum/species/plasmaman)
 	restricted_speciestypes = null
 
-
 /datum/surgery/implant_removal/insect
 	name = "Извлечение импланта (Инсектоид)"
 	steps = list(
@@ -72,7 +71,6 @@
 	allowed_tools = list(/obj/item/multitool = 100, TOOL_HEMOSTAT = 65, TOOL_CROWBAR = 50)
 
 /datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(times_repeated >= max_times_to_check)

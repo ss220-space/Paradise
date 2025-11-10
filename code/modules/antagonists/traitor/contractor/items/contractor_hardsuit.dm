@@ -181,8 +181,6 @@
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 			firer.drop_item_ground(src)
 
-
-
 /obj/projectile/contractor_hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()
@@ -261,7 +259,6 @@
 	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	update_suit()
 	disguise = TRUE
-
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/disable_chameleon()
 	src.name = initial(name)

@@ -1,7 +1,6 @@
 /// List of all uplinks in the world.
 GLOBAL_LIST_EMPTY(world_uplinks)
 
-
 /obj/item/uplink
 	/// Uplink TC amount. Specified on initialization by different uplink types.
 	var/uses = 100
@@ -28,7 +27,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
 
-
 /obj/item/uplink/Initialize(mapload, uplink_type, uses)
 	. = ..()
 	src.uses = uses ? uses : src.uses
@@ -36,16 +34,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	uplink_items = get_uplink_items(src, generate_discounts = TRUE)
 	GLOB.world_uplinks += src
 
-
 /obj/item/uplink/Destroy()
 	GLOB.world_uplinks -= src
 	traitor = null
 	return ..()
 
-
 /obj/item/uplink/ui_host()
 	return loc
-
 
 /**
  * Build the item lists for use with the UI
@@ -101,7 +96,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	return safepick(random_items)
 
-
 /**
  * Handles buying an item, spending TC and updating TGUI.
  *
@@ -121,7 +115,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	uplink_item.buy(src, buyer)
 	SStgui.update_uis(src)
 	return TRUE
-
 
 /obj/item/uplink/proc/mass_purchase(datum/uplink_item/uplink_item, mob/user, quantity = 1)
 	// jamming check happens in ui_act
@@ -193,23 +186,19 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	/// A list of 3 categories and item indexes in uplink_cats, to show as recommendedations
 	var/list/lucky_numbers
 
-
 /obj/item/uplink/hidden/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(delayed_check)), 0.2 SECONDS)
 
-
 /obj/item/uplink/hidden/proc/delayed_check()
 	if(!isitem(loc))	// The hidden uplink MUST be inside an obj/item's contents.
 		qdel(src)
-
 
 /**
  * Toggles the uplink on and off. Normally this will bypass the item's normal functions and go to the uplink menu, if activated.
  */
 /obj/item/uplink/hidden/proc/toggle()
 	active = !active
-
 
 /**
  * Directly trigger the uplink. Turn on if it isn't already.
@@ -218,7 +207,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!active)
 		toggle()
 	interact(user)
-
 
 /**
  * Checks to see if the value meets the target. Like a frequency being a traitor_frequency, in order to unlock a headset.
@@ -247,7 +235,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		ui = new(user, src, "Uplink", "Аплинк")
 		ui.open()
 
-
 /obj/item/uplink/hidden/ui_data(mob/user)
 	var/list/data = list()
 
@@ -273,7 +260,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["contractor"] = contractor_data
 
 	return data
-
 
 /obj/item/uplink/hidden/ui_static_data(mob/user)
 	var/list/data = list()
@@ -333,7 +319,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/interact(mob/user)
 
 	ui_interact(user)
-
 
 /obj/item/uplink/hidden/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -445,7 +430,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	shopping_cart = null
 	generate_tgui_cart(TRUE)
 
-
 /**
  * Called in tgui_act() to process modal actions
  *
@@ -469,7 +453,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				return
 	return FALSE
 
-
 /**
  * I placed this here because of how relevant it is.
  * You place this in your uplinkable item to check if an uplink is active or not.
@@ -483,7 +466,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return TRUE
 	return FALSE
 
-
 /**
  * PRESET UPLINKS
  * A collection of preset uplinks.
@@ -496,22 +478,17 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	hidden_uplink = new(src, choose_uplink(), get_uses_amount())
 	icon_state = "radio"
 
-
 /obj/item/radio/uplink/attack_self(mob/user)
 	hidden_uplink?.trigger(user)
-
 
 /obj/item/radio/uplink/proc/choose_uplink()
 	return UPLINK_TYPE_TRAITOR
 
-
 /obj/item/radio/uplink/proc/get_uses_amount()
 	return 100
 
-
 /obj/item/radio/uplink/nuclear/choose_uplink()
 	return UPLINK_TYPE_NUCLEAR
-
 
 /obj/item/radio/uplink/nuclear/loneop/get_uses_amount()
 	return ..() + count_nuke_uses()
@@ -529,27 +506,21 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/sst/get_uses_amount()
 	return ..() + count_nuke_uses()
 
-
 /obj/item/radio/uplink/admin/choose_uplink()
 	return UPLINK_TYPE_ADMIN
 
-
 /obj/item/radio/uplink/admin/get_uses_amount()
 	return 2500
-
 
 /obj/item/multitool/uplink/Initialize(mapload)
 	. = ..()
 	hidden_uplink = new(src, UPLINK_TYPE_TRAITOR)
 
-
 /obj/item/multitool/uplink/attack_self(mob/user)
 	hidden_uplink?.trigger(user)
 
-
 /obj/item/radio/headset/uplink
 	traitor_frequency = 1445
-
 
 /obj/item/radio/headset/uplink/Initialize(mapload)
 	. = ..()

@@ -36,7 +36,6 @@ GLOBAL_LIST_EMPTY(uid_log)
 
 	return target.UID()
 
-
 /**
  * Locates a datum based off of the UID
  *
@@ -49,7 +48,6 @@ GLOBAL_LIST_EMPTY(uid_log)
 
 	return RUSTLIB_CALL(get_by_uuid, uid)
 
-
 /**
  * If the list `L` contains a datum UID who's type matches `D`'s type, returns the UID of that datum in the list. Otherwise returns null.
  */
@@ -61,7 +59,6 @@ GLOBAL_LIST_EMPTY(uid_log)
 		var/datum/A = locateUID(datum_UID)
 		if(istype(D, A))
 			return datum_UID
-
 
 /**
  * Opens a lof of UIDs

@@ -194,13 +194,11 @@
 	h_owner.set_species(pick(random_species), keep_missing_bodyparts = TRUE)
 	addtimer(CALLBACK(h_owner, TYPE_PROC_REF(/mob/living/carbon/human, insert_new_gland), old_control_uses), 0)
 
-
 /mob/living/carbon/human/proc/insert_new_gland(mind_controls)
 	if(QDELETED(src))
 		return
 	var/obj/item/organ/internal/heart/gland/pop/replace_gland = new(src)
 	replace_gland.mind_control_uses = mind_controls
-
 
 /obj/item/organ/internal/heart/gland/ventcrawling
 	origin_tech = "materials=4;biotech=5;bluespace=4;abductor=3"
@@ -210,11 +208,9 @@
 	icon_state = "vent"
 	mind_control_uses = 4
 
-
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
 	to_chat(owner, span_notice("Ваше тело кажется невероятно гибким."))
 	ADD_TRAIT(owner, TRAIT_VENTCRAWLER_ALWAYS, type)
-
 
 /obj/item/organ/internal/heart/gland/viral
 	cooldown_low = 1800
@@ -327,7 +323,6 @@
 
 	for(var/mob/living/carbon/human/H in oview(3, owner)) // Blood decals for simple animals would be neat. aka Carp with blood on it.
 		H.add_mob_blood(owner)
-
 
 /obj/item/organ/internal/heart/gland/plasma
 	cooldown_low = 1200

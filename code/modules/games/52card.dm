@@ -3,7 +3,6 @@
 	desc = "A small leather case to show how classy you are compared to everyone else."
 	icon_state = "card_holder"
 
-
 /obj/item/deck/cards
 	name = "deck of cards"
 	desc = "Простая колода игральных карт."
@@ -64,7 +63,6 @@
 	for(var/jokers in 1 to 2)
 		cards += new /datum/playingcard("Джокер", "sc_Joker_[card_style]", "singlecard_down_[card_style]")
 
-
 /obj/item/deck/cards/update_icon_state()
 	if(!LAZYLEN(cards))
 		icon_state = "deck_[card_style]_empty"
@@ -77,7 +75,6 @@
 			icon_state = "deck_[deck_style ? "[deck_style]_" : ""][card_style]_half"
 		else
 			icon_state = "deck_[deck_style ? "[deck_style]_" : ""][card_style]_full"
-
 
 /obj/item/deck/cards/doublecards
 	name = "double deck of cards"
@@ -95,7 +92,6 @@
 		INSTRUMENTAL = "двойной колодой карт",
 		PREPOSITIONAL = "двойной колоде карт",
 	)
-
 
 /obj/item/deck/cards/syndicate
 	name = "suspicious looking deck of cards"
@@ -128,14 +124,11 @@
 	item_flags |= NOSHARPENING
 	return TRUE
 
-
 /obj/item/deck/cards/black
 	card_style = "black"
 
-
 /obj/item/deck/cards/syndicate/black
 	card_style = "black"
-
 
 /obj/item/deck/cards/tiny
 	name = "deck of tiny cards"
@@ -156,7 +149,6 @@
 
 /obj/item/deck/cards/tiny/update_icon_state()
 	return
-
 
 /obj/item/deck/cards/tiny/doublecards
 	name = "double deck of tiny cards"

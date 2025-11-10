@@ -6,7 +6,6 @@
 	The process of adding in new hairstyles has been made pain-free and easy to do.
 	Enjoy! - Doohl
 
-
 	Notice: This all gets automatically compiled in a list in dna2.dm, so you do not
 	have to define any UI values for sprite accessories manually for hair and facial
 	hair. Just add in new hair types and the game will naturally adapt.
@@ -108,7 +107,6 @@
 /datum/sprite_accessory/body_markings/head
 	marking_location = "head"
 	species_allowed = list()
-
 
 /datum/sprite_accessory/body_markings/tail
 	species_allowed = list()

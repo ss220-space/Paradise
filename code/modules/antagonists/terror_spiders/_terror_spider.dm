@@ -96,7 +96,6 @@
 	power_objective = terror_team.lay_eggs_target
 	check_target()
 
-
 /datum/antagonist/terror_spider/main_spider/remove_owner_from_gamemode()
 	. = ..()
 	var/list/spiders = terror_team.main_spiders[spider_category]

@@ -21,6 +21,5 @@
 /// The maximum [BRUTE] damage a mob can take from high gravity per second.
 #define GRAVITY_DAMAGE_MAXIMUM 1.5
 
-
 #define GRAVITY_SOURCE_GRAVGEN "gravgen"
 #define GRAVITY_SOURCE_ANOMALY "anomaly"

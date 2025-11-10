@@ -40,7 +40,6 @@
 	playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-
 /obj/item/wrench/brass
 	name = "brass wrench"
 	desc = "Инструмент, используемый для закручивания и откручивания гаек и болтов. \

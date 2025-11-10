@@ -92,7 +92,6 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 
 	return 1
 
-
 /proc/AddBan(ckey, computerid, reason, bannedby, temp, minutes, address)
 
 	var/bantimestamp

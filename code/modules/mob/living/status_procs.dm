@@ -17,7 +17,6 @@
 		For some reason or another you can move while not touching the ground
 */
 
-
 // STATUS EFFECTS
 // All of these are handed by a status_effect in `debuffs.dm` their durations are measured in deciseconds, so the seconds define is used wherever possible, even with decimal seconds values.
 // Status effects sorted alphabetically:
@@ -318,7 +317,6 @@
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_TEMPERATURE, target_temperature)
-
 
 /// HALLUCINATION
 /mob/living/proc/AmountHallucinate()
@@ -667,7 +665,6 @@
 /mob/living/proc/IsKnockdown() //If we're knocked down
 	return has_status_effect(STATUS_EFFECT_KNOCKDOWN)
 
-
 /mob/living/proc/AmountKnockdown() //How many deciseconds remain in our knockdown
 	var/datum/status_effect/incapacitating/knockdown/K = IsKnockdown()
 	if(K)
@@ -714,7 +711,6 @@
 		K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount)
 	return K
 
-
 /mob/living/proc/unbuckle_if_not_cuffed()
 	if(!buckled)
 		return
@@ -724,7 +720,6 @@
 		return
 
 	buckled.unbuckle_mob(src, force = TRUE)
-
 
 // MARK: IMMOBILIZED
 
@@ -790,7 +785,6 @@
 
 /mob/living/IsWeakened()
 	return has_status_effect(STATUS_EFFECT_WEAKENED)
-
 
 /mob/living/proc/AmountWeakened() //How many deciseconds remain in our Weakened status effect
 	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
@@ -917,12 +911,10 @@
 	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
 	update_movespeed()
 
-
 /// Ignores all slowdowns that lack the IGNORE_NOSLOW flag.
 /mob/living/proc/ignore_slowdown(source)
 	ADD_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
 	update_movespeed()
-
 
 /// Ignores specific slowdowns. Accepts a list of slowdowns.
 /mob/living/proc/add_movespeed_mod_immunities(source, slowdown_type, update = TRUE)
@@ -937,7 +929,6 @@
 		LAZYADDASSOCLIST(movespeed_mod_immunities, slowdown_type, source)
 	if(update)
 		update_movespeed()
-
 
 /// Unignores specific slowdowns. Accepts a list of slowdowns.
 /mob/living/proc/remove_movespeed_mod_immunities(source, slowdown_type, update = TRUE)

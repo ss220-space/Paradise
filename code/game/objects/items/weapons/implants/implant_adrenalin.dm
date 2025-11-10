@@ -61,7 +61,6 @@
 
 	return TRUE
 
-
 /obj/item/implanter/adrenalin
 	name = "bio-chip implanter (adrenalin)"
 	imp = /obj/item/implant/adrenalin

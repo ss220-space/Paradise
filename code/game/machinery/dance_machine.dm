@@ -49,7 +49,6 @@
 	. = ..()
 	selection = songs[1]
 
-
 /obj/machinery/disco/Destroy()
 	dance_over()
 	selection = null
@@ -70,13 +69,11 @@
 		WRENCH_UNANCHOR_MESSAGE
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 
-
 /obj/machinery/disco/update_icon_state()
 	if(active)
 		icon_state = "disco1"
 	else
 		icon_state = "disco0"
-
 
 /obj/machinery/disco/update_overlays()
 	. = ..()
@@ -84,7 +81,6 @@
 
 	if(active)
 		underlays += emissive_appearance(icon, "disco_lightmask", src)
-
 
 /obj/machinery/disco/attack_hand(mob/user)
 	if(..())
@@ -119,7 +115,6 @@
 	var/datum/browser/popup = new(user, "vending", "Radiance Dance Machine - Mark IV", 400, 350)
 	popup.set_content(dat.Join())
 	popup.open()
-
 
 /obj/machinery/disco/Topic(href, href_list)
 	if(..())
@@ -327,7 +322,6 @@
 			INVOKE_ASYNC(src, PROC_REF(hierofunk))
 		sleep(selection.song_beat)
 
-
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
 	if(M.client && !(M.client.prefs.sound & SOUND_DISCO)) //We have a client that doesn't want to dance.
@@ -399,7 +393,6 @@
 		sleep(1)
 	M.lying_fix()
 
-
 /obj/machinery/disco/proc/dance4(mob/living/M)
 	var/speed = rand(1, 3)
 	set waitfor = 0
@@ -446,8 +439,6 @@
 		sleep(1)
 	M.lying_fix()
 
-
-
 /mob/living/proc/lying_fix()
 	animate(src, transform = null, time = 1, loop = 0)
 	lying_prev = 0
@@ -460,8 +451,6 @@
 			continue
 		L.stop_sound_channel(CHANNEL_JUKEBOX)
 	rangers = list()
-
-
 
 /obj/machinery/disco/process()
 	if(charge < 35)
@@ -493,8 +482,6 @@
 		playsound(src,'sound/machines/terminal_off.ogg',50, TRUE)
 		update_icon()
 		stop = world.time + 100
-
-
 
 /obj/machinery/disco/immobile
 	name = "radiant dance machine mark V"

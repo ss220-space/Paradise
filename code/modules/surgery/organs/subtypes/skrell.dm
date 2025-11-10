@@ -26,7 +26,6 @@
 			owner.adjustToxLoss(5)
 		internal_receive_damage(1)
 
-
 /obj/item/organ/internal/headpocket
 	species_type = /datum/species/skrell
 	name = "headpocket"

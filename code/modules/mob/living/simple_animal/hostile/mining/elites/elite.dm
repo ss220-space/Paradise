@@ -95,7 +95,6 @@
 		else if(L.health < -400)
 			L.gib()
 
-
 /mob/living/simple_animal/hostile/asteroid/elite/proc/revive_multiplier() //If on lavaland, return 1, or 1x cooldown. 10 if revived by a non antag, 2 if by an antag. 1 otherwise
 	if(is_mining_level(z))
 		return 1
@@ -104,7 +103,6 @@
 	if(del_on_death)
 		return REVIVE_COOLDOWN_MULT_ANTAG
 	return 1
-
 
 /mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(
 	amount = 0,
@@ -116,7 +114,6 @@
 	. = ..()
 	if(. && del_on_death)
 		setMaxHealth(max(maxHealth - (amount * antag_revived_heal_mod), 0))
-
 
 /mob/living/simple_animal/hostile/asteroid/elite/ex_act(severity, origin) //No surrounding the tumor with gibtonite and one shotting them.
 	switch(severity)
@@ -155,7 +152,6 @@
 			faction += mobref
 			friends += mob
 			to_chat(src, span_notice("Вы добавили [mob.declent_ru(ACCUSATIVE)] в список друзей."))
-
 
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
@@ -362,7 +358,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			var/obj/effect/temp_visual/heal/H = new(get_turf(mychild))
 			H.color = "#FF0000"
 
-
 /obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -383,13 +378,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 	return ..()
 
-
 /obj/structure/elite_tumor/update_icon_state()
 	if(mychild)
 		icon_state = "tumor_popped"
 		return
 	icon_state = boosted ? "advanced_tumor" : "tumor"
-
 
 /obj/structure/elite_tumor/examine(mob/user)
 	. = ..()
@@ -570,7 +563,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/effect/temp_visual/elite_tumor_wall/Destroy()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
-
 
 /obj/effect/temp_visual/elite_tumor_wall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

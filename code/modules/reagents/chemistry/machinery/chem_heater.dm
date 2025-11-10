@@ -59,11 +59,8 @@
 				if(auto_eject)
 					eject_beaker()
 
-
 /obj/machinery/chem_heater/update_icon_state()
 	icon_state = "mixer[beaker ? "1" : "0"]b"
-
-
 
 /obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
@@ -75,7 +72,6 @@
 		on = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
-
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -99,8 +95,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
-
 
 /obj/machinery/chem_heater/wrench_act(mob/user, obj/item/I)
 	. = TRUE

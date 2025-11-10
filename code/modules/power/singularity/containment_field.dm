@@ -12,14 +12,12 @@
 	var/obj/machinery/field/generator/FG1 = null
 	var/obj/machinery/field/generator/FG2 = null
 
-
 /obj/machinery/field/containment/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/machinery/field/containment/Destroy()
 	FG1.fields -= src
@@ -33,11 +31,9 @@
 		shock_field(user)
 		return 1
 
-
 /obj/machinery/field/containment/attackby(obj/item/I, mob/user, params)
 	shock(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/machinery/field/containment/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -48,7 +44,6 @@
 
 /obj/machinery/field/containment/blob_act(obj/structure/blob/B)
 	return FALSE
-
 
 /obj/machinery/field/containment/ex_act(severity, target)
 	return FALSE
@@ -64,7 +59,6 @@
 	else
 		..()
 
-
 /obj/machinery/field/containment/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
@@ -76,7 +70,6 @@
 
 	else if(ismachinery(arrived) || isstructure(arrived) || ismecha(arrived))
 		bump_field(arrived)
-
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)
 	if(!master1 || !master2)
@@ -100,7 +93,6 @@
 /obj/machinery/field
 	var/hasShocked = FALSE //Used to add a delay between shocks. In some cases this used to crash servers by spawning hundreds of sparks every second.
 
-
 /obj/machinery/field/Bumped(atom/movable/moving_atom)
 	. = ..()
 	if(hasShocked)
@@ -111,14 +103,12 @@
 	if(ismachinery(moving_atom) || isstructure(moving_atom) || ismecha(moving_atom))
 		bump_field(moving_atom)
 
-
 /obj/machinery/field/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
 		return TRUE
 	if(hasShocked || isliving(mover) || ismachinery(mover) || isstructure(mover) || ismecha(mover))
 		return FALSE
-
 
 /obj/machinery/field/proc/shock_field(mob/living/user)
 	if(isliving(user))

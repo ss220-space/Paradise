@@ -13,12 +13,10 @@
 	var/improvised = FALSE
 	COOLDOWN_DECLARE(garrote_cooldown)
 
-
 /obj/item/twohanded/garrote/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	strangling = null
 	return ..()
-
 
 /obj/item/twohanded/garrote/update_icon_state()
 	if(strangling) // If we're strangling someone we want our icon to stay wielded
@@ -26,20 +24,17 @@
 		return
 	icon_state = "garrot_[HAS_TRAIT(src, TRAIT_WIELDED) ? "un" : ""]wrap"
 
-
 /obj/item/twohanded/garrote/improvised // Made via tablecrafting
 	name = "garrote"
 	desc = "A length of cable with a shoddily-carved wooden handle tied to either end.<br>You suspect you'd have to be behind the target to use this weapon effectively."
 	icon_state = "garrot_I_wrap"
 	improvised = TRUE
 
-
 /obj/item/twohanded/garrote/improvised/update_icon_state()
 	if(strangling)
 		icon_state = "garrot_I_unwrap"
 		return
 	icon_state = "garrot_I_[HAS_TRAIT(src, TRAIT_WIELDED) ? "un" : ""]wrap"
-
 
 /obj/item/twohanded/garrote/unwield(obj/item/source, mob/living/carbon/user)
 	if(strangling)
@@ -50,7 +45,6 @@
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
-
 
 /obj/item/twohanded/garrote/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -114,7 +108,6 @@
 		span_italics("You hear struggling and wire strain against flesh!"),
 	)
 
-
 /obj/item/twohanded/garrote/process()
 	if(QDELETED(strangling))
 		// Our mark got gibbed or similar
@@ -142,7 +135,6 @@
 	else
 		strangling.Silence(6 SECONDS)
 		strangling.apply_damage(20, OXY, BODY_ZONE_HEAD)
-
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is wrapping the [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide."))

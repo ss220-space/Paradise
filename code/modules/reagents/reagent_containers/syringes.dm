@@ -52,10 +52,8 @@
 	..()
 	update_icon()
 
-
 /obj/item/reagent_containers/syringe/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -155,7 +153,6 @@
 				mode = SYRINGE_DRAW
 				update_icon()
 
-
 /obj/item/reagent_containers/syringe/update_icon_state()
 	var/rounded_vol
 	if(reagents?.total_volume)
@@ -190,7 +187,6 @@
 	list_reagents = list()
 	list_reagents[pick_list("chemistry_tools.json", "traitor_poison_bottle")] = volume
 	. = ..()
-
 
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"

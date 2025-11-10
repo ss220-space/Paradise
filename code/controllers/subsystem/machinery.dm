@@ -25,7 +25,6 @@ SUBSYSTEM_DEF(machines)
 
 	var/currentpart = SSMACHINES_DEFERREDPOWERNETS
 
-
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
 	fire()
@@ -73,10 +72,8 @@ SUBSYSTEM_DEF(machines)
 			NewPN.add_cable(PC)
 			propagate_network(PC,PC.powernet)
 
-
 /datum/controller/subsystem/machines/get_stat_details()
 	return "Machines: [length(all_machines)] | Powernets: [length(powernets)] | Deferred: [length(deferred_powernet_rebuilds)]"
-
 
 /datum/controller/subsystem/machines/proc/process_defered_powernets(resumed = 0)
 	if(!resumed)
@@ -149,7 +146,6 @@ SUBSYSTEM_DEF(machines)
 			return
 		resumed = 0
 	currentpart = SSMACHINES_DEFERREDPOWERNETS
-
 
 /datum/controller/subsystem/machines/proc/setup_template_powernets(list/cables)
 	for(var/A in cables)

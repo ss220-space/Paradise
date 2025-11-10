@@ -59,7 +59,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	updateDialog()
 
-
 /obj/machinery/power/generator/power_change(forced = FALSE)
 	if(!anchored)
 		stat |= NOPOWER
@@ -69,7 +68,6 @@
 		return
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/power/generator/update_overlays()
 	. = ..()
 	if(stat & (NOPOWER|BROKEN))
@@ -77,7 +75,6 @@
 	if(lastgenlev != 0)
 		. += "teg-op[lastgenlev]"
 	. += "teg-oc[lastcirc]"
-
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))

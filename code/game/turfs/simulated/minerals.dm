@@ -46,7 +46,6 @@
 		PREPOSITIONAL = "камне",
 	)
 
-
 /turf/simulated/mineral/Initialize(mapload)
 	. = ..()
 	generate_picks()
@@ -76,7 +75,6 @@
 	))
 	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_BASE]
 
-
 /turf/simulated/mineral/proc/Spread(turf/T)
 	T.ChangeTurf(type)
 
@@ -90,7 +88,6 @@
 		underlay_appearance.icon_state = initial(turf_type.icon_state)
 		return TRUE
 	return ..()
-
 
 /turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -117,7 +114,6 @@
 	attempt_drill(user)
 	SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.name)
 
-
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, override_bonus = FALSE)
 	var/cached_mineralType = mineralType
 	var/cached_mineralAmt = mineralAmt
@@ -135,14 +131,12 @@
 			SSticker?.score?.score_ore_mined++ // Only include ore spawned on mining level
 		SSblackbox.record_feedback("tally", "ore_mined", cached_mineralAmt, cached_mineralType)
 
-
 /turf/simulated/mineral/proc/attempt_drill(mob/user,triggered_by_explosion = FALSE, power = 1)
 	hardness -= power
 	if(hardness <= 0)
 		gets_drilled(user,triggered_by_explosion)
 	else
 		update_icon()
-
 
 /turf/simulated/mineral/update_overlays()
 	. = ..()
@@ -165,7 +159,6 @@
 		cracks.transform = M
 		. += cracks
 
-
 /turf/simulated/mineral/attack_animal(mob/living/simple_animal/user)
 	if((user.environment_smash & ENVIRONMENT_SMASH_WALLS) || (user.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		attempt_drill()
@@ -177,7 +170,6 @@
 	if(do_after(M, 4 SECONDS, src))
 		to_chat(M, span_notice("Вы прорываете туннель в камне."))
 		attempt_drill(M)
-
 
 /turf/simulated/mineral/Bumped(atom/movable/moving_atom)
 	. = ..()
@@ -199,7 +191,6 @@
 		var/obj/mecha/mecha = moving_atom
 		if(istype(mecha.selected, /obj/item/mecha_parts/mecha_equipment/drill))
 			mecha.selected.action(src)
-
 
 /turf/simulated/mineral/acid_melt()
 	ChangeTurf(baseturf)
@@ -244,14 +235,12 @@
 		PREPOSITIONAL = "древнем камне",
 	)
 
-
 /turf/simulated/mineral/ancient/generate_picks()
 	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT])
 		allowed_picks_typecache[MINERAL_TYPE_ANCIENT] = typecacheof(list(
 		/obj/item/pickaxe,
 	))
 	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT]
-
 
 /turf/simulated/mineral/ancient/burn_down()
 	return
@@ -292,7 +281,6 @@
 		PREPOSITIONAL = "холодном древнем камне",
 	)
 
-
 /turf/simulated/mineral/ancient/outer/generate_picks()
 	if(!allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER])
 		allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER] = typecacheof(list(
@@ -302,7 +290,6 @@
 		/obj/item/pickaxe/drill/diamonddrill,
 	))
 	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_ANCIENT_OUTER]
-
 
 /turf/simulated/mineral/ancient/outer/ex_act(severity, target)
 	return
@@ -914,7 +901,6 @@
 	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
-
 /turf/simulated/mineral/bscrystal/volcanic/hard/double/get_ru_names()
 	return list(
 		NOMINATIVE = "закалённый вулканический базальт",
@@ -1027,7 +1013,6 @@
 	det_time = rand(8,10) //So you don't know exactly when the hot potato will explode
 	. = ..()
 
-
 /turf/simulated/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -1045,7 +1030,6 @@
 		span_notice("You use [I] to locate where to cut off the chain reaction and attempt to stop it...")
 	)
 	defuse()
-
 
 /turf/simulated/mineral/gibtonite/proc/explosive_reaction(mob/user = null, triggered_by_explosion = 0)
 	if(stage == GIBTONITE_UNSTRUCK)
@@ -1115,7 +1099,6 @@
 
 	ChangeTurf(turf_type, defer_change)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
-
 
 /turf/simulated/mineral/gibtonite/volcanic
 	environment_type = "basalt"

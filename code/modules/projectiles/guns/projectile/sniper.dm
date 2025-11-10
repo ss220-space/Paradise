@@ -97,7 +97,6 @@
 
 	return ..()
 
-
 //Sleepy ammo
 /obj/item/ammo_box/magazine/sniper_rounds/soporific
 	name = "sniper rounds (Zzzzz)"
@@ -261,7 +260,6 @@
 /obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon_state()
 	return
 
-
 /obj/item/ammo_box/magazine/toy/sniper_rounds/update_overlays()
 	. = ..()
 	var/ammo = ammo_count()
@@ -269,7 +267,6 @@
 		. += ".50mag-r"
 	else if(ammo)
 		. += ".50mag-f"
-
 
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc
 	name = "axmc sniper rifle"
@@ -452,7 +449,6 @@
 
 /obj/projectile/bullet/sniper/penetrator/a338
 
-
 /obj/item/ammo_box/a338
 	name = "Box of sniper rounds (.338)"
 	desc = "Коробка, содержащая снайперские патроны .338 калибра."
@@ -460,7 +456,6 @@
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/a338
 	max_ammo = 20
-
 
 /obj/item/ammo_box/a338/get_ru_names()
 	return list(

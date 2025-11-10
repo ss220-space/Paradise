@@ -149,7 +149,6 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[DECL_SEC_MIN(recharge_amount)] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
 
-
 /obj/machinery/chem_dispenser/process()
 	if(recharge_counter >= 4)
 		if(!is_operational())
@@ -160,7 +159,6 @@
 		recharge_counter = 0
 		return
 	recharge_counter++
-
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
 	if(severity > EXPLODE_LIGHT)
@@ -262,7 +260,6 @@
 
 	add_fingerprint(usr)
 
-
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -289,7 +286,6 @@
 
 	return ..()
 
-
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
 		balloon_alert(user, "техпанель закрыта!")
@@ -306,7 +302,6 @@
 		cell = null
 	return ..()
 
-
 /obj/machinery/chem_dispenser/proc/update_reagents(update_type)
 	switch(update_type)
 		if(UPDATE_TYPE_HACK)
@@ -319,7 +314,6 @@
 
 	dispensable_reagents = sortAssoc(dispensable_reagents)
 
-
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -329,7 +323,6 @@
 	balloon_alert(user, "защитные протоколы [hackedcheck ? "активированы" : "дезактивированы"]")
 	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
-
 
 /obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
@@ -363,7 +356,6 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-
 /obj/machinery/chem_dispenser/update_overlays()
 	. = ..()
 
@@ -377,7 +369,6 @@
 		beaker_olay.pixel_w = random_pixel
 		beaker_cache["[random_pixel]"] = beaker_olay
 	. += beaker_cache["[random_pixel]"]
-
 
 /obj/machinery/chem_dispenser/soda
 	name = "soda fountain"
@@ -426,7 +417,6 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-
 /obj/machinery/chem_dispenser/soda/update_reagents(update_type)
 	if(update_type == UPDATE_TYPE_HACK && componentscheck)
 		if(hackedcheck)
@@ -437,7 +427,6 @@
 	else if(update_type == UPDATE_TYPE_COMPONENTS && hackedcheck)
 		dispensable_reagents |= hackedupgrade_reagents
 	return ..()
-
 
 /obj/machinery/chem_dispenser/beer
 	name = "booze dispenser"
@@ -627,7 +616,6 @@
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals
 
-
 	return data
 
 /obj/item/handheld_chem_dispenser/ui_act(action, list/params)
@@ -656,7 +644,6 @@
 
 	add_fingerprint(usr)
 
-
 /obj/item/handheld_chem_dispenser/update_overlays()
 	. = ..()
 	if(cell?.charge)
@@ -680,7 +667,6 @@
 		chamber_contents.icon += R.color
 		. += chamber_contents
 
-
 /obj/item/handheld_chem_dispenser/process()
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
@@ -689,7 +675,6 @@
 
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
-
 
 /obj/item/handheld_chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
@@ -709,7 +694,6 @@
 
 	return ..()
 
-
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(isrobot(loc))
@@ -727,7 +711,6 @@
 	cell.add_fingerprint(user)
 	cell = null
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/handheld_chem_dispenser/booze
 	name = "handheld bar tap"

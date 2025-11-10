@@ -15,17 +15,14 @@
 	//Simple variable to prevent me from doing attack_hand in both this and the child computer
 	var/zone = "This computer is working on a wireless range, the range is currently limited to 25 meters."
 
-
 /obj/machinery/computer/area_atmos/Initialize(mapload)
 	. = ..()
 	//So the scrubbers have time to spawn
 	addtimer(CALLBACK(src, PROC_REF(scanscrubbers)), 1 SECONDS)
 
-
 /obj/machinery/computer/area_atmos/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
-
 
 /obj/machinery/computer/area_atmos/attack_hand(mob/user as mob)
 	if(..(user))
@@ -98,7 +95,6 @@
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 
-
 	if(href_list["scan"])
 		scanscrubbers()
 	else if(href_list["toggle"])
@@ -133,7 +129,6 @@
 		status = "ERROR: No scrubber found!"
 
 	src.updateUsrDialog()
-
 
 /obj/machinery/computer/area_atmos/area
 	zone = "This computer is working in a wired network limited to this area."
@@ -173,7 +168,6 @@
 			if(istype(A2) && A2 == A)
 				connectedscrubbers += scrubber
 				found = 1
-
 
 	if(!found)
 		status = "ERROR: No scrubber found!"

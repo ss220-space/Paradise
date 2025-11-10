@@ -1,7 +1,6 @@
 /datum/event/lone_operative
 	name = "Ядерный Оперативник — Одиночка"
 
-
 /datum/event/lone_operative/proc/get_operative()
 	processing = 0
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Ядерного оперативника — Одиночки?", ROLE_OPERATIVE, TRUE, source = image('icons/mob/simple_human.dmi', "syndicate_space_sword"))

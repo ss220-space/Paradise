@@ -22,7 +22,6 @@
 	var/max_shone_bloodiness = MAX_SHOE_BLOODINESS
 	var/drying_time = DRYING_TIME
 
-
 /obj/effect/decal/cleanable/blood/get_ru_names_cached() //we can't cache this now
 	return is_dry? list(
 		NOMINATIVE = "засохшая кровь",
@@ -48,7 +47,6 @@
 			C.bloodiness += bloodiness
 	return ..()
 
-
 /obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -63,7 +61,6 @@
 	)
 	if(!QDELING(src))
 		AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
@@ -102,10 +99,8 @@
 		user.update_worn_gloves()
 		add_verb(user, /mob/living/carbon/human/proc/bloody_doodle)
 
-
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
 	return TRUE
-
 
 /obj/effect/decal/cleanable/blood/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -115,7 +110,6 @@
 
 	blood_decal_crossed(arrived)
 
-
 /obj/effect/decal/cleanable/blood/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
 	SIGNAL_HANDLER
 
@@ -123,7 +117,6 @@
 		return
 
 	blood_decal_uncrossed(departed)
-
 
 /obj/effect/decal/cleanable/blood/proc/blood_decal_crossed(mob/living/carbon/human/arrived)
 	if(istype(arrived.shoes, /obj/item/clothing/shoes) && blood_state && bloodiness)
@@ -159,10 +152,8 @@
 		update_icon()
 		arrived.update_worn_shoes()
 
-
 /obj/effect/decal/cleanable/blood/proc/blood_decal_uncrossed(mob/living/carbon/human/departed)
 	return
-
 
 /obj/effect/decal/cleanable/blood/splatter
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
@@ -259,7 +250,6 @@
 		PREPOSITIONAL = "кровавом месиве",
 	)
 
-
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
@@ -270,7 +260,6 @@
 	if(giblets)
 		QDEL_NULL(giblets)
 	. = ..()
-
 
 /obj/effect/decal/cleanable/blood/gibs/proc/on_pipe_eject(datum/source, direction)
 	SIGNAL_HANDLER
@@ -283,7 +272,6 @@
 
 	INVOKE_ASYNC(src, PROC_REF(streak), dirs)
 
-
 /obj/effect/decal/cleanable/blood/gibs/update_icon(updates = ALL)
 	if(!updates)
 		return
@@ -295,11 +283,9 @@
 	icon = blood
 	. = ..()
 
-
 /obj/effect/decal/cleanable/blood/gibs/update_overlays()
 	. = ..()
 	. += giblets
-
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return
@@ -320,7 +306,6 @@
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
 	scoop_reagents = list("liquidgibs" = 15)
 
-
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
 	scoop_reagents = null
 
@@ -335,7 +320,6 @@
 			b.update_icon()
 		if(step_to(src, get_step(src, direction), 0))
 			break
-
 
 /obj/effect/decal/cleanable/blood/old/Initialize(mapload)
 	. = ..()

@@ -21,10 +21,8 @@ SUBSYSTEM_DEF(mobs)
 	/// The amount of Xenobiology mobs (and their offspring) that exist in the world. Used for mob capping. Excludes Slimes
 	var/xenobiology_mobs = 0
 
-
 /datum/controller/subsystem/mobs/get_stat_details()
 	return "P:[length(GLOB.mob_living_list)]"
-
 
 /datum/controller/subsystem/mobs/Initialize()
 	clients_by_zlevel = new /list(world.maxz, 0)

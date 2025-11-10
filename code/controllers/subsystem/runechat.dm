@@ -6,7 +6,6 @@ TIMER_SUBSYSTEM_DEF(runechat)
 	ss_id = "runechat"
 	var/list/datum/callback/message_queue = list()
 
-
 /datum/controller/subsystem/timer/runechat/fire(resumed)
 	. = ..() //poggers
 	while(length(message_queue))

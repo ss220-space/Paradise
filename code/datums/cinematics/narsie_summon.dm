@@ -1,7 +1,6 @@
 /// A blood cult summoned Nar'sie, and most of the station was harvested or converted!
 /datum/cinematic/cult_arm // Colloquially known as "the arm"
 
-
 /datum/cinematic/cult_arm/play_cinematic()
 	screen.icon_state = null
 	flick("intro_cult", screen)
@@ -15,10 +14,8 @@
 	stoplag(7 SECONDS)
 	special_callback?.Invoke()
 
-
 /// A blood cult summoned Nar'sie, but some badass (or admin) managed to destroy Nar'sie themselves.
 /datum/cinematic/cult_fail
-
 
 /datum/cinematic/cult_fail/play_cinematic()
 	screen.icon_state = "station_intact"

@@ -19,26 +19,21 @@
 			max_charges = CEILING(max_charges / 2, 1)
 	. = ..()
 
-
 /obj/item/gun/magic/wand/examine(mob/user)
 	. = ..()
 	. += span_notice("Has [charges] charge\s remaining.")
 
-
 /obj/item/gun/magic/wand/update_icon_state()
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
-
 
 /obj/item/gun/magic/wand/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target == user)
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /obj/item/gun/magic/wand/magic_charge_act(mob/user)
 	. = ..()
 	update_appearance(UPDATE_ICON_STATE)
-
 
 /obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!charges)

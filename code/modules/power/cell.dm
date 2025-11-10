@@ -132,7 +132,6 @@
 
 	update_appearance(UPDATE_ICON)
 
-
 /obj/item/stock_parts/cell/proc/adjust_maxcharge(amount)
 	if(self_recharge)
 		return FALSE	// SelfCharging uses static charge values ​​per tick, so we don't want it to mess up the recharge balance.
@@ -142,7 +141,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	return maxcharge != old_maxcharge
 
-
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(var_name == NAMEOF(src, self_recharge))
@@ -151,13 +149,11 @@
 		else
 			STOP_PROCESSING(SSobj, src)
 
-
 /obj/item/stock_parts/cell/process()
 	if(self_recharge)
 		give(chargerate * 0.25)
 	else
 		return PROCESS_KILL
-
 
 /obj/item/stock_parts/cell/update_overlays()
 	. = ..()
@@ -169,7 +165,6 @@
 		. += overlay_charged
 	else
 		. += "cell-o1"
-
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
@@ -209,7 +204,6 @@
 	to_chat(viewers(user), span_suicide("[user] облизыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 	return FIRELOSS
 
-
 /obj/item/stock_parts/cell/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		add_fingerprint(user)
@@ -230,7 +224,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/stock_parts/cell/proc/explode()
 	var/turf/T = get_turf(loc)

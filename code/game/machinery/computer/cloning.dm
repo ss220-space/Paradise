@@ -99,7 +99,6 @@
 			P.connected = src
 			P.name = "[initial(P.name)] #[num++]"
 
-
 /obj/machinery/computer/cloning/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -118,7 +117,6 @@
 
 	return ..()
 
-
 /obj/machinery/computer/cloning/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -135,10 +133,8 @@
 	clonepod.name = "[initial(clonepod.name)] #[length(pods)]"
 	balloon_alert(user, "устройства связаны")
 
-
 /obj/machinery/computer/cloning/attack_ai(mob/user)
 	return attack_hand(user)
-
 
 /obj/machinery/computer/cloning/attack_hand(mob/user)
 	if(..())
@@ -157,7 +153,6 @@
 	if(emagged)
 		circuit = /obj/item/circuitboard/broken
 	..()
-
 
 /obj/machinery/computer/cloning/emag_act(mob/user)
 	if(!emagged)

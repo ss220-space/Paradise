@@ -111,7 +111,6 @@
 	QDEL_NULL(photo)
 	return ..()
 
-
 /obj/machinery/newscaster/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -138,18 +137,15 @@
 		if(51 to 75)
 			. += "crack1"
 
-
 /obj/machinery/newscaster/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE

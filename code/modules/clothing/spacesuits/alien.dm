@@ -218,15 +218,12 @@
 	else
 		REMOVE_TRAIT(src, TRAIT_NODROP, "[CLOTHING_TRAIT]_[UID_of(src)]")
 
-
 /obj/item/clothing/shoes/magboots/vox/update_icon_state()
 	return
-
 
 /obj/item/clothing/shoes/magboots/vox/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)
 		return TRUE
-
 
 //In case they somehow come off while enabled.
 /obj/item/clothing/shoes/magboots/vox/dropped(mob/user, slot, silent = FALSE)
@@ -235,7 +232,6 @@
 		if(!silent)
 			user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
 		toggle_magpulse(user, silent = TRUE)
-
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)
 	. = ..()

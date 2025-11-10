@@ -223,7 +223,6 @@
 	screen_overlay = "syndimed"
 	deny_overlay = "syndimed_deny"
 
-
 	slogan_list = list(
 		"Ид+и и оборв+и н+есколько ж+изней!",
 		"Л+учшее снаряж+ение для в+ашего корабл+я!",

@@ -3,12 +3,9 @@
 	icon_state = "explosion_particle"
 	opacity = TRUE
 
-
 /obj/effect/particle_effect/expl_particles/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
-
-
 
 /obj/effect/particle_effect/expl_particles/LateInitialize()
 	var/step_amt = pick(25;1,50;2,100;3,200;4)
@@ -25,10 +22,8 @@
 		return
 	qdel(src)
 
-
 /datum/effect_system/expl_particles
 	number = 10
-
 
 /datum/effect_system/expl_particles/start()
 	for(var/i in 1 to number)

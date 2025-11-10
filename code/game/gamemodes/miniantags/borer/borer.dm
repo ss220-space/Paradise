@@ -150,7 +150,6 @@
 		PREPOSITIONAL = "мозговом черве",
 	)
 
-
 /mob/living/simple_animal/borer/New(atom/newloc, gen=1)
 	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)
 	..(newloc)
@@ -212,7 +211,6 @@
 	status_tab_data[++status_tab_data.len] = list("Rank", antag_datum.borer_rank?.rankname)
 	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
 
-
 /mob/living/simple_animal/borer/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	var/list/message_pieces = parse_languages(message)
 
@@ -222,7 +220,6 @@
 			return
 
 	return ..()
-
 
 /mob/living/simple_animal/borer/proc/Communicate(sended_message)
 	if(!host)
@@ -771,7 +768,6 @@
 	qdel(host_brain)
 
 	return
-
 
 /mob/living/simple_animal/borer/proc/transfer_personality(client/candidate)
 	if(QDELETED(candidate) || QDELETED(candidate.mob))

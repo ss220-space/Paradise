@@ -88,16 +88,13 @@
 /obj/vehicle/ridden/wheelchair/update_icon_state()
 	icon_state = applied_skin ? initial(applied_skin.new_icon_state) : base_icon_state
 
-
 /obj/vehicle/ridden/wheelchair/update_overlays()
 	. = ..()
 	. += chair_overlay
 
-
 /obj/vehicle/ridden/wheelchair/update_name(updates = ALL)
 	. = ..()
 	name = applied_skin ? initial(applied_skin.new_name) : initial(name)
-
 
 /obj/vehicle/ridden/wheelchair/update_desc(updates = ALL)
 	. = ..()
@@ -106,7 +103,6 @@
 		desc += " К подлокотнику зачем-то прикреплён звонок."
 	if(bomb)
 		desc += " Под сиденьем что-то есть."
-
 
 ///Modify logic
 

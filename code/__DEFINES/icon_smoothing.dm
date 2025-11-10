@@ -29,7 +29,6 @@
 
 #define SMOOTH_DIAGONAL (1 << 12) //if atom should smooth diagonally, this should be present in 'smooth' var
 
-
 /// Components of a smoothing junction
 /// Redefinitions of the diagonal directions so they can be stored in one var without conflicts
 #define NORTH_JUNCTION NORTH //(1<<0)
@@ -148,7 +147,6 @@
 #define SMOOTH_GROUP_PLASTINUM_WALLS S_OBJ(18) //![turf/closed/indestructible/riveted/plastinum]
 #define SMOOTH_GROUP_HIERO_FLOOR S_OBJ(19)
 #define SMOOTH_GROUP_HIERO_VORTEX S_OBJ(20)
-
 
 #define SMOOTH_GROUP_PAPERFRAME S_OBJ(21) ///obj/structure/window/paperframe, /obj/structure/mineral_door/paperframe
 

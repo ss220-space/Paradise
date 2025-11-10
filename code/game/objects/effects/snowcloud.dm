@@ -61,7 +61,6 @@
 		if(parent_machine.make_snowcloud(T))
 			return
 
-
 //Snow stuff below
 
 /obj/effect/snow
@@ -98,7 +97,6 @@
 	user.put_in_hands(SB)
 	to_chat(user, span_notice("You scoop up some snow and make \a [SB]!"))
 
-
 /obj/effect/snow/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shovel))
 		user.visible_message(
@@ -117,7 +115,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/effect/snow/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()

@@ -51,14 +51,12 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/machinery/recycler/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -72,7 +70,6 @@
 	if(default_unfasten_wrench(user, I))
 		return TRUE
 
-
 /obj/machinery/recycler/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
@@ -84,13 +81,11 @@
 			to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
 		add_attack_logs(user, src, "emagged")
 
-
 /obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))
 	if(emergency_mode)
 		is_powered = FALSE
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
-
 
 /obj/machinery/recycler/Bumped(atom/movable/moving_atom)
 	. = ..()
@@ -99,7 +94,6 @@
 	var/move_dir = get_dir(loc, moving_atom.loc)
 	if(move_dir == eat_dir)
 		eat(moving_atom)
-
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
@@ -139,7 +133,6 @@
 	materials.insert_item(I, multiplier = (amount_produced / 100))
 	qdel(I)
 	materials.retrieve_all()
-
 
 /obj/machinery/recycler/proc/emergency_stop(mob/living/L)
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
@@ -189,7 +182,6 @@
 	else if(emagged == 1)
 		L.adjustBruteLoss(crush_damage)
 
-
 /obj/machinery/recycler/verb/rotate()
 	set name = "Повернуть по часовой"
 	set category = STATPANEL_OBJECT
@@ -222,12 +214,10 @@
 	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
 	return 1
 
-
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"
 	emagged = 1
 	crush_damage = 120
-
 
 /obj/item/paper/recycler
 	name = "paper - 'garbage duty instructions'"

@@ -17,11 +17,8 @@
 	eject_abductee()
 	return ..()
 
-
 /obj/machinery/abductor/experiment/update_icon_state()
 	icon_state = "experiment[occupant ? "" : "-open"]"
-
-
 
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user, params)
 	if(stat)
@@ -172,7 +169,6 @@
 		SendBack(H)
 		return span_bad("Specimen braindead - disposed.")
 
-
 /obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)
 	H.Sleeping(16 SECONDS)
 	if(console?.pad && console.pad.teleport_target)
@@ -183,7 +179,6 @@
 	H.forceMove(pick(GLOB.latejoin))
 	H.uncuff()
 	return
-
 
 /obj/machinery/abductor/experiment/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -200,7 +195,6 @@
 	occupant = grabbed_thing
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(grabber)
-
 
 /obj/machinery/abductor/experiment/ex_act(severity, target)
 	if(occupant)

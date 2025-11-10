@@ -14,11 +14,9 @@
 	window_x = 340
 	window_y = 75
 
-
 /datum/wires/washing_machine/New(atom/_holder)
 	wires = list(WIRE_ELECTRIFY, WIRE_WASHER_HACK, WIRE_WASHER_DISABLE)
 	return ..()
-
 
 /datum/wires/washing_machine/get_status()
 	. = ..()
@@ -26,7 +24,6 @@
 	. += "The red light is [(washer.state & STATE_DISABLED) ? "off" : "on"]."
 	. += "The green light is [(washer.state & STATE_SHOCKED) ? "off" : "on"]."
 	. += "The blue light is [(washer.state & STATE_HACKED) ? "off" : "on"]."
-
 
 /datum/wires/washing_machine/interactable(mob/user)
 	var/obj/machinery/washing_machine/washer = holder
@@ -37,7 +34,6 @@
 	if(washer.state & STATE_PANEL)
 		return TRUE
 	return FALSE
-
 
 /datum/wires/washing_machine/on_cut(wire, mend)
 	var/obj/machinery/washing_machine/washer = holder
@@ -51,7 +47,6 @@
 		if(WIRE_WASHER_DISABLE)
 			if((mend && (washer.state & STATE_DISABLED)) || (!mend && !(washer.state & STATE_DISABLED)))
 				washer.toggle_state(STATE_DISABLED)
-
 
 /datum/wires/washing_machine/on_pulse(wire)
 	if(is_cut(wire))
@@ -73,7 +68,6 @@
 				state_to_remove = STATE_DISABLED
 	if(state_to_remove)
 		addtimer(CALLBACK(washer, TYPE_PROC_REF(/obj/machinery/washing_machine, pulsed_callback), wire, state_to_remove), 10 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
-
 
 #undef STATE_FULL
 #undef STATE_OPENED

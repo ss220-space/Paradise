@@ -7,7 +7,6 @@
 	-FalseIncarnate
 */
 
-
 //Райский удар: Без эффекта, aside from maybe messages about how tasty it is or something
 /datum/reagent/consumable/drink/paradise_punch
 	name = "Райский Удар"

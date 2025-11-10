@@ -19,10 +19,8 @@
 	)
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
 
 //M1911//
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -79,19 +77,15 @@
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
-
-
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal/Initialize(mapload)
 	magazine = new/obj/item/ammo_box/magazine/enforcer/lethal
 	. = ..()
 
-
 //СБшный инфорсер//
 /obj/item/gun/projectile/automatic/pistol/enforcer/security
 	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
-
 
 //SP8 Pistol OBR and Warden//
 /obj/item/gun/projectile/automatic/pistol/sp8
@@ -111,19 +105,15 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
 
-
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
-
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	name = "SP-8-T"
@@ -151,7 +141,6 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
 
-
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"
@@ -172,10 +161,8 @@
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/pistol/deagle/gold
 	desc = "A gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."

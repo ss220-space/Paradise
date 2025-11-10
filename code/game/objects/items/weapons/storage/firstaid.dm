@@ -36,7 +36,6 @@
 		PREPOSITIONAL = "аптечке первой помощи",
 	)
 
-
 /obj/item/storage/firstaid/fire
 	name = "fire first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи при серьёзных термических повреждениях."
@@ -307,7 +306,6 @@
 	treatment_fire = "kelotane"
 	req_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
-
 
 /obj/item/storage/firstaid/tactical/get_ru_names()
 	return list(
@@ -588,7 +586,6 @@
 	if(allow_wrap)
 		apply_wrap()
 
-
 /obj/item/storage/pill_bottle/proc/apply_wrap()
 	if(wrapper_color)
 		cut_overlays()
@@ -597,7 +594,6 @@
 		add_overlay(I)
 		if(blocks_emissive)
 			add_overlay(get_emissive_block())
-
 
 /obj/item/storage/pill_bottle/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || !length(contents))
@@ -610,7 +606,6 @@
 	if(pill)
 		return pill.attack(target, user, params, def_zone, skip_attack_anim)
 
-
 /obj/item/storage/pill_bottle/ert
 	wrapper_color = COLOR_MAROON
 
@@ -621,7 +616,6 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
-
 
 /obj/item/storage/pill_bottle/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -640,13 +634,11 @@
 
 	return ..()
 
-
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/item/storage/pill_bottle/patch_pack
 	name = "patch pack"
@@ -677,7 +669,6 @@
 
 	for(var/I in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-
 
 /obj/item/storage/pill_bottle/patch_pack/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

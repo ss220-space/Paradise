@@ -233,8 +233,6 @@ td, th {
 	text-align:center;
 }
 
-
-
 </style>
 <div id='main'>
 <table id='searchable'>
@@ -368,6 +366,5 @@ td, th {
 		message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ — [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ — [rights2text(removed_bits, " ")]":""]")
 		log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ — [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ — [rights2text(removed_bits, " ")]":""]")
 		admin_permission_modification(adm_ckey, new_value )
-
 
 	edit_admin_permissions()

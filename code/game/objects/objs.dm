@@ -174,7 +174,6 @@
 		if(!ai_in_use && !is_in_use)
 			in_use = FALSE
 
-
 /**
  * Hidden uplink interaction proc. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
  *
@@ -309,7 +308,6 @@
 	if(!sharp && new_sharp_val)
 		AddComponent(/datum/component/surgery_initiator)
 
-
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
@@ -329,7 +327,6 @@
 		return A
 
 	return locate(/obj) in A
-
 
 #define CARBON_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
 

@@ -51,7 +51,6 @@
 	detectTime = -1
 	return TRUE
 
-
 /// Returns TRUE if the camera can see the target.
 /obj/machinery/camera/can_see(atom/target, length = 7) // I stole this from global and modified it to work with Xray cameras.
 	if(!target || target.invisibility > SEE_INVISIBLE_LIVING || target.alpha == NINJA_ALPHA_INVISIBILITY)
@@ -72,7 +71,6 @@
 		current_turf = get_step_towards(current_turf, target_turf)
 		steps++
 	return TRUE
-
 
 /obj/machinery/camera/HasProximity(atom/movable/AM)
 	if(isliving(AM))

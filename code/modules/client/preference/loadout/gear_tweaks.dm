@@ -135,7 +135,6 @@
 /datum/gear_tweak/rename/get_default()
 	return ""
 
-
 /datum/gear_tweak/rename/get_metadata(user, metadata)
 	var/new_name = tgui_input_text(user, "Переименуйте объект. При пустом поле будет выбрано стандартное название.", "Переименование предмета", metadata, MAX_NAME_LEN)
 	if(isnull(new_name))

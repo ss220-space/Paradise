@@ -11,12 +11,10 @@
 
 	materials = list(MAT_METAL=2000)
 
-
 /obj/item/gun/grenadelauncher/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
 		. += span_notice("Contains <b>[length(grenades)]/[max_grenades]</b> grenades.")
-
 
 /obj/item/gun/grenadelauncher/attackby(obj/item/I, mob/user, params)
 	if((istype(I, /obj/item/grenade)))
@@ -31,7 +29,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/gun/grenadelauncher/afterattack(obj/target, mob/user, flag, params)
 	if(target == user)

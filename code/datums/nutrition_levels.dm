@@ -16,7 +16,6 @@
 	/// Icon used for nutrition bar hud
 	var/icon_state
 
-
 // NUTRITION_LEVEL_HYPOGLYCEMIA
 /datum/nutrition_level/hypoglycemia
 	level_increase_threshold = 100
@@ -27,7 +26,6 @@
 	icon_state = "starving"
 	sound_env = SOUND_ENVIRONMENT_DRUGGED
 
-
 // NUTRITION_LEVEL_STARVING
 /datum/nutrition_level/starving
 	level_increase_threshold = 150
@@ -37,7 +35,6 @@
 	move_speed_mod = 3
 	icon_state = "starving"
 
-
 // NUTRITION_LEVEL_HUNGRY
 /datum/nutrition_level/hungry
 	level_increase_threshold = 250
@@ -46,13 +43,11 @@
 	tool_speed_mod = 0.25
 	icon_state = "hungry"
 
-
 // NUTRITION_LEVEL_FED
 /datum/nutrition_level/fed
 	level_increase_threshold = 350
 	level_decrease_threshold = 250
 	icon_state = "fed"
-
 
 // NUTRITION_LEVEL_WELL_FED
 /datum/nutrition_level/well_fed
@@ -60,7 +55,6 @@
 	level_decrease_threshold = 350
 	max_stamina_bonus = 5
 	icon_state = "well_fed"
-
 
 // NUTRITION_LEVEL_FULL
 /datum/nutrition_level/full
@@ -70,7 +64,6 @@
 	blood_regen = 0.2
 	stamina_regen = -0.5
 	icon_state = "full"
-
 
 // NUTRITION_LEVEL_FAT
 /datum/nutrition_level/fat

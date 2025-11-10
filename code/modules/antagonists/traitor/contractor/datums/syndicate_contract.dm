@@ -318,7 +318,6 @@
 	// Open a portal
 	launch_extraction_pod(get_turf(flare))
 
-
 // Launch the pod to collect our victim.
 /datum/syndicate_contract/proc/launch_extraction_pod(turf/empty_pod_turf)
 	pod = new()
@@ -359,7 +358,6 @@
 		return
 
 	return COMPONENT_CLIMB
-
 
 /datum/syndicate_contract/proc/check_target(mob/living/sent_mob)
 
@@ -424,7 +422,6 @@
 		+ "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[DECL_CREDIT(creds)].", \
 		'sound/machines/terminal_prompt_confirm.ogg'
 	)
-
 
 /datum/syndicate_contract/proc/remove_victim_items(mob/living/victim, turf/portal_turf)
 	var/mob/living/carbon/human/human_victim = victim
@@ -533,7 +530,6 @@
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(food_turf)
 	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
 	temp_objs = list(food, drink)
-
 
 #define VICTIM_EXPERIENCE_START 0
 #define VICTIM_EXPERIENCE_FIRST_HIT 1

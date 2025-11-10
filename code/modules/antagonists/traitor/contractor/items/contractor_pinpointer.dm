@@ -24,7 +24,6 @@
 		PREPOSITIONAL = "целеуказателе Контрактника",
 	)
 
-
 /obj/item/pinpointer/crew/contractor/update_icon_state()
 	if(mode == 0)	// MODE_OFF
 		icon_state = icon_off
@@ -43,12 +42,10 @@
 	else if(ISINRANGE(prev_dist, min_range + 16, INFINITY))
 		icon_state = icon_far
 
-
 /obj/item/pinpointer/crew/contractor/is_trackable(mob/living/carbon/human/pin_target)
 	source_turf = get_turf(src)
 	target_turf = get_turf(pin_target)
 	return source_turf && target_turf && source_turf.z == target_turf.z
-
 
 /obj/item/pinpointer/crew/contractor/cycle(mob/user, silent = FALSE)
 	if(owner)

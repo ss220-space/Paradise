@@ -57,7 +57,6 @@
 	/// If falce, doesn't change strength and strength limit.
 	var/change_musculs = TRUE
 
-
 /datum/martial_art/New()
 	. = ..()
 	reset_combos()
@@ -280,7 +279,6 @@
 	dirslash_enabled = !dirslash_enabled
 	to_chat(src, span_notice("Directrion slash is [dirslash_enabled? "enabled" : "disabled"] now."))
 
-
 /datum/martial_art/proc/give_explaination(user = usr)
 	explaination_header(user)
 	explaination_combos(user)
@@ -319,7 +317,6 @@
 		if(MARTIAL_COMBO_STEP_HELP)
 			return "human"
 
-
 /// Returns martial art grab resist chance for passed grab state.
 /datum/martial_art/proc/get_resist_chance(grab_state)
 	if(!grab_resist_chances)
@@ -334,7 +331,6 @@
 		if(GRAB_KILL)
 			if(!isnull(grab_resist_chances[MARTIAL_GRAB_KILL]))
 				return grab_resist_chances[MARTIAL_GRAB_KILL]
-
 
 //ITEMS
 
@@ -362,13 +358,11 @@
 		return .
 	style.teach(user, TRUE)
 
-
 /obj/item/clothing/gloves/boxing/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	style.remove(user)
-
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -387,7 +381,6 @@
 	name = "Пояс Истинного Чемпиона"
 	desc = "Вы — лучший! и Вы это знаете!"
 
-
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
@@ -398,14 +391,12 @@
 	style.teach(user, TRUE)
 	to_chat(user, span_sciradio("You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab."))
 
-
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
 		return .
 	style.remove(user)
 	to_chat(user, span_sciradio("You no longer have an urge to flex your muscles."))
-
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"
@@ -414,20 +405,16 @@
 	icon_state ="scroll2"
 	var/used = FALSE
 
-
 /obj/item/plasma_fist_scroll/update_icon_state()
 	icon_state = used ? "blankscroll" : initial(icon_state)
-
 
 /obj/item/plasma_fist_scroll/update_name(updates = ALL)
 	. = ..()
 	name = used ? "empty scroll" : initial(name)
 
-
 /obj/item/plasma_fist_scroll/update_desc(updates = ALL)
 	. = ..()
 	desc = used ? "It's completely blank." : initial(desc)
-
 
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
@@ -440,7 +427,6 @@
 		to_chat(human, span_boldannounceic("You have learned the ancient martial art of Plasma Fist."))
 		used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
-
 
 /obj/item/sleeping_carp_scroll
 	name = "загадочный свиток"
@@ -462,7 +448,6 @@
 	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
 		to_chat(user, span_warning("Ты уже изучил техники Спящего Карпа. Прочтение свитка ничего не даст."))
 		return
-
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
@@ -568,7 +553,6 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
-
 /obj/item/mr_chang_technique
 	name = "\"Aggressive Marketing Technique\""
 	desc = "Лишь беглый взгляд по обложке этого журнала принёс вам 23 кредита чистой прибыли! О как!"
@@ -642,10 +626,8 @@
 	icon_state = "bostaff0"
 	block_chance = 50
 
-
 /obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/bostaff/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -705,7 +687,6 @@
 			target.SetSleeping(60 SECONDS)
 			target.apply_damage(25, BRAIN)
 
-
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
@@ -728,11 +709,9 @@
 	streak = ""
 	icon_state = ""
 
-
 /atom/movable/screen/combo/update_icon(updates, _streak)
 	streak = _streak
 	return ..()
-
 
 /atom/movable/screen/combo/update_overlays()
 	. = list()
@@ -742,13 +721,11 @@
 		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
 		. += intent_icon
 
-
 /atom/movable/screen/combo/update_icon_state()
 	icon_state = ""
 	if(!streak)
 		return
 	icon_state = "combo"
-
 
 #undef HAS_COMBOS
 #undef COMBO_ALIVE_TIME

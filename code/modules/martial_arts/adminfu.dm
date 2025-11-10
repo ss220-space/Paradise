@@ -20,7 +20,6 @@
 
 		return TRUE
 
-
 /datum/martial_art/adminfu/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D)
@@ -47,20 +46,16 @@
 	icon_state ="scroll2"
 	var/used = FALSE
 
-
 /obj/item/adminfu_scroll/update_icon_state()
 	icon_state = used ? "blankscroll" : initial(icon_state)
-
 
 /obj/item/adminfu_scroll/update_name(updates = ALL)
 	. = ..()
 	name = used ? "empty scroll" : initial(name)
 
-
 /obj/item/adminfu_scroll/update_desc(updates = ALL)
 	. = ..()
 	desc = used ? "It's completely blank." : initial(desc)
-
 
 /obj/item/adminfu_scroll/attack_self(mob/user)
 	if(!ishuman(user))

@@ -750,7 +750,6 @@
 		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate Chaplain",
 	)
 
-
 /obj/machinery/vending/department_clothesmate/service/botanical
 	name = "Departament Service ClothesMate Botanical"
 	desc = "Автомат-помощник по выдаче ботанической одежды."

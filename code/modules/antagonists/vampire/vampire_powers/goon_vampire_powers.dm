@@ -6,26 +6,21 @@
 	base_cooldown = 3 MINUTES
 	gain_desc = ""
 
-
 /obj/effect/proc_holder/spell/vampire/goon/create_new_handler()
 	var/datum/spell_handler/vampire/goon/H = new
 	H.required_blood = required_blood
 	return H
 
-
 /obj/effect/proc_holder/spell/vampire/goon/self/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-
 /obj/effect/proc_holder/spell/vampire/goon/targetted
 	var/range = 1
-
 
 /obj/effect/proc_holder/spell/vampire/goon/targetted/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.range = range
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/goon/proc/affects(mob/target, mob/user = usr)
 
@@ -43,7 +38,6 @@
 		return FALSE
 
 	return TRUE
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -87,14 +81,12 @@
 	if(vampire?.get_ability(/datum/vampire_passive/regen))
 		effect_timer = addtimer(CALLBACK(src, PROC_REF(rejuvenate_effect), user), 3.5 SECONDS, TIMER_STOPPABLE|TIMER_LOOP)
 
-
 /obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate/create_new_cooldown()
 	var/datum/spell_cooldown/charges/cooldown = new
 	cooldown.max_charges = 1
 	cooldown.recharge_duration = base_cooldown
 	cooldown.charge_duration = 5 SECONDS
 	return cooldown
-
 
 /obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate/proc/rejuvenate_effect(mob/living/carbon/human/user)
 	if(QDELETED(user) || counter > 5)
@@ -122,13 +114,11 @@
 	if(update)
 		user.updatehealth()
 
-
 /obj/effect/proc_holder/spell/vampire/goon/targetted/hypnotise
 	name = "Гипноз"
 	desc= "Пронзающий взгляд, ошеломляющий жертву на довольно долгое время"
 	action_icon_state = "vampire_hypnotise"
 	required_blood = 25
-
 
 /obj/effect/proc_holder/spell/vampire/goon/targetted/hypnotise/cast(list/targets, mob/living/carbon/human/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
@@ -146,14 +136,12 @@
 		revert_cast(user)
 		to_chat(user, span_warning("Вы смотрите в никуда."))
 
-
 /obj/effect/proc_holder/spell/vampire/goon/targetted/disease
 	name = "Заражающее касание"
 	desc = "Ваше касание инфицирует кровь жертвы, заражая её могильной лихорадкой. Пока лихорадку не вылечат, жертва будет с трудом держаться на ногах, а её кровь будет наполняться токсинами."
 	gain_desc = "Вы получили способность «Заражающее касание». Она позволит вам ослаблять тех, кого вы коснётесь до тех пор, пока их не вылечат."
 	action_icon_state = "vampire_disease"
 	required_blood = 50
-
 
 /obj/effect/proc_holder/spell/vampire/goon/targetted/disease/cast(list/targets, mob/living/carbon/human/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
@@ -166,7 +154,6 @@
 
 	var/datum/disease/vampire/virus = new
 	virus.Contract(target)
-
 
 /obj/effect/proc_holder/spell/vampire/goon/glare
 	name = "Вспышка"
@@ -188,7 +175,6 @@
 /obj/effect/proc_holder/spell/vampire/goon/glare/proc/on_diablerie_level_remove(datum/source, datum/diablerie_level/level)
 	SIGNAL_HANDLER
 	level.downgrade_glare_charges(cooldown_handler)
-
 
 /obj/effect/proc_holder/spell/vampire/goon/glare/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
@@ -233,14 +219,12 @@
 		add_attack_logs(user, target, "(Vampire) слепит")
 		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
-
 /obj/effect/proc_holder/spell/vampire/goon/self/shapeshift
 	name = "Превращение"
 	desc = "Изменяет ваше имя и внешность, тратя 50 крови, с откатом в 3 минуты."
 	gain_desc = "Вы получили способность «Превращение», позволяющую навсегда обернуться другим обликом, затратив часть накопленной крови."
 	action_icon_state = "genetic_poly"
 	required_blood = 50
-
 
 /obj/effect/proc_holder/spell/vampire/goon/self/shapeshift/cast(list/targets, mob/living/carbon/human/user = usr)
 	user.visible_message(span_warning("[user] transforms!"))
@@ -255,14 +239,12 @@
 	user.flavor_text = ""
 	user.update_icons()
 
-
 /obj/effect/proc_holder/spell/vampire/goon/self/screech
 	name = "Визг рукокрылых"
 	desc = "Невероятно громкий визг, разбивающий стёкла и ошеломляющий окружающих."
 	gain_desc = "Вы получили способность «Визг рукокрылых», в большом радиусе оглушающую всех, кто может слышать, и раскалывающую стёкла."
 	action_icon_state = "vampire_screech"
 	required_blood = 30
-
 
 /obj/effect/proc_holder/spell/vampire/goon/self/screech/cast(list/targets, mob/user = usr)
 
@@ -302,14 +284,12 @@
 	for(var/obj/structure/window/window in view(4))
 		window.deconstruct(FALSE)
 
-
 /obj/effect/proc_holder/spell/vampire/goon/targetted/enthrall
 	name = "Порабощение"
 	desc = "Вы используете большую часть своей силы, вынуждая тех, кто ещё никому не служит, служить только вам."
 	gain_desc = "Вы получили способность «Порабощение», которая тратит много крови, но позволяет вам поработить человека, который ещё никому не служит, на случайный период времени."
 	action_icon_state = "vampire_enthrall_old"
 	required_blood = 300
-
 
 /obj/effect/proc_holder/spell/vampire/goon/targetted/enthrall/cast(list/targets, mob/living/carbon/human/user = usr)
 
@@ -330,8 +310,6 @@
 			revert_cast(user)
 	else
 		revert_cast(user)
-
-
 
 /obj/effect/proc_holder/spell/vampire/goon/targetted/enthrall/proc/can_enthrall(mob/living/carbon/human/user, mob/living/carbon/target)
 
@@ -378,7 +356,6 @@
 
 	return TRUE
 
-
 /obj/effect/proc_holder/spell/vampire/goon/targetted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return FALSE
@@ -391,14 +368,12 @@
 	user.create_log(CONVERSION_LOG, "vampire enthralled", target)
 	target.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
-
 /obj/effect/proc_holder/spell/vampire/goon/self/cloak
 	name = "Покров тьмы"
 	desc = "Переключается, маскируя вас в темноте"
 	gain_desc = "Вы получили способность «Покров тьмы», которая, будучи включённой, делает вас практически невидимым в темноте."
 	action_icon_state = "vampire_cloak_old"
 	base_cooldown = 1 SECONDS
-
 
 /obj/effect/proc_holder/spell/vampire/goon/self/cloak/update_name(updates = ALL, mob/user)
 	. = ..()
@@ -411,7 +386,6 @@
 	action?.name = new_name
 	action?.UpdateButtonIcon()
 
-
 /obj/effect/proc_holder/spell/vampire/goon/self/cloak/cast(list/targets, mob/living/carbon/human/user = usr)
 	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(!vamp)
@@ -420,7 +394,6 @@
 	vamp.is_goon_cloak = !vamp.is_goon_cloak
 	update_appearance(UPDATE_NAME)
 	to_chat(user, span_notice("Теперь вас будет <b>[vamp.is_goon_cloak ? "не видно" : "видно"]</b> в темноте."))
-
 
 /obj/effect/proc_holder/spell/vampire/goon/bats
 	name = "Дети ночи"
@@ -431,14 +404,12 @@
 	required_blood = 50
 	var/num_bats = 2
 
-
 /obj/effect/proc_holder/spell/vampire/goon/bats/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	T.selection_type = SPELL_SELECTION_RANGE
 	T.use_turf_of_user = TRUE
 	T.range = 1
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/goon/bats/valid_target(turf/target, user)
 	if(target.density)
@@ -450,7 +421,6 @@
 
 	return TRUE
 
-
 /obj/effect/proc_holder/spell/vampire/goon/bats/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(length(targets) < num_bats)
 		revert_cast(user)
@@ -461,7 +431,6 @@
 		targets.Remove(target_turf)
 		new /mob/living/simple_animal/hostile/scarybat(target_turf, user)
 
-
 /obj/effect/proc_holder/spell/vampire/goon/self/jaunt
 	name = "Облик тумана"
 	desc = "Вы на короткое время превращаетесь в облако тумана"
@@ -471,7 +440,6 @@
 	required_blood = 50
 	centcom_cancast = FALSE
 	var/jaunt_duration = 5 SECONDS //in deciseconds
-
 
 /obj/effect/proc_holder/spell/vampire/goon/self/jaunt/cast(list/targets, mob/living/carbon/human/user = usr)
 	spawn(0)
@@ -528,7 +496,6 @@
 		for(var/datum/action/spell_action/action in user.actions)
 			action.UpdateButtonIcon()
 
-
 // Blink for vamps
 // Less smoke spam.
 /obj/effect/proc_holder/spell/vampire/goon/shadowstep
@@ -547,14 +514,12 @@
 	// Maximum lighting_lumcount.
 	var/max_lum = 1
 
-
 /obj/effect/proc_holder/spell/vampire/goon/shadowstep/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	T.selection_type = SPELL_SELECTION_RANGE
 	T.use_turf_of_user = TRUE
 	T.range = outer_tele_radius
 	return T
-
 
 /obj/effect/proc_holder/spell/vampire/goon/shadowstep/valid_target(turf/target, user)
 	if(target in range(user, inner_tele_radius))
@@ -578,7 +543,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /obj/effect/proc_holder/spell/vampire/goon/shadowstep/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!length(targets))

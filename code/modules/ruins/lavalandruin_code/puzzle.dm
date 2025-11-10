@@ -53,7 +53,6 @@
 			return FALSE
 	return TRUE
 
-
 /obj/effect/sliding_puzzle/proc/validate()
 	if(finished)
 		return

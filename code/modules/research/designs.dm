@@ -26,7 +26,6 @@ Design Guidlines
 other types of metals and chemistry for reagents).
 - Add the AUTOLATHE tag to
 
-
 */
 
 // Datum for object designs, used in construction

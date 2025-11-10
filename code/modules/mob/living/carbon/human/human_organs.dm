@@ -5,7 +5,6 @@
 		if(update_body)
 			update_body()
 
-
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/handle_organs()
 	..()
@@ -24,7 +23,6 @@
 				custom_pain("Вы чувствуете как в вашей [bodypart.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 
 	handle_grasp()
-
 
 /mob/living/carbon/human/proc/handle_grasp()
 
@@ -74,12 +72,10 @@
 
 			do_sparks(5, FALSE, src)
 
-
 /mob/living/carbon/human/handle_germs()
 	..()
 	if(gloves && germ_level > gloves.germ_level && prob(10))
 		gloves.germ_level += 1
-
 
 /mob/living/carbon/human/proc/update_fat_slowdown()
 	if(HAS_TRAIT(src, TRAIT_FAT))
@@ -88,7 +84,6 @@
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 		remove_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
-
 
 /**
  * Handles chem traces
@@ -99,7 +94,6 @@
 		var/obj/item/organ/external/bodypart = safepick(bodyparts)
 		if(bodypart)
 			LAZYSET(bodypart.trace_chemicals, reagent.name, 100)
-
 
 /**
  * Sync internal and exteranl organs with DNA unique enzymes.
@@ -115,7 +109,6 @@
 		if(assimilate || organ.dna?.unique_enzymes == ue_to_compare)
 			organ.update_DNA(dna)
 
-
 /mob/living/carbon/human/has_organic_damage()
 	var/total_dmg = 0
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
@@ -123,7 +116,6 @@
 			total_dmg += bodypart.brute_dam
 			total_dmg += bodypart.burn_dam
 	return (health < (maxHealth - total_dmg))
-
 
 /mob/living/carbon/human/proc/count_infected_organs()
 	. = 0
@@ -133,7 +125,6 @@
 				.++
 		if(bodypart.germ_level >= INFECTION_LEVEL_ONE)
 			.++
-
 
 /**
  * Returns a list with all fractured bodyparts.
@@ -145,7 +136,6 @@
 			fractured_bodyparts += bodypart
 	return fractured_bodyparts
 
-
 /**
  * Returns a list with all bodyparts affected by internal bleeding.
  */
@@ -156,12 +146,10 @@
 			bleeding_bodyparts += bodypart
 	return bleeding_bodyparts
 
-
 /mob/living/carbon/human/proc/update_splints()
 	for(var/obj/item/organ/external/bodypart as anything in splinted_limbs)
 		if(step_count >= bodypart.splinted_count + SPLINT_LIFE)
 			bodypart.remove_splint(splint_break = TRUE)	// oh no, we actually need surgery now!
-
 
 /mob/living/carbon/human/proc/embed_item_inside(obj/item/thing, embedded_zone, silent = FALSE)
 	if(isliving(thing.loc))
@@ -189,13 +177,11 @@
 		)
 	return TRUE
 
-
 /mob/living/carbon/human/proc/remove_embedded_object(obj/item/thing, atom/drop_loc, clear_alert = TRUE)
 	var/obj/item/organ/external/bodypart = thing.loc
 	if(!istype(bodypart))
 		return FALSE
 	return bodypart.remove_embedded_object(thing, drop_loc, clear_alert)
-
 
 /mob/living/carbon/human/proc/remove_all_embedded_objects(atom/drop_loc)
 	var/counter = 0
@@ -204,13 +190,11 @@
 	clear_alert(ALERT_EMBEDDED)
 	return counter
 
-
 /mob/living/carbon/human/proc/has_embedded_objects()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(LAZYLEN(bodypart.embedded_objects))
 			return TRUE
 	return FALSE
-
 
 /mob/living/carbon/human/proc/check_limbs_with_embedded_objects()
 	var/list/bodyparts_with_embedded = list()
@@ -219,12 +203,10 @@
 			bodyparts_with_embedded += bodypart
 	return bodyparts_with_embedded
 
-
 /mob/living/carbon/human/proc/check_embedded_objects()
 	var/list/embedded_items = list()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		for(var/obj/item/thing as anything in bodypart.embedded_objects)
 			embedded_items += thing
 	return embedded_items
-
 

@@ -60,7 +60,6 @@
 			to_chat(M, span_cultitalic("<b>Cultists:</b> [cult[1]]"))
 			to_chat(M, span_cultitalic("<b>Constructs:</b> [cult[2]]"))
 
-
 /datum/cult_objectives/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
 	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))
 		var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
@@ -134,7 +133,6 @@
 	..()
 	owner = SSticker.mode
 
-
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed
 
@@ -157,7 +155,6 @@
 		return TRUE
 	message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. Nar'Sie summoning unlocked!")
 	return FALSE
-
 
 /datum/objective/eldergod
 	needs_target = FALSE
@@ -196,7 +193,6 @@
 		sanity++
 	explanation_text = "Призовите [SSticker.cultdat ? SSticker.cultdat.entity_name : "вашего бога"], вызвав руну «Разорвать завесу» вместе с 9 культистами, конструкциями или вызванными призраками внутри неё.\
 		\nПризыв может быть осуществлён только в [english_list(summon_spots)] — где завеса достаточно слаба, чтобы начать ритуал."
-
 
 /datum/objective/eldergod/check_completion()
 	if(killed)

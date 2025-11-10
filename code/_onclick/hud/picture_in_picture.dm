@@ -107,7 +107,6 @@
 		standard_background.transform = M
 		add_overlay(standard_background)
 
-
 /atom/movable/screen/movable/pic_in_pic/proc/set_view_size(width, height, do_refresh = TRUE)
 	width = clamp(width, 0, max_dimensions)
 	height = clamp(height, 0, max_dimensions)
@@ -138,7 +137,6 @@
 	var/turf/upperright = locate(min(world.maxx, lowerleft.x + width - 1), min(world.maxy, lowerleft.y + height - 1), lowerleft.z)
 	viewing_turfs = block(lowerleft, upperright)
 	vis_contents += viewing_turfs
-
 
 /atom/movable/screen/movable/pic_in_pic/proc/show_to(client/C)
 	if(C)

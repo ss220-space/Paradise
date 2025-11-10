@@ -821,7 +821,7 @@
 	id = "sparkle-a12-9mm"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 3000)
-	build_path = /obj/item/ammo_box/magazine/sp91rc/empty
+	build_path = /obj/item/ammo_box/magazine/sparkle_a12/empty
 	category = list("hacked", "Security")
 
 /datum/design/buckshot_shell

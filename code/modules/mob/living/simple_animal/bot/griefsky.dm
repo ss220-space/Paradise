@@ -58,7 +58,6 @@
 /obj/machinery/bot_core/toy
 	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate
 	name = "General Syndie"
 	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
@@ -89,7 +88,6 @@
 /obj/machinery/bot_core/syndicate
 	req_access = list(ACCESS_SYNDICATE)
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
 	. = ..()
 	icon_state = "[base_icon][on]"
@@ -97,21 +95,17 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/Destroy()
 	QDEL_NULL(weapon)
 	return ..()
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/back_to_idle()
 	..()
 	playsound(loc, 'sound/weapons/saberoff.ogg', 50, TRUE, -1)
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user)
 	..()
 	light_color = LIGHT_COLOR_INTENSE_RED //if you see a red one. RUN!!
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/secbot_crossed(mob/living/carbon/arrived)
 	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
@@ -120,14 +114,12 @@
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] размахивает своими мечами и отталкивает [arrived]!"))
 	arrived.Weaken(4 SECONDS)
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/OnUnarmedAttack(atom/atom) //like secbots its only possible with admin intervention
 	if(!iscarbon(atom))
 		return
 
 	var/mob/living/carbon/carbon = atom
 	sword_attack(carbon)
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
@@ -145,7 +137,6 @@
 	do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	addtimer(CALLBACK(src, PROC_REF(do_sword_attack), C), 0.2 SECONDS)
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/do_sword_attack(mob/living/carbon/C)
 	icon_state = spin_icon
@@ -166,7 +157,6 @@
 			spam_flag = TRUE
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 10 SECONDS)	//to avoid spamming comms of sec for each hit
 			visible_message("[capitalize(declent_ru(NOMINATIVE))] замахивается своими мечами и рубит [C]!")
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/handle_automated_action()
 	if(!on)
@@ -221,7 +211,6 @@
 			look_for_perp()
 			bot_patrol()
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
 	set_anchored(FALSE)
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
@@ -259,7 +248,6 @@
 		else
 			continue
 
-
 /**
  * Taipan bullshit.
  */
@@ -267,7 +255,6 @@
 	if(istype(slot_item, /obj/item/reagent_containers/food/drinks/mug/comms))
 		return TRUE
 	return FALSE
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	GLOB.move_manager.stop_looping(src)
@@ -292,7 +279,6 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	qdel(src)
 
-
 /**
  * This section is blocking attack.
  */
@@ -303,7 +289,6 @@
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
-
 
 /**
  * Allows special actions to take place after being attacked.
@@ -316,14 +301,12 @@
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return TRUE
 
-
 /mob/living/simple_animal/bot/secbot/griefsky/attack_hand(mob/living/carbon/human/H)
 	if((H.a_intent == INTENT_HARM) || (H.a_intent == INTENT_DISARM))
 		retaliate(H)
 		if(special_retaliate_after_attack(H))
 			return
 	return ..()
-
 
 /mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/I, mob/user, params) //cant touch or attack him while spinning
 	if(icon_state == spin_icon && prob(block_chance_melee))	// FFS! have no time to rework this now

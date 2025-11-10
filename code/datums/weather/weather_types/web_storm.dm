@@ -25,7 +25,6 @@
 	var/turfs_per_tick = 40
 	var/list/affected_turfs_list = list()
 
-
 /datum/weather/web_storm/telegraph()
 	. = ..()
 	status_alarm(TRUE)
@@ -50,7 +49,6 @@
 		new/obj/structure/spider/terrorweb(turf)
 		turfs += turf
 	affected_turfs_list -= turfs
-
 
 /datum/weather/web_storm/end()
 	if(..())

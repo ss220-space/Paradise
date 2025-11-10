@@ -1,7 +1,6 @@
 /datum/emote/living/carbon/alien/humanoid
 	mob_type_allowed_typecache = list(/mob/living/carbon/alien/humanoid)
 
-
 /datum/emote/living/carbon/alien/humanoid/hiss
 	key = "hiss"
 	key_third_person = "hisses"
@@ -11,7 +10,6 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	volume = 30
 	sound = SFX_HISS
-
 
 /datum/emote/living/carbon/alien/humanoid/gnarl
 	key = "gnarl"

@@ -93,7 +93,6 @@
 		basalt.refill_dug()
 	update_audio()
 
-
 /datum/weather/ash_storm/can_weather_act(mob/living/mob_to_check)
 	. = ..()
 	if(!.)
@@ -106,7 +105,6 @@
 		var/mob/living/simple_animal/borer/borer = mob_to_check
 		if(borer.host?.get_main_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 			return FALSE
-
 
 /datum/weather/ash_storm/weather_act(mob/living/target)
 	if(!target.mind && target.stat == DEAD || !ishuman(target)) //mind&stat check for optimization against dead roundstart dolls
@@ -126,7 +124,6 @@
 	target.apply_damage((1 - target.getarmor(BODY_ZONE_PRECISE_L_FOOT, FIRE) / 100) * THERMAL_PROTECTION_FOOT_LEFT * 4, BURN, BODY_ZONE_PRECISE_L_FOOT)
 	target.apply_damage((1 - target.getarmor(BODY_ZONE_R_LEG, FIRE) / 100) * THERMAL_PROTECTION_LEG_RIGHT * 4, BURN, BODY_ZONE_R_LEG)
 	target.apply_damage((1 - target.getarmor(BODY_ZONE_PRECISE_R_FOOT, FIRE) / 100) * THERMAL_PROTECTION_FOOT_RIGHT * 4, BURN, BODY_ZONE_PRECISE_R_FOOT)
-
 
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
 /datum/weather/ash_storm/emberfall

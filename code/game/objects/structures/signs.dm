@@ -8,12 +8,10 @@
 	var/random_number = FALSE
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
-
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
 	if(does_emissive || random_number)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/structure/sign/update_overlays()
 	. = ..()
@@ -34,7 +32,6 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
-
 /obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
 	if(istype(src, /obj/structure/sign/double))
 		return
@@ -50,7 +47,6 @@
 	//S.icon = I.Scale(24, 24)
 	S.sign_state = icon_state
 	qdel(src)
-
 
 /obj/item/sign
 	name = "sign"
@@ -68,7 +64,6 @@
 		INSTRUMENTAL = "табличкой",
 		PREPOSITIONAL = "табличке",
 	)
-
 
 /obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
 	if(!isturf(loc))
@@ -98,7 +93,6 @@
 	balloon_alert(user, "прикручено")
 	qdel(src)
 	return TRUE
-
 
 /obj/structure/sign/double/map
 	name = "station map"

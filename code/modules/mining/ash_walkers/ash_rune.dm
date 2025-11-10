@@ -62,7 +62,6 @@
 		/datum/ritual/ashwalker, \
 	)
 
-
 // Our little cheat in order to make first rune activation unforgetable
 /obj/effect/rune_fluff_marks
 	name = "ash rune"

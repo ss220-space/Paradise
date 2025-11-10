@@ -160,7 +160,6 @@
 		var/mob/living/silicon/ai/AI = usr
 		AI.move_down()
 
-
 /datum/hud/ai/New(mob/owner)
 	..()
 

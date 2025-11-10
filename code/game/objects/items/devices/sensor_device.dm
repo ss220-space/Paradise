@@ -30,7 +30,6 @@
 /obj/item/sensor_device/attack_self(mob/user)
 	ui_interact(user)
 
-
 /obj/item/sensor_device/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
@@ -45,7 +44,6 @@
 		return TRUE
 
 	return FALSE
-
 
 /obj/item/sensor_device/ui_interact(mob/user, datum/tgui/ui = null)
 	crew_monitor.ui_interact(user, ui)

@@ -8,14 +8,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	0 1 2 3 4 5 6 7 8 9
 	% ? ^
 
-
 	Busy letters by radio(eng):
 	c e h i l m n p r s t u w x z
 
-
 	Busy letters by radio(rus):
 	б г д е ё з к р с т у ц ч ш ы ь я э
-
 
 	Busy symbols by radio:
 	~ , $ _ - + *
@@ -118,9 +115,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	":+" = SPEC_FREQ_NAME,			"#+" = SPEC_FREQ_NAME,			"№+" = SPEC_FREQ_NAME,			".+" = SPEC_FREQ_NAME //activate radio-specific special functions
 ))
 
-
 GLOBAL_LIST_EMPTY(channel_to_radio_key)
-
 
 /proc/get_radio_key_from_channel(channel)
 	var/key = GLOB.channel_to_radio_key[channel]
@@ -135,18 +130,14 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	return key
 
-
 /mob/living/proc/binarycheck()
 	return FALSE
-
 
 /mob/proc/get_default_language()
 	return null
 
-
 /mob/living/get_default_language()
 	return default_language
-
 
 /mob/living/proc/handle_speech_problems(list/message_pieces, verb)
 	var/robot = ismachineperson(src)
@@ -185,7 +176,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	return list("verb" = verb)
 
-
 /mob/living/proc/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
 		if(WHISPER_CHANNEL) //all mobs can whisper by default
@@ -193,14 +183,12 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return TRUE
 	return FALSE
 
-
 /mob/living/proc/handle_speech_sound()
 	var/list/returns[3]
 	returns[1] = null
 	returns[2] = null
 	returns[3] = null
 	return returns
-
 
 /mob/living/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
@@ -415,7 +403,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	return TRUE
 
-
 /proc/hear_message_obj(list/listening_obj, mob/M, list/message_pieces, verbage)
 	var/list/transmited_channels = list()
 	for(var/obj/O in listening_obj)
@@ -428,7 +415,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 							transmited_channels += radio.get_frequency()
 				else
 					O.hear_talk(M, message_pieces, verbage)
-
 
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message, 512)
@@ -450,11 +436,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	create_log(SAY_LOG, "(whisper) '[message]'")
 	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_WHISPER_VERB)
 
-
 // for weird circumstances where you're inside an atom that is also you, like pai's
 /mob/living/proc/get_whisper_loc()
 	return src
-
 
 /mob/living/whisper_say(list/message_pieces, verb = "шепч%(ет,ут)%")
 	if(client && check_mute(client.ckey, MUTE_IC))
@@ -581,7 +565,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			M.show_message(rendered, 2)
 
 	return TRUE
-
 
 /mob/living/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)

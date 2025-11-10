@@ -39,7 +39,6 @@ Note: Must be placed west/left of and R&D console to function.
 		PREPOSITIONAL = "протолате",
 	)
 
-
 /obj/machinery/r_n_d/protolathe/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -93,7 +92,6 @@ Note: Must be placed west/left of and R&D console to function.
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-
 /obj/machinery/r_n_d/protolathe/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -116,7 +114,6 @@ Note: Must be placed west/left of and R&D console to function.
 
 	return ..()
 
-
 /obj/machinery/r_n_d/protolathe/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -125,7 +122,6 @@ Note: Must be placed west/left of and R&D console to function.
 	if(. && linked_console)
 		linked_console.linked_lathe = null
 		linked_console = null
-
 
 /obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

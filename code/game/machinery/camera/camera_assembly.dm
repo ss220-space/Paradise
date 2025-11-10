@@ -17,11 +17,9 @@
 	var/list/upgrades = list()
 	var/state = ASSEMBLY_UNBUILT
 
-
 /obj/item/camera_assembly/Destroy()
 	QDEL_LIST(upgrades)
 	return ..()
-
 
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -55,7 +53,6 @@
 
 	return ..()
 
-
 /obj/item/camera_assembly/crowbar_act(mob/user, obj/item/I)
 	if(!length(upgrades))
 		return FALSE
@@ -69,7 +66,6 @@
 	playsound(loc, I.usesound, 50, TRUE)
 	upgrade.forceMove(loc)
 	upgrades -= upgrade
-
 
 /obj/item/camera_assembly/screwdriver_act(mob/user, obj/item/I)
 	if(state != ASSEMBLY_WIRED)
@@ -106,7 +102,6 @@
 			var/confirm = tgui_alert(user, "Is this what you want? Chances Remaining: [i]", "Confirmation", list("Yes", "No"))
 			if(confirm == "Yes")
 				break
-
 
 /obj/item/camera_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != ASSEMBLY_WIRED)
@@ -171,7 +166,6 @@
 	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 	qdel(src)
-
 
 #undef ASSEMBLY_UNBUILT
 #undef ASSEMBLY_WRENCHED

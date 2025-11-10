@@ -354,7 +354,6 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 		else
 			icon_state = "[base_icon_state]-[smoothing_junction]"
 
-
 /atom/proc/diagonal_smooth(adjacencies)
 	switch(adjacencies)
 		if(N_NORTH|N_WEST)
@@ -467,7 +466,6 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
 	if(length(New))
 		A.add_overlay(New)
-
 
 /proc/find_type_in_direction(atom/source, direction)
 	var/turf/target_turf = get_step(source, direction)

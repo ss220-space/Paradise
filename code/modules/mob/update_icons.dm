@@ -84,7 +84,6 @@
 /mob/proc/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
 	return
 
-
 ///Updates the oversuit overlay & HUD element.
 /mob/proc/update_worn_oversuit()
 	return
@@ -120,7 +119,6 @@
 
 /mob/proc/wear_glasses_update(obj/item/clothing/glasses/our_glasses)
 	return
-
 
 ///Updates the id overlay & HUD element.
 /mob/proc/update_worn_id()

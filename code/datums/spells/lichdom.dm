@@ -19,10 +19,8 @@
 
 	action_icon_state = "skeleton"
 
-
 /obj/effect/proc_holder/spell/lichdom/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/lichdom/Destroy()
 	marked_item = null
@@ -37,13 +35,11 @@
 
 	return ..()
 
-
 /obj/effect/proc_holder/spell/lichdom/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(focusing)
 		return FALSE
 
 	return ..()
-
 
 /obj/effect/proc_holder/spell/lichdom/cast(list/targets, mob/user = usr)
 
@@ -149,7 +145,6 @@
 	user.drop_item_ground(user.shoes)
 	user.drop_item_ground(user.head)
 	equip_lich(user)
-
 
 /obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/user)
 	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(user), ITEM_SLOT_CLOTH_OUTER)

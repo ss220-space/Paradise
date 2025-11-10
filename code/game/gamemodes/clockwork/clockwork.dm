@@ -164,7 +164,6 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		to_chat(H, span_danger("You have a [item_name] in your [where]."))
 		return TRUE
 
-
 /datum/game_mode/proc/add_clocker(datum/mind/clock_mind)
 	if(!istype(clock_mind))
 		return FALSE

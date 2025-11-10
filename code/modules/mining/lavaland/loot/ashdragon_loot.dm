@@ -27,7 +27,6 @@
 		if(5)
 			new /obj/item/dragons_blood/refined(src) //turning into lizard stuff
 
-
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
 
@@ -44,7 +43,6 @@
 /obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
 	. = ..()
 	new /obj/item/crusher_trophy/tail_spike(src)
-
 
 // Spectral Blade
 
@@ -134,7 +132,6 @@
 
 	return ghost_counter
 
-
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	force = 0
 	var/ghost_counter = ghost_check()
@@ -144,7 +141,6 @@
 		span_notice("Вы бьёте с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
 	)
 	return ..()
-
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()

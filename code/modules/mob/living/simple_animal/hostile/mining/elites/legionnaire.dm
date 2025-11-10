@@ -323,11 +323,9 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/legionnaire_bonfire/Destroy()
 	myowner?.mypile = null
 	return ..()
-
 
 /obj/structure/legionnaire_bonfire/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -339,7 +337,6 @@
 		var/mob/living/fire_walker = arrived
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
-
 
 /obj/projectile/legionnaire
 	name = "bone"

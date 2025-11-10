@@ -67,7 +67,6 @@
 	params["Удаление предметов:"] = ritual_should_del_things? "Да" : (ritual_should_del_things_on_fail)? "При провале" : "Нет"
 	return params
 
-
 /datum/ritual/proc/get_ui_things()
 	var/list/things = list()
 	for(var/atom/item as anything in required_things)

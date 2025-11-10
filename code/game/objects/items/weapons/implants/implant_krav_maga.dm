@@ -20,11 +20,9 @@
 	else
 		style.teach(human_owner, TRUE)
 
-
 /obj/item/implanter/krav_maga
 	name = "bio-chip implanter (krav maga)"
 	imp = /obj/item/implant/krav_maga
-
 
 /obj/item/implantcase/krav_maga
 	name = "bio-chip case - 'Krav Maga'"

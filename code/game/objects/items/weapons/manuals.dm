@@ -52,7 +52,6 @@
 
 		"}
 
-
 /obj/item/book/manual/engineering_construction
 	manual_title = "Maintenance and construction"
 	manual_title_ru = "Ремонт и строительство"
@@ -210,12 +209,9 @@
 
 				<p>If youve gotten this far, congratulations! You have mastered the art of cloning. Now, the real problem is how to resurrect yourself after that traitor had his way with you for cloning his target.
 
-
-
 				</body>
 				</html>
 				"}
-
 
 /obj/item/book/manual/ripley_build_and_repair
 	manual_title = "APLU \"Ripley\" Construction and Operation Manual"
@@ -292,7 +288,6 @@
 				<h2>Operation</h2>
 				Coming soon...
 			"}
-
 
 /obj/item/book/manual/experimentor
 	manual_title = "E.X.P.E.R.I-MENTOR for Dummies"
@@ -482,7 +477,6 @@
 				</html>
 			"}
 
-
 /obj/item/book/manual/robotics_cyborgs
 	manual_title = "Robotics for Dummies"
 	manual_title_ru = "Робототехника для чайников"
@@ -517,7 +511,6 @@
 					<li><a href="#Emergency">In Case of Emergency</a></li>
 				</ol>
 
-
 				<h2><a name="Equipment">Cyborg Related Equipment</h2>
 
 				<h3>Exosuit Fabricator</h3>
@@ -528,7 +521,6 @@
 
 				<h3>Robotics Control Console</h3>
 				This useful piece of equipment can be used to immobolize or destroy a cyborg. A word of warning: Cyborgs are expensive pieces of equipment, do not destroy them without good reason, or Nanotrasen may see to it that it never happens again.
-
 
 				<h2><a name="Modules">Cyborg Modules</h2>
 				When a cyborg is created it picks out of an array of modules to designate its purpose. There are 6 different cyborg modules.
@@ -942,7 +934,6 @@
 				You are not going to learn what to do with them to be the super best person ever, or how to play guitar with passive gates,
 				or something like that. Just what stuff does.<br><br>
 
-
 				<h1><a name="Basic"><b>Basic Pipes</b></a></h1><br>
 				<i>The boring ones.</i><br>
 				TMost ordinary pipes are pretty straightforward. They hold gas. If gas is moving in a direction for some reason, gas will flow in that direction.
@@ -993,7 +984,6 @@
 				<li><i>Junction:</i><i>Junction:</i>The point where you connect your normal pipes to heat exchange pipes. Not necessary for heat exchangers, but necessary for H/E pipes/bent pipes.</li>
 				<li><i>Heat Exchanger:</i> These funky-looking bits attach to an open pipe end. Put another heat exchanger directly across from it, and you can transfer heat across two pipes without having to have the gases touch.
 				This normally shouldn't exchange with the ambient air, despite being totally exposed. Just don't ask questions...</li><br>
-
 
 				That's about it for pipes. Go forth, armed with this knowledge, and try not to break, burn down, or kill anything. Please.</font>
 

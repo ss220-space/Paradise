@@ -121,7 +121,6 @@
 	/// Responsible for the range of the throwing back when shooting at point blank range
 	var/pb_knockback = 0
 
-
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
@@ -135,7 +134,6 @@
 		accuracy = GUN_ACCURACY_DEFAULT
 	else if(!istype(accuracy, /datum/gun_accuracy))
 		stack_trace("Invalid type [accuracy.type] found in .accuracy during /obj/item/gun Initialize()")
-
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(gun_light)
@@ -152,14 +150,12 @@
 		QDEL_NULL(recoil)
 	return ..()
 
-
 /obj/item/gun/handle_atom_del(atom/target)
 	if(target == bayonet)
 		set_bayonet(null)
 	else if(target == gun_light)
 		set_gun_light(null)
 	return ..()
-
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
@@ -334,7 +330,6 @@
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
-
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(istype(user))
 		if(!user.can_use_guns(src))
@@ -348,7 +343,6 @@
 		shoot_with_empty_chamber(user)
 		return FALSE
 	return TRUE
-
 
 /obj/item/gun/proc/newshot()
 	return
@@ -463,7 +457,6 @@
 			user.take_organ_damage(0, 10)
 			return FALSE
 
-
 /obj/item/gun/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
 		return ATTACK_CHAIN_BLOCKED
@@ -472,13 +465,11 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/gun/attack_obj(obj/object, mob/user, params)
 	if(bayonet)
 		bayonet.melee_attack_chain(user, object, params)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -523,7 +514,6 @@
 		to_chat(user, span_notice("Вы снимаете [bayonet] с [declent_ru(ACCUSATIVE)]."))
 		set_bayonet(null)
 
-
 /obj/item/gun/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gunlight))
 		toggle_gunlight()
@@ -536,7 +526,6 @@
 	set desc = "Click to toggle your weapon's attached flashlight."
 
 	toggle_gunlight(usr)
-
 
 /obj/item/gun/proc/toggle_gunlight(mob/user, silent = FALSE)
 	if(!gun_light)
@@ -556,7 +545,6 @@
 	SEND_SIGNAL(src, COMSIG_GUN_LIGHT_TOGGLE, user)
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /// Sets gun's flashlight and do all the necessary updates
 /obj/item/gun/proc/set_gun_light(obj/item/flashlight/seclite/new_light)
@@ -598,12 +586,10 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
 		toggle_gunlight(silent = TRUE)
 		visible_message(span_danger("Фонарь [declent_ru(GENITIVE)] гаснет."))
-
 
 /// Sets gun's bayonet and do all the necessary updates
 /obj/item/gun/proc/set_bayonet(obj/item/kitchen/knife/new_bayonet)
@@ -636,13 +622,11 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/gun/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	zoom(user, FALSE)
 	if(azoom)
 		azoom.Remove(user)
-
 
 /obj/item/gun/click_alt(mob/user)
 	if(loc != user)
@@ -782,7 +766,6 @@
 			observe.client.pixel_x = 0
 			observe.client.pixel_y = 0
 
-
 //Proc, so that gun accessories/scopes/etc. can easily add zooming.
 /obj/item/gun/proc/build_zooming()
 	if(azoom)
@@ -792,7 +775,6 @@
 		azoom = new()
 		azoom.gun = src
 		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
-
 
 /obj/item/gun/proc/destroy_zooming()
 	if(!azoom)

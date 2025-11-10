@@ -16,7 +16,6 @@
 	var/id_tag
 	var/protected = 1
 
-
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
 	density = FALSE
@@ -28,10 +27,8 @@
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	hackable = FALSE
 
-
 /obj/machinery/door/poddoor/impassable/unhittable
 	obj_flags = IGNORE_HITS
-
 
 /obj/machinery/door/poddoor/Bumped(atom/movable/moving_atom, skip_effects = TRUE)
 	. = ..()
@@ -83,35 +80,29 @@
 	layer = CLOSED_DOOR_LAYER
 	closingLayer = CLOSED_DOOR_LAYER
 
-
 /obj/machinery/door/poddoor/multi_tile/Initialize(mapload)
 	. = ..()
 	apply_opacity_to_my_turfs(opacity)
-
 
 /obj/machinery/door/poddoor/multi_tile/open()
 	. = ..()
 	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
-
 /obj/machinery/door/poddoor/multi_tile/close()
 	. = ..()
 	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
-
 /obj/machinery/door/poddoor/multi_tile/Destroy()
 	apply_opacity_to_my_turfs(FALSE)
 	return ..()
-
 
 //Multi-tile poddoors don't turn invisible automatically, so we change the opacity of the turfs below instead one by one.
 /obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(new_opacity)
 	for(var/turf/turf as anything in locs)
 		turf.set_opacity(new_opacity)
 	update_freelook_sight()
-
 
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'

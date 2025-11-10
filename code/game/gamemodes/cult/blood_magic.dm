@@ -366,8 +366,6 @@
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
 
-
-
 // The "magic hand" items
 /obj/item/melee/blood_magic
 	name = "magical aura"
@@ -411,7 +409,6 @@
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
 	afterattack(user, user, TRUE)
 
-
 /obj/item/melee/blood_magic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user) || !iscultist(user))
 		uses = 0
@@ -420,7 +417,6 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "used a cult spell ([src]) on")
 	target.lastattacker = user.real_name
-
 
 /obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	. = ..()
@@ -489,7 +485,6 @@
 
 	uses--
 	return ..()
-
 
 //Teleportation
 /obj/item/melee/blood_magic/teleport
@@ -601,7 +596,6 @@
 	else
 		to_chat(user, span_warning("[C] is already bound."))
 
-
 /obj/item/restraints/handcuffs/energy/cult //For the shackling spell
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
@@ -611,7 +605,6 @@
 	user.visible_message(span_danger("[user]'s shackles shatter in a discharge of dark magic!"), \
 	span_userdanger("Your [name] shatter in a discharge of dark magic!"))
 	. = ..()
-
 
 //Construction: Converts 50 metal to a construct shell, plasteel to runed metal, or an airlock to brittle runed airlock
 /obj/item/melee/blood_magic/construction
@@ -736,14 +729,12 @@
 		to_chat(user, span_warning("The spell will not work on [target]!"))
 		return ..()
 
-
 //Blood Rite: Absorb blood to heal cult members or summon weapons
 /obj/item/melee/blood_magic/manipulator
 	name = "Blood Rite Aura"
 	desc = "Absorbs blood from anything you touch. Touching cultists and constructs can heal them. Use in-hand to cast an advanced rite."
 	color = "#7D1717"
 	max_charges = 300
-
 
 /obj/item/melee/blood_magic/manipulator/examine(mob/user)
 	. = ..()
