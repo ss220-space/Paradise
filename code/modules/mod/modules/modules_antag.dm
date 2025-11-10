@@ -927,8 +927,6 @@
 		PREPOSITIONAL = "модуле активного хамелеона",
 	)
 
-
-
 /obj/item/mod/module/active_chameleon/on_install()
 	. = ..()
 	RegisterSignal(mod, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))

@@ -61,7 +61,7 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_modules.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/grey/mod_modules.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/drask/mod_modules.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_modules.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_modules.dmi',
 	)
 
 /obj/item/mod/module/get_ru_names()

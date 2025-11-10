@@ -121,7 +121,7 @@
 		DATIVE = ru_names[DATIVE] + " [used_theme.name]",
 		ACCUSATIVE = ru_names[ACCUSATIVE] + " [used_theme.name]",
 		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [used_theme.name]",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [used_theme.name]"
+		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [used_theme.name]",
 	)
 
 	desc = "[desc] </p> [used_theme.desc]"

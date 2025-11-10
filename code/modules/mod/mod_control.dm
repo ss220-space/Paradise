@@ -21,7 +21,7 @@
 		/datum/action/item_action/mod/module,
 	)
 	onmob_sheets = list(
-		ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+		ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
