@@ -28,7 +28,7 @@
 		DATIVE = "шлему МЭК",
 		ACCUSATIVE = "шлем МЭК",
 		INSTRUMENTAL = "шлемом МЭК",
-		PREPOSITIONAL = "шлеме МЭК"
+		PREPOSITIONAL = "шлеме МЭК",
 	)
 
 /obj/item/clothing/suit/mod
@@ -69,7 +69,7 @@
 		DATIVE = "нагруднику МЭК",
 		ACCUSATIVE = "нагрудник МЭК",
 		INSTRUMENTAL = "нагрудником МЭК",
-		PREPOSITIONAL = "нагруднике МЭК"
+		PREPOSITIONAL = "нагруднике МЭК",
 	)
 
 /obj/item/clothing/gloves/mod
@@ -104,7 +104,7 @@
 		DATIVE = "перчаткам МЭК",
 		ACCUSATIVE = "перчатки МЭК",
 		INSTRUMENTAL = "перчатками МЭК",
-		PREPOSITIONAL = "перчатках МЭК"
+		PREPOSITIONAL = "перчатках МЭК",
 	)
 
 /obj/item/clothing/shoes/mod
@@ -138,5 +138,5 @@
 		DATIVE = "ботинкам МЭК",
 		ACCUSATIVE = "ботинки МЭК",
 		INSTRUMENTAL = "ботинками МЭК",
-		PREPOSITIONAL = "ботинках МЭК"
+		PREPOSITIONAL = "ботинках МЭК",
 	)
