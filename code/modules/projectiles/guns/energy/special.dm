@@ -752,7 +752,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 10),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -4)
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -4),
 	)
 	ammo_x_offset = 0
 
