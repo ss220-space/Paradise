@@ -51,30 +51,6 @@
 		if(user)
 			to_chat(user, span_notice("You break the lock on [src]."))
 
-/obj/structure/closet/secure_closet/proc/togglelock(mob/living/user)
-	if(!istype(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(opened)
-		to_chat(user, span_notice("Close the locker first."))
-		return
-	if(broken)
-		to_chat(user, span_warning("The locker appears to be broken."))
-		return
-	if(user.loc == src)
-		to_chat(user, span_notice("You can't reach the lock from inside."))
-		return
-	if(allowed(user))
-		locked = !locked
-		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
-		visible_message(span_notice("The locker has been [locked ? null : "un"]locked by [user]."))
-		update_icon()
-	else
-		to_chat(user, span_notice("Access Denied"))
-	add_fingerprint(user)
-
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
 
