@@ -13,12 +13,10 @@
 	cooldown_min = 1 SECONDS
 	action_icon_state = "moneybag"
 
-
 /obj/effect/proc_holder/spell/summon_wealth/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.range = 7
 	return T
-
 
 /obj/effect/proc_holder/spell/summon_wealth/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/C in targets)
@@ -32,7 +30,6 @@
 					new /obj/item/stack/sheet/mineral/diamond(user.loc),
 					new /obj/item/stack/spacecash/c1000(user.loc))
 			C.put_in_active_hand(item)
-
 
 /obj/effect/proc_holder/spell/view_range
 	name = "Дальний взор"
@@ -55,7 +52,6 @@
 		"21x21",
 	)
 
-
 /obj/effect/proc_holder/spell/view_range/Destroy(force)
 	UnregisterSignal(action.owner, COMSIG_LIVING_DEATH)
 	if(selected_view == "default" || QDELETED(action.owner) || !action.owner.client)
@@ -71,7 +67,6 @@
 
 /obj/effect/proc_holder/spell/view_range/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/view_range/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!user.client)
@@ -89,7 +84,6 @@
 		new_view = user.client.prefs.viewrange
 	selected_view = new_view
 	user.client.change_view(new_view)
-
 
 /obj/effect/proc_holder/spell/view_range/genetic
 	desc = "Позволяет вам выбрать, как далеко вы будете видеть."
@@ -110,10 +104,8 @@
 	var/mob/living/friend
 	var/obj/effect/mob_spawn/human/demonic_friend/friendShell
 
-
 /obj/effect/proc_holder/spell/summon_friend/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/summon_friend/cast(list/targets, mob/user = usr)
 	if(!QDELETED(friend))
@@ -129,7 +121,6 @@
 		var/mob/living/L = C
 		friendShell = new /obj/effect/mob_spawn/human/demonic_friend(L.loc, L.mind, src)
 
-
 /obj/effect/proc_holder/spell/touch/revive_touch
 	name = "Воскрешающее косание"
 	desc = "Чрезвычайно могущественное некромантическое заклинание"
@@ -140,7 +131,6 @@
 	clothes_req = FALSE
 	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
 	action_icon_state = "revive"
-
 
 /obj/item/melee/touch_attack/revive_touch
 	name = "воскрешающее касание"
@@ -190,10 +180,8 @@
 	invocation_type = "whisper"
 	invocation = "Amicus meus, suus ' vicis"
 
-
 	action_icon_state = "bolt_action_old"
 	action_background_icon_state = "bg_demon"
-
 
 /obj/effect/proc_holder/spell/conjure_item/contract_gun/Initialize(mapload, weapon_type)
 	. = ..()

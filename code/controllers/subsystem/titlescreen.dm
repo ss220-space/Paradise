@@ -199,7 +199,6 @@ SUBSYSTEM_DEF(title)
 /datum/controller/subsystem/title/proc/pick_title_image()
 	return pick(title_images_pool)
 
-
 /************************
  *  Title screen datum  *
  ************************/

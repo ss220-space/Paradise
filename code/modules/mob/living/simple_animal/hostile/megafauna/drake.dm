@@ -86,7 +86,6 @@ Difficulty: Medium
 	. = ..()
 	AddElement(/datum/element/simple_flying)
 
-
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Огненный конус"
 	icon_icon = 'icons/obj/wizard.dmi'
@@ -362,7 +361,6 @@ Difficulty: Medium
 	var/lava_success = TRUE
 	if(lava_arena)
 		lava_success = lava_arena()
-
 
 	//ensure swoop direction continuity.
 	if(negative)
@@ -733,14 +731,12 @@ Difficulty: Medium
 	action_icon_state = "tailsweep"
 	action_background_icon_state = "bg_alien"
 
-
 /obj/effect/proc_holder/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, 1)
 		C.spin(6, 1)
 	..(targets, user, 3 SECONDS)
-
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return

@@ -8,7 +8,6 @@
 	chemical_cost = 30
 	req_human = TRUE
 
-
 /datum/action/changeling/resonant_shriek/sting_action(mob/user)
 	for(var/mob/living/l_target in get_hearers_in_view(4, user))
 		if(iscarbon(l_target))
@@ -35,7 +34,6 @@
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
-
 /datum/action/changeling/dissonant_shriek
 	name = "Dissonant Shriek"
 	desc = "We shift our vocal cords to release a high frequency sound that overloads nearby electronics. Costs 30 chemicals."
@@ -43,7 +41,6 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
 	chemical_cost = 30
-
 
 /datum/action/changeling/dissonant_shriek/sting_action(mob/user)
 	for(var/obj/machinery/light/lamp in range(5, user))

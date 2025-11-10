@@ -25,7 +25,6 @@
 	objectives = "Be [owner.name]'s friend, and keep [owner.name] alive, so you don't get sent back to hell."
 	spell = summoning_spell
 
-
 /obj/effect/mob_spawn/human/demonic_friend/special(mob/living/L)
 	if(!QDELETED(owner.current) && owner.current.stat != DEAD)
 		L.real_name = "[owner.name]’s best friend"

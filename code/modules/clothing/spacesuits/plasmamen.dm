@@ -37,23 +37,19 @@
 		PREPOSITIONAL = "защитном шлеме плазмолюда",
 	)
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
 	weldingvisortoggle(silent = TRUE)
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/click_alt(mob/user)
 	weldingvisortoggle(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_helmet_light))
 		toggle_light(user)
 	else if(istype(action, /datum/action/item_action/toggle_welding_screen/plasmaman))
 		weldingvisortoggle(user)
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/weldingvisortoggle(mob/user, silent = FALSE)
 	. = ..()
@@ -66,7 +62,6 @@
 	toggle_light()
 	if(user)
 		balloon_alert(user, "сварочный визор блокирует свет!")
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!upgradable)
@@ -85,7 +80,6 @@
 			icon_state = "[initial(icon_state)]_reinf_full[on ? "-light":""]"
 			item_state = icon_state
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
 	if(!on && !up)
 		if(user)
@@ -98,11 +92,9 @@
 	update_equipped_item(update_speedmods = FALSE)
 	return TRUE
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -110,13 +102,11 @@
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.show_to(user)
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.hide_from(user)
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"
@@ -421,7 +411,6 @@
 	item_state = "mechanic_envirohelm"
 	HUDType = DATA_HUD_DIAGNOSTIC
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/mecha/get_ru_names()
 	return list(
 		NOMINATIVE = "защитный шлем механика",
@@ -503,7 +492,6 @@
 		PREPOSITIONAL = "защитном шлеме Квартирмейстера",
 	)
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/mining
 	name = "mining plasma envirosuit helmet"
 	desc = "Шлем защитного костюма плазмолюда, созданный специально для шахтёров."
@@ -549,7 +537,6 @@
 	icon_state = "white_envirohelm"
 	item_state = "white_envirohelm"
 	examine_extensions = EXAMINE_HUD_SCIENCE
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/white/get_ru_names()
 	return list(
@@ -785,7 +772,6 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/syndicate/get_ru_names()
 	return list(
 		NOMINATIVE = "защитный шлем офицера Синдиката",
@@ -795,7 +781,6 @@
 		INSTRUMENTAL = "защитным шлемом офицера Синдиката",
 		PREPOSITIONAL = "защитном шлеме офицера Синдиката",
 	)
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/centcomm
 	name = "Central command officer envirosuit helmet"

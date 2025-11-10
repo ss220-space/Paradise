@@ -29,7 +29,6 @@
 		return FALSE
 	return TRUE
 
-
 /obj/item/clothing/accessory/holster/attack_self(mob/user = usr)
 	. = ..()
 	if(.)
@@ -41,7 +40,6 @@
 		holster(holsteritem, user)
 	else
 		unholster(user)
-
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user)
 	if(istype(I, /obj/item/clothing/accessory/holster))
@@ -109,12 +107,10 @@
 
 	..(user)
 
-
 /obj/item/clothing/accessory/holster/attackby(obj/item/I, mob/user, params)
 	if(holster(I, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/clothing/accessory/holster/emp_act(severity)
 	for(var/obj/item/I in holstered)
@@ -129,19 +125,16 @@
 	else
 		. += span_notice("It is empty.")
 
-
 /obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
 	if(.)
 		has_suit.verbs += /obj/item/clothing/accessory/holster/verb/holster_verb
-
 
 /obj/item/clothing/accessory/holster/on_removed(mob/detacher)
 	. = ..()
 	if(.)
 		var/obj/item/clothing/under/old_suit = .
 		old_suit.verbs -= /obj/item/clothing/accessory/holster/verb/holster_verb
-
 
 //For the holster hotkey
 /obj/item/clothing/accessory/holster/verb/holster_verb()
@@ -164,7 +157,6 @@
 		return
 
 	holster.attack_self(usr)
-
 
 /obj/item/clothing/accessory/holster/armpit
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
@@ -210,7 +202,6 @@
 	max_content = 7
 	sound_holster = 'sound/weapons/knife_holster/knife_holster.ogg'
 	sound_unholster = 'sound/weapons/knife_holster/knife_unholster.ogg'
-
 
 /obj/item/clothing/accessory/holster/knives/unholster_message(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)

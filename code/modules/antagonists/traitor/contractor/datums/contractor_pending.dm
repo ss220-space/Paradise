@@ -15,7 +15,6 @@
 	var/list/messages = greet()
 	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
 
-
 /datum/contractor_pending/proc/greet()
 	// Greet them with the unique message
 	var/list/messages = list()

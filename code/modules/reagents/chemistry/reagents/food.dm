@@ -54,7 +54,6 @@
 	counterlist_normalise(taste_amounts)
 	data = taste_amounts
 
-
 /datum/reagent/consumable/nutriment/taste_amplification(mob/living/user)
 	. = list()
 	var/list/nutriment_taste_data = data
@@ -63,13 +62,11 @@
 		var/amount = ratio * taste_mult * volume
 		.[nutriment_taste] = amount
 
-
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Растительная масса"
 	id = "plantmatter"
 	description = "Богатые витаминами волокна и натуральные сахара, которые обычно содержатся в свежих продуктах."
 	diet_flags = DIET_HERB | DIET_OMNI
-
 
 /datum/reagent/consumable/nutriment/vitamin
 	name = "Витамины"
@@ -77,13 +74,11 @@
 	description = "Все лучшие витамины, минералы и углеводы, необходимые организму, в чистом виде."
 	burn_heal = 1
 
-
 /datum/reagent/consumable/nutriment/vitamin/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
 		M.satiety += 30
 
 	return ..()
-
 
 /datum/reagent/consumable/nutriment/protein // Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Белки"
@@ -93,16 +88,13 @@
 	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
 	var/status_effect_type = /datum/status_effect/sport_reagents/protein
 
-
 /datum/reagent/consumable/nutriment/protein/on_mob_add(mob/living/user)
 	. = ..()
 	user.apply_status_effect(status_effect_type)
 
-
 /datum/reagent/consumable/nutriment/protein/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_status_effect(status_effect_type)
-
 
 /datum/reagent/consumable/nutriment/protein/liquid
 	name = "Разбавленный протеин"
@@ -112,12 +104,10 @@
 	metabolization_rate = REAGENTS_METABOLISM / 4
 	status_effect_type = /datum/status_effect/sport_reagents/protein/water
 
-
 /datum/reagent/consumable/nutriment/protein/liquid/milk
 	name = "Разбавленный протеин на молоке"
 	id = "protein_liquid_milk"
 	status_effect_type = /datum/status_effect/sport_reagents/protein/milk
-
 
 /datum/reagent/consumable/sugar
 	name = "Сахар"
@@ -168,13 +158,11 @@
 				H.vomit()
 	return ..() | update_flags
 
-
 /datum/reagent/consumable/sugar/overdose_end(mob/living/carbon/human/affected)
 	affected.clear_fullscreen("hyperglycemia")
 	if(ishuman(affected))
 		affected.physiology.hunger_mod *= 0.5
 	..()
-
 
 /datum/reagent/consumable/soysauce
 	name = "Соевый соус"
@@ -375,17 +363,14 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<font color='lightblue'>холода</span>"
 
-
 /datum/reagent/consumable/frostoil/on_mob_add(mob/living/user)
 	. = ..()
 	if(isslime(user))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
 
-
 /datum/reagent/consumable/frostoil/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
-
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/user)
 	var/is_slime = isslime(user)
@@ -420,7 +405,6 @@
 			if(prob(1))
 				user.emote("shiver")
 	return ..()
-
 
 /datum/reagent/consumable/frostoil/reaction_turf(turf/T, volume)
 	if(volume >= 5)
@@ -936,7 +920,6 @@
 	reagent_state = LIQUID
 	color = "#B4641B"
 	taste_description = "подливки"
-
 
 ///Food Related, but non-nutritious
 

@@ -328,7 +328,6 @@
 	target.adjustBruteLoss(5)
 	to_chat(target, span_danger("You cut yourself on the thorny vines."))
 
-
 /obj/effect/ebeam/vetus
 
 /obj/effect/ebeam/vetus/Destroy()

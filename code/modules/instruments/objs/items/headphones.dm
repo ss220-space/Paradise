@@ -7,7 +7,6 @@
 	var/datum/song/headphones/song
 	var/on = FALSE
 
-
 /obj/item/clothing/ears/headphones/Initialize(mapload)
 	. = ..()
 	song = new(src, "piano") // Piano is the default instrument but all instruments are allowed
@@ -17,43 +16,35 @@
 	RegisterSignal(src, COMSIG_SONG_START, PROC_REF(start_playing))
 	RegisterSignal(src, COMSIG_SONG_END, PROC_REF(stop_playing))
 
-
 /obj/item/clothing/ears/headphones/Destroy()
 	UnregisterSignal(src, list(COMSIG_SONG_START, COMSIG_SONG_END))
 	QDEL_NULL(song)
 	return ..()
 
-
 /obj/item/clothing/ears/headphones/attack_self(mob/user)
 	ui_interact(user)
 
-
 /obj/item/clothing/ears/headphones/ui_data(mob/user)
 	return song.ui_data(user)
-
 
 /obj/item/clothing/ears/headphones/ui_interact(mob/user, datum/tgui/ui = null)
 	if(should_stop_playing(user) || user.incapacitated())
 		return
 	song.ui_interact(user, ui)
 
-
 /obj/item/clothing/ears/headphones/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	return song.ui_act(action, params, ui, state)
-
 
 /obj/item/clothing/ears/headphones/update_icon_state()
 	icon_state = "headphones[on]"
 	item_state = "headphones[on]"
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot & ITEM_SLOT_EARS)
 		return TRUE
-
 
 /**
  * Called by a component signal when our song starts playing.
@@ -63,7 +54,6 @@
 	on = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
-
 /**
  * Called by a component signal when our song stops playing.
  */
@@ -71,7 +61,6 @@
 	SIGNAL_HANDLER
 	on = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /**
  * Whether the headphone's song should stop playing
@@ -82,10 +71,8 @@
 /obj/item/clothing/ears/headphones/proc/should_stop_playing(mob/living/carbon/human/user)
 	return !(src in user) || !istype(user) || !((src == user.l_ear) || (src == user.r_ear))
 
-
 // special subtype so it uses the correct item type
 /datum/song/headphones
-
 
 /datum/song/headphones/should_stop_playing(mob/user)
 	. = ..()

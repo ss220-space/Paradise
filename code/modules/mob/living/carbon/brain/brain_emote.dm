@@ -4,14 +4,12 @@
 	/// The message that will be displayed to themselves, since brains can't really see their own emotes
 	var/self_message
 
-
 /datum/emote/living/carbon/brain/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
 		return FALSE
 	if(self_message)
 		to_chat(user, span_notice(self_message))
-
 
 /datum/emote/living/carbon/brain/can_run_emote(mob/living/carbon/brain/user, status_check, intentional)
 	. = ..()
@@ -20,14 +18,12 @@
 	if(!user.container || !istype(user.container, /obj/item/mmi))  // No MMI, no emotes
 		return FALSE
 
-
 /datum/emote/living/carbon/brain/alarm
 	key = "alarm"
 	key_third_person = "alarms"
 	message = "изда%(ёт,ют)% аварийный сигнал."
 	self_message = "You sound an alarm."
 	emote_type = EMOTE_AUDIBLE
-
 
 /datum/emote/living/carbon/brain/alert
 	key = "alert"
@@ -36,7 +32,6 @@
 	self_message = "You let out a distressed noise."
 	emote_type = EMOTE_AUDIBLE
 
-
 /datum/emote/living/carbon/brain/notice
 	key = "notice"
 	key_third_person = "notices"
@@ -44,13 +39,11 @@
 	self_message = "You play a loud tone."
 	emote_type = EMOTE_AUDIBLE
 
-
 /datum/emote/living/carbon/brain/flash
 	key = "flash"
 	key_third_person = "flashes"
 	message = "начина%(ет,ют)% быстро моргать лампочками!"
 	self_message = "You starts flashing your lights!"
-
 
 /datum/emote/living/carbon/brain/whistle
 	key = "whistle"
@@ -60,7 +53,6 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/voice/whistle.ogg'
 
-
 /datum/emote/living/carbon/brain/beep
 	key = "beep"
 	key_third_person = "beeps"
@@ -68,7 +60,6 @@
 	self_message = "You beep."
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/twobeep.ogg'
-
 
 /datum/emote/living/carbon/brain/boop
 	key = "boop"

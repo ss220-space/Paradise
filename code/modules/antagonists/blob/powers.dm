@@ -15,7 +15,6 @@
 	add_points(-cost)
 	return TRUE
 
-
 /** Moves the core elsewhere. */
 /mob/camera/blob/proc/transport_core()
 	if(blob_core)
@@ -38,7 +37,6 @@
 	var/obj/structure/blob/special/node/chosen_node = nodes[node_name]
 	if(chosen_node)
 		forceMove(chosen_node.loc)
-
 
 /** Places important blob structures */
 /mob/camera/blob/proc/create_special(price, blobstrain, min_separation, needs_node, turf/tile)
@@ -80,7 +78,6 @@
 
 	var/obj/structure/blob/node = blob.change_to(blobstrain, src)
 	return node
-
 
 /mob/camera/blob/proc/node_check(turf/tile)
 	if(is_there_multiz())
@@ -295,7 +292,6 @@
 	else
 		last_attack = world.time + CLICK_CD_RAPID
 
-
 /** Finds cardinal and diagonal attack directions */
 /mob/camera/blob/proc/directional_attack(turf/tile, list/possible_blobs, attack_success = FALSE)
 	var/list/cardinal_blobs = list()
@@ -334,7 +330,6 @@
 		blob_mob.lose_target()
 		blob_mob.Goto(pick(surrounding_turfs), blob_mob.move_to_delay)
 
-
 /mob/camera/blob/proc/split_consciousness()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -365,7 +360,6 @@
 	split_used = TRUE
 	new /obj/structure/blob/special/core/ (get_turf(N), null, TRUE)
 	qdel(N)
-
 
 /** Opens the reroll menu to change strains */
 /mob/camera/blob/proc/strain_reroll()

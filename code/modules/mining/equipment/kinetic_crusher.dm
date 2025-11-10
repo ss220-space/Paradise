@@ -39,7 +39,6 @@
 			PREPOSITIONAL = "прото-кинетическом крушителе",
 	)
 
-
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
 	return ..()
@@ -55,7 +54,6 @@
 			var/obj/item/crusher_trophy/T = t
 			. += span_notice("[icon2html(t, user)] <b>[capitalize(T.declent_ru(NOMINATIVE))]</b>: [T.effect_desc()].")
 
-
 /obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/crusher_trophy))
 		var/obj/item/crusher_trophy/trophy = I
@@ -64,7 +62,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/twohanded/kinetic_crusher/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -77,7 +74,6 @@
 			T.remove_from(src, user)
 	else
 		balloon_alert(user, "нет трофеев!")
-
 
 /obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
@@ -107,7 +103,6 @@
 			trophy.on_melee_hit(target, user)
 	if(!QDELETED(damage_track) && !QDELETED(target))
 		damage_track.total_damage += target_health - target.health //we did some damage, but let's not assume how much we did
-
 
 /obj/item/twohanded/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
 	. = ..()
@@ -189,14 +184,12 @@
 	else
 		item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-
 /obj/item/twohanded/kinetic_crusher/update_overlays()
 	. = ..()
 	if(!charged)
 		. += "[icon_state]_uncharged"
 	if(light_on)
 		. += "[icon_state]_lit"
-
 
 //destablizing force
 /obj/projectile/destabilizer
@@ -268,7 +261,6 @@
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
 
-
 /obj/item/crusher_trophy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/twohanded/kinetic_crusher))
 		add_fingerprint(user)
@@ -276,7 +268,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/crusher_trophy/proc/add_to(obj/item/twohanded/kinetic_crusher/crusher, mob/living/user)
 	for(var/obj/item/crusher_trophy/crusher_trophy as anything in crusher.trophies)

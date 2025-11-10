@@ -8,12 +8,10 @@
 	chemical_cost = 20
 	req_human = TRUE
 
-
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
 	if(tgui_alert(user, "Are you sure you wish to do this? This action cannot be undone.", "Sting", list("Yes", "No")) != "Yes")
 		return
 	..()
-
 
 /datum/action/changeling/headslug/sting_action(mob/user)
 
@@ -39,7 +37,6 @@
 	user.gib()
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-
 
 /datum/action/changeling/headslug/proc/headslug_appear(datum/mind/user_mind, turf/cling_turf)
 

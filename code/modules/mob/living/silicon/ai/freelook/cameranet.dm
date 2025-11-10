@@ -64,7 +64,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 	else
 		other_eyes = list()
 
-
 	for(var/mob/camera/aiEye/eye as anything in moved_eyes)
 		var/list/visibleChunks = list()
 		// 0xf = 15
@@ -75,7 +74,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 			var/y1 = max(1, eye_turf.y - static_range)
 			var/x2 = min(world.maxx, eye_turf.x + static_range)
 			var/y2 = min(world.maxy, eye_turf.y + static_range)
-
 
 			for(var/x = x1; x <= x2; x += CHUNK_SIZE)
 				for(var/y = y1; y <= y2; y += CHUNK_SIZE)
@@ -182,7 +180,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 		if(chunk.visibleTurfs[position])
 			return TRUE
 	return FALSE
-
 
 /// Returns list of available cameras, ready to use for UIs displaying list of them
 /// The format is: list("name" = "camera.c_tag", x = camera.x, y = camera.y, z = camera.z, ref = camera.UID(), status = camera.status)

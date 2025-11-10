@@ -137,7 +137,6 @@ Uncontrollable Actions
 				possesed.swap_hand()
 			possesed.throw_item(locate(/turf) in shuffle(view(3, possesed)))
 
-
 	return
 
 /datum/symptom/obsession/proc/TakeItem(mob/living/carbon/human/H)

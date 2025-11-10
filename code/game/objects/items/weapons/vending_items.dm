@@ -31,7 +31,6 @@
 		PREPOSITIONAL = "наборе пополнения",
 	)
 
-
 /obj/item/vending_refill/Initialize(mapload)
 	. = ..()
 	name = "[machine_name] restocking unit"
@@ -242,20 +241,16 @@
 	sum_of_weigths = 100
 	. = ..()
 
-
-
 /obj/item/vending_refill/custom/proc/add_account(datum/money_account/new_account, weight)
 	linked_accounts += new_account
 	accounts_weights += weight
 	sum_of_weigths += weight
-
 
 /obj/item/vending_refill/custom/proc/clear_accounts(mob/user)
 	linked_accounts = list()
 	accounts_weights = list()
 	sum_of_weigths = 0
 	balloon_alert(user, "счета отвязаны")
-
 
 /obj/item/vending_refill/custom/proc/try_add_account(mob/user)
 	. = FALSE
@@ -288,7 +283,6 @@
 	balloon_alert(user, "новый счет добавлен")
 	return TRUE
 
-
 /obj/item/vending_refill/custom/proc/try_add_station_account(mob/user)
 	. = FALSE
 	var/weight = tgui_input_number(user, "Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.hands_state, ui_source = src)
@@ -305,7 +299,6 @@
 	balloon_alert(user, "счет станции привязан")
 	return TRUE
 
-
 /obj/item/vending_refill/custom/attack_self(mob/user) // It works this way not because I'm lazy, but for better immersion.
 	var/operation = tgui_input_number(user, "Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка счетов", 0, 2, 0, ui_state = GLOB.hands_state, ui_source = src)
 
@@ -313,7 +306,6 @@
 		balloon_alert(user, "значение не введено")
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 		return
-
 
 	var/correct = TRUE
 	switch(operation)
@@ -334,7 +326,6 @@
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, FALSE)
 	else
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
-
 
 /obj/item/vending_refill/custom/examine(mob/user)
 	. = ..()

@@ -19,7 +19,6 @@
 	if(heavy_range > light_range)
 		light_range = heavy_range
 
-
 	var/emp_sound = sound('sound/effects/empulse.ogg')
 	for(var/mob/M in range(heavy_range, epicenter))
 		SEND_SOUND(M, emp_sound)

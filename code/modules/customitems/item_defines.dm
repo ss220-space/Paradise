@@ -29,7 +29,6 @@
 	var/tattoo_b = 1
 	usesound = 'sound/items/welder2.ogg'
 
-
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(user.a_intent == INTENT_HARM)
@@ -85,7 +84,6 @@
 	playsound(loc, usesound, 20, TRUE)
 	used = TRUE
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/fluff/tattoo_gun/update_overlays()
 	. = ..()
@@ -188,7 +186,6 @@
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermoncle"
 
-
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "Набор деталей для инвалидной коляски."
@@ -217,7 +214,6 @@
 		return
 
 	to_chat(user, span_warning("Вы не можете модифицировать [target.declent_ru(ACCUSATIVE)]!"))
-
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
@@ -285,7 +281,6 @@
 	new /obj/item/reagent_containers/food/snacks/sandwich(src)
 	new /obj/item/reagent_containers/food/snacks/chips(src)
 	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
-
 
 /obj/item/fluff/wingler_comb
 	name = "blue comb"
@@ -480,7 +475,6 @@
 	else
 		to_chat(user, span_warning("You can't modify [target]!"))
 
-
 /obj/item/fluff/pyro_wintersec_kit //DarkLordpyro: Valthorne Haliber
 	name = "winter sec conversion kit"
 	desc = "A securirty hardsuit conversion kit."
@@ -532,7 +526,6 @@
 			H.update_worn_oversuit()
 		return
 	to_chat(user, span_warning("You can't modify [target]!"))
-
 
 /obj/item/fluff/sylus_conversion_kit //Decemviri: Sylus Cain
 	name = "cerberus pattern conversion kit"
@@ -592,10 +585,8 @@
 
 	to_chat(user, span_warning("You can't modify [target]!"))
 
-
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
-
 
 //////////////////////////////////
 //////////// Clothing ////////////
@@ -897,7 +888,6 @@
 	desc = "A greatcoat with Nanotrasen colors."
 	icon_state = "stobarico_jacket"
 
-
 /obj/item/clothing/suit/hooded/hoodie/fluff/linda // Epic_Charger: Linda Clark
 	name = "Green Nanotrasen Hoodie"
 	desc = "A green hoodie with the Nanotrasen logo on the back. It looks weathered."
@@ -953,14 +943,12 @@
 	)
 	actions_types = list(/datum/action/item_action/toggle)
 
-
 /obj/item/clothing/suit/storage/fluff/k3_webbing/update_icon_state()
 	var/base_icon_state = replacetext("[icon_state]", "_on", "")
 	var/base_item_state = replacetext("[item_state]", "_on", "")
 
 	icon_state = suit_adjusted ? "[base_icon_state]_on" : base_icon_state
 	item_state = suit_adjusted ? "[base_item_state]_on" : base_item_state
-
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
 	if(user.incapacitated())
@@ -971,8 +959,6 @@
 	update_equipped_item(update_speedmods = FALSE)
 	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "on" : "off"].")
 
-
-
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
 	name = "stripped winter coat"
 	desc = "A velvety smooth black winter coat with white and red stripes on the side."
@@ -980,7 +966,6 @@
 	icon_state = "xantholne_wintercoat"
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xantholne
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
-
 
 /obj/item/clothing/head/hooded/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
 	name = "black winter hood"
@@ -1024,8 +1009,6 @@
 
 	if(target.change_hair("Sasook Hair", 1))
 		to_chat(target, span_notice("You dump some of [src] on your head and style it around."))
-
-
 
 /obj/item/clothing/suit/hooded/wintercoat/fluff/shesi //MrSynnester : Shesi Skaklas
 	name = "custom made winter coat"
@@ -1131,11 +1114,9 @@
 	sensor_mode = 3
 	up = TRUE
 
-
 /obj/item/clothing/under/fluff/jane_sidsuit/Initialize(mapload)
 	. = ..()
 	verbs -= /obj/item/clothing/under/verb/rollsuit
-
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Молния костюма"
@@ -1150,12 +1131,10 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/clothing/under/fluff/jane_sidsuit/update_icon_state()
 	var/new_state = "[replacetext("[item_color]", "_d", "")][up ? "" : "_d"]"
 	icon_state = new_state
 	item_state = new_state
-
 
 /obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
 	name = "Viridi Protegat"
@@ -1266,7 +1245,6 @@
 /obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user, datum/action/action, leftclick)
 	change_color()
 
-
 // TheFlagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit
 	name = "Arachno-Man costume"
@@ -1292,7 +1270,6 @@
 	icon_state = "superior_boots"
 	item_state = "superior_boots"
 
-
 /obj/item/nullrod/fluff/chronx //chronx100: Hughe O'Splash
 	fluff_transformations = list(/obj/item/nullrod/fluff/chronx/scythe)
 
@@ -1314,22 +1291,18 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = FALSE
 
-
 /obj/item/clothing/head/fluff/chronx/ui_action_click(mob/user, datum/action/action, leftclick)
 	adjust()
-
 
 /obj/item/clothing/head/fluff/chronx/update_icon_state()
 	icon_state = adjusted ? initial(icon_state) : "[initial(icon_state)][adjusted ? "" : "_open"]"
 	item_state = adjusted ? initial(item_state) : "[initial(item_state)][adjusted ? "" : "_open"]"
-
 
 /obj/item/clothing/head/fluff/chronx/proc/adjust()
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
 	to_chat(usr, "You untransform [src].")
 	adjusted = !adjusted
-
 
 /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Robes"
@@ -1408,10 +1381,8 @@
 	item_state = "classic_witch"
 	var/current_state
 
-
 /obj/item/clothing/head/wizard/fluff/dreamy/update_icon_state()
 	icon_state = current_state ? current_state : initial(icon_state)
-
 
 /obj/item/clothing/head/wizard/fluff/dreamy/attack_self(mob/user)
 	var/list/options = list()
@@ -1456,7 +1427,6 @@
 	if(target.change_hair("Zekes Tentacles", 1))
 		to_chat(target, span_notice("You take time to admire yourself in [src], brushing your tendrils down and revealing their true length."))
 
-
 /obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
 	name = "Orange gemmed locket"
 	desc = "A locket with a orange gem set on the front, the picture inside seems to be of a Tajaran."
@@ -1475,7 +1445,6 @@
 	item_state = "sheetcosmos"
 	item_color = "sheetcosmos"
 
-
 /obj/item/clothing/head/fluff/lfbowler //Lightfire: Hyperion
 	name = "Classy bowler hat"
 	desc = "a very classy looking bowler hat"
@@ -1492,7 +1461,6 @@
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
 	displays_id = FALSE
-
 
 /obj/item/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
 	name = "Spacepod mod kit"
@@ -1585,7 +1553,6 @@
 	icon_state = "asmer_accordion"
 	item_state = "asmer_accordion"
 
-
 /obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello
 	name = "Bluespace Horns"
 	desc = "A pair of fake horns. Now with added bluespace!"
@@ -1634,7 +1601,6 @@
 	item_color = "kiamask"
 	species_restricted = list(SPECIES_VOX)
 
-
 /obj/item/clothing/gloves/ring/fluff
 	name = "fluff ring"
 	desc = "Someone forgot to set this fluff item's description, notify a coder!"
@@ -1644,12 +1610,10 @@
 /obj/item/clothing/gloves/ring/fluff/update_icon_state()
 	return
 
-
 /obj/item/clothing/gloves/ring/fluff/benjaminfallout	//Benjaminfallout: Pretzel Brassheart
 	name = "Pretzel's Ring"
 	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
 	icon_state = "benjaminfallout_ring"
-
 
 /obj/item/clothing/under/fluff/kikeridress //Gangelwaefre: Kikeri
 	name = "Kikeri's Dress"

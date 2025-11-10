@@ -25,7 +25,6 @@
 		PREPOSITIONAL = "камне",
 	)
 
-
 /obj/item/stack/ore/update_overlays()
 	. = ..()
 
@@ -56,12 +55,10 @@
 	if(length(stack_overlays))
 		. += stack_overlays
 
-
 /obj/item/stack/ore/Initialize(mapload, new_amount , merge = TRUE)
 	. = ..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
-
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -73,7 +70,6 @@
 	new refined_type(drop_location(), amount)
 	balloon_alert(usr, "переплавлено!")
 	qdel(src)
-
 
 /obj/item/stack/ore/on_movable_entered_occupied_turf(atom/movable/arrived)
 	if(!istype(loc, /turf/simulated/floor/plating/asteroid) || (!ishuman(arrived) && !isrobot(arrived)))
@@ -91,7 +87,6 @@
 		// Then, if the user is dragging an ore box, empty the satchel into the box.
 		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
 			arrived_mob.pulling.attackby(bag, arrived)
-
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	. = ..()
@@ -399,19 +394,16 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		PREPOSITIONAL = "гибтоните",
 	)
 
-
 /obj/item/twohanded/required/gibtonite/Destroy()
 	if(wires)
 		SStgui.close_uis(wires)
 		QDEL_NULL(wires)
 	return ..()
 
-
 /obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	if(!supress_message && ismob(puller))
 		balloon_alert(puller, "слишком тяжело!")
 	return FALSE // must be carried in two hands or be picked up with ripley
-
 
 /obj/item/twohanded/required/gibtonite/update_icon_state()
 	switch(quality)
@@ -422,12 +414,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		if(GIBTONITE_QUALITY_HIGH)
 			icon_state = "Gibtonite ore 3"
 
-
 /obj/item/twohanded/required/gibtonite/update_overlays()
 	. = ..()
 	if(wires)
 		. += "Gibtonite_igniter"
-
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
 	if(isigniter(I))
@@ -474,7 +464,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 	return ..()
 
-
 /obj/item/twohanded/required/gibtonite/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!wires || primed)
@@ -482,7 +471,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	wires.Interact(user)
-
 
 /obj/item/twohanded/required/gibtonite/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -502,7 +490,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	wires.Interact(user)
-
 
 /obj/item/twohanded/required/gibtonite/attack_ghost(mob/user)
 	if(wires)
@@ -557,12 +544,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			if(!QDELETED(src))
 				qdel(src)
 
-
 /obj/item/stack/ore/ex_act(severity, target)
 	if(!severity || severity <= EXPLODE_HEAVY)
 		return
 	qdel(src)
-
 
 /*****************************Coin********************************/
 
@@ -717,12 +702,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		PREPOSITIONAL = "монете Синдиката",
 	)
 
-
 /obj/item/coin/update_overlays()
 	. = ..()
 	if(string_attached)
 		. += "coin_string_overlay"
-
 
 /obj/item/coin/attackby(obj/item/I, mob/user, params)
 	if(iscoil(I))
@@ -741,7 +724,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 	return  ..()
 
-
 /obj/item/coin/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!string_attached)
@@ -754,7 +736,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/obj/item/stack/cable_coil/coil = new(drop_location(), 1)
 	transfer_fingerprints_to(coil)
 	coil.add_fingerprint(user)
-
 
 /obj/item/coin/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -770,7 +751,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		to_chat(user, span_notice("Вы делаете из [declent_ru(GENITIVE)] кольцо."))
 		new typekey(get_turf(loc))
 		qdel(src)
-
 
 /obj/item/coin/attack_self(mob/user)
 	if(cooldown < world.time - 15)

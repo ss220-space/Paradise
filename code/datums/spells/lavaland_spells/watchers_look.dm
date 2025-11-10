@@ -14,10 +14,8 @@
 		"watcher_ice" = /obj/projectile/temp/basilisk/icewing)
 	var/selected_projectile = 1
 
-
 /obj/effect/proc_holder/spell/watchers_look/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
-
 
 /obj/effect/proc_holder/spell/watchers_look/cast(list/targets, mob/user = usr)
 	var/target = targets[1]
@@ -35,7 +33,6 @@
 	proj.fire()
 	user.newtonian_move(get_dir(target_turf, T))
 	return TRUE
-
 
 /obj/effect/proc_holder/spell/watchers_look/click_alt(mob/user)
 	//switch to next type of projectile and update action's icon

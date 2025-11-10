@@ -39,12 +39,10 @@
 /obj/item/paper/check/update_icon_state()
 	return
 
-
 /obj/item/paper/check/click_alt(mob/living/carbon/human/user)
 	if(ishuman(user) && user.is_in_hands(src))
 		to_chat(user, span_warning("Paper is too small! You fail to fold [src] into the shape of a plane!"))
 		return CLICK_ACTION_BLOCKING
-
 
 /obj/item/eftpos/Initialize(mapload)
 	machine_name = "[station_name()]"
@@ -97,7 +95,6 @@
 /obj/item/eftpos/attack_self(mob/user)
 	ui_interact(user)
 
-
 /obj/item/eftpos/attackby(obj/item/I, mob/user, params)
 	var/obj/item/card/id/id_card = I.GetID()
 	if(id_card)
@@ -107,7 +104,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/card/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -120,7 +116,6 @@
 	. |= ATTACK_CHAIN_SUCCESS
 	var/obj/item/eftpos/device = target.is_type_in_hands(/obj/item/eftpos)
 	device?.scan_card(id_card, user)
-
 
 /obj/item/eftpos/emag_act(mob/user)
 	emagged = TRUE

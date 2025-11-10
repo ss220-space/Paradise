@@ -251,7 +251,6 @@
 	object.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)
 
-
 /obj/structure/glowshroom/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!item.force)
@@ -277,7 +276,6 @@
 	if(QDELETED(src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-
 //Way to check glowshroom stats using plant analyzer
 /obj/structure/glowshroom/attackby(obj/item/item, mob/living/user, params)
 	if(istype(item, /obj/item/plant_analyzer))
@@ -286,7 +284,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 #undef SPREAD_DELAY
 #undef DECAY_DELAY

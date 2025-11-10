@@ -78,7 +78,6 @@
 	qdel(src)
 	return
 
-
 /datum/construction/reversible/mecha/ripley
 	result = "/obj/mecha/working/ripley"
 	taskpath = /datum/job_objective/make_ripley
@@ -307,7 +306,6 @@
 	const_holder.set_density(TRUE)
 	qdel(src)
 	return
-
 
 /datum/construction/reversible/mecha/gygax
 	result = "/obj/mecha/combat/gygax"
@@ -622,7 +620,6 @@
 	qdel(src)
 	return
 
-
 /datum/construction/reversible/mecha/firefighter
 	result = "/obj/mecha/working/ripley/firefighter"
 	taskpath = /datum/job_objective/make_ripley
@@ -865,7 +862,6 @@
 	qdel(src)
 	return
 
-
 /datum/construction/reversible/mecha/honker
 	result = "/obj/mecha/combat/honker"
 	steps = list(
@@ -986,7 +982,6 @@
 			user.visible_message("[user] puts suspenders on the [holder].", span_notice("You put suspenders on the [holder]."))
 			qdel(used_atom)
 	return 1
-
 
 /datum/construction/mecha/durand_chassis
 	steps = list(
@@ -1140,7 +1135,6 @@
 			"desc"="The hydraulic systems are disconnected.",
 		),
 	)
-
 
 /datum/construction/reversible/mecha/durand/action(atom/used_atom,mob/user as mob)
 	return check_step(used_atom,user)
@@ -1715,7 +1709,6 @@
 	qdel(src)
 	return
 
-
 /datum/construction/reversible/mecha/odysseus
 	result = "/obj/mecha/medical/odysseus"
 	steps = list(
@@ -1948,7 +1941,6 @@
 	const_holder.set_density(TRUE)
 	qdel(src)
 	return
-
 
 /datum/construction/reversible/mecha/clarke
 	result = "/obj/mecha/working/clarke"
@@ -2305,7 +2297,6 @@
 		),
 	)
 
-
 /datum/construction/reversible/mecha/rover/action(atom/used_atom,mob/user as mob)
 	return check_step(used_atom,user)
 
@@ -2495,7 +2486,6 @@
 	const_holder.set_density(TRUE)
 	qdel(src)
 	return
-
 
 /datum/construction/reversible/mecha/darkgygax
 	result = "/obj/mecha/combat/gygax/dark"

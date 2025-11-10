@@ -19,7 +19,6 @@
 	var/datum/drop_lightning_bolt_ui/editor = new()
 	editor.ui_interact(mob)
 
-
 /datum/drop_lightning_bolt_ui
 	var/client/client = null
 	var/mob/living/victim_mob = null
@@ -193,12 +192,10 @@
 	dropper.mode = MODE_POINTER
 	return TRUE
 
-
 /datum/drop_lightning_bolt_ui/preloaded_target/New(mob/user, reason)
 	victim_mob = user
 	mode = MODE_CKEY
 	src.reason = reason
-
 
 #undef MODE_CKEY
 #undef MODE_POINTER

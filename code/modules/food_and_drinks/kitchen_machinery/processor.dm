@@ -160,7 +160,6 @@
 		return P
 	return 0
 
-
 /obj/machinery/processor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -187,13 +186,11 @@
 	)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/processor/screwdriver_act(mob/living/user, obj/item/I)
 	if(processing)
 		to_chat(user, span_warning("The [name] is working."))
 		return TRUE
 	return default_deconstruction_screwdriver(user, "processor_open", "processor", I)
-
 
 /obj/machinery/processor/wrench_act(mob/living/user, obj/item/I)
 	if(processing)
@@ -201,13 +198,11 @@
 		return TRUE
 	return default_unfasten_wrench(user, I)
 
-
 /obj/machinery/processor/crowbar_act(mob/living/user, obj/item/I)
 	if(processing)
 		to_chat(user, span_warning("The [name] is working."))
 		return TRUE
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/processor/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -226,7 +221,6 @@
 		span_notice("[grabber] puts [grabbed_thing.name] into [src]."),
 		span_notice("You put [grabbed_thing.name] into [src]."),
 	)
-
 
 /obj/machinery/processor/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN)) //no power or broken

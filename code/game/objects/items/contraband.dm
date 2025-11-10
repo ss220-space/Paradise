@@ -28,7 +28,6 @@
 	for(var/I in 1 to 4)
 		new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
 
-
 /obj/item/reagent_containers/food/pill/random_drugs
 	icon_state = "pillrandom"
 	desc = "A cocktail of illicit designer drugs, who knows what might be in here."

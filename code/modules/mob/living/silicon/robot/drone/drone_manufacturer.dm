@@ -32,12 +32,10 @@
 
 	icon_state = "drone_fab_active"
 
-
 /obj/machinery/drone_fabricator/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/drone_fabricator/process()
 

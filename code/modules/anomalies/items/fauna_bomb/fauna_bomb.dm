@@ -310,7 +310,6 @@
 			last_command = action
 			do_commands()
 
-
 #define CHOOSING_ICON 'icons/effects/cult_target.dmi'
 
 /obj/item/fauna_bomb/proc/choose_target(client/client)

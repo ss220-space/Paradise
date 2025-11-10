@@ -172,7 +172,6 @@
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-
 /obj/machinery/atmospherics/binary/passive_gate/wrench_act(mob/living/user, obj/item/I)
 	if(on)
 		to_chat(user, span_warning("You cannot unwrench [src], turn it off first."))

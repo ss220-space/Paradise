@@ -78,7 +78,6 @@
 	ticket_device.ids = get_ids()
 	device = ticket_device
 
-
 /obj/machinery/ticket_machine/update_icon_state()
 	switch(ticket_number) //Gives you an idea of how many tickets are left
 		if(0 to 49)
@@ -87,7 +86,6 @@
 			icon_state = "ticketmachine_50"
 		if(100)
 			icon_state = "ticketmachine_0"
-
 
 /obj/machinery/ticket_machine/proc/handle_maptext()
 	if(!dispense_enabled)
@@ -102,7 +100,6 @@
 		if(100)
 			maptext_x = 8
 	maptext = "<font face='Small Fonts'>[ticket_number]</font>"
-
 
 /obj/machinery/ticket_machine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -144,7 +141,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/ticket_machine/attack_hand(mob/living/carbon/user)
 	. = ..()
@@ -208,7 +204,6 @@
 	. = ..()
 	maptext = saved_maptext //For some reason, storage code removes all maptext off objs, this stops its number from being wiped off when taken out of storage.
 
-
 /obj/item/ticket_machine_ticket/attackby(obj/item/I, mob/living/user, params) //Stolen from papercode
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_heat() || !Adjacent(user))
@@ -232,7 +227,6 @@
 		span_danger("You light [src] on fire!"),
 	)
 	fire_act()
-
 
 /obj/item/paper/extinguish()
 	..()

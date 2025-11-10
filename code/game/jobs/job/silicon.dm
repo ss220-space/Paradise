@@ -20,7 +20,6 @@
 /datum/job/ai/is_position_available()
 	return length(GLOB.empty_playable_ai_cores) && CONFIG_GET(flag/allow_ai)
 
-
 /datum/job/cyborg
 	title = JOB_TITLE_CYBORG
 	flag = JOB_FLAG_CYBORG

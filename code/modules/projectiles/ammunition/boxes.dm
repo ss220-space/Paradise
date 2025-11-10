@@ -23,7 +23,6 @@
 /obj/item/ammo_box/a357/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(length(stored_ammo) / 3)]"
 
-
 /obj/item/ammo_box/n762
 	name = "ammo box (7.62x38mm)"
 	desc = "Коробка, содержащая патроны калибра 7,62x38 мм."
@@ -414,7 +413,6 @@
 		PREPOSITIONAL = "коробке патронов (самодельная картечь повышенной мощности 12х70)",
 	)
 
-
 // AUTOMATIC
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
@@ -469,7 +467,6 @@
 		INSTRUMENTAL = "коробкой патронов (10 мм)",
 		PREPOSITIONAL = "коробке патронов (10 мм)",
 	)
-
 
 /obj/item/ammo_box/fortynr
 	name = "ammo box .40 S&W"
@@ -724,7 +721,6 @@
 		PREPOSITIONAL = "коробке патронов (.50AE)",
 	)
 
-
 // MISC
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
@@ -760,7 +756,6 @@
 		INSTRUMENTAL = "коробкой лазреных патронов",
 		PREPOSITIONAL = "коробке лазреных патронов",
 	)
-
 
 /obj/item/ammo_box/foambox
 	name = "ammo box (Foam Darts)"
@@ -939,7 +934,6 @@
 		PREPOSITIONAL = "коробка патронов (Блюститель лазерные)",
 	)
 
-
 /obj/item/ammo_box/enforcer/disabler
 	name = "ammo box (Enforcer disabler)"
 	desc = "Коробка, содержащая 30 парализующих патронов для пистолета \"Блюститель\"."
@@ -1099,7 +1093,6 @@
 			new_ammo_icon.Shift(ISEVEN(i) ? WEST : EAST, 3)
 		new_ammo_icon.Turn(FLOOR((i - 1) * 45, 90))
 		. += new_ammo_icon
-
 
 /obj/item/ammo_box/speedloader/shotgun/slug
 	name = "shotgun speedloader (slug)"

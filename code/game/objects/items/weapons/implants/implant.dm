@@ -41,7 +41,6 @@
 	///the implant_fluff datum attached to this implant, purely cosmetic "lore" information
 	var/datum/implant_fluff/implant_data = /datum/implant_fluff
 
-
 /obj/item/implant/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ACTION_BUTTON_UPDATE, PROC_REF(update_button))
@@ -73,12 +72,10 @@
 	UnregisterSignal(src, COMSIG_ACTION_BUTTON_UPDATE)
 	return ..()
 
-
 /obj/item/implant/proc/unregister_emotes()
 	if(imp_in && LAZYLEN(trigger_emotes))
 		for(var/emote in trigger_emotes)
 			UnregisterSignal(imp_in, COMSIG_MOB_EMOTED(emote))
-
 
 /**
  * Set the emote that will trigger the implant.
@@ -115,7 +112,6 @@
 	LAZYOR(trigger_emotes, emote_key)
 	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), PROC_REF(on_emote))
 
-
 /obj/item/implant/proc/on_emote(mob/living/user, datum/emote/fired_emote, key, emote_type, message, intentional)
 	SIGNAL_HANDLER
 
@@ -127,7 +123,6 @@
 
 	add_attack_logs(user, user, "[src] was [intentional ? "intentionally" : "unintentionally"] triggered with the emote [fired_emote].")
 	emote_trigger(key, user, intentional)
-
 
 /obj/item/implant/proc/on_death(mob/source, gibbed)
 	SIGNAL_HANDLER
@@ -147,22 +142,17 @@
 	add_attack_logs(source, source, "had their [src] bio-chip triggered on [gibbed ? "gib" : "death"].")
 	death_trigger(source, gibbed)
 
-
 /obj/item/implant/proc/emote_trigger(emote, mob/source, intentional)
 	return
-
 
 /obj/item/implant/proc/death_trigger(mob/source, gibbed)
 	return
 
-
 /obj/item/implant/proc/activate(cause)
 	return
 
-
 /obj/item/implant/ui_action_click(mob/user, datum/action/action, leftclick)
 	activate("action_button")
-
 
 /**
  * Try to implant ourselves into a mob.
@@ -218,7 +208,6 @@
 
 	return TRUE
 
-
 /**
  * Check that we can actually implant this before implanting it
  * * source - The person being implanted
@@ -230,7 +219,6 @@
  */
 /obj/item/implant/proc/can_implant(mob/source, mob/user)
 	return TRUE
-
 
 /**
  * Clean up when an implant is removed.
@@ -255,7 +243,6 @@
 	unregister_emotes()
 
 	return TRUE
-
 
 /**
  * Updates button name and description.

@@ -29,7 +29,6 @@
 #define PULSE_THREADY 5 //occurs during hypovolemic shock
 //feel free to add shit to lists below
 
-
 //proc/get_pulse methods
 #define GETPULSE_HAND 0 //less accurate (hand)
 #define GETPULSE_TOOL 1 //more accurate (med scanner, sleeper, etc)
@@ -352,7 +351,6 @@
 #define DEVOUR_TIME_DEFAULT (10 SECONDS)
 /// Time it takes for a simple mob to be eaten.
 #define DEVOUR_TIME_ANIMAL (3 SECONDS)
-
 
 // Flags used by the flags parameter of electrocute act.
 /// Makes it so that the shock doesn't take gloves into account.

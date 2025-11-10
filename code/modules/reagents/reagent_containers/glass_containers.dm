@@ -27,7 +27,6 @@
 
 	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[declension_ru(reagents.maximum_volume, "ы", "", "")] вещества.")
 
-
 /obj/item/reagent_containers/glass/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!is_open_container())
 		return ..()
@@ -85,7 +84,6 @@
 	addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
-
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity, params)
 	if((!proximity) ||  !check_allowed_items(target,target_self = TRUE))
 		return
@@ -124,7 +122,6 @@
 								("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"))
 			make_splashes(target)
 
-
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		var/rename = rename_interactive(user, I)
@@ -132,7 +129,6 @@
 			label_text = rename
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
@@ -161,16 +157,13 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
 		. += span_notice("К нему прикреплен[GEND_A_O_Y(assembly)] [assembly]. Открутите [GEND_HIS_HER(assembly)] чем-нибудь, чтобы отсоединить.")
 
-
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/reagent_containers/glass/beaker/update_overlays()
 	. = ..()
@@ -205,7 +198,6 @@
 	if(assembly)
 		. += "assembly"
 
-
 /obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
 	set name = "Отсоединить"
 	set category = STATPANEL_OBJECT
@@ -221,11 +213,9 @@
 	else
 		balloon_alert(usr, "нечего отсоединять!")
 
-
 /obj/item/reagent_containers/glass/beaker/proc/heat_beaker()
 	if(reagents)
 		reagents.temperature_reagents(4000)
-
 
 /obj/item/reagent_containers/glass/beaker/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly_holder))
@@ -245,18 +235,15 @@
 
 	return ..()
 
-
 /obj/item/reagent_containers/glass/beaker/HasProximity(atom/movable/AM)
 	if(assembly)
 		assembly.HasProximity(AM)
-
 
 /obj/item/reagent_containers/glass/beaker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(assembly)
 		assembly.assembly_crossed(arrived, old_loc)
-
 
 /obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)
@@ -438,7 +425,6 @@
 		color = "#0085E5"
 	update_icon(UPDATE_OVERLAYS) //in case bucket's color has been changed in editor or by some deriving buckets
 
-
 /obj/item/reagent_containers/glass/bucket/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
@@ -480,7 +466,6 @@
 
 	return ..()
 
-
 /obj/item/reagent_containers/glass/bucket/update_overlays()
 	. = ..()
 	if(color)
@@ -490,7 +475,6 @@
 		var/mutable_appearance/bucket_hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand", appearance_flags = RESET_COLOR)
 		. += bucket_hand
 
-
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)
 	. = ..()
 
@@ -498,8 +482,6 @@
 		to_chat(user, span_userdanger("Вы надеваете [declent_ru(ACCUSATIVE)] себе на голову и его содержимое выливается прямо на вас!"))
 		reagents.reaction(user, REAGENT_TOUCH)
 		reagents.clear_reagents()
-
-
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
@@ -523,7 +505,6 @@
 
 /obj/item/reagent_containers/glass/bucket/wooden/update_overlays()
 	. = list()
-
 
 /obj/item/reagent_containers/glass/beaker/waterbottle
 	name = "bottle of water"
@@ -599,7 +580,6 @@
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/reagent_containers/glass/pet_bowl/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
@@ -615,10 +595,8 @@
 
 	return ..()
 
-
 /obj/item/reagent_containers/glass/pet_bowl/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/reagent_containers/glass/pet_bowl/update_overlays()
 	. = ..()
@@ -639,7 +617,6 @@
 			. += feed_overlay
 		else
 			. += mutable_appearance(icon, "liquid_overlay", color = mix_color_from_reagents(reagents.reagent_list), appearance_flags = RESET_COLOR)
-
 
 /obj/item/reagent_containers/glass/pet_bowl/attack_animal(mob/living/simple_animal/pet)
 	if(!pet.client || !pet.safe_respawn(pet, check_station_level = FALSE) || !reagents.total_volume)

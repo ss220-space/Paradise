@@ -47,7 +47,6 @@
 	name = "Поглощать"
 	button_icon_state = "slimeeat"
 
-
 /datum/action/innate/slime/feed/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Feed()

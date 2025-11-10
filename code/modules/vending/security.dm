@@ -105,7 +105,6 @@
 		PREPOSITIONAL = "торговом автомате SecTech Training",
 	)
 
-
 /obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
 		return ..()
@@ -138,7 +137,6 @@
 	desc = "Расходное оборудование для различных ситуаций."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
-
 
 	density = FALSE
 	products = list(

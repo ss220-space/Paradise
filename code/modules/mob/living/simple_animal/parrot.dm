@@ -31,7 +31,6 @@
 /// Flying away from its attacker
 #define PARROT_FLEE 64
 
-
 /mob/living/simple_animal/parrot
 	name = "parrot"
 	desc = "Попугай пронзительно кричит: \"Это попугай! БВАХ-бах!\""
@@ -107,7 +106,6 @@
 		INSTRUMENTAL = "попугаем",
 		PREPOSITIONAL = "попугае",
 	)
-
 
 /mob/living/simple_animal/parrot/Initialize(mapload)
 	. = ..()
@@ -193,7 +191,6 @@
 			parrot_state |= PARROT_FLEE		//Otherwise, fly like a bat out of hell!
 			drop_held_item(FALSE)
 
-
 //Mobs with objects
 /mob/living/simple_animal/parrot/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -209,7 +206,6 @@
 	icon_state = "parrot_fly"
 	drop_held_item(FALSE)
 
-
 //Bullets
 /mob/living/simple_animal/parrot/bullet_act(obj/projectile/P)
 	..()
@@ -223,14 +219,12 @@
 		icon_state = "parrot_fly"
 		drop_held_item(FALSE)
 
-
 /mob/living/simple_animal/parrot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(client && (parrot_state & PARROT_PERCH))
 		parrot_state = PARROT_WANDER
 		if(icon_state == "parrot_sit")
 			icon_state = "parrot_fly"
-
 
 /*
  * AI - Not really intelligent, but I'm calling it AI anyway.
@@ -252,7 +246,6 @@
 	else
 		ADD_TRAIT(src, TRAIT_MOVE_FLOATING, UNIQUE_TRAIT_SOURCE(src))
 
-
 /mob/living/simple_animal/parrot/proc/update_speak()
 	speak.Cut()
 
@@ -264,7 +257,6 @@
 	else //If we have no headset or channels to use, dont try to use any!
 		for(var/possible_phrase in clean_speak)
 			speak += possible_phrase
-
 
 /mob/living/simple_animal/parrot/proc/update_available_channels()
 	available_channels.Cut()
@@ -289,7 +281,6 @@
 	if(ears.translate_binary)
 		available_channels.Add(":b")
 
-
 /mob/living/simple_animal/parrot/handle_automated_movement()
 	if(pulledby)
 		parrot_state = PARROT_WANDER
@@ -297,7 +288,6 @@
 
 	if(!isturf(loc) || !(mobility_flags & MOBILITY_MOVE) || buckled)
 		return //If it can't move, dont let it move.
-
 
 //-----SPEECH
 	/* Parrot speech mimickry!
@@ -310,7 +300,6 @@
 
 		clean_speak += pick(speech_buffer)
 		speech_buffer.Cut()
-
 
 //-----SLEEPING
 	if(parrot_state == PARROT_PERCH)
@@ -507,7 +496,6 @@
 		drop_held_item()
 		parrot_state = PARROT_WANDER
 
-
 /*
  * Procs
  */
@@ -539,7 +527,6 @@
 
 		return O
 	return null
-
 
 /*
  * Verbs - These are actually procs, but can be used as verbs by player-controlled parrots.
@@ -576,7 +563,6 @@
 	balloon_alert(src, "здесь нечего взять")
 	return 0
 
-
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
 	set name = "Украсть из рук"
 	set category = STATPANEL_PARROT
@@ -610,7 +596,6 @@
 	balloon_alert(src, "здесь нечего взять!")
 	return 0
 
-
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
 	set name = "Выбросить предмет"
 	set category = STATPANEL_PARROT
@@ -620,7 +605,6 @@
 		return
 
 	drop_held_item()
-
 
 /mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = TRUE)
 	set name = "Выбросить предмет"
@@ -653,7 +637,6 @@
 	update_held_icon()
 	return 1
 
-
 /mob/living/simple_animal/parrot/proc/perch_player()
 	set name = "Присесть"
 	set category = STATPANEL_PARROT
@@ -672,7 +655,6 @@
 
 	balloon_alert(src, "некуда сесть!")
 
-
 /**
  * Attempts to pick up an adjacent item
  *
@@ -689,7 +671,6 @@
 	update_held_icon()
 	I.forceMove(src)
 
-
 /*
  * Sub-types
  */
@@ -699,7 +680,6 @@
 	tts_seed = "Gyro"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
-
 
 /mob/living/simple_animal/parrot/Poly/generate_ears_speak()
 	ears = new /obj/item/radio/headset/headset_eng(src)
@@ -881,30 +861,25 @@
 		"У меня больше ответов, чем вопросов!",
 		"Меня расстреляли, но я не сдался!")
 
-
 /mob/living/simple_animal/parrot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(message_mode && istype(ears))
 		ears.talk_into(src, message_pieces, message_mode, verb)
 		used_radios += ears
-
 
 /mob/living/simple_animal/parrot/hear_say(list/message_pieces, verb = "говор%(ит,ят)%", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
 	if(speaker != src && prob(50))
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
-
 /mob/living/simple_animal/parrot/hear_radio(list/message_pieces, verb = "говор%(ит,ят)%", part_a, part_b, mob/speaker = null, hard_to_hear = 0, atom/follow_target, check_name_against)
 	if(speaker != src && prob(50))
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
-
 /mob/living/simple_animal/parrot/proc/parrot_hear(message)
 	if(!message || stat)
 		return
 	speech_buffer.Add(message)
-
 
 /mob/living/simple_animal/parrot/proc/update_held_icon()
 	underlays.Cut()

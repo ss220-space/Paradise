@@ -18,13 +18,11 @@
 	var/mob/living/carbon/alien/humanoid/A = usr
 	A.nightvisiontoggle()
 
-
 /atom/movable/screen/alien/plasma_display
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "power_display2"
 	name = "plasma stored"
 	screen_loc = ui_alienplasmadisplay
-
 
 /datum/hud/alien/New(mob/living/carbon/alien/humanoid/owner)
 	..()
@@ -147,7 +145,6 @@
 		if(inv.slot_id)
 			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
 			inv.update_appearance()
-
 
 /datum/hud/alien/persistent_inventory_update()
 	if(!mymob)

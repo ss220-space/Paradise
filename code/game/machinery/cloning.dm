@@ -60,14 +60,12 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		PREPOSITIONAL = "капсуле клонирования",
 	)
 
-
 /obj/machinery/clonepod/power_change(forced = FALSE)
 	..() //we don't check return here because we also care about the BROKEN flag
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
 		set_light_on(FALSE)
-
 
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS
@@ -308,7 +306,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(is_taipan(z))
 		H.faction.Add("syndicate")	// So that Syndie guys remain Syndie guys after cloning
 
-
 	H.check_genes(MUTCHK_FORCED) // Ensures species that get powers by the species proc handle_dna keep them
 
 	if(efficiency > 2 && efficiency < 5 && prob(25))
@@ -411,7 +408,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		update_icon()
 		use_power(200)
 
-
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -470,7 +466,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	return ..()
 
-
 /obj/machinery/clonepod/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
@@ -504,7 +499,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		WRENCH_UNANCHOR_MESSAGE
 		connected.pods -= src
 		connected = null
-
 
 /obj/machinery/clonepod/emag_act(mob/user)
 	if(isnull(occupant))
@@ -576,7 +570,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		occupant.flash_eyes(visual = TRUE)
 		clonemind = null
 
-
 	for(var/i in missing_organs)
 		qdel(i)
 	missing_organs.Cut()
@@ -613,11 +606,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		spawn(40)
 			qdel(occupant)
 
-
 	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, FALSE)
 	mess = TRUE
 	update_icon()
-
 
 /obj/machinery/clonepod/update_icon_state()
 	if(occupant && !(stat & NOPOWER))
@@ -627,12 +618,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	else
 		icon_state = "pod_idle"
 
-
 /obj/machinery/clonepod/update_overlays()
 	. = ..()
 	if(panel_open)
 		. += "panel_open"
-
 
 /obj/machinery/clonepod/relaymove(mob/user)
 	if(user.stat == CONSCIOUS)

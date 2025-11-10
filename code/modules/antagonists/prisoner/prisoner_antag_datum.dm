@@ -10,7 +10,7 @@
 	russian_wiki_name = "Бунтовщики"
 	antag_menu_name = "Бунтовщик"
 	give_uplink = FALSE
-	antag_sound = "sound/ambience/antag/prisonbreak.ogg"
+	antag_sound = 'sound/ambience/antag/prisonbreak.ogg'
 
 /datum/antagonist/traitor/prisoner/give_objectives()
 	// Objective #1: Escape from prison

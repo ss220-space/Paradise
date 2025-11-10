@@ -3,7 +3,6 @@ GLOBAL_LIST_INIT(strippable_snake_items, create_strippable_list(list(
 	/datum/strippable_item/pet_collar
 )))
 
-
 /datum/strippable_item/snake_head
 	key = STRIPPABLE_ITEM_HEAD
 

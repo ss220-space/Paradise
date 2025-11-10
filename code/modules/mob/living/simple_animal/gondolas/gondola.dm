@@ -67,7 +67,6 @@
 	add_overlay(eyes_overlay)
 	add_overlay(moustache_overlay)
 
-
 #undef GONDOLA_HEIGHT
 #undef GONDOLA_COLOR
 #undef GONDOLA_MOUSTACHE

@@ -23,11 +23,9 @@
 	else
 		icon_state = "lepopen"
 
-
 /obj/item/dnascrambler/update_name(updates = ALL)
 	. = ..()
 	name = used ? "used [initial(name)]" : initial(name)
-
 
 /obj/item/dnascrambler/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -50,7 +48,6 @@
 	user.visible_message(span_danger("[user] injects [target] with [src]."))
 	injected(target, user)
 	return .|ATTACK_CHAIN_SUCCESS
-
 
 /obj/item/dnascrambler/proc/injected(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	scramble(TRUE, target, 100)

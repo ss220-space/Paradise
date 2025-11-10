@@ -15,13 +15,11 @@
 	lefthand_file = 'icons/mob/inhands/organ_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/organ_righthand.dmi'
 
-
 /obj/item/organ/internal/Initialize(mapload)
 	. = ..()
 
 	if(iscarbon(loc))
 		insert(loc, ORGAN_MANIPULATION_INITIALIZE)
-
 
 // user = who operates on target. Optional for fail_message, can be null(silent check)
 // target = the carbon we're testing for suitability
@@ -40,7 +38,6 @@
 		to_chat(user, span_warning(fail_message))
 
 	return FALSE
-
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!iscarbon(target) || owner == target)
@@ -78,7 +75,6 @@
 		target.update_stat("Vital organ inserted")
 
 	STOP_PROCESSING(SSobj, src)
-
 
 /**
  * Removes the given organ from its owner.
@@ -128,7 +124,6 @@
 	START_PROCESSING(SSobj, src)
 	return src
 
-
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
@@ -139,27 +134,21 @@
 		if(2)
 			internal_receive_damage(7 * owner.emp_damage_multiplier_internal, silent = TRUE)
 
-
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	insert(target)
-
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user, datum/action/action)
 	return FALSE
 
-
 /obj/item/organ/internal/proc/on_find(mob/living/finder)
 	return
-
 
 /obj/item/organ/internal/proc/on_life()
 	return
 
-
 //abstract proc called by carbon/death()
 /obj/item/organ/internal/proc/on_owner_death()
 	return
-
 
 /obj/item/organ/internal/proc/prepare_eat()
 	if(is_robotic())
@@ -175,14 +164,12 @@
 	S.w_class = w_class
 	return S
 
-
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)
 		return FALSE
 
 	insert(target, special)
 	return TRUE
-
 
 // Rendering!
 /obj/item/organ/internal/proc/render()
@@ -191,7 +178,6 @@
 /****************************************************
 				INTERNAL ORGANS DEFINES
 ****************************************************/
-
 
 // Brain is defined in brain_item.dm.
 
@@ -211,7 +197,6 @@
 
 		name = "cybernetic [slot]"
 	..() //Go apply all the organ flags/robotic statuses.
-
 
 /obj/item/organ/internal/appendix
 	name = "appendix"
@@ -239,14 +224,12 @@
 	update_icon()
 	. = ..()
 
-
 /obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 
 	if(inflamed)
 		var/datum/disease/appendicitis/D = new
 		D.Contract(M)
-
 
 /obj/item/organ/internal/appendix/prepare_eat()
 	var/obj/S = ..()
@@ -255,7 +238,6 @@
 		S.reagents.add_reagent("????", 5)
 
 	return S
-
 
 //shadowling tumor
 /obj/item/organ/internal/shadowtumor
@@ -283,11 +265,9 @@
 	..()
 	START_PROCESSING(SSobj, src)
 
-
 /obj/item/organ/internal/shadowtumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/organ/internal/shadowtumor/process()
 	if(isturf(loc))
@@ -302,7 +282,6 @@
 		if(obj_integrity <= 0)
 			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] расслаивается и распадается на множество крошечных кусочков."))
 			qdel(src)
-
 
 //debug and adminbus....
 
@@ -338,14 +317,12 @@
 	M.AddElement(/datum/element/waddling)
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'), 50, falloff_exponent = 20)
 
-
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	M.force_gene_block(GLOB.clumsyblock, FALSE)
 	M.force_gene_block(GLOB.comicblock, FALSE)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
 	. = ..()
-
 
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)
@@ -372,10 +349,8 @@
 						if(thingy)
 							GLOB.move_manager.stop_looping(thingy)
 
-
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE
-
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
@@ -383,7 +358,6 @@
 	owner.setBrainLoss(80)
 	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
-
 
 /obj/item/organ/internal/honkbladder
 	name = "honk bladder"
@@ -408,13 +382,11 @@
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20)
 
-
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 
 	QDEL_NULL(squeak)
 	qdel(src)
-
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
@@ -458,7 +430,6 @@
 			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()
 
-
 /obj/item/organ/internal/handle_germs()
 	..()
 	if(!ishuman(owner))
@@ -470,7 +441,6 @@
 		// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
 		internal_receive_damage(1, silent = prob(30 * germs_mod))
 
-
 /mob/living/carbon/human/proc/check_infections()
 	var/list/infections = list()
 
@@ -479,7 +449,6 @@
 			infections.Add(organ)
 
 	return infections
-
 
 /mob/living/carbon/human/proc/check_damaged_organs()
 	var/list/damaged = list()

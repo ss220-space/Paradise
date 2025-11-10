@@ -68,14 +68,11 @@
 		PREPOSITIONAL = "сварочном протовогазе",
 	)
 
-
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
-
 /obj/item/clothing/mask/gas/welding/adjustmask(mob/living/carbon/human/user)
 	return
-
 
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
@@ -114,21 +111,17 @@
 		PREPOSITIONAL = "противогазе исследователя",
 	)
 
-
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
-
 
 /obj/item/clothing/mask/gas/explorer/adjustmask(mob/living/carbon/human/user)
 	. = ..()
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
-
 /obj/item/clothing/mask/gas/explorer/force_adjust_mask()
 	. = ..()
 	w_class = WEIGHT_CLASS_SMALL
-
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
@@ -338,14 +331,11 @@
 		PREPOSITIONAL = "магическом клоунском парике с маской",
 	)
 
-
 /obj/item/clothing/mask/gas/clown_hat/nodrop
-
 
 /obj/item/clothing/mask/gas/clown_hat/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/mask/gas/mime
 	name = "happy mime mask"
@@ -422,7 +412,6 @@
 		return
 
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
-
 
 /obj/item/clothing/mask/gas/mime/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -516,11 +505,9 @@
 
 /obj/item/clothing/mask/gas/mime/nodrop
 
-
 /obj/item/clothing/mask/gas/mime/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
@@ -592,11 +579,9 @@
 
 /obj/item/clothing/mask/gas/owl_mask/super_hero
 
-
 /obj/item/clothing/mask/gas/owl_mask/super_hero/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
@@ -662,11 +647,9 @@
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
-
 /obj/item/clothing/mask/gas/sechailer/force_adjust_mask()
 	. = ..()
 	w_class = WEIGHT_CLASS_SMALL
-
 
 /obj/item/clothing/mask/gas/sechailer/folded/Initialize(mapload)
 	. = ..()
@@ -832,7 +815,6 @@
 			halt_action.name = "[uppertext(key)]!"
 			halt_action.UpdateButtonIcon()
 
-
 /obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -857,7 +839,6 @@
 		if(5)
 			to_chat(user, span_warning("You adjust the restrictor but nothing happens, probably because its broken."))
 
-
 /obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(aggressiveness == 5)
@@ -870,7 +851,6 @@
 		return .
 	aggressiveness = 5
 	to_chat(user, span_warning("You have cut off the voice modulator, the mask is broken now."))
-
 
 /obj/item/clothing/mask/gas/sechailer/attack_self(mob/user)
 	adjustmask(user)
@@ -885,7 +865,6 @@
 	var/key = phrase_list[phrase]
 	var/message = phrase_list[key]
 
-
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
 		if(!safety)
 			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
@@ -897,8 +876,6 @@
 		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
 		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, FALSE, 4)
 		cooldown = world.time
-
-
 
 // ********************************************************************
 

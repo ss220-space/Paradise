@@ -48,7 +48,6 @@
 		else
 			room = east_necropolisroom_templates
 
-
 	var/datum/map_template/M = safepick(room)
 	if(M)
 		switch(dir)
@@ -61,7 +60,6 @@
 			else
 				east_necropolisroom_templates -= M
 	load(M)
-
 
 //----------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------door-------------------------------------------------------------
@@ -105,39 +103,32 @@
 		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
 			P.open()
 
-
 //----------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------multi tile door-------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 
-
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/Initialize(mapload)
 	. = ..()
 	apply_opacity_to_my_turfs(opacity)
-
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/open()
 	. = ..()
 	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
-
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/close()
 	. = ..()
 	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
-
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/Destroy()
 	apply_opacity_to_my_turfs(FALSE)
 	return ..()
-
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/proc/apply_opacity_to_my_turfs(new_opacity)
 	for(var/turf/turf as anything in locs)
 		turf.set_opacity(new_opacity)
 	update_freelook_sight()
-
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor
 	name = "Заваленный проход"

@@ -13,13 +13,11 @@
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
 
-
 /obj/item/storage/lockbox/update_icon_state()
 	if(broken)
 		icon_state = icon_broken
 		return
 	icon_state = locked ? icon_locked : icon_closed
-
 
 /obj/item/storage/lockbox/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
@@ -61,7 +59,6 @@
 
 	return ..()
 
-
 /obj/item/storage/lockbox/show_to(mob/user)
 	if(locked)
 		to_chat(user, span_warning("It's locked!"))
@@ -69,14 +66,12 @@
 		..()
 	return
 
-
 /obj/item/storage/lockbox/can_be_inserted(obj/item/W, stop_messages = 0)
 	if(!locked)
 		return ..()
 	if(!stop_messages)
 		to_chat(usr, span_notice("[src] is locked!"))
 	return FALSE
-
 
 /obj/item/storage/lockbox/emag_act(mob/user)
 	if(!broken)
@@ -88,7 +83,6 @@
 		if(user)
 			to_chat(user, span_notice("You unlock \the [src]."))
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
-
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M, list/message_pieces)
 	return
@@ -189,10 +183,8 @@
 	. = ..()
 	number_of_megafauna = length(subtypesof(/obj/item/disk/fauna_research))
 
-
 /obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
 	return
-
 
 /obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/fauna_research))

@@ -58,7 +58,6 @@
 	icon_state = "wildflower"
 //Sprites by skittles above
 
-
 /datum/sprite_accessory/hair/diona/diona_frost
 	name = "Frost"
 	icon_state = "frost"

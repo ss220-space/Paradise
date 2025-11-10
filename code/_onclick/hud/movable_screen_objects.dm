@@ -4,7 +4,6 @@
 //   By RemieRichards	//
 //////////////////////////
 
-
 //Movable Screen Object
 //Not tied to the grid, places it's center where the cursor is
 

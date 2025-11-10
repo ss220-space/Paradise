@@ -10,7 +10,6 @@
 	var/delay_time = 5 SECONDS
 	var/shocking = FALSE
 
-
 /obj/structure/chair/e_chair/Initialize(mapload, obj/item/assembly/shock_kit/sk)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
@@ -28,28 +27,23 @@
 		part.part1 = part1
 		part.part2 = part2
 
-
 /obj/structure/chair/e_chair/Destroy()
 	if(part)
 		QDEL_NULL(part)
 	return ..()
 
-
 /obj/structure/chair/e_chair/rotate()
 	if(..())
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/structure/chair/e_chair/update_icon_state()
 	icon_state = "echair[shocking]"
-
 
 /obj/structure/chair/e_chair/update_overlays()
 	. = ..()
 	. += image(icon, icon_state = "echair_over", layer = ABOVE_MOB_LAYER, dir = src.dir)
 	if(shocking)
 		. += image(icon, icon_state = "echair_shock", layer = ABOVE_MOB_LAYER)
-
 
 /obj/structure/chair/e_chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -64,17 +58,14 @@
 	part = null
 	qdel(src)
 
-
 /obj/structure/chair/e_chair/examine(mob/user)
 	. = ..()
 	. += span_warning("You can <b>Alt-Shift-Click</b> [src] to activate it.")
-
 
 /obj/structure/chair/e_chair/AltShiftClick(mob/living/user)
 	if(!Adjacent(user))
 		return ..()
 	shock(user)
-
 
 /obj/structure/chair/e_chair/verb/activate_e_chair()
 	set name = "Вкл/выкл эл. стул"
@@ -84,7 +75,6 @@
 		return
 
 	shock(usr)
-
 
 /obj/structure/chair/e_chair/proc/shock(mob/living/user)
 	if(isliving(user) && (user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
@@ -117,7 +107,6 @@
 			buckled_mob.electrocute_act(110, src)
 			to_chat(buckled_mob, span_userdanger("You feel a deep shock course through your body!"))
 			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, src), 0.1 SECONDS, TIMER_DELETE_ME)
-
 
 /obj/structure/chair/e_chair/proc/reset_echair()
 	shocking = FALSE

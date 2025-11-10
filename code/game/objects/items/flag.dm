@@ -13,7 +13,6 @@
 	custom_fire_overlay = "fire"
 	var/rolled = FALSE
 
-
 /obj/item/flag/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_heat() || (resistance_flags & ON_FIRE))
@@ -25,7 +24,6 @@
 		span_italics("You hear a low whoosh."),
 	)
 	fire_act()
-
 
 /obj/item/flag/attack_self(mob/user)
 	rolled = !rolled
@@ -40,7 +38,6 @@
 	..()
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/flag/update_icon_state()
 	updateFlagIcon()
 	item_state = icon_state
@@ -53,10 +50,8 @@
 		item_state = "[item_state]_fire"
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/flag/proc/updateFlagIcon()
 	icon_state = initial(icon_state)
-
 
 /obj/item/flag/nt
 	name = "Nanotrasen flag"
@@ -76,7 +71,6 @@
 	name = "Ian flag"
 	desc = "The banner of Ian, because SQUEEEEE."
 	icon_state = "ianflag"
-
 
 //Species flags
 
@@ -229,16 +223,13 @@
 	var/obj/item/grenade/boobytrap = null
 	var/mob/trapper = null
 
-
 /obj/item/flag/chameleon/Initialize(mapload)
 	updated_icon_state = icon_state
 	. = ..()
 
-
 /obj/item/flag/chameleon/Destroy()
 	QDEL_NULL(boobytrap)
 	return ..()
-
 
 /obj/item/flag/chameleon/attack_self(mob/user)
 	if(used)
@@ -266,7 +257,6 @@
 			desc = chosen_flag.desc
 			used = TRUE
 
-
 /obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grenade))
 		if(boobytrap)
@@ -292,7 +282,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/flag/chameleon/screwdriver_act(mob/user, obj/item/I)
 	if(!boobytrap || user != trapper)

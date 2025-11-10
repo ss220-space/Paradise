@@ -47,13 +47,11 @@
 	imprinted_master = null
 	return ..()
 
-
 /obj/item/mmi/robotic_brain/update_icon_state()
 	if(brainmob?.key)
 		icon_state = occupied_icon
 		return
 	icon_state = searching ? searching_icon : blank_icon
-
 
 /obj/item/mmi/robotic_brain/update_name(updates = ALL)
 	. = ..()
@@ -61,7 +59,6 @@
 		name = "[src] ([brainmob.name])"
 	else
 		name = initial(name)
-
 
 /obj/item/mmi/robotic_brain/attack_self(mob/user)
 	if(isgolem(user))
@@ -85,7 +82,6 @@
 		if(brainmob?.key)
 			to_chat(brainmob, span_warning("Your internal speaker has been toggled [silenced ? "off" : "on"]."))
 
-
 /obj/item/mmi/robotic_brain/proc/check_volunteers()
 	if(length(ghost_volunteers))
 		var/mob/dead/observer/observer
@@ -94,7 +90,6 @@
 		if(istype(observer) && check_observer(observer))
 			transfer_personality(observer)
 	reset_search()
-
 
 /obj/item/mmi/robotic_brain/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
@@ -146,12 +141,10 @@
 	if(radio_action)
 		radio_action.UpdateButtonIcon()
 
-
 /obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(. && imprinted_master)
 		to_chat(target, span_biggerdanger("You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost."))
-
 
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
 	searching = FALSE
@@ -166,14 +159,12 @@
 	if(radio_action)
 		radio_action.UpdateButtonIcon()
 
-
 /obj/item/mmi/robotic_brain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
 	if(brainmob?.key)
 		return
 	searching = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	visible_message(span_notice("[src] buzzes quietly as the light fades out. Perhaps you could try again?"))
-
 
 /obj/item/mmi/robotic_brain/Topic(href, href_list)
 	if("signup" in href_list)
@@ -218,7 +209,6 @@
 		return
 	to_chat(O, span_notice("You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer."))
 	ghost_volunteers.Add(O)
-
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
 	. += span_notice("Its speaker is turned [silenced ? "off" : "on"].")

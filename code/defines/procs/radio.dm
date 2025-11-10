@@ -43,7 +43,6 @@
 	var/jammed = FALSE
 	var/turf/sender_loc = get_turf(sender)
 
-
 	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
 		if(get_dist(sender_loc, get_turf(jammer)) >= jammer.range)
 			return

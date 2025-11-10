@@ -40,7 +40,6 @@
 	LAZYADD(target.processing_patches, src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/reagent_containers/food/pill/patch/afterattack(obj/target, mob/user, proximity, params)
 	return // thanks inheritance again
 

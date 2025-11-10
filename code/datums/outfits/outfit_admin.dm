@@ -7,7 +7,6 @@
 		H.mind?.assigned_role = name
 		H.job = name
 
-
 /proc/apply_to_card(obj/item/card/id/I, mob/living/carbon/human/H, list/access = list(), rank, special_icon)
 	if(!istype(I) || !istype(H))
 		return 0
@@ -101,7 +100,6 @@
 	if(!visualsOnly)
 		H.faction |= "syndicate"
 
-
 /datum/outfit/admin/syndicate_strike_team
 	name = "Syndicate Strike Team Commando"
 	uniform = /obj/item/clothing/under/syndicate
@@ -171,7 +169,6 @@
 	implants = list(
 		/obj/item/implant/dust,
 	)
-
 
 /datum/outfit/admin/nt_vip
 	name = "VIP Guest"
@@ -244,7 +241,6 @@
 	H.shoes.name = "SRT special shoes"
 	H.w_uniform.name = "SRT uniform"
 
-
 /datum/outfit/admin/special_reaction_team/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
@@ -255,7 +251,6 @@
 		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
 		I.law_level = LAW_LEVEL_RESPONSE_TEAM
 	H.update_hud_set()
-
 
 /datum/outfit/admin/nt_navy_captain
 	name = "NT Navy Captain"
@@ -845,7 +840,6 @@
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
 	H.update_hud_set()
 
-
 /datum/outfit/admin/solgov
 	name = "Solar Federation Marine (Bulldog)"
 	uniform = /obj/item/clothing/under/solgov
@@ -1068,7 +1062,6 @@
 	name = "Atmos Hardsuit"
 	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 
-
 /datum/outfit/admin/tournament
 	name = "Tournament Generic"
 	suit = /obj/item/clothing/suit/armor/vest
@@ -1251,7 +1244,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Dark Lord", "syndie")
 
-
 /datum/outfit/admin/ancient_vampire
 	name = "Ancient Vampire"
 
@@ -1267,7 +1259,6 @@
 		/obj/item/flashlight = 1,
 		/obj/item/clothing/under/color/black = 1,
 	)
-
 
 /datum/outfit/admin/ancient_vampire/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

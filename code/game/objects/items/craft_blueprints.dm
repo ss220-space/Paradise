@@ -41,22 +41,18 @@
 	place_icon = "put_whiteprint"
 	copy_type = null
 
-
 /obj/item/craft_blueprints/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_DESC)
 	RegisterSignal(src, COMSIG_ITEM_PLACED_ON_TABLE, PROC_REF(on_table_place))
 
-
 /obj/item/craft_blueprints/Destroy()
 	. = ..()
 	UnregisterSignal(COMSIG_ITEM_PLACED_ON_TABLE)
 
-
 /obj/item/craft_blueprints/update_desc(updates)
 	. = ..()
 	desc = "[initial(desc)] \"[crafting_name]\""
-
 
 /obj/item/craft_blueprints/examine(mob/user)
 	update_appearance(UPDATE_DESC)
@@ -75,7 +71,6 @@
 		required_components_text += "[need_amount] [initial(atom_comp.name)] "
 	. += span_notice(required_components_text)
 
-
 /obj/item/craft_blueprints/proc/on_table_place(datum/source, mob/user)
 	SIGNAL_HANDLER
 	balloon_alert(user, "развернуто")
@@ -85,18 +80,15 @@
 	pixel_y = 0
 	layer = LOW_ITEM_LAYER
 
-
 /obj/item/craft_blueprints/update_icon(updates)
 	. = ..()
 	icon_state = placed_on_table ? place_icon : initial(icon_state)
-
 
 /obj/item/craft_blueprints/attack_hand(mob/user, pickupfireoverride)
 	if(placed_on_table)
 		try_craft_item(user)
 		return FALSE
 	. = ..()
-
 
 /obj/item/craft_blueprints/attackby(obj/item/item, mob/user, params)
 	if(!placed_on_table)
@@ -115,7 +107,6 @@
 	item.pixel_x = clamp(x_offset - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
 	item.pixel_y = clamp(y_offset - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 
-
 /obj/item/craft_blueprints/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(over_object != usr || !ishuman(usr) || !usr.Adjacent(src))
 		return ..()
@@ -129,8 +120,6 @@
 	update_icon()
 	human.put_in_any_hand_if_possible(src, drop_on_fail = TRUE)
 	return FALSE
-
-
 
 // MARK: Crafting mechanic
 
@@ -160,7 +149,6 @@
 	if(!istype(human))
 		return
 	human.put_in_any_hand_if_possible(item, drop_on_fail = TRUE)
-
 
 // MARK: Specific blueprints
 

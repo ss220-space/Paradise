@@ -48,11 +48,9 @@
 		PREPOSITIONAL = "холодильнике для трупов",
 	)
 
-
 /obj/structure/morgue/Initialize(mapload)
 	. = ..()
 	update_state()
-
 
 /obj/structure/morgue/Destroy()
 	if(!connected)
@@ -62,7 +60,6 @@
 	else
 		QDEL_NULL(connected)
 	return ..()
-
 
 /obj/structure/morgue/proc/get_revivable(closing = FALSE)
 	var/mob/living/mob_check = locate() in contents
@@ -82,7 +79,6 @@
 		UnregisterSignal(mob_check, COMSIG_LIVING_GHOSTIZED)
 		UnregisterSignal(mob_check, COMSIG_LIVING_REENTERED_BODY)
 		UnregisterSignal(mob_check, COMSIG_LIVING_SET_DNR)
-
 
 /obj/structure/morgue/proc/update_state()
 	if(connected)
@@ -117,7 +113,6 @@
 	status = UNREVIVABLE
 	return update_icon(UPDATE_OVERLAYS)
 
-
 /obj/structure/morgue/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -129,11 +124,9 @@
 	if(name != initial(name))
 		. += "morgue_label"
 
-
 /obj/structure/morgue/examine(mob/user)
 	. = ..()
 	. += "[status_descriptors[status]]"
-
 
 /obj/structure/morgue/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -143,7 +136,6 @@
 		balloon_alert(user, "бирка прикреплена")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/structure/morgue/wirecutter_act(mob/user, obj/item/I)
 	if(name == initial(name))
@@ -158,10 +150,8 @@
 	name = initial(name)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/structure/morgue/attack_hand(mob/user)
 	tray_toggle(user)
-
 
 /obj/structure/morgue/proc/tray_toggle(mob/user)
 	if(connected)
@@ -194,12 +184,10 @@
 	update_state()
 	return TRUE
 
-
 /obj/structure/morgue/relaymove(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
-
 
 /obj/structure/morgue/proc/connect()
 	var/turf/target_turf = get_step(src, dir)
@@ -217,7 +205,6 @@
 
 	QDEL_NULL(connected)
 
-
 /obj/structure/morgue/container_resist(mob/living/carbon/user)
 	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
@@ -225,11 +212,9 @@
 	to_chat(user, span_alert("Вы пытаетесь вылезти из [declent_ru(GENITIVE)]..."))
 	attack_hand(user)
 
-
 /obj/structure/morgue/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
-
 
 /obj/structure/morgue/ex_act(severity, target)
 	switch(severity)
@@ -240,7 +225,6 @@
 		if(EXPLODE_LIGHT)
 			ex_act_effect(severity, 5)
 
-
 /obj/structure/morgue/proc/ex_act_effect(severity, probability = 100)
 	if(!prob(probability))
 		return
@@ -249,14 +233,12 @@
 		check.ex_act(severity)
 	qdel(src)
 
-
 #undef EXTENDED_TRAY
 #undef EMPTY_MORGUE
 #undef UNREVIVABLE
 #undef REVIVABLE
 #undef NOT_BODY
 #undef GHOST_CONNECTED
-
 
 /*
  * Morgue tray
@@ -283,17 +265,14 @@
 		PREPOSITIONAL = "поддоне холодильника для трупов",
 	)
 
-
 /obj/structure/m_tray/Destroy()
 	if(morgue && morgue.connected == src)
 		morgue.connected = null
 	morgue = null
 	return ..()
 
-
 /obj/structure/m_tray/attack_hand(mob/user)
 	morgue?.tray_toggle(user)
-
 
 /obj/structure/m_tray/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -303,13 +282,11 @@
 	target.forceMove(loc)
 	target.set_resting(TRUE, instant = TRUE)
 
-
 /obj/structure/m_tray/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !user.drop_transfer_item_to_loc(I, loc))
 		return ..()
 	add_fingerprint(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/structure/m_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
 	if((!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
@@ -331,7 +308,6 @@
 		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
 	return TRUE
 
-
 /obj/structure/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
@@ -339,14 +315,12 @@
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
 
-
 /obj/structure/m_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
 	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
 		return TRUE
 	return FALSE
-
 
 /mob/proc/update_morgue()
 	if(stat != DEAD)
@@ -363,7 +337,6 @@
 		morgue = get(creature.loc, /obj/structure/morgue)
 		if(morgue)
 			morgue.update_icon(UPDATE_OVERLAYS)
-
 
 /*
  * Crematorium
@@ -399,17 +372,14 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	GLOB.crematoriums += src
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/crematorium/Destroy()
 	GLOB.crematoriums -= src
 	remove_contents()
 	return ..()
 
-
 /obj/machinery/crematorium/obj_break(damage_flag)
 	remove_contents()
 	return ..()
-
 
 /obj/machinery/crematorium/proc/remove_contents()
 	if(connected)
@@ -418,11 +388,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	for(var/atom/movable/target in src)
 		target.forceMove(source_turf)
 
-
 /obj/machinery/crematorium/examine(mob/user)
 	. = ..()
 	. += span_notice("Используйте <b>гаечный ключ</b> для изменения направления.")
-
 
 /obj/machinery/crematorium/update_overlays()
 	. = ..()
@@ -441,7 +409,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(length(contents))
 		. += "crema_full"
 
-
 /obj/machinery/crematorium/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
@@ -452,7 +419,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/crematorium/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -470,7 +436,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	dir = turn(dir, 90)
 	balloon_alert(user, "направление изменено")
 
-
 /obj/machinery/crematorium/proc/flame_spread(mob/living/user)
 	if(!isliving(user))
 		return
@@ -479,14 +444,11 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	user.adjust_fire_stacks(20)
 	user.IgniteMob()
 
-
 /obj/machinery/crematorium/attack_ai(mob/user)
 	return
 
-
 /obj/machinery/crematorium/attack_hand(mob/user)
 	tray_toggle(user)
-
 
 /obj/machinery/crematorium/proc/tray_toggle(mob/user, skip_checks = FALSE)
 	if(cremating)
@@ -521,7 +483,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-
 /obj/machinery/crematorium/proc/connect()
 	var/turf/target_turf = get_step(src, dir)
 
@@ -539,12 +500,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	QDEL_NULL(connected)
 
-
 /obj/machinery/crematorium/relaymove(mob/user)
 	if(cremating || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
-
 
 /obj/machinery/crematorium/container_resist(mob/living/carbon/user)
 	if(cremating || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -552,18 +511,15 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	to_chat(user, span_alert("Вы пытаетесь вылезти из [declent_ru(GENITIVE)]..."))
 	tray_toggle(user)
 
-
 /obj/machinery/crematorium/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
-
 
 /obj/machinery/crematorium/verb/cremate_verb()
 	set name = "Cremate"
 	set src in oview(1)
 
 	try_cremate(usr)
-
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
 	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -591,7 +547,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	balloon_alert(user, "отказано в доступе!")
 	playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
-
 
 /obj/machinery/crematorium/proc/cremate(mob/user)
 	// we are saving our prescious cap lazor
@@ -637,12 +592,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	addtimer(CALLBACK(src, PROC_REF(reset_state)), 3 SECONDS)
 
-
 /obj/machinery/crematorium/proc/refuse_ungibbable_items()
 	if(length(saved_contents))
 		tray_toggle(skip_checks = TRUE)
 		saved_contents.Cut()
-
 
 /obj/machinery/crematorium/proc/reset_state()
 	if(QDELETED(src))
@@ -663,7 +616,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(!ash_pile)
 		new /obj/effect/decal/cleanable/ash(drop_loc)
 
-
 /obj/machinery/crematorium/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
@@ -673,7 +625,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(EXPLODE_LIGHT)
 			ex_act_effect(severity, 5)
 
-
 /obj/machinery/crematorium/proc/ex_act_effect(severity, probability = 100)
 	if(!prob(probability))
 		return
@@ -682,14 +633,12 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		check.ex_act(severity)
 	qdel(src)
 
-
 /obj/machinery/crematorium/on_deconstruction()
 	if(length(component_parts))
 		var/obj/item/circuitboard/machine/crematorium/circuit = locate() in component_parts
 		if(circuit)
 			component_parts -= circuit
 			qdel(circuit)
-
 
 /obj/item/circuitboard/machine/crematorium
 	board_name = "Crematorium"
@@ -702,7 +651,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stock_parts/micro_laser = 2,
 	)
-
 
 /*
  * Crematorium tray
@@ -729,13 +677,11 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		PREPOSITIONAL = "поддоне крематория",
 	)
 
-
 /obj/structure/c_tray/Destroy()
 	if(crematorium && crematorium.connected == src)
 		crematorium.connected = null
 	crematorium = null
 	return ..()
-
 
 /obj/structure/c_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
@@ -744,10 +690,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return TRUE
 	return FALSE
 
-
 /obj/structure/c_tray/attack_hand(mob/user)
 	crematorium?.tray_toggle(user)
-
 
 /obj/structure/c_tray/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -757,13 +701,11 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	target.forceMove(loc)
 	target.set_resting(TRUE, instant = TRUE)
 
-
 /obj/structure/c_tray/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !user.drop_transfer_item_to_loc(I, loc))
 		return ..()
 	add_fingerprint(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/structure/c_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
 	if(!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping))
@@ -785,10 +727,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
 	return TRUE
 
-
 /obj/structure/c_tray/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
 
 // Crematorium switch
 /obj/machinery/crema_switch
@@ -801,7 +741,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	/// ID of the crematorium to hook into
 	var/id = 1
 
-
 /obj/machinery/crema_switch/get_ru_names()
 	return list(
 		NOMINATIVE = "активатор крематория",
@@ -812,11 +751,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		PREPOSITIONAL = "активаторе крематория",
 	)
 
-
 /obj/machinery/crema_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
-
 
 /obj/machinery/crema_switch/attack_hand(mob/user)
 	for(var/obj/machinery/crematorium/crema as anything in GLOB.crematoriums)

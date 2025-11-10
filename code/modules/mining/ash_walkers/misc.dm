@@ -156,14 +156,13 @@
 	)
 
 /obj/structure/fluff/ash_statue/Initialize(mapload)
-	name = "тотем - [special_name]"
+	name = "тотем — [special_name]"
 	GLOB.lavaland_points_of_interest += src
 	. = ..()
 
 /obj/structure/fluff/ash_statue/Destroy(force)
 	GLOB.lavaland_points_of_interest -= src
 	. = ..()
-
 
 /obj/structure/ash_totem
 	name = "totem"
@@ -198,7 +197,6 @@
 	. = ..()
 	if(applied_dye)
 		. += "[icon_state]_[applied_dye]"
-
 
 /obj/structure/ash_totem/wooden
 	name = "wooden totem"

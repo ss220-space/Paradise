@@ -275,7 +275,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	w_class = WEIGHT_CLASS_TINY
 	var/id = 0
 
-
 // Key - Lock Interactions
 /obj/item/spacepod_equipment/lock/keyed/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/spacepod_equipment/key))

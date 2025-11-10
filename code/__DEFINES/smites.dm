@@ -31,7 +31,6 @@
 #define SMITE_MACHINERY "Разумная машинерия"
 #define SMITE_HEADHIT "Головой об шлюзы"
 
-
 GLOBAL_LIST_INIT(smites_not_human, list(
 	SMITE_LIGHTING = /datum/smite/lighting,
 	SMITE_GIB = /datum/smite/gib,
@@ -60,7 +59,6 @@ GLOBAL_LIST_INIT(smites_human, list(
 	SMITE_VIRUS = /datum/smite/virus,
 	SMITE_BRAINROTBRAINDAMAGE = /datum/smite/brainrot_braingamage,
 ))
-
 
 GLOBAL_LIST_INIT(default_brainrot, list(
 	"уву",

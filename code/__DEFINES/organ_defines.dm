@@ -52,7 +52,6 @@
 #define INTERNAL_ORGAN_BRAIN_TUMOR "brain_tumor"
 #define INTERNAL_ORGAN_HIGHRP_TUMOR "highrp_tumor"
 
-
 // insert/remove organ special defines
 #define ORGAN_MANIPULATION_DEFAULT 0
 #define ORGAN_MANIPULATION_NOEFFECT 1

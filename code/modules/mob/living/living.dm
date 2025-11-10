@@ -30,7 +30,6 @@
 
 	GLOB.mob_living_list += src
 
-
 /mob/living/Destroy()
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
@@ -84,7 +83,6 @@
 	med_hud_set_health()
 	med_hud_set_status()
 
-
 /mob/living/ghostize(can_reenter_corpse = 1)
 	var/prev_client = client
 	. = ..()
@@ -96,16 +94,13 @@
 /mob/living/proc/OpenCraftingMenu()
 	return
 
-
 /mob/living/IsLying()
 	return body_position == LYING_DOWN
-
 
 /mob/living/canface()
 	if(!(mobility_flags & MOBILITY_MOVE))
 		return FALSE
 	return ..()
-
 
 /mob/living/onZImpact(turf/impacted_turf, levels, impact_flags = NONE)
 	if(!isopenspaceturf(impacted_turf))
@@ -177,7 +172,6 @@
 	AdjustKnockdown(5 SECONDS)
 	return . |= ZIMPACT_NO_SPIN
 
-
 // Generic Bump(). Override MobBump() and ObjBump() instead of this.
 /mob/living/Bump(atom/bumped_atom)
 	. = ..()
@@ -194,7 +188,6 @@
 	if(ismovable(bumped_atom))
 		if(PushAM(bumped_atom, move_force))
 			return .
-
 
 //Called when we bump into a mob
 /mob/living/proc/MobBump(mob/living/bumped_mob)
@@ -307,7 +300,6 @@
 	if(bumped_mob.l_hand && !isclothing(bumped_mob.l_hand) && prob(bumped_mob.l_hand.block_chance * 2))
 		return TRUE
 
-
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/object)
 	if(get_confusion() && get_disoriented())
@@ -318,7 +310,6 @@
 			span_userdanger("Вы жестко врезаетесь в [object.declent_ru(ACCUSATIVE)]!"),
 		)
 		playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
-
 
 /// Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM, force = move_force)
@@ -402,7 +393,6 @@
 			AM.setDir(current_dir)
 	now_pushing = null
 
-
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/source_turf = get_turf(src)
@@ -426,7 +416,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /mob/living/can_perform_action(atom/target, action_bitflags)
 	if(!istype(target))
@@ -522,7 +511,6 @@
 		return TRUE
 	return !mover.density || body_position == LYING_DOWN
 
-
 /// Special projectiles handling for living mobs
 /mob/living/proc/projectile_allow_through(obj/projectile/projectile, border_dir)
 	// DEAD mobs are fine to skip if they are not dense or lying
@@ -541,7 +529,6 @@
 	var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
 	return !prob(total_hit_chance)
 
-
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
 	if(pulling && pulling.loc == loc && pulling.density && !pulling.CanPass(mover, border_dir))
 		var/check_dir = dir
@@ -558,14 +545,12 @@
 			return pulledby
 		return prob(50) ? pulledby : src
 
-
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/proc/pulled(atom/movable/to_pull)
 	if(istype(to_pull) && Adjacent(to_pull))
 		start_pulling(to_pull)
 	else
 		stop_pulling()
-
 
 /mob/living/stop_pulling()
 	if(isliving(pulling))
@@ -576,7 +561,6 @@
 	update_hands_HUD()
 	update_pull_movespeed()
 	pullin?.update_icon(UPDATE_ICON_STATE)
-
 
 /mob/living/verb/stop_pulling1()
 	set name = "Прекратить тащить"
@@ -590,7 +574,6 @@
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
 	return ..()
-
 
 /mob/living/run_pointed(atom/target)
 	if(!..())
@@ -628,10 +611,8 @@
 	add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 	return TRUE
 
-
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
-
 
 /mob/living/ex_act(severity, target)
 	. = ..()
@@ -660,12 +641,10 @@
 	if(should_log)
 		log_debug("[src] update_stat([reason][HAS_TRAIT(src, TRAIT_GODMODE) ? ", GODMODE" : ""])")
 
-
 ///Sets the current mob's health value. Do not call directly if you don't know what you are doing, use the damage procs, instead.
 /mob/living/proc/set_health(new_value)
 	. = health
 	health = new_value
-
 
 /mob/living/proc/updatehealth(reason = "none given", should_log = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
@@ -674,7 +653,6 @@
 		return
 	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	update_stat("updatehealth([reason])", should_log)
-
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
@@ -701,10 +679,8 @@
 //		to_chat(world, "[src] ~ [bodytemperature] ~ [temperature]")
 	return temperature
 
-
 /mob/proc/get_contents()
 	return
-
 
 //Recursive function to find everything a mob is holding.
 /mob/living/get_contents(obj/item/storage/Storage = null)
@@ -894,7 +870,6 @@
 /mob/living/proc/UpdateDamageIcon()
 	return
 
-
 /mob/living/proc/Examine_OOC()
 	set name = "Мета-инфа (OOC)"
 	set category = STATPANEL_OOC
@@ -907,7 +882,6 @@
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
-
 
 /mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(lying_angle != 0 && !buckled)
@@ -938,14 +912,12 @@
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss() * 200 / maxHealth))
 		makeTrail(old_loc)
 
-
 ///Called by mob Move() when the lying_angle is different than zero, to better visually simulate crawling.
 /mob/living/proc/lying_angle_on_movement(direct)
 	if(direct & EAST)
 		set_lying_angle(90)
 	else if(direct & WEST)
 		set_lying_angle(270)
-
 
 /mob/living/move_from_pull(atom/movable/puller, turf/target_turf, glide_size_override)
 	..()
@@ -954,7 +926,6 @@
 	Knockdown(3 SECONDS)
 	puller.stop_pulling()
 	visible_message(span_danger("Ноги [name] путаются и [GEND_HE_SHE(src)] с грохотом пада[PLUR_ET_YUT(src)] на пол!"))
-
 
 /mob/living/proc/makeTrail(turf/T)
 	if(no_gravity())
@@ -1005,12 +976,10 @@
 						else
 							TH.color = BLOOD_COLOR_RED
 
-
 /mob/living/carbon/human/makeTrail(turf/T)
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !bleed_rate)
 		return
 	..()
-
 
 /mob/living/proc/getTrail()
 	if(getBruteLoss() < 300)
@@ -1059,13 +1028,11 @@
 		return FALSE
 	return TRUE
 
-
 /mob/living/verb/resist()
 	set name = "Сопротивляться"
 	set category = STATPANEL_IC
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
-
 
 ///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
 /mob/living/proc/run_resist()
@@ -1094,7 +1061,6 @@
 			resist_fire() //stop, drop, and roll
 		else if(last_special <= world.time)
 			resist_restraints() //trying to remove cuffs.
-
 
 /*////////////////////
 	RESIST SUBPROCS
@@ -1135,11 +1101,9 @@
 		. = 0
 		stack_trace("Wrong resist chance passed to get_resist_chance(), defaulting to zero.")
 
-
 /// Basic proc used to resist any grab state.
 /mob/proc/resist_grab(moving_resist = FALSE)
 	return TRUE //returning FALSE means we successfully broke free
-
 
 /mob/living/resist_grab(moving_resist = FALSE)
 	if(pulledby.grab_state < GRAB_AGGRESSIVE)
@@ -1179,22 +1143,17 @@
 		client.move_delay = world.time + 2 SECONDS
 	return TRUE
 
-
 /mob/living/proc/resist_buckle()
 	buckled.user_unbuckle_mob(src, src)
-
 
 /mob/living/proc/resist_muzzle()
 	return
 
-
 /mob/living/proc/resist_fire()
 	return FALSE
 
-
 /mob/living/proc/resist_restraints()
 	return FALSE
-
 
 /*//////////////////////
 	END RESIST PROCS
@@ -1204,10 +1163,8 @@
 	to_chat(src, span_notice("Вы слишком истощены, чтобы продолжать..."))
 	Weaken(10 SECONDS)
 
-
 /mob/living/proc/is_facehugged()
 	return FALSE
-
 
 /mob/living/proc/update_gravity(gravity)
 	// Handle movespeed stuff
@@ -1257,14 +1214,12 @@
 		animate(src, transform = flipped_matrix, pixel_y = pixel_y-4, time = 0.5 SECONDS, easing = EASE_OUT)
 		base_pixel_y -= 4
 
-
 ///Proc to modify the value of num_legs and hook behavior associated to this event.
 /mob/living/proc/set_num_legs(new_value)
 	if(num_legs == new_value)
 		return
 	. = num_legs
 	num_legs = new_value
-
 
 ///Proc to modify the value of usable_legs and hook behavior associated to this event.
 /mob/living/proc/set_usable_legs(new_value, special = ORGAN_MANIPULATION_DEFAULT)
@@ -1291,14 +1246,12 @@
 
 	update_limbless_slowdown()
 
-
 ///Proc to modify the value of num_hands and hook behavior associated to this event.
 /mob/living/proc/set_num_hands(new_value)
 	if(num_hands == new_value)
 		return
 	. = num_hands
 	num_hands = new_value
-
 
 ///Proc to modify the value of usable_hands and hook behavior associated to this event.
 /mob/living/proc/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT, hand_index)
@@ -1322,7 +1275,6 @@
 	if(!usable_legs)
 		update_limbless_slowdown()	// in case we got new hand but have no legs
 
-
 /mob/living/proc/update_limbless_slowdown()
 	if(usable_legs < default_num_legs)
 		var/limbless_slowdown = (default_num_legs - usable_legs) * 4 - get_crutches()
@@ -1331,7 +1283,6 @@
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
-
 
 /// Returns a modifier of all items considered as crutches in hands.
 /mob/living/proc/get_crutches()
@@ -1343,7 +1294,6 @@
 		return .
 	. += l_hand?.is_crutch()
 	. += r_hand?.is_crutch()
-
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
@@ -1358,7 +1308,6 @@
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
 
-
 /mob/living/proc/check_eye_prot()
 	var/eye_prot = FLASH_PROTECTION_NONE
 	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
@@ -1368,13 +1317,11 @@
 		eye_prot += FLASH_PROTECTION_FLASH
 	return eye_prot
 
-
 /mob/living/proc/check_ear_prot()
 	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vampire?.get_ability(/datum/vampire_passive/ears_bang_protection))
 		return HEARING_PROTECTION_TOTAL
 	return HEARING_PROTECTION_NONE
-
 
 /mob/living/singularity_act()
 	investigate_log("([key_name_log(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
@@ -1431,7 +1378,6 @@
 			visual_effect_icon = used_item.attack_effect_override
 	..()
 
-
 /// Helper proc that causes the mob to do a jittering animation by jitter_amount.
 /// `jitteriness` will only apply up to 300 (maximum jitter effect).
 /mob/living/proc/do_jitter_animation(jitteriness, loop_amount = 6)
@@ -1440,7 +1386,6 @@
 	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
 	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 0.2 SECONDS, loop = loop_amount, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS)
-
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	if(istype(loc, /obj/structure/closet/critter))
@@ -1469,14 +1414,12 @@
 		return environment.temperature
 	return T0C
 
-
 /mob/living/proc/spawn_dust()
 	new /obj/effect/decal/cleanable/ash(loc)
 
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
-
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
 	if(user.a_intent != INTENT_HARM || stat != DEAD || !is_sharp(I) || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
@@ -1488,7 +1431,6 @@
 		return .
 	harvest(user)
 
-
 /mob/living/proc/harvest(mob/living/user)
 	if(QDELETED(src) || !butcher_results)
 		return
@@ -1499,17 +1441,14 @@
 	visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] разделывает [declent_ru(ACCUSATIVE)]."))
 	gib()
 
-
 /mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
 		to_chat(src, span_warning("У вас недостаточно ловкости для этого!"))
 		return 0
 	return 1
 
-
 /mob/living/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	return ..() && !(buckled?.buckle_prevents_pull)
-
 
 /mob/living/proc/can_pull(hand_to_check, supress_message = FALSE)
 	if(pull_hand == PULL_WITHOUT_HANDS)
@@ -1520,7 +1459,6 @@
 			to_chat(src, span_warning("Освободите [(hand_to_check == ACTIVE_HAND_LEFT) ? "левую" : "правую"] руку!"))
 		return FALSE
 	return TRUE
-
 
 /mob/living/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	if(QDELETED(pulled_atom) || QDELETED(src))
@@ -1638,7 +1576,6 @@
 
 	update_pull_movespeed()
 
-
 /mob/living/proc/set_pull_offsets(mob/living/target, grab_state_to_offset = GRAB_PASSIVE)
 	if(target.buckled)
 		return //don't make them change direction or offset them if they're buckled into something.
@@ -1676,13 +1613,11 @@
 		target_pixel_x -= offset
 	animate(target, pixel_x = target_pixel_x, pixel_y = target_pixel_y, 0.3 SECONDS)
 
-
 /mob/living/proc/reset_pull_offsets(mob/living/target, override)
 	if(!override && target.buckled)
 		return
 	update_layer()
 	animate(target, pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset , pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset, 0.1 SECONDS)
-
 
 /mob/living/Move_Pulled(atom/moving_atom)
 	. = ..()
@@ -1690,12 +1625,10 @@
 		return .
 	set_pull_offsets(pulling, grab_state)
 
-
 /// Proc extender of quick equip verb when user tries to equip grab or pull.
 /// Returning TRUE will add 1s. cooldown on the next move.
 /mob/living/proc/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
 	return FALSE
-
 
 /mob/living/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -1728,7 +1661,6 @@
 		if(INTENT_GRAB)
 			if(grabber == src)
 				target.devoured(grabber)
-
 
 /mob/living/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
@@ -1793,11 +1725,9 @@
 		if(NAMEOF(src, lighting_alpha))
 			sync_lighting_plane_alpha()
 
-
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	stop_pulling()
 	return ..()
-
 
 /mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(C == src || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !density)
@@ -1812,10 +1742,8 @@
 	C.visible_message(span_danger("[C.name] вреза[PLUR_ET_YUT(src)]ся в [name], сбивая друг друга с ног!"),
 					span_userdanger("Вы жестко врезаетесь в [name]!"))
 
-
 /mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return UNKNOWN_STATUS_RUS
-
 
 /**
  * Can this mob see in the dark
@@ -1873,11 +1801,9 @@
 	else
 		..()
 
-
 /mob/living/proc/examine_distance_check(atom/target)
 	if(target in view(client.maxview(), client.eye))
 		return TRUE
-
 
 /mob/living/proc/hindered_inspection(atom/target)
 	if(QDELETED(src) || QDELETED(target))
@@ -1906,7 +1832,6 @@
 	to_chat(src, span_userdanger("Вы теперь смотрите в направлении [track ? A : dir2text(forced_look)]. Чтобы отменить, Shift+СКМ по себе."))
 	throw_alert(ALERT_DIRECTION_LOCK, /atom/movable/screen/alert/direction_lock)
 
-
 /**
  * Clears the mob's direction lock if enabled.
  *
@@ -1922,12 +1847,10 @@
 		to_chat(src, span_notice("Блокировка направления отменена."))
 	clear_alert(ALERT_DIRECTION_LOCK)
 
-
 /mob/living/face_atom(atom/A)
 	. = ..()
 	if(. && isliving(pulling) && pulling.loc == loc)
 		set_pull_offsets(pulling, grab_state)
-
 
 /mob/living/setDir(newdir)
 	if(forced_look)	// this should be an element at least
@@ -1938,7 +1861,6 @@
 			if(istype(look_at))
 				newdir = get_cardinal_dir(src, look_at)
 	return ..()
-
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
@@ -1972,7 +1894,6 @@
 				else if(resting)
 					set_lying_on_rest()
 
-
 /mob/living/set_pulledby(new_pulledby)
 	. = ..()
 	if(. == FALSE) //null is a valid value here, we only want to return if FALSE is explicitly passed.
@@ -1984,7 +1905,6 @@
 	else if(. && stat == SOFT_CRIT)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 	*/
-
 
 /// Updates the grab state of the mob and updates movespeed
 /mob/living/setGrabState(newstate)
@@ -2000,18 +1920,15 @@
 		if(GRAB_KILL)
 			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/kill)
 
-
 /// Proc to append behavior to the condition of being handsblocked. Called when the condition starts.
 /mob/living/proc/on_handsblocked_start()
 	drop_from_hands()
 	stop_pulling()
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_HANDS_BLOCKED)
 
-
 /// Proc to append behavior to the condition of being handsblocked. Called when the condition ends.
 /mob/living/proc/on_handsblocked_end()
 	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_HANDS_BLOCKED)
-
 
 /**
  * Changes the inclination angle of a mob, used by humans and others to differentiate between standing up and prone positions.
@@ -2031,7 +1948,6 @@
 		lying_prev = lying_angle
 		pulledby?.set_pull_offsets(src, pulledby.grab_state)
 
-
 /// Changes the value of the [living/body_position] variable. Call this before set_lying_angle()
 /mob/living/proc/set_body_position(new_value)
 	if(body_position == new_value)
@@ -2046,19 +1962,16 @@
 	else // From lying down to standing up.
 		on_standing_up()
 
-
 /// Proc to append behavior to the condition of being floored. Called when the condition starts.
 /mob/living/proc/on_floored_start()
 	if(body_position == STANDING_UP) //force them on the ground
 		on_fall()
 		set_body_position(LYING_DOWN)
 
-
 /// Proc to append behavior to the condition of being floored. Called when the condition ends.
 /mob/living/proc/on_floored_end()
 	if(!resting)
 		get_up()
-
 
 /// Proc to append behavior related to lying down.
 /mob/living/proc/on_lying_down(new_lying_angle)
@@ -2071,11 +1984,9 @@
 	if(!buckled || buckled.buckle_lying == NO_BUCKLE_LYING)
 		lying_angle_on_lying_down(new_lying_angle)
 
-
 /// Special interaction on lying down, to transform its sprite by a rotation. Used on carbon level.
 /mob/living/proc/lying_angle_on_lying_down(new_lying_angle)
 	return
-
 
 /// Proc to append behavior related to lying down.
 /mob/living/proc/on_standing_up()
@@ -2085,18 +1996,15 @@
 	body_position_pixel_y_offset = get_pixel_y_offset_standing(current_size)
 	set_lying_angle(0)
 
-
 /// Returns what the body_position_pixel_y_offset should be if the current size were `value`
 /mob/living/proc/get_pixel_y_offset_standing(value)
 	return (value-1) * get_cached_height() * 0.5
-
 
 /mob/living/proc/toggle_resting()
 	set name = "Лечь"
 	set category = STATPANEL_IC
 
 	set_resting(!resting, silent = FALSE)
-
 
 ///Proc to hook behavior to the change of value in the resting variable.
 /mob/living/proc/set_resting(new_resting, silent = TRUE, instant = FALSE)
@@ -2133,12 +2041,10 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, new_resting, silent, instant)
 	update_resting()
 
-
 /// Proc to append and redefine behavior to the change of the [/mob/living/var/resting] variable.
 /mob/living/proc/update_resting()
 	//update_rest_hud_icon()
 	return
-
 
 /// Change the [body_position] to [LYING_DOWN] and update associated behavior.
 /mob/living/proc/set_lying_on_rest(instant = FALSE)
@@ -2152,17 +2058,14 @@
 	set_body_position(LYING_DOWN)
 	post_lying_on_rest()
 
-
 /// Any post effects like icons changes place here
 /mob/living/proc/post_lying_on_rest()
 	return
-
 
 /mob/living/proc/lying_down_checks_callback()
 	if(!resting || body_position == LYING_DOWN || HAS_TRAIT(src, TRAIT_FORCED_STANDING) || (buckled && buckled.buckle_lying != NO_BUCKLE_LYING))
 		return FALSE
 	return TRUE
-
 
 /// Change the [body_position] to [STANDING_UP] and update associated behavior.
 /mob/living/proc/get_up(instant = FALSE)
@@ -2175,22 +2078,18 @@
 	set_body_position(STANDING_UP)
 	post_get_up()
 
-
 /// Any post effects like icons changes place here
 /mob/living/proc/post_get_up()
 	return
-
 
 /mob/living/proc/get_up_checks_callback()
 	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED) || (buckled && buckled.buckle_lying != NO_BUCKLE_LYING))
 		return FALSE
 	return TRUE
 
-
 /// Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment.
 /mob/living/proc/on_fall()
 	return
-
 
 /mob/living/set_stat(new_stat)
 	. = ..()
@@ -2234,14 +2133,12 @@
 			remove_from_alive_mob_list()
 			add_to_dead_mob_list()
 
-
 /// Updates hands HUD element.
 /mob/living/proc/update_hands_HUD()
 	if(!hud_used)
 		return
 	for(var/atom/movable/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
 		hand_box.update_icon(UPDATE_OVERLAYS)
-
 
 /// Gets movable in currently active hand.
 /mob/living/proc/get_active_pull_hand(skip_handless_pull = TRUE)
@@ -2253,7 +2150,6 @@
 		return pulling
 	return null
 
-
 /// Gets movable in currently inactive hand.
 /mob/living/proc/get_inactive_pull_hand(skip_handless_pull = TRUE)
 	if(!pulling || isnull(pull_hand))
@@ -2264,14 +2160,12 @@
 		return pulling
 	return null
 
-
 /// Proc used to correctly update current layer for living mobs.
 /mob/living/proc/update_layer()
 	if(pulledby && loc == pulledby.loc)
 		layer = (pulledby.dir & NORTH) ? pulledby.layer - 0.001 : pulledby.layer + 0.001
 		return
 	layer = (body_position == LYING_DOWN) ? LYING_MOB_LAYER : initial(layer)
-
 
 /**
  * Updates mob's SSD status with all the necessaey checks.
@@ -2354,7 +2248,6 @@
 /// Updates damage slowdown accordingly to the current health
 /mob/living/proc/update_movespeed_damage_modifiers()
 	return
-
 
 /mob/living/magic_charge_act(mob/user)
 	if(LAZYLEN(mob_spell_list))

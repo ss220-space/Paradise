@@ -1,6 +1,5 @@
 //Not to be confused with /obj/item/reagent_containers/food/drinks/bottle
 
-
 /obj/item/reagent_containers/glass/bottle
 	name = "bottle"
 	desc = "Небольшая стеклянная бутылочка."
@@ -22,7 +21,6 @@
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/reagent_containers/glass/bottle/update_overlays()
 	. = ..()
@@ -52,7 +50,6 @@
 
 	if(!is_open_container())
 		. += "lid_[icon_state]"
-
 
 /obj/item/reagent_containers/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)

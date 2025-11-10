@@ -46,7 +46,6 @@
 	UnregisterSignal(owner, list(COMSIG_CARBON_APPLY_OVERLAY, COMSIG_LIVING_RESIST))
 	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 
-
 /datum/status_effect/freon/watcher
 	duration = 1.5 SECONDS
 	can_melt = FALSE

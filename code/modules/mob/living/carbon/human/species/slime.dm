@@ -79,7 +79,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		"вырывает собственное ядро!",
 		"становится коричневым, тусклым и растекается в лужу!")
 
-
 	disliked_food = SUGAR | FRIED
 	liked_food = MEAT | TOXIC | RAW
 	/// Special flag used for slimeperson evolved from the slime.
@@ -104,7 +103,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 	add_verb(slime, /mob/living/carbon/human/proc/emote_bubble)
 	add_verb(slime, /mob/living/carbon/human/proc/emote_pop)
 
-
 /datum/species/slime/on_species_loss(mob/living/carbon/human/slime)
 	. = ..()
 	var/datum/action/innate/slime_people_action/actions = locate() in slime.actions
@@ -114,7 +112,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 	remove_verb(slime, /mob/living/carbon/human/proc/emote_squish)
 	remove_verb(slime, /mob/living/carbon/human/proc/emote_bubble)
 	remove_verb(slime, /mob/living/carbon/human/proc/emote_pop)
-
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/slime)
 	SIGNAL_HANDLER
@@ -141,10 +138,8 @@ GLOBAL_LIST_EMPTY(slime_actions)
 			blend(slime)
 	..()
 
-
 /datum/species/slime/can_hear(mob/living/carbon/human/user)
 	return !HAS_TRAIT(user, TRAIT_DEAF)
-
 
 /datum/species/slime/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN

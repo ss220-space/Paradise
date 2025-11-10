@@ -33,7 +33,6 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity, params)
 	if(!proximity)
 		return

@@ -75,14 +75,12 @@
 	var/damage = max((obj_integrity * 0.7) / severity, 100)
 	heart.take_damage(damage, BRUTE, BOMB, 0)
 
-
 /obj/structure/clockwork/functional/celestial_gateway/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		add_fingerprint(user)
 		to_chat(user, span_warning("You can't unsecure this large set of parts! It would be even dangerous to do!"))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/clockwork/functional/celestial_gateway/examine(mob/user)
 	. = ..()

@@ -6,7 +6,6 @@
 	icon_state = "rup"
 	var/spawn_nothing_percentage = 0 // this variable determines the likelyhood that this random object will not spawn anything
 
-
 // creates a new object and deletes itself
 /obj/random/Initialize(mapload)
 	. = ..()
@@ -14,17 +13,14 @@
 		spawn_item()
 	return INITIALIZE_HINT_QDEL
 
-
 // this function should return a specific item to spawn
 /obj/random/proc/item_to_spawn()
 	return 0
-
 
 // creates the random item
 /obj/random/proc/spawn_item()
 	var/build_path = item_to_spawn()
 	return (new build_path(src.loc))
-
 
 /obj/random/tool
 	name = "Random Tool"
@@ -40,7 +36,6 @@
 				/obj/item/wrench,\
 				/obj/item/flashlight)
 
-
 /obj/random/technology_scanner
 	name = "Random Scanner"
 	desc = "This is a random technology scanner."
@@ -51,7 +46,6 @@
 	return pick(prob(5);/obj/item/t_scanner,\
 				prob(2);/obj/item/radio/intercom,\
 				prob(5);/obj/item/analyzer)
-
 
 /obj/random/powercell
 	name = "Random Powercell"
@@ -75,7 +69,6 @@
 	return pick(/obj/item/assembly/igniter,\
 				/obj/item/assembly/prox_sensor,\
 				/obj/item/assembly/signaler)
-
 
 /obj/random/toolbox
 	name = "Random Toolbox"

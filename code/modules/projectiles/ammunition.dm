@@ -128,7 +128,6 @@
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, TRUE)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
-
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!BB)
@@ -155,7 +154,6 @@
 			INSTRUMENTAL = "пулей \"[label_text]\"",
 			PREPOSITIONAL = "пуле \"[label_text]\"",
 		)
-
 
 /obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
 	if(QDELETED(H))
@@ -204,7 +202,6 @@
 	/// One bullet load duration
 	var/bullet_load_duration = 0.4 SECONDS
 
-
 /obj/item/ammo_box/Initialize(mapload)
 	. = ..()
 
@@ -215,12 +212,10 @@
 	initial_mats = materials.Copy()
 	update_mat_value()
 
-
 /obj/item/ammo_box/Destroy()
 	QDEL_LIST(stored_ammo)
 	stored_ammo = null
 	return ..()
-
 
 /obj/item/ammo_box/proc/get_round(keep = FALSE)
 	if(!length(stored_ammo))
@@ -233,7 +228,6 @@
 	update_mat_value()
 	update_icon()
 	return bullet
-
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/new_casing, replace_spent = FALSE, count_chambered = FALSE, mob/user)
 	if(!ammo_suitability(new_casing))
@@ -284,13 +278,11 @@
 
 	return FALSE
 
-
 /obj/item/ammo_box/proc/ammo_suitability(obj/item/ammo_casing/new_casing)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!new_casing || (caliber && new_casing.caliber != caliber) || (!caliber && new_casing.type != ammo_type))
 		return FALSE
 	return TRUE
-
 
 /// Reloads ammo box and its child types - magazines. Returns the number of reloaded shells.
 /obj/item/ammo_box/proc/reload(obj/item/I, mob/user, silent = FALSE, replace_spent = FALSE, count_chambered = FALSE)
@@ -344,14 +336,12 @@
 	update_appearance()
 	update_equipped_item()
 
-
 /obj/item/ammo_box/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
 		if(reload(I, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/ammo_box/attack_self(mob/user)
 	var/obj/item/ammo_casing/casing = get_round()
@@ -365,11 +355,9 @@
 		update_appearance(UPDATE_ICON|UPDATE_DESC)
 		user.put_in_hands(casing)
 
-
 /obj/item/ammo_box/update_desc(updates = ALL)
 	. = ..()
 	desc = "[initial(desc)] В ней осталось [length(stored_ammo)] патрон[DECL_CREDIT(length(stored_ammo))] из [max_ammo] возможных!"
-
 
 /obj/item/ammo_box/update_icon_state()
 	var/icon_base = icon_prefix ? icon_prefix : initial(icon_state)
@@ -380,7 +368,6 @@
 		if(2)
 			icon_state = "[icon_base]-[length(stored_ammo) ? "[max_ammo]" : "0"]"
 
-
 /obj/item/ammo_box/update_materials_coeff(new_coeff)
 	. = ..()
 	for(var/obj/item/ammo_casing/ammo in stored_ammo)
@@ -388,7 +375,6 @@
 			continue
 		ammo.update_materials_coeff(materials_coeff)
 	update_mat_value()
-
 
 /obj/item/ammo_box/proc/update_mat_value()
 	materials = initial_mats.Copy()
@@ -400,11 +386,9 @@
 		for(var/material in ammo.materials)
 			materials[material] += ammo.materials[material]
 
-
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count(countempties = TRUE)
 	return length(stored_ammo)
-
 
 /obj/item/ammo_box/magazine/proc/empty_magazine()
 	var/atom/drop_loc = drop_location()

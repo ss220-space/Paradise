@@ -125,7 +125,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return destination
 
-
 /proc/is_in_teleport_proof_area(atom/O)
 	if(!O)
 		return FALSE
@@ -157,7 +156,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return 0
 
 /////////////////////////////////////////////////////////////////////////
-
 
 //Same as the thing below just for density and without support for atoms.
 /proc/can_line(atom/source, atom/target, length = 5)
@@ -376,13 +374,11 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		ckey = findStealthKey(ckey)
 	return GLOB.directory[ckey]
 
-
 /proc/findStealthKey(txt)
 	if(txt)
 		for(var/P in GLOB.stealthminID)
 			if(GLOB.stealthminID[P] == txt)
 				return P
-
 
 /**
  * Returns the top-most atom sitting on the turf.
@@ -405,7 +401,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			break
 
 	return topmost_thing
-
 
 /*
 Returns 1 if the chain up to the area contains the given typepath
@@ -462,7 +457,6 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return locate(x,y,target_atom.z)
 
-
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
 /proc/get_offset_target_turf(atom/A, dx, dy)
@@ -500,7 +494,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	for(var/obj/item/item in content)
 		weight += item.w_class
 	return weight
-
 
 ///Step-towards method of determining whether one atom can see another. Similar to viewers()
 ///note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
@@ -583,8 +576,6 @@ Returns 1 if the chain up to the area contains the given typepath
 			turfs += zlevel_turfs
 
 	return turfs
-
-
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all atoms	(objs, turfs, mobs) in areas of that type of that type in the world.
@@ -684,7 +675,6 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	var/copiedobjs = list()
 
-
 	moving:
 		for(var/turf/T in refined_src)
 			var/datum/coords/C_src = refined_src[T]
@@ -721,17 +711,12 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-
-
 	if(length(toupdate))
 		for(var/turf/simulated/T1 in toupdate)
 			T1.CalculateAdjacentTurfs()
 			SSair.add_to_active(T1,1)
 
-
 	return copiedobjs
-
-
 
 /proc/get_cardinal_dir(atom/A, atom/B)
 	var/dx = abs(B.x - A.x)
@@ -920,7 +905,6 @@ Standard way to write links -Sayu
 		arglist = list2params(arglist)
 	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
 
-
 // This proc is made to check if we can interact or use (directly or in the other way) the specific bodypart
 // Not to check if one clothing blocks access to the other clothing
 // for that we have flags_inv var
@@ -998,7 +982,6 @@ Standard way to write links -Sayu
 		return FACING_EACHOTHER
 	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
-
 
 /atom/proc/GetTypeInAllContents(typepath)
 	var/list/processing_list = list(src)
@@ -1109,7 +1092,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return TRUE
 	return FALSE
 
-
 /**
  * Checks whether the target turf is in a valid state to accept a directional construction
  * such as windows or railings.
@@ -1156,7 +1138,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //NORTH --> NORTHWEST
 /proc/get_anticlockwise_dir(dir)
 	. = angle2dir(dir2angle(dir)-45)
-
 
 //Compare A's dir, the clockwise dir of A and the anticlockwise dir of A
 //To the opposite dir of the dir returned by get_dir(B,A)
@@ -1235,7 +1216,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		stop_orbit()
-
 
 /atom/movable/proc/stop_orbit()
 	if(ismob(orbiting))
@@ -1348,7 +1328,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /proc/is_there_multiz()
 	return length(SSmapping?.map_datum?.traits) > 1
-
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")
@@ -1506,20 +1485,17 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				break
 		.[typename] = type
 
-
 /proc/get_fancy_list_of_atom_types()
 	var/static/list/pre_generated_list
 	if(!pre_generated_list) //init
 		pre_generated_list = make_types_fancy(typesof(/atom))
 	return pre_generated_list
 
-
 /proc/get_fancy_list_of_datum_types()
 	var/static/list/pre_generated_list
 	if(!pre_generated_list) //init
 		pre_generated_list = make_types_fancy(sortList(typesof(/datum) - typesof(/atom)))
 	return pre_generated_list
-
 
 /proc/filter_fancy_list(list/L, filter as text)
 	var/list/matches = new
@@ -1726,7 +1702,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-
 /**
  * Returns the clean name of an audio channel.
  *
@@ -1872,7 +1847,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return ITEM_SLOT_LEGCUFFED_STRING
 		if(ITEM_SLOT_ACCESSORY)
 			return ITEM_SLOT_ACCESSORY_STRING
-
 
 /proc/return_typenames(type)
 	return splittext("[type]", "/")

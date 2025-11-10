@@ -13,7 +13,6 @@
 		actions_types = null
 	. = ..()
 
-
 /obj/item/gun/projectile/automatic/ComponentInitialize()
 	. = ..()
 	if(fire_modes != GUN_MODE_SINGLE_BURST_AUTO)
@@ -22,10 +21,8 @@
 	burst_size = 1
 	AddComponent(/datum/component/automatic_fire, autofire_delay)
 
-
 /obj/item/gun/projectile/automatic/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/update_overlays()
 	. = ..()
@@ -34,7 +31,6 @@
 			. += "[initial(icon_state)]semi"
 		if(GUN_BURST_MODE)
 			. += "[initial(icon_state)]burst"
-
 
 /obj/item/gun/projectile/automatic/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box/magazine))
@@ -57,7 +53,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_firemode))
@@ -141,7 +136,6 @@
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 	autofire_delay = 0.25 SECONDS
 
-
 /obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -152,7 +146,6 @@
 
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
-
 
 //C-20rm Full auto
 /obj/item/gun/projectile/automatic/c20r/auto
@@ -172,7 +165,6 @@
 		INSTRUMENTAL = "пистолет-пулеметом C-20rm",
 		PREPOSITIONAL = "пистолет-пулемете C-20rm",
 	)
-
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
@@ -202,7 +194,6 @@
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
 
-
 //"SP-91-RC//
 /obj/item/gun/projectile/automatic/sp91rc
 	name = "SP-91-RC"
@@ -228,6 +219,41 @@
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
+// MARK: Sparkle-A12
+/obj/item/gun/projectile/automatic/sparkle_a12
+	name = "A9 \"Sparkle\""
+	desc = "Пистолет-пулемёт под калибр 9x19 мм, произведённый концерном \"Скарборо\". Штатно используется силовыми структурами \"Нанотрейзен\". Отличается надёжностью, высокой точностью и малыми габаритами. Предназначен для ближнего боя в условиях ограниченного пространства."
+	icon_state = "sparkle-a12"
+	item_state = "sparkle-a12"
+	mag_type = /obj/item/ammo_box/magazine/sparkle_a12
+	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+	)
+	starting_attachment_types = list(/obj/item/gun_module/muzzle/suppressor/integrated)
+	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
+	fire_delay = 1
+	damage_mod = 0.7
+
+/obj/item/gun/projectile/automatic/sparkle_a12/get_ru_names()
+	return list(
+		NOMINATIVE = "А9 \"Искра\"",
+		GENITIVE = "А9 \"Искра\"",
+		DATIVE = "А9 \"Искра\"",
+		ACCUSATIVE = "А9 \"Искра\"",
+		INSTRUMENTAL = "А9 \"Искра\"",
+		PREPOSITIONAL = "А9 \"Искра\""
+	)
+
+/obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
+	icon_state = "sparkle-a12[magazine ? "" : "-e"]"
 
 /*Type-U3 Uzi
 name = "Пистолет-пулемёт Uzi"
@@ -251,7 +277,6 @@ TODO Use this name and desc for localisation*/
 	recoil = GUN_RECOIL_LOW
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
-
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
 	name = "M-90gl Carbine"
@@ -273,19 +298,16 @@ TODO Use this name and desc for localisation*/
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
-
 /obj/item/gun/projectile/automatic/m90/Initialize(mapload)
 	. = ..()
 	underbarrel = new /obj/item/gun/projectile/revolver/grenadelauncher(src)
 	update_icon()
-
 
 /obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
 	if(select == 0)
 		underbarrel.afterattack(target, user, flag, params)
 	else
 		..()
-
 
 /obj/item/gun/projectile/automatic/m90/attackby(obj/item/I, mob/user, params)
 	if(istype(I, underbarrel.magazine.ammo_type))
@@ -298,14 +320,12 @@ TODO Use this name and desc for localisation*/
 
 	return ..()
 
-
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	if(magazine)
 		item_state = "m90-[CEILING(get_ammo(FALSE)/7.5, 1)]"
 	else
 		item_state = "m90-0"
-
 
 /obj/item/gun/projectile/automatic/m90/update_overlays()
 	. = ..()
@@ -316,7 +336,6 @@ TODO Use this name and desc for localisation*/
 			. += "[initial(icon_state)]gren"
 		if(GUN_BURST_MODE)
 			.  += "[initial(icon_state)]burst"
-
 
 /obj/item/gun/projectile/automatic/m90/toggle_firemode()
 	var/mob/living/carbon/human/user = usr
@@ -429,16 +448,13 @@ TODO Use this name and desc for localisation*/
 	mag_type = /obj/item/ammo_box/magazine/cheap_m12g
 	color = COLOR_ASSEMBLY_BROWN
 
-
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_overlays()
 	. = ..()
 	if(magazine)
 		. += "[magazine.icon_state]"
-
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_weight()
 	if(magazine)
@@ -448,7 +464,6 @@ TODO Use this name and desc for localisation*/
 			w_class = WEIGHT_CLASS_NORMAL
 	else
 		w_class = WEIGHT_CLASS_NORMAL
-
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box/magazine/m12g/XtrLrg) && isstorage(loc))	// To prevent inventory exploits
@@ -510,10 +525,8 @@ TODO Use this name and desc for localisation*/
 	)
 	recoil = GUN_RECOIL_HIGH
 
-
 /obj/item/gun/projectile/automatic/cats/update_icon_state()
 	icon_state = "tla_cats[magazine ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/cats/examine(mob/user)
 	. = ..()
@@ -586,10 +599,8 @@ TODO Use this name and desc for localisation*/
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
-
 /obj/item/gun/projectile/automatic/sfg/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
 
 //Aussec Armory M-52
 

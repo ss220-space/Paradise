@@ -19,7 +19,6 @@
 	else
 		A.move_camera_by_click()
 
-
 /mob/living/silicon/ai/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
@@ -43,7 +42,6 @@
 		add_attack_logs(src, src, message, ATKLOG_ALL)
 		log_admin(message)
 		SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(pixel_turf)]))")
-
 
 	var/turf_visible
 	if(pixel_turf)
@@ -186,7 +184,6 @@
 /atom/proc/ai_click_alt(mob/living/silicon/ai/user)
 	return
 
-
 /atom/proc/AIMiddleClick(mob/living/user)
 	return
 
@@ -204,7 +201,6 @@
 
 /mob/living/silicon/ai/TurfAdjacent(turf/T)
 	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T) && (get_dist(eyeobj, T) <= 7)) //not further than view distance
-
 
 // APC
 
@@ -260,7 +256,6 @@
 	else
 		electrify(-1, user, TRUE) // permanent shock
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
 	if(!ai_control_check(user))

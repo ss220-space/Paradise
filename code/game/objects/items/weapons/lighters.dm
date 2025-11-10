@@ -102,7 +102,6 @@
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-
 /obj/item/lighter/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!lit)
 		return ..()
@@ -134,7 +133,6 @@
 
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	target.update_worn_mask()
-
 
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
@@ -321,7 +319,6 @@
 		PREPOSITIONAL = "зажигалке Зиппо Главы Персонала",
 	)
 
-
 /obj/item/lighter/zippo/hos
 	name = "Head of Security zippo"
 	desc = "Ограниченная серия Зиппо для Глав станций Нанотрейзен. Она просто не может не работать на крови и слезах клоунов."
@@ -499,7 +496,6 @@
 		PREPOSITIONAL = "спичке",
 	)
 
-
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
 	smoketime--
@@ -508,22 +504,18 @@
 	if(location)
 		location.hotspot_expose(700, 5)
 
-
 /obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	matchignite()
-
 
 /obj/item/match/extinguish_light(force = FALSE)
 	if(!force)
 		return
 	matchburnout()
 
-
 /obj/item/match/update_icon_state()
 	icon_state = lit ? "match_lit" : "match_burnt"
 	item_state = lit ? "match_lit" : "match_burnt"
-
 
 /obj/item/match/update_name(updates = ALL)
 	. = ..()
@@ -547,8 +539,6 @@
 		if(!lit && !burnt)
 			ru_names = get_ru_names_cached()
 
-
-
 /obj/item/match/update_desc(updates = ALL)
 	. = ..()
 	desc = lit ? "[capitalize(declent_ru(NOMINATIVE))], охваченная пламенем." : burnt ? "[capitalize(declent_ru(NOMINATIVE))]. Повидала всякое." : initial(desc)
@@ -567,7 +557,6 @@
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return TRUE
 
-
 /obj/item/match/proc/matchburnout()
 	if(lit)
 		lit = FALSE
@@ -579,11 +568,9 @@
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return TRUE
 
-
 /obj/item/match/dropped(mob/user, slot, silent = FALSE)
 	matchburnout()
 	. = ..()
-
 
 /obj/item/match/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!lit)
@@ -621,7 +608,6 @@
 		cig.light(span_notice("[user] держ[PLUR_IT_AT(user)] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], и зажига[PLUR_ET_YUT(user)] [cig.declent_ru(ACCUSATIVE)]."))
 		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
-
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(burnt)
 		C.stored_comms["wood"] += 1
@@ -629,12 +615,10 @@
 		return TRUE
 	return ..()
 
-
 /obj/item/proc/help_light_cig(mob/living/M)
 	var/mask_item = M.get_item_by_slot(ITEM_SLOT_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
-
 
 /obj/item/match/firebrand
 	name = "firebrand"
@@ -654,7 +638,6 @@
 /obj/item/match/firebrand/Initialize(mapload)
 	. = ..()
 	matchignite()
-
 
 /obj/item/match/unathi
 	name = "small blaze"
@@ -676,22 +659,18 @@
 		PREPOSITIONAL = "маленьком плами",
 	)
 
-
 /obj/item/match/unathi/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-
 /obj/item/match/unathi/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return	// we are already burning
-
 
 /obj/item/match/unathi/matchburnout()
 	if(!lit)
 		return
 	lit = FALSE //to avoid a qdel loop
 	qdel(src)
-
 
 /obj/item/match/unathi/Destroy()
 	. = ..()

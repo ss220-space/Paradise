@@ -59,7 +59,6 @@
 			if(T.examine_line)
 				. += T.examine_line
 
-
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -114,9 +113,6 @@
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			if(!QDELETED(src) && !QDELETED(I))
 				trait.on_attackby(src, I, user)
-
-
-
 
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
@@ -210,7 +206,6 @@
 		genes_str = english_list(plant_gene_names)
 
 	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
-
 
 /obj/item/reagent_containers/food/snacks/grown/extinguish_light(force = FALSE)
 	if(!force)
