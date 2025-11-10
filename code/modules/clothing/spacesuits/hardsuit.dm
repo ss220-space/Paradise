@@ -25,8 +25,8 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
-		)
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+	)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload, obj/item/clothing/suit/space/hardsuit/parent)
@@ -96,8 +96,8 @@
 		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 	var/obj/item/hardsuit_taser_proof/taser_proof = null
 

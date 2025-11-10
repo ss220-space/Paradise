@@ -4,6 +4,8 @@
 	hitsound = SFX_BULLET
 	hitsound_wall = SFX_RICOCHET
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
+	ricochets_max = 1
+	ricochet_chance = 5
 
 /obj/projectile/bullet/get_ru_names()
 	return list(
@@ -12,20 +14,38 @@
 		DATIVE = "пуле",
 		ACCUSATIVE = "пулю",
 		INSTRUMENTAL = "пулей",
-		PREPOSITIONAL = "пуле"
+		PREPOSITIONAL = "пуле",
 	)
+
+/obj/projectile/bullet/on_ricochet(atom/A)
+	. = ..()
+	damage = damage / 2
+	stamina = stamina / 2
+
+/obj/projectile/bullet/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(!.)
+		return
+	if(!ismob(target))
+		return
+	var/datum/gun_recoil/recoil = GLOB.mob_hit_recoil
+	var/shot_angle = get_angle(firer, target)
+	var/rand_angle = (rand() - 0.5) * recoil.angle + shot_angle
+	recoil_camera(target, recoil.strength, recoil.in_duration, recoil.back_duration, rand_angle)
 
 /obj/projectile/bullet/slug
 	armour_penetration = 40
-	damage = 30
+	damage = 33
 
 /obj/projectile/bullet/desert_eagle
-	stamina = 30
+	stamina = 33
+	ricochet_chance = 10
 
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5
 	stamina = 55
+	ricochet_chance = 20 //rubber bullets - high ricochet chance
 
 /obj/projectile/bullet/weakbullet/get_ru_names()
 	return list(
@@ -34,7 +54,7 @@
 		DATIVE = "патрону \"Погремушка\"",
 		ACCUSATIVE = "патрон \"Погремушка\"",
 		INSTRUMENTAL = "патроном \"Погремушка\"",
-		PREPOSITIONAL = "патроне \"Погремушка\""
+		PREPOSITIONAL = "патроне \"Погремушка\"",
 	)
 
 /obj/projectile/bullet/weakbullet/booze
@@ -62,6 +82,7 @@
 	damage = 5
 	stamina = 35
 	icon_state = "bullet-r"
+	ricochet_chance = 20
 
 /obj/projectile/bullet/weakbullet2/get_ru_names()
 	return list(
@@ -70,12 +91,13 @@
 		DATIVE = "резиновой пуле",
 		ACCUSATIVE = "резиновую пулю",
 		INSTRUMENTAL = "резиновой пулей",
-		PREPOSITIONAL = "резиновой пуле"
+		PREPOSITIONAL = "резиновой пуле",
 	)
 
 /obj/projectile/bullet/hp38 //Detective hollow-point
 	damage = 33
 	armour_penetration = -50
+	ricochets_max = 0 //no ricochets for HP
 
 /obj/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
 	if(..(target, blocked))
@@ -97,7 +119,7 @@
 		DATIVE = "невидимой пуле",
 		ACCUSATIVE = "невидимую пулю",
 		INSTRUMENTAL = "невидимой пулей",
-		PREPOSITIONAL = "невидимой пуле"
+		PREPOSITIONAL = "невидимой пуле",
 	)
 
 /obj/projectile/bullet/weakbullet2/invisible/fake
@@ -106,9 +128,12 @@
 	nodamage = TRUE
 	log_override = TRUE
 
+//9mm bullet casing
 /obj/projectile/bullet/weakbullet3
-	damage = 20
+	damage = 23
+	ricochet_chance = 10
 
+//4.6x30mm bullet casing
 /obj/projectile/bullet/weakbullet3/foursix
 	damage = 15
 
@@ -121,8 +146,9 @@
 	damage_type = TOX
 	armour_penetration = 10
 
+//40nr bullet casing
 /obj/projectile/bullet/weakbullet3/fortynr
-	damage = 25
+	damage = 28
 	stamina = 20
 
 /obj/projectile/bullet/weakbullet3/fortynr/get_ru_names()
@@ -132,7 +158,7 @@
 		DATIVE = "пуле",
 		ACCUSATIVE = "пулю",
 		INSTRUMENTAL = "пулей",
-		PREPOSITIONAL = "пуле"
+		PREPOSITIONAL = "пуле",
 	)
 
 /obj/projectile/bullet/weakbullet4
@@ -140,6 +166,7 @@
 	damage = 5
 	stamina = 30
 	icon_state = "bullet-r"
+	ricochet_chance = 20
 
 /obj/projectile/bullet/weakbullet4/get_ru_names()
 	return list(
@@ -148,13 +175,15 @@
 		DATIVE = "резиновой пуле",
 		ACCUSATIVE = "резиновую пулю",
 		INSTRUMENTAL = "резиновой пулей",
-		PREPOSITIONAL = "резиновой пуле"
+		PREPOSITIONAL = "резиновой пуле",
 	)
 
+//45 N&R bullet casing
 /obj/projectile/bullet/weakbullet4/c45nr
 	name = "45 N&R"
-	damage = 10
+	damage = 12
 	stamina = 15
+	ricochet_chance = 10
 
 /obj/projectile/bullet/toxinbullet
 	damage = 15
@@ -204,7 +233,7 @@
 		location.hotspot_expose(700, 50, 1)
 
 /obj/projectile/bullet/armourpiercing
-	damage = 17
+	damage = 18
 	armour_penetration = 10
 
 /obj/projectile/bullet/pellet
@@ -213,6 +242,7 @@
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
 	armour_penetration = -20
+	ricochets_max = 0
 
 /obj/projectile/bullet/pellet/get_ru_names()
 	return list(
@@ -221,7 +251,7 @@
 		DATIVE = "грануле",
 		ACCUSATIVE = "гранулу",
 		INSTRUMENTAL = "гранулой",
-		PREPOSITIONAL = "грануле"
+		PREPOSITIONAL = "грануле",
 	)
 
 /obj/projectile/bullet/pellet/magnum
@@ -252,7 +282,7 @@
 		DATIVE = "флешетте",
 		ACCUSATIVE = "флешетту",
 		INSTRUMENTAL = "флешеттой",
-		PREPOSITIONAL = "флешетте"
+		PREPOSITIONAL = "флешетте",
 	)
 
 /obj/projectile/bullet/pellet/rubber
@@ -260,6 +290,8 @@
 	damage = 3
 	stamina = 15
 	icon_state = "bullet-r"
+	ricochets_max = 1
+	ricochet_chance = 20
 
 /obj/projectile/bullet/pellet/rubber/get_ru_names()
 	return list(
@@ -268,7 +300,7 @@
 		DATIVE = "резиновому шарику",
 		ACCUSATIVE = "резиновый шарик",
 		INSTRUMENTAL = "резиновым шариком",
-		PREPOSITIONAL = "резиновом шарике"
+		PREPOSITIONAL = "резиновом шарике",
 	)
 
 /obj/projectile/bullet/pellet/weak
@@ -308,27 +340,35 @@
 	do_sparks(3, TRUE, src)
 	..()
 
+//.45 bullet casing
 /obj/projectile/bullet/midbullet
-	damage = 20
+	damage = 23
 	stamina = 33 //four rounds from the c20r knocks people down
 
 /obj/projectile/bullet/midbullet_AC2S
-	damage = 20
+	damage = 23
 	stamina = 40 //three rounds from the AC 2 Special knocks people down
 
+//.45 rubber bullet casing
 /obj/projectile/bullet/midbullet_r
 	damage = 5
 	stamina = 33 //Still four rounds to knock people down
+	ricochet_chance = 20
 
+//.36 bullet casing
 /obj/projectile/bullet/midbullet2
 	damage = 25
+	ricochet_chance = 10
 
+//10mm bullet casing
 /obj/projectile/bullet/midbullet3
-	damage = 30
+	damage = 33
+	ricochet_chance = 10
 
 /obj/projectile/bullet/midbullet3/hp
 	damage = 50
 	armour_penetration = -50
+	ricochets_max = 0
 
 /obj/projectile/bullet/midbullet3/hp/on_hit(atom/target, blocked, hit_zone)
 	if(..(target, blocked))
@@ -343,8 +383,9 @@
 /obj/projectile/bullet/midbullet3/fire
 	immolate = 1
 
+//5.56mm bullet casing
 /obj/projectile/bullet/heavybullet
-	damage = 35
+	damage = 36
 
 /obj/projectile/bullet/stunshot	//taser slugs for shotguns, nothing special
 	name = "stunshot"
@@ -356,6 +397,7 @@
 	range = 7
 	icon_state = "spark"
 	color = "#FFFF00"
+	ricochets_max = 0
 
 /obj/projectile/bullet/stunshot/get_ru_names()
 	return list(
@@ -364,7 +406,7 @@
 		DATIVE = "оглушающей пуле",
 		ACCUSATIVE = "оглушающую пулю",
 		INSTRUMENTAL = "оглушающей пулей",
-		PREPOSITIONAL = "оглушающей пуле"
+		PREPOSITIONAL = "оглушающей пуле",
 	)
 
 /obj/projectile/bullet/incendiary/shell
@@ -378,7 +420,7 @@
 		DATIVE = "зажигательной пуле",
 		ACCUSATIVE = "зажигательную пулю",
 		INSTRUMENTAL = "зажигательной пулей",
-		PREPOSITIONAL = "зажигательной пуле"
+		PREPOSITIONAL = "зажигательной пуле",
 	)
 
 /obj/projectile/bullet/incendiary/shell/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -404,7 +446,7 @@
 		DATIVE = "пуле \"Дыхание дракона\"",
 		ACCUSATIVE = "пулю \"Дыхание дракона\"",
 		INSTRUMENTAL = "пулей \"Дыхание дракона\"",
-		PREPOSITIONAL = "пуле \"Дыхание дракона\""
+		PREPOSITIONAL = "пуле \"Дыхание дракона\"",
 	)
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
@@ -423,7 +465,7 @@
 		DATIVE = "пуле \"жидкая лава\"",
 		ACCUSATIVE = "пулю \"жидкая лава\"",
 		INSTRUMENTAL = "пулей \"жидкая лава\"",
-		PREPOSITIONAL = "пуле \"жидкая лава\""
+		PREPOSITIONAL = "пуле \"жидкая лава\"",
 	)
 
 /obj/projectile/bullet/meteorshot
@@ -433,6 +475,7 @@
 	damage = 30
 	weaken = 4 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
+	ricochets_max = 0
 
 /obj/projectile/bullet/meteorshot/get_ru_names()
 	return list(
@@ -441,7 +484,7 @@
 		DATIVE = "метеору",
 		ACCUSATIVE = "метеор",
 		INSTRUMENTAL = "метеором",
-		PREPOSITIONAL = "метеоре"
+		PREPOSITIONAL = "метеоре",
 	)
 
 /obj/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
@@ -486,6 +529,7 @@
 	damage = 6
 	var/volume = 50
 	var/piercing = FALSE
+	ricochets_max = 0
 
 /obj/projectile/bullet/dart/get_ru_names()
 	return list(
@@ -494,7 +538,7 @@
 		DATIVE = "дротику",
 		ACCUSATIVE = "дротик",
 		INSTRUMENTAL = "дротиком",
-		PREPOSITIONAL = "дротике"
+		PREPOSITIONAL = "дротике",
 	)
 
 /obj/projectile/bullet/dart/New()
@@ -542,7 +586,7 @@
 		DATIVE = "шприцу",
 		ACCUSATIVE = "шприц",
 		INSTRUMENTAL = "шприцем",
-		PREPOSITIONAL = "шприце"
+		PREPOSITIONAL = "шприце",
 	)
 
 /obj/projectile/bullet/dart/syringe/tranquilizer
@@ -565,7 +609,7 @@
 		DATIVE = "слюне с нейротоксином",
 		ACCUSATIVE = "слюну с нейротоксином",
 		INSTRUMENTAL = "слюной с нейротоксином",
-		PREPOSITIONAL = "слюне с нейротоксином"
+		PREPOSITIONAL = "слюне с нейротоксином",
 	)
 
 /obj/projectile/bullet/neurotoxin/prehit(atom/target)
@@ -587,7 +631,7 @@
 
 /obj/projectile/bullet/f545 // Rusted AK
 	name = "Fusty FMJ 5.45 bullet"
-	damage = 18
+	damage = 20
 	stamina = 6
 
 /obj/projectile/bullet/f545/get_ru_names()
@@ -597,14 +641,15 @@
 		DATIVE = "старой пуле FMJ 5.45",
 		ACCUSATIVE = "старую пулю FMJ 5.45",
 		INSTRUMENTAL = "старой пулей FMJ 5.45",
-		PREPOSITIONAL = "старой пуле FMJ 5.45"
+		PREPOSITIONAL = "старой пуле FMJ 5.45",
 	)
 
 /obj/projectile/bullet/ftt762 // Rusted PPSh
 	name = "Fusty FMJ 7.62 TT bullet"
-	damage = 8
+	damage = 9
 	stamina = 1
 	armour_penetration = 5
+	ricochet_chance = 10
 
 /obj/projectile/bullet/ftt762/get_ru_names()
 	return list(
@@ -613,7 +658,7 @@
 		DATIVE = "старой пуле FMJ 7.62 TT",
 		ACCUSATIVE = "старую пулю FMJ 7.62 TT",
 		INSTRUMENTAL = "старой пулей FMJ 7.62 TT",
-		PREPOSITIONAL = "старой пуле FMJ 7.62 TT"
+		PREPOSITIONAL = "старой пуле FMJ 7.62 TT",
 	)
 
 /obj/projectile/bullet/weakbullet3/c257

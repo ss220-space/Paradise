@@ -180,6 +180,7 @@
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
+#define STATUS_EFFECT_LUNGING /datum/status_effect/lunging
 
 #define STATUS_EFFECT_DROPNROLL /datum/status_effect/stop_drop_roll
 

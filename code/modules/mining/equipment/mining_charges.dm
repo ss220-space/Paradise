@@ -23,7 +23,7 @@
 		DATIVE = "промышленному шахтёрскому заряду",
 		ACCUSATIVE = "промышленный шахтёрский заряд",
 		INSTRUMENTAL = "промышленным шахтёрским зарядом",
-		PREPOSITIONAL = "промышленном шахтёрском заряде"
+		PREPOSITIONAL = "промышленном шахтёрском заряде",
 	)
 
 /obj/item/grenade/plastic/miningcharge/examine(mob/user)
@@ -165,7 +165,7 @@
 		DATIVE = "шахтёрскому заряду",
 		ACCUSATIVE = "шахтёрский заряд",
 		INSTRUMENTAL = "шахтёрским зарядом",
-		PREPOSITIONAL = "шахтёрском заряде"
+		PREPOSITIONAL = "шахтёрском заряде",
 	)
 
 /obj/item/grenade/plastic/miningcharge/mega
@@ -183,7 +183,7 @@
 		DATIVE = "экспериментальному шахтёрскому заряду",
 		ACCUSATIVE = "экспериментальный шахтёрский заряд",
 		INSTRUMENTAL = "экспериментальным шахтёрским зарядом",
-		PREPOSITIONAL = "экспериментальном шахтёрском заряде"
+		PREPOSITIONAL = "экспериментальном шахтёрском заряде",
 	)
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
@@ -237,7 +237,7 @@
 		DATIVE = "детонатору шахтёрских зарядов",
 		ACCUSATIVE = "детонатор шахтёрских зарядов",
 		INSTRUMENTAL = "детонатором шахтёрских зарядов",
-		PREPOSITIONAL = "детонаторе шахтёрских зарядов"
+		PREPOSITIONAL = "детонаторе шахтёрских зарядов",
 	)
 
 /obj/item/detonator/examine(mob/user)

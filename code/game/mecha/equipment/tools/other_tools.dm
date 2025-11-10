@@ -602,7 +602,7 @@
 		DATIVE = "модулю \"Клетка SCS-3\"",
 		ACCUSATIVE = "модуль \"Клетка SCS-3\"",
 		INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
-		PREPOSITIONAL = "модуле \"Клетка SCS-3\""
+		PREPOSITIONAL = "модуле \"Клетка SCS-3\"",
 	)
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
@@ -813,7 +813,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_detach()
 	if(prisoner || holding)
-		occupant_message(span_warning("Невозможно отсоединить [declent_ru(ACCUSATIVE)] - модуль в работе!"))
+		occupant_message(span_warning("Невозможно отсоединить [declent_ru(ACCUSATIVE)] — модуль в работе!"))
 		return FALSE
 	return TRUE
 
@@ -861,5 +861,5 @@
 		DATIVE = "механическим клешням",
 		ACCUSATIVE = "механические клешни",
 		INSTRUMENTAL = "механическими клешнями",
-		PREPOSITIONAL = "механических клешнях"
+		PREPOSITIONAL = "механических клешнях",
 	)

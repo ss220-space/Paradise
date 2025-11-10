@@ -116,22 +116,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/emergency/evac
 	name = "Аварийное оборудование"
-	contains = list(/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/grenade/gas/oxygen,
-					/obj/item/grenade/gas/oxygen)
+	contains = list(
+		/mob/living/simple_animal/bot/floorbot,
+		/mob/living/simple_animal/bot/floorbot,
+		/mob/living/simple_animal/bot/medbot,
+		/mob/living/simple_animal/bot/medbot,
+		/obj/item/tank/internals/air,
+		/obj/item/tank/internals/air,
+		/obj/item/tank/internals/air,
+		/obj/item/tank/internals/air,
+		/obj/item/tank/internals/air,
+		/obj/item/clothing/mask/gas,
+		/obj/item/clothing/mask/gas,
+		/obj/item/clothing/mask/gas,
+		/obj/item/clothing/mask/gas,
+		/obj/item/clothing/mask/gas,
+		/obj/item/grenade/gas/oxygen,
+		/obj/item/grenade/gas/oxygen,
+	)
 	cost = 40
 	containername = "ящик аварийного оборудования"
 	container_ru_names = list(
@@ -140,23 +142,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аварийного оборудования",
 		ACCUSATIVE = "ящик аварийного оборудования",
 		INSTRUMENTAL = "ящиком аварийного оборудования",
-		PREPOSITIONAL = "ящике аварийного оборудования"
+		PREPOSITIONAL = "ящике аварийного оборудования",
 	)
 
 /datum/supply_packs/emergency/firefighting
 	name = "Противопожарное оборудование"
-	contains = list(/obj/item/clothing/suit/fire/firefighter,
-					/obj/item/clothing/suit/fire/firefighter,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/flashlight,
-					/obj/item/flashlight,
-					/obj/item/tank/internals/oxygen/red,
-					/obj/item/tank/internals/oxygen/red,
-					/obj/item/extinguisher,
-					/obj/item/extinguisher,
-					/obj/item/clothing/head/hardhat/red,
-					/obj/item/clothing/head/hardhat/red)
+	contains = list(
+		/obj/item/clothing/suit/fire/firefighter,
+		/obj/item/clothing/suit/fire/firefighter,
+		/obj/item/clothing/mask/gas,
+		/obj/item/clothing/mask/gas,
+		/obj/item/flashlight,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/oxygen/red,
+		/obj/item/tank/internals/oxygen/red,
+		/obj/item/extinguisher,
+		/obj/item/extinguisher,
+		/obj/item/clothing/head/hardhat/red,
+		/obj/item/clothing/head/hardhat/red,
+	)
 	cost = 15
 	containertype = /obj/structure/closet/crate
 	containername = "ящик противопожарного оборудования"
@@ -166,12 +170,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противопожарного оборудования",
 		ACCUSATIVE = "ящик противопожарного оборудования",
 		INSTRUMENTAL = "ящиком противопожарного оборудования",
-		PREPOSITIONAL = "ящике противопожарного оборудования"
+		PREPOSITIONAL = "ящике противопожарного оборудования",
 	)
 
 /datum/supply_packs/emergency/atmostank
 	name = "Противопожарный ранец"
-	contains = list(/obj/item/watertank/atmos)
+	contains = list(
+		/obj/item/watertank/atmos,
+	)
 	cost = 20
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с противопожарным ранцем"
@@ -181,16 +187,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с противопожарным ранцем",
 		ACCUSATIVE = "ящик с противопожарным ранцем",
 		INSTRUMENTAL = "ящиком с противопожарным ранцем",
-		PREPOSITIONAL = "ящике с противопожарным ранцем"
+		PREPOSITIONAL = "ящике с противопожарным ранцем",
 	)
 
 
 /datum/supply_packs/emergency/weedcontrol
 	name = "Противосорняковое оборудование"
-	contains = list(/obj/item/scythe,
-					/obj/item/clothing/mask/gas,
-					/obj/item/grenade/chem_grenade/antiweed,
-					/obj/item/grenade/chem_grenade/antiweed)
+	contains = list(
+		/obj/item/scythe,
+		/obj/item/clothing/mask/gas,
+		/obj/item/grenade/chem_grenade/antiweed,
+		/obj/item/grenade/chem_grenade/antiweed,
+	)
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/hydrosec
 	containername = "ящик противосорнякового оборудования"
@@ -200,17 +208,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противосорнякового оборудования",
 		ACCUSATIVE = "ящик противосорнякового оборудования",
 		INSTRUMENTAL = "ящиком противосорнякового оборудования",
-		PREPOSITIONAL = "ящике противосорнякового оборудования"
+		PREPOSITIONAL = "ящике противосорнякового оборудования",
 	)
 	access = ACCESS_HYDROPONICS
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/emergency/voxsupport
 	name = "Оборудование для жизнеобеспечения воксов"
-	contains = list(/obj/item/clothing/mask/breath/vox,
-					/obj/item/clothing/mask/breath/vox,
-					/obj/item/tank/internals/emergency_oxygen/double/vox,
-					/obj/item/tank/internals/emergency_oxygen/double/vox)
+	contains = list(
+		/obj/item/clothing/mask/breath/vox,
+		/obj/item/clothing/mask/breath/vox,
+		/obj/item/tank/internals/emergency_oxygen/double/vox,
+		/obj/item/tank/internals/emergency_oxygen/double/vox,
+	)
 	cost = 35
 	containertype = /obj/structure/closet/crate/medical
 	containername = "ящик оборудования для жизнеобеспечения воксов"
@@ -220,23 +230,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оборудования для жизнеобеспечения воксов",
 		ACCUSATIVE = "ящик оборудования для жизнеобеспечения воксов",
 		INSTRUMENTAL = "ящиком оборудования для жизнеобеспечения воксов",
-		PREPOSITIONAL = "ящике оборудования для жизнеобеспечения воксов"
+		PREPOSITIONAL = "ящике оборудования для жизнеобеспечения воксов",
 	)
 
 /datum/supply_packs/emergency/plasmamansupport
 	name = "Оборудование для жизнеобеспечения плазмолюдов"
-	contains = list(/obj/item/clothing/under/plasmaman,
-					/obj/item/clothing/under/plasmaman,
-					/obj/item/tank/internals/plasmaman/belt/full,
-					/obj/item/tank/internals/plasmaman/belt/full,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/head/helmet/space/plasmaman,
-					/obj/item/clothing/head/helmet/space/plasmaman,
-					/obj/item/extinguisher_refill,
-					/obj/item/extinguisher_refill,
-					/obj/item/extinguisher_refill,
-					/obj/item/extinguisher_refill)
+	contains = list(
+		/obj/item/clothing/under/plasmaman,
+		/obj/item/clothing/under/plasmaman,
+		/obj/item/tank/internals/plasmaman/belt/full,
+		/obj/item/tank/internals/plasmaman/belt/full,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/head/helmet/space/plasmaman,
+		/obj/item/clothing/head/helmet/space/plasmaman,
+		/obj/item/extinguisher_refill,
+		/obj/item/extinguisher_refill,
+		/obj/item/extinguisher_refill,
+		/obj/item/extinguisher_refill,
+	)
 	cost = 35
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик оборудования для жизнеобспечения плазмолюдов"
@@ -246,14 +258,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оборудования для жизнеобспечения плазмолюдов",
 		ACCUSATIVE = "ящик оборудования для жизнеобспечения плазмолюдов",
 		INSTRUMENTAL = "ящиком оборудования для жизнеобспечения плазмолюдов",
-		PREPOSITIONAL = "ящике оборудования для жизнеобспечения плазмолюдов"
+		PREPOSITIONAL = "ящике оборудования для жизнеобспечения плазмолюдов",
 	)
 	access = ACCESS_CARGO
 
 /datum/supply_packs/emergency/pacmancrate
 	name = "Портативный генератор \"Пакман\""
-	contains = list(/obj/machinery/power/port_gen,
-					/obj/item/stack/sheet/mineral/plasma{amount = 20})
+	contains = list(
+		/obj/machinery/power/port_gen,
+		/obj/item/stack/sheet/mineral/plasma{amount = 20},
+	)
 	cost = 220
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "ящик c генератором \"Пакман\""
@@ -263,19 +277,21 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику c генератором \"Пакман\"",
 		ACCUSATIVE = "ящик c генератором \"Пакман\"",
 		INSTRUMENTAL = "ящиком c генератором \"Пакман\"",
-		PREPOSITIONAL = "ящике c генератором \"Пакман\""
+		PREPOSITIONAL = "ящике c генератором \"Пакман\"",
 	)
 	access = ACCESS_ATMOSPHERICS
 	required_tech = list("engineering" = 2, "materials" = 2)
 
 /datum/supply_packs/emergency/spacesuit
 	name = "Костюмы для ВКД"
-	contains = list(/obj/item/clothing/suit/space,
-					/obj/item/clothing/suit/space,
-					/obj/item/clothing/head/helmet/space,
-					/obj/item/clothing/head/helmet/space,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath)
+	contains = list(
+		/obj/item/clothing/suit/space,
+		/obj/item/clothing/suit/space,
+		/obj/item/clothing/head/helmet/space,
+		/obj/item/clothing/head/helmet/space,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+	)
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик костюмов для ВКД"
@@ -285,13 +301,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику костюмов для ВКД",
 		ACCUSATIVE = "ящик костюмов для ВКД",
 		INSTRUMENTAL = "ящиком костюмов для ВКД",
-		PREPOSITIONAL = "ящике костюмов для ВКД"
+		PREPOSITIONAL = "ящике костюмов для ВКД",
 	)
 
 
 /datum/supply_packs/emergency/scrubbercrate
 	name = "Очиститель воздуха"
-	contains = list(/obj/machinery/portable_atmospherics/scrubber)
+	contains = list(
+		/obj/machinery/portable_atmospherics/scrubber,
+	)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "ящик с очистителем воздуха"
@@ -301,13 +319,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с очистителем воздуха",
 		ACCUSATIVE = "ящик с очистителем воздуха",
 		INSTRUMENTAL = "ящиком с очистителем воздуха",
-		PREPOSITIONAL = "ящике с очистителем воздуха"
+		PREPOSITIONAL = "ящике с очистителем воздуха",
 	)
 	access = ACCESS_ATMOSPHERICS
 
 /datum/supply_packs/emergency/pumpcrate
 	name = "Воздушный насос"
-	contains = list(/obj/machinery/portable_atmospherics/pump)
+	contains = list(
+		/obj/machinery/portable_atmospherics/pump,
+	)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "ящик с воздушным насосом"
@@ -317,36 +337,38 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с воздушным насосом",
 		ACCUSATIVE = "ящик с воздушным насосом",
 		INSTRUMENTAL = "ящиком с воздушным насосом",
-		PREPOSITIONAL = "ящике с воздушным насосом"
+		PREPOSITIONAL = "ящике с воздушным насосом",
 	)
 	access = ACCESS_ATMOSPHERICS
 
 /datum/supply_packs/emergency/biosuitcrate
 	name = "Противоэпидемическое снаряжение"
-	contains = list(/obj/item/clothing/suit/bio_suit,
-					/obj/item/clothing/suit/bio_suit,
-					/obj/item/clothing/suit/bio_suit,
-					/obj/item/clothing/suit/bio_suit,
-					/obj/item/clothing/suit/bio_suit,
-					/obj/item/clothing/suit/bio_suit,
-					/obj/item/clothing/head/bio_hood,
-					/obj/item/clothing/head/bio_hood,
-					/obj/item/clothing/head/bio_hood,
-					/obj/item/clothing/head/bio_hood,
-					/obj/item/clothing/head/bio_hood,
-					/obj/item/clothing/head/bio_hood,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath,
-					/obj/item/tank/internals/emergency_oxygen/engi,
-					/obj/item/tank/internals/emergency_oxygen/engi,
-					/obj/item/tank/internals/emergency_oxygen/engi,
-					/obj/item/tank/internals/emergency_oxygen/engi,
-					/obj/item/tank/internals/emergency_oxygen/engi,
-					/obj/item/tank/internals/emergency_oxygen/engi)
+	contains = list(
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+		/obj/item/tank/internals/emergency_oxygen/engi,
+		/obj/item/tank/internals/emergency_oxygen/engi,
+		/obj/item/tank/internals/emergency_oxygen/engi,
+		/obj/item/tank/internals/emergency_oxygen/engi,
+		/obj/item/tank/internals/emergency_oxygen/engi,
+		/obj/item/tank/internals/emergency_oxygen/engi,
+	)
 	cost = 120
 	containername = "ящик противоэпидемического снаряжения"
 	container_ru_names = list(
@@ -355,17 +377,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противоэпидемического снаряжения",
 		ACCUSATIVE = "ящик противоэпидемического снаряжения",
 		INSTRUMENTAL = "ящиком противоэпидемического снаряжения",
-		PREPOSITIONAL = "ящике противоэпидемического снаряжения"
+		PREPOSITIONAL = "ящике противоэпидемического снаряжения",
 	)
 
 /datum/supply_packs/emergency/specialops
 	name = "Набор для специальных операций"
-	contains = list(/obj/item/storage/box/emps,
-					/obj/item/grenade/smokebomb,
-					/obj/item/grenade/smokebomb,
-					/obj/item/grenade/smokebomb,
-					/obj/item/pen/sleepy,
-					/obj/item/grenade/chem_grenade/incendiary)
+	contains = list(
+		/obj/item/storage/box/emps,
+		/obj/item/grenade/smokebomb,
+		/obj/item/grenade/smokebomb,
+		/obj/item/grenade/smokebomb,
+		/obj/item/pen/sleepy,
+		/obj/item/grenade/chem_grenade/incendiary,
+	)
 	cost = 60
 	containertype = /obj/structure/closet/crate
 	containername = "ящик c набором для спецопераций"
@@ -375,14 +399,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику c набором для спецопераций",
 		ACCUSATIVE = "ящик c набором для спецопераций",
 		INSTRUMENTAL = "ящиком c набором для спецопераций",
-		PREPOSITIONAL = "ящике c набором для спецопераций"
+		PREPOSITIONAL = "ящике c набором для спецопераций",
 	)
 	hidden = TRUE
 
 
 /datum/supply_packs/emergency/syndicate
 	name = "ОШИБКА_ПУСТАЯ_ЗАПИСЬ"
-	contains = list(/obj/item/storage/box/random_syndi)
+	contains = list(
+		/obj/item/storage/box/random_syndi,
+	)
 	cost = 0
 	credits_cost = 2500
 	containertype = /obj/structure/closet/crate/syndicate
@@ -393,7 +419,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику",
 		ACCUSATIVE = "ящик",
 		INSTRUMENTAL = "ящиком",
-		PREPOSITIONAL = "ящике"
+		PREPOSITIONAL = "ящике",
 	)
 	hidden = TRUE
 
@@ -408,20 +434,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику особо важного снаряжения",
 		ACCUSATIVE = "ящик особо важного снаряжения",
 		INSTRUMENTAL = "ящиком особо важного снаряжения",
-		PREPOSITIONAL = "ящике особо важного снаряжения"
+		PREPOSITIONAL = "ящике особо важного снаряжения",
 	)
 	access = ACCESS_CAPTAIN
 
 /datum/supply_packs/emergency/highrisk/rd_handtp
 	name = "Ручной телепорт"
 	access = ACCESS_RD
-	contains = list(/obj/item/hand_tele)
+	contains = list(
+		/obj/item/hand_tele,
+	)
 	required_tech = list("programming" = 7, "bluespace" = 8)
 
 /datum/supply_packs/emergency/highrisk/rd_tp_armor
 	name = "Реактивная броня"
 	access = ACCESS_RD
-	contains = list(/obj/item/clothing/suit/armor/reactive/teleport)
+	contains = list(
+		/obj/item/clothing/suit/armor/reactive/teleport,
+	)
 	required_tech = list("combat" = 8, "bluespace" = 5)
 
 /datum/supply_packs/emergency/highrisk/reflect_kit
@@ -437,39 +467,51 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/emergency/highrisk/capt_jet
 	name = "Люксовый реактивный ранец"
-	contains = list(/obj/item/tank/jetpack/oxygen/captain)
+	contains = list(
+		/obj/item/tank/jetpack/oxygen/captain,
+	)
 	required_tech = list("toxins" = 8, "materials" = 7)
 
 /datum/supply_packs/emergency/highrisk/ce_combatrcd
 	name = "Боевое УБС"
 	access = ACCESS_CE
-	contains = list(/obj/item/rcd/combat)
+	contains = list(
+		/obj/item/rcd/combat,
+	)
 	required_tech = list("materials" = 6, "engineering" = 8)
 
 /datum/supply_packs/emergency/highrisk/ce_advmagboots
 	name = "Продвинутые магбутсы"
 	access = ACCESS_CE
-	contains = list(/obj/item/clothing/shoes/magboots/advance)
+	contains = list(
+		/obj/item/clothing/shoes/magboots/advance,
+	)
 	required_tech = list("engineering" = 8, "magnets" = 6)
 
 /datum/supply_packs/emergency/highrisk/cmo_defib
 	name = "Продвинутый дефибриллятор"
 	access = ACCESS_CMO
-	contains = list(/obj/item/defibrillator/compact/advanced/loaded)
+	contains = list(
+		/obj/item/defibrillator/compact/advanced/loaded,
+	)
 	required_tech = list("biotech" = 7, "powerstorage" = 8)
 
 /datum/supply_packs/emergency/highrisk/cmo_hypospray
 	name = "Продвинутый гипоспрей"
 	access = ACCESS_CMO
-	contains = list(/obj/item/reagent_containers/hypospray/CMO/empty)
+	contains = list(
+		/obj/item/reagent_containers/hypospray/CMO/empty,
+	)
 	required_tech = list("materials" = 7, "biotech" = 8)
 
 
 /datum/supply_packs/emergency/jetpack
 	name = "Реактивные ранцы"
-	contains = list(/obj/item/tank/jetpack,
-					/obj/item/tank/jetpack,
-					/obj/item/tank/jetpack)
+	contains = list(
+		/obj/item/tank/jetpack,
+		/obj/item/tank/jetpack,
+		/obj/item/tank/jetpack,
+	)
 	cost = 30
 	required_tech = list("toxins" = 3)
 	containername = "ящик реактивных ранцев"
@@ -479,14 +521,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику реактивных ранцев",
 		ACCUSATIVE = "ящик реактивных ранцев",
 		INSTRUMENTAL = "ящиком реактивных ранцев",
-		PREPOSITIONAL = "ящике реактивных ранцев"
+		PREPOSITIONAL = "ящике реактивных ранцев",
 	)
 
 /datum/supply_packs/emergency/jetpack_upgrade
 	name = "Модули реактивного ранца"
-	contains = list(/obj/item/tank/jetpack/suit,
-					/obj/item/tank/jetpack/suit,
-					/obj/item/tank/jetpack/suit)
+	contains = list(
+		/obj/item/tank/jetpack/suit,
+		/obj/item/tank/jetpack/suit,
+		/obj/item/tank/jetpack/suit,
+	)
 	cost = 80
 	required_tech = list("toxins" = 7)
 	containername = "ящик модулей реактивного ранца"
@@ -496,13 +540,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику модулей реактивного ранца",
 		ACCUSATIVE = "ящик модулей реактивного ранца",
 		INSTRUMENTAL = "ящиком модулей реактивного ранца",
-		PREPOSITIONAL = "ящике модулей реактивного ранца"
+		PREPOSITIONAL = "ящике модулей реактивного ранца",
 	)
 
 /datum/supply_packs/emergency/jetpack_mini
 	name = "Реактивные ранцы для мышей" // the fuck?
-	contains = list(/obj/item/mouse_jetpack,
-					/obj/item/mouse_jetpack)
+	contains = list(
+		/obj/item/mouse_jetpack,
+		/obj/item/mouse_jetpack,
+	)
 	cost = 30
 	required_tech = list("toxins" = 2)
 	containername = "ящик реактивных ранцев для мышей"
@@ -512,7 +558,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику реактивных ранцев для мышей",
 		ACCUSATIVE = "ящик реактивных ранцев для мышей",
 		INSTRUMENTAL = "ящиком реактивных ранцев для мышей",
-		PREPOSITIONAL = "ящике реактивных ранцев для мышей"
+		PREPOSITIONAL = "ящике реактивных ранцев для мышей",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -528,10 +574,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/modsuit
 	name = "МЭК службы безопасности"
-	contains = list(/obj/item/mod/control/pre_equipped/security,
-					/obj/item/mod/control/pre_equipped/security,
-					/obj/item/clothing/mask/gas/sechailer,
-					/obj/item/clothing/mask/gas/sechailer)
+	contains = list(
+		/obj/item/mod/control/pre_equipped/security,
+		/obj/item/mod/control/pre_equipped/security,
+		/obj/item/clothing/mask/gas/sechailer,
+		/obj/item/clothing/mask/gas/sechailer,
+	)
 	cost = 180
 	required_tech = list("toxins" = 6, "combat" = 6)
 	containername = "ящик МЭК службы безопасности"
@@ -541,16 +589,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику МЭК службы безопасности",
 		ACCUSATIVE = "ящик МЭК службы безопасности",
 		INSTRUMENTAL = "ящиком МЭК службы безопасности",
-		PREPOSITIONAL = "ящике МЭК службы безопасности"
+		PREPOSITIONAL = "ящике МЭК службы безопасности",
 	)
 	access = ACCESS_ARMORY
 
 /datum/supply_packs/security/supplies
 	name = "Нелетальное снаряжение службы безопасности"
-	contains = list(/obj/item/storage/box/flashbangs,
-					/obj/item/storage/box/teargas,
-					/obj/item/storage/box/flashes,
-					/obj/item/storage/box/handcuffs)
+	contains = list(
+		/obj/item/storage/box/flashbangs,
+		/obj/item/storage/box/teargas,
+		/obj/item/storage/box/flashes,
+		/obj/item/storage/box/handcuffs,
+	)
 	cost = 15
 	containername = "ящик нелетального снаряжения СБ"
 	container_ru_names = list(
@@ -559,13 +609,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику нелетального снаряжения СБ",
 		ACCUSATIVE = "ящик нелетального снаряжения СБ",
 		INSTRUMENTAL = "ящиком нелетального снаряжения СБ",
-		PREPOSITIONAL = "ящике нелетального снаряжения СБ"
+		PREPOSITIONAL = "ящике нелетального снаряжения СБ",
 	)
 
 /datum/supply_packs/security/vending/security
 	name = "Набор пополнения SecTech"
 	cost = 75
-	contains = list(/obj/item/vending_refill/security)
+	contains = list(
+		/obj/item/vending_refill/security,
+	)
 	containername = "ящик с набором пополнения SecTech"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с набором пополнения SecTech",
@@ -573,23 +625,26 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения SecTech",
 		ACCUSATIVE = "ящик с набором пополнения SecTech",
 		INSTRUMENTAL = "ящиком с набором пополнения SecTech",
-		PREPOSITIONAL = "ящике с набором пополнения SecTech"
+		PREPOSITIONAL = "ящике с набором пополнения SecTech",
 	)
 
 /datum/supply_packs/security/vending/security_mods
 	name = "ModTech Supply Crate"
 	cost = 20
-	contains = list(/obj/item/vending_refill/gun_mods)
+	contains = list(
+		/obj/item/vending_refill/gun_mods,
+	)
 	containername = "ModTech supply crate"
 
 ////// Armor: Basic
-
 /datum/supply_packs/security/justiceinbound
 	name = "Набор для исполнения правосудия"
-	contains = list(/obj/item/clothing/head/helmet/justice,
-					/obj/item/clothing/head/helmet/justice,
-					/obj/item/clothing/mask/gas/sechailer,
-					/obj/item/clothing/mask/gas/sechailer)
+	contains = list(
+		/obj/item/clothing/head/helmet/justice,
+		/obj/item/clothing/head/helmet/justice,
+		/obj/item/clothing/mask/gas/sechailer,
+		/obj/item/clothing/mask/gas/sechailer,
+	)
 	cost = 45 //justice comes at a price. An expensive, noisy price.
 	containername = "ящик с набором для исполнения правосудия"
 	container_ru_names = list(
@@ -598,17 +653,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для исполнения правосудия",
 		ACCUSATIVE = "ящик с набором для исполнения правосудия",
 		INSTRUMENTAL = "ящиком с набором для исполнения правосудия",
-		PREPOSITIONAL = "ящике с набором для исполнения правосудия"
+		PREPOSITIONAL = "ящике с набором для исполнения правосудия",
 	)
 
 /datum/supply_packs/security/armor
 	name = "Стандартная броня службы безопасности"
-	contains = list(/obj/item/clothing/suit/armor/vest,
-					/obj/item/clothing/suit/armor/vest,
-					/obj/item/clothing/suit/armor/vest,
-					/obj/item/clothing/head/helmet,
-					/obj/item/clothing/head/helmet,
-					/obj/item/clothing/head/helmet)
+	contains = list(
+		/obj/item/clothing/suit/armor/vest,
+		/obj/item/clothing/suit/armor/vest,
+		/obj/item/clothing/suit/armor/vest,
+		/obj/item/clothing/head/helmet,
+		/obj/item/clothing/head/helmet,
+		/obj/item/clothing/head/helmet,
+	)
 	cost = 20
 	containername = "ящик со стандартной бронёй СБ"
 	container_ru_names = list(
@@ -617,16 +674,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со стандартной бронёй СБ",
 		ACCUSATIVE = "ящик со стандартной бронёй СБ",
 		INSTRUMENTAL = "ящиком со стандартной бронёй СБ",
-		PREPOSITIONAL = "ящике со стандартной бронёй СБ"
+		PREPOSITIONAL = "ящике со стандартной бронёй СБ",
 	)
 
 ////// Weapons: Basic
 
 /datum/supply_packs/security/baton
 	name = "Оглушающие дубинки"
-	contains = list(/obj/item/melee/baton/security/loaded,
-					/obj/item/melee/baton/security/loaded,
-					/obj/item/melee/baton/security/loaded)
+	contains = list(
+		/obj/item/melee/baton/security/loaded,
+		/obj/item/melee/baton/security/loaded,
+		/obj/item/melee/baton/security/loaded,
+	)
 	cost = 20
 	containername = "ящик оглушающих дубинок"
 	container_ru_names = list(
@@ -635,14 +694,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оглушающих дубинок",
 		ACCUSATIVE = "ящик оглушающих дубинок",
 		INSTRUMENTAL = "ящиком оглушающих дубинок",
-		PREPOSITIONAL = "ящике оглушающих дубинок"
+		PREPOSITIONAL = "ящике оглушающих дубинок",
 	)
 
 /datum/supply_packs/security/laser
 	name = "Лазерные карабины"
-	contains = list(/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser)
+	contains = list(
+		/obj/item/gun/energy/laser,
+		/obj/item/gun/energy/laser,
+		/obj/item/gun/energy/laser,
+	)
 	cost = 20
 	containername = "ящик лазерных карабинов"
 	container_ru_names = list(
@@ -651,17 +712,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику лазерных карабинов",
 		ACCUSATIVE = "ящик лазерных карабинов",
 		INSTRUMENTAL = "ящиком лазерных карабинов",
-		PREPOSITIONAL = "ящике лазерных карабинов"
+		PREPOSITIONAL = "ящике лазерных карабинов",
 	)
 
 /datum/supply_packs/security/taser
 	name = "Нелетальное энергетическое оружие"
-	contains = list(/obj/item/gun/energy/gun/advtaser,
-					/obj/item/gun/energy/gun/advtaser,
-					/obj/item/gun/energy/gun/advtaser,
-					/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler)
+	contains = list(
+		/obj/item/gun/energy/gun/advtaser,
+		/obj/item/gun/energy/gun/advtaser,
+		/obj/item/gun/energy/gun/advtaser,
+		/obj/item/gun/energy/disabler,
+		/obj/item/gun/energy/disabler,
+		/obj/item/gun/energy/disabler,
+	)
 	cost = 25
 	containername = "ящик нелетального энергетического оружия"
 	container_ru_names = list(
@@ -670,13 +733,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику нелетального энергетического оружия",
 		ACCUSATIVE = "ящик нелетального энергетического оружия",
 		INSTRUMENTAL = "ящиком нелетального энергетического оружия",
-		PREPOSITIONAL = "ящике нелетального энергетического оружия"
+		PREPOSITIONAL = "ящике нелетального энергетического оружия",
 	)
 
 /datum/supply_packs/security/enforcer
 	name = "Блюстители"
-	contains = list(/obj/item/storage/box/enforcer/security,
-					/obj/item/storage/box/enforcer/security)
+	contains = list(
+		/obj/item/storage/box/enforcer/security,
+		/obj/item/storage/box/enforcer/security,
+	)
 	cost = 12
 	containername = "ящик Блюстителей"
 	container_ru_names = list(
@@ -685,19 +750,21 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику Блюстителей",
 		ACCUSATIVE = "ящик Блюстителей",
 		INSTRUMENTAL = "ящиком Блюстителей",
-		PREPOSITIONAL = "ящике Блюстителей"
+		PREPOSITIONAL = "ящике Блюстителей",
 	)
 
 /datum/supply_packs/security/forensics
 	name = "Криминалистическое снаряжение"
-	contains = list(/obj/item/storage/box/evidence,
-					/obj/item/camera,
-					/obj/item/taperecorder,
-					/obj/item/toy/crayon/white,
-					/obj/item/clothing/head/det_hat,
-					/obj/item/storage/box/swabs,
-					/obj/item/storage/box/fingerprints,
-					/obj/item/storage/briefcase/crimekit)
+	contains = list(
+		/obj/item/storage/box/evidence,
+		/obj/item/camera,
+		/obj/item/taperecorder,
+		/obj/item/toy/crayon/white,
+		/obj/item/clothing/head/det_hat,
+		/obj/item/storage/box/swabs,
+		/obj/item/storage/box/fingerprints,
+		/obj/item/storage/briefcase/crimekit,
+	)
 	cost = 20
 	containername = "ящик криминалистического снаряжения"
 	container_ru_names = list(
@@ -706,13 +773,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику криминалистического снаряжения",
 		ACCUSATIVE = "ящик криминалистического снаряжения",
 		INSTRUMENTAL = "ящиком криминалистического снаряжения",
-		PREPOSITIONAL = "ящике криминалистического снаряжения"
+		PREPOSITIONAL = "ящике криминалистического снаряжения",
 	)
 
 /datum/supply_packs/security/telescopic
 	name = "Телескопические дубинки"
-	contains = list(/obj/item/melee/baton/telescopic,
-					/obj/item/melee/baton/telescopic)
+	contains = list(
+		/obj/item/melee/baton/telescopic,
+		/obj/item/melee/baton/telescopic,
+	)
 	cost = 20
 	containername = "ящик телескопических дубинок"
 	container_ru_names = list(
@@ -721,7 +790,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику телескопических дубинок",
 		ACCUSATIVE = "ящик телескопических дубинок",
 		INSTRUMENTAL = "ящиком телескопических дубинок",
-		PREPOSITIONAL = "ящике телескопических дубинок"
+		PREPOSITIONAL = "ящике телескопических дубинок",
 	)
 
 ///// Armory stuff
@@ -735,12 +804,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/armory/riothelmets
 	name = "Противоударная броня"
-	contains = list(/obj/item/storage/backpack/duffel/security/riot_armory,
-					/obj/item/storage/backpack/duffel/security/riot_armory,
-					/obj/item/storage/backpack/duffel/security/riot_armory,
-					/obj/item/shield/riot,
-					/obj/item/shield/riot,
-					/obj/item/shield/riot)
+	contains = list(
+		/obj/item/storage/backpack/duffel/security/riot_armory,
+		/obj/item/storage/backpack/duffel/security/riot_armory,
+		/obj/item/storage/backpack/duffel/security/riot_armory,
+		/obj/item/shield/riot,
+		/obj/item/shield/riot,
+		/obj/item/shield/riot,
+	)
 	cost = 80
 	containername = "ящик противоударной брони"
 	container_ru_names = list(
@@ -749,14 +820,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противоударной брони",
 		ACCUSATIVE = "ящик противоударной брони",
 		INSTRUMENTAL = "ящиком противоударной брони",
-		PREPOSITIONAL = "ящике противоударной брони"
+		PREPOSITIONAL = "ящике противоударной брони",
 	)
 
 /datum/supply_packs/security/armory/bulletarmor
 	name = "Противопульная броня"
-	contains = list(/obj/item/storage/backpack/duffel/security/bulletproof_armory,
-					/obj/item/storage/backpack/duffel/security/bulletproof_armory,
-					/obj/item/storage/backpack/duffel/security/bulletproof_armory)
+	contains = list(
+		/obj/item/storage/backpack/duffel/security/bulletproof_armory,
+		/obj/item/storage/backpack/duffel/security/bulletproof_armory,
+		/obj/item/storage/backpack/duffel/security/bulletproof_armory,
+	)
 	cost = 40
 	containername = "ящик противопульной брони"
 	container_ru_names = list(
@@ -765,14 +838,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противопульной брони",
 		ACCUSATIVE = "ящик противопульной брони",
 		INSTRUMENTAL = "ящиком противопульной брони",
-		PREPOSITIONAL = "ящике противопульной брони"
+		PREPOSITIONAL = "ящике противопульной брони",
 	)
 
 /datum/supply_packs/security/armory/webbing
 	name = "Тактические разгрузки"
-	contains = list(/obj/item/storage/belt/security/webbing,
-					/obj/item/storage/belt/security/webbing,
-					/obj/item/storage/belt/security/webbing)
+	contains = list(
+		/obj/item/storage/belt/security/webbing,
+		/obj/item/storage/belt/security/webbing,
+		/obj/item/storage/belt/security/webbing,
+	)
 	cost = 15
 	containername = "ящик тактических разгрузок"
 	container_ru_names = list(
@@ -781,14 +856,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику тактических разгрузок",
 		ACCUSATIVE = "ящик тактических разгрузок",
 		INSTRUMENTAL = "ящиком тактических разгрузок",
-		PREPOSITIONAL = "ящике тактических разгрузок"
+		PREPOSITIONAL = "ящике тактических разгрузок",
 	)
 
 /datum/supply_packs/security/armory/combat_webbing
 	name = "Боевые разгрузки"
-	contains = list(/obj/item/clothing/accessory/storage/webbing,
-					/obj/item/clothing/accessory/storage/webbing,
-					/obj/item/clothing/accessory/storage/webbing)
+	contains = list(
+		/obj/item/clothing/accessory/storage/webbing,
+		/obj/item/clothing/accessory/storage/webbing,
+		/obj/item/clothing/accessory/storage/webbing,
+	)
 	cost = 25
 	containername = "ящик боевых разгрузок"
 	container_ru_names = list(
@@ -797,15 +874,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику боевых разгрузок",
 		ACCUSATIVE = "ящик боевых разгрузок",
 		INSTRUMENTAL = "ящиком боевых разгрузок",
-		PREPOSITIONAL = "ящике боевых разгрузок"
+		PREPOSITIONAL = "ящике боевых разгрузок",
 	)
 
 /datum/supply_packs/security/armory/vest
 	name = "Рагрузочные жилеты"
-	contains = list(/obj/item/clothing/accessory/storage/black_vest,
-					/obj/item/clothing/accessory/storage/black_vest,
-					/obj/item/clothing/accessory/storage/brown_vest,
-					/obj/item/clothing/accessory/storage/brown_vest)
+	contains = list(
+		/obj/item/clothing/accessory/storage/black_vest,
+		/obj/item/clothing/accessory/storage/black_vest,
+		/obj/item/clothing/accessory/storage/brown_vest,
+		/obj/item/clothing/accessory/storage/brown_vest,
+	)
 	cost = 50
 	containername = "ящик разгрузочных жилетов"
 	container_ru_names = list(
@@ -814,21 +893,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику разгрузочных жилетов",
 		ACCUSATIVE = "ящик разгрузочных жилетов",
 		INSTRUMENTAL = "ящиком разгрузочных жилетов",
-		PREPOSITIONAL = "ящике разгрузочных жилетов"
+		PREPOSITIONAL = "ящике разгрузочных жилетов",
 	)
 
 /datum/supply_packs/security/armory/swat
 	name = "Снаряжение SWAT"
-	contains = list(/obj/item/clothing/head/helmet/swat,
-					/obj/item/clothing/head/helmet/swat,
-					/obj/item/clothing/suit/space/swat,
-					/obj/item/clothing/suit/space/swat,
-					/obj/item/kitchen/knife/combat,
-					/obj/item/kitchen/knife/combat,
-					/obj/item/clothing/mask/gas/sechailer/swat,
-					/obj/item/clothing/mask/gas/sechailer/swat,
-					/obj/item/storage/belt/military/assault,
-					/obj/item/storage/belt/military/assault)
+	contains = list(
+		/obj/item/clothing/head/helmet/swat,
+		/obj/item/clothing/head/helmet/swat,
+		/obj/item/clothing/suit/space/swat,
+		/obj/item/clothing/suit/space/swat,
+		/obj/item/kitchen/knife/combat,
+		/obj/item/kitchen/knife/combat,
+		/obj/item/clothing/mask/gas/sechailer/swat,
+		/obj/item/clothing/mask/gas/sechailer/swat,
+		/obj/item/storage/belt/military/assault,
+		/obj/item/storage/belt/military/assault,
+	)
 	cost = 80
 	containername = "ящик снаряжения SWAT"
 	container_ru_names = list(
@@ -837,13 +918,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику снаряжения SWAT",
 		ACCUSATIVE = "ящик снаряжения SWAT",
 		INSTRUMENTAL = "ящиком снаряжения SWAT",
-		PREPOSITIONAL = "ящике снаряжения SWAT"
+		PREPOSITIONAL = "ящике снаряжения SWAT",
 	)
 
 /datum/supply_packs/security/armory/laserarmor
 	name = "Противолазерные бронежилеты"
-	contains = list(/obj/item/clothing/suit/armor/laserproof,
-					/obj/item/clothing/suit/armor/laserproof)		// Only two vests to keep costs down for balance
+	contains = list(
+		/obj/item/clothing/suit/armor/laserproof,
+		/obj/item/clothing/suit/armor/laserproof,
+	)		// Only two vests to keep costs down for balance
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик противолазерной брони"
@@ -853,16 +936,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику противолазерной брони",
 		ACCUSATIVE = "ящик противолазерной брони",
 		INSTRUMENTAL = "ящиком противолазерной брони",
-		PREPOSITIONAL = "ящике противолазерной брони"
+		PREPOSITIONAL = "ящике противолазерной брони",
 	)
 	required_tech = list("bluespace" = 4, "combat" = 4)
 
 /datum/supply_packs/security/armory/sibyl
 	name = "Модули \"Sibyl\""
-	contains = list(/obj/item/sibyl_system_mod,
-					/obj/item/sibyl_system_mod,
-					/obj/item/sibyl_system_mod)
-	cost = 25														//По 6 за один блокиратор
+	contains = list(
+		/obj/item/sibyl_system_mod,
+		/obj/item/sibyl_system_mod,
+		/obj/item/sibyl_system_mod,
+	)
+	cost = 25								//По 6 за один блокиратор
 	containername = "ящик модулей \"Sibyl\""
 	container_ru_names = list(
 		NOMINATIVE = "ящик модулей \"Sibyl\"",
@@ -870,13 +955,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику модулей \"Sibyl\"",
 		ACCUSATIVE = "ящик модулей \"Sibyl\"",
 		INSTRUMENTAL = "ящиком модулей \"Sibyl\"",
-		PREPOSITIONAL = "ящике модулей \"Sibyl\""
+		PREPOSITIONAL = "ящике модулей \"Sibyl\"",
 	)
 
 /datum/supply_packs/security/armory/fastpouch
 	name = "Подсумки для магазинов"
-	contains = list(/obj/item/storage/pouch/fast,
-					/obj/item/storage/pouch/fast)
+	contains = list(
+		/obj/item/storage/pouch/fast,
+		/obj/item/storage/pouch/fast,
+	)
 	cost = 100
 	containername = "ящик подсумков для магазинов"
 	container_ru_names = list(
@@ -885,19 +972,21 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику подсумков для магазинов",
 		ACCUSATIVE = "ящик подсумков для магазинов",
 		INSTRUMENTAL = "ящиком подсумков для магазинов",
-		PREPOSITIONAL = "ящике подсумков для магазинов"
+		PREPOSITIONAL = "ящике подсумков для магазинов",
 	)
 
 /////// Weapons: Specialist
 
 /datum/supply_packs/security/armory/ballistic
 	name = "Служебные дробовики"
-	contains = list(/obj/item/gun/projectile/shotgun/riot,
-					/obj/item/gun/projectile/shotgun/riot,
-					/obj/item/gun/projectile/shotgun/riot,
-					/obj/item/storage/belt/bandolier,
-					/obj/item/storage/belt/bandolier,
-					/obj/item/storage/belt/bandolier)
+	contains = list(
+		/obj/item/gun/projectile/shotgun/riot,
+		/obj/item/gun/projectile/shotgun/riot,
+		/obj/item/gun/projectile/shotgun/riot,
+		/obj/item/storage/belt/bandolier,
+		/obj/item/storage/belt/bandolier,
+		/obj/item/storage/belt/bandolier,
+	)
 	cost = 50
 	containername = "ящик служебных дробовиков"
 	container_ru_names = list(
@@ -906,17 +995,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику служебных дробовиков",
 		ACCUSATIVE = "ящик служебных дробовиков",
 		INSTRUMENTAL = "ящиком служебных дробовиков",
-		PREPOSITIONAL = "ящике служебных дробовиков"
+		PREPOSITIONAL = "ящике служебных дробовиков",
 	)
 
 /datum/supply_packs/security/armory/ballisticauto
 	name = "Боевые дробовики"
-	contains = list(/obj/item/gun/projectile/shotgun/automatic/combat,
-					/obj/item/gun/projectile/shotgun/automatic/combat,
-					/obj/item/gun/projectile/shotgun/automatic/combat,
-					/obj/item/storage/belt/bandolier,
-					/obj/item/storage/belt/bandolier,
-					/obj/item/storage/belt/bandolier)
+	contains = list(
+		/obj/item/gun/projectile/shotgun/automatic/combat,
+		/obj/item/gun/projectile/shotgun/automatic/combat,
+		/obj/item/gun/projectile/shotgun/automatic/combat,
+		/obj/item/storage/belt/bandolier,
+		/obj/item/storage/belt/bandolier,
+		/obj/item/storage/belt/bandolier,
+	)
 	cost = 100
 	containername = "ящик боевых дробовиков"
 	container_ru_names = list(
@@ -925,17 +1016,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику боевых дробовиков",
 		ACCUSATIVE = "ящик боевых дробовиков",
 		INSTRUMENTAL = "ящиком боевых дробовиков",
-		PREPOSITIONAL = "ящике боевых дробовиков"
+		PREPOSITIONAL = "ящике боевых дробовиков",
 	)
 
 /datum/supply_packs/security/armory/buckshotammo
 	name = "Снаряды с картечью"
-	contains = list(/obj/item/ammo_box/speedloader/shotgun/buck,
-					/obj/item/ammo_box/shotgun/buck,
-					/obj/item/ammo_box/shotgun/buck,
-					/obj/item/ammo_box/shotgun/buck,
-					/obj/item/ammo_box/shotgun/buck,
-					/obj/item/ammo_box/shotgun/buck)
+	contains = list(
+		/obj/item/ammo_box/speedloader/shotgun/buck,
+		/obj/item/ammo_box/shotgun/buck,
+		/obj/item/ammo_box/shotgun/buck,
+		/obj/item/ammo_box/shotgun/buck,
+		/obj/item/ammo_box/shotgun/buck,
+		/obj/item/ammo_box/shotgun/buck,
+	)
 	cost = 45
 	containername = "ящик снарядов с картечью"
 	container_ru_names = list(
@@ -944,17 +1037,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику снарядов с картечью",
 		ACCUSATIVE = "ящик снарядов с картечью",
 		INSTRUMENTAL = "ящиком снарядов с картечью",
-		PREPOSITIONAL = "ящике снарядов с картечью"
+		PREPOSITIONAL = "ящике снарядов с картечью",
 	)
 
 /datum/supply_packs/security/armory/slugammo
 	name = "Ружейные пули"
-	contains = list(/obj/item/ammo_box/speedloader/shotgun/slug,
-					/obj/item/ammo_box/shotgun,
-					/obj/item/ammo_box/shotgun,
-					/obj/item/ammo_box/shotgun,
-					/obj/item/ammo_box/shotgun,
-					/obj/item/ammo_box/shotgun)
+	contains = list(
+		/obj/item/ammo_box/speedloader/shotgun/slug,
+		/obj/item/ammo_box/shotgun,
+		/obj/item/ammo_box/shotgun,
+		/obj/item/ammo_box/shotgun,
+		/obj/item/ammo_box/shotgun,
+		/obj/item/ammo_box/shotgun,
+	)
 	cost = 45
 	containername = "ящик ружейных пуль"
 	container_ru_names = list(
@@ -963,14 +1058,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику ружейных пуль",
 		ACCUSATIVE = "ящик ружейных пуль",
 		INSTRUMENTAL = "ящиком ружейных пуль",
-		PREPOSITIONAL = "ящике ружейных пуль"
+		PREPOSITIONAL = "ящике ружейных пуль",
 	)
 
 /datum/supply_packs/security/armory/expenergy
 	name = "Энергетические карабины"
-	contains = list(/obj/item/gun/energy/gun,
-					/obj/item/gun/energy/gun,
-					/obj/item/gun/energy/gun)
+	contains = list(
+		/obj/item/gun/energy/gun,
+		/obj/item/gun/energy/gun,
+		/obj/item/gun/energy/gun,
+	)
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик энергетических карабинов"
@@ -980,14 +1077,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику энергетических карабинов",
 		ACCUSATIVE = "ящик энергетических карабинов",
 		INSTRUMENTAL = "ящиком энергетических карабинов",
-		PREPOSITIONAL = "ящике энергетических карабинов"
+		PREPOSITIONAL = "ящике энергетических карабинов",
 	)
 
 /datum/supply_packs/security/armory/epistol	// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
 	name = "Энергетические пистолеты"
-	contains = list(/obj/item/gun/energy/gun/mini,
-					/obj/item/gun/energy/gun/mini,
-					/obj/item/gun/energy/gun/mini)
+	contains = list(
+		/obj/item/gun/energy/gun/mini,
+		/obj/item/gun/energy/gun/mini,
+		/obj/item/gun/energy/gun/mini,
+	)
 	cost = 15
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик энергетических пистолетов"
@@ -997,18 +1096,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику энергетических пистолетов",
 		ACCUSATIVE = "ящик энергетических пистолетов",
 		INSTRUMENTAL = "ящиком энергетических пистолетов",
-		PREPOSITIONAL = "ящике энергетических пистолетов"
+		PREPOSITIONAL = "ящике энергетических пистолетов",
 	)
 
 /datum/supply_packs/security/armory/eweapons
 	name = "Зажигательное вооружение"
-	contains = list(/obj/item/flamethrower/full,
-					/obj/item/tank/internals/plasma,
-					/obj/item/tank/internals/plasma,
-					/obj/item/tank/internals/plasma,
-					/obj/item/grenade/chem_grenade/incendiary,
-					/obj/item/grenade/chem_grenade/incendiary,
-					/obj/item/grenade/chem_grenade/incendiary)
+	contains = list(
+		/obj/item/flamethrower/full,
+		/obj/item/tank/internals/plasma,
+		/obj/item/tank/internals/plasma,
+		/obj/item/tank/internals/plasma,
+		/obj/item/grenade/chem_grenade/incendiary,
+		/obj/item/grenade/chem_grenade/incendiary,
+		/obj/item/grenade/chem_grenade/incendiary,
+	)
 	cost = 30	// its a fecking flamethrower and some plasma, why the shit did this cost so much before!?
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик зажигательного вооружения"
@@ -1018,14 +1119,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику зажигательного вооружения",
 		ACCUSATIVE = "ящик зажигательного вооружения",
 		INSTRUMENTAL = "ящиком зажигательного вооружения",
-		PREPOSITIONAL = "ящике зажигательного вооружения"
+		PREPOSITIONAL = "ящике зажигательного вооружения",
 	)
 	access = ACCESS_HEADS
 
 /datum/supply_packs/security/armory/wt550
 	name = "Пистолет-пулемёты WT-550"
-	contains = list(/obj/item/gun/projectile/automatic/wt550,
-					/obj/item/gun/projectile/automatic/wt550)
+	contains = list(
+		/obj/item/gun/projectile/automatic/wt550,
+		/obj/item/gun/projectile/automatic/wt550,
+	)
 	cost = 35
 	containername = "ящик WT-550"
 	container_ru_names = list(
@@ -1034,13 +1137,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику WT-550",
 		ACCUSATIVE = "ящик WT-550",
 		INSTRUMENTAL = "ящиком WT-550",
-		PREPOSITIONAL = "ящике WT-550"
+		PREPOSITIONAL = "ящике WT-550",
 	)
 
 /datum/supply_packs/security/armory/ga12
 	name = "Дробовики Tkach Ya-Sui GA 12"
-	contains = list(/obj/item/gun/projectile/revolver/ga12,
-					/obj/item/gun/projectile/revolver/ga12)
+	contains = list(
+		/obj/item/gun/projectile/revolver/ga12,
+		/obj/item/gun/projectile/revolver/ga12,
+	)
 	cost = 80
 	containername = "ящик Tkach Ya-Sui GA 12"
 	container_ru_names = list(
@@ -1049,22 +1154,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику Tkach Ya-Sui GA 12",
 		ACCUSATIVE = "ящик Tkach Ya-Sui GA 12",
 		INSTRUMENTAL = "ящиком Tkach Ya-Sui GA 12",
-		PREPOSITIONAL = "ящике Tkach Ya-Sui GA 12"
+		PREPOSITIONAL = "ящике Tkach Ya-Sui GA 12",
 	)
 	required_tech = list("combat" = 5, "materials" = 3)
 
 /datum/supply_packs/security/armory/lr30
 	name = "Лазерные карабины LR-30"
-	contains = list(/obj/item/gun/projectile/automatic/lr30,
-					/obj/item/gun/projectile/automatic/lr30,
-					/obj/item/gun/projectile/automatic/lr30,
-					/obj/item/ammo_box/magazine/lr30mag,
-					/obj/item/ammo_box/magazine/lr30mag,
-					/obj/item/ammo_box/magazine/lr30mag,
-					/obj/item/ammo_box/magazine/lr30mag,
-					/obj/item/ammo_box/magazine/lr30mag,
-					/obj/item/ammo_box/magazine/lr30mag,
-					/obj/item/ammo_box/magazine/lr30mag)
+	contains = list(
+		/obj/item/gun/projectile/automatic/lr30,
+		/obj/item/gun/projectile/automatic/lr30,
+		/obj/item/gun/projectile/automatic/lr30,
+		/obj/item/ammo_box/magazine/lr30mag,
+		/obj/item/ammo_box/magazine/lr30mag,
+		/obj/item/ammo_box/magazine/lr30mag,
+		/obj/item/ammo_box/magazine/lr30mag,
+		/obj/item/ammo_box/magazine/lr30mag,
+		/obj/item/ammo_box/magazine/lr30mag,
+		/obj/item/ammo_box/magazine/lr30mag,
+	)
 	cost = 65
 	containername = "ящик LR-30"
 	container_ru_names = list(
@@ -1073,23 +1180,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику LR-30",
 		ACCUSATIVE = "ящик LR-30",
 		INSTRUMENTAL = "ящиком LR-30",
-		PREPOSITIONAL = "ящике LR-30"
+		PREPOSITIONAL = "ящике LR-30",
 	)
 
 /datum/supply_packs/security/armory/wt550ammo
 	name = "Боеприпасы для WT-550"
-	contains = list(/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/c46x30mm,
-					/obj/item/ammo_box/c46x30mm,
-					/obj/item/ammo_box/c46x30mm,
-					/obj/item/ammo_box/c46x30mm)
+	contains = list(
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/ammo_box/c46x30mm,
+		/obj/item/ammo_box/c46x30mm,
+		/obj/item/ammo_box/c46x30mm,
+		/obj/item/ammo_box/c46x30mm,
+	)
 	cost = 100
 	containername = "ящик боеприпасов для WT-550"
 	container_ru_names = list(
@@ -1098,23 +1207,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику боеприпасов для WT-550",
 		ACCUSATIVE = "ящик боеприпасов для WT-550",
 		INSTRUMENTAL = "ящиком боеприпасов для WT-550",
-		PREPOSITIONAL = "ящике боеприпасов для WT-550"
+		PREPOSITIONAL = "ящике боеприпасов для WT-550",
 	)
 
 /datum/supply_packs/security/armory/wt550apammo
 	name = "Бронебойные боеприпасы для WT-550"
-	contains = list(/obj/item/ammo_box/magazine/wt550m9/wtap,
-					/obj/item/ammo_box/magazine/wt550m9/wtap,
-					/obj/item/ammo_box/magazine/wt550m9/wtap,
-					/obj/item/ammo_box/magazine/wt550m9/wtap,
-					/obj/item/ammo_box/magazine/wt550m9/wtap,
-					/obj/item/ammo_box/magazine/wt550m9/wtap,
-					/obj/item/ammo_box/magazine/wt550m9/wtap,
-					/obj/item/ammo_box/magazine/wt550m9/wtap,
-					/obj/item/ammo_box/ap46x30mm,
-					/obj/item/ammo_box/ap46x30mm,
-					/obj/item/ammo_box/ap46x30mm,
-					/obj/item/ammo_box/ap46x30mm)
+	contains = list(
+		/obj/item/ammo_box/magazine/wt550m9/wtap,
+		/obj/item/ammo_box/magazine/wt550m9/wtap,
+		/obj/item/ammo_box/magazine/wt550m9/wtap,
+		/obj/item/ammo_box/magazine/wt550m9/wtap,
+		/obj/item/ammo_box/magazine/wt550m9/wtap,
+		/obj/item/ammo_box/magazine/wt550m9/wtap,
+		/obj/item/ammo_box/magazine/wt550m9/wtap,
+		/obj/item/ammo_box/magazine/wt550m9/wtap,
+		/obj/item/ammo_box/ap46x30mm,
+		/obj/item/ammo_box/ap46x30mm,
+		/obj/item/ammo_box/ap46x30mm,
+		/obj/item/ammo_box/ap46x30mm,
+	)
 	cost = 140
 	containername = "ящик бронебойных боеприпасов для WT-550"
 	container_ru_names = list(
@@ -1123,17 +1234,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику бронебойных боеприпасов для WT-550",
 		ACCUSATIVE = "ящик бронебойных боеприпасов для WT-550",
 		INSTRUMENTAL = "ящиком бронебойных боеприпасов для WT-550",
-		PREPOSITIONAL = "ящике бронебойных боеприпасов для WT-550"
+		PREPOSITIONAL = "ящике бронебойных боеприпасов для WT-550",
 	)
 	required_tech = list("combat" = 5, "materials" = 3)
 
 /datum/supply_packs/security/armory/security_voucher
 	name = "Оружейные ваучеры"
-	contains = list(/obj/item/security_voucher,
-					/obj/item/security_voucher,
-					/obj/item/security_voucher,
-					/obj/item/security_voucher,
-					/obj/item/security_voucher,)
+	contains = list(
+		/obj/item/security_voucher,
+		/obj/item/security_voucher,
+		/obj/item/security_voucher,
+		/obj/item/security_voucher,
+		/obj/item/security_voucher,
+	)
 	cost = 100
 	containername = "ящик оружейных ваучеров"
 	container_ru_names = list(
@@ -1142,13 +1255,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оружейных ваучеров",
 		ACCUSATIVE = "ящик оружейных ваучеров",
 		INSTRUMENTAL = "ящиком оружейных ваучеров",
-		PREPOSITIONAL = "ящике оружейных ваучеров"
+		PREPOSITIONAL = "ящике оружейных ваучеров",
 	)
 
 /datum/supply_packs/security/armory/m79
 	name = "Гранатометы М79"
-	contains = list(/obj/item/gun/projectile/bombarda/secgl/m79,
-					/obj/item/gun/projectile/bombarda/secgl/m79)
+	contains = list(
+		/obj/item/gun/projectile/bombarda/secgl/m79,
+		/obj/item/gun/projectile/bombarda/secgl/m79,
+	)
 	cost = 80
 	containername = "ящик с гранатометами М79"
 	container_ru_names = list(
@@ -1157,7 +1272,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с гранатометами М79",
 		ACCUSATIVE = "ящик с гранатометами М79",
 		INSTRUMENTAL = "ящиком с гранатометами М79",
-		PREPOSITIONAL = "ящике с гранатометами М79"
+		PREPOSITIONAL = "ящике с гранатометами М79",
 	)
 	required_tech = list("combat" = 6, "materials" = 3)
 
@@ -1168,7 +1283,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/ammo_box/secgl/flash,
 		/obj/item/ammo_box/secgl/gas,
 		/obj/item/ammo_box/secgl/barricade,
-		/obj/item/ammo_box/secgl/paint
+		/obj/item/ammo_box/secgl/paint,
 	)
 	cost = 50
 	containername = "ящик с 40-мм нелетальными гранатами"
@@ -1178,7 +1293,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с 40-мм нелетальными гранатами",
 		ACCUSATIVE = "ящик с 40-мм нелетальными гранатами",
 		INSTRUMENTAL = "ящиком с 40-мм нелетальными гранатами",
-		PREPOSITIONAL = "ящике с 40-мм нелетальными гранатами"
+		PREPOSITIONAL = "ящике с 40-мм нелетальными гранатами",
 	)
 	required_tech = list("combat" = 5, "materials" = 3)
 
@@ -1186,7 +1301,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/armory/mindshield
 	name = "Имплант \"Щит разума\""
-	contains = list (/obj/item/storage/lockbox/mindshield)
+	contains = list(
+		/obj/item/storage/lockbox/mindshield,
+	)
 	cost = 60
 	containername = "ящик с имплантом \"Щит разума\""
 	container_ru_names = list(
@@ -1195,13 +1312,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с имплантом \"Щит разума\"",
 		ACCUSATIVE = "ящик с имплантом \"Щит разума\"",
 		INSTRUMENTAL = "ящиком с имплантом \"Щит разума\"",
-		PREPOSITIONAL = "ящике с имплантом \"Щит разума\""
+		PREPOSITIONAL = "ящике с имплантом \"Щит разума\"",
 	)
 	required_tech = list("materials" = 2, "biotech" = 4, "programming" = 4)
 
 /datum/supply_packs/security/armory/trackingimp
 	name = "Имплант слежения"
-	contains = list (/obj/item/storage/box/trackimp)
+	contains = list(
+		/obj/item/storage/box/trackimp,
+	)
 	cost = 30
 	containername = "ящик с имплантом слежения"
 	container_ru_names = list(
@@ -1210,13 +1329,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с имплантом слежения",
 		ACCUSATIVE = "ящик с имплантом слежения",
 		INSTRUMENTAL = "ящиком с имплантом слежения",
-		PREPOSITIONAL = "ящике с имплантом слежения"
+		PREPOSITIONAL = "ящике с имплантом слежения",
 	)
 	required_tech = list("materials" = 2, "biotech" = 2, "programming" = 2, "magnets" = 2)
 
 /datum/supply_packs/security/armory/chemimp
 	name = "Химический имплант"
-	contains = list (/obj/item/storage/box/chemimp)
+	contains = list(
+		/obj/item/storage/box/chemimp,
+	)
 	cost = 30
 	containername = "ящик с химическим имплантом"
 	container_ru_names = list(
@@ -1225,13 +1346,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с химическим имплантом",
 		ACCUSATIVE = "ящик с химическим имплантом",
 		INSTRUMENTAL = "ящиком с химическим имплантом",
-		PREPOSITIONAL = "ящике с химическим имплантом"
+		PREPOSITIONAL = "ящике с химическим имплантом",
 	)
 	required_tech = list("materials" = 3, "biotech" = 4)
 
 /datum/supply_packs/security/armory/exileimp
 	name = "Имплант изгнания"
-	contains = list (/obj/item/storage/box/exileimp)
+	contains = list(
+		/obj/item/storage/box/exileimp,
+	)
 	cost = 30
 	containername = "ящик с имплантом изгнания"
 	container_ru_names = list(
@@ -1240,7 +1363,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с имплантом изгнания",
 		ACCUSATIVE = "ящик с имплантом изгнания",
 		INSTRUMENTAL = "ящиком с имплантом изгнания",
-		PREPOSITIONAL = "ящике с имплантом изгнания"
+		PREPOSITIONAL = "ящике с имплантом изгнания",
 	)
 	required_tech = list("materials" = 2, "biotech" = 4, "programming" = 6)
 
@@ -1251,7 +1374,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/gun/energy/ionrifle/carbine,
 		/obj/item/gun/energy/ionrifle/carbine,
-		/obj/item/gun/energy/ionrifle/carbine
+		/obj/item/gun/energy/ionrifle/carbine,
 	)
 	containername = "ящик ионных карабинов"
 	container_ru_names = list(
@@ -1260,7 +1383,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику ионных карабинов",
 		ACCUSATIVE = "ящик ионных карабинов",
 		INSTRUMENTAL = "ящиком ионных карабинов",
-		PREPOSITIONAL = "ящике ионных карабинов"
+		PREPOSITIONAL = "ящике ионных карабинов",
 	)
 	required_tech = list("combat" = 5, "magnets" = 4)
 
@@ -1270,7 +1393,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/shield/riot/tele,
 		/obj/item/shield/riot/tele,
-		/obj/item/shield/riot/tele
+		/obj/item/shield/riot/tele,
 	)
 	containername = "ящик телескопических щитов"
 	container_ru_names = list(
@@ -1279,7 +1402,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику телескопических щитов",
 		ACCUSATIVE = "ящик телескопических щитов",
 		INSTRUMENTAL = "ящиком телескопических щитов",
-		PREPOSITIONAL = "ящике телескопических щитов"
+		PREPOSITIONAL = "ящике телескопических щитов",
 	)
 	required_tech = list("combat" = 4, "engineering" = 4, "materials" = 3)
 
@@ -1300,16 +1423,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику боеприпасов 12-го калибра",
 		ACCUSATIVE = "ящик боеприпасов 12-го калибра",
 		INSTRUMENTAL = "ящиком боеприпасов 12-го калибра",
-		PREPOSITIONAL = "ящике боеприпасов 12-го калибра"
+		PREPOSITIONAL = "ящике боеприпасов 12-го калибра",
 	)
 	required_tech = list("powerstorage" = 4, "combat" = 4, "magnets" = 4, "materials" = 4)
 
 /datum/supply_packs/security/securitybarriers
 	name = "Охранные барьеры"
-	contains = list(/obj/item/grenade/barrier,
-					/obj/item/grenade/barrier,
-					/obj/item/grenade/barrier,
-					/obj/item/grenade/barrier)
+	contains = list(
+		/obj/item/grenade/barrier,
+		/obj/item/grenade/barrier,
+		/obj/item/grenade/barrier,
+		/obj/item/grenade/barrier,
+	)
 	cost = 10
 	containername = "ящик охранных барьеров"
 	container_ru_names = list(
@@ -1318,19 +1443,21 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику охранных барьеров",
 		ACCUSATIVE = "ящик охранных барьеров",
 		INSTRUMENTAL = "ящиком охранных барьеров",
-		PREPOSITIONAL = "ящике охранных барьеров"
+		PREPOSITIONAL = "ящике охранных барьеров",
 	)
 
 /datum/supply_packs/security/securityclothes
 	name = "Униформа службы безопасности"
-	contains = list(/obj/item/clothing/under/rank/security/corp,
-					/obj/item/clothing/under/rank/security/corp,
-					/obj/item/clothing/head/soft/sec/corp,
-					/obj/item/clothing/head/soft/sec/corp,
-					/obj/item/clothing/under/rank/warden/corp,
-					/obj/item/clothing/head/beret/sec/warden,
-					/obj/item/clothing/under/rank/head_of_security/corp,
-					/obj/item/clothing/head/HoS/beret)
+	contains = list(
+		/obj/item/clothing/under/rank/security/corp,
+		/obj/item/clothing/under/rank/security/corp,
+		/obj/item/clothing/head/soft/sec/corp,
+		/obj/item/clothing/head/soft/sec/corp,
+		/obj/item/clothing/under/rank/warden/corp,
+		/obj/item/clothing/head/beret/sec/warden,
+		/obj/item/clothing/under/rank/head_of_security/corp,
+		/obj/item/clothing/head/HoS/beret,
+	)
 	cost = 30
 	containername = "ящик униформы СБ"
 	container_ru_names = list(
@@ -1339,24 +1466,26 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику униформы СБ",
 		ACCUSATIVE = "ящик униформы СБ",
 		INSTRUMENTAL = "ящиком униформы СБ",
-		PREPOSITIONAL = "ящике униформы СБ"
+		PREPOSITIONAL = "ящике униформы СБ",
 	)
 
 /datum/supply_packs/security/officerpack // Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
 	name = "Снаряжение офицера СБ"
-	contains = 	list(/obj/item/clothing/suit/armor/vest/security,
-				/obj/item/radio/headset/headset_sec/alt,
-				/obj/item/clothing/head/soft/sec,
-				/obj/item/reagent_containers/spray/pepper,
-				/obj/item/flash,
-				/obj/item/grenade/flashbang,
-				/obj/item/storage/belt/security/sec,
-				/obj/item/holosign_creator/security,
-				/obj/item/clothing/mask/gas/sechailer,
-				/obj/item/clothing/glasses/hud/security/sunglasses,
-				/obj/item/clothing/head/helmet,
-				/obj/item/melee/baton/security/loaded,
-				/obj/item/clothing/suit/armor/secjacket)
+	contains = list(
+		/obj/item/clothing/suit/armor/vest/security,
+		/obj/item/radio/headset/headset_sec/alt,
+		/obj/item/clothing/head/soft/sec,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/flash,
+		/obj/item/grenade/flashbang,
+		/obj/item/storage/belt/security/sec,
+		/obj/item/holosign_creator/security,
+		/obj/item/clothing/mask/gas/sechailer,
+		/obj/item/clothing/glasses/hud/security/sunglasses,
+		/obj/item/clothing/head/helmet,
+		/obj/item/melee/baton/security/loaded,
+		/obj/item/clothing/suit/armor/secjacket,
+	)
 	cost = 40 // Convenience has a price and this pack is genuinely loaded
 	containername = "ящик снаряжения офицера СБ"
 	container_ru_names = list(
@@ -1365,7 +1494,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику снаряжения офицера СБ",
 		ACCUSATIVE = "ящик снаряжения офицера СБ",
 		INSTRUMENTAL = "ящиком снаряжения офицера СБ",
-		PREPOSITIONAL = "ящике снаряжения офицера СБ"
+		PREPOSITIONAL = "ящике снаряжения офицера СБ",
 	)
 
 
@@ -1382,10 +1511,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/modsuit_eng
 	name = "Инженерные МЭК"
-	contains = list(/obj/item/mod/control/pre_equipped/engineering,
-					/obj/item/mod/control/pre_equipped/engineering,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath)
+	contains = list(
+		/obj/item/mod/control/pre_equipped/engineering,
+		/obj/item/mod/control/pre_equipped/engineering,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+		)
 	cost = 130
 	required_tech = list("toxins" = 5, "engineering" = 4)
 	containername = "ящик инженерных МЭК"
@@ -1395,16 +1526,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику инженерных МЭК",
 		ACCUSATIVE = "ящик инженерных МЭК",
 		INSTRUMENTAL = "ящиком инженерных МЭК",
-		PREPOSITIONAL = "ящике инженерных МЭК"
+		PREPOSITIONAL = "ящике инженерных МЭК",
 	)
 	access = ACCESS_ENGINE_EQUIP
 
 /datum/supply_packs/engineering/modsuit_atmos
 	name = "Атмосферные МЭК"
-	contains = list(/obj/item/mod/control/pre_equipped/atmospheric,
-					/obj/item/mod/control/pre_equipped/atmospheric,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath)
+	contains = list(
+		/obj/item/mod/control/pre_equipped/atmospheric,
+		/obj/item/mod/control/pre_equipped/atmospheric,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+	)
+	access = ACCESS_ENGINE_EQUIP
 	required_tech = list("toxins" = 6, "plasmatech" = 4)
 	containername = "ящик атмосферных МЭК"
 	container_ru_names = list(
@@ -1413,13 +1547,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику атмосферных МЭК",
 		ACCUSATIVE = "ящик атмосферных МЭК",
 		INSTRUMENTAL = "ящиком атмосферных МЭК",
-		PREPOSITIONAL = "ящике атмосферных МЭК"
+		PREPOSITIONAL = "ящике атмосферных МЭК",
 	)
 	access = ACCESS_ATMOSPHERICS
 
 /datum/supply_packs/engineering/fueltank
 	name = "Бак сварочного топлива"
-	contains = list(/obj/structure/reagent_dispensers/fueltank)
+	contains = list(
+		/obj/structure/reagent_dispensers/fueltank,
+	)
 	cost = 8
 	containertype = /obj/structure/largecrate
 	containername = "ящик с баком сварочного топлива"
@@ -1429,17 +1565,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с баком сварочного топлива",
 		ACCUSATIVE = "ящик с баком сварочного топлива",
 		INSTRUMENTAL = "ящиком с баком сварочного топлива",
-		PREPOSITIONAL = "ящике с баком сварочного топлива"
+		PREPOSITIONAL = "ящике с баком сварочного топлива",
 	)
 
 /datum/supply_packs/engineering/tools
 	name = "Ящики для инструментов"
-	contains = list(/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/toolbox/emergency,
-					/obj/item/storage/toolbox/emergency,
-					/obj/item/storage/toolbox/mechanical,
-					/obj/item/storage/toolbox/mechanical)
+	contains = list(
+		/obj/item/storage/toolbox/electrical,
+		/obj/item/storage/toolbox/electrical,
+		/obj/item/storage/toolbox/emergency,
+		/obj/item/storage/toolbox/emergency,
+		/obj/item/storage/toolbox/mechanical,
+		/obj/item/storage/toolbox/mechanical,
+	)
 	cost = 10
 	containername = "ящик с набором ящиков для инструментов"
 	container_ru_names = list(
@@ -1448,14 +1586,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором ящиков для инструментов",
 		ACCUSATIVE = "ящик с набором ящиков для инструментов",
 		INSTRUMENTAL = "ящиком с набором ящиков для инструментов",
-		PREPOSITIONAL = "ящике с набором ящиков для инструментов"
+		PREPOSITIONAL = "ящике с набором ящиков для инструментов",
 	)
 
 /datum/supply_packs/vending/engivend
 	name = "Наборы пополнения инженерных торгоматов"
 	cost = 20
-	contains = list(/obj/item/vending_refill/engivend,
-					/obj/item/vending_refill/youtool)
+	contains = list(
+		/obj/item/vending_refill/engivend,
+		/obj/item/vending_refill/youtool,
+	)
 	containername = "ящик наборов пополнения инженерных торгоматов"
 	container_ru_names = list(
 		NOMINATIVE = "ящик наборов пополнения инженерных торгоматов",
@@ -1463,14 +1603,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику наборов пополнения инженерных торгоматов",
 		ACCUSATIVE = "ящик наборов пополнения инженерных торгоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения инженерных торгоматов",
-		PREPOSITIONAL = "ящике наборов пополнения инженерных торгоматов"
+		PREPOSITIONAL = "ящике наборов пополнения инженерных торгоматов",
 	)
 
 /datum/supply_packs/engineering/powergamermitts
 	name = "Изоляционные перчатки"
-	contains = list(/obj/item/clothing/gloves/color/yellow,
-					/obj/item/clothing/gloves/color/yellow,
-					/obj/item/clothing/gloves/color/yellow)
+	contains = list(
+		/obj/item/clothing/gloves/color/yellow,
+		/obj/item/clothing/gloves/color/yellow,
+		/obj/item/clothing/gloves/color/yellow,
+	)
 	cost = 30
 	containername = "ящик изоляционных перчаток"
 	container_ru_names = list(
@@ -1479,15 +1621,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику изоляционных перчаток",
 		ACCUSATIVE = "ящик изоляционных перчаток",
 		INSTRUMENTAL = "ящиком изоляционных перчаток",
-		PREPOSITIONAL = "ящике изоляционных перчаток"
+		PREPOSITIONAL = "ящике изоляционных перчаток",
 	)
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_packs/engineering/power
 	name = "Батареи АА"
-	contains = list(/obj/item/stock_parts/cell/high,
-					/obj/item/stock_parts/cell/high,
-					/obj/item/stock_parts/cell/high)
+	contains = list(
+		/obj/item/stock_parts/cell/high,
+		/obj/item/stock_parts/cell/high,
+		/obj/item/stock_parts/cell/high,
+	)
 	cost = 25
 	containername = "ящик батарей АА"
 	container_ru_names = list(
@@ -1496,24 +1640,26 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику батарей АА",
 		ACCUSATIVE = "ящик батарей АА",
 		INSTRUMENTAL = "ящиком батарей АА",
-		PREPOSITIONAL = "ящике батарей АА"
+		PREPOSITIONAL = "ящике батарей АА",
 	)
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_packs/engineering/engiequipment
 	name = "Инженерное снаряжение"
-	contains = list(/obj/item/storage/belt/utility,
-					/obj/item/storage/belt/utility,
-					/obj/item/storage/belt/utility,
-					/obj/item/clothing/suit/storage/hazardvest,
-					/obj/item/clothing/suit/storage/hazardvest,
-					/obj/item/clothing/suit/storage/hazardvest,
-					/obj/item/clothing/head/welding,
-					/obj/item/clothing/head/welding,
-					/obj/item/clothing/head/welding,
-					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/head/hardhat)
+	contains = list(
+		/obj/item/storage/belt/utility,
+		/obj/item/storage/belt/utility,
+		/obj/item/storage/belt/utility,
+		/obj/item/clothing/suit/storage/hazardvest,
+		/obj/item/clothing/suit/storage/hazardvest,
+		/obj/item/clothing/suit/storage/hazardvest,
+		/obj/item/clothing/head/welding,
+		/obj/item/clothing/head/welding,
+		/obj/item/clothing/head/welding,
+		/obj/item/clothing/head/hardhat,
+		/obj/item/clothing/head/hardhat,
+		/obj/item/clothing/head/hardhat,
+	)
 	cost = 10
 	containername = "ящик инженерного снаряжения"
 	container_ru_names = list(
@@ -1522,35 +1668,37 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику инженерного снаряжения",
 		ACCUSATIVE = "ящик инженерного снаряжения",
 		INSTRUMENTAL = "ящиком инженерного снаряжения",
-		PREPOSITIONAL = "ящике инженерного снаряжения"
+		PREPOSITIONAL = "ящике инженерного снаряжения",
 	)
 
 /datum/supply_packs/engineering/solar
 	name = "Набор солнечных панелей"
-	contains  = list(/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly,
-					/obj/item/solar_assembly, // 21 Solar Assemblies. 1 Extra for the controller
-					/obj/item/circuitboard/solar_control,
-					/obj/item/tracker_electronics,
-					/obj/item/paper/solar)
+	contains = list(
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly,
+		/obj/item/solar_assembly, // 21 Solar Assemblies. 1 Extra for the controller
+		/obj/item/circuitboard/solar_control,
+		/obj/item/tracker_electronics,
+		/obj/item/paper/solar,
+	)
 	cost = 15
 	containername = "ящик с набором солнечных панелей"
 	container_ru_names = list(
@@ -1559,14 +1707,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором солнечных панелей",
 		ACCUSATIVE = "ящик с набором солнечных панелей",
 		INSTRUMENTAL = "ящиком с набором солнечных панелей",
-		PREPOSITIONAL = "ящике с набором солнечных панелей"
+		PREPOSITIONAL = "ящике с набором солнечных панелей",
 	)
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_packs/engineering/engine
 	name = "Излучатели"
-	contains = list(/obj/machinery/power/emitter,
-					/obj/machinery/power/emitter)
+	contains = list(
+		/obj/machinery/power/emitter,
+		/obj/machinery/power/emitter,
+	)
 	cost = 30
 	containername = "ящик излучателей"
 	container_ru_names = list(
@@ -1575,15 +1725,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику излучателей",
 		ACCUSATIVE = "ящик излучателей",
 		INSTRUMENTAL = "ящиком излучателей",
-		PREPOSITIONAL = "ящике излучателей"
+		PREPOSITIONAL = "ящике излучателей",
 	)
 	access = ACCESS_CONSTRUCTION
 	containertype = /obj/structure/closet/crate/secure/engineering
 
 /datum/supply_packs/engineering/engine/field_gen
 	name = "Генераторы силового поля"
-	contains = list(/obj/machinery/field/generator,
-					/obj/machinery/field/generator)
+	contains = list(
+		/obj/machinery/field/generator,
+		/obj/machinery/field/generator,
+	)
 	cost = 35
 	containername = "ящик генераторов силового поля"
 	container_ru_names = list(
@@ -1592,12 +1744,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику генераторов силового поля",
 		ACCUSATIVE = "ящик генераторов силового поля",
 		INSTRUMENTAL = "ящиком генераторов силового поля",
-		PREPOSITIONAL = "ящике генераторов силового поля"
+		PREPOSITIONAL = "ящике генераторов силового поля",
 	)
 
 /datum/supply_packs/engineering/engine/sing_gen
 	name = "Генератор сингулярности"
-	contains = list(/obj/machinery/the_singularitygen)
+	contains = list(
+		/obj/machinery/the_singularitygen,
+	)
 	cost = 150
 	containername = "ящик с генератором сингулярности"
 	container_ru_names = list(
@@ -1606,14 +1760,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с генератором сингулярности",
 		ACCUSATIVE = "ящик с генератором сингулярности",
 		INSTRUMENTAL = "ящиком с генератором сингулярности",
-		PREPOSITIONAL = "ящике с генератором сингулярности"
+		PREPOSITIONAL = "ящике с генератором сингулярности",
 	)
 	access = ACCESS_CE
 	required_tech = list("powerstorage" = 6, "engineering" = 7)
 
 /datum/supply_packs/engineering/engine/tesla
 	name = "Тесла-генератор"
-	contains = list(/obj/machinery/the_singularitygen/tesla)
+	contains = list(
+		/obj/machinery/the_singularitygen/tesla,
+	)
 	cost = 150
 	containername = "ящик с тесла-генератором"
 	container_ru_names = list(
@@ -1622,16 +1778,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с тесла-генератором",
 		ACCUSATIVE = "ящик с тесла-генератором",
 		INSTRUMENTAL = "ящиком с тесла-генератором",
-		PREPOSITIONAL = "ящике с тесла-генератором"
+		PREPOSITIONAL = "ящике с тесла-генератором",
 	)
 	access = ACCESS_CE
 	required_tech = list("powerstorage" = 7, "magnets" = 5)
 
 /datum/supply_packs/engineering/engine/coil
 	name = "Тесла-катушки"
-	contains = list(/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil)
+	contains = list(
+		/obj/machinery/power/tesla_coil,
+		/obj/machinery/power/tesla_coil,
+		/obj/machinery/power/tesla_coil,
+	)
 	cost = 45
 	containername = "ящик тесла-катушек"
 	container_ru_names = list(
@@ -1640,13 +1798,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику тесла-катушек",
 		ACCUSATIVE = "ящик тесла-катушек",
 		INSTRUMENTAL = "ящиком тесла-катушек",
-		PREPOSITIONAL = "ящике тесла-катушек"
+		PREPOSITIONAL = "ящике тесла-катушек",
 	)
 
 /datum/supply_packs/engineering/engine/grounding
 	name = "Заземлители"
-	contains = list(/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod)
+	contains = list(
+		/obj/machinery/power/grounding_rod,
+		/obj/machinery/power/grounding_rod,
+	)
 	cost = 10
 	containername = "ящик заземлителей"
 	container_ru_names = list(
@@ -1655,14 +1815,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику заземлителей",
 		ACCUSATIVE = "ящик заземлителей",
 		INSTRUMENTAL = "ящиком заземлителей",
-		PREPOSITIONAL = "ящике заземлителей"
+		PREPOSITIONAL = "ящике заземлителей",
 	)
 
 /datum/supply_packs/engineering/engine/collector
 	name = "Радиационные накопители"
-	contains = list(/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector)
+	contains = list(
+		/obj/machinery/power/rad_collector,
+		/obj/machinery/power/rad_collector,
+		/obj/machinery/power/rad_collector,
+	)
 	cost = 45
 	containername = "ящик радиационных накопителей"
 	container_ru_names = list(
@@ -1671,18 +1833,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику радиационных накопителей",
 		ACCUSATIVE = "ящик радиационных накопителей",
 		INSTRUMENTAL = "ящиком радиационных накопителей",
-		PREPOSITIONAL = "ящике радиационных накопителей"
+		PREPOSITIONAL = "ящике радиационных накопителей",
 	)
 
 /datum/supply_packs/engineering/engine/PA
 	name = "Детали ускорителя частиц"
-	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
-					/obj/machinery/particle_accelerator/control_box,
-					/obj/structure/particle_accelerator/particle_emitter/center,
-					/obj/structure/particle_accelerator/particle_emitter/left,
-					/obj/structure/particle_accelerator/particle_emitter/right,
-					/obj/structure/particle_accelerator/power_box,
-					/obj/structure/particle_accelerator/end_cap)
+	contains = list(
+		/obj/structure/particle_accelerator/fuel_chamber,
+		/obj/machinery/particle_accelerator/control_box,
+		/obj/structure/particle_accelerator/particle_emitter/center,
+		/obj/structure/particle_accelerator/particle_emitter/left,
+		/obj/structure/particle_accelerator/particle_emitter/right,
+		/obj/structure/particle_accelerator/power_box,
+		/obj/structure/particle_accelerator/end_cap,
+	)
 	cost = 50
 	containername = "ящик с деталями ускорителя частиц"
 	container_ru_names = list(
@@ -1691,16 +1855,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с деталями ускорителя частиц",
 		ACCUSATIVE = "ящик с деталями ускорителя частиц",
 		INSTRUMENTAL = "ящиком с деталями ускорителя частиц",
-		PREPOSITIONAL = "ящике с деталями ускорителя частиц"
+		PREPOSITIONAL = "ящике с деталями ускорителя частиц",
 	)
 	access = ACCESS_CE
 	required_tech = list("powerstorage" = 4, "magnets" = 4, "materials" = 3)
 
 /datum/supply_packs/engineering/inflatable
 	name = "Надувные заграждения"
-	contains = list(/obj/item/storage/briefcase/inflatable,
-					/obj/item/storage/briefcase/inflatable,
-					/obj/item/storage/briefcase/inflatable)
+	contains = list(
+		/obj/item/storage/briefcase/inflatable,
+		/obj/item/storage/briefcase/inflatable,
+		/obj/item/storage/briefcase/inflatable,
+	)
 	cost = 10
 	containername = "ящик надувных заграждений"
 	container_ru_names = list(
@@ -1709,12 +1875,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику надувных заграждений",
 		ACCUSATIVE = "ящик надувных заграждений",
 		INSTRUMENTAL = "ящиком надувных заграждений",
-		PREPOSITIONAL = "ящике надувных заграждений"
+		PREPOSITIONAL = "ящике надувных заграждений",
 	)
 
 /datum/supply_packs/engineering/engine/supermatter_shard
 	name = "Осколок суперматерии"
-	contains = list(/obj/machinery/power/supermatter_shard)
+	contains = list(
+		/obj/machinery/power/supermatter_shard,
+	)
 	cost = 150 //So cargo thinks twice before killing themselves with it
 	containername = "ящик с осколком суперматерии"
 	container_ru_names = list(
@@ -1723,7 +1891,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с осколком суперматерии",
 		ACCUSATIVE = "ящик с осколком суперматерии",
 		INSTRUMENTAL = "ящиком с осколком суперматерии",
-		PREPOSITIONAL = "ящике с осколком суперматерии"
+		PREPOSITIONAL = "ящике с осколком суперматерии",
 	)
 	access = ACCESS_CE
 	required_tech = list("materials" = 7)
@@ -1733,7 +1901,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/machinery/power/generator,
 		/obj/item/pipe/circulator,
-		/obj/item/pipe/circulator)
+		/obj/item/pipe/circulator,
+	)
 	cost = 225
 	containername = "ящик деталей термоэлектрического генератора"
 	container_ru_names = list(
@@ -1742,7 +1911,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей термоэлектрического генератора",
 		ACCUSATIVE = "ящик деталей термоэлектрического генератора",
 		INSTRUMENTAL = "ящиком деталей термоэлектрического генератора",
-		PREPOSITIONAL = "ящике деталей термоэлектрического генератора"
+		PREPOSITIONAL = "ящике деталей термоэлектрического генератора",
 	)
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
@@ -1750,14 +1919,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/conveyor
 	name = "Детали конвейерной ленты"
-	contains = list(/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_switch_construct,
-					/obj/item/paper/conveyor)
+	contains = list(
+		/obj/item/conveyor_construct,
+		/obj/item/conveyor_construct,
+		/obj/item/conveyor_construct,
+		/obj/item/conveyor_construct,
+		/obj/item/conveyor_construct,
+		/obj/item/conveyor_construct,
+		/obj/item/conveyor_switch_construct,
+		/obj/item/paper/conveyor,
+	)
 	cost = 15
 	containername = "ящик деталей конвейерной ленты"
 	container_ru_names = list(
@@ -1766,13 +1937,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей конвейерной ленты",
 		ACCUSATIVE = "ящик деталей конвейерной ленты",
 		INSTRUMENTAL = "ящиком деталей конвейерной ленты",
-		PREPOSITIONAL = "ящике деталей конвейерной ленты"
+		PREPOSITIONAL = "ящике деталей конвейерной ленты",
 	)
 
 /datum/supply_packs/engineering/engine/magboots
 	name = "Магбутсы"
-	contains = list(/obj/item/clothing/shoes/magboots,
-					/obj/item/clothing/shoes/magboots)
+	contains = list(
+		/obj/item/clothing/shoes/magboots,
+		/obj/item/clothing/shoes/magboots,
+	)
 	cost = 50
 	containername = "ящик магбутсов"
 	container_ru_names = list(
@@ -1781,13 +1954,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику магбутсов",
 		ACCUSATIVE = "ящик магбутсов",
 		INSTRUMENTAL = "ящиком магбутсов",
-		PREPOSITIONAL = "ящике магбутсов"
+		PREPOSITIONAL = "ящике магбутсов",
 	)
 	required_tech = list("magnets" = 4, "engineering" = 4)
 
 /datum/supply_packs/engineering/permit
 	name = "Разрешение на строительство"
-	contains = list(/obj/item/areaeditor/permit)
+	contains = list(
+		/obj/item/areaeditor/permit,
+	)
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "ящик с разрешением на строительство"
@@ -1797,7 +1972,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с разрешением на строительство",
 		ACCUSATIVE = "ящик с разрешением на строительство",
 		INSTRUMENTAL = "ящиком с разрешением на строительство",
-		PREPOSITIONAL = "ящике с разрешением на строительство"
+		PREPOSITIONAL = "ящике с разрешением на строительство",
 	)
 	access = ACCESS_CE
 
@@ -1814,17 +1989,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "пустому ящику с задачей смены",
 		ACCUSATIVE = "пустой ящик с задачей смены",
 		INSTRUMENTAL = "пустым ящиком с задачей смены",
-		PREPOSITIONAL = "пустом ящике с задачей смены"
+		PREPOSITIONAL = "пустом ящике с задачей смены",
 	)
 	containertype = /obj/structure/closet/crate/engineering
 
 /datum/supply_packs/misc/station_goal/bsa
 	name = "Детали блюспейс-артиллерии"
 	cost = 300
-	contains = list(/obj/item/circuitboard/machine/bsa/front,
-					/obj/item/circuitboard/machine/bsa/middle,
-					/obj/item/circuitboard/machine/bsa/back,
-					/obj/item/circuitboard/computer/bsa_control)
+	contains = list(
+		/obj/item/circuitboard/machine/bsa/front,
+		/obj/item/circuitboard/machine/bsa/middle,
+		/obj/item/circuitboard/machine/bsa/back,
+		/obj/item/circuitboard/computer/bsa_control,
+	)
 	containername = "ящик деталей блюспейс-артиллерии"
 	container_ru_names = list(
 		NOMINATIVE = "ящик деталей блюспейс-артиллерии",
@@ -1832,15 +2009,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей блюспейс-артиллерии",
 		ACCUSATIVE = "ящик деталей блюспейс-артиллерии",
 		INSTRUMENTAL = "ящиком деталей блюспейс-артиллерии",
-		PREPOSITIONAL = "ящике деталей блюспейс-артиллерии"
+		PREPOSITIONAL = "ящике деталей блюспейс-артиллерии",
 	)
 	required_tech = list("powerstorage" = 6, "engineering" = 4, "combat" = 6, "bluespace" = 7)
 
 /datum/supply_packs/misc/station_goal/bluespace_tap
 	name = "Детали блюспейс-сборщика"
 	cost = 300
-	contains = list(/obj/item/circuitboard/machine/bluespace_tap,
-					/obj/item/paper/bluespace_tap)
+	contains = list(
+		/obj/item/circuitboard/machine/bluespace_tap,
+		/obj/item/paper/bluespace_tap,
+	)
 	containername = "ящик деталей блюспейс-сборщика"
 	container_ru_names = list(
 		NOMINATIVE = "ящик деталей блюспейс-сборщика",
@@ -1848,14 +2027,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей блюспейс-сборщика",
 		ACCUSATIVE = "ящик деталей блюспейс-сборщика",
 		INSTRUMENTAL = "ящиком деталей блюспейс-сборщика",
-		PREPOSITIONAL = "ящике деталей блюспейс-сборщика"
+		PREPOSITIONAL = "ящике деталей блюспейс-сборщика",
 	)
 	required_tech = list("powerstorage" = 7, "engineering" = 4, "magnets" = 6, "bluespace" = 5)
 
 /datum/supply_packs/misc/station_goal/dna_vault
 	name = "Детали хранилища ДНК"
 	cost = 250
-	contains = list(/obj/item/circuitboard/machine/dna_vault)
+	contains = list(
+		/obj/item/circuitboard/machine/dna_vault,
+	)
 	containername = "ящик деталей хранилища ДНК"
 	container_ru_names = list(
 		NOMINATIVE = "ящик деталей хранилища ДНК",
@@ -1863,18 +2044,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей хранилища ДНК",
 		ACCUSATIVE = "ящик деталей хранилища ДНК",
 		INSTRUMENTAL = "ящиком деталей хранилища ДНК",
-		PREPOSITIONAL = "ящике деталей хранилища ДНК"
+		PREPOSITIONAL = "ящике деталей хранилища ДНК",
 	)
 	required_tech = list("engineering" = 4, "programming" = 7, "bluespace" = 3)
 
 /datum/supply_packs/misc/station_goal/dna_probes
 	name = "Семплеры ДНК"
 	cost = 30
-	contains = list(/obj/item/dna_probe,
-					/obj/item/dna_probe,
-					/obj/item/dna_probe,
-					/obj/item/dna_probe,
-					/obj/item/dna_probe)
+	contains = list(
+		/obj/item/dna_probe,
+		/obj/item/dna_probe,
+		/obj/item/dna_probe,
+		/obj/item/dna_probe,
+		/obj/item/dna_probe,
+	)
 	containername = "ящик сэмплеров ДНК"
 	container_ru_names = list(
 		NOMINATIVE = "ящик сэмплеров ДНК",
@@ -1882,17 +2065,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику сэмплеров ДНК",
 		ACCUSATIVE = "ящик сэмплеров ДНК",
 		INSTRUMENTAL = "ящиком сэмплеров ДНК",
-		PREPOSITIONAL = "ящике сэмплеров ДНК"
+		PREPOSITIONAL = "ящике сэмплеров ДНК",
 	)
 	required_tech = list("biotech" = 6, "programming" = 5)
 
 /datum/supply_packs/misc/station_goal/shield_sat
 	name = "Метеоритные щиты"
 	cost = 100
-	contains = list(/obj/machinery/satellite/meteor_shield,
-					/obj/machinery/satellite/meteor_shield,
-					/obj/machinery/satellite/meteor_shield,
-					/obj/machinery/satellite/meteor_shield,)
+	contains = list(
+		/obj/machinery/satellite/meteor_shield,
+		/obj/machinery/satellite/meteor_shield,
+		/obj/machinery/satellite/meteor_shield,
+		/obj/machinery/satellite/meteor_shield,
+	)
 	containername = "ящик метеоритных щитов"
 	container_ru_names = list(
 		NOMINATIVE = "ящик метеоритных щитов",
@@ -1900,30 +2085,34 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику метеоритных щитов",
 		ACCUSATIVE = "ящик метеоритных щитов",
 		INSTRUMENTAL = "ящиком метеоритных щитов",
-		PREPOSITIONAL = "ящике метеоритных щитов"
+		PREPOSITIONAL = "ящике метеоритных щитов",
 	)
 	required_tech = list("combat" = 6, "programming" = 3)
 
 /datum/supply_packs/misc/station_goal/shield_sat_control
-	name = "Плата консоами обработки метеоритными щитами"
+	name = "Плата консоли управления метеоритными щитами"
 	cost = 60
-	contains = list(/obj/item/circuitboard/computer/sat_control)
-	containername = "ящик с консолами обработки метеоритными щитами"
+	contains = list(
+		/obj/item/circuitboard/computer/sat_control,
+	)
+	containername = "ящик с консолью управления метеоритными щитами"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с консолами обработки метеоритными щитами",
-		GENITIVE = "ящика с консолами обработки метеоритными щитами",
-		DATIVE = "ящику с консолами обработки метеоритными щитами",
-		ACCUSATIVE = "ящик с консолами обработки метеоритными щитами",
-		INSTRUMENTAL = "ящиком с консолами обработки метеоритными щитами",
-		PREPOSITIONAL = "ящике с консолами обработки метеоритными щитами"
+		NOMINATIVE = "ящик с консолью управления метеоритными щитами",
+		GENITIVE = "ящика с консолью управления метеоритными щитами",
+		DATIVE = "ящику с консолью управления метеоритными щитами",
+		ACCUSATIVE = "ящик с консолью управления метеоритными щитами",
+		INSTRUMENTAL = "ящиком с консолью управления метеоритными щитами",
+		PREPOSITIONAL = "ящике с консолью управления метеоритными щитами",
 	)
 	required_tech = list("powerstorage" = 4, "programming" = 5, "magnets" = 4)
 
 /datum/supply_packs/misc/station_goal/bfl
 	name = "Детали ОБЛ"
 	cost = 50
-	contains = list(/obj/item/circuitboard/machine/bfl_emitter,
-					/obj/item/circuitboard/machine/bfl_receiver)
+	contains = list(
+		/obj/item/circuitboard/machine/bfl_emitter,
+		/obj/item/circuitboard/machine/bfl_receiver,
+	)
 	containername = "ящик деталей ОБЛ"
 	container_ru_names = list(
 		NOMINATIVE = "ящик деталей ОБЛ",
@@ -1931,14 +2120,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей ОБЛ",
 		ACCUSATIVE = "ящик деталей ОБЛ",
 		INSTRUMENTAL = "ящиком деталей ОБЛ",
-		PREPOSITIONAL = "ящике деталей ОБЛ"
+		PREPOSITIONAL = "ящике деталей ОБЛ",
 	)
 	required_tech = list("engineering" = 5, "powerstorage" = 4, "bluespace" = 6, "plasmatech" = 6)
 
 /datum/supply_packs/misc/station_goal/bfl_lens
 	name = "Линза ОБЛ"
 	cost = 100
-	contains = list(/obj/machinery/bfl_lens)
+	contains = list(
+		/obj/machinery/bfl_lens,
+	)
 	containername = "ящик с линзой ОБЛ"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с линзой ОБЛ",
@@ -1946,28 +2137,30 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с линзой ОБЛ",
 		ACCUSATIVE = "ящик с линзой ОБЛ",
 		INSTRUMENTAL = "ящиком с линзой ОБЛ",
-		PREPOSITIONAL = "ящике с линзой ОБЛ"
+		PREPOSITIONAL = "ящике с линзой ОБЛ",
 	)
 	required_tech = list("materials" = 7, "bluespace" = 4)
 
 /datum/supply_packs/misc/station_goal/bfl_goal
 	name = "Награда за постройку ОБЛ"
 	cost = 3000
-	contains = list(/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes,
-					/obj/item/paper/researchnotes)
+	contains = list(
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+		/obj/item/paper/researchnotes,
+	)
 	containername = "ящик с наградой за постройку ОБЛ"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с наградой за постройку ОБЛ",
@@ -1975,7 +2168,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с наградой за постройку ОБЛ",
 		ACCUSATIVE = "ящик с наградой за постройку ОБЛ",
 		INSTRUMENTAL = "ящиком с наградой за постройку ОБЛ",
-		PREPOSITIONAL = "ящике с наградой за постройку ОБЛ"
+		PREPOSITIONAL = "ящике с наградой за постройку ОБЛ",
 	)
 
 /datum/supply_packs/misc/station_goal/bluespace_rift
@@ -1986,14 +2179,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/disk/design_disk/station_goal_machinery/brs_portable_scanner,
 		/obj/item/disk/design_disk/station_goal_machinery/brs_stationary_scanner,
 	)
-	containername = "ящик с набором сканирования БС-разлома"
+	containername = "ящи с набором сканирования БС-разлома"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с набором сканирования БС-разлома",
 		GENITIVE = "ящика с набором сканирования БС-разлома",
 		DATIVE = "ящику с набором сканирования БС-разлома",
 		ACCUSATIVE = "ящик с набором сканирования БС-разлома",
 		INSTRUMENTAL = "ящиком с набором сканирования БС-разлома",
-		PREPOSITIONAL = "ящике с набором сканирования БС-разлома"
+		PREPOSITIONAL = "ящике с набором сканирования БС-разлома",
 	)
 	containertype = /obj/structure/closet/crate/sci
 	required_tech = list("engineering" = 3, "programming" = 6, "bluespace" = 7)
@@ -2012,49 +2205,69 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с дискетой технологий",
 		ACCUSATIVE = "ящик с дискетой технологий",
 		INSTRUMENTAL = "ящиком с дискетой технологий",
-		PREPOSITIONAL = "ящике с дискетой технологий"
+		PREPOSITIONAL = "ящике с дискетой технологий",
 	)
 	containertype = /obj/structure/closet/crate/secure/scisec
 	access = ACCESS_RESEARCH
 
 /datum/supply_packs/misc/htdisk/materials
-	contains = list(/obj/item/disk/tech_disk/loaded/materials)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/materials,
+	)
 	name = "Дискета технологий (Материалы)"
 
 /datum/supply_packs/misc/htdisk/engineering
-	contains = list(/obj/item/disk/tech_disk/loaded/engineering)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/engineering,
+	)
 	name = "Дискета технологий (Инженерия)"
 
 /datum/supply_packs/misc/htdisk/plasmatech
-	contains = list(/obj/item/disk/tech_disk/loaded/plasmatech)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/plasmatech,
+	)
 	name = "Дискета технологий (Плазма)"
 
 /datum/supply_packs/misc/htdisk/powerstorage
-	contains = list(/obj/item/disk/tech_disk/loaded/powerstorage)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/powerstorage,
+	)
 	name = "Дискета технологий (Электроэнергия)"
 
 /datum/supply_packs/misc/htdisk/bluespace
-	contains = list(/obj/item/disk/tech_disk/loaded/bluespace)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/bluespace,
+	)
 	name = "Дискета технологий (Блюспейс)"
 
 /datum/supply_packs/misc/htdisk/biotech
-	contains = list(/obj/item/disk/tech_disk/loaded/biotech)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/biotech,
+	)
 	name = "Дискета технологий (Биотехнологии)"
 
 /datum/supply_packs/misc/htdisk/combat
-	contains = list(/obj/item/disk/tech_disk/loaded/combat)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/combat,
+	)
 	name = "Дискета технологий (Боевые технологии)"
 
 /datum/supply_packs/misc/htdisk/magnets
-	contains = list(/obj/item/disk/tech_disk/loaded/magnets)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/magnets,
+	)
 	name = "Дискета технологий (Электромагнитный спектр)"
 
 /datum/supply_packs/misc/htdisk/programming
-	contains = list(/obj/item/disk/tech_disk/loaded/programming)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/programming,
+	)
 	name = "искета технологий (Программная инженерия)"
 
 /datum/supply_packs/misc/htdisk/toxins
-	contains = list(/obj/item/disk/tech_disk/loaded/toxins)
+	contains = list(
+		/obj/item/disk/tech_disk/loaded/toxins,
+	)
 	name = "Дискета технологий (Токсикология)"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -2067,12 +2280,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	group = SUPPLY_MEDICAL
 	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"), "Security" = list("Brig Medbay"))
 
+
 /datum/supply_packs/medical/modsuit
 	name = "Медицинские МЭК"
-	contains = list(/obj/item/mod/control/pre_equipped/medical,
-					/obj/item/mod/control/pre_equipped/medical,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath)
+	contains = list(
+		/obj/item/mod/control/pre_equipped/medical,
+		/obj/item/mod/control/pre_equipped/medical,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+	)
 	cost = 130
 	containertype = /obj/structure/closet/crate/secure
 	required_tech = list("toxins" = 4, "biotech" = 5)
@@ -2083,30 +2299,32 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику медицинских МЭК",
 		ACCUSATIVE = "ящик медицинских МЭК",
 		INSTRUMENTAL = "ящиком медицинских МЭК",
-		PREPOSITIONAL = "ящике медицинских МЭК"
+		PREPOSITIONAL = "ящике медицинских МЭК",
 	)
 	access = ACCESS_MEDICAL
 
 
 /datum/supply_packs/medical/supplies
 	name = "Медицинское снабжение"
-	contains = list(/obj/item/reagent_containers/glass/bottle/charcoal,
-					/obj/item/reagent_containers/glass/bottle/charcoal,
-					/obj/item/reagent_containers/glass/bottle/epinephrine,
-					/obj/item/reagent_containers/glass/bottle/epinephrine,
-					/obj/item/reagent_containers/glass/bottle/morphine,
-					/obj/item/reagent_containers/glass/bottle/morphine,
-					/obj/item/reagent_containers/glass/bottle/toxin,
-					/obj/item/reagent_containers/glass/bottle/toxin,
-					/obj/item/reagent_containers/glass/beaker/large,
-					/obj/item/reagent_containers/glass/beaker/large,
-					/obj/item/stack/medical/bruise_pack,
-					/obj/item/reagent_containers/iv_bag/salglu,
-					/obj/item/storage/box/beakers,
-					/obj/item/storage/box/syringes,
-					/obj/item/storage/box/bodybags,
-					/obj/item/storage/box/iv_bags,
-					/obj/item/vending_refill/medical)
+	contains = list(
+		/obj/item/reagent_containers/glass/bottle/charcoal,
+		/obj/item/reagent_containers/glass/bottle/charcoal,
+		/obj/item/reagent_containers/glass/bottle/epinephrine,
+		/obj/item/reagent_containers/glass/bottle/epinephrine,
+		/obj/item/reagent_containers/glass/bottle/morphine,
+		/obj/item/reagent_containers/glass/bottle/morphine,
+		/obj/item/reagent_containers/glass/bottle/toxin,
+		/obj/item/reagent_containers/glass/bottle/toxin,
+		/obj/item/reagent_containers/glass/beaker/large,
+		/obj/item/reagent_containers/glass/beaker/large,
+		/obj/item/stack/medical/bruise_pack,
+		/obj/item/reagent_containers/iv_bag/salglu,
+		/obj/item/storage/box/beakers,
+		/obj/item/storage/box/syringes,
+		/obj/item/storage/box/bodybags,
+		/obj/item/storage/box/iv_bags,
+		/obj/item/vending_refill/medical,
+	)
 	cost = 90
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик медицинского снабжения"
@@ -2116,16 +2334,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику медицинского снабжения",
 		ACCUSATIVE = "ящик медицинского снабжения",
 		INSTRUMENTAL = "ящиком медицинского снабжения",
-		PREPOSITIONAL = "ящике медицинского снабжения"
+		PREPOSITIONAL = "ящике медицинского снабжения",
 	)
 	access = ACCESS_MEDICAL
 
 /datum/supply_packs/medical/firstaid
 	name = "Аптечки первой помощи"
-	contains = list(/obj/item/storage/firstaid/regular,
-					/obj/item/storage/firstaid/regular,
-					/obj/item/storage/firstaid/regular,
-					/obj/item/storage/firstaid/regular)
+	contains = list(
+		/obj/item/storage/firstaid/regular,
+		/obj/item/storage/firstaid/regular,
+		/obj/item/storage/firstaid/regular,
+		/obj/item/storage/firstaid/regular,
+	)
 	cost = 15
 	containername = "ящик аптечек первой помощи"
 	container_ru_names = list(
@@ -2134,15 +2354,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи",
 		ACCUSATIVE = "ящик аптечек первой помощи",
 		INSTRUMENTAL = "ящиком аптечек первой помощи",
-		PREPOSITIONAL = "ящике аптечек первой помощи"
+		PREPOSITIONAL = "ящике аптечек первой помощи",
 	)
 
 /datum/supply_packs/medical/firstaidadv
 	name = "Продвинутые аптечки первой помощи"
-	contains = list(/obj/item/storage/firstaid/adv,
-					/obj/item/storage/firstaid/adv,
-					/obj/item/storage/firstaid/adv,
-					/obj/item/storage/firstaid/adv)
+	contains = list(
+		/obj/item/storage/firstaid/adv,
+		/obj/item/storage/firstaid/adv,
+		/obj/item/storage/firstaid/adv,
+		/obj/item/storage/firstaid/adv,
+	)
 	cost = 60
 	containername = "ящик продвинутых аптечек первой помощи"
 	container_ru_names = list(
@@ -2151,7 +2373,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику продвинутых аптечек первой помощи",
 		ACCUSATIVE = "ящик продвинутых аптечек первой помощи",
 		INSTRUMENTAL = "ящиком продвинутых аптечек первой помощи",
-		PREPOSITIONAL = "ящике продвинутых аптечек первой помощи"
+		PREPOSITIONAL = "ящике продвинутых аптечек первой помощи",
 	)
 	access = ACCESS_MEDICAL
 	containertype = /obj/structure/closet/crate/secure
@@ -2159,9 +2381,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/firstaibrute
 	name = "Аптечки первой помощи (Мех.)"
-	contains = list(/obj/item/storage/firstaid/brute,
-					/obj/item/storage/firstaid/brute,
-					/obj/item/storage/firstaid/brute)
+	contains = list(
+		/obj/item/storage/firstaid/brute,
+		/obj/item/storage/firstaid/brute,
+		/obj/item/storage/firstaid/brute,
+	)
 	cost = 40
 	containername = "ящик аптечек первой помощи (Мех.)"
 	container_ru_names = list(
@@ -2170,16 +2394,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи (Мех.)",
 		ACCUSATIVE = "ящик аптечек первой помощи (Мех.)",
 		INSTRUMENTAL = "ящиком аптечек первой помощи (Мех.)",
-		PREPOSITIONAL = "ящике аптечек первой помощи (Мех.)"
+		PREPOSITIONAL = "ящике аптечек первой помощи (Мех.)",
 	)
 	access = ACCESS_MEDICAL
 	containertype = /obj/structure/closet/crate/secure
 
 /datum/supply_packs/medical/firstaidburns
 	name = "Аптечки первой помощи (Терм.)"
-	contains = list(/obj/item/storage/firstaid/fire,
-					/obj/item/storage/firstaid/fire,
-					/obj/item/storage/firstaid/fire)
+	contains = list(
+		/obj/item/storage/firstaid/fire,
+		/obj/item/storage/firstaid/fire,
+		/obj/item/storage/firstaid/fire,
+	)
 	cost = 40
 	containername = "ящик аптечек первой помощи (Терм.)"
 	container_ru_names = list(
@@ -2188,16 +2414,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи (Терм.)",
 		ACCUSATIVE = "ящик аптечек первой помощи (Терм.)",
 		INSTRUMENTAL = "ящиком аптечек первой помощи (Терм.)",
-		PREPOSITIONAL = "ящике аптечек первой помощи (Терм.)"
+		PREPOSITIONAL = "ящике аптечек первой помощи (Терм.)",
 	)
 	access = ACCESS_MEDICAL
 	containertype = /obj/structure/closet/crate/secure
 
 /datum/supply_packs/medical/firstaidtoxins
 	name = "Аптечки первой помощи (Отравления)"
-	contains = list(/obj/item/storage/firstaid/toxin,
-					/obj/item/storage/firstaid/toxin,
-					/obj/item/storage/firstaid/toxin)
+	contains = list(
+		/obj/item/storage/firstaid/toxin,
+		/obj/item/storage/firstaid/toxin,
+		/obj/item/storage/firstaid/toxin,
+	)
 	cost = 20
 	containername = "ящик аптечек первой помощи (Отравления)"
 	container_ru_names = list(
@@ -2206,14 +2434,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи (Отравления)",
 		ACCUSATIVE = "ящик аптечек первой помощи (Отравления)",
 		INSTRUMENTAL = "ящиком аптечек первой помощи (Отравления)",
-		PREPOSITIONAL = "ящике аптечек первой помощи (Отравления)"
+		PREPOSITIONAL = "ящике аптечек первой помощи (Отравления)",
 	)
 
 /datum/supply_packs/medical/firstaidoxygen
 	name = "Аптечки первой помощи (Удушье)"
-	contains = list(/obj/item/storage/firstaid/o2,
-					/obj/item/storage/firstaid/o2,
-					/obj/item/storage/firstaid/o2)
+	contains = list(
+		/obj/item/storage/firstaid/o2,
+		/obj/item/storage/firstaid/o2,
+		/obj/item/storage/firstaid/o2,
+	)
 	cost = 15
 	containername = "ящик аптечек первой помощи (Удушье)"
 	container_ru_names = list(
@@ -2222,12 +2452,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику аптечек первой помощи (Удушье)",
 		ACCUSATIVE = "ящик аптечек первой помощи (Удушье)",
 		INSTRUMENTAL = "ящиком аптечек первой помощи (Удушье)",
-		PREPOSITIONAL = "ящике аптечек первой помощи (Удушье)"
+		PREPOSITIONAL = "ящике аптечек первой помощи (Удушье)",
 	)
 
 /datum/supply_packs/medical/straightjacket
 	name = "Смирительная рубашка"
-	contains = list(/obj/item/clothing/suit/straight_jacket)
+	contains = list(
+		/obj/item/clothing/suit/straight_jacket,
+	)
 	cost = 40
 	containername = "ящик со смирительной рубашкой"
 	container_ru_names = list(
@@ -2236,27 +2468,29 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со смирительной рубашкой",
 		ACCUSATIVE = "ящик со смирительной рубашкой",
 		INSTRUMENTAL = "ящиком со смирительной рубашкой",
-		PREPOSITIONAL = "ящике со смирительной рубашкой"
+		PREPOSITIONAL = "ящике со смирительной рубашкой",
 	)
 
 /datum/supply_packs/medical/virus
 	name = "Вирусные образцы"
-	contains = list(/obj/item/reagent_containers/glass/bottle/flu,
-					/obj/item/reagent_containers/glass/bottle/cold,
-					/obj/item/reagent_containers/glass/bottle/sneezing,
-					/obj/item/reagent_containers/glass/bottle/cough,
-					/obj/item/reagent_containers/glass/bottle/epiglottis_virion,
-					/obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
-					/obj/item/reagent_containers/glass/bottle/fake_gbs,
-					/obj/item/reagent_containers/glass/bottle/magnitis,
-					/obj/item/reagent_containers/glass/bottle/pierrot_throat,
-					/obj/item/reagent_containers/glass/bottle/brainrot,
-					/obj/item/reagent_containers/glass/bottle/hullucigen_virion,
-					/obj/item/reagent_containers/glass/bottle/anxiety,
-					/obj/item/reagent_containers/glass/bottle/beesease,
-					/obj/item/storage/box/syringes,
-					/obj/item/storage/box/beakers,
-					/obj/item/reagent_containers/glass/bottle/mutagen)
+	contains = list(
+		/obj/item/reagent_containers/glass/bottle/flu,
+		/obj/item/reagent_containers/glass/bottle/cold,
+		/obj/item/reagent_containers/glass/bottle/sneezing,
+		/obj/item/reagent_containers/glass/bottle/cough,
+		/obj/item/reagent_containers/glass/bottle/epiglottis_virion,
+		/obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
+		/obj/item/reagent_containers/glass/bottle/fake_gbs,
+		/obj/item/reagent_containers/glass/bottle/magnitis,
+		/obj/item/reagent_containers/glass/bottle/pierrot_throat,
+		/obj/item/reagent_containers/glass/bottle/brainrot,
+		/obj/item/reagent_containers/glass/bottle/hullucigen_virion,
+		/obj/item/reagent_containers/glass/bottle/anxiety,
+		/obj/item/reagent_containers/glass/bottle/beesease,
+		/obj/item/storage/box/syringes,
+		/obj/item/storage/box/beakers,
+		/obj/item/reagent_containers/glass/bottle/mutagen,
+	)
 	cost = 150
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик с вирусными образцами"
@@ -2266,7 +2500,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с вирусными образцами",
 		ACCUSATIVE = "ящик с вирусными образцами",
 		INSTRUMENTAL = "ящиком с вирусными образцами",
-		PREPOSITIONAL = "ящике с вирусными образцами"
+		PREPOSITIONAL = "ящике с вирусными образцами",
 	)
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
@@ -2274,8 +2508,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/cloning
 	name = "Платы клонировальной машины"
-	contains = list(/obj/item/circuitboard/clonepod,
-					/obj/item/circuitboard/cloning)
+	contains = list(
+		/obj/item/circuitboard/clonepod,
+		/obj/item/circuitboard/cloning,
+	)
 	cost = 350
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с платами клонировальной машины"
@@ -2285,7 +2521,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с платами клонировальной машины",
 		ACCUSATIVE = "ящик с платами клонировальной машины",
 		INSTRUMENTAL = "ящиком с платами клонировальной машины",
-		PREPOSITIONAL = "ящике с платами клонировальной машины"
+		PREPOSITIONAL = "ящике с платами клонировальной машины",
 	)
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Chief Medical Officer's Desk"))
@@ -2293,8 +2529,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/medical/vending
 	name = "Наборы пополнения медицинских торгоматов"
 	cost = 150
-	contains = list(/obj/item/vending_refill/medical,
-					/obj/item/vending_refill/wallmed)
+	contains = list(
+		/obj/item/vending_refill/medical,
+		/obj/item/vending_refill/wallmed,
+	)
 	containername = "ящик наборов пополнения медицинских торгоматов"
 	container_ru_names = list(
 		NOMINATIVE = "ящик наборов пополнения медицинских торгоматов",
@@ -2302,7 +2540,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику наборов пополнения медицинских торгоматов",
 		ACCUSATIVE = "ящик наборов пополнения медицинских торгоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения медицинских торгоматов",
-		PREPOSITIONAL = "ящике наборов пополнения медицинских торгоматов"
+		PREPOSITIONAL = "ящике наборов пополнения медицинских торгоматов",
 	)
 	containertype = /obj/structure/closet/crate/secure
 	access = ACCESS_MEDICAL
@@ -2310,10 +2548,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/bloodpacks_syn_oxygenis
 	name = "Синтетическая кровь (Кислород)"
-	contains = list(/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis)
+	contains = list(
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+	)
 	cost = 300
 	containertype = /obj/structure/closet/crate/secure/blood/oxygenis
 	containername = "ящик синетической крови (Кислород)"
@@ -2323,17 +2563,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику синетической крови (Кислород)",
 		ACCUSATIVE = "ящик синетической крови (Кислород)",
 		INSTRUMENTAL = "ящиком синетической крови (Кислород)",
-		PREPOSITIONAL = "ящике синетической крови (Кислород)"
+		PREPOSITIONAL = "ящике синетической крови (Кислород)",
 	)
 	access = ACCESS_MEDICAL
 	required_tech = list("biotech" = 6, "toxins" = 3)
 
 /datum/supply_packs/medical/bloodpacks_syn_nitrogenis
 	name = "Синтетическая кровь (Азот)"
-	contains = list(/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis)
+	contains = list(
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+	)
 	cost = 300
 	containertype = /obj/structure/closet/crate/secure/blood/nitrogenis
 	containername = "ящик синтетической крови (Азот)"
@@ -2343,21 +2585,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику синтетической крови (Азот)",
 		ACCUSATIVE = "ящик синтетической крови (Азот)",
 		INSTRUMENTAL = "ящиком синтетической крови (Азот)",
-		PREPOSITIONAL = "ящике синтетической крови (Азот)"
+		PREPOSITIONAL = "ящике синтетической крови (Азот)",
 	)
 	access = ACCESS_MEDICAL
 	required_tech = list("biotech" = 6, "toxins" = 3)
 
 /datum/supply_packs/medical/bloodpacks_human
 	name = "Пакеты крови (Человек)"
-	contains = list(/obj/item/reagent_containers/iv_bag/blood/ABPlus,
-					/obj/item/reagent_containers/iv_bag/blood/ABMinus,
-					/obj/item/reagent_containers/iv_bag/blood/APlus,
-					/obj/item/reagent_containers/iv_bag/blood/AMinus,
-					/obj/item/reagent_containers/iv_bag/blood/BPlus,
-					/obj/item/reagent_containers/iv_bag/blood/BMinus,
-					/obj/item/reagent_containers/iv_bag/blood/OPlus,
-					/obj/item/reagent_containers/iv_bag/blood/OMinus)
+	contains = list(
+		/obj/item/reagent_containers/iv_bag/blood/ABPlus,
+		/obj/item/reagent_containers/iv_bag/blood/ABMinus,
+		/obj/item/reagent_containers/iv_bag/blood/APlus,
+		/obj/item/reagent_containers/iv_bag/blood/AMinus,
+		/obj/item/reagent_containers/iv_bag/blood/BPlus,
+		/obj/item/reagent_containers/iv_bag/blood/BMinus,
+		/obj/item/reagent_containers/iv_bag/blood/OPlus,
+		/obj/item/reagent_containers/iv_bag/blood/OMinus,
+	)
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/blood
 	containername = "ящик пакетов крови (Человек)"
@@ -2367,22 +2611,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику пакетов крови (Человек)",
 		ACCUSATIVE = "ящик пакетов крови (Человек)",
 		INSTRUMENTAL = "ящиком пакетов крови (Человек)",
-		PREPOSITIONAL = "ящике пакетов крови (Человек)"
+		PREPOSITIONAL = "ящике пакетов крови (Человек)",
 	)
 	access = ACCESS_MEDICAL
 	required_tech = list("biotech" = 3)
 
 /datum/supply_packs/medical/bloodpacks_xenos
 	name = "Пакеты крови (Ксеносы)"
-	contains = list(/obj/item/reagent_containers/iv_bag/blood/skrell,
-					/obj/item/reagent_containers/iv_bag/blood/tajaran,
-					/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-					/obj/item/reagent_containers/iv_bag/blood/unathi,
-					/obj/item/reagent_containers/iv_bag/blood/kidan,
-					/obj/item/reagent_containers/iv_bag/blood/grey,
-					/obj/item/reagent_containers/iv_bag/blood/diona,
-					/obj/item/reagent_containers/iv_bag/blood/wryn,
-					/obj/item/reagent_containers/iv_bag/blood/nian)
+	contains = list(
+		/obj/item/reagent_containers/iv_bag/blood/skrell,
+		/obj/item/reagent_containers/iv_bag/blood/tajaran,
+		/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
+		/obj/item/reagent_containers/iv_bag/blood/unathi,
+		/obj/item/reagent_containers/iv_bag/blood/kidan,
+		/obj/item/reagent_containers/iv_bag/blood/grey,
+		/obj/item/reagent_containers/iv_bag/blood/diona,
+		/obj/item/reagent_containers/iv_bag/blood/wryn,
+		/obj/item/reagent_containers/iv_bag/blood/nian,
+	)
 	cost = 65
 	containertype = /obj/structure/closet/crate/secure/blood/xeno
 	containername = "ящик пакетов крови (Ксеносы)"
@@ -2392,16 +2638,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику пакетов крови (Ксеносы)",
 		ACCUSATIVE = "ящик пакетов крови (Ксеносы)",
 		INSTRUMENTAL = "ящиком пакетов крови (Ксеносы)",
-		PREPOSITIONAL = "ящике пакетов крови (Ксеносы)"
+		PREPOSITIONAL = "ящике пакетов крови (Ксеносы)",
 	)
 	required_tech = list("biotech" = 3)
 
 /datum/supply_packs/medical/bloodpacks_syn_oxygenis_credit
 	name = "Synthetic Blood Pack Oxygenis"
-	contains = list(/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis)
+	contains = list(
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+	)
 	credits_cost = 6000
 	containertype = /obj/structure/closet/crate/secure
 	containername = "synthetic blood pack oxygenis crate"
@@ -2410,10 +2658,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/bloodpacks_syn_nitrogenis_credit
 	name = "Synthetic Blood Pack Nitrogenis"
-	contains = list(/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis)
+	contains = list(
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+	)
 	credits_cost = 6000
 	containertype = /obj/structure/closet/crate/secure
 	containername = "synthetic blood pack nitrogenis crate"
@@ -2422,14 +2672,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/bloodpacks_human_credit
 	name = "Human Blood Pack"
-	contains = list(/obj/item/reagent_containers/iv_bag/blood/ABPlus,
-					/obj/item/reagent_containers/iv_bag/blood/ABMinus,
-					/obj/item/reagent_containers/iv_bag/blood/APlus,
-					/obj/item/reagent_containers/iv_bag/blood/AMinus,
-					/obj/item/reagent_containers/iv_bag/blood/BPlus,
-					/obj/item/reagent_containers/iv_bag/blood/BMinus,
-					/obj/item/reagent_containers/iv_bag/blood/OPlus,
-					/obj/item/reagent_containers/iv_bag/blood/OMinus)
+	contains = list(
+		/obj/item/reagent_containers/iv_bag/blood/ABPlus,
+		/obj/item/reagent_containers/iv_bag/blood/ABMinus,
+		/obj/item/reagent_containers/iv_bag/blood/APlus,
+		/obj/item/reagent_containers/iv_bag/blood/AMinus,
+		/obj/item/reagent_containers/iv_bag/blood/BPlus,
+		/obj/item/reagent_containers/iv_bag/blood/BMinus,
+		/obj/item/reagent_containers/iv_bag/blood/OPlus,
+		/obj/item/reagent_containers/iv_bag/blood/OMinus,
+	)
 	credits_cost = 3000
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "human blood pack crate"
@@ -2437,15 +2689,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/bloodpacks_xenos_credit
 	name = "Xenos Blood Pack"
-	contains = list(/obj/item/reagent_containers/iv_bag/blood/skrell,
-					/obj/item/reagent_containers/iv_bag/blood/tajaran,
-					/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-					/obj/item/reagent_containers/iv_bag/blood/unathi,
-					/obj/item/reagent_containers/iv_bag/blood/kidan,
-					/obj/item/reagent_containers/iv_bag/blood/grey,
-					/obj/item/reagent_containers/iv_bag/blood/diona,
-					/obj/item/reagent_containers/iv_bag/blood/wryn,
-					/obj/item/reagent_containers/iv_bag/blood/nian)
+	contains = list(
+		/obj/item/reagent_containers/iv_bag/blood/skrell,
+		/obj/item/reagent_containers/iv_bag/blood/tajaran,
+		/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
+		/obj/item/reagent_containers/iv_bag/blood/unathi,
+		/obj/item/reagent_containers/iv_bag/blood/kidan,
+		/obj/item/reagent_containers/iv_bag/blood/grey,
+		/obj/item/reagent_containers/iv_bag/blood/diona,
+		/obj/item/reagent_containers/iv_bag/blood/wryn,
+		/obj/item/reagent_containers/iv_bag/blood/nian,
+	)
 	credits_cost = 3000
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "xenos blood pack crate"
@@ -2454,7 +2708,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/iv_drip
 	name = "Стойка для капельницы"
-	contains = list(/obj/machinery/iv_drip)
+	contains = list(
+		/obj/machinery/iv_drip,
+	)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик со стойкой для капельнцы"
@@ -2464,23 +2720,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со стойкой для капельнцы",
 		ACCUSATIVE = "ящик со стойкой для капельнцы",
 		INSTRUMENTAL = "ящиком со стойкой для капельнцы",
-		PREPOSITIONAL = "ящике со стойкой для капельнцы"
+		PREPOSITIONAL = "ящике со стойкой для капельнцы",
 	)
 	access = ACCESS_MEDICAL
 
 /datum/supply_packs/medical/surgery
 	name = "Хирургическое оборудование"
-	contains = list(/obj/item/cautery,
-					/obj/item/surgicaldrill,
-					/obj/item/clothing/mask/breath/medical,
-					/obj/item/tank/internals/anesthetic,
-					/obj/item/FixOVein,
-					/obj/item/hemostat,
-					/obj/item/scalpel,
-					/obj/item/bonegel,
-					/obj/item/retractor,
-					/obj/item/bonesetter,
-					/obj/item/circular_saw)
+	contains = list(
+		/obj/item/cautery,
+		/obj/item/surgicaldrill,
+		/obj/item/clothing/mask/breath/medical,
+		/obj/item/tank/internals/anesthetic,
+		/obj/item/FixOVein,
+		/obj/item/hemostat,
+		/obj/item/scalpel,
+		/obj/item/bonegel,
+		/obj/item/retractor,
+		/obj/item/bonesetter,
+		/obj/item/circular_saw,
+	)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с хирургическим оборудованием"
@@ -2490,20 +2748,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с хирургическим оборудованием",
 		ACCUSATIVE = "ящик с хирургическим оборудованием",
 		INSTRUMENTAL = "ящиком с хирургическим оборудованием",
-		PREPOSITIONAL = "ящике с хирургическим оборудованием"
+		PREPOSITIONAL = "ящике с хирургическим оборудованием",
 	)
 	access = ACCESS_MEDICAL
 
 /datum/supply_packs/medical/incision
 	name = "Системы обработки надрезов"
-	containername = "ящик с системами обработки надрезами"
+	containername = "ящик с системами обработки надрезов"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с системами обработки надрезами",
-		GENITIVE = "ящика с системами обработки надрезами",
-		DATIVE = "ящику с системами обработки надрезами",
-		ACCUSATIVE = "ящик с системами обработки надрезами",
-		INSTRUMENTAL = "ящиком с системами обработки надрезами",
-		PREPOSITIONAL = "ящике с системами обработки надрезами"
+		NOMINATIVE = "ящик с системами обработки надрезов",
+		GENITIVE = "ящика с системами обработки надрезов",
+		DATIVE = "ящику с системами обработки надрезов",
+		ACCUSATIVE = "ящик с системами обработки надрезов",
+		INSTRUMENTAL = "ящиком с системами обработки надрезов",
+		PREPOSITIONAL = "ящике с системами обработки надрезов",
 	)
 	cost = 180
 	contains = list(
@@ -2526,13 +2784,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/science/robotics
 	name = "Робототехнические детали"
-	contains = list(/obj/item/assembly/prox_sensor,
-					/obj/item/assembly/prox_sensor,
-					/obj/item/assembly/prox_sensor,
-					/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/box/flashes,
-					/obj/item/stock_parts/cell/high,
-					/obj/item/stock_parts/cell/high)
+	contains = list(
+		/obj/item/assembly/prox_sensor,
+		/obj/item/assembly/prox_sensor,
+		/obj/item/assembly/prox_sensor,
+		/obj/item/storage/toolbox/electrical,
+		/obj/item/storage/box/flashes,
+		/obj/item/stock_parts/cell/high,
+		/obj/item/stock_parts/cell/high,
+	)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик робототехнических деталей"
@@ -2542,7 +2802,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику робототехнических деталей",
 		ACCUSATIVE = "ящик робототехнических деталей",
 		INSTRUMENTAL = "ящиком робототехнических деталей",
-		PREPOSITIONAL = "ящике робототехнических деталей"
+		PREPOSITIONAL = "ящике робототехнических деталей",
 	)
 	access = ACCESS_ROBOTICS
 	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
@@ -2550,9 +2810,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/science/robotics/mecha_ripley
 	name = "Набор плат (АТМЕ \"Рипли\")"
-	contains = list(/obj/item/book/manual/ripley_build_and_repair,
-					/obj/item/circuitboard/mecha/ripley/main,
-					/obj/item/circuitboard/mecha/ripley/peripherals)
+	contains = list(
+		/obj/item/book/manual/ripley_build_and_repair,
+		/obj/item/circuitboard/mecha/ripley/main,
+		/obj/item/circuitboard/mecha/ripley/peripherals,
+	)
 	cost = 25
 	containername = "ящик с набором плат (АТМЕ \"Рипли\")"
 	container_ru_names = list(
@@ -2561,13 +2823,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором плат (АТМЕ \"Рипли\")",
 		ACCUSATIVE = "ящик с набором плат (АТМЕ \"Рипли\")",
 		INSTRUMENTAL = "ящиком с набором плат (АТМЕ \"Рипли\")",
-		PREPOSITIONAL = "ящике с набором плат (АТМЕ \"Рипли\")"
+		PREPOSITIONAL = "ящике с набором плат (АТМЕ \"Рипли\")",
 	)
 
 /datum/supply_packs/science/robotics/mecha_odysseus
 	name = "Набор плат (Одиссей)"
-	contains = list(/obj/item/circuitboard/mecha/odysseus/peripherals,
-					/obj/item/circuitboard/mecha/odysseus/main)
+	contains = list(
+		/obj/item/circuitboard/mecha/odysseus/peripherals,
+		/obj/item/circuitboard/mecha/odysseus/main,
+	)
 	cost = 55
 	containername = "ящик с набором плат (Одиссей)"
 	container_ru_names = list(
@@ -2576,14 +2840,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором плат (Одиссей)",
 		ACCUSATIVE = "ящик с набором плат (Одиссей)",
 		INSTRUMENTAL = "ящиком с набором плат (Одиссей)",
-		PREPOSITIONAL = "ящике с набором плат (Одиссей)"
+		PREPOSITIONAL = "ящике с набором плат (Одиссей)",
 	)
 
 /datum/supply_packs/science/firstaidmachine
 	name = "Ремонтные наборы (Синт.)"
-	contains = list(/obj/item/storage/firstaid/machine,
-					/obj/item/storage/firstaid/machine,
-					/obj/item/storage/firstaid/machine)
+	contains = list(
+		/obj/item/storage/firstaid/machine,
+		/obj/item/storage/firstaid/machine,
+		/obj/item/storage/firstaid/machine,
+	)
 	cost = 20
 	containername = "ящик ремонтных наборов (Синт.)"
 	container_ru_names = list(
@@ -2592,23 +2858,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику ремонтных наборов (Синт.)",
 		ACCUSATIVE = "ящик ремонтных наборов (Синт.)",
 		INSTRUMENTAL = "ящиком ремонтных наборов (Синт.)",
-		PREPOSITIONAL = "ящике ремонтных наборов (Синт.)"
+		PREPOSITIONAL = "ящике ремонтных наборов (Синт.)",
 	)
 
 /datum/supply_packs/science/plasma
 	name = "Детали плазменных бомб"
-	contains = list(/obj/item/tank/internals/plasma,
-					/obj/item/tank/internals/plasma,
-					/obj/item/tank/internals/plasma,
-					/obj/item/assembly/igniter,
-					/obj/item/assembly/igniter,
-					/obj/item/assembly/igniter,
-					/obj/item/assembly/prox_sensor,
-					/obj/item/assembly/prox_sensor,
-					/obj/item/assembly/prox_sensor,
-					/obj/item/assembly/timer,
-					/obj/item/assembly/timer,
-					/obj/item/assembly/timer)
+	contains = list(
+		/obj/item/tank/internals/plasma,
+		/obj/item/tank/internals/plasma,
+		/obj/item/tank/internals/plasma,
+		/obj/item/assembly/igniter,
+		/obj/item/assembly/igniter,
+		/obj/item/assembly/igniter,
+		/obj/item/assembly/prox_sensor,
+		/obj/item/assembly/prox_sensor,
+		/obj/item/assembly/prox_sensor,
+		/obj/item/assembly/timer,
+		/obj/item/assembly/timer,
+		/obj/item/assembly/timer,
+	)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик деталей плазменных бомб"
@@ -2618,16 +2886,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей плазменных бомб",
 		ACCUSATIVE = "ящик деталей плазменных бомб",
 		INSTRUMENTAL = "ящиком деталей плазменных бомб",
-		PREPOSITIONAL = "ящике деталей плазменных бомб"
+		PREPOSITIONAL = "ящике деталей плазменных бомб",
 	)
 	access = ACCESS_TOX_STORAGE
 
 /datum/supply_packs/science/shieldwalls
 	name = "Генераторы силового поля"
-	contains = list(/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen,
-					/obj/machinery/shieldwallgen)
+	contains = list(
+		/obj/machinery/shieldwallgen,
+		/obj/machinery/shieldwallgen,
+		/obj/machinery/shieldwallgen,
+		/obj/machinery/shieldwallgen,
+	)
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик генераторов силового поля"
@@ -2637,15 +2907,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику генераторов силового поля",
 		ACCUSATIVE = "ящик генераторов силового поля",
 		INSTRUMENTAL = "ящиком генераторов силового поля",
-		PREPOSITIONAL = "ящике генераторов силового поля"
+		PREPOSITIONAL = "ящике генераторов силового поля",
 	)
 	access = ACCESS_TELEPORTER
 	required_tech = list("engineering" = 3, "powerstorage" = 3)
 
 /datum/supply_packs/science/transfer_valves
 	name = "Запорные клапаны"
-	contains = list(/obj/item/transfer_valve,
-					/obj/item/transfer_valve)
+	contains = list(
+		/obj/item/transfer_valve,
+		/obj/item/transfer_valve,
+	)
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик запорных клапанов"
@@ -2655,14 +2927,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику запорных клапанов",
 		ACCUSATIVE = "ящик запорных клапанов",
 		INSTRUMENTAL = "ящиком запорных клапанов",
-		PREPOSITIONAL = "ящике запорных клапанов"
+		PREPOSITIONAL = "ящике запорных клапанов",
 	)
 	access = ACCESS_RD
 	required_tech = list("engineering" = 2, "toxins" = 3)
 
 /datum/supply_packs/science/prototype
 	name = "Прототип машины"
-	contains = list(/obj/item/machineprototype)
+	contains = list(
+		/obj/item/machineprototype,
+	)
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик с прототипом машины"
@@ -2672,15 +2946,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с прототипом машины",
 		ACCUSATIVE = "ящик с прототипом машины",
 		INSTRUMENTAL = "ящиком с прототипом машины",
-		PREPOSITIONAL = "ящике с прототипом машины"
+		PREPOSITIONAL = "ящике с прототипом машины",
 	)
 	access = ACCESS_RESEARCH
 	required_tech = list("engineering" = 4, "magnets" = 2)
 
 /datum/supply_packs/science/oil
 	name = "Бак масла"
-	contains = list(/obj/structure/reagent_dispensers/oil,
-					/obj/item/reagent_containers/food/drinks/oilcan)
+	contains = list(
+		/obj/structure/reagent_dispensers/oil,
+		/obj/item/reagent_containers/food/drinks/oilcan,
+	)
 	cost = 10
 	containertype = /obj/structure/largecrate
 	containername = "ящик с ботаническим ранцем для масла"
@@ -2690,18 +2966,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с ботаническим ранцем для масла",
 		ACCUSATIVE = "ящик с ботаническим ранцем для масла",
 		INSTRUMENTAL = "ящиком с ботаническим ранцем для масла",
-		PREPOSITIONAL = "ящике с ботаническим ранцем для масла"
+		PREPOSITIONAL = "ящике с ботаническим ранцем для масла",
 	)
 
 /datum/supply_packs/science/dis_borg
 	name = "Детали робота"
-	contains = list(/obj/item/robot_parts/robot_suit,
-					/obj/item/robot_parts/chest,
-					/obj/item/robot_parts/head,
-					/obj/item/robot_parts/l_arm,
-					/obj/item/robot_parts/r_arm,
-					/obj/item/robot_parts/l_leg,
-					/obj/item/robot_parts/r_leg)
+	contains = list(
+		/obj/item/robot_parts/robot_suit,
+		/obj/item/robot_parts/chest,
+		/obj/item/robot_parts/head,
+		/obj/item/robot_parts/l_arm,
+		/obj/item/robot_parts/r_arm,
+		/obj/item/robot_parts/l_leg,
+		/obj/item/robot_parts/r_leg,
+	)
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик деталей робота"
@@ -2711,16 +2989,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей робота",
 		ACCUSATIVE = "ящик деталей робота",
 		INSTRUMENTAL = "ящиком деталей робота",
-		PREPOSITIONAL = "ящике деталей робота"
+		PREPOSITIONAL = "ящике деталей робота",
 	)
 	access = ACCESS_ROBOTICS
 
 /datum/supply_packs/science/rad_suit
 	name = "Радиационные костюмы"
-	contains = list(/obj/item/clothing/head/radiation,
-					/obj/item/clothing/head/radiation,
-					/obj/item/clothing/suit/radiation,
-					/obj/item/clothing/suit/radiation)
+	contains = list(
+		/obj/item/clothing/head/radiation,
+		/obj/item/clothing/head/radiation,
+		/obj/item/clothing/suit/radiation,
+		/obj/item/clothing/suit/radiation,
+	)
 	cost = 35
 	containername = "ящик радиационных костюмов"
 	container_ru_names = list(
@@ -2729,7 +3009,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику радиационных костюмов",
 		ACCUSATIVE = "ящик радиационных костюмов",
 		INSTRUMENTAL = "ящиком радиационных костюмов",
-		PREPOSITIONAL = "ящике радиационных костюмов"
+		PREPOSITIONAL = "ящике радиационных костюмов",
 	)
 	required_tech = list("biotech" = 3, "materials" = 2)
 
@@ -2748,7 +3028,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс-ранцев",
 		ACCUSATIVE = "ящик блюспейс-ранцев",
 		INSTRUMENTAL = "ящиком блюспейс-ранцев",
-		PREPOSITIONAL = "ящике блюспейс-ранцев"
+		PREPOSITIONAL = "ящике блюспейс-ранцев",
 	)
 	required_tech = list("plasmatech" = 6, "engineering" = 5, "bluespace" = 6, "materials" = 5)
 
@@ -2761,7 +3041,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс-поясов",
 		ACCUSATIVE = "ящик блюспейс-поясов",
 		INSTRUMENTAL = "ящиком блюспейс-поясов",
-		PREPOSITIONAL = "ящике блюспейс-поясов"
+		PREPOSITIONAL = "ящике блюспейс-поясов",
 	)
 	cost = 220
 	contains = list(
@@ -2780,7 +3060,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс-сумок для руды",
 		ACCUSATIVE = "ящик блюспейс-сумок для руды",
 		INSTRUMENTAL = "ящиком блюспейс-сумок для руды",
-		PREPOSITIONAL = "ящике блюспейс-сумок для руды"
+		PREPOSITIONAL = "ящике блюспейс-сумок для руды",
 	)
 	cost = 200
 	contains = list(
@@ -2799,13 +3079,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику продвинутых плазменных резаков",
 		ACCUSATIVE = "ящик продвинутых плазменных резаков",
 		INSTRUMENTAL = "ящиком продвинутых плазменных резаков",
-		PREPOSITIONAL = "ящике продвинутых плазменных резаков"
+		PREPOSITIONAL = "ящике продвинутых плазменных резаков",
 	)
 	cost = 220
 	contains = list(
 		/obj/item/gun/energy/plasmacutter/adv,
 		/obj/item/gun/energy/plasmacutter/adv,
-		/obj/item/gun/energy/plasmacutter/adv
+		/obj/item/gun/energy/plasmacutter/adv,
 	)
 	required_tech = list("engineering" = 6, "combat" = 3, "plasmatech" = 6, "materials" = 5, "magnets" = 3)
 
@@ -2818,13 +3098,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику плазменных дробовиков",
 		ACCUSATIVE = "ящик плазменных дробовиков",
 		INSTRUMENTAL = "ящиком плазменных дробовиков",
-		PREPOSITIONAL = "ящике плазменных дробовиков"
+		PREPOSITIONAL = "ящике плазменных дробовиков",
 	)
 	cost = 320
 	contains = list(
 		/obj/item/gun/energy/plasmacutter/shotgun,
 		/obj/item/gun/energy/plasmacutter/shotgun,
-		/obj/item/gun/energy/plasmacutter/shotgun
+		/obj/item/gun/energy/plasmacutter/shotgun,
 	)
 	required_tech = list("powerstorage" = 5, "engineering" = 6, "combat" = 7, "plasmatech" = 7, "materials" = 7, "magnets" = 6)
 
@@ -2837,13 +3117,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику экспериментальных кинетических акселераторов",
 		ACCUSATIVE = "ящик экспериментальных кинетических акселераторов",
 		INSTRUMENTAL = "ящиком экспериментальных кинетических акселераторов",
-		PREPOSITIONAL = "ящике экспериментальных кинетических акселераторов"
+		PREPOSITIONAL = "ящике экспериментальных кинетических акселераторов",
 	)
 	cost = 270
 	contains = list(
 		/obj/item/gun/energy/kinetic_accelerator/experimental,
 		/obj/item/gun/energy/kinetic_accelerator/experimental,
-		/obj/item/gun/energy/kinetic_accelerator/experimental
+		/obj/item/gun/energy/kinetic_accelerator/experimental,
 	)
 	required_tech = list("powerstorage" = 4, "engineering" = 6, "combat" = 6, "materials" = 4)
 
@@ -2856,10 +3136,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику огнеупорных прутов",
 		ACCUSATIVE = "ящик огнеупорных прутов",
 		INSTRUMENTAL = "ящиком огнеупорных прутов",
-		PREPOSITIONAL = "ящике огнеупорных прутов"
+		PREPOSITIONAL = "ящике огнеупорных прутов",
 	)
 	cost = 150
-	contains = list(/obj/item/stack/fireproof_rods/twentyfive)
+	contains = list(
+		/obj/item/stack/fireproof_rods/twentyfive,
+	)
 	required_tech = list("plasmatech" = 4, "engineering" = 3, "materials" = 6)
 
 /datum/supply_packs/science/super_cell
@@ -2871,7 +3153,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику батарей ААА",
 		ACCUSATIVE = "ящик батарей ААА",
 		INSTRUMENTAL = "ящиком батарей ААА",
-		PREPOSITIONAL = "ящике батарей ААА"
+		PREPOSITIONAL = "ящике батарей ААА",
 	)
 	cost = 100
 	contains = list(
@@ -2880,7 +3162,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/stock_parts/cell/super/empty,
 		/obj/item/stock_parts/cell/super,
 		/obj/item/stock_parts/cell/super,
-		/obj/item/stock_parts/cell/super
+		/obj/item/stock_parts/cell/super,
 	)
 	required_tech = list("powerstorage" = 3, "materials" = 3)
 
@@ -2893,7 +3175,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс-батарей",
 		ACCUSATIVE = "ящик блюспейс-батарей",
 		INSTRUMENTAL = "ящиком блюспейс-батарей",
-		PREPOSITIONAL = "ящике блюспейс-батарей"
+		PREPOSITIONAL = "ящике блюспейс-батарей",
 	)
 	cost = 200
 	contains = list(
@@ -2902,7 +3184,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/stock_parts/cell/bluespace/empty,
 		/obj/item/stock_parts/cell/bluespace,
 		/obj/item/stock_parts/cell/bluespace,
-		/obj/item/stock_parts/cell/bluespace
+		/obj/item/stock_parts/cell/bluespace,
 	)
 	required_tech = list("powerstorage" = 6, "materials" = 6, "engineering" = 5, "bluespace" = 5,)
 
@@ -2915,7 +3197,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику продвинутых инструментов",
 		ACCUSATIVE = "ящик продвинутых инструментов",
 		INSTRUMENTAL = "ящиком продвинутых инструментов",
-		PREPOSITIONAL = "ящике продвинутых инструментов"
+		PREPOSITIONAL = "ящике продвинутых инструментов",
 	)
 	cost = 200
 	contains = list(
@@ -2939,13 +3221,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику УБС",
 		ACCUSATIVE = "ящик УБС",
 		INSTRUMENTAL = "ящиком УБС",
-		PREPOSITIONAL = "ящике УБС"
+		PREPOSITIONAL = "ящике УБС",
 	)
 	cost = 200
 	contains = list(
 		/obj/item/rcd,
 		/obj/item/rcd,
-		/obj/item/rcd
+		/obj/item/rcd,
 	)
 	required_tech = list("engineering" = 3, "programming" = 2)
 
@@ -2958,12 +3240,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику блюспейс мерных стаканов",
 		ACCUSATIVE = "ящик блюспейс мерных стаканов",
 		INSTRUMENTAL = "ящиком блюспейс мерных стаканов",
-		PREPOSITIONAL = "ящике блюспейс мерных стаканов"
+		PREPOSITIONAL = "ящике блюспейс мерных стаканов",
 	)
 	cost = 150
 	contains = list(
 		/obj/item/storage/box/beakers/bluespace,
-		/obj/item/storage/box/beakers/bluespace
+		/obj/item/storage/box/beakers/bluespace,
 	)
 	required_tech = list("plasmatech" = 4, "bluespace" = 6, "materials" = 5)
 
@@ -2976,12 +3258,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику компонентов 4-го поколения",
 		ACCUSATIVE = "ящик компонентов 4-го поколения",
 		INSTRUMENTAL = "ящиком компонентов 4-го поколения",
-		PREPOSITIONAL = "ящике компонентов 4-го поколения"
+		PREPOSITIONAL = "ящике компонентов 4-го поколения",
 	)
 	cost = 180
 	contains = list(
 		/obj/item/storage/box/stockparts/deluxe,
-		/obj/item/storage/box/stockparts/deluxe
+		/obj/item/storage/box/stockparts/deluxe,
 	)
 	required_tech = list("powerstorage" = 7, "engineering" = 5, "magnets" = 6, "bluespace" = 6, "programming" = 6, "materials" = 7)
 
@@ -2994,7 +3276,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику улучшений для роботов",
 		ACCUSATIVE = "ящик улучшений для роботов",
 		INSTRUMENTAL = "ящиком улучшений для роботов",
-		PREPOSITIONAL = "ящике улучшений для роботов"
+		PREPOSITIONAL = "ящике улучшений для роботов",
 	)
 	cost = 250
 	contains = list(
@@ -3016,7 +3298,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику гражданских имплантов",
 		ACCUSATIVE = "ящик гражданских имплантов",
 		INSTRUMENTAL = "ящиком гражданских имплантов",
-		PREPOSITIONAL = "ящике гражданских имплантов"
+		PREPOSITIONAL = "ящике гражданских имплантов",
 	)
 	cost = 160
 	contains = list(
@@ -3033,7 +3315,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/tailblade
 	name = "Хвостовое лазерное лезвие"
 	cost = 50
-	contains = list(/obj/item/disk/design_disk/tailblade/blade_nt)
+	contains = list(
+		/obj/item/disk/design_disk/tailblade/blade_nt,
+	)
 	containername = "ящик с хвостовым лазерным лезвием"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с хвостовым лазерным лезвием",
@@ -3041,7 +3325,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с хвостовым лазерным лезвием",
 		ACCUSATIVE = "ящик с хвостовым лазерным лезвием",
 		INSTRUMENTAL = "ящиком с хвостовым лазерным лезвием",
-		PREPOSITIONAL = "ящике с хвостовым лазерным лезвием"
+		PREPOSITIONAL = "ящике с хвостовым лазерным лезвием",
 	)
 	containertype = /obj/structure/closet/crate/secure/scisec
 	access = ACCESS_RESEARCH
@@ -3049,10 +3333,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/science/mod_core
 	name = "Ящик ядер для создания МЭК"
-	contains = list(/obj/item/mod/core/standard,
-					/obj/item/mod/core/standard,
-					/obj/item/mod/core/standard,
-					/obj/item/mod/core/standard)
+	contains = list(
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+	)
 	cost = 50
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик с ядрами для создания МЭК"
@@ -3062,7 +3348,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с ядрами для создания МЭК",
 		ACCUSATIVE = "ящик с ядрами для создания МЭК",
 		INSTRUMENTAL = "ящиком с ядрами для создания МЭК",
-		PREPOSITIONAL = "ящике с ядрами для создания МЭК"
+		PREPOSITIONAL = "ящике с ядрами для создания МЭК",
 	)
 	access = ACCESS_ROBOTICS
 	announce_beacons = list("Research Division" = list("Robotics"))
@@ -3079,22 +3365,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/organic/food
 	name = "Пищевые продукты"
-	contains = list(/obj/item/reagent_containers/food/condiment/flour,
-					/obj/item/reagent_containers/food/condiment/rice,
-					/obj/item/reagent_containers/food/condiment/milk,
-					/obj/item/reagent_containers/food/condiment/soymilk,
-					/obj/item/reagent_containers/food/condiment/saltshaker,
-					/obj/item/reagent_containers/food/condiment/peppermill,
-					/obj/item/kitchen/rollingpin,
-					/obj/item/storage/fancy/egg_box,
-					/obj/item/mixing_bowl,
-					/obj/item/mixing_bowl,
-					/obj/item/reagent_containers/food/condiment/enzyme,
-					/obj/item/reagent_containers/food/condiment/sugar,
-					/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
-					/obj/item/reagent_containers/food/snacks/grown/banana,
-					/obj/item/reagent_containers/food/snacks/grown/banana,
-					/obj/item/reagent_containers/food/snacks/grown/banana)
+	contains = list(
+		/obj/item/reagent_containers/food/condiment/flour,
+		/obj/item/reagent_containers/food/condiment/rice,
+		/obj/item/reagent_containers/food/condiment/milk,
+		/obj/item/reagent_containers/food/condiment/soymilk,
+		/obj/item/reagent_containers/food/condiment/saltshaker,
+		/obj/item/reagent_containers/food/condiment/peppermill,
+		/obj/item/kitchen/rollingpin,
+		/obj/item/storage/fancy/egg_box,
+		/obj/item/mixing_bowl,
+		/obj/item/mixing_bowl,
+		/obj/item/reagent_containers/food/condiment/enzyme,
+		/obj/item/reagent_containers/food/condiment/sugar,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+	)
 	cost = 10
 	containername = "ящик пищевых продуктов"
 	container_ru_names = list(
@@ -3103,17 +3391,19 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику пищевых продуктов",
 		ACCUSATIVE = "ящик пищевых продуктов",
 		INSTRUMENTAL = "ящиком пищевых продуктов",
-		PREPOSITIONAL = "ящике пищевых продуктов"
+		PREPOSITIONAL = "ящике пищевых продуктов",
 	)
 	announce_beacons = list("Kitchen" = list("Kitchen"))
 
 /datum/supply_packs/organic/pizza
 	name = "Пицца"
-	contains = list(/obj/item/pizzabox/margherita,
-					/obj/item/pizzabox/mushroom,
-					/obj/item/pizzabox/meat,
-					/obj/item/pizzabox/vegetable,
-					/obj/item/pizzabox/hawaiian)
+	contains = list(
+		/obj/item/pizzabox/margherita,
+		/obj/item/pizzabox/mushroom,
+		/obj/item/pizzabox/meat,
+		/obj/item/pizzabox/vegetable,
+		/obj/item/pizzabox/hawaiian,
+	)
 	cost = 80
 	containername = "ящик пиццы"
 	container_ru_names = list(
@@ -3122,12 +3412,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику пиццы",
 		ACCUSATIVE = "ящик пиццы",
 		INSTRUMENTAL = "ящиком пиццы",
-		PREPOSITIONAL = "ящике пиццы"
+		PREPOSITIONAL = "ящике пиццы",
 	)
 
 /datum/supply_packs/organic/monkey
 	name = "Шимпанзе"
-	contains = list (/obj/item/storage/box/monkeycubes)
+	contains = list (/obj/item/storage/box/monkeycubes,
+	)
 	cost = 30
 	containername = "ящик шимпанзе"
 	container_ru_names = list(
@@ -3136,12 +3427,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику шимпанзе",
 		ACCUSATIVE = "ящик шимпанзе",
 		INSTRUMENTAL = "ящиком шимпанзе",
-		PREPOSITIONAL = "ящике шимпанзе"
+		PREPOSITIONAL = "ящике шимпанзе",
 	)
 
 /datum/supply_packs/organic/farwa
 	name = "Фарвы"
-	contains = list (/obj/item/storage/box/monkeycubes/farwacubes)
+	contains = list (/obj/item/storage/box/monkeycubes/farwacubes,
+	)
 	cost = 30
 	containername = "ящик фарв"
 	container_ru_names = list(
@@ -3150,13 +3442,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику фарв",
 		ACCUSATIVE = "ящик фарв",
 		INSTRUMENTAL = "ящиком фарв",
-		PREPOSITIONAL = "ящике фарв"
+		PREPOSITIONAL = "ящике фарв",
 	)
 
 
 /datum/supply_packs/organic/wolpin
 	name = "Вульпины"
-	contains = list (/obj/item/storage/box/monkeycubes/wolpincubes)
+	contains = list (/obj/item/storage/box/monkeycubes/wolpincubes,
+	)
 	cost = 30
 	containername = "ящик вульпинов"
 	container_ru_names = list(
@@ -3165,13 +3458,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику вульпинов",
 		ACCUSATIVE = "ящик вульпинов",
 		INSTRUMENTAL = "ящиком вульпинов",
-		PREPOSITIONAL = "ящике вульпинов"
+		PREPOSITIONAL = "ящике вульпинов",
 	)
 
 
 /datum/supply_packs/organic/skrell
 	name = "Неары"
-	contains = list (/obj/item/storage/box/monkeycubes/neaeracubes)
+	contains = list (/obj/item/storage/box/monkeycubes/neaeracubes,
+	)
 	cost = 30
 	containername = "ящик неар"
 	container_ru_names = list(
@@ -3180,12 +3474,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику неар",
 		ACCUSATIVE = "ящик неар",
 		INSTRUMENTAL = "ящиком неар",
-		PREPOSITIONAL = "ящике неар"
+		PREPOSITIONAL = "ящике неар",
 	)
 
 /datum/supply_packs/organic/stok
 	name = "Стоки"
-	contains = list (/obj/item/storage/box/monkeycubes/stokcubes)
+	contains = list (/obj/item/storage/box/monkeycubes/stokcubes,
+	)
 	cost = 30
 	containername = "ящик стоков"
 	container_ru_names = list(
@@ -3194,23 +3489,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику стоков",
 		ACCUSATIVE = "ящик стоков",
 		INSTRUMENTAL = "ящиком стоков",
-		PREPOSITIONAL = "ящике стоков"
+		PREPOSITIONAL = "ящике стоков",
 	)
 
 /datum/supply_packs/organic/party
 	name = "Набор для вечеринки"
-	contains = list(/obj/item/storage/box/drinkingglasses,
-					/obj/item/reagent_containers/food/drinks/shaker,
-					/obj/item/reagent_containers/food/drinks/bottle/patron,
-					/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
-					/obj/item/reagent_containers/food/drinks/cans/ale,
-					/obj/item/reagent_containers/food/drinks/cans/ale,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/grenade/confetti,
-					/obj/item/grenade/confetti)
+	contains = list(
+		/obj/item/storage/box/drinkingglasses,
+		/obj/item/reagent_containers/food/drinks/shaker,
+		/obj/item/reagent_containers/food/drinks/bottle/patron,
+		/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
+		/obj/item/reagent_containers/food/drinks/cans/ale,
+		/obj/item/reagent_containers/food/drinks/cans/ale,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+	)
 	cost = 20
 	containername = "ящик с набором для вечеринки"
 	container_ru_names = list(
@@ -3219,15 +3516,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для вечеринки",
 		ACCUSATIVE = "ящик с набором для вечеринки",
 		INSTRUMENTAL = "ящиком с набором для вечеринки",
-		PREPOSITIONAL = "ящике с набором для вечеринки"
+		PREPOSITIONAL = "ящике с набором для вечеринки",
 	)
 	announce_beacons = list("Bar" = list("Bar"))
 
 /datum/supply_packs/organic/bar
 	name = "Набор для создания бара"
-	contains = list(/obj/item/storage/box/drinkingglasses,
-					/obj/item/circuitboard/chem_dispenser/soda,
-					/obj/item/circuitboard/chem_dispenser/beer)
+	contains = list(
+		/obj/item/storage/box/drinkingglasses,
+		/obj/item/circuitboard/chem_dispenser/soda,
+		/obj/item/circuitboard/chem_dispenser/beer,
+	)
 	cost = 25
 	containername = "ящик с набором для создания бара"
 	container_ru_names = list(
@@ -3236,7 +3535,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для создания бара",
 		ACCUSATIVE = "ящик с набором для создания бара",
 		INSTRUMENTAL = "ящиком с набором для создания бара",
-		PREPOSITIONAL = "ящике с набором для создания бара"
+		PREPOSITIONAL = "ящике с набором для создания бара",
 	)
 	announce_beacons = list("Bar" = list("Bar"))
 
@@ -3252,7 +3551,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с коровой",
 		ACCUSATIVE = "ящик с коровой",
 		INSTRUMENTAL = "ящиком с коровой",
-		PREPOSITIONAL = "ящике с коровой"
+		PREPOSITIONAL = "ящике с коровой",
 	)
 
 /datum/supply_packs/organic/pig
@@ -3266,7 +3565,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со свиньёй",
 		ACCUSATIVE = "ящик со свиньёй",
 		INSTRUMENTAL = "ящиком со свиньёй",
-		PREPOSITIONAL = "ящике со свиньёй"
+		PREPOSITIONAL = "ящике со свиньёй",
 	)
 
 /datum/supply_packs/organic/goat
@@ -3280,7 +3579,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с козлом",
 		ACCUSATIVE = "ящик с козлом",
 		INSTRUMENTAL = "ящиком с козлом",
-		PREPOSITIONAL = "ящике с козлом"
+		PREPOSITIONAL = "ящике с козлом",
 	)
 
 /datum/supply_packs/organic/chicken
@@ -3294,7 +3593,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с курицей",
 		ACCUSATIVE = "ящик с курицей",
 		INSTRUMENTAL = "ящиком с курицей",
-		PREPOSITIONAL = "ящике с курицей"
+		PREPOSITIONAL = "ящике с курицей",
 	)
 
 /datum/supply_packs/organic/turkey
@@ -3308,13 +3607,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с индейкой",
 		ACCUSATIVE = "ящик с индейкой",
 		INSTRUMENTAL = "ящиком с индейкой",
-		PREPOSITIONAL = "ящике с индейкой"
+		PREPOSITIONAL = "ящике с индейкой",
 	)
 /datum/supply_packs/organic/corgi
 	name = "Корги"
 	cost = 50
 	containertype = /obj/structure/closet/critter/corgi
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+	)
 	containername = "ящик с корги"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с корги",
@@ -3322,14 +3623,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с корги",
 		ACCUSATIVE = "ящик с корги",
 		INSTRUMENTAL = "ящиком с корги",
-		PREPOSITIONAL = "ящике с корги"
+		PREPOSITIONAL = "ящике с корги",
 	)
 
 /datum/supply_packs/organic/dog_pug
 	name = "Мопс"
 	cost = 50
 	containertype = /obj/structure/closet/critter/dog_pug
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+	)
 	containername = "ящик с мопсом"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с мопсом",
@@ -3337,14 +3640,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с мопсом",
 		ACCUSATIVE = "ящик с мопсом",
 		INSTRUMENTAL = "ящиком с мопсом",
-		PREPOSITIONAL = "ящике с мопсом"
+		PREPOSITIONAL = "ящике с мопсом",
 	)
 
 /datum/supply_packs/organic/dog_bullterrier
 	name = "Бультерьер"
 	cost = 50
 	containertype = /obj/structure/closet/critter/dog_bullterrier
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+	)
 	containername = "ящик с бультерьером"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с бультерьером",
@@ -3352,14 +3657,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с бультерьером",
 		ACCUSATIVE = "ящик с бультерьером",
 		INSTRUMENTAL = "ящиком с бультерьером",
-		PREPOSITIONAL = "ящике с бультерьером"
+		PREPOSITIONAL = "ящике с бультерьером",
 	)
 
 /datum/supply_packs/organic/dog_tamaskan
 	name = "Тамасканская собака"
 	cost = 50
 	containertype = /obj/structure/closet/critter/dog_tamaskan
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+	)
 	containername = "ящик с тамасканской собакой"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с тамасканской собакой",
@@ -3367,14 +3674,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с тамасканской собакой",
 		ACCUSATIVE = "ящик с тамасканской собакой",
 		INSTRUMENTAL = "ящиком с тамасканской собакой",
-		PREPOSITIONAL = "ящике с тамасканской собакой"
+		PREPOSITIONAL = "ящике с тамасканской собакой",
 	)
 
 /datum/supply_packs/organic/dog_german
 	name = "Немецкая овчарка"
 	cost = 50
 	containertype = /obj/structure/closet/critter/dog_german
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+	)
 	containername = "ящик с немецкой овчаркой"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с немецкой овчаркой",
@@ -3382,14 +3691,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с немецкой овчаркой",
 		ACCUSATIVE = "ящик с немецкой овчаркой",
 		INSTRUMENTAL = "ящиком с немецкой овчаркой",
-		PREPOSITIONAL = "ящике с немецкой овчаркой"
+		PREPOSITIONAL = "ящике с немецкой овчаркой",
 	)
 
 /datum/supply_packs/organic/dog_brittany
 	name = "Бретонский эпаньоль"
 	cost = 50
 	containertype = /obj/structure/closet/critter/dog_brittany
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+	)
 	containername = "ящик с бретонским эпаньолем"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с бретонским эпаньолем",
@@ -3397,15 +3708,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с бретонским эпаньолем",
 		ACCUSATIVE = "ящик с бретонским эпаньолем",
 		INSTRUMENTAL = "ящиком с бретонским эпаньолем",
-		PREPOSITIONAL = "ящике с бретонским эпаньолем"
+		PREPOSITIONAL = "ящике с бретонским эпаньолем",
 	)
 
 /datum/supply_packs/organic/cat
 	name = "Кошка"
 	cost = 50 //Cats are worth as much as corgis.
 	containertype = /obj/structure/closet/critter/cat
-	contains = list(/obj/item/clothing/accessory/petcollar,
-					/obj/item/toy/cattoy)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+		/obj/item/toy/cattoy,
+	)
 	containername = "ящик с кошкой"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с кошкой",
@@ -3413,7 +3726,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с кошкой",
 		ACCUSATIVE = "ящик с кошкой",
 		INSTRUMENTAL = "ящиком с кошкой",
-		PREPOSITIONAL = "ящике с кошкой"
+		PREPOSITIONAL = "ящике с кошкой",
 	)
 
 /datum/supply_packs/organic/cat/white
@@ -3425,7 +3738,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с белой кошкой",
 		ACCUSATIVE = "ящик с белой кошкой",
 		INSTRUMENTAL = "ящиком с белой кошкой",
-		PREPOSITIONAL = "ящике с белой кошкой"
+		PREPOSITIONAL = "ящике с белой кошкой",
 	)
 	containertype = /obj/structure/closet/critter/cat_white
 
@@ -3438,7 +3751,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с бирманской кошкой",
 		ACCUSATIVE = "ящик с бирманской кошкой",
 		INSTRUMENTAL = "ящиком с бирманской кошкой",
-		PREPOSITIONAL = "ящике с бирманской кошкой"
+		PREPOSITIONAL = "ящике с бирманской кошкой",
 	)
 	containertype = /obj/structure/closet/critter/cat_birman
 
@@ -3446,7 +3759,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Лиса"
 	cost = 50
 	containertype = /obj/structure/closet/critter/fox
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+	)
 	containername = "ящик с лисой"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с лисой",
@@ -3454,14 +3769,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с лисой",
 		ACCUSATIVE = "ящик с лисой",
 		INSTRUMENTAL = "ящиком с лисой",
-		PREPOSITIONAL = "ящике с лисой"
+		PREPOSITIONAL = "ящике с лисой",
 	)
 
 /datum/supply_packs/organic/fennec
 	name = "Фенёк"
 	cost = 80
 	containertype = /obj/structure/closet/critter/fennec
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+	)
 	containername = "ящик с феньком"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с феньком",
@@ -3469,7 +3786,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с феньком",
 		ACCUSATIVE = "ящик с феньком",
 		INSTRUMENTAL = "ящиком с феньком",
-		PREPOSITIONAL = "ящике с феньком"
+		PREPOSITIONAL = "ящике с феньком",
 	)
 /datum/supply_packs/organic/butterfly
 	name = "Бабочка"
@@ -3482,7 +3799,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с бабочкой",
 		ACCUSATIVE = "ящик с бабочкой",
 		INSTRUMENTAL = "ящиком с бабочкой",
-		PREPOSITIONAL = "ящике с бабочкой"
+		PREPOSITIONAL = "ящике с бабочкой",
 	)
 
 /datum/supply_packs/organic/deer
@@ -3496,14 +3813,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с оленем",
 		ACCUSATIVE = "ящик с оленем",
 		INSTRUMENTAL = "ящиком с оленем",
-		PREPOSITIONAL = "ящике с оленем"
+		PREPOSITIONAL = "ящике с оленем",
 	)
 
 /datum/supply_packs/organic/sloth
 	name = "Ленивец"
 	cost = 50
 	containertype = /obj/structure/closet/critter/sloth
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(
+		/obj/item/clothing/accessory/petcollar,
+	)
 	containername = "ящик с ленивцем"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с ленивцем",
@@ -3511,7 +3830,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с ленивцем",
 		ACCUSATIVE = "ящик с ленивцем",
 		INSTRUMENTAL = "ящиком с ленивцем",
-		PREPOSITIONAL = "ящике с ленивцем"
+		PREPOSITIONAL = "ящике с ленивцем",
 	)
 
 /datum/supply_packs/organic/goose
@@ -3525,7 +3844,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с гусём",
 		ACCUSATIVE = "ящик с гусём",
 		INSTRUMENTAL = "ящиком с гусём",
-		PREPOSITIONAL = "ящике с гусём"
+		PREPOSITIONAL = "ящике с гусём",
 	)
 
 /datum/supply_packs/organic/gosling
@@ -3539,7 +3858,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с гусёнком",
 		ACCUSATIVE = "ящик с гусёнком",
 		INSTRUMENTAL = "ящиком с гусёнком",
-		PREPOSITIONAL = "ящике с гусёнком"
+		PREPOSITIONAL = "ящике с гусёнком",
 	)
 
 /datum/supply_packs/organic/wooly_mouse
@@ -3553,7 +3872,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с лохматой мышью",
 		ACCUSATIVE = "ящик с лохматой мышью",
 		INSTRUMENTAL = "ящиком с лохматой мышью",
-		PREPOSITIONAL = "ящике с лохматой мышью"
+		PREPOSITIONAL = "ящике с лохматой мышью",
 	)
 
 /datum/supply_packs/organic/frog
@@ -3567,7 +3886,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с лягушкой",
 		ACCUSATIVE = "ящик с лягушкой",
 		INSTRUMENTAL = "ящиком с лягушкой",
-		PREPOSITIONAL = "ящике с лягушкой"
+		PREPOSITIONAL = "ящике с лягушкой",
 	)
 
 /datum/supply_packs/organic/frog/toxic
@@ -3581,7 +3900,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с токсичной лягушкой",
 		ACCUSATIVE = "ящик с токсичной лягушкой",
 		INSTRUMENTAL = "ящиком с токсичной лягушкой",
-		PREPOSITIONAL = "ящике с токсичной лягушкой"
+		PREPOSITIONAL = "ящике с токсичной лягушкой",
 	)
 	hidden = TRUE
 
@@ -3596,7 +3915,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с черепахой",
 		ACCUSATIVE = "ящик с черепахой",
 		INSTRUMENTAL = "ящиком с черепахой",
-		PREPOSITIONAL = "ящике с черепахой"
+		PREPOSITIONAL = "ящике с черепахой",
 	)
 
 /datum/supply_packs/organic/iguana
@@ -3610,7 +3929,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с игуаной",
 		ACCUSATIVE = "ящик с игуаной",
 		INSTRUMENTAL = "ящиком с игуаной",
-		PREPOSITIONAL = "ящике с игуаной"
+		PREPOSITIONAL = "ящике с игуаной",
 	)
 
 /datum/supply_packs/organic/gator
@@ -3624,7 +3943,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с аллигатором",
 		ACCUSATIVE = "ящик с аллигатором",
 		INSTRUMENTAL = "ящиком с аллигатором",
-		PREPOSITIONAL = "ящике с аллигатором"
+		PREPOSITIONAL = "ящике с аллигатором",
 	)
 
 /datum/supply_packs/organic/croco
@@ -3638,7 +3957,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с крокодилом",
 		ACCUSATIVE = "ящик с крокодилом",
 		INSTRUMENTAL = "ящиком с крокодилом",
-		PREPOSITIONAL = "ящике с крокодилом"
+		PREPOSITIONAL = "ящике с крокодилом",
 	)
 
 /datum/supply_packs/organic/snake
@@ -3652,7 +3971,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со змеёй",
 		ACCUSATIVE = "ящик со змеёй",
 		INSTRUMENTAL = "ящиком со змеёй",
-		PREPOSITIONAL = "ящике со змеёй"
+		PREPOSITIONAL = "ящике со змеёй",
 	)
 
 /datum/supply_packs/organic/slime
@@ -3666,7 +3985,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со слаймом",
 		ACCUSATIVE = "ящик со слаймом",
 		INSTRUMENTAL = "ящиком со слаймом",
-		PREPOSITIONAL = "ящике со слаймом"
+		PREPOSITIONAL = "ящике со слаймом",
 	)
 
 /datum/supply_packs/organic/barthender_rare
@@ -3678,11 +3997,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для опытных барменов",
 		ACCUSATIVE = "ящик с набором для опытных барменов",
 		INSTRUMENTAL = "ящиком с набором для опытных барменов",
-		PREPOSITIONAL = "ящике с набором для опытных барменов"
+		PREPOSITIONAL = "ящике с набором для опытных барменов",
 	)
 	cost = 60
 	contains = list(
-		/obj/item/storage/box/bartender_rare_ingredients_kit
+		/obj/item/storage/box/bartender_rare_ingredients_kit,
 	)
 
 /datum/supply_packs/organic/chef_rare
@@ -3694,12 +4013,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для опытных поваров",
 		ACCUSATIVE = "ящик с набором для опытных поваров",
 		INSTRUMENTAL = "ящиком с набором для опытных поваров",
-		PREPOSITIONAL = "ящике с набором для опытных поваров"
+		PREPOSITIONAL = "ящике с набором для опытных поваров",
 	)
 	cost = 40
 	contains = list(
 		/obj/item/storage/box/chef_rare_ingredients_kit,
-		/obj/item/storage/box/chef_rare_ingredients_kit
+		/obj/item/storage/box/chef_rare_ingredients_kit,
 	)
 
 /datum/supply_packs/science/strange_seeds
@@ -3711,7 +4030,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со странными семенами",
 		ACCUSATIVE = "ящик со странными семенами",
 		INSTRUMENTAL = "ящиком со странными семенами",
-		PREPOSITIONAL = "ящике со странными семенами"
+		PREPOSITIONAL = "ящике со странными семенами",
 	)
 	cost = 300
 	contains = list(
@@ -3724,7 +4043,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/seeds/random,
 		/obj/item/seeds/random,
 		/obj/item/seeds/random,
-		/obj/item/seeds/random
+		/obj/item/seeds/random,
 	)
 	required_tech = list("biotech" = 6)
 
@@ -3739,7 +4058,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с гориллой",
 		ACCUSATIVE = "ящик с гориллой",
 		INSTRUMENTAL = "ящиком с гориллой",
-		PREPOSITIONAL = "ящике с гориллой"
+		PREPOSITIONAL = "ящике с гориллой",
 	)
 
 /datum/supply_packs/organic/cargororilla
@@ -3753,22 +4072,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с каргориллой",
 		ACCUSATIVE = "ящик с каргориллой",
 		INSTRUMENTAL = "ящиком с каргориллой",
-		PREPOSITIONAL = "ящике с каргориллой"
+		PREPOSITIONAL = "ящике с каргориллой",
 	)
 
 ////// hippy gear
 
 /datum/supply_packs/organic/hydroponics // -- Skie
 	name = "Ботаническое снабжение"
-	contains = list(/obj/item/reagent_containers/spray/plantbgone,
-					/obj/item/reagent_containers/spray/plantbgone,
-					/obj/item/reagent_containers/glass/bottle/ammonia,
-					/obj/item/reagent_containers/glass/bottle/ammonia,
-					/obj/item/hatchet,
-					/obj/item/cultivator,
-					/obj/item/plant_analyzer,
-					/obj/item/clothing/gloves/botanic_leather,
-					/obj/item/clothing/suit/apron) // Updated with new things
+	contains = list(
+		/obj/item/reagent_containers/spray/plantbgone,
+		/obj/item/reagent_containers/spray/plantbgone,
+		/obj/item/reagent_containers/glass/bottle/ammonia,
+		/obj/item/reagent_containers/glass/bottle/ammonia,
+		/obj/item/hatchet,
+		/obj/item/cultivator,
+		/obj/item/plant_analyzer,
+		/obj/item/clothing/gloves/botanic_leather,
+		/obj/item/clothing/suit/apron,
+	) // Updated with new things
 	cost = 15
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "ящик ботанического снабжения"
@@ -3778,14 +4099,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику ботанического снабжения",
 		ACCUSATIVE = "ящик ботанического снабжения",
 		INSTRUMENTAL = "ящиком ботанического снабжения",
-		PREPOSITIONAL = "ящике ботанического снабжения"
+		PREPOSITIONAL = "ящике ботанического снабжения",
 	)
 
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/organic/hydroponics/hydrotank
 	name = "Ботанический ранец для воды"
-	contains = list(/obj/item/watertank)
+	contains = list(
+		/obj/item/watertank,
+	)
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с ботаническим ранцем для воды"
@@ -3795,7 +4118,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с ботаническим ранцем для воды",
 		ACCUSATIVE = "ящик с ботаническим ранцем для воды",
 		INSTRUMENTAL = "ящиком с ботаническим ранцем для воды",
-		PREPOSITIONAL = "ящике с ботаническим ранцем для воды"
+		PREPOSITIONAL = "ящике с ботаническим ранцем для воды",
 	)
 	access = ACCESS_HYDROPONICS
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
@@ -3804,8 +4127,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Наборы пополнения ботанических торгоматов"
 	cost = 20
 	containertype = /obj/structure/closet/crate
-	contains = list(/obj/item/vending_refill/hydroseeds,
-					/obj/item/vending_refill/hydronutrients)
+	contains = list(
+		/obj/item/vending_refill/hydroseeds,
+		/obj/item/vending_refill/hydronutrients,
+	)
 	containername = "ящик с наборами пополнения ботанических торгоматов"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с наборами пополнения ботанических торгоматов",
@@ -3813,27 +4138,29 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с наборами пополнения ботанических торгоматов",
 		ACCUSATIVE = "ящик с наборами пополнения ботанических торгоматов",
 		INSTRUMENTAL = "ящиком с наборами пополнения ботанических торгоматов",
-		PREPOSITIONAL = "ящике с наборами пополнения ботанических торгоматов"
+		PREPOSITIONAL = "ящике с наборами пополнения ботанических торгоматов",
 	)
 
 /datum/supply_packs/organic/hydroponics/exoticseeds
 	name = "Экзотические семена"
-	contains = list(/obj/item/seeds/nettle,
-					/obj/item/seeds/replicapod,
-					/obj/item/seeds/replicapod,
-					/obj/item/seeds/replicapod,
-					/obj/item/seeds/nymph,
-					/obj/item/seeds/nymph,
-					/obj/item/seeds/nymph,
-					/obj/item/seeds/plump,
-					/obj/item/seeds/liberty,
-					/obj/item/seeds/amanita,
-					/obj/item/seeds/reishi,
-					/obj/item/seeds/banana,
-					/obj/item/seeds/bamboo,
-					/obj/item/seeds/eggplant/eggy,
-					/obj/item/seeds/random,
-					/obj/item/seeds/random)
+	contains = list(
+		/obj/item/seeds/nettle,
+		/obj/item/seeds/replicapod,
+		/obj/item/seeds/replicapod,
+		/obj/item/seeds/replicapod,
+		/obj/item/seeds/nymph,
+		/obj/item/seeds/nymph,
+		/obj/item/seeds/nymph,
+		/obj/item/seeds/plump,
+		/obj/item/seeds/liberty,
+		/obj/item/seeds/amanita,
+		/obj/item/seeds/reishi,
+		/obj/item/seeds/banana,
+		/obj/item/seeds/bamboo,
+		/obj/item/seeds/eggplant/eggy,
+		/obj/item/seeds/random,
+		/obj/item/seeds/random,
+	)
 	containername = "ящик экзотических семян"
 	container_ru_names = list(
 		NOMINATIVE = "ящик экзотических семян",
@@ -3841,19 +4168,21 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику экзотических семян",
 		ACCUSATIVE = "ящик экзотических семян",
 		INSTRUMENTAL = "ящиком экзотических семян",
-		PREPOSITIONAL = "ящике экзотических семян"
+		PREPOSITIONAL = "ящике экзотических семян",
 	)
 
 /datum/supply_packs/organic/hydroponics/beekeeping_fullkit
 	name = "Оборудование для плеловодства"
-	contains = list(/obj/structure/beebox/unwrenched,
-					/obj/item/honey_frame,
-					/obj/item/honey_frame,
-					/obj/item/honey_frame,
-					/obj/item/queen_bee/bought,
-					/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit,
-					/obj/item/melee/flyswatter)
+	contains = list(
+		/obj/structure/beebox/unwrenched,
+		/obj/item/honey_frame,
+		/obj/item/honey_frame,
+		/obj/item/honey_frame,
+		/obj/item/queen_bee/bought,
+		/obj/item/clothing/head/beekeeper_head,
+		/obj/item/clothing/suit/beekeeper_suit,
+		/obj/item/melee/flyswatter,
+	)
 	containername = "ящик с оборудованием для плеловодства"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с оборудованием для плеловодства",
@@ -3861,15 +4190,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с оборудованием для плеловодства",
 		ACCUSATIVE = "ящик с оборудованием для плеловодства",
 		INSTRUMENTAL = "ящиком с оборудованием для плеловодства",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства"
+		PREPOSITIONAL = "ящике с оборудованием для плеловодства",
 	)
 
 /datum/supply_packs/organic/hydroponics/beekeeping_suits
 	name = "Костюмы пчеловода"
-	contains = list(/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit,
-					/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit)
+	contains = list(
+		/obj/item/clothing/head/beekeeper_head,
+		/obj/item/clothing/suit/beekeeper_suit,
+		/obj/item/clothing/head/beekeeper_head,
+		/obj/item/clothing/suit/beekeeper_suit,
+	)
 	cost = 10
 	containername = "ящик с костюмами плеловода"
 	container_ru_names = list(
@@ -3878,14 +4209,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с костюмами плеловода",
 		ACCUSATIVE = "ящик с костюмами плеловода",
 		INSTRUMENTAL = "ящиком с костюмами плеловода",
-		PREPOSITIONAL = "ящике с костюмами плеловода"
+		PREPOSITIONAL = "ящике с костюмами плеловода",
 	)
 
 //Bottler
 /datum/supply_packs/organic/bottler
 	name = "Аппарат для разлива"
-	contains = list(/obj/machinery/bottler,
-					/obj/item/wrench)
+	contains = list(
+		/obj/machinery/bottler,
+		/obj/item/wrench,
+	)
 	cost = 20
 	containername = "ящик с аппаратом для разлива"
 	container_ru_names = list(
@@ -3894,7 +4227,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с аппаратом для разлива",
 		ACCUSATIVE = "ящик с аппаратом для разлива",
 		INSTRUMENTAL = "ящиком с аппаратом для разлива",
-		PREPOSITIONAL = "ящике с аппаратом для разлива"
+		PREPOSITIONAL = "ящике с аппаратом для разлива",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -3909,7 +4242,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/materials/metal50
 	name = "50 листов металла"
-	contains = list(/obj/item/stack/sheet/metal)
+	contains = list(
+		/obj/item/stack/sheet/metal,
+	)
 	amount = 50
 	cost = 20
 	containername = "ящик с листами металла"
@@ -3919,12 +4254,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами металла",
 		ACCUSATIVE = "ящик с листами металла",
 		INSTRUMENTAL = "ящиком с листами металла",
-		PREPOSITIONAL = "ящике с листами металла"
+		PREPOSITIONAL = "ящике с листами металла",
 	)
 
 /datum/supply_packs/materials/plasteel20
 	name = "20 листов пластали"
-	contains = list(/obj/item/stack/sheet/plasteel/lowplasma)
+	contains = list(
+		/obj/item/stack/sheet/plasteel/lowplasma,
+	)
 	amount = 20
 	cost = 90
 	containername = "ящик с листами пластали"
@@ -3934,12 +4271,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами пластали",
 		ACCUSATIVE = "ящик с листами пластали",
 		INSTRUMENTAL = "ящиком с листами пластали",
-		PREPOSITIONAL = "ящике с листами пластали"
+		PREPOSITIONAL = "ящике с листами пластали",
 	)
 
 /datum/supply_packs/materials/plasteel50
 	name = "50 листов пластали"
-	contains = list(/obj/item/stack/sheet/plasteel/lowplasma)
+	contains = list(
+		/obj/item/stack/sheet/plasteel/lowplasma,
+	)
 	amount = 50
 	cost = 210
 	containername = "ящик с листами пластали"
@@ -3949,12 +4288,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами пластали",
 		ACCUSATIVE = "ящик с листами пластали",
 		INSTRUMENTAL = "ящиком с листами пластали",
-		PREPOSITIONAL = "ящике с листами пластали"
+		PREPOSITIONAL = "ящике с листами пластали",
 	)
 
 /datum/supply_packs/materials/glass50
 	name = "50 листов стекла"
-	contains = list(/obj/item/stack/sheet/glass)
+	contains = list(
+		/obj/item/stack/sheet/glass,
+	)
 	amount = 50
 	cost = 15
 	containername = "ящик с листами стекла"
@@ -3964,12 +4305,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами стекла",
 		ACCUSATIVE = "ящик с листами стекла",
 		INSTRUMENTAL = "ящиком с листами стекла",
-		PREPOSITIONAL = "ящике с листами стекла"
+		PREPOSITIONAL = "ящике с листами стекла",
 	)
 
 /datum/supply_packs/materials/wood30
 	name = "30 деревянных досок"
-	contains = list(/obj/item/stack/sheet/wood)
+	contains = list(
+		/obj/item/stack/sheet/wood,
+	)
 	amount = 30
 	cost = 15
 	containername = "ящик с деревянными досками"
@@ -3979,12 +4322,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с деревянными досками",
 		ACCUSATIVE = "ящик с деревянными досками",
 		INSTRUMENTAL = "ящиком с деревянными досками",
-		PREPOSITIONAL = "ящике с деревянными досками"
+		PREPOSITIONAL = "ящике с деревянными досками",
 	)
 
 /datum/supply_packs/materials/cardboard50
 	name = "50 листов картона"
-	contains = list(/obj/item/stack/sheet/cardboard)
+	contains = list(
+		/obj/item/stack/sheet/cardboard,
+	)
 	amount = 50
 	cost = 15
 	containername = "ящик с листами картона"
@@ -3994,12 +4339,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами картона",
 		ACCUSATIVE = "ящик с листами картона",
 		INSTRUMENTAL = "ящиком с листами картона",
-		PREPOSITIONAL = "ящике с листами картона"
+		PREPOSITIONAL = "ящике с листами картона",
 	)
 
 /datum/supply_packs/materials/sandstone30
 	name = "30 кирпичей из песчаника"
-	contains = list(/obj/item/stack/sheet/mineral/sandstone)
+	contains = list(
+		/obj/item/stack/sheet/mineral/sandstone,
+	)
 	amount = 30
 	cost = 20
 	containername = "ящик с кирпичами из песчаника"
@@ -4009,13 +4356,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с кирпичами из песчаника",
 		ACCUSATIVE = "ящик с кирпичами из песчаника",
 		INSTRUMENTAL = "ящиком с кирпичами из песчаника",
-		PREPOSITIONAL = "ящике с кирпичами из песчаника"
+		PREPOSITIONAL = "ящике с кирпичами из песчаника",
 	)
 
 
 /datum/supply_packs/materials/plastic30
 	name = "30 листами пластика"
-	contains = list(/obj/item/stack/sheet/plastic)
+	contains = list(
+		/obj/item/stack/sheet/plastic,
+	)
 	amount = 30
 	cost = 20
 	containername = "ящик с листами пластика"
@@ -4025,7 +4374,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с листами пластика",
 		ACCUSATIVE = "ящик с листами пластика",
 		INSTRUMENTAL = "ящиком с листами пластика",
-		PREPOSITIONAL = "ящике с листами пластика"
+		PREPOSITIONAL = "ящике с листами пластика",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -4037,7 +4386,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/mule
 	name = "МУЛбот"
-	contains = list(/mob/living/simple_animal/bot/mulebot)
+	contains = list(
+		/mob/living/simple_animal/bot/mulebot,
+	)
 	cost = 20
 	containertype = /obj/structure/largecrate/mule
 	containername = "ящик с МУЛботом"
@@ -4047,14 +4398,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с МУЛботом",
 		ACCUSATIVE = "ящик с МУЛботом",
 		INSTRUMENTAL = "ящиком с МУЛботом",
-		PREPOSITIONAL = "ящике с МУЛботом"
+		PREPOSITIONAL = "ящике с МУЛботом",
 	)
 
 /datum/supply_packs/misc/cargo_mon
 	name = "Планшеты для заказов"
-	contains = list(/obj/item/qm_quest_tablet/cargotech,
-					/obj/item/qm_quest_tablet/cargotech,
-					/obj/item/qm_quest_tablet/cargotech)
+	contains = list(
+		/obj/item/qm_quest_tablet/cargotech,
+		/obj/item/qm_quest_tablet/cargotech,
+		/obj/item/qm_quest_tablet/cargotech,
+	)
 	cost = 30
 	containername = "ящик с планшетами для заказов"
 	container_ru_names = list(
@@ -4063,12 +4416,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с планшетами для заказов",
 		ACCUSATIVE = "ящик с планшетами для заказов",
 		INSTRUMENTAL = "ящиком с планшетами для заказов",
-		PREPOSITIONAL = "ящике с планшетами для заказов"
+		PREPOSITIONAL = "ящике с планшетами для заказов",
 	)
 
 /datum/supply_packs/misc/watertank
 	name = "Бак воды"
-	contains = list(/obj/structure/reagent_dispensers/watertank)
+	contains = list(
+		/obj/structure/reagent_dispensers/watertank,
+	)
 	cost = 8
 	containertype = /obj/structure/largecrate
 	containername = "ящик с баком воды"
@@ -4078,12 +4433,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с баком воды",
 		ACCUSATIVE = "ящик с баком воды",
 		INSTRUMENTAL = "ящиком с баком воды",
-		PREPOSITIONAL = "ящике с баком воды"
+		PREPOSITIONAL = "ящике с баком воды",
 	)
 
 /datum/supply_packs/misc/hightank
 	name = "Бак воды повышенной ёмкости"
-	contains = list(/obj/structure/reagent_dispensers/watertank/high)
+	contains = list(
+		/obj/structure/reagent_dispensers/watertank/high,
+	)
 	cost = 12
 	containertype = /obj/structure/largecrate
 	containername = "ящик с баком воды повышенной ёмкости"
@@ -4093,25 +4450,27 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с баком воды повышенной ёмкости",
 		ACCUSATIVE = "ящик с баком воды повышенной ёмкости",
 		INSTRUMENTAL = "ящиком с баком воды повышенной ёмкости",
-		PREPOSITIONAL = "ящике с баком воды повышенной ёмкости"
+		PREPOSITIONAL = "ящике с баком воды повышенной ёмкости",
 	)
 
 /datum/supply_packs/misc/lasertag
 	name = "Снаряжение для лазертага"
-	contains = list(/obj/item/gun/energy/laser/tag/red,
-					/obj/item/gun/energy/laser/tag/red,
-					/obj/item/gun/energy/laser/tag/red,
-					/obj/item/gun/energy/laser/tag/blue,
-					/obj/item/gun/energy/laser/tag/blue,
-					/obj/item/gun/energy/laser/tag/blue,
-					/obj/item/clothing/suit/redtag,
-					/obj/item/clothing/suit/redtag,
-					/obj/item/clothing/suit/redtag,
-					/obj/item/clothing/suit/bluetag,
-					/obj/item/clothing/suit/bluetag,
-					/obj/item/clothing/suit/bluetag,
-					/obj/item/clothing/head/helmet/redtaghelm,
-					/obj/item/clothing/head/helmet/bluetaghelm)
+	contains = list(
+		/obj/item/gun/energy/laser/tag/red,
+		/obj/item/gun/energy/laser/tag/red,
+		/obj/item/gun/energy/laser/tag/red,
+		/obj/item/gun/energy/laser/tag/blue,
+		/obj/item/gun/energy/laser/tag/blue,
+		/obj/item/gun/energy/laser/tag/blue,
+		/obj/item/clothing/suit/redtag,
+		/obj/item/clothing/suit/redtag,
+		/obj/item/clothing/suit/redtag,
+		/obj/item/clothing/suit/bluetag,
+		/obj/item/clothing/suit/bluetag,
+		/obj/item/clothing/suit/bluetag,
+		/obj/item/clothing/head/helmet/redtaghelm,
+		/obj/item/clothing/head/helmet/bluetaghelm,
+	)
 	cost = 15
 	containername = "ящик со снаряжением для лазертага"
 	container_ru_names = list(
@@ -4120,13 +4479,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со снаряжением для лазертага",
 		ACCUSATIVE = "ящик со снаряжением для лазертага",
 		INSTRUMENTAL = "ящиком со снаряжением для лазертага",
-		PREPOSITIONAL = "ящике со снаряжением для лазертага"
+		PREPOSITIONAL = "ящике со снаряжением для лазертага",
 	)
 
 /datum/supply_packs/misc/plasmavendor
 	name = "Набор PlasmaMate"
-	contains = list(/obj/item/vending_refill/plasma,
-					/obj/item/circuitboard/vendor/plasmamate)
+	contains = list(
+		/obj/item/vending_refill/plasma,
+		/obj/item/circuitboard/vendor/plasmamate,
+	)
 	cost = 100
 	containername = "ящик с набором PlasmaMate"
 	container_ru_names = list(
@@ -4135,20 +4496,22 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором PlasmaMate",
 		ACCUSATIVE = "ящик с набором PlasmaMate",
 		INSTRUMENTAL = "ящиком с набором PlasmaMate",
-		PREPOSITIONAL = "ящике с набором PlasmaMate"
+		PREPOSITIONAL = "ящике с набором PlasmaMate",
 	)
 	required_tech = list("toxins" = 5, "plasmatech" = 6)
 
 /datum/supply_packs/misc/religious_supplies
 	name = "Религиозное снабжение"
-	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
-					/obj/item/reagent_containers/food/drinks/bottle/holywater,
-					/obj/item/storage/bible/booze,
-					/obj/item/storage/bible/booze,
-					/obj/item/clothing/suit/hooded/chaplain_hoodie,
-					/obj/item/clothing/suit/hooded/chaplain_hoodie,
-					/obj/item/clothing/under/burial,
-					/obj/item/clothing/under/burial)
+	contains = list(
+		/obj/item/reagent_containers/food/drinks/bottle/holywater,
+		/obj/item/reagent_containers/food/drinks/bottle/holywater,
+		/obj/item/storage/bible/booze,
+		/obj/item/storage/bible/booze,
+		/obj/item/clothing/suit/hooded/chaplain_hoodie,
+		/obj/item/clothing/suit/hooded/chaplain_hoodie,
+		/obj/item/clothing/under/burial,
+		/obj/item/clothing/under/burial,
+	)
 	cost = 40
 	containername = "ящик религиозного снабжения"
 	container_ru_names = list(
@@ -4157,14 +4520,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику религиозного снабжения",
 		ACCUSATIVE = "ящик религиозного снабжения",
 		INSTRUMENTAL = "ящиком религиозного снабжения",
-		PREPOSITIONAL = "ящике религиозного снабжения"
+		PREPOSITIONAL = "ящике религиозного снабжения",
 	)
 
 /datum/supply_packs/misc/minerkit
 	name = "Шахтёрское снаряжение"
 	cost = 30
 	access = ACCESS_QM
-	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
+	contains = list(
+		/obj/item/storage/backpack/duffel/mining_conscript,
+	)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с шахтёрским снаряжением"
 	container_ru_names = list(
@@ -4173,16 +4538,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с шахтёрским снаряжением",
 		ACCUSATIVE = "ящик с шахтёрским снаряжением",
 		INSTRUMENTAL = "ящиком с шахтёрским снаряжением",
-		PREPOSITIONAL = "ящике с шахтёрским снаряжением"
+		PREPOSITIONAL = "ящике с шахтёрским снаряжением",
 	)
 
 /datum/supply_packs/misc/barber_kit
 	name = "Снаряжение барбера"
-	contains = list(/obj/item/storage/box/barber,
-					/obj/item/clothing/under/barber,
-					/obj/item/clothing/under/barber/skirt,
-					/obj/item/razor,
-					/obj/item/storage/box/lip_stick)
+	contains = list(
+		/obj/item/storage/box/barber,
+		/obj/item/clothing/under/barber,
+		/obj/item/clothing/under/barber/skirt,
+		/obj/item/razor,
+		/obj/item/storage/box/lip_stick,
+	)
 	cost = 10
 	containername = "ящик со снаряжением барбера"
 	container_ru_names = list(
@@ -4191,31 +4558,33 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со снаряжением барбера",
 		ACCUSATIVE = "ящик со снаряжением барбера",
 		INSTRUMENTAL = "ящиком со снаряжением барбера",
-		PREPOSITIONAL = "ящике со снаряжением барбера"
+		PREPOSITIONAL = "ящике со снаряжением барбера",
 	)
 
 /datum/supply_packs/misc/patriotic
 	name = "Набор патриота НТ"
 	cost = 111
 	containertype = /obj/structure/closet/crate/trashcart
-	contains = list(/obj/item/flag/nt,
-					/obj/item/flag/nt,
-					/obj/item/flag/nt,
-					/obj/item/flag/nt,
-					/obj/item/flag/nt,
-					/obj/item/flag/nt,
-					/obj/item/book/manual/security_space_law,
-					/obj/item/book/manual/security_space_law,
-					/obj/item/book/manual/security_space_law,
-					/obj/item/book/manual/security_space_law,
-					/obj/item/book/manual/security_space_law,
-					/obj/item/book/manual/security_space_law,
-					/obj/item/poster/random_official,
-					/obj/item/poster/random_official,
-					/obj/item/poster/random_official,
-					/obj/item/poster/random_official,
-					/obj/item/poster/random_official,
-					/obj/item/poster/random_official)
+	contains = list(
+		/obj/item/flag/nt,
+		/obj/item/flag/nt,
+		/obj/item/flag/nt,
+		/obj/item/flag/nt,
+		/obj/item/flag/nt,
+		/obj/item/flag/nt,
+		/obj/item/book/manual/security_space_law,
+		/obj/item/book/manual/security_space_law,
+		/obj/item/book/manual/security_space_law,
+		/obj/item/book/manual/security_space_law,
+		/obj/item/book/manual/security_space_law,
+		/obj/item/book/manual/security_space_law,
+		/obj/item/poster/random_official,
+		/obj/item/poster/random_official,
+		/obj/item/poster/random_official,
+		/obj/item/poster/random_official,
+		/obj/item/poster/random_official,
+		/obj/item/poster/random_official,
+	)
 	containername = "ящик с набором патриота НТ"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с набором патриота НТ",
@@ -4223,13 +4592,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором патриота НТ",
 		ACCUSATIVE = "ящик с набором патриота НТ",
 		INSTRUMENTAL = "ящиком с набором патриота НТ",
-		PREPOSITIONAL = "ящике с набором патриота НТ"
+		PREPOSITIONAL = "ящике с набором патриота НТ",
 	)
 
 /datum/supply_packs/misc/golden_toilet
 	name = "Золотой унитаз"
 	cost = 500
-	contains = list(/obj/structure/toilet/golden_toilet)
+	contains = list(
+		/obj/structure/toilet/golden_toilet,
+	)
 	containername = "ящик с золотым унитазом"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с золотым унитазом",
@@ -4237,7 +4608,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с золотым унитазом",
 		ACCUSATIVE = "ящик с золотым унитазом",
 		INSTRUMENTAL = "ящиком с золотым унитазом",
-		PREPOSITIONAL = "ящике с золотым унитазом"
+		PREPOSITIONAL = "ящике с золотым унитазом",
 	)
 
 
@@ -4245,23 +4616,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/paper
 	name = "Бюрократическое снабжение"
-	contains = list(/obj/structure/filingcabinet/chestdrawer,
-					/obj/item/camera_film,
-					/obj/item/hand_labeler,
-					/obj/item/hand_labeler_refill,
-					/obj/item/hand_labeler_refill,
-					/obj/item/stack/tape_roll,
-					/obj/item/paper_bin,
-					/obj/item/pen,
-					/obj/item/pen/blue,
-					/obj/item/pen/red,
-					/obj/item/stamp/denied,
-					/obj/item/stamp/granted,
-					/obj/item/folder/blue,
-					/obj/item/folder/red,
-					/obj/item/folder/yellow,
-					/obj/item/clipboard,
-					/obj/item/clipboard)
+	contains = list(
+		/obj/structure/filingcabinet/chestdrawer,
+		/obj/item/camera_film,
+		/obj/item/hand_labeler,
+		/obj/item/hand_labeler_refill,
+		/obj/item/hand_labeler_refill,
+		/obj/item/stack/tape_roll,
+		/obj/item/paper_bin,
+		/obj/item/pen,
+		/obj/item/pen/blue,
+		/obj/item/pen/red,
+		/obj/item/stamp/denied,
+		/obj/item/stamp/granted,
+		/obj/item/folder/blue,
+		/obj/item/folder/red,
+		/obj/item/folder/yellow,
+		/obj/item/clipboard,
+		/obj/item/clipboard,
+	)
 	cost = 15
 	containername = "ящик бюрократического снабжения"
 	container_ru_names = list(
@@ -4270,12 +4643,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику бюрократического снабжения",
 		ACCUSATIVE = "ящик бюрократического снабжения",
 		INSTRUMENTAL = "ящиком бюрократического снабжения",
-		PREPOSITIONAL = "ящике бюрократического снабжения"
+		PREPOSITIONAL = "ящике бюрократического снабжения",
 	)
 
 /datum/supply_packs/misc/book_crate
 	name = "Кодекс Гигас"
-	contains = list(/obj/item/book/codex_gigas)
+	contains = list(
+		/obj/item/book/codex_gigas,
+	)
 	cost = 15
 	containername = "ящик с Кодекс Гигас"
 	container_ru_names = list(
@@ -4284,7 +4659,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с Кодекс Гигас",
 		ACCUSATIVE = "ящик с Кодекс Гигас",
 		INSTRUMENTAL = "ящиком с Кодекс Гигас",
-		PREPOSITIONAL = "ящике с Кодекс Гигас"
+		PREPOSITIONAL = "ящике с Кодекс Гигас",
 	)
 
 /datum/supply_packs/misc/book_crate/New()
@@ -4296,9 +4671,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/tape
 	name = "Скотч"
-	contains = list(/obj/item/stack/tape_roll,
+	contains = list(
+		/obj/item/stack/tape_roll,
 	/obj/item/stack/tape_roll,
-	/obj/item/stack/tape_roll)
+	/obj/item/stack/tape_roll,
+	)
 	cost = 10
 	containername = "ящик со скотчем"
 	container_ru_names = list(
@@ -4307,18 +4684,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со скотчем",
 		ACCUSATIVE = "ящик со скотчем",
 		INSTRUMENTAL = "ящиком со скотчем",
-		PREPOSITIONAL = "ящике со скотчем"
+		PREPOSITIONAL = "ящике со скотчем",
 	)
 	containertype = /obj/structure/closet/crate/tape
 
 /datum/supply_packs/misc/toner
 	name = "Тонер-картриджи"
-	contains = list(/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner)
+	contains = list(
+		/obj/item/toner,
+		/obj/item/toner,
+		/obj/item/toner,
+		/obj/item/toner,
+		/obj/item/toner,
+		/obj/item/toner,
+	)
 	cost = 10
 	containername = "ящик тонер-картриджей"
 	container_ru_names = list(
@@ -4327,29 +4706,31 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику тонер-картриджей",
 		ACCUSATIVE = "ящик тонер-картриджей",
 		INSTRUMENTAL = "ящиком тонер-картриджей",
-		PREPOSITIONAL = "ящике тонер-картриджей"
+		PREPOSITIONAL = "ящике тонер-картриджей",
 	)
 
 /datum/supply_packs/misc/artscrafts
 	name = "Художественное снабжение"
-	contains = list(/obj/item/storage/fancy/crayons,
-					/obj/item/camera,
-					/obj/item/camera_film,
-					/obj/item/camera_film,
-					/obj/item/storage/photo_album,
-					/obj/item/stack/packageWrap,
-					/obj/item/reagent_containers/glass/paint/red,
-					/obj/item/reagent_containers/glass/paint/green,
-					/obj/item/reagent_containers/glass/paint/blue,
-					/obj/item/reagent_containers/glass/paint/yellow,
-					/obj/item/reagent_containers/glass/paint/violet,
-					/obj/item/reagent_containers/glass/paint/black,
-					/obj/item/reagent_containers/glass/paint/white,
-					/obj/item/reagent_containers/glass/paint/remover,
-					/obj/item/poster/random_official,
-					/obj/item/stack/wrapping_paper,
-					/obj/item/stack/wrapping_paper,
-					/obj/item/stack/wrapping_paper)
+	contains = list(
+		/obj/item/storage/fancy/crayons,
+		/obj/item/camera,
+		/obj/item/camera_film,
+		/obj/item/camera_film,
+		/obj/item/storage/photo_album,
+		/obj/item/stack/packageWrap,
+		/obj/item/reagent_containers/glass/paint/red,
+		/obj/item/reagent_containers/glass/paint/green,
+		/obj/item/reagent_containers/glass/paint/blue,
+		/obj/item/reagent_containers/glass/paint/yellow,
+		/obj/item/reagent_containers/glass/paint/violet,
+		/obj/item/reagent_containers/glass/paint/black,
+		/obj/item/reagent_containers/glass/paint/white,
+		/obj/item/reagent_containers/glass/paint/remover,
+		/obj/item/poster/random_official,
+		/obj/item/stack/wrapping_paper,
+		/obj/item/stack/wrapping_paper,
+		/obj/item/stack/wrapping_paper,
+	)
 	cost = 10
 	containername = "ящик художественного снабжения"
 	container_ru_names = list(
@@ -4358,16 +4739,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику художественного снабжения",
 		ACCUSATIVE = "ящик художественного снабжения",
 		INSTRUMENTAL = "ящиком художественного снабжения",
-		PREPOSITIONAL = "ящике художественного снабжения"
+		PREPOSITIONAL = "ящике художественного снабжения",
 	)
 
 /datum/supply_packs/misc/posters
 	name = "Корпоративные постеры"
-	contains = list(/obj/item/poster/random_official,
-					/obj/item/poster/random_official,
-					/obj/item/poster/random_official,
-					/obj/item/poster/random_official,
-					/obj/item/poster/random_official)
+	contains = list(
+		/obj/item/poster/random_official,
+		/obj/item/poster/random_official,
+		/obj/item/poster/random_official,
+		/obj/item/poster/random_official,
+		/obj/item/poster/random_official,
+	)
 	cost = 8
 	containername = "ящик корпоративных постеров"
 	container_ru_names = list(
@@ -4376,26 +4759,28 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику корпоративных постеров",
 		ACCUSATIVE = "ящик корпоративных постеров",
 		INSTRUMENTAL = "ящиком корпоративных постеров",
-		PREPOSITIONAL = "ящике корпоративных постеров"
+		PREPOSITIONAL = "ящике корпоративных постеров",
 	)
 
 ///////////// Janitor Supplies
 
 /datum/supply_packs/misc/janitor
 	name = "Уборочное снабжение"
-	contains = list(/obj/item/reagent_containers/glass/bucket,
-					/obj/item/reagent_containers/glass/bucket,
-					/obj/item/reagent_containers/glass/bucket,
-					/obj/item/mop,
-					/obj/item/caution,
-					/obj/item/caution,
-					/obj/item/caution,
-					/obj/item/storage/bag/trash,
-					/obj/item/reagent_containers/spray/cleaner,
-					/obj/item/reagent_containers/glass/rag,
-					/obj/item/grenade/chem_grenade/cleaner,
-					/obj/item/grenade/chem_grenade/cleaner,
-					/obj/item/grenade/chem_grenade/cleaner)
+	contains = list(
+		/obj/item/reagent_containers/glass/bucket,
+		/obj/item/reagent_containers/glass/bucket,
+		/obj/item/reagent_containers/glass/bucket,
+		/obj/item/mop,
+		/obj/item/caution,
+		/obj/item/caution,
+		/obj/item/caution,
+		/obj/item/storage/bag/trash,
+		/obj/item/reagent_containers/spray/cleaner,
+		/obj/item/reagent_containers/glass/rag,
+		/obj/item/grenade/chem_grenade/cleaner,
+		/obj/item/grenade/chem_grenade/cleaner,
+		/obj/item/grenade/chem_grenade/cleaner,
+	)
 	cost = 10
 	containername = "ящик уборочного снабжения"
 	container_ru_names = list(
@@ -4404,14 +4789,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику уборочного снабжения",
 		ACCUSATIVE = "ящик уборочного снабжения",
 		INSTRUMENTAL = "ящиком уборочного снабжения",
-		PREPOSITIONAL = "ящике уборочного снабжения"
+		PREPOSITIONAL = "ящике уборочного снабжения",
 	)
 	announce_beacons = list("Janitor" = list("Janitorial"))
 
 /datum/supply_packs/misc/janitor/janicart
 	name = "Тележка и галоши уборщика"
-	contains = list(/obj/structure/janitorialcart,
-					/obj/item/clothing/shoes/galoshes)
+	contains = list(
+		/obj/structure/janitorialcart,
+		/obj/item/clothing/shoes/galoshes,
+	)
 	containertype = /obj/structure/largecrate
 	containername = "ящик с тележкой и галошами уборщика"
 	container_ru_names = list(
@@ -4420,12 +4807,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с тележкой и галошами уборщика",
 		ACCUSATIVE = "ящик с тележкой и галошами уборщика",
 		INSTRUMENTAL = "ящиком с тележкой и галошами уборщика",
-		PREPOSITIONAL = "ящике с тележкой и галошами уборщика"
+		PREPOSITIONAL = "ящике с тележкой и галошами уборщика",
 	)
 
 /datum/supply_packs/misc/janitor/janitank
 	name = "Уборочный ранец для воды"
-	contains = list(/obj/item/watertank/janitor)
+	contains = list(
+		/obj/item/watertank/janitor,
+	)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с уборочным ранцем для воды"
 	container_ru_names = list(
@@ -4434,15 +4823,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с уборочным ранцем для воды",
 		ACCUSATIVE = "ящик с уборочным ранцем для воды",
 		INSTRUMENTAL = "ящиком с уборочным ранцем для воды",
-		PREPOSITIONAL = "ящике с уборочным ранцем для воды"
+		PREPOSITIONAL = "ящике с уборочным ранцем для воды",
 	)
 	access = ACCESS_JANITOR
 
 /datum/supply_packs/misc/janitor/lightbulbs
 	name = "Лампочки"
-	contains = list(/obj/item/storage/box/lights/mixed,
-					/obj/item/storage/box/lights/mixed,
-					/obj/item/storage/box/lights/mixed)
+	contains = list(
+		/obj/item/storage/box/lights/mixed,
+		/obj/item/storage/box/lights/mixed,
+		/obj/item/storage/box/lights/mixed,
+	)
 	containername = "ящик лампочек"
 	container_ru_names = list(
 		NOMINATIVE = "ящик лампочек",
@@ -4450,12 +4841,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику лампочек",
 		ACCUSATIVE = "ящик лампочек",
 		INSTRUMENTAL = "ящиком лампочек",
-		PREPOSITIONAL = "ящике лампочек"
+		PREPOSITIONAL = "ящике лампочек",
 	)
 
 /datum/supply_packs/misc/noslipfloor
 	name = "Нескользящие плитки пола"
-	contains = list(/obj/item/stack/tile/noslip/loaded)
+	contains = list(
+		/obj/item/stack/tile/noslip/loaded,
+	)
 	cost = 20
 	containername = "ящик нескользящих плиток пола"
 	container_ru_names = list(
@@ -4464,27 +4857,29 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику нескользящих плиток пола",
 		ACCUSATIVE = "ящик нескользящих плиток пола",
 		INSTRUMENTAL = "ящиком нескользящих плиток пола",
-		PREPOSITIONAL = "ящике нескользящих плиток пола"
+		PREPOSITIONAL = "ящике нескользящих плиток пола",
 	)
 
 ///////////// Costumes
 
 /datum/supply_packs/misc/costume
 	name = "Актёрские костюмы"
-	contains = list(/obj/item/storage/backpack/clown,
-					/obj/item/clothing/shoes/clown_shoes,
-					/obj/item/clothing/mask/gas/clown_hat,
-					/obj/item/clothing/under/rank/clown,
-					/obj/item/bikehorn,
-					/obj/item/storage/backpack/mime,
-					/obj/item/clothing/under/mime,
-					/obj/item/clothing/shoes/black,
-					/obj/item/clothing/gloves/color/white,
-					/obj/item/clothing/mask/gas/mime,
-					/obj/item/clothing/head/beret,
-					/obj/item/clothing/suit/suspenders,
-					/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-					/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana)
+	contains = list(
+		/obj/item/storage/backpack/clown,
+		/obj/item/clothing/shoes/clown_shoes,
+		/obj/item/clothing/mask/gas/clown_hat,
+		/obj/item/clothing/under/rank/clown,
+		/obj/item/bikehorn,
+		/obj/item/storage/backpack/mime,
+		/obj/item/clothing/under/mime,
+		/obj/item/clothing/shoes/black,
+		/obj/item/clothing/gloves/color/white,
+		/obj/item/clothing/mask/gas/mime,
+		/obj/item/clothing/head/beret,
+		/obj/item/clothing/suit/suspenders,
+		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+	)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик актёрских костюмов"
@@ -4494,16 +4889,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику актёрских костюмов",
 		ACCUSATIVE = "ящик актёрских костюмов",
 		INSTRUMENTAL = "ящиком актёрских костюмов",
-		PREPOSITIONAL = "ящике актёрских костюмов"
+		PREPOSITIONAL = "ящике актёрских костюмов",
 	)
 	access = ACCESS_THEATRE
 
 /datum/supply_packs/misc/wizard
 	name = "Костюм мага"
-	contains = list(/obj/item/twohanded/staff,
-					/obj/item/clothing/suit/wizrobe/fake,
-					/obj/item/clothing/shoes/sandal,
-					/obj/item/clothing/head/wizard/fake)
+	contains = list(
+		/obj/item/twohanded/staff,
+		/obj/item/clothing/suit/wizrobe/fake,
+		/obj/item/clothing/shoes/sandal,
+		/obj/item/clothing/head/wizard/fake,
+	)
 	cost = 20
 	containername = "ящик с костюмом мага"
 	container_ru_names = list(
@@ -4512,24 +4909,26 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с костюмом мага",
 		ACCUSATIVE = "ящик с костюмом мага",
 		INSTRUMENTAL = "ящиком с костюмом мага",
-		PREPOSITIONAL = "ящике с костюмом мага"
+		PREPOSITIONAL = "ящике с костюмом мага",
 	)
 
 /datum/supply_packs/misc/mafia
 	name = "Снаряжение мафиози"
-	contains = list(/obj/item/clothing/suit/storage/browntrenchcoat,
-					/obj/item/clothing/suit/storage/blacktrenchcoat,
-					/obj/item/clothing/head/fedora/whitefedora,
-					/obj/item/clothing/head/fedora/brownfedora,
-					/obj/item/clothing/head/fedora,
-					/obj/item/clothing/under/flappers,
-					/obj/item/clothing/under/mafia,
-					/obj/item/clothing/under/mafia/vest,
-					/obj/item/clothing/under/mafia/white,
-					/obj/item/clothing/under/mafia/sue,
-					/obj/item/clothing/under/mafia/tan,
-					/obj/item/gun/projectile/shotgun/toy/tommygun,
-					/obj/item/gun/projectile/shotgun/toy/tommygun)
+	contains = list(
+		/obj/item/clothing/suit/storage/browntrenchcoat,
+		/obj/item/clothing/suit/storage/blacktrenchcoat,
+		/obj/item/clothing/head/fedora/whitefedora,
+		/obj/item/clothing/head/fedora/brownfedora,
+		/obj/item/clothing/head/fedora,
+		/obj/item/clothing/under/flappers,
+		/obj/item/clothing/under/mafia,
+		/obj/item/clothing/under/mafia/vest,
+		/obj/item/clothing/under/mafia/white,
+		/obj/item/clothing/under/mafia/sue,
+		/obj/item/clothing/under/mafia/tan,
+		/obj/item/gun/projectile/shotgun/toy/tommygun,
+		/obj/item/gun/projectile/shotgun/toy/tommygun,
+	)
 	cost = 15
 	containername = "ящик со снаряжением мафиози"
 	container_ru_names = list(
@@ -4538,14 +4937,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со снаряжением мафиози",
 		ACCUSATIVE = "ящик со снаряжением мафиози",
 		INSTRUMENTAL = "ящиком со снаряжением мафиози",
-		PREPOSITIONAL = "ящике со снаряжением мафиози"
+		PREPOSITIONAL = "ящике со снаряжением мафиози",
 	)
 
 /datum/supply_packs/misc/sunglasses
 	name = "Солнечные очки"
-	contains = list(/obj/item/clothing/glasses/sunglasses,
-					/obj/item/clothing/glasses/sunglasses,
-					/obj/item/clothing/glasses/sunglasses)
+	contains = list(
+		/obj/item/clothing/glasses/sunglasses,
+		/obj/item/clothing/glasses/sunglasses,
+		/obj/item/clothing/glasses/sunglasses,
+	)
 	cost = 30
 	containername = "ящик солнечных очков"
 	container_ru_names = list(
@@ -4554,31 +4955,33 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику солнечных очков",
 		ACCUSATIVE = "ящик солнечных очков",
 		INSTRUMENTAL = "ящиком солнечных очков",
-		PREPOSITIONAL = "ящике солнечных очков"
+		PREPOSITIONAL = "ящике солнечных очков",
 	)
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
-	contains = list(/obj/item/clothing/head/collectable/chef,
-					/obj/item/clothing/head/collectable/paper,
-					/obj/item/clothing/head/collectable/tophat,
-					/obj/item/clothing/head/collectable/captain,
-					/obj/item/clothing/head/collectable/beret,
-					/obj/item/clothing/head/collectable/welding,
-					/obj/item/clothing/head/collectable/flatcap,
-					/obj/item/clothing/head/collectable/pirate,
-					/obj/item/clothing/head/collectable/kitty,
-					/obj/item/clothing/head/crown/fancy,
-					/obj/item/clothing/head/collectable/rabbitears,
-					/obj/item/clothing/head/collectable/wizard,
-					/obj/item/clothing/head/collectable/hardhat,
-					/obj/item/clothing/head/collectable/HoS,
-					/obj/item/clothing/head/collectable/thunderdome,
-					/obj/item/clothing/head/collectable/swat,
-					/obj/item/clothing/head/collectable/slime,
-					/obj/item/clothing/head/collectable/police,
-					/obj/item/clothing/head/collectable/slime,
-					/obj/item/clothing/head/collectable/xenom,
-					/obj/item/clothing/head/collectable/petehat)
+	contains = list(
+		/obj/item/clothing/head/collectable/chef,
+		/obj/item/clothing/head/collectable/paper,
+		/obj/item/clothing/head/collectable/tophat,
+		/obj/item/clothing/head/collectable/captain,
+		/obj/item/clothing/head/collectable/beret,
+		/obj/item/clothing/head/collectable/welding,
+		/obj/item/clothing/head/collectable/flatcap,
+		/obj/item/clothing/head/collectable/pirate,
+		/obj/item/clothing/head/collectable/kitty,
+		/obj/item/clothing/head/crown/fancy,
+		/obj/item/clothing/head/collectable/rabbitears,
+		/obj/item/clothing/head/collectable/wizard,
+		/obj/item/clothing/head/collectable/hardhat,
+		/obj/item/clothing/head/collectable/HoS,
+		/obj/item/clothing/head/collectable/thunderdome,
+		/obj/item/clothing/head/collectable/swat,
+		/obj/item/clothing/head/collectable/slime,
+		/obj/item/clothing/head/collectable/police,
+		/obj/item/clothing/head/collectable/slime,
+		/obj/item/clothing/head/collectable/xenom,
+		/obj/item/clothing/head/collectable/petehat,
+	)
 	name = "Коллекционные шляпы"
 	cost = 200
 	containername = "ящик коллекционных шляп"
@@ -4588,7 +4991,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику коллекционных шляп",
 		ACCUSATIVE = "ящик коллекционных шляп",
 		INSTRUMENTAL = "ящиком коллекционных шляп",
-		PREPOSITIONAL = "ящике коллекционных шляп"
+		PREPOSITIONAL = "ящике коллекционных шляп",
 	)
 
 /datum/supply_packs/misc/randomised/New()
@@ -4598,14 +5001,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/foamforce
 	name = "Игрушечные дробовики"
-	contains = list(/obj/item/gun/projectile/shotgun/toy,
-					/obj/item/gun/projectile/shotgun/toy,
-					/obj/item/gun/projectile/shotgun/toy,
-					/obj/item/gun/projectile/shotgun/toy,
-					/obj/item/gun/projectile/shotgun/toy,
-					/obj/item/gun/projectile/shotgun/toy,
-					/obj/item/gun/projectile/shotgun/toy,
-					/obj/item/gun/projectile/shotgun/toy)
+	contains = list(
+		/obj/item/gun/projectile/shotgun/toy,
+		/obj/item/gun/projectile/shotgun/toy,
+		/obj/item/gun/projectile/shotgun/toy,
+		/obj/item/gun/projectile/shotgun/toy,
+		/obj/item/gun/projectile/shotgun/toy,
+		/obj/item/gun/projectile/shotgun/toy,
+		/obj/item/gun/projectile/shotgun/toy,
+		/obj/item/gun/projectile/shotgun/toy,
+	)
 	cost = 10
 	containername = "ящик игрушечных дробовиков"
 	container_ru_names = list(
@@ -4614,23 +5019,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику игрушечных дробовиков",
 		ACCUSATIVE = "ящик игрушечных дробовиков",
 		INSTRUMENTAL = "ящиком игрушечных дробовиков",
-		PREPOSITIONAL = "ящике игрушечных дробовиков"
+		PREPOSITIONAL = "ящике игрушечных дробовиков",
 	)
 
 /datum/supply_packs/misc/bigband
 	name = "Музыкальные инструменты"
-	contains = list(/obj/item/instrument/violin,
-					/obj/item/instrument/guitar,
-					/obj/item/instrument/eguitar,
-					/obj/item/instrument/glockenspiel,
-					/obj/item/instrument/accordion,
-					/obj/item/instrument/saxophone,
-					/obj/item/instrument/trombone,
-					/obj/item/instrument/recorder,
-					/obj/item/instrument/harmonica,
-					/obj/item/instrument/xylophone,
-					/obj/structure/piano/unanchored,
-					/obj/structure/musician/drumkit)
+	contains = list(
+		/obj/item/instrument/violin,
+		/obj/item/instrument/guitar,
+		/obj/item/instrument/eguitar,
+		/obj/item/instrument/glockenspiel,
+		/obj/item/instrument/accordion,
+		/obj/item/instrument/saxophone,
+		/obj/item/instrument/trombone,
+		/obj/item/instrument/recorder,
+		/obj/item/instrument/harmonica,
+		/obj/item/instrument/xylophone,
+		/obj/structure/piano/unanchored,
+		/obj/structure/musician/drumkit,
+	)
 	cost = 50
 	containername = "ящик музыкальных инструментов"
 	container_ru_names = list(
@@ -4639,38 +5046,40 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику музыкальных инструментов",
 		ACCUSATIVE = "ящик музыкальных инструментов",
 		INSTRUMENTAL = "ящиком музыкальных инструментов",
-		PREPOSITIONAL = "ящике музыкальных инструментов"
+		PREPOSITIONAL = "ящике музыкальных инструментов",
 	)
 
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Официальная одежда"
-	contains = list(/obj/item/clothing/under/blacktango,
-					/obj/item/clothing/under/assistantformal,
-					/obj/item/clothing/under/assistantformal,
-					/obj/item/clothing/under/lawyer/bluesuit,
-					/obj/item/clothing/suit/storage/lawyer/bluejacket,
-					/obj/item/clothing/under/lawyer/purpsuit,
-					/obj/item/clothing/suit/storage/lawyer/purpjacket,
-					/obj/item/clothing/under/lawyer/black,
-					/obj/item/clothing/suit/storage/lawyer/blackjacket,
-					/obj/item/clothing/accessory/waistcoat,
-					/obj/item/clothing/accessory/blue,
-					/obj/item/clothing/accessory/red,
-					/obj/item/clothing/accessory/black,
-					/obj/item/clothing/head/bowlerhat,
-					/obj/item/clothing/head/fedora,
-					/obj/item/clothing/head/flatcap,
-					/obj/item/clothing/head/beret,
-					/obj/item/clothing/head/that,
-					/obj/item/clothing/shoes/laceup,
-					/obj/item/clothing/shoes/laceup,
-					/obj/item/clothing/shoes/laceup,
-					/obj/item/clothing/under/suit_jacket/charcoal,
-					/obj/item/clothing/under/suit_jacket/navy,
-					/obj/item/clothing/under/suit_jacket/burgundy,
-					/obj/item/clothing/under/suit_jacket/checkered,
-					/obj/item/clothing/under/suit_jacket/tan,
-					/obj/item/lipstick/random)
+	contains = list(
+		/obj/item/clothing/under/blacktango,
+		/obj/item/clothing/under/assistantformal,
+		/obj/item/clothing/under/assistantformal,
+		/obj/item/clothing/under/lawyer/bluesuit,
+		/obj/item/clothing/suit/storage/lawyer/bluejacket,
+		/obj/item/clothing/under/lawyer/purpsuit,
+		/obj/item/clothing/suit/storage/lawyer/purpjacket,
+		/obj/item/clothing/under/lawyer/black,
+		/obj/item/clothing/suit/storage/lawyer/blackjacket,
+		/obj/item/clothing/accessory/waistcoat,
+		/obj/item/clothing/accessory/blue,
+		/obj/item/clothing/accessory/red,
+		/obj/item/clothing/accessory/black,
+		/obj/item/clothing/head/bowlerhat,
+		/obj/item/clothing/head/fedora,
+		/obj/item/clothing/head/flatcap,
+		/obj/item/clothing/head/beret,
+		/obj/item/clothing/head/that,
+		/obj/item/clothing/shoes/laceup,
+		/obj/item/clothing/shoes/laceup,
+		/obj/item/clothing/shoes/laceup,
+		/obj/item/clothing/under/suit_jacket/charcoal,
+		/obj/item/clothing/under/suit_jacket/navy,
+		/obj/item/clothing/under/suit_jacket/burgundy,
+		/obj/item/clothing/under/suit_jacket/checkered,
+		/obj/item/clothing/under/suit_jacket/tan,
+		/obj/item/lipstick/random,
+	)
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "ящик официальной одежды"
 	container_ru_names = list(
@@ -4679,21 +5088,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику официальной одежды",
 		ACCUSATIVE = "ящик официальной одежды",
 		INSTRUMENTAL = "ящиком официальной одежды",
-		PREPOSITIONAL = "ящике официальной одежды"
+		PREPOSITIONAL = "ящике официальной одежды",
 	)
 
 /datum/supply_packs/misc/teamcolors		//For team sports like space polo
 	name = "Командные майки"
 	// 4 red jerseys, 4 blue jerseys, and 1 beach ball
-	contains = list(/obj/item/clothing/under/color/red/jersey,
-					/obj/item/clothing/under/color/red/jersey,
-					/obj/item/clothing/under/color/red/jersey,
-					/obj/item/clothing/under/color/red/jersey,
-					/obj/item/clothing/under/color/blue/jersey,
-					/obj/item/clothing/under/color/blue/jersey,
-					/obj/item/clothing/under/color/blue/jersey,
-					/obj/item/clothing/under/color/blue/jersey,
-					/obj/item/beach_ball)
+	contains = list(
+		/obj/item/clothing/under/color/red/jersey,
+		/obj/item/clothing/under/color/red/jersey,
+		/obj/item/clothing/under/color/red/jersey,
+		/obj/item/clothing/under/color/red/jersey,
+		/obj/item/clothing/under/color/blue/jersey,
+		/obj/item/clothing/under/color/blue/jersey,
+		/obj/item/clothing/under/color/blue/jersey,
+		/obj/item/clothing/under/color/blue/jersey,
+		/obj/item/beach_ball,
+	)
 	cost = 15
 	containername = "ящик командных маек"
 	container_ru_names = list(
@@ -4702,25 +5113,27 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику командных маек",
 		ACCUSATIVE = "ящик командных маек",
 		INSTRUMENTAL = "ящиком командных маек",
-		PREPOSITIONAL = "ящике командных маек"
+		PREPOSITIONAL = "ящике командных маек",
 	)
 
 /datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
 	name = "Набор для поло"
 	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
-	contains = list(/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/clothing/mask/horsehead,
-					/obj/item/clothing/mask/horsehead,
-					/obj/item/clothing/mask/horsehead,
-					/obj/item/clothing/mask/horsehead,
-					/obj/item/clothing/mask/horsehead,
-					/obj/item/clothing/mask/horsehead,
-					/obj/item/beach_ball)
+	contains = list(
+		/obj/item/twohanded/staff/broom,
+		/obj/item/twohanded/staff/broom,
+		/obj/item/twohanded/staff/broom,
+		/obj/item/twohanded/staff/broom,
+		/obj/item/twohanded/staff/broom,
+		/obj/item/twohanded/staff/broom,
+		/obj/item/clothing/mask/horsehead,
+		/obj/item/clothing/mask/horsehead,
+		/obj/item/clothing/mask/horsehead,
+		/obj/item/clothing/mask/horsehead,
+		/obj/item/clothing/mask/horsehead,
+		/obj/item/clothing/mask/horsehead,
+		/obj/item/beach_ball,
+	)
 	cost = 20
 	containername = "ящик с набором для поло"
 	container_ru_names = list(
@@ -4729,16 +5142,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором для поло",
 		ACCUSATIVE = "ящик с набором для поло",
 		INSTRUMENTAL = "ящиком с набором для поло",
-		PREPOSITIONAL = "ящике с набором для поло"
+		PREPOSITIONAL = "ящике с набором для поло",
 	)
 
 /datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
 	name = "Боксёрское снаряжение"
 	// 4 boxing gloves
-	contains = list(/obj/item/clothing/gloves/boxing/blue,
-					/obj/item/clothing/gloves/boxing/green,
-					/obj/item/clothing/gloves/boxing/yellow,
-					/obj/item/clothing/gloves/boxing)
+	contains = list(
+		/obj/item/clothing/gloves/boxing/blue,
+		/obj/item/clothing/gloves/boxing/green,
+		/obj/item/clothing/gloves/boxing/yellow,
+		/obj/item/clothing/gloves/boxing,
+	)
 	cost = 15
 	containername = "ящик с боксёрским снаряжением"
 	container_ru_names = list(
@@ -4747,7 +5162,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с боксёрским снаряжением",
 		ACCUSATIVE = "ящик с боксёрским снаряжением",
 		INSTRUMENTAL = "ящиком с боксёрским снаряжением",
-		PREPOSITIONAL = "ящике с боксёрским снаряжением"
+		PREPOSITIONAL = "ящике с боксёрским снаряжением",
 	)
 
 ///////////// Bathroom Fixtures
@@ -4755,8 +5170,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/toilet
 	name = "Оборудование для уборной"
 	cost = 10
-	contains = list(/obj/item/bathroom_parts,
-					/obj/item/bathroom_parts/urinal)
+	contains = list(
+		/obj/item/bathroom_parts,
+		/obj/item/bathroom_parts/urinal,
+	)
 	containername = "ящик оборудования для уборной"
 	container_ru_names = list(
 		NOMINATIVE = "ящик оборудования для уборной",
@@ -4764,13 +5181,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оборудования для уборной",
 		ACCUSATIVE = "ящик оборудования для уборной",
 		INSTRUMENTAL = "ящиком оборудования для уборной",
-		PREPOSITIONAL = "ящике оборудования для уборной"
+		PREPOSITIONAL = "ящике оборудования для уборной",
 	)
 /datum/supply_packs/misc/hygiene
 	name = "Оборудование для гигиены"
 	cost = 10
-	contains = list(/obj/item/bathroom_parts/sink,
-					/obj/item/mounted/shower)
+	contains = list(
+		/obj/item/bathroom_parts/sink,
+		/obj/item/mounted/shower,
+	)
 	containername = "ящик оборудования для гигиены"
 	container_ru_names = list(
 		NOMINATIVE = "ящик оборудования для гигиены",
@@ -4778,13 +5197,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику оборудования для гигиены",
 		ACCUSATIVE = "ящик оборудования для гигиены",
 		INSTRUMENTAL = "ящиком оборудования для гигиены",
-		PREPOSITIONAL = "ящике оборудования для гигиены"
+		PREPOSITIONAL = "ящике оборудования для гигиены",
 	)
 
 /datum/supply_packs/misc/snow_machine
 	name = "Снегогенератор"
 	cost = 20
-	contains = list(/obj/machinery/snow_machine)
+	contains = list(
+		/obj/machinery/snow_machine,
+	)
 	containername = "ящик со снегогенератором"
 	container_ru_names = list(
 		NOMINATIVE = "ящик со снегогенератором",
@@ -4792,7 +5213,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику со снегогенератором",
 		ACCUSATIVE = "ящик со снегогенератором",
 		INSTRUMENTAL = "ящиком со снегогенератором",
-		PREPOSITIONAL = "ящике со снегогенератором"
+		PREPOSITIONAL = "ящике со снегогенератором",
 	)
 	special = TRUE
 
@@ -4811,12 +5232,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику деталей крематория",
 		ACCUSATIVE = "ящик деталей крематория",
 		INSTRUMENTAL = "ящиком деталей крематория",
-		PREPOSITIONAL = "ящике деталей крематория"
+		PREPOSITIONAL = "ящике деталей крематория",
 	)
 
 /datum/supply_packs/misc/loader
 	name = "Грузовой МЭК"
-	contains = list(/obj/item/mod/control/pre_equipped/loader)
+	contains = list(
+		/obj/item/mod/control/pre_equipped/loader,
+	)
 	cost = 75
 	containername = "ящик с грузовым МЭК"
 	container_ru_names = list(
@@ -4825,7 +5248,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с грузовым МЭК",
 		ACCUSATIVE = "ящик с грузовым МЭК",
 		INSTRUMENTAL = "ящиком с грузовым МЭК",
-		PREPOSITIONAL = "ящике с грузовым МЭК"
+		PREPOSITIONAL = "ящике с грузовым МЭК",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -4838,7 +5261,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/vending/autodrobe
 	name = "Набор пополнения Autodrobe"
-	contains = list(/obj/item/vending_refill/autodrobe)
+	contains = list(
+		/obj/item/vending_refill/autodrobe,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения Autodrobe"
 	container_ru_names = list(
@@ -4847,12 +5272,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Autodrobe",
 		ACCUSATIVE = "ящик с набором пополнения Autodrobe",
 		INSTRUMENTAL = "ящиком с набором пополнения Autodrobe",
-		PREPOSITIONAL = "ящике с набором пополнения Autodrobe"
+		PREPOSITIONAL = "ящике с набором пополнения Autodrobe",
 	)
 
 /datum/supply_packs/vending/clothes
 	name = "Набор пополнения ClothesMate"
-	contains = list(/obj/item/vending_refill/clothing)
+	contains = list(
+		/obj/item/vending_refill/clothing,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения ClothesMate"
 	container_ru_names = list(
@@ -4861,12 +5288,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/security
 	name = "Набор пополнения Security Departament ClothesMate"
-	contains = list(/obj/item/vending_refill/clothing/security)
+	contains = list(
+		/obj/item/vending_refill/clothing/security,
+	)
 	cost = 80
 	containername = "ящик с набором пополнения Security Departament ClothesMate"
 	container_ru_names = list(
@@ -4875,12 +5304,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Security Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Security Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Security Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Security Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Security Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/engineering
 	name = "Набор пополнения Engineering Departament ClothesMate"
-	contains = list(/obj/item/vending_refill/clothing/engineering)
+	contains = list(
+		/obj/item/vending_refill/clothing/engineering,
+	)
 	cost = 50
 	containername = "ящик с набором пополнения Engineering Departament ClothesMate"
 	container_ru_names = list(
@@ -4889,12 +5320,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Engineering Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Engineering Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Engineering Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Engineering Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Engineering Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/medical
 	name = "Набор пополнения Medical Departament ClothesMate"
-	contains = list(/obj/item/vending_refill/clothing/medical)
+	contains = list(
+		/obj/item/vending_refill/clothing/medical,
+	)
 	cost = 50
 	containername = "ящик с набором пополнения Medical Departament ClothesMate"
 	container_ru_names = list(
@@ -4903,12 +5336,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Medical Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Medical Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Medical Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Medical Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Medical Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/science
 	name = "Набор пополнения Science Departament ClothesMate"
-	contains = list(/obj/item/vending_refill/clothing/science)
+	contains = list(
+		/obj/item/vending_refill/clothing/science,
+	)
 	cost = 30
 	containername = "ящик с набором пополнения Science Departament ClothesMate"
 	container_ru_names = list(
@@ -4917,12 +5352,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Science Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Science Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Science Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Science Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Science Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/cargo
 	name = "Набор пополнения Cargo Departament ClothesMate"
-	contains = list(/obj/item/vending_refill/clothing/cargo)
+	contains = list(
+		/obj/item/vending_refill/clothing/cargo,
+	)
 	cost = 30
 	containername = "ящик с набором пополнения Cargo Departament ClothesMate"
 	container_ru_names = list(
@@ -4931,12 +5368,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Cargo Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Cargo Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Cargo Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Cargo Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Cargo Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/law
 	name = "Набор пополнения Law Departament ClothesMate"
-	contains = list(/obj/item/vending_refill/clothing/law)
+	contains = list(
+		/obj/item/vending_refill/clothing/law,
+	)
 	cost = 30
 	containername = "ящик с набором пополнения Law Departament ClothesMate"
 	container_ru_names = list(
@@ -4945,12 +5384,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Law Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Law Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Law Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Law Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Law Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/service/botanical
 	name = "Набор пополнения Service Departament ClothesMate"
-	contains = list(/obj/item/vending_refill/clothing/service/botanical)
+	contains = list(
+		/obj/item/vending_refill/clothing/service/botanical,
+	)
 	cost = 30
 	containername = "ящик с набором пополнения Service Departament ClothesMate"
 	container_ru_names = list(
@@ -4959,12 +5400,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Service Departament ClothesMate",
 		ACCUSATIVE = "ящик с набором пополнения Service Departament ClothesMate",
 		INSTRUMENTAL = "ящиком с набором пополнения Service Departament ClothesMate",
-		PREPOSITIONAL = "ящике с набором пополнения Service Departament ClothesMate"
+		PREPOSITIONAL = "ящике с набором пополнения Service Departament ClothesMate",
 	)
 
 /datum/supply_packs/vending/clothes/service/chaplain
 	name = "Набор пополнения Departament Service ClothesMate Chaplain"
-	contains = list(/obj/item/vending_refill/clothing/service/chaplain)
+	contains = list(
+		/obj/item/vending_refill/clothing/service/chaplain,
+	)
 	cost = 30
 	containername = "ящик с набором пополнения Departament Service ClothesMate Chaplain"
 	container_ru_names = list(
@@ -4973,12 +5416,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Departament Service ClothesMate Chaplain",
 		ACCUSATIVE = "ящик с набором пополнения Departament Service ClothesMate Chaplain",
 		INSTRUMENTAL = "ящиком с набором пополнения Departament Service ClothesMate Chaplain",
-		PREPOSITIONAL = "ящике с набором пополнения Departament Service ClothesMate Chaplain"
+		PREPOSITIONAL = "ящике с набором пополнения Departament Service ClothesMate Chaplain",
 	)
 
 /datum/supply_packs/vending/suit
 	name = "Набор пополнения Suitlord"
-	contains = list(/obj/item/vending_refill/suitdispenser)
+	contains = list(
+		/obj/item/vending_refill/suitdispenser,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения Suitlord"
 	container_ru_names = list(
@@ -4987,12 +5432,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Suitlord",
 		ACCUSATIVE = "ящик с набором пополнения Suitlord",
 		INSTRUMENTAL = "ящиком с набором пополнения Suitlord",
-		PREPOSITIONAL = "ящике с набором пополнения Suitlord"
+		PREPOSITIONAL = "ящике с набором пополнения Suitlord",
 	)
 
 /datum/supply_packs/vending/hat
 	name = "Набор пополнения Hatlord"
-	contains = list(/obj/item/vending_refill/hatdispenser)
+	contains = list(
+		/obj/item/vending_refill/hatdispenser,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения Hatlord"
 	container_ru_names = list(
@@ -5001,12 +5448,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Hatlord",
 		ACCUSATIVE = "ящик с набором пополнения Hatlord",
 		INSTRUMENTAL = "ящиком с набором пополнения Hatlord",
-		PREPOSITIONAL = "ящике с набором пополнения Hatlord"
+		PREPOSITIONAL = "ящике с набором пополнения Hatlord",
 	)
 
 /datum/supply_packs/vending/shoes
 	name = "Набор пополнения Shoelord"
-	contains = list(/obj/item/vending_refill/shoedispenser)
+	contains = list(
+		/obj/item/vending_refill/shoedispenser,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения Shoelord"
 	container_ru_names = list(
@@ -5015,12 +5464,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Shoelord",
 		ACCUSATIVE = "ящик с набором пополнения Shoelord",
 		INSTRUMENTAL = "ящиком с набором пополнения Shoelord",
-		PREPOSITIONAL = "ящике с набором пополнения Shoelord"
+		PREPOSITIONAL = "ящике с набором пополнения Shoelord",
 	)
 
 /datum/supply_packs/vending/pets
 	name = "Набор пополнения CritterCare"
-	contains = list(/obj/item/vending_refill/crittercare)
+	contains = list(
+		/obj/item/vending_refill/crittercare,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения CritterCare"
 	container_ru_names = list(
@@ -5029,14 +5480,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения CritterCare",
 		ACCUSATIVE = "ящик с набором пополнения CritterCare",
 		INSTRUMENTAL = "ящиком с набором пополнения CritterCare",
-		PREPOSITIONAL = "ящике с набором пополнения CritterCare"
+		PREPOSITIONAL = "ящике с набором пополнения CritterCare",
 	)
 
 /datum/supply_packs/vending/bartending
 	name = "Набор пополнения Booze-o-mat и Solar's Best Hot Drinks"
 	cost = 20
-	contains = list(/obj/item/vending_refill/boozeomat,
-					/obj/item/vending_refill/coffee)
+	contains = list(
+		/obj/item/vending_refill/boozeomat,
+		/obj/item/vending_refill/coffee,
+	)
 	containername = "ящик с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
@@ -5044,13 +5497,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
 		ACCUSATIVE = "ящик с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
 		INSTRUMENTAL = "ящиком с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
-		PREPOSITIONAL = "ящике с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks"
+		PREPOSITIONAL = "ящике с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
 	)
 	announce_beacons = list("Bar" = list("Bar"))
 
 /datum/supply_packs/vending/cigarette
 	name = "Набор пополнения ShadyCigs Deluxe"
-	contains = list(/obj/item/vending_refill/cigarette)
+	contains = list(
+		/obj/item/vending_refill/cigarette,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения ShadyCigs Deluxe"
 	container_ru_names = list(
@@ -5059,13 +5514,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения ShadyCigs Deluxe",
 		ACCUSATIVE = "ящик с набором пополнения ShadyCigs Deluxe",
 		INSTRUMENTAL = "ящиком с набором пополнения ShadyCigs Deluxe",
-		PREPOSITIONAL = "ящике с набором пополнения ShadyCigs Deluxe"
+		PREPOSITIONAL = "ящике с набором пополнения ShadyCigs Deluxe",
 	)
 
 /datum/supply_packs/vending/dinnerware
 	name = "Набор пополнения Plasteel Chef's Dinnerware"
 	cost = 10
-	contains = list(/obj/item/vending_refill/dinnerware)
+	contains = list(
+		/obj/item/vending_refill/dinnerware,
+	)
 	containername = "ящик с набором пополнения Plasteel Chef's Dinnerware"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с набором пополнения Plasteel Chef's Dinnerware",
@@ -5073,16 +5530,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Plasteel Chef's Dinnerware",
 		ACCUSATIVE = "ящик с набором пополнения Plasteel Chef's Dinnerware",
 		INSTRUMENTAL = "ящиком с набором пополнения Plasteel Chef's Dinnerware",
-		PREPOSITIONAL = "ящике с набором пополнения Plasteel Chef's Dinnerware"
+		PREPOSITIONAL = "ящике с набором пополнения Plasteel Chef's Dinnerware",
 	)
 
 /datum/supply_packs/vending/imported
 	name = "Наборы пополнения импортированных торгоматов"
 	cost = 40
-	contains = list(/obj/item/vending_refill/sustenance,
-					/obj/item/vending_refill/robotics,
-					/obj/item/vending_refill/sovietsoda,
-					/obj/item/vending_refill/engineering)
+	contains = list(
+		/obj/item/vending_refill/sustenance,
+		/obj/item/vending_refill/robotics,
+		/obj/item/vending_refill/sovietsoda,
+		/obj/item/vending_refill/engineering,
+	)
 	containername = "ящик наборов пополнения импортированных торгоматов"
 	container_ru_names = list(
 		NOMINATIVE = "ящик наборов пополнения импортированных торгоматов",
@@ -5090,13 +5549,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику наборов пополнения импортированных торгоматов",
 		ACCUSATIVE = "ящик наборов пополнения импортированных торгоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения импортированных торгоматов",
-		PREPOSITIONAL = "ящике наборов пополнения импортированных торгоматов"
+		PREPOSITIONAL = "ящике наборов пополнения импортированных торгоматов",
 	)
 
 /datum/supply_packs/vending/ptech
 	name = "Набор пополнения PTech"
 	cost = 15
-	contains = list(/obj/item/vending_refill/cart)
+	contains = list(
+		/obj/item/vending_refill/cart,
+	)
 	containername = "ящик с набором пополнения PTech"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с набором пополнения PTech",
@@ -5104,12 +5565,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения PTech",
 		ACCUSATIVE = "ящик с набором пополнения PTech",
 		INSTRUMENTAL = "ящиком с набором пополнения PTech",
-		PREPOSITIONAL = "ящике с набором пополнения PTech"
+		PREPOSITIONAL = "ящике с набором пополнения PTech",
 	)
 
 /datum/supply_packs/vending/snack
 	name = "Набор пополнения Getmore Chocolate Corp"
-	contains = list(/obj/item/vending_refill/snack)
+	contains = list(
+		/obj/item/vending_refill/snack,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения Getmore Chocolate Corp"
 	container_ru_names = list(
@@ -5118,12 +5581,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Getmore Chocolate Corp",
 		ACCUSATIVE = "ящик с набором пополнения Getmore Chocolate Corp",
 		INSTRUMENTAL = "ящиком с набором пополнения Getmore Chocolate Corp",
-		PREPOSITIONAL = "ящике с набором пополнения Getmore Chocolate Corp"
+		PREPOSITIONAL = "ящике с набором пополнения Getmore Chocolate Corp",
 	)
 
 /datum/supply_packs/vending/cola
 	name = "Набор пополнения Robust Softdrinks"
-	contains = list(/obj/item/vending_refill/cola)
+	contains = list(
+		/obj/item/vending_refill/cola,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения Robust Softdrinks"
 	container_ru_names = list(
@@ -5132,13 +5597,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Robust Softdrinks",
 		ACCUSATIVE = "ящик с набором пополнения Robust Softdrinks",
 		INSTRUMENTAL = "ящиком с набором пополнения Robust Softdrinks",
-		PREPOSITIONAL = "ящике с набором пополнения Robust Softdrinks"
+		PREPOSITIONAL = "ящике с набором пополнения Robust Softdrinks",
 	)
 
 /datum/supply_packs/vending/vendomat
 	name = "Набор пополнения Assistomate"
 	cost = 10
-	contains = list(/obj/item/vending_refill/assist)
+	contains = list(
+		/obj/item/vending_refill/assist,
+	)
 	containername = "ящик с набором пополнения Assistomate"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с набором пополнения Assistomate",
@@ -5146,12 +5613,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Assistomate",
 		ACCUSATIVE = "ящик с набором пополнения Assistomate",
 		INSTRUMENTAL = "ящиком с набором пополнения Assistomate",
-		PREPOSITIONAL = "ящике с набором пополнения Assistomate"
+		PREPOSITIONAL = "ящике с набором пополнения Assistomate",
 	)
 
 /datum/supply_packs/vending/chinese
 	name = "Набор пополнения Mr. Chang"
-	contains = list(/obj/item/vending_refill/chinese)
+	contains = list(
+		/obj/item/vending_refill/chinese,
+	)
 	cost = 15
 	containername = "ящик с набором пополнения Mr. Chang"
 	container_ru_names = list(
@@ -5160,19 +5629,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику с набором пополнения Mr. Chang",
 		ACCUSATIVE = "ящик с набором пополнения Mr. Chang",
 		INSTRUMENTAL = "ящиком с набором пополнения Mr. Chang",
-		PREPOSITIONAL = "ящике с набором пополнения Mr. Chang"
+		PREPOSITIONAL = "ящике с набором пополнения Mr. Chang",
 	)
 
 /datum/supply_packs/vending/protein
 	name = "Sport Supply Crate"
-	contains = list(/obj/item/vending_refill/protein)
+	contains = list(
+		/obj/item/vending_refill/protein,
+	)
 	cost = 20
 	containername = "protein supply crate"
 
 /datum/supply_packs/vending/customat
 	name = "Наборы пополнения Кастоматов"
-	contains = list(/obj/item/vending_refill/custom,
-					/obj/item/vending_refill/custom)
+	contains = list(
+		/obj/item/vending_refill/custom,
+		/obj/item/vending_refill/custom,
+	)
 	cost = 30
 	containername = "ящик наборов пополнения Кастоматов"
 	container_ru_names = list(
@@ -5181,7 +5654,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику наборов пополнения Кастоматов",
 		ACCUSATIVE = "ящик наборов пополнения Кастоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения Кастоматов",
-		PREPOSITIONAL = "ящике наборов пополнения Кастоматов"
+		PREPOSITIONAL = "ящике наборов пополнения Кастоматов",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -5196,14 +5669,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/contraband/mosin
 	name = "Винтовки Мосина"
-	contains = list(/obj/item/gun/projectile/shotgun/boltaction,
-					/obj/item/gun/projectile/shotgun/boltaction,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762)
+	contains = list(
+		/obj/item/gun/projectile/shotgun/boltaction,
+		/obj/item/gun/projectile/shotgun/boltaction,
+		/obj/item/ammo_box/speedloader/a762,
+		/obj/item/ammo_box/speedloader/a762,
+		/obj/item/ammo_box/speedloader/a762,
+		/obj/item/ammo_box/speedloader/a762,
+		/obj/item/ammo_box/speedloader/a762,
+		/obj/item/ammo_box/speedloader/a762,
+	)
 	cost = 80
 	containername = "ящик винтовок Мосина"
 	container_ru_names = list(
@@ -5212,13 +5687,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику винтовок Мосина",
 		ACCUSATIVE = "ящик винтовок Мосина",
 		INSTRUMENTAL = "ящиком винтовок Мосина",
-		PREPOSITIONAL = "ящике винтовок Мосина"
+		PREPOSITIONAL = "ящике винтовок Мосина",
 	)
 
 /datum/supply_packs/contraband/ammobox_mosin
 	name = "Патроны 7,62x54 мм"
-	contains = list(/obj/item/ammo_box/a762,
-					/obj/item/ammo_box/a762)
+	contains = list(
+		/obj/item/ammo_box/a762,
+		/obj/item/ammo_box/a762,
+	)
 	credits_cost = 2000
 	containername = "ящик патронов 7,62x54 мм"
 	container_ru_names = list(
@@ -5227,13 +5704,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 7,62x54 мм",
 		ACCUSATIVE = "ящик патронов 7,62x54 мм",
 		INSTRUMENTAL = "ящиком патронов 7,62x54 мм",
-		PREPOSITIONAL = "ящике патронов 7,62x54 мм"
+		PREPOSITIONAL = "ящике патронов 7,62x54 мм",
 	)
 
 /datum/supply_packs/contraband/ammobox556
 	name = "Патроны 5,56"
-	contains = list(/obj/item/ammo_box/a556,
-					/obj/item/ammo_box/a556)
+	contains = list(
+		/obj/item/ammo_box/a556,
+		/obj/item/ammo_box/a556,
+	)
 	credits_cost = 4500
 	containername = "ящик патронов 5,56"
 	container_ru_names = list(
@@ -5242,13 +5721,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 5,56",
 		ACCUSATIVE = "ящик патронов 5,56",
 		INSTRUMENTAL = "ящиком патронов 5,56",
-		PREPOSITIONAL = "ящике патронов 5,56"
+		PREPOSITIONAL = "ящике патронов 5,56",
 	)
 
 /datum/supply_packs/contraband/ammobox45
 	name = "Патроны .45"
-	contains = list(/obj/item/ammo_box/c45/ext,
-					/obj/item/ammo_box/c45/ext)
+	contains = list(
+		/obj/item/ammo_box/c45/ext,
+		/obj/item/ammo_box/c45/ext,
+	)
 	credits_cost = 3000
 	containername = "ящик патронов .45"
 	container_ru_names = list(
@@ -5257,13 +5738,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов .45",
 		ACCUSATIVE = "ящик патронов .45",
 		INSTRUMENTAL = "ящиком патронов .45",
-		PREPOSITIONAL = "ящике патронов .45"
+		PREPOSITIONAL = "ящике патронов .45",
 	)
 
 /datum/supply_packs/contraband/ammobox45rubber
 	name = "Патроны .45 (Резина)"
-	contains = list(/obj/item/ammo_box/rubber45/ext,
-					/obj/item/ammo_box/rubber45/ext)
+	contains = list(
+		/obj/item/ammo_box/rubber45/ext,
+		/obj/item/ammo_box/rubber45/ext,
+	)
 	credits_cost = 3000
 	containername = "ящик патронов .45 (Резина)"
 	container_ru_names = list(
@@ -5272,13 +5755,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов .45 (Резина)",
 		ACCUSATIVE = "ящик патронов .45 (Резина)",
 		INSTRUMENTAL = "ящиком патронов .45 (Резина)",
-		PREPOSITIONAL = "ящике патронов .45 (Резина)"
+		PREPOSITIONAL = "ящике патронов .45 (Резина)",
 	)
 
 /datum/supply_packs/contraband/ammoboxstechkinAP
 	name = "Патроны 10 мм (Бронебойные)"
-	contains = list(/obj/item/ammo_box/m10mm/ap,
-					/obj/item/ammo_box/m10mm/ap)
+	contains = list(
+		/obj/item/ammo_box/m10mm/ap,
+		/obj/item/ammo_box/m10mm/ap,
+	)
 	credits_cost = 2500
 	containername = "ящик патронов 10 мм (Бронебойные)"
 	container_ru_names = list(
@@ -5287,13 +5772,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 10 мм (Бронебойные)",
 		ACCUSATIVE = "ящик патронов 10 мм (Бронебойные)",
 		INSTRUMENTAL = "ящиком патронов 10 мм (Бронебойные)",
-		PREPOSITIONAL = "ящике патронов 10 мм (Бронебойные)"
+		PREPOSITIONAL = "ящике патронов 10 мм (Бронебойные)",
 	)
 
 /datum/supply_packs/contraband/ammoboxstechkinHP
 	name = "Патроны 10 мм (Экспансивные)"
-	contains = list(/obj/item/ammo_box/m10mm/hp,
-					/obj/item/ammo_box/m10mm/hp)
+	contains = list(
+		/obj/item/ammo_box/m10mm/hp,
+		/obj/item/ammo_box/m10mm/hp,
+	)
 	credits_cost = 2200
 	containername = "ящик патронов 10 мм (Экспансивные)"
 	container_ru_names = list(
@@ -5302,13 +5789,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 10 мм (Экспансивные)",
 		ACCUSATIVE = "ящик патронов 10 мм (Экспансивные)",
 		INSTRUMENTAL = "ящиком патронов 10 мм (Экспансивные)",
-		PREPOSITIONAL = "ящике патронов 10 мм (Экспансивные)"
+		PREPOSITIONAL = "ящике патронов 10 мм (Экспансивные)",
 	)
 
 /datum/supply_packs/contraband/ammoboxstechkinincendiary
 	name = "Патроны 10 мм (Зажигательные)"
-	contains = list(/obj/item/ammo_box/m10mm/fire,
-					/obj/item/ammo_box/m10mm/fire)
+	contains = list(
+		/obj/item/ammo_box/m10mm/fire,
+		/obj/item/ammo_box/m10mm/fire,
+	)
 	credits_cost = 2200
 	containername = "ящик патронов 10 мм (Зажигательные)"
 	container_ru_names = list(
@@ -5317,13 +5806,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 10 мм (Зажигательные)",
 		ACCUSATIVE = "ящик патронов 10 мм (Зажигательные)",
 		INSTRUMENTAL = "ящиком патронов 10 мм (Зажигательные)",
-		PREPOSITIONAL = "ящике патронов 10 мм (Зажигательные)"
+		PREPOSITIONAL = "ящике патронов 10 мм (Зажигательные)",
 	)
 
 /datum/supply_packs/contraband/compact
 	name = "Патроны .50L \"Стандартный\""
-	contains = list(/obj/item/ammo_box/sniper_rounds_compact,
-					/obj/item/ammo_box/sniper_rounds_compact)
+	contains = list(
+		/obj/item/ammo_box/sniper_rounds_compact,
+		/obj/item/ammo_box/sniper_rounds_compact,
+	)
 	credits_cost = 5000
 	containername = "ящик патронов .50L \"Стандартный\""
 	container_ru_names = list(
@@ -5332,13 +5823,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов .50L \"Стандартный\"",
 		ACCUSATIVE = "ящик патронов .50L \"Стандартный\"",
 		INSTRUMENTAL = "ящиком патронов .50L \"Стандартный\"",
-		PREPOSITIONAL = "ящике патронов .50L \"Стандартный\""
+		PREPOSITIONAL = "ящике патронов .50L \"Стандартный\"",
 	)
 
 /datum/supply_packs/contraband/penetrator
 	name = "Патроны .50 \"Бронебойный\""
-	contains = list(/obj/item/ammo_box/sniper_rounds_penetrator,
-					/obj/item/ammo_box/sniper_rounds_penetrator)
+	contains = list(
+		/obj/item/ammo_box/sniper_rounds_penetrator,
+		/obj/item/ammo_box/sniper_rounds_penetrator,
+	)
 	credits_cost = 9000
 	containername = "ящик патронов .50 \"Бронебойный\""
 	container_ru_names = list(
@@ -5347,13 +5840,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов .50 \"Бронебойный\"",
 		ACCUSATIVE = "ящик патронов .50 \"Бронебойный\"",
 		INSTRUMENTAL = "ящиком патронов .50 \"Бронебойный\"",
-		PREPOSITIONAL = "ящике патронов .50 \"Бронебойный\""
+		PREPOSITIONAL = "ящике патронов .50 \"Бронебойный\"",
 	)
 
 /datum/supply_packs/contraband/ammobox_nagant
 	name = "Патргоны 7,62x38 мм"
-	contains = list(/obj/item/ammo_box/nagant,
-					/obj/item/ammo_box/nagant)
+	contains = list(
+		/obj/item/ammo_box/nagant,
+		/obj/item/ammo_box/nagant,
+	)
 	credits_cost = 4000
 	containername = "ящик патронов 7,62x38 мм"
 	container_ru_names = list(
@@ -5362,13 +5857,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 7,62x38 мм",
 		ACCUSATIVE = "ящик патронов 7,62x38 мм",
 		INSTRUMENTAL = "ящиком патронов 7,62x38 мм",
-		PREPOSITIONAL = "ящике патронов 7,62x38 мм"
+		PREPOSITIONAL = "ящике патронов 7,62x38 мм",
 	)
 
 /datum/supply_packs/contraband/ammobox545
 	name = "Патроны 5,45x39 мм"
-	contains = list(/obj/item/ammo_box/ak814,
-					/obj/item/ammo_box/ak814)
+	contains = list(
+		/obj/item/ammo_box/ak814,
+		/obj/item/ammo_box/ak814,
+	)
 	credits_cost = 4500
 	containername = "ящик патронов 5,45x39 мм"
 	container_ru_names = list(
@@ -5377,14 +5874,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику патронов 5,45x39 мм",
 		ACCUSATIVE = "ящик патронов 5,45x39 мм",
 		INSTRUMENTAL = "ящиком патронов 5,45x39 мм",
-		PREPOSITIONAL = "ящике патронов 5,45x39 мм"
+		PREPOSITIONAL = "ящике патронов 5,45x39 мм",
 	)
 
 /datum/supply_packs/contraband/rpg
 	name = "Фугасные ракеты"
-	contains = list(/obj/item/ammo_casing/rocket,
-					/obj/item/ammo_casing/rocket,
-					/obj/item/ammo_casing/rocket)
+	contains = list(
+		/obj/item/ammo_casing/rocket,
+		/obj/item/ammo_casing/rocket,
+		/obj/item/ammo_casing/rocket,
+	)
 	credits_cost = 25000
 	containername = "ящик фугасных ракет"
 	container_ru_names = list(
@@ -5393,12 +5892,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику фугасных ракет",
 		ACCUSATIVE = "ящик фугасных ракет",
 		INSTRUMENTAL = "ящиком фугасных ракет",
-		PREPOSITIONAL = "ящике фугасных ракет"
+		PREPOSITIONAL = "ящике фугасных ракет",
 	)
 
 /datum/supply_packs/contraband/grenades
 	name = "Гранаты 40 мм"
-	contains = list(/obj/item/ammo_box/a40mm)
+	contains = list(
+		/obj/item/ammo_box/a40mm,
+	)
 	credits_cost = 20000
 	containername = "ящик 40 мм гранат"
 	container_ru_names = list(
@@ -5407,14 +5908,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику 40 мм гранат",
 		ACCUSATIVE = "ящик 40 мм гранат",
 		INSTRUMENTAL = "ящиком 40 мм гранат",
-		PREPOSITIONAL = "ящике 40 мм гранат"
+		PREPOSITIONAL = "ящике 40 мм гранат",
 	)
 
 /datum/supply_packs/contraband/bombard_grenades
 	name = "Самодельные 40 мм гранаты"
-	contains = list(/obj/item/ammo_casing/a40mm/improvised/exp_shell,
-					/obj/item/ammo_casing/a40mm/improvised/flame_shell,
-					/obj/item/ammo_casing/a40mm/improvised/smoke_shell)
+	contains = list(
+		/obj/item/ammo_casing/a40mm/improvised/exp_shell,
+		/obj/item/ammo_casing/a40mm/improvised/flame_shell,
+		/obj/item/ammo_casing/a40mm/improvised/smoke_shell,
+	)
 	credits_cost = 7000
 	containername = "ящик самодельных 40 мм гранат"
 	container_ru_names = list(
@@ -5423,15 +5926,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику самодельных 40 мм гранат",
 		ACCUSATIVE = "ящик самодельных 40 мм гранат",
 		INSTRUMENTAL = "ящиком самодельных 40 мм гранат",
-		PREPOSITIONAL = "ящике самодельных 40 мм гранат"
+		PREPOSITIONAL = "ящике самодельных 40 мм гранат",
 	)
 
 /datum/supply_packs/contraband/randomised/contraband
 	var/num_contained = 5
-	contains = list(/obj/item/storage/pill_bottle/random_drug_bottle,
-					/obj/item/poster/random_contraband,
-					/obj/item/storage/fancy/cigarettes/dromedaryco,
-					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims)
+	contains = list(
+		/obj/item/storage/pill_bottle/random_drug_bottle,
+		/obj/item/poster/random_contraband,
+		/obj/item/storage/fancy/cigarettes/dromedaryco,
+		/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
+	)
 	name = "Контрабанда"
 	cost = 30
 	containername = "ящик"	// let's keep it subtle, eh?
@@ -5441,7 +5946,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику",
 		ACCUSATIVE = "ящик",
 		INSTRUMENTAL = "ящиком",
-		PREPOSITIONAL = "ящике"
+		PREPOSITIONAL = "ящике",
 	)
 
 /datum/supply_packs/contraband/randomised/contraband/New()
@@ -5450,10 +5955,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/contraband/foamforce/bonus
 	name = "Игрушечные пистолеты"
-	contains = list(/obj/item/gun/projectile/automatic/toy/pistol,
-					/obj/item/gun/projectile/automatic/toy/pistol,
-					/obj/item/ammo_box/magazine/toy/pistol,
-					/obj/item/ammo_box/magazine/toy/pistol)
+	contains = list(
+		/obj/item/gun/projectile/automatic/toy/pistol,
+		/obj/item/gun/projectile/automatic/toy/pistol,
+		/obj/item/ammo_box/magazine/toy/pistol,
+		/obj/item/ammo_box/magazine/toy/pistol,
+	)
 	cost = 40
 	containername = "ящик игрушечных пистолетов"
 	container_ru_names = list(
@@ -5462,7 +5969,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		DATIVE = "ящику игрушечных пистолетов",
 		ACCUSATIVE = "ящик игрушечных пистолетов",
 		INSTRUMENTAL = "ящиком игрушечных пистолетов",
-		PREPOSITIONAL = "ящике игрушечных пистолетов"
+		PREPOSITIONAL = "ящике игрушечных пистолетов",
 	)
 
 #undef SUPPLY_EMERGENCY

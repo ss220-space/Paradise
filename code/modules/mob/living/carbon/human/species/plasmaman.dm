@@ -67,9 +67,9 @@
 	)
 
 	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss"),
-			"с" = list("сс", "ссс", "сссс")
-		)
+		"s" = list("ss", "sss", "ssss"),
+		"с" = list("сс", "ссс", "сссс"),
+	)
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

@@ -172,7 +172,7 @@
 		DATIVE = "руке-клинку",
 		ACCUSATIVE = "руку-клинок",
 		INSTRUMENTAL = "рукой-клинком",
-		PREPOSITIONAL = "руке-клинке"
+		PREPOSITIONAL = "руке-клинке",
 	)
 
 
@@ -279,7 +279,7 @@
 		DATIVE = "молоту из плоти",
 		ACCUSATIVE = "молот из плоти",
 		INSTRUMENTAL = "молотом из плоти",
-		PREPOSITIONAL = "молоте из плоти"
+		PREPOSITIONAL = "молоте из плоти",
 	)
 
 /obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)
@@ -714,9 +714,8 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
-
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
@@ -727,12 +726,10 @@
 							span_italics("You hear organic matter ripping and tearing!"))
 	START_PROCESSING(SSobj, src)
 
-
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
 		user.reagents.add_reagent("perfluorodecalin", REAGENTS_METABOLISM)
-
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"
@@ -748,14 +745,12 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
-		)
-
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
+	)
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-
 
 /***************************************\
 |*****************ARMOR*****************|
@@ -795,9 +790,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
-
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()
@@ -807,7 +801,6 @@
 							span_warning("We harden our flesh, creating a suit of armor!"), \
 							span_italics("You hear organic matter ripping and tearing!"))
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"

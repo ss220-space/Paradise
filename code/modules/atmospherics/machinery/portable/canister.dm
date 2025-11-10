@@ -100,7 +100,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		"quart" = list(
 			"options" = GLOB.canister_icon_container.possiblequartcolor,
 			"name" = "Quaternary color",
-		)
+		),
 	)
 
 	color_index = list()

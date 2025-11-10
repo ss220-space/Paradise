@@ -25,7 +25,7 @@
 		DATIVE = "астероидному песку",
 		ACCUSATIVE = "астероидный песок",
 		INSTRUMENTAL = "астероидным песком",
-		PREPOSITIONAL = "астероидном песке"
+		PREPOSITIONAL = "астероидном песке",
 	)
 
 /turf/simulated/floor/plating/asteroid/Initialize(mapload)
@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 		DATIVE = "вулканическому полу",
 		ACCUSATIVE = "вулканический пол",
 		INSTRUMENTAL = "вулканическим полом",
-		PREPOSITIONAL = "вулканическом поле"
+		PREPOSITIONAL = "вулканическом поле",
 	)
 
 /turf/simulated/floor/plating/asteroid/basalt/refill_dug()
@@ -249,7 +249,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 		DATIVE = "снегу",
 		ACCUSATIVE = "снег",
 		INSTRUMENTAL = "снегом",
-		PREPOSITIONAL = "снеге"
+		PREPOSITIONAL = "снеге",
 	)
 
 /turf/simulated/floor/plating/asteroid/snow/broken_states()

@@ -353,3 +353,20 @@
 	result_amount = 3
 	min_temp = T0C + 250
 	mix_message = "Смесь превращается в густой жёлтый порошок."
+
+/datum/chemical_reaction/bikaridine
+	name = "Бикаридин"
+	id = "bicaridine"
+	result = "bicaridine"
+	required_reagents = list("phenol" = 1, "carbon" = 1)
+	result_amount = 1
+	min_temp = T0C + 100
+	mix_message = "Смесь приобретает красный оттенок."
+
+/datum/chemical_reaction/kelotane
+	name = "Келотан"
+	id = "kelotane"
+	result = "kelotane"
+	required_reagents = list("acetaldehyde" = 1, "carbon" = 1)
+	result_amount = 1
+	mix_message = "Смесь приобретает оранжевый оттенок."

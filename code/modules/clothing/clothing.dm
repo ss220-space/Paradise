@@ -212,9 +212,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/ears.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/ears.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ears.dmi'
-		) //We read you loud and skree-er.
-
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ears.dmi',
+	) //We read you loud and skree-er.
 
 /obj/item/proc/make_offear(slot, mob/living/carbon/human/user)
 	var/obj/item/clothing/ears/offear/offear = new(user)
@@ -228,7 +227,6 @@
 	if(!user.equip_to_slot(offear, slot, TRUE))
 		qdel(offear)
 		CRASH("[src] offear was not equipped.")
-
 
 /obj/item/clothing/ears/offear
 	name = "off ear"
@@ -302,8 +300,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /*
  * SEE_SELF  // can see self, no matter what
@@ -378,8 +376,8 @@
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
+	)
 
 	var/transfer_blood = 0
 
@@ -569,8 +567,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 
 
 /obj/item/clothing/head/update_icon_state()
@@ -645,8 +643,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+	)
 
 
 /// Proc that moves gas/breath masks out of the way
@@ -773,8 +771,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+	)
 
 
 /obj/item/clothing/shoes/wirecutter_act(mob/living/user, obj/item/I)
@@ -917,8 +915,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
 
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
@@ -1169,8 +1167,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
 	var/sensor_mode = SENSOR_OFF

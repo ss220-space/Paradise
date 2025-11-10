@@ -1,11 +1,12 @@
 /obj/effect/spawner/lootdrop/seed_vault
 	name = "seed vault seeds"
 
-	loot = list(/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap = 10,
-				/obj/item/seeds/cherry/bomb = 10,
-				/obj/item/seeds/berry/glow = 10,
-				/obj/item/seeds/sunflower/moonflower = 8
-				)
+	loot = list(
+		/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap = 10,
+		/obj/item/seeds/cherry/bomb = 10,
+		/obj/item/seeds/berry/glow = 10,
+		/obj/item/seeds/sunflower/moonflower = 8,
+	)
 
 /obj/effect/mob_spawn/human/seed_vault
 	name = "Сохранившийся террариум"
@@ -30,7 +31,7 @@
 		DATIVE = "сохранившемуся террариуму",
 		ACCUSATIVE = "сохранившийся террариум",
 		INSTRUMENTAL = "сохранившимся террариумом",
-		PREPOSITIONAL = "сохранившемся террариуме"
+		PREPOSITIONAL = "сохранившемся террариуме",
 	)
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)

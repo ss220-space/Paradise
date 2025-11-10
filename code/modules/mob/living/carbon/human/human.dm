@@ -996,6 +996,20 @@
 		balloon_alert(usr, "пульс замерен")
 
 
+/mob/living/carbon/human/verb/begin_strip()
+	set name = "Обыскать"
+	set desc = "Обыскать цель."
+	set src in view(1)
+
+	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(usr == src)
+		check_self_for_injuries()
+		return
+
+	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, usr, usr)
+
 /**
  * Set up DNA and species.
  *
@@ -1323,7 +1337,7 @@
 	/// tweeter style
 	var/max_length = bloody_hands * 30
 
-	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина – [max_length] символ[DECL_CREDIT(max_length)].", "Письмо кровью", max_length = max_length)
+	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина — [max_length] символ[DECL_CREDIT(max_length)].", "Письмо кровью", max_length = max_length)
 	if(origin != loc)
 		balloon_alert(src, "не двигайтесь во время письма!")
 		return

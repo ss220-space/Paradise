@@ -14,7 +14,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_L_ARM,
@@ -39,7 +39,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -55,7 +55,7 @@
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/ib,  // Only proxy IB here
 		/datum/surgery_step/glue_bone/plasma,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -86,7 +86,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -105,7 +105,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone/mend_skull,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(BODY_ZONE_HEAD)
 	restricted_speciestypes = list(/datum/species/plasmaman)
@@ -118,7 +118,7 @@
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/ib,  // Only proxy IB here
 		/datum/surgery_step/glue_bone/plasma,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(BODY_ZONE_HEAD)
 	target_speciestypes = list(/datum/species/plasmaman)
@@ -142,7 +142,7 @@
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_BONEGEL = 100,
-		TOOL_SCREWDRIVER = 90
+		TOOL_SCREWDRIVER = 90,
 	)
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
@@ -151,11 +151,9 @@
 
 /datum/surgery_step/glue_bone/plasma
 	name = "сращивание костей (Плазмолюд)"
-
 	allowed_tools = list(
-	/obj/item/stack/sheet/mineral/plasma = 100
+		/obj/item/stack/sheet/mineral/plasma = 100,
 	)
-
 	time = 1 SECONDS
 
 /datum/surgery_step/glue_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -205,7 +203,7 @@
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_BONESET = 100,
-		TOOL_WRENCH = 90
+		TOOL_WRENCH = 90,
 	)
 
 	time = 3.2 SECONDS
@@ -277,7 +275,7 @@
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_BONEGEL = 100,
-		TOOL_SCREWDRIVER = 90
+		TOOL_SCREWDRIVER = 90,
 	)
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS

@@ -69,7 +69,7 @@
 		DATIVE = "ксероксу",
 		ACCUSATIVE = "ксерокс",
 		INSTRUMENTAL = "ксероксом",
-		PREPOSITIONAL = "ксероксе"
+		PREPOSITIONAL = "ксероксе",
 	)
 
 /obj/machinery/photocopier/syndie
@@ -91,7 +91,7 @@
 		DATIVE = "ксероксу Синдиката",
 		ACCUSATIVE = "ксерокс Синдиката",
 		INSTRUMENTAL = "ксероксом Синдиката",
-		PREPOSITIONAL = "ксероксе Синдиката"
+		PREPOSITIONAL = "ксероксе Синдиката",
 	)
 
 /obj/machinery/photocopier/Initialize(mapload)
@@ -748,7 +748,7 @@
 		DATIVE = "тонер-картриджу",
 		ACCUSATIVE = "тонер-картридж",
 		INSTRUMENTAL = "тонер-картриджом",
-		PREPOSITIONAL = "тонер-картридже"
+		PREPOSITIONAL = "тонер-картридже",
 	)
 
 #undef PHOTOCOPIER_DELAY

@@ -10,7 +10,7 @@
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ,
 		/datum/surgery_step/extract_implant,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
 	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn, /datum/species/plasmaman)
@@ -23,7 +23,7 @@
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ/plasma,
 		/datum/surgery_step/extract_implant,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	target_speciestypes = list(/datum/species/plasmaman)
 	restricted_speciestypes = null
@@ -42,7 +42,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	target_speciestypes = list(/datum/species/kidan, /datum/species/wryn)
 	restricted_speciestypes = null
@@ -54,7 +54,7 @@
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/proxy/robotics/repair_limb,
 		/datum/surgery_step/extract_implant/synth,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	requires_organic_bodypart = FALSE
 

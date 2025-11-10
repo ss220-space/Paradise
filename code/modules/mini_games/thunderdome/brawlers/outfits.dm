@@ -4,7 +4,7 @@
 
 /datum/outfit/thunderdome
 	implants = list(
-		/obj/item/implant/postponed_death
+		/obj/item/implant/postponed_death,
 	)
 	uniform = /obj/item/clothing/under/redhawaiianshirt
 	shoes = /obj/item/clothing/shoes/sandal
@@ -13,18 +13,9 @@
 
 /datum/outfit/thunderdome/cqc
 	name = "Fighter"
-	backpack_contents = list(
-
-	)
 
 /datum/outfit/thunderdome/ranged
 	name = "Ranger"
-	backpack_contents = list(
-
-	)
 
 /datum/outfit/thunderdome/mixed
 	name = "Gladiator"
-	backpack_contents = list(
-
-	)

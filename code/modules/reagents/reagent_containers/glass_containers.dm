@@ -151,7 +151,7 @@
 		DATIVE = "мерному стакану",
 		ACCUSATIVE = "мерный стакан",
 		INSTRUMENTAL = "мерным стаканом",
-		PREPOSITIONAL = "мерном стакане"
+		PREPOSITIONAL = "мерном стакане",
 	)
 
 /obj/item/reagent_containers/glass/beaker/Initialize(mapload)
@@ -286,7 +286,7 @@
 		DATIVE = "большому мерному стакану",
 		ACCUSATIVE = "большой мерный стакан",
 		INSTRUMENTAL = "большим мерным стаканом",
-		PREPOSITIONAL = "большом мерном стакане"
+		PREPOSITIONAL = "большом мерном стакане",
 	)
 
 /obj/item/reagent_containers/glass/beaker/vial
@@ -306,7 +306,7 @@
 		DATIVE = "пробирке",
 		ACCUSATIVE = "пробирку",
 		INSTRUMENTAL = "пробиркой",
-		PREPOSITIONAL = "пробирке"
+		PREPOSITIONAL = "пробирке",
 	)
 
 /obj/item/reagent_containers/glass/beaker/drugs
@@ -325,7 +325,7 @@
 		DATIVE = "пластиковому пакетику",
 		ACCUSATIVE = "пластиковый пакетик",
 		INSTRUMENTAL = "пластиковым пакетиком",
-		PREPOSITIONAL = "пластиковом пакетике"
+		PREPOSITIONAL = "пластиковом пакетике",
 	)
 
 /obj/item/reagent_containers/glass/beaker/thermite
@@ -345,7 +345,7 @@
 		DATIVE = "пластиковому пакетику (Термит)",
 		ACCUSATIVE = "пластиковый пакетик (Термит)",
 		INSTRUMENTAL = "пластиковым пакетиком (Термит)",
-		PREPOSITIONAL = "пластиковом пакетике (Термит)"
+		PREPOSITIONAL = "пластиковом пакетике (Термит)",
 	)
 
 /obj/item/reagent_containers/glass/beaker/noreact
@@ -363,7 +363,7 @@
 		DATIVE = "криостазиному мерному стакану",
 		ACCUSATIVE = "криостазиный мерный стакан",
 		INSTRUMENTAL = "криостазиным мерным стаканом",
-		PREPOSITIONAL = "криостазином мерном стакане"
+		PREPOSITIONAL = "криостазином мерном стакане",
 	)
 
 /obj/item/reagent_containers/glass/beaker/noreact/New()
@@ -387,7 +387,7 @@
 		DATIVE = "блюспейс мерному стакану",
 		ACCUSATIVE = "блюспейс мерный стакан",
 		INSTRUMENTAL = "блюспейс мерным стаканом",
-		PREPOSITIONAL = "блюспейс мерном стакане"
+		PREPOSITIONAL = "блюспейс мерном стакане",
 	)
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
@@ -429,7 +429,7 @@
 		DATIVE = "металлическому ведру",
 		ACCUSATIVE = "металлическое ведро",
 		INSTRUMENTAL = "металлическим ведром",
-		PREPOSITIONAL = "металлическом ведре"
+		PREPOSITIONAL = "металлическом ведре",
 	)
 
 /obj/item/reagent_containers/glass/bucket/Initialize(mapload)
@@ -518,7 +518,7 @@
 		DATIVE = "деревянному ведру",
 		ACCUSATIVE = "деревянное ведро",
 		INSTRUMENTAL = "деревянным ведром",
-		PREPOSITIONAL = "деревянном ведре"
+		PREPOSITIONAL = "деревянном ведре",
 	)
 
 /obj/item/reagent_containers/glass/bucket/wooden/update_overlays()
@@ -542,7 +542,7 @@
 		DATIVE = "бутылке воды",
 		ACCUSATIVE = "бутылку воды",
 		INSTRUMENTAL = "бутылкой воды",
-		PREPOSITIONAL = "бутылке воды"
+		PREPOSITIONAL = "бутылке воды",
 	)
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/empty
@@ -563,7 +563,7 @@
 		DATIVE = "большой бутылке воды",
 		ACCUSATIVE = "большую бутылку воды",
 		INSTRUMENTAL = "большой бутылкой воды",
-		PREPOSITIONAL = "большой бутылке воды"
+		PREPOSITIONAL = "большой бутылке воды",
 	)
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty
@@ -592,7 +592,7 @@
 		DATIVE = "миске для животных",
 		ACCUSATIVE = "миску для животных",
 		INSTRUMENTAL = "миской для животных",
-		PREPOSITIONAL = "миске для животных"
+		PREPOSITIONAL = "миске для животных",
 	)
 
 /obj/item/reagent_containers/glass/pet_bowl/Initialize(mapload)

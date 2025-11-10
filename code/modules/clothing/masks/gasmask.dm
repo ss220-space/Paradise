@@ -28,7 +28,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/get_ru_names()
@@ -38,7 +38,7 @@
 		DATIVE = "противогазу",
 		ACCUSATIVE = "противогаз",
 		INSTRUMENTAL = "противогазом",
-		PREPOSITIONAL = "противогазе"
+		PREPOSITIONAL = "противогазе",
 	)
 
 // **** Welding gas mask ****
@@ -66,7 +66,7 @@
 		DATIVE = "сварочному протовогазу",
 		ACCUSATIVE = "сварочный протовогаз",
 		INSTRUMENTAL = "сварочным протовогазом",
-		PREPOSITIONAL = "сварочном протовогазе"
+		PREPOSITIONAL = "сварочном протовогазе",
 	)
 
 
@@ -102,7 +102,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/explorer/get_ru_names()
@@ -112,7 +112,7 @@
 		DATIVE = "противогазу исследователя",
 		ACCUSATIVE = "противогаз исследователя",
 		INSTRUMENTAL = "противогазом исследователя",
-		PREPOSITIONAL = "противогазе исследователя"
+		PREPOSITIONAL = "противогазе исследователя",
 	)
 
 
@@ -155,7 +155,7 @@
 		DATIVE = "маске Бейна",
 		ACCUSATIVE = "маску Бейна",
 		INSTRUMENTAL = "маской Бейна",
-		PREPOSITIONAL = "маске Бейна"
+		PREPOSITIONAL = "маске Бейна",
 	)
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
@@ -174,7 +174,7 @@
 		DATIVE = "маске чумного доктора",
 		ACCUSATIVE = "маску чумного доктора",
 		INSTRUMENTAL = "маской чумного доктора",
-		PREPOSITIONAL = "маске чумного доктора"
+		PREPOSITIONAL = "маске чумного доктора",
 	)
 
 /obj/item/clothing/mask/gas/plaguedoctor/armoured
@@ -194,7 +194,7 @@
 		DATIVE = "маске спецназа",
 		ACCUSATIVE = "маску спецназа",
 		INSTRUMENTAL = "маской спецназа",
-		PREPOSITIONAL = "маске спецназа"
+		PREPOSITIONAL = "маске спецназа",
 	)
 
 /obj/item/clothing/mask/gas/syndicate
@@ -212,7 +212,7 @@
 		DATIVE = "маске Синдиката",
 		ACCUSATIVE = "маску Синдиката",
 		INSTRUMENTAL = "маской Синдиката",
-		PREPOSITIONAL = "маске Синдиката"
+		PREPOSITIONAL = "маске Синдиката",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -242,7 +242,7 @@
 		DATIVE = "клоунскому парику с маской",
 		ACCUSATIVE = "клоунский парик с маской",
 		INSTRUMENTAL = "клоунским париком с маской",
-		PREPOSITIONAL = "клоунском парике с маской"
+		PREPOSITIONAL = "клоунском парике с маской",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/proc/mask_action(mob/user)
@@ -281,7 +281,7 @@
 		DATIVE = "сексуальному клоунскому парику с маской",
 		ACCUSATIVE = "сексуальный клоунский парик с маской",
 		INSTRUMENTAL = "сексуальным клоунским париком с маской",
-		PREPOSITIONAL = "сексуальном клоунском парике с маской"
+		PREPOSITIONAL = "сексуальном клоунском парике с маской",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/joker
@@ -297,7 +297,7 @@
 		DATIVE = "клоунскому парику с маской настоящего безумца",
 		ACCUSATIVE = "клоунский парик с маской настоящего безумца",
 		INSTRUMENTAL = "клоунским париком с маской настоящего безумца",
-		PREPOSITIONAL = "клоунском парике с маской настоящего безумца"
+		PREPOSITIONAL = "клоунском парике с маской настоящего безумца",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rainbow
@@ -307,7 +307,7 @@
 	item_state = "rainbow"
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rainbow/get_ru_names()
@@ -317,7 +317,7 @@
 		DATIVE = "радужному клоунскому парику с маской",
 		ACCUSATIVE = "радужный клоунский парик с маской",
 		INSTRUMENTAL = "радужным клоунским париком с маской",
-		PREPOSITIONAL = "радужном клоунском парике с маской"
+		PREPOSITIONAL = "радужном клоунском парике с маской",
 	)
 
 /obj/item/clothing/mask/gas/clownwiz
@@ -336,7 +336,7 @@
 		DATIVE = "магическому клоунскому парику с маской",
 		ACCUSATIVE = "магический клоунский парик с маской",
 		INSTRUMENTAL = "магическим клоунским париком с маской",
-		PREPOSITIONAL = "магическом клоунском парике с маской"
+		PREPOSITIONAL = "магическом клоунском парике с маской",
 	)
 
 
@@ -378,7 +378,7 @@
 		DATIVE = "счастливой маске мима",
 		ACCUSATIVE = "счастливую маску мима",
 		INSTRUMENTAL = "счастливой маской мима",
-		PREPOSITIONAL = "счастливой маске мима"
+		PREPOSITIONAL = "счастливой маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/proc/mask_action(mob/user)
@@ -454,7 +454,7 @@
 		DATIVE = "печальной маске мима",
 		ACCUSATIVE = "печальную маску мима",
 		INSTRUMENTAL = "печальной маской мима",
-		PREPOSITIONAL = "печальной маске мима"
+		PREPOSITIONAL = "печальной маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/angry
@@ -468,7 +468,7 @@
 		DATIVE = "злобной маске мима",
 		ACCUSATIVE = "злобную маску мима",
 		INSTRUMENTAL = "злобной маской мима",
-		PREPOSITIONAL = "злобной маске мима"
+		PREPOSITIONAL = "злобной маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/clueless
@@ -482,7 +482,7 @@
 		DATIVE = "равнодушной маске мима",
 		ACCUSATIVE = "равнодушную маску мима",
 		INSTRUMENTAL = "равнодушной маской мима",
-		PREPOSITIONAL = "равнодушной маске мима"
+		PREPOSITIONAL = "равнодушной маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/morutopia
@@ -496,7 +496,7 @@
 		DATIVE = "маске Трагика",
 		ACCUSATIVE = "маску Трагика",
 		INSTRUMENTAL = "маской Трагика",
-		PREPOSITIONAL = "маске Трагика"
+		PREPOSITIONAL = "маске Трагика",
 	)
 
 /obj/item/clothing/mask/gas/mime/wizard
@@ -512,7 +512,7 @@
 		DATIVE = "магической маске мима",
 		ACCUSATIVE = "магическую маску мима",
 		INSTRUMENTAL = "магической маской мима",
-		PREPOSITIONAL = "магической маске мима"
+		PREPOSITIONAL = "магической маске мима",
 	)
 
 /obj/item/clothing/mask/gas/mime/nodrop
@@ -538,7 +538,7 @@
 		DATIVE = "маске обезьяны",
 		ACCUSATIVE = "маску обезьяны",
 		INSTRUMENTAL = "маской обезьяны",
-		PREPOSITIONAL = "маске обезьяны"
+		PREPOSITIONAL = "маске обезьяны",
 	)
 
 /obj/item/clothing/mask/gas/mime/sexy
@@ -554,7 +554,7 @@
 		DATIVE = "сексуальной маске мима",
 		ACCUSATIVE = "сексуальную маску мима",
 		INSTRUMENTAL = "сексуальной маской мима",
-		PREPOSITIONAL = "сексуальной маске мима"
+		PREPOSITIONAL = "сексуальной маске мима",
 	)
 
 /obj/item/clothing/mask/gas/cyborg
@@ -570,7 +570,7 @@
 		DATIVE = "визору робота",
 		ACCUSATIVE = "визор робота",
 		INSTRUMENTAL = "визором робота",
-		PREPOSITIONAL = "визоре робота"
+		PREPOSITIONAL = "визоре робота",
 	)
 
 /obj/item/clothing/mask/gas/owl_mask
@@ -588,7 +588,7 @@
 		DATIVE = "маске совы",
 		ACCUSATIVE = "маску совы",
 		INSTRUMENTAL = "маской совы",
-		PREPOSITIONAL = "маске совы"
+		PREPOSITIONAL = "маске совы",
 	)
 
 /obj/item/clothing/mask/gas/owl_mask/super_hero
@@ -655,7 +655,7 @@
 		DATIVE = "противогазу службы безопасности",
 		ACCUSATIVE = "противогаз службы безопасности",
 		INSTRUMENTAL = "противогазом службы безопасности",
-		PREPOSITIONAL = "противогазе службы безопасности"
+		PREPOSITIONAL = "противогазе службы безопасности",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/adjustmask(user)
@@ -690,7 +690,7 @@
 		DATIVE = "тактическому противогазу СБ",
 		ACCUSATIVE = "тактический противогаз СБ",
 		INSTRUMENTAL = "тактическим противогазом СБ",
-		PREPOSITIONAL = "тактическом противогазе СБ"
+		PREPOSITIONAL = "тактическом противогазе СБ",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/hos
@@ -710,7 +710,7 @@
 		DATIVE = "тактическому противогазу ГСБ",
 		ACCUSATIVE = "тактический противогаз ГСБ",
 		INSTRUMENTAL = "тактическим противогазом ГСБ",
-		PREPOSITIONAL = "тактическом противогазе ГСБ"
+		PREPOSITIONAL = "тактическом противогазе ГСБ",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/warden
@@ -730,7 +730,7 @@
 		DATIVE = "тактическому противогазу смотрителя",
 		ACCUSATIVE = "тактический противогаз смотрителя",
 		INSTRUMENTAL = "тактическим противогазом смотрителя",
-		PREPOSITIONAL = "тактическом противогазе смотрителя"
+		PREPOSITIONAL = "тактическом противогазе смотрителя",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/swat
@@ -749,7 +749,7 @@
 		DATIVE = "тактическому противогазу",
 		ACCUSATIVE = "тактический противогаз",
 		INSTRUMENTAL = "тактическим противогазом",
-		PREPOSITIONAL = "тактическом противогазе"
+		PREPOSITIONAL = "тактическом противогазе",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/blue
@@ -770,7 +770,7 @@
 		DATIVE = "синему тактическому противогазу",
 		ACCUSATIVE = "синий тактический противогаз",
 		INSTRUMENTAL = "синимтактическим противогазом",
-		PREPOSITIONAL = "синем тактическом противогазе"
+		PREPOSITIONAL = "синем тактическом противогазе",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
@@ -788,7 +788,7 @@
 		DATIVE = "мегафону службы безопасности",
 		ACCUSATIVE = "мегафон службы безопасности",
 		INSTRUMENTAL = "мегафоном службы безопасности",
-		PREPOSITIONAL = "мегафоне службы безопасности"
+		PREPOSITIONAL = "мегафоне службы безопасности",
 	)
 
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -919,7 +919,7 @@
 		DATIVE = "кричащей маске",
 		ACCUSATIVE = "кричащую маску",
 		INSTRUMENTAL = "кричащей маской",
-		PREPOSITIONAL = "кричащей маске"
+		PREPOSITIONAL = "кричащей маске",
 	)
 
 /obj/item/clothing/mask/gas/ghostface/equipped(mob/user, slot, initial)
@@ -970,5 +970,5 @@
 		DATIVE = "шахтёрскому респиратору",
 		ACCUSATIVE = "шахтёрский респиратор",
 		INSTRUMENTAL = "шахтёрским респиратоом",
-		PREPOSITIONAL = "шахтёрском распираторе"
+		PREPOSITIONAL = "шахтёрском распираторе",
 	)

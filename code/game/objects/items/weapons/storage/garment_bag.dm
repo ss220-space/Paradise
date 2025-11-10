@@ -47,7 +47,7 @@
 		DATIVE = "сумке для одежды",
 		ACCUSATIVE = "сумку для одежды",
 		INSTRUMENTAL = "сумкой для одежды",
-		PREPOSITIONAL = "сумке для одежды"
+		PREPOSITIONAL = "сумке для одежды",
 	)
 
 /obj/item/storage/garmentbag/captains/populate_contents()

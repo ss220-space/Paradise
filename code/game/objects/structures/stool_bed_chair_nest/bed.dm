@@ -69,7 +69,7 @@
 		DATIVE = "плетёной кровати",
 		ACCUSATIVE = "плетёную кровать",
 		INSTRUMENTAL = "плетёной кроватью",
-		PREPOSITIONAL = "плетёной кровати"
+		PREPOSITIONAL = "плетёной кровати",
 	)
 
 /obj/structure/bed/leather
@@ -86,7 +86,7 @@
 		DATIVE = "кровати из кожи",
 		ACCUSATIVE = "кровать из кожи",
 		INSTRUMENTAL = "кроватью из кожи",
-		PREPOSITIONAL = "кровати из кожи"
+		PREPOSITIONAL = "кровати из кожи",
 	)
 
 /obj/structure/bed/wooden
@@ -104,7 +104,7 @@
 		DATIVE = "деревянной кровати",
 		ACCUSATIVE = "деревянную кровать",
 		INSTRUMENTAL = "деревянной кроватью",
-		PREPOSITIONAL = "деревянной кровати"
+		PREPOSITIONAL = "деревянной кровати",
 	)
 
 /obj/structure/bed/proc/handle_rotation()

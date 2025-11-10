@@ -187,6 +187,10 @@
 	id = "charging"
 	alert_type = null
 
+/datum/status_effect/lunging
+	id = "lunging"
+	alert_type = null
+
 /datum/status_effect/delayed
 	id = "delayed_status_effect"
 	status_type = STATUS_EFFECT_MULTIPLE

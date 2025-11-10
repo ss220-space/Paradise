@@ -29,7 +29,7 @@
 		DATIVE = "шприцу",
 		ACCUSATIVE = "шприц",
 		INSTRUMENTAL = "шприцем",
-		PREPOSITIONAL = "шприце"
+		PREPOSITIONAL = "шприце",
 	)
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
@@ -208,7 +208,7 @@
 		DATIVE = "шприцу (Космоциллин)",
 		ACCUSATIVE = "шприц (Космоциллин)",
 		INSTRUMENTAL = "шприцем (Космоциллин)",
-		PREPOSITIONAL = "шприце (Космоциллин)"
+		PREPOSITIONAL = "шприце (Космоциллин)",
 	)
 
 /obj/item/reagent_containers/syringe/charcoal
@@ -223,7 +223,7 @@
 		DATIVE = "шприцу (Активированный уголь)",
 		ACCUSATIVE = "шприц (Активированный уголь)",
 		INSTRUMENTAL = "шприцем (Активированный уголь)",
-		PREPOSITIONAL = "шприце (Активированный уголь)"
+		PREPOSITIONAL = "шприце (Активированный уголь)",
 	)
 
 /obj/item/reagent_containers/syringe/epinephrine
@@ -238,7 +238,7 @@
 		DATIVE = "шприцу (Эпинефрин)",
 		ACCUSATIVE = "шприц (Эпинефрин)",
 		INSTRUMENTAL = "шприцем (Эпинефрин)",
-		PREPOSITIONAL = "шприце (Эпинефрин)"
+		PREPOSITIONAL = "шприце (Эпинефрин)",
 	)
 
 /obj/item/reagent_containers/syringe/insulin
@@ -253,7 +253,7 @@
 		DATIVE = "шприцу (Инсулин)",
 		ACCUSATIVE = "шприц (Инсулин)",
 		INSTRUMENTAL = "шприцем (Инсулин)",
-		PREPOSITIONAL = "шприце (Инсулин)"
+		PREPOSITIONAL = "шприце (Инсулин)",
 	)
 
 /obj/item/reagent_containers/syringe/calomel
@@ -268,7 +268,7 @@
 		DATIVE = "шприцу (Каломель)",
 		ACCUSATIVE = "шприц (Каломель)",
 		INSTRUMENTAL = "шприцем (Каломель)",
-		PREPOSITIONAL = "шприце (Каломель)"
+		PREPOSITIONAL = "шприце (Каломель)",
 	)
 
 /obj/item/reagent_containers/syringe/heparin
@@ -283,7 +283,7 @@
 		DATIVE = "шприцу (Гепарин)",
 		ACCUSATIVE = "шприц (Гепарин)",
 		INSTRUMENTAL = "шприцем (Гепарин)",
-		PREPOSITIONAL = "шприце (Гепарин)"
+		PREPOSITIONAL = "шприце (Гепарин)",
 	)
 
 /obj/item/reagent_containers/syringe/bioterror
@@ -298,7 +298,7 @@
 		DATIVE = "шприцу (Нейротоксины)",
 		ACCUSATIVE = "шприц (Нейротоксины)",
 		INSTRUMENTAL = "шприцем (Нейротоксины)",
-		PREPOSITIONAL = "шприце (Нейротоксины)"
+		PREPOSITIONAL = "шприце (Нейротоксины)",
 	)
 
 /obj/item/reagent_containers/syringe/gluttony
@@ -315,7 +315,7 @@
 		DATIVE = "шприцу (Благословение Чревоугодия)",
 		ACCUSATIVE = "шприц (Благословение Чревоугодия)",
 		INSTRUMENTAL = "шприцем (Благословение Чревоугодия)",
-		PREPOSITIONAL = "шприце (Благословение Чревоугодия)"
+		PREPOSITIONAL = "шприце (Благословение Чревоугодия)",
 	)
 
 /obj/item/reagent_containers/syringe/capulettium_plus
@@ -330,7 +330,7 @@
 		DATIVE = "шприцу (Капулеттий+)",
 		ACCUSATIVE = "шприц (Капулеттий+)",
 		INSTRUMENTAL = "шприцем (Капулеттий+)",
-		PREPOSITIONAL = "шприце (Капулеттий+)"
+		PREPOSITIONAL = "шприце (Капулеттий+)",
 	)
 
 /obj/item/reagent_containers/syringe/sarin
@@ -345,7 +345,7 @@
 		DATIVE = "шприцу (Зарин)",
 		ACCUSATIVE = "шприц (Зарин)",
 		INSTRUMENTAL = "шприцем (Зарин)",
-		PREPOSITIONAL = "шприце (Зарин)"
+		PREPOSITIONAL = "шприце (Зарин)",
 	)
 
 /obj/item/reagent_containers/syringe/pancuronium
@@ -360,7 +360,7 @@
 		DATIVE = "шприцу (Панкуроний+)",
 		ACCUSATIVE = "шприц (Панкуроний+)",
 		INSTRUMENTAL = "шприцем (Панкуроний+)",
-		PREPOSITIONAL = "шприце (Панкуроний+)"
+		PREPOSITIONAL = "шприце (Панкуроний+)",
 	)
 
 /obj/item/reagent_containers/syringe/lethal
@@ -377,7 +377,7 @@
 		DATIVE = "шприцу (Смертельная инъекция)",
 		ACCUSATIVE = "шприц (Смертельная инъекция)",
 		INSTRUMENTAL = "шприцем (Смертельная инъекция)",
-		PREPOSITIONAL = "шприце (Смертельная инъекция)"
+		PREPOSITIONAL = "шприце (Смертельная инъекция)",
 	)
 
 /obj/item/reagent_containers/syringe/steroids
@@ -392,7 +392,7 @@
 		DATIVE = "шприцу (Стероиды)",
 		ACCUSATIVE = "шприц (Стероиды)",
 		INSTRUMENTAL = "шприцем (Стероиды)",
-		PREPOSITIONAL = "шприце (Стероиды)"
+		PREPOSITIONAL = "шприце (Стероиды)",
 	)
 
 #undef SYRINGE_DRAW

@@ -229,7 +229,7 @@
 		DATIVE = "торговому автомату",
 		ACCUSATIVE = "торговый автомат",
 		INSTRUMENTAL = "торговым автоматом",
-		PREPOSITIONAL = "торговом автомате"
+		PREPOSITIONAL = "торговом автомате",
 	)
 
 /obj/machinery/vending/Initialize(mapload)
@@ -802,7 +802,10 @@
 		return
 
 	panel_open = !panel_open
-	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	if(panel_open)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
 	SStgui.update_uis(src)
 

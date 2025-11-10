@@ -28,7 +28,7 @@
 		DATIVE = "набору для покраски челнока",
 		ACCUSATIVE = "набор для покраски челнока",
 		INSTRUMENTAL = "набором для покраски челнока",
-		PREPOSITIONAL = "наборе для покраски челнока"
+		PREPOSITIONAL = "наборе для покраски челнока",
 	)
 
 /obj/spacepod
@@ -104,7 +104,7 @@
 		DATIVE = "космическому челноку",
 		ACCUSATIVE = "космический челнок",
 		INSTRUMENTAL = "космическим челноком",
-		PREPOSITIONAL = "космическом челноке"
+		PREPOSITIONAL = "космическом челноке",
 	)
 
 /obj/spacepod/proc/apply_paint(mob/user)
@@ -684,7 +684,7 @@
 		DATIVE = "космическому челноку охраны",
 		ACCUSATIVE = "космический челнок охраны",
 		INSTRUMENTAL = "космическим челноком охраны",
-		PREPOSITIONAL = "космическом челноке охраны"
+		PREPOSITIONAL = "космическом челноке охраны",
 	)
 
 /obj/spacepod/syndi
@@ -701,7 +701,7 @@
 		DATIVE = "космическому челноку Синдиката",
 		ACCUSATIVE = "космический челнок Синдиката",
 		INSTRUMENTAL = "космическим челноком Синдиката",
-		PREPOSITIONAL = "космическом челноке Синдиката"
+		PREPOSITIONAL = "космическом челноке Синдиката",
 	)
 
 /obj/spacepod/syndi/unlocked

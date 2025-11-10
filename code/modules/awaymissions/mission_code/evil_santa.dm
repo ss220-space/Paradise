@@ -17,7 +17,7 @@
 		'sound/ambience/spooky/suspenseful_ambience.ogg',
 		'sound/ambience/spooky/scary_sci_fi_ambience.ogg',
 		'sound/ambience/apathy.ogg',
-		)
+	)
 
 /area/vision_change_area/awaymission/evil_santa/spawn_s
 	name = "Evil santa spawn south"
@@ -46,21 +46,21 @@
 	name = "Evil santa mines"
 	icon_state = "awaycontent7"
 	ambientsounds = list(
-				'sound/ambience/spooky/howled_4.ogg',\
-				'sound/ambience/spooky/psy_amb.ogg',\
-				'sound/ambience/spooky/rnd_ugrnd_amb_4.ogg',\
-				'sound/ambience/spooky/rnd_ugrnd_amb_5.ogg',\
-				'sound/ambience/spooky/ugrnd_ambient_banging_1.ogg',\
-				'sound/ambience/spooky/ugrnd_ambient_banging_2.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_3.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_4.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_5.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_6.ogg',\
-				'sound/ambience/spooky/ugrnd_drip_7.ogg',\
-				'sound/ambience/spooky/ugrnd_lab_3.ogg',\
-				'sound/ambience/spooky/ugrnd_whispers_1.ogg',\
-				'sound/ambience/spooky/ugrnd_whispers_4.ogg'
-				)
+		'sound/ambience/spooky/howled_4.ogg',
+		'sound/ambience/spooky/psy_amb.ogg',
+		'sound/ambience/spooky/rnd_ugrnd_amb_4.ogg',
+		'sound/ambience/spooky/rnd_ugrnd_amb_5.ogg',
+		'sound/ambience/spooky/ugrnd_ambient_banging_1.ogg',
+		'sound/ambience/spooky/ugrnd_ambient_banging_2.ogg',
+		'sound/ambience/spooky/ugrnd_drip_3.ogg',
+		'sound/ambience/spooky/ugrnd_drip_4.ogg',
+		'sound/ambience/spooky/ugrnd_drip_5.ogg',
+		'sound/ambience/spooky/ugrnd_drip_6.ogg',
+		'sound/ambience/spooky/ugrnd_drip_7.ogg',
+		'sound/ambience/spooky/ugrnd_lab_3.ogg',
+		'sound/ambience/spooky/ugrnd_whispers_1.ogg',
+		'sound/ambience/spooky/ugrnd_whispers_4.ogg',
+	)
 
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l
 	name = "Evil santa left labyrinth"
@@ -104,10 +104,10 @@
 	name = "Evil santa forest labyrinth"
 	icon_state = "dark"
 	ambientsounds = list(
-			'sound/ambience/spooky/haunting_ambience.ogg',
-			'sound/ambience/spooky/suspenseful_ambience.ogg',
-			'sound/ambience/spooky/scary_sci_fi_ambience.ogg',
-			)
+		'sound/ambience/spooky/haunting_ambience.ogg',
+		'sound/ambience/spooky/suspenseful_ambience.ogg',
+		'sound/ambience/spooky/scary_sci_fi_ambience.ogg',
+	)
 
 /area/vision_change_area/awaymission/evil_santa/end/santa/proc/set_ready()
 	cooldown = FALSE
@@ -256,7 +256,7 @@
 		/obj/item/toy/xmas_cracker,
 		/obj/item/toy/pet_rock/naughty_coal,
 		/obj/item/reagent_containers/food/snacks/sugar_coal,
-		)
+	)
 
 	if(!ispath(gift_type,/obj/item))	return
 
@@ -273,9 +273,9 @@
 	lootdoubles = FALSE
 
 	loot = list(
-				/obj/item/a_gift/evil_santa_reward = 33,
-				/obj/item/a_gift = 67,
-				)
+		/obj/item/a_gift/evil_santa_reward = 33,
+		/obj/item/a_gift = 67,
+	)
 
 /obj/item/paper/journal_scrap_1
 	name = "Журнал неизвестного, страница 1"

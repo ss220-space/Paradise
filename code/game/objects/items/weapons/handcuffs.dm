@@ -258,7 +258,7 @@
 	breakout_time = 2 MINUTES
 	cuffsound = 'sound/items/zippoclose.ogg'
 	onmob_sheets = list(
-		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi'
+		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi',
 	)
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/manacles/used

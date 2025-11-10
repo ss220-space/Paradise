@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		DATIVE = "фултону",
 		ACCUSATIVE = "фултон",
 		INSTRUMENTAL = "фултоном",
-		PREPOSITIONAL = "фултоне"
+		PREPOSITIONAL = "фултоне",
 	)
 
 /obj/item/extraction_pack/examine(mob/user)
@@ -173,7 +173,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		DATIVE = "маяку фултона",
 		ACCUSATIVE = "маяк фултона",
 		INSTRUMENTAL = "маяком фултона",
-		PREPOSITIONAL = "маяке фултона"
+		PREPOSITIONAL = "маяке фултона",
 	)
 
 /obj/item/fulton_core/attack_self(mob/user)
@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		DATIVE = "маяку фултона",
 		ACCUSATIVE = "маяк фултона",
 		INSTRUMENTAL = "маяком фултона",
-		PREPOSITIONAL = "маяке фултона"
+		PREPOSITIONAL = "маяке фултона",
 	)
 
 
@@ -211,7 +211,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		DATIVE = "маяку фултона [random_value]",
 		ACCUSATIVE = "маяк фултона [random_value]",
 		INSTRUMENTAL = "маяком фултона [random_value]",
-		PREPOSITIONAL = "маяке фултона [random_value]"
+		PREPOSITIONAL = "маяке фултона [random_value]",
 	)
 	GLOB.total_extraction_beacons += src
 

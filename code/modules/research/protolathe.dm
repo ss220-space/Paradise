@@ -15,17 +15,17 @@ Note: Must be placed west/left of and R&D console to function.
 	container_type = OPENCONTAINER
 
 	categories = list(
-								"Bluespace",
-								"Equipment",
-								"Janitorial",
-								"Medical",
-								"Mining",
-								"Miscellaneous",
-								"Power",
-								"Stock Parts",
-								"Weapons",
-								"ILLEGAL",
-								)
+		"Bluespace",
+		"Equipment",
+		"Janitorial",
+		"Medical",
+		"Mining",
+		"Miscellaneous",
+		"Power",
+		"Stock Parts",
+		"Weapons",
+		"ILLEGAL",
+	)
 
 	reagents = new()
 
@@ -36,7 +36,7 @@ Note: Must be placed west/left of and R&D console to function.
 		DATIVE = "протолату",
 		ACCUSATIVE = "протолат",
 		INSTRUMENTAL = "протолатом",
-		PREPOSITIONAL = "протолате"
+		PREPOSITIONAL = "протолате",
 	)
 
 

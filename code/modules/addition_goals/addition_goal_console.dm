@@ -23,7 +23,7 @@
 		DATIVE = "консоли управления дополнительными целями смены",
 		ACCUSATIVE = "консоль управления дополнительными целями смены",
 		INSTRUMENTAL = "консолью управления дополнительными целями смены",
-		PREPOSITIONAL = "консоли управления дополнительными целями смены"
+		PREPOSITIONAL = "консоли управления дополнительными целями смены",
 	)
 
 /obj/machinery/computer/addition_goals/Initialize(mapload, obj/structure/computerframe/frame)

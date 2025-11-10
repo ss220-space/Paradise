@@ -31,7 +31,7 @@
 		DATIVE = "туннелю",
 		ACCUSATIVE = "туннель",
 		INSTRUMENTAL = "туннелем",
-		PREPOSITIONAL = "туннеле"
+		PREPOSITIONAL = "туннеле",
 	)
 
 /obj/structure/nest/Initialize(mapload)

@@ -60,6 +60,9 @@
 		to_chat(usr, span_boldannounceooc("Interacting with admin-frozen players is not permitted."))
 		return
 
+	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, modifiers) & COMSIG_MOB_CANCEL_CLICKON)
+		return
+
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		if(LAZYACCESS(modifiers, SHIFT_CLICK))
 			if(LAZYACCESS(modifiers, CTRL_CLICK))

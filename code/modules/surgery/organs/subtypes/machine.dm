@@ -157,7 +157,7 @@
 		DATIVE = "микробатарее",
 		ACCUSATIVE = "микробатарею",
 		INSTRUMENTAL = "микробатареей",
-		PREPOSITIONAL = "микробатарее"
+		PREPOSITIONAL = "микробатарее",
 	)
 
 /obj/item/organ/internal/eyes/optical_sensor
@@ -180,7 +180,7 @@
 		DATIVE = "оптическому сенсору",
 		ACCUSATIVE = "оптический сенсор",
 		INSTRUMENTAL = "оптическим сенсором",
-		PREPOSITIONAL = "оптическом сенсоре"
+		PREPOSITIONAL = "оптическом сенсоре",
 	)
 
 /obj/item/organ/internal/eyes/optical_sensor/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
@@ -203,7 +203,7 @@
 		DATIVE = "позитронному мозгу",
 		ACCUSATIVE = "позитронный мозг",
 		INSTRUMENTAL = "позитронным мозгом",
-		PREPOSITIONAL = "позитронном мозге"
+		PREPOSITIONAL = "позитронном мозге",
 	)
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/New()
@@ -244,7 +244,7 @@
 		DATIVE = "парным микрофонам",
 		ACCUSATIVE = "парные микрофоны",
 		INSTRUMENTAL = "парными микрофонами",
-		PREPOSITIONAL = "парных микрофонах"
+		PREPOSITIONAL = "парных микрофонах",
 	)
 
 /obj/item/organ/internal/ears/microphone/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)

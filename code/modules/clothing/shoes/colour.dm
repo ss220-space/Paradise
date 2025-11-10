@@ -163,7 +163,7 @@
 		DATIVE = "тюремным башмакам",
 		ACCUSATIVE = "тюремные башмаки",
 		INSTRUMENTAL = "тюремныим башмаками",
-		PREPOSITIONAL = "тюремных башмаках"
+		PREPOSITIONAL = "тюремных башмаках",
 	)
 
 /obj/item/clothing/shoes/convers
@@ -179,7 +179,7 @@
 		DATIVE = "чёрным высоким кедам",
 		ACCUSATIVE = "чёрные высокие кеды",
 		INSTRUMENTAL = "чёрными высокими кедами",
-		PREPOSITIONAL = "чёрных высоких кедах"
+		PREPOSITIONAL = "чёрных высоких кедах",
 	)
 
 /obj/item/clothing/shoes/convers/red
@@ -195,5 +195,5 @@
 		DATIVE = "красным высоким кедам",
 		ACCUSATIVE = "красные высокие кеды",
 		INSTRUMENTAL = "красными высокими кедами",
-		PREPOSITIONAL = "красных высоких кедах"
+		PREPOSITIONAL = "красных высоких кедах",
 	)
