@@ -69,7 +69,7 @@ Difficulty: Hard
 		/datum/action/innate/megafauna_attack/blink,
 		/datum/action/innate/megafauna_attack/chaser_swarm,
 		/datum/action/innate/megafauna_attack/cross_blasts,
-		/datum/action/innate/megafauna_attack/blink_spam
+		/datum/action/innate/megafauna_attack/blink_spam,
 	)
 
 	var/burst_range = 3 //range on burst aoe
@@ -95,7 +95,7 @@ Difficulty: Hard
 		DATIVE = "Иерофанту",
 		ACCUSATIVE = "Иерофанта",
 		INSTRUMENTAL = "Иерофантом",
-		PREPOSITIONAL = "Иерофанте"
+		PREPOSITIONAL = "Иерофанте",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
@@ -282,7 +282,6 @@ Difficulty: Hard
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 	SLEEP_CHECK_DEATH(src, 8)
 	blinking = FALSE
-
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/chaser_swarm(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
@@ -577,7 +576,7 @@ Difficulty: Hard
 		DATIVE = "энергии вортекса",
 		ACCUSATIVE = "энергию вортекса",
 		INSTRUMENTAL = "энергией вортекса",
-		PREPOSITIONAL = "энергии вортекса"
+		PREPOSITIONAL = "энергии вортекса",
 	)
 
 /obj/effect/temp_visual/hierophant/Initialize(mapload, new_caster)
@@ -615,7 +614,7 @@ Difficulty: Hard
 		DATIVE = "стене вортекса",
 		ACCUSATIVE = "стену вортекса",
 		INSTRUMENTAL = "стеной вортекса",
-		PREPOSITIONAL = "стене вортекса"
+		PREPOSITIONAL = "стене вортекса",
 	)
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
@@ -626,7 +625,6 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/wall/Destroy()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
-
 
 /obj/effect/temp_visual/hierophant/wall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -642,7 +640,6 @@ Difficulty: Hard
 			return .
 	if(mover != caster)
 		return FALSE
-
 
 /obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
 	duration = 98
@@ -749,7 +746,7 @@ Difficulty: Hard
 		DATIVE = "взрыву вортекса",
 		ACCUSATIVE = "взрыв вортекса",
 		INSTRUMENTAL = "взрывом вортекса",
-		PREPOSITIONAL = "взрыве вортекса"
+		PREPOSITIONAL = "взрыве вортекса",
 	)
 
 /obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire)
@@ -766,7 +763,6 @@ Difficulty: Hard
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -778,13 +774,11 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-
 /obj/effect/temp_visual/hierophant/blast/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(bursting)
 		INVOKE_ASYNC(src, PROC_REF(do_damage), get_turf(src))
-
 
 /obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
 	if(!damage)
@@ -837,20 +831,17 @@ Difficulty: Hard
 		DATIVE = "маяку иерофанта",
 		ACCUSATIVE = "маяк иерофанта",
 		INSTRUMENTAL = "маяком иерофанта",
-		PREPOSITIONAL = "маяке иерофанта"
+		PREPOSITIONAL = "маяке иерофанта",
 	)
 
 /obj/effect/hierophant/update_icon_state()
 	icon_state = "hierophant_tele_[teleporting ? "on" : "off"]"
 
-
 /obj/effect/hierophant/ex_act()
 	return
 
-
 /obj/effect/hierophant/has_prints()
 	return TRUE
-
 
 /obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hierophant_club))

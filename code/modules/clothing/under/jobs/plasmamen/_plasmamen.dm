@@ -22,9 +22,8 @@
 		DATIVE = "защитному костюму плазмолюда",
 		ACCUSATIVE = "защитный костюм плазмолюда",
 		INSTRUMENTAL = "защитным костюмом плазмолюда",
-		PREPOSITIONAL = "защитном костюме плазмолюда"
+		PREPOSITIONAL = "защитном костюме плазмолюда",
 	)
-
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
@@ -51,7 +50,6 @@
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return FALSE
 
-
 /obj/item/clothing/under/plasmaman/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/extinguisher_refill))
 		add_fingerprint(user)
@@ -67,7 +65,6 @@
 
 	return ..()
 
-
 /obj/item/extinguisher_refill
 	name = "envirosuit extinguisher cartridge"
 	desc = "Картридж, заполненный противопожарной смесью. Используется для заправки встроенного огнетушителя в защитных костюмах плазмолюдов."
@@ -81,5 +78,5 @@
 		DATIVE = "картриджу пополнения встроенного огнетушителя",
 		ACCUSATIVE = "картридж пополнения встроенного огнетушителя",
 		INSTRUMENTAL = "картриджем пополнения встроенного огнетушителя",
-		PREPOSITIONAL = "картридже пополнения встроенного огнетушителя"
+		PREPOSITIONAL = "картридже пополнения встроенного огнетушителя",
 	)

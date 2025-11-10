@@ -15,7 +15,7 @@
 		DATIVE = "сундуку некрополя",
 		ACCUSATIVE = "сундук некрополя",
 		INSTRUMENTAL = "сундуком некрополя",
-		PREPOSITIONAL = "сундуке некрополя"
+		PREPOSITIONAL = "сундуке некрополя",
 	)
 
 /obj/structure/closet/crate/necropolis/tendril
@@ -131,7 +131,7 @@
 		DATIVE = "загадочному сундуку",
 		ACCUSATIVE = "загадочный сундук",
 		INSTRUMENTAL = "загадочным сундуком",
-		PREPOSITIONAL = "загадочном сундуке"
+		PREPOSITIONAL = "загадочном сундуке",
 	)
 
 /obj/structure/closet/crate/necropolis/puzzle/populate_contents()
@@ -228,7 +228,7 @@
 		DATIVE = "посоху асклепия",
 		ACCUSATIVE = "посох асклепия",
 		INSTRUMENTAL = "посохом асклепия",
-		PREPOSITIONAL = "посохе асклепия"
+		PREPOSITIONAL = "посохе асклепия",
 	)
 
 /obj/item/rod_of_asclepius/attack_self(mob/user)
@@ -295,7 +295,6 @@
 	item_state = "asclepius_active"
 	activated = TRUE
 
-
 // enchanced flowers
 /obj/item/eflowers
 	name ="enchanted flowers"
@@ -313,7 +312,7 @@
 		DATIVE = "зачарованным цветам",
 		ACCUSATIVE = "зачарованные цветы",
 		INSTRUMENTAL = "зачарованными цветами",
-		PREPOSITIONAL = "зачарованных цветах"
+		PREPOSITIONAL = "зачарованных цветах",
 	)
 
 #define COOLDOWN_SUMMON 1 MINUTES
@@ -390,7 +389,7 @@
 		DATIVE = "руническому ятагану",
 		ACCUSATIVE = "рунический ятаган",
 		INSTRUMENTAL = "руническим ятаганом",
-		PREPOSITIONAL = "руническом ятагане"
+		PREPOSITIONAL = "руническом ятагане",
 	)
 
 /obj/item/rune_scimmy/ComponentInitialize()
@@ -416,7 +415,7 @@
 		DATIVE = "тёмному осколку",
 		ACCUSATIVE = "тёмный осколок",
 		INSTRUMENTAL = "тёмным осколком",
-		PREPOSITIONAL = "тёмном осколке"
+		PREPOSITIONAL = "тёмном осколке",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/katana/prepare_eat()
@@ -508,7 +507,7 @@
 		DATIVE = "проклятой катане",
 		ACCUSATIVE = "проклятую катану",
 		INSTRUMENTAL = "проклятой катаной",
-		PREPOSITIONAL = "проклятой катане"
+		PREPOSITIONAL = "проклятой катане",
 	)
 
 /obj/item/cursed_katana/ComponentInitialize()
@@ -527,11 +526,9 @@
 		swing_sound = SFX_KATANA_SWING \
 	)
 
-
 /obj/item/cursed_katana/examine(mob/user)
 	. = ..()
 	. += drew_blood ? ("[span_notice("Она насытилось... пока что.")]") : (span_danger("Она не успокоится, пока не отведает крови."))
-
 
 /obj/item/cursed_katana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(can_combo_attack(user, target))
@@ -610,7 +607,6 @@
 		target.apply_status_effect(STATUS_EFFECT_BLOODLETTING)
 	else
 		A.add_bleed(6)
-
 
 /obj/item/cursed_katana/proc/dash(mob/living/target, mob/user)
 	var/turf/dash_target = get_turf(target)

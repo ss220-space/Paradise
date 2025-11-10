@@ -31,7 +31,6 @@
 	ratvar_spawn_animation()
 	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse)), 10 SECONDS)
 
-
 /obj/singularity/god/ratvar/update_icon_state()
 	return
 
@@ -52,13 +51,11 @@
 	cog.possess_by_player(user.key)
 	SSticker.mode.add_clocker(cog.mind)
 
-
 /obj/singularity/god/ratvar/process()
 	eat()
 	move()
 	if(prob(25))
 		mezzer()
-
 
 /obj/singularity/god/ratvar/Bump(atom/bumped_atom, effect_applied = TRUE)//you dare stand before a god?!
 	. = ..()
@@ -66,11 +63,9 @@
 		return .
 	godsmack(bumped_atom)
 
-
 /obj/singularity/god/ratvar/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
 	. = ..()
 	godsmack(moving_atom)
-
 
 /obj/singularity/god/ratvar/proc/godsmack(atom/A)
 	if(istype(A,/obj/))

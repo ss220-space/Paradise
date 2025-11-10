@@ -79,8 +79,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+	)
 
 /obj/item/clothing/head/collectable/flatcap
 	name = "collectable flat cap"
@@ -155,5 +155,5 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)

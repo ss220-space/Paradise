@@ -49,7 +49,6 @@
 		visual_effect_icon = ATTACK_EFFECT_CLAW
 	..()
 
-
 /mob/living/carbon/alien/humanoid/resist_grab(moving_resist = FALSE)
 	if(pulledby.grab_state)
 		visible_message(

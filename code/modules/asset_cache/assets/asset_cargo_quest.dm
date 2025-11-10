@@ -26,7 +26,6 @@
 		if(reagent.drink_icon)
 			Insert(ckeyEx(reagent_id), 'icons/obj/drinks.dmi', reagent.drink_icon)
 
-
 /datum/asset/spritesheet/cargo_quest/ModifyInserted(icon/pre_asset)
 	pre_asset.Scale(42, 42)
 	return pre_asset

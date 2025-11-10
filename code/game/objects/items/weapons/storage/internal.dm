@@ -5,26 +5,21 @@
 /obj/item/storage/internal
 	var/obj/item/master_item
 
-
 /obj/item/storage/internal/New(obj/item/MI)
 	master_item = MI
 	loc = master_item
 	name = master_item.name
 	..()
 
-
 /obj/item/storage/internal/Destroy()
 	master_item = null
 	return ..()
 
-
 /obj/item/storage/internal/attack_hand()
 	return		//make sure this is never picked up
 
-
 /obj/item/storage/internal/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	return FALSE	//make sure this is never picked up
-
 
 /**
  * Helper procs to cleanly implement internal storages - storage items that provide inventory slots for other items.
@@ -42,7 +37,6 @@
 		open(user)
 		master_item.add_fingerprint(user)
 		return TRUE
-
 
 /**
  * Items that use internal storage have the option of calling this to emulate default storage attack_hand behaviour.
@@ -62,7 +56,6 @@
 
 	open(user)
 	master_item.add_fingerprint(user)
-
 
 /obj/item/storage/internal/Adjacent(atom/neighbor)
 	return master_item.Adjacent(neighbor)

@@ -38,7 +38,6 @@
 #define PLASTIC_FLAPS_NORMAL 0
 #define PLASTIC_FLAPS_DETACHED 1
 
-
 //ai core defines
 #define EMPTY_CORE 0
 #define CIRCUIT_CORE 1

@@ -73,13 +73,11 @@
 	dumpee.forceMove(T)
 	dumpee.newtonian_move(dumpee.dir)
 
-
 /turf/space/transit/rpd_act()
 	return
 
 /turf/space/transit/rcd_act()
 	return RCD_NO_ACT
-
 
 /turf/space/transit/Initialize(mapload)
 	. = ..()

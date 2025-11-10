@@ -7,7 +7,6 @@
 	origin_tech = "materials=2"
 	var/darts = 5
 
-
 /obj/item/dart_cartridge/update_icon_state()
 	if(!darts)
 		icon_state = "darts-0"
@@ -15,7 +14,6 @@
 		icon_state = "darts-5"
 	else
 		icon_state = "darts-[darts]"
-
 
 /obj/item/gun/dartgun
 	name = "dart gun"
@@ -30,7 +28,6 @@
 	var/containers_type = /obj/item/reagent_containers/glass/beaker
 	var/list/starting_chems = null
 
-
 /obj/item/gun/dartgun/update_icon_state()
 	if(!cartridge)
 		icon_state = "dartgun-e"
@@ -43,7 +40,6 @@
 	else
 		icon_state = "dartgun-[cartridge.darts]"
 
-
 /obj/item/gun/dartgun/Initialize(mapload)
 	. = ..()
 
@@ -55,7 +51,6 @@
 	cartridge = new /obj/item/dart_cartridge(src)
 	update_icon()
 
-
 /obj/item/gun/dartgun/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
@@ -65,7 +60,6 @@
 				if(B.reagents && length(B.reagents.reagent_list))
 					for(var/datum/reagent/R in B.reagents.reagent_list)
 						. += span_notice("[R.volume] units of [R.name]")
-
 
 /obj/item/gun/dartgun/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dart_cartridge))
@@ -106,7 +100,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/gun/dartgun/can_shoot(mob/user)
 	if(!cartridge)
@@ -277,7 +270,6 @@
 			fire_dart(target,user)
 	else
 		to_chat(usr, span_warning("[src] is empty."))
-
 
 /obj/item/gun/dartgun/vox
 	name = "alien dart gun"

@@ -41,10 +41,12 @@
 	loot_drop = /obj/item/clothing/accessory/necklace/pandora_hope
 	tts_seed = "Zyra"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/chaser_burst,
-								/datum/action/innate/elite_attack/magic_box,
-								/datum/action/innate/elite_attack/pandora_teleport,
-								/datum/action/innate/elite_attack/aoe_squares)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/chaser_burst,
+		/datum/action/innate/elite_attack/magic_box,
+		/datum/action/innate/elite_attack/pandora_teleport,
+		/datum/action/innate/elite_attack/aoe_squares,
+	)
 
 	var/sing_shot_length = 8
 	var/cooldown_time = 2 SECONDS
@@ -58,7 +60,7 @@
 		DATIVE = "пандоре",
 		ACCUSATIVE = "пандору",
 		INSTRUMENTAL = "пандорой",
-		PREPOSITIONAL = "пандоре"
+		PREPOSITIONAL = "пандоре",
 	)
 
 /datum/action/innate/elite_attack/chaser_burst
@@ -211,7 +213,6 @@
 	monster_damage_boost = FALSE
 	friendly_fire_check = TRUE
 
-
 //Pandora's loot: Hope //Hope I know what to make it do
 /obj/item/clothing/accessory/necklace/pandora_hope
 	name = "Hope"
@@ -230,16 +231,14 @@
 		DATIVE = "надежде",
 		ACCUSATIVE = "надежду",
 		INSTRUMENTAL = "надеждой",
-		PREPOSITIONAL = "надежде"
+		PREPOSITIONAL = "надежде",
 	)
-
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
 	if(. && isliving(has_suit.loc))
 		var/mob/living/wearer = has_suit.loc
 		wearer.apply_status_effect(STATUS_EFFECT_HOPE)
-
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/detacher)
 	. = ..()
@@ -249,16 +248,13 @@
 			var/mob/living/wearer = old_suit.loc
 			wearer.remove_status_effect(STATUS_EFFECT_HOPE)
 
-
 /obj/item/clothing/accessory/necklace/pandora_hope/attached_equip(mob/living/user)
 	if(isliving(user))
 		user.apply_status_effect(STATUS_EFFECT_HOPE)
 
-
 /obj/item/clothing/accessory/necklace/pandora_hope/attached_unequip(mob/living/user)
 	if(isliving(user))
 		user.remove_status_effect(STATUS_EFFECT_HOPE)
-
 
 #undef CHASER_BURST
 #undef MAGIC_BOX

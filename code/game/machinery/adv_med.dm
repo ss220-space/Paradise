@@ -21,7 +21,7 @@
 		DATIVE = "медицинскому сканеру",
 		ACCUSATIVE = "медицинский сканер",
 		INSTRUMENTAL = "медицинским сканером",
-		PREPOSITIONAL = "медицинском сканере"
+		PREPOSITIONAL = "медицинском сканере",
 	)
 
 /obj/machinery/bodyscanner/Destroy()
@@ -37,7 +37,6 @@
 	else
 		set_light_on(FALSE)
 
-
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
 	if(occupant)
@@ -48,13 +47,11 @@
 	if(Adjacent(user))
 		. += span_notice("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
 
-
 /obj/machinery/bodyscanner/update_icon_state()
 	if(occupant)
 		icon_state = "bodyscanner"
 	else
 		icon_state = "bodyscanner-open"
-
 
 /obj/machinery/bodyscanner/process()
 	for(var/mob/M in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
@@ -72,7 +69,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
-
 
 /obj/machinery/bodyscanner/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -103,7 +99,6 @@
 	add_fingerprint(grabber)
 	SStgui.update_uis(src)
 
-
 /obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
@@ -111,7 +106,6 @@
 /obj/machinery/bodyscanner/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I))
 		return TRUE
-
 
 /obj/machinery/bodyscanner/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -125,7 +119,6 @@
 		return
 
 	setDir(turn(dir, -90))
-
 
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user, params)
 	if(!istype(H))
@@ -421,11 +414,11 @@
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
 			var/name = occupant ? occupant.name : UNKNOWN_NAME_RUS
-			P.info = "<center><b>Отчёт по сканированию пациента - [name]</b></center><br>"
+			P.info = "<center><b>Отчёт по сканированию пациента — [name]</b></center><br>"
 			P.info += "<b>Время сканирования</b> [station_time_timestamp()]<br><br>"
 			P.info += "[generate_printing_text()]"
 			P.info += "<br><br><b>Заметки:</b><br>"
-			P.name = "Отчёт по сканированию пациента - [name]"
+			P.name = "Отчёт по сканированию пациента — [name]"
 			isPrinting = FALSE
 		if("insurance")
 			do_insurance_collection(usr, occupant, inserted_id ? inserted_id.associated_account_number : null)

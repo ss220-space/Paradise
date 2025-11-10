@@ -3,7 +3,6 @@
 //						COMMON STEPS							//
 //////////////////////////////////////////////////////////////////
 
-
 /datum/surgery_step/proxy/robotics
 
 /datum/surgery/robotics
@@ -15,7 +14,7 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/proxy/robotics/repair_limb,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -40,7 +39,7 @@
 		/datum/surgery_step/robotics/external/open_hatch,
 		// burn/brute are squished into here as well
 		/datum/surgery_step/proxy/robotics/manipulate_organs,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	possible_locs = list(
 		BODY_ZONE_PRECISE_EYES,
@@ -86,7 +85,7 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/robotics/external/customize_appearance,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	possible_locs = list(
 		BODY_ZONE_HEAD,
@@ -162,7 +161,7 @@
 	allowed_tools = list(
 		TOOL_SCREWDRIVER = 100,
 		/obj/item/coin = 50,
-		/obj/item/kitchen/knife = 50
+		/obj/item/kitchen/knife = 50,
 	)
 
 	time = 1.6 SECONDS
@@ -200,7 +199,7 @@
 	allowed_tools = list(
 		TOOL_RETRACTOR = 100,
 		TOOL_CROWBAR = 100,
-		/obj/item/kitchen/utensil = 50
+		/obj/item/kitchen/utensil = 50,
 	)
 
 	time = 2.4 SECONDS
@@ -238,7 +237,7 @@
 	allowed_tools = list(
 		TOOL_RETRACTOR = 100,
 		TOOL_CROWBAR = 100,
-		/obj/item/kitchen/utensil = 50
+		/obj/item/kitchen/utensil = 50,
 	)
 
 	time = 2.4 SECONDS
@@ -285,7 +284,6 @@
 	)
 	return ..()
 
-
 /datum/surgery_step/robotics/external/repair
 	name = "устранение повреждений"
 	time = 3.2 SECONDS
@@ -293,7 +291,7 @@
 /datum/surgery_step/robotics/external/repair/burn
 	name = "замена сгоревших проводов"
 	allowed_tools = list(
-		/obj/item/stack/cable_coil = 100
+		/obj/item/stack/cable_coil = 100,
 	)
 
 /datum/surgery_step/robotics/external/repair/burn/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -314,8 +312,6 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
-
-
 
 /datum/surgery_step/robotics/external/repair/burn/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -344,7 +340,7 @@
 	name = "устранение механических повреждений корпуса"
 	allowed_tools = list(
 		TOOL_WELDER = 100,
-		/obj/item/gun/energy/plasmacutter = 50
+		/obj/item/gun/energy/plasmacutter = 50,
 	)
 
 /datum/surgery_step/robotics/external/repair/brute/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -361,7 +357,6 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
-
 
 /datum/surgery_step/robotics/external/repair/brute/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -397,20 +392,18 @@
 		/datum/surgery/intermediate/robotics/manipulate_organs/install_mmi,
 		/datum/surgery/intermediate/robotics/manipulate_organs/mend,
 		/datum/surgery/intermediate/robotics/repair/brute,
-		/datum/surgery/intermediate/robotics/repair/burn
+		/datum/surgery/intermediate/robotics/repair/burn,
 	)
-
 
 /datum/surgery_step/robotics/manipulate_robotic_organs
 	time = 3.2 SECONDS
-
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend
 	name = "заживление кибернетических органов"
 	allowed_tools = list(
 		/obj/item/stack/nanopaste = 100,
 		TOOL_BONEGEL = 30,
-		TOOL_SCREWDRIVER = 70
+		TOOL_SCREWDRIVER = 70,
 	)
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -434,7 +427,6 @@
 
 	target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	return ..()
-
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!hasorgans(target))
@@ -466,11 +458,10 @@
 		organ.internal_receive_damage(rand(3,5))
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant
 	name = "установка кибернетического органа"
 	allowed_tools = list(
-		/obj/item/organ/internal = 100
+		/obj/item/organ/internal = 100,
 	)
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -526,7 +517,6 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
-
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract
 	name = "извлечение кибернетического органа"
@@ -603,7 +593,6 @@
 
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi
 	name = "установка НКИ"
 	allowed_tools = list(/obj/item/mmi = 100)
@@ -650,7 +639,6 @@
 	)
 	return ..()
 
-
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
@@ -677,7 +665,7 @@
 	name = "удаление кибернетической конечности"
 
 	allowed_tools = list(
-		TOOL_MULTITOOL = 100
+		TOOL_MULTITOOL = 100,
 	)
 
 	time = 10 SECONDS
@@ -699,7 +687,6 @@
 		span_notice("Вы отключаете и отсоединяете [affected.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-
 
 	add_attack_logs(user, target, "Surgically removed [affected.name] from. INTENT: [uppertext(user.a_intent)]")//log it
 

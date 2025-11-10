@@ -33,7 +33,6 @@
 	/// Timer ID
 	var/cycle_timer = null
 
-
 /**
  * Radioactivity Component
  *
@@ -76,7 +75,6 @@
 		cycle_timer = addtimer(CALLBACK(parent, TYPE_PROC_REF(/atom, component_rad_process), rad_per_cycle, rad_cycle_chance, \
 		rad_cycle_radius, negate_armor, src.cycle_callback), src.rad_cycle, TIMER_UNIQUE | TIMER_LOOP | TIMER_STOPPABLE)
 
-
 // Inherit the new values passed to the component
 /datum/component/radioactivity/InheritComponent(datum/component/radioactivity/new_comp, original, rad_per_interaction = 0, rad_interaction_chance = 0, \
 											rad_interaction_cooldown = 0, rad_interaction_radius = 0, rad_per_cycle = 0, rad_cycle = 2 SECONDS, \
@@ -109,7 +107,6 @@
 		else
 			cycle_timer = null
 
-
 // Register signals withthe parent item
 /datum/component/radioactivity/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_BUMPED, PROC_REF(on_bump))
@@ -121,7 +118,6 @@
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack_mob))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, PROC_REF(on_attack_obj))
 
-
 // Remove all siginals registered to the parent item
 /datum/component/radioactivity/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_ATOM_BUMPED, COMSIG_ATOM_ENTERED, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND))
@@ -129,42 +125,35 @@
 	if(isitem(parent))
 		UnregisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ))
 
-
 // Triggered on atom bump
 /datum/component/radioactivity/proc/on_bump(datum/source, atom/movable/moving_atom)
 	SIGNAL_HANDLER
 	rad_interact(moving_atom)
-
 
 // Triggered on parent being entered by other atom
 /datum/component/radioactivity/proc/on_enter(datum/source, atom/movable/moving_atom)
 	SIGNAL_HANDLER
 	rad_interact(moving_atom)
 
-
 // Triggered on atom being attacked
 /datum/component/radioactivity/proc/on_attack_by(datum/source, obj/item/attacking_item, mob/user)
 	SIGNAL_HANDLER
 	rad_interact(user)
-
 
 // Triggered on atom being attacked by hand
 /datum/component/radioactivity/proc/on_attack_hand(datum/source, mob/user)
 	SIGNAL_HANDLER
 	rad_interact(user)
 
-
 // Triggered on attack mob with the parent item
 /datum/component/radioactivity/proc/on_attack_mob(obj/item/source, mob/target, mob/user)
 	SIGNAL_HANDLER
 	rad_interact(user)
 
-
 // Triggered on attack obj with the parent item
 /datum/component/radioactivity/proc/on_attack_obj(obj/item/source, obj/target, mob/user)
 	SIGNAL_HANDLER
 	rad_interact(user)
-
 
 // Generic interact proc
 /datum/component/radioactivity/proc/rad_interact(datum/interacting_atom)
@@ -187,7 +176,6 @@
 	INVOKE_ASYNC(parent, TYPE_PROC_REF(/atom, component_radiate), rad_per_interaction, rad_interaction_radius, 0, 0, negate_armor)
 	interact_callback?.Invoke(parent, interacting_atom)
 
-
 // Generic process proc
 /atom/proc/component_rad_process(rad_per_cycle, rad_cycle_chance, rad_cycle_radius, negate_armor, datum/callback/cycle_callback)
 	if(QDELETED(src))
@@ -204,7 +192,6 @@
 
 	component_radiate(0, 0, rad_per_cycle, rad_cycle_radius, negate_armor)
 	cycle_callback?.Invoke(src)
-
 
 // Irradiation main proc
 /atom/proc/component_radiate(rad_per_interaction, rad_interaction_radius, rad_per_cycle, rad_cycle_radius, negate_armor)

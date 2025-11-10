@@ -113,12 +113,10 @@ GLOBAL_LIST_EMPTY(closets)
 	if(vname in list(NAMEOF(src, locked), NAMEOF(src, welded)))
 		update_appearance()
 
-
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(wall_mounted)
 		return TRUE
-
 
 /obj/structure/closet/proc/can_open()
 	if(welded)
@@ -243,11 +241,9 @@ GLOBAL_LIST_EMPTY(closets)
 	if(!broken && !(obj_flags & NODECONSTRUCT))
 		bust_open()
 
-
 /obj/structure/closet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	MouseDrop_T(grabbed_thing, grabber)	//act like they were dragged onto the closet
-
 
 /obj/structure/closet/attackby(obj/item/I, mob/user, params)
 	if(opened)
@@ -283,7 +279,6 @@ GLOBAL_LIST_EMPTY(closets)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 // What happens when the closet is attacked by a random item not on harm mode
 /obj/structure/closet/proc/closed_item_click(mob/user)
@@ -321,7 +316,6 @@ GLOBAL_LIST_EMPTY(closets)
 			)
 			welded = !welded
 			update_icon()
-
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user, params)
 	. = ..()
@@ -395,19 +389,14 @@ GLOBAL_LIST_EMPTY(closets)
 	else
 		to_chat(usr, span_warning("This mob type can't use this verb."))
 
-
 /obj/structure/closet/update_icon(updates = ALL)
 	if(no_overlays)
 		return ..(UPDATE_ICON_STATE)
 	return ..()
 
-
 /obj/structure/closet/update_icon_state()
 	if(no_overlays)
 		icon_state = opened ? icon_opened : icon_closed
-
-
-
 
 /obj/structure/closet/update_overlays()
 	. = ..()
@@ -426,14 +415,12 @@ GLOBAL_LIST_EMPTY(closets)
 		if(welded)
 			. += mutable_appearance(icon, "welded", CLOSET_OLAY_LAYER_WELDED)
 
-
 /**
  * Additional overlays for contents inside the closet. Usefull when the door is transparent.
  */
 /obj/structure/closet/proc/apply_contents_overlays()
 	RETURN_TYPE(/list)
 	. = list()
-
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
@@ -464,7 +451,6 @@ GLOBAL_LIST_EMPTY(closets)
 	to_chat(L, span_warning("You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)"))
 	for(var/mob/O in viewers(usr.loc))
 		O.show_message(span_danger("The [src] begins to shake violently!"), 1)
-
 
 	spawn(0)
 		if(do_after(L, breakout_time * 6 MINUTES, src))
@@ -512,7 +498,6 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/force_eject_occupant(mob/target)
 	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
 	return
-
 
 /obj/structure/closet/click_alt(mob/living/simple_animal/hostile/gorilla/gorilla)
 	if(istype(gorilla))
@@ -564,7 +549,6 @@ GLOBAL_LIST_EMPTY(closets)
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	var/transparent = FALSE
 
-
 /obj/structure/closet/bluespace/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -572,7 +556,6 @@ GLOBAL_LIST_EMPTY(closets)
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/structure/closet/bluespace/proc/UpdateTransparency()
 	var/transparency = FALSE
@@ -583,10 +566,8 @@ GLOBAL_LIST_EMPTY(closets)
 	transparent = transparency
 	update_icon()
 
-
 /obj/structure/closet/bluespace/update_icon_state()
 	icon_state = "[initial(icon_state)][transparent ? "_trans" : ""]"
-
 
 /obj/structure/closet/bluespace/update_overlays()
 	. = list()
@@ -603,7 +584,6 @@ GLOBAL_LIST_EMPTY(closets)
 		else
 			. += mutable_appearance(icon, "[initial(icon_state)]_open", CLOSET_OLAY_LAYER_DOOR)
 
-
 /obj/structure/closet/bluespace/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
@@ -611,12 +591,10 @@ GLOBAL_LIST_EMPTY(closets)
 		transparent = TRUE
 		update_icon()
 
-
 /obj/structure/closet/bluespace/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
 	SIGNAL_HANDLER
 
 	UpdateTransparency()
-
 
 /obj/structure/closet/bluespace/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()

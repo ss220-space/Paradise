@@ -15,9 +15,8 @@
 		DATIVE = "стабилизатору ядра",
 		ACCUSATIVE = "стабилизатор ядра",
 		INSTRUMENTAL = "стабилизатором ядра",
-		PREPOSITIONAL = "стабилизаторе ядра"
+		PREPOSITIONAL = "стабилизаторе ядра",
 	)
-
 
 /obj/item/hivelordstabilizer/molten_mass
 	name = "gooey molten mass"
@@ -40,7 +39,7 @@
 		DATIVE = "сплавленному сгустку",
 		ACCUSATIVE = "сплавленный сгусток",
 		INSTRUMENTAL = "сплавленным сгустком",
-		PREPOSITIONAL = "сплавленном сгустке"
+		PREPOSITIONAL = "сплавленном сгустке",
 	)
 
 /obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user, proximity, params)
@@ -75,7 +74,7 @@
 		DATIVE = "регенеративному ядру",
 		ACCUSATIVE = "регенеративное ядро",
 		INSTRUMENTAL = "регенеративным ядром",
-		PREPOSITIONAL = "регенеративном ядре"
+		PREPOSITIONAL = "регенеративном ядре",
 	)
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
@@ -108,7 +107,7 @@
 		DATIVE = "сгнившему регенеративному ядру",
 		ACCUSATIVE = "сгнившее регенеративное ядро",
 		INSTRUMENTAL = "сгнившим регенеративным ядром",
-		PREPOSITIONAL = "сгнившем регенеративном ядре"
+		PREPOSITIONAL = "сгнившем регенеративном ядре",
 	)
 	SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "inert"))
 	update_icon()
@@ -193,7 +192,6 @@
 		return
 	. = ..()
 
-
 #undef INFINITY_CORE_COOLDOWN
 
 /*************************Legion core********************/
@@ -208,10 +206,8 @@
 	. = ..()
 	update_icon()
 
-
 /obj/item/organ/internal/regenerative_core/legion/update_icon_state()
 	icon_state = inert ? "legion_soul_inert" : "legion_soul"
-
 
 /obj/item/organ/internal/regenerative_core/legion/update_overlays()
 	. = ..()
@@ -219,11 +215,9 @@
 		. += "legion_soul_crackle"
 	addtimer(CALLBACK(src, PROC_REF(buttons_update)), 0.1 SECONDS)
 
-
 /obj/item/organ/internal/regenerative_core/legion/proc/buttons_update()
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
-
 
 /obj/item/organ/internal/regenerative_core/legion/go_inert()
 	..()
@@ -265,7 +259,7 @@
 		DATIVE = "опухоли легиона",
 		ACCUSATIVE = "опухоль легиона",
 		INSTRUMENTAL = "опухолью легиона",
-		PREPOSITIONAL = "опухоли легиона"
+		PREPOSITIONAL = "опухоли легиона",
 	)
 
 /obj/item/organ/internal/legion_tumour/insert(mob/living/carbon/egg_owner, special)
@@ -281,12 +275,10 @@
 		egg_owner.med_hud_set_status()
 	. = ..()
 
-
 /obj/item/organ/internal/legion_tumour/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(try_apply(target, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /// Smear it on someone like a regen core, why not. Make sure they're alive though.
 /obj/item/organ/internal/legion_tumour/proc/try_apply(mob/living/carbon/human/target, mob/user)
@@ -307,7 +299,6 @@
 		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 	target.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 	qdel(src)
-
 
 /obj/item/organ/internal/legion_tumour/on_life()
 	. = ..()

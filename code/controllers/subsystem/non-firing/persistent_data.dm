@@ -18,7 +18,6 @@ SUBSYSTEM_DEF(persistent_data)
 	/// Set to true after a the end of the round to prevent griefing being saved
 	var/data_saved = FALSE
 
-
 /datum/controller/subsystem/persistent_data/Initialize()
 	// Load all the data of registered atoms
 	for(var/atom/A in registered_atoms)
@@ -27,7 +26,6 @@ SUBSYSTEM_DEF(persistent_data)
 
 /datum/controller/subsystem/persistent_data/Shutdown()
 	save()
-
 
 /datum/controller/subsystem/persistent_data/proc/save()
 	// Stops data from being saved twice
@@ -38,7 +36,6 @@ SUBSYSTEM_DEF(persistent_data)
 	// Save all the data of registered atoms
 	for(var/atom/A in registered_atoms)
 		A.persistent_save()
-
 
 /**
  * Proc to register an atom with SSpersistent_data
@@ -54,7 +51,6 @@ SUBSYSTEM_DEF(persistent_data)
 	if(initialized)
 		A.persistent_load()
 
-
 /**
  * Atom Persistent Loader
  *
@@ -62,7 +58,6 @@ SUBSYSTEM_DEF(persistent_data)
  */
 /atom/proc/persistent_load()
 	stack_trace("peristent_load() called on an atom which does not have persistent data storage!")
-
 
 /**
  * Atom Persistent Saver

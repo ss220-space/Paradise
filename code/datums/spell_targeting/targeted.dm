@@ -9,7 +9,6 @@
 	/// Who to target when too many targets are found. Only matters when max_targets = 1
 	var/target_priority = SPELL_TARGET_CLOSEST
 
-
 /datum/spell_targeting/targeted/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
 	var/list/targets = list()
 	var/list/possible_targets = list()

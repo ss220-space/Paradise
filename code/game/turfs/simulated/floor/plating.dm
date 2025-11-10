@@ -39,7 +39,6 @@
 	if(unfastened)
 		. += span_warning("It has been unfastened.")
 
-
 /turf/simulated/floor/plating/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -109,7 +108,6 @@
 		to_chat(user, span_notice("You swap the plating to transparent one."))
 		new /obj/item/stack/sheet/metal(src, 2)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -190,7 +188,6 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-
 /turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || !istype(src, /turf/simulated/floor/engine))
@@ -198,7 +195,6 @@
 	make_plating(make_floor_tile = FALSE, force = TRUE)
 	var/obj/item/stack/rods/rods = new(src, 2)
 	rods.add_fingerprint(user)
-
 
 /turf/simulated/floor/engine/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -222,7 +218,6 @@
 		ChangeTurf(/turf/simulated/floor/engine/insulated)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-
 /turf/simulated/floor/engine/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
@@ -230,7 +225,6 @@
 		if(EXPLODE_HEAVY)
 			if(prob(50))
 				ChangeTurf(baseturf)
-
 
 /turf/simulated/floor/engine/blob_consume()
 	ChangeTurf(baseturf)
@@ -240,18 +234,15 @@
 	icon_state = "cult"
 	var/holy = FALSE
 
-
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-
 
 /turf/simulated/floor/engine/cult/update_icon_state()
 	if(SSticker?.cultdat && !holy)
 		icon_state = SSticker.cultdat.cult_floor_icon_state
 		return
 	icon_state = initial(icon_state)
-
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
@@ -301,7 +292,6 @@
 	name = "air floor"
 	oxygen = 2644
 	nitrogen = 10580
-
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
@@ -384,7 +374,6 @@
 		if(MFOAM_IRON)
 			icon_state = "ironfoam"
 
-
 /turf/simulated/floor/plating/metalfoam/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -424,8 +413,6 @@
 		smash()
 		add_fingerprint(user)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
-
 
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)

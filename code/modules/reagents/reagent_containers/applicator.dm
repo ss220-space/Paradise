@@ -29,7 +29,7 @@
 		DATIVE = "авто-мендеру",
 		ACCUSATIVE = "авто-мендер",
 		INSTRUMENTAL = "авто-мендером",
-		PREPOSITIONAL = "авто-мендере"
+		PREPOSITIONAL = "авто-мендере",
 	)
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
@@ -58,10 +58,8 @@
 				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
 	update_icon()
 
-
 /obj/item/reagent_containers/applicator/update_icon_state()
 	icon_state = "mender[applying ? "-active" : ""]"
-
 
 /obj/item/reagent_containers/applicator/update_overlays()
 	. = ..()
@@ -77,7 +75,6 @@
 		if(0)
 			applicator_bar.icon_state = "app_e"
 	. += applicator_bar
-
 
 /obj/item/reagent_containers/applicator/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -145,7 +142,6 @@
 	applying = FALSE
 	update_icon()
 
-
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE, def_zone)
 	var/total_applied_amount = applied_amount * multiplier
 
@@ -170,7 +166,7 @@
 		DATIVE = "авто-мендеру (Мех. Повреждения)",
 		ACCUSATIVE = "авто-мендер (Мех. Повреждения)",
 		INSTRUMENTAL = "авто-мендером (Мех. Повреждения)",
-		PREPOSITIONAL = "авто-мендере (Мех. Повреждения)"
+		PREPOSITIONAL = "авто-мендере (Мех. Повреждения)",
 	)
 
 /obj/item/reagent_containers/applicator/burn
@@ -185,7 +181,7 @@
 		DATIVE = "авто-мендеру (Терм. Повреждения)",
 		ACCUSATIVE = "авто-мендер (Терм. Повреждения)",
 		INSTRUMENTAL = "авто-мендером (Терм. Повреждения)",
-		PREPOSITIONAL = "авто-мендере (Терм. Повреждения)"
+		PREPOSITIONAL = "авто-мендере (Терм. Повреждения)",
 	)
 
 /obj/item/reagent_containers/applicator/dual
@@ -200,7 +196,7 @@
 		DATIVE = "авто-мендеру (Синт-плоть)",
 		ACCUSATIVE = "авто-мендер (Синт-плоть)",
 		INSTRUMENTAL = "авто-мендером (Синт-плоть)",
-		PREPOSITIONAL = "авто-мендере (Синт-плоть)"
+		PREPOSITIONAL = "авто-мендере (Синт-плоть)",
 	)
 
 /obj/item/reagent_containers/applicator/dual/syndi // It magically goes through hardsuits. Don't ask how.

@@ -133,7 +133,6 @@
 
 		GLOB.gear_datums[gear.index_name] = gear
 
-
 	// Setup a list of robolimbs
 	GLOB.basic_robolimb = new()
 	for(var/limb_type in typesof(/datum/robolimb))
@@ -244,7 +243,6 @@
 				L["[assoc]"] = D //put in association
 	return L
 
-
 /proc/init_emote_list()
 	. = list()
 	for(var/path in subtypesof(/datum/emote))
@@ -262,7 +260,6 @@
 				.[E.key_third_person] = list(E)
 			else
 				.[E.key_third_person] |= E
-
 
 /proc/init_uplink_items_list()
 	. = list()
@@ -403,7 +400,6 @@
 
 #undef EQUIPMENT
 
-
 /proc/update_config_movespeed_type_lookup(update_mobs = TRUE)
 	var/list/mob_types = list()
 	var/list/entry_value = CONFIG_GET(keyed_list/multiplicative_movespeed)
@@ -416,7 +412,6 @@
 	GLOB.mob_config_movespeed_type_lookup = mob_types
 	if(update_mobs)
 		update_mob_config_movespeeds()
-
 
 /proc/update_mob_config_movespeeds()
 	for(var/mob/M as anything in GLOB.mob_list)

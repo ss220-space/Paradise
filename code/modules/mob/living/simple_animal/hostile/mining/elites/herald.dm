@@ -42,10 +42,12 @@
 	loot_drop = /obj/item/clothing/accessory/necklace/herald_cloak
 	tts_seed = "Abathur"
 
-	attack_action_types = list(/datum/action/innate/elite_attack/herald_trishot,
-								/datum/action/innate/elite_attack/herald_directionalshot,
-								/datum/action/innate/elite_attack/herald_teleshot,
-								/datum/action/innate/elite_attack/herald_mirror)
+	attack_action_types = list(
+		/datum/action/innate/elite_attack/herald_trishot,
+		/datum/action/innate/elite_attack/herald_directionalshot,
+		/datum/action/innate/elite_attack/herald_teleshot,
+		/datum/action/innate/elite_attack/herald_mirror,
+	)
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/my_mirror = null
 	var/is_mirror = FALSE
@@ -57,7 +59,7 @@
 		DATIVE = "вестнику",
 		ACCUSATIVE = "вестника",
 		INSTRUMENTAL = "вестником",
-		PREPOSITIONAL = "вестнике"
+		PREPOSITIONAL = "вестнике",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/death(gibbed)
@@ -66,7 +68,6 @@
 		addtimer(CALLBACK(src, PROC_REF(become_ghost)), 0.8 SECONDS)
 		if(my_mirror)
 			QDEL_NULL(my_mirror)
-
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/Destroy()
 	if(my_mirror)
@@ -230,7 +231,7 @@
 		DATIVE = "зеркалу вестника",
 		ACCUSATIVE = "зеркало вестника",
 		INSTRUMENTAL = "зеркалом вестника",
-		PREPOSITIONAL = "зеркале вестника"
+		PREPOSITIONAL = "зеркале вестника",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize(mapload)
@@ -257,7 +258,7 @@
 		DATIVE = "смертоносному заряду",
 		ACCUSATIVE = "смертоносный заряд",
 		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде"
+		PREPOSITIONAL = "смертоносном заряде",
 	)
 
 /obj/projectile/herald/teleshot
@@ -272,7 +273,7 @@
 		DATIVE = "золотому заряду",
 		ACCUSATIVE = "золотой заряд",
 		INSTRUMENTAL = "золотым зарядом",
-		PREPOSITIONAL = "золотом заряде"
+		PREPOSITIONAL = "золотом заряде",
 	)
 
 /obj/projectile/herald/prehit(atom/target)
@@ -296,7 +297,6 @@
 	if(!istype(target, /mob/living/simple_animal/hostile/asteroid/elite/herald))
 		firer.forceMove(get_turf(src))
 
-
 //Herald's loot: Cloak of the Prophet
 
 /obj/item/clothing/accessory/necklace/herald_cloak
@@ -316,7 +316,7 @@
 		DATIVE = "плащу пророка",
 		ACCUSATIVE = "плащ пророка",
 		INSTRUMENTAL = "плащом пророка",
-		PREPOSITIONAL = "плаще пророка"
+		PREPOSITIONAL = "плаще пророка",
 	)
 
 /obj/item/clothing/accessory/necklace/herald_cloak/attack_self()

@@ -19,6 +19,7 @@
 	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
 	var/fire_sound = SFX_GUNSHOT
+	var/suppressed_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "выстрел" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
@@ -56,13 +57,18 @@
 	/// Guns can be placed on racks
 	var/on_rack = FALSE
 
+	/// Damage modifier for projectile
+	var/damage_mod = 1
+	/// Stamina modifier for projectile
+	var/stamina_mod = 1
+
 /*
  * Gun modules
  */
 	///List of allowed attachments, IT MUST INCLUDE THE STARTING ATTACHMENT TYPES OR THEY WILL NOT ATTACH.
 	var/attachable_allowed = 0
 	///The attachments this gun starts with on Init
-	var/list/starting_attachment_types = null //TODO implement later
+	var/list/starting_attachment_types = null
 	///Image list of attachments overlays.
 	var/list/image/attachment_overlays = list()
 	///List of offsets to make attachment overlays not look wonky.
@@ -121,7 +127,6 @@
 	/// Responsible for the range of the throwing back when shooting at point blank range
 	var/pb_knockback = 0
 
-
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
@@ -129,13 +134,13 @@
 	if(rusted_weapon)
 		malf_counter = rand(malf_low_bound, malf_high_bound)
 	update_gun_skins()
+	create_start_gun_modules()
 	if(islist(accuracy))
 		accuracy = getAccuracy(arglist(accuracy))
 	else if(!accuracy)
 		accuracy = GUN_ACCURACY_DEFAULT
 	else if(!istype(accuracy, /datum/gun_accuracy))
 		stack_trace("Invalid type [accuracy.type] found in .accuracy during /obj/item/gun Initialize()")
-
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(gun_light)
@@ -152,14 +157,12 @@
 		QDEL_NULL(recoil)
 	return ..()
 
-
 /obj/item/gun/handle_atom_del(atom/target)
 	if(target == bayonet)
 		set_bayonet(null)
 	else if(target == gun_light)
 		set_gun_light(null)
 	return ..()
-
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
@@ -193,7 +196,6 @@
 		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
 			. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
-
 /obj/item/gun/proc/update_gun_skins()
 	return
 
@@ -223,8 +225,18 @@
 		attachment_overlays[module.slot] = null
 	update_icon()
 
-
-
+/obj/item/gun/proc/create_start_gun_modules()
+	if(!starting_attachment_types)
+		return
+	for(var/module_path in starting_attachment_types)
+		if(!ispath(module_path, /obj/item/gun_module))
+			continue
+		var/obj/item/gun_module/module = new module_path(src)
+		attachments_by_slot[module.slot] = module
+		add_attachment_overlay(module)
+		module.gun = src
+		module.on_attach(src, null)
+		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
 
 /**
  * Adds skin in associative lazy list: skin_options[skin_name] = skin_icon_state
@@ -237,7 +249,6 @@
 	if(!unique_reskin)
 		return
 	LAZYSET(skin_options, skin_name, skin_icon_state)
-
 
 /obj/item/gun/proc/process_chamber()
 	return FALSE
@@ -262,7 +273,7 @@
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
 	if(suppressed)
-		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+		playsound(user, suppressed_fire_sound, 30, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	else
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
@@ -342,7 +353,6 @@
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
-
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(istype(user))
 		if(!user.can_use_guns(src))
@@ -356,7 +366,6 @@
 		shoot_with_empty_chamber(user)
 		return FALSE
 	return TRUE
-
 
 /obj/item/gun/proc/newshot()
 	return
@@ -398,7 +407,7 @@
 					sprd = accuracy.randomize_spread(user, bonus_spread)
 				else
 					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
-				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
+				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 					shoot_with_empty_chamber(user)
 					break
 				else
@@ -422,7 +431,7 @@
 					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
 			sprd = accuracy.randomize_spread(user, bonus_spread)
-			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
+			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 				shoot_with_empty_chamber(user)
 				return
 			else
@@ -471,7 +480,6 @@
 			user.take_organ_damage(0, 10)
 			return FALSE
 
-
 /obj/item/gun/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
 		return ATTACK_CHAIN_BLOCKED
@@ -480,13 +488,11 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/item/gun/attack_obj(obj/object, mob/user, params)
 	if(bayonet)
 		bayonet.melee_attack_chain(user, object, params)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -531,7 +537,6 @@
 		to_chat(user, span_notice("Вы снимаете [bayonet] с [declent_ru(ACCUSATIVE)]."))
 		set_bayonet(null)
 
-
 /obj/item/gun/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gunlight))
 		toggle_gunlight()
@@ -544,7 +549,6 @@
 	set desc = "Click to toggle your weapon's attached flashlight."
 
 	toggle_gunlight(usr)
-
 
 /obj/item/gun/proc/toggle_gunlight(mob/user, silent = FALSE)
 	if(!gun_light)
@@ -564,7 +568,6 @@
 	SEND_SIGNAL(src, COMSIG_GUN_LIGHT_TOGGLE, user)
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /// Sets gun's flashlight and do all the necessary updates
 /obj/item/gun/proc/set_gun_light(obj/item/flashlight/seclite/new_light)
@@ -606,12 +609,10 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
 		toggle_gunlight(silent = TRUE)
 		visible_message(span_danger("Фонарь [declent_ru(GENITIVE)] гаснет."))
-
 
 /// Sets gun's bayonet and do all the necessary updates
 /obj/item/gun/proc/set_bayonet(obj/item/kitchen/knife/new_bayonet)
@@ -644,13 +645,11 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/gun/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	zoom(user, FALSE)
 	if(azoom)
 		azoom.Remove(user)
-
 
 /obj/item/gun/click_alt(mob/user)
 	if(loc != user)
@@ -671,17 +670,21 @@
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		choices += module.declent_ru(NOMINATIVE)
+		if(module.can_detach)
+			choices[module.declent_ru(NOMINATIVE)] = image(icon = module.icon, icon_state = module.icon_state)
 	if(length(choices) == 0)
 		return
-	var/choice = tgui_input_list(user, "Выберите модуль, который хотите снять", "Снять модуль", choices, choices[1], 0, GLOB.conscious_state)
+	var/choice = choices[1]
+	if(length(choices) > 1)
+		choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
+	if(!choice)
+		return FALSE
 	for(var/slot in attachments_by_slot)
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
 		if(module.declent_ru(NOMINATIVE) == choice)
 			return module.detach_without_check(src, user)
-
 
 /obj/item/gun/proc/reskin_gun(mob/user)
 	if(!LAZYLEN(skin_options))
@@ -698,12 +701,10 @@
 		update_icon()
 		update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/gun/proc/reskin_radial_check(mob/living/carbon/human/user)
 	if(!ishuman(user) || QDELETED(src) || !user.is_in_hands(src) || user.incapacitated())
 		return FALSE
 	return TRUE
-
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))
@@ -810,7 +811,6 @@
 			observe.client.pixel_x = 0
 			observe.client.pixel_y = 0
 
-
 //Proc, so that gun accessories/scopes/etc. can easily add zooming.
 /obj/item/gun/proc/build_zooming()
 	if(azoom)
@@ -820,7 +820,6 @@
 		azoom = new()
 		azoom.gun = src
 		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
-
 
 /obj/item/gun/proc/destroy_zooming()
 	if(!azoom)

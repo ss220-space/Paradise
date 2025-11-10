@@ -6,7 +6,7 @@
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ,
 		/datum/surgery_step/remove_object,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -29,7 +29,7 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/remove_object,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	requires_organic_bodypart = FALSE
 
@@ -51,7 +51,6 @@
 	var/obj/item/organ/external/L = null
 	repeatable = TRUE
 
-
 /datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	L = surgery.organ_to_manipulate
@@ -68,7 +67,6 @@
 			chat_message_type = MESSAGE_TYPE_COMBAT
 			)
 	return ..()
-
 
 /datum/surgery_step/remove_object/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

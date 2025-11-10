@@ -25,7 +25,6 @@
 		new/obj/item/stack/cable_coil(get_turf(src), 10, TRUE, color)
 	qdel(src)
 
-
 /obj/structure/cable/multiz/attackby(obj/item/I, mob/user, params)
 	var/turf/our_turf = get_turf(src)
 	if(!our_turf)
@@ -50,10 +49,8 @@
 
 	return ATTACK_CHAIN_PROCEED
 
-
 /obj/structure/cable/multiz/wirecutter_act(mob/user, obj/item/I)
 	. = ..()
-
 
 /obj/structure/cable/multiz/mergeDiagonalsNetworks(direction)
 	return

@@ -11,7 +11,6 @@
 /obj/item/forensics/swab/proc/is_used()
 	return used
 
-
 /obj/item/forensics/swab/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
@@ -78,7 +77,6 @@
 		swab.dna = target_dna
 		swab.gsr = target_gsr
 		swab.set_used(sample_type, target)
-
 
 /obj/item/forensics/swab/afterattack(atom/A, mob/user, proximity, params)
 

@@ -31,7 +31,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	foots += delta
 	other += delta
 
-
 /datum/gun_accuracy/proc/getList()
 	return list("head" = head, "chest" = chest, "arms" = arms, "legs" = legs, "hands" = hands, "foots" = foots, "other" = other, "min_spread" = min_spread, "max_spread" = max_spread, "dual_wield_spread" = dual_wield_spread)
 
@@ -164,7 +163,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	other = 200
 	///Additional spread when dual wielding.
 
-
 // MARK: Specific accuracy
 
 /datum/gun_accuracy/rifle/extend_spread
@@ -199,7 +197,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 		return 0.5 * rnd_angle
 	return rnd_angle
 
-
 /obj/projectile/proc/calculate_hit_chance(obj/projectile/projectile, mob/living/target)
 	if(forced_accuracy)
 		return 100
@@ -213,7 +210,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	var/def_zone_accuracy = gun_accuracy.get_accuracy_for(projectile.def_zone)
 	var/distance_mod = accuracy_for_distance(distance) / 100
 	return clamp(def_zone_accuracy * distance_mod, 0, 100)
-
 
 #define FULL_ACCURACY_DISTANCE 3
 #define MIN_ACCURACY_DISTANCE 20

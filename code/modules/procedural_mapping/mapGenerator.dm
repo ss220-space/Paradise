@@ -22,7 +22,6 @@
 	map |= block(Start,End)
 	return map
 
-
 //Defines the region the map represents, as a CIRCLE!, sets map
 //Returns the map
 /datum/mapGenerator/proc/defineCircularRegion(turf/Start, turf/End, replace = 0)
@@ -52,17 +51,13 @@
 		if(i != sphereMagic)
 			theRadius = max(radius/max((2*abs(sphereMagic-i)),1),1)
 
-
 		map |= circle_range(locate(centerX,centerY,i),theRadius)
 
-
 	return map
-
 
 //Empties the map list, he's dead jim.
 /datum/mapGenerator/proc/undefineRegion()
 	map = list() //bai bai
-
 
 //Checks for and Rejects bad region coordinates
 //Returns 1/0
@@ -79,7 +74,6 @@
 	if(Start.z > world.maxz || End.z > world.maxz)
 		. = 0
 
-
 //Requests the mapGeneratorModule(s) to (re)generate
 /datum/mapGenerator/proc/generate()
 	syncModules()
@@ -88,7 +82,6 @@
 	for(var/datum/mapGeneratorModule/mod in modules)
 		spawn(0)
 			mod.generate()
-
 
 //Requests the mapGeneratorModule(s) to (re)generate this one turf
 /datum/mapGenerator/proc/generateOneTurf(turf/T)
@@ -101,7 +94,6 @@
 		spawn(0)
 			mod.place(T)
 
-
 //Replaces all paths in the module list with actual module datums
 /datum/mapGenerator/proc/initialiseModules()
 	for(var/path in modules)
@@ -110,13 +102,10 @@
 			modules |= new path
 	syncModules()
 
-
 //Sync mapGeneratorModule(s) to mapGenerator
 /datum/mapGenerator/proc/syncModules()
 	for(var/datum/mapGeneratorModule/mod in modules)
 		mod.sync(src)
-
-
 
 ///////////////////////////
 // HERE BE DEBUG DRAGONS //
@@ -169,7 +158,6 @@
 	if(theCluster)
 		for(var/datum/mapGeneratorModule/M in N.modules)
 			M.clusterCheckFlags = theCluster
-
 
 	to_chat(src, "Defining Region")
 	N.defineRegion(Start, End)

@@ -12,7 +12,6 @@
 	SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
 	return TRUE
 
-
 /**
  * Individual check for items to skip catching.
  */
@@ -32,12 +31,10 @@
 		return .
 	. = FALSE
 
-
 /mob/living/carbon/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)
-
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
 	if(!length(surgeries) || user.a_intent != INTENT_HELP)
@@ -48,7 +45,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
 	if(!iscarbon(user))
@@ -80,17 +76,15 @@
 				M.powerlevel -= 3
 				if(M.powerlevel < 0)
 					M.powerlevel = 0
-
 				visible_message(span_danger("[M.name] шокиру[PLUR_ET_YUT(M)] [src]!"), \
 				span_userdanger("[M.name] шокиру[PLUR_ET_YUT(M)] вас!"))
-
 				do_sparks(5, TRUE, src)
 				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT
-				Stun(power)
+				Knockdown(power)
 				Stuttering(power)
 				if(prob(stunprob) && M.powerlevel >= 8)
 					adjustFireLoss(M.powerlevel * rand(6, 6 + M.age_state.damage))
-		return 1
+		return TRUE
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
 	if((!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)))

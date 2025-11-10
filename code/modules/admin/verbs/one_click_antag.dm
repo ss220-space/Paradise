@@ -9,7 +9,6 @@
 		holder.one_click_antag()
 	return
 
-
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"<b>One-click Antagonist</b><br>
@@ -80,7 +79,6 @@
 
 		return 1
 	return 0
-
 
 /datum/admins/proc/makeChangelings()
 
@@ -188,7 +186,6 @@
 		new_character.mind.make_Wizard()
 		return 1
 	return 0
-
 
 /datum/admins/proc/makeCult()
 
@@ -316,7 +313,6 @@
 	spawn_aliens(antnum)
 	return TRUE
 
-
 /datum/admins/proc/makeSpaceNinja()
 	. = FALSE
 	var/confirm = tgui_alert(usr, "Are you sure?", "Confirm creation", list("Yes", "No"))
@@ -342,7 +338,6 @@
 		var/mob/living/carbon/human/new_character = makeBody(selected)
 		new_character.mind.make_Space_Ninja(custom_objective)
 		return TRUE
-
 
 /proc/makeBody(mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
 	if(!G_found || !G_found.key)	return

@@ -51,7 +51,7 @@
 		DATIVE = "фаунной бомбе", \
 		ACCUSATIVE = "фаунную бомбу", \
 		INSTRUMENTAL = "фаунной бомбой", \
-		PREPOSITIONAL = "фаунной бомбе"
+		PREPOSITIONAL = "фаунной бомбе",
 	)
 
 /obj/item/fauna_bomb/Destroy()
@@ -310,7 +310,6 @@
 			last_command = action
 			do_commands()
 
-
 #define CHOOSING_ICON 'icons/effects/cult_target.dmi'
 
 /obj/item/fauna_bomb/proc/choose_target(client/client)
@@ -352,9 +351,11 @@
 	name = "Fauna bomb"
 	result = /obj/item/fauna_bomb
 	tools = list(TOOL_SCREWDRIVER)
-	reqs = list(/obj/item/relict_production/pet_spray = 1,
-				/obj/item/grenade/chem_grenade/adv_release = 1,
-				/obj/item/stack/cable_coil = 5)
+	reqs = list(
+		/obj/item/relict_production/pet_spray = 1,
+		/obj/item/grenade/chem_grenade/adv_release = 1,
+		/obj/item/stack/cable_coil = 5,
+	)
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

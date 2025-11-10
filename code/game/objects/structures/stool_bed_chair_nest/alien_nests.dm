@@ -15,15 +15,12 @@
 	. = ..()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
 
-
 /obj/structure/bed/nest/Destroy()
 	playsound(get_turf(src), 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
 	. = ..()
 
-
 /obj/structure/bed/nest/has_prints()
 	return FALSE
-
 
 /obj/structure/bed/nest/user_buckle_mob(mob/living/target, mob/living/user, check_loc = TRUE)
 	if(!isliving(target) || target.buckled || !in_range(src, user) || target.loc != loc || user.incapacitated())
@@ -49,7 +46,6 @@
 		)
 		if(isalien(user))
 			ghost_timer = addtimer(CALLBACK(src, PROC_REF(ghost_check)), 15 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
-
 
 /obj/structure/bed/nest/user_unbuckle_mob(mob/living/target, mob/living/user)
 	if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
@@ -81,7 +77,6 @@
 
 	return unbuckle_mob(target)
 
-
 /obj/structure/bed/nest/proc/ghost_check()
 	if(!length(buckled_mobs))
 		return
@@ -91,14 +86,12 @@
 			buckled_mob.throw_alert(ALERT_GHOST_NEST, /atom/movable/screen/alert/ghost)
 			to_chat(buckled_mob, span_ghostalert("You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest."))
 
-
 /obj/structure/bed/nest/post_buckle_mob(mob/living/target)
 	ADD_TRAIT(target, TRAIT_RESTRAINED, type)
 	target.pixel_y = target.base_pixel_y
 	target.pixel_x = target.base_pixel_x + 2
 	target.layer = BELOW_MOB_LAYER
 	add_overlay(nest_overlay)
-
 
 /obj/structure/bed/nest/post_unbuckle_mob(mob/living/target)
 	REMOVE_TRAIT(target, TRAIT_RESTRAINED, type)
@@ -109,7 +102,6 @@
 	deltimer(ghost_timer)
 	target.clear_alert(ALERT_GHOST_NEST)
 	target.notify_ghost_cloning("You have been unbuckled from an alien nest! Click that alert to re-enter your body.", source = src)
-
 
 /obj/structure/bed/nest/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

@@ -24,7 +24,7 @@
 		DATIVE = "гнезду некрополя",
 		ACCUSATIVE = "гнездо некрополя",
 		INSTRUMENTAL = "гнездом некрополя",
-		PREPOSITIONAL = "гнезде некрополя"
+		PREPOSITIONAL = "гнезде некрополя",
 	)
 
 /obj/structure/lavaland/ash_walker/Initialize(mapload)
@@ -124,7 +124,7 @@
 		DATIVE = "яйцу пеплоходца",
 		ACCUSATIVE = "яйцо пеплоходца",
 		INSTRUMENTAL = "яйцом пеплоходца",
-		PREPOSITIONAL = "яйце пеплоходца"
+		PREPOSITIONAL = "яйце пеплоходца",
 	)
 
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)
@@ -136,7 +136,6 @@
 	var/area/A = get_area(src)
 	if(A)
 		notify_ghosts("Яйцо [eggtype] готово вылупиться в [A.name].", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
-
 
 //Ash walker shaman eggs: Spawns in ash walker dens in lavaland. Only one can exist at a time, they are squishier than regular ashwalkers, and have the sole purpose of keeping other ashwalkers alive.
 /obj/effect/mob_spawn/human/ash_walker/shaman
@@ -157,7 +156,7 @@
 		DATIVE = "яйцу шамана пеплоходцев",
 		ACCUSATIVE = "яйцо шамана пеплоходцев",
 		INSTRUMENTAL = "яйцом шамана пеплоходцев",
-		PREPOSITIONAL = "яйце шамана пеплоходцев"
+		PREPOSITIONAL = "яйце шамана пеплоходцев",
 	)
 
 /datum/outfit/ashwalker

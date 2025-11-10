@@ -6,7 +6,6 @@
 	var/triggered = 0
 	var/faction = "syndicate"
 
-
 /obj/effect/mine/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -14,10 +13,8 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
 	to_chat(victim, span_danger("*click*"))
-
 
 /obj/effect/mine/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -32,7 +29,6 @@
 		return
 
 	triggermine(arrived)
-
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
@@ -181,13 +177,11 @@
 	to_chat(victim, span_notice("You feel great!"))
 	victim.revive()
 
-
 /obj/effect/mine/pickup/speed
 	name = "Yellow Orb"
 	desc = "You feel faster just looking at it."
 	color = "yellow"
 	duration = 30 SECONDS
-
 
 /obj/effect/mine/pickup/speed/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
@@ -197,7 +191,6 @@
 	to_chat(victim, span_notice("You feel fast!"))
 
 	addtimer(CALLBACK(src, PROC_REF(mine_effect_callback), victim), duration, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
-
 
 /obj/effect/mine/pickup/speed/proc/mine_effect_callback(mob/living/carbon/victim)
 	if(!QDELETED(victim))

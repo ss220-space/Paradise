@@ -10,11 +10,9 @@
 	N?.forceMove(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/structure/blob/special/captured_nuke/update_overlays()
 	. = ..()
 	. += mutable_appearance('icons/mob/blob.dmi', "blob_nuke_overlay", appearance_flags = RESET_COLOR)
-
 
 /obj/structure/blob/special/captured_nuke/Destroy()
 	for(var/obj/machinery/nuclearbomb/O in contents)

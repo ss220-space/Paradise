@@ -19,7 +19,7 @@
 		DATIVE = "телепушке",
 		ACCUSATIVE = "телепушку",
 		INSTRUMENTAL = "телепушкой",
-		PREPOSITIONAL = "телепушке"
+		PREPOSITIONAL = "телепушке",
 	)
 
 /obj/item/gun/energy/telegun/Destroy()

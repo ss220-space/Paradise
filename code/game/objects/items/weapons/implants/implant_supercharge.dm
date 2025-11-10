@@ -7,7 +7,6 @@
 	uses = 3
 	implant_data = /datum/implant_fluff/adrenaline
 
-
 /obj/item/implant/supercharge/activate(cause)
 	uses--
 	to_chat(imp_in, span_notice("You feel an electric sensation as your components enter overdrive!"))
@@ -27,11 +26,9 @@
 	if(!uses)
 		qdel(src)
 
-
 /obj/item/implanter/supercharge
 	name = "bio-chip implanter (supercharge)"
 	imp = /obj/item/implant/supercharge
-
 
 /obj/item/implantcase/supercharge
 	name = "bio-chip case - 'supercharge'"

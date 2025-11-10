@@ -17,14 +17,13 @@
 		DATIVE = "знаку мокрого пола",
 		ACCUSATIVE = "знак мокрого пола",
 		INSTRUMENTAL = "знаком мокрого пола",
-		PREPOSITIONAL = "знаке мокрого пола"
+		PREPOSITIONAL = "знаке мокрого пола",
 	)
 
 /obj/item/caution/proximity_sign
 	var/timing = FALSE
 	var/armed = FALSE
 	var/timepassed = 0
-
 
 /obj/item/caution/proximity_sign/Destroy()
 	. = ..()

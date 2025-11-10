@@ -63,7 +63,6 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 
 	else	return icon_state
 
-
 //Bodies
 /datum/body_accessory/body
 	blend_mode = ICON_MULTIPLY

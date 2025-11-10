@@ -14,7 +14,6 @@
 	//Bump this up if you're changing outdated table identifier and/or achievement type
 	var/achievement_version = 1
 
-
 ///This proc loads the achievement data from the hub.
 /datum/award/proc/load(datum/achievement_data/holder)
 	if(!SSdbcore.Connect())

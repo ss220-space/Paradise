@@ -24,7 +24,7 @@
 		DATIVE = "посоху бурь",
 		ACCUSATIVE = "посох бурь",
 		INSTRUMENTAL = "посохом бурь",
-		PREPOSITIONAL = "посохе бурь"
+		PREPOSITIONAL = "посохе бурь",
 	)
 
 /obj/item/storm_staff/Destroy()
@@ -124,7 +124,6 @@
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 	target.visible_message(span_danger("Молния ударяет в [target.declent_ru(ACCUSATIVE)]!"))
 	explosion(target, devastation_range = -1, heavy_impact_range = -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
-
 
 /obj/effect/temp_visual/thunderbolt_targeting
 	icon_state = "target_circle"

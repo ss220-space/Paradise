@@ -118,8 +118,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/pants/sandpants
 	name = "long sand pants"
@@ -140,5 +140,5 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)

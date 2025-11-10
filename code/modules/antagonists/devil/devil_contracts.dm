@@ -264,7 +264,6 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	spell.create_lich(user)
 	qdel(spell)
 
-
 /datum/devil_contract/gun
 	name = "контракт оружия"
 	contract_type = CONTRACT_GUN

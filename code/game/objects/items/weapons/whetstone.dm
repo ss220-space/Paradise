@@ -26,9 +26,8 @@
 		DATIVE = "точильному камню",
 		ACCUSATIVE = "точильный камень",
 		INSTRUMENTAL = "точильным камнем",
-		PREPOSITIONAL = "точильном камне"
+		PREPOSITIONAL = "точильном камне",
 	)
-
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
 	. = ATTACK_CHAIN_BLOCKED_ALL
@@ -68,16 +67,13 @@
 	uses--
 	update_appearance()
 
-
 /obj/item/whetstone/update_name(updates = ALL)
 	. = ..()
 	name = "[!uses ? "worn out " : ""][initial(name)]"
 
-
 /obj/item/whetstone/update_desc(updates = ALL)
 	. = ..()
 	desc = "[initial(desc)][!uses ? " По крайней мере, раньше мог." : ""]"
-
 
 /obj/item/whetstone/attack_self(mob/living/carbon/human/user)
 	. = ..()
@@ -100,7 +96,6 @@
 	uses--
 	update_appearance()
 
-
 /obj/item/whetstone/super
 	name = "super whetstone block"
 	desc = "Каменный блок, который заточит ваше оружие острее, чем Эйнштейн на аддералле."
@@ -117,7 +112,7 @@
 		DATIVE = "суперточильному блоку",
 		ACCUSATIVE = "суперточильный блок",
 		INSTRUMENTAL = "суперточильным блоком",
-		PREPOSITIONAL = "суперточильном блоке"
+		PREPOSITIONAL = "суперточильном блоке",
 	)
 
 /obj/item/whetstone/crab_shell
@@ -131,7 +126,6 @@
 	increment = 2
 	uses = 2
 
-
 /obj/item/whetstone/crab_shell/get_ru_names()
 	return list(
 		NOMINATIVE = "панцирь пепельного рака",
@@ -139,9 +133,8 @@
 		DATIVE = "панцирю пепельного рака",
 		ACCUSATIVE = "панцирь пепельного рака",
 		INSTRUMENTAL = "панцирем пепельного рака",
-		PREPOSITIONAL = "панцире пепельного рака"
+		PREPOSITIONAL = "панцире пепельного рака",
 	)
-
 
 /obj/item/whetstone/anti
 	desc = "Каменный брусок для затупки инструментов."

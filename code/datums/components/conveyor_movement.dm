@@ -6,7 +6,6 @@
 	var/living_parent = FALSE
 	var/speed
 
-
 /datum/component/convey/Initialize(direction, speed, start_delay)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -20,7 +19,6 @@
 	RegisterSignal(loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(should_move))
 	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(loop_ended))
 
-
 /datum/component/convey/proc/should_move(datum/move_loop/source)
 	SIGNAL_HANDLER
 
@@ -32,7 +30,6 @@
 	var/atom/movable/moving_parent = parent
 	if(moving_parent.anchored || moving_parent.get_gravity() < -NO_GRAVITY) // No moving on convey with negative gravity.
 		return MOVELOOP_SKIP_STEP
-
 
 /datum/component/convey/proc/loop_ended(datum/source)
 	SIGNAL_HANDLER

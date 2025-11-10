@@ -22,7 +22,7 @@
 		DATIVE = "медицинской лучевой пушке",
 		ACCUSATIVE = "медицинскую лучевую пушку",
 		INSTRUMENTAL = "медицинской лучевой пушкой",
-		PREPOSITIONAL = "медицинской лучевой пушке"
+		PREPOSITIONAL = "медицинской лучевой пушке",
 	)
 
 /obj/item/gun/medbeam/Initialize(mapload)

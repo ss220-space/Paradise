@@ -14,7 +14,6 @@
 	/// Typepath of the original object for ui grouping
 	var/path
 
-
 /datum/search_object/New(client/owner, atom/item)
 	. = ..()
 
@@ -56,24 +55,20 @@
 	icon = "[item.icon]"
 	icon_state = item.icon_state
 
-
 /datum/search_object/Destroy(force)
 	item = null
 
 	return ..()
 
-
 /// Generates the icon for the search object. This is the expensive part.
 /datum/search_object/proc/generate_icon(client/owner)
 	icon = costly_icon2html(item, owner, sourceonly = TRUE)
-
 
 /// Parent item has been altered, search object no longer valid
 /datum/search_object/proc/on_item_moved(atom/source)
 	SIGNAL_HANDLER
 
 	qdel(src)
-
 
 /// Parent tile has been altered, entire search needs reset
 /datum/search_object/proc/on_turf_change(turf/source, path, list/new_baseturfs, flags, list/post_change_callbacks)

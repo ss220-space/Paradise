@@ -6,11 +6,9 @@
 	/// A middle click override used to intercept changeling stings performed on a target.
 	var/datum/middleClickOverride/callback_invoker/click_override
 
-
 /datum/action/changeling/sting/New(Target)
 	. = ..()
 	click_override = new(CALLBACK(src, PROC_REF(try_to_sting)))
-
 
 /datum/action/changeling/sting/Destroy(force)
 	if(cling.owner.current && cling.owner.current.middleClickOverride == click_override) // this is a very scuffed way of doing this honestly
@@ -19,7 +17,6 @@
 	if(cling.chosen_sting == src)
 		cling.chosen_sting = null
 	return ..()
-
 
 /datum/action/changeling/sting/Trigger(left_click = TRUE)
 	if(!ischangeling(owner) || !ishuman(owner))
@@ -31,7 +28,6 @@
 	else
 		unset_sting()
 
-
 /datum/action/changeling/sting/proc/set_sting()
 	var/mob/living/user = owner
 	to_chat(user, span_notice("We prepare our sting, use <b>Alt+Click</b> or middle mouse button on a target to sting them."))
@@ -40,7 +36,6 @@
 	user.hud_used.lingstingdisplay.icon_state = sting_icon
 	user.hud_used.lingstingdisplay.invisibility = 0
 
-
 /datum/action/changeling/sting/proc/unset_sting()
 	var/mob/living/user = owner
 	to_chat(user, span_warning("We retract our sting, we can't sting anyone for now."))
@@ -48,7 +43,6 @@
 	cling.chosen_sting = null
 	user.hud_used.lingstingdisplay.icon_state = null
 	user.hud_used.lingstingdisplay.invisibility = INVISIBILITY_ABSTRACT
-
 
 /datum/action/changeling/sting/can_sting(mob/user, mob/target)
 	if(!..() || !iscarbon(target) || !isturf(user.loc))
@@ -82,7 +76,6 @@
 
 	return TRUE
 
-
 /datum/action/changeling/sting/sting_feedback(mob/user, mob/target)
 	if(!target)
 		return FALSE
@@ -92,7 +85,6 @@
 		to_chat(target, span_warning("You feel a tiny prick."))
 		add_attack_logs(user, target, "Unsuccessful sting (changeling)")
 	return TRUE
-
 
 /**
  * Extract DNA Sting
@@ -106,11 +98,9 @@
 	power_type = CHANGELING_INNATE_POWER
 	chemical_cost = 25
 
-
 /datum/action/changeling/sting/extract_dna/can_sting(mob/user, mob/target)
 	if(..())
 		return cling.can_absorb_dna(target)
-
 
 /datum/action/changeling/sting/extract_dna/sting_action(mob/user, mob/living/carbon/human/target)
 	add_attack_logs(user, target, "Extraction sting (changeling)")
@@ -118,7 +108,6 @@
 		cling.absorb_dna(target)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-
 
 /**
  * Transformation Sting
@@ -142,11 +131,9 @@
 		SPECIES_VOX = TRUE,
 	)
 
-
 /datum/action/changeling/sting/transformation/Destroy(force)
 	selected_dna = null
 	return ..()
-
 
 /datum/action/changeling/sting/transformation/Trigger(left_click = TRUE)
 	if(!ishuman(owner))
@@ -168,7 +155,6 @@
 
 	..()
 
-
 /datum/action/changeling/sting/transformation/can_sting(mob/user, mob/target)
 	if(!..())
 		return FALSE
@@ -182,7 +168,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
 	add_attack_logs(user, target, "Transformation sting (changeling) (new identity is [selected_dna.real_name])")
@@ -200,13 +185,11 @@
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
-
 /datum/action/changeling/sting/transformation/proc/victim_transformation(mob/target, datum/dna/DNA)
 	if(QDELETED(target) || QDELETED(DNA))
 		return
 
 	transform_dna(target, DNA)
-
 
 /**
  * Mute Sting
@@ -221,13 +204,11 @@
 	dna_cost = 2
 	chemical_cost = 20
 
-
 /datum/action/changeling/sting/mute/sting_action(mob/user, mob/living/carbon/target)
 	add_attack_logs(user, target, "Mute sting (changeling)")
 	target.AdjustSilence(60 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-
 
 /**
  * Blind Sting
@@ -242,7 +223,6 @@
 	dna_cost = 1
 	chemical_cost = 25
 
-
 /datum/action/changeling/sting/blind/sting_action(mob/living/user, mob/living/target)
 	add_attack_logs(user, target, "Blind sting (changeling)")
 	to_chat(target, span_danger("Your eyes burn horrifically!"))
@@ -254,7 +234,6 @@
 	target.EyeBlurry(80 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-
 
 /**
  * Hallucination Sting
@@ -269,7 +248,6 @@
 	dna_cost = 1
 	chemical_cost = 10
 
-
 /datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
 	add_attack_logs(user, target, "LSD sting (changeling)")
 	addtimer(CALLBACK(src, PROC_REF(start_hallucinations), target, 400 SECONDS), rand(30 SECONDS, 60 SECONDS))
@@ -279,7 +257,6 @@
 /datum/action/changeling/sting/LSD/proc/start_hallucinations(mob/living/carbon/target, amount)
 	if(!QDELETED(target))
 		target.Hallucinate(amount)
-
 
 /**
  * Cryogenic Sting
@@ -293,7 +270,6 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
 	chemical_cost = 15
-
 
 /datum/action/changeling/sting/cryo/sting_action(mob/user, mob/target)
 	add_attack_logs(user, target, "Cryo sting (changeling)")

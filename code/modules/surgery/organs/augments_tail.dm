@@ -136,7 +136,7 @@
 		DATIVE = "хвостовой опухоли",
 		ACCUSATIVE = "хвостовую опухоль",
 		INSTRUMENTAL = "хвостовой опухолью",
-		PREPOSITIONAL = "хвостовом сгустке"
+		PREPOSITIONAL = "хвостовом сгустке",
 	)
 
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/update_icon_state()
@@ -150,7 +150,6 @@
 /datum/action/innate/tail_cut/Trigger(left_click = TRUE)
 	if(IsAvailable(show_message = TRUE))
 		. = ..()
-
 
 /datum/action/innate/tail_cut/Activate()
 	var/mob/living/carbon/human/user = owner

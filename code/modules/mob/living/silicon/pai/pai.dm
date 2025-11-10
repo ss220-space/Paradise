@@ -50,7 +50,6 @@
 		"Canine" = list("гавкает", "лает", "вопросительно тявкает")
 		)
 
-
 	var/master				// Name of the one who commands us
 	var/master_dna			// DNA string for owner verification
 							// Keeping this separate from the laws var, it should be much more difficult to modify
@@ -203,7 +202,6 @@
 	if(card.upgrade)
 		ram += card.upgrade.extra_memory
 
-
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
 		icon_state = "[chassis]_dead"
@@ -216,23 +214,19 @@
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
 		return list("Перезагрузка систем связи через:", "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
-
 /mob/living/silicon/pai/init_subsystems()
 	gps = new(src, gpstag = "pAI0", upgraded = TRUE, tracking = FALSE)
-
 
 /mob/living/silicon/pai/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = show_silenced()
 
-
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
 		adjustBruteLoss(60)
 		return TRUE
 	return FALSE
-
 
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
@@ -324,7 +318,6 @@
 	force_fold_out()
 	visible_message(span_notice("[name] раскладывается, переходя в мобильную форму."), span_notice("Вы раскладываетесь в мобильную форму."))
 
-
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(ismob(card.loc))
 		var/mob/holder = card.loc
@@ -403,7 +396,6 @@
 
 	chassis = my_choices[choice]
 
-
 /mob/living/silicon/pai/proc/choose_verbs()
 	set category = STATPANEL_PAICOMMANDS
 	set name = "Модуляция речи"
@@ -418,13 +410,11 @@
 
 	remove_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
 
-
 /mob/living/silicon/pai/proc/pai_change_voice()
 	set name = "Сменить голос"
 	set desc = "Express yourself!"
 	set category = STATPANEL_PAICOMMANDS
 	change_voice()
-
 
 /mob/living/silicon/pai/post_lying_on_rest()
 	if(stat == DEAD)
@@ -433,11 +423,9 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
 
-
 /mob/living/silicon/pai/post_get_up()
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
-
 
 /mob/living/silicon/pai/verb/pAI_suicide()
 	set category = STATPANEL_PAICOMMANDS
@@ -448,7 +436,6 @@
 		do_suicide()
 	else
 		balloon_alert(src, "протокол выгрузки отменён")
-
 
 /mob/living/silicon/pai/update_sight()
 	if(!client)
@@ -481,7 +468,6 @@
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	..()
-
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/I, mob/user, params)
@@ -538,8 +524,6 @@
 			close_up()
 
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
-
 
 /mob/living/silicon/pai/welder_act()
 	return
@@ -629,7 +613,6 @@
 	return 0
 
 // Handle being picked up.
-
 
 /mob/living/silicon/pai/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/holder/H = ..()

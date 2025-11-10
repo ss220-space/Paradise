@@ -5,10 +5,9 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/reshape_face,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(BODY_ZONE_HEAD)
-
 
 /datum/surgery_step/reshape_face
 	name = "изменение черт лица"
@@ -80,7 +79,6 @@
 		)
 	target.update_hud_set()
 	return SURGERY_STEP_CONTINUE
-
 
 /datum/surgery_step/reshape_face/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)

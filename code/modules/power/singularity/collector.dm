@@ -35,7 +35,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			P.air_contents.toxins -= 0.001*drainratio
 	return
 
-
 /obj/machinery/power/rad_collector/attack_hand(mob/user)
 	if(..())
 		return TRUE
@@ -51,7 +50,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		else
 			to_chat(user, span_warning("The controls are locked!"))
 			return
-
 
 /obj/machinery/power/rad_collector/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -87,7 +85,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 	return ..()
 
-
 /obj/machinery/power/rad_collector/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(P)
@@ -112,7 +109,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		)
 		disconnect_from_network()
 
-
 /obj/machinery/power/rad_collector/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	add_fingerprint(user)
@@ -126,13 +122,11 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		return .
 	eject(user)
 
-
 /obj/machinery/power/rad_collector/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	to_chat(user, span_notice("The [I.name] detects that [last_power]W were recently produced.."))
-
 
 /obj/machinery/power/rad_collector/return_analyzable_air()
 	if(P)
@@ -143,7 +137,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		eject()
 		stat |= BROKEN
-
 
 /obj/machinery/power/rad_collector/proc/eject(mob/user)
 	locked = FALSE
@@ -157,7 +150,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	else
 		update_icon()
 
-
 /obj/machinery/power/rad_collector/proc/receive_pulse(pulse_strength)
 	if(P && active)
 		var/power_produced = 0
@@ -166,10 +158,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		last_power = power_produced
 		return
 
-
 /obj/machinery/power/rad_collector/update_icon_state()
 	icon_state = "ca[active ? "_on" : ""]"
-
 
 /obj/machinery/power/rad_collector/update_overlays()
 	. = ..()
@@ -179,7 +169,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		return
 	if(active)
 		. += "on"
-
 
 /obj/machinery/power/rad_collector/proc/toggle_power()
 	active = !active

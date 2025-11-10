@@ -26,7 +26,6 @@
 		master = null
 	return ..()
 
-
 /obj/item/radio/electropack/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/head/helmet))
 		add_fingerprint(user)
@@ -54,7 +53,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/radio/electropack/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption != code)

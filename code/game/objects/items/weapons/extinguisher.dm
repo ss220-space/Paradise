@@ -35,7 +35,7 @@
 		DATIVE = "огнетушителю",
 		ACCUSATIVE = "огнетушитель",
 		INSTRUMENTAL = "огнетушителем",
-		PREPOSITIONAL = "огнетушителе"
+		PREPOSITIONAL = "огнетушителе",
 	)
 
 /obj/item/extinguisher/mini
@@ -61,9 +61,8 @@
 		DATIVE = "карманному огнетушителю",
 		ACCUSATIVE = "карманный огнетушитель",
 		INSTRUMENTAL = "карманным огнетушителем",
-		PREPOSITIONAL = "карманном огнетушителе"
+		PREPOSITIONAL = "карманном огнетушителе",
 	)
-
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
@@ -71,32 +70,26 @@
 		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
 
-
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
 	. += span_notice("Предохранитель <b>[safety ? "включён" : "выключен"]</b>.")
 
-
 /obj/item/extinguisher/update_icon_state()
 	icon_state = "[base_icon_state][!safety]"
-
 
 /obj/item/extinguisher/update_desc(updates = ALL)
 	. = ..()
 	desc = "Предохранитель [safety ? "включён" : "выключен"]."
-
 
 /obj/item/extinguisher/attack_self(mob/user)
 	safety = !safety
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 	to_chat(user, "Предохранитель [safety ? "включён" : "выключен"].")
 
-
 /obj/item/extinguisher/attack_obj(obj/object, mob/living/user, params)
 	if(AttemptRefill(object, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/item/extinguisher/proc/AttemptRefill(atom/target, mob/user)
 	if(istype(target, /obj/structure/reagent_dispensers/watertank) && target.Adjacent(user))
@@ -118,7 +111,6 @@
 		safety = safety_save
 		return TRUE
 	return FALSE
-
 
 /obj/item/extinguisher/afterattack(atom/target, mob/user, flag, params)
 	. = ..()
@@ -146,6 +138,11 @@
 	if(user.buckled && isobj(user.buckled) && !user.buckled.anchored)
 		var/movementdirection = REVERSE_DIR(direction)
 		addtimer(CALLBACK(src, PROC_REF(move_chair), user.buckled, movementdirection), 0.1 SECONDS)
+		if(prob(20))
+			user.buckled.unbuckle_mob(user)
+			var/mob/living/living = user
+			if(istype(living))
+				living.Knockdown(1 SECONDS)
 	else
 		user.newtonian_move(REVERSE_DIR(direction))
 
@@ -175,7 +172,6 @@
 	//Make em move dat ass, hun
 	move_particles(water_particles)
 
-
 //Particle movement loop
 /obj/item/extinguisher/proc/move_particles(list/particles)
 	var/delay = 2
@@ -183,14 +179,12 @@
 	for(var/obj/effect/particle_effect/water/extinguisher/water as anything in particles)
 		water.move_at(particles[water], delay, power)
 
-
 //Chair movement loop
 /obj/item/extinguisher/proc/move_chair(obj/buckled_object, movementdirection)
 	var/datum/move_loop/loop = GLOB.move_manager.move(buckled_object, movementdirection, 1, timeout = 9, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	//This means the chair slowing down is dependant on the extinguisher existing, which is weird
 	//Couldn't figure out a better way though
 	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(manage_chair_speed))
-
 
 /obj/item/extinguisher/proc/manage_chair_speed(datum/move_loop/move/source)
 	SIGNAL_HANDLER

@@ -10,7 +10,6 @@
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 
-
 /obj/structure/garland/wirecutter_act(mob/living/user, obj/item/wirecutters/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -18,14 +17,12 @@
 	to_chat(user, span_notice("You cut garland apart."))
 	deconstruct()
 
-
 /obj/structure/garland/wrench_act(mob/living/user, obj/item/wrench/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "" : "un"]wrenched [src]"))
-
 
 /obj/item/clothing/head/new_year
 	name = "Red furhat"
@@ -46,7 +43,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
 /obj/item/clothing/suit/space/new_year
@@ -70,7 +67,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
 /obj/item/gun/magic/staff/frost

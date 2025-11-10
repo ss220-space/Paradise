@@ -15,11 +15,9 @@
 
 /obj/item/clothing/shoes/black/greytide
 
-
 /obj/item/clothing/shoes/black/greytide/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/shoes/brown
 	name = "brown shoes"
@@ -112,12 +110,10 @@
 	QDEL_NULL(shackles)
 	return ..()
 
-
 /obj/item/clothing/shoes/orange/attack_self(mob/user)
 	if(shackles)
 		user.put_in_hands(shackles)
 		set_shackles(null)
-
 
 /obj/item/clothing/shoes/orange/proc/set_shackles(obj/item/restraints/handcuffs/new_shackles)
 	if(shackles == new_shackles)
@@ -135,10 +131,8 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item()
 
-
 /obj/item/clothing/shoes/orange/update_icon_state()
 	icon_state = "orange[shackles ? "1" : ""]"
-
 
 /obj/item/clothing/shoes/orange/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/restraints/handcuffs))
@@ -153,7 +147,6 @@
 
 	return ..()
 
-
 /obj/item/clothing/shoes/prison
 	name = "prison boots"
 	desc = "Твердая и неудобная обувь, сделанная другими заключенными."
@@ -167,7 +160,7 @@
 		DATIVE = "тюремным башмакам",
 		ACCUSATIVE = "тюремные башмаки",
 		INSTRUMENTAL = "тюремныим башмаками",
-		PREPOSITIONAL = "тюремных башмаках"
+		PREPOSITIONAL = "тюремных башмаках",
 	)
 
 /obj/item/clothing/shoes/convers
@@ -183,7 +176,7 @@
 		DATIVE = "чёрным высоким кедам",
 		ACCUSATIVE = "чёрные высокие кеды",
 		INSTRUMENTAL = "чёрными высокими кедами",
-		PREPOSITIONAL = "чёрных высоких кедах"
+		PREPOSITIONAL = "чёрных высоких кедах",
 	)
 
 /obj/item/clothing/shoes/convers/red
@@ -199,5 +192,5 @@
 		DATIVE = "красным высоким кедам",
 		ACCUSATIVE = "красные высокие кеды",
 		INSTRUMENTAL = "красными высокими кедами",
-		PREPOSITIONAL = "красных высоких кедах"
+		PREPOSITIONAL = "красных высоких кедах",
 	)

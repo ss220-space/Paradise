@@ -64,7 +64,7 @@
 		/obj/item/scalpel/laser = 100,
 		/obj/item/stack/cable_coil = 90,
 		/obj/item/stack/sheet/sinew = 90,
-		/obj/item/assembly/mousetrap = 25
+		/obj/item/assembly/mousetrap = 25,
 	)
 
 	time = 2.4 SECONDS
@@ -99,7 +99,6 @@
 	target.apply_damage(10, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/generic/suture
 	name = "зашить раны"
 	begin_sound = 'sound/surgery/cautery1.ogg'
@@ -114,7 +113,7 @@
 		/obj/item/clothing/mask/cigarette = 75,
 		/obj/item/lighter = 60,
 		TOOL_WELDER = 30,
-		/obj/item/flashlight/flare/torch = 30
+		/obj/item/flashlight/flare/torch = 30,
 	)
 	time = 3 SECONDS
 
@@ -149,7 +148,6 @@
 	target.apply_damage(10, def_zone = affected, sharp = TRUE)
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/generic/retract_skin
 	name = "расширение краёв раны"
 	begin_sound = 'sound/surgery/retractor1.ogg'
@@ -160,7 +158,7 @@
 		/obj/item/scalpel/laser/manager = 100,
 		/obj/item/retractor = 100,
 		/obj/item/crowbar = 90,
-		/obj/item/kitchen/utensil/fork = 60
+		/obj/item/kitchen/utensil/fork = 60,
 	)
 
 	time = 2.4 SECONDS
@@ -218,7 +216,7 @@
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
 		TOOL_WELDER = 30,
-		/obj/item/flashlight/flare/torch = 30
+		/obj/item/flashlight/flare/torch = 30,
 	)
 
 	time = 2.4 SECONDS
@@ -268,7 +266,6 @@
 	target.custom_pain("Вы чувствуете сильное жжение в [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
-
 //drill bone
 /datum/surgery_step/generic/drill
 	name = "сверление кости"
@@ -279,7 +276,7 @@
 		/obj/item/screwdriver/power = 80,
 		/obj/item/pickaxe/drill = 60,
 		/obj/item/mecha_parts/mecha_equipment/drill = 60,
-		/obj/item/screwdriver = 20
+		/obj/item/screwdriver = 20,
 	)
 	time = 3 SECONDS
 
@@ -311,7 +308,6 @@
 	target.apply_damage(15, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
-
 /datum/surgery_step/generic/amputate
 	name = "ампутация конечности"
 	begin_sound = list(
@@ -327,7 +323,7 @@
 		/obj/item/primitive_saw = 100,
 		/obj/item/hatchet = 90,
 		/obj/item/circular_saw_blade = 80,
-		/obj/item/melee/changeling/arm_blade = 75
+		/obj/item/melee/changeling/arm_blade = 75,
 	)
 
 	time = 10 SECONDS

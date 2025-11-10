@@ -13,7 +13,7 @@
 		DATIVE = "жертвенному алтарю",
 		ACCUSATIVE = "жертвенный алтарь",
 		INSTRUMENTAL = "жертвенным алтарем",
-		PREPOSITIONAL = "жертвенном алтаре"
+		PREPOSITIONAL = "жертвенном алтаре",
 	)
 
 /obj/structure/sacrificealtar/attack_hand(mob/living/user)
@@ -46,7 +46,7 @@
 		DATIVE = "целебному фонтану",
 		ACCUSATIVE = "целебный фонтан",
 		INSTRUMENTAL = "целебным фонтаном",
-		PREPOSITIONAL = "целебном фонтане"
+		PREPOSITIONAL = "целебном фонтане",
 	)
 
 /obj/structure/healingfountain/attack_hand(mob/living/user)
@@ -61,7 +61,6 @@
 	user.reagents.add_reagent("godblood", 20)
 	update_icon()
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), time_between_uses)
-
 
 /obj/structure/healingfountain/update_icon_state()
 	if(last_process + time_between_uses > world.time)

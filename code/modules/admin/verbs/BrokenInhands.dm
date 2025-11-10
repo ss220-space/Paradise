@@ -19,7 +19,6 @@
 			if(O.icon_state)
 				text += "[O.type] is missing right hand icon called \"[O.icon_state]\".\n"
 
-
 		if(O.icon_state)
 			if(!istates.Find(O.icon_state))
 				text += "[O.type] is missing normal icon called \"[O.icon_state]\" in \"[O.icon]\".\n"

@@ -66,12 +66,10 @@
 	if(slot != ITEM_SLOT_BACK)
 		remove_noz()
 
-
 /obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
 		var/mob/user = noz.loc
 		user.drop_item_ground(noz, force = TRUE)
-
 
 /obj/item/watertank/Destroy()
 	if(on)
@@ -79,20 +77,17 @@
 		QDEL_NULL(noz)
 	return ..()
 
-
 /obj/item/watertank/attack_hand(mob/user)
 	if(loc == user)
 		ui_action_click()
 		return
 	return ..()
 
-
 /obj/item/watertank/attackby(obj/item/I, mob/user, params)
 	if(I == noz)
 		remove_noz()
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 // This mister item is intended as an extension of the watertank and always attached to it.
 // Therefore, it's designed to be "locked" to the player's hands or extended back onto
@@ -136,12 +131,10 @@
 	else
 		return 1
 
-
 /obj/item/reagent_containers/spray/mister/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(loc != tank.loc)
 		forceMove(tank.loc)
-
 
 /obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity, params)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
@@ -193,7 +186,6 @@
 /obj/item/watertank/atmos/make_noz()
 	return new /obj/item/extinguisher/mini/nozzle(src)
 
-
 /obj/item/watertank/atmos/update_icon_state()
 	var/obj/item/extinguisher/mini/nozzle/our_noz = noz
 	switch(our_noz.nozzle_mode)
@@ -206,7 +198,6 @@
 		else
 			icon_state = "waterbackpackatmos"
 
-
 /obj/item/watertank/atmos/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!noz)
@@ -214,7 +205,6 @@
 	var/obj/item/extinguisher/mini/nozzle/our_noz = noz
 	our_noz.nozzle_mode = NONE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/extinguisher/mini/nozzle
 	name = "extinguisher nozzle"
@@ -233,7 +223,6 @@
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
 
-
 /obj/item/extinguisher/mini/nozzle/New(parent_tank)
 	. = ..()
 	if(check_tank_exists(parent_tank, src))
@@ -242,17 +231,14 @@
 		max_water = tank.volume
 		loc = tank
 
-
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/extinguisher/mini/nozzle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(tank && loc != tank.loc)
 		forceMove(tank)
-
 
 /obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
 	switch(nozzle_mode)
@@ -269,7 +255,6 @@
 			to_chat(user, "Swapped to water extinguisher")
 
 	tank.update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/extinguisher/mini/nozzle/dropped(mob/user, slot, silent = FALSE)
 	. = ..()

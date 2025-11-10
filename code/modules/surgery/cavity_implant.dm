@@ -14,14 +14,13 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
 	)
 	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn, /datum/species/plasmaman)
-
 
 /datum/surgery/cavity_implant/soft
 	desc = "Имплантация объекта в полость, не защищённую костями."
@@ -34,7 +33,7 @@
 		/datum/surgery_step/cavity/make_space,
 		/datum/surgery_step/proxy/cavity_manipulation,
 		/datum/surgery_step/cavity/close_space,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
@@ -55,7 +54,7 @@
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	target_speciestypes = list(/datum/species/kidan, /datum/species/wryn)
 	restricted_speciestypes = null
@@ -79,7 +78,7 @@
 		/datum/surgery_step/cavity/close_space,
 		/datum/surgery_step/open_encased/close,
 		/datum/surgery_step/glue_bone/plasma,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -98,7 +97,7 @@
 		/datum/surgery_step/cavity/make_space,
 		/datum/surgery_step/proxy/cavity_manipulation,
 		/datum/surgery_step/cavity/close_space,
-		/datum/surgery_step/generic/cauterize
+		/datum/surgery_step/generic/cauterize,
 	)
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
 
@@ -110,7 +109,7 @@
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/proxy/cavity_manipulation/robotic,
 		/datum/surgery_step/cavity/close_space,
-		/datum/surgery_step/robotics/external/close_hatch
+		/datum/surgery_step/robotics/external/close_hatch,
 	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
@@ -123,15 +122,14 @@
 	branches = list(
 		/datum/surgery/intermediate/open_cavity/implant,
 		/datum/surgery/intermediate/open_cavity/extract,
-		/datum/surgery/intermediate/bleeding
+		/datum/surgery/intermediate/bleeding,
 	)
-
 
 /datum/surgery_step/proxy/cavity_manipulation/robotic
 	name = "Полостная манипуляция (Синтетик) – прокси"
 	branches = list(
 		/datum/surgery/intermediate/open_cavity/implant/robotic,
-		/datum/surgery/intermediate/open_cavity/extract/robotic
+		/datum/surgery/intermediate/open_cavity/extract/robotic,
 	)
 
 /datum/surgery/intermediate/open_cavity
@@ -140,13 +138,13 @@
 /datum/surgery/intermediate/open_cavity/implant
 	name = "имплантировать объект"
 	steps = list(
-		/datum/surgery_step/cavity/place_item
+		/datum/surgery_step/cavity/place_item,
 	)
 
 /datum/surgery/intermediate/open_cavity/extract
 	name = "извлечь объект"
 	steps = list(
-		/datum/surgery_step/cavity/remove_item
+		/datum/surgery_step/cavity/remove_item,
 	)
 
 /datum/surgery/intermediate/open_cavity/implant/robotic
@@ -203,7 +201,7 @@
 		TOOL_DRILL = 100,
 		/obj/item/screwdriver/power = 90,
 		/obj/item/pen = 90,
-		/obj/item/stack/rods = 60
+		/obj/item/stack/rods = 60,
 	)
 
 	time = 5.4 SECONDS
@@ -235,7 +233,7 @@
 		TOOL_CAUTERY = 100,
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
-		TOOL_WELDER = 30
+		TOOL_WELDER = 30,
 	)
 
 	time = 2.4 SECONDS
@@ -257,7 +255,6 @@
 	)
 
 	return SURGERY_STEP_CONTINUE
-
 
 /datum/surgery_step/cavity/remove_item
 	name = "извлечение объекта"
@@ -315,7 +312,6 @@
 
 	time = 3.2 SECONDS
 
-
 /datum/surgery_step/cavity/place_item/tool_check(mob/user, obj/item/tool)
 	if(istype(tool, /obj/item/disk/nuclear))
 		to_chat(user, span_danger("Центральное Командование убьёт вас, если узнает, что вы имплантировали ядерный диск в чьё-то тело!"))
@@ -339,7 +335,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /datum/surgery_step/cavity/place_item/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

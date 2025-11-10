@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 		DATIVE = "ДНК-семплеру",
 		ACCUSATIVE = "ДНК-семплер",
 		INSTRUMENTAL = "ДНК-семплером",
-		PREPOSITIONAL = "ДНК-семплере"
+		PREPOSITIONAL = "ДНК-семплере",
 	)
 
 /obj/item/dna_probe/proc/clear_data()
@@ -137,15 +137,15 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		dna[H.dna.uni_identity] = 1
 		to_chat(user, span_notice("Данные гуманоида добавлены в локальное хранилище."))
 
-
 /obj/item/circuitboard/machine/dna_vault
 	board_name = "DNA Vault"
 	build_path = /obj/machinery/dna_vault
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
-							/obj/item/stock_parts/capacitor/super = 5,
-							/obj/item/stock_parts/manipulator/pico = 5,
-							/obj/item/stack/cable_coil = 2)
+		/obj/item/stock_parts/capacitor/super = 5,
+		/obj/item/stock_parts/manipulator/pico = 5,
+		/obj/item/stack/cable_coil = 2,
+	)
 
 /obj/structure/filler
 	name = "big machinery part"
@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		DATIVE = "ДНК хранилищу",
 		ACCUSATIVE = "ДНК хранилище",
 		INSTRUMENTAL = "ДНК хранилищем",
-		PREPOSITIONAL = "ДНК хранилище"
+		PREPOSITIONAL = "ДНК хранилище",
 	)
 
 /obj/machinery/dna_vault/Initialize(mapload)
@@ -230,7 +230,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/dna_vault/Destroy()
 	QDEL_LIST(fillers)
@@ -298,7 +297,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	if(length(plants) >= plants_max && length(animals) >= animals_max && length(dna) >= dna_max)
 		completed = TRUE
 
-
 /obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -327,7 +325,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
 	if(!istype(H))

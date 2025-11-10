@@ -16,7 +16,7 @@
 		DATIVE = "поварскому колпаку",
 		ACCUSATIVE = "поварской колпак",
 		INSTRUMENTAL = "поварским колпаком",
-		PREPOSITIONAL = "поварском колпаке"
+		PREPOSITIONAL = "поварском колпаке",
 	)
 
 /obj/item/clothing/head/chefhat/ComponentInitialize()
@@ -41,7 +41,7 @@
 		DATIVE = "капитанской шляпе",
 		ACCUSATIVE = "капитанскую шляпу",
 		INSTRUMENTAL = "капитанской шляпой",
-		PREPOSITIONAL = "капитанской шляпе"
+		PREPOSITIONAL = "капитанской шляпе",
 	)
 
 //Captain: no longer space-worthy
@@ -59,7 +59,7 @@
 		DATIVE = "капитанской фуражке",
 		ACCUSATIVE = "капитанскую фуражку",
 		INSTRUMENTAL = "капитанской фуражкой",
-		PREPOSITIONAL = "капитанской фуражке"
+		PREPOSITIONAL = "капитанской фуражке",
 	)
 
 /obj/item/clothing/head/caphat/blue
@@ -76,7 +76,7 @@
 		DATIVE = "капитанской белой фуражке",
 		ACCUSATIVE = "капитанскую белую фуражку",
 		INSTRUMENTAL = "капитанской белой фуражкой",
-		PREPOSITIONAL = "капитанской белой фуражке"
+		PREPOSITIONAL = "капитанской белой фуражке",
 	)
 
 /obj/item/clothing/head/caphat/office
@@ -93,7 +93,7 @@
 		DATIVE = "капитанской синей фуражке",
 		ACCUSATIVE = "капитанскую синюю фуражку",
 		INSTRUMENTAL = "капитанской синей фуражкой",
-		PREPOSITIONAL = "капитанской синей фуражке"
+		PREPOSITIONAL = "капитанской синей фуражке",
 	)
 
 /obj/item/clothing/head/caphat/beret
@@ -110,7 +110,7 @@
 		DATIVE = "капитанскому берету",
 		ACCUSATIVE = "капитанский берет",
 		INSTRUMENTAL = "капитанским беретом",
-		PREPOSITIONAL = "капитанском берете"
+		PREPOSITIONAL = "капитанском берете",
 	)
 
 //Head of Personnel
@@ -129,7 +129,7 @@
 		DATIVE = "фуражке главы персонала",
 		ACCUSATIVE = "фуражку главы персонала",
 		INSTRUMENTAL = "фуражкой главы персонала",
-		PREPOSITIONAL = "фуражке главы персонала"
+		PREPOSITIONAL = "фуражке главы персонала",
 	)
 
 //Nanotrasen Representative
@@ -146,7 +146,7 @@
 		DATIVE = "фуражке представителя Нанотрейзен",
 		ACCUSATIVE = "фуражку представителя Нанотрейзен",
 		INSTRUMENTAL = "фуражкой представителя Нанотрейзен",
-		PREPOSITIONAL = "фуражке представителя Нанотрейзен"
+		PREPOSITIONAL = "фуражке представителя Нанотрейзен",
 	)
 
 //Research Director
@@ -163,7 +163,7 @@
 		DATIVE = "берету учёного",
 		ACCUSATIVE = "берет учёного",
 		INSTRUMENTAL = "беретом учёного",
-		PREPOSITIONAL = "берете учёного"
+		PREPOSITIONAL = "берете учёного",
 	)
 
 /obj/item/clothing/head/beret/purple/rd
@@ -177,7 +177,7 @@
 		DATIVE = "берету научного руководителя",
 		ACCUSATIVE = "берет научного руководителя",
 		INSTRUMENTAL = "беретом научного руководителя",
-		PREPOSITIONAL = "берете научного руководителя"
+		PREPOSITIONAL = "берете научного руководителя",
 	)
 
 //Chaplain
@@ -194,7 +194,7 @@
 		DATIVE = "капюшону священника",
 		ACCUSATIVE = "капюшон священника",
 		INSTRUMENTAL = "капюшоном священника",
-		PREPOSITIONAL = "капюшоне священника"
+		PREPOSITIONAL = "капюшоне священника",
 	)
 
 /obj/item/clothing/head/hooded/chaplain_hood/armoured
@@ -211,7 +211,7 @@
 		DATIVE = "капюшону от тёмной мантии",
 		ACCUSATIVE = "капюшон от тёмной мантии",
 		INSTRUMENTAL = "капюшоном от тёмной мантии",
-		PREPOSITIONAL = "капюшоне от тёмной мантии"
+		PREPOSITIONAL = "капюшоне от тёмной мантии",
 	)
 
 //Chaplain
@@ -228,7 +228,7 @@
 		DATIVE = "капюшону монахини",
 		ACCUSATIVE = "капюшон монахини",
 		INSTRUMENTAL = "капюшоном монахини",
-		PREPOSITIONAL = "капюшоне монахини"
+		PREPOSITIONAL = "капюшоне монахини",
 	)
 
 //Chaplain
@@ -245,7 +245,7 @@
 		DATIVE = "капюшону монаха",
 		ACCUSATIVE = "капюшон монаха",
 		INSTRUMENTAL = "капюшоном монаха",
-		PREPOSITIONAL = "капюшоне монаха"
+		PREPOSITIONAL = "капюшоне монаха",
 	)
 
 /obj/item/clothing/head/witchhunter_hat
@@ -263,7 +263,7 @@
 		DATIVE = "шляпе охотника на ведьм",
 		ACCUSATIVE = "шляпу охотника на ведьм",
 		INSTRUMENTAL = "шляпой охотника на ведьм",
-		PREPOSITIONAL = "шляпе охотника на ведьм"
+		PREPOSITIONAL = "шляпе охотника на ведьм",
 	)
 
 /obj/item/clothing/head/bishopmitre
@@ -280,7 +280,7 @@
 		DATIVE = "минтре эпископа",
 		ACCUSATIVE = "минтру эпископа",
 		INSTRUMENTAL = "минтрой эпископа",
-		PREPOSITIONAL = "минтре эпископа"
+		PREPOSITIONAL = "минтре эпископа",
 	)
 
 /obj/item/clothing/head/blackbishopmitre
@@ -297,7 +297,7 @@
 		DATIVE = "чёрной минтре эпископа",
 		ACCUSATIVE = "чёрную минтру эпископа",
 		INSTRUMENTAL = "чёрной минтрой эпископа",
-		PREPOSITIONAL = "чёрной минтре эпископа"
+		PREPOSITIONAL = "чёрной минтре эпископа",
 	)
 
 /obj/item/clothing/head/det_hat
@@ -316,7 +316,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/head/det_hat/get_ru_names()
@@ -326,7 +326,7 @@
 		DATIVE = "шляпе детектива",
 		ACCUSATIVE = "шляпу детектива",
 		INSTRUMENTAL = "шляпой детектива",
-		PREPOSITIONAL = "шляпа детектива"
+		PREPOSITIONAL = "шляпа детектива",
 	)
 
 /obj/item/clothing/head/det_hat/black
@@ -352,7 +352,7 @@
 		DATIVE = "берету",
 		ACCUSATIVE = "берет",
 		INSTRUMENTAL = "беретом",
-		PREPOSITIONAL = "берете"
+		PREPOSITIONAL = "берете",
 	)
 
 /obj/item/clothing/head/beret/durathread
@@ -369,7 +369,7 @@
 		DATIVE = "берету из дюраткани",
 		ACCUSATIVE = "берет из дюраткани",
 		INSTRUMENTAL = "беретом из дюраткани",
-		PREPOSITIONAL = "берете из дюраткани"
+		PREPOSITIONAL = "берете из дюраткани",
 	)
 
 //Security
@@ -388,7 +388,7 @@
 		DATIVE = "фуражке главы службы безопасности",
 		ACCUSATIVE = "фуражку главы службы безопасности",
 		INSTRUMENTAL = "фуражкой главы службы безопасности",
-		PREPOSITIONAL = "фуражке главы службы безопасности"
+		PREPOSITIONAL = "фуражке главы службы безопасности",
 	)
 
 /obj/item/clothing/head/HoS/beret
@@ -405,7 +405,7 @@
 		DATIVE = "берету главы службы безопасности",
 		ACCUSATIVE = "берет главы службы безопасности",
 		INSTRUMENTAL = "беретом главы службы безопасности",
-		PREPOSITIONAL = "берете главы службы безопасности"
+		PREPOSITIONAL = "берете главы службы безопасности",
 	)
 
 /obj/item/clothing/head/warden
@@ -424,7 +424,7 @@
 		DATIVE = "полицейской фуражке смотрителя",
 		ACCUSATIVE = "полицейскую фуражку смотрителя",
 		INSTRUMENTAL = "полицейской фуражкой смотрителя",
-		PREPOSITIONAL = "полицейской фуражке смотрителя"
+		PREPOSITIONAL = "полицейской фуражке смотрителя",
 	)
 
 /obj/item/clothing/head/officer
@@ -443,7 +443,7 @@
 		DATIVE = "офицерской кепке",
 		ACCUSATIVE = "офицерскую кепку",
 		INSTRUMENTAL = "офицерской кепкой",
-		PREPOSITIONAL = "офицерской кепке"
+		PREPOSITIONAL = "офицерской кепке",
 	)
 
 /obj/item/clothing/head/beret/sec
@@ -462,7 +462,7 @@
 		DATIVE = "офицерскому берету",
 		ACCUSATIVE = "офицерский берет",
 		INSTRUMENTAL = "офицерским беретом",
-		PREPOSITIONAL = "офицерском берете"
+		PREPOSITIONAL = "офицерском берете",
 	)
 
 /obj/item/clothing/head/beret/sec/black
@@ -477,7 +477,7 @@
 		DATIVE = "чёрного офицерскому берету",
 		ACCUSATIVE = "чёрный офицерский берет",
 		INSTRUMENTAL = "чёрным офицерским беретом",
-		PREPOSITIONAL = "чёрном офицерском берете"
+		PREPOSITIONAL = "чёрном офицерском берете",
 	)
 
 /obj/item/clothing/head/beret/sec/warden
@@ -493,7 +493,7 @@
 		DATIVE = "берету смотрителя",
 		ACCUSATIVE = "берет смотрителя",
 		INSTRUMENTAL = "беретом смотрителя",
-		PREPOSITIONAL = "берете смотрителя"
+		PREPOSITIONAL = "берете смотрителя",
 	)
 /obj/item/clothing/head/beret/brigphys
 	name = "brigphys's beret"
@@ -507,7 +507,7 @@
 		DATIVE = "берету бригмедика",
 		ACCUSATIVE = "берет бригмедика",
 		INSTRUMENTAL = "беретом бригмедика",
-		PREPOSITIONAL = "берете бригмедика"
+		PREPOSITIONAL = "берете бригмедика",
 	)
 
 /obj/item/clothing/head/beret/eng
@@ -522,7 +522,7 @@
 		DATIVE = "инженерному берету",
 		ACCUSATIVE = "инженерный берет",
 		INSTRUMENTAL = "инженерным беретом",
-		PREPOSITIONAL = "инженерном берете"
+		PREPOSITIONAL = "инженерном берете",
 	)
 
 /obj/item/clothing/head/beret/atmos
@@ -537,7 +537,7 @@
 		DATIVE = "берету атмосферника",
 		ACCUSATIVE = "берет атмосферника",
 		INSTRUMENTAL = "беретом атмосферника",
-		PREPOSITIONAL = "берете атмосферника"
+		PREPOSITIONAL = "берете атмосферника",
 	)
 
 /obj/item/clothing/head/beret/ce
@@ -552,7 +552,7 @@
 		DATIVE = "берету старшего инженера",
 		ACCUSATIVE = "берет старшего инженера",
 		INSTRUMENTAL = "беретом старшего инженера",
-		PREPOSITIONAL = "берете старшего инженера"
+		PREPOSITIONAL = "берете старшего инженера",
 	)
 
 /obj/item/clothing/head/beret/sci
@@ -567,7 +567,7 @@
 		DATIVE = "берету учёного",
 		ACCUSATIVE = "берет учёного",
 		INSTRUMENTAL = "беретом учёного",
-		PREPOSITIONAL = "берете учёного"
+		PREPOSITIONAL = "берете учёного",
 	)
 
 //Medical
@@ -583,7 +583,7 @@
 		DATIVE = "медицинскому берету",
 		ACCUSATIVE = "медицинский берет",
 		INSTRUMENTAL = "медицинским беретом",
-		PREPOSITIONAL = "медицинском берете"
+		PREPOSITIONAL = "медицинском берете",
 	)
 
 //CMO
@@ -601,7 +601,7 @@
 		DATIVE = "берету главного врача",
 		ACCUSATIVE = "берет главного врача",
 		INSTRUMENTAL = "беретом главного врача",
-		PREPOSITIONAL = "берете главного врача"
+		PREPOSITIONAL = "берете главного врача",
 	)
 
 /obj/item/clothing/head/surgery
@@ -616,8 +616,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 
 /obj/item/clothing/head/surgery/get_ru_names()
 	return list(
@@ -626,7 +626,7 @@
 		DATIVE = "хирургической шапочке",
 		ACCUSATIVE = "хирургическую шапочку",
 		INSTRUMENTAL = "хирургической шапочкой",
-		PREPOSITIONAL = "хирургической шапочке"
+		PREPOSITIONAL = "хирургической шапочке",
 	)
 
 /obj/item/clothing/head/surgery/purple
@@ -641,7 +641,7 @@
 		DATIVE = "фиолетовой хирургической шапочке",
 		ACCUSATIVE = "фиолетовую хирургическую шапочку",
 		INSTRUMENTAL = "фиолетовой хирургической шапочкой",
-		PREPOSITIONAL = "фиолетовой хирургической шапочке"
+		PREPOSITIONAL = "фиолетовой хирургической шапочке",
 	)
 
 /obj/item/clothing/head/surgery/blue
@@ -655,7 +655,7 @@
 		DATIVE = "голубой хирургической шапочке",
 		ACCUSATIVE = "голубую хирургическую шапочку",
 		INSTRUMENTAL = "голубой хирургической шапочкой",
-		PREPOSITIONAL = "голубой хирургической шапочке"
+		PREPOSITIONAL = "голубой хирургической шапочке",
 	)
 
 /obj/item/clothing/head/surgery/green
@@ -670,7 +670,7 @@
 		DATIVE = "тёмно-зелёной хирургической шапочке",
 		ACCUSATIVE = "тёмно-зелёную хирургическую шапочку",
 		INSTRUMENTAL = "тёмно-зелёной хирургической шапочкой",
-		PREPOSITIONAL = "тёмно-зелёной хирургической шапочке"
+		PREPOSITIONAL = "тёмно-зелёной хирургической шапочке",
 	)
 
 /obj/item/clothing/head/surgery/lightgreen
@@ -685,7 +685,7 @@
 		DATIVE = "зелёной хирургической шапочке",
 		ACCUSATIVE = "зелёную хирургическую шапочку",
 		INSTRUMENTAL = "зелёной хирургической шапочкой",
-		PREPOSITIONAL = "зелёной хирургической шапочке"
+		PREPOSITIONAL = "зелёной хирургической шапочке",
 	)
 
 /obj/item/clothing/head/surgery/black
@@ -700,7 +700,7 @@
 		DATIVE = "чёрной хирургической шапочке",
 		ACCUSATIVE = "чёрную хирургическую шапочку",
 		INSTRUMENTAL = "чёрной хирургической шапочкой",
-		PREPOSITIONAL = "чёрной хирургической шапочке"
+		PREPOSITIONAL = "чёрной хирургической шапочке",
 	)
 
 //SolGov
@@ -719,7 +719,7 @@
 		DATIVE = "берету лейтенанта ТСФ",
 		ACCUSATIVE = "берет лейтенанта ТСФ",
 		INSTRUMENTAL = "беретом лейтенанта ТСФ",
-		PREPOSITIONAL = "берете лейтенанта ТСФ"
+		PREPOSITIONAL = "берете лейтенанта ТСФ",
 	)
 
 /obj/item/clothing/head/beret/solgov/command/elite
@@ -735,7 +735,7 @@
 		DATIVE = "берету специальных операций ТСФ",
 		ACCUSATIVE = "берет специальных операций ТСФ",
 		INSTRUMENTAL = "беретом специальных операций ТСФ",
-		PREPOSITIONAL = "берете специальных операций ТСФ"
+		PREPOSITIONAL = "берете специальных операций ТСФ",
 	)
 
 //Culinary Artist
@@ -752,7 +752,7 @@
 		DATIVE = "красному поварскому колпаку",
 		ACCUSATIVE = "красный поварской колпак",
 		INSTRUMENTAL = "красным поварским колпаком",
-		PREPOSITIONAL = "красном поварском колпаке"
+		PREPOSITIONAL = "красном поварском колпаке",
 	)
 
 /obj/item/clothing/head/surgery/brown
@@ -767,7 +767,7 @@
 		DATIVE = "коричневой хирургической шапочке",
 		ACCUSATIVE = "коричневую хирургическую шапочку",
 		INSTRUMENTAL = "коричневой хирургической шапочкой",
-		PREPOSITIONAL = "коричневой хирургической шапочке"
+		PREPOSITIONAL = "коричневой хирургической шапочке",
 	)
 
 //prison
@@ -784,7 +784,7 @@
 		DATIVE = "тюремной шапке",
 		ACCUSATIVE = "тюремную шапку",
 		INSTRUMENTAL = "тюремной шапкой",
-		PREPOSITIONAL = "тюремной шапке"
+		PREPOSITIONAL = "тюремной шапке",
 	)
 
 /obj/item/clothing/head/prison/ComponentInitialize()
@@ -804,6 +804,6 @@
 		DATIVE = "берету шахтёрского врача",
 		ACCUSATIVE = "берет шахтёрского врача",
 		INSTRUMENTAL = "беретом шахтёрского врача",
-		PREPOSITIONAL = "берете шахтёрского врача"
+		PREPOSITIONAL = "берете шахтёрского врача",
 	)
 

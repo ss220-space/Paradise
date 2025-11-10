@@ -6,19 +6,17 @@
 		/obj/effect/proc_holder/spell/vampire/glare = 0,
 		/datum/vampire_passive/vision = 100,
 		/obj/effect/proc_holder/spell/vampire/self/specialize = 100,
-		/datum/vampire_passive/regen = 200
+		/datum/vampire_passive/regen = 200,
 	)
 
 /datum/antagonist/vampire/new_vampire/add_owner_to_gamemode()
 	SSticker.mode.vampires += owner
-
 
 /datum/antagonist/vampire/new_vampire/remove_owner_from_gamemode()
 	SSticker.mode.vampires -= owner
 
 /datum/antagonist/mindslave/thrall/new_thrall/add_owner_to_gamemode()
 	SSticker.mode.vampire_enthralled += owner
-
 
 /datum/antagonist/mindslave/thrall/new_thrall/remove_owner_from_gamemode()
 	SSticker.mode.vampire_enthralled -= owner

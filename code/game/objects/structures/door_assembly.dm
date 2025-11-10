@@ -65,7 +65,6 @@
 		return
 	. = ..()
 
-
 /obj/structure/door_assembly/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		// The door assembly gets renamed to "Assembly - Foobar",
@@ -211,7 +210,6 @@
 
 	return ..()
 
-
 /obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
@@ -282,7 +280,6 @@
 	door.update_appearance()
 	qdel(src)
 
-
 /obj/structure/door_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 		return
@@ -296,7 +293,6 @@
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
-
 
 /obj/structure/door_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -352,7 +348,6 @@
 		to_chat(user, span_notice("You disassemble the airlock assembly."))
 		deconstruct(TRUE)
 
-
 /obj/structure/door_assembly/update_overlays()
 	. = ..()
 	if(!glass)
@@ -360,7 +355,6 @@
 	else if(glass)
 		. += get_airlock_overlay("glass_construction", overlays_file)
 	. += get_airlock_overlay("panel_c[state+1]", overlays_file)
-
 
 /obj/structure/door_assembly/update_name(updates = ALL)
 	. = ..()
@@ -374,7 +368,6 @@
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 			name = "near finished "
 	name += "[heat_proof_finished ? "heat-proofed " : ""][glass ? "window " : ""][base_name] assembly"
-
 
 /obj/structure/door_assembly/proc/transfer_assembly_vars(obj/structure/door_assembly/source, obj/structure/door_assembly/target, previous = FALSE)
 	target.glass = source.glass

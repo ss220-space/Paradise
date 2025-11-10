@@ -8,13 +8,11 @@
 	var/clusterCheckFlags = CLUSTER_CHECK_SAME_ATOMS
 	var/allowAtomsOnSpace = FALSE
 
-
 //Syncs the module up with it's mother
 /datum/mapGeneratorModule/proc/sync(datum/mapGenerator/mum)
 	mother = null
 	if(mum)
 		mother = mum
-
 
 //Generates it's spawnable atoms and turfs
 /datum/mapGeneratorModule/proc/generate()
@@ -23,7 +21,6 @@
 	var/list/map = mother.map
 	for(var/turf/T in map)
 		place(T)
-
 
 //Place a spawnable atom or turf on this turf
 /datum/mapGeneratorModule/proc/place(turf/T)
@@ -65,7 +62,6 @@
 		if(prob(spawnableTurfs[turfPath]))
 			T.ChangeTurf(turfPath)
 
-
 	//Atoms DO care whether atoms can be placed here
 	if(checkPlaceAtom(T))
 
@@ -101,7 +97,6 @@
 
 	. = 1
 
-
 //Checks and Rejects dense turfs
 /datum/mapGeneratorModule/proc/checkPlaceAtom(turf/T)
 	. = 1
@@ -115,7 +110,6 @@
 			break
 	if(!allowAtomsOnSpace && (isspaceturf(T)))
 		. = 0
-
 
 ///////////////////////////////////////////////////////////
 //                 PREMADE BASE TEMPLATES                //

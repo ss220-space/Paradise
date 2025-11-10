@@ -13,12 +13,10 @@
 	sound = 'sound/magic/knock.ogg'
 	aoe_range = 3
 
-
 /obj/effect/proc_holder/spell/aoe/knock/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	T.range = aoe_range
 	return T
-
 
 /obj/effect/proc_holder/spell/aoe/knock/cast(list/targets, mob/user = usr)
 	for(var/turf/target_turf in targets)
@@ -30,20 +28,17 @@
 		for(var/obj/structure/closet/closet in target_turf.contents)
 			INVOKE_ASYNC(src, PROC_REF(try_open_closet), closet)
 
-
 /obj/effect/proc_holder/spell/aoe/knock/proc/try_open_airlock(obj/machinery/door/door)
 	if(istype(door, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/airlock = door
 		airlock.unlock(TRUE)	//forced because it's magic!
 	door.open()
 
-
 /obj/effect/proc_holder/spell/aoe/knock/proc/try_open_closet(obj/structure/closet/closet)
 	if(istype(closet, /obj/structure/closet/secure_closet))
 		var/obj/structure/closet/secure_closet/s_closet = closet
 		s_closet.locked = FALSE
 	closet.open()
-
 
 /obj/effect/proc_holder/spell/aoe/knock/greater
 	name = "Greater Knock"
@@ -57,7 +52,6 @@
 	level_max = 0 //Cannot be improved, quality of life since can't be refunded
 	aoe_range = 7
 	var/used = FALSE
-
 
 /obj/effect/proc_holder/spell/aoe/knock/greater/cast(list/targets, mob/user = usr)
 	if(!used)

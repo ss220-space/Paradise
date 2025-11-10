@@ -19,7 +19,6 @@
 		return GET_TURF_ABOVE(start_turf)
 	return GET_TURF_BELOW(start_turf)
 
-
 /proc/get_dir_multiz(turf/us, turf/them)
 	us = get_turf(us)
 	them = get_turf(them)

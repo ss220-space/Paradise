@@ -16,7 +16,7 @@
 		DATIVE = "ионному заряду",
 		ACCUSATIVE = "ионный заряд",
 		INSTRUMENTAL = "ионным зарядом",
-		PREPOSITIONAL = "ионном заряде"
+		PREPOSITIONAL = "ионном заряде",
 	)
 
 /obj/projectile/ion/on_hit(atom/target, blocked = 0)
@@ -34,6 +34,7 @@
 /obj/projectile/bullet/gyro
 	name ="explosive bolt"
 	icon_state= "bolter"
+	ricochets_max = 0
 
 /obj/projectile/bullet/gyro/get_ru_names()
 	return list(
@@ -42,7 +43,7 @@
 		DATIVE = "разрывному заряду",
 		ACCUSATIVE = "разрывной заряд",
 		INSTRUMENTAL = "разрывным зарядом",
-		PREPOSITIONAL = "разрывном заряде"
+		PREPOSITIONAL = "разрывном заряде",
 	)
 
 /obj/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
@@ -55,6 +56,7 @@
 	desc = "USE A WEEL GUN"
 	icon_state= "bolter"
 	damage = 60
+	ricochets_max = 0
 
 /obj/projectile/bullet/a40mm/get_ru_names()
 	return list(
@@ -63,7 +65,7 @@
 		DATIVE = "40мм гранате",
 		ACCUSATIVE = "40мм гранату",
 		INSTRUMENTAL = "40мм гранатой",
-		PREPOSITIONAL = "40мм гранате"
+		PREPOSITIONAL = "40мм гранате",
 	)
 
 /obj/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
@@ -90,7 +92,7 @@
 		DATIVE = "температурному лучу",
 		ACCUSATIVE = "температурный луч",
 		INSTRUMENTAL = "температурным лучом",
-		PREPOSITIONAL = "температурном луче"
+		PREPOSITIONAL = "температурном луче",
 	)
 
 /obj/projectile/temp/New(loc, shot_temp)
@@ -107,7 +109,7 @@
 				DATIVE = "обжигающему лучу",
 				ACCUSATIVE = "обжигающий луч",
 				INSTRUMENTAL = "обжигающим лучом",
-				PREPOSITIONAL = "обжигающем луче"
+				PREPOSITIONAL = "обжигающем луче",
 			)
 		if(400 to 500)
 			name = "burning beam"	//temp at which mobs start taking HEAT_DAMAGE_LEVEL_2
@@ -118,7 +120,7 @@
 				DATIVE = "горящему лучу",
 				ACCUSATIVE = "горящий луч",
 				INSTRUMENTAL = "горящим лучом",
-				PREPOSITIONAL = "горящем луче"
+				PREPOSITIONAL = "горящем луче",
 			)
 		if(360 to 400)
 			name = "hot beam"		//temp at which mobs start taking HEAT_DAMAGE_LEVEL_1
@@ -129,7 +131,7 @@
 				DATIVE = "горячему лучу",
 				ACCUSATIVE = "горячий луч",
 				INSTRUMENTAL = "горячим лучом",
-				PREPOSITIONAL = "горячем луче"
+				PREPOSITIONAL = "горячем луче",
 			)
 		if(335 to 360)
 			name = "warm beam"		//temp at which players get notified of their high body temp
@@ -140,7 +142,7 @@
 				DATIVE = "теплому лучу",
 				ACCUSATIVE = "теплый луч",
 				INSTRUMENTAL = "теплым лучом",
-				PREPOSITIONAL = "теплом луче"
+				PREPOSITIONAL = "теплом луче",
 			)
 		if(295 to 335)
 			name = "ambient beam"
@@ -151,7 +153,7 @@
 				DATIVE = "рассеянному лучу",
 				ACCUSATIVE = "рассеянный луч",
 				INSTRUMENTAL = "рассеянным лучом",
-				PREPOSITIONAL = "рассеянном луче"
+				PREPOSITIONAL = "рассеянном луче",
 			)
 		if(260 to 295)
 			name = "cool beam"		//temp at which players get notified of their low body temp
@@ -162,7 +164,7 @@
 				DATIVE = "холодному лучу",
 				ACCUSATIVE = "холодный луч",
 				INSTRUMENTAL = "холодным лучом",
-				PREPOSITIONAL = "холодном луче"
+				PREPOSITIONAL = "холодном луче",
 			)
 		if(200 to 260)
 			name = "cold beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_1
@@ -173,7 +175,7 @@
 				DATIVE = "холодному лучу",
 				ACCUSATIVE = "холодный луч",
 				INSTRUMENTAL = "холодным лучом",
-				PREPOSITIONAL = "холодном луче"
+				PREPOSITIONAL = "холодном луче",
 			)
 		if(120 to 260)
 			name = "ice beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_2
@@ -184,7 +186,7 @@
 				DATIVE = "ледяному лучу",
 				ACCUSATIVE = "ледяной луч",
 				INSTRUMENTAL = "ледяным лучом",
-				PREPOSITIONAL = "ледяном луче"
+				PREPOSITIONAL = "ледяном луче",
 			)
 		if(-INFINITY to 120)
 			name = "freeze beam"	//temp at which mobs start taking COLD_DAMAGE_LEVEL_3
@@ -195,7 +197,7 @@
 				DATIVE = "замораживающему лучу",
 				ACCUSATIVE = "замораживающий луч",
 				INSTRUMENTAL = "замораживающим лучом",
-				PREPOSITIONAL = "замораживающем луче"
+				PREPOSITIONAL = "замораживающем луче",
 			)
 		else
 			name = "temperature beam"//failsafe
@@ -206,7 +208,7 @@
 				DATIVE = "температурному лучу",
 				ACCUSATIVE = "температурный луч",
 				INSTRUMENTAL = "температурным лучом",
-				PREPOSITIONAL = "температурном луче"
+				PREPOSITIONAL = "температурном луче",
 			)
 
 /obj/projectile/temp/on_hit(mob/living/carbon/human/target, blocked = 0, hit_zone)
@@ -255,7 +257,7 @@
 		DATIVE = "метеору",
 		ACCUSATIVE = "метеор",
 		INSTRUMENTAL = "метеором",
-		PREPOSITIONAL = "метеоре"
+		PREPOSITIONAL = "метеоре",
 	)
 
 /obj/projectile/meteor/on_hit(atom/target, blocked, hit_zone)
@@ -283,7 +285,7 @@
 		DATIVE = "альфа-соматорею",
 		ACCUSATIVE = "альфа-соматорей",
 		INSTRUMENTAL = "альфа-соматореем",
-		PREPOSITIONAL = "альфа-соматорее"
+		PREPOSITIONAL = "альфа-соматорее",
 	)
 
 /obj/projectile/energy/floraalpha/prehit(atom/target)
@@ -337,7 +339,7 @@
 		DATIVE = "бета-соматорею",
 		ACCUSATIVE = "бета-соматорей",
 		INSTRUMENTAL = "бета-соматореем",
-		PREPOSITIONAL = "бета-соматорее"
+		PREPOSITIONAL = "бета-соматорее",
 	)
 
 /obj/projectile/energy/floragamma
@@ -354,7 +356,7 @@
 		DATIVE = "гамма-соматорею",
 		ACCUSATIVE = "гамма-соматорей",
 		INSTRUMENTAL = "гамма-соматореем",
-		PREPOSITIONAL = "гамма-соматорее"
+		PREPOSITIONAL = "гамма-соматорее",
 	)
 
 /obj/projectile/beam/mindflayer
@@ -367,7 +369,7 @@
 		DATIVE = "заряду мозгоёба",
 		ACCUSATIVE = "заряд мозгоёба",
 		INSTRUMENTAL = "зарядом мозгоёба",
-		PREPOSITIONAL = "заряде мозгоёба"
+		PREPOSITIONAL = "заряде мозгоёба",
 	)
 
 /obj/projectile/beam/mindflayer/on_hit(atom/target, blocked = 0)
@@ -392,7 +394,7 @@
 		DATIVE = "щёлк-хлопу",
 		ACCUSATIVE = "щёлк-хлоп",
 		INSTRUMENTAL = "щёлк-хлопом",
-		PREPOSITIONAL = "щёлк-хлопе"
+		PREPOSITIONAL = "щёлк-хлопе",
 	)
 
 /obj/projectile/clown/on_hit(atom/target, blocked, hit_zone)
@@ -421,7 +423,7 @@
 		DATIVE = "блюспейс-лучу",
 		ACCUSATIVE = "блюспейс-луч",
 		INSTRUMENTAL = "блюспейс-лучом",
-		PREPOSITIONAL = "блюспейс-луче"
+		PREPOSITIONAL = "блюспейс-луче",
 	)
 
 /obj/projectile/beam/wormhole/orange
@@ -436,7 +438,7 @@
 		DATIVE = "оранжевому блюспейс-лучу",
 		ACCUSATIVE = "оранжевый блюспейс-луч",
 		INSTRUMENTAL = "оранжевым блюспейс-лучом",
-		PREPOSITIONAL = "оранжевом блюспейс-луче"
+		PREPOSITIONAL = "оранжевом блюспейс-луче",
 	)
 
 /obj/projectile/beam/wormhole/on_hit(atom/target)
@@ -455,6 +457,7 @@
 	name ="explosive slug"
 	damage = 20
 	knockdown = 5 SECONDS
+	ricochets_max = 0
 
 /obj/projectile/bullet/frag12/get_ru_names()
 	return list(
@@ -463,7 +466,7 @@
 		DATIVE = "разрывной пуле",
 		ACCUSATIVE = "разрывную пулю",
 		INSTRUMENTAL = "разрывной пулей",
-		PREPOSITIONAL = "разрывной пуле"
+		PREPOSITIONAL = "разрывной пуле",
 	)
 
 /obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
@@ -488,7 +491,7 @@
 		DATIVE = "плазменному лучу",
 		ACCUSATIVE = "плазменный луч",
 		INSTRUMENTAL = "плазменным лучом",
-		PREPOSITIONAL = "плазменном луче"
+		PREPOSITIONAL = "плазменном луче",
 	)
 
 /obj/projectile/plasma/on_hit(atom/target, pointblank = 0)
@@ -546,7 +549,7 @@
 		DATIVE = "вспышке телепортации",
 		ACCUSATIVE = "вспышку телепортации",
 		INSTRUMENTAL = "вспышкой телепортации",
-		PREPOSITIONAL = "вспышке телепортации"
+		PREPOSITIONAL = "вспышке телепортации",
 	)
 
 /obj/projectile/energy/teleport/New(loc, tele_target)
@@ -576,7 +579,7 @@
 		DATIVE = "снежку",
 		ACCUSATIVE = "снежок",
 		INSTRUMENTAL = "снежком",
-		PREPOSITIONAL = "снежке"
+		PREPOSITIONAL = "снежке",
 	)
 
 /obj/projectile/snowball/on_hit(atom/target)	//chilling
@@ -599,7 +602,7 @@
 		DATIVE = "орнаменту",
 		ACCUSATIVE = "орнамент",
 		INSTRUMENTAL = "орнаментом",
-		PREPOSITIONAL = "орнаменте"
+		PREPOSITIONAL = "орнаменте",
 	)
 
 /obj/projectile/ornament/New()

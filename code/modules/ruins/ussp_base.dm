@@ -222,7 +222,6 @@
 	empty.dir = WEST
 	return ..()
 
-
 // Wall safe with areaeditor
 /obj/item/storage/secure/safe/ussp_blueprints
 	name = "Emergency blueprints"

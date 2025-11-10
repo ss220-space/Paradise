@@ -54,7 +54,6 @@
 	else
 		owner.flash_eyes(3, visual = TRUE)
 
-
 /obj/item/organ/internal/cyberimp/eyes/meson
 	name = "Meson scanner implant"
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."

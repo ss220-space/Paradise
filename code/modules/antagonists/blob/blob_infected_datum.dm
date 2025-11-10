@@ -60,7 +60,6 @@
 		process_blob_player()
 	return return_value
 
-
 /datum/antagonist/blob_infected/Destroy(force, ...)
 	if(!is_tranformed)
 		add_game_logs("has been deblobized", owner.current)
@@ -71,14 +70,12 @@
 	qdel(blob_burst_action)
 	return .
 
-
 /datum/antagonist/blob_infected/add_owner_to_gamemode()
 	var/datum/game_mode/mode = SSticker.mode
 	if(add_to_mode && mode && !(owner in mode.blobs["infected"]))
 		mode.blob_win_count += BLOB_TARGET_POINT_PER_CORE
 		mode.blobs["infected"] |= owner
 		mode.update_blob_objective()
-
 
 /datum/antagonist/blob_infected/remove_owner_from_gamemode()
 	var/datum/game_mode/mode = SSticker.mode
@@ -88,12 +85,10 @@
 		mode.blobs["infected"] -= owner
 		mode.update_blob_objective()
 
-
 /datum/antagonist/blob_infected/give_objectives()
 	add_objective(/datum/objective/blob_find_place_to_burst)
 	if(SSticker)
 		add_objective(SSticker.mode.get_blob_objective())
-
 
 /datum/antagonist/blob_infected/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..(mob_override)
@@ -102,7 +97,6 @@
 	add_atmos_immunity(user)
 	is_processing = TRUE
 	return user
-
 
 /datum/antagonist/blob_infected/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..(mob_override)
@@ -158,7 +152,6 @@
 		start_messages = TRUE
 		return
 
-
 /datum/antagonist/blob_infected/proc/add_blob_actions(mob/living/antag_mob)
 	if(!antag_mob)
 		return
@@ -170,14 +163,12 @@
 		blob_burst_action = new
 	blob_burst_action.Grant(antag_mob)
 
-
 /datum/antagonist/blob_infected/proc/remove_blob_actions(mob/living/antag_mob)
 	if(!antag_mob)
 		return
 	blob_talk_action?.Remove(antag_mob)
 	GLOB.blob_telepathy_mobs -= antag_mob
 	blob_burst_action?.Remove(antag_mob)
-
 
 /datum/antagonist/blob_infected/proc/add_burst_display(mob/living/antag_mob)
 	if(!antag_mob)
@@ -194,7 +185,6 @@
 	hud.static_inventory += time_to_burst_display
 	hud.show_hud(hud.hud_version)
 
-
 /datum/antagonist/blob_infected/proc/remove_burst_display(mob/living/antag_mob)
 	if(!antag_mob)
 		return
@@ -204,18 +194,15 @@
 	hud.static_inventory -= time_to_burst_display
 	hud.show_hud(hud.hud_version)
 
-
 /datum/antagonist/blob_infected/proc/add_atmos_immunity(mob/living/affected)
 	if(is_type_suitable(affected))
 		return TRUE
 	return FALSE
 
-
 /datum/antagonist/blob_infected/proc/remove_atmos_immunity(mob/living/affected)
 	if(is_type_suitable(affected))
 		return TRUE
 	return FALSE
-
 
 /datum/antagonist/blob_infected/proc/burst_blob_in_space(warned=FALSE)
 	if(!owner || !owner.current)
@@ -272,7 +259,6 @@
 		SSticker?.mode?.process_blob_stages()
 		mode.update_blob_objective()
 
-
 /datum/antagonist/blob_infected/proc/transform_to_overmind()
 	var/datum/antagonist/blob_overmind/overmind = new
 	overmind.add_to_mode = add_to_mode
@@ -280,17 +266,14 @@
 	overmind.is_tranformed = TRUE
 	return overmind
 
-
 /datum/antagonist/blob_infected/proc/kill_borer_inside()
 	var/mob/living/simple_animal/borer/borer = owner?.current?.has_brain_worms()
 	if(borer)
 		borer.leave_host()
 		borer.death()
 
-
 /datum/antagonist/blob_infected/human
 	mob_type = /mob/living/carbon/human
-
 
 /datum/antagonist/blob_infected/human/add_atmos_immunity(mob/living/carbon/human/affected)
 	if(..(affected))
@@ -305,7 +288,6 @@
 		return TRUE
 	return FALSE
 
-
 /datum/antagonist/blob_infected/human/remove_atmos_immunity(mob/living/carbon/human/affected)
 	if(..(affected))
 		var/datum/species/S = affected.dna.species
@@ -319,12 +301,10 @@
 		return TRUE
 	return FALSE
 
-
 /datum/antagonist/blob_infected/simple_animal
 	mob_type = /mob/living/simple_animal
 	/// Contains mob atmos that existed before the change
 	var/list/old_atmos_requirements
-
 
 /datum/antagonist/blob_infected/simple_animal/add_atmos_immunity(mob/living/simple_animal/affected)
 	if(..(affected))
@@ -338,7 +318,6 @@
 
 	return FALSE
 
-
 /datum/antagonist/blob_infected/simple_animal/remove_atmos_immunity(mob/living/simple_animal/affected)
 	if(..(affected))
 		affected.atmos_requirements = old_atmos_requirements
@@ -347,7 +326,6 @@
 		return TRUE
 
 	return FALSE
-
 
 /**
  * Takes any datum `source` and checks it for blob_infected datum.

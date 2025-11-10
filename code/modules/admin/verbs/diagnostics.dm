@@ -121,7 +121,6 @@
 	load_admins(run_async=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Reload Admins")
 
-
 /client/proc/print_jobban_old()
 	set name = "Print Jobban Log"
 	set desc = "This spams all the active jobban entries for the current round to standard output."

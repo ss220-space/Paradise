@@ -14,7 +14,6 @@
 	var/set_time = 10
 	var/mob/user // for logging
 
-
 /obj/item/assembly/timer/Destroy()
 	user = null
 	return ..()
@@ -26,14 +25,12 @@
 	else
 		. += span_notice("The timer is set for [time] seconds.")
 
-
 /obj/item/assembly/timer/activate()
 	if(!..())
 		return FALSE//Cooldown check
 	timing = !timing
 	update_icon()
 	return FALSE
-
 
 /obj/item/assembly/timer/toggle_secure()
 	secured = !secured
@@ -45,7 +42,6 @@
 	update_icon()
 	return secured
 
-
 /obj/item/assembly/timer/proc/timer_end()
 	if(!secured || !COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
@@ -56,7 +52,6 @@
 	audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
-
 /obj/item/assembly/timer/process()
 	if(timing && (time > 0))
 		time -= 2 // 2 seconds per process()
@@ -65,7 +60,6 @@
 		timer_end()
 		time = set_time
 
-
 /obj/item/assembly/timer/update_overlays()
 	. = ..()
 	attached_overlays = list()
@@ -73,7 +67,6 @@
 		. += "timer_timing"
 		attached_overlays += "timer_timing"
 	holder?.update_icon()
-
 
 /obj/item/assembly/timer/interact(mob/user)//TODO: Have this use the wires
 	if(!secured)
@@ -102,7 +95,6 @@
 	var/datum/browser/popup = new(user, "timer", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/item/assembly/timer/Topic(href, href_list)
 	..()

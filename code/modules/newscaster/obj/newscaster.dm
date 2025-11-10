@@ -56,7 +56,7 @@
 			DATIVE = "новостнику",
 			ACCUSATIVE = "новостник",
 			INSTRUMENTAL = "новостником",
-			PREPOSITIONAL = "новостнике"
+			PREPOSITIONAL = "новостнике",
 	)
 
 /obj/machinery/newscaster/security_unit
@@ -72,7 +72,7 @@
 			DATIVE = "новостнику службы безопасности",
 			ACCUSATIVE = "новостник службы безопасности",
 			INSTRUMENTAL = "новостником службы безопасности",
-			PREPOSITIONAL = "новостнике службы безопасности"
+			PREPOSITIONAL = "новостнике службы безопасности",
 	)
 
 /obj/machinery/newscaster/Initialize(mapload)
@@ -102,7 +102,7 @@
 			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
 			/datum/job/civilian/prisoner,
-			/datum/job/syndicateofficer
+			/datum/job/syndicateofficer,
 		)
 
 /obj/machinery/newscaster/Destroy()
@@ -110,7 +110,6 @@
 	viewing_channel = null
 	QDEL_NULL(photo)
 	return ..()
-
 
 /obj/machinery/newscaster/update_overlays()
 	. = ..()
@@ -138,18 +137,15 @@
 		if(51 to 75)
 			. += "crack1"
 
-
 /obj/machinery/newscaster/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE

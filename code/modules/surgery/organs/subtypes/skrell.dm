@@ -13,7 +13,7 @@
 		DATIVE = "печени скрелла",
 		ACCUSATIVE = "печень скрелла",
 		INSTRUMENTAL = "печенью скрелла",
-		PREPOSITIONAL = "печени скрелла"
+		PREPOSITIONAL = "печени скрелла",
 	)
 
 /obj/item/organ/internal/liver/skrell/on_life()
@@ -25,7 +25,6 @@
 		else if(is_traumatized())
 			owner.adjustToxLoss(5)
 		internal_receive_damage(1)
-
 
 /obj/item/organ/internal/headpocket
 	species_type = /datum/species/skrell
@@ -48,7 +47,7 @@
 		DATIVE = "головному карману",
 		ACCUSATIVE = "головной карман",
 		INSTRUMENTAL = "головным карманом",
-		PREPOSITIONAL = "головном кармане"
+		PREPOSITIONAL = "головном кармане",
 	)
 
 /obj/item/organ/internal/headpocket/New()
@@ -115,7 +114,7 @@
 		DATIVE = "сердцу скрелла",
 		ACCUSATIVE = "сердце скрелла",
 		INSTRUMENTAL = "сердцем скрелла",
-		PREPOSITIONAL = "сердце скрелла"
+		PREPOSITIONAL = "сердце скрелла",
 	)
 
 /obj/item/organ/internal/brain/skrell
@@ -132,7 +131,7 @@
 		DATIVE = "мозгу скрелла",
 		ACCUSATIVE = "мозг скрелла",
 		INSTRUMENTAL = "мозгом скрелла",
-		PREPOSITIONAL = "мозге скрелла"
+		PREPOSITIONAL = "мозге скрелла",
 	)
 
 /obj/item/organ/internal/lungs/skrell
@@ -149,7 +148,7 @@
 		DATIVE = "лёгким скрелла",
 		ACCUSATIVE = "лёгкие скрелла",
 		INSTRUMENTAL = "лёгкими скрелла",
-		PREPOSITIONAL = "лёгких скрелла"
+		PREPOSITIONAL = "лёгких скрелла",
 	)
 
 /obj/item/organ/internal/kidneys/skrell
@@ -166,7 +165,7 @@
 		DATIVE = "почкам скрелла",
 		ACCUSATIVE = "почки скрелла",
 		INSTRUMENTAL = "почками скрелла",
-		PREPOSITIONAL = "почках скрелла"
+		PREPOSITIONAL = "почках скрелла",
 	)
 
 /obj/item/organ/internal/eyes/skrell
@@ -185,7 +184,7 @@
 		DATIVE = "глазам скрелла",
 		ACCUSATIVE = "глаза скрелла",
 		INSTRUMENTAL = "глазами скрелла",
-		PREPOSITIONAL = "глазах скрелла"
+		PREPOSITIONAL = "глазах скрелла",
 	)
 
 /obj/item/organ/internal/ears/skrell
@@ -200,5 +199,5 @@
 		DATIVE = "ушам скрелла",
 		ACCUSATIVE = "уши скрелла",
 		INSTRUMENTAL = "ушами скрелла",
-		PREPOSITIONAL = "ушах скрелла"
+		PREPOSITIONAL = "ушах скрелла",
 	)

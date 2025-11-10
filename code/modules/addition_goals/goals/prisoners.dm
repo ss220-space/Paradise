@@ -17,13 +17,11 @@
 	var/complete_percent = 0
 	var/complete_reason = "не отсидел"
 
-
 /datum/addition_goal/prisoners/setup()
 	prisoners_count = rand(3, 5)
 	request_number = "[rand(100, 999)]"
 	name = "Запрос исполнения наказания №[request_number]"
 	description = "Запрос исполнения наказания №[request_number]. На станцию прибудет шаттл с [prisoners_count] [declension_ru(prisoners_count, "заключенным", "заключенными", "заключенными")] для исполнения наказания."
-
 
 /datum/addition_goal/prisoners/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	reward_credits = 0
@@ -116,7 +114,6 @@
 		data.complete_reason += " с неправильными статьями"
 	}
 
-
 /datum/addition_goal/prisoners/format_accept_report(mob/user)
 	var/text = {"<center><b>Запрос на временное заключение</b></center><br>
 		В ваш адрес [declension_ru(prisoners_count, "направлен", "напревлены", "направлены")] [prisoners_count] [declension_ru(prisoners_count, "заключенный", "заключенных", "заключенных")] для отбытия наказания.<br>
@@ -127,7 +124,6 @@
 		text += "<br>[number]. [prisoner.real_name] - [data.crimes] ([data.duration] минут заключения)."
 		number++
 	return text
-
 
 /datum/addition_goal/prisoners/complete_goal(datum/controller/subsystem/addition_goals/system)
 	var/shuttle_turfs = system.get_shuttle_turfs()
@@ -183,8 +179,6 @@
 	system.add_reward(reward_credits, reward_cargopoints)
 	var/paper_content = system.create_paper_content("Отчет о заключении под стражу №[request_number]", report_text, "Официальный документ заверенный печатью Центрального командования Нанотрейзен")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
-
-
 
 ////////////////////////////////////////
 // MARK:	Misc

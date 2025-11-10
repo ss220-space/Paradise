@@ -71,7 +71,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/item/stack/hitby(atom/movable/hitting, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(can_merge(hitting, inhand = TRUE))
 		merge(hitting)
@@ -106,7 +105,6 @@
 
 	var/obj/item/storage/container = loc
 	addtimer(CALLBACK(container, TYPE_PROC_REF(/obj/item/storage, drop_overweight)), 0)
-
 
 /obj/item/storage/proc/drop_overweight()
 	if(QDELETED(src))

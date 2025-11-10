@@ -23,7 +23,6 @@
 	/// The cooldown timestamp used for movement.
 	COOLDOWN_DECLARE(recently_moved_cd)
 
-
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
 	if(!COOLDOWN_FINISHED(src, recently_moved_cd) || !istype(user) || opened || user.incapacitated() || !isturf(loc) || no_gravity() || !relaymove_multiz_check(direction))
 		return
@@ -50,7 +49,6 @@
 
 	set_glide_size(DELAY_TO_GLIDE_SIZE(delay))
 	COOLDOWN_START(src, recently_moved_cd, delay)
-
 
 /obj/structure/closet/cardboard/attackby(obj/item/item, mob/user, params)
 	if(issoap(item))
@@ -80,14 +78,11 @@
 	color = crayon.colour
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/structure/closet/cardboard/proc/relaymove_multiz_check(direction)
 	return direction != UP && direction != DOWN
 
-
 /obj/structure/closet/cardboard/proc/on_move(turf/old_loc, turf/new_loc, direction)
 	return
-
 
 /obj/structure/closet/cardboard/open()
 	if(opened || !can_open())
@@ -126,10 +121,8 @@
 
 	return ..()
 
-
 /obj/structure/closet/cardboard/welder_act(mob/living/user, obj/item/I)
 	return
-
 
 /obj/structure/closet/cardboard/wirecutter_act(mob/living/user, obj/item/I)
 	if(!opened)
@@ -144,7 +137,6 @@
 		span_italics("You hear cutting."),
 	)
 	qdel(src)
-
 
 /obj/structure/closet/cardboard/attackby(obj/item/I, mob/user, params)
 	if(!opened || !istype(I, /obj/item/toy/crayon/spraycan))
@@ -193,7 +185,6 @@
 	current_decal = new_decal
 	update_icon()
 
-
 /obj/structure/closet/cardboard/update_icon_state() //Not deriving, because of different logic.
 	if(!opened)
 		if(current_decal)
@@ -206,10 +197,8 @@
 		else
 			icon_state = "cardboard_open"
 
-
 /obj/structure/closet/cardboard/update_overlays()
 	. = list()
-
 
 /proc/do_alert_animation(atom/source, list/passed_clients)
 	if(!passed_clients)
@@ -238,17 +227,13 @@
 	var/armor = target.run_armor_check(BODY_ZONE_CHEST, damage_flag, armour_penetration)
 	target.apply_damage(damage_amount, damage_type, BODY_ZONE_CHEST, armor)
 
-
 #undef SNAKE_ALERT_COOLDOWN
-
-
 
 /obj/structure/closet/cardboard/agent/nullspace
 	name = "блюспейс коробка"
 	desc = "Коробка пропитанная силой блюспейса, созданная лучшими учёными с планеты клоунов."
 	gender = FEMALE
 	default_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-
 
 /obj/structure/closet/cardboard/agent/nullspace/get_ru_names()
 	return list(
@@ -263,14 +248,11 @@
 /obj/structure/closet/cardboard/agent/nullspace/go_invisible()
 	return
 
-
 /obj/structure/closet/cardboard/agent/nullspace/proc/change_colour()
 	color = RANDOM_COLOUR
 
-
 /obj/structure/closet/cardboard/agent/nullspace/relaymove_multiz_check(direction)
 	return TRUE
-
 
 /obj/structure/closet/cardboard/agent/nullspace/on_move(turf/old_loc, turf/new_loc, direction)
 	if(direction != UP && direction != DOWN)
@@ -283,7 +265,6 @@
 	new_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "появля[PLUR_ET_YUT(src)]ся из под пола" : "пада[PLUR_ET_YUT(src)] сквозь потолок"]!"))
 	do_sparks(rand(2, 5), TRUE, new_loc)
 	change_colour()
-
 
 /obj/structure/closet/cardboard/agent/nullspace/create_fake_box()
 	return

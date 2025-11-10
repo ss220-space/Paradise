@@ -12,7 +12,6 @@
 	background_icon_state = "background_green"
 	action_initialisation_text = "Auto-Dust"
 
-
 /**
  * Proc called to enable/disable autodust.
  */

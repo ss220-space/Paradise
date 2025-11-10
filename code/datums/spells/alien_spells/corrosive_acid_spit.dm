@@ -7,21 +7,17 @@
 	on_withdraw_message = span_noticealien("You decide not to use acid for now...")
 	plasma_cost = 200
 
-
 /obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/sentinel
 	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid/sentinel"
 	plasma_cost = 150
-
 
 /obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/praetorian
 	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid/praetorian"
 	plasma_cost = 100
 
-
 /obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/queen
 	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid/queen"
 	plasma_cost = 50
-
 
 /obj/item/melee/touch_attack/alien/corrosive_acid
 	name = "Corrosive acid"
@@ -30,19 +26,15 @@
 	var/plasma_cost = 200
 	var/acid_power = 400
 
-
 /obj/item/melee/touch_attack/alien/corrosive_acid/sentinel
 	plasma_cost = 150
-
 
 /obj/item/melee/touch_attack/alien/corrosive_acid/praetorian
 	plasma_cost = 100
 
-
 /obj/item/melee/touch_attack/alien/corrosive_acid/queen
 	plasma_cost = 50
 	acid_power = 1000
-
 
 /obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(target == user)

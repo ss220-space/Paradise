@@ -7,7 +7,6 @@
 	layer = ABOVE_NORMAL_TURF_LAYER
 	var/turf/target
 
-
 /obj/effect/acid/Initialize(mapload, acid_pwr, acid_amt)
 	. = ..()
 
@@ -26,7 +25,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/effect/acid/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -54,7 +52,6 @@
 		qdel(src)
 		return 0
 
-
 /obj/effect/acid/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
@@ -75,11 +72,9 @@
 	playsound(arrived, 'sound/weapons/sear.ogg', 50, TRUE)
 	to_chat(arrived, span_userdanger("[src] burns you!"))
 
-
 //xenomorph corrosive acid
 /obj/effect/acid/alien
 	var/target_strength = 30
-
 
 /obj/effect/acid/alien/process()
 	. = ..()

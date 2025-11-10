@@ -11,11 +11,9 @@
 	/// Recursion avoidance
 	var/currently_moving = FALSE
 
-
 /obj/structure/target_stake/Destroy()
 	QDEL_NULL(pinned_target)
 	return ..()
-
 
 /obj/structure/target_stake/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(currently_moving)
@@ -30,7 +28,6 @@
 	pinned_target?.currently_moving = FALSE
 	if(!. && loc && pinned_target && pinned_target.loc != loc)
 		pinned_target.forceMove(loc)
-
 
 /obj/structure/target_stake/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -54,7 +51,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/target_stake/attack_hand(mob/user)
 	// taking pinned targets off!

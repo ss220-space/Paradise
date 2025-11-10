@@ -20,7 +20,6 @@
 	light_on = FALSE
 	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
-
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
@@ -34,12 +33,10 @@
 	if(nemesis_faction)
 		force -= faction_bonus_force
 
-
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku."), \
 						span_suicide("[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.")))
 	return BRUTELOSS|FIRELOSS
-
 
 /obj/item/melee/energy/update_icon_state()
 	if(!active)
@@ -55,7 +52,6 @@
 		set_light_on(TRUE)
 		set_light_color(colormap[item_color])
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -156,7 +152,6 @@
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
-
 /obj/item/melee/energy/sword/cyborg/attack(mob/living/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!user.cell)
 		return ATTACK_CHAIN_PROCEED
@@ -165,7 +160,6 @@
 		to_chat(user, span_warning("It's out of charge!"))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
 	name = "energy saw"
@@ -213,7 +207,6 @@
 /obj/item/melee/energy/sword/saber/yellow
 	item_color = "yellow"
 
-
 /obj/item/melee/energy/sword/saber/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/melee/energy/sword/saber))
 		add_fingerprint(user)
@@ -238,7 +231,6 @@
 
 	return ..()
 
-
 /obj/item/melee/energy/sword/saber/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(hacked)
@@ -250,7 +242,6 @@
 	item_color = "rainbow"
 	to_chat(user, span_warning("RNBW_ENGAGE"))
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
@@ -268,7 +259,6 @@
 		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
 		return -1
 	return TRUE
-
 
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
@@ -393,7 +383,6 @@
 	transform_cooldown = 0
 	transform_weapon(user, TRUE)
 	return BRUTELOSS
-
 
 /obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/turf/user_turf = get_turf(user)

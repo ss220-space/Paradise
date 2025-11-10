@@ -15,9 +15,8 @@
 		DATIVE = "игровому автомату",
 		ACCUSATIVE = "игровой автомат",
 		INSTRUMENTAL = "игровым автоматом",
-		PREPOSITIONAL = "игровом автомате"
+		PREPOSITIONAL = "игровом автомате",
 	)
-
 
 /obj/machinery/computer/arcade/proc/Reset()
 	return
@@ -66,7 +65,6 @@
 		prizevend()
 	explosion(get_turf(src), devastation_range = -1, heavy_impact_range = 0, light_impact_range = (1 + num_of_prizes), flame_range = (1 + num_of_prizes))
 
-
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
 	desc = "Не поддерживает пинбол."
@@ -99,7 +97,7 @@
 		DATIVE = "игровому автомату [name]",
 		ACCUSATIVE = "игровой автомат [name]",
 		INSTRUMENTAL = "игровым автоматом [name]",
-		PREPOSITIONAL = "игровом автомате [name]"
+		PREPOSITIONAL = "игровом автомате [name]",
 	)
 
 /obj/machinery/computer/arcade/battle/attack_hand(mob/user as mob)
@@ -264,7 +262,6 @@
 	blocked = 0
 	return
 
-
 /obj/machinery/computer/arcade/battle/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
@@ -296,7 +293,6 @@
 #define ORION_TRAIL_COLLISION "Столкновение"
 #define ORION_TRAIL_SPACEPORT "Космопорт"
 #define ORION_TRAIL_BLACKHOLE "Черная Дыра"
-
 
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"
@@ -342,7 +338,7 @@
 		DATIVE = "игровому автомату The Orion Trail",
 		ACCUSATIVE = "игровой автомат The Orion Trail",
 		INSTRUMENTAL = "игровым автоматом The Orion Trail",
-		PREPOSITIONAL = "игровом автомате The Orion Trail"
+		PREPOSITIONAL = "игровом автомате The Orion Trail",
 	)
 
 /obj/machinery/computer/arcade/orion_trail/Reset()
@@ -459,7 +455,7 @@
 				DATIVE = "игровому автомату The Orion Trail",
 				ACCUSATIVE = "игровой автомат The Orion Trail",
 				INSTRUMENTAL = "игровым автоматом The Orion Trail",
-				PREPOSITIONAL = "игровом автомате The Orion Trail"
+				PREPOSITIONAL = "игровом автомате The Orion Trail",
 			)
 			desc = "Узнайте, как наши предки добрались до Ориона, и повеселитесь в процессе!"
 
@@ -570,7 +566,7 @@
 							for(T in orange(1, src))
 								T.ChangeTurf(/turf/simulated/floor/plating)
 					else
-						atom_say("Что-то врезается в пол рядом с [declent_ru(INSTRUMENTAL)] – к счастью, оно не пробило его насквозь!")
+						atom_say("Что-то врезается в пол рядом с [declent_ru(INSTRUMENTAL)] — к счастью, оно не пробило его насквозь!")
 						playsound(loc, 'sound/effects/bang.ogg', 20, TRUE)
 				if(ORION_TRAIL_MALFUNCTION)
 					playsound(loc, 'sound/effects/empulse.ogg', 20, TRUE)
@@ -725,7 +721,6 @@
 						var/mob/living/simple_animal/hostile/syndicate/ranged/orion/O = new/mob/living/simple_animal/hostile/syndicate/ranged/orion(get_turf(src))
 						O.GiveTarget(usr)
 
-
 		fuel += FU
 		food += FO
 		event()
@@ -760,7 +755,6 @@
 	updateUsrDialog()
 	busy = 0
 	return
-
 
 /obj/machinery/computer/arcade/orion_trail/proc/event()
 	eventdat = "<center><h1>[event]</h1></center>"
@@ -897,7 +891,6 @@
 			eventdat += "<p align='right'><a href='byond://?src=[UID()];eventclose=1'>Продолжить</a></p>"
 			eventdat += "<p align='right'><a href='byond://?src=[UID()];close=1'>Закрыть</a></p>"
 
-
 		if(ORION_TRAIL_SPACEPORT)
 			if(spaceport_raided)
 				eventdat += "Космопорт приведён в состояние повышенной готовности! Они не позволят вам причалить, так как вы пытались напасть на них!"
@@ -915,7 +908,6 @@
 				eventdat += english_list(settlers)
 				eventdat += "<br><b>Пища: </b>[food] | <b>Топливо: </b>[fuel]"
 				eventdat += "<br><b>Детали двигателя: </b>[engine] | <b>Панели корпуса: </b>[hull] | <b>Электроника: </b>[electronics]"
-
 
 				//If your crew is pathetic you can get freebies (provided you haven't already gotten one from this port)
 				if(!spaceport_freebie && (fuel < 20 || food < 20))
@@ -990,7 +982,6 @@
 
 				eventdat += "<p align='right'><a href='byond://?src=[UID()];leave_spaceport=1'>Отчалить из космопорта</a></p>"
 
-
 //Add Random/Specific crewmember
 /obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(specific = "")
 	var/newcrew = ""
@@ -1005,7 +996,6 @@
 		settlers += newcrew
 		alive++
 	return newcrew
-
 
 //Remove Random/Specific crewmember
 /obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(specific = "", dont_remove = "")
@@ -1025,7 +1015,6 @@
 		settlers -= removed
 		alive--
 	return removed
-
 
 /obj/machinery/computer/arcade/orion_trail/proc/win()
 	playing = 0
@@ -1052,7 +1041,7 @@
 			DATIVE = "игровому автомату The Orion Trail: Realism Edition",
 			ACCUSATIVE = "игровой автомат The Orion Trail: Realism Edition",
 			INSTRUMENTAL = "игровым автоматом The Orion Trail: Realism Edition",
-			PREPOSITIONAL = "игровом автомате The Orion Trail: Realism Edition"
+			PREPOSITIONAL = "игровом автомате The Orion Trail: Realism Edition",
 		)
 		desc = "Узнайте, как наши предки добрались до Ориона, и постарайтесь не сдохнуть в процессе!"
 		newgame()
@@ -1071,9 +1060,8 @@
 		DATIVE = "охране космопорта",
 		ACCUSATIVE = "охрану космопорта",
 		INSTRUMENTAL = "охраной космопорта",
-		PREPOSITIONAL = "охране космопорта"
+		PREPOSITIONAL = "охране космопорта",
 	)
-
 
 /obj/item/orion_ship
 	name = "model settler ship"
@@ -1090,7 +1078,7 @@
 		DATIVE = "модели корабля колонистов",
 		ACCUSATIVE = "модель корабля колонистов",
 		INSTRUMENTAL = "моделью корабля колонистов",
-		PREPOSITIONAL = "модели корабля колонистов"
+		PREPOSITIONAL = "модели корабля колонистов",
 	)
 
 /obj/item/orion_ship/examine(mob/user)

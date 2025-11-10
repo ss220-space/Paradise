@@ -51,7 +51,6 @@
 		charges--//... drain a charge
 	return
 
-
 /obj/item/gun/magic/magic_charge_act(mob/user)
 	. = NONE
 
@@ -67,7 +66,6 @@
 	if(!max_charges)
 		. |= RECHARGE_BURNOUT
 
-
 /obj/item/gun/magic/Initialize(mapload)
 	. = ..()
 	charges = max_charges
@@ -75,12 +73,10 @@
 	if(can_charge)
 		START_PROCESSING(SSobj, src)
 
-
 /obj/item/gun/magic/Destroy()
 	if(can_charge)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/gun/magic/process()
 	charge_tick++

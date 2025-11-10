@@ -200,7 +200,6 @@
 		used = FALSE
 		to_chat(user, span_notice("The demons do not respond to your summon. Perhaps you should try again later."))
 
-
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
 	var/mob/living/simple_animal/demon/demon = new demon_type(holder)
@@ -234,7 +233,6 @@
 	objective_verb = "Hug and tickle"
 	demon_type = /mob/living/simple_animal/demon/slaughter/laughter
 
-
 /obj/item/antag_spawner/slaughter_demon/shadow
 	name = "vial of shadow"
 	desc = "A magically infused bottle of pure darkness, distilled from \
@@ -244,7 +242,6 @@
 	veil_msg = span_warning("You sense a dark presence \
 		lurking in the shadows...")
 	demon_type = /mob/living/simple_animal/demon/shadow
-
 
 ///////////MORPH
 
@@ -304,7 +301,6 @@
 	var/list/messages = M.mind.prepare_announce_objectives()
 	to_chat(M, chat_box_red(messages.Join("<br>")))
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
-
 
 ///////////Pulse Demon
 
