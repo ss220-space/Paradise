@@ -1504,7 +1504,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/mod/control/pre_equipped/engineering,
 		/obj/item/clothing/mask/breath,
 		/obj/item/clothing/mask/breath,
-		)
+	)
 	cost = 130
 	required_tech = list("toxins" = 5, "engineering" = 4)
 	containername = "ящик инженерных МЭК"

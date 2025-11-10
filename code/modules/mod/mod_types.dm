@@ -270,7 +270,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/hearing_protection,
-		/obj/item/mod/module/hat_stabilizer/syndicate
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
@@ -291,7 +291,7 @@
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/hearing_protection,
-		/obj/item/mod/module/hat_stabilizer/syndicate
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -315,7 +315,7 @@
 		/obj/item/mod/module/jump_jet,
 		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hearing_protection,
-		/obj/item/mod/module/hat_stabilizer/syndicate
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -335,7 +335,7 @@
 		/obj/item/mod/module/jump_jet,
 		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hearing_protection,
-		/obj/item/mod/module/hat_stabilizer/syndicate
+		/obj/item/mod/module/hat_stabilizer/syndicate,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -495,7 +495,7 @@
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/jump_jet,
 		/obj/item/mod/module/longfall,
-		/obj/item/mod/module/hat_stabilizer
+		/obj/item/mod/module/hat_stabilizer,
 	)
 	default_pins = list(
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,

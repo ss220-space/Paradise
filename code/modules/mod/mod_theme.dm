@@ -379,7 +379,7 @@
 		/obj/item/twohanded/fireaxe/,
 		/obj/item/rpd,
 		/obj/item/t_scanner,
-		/obj/item/analyzer
+		/obj/item/analyzer,
 	)
 	variants = list(
 		"atmospheric" = list(
@@ -457,7 +457,7 @@
 		/obj/item/rpd,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
-		/obj/item/gun
+		/obj/item/gun,
 
 	)
 	variants = list(
@@ -894,7 +894,7 @@
 		/obj/item/hand_tele,
 		/obj/item/storage/bag/bio,
 		/obj/item/melee/baton/telescopic,
-		/obj/item/gun
+		/obj/item/gun,
 	)
 	variants = list(
 		"research" = list(
@@ -1342,7 +1342,7 @@
 		/obj/item/restraints/handcuffs,
 		/obj/item/flashlight,
 		/obj/item/melee/baton/telescopic,
-		/obj/item/kitchen/knife/combat
+		/obj/item/kitchen/knife/combat,
 	)
 	variants = list(
 		"praetorian" = list(
