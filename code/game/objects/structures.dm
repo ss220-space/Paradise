@@ -60,7 +60,6 @@
 		if(isturf(loc))
 			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
-
 /obj/structure/has_prints()
 	return TRUE
 
@@ -69,12 +68,10 @@
 		add_fingerprint(user)
 	return ..()
 
-
 /obj/structure/attackby(obj/item/I, mob/user, params)
 	if(has_prints() && !(istype(I, /obj/item/detective_scanner)))
 		add_fingerprint(user)
 	return ..()
-
 
 /obj/structure/proc/climb_on()
 
@@ -89,7 +86,6 @@
 	if(!. && dropping == user)
 		do_climb(user)
 		return TRUE
-
 
 /obj/structure/proc/density_check(mob/living/user)
 	var/turf/source_turf = get_turf(src)
@@ -110,14 +106,14 @@
 		return FALSE
 	var/blocking_object = density_check(user)
 	if(blocking_object)
-		to_chat(user, span_warning("Вы не можете забраться на [declent_ru(ACCUSATIVE)] - путь блокирует [blocking_object]!"))
+		to_chat(user, span_warning("Вы не можете забраться на [declent_ru(ACCUSATIVE)] — путь блокирует [blocking_object]!"))
 		return FALSE
 
 	var/turf/T = src.loc
 	if(!T || !istype(T))
 		return FALSE
 
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] забираться на [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] забираться на [declent_ru(ACCUSATIVE)]!"))
 	climber = user
 	if(!do_after(user, 5 SECONDS, src))
 		climber = null
@@ -129,7 +125,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся на [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)]!"))
 
 	clumse_stuff(climber)
 
@@ -176,7 +172,6 @@
 		AM.pixel_y = rand(0, 10)
 		AM.force /= force_mult
 		AM.throwforce /= force_mult
-
 
 /obj/structure/proc/structure_shaken()
 
@@ -239,7 +234,7 @@
 	return TRUE
 
 /obj/structure/proc/get_climb_text()
-	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на н[GEND_HIS_HER(src)].")
 
 /obj/structure/examine(mob/user)
 	. = ..()
@@ -281,7 +276,6 @@
 		desc = "Something shadowy moves to cover the object. Perhaps shining a light will force it to clear?"
 		extinguish_timer_id = addtimer(CALLBACK(src, PROC_REF(extinguish_light_check)), 2 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_LOOP|TIMER_DELETE_ME|TIMER_STOPPABLE)
 
-
 /obj/structure/proc/extinguish_light_check()
 	var/turf/source_turf = get_turf(src)
 	if(!source_turf)
@@ -292,7 +286,6 @@
 			reset_light()
 		return
 	light_process = 0
-
 
 /obj/structure/proc/reset_light()
 	light_process = 0

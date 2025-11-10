@@ -3,7 +3,6 @@
 	bitesize_mod = 2
 	wine_power = 0.4
 
-
 // Reishi
 /obj/item/seeds/reishi
 	name = "pack of reishi mycelium"
@@ -30,7 +29,6 @@
 	icon_state = "reishi"
 	tastes = list("reishi" = 1)
 	filling_color = "#FF4500"
-
 
 // Fly Amanita
 /obj/item/seeds/amanita
@@ -59,7 +57,6 @@
 	tastes = list("amanita" = 1)
 	filling_color = "#FF0000"
 	log_eating = TRUE
-
 
 // Destroying Angel
 /obj/item/seeds/angel
@@ -119,7 +116,6 @@
 	tastes = list("liberty-cap" = 1)
 	wine_flavor = "freedom"
 
-
 // Plump Helmet
 /obj/item/seeds/plump
 	name = "pack of plump-helmet mycelium"
@@ -146,7 +142,6 @@
 	filling_color = "#9370DB"
 	tastes = list("plump helmet" = 1, "dwarven hardiness" = 1)
 	distill_reagent = "manlydorf"
-
 
 // Walking Mushroom
 /obj/item/seeds/plump/walkingmushroom
@@ -186,7 +181,6 @@
 	qdel(src)
 	to_chat(user, span_notice("You plant the walking mushroom."))
 
-
 // Chanterelle
 /obj/item/seeds/chanter
 	name = "pack of chanterelle mycelium"
@@ -213,7 +207,6 @@
 	icon_state = "chanterelle"
 	tastes = list("chanterelle" = 1)
 	filling_color = "#FFA500"
-
 
 // Glowshroom
 /obj/item/seeds/glowshroom
@@ -269,7 +262,6 @@
 	to_chat(user, span_notice("You plant [src]."))
 	qdel(src)
 	return TRUE
-
 
 // Glowcap
 /obj/item/seeds/glowshroom/glowcap

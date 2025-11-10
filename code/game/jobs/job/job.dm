@@ -126,7 +126,6 @@
 		return 1	//Available in 0 days = available right now = player is old enough to play.
 	return 0
 
-
 /datum/job/proc/available_in_days(client/C)
 	if(!C)
 		return 0
@@ -163,7 +162,6 @@
 
 	return 0
 
-
 /datum/job/proc/character_old_enough(client/C)
 	. = FALSE
 
@@ -173,7 +171,6 @@
 	var/datum/species/species = GLOB.all_species[C.prefs.species]
 	if(C.prefs.age >= get_age_limits(species, min_age_type))
 		. = TRUE
-
 
 /datum/job/proc/species_in_blacklist(client/C)
 	if(!C)
@@ -251,7 +248,7 @@
 					gear_leftovers += G
 			else
 				gear_leftovers += G
-		
+
 	H.dna.species.job_pre_equip(H)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -315,8 +312,6 @@
 		PDA.ownrank = C.rank
 		PDA.update_appearance(UPDATE_NAME)
 
-
-
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()
 	if(allow_backbag_choice && backpack)
@@ -324,10 +319,8 @@
 		types += backpack
 	return types
 
-
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
 	return transfer_allowed
-
 
 /datum/job/proc/can_novice_play(client/C)
 	if(!is_novice)

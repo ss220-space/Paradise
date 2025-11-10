@@ -46,7 +46,6 @@
 	QDEL_IN(src, 0)
 	return TRUE
 
-
 /mob/living/carbon/human/dust_animation()
 	var/atom/movable/overlay/animation = null
 
@@ -95,7 +94,6 @@
 	if(SSticker?.mode)
 		SSblackbox.ReportDeath(src)
 
-
 /mob/living/carbon/human/update_revive(updating, defib_revive)
 	. = ..()
 	if(. && healthdoll)
@@ -106,7 +104,6 @@
 	// Update healthdoll
 	if(dna.species)
 		dna.species.update_sight(src)
-
 
 /mob/living/carbon/human/proc/makeSkeleton(update_appearance = TRUE)
 	if(isskeleton(src) || HAS_TRAIT_FROM(src, TRAIT_SKELETON, GENERIC_TRAIT))
@@ -132,7 +129,6 @@
 	if(update_appearance)
 		UpdateAppearance()
 
-
 /mob/living/carbon/human/proc/remove_skeleton(update_appearance = TRUE)
 	if(isskeleton(src) || !HAS_TRAIT_FROM(src, TRAIT_SKELETON, GENERIC_TRAIT))
 		return FALSE
@@ -143,7 +139,6 @@
 	head_organ?.undisfigure()
 	if(update_appearance)
 		UpdateAppearance()
-
 
 /mob/living/carbon/human/proc/ChangeToHusk(update_appearance = TRUE)
 	// If the target has no DNA to begin with, its DNA can't be damaged beyond repair.
@@ -165,11 +160,9 @@
 	if(update_appearance)
 		UpdateAppearance()
 
-
 /mob/living/carbon/human/proc/Drain()
 	if(ChangeToHusk())
 		ADD_TRAIT(src, TRAIT_NO_CLONE, TRAIT_HUSK)
-
 
 /mob/living/carbon/human/proc/cure_husk(update_appearance = TRUE)
 	if(!HAS_TRAIT_FROM(src, TRAIT_HUSK, GENERIC_TRAIT))
@@ -181,7 +174,6 @@
 	REMOVE_TRAIT(src, TRAIT_NO_CLONE, TRAIT_HUSK)
 	if(update_appearance)
 		UpdateAppearance() // reset hair from DNA
-
 
 /mob/living/carbon/human/proc/revive_no_clone_removal()
 	for(var/trait_source in GET_TRAIT_SOURCES(src, TRAIT_NO_CLONE))

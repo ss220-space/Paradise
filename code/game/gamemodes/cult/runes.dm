@@ -75,7 +75,6 @@ To draw a rune, use a ritual dagger.
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> [span_cultitalic(keyword)]"
 
-
 /obj/effect/rune/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		// Telerunes with portals open
@@ -104,7 +103,6 @@ To draw a rune, use a ritual dagger.
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/effect/rune/attack_hand(mob/living/user)
 	user.Move_Pulled(src) // So that you can still drag things onto runes
@@ -222,14 +220,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	animate(src, color = rgb(255, 0, 0), time = 0)
 	animate(src, color = rune_blood_color, time = 5)
 
-
 /obj/effect/rune/proc/check_icon()
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		var/bits = make_bit_triplet()
 		icon = get_rune(bits)
 	else
 		icon = get_rune_cult(invocation)
-
 
 //Malformed Rune: This forms if a rune is not drawn correctly. Invoking it does nothing but hurt the user.
 /obj/effect/rune/malformed
@@ -541,7 +537,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	desc = initial(desc)
 	light_range = 0
 	update_light()
-
 
 //Rune of Empowering : Enables carrying 4 blood spells, greatly reduce blood cost
 /obj/effect/rune/empower
@@ -881,7 +876,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	else if(choice == "Ascend as a Dark Spirit")
 		ghostify(user, T)
 
-
 /obj/effect/rune/manifest/proc/summon_ghosts(mob/living/user, turf/T)
 	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound = 'sound/effects/ghost2.ogg', source = src)
 	var/list/ghosts_on_rune = list()
@@ -979,7 +973,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	user = null
 	rune_in_use = FALSE
 
-
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar'Sie upon the station.
 /obj/effect/rune/narsie
 	cultist_name = "Tear Veil"
@@ -1001,10 +994,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
 	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]."
 
-
 /obj/effect/rune/narsie/update_icon_state()
 	icon_state = used ? "rune_large_distorted" : initial(icon_state)
-
 
 /obj/effect/rune/narsie/check_icon()
 	return
@@ -1036,7 +1027,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/turf/T = get_turf(src)
 	sleep(40)
 	new /obj/singularity/god/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
-
 
 /obj/effect/rune/narsie/attackby(obj/item/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))

@@ -3,17 +3,13 @@
 	var/ranged_mousepointer
 	var/mob/ranged_ability_user
 
-
 /obj/effect/proc_holder/singularity_act()
 	return
-
 
 /obj/effect/proc_holder/singularity_pull()
 	return
 
-
 GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
-
 
 /obj/effect/proc_holder/proc/InterceptClickOn(mob/user, params, atom/target)
 	if(user.ranged_ability != src)
@@ -23,21 +19,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	user.face_atom(target)
 	return FALSE
 
-
 /datum/click_intercept/proc_holder
 	var/obj/effect/proc_holder/spell
-
 
 /datum/click_intercept/proc_holder/New(client/C, obj/effect/proc_holder/spell_to_cast)
 	. = ..()
 	spell = spell_to_cast
-	holder.mouse_override_icon = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
-	holder.mouse_pointer_icon = holder.mouse_override_icon
-
 
 /datum/click_intercept/proc_holder/InterceptClickOn(user, params, atom/object)
-	return !spell.InterceptClickOn(user, params, object) //NOT because TRUE for failed, FALSE for passed.
-
+	spell.InterceptClickOn(user, params, object)
 
 /datum/click_intercept/proc_holder/quit(force)
 	spell.remove_ranged_ability(spell.ranged_ability_user)
@@ -47,7 +37,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	holder.mouse_override_icon = null
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	. = ..()
-
 
 /obj/effect/proc_holder/proc/add_ranged_ability(mob/user, msg)
 	if(!user || !user.client)
@@ -64,16 +53,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		to_chat(user, msg)
 	update_icon()
 
-
 /obj/effect/proc_holder/proc/add_mousepointer(client/our_client)
 	if(our_client && ranged_mousepointer && our_client.mouse_pointer_icon == initial(our_client.mouse_pointer_icon))
 		our_client.mouse_pointer_icon = ranged_mousepointer
 
-
 /obj/effect/proc_holder/proc/remove_mousepointer(client/our_client)
 	if(our_client && ranged_mousepointer && our_client.mouse_pointer_icon == ranged_mousepointer)
 		our_client.mouse_pointer_icon = initial(our_client.mouse_pointer_icon)
-
 
 /obj/effect/proc_holder/proc/remove_ranged_ability(mob/user, msg)
 	if(!user || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
@@ -88,7 +74,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if(msg)
 			to_chat(user, msg)
 	update_icon()
-
 
 /obj/effect/proc_holder/spell
 	name = "Spell"
@@ -200,7 +185,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// Handles a given spells cooldowns. Tracks the time until its off cooldown.
 	var/datum/spell_cooldown/cooldown_handler
 
-
 /**
  * Checks if the user can cast the spell
  *
@@ -227,7 +211,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	return TRUE
 
-
 /**
  * Allows for spell specific target validation. Will be used by the spell_targeting datums
  *
@@ -237,7 +220,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  */
 /obj/effect/proc_holder/spell/proc/valid_target(target, user)
 	return TRUE
-
 
 /**
  * Will spend the cost of using this spell once. Will update the action button's icon if there is any
@@ -252,7 +234,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	if(action)
 		action.UpdateButtonIcon()
-
 
 /obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
@@ -272,10 +253,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if("emote")
 			user.visible_message(invocation, invocation_emote_self) //same style as in mob/living/emote.dm
 
-
 /obj/effect/proc_holder/spell/proc/playMagSound()
 	playsound(get_turf(usr), sound, 50, TRUE)
-
 
 /obj/effect/proc_holder/spell/New()
 	..()
@@ -298,7 +277,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	cooldown_handler = create_new_cooldown()
 	cooldown_handler.cooldown_init(src)
 	after_spell_init()
-
 
 /obj/effect/proc_holder/spell/Destroy()
 	QDEL_NULL(action)
@@ -328,7 +306,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	RETURN_TYPE(/datum/spell_targeting)
 	return
 
-
 /**
  * Creates and returns the handler datum for this spell type.
  * Override this if you want a custom spell handler.
@@ -337,7 +314,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/create_new_handler()
 	RETURN_TYPE(/datum/spell_handler)
 	return NONE
-
 
 /**
  * Creates and returns the spells cooldown handler, defaults to the standard recharge handler.
@@ -350,13 +326,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	s_cooldown.starts_off_cooldown = starts_charged
 	return s_cooldown
 
-
 /**
  * This proc will trigger when all necessary initialization is done. Usefull for staff like changing spell name.
  */
 /obj/effect/proc_holder/spell/proc/after_spell_init()
 	return
-
 
 /**
  * This will apply on every tick of cooldown process.
@@ -364,12 +338,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/on_cooldown_tick()
 	return
 
-
 /obj/effect/proc_holder/spell/Click()
 	if(cast_check(TRUE, FALSE, usr))
 		choose_targets(usr)
 	return TRUE
-
 
 /obj/effect/proc_holder/spell/InterceptClickOn(mob/user, params, atom/A)
 	. = ..()
@@ -377,13 +349,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		return
 	targeting.InterceptClickOn(user, params, A, src)
 
-
 /**
  * Lets the spell have a special effect applied to it when upgraded. By default, does nothing.
  */
 /obj/effect/proc_holder/spell/proc/on_purchase_upgrade()
 	return
-
 
 /**
  * Will try to choose targets using the targeting variable and perform the spell if it can
@@ -407,7 +377,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		var/list/targets = targeting.choose_targets(user, src)
 		try_perform(targets, user)
 
-
 /**
  * Will try and perform the spell using the given targets and user. Will spend one charge of the spell
  *
@@ -429,13 +398,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	perform(targets, should_recharge_after_cast, user)
 
-
 /**
  * Called in `try_perform` before removing the click interceptor. Useful to override if you have a spell that requires more than 1 click
  */
 /obj/effect/proc_holder/spell/proc/should_remove_click_intercept(mob/user)
 	return TRUE
-
 
 /**
  * Handles all the code for performing a spell once the targets are known
@@ -472,7 +439,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(action)
 		action.UpdateButtonIcon()
 
-
 /**
  * Will write additional logs if create_custom_logs is TRUE and the caster has a ckey. Override this
  *
@@ -482,7 +448,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  */
 /obj/effect/proc_holder/spell/proc/write_custom_logs(list/targets, mob/user)
 	return
-
 
 /obj/effect/proc_holder/spell/proc/before_cast(list/targets, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
@@ -502,7 +467,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				qdel(spell)
 
 	custom_handler?.before_cast(targets, user, src)
-
 
 /obj/effect/proc_holder/spell/proc/after_cast(list/targets, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
@@ -535,7 +499,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	custom_handler?.after_cast(targets, user, src)
 
-
 /**
  * The proc where the actual spell gets cast.
  *
@@ -546,10 +509,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/cast(list/targets, mob/user = usr)
 	return
 
-
 /obj/effect/proc_holder/spell/proc/critfail(list/targets)
 	return
-
 
 /**
  * Resets recharge or readds a charge.
@@ -561,14 +522,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(action)
 		action.UpdateButtonIcon()
 
-
 /obj/effect/proc_holder/spell/proc/updateButtonIcon(change_name = FALSE)
 	if(action)
 		if(change_name)
 			action.name = name
 			action.desc = desc
 		action.UpdateButtonIcon()
-
 
 /**
  * Handles the adjustment of the var when the spell is used. Has some hardcoded types.
@@ -592,13 +551,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		else
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 
-
 /obj/effect/proc_holder/spell/aoe
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
 	/// How far does it effect
 	var/aoe_range = 7
-
 
 /**
  * Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
@@ -606,7 +563,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  */
 /obj/effect/proc_holder/spell/aoe/write_custom_logs(list/targets, mob/user)
 	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
-
 
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if((!user.mind || !LAZYIN(user.mind.spell_list, src)) && !LAZYIN(user.mob_spell_list, src))
@@ -686,7 +642,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	return TRUE
 
-
 /obj/effect/proc_holder/spell/summonmob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
@@ -698,10 +653,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	action_icon_state = "summons"
 	var/mob/living/target_mob
 
-
 /obj/effect/proc_holder/spell/summonmob/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/summonmob/cast(list/targets, mob/user = usr)
 	if(!target_mob)

@@ -43,7 +43,6 @@
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
 	return TRUE
 
-
 /datum/game_mode/nuclear/post_setup()
 	var/spawnpos = 1
 

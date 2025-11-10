@@ -84,12 +84,10 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-
 /obj/item/instrument/trumpet/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/trombone/En4.mid', 100, TRUE, -1)
-
 
 /obj/item/instrument/saxophone
 	name = "saxophone"
@@ -108,12 +106,10 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-
 /obj/item/instrument/saxophone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/saxophone/En4.mid', 100, TRUE, -1)
-
 
 /obj/item/instrument/trombone
 	name = "trombone"
@@ -127,17 +123,14 @@
 	desc = "A skeleton's favorite instrument. Apply directly on the mortals."
 	force = 0
 
-
 /obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
-
 
 /obj/item/instrument/trombone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/trombone/Cn4.mid', 100, TRUE, -1)
-
 
 /obj/item/instrument/recorder
 	name = "recorder"
@@ -181,9 +174,11 @@
 /datum/crafting_recipe/violin
 	name = "Violin"
 	result = /obj/item/instrument/violin
-	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6,
-				/obj/item/stack/tape_roll = 5)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 5,
+		/obj/item/stack/cable_coil = 6,
+		/obj/item/stack/tape_roll = 5,
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
 	category = CAT_MISC
@@ -191,9 +186,11 @@
 /datum/crafting_recipe/guitar
 	name = "Guitar"
 	result = /obj/item/instrument/guitar
-	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6,
-				/obj/item/stack/tape_roll = 5)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 5,
+		/obj/item/stack/cable_coil = 6,
+		/obj/item/stack/tape_roll = 5,
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
 	category = CAT_MISC
@@ -201,9 +198,11 @@
 /datum/crafting_recipe/eguitar
 	name = "Electric Guitar"
 	result = /obj/item/instrument/eguitar
-	reqs = list(/obj/item/stack/sheet/metal = 5,
-				/obj/item/stack/cable_coil = 6,
-				/obj/item/stack/tape_roll = 5)
+	reqs = list(
+		/obj/item/stack/sheet/metal = 5,
+		/obj/item/stack/cable_coil = 6,
+		/obj/item/stack/tape_roll = 5,
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
 	category = CAT_MISC
@@ -211,9 +210,11 @@
 /datum/crafting_recipe/banjo
 	name = "Banjo"
 	result = /obj/item/instrument/banjo
-	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6,
-				/obj/item/stack/tape_roll = 5)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 5,
+		/obj/item/stack/cable_coil = 6,
+		/obj/item/stack/tape_roll = 5,
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
 	category = CAT_MISC

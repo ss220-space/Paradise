@@ -48,7 +48,6 @@
 	client.loot_panel.open(get_turf(target))
 	return TRUE
 
-
 /**
  * ## Custom alt click interaction
  * Override this to change default alt click behavior. Return `CLICK_ACTION_SUCCESS`, `CLICK_ACTION_BLOCKING` or `NONE`.

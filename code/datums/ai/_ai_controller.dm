@@ -126,7 +126,6 @@ multiple modular subtrees with behaviors
 		return FALSE
 	return TRUE
 
-
 /// Runs any actions that are currently running
 /datum/ai_controller/process(delta_time)
 	if(!able_to_run())
@@ -143,7 +142,6 @@ multiple modular subtrees with behaviors
 
 	for(var/i in current_behaviors)
 		var/datum/ai_behavior/current_behavior = i
-
 
 		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
 		// Then pick the max of this and the delta_time passed to ai_controller.process()
@@ -177,7 +175,6 @@ multiple modular subtrees with behaviors
 				continue
 			ProcessBehavior(action_delta_time, current_behavior)
 			return
-
 
 ///This is where you decide what actions are taken by the AI.
 /datum/ai_controller/proc/SelectBehaviors(delta_time)

@@ -20,7 +20,6 @@
 	var/using_power = FALSE
 	pixel_y = 3
 
-
 /obj/machinery/recharger/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -29,11 +28,9 @@
 	RefreshParts()
 	update_icon()
 
-
 /obj/machinery/recharger/RefreshParts()
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
 		recharge_coeff = capacitor.rating
-
 
 /obj/machinery/recharger/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !is_type_in_list(I, allowed_devices))
@@ -73,13 +70,11 @@
 	update_icon()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
 	if(panel_open || charging)
 		return FALSE
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/recharger/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -98,7 +93,6 @@
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
 
-
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(panel_open)
@@ -108,7 +102,6 @@
 		to_chat(user, span_warning("Remove the charging item first!"))
 		return
 	default_unfasten_wrench(user, I, 0)
-
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))
@@ -123,7 +116,6 @@
 		use_power = IDLE_POWER_USE
 		update_icon()
 
-
 /obj/machinery/recharger/attack_tk(mob/user)
 	if(charging)
 		charging.update_icon()
@@ -131,7 +123,6 @@
 		charging = null
 		use_power = IDLE_POWER_USE
 		update_icon()
-
 
 /obj/machinery/recharger/process()
 	if(stat & (NOPOWER|BROKEN) || !anchored || panel_open)
@@ -142,7 +133,6 @@
 	using_power = try_recharging_if_possible()
 	if(using_power != old_power_state)
 		update_icon()
-
 
 /obj/machinery/recharger/emp_act(severity)
 	if(stat & (NOPOWER|BROKEN) || !anchored)
@@ -161,12 +151,10 @@
 			B.update_icon()
 	..(severity)
 
-
 /obj/machinery/recharger/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update_icon()
-
 
 /obj/machinery/recharger/update_icon_state()
 	if(panel_open)
@@ -183,7 +171,6 @@
 		return
 	icon_state = initial(icon_state)
 
-
 /obj/machinery/recharger/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -192,7 +179,6 @@
 		return
 
 	underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
-
 
 /proc/get_cell_from(obj/item/I)
 	if(istype(I, /obj/item/gun/energy))

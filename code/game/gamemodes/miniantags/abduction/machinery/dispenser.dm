@@ -82,7 +82,6 @@
 		return
 	ui_interact(user)
 
-
 /obj/machinery/abductor/gland_dispenser/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -97,7 +96,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/abductor/gland_dispenser/proc/Dispense(count)
 	if(amounts[count]>0)

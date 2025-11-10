@@ -45,7 +45,6 @@
 		};\
 	} while(FALSE)
 
-
 #define SORT_FIRST_INDEX(list) (list[1])
 #define SORT_COMPARE_DIRECTLY(thing) (thing)
 #define SORT_VAR_NO_TYPE(varname) var/varname
@@ -83,7 +82,6 @@
 			__BIN_LIST.Insert(__BIN_MID, INPUT);\
 		};\
 	} while(FALSE)
-
 
 // Generic listoflist safe add and removal macros:
 ///If value is a list, wrap it in a list so it can be used with list add/remove operations
@@ -380,7 +378,6 @@
 		copy -= picked
 	return result
 
-
 //Returns the top(last) element from the list and removes it from the list (typical stack function)
 /proc/pop(list/L)
 	if(length(L))
@@ -391,7 +388,6 @@
 	if(length(L))
 		. = L[1]
 		L.Cut(1,2)
-
 
 /*
  * Sorting
@@ -472,9 +468,6 @@
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
-
-
-
 //Mergesort: Specifically for record datums in a list.
 /proc/sortRecord(list/datum/data/record/L, field = "name", order = 1)
 	if(isnull(L))
@@ -508,7 +501,6 @@
 			return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
-
 //Mergesort: any value in a list
 /proc/sortList(list/L)
 	if(length(L) < 2)
@@ -516,14 +508,12 @@
 	var/middle = length(L) / 2 + 1 // Copy is first,second-1
 	return mergeLists(sortList(L.Copy(0,middle)), sortList(L.Copy(middle))) //second parameter null = to end of list
 
-
 //Mergsorge: uses sortAssoc() but uses the var's name specifically. This should probably be using mergeAtom() instead
 /proc/sortNames(list/L)
 	var/list/Q = new()
 	for(var/atom/x in L)
 		Q[x.name] = x
 	return sortAssoc(Q)
-
 
 /proc/mergeLists(list/L, list/R)
 	var/Li=1
@@ -538,7 +528,6 @@
 	if(Li <= length(L))
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
-
 
 // List of lists, sorts by element[key] - for things like crew monitoring computer sorting records by name.
 /proc/sortByKey(list/L, key)
@@ -563,7 +552,6 @@
 	if(Li <= length(L))
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
-
 
 //Mergesort: any value in a list, preserves key=value structure
 /proc/sortAssoc(list/L)
@@ -764,7 +752,6 @@
 		sorted_text += list_bottom
 	return sorted_text
 
-
 /proc/dd_sortedTextList(list/incoming)
 	var/case_sensitive = 1
 	return dd_sortedtextlist(incoming, case_sensitive)
@@ -785,7 +772,6 @@
 
 //Picks from the list, with some safeties, and returns the "default" arg if it fails
 #define DEFAULTPICK(L, default) ((islist(L) && length(L)) ? pick(L) : default)
-
 
 /*
  * ## Lazylists
@@ -927,7 +913,6 @@
 	L.Swap(fromIndex, toIndex)
 	L.Cut(fromIndex, fromIndex + 1)
 
-
 //Move elements [fromIndex,fromIndex+len) to [toIndex-len, toIndex)
 //Same as moveElement but for ranges of elements
 //This will preserve associations ~Carnie
@@ -1032,14 +1017,12 @@
 	for(var/thing in flat_list)
 		.[thing] = TRUE
 
-
 /proc/listclearduplicates(check, list/list)
 	if(!istype(list))
 		stack_trace("Wrong type of list passed.")
 		return
 	while(check in list)
 		list -= check
-
 
 ///sort any value in a list
 /proc/sort_list(list/list_to_sort, cmp = /proc/cmp_text_asc)
@@ -1099,7 +1082,6 @@
 
 	return TRUE
 
-
 /proc/assert_sorted(list/list, name, cmp = GLOBAL_PROC_REF(cmp_numeric_asc))
 	var/last_value = list[1]
 
@@ -1111,14 +1093,12 @@
 
 		last_value = value
 
-
 /// Turns an associative list into a flat list of keys
 /proc/assoc_to_keys(list/input)
 	var/list/keys = list()
 	for(var/key in input)
 		UNTYPED_LIST_ADD(keys, key)
 	return keys
-
 
 ///Copies a list, and all lists inside it recusively
 ///Does not copy any other reference type
@@ -1140,7 +1120,6 @@
 			.[i] = key
 			.[key] = value
 
-
 ///replaces reverseList ~Carnie
 /proc/reverse_range(list/inserted_list, start = 1, end = 0)
 	if(length(inserted_list))
@@ -1157,7 +1136,6 @@
 
 	return inserted_list
 
-
 ///takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
 ///use this for lists of things that might have the same name, like mobs or objects, that you plan on giving to a player as input
 /proc/avoid_assoc_duplicate_keys(input_key, list/used_key_list)
@@ -1170,15 +1148,12 @@
 		used_key_list[input_key] = 1
 	return input_key
 
-
-
 /**
  * Checks to make sure that the lists have the exact same contents, ignores the order of the contents.
  */
 /proc/lists_equal_unordered(list/list_one, list/list_two)
 	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
 	return !length(list_one ^ list_two)
-
 
 /proc/print_single_line(list/L)
 	. = "list("

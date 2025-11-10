@@ -8,7 +8,6 @@
 	var/list/mutations = list()
 	var/duration = 10 SECONDS // deciseconds
 
-
 /obj/effect/proc_holder/spell/genetic/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		if(!target.dna)
@@ -25,12 +24,10 @@
 
 		addtimer(CALLBACK(src, PROC_REF(remove), target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
 
-
 /obj/effect/proc_holder/spell/genetic/Destroy()
 	for(var/target in active_on)
 		remove(target)
 	return ..()
-
 
 /obj/effect/proc_holder/spell/genetic/proc/remove(mob/living/carbon/target)
 	active_on -= target

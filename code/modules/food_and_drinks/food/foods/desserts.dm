@@ -34,7 +34,6 @@
 	list_reagents = list("nutriment" = 2, "ice" = 2)
 	foodtype = SUGAR | DAIRY
 
-
 //////////////////////
 //		Misc		//
 //////////////////////

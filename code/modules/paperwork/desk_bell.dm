@@ -28,7 +28,6 @@
 	ring_cooldown = world.time + ring_cooldown_length
 	return TRUE
 
-
 /obj/item/desk_bell/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
@@ -45,7 +44,6 @@
 
 	set_anchored(TRUE)
 	return FALSE
-
 
 // Fix the clapper
 /obj/item/desk_bell/screwdriver_act(mob/living/user, obj/item/tool)
@@ -83,7 +81,6 @@
 			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.tool_volume))
 				return
 			set_anchored(FALSE)
-
 
 /// Check if the clapper breaks, and if it does, break it
 /obj/item/desk_bell/proc/check_clapper(mob/living/user)

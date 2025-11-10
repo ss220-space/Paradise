@@ -172,7 +172,6 @@
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
-
 	/// Whether antagHUD has been enabled previously.
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now

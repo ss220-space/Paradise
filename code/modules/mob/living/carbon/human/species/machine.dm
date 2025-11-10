@@ -99,7 +99,6 @@
 		JOB_MIN_AGE_COMMAND = 15,
 	)
 
-
 /datum/species/machine/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
 	var/datum/action/innate/change_monitor/monitor = locate() in human.actions
@@ -119,10 +118,8 @@
 		/mob/living/carbon/human/proc/emote_yes,
 		/mob/living/carbon/human/proc/emote_no))
 
-
 /datum/species/machine/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
-
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -210,7 +207,6 @@
 		if(new_color)
 			H.change_hair_color(new_color)
 
-
 /datum/species/machine/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	return 1 + (0.01*rand(-tolerance,tolerance))
 
@@ -219,5 +215,5 @@
 		var/exoframe_path = GLOB.exoframe_types[human.client.prefs.exoframe_type]
 		var/obj/item/organ/internal/cyberimp/chest/exoframe/exoframe = new exoframe_path
 		exoframe.insert(human)
-	
+
 	return ..()

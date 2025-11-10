@@ -132,7 +132,6 @@
 	spider_team?.erase_eggs()
 	to_chat(src, span_userdanger("Все пауки ужаса, кроме вас, вскоре вымрут."))
 
-
 /obj/projectile/terrorspider/empress
 	name = "empress venom"
 	icon_state = "toxin5"

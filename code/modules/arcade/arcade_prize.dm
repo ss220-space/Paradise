@@ -16,10 +16,8 @@
 	choose_icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/toy/prizeball/update_icon_state()
 	icon_state = opening ? "prizeconfetti" : choose_icon_state
-
 
 /obj/item/toy/prizeball/attack_self(mob/user)
 	if(opening)

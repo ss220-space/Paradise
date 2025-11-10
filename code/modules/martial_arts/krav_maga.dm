@@ -166,13 +166,11 @@
 		return .
 	style.teach(user, TRUE)
 
-
 /obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	style.remove(user)
-
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec//more obviously named, given to sec
 	name = "krav maga gloves"

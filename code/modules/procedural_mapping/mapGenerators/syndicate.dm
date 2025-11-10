@@ -7,7 +7,6 @@
 	spawnableAtoms = list()
 	spawnableTurfs = list(/turf/simulated/wall/r_wall = 100)
 
-
 /datum/mapGeneratorModule/syndieFurniture
 	spawnableTurfs = list()
 	spawnableAtoms = list(/obj/structure/table = 20,/obj/structure/chair = 15,/obj/structure/chair/stool = 10, \

@@ -36,7 +36,6 @@
 	else
 		offset_data = list("X" = 0, "Y" = 0, "Z" = 0)
 
-
 	var/X = offset_data["X"] || 0
 	var/Y = offset_data["Y"] || 0
 	var/Z = offset_data["Z"] || 0

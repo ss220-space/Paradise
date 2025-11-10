@@ -51,7 +51,6 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/list/choices_values = list() //choice_id -> choice
 	var/list/page_data = list() //list of choices per page
 
-
 	var/selected_choice
 	var/list/atom/movable/screen/elements = list()
 	var/atom/movable/screen/radial/center/close_button
@@ -232,14 +231,12 @@ GLOBAL_LIST_EMPTY(radial_menus)
 				choices_icons[id] = I
 	setup_menu()
 
-
 /datum/radial_menu/proc/extract_image(E)
 	var/mutable_appearance/MA = new /mutable_appearance(E)
 	if(MA)
 		MA.layer = ABOVE_HUD_LAYER
 		MA.appearance_flags |= RESET_TRANSFORM
 	return MA
-
 
 /datum/radial_menu/proc/next_page()
 	if(pages > 1)

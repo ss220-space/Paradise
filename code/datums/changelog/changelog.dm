@@ -34,7 +34,6 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 
 	return data
 
-
 /client/verb/changelog()
 	set name = "Журнал обновлений"
 	set category = STATPANEL_OOC

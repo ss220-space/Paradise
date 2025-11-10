@@ -47,7 +47,7 @@
 		DATIVE = "энергетическому шару",
 		ACCUSATIVE = "энергетический шар",
 		INSTRUMENTAL = "энергетическим шаром",
-		PREPOSITIONAL = "энергетическом шаре"
+		PREPOSITIONAL = "энергетическом шаре",
 	)
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
@@ -113,7 +113,7 @@
 /obj/singularity/energy_ball/examine(mob/user)
 	. = ..()
 	if(length(orbiting_balls))
-		. += "Вокруг вращается [length(orbiting_balls)] мини-шар[declension_ru(length(orbiting_balls), "", "а", "ов")]."
+		. += "Вокруг вращается [length(orbiting_balls)] мини-шар[DECL_CREDIT(length(orbiting_balls))]."
 
 /obj/singularity/energy_ball/proc/move_basketball(move_amount) // We need to get the gods and Tesla out of the inheritance from Singa. What a vicious piece of shit that is.
 	var/list/dirs = GLOB.alldirs.Copy()

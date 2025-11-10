@@ -8,7 +8,6 @@
 	chemical_cost = 20
 	req_stat = UNCONSCIOUS
 
-
 /**
  * Heals the things that the other regenerative abilities don't.
  */

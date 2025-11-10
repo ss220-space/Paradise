@@ -59,6 +59,9 @@
 		to_chat(usr, span_boldannounceooc("Interacting with admin-frozen players is not permitted."))
 		return
 
+	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, modifiers) & COMSIG_MOB_CANCEL_CLICKON)
+		return
+
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		if(LAZYACCESS(modifiers, SHIFT_CLICK))
 			if(LAZYACCESS(modifiers, CTRL_CLICK))
@@ -403,7 +406,6 @@
 	if(istype(ML))
 		ML.pulled(src)
 
-
 /mob/living/CtrlClick(mob/living/user)
 	if(!isliving(user) || !user.Adjacent(src) || user.incapacitated())
 		return ..()
@@ -418,7 +420,6 @@
 	return ..()
 
 // Alt Click is in `click_alt.dm` now! I stole it
-
 
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
@@ -440,7 +441,6 @@
 
 /atom/proc/AltShiftClick(mob/user)
 	return
-
 
 /atom/proc/allow_click()
 	return FALSE
@@ -498,7 +498,6 @@
 
 	setDir(direction)
 	return TRUE
-
 
 /atom/movable/screen/click_catcher
 	icon_state = "catcher"

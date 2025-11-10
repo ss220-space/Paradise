@@ -204,7 +204,6 @@
 	chassis.occupant_message("<font color=\"[chassis.phasing ? "#00f\">Фазовый переход вкл" : "#f00\">Фазовый переход выкл"]</font>")
 	UpdateButtonIcon()
 
-
 /datum/action/innate/mecha/mech_switch_damtype
 	name = "Смена инструментов"
 	button_icon_state = "mech_damtype_brute"

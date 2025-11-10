@@ -75,7 +75,6 @@
 	projectiletype = /obj/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 
-
 /mob/living/simple_animal/hostile/alien/queen
 	name = "alien queen"
 	icon_state = "alienq_running"

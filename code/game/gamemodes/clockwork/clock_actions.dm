@@ -42,7 +42,6 @@
 	else
 		prefix = "Automaton"
 
-
 	var/my_message = "<span class='clockspeech'><b>[prefix] [user.real_name]:</b> [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(isclocker(M))

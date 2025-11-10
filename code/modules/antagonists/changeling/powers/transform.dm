@@ -8,7 +8,6 @@
 	max_genetic_damage = 3
 	req_human = TRUE
 
-
 /datum/action/changeling/transform/sting_action(mob/living/carbon/human/user)
 	var/datum/dna/chosen_dna = cling.select_dna("Select the target DNA: ", "Target DNA")
 

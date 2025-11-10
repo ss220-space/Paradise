@@ -12,7 +12,6 @@
 	if(newback_icon)
 		back_icon = newback_icon
 
-
 /obj/item/deck
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/playing_cards.dmi'
@@ -47,14 +46,12 @@
 	/// To prevent spam shuffle
 	COOLDOWN_DECLARE(shuffle_cooldown)
 
-
 /obj/item/deck/Initialize(mapload)
 	. = ..()
 	for(var/deck in 1 to deck_size)
 		build_deck()
 	deck_total = LAZYLEN(cards)
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/deck/proc/build_deck()
 	return
@@ -75,7 +72,6 @@
 		to_chat(user, span_notice("Вы кладёте свои карты вниз [declent_ru(GENITIVE)]."))
 		update_icon(UPDATE_ICON_STATE)
 
-
 /obj/item/deck/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = I
@@ -95,7 +91,6 @@
 
 	return ..()
 
-
 /obj/item/deck/examine(mob/user)
 	. = ..()
 	. += span_notice("В колоде [LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карта", "карты", "карт")].")
@@ -103,13 +98,11 @@
 /obj/item/deck/attack_hand(mob/user)
 	draw_card(user)
 
-
 // Datum actions
 /datum/action/item_action/draw_card
 	name = "Взять карту"
 	desc = "Взять одну карту."
 	button_icon_state = "draw"
-
 
 /datum/action/item_action/draw_card/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
@@ -118,12 +111,10 @@
 		return D.draw_card(owner)
 	return ..()
 
-
 /datum/action/item_action/deal_card
 	name = "Раздать карту"
 	desc = "Раздать одну карту игроку рядом с вами."
 	button_icon_state = "deal_card"
-
 
 /datum/action/item_action/deal_card/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
@@ -131,12 +122,10 @@
 		return D.deal_card(usr)
 	return ..()
 
-
 /datum/action/item_action/deal_card_multi
 	name = "Раздать несколько карт"
 	desc = "Раздать несколько карт игроку рядом с вами."
 	button_icon_state = "deal_card_multi"
-
 
 /datum/action/item_action/deal_card_multi/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
@@ -144,19 +133,16 @@
 		return D.deal_card_multi(usr)
 	return ..()
 
-
 /datum/action/item_action/shuffle
 	name = "Перетасовать"
 	desc = "Перетасовать колоду."
 	button_icon_state = "shuffle"
-
 
 /datum/action/item_action/shuffle/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deckshuffle(usr)
 	return ..()
-
 
 // Datum actions
 /obj/item/deck/proc/draw_card(mob/living/carbon/human/user)
@@ -184,10 +170,9 @@
 	cardhand.update_values()
 	cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message(
-		span_notice("[user] тян[pluralize_ru(user.gender, "ет", "ут")] карту из колоды."),
+		span_notice("[user] тян[PLUR_ET_UT(user)] карту из колоды."),
 		span_notice("Вы тянете карту из колоды. Это <b>[play_card]</b>.")
 	)
-
 
 /obj/item/deck/proc/deal_card(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -215,7 +200,6 @@
 		return
 
 	deal_at(user, target, 1)
-
 
 /obj/item/deck/proc/deal_card_multi(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -251,7 +235,6 @@
 
 	deal_at(user, target, dcard)
 
-
 /obj/item/deck/proc/deal_at(mob/user, mob/target, dcard) // Take in the no. of card to be dealt
 	var/obj/item/cardhand/cardhand = new(get_step(user, user.dir))
 	for(var/i in 1 to dcard)
@@ -264,25 +247,22 @@
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] себе <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] себе <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
 			span_notice("Вы раздаёте себе <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] [target] <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] [target] <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
 			span_notice("Вы раздаёте [target] <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
 		)
 	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
 
-
 /obj/item/deck/attack_self(mob/user)
 	deckshuffle(user)
-
 
 /obj/item/deck/click_alt(mob/user)
 	deckshuffle(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/item/deck/proc/deckshuffle(mob/user)
 	if(!COOLDOWN_FINISHED(src, shuffle_cooldown) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -291,11 +271,10 @@
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
 	cards = shuffle(cards)
 	user.visible_message(
-		span_notice("[user] тасу[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] тасу[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы тасуете [declent_ru(ACCUSATIVE)]."),
 	)
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
-
 
 /obj/item/deck/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
@@ -308,13 +287,12 @@
 	if(user.put_in_hands(src, ignore_anim = FALSE))
 		add_fingerprint(user)
 		user.visible_message(
-			span_notice("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
 		)
 		return TRUE
 
 	return FALSE
-
 
 /obj/item/pack
 	name = "card pack"
@@ -325,7 +303,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/list/cards = list()
 	var/parentdeck = null // For future card pack that need to be compatible with eachother i.e. cardemon
-
 
 /obj/item/pack/attack_self(mob/user)
 	user.visible_message(span_notice("[name] rips open [src]!"), span_notice("You rip open [src]!"))
@@ -338,7 +315,6 @@
 
 	cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.put_in_hands(cardhand, ignore_anim = FALSE)
-
 
 /obj/item/cardhand
 	name = "hand of cards"
@@ -368,7 +344,7 @@
 		DATIVE = "игральным картам",
 		ACCUSATIVE = "игральные карты",
 		INSTRUMENTAL = "игральными картами",
-		PREPOSITIONAL = "игральных картах"
+		PREPOSITIONAL = "игральных картах",
 	)
 
 /obj/item/cardhand/proc/update_values()
@@ -382,7 +358,6 @@
 	throw_range = deck.card_throw_range
 	attack_verb = deck.card_attack_verb
 	resistance_flags = deck.card_resistance_flags
-
 
 /obj/item/cardhand/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -414,7 +389,6 @@
 
 	return ..()
 
-
 /obj/item/cardhand/attack_self(mob/user)
 	if(LAZYLEN(cards) == 1)
 		turn_hand(user)
@@ -422,12 +396,11 @@
 	user.set_machine(src)
 	ui_interact(user)
 
-
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message(
-		span_notice("[user] [concealed ? "скрыва" : "показыва"][pluralize_ru(user.gender, "ет", "ют")] свою руку с картами."),
+		span_notice("[user] [concealed ? "скрыва" : "показыва"][PLUR_ET_YUT(user)] свою руку с картами."),
 		span_notice("Вы [concealed ? "скрыва" : "показыва"]ете свою руку с картами.")
 	)
 
@@ -467,7 +440,6 @@
 		for(var/datum/playingcard/card in cards)
 			. += span_notice("[card.name].")
 
-
 // Datum action here
 
 /datum/action/item_action/remove_card
@@ -475,13 +447,11 @@
 	desc = "Убрать одну карту из руки."
 	button_icon_state = "remove_card"
 
-
 /datum/action/item_action/remove_card/IsAvailable(feedback = FALSE)
 	var/obj/item/cardhand/cardhand = target
 	if(LAZYLEN(cardhand.cards) <= 1)
 		return FALSE
 	return ..()
-
 
 /datum/action/item_action/remove_card/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
@@ -491,19 +461,16 @@
 		return cardhand.Removecard()
 	return ..()
 
-
 /datum/action/item_action/discard
 	name = "Сбросить"
 	desc = "Положить карту(ы) из вашей руки перед собой."
 	button_icon_state = "discard"
-
 
 /datum/action/item_action/discard/Trigger(mob/clicker, trigger_flags)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = target
 		return cardhand.discard()
 	return ..()
-
 
 // No more datum action here
 
@@ -530,7 +497,7 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] тян[pluralize_ru(user.gender, "ет", "ют")] карту из своей руки."),
+		span_notice("[user] тян[PLUR_ET_YUT(user)] карту из своей руки."),
 		span_notice("Вы тянете [pickedcard] из своей руки."),
 	)
 	pickedcard = null
@@ -547,7 +514,6 @@
 		qdel(src)
 		return
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-
 
 /obj/item/cardhand/proc/discard()
 	var/mob/living/carbon/user = usr
@@ -590,7 +556,7 @@
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(LAZYLEN(cardhand.cards))
 			user.visible_message(
-				span_notice("[user] клад[pluralize_ru(user.gender, "ёт", "ют")] [discarding]."),,
+				span_notice("[user] клад[PLUR_YOT_YUT(user)] [discarding]."),,
 				span_notice("Вы кладёте [discarding]."),
 			)
 		cardhand.loc = get_step(user, user.dir)
@@ -598,15 +564,13 @@
 	if(!LAZYLEN(cards))
 		qdel(src)
 
-
 /obj/item/cardhand/update_appearance(updates = ALL)
 	if(!LAZYLEN(cards))
 		return
 	if(LAZYLEN(cards) <= 2)
 		for(var/datum/action/action as anything in actions)
 			action.UpdateButtonIcon()
-	..()
-
+	return ..()
 
 /obj/item/cardhand/update_name(updates = ALL)
 	. = ..()
@@ -616,7 +580,7 @@
 			NOMINATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "а", "ы", "")]",
 			GENITIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ы", "", "")]",
 			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
-			ACCUSATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "у", "ы", "")]",
+			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_SEC_MIN(LAZYLEN(cards))]",
 			INSTRUMENTAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ой", "ами", "ами")]",
 			PREPOSITIONAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ах", "ах")]"
 		)
@@ -628,10 +592,9 @@
 			DATIVE = "игральной карте",
 			ACCUSATIVE = "игральную карту",
 			INSTRUMENTAL = "игральной картой",
-			PREPOSITIONAL = "игральной карте"
+			PREPOSITIONAL = "игральной карте",
 		)
-	. = ..()
-
+	return ..()
 
 /obj/item/cardhand/update_desc(updates = ALL)
 	. = ..()
@@ -644,10 +607,8 @@
 			var/datum/playingcard/card = cards[1]
 			desc = "\A [card.name]."
 
-
 /obj/item/cardhand/update_icon_state()
 	return
-
 
 /obj/item/cardhand/update_overlays()
 	. = ..()
@@ -685,7 +646,6 @@
 		. += render_card(card, M, i, offset)
 		i++
 
-
 /obj/item/cardhand/proc/render_card(datum/playingcard/card, matrix/mat, index, offset)
 	var/image/I = new(icon, (concealed ? "[card.back_icon]" : "[card.card_icon]") )
 	switch(direction)
@@ -700,7 +660,6 @@
 	I.transform = mat
 	return I
 
-
 /obj/item/cardhand/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user)
@@ -708,7 +667,6 @@
 	else
 		direction = NORTH
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-
 
 /obj/item/cardhand/pickup(mob/user)
 	. = ..()

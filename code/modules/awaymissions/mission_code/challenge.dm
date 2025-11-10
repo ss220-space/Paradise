@@ -20,7 +20,6 @@
 	static_lighting = FALSE
 	base_lighting_alpha = 255
 
-
 /obj/machinery/power/emitter/energycannon
 	name = "Energy Cannon"
 	anchored = TRUE

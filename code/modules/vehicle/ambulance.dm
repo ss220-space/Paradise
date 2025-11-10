@@ -7,7 +7,6 @@
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/looping_sound/ambulance_alarm/soundloop
 
-
 	//Lights on ability activation
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
@@ -19,12 +18,10 @@
 	. = ..()
 	initialize_controller_action_type(/datum/action/vehicle/ridden/ambulance/ambulance_alarm, VEHICLE_CONTROL_DRIVE)
 
-
 /obj/vehicle/ridden/ambulance/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src), FALSE)
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/ambulance)
-
 
 /obj/vehicle/ridden/ambulance/Destroy()
 	QDEL_NULL(soundloop)
@@ -41,7 +38,6 @@
 		if(bed.has_buckled_mobs())
 			for(var/mob/living/buckled_mob as anything in bed.buckled_mobs)
 				buckled_mob.setDir(direct)
-
 
 /obj/structure/bed/amb_trolley
 	name = "ambulance train trolley"

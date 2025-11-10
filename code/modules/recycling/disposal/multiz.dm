@@ -1,20 +1,17 @@
 #define MULTIZ_PIPE_UP 1 ///Defines for determining which way a multiz disposal element should travel
 #define MULTIZ_PIPE_DOWN 2 ///Defines for determining which way a multiz disposal element should travel
 
-
 /obj/structure/disposalpipe/trunk/multiz
 	name = "Disposal trunk that goes up"
 	icon_state = "pipe-up"
 	base_icon_state = "pipe-up"
 	var/multiz_dir = MULTIZ_PIPE_UP ///Set the multiz direction of your trunk. 1 = up, 2 = down
 
-
 /obj/structure/disposalpipe/trunk/multiz/down
 	name = "Disposal trunk that goes down"
 	icon_state = "pipe-down"
 	base_icon_state = "pipe-down"
 	multiz_dir = MULTIZ_PIPE_DOWN
-
 
 /obj/structure/disposalpipe/trunk/multiz/transfer(obj/structure/disposalholder/holder)
 	//Since we're a trunk, you can still place a chute / bin over us. If theyve entered from there, treat this as a normal trunk

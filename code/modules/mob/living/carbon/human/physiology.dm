@@ -68,6 +68,5 @@
 	/// Internal armor datum
 	var/datum/armor/armor
 
-
 /datum/physiology/New(owner)
 	armor = new

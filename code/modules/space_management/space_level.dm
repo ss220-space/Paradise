@@ -116,7 +116,6 @@
 				E = get_connection(Z_LEVEL_WEST)
 				S.set_transition_west(E.zpos)
 
-
 /datum/space_level/proc/get_turfs()
 	return block(1, 1, zpos, world.maxx, world.maxy, zpos)
 

@@ -61,7 +61,6 @@
 /obj/structure/closet/loot_crate/toggle(mob/user)
 	return
 
-
 /obj/structure/closet/loot_crate/green
 	icon_state = "box_green"
 	tier = /datum/loot_tier/first

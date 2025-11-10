@@ -20,7 +20,6 @@
 		PREPOSITIONAL = "летописе вашей погибели",
 	)
 
-
 /obj/item/death_book/Initialize(mapload)
 	. = ..()
 

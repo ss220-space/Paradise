@@ -71,7 +71,6 @@
 	SEND_SIGNAL(mob, COMSIG_MOB_KEYDOWN, _key, src, full_key)
 	mob.focus?.key_down(_key, src, full_key)
 
-
 /client/verb/KeyUp(_key as text)
 	set instant = TRUE
 	set hidden = TRUE

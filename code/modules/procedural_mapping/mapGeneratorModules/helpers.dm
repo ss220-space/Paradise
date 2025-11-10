@@ -1,6 +1,5 @@
 //Helper Modules
 
-
 // Helper to repressurize the area in case it was run in space
 /datum/mapGeneratorModule/bottomLayer/repressurize
 	spawnableAtoms = list()

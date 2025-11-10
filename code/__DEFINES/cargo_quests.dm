@@ -3,6 +3,5 @@
 #define QUEST_DIFFICULTY_HARD (1<<2)
 #define QUEST_DIFFICULTY_VERY_HARD (1<<3)
 
-
 #define MIN_QUEST_LEN 2
 #define MAX_QUEST_LEN 4

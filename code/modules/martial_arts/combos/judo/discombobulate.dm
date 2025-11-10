@@ -3,7 +3,6 @@
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB)
 	explaination_text = "Нанесите удар ладонью по уху противника, ненадолго оглушив его."
 
-
 /datum/martial_combo/judo/discombobulate/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
 	target.visible_message(span_warning("[user] резко бьёт [target] по уху ладонью!"), \
 						span_userdanger("[user] бьёт вас ладонью по уху!"))

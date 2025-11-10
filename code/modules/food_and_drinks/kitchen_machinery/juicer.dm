@@ -35,7 +35,6 @@
 /obj/machinery/juicer/update_icon_state()
 	icon_state = "juicer"+num2text(!isnull(beaker))
 
-
 /obj/machinery/juicer/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -62,7 +61,6 @@
 
 	updateUsrDialog()
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/machinery/juicer/attack_ai(mob/user)
 	return 0
@@ -115,7 +113,6 @@
 	popup.open(0)
 	onclose(user, "juicer")
 	return
-
 
 /obj/machinery/juicer/Topic(href, href_list)
 	if(..())

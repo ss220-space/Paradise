@@ -9,7 +9,6 @@
 		return FALSE
 	return ..()
 
-
 //Comms
 /datum/action/innate/cult/comm
 	name = "Communion"
@@ -74,7 +73,6 @@
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cultspeech'> <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
 
-
 //Objectives
 /datum/action/innate/cult/check_progress
 	name = "Study the Veil"
@@ -100,7 +98,6 @@
 		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
 		to_chat(usr, span_cultitalic("You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)"))
-
 
 //Draw rune
 /datum/action/innate/cult/use_dagger

@@ -5,7 +5,6 @@
 
 	var/healthstring = ""
 
-
 /obj/item/implant/health/proc/sensehealth()
 	if(!imp_in)
 		return "ERROR"
@@ -13,11 +12,9 @@
 		healthstring = "[round(imp_in.getOxyLoss())] - [round(imp_in.getFireLoss())] - [round(imp_in.getToxLoss())] - [round(imp_in.getBruteLoss())]"
 	return healthstring
 
-
 /obj/item/implanter/health
 	name = "implanter (health)"
 	imp = /obj/item/implant/health
-
 
 /obj/item/implantcase/health
 	name = "implant case - 'Health'"

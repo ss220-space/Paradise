@@ -20,7 +20,6 @@
 	/// Are we forcing the icon to be represented in a no-power state?
 	var/force_no_power_icon_state = FALSE
 
-
 /obj/machinery/computer/Initialize(mapload, obj/structure/computerframe/frame)
 	. = ..()
 
@@ -35,7 +34,6 @@
 	power_change()
 	update_icon()
 
-
 /obj/machinery/computer/Destroy()
 	if(istype(frame))
 		qdel(frame)
@@ -43,7 +41,6 @@
 	frame = null
 
 	return ..()
-
 
 /obj/machinery/computer/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -93,10 +90,8 @@
 	update_icon()
 	flickering = FALSE
 
-
 /obj/machinery/computer/update_icon_state()
 	icon_state = abductor ? "aliencomputer" : initial(icon_state)
-
 
 /obj/machinery/computer/update_overlays()
 	. = ..()
@@ -124,7 +119,6 @@
 		. += "[icon_keyboard]"
 		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
 
-
 /obj/machinery/computer/power_change(forced = FALSE)
 	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
 	if((stat & (BROKEN|NOPOWER)))
@@ -138,7 +132,6 @@
 		set_light(l_range = light_range_on, l_power = light_power_on, l_color = screen_emissive_color, l_on = TRUE)
 	if(.)
 		update_icon()
-
 
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -168,7 +161,6 @@
 			if(prob(10))
 				obj_break("energy")
 
-
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()
 	if(!(obj_flags & NODECONSTRUCT))
@@ -191,7 +183,6 @@
 
 	frame = null
 	qdel(src)
-
 
 /obj/machinery/computer/proc/set_broken()
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -218,7 +209,6 @@
 	if(circuit && !(obj_flags & NODECONSTRUCT))
 		if(I.use_tool(src, user, 20, volume = I.tool_volume))
 			deconstruct(TRUE, user)
-
 
 /obj/machinery/computer/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(!self_hurt && prob(50 * (damage / 15)))

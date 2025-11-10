@@ -119,7 +119,6 @@
 #define STATUS_HUD_ILL "hudill"
 #define STATUS_HUD_HEALTHY "hudhealthy"
 
-
 // The kind of things granted by HUD items in game, that do not manifest as
 // on-screen icons, but rather go to examine text.
 #define EXAMINE_HUD_NONE 0 //"none"
@@ -129,7 +128,6 @@
 #define EXAMINE_HUD_SKILLS (1<<3) //"skills"
 #define EXAMINE_HUD_BOTANY (1<<4) //"botany"
 #define EXAMINE_HUD_SCIENCE (1<<5) //"science"
-
 
 // Consider these images/atoms as part of the UI/HUD (apart of the appearance_flags)
 /// Used for progress bars and chat messages

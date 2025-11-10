@@ -110,7 +110,6 @@
 	else
 		. = timer_set
 
-
 /obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -135,7 +134,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/syndicatebomb/wrench_act(mob/user, obj/item/I)
 	if(!can_unanchor)
@@ -353,7 +351,6 @@
 /obj/item/bombcore/ex_act(severity, target) //Little boom can chain a big boom
 	detonate()
 
-
 /obj/item/bombcore/burn()
 	detonate()
 	..()
@@ -560,7 +557,6 @@
 		qdel(loc)
 	qdel(src)
 
-
 /obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -577,7 +573,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/bombcore/chemical/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -636,7 +631,6 @@
 	icon_state = "chemcore"
 	var/obj/item/transfer_valve/ttv = null
 
-
 /obj/item/bombcore/toxins/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -657,7 +651,6 @@
 
 	return ..()
 
-
 /obj/item/bombcore/toxins/crowbar_act(mob/user, obj/item/I)
 	if(!ttv)
 		return
@@ -667,13 +660,10 @@
 	ttv.forceMove(get_turf(src))
 	ttv = null
 
-
-
 /obj/item/bombcore/toxins/proc/check_attached(obj/item/transfer_valve/ttv)
 	if(ttv?.attached_device)
 		return TRUE
 	return FALSE
-
 
 /obj/item/bombcore/toxins/ex_act(severity, target) //No chain reactions, the explosion only occurs when gas mixes
 	return

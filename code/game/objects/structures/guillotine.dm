@@ -31,7 +31,6 @@
 	var/force_clap = FALSE //You WILL clap if I want you to
 	var/current_action = NONE// What's currently happening to the guillotine
 
-
 /obj/structure/guillotine/examine(mob/user)
 	. = ..()
 	var/msg = ""
@@ -52,7 +51,6 @@
 		msg += "Someone appears to be strapped in. You can help them out, or you can harm them by activating the guillotine."
 	. += span_notice("[msg]")
 
-
 /obj/structure/guillotine/update_icon_state()
 	switch(blade_status)
 		if(GUILLOTINE_BLADE_DROPPED)
@@ -64,7 +62,6 @@
 		if(GUILLOTINE_BLADE_DROPPING)
 			icon_state = "guillotine_drop"
 
-
 /obj/structure/guillotine/update_overlays()
 	. = ..()
 	switch(kill_count)
@@ -74,7 +71,6 @@
 			. += mutable_appearance(icon, "guillotine_bloodier_overlay")
 		if(3 to INFINITY)
 			. += mutable_appearance(icon, "guillotine_bloodiest_overlay")
-
 
 /obj/structure/guillotine/attack_hand(mob/user)
 
@@ -119,11 +115,9 @@
 				playsound(src, 'sound/items/unsheath.ogg', 100, TRUE)
 				addtimer(CALLBACK(src, PROC_REF(drop_blade)), GUILLOTINE_ANIMATION_LENGTH)
 
-
 /obj/structure/guillotine/proc/raise_blade()
 	blade_status = GUILLOTINE_BLADE_RAISED
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/guillotine/proc/drop_blade(mob/user)
 	if(has_buckled_mobs() && blade_sharpness)
@@ -168,7 +162,6 @@
 	blade_status = GUILLOTINE_BLADE_DROPPED
 	update_icon(UPDATE_ICON_STATE)
 
-
 /obj/structure/guillotine/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/whetstone))
 		add_fingerprint(user)
@@ -195,7 +188,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/structure/guillotine/wrench_act(mob/user, obj/item/I)
 	if(current_action)
@@ -233,7 +225,6 @@
 		new /obj/item/stack/cable_coil(T, 10)
 		qdel(src)
 
-
 /obj/structure/guillotine/is_user_buckle_possible(mob/living/target, mob/user, check_loc = TRUE)
 	if(!anchored)
 		to_chat(user, span_warning("The [src] needs to be wrenched to the floor!"))
@@ -249,16 +240,13 @@
 
 	return ..(target, user, FALSE)
 
-
 /obj/structure/guillotine/post_buckle_mob(mob/living/target)
 	target.pixel_y += -GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
 	target.layer += GUILLOTINE_LAYER_DIFF
 
-
 /obj/structure/guillotine/post_unbuckle_mob(mob/living/target)
 	target.pixel_y -= -GUILLOTINE_HEAD_OFFSET // Move their body back
 	target.layer -= GUILLOTINE_LAYER_DIFF
-
 
 #undef GUILLOTINE_BLADE_MAX_SHARP
 #undef GUILLOTINE_DECAP_MIN_SHARP

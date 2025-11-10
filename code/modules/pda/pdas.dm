@@ -115,7 +115,6 @@
 /obj/item/pda/heads/ert/medical
 	icon_state = "pda-medical"
 
-
 /obj/item/pda/cargo
 	default_cartridge = /obj/item/cartridge/quartermaster
 	default_request_console_cartridge = /obj/item/cartridge/request_console/cargo

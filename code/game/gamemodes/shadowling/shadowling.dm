@@ -35,14 +35,11 @@ Made by Xhuis
 /proc/is_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
-
 /proc/is_shadow_or_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker?.mode && ((M.mind in SSticker.mode.shadowling_thralls) || (M.mind in SSticker.mode.shadows))
 
-
 /proc/is_shadow(mob/living/M)
 	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadows)
-
 
 /datum/game_mode/shadowling
 	name = "shadowling"
@@ -81,7 +78,6 @@ Made by Xhuis
 	..()
 	return 1
 
-
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
 		add_game_logs("has been selected as a Shadowling.", shadow.current)
@@ -105,7 +101,6 @@ Made by Xhuis
 	messages.Add("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadowling\">Тенеморф</a></b><br>")
 	return messages
 
-
 /datum/game_mode/proc/process_shadow_objectives(datum/mind/shadow_mind)
 	var/objective = "enthrall" //may be devour later, but for now it seems murderbone-y
 
@@ -114,7 +109,6 @@ Made by Xhuis
 		shadow_objectives += "enthrall"
 		shadow_mind.memory += "<b>Цель #1</b>: [objective_explanation]"
 		return "<b>Цель #1</b>: [objective_explanation]<br>"
-
 
 /datum/game_mode/proc/finalize_shadowling(datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
@@ -125,7 +119,6 @@ Made by Xhuis
 		if(shadow_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(S, span_notice("Твоя натура позволяет тебе преодолеть твою клоунаду."))
 			S.force_gene_block(GLOB.clumsyblock, FALSE)
-
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if(!istype(new_thrall_mind))
@@ -202,7 +195,6 @@ Made by Xhuis
 						span_userdanger("Пронзительный белый свет заполняет твой разум, ты забываешь, как был рабом."))
 	return 1
 
-
 /*
 	GAME FINISH CHECKS
 */
@@ -266,7 +258,6 @@ Made by Xhuis
 		success = shadowling_ascended
 	return success
 
-
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		SSticker.mode_result = "Победа тенелингов — тенелинги возвысились"
@@ -286,7 +277,6 @@ Made by Xhuis
 		to_chat(world, "<span class='redtext'><b>Тенелинги не смогли возвыситься!</b></span>")
 	..()
 	return 1
-
 
 /datum/game_mode/proc/auto_declare_completion_shadowling()
 	var/list/text = list("")
@@ -322,7 +312,6 @@ Made by Xhuis
 	text += "<br>"
 	return text.Join("")
 
-
 /*
 	MISCELLANEOUS
 */
@@ -332,12 +321,10 @@ Made by Xhuis
 	shadow_hud.join_hud(shadow_mind.current)
 	set_antag_hud(shadow_mind.current, ((shadow_mind in shadows) ? "hudshadowling" : "hudshadowlingthrall"))
 
-
 /datum/game_mode/proc/update_shadow_icons_removed(datum/mind/shadow_mind) //This should never actually occur, but it's here anyway.
 	var/datum/atom_hud/antag/shadow_hud = GLOB.huds[ANTAG_HUD_SHADOW]
 	shadow_hud.leave_hud(shadow_mind.current)
 	set_antag_hud(shadow_mind.current, null)
-
 
 /datum/game_mode/proc/recount_required_thralls()
 	var/thrall_scaling = round(num_players() / 3)

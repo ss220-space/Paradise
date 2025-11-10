@@ -102,11 +102,9 @@
 	index_name = "dyeable skirt, color"
 	path = /obj/item/clothing/under/colour/skirt
 
-
 /datum/gear/uniform/skirt/dyeable/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
-
 
 /datum/gear/uniform/skirt/plaid
 	index_name = "plaid skirt, select"

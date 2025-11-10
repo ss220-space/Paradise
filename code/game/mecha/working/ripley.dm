@@ -17,12 +17,10 @@
 
 	mech_type = MECH_TYPE_RIPLEY
 
-
 /obj/mecha/working/ripley/Destroy()
 	for(var/i=1, i <= hides, i++)
 		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop
 	return ..()
-
 
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
@@ -55,7 +53,6 @@
 			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
 			. += occupant ? "ripley-a" : "ripley-a-open"
 
-
 /obj/mecha/working/ripley/update_desc(updates = ALL)
 	. = ..()
 
@@ -80,7 +77,6 @@
 			desc = "Autonomous Power Loader Unit. Fully covered with homemade armor and few goliath hides on top."
 		else if(plates >= 3 && hides >= 3)
 			desc = "Autonomous Power Loader Unit. Clad in homemade armor from ear to toe, with Goliath plates on top - a real tank, no other way."
-
 
 /obj/mecha/working/ripley/firefighter
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
@@ -146,7 +142,6 @@
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
-
 
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)

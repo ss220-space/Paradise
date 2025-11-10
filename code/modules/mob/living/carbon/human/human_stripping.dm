@@ -256,6 +256,5 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		span_userdanger("[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on your [item.name]."),
 	)
 
-
 #undef INTERNALS_TOGGLE_DELAY
 #undef POCKET_EQUIP_DELAY

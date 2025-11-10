@@ -7,7 +7,6 @@
 	if(src == usr)
 		interact(over_object)
 
-
 /mob/proc/make_interaction()
 	return
 
@@ -19,7 +18,6 @@
 	if(ishuman(M) && usr != M && src != M)
 		partner = M
 		make_interaction(machine)
-
 
 /mob/living/carbon/human/proc/is_nude()
 	return (!wear_suit && !w_uniform) ? 1 : 0 //TODO: Nudity check for underwear
@@ -41,7 +39,6 @@
 		hashands = (temp?.is_usable())
 	var/mouthfree = !((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH)))
 	var/mouthfree_p = !((P.head && (P.head.flags_cover & HEADCOVERSMOUTH)) || (P.wear_mask && (P.wear_mask.flags_cover & MASKCOVERSMOUTH)))
-
 
 	var/dat = span_fontsize3("<b><hr>[H.partner]</b><br><hr>")
 

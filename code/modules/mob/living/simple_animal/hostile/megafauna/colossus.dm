@@ -60,7 +60,7 @@ Difficulty: Very Hard
 		/datum/action/innate/megafauna_attack/spiral_attack,
 		/datum/action/innate/megafauna_attack/aoe_attack,
 		/datum/action/innate/megafauna_attack/shotgun,
-		/datum/action/innate/megafauna_attack/alternating_cardinals
+		/datum/action/innate/megafauna_attack/alternating_cardinals,
 	)
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
@@ -72,7 +72,7 @@ Difficulty: Very Hard
 		DATIVE = "Колоссу",
 		ACCUSATIVE = "Колосса",
 		INSTRUMENTAL = "Колоссом",
-		PREPOSITIONAL = "Колоссе"
+		PREPOSITIONAL = "Колоссе",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
@@ -319,7 +319,6 @@ Difficulty: Very Hard
 	icon_state = initial(icon_state)
 	ranged_cooldown = world.time + 4 SECONDS
 
-
 /mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
 	visible_message(span_colossus("[declent_ru(NOMINATIVE)] дезинтегрирует [L.declent_ru(ACCUSATIVE)]!"))
 	L.dust()
@@ -348,7 +347,6 @@ Difficulty: Very Hard
 		AT.pixel_y += random_y
 	return ..()
 
-
 /obj/projectile/colossus
 	name = "смертоносный заряд"
 	icon_state= "chronobolt"
@@ -363,7 +361,7 @@ Difficulty: Very Hard
 		DATIVE = "смертоносному заряду",
 		ACCUSATIVE = "смертоносный заряд",
 		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде"
+		PREPOSITIONAL = "смертоносном заряде",
 	)
 
 /obj/projectile/colossus/on_hit(atom/target, blocked = 0)

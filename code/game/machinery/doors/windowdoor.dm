@@ -24,7 +24,6 @@
 	var/cable = 1
 	var/list/debris = list()
 
-
 /obj/machinery/door/window/Initialize(mapload, set_dir)
 	. = ..()
 	if(set_dir)
@@ -46,7 +45,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
 	QDEL_LIST(debris)
@@ -54,7 +52,6 @@
 		playsound(src, SFX_SHATTER, 70, TRUE)
 	QDEL_NULL(electronics)
 	return ..()
-
 
 /obj/machinery/door/window/examine(mob/user)
 	. = ..()
@@ -101,7 +98,6 @@
 	if(!HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
 
-
 /obj/machinery/door/window/bumpopen(mob/user)
 	if(operating || !density)
 		return
@@ -116,7 +112,6 @@
 			cmag_switch(TRUE, user)
 			return
 		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
-
 
 /obj/machinery/door/window/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -136,17 +131,14 @@
 
 	return TRUE
 
-
 /obj/machinery/door/window/CanAtmosPass(turf/T, vertical)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
 		return 1
 
-
 /obj/machinery/door/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower() && !pass_info.no_id)
-
 
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -163,7 +155,6 @@
 	if(density && dir == get_dir(leaving, newLoc))
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
-
 
 /obj/machinery/door/window/update_icon_state()
 	switch(operating)
@@ -201,7 +192,6 @@
 		operating = NONE
 	return TRUE
 
-
 /obj/machinery/door/window/close(forced = 0)
 	if(operating)
 		return FALSE
@@ -221,7 +211,6 @@
 
 	operating = NONE
 	return TRUE
-
 
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -300,14 +289,12 @@
 	operating = FALSE
 	return TRUE
 
-
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
@@ -320,7 +307,6 @@
 		return
 	panel_open = !panel_open
 	to_chat(user, span_notice("You [panel_open ? "open":"close"] the maintenance panel of the [src.name]."))
-
 
 /obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
 	if(operating)
@@ -415,7 +401,6 @@
 	cancolor = FALSE
 	var/made_glow = FALSE
 
-
 /obj/machinery/door/window/clockwork_fake
 	name = "brass windoor"
 	desc = "A completely not magical thin door with translucent brass paneling."
@@ -426,16 +411,13 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	cancolor = FALSE
 
-
 /obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
 	. = ..()
 	debris += new/obj/item/stack/sheet/brass(src, 2)
 
-
 /obj/machinery/door/window/clockwork_fake/Initialize(mapload, set_dir)
 	. = ..()
 	debris += new/obj/item/stack/sheet/brass_fake(src, 2)
-
 
 /obj/machinery/door/window/clockwork/setDir(newdir)
 	if(!made_glow)
@@ -443,7 +425,6 @@
 		E.setDir(newdir)
 		made_glow = TRUE
 	return ..()
-
 
 /obj/machinery/door/window/clockwork/emp_act(severity)
 	if(prob(80/severity))

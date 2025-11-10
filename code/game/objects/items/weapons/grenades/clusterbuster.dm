@@ -31,7 +31,6 @@
 
 	qdel(src)
 
-
 //////////////////////
 //Clusterbang segment
 //////////////////////
@@ -49,7 +48,6 @@
 	payload_power /= SEGMENTATION_PAYLOAD_DECREASE
 	spawn(rand(15,60))
 		prime()
-
 
 /obj/item/grenade/clusterbuster/segment/prime()
 
@@ -75,7 +73,6 @@
 				if(istype(P, /obj/item/grenade))
 					P.prime(power)
 			qdel(src)
-
 
 //////////////////////////////////
 //Custom payload clusterbusters
@@ -277,7 +274,6 @@
 /obj/item/grenade/clusterbuster/mega_emp
 	name = "Electromagnetic Storm"
 	payload = /obj/item/grenade/clusterbuster/emp
-
 
 /obj/item/grenade/clusterbuster/admincleaner
 	desc = "Для уборки <b>действительно</b> больших беспорядков."

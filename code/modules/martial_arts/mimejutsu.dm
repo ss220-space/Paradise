@@ -63,7 +63,7 @@
 		DATIVE = "мануалу Мимдзютсю",
 		ACCUSATIVE = "мануал Мимдзютсю",
 		INSTRUMENTAL = "мануалом Мимдзютсю",
-		PREPOSITIONAL = "мануале Мимдзютсю"
+		PREPOSITIONAL = "мануале Мимдзютсю",
 	)
 
 /obj/item/mimejutsu_scroll/attack_self(mob/user)

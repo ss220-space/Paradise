@@ -51,7 +51,6 @@
 		eject_brain()
 	return ..()
 
-
 /mob/living/simple_animal/spiderbot/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -117,7 +116,6 @@
 
 	return ..()
 
-
 /mob/living/simple_animal/spiderbot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
 		return
@@ -149,7 +147,6 @@
 		melee_damage_upper = 15
 		attack_sound = 'sound/machines/defib_zap.ogg'
 
-
 /mob/living/simple_animal/spiderbot/proc/transfer_personality(obj/item/mmi/M)
 	mind = M.brainmob.mind
 	mind.key = M.brainmob.key
@@ -158,14 +155,12 @@
 	if(emagged)
 		to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!"))
 
-
 /mob/living/simple_animal/spiderbot/update_name(updates = ALL)
 	. = ..()
 	if(mmi)
 		name = "Spider-bot ([mmi.brainmob.name])"
 	else
 		name = "Spider-bot"
-
 
 /mob/living/simple_animal/spiderbot/update_icon_state()
 	if(mmi)
@@ -179,7 +174,6 @@
 	else
 		icon_state = "spiderbot-chassis"
 		icon_living = "spiderbot-chassis"
-
 
 /mob/living/simple_animal/spiderbot/proc/eject_brain()
 	if(mmi)
