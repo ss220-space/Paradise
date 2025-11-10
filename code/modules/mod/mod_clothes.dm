@@ -4,7 +4,9 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
-	onmob_sheets = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi')
+	onmob_sheets = list(
+		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
+	)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	permeability_coefficient = 0.01
 	heat_protection = HEAD
@@ -39,7 +41,7 @@
 	base_icon_state = "chestplate"
 	permeability_coefficient = 0.01
 	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)
 	blood_overlay_type = "armor"
 	allowed = list(
@@ -81,7 +83,7 @@
 	base_icon_state = "gauntlets"
 	permeability_coefficient = 0.01
 	onmob_sheets = list(
-		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	body_parts_covered = HANDS|ARMS
@@ -114,7 +116,7 @@
 	icon_state = "standard-boots"
 	base_icon_state = "boots"
 	onmob_sheets = list(
-		ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+		ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	body_parts_covered = FEET|LEGS
