@@ -659,10 +659,11 @@ emp_act
 		dna.species.spec_attack_hand(H, src)
 
 /mob/living/carbon/human/click_alt(mob/user)
-	if(user == src)
-		dna.species.try_self_supress_bleeding(user)
-		return CLICK_ACTION_SUCCESS
-	return NONE
+    if(user != src)
+        return NONE
+
+    dna.species.try_self_supress_bleeding(user)
+    return CLICK_ACTION_SUCCESS
 
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)

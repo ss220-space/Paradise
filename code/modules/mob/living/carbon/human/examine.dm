@@ -379,13 +379,6 @@
 		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if(!bodypart.tourniquet)
-			continue
-		if(bodypart.tourniquet.applyed_bodypart != bodypart)
-			continue
-		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
-
-	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.bleeding_amount)
 			if(bodypart.bleedsuppress)
 				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")

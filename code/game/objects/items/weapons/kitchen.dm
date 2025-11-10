@@ -228,8 +228,8 @@
 	attacker.stop_pulling()
 	var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg', 'sound/weapons/knife_holster/throat_slice2.ogg')
 	playsound(defender.loc, sound, 25, TRUE)
-	defender.apply_damage(2 * force, BRUTE, BODY_ZONE_HEAD, 0, TRUE, src, FALSE, FALSE, FALSE, TRUE, TRUE)
-	attacker.visible_message(span_danger("[attacker] перерезает глотку [defender]!"), span_danger("Вы перерезаете глотку [defender]!"))
+	defender.apply_damage(2 * force, def_zone = BODY_ZONE_HEAD, sharp = TRUE, used_weapon = src)
+	attacker.balloon_alert_to_viewers("перерезает глотку [defender]", "горло перерезано!");
 	return TRUE
 
 /obj/item/kitchen/knife/attack_obj(obj/object, mob/living/user, params)

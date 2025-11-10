@@ -52,10 +52,7 @@
 			return .
 
 		if(human_target == user && !unique_handling)
-			user.visible_message(
-				span_notice("[human_target] начина[PLUR_ET_YUT(human_target)] применять на себе [declent_ru(ACCUSATIVE)]."),
-				span_notice("Вы начинаете применять на себе [declent_ru(ACCUSATIVE)]..."),
-			)
+			user.balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] применять [declent_ru(ACCUSATIVE)]...", "применение [declent_ru(GENITIVE)]...");
 			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
 				return .
 
@@ -76,6 +73,7 @@
 				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] на [human_target]."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
 			)
+			user.balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] применять [declent_ru(ACCUSATIVE)] на [human_target]", "применение [declent_ru(GENITIVE)] на [human_target]");
 			if(use_duration && !do_after(user, use_duration, human_target))
 				return .
 		return .|ATTACK_CHAIN_SUCCESS
@@ -754,6 +752,7 @@
 			span_danger("[user] применя[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [human_target]."),
 			ignored_mobs = user
 		)
+		user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [human_target]", "применение [declent_ru(GENITIVE)] на [human_target]");
 		if(!do_after(user, other_duration, human_target) || applyed_bodypart)
 			return .
 		var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -764,13 +763,9 @@
 			balloon_alert(user, "уже наложен жгут!")
 			return .
 		if(affecting_rechecked.is_robotic())
-			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
+			balloon_alert(user, "нельзя применить на протезе!")
 			return .
-		user.visible_message(
-			span_danger("[user] применя[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
-			span_green("Вы применяете [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
-		)
-
+		user.balloon_alert_to_viewers("применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [human_target]", "применил [declent_ru(NOMINATIVE)] на [human_target]");
 	affecting.tourniquet = src
 	applyed_bodypart = affecting
 	if(addition_affecting)
@@ -801,7 +796,7 @@
 /obj/item/tourniquet/proc/remove_from_bodypart(mob/living/user)
 	if(!applyed_bodypart)
 		return FALSE
-	balloon_alert(user, "снятие жгута...")
+	user.balloon_alert_to_viewers("снятие жгута...")
 	if(!do_after(user, remove_duration, applyed_bodypart.owner) || !applyed_bodypart)
 		return FALSE
 	var/drop_loc = applyed_bodypart.drop_location()
@@ -813,7 +808,7 @@
 		applyed_addition_bodypart = null
 	stop_apply_timers()
 	user.put_in_any_hand_if_possible(src)
-	balloon_alert(user, "жгут снят")
+	user.balloon_alert_to_viewers("жгут снят")
 	return TRUE
 
 /obj/item/tourniquet/proc/acceptable_zone(zone_selected)
@@ -832,8 +827,7 @@
 	return FALSE
 
 /mob/living/carbon/human/proc/cut_all_tourniquets(mob/living/user)
-	balloon_alert(src, "жгуты срезаны!")
-	balloon_alert(user, "жгуты срезаны!")
+	src.balloon_alert_to_viewers("жгуты срезаны!")
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.tourniquet)
 			continue

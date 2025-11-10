@@ -136,7 +136,7 @@
 				cablecuff.icon_state = "cuff_[text_color]"
 		if("самодельный жгут (20)")
 			if(get_amount() < 20)
-				balloon_alert(user, "недостаточно [declent_ru(GENITIVE)]!")
+				balloon_alert(user, "недостаточно [20 - get_amount()] [declent_ru(GENITIVE)]!")
 			if(use(20))
 				var/obj/item/tourniquet/makeshift/tourniquet = new(T)
 				user.put_in_any_hand_if_possible(tourniquet)
